@@ -80,6 +80,7 @@
     </property>
     <property key="CreateSalesAgreement">
         <value xml:lang="en">Create Sales Agreement</value>
+        <value xml:lang="nl">Contract aanmaken</value>
     </property>
     <property key="FacilityActualShippingCharges">
         <value xml:lang="de">Aktuelle Lieferkosten</value>
@@ -13003,6 +13004,7 @@
     <property key="FacilityAgreements">
         <value xml:lang="de">Verträge</value>
         <value xml:lang="en">Agreements</value>
+        <value xml:lang="nl">Contracten</value>
         <value xml:lang="zh">合同</value>
         <value xml:lang="zh-TW">合約</value>
     </property>
@@ -13013,6 +13015,7 @@
         <value xml:lang="fr">Accords</value>
         <value xml:lang="it">Contratti</value>
         <value xml:lang="ja">契約</value>
+        <value xml:lang="nl">Contracten</value>
         <value xml:lang="ru">Договора</value>
         <value xml:lang="th">สัญญา</value>
         <value xml:lang="vi">Hợp đồng</value>
@@ -13022,6 +13025,7 @@
     <property key="ProductAgreementUse">
         <value xml:lang="en">Product agreement use</value>
         <value xml:lang="fr">Accord produit utilisé</value>
+        <value xml:lang="nl">Contractgebruik</value>
     </property>
     <property key="ProductAisle">
         <value xml:lang="de">Gang</value>
@@ -13030,6 +13034,7 @@
         <value xml:lang="fr">Allée</value>
         <value xml:lang="it">Corridoio</value>
         <value xml:lang="ja">通路</value>
+        <value xml:lang="nl">Gang</value>
         <value xml:lang="ro">Coridor</value>
         <value xml:lang="ru">Проход</value>
         <value xml:lang="th">ทางเดินระหว่างชั้นวางสินค้า</value>
@@ -13044,6 +13049,7 @@
         <value xml:lang="fr">Autoriser l'entreprise</value>
         <value xml:lang="it">Permetti Az</value>
         <value xml:lang="ja">会社を許可</value>
+        <value xml:lang="nl">Onderneming toestaan</value>
         <value xml:lang="ro">Permiti Az</value>
         <value xml:lang="ru">Разрешить Со</value>
         <value xml:lang="th">ยอมรับบริษัท</value>
@@ -13058,6 +13064,7 @@
         <value xml:lang="fr">Autoriser l'adresse de l'entreprise</value>
         <value xml:lang="it">Permetti Indirizzo Azienda</value>
         <value xml:lang="ja">会社住所を許可</value>
+        <value xml:lang="nl">Ondernemingsadres toestaan</value>
         <value xml:lang="ro">Permiti Adresa Firma</value>
         <value xml:lang="ru">Разрешить адрес компании</value>
         <value xml:lang="th">ยอมรับที่อยู่บริษัท</value>
@@ -13072,6 +13079,7 @@
         <value xml:lang="fr">Utilisé avec l'autorisation de l'adresse de l'entreprise</value>
         <value xml:lang="it">Usato quando permesso indirizzo azienda</value>
         <value xml:lang="ja">許可会社住所を使用</value>
+        <value xml:lang="nl">Toestaan bij adres</value>
         <value xml:lang="ro">Folosit cand este permisa adresa firmei</value>
         <value xml:lang="ru">Использовано с разреш. адресом компании</value>
         <value xml:lang="th">ใช้กับยอมรับที่อยู่บริษัท</value>
@@ -13086,6 +13094,7 @@
         <value xml:lang="fr">Autoriser USPS</value>
         <value xml:lang="it">Permetti USPS</value>
         <value xml:lang="ja">USPSを許可</value>
+        <value xml:lang="nl">USPS toestaan</value>
         <value xml:lang="ro">Permis USPS</value>
         <value xml:lang="ru">Разрешить USPS</value>
         <value xml:lang="th">ยอมรับ USPS</value>
@@ -13100,6 +13109,7 @@
         <value xml:lang="fr">Autoriser l'adresse USPS (Boîte postale, etc.)</value>
         <value xml:lang="it">Permetti Indirizzo USPS (PO Box, RR, etc)</value>
         <value xml:lang="ja">USPS住所を許可 (郵便番号、返金率等)</value>
+        <value xml:lang="nl">USPS toestaan</value>
         <value xml:lang="ro">Permiti Adresa USPS (PO Box, RR, etc)</value>
         <value xml:lang="ru">Разрешить адрес USPS (П/ч, RR, и т.п.)</value>
         <value xml:lang="th">Allow USPS Addr (PO Box, RR, etc)</value>
@@ -13112,7 +13122,7 @@
         <value xml:lang="en">Customers who bought this item also bought:</value>
         <value xml:lang="it">Clienti che hanno comprato questo prodotto hanno comprato anche:</value>
         <value xml:lang="ja">このアイテムを購入した人が他に購入したもの</value>
-        <value xml:lang="nl">Klanten die dit product kochten hebben ook gekocht:</value>
+        <value xml:lang="nl">Klanten hebben ook gekocht:</value>
         <value xml:lang="vi">Khách hàng khi mua sản phẩm này thường hay quan tâm đến:</value>
         <value xml:lang="zh">购买了本商品的客户还买了：</value>
         <value xml:lang="zh-TW">購買了本商品的客戶還買了:</value>
@@ -13124,6 +13134,7 @@
         <value xml:lang="fr">Remplacement</value>
         <value xml:lang="it">Alternare</value>
         <value xml:lang="ja">代替</value>
+        <value xml:lang="nl">Alternatief</value>
         <value xml:lang="ro">Alternare</value>
         <value xml:lang="ru">Альтернативное</value>
         <value xml:lang="th">ทางเลือก</value>
@@ -13153,6 +13164,7 @@
         <value xml:lang="fr">Montant</value>
         <value xml:lang="it">Importo</value>
         <value xml:lang="ja">金額</value>
+        <value xml:lang="nl">Bedrag</value>
         <value xml:lang="ro">Valoare</value>
         <value xml:lang="ru">Количество</value>
         <value xml:lang="th">จำนวน</value>
@@ -13173,6 +13185,7 @@
         <value xml:lang="fr">Type d'unité de mesure de montant [Réf.]</value>
         <value xml:lang="it">Udm Importo</value>
         <value xml:lang="ja">金額単位種類ID</value>
+        <value xml:lang="nl">Bedrag UoM soort</value>
         <value xml:lang="ro">Udm Valoare</value>
         <value xml:lang="ru">Количество чего?</value>
         <value xml:lang="th">รหัสประเภทหน่วยวัดจำนวน</value>
@@ -13187,6 +13200,7 @@
         <value xml:lang="fr">Et applique les caractéristiques à l'article référencé</value>
         <value xml:lang="it">E Applica Caratteristiche al Prodotto con Codice</value>
         <value xml:lang="ja">また、IDで製品に機能を適用</value>
+        <value xml:lang="nl">Kenmerken aan product toepassen</value>
         <value xml:lang="ro">Si Aplica Caracteristicile la Produsul cu Cod</value>
         <value xml:lang="ru">и применить особенности к продукту с кодом</value>
         <value xml:lang="th">และใช้ลักษณะไปยังสินค้าด้วยรหัส</value>
@@ -13202,6 +13216,7 @@
         <value xml:lang="it">E recipiente</value>
         <value xml:lang="ja">およびコンテナ</value>
         <value xml:lang="ro">Si recipient</value>
+        <value xml:lang="nl">EN container</value>
         <value xml:lang="ru">И контейнер</value>
         <value xml:lang="th">และภาชนะใส่ของ</value>
         <value xml:lang="vi">VÀ chứa</value>
@@ -13215,6 +13230,7 @@
         <value xml:lang="fr">Et quantité disponible</value>
         <value xml:lang="it">E Quantità Disponibile</value>
         <value xml:lang="ja">および手持数量</value>
+        <value xml:lang="nl">EN QoH</value>
         <value xml:lang="ro">Si Cantitate Disponibila</value>
         <value xml:lang="ru">И имеющееся количество</value>
         <value xml:lang="th">และจำนวนเด็ดขาด</value>
@@ -13229,6 +13245,7 @@
         <value xml:lang="fr">Tout catalogue</value>
         <value xml:lang="it">Qualsiasi Catalogo</value>
         <value xml:lang="ja">任意のカタログ</value>
+        <value xml:lang="nl">Iedere catalogus</value>
         <value xml:lang="ro">Orice Catalog</value>
         <value xml:lang="ru">Любой каталог</value>
         <value xml:lang="th">ทุก ๆ หมวดหมู่</value>
@@ -13243,6 +13260,7 @@
         <value xml:lang="fr">Toute catégorie</value>
         <value xml:lang="it">Qualsiasi Categoria</value>
         <value xml:lang="ja">任意のカテゴリ</value>
+        <value xml:lang="nl">Iedere categorie</value>
         <value xml:lang="ro">Orice Categorie</value>
         <value xml:lang="ru">Любая категория</value>
         <value xml:lang="th">ทุก ๆ หมวดหมู่</value>
@@ -13254,6 +13272,7 @@
         <value xml:lang="de">beliebige Warenidentifizierung</value>
         <value xml:lang="en">Any good identification</value>
         <value xml:lang="fr">Tous Identifiants</value>
+        <value xml:lang="nl">Iedere productidentificatie</value>
         <value xml:lang="zh">任一商品标识</value>
         <value xml:lang="zh-TW">Any good identification</value>
     </property>
@@ -13264,6 +13283,7 @@
         <value xml:lang="fr">Tout lieu de stockage</value>
         <value xml:lang="it">Qualsiasi Stabilimento</value>
         <value xml:lang="ja">任意の拠点</value>
+        <value xml:lang="nl">Iedere faciliteit</value>
         <value xml:lang="ro">Orice Compartiment</value>
         <value xml:lang="ru">Любой объект</value>
         <value xml:lang="th">ทุก ๆ คลังสินค้า</value>
@@ -13278,6 +13298,7 @@
         <value xml:lang="fr">- Un -</value>
         <value xml:lang="it">- Qualsiasi -</value>
         <value xml:lang="ja">- 任意 -</value>
+        <value xml:lang="nl">- Iedere -</value>
         <value xml:lang="ro">- Oricare -</value>
         <value xml:lang="ru">- Любая -</value>
         <value xml:lang="th">- ทุก ๆ สิ่ง -</value>
@@ -13292,6 +13313,7 @@
         <value xml:lang="fr">Tout statut d'expédition</value>
         <value xml:lang="it">Qualsiasi Stato Spedizione</value>
         <value xml:lang="ja">任意の発送ステータス</value>
+        <value xml:lang="nl">Iedere verzendstatus</value>
         <value xml:lang="ro">Orice Stat Expediere</value>
         <value xml:lang="ru">Любой статус поставки</value>
         <value xml:lang="th">ทุก ๆ สถานะการขนส่ง</value>
@@ -13306,6 +13328,7 @@
         <value xml:lang="fr">Tout type d'expéditions</value>
         <value xml:lang="it">Qualsiasi Tipo Spedizione</value>
         <value xml:lang="ja">任意の発送種類</value>
+        <value xml:lang="nl">Iedere verzendsoort</value>
         <value xml:lang="ro">Orice Tip Expediere</value>
         <value xml:lang="ru">Любой тип поставки</value>
         <value xml:lang="th">ทุก ๆ ประเภทการขนส่ง </value>
@@ -13320,6 +13343,7 @@
         <value xml:lang="fr">Type d'applications</value>
         <value xml:lang="it">Tipo Applicazione</value>
         <value xml:lang="ja">申請種類</value>
+        <value xml:lang="nl">Soort toepassing</value>
         <value xml:lang="ro">Tip Aplicatie </value>
         <value xml:lang="ru">Прим. тип</value>
         <value xml:lang="th">ประเภทโปรแกรมประยุกต์ใช้</value>
@@ -13333,6 +13357,7 @@
         <value xml:lang="fr">Appliquer les caractéristiques depuis la catégorie</value>
         <value xml:lang="it">Applicare gruppo di caratteristiche dalla categoria</value>
         <value xml:lang="ja">カテゴリから機能を適用</value>
+        <value xml:lang="nl">Kenmerken van categorie toeapassen</value>
         <value xml:lang="ro">Aplicare Caracteristici De la Categoria</value>
         <value xml:lang="ru">Применить особенности из категории</value>
         <value xml:lang="th">หาลักษณะจากหมวดหมู่</value>
@@ -13347,6 +13372,7 @@
         <value xml:lang="fr">Appliquer les caractéristiques à la catégorie</value>
         <value xml:lang="it">Applicare gruppo di caratteristiche alla categoria</value>
         <value xml:lang="ja">カテゴリに機能を適用</value>
+        <value xml:lang="nl">Kenmerken op categorie toepassen</value>
         <value xml:lang="ro">Aplicare Caracteristici la Categoria</value>
         <value xml:lang="ru">Применить особенности к категории</value>
         <value xml:lang="th">หาลักษณะไปยังหมวดหมู่</value>
@@ -13361,6 +13387,7 @@
         <value xml:lang="fr">Appliquer les caractéristiques depuis la catégorie</value>
         <value xml:lang="it">Applicare caratteristiche dalla categoria</value>
         <value xml:lang="ja">カテゴリから機能を適用</value>
+        <value xml:lang="nl">Kenmerken van categorie toepassen</value>
         <value xml:lang="ro">Aplicare Caratteristici De la Categoria</value>
         <value xml:lang="ru">Применить особенности из категории</value>
         <value xml:lang="th">หาลักษณะจากหมวดหมู่</value>
@@ -13375,6 +13402,7 @@
         <value xml:lang="fr">Appliquer à tous</value>
         <value xml:lang="it">Applica a tutti</value>
         <value xml:lang="ja">適用-すべて</value>
+        <value xml:lang="nl">Op alle(n) toepassen</value>
         <value xml:lang="ro">Aplica La Toate</value>
         <value xml:lang="ru">Применить ко всем</value>
         <value xml:lang="th">นำมาใช้ทั้งหมด</value>
@@ -13389,6 +13417,7 @@
         <value xml:lang="fr">doit généralement être approuvé avant l'expédition</value>
         <value xml:lang="it">dovrebbe essere Approvato prima della spedizione</value>
         <value xml:lang="ja">発送前に全体が承認される必要があります</value>
+        <value xml:lang="nl">Goedkeuren voor verzending</value>
         <value xml:lang="ro">ar trebui sa fie Aprobat inainte de expediere</value>
         <value xml:lang="ru">перед поставкой должно быть утверждено</value>
         <value xml:lang="th">โดยทั่วไปควรเห็นด้วยก่อนการขนส่งสินค้า</value>
@@ -13406,6 +13435,7 @@
         <value xml:lang="fr">Superficie</value>
         <value xml:lang="it">Area</value>
         <value xml:lang="ja">地域</value>
+        <value xml:lang="nl">Gebied</value>
         <value xml:lang="ro">Aria</value>
         <value xml:lang="ru">Область</value>
         <value xml:lang="th">พื้นที่</value>
@@ -13420,6 +13450,7 @@
         <value xml:lang="fr">Arrivée</value>
         <value xml:lang="it">Arrivo</value>
         <value xml:lang="ja">到着</value>
+        <value xml:lang="nl">Aankomst</value>
         <value xml:lang="ro">Sosire</value>
         <value xml:lang="ru">Прибытие</value>
         <value xml:lang="th">การมาถึง</value>
@@ -13434,6 +13465,7 @@
         <value xml:lang="fr">Location</value>
         <value xml:lang="it">Bene a Noleggio</value>
         <value xml:lang="ja">レンタル</value>
+        <value xml:lang="nl">Verhuur</value>
         <value xml:lang="ro">Uz Mijloc Fix</value>
         <value xml:lang="ru">Рентный доход</value>
         <value xml:lang="th">เช่า</value>
@@ -13448,6 +13480,7 @@
         <value xml:lang="fr">Assigner un préparateur</value>
         <value xml:lang="it">Assegna Prelevatore</value>
         <value xml:lang="ja">ピッキング者を割当</value>
+        <value xml:lang="nl">Picker toewijzen</value>
         <value xml:lang="ro">Atribuie Prelevator</value>
         <value xml:lang="ru">Назначить сортировщика</value>
         <value xml:lang="th">Assign Picker</value>
@@ -13462,6 +13495,7 @@
         <value xml:lang="fr">Associer l'acteur à la catégorie (entrer une réf. acteur, sélectionner le type, en option : une date de départ)</value>
         <value xml:lang="it">Associa soggetto alla categoria</value>
         <value xml:lang="ja">カテゴリに取引先を関連付け (取引先IDを入力、種類を選択、オプションで開始日を入力)</value>
+        <value xml:lang="nl">Party aan categorie toewijzen</value>
         <value xml:lang="ro">Asociare Subiectul la Categorie (introduceti Cod Subiect, selectioneaza Tip, dupa care introduceti optional De la Data)</value>
         <value xml:lang="ru">Ассоциировать участника с категорией (введите код участника, выберите тип, затем введите не обязательную дату начала)</value>
         <value xml:lang="th">เชื่อมโยงกลุ่มไปยังหมวดหมู่ (กรอกรหัสรหัสกลุ่มผู้ใช้ , เลือกประเภท , หลังจากนั้นเลือกจากวันที่)</value>
@@ -13475,6 +13509,7 @@
         <value xml:lang="fr">Associer l'acteur à l'article</value>
         <value xml:lang="it">Associare Soggetto al Prodotto</value>
         <value xml:lang="ja">製品に取引先を関連付け (取引先IDを入力、種類を選択、オプションで開始日を入力)</value>
+        <value xml:lang="nl">Partij aan product toewijzen</value>
         <value xml:lang="th">เชื่อมโยงกลุ่มไปยังสินค้า</value>
         <value xml:lang="vi">Tạo liên quan Tác nhân với Sản phẩm</value>
         <value xml:lang="zh">把会员关联到产品</value>
@@ -13487,6 +13522,7 @@
         <value xml:lang="fr">Association non trouvée : Réf. de l'article =${productId?if_exists}, Réf. de l'article de =${productIdTo?if_exists}, Réf. du type d'association =${productAssocTypeId?if_exists}, de la date=${fromDate?if_exists}.</value>
         <value xml:lang="it">Associazione non trovata: Codice Prodotto =${productId?if_exists}, Codice Prodotto A=${productIdTo?if_exists}, Tipo Associazione=${productAssocTypeId?if_exists}, Da Data=${fromDate?if_exists}</value>
         <value xml:lang="ja">関連付けは見つかりません: 製品ID=${productId?if_exists}, 製品ID(先)=${productIdTo?if_exists}, 関連付け種類ID=${productAssocTypeId?if_exists}, 開始日=${fromDate?if_exists}</value>
+        <value xml:lang="nl">Associatie niet gevonden</value>
         <value xml:lang="ro">Asociere negasita: Cod Produs =${productId?if_exists}, Cod Produs la=${productIdTo?if_exists}, Tip Asociatie=${productAssocTypeId?if_exists}, De la Data=${fromDate?if_exists}</value>
         <value xml:lang="ru">Ассоциация не найдена: Код продукта=${productId?if_exists}, Продукт для=${productIdTo?if_exists}, Код типа ассоциации=${productAssocTypeId?if_exists}, Дата начала=${fromDate?if_exists}</value>
         <value xml:lang="th">ไม่พบการเชื่อม: รหัสสินค้า=${productId?if_exists}, ถึงรหัสสินค้า=${productIdTo?if_exists}, รหัสประเภทกลุ่ม=${productAssocTypeId?if_exists}, จากวันที่=${fromDate?if_exists}</value>
@@ -13501,6 +13537,7 @@
         <value xml:lang="fr">Type d'association</value>
         <value xml:lang="it">Tipo associazione</value>
         <value xml:lang="ja">関連付け種類</value>
+        <value xml:lang="nl">Soort associatie</value>
         <value xml:lang="ro">Tip Asociatie </value>
         <value xml:lang="ru">Тип ассоциации</value>
         <value xml:lang="th">ประเภทกลุ่ม</value>
@@ -13515,6 +13552,7 @@
         <value xml:lang="fr">Réf. du type d'association</value>
         <value xml:lang="it">Tipo associazione</value>
         <value xml:lang="ja">関連付け種類ID</value>
+        <value xml:lang="nl">Soort ID associatie</value>
         <value xml:lang="ro">Tip Asociatie</value>
         <value xml:lang="ru">Тип ассоциации</value>
         <value xml:lang="th">รหัสประเภทกลุ่ม</value>
@@ -13529,6 +13567,7 @@
         <value xml:lang="fr">Associations</value>
         <value xml:lang="it">Associazioni</value>
         <value xml:lang="ja">関連付け</value>
+        <value xml:lang="nl">Associaties</value>
         <value xml:lang="ro">Asociatie </value>
         <value xml:lang="ru">Ассоциации</value>
         <value xml:lang="th">กลุ่ม</value>
@@ -13544,6 +13583,7 @@
         <value xml:lang="fr">Retour d'état d'expédition</value>
         <value xml:lang="it">Stato di spedizione di ritorno</value>
         <value xml:lang="ja">返品発送ステータス</value>
+        <value xml:lang="nl">Verzendstatus retoure</value>
         <value xml:lang="th">สถานะการขนส่งการคืนค่า</value>
         <value xml:lang="vi">Trạng thái chuyển vận 'Hoàn trả'</value>
         <value xml:lang="zh">退货运输状态</value>
@@ -13556,6 +13596,7 @@
         <value xml:lang="fr">Articles associés depuis cet article</value>
         <value xml:lang="it">Associazioni da questo prodotto a</value>
         <value xml:lang="ja">この製品から関連付け</value>
+        <value xml:lang="nl">Associaties 'van' dit product naar</value>
         <value xml:lang="ro">Asociatie De la acest Produs la</value>
         <value xml:lang="ru">Ассоциации от этого продукта к</value>
         <value xml:lang="th">กลุ่มจากสินค้านี้ไปยัง</value>
@@ -13570,6 +13611,7 @@
         <value xml:lang="fr">Articles associés à cet article</value>
         <value xml:lang="it">Associazioni a questo prodotto da</value>
         <value xml:lang="ja">この製品に関連付け</value>
+        <value xml:lang="nl">Associates 'naar' dit product van</value>
         <value xml:lang="ro">Asociatii La acest Produs de la</value>
         <value xml:lang="ru">Ассоциации к этому продукту от</value>
         <value xml:lang="th">กลุ่มสินค้านี้จาก</value>
@@ -13584,6 +13626,7 @@
         <value xml:lang="fr">Associations</value>
         <value xml:lang="it">Associazioni</value>
         <value xml:lang="ja">関連付け</value>
+        <value xml:lang="nl">Associaties</value>
         <value xml:lang="ro">Asociatii </value>
         <value xml:lang="ru">Ассоциации</value>
         <value xml:lang="th">กลุ่ม</value>
@@ -13598,6 +13641,7 @@
         <value xml:lang="fr">Disponible à la livraison (ATP)</value>
         <value xml:lang="it">ATP</value>
         <value xml:lang="ja">在庫(納期回答)</value>
+        <value xml:lang="nl">AtP (beschikbaar)</value>
         <value xml:lang="ro">ATP</value>
         <value xml:lang="ru">ATP</value>
         <value xml:lang="th">ATP</value>
@@ -13612,6 +13656,7 @@
         <value xml:lang="fr">ATP/QOH</value>
         <value xml:lang="it">ATP/QOH</value>
         <value xml:lang="ja">在庫/手持</value>
+        <value xml:lang="nl">AtP/QoH</value>
         <value xml:lang="th">Atp/Qoh</value>
         <value xml:lang="vi">Atp/Qoh</value>
         <value xml:lang="zh">诺有效/现货数量</value>
@@ -13624,6 +13669,7 @@
         <value xml:lang="fr">ATP/QOH ou n° de série</value>
         <value xml:lang="it">ATP/QOH o # Seriale</value>
         <value xml:lang="ja">在庫/手持またはシリアルNo</value>
+        <value xml:lang="nl">AtP/Qoh of Serienr.</value>
         <value xml:lang="ro">ATP/QOH o # Serial</value>
         <value xml:lang="ru">ATP/QOH или Серийный №</value>
         <value xml:lang="th">ATP/QOH or Serial#</value>
@@ -13638,6 +13684,7 @@
         <value xml:lang="fr">Emplacement de l'écran rattaché (XSL-FO)</value>
         <value xml:lang="it">Allegato Locazione Videata (XSL-FO)</value>
         <value xml:lang="ja">添付画面位置 (XSL-FO)</value>
+        <value xml:lang="nl">Schermlocatie bijlage (XLS-FO)</value>
         <value xml:lang="ro">Anexa Locatie Videata (XSL-FO)</value>
         <value xml:lang="ru">Путь к экрану присоединенного файла (XSL-FO)</value>
         <value xml:lang="th">ที่ตั้งการเชื่อมต่อหน้าจอ (XSL-FO)</value>
@@ -13652,6 +13699,7 @@
         <value xml:lang="fr">Attributs</value>
         <value xml:lang="it">Attributi</value>
         <value xml:lang="ja">属性</value>
+        <value xml:lang="nl">Attributen</value>
         <value xml:lang="ro">Atribute</value>
         <value xml:lang="ru">Атрибуты</value>
         <value xml:lang="th">ลักษณะ</value>
@@ -13666,6 +13714,7 @@
         <value xml:lang="fr">Coûts calculés automatiquement</value>
         <value xml:lang="it">Costi Calcolati-Automaticamente</value>
         <value xml:lang="ja">原価自動計算</value>
+        <value xml:lang="nl">Kosten autom. bereken</value>
         <value xml:lang="ro">Costuri Calculate-in mod Automat</value>
         <value xml:lang="ru">Автоподсчет затрат</value>
         <value xml:lang="th">คำนวนค่าใช้จ่ายอัตโนมัติ</value>
@@ -13680,6 +13729,7 @@
         <value xml:lang="fr">Création automatique de mots-clés ?</value>
         <value xml:lang="it">Creazione automatica chiavi</value>
         <value xml:lang="ja">キーワード自動生成</value>
+        <value xml:lang="nl">Keywords autom. aanmaken</value>
         <value xml:lang="ro">Creatie Automatica Chei</value>
         <value xml:lang="ru">Ключев. слова созд. автом-ки</value>
         <value xml:lang="th">สร้างคีย์เวิร์ดอัตโนมัติ</value>
@@ -13694,6 +13744,7 @@
         <value xml:lang="fr">Création automatique de mots-clés pour tout article</value>
         <value xml:lang="it">Creazione automatica chiavi per tutti i prodotti</value>
         <value xml:lang="ja">すべての製品でキーワードを自動生成</value>
+        <value xml:lang="nl">Keywords voor alle producten aanaken</value>
         <value xml:lang="nl">Automatisch aanmaken trefwoorden voor alle producten</value>
         <value xml:lang="ro">Creatie Automatica Chei pentru Toate Produsele </value>
         <value xml:lang="ru">Автоматически создать ключевые слова для всех продуктов</value>
@@ -13724,6 +13775,7 @@
         <value xml:lang="fr">Disponible depuis la date</value>
         <value xml:lang="it">Disponibile dalla data</value>
         <value xml:lang="ja">有効開始日</value>
+        <value xml:lang="nl">Beschikbaar vanaf</value>
         <value xml:lang="ro">Disponibile de la data</value>
         <value xml:lang="ru">Доступно начиная с даты</value>
         <value xml:lang="th">ใช้ประโยชน์ได้จากวันที่</value>
@@ -13738,6 +13790,7 @@
         <value xml:lang="fr">Quantité disponible (ATP) / quantité en stock (QOH)</value>
         <value xml:lang="it">Disponibilità Promessa / Quantità Disponibile</value>
         <value xml:lang="ja">在庫(納期回答)/手持数量</value>
+        <value xml:lang="nl">AtP / QoH</value>
         <value xml:lang="ro">Disponibilitate Promisa / cantitate Disponibila</value>
         <value xml:lang="ru">Может быть предложено / количество в наличии</value>
         <value xml:lang="th">Available To Promise / Quantity On Hand</value>
@@ -13752,6 +13805,7 @@
         <value xml:lang="fr">Jusqu'à la date</value>
         <value xml:lang="it">Disponibilità alla data</value>
         <value xml:lang="ja">有効終了日</value>
+        <value xml:lang="nl">Beschikbaar tot</value>
         <value xml:lang="ro">Disponibilitate la data</value>
         <value xml:lang="ru">Доступно до даты</value>
         <value xml:lang="th">ได้ประโยชน์ได้ถึงวันที่</value>
@@ -13764,6 +13818,7 @@
         <value xml:lang="en">Available To Promise</value>
         <value xml:lang="it">Disponibilità promessa</value>
         <value xml:lang="ja">納期回答(在庫)</value>
+        <value xml:lang="nl">AtP</value>
         <value xml:lang="vi">Sẵn có theo cam kết</value>
         <value xml:lang="zh">承诺有效</value>
         <value xml:lang="zh-TW">承諾有效</value>
@@ -13775,6 +13830,7 @@
         <value xml:lang="fr">Coût moyen</value>
         <value xml:lang="it">Costo medio</value>
         <value xml:lang="ja">平均原価</value>
+        <value xml:lang="nl">Gem. kosten</value>
         <value xml:lang="ro">Cost Mediu</value>
         <value xml:lang="ru">Средняя стоимость</value>
         <value xml:lang="th">ค่าใช้จ่ายเฉลี่ย</value>
@@ -13789,6 +13845,7 @@
         <value xml:lang="fr">Commandes en attente</value>
         <value xml:lang="it">Back Orders</value>
         <value xml:lang="ja">納品待ち</value>
+        <value xml:lang="nl">Back-orders</value>
         <value xml:lang="ru">Задолженные заказы</value>
         <value xml:lang="th">กลับไปยังรายการ</value>
         <value xml:lang="vi">Đặt hàng quay về (Back)</value>
@@ -13817,6 +13874,7 @@
         <value xml:lang="fr">Code barre</value>
         <value xml:lang="it">Codice a barre</value>
         <value xml:lang="ja">バーコード</value>
+        <value xml:lang="nl">Barcode</value>
         <value xml:lang="ro">Cod bara</value>
         <value xml:lang="ru">Баркод</value>
         <value xml:lang="th">บาร์โคด</value>
@@ -13831,6 +13889,7 @@
         <value xml:lang="fr">Base</value>
         <value xml:lang="it">Base</value>
         <value xml:lang="ja">基本</value>
+        <value xml:lang="nl">Basis</value>
         <value xml:lang="ro">Baza</value>
         <value xml:lang="ru">Base</value>
         <value xml:lang="th">พื้นฐาน</value>
@@ -13845,6 +13904,7 @@
         <value xml:lang="fr">Prix de base</value>
         <value xml:lang="it">Base Prc</value>
         <value xml:lang="ja">基本価格</value>
+        <value xml:lang="nl">Basisprijs</value>
         <value xml:lang="ro">Baza Prc</value>
         <value xml:lang="ru">Базовый проц</value>
         <value xml:lang="th">ราคาพื้นฐาน</value>
@@ -13887,6 +13947,7 @@
         <value xml:lang="fr">Unité de mesure du poids facturé</value>
         <value xml:lang="it">UdM e Peso Fatturazione</value>
         <value xml:lang="ja">請求重量 &amp; 単位</value>
+        <value xml:lang="nl">Verrekengewicht</value>
         <value xml:lang="ro">UdM si Greutate Facturare </value>
         <value xml:lang="ru">Оплачиваемый вес &amp;</value>
         <value xml:lang="th">บัญชีน้ำหนัก &amp; หน่วยวัด</value>
@@ -13901,6 +13962,7 @@
         <value xml:lang="fr">N° de bac</value>
         <value xml:lang="it">Bin Num</value>
         <value xml:lang="ja">格納No</value>
+        <value xml:lang="nl">Behouder #</value>
         <value xml:lang="ro">Bin Num</value>
         <value xml:lang="ru">Bin ном</value>
         <value xml:lang="th">Bin Num</value>
@@ -13915,6 +13977,7 @@
         <value xml:lang="fr">N° de bac</value>
         <value xml:lang="it">Numero Bin</value>
         <value xml:lang="ja">格納番号</value>
+        <value xml:lang="nl">Behouder nr.</value>
         <value xml:lang="ro">Numar Bin</value>
         <value xml:lang="ru">Bin номер</value>
         <value xml:lang="th">Bin Number</value>
@@ -13929,6 +13992,7 @@
         <value xml:lang="fr">Emplacement de l'écran</value>
         <value xml:lang="it">Posizione Corpo Videata</value>
         <value xml:lang="ja">本文画面位置</value>
+        <value xml:lang="nl">Schermlocatie body</value>
         <value xml:lang="ro">Pozitie Corp Videata</value>
         <value xml:lang="ru">Путь к экрану содержания</value>
         <value xml:lang="th">Body Screen Location</value>
@@ -13943,6 +14007,7 @@
         <value xml:lang="fr">Boîte</value>
         <value xml:lang="it">Scatola</value>
         <value xml:lang="ja">箱</value>
+        <value xml:lang="nl">Kist</value>
         <value xml:lang="ro">Cutie</value>
         <value xml:lang="ru">Ящик</value>
         <value xml:lang="th">กล่อง</value>
@@ -13958,6 +14023,7 @@
         <value xml:lang="fr">Appellation commerciale</value>
         <value xml:lang="it">Nome Marca</value>
         <value xml:lang="ja">ブランド名</value>
+        <value xml:lang="nl">Merknaam</value>
         <value xml:lang="ro">Nume Marca</value>
         <value xml:lang="ru">Торговая марка</value>
         <value xml:lang="th">ยี่ห้อ</value>
@@ -13971,6 +14037,7 @@
         <value xml:lang="fr">Parcourir les blogs</value>
         <value xml:lang="it">Sfoglia i blog</value>
         <value xml:lang="ja">ブログの表示</value>
+        <value xml:lang="nl">Blogs bekijken</value>
         <value xml:lang="ru">Просмотр блогов</value>
         <value xml:lang="th">ดูบันทึกข้อมูลส่วนตัว</value>
         <value xml:lang="vi">Duyệt Blog</value>
@@ -13984,7 +14051,7 @@
         <value xml:lang="fr">Rechercher un ou des catalogues</value>
         <value xml:lang="it">Mostra cataloghi</value>
         <value xml:lang="ja">カタログの表示</value>
-        <value xml:lang="nl">Blader door catalogi</value>
+        <value xml:lang="nl">Catalogi bekijken</value>
         <value xml:lang="ro">Afiseaza Catalog</value>
         <value xml:lang="ru">Каталоги</value>
         <value xml:lang="th">แสดงหมวดหมู่</value>
@@ -13998,6 +14065,7 @@
         <value xml:lang="fr">Catalogues/catégories</value>
         <value xml:lang="it">Sfoglia cataloghi/categorie</value>
         <value xml:lang="ja">カタログ/カテゴリの表示</value>
+        <value xml:lang="nl">Catalogi/categoriën bekijken</value>
         <value xml:lang="vi">Duyệt PL Trình diễn/PL Quản lý</value>
         <value xml:lang="zh">浏览目录/分类</value>
         <value xml:lang="zh-TW">流覽型錄/分類</value>
@@ -14011,7 +14079,7 @@
         <value xml:lang="hi-IN">सूची देखिये</value>
         <value xml:lang="it">Sfoglia le categorie</value>
         <value xml:lang="ja">カテゴリの表示</value>
-        <value xml:lang="nl">Bekijk Categorieën</value>
+        <value xml:lang="nl">Categorieën bekijken</value>
         <value xml:lang="pt-PT">Pesquisar Categorias</value>
         <value xml:lang="ro">Afisare Categorie</value>
         <value xml:lang="ru">Просмотр категорий</value>
@@ -14029,7 +14097,7 @@
         <value xml:lang="hi-IN">सूची जानकारी देखिये</value>
         <value xml:lang="it">Sfoglia i contenuti</value>
         <value xml:lang="ja">コンテンツの表示</value>
-        <value xml:lang="nl">Bekijk Inhoud</value>
+        <value xml:lang="nl">Inhoud bekijken</value>
         <value xml:lang="ro">Afisare Contenuti</value>
         <value xml:lang="ru">Просмотр контента</value>
         <value xml:lang="th">ดูตามหัวข้อ</value>
@@ -14045,7 +14113,7 @@
         <value xml:lang="fr">Parcourir les forums</value>
         <value xml:lang="it">Sfoglia i forum</value>
         <value xml:lang="ja">フォーラムの表示</value>
-        <value xml:lang="nl">Bekijk Forums</value>
+        <value xml:lang="nl">Forums bekijken</value>
         <value xml:lang="ro">Afisare Forums</value>
         <value xml:lang="ru">Просмотр форумов</value>
         <value xml:lang="th">ดูความคิดเห็น</value>
@@ -14060,6 +14128,7 @@
         <value xml:lang="fr">Article en vrac</value>
         <value xml:lang="it">Riga Bulk</value>
         <value xml:lang="ja">バルクアイテム</value>
+        <value xml:lang="nl">Bulkitem</value>
         <value xml:lang="ro">Linie Bulk</value>
         <value xml:lang="ru">Позиция группы</value>
         <value xml:lang="th">รายการความจุ</value>
@@ -14074,6 +14143,7 @@
         <value xml:lang="fr">Par date</value>
         <value xml:lang="it">Per Data</value>
         <value xml:lang="ja">日付別</value>
+        <value xml:lang="nl">Op datum</value>
         <value xml:lang="th">โดยวันที่</value>
         <value xml:lang="vi">Theo ngày</value>
         <value xml:lang="zh">按日期</value>
@@ -14086,6 +14156,7 @@
         <value xml:lang="fr">Par ligne de stock</value>
         <value xml:lang="it">Per Riga Inventario</value>
         <value xml:lang="ja">在庫アイテム別</value>
+        <value xml:lang="nl">Op voorraaditem</value>
         <value xml:lang="th">โดยรายการสินค้าคงเหลือ</value>
         <value xml:lang="vi">Theo hàng hóa cung ứng (kho)</value>
         <value xml:lang="zh">按库存明细</value>
@@ -14098,6 +14169,7 @@
         <value xml:lang="fr">Par article</value>
         <value xml:lang="it">Per Prodotto</value>
         <value xml:lang="ja">製品別</value>
+        <value xml:lang="nl">Op product</value>
         <value xml:lang="th">โดยสินค้า</value>
         <value xml:lang="vi">Theo Sản phẩm</value>
         <value xml:lang="zh">按产品</value>
@@ -14108,6 +14180,7 @@
         <value xml:lang="en">Cannot add this Content: you are not associated with it as an Owner</value>
         <value xml:lang="it">Non è possibile aggiungere questo contenuto: questo non è associato con un proprietario</value>
         <value xml:lang="ja">このコンテンツを追加できません: 所有者として関連付けされていません</value>
+        <value xml:lang="nl">Kan dit niet aan content toevoegen. Permissie-issue</value>
         <value xml:lang="vi">Bạn không Sở hữu nội dung này nên không thực hiện liên kết Nội dung được</value>
         <value xml:lang="zh">不能添加这个内容：你不是它的拥有者</value>
         <value xml:lang="zh-TW">不能增加這個內容:你不是它的擁有者</value>
@@ -14121,6 +14194,7 @@
         <value xml:lang="hi-IN">अन्जान सामान नही देखा जाएगा</value>
         <value xml:lang="it">Non è possibile recensire un prodotto sconosciuto</value>
         <value xml:lang="ja">未知の製品はレビューできません</value>
+        <value xml:lang="nl">Onbekend product kan niet beoordeeld worden</value>
         <value xml:lang="nl">Kan niet een onbekend product beoordelen</value>
         <value xml:lang="pt-PT">Impossível rever um produto desconhecido</value>
         <value xml:lang="ro">Nu este posibila revederea unui produs necunoscut</value>
@@ -14137,6 +14211,7 @@
         <value xml:lang="fr">Transporteur</value>
         <value xml:lang="it">Corriere</value>
         <value xml:lang="ja">運送業者</value>
+        <value xml:lang="nl">Vervoerder</value>
         <value xml:lang="ro">Curier</value>
         <value xml:lang="ru">Перевозчик</value>
         <value xml:lang="th">ผู้ส่ง</value>
@@ -14151,6 +14226,7 @@
         <value xml:lang="fr">Réf. de transporteur</value>
         <value xml:lang="it">Corriere</value>
         <value xml:lang="ja">製品運送業者ID</value>
+        <value xml:lang="nl">ID vervoerder</value>
         <value xml:lang="ru">Код перевозчика</value>
         <value xml:lang="th">รหัสผู้ส่งสินค้า</value>
         <value xml:lang="vi">Nhà chuyển vận</value>
@@ -14164,6 +14240,7 @@
         <value xml:lang="fr">Code du transporteur</value>
         <value xml:lang="it">Codice Servizio Corriere</value>
         <value xml:lang="ja">運送業者サービスコード</value>
+        <value xml:lang="nl">Service-code vervoerder</value>
         <value xml:lang="ro">Cod Serviciu Curier</value>
         <value xml:lang="ru">Сервисный код перевозчика</value>
         <value xml:lang="th">รหัสบริการผู้ส่ง</value>
@@ -14178,6 +14255,7 @@
         <value xml:lang="fr">Mode d'expédition du transporteur</value>
         <value xml:lang="it">Metodo di spedizione del corriere</value>
         <value xml:lang="ja">運送業者発送方法</value>
+        <value xml:lang="nl">Verzendmethode vervoerder</value>
         <value xml:lang="ro">Metoda Expediere Curier</value>
         <value xml:lang="ru">Способ доставки перевозчика</value>
         <value xml:lang="th">วิธีการขนส่งของผู้ส่ง</value>
@@ -14192,6 +14270,7 @@
         <value xml:lang="fr">Modes d'expédition du transporteur</value>
         <value xml:lang="it">Metodi di spedizione del corriere</value>
         <value xml:lang="ja">運送業者発送方法</value>
+        <value xml:lang="nl">Verzendmethoden vervoerder</value>
         <value xml:lang="ru">Методы доставки перевозчика</value>
         <value xml:lang="th">วิธีการขนส่งของผู้ส่ง</value>
         <value xml:lang="vi">Phương thức giao hàng nhà vận chuyển</value>
@@ -14205,6 +14284,7 @@
         <value xml:lang="fr">Statut du transporteur</value>
         <value xml:lang="it">Stato Corriere</value>
         <value xml:lang="ja">運送業者ステータス</value>
+        <value xml:lang="nl">Status vervoerder</value>
         <value xml:lang="ro">Stat Curier</value>
         <value xml:lang="ru">Статус перевозчика</value>
         <value xml:lang="th">สถานะผู้ส่ง</value>
@@ -14219,6 +14299,7 @@
         <value xml:lang="fr">Catalogue</value>
         <value xml:lang="it">Catalogo</value>
         <value xml:lang="ja">カタログ</value>
+        <value xml:lang="nl">Catalogus</value>
         <value xml:lang="ro">Catalog</value>
         <value xml:lang="ru">Каталог</value>
         <value xml:lang="th">หมวดหมู่</value>
@@ -14232,6 +14313,7 @@
         <value xml:lang="fr">Si vous ne créez pas de catégories pour un catalogue, il n'apparaitra pas dans l'arbre des Catalogues/catégories</value>
         <value xml:lang="it">Se un catalogo non viene valorizzato con delle categorie, questo non verrà mostrato nell'albero Sfoglia cataloghi/categorie</value>
         <value xml:lang="ja">カタログがカテゴリに属していない場合、カタログ/カテゴリツリーは表示されません</value>
+        <value xml:lang="nl">Associeer categoriën met een catalogus, anders worden ze niet getoond in de catalogi boomstructuur</value>
         <value xml:lang="vi">Nếu bạn không đính một Phân loại Trình diễn với các Phân loại Quản lý sản phẩm thì sẽ không được hiển thị trong phần duyệt cây thư mục Phân loại Trình diễn/Phân loại Quản lý</value>
         <value xml:lang="zh">如果你没有用分类来填充目录，那么它将不会显示在浏览目录/分类的树中</value>
         <value xml:lang="zh-TW">如果你沒有用分類來增加型錄,那麼它將不會顯示在流覽型錄/分類的樹中</value>
@@ -14243,6 +14325,7 @@
         <value xml:lang="fr">Gestion des articles - Page Principale -</value>
         <value xml:lang="it">Pagina principale amministrazione cataloghi</value>
         <value xml:lang="ja">カタログ管理メインページ</value>
+        <value xml:lang="nl">Hoofdpagina catalogus administratie</value>
         <value xml:lang="nl">Hoofdpagina catalogusbeheer</value>
         <value xml:lang="ro">Pagina Principala Administratie Cataloage</value>
         <value xml:lang="ru">Главная страница администрирования каталога</value>
@@ -14257,6 +14340,7 @@
         <value xml:lang="es">Tipo de categoría</value>
         <value xml:lang="fr">Type de catégorie</value>
         <value xml:lang="it">Tipo di categoria</value>
+        <value xml:lang="nl">Soort categorie</value>
         <value xml:lang="ja">製品カタログカテゴリ種類</value>
         <value xml:lang="th">ประเภทหมวดหมู่สินค้า</value>
         <value xml:lang="vi">Kiểu Phân loại Trình diễn sản phẩm</value>
@@ -14270,6 +14354,7 @@
         <value xml:lang="fr">OFBiz: Gestion des articles</value>
         <value xml:lang="it">OFBiz: Gestione cataloghi</value>
         <value xml:lang="ja">OFBiz: カタログ管理</value>
+        <value xml:lang="nl">OFBIZ: Product Mgt</value>
         <value xml:lang="ro">OFBiz: Gestiune Catalog</value>
         <value xml:lang="ru">OFBiz: Управление каталогами</value>
         <value xml:lang="th">OFBiz: การจัดการหมวดหมู่</value>
@@ -14284,7 +14369,7 @@
         <value xml:lang="fr">Liste des catalogues</value>
         <value xml:lang="it">Lista dei cataloghi</value>
         <value xml:lang="ja">カタログ詳細一覧</value>
-        <value xml:lang="nl">Lijst van catalogi</value>
+        <value xml:lang="nl">Lijst catalogi</value>
         <value xml:lang="ro">Lista Detaliu Catalog</value>
         <value xml:lang="ru">Список каталогов</value>
         <value xml:lang="th">รายการรายละเอียดหมวดหมู่</value>
@@ -14299,6 +14384,7 @@
         <value xml:lang="fr">Catalogue [Réf.]</value>
         <value xml:lang="it">Catalogo [Codice]</value>
         <value xml:lang="ja">カタログ [ID]</value>
+        <value xml:lang="nl">Catalogus [ID]</value>
         <value xml:lang="ro">Catalog [Cod]</value>
         <value xml:lang="ru">Каталог [Код]</value>
         <value xml:lang="th">หมวดหมู่ [รหัส]</value>
@@ -14313,7 +14399,7 @@
         <value xml:lang="fr">Application de gestion des articles</value>
         <value xml:lang="it">Gestione cataloghi</value>
         <value xml:lang="ja">カタログ管理</value>
-        <value xml:lang="nl">Catalogus Manager</value>
+        <value xml:lang="nl">Product Mgt</value>
         <value xml:lang="ro">Aplicatie Gestiune Catalog</value>
         <value xml:lang="ru">Управление каталогом продуктов</value>
         <value xml:lang="th">โปรแกรมประยุกต์การจัดการหมวดหมู่</value>
@@ -14328,7 +14414,7 @@
         <value xml:lang="fr">Application de gestion des articles</value>
         <value xml:lang="it">Applicazione Gestione Cataloghi</value>
         <value xml:lang="ja">カタログ管理業務</value>
-        <value xml:lang="nl">Catalogus Manager</value>
+        <value xml:lang="nl">Product Mgt</value>
         <value xml:lang="ro">Aplicatie Gestiune Catalog</value>
         <value xml:lang="ru">Управление каталогом продуктов</value>
         <value xml:lang="th">โปรแกรมประยุกต์การจัดการหมวดหมู่</value>
@@ -14343,6 +14429,7 @@
         <value xml:lang="fr">Cette application est essentiellement destinée aux responsables des informations relatives aux articles (catalogues, prix...).</value>
         <value xml:lang="it">Questa applicazione è principalmente responsabile per la manutenzione delle informazioni relative ai cataloghi prodotti</value>
         <value xml:lang="ja">このアプリケーションでは主に製品カタログに関連した情報のメンテナンスを行います。</value>
+        <value xml:lang="nl">Deze applicatie is met name bedoeld om producten te beheren</value>
         <value xml:lang="ro">Aceasta aplicatie este in mod principal responsabila cu intretinerea de informatii relative la cataloage produse</value>
         <value xml:lang="ru">Это приложение предназначено для лиц, ответственных за ввод данных в каталог продуктов</value>
         <value xml:lang="th">This application is primarily intended for those responsible for the maintenance of product catalog related information</value>
@@ -14370,6 +14457,7 @@
         <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the CATALOG_CREATE or CATALOG_ADMIN permission, or the limited CATALOG_ROLE_CREATE permission</value>
         <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} tu devi avere il permesso CATALOG_CREATE o CATALOG_ADMIN, il permesso limitato CATALOG_ROLE_CREATE</value>
         <value xml:lang="ja">セキュリティエラー: ${resourceDescription} の実行には CATALOG_CREATE または CATALOG_ADMIN 権限が必要です</value>
+        <value xml:lang="nl">Permissie-issue: voor deze actie heeft u (aanvullende) rechten nodig</value>
         <value xml:lang="vi">Lỗi phân quyền: để thực thi dịch vụ ${resourceDescription} bạn cần quyền CATALOG_CREATE hoặc quyền CATALOG_ADMIN , hoặc ít nhất quyền CATALOG_ROLE_CREATE</value>
         <value xml:lang="zh">安全错误：要运行 ${resourceDescription}，你必须具有 CATALOG_CREATE 或 CATALOG_ADMIN 权限，或者有限的 CATALOG_ROLE_CREATE 权限</value>
         <value xml:lang="zh-TW">安全錯誤:要執行 ${resourceDescription},你必須具有 CATALOG_CREATE 或 CATALOG_ADMIN 許可權,或者有限的 CATALOG_ROLE_CREATE 許可權</value>
@@ -14379,6 +14467,7 @@
         <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the CATALOG_DELETE or CATALOG_ADMIN permission</value>
         <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} tu devi avere il permesso CATALOG_DELETE o CATALOG_ADMIN</value>
         <value xml:lang="ja">セキュリティエラー: ${resourceDescription} の実行には CATALOG_DELETE または CATALOG_ADMIN 権限、または限定された CATALOG_ROLE_CREATE 権限が必要です</value>
+        <value xml:lang="nl">Permissie-issue: voor deze actie heeft u (aanvulden) rechten nodig</value>
         <value xml:lang="vi">Lỗi phân quyền: để thực thi dịch vụ ${resourceDescription} bạn cần quyền CATALOG_CREATE hoặc quyền CATALOG_ADMIN , hoặc ít nhất quyền CATALOG_ROLE_CREATE</value>
         <value xml:lang="zh">安全错误：要运行 ${resourceDescription}，你必须具有 CATALOG_DELETE 或 CATALOG_ADMIN 权限</value>
         <value xml:lang="zh-TW">安全錯誤:要執行 ${resourceDescription},你必須具有 CATALOG_DELETE 或 CATALOG_ADMIN 許可權</value>
@@ -14388,6 +14477,7 @@
         <value xml:lang="en">Create SEO category/products</value>
         <value xml:lang="fr">Créer un référencement de categorie/produits</value>
         <value xml:lang="ja">SEOカテゴリ/製品を作成</value>
+        <value xml:lang="nl">SEO categorie/producten aanmaken</value>
         <value xml:lang="vi">Tạo tiếp thị mạng (SEO) Phân loại Quản lý/Sản phẩm</value>
         <value xml:lang="zh">创建搜索引擎优化分类/产品</value>
         <value xml:lang="zh-TW">新建搜尋引擎優化分類/產品</value>
@@ -14397,6 +14487,7 @@
         <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the CATALOG_UPDATE or CATALOG_ADMIN permission</value>
         <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} tu devi avere il permesso CATALOG_UPDATE o CATALOG_ADMIN</value>
         <value xml:lang="ja">セキュリティエラー: ${resourceDescription} の実行には CATALOG_UPDATE または CATALOG_ADMIN 権限、または限定された CATALOG_ROLE_CREATE 権限が必要です</value>
+        <value xml:lang="nl">Permissie-issue: voor deze actie heeft u (aanvullende) rechten nodig</value>
         <value xml:lang="vi">Lỗi phân quyền: để thực thi dịch vụ ${resourceDescription} bạn cần quyền CATALOG_UPDATE hoặc quyền CATALOG_ADMIN</value>
         <value xml:lang="zh">安全错误：要运行 ${resourceDescription}，你必须具有 CATALOG_UPDATE 或 CATALOG_ADMIN 权限</value>
         <value xml:lang="zh-TW">安全錯誤:要執行 ${resourceDescription},你必須具有 CATALOG_UPDATE 或 CATALOG_ADMIN 許可權</value>
@@ -14408,6 +14499,7 @@
         <value xml:lang="fr">Vous n'êtes pas habilité à voir cette page. ("CATALOG_VIEW" ou "CATALOG_ADMIN" est nécessaire)</value>
         <value xml:lang="it">Tu non sei autorizzato a vedere questa pagina. (Permessi "CATALOG_VIEW" o "CATALOG_ADMIN" necessari)</value>
         <value xml:lang="ja">このページを表示する権限がありません。"CATALOG_VIEW" または "CATALOG_ADMIN" 権限が必要です。</value>
+        <value xml:lang="nl">Permissie-issue: u heeft niet de (juiste) rechten om deze pagina te zien</value>
         <value xml:lang="ro">Tu nu esti autorizat sa vezi aceasta pagina. (Sunt Necesare Permise "CATALOG_VIEW" sau "CATALOG_ADMIN")</value>
         <value xml:lang="ru">У вас нет прав для просмотра этой страницы. (Необходимы "CATALOG_VIEW" или "CATALOG_ADMIN")</value>
         <value xml:lang="th">คุณไม่มีความยินยอมถึงการแสดงหน้านี้ ("CATALOG_VIEW" หรือ "CATALOG_ADMIN" ต้องการ)</value>
@@ -14485,6 +14577,7 @@
         <value xml:lang="fr">Attributs de catégorie</value>
         <value xml:lang="it">Attributi Categoria</value>
         <value xml:lang="ja">カテゴリ属性</value>
+        <value xml:lang="nl">Attributen categorie</value>
         <value xml:lang="th">ลักษณะหมวดหมู่</value>
         <value xml:lang="vi">Thuộc tính của Phân loại Quản lý</value>
         <value xml:lang="zh">分类属性</value>
@@ -14497,6 +14590,7 @@
         <value xml:lang="fr">Contenu</value>
         <value xml:lang="it">Contenuto</value>
         <value xml:lang="ja">コンテンツ</value>
+        <value xml:lang="nl">Content</value>
         <value xml:lang="ro">Continut</value>
         <value xml:lang="ru">Контент</value>
         <value xml:lang="th">หัวข้อ</value>
@@ -14510,6 +14604,7 @@
         <value xml:lang="fr">Description de la catégorie</value>
         <value xml:lang="it">Descrizione categoria</value>
         <value xml:lang="ja">カテゴリ詳細</value>
+        <value xml:lang="nl">Omschrijving</value>
         <value xml:lang="vi">Mô tả Phân loại Quản lý</value>
         <value xml:lang="zh">分类描述</value>
         <value xml:lang="zh-TW">分類描述</value>
@@ -14521,6 +14616,7 @@
         <value xml:lang="fr">Catég. [Réf.]</value>
         <value xml:lang="it">Codice categoria</value>
         <value xml:lang="ja">カテゴリID</value>
+        <value xml:lang="nl">Categorie ID</value>
         <value xml:lang="ro">Cod Categorie</value>
         <value xml:lang="ru">Категория</value>
         <value xml:lang="th">รหัสหมวดหมู่</value>
@@ -14535,6 +14631,7 @@
         <value xml:lang="fr">URL de l'image pour cette catégorie</value>
         <value xml:lang="it">URL Immagine Categoria</value>
         <value xml:lang="ja">カテゴリ画像URL</value>
+        <value xml:lang="nl">URL categorie-afbeelding</value>
         <value xml:lang="ro">URL Imagine Categorie</value>
         <value xml:lang="ru">URL изображения категории</value>
         <value xml:lang="th">ภาพหมวดหมู่ URL</value>
@@ -14549,6 +14646,7 @@
         <value xml:lang="fr">Liens</value>
         <value xml:lang="it">Links</value>
         <value xml:lang="ja">リンク</value>
+        <value xml:lang="nl">Links</value>
         <value xml:lang="ru">Ссылки</value>
         <value xml:lang="th">ลิงค์</value>
         <value xml:lang="vi">Liên kết</value>
@@ -14562,6 +14660,7 @@
         <value xml:lang="fr">Membres de la catégorie</value>
         <value xml:lang="it">Membri Categoria</value>
         <value xml:lang="ja">カテゴリメンバ</value>
+        <value xml:lang="nl">Categorie-leden</value>
         <value xml:lang="ro">Membri Categorie</value>
         <value xml:lang="ru">Член категории?</value>
         <value xml:lang="th">สมาชิกหมวดหมู่</value>
@@ -14592,6 +14691,7 @@
         <value xml:lang="en">No products which fit your requirements were found.</value>
         <value xml:lang="it">Nessun prodotto trovato corrispondono ai tuoi parametri.</value>
         <value xml:lang="ja">あなたの要求に適する製品が見つかりません。</value>
+        <value xml:lang="nl">Geen producten met zulke eigenschappen gevonden</value>
         <value xml:lang="vi">Hệ thống không tìm thấy sản phẩm nào thỏa mãn yêu cầu của bạn.</value>
         <value xml:lang="zh">没有找到符合你要求的产品</value>
         <value xml:lang="zh-TW">沒有找到符合你需求的產品</value>
@@ -14603,6 +14703,7 @@
         <value xml:lang="fr">Page de la catégorie</value>
         <value xml:lang="it">Pagina Categoria</value>
         <value xml:lang="ja">カテゴリページ</value>
+        <value xml:lang="nl">Categorie-pagina</value>
         <value xml:lang="ro">Pagina Categorie</value>
         <value xml:lang="th">หน้าหมวดหมู่</value>
         <value xml:lang="vi">Trang Phân loại Quản lý</value>
@@ -14631,6 +14732,7 @@
         <value xml:lang="fr">Permission requise pour ajouter des articles à la catégorie "PurchaseAllow"</value>
         <value xml:lang="it">Permesso richiesto per aggiungere prodotti alla categoria "PurchaseAllow"</value>
         <value xml:lang="ja">"購入許可"カテゴリに製品を追加する権限が必要</value>
+        <value xml:lang="nl">Permissie-issue: u heeft (aanvullende) rechten nodig</value>
         <value xml:lang="ru">Для добавления продукта в категорию "PurchaseAllow" требуются права</value>
         <value xml:lang="th">การยินยอมความต้องการไปยังการเพิ่มสินค้า "ยอมรับการสั่งซื้อ" หมวดหมู่</value>
         <value xml:lang="vi">Yêu cầu xác thực để thêm sản phẩm tới "Cho phép Mua"</value>
@@ -14644,6 +14746,7 @@
         <value xml:lang="fr">Hiérarchie : catégorie fille</value>
         <value xml:lang="it">Gerarchia: Categorie figlie</value>
         <value xml:lang="ja">カテゴリロールアップ : 下位(子)のカテゴリ</value>
+        <value xml:lang="nl">Categorie-toewijzing : onderliggende categorieën</value>
         <value xml:lang="ro">Categorie Sosire : Categorie Fice</value>
         <value xml:lang="ru">Подчиненность категории: подчиненные</value>
         <value xml:lang="th">Category Rollup : Child Categories</value>
@@ -14658,6 +14761,7 @@
         <value xml:lang="fr">Hiérarchie : catégorie parente</value>
         <value xml:lang="it">Gerarchia: Categorie padri</value>
         <value xml:lang="ja">カテゴリロールアップ : 上位(親)のカテゴリ</value>
+        <value xml:lang="nl">Categorie-toewijzing : hogerliggende categorieën</value>
         <value xml:lang="ro">Categoria Sosire : Categorie Parinti</value>
         <value xml:lang="ru">Подчиненность категорий: родительские</value>
         <value xml:lang="th">Category Rollup : Parent Categories</value>
@@ -14672,6 +14776,7 @@
         <value xml:lang="fr">Sélectionnez la catégorie et entrer la date</value>
         <value xml:lang="it">Categoria (seleziona Categoria e inserire Da Data)</value>
         <value xml:lang="ja">カテゴリ (カテゴリの選択および開始日の入力)</value>
+        <value xml:lang="nl">Selecteer categorie en vanaf-datum toewijzen</value>
         <value xml:lang="ro">Categoria (selectionati Categoria si introduceti De la Data)</value>
         <value xml:lang="ru">категорию (выберите категорию и введите дату начала)</value>
         <value xml:lang="th">หมวดหมู่ (เลือกหมวดหมู่และกรอกวันที่)</value>
@@ -14686,6 +14791,7 @@
         <value xml:lang="fr">Télécharger une image pour cette catégorie vers le serveur</value>
         <value xml:lang="it">Carica immagine categoria</value>
         <value xml:lang="ja">カテゴリ画像のアップロード</value>
+        <value xml:lang="nl">Categorie-afbeelding uploaden</value>
         <value xml:lang="ro">Incarca Imagine Categorie</value>
         <value xml:lang="ru">Загрузить изображение для категории</value>
         <value xml:lang="th">อัพโหลดรูปภาพหมวดหมู่</value>
@@ -14700,6 +14806,7 @@
         <value xml:lang="fr">Permission requise pour ajouter des articles à la catégorie "ViewAllow"</value>
         <value xml:lang="it">Permesso richiesto per aggiungere prodotti alla categoria "ViewAllow"</value>
         <value xml:lang="ja">"表示許可"カテゴリに製品を追加する権限が必要</value>
+        <value xml:lang="nl">Permissie-issue: u heeft (aanvullende) rechten nodig</value>
         <value xml:lang="ru">Для добавления продукта в категорию "ViewAllow" требуются права</value>
         <value xml:lang="th">การยินยอมความต้องการไปยังการเพิ่มสินค้า "ยอมรับการแสดง" หมวดหมู่</value>
         <value xml:lang="vi">Yêu cầu xác thực để thêm sản phẩm tới "Cho phép Xem"</value>
@@ -14713,6 +14820,7 @@
         <value xml:lang="fr">Catégories sans catégorie parente</value>
         <value xml:lang="it">Categorie principali</value>
         <value xml:lang="ja">上位(親)のカテゴリのないカテゴリ</value>
+        <value xml:lang="nl">Categorieen zonder 'hogerliggende' categorieën</value>
         <value xml:lang="ro">Categorie Fara Categorie Parinti</value>
         <value xml:lang="ru">Категории не имеющие родительской</value>
         <value xml:lang="th">หมวดหมู่ไม่มีกลุ่มหมวดหมู่</value>
@@ -14727,6 +14835,7 @@
         <value xml:lang="fr">Réf. de la catégorie</value>
         <value xml:lang="it">Categoria [Codice]</value>
         <value xml:lang="ja">カテゴリ [ID]</value>
+        <value xml:lang="nl">Categorie [ID]</value>
         <value xml:lang="ro">Categorie [Cod]</value>
         <value xml:lang="ru">Категория [Код]</value>
         <value xml:lang="th">หมวดหมู่[รหัส]</value>
@@ -14737,7 +14846,7 @@
     <property key="ProductCatFacSection">
         <value xml:lang="de">Prim. Kategorie und Einrichtung</value>
         <value xml:lang="en">Prim. Category and Facility</value>
-        <value xml:lang="nl">Sectie 6: Category en faciliteit</value>
+        <value xml:lang="nl">Sectie 6: Categorie en faciliteit</value>
         <value xml:lang="zh">主要分类和场所</value>
     </property>
     <property key="ProductChangeWithoutProductCatalog">
@@ -14747,6 +14856,7 @@
         <value xml:lang="fr">Ceci ne peut être modifié sans re-créer le catalogue</value>
         <value xml:lang="it">Questo non può essere modificato senza ri-creare il Catalogo Prodotto.</value>
         <value xml:lang="ja">変更できません、製品カタログを再作成してください</value>
+        <value xml:lang="nl">Dit kan niet aangepast worden zonder de catalogus opnieuw aan te maken</value>
         <value xml:lang="ro">Acesta nu poate fi modificat fara a recrea Catalogul Produs.</value>
         <value xml:lang="ru">После создания код изменить нельзя.</value>
         <value xml:lang="th">นี่ไม่สามารถเปลี่ยนแปลงโดยปราศจากการสร้างหมวดหมู่สินค้าใหม่</value>
@@ -14758,6 +14868,7 @@
         <value xml:lang="de">Wenn Sie den Stückpreis ändern wird er auch im Lieferantenprodukt/letzer Preis und im Auftragspositionspreis geändert, möchten Sie fortfahren?</value>
         <value xml:lang="en">If you change Per Unit Price then it will also get updated in Supplier product last price and order item price, would you like to continue?</value>
         <value xml:lang="ja">単価を変更した場合は、サプライヤ製品最終価格および注文アイテム価格も更新されます。継続してもよろしいですか?</value>
+        <value xml:lang="nl">Bij aanpassing van de prijs/stuk worden ook de 'Laatste prijs leverancier' en de prijs op orderregels aangepast. Wilt u doorgaan?</value>
         <value xml:lang="vi">Nếu bạn thay đổi Giá cơ sở sẽ kéo theo cập nhật Giá mới nhất của Nhà cung cấp sản phẩm và Giá đặt hàng, bạn có chắc chắn để thực hiện không?</value>
         <value xml:lang="zh">如果你修改单价，那么将会更新供货商产品的上次价格以及订单明细价格，你要继续吗？</value>
         <value xml:lang="zh-TW">如果你修改單價,那麼將會更新供應商產品的上次價格以及訂單細項價格,你要繼續嗎？</value>
@@ -14769,6 +14880,7 @@
         <value xml:lang="fr">Canal de vente</value>
         <value xml:lang="it">Canale Vendita</value>
         <value xml:lang="ja">チャネル</value>
+        <value xml:lang="nl">Kanaal</value>
         <value xml:lang="th">ช่องทาง</value>
         <value xml:lang="vi">Kênh sản phẩm</value>
         <value xml:lang="zh">渠道</value>
@@ -14781,6 +14893,7 @@
         <value xml:lang="fr">Frais d'expédition ?</value>
         <value xml:lang="it">Spese di Spedizione</value>
         <value xml:lang="ja">配送料</value>
+        <value xml:lang="nl">Vracht berekenen</value>
         <value xml:lang="ro">Cheltuieli de Expediere</value>
         <value xml:lang="ru">Считать стоим. доставки</value>
         <value xml:lang="th">ค่าธรรมเนียมการขนส่ง</value>
@@ -14795,6 +14908,7 @@
         <value xml:lang="fr">Vérifier l'existence</value>
         <value xml:lang="it">Controlla esistenza</value>
         <value xml:lang="ja">存在を確認</value>
+        <value xml:lang="nl">Controleer bestaand(e)</value>
         <value xml:lang="ro">Controleaza Existenta</value>
         <value xml:lang="ru">Проверить совпадения</value>
         <value xml:lang="th">ตรวจสอบที่มีอยู่</value>
@@ -14824,6 +14938,7 @@
         <value xml:lang="fr">Vérifier l'existence de l'article dans la catégorie</value>
         <value xml:lang="it">Controlla Prodotti Esistenti in una Categoria</value>
         <value xml:lang="ja">カテゴリで製品の存在を確認中</value>
+        <value xml:lang="nl">Beschikbare producten in categorie controleren</value>
         <value xml:lang="ro">Controleaza Produsele Existente dintr-o Categorie</value>
         <value xml:lang="ru">Проверка существования такого продукта в категории</value>
         <value xml:lang="th">ตรวจสอบสินค้าที่มีอยู่ในหมวดหมู่</value>
@@ -14838,6 +14953,7 @@
         <value xml:lang="fr">Descendant</value>
         <value xml:lang="it">Figlio</value>
         <value xml:lang="ja">下位(子)</value>
+        <value xml:lang="nl">Onderliggend</value>
         <value xml:lang="ro">Fiu</value>
         <value xml:lang="ru">Подчиненную</value>
         <value xml:lang="th">เด็ก</value>
@@ -14852,6 +14968,7 @@
         <value xml:lang="fr">Catégorie fille [Réf.]</value>
         <value xml:lang="it">Codice categoria figlia</value>
         <value xml:lang="ja">下位(子)のカテゴリID</value>
+        <value xml:lang="nl">ID onderliggende categorie</value>
         <value xml:lang="ro">Cod Categorie Fica</value>
         <value xml:lang="ru">Код подчин. категории</value>
         <value xml:lang="th">รหัสหมวดหมู่เด็ก</value>
@@ -14866,6 +14983,7 @@
         <value xml:lang="fr">Réf. du groupe descendant</value>
         <value xml:lang="it">Codice Gruppo Figlio</value>
         <value xml:lang="ja">下位(子)のグループID</value>
+        <value xml:lang="nl">ID onderliggende groep</value>
         <value xml:lang="ro">Cod Grup Fiu</value>
         <value xml:lang="ru">Код подчиненной группы</value>
         <value xml:lang="th">รหัสกลุ่มเด็ก</value>
@@ -14883,7 +15001,7 @@
         <value xml:lang="hi-IN">सूची चुनाव किजीये</value>
         <value xml:lang="it">Scegli catalogo</value>
         <value xml:lang="ja">カタログの選択</value>
-        <value xml:lang="nl">Selecteer een catalogus</value>
+        <value xml:lang="nl">Catalogus selecteren</value>
         <value xml:lang="pt-PT">Escolher Catálogo</value>
         <value xml:lang="ro">Alege Catalog</value>
         <value xml:lang="ru">Выберите каталог</value>
@@ -14899,6 +15017,7 @@
         <value xml:lang="fr">Choisissez une catégorie de caractéristiques</value>
         <value xml:lang="it">Scegli una Caratteristica Categoria</value>
         <value xml:lang="ja">機能カテゴリの選択</value>
+        <value xml:lang="nl">Kenmerk(en)-categorie selecteren</value>
         <value xml:lang="ro">Alege o Caracteristica Categorie</value>
         <value xml:lang="ru">Выбрать категорию особенностей</value>
         <value xml:lang="th">เลือกลักษณะหมวดหมู่</value>
@@ -14913,6 +15032,7 @@
         <value xml:lang="fr">Choisissez un groupe de caractéristiques</value>
         <value xml:lang="it">Scegli un Gruppo Caratteristica</value>
         <value xml:lang="ja">機能グループの選択</value>
+        <value xml:lang="nl">Kenmerk(en)-groep selecteren</value>
         <value xml:lang="ro">Alege un Grup Caracteristici</value>
         <value xml:lang="ru">Выбрать группу особенностей</value>
         <value xml:lang="th">เลือกกลุ่มลักษณะ</value>
@@ -14945,7 +15065,7 @@
         <value xml:lang="fr">Choisir une catégorie supérieure</value>
         <value xml:lang="it">Lista categorie principali</value>
         <value xml:lang="ja">トップカテゴリの選択</value>
-        <value xml:lang="nl">Lijst van hoofdcategoriën</value>
+        <value xml:lang="nl">Lijst van hoofdcategorieën</value>
         <value xml:lang="ro">Alege Categorii Principale</value>
         <value xml:lang="ru">Категория верх. уровня</value>
         <value xml:lang="th">เลือกหมวดหมู่</value>
@@ -14958,6 +15078,7 @@
         <value xml:lang="en">Compare list successfully cleared</value>
         <value xml:lang="it">Lista di confronto pulito con successo</value>
         <value xml:lang="ja">比較一覧がクリアされました</value>
+        <value xml:lang="nl">Vergelijkingslijst geleegd</value>
         <value xml:lang="vi">Danh sách So sánh đã được xóa</value>
         <value xml:lang="zh">成功清除了对比列表</value>
         <value xml:lang="zh-TW">成功清除了對比清單</value>
@@ -14969,6 +15090,7 @@
         <value xml:lang="fr">Commentaires</value>
         <value xml:lang="it">Commenti</value>
         <value xml:lang="ja">コメント</value>
+        <value xml:lang="nl">Commentaren</value>
         <value xml:lang="ro">Comentarii</value>
         <value xml:lang="ru">Комментарии</value>
         <value xml:lang="th">ความคิดเห็น</value>
@@ -14983,6 +15105,7 @@
         <value xml:lang="fr">Commissions</value>
         <value xml:lang="it">Provvigioni</value>
         <value xml:lang="ja">委託料</value>
+        <value xml:lang="nl">Commissies</value>
         <value xml:lang="ru">Комиссионные</value>
         <value xml:lang="th">ค่าคอมมิชชัน</value>
         <value xml:lang="vi">Hoa hồng</value>
@@ -14998,7 +15121,6 @@
         <value xml:lang="es">Parte de la familia de software Apache OFBiz de código abierto</value>
         <value xml:lang="fr">Un module de la famille Apache OFBiz, logiciel libre de gestion d'entreprise.</value>
         <value xml:lang="it">Un modulo della famiglia di software open source Apache OFBiz</value>
-    <!--value xml:lang="nl">Onderdeel van de Apache OFBiz'-suite</value-->
         <value xml:lang="ja">Part of the Apache OFBiz Family of Open Source Software</value>
         <value xml:lang="nl">Deel van de Apache OFBiz-suite van Open Source Software</value>
         <value xml:lang="pt-BR">Parte da família OfBiz de software de fonte aberta</value>
@@ -15025,7 +15147,7 @@
         <value xml:lang="hi-IN">तुलना किजीये</value>
         <value xml:lang="it">Confronta con</value>
         <value xml:lang="ja">比較対象</value>
-        <value xml:lang="nl">Vergelijk met</value>
+        <value xml:lang="nl">Vergelijken met</value>
         <value xml:lang="ro">Compara Cu</value>
         <value xml:lang="ru">Сравнить с</value>
         <value xml:lang="th">เปรียบเทียบ</value>
@@ -15039,7 +15161,7 @@
         <value xml:lang="fr">Comparaison de produits</value>
         <value xml:lang="it">Confronta prodotti</value>
         <value xml:lang="ja">比較する製品</value>
-        <value xml:lang="nl">Vergelijken producten</value>
+        <value xml:lang="nl">Producten vergelijken</value>
         <value xml:lang="vi">So sánh sản phẩm</value>
         <value xml:lang="zh">对比产品</value>
         <value xml:lang="zh-TW">對比產品</value>
@@ -15051,6 +15173,7 @@
         <value xml:lang="fr">Terminé</value>
         <value xml:lang="it">Completa</value>
         <value xml:lang="ja">完了</value>
+        <value xml:lang="nl">Completeren</value>
         <value xml:lang="ro">Complecteaza</value>
         <value xml:lang="ru">Завершить</value>
         <value xml:lang="th">สำเร็จ</value>
@@ -15065,6 +15188,7 @@
         <value xml:lang="fr">Forcer à terminer</value>
         <value xml:lang="it">Forza Completamento</value>
         <value xml:lang="ja">強制完了</value>
+        <value xml:lang="nl">Completering forceren</value>
         <value xml:lang="ro">Forteaza Complementul </value>
         <value xml:lang="ru">Завершить принудительно</value>
         <value xml:lang="th">สำเร็จ</value>
@@ -15079,6 +15203,7 @@
         <value xml:lang="fr">Terminer les transferts demandés</value>
         <value xml:lang="it">Richieste Trasferimento Completate</value>
         <value xml:lang="ja">リクエストされた転送を完了</value>
+        <value xml:lang="nl">Verzochte transfers completeren</value>
         <value xml:lang="ru">Завершить запрошенные перемещения</value>
         <value xml:lang="th">Complete Requested Transfers</value>
         <value xml:lang="vi">Hoàn thành yêu cầu Chuyển nhượng</value>
@@ -15092,6 +15217,7 @@
         <value xml:lang="fr">Composants</value>
         <value xml:lang="it">Componenti</value>
         <value xml:lang="ja">コンポーネント</value>
+        <value xml:lang="nl">Componenten</value>
         <value xml:lang="ro">Componente</value>
         <value xml:lang="ru">Компоненты</value>
         <value xml:lang="th">ส่วนประกอบ</value>
@@ -15103,6 +15229,7 @@
         <value xml:lang="de">Bedingung</value>
         <value xml:lang="en">Condition</value>
         <value xml:lang="ja">条件</value>
+        <value xml:lang="nl">Conditie</value>
         <value xml:lang="vi">Điều kiện</value>
         <value xml:lang="zh">条件</value>
         <value xml:lang="zh-TW">條件</value>
@@ -15114,6 +15241,7 @@
         <value xml:lang="fr">Conditions</value>
         <value xml:lang="it">Condizioni</value>
         <value xml:lang="ja">条件</value>
+        <value xml:lang="nl">Condities</value>
         <value xml:lang="ro">Conditii </value>
         <value xml:lang="ru">Условия</value>
         <value xml:lang="th">เงื่อนไข</value>
@@ -15126,6 +15254,7 @@
         <value xml:lang="en">To remove a price rule, you must before remove all conditions and actions OR disable it by entering a Through Date</value>
         <value xml:lang="fr">Pour supprimer une règle de prix, vous devez d'abord supprimer toutes les conditions et actions. Vous pouvez aussi la désactiver en entrant une date de fin appropriée.</value>
         <value xml:lang="ja">価格ルールを削除するには、すべての条件およびアクションを削除するか、終了日を入れて無効にする必要があります</value>
+        <value xml:lang="nl">Permissie-issue: u heeft (aanvullende) rechten nodig</value>
         <value xml:lang="vi">Để loại bỏ Luật tính giá, trước tiên bạn cần loại bỏ toàn bộ các điều kiện và toán tử HOẶC vô hiệu hóa bởi nhập Ngày đến</value>
         <value xml:lang="zh">要删除价格规则，你必须先删除全部条件和操作，或通过输入一个结束日期来禁用它</value>
         <value xml:lang="zh-TW">要刪除價格規則,你必須先刪除全部條件和操作,或通過輸入一個結束日期來禁用它</value>
@@ -15134,6 +15263,7 @@
         <value xml:lang="de">Bedingungskategorien für Bedingung</value>
         <value xml:lang="en">Conditions Categories For Condition</value>
         <value xml:lang="ja">条件に対する条件カテゴリ</value>
+        <value xml:lang="nl">Conditie-categorieën voor conditie</value>
         <value xml:lang="vi">Điều kiện Phân loại Quản lý áp dụng cho Điều kiện</value>
         <value xml:lang="zh">条件和分类，用于条件</value>
         <value xml:lang="zh-TW">條件和分類,用於條件</value>
@@ -15143,6 +15273,7 @@
         <value xml:lang="en">Conditions For Rule</value>
         <value xml:lang="fr">Conditions pour la règle</value>
         <value xml:lang="ja">ルールに対する条件</value>
+        <value xml:lang="nl">Condities voor formule</value>
         <value xml:lang="vi">Điều kiện cho Luật áp dụng</value>
         <value xml:lang="zh">条件，用于规则</value>
         <value xml:lang="zh-TW">條件,用於規則</value>
@@ -15168,6 +15299,7 @@
         <value xml:lang="de">Bedingungs Wert</value>
         <value xml:lang="en">Condition Value</value>
         <value xml:lang="ja">条件値</value>
+        <value xml:lang="nl">Conditie-waarde</value>
         <value xml:lang="vi">Giá trị điều kiện</value>
         <value xml:lang="zh">条件值</value>
         <value xml:lang="zh-TW">條件值</value>
@@ -15179,6 +15311,7 @@
         <value xml:lang="fr">Element de configuration</value>
         <value xml:lang="it">Elemento di configurazione</value>
         <value xml:lang="ja">設定アイテム</value>
+        <value xml:lang="nl">Configuratie-item</value>
         <value xml:lang="ro">Linie Configuratie </value>
         <value xml:lang="ru">Элемент конфигурации</value>
         <value xml:lang="th">สร้างรายการ</value>
@@ -15193,6 +15326,7 @@
         <value xml:lang="fr">Elements de configuration</value>
         <value xml:lang="it">Configurazioni</value>
         <value xml:lang="ja">設定</value>
+        <value xml:lang="nl">Configuraties</value>
         <value xml:lang="ro">Configuratii</value>
         <value xml:lang="ru">Конфигурации</value>
         <value xml:lang="th">โครงร่าง</value>
@@ -15207,6 +15341,7 @@
         <value xml:lang="fr">Elements de configuration trouvés</value>
         <value xml:lang="it">Righe Configurazioni Trovate</value>
         <value xml:lang="ja">設定アイテムが見つかりました</value>
+        <value xml:lang="nl">Configuratie-items gevonden</value>
         <value xml:lang="th">พบการสร้างรายการ</value>
         <value xml:lang="vi">Hạng mục cấu hình tìm thấy</value>
         <value xml:lang="zh">配置明细被找到了</value>
@@ -15218,6 +15353,7 @@
         <value xml:lang="fr">Liste des options de configuration</value>
         <value xml:lang="it">Lista opzioni di prodotti configurabili</value>
         <value xml:lang="ja">設定オプション一覧</value>
+        <value xml:lang="nl">Overzicht configuratie-opties</value>
         <value xml:lang="vi">Danh sách cấu hình</value>
         <value xml:lang="zh">配置选项列表</value>
         <value xml:lang="zh-TW">配置選項清單</value>
@@ -15229,6 +15365,7 @@
         <value xml:lang="fr">Options de configuration</value>
         <value xml:lang="it">Opzioni Configurazione</value>
         <value xml:lang="ja">設定オプション</value>
+        <value xml:lang="nl">Configuratie-opties</value>
         <value xml:lang="ro">Optiuni Configuratii</value>
         <value xml:lang="ru">Параметры конфигурации</value>
         <value xml:lang="th">สร้างตัวเลือก</value>
@@ -15258,6 +15395,7 @@
         <value xml:lang="fr">Confirmer les mouvements sélectionnés</value>
         <value xml:lang="it">Conferma spostamenti selezionati</value>
         <value xml:lang="ja">選択した移動を確認</value>
+        <value xml:lang="nl">Verplaatsingen bevestigen</value>
         <value xml:lang="ro">Confirma mutari selectionate</value>
         <value xml:lang="ru">Подтвердить выбранные перемещения</value>
         <value xml:lang="th">ยืนยันการลบ</value>
@@ -15313,6 +15451,7 @@
         <value xml:lang="fr">Information type de contact</value>
         <value xml:lang="it">Informazione Tipo Contatto</value>
         <value xml:lang="ja">連絡種類情報</value>
+        <value xml:lang="nl">Soort contact-informatie</value>
         <value xml:lang="ro">Informatii Tip Contact</value>
         <value xml:lang="ru">Информация о типе контакта</value>
         <value xml:lang="th">ข้อมูลประเภทการติดต่อ</value>
@@ -15327,6 +15466,7 @@
         <value xml:lang="fr">E</value>
         <value xml:lang="it">C</value>
         <value xml:lang="ja">コ</value>
+        <value xml:lang="nl">C</value>
         <value xml:lang="ro">C</value>
         <value xml:lang="ru">C</value>
         <value xml:lang="th">C</value>
@@ -15341,6 +15481,7 @@
         <value xml:lang="fr">Contenu</value>
         <value xml:lang="it">Contenuto</value>
         <value xml:lang="ja">コンテンツ</value>
+        <value xml:lang="nl">Content</value>
         <value xml:lang="ro">Continut </value>
         <value xml:lang="ru">Контент</value>
         <value xml:lang="th">หัวข้อ</value>
@@ -15355,6 +15496,7 @@
         <value xml:lang="fr">Contenu du message (format html)</value>
         <value xml:lang="it">Corpo html</value>
         <value xml:lang="ja">HTML本文</value>
+        <value xml:lang="nl">HTML body</value>
         <value xml:lang="ro">Corp Html</value>
         <value xml:lang="ru">Текст Html</value>
         <value xml:lang="th">Html Body</value>
@@ -15369,6 +15511,7 @@
         <value xml:lang="fr">Réf. de contenu</value>
         <value xml:lang="it">Codice contenuto</value>
         <value xml:lang="ja">コンテンツID</value>
+        <value xml:lang="nl">Content ID</value>
         <value xml:lang="ro">Cod Continut</value>
         <value xml:lang="ru">Код контента</value>
         <value xml:lang="th">รหัสหัวข้อ</value>
@@ -15383,6 +15526,7 @@
         <value xml:lang="fr">Texte informatif</value>
         <value xml:lang="it">Informazione Testo Contenuto</value>
         <value xml:lang="ja">コンテンツ情報テキスト</value>
+        <value xml:lang="nl">Info contenttekst</value>
         <value xml:lang="ro">Informatii Test Continut</value>
         <value xml:lang="ru">Текст информации о контенте</value>
         <value xml:lang="th">ข้อความข้อมูลหัวข้อ</value>
@@ -15397,6 +15541,7 @@
         <value xml:lang="fr">Préfixe du fichier de mise en place du contenu</value>
         <value xml:lang="it">Prefisso percorso del contenuto</value>
         <value xml:lang="ja">コンテンツパス接頭語</value>
+        <value xml:lang="nl">Prefix content-pad</value>
         <value xml:lang="ro">Continut Prefix Parcurs </value>
         <value xml:lang="ru">Префикс пути к контенту</value>
         <value xml:lang="th">ส่วนหัวข้อก่อนหน้า</value>
@@ -15411,6 +15556,7 @@
         <value xml:lang="fr">Contenu du message (format simple)</value>
         <value xml:lang="it">Plain body</value>
         <value xml:lang="ja">プレーン本文</value>
+        <value xml:lang="nl">Platte tekst</value>
         <value xml:lang="ro">Plan Body</value>
         <value xml:lang="ru">Обычный текст</value>
         <value xml:lang="th">ใจความเรียบง่าย</value>
@@ -15425,6 +15571,7 @@
         <value xml:lang="fr">Contenu [Réf.]</value>
         <value xml:lang="it">Contenuto [Codice]</value>
         <value xml:lang="ja">コンテンツ [ID]</value>
+        <value xml:lang="nl">Content [ID]</value>
         <value xml:lang="ro">Continut [Cod]</value>
         <value xml:lang="ru">Контент [Код]</value>
         <value xml:lang="th">หัวข้อ [รหัส]</value>
@@ -15439,6 +15586,7 @@
         <value xml:lang="fr">Associe les articles de cette catégorie à une autre catégorie</value>
         <value xml:lang="it">Copia i prodotti di questa categoria in un'altra categoria</value>
         <value xml:lang="ja">別のカテゴリに製品カテゴリメンバをコピー</value>
+        <value xml:lang="nl">Categorie kopieëren</value>
         <value xml:lang="ro">Copiaza Membri Categorie Produs la o Alta Categorie</value>
         <value xml:lang="ru">Копировать продукты категории в другую категорию</value>
         <value xml:lang="th">คัดลอกสมาชิกหมวดหมู่สินค้าถึงหมวดหมู่อื่น ๆ</value>
@@ -15449,14 +15597,17 @@
     <property key="ProductCostComponentCalcId">
         <value xml:lang="de">Kostenkomponente Kalkulations ID</value>
         <value xml:lang="en">Cost Component Calc ID</value>
+        <value xml:lang="nl">Calculatie ID</value>
         <value xml:lang="zh">成本组成计算标识</value>
     </property>
     <property key="ProductCostComponentCalcs">
         <value xml:lang="en">Cost Component Calcs</value>
+        <value xml:lang="nl">Calculaties</value>
     </property>
     <property key="ProductCostGlAccountTypeId">
         <value xml:lang="de">Kosten Hauptbuch Konto Typ ID</value>
         <value xml:lang="en">Cost Gl Account Type ID</value>
+        <value xml:lang="nl">Grootboek ID kosten</value>
         <value xml:lang="zh">成本总账账户类型标识</value>
         <value xml:lang="zh-TW">Cost Gl Account Type ID</value>
     </property>
@@ -15467,6 +15618,7 @@
         <value xml:lang="fr">Prix coûtant</value>
         <value xml:lang="it">Prezzo di Costo</value>
         <value xml:lang="ja">原価価格</value>
+        <value xml:lang="nl">Kostprijs</value>
         <value xml:lang="th">ราคาค่าใช้จ่าย</value>
         <value xml:lang="vi">Giá</value>
         <value xml:lang="zh">成本价</value>
@@ -15479,6 +15631,7 @@
         <value xml:lang="fr">Coûts</value>
         <value xml:lang="it">Costi</value>
         <value xml:lang="ja">原価</value>
+        <value xml:lang="nl">Kosten</value>
         <value xml:lang="ro">Costuri</value>
         <value xml:lang="ru">Затраты</value>
         <value xml:lang="th">ค่าใช้จ่าย</value>
@@ -15493,6 +15646,7 @@
         <value xml:lang="fr">Impossible de trouver le lieu de stockage avec sa référence</value>
         <value xml:lang="it">Non Trovata Stabilimento con Codice</value>
         <value xml:lang="ja">拠点が見つかりません、ID</value>
+        <value xml:lang="nl">Faciliteit niet gevonden</value>
         <value xml:lang="ro">Negasit Compartiment cu Cod</value>
         <value xml:lang="ru">Невозможно найти объект с кодом</value>
         <value xml:lang="th">ไม่พบคลังสินค้าด้วยรหัส</value>
@@ -15507,6 +15661,7 @@
         <value xml:lang="fr">Article non trouvé</value>
         <value xml:lang="it">Non Trovato Prodotto con Codice</value>
         <value xml:lang="ja">製品が見つかりません、ID</value>
+        <value xml:lang="nl">Product niet gevonden</value>
         <value xml:lang="ro">Negasit Produs cu Cod</value>
         <value xml:lang="ru">Невозможно найти продукт с кодом</value>
         <value xml:lang="th">ไม่สามารถพบสินค้าด้วยรหัส</value>
@@ -15521,6 +15676,7 @@
         <value xml:lang="fr">Aucun catalogue avec cette réf.</value>
         <value xml:lang="it">Non Trovata Catalogo Prodotti con Codice</value>
         <value xml:lang="ja">製品カタログが見つかりません、ID</value>
+        <value xml:lang="nl">Catalogus niet gevonden</value>
         <value xml:lang="ro">Negasit Catalog Produs cu Cod</value>
         <value xml:lang="ru">Невозможно найти каталог продуктов с кодом</value>
         <value xml:lang="th">ไม่สามารถพบหมวดหมู่สินค้าด้วยรหัส</value>
@@ -15535,6 +15691,7 @@
         <value xml:lang="fr">Impossible de trouver la catégorie d'article avec cette réf.</value>
         <value xml:lang="it">Non Trovata Categoria Prodotto con Codice</value>
         <value xml:lang="ja">製品カテゴリが見つかりません、ID</value>
+        <value xml:lang="nl">Categorie niet gevonden</value>
         <value xml:lang="ro">Negasita Categoriea Produs cu Cod</value>
         <value xml:lang="ru">Невозможно найти категорию продуктов с кодом</value>
         <value xml:lang="th">ไม่สามารถพบหมวดหมู่สินค้าด้วยรหัส</value>
@@ -15549,6 +15706,7 @@
         <value xml:lang="fr">Impossible de trouver la caractéristique de l'article avec cette réf.</value>
         <value xml:lang="it">Nessun elemento di configurazione trovato con questo codice</value>
         <value xml:lang="ja">製品設定アイテムが見つかりません、ID</value>
+        <value xml:lang="nl">Configuratie-item niet gevonden</value>
         <value xml:lang="ro">Negasita Linea Configuratie Produs cu Cod</value>
         <value xml:lang="ru">Невозможно найти элемент конфигурации продукта с кодом</value>
         <value xml:lang="th">ไม่สามารถพบรายการสร้างสินค้าด้วยรหัส</value>
@@ -15563,6 +15721,7 @@
         <value xml:lang="fr">Aucune article configurable avec cette réf.</value>
         <value xml:lang="it">Nessun elemento di configurazione trovato con codice</value>
         <value xml:lang="ja">設定アイテムが見つかりません、ID</value>
+        <value xml:lang="nl">Configuratie-item niet gevonden</value>
         <value xml:lang="ro">Negasita Linie Configuratie cu Cod</value>
         <value xml:lang="ru">Невозможно найти элемент конфигурации с кодом</value>
         <value xml:lang="th">ไม่สามารถพบรายการสร้างด้วยรหัส</value>
@@ -15577,6 +15736,7 @@
         <value xml:lang="fr">Aucun type de caractérisdique d'article avec cette réf.</value>
         <value xml:lang="it">Non Trovata Tipo Caratteristica Prodotto con Codice</value>
         <value xml:lang="ja">製品機能種類が見つかりません、ID</value>
+        <value xml:lang="nl">Kenmerk niet gevonden</value>
         <value xml:lang="ro">Negasit Tip Caracteristica Produs cu Cod</value>
         <value xml:lang="ru">Невозможно найти тип особенности продукта с кодом</value>
         <value xml:lang="th">ไม่สามารถพบประเภทลักษณะสินค้าด้วยรหัส</value>
@@ -15591,6 +15751,7 @@
         <value xml:lang="fr">Aucun code de promotion trouvé avec cette réf.</value>
         <value xml:lang="it">Nessun codice promozione trovato con codice</value>
         <value xml:lang="ja">製品プロモーションコードが見つかりません、ID</value>
+        <value xml:lang="nl">Promo niet gevonden</value>
         <value xml:lang="ro">Negasit Cod Promotie Produs cu Cod</value>
         <value xml:lang="ru">Невозможно найти код акции с кодом</value>
         <value xml:lang="th">ไม่สามารถพบรหัสโปรโมชันสินค้าด้วยรหัส</value>
@@ -15605,6 +15766,7 @@
         <value xml:lang="fr">Aucune promotion avec cette réf.</value>
         <value xml:lang="it">Non Trovata Promozione Prodotto con Codice</value>
         <value xml:lang="ja">製品プロモーションが見つかりません、ID</value>
+        <value xml:lang="nl">Promo niet gevonden</value>
         <value xml:lang="ro">Negasit Promotie Produs cu Cod</value>
         <value xml:lang="ru">Невозможно найти акцию с кодом</value>
         <value xml:lang="th">ไม่สามารถพบสินค้าโปรโมชันด้วยรหัส</value>
@@ -15619,6 +15781,7 @@
         <value xml:lang="fr">Aucune expédition avec cette réf.</value>
         <value xml:lang="it">Non Trovata Spedizione con Numero</value>
         <value xml:lang="ja">発送が見つかりません、ID</value>
+        <value xml:lang="nl">Zending niet gevonden</value>
         <value xml:lang="ro">Negasita Expediere cu Numar</value>
         <value xml:lang="ru">Невозможно найти поставку с кодом</value>
         <value xml:lang="th">ไม่สามารถพบการขนส่งด้วยรหัส</value>
@@ -15630,6 +15793,7 @@
         <value xml:lang="en">Country of Origin</value>
         <value xml:lang="it">Paese di origine</value>
         <value xml:lang="ja">国(元)</value>
+        <value xml:lang="nl">Land van oorsprong</value>
         <value xml:lang="vi">Nước sản xuất</value>
         <value xml:lang="zh">原产地</value>
         <value xml:lang="zh-TW">原產地</value>
@@ -15638,6 +15802,7 @@
         <value xml:lang="de">Aktion erstellen</value>
         <value xml:lang="en">Create Action</value>
         <value xml:lang="ja">アクションを作成</value>
+        <value xml:lang="nl">Actie aanmaken</value>
         <value xml:lang="vi">Tạo hành động</value>
         <value xml:lang="zh">创建操作</value>
         <value xml:lang="zh-TW">新建操作</value>
@@ -15649,6 +15814,7 @@
         <value xml:lang="fr">Créer une catégorie de caractéristique</value>
         <value xml:lang="it">Creare una Categoria Caratteristica Prodotto</value>
         <value xml:lang="ja">製品機能カテゴリを作成</value>
+        <value xml:lang="nl">Kenmerk-categorie aanmaken</value>
         <value xml:lang="ro">Creaza o Categorie Caracteristica Produs</value>
         <value xml:lang="ru">Создание категории особенностей продукта</value>
         <value xml:lang="th">สร้างหมวดหมู่ลักษณะสินค้า</value>
@@ -15660,6 +15826,7 @@
         <value xml:lang="de">Bedingung erstellen</value>
         <value xml:lang="en">Create Condition</value>
         <value xml:lang="ja">条件を作成</value>
+        <value xml:lang="nl">Conditie aanmaken</value>
         <value xml:lang="vi">Ghi các điều kiện</value>
         <value xml:lang="zh">创建条件</value>
         <value xml:lang="zh-TW">新建條件</value>
@@ -15671,6 +15838,7 @@
         <value xml:lang="fr">Créer des informations pour un nouveau fournisseur</value>
         <value xml:lang="it">Creare informazione per un nuovo fornitore</value>
         <value xml:lang="ja">新規サプライヤの情報を作成</value>
+        <value xml:lang="nl">Informatie voor nieuwe leverancier aanmaken</value>
         <value xml:lang="ro">Creaza informatii pentru un nou furnizor</value>
         <value xml:lang="ru">Создать информацию для нового поставщика</value>
         <value xml:lang="th">สร้างข้อมูลสำหรับผู้จัดหาสิ่งของใหม่</value>
@@ -15685,6 +15853,7 @@
         <value xml:lang="fr">Création d'un nouveau catalogue</value>
         <value xml:lang="it">Creare nuovo catalogo</value>
         <value xml:lang="ja">新規カタログを作成</value>
+        <value xml:lang="nl">Nieuwe catalogus</value>
         <value xml:lang="nl">Aanmaken nieuwe catalogus</value>
         <value xml:lang="ro">Creare Nou Catalog</value>
         <value xml:lang="ru">Новый каталог</value>
@@ -15714,6 +15883,7 @@
         <value xml:lang="fr">Créer de nouvelles options de configuration</value>
         <value xml:lang="it">Creare nuove opzioni di prodotti configurabili</value>
         <value xml:lang="ja">新規設定オプションを作成</value>
+        <value xml:lang="nl">Nieuwe configuratie-optie</value>
         <value xml:lang="vi">Tạo mới cấu hình lựa chọn thêm</value>
         <value xml:lang="zh">新建配置选项</value>
         <value xml:lang="zh-TW">新建配置選項</value>
@@ -15725,6 +15895,7 @@
         <value xml:lang="fr">Création d'un nouveau lieu de stockage</value>
         <value xml:lang="it">Nuovo stabilimento</value>
         <value xml:lang="ja">新規拠点を作成</value>
+        <value xml:lang="nl">Nieuwe faciliteit</value>
         <value xml:lang="ro">Creare Nou Compartiment</value>
         <value xml:lang="ru">Создать новый объект</value>
         <value xml:lang="th">สร้างคลังสินค้าใหม่</value>
@@ -15739,6 +15910,7 @@
         <value xml:lang="fr">Création d'une nouvelle caractéristique</value>
         <value xml:lang="it">Creare nuova caratteristica</value>
         <value xml:lang="ja">新規機能を作成</value>
+        <value xml:lang="nl">Nieuw kenmerk</value>
         <value xml:lang="ro">Creare Noua Caracteristica</value>
         <value xml:lang="ru">Создать новую особенность</value>
         <value xml:lang="th">สร้างลักษณะใหม่</value>
@@ -15753,6 +15925,7 @@
         <value xml:lang="fr">Créer une ligne de stock pour ce lieu de stockage</value>
         <value xml:lang="it">Creare Nuova Riga Inventario per questo Stabilimento</value>
         <value xml:lang="ja">この拠点の新規在庫アイテムを作成</value>
+        <value xml:lang="nl">Nieuwe voorraadregel voor deze faciliteit</value>
         <value xml:lang="ro">Creare Noua Linie Inventar pentru acest Compartiment </value>
         <value xml:lang="ru">Создать новую позицию ТМЦ для этого объекта</value>
         <value xml:lang="th">สร้างรายการสินค้าคงเหลือใหม่สำรับคลังสินค้านี้</value>
@@ -15767,6 +15940,7 @@
         <value xml:lang="fr">Créer une ligne de stock pour cet article</value>
         <value xml:lang="it">Creare Nuova Riga Inventario per questo Prodotto</value>
         <value xml:lang="ja">この製品の新規在庫アイテムを作成</value>
+        <value xml:lang="nl">Nieuwe voorraadregel voor dit product</value>
         <value xml:lang="ro">Creare Noua Linie Inventar pentru acest Produs</value>
         <value xml:lang="ru">Создать новую позицию ТМЦ для этого продукта</value>
         <value xml:lang="th">สร้างรายการสินค้าคงเหลือสำหรับสินค้านี้</value>
@@ -15781,6 +15955,7 @@
         <value xml:lang="fr">Création d'un nouveau catalogue</value>
         <value xml:lang="it">Creare nuovo catalogo</value>
         <value xml:lang="ja">新規製品カタログを作成</value>
+        <value xml:lang="nl">Nieuwe productcatalogus</value>
         <value xml:lang="ro">Creare Nou Produs Catalog</value>
         <value xml:lang="ru">Создать новый каталог</value>
         <value xml:lang="th">สร้างหมวดหมู่สินค้าใหม่</value>
@@ -15795,7 +15970,7 @@
         <value xml:lang="fr">Création d'un nouvel article</value>
         <value xml:lang="it">Creare nuovo prodotto</value>
         <value xml:lang="ja">新規製品を作成</value>
-        <value xml:lang="nl">Aanmaken nieuw product</value>
+        <value xml:lang="nl">Nieuw product</value>
         <value xml:lang="ro">Creare Nou Produs</value>
         <value xml:lang="ru">Новый продукт</value>
         <value xml:lang="th">สร้างสินค้าใหม่</value>
@@ -15810,6 +15985,7 @@
         <value xml:lang="fr">Création d'un nouveau contenu pour une ligne de configuration d'article</value>
         <value xml:lang="it">Creare Nuova Riga Contenuto Configurazione Prodotto</value>
         <value xml:lang="ja">新規製品設定アイテムコンテンツを作成</value>
+        <value xml:lang="nl">Nieuwe content voor configuratie-optie</value>
         <value xml:lang="ro">Creare Noua Linie Continut Configuratie Produs</value>
         <value xml:lang="ru">Создать контент позиции конфигуратора продуктов</value>
         <value xml:lang="th">สร้างหัวข้อรายการสร้างสินค้าใหม่</value>
@@ -15824,6 +16000,7 @@
         <value xml:lang="fr">Ajout d'un élément de contenu à l'article</value>
         <value xml:lang="it">Creare Nuovo Contenuto Prodotto</value>
         <value xml:lang="ja">新規製品コンテンツを作成</value>
+        <value xml:lang="nl">Nieuwe content</value>
         <value xml:lang="ro">Creare Nou Continut Produs</value>
         <value xml:lang="ru">Создание нового контента для продукта</value>
         <value xml:lang="th">สร้างหัวข้อสินค้าใหม่</value>
@@ -15838,6 +16015,7 @@
         <value xml:lang="fr">Création d'une promotion</value>
         <value xml:lang="it">Creare nuova promozione</value>
         <value xml:lang="ja">新規製品プロモーションを作成</value>
+        <value xml:lang="nl">Promo aanmaken</value>
         <value xml:lang="ro">Creare Noua Promotie Produs</value>
         <value xml:lang="ru">Создать новое предложение</value>
         <value xml:lang="th">สร้างโปรโมชันสินค้าใหม่</value>
@@ -15852,7 +16030,7 @@
         <value xml:lang="fr">Création d'un nouveau centre de profit</value>
         <value xml:lang="it">Nuovo negozio</value>
         <value xml:lang="ja">新規製品店舗を作成</value>
-        <value xml:lang="nl">Aanmaken nieuwe winkel</value>
+        <value xml:lang="nl">Winkel aanmaken</value>
         <value xml:lang="ro">Creare Nou Magazin</value>
         <value xml:lang="ru">Создать новый склад</value>
         <value xml:lang="th">สร้างคลังสินค้าใหม่</value>
@@ -15867,6 +16045,7 @@
         <value xml:lang="fr">Nouveau site web</value>
         <value xml:lang="it">Nuovo sito web</value>
         <value xml:lang="ja">新規Webサイトを作成</value>
+        <value xml:lang="nl">Website aanmaken</value>
         <value xml:lang="vi">Trang thông tin mới</value>
         <value xml:lang="zh">新建站点</value>
         <value xml:lang="zh-TW">新建網頁站台</value>
@@ -15878,6 +16057,7 @@
         <value xml:lang="fr">Création d'une liste de préparation</value>
         <value xml:lang="it">Creare Lista di Prelievo</value>
         <value xml:lang="ja">ピッキング一覧を作成</value>
+        <value xml:lang="nl">Picklijst aanmaken</value>
         <value xml:lang="ro">Creare Lista de Preluare </value>
         <value xml:lang="ru">Создать список сортировки</value>
         <value xml:lang="th">สร้างรายการเลือก</value>
@@ -15892,6 +16072,7 @@
         <value xml:lang="fr">Création d'un article</value>
         <value xml:lang="it">Creare Prodotto</value>
         <value xml:lang="ja">製品を作成</value>
+        <value xml:lang="nl">Product aanmaken</value>
         <value xml:lang="ro">Creare Produs</value>
         <value xml:lang="ru">Создать продукт</value>
         <value xml:lang="th">สร้างสินค้า</value>
@@ -15906,6 +16087,7 @@
         <value xml:lang="fr">Créer un nouveau groupe de catégories</value>
         <value xml:lang="it">Creare un gruppo di caratteristiche prodotto</value>
         <value xml:lang="ja">製品機能グループを作成</value>
+        <value xml:lang="nl">Kenmerk(en)-groep aanmaken</value>
         <value xml:lang="ro">Creare un Grup Caracteristica Produs</value>
         <value xml:lang="ru">Создание группы особенностей продукта</value>
         <value xml:lang="th">สร้างกลุ่มลักษณะสินค้า</value>
@@ -15920,6 +16102,7 @@
         <value xml:lang="fr">Créeation d'une caractéristique dans la catégorie</value>
         <value xml:lang="it">Creare Caratteristica Prodotto in Questa Categoria</value>
         <value xml:lang="ja">このカテゴリに製品機能を作成</value>
+        <value xml:lang="nl">Kenmerk in deze categorie aanmaken</value>
         <value xml:lang="ro">Creare Caracteristica Produs in Aceasta Categorie</value>
         <value xml:lang="ru">Создать особенность продукта в этой категории</value>
         <value xml:lang="th">สร้างลักษณะสินค้าในหมวดหมู่นี้</value>
@@ -15934,6 +16117,7 @@
         <value xml:lang="fr">Création d'un article dans la catégorie</value>
         <value xml:lang="it">Nuovo prodotto in categoria</value>
         <value xml:lang="ja">カテゴリに製品を作成</value>
+        <value xml:lang="nl">Product in deze categorie aanmaken</value>
         <value xml:lang="ro">Creare Produs in Categoria</value>
         <value xml:lang="ru">Создать продукт в категории</value>
         <value xml:lang="th">สร้างสินค้าในหมวดหมู่</value>
@@ -15948,6 +16132,7 @@
         <value xml:lang="fr">Création de l'article dans la catégorie recherchée</value>
         <value xml:lang="it">Creare Prodotto nella Categoria Controllo Esistenza</value>
         <value xml:lang="ja">存在を確認してカテゴリに製品を作成</value>
+        <value xml:lang="nl">Product in deze categorie aanmaken en bestaande controleren</value>
         <value xml:lang="ro">Creare Produs in Categorie Control Existenta</value>
         <value xml:lang="ru">Создать продукт в категории, проверка на совпадение</value>
         <value xml:lang="th">สร้างสินค้าในหมวดหมู่ตรวจสอบที่มีอยู่</value>
@@ -15975,6 +16160,7 @@
         <value xml:lang="fr">Création du rôle de centre de profit</value>
         <value xml:lang="it">Creare Ruolo Negozio</value>
         <value xml:lang="ja">製品店舗ロールを作成</value>
+        <value xml:lang="nl">Rol winkel aanmaken</value>
         <value xml:lang="ro">Creare Rol Magazin</value>
         <value xml:lang="ru">Создать роль торг. точки</value>
         <value xml:lang="th">สร้างสถานะคลังสินค้า</value>
@@ -15989,6 +16175,7 @@
         <value xml:lang="fr">Création d'une règle</value>
         <value xml:lang="it">Creare regola</value>
         <value xml:lang="ja">ルールを作成</value>
+        <value xml:lang="nl">Formule aanmaken</value>
         <value xml:lang="ro">Creare Rol</value>
         <value xml:lang="ru">Создать роль</value>
         <value xml:lang="th">สร้างข้อบังคับ</value>
@@ -16013,6 +16200,7 @@
         <value xml:lang="fr">Créer un article virtuel</value>
         <value xml:lang="it">Creare Prodotto Virtuale</value>
         <value xml:lang="ja">仮想製品を作成</value>
+        <value xml:lang="nl">Virtueel product aanmaken</value>
         <value xml:lang="ro">Creare Produs Virtual</value>
         <value xml:lang="ru">Создать виртуальный продукт</value>
         <value xml:lang="th">สร้างสินค้าโดยทั้งหมด</value>
@@ -16027,6 +16215,7 @@
         <value xml:lang="fr">Créé par l'identifiant de connexion</value>
         <value xml:lang="it">Creato Da Utente</value>
         <value xml:lang="ja">作成ログインユーザ</value>
+        <value xml:lang="nl">Aangemaakt door</value>
         <value xml:lang="ro">Creat De Utilizator </value>
         <value xml:lang="ru">Создан пользователем</value>
         <value xml:lang="th">สร้างโดยการลอกอินเข้าสู่ระบบของผู้ใช้</value>
@@ -16041,6 +16230,7 @@
         <value xml:lang="fr">Date créée</value>
         <value xml:lang="it">Data Creazione</value>
         <value xml:lang="ja">作成日</value>
+        <value xml:lang="nl">Datum aangemaakt</value>
         <value xml:lang="ro">Data Creatie </value>
         <value xml:lang="ru">Дата создания</value>
         <value xml:lang="th">สร้างวันที่</value>
@@ -16055,6 +16245,7 @@
         <value xml:lang="fr">créé/modifié par</value>
         <value xml:lang="it">creato/modificato da</value>
         <value xml:lang="ja">作成者/更新者</value>
+        <value xml:lang="nl">Datum gewijzigd</value>
         <value xml:lang="th">สร้าง/ปรับปรุงโดย</value>
         <value xml:lang="vi">tạo/hiệu chỉnh bởi</value>
         <value xml:lang="zh">创建者/修订者</value>
@@ -16088,6 +16279,7 @@
         <value xml:lang="fr">Monnaie</value>
         <value xml:lang="it">Valuta</value>
         <value xml:lang="ja">通貨</value>
+        <value xml:lang="nl">Valuta</value>
         <value xml:lang="ro">Valuta</value>
         <value xml:lang="ru">Валюта</value>
         <value xml:lang="th">สกุลเงิน</value>
@@ -16102,6 +16294,7 @@
         <value xml:lang="fr">Symbole de la monnaie</value>
         <value xml:lang="it">Valuta</value>
         <value xml:lang="ja">通貨単位</value>
+        <value xml:lang="nl">Valuta</value>
         <value xml:lang="ro">Valuta</value>
         <value xml:lang="ru">Валюта</value>
         <value xml:lang="th">หน่วยวัดสกุลเงิน</value>
@@ -16116,6 +16309,7 @@
         <value xml:lang="fr">Réf. du symbole de la monnaie</value>
         <value xml:lang="it">Valuta</value>
         <value xml:lang="ja">通貨単位ID</value>
+        <value xml:lang="nl">Valuta</value>
         <value xml:lang="ro">Valuta</value>
         <value xml:lang="ru">Валюта</value>
         <value xml:lang="th">รหัสหน่วยวัดสกุลเงิน</value>
@@ -16129,6 +16323,7 @@
         <value xml:lang="fr">Séquence d'empaquetage actuelle</value>
         <value xml:lang="it">Attuale sequenza pacco</value>
         <value xml:lang="ja">現在の梱包順序</value>
+        <value xml:lang="nl">Actuele packvolgorde</value>
         <value xml:lang="vi">Thứ tự lô hàng hiện tại</value>
         <value xml:lang="zh">当前包装顺序</value>
         <value xml:lang="zh-TW">當前包裝順序</value>
@@ -16138,6 +16333,7 @@
         <value xml:lang="en">Custom Method</value>
         <value xml:lang="it">Metodo personalizzato pagamento</value>
         <value xml:lang="ja">カスタム方法</value>
+        <value xml:lang="nl">Speciale methodee</value>
         <value xml:lang="vi">Phương pháp tùy chỉnh</value>
         <value xml:lang="zh">定制方法</value>
         <value xml:lang="zh-TW">客製方法</value>
@@ -16149,6 +16345,7 @@
         <value xml:lang="fr">Client</value>
         <value xml:lang="it">Cliente</value>
         <value xml:lang="ja">顧客</value>
+        <value xml:lang="nl">Klant</value>
         <value xml:lang="ru">Заказчик</value>
         <value xml:lang="th">ลุกค้า</value>
         <value xml:lang="vi">Khách hàng</value>
@@ -16163,6 +16360,7 @@
         <value xml:lang="hi-IN">खरीदारो का मापदन्ड</value>
         <value xml:lang="it">Valutazione dei clienti</value>
         <value xml:lang="ja">顧客評価</value>
+        <value xml:lang="nl">Klantbeoordeling</value>
         <value xml:lang="nl">Klanten waardering</value>
         <value xml:lang="ro">Classificare Clienti</value>
         <value xml:lang="ru">Пользовательский рейтинг</value>
@@ -16184,6 +16382,7 @@
         <value xml:lang="fr">Filtre de la date</value>
         <value xml:lang="it">Data Filtro</value>
         <value xml:lang="ja">日付フィルタ</value>
+        <value xml:lang="nl">Filter datum</value>
         <value xml:lang="ro">Data Filtru</value>
         <value xml:lang="ru">Фильтр по дате</value>
         <value xml:lang="th">วันที่</value>
@@ -16204,6 +16403,7 @@
         <value xml:lang="fr">Date de réception</value>
         <value xml:lang="it">Data Ricezione</value>
         <value xml:lang="ja">受取日</value>
+        <value xml:lang="nl">Datum ontvangst</value>
         <value xml:lang="ro">Dat Receptie </value>
         <value xml:lang="ru">Дата получения</value>
         <value xml:lang="th">วันที่ได้รับ</value>
@@ -16218,6 +16418,7 @@
         <value xml:lang="fr">Délai d'expédition</value>
         <value xml:lang="it">Giorni Alla Spedizione</value>
         <value xml:lang="ja">発送までの日数</value>
+        <value xml:lang="nl">Dagen tot verzending</value>
         <value xml:lang="ro">Zile pana la Expediere</value>
         <value xml:lang="ru">Дней до поставки</value>
         <value xml:lang="th">วันการขนส่ง</value>
@@ -16270,6 +16471,7 @@
         <value xml:lang="fr">Nombre de jour avant l'envoi par défaut</value>
         <value xml:lang="it">Giorni di Default per la Spedizione</value>
         <value xml:lang="ja">発送までのデフォルト日数</value>
+        <value xml:lang="nl">Standaard dagen tot verzending</value>
         <value xml:lang="th">วันที่เริ่มต้นการขนส่ง</value>
         <value xml:lang="vi">Số ngày giao hàng mặc định</value>
         <value xml:lang="zh">运输的缺省天数</value>
@@ -16298,6 +16500,7 @@
         <value xml:lang="fr">N° de séquence par défaut</value>
         <value xml:lang="it">Numero di Sequenza Default</value>
         <value xml:lang="ja">デフォルト連番</value>
+        <value xml:lang="nl">Standaard volgnummer</value>
         <value xml:lang="ro">Numar de Secventa Default</value>
         <value xml:lang="ru">Обычный посл. номер</value>
         <value xml:lang="th">หมายเลขรายการค่าเริ่มต้น</value>
@@ -16311,6 +16514,7 @@
         <value xml:lang="fr">Réf. de carton d'emballage par défaut</value>
         <value xml:lang="it">Default tipo scatola di spedizione</value>
         <value xml:lang="ja">デフォルト発送箱種類ID</value>
+        <value xml:lang="nl">Standaard type kist</value>
         <value xml:lang="vi">Id Hộp bưu chính chuyển hàng mặc định</value>
         <value xml:lang="zh">缺省运输箱类型标识</value>
         <value xml:lang="zh-TW">預設運輸箱類型識別</value>
@@ -16336,6 +16540,7 @@
         <value xml:lang="fr">Défectueux</value>
         <value xml:lang="it">Difettoso</value>
         <value xml:lang="ja">欠陥</value>
+        <value xml:lang="nl">Defectief</value>
         <value xml:lang="ro">Defectuos</value>
         <value xml:lang="ru">Дефектный</value>
         <value xml:lang="th">ข้อบกพร่อง</value>
@@ -16350,6 +16555,7 @@
         <value xml:lang="fr">Détruire tous les mots clés</value>
         <value xml:lang="it">Cancella Tutte le Chiavi</value>
         <value xml:lang="ja">キーワードをすべて削除</value>
+        <value xml:lang="nl">Alle keywords verwijderen</value>
         <value xml:lang="ro">Sterge Toate Cheile </value>
         <value xml:lang="ru">Удалить все ключ. слова</value>
         <value xml:lang="th">ลบคีย์เวิร์ดทั้งหมด</value>
@@ -16364,6 +16570,7 @@
         <value xml:lang="fr">Profondeur</value>
         <value xml:lang="it">Profondità</value>
         <value xml:lang="ja">奥行</value>
+        <value xml:lang="nl">Diepte</value>
         <value xml:lang="ro">Profunzime</value>
         <value xml:lang="ru">Глубина</value>
         <value xml:lang="th">ความลึก</value>
@@ -16378,6 +16585,7 @@
         <value xml:lang="fr">Unité de mesure de profondeur [Réf.]</value>
         <value xml:lang="it">UdM Profondità</value>
         <value xml:lang="ja">奥行単位ID</value>
+        <value xml:lang="nl">Diepte UoM</value>
         <value xml:lang="ro">UdM Profunzime </value>
         <value xml:lang="ru">Ед. изм. глубины</value>
         <value xml:lang="th">รหัสหน่วยวัดความลึก</value>
@@ -16392,6 +16600,7 @@
         <value xml:lang="fr">Dest.</value>
         <value xml:lang="it">Destinazione</value>
         <value xml:lang="ja">対象</value>
+        <value xml:lang="nl">Bestemming</value>
         <value xml:lang="ro">Destinatie </value>
         <value xml:lang="ru">Назн</value>
         <value xml:lang="th">เป้าหมาย</value>
@@ -16406,6 +16615,7 @@
         <value xml:lang="fr">Lieu de stockage dest.</value>
         <value xml:lang="it">Dest. Stabilimento</value>
         <value xml:lang="ja">対象拠点</value>
+        <value xml:lang="nl">Faciliteit bestemming</value>
         <value xml:lang="ro">Dest. Compartiment</value>
         <value xml:lang="ru">Объект в пункте назначения</value>
         <value xml:lang="th">เป้าหมายคลังสินค้า</value>
@@ -16420,6 +16630,7 @@
         <value xml:lang="fr">Destination</value>
         <value xml:lang="it">Destinazione</value>
         <value xml:lang="ja">対象</value>
+        <value xml:lang="nl">Bestemming</value>
         <value xml:lang="ro">Destinatie </value>
         <value xml:lang="ru">Пункт назначения</value>
         <value xml:lang="th">เป้าหมาย</value>
@@ -16434,6 +16645,7 @@
         <value xml:lang="fr">Lieu de stockage de destination</value>
         <value xml:lang="it">Stabilimento Destinazione</value>
         <value xml:lang="ja">対象拠点</value>
+        <value xml:lang="nl">Faciliteit bestemming</value>
         <value xml:lang="ro">Compartiment Destinatie </value>
         <value xml:lang="ru">Объект назначения</value>
         <value xml:lang="th">เป้าหมายคลังสินค้า</value>
@@ -16448,6 +16660,7 @@
         <value xml:lang="fr">Le lieu de stockage de destination est</value>
         <value xml:lang="it">Stabilimento Destinazione è</value>
         <value xml:lang="ja">対象拠点は</value>
+        <value xml:lang="nl">Faciliteit bestemming is</value>
         <value xml:lang="ro">Compartiment Destinatie</value>
         <value xml:lang="ru">Объект назначения это</value>
         <value xml:lang="th">เป้าหมายคลังสินค้าคือ</value>
@@ -16462,6 +16675,7 @@
         <value xml:lang="fr">N° de tél. de destination</value>
         <value xml:lang="it">Numero Telefono Destinazione</value>
         <value xml:lang="ja">対象電話番号ID</value>
+        <value xml:lang="nl">Telefoonnr bestemming</value>
         <value xml:lang="ro">Numar Telefon Destinatie</value>
         <value xml:lang="ru">Код телефонного номера пункта назначения</value>
         <value xml:lang="th">รหัสหมายเลขเบอร์โทรศัพท์เป้าหมาย</value>
@@ -16476,6 +16690,7 @@
         <value xml:lang="fr">Adresse de destination</value>
         <value xml:lang="it">Indirizzo Postale Destinazione</value>
         <value xml:lang="ja">対象郵便番号ID</value>
+        <value xml:lang="nl">Adres bestemming</value>
         <value xml:lang="ro">Adresa Postala Destinatie</value>
         <value xml:lang="ru">Код почтового адреса пункта назначения</value>
         <value xml:lang="th">รหัสที่อยู่ไปรษณียฺเป้าหมาย</value>
@@ -16490,6 +16705,7 @@
         <value xml:lang="fr">Image détaillée</value>
         <value xml:lang="it">Dettaglio Immagine</value>
         <value xml:lang="ja">詳細画像</value>
+        <value xml:lang="nl">Detail-afbeelding</value>
         <value xml:lang="ro">Detaliu Imagine</value>
         <value xml:lang="ru">Подробное изображение</value>
         <value xml:lang="th">รายละเอียดรูปภาพ</value>
@@ -16504,6 +16720,7 @@
         <value xml:lang="fr">Canevas ftl d'affichage du détail</value>
         <value xml:lang="it">Schermo di dettaglio</value>
         <value xml:lang="ja">詳細画面</value>
+        <value xml:lang="nl">Detail-scherm</value>
         <value xml:lang="ro">Detaliu Videata</value>
         <value xml:lang="ru">Подробный экран категории</value>
         <value xml:lang="th">รายละเอียดหน้าจอ</value>
