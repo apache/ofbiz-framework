@@ -115,6 +115,7 @@ context.giftMessage = cart.getGiftMessage()
 context.isGift = cart.getIsGift()
 context.shipBeforeDate = cart.getShipBeforeDate()
 context.shipAfterDate = cart.getShipAfterDate()
+context.defaultReserveAfterDate = cart.getDefaultReserveAfterDate()
 
 shipmentMethodType = from("ShipmentMethodType").where("shipmentMethodTypeId", cart.getShipmentMethodTypeId()).queryOne()
 if (shipmentMethodType) context.shipMethDescription = shipmentMethodType.description

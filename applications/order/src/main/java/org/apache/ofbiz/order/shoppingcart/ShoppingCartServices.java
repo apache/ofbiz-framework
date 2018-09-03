@@ -521,6 +521,7 @@ public class ShoppingCartServices {
                 cartItem.setDesiredDeliveryDate(item.getTimestamp("estimatedDeliveryDate"));
                 cartItem.setShipBeforeDate(item.getTimestamp("shipBeforeDate"));
                 cartItem.setShipAfterDate(item.getTimestamp("shipAfterDate"));
+                cartItem.setReserveAfterDate(item.getTimestamp("reserveAfterDate"));
                 cartItem.setShoppingList(item.getString("shoppingListId"), item.getString("shoppingListItemSeqId"));
                 cartItem.setIsModifiedPrice("Y".equals(item.getString("isModifiedPrice")));
                 cartItem.setName(item.getString("itemDescription"));

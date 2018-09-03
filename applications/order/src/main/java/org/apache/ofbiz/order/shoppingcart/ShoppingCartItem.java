@@ -137,6 +137,7 @@ public class ShoppingCartItem implements java.io.Serializable {
     private Locale locale = null;
     private Timestamp shipBeforeDate = null;
     private Timestamp shipAfterDate = null;
+    private Timestamp reserveAfterDate = null;
     private Timestamp estimatedShipDate = null;
     private Timestamp cancelBackOrderDate = null;
 
@@ -295,11 +296,27 @@ public class ShoppingCartItem implements java.io.Serializable {
             throws CartItemModifyException, ItemNotFoundException {
 
         return makeItem(cartLocation,productId,selectedAmount,quantity,unitPrice,
-                reservStart,reservLength,reservPersons,null,null,shipBeforeDate,shipAfterDate,
+                reservStart,reservLength,reservPersons,null,null,shipBeforeDate,shipAfterDate, null,
                 additionalProductFeatureAndAppls,attributes,prodCatalogId,configWrapper,
                 itemType,itemGroup,dispatcher,cart,triggerExternalOpsBool,triggerPriceRulesBool,
                 parentProductId,skipInventoryChecks,skipProductChecks);
 
+    }
+
+    /*
+     * Makes a ShoppingCartItem and adds it to the cart.
+     * @param reserveAfterDate Optional.
+    */
+    public static ShoppingCartItem makeItem(Integer cartLocation, String productId, BigDecimal selectedAmount, BigDecimal quantity, BigDecimal unitPrice,
+            Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons,String accommodationMapId,String accommodationSpotId, Timestamp shipBeforeDate, Timestamp shipAfterDate,
+            Map<String, GenericValue> additionalProductFeatureAndAppls, Map<String, Object> attributes, String prodCatalogId, ProductConfigWrapper configWrapper,
+            String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, LocalDispatcher dispatcher, ShoppingCart cart, Boolean triggerExternalOpsBool, Boolean triggerPriceRulesBool, String parentProductId, Boolean skipInventoryChecks, Boolean skipProductChecks)
+            throws CartItemModifyException, ItemNotFoundException {
+        return makeItem(cartLocation, productId, selectedAmount, quantity, unitPrice,
+                        reservStart, reservLength, reservPersons, accommodationMapId, accommodationSpotId, shipBeforeDate, shipAfterDate, null,
+                        additionalProductFeatureAndAppls, attributes, prodCatalogId, configWrapper,
+                        itemType, itemGroup, dispatcher, cart, triggerExternalOpsBool, triggerPriceRulesBool,
+                        parentProductId, skipInventoryChecks, skipProductChecks);
     }
 
     /**
@@ -308,7 +325,7 @@ public class ShoppingCartItem implements java.io.Serializable {
      * @param accommodationSpotId Optional. reservations add into workeffort
      */
     public static ShoppingCartItem makeItem(Integer cartLocation, String productId, BigDecimal selectedAmount, BigDecimal quantity, BigDecimal unitPrice,
-            Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons,String accommodationMapId,String accommodationSpotId, Timestamp shipBeforeDate, Timestamp shipAfterDate,
+            Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons,String accommodationMapId,String accommodationSpotId, Timestamp shipBeforeDate, Timestamp shipAfterDate, Timestamp reserveAfterDate,
             Map<String, GenericValue> additionalProductFeatureAndAppls, Map<String, Object> attributes, String prodCatalogId, ProductConfigWrapper configWrapper,
             String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, LocalDispatcher dispatcher, ShoppingCart cart, Boolean triggerExternalOpsBool, Boolean triggerPriceRulesBool, String parentProductId, Boolean skipInventoryChecks, Boolean skipProductChecks)
             throws CartItemModifyException, ItemNotFoundException {
@@ -326,7 +343,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             }
         }
         return makeItem(cartLocation, product, selectedAmount, quantity, unitPrice,
-                reservStart, reservLength, reservPersons, accommodationMapId, accommodationSpotId, shipBeforeDate, shipAfterDate,
+                reservStart, reservLength, reservPersons, accommodationMapId, accommodationSpotId, shipBeforeDate, shipAfterDate, reserveAfterDate,
                 additionalProductFeatureAndAppls, attributes, prodCatalogId, configWrapper,
                 itemType, itemGroup, dispatcher, cart, triggerExternalOpsBool, triggerPriceRulesBool, parentProduct, skipInventoryChecks, skipProductChecks);
     }
@@ -368,7 +385,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
         return makeItem(cartLocation,product,selectedAmount,
                quantity,unitPrice,reservStart,reservLength,reservPersons,
-               null,null,shipBeforeDate,shipAfterDate,additionalProductFeatureAndAppls,attributes,
+               null,null,shipBeforeDate,shipAfterDate, null, additionalProductFeatureAndAppls,attributes,
                prodCatalogId,configWrapper,itemType,itemGroup,dispatcher,cart,
                triggerExternalOpsBool,triggerPriceRulesBool,parentProduct,skipInventoryChecks,skipProductChecks);
     }
@@ -381,7 +398,7 @@ public class ShoppingCartItem implements java.io.Serializable {
     public static ShoppingCartItem makeItem(Integer cartLocation, GenericValue product, BigDecimal selectedAmount,
             BigDecimal quantity, BigDecimal unitPrice, Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons,
             String accommodationMapId,String accommodationSpotId,
-            Timestamp shipBeforeDate, Timestamp shipAfterDate, Map<String, GenericValue> additionalProductFeatureAndAppls, Map<String, Object> attributes,
+            Timestamp shipBeforeDate, Timestamp shipAfterDate, Timestamp reserveAfterDate, Map<String, GenericValue> additionalProductFeatureAndAppls, Map<String, Object> attributes,
             String prodCatalogId, ProductConfigWrapper configWrapper, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, LocalDispatcher dispatcher,
             ShoppingCart cart, Boolean triggerExternalOpsBool, Boolean triggerPriceRulesBool, GenericValue parentProduct, Boolean skipInventoryChecks, Boolean skipProductChecks) throws CartItemModifyException {
 
@@ -466,6 +483,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         // set the ship before and after dates (defaults to cart ship before/after dates)
         newItem.setShipBeforeDate(shipBeforeDate != null ? shipBeforeDate : cart.getDefaultShipBeforeDate());
         newItem.setShipAfterDate(shipAfterDate != null ? shipAfterDate : cart.getDefaultShipAfterDate());
+        newItem.setReserveAfterDate(reserveAfterDate != null ? reserveAfterDate : cart.getDefaultReserveAfterDate());
 
         // set the product unit price as base price
         // if triggerPriceRules is true this price will be overriden
@@ -1492,6 +1510,16 @@ public class ShoppingCartItem implements java.io.Serializable {
     /** Returns the date to ship after */
     public Timestamp getShipAfterDate() {
         return this.shipAfterDate != null ? (Timestamp) this.shipAfterDate.clone() : null;
+    }
+
+    /** Sets the date to ship after */
+    public void setReserveAfterDate(Timestamp date) {
+        this.reserveAfterDate = date != null ? (Timestamp) date.clone() : null;
+    }
+
+    /** Returns the date to ship after */
+    public Timestamp getReserveAfterDate() {
+        return this.reserveAfterDate != null ? (Timestamp) this.reserveAfterDate.clone() : null;
     }
 
     /** Sets the cancel back order date */
