@@ -465,11 +465,11 @@ public final class EntityUtil {
             return null;
         }
 
-        Stream<T> tStream = genericValueList.stream().map(genericValue -> UtilGenerics.cast(genericValue.get(fieldName)));
+        Stream<T> fieldListStream = genericValueList.stream().map(genericValue -> UtilGenerics.cast(genericValue.get(fieldName)));
         if (distinct) {
-            return tStream.distinct().collect(toList());
+            return fieldListStream.distinct().collect(toList());
         } else {
-            return tStream.collect(toList());
+            return fieldListStream.collect(toList());
         }
     }
 
