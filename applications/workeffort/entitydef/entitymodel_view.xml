@@ -952,7 +952,6 @@ under the License.
         </view-link>
         <relation type="many" rel-entity-name="WorkEffortContactMech">
             <key-map field-name="workEffortId"/>
-            <key-map field-name="contactMechPurposeTypeId"/>
             <key-map field-name="contactMechId"/>
         </relation>
         <relation type="one-nofk" rel-entity-name="ContactMech">

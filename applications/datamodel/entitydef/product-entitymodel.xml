@@ -1060,7 +1060,7 @@ under the License.
             <key-map field-name="contactMechId"/>
         </view-link>
         <relation type="many" rel-entity-name="FacilityContactMech">
-            <key-map field-name="partyId"/>
+            <key-map field-name="facilityId"/>
             <key-map field-name="contactMechId"/>
         </relation>
         <relation type="one-nofk" rel-entity-name="Facility">
