@@ -547,6 +547,7 @@ under the License.
       <field name="dontCancelSetUserLogin" type="id-vlong"></field>
       <field name="shipBeforeDate" type="date-time"></field>
       <field name="shipAfterDate" type="date-time"></field>
+      <field name="reserveAfterDate" type="date-time"></field>
       <field name="cancelBackOrderDate" type="date-time"><description>Used to cancel all orders from suppliers when its in past</description></field>
       <field name="overrideGlAccountId" type="id"><description>Used to specify the override or actual glAccountId used for the adjustment, avoids problems if configuration changes after initial posting, etc.</description></field>
       <field name="salesOpportunityId" type="id"></field>
@@ -2973,6 +2974,5 @@ under the License.
             <key-map field-name="workEffortId"/>
         </relation>
     </entity>
-
  </entitymodel>
  

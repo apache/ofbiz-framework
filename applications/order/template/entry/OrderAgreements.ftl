@@ -175,6 +175,15 @@ under the License.
         </td>
       </tr>
 
+      <tr>
+        <td class="label">
+            <label>${uiLabelMap.OrderReserveAfterDateDefault}</label>
+        </td>
+        <td>
+            <@htmlTemplate.renderDateTimeField name="reserveAfterDate" event="" action="" value="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="25" maxlength="30" id="reserveAfterDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
+        </td>
+      </tr>
+
       <#if "PURCHASE_ORDER" == cart.getOrderType()>
         <tr>
           <td class="label">

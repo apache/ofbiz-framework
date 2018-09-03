@@ -12023,6 +12023,22 @@
         <value xml:lang="zh">要求使用促销代码。</value>
         <value xml:lang="zh-TW">要求使用促銷代碼.</value>
     </property>
+    <property key="OrderReserveAfterDate">
+         <value xml:lang="en">Reserve After Date</value>
+         <value xml:lang="fr">Réserver après cette date</value>
+    </property>
+    <property key="OrderReserveAfterDateDefault">
+         <value xml:lang="en">Default Reserve After Date</value>
+         <value xml:lang="fr">Date de réservation par défaut</value>
+    </property>
+    <property key="OrderReserveAfterDate">
+         <value xml:lang="en">Reserve After Date</value>
+         <value xml:lang="fr">RÃ©server aprÃ¨s cette date</value>
+    </property>
+    <property key="OrderReserveAfterDateDefault">
+         <value xml:lang="en">Default Reserve After Date</value>
+         <value xml:lang="fr">Date de rÃ©servation par dÃ©faut</value>
+    </property>
     <property key="OrderReturnAccept">
         <value xml:lang="ar">الموافقة للمسترجع</value>
         <value xml:lang="de">Retoure annehmen</value>

@@ -184,6 +184,17 @@ under the License.
                 </td>
             </tr>
         </#if>
+        <#if defaultReserveAfterDate?has_content>
+            <tr>
+                <td align="right" valign="top" width="15%">
+                    <div>&nbsp;<b>${uiLabelMap.OrderReserveAfterDate}</b></div>
+                </td>
+                <td width="5">&nbsp;</td>
+                <td valign="top" width="80%">
+                  <div>${defaultReserveAfterDate}</div>
+                </td>
+            </tr>
+        </#if>
         </table>
     </div>
 </div>

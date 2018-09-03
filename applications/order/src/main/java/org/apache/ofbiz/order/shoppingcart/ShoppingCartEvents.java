@@ -199,8 +199,10 @@ public class ShoppingCartEvents {
         String accommodationSpotId = null;
         String shipBeforeDateStr = null;
         String shipAfterDateStr = null;
+        String reserveAfterDateStr = null;
         Timestamp shipBeforeDate = null;
         Timestamp shipAfterDate = null;
+        Timestamp reserveAfterDate = null;
         String numberOfDay = null;
 
         // not used right now: Map attributes = null;
@@ -542,6 +544,20 @@ public class ShoppingCartEvents {
             }
         }
 
+        // get the reserve after date (handles both yyyy-mm-dd input and full timestamp)
+        reserveAfterDateStr = (String) paramMap.remove("reserveAfterDate");
+        if (UtilValidate.isNotEmpty(reserveAfterDateStr)) {
+            if (reserveAfterDateStr.length() == 10) {
+                reserveAfterDateStr += " 00:00:00.000";
+            }
+            try {
+                reserveAfterDate = java.sql.Timestamp.valueOf(reserveAfterDateStr);
+            } catch (IllegalArgumentException e) {
+                Debug.logWarning(e, "Bad reserveAfterDate input: " + e.getMessage(), module);
+                reserveAfterDate = null;
+            }
+        }
+
         // check for an add-to cart survey
         List<String> surveyResponses = null;
         if (productId != null) {
@@ -648,7 +664,7 @@ public class ShoppingCartEvents {
         result = cartHelper.addToCart(catalogId, shoppingListId, shoppingListItemSeqId, productId, productCategoryId,
                 itemType, itemDescription, price, amount, quantity, reservStart, reservLength, reservPersons,
                 accommodationMapId, accommodationSpotId,
-                shipBeforeDate, shipAfterDate, configWrapper, itemGroupNumber, paramMap, parentProductId);
+                shipBeforeDate, shipAfterDate, reserveAfterDate, configWrapper, itemGroupNumber, paramMap, parentProductId);
         controlDirective = processResult(result, request);
 
         Integer itemId = (Integer)result.get("itemId");
@@ -1911,6 +1927,7 @@ public class ShoppingCartEvents {
         String workEffortId = request.getParameter("workEffortId");
         String shipBeforeDateStr = request.getParameter("shipBeforeDate");
         String shipAfterDateStr = request.getParameter("shipAfterDate");
+        String reserveAfterDateStr = request.getParameter("reserveAfterDate");
         String cancelBackOrderDateStr = request.getParameter("cancelBackOrderDate");
         String orderId = request.getParameter("orderId");
         String orderName = request.getParameter("orderName");
@@ -1968,6 +1985,12 @@ public class ShoppingCartEvents {
                     shipAfterDateStr += " 00:00:00.000";
                 }
                 cart.setDefaultShipAfterDate(java.sql.Timestamp.valueOf(shipAfterDateStr));
+            }
+            if (UtilValidate.isNotEmpty(reserveAfterDateStr)) {
+                if (reserveAfterDateStr.length() == 10) {
+                    reserveAfterDateStr += " 00:00:00.000";
+                }
+                cart.setDefaultReserveAfterDate(java.sql.Timestamp.valueOf(reserveAfterDateStr));
             }
             if (UtilValidate.isNotEmpty(cancelBackOrderDateStr)) {
                 if (cancelBackOrderDateStr.length() == 10) {

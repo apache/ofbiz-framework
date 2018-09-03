@@ -113,12 +113,26 @@ public class ShoppingCartHelper {
                 configWrapper,itemGroupNumber,context,parentProductId);
     }
 
-    /** Event to add an item to the shopping cart with accommodation. */
+    /** Overriden for reserveAfterDate. */
     public Map<String, Object> addToCart(String catalogId, String shoppingListId, String shoppingListItemSeqId, String productId,
             String productCategoryId, String itemType, String itemDescription,
             BigDecimal price, BigDecimal amount, BigDecimal quantity,
             java.sql.Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons, String accommodationMapId,String accommodationSpotId,
             java.sql.Timestamp shipBeforeDate, java.sql.Timestamp shipAfterDate,
+            ProductConfigWrapper configWrapper, String itemGroupNumber, Map<String, ? extends Object> context, String parentProductId) {
+
+        return addToCart(catalogId,shoppingListId,shoppingListItemSeqId,productId,
+                productCategoryId,itemType,itemDescription,price,amount,quantity,
+                reservStart,reservLength,reservPersons,null,null,shipBeforeDate,shipAfterDate,null,
+                configWrapper,itemGroupNumber,context,parentProductId);
+    }
+
+    /** Event to add an item to the shopping cart with accommodation. */
+    public Map<String, Object> addToCart(String catalogId, String shoppingListId, String shoppingListItemSeqId, String productId,
+            String productCategoryId, String itemType, String itemDescription,
+            BigDecimal price, BigDecimal amount, BigDecimal quantity,
+            java.sql.Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons, String accommodationMapId,String accommodationSpotId,
+            java.sql.Timestamp shipBeforeDate, java.sql.Timestamp shipAfterDate, java.sql.Timestamp reserveAfterDate,
             ProductConfigWrapper configWrapper, String itemGroupNumber, Map<String, ? extends Object> context, String parentProductId) {
         Map<String, Object> result = null;
         Map<String, Object> attributes = null;
@@ -242,7 +256,7 @@ public class ShoppingCartHelper {
             if (productId != null) {
 
                        itemId = cart.addOrIncreaseItem(productId, amount, quantity, reservStart, reservLength,
-                                                reservPersons, accommodationMapId, accommodationSpotId, shipBeforeDate, shipAfterDate, additionalFeaturesMap, attributes,
+                                                reservPersons, accommodationMapId, accommodationSpotId, shipBeforeDate, shipAfterDate, reserveAfterDate, additionalFeaturesMap, attributes,
                                                 orderItemAttributes, catalogId, configWrapper, itemType, itemGroupNumber, pProductId, dispatcher);
 
             } else {
