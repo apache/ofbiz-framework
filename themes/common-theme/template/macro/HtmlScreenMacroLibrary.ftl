@@ -67,7 +67,7 @@ under the License.
     <#-- If a label widget has one of the h1-h6 styles, then it is considered block level element.
          Otherwise it is considered an inline element. -->
     <#local idText = ""/>
-    <#if id?has_content><#local idText = " id=\"${id}\""/></#if>
+    <#if id?has_content><#local idText = " id=&quot;${id}&quot;"/></#if>
     <#if style?has_content>
       <#if style=="h1">
         <h1${idText}>${text}</h1>
@@ -108,10 +108,10 @@ under the License.
             <#if imgStr?has_content>${imgStr}</#if><#if text?has_content>${text}</#if>
         </a>
     <#else>
-        <#local params = "{\"presentation\":\"layer\" ">
+        <#local params = "{&quot;presentation&quot;:&quot;layer&quot; ">
         <#if parameterList?has_content>
           <#list parameterList as parameter>
-            <#local params += ",\"${parameter.name}\": \"${parameter.value}\"">
+            <#local params += ",&quot;${parameter.name}&quot;: &quot;${parameter.value}&quot;">
           </#list>
         </#if>
         <#local params += "}">
