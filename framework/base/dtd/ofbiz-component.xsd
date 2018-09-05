@@ -54,7 +54,9 @@ under the License.
                          
                         Using depends-on allows to create a series of dependencies for component loading, before loading a particular component.
                         For instance we can define dependency for a component like component ebaystore is dependent on component ebay 
-                        (even multiple dependencies for a single component is also supported). 
+                        (even multiple dependencies for a single component is supported). 
+                        
+                        If any anomaly is found loading of components will stop.
                         
                         We can declare it in this fashion in ofbiz-component.xml file (beware ebaystore is disabled by default)
                         <![CDATA[
