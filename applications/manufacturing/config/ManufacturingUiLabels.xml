@@ -906,6 +906,7 @@
         <value xml:lang="fr">Ajouter le temps d'opération réel</value>
         <value xml:lang="it">Aggiungi tempo attuale operazione</value>
         <value xml:lang="ja">実績タスク時間を追加</value>
+        <value xml:lang="nl">Taak tijd toevoegen</value>
         <value xml:lang="pt-BR">Adicionar tempo de tarefa real</value>
         <value xml:lang="ro">Adauga Timp Actual Sarcina</value>
         <value xml:lang="th">เพิ่มเวลาการทำงานจริง</value>
@@ -1361,6 +1362,7 @@
         <value xml:lang="fr">Annulation</value>
         <value xml:lang="it">Annulla</value>
         <value xml:lang="ja">取消</value>
+        <value xml:lang="nl">Annuleer</value>
         <value xml:lang="pt-BR">Cancelar</value>
         <value xml:lang="ro">Sterge</value>
         <value xml:lang="th">ยกเลิก</value>
@@ -1375,6 +1377,7 @@
         <value xml:lang="fr">Commentaires</value>
         <value xml:lang="it">Commenti</value>
         <value xml:lang="ja">コメント</value>
+        <value xml:lang="nl">Opmerkingen</value>
         <value xml:lang="pt-BR">Comentário</value>
         <value xml:lang="ro">Comentarii</value>
         <value xml:lang="th">ความคิดเห็น</value>
@@ -1389,6 +1392,7 @@
         <value xml:lang="fr">OFBiz: Gestion de production</value>
         <value xml:lang="it">OFBiz: Gestione della produzione</value>
         <value xml:lang="ja">OFBiz: 生産管理</value>
+        <value xml:lang="nl">OFBiz: Manufacturing</value>
         <value xml:lang="pt-BR">OFBiz: Gestão de produção</value>
         <value xml:lang="ro">OFBiz: Gestiune Productie</value>
         <value xml:lang="th">OFBiz: การจัดการการผลิต</value>
@@ -1430,6 +1434,7 @@
         <value xml:lang="fr">Complet</value>
         <value xml:lang="it">Completa</value>
         <value xml:lang="ja">完了</value>
+        <value xml:lang="nl">Gecompleteerd</value>
         <value xml:lang="pt-BR">Completo</value>
         <value xml:lang="ro">Completeaza</value>
         <value xml:lang="th">เสร็จสิ้น</value>
@@ -1441,6 +1446,7 @@
         <value xml:lang="en">Configuration Not Available</value>
         <value xml:lang="it">Configurazione non disponibile</value>
         <value xml:lang="ja">設定は有効ではありません</value>
+        <value xml:lang="nl">Configuratie niet beschikbaar</value>
         <value xml:lang="pt-BR">Configuração não disponível</value>
         <value xml:lang="vi">Không được phép Cấu hình</value>
         <value xml:lang="zh">配置无效</value>
@@ -1453,6 +1459,7 @@
         <value xml:lang="fr">Confirmer</value>
         <value xml:lang="it">Conferma</value>
         <value xml:lang="ja">確認</value>
+        <value xml:lang="nl">Bevestigen</value>
         <value xml:lang="pt-BR">Confirmar</value>
         <value xml:lang="ro">Confirmare</value>
         <value xml:lang="th">ยืนยัน</value>
@@ -1467,6 +1474,7 @@
         <value xml:lang="fr">Copier une opération puis l'ajouter</value>
         <value xml:lang="it">Copia e aggiungi una operazione</value>
         <value xml:lang="ja">経路制御タスクをコピーおよび追加</value>
+        <value xml:lang="nl">Schema-taak kopiëren en toevoegen</value>
         <value xml:lang="pt-BR">Copiar a tarefa de roteamento e adicioná-la</value>
         <value xml:lang="ro">Copiaza si Adauga o Operatie </value>
         <value xml:lang="th">คัดลอกการทำงานและเพิ่มมัน</value>
@@ -1481,6 +1489,7 @@
         <value xml:lang="fr">Copie de la nomenclature</value>
         <value xml:lang="it">Copia distinte base</value>
         <value xml:lang="ja">部品表(BOM)をコピー</value>
+        <value xml:lang="nl">BoM kopiëren</value>
         <value xml:lang="pt-BR">Copiar estrutura de produtos (BOM)</value>
         <value xml:lang="ro">Copiaza Lista repere </value>
         <value xml:lang="th">คัดลอกรายการของสินค้า</value>
@@ -1495,6 +1504,7 @@
         <value xml:lang="fr">Réf. à l'article</value>
         <value xml:lang="it">Al codice prodotto</value>
         <value xml:lang="ja">製品ID(先)</value>
+        <value xml:lang="nl">Naar product</value>
         <value xml:lang="pt-BR">Para o Id de produto</value>
         <value xml:lang="ro">La Cod Produs</value>
         <value xml:lang="th">ถึงรหัสสินค้า</value>
@@ -1509,6 +1519,7 @@
         <value xml:lang="fr">Coûts</value>
         <value xml:lang="it">Costi</value>
         <value xml:lang="ja">原価</value>
+        <value xml:lang="nl">Kosten</value>
         <value xml:lang="pt-BR">Custos</value>
         <value xml:lang="ro">Cost</value>
         <value xml:lang="th">ราคา</value>
@@ -1521,6 +1532,7 @@
         <value xml:lang="fr">Créer une nomenclature</value>
         <value xml:lang="it">Creare distinta base</value>
         <value xml:lang="ja">部品表(BOM)を作成</value>
+        <value xml:lang="nl">Nieuwe BoM</value>
         <value xml:lang="pt-BR">Criar Estrutura de produtos (BOM)</value>
         <value xml:lang="th">สร้างรายการสินค้า</value>
         <value xml:lang="vi">Tạo mới Chào giá</value>
@@ -1534,6 +1546,7 @@
         <value xml:lang="fr">Créer un calendrier</value>
         <value xml:lang="it">Creare calendario</value>
         <value xml:lang="ja">カレンダを作成</value>
+        <value xml:lang="nl">Nieuwe kalender</value>
         <value xml:lang="pt-BR">Criar calendário</value>
         <value xml:lang="ro">Creare calendar</value>
         <value xml:lang="th">สร้างปฏิทิน</value>
@@ -1548,6 +1561,7 @@
         <value xml:lang="fr">Créer un calendier de semaine</value>
         <value xml:lang="it">Creare calendario settimanale</value>
         <value xml:lang="ja">カレンダ週を作成</value>
+        <value xml:lang="nl">Nieuwe kalenderweek</value>
         <value xml:lang="pt-BR">Criar calendário semanal</value>
         <value xml:lang="ro">Creare Calendar Saptamana</value>
         <value xml:lang="th">สร้างปฏิทินประจำสัปดาห์</value>
@@ -1560,6 +1574,7 @@
         <value xml:lang="fr">Créer des ordres de fabrications dépendant</value>
         <value xml:lang="it">Crea ordini di produzione dipendenti</value>
         <value xml:lang="ja">従属生産実行の作成</value>
+        <value xml:lang="nl">Afhankelijke productie-run(s) aanmaken</value>
         <value xml:lang="vi">Thêm các 'Chế tác lô hàng' phụ thuộc</value>
         <value xml:lang="zh">创建相关生产运行</value>
         <value xml:lang="zh-TW">新建相關生產運行</value>
@@ -1571,6 +1586,7 @@
         <value xml:lang="fr">Créer un groupe de machine</value>
         <value xml:lang="it">Creare un gruppo Macchine</value>
         <value xml:lang="ja">固定資産グループを作成</value>
+        <value xml:lang="nl">Nieuwe activa-groep</value>
         <value xml:lang="pt-BR">Criar grupo de ativos fixos</value>
         <value xml:lang="ro">Creare un grup de Mijloace Fixe</value>
         <value xml:lang="th">สร้างกลุ่มของสินทรัพย์ไม่หมุนเวียน</value>
@@ -1585,6 +1601,7 @@
         <value xml:lang="fr">Erreur de sécurité : Pour exécuter cette opération vous devez avoir l'autorisation MANUFACTURING_CREATE or MANUFACTURING_ADMIN</value>
         <value xml:lang="it">Errore Sicurezza: per eseguire questa operazione tu devi avere i permessi MANUFACTURING_CREATE o MANUFACTURING_ADMIN</value>
         <value xml:lang="ja">セキュリティエラー: この操作の実行には MANUFACTURING_CREATE または MANUFACTURING_ADMIN 権限が必要です</value>
+        <value xml:lang="nl">Permissie-error:u heeft aanvullende rechten nodig</value>
         <value xml:lang="pt-BR">Erro de segurança: para executar esta operação você deve ter permissões de MANUFACTURING_CREATE ou MANUFACTURING_ADMIN</value>
         <value xml:lang="ro">Eroare Siguranta: pentru executarea acestei operatii trebuie sa ai permisul MANUFACTURING_CREATE sau MANUFACTURING_ADMIN</value>
         <value xml:lang="th">Security Error:  ในการรันการทำงานนี้คุณต้องได้รับอนุญาตจาก MANUFACTURING_CREATE หรือ MANUFACTURING_ADMIN ก่อน</value>
@@ -1597,6 +1614,7 @@
         <value xml:lang="fr">Créer une nomenclature</value>
         <value xml:lang="it">Creazione distinta base</value>
         <value xml:lang="ja">部品表(BOM)を作成</value>
+        <value xml:lang="nl">Nieuwe BoM</value>
         <value xml:lang="pt-BR">Criar Estrutura de Materiais (BOM)</value>
         <value xml:lang="th">สร้างรายการสินค้า</value>
         <value xml:lang="vi">Thêm mới Chào giá (BOM)</value>
@@ -1610,6 +1628,7 @@
         <value xml:lang="fr">Création O.F.</value>
         <value xml:lang="it">Nuovo ordine di produzione</value>
         <value xml:lang="ja">生産実行を作成</value>
+        <value xml:lang="nl">Nieuwe productie-run</value>
         <value xml:lang="pt-BR">Criar execução de produção</value>
         <value xml:lang="ro">Creare Comanda de Productie</value>
         <value xml:lang="th">สร้างการผลิตสินค้า</value>
@@ -1624,6 +1643,7 @@
         <value xml:lang="fr">Liste de découpage</value>
         <value xml:lang="it">Lista di Montaggio</value>
         <value xml:lang="ja">加工一覧</value>
+        <value xml:lang="nl">Materialen</value>
         <value xml:lang="pt-BR">Lista de montagem</value>
         <value xml:lang="ro">Lista de Montaj</value>
         <value xml:lang="th">ตัดรายการสินค้า</value>
@@ -1638,6 +1658,7 @@
         <value xml:lang="fr">Rappport de liste de découpage</value>
         <value xml:lang="it">Stampa Lista di Montaggio</value>
         <value xml:lang="ja">加工一覧レポート</value>
+        <value xml:lang="nl">Raport materialen</value>
         <value xml:lang="pt-BR">Relatório de lista de montagem</value>
         <value xml:lang="ro">Tipareste Lista de Montaj</value>
         <value xml:lang="th">รายงานการตัดรายการสินค้า</value>
@@ -1652,6 +1673,7 @@
         <value xml:lang="fr">Déclarer</value>
         <value xml:lang="it">Dichiarazione</value>
         <value xml:lang="ja">定義</value>
+        <value xml:lang="nl">Taak declaratie</value>
         <value xml:lang="pt-BR">Declarar</value>
         <value xml:lang="ro">Declaratii</value>
         <value xml:lang="th">ยืนยัน</value>
@@ -1666,6 +1688,7 @@
         <value xml:lang="fr">Erreur de sécurité: Pour exécuter cette opération vous devez avoir l'autorisation MANUFACTURING_DELETE or MANUFACTURING_ADMIN</value>
         <value xml:lang="it">Errore Sicurezza: per eseguire questa operazione tu devi avere i permessi MANUFACTURING_CREATE o MANUFACTURING_ADMIN</value>
         <value xml:lang="ja">セキュリティエラー: この操作の実行には MANUFACTURING_DELETE または MANUFACTURING_ADMIN 権限が必要です</value>
+        <value xml:lang="nl">Permissie-error: u heeft aanvullende rechten nodig</value>
         <value xml:lang="pt-BR">Erro de segurança: para executar esta operação você deve ter permissão de MANUFACTURING_DELETE ou MANUFACTURING_DELETE</value>
         <value xml:lang="ro">Eroare de siguranta: pentru executarea acestei operatii trebuie sa ai permisul MANUFACTURING_CREATE sau MANUFACTURING_ADMIN</value>
         <value xml:lang="th">Security Error: ในการรันการทำงานนี้คุณต้องได้รับอนุญาตจาก MANUFACTURING_DELETE หรือ MANUFACTURING_ADMIN ก่อน</value>
@@ -1680,6 +1703,7 @@
         <value xml:lang="fr">Date d'expédition</value>
         <value xml:lang="it">Data Consegna</value>
         <value xml:lang="ja">配送日</value>
+        <value xml:lang="nl">Datum levering</value>
         <value xml:lang="pt-BR">Data de entrega</value>
         <value xml:lang="ro">Data Livrarii</value>
         <value xml:lang="th">วันส่งสินค้า</value>
@@ -1709,6 +1733,7 @@
         <value xml:lang="fr">L'association existante suivante pourrait causer des boucles : {0} --&gt; {1}</value>
         <value xml:lang="it">Le seguenti associazioni esistono utilizzando le cause: {0} --&gt; {1}</value>
         <value xml:lang="ja">次の関連付けはループが発生します: {0} --&gt; {1}</value>
+        <value xml:lang="nl">Gedupliceerde componenten in BoM</value>
         <value xml:lang="pt-BR">A seguinte associação poderia causar loops: {0} --&gt; {1}</value>
         <value xml:lang="ro">Urmatoarele asocieri exista utilizand cauzele: {0} --&gt; {1}</value>
         <value xml:lang="th">ตามการรวมกลุ่มสามารถทำให้เกิดเป็นรอบวงกลมได้</value>
@@ -1723,6 +1748,7 @@
         <value xml:lang="fr">Modifier des exclusions de jour pour</value>
         <value xml:lang="it">Aggiorna Calendario giorni speciali per</value>
         <value xml:lang="ja">カレンダ除外日を編集</value>
+        <value xml:lang="nl">Uitzonderingsdag wijzigen</value>
         <value xml:lang="pt-BR">Editar o dia de exceção do calendário para</value>
         <value xml:lang="ro">Actualizare Calendar zile speciale pentru</value>
         <value xml:lang="th">แก้ไขปฏิทินวันที่ยกเว้นสำหรับ</value>
@@ -1737,6 +1763,7 @@
         <value xml:lang="fr">Modifier des exclusions de semaine pour</value>
         <value xml:lang="it">Aggiorna Calendario settimane speciali per</value>
         <value xml:lang="ja">カレンダ除外週を編集</value>
+        <value xml:lang="nl">Uitzonderingsweek wijzigen</value>
         <value xml:lang="pt-BR">Editar a semana de exceção do calendário para</value>
         <value xml:lang="ro">Adauga Calendar saptamanal special pentru</value>
         <value xml:lang="th">แก้ไขสัปดาห์ที่ยกเว้นสำหรับ</value>
@@ -1751,6 +1778,7 @@
         <value xml:lang="fr">Modifier une semaine</value>
         <value xml:lang="it">Aggiorna Calendario Settimanale</value>
         <value xml:lang="ja">週を編集</value>
+        <value xml:lang="nl">Week wijzigen</value>
         <value xml:lang="pt-BR">Editar semana</value>
         <value xml:lang="ro">Actualizare Saptamana</value>
         <value xml:lang="th">แก้ไขสัปดาห์</value>
@@ -1765,6 +1793,7 @@
         <value xml:lang="fr">Modifier des lignes de calcul de coût du composant</value>
         <value xml:lang="it">Aggiorna Costi Componenti Voci Calcolo</value>
         <value xml:lang="ja">原価構成計算エントリを編集</value>
+        <value xml:lang="nl">Calculatie component-kosten wijzigen</value>
         <value xml:lang="pt-BR">Editar entradas de cálculo de custo dos componentes</value>
         <value xml:lang="ro">Adauga Cost Componente Date Calcul</value>
         <value xml:lang="th">แก้ไขส่วนประกอบของราคาในตารางการคำนวณ</value>
@@ -1779,6 +1808,7 @@
         <value xml:lang="fr">Modifier des machines</value>
         <value xml:lang="it">Aggiorna Macchine</value>
         <value xml:lang="ja">固定資産を編集</value>
+        <value xml:lang="nl">Productiemiddel wijzgen</value>
         <value xml:lang="pt-BR">Editar ativo fixo</value>
         <value xml:lang="ro">Adauga Mijloace Fixe</value>
         <value xml:lang="th">แก้ไขสินทรัพย์ไม่หมุนเวียน</value>
@@ -1793,6 +1823,7 @@
         <value xml:lang="fr">Modifier des groupes de machines</value>
         <value xml:lang="it">Aggiorna Gruppo Macchine</value>
         <value xml:lang="ja">固定資産グループを編集</value>
+        <value xml:lang="nl">Activa-groep wijzigen</value>
         <value xml:lang="pt-BR">Editar grupo de ativos fixos</value>
         <value xml:lang="ro">Actualizare Grup Mijloace Fixe</value>
         <value xml:lang="th">แก้ไขกลุ่มสินทรัพย์ไม่หมุนเวียน</value>
@@ -1807,6 +1838,7 @@
         <value xml:lang="fr">Modifier la nomenclature</value>
         <value xml:lang="it">Aggiorna Distinta Base</value>
         <value xml:lang="ja">部品表(BOM)を編集</value>
+        <value xml:lang="nl">BoM wijzigen</value>
         <value xml:lang="pt-BR">Editar Estrutura de Materiais (BOM)</value>
         <value xml:lang="ro">Actualizare Lista repere Produs</value>
         <value xml:lang="th">แก้ไขรายการของสินค้า</value>
@@ -1821,6 +1853,7 @@
         <value xml:lang="fr">Modifier l'ordre de fabrication</value>
         <value xml:lang="it">Aggiorna ordine di produzione</value>
         <value xml:lang="ja">生産実行を編集</value>
+        <value xml:lang="nl">Productie-run wijzigen</value>
         <value xml:lang="pt-BR">Editar execução de produção</value>
         <value xml:lang="ro">Actualizare Comenzi de Productie</value>
         <value xml:lang="th">แก้ไขการผลิต</value>
@@ -1835,6 +1868,7 @@
         <value xml:lang="fr">Modification gamme</value>
         <value xml:lang="it">Aggiorna ciclo</value>
         <value xml:lang="ja">経路制御を編集</value>
+        <value xml:lang="nl">Schema wijzigen</value>
         <value xml:lang="pt-BR">Editar rota</value>
         <value xml:lang="ro">Actualizare Ciclu</value>
         <value xml:lang="th">แก้ไข Routing</value>
@@ -1849,6 +1883,7 @@
         <value xml:lang="fr">Modification des liens article - gamme</value>
         <value xml:lang="it">Aggiorna link prodotto-ciclo</value>
         <value xml:lang="ja">経路制御製品リンクを編集</value>
+        <value xml:lang="nl">Product-assoc schema wijzigen</value>
         <value xml:lang="pt-BR">Editar link da rota do produto</value>
         <value xml:lang="ro">Actualizare Link Ciclu Produs </value>
         <value xml:lang="th">แก้ไข Routing การเชื่อมต่อสินค้า</value>
@@ -1863,6 +1898,7 @@
         <value xml:lang="fr">Modification d'une opération</value>
         <value xml:lang="it">Aggiorna Operazione</value>
         <value xml:lang="ja">経路制御タスクを編集</value>
+        <value xml:lang="nl">Schema-taak wijzigen</value>
         <value xml:lang="pt-BR">Editar tarefa de rota</value>
         <value xml:lang="ro">Actualizare Operatie</value>
         <value xml:lang="th">แก้ไขการทำงาน</value>
@@ -1877,6 +1913,7 @@
         <value xml:lang="fr">Modifier la composition</value>
         <value xml:lang="it">Legami Operazioni</value>
         <value xml:lang="ja">経路制御タスク関連付けを編集</value>
+        <value xml:lang="nl">Taak-assoc schema wijzigen</value>
         <value xml:lang="pt-BR">Editar associação da tarefa de rota</value>
         <value xml:lang="ro">Actualizare Sarcina Asociatie</value>
         <value xml:lang="th">แก้ไขกลุ่มการทำงาน</value>
@@ -1891,6 +1928,7 @@
         <value xml:lang="fr">Modification des dates de validité du lien opération-gamme</value>
         <value xml:lang="it">Aggiorna Associazione Operazione Data validità</value>
         <value xml:lang="ja">経路制御タスク関連付け日検証を編集</value>
+        <value xml:lang="nl">Validiteit taak-assoc wijzigen</value>
         <value xml:lang="pt-BR">Editar a data de validade da associação da tarefa de rota</value>
         <value xml:lang="ro">Actualizare Asociere Operatie-data valabilitate</value>
         <value xml:lang="th">แก้ไขการทำงานที่เชื่อมโยงกับวันที่ทำ</value>
@@ -1905,6 +1943,7 @@
         <value xml:lang="fr">Modification de l'opération - réf</value>
         <value xml:lang="it">Aggiorna Codice Operazione</value>
         <value xml:lang="ja">経路制御タスクを編集 - ID</value>
+        <value xml:lang="nl">ID schema-taak wijzigen</value>
         <value xml:lang="pt-BR">Editar tarefa de rota - ID</value>
         <value xml:lang="ro">Actualizare Cod Operatie</value>
         <value xml:lang="th">แก้ไขรหัสการทำงาน</value>
@@ -1916,6 +1955,7 @@
         <value xml:lang="en">Engineering Bill of Materials</value>
         <value xml:lang="it">Distinta base ingegnerizzata</value>
         <value xml:lang="ja">設計部品表(EBOM)</value>
+        <value xml:lang="nl">Engineering BoM</value>
         <value xml:lang="pt-BR">Estrutura de produtos como desenvolvida (EBOM)</value>
         <value xml:lang="vi">Xây dựng Chào giá</value>
         <value xml:lang="zh">工程物料清单</value>
@@ -1928,6 +1968,7 @@
         <value xml:lang="fr">Erreur, cette nomenclature n'existe pas</value>
         <value xml:lang="it">Errore, Distinta Base non esiste</value>
         <value xml:lang="ja">エラー: BOMは存在しません</value>
+        <value xml:lang="nl">FOUT: BoM bestaat niet</value>
         <value xml:lang="pt-BR">Erro, a Estrutura de materiais (BOM) não existe</value>
         <value xml:lang="ro">Eroare, Lista repere inexistenta</value>
         <value xml:lang="th">Error: ผิดพลาด ! ไม่มีรายการของสินค้าเหลืออยู่</value>
@@ -1942,6 +1983,7 @@
         <value xml:lang="fr">Date d'achèvement estimé</value>
         <value xml:lang="it">Data Completamento Calcolata</value>
         <value xml:lang="ja">計算完了日</value>
+        <value xml:lang="nl">Geschatte datum gereed</value>
         <value xml:lang="pt-BR">Data estimada para terminar</value>
         <value xml:lang="ro">Data Completarii Calculata</value>
         <value xml:lang="th">วันที่คาดว่าจะเสร็จ</value>
@@ -1956,6 +1998,7 @@
         <value xml:lang="fr">Date de début estimée</value>
         <value xml:lang="it">Data Inizio Stimata</value>
         <value xml:lang="ja">見積開始日</value>
+        <value xml:lang="nl">Geschatte datum start</value>
         <value xml:lang="pt-BR">Data estimada de início</value>
         <value xml:lang="ro">Data Initiala Stimata</value>
         <value xml:lang="th">ประมาณวันที่เริ่มต้น</value>
@@ -1970,6 +2013,7 @@
         <value xml:lang="fr">Début de date d'exclusion</value>
         <value xml:lang="it">Inizio della Data speciale</value>
         <value xml:lang="ja">除外開始日</value>
+        <value xml:lang="nl">Uitzonderingsdatum start</value>
         <value xml:lang="pt-BR">Início da data de exceção</value>
         <value xml:lang="ro">Data speciala Initiala</value>
         <value xml:lang="th">เริ่มต้นของวันที่ยกเว้น</value>
@@ -1984,6 +2028,7 @@
         <value xml:lang="fr">Date et heure du jour exclu</value>
         <value xml:lang="it">Data e Ora del giorno speciale</value>
         <value xml:lang="ja">除外日の日時</value>
+        <value xml:lang="nl">Uitzonderingsdag - datum/tijd</value>
         <value xml:lang="pt-BR">Data e hora do dia de exceção</value>
         <value xml:lang="ro">Data si Ora zilei speciale</value>
         <value xml:lang="th">วันและเวลาของวันที่ยกเว้น</value>
@@ -1998,6 +2043,7 @@
         <value xml:lang="fr">Explosion</value>
         <value xml:lang="it">Esplosione</value>
         <value xml:lang="ja">展開</value>
+        <value xml:lang="nl">Uitklappen</value>
         <value xml:lang="pt-BR">Explosão</value>
         <value xml:lang="ro">Explozie</value>
         <value xml:lang="th">อย่างกะทันหัน</value>
@@ -2012,6 +2058,7 @@
         <value xml:lang="fr">Explosion (seulement pour des articles ayant besoin de fabrication)</value>
         <value xml:lang="it">Esplosione (solo per prodotti che necessitano produzione)</value>
         <value xml:lang="ja">展開 (生産が必要な製品に対してのみ)</value>
+        <value xml:lang="nl">Uiklappen (alleen voor productie-componenten)</value>
         <value xml:lang="pt-BR">Explosão (apenas para produtos a serem industrializados)</value>
         <value xml:lang="ro">Explozie (numai pentru produsele din productie)</value>
         <value xml:lang="th">ด่วน (สำหรับสินค้าที่ต้องการผลิตอย่างเดียว)</value>
@@ -2026,6 +2073,7 @@
         <value xml:lang="fr">Explosion à niveau unique</value>
         <value xml:lang="it">Singolo Livello Esplosione</value>
         <value xml:lang="ja">単一レベル展開</value>
+        <value xml:lang="nl">Uitklappen (enkelvoudig niveau)</value>
         <value xml:lang="pt-BR">Explosão de apenas um nível</value>
         <value xml:lang="ro">Singurul Nivel de Exsplozie</value>
         <value xml:lang="th">ใช้ระดับความดังครั้งเดียว</value>
@@ -2040,6 +2088,7 @@
         <value xml:lang="fr">La table des lieux de stockage n'existe pas</value>
         <value xml:lang="it">La tabella stabilimenti non esiste</value>
         <value xml:lang="ja">拠点テーブルは存在しません</value>
+        <value xml:lang="nl">Faciliteit bestaat niet</value>
         <value xml:lang="pt-BR">A tabela de instalações não existe</value>
         <value xml:lang="ro">Fisier Compartimente inexistent</value>
         <value xml:lang="th">ไม่มีตารางคลังสินค้านี้อยู่</value>
@@ -2054,6 +2103,7 @@
         <value xml:lang="fr">Recherche de nomenclature</value>
         <value xml:lang="it">Ricerca Distinte Base</value>
         <value xml:lang="ja">部品表(BOM)を検索</value>
+        <value xml:lang="nl">BoM zoeken/vinden</value>
         <value xml:lang="pt-BR">Procurar Estrutura de Materiais (BOM)</value>
         <value xml:lang="ro">Cauta Lista repere Produs</value>
         <value xml:lang="th">ค้นหารายการสินค้า</value>
@@ -2068,6 +2118,7 @@
         <value xml:lang="fr">Recherche d'inventaire</value>
         <value xml:lang="it">Ricerca Inventario Eventi Pianificato</value>
         <value xml:lang="ja">計画済在庫イベントを検索</value>
+        <value xml:lang="nl">Voorraad zoeken/vinden</value>
         <value xml:lang="pt-BR">Procurar evento de inventário planejado</value>
         <value xml:lang="ro">Cauta Inventar Evenimente Planificate</value>
         <value xml:lang="th">ค้นหาผลของรายการสิ่งของที่ประมาณไว้</value>
@@ -2082,6 +2133,7 @@
         <value xml:lang="fr">Recherche d'article</value>
         <value xml:lang="it">Ricerca Parti</value>
         <value xml:lang="ja">部品を検索</value>
+        <value xml:lang="nl">Onderdeel zoeken/vinden</value>
         <value xml:lang="pt-BR">Procurar partes</value>
         <value xml:lang="ro">Cauta Parti</value>
         <value xml:lang="th">ค้นหาส่วนประกอบ</value>
@@ -2096,6 +2148,7 @@
         <value xml:lang="fr">Recherche d'ordre de fabrication</value>
         <value xml:lang="it">Ricerca ordine di produzione</value>
         <value xml:lang="ja">生産実行を検索</value>
+        <value xml:lang="nl">Productie-run zoeken/vinden</value>
         <value xml:lang="pt-BR">Procurar execuções de produção</value>
         <value xml:lang="ro">Cauta Comanda de Productie</value>
         <value xml:lang="th">ค้นหาการผลิตสินค้า</value>
@@ -2110,6 +2163,7 @@
         <value xml:lang="fr">Recherche de gamme</value>
         <value xml:lang="it">Ricerca ciclo</value>
         <value xml:lang="ja">経路制御を検索</value>
+        <value xml:lang="nl">Schema zoeken/vinden</value>
         <value xml:lang="pt-BR">Procurar rota</value>
         <value xml:lang="ro">Cauta Ciclu</value>
         <value xml:lang="th">ค้นหา Routing</value>
@@ -2124,6 +2178,7 @@
         <value xml:lang="fr">Recherche d'opérations</value>
         <value xml:lang="it">Ricerca Operazioni</value>
         <value xml:lang="ja">経路制御タスクを検索</value>
+        <value xml:lang="nl">Schema-taak zoeken/vinden</value>
         <value xml:lang="pt-BR">Procurar tarefas de rota</value>
         <value xml:lang="ro">Cauta Operatii</value>
         <value xml:lang="th">ค้นหาการทำงาน</value>
@@ -2138,6 +2193,7 @@
         <value xml:lang="fr">Le champ 'Coût alloué' n'est pas formaté correctement</value>
         <value xml:lang="it">Il campo Costo allocato non è formattato correttamente</value>
         <value xml:lang="ja">割り当てられた原価が正しい書式ではありません</value>
+        <value xml:lang="nl">De 'verrekende kosten' zijn niet correct.</value>
         <value xml:lang="pt-BR">O campo de custo alocado não está formatado corretamente</value>
         <value xml:lang="ro">Campul Cost alocat nu are un format corect</value>
         <value xml:lang="th">รูปแบบการกำหนดราคาไม่ถูกต้อง</value>
@@ -2152,6 +2208,7 @@
         <value xml:lang="fr">La date de début est absente</value>
         <value xml:lang="it">La data inizio è mancante</value>
         <value xml:lang="ja">開始日が正しくありません</value>
+        <value xml:lang="nl">De 'van'-datum ontbreekt</value>
         <value xml:lang="pt-BR">A data de início está faltando</value>
         <value xml:lang="ro">Lipseste Data intiala </value>
         <value xml:lang="th">ไม่ได้ใส่จากวันที่</value>
@@ -2166,6 +2223,7 @@
         <value xml:lang="fr">Le champ "Date de début" n'est pas formaté correctement</value>
         <value xml:lang="it">Il campo Data Inizio non è formattata correttamente</value>
         <value xml:lang="ja">開始日が正しい書式ではありません</value>
+        <value xml:lang="nl">De 'van'-datum is niet correct.</value>
         <value xml:lang="pt-BR">O campo da data de início não está formatada corretamente</value>
         <value xml:lang="ro">Campul Data Initiala nu are un format corect</value>
         <value xml:lang="th">รูปแบบจากวันที่ไม่ถูกต้อง</value>
@@ -2180,6 +2238,7 @@
         <value xml:lang="fr">La machine n'existe pas</value>
         <value xml:lang="it">Cespite non esiste</value>
         <value xml:lang="ja">固定資産が存在しません</value>
+        <value xml:lang="nl">Productiemiddel bestaat niet</value>
         <value xml:lang="pt-BR">O ativo fixo não existe</value>
         <value xml:lang="ro">Mijloc Fix Inexistent</value>
         <value xml:lang="th">ไม่พบสินทรัพย์ไม่หมุนเวียน</value>
@@ -2194,6 +2253,7 @@
         <value xml:lang="fr">Le champ de par la date n'est pas formaté correctement</value>
         <value xml:lang="it">Il campo Data Fine non è formattata correttamente</value>
         <value xml:lang="ja">終了日が正しい書式ではありません</value>
+        <value xml:lang="nl">De 'tot'-datum is niet correct</value>
         <value xml:lang="pt-BR">O campo da data de validade não está formatado corretamente</value>
         <value xml:lang="ro">Campul Data Finala nu are un format corect</value>
         <value xml:lang="th">รูปแบบถึงวันที่ไม่ถูกต้อง</value>
@@ -2208,6 +2268,7 @@
         <value xml:lang="fr">Formule</value>
         <value xml:lang="it">Formula</value>
         <value xml:lang="ja">公式</value>
+        <value xml:lang="nl">Formule</value>
         <value xml:lang="pt-BR">Fórmula</value>
         <value xml:lang="ro">Formula</value>
         <value xml:lang="th">วิธีทำ</value>
@@ -2222,6 +2283,7 @@
         <value xml:lang="fr">Date de début</value>
         <value xml:lang="it">Da Data</value>
         <value xml:lang="ja">開始日</value>
+        <value xml:lang="nl">'Van'-datum</value>
         <value xml:lang="pt-BR">Data de início</value>
         <value xml:lang="ro">De la Data</value>
         <value xml:lang="th">จากวันที่</value>
@@ -2233,6 +2295,7 @@
         <value xml:lang="en">Generate Production Runs</value>
         <value xml:lang="it">Genera ordini di produzione</value>
         <value xml:lang="ja">生産実行を生成</value>
+        <value xml:lang="nl">Productie-run(s) aanmaken</value>
         <value xml:lang="pt-BR">Gerar execuções de produção</value>
         <value xml:lang="vi">Sinh Chế tác lô hàng</value>
         <value xml:lang="zh">生成生产运行</value>
@@ -2245,6 +2308,7 @@
         <value xml:lang="fr">Implosion</value>
         <value xml:lang="it">Implosione</value>
         <value xml:lang="ja">収束</value>
+        <value xml:lang="nl">Inklappen</value>
         <value xml:lang="pt-BR">Implosão</value>
         <value xml:lang="ro">Implozie</value>
         <value xml:lang="th">เสียงดัง</value>
@@ -2259,6 +2323,7 @@
         <value xml:lang="fr">Instruction</value>
         <value xml:lang="it">Istruzione</value>
         <value xml:lang="ja">説明</value>
+        <value xml:lang="nl">Instructie()</value>
         <value xml:lang="pt-BR">Instrução</value>
         <value xml:lang="ro">Instructiune</value>
         <value xml:lang="th">คำแนะนำ</value>
@@ -2273,6 +2338,7 @@
         <value xml:lang="fr">Mouvements de stock planifiés</value>
         <value xml:lang="it">Evento inventario pianificato</value>
         <value xml:lang="ja">計画済在庫イベント</value>
+        <value xml:lang="nl">Geplande voorraad-wijziging</value>
         <value xml:lang="pt-BR">Evento de inventário planejado</value>
         <value xml:lang="ro">Inventar Eveniment Planificat</value>
         <value xml:lang="th">ประมาณสินค้าคงเหลือ</value>
@@ -2287,6 +2353,7 @@
         <value xml:lang="fr">Inventaire d'événements planifié créé une erreur</value>
         <value xml:lang="it">Errore creazione evento inventario pianificato</value>
         <value xml:lang="ja">計画済在庫イベント作成エラー</value>
+        <value xml:lang="nl">FOUT: aanmaken voorraadwijziging mislukt</value>
         <value xml:lang="pt-BR">Erro ao criar evento planejado de escritório</value>
         <value xml:lang="ro">Nu este posibila crearea unui record in InventoryEventPlanned</value>
         <value xml:lang="th">เกิดความผิดพลาดในการสร้างการประมาณสินค้าคงเหลือ</value>
@@ -2301,6 +2368,7 @@
         <value xml:lang="fr">Inventaire d'événements planifié n'existe pas</value>
         <value xml:lang="it">Evento inventario pianificato non esiste</value>
         <value xml:lang="ja">計画済在庫イベントは存在しません</value>
+        <value xml:lang="nl">Voorraadwijziging bestaat niet</value>
         <value xml:lang="pt-BR">Evento planejado de inventário não existe</value>
         <value xml:lang="ro">InventoryEventPlanned nu exista</value>
         <value xml:lang="th">ไม่มีการประมาณสินค้าคงเหลือ</value>
@@ -2315,6 +2383,7 @@
         <value xml:lang="fr">Inventaire d'événements planifié n'est pas mis à jour</value>
         <value xml:lang="it">Evento inventario pianificato non aggiornato</value>
         <value xml:lang="ja">計画済在庫イベントは更新されません</value>
+        <value xml:lang="nl">Voorraadwijziging niet bijgewerkt</value>
         <value xml:lang="pt-BR">Evento planejado de inventário não atualizado</value>
         <value xml:lang="ro">InventoryEventPlanned nu poate  fi actualizat</value>
         <value xml:lang="th">ไม่มีการเปลี่ยนแปลงการประมาณสินค้าคงเหลือ</value>
@@ -2329,6 +2398,7 @@
         <value xml:lang="fr">La liste d'inventaire d'événements n'existe pas</value>
         <value xml:lang="it">Tipo Inventario Evento non esiste</value>
         <value xml:lang="ja">在庫イベント種類は存在しません</value>
+        <value xml:lang="nl">Soort voorraadwijziging bestaat niet</value>
         <value xml:lang="pt-BR">Tipo de evento planejado de inventário não existe</value>
         <value xml:lang="ro">Tip Inventar Eveniment inexistent</value>
         <value xml:lang="th">ไม่มีประเภทสินค้าคงเหลือ</value>
@@ -2343,6 +2413,7 @@
         <value xml:lang="fr">La table d'inventaire n'existe pas</value>
         <value xml:lang="it">Riga tabella Inventario non esiste</value>
         <value xml:lang="ja">在庫アイテムテーブルは存在しません</value>
+        <value xml:lang="nl">Voorraadwijziging bestaat niet</value>
         <value xml:lang="pt-BR">Tabela de itens de inventário não existem</value>
         <value xml:lang="ro">Linie Fisier Inventar Inexistent</value>
         <value xml:lang="th">ไม่มีตารางรายการสินค้าคงเหลือ</value>
@@ -2357,6 +2428,7 @@
         <value xml:lang="fr">Inventaire d'articles</value>
         <value xml:lang="it">Righe Inventario</value>
         <value xml:lang="ja">在庫アイテム</value>
+        <value xml:lang="nl">Geproduceerd</value>
         <value xml:lang="pt-BR">Itens de inventário</value>
         <value xml:lang="ro">Linii Inventar</value>
         <value xml:lang="th">สินค้าคงเหลือ</value>
@@ -2371,6 +2443,7 @@
         <value xml:lang="fr">Composants publiés (ATP)</value>
         <value xml:lang="it">Preleva i Componenti (ATP)</value>
         <value xml:lang="ja">コンポーネント発行 (製品在庫/ATP)</value>
+        <value xml:lang="nl">Componenten vrijgeven (AtP)</value>
         <value xml:lang="pt-BR">Emitir componentes (ATP)</value>
         <value xml:lang="vi">Thành phần phát hành (ATP)</value>
         <value xml:lang="zh">交付部件（承诺）</value>
@@ -2383,6 +2456,7 @@
         <value xml:lang="fr">Composants publiés</value>
         <value xml:lang="it">Preleva i Componenti</value>
         <value xml:lang="ja">コンポーネント発行</value>
+        <value xml:lang="nl">Componenten vrijgeven</value>
         <value xml:lang="pt-BR">Emitir componentes</value>
         <value xml:lang="ro">Componente cu Probleme</value>
         <value xml:lang="th">ส่วนประกอบของปัญหา</value>
@@ -2397,6 +2471,7 @@
         <value xml:lang="fr">Publié</value>
         <value xml:lang="it">Quantità Prelevata</value>
         <value xml:lang="ja">発行済</value>
+        <value xml:lang="nl">Vrijgegeven</value>
         <value xml:lang="pt-BR">Quantidade emitida</value>
         <value xml:lang="ro">Cantitate Preluata</value>
         <value xml:lang="th">ปัญหา</value>
@@ -2411,6 +2486,7 @@
         <value xml:lang="fr">Ordres de fabrication</value>
         <value xml:lang="it">Ordine di produzione</value>
         <value xml:lang="ja">注文生産</value>
+        <value xml:lang="nl">Productie-run(s)</value>
         <value xml:lang="pt-BR">Pedidos de fabricação</value>
         <value xml:lang="ro">Comanda de Productie</value>
         <value xml:lang="th">ที่ทำงาน</value>
@@ -2424,6 +2500,7 @@
         <value xml:lang="fr">Codes de niveau bas initial</value>
         <value xml:lang="it">Codici Basso Livello Iniziale</value>
         <value xml:lang="ja">初期低レベルコード</value>
+        <value xml:lang="nl">Low-level Codes initialiseren</value>
         <value xml:lang="pt-BR">Iniciar códigos de baixo nível</value>
         <value xml:lang="ro">Cod Initial de nivel inferior</value>
         <value xml:lang="th">รหัสระดับเริ่มต้น</value>
@@ -2443,6 +2520,7 @@
         <value xml:lang="fr">Liste des semaines</value>
         <value xml:lang="it">Lista delle settimane</value>
         <value xml:lang="ja">週一覧</value>
+        <value xml:lang="nl">Weken</value>
         <value xml:lang="pt-BR">Lista de semanas</value>
         <value xml:lang="ro">Lista saptamanilor</value>
         <value xml:lang="th">รายการของสัปดาห์</value>
@@ -2457,6 +2535,7 @@
         <value xml:lang="fr">Liste de production de l'ordre de fabrication</value>
         <value xml:lang="it">Lista dei componenti dell'ordine di produzione</value>
         <value xml:lang="ja">生産実行コンポーネント一覧</value>
+        <value xml:lang="nl">Componenten</value>
         <value xml:lang="pt-BR">Lista de componentes para execução de produção</value>
         <value xml:lang="th">รายการของการผลิตสินค้า</value>
         <value xml:lang="vi">Danh sách các thành phần</value>
@@ -2470,6 +2549,7 @@
         <value xml:lang="fr">Liste de production des cours des machines</value>
         <value xml:lang="it">Lista dei cespiti ordine di produzione</value>
         <value xml:lang="ja">生産実行固定資産一覧</value>
+        <value xml:lang="nl">Productiemiddelen</value>
         <value xml:lang="pt-BR">Lista de Ativos fixos para execução de produção</value>
         <value xml:lang="ro">Lista Mijloacelor Fixe pentru Comanda de Productie</value>
         <value xml:lang="th">รายการของการผลิตสินค้าจากสินทรัพย์ไม่ถาวร</value>
@@ -2482,6 +2562,7 @@
         <value xml:lang="fr">Liste des notes de l'ordre de fabrication</value>
         <value xml:lang="it">Lista note ordine di produzione</value>
         <value xml:lang="ja">生産実行注釈一覧</value>
+        <value xml:lang="nl">Notities</value>
         <value xml:lang="pt-BR">Lista de notas da execução de produção</value>
         <value xml:lang="vi">Danh sách các Ghi chú</value>
         <value xml:lang="zh">生产运行说明列表</value>
@@ -2494,6 +2575,7 @@
         <value xml:lang="fr">Liste des opérations de l'ordre de fabrication</value>
         <value xml:lang="it">Lista delle Operazioni dell'Ordine di Produzione</value>
         <value xml:lang="ja">タスク</value>
+        <value xml:lang="nl">Taken</value>
         <value xml:lang="pt-BR">Tarefas da execução de produção</value>
         <value xml:lang="ro">Lista Operatiilor pe Comanda de Productie</value>
         <value xml:lang="th">งาน</value>
@@ -2508,6 +2590,7 @@
         <value xml:lang="fr">Produits livrables</value>
         <value xml:lang="it">Prodotti Consegnabili</value>
         <value xml:lang="ja">配送可能製品</value>
+        <value xml:lang="nl">Producten</value>
         <value xml:lang="pt-BR">Produtos prontos para entrega</value>
         <value xml:lang="ro">Produse Livrabile</value>
         <value xml:lang="th">ส่งสินค้า</value>
@@ -2522,6 +2605,7 @@
         <value xml:lang="fr">Liste des gammes</value>
         <value xml:lang="it">Lista Cicli</value>
         <value xml:lang="ja">経路制御一覧</value>
+        <value xml:lang="nl">Schemas</value>
         <value xml:lang="pt-BR">Lista de rotas</value>
         <value xml:lang="ro">Lista Cicluri</value>
         <value xml:lang="th">รายการ Routing</value>
@@ -2547,6 +2631,7 @@
         <value xml:lang="en">Lot Not Exists</value>
         <value xml:lang="it">Lotto non esiste</value>
         <value xml:lang="ja">ロットは存在しません</value>
+        <value xml:lang="nl">Lot bestaat niet</value>
         <value xml:lang="pt-BR">Lote não existe</value>
         <value xml:lang="vi">Lô không tồn tại</value>
         <value xml:lang="zh">批次不存在</value>
@@ -2559,6 +2644,7 @@
         <value xml:lang="fr">Immobilisation</value>
         <value xml:lang="it">Macchine</value>
         <value xml:lang="ja">固定資産</value>
+        <value xml:lang="nl">Productiemiddel</value>
         <value xml:lang="pt-BR">Ativo fixo</value>
         <value xml:lang="ro">Mijloace Fixe</value>
         <value xml:lang="th">สินทรัพย์ไม่หมุนเวียน</value>
@@ -2573,6 +2659,7 @@
         <value xml:lang="fr">Groupe de machines</value>
         <value xml:lang="it">Gruppo Macchine</value>
         <value xml:lang="ja">固定資産グループ</value>
+        <value xml:lang="nl">Activa-groep</value>
         <value xml:lang="pt-BR">Grupo de ativos fixos</value>
         <value xml:lang="ro">Grup Mijloc Fix</value>
         <value xml:lang="th">กลุ่มสินทรัพย์ไม่หมุนเวียน</value>
@@ -2587,6 +2674,7 @@
         <value xml:lang="fr">Réf. du groupe de machines</value>
         <value xml:lang="it">Codice Gruppo Macchine</value>
         <value xml:lang="ja">固定資産グループID</value>
+        <value xml:lang="nl">ID activa-groep</value>
         <value xml:lang="pt-BR">Id de grupo de ativos fixos</value>
         <value xml:lang="ro">Cod Grup Mijloc Fix</value>
         <value xml:lang="th">รหัสกลุ่มสินทรัพย์ไม่หมุนเวียน</value>
@@ -2601,6 +2689,7 @@
         <value xml:lang="fr">Cette réf. de groupe de machines existe déja</value>
         <value xml:lang="it">Codice Gruppo Macchine non esiste</value>
         <value xml:lang="ja">固定資産グループIDは存在しません</value>
+        <value xml:lang="nl">ID activa-groep bestaat al</value>
         <value xml:lang="pt-BR">Id do grupo de ativos fixos não existe</value>
         <value xml:lang="ro">Cod Grup Mijloc Fix inexistent</value>
         <value xml:lang="th">ไม่มีรหัสกลุ่มสินทรัพย์ไม่หมุนเวียนอยู่</value>
@@ -2615,6 +2704,7 @@
         <value xml:lang="fr">Erreur sécurité : pour effectuer une opération sur un groupe de machines, il faut avoir l'autorisation MANUFACTURING_CREATE ou MANUFACTURING_ADMIN.</value>
         <value xml:lang="it">Errore Sicurezza : per lavorare sui gruppi Macchine tu devi avere il permesso MANUFACTURING_CREATE o MANUFACTURING_ADMIN</value>
         <value xml:lang="ja">セキュリティエラー: 固定資産グループの処理は MANUFACTURING_CREATE または MANUFACTURING_ADMIN 権限が必要です</value>
+        <value xml:lang="nl">Permissie-error: u heeft aanvullende rechten nodig</value>
         <value xml:lang="pt-BR">Erro de segurança: para trabalhar com o grupo de ativos fixos você deve ter a permissão de MANUFACTURING_CREATE ou MANUFACTURING_ADMIN</value>
         <value xml:lang="ro">Eroare Siguranta : pentru a avea acces la grupurile de Mijloace Fixe trebuie sa ai permisul MANUFACTURING_CREATE sau MANUFACTURING_ADMIN</value>
         <value xml:lang="th">Security Error: ในการทำงานบนกลุ่มสินทรัพย์ไม่หมุนเวียนคุณต้องได้รับอนุาตจาก MANUFACTURING_CREATE หรือ MANUFACTURING_ADMIN ก่อน</value>
@@ -2629,6 +2719,7 @@
         <value xml:lang="fr">Réf. de machine</value>
         <value xml:lang="it">Codice Macchine</value>
         <value xml:lang="ja">固定資産ID</value>
+        <value xml:lang="nl">ID productiemiddel</value>
         <value xml:lang="pt-BR">Id do ativo fixo</value>
         <value xml:lang="ro">Cod Mijloc Fix</value>
         <value xml:lang="th">รหัสสินทรัพย์ไม่หมุนเวียน</value>
@@ -2643,6 +2734,7 @@
         <value xml:lang="fr">Réf. de machine existe déja</value>
         <value xml:lang="it">Codice Macchine già esistente</value>
         <value xml:lang="ja">固定資産IDはすでに存在します</value>
+        <value xml:lang="nl">ID productiemiddel bestaat al</value>
         <value xml:lang="pt-BR">Id de ativo fixo já existe</value>
         <value xml:lang="ro">Cod Mijloc Fix deja existent</value>
         <value xml:lang="th">รหัสสินทรัพย์ไม่หมุนเวียน</value>
@@ -2657,6 +2749,7 @@
         <value xml:lang="fr">Erreur sécurité : pour effectuer une opération sur une machine, il faut avoir l'autorisation MANUFACTURING_CREATE ou MANUFACTURING_ADMIN.</value>
         <value xml:lang="it">Errore Sicurezza : per lavorare sulle Macchine tu devi avere il permesso MANUFACTURING_CREATE o MANUFACTURING_ADMIN</value>
         <value xml:lang="ja">セキュリティエラー: 固定資産の処理は MANUFACTURING_CREATE または MANUFACTURING_ADMIN 権限が必要です</value>
+        <value xml:lang="nl">Permissie-error: u heeft aanvullende rechten nodig</value>
         <value xml:lang="pt-BR">Erro de segurança: para usar essa função você deve ter permissão de MANUFACTURING_CREATE ou MANUFACTURING_ADMIN</value>
         <value xml:lang="ro">Eroare Siguranta : pentru a avea acces la Mijloace Fixe drebuie sa ai permisul MANUFACTURING_CREATE sau MANUFACTURING_ADMIN</value>
         <value xml:lang="th">Security Error: ในการทำงานบนสินทรัพย์ไม่หมุนเวียนคุณต้องได้รับอนุาตจาก MANUFACTURING_CREATE หรือ MANUFACTURING_ADMIN ก่อน</value>
@@ -2671,6 +2764,7 @@
         <value xml:lang="fr">Page d'accueil de la gestion de fabrication</value>
         <value xml:lang="it">Pagina Principale Gestione della Produzione</value>
         <value xml:lang="ja">生産管理メインページ</value>
+        <value xml:lang="nl">Startpagina</value>
         <value xml:lang="pt-BR">Página principal de gestão de produção</value>
         <value xml:lang="ro">Pagina Principala Gestiune Productie</value>
         <value xml:lang="th">หน้าหลักของการจัดการการผลิต</value>
@@ -2698,6 +2792,7 @@
         <value xml:lang="fr">Contrôler les entrées composantes du coût Calc.</value>
         <value xml:lang="it">Gestione Costi Componenti Voci Calcolo</value>
         <value xml:lang="ja">原価構成計算エントリの管理</value>
+        <value xml:lang="nl">Beheer calculatie(s) kosten-component(en)</value>
         <value xml:lang="pt-BR">Administrar entradas de cálculo de custo de componentes</value>
         <value xml:lang="ro">Gestiune Cost Componente Date Calcul</value>
         <value xml:lang="th">เข้าสู่การจัดการคำนวณราคา</value>
@@ -2755,6 +2850,7 @@
         <value xml:lang="fr">Règles de fabrication</value>
         <value xml:lang="it">Regole Produzione</value>
         <value xml:lang="ja">生産ルール</value>
+        <value xml:lang="nl">Fabricage-formules</value>
         <value xml:lang="pt-BR">Regras de produção</value>
         <value xml:lang="ro">Reguli de Productie</value>
         <value xml:lang="th">ข้อบังคับในการผลิต</value>
@@ -2769,6 +2865,7 @@
         <value xml:lang="fr">Matériaux</value>
         <value xml:lang="it">Materiali</value>
         <value xml:lang="ja">部品</value>
+        <value xml:lang="nl">Materialen</value>
         <value xml:lang="pt-BR">Materiais</value>
         <value xml:lang="th">ข้อมูล</value>
         <value xml:lang="vi">Vật liệu</value>
@@ -2782,6 +2879,7 @@
         <value xml:lang="fr">Matériaux non disponibles dans l'entrepôt ${productId}: ${parameters.quantityNotIssued}</value>
         <value xml:lang="it">Materiali non disponibili a magazzino ${productId}: ${parameters.quantityNotIssued}</value>
         <value xml:lang="ja">倉庫で部品が有効ではありません</value>
+        <value xml:lang="nl">Materialen niet beschikbaar in faciliteit: ID ${productId} - ${internalName|}: ${parameters.quantityNotIssued}</value>
         <value xml:lang="pt-BR">Materiais não disponíveis no armazém ${productId}: ${parameters.quantityNotIssued}</value>
         <value xml:lang="th">ไม่มีข้อมูลในคลังสินค้า ${productId}: ${parameters.quantityNotIssued}</value>
         <value xml:lang="vi">Vật liệu hiện không có sẵn trong Kho (warehouse)${productId}: ${parameters.quantityNotIssued}</value>
@@ -2795,6 +2893,7 @@
         <value xml:lang="fr">Matériaux exigés par l'opération en cours d'exécution</value>
         <value xml:lang="it">Materiali Richiesti dall'Operazione in Esecuzione</value>
         <value xml:lang="ja">実行中のタスクが要求した部品</value>
+        <value xml:lang="nl">Materialen nodig</value>
         <value xml:lang="pt-BR">Materiais necessário para tarefa em execução</value>
         <value xml:lang="th">ข้อมูลที่ต้องการโดยการทำงานอย่างต่อเนื่อง</value>
         <value xml:lang="vi">Vật liệu yêu cầu bởi Tác vụ - Đầu việc đang thực thi</value>
@@ -2808,6 +2907,7 @@
         <value xml:lang="fr">MRP</value>
         <value xml:lang="it">MRP</value>
         <value xml:lang="ja">資材所要量計画(MRP)</value>
+        <value xml:lang="nl">MRP</value>
         <value xml:lang="pt-BR">MRP</value>
         <value xml:lang="ro">MRP</value>
         <value xml:lang="th">ข้อมูลความต้องการโดยประมาณ</value>
@@ -2819,6 +2919,7 @@
         <value xml:lang="en">Unable to count MrpEvent records.</value>
         <value xml:lang="it">Non è possibile contare i records da  i records da MrpEvent.</value>
         <value xml:lang="ja">MRPイベントレコードがカウントできません。</value>
+        <value xml:lang="nl">MRP-records niet geteld</value>
         <value xml:lang="vi">Không thể đếm được bản ghi sự kiện MRP.</value>
         <value xml:lang="zh">无法统计生产资源计划事件（MrpEvent）记录数。</value>
         <value xml:lang="zh-TW">無法統計生產資源計劃事件(MrpEvent)記錄數.</value>
@@ -2827,6 +2928,7 @@
         <value xml:lang="en">Problem, we can not find CustomTimePeriod, for more detail look at the log</value>
         <value xml:lang="it">Problema, non è possibile trovare CustomTimePeriod, più dettagli possono essere trovati nel log</value>
         <value xml:lang="ja">問題、カスタム時期間を見つけることができません。詳細はログを参照してください。</value>
+        <value xml:lang="nl">'CustomTimePeriod' niet gevonden; zie logbestand</value>
         <value xml:lang="vi">Có lỗi, chúng tôi không thể tìm thấy Kỳ kế toán của Đơn vị, bạn hãy xem vết để biết thêm chi tiết</value>
         <value xml:lang="zh">问题：我们不能找到定制时间段（CustomTimePeriod），详见日志</value>
         <value xml:lang="zh-TW">問題:我們不能找到客製時間段(CustomTimePeriod),詳見日誌</value>
@@ -2835,6 +2937,7 @@
         <value xml:lang="en">Unable to retrieve ProductFacility records.</value>
         <value xml:lang="it">Non è possibile ricavare i records da ProductFacility.</value>
         <value xml:lang="ja">製品拠点レコードの取得ができません。</value>
+        <value xml:lang="nl">M</value>
         <value xml:lang="vi">Hệ thống không lấy được dữ liệu bản ghi Chi nhánh / Cơ sở.</value>
         <value xml:lang="zh">无法获取产品设施（ProductFacility）记录。</value>
         <value xml:lang="zh-TW">無法獲取產品設施(ProductFacility)記錄.</value>
@@ -3045,6 +3148,7 @@
         <value xml:lang="fr">Nouveau calendrier</value>
         <value xml:lang="it">Nuovo calendario</value>
         <value xml:lang="ja">新規カレンダ</value>
+        <value xml:lang="nl">Nieuwe Kalender</value>
         <value xml:lang="pt-BR">Novo calendário</value>
         <value xml:lang="ro">Nou Calendar</value>
         <value xml:lang="th">ปฏิทินใหม่</value>
@@ -3059,6 +3163,7 @@
         <value xml:lang="fr">Nouvelle semaine</value>
         <value xml:lang="it">Nuova Settimana</value>
         <value xml:lang="ja">新規週</value>
+        <value xml:lang="nl">Nieuwe week</value>
         <value xml:lang="pt-BR">Nova semana</value>
         <value xml:lang="ro">Noua Saptamana</value>
         <value xml:lang="th">สัปดาห์ใหม่</value>
@@ -3073,6 +3178,7 @@
         <value xml:lang="fr">Nouveau groupe de machines</value>
         <value xml:lang="it">Nuovo gruppo Macchine</value>
         <value xml:lang="ja">新規固定資産グループ</value>
+        <value xml:lang="nl">Nieuwe activa-groep</value>
         <value xml:lang="pt-BR">Novo grupo de ativos fixos</value>
         <value xml:lang="ro">Nou grup de Mijloace Fixe</value>
         <value xml:lang="th">กลุ่มสินทรัพย์ไม่หมุนเวียนใหม่</value>
@@ -3087,6 +3193,7 @@
         <value xml:lang="fr">Nouvelle gamme</value>
         <value xml:lang="it">Nuovo ciclo</value>
         <value xml:lang="ja">新規経路制御</value>
+        <value xml:lang="nl">Nieuw schema</value>
         <value xml:lang="pt-BR">Nova rota</value>
         <value xml:lang="ro">Nou Ciclu</value>
         <value xml:lang="th">Routing ใหม่</value>
@@ -3101,6 +3208,7 @@
         <value xml:lang="fr">Nouvelle opération de gamme</value>
         <value xml:lang="it">Nuova Operazione</value>
         <value xml:lang="ja">新規経路制御タスク</value>
+        <value xml:lang="nl">Nieuwe schema-taak</value>
         <value xml:lang="pt-BR">Nova tarefa de rota</value>
         <value xml:lang="ro">Noua Operatie</value>
         <value xml:lang="th">การทำงานใหม่</value>
@@ -3129,6 +3237,7 @@
         <value xml:lang="fr">Aucun calendrier trouvé</value>
         <value xml:lang="it">Nessun calendario trovato</value>
         <value xml:lang="ja">カレンダはありません</value>
+        <value xml:lang="nl">Kalender niet gevonden</value>
         <value xml:lang="pt-BR">Nenhum calendário encontrado</value>
         <value xml:lang="ro">Nici-un calendar gasit</value>
         <value xml:lang="th">ไม่พบปฏิทิน</value>
@@ -3142,6 +3251,7 @@
         <value xml:lang="fr">Aucune donnée disponible.</value>
         <value xml:lang="it">Nessun Dato Disponibile.</value>
         <value xml:lang="ja">有効なデータはありません</value>
+        <value xml:lang="nl">Geen data beschikbaar</value>
         <value xml:lang="pt-BR">Sem dados disponíveis</value>
         <value xml:lang="ro">Nici-o Data Disponibila.</value>
         <value xml:lang="th">ไม่มีข้อมูลที่ใช้ได้</value>
@@ -3156,6 +3266,7 @@
         <value xml:lang="fr">Aucun groupe de machines trouvé</value>
         <value xml:lang="it">Nessun Gruppo Macchine trovato</value>
         <value xml:lang="ja">固定資産グループはありません</value>
+        <value xml:lang="nl">Geen activa-groep gevonden</value>
         <value xml:lang="pt-BR">Nenhum grupo de ativo fixo encontrado</value>
         <value xml:lang="ro">Nici-un Grup de Mijloace Fixe Gasit</value>
         <value xml:lang="th">ไม่พบกลุ่มสินทรัพย์ไม่หมุนเวียน</value>
@@ -3170,6 +3281,7 @@
         <value xml:lang="fr">Aucun ordre de fabrication sélectionné</value>
         <value xml:lang="it">Nessun Ordine di Produzione Selezionato</value>
         <value xml:lang="ja">生産実行は選択されていません</value>
+        <value xml:lang="nl">Geen productie-run geselecteerd</value>
         <value xml:lang="pt-BR">Nenhuma execução de produção selecionada</value>
         <value xml:lang="ro">Nici-o Comanda de Productie Selectionata</value>
         <value xml:lang="th">ไม่มีการเลือกการผลิต</value>
@@ -3220,6 +3332,7 @@
         <value xml:lang="fr">Commandes associées</value>
         <value xml:lang="it">Righe Ordine</value>
         <value xml:lang="ja">注文アイテム</value>
+        <value xml:lang="nl">Order-regels</value>
         <value xml:lang="pt-BR">Itens do pedido</value>
         <value xml:lang="ro">Linie Comanda</value>
         <value xml:lang="th">รายการสั่งซื้อสินค้า</value>
@@ -3231,6 +3344,7 @@
         <value xml:lang="en">Package Configurator Error</value>
         <value xml:lang="it">Errore configurazione pacco</value>
         <value xml:lang="ja">梱包設定エラー</value>
+        <value xml:lang="nl">Configuratie-error ()</value>
         <value xml:lang="pt-BR">Erro na configuração do pacote</value>
         <value xml:lang="vi">Lỗi cấu hình đóng gói</value>
         <value xml:lang="zh">包装配置程序错误</value>
@@ -3275,6 +3389,7 @@
         <value xml:lang="fr">Impression de l'ordre de fabrication</value>
         <value xml:lang="it">Stampa Ordine di Produzione</value>
         <value xml:lang="ja">生産実行の印刷</value>
+        <value xml:lang="nl">Productie-run afdrukken</value>
         <value xml:lang="pt-BR">Imprimir a execução de produção</value>
         <value xml:lang="ro">Tipareste Comanda Productie</value>
         <value xml:lang="th">พิมพ์การผลิตสินค้า</value>
@@ -3288,6 +3403,7 @@
         <value xml:lang="fr">Stock</value>
         <value xml:lang="it">Quantità in Giacenza</value>
         <value xml:lang="ja">入庫</value>
+        <value xml:lang="nl">Naar voorraad</value>
         <value xml:lang="pt-BR">Inventário</value>
         <value xml:lang="ro">Cantitate Stoc</value>
         <value xml:lang="th">คลังสินค้าใน</value>
@@ -3311,6 +3427,7 @@
         <value xml:lang="fr">L'association d'article n'existe pas</value>
         <value xml:lang="it">Associazione Prodotto inesistente</value>
         <value xml:lang="ja">製品の関連付けは存在しません</value>
+        <value xml:lang="nl">Assoc bestaat niet</value>
         <value xml:lang="pt-BR">Associação de produto não existe</value>
         <value xml:lang="ro">Asociere Produs inexistenta</value>
         <value xml:lang="th">ไม่มีกลุ่มสินค้าเหลืออยู่</value>
@@ -3325,6 +3442,7 @@
         <value xml:lang="fr">Cet article est un composant de</value>
         <value xml:lang="it">Questo Prodotto è un Componente di</value>
         <value xml:lang="ja">この製品はコンポーネント</value>
+        <value xml:lang="nl">Dit product is een component van</value>
         <value xml:lang="pt-BR">Este produto é um componente de</value>
         <value xml:lang="ro">Acest Produs este un Component al</value>
         <value xml:lang="th">สินค้านี้เป็นส่วนประกอบของ</value>
@@ -3339,6 +3457,7 @@
         <value xml:lang="fr">Composants de cet article</value>
         <value xml:lang="it">Componenti di questo Prodotto</value>
         <value xml:lang="ja">この製品のコンポーネント</value>
+        <value xml:lang="nl">Componenten van dit product</value>
         <value xml:lang="pt-BR">Componentes deste produto</value>
         <value xml:lang="ro">Componentele acestui Produs</value>
         <value xml:lang="th">ส่วนประกอบของสินค้านี้</value>
@@ -3353,6 +3472,7 @@
         <value xml:lang="fr">La table des lieux de stockage n'existe pas</value>
         <value xml:lang="it">Tabella Stabilimenti non esiste</value>
         <value xml:lang="ja">製品拠点テーブルは存在しません</value>
+        <value xml:lang="nl">Faciliteit niet beschikbaar</value>
         <value xml:lang="pt-BR">Tabela de produtos em estoque não existe</value>
         <value xml:lang="ro">Fisier Compartimente inexistent</value>
         <value xml:lang="th">ไม่มีตารางคลังสินค้าที่ยืดหยุ่นอยู่</value>
@@ -3367,6 +3487,7 @@
         <value xml:lang="fr">L'article n'a pas de nomenclature</value>
         <value xml:lang="it">Prodotto non ha Distinta Base</value>
         <value xml:lang="ja">製品に部品表(BOM)はありません</value>
+        <value xml:lang="nl">Product heeft geen BoM</value>
         <value xml:lang="pt-BR">Produto não possui estrutura de materiais (BOM)</value>
         <value xml:lang="ro">Produsul nu are Lista de Repere</value>
         <value xml:lang="th">ไม่มีสินค้าในใบรายการของสินค้า</value>
@@ -3381,6 +3502,7 @@
         <value xml:lang="fr">Réf. de l'article</value>
         <value xml:lang="it">Codice Prodotto</value>
         <value xml:lang="ja">製品ID</value>
+        <value xml:lang="nl">Product ID</value>
         <value xml:lang="pt-BR">Id do produto</value>
         <value xml:lang="ro">Cod Produs</value>
         <value xml:lang="th">รหัสสินค้า</value>
@@ -3395,6 +3517,7 @@
         <value xml:lang="fr">Réf. d'article dépendant</value>
         <value xml:lang="it">Codice Prodotto A</value>
         <value xml:lang="ja">製品ID(先)</value>
+        <value xml:lang="nl">Product ID naar</value>
         <value xml:lang="pt-BR">Id de produto para</value>
         <value xml:lang="ro">Cod Produs A</value>
         <value xml:lang="th">รหัสสินค้าถึง</value>
@@ -3406,6 +3529,7 @@
         <value xml:lang="en">Product is WIP</value>
         <value xml:lang="it">Prodotto è di tipo WIP</value>
         <value xml:lang="ja">製品は仕掛(WIP)</value>
+        <value xml:lang="nl">Product is WiP</value>
         <value xml:lang="pt-BR">Produto é do tipo WIP</value>
         <value xml:lang="vi">Sản phẩm là WIP</value>
         <value xml:lang="zh">产品是半成品</value>
@@ -3418,6 +3542,7 @@
         <value xml:lang="fr">Code de plus bas niveau</value>
         <value xml:lang="it">Livello Prodotto</value>
         <value xml:lang="ja">製品レベル</value>
+        <value xml:lang="nl">Product-niveau</value>
         <value xml:lang="pt-BR">Nível de produto</value>
         <value xml:lang="ro">Nivel Produs</value>
         <value xml:lang="th">ระดับสินค้า</value>
@@ -3432,6 +3557,7 @@
         <value xml:lang="fr">L'article n'existe pas</value>
         <value xml:lang="it">Prodotto inesistente</value>
         <value xml:lang="ja">製品は存在しません</value>
+        <value xml:lang="nl">Product bestaat niet</value>
         <value xml:lang="pt-BR">O produto não existe</value>
         <value xml:lang="ro">Produs inexistent</value>
         <value xml:lang="th">ไม่มีสินค้าเหลืออยู่</value>
@@ -3446,6 +3572,7 @@
         <value xml:lang="fr">Le lien article-gamme saisi, n'existe pas</value>
         <value xml:lang="it">Link ciclo-prodotto inesistente</value>
         <value xml:lang="ja">製品経路制御リンクは存在しません</value>
+        <value xml:lang="nl">Product schema-assoc bestaat niet</value>
         <value xml:lang="pt-BR">Relação do produto com a rota não existe</value>
         <value xml:lang="ro">Link Ciclu Produs inexistent</value>
         <value xml:lang="th">ไม่มีการเชื่อมโยงกับสินค้า</value>
@@ -3460,6 +3587,7 @@
         <value xml:lang="fr">La table des articles n'existe pas</value>
         <value xml:lang="it">La tabella prodotti non esiste</value>
         <value xml:lang="ja">製品テーブルは存在しません</value>
+        <value xml:lang="nl">Product-tabel bestaat niet</value>
         <value xml:lang="pt-BR">A tabela de produtos não existe</value>
         <value xml:lang="ro">Fisierul Produse inexistent</value>
         <value xml:lang="th">ไม่มีตารางสินค้าคงอยู่</value>
@@ -3474,6 +3602,7 @@
         <value xml:lang="fr">Virtuel</value>
         <value xml:lang="it">Virtuale</value>
         <value xml:lang="ja">仮想</value>
+        <value xml:lang="nl">Virtueel</value>
         <value xml:lang="pt-BR">Virtual</value>
         <value xml:lang="th">โดยทั้งหมด</value>
         <value xml:lang="vi">Sản phẩm ảo</value>
@@ -3496,6 +3625,7 @@
         <value xml:lang="fr">Ordre de fabrication</value>
         <value xml:lang="it">Ordine di Produzione</value>
         <value xml:lang="ja">生産実行</value>
+        <value xml:lang="nl">Productie-run</value>
         <value xml:lang="pt-BR">Execução de produção</value>
         <value xml:lang="ro">Comanda de Productie</value>
         <value xml:lang="th">การผลิตสินค้า</value>
@@ -3510,6 +3640,7 @@
         <value xml:lang="fr">Composants réels de l'ordre de fabrication</value>
         <value xml:lang="it">Componenti Attuali Ordine di Produzione</value>
         <value xml:lang="ja">生産実行実績コンポーネント</value>
+        <value xml:lang="nl">Componenten - werkelijk</value>
         <value xml:lang="pt-BR">Componentes efetivos da execução de produção</value>
         <value xml:lang="th">การผลิตสินค้าตามส่วนประกอบที่มีอยู่ในขณะนี้</value>
         <value xml:lang="vi">Thành phần thực của quá trình Chế tác lô hàng</value>
@@ -3523,6 +3654,7 @@
         <value xml:lang="fr">Associations</value>
         <value xml:lang="it">Associazioni</value>
         <value xml:lang="ja">関連付け</value>
+        <value xml:lang="nl">Associaties</value>
         <value xml:lang="pt-BR">Associações</value>
         <value xml:lang="ro">Asociatii </value>
         <value xml:lang="th">กลุ่ม</value>
@@ -3534,6 +3666,7 @@
         <value xml:lang="en">Cannot cancel productionRun, not in a valid status</value>
         <value xml:lang="it">Non è possibile cancellare l'ordin di produzione, non è in uno stato valido</value>
         <value xml:lang="ja">生産実行を取消できません。有効なステータスではありません</value>
+        <value xml:lang="nl">Productie-run kan niet geannuleerd worden; heeft niet de correcte status</value>
         <value xml:lang="vi">Không thể hủy bỏ Chế tác lô hàng, trạng thái không hợp lệ</value>
         <value xml:lang="zh">无法取消生产运行（productionRun），状态无效</value>
         <value xml:lang="zh-TW">無法取消生產執行(productionRun),狀態無效</value>
@@ -3569,6 +3702,7 @@
         <value xml:lang="fr">Fermer l'ordre de fabrication</value>
         <value xml:lang="it">Chiudi Ordine di Produzione</value>
         <value xml:lang="ja">生産実行をクローズ</value>
+        <value xml:lang="nl">Afsluiten</value>
         <value xml:lang="pt-BR">Encerrar execução de produção</value>
         <value xml:lang="ro">Inchide comanda de Productie</value>
         <value xml:lang="th">ปิดการผลิตสินค้า</value>
@@ -3589,6 +3723,7 @@
         <value xml:lang="en">Production Run Component Added</value>
         <value xml:lang="it">Aggiunta componente ordine di produzione</value>
         <value xml:lang="ja">生産実行コンポーネントは追加されました</value>
+        <value xml:lang="nl">Component toegevoegd</value>
         <value xml:lang="pt-BR">Componente de execução de produto adicionado</value>
         <value xml:lang="vi">Đã thêm thành phần</value>
         <value xml:lang="zh">生产运行组件已添加</value>
@@ -3598,6 +3733,7 @@
         <value xml:lang="en">Production Run Component Not Added</value>
         <value xml:lang="it">Componente ordine di produzione non aggiunto</value>
         <value xml:lang="ja">生産実行コンポーネントは追加されません</value>
+        <value xml:lang="nl">Component niet toegevoegd</value>
         <value xml:lang="pt-BR">Componente de execução de produto não adicionado</value>
         <value xml:lang="vi">Thành phần được thêm không thành công</value>
         <value xml:lang="zh">生产运行组件没有添加</value>
@@ -3607,6 +3743,7 @@
         <value xml:lang="en">Production Run Component Not Exists</value>
         <value xml:lang="it">Componente ordine di produzione non esiste</value>
         <value xml:lang="ja">生産実行コンポーネントは存在しません</value>
+        <value xml:lang="nl">Component bestaat niet</value>
         <value xml:lang="pt-BR">Componente de execução de produção não existe</value>
         <value xml:lang="vi">Thành phần không tồn tại</value>
         <value xml:lang="zh">生产运行组件不存在</value>
@@ -3628,6 +3765,7 @@
         <value xml:lang="fr">Composants de l'ordre de fabrication</value>
         <value xml:lang="it">Compomenti Ordine di Produzione</value>
         <value xml:lang="ja">生産実行コンポーネント</value>
+        <value xml:lang="nl">Componenten</value>
         <value xml:lang="pt-BR">Componentes de execução de produção</value>
         <value xml:lang="th">ส่วนประกอบของการผลิตสินค้า</value>
         <value xml:lang="vi">Các thành phần của Chế tác lô hàng</value>
@@ -3665,6 +3803,7 @@
         <value xml:lang="fr">Coûts de l'ordre de fabrication</value>
         <value xml:lang="it">Costi Ordine di Produzione</value>
         <value xml:lang="ja">生産実行原価</value>
+        <value xml:lang="nl">Kosten</value>
         <value xml:lang="pt-BR">Custos da execução de produção</value>
         <value xml:lang="ro">Costuri Comenzi de Productie</value>
         <value xml:lang="th">ราคาของผลผลิตที่ได้</value>
@@ -3679,6 +3818,7 @@
         <value xml:lang="fr">Ordre de fabrication créé ${productionRunId}</value>
         <value xml:lang="it">Ordine di produzione ${productionRunId} creato</value>
         <value xml:lang="ja">生産実行 ${productionRunId} 作成されました</value>
+        <value xml:lang="nl">Productie-run ${produtionRunId}</value>
         <value xml:lang="pt-BR">Execução de produção ${productionRunId} criada</value>
         <value xml:lang="ro">Comanda de Productie ${productionRunId} creata</value>
         <value xml:lang="th">สร้างการผลิต ${productionRunId}</value>
@@ -3692,6 +3832,7 @@
         <value xml:lang="fr">Déclaration de l'ordre de fabrication</value>
         <value xml:lang="it">Dichiarazione Ordine di Produzione</value>
         <value xml:lang="ja">生産実行定義</value>
+        <value xml:lang="nl">Declaratie</value>
         <value xml:lang="pt-BR">Declaração de execução de produção</value>
         <value xml:lang="ro">Declaratie Comanda de Productie</value>
         <value xml:lang="th">ยืนยันการผลิต</value>
@@ -3703,6 +3844,7 @@
         <value xml:lang="en">Production Run Declare And Produce</value>
         <value xml:lang="it">Ordine di produzione dichiara e produci</value>
         <value xml:lang="ja">生産実行の定義および生産</value>
+        <value xml:lang="nl">Declareren</value>
         <value xml:lang="pt-BR">Declarar e produzir execução de produção</value>
         <value xml:lang="vi">Khai báo và Sản xuất Chế tác lô hàng</value>
         <value xml:lang="zh">生产运行说明和产出</value>
@@ -3715,6 +3857,7 @@
         <value xml:lang="fr">Affecter une machine</value>
         <value xml:lang="it">Assegna Cespite</value>
         <value xml:lang="ja">固定資産割当</value>
+        <value xml:lang="nl">Productiemiddel toewijzen</value>
         <value xml:lang="pt-BR">Designação de ativo fixo</value>
         <value xml:lang="ro">Anexeaza Mijloc Fix Cespite</value>
         <value xml:lang="th">กำหนดสินทรัพย์ไม่หมุนเวียน</value>
@@ -3742,6 +3885,7 @@
         <value xml:lang="fr">Machines de l'ordre de fabrication</value>
         <value xml:lang="it">Cespite ordine di produzione</value>
         <value xml:lang="ja">生産実行固定資産</value>
+        <value xml:lang="nl">Productiemiddelen</value>
         <value xml:lang="pt-BR">Ativos fixos da execução de produção</value>
         <value xml:lang="th">การผลิตสินทรัพย์ไม่หมุนเวียน</value>
         <value xml:lang="vi">Tài sản cố định</value>
@@ -3810,6 +3954,7 @@
         <value xml:lang="fr">Nom de l'ordre de fabrication</value>
         <value xml:lang="it">Nome ordine di produzione</value>
         <value xml:lang="ja">生産実行名称</value>
+        <value xml:lang="nl">Naam</value>
         <value xml:lang="pt-BR">Nome da execução de produção</value>
         <value xml:lang="ro">Nume Comanda de Productie</value>
         <value xml:lang="th">ชื่อผลิตผล</value>
@@ -3821,6 +3966,7 @@
         <value xml:lang="en">Production Run Not Created</value>
         <value xml:lang="it">Ordine di produzione non creato</value>
         <value xml:lang="ja">生産実行は作成されません</value>
+        <value xml:lang="nl">Productie-run niet aangemaakt</value>
         <value xml:lang="pt-BR">Execução de produção não foi criada</value>
         <value xml:lang="vi">Chế tác lô hàng chưa được tạo</value>
         <value xml:lang="zh">生产运行没有创建</value>
@@ -3830,6 +3976,7 @@
         <value xml:lang="en">Production Run Not Exists</value>
         <value xml:lang="it">Ordine di produzione non esiste</value>
         <value xml:lang="ja">生産実行は存在しません</value>
+        <value xml:lang="nl">Productie-run bestaat niet</value>
         <value xml:lang="pt-BR">Execução de produção não existe</value>
         <value xml:lang="vi">Chế tác lô hàng không tồn tại</value>
         <value xml:lang="zh">生产运行不存在</value>
@@ -3842,6 +3989,7 @@
         <value xml:lang="fr">La mise à jour de l'ordre de fabrication a échouée. Voir la log (journal de bord) pour plus d'information</value>
         <value xml:lang="it">Aggiornamento Ordine di Produzione fallito, vedere il log per maggiori informazioni</value>
         <value xml:lang="ja">生産実行の更新に失敗しました。詳しい情報はログを参照してください</value>
+        <value xml:lang="nl">Productie-run niet bijgewerkt; zie logbestand</value>
         <value xml:lang="pt-BR">Atualização de execução de produção falhou, veja o relatório (log) para mais informações</value>
         <value xml:lang="ro">Actualizare Comanda de Productie falita, pentru mai multe informatii vezi log </value>
         <value xml:lang="th">เกิดความผิดพลาดในการเปลี่ยนแปลงการผลิตดูบันทึกสำหรับข้อมูลที่มากมาย</value>
@@ -3861,6 +4009,7 @@
         <value xml:lang="fr">Documents d'impression de l'ordre de fabrication</value>
         <value xml:lang="it">Stampa documento ordine di produzione</value>
         <value xml:lang="ja">生産実行文書印刷</value>
+        <value xml:lang="nl">Documenten</value>
         <value xml:lang="pt-BR">Documentos de impressão da execução de produção</value>
         <value xml:lang="th">พิมพ์เอกสารการผลิต</value>
         <value xml:lang="vi">Tài liệu bản in</value>
@@ -3871,6 +4020,7 @@
         <value xml:lang="en">Production Run Printed</value>
         <value xml:lang="it">Ordine di produzione stampato</value>
         <value xml:lang="ja">生産実行は印刷されました</value>
+        <value xml:lang="nl">Afgedrukt</value>
         <value xml:lang="pt-BR">Execução de produção impressa</value>
         <value xml:lang="vi">Đã in</value>
         <value xml:lang="zh">生产运行已打印</value>
@@ -3880,6 +4030,7 @@
         <value xml:lang="en">Production Run Priority Missing</value>
         <value xml:lang="it">Ordine di produzione priorità mancante</value>
         <value xml:lang="ja">生産実行の優先度が正しくありません</value>
+        <value xml:lang="nl">Prioriteit ontbreekt</value>
         <value xml:lang="pt-BR">Prioridade de execução de produção está faltando</value>
         <value xml:lang="vi">Thiếu độ ưu tiên</value>
         <value xml:lang="zh">生产运行缺少优先级</value>
@@ -3889,6 +4040,7 @@
         <value xml:lang="en">Production Run Produce</value>
         <value xml:lang="it">Ordine di produzione prodotto</value>
         <value xml:lang="ja">生産実行の生産</value>
+        <value xml:lang="nl">Produceer</value>
         <value xml:lang="pt-BR">Execução de produção produz</value>
         <value xml:lang="vi">Sản xuất</value>
         <value xml:lang="zh">生产运行产出</value>
@@ -3901,6 +4053,7 @@
         <value xml:lang="fr">Composant de l'ordre de fabrication</value>
         <value xml:lang="it">Ordine di Produzione Prodotti Componenti</value>
         <value xml:lang="ja">生産実行製品コンポーネント</value>
+        <value xml:lang="nl">Component</value>
         <value xml:lang="pt-BR">Componente do produto da execução de produção</value>
         <value xml:lang="ro">Comanda de Productie Produse Componente</value>
         <value xml:lang="th">ส่วนประกอบของสินค้าในการผลิต</value>
@@ -4097,6 +4250,7 @@
         <value xml:lang="fr">Opérations de l'ordre de fabrication</value>
         <value xml:lang="it">Operazione Ordine di Produzione</value>
         <value xml:lang="ja">生産実行タスク</value>
+        <value xml:lang="nl">Taken</value>
         <value xml:lang="pt-BR">Tarefas de execução de produção</value>
         <value xml:lang="th">งานการผลิต</value>
         <value xml:lang="vi">Tác vụ - Đầu việc</value>
@@ -4173,6 +4327,7 @@
         <value xml:lang="fr">Ordre Proposé</value>
         <value xml:lang="it">Ordine Proposta</value>
         <value xml:lang="ja">提案注文</value>
+        <value xml:lang="nl">Voorgestelde volgorde</value>
         <value xml:lang="pt-BR">Pedido proposto</value>
         <value xml:lang="ro">Comanda Propusa</value>
         <value xml:lang="th">วางแผนการสั่งซื้อ</value>
@@ -4187,6 +4342,7 @@
         <value xml:lang="fr">Quantité</value>
         <value xml:lang="it">Quantità</value>
         <value xml:lang="ja">数量</value>
+        <value xml:lang="nl">Hoeveelheid</value>
         <value xml:lang="pt-BR">Quantidade</value>
         <value xml:lang="ro">Cantitate</value>
         <value xml:lang="th">จำนวน</value>
@@ -4201,6 +4357,7 @@
         <value xml:lang="fr">Quantité minimum</value>
         <value xml:lang="it">Quantità Minima</value>
         <value xml:lang="ja">最小数量</value>
+        <value xml:lang="nl">Hoeveelheid - minimum</value>
         <value xml:lang="pt-BR">Quantidade mínima</value>
         <value xml:lang="ro">Cantitate Minima</value>
         <value xml:lang="th">จำนวนน้อยที่สุด</value>
@@ -4215,6 +4372,7 @@
         <value xml:lang="fr">Quantité produite</value>
         <value xml:lang="it">Quantità Prodotta</value>
         <value xml:lang="ja">生産済</value>
+        <value xml:lang="nl">Geproduceerd</value>
         <value xml:lang="pt-BR">Quantidade produzida</value>
         <value xml:lang="ro">Cantitate Produsa</value>
         <value xml:lang="th">สินค้า</value>
@@ -4240,6 +4398,7 @@
         <value xml:lang="fr">Quantité rejetée</value>
         <value xml:lang="it">Quantità Scartata</value>
         <value xml:lang="ja">否認</value>
+        <value xml:lang="nl">Hoeveelheid - afgewezen</value>
         <value xml:lang="pt-BR">Rejeitado</value>
         <value xml:lang="ro">Cantitate Rebutata</value>
         <value xml:lang="th">ไม่ยอมรับ</value>
@@ -4254,6 +4413,7 @@
         <value xml:lang="fr">Quantité restante</value>
         <value xml:lang="it">Quantità Rimanente</value>
         <value xml:lang="ja">残</value>
+        <value xml:lang="nl">Hoeveelheid - uitstaand</value>
         <value xml:lang="pt-BR">Quantidade restante</value>
         <value xml:lang="ro">Cantitate Ramasa</value>
         <value xml:lang="th">ยังเหลืออยู่</value>
@@ -4268,6 +4428,7 @@
         <value xml:lang="fr">Qté à produire</value>
         <value xml:lang="it">Quantità Da Produrre</value>
         <value xml:lang="ja">要生産数量</value>
+        <value xml:lang="nl">Hoeveelheid - te produceren</value>
         <value xml:lang="pt-BR">Quantidade a produzir</value>
         <value xml:lang="ro">Cantitate de Produs</value>
         <value xml:lang="th">จำนวนสินค้า</value>
@@ -4310,6 +4471,7 @@
         <value xml:lang="fr">Exéc. rapid. toutes opé.</value>
         <value xml:lang="it">Esecuzione Veloce Operazioni</value>
         <value xml:lang="ja">すべてのタスクをクイック実行</value>
+        <value xml:lang="nl">Alle taken starten</value>
         <value xml:lang="pt-BR">Executar rapidamente todas as tarefas</value>
         <value xml:lang="ro">Executie Rapida Toate Sarcinile</value>
         <value xml:lang="th">ทำงานทั้งหมดอย่างรวดเร็ว</value>
@@ -4324,6 +4486,7 @@
         <value xml:lang="fr">Démarrer rapidement l'opération</value>
         <value xml:lang="it">Esecuzione Veloce Operazione</value>
         <value xml:lang="ja">タスクをクイック実行</value>
+        <value xml:lang="nl">Taak starten</value>
         <value xml:lang="pt-BR">Executar rapidamente a tarefa</value>
         <value xml:lang="ro">Executie Rapida Sarcini</value>
         <value xml:lang="th">ทำงานอย่างรวดเร็ว</value>
@@ -4350,6 +4513,7 @@
         <value xml:lang="fr">Motif</value>
         <value xml:lang="it">Ragione</value>
         <value xml:lang="ja">理由</value>
+        <value xml:lang="nl">Reden</value>
         <value xml:lang="pt-BR">Razão</value>
         <value xml:lang="ro">Societate</value>
         <value xml:lang="th">เหตุผล</value>
@@ -4364,6 +4528,7 @@
         <value xml:lang="fr">Rapports</value>
         <value xml:lang="it">Stampe</value>
         <value xml:lang="ja">レポート</value>
+        <value xml:lang="nl">Rapporten</value>
         <value xml:lang="pt-BR">Relatórios</value>
         <value xml:lang="ro">Tipareste</value>
         <value xml:lang="th">รายงาน</value>
@@ -4447,6 +4612,7 @@
         <value xml:lang="fr">Retourner les matériaux inutilisés à l'entrepôt</value>
         <value xml:lang="it">Materiali Non Usati Resi al Magazzino</value>
         <value xml:lang="ja">倉庫に未使用部品を返品</value>
+        <value xml:lang="nl">Ongebruikte componenten retourneren</value>
         <value xml:lang="pt-BR">Devolver materiais não utilizados para o armazém</value>
         <value xml:lang="th">แสดงวัสดุที่ยังไม่เคยใช้ในคลังสินค้า</value>
         <value xml:lang="vi">Trả về Vật liệu không sử dụng tới Kho</value>
@@ -4460,6 +4626,7 @@
         <value xml:lang="fr">Retourné</value>
         <value xml:lang="it">Quantità Resa</value>
         <value xml:lang="ja">返品済</value>
+        <value xml:lang="nl">Hoeveelheid - geretourneerd</value>
         <value xml:lang="pt-BR">Quantidade devolvida</value>
         <value xml:lang="ro">Cantitate Returnata</value>
         <value xml:lang="th">แสดง</value>
@@ -4474,6 +4641,7 @@
         <value xml:lang="fr">Gamme</value>
         <value xml:lang="it">Ciclo</value>
         <value xml:lang="ja">経路制御</value>
+        <value xml:lang="nl">Schema</value>
         <value xml:lang="pt-BR">Rotas</value>
         <value xml:lang="ro">Ciclu</value>
         <value xml:lang="th">Routing</value>
@@ -4510,6 +4678,7 @@
         <value xml:lang="fr">Réf. de gamme</value>
         <value xml:lang="it">Codice ciclo</value>
         <value xml:lang="ja">経路制御ID</value>
+        <value xml:lang="nl">Schema ID</value>
         <value xml:lang="pt-BR">Id da rota</value>
         <value xml:lang="ro">Cod Ciclu</value>
         <value xml:lang="th">รหัส Routing </value>
@@ -4538,6 +4707,7 @@
         <value xml:lang="fr">Nom de la gamme</value>
         <value xml:lang="it">Nome ciclo</value>
         <value xml:lang="ja">経路制御名称</value>
+        <value xml:lang="nl">Schema-naam</value>
         <value xml:lang="pt-BR">Nome da rota</value>
         <value xml:lang="ro">Nome Ciclu</value>
         <value xml:lang="th">ชื่อ Routing</value>
@@ -4580,6 +4750,7 @@
         <value xml:lang="fr">Opération</value>
         <value xml:lang="it">Operazione</value>
         <value xml:lang="ja">経路制御タスク</value>
+        <value xml:lang="nl">Schema-taak</value>
         <value xml:lang="pt-BR">Tarefa de rota</value>
         <value xml:lang="ro">Operatie</value>
         <value xml:lang="th">การทำงาน</value>
@@ -4622,6 +4793,7 @@
         <value xml:lang="fr">Coûts de l'opération de gamme</value>
         <value xml:lang="it">Costi Operazione</value>
         <value xml:lang="ja">経路制御タスク原価</value>
+        <value xml:lang="nl">Kosten schema-taak</value>
         <value xml:lang="pt-BR">Custos de Tarefas de rota</value>
         <value xml:lang="ro">Costuri Operatii</value>
         <value xml:lang="th">ราคาของการทำงาน</value>
@@ -4636,6 +4808,7 @@
         <value xml:lang="fr">Machines</value>
         <value xml:lang="it">Cespiti</value>
         <value xml:lang="ja">固定資産</value>
+        <value xml:lang="nl">Productiemiddel schema-taak</value>
         <value xml:lang="pt-BR">Ativos fixos</value>
         <value xml:lang="ro">Mijloace Fixe</value>
         <value xml:lang="th">สินทรัพย์ไม่หมุนเวียน</value>
@@ -4650,6 +4823,7 @@
         <value xml:lang="fr">Opération</value>
         <value xml:lang="it">Codice Operazione</value>
         <value xml:lang="ja">経路制御タスクID</value>
+        <value xml:lang="nl">Schema-taak ID</value>
         <value xml:lang="pt-BR">Id de tarefa de rota</value>
         <value xml:lang="ro">Cod Operatie</value>
         <value xml:lang="th">รหัสการทำงาน</value>
@@ -4717,6 +4891,7 @@
         <value xml:lang="fr">Opérations de gamme</value>
         <value xml:lang="it">Operazioni</value>
         <value xml:lang="ja">経路制御タスク</value>
+        <value xml:lang="nl">Schema-taken</value>
         <value xml:lang="pt-BR">Tarefas de rota</value>
         <value xml:lang="ro">Operatii</value>
         <value xml:lang="th">การทำาน</value>
@@ -4731,6 +4906,7 @@
         <value xml:lang="fr">Routages</value>
         <value xml:lang="it">Cicli</value>
         <value xml:lang="ja">経路制御</value>
+        <value xml:lang="nl">Schemas</value>
         <value xml:lang="pt-BR">Rotas</value>
         <value xml:lang="ro">Cicluri</value>
         <value xml:lang="th">Routing</value>
@@ -4759,6 +4935,7 @@
         <value xml:lang="fr">Planification</value>
         <value xml:lang="it">Schedula</value>
         <value xml:lang="ja">スケジュール</value>
+        <value xml:lang="nl">Planning</value>
         <value xml:lang="pt-BR">Agendar</value>
         <value xml:lang="th">กำหนดการ</value>
         <value xml:lang="vi">Kế hoạch</value>
@@ -4846,6 +5023,7 @@
         <value xml:lang="fr">Date de début</value>
         <value xml:lang="it">Data di inizio</value>
         <value xml:lang="ja">開始日</value>
+        <value xml:lang="nl">Datum - start</value>
         <value xml:lang="pt-BR">Data de início</value>
         <value xml:lang="ro">Data Initiala</value>
         <value xml:lang="th">วันเริ่มต้น</value>
@@ -4874,6 +5052,7 @@
         <value xml:lang="fr">Heure de début</value>
         <value xml:lang="it">Ora Inizio</value>
         <value xml:lang="ja">開始時間</value>
+        <value xml:lang="nl">Start - tijd</value>
         <value xml:lang="pt-BR">Hora de início</value>
         <value xml:lang="ro">Ora Initiala</value>
         <value xml:lang="th">เวลาเริ่มต้น</value>
@@ -5162,6 +5341,7 @@
         <value xml:lang="fr">Mise à jour du calendrier</value>
         <value xml:lang="it">Aggiorna Calendario</value>
         <value xml:lang="ja">カレンダを更新</value>
+        <value xml:lang="nl">Kalender bijwerken</value>
         <value xml:lang="pt-BR">Atualizar calendário</value>
         <value xml:lang="ro">Actualizeaza Calendar</value>
         <value xml:lang="th">เปลี่ยนแปลงปฏิทิน</value>
@@ -5176,6 +5356,7 @@
         <value xml:lang="fr">Mise à jour d'une semaine</value>
         <value xml:lang="it">Aggiorna Calendario Settimanale</value>
         <value xml:lang="ja">週を更新</value>
+        <value xml:lang="nl">Week bijwerken</value>
         <value xml:lang="pt-BR">Atualizar semana</value>
         <value xml:lang="ro">Actualizeaza Saptamana</value>
         <value xml:lang="th">เปลี่ยนแปลงสัปดาห์</value>
@@ -5190,6 +5371,7 @@
         <value xml:lang="fr">Mise à jour du groupe de machines</value>
         <value xml:lang="it">Aggiorna Gruppo Macchine</value>
         <value xml:lang="ja">固定資産グループを更新</value>
+        <value xml:lang="nl">Activa-groep bijwerken</value>
         <value xml:lang="pt-BR">Atualizar grupo de ativos fixos</value>
         <value xml:lang="ro">Actualizeaza Grup Mijloace Fixe</value>
         <value xml:lang="th">เปลี่ยนแปลงกลุ่มสินทรัพย์ไม่หมุนเวียน</value>
@@ -5204,6 +5386,7 @@
         <value xml:lang="fr">Erreur sécurité: Pour exécuter cette opération vous devez avoir l'autorisation MANUFACTURING_UPDATE or MANUFACTURING_ADMIN</value>
         <value xml:lang="it">Errore Sicurezza: per eseguire questa operazione tu devi avere i permessi MANUFACTURING_UPDATE o MANUFACTURING_ADMIN</value>
         <value xml:lang="ja">セキュリティエラー: この操作の実行には MANUFACTURING_UPDATE または MANUFACTURING_ADMIN 権限が必要です</value>
+        <value xml:lang="nl">Permissie-error: u heeft aanvullende rechten nodig</value>
         <value xml:lang="pt-BR">Erro de segurança: para executar esta operação você deve ter permissão de MANUFACTURING_UPDATE ou MANUFACTURING_ADMIN</value>
         <value xml:lang="ro">Eroare Siguranta: pentru a executa aceasta operatie trebuie sa ai permisul MANUFACTURING_UPDATE sau MANUFACTURING_ADMIN</value>
         <value xml:lang="th">Security Error: ผิดพลาด ! ในการรันการทำงานคุณต้องได้รับอนุญาตจาก MANUFACTURING_UPDATE หรือ MANUFACTURING_ADMIN ก่อน</value>
@@ -5214,6 +5397,7 @@
     <property key="ManufacturingUsedCapacity">
         <value xml:lang="en">Manufacturing Used Capacity</value>
         <value xml:lang="fr">Capacité de fabrication utilisée</value>
+        <value xml:lang="nl">Capaciteit in gebruik</value>
         <value xml:lang="zh">正在制造中的产能占用</value>
     </property>
     <property key="ManufacturingViewPermissionError">
@@ -5223,6 +5407,7 @@
         <value xml:lang="fr">Vous n'avez pas l'autorisation de voir cette page. ("MANUFACTURING_VIEW" ou "MANUFACTURING_ADMIN" nécessaire)</value>
         <value xml:lang="it">Tu non sei autorizzato a vedere questa pagina. (permesso "MANUFACTURING_VIEW" o "MANUFACTURING_ADMIN" necessario)</value>
         <value xml:lang="ja">このページを表示する権限がありません。"MANUFACTURING_VIEW" または "MANUFACTURING_ADMIN" 権限が必要です</value>
+        <value xml:lang="nl">Permissie-error: u heeft aanvullende rechten nodig.</value>
         <value xml:lang="pt-BR">Você não tem permissão para visualizar esta página. (é necessária permissão de "MANUFACTURING_VIEW" ou "MANUFACTURING_ADMIN")</value>
         <value xml:lang="ro">Nu esti autorizat sa vezi aceasta pagina. (este necesar un permis "MANUFACTURING_VIEW" sau "MANUFACTURING_ADMIN")</value>
         <value xml:lang="th">คุณยังไม่ได้รับอนุญาตให้ดูหน้านี้ ("MANUFACTURING_VIEW" หรือ "MANUFACTURING_ADMIN" ที่ต้องการ)</value>
@@ -5382,6 +5567,7 @@
         <value xml:lang="fr">Ajouter une exclusion de semaine au calendrier</value>
         <value xml:lang="it">Aggiungi Eccezione Calendario Settimanale</value>
         <value xml:lang="ja">カレンダ除外週を追加</value>
+        <value xml:lang="nl">Uitzonderingsweek toevoegen</value>
         <value xml:lang="pt-BR">Adicionar semana de exceção ao calendário</value>
         <value xml:lang="th">เพิ่มปฏิทินสัปดาห์ที่ยกเว้น</value>
         <value xml:lang="vi">Thêm lịch tuần nghỉ</value>
@@ -5395,6 +5581,7 @@
         <value xml:lang="fr">Modifier le calendrier</value>
         <value xml:lang="it">Aggiorna Calendario</value>
         <value xml:lang="ja">カレンダを編集</value>
+        <value xml:lang="nl">Kalender wijzigen</value>
         <value xml:lang="pt-BR">Editar calendário</value>
         <value xml:lang="ro">Actualizare Calendar</value>
         <value xml:lang="th">แก้ไขปฏิทิน</value>
@@ -5409,6 +5596,7 @@
         <value xml:lang="fr">Modifier une exclusion de jour du calendrier</value>
         <value xml:lang="it">Aggiorna Giorno Calendario Speciale</value>
         <value xml:lang="ja">カレンダ除外日を編集</value>
+        <value xml:lang="nl">Uitzonderingsdag wijzigen</value>
         <value xml:lang="pt-BR">Editar dia de exceção do calendário</value>
         <value xml:lang="ro">Actualizare Zi Calendar Special</value>
         <value xml:lang="th">แก้ไขปฏิทินที่ยกเว้นวัน</value>
@@ -5423,6 +5611,7 @@
         <value xml:lang="fr">Modifier une exclusion de semaine du calendrier</value>
         <value xml:lang="it">Aggiorna Calendario Speciale Settimanale</value>
         <value xml:lang="ja">カレンダ除外週を編集</value>
+        <value xml:lang="nl">Uitzonderingsweek wijzigen</value>
         <value xml:lang="pt-BR">Editar semana de exceção do calendário</value>
         <value xml:lang="ro">Actualizare Saptamana Calendar Special </value>
         <value xml:lang="th">แก้ไขปฏิทินที่ยกเว้นสัปดาห์</value>
@@ -5437,6 +5626,7 @@
         <value xml:lang="fr">Modifier une semaine</value>
         <value xml:lang="it">Aggiorna Calendario Settimanale</value>
         <value xml:lang="ja">週を編集</value>
+        <value xml:lang="nl">Week wijzigen</value>
         <value xml:lang="pt-BR">Editar semana</value>
         <value xml:lang="ro">Actualizare Saptamana</value>
         <value xml:lang="th">แก้ไขสัปดาห์</value>
@@ -5451,6 +5641,7 @@
         <value xml:lang="fr">Modifier les calculs de coût</value>
         <value xml:lang="it">Aggiorna Calcoli Costo</value>
         <value xml:lang="ja">原価計算を編集</value>
+        <value xml:lang="nl">Calculatie kosten wijzigen</value>
         <value xml:lang="pt-BR">Editar cálculos de custos</value>
         <value xml:lang="ro">Actualizare Calcul Cost</value>
         <value xml:lang="th">แก้ไขการคำนวณราคา</value>
@@ -5465,6 +5656,7 @@
         <value xml:lang="fr">Modification des machines</value>
         <value xml:lang="it">Aggiorna Macchine</value>
         <value xml:lang="ja">固定資産を編集</value>
+        <value xml:lang="nl">Productiemiddel wijzigen</value>
         <value xml:lang="pt-BR">Editar ativos fixos</value>
         <value xml:lang="ro">Actualizare Mijloace Fixe</value>
         <value xml:lang="th">แก้ไขสินทรัพย์ไม่หมุนเวียน</value>
@@ -5479,6 +5671,7 @@
         <value xml:lang="fr">Modification d'un groupe de machine</value>
         <value xml:lang="it">Aggiorna Gruppo Macchine</value>
         <value xml:lang="ja">固定資産グループを編集</value>
+        <value xml:lang="nl">Activa-groep wijzigen</value>
         <value xml:lang="pt-BR">Editar grupo de ativos fixos</value>
         <value xml:lang="ro">Actualizare Grup Mijloace Fixe</value>
         <value xml:lang="th">แก้ไขกลุ่มสินทรัพย์ไม่หมุนเวียน</value>
@@ -5493,6 +5686,7 @@
         <value xml:lang="fr">Modifier la nomenclature d'article</value>
         <value xml:lang="it">Aggiorna Distinta Base Prodotto</value>
         <value xml:lang="ja">製品部品表(BOM)を編集</value>
+        <value xml:lang="nl">BoM wijzigen</value>
         <value xml:lang="pt-BR">Editar estrutura de materiais (BOM) do produto</value>
         <value xml:lang="ro">Actualizare Lista repere Produs</value>
         <value xml:lang="th">แก้ไขสินค้าในรายการของสินค้า</value>
@@ -5507,6 +5701,7 @@
         <value xml:lang="fr">Règles de fabrication d'article</value>
         <value xml:lang="it">Regole Produzione Prodotto</value>
         <value xml:lang="ja">製品生産ルール</value>
+        <value xml:lang="nl">Fabricage-formule(s) wijzigen</value>
         <value xml:lang="pt-BR">Regras de produção do produto</value>
         <value xml:lang="ro">Reguli de Productie Produs</value>
         <value xml:lang="th">ข้อบังคับของการผลิตสินค้า</value>
@@ -5521,6 +5716,7 @@
         <value xml:lang="fr">Modifier la gamme</value>
         <value xml:lang="it">Aggiorna ciclo</value>
         <value xml:lang="ja">経路制御を編集</value>
+        <value xml:lang="nl">Schema wijzigen</value>
         <value xml:lang="pt-BR">Editar Rota</value>
         <value xml:lang="ro">Actualizare Ciclu</value>
         <value xml:lang="th">แก้ไข Routing</value>
