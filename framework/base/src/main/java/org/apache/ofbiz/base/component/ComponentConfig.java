@@ -340,6 +340,7 @@ public final class ComponentConfig {
     private final boolean enabled;
     private final Map<String, ResourceLoaderInfo> resourceLoaderInfos;
     private final List<ClasspathInfo> classpathInfos;
+    private final List<DependsOnInfo> dependsOnInfos;
     private final List<EntityResourceInfo> entityResourceInfos;
     private final List<ServiceResourceInfo> serviceResourceInfos;
     private final List<TestSuiteInfo> testSuiteInfos;
@@ -390,6 +391,19 @@ public final class ComponentConfig {
         } else {
             this.resourceLoaderInfos = Collections.emptyMap();
         }
+
+        childElements = UtilXml.childElementList(ofbizComponentElement, "depends-on");
+        if (!childElements.isEmpty()) {
+            List<DependsOnInfo> dependsOnList = new ArrayList<>(childElements.size());
+            for (Element curElement : childElements) {
+                DependsOnInfo dependsOnInfo = new DependsOnInfo(this, curElement);
+                dependsOnList.add(dependsOnInfo);
+            }
+            this.dependsOnInfos = Collections.unmodifiableList(dependsOnList);
+        } else {
+            this.dependsOnInfos = Collections.emptyList();
+        }
+
         // classpath - classpathInfos
         childElements = UtilXml.childElementList(ofbizComponentElement, "classpath");
         if (!childElements.isEmpty()) {
@@ -527,6 +541,10 @@ public final class ComponentConfig {
 
     public String getGlobalName() {
         return this.globalName;
+    }
+
+    public List<DependsOnInfo> getDependsOn() {
+        return this.dependsOnInfos;
     }
 
     public List<KeystoreInfo> getKeystoreInfos() {
@@ -674,6 +692,15 @@ public final class ComponentConfig {
             super(componentConfig, element);
             this.type = element.getAttribute("type");
             this.readerName = element.getAttribute("reader-name");
+        }
+    }
+
+    public static final class DependsOnInfo extends ResourceInfo {
+        public final String componentName;
+
+        private DependsOnInfo(ComponentConfig componentConfig, Element element) {
+            super(componentConfig, element);
+            this.componentName = element.getAttribute("component-name");
         }
     }
 

@@ -43,21 +43,26 @@ under the License.
             <xs:attributeGroup ref="attlist.depends-on">
                 <xs:annotation>
                     <xs:documentation>
-                        This is yet unimplemented. It's not a trivial implementation because at the moment components are loaded
-                        in the order they are found (i.e. alphabetic or creation date).
-                        While this feature would require them all to be located first and then reordered and loaded.
-                        So, for now, simply follow below guidelines.
+                        Alter the way components are loaded. 
                         
+                        By default components are loaded in the order they are found (i.e. alphabetic or creation date).
                         For the plugins, all components will be loaded after the OFBiz components, including, in this order, those in:
-                        framework
-                        themes
-                        applications
+                            framework
+                            themes
+                            applications
+                        The plugins Auto-Loading feature also loads all components in the order they are found (i.e. alphabetic or creation date).
+                         
+                        Using depends-on allows to create a series of dependencies for component loading, before loading a particular component.
+                        For instance we can define dependency for a component like component ebaystore is dependent on component ebay 
+                        (even multiple dependencies for a single component is also supported). 
                         
-                        The plugins Auto-Loading feature loads all components in the order they are found (i.e. alphabetic or creation date).
-                        
-                        If you need a specific loading order of these components then you need to disable the Auto-Loading feature 
-                        by creating a component-load.xml file in the plugins  directory and use the load-component tag to load 
-                        your components in the order you want (just use the component-load.xml file in the application folder as a template).
+                        We can declare it in this fashion in ofbiz-component.xml file (beware ebaystore is disabled by default)
+                        <![CDATA[
+                        <ofbiz-component name="ebaystore" enabled="true"
+                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-component.xsd">
+                        <depends-on component-name="ebay"/>
+                        ]]>
                     </xs:documentation>
                 </xs:annotation>
             </xs:attributeGroup>
