@@ -25,16 +25,16 @@ under the License.
     <Geo abbreviation="CAM" geoCode="CAM" geoId="MX-CM" geoName="Campeche" geoTypeId="STATE"/>
     <Geo abbreviation="CHP" geoCode="CHP" geoId="MX-CP" geoName="Chiapas" geoTypeId="STATE"/>
     <Geo abbreviation="CHH" geoCode="CHH" geoId="MX-CH" geoName="Chihuahua" geoTypeId="STATE"/>
-    <Geo abbreviation="COA" geoCode="COA" geoId="MX-CA" geoName="Coahuila" geoTypeId="STATE"/>
+    <Geo abbreviation="CMX" geoCode="CMX" geoId="MX-CX" geoName="Ciudad de México" geoTypeId="COUNTY"/>
+    <Geo abbreviation="COA" geoCode="COA" geoId="MX-CA" geoName="Coahuila de Zaragoza" geoTypeId="STATE"/>
     <Geo abbreviation="COL" geoCode="COL" geoId="MX-CL" geoName="Colima" geoTypeId="STATE"/>
-    <Geo abbreviation="DIF" geoCode="DIF" geoId="MX-DF" geoName="Distrito Federal" geoTypeId="STATE"/>
     <Geo abbreviation="DUR" geoCode="DUR" geoId="MX-DU" geoName="Durango" geoTypeId="STATE"/>
     <Geo abbreviation="GUA" geoCode="GUA" geoId="MX-GJ" geoName="Guanajuato" geoTypeId="STATE"/>
     <Geo abbreviation="GRO" geoCode="GRO" geoId="MX-GR" geoName="Guerrero" geoTypeId="STATE"/>
     <Geo abbreviation="HID" geoCode="HID" geoId="MX-HI" geoName="Hidalgo" geoTypeId="STATE"/>
     <Geo abbreviation="JAL" geoCode="JAL" geoId="MX-JA" geoName="Jalisco" geoTypeId="STATE"/>
     <Geo abbreviation="MEX" geoCode="MEX" geoId="MX-MX" geoName="México" geoTypeId="STATE"/>
-    <Geo abbreviation="MIC" geoCode="MIC" geoId="MX-MC" geoName="Michoacán" geoTypeId="STATE"/>
+    <Geo abbreviation="MIC" geoCode="MIC" geoId="MX-MC" geoName="Michoacán de Ocampo" geoTypeId="STATE"/>
     <Geo abbreviation="MOR" geoCode="MOR" geoId="MX-MR" geoName="Morelos" geoTypeId="STATE"/>
     <Geo abbreviation="NAY" geoCode="NAY" geoId="MX-NA" geoName="Nayarit" geoTypeId="STATE"/>
     <Geo abbreviation="NLE" geoCode="NLE" geoId="MX-NL" geoName="Nuevo León" geoTypeId="STATE"/>
@@ -48,7 +48,7 @@ under the License.
     <Geo abbreviation="TAB" geoCode="TAB" geoId="MX-TB" geoName="Tabasco" geoTypeId="STATE"/>
     <Geo abbreviation="TAM" geoCode="TAM" geoId="MX-TM" geoName="Tamaulipas" geoTypeId="STATE"/>
     <Geo abbreviation="TLA" geoCode="TLA" geoId="MX-TL" geoName="Tlaxcala" geoTypeId="STATE"/>
-    <Geo abbreviation="VER" geoCode="VER" geoId="MX-VE" geoName="Veracruz" geoTypeId="STATE"/>
+    <Geo abbreviation="VER" geoCode="VER" geoId="MX-VE" geoName="Veracruz de Ignacio de la Llave" geoTypeId="STATE"/>
     <Geo abbreviation="YUC" geoCode="YUC" geoId="MX-YU" geoName="Yucatán" geoTypeId="STATE"/>
     <Geo abbreviation="ZAC" geoCode="ZAC" geoId="MX-ZA" geoName="Zacatecas" geoTypeId="STATE"/>
 
@@ -58,9 +58,9 @@ under the License.
     <GeoAssoc geoId="MEX" geoIdTo="MX-CM" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="MEX" geoIdTo="MX-CP" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="MEX" geoIdTo="MX-CH" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="MEX" geoIdTo="MX-CX" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="MEX" geoIdTo="MX-CA" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="MEX" geoIdTo="MX-CL" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoId="MEX" geoIdTo="MX-DF" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="MEX" geoIdTo="MX-DU" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="MEX" geoIdTo="MX-GJ" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="MEX" geoIdTo="MX-GR" geoAssocTypeId="REGIONS"/>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <Geo abbreviation="AI" geoCode="01" geoId="NR-01" geoName="Aiwo" geoTypeId="COUNTY"/>
+    <Geo abbreviation="AB" geoCode="02" geoId="NR-02" geoName="Anabar" geoTypeId="COUNTY"/>
+    <Geo abbreviation="AT" geoCode="03" geoId="NR-03" geoName="Anetan" geoTypeId="COUNTY"/>
+    <Geo abbreviation="AR" geoCode="04" geoId="NR-04" geoName="Anibare" geoTypeId="COUNTY"/>
+    <Geo abbreviation="BA" geoCode="05" geoId="NR-05" geoName="Baitsi" geoTypeId="COUNTY"/>
+    <Geo abbreviation="BO" geoCode="06" geoId="NR-06" geoName="Boe" geoTypeId="COUNTY"/>
+    <Geo abbreviation="BU" geoCode="07" geoId="NR-07" geoName="Buada" geoTypeId="COUNTY"/>
+    <Geo abbreviation="DE" geoCode="08" geoId="NR-08" geoName="Denigomodu" geoTypeId="COUNTY"/>
+    <Geo abbreviation="EW" geoCode="09" geoId="NR-09" geoName="Ewa" geoTypeId="COUNTY"/>
+    <Geo abbreviation="IJ" geoCode="10" geoId="NR-10" geoName="Ijuw" geoTypeId="COUNTY"/>
+    <Geo abbreviation="ME" geoCode="11" geoId="NR-11" geoName="Meneng" geoTypeId="COUNTY"/>
+    <Geo abbreviation="NI" geoCode="12" geoId="NR-12" geoName="Nibok" geoTypeId="COUNTY"/>
+    <Geo abbreviation="UA" geoCode="13" geoId="NR-13" geoName="Uaboe" geoTypeId="COUNTY"/>
+    <Geo abbreviation="YA" geoCode="14" geoId="NR-14" geoName="Yaren" geoTypeId="COUNTY"/>
+    
+    <GeoAssoc geoId="NRU" geoIdTo="NR-01" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="NRU" geoIdTo="NR-02" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="NRU" geoIdTo="NR-03" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="NRU" geoIdTo="NR-04" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="NRU" geoIdTo="NR-05" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="NRU" geoIdTo="NR-06" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="NRU" geoIdTo="NR-07" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="NRU" geoIdTo="NR-08" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="NRU" geoIdTo="NR-09" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="NRU" geoIdTo="NR-10" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="NRU" geoIdTo="NR-11" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="NRU" geoIdTo="NR-12" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="NRU" geoIdTo="NR-13" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="NRU" geoIdTo="NR-14" geoAssocTypeId="REGIONS"/>
+</entity-engine-xml>
