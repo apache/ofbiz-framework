@@ -18,3 +18,30 @@ under the License.
 ////
 = Employee Positions
 
+An employee position is also called a job position. It is a role that has been
+created to perform a specific task within the Company. This means that it has 
+approved funding to pay it. 
+
+Employee positions are defined by:
+
+* the work description and responsibilities
+* a pay structure (e.g. hourly wages, salary, contract etc)
+* full-time or part-time
+* the skills needed to fullfill the position
+
+NOTE: An employee positions is not the same as a person fullfilling the role. 
+A person fulfilling an employee position is called an employee 
+
+An employee position can be fullfilled (i.e. someone is currently working in the 
+role) or it can be unfulfilled (i.e. a job vacancy). 
+
+NOTE: In some cases an employee position could also be considered a full-time
+ equivalent (FTE) and can be assigned to more than one person (e.g. job sharing)
+
+In the OFBiz Human Resources application you can:
+
+* Create employee positions
+* Fulfill employee positions
+* Define the responsibilities of an employee position
+* Define a tree reporting structure between employee positions
+* Track employment position fulfillments over time
