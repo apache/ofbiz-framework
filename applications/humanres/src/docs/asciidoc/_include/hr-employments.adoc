@@ -18,3 +18,19 @@ under the License.
 ////
 = Employments
 
+An employment is a relationship between a person and your Company.
+The Human Resources application tracks employment benefits, pay history,
+unemployment claims and employment agreements for each employed person.
+
+When you create new employee, an employee relationship is created automatically.
+
+NOTE: If a person was entered into the application by some other means then you
+will have to create the employee relationship manually in the Party Manager application.
+
+The employment record includes the start and end date of the employment.
+When the employment ends you include the type of termination and a reason.
+For example, an employee may have been let go because of poor performance.
+(In this case the 'type' could be 'fired and the reason could be 'poor performance')
+
+The Employments screen can be used to create an employment or search for existing
+employments.
