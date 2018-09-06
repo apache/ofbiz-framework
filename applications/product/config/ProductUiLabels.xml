@@ -13745,7 +13745,6 @@
         <value xml:lang="it">Creazione automatica chiavi per tutti i prodotti</value>
         <value xml:lang="ja">すべての製品でキーワードを自動生成</value>
         <value xml:lang="nl">Keywords voor alle producten aanaken</value>
-        <value xml:lang="nl">Automatisch aanmaken trefwoorden voor alle producten</value>
         <value xml:lang="ro">Creatie Automatica Chei pentru Toate Produsele </value>
         <value xml:lang="ru">Автоматически создать ключевые слова для всех продуктов</value>
         <value xml:lang="th">สร้างคีย์เวิร์ดอัตโนมัติสำหรับสินค้าทั้งหมด</value>
@@ -14195,7 +14194,6 @@
         <value xml:lang="it">Non è possibile recensire un prodotto sconosciuto</value>
         <value xml:lang="ja">未知の製品はレビューできません</value>
         <value xml:lang="nl">Onbekend product kan niet beoordeeld worden</value>
-        <value xml:lang="nl">Kan niet een onbekend product beoordelen</value>
         <value xml:lang="pt-PT">Impossível rever um produto desconhecido</value>
         <value xml:lang="ro">Nu este posibila revederea unui produs necunoscut</value>
         <value xml:lang="ru">Невозможно просмотреть неизвестный продукт</value>
@@ -14325,7 +14323,6 @@
         <value xml:lang="fr">Gestion des articles - Page Principale -</value>
         <value xml:lang="it">Pagina principale amministrazione cataloghi</value>
         <value xml:lang="ja">カタログ管理メインページ</value>
-        <value xml:lang="nl">Hoofdpagina catalogus administratie</value>
         <value xml:lang="nl">Hoofdpagina catalogusbeheer</value>
         <value xml:lang="ro">Pagina Principala Administratie Cataloage</value>
         <value xml:lang="ru">Главная страница администрирования каталога</value>
@@ -15854,7 +15851,6 @@
         <value xml:lang="it">Creare nuovo catalogo</value>
         <value xml:lang="ja">新規カタログを作成</value>
         <value xml:lang="nl">Nieuwe catalogus</value>
-        <value xml:lang="nl">Aanmaken nieuwe catalogus</value>
         <value xml:lang="ro">Creare Nou Catalog</value>
         <value xml:lang="ru">Новый каталог</value>
         <value xml:lang="th">สร้างหมวดหมู่ใหม่</value>
@@ -16361,7 +16357,6 @@
         <value xml:lang="it">Valutazione dei clienti</value>
         <value xml:lang="ja">顧客評価</value>
         <value xml:lang="nl">Klantbeoordeling</value>
-        <value xml:lang="nl">Klanten waardering</value>
         <value xml:lang="ro">Classificare Clienti</value>
         <value xml:lang="ru">Пользовательский рейтинг</value>
         <value xml:lang="th">ระดับความต้องการของลูกค้า</value>
