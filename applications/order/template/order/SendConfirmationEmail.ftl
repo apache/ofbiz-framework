@@ -67,6 +67,7 @@ under the License.
                 <td width="54%">
                     <#if productStoreEmailSetting.fromAddress??>
                         <input type="hidden" name="sendFrom" value="${productStoreEmailSetting.fromAddress}" />
+                        ${productStoreEmailSetting.fromAddress}
                     <#else>
                         <input type="text" size="40" name="sendFrom" value="" />
                     </#if>
