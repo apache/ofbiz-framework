@@ -2968,7 +2968,6 @@
         <value xml:lang="it">Tu puoi scegliere uno Stabilimento invece del default</value>
         <value xml:lang="ja">デフォルト以外の拠点を選択できます</value>
         <value xml:lang="nl">Andere faciliteit kan gekozen worden.</value>
-        <value xml:lang="nl">U kunt een andere faciliteit kiezen dan de standaard</value>
         <value xml:lang="pt-BR">Você pode escolher um armazém ao invés de usar o padrão</value>
         <value xml:lang="ro">Tu poti alege un Compartiment in loc de Default</value>
         <value xml:lang="ru">Вместо указанного по умолчанию, вы можете выбрать другой склад</value>
@@ -11592,7 +11591,6 @@
         <value xml:lang="it">Preventivi</value>
         <value xml:lang="ja">見積</value>
         <value xml:lang="nl">Offertes</value>
-        <value xml:lang="nl">Offertes</value>
         <value xml:lang="pt-BR">Cotações</value>
         <value xml:lang="vi">Báo giá</value>
         <value xml:lang="zh">询价</value>
@@ -12030,14 +12028,6 @@
     <property key="OrderReserveAfterDateDefault">
          <value xml:lang="en">Default Reserve After Date</value>
          <value xml:lang="fr">Date de réservation par défaut</value>
-    </property>
-    <property key="OrderReserveAfterDate">
-         <value xml:lang="en">Reserve After Date</value>
-         <value xml:lang="fr">RÃ©server aprÃ¨s cette date</value>
-    </property>
-    <property key="OrderReserveAfterDateDefault">
-         <value xml:lang="en">Default Reserve After Date</value>
-         <value xml:lang="fr">Date de rÃ©servation par dÃ©faut</value>
     </property>
     <property key="OrderReturnAccept">
         <value xml:lang="ar">الموافقة للمسترجع</value>
