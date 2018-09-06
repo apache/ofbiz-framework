@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <Geo abbreviation="BC" geoCode="1" geoId="PA-1" geoName="Bocas del Toro" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="CH" geoCode="4" geoId="PA-4" geoName="Chiriquí" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="CC" geoCode="2" geoId="PA-2" geoName="Coclé" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="CL" geoCode="3" geoId="PA-3" geoName="Colón" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="DA" geoCode="5" geoId="PA-5" geoName="Darién" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="EM" geoCode="EM" geoId="PA-EM" geoName="Emberá" geoTypeId="REGION"/>
+    <Geo abbreviation="KY" geoCode="KY" geoId="PA-KY" geoName="Guna Yala" geoTypeId="REGION"/>
+    <Geo abbreviation="HE" geoCode="6" geoId="PA-6" geoName="Herrera" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="LS" geoCode="7" geoId="PA-7" geoName="Los Santos" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="NB" geoCode="NB" geoId="PA-NB" geoName="Ngöbe-Buglé" geoTypeId="REGION"/>
+    <Geo abbreviation="PM" geoCode="8" geoId="PA-8" geoName="Panamá" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="PO" geoCode="10" geoId="PA-10" geoName="Panamá Oeste" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="VR" geoCode="9" geoId="PA-9" geoName="Veraguas" geoTypeId="PROVINCE"/>
+    
+    <GeoAssoc geoId="PAN" geoIdTo="PA-1" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="PAN" geoIdTo="PA-4" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="PAN" geoIdTo="PA-2" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="PAN" geoIdTo="PA-3" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="PAN" geoIdTo="PA-5" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="PAN" geoIdTo="PA-EM" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="PAN" geoIdTo="PA-KY" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="PAN" geoIdTo="PA-6" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="PAN" geoIdTo="PA-7" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="PAN" geoIdTo="PA-NB" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="PAN" geoIdTo="PA-8" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="PAN" geoIdTo="PA-10" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="PAN" geoIdTo="PA-9" geoAssocTypeId="REGIONS"/>
+</entity-engine-xml>
