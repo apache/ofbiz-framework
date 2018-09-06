@@ -173,7 +173,7 @@ public class ConfigXMLReader {
             }
             return rootElement;
         } catch (Exception e) {
-            Debug.logError(e, module);
+            Debug.logError("When read " + (location != null? location.toString(): "empty location (!)") + " threw " + e.toString(), module);
             throw new WebAppConfigurationException(e);
         }
     }
