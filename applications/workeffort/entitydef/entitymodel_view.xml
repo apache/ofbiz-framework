@@ -942,7 +942,7 @@ under the License.
     </view-entity>
     <view-entity entity-name="WorkEffortAndContactMech"
                                    package-name="org.apache.ofbiz.workeffort.workeffort"
-                 title="Order Contact Detail View">
+                 title="WorkEffort Contact Detail View">
         <member-entity entity-alias="WCM" entity-name="WorkEffortContactMech"/>
         <member-entity entity-alias="CMD" entity-name="ContactMechDetail"/>
         <alias-all entity-alias="WCM"/>
@@ -957,8 +957,8 @@ under the License.
         <relation type="one-nofk" rel-entity-name="ContactMech">
             <key-map field-name="contactMechId"/>
         </relation>
-        <relation type="one-nofk" rel-entity-name="ContactMechPurposeType">
-            <key-map field-name="contactMechPurposeTypeId"/>
+        <relation type="one-nofk" rel-entity-name="ContactMechType">
+            <key-map field-name="contactMechTypeId"/>
         </relation>
         <relation type="one-nofk" rel-entity-name="PostalAddress">
             <key-map field-name="contactMechId"/>
