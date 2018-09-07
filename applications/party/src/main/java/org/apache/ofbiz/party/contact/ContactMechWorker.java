@@ -44,6 +44,7 @@ import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.condition.EntityOperator;
+import org.apache.ofbiz.entity.model.ModelEntity;
 import org.apache.ofbiz.entity.model.ModelUtil;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtil;
@@ -223,13 +224,26 @@ public class ContactMechWorker {
         String downCaseEntityName = ModelUtil.lowerFirstChar(entityName);
 
         List<GenericValue> allEntityContactMechs = null;
+        String entityViewName = entityName + "AndContactMech";
 
+        ModelEntity contactMechViewModel = delegator.getModelEntity(entityViewName);
+        if (contactMechViewModel == null) {
+            Debug.logError("Entity view " + entityViewName + " not exist, please check your call. We return empty list", module);
+            return entityContactMechValueMaps;
+        }
+        boolean contactMechPurposeTypeIdFieldPresent = contactMechViewModel.isField("contactMechPurposeTypeId");
+        boolean fromDateFieldPresent = contactMechViewModel.isField("fromDate");
         try {
-            allEntityContactMechs = EntityQuery.use(delegator).from(entityName + "AndContactMech")
-                    .where(downCaseEntityName + "Id", entityId)
-                    .orderBy("contactMechPurposeTypeId")
-                    .filterByDate(date)
-                    .queryList();
+            EntityQuery contactMechQuery = EntityQuery.use(delegator)
+                    .from(entityViewName)
+                    .where(downCaseEntityName + "Id", entityId);
+            if (contactMechPurposeTypeIdFieldPresent) {
+                contactMechQuery.orderBy("contactMechPurposeTypeId");
+            }
+            if (fromDateFieldPresent) {
+                contactMechQuery.filterByDate(date);
+            }
+            allEntityContactMechs = contactMechQuery.cache().queryList();
         } catch (GenericEntityException e) {
             Debug.logWarning(e, module);
         }
@@ -245,8 +259,10 @@ public class ContactMechWorker {
             entityContactMechValueMaps.add(entityContactMechValueMap);
             entityContactMechValueMap.put("contactMech", delegator.makeValidValue("ContactMech", fields));
             entityContactMechValueMap.put(downCaseEntityName + "ContactMech", delegator.makeValidValue(entityName + "ContactMech", fields));
-            entityContactMechValueMap.put("contactMechType", delegator.makeValidValue("ContactMechType",fields));
-            entityContactMechValueMap.put("contactMechPurposeType", delegator.makeValidValue("ContactMechPurposeType", fields));
+            entityContactMechValueMap.put("contactMechType", delegator.makeValidValue("ContactMechType", fields));
+            if (contactMechPurposeTypeIdFieldPresent) {
+                entityContactMechValueMap.put("contactMechPurposeType", delegator.makeValidValue("ContactMechPurposeType", fields));
+            }
             insertRelatedContactElement(delegator, UtilGenerics.checkMap(entityContactMechValueMap), fields);
         }
 

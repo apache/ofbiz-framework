@@ -133,4 +133,44 @@ class ContactMechWorkerTests extends GroovyScriptTestCase {
         }
         assert foundBillingAddress && foundShippingAddress && foundOrderEmail
     }
+
+    void testWorkEffortContactMechResolution() {
+        List workEffortContactMechValueMaps = ContactMechWorker.getWorkEffortContactMechValueMaps(delegator, "TEST_CM_WORKER")
+        assert workEffortContactMechValueMaps
+        assert workEffortContactMechValueMaps.size() == 3
+
+        boolean foundPostalAddress, foundPhone, foundEmail = false
+        workEffortContactMechValueMaps.forEach {
+            Map workEffortContactMechValueMap ->
+                switch (workEffortContactMechValueMap.contactMech?.contactMechId) {
+                    case '9015':
+                        assert workEffortContactMechValueMap.contactMech.contactMechTypeId == 'POSTAL_ADDRESS'
+                        assert workEffortContactMechValueMap.contactMechType
+                        assert workEffortContactMechValueMap.workEffortContactMech
+                        assert workEffortContactMechValueMap.postalAddress
+                        assert workEffortContactMechValueMap.postalAddress.contactMechId == '9015'
+                        assert workEffortContactMechValueMap.postalAddress.address1 == '2004 Factory Blvd'
+                        foundPostalAddress = true
+                        break
+                    case '9126':
+                        assert workEffortContactMechValueMap.contactMech.contactMechTypeId == 'EMAIL_ADDRESS'
+                        assert workEffortContactMechValueMap.contactMech.infoString == 'ofbiztest@foo.com'
+                        assert workEffortContactMechValueMap.workEffortContactMech
+                        assert workEffortContactMechValueMap.contactMechType
+                        foundEmail = true
+                        break
+                    case '9125':
+                        assert workEffortContactMechValueMap.contactMech.contactMechTypeId == 'TELECOM_NUMBER'
+                        assert workEffortContactMechValueMap.workEffortContactMech
+                        assert workEffortContactMechValueMap.contactMechType
+                        assert workEffortContactMechValueMap.telecomNumber.contactNumber == '555-5555'
+                        foundPhone = true
+                        break
+                    default:
+                        assert false
+                        break
+                }
+        }
+        assert foundPostalAddress && foundEmail && foundPhone
+    }
 }
