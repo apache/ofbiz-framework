@@ -46,7 +46,6 @@ organizations = from("PartyAcctgPrefAndGroup").queryList()
 context.organizations = organizations
 
 // Set Shipping From the Party 
-partyId = null
 partyId = parameters.partyId
 if (partyId) {
     party = from("Person").where("partyId", partyId).queryOne()
