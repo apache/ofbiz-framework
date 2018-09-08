@@ -18,3 +18,22 @@ under the License.
 ////
 = Performance Review
 
+Performance review allows employees to post reviews that can be used by management
+in evaluating the performance of the individual employee.
+
+The employee's position is also captured with the review which allows the creation
+of reports that look at ratings for a review item by position.
+
+*Performance Review Item*
+
+Each review has a list of items that can be rated and commented on.
+
+NOTE: Performance review item can be created or deleted but can not be changed.
+
+In the OFBiz Human Resources application you can:
+
+* Create performance review
+* Search performance review
+* Update performance review
+* Add performance review item
+* Delete performance review item
