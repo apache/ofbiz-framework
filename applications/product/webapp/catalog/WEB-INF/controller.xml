@@ -2092,6 +2092,7 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditProductStoreShipmentCostEstimates"/>
     </request-map>
+    <request-map uri="EditProductStoreShipmentTimeEstimates"><security https="true" auth="true"/><response name="success" type="view" value="EditProductStoreShipmentCostEstimates"/></request-map>
     <request-map uri="storeCreateShipRate">
         <security https="true" auth="true"/>
         <event type="service" invoke="createShipmentEstimate"/>
@@ -2199,6 +2200,33 @@ under the License.
         <event type="service" invoke="deleteCarrierShipmentMethod"/>
         <response name="success" type="view" value="ListCarrierShipmentMethods"/>
         <response name="error" type="view" value="ListCarrierShipmentMethods"/>
+    </request-map>
+
+    <!-- ================ ShipmentTimeEstimate Requests ================= -->
+    <request-map uri="ListShipmentTimeEstimates"><security https="true" auth="true"/><response name="success" type="view" value="ListShipmentTimeEstimates"/></request-map>
+    <request-map uri="prepareCreateShipmentTimeEstimate">
+        <security https="true" auth="true"/>
+        <event type="groovy" path="component://product/groovyScripts/catalog/PrepareCreateShipmentTimeEstimate.groovy"/>
+        <response name="success" type="view" value="ListShipmentTimeEstimates"/>
+        <response name="error" type="view" value="ListShipmentTimeEstimates"/>
+    </request-map>
+    <request-map uri="createShipmentTimeEstimate">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createShipmentTimeEstimate"/>
+        <response name="success" type="view" value="ListShipmentTimeEstimates"/>
+        <response name="error" type="view" value="ListShipmentTimeEstimates"/>
+    </request-map>
+    <request-map uri="updateShipmentTimeEstimate">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateShipmentTimeEstimate"/>
+        <response name="success" type="view" value="ListShipmentTimeEstimates"/>
+        <response name="error" type="view" value="ListShipmentTimeEstimates"/>
+    </request-map>
+    <request-map uri="expireShipmentTimeEstimate">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="expireShipmentTimeEstimate"/>
+        <response name="success" type="view" value="ListShipmentTimeEstimates"/>
+        <response name="error" type="view" value="ListShipmentTimeEstimates"/>
     </request-map>
 
     <!-- ================ ProductStore Survey Requests ================= -->
@@ -3211,6 +3239,7 @@ under the License.
     <view-map name="ListQuantityBreaks" type="screen" page="component://product/widget/catalog/ShippingScreens.xml#ListQuantityBreaks"/>
     <view-map name="ListShipmentMethodTypes" type="screen" page="component://product/widget/catalog/ShippingScreens.xml#ListShipmentMethodTypes"/>
     <view-map name="ListCarrierShipmentMethods" type="screen" page="component://product/widget/catalog/ShippingScreens.xml#ListCarrierShipmentMethods"/>
+    <view-map name="ListShipmentTimeEstimates" type="screen" page="component://product/widget/catalog/ShippingScreens.xml#ListShipmentTimeEstimates"/>
 
     <view-map name="EditProductTag" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditProductTag"/>
 

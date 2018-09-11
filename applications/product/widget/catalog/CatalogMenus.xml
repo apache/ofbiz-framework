@@ -97,6 +97,9 @@ under the License.
         <menu-item name="ListCarrierShipmentMethods" title="${uiLabelMap.ProductCarrierShipmentMethods}">
             <link target="ListCarrierShipmentMethods"/>
         </menu-item>
+        <menu-item name="ListShipmentTimeEstimates" title="${uiLabelMap.ProductShipmentTimeEstimates}">
+            <link target="ListShipmentTimeEstimates"/>
+        </menu-item>
     </menu>
 
     <menu name="CategoryTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">

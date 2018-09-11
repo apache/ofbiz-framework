@@ -332,8 +332,11 @@ public class ShoppingCartServices {
         List<GenericValue> orderItemShipGroupList = orh.getOrderItemShipGroups();
         for (GenericValue orderItemShipGroup: orderItemShipGroupList) {
             // should be sorted by shipGroupSeqId
-            int newShipInfoIndex = cart.addShipInfo();
-            CartShipInfo cartShipInfo = cart.getShipInfo(newShipInfoIndex);
+            int groupIdx = Integer.parseInt(orderItemShipGroup.getString("shipGroupSeqId"));
+            CartShipInfo cartShipInfo = cart.getShipInfo(groupIdx-1);
+            if (cartShipInfo == null) {
+                cartShipInfo = cart.getShipInfo(cart.addShipInfo());
+            }
             cartShipInfo.shipAfterDate = orderItemShipGroup.getTimestamp("shipAfterDate");
             cartShipInfo.shipBeforeDate = orderItemShipGroup.getTimestamp("shipByDate");
             cartShipInfo.shipmentMethodTypeId = orderItemShipGroup.getString("shipmentMethodTypeId");

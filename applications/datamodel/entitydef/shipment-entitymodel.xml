@@ -834,6 +834,39 @@ under the License.
         <key-map field-name="priceBreakId" rel-field-name="quantityBreakId"/>
       </relation>
     </entity>
+    <entity entity-name="ShipmentTimeEstimate" package-name="org.apache.ofbiz.shipment.shipment"
+        title="Shipment Time Estimation Entity">
+        <field name="shipmentMethodTypeId" type="id"/>
+        <field name="partyId" type="id"/>
+        <field name="roleTypeId" type="id"/>
+        <field name="geoIdTo" type="id"/>
+        <field name="geoIdFrom" type="id"/>
+        <field name="fromDate" type="date-time"/>
+        <field name="thruDate" type="date-time"/>
+        <field name="leadTime" type="fixed-point"/>
+        <field name="leadTimeUomId" type="id"/>
+        <field name="sequenceNumber" type="numeric"/>
+        <prim-key field="shipmentMethodTypeId"/>
+        <prim-key field="partyId"/>
+        <prim-key field="roleTypeId"/>
+        <prim-key field="geoIdTo"/>
+        <prim-key field="geoIdFrom"/>
+        <prim-key field="fromDate"/>
+        <relation rel-entity-name="CarrierShipmentMethod" type="one" fk-name="SHIPT_EST_METHOD">
+            <key-map field-name="shipmentMethodTypeId"/>
+            <key-map field-name="partyId"/>
+            <key-map field-name="roleTypeId"/>
+        </relation>
+        <relation rel-entity-name="Geo" type="one" title="To" fk-name="SHIPT_EST_GEO_TO">
+            <key-map field-name="geoIdTo" rel-field-name="geoId"/>
+        </relation>
+        <relation rel-entity-name="Geo" type="one" title="from" fk-name="SHIPT_EST_GEO_FROM">
+            <key-map field-name="geoIdFrom" rel-field-name="geoId"/>
+        </relation>
+        <relation rel-entity-name="Uom" type="one" title="Time unit" fk-name="SHIPT_EST_UOM">
+            <key-map field-name="leadTimeUomId" rel-field-name="uomId"/>
+        </relation>
+    </entity>
     <entity entity-name="ShipmentGatewayConfigType"
             package-name="org.apache.ofbiz.shipment.shipment"
             title="Shipment Gateway Config Type">

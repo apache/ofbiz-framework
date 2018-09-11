@@ -118,4 +118,50 @@
         <field name="sequenceNumber" tooltip="${uiLabelMap.ProductUsedForDisplayOrdering}"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
+
+    <form name="ListShipmentTimeEstimates" target="" title="" type="list"  list-name="shipmentTimeEstimates"
+        paginate-target="ListShipmentTimeEstimates" odd-row-style="alternate-row" default-table-style="basic-table">
+        <field name="shipmentMethodTypeId"><display-entity entity-name="ShipmentMethodType" description="${description} [${shipmentMethodTypeId}]"/></field>
+        <field name="partyId"><display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName} [${partyId}]"/></field>
+        <field name="roleTypeId"><display-entity entity-name="RoleType"/></field>
+        <field name="geoIdFrom"><display-entity entity-name="Geo" key-field-name="geoId" description="${geoName}"/></field>
+        <field name="geoIdTo"><display-entity entity-name="Geo" key-field-name="geoId" description="${geoName}"/></field>
+        <field name="fromDate"><display type="date-time"/></field>
+        <field name="thruDate"><display type="date-time"/></field>
+        <field name="leadTime"><display/></field>
+        <field name="leadTimeUomId"><display-entity entity-name="Uom" key-field-name="uomId"/></field>
+        <field name="editLink" title=" " widget-style="buttontext">
+            <hyperlink target="ListShipmentTimeEstimates" description="${uiLabelMap.CommonEdit}" also-hidden="false">
+                <auto-parameters-service service-name="updateShipmentTimeEstimate"/>
+            </hyperlink>
+        </field>
+        <field name="expireLink" title=" " widget-style="buttontext">
+            <hyperlink target="expireShipmentTimeEstimate" description="${uiLabelMap.CommonExpire}" also-hidden="false">
+                <auto-parameters-service service-name="expireShipmentTimeEstimate"/>
+            </hyperlink>
+        </field>
+    </form>
+    <form name="EditShipmentTimeEstimate" type="single" target="createShipmentTimeEstimate" title="" default-map-name="shipmentTimeEstimate"
+        header-row-style="header-row" default-table-style="basic-table">
+        <alt-target use-when="shipmentTimeEstimate != null" target="updateShipmentTimeEstimate"/>
+        <field name="shipmentMethodTypeId"><display-entity entity-name="ShipmentMethodType" description="${description} [${shipmentMethodTypeId}]"/></field>
+        <field name="partyId"><display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName} [${partyId}]"/></field>
+        <field name="roleTypeId"><display-entity entity-name="RoleType"/></field>
+        <field name="geoIdTo" use-when="shipmentTimeEstimate == null"><lookup target-form-name="LookupGeo" default-value="_NA_"/></field>
+        <field name="geoIdTo" use-when="shipmentTimeEstimate != null"><display-entity entity-name="Geo" key-field-name="geoId" description="${geoName}"/></field>
+        <field name="geoIdFrom" use-when="shipmentTimeEstimate == null"><lookup target-form-name="LookupGeo" default-value="_NA_"/></field>
+        <field name="geoIdFrom" use-when="shipmentTimeEstimate != null"><display-entity entity-name="Geo" key-field-name="geoId" description="${geoName}"/></field>
+        <field name="fromDate" use-when="shipmentTimeEstimate == null"><date-time/></field>
+        <field name="fromDate" use-when="shipmentTimeEstimate != null"><display/></field>
+        <field name="thruDate"><date-time/></field>
+        <field name="leadTime" required-field="true"><text/></field>
+        <field name="leadTimeUomId">
+            <drop-down no-current-selected-key="TF_day" current="selected">
+                <entity-options entity-name="Uom" description="${description}" key-field-name="uomId">
+                    <entity-constraint name="uomTypeId" value="TIME_FREQ_MEASURE"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
 </forms>

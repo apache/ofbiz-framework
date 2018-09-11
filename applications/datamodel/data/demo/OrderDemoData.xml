@@ -2097,6 +2097,10 @@ under the License.
     <ShipmentCostEstimate productStoreShipMethId="9015" productStoreId="9000" orderFlatPrice="0.0" orderItemFlatPrice="0.0" orderPricePercent="0.0" shipmentCostEstimateId="9208" shipmentMethodTypeId="GROUND" carrierPartyId="FEDEX" carrierRoleTypeId="CARRIER"/>
     <ShipmentCostEstimate productStoreShipMethId="9016" productStoreId="9000" orderFlatPrice="0.0" orderItemFlatPrice="0.0" orderPricePercent="0.0" shipmentCostEstimateId="9209" shipmentMethodTypeId="GROUND_HOME" carrierPartyId="FEDEX" carrierRoleTypeId="CARRIER"/>
 
+    <ShipmentTimeEstimate shipmentMethodTypeId="EXPRESS" partyId="DHL" roleTypeId="CARRIER" leadTime="1" leadTimeUomId="TF_day" geoIdFrom="_NA_" geoIdTo="_NA_" fromDate="2001-05-13 12:00:00.0"/>
+    <ShipmentTimeEstimate shipmentMethodTypeId="SECOND_DAY" partyId="DHL" roleTypeId="CARRIER" leadTime="2" leadTimeUomId="TF_day" geoIdFrom="_NA_" geoIdTo="_NA_" fromDate="2001-05-13 12:00:00.0"/>
+    <ShipmentTimeEstimate shipmentMethodTypeId="SECOND_DAY" partyId="DHL" roleTypeId="CARRIER" leadTime="2.5" leadTimeUomId="TF_day" geoIdFrom="_NA_" geoIdTo="FRA" fromDate="2001-05-13 12:00:00.0"/>
+
     <ShipmentBoxType shipmentBoxTypeId="FXENV" description="FedEx Envelope" dimensionUomId="LEN_in" boxLength="9.5" boxWidth="12.5" boxHeight="0"/>
     <ShipmentBoxType shipmentBoxTypeId="FXENV_LGL" description="FedEx Envelope (Legal)" dimensionUomId="LEN_in" boxLength="10" boxWidth="15.75" boxHeight="0"/>
     <ShipmentBoxType shipmentBoxTypeId="FXPAK_SM" description="FedEx Pak (Small)" dimensionUomId="LEN_in" boxLength="10.25" boxWidth="12.75" boxHeight="0"/>

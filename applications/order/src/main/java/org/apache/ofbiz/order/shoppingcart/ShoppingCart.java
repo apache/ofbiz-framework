@@ -37,8 +37,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.stream.Stream;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
@@ -65,6 +67,7 @@ import org.apache.ofbiz.order.finaccount.FinAccountHelper;
 import org.apache.ofbiz.order.order.OrderReadHelper;
 import org.apache.ofbiz.order.shoppingcart.product.ProductPromoWorker;
 import org.apache.ofbiz.order.shoppingcart.shipping.ShippingEstimateWrapper;
+import org.apache.ofbiz.order.shoppingcart.shipping.ShippingEvents;
 import org.apache.ofbiz.order.shoppinglist.ShoppingListEvents;
 import org.apache.ofbiz.party.contact.ContactHelper;
 import org.apache.ofbiz.party.contact.ContactMechWorker;
@@ -2616,6 +2619,12 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         return null;
     }
 
+    public GenericValue getOriginAddress(int idx) {
+        CartShipInfo cartShipInfo = getShipInfo(idx);
+        if (cartShipInfo == null) return null;
+        return cartShipInfo.getOriginAddress(this);
+    }
+
     public GenericValue getShippingAddress() {
         return this.getShippingAddress(0);
     }
@@ -4000,15 +4009,21 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         return allOrderContactMechs;
     }
 
-    public List<GenericValue> makeAllShipGroupInfos() {
+    /**
+     * Return all OrderItemShipGroup, OrderContactMech, OrderAdjustment and OrderItemShipGroupAssoc from ShoppingCart
+     * in a single list of {@link GenericValue}
+     * @param dispatcher
+     * @return
+     */
+    public List<GenericValue> makeAllShipGroupInfos(LocalDispatcher dispatcher) {
         List<GenericValue> groups = new LinkedList<>();
         long seqId = 1;
         for (CartShipInfo csi : this.shipInfo) {
             String shipGroupSeqId = csi.shipGroupSeqId;
             if (shipGroupSeqId != null) {
-                groups.addAll(csi.makeItemShipGroupAndAssoc(this.getDelegator(), this, shipGroupSeqId));
+                groups.addAll(csi.makeItemShipGroupAndAssoc(dispatcher, this.getDelegator(), this, shipGroupSeqId));
             } else {
-                groups.addAll(csi.makeItemShipGroupAndAssoc(this.getDelegator(), this, UtilFormatOut.formatPaddedNumber(seqId, 5), true));
+                groups.addAll(csi.makeItemShipGroupAndAssoc(dispatcher, this.getDelegator(), this, UtilFormatOut.formatPaddedNumber(seqId, 5), true));
             }
             seqId++;
         }
@@ -4162,7 +4177,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         result.put("orderContactMechs", this.makeAllOrderContactMechs());
         result.put("orderItemContactMechs", this.makeAllOrderItemContactMechs());
         result.put("orderPaymentInfo", this.makeAllOrderPaymentInfos(dispatcher));
-        result.put("orderItemShipGroupInfo", this.makeAllShipGroupInfos());
+        result.put("orderItemShipGroupInfo", this.makeAllShipGroupInfos(dispatcher));
         result.put("orderItemSurveyResponses", this.makeAllOrderItemSurveyResponses());
         result.put("orderAdditionalPartyRoleMap", this.getAdditionalPartyRoleMap());
         result.put("orderItemAssociations", this.makeAllOrderItemAssociations());
@@ -4693,6 +4708,38 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             }
         }
 
+        public GenericValue getOriginAddress(ShoppingCart cart) {
+            GenericValue originAddress = null;
+            Delegator delegator = cart.delegator;
+            //check information from the cart ship info
+            try {
+                if (originAddress == null && facilityId != null) {
+                    originAddress = ShippingEvents.getShippingOriginContactMechFromFacility(delegator, facilityId);
+                }
+                if (originAddress == null && supplierPartyId != null) {
+                    originAddress = ShippingEvents.getShippingOriginContactMech(delegator, supplierPartyId);
+                }
+                if (originAddress == null && vendorPartyId != null) {
+                    originAddress = ShippingEvents.getShippingOriginContactMech(delegator, vendorPartyId);
+                }
+
+                if (originAddress == null) {
+                    //try now to resolve from the cart
+                    if (cart.getFacilityId() != null) {
+                        originAddress = ShippingEvents.getShippingOriginContactMechFromFacility(delegator, cart.getFacilityId());
+                    }
+                    if (originAddress == null && cart.getShipFromVendorPartyId() != null) {
+                        originAddress = ShippingEvents.getShippingOriginContactMech(delegator, cart.getShipFromVendorPartyId());
+                    }
+                    if (originAddress == null && cart.getBillFromVendorPartyId() != null) {
+                        originAddress = ShippingEvents.getShippingOriginContactMech(delegator, cart.getBillFromVendorPartyId());
+                    }
+                }
+            } catch (GeneralException e) {
+                Debug.logError("Impossible to resolve an originAddress " + e.toString(), module);
+            }
+            return originAddress;
+        }
         public void clearAllTaxInfo() {
             this.shipTaxAdj.clear();
             for (CartShipItemInfo itemInfo : shipItemInfo.values()) {
@@ -4700,11 +4747,11 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             }
         }
 
-        public List<GenericValue> makeItemShipGroupAndAssoc(Delegator delegator, ShoppingCart cart, String shipGroupSeqId) {
-            return makeItemShipGroupAndAssoc(delegator, cart, shipGroupSeqId, false);
+        public List<GenericValue> makeItemShipGroupAndAssoc(LocalDispatcher dispatcher, Delegator delegator, ShoppingCart cart, String shipGroupSeqId) {
+            return makeItemShipGroupAndAssoc(dispatcher, delegator, cart, shipGroupSeqId, false);
         }
 
-        public List<GenericValue> makeItemShipGroupAndAssoc(Delegator delegator, ShoppingCart cart, String shipGroupSeqId, boolean newShipGroup) {
+        public List<GenericValue> makeItemShipGroupAndAssoc(LocalDispatcher dispatcher, Delegator delegator, ShoppingCart cart, String shipGroupSeqId, boolean newShipGroup) {
             List<GenericValue> values = new LinkedList<>();
 
             // create order contact mech for shipping address
@@ -4754,9 +4801,10 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                     estimatedShipDates.add(estimatedShipDate);
                 }
             }
+            Timestamp estimatedShipDate = null;
             if (estimatedShipDates.size() > 0) {
                 Collections.sort(estimatedShipDates);
-                Timestamp estimatedShipDate  = estimatedShipDates.getLast();
+                estimatedShipDate  = estimatedShipDates.getLast();
                 shipGroup.set("estimatedShipDate", estimatedShipDate);
             }
 
@@ -4768,9 +4816,44 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                     estimatedDeliveryDates.add(estimatedDeliveryDate);
                 }
             }
+            Timestamp estimatedDeliveryDate = null;
             if (UtilValidate.isNotEmpty(estimatedDeliveryDates)) {
                 Collections.sort(estimatedDeliveryDates);
-                Timestamp estimatedDeliveryDate = estimatedDeliveryDates.getLast();
+                estimatedDeliveryDate = estimatedDeliveryDates.getLast();
+            } else {
+
+                // check if a shipment time estimate exists to resolve the estimated delivery date
+                long shipTimeEstimateSize = 0;
+                try {
+                    shipTimeEstimateSize = EntityQuery.use(delegator)
+                            .from("ShipmentTimeEstimate")
+                            .where("shipmentMethodTypeId", shipmentMethodTypeId)
+                            .filterByDate()
+                            .queryCount();
+                } catch (GenericEntityException e) {
+                    Debug.logError("Error to resolve ShipmentTimeEstimate quantity", module);
+                }
+                if (shipTimeEstimateSize != 0) {
+                    try {
+                        GenericValue shippingAddress = EntityQuery.use(delegator).from("PostalAddress").where("contactMechId", this.internalContactMechId).cache().queryOne();
+                        GenericValue originAddress = getOriginAddress(cart);
+                        List<GenericValue> shipmentTimeEstimates = ShippingEvents.getShipmentTimeEstimates(delegator, shipmentMethodTypeId, carrierPartyId, carrierRoleTypeId, shippingAddress, originAddress);
+                        GenericValue carrierShipmentMethod = delegator.makeValidValue("CarrierShipmentMethod", shipGroup);
+                        carrierShipmentMethod.put("partyId", carrierPartyId);
+                        if (carrierRoleTypeId == null) carrierRoleTypeId = "CARRIER";
+                        carrierShipmentMethod.put("roleTypeId", carrierRoleTypeId);
+                        Double estimatedDays = ShippingEvents.getShippingTimeEstimateInDay(dispatcher, carrierShipmentMethod, shipmentTimeEstimates);
+                        if (estimatedDays != null) {
+                            Timestamp referenceDate = Stream.of(estimatedShipDate, shipBeforeDate, shipAfterDate, UtilDateTime.nowTimestamp())
+                                    .filter(Objects::nonNull).findFirst().get();
+                            estimatedDeliveryDate = UtilDateTime.addDaysToTimestamp(referenceDate, estimatedDays);
+                        }
+                    } catch (GenericEntityException e) {
+                        Debug.logError("Error to resolve ShipmentTimeEstimate days", module);
+                    }
+                }
+            }
+            if (estimatedDeliveryDate != null) {
                 shipGroup.set("estimatedDeliveryDate", estimatedDeliveryDate);
             }
 

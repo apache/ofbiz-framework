@@ -103,4 +103,65 @@ under the License.
        </section>
     </screen>
 
+    <screen name="ListShipmentTimeEstimates">
+       <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleListShipmentTimeEstimates"/>
+                <set field="headerItem" value="shipping"/>
+                <set field="tabButtonItem" value="ListShipmentTimeEstimates"/>
+
+                <entity-condition entity-name="ShipmentTimeEstimate" list="shipmentTimeEstimates">
+                    <order-by field-name="shipmentMethodTypeId"/>
+                </entity-condition>
+                <entity-one entity-name="ShipmentTimeEstimate" value-field="shipmentTimeEstimate"/>
+
+                <entity-condition entity-name="CarrierShipmentMethod" list="carrierShipmentMethods">
+                    <order-by field-name="sequenceNumber"/>
+                </entity-condition>
+                <set field="targetUrl" value="prepareCreateShipmentTimeEstimate"/><!-- Necessary for SelectShipmentMethod.ftl -->
+
+                <entity-one entity-name="CarrierShipmentMethod" value-field="carrierShipmentMethod"/>
+
+                <set field="dependentForm" value="EditShipmentTimeEstimate"/>
+                <set field="paramKey" value="shipmentMethodTypeId"/>
+                <set field="mainId" value="shipmentMethodTypeId"/>
+                <set field="dependentId" value="partyId"/>
+                <set field="requestName" value="getShipmentPartyList"/>
+                <set field="responseName" value="partyList"/>
+                <set field="dependentKeyName" value="partyId"/>
+                <set field="descName" value="partyName"/>
+                <set field="selectedDependentOption" from-field="shipmentMethodTypeId" default-value="_none_"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonShippingDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.PageTitleListShipmentTimeEstimates}">
+                            <include-form name="ListShipmentTimeEstimates" location="component://product/widget/catalog/ShippingForms.xml"/>
+                        </screenlet>
+                        <section>
+                            <condition>
+                                <and>
+                                    <if-empty field="carrierShipmentMethod"/>
+                                    <if-empty field="parameters.addShipmentMethodEstimate"/>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.PageTitleEditShipmentTimeEstimates}">
+                                    <platform-specific>
+                                        <html><html-template location="component://product/template/shipment/SelectShipmentMethod.ftl"/></html>
+                                    </platform-specific>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <screenlet title="${uiLabelMap.PageTitleEditShipmentTimeEstimates}">
+                                    <include-form name="EditShipmentTimeEstimate" location="component://product/widget/catalog/ShippingForms.xml"/>
+                                </screenlet>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+       </section>
+    </screen>
+
 </screens>

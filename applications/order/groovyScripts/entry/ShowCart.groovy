@@ -51,7 +51,7 @@ context.orderType = shoppingCart.getOrderType()
 
 orderItems = shoppingCart.makeOrderItems(dispatcher)
 orderAdjustments = shoppingCart.makeAllAdjustments()
-orderItemShipGroupInfo = shoppingCart.makeAllShipGroupInfos()
+orderItemShipGroupInfo = shoppingCart.makeAllShipGroupInfos(dispatcher)
 if (orderItemShipGroupInfo) {
     orderItemShipGroupInfo.each { osiInfo ->
         if ("OrderAdjustment".equals(osiInfo.getEntityName())) {
