@@ -39,7 +39,7 @@ context.orderItems = orderItems
 
 orderAdjustments = cart.makeAllAdjustments()
 
-orderItemShipGroupInfo = cart.makeAllShipGroupInfos()
+orderItemShipGroupInfo = cart.makeAllShipGroupInfos(dispatcher)
 if (orderItemShipGroupInfo) {
     orderItemShipGroupInfo.each { osiInfo ->
         if ("OrderAdjustment".equals(osiInfo.getEntityName())) {

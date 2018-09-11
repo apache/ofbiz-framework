@@ -82,6 +82,7 @@ under the License.
                       <#if carrierShipmentMethod.partyId != "_NA_">${carrierShipmentMethod.partyId!}&nbsp;</#if>${carrierShipmentMethod.description!}
                       <#if cart.getShippingContactMechId(shipGroupIndex)??>
                         <#assign shippingEst = shipEstimateWrapper.getShippingEstimate(carrierShipmentMethod)?default(-1)>
+                        <#assign shippingTimeEstimateInDay = shipEstimateWrapper.getShippingTimeEstimateInDay(carrierShipmentMethod)?default(-1)>
                         <#if shippingEst?has_content>
                           &nbsp;-&nbsp;
                           <#if (shippingEst > -1)>
@@ -89,6 +90,7 @@ under the License.
                           <#else>
                             Calculated Offline
                           </#if>
+                          <#if (shippingTimeEstimateInDay > 0)> - ${shippingTimeEstimateInDay} ${uiLabelMap.CommonDays}</#if>
                         </#if>
                       </#if>
                     </label>

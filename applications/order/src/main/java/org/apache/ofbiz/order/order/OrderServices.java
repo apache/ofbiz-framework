@@ -4279,7 +4279,7 @@ public class OrderServices {
         }
 
         // Creating objects for New Shipping and Handling Charges Adjustment and Sales Tax Adjustment
-        toStore.addAll(cart.makeAllShipGroupInfos());
+        toStore.addAll(cart.makeAllShipGroupInfos(dispatcher));
         toStore.addAll(cart.makeAllOrderPaymentInfos(dispatcher));
         toStore.addAll(cart.makeAllOrderItemAttributes(orderId, ShoppingCart.FILLED_ONLY));
 

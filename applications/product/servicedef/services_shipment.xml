@@ -1085,6 +1085,28 @@ under the License.
         <auto-attributes include="pk" mode="IN"/>
     </service>
 
+    <!-- ShipmentTimeEstimate  -->
+
+    <service name="createShipmentTimeEstimate" engine="entity-auto" invoke="create" default-entity-name="ShipmentTimeEstimate" auth="true">
+        <description>Create a ShipmentTimeEstimate</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="fromDate" optional="true"/>
+    </service>
+    <service name="updateShipmentTimeEstimate" engine="entity-auto" invoke="update" default-entity-name="ShipmentTimeEstimate" auth="true">
+        <description>Update a ShipmentTimeEstimate</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="removeShipmentTimeEstimate" engine="entity-auto" invoke="delete" default-entity-name="ShipmentTimeEstimate" auth="true">
+        <description>Remove a ShipmentTimeEstimate</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
+    <service name="expireShipmentTimeEstimate" engine="entity-auto" invoke="expire" default-entity-name="ShipmentTimeEstimate" auth="true">
+        <description>Expire a ShipmentTimeEstimate</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
+
     <service name="updateShipmentReceipt" engine="entity-auto" invoke="update" default-entity-name="ShipmentReceipt" auth="true">
         <description>Update a ShipmentReceipt record</description>
         <auto-attributes include="pk" mode="IN"/>

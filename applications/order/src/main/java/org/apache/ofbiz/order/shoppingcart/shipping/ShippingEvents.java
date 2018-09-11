@@ -19,11 +19,14 @@
 package org.apache.ofbiz.order.shoppingcart.shipping;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import java.util.Optional;
+import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -31,6 +34,7 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.common.uom.UomWorker;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
@@ -43,6 +47,7 @@ import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.order.order.OrderReadHelper;
 import org.apache.ofbiz.order.shoppingcart.ShoppingCart;
 import org.apache.ofbiz.order.shoppingcart.product.ProductPromoWorker;
+import org.apache.ofbiz.party.contact.ContactMechWorker;
 import org.apache.ofbiz.product.store.ProductStoreWorker;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
@@ -55,6 +60,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 public class ShippingEvents {
 
     public static final String module = ShippingEvents.class.getName();
+    private static final List<String> fieldNameGeoIds = UtilMisc.toList("countryGeoId", "countyGeoId", "stateProvinceGeoId", "municipalityGeoId", "postalCodeGeoId");
 
     public static String getShipEstimate(HttpServletRequest request, HttpServletResponse response) {
         ShoppingCart cart = (ShoppingCart) request.getSession().getAttribute("shoppingCart");
@@ -376,7 +382,7 @@ public class ShippingEvents {
                 EntityCondition.makeCondition("contactMechPurposeTypeId", EntityOperator.IN, UtilMisc.toList("SHIP_ORIG_LOCATION", "GENERAL_LOCATION")),
                 EntityUtil.getFilterByDateExpr("contactFromDate", "contactThruDate"),
                 EntityUtil.getFilterByDateExpr("purposeFromDate", "purposeThruDate")
-       );
+        );
         EntityConditionList<EntityCondition> ecl = EntityCondition.makeCondition(conditions, EntityOperator.AND);
 
         List<GenericValue> addresses = delegator.findList("PartyContactWithPurpose", ecl, null, UtilMisc.toList("contactMechPurposeTypeId DESC"), null, false);
@@ -391,7 +397,136 @@ public class ShippingEvents {
         }
         return originAddress != null ? originAddress : generalAddress;
     }
+
+    public static GenericValue getShippingOriginContactMechFromFacility(Delegator delegator, String facilityId) throws GeneralException {
+         GenericValue address = ContactMechWorker.getFacilityContactMechByPurpose(delegator, facilityId, UtilMisc.toList("SHIP_ORIG_LOCATION"));
+         if (address != null) return address;
+         return ContactMechWorker.getFacilityContactMechByPurpose(delegator, facilityId, UtilMisc.toList("GENERAL_LOCATION"));
+    }
+
+    private static List<String> getGeoIdFromPostalContactMech(Delegator delegator, GenericValue address) {
+        List<String> geoIds = new ArrayList<>();
+        if (address != null) {
+            GenericValue addressGV = null;
+            if ("PostalAddress".equals(address.getEntityName())) {
+                addressGV = address;
+            } else {
+                try {
+                    addressGV = EntityQuery.use(delegator).from("PostalAddress").where(address).cache().queryOne();
+                } catch (GeneralException e) {
+                    Debug.logError(e.toString(), module);
+                }
+            }
+            if (addressGV != null) {
+                GenericValue finalAddressGV = addressGV;
+                geoIds = fieldNameGeoIds.stream()
+                        .filter(key -> finalAddressGV.get(key) != null)
+                        .map(key -> finalAddressGV.getString(key))
+                        .collect(Collectors.toList());
+            }
+        }
+        return geoIds;
+    }
+
+    public static List<GenericValue> getShipmentTimeEstimates(Delegator delegator, String shipmentMethodTypeId,
+            String partyId, String roleTypeId, GenericValue shippingAddress, GenericValue originAddress) {
+        //Retrieve origin Geo
+        List<String> geoIdFroms = getGeoIdFromPostalContactMech(delegator, originAddress);
+        //Retrieve destination Geo
+        List<String> geoIdTos = getGeoIdFromPostalContactMech(delegator, shippingAddress);
+        return getShipmentTimeEstimates(delegator, shipmentMethodTypeId, partyId, roleTypeId, geoIdFroms, geoIdTos);
+    }
+
+
+    public static List<GenericValue> getShipmentTimeEstimates(Delegator delegator, String shipmentMethodTypeId,
+            String partyId, String roleTypeId, List<String> geoIdFroms, List<String> geoIdTos) {
+
+        List<GenericValue> shippingTimeEstimates = new LinkedList<>();
+        if ("NO_SHIPPING".equals(shipmentMethodTypeId)) {
+            return shippingTimeEstimates;
+        }
+
+        List<EntityCondition> conditionList = new ArrayList<>();
+        if (UtilValidate.isNotEmpty(shipmentMethodTypeId)) {
+            conditionList.add(EntityCondition.makeCondition("shipmentMethodTypeId", shipmentMethodTypeId));
+        }
+        if (UtilValidate.isNotEmpty(partyId)) {
+            conditionList.add(EntityCondition.makeCondition("partyId", partyId));
+        }
+        if (UtilValidate.isNotEmpty(roleTypeId)) {
+            conditionList.add(EntityCondition.makeCondition("roleTypeId", roleTypeId));
+        }
+        List<EntityCondition> geoConditionList = new ArrayList<>();
+        if (geoIdFroms == null) geoIdFroms = new ArrayList<>();
+        if (geoIdTos == null) geoIdTos = new ArrayList<>();
+        geoConditionList.add(EntityCondition.makeCondition("geoIdFrom", EntityOperator.IN, geoIdFroms));
+        geoConditionList.add(EntityCondition.makeCondition("geoIdTo", EntityOperator.IN, geoIdTos));
+        geoConditionList.addAll(conditionList);
+        EntityCondition condition = EntityCondition.makeCondition(geoConditionList);
+
+        try {
+            shippingTimeEstimates = EntityQuery.use(delegator)
+                    .from("ShipmentTimeEstimate")
+                    .where(condition)
+                    .filterByDate()
+                    .orderBy("sequenceNumber")
+                    .cache()
+                    .queryList();
+            if (UtilValidate.isEmpty(shippingTimeEstimates)) {
+                geoIdFroms.add("_NA_");
+                geoIdTos.add("_NA_");
+                geoConditionList = new ArrayList<>();
+                geoConditionList.add(EntityCondition.makeCondition("geoIdFrom", EntityOperator.IN, geoIdFroms));
+                geoConditionList.add(EntityCondition.makeCondition("geoIdTo", EntityOperator.IN, geoIdTos));
+                geoConditionList.addAll(conditionList);
+                condition = EntityCondition.makeCondition(geoConditionList);
+                shippingTimeEstimates = EntityQuery.use(delegator)
+                        .from("ShipmentTimeEstimate")
+                        .where(condition)
+                        .filterByDate()
+                        .cache()
+                        .orderBy("geoIdFrom", "geoIdTo")
+                        .queryList();
+            }
+        } catch (GenericEntityException e) {
+            String errMsg = "Failure getting shipment time estimate: " + e.getLocalizedMessage();
+            Debug.logError(errMsg, module);
+        }
+
+        return shippingTimeEstimates;
+    }
+
+    /**
+     * Return the {@link GenericValue} ShipmentTimeEstimate matching the carrier shipment method
+     * @param storeCarrierShipMethod ShipmentMethod used for estimation
+     * @param shippingTimeEstimates available configured estimation
+     * @return
+     */
+    public static GenericValue getShippingTimeEstimate(GenericValue storeCarrierShipMethod, List<GenericValue> shippingTimeEstimates) {
+        if (shippingTimeEstimates == null) return null;
+        List<String> pkFields = storeCarrierShipMethod.getDelegator().getModelEntity("CarrierShipmentMethod").getPkFieldNames();
+        Optional<GenericValue> shippingTimeEstimate = shippingTimeEstimates.stream()
+                .filter(shippingTimeEstimateAnalyze ->
+                        pkFields.stream()
+                                .allMatch(k ->
+                                        storeCarrierShipMethod.getString(k).equals(
+                                                shippingTimeEstimateAnalyze.getString(k))))
+                .findFirst();
+        return shippingTimeEstimate.orElse(null);
+    }
+
+    /**
+     * Return the number of days estimated for shipping
+     * @param dispatcher
+     * @param storeCarrierShipMethod ShipmentMethod used for estimation
+     * @param shippingTimeEstimates available configured estimation
+     * @return
+     */
+    public static Double getShippingTimeEstimateInDay(LocalDispatcher dispatcher, GenericValue storeCarrierShipMethod, List<GenericValue> shippingTimeEstimates) {
+        GenericValue shippingTimeEstimate = getShippingTimeEstimate(storeCarrierShipMethod, shippingTimeEstimates);
+        if (shippingTimeEstimate == null) return null;
+        BigDecimal leadTimeConverted = UomWorker.convertUom(shippingTimeEstimate.getBigDecimal("leadTime"), shippingTimeEstimate.getString("leadTimeUomId"), "TF_day", dispatcher);
+        return leadTimeConverted != null ? leadTimeConverted.setScale(2, BigDecimal.ROUND_UP).doubleValue() : null;
+    }
 }
-
-
 

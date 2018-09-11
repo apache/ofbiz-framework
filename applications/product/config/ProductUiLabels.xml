@@ -10675,6 +10675,10 @@
         <value xml:lang="zh">编辑货运路线分区</value>
         <value xml:lang="zh-TW">編輯貨運路線分區</value>
     </property>
+    <property key="PageTitleEditShipmentTimeEstimates">
+        <value xml:lang="en">Edit Shipment Time Estimates</value>
+        <value xml:lang="fr">Modification des temps de livraison estimé</value>
+    </property>
     <property key="PageTitleEditSubscription">
         <value xml:lang="de">Abonnemente bearbeiten</value>
         <value xml:lang="en">Edit Subscription</value>
@@ -11253,6 +11257,10 @@
         <value xml:lang="vi">Danh sách phân loại phương thức vận chuyển</value>
         <value xml:lang="zh">运输方法类型列表</value>
         <value xml:lang="zh-TW">運輸方法類型清單</value>
+    </property>
+    <property key="PageTitleListShipmentTimeEstimates">
+        <value xml:lang="en">Shipment Time Estimates List</value>
+        <value xml:lang="fr">Liste des temps de livraison estimé</value>
     </property>
     <property key="PageTitleLookupBulkAddProduct">
         <value xml:lang="de">Massenhinzufügung Produkte</value>
@@ -29539,6 +29547,10 @@
         <value xml:lang="vi">Mã bưu chính Hãng thứ ba</value>
         <value xml:lang="zh">第三方邮政编码</value>
         <value xml:lang="zh-TW">協力廠商郵遞區號</value>
+    </property>
+    <property key="ProductShipmentTimeEstimates">
+        <value xml:lang="en">Shipment Time Estimates</value>
+        <value xml:lang="fr">Temps de livraison estimé</value>
     </property>
     <property key="ProductShipmentTotalVolume">
         <value xml:lang="de">Total Volumen</value>

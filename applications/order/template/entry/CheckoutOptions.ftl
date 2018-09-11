@@ -172,9 +172,11 @@ function submitForm(form, mode, value) {
                         <span>
                           <#if shoppingCart.getShippingContactMechId()??>
                             <#assign shippingEst = shippingEstWpr.getShippingEstimate(carrierShipmentMethod)?default(-1)>
+                            <#assign shippingTimeEstimateInDay = shippingEstWpr.getShippingTimeEstimateInDay(carrierShipmentMethod)?default(-1)>
                           </#if>
                           <#if carrierShipmentMethod.partyId != "_NA_">${carrierShipmentMethod.partyId!}&nbsp;</#if>${carrierShipmentMethod.description!}
                           <#if shippingEst?has_content> - <#if (shippingEst > -1)><@ofbizCurrency amount=shippingEst isoCode=shoppingCart.getCurrency()/><#else>${uiLabelMap.OrderCalculatedOffline}</#if></#if>
+                          <#if (shippingTimeEstimateInDay?? && shippingTimeEstimateInDay > 0)> - ${shippingTimeEstimateInDay} ${uiLabelMap.CommonDays}</#if>
                         </span>
                         </label>
                       </td>
