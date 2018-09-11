@@ -80,7 +80,7 @@ public class PersistedServiceJob extends GenericServiceJob {
         this.jobValue = jobValue;
         Timestamp storedDate = jobValue.getTimestamp("runTime");
         this.startTime = storedDate.getTime();
-        this.maxRetry = jobValue.get("maxRetry") != null ? jobValue.getLong("maxRetry") : -1;
+        this.maxRetry = jobValue.get("maxRetry") != null ? jobValue.getLong("maxRetry") : 0;
         Long retryCount = jobValue.getLong("currentRetryCount");
         if (retryCount != null) {
             this.currentRetryCount = retryCount;

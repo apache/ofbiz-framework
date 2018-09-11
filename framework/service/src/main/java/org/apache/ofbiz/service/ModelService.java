@@ -161,7 +161,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
     public int transactionTimeout;
 
     /** Sets the max number of times this service will retry when failed (persisted async only) */
-    public int maxRetry = -1;
+    public int maxRetry = 0;
 
     /** Permission service name */
     public String permissionServiceName;

@@ -213,13 +213,13 @@ public class ModelServiceReader implements Serializable {
 
         // set the max retry field
         String maxRetryStr = UtilXml.checkEmpty(serviceElement.getAttribute("max-retry"));
-        int maxRetry = -1;
+        int maxRetry = 0;
         if (UtilValidate.isNotEmpty(maxRetryStr)) {
             try {
                 maxRetry = Integer.parseInt(maxRetryStr);
             } catch (NumberFormatException e) {
-                Debug.logWarning(e, "Setting maxRetry to -1 (default)", module);
-                maxRetry = -1;
+                Debug.logWarning(e, "Setting maxRetry to 0 (default)", module);
+                maxRetry = 0;
             }
         }
         service.maxRetry = maxRetry;

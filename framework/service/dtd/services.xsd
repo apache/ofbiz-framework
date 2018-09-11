@@ -140,7 +140,7 @@ under the License.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute name="max-retry" type="xs:int" default="-1"/>
+        <xs:attribute name="max-retry" type="xs:int" default="0"/>
         <xs:attribute name="debug" default="false">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
