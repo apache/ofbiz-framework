@@ -35,6 +35,8 @@ import org.apache.ofbiz.base.util.FileUtil;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.common.image.ImageTransform;
+import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.ServiceUtil;
 
@@ -61,22 +63,6 @@ public class QRCodeServices {
 
     public static final String module = QRCodeServices.class.getName();
 
-    public static final String QRCODE_DEFAULT_WIDTH = UtilProperties.getPropertyValue("qrcode", "qrcode.default.width", "200");
-
-    public static final String QRCODE_DEFAULT_HEIGHT = UtilProperties.getPropertyValue("qrcode", "qrcode.default.height", "200");
-
-    public static final String QRCODE_DEFAULT_FORMAT = UtilProperties.getPropertyValue("qrcode", "qrcode.default.format", "jpg");
-
-    public static final String QRCODE_FORMAT_SUPPORTED = UtilProperties.getPropertyValue("qrcode", "qrcode.format.supported", "jpg|png|bmp");
-    
-    public static final String QRCODE_DEFAULT_LOGOIMAGE = UtilProperties.getPropertyValue("qrcode", "qrcode.default.logoimage");
-    
-    public static final BufferedImage defaultLogoImage;
-    
-    private static final String[] FORMAT_NAMES = StringUtil.split(QRCODE_FORMAT_SUPPORTED, '|');
-    
-    private static final List<String> FORMATS_SUPPORTED = Arrays.asList(FORMAT_NAMES);
-
     public static final int MIN_SIZE = 20;
 
     public static final int MAX_SIZE = 500;
@@ -84,26 +70,6 @@ public class QRCodeServices {
     private static final int BLACK = 0xFF000000;
 
     private static final int WHITE = 0xFFFFFFFF;
-    
-    static {
-        if (UtilValidate.isNotEmpty(QRCODE_DEFAULT_LOGOIMAGE)) {
-            defaultLogoImage = getLogoImageResult();
-        } else {
-            defaultLogoImage = null;
-        }
-    }
-
-    private static BufferedImage getLogoImageResult() {
-        try {
-            Map<String, Object> logoImageResult = ImageTransform.getBufferedImage(FileUtil.getFile(QRCODE_DEFAULT_LOGOIMAGE).getAbsolutePath(), Locale.getDefault());
-            if (UtilValidate.isEmpty(logoImageResult.get("bufferedImage"))) {
-                Debug.logError("Your logo image file(" + QRCODE_DEFAULT_LOGOIMAGE + ") cannot be read by javax.imageio.ImageIO. Please use png, jpeg formats instead of ico and etc.", module);
-            }
-            return (BufferedImage) logoImageResult.get("bufferedImage");
-        } catch (IllegalArgumentException | IOException e) {
-            return null;
-        }
-    }
 
     /** Streams QR Code to the result. */
     public static Map<String, Object> generateQRCodeImage(DispatchContext ctx,Map<String, Object> context) {
@@ -117,27 +83,31 @@ public class QRCodeServices {
         String logoImage = (String) context.get("logoImage");
         Integer logoImageMaxWidth = (Integer) context.get("logoImageMaxWidth");
         Integer logoImageMaxHeight = (Integer) context.get("logoImageMaxHeight");
+        Delegator delegator = ctx.getDelegator();
 
         if (UtilValidate.isEmpty(message)) {
             return ServiceUtil.returnError(UtilProperties.getMessage("QRCodeUiLabels", "ParameterCannotEmpty", new Object[] { "message" }, locale));
         }
         if (width == null) {
-            width = Integer.parseInt(QRCODE_DEFAULT_WIDTH);
+            width = Integer.parseInt(EntityUtilProperties.getPropertyValue("qrcode", "qrcode.default.width", "200", delegator));
         }
         if (width < MIN_SIZE || width > MAX_SIZE) {
             return ServiceUtil.returnError(UtilProperties.getMessage("QRCodeUiLabels", "SizeOutOfBorderError", new Object[] {"width", String.valueOf(width), String.valueOf(MIN_SIZE), String.valueOf(MAX_SIZE)}, locale));
         }
         if (height == null) {
-            height = Integer.parseInt(QRCODE_DEFAULT_HEIGHT);
+            height = Integer.parseInt(EntityUtilProperties.getPropertyValue("qrcode", "qrcode.default.height", "200", delegator));
         }
         if (height < MIN_SIZE || height > MAX_SIZE) {
             return ServiceUtil.returnError(UtilProperties.getMessage("QRCodeUiLabels", "SizeOutOfBorderError", 
                     new Object[] { "height", String.valueOf(height), String.valueOf(MIN_SIZE), String.valueOf(MAX_SIZE) }, locale));
         }
         if (UtilValidate.isEmpty(format)) {
-            format = QRCODE_DEFAULT_FORMAT;
+            format = EntityUtilProperties.getPropertyValue("qrcode", "qrcode.default.format", "jpg", delegator);
         }
-        if (!FORMATS_SUPPORTED.contains(format)) {
+        String qrCodeFormatSupported = EntityUtilProperties.getPropertyValue("qrcode", "qrcode.format.supported", "jpg|png|bmp", delegator);
+        String[] formatNames = StringUtil.split(qrCodeFormatSupported, '|');
+        List<String> formatsSupported = Arrays.asList(formatNames);
+        if (!formatsSupported.contains(format)) {
             return ServiceUtil.returnError(UtilProperties.getMessage("QRCodeUiLabels", "ErrorFormatNotSupported", new Object[] { format }, locale));
         }
         Map<EncodeHintType, Object> encodeHints = null;
@@ -148,7 +118,7 @@ public class QRCodeServices {
 
         try {
             BitMatrix bitMatrix = new MultiFormatWriter().encode(message, BarcodeFormat.QR_CODE, width, height, encodeHints);
-            BufferedImage bufferedImage = toBufferedImage(bitMatrix, format);
+            BufferedImage bufferedImage = toBufferedImage(bitMatrix, format, locale);
             BufferedImage logoBufferedImage = null;
             if (UtilValidate.isNotEmpty(logoImage)) {
                 Map<String, Object> logoImageResult;
@@ -160,6 +130,21 @@ public class QRCodeServices {
                 }
             }
             if (UtilValidate.isEmpty(logoBufferedImage)) {
+                String qrCodeDefaultLogoImage = EntityUtilProperties.getPropertyValue("qrcode", "qrcode.default.logoimage", delegator);
+                BufferedImage defaultLogoImage = null;
+                if (UtilValidate.isNotEmpty(qrCodeDefaultLogoImage)) {
+                    try {
+                        Map<String, Object> logoImageResult = ImageTransform.getBufferedImage(FileUtil.getFile(qrCodeDefaultLogoImage).getAbsolutePath(), locale);
+                        defaultLogoImage = (BufferedImage) logoImageResult.get("bufferedImage");
+                        if (UtilValidate.isEmpty(defaultLogoImage)) {
+                            Debug.logError("Your logo image file(" + qrCodeDefaultLogoImage + ") cannot be read by javax.imageio.ImageIO. Please use png, jpeg formats instead of ico and etc.", module);
+                        }
+                    } catch (IllegalArgumentException e) {
+                        defaultLogoImage = null;
+                    } catch (IOException e) {
+                        defaultLogoImage = null;
+                    }
+                }
                 logoBufferedImage = defaultLogoImage;
             }
             
@@ -175,7 +160,7 @@ public class QRCodeServices {
                     logoBufferedImage = (BufferedImage) logoImageResult.get("bufferedImage");
                 }
                 BitMatrix newBitMatrix = bitMatrix.clone();
-                newBufferedImage = toBufferedImage(newBitMatrix, format);
+                newBufferedImage = toBufferedImage(newBitMatrix, format, locale);
                 Graphics2D graphics = newBufferedImage.createGraphics();
                 graphics.drawImage(logoBufferedImage, new AffineTransformOp(AffineTransform.getTranslateInstance(1, 1), null), (newBufferedImage.getWidth() - logoBufferedImage.getWidth())/2, (newBufferedImage.getHeight() - logoBufferedImage.getHeight())/2);
                 graphics.dispose();
@@ -223,11 +208,7 @@ public class QRCodeServices {
             return result;
         } catch (WriterException e) {
             return ServiceUtil.returnError(UtilProperties.getMessage("QRCodeUiLabels", "ErrorGenerateQRCode", new Object[] { e.toString() }, locale));
-        } catch (ChecksumException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage("QRCodeUiLabels", "ErrorVerifyQRCode", new Object[] { e.toString() }, locale));
-        } catch (FormatException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage("QRCodeUiLabels", "ErrorVerifyQRCode", new Object[] { e.toString() }, locale));
-        } catch (NotFoundException e) {
+        } catch (ChecksumException | FormatException | NotFoundException e) {
             return ServiceUtil.returnError(UtilProperties.getMessage("QRCodeUiLabels", "ErrorVerifyQRCode", new Object[] { e.toString() }, locale));
         }
     }
@@ -242,11 +223,11 @@ public class QRCodeServices {
      * BufferedImage image = new BufferedImage(width, height,
      * BufferedImage.TYPE_INT_RGB); or others to make it work correctly.
      */
-    private static BufferedImage toBufferedImage(BitMatrix matrix, String format) {
+    private static BufferedImage toBufferedImage(BitMatrix matrix, String format, Locale locale) {
         int width = matrix.getWidth();
         int height = matrix.getHeight();
         BufferedImage image = null;
-        String osName = System.getProperty("os.name").toLowerCase(Locale.getDefault());
+        String osName = System.getProperty("os.name").toLowerCase(locale);
         image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         if (osName.startsWith("mac os") && format.equals("png")) {
             image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
