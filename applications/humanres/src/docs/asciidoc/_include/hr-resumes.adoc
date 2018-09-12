@@ -18,3 +18,16 @@ under the License.
 ////
 = Resumes
 
+Resumes or Curriculum Vitae (CVs) are documents that job applicants use to apply
+ for job positions. These documents summarise the applicant's experience,
+qualifications, contact information and details about why they are suitable for
+ a particular job position.
+
+In OFBiz you can enter a resume as a document and then link it to a person.
+Each resume entry has a unique identifier (that currently needs to be manually 
+entered!). This identifier links a person to an instance of their resume.
+
+NOTE: The OFBiz Content Manager application is used for the linking of resumes 
+because it was designed for managing, storing and retrieving electronic data in 
+varying formats - such as text, images, MS Word, PDF or even web URL's.
+
