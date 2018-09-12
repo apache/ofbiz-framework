@@ -18,3 +18,18 @@ under the License.
 ////
 = Qualifications
 
+Qualifications are a feature of the recruitment process that allows you to record
+ the details of any qualifications held by job applicants or your existing
+employees.
+
+During the job application process, you may want to ensure that applicants have
+a minimum set of qualifications as a requirement for a position. The details of 
+the qualifications for each applicant will need to be captured and if necessary,
+verified.
+
+For existing employees, details of qualifications during their employment with 
+your organisation can be added at any time.
+
+In the case where qualifications expire if not renewed, you can also add an 
+expiry or renewal date. 
+
