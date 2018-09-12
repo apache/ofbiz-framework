@@ -41,7 +41,7 @@ various types of job interviews needed (e.g. HR, Panel, Case Study
 
 You can also track the status of people who have applied for a position.
 
-In the OFBiz Human Resource  you can
+In the OFBiz Human Resource application you can
 
 * Approve or reject job applications 
 * Manage and book job interviews
