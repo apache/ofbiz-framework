@@ -35,8 +35,6 @@ include::_include/hr-employments.adoc[leveloffset=+1]
 
 include::_include/hr-performance-review.adoc[leveloffset=+1]
 
-include::_include/hr-positions.adoc[leveloffset=+1]
-
 include::_include/hr-qualifications.adoc[leveloffset=+1]
 
 include::_include/hr-recruitment.adoc[leveloffset=+1]
