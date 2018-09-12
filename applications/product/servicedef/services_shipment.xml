@@ -85,8 +85,8 @@ under the License.
         <attribute name="setPackedOnly" type="String" mode="IN" optional="true"/>
         <attribute name="shipmentId" type="String" mode="OUT" optional="false"/>
     </service>
-    <service name="quickShipPurchaseOrder" engine="simple"
-            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="quickShipPurchaseOrder" auth="true">
+    <service name="quickReceivePurchaseOrder" engine="simple"
+            location="component://product/minilang/shipment/shipment/ShipmentServices.xml" invoke="quickReceivePurchaseOrder" auth="true">
         <description>The mirror of quickShipEntireOrder, this service automatically creates shipments for an entire purchase order.
           All order items on each ship group is created as a Shipment.  All items on a Shipment are automatically issued to a Package.
           The shipment's status is first set to CREATED and then set as SHIPPED.  The facilityId is used to set the destinationFacilityId
