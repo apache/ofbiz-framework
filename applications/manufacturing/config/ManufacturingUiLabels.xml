@@ -692,6 +692,15 @@
         <value xml:lang="zh">星期三开始时间</value>
         <value xml:lang="zh-TW">週三開始時間</value>
     </property>
+    <property key="ManufacturinWorkOrderItemFulfillmentError">
+        <value xml:lang="en">Error reading the WorkOrderItemFulfillment: ${errorString}</value>
+        <value xml:lang="it">Errore durante la letture di WorkOrderItemFulfillment: ${errorString}</value>
+        <value xml:lang="ja">作業注文アイテム執行の読み込み中にエラー: ${errorString}</value>
+        <value xml:lang="nl">Error inz. WorkOrderItemFulfillment: ${errorString}</value>
+        <value xml:lang="vi">Lỗi khi đọc thông tin Đáp ứng hàng hóa của Đặt hàng (WorkOrderItemFulfillment) : ${errorString}</value>
+        <value xml:lang="zh">读取WorkOrderItemFulfillment时出错：${errorString}</value>
+        <value xml:lang="zh-TW">讀取WorkOrderItemFulfillment時出錯:${errorString}</value>
+    </property>
     <property key="ManufacturingATPDate">
         <value xml:lang="de">ATP-Datum</value>
         <value xml:lang="en">ATP Date</value>
@@ -796,6 +805,9 @@
         <value xml:lang="zh">添加一个已存在的规程任务</value>
         <value xml:lang="zh-TW">增加一個已存在的規程任務</value>
     </property>
+    <property key="ManufacturingAddProdCompInCompCanStatusError">
+        <value xml:lang="en">Can't Add Component in Cancelled/Closed Production Run.</value>
+    </property>
     <property key="ManufacturingAddProductionRunFixedAssetAssign">
         <value xml:lang="de">Anlage zuweisen</value>
         <value xml:lang="en">Assign Fixed Asset</value>
@@ -810,9 +822,6 @@
         <value xml:lang="vi">Gán Tài sản cố định</value>
         <value xml:lang="zh">指定固定资产</value>
         <value xml:lang="zh-TW">指定固定資產</value>
-    </property>
-    <property key="ManufacturingAddProdCompInCompCanStatusError">
-        <value xml:lang="en">Can't Add Component in Cancelled/Closed Production Run.</value>
     </property>
     <property key="ManufacturingAddProductionRunProductComponent">
         <value xml:lang="de">Komponente zu Produktionsauftrag hinzufügen</value>
@@ -1401,27 +1410,19 @@
         <value xml:lang="zh-TW">OFBiz: 生產管理</value>
     </property>
     <property key="ManufacturingCompanySubtitle">
-    <!--value xml:lang="ar">جزء من عائلة أوفبيز للبرمجيات الحرة</value-->
         <value xml:lang="ar">جزء من عائلة أوفبيز للتطبيقات الحرة للتسيير</value>
         <value xml:lang="de">Teil der Apache OFBiz Familie von Open Source Software</value>
         <value xml:lang="en">Part of the Apache OFBiz Family of Open Source Software</value>
-    <!--value xml:lang="es">Parte de la familia "Open for Bussiness" de Software Libre</value-->
         <value xml:lang="es">Parte de la familia de software Apache OFBiz de código abierto</value>
         <value xml:lang="fr">Un module de la famille Apache OFBiz, logiciel libre de gestion d'entreprise.</value>
         <value xml:lang="it">Un modulo della famiglia di software open source Apache OFBiz</value>
-    <!--value xml:lang="nl">Onderdeel van de Apache OFBiz'-suite</value-->
         <value xml:lang="ja">Part of the Apache OFBiz Family of Open Source Software</value>
         <value xml:lang="nl">Deel van de Apache OFBiz-suite van Open Source Software</value>
         <value xml:lang="pt-BR">Parte da família OfBiz de software de código livre</value>
-    <!--value xml:lang="pt-PT">Parte do Software de Fonte Aberta para Grupos Abertos Para o Negócio</value-->
         <value xml:lang="pt-PT">Parte da família OfBiz de software de fonte aberta</value>
-    <!--value xml:lang="ro">Parte accesibila pentru Business Family of Open Source Software / Parte din Open for Business Family of Open Source Software</value-->
         <value xml:lang="ro">Partea de Deschidere Pentru Afaceri Familiale din Open Source Software</value>
-    <!--value xml:lang="ru">Часть семейства ПО Apache OFBiz / Часть семейства "Apache OFBiz Family" программных продуктов Open Source </value-->
         <value xml:lang="ru">Входит в состав семейства Apache OFBiz</value>
-    <!--value xml:lang="th">เป็นส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value-->
         <value xml:lang="th">ส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value>
-    <!--value xml:lang="zh">开源软件OFBiz的组成部分 / 开源软件OFBiz的组成部分</value-->
         <value xml:lang="vi">Part of the Apache OFBiz Family of Open Source Software</value>
         <value xml:lang="zh">开源软件OFBiz家族的一部分</value>
         <value xml:lang="zh-CN">OFBiz的一部分</value>
@@ -1710,21 +1711,6 @@
         <value xml:lang="vi">Ngày nhận hàng</value>
         <value xml:lang="zh">交付日期</value>
         <value xml:lang="zh-TW">交付日期</value>
-    </property>
-    <property key="ManufacturingSucceedingProductionRun">
-        <value xml:lang="de">Abhängige Produktionsaufträge</value>
-        <value xml:lang="en">Succeeding Production Run(s)</value>
-        <value xml:lang="es">Esfuerzos de trabajo dependientes</value>
-        <value xml:lang="fr">Exécution d'ordre de fabrication/s suivant/s</value>
-        <value xml:lang="it">Ordini di produzione successivi</value>
-        <value xml:lang="ja">依存する生産実行</value>
-        <value xml:lang="nl">Opvolgende productierun(s)</value>
-        <value xml:lang="pt-BR">Execuções de produção dependentes</value>
-        <value xml:lang="ro">Comenzi lansate in Productie?</value>
-        <value xml:lang="th">ขึ้นอยู่กับการผลิตสินค้า</value>
-        <value xml:lang="vi">Các Chế tác lô hàng phụ thuộc</value>
-        <value xml:lang="zh">依赖的生产运行</value>
-        <value xml:lang="zh-TW">依賴的生產運行</value>
     </property>
     <property key="ManufacturingDuplicatedComponentInBOM">
         <value xml:lang="de">Die folgenden Zuordnungen könnten Endlosschleifen verursachen:  {0} --&gt; {1}</value>
@@ -2828,21 +2814,6 @@
         <value xml:lang="zh">生产管理应用</value>
         <value xml:lang="zh-TW">生產管理應用</value>
     </property>
-    <property key="ManufacturingPrecedingProductionRun">
-        <value xml:lang="de">Erforderliche Produktionsaufträge</value>
-        <value xml:lang="en">Preceding Production Run(s)</value>
-        <value xml:lang="es">Órdenes de producción obligatorias</value>
-        <value xml:lang="fr">Exécution d'ordre de fabrication/s précédent/s</value>
-        <value xml:lang="it">Cicli Produzione Precedenti</value>
-        <value xml:lang="ja">生産強制実行</value>
-        <value xml:lang="nl">Voorafgaande productierun(s)</value>
-        <value xml:lang="pt-BR">Execuções de produção obrigatórias</value>
-        <value xml:lang="ro">Cicluri de Productie Obligatorii</value>
-        <value xml:lang="th">คำสั่งในการผลิต</value>
-        <value xml:lang="vi">Chế tác lô hàng tạm thời</value>
-        <value xml:lang="zh">强制生产运行</value>
-        <value xml:lang="zh-TW">強制生產運行</value>
-    </property>
     <property key="ManufacturingManufacturingRules">
         <value xml:lang="de">Fertigungsregeln</value>
         <value xml:lang="en">Manufacturing Rules</value>
@@ -2942,13 +2913,13 @@
         <value xml:lang="zh">无法获取产品设施（ProductFacility）记录。</value>
         <value xml:lang="zh-TW">無法獲取產品設施(ProductFacility)記錄.</value>
     </property>
-    <property key="ManufacturingMrpCannotFindSalesForecasts">
-        <value xml:lang="en">Problem, we can not find SalesForecasts, for more detail look at the log</value>
-        <value xml:lang="it">Problema, non è possibile trovare SalesForecasts, più dettagli possono essere trovati nel log</value>
-        <value xml:lang="ja">問題、販売予測を見つけることができません。詳細はログを参照してください。</value>
-        <value xml:lang="vi">Có lỗi, chúng tôi không thể tìm thấy Dự báo kinh doanh, bạn hãy xem vết để biết thêm chi tiết</value>
-        <value xml:lang="zh">问题：我们不能找到销售预测（SalesForecasts），详见日志</value>
-        <value xml:lang="zh-TW">問題:我們不能找到銷售預測(SalesForecasts),詳見日誌</value>
+    <property key="ManufacturingMrpCannotFindProductForEvent">
+        <value xml:lang="en">Problem, can not find the product for a event, for more detail look at the log</value>
+        <value xml:lang="it">Problema, non è possibile trovare il prodotto per un'evento, più dettagli possono essere trovati nel log</value>
+        <value xml:lang="ja">問題、イベントに対する製品を見つけることができません。詳細はログを参照してください。</value>
+        <value xml:lang="vi">Có lỗi, chúng tôi không thể tìm thấy sản phẩm cho sự kiện này, bạn hãy xem vết để biết thêm chi tiết</value>
+        <value xml:lang="zh">问题：不能找到一个事件的产品，详见日志</value>
+        <value xml:lang="zh-TW">問題:不能找到一個事件的產品,詳見日誌</value>
     </property>
     <property key="ManufacturingMrpCannotFindSalesForecastDetails">
         <value xml:lang="en">Problem, we can not find SalesForecastDetails, for more detail look at the log</value>
@@ -2958,13 +2929,13 @@
         <value xml:lang="zh">问题：我们不能找到销售预测详细信息（SalesForecastDetails），详见日志</value>
         <value xml:lang="zh-TW">問題:我們不能找到銷售預測詳細資訊(SalesForecastDetails),詳見日誌</value>
     </property>
-    <property key="ManufacturingMrpCannotFindProductForEvent">
-        <value xml:lang="en">Problem, can not find the product for a event, for more detail look at the log</value>
-        <value xml:lang="it">Problema, non è possibile trovare il prodotto per un'evento, più dettagli possono essere trovati nel log</value>
-        <value xml:lang="ja">問題、イベントに対する製品を見つけることができません。詳細はログを参照してください。</value>
-        <value xml:lang="vi">Có lỗi, chúng tôi không thể tìm thấy sản phẩm cho sự kiện này, bạn hãy xem vết để biết thêm chi tiết</value>
-        <value xml:lang="zh">问题：不能找到一个事件的产品，详见日志</value>
-        <value xml:lang="zh-TW">問題:不能找到一個事件的產品,詳見日誌</value>
+    <property key="ManufacturingMrpCannotFindSalesForecasts">
+        <value xml:lang="en">Problem, we can not find SalesForecasts, for more detail look at the log</value>
+        <value xml:lang="it">Problema, non è possibile trovare SalesForecasts, più dettagli possono essere trovati nel log</value>
+        <value xml:lang="ja">問題、販売予測を見つけることができません。詳細はログを参照してください。</value>
+        <value xml:lang="vi">Có lỗi, chúng tôi không thể tìm thấy Dự báo kinh doanh, bạn hãy xem vết để biết thêm chi tiết</value>
+        <value xml:lang="zh">问题：我们不能找到销售预测（SalesForecasts），详见日志</value>
+        <value xml:lang="zh-TW">問題:我們不能找到銷售預測(SalesForecasts),詳見日誌</value>
     </property>
     <property key="ManufacturingMrpCreateOrUpdateEvent">
         <value xml:lang="en">Error during creation or update MrpEvent, parameters: ${parameters}</value>
@@ -2974,14 +2945,6 @@
         <value xml:lang="zh">创建或更新生产资源计划事件（MrpEvent）时出错，参数：${parameters}</value>
         <value xml:lang="zh-TW">新建或更新生產資源計劃事件(MrpEvent)時出錯,參數:${parameters}</value>
     </property>
-    <property key="ManufacturingMrpErrorForBomLevel">
-        <value xml:lang="en">MRP Error retieving MRP event for the bom level: ${bomLevel}. Error: ${errorString}</value>
-        <value xml:lang="it">Errore MRP ricavando l'evento MRP per il livello di distinta base: ${bomLevel}. Errore: ${errorString}</value>
-        <value xml:lang="ja">部品表レベル: ${bomLevel} に対するMRPイベント取得中にエラー: ${errorString}</value>
-        <value xml:lang="vi">Lỗi khi lấy thông tin sự kiện MRP ở mức chào giá : ${bomLevel}. Lỗi: ${errorString}</value>
-        <value xml:lang="zh">获取物料清单层的生产资源计划事件时出错，物料清单层：${bomLevel}，错误：${errorString}</value>
-        <value xml:lang="zh-TW">獲取物料清單層的生產資源計劃事件時出錯,物料清單層:${bomLevel},錯誤:${errorString}</value>
-    </property>
     <property key="ManufacturingMrpErrorExplodingProduct">
         <value xml:lang="en">An error occurred exploding the product ${productId}</value>
         <value xml:lang="it">E' successo un'errore durante l'espolosizione del prodotto ${productId}</value>
@@ -2989,6 +2952,14 @@
         <value xml:lang="vi">Lỗi xảy ra khi bóc tách sản phẩm ${productId}</value>
         <value xml:lang="zh">分解产品时出错：${productId}</value>
         <value xml:lang="zh-TW">分解產品時出錯:${productId}</value>
+    </property>
+    <property key="ManufacturingMrpErrorForBomLevel">
+        <value xml:lang="en">MRP Error retieving MRP event for the bom level: ${bomLevel}. Error: ${errorString}</value>
+        <value xml:lang="it">Errore MRP ricavando l'evento MRP per il livello di distinta base: ${bomLevel}. Errore: ${errorString}</value>
+        <value xml:lang="ja">部品表レベル: ${bomLevel} に対するMRPイベント取得中にエラー: ${errorString}</value>
+        <value xml:lang="vi">Lỗi khi lấy thông tin sự kiện MRP ở mức chào giá : ${bomLevel}. Lỗi: ${errorString}</value>
+        <value xml:lang="zh">获取物料清单层的生产资源计划事件时出错，物料清单层：${bomLevel}，错误：${errorString}</value>
+        <value xml:lang="zh-TW">獲取物料清單層的生產資源計劃事件時出錯,物料清單層:${bomLevel},錯誤:${errorString}</value>
     </property>
     <property key="ManufacturingMrpErrorRunningInitMrpEvents">
         <value xml:lang="en">Error running the initMrpEvents service: ${errorString}</value>
@@ -3382,6 +3353,21 @@
         <value xml:lang="zh">包装编号</value>
         <value xml:lang="zh-TW">包裝編號</value>
     </property>
+    <property key="ManufacturingPrecedingProductionRun">
+        <value xml:lang="de">Erforderliche Produktionsaufträge</value>
+        <value xml:lang="en">Preceding Production Run(s)</value>
+        <value xml:lang="es">Órdenes de producción obligatorias</value>
+        <value xml:lang="fr">Exécution d'ordre de fabrication/s précédent/s</value>
+        <value xml:lang="it">Cicli Produzione Precedenti</value>
+        <value xml:lang="ja">生産強制実行</value>
+        <value xml:lang="nl">Voorafgaande productierun(s)</value>
+        <value xml:lang="pt-BR">Execuções de produção obrigatórias</value>
+        <value xml:lang="ro">Cicluri de Productie Obligatorii</value>
+        <value xml:lang="th">คำสั่งในการผลิต</value>
+        <value xml:lang="vi">Chế tác lô hàng tạm thời</value>
+        <value xml:lang="zh">强制生产运行</value>
+        <value xml:lang="zh-TW">強制生產運行</value>
+    </property>
     <property key="ManufacturingPrintProductionRun">
         <value xml:lang="de">Produktionsauftrag drucken</value>
         <value xml:lang="en">Manufacturing Print Production Run</value>
@@ -3772,30 +3758,6 @@
         <value xml:lang="zh">生产运行组件</value>
         <value xml:lang="zh-TW">生產運行元件</value>
     </property>
-    <property key="ManufacturingProductionRunErrorRunningSetEstimatedDeliveryDates">
-        <value xml:lang="en">Problem running the setEstimatedDeliveryDates service</value>
-        <value xml:lang="it">Problema di esecuzione del servizio setEstimatedDeliveryDates</value>
-        <value xml:lang="ja">見積配送日付設定サービスの実行中にエラー</value>
-        <value xml:lang="vi">Lỗi khi thực thi dịch vụ setEstimatedDeliveryDates</value>
-        <value xml:lang="zh">运行设置预计交货日期（setEstimatedDeliveryDates）服务时出错</value>
-        <value xml:lang="zh-TW">回合設定預計交貨日期(setEstimatedDeliveryDates)服務時出錯</value>
-    </property>
-    <property key="ManufacturingProductionRunEstimatedMilliSecondsNotCorrect">
-        <value xml:lang="de">Geschätzte Ausführungszeit einer Einheit für Produktionsauftrag ist falsch formatiert</value>
-        <value xml:lang="en">Production Run Estimated Unit Run Time field is not formatted correctly</value>
-        <value xml:lang="es">El formato usado para indicar la Tiempo estimado unitario no es correcto</value>
-        <value xml:lang="fr">Le champ Temps de production estimé de l'ordre de fabrication n'est pas formatté correctement</value>
-        <value xml:lang="it">Ordine di Produzione campo Tempo stimato esecuzione non è formattato correttamente</value>
-        <value xml:lang="zh">生产运行预计单位运行时间数据项格式不正确</value>
-    </property>
-    <property key="ManufacturingProductionRunEstimatedSetupMillisNotCorrect">
-        <value xml:lang="de">Geschätzte Rüstzeit für Produktionsauftrag ist falsch formatiert</value>
-        <value xml:lang="en">Production Run Estimated Setup Time field is not formatted correctly</value>
-        <value xml:lang="es">El formato usado para indicar la Tiempo estimado de preparación no es correcto</value>
-        <value xml:lang="fr">Le champ Temps d'installation estimé de l'ordre de fabrication n'est pas formatté correctement</value>
-        <value xml:lang="it">Ordine di Produzione campo Tempo stimato configur non è formattato correttamente</value>
-        <value xml:lang="zh">生产运行预计建立时间数据项格式不正确</value>
-    </property>
     <property key="ManufacturingProductionRunCosts">
         <value xml:lang="de">Produktionsauftrags-Kosten</value>
         <value xml:lang="en">Production Run Costs</value>
@@ -3849,6 +3811,30 @@
         <value xml:lang="vi">Khai báo và Sản xuất Chế tác lô hàng</value>
         <value xml:lang="zh">生产运行说明和产出</value>
         <value xml:lang="zh-TW">生產運行說明和產出</value>
+    </property>
+    <property key="ManufacturingProductionRunErrorRunningSetEstimatedDeliveryDates">
+        <value xml:lang="en">Problem running the setEstimatedDeliveryDates service</value>
+        <value xml:lang="it">Problema di esecuzione del servizio setEstimatedDeliveryDates</value>
+        <value xml:lang="ja">見積配送日付設定サービスの実行中にエラー</value>
+        <value xml:lang="vi">Lỗi khi thực thi dịch vụ setEstimatedDeliveryDates</value>
+        <value xml:lang="zh">运行设置预计交货日期（setEstimatedDeliveryDates）服务时出错</value>
+        <value xml:lang="zh-TW">回合設定預計交貨日期(setEstimatedDeliveryDates)服務時出錯</value>
+    </property>
+    <property key="ManufacturingProductionRunEstimatedMilliSecondsNotCorrect">
+        <value xml:lang="de">Geschätzte Ausführungszeit einer Einheit für Produktionsauftrag ist falsch formatiert</value>
+        <value xml:lang="en">Production Run Estimated Unit Run Time field is not formatted correctly</value>
+        <value xml:lang="es">El formato usado para indicar la Tiempo estimado unitario no es correcto</value>
+        <value xml:lang="fr">Le champ Temps de production estimé de l'ordre de fabrication n'est pas formatté correctement</value>
+        <value xml:lang="it">Ordine di Produzione campo Tempo stimato esecuzione non è formattato correttamente</value>
+        <value xml:lang="zh">生产运行预计单位运行时间数据项格式不正确</value>
+    </property>
+    <property key="ManufacturingProductionRunEstimatedSetupMillisNotCorrect">
+        <value xml:lang="de">Geschätzte Rüstzeit für Produktionsauftrag ist falsch formatiert</value>
+        <value xml:lang="en">Production Run Estimated Setup Time field is not formatted correctly</value>
+        <value xml:lang="es">El formato usado para indicar la Tiempo estimado de preparación no es correcto</value>
+        <value xml:lang="fr">Le champ Temps d'installation estimé de l'ordre de fabrication n'est pas formatté correctement</value>
+        <value xml:lang="it">Ordine di Produzione campo Tempo stimato configur non è formattato correttamente</value>
+        <value xml:lang="zh">生产运行预计建立时间数据项格式不正确</value>
     </property>
     <property key="ManufacturingProductionRunFixedAssetAssign">
         <value xml:lang="de">Anlage zuweisen</value>
@@ -3908,14 +3894,6 @@
         <value xml:lang="zh">为订单 ${orderId} ${orderItemSeqId} 的促销包创建一个生产运行时出错：没有找到订单明细</value>
         <value xml:lang="zh-TW">為訂單 ${orderId} ${orderItemSeqId} 的促銷包新建一個生產運行時出錯:沒有找到訂單細項</value>
     </property>
-    <property key="ManufacturingProductionRunFromConfigurationNotYetImplemented">
-        <value xml:lang="en">Operation not yet implemented</value>
-        <value xml:lang="it">Operazione non è ancora implementata</value>
-        <value xml:lang="ja">操作はまだ実装されていません</value>
-        <value xml:lang="vi">Chưa thực hiện việc điều hành</value>
-        <value xml:lang="zh">还没有完成操作</value>
-        <value xml:lang="zh-TW">還沒有完成操作</value>
-    </property>
     <property key="ManufacturingProductionRunFromConfigurationNotValid">
         <value xml:lang="en">Product Configuration Not Valid</value>
         <value xml:lang="it">Configurazione non valida</value>
@@ -3923,6 +3901,14 @@
         <value xml:lang="vi">Cấu hình sản phẩm không đúng định dạng</value>
         <value xml:lang="zh">产品配置无效</value>
         <value xml:lang="zh-TW">產品配置無效</value>
+    </property>
+    <property key="ManufacturingProductionRunFromConfigurationNotYetImplemented">
+        <value xml:lang="en">Operation not yet implemented</value>
+        <value xml:lang="it">Operazione non è ancora implementata</value>
+        <value xml:lang="ja">操作はまだ実装されていません</value>
+        <value xml:lang="vi">Chưa thực hiện việc điều hành</value>
+        <value xml:lang="zh">还没有完成操作</value>
+        <value xml:lang="zh-TW">還沒有完成操作</value>
     </property>
     <property key="ManufacturingProductionRunId">
         <value xml:lang="de">Produktionsauftrags-Nr.</value>
@@ -4200,14 +4186,6 @@
         <value xml:lang="zh">生产运行任务无法启动，之前的任务没有完成</value>
         <value xml:lang="zh-TW">生產運行任務無法啟動,之前的任務沒有完成</value>
     </property>
-    <property key="ManufacturingProductionRunTaskNotFound">
-        <value xml:lang="en">Cannot find the production run task with id: ${productionRunTaskId}</value>
-        <value xml:lang="it">Non è possibile trovare il compito dell'ordine di produzione: ${productionRunTaskId}</value>
-        <value xml:lang="ja">ID ${productionRunTaskId} の生産実行タスクが見つかりません</value>
-        <value xml:lang="vi">Không tìm thấy Tác vụ - Đầu việc với Id: ${productionRunTaskId}</value>
-        <value xml:lang="zh">无法找到生产运行任务，标识为：${productionRunTaskId}</value>
-        <value xml:lang="zh-TW">無法找到生產運行任務,標識為:${productionRunTaskId}</value>
-    </property>
     <property key="ManufacturingProductionRunTaskNotExists">
         <value xml:lang="en">Production Run Task Not Exists</value>
         <value xml:lang="it">Compito ordine di produzione non esiste</value>
@@ -4216,6 +4194,14 @@
         <value xml:lang="vi">Tác vụ - Đầu việc không tồn tại</value>
         <value xml:lang="zh">生产运行任务不存在</value>
         <value xml:lang="zh-TW">生產運行任務不存在</value>
+    </property>
+    <property key="ManufacturingProductionRunTaskNotFound">
+        <value xml:lang="en">Cannot find the production run task with id: ${productionRunTaskId}</value>
+        <value xml:lang="it">Non è possibile trovare il compito dell'ordine di produzione: ${productionRunTaskId}</value>
+        <value xml:lang="ja">ID ${productionRunTaskId} の生産実行タスクが見つかりません</value>
+        <value xml:lang="vi">Không tìm thấy Tác vụ - Đầu việc với Id: ${productionRunTaskId}</value>
+        <value xml:lang="zh">无法找到生产运行任务，标识为：${productionRunTaskId}</value>
+        <value xml:lang="zh-TW">無法找到生產運行任務,標識為:${productionRunTaskId}</value>
     </property>
     <property key="ManufacturingProductionRunTaskNotRunning">
         <value xml:lang="en">Production Run Task Not Running</value>
@@ -5060,6 +5046,21 @@
         <value xml:lang="zh">开始时间</value>
         <value xml:lang="zh-TW">開始時間</value>
     </property>
+    <property key="ManufacturingSucceedingProductionRun">
+        <value xml:lang="de">Abhängige Produktionsaufträge</value>
+        <value xml:lang="en">Succeeding Production Run(s)</value>
+        <value xml:lang="es">Esfuerzos de trabajo dependientes</value>
+        <value xml:lang="fr">Exécution d'ordre de fabrication/s suivant/s</value>
+        <value xml:lang="it">Ordini di produzione successivi</value>
+        <value xml:lang="ja">依存する生産実行</value>
+        <value xml:lang="nl">Opvolgende productierun(s)</value>
+        <value xml:lang="pt-BR">Execuções de produção dependentes</value>
+        <value xml:lang="ro">Comenzi lansate in Productie?</value>
+        <value xml:lang="th">ขึ้นอยู่กับการผลิตสินค้า</value>
+        <value xml:lang="vi">Các Chế tác lô hàng phụ thuộc</value>
+        <value xml:lang="zh">依赖的生产运行</value>
+        <value xml:lang="zh-TW">依賴的生產運行</value>
+    </property>
     <property key="ManufacturingSummarizedPartBreakdown">
         <value xml:lang="en">Summarized Breakdown</value>
         <value xml:lang="es">Informe resumido</value>
@@ -5263,14 +5264,6 @@
         <value xml:lang="zh">不存在技术数据日历周</value>
         <value xml:lang="zh-TW">不存在技術資料日曆週</value>
     </property>
-    <property key="ManufacturingTechDataWorkEffortNotExist">
-        <value xml:lang="en">Error finding desired WorkEffort records: ${errorString}</value>
-        <value xml:lang="it">Errore durante la ricerca dei records di WorkEffort: ${errorString}</value>
-        <value xml:lang="ja">要求された作業成果レコードの検索中にエラー: ${errorString}</value>
-        <value xml:lang="vi">Lỗi tìm dữ liệu Lượng giá nguồn lực mong muốn: ${errorString}</value>
-        <value xml:lang="zh">查找期望的人工服务（WorkEffort）记录时出错：${errorString}</value>
-        <value xml:lang="zh-TW">尋找期望的工作投入(WorkEffort)記錄時出錯:${errorString}</value>
-    </property>
     <property key="ManufacturingTechDataWorkEffortAssocNotExist">
         <value xml:lang="en">Error finding desired WorkEffortAssoc records: ${errorString}</value>
         <value xml:lang="it">Errore durante la ricerca dei records di WorkEffortAssoc: ${errorString}</value>
@@ -5278,6 +5271,14 @@
         <value xml:lang="vi">Lỗi tìm dữ liệu Lượng giá nguồn lực kết hợp mong muốn: ${errorString}</value>
         <value xml:lang="zh">查找期望的人工服务关联（WorkEffortAssoc）记录时出错：${errorString}</value>
         <value xml:lang="zh-TW">尋找期望的工作投入結合(WorkEffortAssoc)記錄時出錯:${errorString}</value>
+    </property>
+    <property key="ManufacturingTechDataWorkEffortNotExist">
+        <value xml:lang="en">Error finding desired WorkEffort records: ${errorString}</value>
+        <value xml:lang="it">Errore durante la ricerca dei records di WorkEffort: ${errorString}</value>
+        <value xml:lang="ja">要求された作業成果レコードの検索中にエラー: ${errorString}</value>
+        <value xml:lang="vi">Lỗi tìm dữ liệu Lượng giá nguồn lực mong muốn: ${errorString}</value>
+        <value xml:lang="zh">查找期望的人工服务（WorkEffort）记录时出错：${errorString}</value>
+        <value xml:lang="zh-TW">尋找期望的工作投入(WorkEffort)記錄時出錯:${errorString}</value>
     </property>
     <property key="ManufacturingTimePeriod">
         <value xml:lang="de">Zeitraum</value>
@@ -5522,15 +5523,6 @@
         <value xml:lang="vi">Lượng giá nguồn lực không tồn tại</value>
         <value xml:lang="zh">人工服务不存在</value>
         <value xml:lang="zh-TW">工作投入不存在</value>
-    </property>
-    <property key="ManufacturinWorkOrderItemFulfillmentError">
-        <value xml:lang="en">Error reading the WorkOrderItemFulfillment: ${errorString}</value>
-        <value xml:lang="it">Errore durante la letture di WorkOrderItemFulfillment: ${errorString}</value>
-        <value xml:lang="ja">作業注文アイテム執行の読み込み中にエラー: ${errorString}</value>
-        <value xml:lang="nl">Error inz. WorkOrderItemFulfillment: ${errorString}</value>
-        <value xml:lang="vi">Lỗi khi đọc thông tin Đáp ứng hàng hóa của Đặt hàng (WorkOrderItemFulfillment) : ${errorString}</value>
-        <value xml:lang="zh">读取WorkOrderItemFulfillment时出错：${errorString}</value>
-        <value xml:lang="zh-TW">讀取WorkOrderItemFulfillment時出錯:${errorString}</value>
     </property>
     <property key="ManufacturingWorkWithShipmentPlans">
         <value xml:lang="de">Versandpläne</value>
