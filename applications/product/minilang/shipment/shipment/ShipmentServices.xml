@@ -1359,12 +1359,12 @@ under the License.
         </iterate>
     </simple-method>
 
-    <simple-method method-name="quickShipPurchaseOrder" short-description="Quick ships an entire purchase order to a facility">
+    <simple-method method-name="quickReceivePurchaseOrder" short-description="Quick receives an entire purchase order in a facility">
         <entity-one entity-name="OrderHeader" value-field="orderHeader"/>
         <entity-one entity-name="Facility" value-field="facility"/>
         <call-simple-method method-name="getOrderItemShipGroupLists"/>
         <call-simple-method method-name="createShipmentForFacilityAndShipGroup"/>
-        <log level="info" message="Finished quickShipPurchaseOrder for orderId ${parameters.orderId} and destination facilityId ${parameters.facilityId} shipment created ${shipmentIds}"/>
+        <log level="info" message="Finished quickReceivePurchaseOrder for orderId ${parameters.orderId} and destination facilityId ${parameters.facilityId} shipment created ${shipmentIds}"/>
         <field-to-result field="shipmentIds" result-name="shipmentIds"/>
     </simple-method>
 

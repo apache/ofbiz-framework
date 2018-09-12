@@ -69,7 +69,7 @@ under the License.
             <#if ownedFacilities?has_content>
               <#if !allShipments?has_content>
                   <li>
-                     <form action="/facility/control/quickShipPurchaseOrder?externalLoginKey=${externalLoginKey}" method="post">
+                     <form action="/facility/control/quickReceivePurchaseOrder?externalLoginKey=${externalLoginKey}" method="post">
                        <input type="hidden" name="initialSelected" value="Y"/>
                        <input type="hidden" name="orderId" value="${orderId}"/>
                        <#-- destination form (/facility/control/ReceiveInventory) wants purchaseOrderId instead of orderId, so we set it here as a workaround -->
@@ -83,7 +83,7 @@ under the License.
                      </form>
                   </li>
                   <li>
-                    <form name="receivePurchaseOrderForm" action="/facility/control/quickShipPurchaseOrder?externalLoginKey=${externalLoginKey}" method="post">
+                    <form name="receivePurchaseOrderForm" action="/facility/control/quickReceivePurchaseOrder?externalLoginKey=${externalLoginKey}" method="post">
                       <input type="hidden" name="initialSelected" value="Y"/>
                       <input type="hidden" name="orderId" value="${orderId}"/>
                       <input type="hidden" name="purchaseOrderId" value="${orderId}"/>
