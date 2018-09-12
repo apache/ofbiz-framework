@@ -2479,7 +2479,6 @@
         <value xml:lang="ja">シンプルメソッド呼び出し ${resourceDescription} で、必須項目 ${requiredField} が正しくありません</value>
         <value xml:lang="pt">Campo obrigatório ${requiredField} está ausente na chamada do método simples ${resourceDescription}</value>
         <value xml:lang="vi">Trường bắt buộc ${requiredField} bị thiếu khi gọi hàm ${resourceDescription}</value>
-        <!--value xml:lang="zh">在用简单方法调用 ${resourceDescription} 时，缺少必须的数据项 ${requiredField}</value-->
         <value xml:lang="zh">在呼叫簡單方法 ${resourceDescription} 時，缺少必要的欄位 ${requiredField}</value>
         <value xml:lang="zh-TW">在呼叫簡單方法 ${resourceDescription} 時,缺少必要的欄位 ${requiredField}</value>
     </property>
@@ -3603,6 +3602,9 @@
         <value xml:lang="zh">网站</value>
         <value xml:lang="zh-TW">網站</value>
     </property>
+    <property key="ContentWebSiteAddError">
+        <value xml:lang="en">Web Site Add Error</value>
+    </property>
     <property key="ContentWebSiteAddMenu">
         <value xml:lang="da">Opret menu</value>
         <value xml:lang="de">Menü hinzufügen</value>
@@ -3615,6 +3617,9 @@
         <value xml:lang="vi">Thêm thực đơn</value>
         <value xml:lang="zh">添加菜单</value>
         <value xml:lang="zh-TW">增加選單</value>
+    </property>
+    <property key="ContentWebSiteAddNewErrors">
+        <value xml:lang="en">Web Site Add New Errors</value>
     </property>
     <property key="ContentWebSiteAddNewMenus">
         <value xml:lang="da">Højreklik for at oprette ny menu</value>
@@ -3692,12 +3697,6 @@
         <value xml:lang="zh">联系方式列表视图</value>
         <value xml:lang="zh-TW">聯絡清單檢視</value>
     </property>
-    <property key="ContentWebSitePathAliasCreate">
-        <value xml:lang="de">Neuen Pfad Alias erstellen</value>
-        <value xml:lang="en">Create New Path Alias</value>
-        <value xml:lang="nl">Aanmaken Nieuwe Path Alias</value>
-        <value xml:lang="zh">新建路径别名</value>
-    </property>  
     <property key="ContentWebSiteContent">
         <value xml:lang="da">Webside indhold</value>
         <value xml:lang="de">Webseite Inhalt</value>
@@ -3714,12 +3713,6 @@
     </property>
     <property key="ContentWebSiteErrors">
         <value xml:lang="en">Web Site Errors</value>
-    </property>
-    <property key="ContentWebSiteAddNewErrors">
-        <value xml:lang="en">Web Site Add New Errors</value>
-    </property>
-    <property key="ContentWebSiteAddError">
-        <value xml:lang="en">Web Site Add Error</value>
     </property>
     <property key="ContentWebSiteGenerateMissingSeoUrl">
         <value xml:lang="en">Generate missing seo url's</value>
@@ -3741,6 +3734,12 @@
         <value xml:lang="vi">Thực đơn trang thông tin</value>
         <value xml:lang="zh">网站菜单</value>
         <value xml:lang="zh-TW">網站選單</value>
+    </property>
+    <property key="ContentWebSitePathAliasCreate">
+        <value xml:lang="de">Neuen Pfad Alias erstellen</value>
+        <value xml:lang="en">Create New Path Alias</value>
+        <value xml:lang="nl">Aanmaken Nieuwe Path Alias</value>
+        <value xml:lang="zh">新建路径别名</value>
     </property>
     <property key="ContentWebSites">
         <value xml:lang="ar">مواقع الويب</value>
@@ -7097,6 +7096,12 @@
         <value xml:lang="zh">编辑网站会员</value>
         <value xml:lang="zh-TW">編輯網站團體</value>
     </property>
+    <property key="PageTitleEditWebSitePathAlias">
+        <value xml:lang="de">WebSite Pfad Alias bearbeiten</value>
+        <value xml:lang="en">Edit WebSite Path Alias</value>
+        <value xml:lang="nl">Wijzigen WebSite Path Alias</value>
+        <value xml:lang="zh">编辑网站路径别名</value>
+    </property>
     <property key="PageTitleFindCMSContent">
         <value xml:lang="da">Find CMS indhold</value>
         <value xml:lang="de">CMS Inhalt suchen</value>
@@ -7398,12 +7403,6 @@
         <value xml:lang="zh">站点列表</value>
         <value xml:lang="zh-TW">網站清單</value>
     </property>
-    <property key="PageTitleEditWebSitePathAlias">
-        <value xml:lang="de">WebSite Pfad Alias bearbeiten</value>
-        <value xml:lang="en">Edit WebSite Path Alias</value>
-        <value xml:lang="nl">Wijzigen WebSite Path Alias</value>
-        <value xml:lang="zh">编辑网站路径别名</value>
-    </property> 
     <property key="PageTitleLookupContent">
         <value xml:lang="ar">البحث عن المحتوى</value>
         <value xml:lang="da">Søg indhold</value>

@@ -19,41 +19,6 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
-    <property key="contentevents.error_getting_content_list">
-        <value xml:lang="en">Error getting the content list to index: ${gee}.</value>
-        <value xml:lang="ja">コンテンツリストの取得時にエラー。索引: ${gee}.</value>
-        <value xml:lang="pt">Erro ao obter a lista de conteúdo ao índice: ${gee}.</value>
-        <value xml:lang="zh">获取内容列表来进行索引时出错：${gee}。</value>
-        <value xml:lang="zh-TW">取得內容清單來進行索引時出錯:${gee}.</value>
-    </property>
-    <property key="contentevents.keyword_creation_complete_for_contents">
-        <value xml:lang="en">Keyword creation complete for ${numConts} contents.</value>
-        <value xml:lang="ja">${numConts} コンテンツのキーワード作成が完了しました。</value>
-        <value xml:lang="pt">Criação de palavras-chave completa para conteúdo de ${numConts}.</value>
-        <value xml:lang="zh">完成 ${numConts} 个内容的关键字创建。</value>
-        <value xml:lang="zh-TW">完成 ${numConts} 個內容的關鍵新建.</value>
-    </property>
-    <property key="contentevents.keyword_creation_complete_for_contents_with_errors">
-        <value xml:lang="en">Keyword creation complete for ${numConts} contents, with errors in ${errConts} contents (see the log for more details).</value>
-        <value xml:lang="ja">${numConts} コンテンツのキーワード作成が完了しました。${errConts} コンテンツでエラーがあります (詳細はログを参照してください)。</value>
-        <value xml:lang="pt">Criação de palavras-chave concluída para o conteúdo de ${numConts}, com erros no conteúdo de ${errConts} (veja o log para mais detalhes).</value>
-        <value xml:lang="zh">完成 ${numConts} 个内容的关键字创建，${errConts} 个内容的关键字出错（详见日志）。</value>
-        <value xml:lang="zh-TW">完成 ${numConts} 個內容的關鍵新建,${errConts} 個內容的關鍵字出錯(詳見日誌).</value>
-    </property>
-    <property key="contentevents.not_sufficient_permissions">
-        <value xml:lang="de">Sie haben nicht genügend Berechtigungen um ${updateMode} CONTENTMGR (CONTENTMGR_${updateMode} oder CONTENTMGR_ADMIN benötigt).</value>
-        <value xml:lang="en">You do not have sufficient permissions to ${updateMode} CONTENTMGR (CONTENTMGR_${updateMode} or CONTENTMGR_ADMIN needed).</value>
-        <value xml:lang="es">No tiene suficientes permisos para ${updateMode} se necesitan permisos de CONTENTMGR (CONTENTMGR_${updateMode} o CONTENTMGR_ADMIN).</value>
-        <value xml:lang="fr">Vous n'avez pas les autorisations suffisantes pour ${updatemode} le CONTENTMGR (CONTENTMGR_${updateMode} ou CONTENTMGR_ADMIN requis).</value>
-        <value xml:lang="it">Non hai permessi sufficienti per ${updateMode} CONTENTMGR (permesso CONTENTMGR_${updateMode} o CONTENTMGR_ADMIN necessario).</value>
-        <value xml:lang="ja">${updateMode} CONTENTMGR に必要な権限がありません (CONTENTMGR_${updateMode} または CONTENTMGR_ADMIN が必要です)。</value>
-        <value xml:lang="pt">Você não tem permissões suficientes para ${updateMode} CONTENTMGR (CONTENTMGR_$ {updateMode} ou CONTENTMGR_ADMIN necessários).</value>
-        <value xml:lang="ro">Nu aidestule permise pentru ${updateMode} CONTENTMGR (este necesar permisul CONTENTMGR_${updateMode} sau CONTENTMGR_ADMIN).</value>
-        <value xml:lang="ru">У вас нет достаточных прав для ${updateMode} CONTENTMGR (необходимы права CONTENTMGR_${updateMode} или CONTENTMGR_ADMIN).</value>
-        <value xml:lang="th">คุณไม่มีการอนุญาตเพียงพอถึง ${updateMode} CONTENTMGR (CONTENTMGR_${updateMode} หรือ CONTENTMGR_ADMIN ต้องการ).</value>
-        <value xml:lang="zh">你没有足够的权限 ${updateMode} 目录 (需要CONTENTMGR_${updateMode} 或 CONTENTMGR_ADMIN)。</value>
-        <value xml:lang="zh-TW">您沒有足夠的權限 ${updateMode} 目錄 (需要CONTENTMGR_${updateMode} 或 CONTENTMGR_ADMIN).</value>
-    </property>
     <property key="ContentNoOrderHeaderFound">
         <value xml:lang="en">No OrderHeader found for orderId: ${orderId}</value>
     </property>
@@ -72,14 +37,17 @@
     <property key="ContentRequiredFieldMissingCommunicationEventId">
         <value xml:lang="en">Required Field Missing : Communication Event Id.</value>
     </property>
-    <property key="ContentRequiredFieldMissingContentAssocTypeId">
-        <value xml:lang="en">Required Field Missing : Content Assoc Type Id.</value>
-    </property>
     <property key="ContentRequiredFieldMissingContent">
         <value xml:lang="en">Required Field Missing : Content.</value>
     </property>
     <property key="ContentRequiredFieldMissingContentApprovalId">
         <value xml:lang="en">Required Field Missing : Content Approval Id.</value>
+    </property>
+    <property key="ContentRequiredFieldMissingContentAssocTypeId">
+        <value xml:lang="en">Required Field Missing : Content Assoc Type Id.</value>
+    </property>
+    <property key="ContentRequiredFieldMissingContentId">
+        <value xml:lang="en">Required Field Missing : Content Id.</value>
     </property>
     <property key="ContentRequiredFieldMissingContentIdFrom">
         <value xml:lang="en">Required Field Missing : Content Id From.</value>
@@ -186,14 +154,14 @@
     <property key="ContentRequiredFieldMissingTypeGenerate">
         <value xml:lang="en">Required Field Missing : Type Generate.</value>
     </property>
-    <property key="ContentRequiredFieldMissingUserLogin">
-        <value xml:lang="en">Required Field Missing : User Login.</value>
-    </property>
     <property key="ContentRequiredFieldMissingUseTime">
         <value xml:lang="en">Required Field Missing : Use Time.</value>
     </property>
     <property key="ContentRequiredFieldMissingUseTimeUomId">
         <value xml:lang="en">Required Field Missing : Use Time Uom Id.</value>
+    </property>
+    <property key="ContentRequiredFieldMissingUserLogin">
+        <value xml:lang="en">Required Field Missing : User Login.</value>
     </property>
     <property key="ContentRequiredFieldMissingWebSiteContentTypeId">
         <value xml:lang="en">Required Field Missing : WebSite Content Type Id.</value>
@@ -204,7 +172,42 @@
     <property key="ContentSearchNotIndexed">
         <value xml:lang="en">Cannot find content search document. Please index all content.</value>
         <value xml:lang="fr">Les contenus ne sont pas encore indexés, aucun résultat possible.</value>
-    </property>    
+    </property>
+    <property key="contentevents.error_getting_content_list">
+        <value xml:lang="en">Error getting the content list to index: ${gee}.</value>
+        <value xml:lang="ja">コンテンツリストの取得時にエラー。索引: ${gee}.</value>
+        <value xml:lang="pt">Erro ao obter a lista de conteúdo ao índice: ${gee}.</value>
+        <value xml:lang="zh">获取内容列表来进行索引时出错：${gee}。</value>
+        <value xml:lang="zh-TW">取得內容清單來進行索引時出錯:${gee}.</value>
+    </property>
+    <property key="contentevents.keyword_creation_complete_for_contents">
+        <value xml:lang="en">Keyword creation complete for ${numConts} contents.</value>
+        <value xml:lang="ja">${numConts} コンテンツのキーワード作成が完了しました。</value>
+        <value xml:lang="pt">Criação de palavras-chave completa para conteúdo de ${numConts}.</value>
+        <value xml:lang="zh">完成 ${numConts} 个内容的关键字创建。</value>
+        <value xml:lang="zh-TW">完成 ${numConts} 個內容的關鍵新建.</value>
+    </property>
+    <property key="contentevents.keyword_creation_complete_for_contents_with_errors">
+        <value xml:lang="en">Keyword creation complete for ${numConts} contents, with errors in ${errConts} contents (see the log for more details).</value>
+        <value xml:lang="ja">${numConts} コンテンツのキーワード作成が完了しました。${errConts} コンテンツでエラーがあります (詳細はログを参照してください)。</value>
+        <value xml:lang="pt">Criação de palavras-chave concluída para o conteúdo de ${numConts}, com erros no conteúdo de ${errConts} (veja o log para mais detalhes).</value>
+        <value xml:lang="zh">完成 ${numConts} 个内容的关键字创建，${errConts} 个内容的关键字出错（详见日志）。</value>
+        <value xml:lang="zh-TW">完成 ${numConts} 個內容的關鍵新建,${errConts} 個內容的關鍵字出錯(詳見日誌).</value>
+    </property>
+    <property key="contentevents.not_sufficient_permissions">
+        <value xml:lang="de">Sie haben nicht genügend Berechtigungen um ${updateMode} CONTENTMGR (CONTENTMGR_${updateMode} oder CONTENTMGR_ADMIN benötigt).</value>
+        <value xml:lang="en">You do not have sufficient permissions to ${updateMode} CONTENTMGR (CONTENTMGR_${updateMode} or CONTENTMGR_ADMIN needed).</value>
+        <value xml:lang="es">No tiene suficientes permisos para ${updateMode} se necesitan permisos de CONTENTMGR (CONTENTMGR_${updateMode} o CONTENTMGR_ADMIN).</value>
+        <value xml:lang="fr">Vous n'avez pas les autorisations suffisantes pour ${updatemode} le CONTENTMGR (CONTENTMGR_${updateMode} ou CONTENTMGR_ADMIN requis).</value>
+        <value xml:lang="it">Non hai permessi sufficienti per ${updateMode} CONTENTMGR (permesso CONTENTMGR_${updateMode} o CONTENTMGR_ADMIN necessario).</value>
+        <value xml:lang="ja">${updateMode} CONTENTMGR に必要な権限がありません (CONTENTMGR_${updateMode} または CONTENTMGR_ADMIN が必要です)。</value>
+        <value xml:lang="pt">Você não tem permissões suficientes para ${updateMode} CONTENTMGR (CONTENTMGR_$ {updateMode} ou CONTENTMGR_ADMIN necessários).</value>
+        <value xml:lang="ro">Nu aidestule permise pentru ${updateMode} CONTENTMGR (este necesar permisul CONTENTMGR_${updateMode} sau CONTENTMGR_ADMIN).</value>
+        <value xml:lang="ru">У вас нет достаточных прав для ${updateMode} CONTENTMGR (необходимы права CONTENTMGR_${updateMode} или CONTENTMGR_ADMIN).</value>
+        <value xml:lang="th">คุณไม่มีการอนุญาตเพียงพอถึง ${updateMode} CONTENTMGR (CONTENTMGR_${updateMode} หรือ CONTENTMGR_ADMIN ต้องการ).</value>
+        <value xml:lang="zh">你没有足够的权限 ${updateMode} 目录 (需要CONTENTMGR_${updateMode} 或 CONTENTMGR_ADMIN)。</value>
+        <value xml:lang="zh-TW">您沒有足夠的權限 ${updateMode} 目錄 (需要CONTENTMGR_${updateMode} 或 CONTENTMGR_ADMIN).</value>
+    </property>
     <property key="dataEvents.error_call_create_service">
         <value xml:lang="da">Fejl ved kald af service createDataResource</value>
         <value xml:lang="de">Fehler beim Aufruf createDataResource Service</value>
@@ -447,6 +450,11 @@
         <value xml:lang="zh">没有上传文件</value>
         <value xml:lang="zh-TW">沒有上傳檔案</value>
     </property>
+    <property key="uploadContentAndImage.noRootDirProvided">
+        <value xml:lang="en">No root dir provided, please fill path in the data resource objectInfo field</value>
+        <value xml:lang="fr">Aucun répertoire racine fourni. Veuillez indiquer le chemin dans le champ objectInfo de la ressource de donnée</value>
+        <value xml:lang="zh">没有提供根目录，请在数据资源对象信息数据项中填写路径</value>
+    </property>
     <property key="uploadContentAndImage.no_files_uploaded">
         <value xml:lang="da">Ingen filer uploaded</value>
         <value xml:lang="de">Keine Dateien hochgeladen</value>
@@ -460,13 +468,5 @@
         <value xml:lang="th">ไม่มีไฟล์</value>
         <value xml:lang="zh">没有上传文件</value>
         <value xml:lang="zh-TW">沒有上傳檔案</value>
-    </property>
-    <property key="uploadContentAndImage.noRootDirProvided">
-        <value xml:lang="en">No root dir provided, please fill path in the data resource objectInfo field</value>
-        <value xml:lang="fr">Aucun répertoire racine fourni. Veuillez indiquer le chemin dans le champ objectInfo de la ressource de donnée</value>
-        <value xml:lang="zh">没有提供根目录，请在数据资源对象信息数据项中填写路径</value>
-    </property>
-    <property key="ContentRequiredFieldMissingContentId">
-        <value xml:lang="en">Required Field Missing : Content Id.</value>
     </property>
 </resource>
