@@ -29,21 +29,6 @@
         <value xml:lang="zh">键重复了。该键已存在。</value>
         <value xml:lang="zh-TW">鍵值重複.該鍵值已存在.</value>
     </property>
-    <property key="ImageTransform.error_occurs_during_reading">
-        <value xml:lang="da">Der opstår en fejl under læsning</value>
-        <value xml:lang="en">An error occurs during reading</value>
-        <value xml:lang="es">Ocurrió un error durante la lectura</value>
-        <value xml:lang="fr">Une erreur est survenue lors de la lecture</value>
-        <value xml:lang="hi-IN">पढ़ने के दौरान एक त्रुटि हो रही है</value>
-        <value xml:lang="it">E' successo un'errore durante la lettura</value>
-        <value xml:lang="ja">読込中にエラーが発生しました</value>
-        <value xml:lang="nl">Er is een fout opgetreden tijdens het lezen</value>
-        <value xml:lang="pt-BR">Um erro ocorreu durante a leitura</value>
-        <value xml:lang="ru">Ошибка произошла во время чтения</value>
-        <value xml:lang="vi">Lỗi xảy ra trong quá trình đọc dữ liệu</value>
-        <value xml:lang="zh">读取时发生了一个错误</value>
-        <value xml:lang="zh-TW">讀取時發生了一個錯誤</value>
-    </property>
     <property key="ImageTransform.error_prevents_the document_from_being_fully_parsed">
         <value xml:lang="da">Fejl forhinder dokumentet i at blive fuldt ud oversat</value>
         <value xml:lang="en">Error prevents the document from being fully parsed</value>
@@ -73,6 +58,21 @@
         <value xml:lang="vi">Lỗi xảy ra trong quá trình phân tích</value>
         <value xml:lang="zh">解析时发生错误</value>
         <value xml:lang="zh-TW">解析時發生錯誤</value>
+    </property>
+    <property key="ImageTransform.error_occurs_during_reading">
+        <value xml:lang="da">Der opstår en fejl under læsning</value>
+        <value xml:lang="en">An error occurs during reading</value>
+        <value xml:lang="es">Ocurrió un error durante la lectura</value>
+        <value xml:lang="fr">Une erreur est survenue lors de la lecture</value>
+        <value xml:lang="hi-IN">पढ़ने के दौरान एक त्रुटि हो रही है</value>
+        <value xml:lang="it">E' successo un'errore durante la lettura</value>
+        <value xml:lang="ja">読込中にエラーが発生しました</value>
+        <value xml:lang="nl">Er is een fout opgetreden tijdens het lezen</value>
+        <value xml:lang="pt-BR">Um erro ocorreu durante a leitura</value>
+        <value xml:lang="ru">Ошибка произошла во время чтения</value>
+        <value xml:lang="vi">Lỗi xảy ra trong quá trình đọc dữ liệu</value>
+        <value xml:lang="zh">读取时发生了一个错误</value>
+        <value xml:lang="zh-TW">讀取時發生了一個錯誤</value>
     </property>
     <property key="ImageTransform.final_scale_factor_is_null">
         <value xml:lang="da">Endelig skala faktor er null</value>
