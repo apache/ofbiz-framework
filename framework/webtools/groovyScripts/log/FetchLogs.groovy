@@ -40,7 +40,7 @@ for (int i = 0; i < listLogFiles.length; i++) {
         }
     }
 }
-context.listLogFileNames = listLogFileNames
+context.listLogFileNames = listLogFileNames.sort()
 
 if (parameters.logFileName) {
     List logLines = []
