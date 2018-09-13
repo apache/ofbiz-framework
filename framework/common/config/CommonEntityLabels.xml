@@ -388,8 +388,8 @@
         <value xml:lang="ja">ブロンズ</value>
         <value xml:lang="nl">Niveau - brons</value>
         <value xml:lang="pt-BR">Nível bronze</value>
-        <value xml:lang="th">บรอนซ์</value>
         <value xml:lang="ru">Бронзовая</value>
+        <value xml:lang="th">บรอนซ์</value>
         <value xml:lang="vi">Đồng (chất liệu)</value>
         <value xml:lang="zh">铜</value>
         <value xml:lang="zh-TW">銅</value>
@@ -403,8 +403,8 @@
         <value xml:lang="ja">ゴールド</value>
         <value xml:lang="nl">Niveau - goud</value>
         <value xml:lang="pt-BR">Nível Ouro</value>
-        <value xml:lang="th">ทอง</value>
         <value xml:lang="ru">Золотая</value>
+        <value xml:lang="th">ทอง</value>
         <value xml:lang="vi">Vàng (chất liệu)</value>
         <value xml:lang="zh">金</value>
         <value xml:lang="zh-TW">金</value>
@@ -418,8 +418,8 @@
         <value xml:lang="ja">適用外</value>
         <value xml:lang="nl">Niet beschikbaar/niet van toepassing</value>
         <value xml:lang="pt-BR">Não se aplica</value>
-        <value xml:lang="th">ไม่เหมาะสม</value>
         <value xml:lang="ru">Не применяется</value>
+        <value xml:lang="th">ไม่เหมาะสม</value>
         <value xml:lang="vi">Không Khớp lệnh</value>
         <value xml:lang="zh">不可用</value>
         <value xml:lang="zh-TW">不適用</value>
@@ -433,8 +433,8 @@
         <value xml:lang="ja">シルバー</value>
         <value xml:lang="nl">Niveau - zilver</value>
         <value xml:lang="pt-BR">Nivel Prata</value>
-        <value xml:lang="th">เงิน</value>
         <value xml:lang="ru">Серебрянная</value>
+        <value xml:lang="th">เงิน</value>
         <value xml:lang="vi">Bạc (chất liệu)</value>
         <value xml:lang="zh">银</value>
         <value xml:lang="zh-TW">銀</value>
@@ -3763,16 +3763,6 @@
         <value xml:lang="zh">通用，公共访问</value>
         <value xml:lang="zh-TW">通用,公共訪問</value>
     </property>
-    <property key="Enumeration.description.WF_PREDECESSOR">
-        <value xml:lang="en">Preceding</value>
-        <value xml:lang="nl">Voorafgaand</value>
-        <value xml:lang="zh">预处理</value>
-    </property>
-    <property key="Enumeration.description.WF_SUCCESSOR">
-        <value xml:lang="en">Succeeding</value>
-        <value xml:lang="nl">Opvolgend</value>
-        <value xml:lang="zh">后处理</value>
-    </property>
     <property key="Enumeration.description.WFI_MULTIPLE">
         <value xml:lang="en">WFI_MULTIPLE</value>
         <value xml:lang="es">Múltiples</value>
@@ -3798,6 +3788,16 @@
         <value xml:lang="vi">WFI_ONCE</value>
         <value xml:lang="zh">一次</value>
         <value xml:lang="zh-TW">一次</value>
+    </property>
+    <property key="Enumeration.description.WF_PREDECESSOR">
+        <value xml:lang="en">Preceding</value>
+        <value xml:lang="nl">Voorafgaand</value>
+        <value xml:lang="zh">预处理</value>
+    </property>
+    <property key="Enumeration.description.WF_SUCCESSOR">
+        <value xml:lang="en">Succeeding</value>
+        <value xml:lang="nl">Opvolgend</value>
+        <value xml:lang="zh">后处理</value>
     </property>
     <property key="Enumeration.description.WGC_FULL_BLOCKED">
         <value xml:lang="en">WGC_FULL_BLOCKED</value>
@@ -5941,26 +5941,6 @@
         <value xml:lang="vi">Georgia</value>
         <value xml:lang="zh">格鲁吉亚</value>
         <value xml:lang="zh-TW">格魯吉亞</value>
-    </property>
-    <property key="GeoAssocType.description.COUNTY_CITY">
-        <value xml:lang="en">City in a county</value>
-        <value xml:lang="fr">Ville du département</value>
-    </property>
-    <property key="GeoAssocType.description.COUNTY_SEAT">
-        <value xml:lang="en">Administrative Main City of a County</value>
-        <value xml:lang="fr">Chef-lieu du département</value>
-    </property>
-    <property key="GeoAssocType.description.GROUP_MEMBER">
-        <value xml:lang="en">Geo Group Member</value>
-        <value xml:lang="fr">Membre de la zone Géographique</value>
-    </property>
-    <property key="GeoAssocType.description.POSTAL_CODE">
-        <value xml:lang="en">Postal code associated to a GeoType</value>
-        <value xml:lang="fr">Code Postal associé au type Géographique</value>
-    </property>
-    <property key="GeoAssocType.description.REGIONS">
-        <value xml:lang="en">For a region of a larger Geo, i.e. states, counties, provinces...</value>
-        <value xml:lang="fr">Région d'une zone géographique plus large</value>
     </property>
     <property key="Geo.geoName.GHA">
         <value xml:lang="ar">غانا</value>
@@ -8776,6 +8756,26 @@
         <value xml:lang="zh">不可用</value>
         <value xml:lang="zh-TW">不適用</value>
     </property>
+    <property key="GeoAssocType.description.COUNTY_CITY">
+        <value xml:lang="en">City in a county</value>
+        <value xml:lang="fr">Ville du département</value>
+    </property>
+    <property key="GeoAssocType.description.COUNTY_SEAT">
+        <value xml:lang="en">Administrative Main City of a County</value>
+        <value xml:lang="fr">Chef-lieu du département</value>
+    </property>
+    <property key="GeoAssocType.description.GROUP_MEMBER">
+        <value xml:lang="en">Geo Group Member</value>
+        <value xml:lang="fr">Membre de la zone Géographique</value>
+    </property>
+    <property key="GeoAssocType.description.POSTAL_CODE">
+        <value xml:lang="en">Postal code associated to a GeoType</value>
+        <value xml:lang="fr">Code Postal associé au type Géographique</value>
+    </property>
+    <property key="GeoAssocType.description.REGIONS">
+        <value xml:lang="en">For a region of a larger Geo, i.e. states, counties, provinces...</value>
+        <value xml:lang="fr">Région d'une zone géographique plus large</value>
+    </property>
     <property key="GeoType.description.CITY">
         <value xml:lang="ar">مدينة</value>
         <value xml:lang="de">Stadt</value>
@@ -9359,7 +9359,7 @@
     </property>
     <property key="StatusItem.description.CNTAP_APPROVED">
         <value xml:lang="ar">موافق عليها</value>
-        <value xml:lang="cs">Schváleno</value>  
+        <value xml:lang="cs">Schváleno</value>
         <value xml:lang="en">Approved</value>
         <value xml:lang="es">Aprobado</value>
         <value xml:lang="fr">Approuvé</value>
@@ -10940,16 +10940,6 @@
         <value xml:lang="zh">合格的</value>
         <value xml:lang="zh-TW">合格的</value>
     </property>
-    <property key="StatusItem.description.LEAVE_CREATED">
-        <value xml:lang="ar">مخلقة</value>
-        <value xml:lang="en">Created</value>
-        <value xml:lang="fr">Créé</value>
-        <value xml:lang="ja">作成</value>
-        <value xml:lang="ru">Созданный</value>
-        <value xml:lang="vi">Đã tạo</value>
-        <value xml:lang="zh">已新建</value>
-        <value xml:lang="zh-TW">已新建</value>
-    </property>
     <property key="StatusItem.description.LEAVE_APPROVED">
         <value xml:lang="ar">موافق عليها</value>
         <value xml:lang="en">Approved</value>
@@ -10960,6 +10950,16 @@
         <value xml:lang="vi">Đã duyệt</value>
         <value xml:lang="zh">已批准</value>
         <value xml:lang="zh-TW">已核准</value>
+    </property>
+    <property key="StatusItem.description.LEAVE_CREATED">
+        <value xml:lang="ar">مخلقة</value>
+        <value xml:lang="en">Created</value>
+        <value xml:lang="fr">Créé</value>
+        <value xml:lang="ja">作成</value>
+        <value xml:lang="ru">Созданный</value>
+        <value xml:lang="vi">Đã tạo</value>
+        <value xml:lang="zh">已新建</value>
+        <value xml:lang="zh-TW">已新建</value>
     </property>
     <property key="StatusItem.description.LEAVE_REJECTED">
         <value xml:lang="ar">مرفوضة</value>
@@ -16385,10 +16385,10 @@
         <value xml:lang="es">Impreso</value>
         <value xml:lang="fr">Imprimé</value>
         <value xml:lang="it">Stampa</value>
-        <value xml:lang="nl">Picklijst - geprint</value>
-        <value xml:lang="ru">Напечатанный</value>
         <value xml:lang="ja">印刷済</value>
+        <value xml:lang="nl">Picklijst - geprint</value>
         <value xml:lang="pt-BR">Impresso</value>
+        <value xml:lang="ru">Напечатанный</value>
         <value xml:lang="zh">已打印</value>
         <value xml:lang="zh-TW">已列印</value>
     </property>
@@ -16445,10 +16445,10 @@
         <value xml:lang="es">Imprimir</value>
         <value xml:lang="fr">Imprimer</value>
         <value xml:lang="it">Stampa</value>
-        <value xml:lang="nl">Picklijst - afgedrukt</value>
-        <value xml:lang="ru">Печатать</value>
         <value xml:lang="ja">印刷</value>
+        <value xml:lang="nl">Picklijst - afgedrukt</value>
         <value xml:lang="pt-BR">Imprimir</value>
+        <value xml:lang="ru">Печатать</value>
         <value xml:lang="zh">打印</value>
         <value xml:lang="zh-TW">列印</value>
     </property>
@@ -17287,7 +17287,7 @@
         <value xml:lang="ru">фнт</value>
         <value xml:lang="zh">磅</value>
         <value xml:lang="zh-TW">磅</value>
-        </property>
+    </property>
     <property key="Uom.description.AED">
         <value xml:lang="ar">درهم أماراتي</value>
         <value xml:lang="cs">Emirátský dirham</value>
@@ -18862,6 +18862,20 @@
         <value xml:lang="zh">爱尔兰镑</value>
         <value xml:lang="zh-TW">愛爾蘭鎊</value>
     </property>
+    <property key="Uom.description.ILS">
+        <value xml:lang="ar">الشيكل الإسرائيلي الجديد</value>
+        <value xml:lang="en">New Israeli Shekel</value>
+        <value xml:lang="fr">Nouveau shekel</value>
+        <value xml:lang="it">Shekel Nuovo Israele</value>
+        <value xml:lang="ja">イスラエル・新シェケル</value>
+        <value xml:lang="pt">New Israeli Shekel</value>
+        <value xml:lang="pt-BR">Novo Shekel israelita</value>
+        <value xml:lang="ro">Shekel Nuovo Israel</value>
+        <value xml:lang="ru">Новый Израильский шекель</value>
+        <value xml:lang="th">เชคเกิล อิสราเอล</value>
+        <value xml:lang="zh">新以色列谢克尔</value>
+        <value xml:lang="zh-TW">新以色列謝克爾</value>
+    </property>
     <property key="Uom.description.INR">
         <value xml:lang="ar">روبية هندية</value>
         <value xml:lang="de">Rupie Indien</value>
@@ -18998,6 +19012,20 @@
         <value xml:lang="zh">肯尼亚先令</value>
         <value xml:lang="zh-TW">肯尼亞先令</value>
     </property>
+    <property key="Uom.description.KGS">
+        <value xml:lang="ar">قيرغيزستان سوم</value>
+        <value xml:lang="en">Kirghizstan Som</value>
+        <value xml:lang="fr">Som du Kirghizstan</value>
+        <value xml:lang="it">Som Kirghizstan</value>
+        <value xml:lang="ja">キルギス・ソム</value>
+        <value xml:lang="pt">Kirghizstan Som</value>
+        <value xml:lang="pt-BR">Som do Quirguistão</value>
+        <value xml:lang="ro">Som Kirghizstan</value>
+        <value xml:lang="ru">Киргизстанский сом</value>
+        <value xml:lang="th">Kirghizstan Som</value>
+        <value xml:lang="zh">吉尔吉斯斯坦索姆</value>
+        <value xml:lang="zh-TW">吉爾吉斯斯坦索姆</value>
+    </property>
     <property key="Uom.description.KHR">
         <value xml:lang="ar">رييل كمبودي</value>
         <value xml:lang="de">Riel Kambodscha</value>
@@ -19012,20 +19040,6 @@
         <value xml:lang="th">เรียล กัมพูชา</value>
         <value xml:lang="zh">柬埔寨里尔</value>
         <value xml:lang="zh-TW">柬埔寨裡爾</value>
-    </property>
-    <property key="Uom.description.KGS">
-        <value xml:lang="ar">قيرغيزستان سوم</value>
-        <value xml:lang="en">Kirghizstan Som</value>
-        <value xml:lang="fr">Som du Kirghizstan</value>
-        <value xml:lang="it">Som Kirghizstan</value>
-        <value xml:lang="ja">キルギス・ソム</value>
-        <value xml:lang="pt">Kirghizstan Som</value>
-        <value xml:lang="pt-BR">Som do Quirguistão</value>
-        <value xml:lang="ro">Som Kirghizstan</value>
-        <value xml:lang="ru">Киргизстанский сом</value>
-        <value xml:lang="th">Kirghizstan Som</value>
-        <value xml:lang="zh">吉尔吉斯斯坦索姆</value>
-        <value xml:lang="zh-TW">吉爾吉斯斯坦索姆</value>
     </property>
     <property key="Uom.description.KMF">
         <value xml:lang="ar">فرنك جزر القمر</value>
@@ -19870,20 +19884,6 @@
         <value xml:lang="th">คอร์โดบา นิคารากัว</value>
         <value xml:lang="zh">尼加拉瓜科多巴</value>
         <value xml:lang="zh-TW">尼加拉瓜科多巴</value>
-    </property>
-    <property key="Uom.description.ILS">
-        <value xml:lang="ar">الشيكل الإسرائيلي الجديد</value>
-        <value xml:lang="en">New Israeli Shekel</value>
-        <value xml:lang="fr">Nouveau shekel</value>
-        <value xml:lang="it">Shekel Nuovo Israele</value>
-        <value xml:lang="ja">イスラエル・新シェケル</value>
-        <value xml:lang="pt">New Israeli Shekel</value>
-        <value xml:lang="pt-BR">Novo Shekel israelita</value>
-        <value xml:lang="ro">Shekel Nuovo Israel</value>
-        <value xml:lang="ru">Новый Израильский шекель</value>
-        <value xml:lang="th">เชคเกิล อิสราเอล</value>
-        <value xml:lang="zh">新以色列谢克尔</value>
-        <value xml:lang="zh-TW">新以色列謝克爾</value>
     </property>
     <property key="Uom.description.NLG">
         <value xml:lang="ar">الغيلدر الهولندي</value>
@@ -21073,7 +21073,6 @@
         <value xml:lang="en">Cup</value>
         <value xml:lang="es">Taza</value>
         <value xml:lang="fr">Cup (236,59 cm³)</value>
-    <!-- a very good link : http://unit-converter.org -->
         <value xml:lang="it">Tazza</value>
         <value xml:lang="ja">カップ</value>
         <value xml:lang="pt">Taça</value>
