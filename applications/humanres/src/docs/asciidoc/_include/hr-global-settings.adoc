@@ -16,5 +16,26 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 ////
-= Global settings
+= Global HR Settings
 
+Global HR Settings are used to setup the basic reference data that is used 
+throughout the Human Resources application. Many of the screens contain fields
+that have drop-down lists for selection and these drop-down list can be setup 
+here.
+
+TIP: You need to have 'administrator' or 'create privileges' to update any of 
+the Global HR Settings
+
+
+== Skills Types
+
+A skill type is used to define a skill group. Your employees, contractors and
+partners may have hundreds of different of skills so skill types allows you to 
+organise these skills so they are manageable. 
+
+This is helpful for reporting on your companies skill inventory or searching for
+ resources with the skill types needed for a job. You can search for skills types
+and assign skills to people and organisations in the Skills feature.
+
+TIP: You can manage the skills of an individual or an organisation in their
+ profile in Party Manager uisng the Party Skills feature.
