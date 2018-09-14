@@ -161,9 +161,9 @@
         <value xml:lang="es">Otro</value>
         <value xml:lang="fr">Autre</value>
         <value xml:lang="hi-IN">अन्य</value>
-        <value xml:lang="nl">Ander contract</value>
         <value xml:lang="it">Altro</value>
         <value xml:lang="ja">その他</value>
+        <value xml:lang="nl">Ander contract</value>
         <value xml:lang="pt-BR">Outro</value>
         <value xml:lang="ro">Alte</value>
         <value xml:lang="ru">Другой</value>
@@ -2550,8 +2550,8 @@
         <value xml:lang="fr">Caissier</value>
         <value xml:lang="hi-IN">खजांची</value>
         <value xml:lang="it">Cassiere </value>
-        <value xml:lang="nl">Kassier</value>
         <value xml:lang="ja">出納係</value>
+        <value xml:lang="nl">Kassier</value>
         <value xml:lang="pt-BR">Caixa</value>
         <value xml:lang="ro">Casier </value>
         <value xml:lang="ru">Кассир</value>
@@ -4015,8 +4015,8 @@
         <value xml:lang="fr">Clause de renouvellement</value>
         <value xml:lang="hi-IN">नवीनीकरण के लिए खण्ड</value>
         <value xml:lang="it">Clausola per il rinnovo</value>
-        <value xml:lang="nl">Clausule voor verlenging/vernieuwing</value>
         <value xml:lang="ja">更新条項</value>
+        <value xml:lang="nl">Clausule voor verlenging/vernieuwing</value>
         <value xml:lang="pt-BR">Cláusula para renovação</value>
         <value xml:lang="pt-PT">Cláusula para Renovação</value>
         <value xml:lang="ro">Clausa Pentru Reanoire</value>
