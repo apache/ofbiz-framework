@@ -25,9 +25,9 @@ contribute(currentType(subType('groovy.lang.Script'))) {
     property name: 'security', type: 'org.apache.ofbiz.security.Security'
 
     method name: 'runService', type: 'java.util.Map', params: [serviceName: 'String', inputMap: 'java.util.Map']
+    method name: 'run', type: 'java.util.Map', params: [args: 'java.util.Map']
     method name: 'makeValue', type: 'java.util.Map', params: [entityName: 'String']
     method name: 'findOne', type: 'java.util.Map', params: [entityName: 'String', fields: 'java.util.Map', useCache: 'boolean']
-    method name: 'findList', type: 'java.util.List', params: [entityName: 'String', inputMap: 'java.util.Map']
     method name: 'select', type: 'org.apache.ofbiz.entity.util.EntityQuery', params: [entity: 'java.util.Set']
     method name: 'select', type: 'org.apache.ofbiz.entity.util.EntityQuery', params: [entity: 'String...']
     method name: 'from', type: 'org.apache.ofbiz.entity.util.EntityQuery', params: [entity: 'java.lang.Object']

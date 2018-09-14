@@ -138,8 +138,7 @@ def removeProductFromCategory() {
         product.primaryProductCategoryId = null
         product.store()
     }
-    Map lookupPKMap = makeValue("ProductCategoryMember", parameters)
-    GenericValue lookedUpValue = findOne("ProductCategoryMember", lookupPKMap, false)
+    GenericValue lookedUpValue = from('ProductCategoryMember').where(parameters).queryOne()
     lookedUpValue.remove()
     return success()
 }
@@ -531,7 +530,7 @@ def duplicateProductCategory() {
     }
 
     // look up the old product category and clone it
-    GenericValue oldCategory = findOne("ProductCategory", [productCategoryId: parameters.oldProductCategoryId], false)
+    GenericValue oldCategory = from('ProductCategory').where([productCategoryId: parameters.oldProductCategoryId]).queryOne()
     GenericValue newCategory = oldCategory.clone()
 
     // set the new product category id, and write it to the datasource
@@ -762,7 +761,7 @@ def checkCategoryPermissionWithViewPurchaseAllow() {
     String failMessage = ""
     for (Map prodCatalogCategory : prodCatalogCategoryList) {
         // Do not do a permission check, unless the ProdCatalog requires it
-        def prodCatalog = findOne("ProdCatalog", [prodCatalogId: prodCatalogCategory.prodCatalogId], false)
+        def prodCatalog = from('ProdCatalog').where([prodCatalogId: prodCatalogCategory.prodCatalogId]).queryOne()
         if (prodCatalog.viewAllowPermReqd.equals("Y")
             && !security.hasEntityPermission("CATALOG_VIEW", "_ALLOW", parameters.userLogin)) {
             logVerbose("Permission check failed, user does not have permission")
@@ -795,7 +794,7 @@ def getAssociatedProductsList() {
     productsList = EntityUtil.orderBy(productsList, ["sequenceNum"])
     List products = []
     for (Map productMember : productsList) {
-        GenericValue product = findOne("Product", [productId: productMember.productId], false)
+        GenericValue product = from('Product').where([productId: productMember.productId]).queryOne()
         String productName = "${product.internalName}: ${product.productId}"
         products.add(productName)
     }
