@@ -76,8 +76,9 @@ abstract class GroovyBaseScript extends Script {
         return EntityQuery.use(binding.getVariable('delegator')).select(fields)
     }
 
+    @Deprecated
     GenericValue findOne(String entityName, Map<String, ? extends Object> fields, boolean useCache) {
-        return binding.getVariable('delegator').findOne(entityName, fields, useCache)
+        return from(entityName).where(fields).cache(useCache).queryOne()
     }
 
     def success(String message) {
