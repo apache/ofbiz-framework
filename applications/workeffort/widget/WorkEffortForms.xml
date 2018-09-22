@@ -1242,7 +1242,7 @@ under the License.
         </actions>
         <field name="agreementId">
             <display-entity entity-name="Agreement" key-field-name="agreementId"  also-hidden="true">
-                <sub-hyperlink target="/accounting/control/FindAgreement" description="${agreementId}" link-style="buttontext" target-type="inter-app">
+                <sub-hyperlink target="/accounting/control/EditAgreement" description="${agreementId}" link-style="buttontext" target-type="inter-app">
                     <parameter param-name="agreementId"/>
                 </sub-hyperlink>
             </display-entity>
