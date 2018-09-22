@@ -72,6 +72,10 @@ under the License.
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
+    <service name="removeRequirementStatus" engine="entity-auto" invoke="delete" default-entity-name="RequirementStatus" auth="true">
+        <description>Remove Requirement Status</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
 
     <service name="associatedRequirementWithRequestItem" engine="simple"
             location="component://order/minilang/requirement/RequirementServices.xml" invoke="associateRequirementWithRequestItem">

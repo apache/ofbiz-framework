@@ -349,7 +349,14 @@ under the License.
         <condition field-name="custRequestItemSeqId" operator="is-not-empty"/>
         <action service="associatedRequirementWithRequestItem" mode="sync"/>
     </eca>
-
+    <eca service="createRequirement" event="commit" run-on-error="false">
+        <condition field-name="statusId" operator="is-not-empty" />
+        <action service="createRequirementStatus" mode="async"/>
+    </eca>
+    <eca service="updateRequirement" event="commit" run-on-error="false">
+        <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
+        <action service="createRequirementStatus" mode="async"/>
+    </eca>
     <eca service="createRequirement" event="commit">
         <condition field-name="productId" operator="is-not-empty"/>
         <condition field-name="requirementTypeId" operator="equals" value="PRODUCT_REQUIREMENT"/>
