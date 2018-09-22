@@ -222,9 +222,9 @@ public class RequirementServices {
                 Debug.logInfo("ProductStore for order ID " + orderId + " not found, requirements not created", module);
                 return ServiceUtil.returnSuccess();
             }
-            String facilityId = productStore.getString("inventoryFacilityId");
-            List<GenericValue> orderItems = order.getRelated("OrderItem", null, null, false);
-            for (GenericValue item : orderItems) {
+            List<GenericValue> orderItemAndShipGroups = EntityQuery.use(delegator).select("orderId", "shipGroupSeqId", "orderItemSeqId").from("OrderItemAndShipGroupAssoc").where("orderId", orderId).distinct().queryList();
+            for (GenericValue orderItemAndShipGroup : orderItemAndShipGroups) {
+                GenericValue item = EntityQuery.use(delegator).from("OrderItem").where("orderId", orderItemAndShipGroup.getString("orderId"), "orderItemSeqId", orderItemAndShipGroup.getString("orderItemSeqId")).queryOne();
                 GenericValue product = item.getRelatedOne("Product", false);
                 if (product == null) continue;
                 if ((!"PRODRQM_AUTO".equals(product.get("requirementMethodEnumId")) &&
@@ -235,8 +235,8 @@ public class RequirementServices {
                 BigDecimal cancelQuantity = item.getBigDecimal("cancelQuantity");
                 BigDecimal required = quantity.subtract(cancelQuantity == null ? BigDecimal.ZERO : cancelQuantity);
                 if (required.compareTo(BigDecimal.ZERO) <= 0) continue;
-
-                Map<String, Object> input = UtilMisc.toMap("userLogin", userLogin, "facilityId", facilityId, "productId", product.get("productId"), "quantity", required, "requirementTypeId", "PRODUCT_REQUIREMENT");
+                GenericValue orderItemShipGroup = EntityQuery.use(delegator).from("OrderItemShipGroup").where("orderId", orderId, "shipGroupSeqId", orderItemAndShipGroup.getString("shipGroupSeqId")).cache().queryOne();
+                Map<String, Object> input = UtilMisc.toMap("userLogin", userLogin, "facilityId", orderItemShipGroup.getString("facilityId"), "productId", product.get("productId"), "quantity", required, "requirementTypeId", "PRODUCT_REQUIREMENT");
                 Map<String, Object> results = dispatcher.runSync("createRequirement", input);
                 if (ServiceUtil.isError(results)) {
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(results));
