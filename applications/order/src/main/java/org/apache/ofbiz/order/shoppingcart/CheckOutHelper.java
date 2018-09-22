@@ -573,6 +573,7 @@ public class CheckOutHelper {
         String originOrderId = (String) this.cart.getAttribute("originOrderId");
 
         this.cart.clearAllItemStatus();
+        this.cart.removeEmptyCartItems();
 
         BigDecimal grandTotal = this.cart.getGrandTotal();
 
