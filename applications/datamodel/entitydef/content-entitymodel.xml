@@ -57,7 +57,7 @@ under the License.
       <alias entity-alias="CA" name="sequenceNum" group-by="true"/>
       <alias entity-alias="CRI" name="rootRevisionContentId" field="contentId" group-by="true"/>
       <alias entity-alias="CRI" name="itemContentId" group-by="true"/>
-      <alias entity-alias="CRI" name="contentRevisionSeqId" group-by="false"/>
+      <alias entity-alias="CRI" name="contentRevisionSeqId" group-by="true"/>
       <alias entity-alias="CRI" name="maxRevisionSeqId" field="contentRevisionSeqId" function="max"/>
       <view-link entity-alias="CA" rel-entity-alias="CRI">
         <key-map field-name="contentId" rel-field-name="itemContentId"/>
