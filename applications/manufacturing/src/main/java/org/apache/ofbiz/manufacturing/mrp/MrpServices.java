@@ -21,6 +21,7 @@ package org.apache.ofbiz.manufacturing.mrp;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -88,7 +89,6 @@ public class MrpServices {
         }
 
         // Proposed requirements are deleted
-        listResult = null;
         List<GenericValue> listResultRoles = new LinkedList<GenericValue>();
         try {
             listResult = EntityQuery.use(delegator).from("Requirement")
@@ -98,18 +98,20 @@ public class MrpServices {
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpEventFindError", locale));
         }
+        List<GenericValue> requirementStatus = new ArrayList<GenericValue>();
         if (listResult != null) {
             try {
                 for (GenericValue tmpRequirement : listResult) {
                     listResultRoles.addAll(tmpRequirement.getRelated("RequirementRole", null, null, false));
+                    requirementStatus.addAll(tmpRequirement.getRelated("RequirementStatus", null, null, false));
                 }
                 delegator.removeAll(listResultRoles);
+                delegator.removeAll(requirementStatus);
                 delegator.removeAll(listResult);
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpEventRemoveError", locale));
             }
         }
-        listResult = null;
         try {
             listResult = EntityQuery.use(delegator).from("Requirement")
                     .where("requirementTypeId", "INTERNAL_REQUIREMENT","facilityId", facilityId,
@@ -120,6 +122,10 @@ public class MrpServices {
         }
         if (listResult != null) {
             try {
+                for (GenericValue tempRequirement: listResult) {
+                    requirementStatus.addAll(tempRequirement.getRelated("RequirementStatus", null, null, false));
+                }
+                delegator.removeAll(requirementStatus);
                 delegator.removeAll(listResult);
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpEventRemoveError", locale));
@@ -141,7 +147,6 @@ public class MrpServices {
             calendar.add(Calendar.YEAR, defaultYearsOffset);
             notAssignedDate = new Timestamp(calendar.getTimeInMillis());
         }
-        resultList = null;
         try {
             resultList = EntityQuery.use(delegator).from("OrderHeaderItemAndShipGroup")
                     .where("orderTypeId", "SALES_ORDER",
@@ -202,7 +207,6 @@ public class MrpServices {
         // ----------------------------------------
         // Loads all the approved product requirements (po requirements)
         // ----------------------------------------
-        resultList = null;
         try {
             resultList = EntityQuery.use(delegator).from("Requirement")
                     .where("requirementTypeId", "PRODUCT_REQUIREMENT",
@@ -234,7 +238,6 @@ public class MrpServices {
         // ----------------------------------------
         // Loads all the approved purchase order items
         // ----------------------------------------
-        resultList = null;
         String orderId = null;
         GenericValue orderDeliverySchedule = null;
         try {
@@ -308,7 +311,6 @@ public class MrpServices {
         // ----------------------------------------
         // PRODUCTION Run: components
         // ----------------------------------------
-        resultList = null;
         try {
             resultList = EntityQuery.use(delegator).from("WorkEffortAndGoods")
                     .where("workEffortGoodStdTypeId", "PRUNT_PROD_NEEDED",
@@ -347,7 +349,6 @@ public class MrpServices {
         // ----------------------------------------
         // PRODUCTION Run: product produced
         // ----------------------------------------
-        resultList = null;
         try {
             resultList = EntityQuery.use(delegator).from("WorkEffortAndGoods")
                     .where("workEffortGoodStdTypeId", "PRUN_PROD_DELIV",
@@ -390,8 +391,6 @@ public class MrpServices {
         // ----------------------------------------
         // Products without upcoming events but that are already under minimum quantity in warehouse
         // ----------------------------------------
-        resultList = null;
-        parameters = UtilMisc.<String, Object>toMap("facilityId", facilityId);
         try {
             resultList = EntityQuery.use(delegator).from("ProductFacility")
                     .where("facilityId", facilityId)
@@ -432,7 +431,6 @@ public class MrpServices {
         // ----------------------------------------
         // SALES FORECASTS
         // ----------------------------------------
-        resultList = null;
         GenericValue facility = null;
         try {
             facility = EntityQuery.use(delegator).from("Facility").where("facilityId", facilityId).queryOne();
