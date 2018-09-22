@@ -229,18 +229,18 @@ under the License.
                     <if-compare field="viewEntity" operator="not-equals" value="Y"/>
                 </and>
             </condition>
-            <link target="ViewGeneric">
+            <link target="ViewGeneric" style="buttontext">
                 <parameter param-name="entityName"/>
                 <parameter param-name="enableEdit" value="true"/>
             </link>
         </menu-item>
         <menu-item name="relation" title="${uiLabelMap.WebtoolsReln}">
-            <link target="ViewRelations">
+            <link target="ViewRelations" style="buttontext">
                 <parameter param-name="entityName"/>
             </link>
         </menu-item>
         <menu-item name="all" title="${uiLabelMap.WebtoolsAll}">
-            <link target="FindGeneric">
+            <link target="FindGeneric" style="buttontext">
                 <parameter param-name="entityName"/>
                 <parameter param-name="noConditionFind" value="Y"/>
             </link>
