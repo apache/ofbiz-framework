@@ -106,10 +106,14 @@ under the License.
       <field name="thruDate" type="date-time"></field>
       <field name="passwordUsed" type="long-varchar" encrypt="true"></field>
       <field name="successfulLogin" type="indicator"></field>
+      <field name="originUserLoginId" type="id-vlong"></field>
       <prim-key field="userLoginId"/>
       <prim-key field="fromDate"/>
       <relation type="one" fk-name="USER_LH_USER" rel-entity-name="UserLogin">
         <key-map field-name="userLoginId"/>
+      </relation>
+      <relation type="one-nofk" fk-name="ORIG_USER_LH_USER" rel-entity-name="UserLogin">
+        <key-map field-name="originUserLoginId" rel-field-name="userLoginId"/>
       </relation>
     </entity>
     <entity entity-name="UserLoginSession"
@@ -175,6 +179,25 @@ under the License.
       <view-link entity-alias="ULSG" rel-entity-alias="UL">
         <key-map field-name="userLoginId"/>
       </view-link>
+    </view-entity>
+    <view-entity entity-name="UserLoginAndPermission"
+                 package-name="org.apache.ofbiz.security.securitygroup"
+                 never-cache="true"
+                 title="UserLogin And Permission View">
+        <member-entity entity-alias="ULSG" entity-name="UserLoginSecurityGroup"/>
+        <member-entity entity-alias="UL" entity-name="UserLogin"/>
+        <member-entity entity-alias="SGP" entity-name="SecurityGroupPermission"/>
+        <alias-all entity-alias="UL"/>
+        <alias-all entity-alias="ULSG"/>
+        <alias name="permissionId" entity-alias="SGP"/>
+        <alias name="permissionFromDate" field="fromDate" entity-alias="SGP"/>
+        <alias name="permissionThruDate" field="thruDate" entity-alias="SGP"/>
+        <view-link entity-alias="ULSG" rel-entity-alias="UL">
+            <key-map field-name="userLoginId"/>
+        </view-link>
+        <view-link entity-alias="ULSG" rel-entity-alias="SGP">
+            <key-map field-name="groupId"/>
+        </view-link>
     </view-entity>
     <entity entity-name="UserLoginSecurityGroup"
             package-name="org.apache.ofbiz.security.securitygroup"

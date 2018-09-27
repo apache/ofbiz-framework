@@ -41,7 +41,6 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <set field="parameters.sortField" from-field="parameters.sortField" default-value="-visitId"/>
-
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="Visit"/>
@@ -51,7 +50,15 @@ under the License.
                 <field-map field-name="filterByDate" from-field="parameters.activeOnly"/>
             </service>
         </actions>
-        
+        <row-actions>
+            <entity-condition entity-name="UserLoginHistory" list="userLoginHistoryList">
+                <condition-list>
+                    <condition-expr field-name="visitId" from-field="visitId"/>
+                </condition-list>
+                <select-field field-name="userLoginId"/>
+            </entity-condition>
+            <set field="impersonateUserLoginId" from-field="userLoginHistoryList[0].originUserLoginId" type="String"/>
+        </row-actions>
         <field name="visitId" widget-style="buttontext" sort-field="true">
             <hyperlink description="${visitId}" target="visitdetail">
                 <parameter param-name="visitId"/>
@@ -64,6 +71,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="userLoginId" title="${uiLabelMap.CommonUserLoginId}" sort-field="true"><display/></field>
+        <field name="impersonateUserLoginId" title="${uiLabelMap.CommonImpersonateUserLogin}"><display/></field>
         <field name="userCreated" title="${uiLabelMap.PartyNewUser}" sort-field="true"><display/></field>
         <field name="webappName" title="${uiLabelMap.PartyWebApp}" sort-field="true"><display/></field>
         <field name="clientIpAddress" title="${uiLabelMap.PartyClientIP}" sort-field="true"><display/></field>

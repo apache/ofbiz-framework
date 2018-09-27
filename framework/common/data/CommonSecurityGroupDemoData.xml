@@ -40,4 +40,9 @@
 
     <!-- Temporal expression security -->
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="TEMPEXPR_ADMIN"/>
+
+    <!-- Impersonation security -->
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="IMPERSONATE_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="IMPERSONATION" permissionId="IMPERSONATE_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="IMPERSONATION" permissionId="SECURITY_VIEW"/>
 </entity-engine-xml>

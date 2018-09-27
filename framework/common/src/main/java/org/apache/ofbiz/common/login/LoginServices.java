@@ -20,6 +20,7 @@
 package org.apache.ofbiz.common.login;
 
 import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -27,6 +28,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -53,6 +55,7 @@ import org.apache.ofbiz.entity.util.EntityListIterator;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.security.Security;
+import org.apache.ofbiz.security.SecurityUtil;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
@@ -433,6 +436,126 @@ public class LoginServices {
             result.put(ModelService.ERROR_MESSAGE, errMsg);
         }
         return result;
+    }
+
+    /**
+     * Login service to authenticate a username without password, storing history
+     *
+     * @return Map of results including (userLogin) GenericValue object
+     */
+    public static Map<String, Object> userImpersonate(DispatchContext ctx, Map<String, ?> context) {
+        Locale locale = (Locale) context.get("locale");
+        Delegator delegator = ctx.getDelegator();
+        Map<String, Object> result = ServiceUtil.returnSuccess();
+
+        String userLoginIdToImpersonate = (String) context.get("userLoginIdToImpersonate");
+        GenericValue originUserLogin = (GenericValue) context.get("userLogin");
+        // get the visitId for the history entity
+        String visitId = (String) context.get("visitId");
+
+        if ("true".equalsIgnoreCase(EntityUtilProperties.getPropertyValue("security", "username.lowercase", delegator))) {
+            userLoginIdToImpersonate = userLoginIdToImpersonate.toLowerCase();
+        }
+
+        GenericValue userLogin;
+        try {
+            userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", userLoginIdToImpersonate).queryOne();
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+
+        // check impersonation controls
+        String errorMessage = checkImpersonationControls(delegator, originUserLogin, userLogin, locale);
+        if (errorMessage != null) {
+            return ServiceUtil.returnError(errorMessage);
+        }
+
+        // return the UserLoginSession Map
+        Map<String, Object> userLoginSessionMap = LoginWorker.getUserLoginSession(userLogin);
+        if (userLoginSessionMap != null) {
+            result.put("userLoginSession", userLoginSessionMap);
+        }
+
+        // grab the hasLoggedOut flag
+        boolean hasLoggedOut = "Y".equalsIgnoreCase(userLogin.getString("hasLoggedOut"));
+        if (hasLoggedOut || UtilValidate.isEmpty(userLogin.getString("hasLoggedOut"))) {
+            userLogin.set("hasLoggedOut", "N");
+            try {
+                userLogin.store();
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+                return ServiceUtil.returnError(e.getMessage());
+            }
+        }
+
+        //Log impersonation in UserLoginHistory
+        Map<String, Object> historyCreateMap = UtilMisc.toMap("userLoginId", userLoginIdToImpersonate);
+        historyCreateMap.put("visitId", visitId);
+        historyCreateMap.put("fromDate", UtilDateTime.nowTimestamp());
+        historyCreateMap.put("successfulLogin", "Y");
+        historyCreateMap.put("partyId", userLogin.get("partyId"));
+        historyCreateMap.put("originUserLoginId", originUserLogin.get("userLoginId"));
+        //End impersonation in one hour max
+        historyCreateMap.put("thruDate", UtilDateTime.adjustTimestamp(UtilDateTime.nowTimestamp(), Calendar.HOUR, 1));
+        try {
+            delegator.create("UserLoginHistory", historyCreateMap);
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+
+        result.put("userLogin", userLogin);
+        result.put("originUserLogin", originUserLogin);
+        return result;
+    }
+
+    /**
+     * Return error message if a needed control has failed :
+     * userLoginToImpersonate must exist
+     * Impersonation have to be enabled
+     * Check userLoginIdToImpersonate is active, not Admin and not equals to userLogin
+     * Check userLogin has enough permission
+     *
+     * @param delegator
+     * @param userLogin
+     * @param userLoginToImpersonate
+     * @param locale
+     * @return
+     */
+    private static String checkImpersonationControls(Delegator delegator, GenericValue userLogin, GenericValue userLoginToImpersonate, Locale locale) {
+        if (userLoginToImpersonate == null) {
+            return UtilProperties.getMessage(resource, "loginservices.username_missing", locale);
+        }
+        String userLoginId = userLogin.getString("userLoginId");
+        String userLoginIdToImpersonate = userLoginToImpersonate.getString("userLoginId");
+
+        if (UtilProperties.getPropertyAsBoolean("security", "security.disable.impersonation", true)) {
+            return UtilProperties.getMessage(resource, "loginevents.impersonation_disabled", locale);
+        }
+
+        if (!LoginWorker.isUserLoginActive(userLoginToImpersonate)) {
+            Map<String, Object> messageMap = UtilMisc.toMap("username", userLoginIdToImpersonate);
+            return UtilProperties.getMessage(resource, "loginservices.account_for_user_login_id_disabled", messageMap, locale);
+        }
+
+        if (SecurityUtil.hasUserLoginAdminPermission(delegator, userLoginIdToImpersonate)) {
+            return UtilProperties.getMessage(resource, "loginevents.impersonate_notAdmin", locale);
+        }
+
+        if (userLoginIdToImpersonate.equals(userLoginId)) {
+            return UtilProperties.getMessage(resource, "loginevents.impersonate_yourself", locale);
+        }
+
+        //Cannot impersonate more privileged user
+        List<String> missingNeededPermissions = SecurityUtil.hasUserLoginMorePermissionThan(delegator, userLoginId, userLoginIdToImpersonate);
+        if (UtilValidate.isNotEmpty(missingNeededPermissions)) {
+            String missingPermissionListString = missingNeededPermissions.stream().collect(Collectors.joining(", "));
+            return UtilProperties.getMessage(resource, "loginevents.impersonate_notEnoughPermission",
+                    UtilMisc.toMap("missingPermissions", missingPermissionListString), locale);
+        }
+
+        return null;
     }
 
     public static void createUserLoginPasswordHistory(Delegator delegator,String userLoginId, String currentPassword) throws GenericEntityException{

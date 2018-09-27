@@ -148,6 +148,7 @@ under the License.
             <screen name="ajaxAutocompleteOptions"/>
             <screen name="FoError"/>
             <screen name="login"/>
+            <screen name="impersonated"/>
             <screen name="ajaxNotLoggedIn"/>
             <screen name="requirePasswordChange"/>
             <screen name="forgotPassword_step1"/>

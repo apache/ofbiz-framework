@@ -772,5 +772,11 @@
             </link>
         </menu-item>
     </menu>
-    
+    <menu name="listAllVisits">
+        <menu-item name="listAll" title="${uiLabelMap.CommonListAll}">
+            <link target="findVisits">
+                <parameter param-name="partyId" from-field="parameters.partyId"/>
+            </link>
+        </menu-item>
+    </menu>
 </menus>

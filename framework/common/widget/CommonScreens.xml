@@ -229,6 +229,18 @@ under the License.
         </section>
     </screen>
 
+    <screen name="impersonated">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleImpersonated" />
+            </actions>
+            <widgets>
+                <include-screen name="MinimalActions" />
+                <include-screen name="impersonated" location="${groovy:commonScreenLocations.impersonated?commonScreenLocations.impersonated:commonDecoratorLocation}"/>
+            </widgets>
+        </section>
+    </screen>
+
     <screen name="ajaxNotLoggedIn">
         <section>
             <widgets>

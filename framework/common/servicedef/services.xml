@@ -381,6 +381,18 @@ under the License.
         <implements service="authenticationInterface"/>
         <attribute name="request" mode="IN" type="javax.servlet.http.HttpServletRequest" optional="true"/>
     </service>
+    <service name="userImpersonate" engine="java" location="org.apache.ofbiz.common.login.LoginServices" invoke="userImpersonate" auth="true">
+        <description>Used to Automatically Authenticate a username/password; create a UserLogin object</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="IMPERSONATE" action="ADMIN"/>
+        </required-permissions>
+        <implements service="authenticationInterface"/>
+        <attribute name="userLoginIdToImpersonate" type="String" mode="IN"/>
+        <attribute name="visitId" type="String" mode="IN" optional="true"/>
+        <attribute name="userLogin" type="org.apache.ofbiz.entity.GenericValue" mode="OUT"/>
+        <attribute name="userLoginSession" type="java.util.Map" mode="OUT" optional="true"/>
+        <attribute name="originUserLogin" type="org.apache.ofbiz.entity.GenericValue" mode="OUT"/>
+    </service>
     <service name="createUserLogin" engine="java" auth="false"
         location="org.apache.ofbiz.common.login.LoginServices" invoke="createUserLogin">
         <description>Create a UserLogin</description>

@@ -53,6 +53,9 @@ under the License.
                 <#if security.hasEntityPermission("SECURITY", "_VIEW", session)>
                   <a href="<@ofbizUrl>ProfileEditUserLoginSecurityGroups?partyId=${party.partyId}&amp;userLoginId=${userUserLogin.userLoginId}</@ofbizUrl>">${uiLabelMap.SecurityGroups}</a>
                 </#if>
+                <#if security.hasEntityPermission("IMPERSONATE", "_ADMIN", session)>
+                    <a href="<@ofbizUrl>impersonateLogin?userLoginIdToImpersonate=${userUserLogin.userLoginId}</@ofbizUrl>">${uiLabelMap.CommonImpersonate}</a>
+                </#if>
               </td>
             </tr>
           </#list>
