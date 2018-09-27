@@ -269,6 +269,6 @@ displays search results.
 
 == Deployment
 
-== Security
+include::../../framework/security/src/doc/asciidoc/security.adoc[leveloffset=+1]
 
 == Appendices

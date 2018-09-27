@@ -107,6 +107,26 @@
         <value xml:lang="zh">登录时发生下列错误：${errorMessage}</value>
         <value xml:lang="zh-TW">登入時發生錯誤: ${errorMessage}.</value>
     </property>
+    <property key="loginevents.impersonate_yourself">
+        <value xml:lang="en">You can't impersonate yourself ... What are you trying to do ?</value>
+        <value xml:lang="fr">Vous ne pouvez pas vous incarner vous même ... Qu'essayez-vous donc de faire ?</value>
+    </property>
+    <property key="loginevents.impersonate_notEnoughPermission">
+        <value xml:lang="en">You cannot impersonate a login with more permission than you have : ${missingPermissions}</value>
+        <value xml:lang="fr">Vous ne pouvez pas incarner un utilisateur avec un niveau de permission supérieur au vôtre : ${missingPermissions}</value>
+    </property>
+    <property key="loginevents.impersonate_notAdmin">
+        <value xml:lang="en">You cannot impersonate a login with ADMIN permission</value>
+        <value xml:lang="fr">Vous ne pouvez pas incarner un utilisateur avec un niveau de permission ADMIN</value>
+    </property>
+    <property key="loginevents.impersonation_disabled">
+        <value xml:lang="en">Impersonation feature is disabled, please check security configuration</value>
+        <value xml:lang="fr">La fonctionnalité d'incarnation est désactivée, merci de vérifier la configuration sécurité</value>
+    </property>
+    <property key="loginevents.impersonation_in_process">
+        <value xml:lang="en">Impersonation of your user is in process by ${originUserLoginId}</value>
+        <value xml:lang="fr">Incarnation de votre utilisateur en cours par ${originUserLoginId}</value>
+    </property>
     <property key="loginevents.new_password_createdandsent_check_email">
         <value xml:lang="de">Ein neues Passwort wurde erzeugt und Ihnen per E-Mail zugeschickt. Überprüfen Sie bitte Ihren E-Mail-Eingang.</value>
         <value xml:lang="en">A new password has been created and sent to you. Please check your Email.</value>
@@ -244,6 +264,14 @@
         <value xml:lang="th">ปัญหาโครงร่างภายนอก; กรุณาติดต่อบริการลูกค้า</value>
         <value xml:lang="zh">配置出错；请与客户服务联系。</value>
         <value xml:lang="zh-TW">設定有問題: 請聯絡客服.</value>
+    </property>
+    <property key="loginevents.origin_username_is_present">
+        <value xml:lang="en">You already have an impersonation in process. Please leave it before continue</value>
+        <value xml:lang="fr">Vous avez déjà une incarnation en cours, veuillez mettre fin à celle-ci avant de continuer</value>
+    </property>
+    <property key="loginevents.problem_getting_security_question_record">
+        <value xml:lang="en">Problem getting User Login Security Question record.</value>
+        <value xml:lang="fr">Problème durant la lecture de votre question de sécurité</value>
     </property>
     <property key="loginevents.unable_to_login_tenant">
         <value xml:lang="en">You cannot login to this tenant</value>

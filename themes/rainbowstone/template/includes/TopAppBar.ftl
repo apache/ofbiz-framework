@@ -30,6 +30,7 @@ under the License.
     </#if>
 </#if>
 <body>
+<#include "component://common-theme/template/ImpersonateBanner.ftl"/>
 <div id="wait-spinner" style="display:none">
     <div id="wait-spinner-image"></div>
 </div>

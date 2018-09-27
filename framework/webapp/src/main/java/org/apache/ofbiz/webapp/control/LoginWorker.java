@@ -26,8 +26,10 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.ServiceLoader;
 import java.util.regex.Matcher;
@@ -59,6 +61,7 @@ import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.DelegatorFactory;
 import org.apache.ofbiz.entity.EntityCryptoException;
+import org.apache.ofbiz.entity.GenericEntity;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.condition.EntityCondition;
@@ -215,6 +218,52 @@ public class LoginWorker {
         return userLogin;
     }
 
+    /**
+     * Return the active {@link GenericValue} of a current impersonation UserLoginHistory of current userLogin session,
+     * only if not the impersonator himself.
+     *
+     * @param request The HTTP request object for the current JSP or Servlet request.
+     * @param response The HTTP response object for the current JSP or Servlet request.
+     * @return GenericValue
+     */
+    public static GenericValue checkImpersonationInProcess(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
+        GenericValue originUserLogin = (GenericValue) session.getAttribute("originUserLogin");
+
+        //if originUserLogin is present, it is the impersonator session
+        if (originUserLogin != null) {
+            return null;
+        }
+
+        //Check the existence of an enabled impersonation visit
+        GenericValue userLoginHistory = null;
+        if (userLogin != null) {
+            try {
+                userLoginHistory = EntityQuery.use(userLogin.getDelegator())
+                        .from("UserLoginHistory")
+                        .where(EntityCondition.makeCondition("userLoginId", userLogin.get("userLoginId")),
+                                EntityCondition.makeCondition("originUserLoginId", EntityOperator.NOT_EQUAL, null))
+                        .filterByDate()
+                        .queryFirst();
+            } catch (GenericEntityException e) {
+                Debug.logError(e, "impossible to resolve userLogin history", module);
+            }
+        }
+        if (userLoginHistory != null) {
+            List<Object> errorMessageList = UtilGenerics.checkList(request.getAttribute("_ERROR_MESSAGE_LIST"));
+            if (errorMessageList == null) {
+                errorMessageList = new LinkedList<>();
+                request.setAttribute("_ERROR_MESSAGE_LIST_", errorMessageList);
+            }
+            HashMap<String, Object> messageMap = new HashMap<>();
+            messageMap.putAll(userLoginHistory.getAllFields());
+            String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.impersonation_in_process", messageMap, UtilHttp.getLocale(request));
+            errorMessageList.add(errMsg);
+        }
+        return userLoginHistory;
+    }
+
     /** This WebEvent allows for java 'services' to hook into the login path.
      * This method loads all instances of {@link LoginCheck}, and calls the
      * {@link LoginCheck#associate} method.  The first implementation to return
@@ -313,6 +362,16 @@ public class LoginWorker {
 
                 return "error";
             }
+        }
+
+        //Allow loggingOut when impersonated
+        boolean isLoggingOut = "logout".equals(RequestHandler.getRequestUri(request.getPathInfo()));
+        //Check if the user has an impersonation in process
+        boolean authoriseLoginDuringImpersonate = EntityUtilProperties.propertyValueEquals("security", "security.login.authorised.during.impersonate", "true");
+        if (!isLoggingOut && !authoriseLoginDuringImpersonate && checkImpersonationInProcess(request, response) != null) {
+            //remove error message that will be displayed in impersonated status screen
+            request.removeAttribute("_ERROR_MESSAGE_LIST_");
+            return "impersonated";
         }
 
         return "success";
@@ -533,6 +592,156 @@ public class LoginWorker {
         }
     }
 
+    /**
+     * An HTTP WebEvent handler to impersonate a given userLogin without using password. This should run before the security check.
+     *
+     * @param request The HTTP request object for the current JSP or Servlet request.
+     * @param response The HTTP response object for the current JSP or Servlet request.
+     * @return Return a boolean which specifies whether or not the calling Servlet or
+     *         JSP should generate its own content. This allows an event to override the default content.
+     */
+    public static String impersonateLogin(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
+        String userLoginIdToImpersonate = request.getParameter("userLoginIdToImpersonate");
+        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
+        LocalDispatcher dispatcher;
+
+        if (UtilProperties.getPropertyAsBoolean("security","security.disable.impersonation", true)) {
+            String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.impersonation_disabled", UtilHttp.getLocale(request));
+            request.setAttribute("_ERROR_MESSAGE_", errMsg);
+            return "error";
+        }
+
+        //Check if user has impersonate permission
+        Security security = (Security) request.getAttribute("security");
+        if (!security.hasEntityPermission("IMPERSONATE", "_ADMIN", userLogin)) {
+            String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.unable_to_login_this_application", UtilHttp.getLocale(request));
+            request.setAttribute("_ERROR_MESSAGE_", errMsg);
+            return "error";
+        }
+
+        List<String> errMsgList = new LinkedList<>();
+        if (UtilValidate.isNotEmpty(session.getAttribute("originUserLogin"))) {
+            errMsgList.add(UtilProperties.getMessage(resourceWebapp, "loginevents.origin_username_is_present", UtilHttp.getLocale(request)));
+        }
+        if (UtilValidate.isEmpty(userLoginIdToImpersonate)) {
+            errMsgList.add(UtilProperties.getMessage(resourceWebapp, "loginevents.username_was_empty_reenter", UtilHttp.getLocale(request)));
+        }
+
+        try {
+            GenericValue userLoginToImpersonate = delegator.findOne("UserLogin", false, "userLoginId", userLoginIdToImpersonate);
+            if (!hasBasePermission(userLoginToImpersonate, request)) {
+                errMsgList.add(UtilProperties.getMessage(resourceWebapp, "loginevents.unable_to_login_this_application", UtilHttp.getLocale(request)));
+            }
+        } catch (GenericEntityException e) {
+            String errMsg ="Error impersonating the userLoginId" + userLoginIdToImpersonate;
+            Debug.logError(e, errMsg, module);
+            errMsgList.add(errMsg);
+            request.setAttribute("_ERROR_MESSAGE_LIST_", errMsgList);
+            return  "error";
+        }
+        if (!errMsgList.isEmpty()) {
+            request.setAttribute("_ERROR_MESSAGE_LIST_", errMsgList);
+            return  "error";
+        }
+
+        ServletContext servletContext = session.getServletContext();
+
+        Debug.logInfo("Setting default delegator", module);
+        String delegatorName = delegator.getDelegatorBaseName();
+        delegator = DelegatorFactory.getDelegator(delegatorName);
+        dispatcher = WebAppUtil.makeWebappDispatcher(servletContext, delegator);
+
+        Map<String, Object> result;
+        try {
+            // get the visit id to pass to the userLogin for history
+            String visitId = VisitHandler.getVisitId(session);
+            result = dispatcher.runSync("userImpersonate",
+                    UtilMisc.toMap("userLoginIdToImpersonate", userLoginIdToImpersonate,
+                            "userLogin", userLogin,"visitId", visitId, "locale", UtilHttp.getLocale(request)));
+        } catch (GenericServiceException e) {
+            Debug.logError(e, "Error calling userImpersonate service", module);
+            Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
+            String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
+            request.setAttribute("_ERROR_MESSAGE_", errMsg);
+            return "error";
+        }
+
+        if (ModelService.RESPOND_SUCCESS.equals(result.get(ModelService.RESPONSE_MESSAGE))) {
+            userLogin = (GenericValue) result.get("userLogin");
+            GenericValue originUserLogin = (GenericValue) result.get("originUserLogin");
+
+            Map<String, Object> userLoginSession = checkMap(result.get("userLoginSession"), String.class, Object.class);
+
+            // check on JavaScriptEnabled
+            String javaScriptEnabled = "N";
+            if ("Y".equals(request.getParameter("JavaScriptEnabled"))) {
+                javaScriptEnabled = "Y";
+            }
+            try {
+                dispatcher.runSync("setUserPreference", UtilMisc.toMap("userPrefTypeId", "javaScriptEnabled",
+                        "userPrefGroupTypeId", "GLOBAL_PREFERENCES", "userPrefValue", javaScriptEnabled, "userLogin", userLogin));
+            } catch (GenericServiceException e) {
+                Debug.logError(e, "Error setting user preference", module);
+            }
+
+            //add originUserLogin in session
+            session.setAttribute("originUserLogin", originUserLogin);
+            // finally do the main login routine to set everything else up in the session, etc
+            return doMainLogin(request, response, userLogin, userLoginSession);
+        } else {
+            Map<String, String> messageMap = UtilMisc.toMap("errorMessage", result.get(ModelService.ERROR_MESSAGE));
+            String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
+            request.setAttribute("_ERROR_MESSAGE_", errMsg);
+            return "error";
+        }
+    }
+
+    /**
+     * An HTTP WebEvent handler to reverse an impersonate login.
+     *
+     * @param request The HTTP request object for the current JSP or Servlet request.
+     * @param response The HTTP response object for the current JSP or Servlet request.
+     * @return Return a boolean which specifies whether or not the calling Servlet or
+     *         JSP should generate its own content. This allows an event to override the default content.
+     */
+    public static String depersonateLogin(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        GenericValue originUserLogin = (GenericValue) session.getAttribute("originUserLogin");
+        session.removeAttribute("originUserLogin");
+
+        List<String> errMsgList = new LinkedList<>();
+        if (null == originUserLogin) {
+            errMsgList.add(UtilProperties.getMessage(resourceWebapp, "loginevents.username_was_empty_reenter", UtilHttp.getLocale(request)));
+        }
+        if (!errMsgList.isEmpty()) {
+            request.setAttribute("_ERROR_MESSAGE_LIST_", errMsgList);
+            return "error";
+        }
+
+        //update the userLogin history, only one impersonation of this user can be active at the same time
+        EntityCondition conditions = EntityCondition.makeCondition(
+                EntityCondition.makeCondition("userLoginId", ((GenericValue) session.getAttribute("userLogin")).get("userLoginId")),
+                EntityCondition.makeCondition("originUserLoginId", originUserLogin.get("userLoginId")),
+                EntityUtil.getFilterByDateExpr());
+        try {
+            //check impersonation process existence to avoid depersonation abuse
+            if (EntityQuery.use(originUserLogin.getDelegator()).from("UserLoginHistory").where(conditions).queryCount() == 0) {
+                String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.impersonate_NotInProcess", UtilHttp.getLocale(request));
+                request.setAttribute("_ERROR_MESSAGE_", errMsg);
+                return "error";
+            }
+            originUserLogin.getDelegator().storeByCondition("UserLoginHistory",
+                    UtilMisc.toMap("thruDate", UtilDateTime.nowTimestamp()), conditions);
+        } catch (GenericEntityException e) {
+            return "error";
+        }
+
+        // Log back the impersonating user
+        return doMainLogin(request, response, originUserLogin, null);
+    }
+
     protected static void setWebContextObjects(HttpServletRequest request, HttpServletResponse response, Delegator delegator, LocalDispatcher dispatcher) {
         HttpSession session = request.getSession();
         // NOTE: we do NOT want to set this in the servletContext, only in the request and session
@@ -561,6 +770,10 @@ public class LoginWorker {
 
     public static String doMainLogin(HttpServletRequest request, HttpServletResponse response, GenericValue userLogin, Map<String, Object> userLoginSession) {
         HttpSession session = request.getSession();
+        boolean authoriseLoginDuringImpersonate = EntityUtilProperties.propertyValueEquals("security", "security.login.authorised.during.impersonate", "true");
+        if (!authoriseLoginDuringImpersonate && checkImpersonationInProcess(request, response) != null) {
+            return "error";
+        }
         if (userLogin != null && hasBasePermission(userLogin, request)) {
             doBasicLogin(userLogin, request);
         } else {
@@ -1221,5 +1434,14 @@ public class LoginWorker {
             }
         }
         return "success";
+    }
+
+    /**
+     * Return true if userLogin has not been disabled
+     * @param userLogin
+     * @return
+     */
+    public static boolean isUserLoginActive(GenericValue userLogin) {
+        return !"N".equals(userLogin.getString("enabled")) && UtilValidate.isEmpty(userLogin.getString("disabledBy"));
     }
 }

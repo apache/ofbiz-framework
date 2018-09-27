@@ -5517,6 +5517,22 @@
         <value xml:lang="zh">图片</value>
         <value xml:lang="zh-TW">圖片</value>
     </property>
+    <property key="CommonImpersonate">
+        <value xml:lang="en">Impersonate</value>
+        <value xml:lang="fr">Incarner</value>
+    </property>
+    <property key="CommonImpersonateUserLogin">
+        <value xml:lang="en">User impersonated</value>
+        <value xml:lang="fr">Utilisateur incarné</value>
+    </property>
+    <property key="CommonImpersonateTitle">
+        <value xml:lang="en">Impersonation in process</value>
+        <value xml:lang="fr">Incarnation en cours</value>
+    </property>
+    <property key="CommonImpersonateStop">
+        <value xml:lang="en">Stop impersonation</value>
+        <value xml:lang="fr">Arrêter l'incarnation</value>
+    </property>
     <property key="CommonImport">
         <value xml:lang="en">Import</value>
         <value xml:lang="zh">导入</value>
@@ -8230,6 +8246,13 @@
         <value xml:lang="th">โลโก้องค์กร</value>
         <value xml:lang="zh">机构图标</value>
         <value xml:lang="zh-TW">機構商標</value>
+    </property>
+    <property key="CommonOriginUserLoginId">
+        <value xml:lang="de">Herkunft Benutzeranmeldung ID</value>
+        <value xml:lang="en">Origin User Login ID</value>
+        <value xml:lang="es">Código de usuario de origen</value>
+        <value xml:lang="fr">Identifiant de connexion d'origine</value>
+        <value xml:lang="it">Codice utente di origine</value>
     </property>
     <property key="CommonOther">
         <value xml:lang="ar">أخرى</value>
@@ -14884,6 +14907,10 @@
         <value xml:lang="zh">编辑数据源类型</value>
         <value xml:lang="zh-CN">编辑数据源类型</value>
         <value xml:lang="zh-TW">編輯資料源類型</value>
+    </property>
+    <property key="PageTitleImpersonated">
+        <value xml:lang="en">Impersonated</value>
+        <value xml:lang="fr">Substitué</value>
     </property>
     <property key="PageTitleListDataSource">
         <value xml:lang="ar">قائمة مصادر المعلومات</value>

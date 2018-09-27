@@ -155,6 +155,7 @@ under the License.
                         <set field="appbarCloseTemplateLocation" from-field="layoutSettings.VT_NAV_CLOSE_TMPLT" />
                         <set field="messagesTemplateLocation" from-field="layoutSettings.VT_MSG_TMPLT_LOC" />
                         <set field="layoutSettings.suppressTab" value="ofbizsetup"/><!-- diseable ofbiz setup by default -->
+                        <set field="layoutSettings.styleSheets[+0]" value="/common/css/impersonate.css" global="true" />
                     </actions>
                     <widgets />
                 </section>
@@ -546,6 +547,42 @@ under the License.
         </section>
     </screen>
 
+    <screen name="impersonated">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleImpersonated" />
+                <entity-condition list="impersonated" entity-name="UserLoginHistory" filter-by-date="true">
+                    <condition-list>
+                        <condition-list>
+                            <condition-expr field-name="userLoginId" from-field="userLogin.userLoginId"/>
+                            <condition-expr field-name="originUserLoginId" operator="not-equals" from-field="nullField"/>
+                        </condition-list>
+                    </condition-list>
+                    <select-field field-name="originUserLoginId"/>
+                    <select-field field-name="fromDate"/>
+                    <order-by field-name="-fromDate"/>
+                </entity-condition>
+                <set field="impersonator" from-field="impersonated[0].originUserLoginId"/>
+                <set field="impersonationFromDate" from-field="impersonated[0].fromDate"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <actions>
+                                <set field="impersonatedTemplateLocation" from-field="layoutSettings.VT_IMPERSO_TMPLT_LOC" default-value="component://common-theme/template/Impersonated.ftl"/>
+                            </actions>
+                            <widgets />
+                        </section>
+                        <platform-specific>
+                            <html><html-template location="${impersonatedTemplateLocation}"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
     <screen name="ajaxNotLoggedIn">
         <section>
             <widgets>
@@ -608,7 +645,7 @@ under the License.
                 <set field="questionEnumId" from-field="securityQuestions[0].questionEnumId" />
                 <entity-one entity-name="Enumeration" value-field="securityQuestion">
                     <field-map field-name="enumId" from-field="questionEnumId"/>
-                </entity-one> 
+                </entity-one>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

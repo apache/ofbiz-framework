@@ -31,6 +31,7 @@ under the License.
           <tr class="header-row">
             <td>${uiLabelMap.PartyVisitId}</td>
             <td>${uiLabelMap.PartyUserLogin}</td>
+            <td>${uiLabelMap.CommonImpersonateUserLogin}</td>
             <td>${uiLabelMap.PartyNewUser}</td>
             <td>${uiLabelMap.PartyWebApp}</td>
             <td>${uiLabelMap.PartyClientIP}</td>
@@ -39,11 +40,16 @@ under the License.
           </tr>
           <#list visits as visitObj>
             <#if (visitObj_index > 4)><#break></#if>
+            <#assign userLoginHistory = EntityQuery.use(delegator).from("UserLoginHistory").where('visitId',visitObj.visitId!).queryFirst()!>
+            <#if userLoginHistory??>
+                <#assign impersonateUserLoginId = userLoginHistory.originUserLoginId!>
+            </#if>
               <tr>
                 <td class="button-col">
                   <a href="<@ofbizUrl>visitdetail?visitId=${visitObj.visitId!}</@ofbizUrl>">${visitObj.visitId!}</a>
                 </td>
                 <td>${visitObj.userLoginId!}</td>
+                <td>${impersonateUserLoginId!}</td>
                 <td>${visitObj.userCreated!}</td>
                 <td>${visitObj.webappName!}</td>
                 <td>${visitObj.clientIpAddress!}</td>

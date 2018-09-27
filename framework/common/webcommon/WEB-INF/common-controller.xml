@@ -44,6 +44,7 @@ under the License.
         <security https="true" auth="false"/>
         <event type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="extensionCheckLogin"/>
         <response name="success" type="view" value="main"/>
+        <response name="impersonated" type="view" value="impersonated"/>
         <response name="error" type="view" value="login"/>
     </request-map>
     <request-map uri="ajaxCheckLogin" edit="false">
@@ -52,6 +53,18 @@ under the License.
         <event type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="extensionCheckLogin"/>
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="ajaxLogin"/>
+    </request-map>
+    <request-map uri="impersonateLogin">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="impersonateLogin"/>
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view-last"/>
+    </request-map>
+    <request-map uri="depersonateLogin">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="depersonateLogin"/>
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view-last"/>
     </request-map>
     <request-map uri="login">
         <security https="true" auth="false"/>
@@ -315,6 +328,7 @@ under the License.
     <view-map name="error" page="/error/error.jsp"/>
     <view-map name="main" type="none"/>
     <view-map name="login" type="screen" page="component://common/widget/CommonScreens.xml#login"/>
+    <view-map name="impersonated" type="screen" page="component://common/widget/CommonScreens.xml#impersonated"/>
     <view-map name="ajaxLogin" type="screen" page="component://common/widget/CommonScreens.xml#ajaxNotLoggedIn"/>
     <view-map name="requirePasswordChange" type="screen" page="component://common/widget/CommonScreens.xml#requirePasswordChange"/>
     <view-map name="forgotPassword" type="screen" page="component://common/widget/CommonScreens.xml#forgotPassword"/>

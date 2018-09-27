@@ -36,12 +36,15 @@
 
     <!-- Temporal expression security -->
     <SecurityPermission description="Temporal expression admin" permissionId="TEMPEXPR_ADMIN"/>
-    
+    <!-- Impersonation security -->
+    <SecurityPermission description="Admin Impersonation operation" permissionId="IMPERSONATE_ADMIN"/>
+
     <!-- exception for SUPER user and group shoul be loaded as seed-->
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="COMMON_ADMIN"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="PORTALPAGE_ADMIN"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="VISUALTHEME_ADMIN"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="USERPREF_ADMIN"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="TEMPEXPR_ADMIN"/>
-    
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="IMPERSONATE_ADMIN"/>
+
 </entity-engine-xml>

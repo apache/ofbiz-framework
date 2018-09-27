@@ -25,7 +25,8 @@ under the License.
     <SecurityGroup groupId="FLEXADMIN" description="Flexible Admin group, has all granular permissions." groupName="Flex Admin"/>
     <SecurityGroup groupId="VIEWADMIN" description="Demo Admin group, has all view permissions." groupName="View Admin"/>
     <SecurityGroup groupId="BIZADMIN" description="Full Business Applications permission group, has all business app admin permissions, not technical permissions." groupName="Biz Admin"/>
-    
+    <SecurityGroup groupId="IMPERSONATION" description="Permission group to impersonate user."/>
+
     <!-- general admin tools permission -->
     <SecurityPermission description="Permission to access the Stock OFBiz Manager Applications." permissionId="OFBTOOLS_VIEW"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="OFBTOOLS_VIEW"/>
