@@ -44,7 +44,7 @@ under the License.
         <filter-class>org.apache.ofbiz.webapp.control.ControlFilter</filter-class>
         <init-param>
             <param-name>allowedPaths</param-name>
-            <param-value>/error:/control:/select:/index.html:/index.jsp:/default.html:/default.jsp:/images</param-value>
+            <param-value>/error:/control:/select:/index.html:/index.jsp:/default.html:/default.jsp:/images:/CALENDAR_PUB_DEMO</param-value>
         </init-param>
         <init-param>
             <param-name>redirectPath</param-name>
