@@ -187,6 +187,10 @@
         <value xml:lang="zh">没有设置电子邮件地址，请与客户服务联系。</value>
         <value xml:lang="zh-TW">無電子郵件, 請與客服聯絡.</value>
     </property>
+    <property key="loginevents.origin_username_is_present">
+        <value xml:lang="en">You already have an impersonation in process. Please leave it before continue</value>
+        <value xml:lang="fr">Vous avez déjà une incarnation en cours, veuillez mettre fin à celle-ci avant de continuer</value>
+    </property>
     <property key="loginevents.password_expiration_alert">
         <value xml:lang="en">Alert: Your password will expire on ${passwordExpirationDate}. Update password before it expired.</value>
         <value xml:lang="fr">Votre mot de passe va expirer le ${passwordExpirationDate}, modifiez le avant.</value>
@@ -264,14 +268,6 @@
         <value xml:lang="th">ปัญหาโครงร่างภายนอก; กรุณาติดต่อบริการลูกค้า</value>
         <value xml:lang="zh">配置出错；请与客户服务联系。</value>
         <value xml:lang="zh-TW">設定有問題: 請聯絡客服.</value>
-    </property>
-    <property key="loginevents.origin_username_is_present">
-        <value xml:lang="en">You already have an impersonation in process. Please leave it before continue</value>
-        <value xml:lang="fr">Vous avez déjà une incarnation en cours, veuillez mettre fin à celle-ci avant de continuer</value>
-    </property>
-    <property key="loginevents.problem_getting_security_question_record">
-        <value xml:lang="en">Problem getting User Login Security Question record.</value>
-        <value xml:lang="fr">Problème durant la lecture de votre question de sécurité</value>
     </property>
     <property key="loginevents.unable_to_login_tenant">
         <value xml:lang="en">You cannot login to this tenant</value>
