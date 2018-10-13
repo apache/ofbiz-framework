@@ -61,11 +61,6 @@ public abstract class EntityConditionListBase<T extends EntityCondition> extends
     }
 
     @Override
-    public void visit(EntityConditionVisitor visitor) {
-        visitor.acceptEntityJoinOperator(operator, conditionList);
-    }
-
-    @Override
     public boolean isEmpty() {
         return operator.isEmpty(conditionList);
     }

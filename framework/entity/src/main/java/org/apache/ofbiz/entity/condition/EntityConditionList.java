@@ -43,6 +43,6 @@ public class EntityConditionList<T extends EntityCondition> extends EntityCondit
 
     @Override
     public void accept(EntityConditionVisitor visitor) {
-        visitor.acceptEntityConditionList(this);
+        visitor.visit(this);
     }
 }

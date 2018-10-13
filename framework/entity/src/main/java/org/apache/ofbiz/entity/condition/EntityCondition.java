@@ -109,9 +109,12 @@ public abstract class EntityCondition extends EntityConditionBase implements IsE
         return makeWhereString(null, new ArrayList<EntityConditionParam>(), null);
     }
 
-    public void accept(EntityConditionVisitor visitor) {
-        throw new IllegalArgumentException(getClass().getName() + ".accept not implemented");
-    }
+    /**
+     * Applies a visitor to this condition.
+     *
+     * @param visitor the visitor to be applied
+     */
+    abstract public void accept(EntityConditionVisitor visitor);
 
     abstract public String makeWhereString(ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, Datasource datasourceInfo);
 
@@ -132,8 +135,4 @@ public abstract class EntityCondition extends EntityConditionBase implements IsE
     abstract public boolean mapMatches(Delegator delegator, Map<String, ? extends Object> map);
 
     abstract public EntityCondition freeze();
-
-    public void visit(EntityConditionVisitor visitor) {
-        throw new IllegalArgumentException(getClass().getName() + ".visit not implemented");
-    }
 }

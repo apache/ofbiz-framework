@@ -199,16 +199,6 @@ public class EntityFieldValue extends EntityConditionValue {
     }
 
     @Override
-    public void visit(EntityConditionVisitor visitor) {
-        visitor.acceptEntityFieldValue(this);
-    }
-
-    @Override
-    public void accept(EntityConditionVisitor visitor) {
-        visitor.acceptEntityFieldValue(this);
-    }
-
-    @Override
     public EntityConditionValue freeze() {
         return this;
     }

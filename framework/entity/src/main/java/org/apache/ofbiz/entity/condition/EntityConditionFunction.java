@@ -80,8 +80,8 @@ public abstract class EntityConditionFunction extends EntityCondition {
     }
 
     @Override
-    public void visit(EntityConditionVisitor visitor) {
-        visitor.acceptEntityConditionFunction(this, condition);
+    public void accept(EntityConditionVisitor visitor) {
+        visitor.visit(this);
     }
 
     @Override

@@ -82,13 +82,8 @@ public final class EntityDateFilterCondition extends EntityCondition {
     }
 
     @Override
-    public void visit(EntityConditionVisitor visitor) {
-        visitor.acceptEntityDateFilterCondition(this);
-    }
-
-    @Override
     public void accept(EntityConditionVisitor visitor) {
-        visitor.acceptEntityDateFilterCondition(this);
+        visitor.visit(this);
     }
 
     @Override

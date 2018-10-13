@@ -84,6 +84,10 @@ public class EntityConditionBuilder extends BuilderSupport {
             return condition.equals(obj);
         }
 
+        @Override
+        public void accept(EntityConditionVisitor visitor) {
+            throw new IllegalArgumentException(getClass().getName() + ".accept not implemented");
+        }
     }
 
     @Override

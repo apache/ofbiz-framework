@@ -201,20 +201,6 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
     }
 
     @Override
-    public void visit(EntityConditionVisitor visitor) {
-        if (nested != null) {
-            visitor.acceptEntityConditionValue(nested);
-        } else {
-            visitor.acceptObject(value);
-        }
-    }
-
-    @Override
-    public void accept(EntityConditionVisitor visitor) {
-        visitor.acceptEntityFunction(this);
-    }
-
-    @Override
     public ModelField getModelField(ModelEntity modelEntity) {
         if (nested != null) {
             return nested.getModelField(modelEntity);

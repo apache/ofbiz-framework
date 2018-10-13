@@ -149,13 +149,8 @@ public final class EntityExpr extends EntityCondition {
     }
 
     @Override
-    public void visit(EntityConditionVisitor visitor) {
-        visitor.acceptEntityOperator(operator, lhs, rhs);
-    }
-
-    @Override
     public void accept(EntityConditionVisitor visitor) {
-        visitor.acceptEntityExpr(this);
+        visitor.visit(this);
     }
 
     public void checkRhsType(ModelEntity modelEntity, Delegator delegator) {
