@@ -74,6 +74,6 @@ public final class EntityFieldMap extends EntityConditionListBase<EntityExpr> {
 
     @Override
     public void accept(EntityConditionVisitor visitor) {
-        visitor.acceptEntityFieldMap(this);
+        visitor.visit(this);
     }
 }

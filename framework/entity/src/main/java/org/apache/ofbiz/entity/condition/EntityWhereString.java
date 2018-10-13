@@ -82,8 +82,8 @@ public final class EntityWhereString extends EntityCondition {
     }
 
     @Override
-    public void visit(EntityConditionVisitor visitor) {
-        visitor.acceptEntityWhereString(this);
+    public void accept(EntityConditionVisitor visitor) {
+        visitor.visit(this);
     }
 
     @Override

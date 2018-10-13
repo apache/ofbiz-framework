@@ -296,7 +296,6 @@ public abstract class EntityOperator<L, R, T> extends EntityConditionBase {
 
     public abstract void addSqlValue(StringBuilder sql, ModelEntity entity, List<EntityConditionParam> entityConditionParams, boolean compat, L lhs, R rhs, Datasource datasourceInfo);
     public abstract EntityCondition freeze(L lhs, R rhs);
-    public abstract void visit(EntityConditionVisitor visitor, L lhs, R rhs);
 
     public static final Comparable<?> WILDCARD = new Comparable<Object>() {
         public int compareTo(Object obj) {

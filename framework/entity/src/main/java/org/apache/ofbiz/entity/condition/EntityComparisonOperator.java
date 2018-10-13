@@ -78,12 +78,6 @@ public abstract class EntityComparisonOperator<L, R> extends EntityOperator<L, R
     }
 
     @Override
-    public void visit(EntityConditionVisitor visitor, L lhs, R rhs) {
-        visitor.accept(lhs);
-        visitor.accept(rhs);
-    }
-
-    @Override
     public void addSqlValue(StringBuilder sql, ModelEntity entity, List<EntityConditionParam> entityConditionParams, boolean compat, L lhs, R rhs, Datasource datasourceInfo) {
 
         // if this is an IN operator and the rhs Object isEmpty, add "1=0" instead of the normal SQL.  Note that "FALSE" does not work with all databases.

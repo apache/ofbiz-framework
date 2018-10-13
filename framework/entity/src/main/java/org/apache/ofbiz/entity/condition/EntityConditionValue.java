@@ -45,11 +45,6 @@ public abstract class EntityConditionValue extends EntityConditionBase {
         }
 
         @Override
-        public void accept(EntityConditionVisitor visitor) {
-            visitor.acceptEntityConditionValue(this);
-        }
-
-        @Override
         public void addSqlValue(StringBuilder sql, Map<String, String> tableAliases, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, boolean includeTableNamePrefix, Datasource datasourceinfo) {
             sql.append(value);
         }
@@ -77,11 +72,6 @@ public abstract class EntityConditionValue extends EntityConditionBase {
         @Override
         public void validateSql(org.apache.ofbiz.entity.model.ModelEntity modelEntity) {
         }
-
-        @Override
-        public void visit(EntityConditionVisitor visitor) {
-            visitor.acceptObject(value);
-        }
     }
 
     public abstract ModelField getModelField(ModelEntity modelEntity);
@@ -108,12 +98,6 @@ public abstract class EntityConditionValue extends EntityConditionBase {
     public abstract Object getValue(Delegator delegator, Map<String, ? extends Object> map);
 
     public abstract EntityConditionValue freeze();
-
-    public abstract void visit(EntityConditionVisitor visitor);
-
-    public void accept(EntityConditionVisitor visitor) {
-        throw new IllegalArgumentException("accept not implemented");
-    }
 
     public void toString(StringBuilder sb) {
         addSqlValue(sb, null, new ArrayList<EntityConditionParam>(), false, null);

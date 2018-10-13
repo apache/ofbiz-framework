@@ -96,20 +96,6 @@ public class EntityJoinOperator extends EntityOperator<EntityCondition, EntityCo
         return EntityCondition.makeCondition(newList, this);
     }
 
-    public void visit(EntityConditionVisitor visitor, List<? extends EntityCondition> conditionList) {
-        if (UtilValidate.isNotEmpty(conditionList)) {
-            for (EntityCondition condition: conditionList) {
-                visitor.visit(condition);
-            }
-        }
-    }
-
-    @Override
-    public void visit(EntityConditionVisitor visitor, EntityCondition lhs, EntityCondition rhs) {
-        lhs.visit(visitor);
-        visitor.visit(rhs);
-    }
-
     public Boolean eval(GenericEntity entity, EntityCondition lhs, EntityCondition rhs) {
         return entityMatches(entity, lhs, rhs) ? Boolean.TRUE : Boolean.FALSE;
     }
