@@ -73,14 +73,7 @@ public class JavaMailContainer implements Container {
     protected String configFile = null;
     protected Map<Store, Session> stores = null;
     private String name;
-    /**
-     * Initialize the container
-     *
-     * @param ofbizCommands command line arguments
-     * @param configFile Location of master OFBiz configuration file
-     * @throws org.apache.ofbiz.base.container.ContainerException
-     *
-     */
+
     @Override
     public void init(List<StartupCommand> ofbizCommands, String name, String configFile) throws ContainerException {
         this.name = name;
@@ -89,13 +82,6 @@ public class JavaMailContainer implements Container {
         this.pollTimer = Executors.newScheduledThreadPool(1);
     }
 
-    /**
-     * Start the container
-     *
-     * @return true if server started
-     * @throws org.apache.ofbiz.base.container.ContainerException
-     *
-     */
     @Override
     public boolean start() throws ContainerException {
         ContainerConfig.Configuration cfg = ContainerConfig.getConfiguration(name, configFile);
@@ -139,12 +125,6 @@ public class JavaMailContainer implements Container {
         return true;
     }
 
-    /**
-     * Stop the container
-     *
-     * @throws org.apache.ofbiz.base.container.ContainerException
-     *
-     */
     @Override
     public void stop() throws ContainerException {
         // stop the poller
