@@ -382,7 +382,7 @@ public class ICalConverter {
      * @param context The conversion context
      * @return An iCalendar as a <code>String</code>, or <code>null</code>
      * if <code>workEffortId</code> is invalid.
-     * @throws GenericEntityException
+     * @throws GenericEntityException if communications with the database failed
      */
     public static ResponseProperties getICalendar(String workEffortId, Map<String, Object> context) throws GenericEntityException {
         Delegator delegator = (Delegator) context.get("delegator");
@@ -680,15 +680,20 @@ public class ICalConverter {
         }
     }
 
-    /** Update work efforts from an incoming iCalendar request.
-     * @param is
-     * @param context
-     * @throws IOException
-     * @throws ParserException
-     * @throws GenericEntityException
-     * @throws GenericServiceException
+    /**
+     * Updates work efforts from an incoming iCalendar request.
+     *
+     * @param is the input feeding the calendar parser
+     * @param context parameters from the execution environment
+     * @return the response from the ICalWorker
+     * @throws IOException if there is an issue with {@code is}
+     * @throws ParserException if the calendar build process failed
+     * @throws GenericEntityException if communications with the database failed
+     * @throws GenericServiceException if {@code createWorkEffortICalData} or {@code updateWorkEffortICalData}
+     *         service invocation failed
      */
-    public static ResponseProperties storeCalendar(InputStream is, Map<String, Object> context) throws IOException, ParserException, GenericEntityException, GenericServiceException {
+    public static ResponseProperties storeCalendar(InputStream is, Map<String, Object> context)
+            throws IOException, ParserException, GenericEntityException, GenericServiceException {
         CalendarBuilder builder = new CalendarBuilder();
         Calendar calendar = null;
         try {
