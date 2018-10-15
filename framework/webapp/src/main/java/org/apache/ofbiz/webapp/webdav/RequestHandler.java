@@ -25,6 +25,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.ofbiz.entity.GenericDelegator;
+import org.apache.ofbiz.security.Security;
+import org.apache.ofbiz.service.LocalDispatcher;
+
 @FunctionalInterface
 public interface RequestHandler {
     /**
