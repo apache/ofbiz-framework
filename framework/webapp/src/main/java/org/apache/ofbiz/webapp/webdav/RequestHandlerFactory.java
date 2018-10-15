@@ -18,15 +18,14 @@
  *******************************************************************************/
 package org.apache.ofbiz.webapp.webdav;
 
+@FunctionalInterface
 public interface RequestHandlerFactory {
-    /** Returns a <code>RequestHandler</code> instance appropriate
-     * for the WebDAV HTTP method.
+    /**
+     * Returns a {@link RequestHandler} instance appropriate for the WebDAV HTTP methods.
      *
-     * @param method The WebDAV HTTP method. Implementations MUST
-     * provide handlers for the following methods: PROPFIND, PROPPATCH,
-     * MKCOL, GET, HEAD, POST, DELETE, PUT, COPY, MOVE, LOCK, UNLOCK.
-     * @return A <code>RequestHandler</code> instance. Implementations
-     * of this interface MUST NOT return <code>null</code>.
+     * @param method the WebDAV HTTP method which can be PROPFIND, PROPPATCH,
+     *        MKCOL, GET, HEAD, POST, DELETE, PUT, COPY, MOVE, LOCK, or UNLOCK.
+     * @return a <code>RequestHandler</code> instance which can't be null.
      */
-    public RequestHandler getHandler(String method);
+    RequestHandler getHandler(String method);
 }
