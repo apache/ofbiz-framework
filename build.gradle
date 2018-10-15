@@ -56,6 +56,12 @@ javadoc.failOnError = true
 javadoc.options {
     encoding "UTF-8"
     charSet "UTF-8"
+    links(
+        "https://docs.oracle.com/javase/8/docs/api",
+        "https://docs.oracle.com/javaee/7/api",
+        "http://docs.groovy-lang.org/docs/groovy-2.4.13/html/api",
+        "https://commons.apache.org/proper/commons-cli/apidocs"
+    )
 }
 
 sourceCompatibility = '1.8'
