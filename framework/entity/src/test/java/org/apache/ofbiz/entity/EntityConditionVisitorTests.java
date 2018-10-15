@@ -51,36 +51,36 @@ public class EntityConditionVisitorTests {
         expr.accept(new EntityConditionVisitor() {
             @Override
             public void visit(EntityConditionFunction func) {
-                pw.println("EntityConditionFunction");
+                pw.print("EntityConditionFunction");
             }
 
             @Override
             public <T extends EntityCondition> void visit(EntityConditionList<T> l) {
-                pw.println("EntityConditionList");
+                pw.print("EntityConditionList");
             }
 
             @Override
             public void visit(EntityFieldMap m) {
-                pw.println("EntityFieldMap");
+                pw.print("EntityFieldMap");
             }
 
             @Override
             public void visit(EntityDateFilterCondition df) {
-                pw.println("EntityDateFilterConfition");
+                pw.print("EntityDateFilterConfition");
             }
 
             @Override
             public void visit(EntityExpr expr) {
-                pw.println("EntityExpr");
+                pw.print("EntityExpr");
             }
 
             @Override
             public void visit(EntityWhereString ws) {
-                pw.println("EntityWhereString");
+                pw.print("EntityWhereString");
             }
         });
         pw.flush();
-        assertEquals("EntityExpr\n", os.toString());
+        assertEquals("EntityExpr", os.toString());
     }
 
     /* Checks the more complex example which asserts the presence of a raw string
