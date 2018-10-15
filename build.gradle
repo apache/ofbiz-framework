@@ -47,7 +47,13 @@ if (project.hasProperty('jvmArgs')) {
     jvmArguments = jvmArgs.tokenize()
 }
 ext.ofbizMainClass = 'org.apache.ofbiz.base.start.Start'
+
 javadoc.failOnError = true
+javadoc.options {
+    encoding "UTF-8"
+    charSet "UTF-8"
+}
+
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 
