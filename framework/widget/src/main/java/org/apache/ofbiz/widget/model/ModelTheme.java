@@ -74,6 +74,7 @@ public class ModelTheme implements Serializable {
     //template rendering
     private final Map<String, ModelTemplate> modelTemplateMap;
     private final Map<String, String> modelCommonScreensMap;
+    private final Map<String, String> modelCommonMenusMap;
 
     /**
      * Only constructor to initialize a modelTheme from xml definition
@@ -86,6 +87,7 @@ public class ModelTheme implements Serializable {
         Map<String, Object> initThemePropertiesMap = new HashMap<>();
         Map<String, ModelTemplate> initModelTemplateMap = new HashMap<>();
         Map<String, String> initModelCommonScreensMap = new HashMap<>();
+        Map<String, String> initModelCommonMenusMap = new HashMap<>();
 
         // first resolve value from the origin theme
         Element originThemeElement = UtilXml.firstChildElement(themeElement, "extends");
@@ -120,6 +122,9 @@ public class ModelTheme implements Serializable {
             }
             if (originTheme.modelCommonScreensMap != null) {
                 initModelCommonScreensMap = UtilMisc.makeMapWritable(originTheme.modelCommonScreensMap);
+            }
+            if (originTheme.modelCommonMenusMap != null) {
+                initModelCommonMenusMap = UtilMisc.makeMapWritable(originTheme.modelCommonMenusMap);
             }
         }
 
@@ -167,6 +172,23 @@ public class ModelTheme implements Serializable {
                         }
                     }
                     break;
+                case "common-menus":
+                    for (Element menuPurpose : UtilXml.childElementList(childElement)) {
+                        String defaultLocation = menuPurpose.getAttribute("default-location");
+                        for (Element menu : UtilXml.childElementList(menuPurpose)) {
+                            String name = menu.getAttribute("name");
+                            String location = menu.getAttribute("location");
+                            if (UtilValidate.isEmpty(location)) {
+                                location = defaultLocation;
+                            }
+                            if (UtilValidate.isEmpty(location)) {
+                                Debug.logWarning("We can resolve the menu location " + name + " in the theme " + this.name + " so no added it", module);
+                                continue;
+                            }
+                            initModelCommonMenusMap.put(name, location);
+                        }
+                    }
+                    break;
             }
         }
 
@@ -186,6 +208,7 @@ public class ModelTheme implements Serializable {
         this.themePropertiesMap = Collections.unmodifiableMap(initThemePropertiesMap);
         this.modelTemplateMap = Collections.unmodifiableMap(initModelTemplateMap);
         this.modelCommonScreensMap = Collections.unmodifiableMap(initModelCommonScreensMap);
+        this.modelCommonMenusMap = Collections.unmodifiableMap(initModelCommonMenusMap);
     }
 
     public String getName() {
@@ -370,6 +393,7 @@ public class ModelTheme implements Serializable {
     public Map<String,String> getModelCommonScreens() {
         return modelCommonScreensMap;
     }
+    public Map<String,String> getModelCommonMenus() { return modelCommonMenusMap; }
 
     /**
      * the ModelTemplate class, manage the complexity of macro library definition and the rendering technology
