@@ -31,6 +31,7 @@ import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.widget.renderer.MenuStringRenderer;
+import org.apache.ofbiz.widget.renderer.VisualTheme;
 import org.w3c.dom.Element;
 
 /**
@@ -102,7 +103,7 @@ public class ModelMenu extends ModelWidget {
     private final String type;
 
     /** XML Constructor */
-    public ModelMenu(Element menuElement, String menuLocation) {
+    public ModelMenu(Element menuElement, String menuLocation, VisualTheme visualTheme) {
         super(menuElement);
         ArrayList<ModelAction> actions = new ArrayList<>();
         String defaultAlign = "";
@@ -139,22 +140,26 @@ public class ModelMenu extends ModelWidget {
         if (!parentMenu.isEmpty()) {
             if (!parentResource.isEmpty()) {
                 try {
-                    parent = MenuFactory.getMenuFromLocation(parentResource, parentMenu);
+                    FlexibleStringExpander parentResourceExp = FlexibleStringExpander.getInstance(parentResource);
+                    Map<String, String> visualRessources = visualTheme.getModelTheme().getModelCommonMenus();
+                    parentResource = parentResourceExp.expandString(visualRessources);
+                    parent = MenuFactory.getMenuFromLocation(parentResource, parentMenu, visualTheme);
                 } catch (Exception e) {
-                    Debug.logError(e, "Failed to load parent menu definition '" + parentMenu + "' at resource '" + parentResource
-                            + "'", module);
+                    Debug.logError(e, "Failed to load parent menu definition '" + parentMenu + "' at resource '" + parentResource, module);
                 }
             } else {
                 parentResource = menuLocation;
                 // try to find a menu definition in the same file
                 Element rootElement = menuElement.getOwnerDocument().getDocumentElement();
                 List<? extends Element> menuElements = UtilXml.childElementList(rootElement, "menu");
-                for (Element menuElementEntry : menuElements) {
-                    if (menuElementEntry.getAttribute("name").equals(parentMenu)) {
-                        parent = new ModelMenu(menuElementEntry, parentResource);
-                        break;
-                    }
+                Element parentEntry = menuElements.stream()
+                        .filter(elem -> elem.getAttribute("name").equals(parentMenu))
+                        .findFirst()
+                        .orElse(null);
+                if (parentEntry != null) {
+                    parent = new ModelMenu(parentEntry, parentResource, visualTheme);
                 }
+
                 if (parent == null) {
                     Debug.logError("Failed to find parent menu definition '" + parentMenu + "' in same document.", module);
                 }

@@ -166,4 +166,12 @@ under the License.
             <screen name="ShowHelp" location="component://common-theme/widget/HelpScreens.xml"/>
         </generic-screen>
     </common-screens>
+    <common-menus><!--list all common menu to each application that each theme can be surcharge or not and use the menu present on common theme-->
+        <root-decorator default-location="component://common-theme/widget/CommonMenus.xml">
+            <menu name="CommonAppBarMenu"/>
+            <menu name="CommonTabBarMenu"/>
+            <menu name="CommonButtonBarMenu"/>
+            <menu name="CommonInlineBarMenu"/>
+        </root-decorator>
+    </common-menus>
 </theme>

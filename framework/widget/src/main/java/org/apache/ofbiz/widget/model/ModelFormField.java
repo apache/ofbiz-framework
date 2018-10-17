@@ -75,6 +75,7 @@ import org.apache.ofbiz.widget.renderer.FormRenderer;
 import org.apache.ofbiz.widget.renderer.FormStringRenderer;
 import org.apache.ofbiz.widget.renderer.MenuStringRenderer;
 import org.apache.ofbiz.widget.renderer.ScreenRenderer;
+import org.apache.ofbiz.widget.renderer.VisualTheme;
 import org.codehaus.groovy.control.CompilationFailedException;
 import org.w3c.dom.Element;
 
@@ -3267,7 +3268,7 @@ public class ModelFormField {
             String location = this.getMenuLocation(context);
             ModelMenu modelMenu = null;
             try {
-                modelMenu = MenuFactory.getMenuFromLocation(location, name);
+                modelMenu = MenuFactory.getMenuFromLocation(location, name, (VisualTheme) context.get("visualTheme"));
             } catch (Exception e) {
                 String errMsg = "Error rendering menu named [" + name + "] at location [" + location + "]: ";
                 Debug.logError(e, errMsg, module);

@@ -19,18 +19,15 @@ under the License.
 -->
 
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ofbiz.apache.org/Widget-Menu" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Menu http://ofbiz.apache.org/dtds/widget-menu.xsd">
-    <menu name="CommonAppBarMenu" default-menu-item-name="main" id="app-navigation" type="simple" title="${applicationTitle}&amp;nbsp;"
-        default-selected-style="selected" menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="headerItem">
-        <menu-item name="main" title="${uiLabelMap.CommonMain}">
-            <condition><not><if-empty field="userLogin"/></not></condition>
-            <link target="main" link-type="anchor"/>
-        </menu-item>
-    </menu>
+    <menu name="CommonAppBarMenu" extends="CommonAppBarMenu"
+          extends-resource="${groovy:CommonAppBarMenu?CommonAppBarMenu:'component://common-theme/widget/CommonMenus.xml'}"/>
 
-    <menu name="CommonTabBarMenu" selected-menuitem-context-field-name="tabButtonItem" type="simple"
-          menu-container-style="button-bar tab-bar" default-selected-style="selected"/>
+    <menu name="CommonTabBarMenu" extends="CommonTabBarMenu"
+          extends-resource="${groovy:CommonTabBarMenu?CommonTabBarMenu:'component://common-theme/widget/CommonMenus.xml'}"/>
 
-    <menu name="CommonButtonBarMenu" type="simple" menu-container-style="button-bar" default-widget-style="buttontext"/>
+    <menu name="CommonButtonBarMenu" extends="CommonButtonBarMenu"
+          extends-resource="${groovy:CommonButtonBarMenu?CommonButtonBarMenu:'component://common-theme/widget/CommonMenus.xml'}"/>
 
-    <menu name="CommonInlineBarMenu" type="simple" menu-container-style="in-line-bar" default-widget-style="linktext"/>
+    <menu name="CommonInlineBarMenu" extends="CommonInlineBarMenu"
+          extends-resource="${groovy:CommonInlineBarMenu?CommonInlineBarMenu:'component://common-theme/widget/CommonMenus.xml'}"/>
 </menus>
