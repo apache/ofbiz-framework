@@ -20,4 +20,4 @@ under the License.
 
 The OFBiz webapp is one of the core framework components. It is tightly integrated with other framework components.
 
-include::_include/wa-cross-domains-auto-auth-navigation.adoc[leveloffset=+1]
+include::_include/wa-cross-domains-SSO.adoc[leveloffset=+1]
