@@ -27,6 +27,7 @@ under the License.
                 <xs:element minOccurs="0" maxOccurs="1" ref="theme-properties"/>
                 <xs:element minOccurs="0" maxOccurs="1" ref="templates"/>
                 <xs:element minOccurs="0" maxOccurs="1" ref="common-screens"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="common-menus"/>
             </xs:sequence>
             <xs:attribute type="xs:string" name="name" use="required" />
         </xs:complexType>
@@ -201,11 +202,22 @@ under the License.
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:element name="root-decorator">
+    <xs:element name="common-menus">
+        <xs:annotation><xs:documentation>
+            List the location of each common menus that the theme implement
+        </xs:documentation></xs:annotation>
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="1" maxOccurs="unbounded" ref="screen" />
+                <xs:element ref="root-decorator" />
             </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="root-decorator">
+        <xs:complexType>
+            <xs:choice>
+                <xs:element maxOccurs="unbounded" ref="screen"/>
+                <xs:element maxOccurs="unbounded" ref="menu"/>
+            </xs:choice>
             <xs:attribute type="xs:string" name="default-location" use="optional" />
         </xs:complexType>
     </xs:element>
@@ -226,6 +238,12 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:element name="screen">
+        <xs:complexType>
+            <xs:attribute type="xs:string" name="name" use="required"/>
+            <xs:attribute type="xs:string" name="location" use="optional"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="menu">
         <xs:complexType>
             <xs:attribute type="xs:string" name="name" use="required"/>
             <xs:attribute type="xs:string" name="location" use="optional"/>
