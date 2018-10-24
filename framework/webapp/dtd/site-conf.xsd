@@ -472,6 +472,7 @@ under the License.
                     request-redirect,
                     request-redirect-noparam,
                     url,
+                    url-redirect,
                     cross-redirect
                 </xs:documentation>
             </xs:annotation>
@@ -549,6 +550,13 @@ under the License.
                         <xs:annotation>
                             <xs:documentation>
                                 Any URL, relative or absolute. Redirected parameters are not used, you can put them in the url.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="url-redirect">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Works like URL but you can also pass redirected parameters.
                             </xs:documentation>
                         </xs:annotation>
                     </xs:enumeration>

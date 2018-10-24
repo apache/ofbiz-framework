@@ -695,6 +695,10 @@ public class RequestHandler {
             if ("url".equals(nextRequestResponse.type)) {
                 if (Debug.verboseOn()) Debug.logVerbose("[RequestHandler.doRequest]: Response is a URL redirect." + showSessionId(request), module);
                 callRedirect(nextRequestResponse.value, response, request, ccfg.getStatusCodeString());
+            } else if ("url-redirect".equals(nextRequestResponse.type)) {
+                // check for a cross-application redirect
+                if (Debug.verboseOn()) Debug.logVerbose("[RequestHandler.doRequest]: Response is a URL redirect with redirect parameters." + showSessionId(request), module);
+                callRedirect(nextRequestResponse.value + this.makeQueryString(request, nextRequestResponse), response, request, ccfg.getStatusCodeString());
             } else if ("cross-redirect".equals(nextRequestResponse.type)) {
                 // check for a cross-application redirect
                 if (Debug.verboseOn()) Debug.logVerbose("[RequestHandler.doRequest]: Response is a Cross-Application redirect." + showSessionId(request), module);
