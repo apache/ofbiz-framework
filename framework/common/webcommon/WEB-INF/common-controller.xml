@@ -39,7 +39,7 @@ under the License.
     </postprocessor>
 
     <!-- Security Mappings -->
-    <request-map uri="checkLogin" edit="false">
+    <request-map uri="checkLogin">
         <description>Verify a user is logged in.</description>
         <security https="true" auth="false"/>
         <event type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="extensionCheckLogin"/>
@@ -47,7 +47,7 @@ under the License.
         <response name="impersonated" type="view" value="impersonated"/>
         <response name="error" type="view" value="login"/>
     </request-map>
-    <request-map uri="ajaxCheckLogin" edit="false">
+    <request-map uri="ajaxCheckLogin">
         <description>Verify a user is logged in.</description>
         <security https="true" auth="false"/>
         <event type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="extensionCheckLogin"/>
