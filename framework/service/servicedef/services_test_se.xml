@@ -211,5 +211,22 @@ under the License.
         <attribute name="testingId" type="String" mode="IN"/>
     </service>
 
-
+    <!--call groovy engine service -->
+    <service name="testGroovyPingSuccess" engine="groovy"
+             location="component://service/groovyScripts/test/TestServices.groovy" invoke="testPingSuccess">
+        <attribute name="ping" mode="IN" type="String"/>
+        <attribute name="pong" mode="OUT" type="String"/>
+    </service>
+    <service name="testGroovyPingError" engine="groovy" require-new-transaction="true"
+             location="component://service/groovyScripts/test/TestServices.groovy" invoke="testPingError">
+        <implements service="testGroovyPingSuccess"/>
+    </service>
+    <service name="testGroovyPingSuccessWithDSLCall" engine="groovy"
+             location="component://service/groovyScripts/test/TestServices.groovy" invoke="testPingSuccessWithDSLCall">
+        <implements service="testGroovyPingSuccess"/>
+    </service>
+    <service name="testGroovyPingErrorWithDSLCall" engine="groovy"
+             location="component://service/groovyScripts/test/TestServices.groovy" invoke="testPingErrorWithDSLCall">
+        <implements service="testGroovyPingSuccess"/>
+    </service>
 </services>

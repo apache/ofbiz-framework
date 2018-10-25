@@ -28,12 +28,12 @@ import java.util.Set;
 
 import javax.script.ScriptContext;
 
-import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.GroovyUtil;
 import org.apache.ofbiz.base.util.ScriptHelper;
 import org.apache.ofbiz.base.util.ScriptUtil;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.service.DispatchContext;
+import org.apache.ofbiz.service.ExecutionServiceException;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceDispatcher;
@@ -120,12 +120,20 @@ public final class GroovyEngine extends GenericAsyncEngine {
                     scriptContext.getBindings(ScriptContext.ENGINE_SCOPE),
                     ModelService.OUT_PARAM));
             return result;
-        } catch (GeneralException ge) {
-            throw new GenericServiceException(ge);
         } catch (Exception e) {
-            // detailMessage can be null.  If it is null, the exception won't be properly returned and logged,
-            // and that will make spotting problems very difficult.
-            // Disabling this for now in favor of returning a proper exception.
+            // When throwing ExecutionServiceException in Groovy DSL run Service method
+            // since we are dependent on Groovy MetaClassImpl that throws InvokerInvocationException
+            // we need to check nested exception to return the embedded service error message.
+            Throwable nested = e.getCause();
+            if (nested instanceof ExecutionServiceException) {
+                return ServiceUtil.returnError(nested.getMessage());
+            }
+            if (UtilValidate.isEmpty(modelService.getInvoke())) {
+                throw new GenericServiceException("Error running Groovy script file ["
+                        + modelService.getLocation() + "]: ", e);
+            }
+            // detailMessage can be null.  If it is null, the exception won't be properly returned and logged, and that will
+            // make spotting problems very difficult.  Disabling this for now in favor of returning a proper exception.
             throw new GenericServiceException("Error running Groovy method [" + modelService.getInvoke() + "]"
                     + " in Groovy file [" + modelService.getLocation() + "]: ", e);
         }

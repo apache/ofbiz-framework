@@ -16,24 +16,23 @@
  * specific language governing permissions and limitations
  * under the License.
  *******************************************************************************/
-package org.apache.ofbiz.service;
 
-@SuppressWarnings("serial")
-public class ExecutionServiceException extends org.apache.ofbiz.service.GenericServiceException {
+def testPingSuccess() {
+    Map returnMap = success('Service result success')
+    if (parameters.ping) returnMap.pong = parameters.ping
+    return returnMap
+}
 
-    public ExecutionServiceException() {
-        super();
-    }
+def testPingError() {
+    Map returnMap = error('Service result error')
+    if (parameters.ping) returnMap.pong = parameters.ping
+    return returnMap
+}
 
-    public ExecutionServiceException(String str) {
-        super(str);
-    }
+def testPingSuccessWithDSLCall() {
+    run service: 'testGroovyPingSuccess', with: parameters
+}
 
-    public ExecutionServiceException(String str, Throwable nested) {
-        super(str, nested);
-    }
-
-    public ExecutionServiceException(Throwable nested) {
-        super(nested);
-    }
+def testPingErrorWithDSLCall() {
+    run service: 'testGroovyPingError', with: parameters
 }
