@@ -24,7 +24,6 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.net.URL;
 import java.security.cert.X509Certificate;
-
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -697,8 +696,11 @@ public class RequestHandler {
                 callRedirect(nextRequestResponse.value, response, request, ccfg.getStatusCodeString());
             } else if ("url-redirect".equals(nextRequestResponse.type)) {
                 // check for a cross-application redirect
-                if (Debug.verboseOn()) Debug.logVerbose("[RequestHandler.doRequest]: Response is a URL redirect with redirect parameters." + showSessionId(request), module);
-                callRedirect(nextRequestResponse.value + this.makeQueryString(request, nextRequestResponse), response, request, ccfg.getStatusCodeString());
+                if (Debug.verboseOn())
+                    Debug.logVerbose("[RequestHandler.doRequest]: Response is a URL redirect with redirect parameters."
+                            + showSessionId(request), module);
+                callRedirect(nextRequestResponse.value + this.makeQueryString(request, nextRequestResponse), response,
+                        request, ccfg.getStatusCodeString());
             } else if ("cross-redirect".equals(nextRequestResponse.type)) {
                 // check for a cross-application redirect
                 if (Debug.verboseOn()) Debug.logVerbose("[RequestHandler.doRequest]: Response is a Cross-Application redirect." + showSessionId(request), module);
