@@ -51,6 +51,8 @@ import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
+import org.apache.ofbiz.webapp.control.JWTManager;
+import org.apache.ofbiz.webapp.control.LoginWorker;
 import org.apache.ofbiz.widget.model.ThemeFactory;
 import org.apache.ofbiz.widget.renderer.VisualTheme;
 
@@ -379,4 +381,20 @@ public class CommonEvents {
         return "success";
     }
 
+    public static String loadJWT(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
+        Map<String, String> types = new HashMap<>();
+        String webAppName = UtilHttp.getApplicationName(request);
+        String securedUserLoginId = LoginWorker.getSecuredUserLoginId(request, webAppName);
+        if (securedUserLoginId != null) {
+            types.put("userLoginId", securedUserLoginId);
+            int ttlSeconds =  (int) Long.parseLong(EntityUtilProperties.getPropertyValue("security", "security.jwt.token.expireTime", "10", delegator));
+            String token = JWTManager.createJwt(delegator, types, ttlSeconds);
+            writeJSONtoResponse(JSON.from(token), request, response);
+        } else {
+            Debug.logWarning("No securedUserLoginId cookie was found for this application", module);
+        }
+        return "success";
+    }
+    
 }

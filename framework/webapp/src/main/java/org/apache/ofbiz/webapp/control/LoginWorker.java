@@ -29,7 +29,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.ServiceLoader;
 import java.util.regex.Matcher;
@@ -61,7 +60,6 @@ import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.DelegatorFactory;
 import org.apache.ofbiz.entity.EntityCryptoException;
-import org.apache.ofbiz.entity.GenericEntity;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.condition.EntityCondition;
@@ -580,7 +578,7 @@ public class LoginWorker {
                 Debug.logError(e, "Error setting user preference", module);
             }
             // start with a clean state, in case the user has quit the session w/o login out
-            autoLogoutCleanCookies(userLogin, request, response);
+            autoLogoutCleanCookies(request, response);
             
             // finally do the main login routine to set everything else up in the session, etc
             return doMainLogin(request, response, userLogin, userLoginSession);
@@ -792,6 +790,9 @@ public class LoginWorker {
         RequestHandler rh = RequestHandler.getRequestHandler(request.getSession().getServletContext());
         rh.runAfterLoginEvents(request, response);
 
+        // Create a secured cookie the client cookie with the correct userLoginId
+        createSecuredLoginIdCookie(request, response);
+
         // make sure the autoUserLogin is set to the same and that the client cookie has the correct userLoginId
         return autoLoginSet(request, response);
     }
@@ -849,7 +850,7 @@ public class LoginWorker {
 
         doBasicLogout(userLogin, request, response);
         
-        autoLogoutCleanCookies(userLogin, request, response);
+        autoLogoutCleanCookies(request, response);
         if (request.getAttribute("_AUTO_LOGIN_LOGOUT_") == null) {
             return autoLoginCheck(request, response);
         }
@@ -930,9 +931,27 @@ public class LoginWorker {
             autoLoginCookie.setSecure(true);
             autoLoginCookie.setHttpOnly(true);
             response.addCookie(autoLoginCookie);
+            
             return autoLoginCheck(delegator, session, userLogin.getString("userLoginId"));
         } else {
             return "success";
+        }
+    }
+
+    public static void createSecuredLoginIdCookie(HttpServletRequest request, HttpServletResponse response) {
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
+        HttpSession session = request.getSession();
+        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
+        String domain = EntityUtilProperties.getPropertyValue("url", "cookie.domain", delegator);
+        if (userLogin != null) {
+            String webappName = UtilHttp.getApplicationName(request);
+            Cookie securedLoginIdCookie = new Cookie(getSecuredLoginIdCookieName(webappName), userLogin.getString("userLoginId"));
+            securedLoginIdCookie.setMaxAge(60 * 60 * 24 * 365);
+            securedLoginIdCookie.setDomain(domain);
+            securedLoginIdCookie.setPath("/");
+            securedLoginIdCookie.setSecure(true);
+            securedLoginIdCookie.setHttpOnly(true);
+            response.addCookie(securedLoginIdCookie);
         }
     }
 
@@ -940,14 +959,10 @@ public class LoginWorker {
         return UtilHttp.getApplicationName(request) + ".autoUserLoginId";
     }
 
-    protected static String getAutoLoginCookieName(String webappName) {
-        return webappName + ".autoUserLoginId";
+    protected static String getSecuredLoginIdCookieName(String webappName) {
+        return webappName + ".securedLoginId";
     }
     
-    /**
-    * @deprecated Moved to {@link org.apache.ofbiz.webapp.control.LoginWorker#getAutoUserLoginId(HttpServletRequest request, String webappName) String}
-    */
-   @Deprecated
     public static String getAutoUserLoginId(HttpServletRequest request) {
         String autoUserLoginId = null;
         Cookie[] cookies = request.getCookies();
@@ -965,22 +980,22 @@ public class LoginWorker {
         return autoUserLoginId;
     }
     
-    public static String getAutoUserLoginId(HttpServletRequest request, String webappName) {
-        String autoUserLoginId = null;
+    public static String getSecuredUserLoginId(HttpServletRequest request, String webappName) {
+        String securedUserLoginId = null;
         Cookie[] cookies = request.getCookies();
         if (Debug.verboseOn()) {
             Debug.logVerbose("Cookies: " + Arrays.toString(cookies), module);
         }
-        if (cookies != null) {
+        if (cookies != null && webappName !=null) {
             for (Cookie cookie: cookies) {
-                String cookieName = (webappName != null) ? getAutoLoginCookieName(webappName) : getAutoLoginCookieName(request);
+                String cookieName = getSecuredLoginIdCookieName(webappName);
                 if (cookie.getName().equals(cookieName)) {
-                    autoUserLoginId = cookie.getValue();
+                    securedUserLoginId = cookie.getValue();
                     break;
                 }
             }
         }
-        return autoUserLoginId;
+        return securedUserLoginId;
     }
 
 
@@ -988,7 +1003,7 @@ public class LoginWorker {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         HttpSession session = request.getSession();
 
-        return autoLoginCheck(delegator, session, getAutoUserLoginId(request, null));
+        return autoLoginCheck(delegator, session, getAutoUserLoginId(request));
     }
 
     private static String autoLoginCheck(Delegator delegator, HttpSession session, String autoUserLoginId) {
@@ -1043,15 +1058,15 @@ public class LoginWorker {
         return "success";
     }
     
-    // Removes all the autoLoginCookies but if the webapp requires keeping it
-    public static String autoLogoutCleanCookies(GenericValue userLogin, HttpServletRequest request, HttpServletResponse response) {
+    // Removes all autoLoginCookies but if the webapp requires keeping it
+    public static String autoLogoutCleanCookies(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
 
         Cookie[] cookies = request.getCookies();
         if (Debug.verboseOn()) {
             Debug.logVerbose("Cookies: " + Arrays.toString(cookies), module);
         }
-        if (cookies != null && userLogin != null) {
+        if (cookies != null) {
             for (Cookie autoLoginCookie: cookies) {
                 String autoLoginName = autoLoginCookie.getName().replace(".autoUserLoginId", "");
                 WebappInfo webappInfo = ComponentConfig.getWebappInfo("default-server", autoLoginName);
@@ -1068,7 +1083,28 @@ public class LoginWorker {
         session.removeAttribute("autoName");
 
         request.setAttribute("_AUTO_LOGIN_LOGOUT_", Boolean.TRUE);
+        clearSecuredUserLoginIdCookies(request, response);
         return "success";
+    }
+
+    // Removes all securedLoginIdCookies 
+    public static void clearSecuredUserLoginIdCookies(HttpServletRequest request, HttpServletResponse response) {
+
+        Cookie[] cookies = request.getCookies();
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Cookies: " + Arrays.toString(cookies), module);
+        }
+        if (cookies != null) {
+            for (Cookie securedLoginIdCookie: cookies) {
+                String securedLoginIdName = securedLoginIdCookie.getName().replace(".securedLoginId", "");
+                WebappInfo webappInfo = ComponentConfig.getWebappInfo("default-server", securedLoginIdName);
+                if (webappInfo != null) {
+                    securedLoginIdCookie.setMaxAge(0);
+                    securedLoginIdCookie.setPath("/");
+                    response.addCookie(securedLoginIdCookie);
+                }
+            }
+        }
     }
 
     public static boolean isUserLoggedIn(HttpServletRequest request) {
@@ -1176,6 +1212,7 @@ public class LoginWorker {
 
         return "success";
     }
+    
     // preprocessor method to login a user w/ client certificate see security.properties to configure the pattern of CN
     public static String check509CertLogin(HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
@@ -1439,7 +1476,7 @@ public class LoginWorker {
     /**
      * Return true if userLogin has not been disabled
      * @param userLogin
-     * @return
+     * @return boolean
      */
     public static boolean isUserLoginActive(GenericValue userLogin) {
         return !"N".equals(userLogin.getString("enabled")) && UtilValidate.isEmpty(userLogin.getString("disabledBy"));

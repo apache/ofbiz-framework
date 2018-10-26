@@ -1206,3 +1206,36 @@ function submitPagination(obj, url) {
         }
     }
 }
+function loadJWT(webAppName) {
+    var JwtToken = "";
+    jQuery.ajax({
+        url: "loadJWT",
+        type: "POST",
+        async: false,
+        dataType: "text",
+        success: function(response) {
+            JwtToken = response;
+        },
+        error: function(textStatus, errorThrown){
+            alert('Failure, errorThrown: ' + errorThrown);
+        }
+    });
+    return JwtToken;
+}
+
+function sendJWT(webAppName, targetUrl) {
+    var redirectUrl = targetUrl;
+    var jwtToken = loadJWT(webAppName); 
+    if (jwtToken != null && jwtToken != "") {
+        jQuery.ajax({
+            url: targetUrl,
+            async: false,
+            type: 'POST',
+            xhrFields: {withCredentials: true},
+            headers: {"Authorization" : jwtToken},
+            success: function(){
+                window.location.assign(redirectUrl);
+            }
+        });
+    }
+}

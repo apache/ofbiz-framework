@@ -55,6 +55,9 @@ The mechanism is simple.
 
 . The checkJWTLogin preprocessor, similar to the checkExternalLoginKey, intercepts the JWT, checks it and if all is OK signs the user on. That's it !
 
+In the example component, the FormWidgetExamples screen contains 2 new fields in the LinksExampleForm which demonstrate the use from a local instance to the trunk demo instance.
+
+
 If you are interested in more details you may refer to  https://issues.apache.org/jira/browse/OFBIZ-10307
 
 

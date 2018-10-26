@@ -18,10 +18,13 @@
  */
 package org.apache.ofbiz.webapp.control;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -29,8 +32,11 @@ import javax.servlet.http.HttpSession;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.DelegatorFactory;
+import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.service.LocalDispatcher;
+import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.webapp.WebAppUtil;
 
 /**
@@ -96,9 +102,10 @@ public class ExternalLoginKeysManager {
 
     /**
      * OFBiz controller event that performs the user authentication using the authentication token.
-     * The methods is designed to be used in a chain of controller preprocessor event: it always return &amp;success&amp;
+     * The method is designed to be used in a chain of controller preprocessor event: it always return "success"
      * even when the authentication token is missing or the authentication fails in order to move the processing to the
      * next event in the chain.
+ 
      *
      * @param request - the http request object
      * @param response - the http response object
@@ -126,6 +133,9 @@ public class ExternalLoginKeysManager {
             GenericValue currentUserLogin = (GenericValue) session.getAttribute("userLogin");
             if (currentUserLogin != null) {
                 if (currentUserLogin.getString("userLoginId").equals(userLogin.getString("userLoginId"))) {
+                    // Create a secured cookie the client cookie with the correct userLoginId
+                    LoginWorker.createSecuredLoginIdCookie(request, response);
+                    
                     // same user, just make sure the autoUserLogin is set to the same and that the client cookie has the correct userLoginId
                     LoginWorker.autoLoginSet(request, response);
                     return "success";
@@ -149,6 +159,139 @@ public class ExternalLoginKeysManager {
 
     private static boolean isAjax(HttpServletRequest request) {
        return "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
+    }
+
+    /**
+    * OFBiz controller preprocessor event
+    * The method is designed to be used in a chain of controller preprocessor event: it always return "success"
+    * even when the Authorization token is missing or the Authorization fails.
+    * This in order to move the processing to the next event in the chain.
+    * 
+    * This works in a similar same way than externalLoginKey but between 2 servers on 2 different domains, 
+    * not 2 webapps on the same server.
+    *  
+    * The Single Sign On (SSO) is ensured by a JWT token, 
+    * then all is handled as normal by a session on the reached server.
+    *  
+    * The servers may or may not share a database but the 2 loginUserIds must be the same.
+    * 
+    * In case of a multitenancy usage, the tenant is verified.
+    * @param request The HTTPRequest object for the current request
+    * @param response The HTTPResponse object for the current request
+    * @return String "success" 
+    */
+    public static String checkJWTLogin(HttpServletRequest request, HttpServletResponse response) {
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
+
+        Map<String, Object> result = null;
+        String authorizationHeader = request.getHeader("Authorization");
+        if (authorizationHeader == null) {
+            // No Authorization header, no need to continue, most likely case.
+            return "success";
+        }
+
+        result = jwtValidation(delegator, authorizationHeader);
+        if (result.containsKey(ModelService.ERROR_MESSAGE)) {
+            // The JWT is wrong somehow, stop the process, details are in log
+            return "success";
+        }
+
+        GenericValue userLogin = getUserlogin(delegator, result);
+        if (userLogin == null) {
+            // No UserLogin GenericValue could be retrieved, stop the process, details are in log 
+            return "success";
+        }
+
+        checkTenant(request, response, delegator, userLogin);
+
+        if (!storeUserlogin(userLogin)) {
+            // We could not store the UserLogin GenericValue (very unlikely), stop the process, details are in log
+            return "success";
+        }
+
+        LoginWorker.doBasicLogin(userLogin, request);
+        return "success";
+    }
+
+    /**
+     * Checks it's the right tenant in case username and password are the same in different tenants
+     * If not, sets the necessary session attributes
+     * @param request The HTTPRequest object for the current request
+     * @param response The HTTPResponse object for the current request
+     * @param delegator The current delegator
+     * @param userLogin The GenericValue object of userLogin to check
+     */
+    private static void checkTenant(HttpServletRequest request, HttpServletResponse response, Delegator delegator,
+            GenericValue userLogin) {
+        // 
+        // 
+
+        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+        String oldDelegatorName = delegator.getDelegatorName();
+        ServletContext servletContext = request.getSession().getServletContext();
+        if (!oldDelegatorName.equals(userLogin.getDelegator().getDelegatorName())) {
+            delegator = DelegatorFactory.getDelegator(userLogin.getDelegator().getDelegatorName());
+            dispatcher = WebAppUtil.makeWebappDispatcher(servletContext, delegator);
+            LoginWorker.setWebContextObjects(request, response, delegator, dispatcher);
+        }
+    }
+
+    /**
+     * Stores the userLogin in DB. If it fails log an error message
+     * @param userLogin The userLogin GenericValue to store
+     * @return boolean True if it works, log an error message if it fails 
+     */
+    private static boolean storeUserlogin(GenericValue userLogin) {
+        String enabled = userLogin.getString("enabled");
+        if (enabled == null || "Y".equals(enabled)) {
+            userLogin.set("hasLoggedOut", "N");
+            try {
+                userLogin.store();
+            } catch (GenericEntityException e) {
+                Debug.logError(e, "Cannot store UserLogin information: " + e.getMessage(), module);
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Gets the userLogin from the userLoginId in the result of the JWT validation
+     * If it fails, log a warning or error message  
+     * @param delegator The current delegator
+     * @param jwtMap Map of name, value pairs composing the result of the JWT validation
+     * @return userLogin The userLogin GenericValue extracted from DB 
+     */
+    private static GenericValue getUserlogin(Delegator delegator, Map<String, Object> jwtMap) {
+        String userLoginId = (String) jwtMap.get("userLoginId");
+        GenericValue userLogin = null;
+        try {
+            userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", userLoginId).queryOne();
+            if (userLogin == null) {
+                Debug.logWarning("*** There was a problem with the JWT token. Could not find userLogin " + userLoginId, module);
+            }
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Cannot get UserLogin information: " + e.getMessage(), module);
+        }
+        return userLogin;
+    }
+
+    /**
+     * Validate the token usingJWTManager::validateToken
+     * If it fails, returns a ModelService.ERROR_MESSAGE in the result
+     * @param delegator The current delegator
+     * @param authorizationHeader The JWT which normally contains the userLoginId
+     * @param result  Map of name, value pairs composing the result 
+     */
+    private static Map<String, Object> jwtValidation(Delegator delegator, String authorizationHeader) {
+        Map<String, Object> result;
+        List<String> types = Arrays.asList("userLoginId");
+        result = JWTManager.validateToken(delegator, authorizationHeader, types);
+        if (result.containsKey(ModelService.ERROR_MESSAGE)) {
+            // Something unexpected happened here  
+            Debug.logWarning("*** There was a problem with the JWT, not signin in the user login ", module);
+        }        
+        return result;
     }
     
 }

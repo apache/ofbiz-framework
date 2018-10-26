@@ -31,6 +31,7 @@ under the License.
         <event name="checkRequestHeaderLogin" type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="checkRequestHeaderLogin"/>
         <event name="checkServletRequestRemoteUserLogin" type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="checkServletRequestRemoteUserLogin"/>
         <event name="checkExternalLoginKey" type="java" path="org.apache.ofbiz.webapp.control.ExternalLoginKeysManager" invoke="checkExternalLoginKey"/>
+        <event name="checkJWTLogin" type="java" path="org.apache.ofbiz.webapp.control.ExternalLoginKeysManager" invoke="checkJWTLogin"/>
         <event name="checkProtectedView" type="java" path="org.apache.ofbiz.webapp.control.ProtectViewWorker" invoke="checkProtectedView"/>
         <event name="extensionConnectLogin" type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="extensionConnectLogin"/>
     </preprocessor>
@@ -266,6 +267,14 @@ under the License.
     <request-map uri="getJSONuiLabel">
         <security https="true" auth="false"/>
         <event type="java" path="org.apache.ofbiz.common.CommonEvents" invoke="getJSONuiLabel"/>
+        <response name="success" type="none" />
+        <response name="error" type="none" />
+    </request-map>
+
+    <!-- Common JavaScript loadJWT Request, to receive JwtToken within regular JS Code -->
+    <request-map uri="loadJWT">
+        <security https="true" auth="false"/>
+        <event type="java" path="org.apache.ofbiz.common.CommonEvents" invoke="loadJWT"/>
         <response name="success" type="none" />
         <response name="error" type="none" />
     </request-map>
