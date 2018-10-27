@@ -1,0 +1,75 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Financial Accounts
+
+A "Financial Account" is a tool (similar to bank account statement) that is used for monitoring monetary transactions.
+Normally it will be linked to a party and the various transactions details (e.g. payments or receipts) will be shown as entries.
+
+
+At the time of writing, OFBiz allows you to create the following type of financial accounts
+
+ * Bank Account
+ * Credit Card Account
+ * Deposit Account
+ * Equity Line Account
+ * Gift Certificate
+ * Investment Account
+ * Loan Account
+ * Replenish Account
+ * Service Credit Account
+ * Store Credit Account
+
+== Bank Account
+
+A "Bank Account" is a financial account between a bank and their customer.
+By default this type of financial account will post to 213500 CUSTOMER DEPOSIT ACCOUNTS.
+
+If you have installed OFBiz with the demo data then there are already examples
+of Bank Accounts created for you.
+
+== Credit Card Account
+
+== Deposit Account
+
+A "Deposit Account" is a financial account which allows money to be deposited and withdrawn by the account holder.
+By default this type of financial account will post to 213500 CUSTOMER DEPOSIT ACCOUNTS.
+
+== Equity Line Account
+
+== Gift Certificate
+
+A "Gift Certificate" is something that entitles the recipient to select merchandise up to a specified value from a store. It is usually presented as a gift.
+By default this type of financial account will post to 213200 GIFT CERTIFICATES UNREDEEMED.
+
+== Investment Account
+
+An "Investment Account" is a financial account that contains deposits of funds and/or securities that are held at a at a bank, stock exchange or other financial Institution.
+By default this type of financial account will post to 213500 CUSTOMER DEPOSIT ACCOUNTS.
+
+== Loan Account
+
+== Replenish Account
+
+== Service Credit Account
+
+== Store Credit Account
+
+A "Store Credit Account" is a financial account that is used to to maintain the refund amount
+Specify the type (Billing Account or Financial Account) of Store Credit Account used for refund return. Default to Financial Account.
+
