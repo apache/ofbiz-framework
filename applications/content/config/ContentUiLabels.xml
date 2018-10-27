@@ -955,6 +955,9 @@
         <value xml:lang="zh">内容</value>
         <value xml:lang="zh-TW">內容</value>
     </property>
+    <property key="ContentContentCreatedSuccessfully">
+        <value xml:lang="en">Content created successfully.</value>
+    </property>
     <property key="ContentContentCreatingError">
         <value xml:lang="en">Error creating content in ${serviceName}</value>
         <value xml:lang="fr">Erreur de création du document dans le service ${serviceName}</value>
@@ -964,6 +967,9 @@
         <value xml:lang="vi">Lỗi khi tạo nội dung với ${serviceName}</value>
         <value xml:lang="zh">在${serviceName}中创建内容时出错</value>
         <value xml:lang="zh-TW">在${serviceName}中新建內容時出錯</value>
+    </property>
+    <property key="ContentContentDeletedSuccessfully">
+        <value xml:lang="en">Content deleted successfully.</value>
     </property>
     <property key="ContentContentIdOrUploadFileIsMissing">
         <value xml:lang="en">Content Id or Upload file is missing.</value>
@@ -1060,6 +1066,9 @@
         <value xml:lang="vi">Nội dung Đến ${contentTo}/Từ ${contentFrom} chưa nhập.</value>
         <value xml:lang="zh">内容到（contentTo） ${contentTo}/内容自（contentFrom） ${contentFrom} 是空的（null）</value>
         <value xml:lang="zh-TW">內容_迄(contentTo) ${contentTo}/內容_起(contentFrom) ${contentFrom} 是空的(null)</value>
+    </property>
+    <property key="ContentContentUpdatedSuccessfully">
+        <value xml:lang="en">Content updated successfully.</value>
     </property>
     <property key="ContentContentUpdatingError">
         <value xml:lang="en">Error updating content in ${serviceName}</value>

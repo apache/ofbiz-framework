@@ -50,6 +50,8 @@
         <create-value value-field="content"/>
 
         <field-to-result field="content.contentId" result-name="contentId"/>
+        <check-errors/>
+        <property-to-field property="ContentContentCreatedSuccessfully" resource="ContentUiLabels" field="successMessage"/>
     </simple-method>
     <simple-method method-name="updateContent" short-description="Update a Content Record">
         <entity-one entity-name="Content" value-field="content" auto-field-map="true"/>
@@ -61,6 +63,8 @@
 
         <store-value value-field="content"/>
         <field-to-result field="content.contentId" result-name="contentId"/>
+        <check-errors/>
+        <property-to-field property="ContentContentUpdatedSuccessfully" resource="ContentUiLabels" field="successMessage"/>
     </simple-method>
     <simple-method method-name="removeContent" short-description="Remove a Content Record">
         <make-value entity-name="Content" value-field="lookupKeyValue"/>
@@ -68,6 +72,8 @@
         <find-by-primary-key entity-name="Content" map="lookupKeyValue" value-field="content"/>
 
         <remove-value value-field="content"/>
+        <check-errors/>
+        <property-to-field property="ContentContentDeletedSuccessfully" resource="ContentUiLabels" field="successMessage"/>
     </simple-method>
     <simple-method method-name="removeContentAndRelated" short-description="Remove a Content Record, related resource(s) and assocs.">
         <entity-one entity-name="Content" value-field="content"/> 
