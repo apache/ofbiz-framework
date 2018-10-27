@@ -117,7 +117,7 @@ dependencies {
     compile 'com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.4.2'
     compile 'com.googlecode.ez-vcard:ez-vcard:0.9.10'
     compile 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:20170515.1'
-    compile 'com.googlecode.libphonenumber:libphonenumber:8.8.7'
+    compile 'com.googlecode.libphonenumber:libphonenumber:8.9.16'
     compile 'com.ibm.icu:icu4j:60.2'
     compile 'com.lowagie:itext:2.1.7' // Don't update due to license change in newer versions, see OFBIZ-10455
     compile 'com.sun.mail:javax.mail:1.6.0'
