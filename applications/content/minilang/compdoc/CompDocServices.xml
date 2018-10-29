@@ -25,7 +25,7 @@ under the License.
         <entity-one entity-name="Content" value-field="rootTemplateContent">
             <field-map field-name="contentId" from-field="parameters.instanceOfContentId"/>
         </entity-one>
-        <log message="genCompDocInstance> rootTemplateContent: ${rootTemplateContent}" level="info"/>
+        <log level="info" message="genCompDocInstance> rootTemplateContent: ${rootTemplateContent}"/>
 
         <!--  if not passed in, get latest template contentRevisionSeqId from db -->
         <if-empty field="parameters.contentRevisionSeqId">
@@ -45,7 +45,7 @@ under the License.
                 <set from-field="parameters.contentRevisionSeqId" field="contentRevisionSeqId"/>
             </else>
         </if-empty>
-        <log message="genCompDocInstance> contentRevisionSeqId: ${contentRevisionSeqId}" level="info"/>
+        <log level="info" message="genCompDocInstance> contentRevisionSeqId: ${contentRevisionSeqId}"/>
 
         <make-value entity-name="Content" value-field="rootInstanceContent"/>
         <if-empty field="parameters.rootInstanceContentId">
@@ -77,12 +77,12 @@ under the License.
         <set value="COMPDOC_INSTANCE" field="rootInstanceContent.contentTypeId"/>
         <create-value value-field="rootInstanceContent"/>
 
-        <log message="genCompDocInstance 3> rootInstanceContent: ${rootInstanceContent}" level="info"/>
+        <log level="info" message="genCompDocInstance 3> rootInstanceContent: ${rootInstanceContent}"/>
         <field-to-result field="rootInstanceContent.contentId" result-name="contentId"/>
         <set from-field="parameters.instanceOfContentId" field="parentTemplateContentId"/>
         <set from-field="rootInstanceContent.contentId" field="parentInstanceContentId"/>
-        <log message="genCompDocInstance 4> parentTemplateContentId: ${parentTemplateContentId}" level="info"/>
-        <log message="genCompDocInstance 5> parentInstanceContentId: ${parentInstanceContentId}" level="info"/>
+        <log level="info" message="genCompDocInstance 4> parentTemplateContentId: ${parentTemplateContentId}"/>
+        <log level="info" message="genCompDocInstance 5> parentInstanceContentId: ${parentInstanceContentId}"/>
         <set from-field="parentInstanceContentId" field="revisionMap.contentId"/>
         <set from-field="parentInstanceContentId" field="revisionMap.itemContentId"/>
         <set from-field="parameters.userLogin" field="revisionMap.userLogin"/>
@@ -107,8 +107,8 @@ under the License.
     <simple-method method-name="genInstanceChildCompDocs" short-description="Create CompDoc">
         <set from-field="parentTemplateContentId" field="thisTemplateContentId"/>
         <set from-field="parentInstanceContentId" field="thisInstanceContentId"/>
-        <log message="genInstanceChildCompDocs 0> thisTemplateContentId: ${thisTemplateContentId}" level="info"/>
-        <log message="genInstanceChildCompDocs 1> thisInstanceContentId: ${thisInstanceContentId}" level="info"/>
+        <log level="info" message="genInstanceChildCompDocs 0> thisTemplateContentId: ${thisTemplateContentId}"/>
+        <log level="info" message="genInstanceChildCompDocs 1> thisInstanceContentId: ${thisInstanceContentId}"/>
         <entity-condition entity-name="ContentAssoc" list="contentAssocList">
             <condition-list combine="and">
                 <condition-expr field-name="contentIdTo" operator="equals" from-field="thisTemplateContentId"/>
@@ -119,7 +119,7 @@ under the License.
                 </condition-list>
             </condition-list>
         </entity-condition>
-        <log message="genInstanceChildCompDocs 1> contentAssocList: ${contentAssocList}" level="info"/>
+        <log level="info" message="genInstanceChildCompDocs 1> contentAssocList: ${contentAssocList}"/>
 
         <iterate list="contentAssocList" entry="templateContentAssoc">
             <clone-value value-field="templateContent" new-value-field="instanceContent"/>

@@ -988,7 +988,7 @@ under the License.
                 <set field="convertUomInMap.originalValue" from-field="orderHeader.grandTotal" />
                 <set field="convertUomInMap.uomId" from-field="orderHeader.currencyUom" />
                 <set field="convertUomInMap.uomIdTo" from-field="partyAcctgPreference.baseCurrencyUomId" />
-                <log message="convertUomInMap = ${convertUomInMap}" level="info" />
+                <log level="info" message="convertUomInMap = ${convertUomInMap}"/>
                 <call-service service-name="convertUom" in-map-name="convertUomInMap">
                     <result-to-field result-name="convertedValue" field="parameters.amount" />
                 </call-service>

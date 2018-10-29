@@ -72,9 +72,9 @@ under the License.
         </if-empty>
         <check-errors/>
 
-        <log message="parameters: ${parameters}" level="info"/>
+        <log level="info" message="parameters: ${parameters}"/>
         <clone-value value-field="facilityContactMech" new-value-field="newFacilityContactMech"/>
-        <log message="parameters: ${parameters}" level="info"/>
+        <log level="info" message="parameters: ${parameters}"/>
         <!-- If we already have a new contactMechId don't update ContactMech -->
         <if-empty field="parameters.newContactMechId">
             <set-service-fields service-name="updateContactMech" map="parameters" to-map="updateContactMechMap"/>
