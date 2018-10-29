@@ -503,9 +503,9 @@ under the License.
         </field>
         <field name="isPosted">
             <drop-down>
-                <option description="${uiLabelMap.CommonYes}" key="Y"/>
-                <option description="${uiLabelMap.CommonNo}" key="N"/>
-                <option description="${uiLabelMap.CommonAll}" key="ALL"/>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
+                <option key="ALL" description="${uiLabelMap.CommonAll}"/>
             </drop-down>
         </field>
         <field name="submitButton" widget-style="buttontext"><submit button-type="text-link"/></field>
