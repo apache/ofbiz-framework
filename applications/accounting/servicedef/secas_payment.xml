@@ -69,14 +69,14 @@ under the License.
      </eca>
 
     <eca service="setPaymentStatus" event="commit">
-        <condition operator="equals" field-name="statusId" value="PMNT_RECEIVED"/>
-        <condition operator="not-equals" field-name="oldStatusId" value="PMNT_RECEIVED"/>
+        <condition field-name="statusId" operator="equals" value="PMNT_RECEIVED"/>
+        <condition field-name="oldStatusId" operator="not-equals" value="PMNT_RECEIVED"/>
         <action service="createMatchingPaymentApplication" mode="sync"/>
     </eca>
 
     <eca service="setPaymentStatus" event="commit">
-        <condition operator="equals" field-name="statusId" value="PMNT_SENT"/>
-        <condition operator="not-equals" field-name="oldStatusId" value="PMNT_SENT"/>
+        <condition field-name="statusId" operator="equals" value="PMNT_SENT"/>
+        <condition field-name="oldStatusId" operator="not-equals" value="PMNT_SENT"/>
         <action service="createMatchingPaymentApplication" mode="sync"/>
     </eca>
 
