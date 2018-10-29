@@ -264,7 +264,7 @@ under the License.
                 <decorator-screen name="CommonContactListDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditContactList}">
-                            <include-menu location="component://marketing/widget/ContactListMenus.xml" name="ContactListCommBar"/>
+                            <include-menu name="ContactListCommBar" location="component://marketing/widget/ContactListMenus.xml"/>
                             <container style="button-bar">
                                 <link  text="${uiLabelMap.MarketingContactListCommEventCreate}" target="EditContactListCommEvent" style="buttontext create">
                                     <parameter param-name="contactListId"/>

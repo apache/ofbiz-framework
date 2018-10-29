@@ -148,8 +148,8 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonOpportunityDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="CommEventTabBar"/>
-                        <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="CommSubTabBar"/>
+                        <include-menu name="CommEventTabBar" location="component://party/widget/partymgr/PartyMenus.xml"/>
+                        <include-menu name="CommSubTabBar" location="component://party/widget/partymgr/PartyMenus.xml"/>
                         <screenlet title="${uiLabelMap.PageTitleListCommunications} ${partyId}">
                             <include-form name="ListCommEvents" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
                         </screenlet>
