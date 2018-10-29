@@ -309,7 +309,7 @@
         <!-- run demo General Chart Of Accounts  -->
         <entity-condition entity-name="GlAccount" list="glAccountList"/>
         <if-empty field="glAccountList">
-            <set field="importChartOfAccountCtx.filename" value="${sys:getProperty('ofbiz.home')}/applications/accounting/data/DemoGeneralChartOfAccounts.xml"/>
+            <set field="importChartOfAccountCtx.filename" value="${sys:getProperty('ofbiz.home')}/applications/accounting/data/OfbizSetupChartOfAccountsData.xml"/>
             <session-to-field field="importChartOfAccountCtx.userLogin" session-name="userLogin"/>
             <call-service service-name="entityImport" in-map-name="importChartOfAccountCtx"/>
             <check-errors/>
@@ -319,7 +319,7 @@
         <now-timestamp field="nowTimestamp"/>
         <set field="placeholderValues.orgPartyId" from="partyId"/>
         <set field="placeholderValues.fromDate" value="${groovy:nowTimestamp.toString()}"/>
-        <set field="importFileCtx.filename" value="${sys:getProperty('ofbiz.home')}/applications/commonext/data/GlAccountData.xml"/>
+        <set field="importFileCtx.filename" value="${sys:getProperty('ofbiz.home')}/applications/commonext/data/OfbizSetupGlAccountData.xml"/>
         <set field="importFileCtx.placeholderValues" from="placeholderValues"/>
         <call-service service-name="entityImport" in-map-name="importFileCtx"/>
         <check-errors/>
@@ -440,7 +440,7 @@
         <entity-condition entity-name="ShipmentMethodType" list="shipmentMethodTypeList"/>
         <if-empty field="shipmentMethodTypeList">
             <!-- run demo Shipping  -->
-            <set field="importShippingCtx.filename" value="${sys:getProperty('ofbiz.home')}/applications/commonext/data/ShippingData.xml"/>
+            <set field="importShippingCtx.filename" value="${sys:getProperty('ofbiz.home')}/applications/commonext/data/OfbizSetupShippingData.xml"/>
             <session-to-field field="importShippingCtx.userLogin" session-name="userLogin"/>
             <call-service service-name="entityImport" in-map-name="importShippingCtx"/>
             <check-errors/>
@@ -449,7 +449,7 @@
         <!-- Import Default ProductStore & Shipment data -->
         <set field="placeholderValues.orgPartyId" from="organizationPartyId"/>
         <set field="placeholderValues.productStoreId" from="productStoreId"/>
-        <set field="importFileCtx.filename" value="${sys:getProperty('ofbiz.home')}/applications/commonext/data/ProductStoreData.xml"/>
+        <set field="importFileCtx.filename" value="${sys:getProperty('ofbiz.home')}/applications/commonext/data/OfbizSetupProductStoreData.xml"/>
         <set field="importFileCtx.placeholderValues" from="placeholderValues"/>
         <call-service service-name="entityImport" in-map-name="importFileCtx"/>
         <check-errors/>
