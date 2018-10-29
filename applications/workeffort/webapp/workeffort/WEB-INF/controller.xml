@@ -482,21 +482,21 @@ under the License.
 
     <request-map uri="createWorkEffortContent">
         <security auth="true" https="true"/>
-        <event invoke="createWorkEffortContent" path="" type="service"/>
+        <event type="service" invoke="createWorkEffortContent" path=""/>
         <response name="success" type="view" value="EditWorkEffortContents"/>
         <response name="error" type="view" value="EditWorkEffortContents"/>
     </request-map>
 
     <request-map uri="updateWorkEffortContent">
         <security auth="true" https="true"/>
-        <event invoke="updateWorkEffortContent" path="" type="service"/>
+        <event type="service" invoke="updateWorkEffortContent" path=""/>
         <response name="success" type="view" value="EditWorkEffortContents"/>
         <response name="error" type="view" value="EditWorkEffortContents"/>
     </request-map>
 
     <request-map uri="deleteWorkEffortContent">
         <security auth="true" https="true"/>
-        <event invoke="deleteWorkEffortContent" path="" type="service"/>
+        <event type="service" invoke="deleteWorkEffortContent" path=""/>
         <response name="success" type="view" value="EditWorkEffortContents"/>
         <response name="error" type="view" value="EditWorkEffortContents"/>
     </request-map>
@@ -509,21 +509,21 @@ under the License.
 
     <request-map uri="createWorkEffortGoodStandard">
         <security auth="true" https="true"/>
-        <event invoke="createWorkEffortGoodStandard" path="" type="service"/>
+        <event type="service" invoke="createWorkEffortGoodStandard" path=""/>
         <response name="success" type="view" value="EditWorkEffortGoodStandards"/>
         <response name="error" type="view" value="EditWorkEffortGoodStandards"/>
     </request-map>
 
     <request-map uri="updateWorkEffortGoodStandard">
         <security auth="true" https="true"/>
-        <event invoke="updateWorkEffortGoodStandard" path="" type="service"/>
+        <event type="service" invoke="updateWorkEffortGoodStandard" path=""/>
         <response name="success" type="view" value="EditWorkEffortGoodStandards"/>
         <response name="error" type="view" value="EditWorkEffortGoodStandards"/>
     </request-map>
 
     <request-map uri="removeWorkEffortGoodStandard">
         <security auth="true" https="true"/>
-        <event invoke="removeWorkEffortGoodStandard" path="" type="service"/>
+        <event type="service" invoke="removeWorkEffortGoodStandard" path=""/>
         <response name="success" type="view" value="EditWorkEffortGoodStandards"/>
         <response name="error" type="view" value="EditWorkEffortGoodStandards"/>
     </request-map>

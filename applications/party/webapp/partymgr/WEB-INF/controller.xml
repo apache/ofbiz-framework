@@ -941,7 +941,7 @@ under the License.
     </request-map>
     <request-map uri="uploadParty">
         <security auth="true" https="true"/>
-        <event invoke="importParty" path="" type="service"/>
+        <event type="service" invoke="importParty" path=""/>
         <response name="success" type="request" value="ImportExport"/>
         <response name="error" type="view" value="ImportExport"/>
     </request-map>

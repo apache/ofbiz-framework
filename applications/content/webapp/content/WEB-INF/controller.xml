@@ -169,13 +169,13 @@ under the License.
     </request-map>
     <request-map uri="createForumGroup">
         <security https="true" auth="true"/>
-        <event invoke="createContent" type="service"/>
+        <event type="service" invoke="createContent"/>
         <response name="success" type="view" value="FindForumGroups"/>
         <response name="error" type="view" value="FindForumGroups"/>
     </request-map>
     <request-map uri="updateForumGroup">
         <security https="true" auth="true"/>
-        <event invoke="updateContent" type="service"/>
+        <event type="service" invoke="updateContent"/>
         <response name="success" type="view" value="FindForumGroups"/>
         <response name="error" type="view" value="FindForumGroups"/>
     </request-map>
@@ -186,19 +186,19 @@ under the License.
     </request-map>
     <request-map uri="createForumGroupRole">
         <security https="true" auth="true"/>
-        <event invoke="createContentRole" type="service"/>
+        <event type="service" invoke="createContentRole"/>
         <response name="success" type="view" value="ForumGroupRoles"/>
         <response name="error" type="view" value="ForumGroupRoles"/>
     </request-map>
     <request-map uri="updateForumGroupRole">
         <security https="true" auth="true"/>
-        <event invoke="updateContentRole" type="service"/>
+        <event type="service" invoke="updateContentRole"/>
         <response name="success" type="view" value="ForumGroupRoles"/>
         <response name="error" type="view" value="ForumGroupRoles"/>
     </request-map>
     <request-map uri="deleteForumGroupRole">
         <security https="true" auth="true"/>
-        <event invoke="removeContentRole" type="service"/>
+        <event type="service" invoke="removeContentRole"/>
         <response name="success" type="view" value="ForumGroupRoles"/>
         <response name="error" type="view" value="ForumGroupRoles"/>
     </request-map>
@@ -209,13 +209,13 @@ under the License.
     </request-map>
     <request-map uri="createForumGroupPurpose">
         <security https="true" auth="true"/>
-        <event invoke="createContentPurpose" type="service"/>
+        <event type="service" invoke="createContentPurpose"/>
         <response name="success" type="view" value="ForumGroupPurposes"/>
         <response name="error" type="view" value="ForumGroupPurposes"/>
     </request-map>
     <request-map uri="deleteForumGroupPurpose">
         <security https="true" auth="true"/>
-        <event invoke="removeContentPurpose" type="service"/>
+        <event type="service" invoke="removeContentPurpose"/>
         <response name="success" type="view" value="ForumGroupPurposes"/>
         <response name="error" type="view" value="ForumGroupPurposes"/>
     </request-map>
@@ -226,13 +226,13 @@ under the License.
     </request-map>
     <request-map uri="createForum">
         <security https="true" auth="true"/>
-        <event invoke="persistContentAndAssoc" type="service"/>
+        <event type="service" invoke="persistContentAndAssoc"/>
         <response name="success" type="view" value="FindForums"/>
         <response name="error" type="view" value="FindForums"/>
     </request-map>
     <request-map uri="updateForum">
         <security https="true" auth="true"/>
-        <event invoke="persistContentAndAssoc" type="service"/>
+        <event type="service" invoke="persistContentAndAssoc"/>
         <response name="success" type="view" value="FindForums"/>
         <response name="error" type="view" value="FindForums"/>
     </request-map>
@@ -259,13 +259,13 @@ under the License.
     </request-map>
     <request-map uri="updateForumMessage">
         <security https="true" auth="true"/>
-        <event invoke="persistContentAndAssoc" type="service"/>
+        <event type="service" invoke="persistContentAndAssoc"/>
         <response name="success" type="view" value="FindForumMessages"/>
         <response name="error" type="view" value="FindForumMessages"/>
     </request-map>
     <request-map uri="updateForumThreadMessage">
         <security https="true" auth="true"/>
-        <event invoke="persistContentAndAssoc" type="service"/>
+        <event type="service" invoke="persistContentAndAssoc"/>
         <response name="success" type="view" value="FindForumThreads"/>
         <response name="error" type="view" value="FindForumThreads"/>
     </request-map>
@@ -464,19 +464,19 @@ under the License.
     </request-map>
     <request-map uri="addContentType">
         <security auth="true" https="true"/>
-        <event invoke="createContentType" path="" type="service"/>
+        <event type="service" invoke="createContentType" path=""/>
         <response name="success" type="view" value="EditContentType"/>
         <response name="error" type="view" value="EditContentType"/>
     </request-map>
     <request-map uri="updateContentType">
         <security auth="true" https="true"/>
-        <event invoke="updateContentType" path="" type="service"/>
+        <event type="service" invoke="updateContentType" path=""/>
         <response name="success" type="view" value="EditContentType"/>
         <response name="error" type="view" value="EditContentType"/>
     </request-map>
     <request-map uri="removeContentType">
         <security auth="true" https="true"/>
-        <event invoke="removeContentType" path="" type="service"/>
+        <event type="service" invoke="removeContentType" path=""/>
         <response name="success" type="view" value="EditContentType"/>
         <response name="error" type="view" value="EditContentType"/>
     </request-map>
@@ -488,19 +488,19 @@ under the License.
     </request-map>
     <request-map uri="addContentRole">
         <security auth="true" https="true"/>
-        <event invoke="createContentRole" path="" type="service"/>
+        <event type="service" invoke="createContentRole" path=""/>
         <response name="success" type="view" value="EditContentRole"/>
         <response name="error" type="view" value="EditContentRole"/>
     </request-map>
     <request-map uri="updateContentRole">
         <security auth="true" https="true"/>
-        <event invoke="updateContentRole" path="" type="service"/>
+        <event type="service" invoke="updateContentRole" path=""/>
         <response name="success" type="view" value="EditContentRole"/>
         <response name="error" type="view" value="EditContentRole"/>
     </request-map>
     <request-map uri="removeContentRole">
         <security auth="true" https="true"/>
-        <event invoke="removeContentRole" path="" type="service"/>
+        <event type="service" invoke="removeContentRole" path=""/>
         <response name="success" type="view" value="EditContentRole"/>
         <response name="error" type="view" value="EditContentRole"/>
     </request-map>
@@ -512,19 +512,19 @@ under the License.
     </request-map>
     <request-map uri="addContentAssocType">
         <security auth="true" https="true"/>
-        <event invoke="createContentAssocType" path="" type="service"/>
+        <event type="service" invoke="createContentAssocType" path=""/>
         <response name="success" type="view" value="EditContentAssocType"/>
         <response name="error" type="view" value="EditContentAssocType"/>
     </request-map>
     <request-map uri="updateContentAssocType">
         <security auth="true" https="true"/>
-        <event invoke="updateContentAssocType" path="" type="service"/>
+        <event type="service" invoke="updateContentAssocType" path=""/>
         <response name="success" type="view" value="EditContentAssocType"/>
         <response name="error" type="view" value="EditContentAssocType"/>
     </request-map>
     <request-map uri="removeContentAssocType">
         <security auth="true" https="true"/>
-        <event invoke="removeContentAssocType" path="" type="service"/>
+        <event type="service" invoke="removeContentAssocType" path=""/>
         <response name="success" type="view" value="EditContentAssocType"/>
         <response name="error" type="view" value="EditContentAssocType"/>
     </request-map>
@@ -536,19 +536,19 @@ under the License.
     </request-map>
     <request-map uri="addContentPurposeType">
         <security auth="true" https="true"/>
-        <event invoke="createContentPurposeType" path="" type="service"/>
+        <event type="service" invoke="createContentPurposeType" path=""/>
         <response name="success" type="view" value="EditContentPurposeType"/>
         <response name="error" type="view" value="EditContentPurposeType"/>
     </request-map>
     <request-map uri="updateContentPurposeType">
         <security auth="true" https="true"/>
-        <event invoke="updateContentPurposeType" path="" type="service"/>
+        <event type="service" invoke="updateContentPurposeType" path=""/>
         <response name="success" type="view" value="EditContentPurposeType"/>
         <response name="error" type="view" value="EditContentPurposeType"/>
     </request-map>
     <request-map uri="removeContentPurposeType">
         <security auth="true" https="true"/>
-        <event invoke="removeContentPurposeType" path="" type="service"/>
+        <event type="service" invoke="removeContentPurposeType" path=""/>
         <response name="success" type="view" value="EditContentPurposeType"/>
         <response name="error" type="view" value="EditContentPurposeType"/>
     </request-map>
@@ -560,13 +560,13 @@ under the License.
     </request-map>
     <request-map uri="addContentTypeAttr">
         <security auth="true" https="true"/>
-        <event invoke="createContentTypeAttr" path="" type="service"/>
+        <event type="service" invoke="createContentTypeAttr" path=""/>
         <response name="success" type="view" value="EditContentTypeAttr"/>
         <response name="error" type="view" value="EditContentTypeAttr"/>
     </request-map>
     <request-map uri="removeContentTypeAttr">
         <security auth="true" https="true"/>
-        <event invoke="removeContentTypeAttr" path="" type="service"/>
+        <event type="service" invoke="removeContentTypeAttr" path=""/>
         <response name="success" type="view" value="EditContentTypeAttr"/>
         <response name="error" type="view" value="EditContentTypeAttr"/>
     </request-map>
@@ -578,19 +578,19 @@ under the License.
     </request-map>
     <request-map uri="addContentAssocPredicate">
         <security auth="true" https="true"/>
-        <event invoke="createContentAssocPredicate" path="" type="service"/>
+        <event type="service" invoke="createContentAssocPredicate" path=""/>
         <response name="success" type="view" value="EditContentAssocPredicate"/>
         <response name="error" type="view" value="EditContentAssocPredicate"/>
     </request-map>
     <request-map uri="updateContentAssocPredicate">
         <security auth="true" https="true"/>
-        <event invoke="updateContentAssocPredicate" path="" type="service"/>
+        <event type="service" invoke="updateContentAssocPredicate" path=""/>
         <response name="success" type="view" value="EditContentAssocPredicate"/>
         <response name="error" type="view" value="EditContentAssocPredicate"/>
     </request-map>
     <request-map uri="removeContentAssocPredicate">
         <security auth="true" https="true"/>
-        <event invoke="removeContentAssocPredicate" path="" type="service"/>
+        <event type="service" invoke="removeContentAssocPredicate" path=""/>
         <response name="success" type="view" value="EditContentAssocPredicate"/>
         <response name="error" type="view" value="EditContentAssocPredicate"/>
     </request-map>
@@ -602,19 +602,19 @@ under the License.
     </request-map>
     <request-map uri="addCharacterSet">
         <security auth="true" https="true"/>
-        <event invoke="createCharacterSet" path="" type="service"/>
+        <event type="service" invoke="createCharacterSet" path=""/>
         <response name="success" type="view" value="EditCharacterSet"/>
         <response name="error" type="view" value="EditCharacterSet"/>
     </request-map>
     <request-map uri="updateCharacterSet">
         <security auth="true" https="true"/>
-        <event invoke="updateCharacterSet" path="" type="service"/>
+        <event type="service" invoke="updateCharacterSet" path=""/>
         <response name="success" type="view" value="EditCharacterSet"/>
         <response name="error" type="view" value="EditCharacterSet"/>
     </request-map>
     <request-map uri="removeCharacterSet">
         <security auth="true" https="true"/>
-        <event invoke="removeCharacterSet" path="" type="service"/>
+        <event type="service" invoke="removeCharacterSet" path=""/>
         <response name="success" type="view" value="EditCharacterSet"/>
         <response name="error" type="view" value="EditCharacterSet"/>
     </request-map>
@@ -626,19 +626,19 @@ under the License.
     </request-map>
     <request-map uri="addDataCategory">
         <security auth="true" https="true"/>
-        <event invoke="createDataCategory" path="" type="service"/>
+        <event type="service" invoke="createDataCategory" path=""/>
         <response name="success" type="view" value="EditDataCategory"/>
         <response name="error" type="view" value="EditDataCategory"/>
     </request-map>
     <request-map uri="updateDataCategory">
         <security auth="true" https="true"/>
-        <event invoke="updateDataCategory" path="" type="service"/>
+        <event type="service" invoke="updateDataCategory" path=""/>
         <response name="success" type="view" value="EditDataCategory"/>
         <response name="error" type="view" value="EditDataCategory"/>
     </request-map>
     <request-map uri="removeDataCategory">
         <security auth="true" https="true"/>
-        <event invoke="removeDataCategory" path="" type="service"/>
+        <event type="service" invoke="removeDataCategory" path=""/>
         <response name="success" type="view" value="EditDataCategory"/>
         <response name="error" type="view" value="EditDataCategory"/>
     </request-map>
@@ -669,19 +669,19 @@ under the License.
     </request-map>
     <request-map uri="addDataResourceType">
         <security auth="true" https="true"/>
-        <event invoke="createDataResourceType" path="" type="service"/>
+        <event type="service" invoke="createDataResourceType" path=""/>
         <response name="success" type="view" value="EditDataResourceType"/>
         <response name="error" type="view" value="EditDataResourceType"/>
     </request-map>
     <request-map uri="updateDataResourceType">
         <security auth="true" https="true"/>
-        <event invoke="updateDataResourceType" path="" type="service"/>
+        <event type="service" invoke="updateDataResourceType" path=""/>
         <response name="success" type="view" value="EditDataResourceType"/>
         <response name="error" type="view" value="EditDataResourceType"/>
     </request-map>
     <request-map uri="removeDataResourceType">
         <security auth="true" https="true"/>
-        <event invoke="removeDataResourceType" path="" type="service"/>
+        <event type="service" invoke="removeDataResourceType" path=""/>
         <response name="success" type="view" value="EditDataResourceType"/>
         <response name="error" type="view" value="EditDataResourceType"/>
     </request-map>
@@ -693,19 +693,19 @@ under the License.
     </request-map>
     <request-map uri="addDataResourceAttribute">
         <security auth="true" https="true"/>
-        <event invoke="createDataResourceAttribute" path="" type="service"/>
+        <event type="service" invoke="createDataResourceAttribute" path=""/>
         <response name="success" type="view" value="EditDataResourceAttribute"/>
         <response name="error" type="view" value="EditDataResourceAttribute"/>
     </request-map>
     <request-map uri="updateDataResourceAttribute">
         <security auth="true" https="true"/>
-        <event invoke="updateDataResourceAttribute" path="" type="service"/>
+        <event type="service" invoke="updateDataResourceAttribute" path=""/>
         <response name="success" type="view" value="EditDataResourceAttribute"/>
         <response name="error" type="view" value="EditDataResourceAttribute"/>
     </request-map>
     <request-map uri="removeDataResourceAttribute">
         <security auth="true" https="true"/>
-        <event invoke="removeDataResourceAttribute" path="" type="service"/>
+        <event type="service" invoke="removeDataResourceAttribute" path=""/>
         <response name="success" type="view" value="EditDataResourceAttribute"/>
         <response name="error" type="view" value="EditDataResourceAttribute"/>
     </request-map>
@@ -721,31 +721,31 @@ under the License.
     </request-map>
     <request-map uri="addElectronicText">
         <security auth="true" https="true"/>
-        <event invoke="createElectronicText" path="" type="service"/>
+        <event type="service" invoke="createElectronicText" path=""/>
         <response name="success" type="view" value="EditElectronicText"/>
         <response name="error" type="view" value="EditElectronicText"/>
     </request-map>
     <request-map uri="updateElectronicText">
         <security auth="true" https="true"/>
-        <event invoke="updateElectronicText" path="" type="service"/>
+        <event type="service" invoke="updateElectronicText" path=""/>
         <response name="success" type="view" value="EditElectronicText"/>
         <response name="error" type="view" value="EditElectronicText"/>
     </request-map>
     <request-map uri="addHtmlText">
         <security auth="true" https="true"/>
-        <event invoke="createElectronicText" path="" type="service"/>
+        <event type="service" invoke="createElectronicText" path=""/>
         <response name="success" type="view" value="EditHtmlText"/>
         <response name="error" type="view" value="EditHtmlText"/>
     </request-map>
     <request-map uri="updateHtmlText">
         <security auth="true" https="true"/>
-        <event invoke="updateElectronicText" path="" type="service"/>
+        <event type="service" invoke="updateElectronicText" path=""/>
         <response name="success" type="view" value="EditHtmlText"/>
         <response name="error" type="view" value="EditHtmlText"/>
     </request-map>
     <request-map uri="removeElectronicText">
         <security auth="true" https="true"/>
-        <event invoke="removeElectronicText" path="" type="service"/>
+        <event type="service" invoke="removeElectronicText" path=""/>
         <response name="success" type="view" value="EditElectronicText"/>
         <response name="error" type="view" value="EditElectronicText"/>
     </request-map>
@@ -757,19 +757,19 @@ under the License.
     </request-map>
     <request-map uri="addDataResourceRole">
         <security auth="true" https="true"/>
-        <event invoke="createDataResourceRole" path="" type="service"/>
+        <event type="service" invoke="createDataResourceRole" path=""/>
         <response name="success" type="view" value="EditDataResourceRole"/>
         <response name="error" type="view" value="EditDataResourceRole"/>
     </request-map>
     <request-map uri="updateDataResourceRole">
         <security auth="true" https="true"/>
-        <event invoke="updateDataResourceRole" path="" type="service"/>
+        <event type="service" invoke="updateDataResourceRole" path=""/>
         <response name="success" type="view" value="EditDataResourceRole"/>
         <response name="error" type="view" value="EditDataResourceRole"/>
     </request-map>
     <request-map uri="removeDataResourceRole">
         <security auth="true" https="true"/>
-        <event invoke="removeDataResourceRole" path="" type="service"/>
+        <event type="service" invoke="removeDataResourceRole" path=""/>
         <response name="success" type="view" value="EditDataResourceRole"/>
         <response name="error" type="view" value="EditDataResourceRole"/>
     </request-map>
@@ -781,13 +781,13 @@ under the License.
     </request-map>
     <request-map uri="createDataResourceProductFeature">
         <security auth="true" https="true"/>
-        <event invoke="createProductFeatureDataResource" path="" type="service"/>
+        <event type="service" invoke="createProductFeatureDataResource" path=""/>
         <response name="success" type="view" value="EditDataResourceProductFeatures"/>
         <response name="error" type="view" value="EditDataResourceProductFeatures"/>
     </request-map>
     <request-map uri="removeDataResourceProductFeature">
         <security auth="true" https="true"/>
-        <event invoke="removeProductFeatureDataResource" path="" type="service"/>
+        <event type="service" invoke="removeProductFeatureDataResource" path=""/>
         <response name="success" type="view" value="EditDataResourceProductFeatures"/>
         <response name="error" type="view" value="EditDataResourceProductFeatures"/>
     </request-map>
@@ -799,13 +799,13 @@ under the License.
     </request-map>
     <request-map uri="addDataResourceTypeAttr">
         <security auth="true" https="true"/>
-        <event invoke="createDataResourceTypeAttr" path="" type="service"/>
+        <event type="service" invoke="createDataResourceTypeAttr" path=""/>
         <response name="success" type="view" value="EditDataResourceTypeAttr"/>
         <response name="error" type="view" value="EditDataResourceTypeAttr"/>
     </request-map>
     <request-map uri="removeDataResourceTypeAttr">
         <security auth="true" https="true"/>
-        <event invoke="removeDataResourceTypeAttr" path="" type="service"/>
+        <event type="service" invoke="removeDataResourceTypeAttr" path=""/>
         <response name="success" type="view" value="EditDataResourceTypeAttr"/>
         <response name="error" type="view" value="EditDataResourceTypeAttr"/>
     </request-map>
@@ -817,19 +817,19 @@ under the License.
     </request-map>
     <request-map uri="addFileExtension">
         <security auth="true" https="true"/>
-        <event invoke="createFileExtension" path="" type="service"/>
+        <event type="service" invoke="createFileExtension" path=""/>
         <response name="success" type="view" value="EditFileExtension"/>
         <response name="error" type="view" value="EditFileExtension"/>
     </request-map>
     <request-map uri="updateFileExtension">
         <security auth="true" https="true"/>
-        <event invoke="updateFileExtension" path="" type="service"/>
+        <event type="service" invoke="updateFileExtension" path=""/>
         <response name="success" type="view" value="EditFileExtension"/>
         <response name="error" type="view" value="EditFileExtension"/>
     </request-map>
     <request-map uri="removeFileExtension">
         <security auth="true" https="true"/>
-        <event invoke="removeFileExtension" path="" type="service"/>
+        <event type="service" invoke="removeFileExtension" path=""/>
         <response name="success" type="view" value="EditFileExtension"/>
         <response name="error" type="view" value="EditFileExtension"/>
     </request-map>
@@ -841,19 +841,19 @@ under the License.
     </request-map>
     <request-map uri="addMetaDataPredicate">
         <security auth="true" https="true"/>
-        <event invoke="createMetaDataPredicate" path="" type="service"/>
+        <event type="service" invoke="createMetaDataPredicate" path=""/>
         <response name="success" type="view" value="EditMetaDataPredicate"/>
         <response name="error" type="view" value="EditMetaDataPredicate"/>
     </request-map>
     <request-map uri="updateMetaDataPredicate">
         <security auth="true" https="true"/>
-        <event invoke="updateMetaDataPredicate" path="" type="service"/>
+        <event type="service" invoke="updateMetaDataPredicate" path=""/>
         <response name="success" type="view" value="EditMetaDataPredicate"/>
         <response name="error" type="view" value="EditMetaDataPredicate"/>
     </request-map>
     <request-map uri="removeMetaDataPredicate">
         <security auth="true" https="true"/>
-        <event invoke="removeMetaDataPredicate" path="" type="service"/>
+        <event type="service" invoke="removeMetaDataPredicate" path=""/>
         <response name="success" type="view" value="EditMetaDataPredicate"/>
         <response name="error" type="view" value="EditMetaDataPredicate"/>
     </request-map>
@@ -865,19 +865,19 @@ under the License.
     </request-map>
     <request-map uri="addMimeType">
         <security auth="true" https="true"/>
-        <event invoke="createMimeType" path="" type="service"/>
+        <event type="service" invoke="createMimeType" path=""/>
         <response name="success" type="view" value="EditMimeType"/>
         <response name="error" type="view" value="EditMimeType"/>
     </request-map>
     <request-map uri="updateMimeType">
         <security auth="true" https="true"/>
-        <event invoke="updateMimeType" path="" type="service"/>
+        <event type="service" invoke="updateMimeType" path=""/>
         <response name="success" type="view" value="EditMimeType"/>
         <response name="error" type="view" value="EditMimeType"/>
     </request-map>
     <request-map uri="removeMimeType">
         <security auth="true" https="true"/>
-        <event invoke="removeMimeType" path="" type="service"/>
+        <event type="service" invoke="removeMimeType" path=""/>
         <response name="success" type="view" value="EditMimeType"/>
         <response name="error" type="view" value="EditMimeType"/>
     </request-map>
@@ -889,19 +889,19 @@ under the License.
     </request-map>
     <request-map uri="createMimeTypeHtmlTemplate">
         <security auth="true" https="true"/>
-        <event invoke="createMimeTypeHtmlTemplate" path="" type="service"/>
+        <event type="service" invoke="createMimeTypeHtmlTemplate" path=""/>
         <response name="success" type="view" value="EditMimeTypeHtmlTemplate"/>
         <response name="error" type="view" value="EditMimeTypeHtmlTemplate"/>
     </request-map>
     <request-map uri="updateMimeTypeHtmlTemplate">
         <security auth="true" https="true"/>
-        <event invoke="updateMimeTypeHtmlTemplate" path="" type="service"/>
+        <event type="service" invoke="updateMimeTypeHtmlTemplate" path=""/>
         <response name="success" type="view" value="EditMimeTypeHtmlTemplate"/>
         <response name="error" type="view" value="EditMimeTypeHtmlTemplate"/>
     </request-map>
     <request-map uri="removeMimeTypeHtmlTemplate">
         <security auth="true" https="true"/>
-        <event invoke="removeMimeTypeHtmlTemplate" path="" type="service"/>
+        <event type="service" invoke="removeMimeTypeHtmlTemplate" path=""/>
         <response name="success" type="view" value="EditMimeTypeHtmlTemplate"/>
         <response name="error" type="view" value="EditMimeTypeHtmlTemplate"/>
     </request-map>
@@ -926,13 +926,13 @@ under the License.
     </request-map>
     <request-map uri="updateContent">
         <security auth="true" https="true"/>
-        <event invoke="updateContent" type="service"/>
+        <event type="service" invoke="updateContent"/>
         <response name="success" type="view" value="EditContent"/>
         <response name="error" type="view" value="EditContent"/>
     </request-map>
     <request-map uri="createContent">
         <security auth="true" https="true"/>
-        <event invoke="createContent" type="service"/>
+        <event type="service" invoke="createContent"/>
         <response name="success" type="view" value="EditContent"/>
         <response name="error" type="view" value="EditContent"/>
     </request-map>
@@ -948,19 +948,19 @@ under the License.
     </request-map>
     <request-map uri="updateContentAssoc">
         <security auth="true" https="true"/>
-        <event invoke="updateContentAssoc" path="" type="service"/>
+        <event type="service" invoke="updateContentAssoc" path=""/>
         <response name="success" type="view" value="EditContentAssoc"/>
         <response name="error" type="view" value="EditContentAssoc"/>
     </request-map>
     <request-map uri="createContentAssoc">
         <security auth="true" https="true"/>
-        <event invoke="createContentAssoc" path="" type="service"/>
+        <event type="service" invoke="createContentAssoc" path=""/>
         <response name="success" type="view" value="EditContentAssoc"/>
         <response name="error" type="view" value="EditContentAssoc"/>
     </request-map>
     <request-map uri="removeContentAssoc">
         <security auth="true" https="true"/>
-        <event invoke="removeContentAssoc" path="" type="service"/>
+        <event type="service" invoke="removeContentAssoc" path=""/>
         <response name="success" type="view" value="EditContentAssoc"/>
         <response name="error" type="view" value="EditContentAssoc"/>
     </request-map>
@@ -977,13 +977,13 @@ under the License.
     <request-map uri="AddDataResourceFromContent"><security auth="true" https="true"/><response name="success" type="view" value="AddDataResourceFromContent"/></request-map>
     <request-map uri="updateDataResourceText">
         <security auth="true" https="true"/>
-        <event invoke="updateDataResource" path="" type="service"/>
+        <event type="service" invoke="updateDataResource" path=""/>
         <response name="success" type="request" value="EditDataResource"/>
         <response name="error" type="view" value="EditDataResource"/>
     </request-map>
     <request-map uri="updateDataResource">
         <security auth="true" https="true"/>
-        <event invoke="updateDataResource" path="" type="service"/>
+        <event type="service" invoke="updateDataResource" path=""/>
         <response name="success" type="view" value="EditDataResource"/>
         <response name="error" type="view" value="EditDataResource"/>
     </request-map>
@@ -997,7 +997,7 @@ under the License.
     </request-map>
     <request-map uri="createDataResourceAndAssocToContent">
         <security auth="true" https="true"/>
-        <event invoke="createDataResourceAndAssocToContent" path="" type="service"/>
+        <event type="service" invoke="createDataResourceAndAssocToContent" path=""/>
         <response name="success" type="view" value="EditContent"/>
         <response name="ELECTRONIC_TEXT" type="view" value="EditElectronicText"/>
         <response name="IMAGE_OBJECT" type="view" value="UploadImage"/>
@@ -1005,13 +1005,13 @@ under the License.
     </request-map>
     <request-map uri="createDataResourceUpload">
         <security auth="true" https="true"/>
-        <event invoke="createDataResource" path="" type="service"/>
+        <event type="service" invoke="createDataResource" path=""/>
         <response name="success" type="request" value="EditDataResourceUpload"/>
         <response name="error" type="view" value="AddDataResourceUpload"/>
     </request-map>
     <request-map uri="createDataResourceAndText">
         <security auth="true" https="true"/>
-        <event invoke="createDataResourceAndText" path="" type="service"/>
+        <event type="service" invoke="createDataResourceAndText" path=""/>
         <response name="success" type="view" value="EditDataResourceText"/>
         <response name="error" type="view" value="AddDataResourceText"/>
     </request-map>
@@ -1023,7 +1023,7 @@ under the License.
         <!--
         <event type="java" path="org.apache.ofbiz.content.data.DataEvents" invoke="uploadImage"/>
             -->
-        <event invoke="persistContentAndAssoc" path="" type="service"/>
+        <event type="service" invoke="persistContentAndAssoc" path=""/>
         <response name="success" type="request" value="UploadImage"/>
         <response name="error" type="view" value="UploadImage"/>
     </request-map>
@@ -1038,19 +1038,19 @@ under the License.
     <request-map uri="EditContentOperation"><security auth="true" https="true"/><response name="success" type="view" value="EditContentOperation"/></request-map>
     <request-map uri="addContentOperation">
         <security auth="true" https="true"/>
-        <event invoke="createContentOperation" path="" type="service"/>
+        <event type="service" invoke="createContentOperation" path=""/>
         <response name="success" type="view" value="EditContentOperation"/>
         <response name="error" type="view" value="EditContentOperation"/>
     </request-map>
     <request-map uri="updateContentOperation">
         <security auth="true" https="true"/>
-        <event invoke="updateContentOperation" path="" type="service"/>
+        <event type="service" invoke="updateContentOperation" path=""/>
         <response name="success" type="view" value="EditContentOperation"/>
         <response name="error" type="view" value="EditContentOperation"/>
     </request-map>
     <request-map uri="removeContentOperation">
         <security auth="true" https="true"/>
-        <event invoke="removeContentOperation" path="" type="service"/>
+        <event type="service" invoke="removeContentOperation" path=""/>
         <response name="success" type="view" value="EditContentOperation"/>
         <response name="error" type="view" value="EditContentOperation"/>
     </request-map>
@@ -1059,19 +1059,19 @@ under the License.
     <request-map uri="EditContentAttribute"><security auth="true" https="true"/><response name="success" type="view" value="EditContentAttribute"/></request-map>
     <request-map uri="addContentAttribute">
         <security auth="true" https="true"/>
-        <event invoke="createContentAttribute" path="" type="service"/>
+        <event type="service" invoke="createContentAttribute" path=""/>
         <response name="success" type="view" value="EditContentAttribute"/>
         <response name="error" type="view" value="EditContentAttribute"/>
     </request-map>
     <request-map uri="updateContentAttribute">
         <security auth="true" https="true"/>
-        <event invoke="updateContentAttribute" path="" type="service"/>
+        <event type="service" invoke="updateContentAttribute" path=""/>
         <response name="success" type="view" value="EditContentAttribute"/>
         <response name="error" type="view" value="EditContentAttribute"/>
     </request-map>
     <request-map uri="removeContentAttribute">
         <security auth="true" https="true"/>
-        <event invoke="removeContentAttribute" path="" type="service"/>
+        <event type="service" invoke="removeContentAttribute" path=""/>
         <response name="success" type="view" value="EditContentAttribute"/>
         <response name="error" type="view" value="EditContentAttribute"/>
     </request-map>
@@ -1081,19 +1081,19 @@ under the License.
     <request-map uri="EditContentMetaData"><security auth="true" https="true"/><response name="success" type="view" value="EditContentMetaData"/></request-map>
     <request-map uri="addContentMetaData">
         <security auth="true" https="true"/>
-        <event invoke="createContentMetaData" path="" type="service"/>
+        <event type="service" invoke="createContentMetaData" path=""/>
         <response name="success" type="view" value="EditContentMetaData"/>
         <response name="error" type="view" value="EditContentMetaData"/>
     </request-map>
     <request-map uri="updateContentMetaData">
         <security auth="true" https="true"/>
-        <event invoke="updateContentMetaData" path="" type="service"/>
+        <event type="service" invoke="updateContentMetaData" path=""/>
         <response name="success" type="view" value="EditContentMetaData"/>
         <response name="error" type="view" value="EditContentMetaData"/>
     </request-map>
     <request-map uri="removeContentMetaData">
         <security auth="true" https="true"/>
-        <event invoke="removeContentMetaData" path="" type="service"/>
+        <event type="service" invoke="removeContentMetaData" path=""/>
         <response name="success" type="view" value="EditContentMetaData"/>
         <response name="error" type="view" value="EditContentMetaData"/>
     </request-map>
@@ -1103,19 +1103,19 @@ under the License.
     <request-map uri="EditContentPurpose"><security auth="true" https="true"/><response name="success" type="view" value="EditContentPurpose"/></request-map>
     <request-map uri="addContentPurpose">
         <security auth="true" https="true"/>
-        <event invoke="createContentPurpose" path="" type="service"/>
+        <event type="service" invoke="createContentPurpose" path=""/>
         <response name="success" type="view" value="EditContentPurpose"/>
         <response name="error" type="view" value="EditContentPurpose"/>
     </request-map>
     <request-map uri="updateContentPurpose">
         <security auth="true" https="true"/>
-        <event invoke="updateContentPurpose" path="" type="service"/>
+        <event type="service" invoke="updateContentPurpose" path=""/>
         <response name="success" type="view" value="EditContentPurpose"/>
         <response name="error" type="view" value="EditContentPurpose"/>
     </request-map>
     <request-map uri="removeContentPurpose">
         <security auth="true" https="true"/>
-        <event invoke="removeContentPurpose" path="" type="service"/>
+        <event type="service" invoke="removeContentPurpose" path=""/>
         <response name="success" type="view" value="EditContentPurpose"/>
         <response name="error" type="view" value="EditContentPurpose"/>
     </request-map>
@@ -1125,19 +1125,19 @@ under the License.
     <request-map uri="EditContentPurposeOperation"><security auth="true" https="true"/><response name="success" type="view" value="EditContentPurposeOperation"/></request-map>
     <request-map uri="addContentPurposeOperation">
         <security auth="true" https="true"/>
-        <event invoke="createContentPurposeOperation" path="" type="service"/>
+        <event type="service" invoke="createContentPurposeOperation" path=""/>
         <response name="success" type="view" value="EditContentPurposeOperation"/>
         <response name="error" type="view" value="EditContentPurposeOperation"/>
     </request-map>
     <request-map uri="updateContentPurposeOperation">
         <security auth="true" https="true"/>
-        <event invoke="updateContentPurposeOperation" path="" type="service"/>
+        <event type="service" invoke="updateContentPurposeOperation" path=""/>
         <response name="success" type="view" value="EditContentPurposeOperation"/>
         <response name="error" type="view" value="EditContentPurposeOperation"/>
     </request-map>
     <request-map uri="removeContentPurposeOperation">
         <security auth="true" https="true"/>
-        <event invoke="removeContentPurposeOperation" path="" type="service"/>
+        <event type="service" invoke="removeContentPurposeOperation" path=""/>
         <response name="success" type="view" value="EditContentPurposeOperation"/>
         <response name="error" type="view" value="EditContentPurposeOperation"/>
     </request-map>
@@ -1149,21 +1149,21 @@ under the License.
     </request-map>
     <request-map uri="createWorkEffortContent">
         <security auth="true" https="true"/>
-        <event invoke="createWorkEffortContent" path="" type="service"/>
+        <event type="service" invoke="createWorkEffortContent" path=""/>
         <response name="success" type="view" value="EditContentWorkEfforts"/>
         <response name="error" type="view" value="EditContentWorkEfforts"/>
     </request-map>
 
     <request-map uri="updateWorkEffortContent">
         <security auth="true" https="true"/>
-        <event invoke="updateWorkEffortContent" path="" type="service"/>
+        <event type="service" invoke="updateWorkEffortContent" path=""/>
         <response name="success" type="view" value="EditContentWorkEfforts"/>
         <response name="error" type="view" value="EditContentWorkEfforts"/>
     </request-map>
 
     <request-map uri="deleteWorkEffortContent">
         <security auth="true" https="true"/>
-        <event invoke="deleteWorkEffortContent" path="" type="service"/>
+        <event type="service" invoke="deleteWorkEffortContent" path=""/>
         <response name="success" type="view" value="EditContentWorkEfforts"/>
         <response name="error" type="view" value="EditContentWorkEfforts"/>
     </request-map>
@@ -1186,61 +1186,61 @@ under the License.
 
     <request-map uri="createCompDocTemplate">
         <security auth="true" https="true"/>
-        <event invoke="persistContentAndAssoc" path="" type="service"/>
+        <event type="service" invoke="persistContentAndAssoc" path=""/>
         <response name="success" type="view" value="EditRootCompDoc"/>
         <response name="error" type="view" value="EditRootCompDoc"/>
     </request-map>
     <request-map uri="updateCompDoc">
         <security auth="true" https="true"/>
-        <event invoke="persistContentAndAssoc" path="" type="service"/>
+        <event type="service" invoke="persistContentAndAssoc" path=""/>
         <response name="success" type="view" value="EditChildCompDoc"/>
         <response name="error" type="view" value="EditChildCompDoc"/>
     </request-map>
     <request-map uri="persistCompDocPdf2Survey">
         <security auth="true" https="true"/>
-        <event invoke="persistCompDocPdf2Survey" path="" type="service"/>
+        <event type="service" invoke="persistCompDocPdf2Survey" path=""/>
         <response name="success" type="view" value="EditChildCompDoc"/>
         <response name="error" type="view" value="EditChildCompDoc"/>
     </request-map>
     <request-map uri="createCompDoc">
         <security auth="true" https="true"/>
-        <event invoke="persistContentAndAssoc"  path="" type="service"/>
+        <event type="service" invoke="persistContentAndAssoc"  path=""/>
         <response name="success" type="view" value="EditChildCompDoc"/>
         <response name="error" type="view" value="EditChildCompDoc"/>
     </request-map>
     <request-map uri="updateRootCompDocTemplate">
         <security auth="true" https="true"/>
-        <event invoke="persistCompDoc"  path="" type="service"/>
+        <event type="service" invoke="persistCompDoc"  path=""/>
         <response name="success" type="view" value="EditRootCompDoc"/>
         <response name="error" type="view" value="EditRootCompDoc"/>
     </request-map>
     <request-map uri="createRootCompDocTemplate">
         <security auth="true" https="true"/>
-        <event invoke="persistCompDoc"  path="" type="service"/>
+        <event type="service" invoke="persistCompDoc"  path=""/>
         <response name="success" type="view" value="EditRootCompDoc"/>
         <response name="error" type="view" value="AddRootCompDocTemplate"/>
     </request-map>
     <request-map uri="createChildCompDocTemplate">
         <security auth="true" https="true"/>
-        <event invoke="persistCompDoc"  path="" type="service"/>
+        <event type="service" invoke="persistCompDoc"  path=""/>
         <response name="success" type="view" value="EditChildCompDoc"/>
         <response name="error" type="view" value="AddChildCompDocTemplate"/>
     </request-map>
     <request-map uri="createChildCompDocInstance">
         <security auth="true" https="true"/>
-        <event invoke="persistCompDoc"  path="" type="service"/>
+        <event type="service" invoke="persistCompDoc"  path=""/>
         <response name="success" type="view" value="EditChildCompDoc"/>
         <response name="error" type="view" value="AddChildCompDocInstance"/>
     </request-map>
     <request-map uri="updateChildCompDocTemplate">
         <security auth="true" https="true"/>
-        <event invoke="persistCompDoc"  path="" type="service"/>
+        <event type="service" invoke="persistCompDoc"  path=""/>
         <response name="success" type="view" value="EditChildCompDoc"/>
         <response name="error" type="view" value="EditChildCompDoc"/>
     </request-map>
     <request-map uri="uploadCompDocContent">
         <security auth="true" https="true"/>
-        <event invoke="persistCompDocContent"  path="" type="service"/>
+        <event type="service" invoke="persistCompDocContent"  path=""/>
         <response name="success" type="view" value="EditChildCompDoc"/>
         <response name="error" type="view" value="EditChildCompDoc"/>
     </request-map>
@@ -1250,33 +1250,33 @@ under the License.
     </request-map>
     <request-map uri="updateChildCompDocInstance">
         <security auth="true" https="true"/>
-        <event invoke="persistCompDoc"  path="" type="service"/>
+        <event type="service" invoke="persistCompDoc"  path=""/>
         <response name="success" type="view" value="EditChildCompDoc"/>
         <response name="error" type="view" value="EditChildCompDoc"/>
     </request-map>
     <request-map uri="genCompDocInstance">
         <security auth="true" https="true"/>
-        <event invoke="genCompDocInstance"  path="" type="service"/>
+        <event type="service" invoke="genCompDocInstance"  path=""/>
         <response name="success" type="view" value="EditRootCompDoc"/>
         <response name="error" type="view" value="AddRootCompDocInstance"/>
     </request-map>
 
     <request-map uri="resequenceCompDocPart">
         <security auth="true" https="true"/>
-        <event invoke="resequence"  path="" type="service"/>
+        <event type="service" invoke="resequence"  path=""/>
         <response name="success" type="view" value="ViewCompDocTemplateTree"/>
         <response name="error" type="view" value="ViewCompDocTemplateTree"/>
     </request-map>
 
     <request-map uri="GenCompDocPdf">
         <security auth="true" https="true"/>
-        <event invoke="genCompDocPdf"  path="org.apache.ofbiz.content.compdoc.CompDocEvents" type="java"/>
+        <event type="java" invoke="genCompDocPdf"  path="org.apache.ofbiz.content.compdoc.CompDocEvents"/>
         <response name="success" type="none" value=""/>
         <response name="error" type="view" value="error"/>
     </request-map>
     <request-map uri="GenContentPdf">
         <security auth="true" https="true"/>
-        <event invoke="genContentPdf"  path="org.apache.ofbiz.content.compdoc.CompDocEvents" type="java"/>
+        <event type="java" invoke="genContentPdf"  path="org.apache.ofbiz.content.compdoc.CompDocEvents"/>
         <response name="success" type="none" value=""/>
         <response name="error" type="view" value="error"/>
     </request-map>
@@ -1284,19 +1284,19 @@ under the License.
     <request-map uri="EditCompDocContentRole"><security auth="true" https="true"/><response name="success" type="view" value="EditCompDocContentRole"/></request-map>
     <request-map uri="addCompDocContentRole">
         <security auth="true" https="true"/>
-        <event invoke="createContentRole" path="" type="service"/>
+        <event type="service" invoke="createContentRole" path=""/>
         <response name="success" type="view" value="EditCompDocContentRole"/>
         <response name="error" type="view" value="EditCompDocContentRole"/>
     </request-map>
     <request-map uri="updateCompDocContentRole">
         <security auth="true" https="true"/>
-        <event invoke="updateContentRole" path="" type="service"/>
+        <event type="service" invoke="updateContentRole" path=""/>
         <response name="success" type="view" value="EditCompDocContentRole"/>
         <response name="error" type="view" value="EditCompDocContentRole"/>
     </request-map>
     <request-map uri="removeCompDocContentRole">
         <security auth="true" https="true"/>
-        <event invoke="removeContentRole" path="" type="service"/>
+        <event type="service" invoke="removeContentRole" path=""/>
         <response name="success" type="view" value="EditCompDocContentRole"/>
         <response name="error" type="view" value="EditCompDocContentRole"/>
     </request-map>
@@ -1308,38 +1308,38 @@ under the License.
     <request-map uri="EditContentApproval"><security auth="true" https="true"/><response name="success" type="view" value="EditContentApproval"/></request-map>
     <request-map uri="createContentApproval">
         <security auth="true" https="true"/>
-        <event invoke="createContentApproval" path="" type="service"/>
+        <event type="service" invoke="createContentApproval" path=""/>
         <response name="success" type="view" value="ListContentApproval"/>
         <response name="error" type="view" value="ListContentApproval"/>
     </request-map>
     <request-map uri="updateContentApproval">
         <security auth="true" https="true"/>
-        <event invoke="updateContentApproval" path="" type="service"/>
+        <event type="service" invoke="updateContentApproval" path=""/>
         <response name="success" type="view" value="ListContentApproval"/>
         <response name="error" type="view" value="ListContentApproval"/>
     </request-map>
     <request-map uri="updateContentApprovalStatus">
         <security auth="true" https="true"/>
-        <event invoke="updateContentApproval" path="" type="service"/>
+        <event type="service" invoke="updateContentApproval" path=""/>
         <response name="success" type="view" value="ListContentApproval"/>
         <response name="error" type="view" value="ListContentApproval"/>
     </request-map>
     <request-map uri="updateWaitingContentApproval">
         <security auth="true" https="true"/>
-        <event invoke="updateContentApproval" path="" type="service"/>
+        <event type="service" invoke="updateContentApproval" path=""/>
         <response name="success" type="view" value="ListWaitingContentApproval"/>
         <response name="error" type="view" value="ListWaitingContentApproval"/>
     </request-map>
     <request-map uri="removeContentApproval">
         <security auth="true" https="true"/>
-        <event invoke="removeContentApproval" path="" type="service"/>
+        <event type="service" invoke="removeContentApproval" path=""/>
         <response name="success" type="view" value="ListContentApproval"/>
         <response name="error" type="view" value="ListContentApproval"/>
     </request-map>
 
     <request-map uri="prepForApproval">
         <security auth="true" https="true"/>
-        <event invoke="prepForApproval" path="" type="service"/>
+        <event type="service" invoke="prepForApproval" path=""/>
         <response name="success" type="view" value="ViewCompDocInstanceTree"/>
         <response name="error" type="view" value="ViewCompDocInstanceTree"/>
     </request-map>
@@ -1349,19 +1349,19 @@ under the License.
     <request-map uri="EditContentRevision"><security auth="true" https="true"/><response name="success" type="view" value="EditContentRevision"/></request-map>
     <request-map uri="createContentRevision">
         <security auth="true" https="true"/>
-        <event invoke="createContentRevision" path="" type="service"/>
+        <event type="service" invoke="createContentRevision" path=""/>
         <response name="success" type="view" value="EditContentRevision"/>
         <response name="error" type="view" value="EditContentRevision"/>
     </request-map>
     <request-map uri="updateContentRevision">
         <security auth="true" https="true"/>
-        <event invoke="updateContentRevision" path="" type="service"/>
+        <event type="service" invoke="updateContentRevision" path=""/>
         <response name="success" type="view" value="EditContentRevision"/>
         <response name="error" type="view" value="EditContentRevision"/>
     </request-map>
     <request-map uri="removeContentRevision">
         <security auth="true" https="true"/>
-        <event invoke="removeContentRevision" path="" type="service"/>
+        <event type="service" invoke="removeContentRevision" path=""/>
         <response name="success" type="view" value="EditContentRevision"/>
         <response name="error" type="view" value="EditContentRevision"/>
     </request-map>
@@ -1371,19 +1371,19 @@ under the License.
     <request-map uri="EditContentRevisionItem"><security auth="true" https="true"/><response name="success" type="view" value="EditContentRevisionItem"/></request-map>
     <request-map uri="createContentRevisionItem">
         <security auth="true" https="true"/>
-        <event invoke="createContentRevisionItem" path="" type="service"/>
+        <event type="service" invoke="createContentRevisionItem" path=""/>
         <response name="success" type="view" value="EditContentRevisionItem"/>
         <response name="error" type="view" value="EditContentRevisionItem"/>
     </request-map>
     <request-map uri="updateContentRevisionItem">
         <security auth="true" https="true"/>
-        <event invoke="updateContentRevisionItem" path="" type="service"/>
+        <event type="service" invoke="updateContentRevisionItem" path=""/>
         <response name="success" type="view" value="EditContentRevisionItem"/>
         <response name="error" type="view" value="EditContentRevisionItem"/>
     </request-map>
     <request-map uri="removeContentRevisionItem">
         <security auth="true" https="true"/>
-        <event invoke="removeContentRevisionItem" path="" type="service"/>
+        <event type="service" invoke="removeContentRevisionItem" path=""/>
         <response name="success" type="view" value="EditContentRevisionItem"/>
         <response name="error" type="view" value="EditContentRevisionItem"/>
     </request-map>
@@ -1397,31 +1397,31 @@ under the License.
     <request-map uri="EditSurvey"><security auth="true" https="true"/><response name="success" type="view" value="EditSurvey"/></request-map>
     <request-map uri="createSurvey">
         <security auth="true" https="true"/>
-        <event invoke="createSurvey" path="" type="service"/>
+        <event type="service" invoke="createSurvey" path=""/>
         <response name="success" type="view" value="EditSurvey"/>
         <response name="error" type="view" value="EditSurvey"/>
     </request-map>
     <request-map uri="updateSurvey">
         <security auth="true" https="true"/>
-        <event invoke="updateSurvey" path="" type="service"/>
+        <event type="service" invoke="updateSurvey" path=""/>
         <response name="success" type="view" value="EditSurvey"/>
         <response name="error" type="view" value="EditSurvey"/>
     </request-map>
     <request-map uri="buildSurveyFromPdf">
         <security auth="true" https="true"/>
-        <event invoke="buildSurveyFromPdf" path="" type="service"/>
+        <event type="service" invoke="buildSurveyFromPdf" path=""/>
         <response name="success" type="view" value="EditSurvey"/>
         <response name="error" type="view" value="EditSurvey"/>
     </request-map>
     <request-map uri="buildSurveyResponseFromPdf">
         <security auth="true" https="true"/>
-        <event invoke="buildSurveyResponseFromPdf" path="" type="service"/>
+        <event type="service" invoke="buildSurveyResponseFromPdf" path=""/>
         <response name="success" type="view" value="EditSurveyResponse"/>
         <response name="error" type="view" value="EditSurveyResponse"/>
     </request-map>
     <request-map uri="deleteSurvey">
         <security auth="true" https="true"/>
-        <event invoke="deleteSurvey" path="" type="service"/>
+        <event type="service" invoke="deleteSurvey" path=""/>
         <response name="success" type="view" value="EditSurvey"/>
         <response name="error" type="view" value="EditSurvey"/>
     </request-map>
@@ -1430,37 +1430,37 @@ under the License.
     <request-map uri="EditSurveyMultiResps"><security auth="true" https="true"/><response name="success" type="view" value="EditSurveyMultiResps"/></request-map>
     <request-map uri="createSurveyMultiResp">
         <security auth="true" https="true"/>
-        <event invoke="createSurveyMultiResp" path="" type="service"/>
+        <event type="service" invoke="createSurveyMultiResp" path=""/>
         <response name="success" type="view" value="EditSurveyMultiResps"/>
         <response name="error" type="view" value="EditSurveyMultiResps"/>
     </request-map>
     <request-map uri="updateSurveyMultiResp">
         <security auth="true" https="true"/>
-        <event invoke="updateSurveyMultiResp" path="" type="service"/>
+        <event type="service" invoke="updateSurveyMultiResp" path=""/>
         <response name="success" type="view" value="EditSurveyMultiResps"/>
         <response name="error" type="view" value="EditSurveyMultiResps"/>
     </request-map>
     <request-map uri="deleteSurveyMultiResp">
         <security auth="true" https="true"/>
-        <event invoke="deleteSurveyMultiResp" path="" type="service"/>
+        <event type="service" invoke="deleteSurveyMultiResp" path=""/>
         <response name="success" type="view" value="EditSurveyMultiResps"/>
         <response name="error" type="view" value="EditSurveyMultiResps"/>
     </request-map>
     <request-map uri="createSurveyMultiRespColumn">
         <security auth="true" https="true"/>
-        <event invoke="createSurveyMultiRespColumn" path="" type="service"/>
+        <event type="service" invoke="createSurveyMultiRespColumn" path=""/>
         <response name="success" type="view" value="EditSurveyMultiResps"/>
         <response name="error" type="view" value="EditSurveyMultiResps"/>
     </request-map>
     <request-map uri="updateSurveyMultiRespColumn">
         <security auth="true" https="true"/>
-        <event invoke="updateSurveyMultiRespColumn" path="" type="service"/>
+        <event type="service" invoke="updateSurveyMultiRespColumn" path=""/>
         <response name="success" type="view" value="EditSurveyMultiResps"/>
         <response name="error" type="view" value="EditSurveyMultiResps"/>
     </request-map>
     <request-map uri="deleteSurveyMultiRespColumn">
         <security auth="true" https="true"/>
-        <event invoke="deleteSurveyMultiRespColumn" path="" type="service"/>
+        <event type="service" invoke="deleteSurveyMultiRespColumn" path=""/>
         <response name="success" type="view" value="EditSurveyMultiResps"/>
         <response name="error" type="view" value="EditSurveyMultiResps"/>
     </request-map>
@@ -1469,19 +1469,19 @@ under the License.
     <request-map uri="EditSurveyQuestions"><security auth="true" https="true"/><response name="success" type="view" value="EditSurveyQuestions"/></request-map>
     <request-map uri="createSurveyQuestion">
         <security auth="true" https="true"/>
-        <event invoke="createSurveyQuestion" type="service"/>
+        <event type="service" invoke="createSurveyQuestion"/>
         <response name="success" type="view" value="EditSurveyQuestions"/>
         <response name="error" type="view" value="EditSurveyQuestions"/>
     </request-map>
     <request-map uri="updateSurveyQuestion">
         <security auth="true" https="true"/>
-        <event invoke="updateSurveyQuestion" type="service"/>
+        <event type="service" invoke="updateSurveyQuestion"/>
         <response name="success" type="view" value="EditSurveyQuestions"/>
         <response name="error" type="view" value="EditSurveyQuestions"/>
     </request-map>
     <request-map uri="deleteSurveyQuestion">
         <security auth="true" https="true"/>
-        <event invoke="deleteSurveyQuestion" type="service"/>
+        <event type="service" invoke="deleteSurveyQuestion"/>
         <response name="success" type="view" value="EditSurveyQuestions"/>
         <response name="error" type="view" value="EditSurveyQuestions"/>
     </request-map>
@@ -1489,19 +1489,19 @@ under the License.
     <!-- SurveyQuestionOption Requests -->
     <request-map uri="createSurveyQuestionOption">
         <security auth="true" https="true"/>
-        <event invoke="createSurveyQuestionOption" type="service"/>
+        <event type="service" invoke="createSurveyQuestionOption"/>
         <response name="success" type="view" value="EditSurveyQuestions"/>
         <response name="error" type="view" value="EditSurveyQuestions"/>
     </request-map>
     <request-map uri="updateSurveyQuestionOption">
         <security auth="true" https="true"/>
-        <event invoke="updateSurveyQuestionOption" type="service"/>
+        <event type="service" invoke="updateSurveyQuestionOption"/>
         <response name="success" type="view" value="EditSurveyQuestions"/>
         <response name="error" type="view" value="EditSurveyQuestions"/>
     </request-map>
     <request-map uri="deleteSurveyQuestionOption">
         <security auth="true" https="true"/>
-        <event invoke="deleteSurveyQuestionOption" type="service"/>
+        <event type="service" invoke="deleteSurveyQuestionOption"/>
         <response name="success" type="view" value="EditSurveyQuestions"/>
         <response name="error" type="view" value="EditSurveyQuestions"/>
     </request-map>
@@ -1509,44 +1509,44 @@ under the License.
     <!-- SurveyQuestionCategory Requests -->
     <request-map uri="createSurveyQuestionCategory">
         <security auth="true" https="true"/>
-        <event invoke="createSurveyQuestionCategory" type="service"/>
+        <event type="service" invoke="createSurveyQuestionCategory"/>
         <response name="success" type="view" value="EditSurveyQuestions"/>
         <response name="error" type="view" value="EditSurveyQuestions"/>
     </request-map>
     <request-map uri="createSurveyQuestionAppl">
         <security auth="true" https="true"/>
-        <event invoke="createSurveyQuestionAppl" type="service"/>
+        <event type="service" invoke="createSurveyQuestionAppl"/>
         <response name="success" type="view" value="EditSurveyQuestions"/>
         <response name="error" type="view" value="EditSurveyQuestions"/>
     </request-map>
     <request-map uri="updateSurveyQuestionAppl">
         <security auth="true" https="true"/>
-        <event invoke="updateSurveyQuestionAppl" type="service"/>
+        <event type="service" invoke="updateSurveyQuestionAppl"/>
         <response name="success" type="view" value="EditSurveyQuestions"/>
         <response name="error" type="view" value="EditSurveyQuestions"/>
     </request-map>
     <request-map uri="removeSurveyQuestionAppl">
         <security auth="true" https="true"/>
-        <event invoke="deleteSurveyQuestionAppl" type="service"/>
+        <event type="service" invoke="deleteSurveyQuestionAppl"/>
         <response name="success" type="view" value="EditSurveyQuestions"/>
         <response name="error" type="view" value="EditSurveyQuestions"/>
     </request-map>
 
     <request-map uri="createSurveyPage">
         <security auth="true" https="true"/>
-        <event invoke="createSurveyPage" type="service"/>
+        <event type="service" invoke="createSurveyPage"/>
         <response name="success" type="view" value="EditSurveyQuestions"/>
         <response name="error" type="view" value="EditSurveyQuestions"/>
     </request-map>
     <request-map uri="updateSurveyPage">
         <security auth="true" https="true"/>
-        <event invoke="updateSurveyPage" type="service"/>
+        <event type="service" invoke="updateSurveyPage"/>
         <response name="success" type="view" value="EditSurveyQuestions"/>
         <response name="error" type="view" value="EditSurveyQuestions"/>
     </request-map>
     <request-map uri="removeSurveyPage">
         <security auth="true" https="true"/>
-        <event invoke="deleteSurveyPage" type="service"/>
+        <event type="service" invoke="deleteSurveyPage"/>
         <response name="success" type="view" value="EditSurveyQuestions"/>
         <response name="error" type="view" value="EditSurveyQuestions"/>
     </request-map>
@@ -1566,7 +1566,7 @@ under the License.
     <request-map uri="ListLayout"><security auth="true" https="true"/><response name="success" type="view" value="ListLayout"/></request-map>
     <request-map uri="clipFindLayout">
         <security auth="true" https="true"/>
-        <event invoke="copyToClip" path="org.apache.ofbiz.content.layout.LayoutEvents" type="java"/>
+        <event type="java" invoke="copyToClip" path="org.apache.ofbiz.content.layout.LayoutEvents"/>
         <response name="success" type="view" value="FindLayout"/>
         <response name="error" type="view" value="FindLayout"/>
     </request-map>
@@ -1575,43 +1575,43 @@ under the License.
     <request-map uri="AddLayout"><security auth="true" https="true"/><response name="success" type="view" value="AddLayout"/></request-map>
     <request-map uri="createLayout">
         <security auth="true" https="true"/>
-        <event invoke="createLayout" path="component://content/minilang/layout/LayoutEvents.xml" type="simple"/>
+        <event type="simple" invoke="createLayout" path="component://content/minilang/layout/LayoutEvents.xml"/>
         <response name="success" type="view" value="EditLayout"/>
         <response name="error" type="view" value="AddLayout"/>
     </request-map>
     <request-map uri="updateLayout">
         <security auth="true" https="true"/>
-        <event invoke="updateLayout" path="component://content/minilang/layout/LayoutEvents.xml" type="simple"/>
+        <event type="simple" invoke="updateLayout" path="component://content/minilang/layout/LayoutEvents.xml"/>
         <response name="success" type="view" value="EditLayout"/>
         <response name="error" type="view" value="EditLayout"/>
     </request-map>
     <request-map uri="createLayoutSubContent">
         <security auth="true" https="true"/>
-        <event invoke="createLayoutSubContent" path="org.apache.ofbiz.content.layout.LayoutEvents" type="java"/>
+        <event type="java" invoke="createLayoutSubContent" path="org.apache.ofbiz.content.layout.LayoutEvents"/>
         <response name="success" type="view" value="EditLayoutSubContent"/>
         <response name="error" type="view" value="EditLayoutSubContent"/>
     </request-map>
     <request-map uri="updateLayoutSubContent">
         <security auth="true" https="true"/>
-        <event invoke="updateLayoutSubContent" path="org.apache.ofbiz.content.layout.LayoutEvents" type="java"/>
+        <event type="java" invoke="updateLayoutSubContent" path="org.apache.ofbiz.content.layout.LayoutEvents"/>
         <response name="success" type="view" value="EditLayoutSubContent"/>
         <response name="error" type="view" value="EditLayoutSubContent"/>
     </request-map>
     <request-map uri="replaceSubContent">
         <security auth="true" https="true"/>
-        <event invoke="replaceSubContent" path="org.apache.ofbiz.content.layout.LayoutEvents" type="java"/>
+        <event type="java" invoke="replaceSubContent" path="org.apache.ofbiz.content.layout.LayoutEvents"/>
         <response name="success" type="view" value="EditLayout"/>
         <response name="error" type="view" value="EditLayout"/>
     </request-map>
     <request-map uri="pasteSubContent">
         <security auth="true" https="true"/>
-        <event invoke="pasteSubContent" path="component://content/minilang/layout/LayoutEvents.xml" type="simple"/>
+        <event type="simple" invoke="pasteSubContent" path="component://content/minilang/layout/LayoutEvents.xml"/>
         <response name="success" type="view" value="EditLayout"/>
         <response name="error" type="view" value="EditLayout"/>
     </request-map>
     <request-map uri="removeLayout">
         <security auth="true" https="true"/>
-        <event invoke="removeContentAssoc" path="" type="service"/>
+        <event type="service" invoke="removeContentAssoc" path=""/>
         <response name="success" type="view" value="ListLayout"/>
         <response name="error" type="view" value="main"/>
     </request-map>
@@ -1621,62 +1621,62 @@ under the License.
     <request-map uri="EditLayoutUrl"><security auth="true" https="true"/><response name="success" type="view" value="EditLayoutUrl"/></request-map>
     <request-map uri="createLayoutText">
         <security auth="true" https="true"/>
-        <event invoke="createLayoutText" path="component://content/minilang/layout/LayoutEvents.xml" type="simple"/>
+        <event type="simple" invoke="createLayoutText" path="component://content/minilang/layout/LayoutEvents.xml"/>
         <response name="success" type="view" value="EditLayoutText"/>
         <response name="error" type="view" value="EditLayoutText"/>
     </request-map>
     <request-map uri="EditLayoutSubContent"><security auth="true" https="true"/><response name="success" type="view" value="EditLayoutSubContent"/></request-map>
     <request-map uri="updateLayoutText">
         <security auth="true" https="true"/>
-        <event invoke="updateLayoutText" path="component://content/minilang/layout/LayoutEvents.xml" type="simple"/>
+        <event type="simple" invoke="updateLayoutText" path="component://content/minilang/layout/LayoutEvents.xml"/>
         <response name="success" type="view" value="EditLayoutText"/>
         <response name="error" type="view" value="EditLayoutText"/>
     </request-map>
     <request-map uri="createLayoutHtml">
         <security auth="true" https="true"/>
-        <event invoke="createLayoutText" path="component://content/minilang/layout/LayoutEvents.xml" type="simple"/>
+        <event type="simple" invoke="createLayoutText" path="component://content/minilang/layout/LayoutEvents.xml"/>
         <response name="success" type="view" value="EditLayoutHtml"/>
         <response name="error" type="view" value="EditLayoutHtml"/>
     </request-map>
     <request-map uri="updateLayoutHtml">
         <security auth="true" https="true"/>
-        <event invoke="updateLayoutText" path="component://content/minilang/layout/LayoutEvents.xml" type="simple"/>
+        <event type="simple" invoke="updateLayoutText" path="component://content/minilang/layout/LayoutEvents.xml"/>
         <response name="success" type="view" value="EditLayoutHtml"/>
         <response name="error" type="view" value="EditLayoutHtml"/>
     </request-map>
     <request-map uri="createLayoutUrl">
         <security auth="true" https="true"/>
-        <event invoke="createLayoutUrl" path="component://content/minilang/layout/LayoutEvents.xml" type="simple"/>
+        <event type="simple" invoke="createLayoutUrl" path="component://content/minilang/layout/LayoutEvents.xml"/>
         <response name="success" type="view" value="EditLayoutUrl"/>
         <response name="error" type="view" value="EditLayoutUrl"/>
     </request-map>
     <request-map uri="updateLayoutUrl">
         <security auth="true" https="true"/>
-        <event invoke="updateLayoutUrl" path="component://content/minilang/layout/LayoutEvents.xml" type="simple"/>
+        <event type="simple" invoke="updateLayoutUrl" path="component://content/minilang/layout/LayoutEvents.xml"/>
         <response name="success" type="view" value="EditLayoutUrl"/>
         <response name="error" type="view" value="EditLayoutUrl"/>
     </request-map>
     <request-map uri="createLayoutImage">
         <security auth="true" https="true"/>
-        <event invoke="createLayoutImage" path="org.apache.ofbiz.content.layout.LayoutEvents" type="java"/>
+        <event type="java" invoke="createLayoutImage" path="org.apache.ofbiz.content.layout.LayoutEvents"/>
         <response name="success" type="view" value="EditLayoutImage"/>
         <response name="error" type="view" value="EditLayoutImage"/>
     </request-map>
     <request-map uri="updateLayoutImage">
         <security auth="true" https="true"/>
-        <event invoke="updateLayoutImage" path="org.apache.ofbiz.content.layout.LayoutEvents" type="java"/>
+        <event type="java" invoke="updateLayoutImage" path="org.apache.ofbiz.content.layout.LayoutEvents"/>
         <response name="success" type="view" value="EditLayoutImage"/>
         <response name="error" type="view" value="EditLayoutImage"/>
     </request-map>
     <request-map uri="updateLayoutImageOnly">
         <security auth="true" https="true"/>
-        <event invoke="updateLayoutImageOnly" path="org.apache.ofbiz.content.layout.LayoutEvents" type="java"/>
+        <event type="java" invoke="updateLayoutImageOnly" path="org.apache.ofbiz.content.layout.LayoutEvents"/>
         <response name="success" type="view" value="EditLayoutImage"/>
         <response name="error" type="view" value="EditLayoutImage"/>
     </request-map>
     <request-map uri="cloneLayout">
         <security auth="true" https="true"/>
-        <event invoke="cloneLayout" path="org.apache.ofbiz.content.layout.LayoutEvents" type="java"/>
+        <event type="java" invoke="cloneLayout" path="org.apache.ofbiz.content.layout.LayoutEvents"/>
         <response name="success" type="view" value="EditLayout"/>
         <response name="error" type="view" value="EditLayout"/>
     </request-map>
@@ -1728,20 +1728,20 @@ under the License.
     <request-map uri="EditAddContent"><security https="true" auth="true"/><response name="success" type="view" value="EditAddContent"/></request-map>
     <request-map uri="persistContentStuff">
         <security auth="true" https="true"/>
-        <event invoke="persistContentAndAssoc" path="" type="service"/>
+        <event type="service" invoke="persistContentAndAssoc" path=""/>
         <response name="success" type="view" value="EditAddContent"/>
         <response name="error" type="view" value="EditAddContent"/>
     </request-map>
     <request-map uri="EditAddSubContent"><security https="true" auth="true"/><response name="success" type="view" value="EditAddSubContent"/></request-map>
     <request-map uri="persistSubContentStuff">
         <security auth="true" https="true"/>
-        <event invoke="persistContentAndAssoc" path="" type="service"/>
+        <event type="service" invoke="persistContentAndAssoc" path=""/>
         <response name="success" type="view" value="EditAddContent"/>
         <response name="error" type="view" value="EditAddSubContent"/>
     </request-map>
     <request-map uri="persistContent">
         <security auth="true" https="true"/>
-        <event invoke="persistContentAndAssoc" path="" type="service"/>
+        <event type="service" invoke="persistContentAndAssoc" path=""/>
         <response name="success" type="view" value="CMSContentEdit"/>
         <response name="error" type="view" value="EditAddContent"/>
     </request-map>
@@ -1809,19 +1809,19 @@ under the License.
     </request-map>
     <request-map uri="updateDocumentTree">
         <security auth="true" https="true"/>
-        <event invoke="updateContent" type="service"/>
+        <event type="service" invoke="updateContent" />
         <response name="success" type="request-redirect-noparam" value="navigateContent"/>
         <response name="error" type="view" value="navigateContent"/>
     </request-map>
     <request-map uri="removeDocumentFromTree">
         <security auth="true" https="true"/>
-        <event invoke="removeContentAssoc" path="" type="service"/>
+        <event type="service" invoke="removeContentAssoc" path=""/>
         <response name="success" type="request-redirect-noparam" value="navigateContent"/>
         <response name="error" type="view" value="navigateContent"/>
     </request-map>
     <request-map uri="addDocumentToTree">
         <security auth="true" https="true"/>
-        <event invoke="createDocument" path="component://content/minilang/content/ContentEvents.xml" type="simple"/>
+        <event type="simple" invoke="createDocument" path="component://content/minilang/content/ContentEvents.xml" />
         <response name="success" type="request-redirect-noparam" value="navigateContent"/>
         <response name="error" type="request" value="navigateContent"/>
     </request-map>
@@ -1836,7 +1836,7 @@ under the License.
     
     <request-map uri="WebSiteCmsPreview">
         <security auth="true" https="true"/>
-        <event invoke="execute" path="org.apache.ofbiz.content.content.WebSiteCmsPreviewEvent" type="java"/>
+        <event type="java" invoke="execute" path="org.apache.ofbiz.content.content.WebSiteCmsPreviewEvent"/>
         <response name="success" type="none"/>
     </request-map>
     

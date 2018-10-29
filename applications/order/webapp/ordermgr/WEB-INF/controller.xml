@@ -1288,14 +1288,14 @@ under the License.
 
     <request-map uri="createCustRequestContent">
         <security auth="true" https="true"/>
-        <event path="component://order/minilang/request/CustRequestEvents.xml" type="simple"  invoke="createCustRequestContent"/>
+        <event type="simple" invoke="createCustRequestContent" path="component://order/minilang/request/CustRequestEvents.xml"/>
         <response name="success" type="request-redirect" value="EditCustRequestContent"><redirect-parameter name="custRequestId"/></response>
         <response name="error" type="view" value="EditCustRequestContent"/>
     </request-map>
 
     <request-map uri="deleteCustRequestContent">
         <security auth="true" https="true"/>
-        <event invoke="deleteCustRequestContent" type="service"/>
+        <event type="service" invoke="deleteCustRequestContent"/>
         <response name="success" type="request-redirect" value="EditCustRequestContent"><redirect-parameter name="custRequestId"/></response>
         <response name="error" type="view" value="EditCustRequestContent"/>
     </request-map>

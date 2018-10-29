@@ -827,7 +827,7 @@ under the License.
     </request-map>
     <request-map uri="createFacilityContent">
         <security auth="true" https="true"/>
-        <event path="component://product/minilang/product/storage/FacilityEvents.xml" type="simple" invoke="createFacilityContent"/>
+        <event type="simple" invoke="createFacilityContent" path="component://product/minilang/product/storage/FacilityEvents.xml"/>
         <response name="success" type="request-redirect" value="EditFacilityContent">
             <redirect-parameter name="facilityId"/>
         </response>
@@ -835,7 +835,7 @@ under the License.
     </request-map>
     <request-map uri="deleteFacilityContent">
         <security auth="true" https="true"/>
-        <event invoke="deleteFacilityContent" type="service"/>
+        <event type="service" invoke="deleteFacilityContent"/>
         <response name="success" type="request-redirect" value="EditFacilityContent">
             <redirect-parameter name="facilityId"/>
         </response>
