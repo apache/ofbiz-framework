@@ -87,7 +87,7 @@ under the License.
                                 </and>
                             </condition>
                             <widgets>
-                                <include-menu location="component://marketing/widget/SegmentMenus.xml" name="SegmentGroupTabBar"/>
+                                <include-menu name="SegmentGroupTabBar" location="component://marketing/widget/SegmentMenus.xml"/>
                             </widgets>
                         </section>
                     </decorator-section>

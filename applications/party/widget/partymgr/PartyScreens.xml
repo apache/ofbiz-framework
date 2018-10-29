@@ -50,7 +50,7 @@ under the License.
                             <widgets>
                                 <screenlet id="FindPartyPanel" title="${uiLabelMap.PartyFindParty}" navigation-menu-name="CreateNewParty"
                                            navigation-form-name="LookupParty" save-collapsed="false" collapsible="true" initially-collapsed="${initialyCollapsed}">
-                                    <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="CreateNewParty"/>
+                                    <include-menu name="CreateNewParty" location="component://party/widget/partymgr/PartyMenus.xml"/>
                                     <include-form name="LookupParty" location="component://party/widget/partymgr/PartyForms.xml"/>
                                 </screenlet>
                                 <screenlet title="${uiLabelMap.CommonSearchResults}" navigation-form-name="ListParty">

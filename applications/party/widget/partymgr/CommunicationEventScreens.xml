@@ -34,8 +34,8 @@ under the License.
                                 <if-has-permission permission="PARTYMGR" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="CommEventTabBar"/>
-                                <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="CommSubTabBar"/>
+                                <include-menu name="CommEventTabBar" location="component://party/widget/partymgr/PartyMenus.xml"/>
+                                <include-menu name="CommSubTabBar" location="component://party/widget/partymgr/PartyMenus.xml"/>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -65,8 +65,8 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                                <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="CommEventTabBar"/>
-                                <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="CommSubTabBar"/>
+                                <include-menu name="CommEventTabBar" location="component://party/widget/partymgr/PartyMenus.xml"/>
+                                <include-menu name="CommSubTabBar" location="component://party/widget/partymgr/PartyMenus.xml"/>
                     </decorator-section>
                     <decorator-section name="body">
                         <section>
@@ -110,10 +110,10 @@ under the License.
                                         <not><if-empty field="partyId"/></not>
                                     </condition>
                                     <widgets>
-                                        <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="ProfileTabBar"/>
+                                        <include-menu name="ProfileTabBar" location="component://party/widget/partymgr/PartyMenus.xml"/>
                                     </widgets>
                                 </section>
-                                <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="CommFindTabBar"/>
+                                <include-menu name="CommFindTabBar" location="component://party/widget/partymgr/PartyMenus.xml"/>
                                 <container><label style="h1" text="${uiLabelMap.PartyPendingCommunicationEvents}"/></container>
                                 <container>
                                     <link style="smallSubmit" target="ViewCommunicationEvent" text="${uiLabelMap.PartyNewCommunication}">
@@ -801,7 +801,7 @@ under the License.
                                         <not><if-empty field="partyId"/></not>
                                     </condition>
                                     <widgets>
-                                        <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="ProfileTabBar"/>
+                                        <include-menu name="ProfileTabBar" location="component://party/widget/partymgr/PartyMenus.xml"/>
                                     </widgets>
                                 </section>
                                 <container style="h1"><label text="${uiLabelMap.PageTitleEditCommContent}"/></container>
@@ -899,7 +899,7 @@ under the License.
                             <set field="partyIdFrom" from-field="parameters.partyId" default-value="${userLogin.partyId}"/>
                         </actions>
                         <widgets>
-                            <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="MyCommSubTabBar"/>
+                            <include-menu name="MyCommSubTabBar" location="component://party/widget/partymgr/PartyMenus.xml"/>
                             <include-screen name="commOverview"/>
                         </widgets>
                     </section>

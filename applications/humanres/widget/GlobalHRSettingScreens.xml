@@ -130,7 +130,7 @@
                                 </not>
                             </condition>
                             <widgets>
-                                <include-menu location="component://humanres/widget/HumanresMenus.xml" name="EmplPositionTypeTabBar"/>
+                                <include-menu name="EmplPositionTypeTabBar" location="component://humanres/widget/HumanresMenus.xml"/>
                             </widgets>
                         </section>
                         <screenlet title="${uiLabelMap.HumanResEditEmplPositionType}">
@@ -158,7 +158,7 @@
             <widgets>
                 <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu location="component://humanres/widget/HumanresMenus.xml" name="EmplPositionTypeTabBar"/>
+                        <include-menu name="EmplPositionTypeTabBar" location="component://humanres/widget/HumanresMenus.xml"/>
                         <screenlet id="AddEmplPositionTypeRatePanel" title="${uiLabelMap.CommonAdd} ${uiLabelMap.HumanResEmplPositionType} ${uiLabelMap.CommonRate}" collapsible="true">
                             <include-form name="AddEmplPositionTypeRate" location="component://humanres/widget/forms/GlobalHRSettingForms.xml"/>
                         </screenlet>
