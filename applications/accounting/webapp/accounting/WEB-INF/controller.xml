@@ -769,7 +769,7 @@ under the License.
     </request-map>
     <request-map uri="ImportInvoice">
         <security auth="true" https="true"/>
-        <event invoke="importInvoice" path="" type="service"/>
+        <event type="service" invoke="importInvoice" path=""/>
         <response name="success" type="request" value="ImportExport"/>
         <response name="error" type="view" value="ImportExport"/>
     </request-map>

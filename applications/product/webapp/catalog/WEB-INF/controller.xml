@@ -2549,19 +2549,19 @@ under the License.
     </request-map>
     <request-map uri="createProductConfigItem">
         <security auth="true" https="true"/>
-        <event invoke="createProductConfigItem" path="" type="service"/>
+        <event type="service" invoke="createProductConfigItem" path=""/>
         <response name="success" type="view" value="EditProductConfigItem"/>
         <response name="error" type="view" value="EditProductConfigItem"/>
     </request-map>
     <request-map uri="updateProductConfigItem">
         <security auth="true" https="true"/>
-        <event invoke="updateProductConfigItem" path="" type="service"/>
+        <event type="service" invoke="updateProductConfigItem" path=""/>
         <response name="success" type="view" value="EditProductConfigItem"/>
         <response name="error" type="view" value="EditProductConfigItem"/>
     </request-map>
     <request-map uri="deleteProductConfigItem">
         <security auth="true" https="true"/>
-        <event invoke="deleteProductConfigItem" path="" type="service"/>
+        <event type="service" invoke="deleteProductConfigItem" path=""/>
         <response name="success" type="view" value="EditProductConfigItem"/>
         <response name="error" type="view" value="EditProductConfigItem"/>
     </request-map>
@@ -2573,19 +2573,19 @@ under the License.
     </request-map>
     <request-map uri="createProductConfigOption">
         <security auth="true" https="true"/>
-        <event invoke="createProductConfigOption" type="service"/>
+        <event type="service" invoke="createProductConfigOption"/>
         <response name="success" type="view" value="EditProductConfigOptions"/>
         <response name="error" type="view" value="EditProductConfigOptions"/>
     </request-map>
     <request-map uri="updateProductConfigOption">
         <security auth="true" https="true"/>
-        <event invoke="updateProductConfigOption" type="service"/>
+        <event type="service" invoke="updateProductConfigOption"/>
         <response name="success" type="view" value="EditProductConfigOptions"/>
         <response name="error" type="view" value="EditProductConfigOptions"/>
     </request-map>
     <request-map uri="deleteProductConfigOption">
         <security auth="true" https="true"/>
-        <event invoke="deleteProductConfigOption" type="service"/>
+        <event type="service" invoke="deleteProductConfigOption"/>
         <response name="success" type="view" value="EditProductConfigOptions"/>
         <response name="error" type="view" value="EditProductConfigOptions"/>
     </request-map>
@@ -2593,19 +2593,19 @@ under the License.
     <!-- Product Config Product Requests -->
     <request-map uri="createProductConfigProduct">
         <security auth="true" https="true"/>
-        <event invoke="createProductConfigProduct" type="service"/>
+        <event type="service" invoke="createProductConfigProduct"/>
         <response name="success" type="view" value="EditProductConfigOptions"/>
         <response name="error" type="view" value="EditProductConfigOptions"/>
     </request-map>
     <request-map uri="updateProductConfigProduct">
         <security auth="true" https="true"/>
-        <event invoke="updateProductConfigProduct" type="service"/>
+        <event type="service" invoke="updateProductConfigProduct"/>
         <response name="success" type="view" value="EditProductConfigOptions"/>
         <response name="error" type="view" value="EditProductConfigOptions"/>
     </request-map>
     <request-map uri="deleteProductConfigProduct">
         <security auth="true" https="true"/>
-        <event invoke="deleteProductConfigProduct" type="service"/>
+        <event type="service" invoke="deleteProductConfigProduct"/>
         <response name="success" type="view" value="EditProductConfigOptions"/>
         <response name="error" type="view" value="EditProductConfigOptions"/>
     </request-map>
