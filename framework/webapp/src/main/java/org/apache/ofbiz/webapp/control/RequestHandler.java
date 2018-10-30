@@ -229,13 +229,6 @@ public class RequestHandler {
         }
     }
 
-    public void doRequest(HttpServletRequest request, HttpServletResponse response, String requestUri) throws RequestHandlerException, RequestHandlerExceptionAllowExternalRequests {
-        HttpSession session = request.getSession();
-        Delegator delegator = (Delegator) request.getAttribute("delegator");
-        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
-        doRequest(request, response, requestUri, userLogin, delegator);
-    }
-
     public void doRequest(HttpServletRequest request, HttpServletResponse response, String chain,
             GenericValue userLogin, Delegator delegator) throws RequestHandlerException, RequestHandlerExceptionAllowExternalRequests {
 
