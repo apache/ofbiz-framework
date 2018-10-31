@@ -946,7 +946,7 @@ public class LoginWorker {
         if (userLogin != null) {
             String webappName = UtilHttp.getApplicationName(request);
             Cookie securedLoginIdCookie = new Cookie(getSecuredLoginIdCookieName(webappName), userLogin.getString("userLoginId"));
-            securedLoginIdCookie.setMaxAge(60 * 60 * 24 * 365);
+            securedLoginIdCookie.setMaxAge(-1);
             securedLoginIdCookie.setDomain(domain);
             securedLoginIdCookie.setPath("/");
             securedLoginIdCookie.setSecure(true);
