@@ -989,7 +989,7 @@ public final class UtilHttp {
         if (viewMap != null) {
             xFrameOption = viewMap.xFrameOption;
         }
-        // default to sameorigin
+        // Default to sameorigin
         if (UtilValidate.isNotEmpty(xFrameOption)) {
             if(!"none".equals(xFrameOption)) {
                 resp.addHeader("x-frame-options", xFrameOption);
@@ -998,11 +998,13 @@ public final class UtilHttp {
             resp.addHeader("x-frame-options", "sameorigin");
         }
 
+        // HTTP Strict-Transport-Security (HSTS) enforces secure (HTTP over SSL/TLS) connections to the server.
         String strictTransportSecurity = null;
         if (viewMap != null) {
             strictTransportSecurity = viewMap.strictTransportSecurity;
-        }        
-        // default to "max-age=31536000; includeSubDomains" 31536000 secs = 1 year
+        }
+
+        // Default to "max-age=31536000; includeSubDomains" 31536000 secs = 1 year
         if (UtilValidate.isNotEmpty(strictTransportSecurity)) {
             if (!"none".equals(strictTransportSecurity)) {
                 resp.addHeader("strict-transport-security", strictTransportSecurity);
@@ -1013,22 +1015,21 @@ public final class UtilHttp {
             }
         }
         
-        //The only x-content-type-options defined value, "nosniff", prevents Internet Explorer from MIME-sniffing a response away from the declared content-type. 
-        // This also applies to Google Chrome, when downloading extensions.
+        /** The only x-content-type-options defined value, "nosniff", prevents Internet Explorer from MIME-sniffing a response away from the declared content-type. 
+         This also applies to Google Chrome, when downloading extensions. */
         resp.addHeader("x-content-type-options", "nosniff");
         
-        // This header enables the Cross-site scripting (XSS) filter built into most recent web browsers. 
-        // It's usually enabled by default anyway, so the role of this header is to re-enable the filter for this particular website if it was disabled by the user. 
-        // This header is supported in IE 8+, and in Chrome (not sure which versions). The anti-XSS filter was added in Chrome 4. Its unknown if that version honored this header.
-        // FireFox has still an open bug entry and "offers" only the noscript plugin
-        // https://wiki.mozilla.org/Security/Features/XSS_Filter 
-        // https://bugzilla.mozilla.org/show_bug.cgi?id=528661
+         /** This header enables the Cross-site scripting (XSS) filter built into most recent web browsers. 
+         It's usually enabled by default anyway, so the role of this header is to re-enable the filter for this particular website if it was disabled by the user. 
+         This header is supported in IE 8+, and in Chrome (not sure which versions). The anti-XSS filter was added in Chrome 4. Its unknown if that version honored this header.
+         FireFox has still an open bug entry and "offers" only the noscript plugin
+         https://wiki.mozilla.org/Security/Features/XSS_Filter 
+         https://bugzilla.mozilla.org/show_bug.cgi?id=528661
+         **/
         resp.addHeader("X-XSS-Protection","1; mode=block"); 
         
         resp.setHeader("Referrer-Policy", "no-referrer-when-downgrade"); // This is the default (in Firefox at least)
         
-        //resp.setHeader("Content-Security-Policy", "default-src 'self'");
-        //resp.setHeader("Content-Security-Policy-Report-Only", "default-src 'self'; report-uri webtools/control/ContentSecurityPolicyReporter");
         resp.setHeader("Content-Security-Policy-Report-Only", "default-src 'self'");
         
         // TODO in custom project. Public-Key-Pins-Report-Only is interesting but can't be used OOTB because of demos (the letsencrypt certificate is renewed every 3 months)
