@@ -948,7 +948,7 @@ public class LoginWorker {
             Cookie securedLoginIdCookie = new Cookie(getSecuredLoginIdCookieName(webappName), userLogin.getString("userLoginId"));
             securedLoginIdCookie.setMaxAge(-1);
             securedLoginIdCookie.setDomain(domain);
-            securedLoginIdCookie.setPath("/");
+            securedLoginIdCookie.setPath("/" + UtilHttp.getApplicationName(request));
             securedLoginIdCookie.setSecure(true);
             securedLoginIdCookie.setHttpOnly(true);
             response.addCookie(securedLoginIdCookie);
@@ -1100,7 +1100,7 @@ public class LoginWorker {
                 WebappInfo webappInfo = ComponentConfig.getWebappInfo("default-server", securedLoginIdName);
                 if (webappInfo != null) {
                     securedLoginIdCookie.setMaxAge(0);
-                    securedLoginIdCookie.setPath("/");
+                    securedLoginIdCookie.setPath("/" + UtilHttp.getApplicationName(request));
                     response.addCookie(securedLoginIdCookie);
                 }
             }
