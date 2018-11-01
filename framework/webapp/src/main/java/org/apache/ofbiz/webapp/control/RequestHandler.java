@@ -941,58 +941,16 @@ public class RequestHandler {
 
         if (Debug.verboseOn()) Debug.logVerbose("The ContentType for the " + view + " view is: " + contentType, module);
 
+        //Cache Headers
         boolean viewNoCache = viewMap.noCache;
         if (viewNoCache) {
            UtilHttp.setResponseBrowserProxyNoCache(resp);
            if (Debug.verboseOn()) Debug.logVerbose("Sending no-cache headers for view [" + nextPage + "]", module);
         }
         
-        // Security headers vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-        // See https://cwiki.apache.org/confluence/display/OFBIZ/How+to+Secure+HTTP+Headers
-        String xFrameOption = viewMap.xFrameOption;
-        // default to sameorigin
-        if (UtilValidate.isNotEmpty(xFrameOption)) {
-            if(!"none".equals(xFrameOption)) {
-                resp.addHeader("x-frame-options", xFrameOption);
-            }
-        } else {
-            resp.addHeader("x-frame-options", "sameorigin");
-        }
-
-        String strictTransportSecurity = viewMap.strictTransportSecurity;
-        // default to "max-age=31536000; includeSubDomains" 31536000 secs = 1 year
-        if (UtilValidate.isNotEmpty(strictTransportSecurity)) {
-            if (!"none".equals(strictTransportSecurity)) {
-                resp.addHeader("strict-transport-security", strictTransportSecurity);
-            }
-        } else {
-            if (EntityUtilProperties.getPropertyAsBoolean("requestHandler", "strict-transport-security", true)) { // FIXME later pass req.getAttribute("delegator") as last argument
-                resp.addHeader("strict-transport-security", "max-age=31536000; includeSubDomains");
-            }
-        }
+        //Security Headers
+        UtilHttp.setResponseBrowserDefaultSecurityHeaders(resp, viewMap);
         
-        //The only x-content-type-options defined value, "nosniff", prevents Internet Explorer from MIME-sniffing a response away from the declared content-type. 
-        // This also applies to Google Chrome, when downloading extensions.
-        resp.addHeader("x-content-type-options", "nosniff");
-        
-        // This header enables the Cross-site scripting (XSS) filter built into most recent web browsers. 
-        // It's usually enabled by default anyway, so the role of this header is to re-enable the filter for this particular website if it was disabled by the user. 
-        // This header is supported in IE 8+, and in Chrome (not sure which versions). The anti-XSS filter was added in Chrome 4. Its unknown if that version honored this header.
-        // FireFox has still an open bug entry and "offers" only the noscript plugin
-        // https://wiki.mozilla.org/Security/Features/XSS_Filter 
-        // https://bugzilla.mozilla.org/show_bug.cgi?id=528661
-        resp.addHeader("X-XSS-Protection","1; mode=block"); 
-        
-        resp.setHeader("Referrer-Policy", "no-referrer-when-downgrade"); // This is the default (in Firefox at least)
-        
-        //resp.setHeader("Content-Security-Policy", "default-src 'self'");
-        //resp.setHeader("Content-Security-Policy-Report-Only", "default-src 'self'; report-uri webtools/control/ContentSecurityPolicyReporter");
-        resp.setHeader("Content-Security-Policy-Report-Only", "default-src 'self'");
-        
-        // TODO in custom project. Public-Key-Pins-Report-Only is interesting but can't be used OOTB because of demos (the letsencrypt certificate is renewed every 3 months)
-        
-        // Security headers ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
         try {
             if (Debug.verboseOn()) Debug.logVerbose("Rendering view [" + nextPage + "] of type [" + viewMap.type + "]", module);
             ViewHandler vh = viewFactory.getViewHandler(viewMap.type);
