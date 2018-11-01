@@ -133,11 +133,10 @@ public class ExternalLoginKeysManager {
             GenericValue currentUserLogin = (GenericValue) session.getAttribute("userLogin");
             if (currentUserLogin != null) {
                 if (currentUserLogin.getString("userLoginId").equals(userLogin.getString("userLoginId"))) {
-                    // Create a secured cookie the client cookie with the correct userLoginId
-                    LoginWorker.createSecuredLoginIdCookie(request, response);
-                    
                     // same user, just make sure the autoUserLogin is set to the same and that the client cookie has the correct userLoginId
                     LoginWorker.autoLoginSet(request, response);
+                    // Same for the SecuredLoginId cookie
+                    LoginWorker.createSecuredLoginIdCookie(request, response);
                     return "success";
                 }
 
@@ -147,6 +146,10 @@ public class ExternalLoginKeysManager {
             }
 
             LoginWorker.doBasicLogin(userLogin, request);
+
+            // Create a secured cookie with the correct userLoginId
+            LoginWorker.createSecuredLoginIdCookie(request, response);
+
         } else {
             Debug.logWarning("Could not find userLogin for external login key: " + externalKey, module);
         }
