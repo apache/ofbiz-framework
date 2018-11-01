@@ -288,6 +288,11 @@ public class CmsEvents {
                 RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
                 templateMap.put("_REQUEST_HANDLER_", rh);
 
+                //Cache Headers
+                UtilHttp.setResponseBrowserProxyNoCache(response);
+                //Security Headers
+                UtilHttp.setResponseBrowserDefaultSecurityHeaders(response, null);
+
                 response.setStatus(statusCode);
 
                 try {
