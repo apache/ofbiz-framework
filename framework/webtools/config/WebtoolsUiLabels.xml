@@ -1150,6 +1150,9 @@
         <value xml:lang="zh">清除这个缓存</value>
         <value xml:lang="zh-TW">清除這個快取</value>
     </property>
+    <property key="WebtoolsClearSelectedCaches">
+        <value xml:lang="en">Clear Selected Caches</value>
+    </property>
     <property key="WebtoolsCompanyName">
         <value xml:lang="de">OFBiz: Web Tools</value>
         <value xml:lang="en">OFBiz: Web Tools</value>

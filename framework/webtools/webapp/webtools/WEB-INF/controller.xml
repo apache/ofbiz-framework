@@ -179,6 +179,12 @@ under the License.
         <response name="success" type="view" value="FindUtilCache"/>
         <response name="error" type="view" value="FindUtilCache"/>
     </request-map>
+    <request-map uri="ClearSelectedCaches">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.apache.ofbiz.webtools.UtilCacheEvents" invoke="clearSelectedCachesEvent"/>
+        <response name="success" type="view" value="FindUtilCache"/>
+        <response name="error" type="view" value="FindUtilCache"/>
+    </request-map>
     <request-map uri="ForceGarbageCollection">
         <security https="true" auth="true"/>
         <event type="service" invoke="forceGarbageCollection"/>
