@@ -384,8 +384,7 @@ public class CommonEvents {
     public static String loadJWT(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         Map<String, String> types = new HashMap<>();
-        String webAppName = UtilHttp.getApplicationName(request);
-        String securedUserLoginId = LoginWorker.getSecuredUserLoginId(request, webAppName);
+        String securedUserLoginId = LoginWorker.getSecuredUserLoginId(request);
         if (securedUserLoginId != null) {
             types.put("userLoginId", securedUserLoginId);
             int ttlSeconds =  (int) Long.parseLong(EntityUtilProperties.getPropertyValue("security", "security.jwt.token.expireTime", "10", delegator));
