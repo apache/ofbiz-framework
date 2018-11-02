@@ -216,6 +216,8 @@ public final class ComponentConfig {
                         } else {
                             tm.put(key, wInfo);
                         }
+                    } if (!wInfo.getAppBarDisplay()) {
+                        tm.put(key, wInfo);
                     }
                 }
             }
