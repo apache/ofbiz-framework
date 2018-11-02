@@ -251,7 +251,7 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute name="keep-autologin-cookie" default="false">
+        <xs:attribute name="use-autologin-cookie" default="false">
             <xs:simpleType>
                 <xs:annotation>
                     <xs:documentation>
