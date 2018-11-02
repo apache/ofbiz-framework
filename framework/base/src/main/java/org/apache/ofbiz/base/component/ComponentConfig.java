@@ -216,7 +216,7 @@ public final class ComponentConfig {
                         } else {
                             tm.put(key, wInfo);
                         }
-                    } if (!wInfo.getAppBarDisplay()) {
+                    } if (!wInfo.getAppBarDisplay() && UtilValidate.isEmpty(menuName)) {
                         tm.put(key, wInfo);
                     }
                 }
