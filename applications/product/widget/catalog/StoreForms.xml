@@ -43,11 +43,9 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         
         <alt-target use-when="productStore==null" target="createProductStore"/>
-        <auto-fields-service service-name="updateProductStore" map-name=""/>
+        <auto-fields-service service-name="updateProductStore"/>
 
         <field use-when="productStore!=null" name="productStoreId" tooltip="${uiLabelMap.ProductNotModificationRecreatingProductStore}"><display/></field>
-        <field name="productStoreId"><hidden/></field>
-
         <field name="primaryStoreGroupId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="ProductStoreGroup" key-field-name="productStoreGroupId" description="${productStoreGroupName} [${productStoreGroupId}]">
@@ -436,7 +434,6 @@ under the License.
     <form name="UpdateProductStoreCatalog" type="list" target="updateProductStoreCatalog" title="" list-name="productStoreCatalogs"
         odd-row-style="alternate-row" default-table-style="basic-table" separate-columns="true">
         <auto-fields-service service-name="updateProductStoreCatalog"/>
-        <field name="productStoreId"><hidden/></field>
         <field name="prodCatalogId" title="${uiLabelMap.ProductCatalogId}">
             <display-entity entity-name="ProdCatalog" description="${catalogName}" also-hidden="true">
                 <sub-hyperlink target="EditProdCatalog" description="${prodCatalogId}" link-style="buttontext">
