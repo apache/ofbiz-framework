@@ -63,7 +63,7 @@ public class GroovyUtil {
          *  the workaround is to execute at startup a script containing the @BaseScript annotation.
          */
         try {
-            GroovyUtil.runScriptAtLocation("component://base/config/GroovyInit.groovy", null, null);
+            GroovyUtil.runScriptAtLocation("ofbizhome://framework/base/config/GroovyInit.groovy", null, null);
         } catch (Exception e) {
             Debug.logWarning("The following error occurred during the initialization of Groovy: " + e.getMessage(), module);
         }
