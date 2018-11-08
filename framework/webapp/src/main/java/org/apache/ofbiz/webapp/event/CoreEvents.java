@@ -42,8 +42,11 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntity;
+import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
@@ -107,7 +110,7 @@ public class CoreEvents {
         Security security = (Security) request.getAttribute("security");
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        //Delegator delegator = (Delegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         Locale locale = UtilHttp.getLocale(request);
         TimeZone timeZone = UtilHttp.getTimeZone(request);
 
@@ -122,6 +125,7 @@ public class CoreEvents {
         String serviceIntr = (String) params.remove("SERVICE_INTERVAL");
         String serviceCnt = (String) params.remove("SERVICE_COUNT");
         String retryCnt = (String) params.remove("SERVICE_MAXRETRY");
+        String runAsSystemUser = (String) params.remove("SERVICE_RUN_AS_SYSTEM");
 
         // the frequency map
         Map<String, Integer> freqMap = new HashMap<String, Integer>();
@@ -204,6 +208,17 @@ public class CoreEvents {
 
         if (userLogin != null) {
             serviceContext.put("userLogin", userLogin);
+        }
+
+        // Override the userLogin with system when runAsSystem is Y
+        if ("Y".equals(runAsSystemUser)) {
+            try {
+                userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").queryOne();
+                serviceContext.put("userLogin", userLogin);
+            } catch (GenericEntityException e) {
+                request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
+                return "error";
+            }
         }
 
         if (locale != null) {

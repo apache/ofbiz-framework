@@ -23,6 +23,9 @@ under the License.
 
     <form name="ScheduleJob" type="single" target="setServiceParameters"
         header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <set field="canRunJobsWithSystemUser" value="${groovy: security.hasPermission('SERVICE_RSAS_VIEW', userLogin) }" type="Boolean"/>
+        </actions>
         <field name="JOB_NAME" title="${uiLabelMap.WebtoolsJob}"><text/></field>
         <field name="SERVICE_NAME" title="${uiLabelMap.WebtoolsService}"><text/></field>
         <field name="POOL_NAME" title="${uiLabelMap.WebtoolsPool}"><text/></field>
@@ -43,6 +46,7 @@ under the License.
         <field name="SERVICE_INTERVAL" title="${uiLabelMap.WebtoolsInterval}" tooltip="${uiLabelMap.WebtoolsForUseWithFrequency}"><text/></field>
         <field name="SERVICE_COUNT" title="${uiLabelMap.WebtoolsCount}" tooltip="${uiLabelMap.WebtoolsNumberOfTimeTheJobWillRun}"><text default-value="1"/></field>
         <field name="SERVICE_MAXRETRY" title="${uiLabelMap.WebtoolsMaxRetry}" tooltip="${uiLabelMap.WebtoolsNumberOfJobRetry}"><text default-value="0"/></field>
+        <field name="SERVICE_RUN_AS_SYSTEM" title="${uiLabelMap.WebtoolsRunAsSystem}" use-when="canRunJobsWithSystemUser"><check/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
     </form>
 

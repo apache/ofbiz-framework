@@ -45,6 +45,7 @@ under the License.
     <!-- Service Maintenance security -->
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="SERVICE_MAINT"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="SERVICE_JM_LOCK"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="SERVICE_RSAS_VIEW"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="SERVICE_MAINT"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="SERVICE_JM_LOCK"/>
 

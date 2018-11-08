@@ -36,6 +36,7 @@ under the License.
     <!-- Service Maintenance security -->
     <SecurityPermission description="Use the Service Maintenance pages." permissionId="SERVICE_MAINT"/>
     <SecurityPermission description="Edit the job manager lock on the Service Maintenance pages." permissionId="SERVICE_JM_LOCK"/>
+    <SecurityPermission description="Run Schedule jobs as system user." permissionId="SERVICE_RSAS_VIEW" />
 
     <!-- Period Maintenance security -->
     <SecurityPermission description="Use the Period Maintenance pages." permissionId="PERIOD_MAINT"/>
@@ -60,6 +61,7 @@ under the License.
     <!-- add admin to SUPER permission group -->
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="WEBTOOLS_VIEW"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="SERVER_STATS_VIEW"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="SERVICE_RSAS_VIEW"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="ARTIFACT_INFO_VIEW"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="LABEL_MANAGER_VIEW"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="DATAFILE_MAINT"/>
@@ -74,5 +76,6 @@ under the License.
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="UTIL_CACHE_VIEW"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="UTIL_DEBUG_EDIT"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="UTIL_DEBUG_VIEW"/>
+
 
 </entity-engine-xml>
