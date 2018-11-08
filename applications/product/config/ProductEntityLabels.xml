@@ -4559,7 +4559,7 @@
     </property>
     <property key="FieldDescription.ProductStore.visualThemeId">
         <value xml:lang="de">Steuert das Aussehen Ihres Online-Shops.</value>
-        <value xml:lang="en">For controlling the look and feel and a web-based store.</value>
+        <value xml:lang="en">For controlling the look and feel of the web-based store.</value>
         <value xml:lang="fr">Thème visuel pour la boutique en ligne.</value>
         <value xml:lang="ja">ルック＆フィールおよびWebベース店舗の設定。</value>
         <value xml:lang="vi">Để kiểm soát cách nhìn và cảm quan và cửa hàng trực tuyến</value>
