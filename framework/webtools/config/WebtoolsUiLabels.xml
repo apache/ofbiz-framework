@@ -4535,6 +4535,9 @@
         <value xml:lang="zh">结果</value>
         <value xml:lang="zh-TW">結果</value>
     </property>
+    <property key="WebtoolsRunAsSystem">
+        <value xml:lang="en">Run As System</value>
+    </property>
     <property key="WebtoolsRunGC">
         <value xml:lang="de">GC starten</value>
         <value xml:lang="en">Run GC</value>
