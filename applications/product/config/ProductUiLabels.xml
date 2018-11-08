@@ -30106,6 +30106,15 @@
         <value xml:lang="zh">店铺</value>
         <value xml:lang="zh-TW">商店</value>
     </property>
+    <property key="ProductStoreEcomThemeId">
+        <value xml:lang="de">Steuert das Aussehen Ihres Online-Shops.</value>
+        <value xml:lang="en">For controlling the look and feel of the web-based store.</value>
+        <value xml:lang="fr">Thème visuel pour la boutique en ligne.</value>
+        <value xml:lang="ja">ルック＆フィールおよびWebベース店舗の設定。</value>
+        <value xml:lang="vi">Để kiểm soát cách nhìn và cảm quan và cửa hàng trực tuyến</value>
+        <value xml:lang="zh">用于控制一个网店的外观感受。</value>
+        <value xml:lang="zh-TW">用於控制一個網店的外觀感受.</value>
+    </property>        
     <property key="ProductStoresFor">
         <value xml:lang="de">Läden für</value>
         <value xml:lang="en">Stores For</value>
