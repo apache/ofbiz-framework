@@ -28,6 +28,7 @@ import org.apache.ofbiz.base.util.UtilValidate
 import org.apache.ofbiz.entity.GenericValue
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
+import org.apache.ofbiz.entity.condition.EntityConditionBuilder
 import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.service.ModelService
 import org.apache.ofbiz.service.ServiceUtil
@@ -595,12 +596,24 @@ def duplicateProductCategory() {
  * Create an attribute for a product category
  */
 def createProductCategoryAttribute() {
+ 
     def resourceDescription = parameters.resourceDescription ?: "createProductCategoryAttribute"
     if (!(security.hasEntityPermission("CATALOG", "_CREATE", parameters.userLogin))) {
         return error(UtilProperties.getMessage("ProductUiLabels", "ProductCatalogCreatePermissionError",
             [resourceDescription: resourceDescription], parameters.locale))
     }
-
+    
+    // check if the new attribute-name is unique to the product-category-id
+    exprBldr = new EntityConditionBuilder()
+    condition = exprBldr.AND() {
+        EQUALS(productCategoryId: parameters.productCategoryId)
+        EQUALS(attrName: parameters.attrName)
+    }
+    List existingData = from('ProductCategoryAttribute').where(condition).queryList()
+    if (existingData) {
+        return error(UtilProperties.getMessage("ProductUiLabels", "ProductCategoryAttrAlreadyExists",
+            [resourceDescription: resourceDescription], parameters.locale))
+    }
     GenericValue newEntity = makeValue("ProductCategoryAttribute", parameters)
     newEntity.create()
     return success()
