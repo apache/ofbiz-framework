@@ -689,9 +689,9 @@ under the License.
                        </decorator-screen>
                    </widgets>
                    <fail-widgets>
-                   	    <screenlet title="${uiLabelMap.ProductProductStoreGroup} ${productStoreGroup.productStoreGroupName} [${productStoreGroup.productStoreGroupId}]" name="editProductStoreGroup" collapsible="true" initially-collapsed="true">
+                           <screenlet title="${uiLabelMap.ProductProductStoreGroup} ${productStoreGroup.productStoreGroupName} [${productStoreGroup.productStoreGroupId}]" name="editProductStoreGroup" collapsible="true" initially-collapsed="true">
                             <include-form name="EditProductStoreGroup" location="component://product/widget/catalog/StoreForms.xml"/>
-                   		</screenlet>
+                           </screenlet>
                         <screenlet title="${uiLabelMap.ProductProductStoreGroupRollup}" id="editProductStoreGroupRollup" name="editProductStoreGroupRollup" collapsible="true" initially-collapsed="true">
                             <include-form name="ListProductStoreGroupAssoc" location="component://product/widget/catalog/StoreForms.xml"/>
                         </screenlet>

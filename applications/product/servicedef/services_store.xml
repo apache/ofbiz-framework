@@ -36,7 +36,11 @@ under the License.
             location="component://product/minilang/product/store/ProductStoreServices.xml" invoke="updateProductStore">
         <description>Update a Product Store</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <!-- visualThemeId must be replaced by ecomThemeId because of Entity.field names conflict. See OFBIZ-10567 -->
+        <auto-attributes include="nonpk" mode="IN" optional="true">
+            <exclude field-name="visualThemeId"/>
+        </auto-attributes>
+        <attribute name="ecomThemeId" mode="IN" type="String"/>
     </service>
 
     <service name="reserveStoreInventory" engine="simple"
