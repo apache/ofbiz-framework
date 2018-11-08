@@ -14695,6 +14695,10 @@
         <value xml:lang="de">Eine Attribut mit diesem Namen existiert bereits für die Produktgruppe mit dieser ID.</value>
         <value xml:lang="en">There already is an attribute with this name for a group with this ID.</value>
     </property>
+    <property key="ProductCategoryAlreadyExists">
+        <value xml:lang="de">Eine Produktgruppe mit dieser ID existiert bereits.</value>
+        <value xml:lang="en">There already is a Category with this ID.</value>
+    </property>
     <property key="ProductCategoryNoVariants">
         <value xml:lang="de">Keine Produkte mit den gewünschten Eigenschaften gefunden.</value>
         <value xml:lang="en">No products which fit your requirements were found.</value>

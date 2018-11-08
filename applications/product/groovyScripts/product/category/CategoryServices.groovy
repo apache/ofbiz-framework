@@ -529,6 +529,11 @@ def duplicateProductCategory() {
         return error(UtilProperties.getMessage("ProductUiLabels", "ProductCatalogCreatePermissionError",
                 [resourceDescription: resourceDescription], parameters.locale))
     }
+    
+    if (findOne("ProductCategory", [productCategoryId: parameters.productCategoryId], false)) {
+        return error(UtilProperties.getMessage("ProductUiLabels", "ProductCategoryAlreadyExists",
+            [resourceDescription: resourceDescription], parameters.locale))
+    }
 
     // look up the old product category and clone it
     GenericValue oldCategory = from('ProductCategory').where([productCategoryId: parameters.oldProductCategoryId]).queryOne()
