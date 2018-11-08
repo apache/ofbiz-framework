@@ -89,6 +89,9 @@ under the License.
         <set from-field="store.inventoryFacilityId" field="oldFacilityId"/>
         <set-nonpk-fields map="parameters" value-field="store"/>
 
+        <!-- visualThemeId must be replaced by ecomThemeId because of Entity.field names conflict. See OFBIZ-10567 -->
+        <set field="store.visualThemeId" from-field="parameters.ecomThemeId"/>
+
         <if-compare field="store.showPricesWithVatTax" operator="equals" value="Y">
             <if-empty field="store.vatTaxAuthGeoId">
                 <add-error>
