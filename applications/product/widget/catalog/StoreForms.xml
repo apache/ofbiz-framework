@@ -222,7 +222,7 @@ under the License.
         </field>
         
         <!-- visualThemeId must be replaced by ecomThemeId because of Entity.field names conflict. See OFBIZ-10567 -->
-        <field name="ecomThemeId" entry-name="visualThemeId">
+        <field name="ecomThemeId" entry-name="visualThemeId" title="${uiLabelMap.ProductStoreEcomThemeId}">
             <drop-down allow-empty="true">
                 <entity-options key-field-name="visualThemeId" description="${visualThemeId} - ${description}" entity-name="VisualTheme">
                     <entity-constraint name="visualThemeSetId" operator="equals" value="ECOMMERCE"/>
