@@ -26,7 +26,6 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -56,10 +55,8 @@ import org.apache.ofbiz.product.store.ProductStoreWorker;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
-import org.apache.ofbiz.webapp.control.LoginWorker;
-
-import edu.emory.mathcs.backport.java.util.Arrays;
 import org.apache.ofbiz.service.ServiceUtil;
+import org.apache.ofbiz.webapp.control.LoginWorker;
 
 /**
  * LoginEvents - Events for UserLogin and Security handling.
@@ -417,47 +414,7 @@ public class LoginEvents {
         if (!"success".equals(responseString)) {
             return responseString;
         }
-        if ("Y".equals(request.getParameter("rememberMe"))) {
-            setUsername(request, response);
-        }
         // if we logged in okay, do the check store customer role
         return ProductEvents.checkStoreCustomerRole(request, response);
-    }
-
-    public static String getUsername(HttpServletRequest request) {
-        String cookieUsername = null;
-        Cookie[] cookies = request.getCookies();
-        if (Debug.verboseOn()) {
-            Debug.logVerbose("Cookies:" + Arrays.toString(cookies), module);
-        }
-        if (cookies != null) {
-            for (Cookie cookie: cookies) {
-                if (cookie.getName().equals(usernameCookieName)) {
-                    cookieUsername = cookie.getValue();
-                    break;
-                }
-            }
-        }
-        return cookieUsername;
-    }
-
-    public static void setUsername(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
-        HttpSession session = request.getSession();
-        Delegator delegator = (Delegator) request.getAttribute("delegator");
-        String domain = EntityUtilProperties.getPropertyValue("url", "cookie.domain", delegator);
-        // first try to get the username from the cookie
-        synchronized (session) {
-            if (UtilValidate.isEmpty(getUsername(request))) {
-                // create the cookie and send it back
-                String usernameParam = URLEncoder.encode(request.getParameter("USERNAME"), "UTF-8");
-                Cookie cookie = new Cookie(usernameCookieName, usernameParam);
-                cookie.setMaxAge(60 * 60 * 24 * 365);
-                cookie.setPath("/");
-                cookie.setDomain(domain);
-                cookie.setSecure(true);
-                cookie.setHttpOnly(true);
-                response.addCookie(cookie);
-            }
-        }
     }
 }
