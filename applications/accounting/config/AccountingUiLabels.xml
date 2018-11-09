@@ -10686,35 +10686,6 @@
         <value xml:lang="zh">覆盖收入总账账户标识</value>
         <value xml:lang="zh-TW">覆蓋收入總帳科目識別</value>
     </property>
-    <property key="AccountingPaymentReceiveViaiDEAL">
-        <value xml:lang="de">Zahlung über iDEAL erhalten</value>
-        <value xml:lang="en">Payment receive via iDEAL</value>
-        <value xml:lang="fr">Paiement reçu par iDEAL</value>
-        <value xml:lang="hi-IN">भुगतान iDEAL के माध्यम से प्राप्त</value>
-        <value xml:lang="it">Pagamento ricevuto da iDEAL</value>
-        <value xml:lang="ja">iDEAL経由で支払を受取</value>
-        <value xml:lang="nl">Betalingsontvangst via iDEAL</value>
-        <value xml:lang="vi">Thanh toán nhận qua iDEAL</value>
-        <value xml:lang="zh">通过iDEAL接收到的支付</value>
-        <value xml:lang="zh-TW">通過iDEAL接收到的支付</value>
-    </property>
-    <property key="AccountingPayWithiDEAL">
-        <value xml:lang="cs">Platba prostřednictvím iDEAL</value>
-        <value xml:lang="de">Bezahlung mit iDEAL</value>
-        <value xml:lang="en">Pay With iDEAL</value>
-        <value xml:lang="es">Pagar con iDEAL</value>
-        <value xml:lang="fr">Paiement avec iDEAL</value>
-        <value xml:lang="it">Paga con iDEAL</value>
-        <value xml:lang="ja">iDEALで支払</value>
-        <value xml:lang="nl">Betaal met iDEAL</value>
-        <value xml:lang="pt-PT">&gt;Pagar Com iDEAL</value>
-        <value xml:lang="ro">Plateste cu iDEAL</value>
-        <value xml:lang="ru">Платить через iDEAL</value>
-        <value xml:lang="th">ชำระเงินผ่าน iDEAL</value>
-        <value xml:lang="vi">Chi trả với iDEAL</value>
-        <value xml:lang="zh">用iDEAL支付</value>
-        <value xml:lang="zh-TW">用iDEAL支付</value>
-    </property>
     <property key="AccountingPIN">
         <value xml:lang="ar">الرمز السري</value>
         <value xml:lang="de">PIN</value>
@@ -21712,16 +21683,6 @@
         <value xml:lang="zh">本年贷方余额</value>
         <value xml:lang="zh-TW">本年貸方餘額</value>
     </property>
-    <property key="IdealSuccessful">
-        <value xml:lang="de">Die Transaktion war erfolgreich.</value>
-        <value xml:lang="en">The transaction has been successful.</value>
-        <value xml:lang="fr">La transaction a été réussie.</value>
-        <value xml:lang="ja">トランザクションは成功しました。</value>
-        <value xml:lang="nl">De betaling is met succes ontvangen.</value>
-        <value xml:lang="vi">Bút toán đã thành công.</value>
-        <value xml:lang="zh">交易成功了。</value>
-        <value xml:lang="zh-TW">交易成功了.</value>
-    </property>
     <property key="FormFieldTitle_yearToDateBalanceDebit">
         <value xml:lang="ar">رصيد المدين لسنة من تاريخه</value>
         <value xml:lang="de">Jahr heutiger Saldo Soll</value>
@@ -23685,17 +23646,6 @@
         <value xml:lang="vi">Sửa đổi cấu hình Cổng thanh toán eWay</value>
         <value xml:lang="zh">更新eWay支付网关配置</value>
         <value xml:lang="zh-TW">更新eWay支付閘道配置</value>
-    </property>
-    <property key="PageTitleUpdatePaymentGatewayConfigiDEAL">
-        <value xml:lang="de">Bezahl-Schnittstelle iDEAL aktualisieren</value>
-        <value xml:lang="en">Update Payment Gateway Config iDEAL</value>
-        <value xml:lang="fr">Mise à jour de la configuration de l'interface iDEAL</value>
-        <value xml:lang="hi-IN">भुगतान गेटवे विन्यास iDEAL उन्नत करे</value>
-        <value xml:lang="it">Aggiorna configurazione gateway pagamento iDEAL</value>
-        <value xml:lang="ja">iDEAL支払ゲートウェイ設定を更新</value>
-        <value xml:lang="vi">Cập nhật cấu hình cổng thanh toán iDEAL</value>
-        <value xml:lang="zh">更新iDEAL支付网关配置</value>
-        <value xml:lang="zh-TW">更新iDEAL支付閘道配置</value>
     </property>
     <property key="PageTitleUpdatePaymentGatewayConfigPayPal">
         <value xml:lang="de">Bezahl-Schnittstelle PayPal aktualisieren</value>

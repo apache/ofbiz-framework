@@ -582,12 +582,6 @@ under the License.
         <response name="success" type="view" value="EditPaymentGatewayConfig"/>
         <response name="error" type="view" value="EditPaymentGatewayConfig"/>
     </request-map>
-    <request-map uri="UpdatePaymentGatewayConfigiDEAL">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updatePaymentGatewayConfigiDEAL"/>
-        <response name="success" type="view" value="EditPaymentGatewayConfig"/>
-        <response name="error" type="view" value="EditPaymentGatewayConfig"/>
-    </request-map>
 
     <!-- transaction action requests -->
     <request-map uri="processAuthorizeTransaction">

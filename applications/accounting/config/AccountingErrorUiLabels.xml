@@ -780,67 +780,6 @@
         <value xml:lang="en">No authentification result available. Payment preference can't be checked.</value>
         <value xml:lang="de">Es ist kein Authentifizierungsergebnis vorhanden. Die Zahlungsmethode kann nicht überprüft werden.</value>
     </property>
-    <property key="idealEvents.failedToExecuteServiceCreatePaymentFromPreference">
-        <value xml:lang="ar">فشل في تنفيذ خدمة CreatePaymentFromPreference</value>
-        <value xml:lang="de">Ausführen des Service CreatePaymentFromPreference fehlgeschlagen</value>
-        <value xml:lang="en">Failed To Execute Service CreatePaymentFromPreference</value>
-        <value xml:lang="fr">Échec sur l'execution du service de création d'un payment suivant les préférence (CreatePaymentFromPreference)</value>
-        <value xml:lang="hi-IN">सर्विस CreatePaymentFromPreference पर अमल(execute) करने में असफल</value>
-        <value xml:lang="it">Fallita esecuzione servizio CreatePaymentFromPreference</value>
-        <value xml:lang="zh">执行从设置创建支付（CreatePaymentFromPreference）这个服务时出错</value>
-        <value xml:lang="zh-TW">執行從偏好新建支付(CreatePaymentFromPreference)這個服務時出錯</value>
-    </property>
-    <property key="idealEvents.noValidOrderIdReturned">
-        <value xml:lang="ar">لا يوجد أمر بيع/شراء صحيح مسترجع</value>
-        <value xml:lang="de">Es wurde keine gültige BestellId zurückgegeben</value>
-        <value xml:lang="en">No Valid OrderId Returned</value>
-        <value xml:lang="fr">Référence commande retournée n'est pas valide</value>
-        <value xml:lang="hi-IN">मान्य OrderId वापस नहीं लौटा</value>
-        <value xml:lang="it">Nessun numero ordine restituito</value>
-        <value xml:lang="zh">返回的订单标识无效</value>
-        <value xml:lang="zh-TW">返回的訂單標識無效</value>
-    </property>
-    <property key="idealEvents.problemsConnectingWithIdeal">
-        <value xml:lang="de">Probleme bei der Verbindung zu iDEAL</value>
-        <value xml:lang="en">Problems Connecting With iDEAL</value>
-        <value xml:lang="fr">Problème rencontré dans la connexion avec iDEAL</value>
-        <value xml:lang="hi-IN">iDEAL के साथ जोड़ने में समस्या</value>
-        <value xml:lang="it">Problema nella connessione con iDEAL</value>
-        <value xml:lang="zh">连接 iDEAL 时出错</value>
-        <value xml:lang="zh-TW">連接 iDEAL 時出錯</value>
-    </property>
-    <property key="idealEvents.problemsGettingAuthenticationUser">
-        <value xml:lang="ar">مشاكل في مصادقة المستخدم</value>
-        <value xml:lang="de">Probleme beim Ermitteln des berechtigten Benutzers</value>
-        <value xml:lang="en">Problems Getting Authentication User</value>
-        <value xml:lang="fr">Problème sur l'authentification de l'utilisateur</value>
-        <value xml:lang="hi-IN">उपयोगकर्ता(user) के प्रमाणीकरण में समस्याएँ हो रही</value>
-        <value xml:lang="it">Problema durante l'autenticazione utente</value>
-        <value xml:lang="zh">获取认证用户时出错</value>
-        <value xml:lang="zh-TW">獲取認證使用者時出錯</value>
-    </property>
-    <property key="idealEvents.problemsGettingMerchantConfiguration">
-        <value xml:lang="ar">مشاكل في ترتيبات التاجر</value>
-        <value xml:lang="de">Probleme beim Ermitteln der Verkaufs-Konfiguration</value>
-        <value xml:lang="en">Problems Getting Merchant Configuration</value>
-        <value xml:lang="fr">Problème de récupération de la configuration marchand</value>
-        <value xml:lang="hi-IN">व्यापारी विन्यास में समस्याएँ हो रही</value>
-        <value xml:lang="it">Problema nel ricavare la configurazione del negoziante</value>
-        <value xml:lang="ja">マーチャント設定の取得時にエラー</value>
-        <value xml:lang="zh">获取商户配置时出错</value>
-        <value xml:lang="zh-TW">獲取商戶配置時出錯</value>
-    </property>
-    <property key="idealEvents.problemsGettingOrderHeader">
-        <value xml:lang="ar">مشاكل في رأس أمر البيع/الشراء</value>
-        <value xml:lang="de">Probleme beim Ermitteln des Bestellkopfs</value>
-        <value xml:lang="en">Problems Getting OrderHeader</value>
-        <value xml:lang="fr">Problème de récupération de la commande</value>
-        <value xml:lang="hi-IN">OrderHeader में समस्याएँ हो रही</value>
-        <value xml:lang="it">Problema nel ricavare la testata ordine</value>
-        <value xml:lang="ja">注文ヘッダ取得時にエラー</value>
-        <value xml:lang="zh">获取订单头时出错</value>
-        <value xml:lang="zh-TW">獲取訂單頭時出錯</value>
-    </property>
     <property key="payPalEvents.failedToExecuteServiceCreatePaymentFromPreference">
         <value xml:lang="ar">فشل في تنفيذ خدمة createPaymentFromPreference</value>
         <value xml:lang="de">Der Service createPaymentFromPreference konnte nicht ausgeführt werden</value>
