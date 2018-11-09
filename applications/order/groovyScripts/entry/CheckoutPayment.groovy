@@ -53,21 +53,4 @@ if (billingAccountList) {
     context.billingAccountList = billingAccountList
 }
 
-checkIdealPayment = false
-productStore = ProductStoreWorker.getProductStore(request)
-productStorePaymentSettingList = productStore.getRelated("ProductStorePaymentSetting", null, null, true)
-productStorePaymentSettingIter = productStorePaymentSettingList.iterator()
-while (productStorePaymentSettingIter.hasNext()) {
-    productStorePaymentSetting = productStorePaymentSettingIter.next()
-    if (productStorePaymentSetting.get("paymentMethodTypeId") == "EXT_IDEAL") {
-        checkIdealPayment = true
-    }
-    
-}
 
-if (checkIdealPayment) {
-    issuerList = org.apache.ofbiz.accounting.thirdparty.ideal.IdealEvents.getIssuerList()
-    if (issuerList) {
-        context.issuerList = issuerList
-    }
-}

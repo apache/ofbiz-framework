@@ -131,9 +131,6 @@ under the License.
     <PaymentGatewayConfig paymentGatewayConfigId="SECUREPAY_CONFIG" paymentGatewayConfigTypeId="PAY_GATWY_SECUREPAY" description="SecurePay Config"/>
     <PaymentGatewaySecurePay paymentGatewayConfigId="SECUREPAY_CONFIG" merchantId="[SecurePay MerchantID]" pwd="[SecurePay Password]" serverURL="[SecurePay serverURL]" processTimeout="80" enableAmountRound="N"/>
 
-    <PaymentGatewayConfig paymentGatewayConfigId="IDEAL_CONFIG" paymentGatewayConfigTypeId="PAY_GATWY_IDEAL" description="iDEAL Config"/>
-    <PaymentGatewayiDEAL paymentGatewayConfigId="IDEAL_CONFIG" merchantId="[iDEAL MerchantID]" merchantSubId="[iDEAL MerchantSubID]" merchantReturnURL="[iDEAL MerchantReturnURL]" acquirerURL="[iDEAL AcquirerURL]" acquirerTimeout="10" privateCert="[iDEAL PrivateCert]" acquirerKeyStoreFilename="[iDEAL AcquirerKeyStoreFilename]" acquirerKeyStorePassword="[iDEAL AcquirerKeyStorePassword]" merchantKeyStoreFilename="[iDEAL MerchantKeyStoreFilename]" merchantKeyStorePassword="[iDEAL MerchantKeyStorePassword]" expirationPeriod="[iDEAL ExpirationPeriod]"/>
-
     <!-- General Chart of Accounts Demo Data -->
     <GlAccount glAccountId="100000" accountCode="100000"
                glAccountClassId="ASSET" glResourceTypeId="MONEY"

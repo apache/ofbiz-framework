@@ -56,10 +56,4 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
-
-    <simple-method method-name="updatePaymentGatewayConfigiDEAL" short-description="Update Payment Gateway Config iDEAL">
-        <entity-one entity-name="PaymentGatewayiDEAL" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
 </simple-methods>

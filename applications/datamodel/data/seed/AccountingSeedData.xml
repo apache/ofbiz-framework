@@ -702,7 +702,6 @@ under the License.
     <PaymentMethodType description="Offline Payment" paymentMethodTypeId="EXT_OFFLINE"/>
     <PaymentMethodType description="PayPal" paymentMethodTypeId="EXT_PAYPAL"/>
     <PaymentMethodType description="RBS WorldPay" paymentMethodTypeId="EXT_WORLDPAY"/>
-    <PaymentMethodType description="iDEAL" paymentMethodTypeId="EXT_IDEAL"/>
 
     <PaymentType description="Disbursement" hasTable="N" paymentTypeId="DISBURSEMENT"/>
     <PaymentType description="Customer Refund" hasTable="N" parentTypeId="DISBURSEMENT" paymentTypeId="CUSTOMER_REFUND"/> <!-- a refund TO the customer -->
@@ -1135,8 +1134,7 @@ under the License.
     <PaymentGatewayConfigType paymentGatewayConfigTypeId="PAY_GATWY_WORLDPAY" hasTable="Y" description="Payment Gateway RBS WorldPay"/>
     <PaymentGatewayConfigType paymentGatewayConfigTypeId="PAY_GATWY_ORBITAL" hasTable="Y" description="Payment Gateway Orbital"/>
     <PaymentGatewayConfigType paymentGatewayConfigTypeId="PAY_GATWY_SECUREPAY" hasTable="Y" description="Payment Gateway SecurePay"/>
-    <PaymentGatewayConfigType paymentGatewayConfigTypeId="PAY_GATWY_IDEAL" hasTable="Y" description="Payment Gateway iDEAL"/>
-
+    
     <!-- US Tax Account Groups -->
     <GlAccountGroupType glAccountGroupTypeId="TAX_FIELD_US" description="Tax Form Field: USA"/>
 

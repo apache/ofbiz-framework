@@ -471,12 +471,4 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    
-    <form name="EditPaymentGatewayConfigiDEAL" type="single" target="UpdatePaymentGatewayConfigiDEAL" default-map-name="paymentGatewayiDEAL" header-row-style="header-row" default-table-style="basic-table">
-        <auto-fields-entity entity-name="PaymentGatewayiDEAL" default-field-type="edit"/>
-        <field name="paymentGatewayConfigId"><hidden/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
-            <submit button-type="button"/>
-        </field>
-    </form>
 </forms>

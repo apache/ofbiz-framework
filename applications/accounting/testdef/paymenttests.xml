@@ -30,10 +30,4 @@
     <!-- test-case case-name="cc-tests">
         <junit-test-suite class-name="org.apache.ofbiz.accounting.thirdparty.securepay.SecurePayServiceTest"/>
     </test-case-->
-    
-    <!-- enable when you get acquirer.keystore, merchant.crt, merchant.keystore from sandbox and copy to /applications/accounting/config and configured -->
-    <!-- <test-case case-name="ideal-payment-tests">
-        <junit-test-suite class-name="org.apache.ofbiz.accounting.thirdparty.ideal.IdealPaymentServiceTest"/>
-    </test-case>-->
-    
 </test-suite>

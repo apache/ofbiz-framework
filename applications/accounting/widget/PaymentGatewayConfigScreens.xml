@@ -114,9 +114,6 @@ under the License.
                 <entity-one entity-name="PaymentGatewaySecurePay" value-field="paymentGatewaySecurePay">
                     <field-map field-name="paymentGatewayConfigId" from-field="parameters.paymentGatewayConfigId"/>
                 </entity-one>
-                <entity-one entity-name="PaymentGatewayiDEAL" value-field="paymentGatewayiDEAL">
-                    <field-map field-name="paymentGatewayConfigId" from-field="parameters.paymentGatewayConfigId"/>
-                </entity-one>
             </actions>
             <widgets>
                 <decorator-screen name="GenericPaymentGatewayConfigDecorator">
@@ -222,16 +219,6 @@ under the License.
                             <widgets>
                                 <screenlet title="${uiLabelMap.PageTitleUpdatePaymentGatewayConfigEway}">
                                     <include-form name="EditPaymentGatewayConfigEway" location="component://accounting/widget/PaymentGatewayConfigForms.xml"/>
-                                </screenlet>
-                            </widgets>
-                        </section>
-                        <section>
-                            <condition>
-                                <not><if-empty field="paymentGatewayiDEAL"/></not>
-                            </condition>
-                            <widgets>
-                                <screenlet title="${uiLabelMap.PageTitleUpdatePaymentGatewayConfigiDEAL}">
-                                    <include-form name="EditPaymentGatewayConfigiDEAL" location="component://accounting/widget/PaymentGatewayConfigForms.xml"/>
                                 </screenlet>
                             </widgets>
                         </section>

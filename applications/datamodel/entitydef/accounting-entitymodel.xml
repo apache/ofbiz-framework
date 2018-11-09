@@ -3719,27 +3719,6 @@ under the License.
         <key-map field-name="paymentGatewayConfigId"/>
       </relation>
     </entity>
-    <entity entity-name="PaymentGatewayiDEAL"
-            package-name="org.apache.ofbiz.accounting.payment"
-            title="iDEAL Payment Gateway Config">
-      <field name="paymentGatewayConfigId" type="id"></field>
-      <field name="merchantId" type="value"><description>The ID of the webshop, received by the acceptor during the registration process</description></field>
-      <field name="merchantSubId" type="value"><description>SubID of the webshop, default value = 0 (zero); only to be changed in consultation with the acquirer</description></field>
-      <field name="merchantReturnURL" type="value"><description>URL of the page in the webshop to which the consumer is redirected after an iDEAL transaction. This value can be overruled as necessary in the webshop implementation</description></field>
-      <field name="acquirerURL" type="value"><description>URL of the acceptor’s acquirer; the following prescribed values apply to ING</description></field>
-      <field name="acquirerTimeout" type="value"><description>Number of seconds (default = 10) of waiting time for a response from the iDEAL services. If no response is received during that time, an exception is displayed</description></field>
-      <field name="privateCert" type="value"><description>Name of the acceptor’s organization as given during the creation of his or her own certificate. See section 0 for more information about the acceptor’s certificate</description></field>
-      <field name="acquirerKeyStoreFilename" type="value"><description>Keystore file and acquirer’s password</description></field>
-      <field name="acquirerKeyStorePassword" type="value" encrypt="true"><description>Password of the Acquirer keystore</description></field>
-      <field name="merchantKeyStoreFilename" type="value"><description>Keystore file and merchant’s password</description></field>
-      <field name="merchantKeyStorePassword" type="value" encrypt="true"><description>Password of the Merchant keystore</description></field>
-      <field name="expirationPeriod" type="value"><description>Expiration period of the transaction</description></field>
-      <prim-key field="paymentGatewayConfigId"/>
-      <relation type="one" fk-name="PGID_PGC" rel-entity-name="PaymentGatewayConfig">
-        <key-map field-name="paymentGatewayConfigId"/>
-      </relation>
-    </entity>
-    
     <entity entity-name="PaymentGatewayRespMsg"
             package-name="org.apache.ofbiz.accounting.payment"
             title="Payment Gateway Response Message">

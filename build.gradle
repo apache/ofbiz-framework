@@ -203,8 +203,6 @@ dependencies {
 
 def excludedJavaSources = [
     'org/apache/ofbiz/accounting/thirdparty/cybersource/IcsPaymentServices.java',
-    'org/apache/ofbiz/accounting/thirdparty/ideal/IdealEvents.java',
-    'org/apache/ofbiz/accounting/thirdparty/ideal/IdealPaymentServiceTest.java',
     'org/apache/ofbiz/accounting/thirdparty/orbital/OrbitalPaymentServices.java',
     'org/apache/ofbiz/accounting/thirdparty/paypal/PayPalServices.java',
     'org/apache/ofbiz/accounting/thirdparty/securepay/SecurePayPaymentServices.java',

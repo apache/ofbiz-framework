@@ -125,10 +125,4 @@ under the License.
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
-    
-    <service name="updatePaymentGatewayConfigiDEAL" engine="simple" location="component://accounting/minilang/payment/PaymentGatewayConfigServices.xml" invoke="updatePaymentGatewayConfigiDEAL">
-        <description>Update Payment Gateway Config iDEAL</description>
-        <auto-attributes entity-name="PaymentGatewayiDEAL" include="pk" mode="IN" optional="false"/>
-        <auto-attributes entity-name="PaymentGatewayiDEAL" include="nonpk" mode="IN" optional="true"/>
-    </service>
 </services>
