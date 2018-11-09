@@ -671,61 +671,6 @@ public final class UtilValidate {
         return (isInteger(normalizedSSN) && normalizedSSN.length() == digitsInSocialSecurityNumber);
     }
 
-    /** isUSPhoneNumber returns true if string s is a valid U.S. Phone Number.  Must be 10 digits.
-     * @deprecated Use {@link #isValidPhoneNumber(String,Delegator)} instead
-     **/
-    @Deprecated
-    public static boolean isUSPhoneNumber(String s) {
-        if (isEmpty(s)) {
-            return defaultEmptyOK;
-        }
-        String normalizedPhone = stripCharsInBag(s, phoneNumberDelimiters);
-
-        return (isInteger(normalizedPhone) && normalizedPhone.length() == digitsInUSPhoneNumber);
-    }
-
-    /** isUSPhoneAreaCode returns true if string s is a valid U.S. Phone Area Code.  Must be 3 digits.
-     * @deprecated Use {@link #isValidPhoneNumber(String,Delegator)} instead
-     * */
-    @Deprecated
-    public static boolean isUSPhoneAreaCode(String s) {
-        if (isEmpty(s)) {
-            return defaultEmptyOK;
-        }
-        String normalizedPhone = stripCharsInBag(s, phoneNumberDelimiters);
-
-        return (isInteger(normalizedPhone) && normalizedPhone.length() == digitsInUSPhoneAreaCode);
-    }
-
-    /** isUSPhoneMainNumber returns true if string s is a valid U.S. Phone Main Number.  Must be 7 digits.
-     * @deprecated Use {@link #isValidPhoneNumber(String,Delegator)} instead
-     * */
-    @Deprecated
-    public static boolean isUSPhoneMainNumber(String s) {
-        if (isEmpty(s)) {
-            return defaultEmptyOK;
-        }
-        String normalizedPhone = stripCharsInBag(s, phoneNumberDelimiters);
-
-        return (isInteger(normalizedPhone) && normalizedPhone.length() == digitsInUSPhoneMainNumber);
-    }
-
-    /** isInternationalPhoneNumber returns true if string s is a valid
-     *  international phone number.  Must be digits only; any length OK.
-     *  May be prefixed by + character.
-     *  @deprecated Use {@link #isValidPhoneNumber(String,Delegator)} instead
-     */
-    @Deprecated
-    public static boolean isInternationalPhoneNumber(String s) {
-        if (isEmpty(s)) {
-            return defaultEmptyOK;
-        }
-
-        String normalizedPhone = stripCharsInBag(s, phoneNumberDelimiters);
-
-        return isPositiveInteger(normalizedPhone);
-    }
-
     /** isZIPCode returns true if string s is a valid U.S. ZIP code.  Must be 5 or 9 digits only. */
     public static boolean isZipCode(String s) {
         if (isEmpty(s)) {
