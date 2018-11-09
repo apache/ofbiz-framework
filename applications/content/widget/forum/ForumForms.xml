@@ -33,7 +33,7 @@ under the License.
     </form>
     <form name="AddForumGroup" type="single" target="createForumGroup" title="" default-map-name="forumGroup"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="forumGroupName" parameter-name="contentName"><text/></field>
+        <field name="forumGroupName" parameter-name="contentName" required-field="true"><text/></field>
         <field name="forumGroupDescription" parameter-name="description"><text/></field>
         <field name="contentTypeId"><hidden value="FORUM_ROOT"/></field>
         <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
