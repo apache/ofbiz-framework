@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,20 +15,18 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
-
+ */
+package org.apache.ofbiz.base.util;
 
 import org.apache.commons.io.FileUtils
-import org.apache.ofbiz.base.util.FileUtil
-import org.apache.ofbiz.base.util.UtilProperties
-import org.apache.ofbiz.testtools.GroovyScriptTestCase
+import org.junit.Test
 
-class FileUtilTests extends GroovyScriptTestCase {
-
+public class FileUtilTests {
     /**
      * Test FileUtil zipFileStream and unzipFileToFolder methods, using README.adoc
      */
-    void testZipReadme() {
+    @Test
+    void zipReadme() {
         String zipFilePath = UtilProperties.getPropertyValue("general", "http.upload.tmprepository", "runtime/tmp")
         String zipName = 'README.adoc.zip'
         String fileName = 'README.adoc'
