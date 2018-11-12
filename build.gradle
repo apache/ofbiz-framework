@@ -34,6 +34,7 @@ buildscript {
     }
 }
 apply plugin: 'java'
+apply plugin: 'groovy'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: "at.bxm.svntools"
@@ -233,6 +234,9 @@ sourceSets {
             srcDirs = getDirectoryInActiveComponentsIfExists('src/main/java')
             exclude excludedJavaSources
         }
+        groovy {
+            srcDirs = getDirectoryInActiveComponentsIfExists('src/main/groovy')
+        }
         resources {
             srcDirs = getDirectoryInActiveComponentsIfExists('src/main/java')
             srcDirs += getDirectoryInActiveComponentsIfExists('config')
@@ -255,6 +259,9 @@ sourceSets {
     test {
         java {
             srcDirs = getDirectoryInActiveComponentsIfExists('src/test/java')
+        }
+        groovy {
+            srcDirs = getDirectoryInActiveComponentsIfExists('src/test/groovy')
         }
         resources {
             srcDirs = getDirectoryInActiveComponentsIfExists('src/test/java')
