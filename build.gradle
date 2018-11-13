@@ -221,7 +221,6 @@ def excludedConfigFiles = [
     '*.txt',
     '*.jks',
     'fop.xconf',
-    'GroovyInit.groovy',
     'MiniLang.xslt',
     'AutoImportTemplate.ftl',
     'axis2',

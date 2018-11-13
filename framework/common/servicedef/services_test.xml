@@ -151,25 +151,25 @@ under the License.
         <attribute name="result" type="String" mode="OUT"/>
     </service>
 
-    <service name="testGroovy" engine="groovy" location="component://common/minilang/GroovyServiceTest.groovy" invoke="">
+    <service name="testGroovy" engine="groovy" location="component://common/groovyScripts/GroovyServiceTest.groovy" invoke="">
         <description>Test Groovy Script Service</description>
         <attribute name="message" type="String" mode="IN" optional="true"/>
         <attribute name="result" type="String" mode="OUT"/>
     </service>
 
-    <service name="testGroovyMethod" engine="groovy" location="component://common/minilang/GroovyServiceTest.groovy" invoke="testMethod">
+    <service name="testGroovyMethod" engine="groovy" location="component://common/groovyScripts/GroovyServiceTest.groovy" invoke="testMethod">
         <description>Test Groovy Script Service Method Invocation</description>
         <attribute name="message" type="String" mode="IN" optional="true"/>
         <attribute name="result" type="String" mode="OUT"/>
     </service>
 
-    <service name="testScriptEngineGroovy" engine="script" location="component://common/minilang/GroovyServiceTest.groovy" invoke="">
+    <service name="testScriptEngineGroovy" engine="script" location="component://common/groovyScripts/GroovyServiceTest.groovy" invoke="">
         <description>Test Script Engine With Groovy Script</description>
         <attribute name="message" type="String" mode="IN" optional="true"/>
         <attribute name="result" type="String" mode="OUT"/>
     </service>
 
-    <service name="testScriptEngineGroovyMethod" engine="script" location="component://common/minilang/GroovyServiceTest.groovy" invoke="testMethod">
+    <service name="testScriptEngineGroovyMethod" engine="script" location="component://common/groovyScripts/GroovyServiceTest.groovy" invoke="testMethod">
         <description>Test Script Engine With Groovy Script Method Invocation</description>
         <attribute name="message" type="String" mode="IN" optional="true"/>
         <attribute name="result" type="String" mode="OUT"/>

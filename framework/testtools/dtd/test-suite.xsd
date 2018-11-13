@@ -102,7 +102,7 @@ under the License.
             <xs:annotation>
                 <xs:documentation>
                     Give the location where is groovy file that contaions the test suite.
-                    You can use a flexible url location like component://mycomponent/groovyScript/test/MySuiteTest.groovy
+                    You can use a flexible url location like component://mycomponent/groovyScripts/test/MySuiteTest.groovy
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
