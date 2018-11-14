@@ -41,7 +41,7 @@ if (parameters.productAssocTypeId) {
 bomListIterator = select("productId", "internalName", "productAssocTypeId")
                     .from("ProductAndAssoc")
                     .where(condList)
-                    .orderBy("productId", "productAssocTypeId")
+                    .orderBy("productId", "productAssocTypeId").distinct()
                     .cursorScrollInsensitive()
                     .cache(true)
                     .queryIterator()
