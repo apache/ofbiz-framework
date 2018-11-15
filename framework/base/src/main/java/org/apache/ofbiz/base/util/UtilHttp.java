@@ -986,8 +986,11 @@ public final class UtilHttp {
     public static void setResponseBrowserDefaultSecurityHeaders(HttpServletResponse resp, ConfigXMLReader.ViewMap viewMap) {
         // See https://cwiki.apache.org/confluence/display/OFBIZ/How+to+Secure+HTTP+Headers for details and how to test
         String xFrameOption = null;
+        // HTTP Strict-Transport-Security (HSTS) enforces secure (HTTP over SSL/TLS) connections to the server.
+        String strictTransportSecurity = null;
         if (viewMap != null) {
             xFrameOption = viewMap.xFrameOption;
+            strictTransportSecurity = viewMap.strictTransportSecurity;
         }
         // Default to sameorigin
         if (UtilValidate.isNotEmpty(xFrameOption)) {
@@ -996,12 +999,6 @@ public final class UtilHttp {
             }
         } else {
             resp.addHeader("x-frame-options", "sameorigin");
-        }
-
-        // HTTP Strict-Transport-Security (HSTS) enforces secure (HTTP over SSL/TLS) connections to the server.
-        String strictTransportSecurity = null;
-        if (viewMap != null) {
-            strictTransportSecurity = viewMap.strictTransportSecurity;
         }
 
         // Default to "max-age=31536000; includeSubDomains" 31536000 secs = 1 year
