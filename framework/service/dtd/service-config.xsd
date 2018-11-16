@@ -147,7 +147,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="poll-enabled">
+            <xs:attribute name="poll-enabled" type="xs:boolean">
                 <xs:annotation>
                     <xs:documentation>
                         Enable database polling. Defaults to "true".
@@ -155,12 +155,6 @@ under the License.
                         attribute set to "true" - otherwise you might experience database locking problems.
                     </xs:documentation>
                 </xs:annotation>
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="true" />
-                        <xs:enumeration value="false" />
-                    </xs:restriction>
-                </xs:simpleType>
             </xs:attribute>
             <xs:attribute name="poll-db-millis" type="xs:nonNegativeInteger">
                 <xs:annotation>
@@ -264,14 +258,7 @@ under the License.
                         <xs:attribute name="username" type="xs:string" />
                         <xs:attribute name="password" type="xs:string" />
                         <xs:attribute name="client-id" type="xs:string" />
-                        <xs:attribute name="listen" default="false">
-                            <xs:simpleType>
-                                <xs:restriction base="xs:token">
-                                    <xs:enumeration value="true" />
-                                    <xs:enumeration value="false" />
-                                </xs:restriction>
-                            </xs:simpleType>
-                        </xs:attribute>
+                        <xs:attribute name="listen" type="xs:boolean" default="false"/>
                         <xs:attribute type="xs:string" name="listener-class" />
                     </xs:complexType>
                 </xs:element>

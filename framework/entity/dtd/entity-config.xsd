@@ -106,23 +106,10 @@ under the License.
         <xs:attribute type="xs:string" name="entity-model-reader" use="required"/>
         <xs:attribute type="xs:string" name="entity-group-reader" use="required"/>
         <xs:attribute type="xs:string" name="entity-eca-reader"/>
-        <xs:attribute name="entity-eca-enabled" default="true">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
+        <xs:attribute name="entity-eca-enabled" type="xs:boolean" default="true"/>
         <xs:attribute type="xs:string" name="entity-eca-handler-class-name" default="org.apache.ofbiz.entityext.eca.DelegatorEcaHandler"/>
-        <xs:attribute name="distributed-cache-clear-enabled" default="false">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
+        <xs:attribute name="distributed-cache-clear-enabled"
+                      type="xs:boolean" default="false"/>
         <xs:attribute type="xs:string" name="distributed-cache-clear-class-name" default="org.apache.ofbiz.entityext.cache.EntityCacheServices"/>
         <xs:attribute type="xs:string" name="distributed-cache-clear-user-login-id" default="system"/>
         <xs:attribute type="xs:string" name="sequenced-id-prefix"/>
@@ -223,90 +210,24 @@ under the License.
         <xs:attribute type="xs:string" name="name" use="required"/>
         <xs:attribute type="xs:string" name="helper-class" use="required"/>
         <xs:attribute type="xs:string" name="field-type-name" use="required"/>
-        <xs:attribute name="use-schemas" default="true">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
+        <xs:attribute name="use-schemas" type="xs:boolean" default="true"/>
         <xs:attribute type="xs:string" name="schema-name"/>
-        <xs:attribute name="check-on-start" default="true">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute name="add-missing-on-start" default="false">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute name="use-pk-constraint-names" default="true">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute name="check-pks-on-start" default="true">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
+        <xs:attribute name="check-on-start" type="xs:boolean" default="true"/>
+        <xs:attribute name="add-missing-on-start" type="xs:boolean"
+                      default="false"/>
+        <xs:attribute name="use-pk-constraint-names" type="xs:boolean"
+                      default="true"/>
+        <xs:attribute name="check-pks-on-start" type="xs:boolean" default="true"/>
         <xs:attribute type="xs:nonNegativeInteger" name="constraint-name-clip-length" default="30"/>
-        <xs:attribute name="use-proxy-cursor" default="false">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
+        <xs:attribute name="use-proxy-cursor" type="xs:boolean" default="false"/>
         <xs:attribute type="xs:string" name="proxy-cursor-name" default="p_cursor"/>
         <xs:attribute type="xs:integer" name="result-fetch-size" default="-1"/>
-        <xs:attribute name="use-foreign-keys" default="true">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute name="use-foreign-key-indices" default="true">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute name="check-fks-on-start" default="false">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute name="check-fk-indices-on-start" default="false">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
+        <xs:attribute name="use-foreign-keys" type="xs:boolean" default="true"/>
+        <xs:attribute name="use-foreign-key-indices" type="xs:boolean"
+                      default="true"/>
+        <xs:attribute name="check-fks-on-start" type="xs:boolean" default="false"/>
+        <xs:attribute name="check-fk-indices-on-start"
+                      type="xs:boolean" default="false"/>
         <xs:attribute name="fk-style" default="name_constraint">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -315,40 +236,16 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute name="use-fk-initially-deferred" default="false">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute name="use-indices" default="true">
+        <xs:attribute name="use-fk-initially-deferred"
+                      type="xs:boolean" default="false"/>
+        <xs:attribute name="use-indices" type="xs:boolean" default="true">
             <xs:annotation><xs:documentation>Use manually declared indices (indexes)?</xs:documentation></xs:annotation>
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
         </xs:attribute>
-        <xs:attribute name="use-indices-unique" default="true">
+        <xs:attribute name="use-indices-unique" type="xs:boolean" default="true">
             <xs:annotation><xs:documentation>For manually declared indices (if used), use the unique constraint?</xs:documentation></xs:annotation>
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
         </xs:attribute>
-        <xs:attribute name="check-indices-on-start" default="false">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
+        <xs:attribute name="check-indices-on-start" type="xs:boolean"
+                      default="false"/>
         <xs:attribute name="join-style" default="ansi">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -359,46 +256,14 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute name="alias-view-columns" default="false">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute name="always-use-constraint-keyword" default="false">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute name="drop-fk-use-foreign-key-keyword" default="false">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute name="use-binary-type-for-blob" default="false">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute name="use-order-by-nulls" default="false">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
+        <xs:attribute name="alias-view-columns" type="xs:boolean" default="false"/>
+        <xs:attribute name="always-use-constraint-keyword"
+                      type="xs:boolean" default="false"/>
+        <xs:attribute name="drop-fk-use-foreign-key-keyword"
+		      type="xs:boolean" default="false"/>
+        <xs:attribute name="use-binary-type-for-blob"
+                      type="xs:boolean" default="false"/>
+        <xs:attribute name="use-order-by-nulls" type="xs:boolean" default="false"/>
         <xs:attribute name="offset-style" default="none">
             <xs:simpleType>
                 <xs:restriction base="xs:token">

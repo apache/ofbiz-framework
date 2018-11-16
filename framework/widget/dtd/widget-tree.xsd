@@ -49,14 +49,8 @@ under the License.
             <xs:attribute type="xs:string" name="open-depth" default="0" />
             <xs:attribute type="xs:string" name="post-trail-open-depth" default="0" />
             <xs:attribute type="xs:string" name="entity-name" />
-            <xs:attribute name="force-child-check" default="true">
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="true" />
-                        <xs:enumeration value="false" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
+            <xs:attribute name="force-child-check" type="xs:boolean"
+                          default="true"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="node">
@@ -110,14 +104,7 @@ under the License.
         <xs:complexType>
             <xs:attribute type="xs:string" name="name" use="required" />
             <xs:attribute type="xs:string" name="location" use="required" />
-            <xs:attribute name="share-scope" default="false">
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="true" />
-                        <xs:enumeration value="false" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
+            <xs:attribute name="share-scope" type="xs:boolean" default="false"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="label">
@@ -161,14 +148,7 @@ under the License.
             </xs:sequence>
             <xs:attribute name="entity-name" type="xs:string" use="required" />
             <xs:attribute name="list" type="xs:string" />
-            <xs:attribute name="use-cache" default="false">
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="true" />
-                        <xs:enumeration value="false" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
+            <xs:attribute name="use-cache" type="xs:boolean" default="false"/>
             <xs:attribute name="filter-by-date" default="false">
                 <xs:simpleType>
                     <xs:restriction base="xs:token">
@@ -205,14 +185,7 @@ under the License.
                 </xs:choice>
             </xs:sequence>
             <xs:attribute name="entity-name" type="xs:string" use="required" />
-            <xs:attribute name="use-cache" default="false">
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="true" />
-                        <xs:enumeration value="false" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
+            <xs:attribute name="use-cache" type="xs:boolean" default="false"/>
             <xs:attribute name="filter-by-date" default="false">
                 <xs:simpleType>
                     <xs:restriction base="xs:token">
@@ -222,14 +195,7 @@ under the License.
                     </xs:restriction>
                 </xs:simpleType>
             </xs:attribute>
-            <xs:attribute name="distinct" default="false">
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="true" />
-                        <xs:enumeration value="false" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
+            <xs:attribute name="distinct" type="xs:boolean" default="false"/>
             <xs:attribute name="delegator-name" type="xs:string" />
             <xs:attribute name="list" type="xs:string" />
             <xs:attribute name="result-set-type" default="scroll">

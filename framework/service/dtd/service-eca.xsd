@@ -58,30 +58,9 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute name="run-on-failure" default="false">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute name="run-on-error" default="false">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute name="enabled" default="true">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
+        <xs:attribute name="run-on-failure" type="xs:boolean" default="false"/>
+        <xs:attribute name="run-on-error" type="xs:boolean" default="false"/>
+        <xs:attribute name="enabled" type="xs:boolean" default="true"/>
     </xs:attributeGroup>
     <xs:element name="condition">
         <xs:complexType>
@@ -221,54 +200,13 @@ under the License.
         </xs:attribute>
         <xs:attribute type="xs:string" name="run-as-user"/>
         <xs:attribute type="xs:string" name="result-map-name"/>
-        <xs:attribute name="new-transaction" default="false">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute name="result-to-context" default="true">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute name="result-to-result" default="false">
+        <xs:attribute name="new-transaction" type="xs:boolean" default="false"/>
+        <xs:attribute name="result-to-context" type="xs:boolean" default="true"/>
+        <xs:attribute name="result-to-result" type="xs:boolean" default="false">
             <xs:annotation><xs:documentation>If true, copies the action's result Map into the service's result Map.</xs:documentation></xs:annotation>
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
         </xs:attribute>
-        <xs:attribute name="ignore-failure" default="true">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute name="ignore-error" default="true">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute name="persist" default="false">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
+        <xs:attribute name="ignore-failure" type="xs:boolean" default="true"/>
+        <xs:attribute name="ignore-error" type="xs:boolean" default="true"/>
+        <xs:attribute name="persist" type="xs:boolean" default="false"/>
     </xs:attributeGroup>
 </xs:schema>

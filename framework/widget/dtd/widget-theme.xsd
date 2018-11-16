@@ -80,14 +80,8 @@ under the License.
                         <xs:attribute type="xs:integer" name="default-view-size" />
                         <xs:attribute type="xs:integer" name="default-min-lenght" />
                         <xs:attribute type="xs:integer" name="default-delay" />
-                        <xs:attribute name="display-return-field">
-                            <xs:simpleType>
-                                <xs:restriction base="xs:token">
-                                    <xs:enumeration value="true" />
-                                    <xs:enumeration value="false" />
-                                </xs:restriction>
-                            </xs:simpleType>
-                        </xs:attribute>
+                        <xs:attribute name="display-return-field"
+                                      type="xs:boolean"/>
                     </xs:complexType>
                 </xs:element>
                 <xs:element name="lookup">
@@ -165,14 +159,7 @@ under the License.
             <xs:attribute type="xs:string" name="encoding" />
             <xs:attribute type="xs:string" name="content-type" />
             <xs:attribute type="xs:string" name="encoder" />
-            <xs:attribute name="compress">
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="true" />
-                        <xs:enumeration value="false" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
+            <xs:attribute name="compress" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="template-file">

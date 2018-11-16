@@ -23,12 +23,6 @@ under the License.
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
     <!-- ====================== Root Element ======================= -->
-    <xs:simpleType name="boolean">
-        <xs:restriction base="xs:token">
-            <xs:enumeration value="true"/>
-            <xs:enumeration value="false"/>
-        </xs:restriction>
-    </xs:simpleType>
     <xs:simpleType name="aggregate-function">
         <xs:restriction base="xs:token">
             <xs:enumeration value="min"/>
@@ -97,12 +91,12 @@ under the License.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute name="enable-lock" default="false" type="boolean"/>
-        <xs:attribute name="no-auto-stamp" default="false" type="boolean"/>
-        <xs:attribute name="never-cache" default="false" type="boolean"/>
-        <xs:attribute name="never-check" default="false" type="boolean"/>
-        <xs:attribute name="auto-clear-cache" default="true" type="boolean"/>
-        <xs:attribute name="redefinition" type="boolean">
+        <xs:attribute name="enable-lock" default="false" type="xs:boolean"/>
+        <xs:attribute name="no-auto-stamp" default="false" type="xs:boolean"/>
+        <xs:attribute name="never-cache" default="false" type="xs:boolean"/>
+        <xs:attribute name="never-check" default="false" type="xs:boolean"/>
+        <xs:attribute name="auto-clear-cache" default="true" type="xs:boolean"/>
+        <xs:attribute name="redefinition" type="xs:boolean">
             <xs:annotation>
                 <xs:documentation>
                     Indicates if this entity redefines an existing entity.
@@ -147,7 +141,7 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute name="enable-audit-log" default="false" type="boolean">
+        <xs:attribute name="enable-audit-log" default="false" type="xs:boolean">
             <xs:annotation>
                 <xs:documentation>
                     If this is set to true then whenever the value for this field on a record changes the Entity Engine will record the change in the EntityAuditLog entity.
@@ -155,7 +149,7 @@ under the License.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute name="not-null" default="false" type="boolean">
+        <xs:attribute name="not-null" default="false" type="xs:boolean">
             <xs:annotation>
                 <xs:documentation>
                     This makes the field NOT NULL on the database (like primary key fields).
@@ -226,7 +220,7 @@ under the License.
     </xs:element>
     <xs:attributeGroup name="attlist.index">
         <xs:attribute name="name" type="xs:string" use="required"/>
-        <xs:attribute name="unique" default="false" type="boolean"/>
+        <xs:attribute name="unique" default="false" type="xs:boolean"/>
     </xs:attributeGroup>
     <xs:element name="index-field">
         <xs:complexType>
@@ -266,13 +260,13 @@ under the License.
         <xs:attribute name="package-name" type="xs:string" use="required"/>
         <xs:attribute name="dependent-on" type="xs:string"/>
         <xs:attribute name="default-resource-name" type="xs:string"/>
-        <xs:attribute name="never-cache" default="false" type="boolean"/>
-        <xs:attribute name="auto-clear-cache" default="true" type="boolean"/>
+        <xs:attribute name="never-cache" default="false" type="xs:boolean"/>
+        <xs:attribute name="auto-clear-cache" default="true" type="xs:boolean"/>
         <xs:attribute name="title" type="xs:string"/>
         <xs:attribute name="copyright" type="xs:string"/>
         <xs:attribute name="author" type="xs:string"/>
         <xs:attribute name="version" type="xs:string"/>
-        <xs:attribute name="redefinition" type="boolean">
+        <xs:attribute name="redefinition" type="xs:boolean">
             <xs:annotation>
                 <xs:documentation>
                     Indicates if this entity redefines an existing entity.
@@ -306,7 +300,7 @@ under the License.
     <xs:attributeGroup name="attlist.alias-all">
         <xs:attribute name="entity-alias" type="xs:string" use="required"/>
         <xs:attribute name="prefix" type="xs:string"/>
-        <xs:attribute name="group-by" default="false" type="boolean"/>
+        <xs:attribute name="group-by" default="false" type="xs:boolean"/>
         <xs:attribute name="function" type="aggregate-function"/>
         <xs:attribute name="field-set" default="" type="xs:string">
             <xs:annotation>
@@ -339,7 +333,7 @@ under the License.
         <xs:attribute name="field" type="xs:string"/>
         <xs:attribute name="col-alias" type="xs:string"/>
         <xs:attribute name="prim-key" type="xs:string"/>
-        <xs:attribute name="group-by" default="false" type="boolean"/>
+        <xs:attribute name="group-by" default="false" type="xs:boolean"/>
         <xs:attribute name="function" type="aggregate-function"/>
         <xs:attribute name="field-set" default="" type="xs:string">
             <xs:annotation>
@@ -399,7 +393,7 @@ under the License.
     <xs:attributeGroup name="attlist.view-link">
         <xs:attribute name="entity-alias" type="xs:string" use="required"/>
         <xs:attribute name="rel-entity-alias" type="xs:string" use="required"/>
-        <xs:attribute name="rel-optional" default="false" type="boolean"/>
+        <xs:attribute name="rel-optional" default="false" type="xs:boolean"/>
     </xs:attributeGroup>
     <xs:element name="entity-condition">
         <xs:complexType>
@@ -425,7 +419,7 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
         <!-- TODO: variation on filter-by-date to easily compare from/thru date to date in another field, ie: alias.from_date <= rel_alias.date_field and (alias.thru_date > rel_alias.date_field or alias.thru_date is null) -->
-        <xs:attribute name="distinct" default="false" type="boolean"/>
+        <xs:attribute name="distinct" default="false" type="xs:boolean"/>
     </xs:attributeGroup>
     <xs:element name="condition-expr">
         <xs:complexType>
@@ -454,7 +448,7 @@ under the License.
         <xs:attribute name="rel-entity-alias" type="xs:string"/>
         <xs:attribute name="rel-field-name" type="xs:string"/>
         <xs:attribute name="value" type="xs:string"/>
-        <xs:attribute name="ignore-case" default="false" type="boolean"/>
+        <xs:attribute name="ignore-case" default="false" type="xs:boolean"/>
     </xs:attributeGroup>
     <xs:element name="condition-list">
         <xs:complexType>
@@ -533,9 +527,9 @@ under the License.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute name="enable-lock" type="boolean"/>
-        <xs:attribute name="no-auto-stamp" type="boolean"/>
-        <xs:attribute name="never-cache" type="boolean"/>
-        <xs:attribute name="auto-clear-cache" type="boolean"/>
+        <xs:attribute name="enable-lock" type="xs:boolean"/>
+        <xs:attribute name="no-auto-stamp" type="xs:boolean"/>
+        <xs:attribute name="never-cache" type="xs:boolean"/>
+        <xs:attribute name="auto-clear-cache" type="xs:boolean"/>
     </xs:attributeGroup>
 </xs:schema>

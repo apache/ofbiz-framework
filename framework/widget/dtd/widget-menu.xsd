@@ -63,14 +63,8 @@ under the License.
             <xs:attribute type="xs:string" name="extends-resource" />
             <xs:attribute type="xs:string" name="default-menu-item-name" />
             <xs:attribute type="xs:string" name="default-associated-content-id" />
-            <xs:attribute name="default-hide-if-selected" default="false">
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="true" />
-                        <xs:enumeration value="false" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
+            <xs:attribute name="default-hide-if-selected"
+                          type="xs:boolean" default="false"/>
             <xs:attribute type="xs:string" name="menu-width" />
             <xs:attribute type="xs:string" name="default-cell-width" />
             <xs:attribute type="xs:string" name="default-disabled-title-style" />
@@ -180,23 +174,8 @@ under the License.
                 </xs:choice>
             </xs:sequence>
             <xs:attribute type="xs:string" name="entity-name" use="required" />
-            <xs:attribute name="use-cache" default="false">
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="true" />
-                        <xs:enumeration value="false" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
-            <xs:attribute name="filter-by-date" default="false">
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="true" />
-                        <xs:enumeration value="false" />
-                        <xs:enumeration value="by-name" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
+            <xs:attribute name="use-cache" type="xs:boolean" default="false"/>
+            <xs:attribute name="filter-by-date" type="xs:boolean" default="false"/>
             <xs:attribute type="xs:string" name="list" use="required" />
             <xs:attribute name="result-set-type" default="scroll">
                 <xs:simpleType>
@@ -226,31 +205,9 @@ under the License.
                 </xs:choice>
             </xs:sequence>
             <xs:attribute type="xs:string" name="entity-name" use="required" />
-            <xs:attribute name="use-cache" default="false">
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="true" />
-                        <xs:enumeration value="false" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
-            <xs:attribute name="filter-by-date" default="false">
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="true" />
-                        <xs:enumeration value="false" />
-                        <xs:enumeration value="by-name" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
-            <xs:attribute name="distinct" default="false">
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="true" />
-                        <xs:enumeration value="false" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
+            <xs:attribute name="use-cache" type="xs:boolean" default="false"/>
+            <xs:attribute name="filter-by-date" type="xs:boolean" default="false"/>
+            <xs:attribute name="distinct" type="xs:boolean" default="false"/>
             <xs:attribute type="xs:string" name="delegator-name" />
             <xs:attribute type="xs:string" name="list" use="required" />
             <xs:attribute name="result-set-type" default="scroll">
