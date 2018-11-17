@@ -326,9 +326,8 @@ public class RequestHandler {
                 }
             }
             // Check if we SHOULD be secure and are not.
-            String forwardedProto = request.getHeader("X-Forwarded-Proto");
-            boolean isForwardedSecure = UtilValidate.isNotEmpty(forwardedProto) && "HTTPS".equals(forwardedProto.toUpperCase());
-            if ((!request.isSecure() && !isForwardedSecure) && requestMap.securityHttps) {
+            boolean forwardedHTTPS = "HTTPS".equalsIgnoreCase(request.getHeader("X-Forwarded-Proto"));
+            if (!request.isSecure() && !forwardedHTTPS && requestMap.securityHttps) {
                 // If the request method was POST then return an error to avoid problems with XSRF where the request may have come from another machine/program and had the same session ID but was not encrypted as it should have been (we used to let it pass to not lose data since it was too late to protect that data anyway)
                 if ("POST".equalsIgnoreCase(request.getMethod())) {
                     // we can't redirect with the body parameters, and for better security from XSRF, just return an error message

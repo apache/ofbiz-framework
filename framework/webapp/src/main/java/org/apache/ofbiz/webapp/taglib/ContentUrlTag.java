@@ -54,8 +54,7 @@ public class ContentUrlTag {
             return;
         }
         GenericValue webSite = WebSiteWorker.getWebSite(request);
-        String forwardedProto = request.getHeader("X-Forwarded-Proto");
-        boolean isForwardedSecure = UtilValidate.isNotEmpty(forwardedProto) && "HTTPS".equals(forwardedProto.toUpperCase());
+        boolean isForwardedSecure = "HTTPS".equalsIgnoreCase(request.getHeader("X-Forwarded-Proto"));
         boolean isSecure = request.isSecure() || isForwardedSecure;
         appendContentPrefix(webSite, isSecure, urlBuffer);
     }
