@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.util.Enumeration;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -67,18 +66,17 @@ public class ControlServlet extends HttpServlet {
      * @see javax.servlet.Servlet#init(javax.servlet.ServletConfig)
      */
     @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-        ServletContext servletContext = config.getServletContext();
+    public void init() throws ServletException {
+        ServletContext ctx = getServletContext();
         if (Debug.infoOn()) {
-            String webappName = servletContext.getContextPath().length() != 0 ? servletContext.getContextPath().substring(1) : "";
-            Debug.logInfo("Loading webapp [" + webappName + "], located at " + servletContext.getRealPath("/"), module);
+            String path = ctx.getContextPath();
+            String webappName = path.isEmpty() ? path : path.substring(1);
+            Debug.logInfo("Loading webapp [" + webappName + "], located at " + ctx.getRealPath("/"), module);
         }
 
         // Initialize the request handler.
-        RequestHandler.getRequestHandler(servletContext);
+        RequestHandler.getRequestHandler(ctx);
     }
-
     /**
      * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
