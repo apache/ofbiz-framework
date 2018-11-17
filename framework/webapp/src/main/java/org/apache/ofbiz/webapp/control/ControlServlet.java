@@ -58,10 +58,6 @@ public class ControlServlet extends HttpServlet {
 
     public static final String module = ControlServlet.class.getName();
 
-    public ControlServlet() {
-        super();
-    }
-
     /**
      * @see javax.servlet.Servlet#init(javax.servlet.ServletConfig)
      */
@@ -320,14 +316,6 @@ public class ControlServlet extends HttpServlet {
         // sanity check 2: make sure there are no user or session infos in the delegator, ie clear the thread
         GenericDelegator.clearUserIdentifierStack();
         GenericDelegator.clearSessionIdentifierStack();
-    }
-
-    /**
-     * @see javax.servlet.Servlet#destroy()
-     */
-    @Override
-    public void destroy() {
-        super.destroy();
     }
 
     protected void logRequestInfo(HttpServletRequest request) {
