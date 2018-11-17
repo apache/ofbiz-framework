@@ -69,14 +69,14 @@ public class ControlServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
+        ServletContext servletContext = config.getServletContext();
         if (Debug.infoOn()) {
-            ServletContext servletContext = config.getServletContext();
             String webappName = servletContext.getContextPath().length() != 0 ? servletContext.getContextPath().substring(1) : "";
             Debug.logInfo("Loading webapp [" + webappName + "], located at " + servletContext.getRealPath("/"), module);
         }
 
-        // initialize the request handler
-        getRequestHandler();
+        // Initialize the request handler.
+        RequestHandler.getRequestHandler(servletContext);
     }
 
     /**
@@ -93,7 +93,6 @@ public class ControlServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         long requestStartTime = System.currentTimeMillis();
-        RequestHandler requestHandler = this.getRequestHandler();
         HttpSession session = request.getSession();
 
         // setup DEFAULT character encoding and content type, this will be overridden in the RequestHandler for view rendering
@@ -184,7 +183,9 @@ public class ControlServlet extends HttpServlet {
         if (visualTheme != null) {
             UtilHttp.setVisualTheme(request, visualTheme);
         }
-        request.setAttribute("_REQUEST_HANDLER_", requestHandler);
+
+        RequestHandler handler = RequestHandler.getRequestHandler(getServletContext());
+        request.setAttribute("_REQUEST_HANDLER_", handler);
         
         ServletContextHashModel ftlServletContext = new ServletContextHashModel(this, FreeMarkerWorker.getDefaultOfbizWrapper());
         request.setAttribute("ftlServletContext", ftlServletContext);
@@ -210,7 +211,7 @@ public class ControlServlet extends HttpServlet {
         String errorPage = null;
         try {
             // the ServerHitBin call for the event is done inside the doRequest method
-            requestHandler.doRequest(request, response, null, userLogin, delegator);
+            handler.doRequest(request, response, null, userLogin, delegator);
         } catch (MethodNotAllowedException e) {
             response.setContentType("text/plain");
             response.setCharacterEncoding(request.getCharacterEncoding());
@@ -227,15 +228,15 @@ public class ControlServlet extends HttpServlet {
             } else {
                 Debug.logError(throwable, "Error in request handler: ", module);
                 request.setAttribute("_ERROR_MESSAGE_", UtilCodec.getEncoder("html").encode(throwable.toString()));
-                errorPage = requestHandler.getDefaultErrorPage(request);
+                errorPage = handler.getDefaultErrorPage(request);
             }
          } catch (RequestHandlerExceptionAllowExternalRequests e) {
-              errorPage = requestHandler.getDefaultErrorPage(request);
+              errorPage = handler.getDefaultErrorPage(request);
               Debug.logInfo("Going to external page: " + request.getPathInfo(), module);
         } catch (Exception e) {
             Debug.logError(e, "Error in request handler: ", module);
             request.setAttribute("_ERROR_MESSAGE_", UtilCodec.getEncoder("html").encode(e.toString()));
-            errorPage = requestHandler.getDefaultErrorPage(request);
+            errorPage = handler.getDefaultErrorPage(request);
         }
 
         // Forward to the JSP
@@ -309,7 +310,7 @@ public class ControlServlet extends HttpServlet {
             try {
                 UtilHttp.setInitialRequestInfo(request);
                 VisitHandler.getVisitor(request, response);
-                if (requestHandler.trackStats(request)) {
+                if (handler.trackStats(request)) {
                     ServerHitBin.countRequest(webappName + "." + rname, request, requestStartTime, System.currentTimeMillis() - requestStartTime, userLogin);
                 }
             } catch (Throwable t) {
@@ -329,10 +330,6 @@ public class ControlServlet extends HttpServlet {
     @Override
     public void destroy() {
         super.destroy();
-    }
-
-    protected RequestHandler getRequestHandler() {
-        return RequestHandler.getRequestHandler(getServletContext());
     }
 
     protected void logRequestInfo(HttpServletRequest request) {
