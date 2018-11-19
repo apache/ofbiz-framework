@@ -536,13 +536,18 @@ task deletePluginDocumentation {
         if(!activeComponents.contains(pluginId)) {
             throw new GradleException("Could not find plugin with id ${pluginId}")
         }
-        delete "${buildDir}/asciidoc/${pluginId}"
+        delete "${buildDir}/asciidoc/plugins/${pluginId}"
     }
 }
 
+task deleteAllPluginsDocumentation {
+    doFirst { delete "${buildDir}/asciidoc/plugins" }
+}
+
+
 task generateOfbizDocumentation(group: docsGroup, type: AsciidoctorTask) {
     dependsOn deleteOfbizDocumentation
-    description 'Generate OFBiz documentation manual'
+    description 'Generate OFBiz documentation manuals'
     sourceDir "${rootDir}/docs/asciidoc"
     outputDir file("${buildDir}/asciidoc/ofbiz")
 }
@@ -554,13 +559,35 @@ task generatePluginDocumentation(group: docsGroup) {
         if (project.hasProperty('pluginId') && component.name == pluginId) {
             def pluginAsciidoc = task "${component.name}Documentation" (type: AsciidoctorTask) {
                 sourceDir file("${component}/src/docs/asciidoc")
-                outputDir file("${buildDir}/asciidoc/${component.name}")
+                outputDir file("${buildDir}/asciidoc/plugins/${component.name}")
                 mustRunAfter deletePluginDocumentation
             }
             dependsOn pluginAsciidoc
         }
     }
 }
+
+task generateAllPluginsDocumentation(group: docsGroup, 
+        description: 'Generate all plugins documentation.') {
+        
+    dependsOn deleteAllPluginsDocumentation
+    file("${pluginsDir}").eachDir { plugin ->
+        iterateOverActiveComponents { component ->
+            if (component.name == plugin.name) {
+                if (subprojectExists(":plugins:${plugin.name}")) {
+                    def pluginAsciidoc = task "${component.name}-Documentation" (type: AsciidoctorTask) {
+                        sourceDir file("${component}/src/docs/asciidoc")
+                        outputDir file("${buildDir}/asciidoc/plugins/${component.name}")
+                        doLast { println "Documentation generated for plugin ${component.name}" }
+                        mustRunAfter deleteAllPluginsDocumentation
+                    }
+                    dependsOn pluginAsciidoc
+                }
+            }
+        }
+    }
+}
+
 
 // ========== System Administration tasks ==========
 task createTestReports(group: sysadminGroup, description: 'Generate HTML reports from junit XML output') {
