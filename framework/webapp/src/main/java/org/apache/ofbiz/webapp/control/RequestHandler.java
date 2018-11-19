@@ -1222,38 +1222,47 @@ public class RequestHandler {
         return rh.makeLink(request, response, url, fullPath, secure, encode);
     }
 
-    public void runAfterLoginEvents(HttpServletRequest request, HttpServletResponse response) {
+    @FunctionalInterface
+    private interface EventCollectionProducer {
+        Collection<ConfigXMLReader.Event> get() throws WebAppConfigurationException;
+    }
+
+    private void runEvents(HttpServletRequest req, HttpServletResponse res, 
+            EventCollectionProducer prod, String trigger) {
         try {
-            for (ConfigXMLReader.Event event: getControllerConfig().getAfterLoginEventList().values()) {
-                try {
-                    String returnString = this.runEvent(request, response, event, null, "after-login");
-                    if (returnString != null && !"success".equalsIgnoreCase(returnString)) {
-                        throw new EventHandlerException("Pre-Processor event did not return 'success'.");
-                    }
-                } catch (EventHandlerException e) {
-                    Debug.logError(e, module);
+            for (ConfigXMLReader.Event event: prod.get()) {
+                String ret = runEvent(req, res, event, null, trigger);
+                if (ret != null && !"success".equalsIgnoreCase(ret)) {
+                    throw new EventHandlerException("Pre-Processor event did not return 'success'.");
                 }
             }
+        } catch (EventHandlerException e) {
+            Debug.logError(e, module);
         } catch (WebAppConfigurationException e) {
             Debug.logError(e, "Exception thrown while parsing controller.xml file: ", module);
         }
     }
 
-    public void runBeforeLogoutEvents(HttpServletRequest request, HttpServletResponse response) {
-        try {
-            for (ConfigXMLReader.Event event: getControllerConfig().getBeforeLogoutEventList().values()) {
-                try {
-                    String returnString = this.runEvent(request, response, event, null, "before-logout");
-                    if (returnString != null && !"success".equalsIgnoreCase(returnString)) {
-                        throw new EventHandlerException("Pre-Processor event did not return 'success'.");
-                    }
-                } catch (EventHandlerException e) {
-                    Debug.logError(e, module);
-                }
-            }
-        } catch (WebAppConfigurationException e) {
-            Debug.logError(e, "Exception thrown while parsing controller.xml file: ", module);
-        }
+    /**
+     * Run all the "after-login" Web events defined in the controller configuration.
+     *
+     * @param req the request to run the events with
+     * @param resp the response to run the events with
+     */
+    public void runAfterLoginEvents(HttpServletRequest req, HttpServletResponse resp) {
+        EventCollectionProducer prod = () -> getControllerConfig().getAfterLoginEventList().values();
+        runEvents(req, resp, prod, "after-login");
+    }
+
+    /**
+     * Run all the "before-logout" Web events defined in the controller configuration.
+     *
+     * @param req the request to run the events with
+     * @param resp the response to run the events with
+     */
+    public void runBeforeLogoutEvents(HttpServletRequest req, HttpServletResponse resp) {
+        EventCollectionProducer prod = () -> getControllerConfig().getBeforeLogoutEventList().values();
+        runEvents(req, resp, prod, "before-logout");
     }
 
     public boolean trackStats(HttpServletRequest request) {
