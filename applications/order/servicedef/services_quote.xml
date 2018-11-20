@@ -209,20 +209,38 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="createQuoteWorkEffort" default-entity-name="QuoteWorkEffort" engine="simple" auth="true"
-            location="component://order/minilang/quote/QuoteServices.xml" invoke="createQuoteWorkEffort">
-        <description>Creates a new QuoteWorkEffort record and WorkEffort record</description>
-        <auto-attributes mode="IN" include="nonpk" optional="true"/>
-        <auto-attributes mode="INOUT" include="pk" optional="true"/>
-        <auto-attributes mode="IN" include="nonpk" optional="true" entity-name="WorkEffort"/>
-        <auto-attributes mode="INOUT" include="pk" optional="true" entity-name="WorkEffort"/>
-        <override name="quoteId" optional="false"/>
-        <override name="workEffortId" optional="false"/>
+
+    <!--Duplicate the service createQuoteWorkEffort, the first inform the deprecation, the second override and work normally-->
+    <service name="createQuoteWorkEffort" default-entity-name="QuoteWorkEffort" engine="entity-auto" invoke="create" auth="true">
+        <deprecated use-instead="ensureWorkEffortAndCreateQuoteWorkEffort" since="Upcoming Release">
+            use createQuoteWorkEffort to create a workeffort has been deprecated for best pratice naming reason, use ensureWorkEffortAndCreateQuoteWorkEffort instead.
+            Now createQuoteWorkEffort work as a crud service on QuoteWorkEffort
+        </deprecated>
     </service>
-    <service name="deleteQuoteWorkEffort" default-entity-name="QuoteWorkEffort" engine="simple" auth="true"
-            location="component://order/minilang/quote/QuoteServices.xml" invoke="deleteQuoteWorkEffort">
-        <description>Creates a new QuoteWorkEffort record</description>
-        <auto-attributes mode="IN" include="pk" optional="false"/>
+    <service name="createQuoteWorkEffort" default-entity-name="QuoteWorkEffort" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a new QuoteWorkEffort</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="ORDERMGR" action="_CREATE"/>
+        </required-permissions>
+        <auto-attributes mode="IN" include="pk"/>
+    </service>
+    <service name="deleteQuoteWorkEffort" default-entity-name="QuoteWorkEffort" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a new QuoteWorkEffort</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="ORDERMGR" action="_DELETE"/>
+        </required-permissions>
+        <auto-attributes mode="IN" include="pk"/>
+    </service>
+    <service name="ensureWorkEffortAndCreateQuoteWorkEffort" default-entity-name="WorkEffort" engine="groovy"
+             location="component://order/groovyScripts/quote/QuoteServices.groovy" invoke="ensureWorkEffortAndCreateQuoteWorkEffort" auth="true">
+        <description>Creates a new QuoteWorkEffort record and WorkEffort if needed</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="ORDERMGR" action="_CREATE"/>
+        </required-permissions>
+        <auto-attributes mode="IN" include="pk" optional="true"/>
+        <auto-attributes mode="OUT" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <attribute name="quoteId" type="String" mode="IN"/>
     </service>
     <service name="createQuoteFromCart" engine="simple" auth="true"
             location="component://order/minilang/quote/QuoteServices.xml" invoke="createQuoteFromCart">

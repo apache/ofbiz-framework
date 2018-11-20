@@ -29,13 +29,12 @@ under the License.
         <set field="serviceCtx.workEffortId" value="9007"/>
 
         <!-- Execute the service -->
-        <call-service service-name="createQuoteWorkEffort" in-map-name="serviceCtx">
+        <call-service service-name="ensureWorkEffortAndCreateQuoteWorkEffort" in-map-name="serviceCtx">
             <results-to-map map-name="serviceResult"/>
         </call-service>
 
         <!-- Confirm the service output parameters -->
         <assert>
-            <if-compare-field field="serviceResult.quoteId" operator="equals" to-field="serviceCtx.quoteId"/>
             <if-compare-field field="serviceResult.workEffortId" operator="equals" to-field="serviceCtx.workEffortId"/>
         </assert>
 
@@ -63,7 +62,7 @@ under the License.
 
         <!-- Execute the service, note break-on-error is false so that the test itself doesn't
              fail and we also need a separate transaction so our lookup below doesn't fail due to the rollback -->
-        <call-service service-name="createQuoteWorkEffort" in-map-name="serviceCtx" 
+        <call-service service-name="ensureWorkEffortAndCreateQuoteWorkEffort" in-map-name="serviceCtx"
             break-on-error="false" require-new-transaction="true">
             <results-to-map map-name="serviceResult"/>
         </call-service>
@@ -98,16 +97,11 @@ under the License.
         <set field="serviceCtx.workEffortTypeId" value="ROUTING"/>
         <set field="serviceCtx.quoteId" value="9000"/>
 
-        <call-service service-name="createQuoteWorkEffort" in-map-name="serviceCtx">
+        <call-service service-name="ensureWorkEffortAndCreateQuoteWorkEffort" in-map-name="serviceCtx">
             <results-to-map map-name="serviceResult"/>
         </call-service>
 
-        <assert>
-            <and>
-                <if-compare-field field="serviceResult.quoteId" operator="equals" to-field="serviceCtx.quoteId"/>
-                <not><if-empty field="serviceResult.workEffortId"/></not>
-            </and>
-        </assert>
+        <assert><not><if-empty field="serviceResult.workEffortId"/></not></assert>
         <!-- Confirm that a matching WorkEffort was created -->
         <entity-and entity-name="WorkEffort" list="workEfforts">
             <field-map field-name="workEffortId" from-field="serviceResult.workEffortId"/>
