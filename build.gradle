@@ -29,7 +29,7 @@ buildscript {
     }
     dependencies {
         classpath 'at.bxm.gradleplugins:gradle-svntools-plugin:latest.release'
-        classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.7'
+        classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.9.2'
         classpath 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.16'
     }
 }
@@ -116,43 +116,43 @@ configurations {
 dependencies {
     // ofbiz compile libs
     compile 'apache-xerces:xercesImpl:2.9.1'
-    compile 'com.google.zxing:core:3.3.1'
+    compile 'com.google.zxing:core:3.3.3'
     compile 'com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.4.2'
     compile 'com.googlecode.ez-vcard:ez-vcard:0.9.10'
-    compile 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:20170515.1'
+    compile 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:20180219.1'
     compile 'com.googlecode.libphonenumber:libphonenumber:8.9.16'
-    compile 'com.ibm.icu:icu4j:60.2'
+    compile 'com.ibm.icu:icu4j:63.1'
     compile 'com.lowagie:itext:2.1.7' // Don't update due to license change in newer versions, see OFBIZ-10455
-    compile 'com.sun.mail:javax.mail:1.6.0'
+    compile 'com.sun.mail:javax.mail:1.6.2'
     compile 'com.sun.syndication:com.springsource.com.sun.syndication:0.9.0'
-    compile 'com.thoughtworks.xstream:xstream:1.4.10'
+    compile 'com.thoughtworks.xstream:xstream:1.4.11.1'
     compile 'commons-cli:commons-cli:1.4'
     compile 'commons-net:commons-net:3.6'
     compile 'commons-validator:commons-validator:1.6'
     compile 'de.odysseus.juel:juel-impl:2.2.7'
-    compile 'javax.el:javax.el-api:3.0.1-b04'
-    compile 'javax.servlet:javax.servlet-api:4.0.0'
-    compile 'javax.servlet.jsp:javax.servlet.jsp-api:2.3.2-b02'
+    compile 'javax.el:javax.el-api:3.0.1-b06'
+    compile 'javax.servlet:javax.servlet-api:4.0.1'
+    compile 'javax.servlet.jsp:javax.servlet.jsp-api:2.3.3'
     compile 'junit:junit-dep:4.11'
     compile 'net.fortuna.ical4j:ical4j:1.0-rc3-atlassian-11'
-    compile 'org.apache.ant:ant-junit:1.10.1'
-    compile 'org.apache.axis2:axis2-kernel:1.7.7'
-    compile 'org.apache.commons:commons-collections4:4.1'
-    compile 'org.apache.commons:commons-csv:1.5'
-    compile 'org.apache.commons:commons-dbcp2:2.3.0'
+    compile 'org.apache.ant:ant-junit:1.10.5'
+    compile 'org.apache.axis2:axis2-kernel:1.7.8'
+    compile 'org.apache.commons:commons-collections4:4.2'
+    compile 'org.apache.commons:commons-csv:1.6'
+    compile 'org.apache.commons:commons-dbcp2:2.5.0'
     compile 'org.apache.geronimo.components:geronimo-transaction:3.1.4'
     compile 'org.apache.geronimo.specs:geronimo-jms_1.1_spec:1.1.1'
-    compile 'org.apache.httpcomponents:httpclient-cache:4.5.4'
-    compile 'org.apache.logging.log4j:log4j-api:2.10.0' // the API of log4j 2
+    compile 'org.apache.httpcomponents:httpclient-cache:4.5.6'
+    compile 'org.apache.logging.log4j:log4j-api:2.11.1' // the API of log4j 2
     compile 'org.apache.poi:poi:3.17'
     compile 'org.apache.shiro:shiro-core:1.4.0'
     compile 'org.apache.sshd:sshd-core:1.7.0'
-    compile 'org.apache.tika:tika-core:1.16'
-    compile 'org.apache.tika:tika-parsers:1.16'
-    compile 'org.apache.tomcat:tomcat-catalina-ha:9.0.10'
-    compile 'org.apache.tomcat:tomcat-catalina:9.0.10'
-    compile 'org.apache.tomcat:tomcat-jasper:9.0.10'
-    compile 'org.apache.tomcat:tomcat-tribes:9.0.10'
+    compile 'org.apache.tika:tika-core:1.18'
+    compile 'org.apache.tika:tika-parsers:1.18'
+    compile 'org.apache.tomcat:tomcat-catalina-ha:9.0.13'
+    compile 'org.apache.tomcat:tomcat-catalina:9.0.13'
+    compile 'org.apache.tomcat:tomcat-jasper:9.0.13'
+    compile 'org.apache.tomcat:tomcat-tribes:9.0.13'
     compile 'org.apache.xmlgraphics:fop:2.3'
     compile 'org.apache.xmlrpc:xmlrpc-client:3.1.3'
     compile 'org.apache.xmlrpc:xmlrpc-server:3.1.3'
@@ -160,28 +160,28 @@ dependencies {
     compile 'org.freemarker:freemarker:2.3.28' // Remember to change the version number in FreeMarkerWorker class when upgrading
     compile 'org.hamcrest:hamcrest-all:1.3'
     compile 'org.owasp.esapi:esapi:2.1.0.1'
-    compile 'org.springframework:spring-test:5.0.2.RELEASE'
+    compile 'org.springframework:spring-test:5.1.2.RELEASE'
     compile 'org.zapodot:jackson-databind-java-optional:2.6.1'
     compile 'oro:oro:2.0.8'
     compile 'wsdl4j:wsdl4j:1.6.3'
-    compile 'org.jsoup:jsoup:1.11.2'
-    compile 'io.jsonwebtoken:jjwt:0.9.0'
+    compile 'org.jsoup:jsoup:1.11.3'
+    compile 'io.jsonwebtoken:jjwt:0.9.1'
 
     // ofbiz unit-test compile libs
-    testCompile 'org.mockito:mockito-core:2.13.0'
+    testCompile 'org.mockito:mockito-core:2.23.0'
 
     // ofbiz runtime libs
     runtime 'de.odysseus.juel:juel-spi:2.2.7'
     runtime 'net.sf.barcode4j:barcode4j-fop-ext:2.1'
     runtime 'net.sf.barcode4j:barcode4j:2.1'
-    runtime 'org.apache.axis2:axis2-transport-http:1.7.7'
-    runtime 'org.apache.axis2:axis2-transport-local:1.7.7'
-    runtime 'org.apache.derby:derby:10.14.1.0'
+    runtime 'org.apache.axis2:axis2-transport-http:1.7.8'
+    runtime 'org.apache.axis2:axis2-transport-local:1.7.8'
+    runtime 'org.apache.derby:derby:10.14.2.0'
     runtime 'org.apache.geronimo.specs:geronimo-jaxrpc_1.1_spec:1.1'
-    runtime 'org.apache.logging.log4j:log4j-1.2-api:2.10.0' // for external jars using the old log4j1.2: routes logging to log4j 2
-    runtime 'org.apache.logging.log4j:log4j-core:2.10.0' // the implementation of the log4j 2 API
-    runtime 'org.apache.logging.log4j:log4j-jul:2.10.0' // for external jars using the java.util.logging: routes logging to log4j 2
-    runtime 'org.apache.logging.log4j:log4j-slf4j-impl:2.10.0' // for external jars using slf4j: routes logging to log4j 2
+    runtime 'org.apache.logging.log4j:log4j-1.2-api:2.11.1' // for external jars using the old log4j1.2: routes logging to log4j 2
+    runtime 'org.apache.logging.log4j:log4j-core:2.11.1' // the implementation of the log4j 2 API
+    runtime 'org.apache.logging.log4j:log4j-jul:2.11.1' // for external jars using the java.util.logging: routes logging to log4j 2
+    runtime 'org.apache.logging.log4j:log4j-slf4j-impl:2.11.1' // for external jars using slf4j: routes logging to log4j 2
     runtime 'org.codeartisans.thirdparties.swing:batik-all:1.8pre-r1084380'
 
     // plugin libs
@@ -193,7 +193,7 @@ dependencies {
 
     // libs needed for junitreport
     junitReport 'junit:junit:4.12'
-    junitReport 'org.apache.ant:ant-junit:1.9.7'
+    junitReport 'org.apache.ant:ant-junit:1.10.5'
 
     // local libs
     getDirectoryInActiveComponentsIfExists('lib').each { libDir ->
