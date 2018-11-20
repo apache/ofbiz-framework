@@ -1617,9 +1617,9 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditQuoteWorkEffort"/>
     </request-map>
-    <request-map uri="createQuoteWorkEffort">
+    <request-map uri="ensureWorkEffortAndCreateQuoteWorkEffort">
         <security https="true" auth="true"/>
-        <event type="service" invoke="createQuoteWorkEffort"/>
+        <event type="service" invoke="ensureWorkEffortAndCreateQuoteWorkEffort"/>
         <response name="success" type="view" value="EditQuoteWorkEffort"/>
         <response name="error" type="view" value="AddQuoteWorkEffort"/>
     </request-map>
