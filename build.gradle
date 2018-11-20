@@ -1072,6 +1072,7 @@ def getJarManifestClasspathForCurrentOs() {
     return osClassPath
 }
 
+
 def subprojectExists(fullyQualifiedProject) {
     subprojects.stream()
         .filter { it.path == fullyQualifiedProject.toString() }
@@ -1090,3 +1091,4 @@ def gradlewSubprocess(commandList) {
     def gradlew = os.contains('windows') ? 'gradlew.bat' : './gradlew'
     exec { commandLine(gradlew, "--no-daemon", *commandList) }
 }
+
