@@ -1091,4 +1091,3 @@ def gradlewSubprocess(commandList) {
     def gradlew = os.contains('windows') ? 'gradlew.bat' : './gradlew'
     exec { commandLine(gradlew, "--no-daemon", *commandList) }
 }
-
