@@ -191,7 +191,7 @@ displays search results.
 
 == Web Framework
 
-=== Web Apps
+include::../../framework/webapp/src/docs/asciidoc/webapp.adoc[leveloffset=+1]
 
 === Control Servlet
 
@@ -269,6 +269,6 @@ displays search results.
 
 == Deployment
 
-include::../../framework/security/src/doc/asciidoc/security.adoc[leveloffset=+1]
+include::../../framework/security/src/docs/asciidoc/security.adoc[leveloffset=+1]
 
 == Appendices

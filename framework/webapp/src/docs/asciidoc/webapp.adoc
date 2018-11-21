@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 ////
-= Web Applications
+=== Web Applications
 
 The OFBiz webapp is one of the core framework components. It is tightly integrated with other framework components.
 
