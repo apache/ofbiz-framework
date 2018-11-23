@@ -1,0 +1,41 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Global HR Settings
+
+Global HR Settings are used to setup the basic reference data that is used 
+throughout the Human Resources application. Many of the screens contain fields
+that have drop-down lists for selection and these drop-down list can be setup 
+here.
+
+TIP: You need to have 'administrator' or 'create privileges' to update any of 
+the Global HR Settings
+
+
+== Skills Types
+
+A skill type is used to define a skill group. Your employees, contractors and
+partners may have hundreds of different of skills so skill types allows you to 
+organise these skills so they are manageable. 
+
+This is helpful for reporting on your companies skill inventory or searching for
+ resources with the skill types needed for a job. You can search for skills types
+and assign skills to people and organisations in the Skills feature.
+
+TIP: You can manage the skills of an individual or an organisation in their
+ profile in Party Manager uisng the Party Skills feature.

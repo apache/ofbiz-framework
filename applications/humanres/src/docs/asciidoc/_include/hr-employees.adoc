@@ -1,0 +1,39 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Employees
+
+An employee is an individual that works for a company either full-time or
+part-time under a formal employment contract. The company pays the employee 
+wages or salary.
+
+NOTE: Wages tend to be related to an hourly rate and can vary based on the hours
+worked whereas salary is a flat rate generally paid monthly.
+
+The Employees feature manages information about people who have an employment
+relationship with your Company or one of its departments. Details that can be
+setup include an employee profile, a display of all employee related information
+in a single screen and facilities for managing employee skills, qualifications,
+training, leave and payroll history.
+
+In OFBiz Human Resources you can
+
+* Create a new employee
+* Search for an existing employee
+* View the full list of existing employees
+

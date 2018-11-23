@@ -1,0 +1,108 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Security
+
+OFBiz has a security model that controls access to all aspects of teh system at 
+a very detailed level. This means that it is possible to manage what each user 
+has access to and what actions they can perform.
+ 
+NOTE: Security can be so fine grained to the lowest level such as a view, or the
+creation, update or deletion of a single item of information
+
+This section covers the security permissions that inlcuded as part of the Human
+Resources application and how an administrator can assign permissions to users 
+using the Party Manager application.
+
+NOTE: A person may have one or more OFBiz login id's. Each login id can be 
+assigned to it's own set of Security Groups. This means that the id a user logs 
+in with determines what applications the person can work in and what work can be
+ done in the application. 
+
+== Human Resource Permissions
+
+In OFBiz a Security Group is collection of permissions that allow a members of
+ the group to use the application and any resources. The Human Resources 
+application has three special security groups that can be assigned Human
+Resources users. There are also other general administrative security groups 
+that let managers and administrators work in the application.
+
+You can use the Party Manager application to add users to one or more Security 
+Groups.
+
+ 
+The three special HR App Security Groups are named by role:
+
+* Employee Role - This is mandatory to be able to logon into the Human Resources 
+application. This is true even if user has the the other Human Resources Approver
+ and Administration Roles. The employee role has the most restrictions on what a 
+user may view and the actions they can take.
+
+* Approver Role - The Approver role gives members of the group the ability to 
+approve, training and employee leave requests. The approver has all of the 
+permissions included in the Employee Role and can also view and update some 
+additional screens that are not available to the Employee role.
+
+* Administrator Role - The Human Resources Administrator Role has permission to 
+do most things in the Human Resources application. They are allowed full access 
+to view, create, update and delete throughout the Human Resources application. 
+Please see the note below for the additional permissions required to be able to 
+do everything in Human Resources.
+
+NOTE: A person with the Human Administrator Role must also belong to the
+following Security Groups (Work Effort User, My Portal Employee, My Portal 
+Customer or Scrum Team) to be able to add Training classes in the Training 
+feature. 
+
+ 
+== General OFBiz Permissions
+
+Some OFBiz users (from the demo data) may not have any of the Human Resource 
+permissions but can still access the Human Resouces application to be able to
+ perform general operations. These include:
+
+* Business Admin has permission for all operations in the Human Resources 
+application
+* Flexible Admin has permission to create, update, delete and view operations 
+in Human Resources
+* Full Admin has permission for all operations in Human Resources
+* Super has permission for all operations in the Human Resources
+* Viewadmin has permission for viewing details in Human Resources
+ 
+== Security Administration In Party Manager
+
+A user must be granted permission to use the Human Resources application. This 
+section describes how to do this using OFBiz Party Manager. It assumes the user 
+has a user login and Party administration privileges. 
+
+Please do the following to grant permissions
+
+1. Login to the Party application
+2. User the search functionality to locate the user that you want to give Human
+Resources permissions to
+3. When the search results are displayed, click on the Party ID column
+4. In the User Name(s) screenlet click the Security Groups button for the User 
+Login that will receive Human Resources permissions
+5. In the Add User Login to Security Group screenlet select the HUMANRES_EMPLOYEE.
+from the Group drop-down-list. 
+6. Click the Add button to use the current date for the From Date or enter dates 
+for From Date and Thru Date as needed then click Add
+7. If the person is to be allowed to approve Training add the HUMANRES_APPROVER 
+permission. As in the previous step enter dates as required
+8. If the person is to be allowed all access then add the HUMANRES_ADMIN 
+permission... As in the previous steps enter dates as required.

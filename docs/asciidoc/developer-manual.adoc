@@ -1,0 +1,274 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Apache OFBiz Developer Manual
+The Apache OFBiz Project
+Release 17.12
+:imagesdir: ./images
+ifdef::backend-pdf[]
+:title-logo-image: image::OFBiz-Logo.svg[Apache OFBiz Logo, pdfwidth=4.25in, align=center]
+:source-highlighter: rouge
+endif::[]
+
+== Introduction
+
+Welcome to the Apache OFBiz developer manual. This manual provides information
+to help with customizing and developing OFBiz. If you are new to OFBiz and
+interested in learning how to use it, you may want to start with the "Apache
+OFBiz User Manual".
+
+OFBiz is a large system composed of multiple subsystems. This manual attempts
+to introduce the overall architecture and high level concepts, followed by a
+detailed description of each subsystem. In addition, the manual will cover
+topics necessary for developers including the development environment, APIs,
+deployment, security, and so on.
+
+=== Main systems
+
+OFBiz at its core is a collection of systems:
+
+- A web server (Apache Tomcat)
+- A web MVC framework for routing and handling requests.
+- An entity engine to define, load and manipulate data.
+- A service engine to define and control business logic.
+- A widget system to draw and interact with a user interface.
+
+On top of the above mentioned core systems, OFBiz provides:
+
+- A data model shared across most businesses defining things like orders,
+  invoices, general ledgers, customers and so on.
+- A library of services that operate on the above mentioned data model such as
+  "createBillingAccount" or "updateInvoice" and so on.
+- A collection of applications that provide a user interface to allow users to
+  interact with the system. These applications usually operate on the existing
+  data model and service library. Examples include the "Accounting Manager" and
+  "Order Manager".
+- A collection of optional applications called "plugins" that extend basic
+  functionality and is the main way to add custom logic to OFBiz.
+
+=== Components
+
+The basic unit in OFBiz is called "component". A component is at a minimum a
+folder with a file inside of it called "ofbiz-component.xml"
+
+Every application in OFBiz is a component. For example, the order manager is a
+component, the accounting manager is also a component, and so on.
+
+By convention, OFBiz components have the following main directory structure:
+
+[source]
+--
+component-name-here/
+├── config/              - Properties and translation labels (i18n)
+├── data/                - XML data to load into the database
+├── entitydef/           - Defined database entities
+├── groovyScripts/       - A collection of scripts written in Groovy
+├── minilang/            - A collection of scripts written in minilang (deprecated)
+├── ofbiz-component.xml  - The OFBiz main component configuration file
+├── servicedef           - Defined services.
+├── src/
+    ├── docs/            - component documentation source
+    └── main/java/       - java source code
+    └── test/java/       - java unit-tests
+├── testdef              - Defined integration-tests
+├── webapp               - One or more Java webapps including the control servlet
+└── widget               - Screens, forms, menus and other widgets
+--
+
+It is apparent from the above directory structure that each OFBiz component is
+in fact a full application as it contains entities, data, services, user
+interface, routing, tests, and business logic.
+
+Both core OFBiz applications as well as plugins are nothing more than components.
+The only difference is that core applications reside in the "applications" folder
+whereas plugins reside in the "plugins" folder; also OFBiz does not ship with
+plugins by default.
+
+=== Example workflow
+
+Many basic concepts were explained so far. An example would help in putting
+all of these concepts together to understand the bigger picture. Let us take
+an example where a user opens a web browser and enters a certain URL and hits
+the enter key. What happens? It turns out answering this question is not quite
+simple because lots of things occur the moment the user hits "enter".
+
+To try to explain what happens, take a look at the below diagram. Do not worry
+if it is not fully understandable, we will go through most of it in our example.
+
+image::ofbiz-architecture.png[]
+
+==== User enters URL
+
+In the first step in our example, the user enters the following URL:
+
+https://localhost:8443/accounting/control/findInvoices
+
+If we break down this URL, we identify the following parts:
+
+- localhost: Name of the server in which OFBiz is running
+- 8443: Default https port for OFBiz
+- accounting: web application name. A web application is something
+  which is defined _inside_ a component
+- control: Tells OFBiz to transfer routing to the control servlet
+- findInvoices: request name inside the control servlet
+
+==== Control servlet takes over
+
+The Java Servlet Container (tomcat) re-routes incoming requests through web.xml
+to a special OFBiz servlet called the control servlet. The control servlet for
+each OFBiz component is defined in controller.xml under the webapp folder.
+
+The main configuration for routing happens in controller.xml. The purpose of
+this file is to map requests to responses.
+
+===== Request Map
+
+A request in the control servlet might contain the following information:
+
+- Define communication protocol (http or https) as well as whether
+  authentication is required.
+- Fire up an event which could be either a piece of code (like a script) or a
+  service.
+- Define a response to the request. A response could either be another request
+  or a view map.
+
+So in this example, the findInvoices request is mapped to a findInvoices view.
+
+===== View Map
+
+A view map maps a view name to a certain view-type and a certain location.
+
+View types can be one of:
+
+- screen: A screen widget which translates to normal HTML.
+- screenfop: A PDF screen designed with Apache FOP based constructs.
+- screencsv: A comma separated value output report.
+- screenxml: An XML document.
+- simple-content; A special MIME content type (like binary files).
+- ftl: An HTML document generated directly from a FreeMarker template.
+- screenxls: An Excel spreadsheet.
+
+In the findInvoices example, the view-map type is a normal screen which is
+mapped to the screen:
+component://accounting/widget/InvoiceScreens.xml#FindInvoices
+
+==== Widget rendered
+
+Once the screen location is identified and retrieved from the previous step,
+the OFBiz widget system starts to translate the XML definition of the screen
+to actual HTML output.
+
+A screen is a collection of many different things and can include:
+
+- Other screens
+- Decorator screens
+- Conditional logic for hiding / showing parts of the screen
+- data preparation directives in the <action> tag
+- Forms
+- Menus
+- Trees
+- Platform specific code (like FreeMarker for HTML output)
+- Others (portals, images labels etc ...)
+
+Continuing the example, the FindInvoices screen contains many details including
+two forms. One form is for entering invoice search fields and the other form
+displays search results.
+
+== Web Framework
+
+include::../../framework/webapp/src/docs/asciidoc/webapp.adoc[leveloffset=+1]
+
+=== Control Servlet
+
+==== Requests
+
+==== Views
+
+== Entity Engine
+
+=== Entities
+
+==== Standard Entities
+
+==== View Entities
+
+==== Extended Entities
+
+==== Dynamic View Entities
+
+=== XML Data
+
+=== Entity engine configuration
+
+=== Supported databases
+
+== Service Engine
+
+=== Declaration and Implementation
+
+=== Supported languages
+
+=== Transaction management
+
+=== Web services
+
+== Widget System
+
+=== Screen Widget
+
+==== Decoration Pattern
+
+=== Form Widget
+
+=== Menu Widget
+
+=== Tree Widget
+
+=== Portal Widget
+
+=== Platform Specific Code
+
+== Core APIs
+
+== Development environment
+
+=== Setup your environment
+
+==== Java SE
+
+==== IDE
+
+===== Eclipse
+
+===== Intellij Idea
+
+==== Database
+
+=== Web tools
+
+== Testing
+
+=== Unit Tests
+
+=== Integration Tests
+
+== Deployment
+
+include::../../framework/security/src/docs/asciidoc/security.adoc[leveloffset=+1]
+
+== Appendices

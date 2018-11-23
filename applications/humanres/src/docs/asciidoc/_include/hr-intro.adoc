@@ -1,0 +1,130 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= About Human Resources
+
+The people who work for your company are human capital and are its most important 
+asset. Selecting a software platform that increases the value of your companies human 
+capital and delivers benefits, services and opportunities to your workforce, is 
+critical to your companies success. 
+That platform must be able to accurately and reliability process worker transactions, 
+collect decision support information, and communicate between management, workers 
+and outside resources. 
+
+The OFBiz Human Resource application (HR App) can provide a stable foundation for 
+building that platform.
+
+= Human Resources Processes
+
+Human Resources Management can be divided into several distinct processes. 
+
+* Job Planning and Definition
+* Recruitment
+* Candidate Selection and Hiring 
+* Employee Training and Development
+* Employee Evaluation and Performance Management
+* Employee Salary and Benefits 
+
+== Job Planning and Definition 
+
+Generally job positions are authorised by a budget and fulfilled by people. The
+ person fulfilling the position may be a permanent employee, a temporary employee 
+or a contractor. 
+
+* Positions may be salary or hourly, fulltime or part time. 
+* Positions have responsibilities.
+* Positions are defined by a type of work.
+
+For example there may be 20 job positions in an organization for a administrative 
+clerk. Each position is has a job definition and is authorised by a budget request 
+from a department in the organization. 
+A position can be unfulfilled. (i.e a it exists but no one is currently employed 
+to do it).  
+In some cases a position could also be considered a full-time equivalent (FTE) and 
+can be assigned to more than one person (e.g. job sharing) 
+
+In the OFBiz Human Resources application you can:
+
+* Create positions
+* Fulfill positions
+* Define the responsibilities of a position
+* Define a tree reporting structure between positions
+* Track the positions fulfillments over time
+
+== Recruitment, Candidate Selection and Hiring
+
+Recruitment is about at attracting applicants that match the skills and experience
+ you are looking for in a particular job position. Candidates can apply and after 
+reviewing their details, those who are the best match in terms of qualifications 
+and experience are short listed for interview. The final step is deciding upon the
+ final candidate that you want to hire and the employment contract details that 
+are related to that.
+
+In the OFBiz Human Resouces application you can: 
+
+* Create a Requisition for new job positions
+* Create Internal Job Postings
+* Apply for job positions 
+* Review Resumes / CVs
+* Arrange and Grade Interviews
+
+== Employee Training and Development
+
+Training and professional development is important for an organisation because it
+ensures that your employees have the knowledge they need to perform their work. 
+It can also help to fill any gaps in skills and improve their proficiency. 
+
+In the OFBiz Human Resources application you can:
+
+* Define and create training courses
+* Schedule courses on a global training calendar
+* Make course available (or unavailable) for enrollment
+* Review and approve requests from employees to attend
+
+== Performance Management and Employee Evaluation
+
+Evaluating and managing the performance of employees is another main Human Resources
+function. Performance reviews can be created for an employee and used to evaluate
+the work that they have done in a particular job position. Comments and ratings 
+can also be added.
+
+In the OFBiz Human Resources application you can:
+
+* Create a new Performance Review for an employee
+* Add individual review items such as Attitude, Communication or Technical Skills
+* Add ratings or comments to each item
+
+If an evaluation has gone well then the employee can be considered for promotion
+to another job position, or can be given other benefits such as a salary increase.
+
+== Employee Salary and Benefits Administration
+
+Being able to manage employee salaries and associated benefits is a key part of 
+any Human Resources system. 
+
+In the OFBiz Human Resources application you can:
+
+* Create Pay Grades
+* Link Salary Steps within each Pay Grade
+* Assign a Pay Grade and Salary Step to a Job Position filled by an Employee
+* Manage employee holidays (leave)
+* Manage associated benefits
+* Calculate salaries and Generate Payslips
+
+
+

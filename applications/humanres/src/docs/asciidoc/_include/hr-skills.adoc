@@ -1,0 +1,45 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Skills
+
+Skills are the basic foundation of any Human Resources function as it is a key
+factor in identifying the suitability of someone to perform a specific task or 
+job. They can often be divided into two types; general and specific, and are 
+characterised by things such as years of experience, rating or level of 
+expertise.
+
+In OFBiz basic skills can be defined in Global HR Settings and then linked to 
+actual individuals via the Skills menu option. 
+
+In the recruitment process, skills are specified as part of the job requisition 
+for an employee (or job) position. This helps ensure that the recruiter can focus 
+on finding applicants with the relevant skillset.
+
+Your employees can also gain new skills as part of their employment and so OFBiz
+ allows you to record and track their newly acquired skills. It may be that 
+rather than start a new recruitment process, you may be able to find someone 
+with the right skills from your existing employees.
+
+
+In the OFBiz Human Resources application you can
+
+* Assign or link skills to job applicants (i.e. non employees)
+* Assign or link skills to existing employees
+* Search for existing employees that have the required skills for a job
+

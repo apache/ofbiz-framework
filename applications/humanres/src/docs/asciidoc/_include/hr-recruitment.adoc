@@ -1,0 +1,49 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Recruitment
+
+Recruitment is an important function in any organisation. It is a set of processes
+that allow you to specify, search for candidates to fulfill the roles that you 
+have available.
+
+When you have a job position that needs to be fulfilled, you can create a Job
+Requisition. The job requisition identifies the skills, qualifications, experience 
+and also the number of resources needed for a position. 
+
+NOTE: Currently the default assumption is that the Job Requisition is for an 
+Internal Job posting
+
+Once the requisition is created, you can then create Job Posting based on the 
+requisition. For example if the requisition was for three (3) roles then three
+job postings can be created (each with different application deadlines) one to 
+fulfill each of the positions.
+
+People can then apply for the positions and send in their CVs or Resumes. You 
+can track the progress of the the application and also create details about 
+various types of job interviews needed (e.g. HR, Panel, Case Study
+ /Practical Test etc) and link it to the requisition.
+
+You can also track the status of people who have applied for a position.
+
+In the OFBiz Human Resource application you can
+
+* Approve or reject job applications 
+* Manage and book job interviews
+* Record the result of job interviews
+

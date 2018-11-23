@@ -1,0 +1,81 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Cross-domains Single Sign On (SSO)
+
+In some cases you need to split the OFBiz applications on different servers, and possibly in production on different domains. 
+This can happen for different reasons, most often for performance reason.
+
+As it's annoying to give each time a credential when changing from an OFBiz application to another on the same server, 
+the same applies when changing from an OFBiz application to another on another domain. 
+
+To prevent that on the same server, the ExternalLoginKey mechanism is used. 
+The cross-domains SSO feature allows to navigate from a domain to another with automated SSO.
+
+It based on 3 technologies: 
+
+JWT:: https://jwt.io/[JWT Official site] - 
+https://en.wikipedia.org/wiki/JSON_Web_Token[Wikipedia for JWT]
+
+CORS:: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS[CORS (Mozilla doc)] - https://en.wikipedia.org/wiki/Cross-origin_resource_sharing[Wikipedia for CORS]
+
+Ajax:: Ajax, now well known I guess, in OFBiz we use jQuery for that.
+
+The mechanism is simple.
+
+.On the source side:
+. When an user log in in an application (webApp) a webappName.securedLoginId cookie is created. 
+This cookie will be used by the mechanism to know the current logged in user. 
+_Note that all webappName.securedLoginId cookies are deleted when the user session is closed or time out. 
+Hence (apart also using an intrinsically secured cookie) the mechanim is secured, even on shared machines. 
+Of course if people are sharing a machine during their sessions, things could get complicated. 
+This unlikely later case is not taken in account._
+
+. The user is given a JavaScript link which passes the URL to reach and the calling webapp name to 
+the sendJWT() Ajax function.
+
+. The sendJWT() Ajax function calls the loadJWT() Ajax function which in turn calls 
+the CommonEvents::loadJWT method through the common controller.
+
+. The CommonEvents::loadJWT method uses the calling webapp name to retrieve the userLoginId from the secured 
+webappName.securedLoginId cookie, creates a JWT containing the userLoginId, and returns it to the loadJWT() Ajax function.
+
+. Then the sendJWT() Ajax function sends an Authorization header containing the JWT to the URL to reach. 
+At this stage, if all things are correct, the flow leaves the source side.
+
+.On the server side:
+. A CORS policy is needed. _Without it, the Authorization token containing the JWT will be rejected. 
+It's a simple policy but you need to strictly define the authorized domains. Never use the lazy "*" for domains 
+(ie all domains), else the https://en.wikipedia.org/wiki/Cross-origin_resource_sharing#Preflight_example[preflight request] will not work._ 
+Here is an example for Apache HTTPD (domain value is "https://localhost:8443" for official OFBiz demo):
+
+[source,]
+----
+Header set Access-Control-Allow-Origin domain
+Header set Access-Control-Allow-Headers "Authorization"
+Header set Access-Control-Allow-Credentials "true"
+----
+
+. The checkJWTLogin preprocessor, similar to the checkExternalLoginKey, intercepts the JWT, checks it and 
+if all is OK signs the user on. That's it !
+
+In the example component, the FormWidgetExamples screen contains 2 new fields in the LinksExampleForm which 
+demonstrate the use from a local instance to the trunk demo instance.
+
+
+If you are interested in more details you may refer to  https://issues.apache.org/jira/browse/OFBIZ-10307

@@ -1,0 +1,73 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Training
+
+[#Introduction]
+Introduction::
+Training and professional development is important for an organisation because it 
+can help to fill any gaps in skills and improve the proficiency of the existing 
+workforce.
+The training section of the HR module includes a Training Calendar where new 
+training classes or events can be scheduled for an organisation.
+Users that have HR administration permissions can create, assign and approve 
+training classes. All other users can view the list of classes available, their 
+training status and any requests they have made to enroll for training. 
+
+[#HR Trainiing Process Flow]
+General Process Flow::
+* Training classes are created in the Global HR Training Class Type screen
+* Training classes are scheduled and added to the training calendar
+* Employees can create a request to attend a training
+* The employee supervisor needs to approve or reject the employee training request
+* Employees can check the status of the training requests
+
+Training Calendar::
+The main screen in the Training feature is the Training Calendar. This is where 
+you add classes and class participants. You can navigate the calendar by clicking 
+the navigation text for day, week and month views located in the calendar title bar.
+
+Add New Training Event::
+Training classes are created in the Training Calendar by clicking the Add New text 
+command located in each calendar day cell. This action opens a small window above 
+the calendar to enter the training class details.
+
+NOTE: If you try to create a class and do not have correct User permissions, you 
+will get an error. After a class is created a numeric class identifier and text 
+identifier description appear in the calendar for the day of the class.
+
+Request Training / Add a Training Participant ::
+Participants can be added to a class by clicking on the class identifier. If you 
+are the creator of the class the Participants window above and to the right of the
+ calendar opens. You can add participants by entering their party id and clicking
+ the Add button. The list of participants is displayed and updated. 
+After a new participant is added to a training class or event, they are given the 
+default status ‘Assigned’. 
+
+Approve Training::
+To approve a request for training, tor training administrator navigates to the 
+Training Approvals screen and locates all requests with a status of "Assigned".  
+They look up the person listed as the approver party. After checking with the 
+approver they click update button to open the approval screen. In the approval 
+screen the administrator sets the Approver Status and adds a reason for the 
+decision. The user can see the status of their training schedule by clicking on 
+the Training Status menu.
+
+WARNING:  Something isn’t working correctly in 16.11. The there is no update 
+button to click to approve a participant for training.
+

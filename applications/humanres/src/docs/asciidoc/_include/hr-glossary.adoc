@@ -1,0 +1,170 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Glossary
+
+[#ANNUAL_REVENUE]
+Annual Revenue::
+Annual revenue is the amount of revenue for a group that is reported in the Party 
+Group Information screenlet of the groups profile (visit Party Profile screen).
+
+[#BUDGET]
+Budget::
+A budget is used to track spending in the company for a future period of time. 
+The company may have one or more budgets depending on the requirements i.e. Operating 
+Budget, Capital Budget. A budget has a status, type and is composed of budget line 
+items.
+
+[#EMPLOYEE]
+Employee::
+An employee is a person who has an employment relationship with your Company.
+
+[#EMPLOYEE_POSITION_TYPE]
+Employee Position Type::
+Employee Positions Type is a name that describes a position. Business Analyst,
+ Programmer and System Administrator are examples of position types in the OFBiz
+demo data. You can define your own position types in Global HR Settings > Position 
+Types.
+
+[#EMPLOYMENT]
+Employment::
+Employment defines the relationship between your Company and a person who is an
+ employee. The employment relationship tracks employee benefits  preferences, pay 
+history, and unemployment claims and agreements.
+
+[#EXEMPT_FLAG]
+Exempt Flag::
+The exempt flag can be used to indicate if an employee position is exempt or non-exempt
+ under the fair labor Standards Act (FLSA).
+
+[#FULFILLMENT]
+Fulfillment::
+A fulfillment associates a person with a position. A person can fulfill more than
+ one position and a position can have more then one person.
+
+[#FULLTIME_FLAG]
+Fulltime Flag::
+The fulltime flag can be used to indicate if an employee position is for a full
+or part time position.
+
+[#HR_APP_MENU]
+HR App Menu::
+The main menu that opens the high level features of the HR App i.e. Employees, 
+Employments, Employee Position etc.
+
+[#INTERNAL_ORGANIZATION]
+Internal Organization::
+Internal organization is the name of a relationship between a party group and your 
+company. This relationship is used to filter party groups as being part of your 
+company to distinguish them from other groups which are external. For example your 
+marketing department is an internal organization while a suppliers sales department 
+is not.
+
+[#NUMBER_OF_EMPLOYEES]
+Number of Employees::
+Number of employees that are reported in the Party Group Information screenlet of 
+the groups profile (Visit Party Profile screen).
+
+[#PARTY]
+Party::
+Party is a term used to simplify collecting information that used in a common manner 
+by different people and things. The most common party types are people and groups. 
+Both people and groups have contact information. A party is identified by a unique 
+Party Id. Using this Id OFBiz can collect and find contact (and other information 
+and processes) for both people and groups in the same way. This is why you will 
+often see Party Id as a field in a form or a filter as you work in OFBiz.
+
+[#PARTY_ID]
+Party Id::
+The unique identifier for a party. The Id is text so in some cases you will see 
+an Id, created by a user, that carries some meaning i.e. Party Id DemoEmployee. 
+In other cases the Id is created by OFBiz and is will be simply a number from a 
+sequence. In either case the Id is unique.
+
+[#Qualifications]
+Qualifications::
+Qualifications for an individual person or organization are in the Employees Qualifications
+menu item. To find and update the qualifications of people and organizations visit 
+Qualifications menu.
+
+[#PARTY_QUALIFICATION_TYPE]
+Party Qualification Type::
+Party qualifications define a person or organizations accomplishments that indicate 
+their suitability to perform a job. Qualifications are organized into qualification 
+groups for the purpose of managing and reporting.
+
+[#PERSON]
+Person::
+Person is a human being as distinguished from a party group which is an organization.
+Human beings and organizations have different attributes i.e. People have first and 
+last names while groups have group names. Both person and party group are types
+ of parties and share information and processes common to parties.
+
+[#POSITION]
+Position::
+A position is a job that can be filled by more then one person over time or at
+the same time. Positions are defined by a type of work. For example there may
+be 20 positions in an organization for a secretary. Each position is related to
+a department in the organization. A position can me thought of as a full-time
+equivalent employee (FTE). So an FTE may be assigned to one or more positions
+and position can be assigned to more then one FTEs (job sharing).
+
+[#RATING]
+Rating::
+Rating is a user defined numeric rating for a skill. (See Skills Menu)
+
+[#RESPONSIBILITY]
+Responsibility::
+Responsibilities define duties assigned to a position. They are defined in 
+Responsibility Types and assigned in Employee Position Responsibilities.
+
+[#SALARY_FLAG]
+Salary Flag::
+The salary flag can be used to indicate if an employee position is salaried or 
+paid hourly.
+
+[#SKILL]
+Skill::
+Skill is some ability or knowledge possessed by a person or organization that is
+ needed to perform a job for the company. See Skills
+
+[#SKILL_LEVEL]
+Skill Level::
+Skill level is a user defined numeric rating a skill. It is up to the user to 
+assign some meaning to the level. For example 1=Entry, 2=Intermediate, 3=Expert 
+(See Skills Menu).
+
+[#SKILL_GROUP]
+Skill Group::
+Skill goup is a name that describes a collection of skills that have common 
+attributes (See Skills Menu).
+
+[#TEMPORARY_FLAG]
+Temporary Flag::
+A temporary flag can be used to indicate if an employee position is permanent or 
+temporary.
+
+[#TERMINATION_REASON]
+Termination Reason::
+The termination reason is a name describing the cause related to a termination 
+type e.g. Type: resigned for reason: found new job.
+
+[#TERMINATION_TYPE]
+Termination Type::
+The termination type is a name for the kind of termination e.g. Resigned, fired,
+ retired, layoff.

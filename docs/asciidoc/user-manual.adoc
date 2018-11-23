@@ -1,0 +1,156 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Apache OFBiz User Manual
+The Apache OFBiz Project
+Release 17.12
+:imagesdir: ./images
+ifdef::backend-pdf[]
+:title-logo-image: image::OFBiz-Logo.svg[Apache OFBiz Logo, pdfwidth=4.25in, align=center]
+:source-highlighter: rouge
+endif::[]
+
+== Introduction to OFBiz
+
+Welcome to _Apache OFBiz_! A powerful top level Apache software project.
+OFBiz is an Enterprise Resource Planning (ERP) System written in Java and
+houses a large set of libraries, entities, services and features to run
+all aspects of your business.
+
+This manual will describe all aspects of this powerful ERP system. The manual
+starts with the basics of what OFBiz is and how it works, and describes high
+level concepts like the entity engine, service engine, widget system and so on.
+In addition the manual explains the core application of this framework like the
+Party Manager, Order Manager, Accounting system, and others.
+
+If you wish to contribute to OFBiz and help make it better, you may wish to read
+the "Apache OFBiz Developer Manual" for a deeper understanding of the
+architectural concepts of the framework.
+
+=== What is Apache OFBiz
+
+It is hard to define OFBiz because it offers many different solutions targeted
+at different levels of interests (users, developers, business owners). At a low
+level it may considered a web framework, at another level, it may
+considered a full fledged ERP system, and yet it can also be considered a
+business automation suite.
+
+=== The main parts of Apache OFBiz
+
+Perhaps to better understand what OFBiz is, it may be necessary to understand
+its main parts and the purpose that each part plays. Thus the main parts or
+sub-systems are summarized below.
+
+==== Web MVC Framework
+
+The lowest or most foundational part of Apache OFBiz is a classical web MVC
+(Model View Controller) framework. This part of the system is designed for basic
+routing of web requests and may be considered as the infrastructure or plumbing
+where everything is wired together.
+
+==== Entity Engine
+
+The entity engine allows OFBiz users to define entities, data, and queries in a
+database-independent domain specific language (DSL) based on XML. Thus, without
+learning any SQL users can create and interact with databases in a
+platform-independent manner and Apache OFBiz would make the translations under
+the hood to each database system.
+
+==== Service Engine
+
+Apache OFBiz is designed specifically around a Service Oriented Architecture
+(SOA). Services are units of business logic that take a set of input values and
+produces a set of output values.
+
+Services are programming-language-independent. It does not matter whether a
+service is implemented using Java, Groovy, Jython, or something else because
+services are an abstraction away from the underlying technology. This provides
+maximum flexibility for designing business logic without worrying about
+interoperability between different languages.
+
+==== Widget System
+
+Whether the output is HTML, CSV, PDF, or something else, Apache OFBiz provides a
+system for creating user interface that is independent of the actual
+implementation. This makes it possible to publish the same widget to HTML, PDF,
+CSV or some other output format.
+
+However, the widget system allows users, if needed, to drop down to any
+platform-specific code and mix it with widget designs, thus providing a mix
+between ease of use, platform independence and customizability.
+
+==== Data Model Library
+
+Apache OFBiz is heavily inspired by a book called the "The Data Model Resource
+Book". This book provides a "A Library of Universal Data Models for All
+Enterprises". These models cover things like parties, orders, invoices,
+payments, general ledgers, quotes and much more.
+
+By using OFBiz, adopters start with a full pre-designed data model that covers
+common and universal business requirements. Hundreds of entities are defined
+which save many hours of thinking, designing, and testing such models.
+
+It is important to note that the data model library does not only cover
+entities, but also the data that comes with these entities. Data is further
+categorized by function (seed, demo, etc ...)
+
+==== Service Library
+
+Having a rich and powerful data model is not very useful on its own without
+services that apply business logic on this data model. That is where the
+services defined in Apache OFBiz come into play.
+
+OFBiz provides, out-of-the-box, thousands of services to create, retrieve,
+update, delete, search, and do many other operations on the data model.
+
+==== Core Applications
+
+The core applications in Apache OFBiz are web applications that serve common
+business needs found in most enterprises such as accounting, order management,
+party management and so on.
+
+These core applications are built on top of the data model and service library
+earlier described. The core applications are further described in the relevant
+section.
+
+==== Plugins
+
+OFBiz extends any basic functionality through plugins. Plugins are very similar
+to the core applications in design and structure, but are not shipped with
+OFBiz by default. Thus to install a plugin a user must add it to the framework
+first.
+
+include::../../README.adoc[tags=quickstart]
+
+== Core Business Applications
+
+Most businesses share universal needs. They require accounting functionality,
+managing customers, placing orders, book-keeping, invoicing and so on.
+
+OFBiz is designed so that such basic universal business needs are available
+through a set of core business applications. These applications all share a
+unified data-model with a set of unified services to implement this
+functionality.
+
+This section of the manual will describe each core business application
+starting with a high level overview of design and purpose down to the details
+of how to achieve common tasks. 
+
+include::../../applications/accounting/src/docs/asciidoc/accounting.adoc[leveloffset=+2]
+
+include::../../applications/humanres/src/docs/asciidoc/humanres.adoc[leveloffset=+2]

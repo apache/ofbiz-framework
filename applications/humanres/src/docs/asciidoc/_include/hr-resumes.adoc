@@ -1,0 +1,33 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Resumes
+
+Resumes or Curriculum Vitae (CVs) are documents that job applicants use to apply
+ for job positions. These documents summarise the applicant's experience,
+qualifications, contact information and details about why they are suitable for
+ a particular job position.
+
+In OFBiz you can enter a resume as a document and then link it to a person.
+Each resume entry has a unique identifier (that currently needs to be manually 
+entered!). This identifier links a person to an instance of their resume.
+
+NOTE: The OFBiz Content Manager application is used for the linking of resumes 
+because it was designed for managing, storing and retrieving electronic data in 
+varying formats - such as text, images, MS Word, PDF or even web URL's.
+

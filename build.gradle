@@ -18,6 +18,7 @@
  */
 import at.bxm.gradleplugins.svntools.tasks.SvnCheckout
 import org.apache.tools.ant.filters.ReplaceTokens
+import org.asciidoctor.gradle.AsciidoctorTask
 
 /* ========================================================
  * Project setup
@@ -27,13 +28,16 @@ buildscript {
         jcenter()
     }
     dependencies {
-      classpath "at.bxm.gradleplugins:gradle-svntools-plugin:latest.release"
+        classpath 'at.bxm.gradleplugins:gradle-svntools-plugin:latest.release'
+        classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.9.2'
+        classpath 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.16'
     }
 }
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: "at.bxm.svntools"
+apply plugin: 'org.asciidoctor.convert'
 
 apply from: 'common.gradle'
 
@@ -142,7 +146,7 @@ dependencies {
     compile 'org.apache.xmlgraphics:fop:2.2'
     compile 'org.apache.xmlrpc:xmlrpc-client:3.1.3'
     compile 'org.apache.xmlrpc:xmlrpc-server:3.1.3'
-    compile 'org.codehaus.groovy:groovy-all:2.4.13'
+    compile 'org.codehaus.groovy:groovy-all:2.4.13' // Remember to change the version number in javadoc.options block
     compile 'org.freemarker:freemarker:2.3.28' // Remember to change the version number in FreeMarkerWorker class when upgrading
     compile 'org.hamcrest:hamcrest-all:1.3'
     compile 'org.owasp.esapi:esapi:2.1.0.1'
@@ -317,6 +321,7 @@ if (project.hasProperty('enableOwasp')) {
 
 // ========== Task group labels ==========
 def cleanupGroup = 'Cleaning'
+def docsGroup = 'Documentation'
 def ofbizServer = 'OFBiz Server'
 def ofbizPlugin = 'OFBiz Plugin'
 def sysadminGroup = 'System Administration'
@@ -487,6 +492,93 @@ task createTenant(group: ofbizServer, description: 'Create a new tenant in your 
         delete("${rootDir}/runtime/tmp/tmpFilteredUserLogin.xml")
     }
 }
+
+// ========== Documentation tasks ==========
+tasks.withType(AsciidoctorTask) { task ->
+    // bug workaround - see OFBIZ-9873
+    if (os.contains('windows')) {
+        backends 'html5'
+    } else {
+        backends 'html5', 'pdf'
+    }
+    attributes \
+        'doctype': 'book',
+        'experimental': '',
+        'icons': 'font',
+        'sectnums': '',
+        'chapter-label': '',
+        'toc': '',
+        'toclevels': '5'
+}
+
+task deleteOfbizDocumentation {
+    doFirst { delete "${buildDir}/asciidoc/ofbiz" }
+}
+
+task deletePluginDocumentation {
+    def activeComponents = []
+    iterateOverActiveComponents { component ->
+        activeComponents.add(component.name)
+    }
+    doFirst {
+        if (!project.hasProperty('pluginId')) {
+            throw new GradleException('Missing property \"pluginId\"')
+        }
+        if(!activeComponents.contains(pluginId)) {
+            throw new GradleException("Could not find plugin with id ${pluginId}")
+        }
+        delete "${buildDir}/asciidoc/plugins/${pluginId}"
+    }
+}
+
+task deleteAllPluginsDocumentation {
+    doFirst { delete "${buildDir}/asciidoc/plugins" }
+}
+
+
+task generateOfbizDocumentation(group: docsGroup, type: AsciidoctorTask) {
+    dependsOn deleteOfbizDocumentation
+    description 'Generate OFBiz documentation manuals'
+    sourceDir "${rootDir}/docs/asciidoc"
+    outputDir file("${buildDir}/asciidoc/ofbiz")
+}
+
+task generatePluginDocumentation(group: docsGroup) {
+    dependsOn deletePluginDocumentation
+    description 'Generate plugin documentation. Expects pluginId flag'
+    iterateOverActiveComponents { component ->
+        if (project.hasProperty('pluginId') && component.name == pluginId) {
+            def pluginAsciidoc = task "${component.name}Documentation" (type: AsciidoctorTask) {
+                sourceDir file("${component}/src/docs/asciidoc")
+                outputDir file("${buildDir}/asciidoc/plugins/${component.name}")
+                mustRunAfter deletePluginDocumentation
+            }
+            dependsOn pluginAsciidoc
+        }
+    }
+}
+
+task generateAllPluginsDocumentation(group: docsGroup, 
+        description: 'Generate all plugins documentation.') {
+        
+    dependsOn deleteAllPluginsDocumentation
+    file("${pluginsDir}").eachDir { plugin ->
+        iterateOverActiveComponents { component ->
+            if (component.name == plugin.name) {
+                if (subprojectExists(":plugins:${plugin.name}")) {
+                    def pluginAsciidoc = task "${component.name}-Documentation" (type: AsciidoctorTask) {
+                        sourceDir file("${component}/src/docs/asciidoc")
+                        outputDir file("${buildDir}/asciidoc/plugins/${component.name}")
+                        doLast { println "Documentation generated for plugin ${component.name}" }
+                        mustRunAfter deleteAllPluginsDocumentation
+                    }
+                    dependsOn pluginAsciidoc
+                }
+            }
+        }
+    }
+}
+
 
 // ========== System Administration tasks ==========
 task createTestReports(group: sysadminGroup, description: 'Generate HTML reports from junit XML output') {

@@ -1,0 +1,39 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Performance Review
+
+Performance review allows employees to post reviews that can be used by management
+in evaluating the performance of the individual employee.
+
+The employee's position is also captured with the review which allows the creation
+of reports that look at ratings for a review item by position.
+
+*Performance Review Item*
+
+Each review has a list of items that can be rated and commented on.
+
+NOTE: Performance review item can be created or deleted but can not be changed.
+
+In the OFBiz Human Resources application you can:
+
+* Create performance review
+* Search performance review
+* Update performance review
+* Add performance review item
+* Delete performance review item

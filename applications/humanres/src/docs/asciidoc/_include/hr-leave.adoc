@@ -1,0 +1,46 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Leave
+
+Generally each of your employees will be allowed to take a certain amount of 
+time off work on an annual basis. This time-off work can be called leave,
+holiday or vacation. The amount and type of leave they can take may depend on 
+their job position or how long they have worked for you.
+
+You may also allow your employees special leave such as days off when they are 
+ill (sick leave), time off during pregnacy or birth of a child (maternity or 
+paternity leave) or time off to attend a funeral (bereavement leave).
+
+OFBiz allows you to setup a range of different leave types and categories to 
+cover many situations.
+
+In all cases the employee will need to request the date (or dates) they would 
+like to take as leave. Next the manager of the employee will need to approve the 
+ leave request. Once approved the employee can then take the leave.
+
+In the OFBiz Human Resources application:
+
+* Employees can schedule or a leave request 
+* Managers can create leave requests on behalf of an employee
+* Managers can approve, reject or delete employee leave requests
+
+NOTE: Users with Human Resource Approver permission can only approve a leave 
+request. To update or delete a leave request, you will need to have Human 
+Resources Administration permission.
+
