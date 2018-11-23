@@ -19,5 +19,5 @@ under the License.
 
 = Security
 
-include::_include/security-impersonation.adoc[leveloffset=+1]
+include::_include/sy-impersonation.adoc[leveloffset=+1]
 
