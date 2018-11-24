@@ -76,7 +76,7 @@ under the License.
             <if>
                 <condition>
                     <or>
-                        <if-compare field="shipmentTypeId" operator="equals" value="INGOING_SHIPMENT"/>
+                        <if-compare field="shipmentTypeId" operator="equals" value="INCOMING_SHIPMENT"/>
                         <if-compare field="shipmentTypeId" operator="equals" value="PURCHASE_SHIPMENT"/>
                         <if-compare field="shipmentTypeId" operator="equals" value="SALES_RETURN"/>
                     </or>
