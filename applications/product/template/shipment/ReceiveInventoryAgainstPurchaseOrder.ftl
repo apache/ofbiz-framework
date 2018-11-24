@@ -222,12 +222,18 @@ under the License.
                         </tr>
                         <tr>
                             <td colspan="12" align="right">
-                                <a class="smallSubmit" href="<@ofbizUrl>completePurchaseOrder?orderId=${orderId}&amp;facilityId=${facilityId}&amp;shipmentId=${shipmentId}</@ofbizUrl>">${uiLabelMap.OrderForceCompletePurchaseOrder}</a>
+                                <input form="orderForceCompletePurchaseOrder" type="submit" value="${uiLabelMap.OrderForceCompletePurchaseOrder}" class="smallSubmit"/>
                             </td>
                         </tr>
                     </#if>
                 </table>
                 <input type="hidden" name="_rowCount" value="${rowCount}" />
+            </form>
+            <form id="orderForceCompletePurchaseOrder" method="post" action="<@ofbizUrl>completePurchaseOrder</@ofbizUrl>">
+                <input type="hidden" name="orderId" value="${orderId}"/>
+                <input type="hidden" name="facilityId" value="${facilityId}"/>
+                <input type="hidden" name="shipmentId" value="${shipmentId}"/>
+                <input type="hidden" name="clearAll" value="Y"/>
             </form>
         </#if>
         <#if itemsAvailableToReceive && totalReadyToReceive < totalAvailableToReceive>
