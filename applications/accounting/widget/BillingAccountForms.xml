@@ -137,7 +137,7 @@ under the License.
             </drop-down>
         </field>
         <field name="contactMechId" tooltip="${uiLabelMap.AccountingBillingContactMechIdMessage}" use-when="billingAccount != null">
-            <drop-down>
+            <drop-down no-current-selected-key="${billingAccount.contactMechId}">
                 <entity-options entity-name="BillingAccountRoleAndAddress" key-field-name="contactMechId" description="[${partyId}][${contactMechId}] ${toName}, ${attnName}, ${address1}, ${stateProvinceGeoId} ${postalCode}" filter-by-date="true">
                     <entity-constraint name="billingAccountId" env-name="billingAccountId"/>
                     <entity-order-by field-name="partyId"/>
