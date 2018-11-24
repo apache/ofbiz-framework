@@ -40,7 +40,9 @@ under the License.
     <SecurityPermission description="Update sales orders for all stores in the Order Manager." permissionId="ORDERMGR_SALES_UPDATE"/>
     <SecurityPermission description="Send order confirmation notification." permissionId="ORDERMGR_SEND_CONFIRMATION"/>
     <SecurityPermission description="Quote price manager in the Order Manager." permissionId="ORDERMGR_QUOTE_PRICE"/>
+    <SecurityPermission description="ALL operations related to customer requests in the Order Manager." permissionId="ORDERMGR_CRQ_ADMIN"/>
     <SecurityPermission description="Create Customer Requests in the Order Manager." permissionId="ORDERMGR_CRQ_CREATE"/>
+    <SecurityPermission description="Update Customer Requests in the Order Manager." permissionId="ORDERMGR_CRQ_UPDATE"/>
     <SecurityPermission description="Create sales forecasts in the Order Manager." permissionId="ORDERMGR_4C_CREATE"/>
     <SecurityPermission description="Update sales forecasts in the Order Manager." permissionId="ORDERMGR_4C_UPDATE"/>
 
