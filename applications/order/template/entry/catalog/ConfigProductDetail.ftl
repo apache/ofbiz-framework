@@ -458,7 +458,7 @@ function getConfigDetails() {
                 <a name='#${question.getConfigItem().getString("configItemId")}'></a>
                 <div>${question.description!}</div>
                 <#assign instructions = question.content.get("INSTRUCTIONS", "html")!>
-                <#if instructions?has_content>
+                <#if instructions?has_content && instructions != "">
                   <a href="javascript:showErrorAlert("${uiLabelMap.CommonErrorMessage2}","${instructions}");" class="buttontext">Instructions</a>
                 </#if>
                 <#assign image = question.content.get("IMAGE_URL", "url")!>
