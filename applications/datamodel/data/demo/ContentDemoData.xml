@@ -367,10 +367,8 @@ David won't like it. He will probably delete this seed data from the DB, but it 
 
 
     <DataResource dataResourceId="DR1103b" dataResourceTypeId="OFBIZ_FILE_BIN" objectInfo="/applications/content/data/pdftest2.pdf" mimeTypeId="application/pdf" dataResourceName="Personal Profile"/>
-    <DataResource dataResourceId="DR1105b" dataResourceTypeId="OFBIZ_FILE_BIN" objectInfo="/applications/content/data/mswordtest2.doc" mimeTypeId="application/msword" dataResourceName="2nd Quarter Review"/>
 
     <DataResource dataResourceId="DR1103a" dataResourceTypeId="OFBIZ_FILE_BIN" objectInfo="/applications/content/data/pdftest2.pdf" mimeTypeId="application/pdf" dataResourceName="Personal Profile"/>
-    <DataResource dataResourceId="DR1105a" dataResourceTypeId="OFBIZ_FILE_BIN" objectInfo="/applications/content/data/mswordtest2.doc" mimeTypeId="application/msword" dataResourceName="2nd Quarter Review"/>
 
     <DataResource dataResourceId="DR1101"  mimeTypeId="application/pdf" dataResourceName="Letter of inquiry"/>
     <DataResource dataResourceId="DR1102"  mimeTypeId="application/pdf" dataResourceName="POA Contract"/>
@@ -430,11 +428,9 @@ David won't like it. He will probably delete this seed data from the DB, but it 
     <!-- sample instances CDT CDT1201 -->
     <Content contentId="CDI1201" instanceOfContentId="CDT1201" contentTypeId="COMPDOC_INSTANCE" contentName="Demo Instance Root (CDI) 1201"/>
     <Content contentId="CDI1103" instanceOfContentId="CDT1103" dataResourceId="DR1103b" contentTypeId="DOCUMENT" contentName="Personal Profile"/>
-    <Content contentId="CDI1105" instanceOfContentId="CDT1105" dataResourceId="DR1105b" contentTypeId="DOCUMENT" contentName="2nd Quarter Review"/>
 
     <ContentAssoc contentIdTo="CDT1201" contentId="CDI1201" contentAssocTypeId="INSTANCE" fromDate="2006-01-12 01:01:01" sequenceNum="0020"/>
     <ContentAssoc contentIdTo="CDI1201" contentId="CDI1103" contentAssocTypeId="COMPDOC_PART" fromDate="2006-01-12 01:01:01" sequenceNum="00130"/>
-    <ContentAssoc contentIdTo="CDI1201" contentId="CDI1105" contentAssocTypeId="COMPDOC_PART" fromDate="2006-01-12 01:01:01" sequenceNum="0050"/>
 
     <!-- sample revision entries for CDT CDT1201 -->
     <ContentRevision contentId="CDT1201" contentRevisionSeqId="000002"/>
@@ -459,22 +455,18 @@ David won't like it. He will probably delete this seed data from the DB, but it 
 
     <ContentRevision contentId="CDT1201" contentRevisionSeqId="000013"/>
     <ContentRevisionItem contentId="CDT1201" contentRevisionSeqId="000013" itemContentId="CDT1103" oldDataResourceId="DR1103a" newDataResourceId="DR1103b"/>
-    <ContentRevisionItem contentId="CDT1201" contentRevisionSeqId="000013" itemContentId="CDT1105" oldDataResourceId="DR1105a" newDataResourceId="DR1105b"/>
 
     <ContentRevision contentId="CDI1201" contentRevisionSeqId="000005"/>
     <ContentRevisionItem contentId="CDI1201" contentRevisionSeqId="000005" itemContentId="CDI1103" newDataResourceId="DR1103a"/>
     <ContentRevision contentId="CDI1201" contentRevisionSeqId="000006"/>
-    <ContentRevisionItem contentId="CDI1201" contentRevisionSeqId="000006" itemContentId="CDI1105" newDataResourceId="DR1105a"/>
 
     <ContentRevision contentId="CDI1201" contentRevisionSeqId="000009"/>
     <ContentRevisionItem contentId="CDI1201" contentRevisionSeqId="000009" itemContentId="CDI1103" oldDataResourceId="DR1103a" newDataResourceId="DR1103b"/>
     <ContentRevision contentId="CDI1201" contentRevisionSeqId="000010"/>
-    <ContentRevisionItem contentId="CDI1201" contentRevisionSeqId="000010" itemContentId="CDI1105" oldDataResourceId="DR1105a" newDataResourceId="DR1105b"/>
 
     <ContentRevision contentId="CDI1201" contentRevisionSeqId="000013"/>
     <ContentRevisionItem contentId="CDI1201" contentRevisionSeqId="000013" itemContentId="CDI1103" oldDataResourceId="DR1103a" newDataResourceId="DR1103b"/>
     <ContentRevision contentId="CDI1201" contentRevisionSeqId="000014"/>
-    <ContentRevisionItem contentId="CDI1201" contentRevisionSeqId="000014" itemContentId="CDI1105" oldDataResourceId="DR1105a" newDataResourceId="DR1105b"/>
 
 
     <!-- sample approval entries for CDT CD0001 -->
