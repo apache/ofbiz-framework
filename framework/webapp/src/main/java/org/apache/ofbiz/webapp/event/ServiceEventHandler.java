@@ -35,10 +35,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
@@ -131,108 +127,6 @@ public class ServiceEventHandler implements EventHandler {
             Debug.logVerbose("[Using delegator]: " + dispatcher.getDelegator().getDelegatorName(), module);
         }
 
-        boolean isMultiPart = ServletFileUpload.isMultipartContent(request);
-        Map<String, Object> multiPartMap = new HashMap<String, Object>();
-        if (isMultiPart) {
-            // get the http upload configuration
-            String maxSizeStr = EntityUtilProperties.getPropertyValue("general", "http.upload.max.size", "-1", dctx.getDelegator());
-            long maxUploadSize = -1;
-            try {
-                maxUploadSize = Long.parseLong(maxSizeStr);
-            } catch (NumberFormatException e) {
-                Debug.logError(e, "Unable to obtain the max upload size from general.properties; using default -1", module);
-                maxUploadSize = -1;
-            }
-            // get the http size threshold configuration - files bigger than this will be
-            // temporarly stored on disk during upload
-            String sizeThresholdStr = EntityUtilProperties.getPropertyValue("general", "http.upload.max.sizethreshold", "10240", dctx.getDelegator());
-            int sizeThreshold = 10240; // 10K
-            try {
-                sizeThreshold = Integer.parseInt(sizeThresholdStr);
-            } catch (NumberFormatException e) {
-                Debug.logError(e, "Unable to obtain the threshold size from general.properties; using default 10K", module);
-                sizeThreshold = -1;
-            }
-            // directory used to temporarily store files that are larger than the configured size threshold
-            String tmpUploadRepository = EntityUtilProperties.getPropertyValue("general", "http.upload.tmprepository", "runtime/tmp", dctx.getDelegator());
-            String encoding = request.getCharacterEncoding();
-            // check for multipart content types which may have uploaded items
-
-            ServletFileUpload upload = new ServletFileUpload(new DiskFileItemFactory(sizeThreshold, new File(tmpUploadRepository)));
-
-            // create the progress listener and add it to the session
-            FileUploadProgressListener listener = new FileUploadProgressListener();
-            upload.setProgressListener(listener);
-            session.setAttribute("uploadProgressListener", listener);
-
-            if (encoding != null) {
-                upload.setHeaderEncoding(encoding);
-            }
-            upload.setSizeMax(maxUploadSize);
-
-            List<FileItem> uploadedItems = null;
-            try {
-                uploadedItems = UtilGenerics.<FileItem>checkList(upload.parseRequest(request));
-            } catch (FileUploadException e) {
-                throw new EventHandlerException("Problems reading uploaded data", e);
-            }
-            if (uploadedItems != null) {
-                for (FileItem item: uploadedItems) {
-                    String fieldName = item.getFieldName();
-                    //byte[] itemBytes = item.get();
-                    /*
-                    Debug.logInfo("Item Info [" + fieldName + "] : " + item.getName() + " / " + item.getSize() + " / " +
-                            item.getContentType() + " FF: " + item.isFormField(), module);
-                    */
-                    if (item.isFormField() || item.getName() == null) {
-                        if (multiPartMap.containsKey(fieldName)) {
-                            Object mapValue = multiPartMap.get(fieldName);
-                            if (mapValue instanceof List<?>) {
-                                checkList(mapValue, Object.class).add(item.getString());
-                            } else if (mapValue instanceof String) {
-                                List<String> newList = new LinkedList<String>();
-                                newList.add((String) mapValue);
-                                newList.add(item.getString());
-                                multiPartMap.put(fieldName, newList);
-                            } else {
-                                Debug.logWarning("Form field found [" + fieldName + "] which was not handled!", module);
-                            }
-                        } else {
-                            if (encoding != null) {
-                                try {
-                                    multiPartMap.put(fieldName, item.getString(encoding));
-                                } catch (java.io.UnsupportedEncodingException uee) {
-                                    Debug.logError(uee, "Unsupported Encoding, using deafault", module);
-                                    multiPartMap.put(fieldName, item.getString());
-                                }
-                            } else {
-                                multiPartMap.put(fieldName, item.getString());
-                            }
-                        }
-                    } else {
-                        String fileName = item.getName();
-                        if (fileName.indexOf('\\') > -1 || fileName.indexOf('/') > -1) {
-                            // get just the file name IE and other browsers also pass in the local path
-                            int lastIndex = fileName.lastIndexOf('\\');
-                            if (lastIndex == -1) {
-                                lastIndex = fileName.lastIndexOf('/');
-                            }
-                            if (lastIndex > -1) {
-                                fileName = fileName.substring(lastIndex + 1);
-                            }
-                        }
-                        multiPartMap.put(fieldName, ByteBuffer.wrap(item.get()));
-                        multiPartMap.put("_" + fieldName + "_size", item.getSize());
-                        multiPartMap.put("_" + fieldName + "_fileName", fileName);
-                        multiPartMap.put("_" + fieldName + "_contentType", item.getContentType());
-                    }
-                }
-            }
-        }
-
-        // store the multi-part map as an attribute so we can access the parameters
-        request.setAttribute("multiPartMap", multiPartMap);
-
         Map<String, Object> rawParametersMap = UtilHttp.getCombinedMap(request);
         Set<String> urlOnlyParameterNames = UtilHttp.getUrlOnlyParameterMap(request).keySet();
 
@@ -252,15 +146,15 @@ public class ServiceEventHandler implements EventHandler {
 
             Object value = null;
             if (UtilValidate.isNotEmpty(modelParam.stringMapPrefix)) {
-                Map<String, Object> paramMap = UtilHttp.makeParamMapWithPrefix(request, multiPartMap, modelParam.stringMapPrefix, null);
+                Map<String, Object> paramMap = UtilHttp.makeParamMapWithPrefix(request, rawParametersMap, modelParam.stringMapPrefix, null);
                 value = paramMap;
                 if (Debug.verboseOn()) Debug.logVerbose("Set [" + modelParam.name + "]: " + paramMap, module);
             } else if (UtilValidate.isNotEmpty(modelParam.stringListSuffix)) {
-                List<Object> paramList = UtilHttp.makeParamListWithSuffix(request, multiPartMap, modelParam.stringListSuffix, null);
+                List<Object> paramList = UtilHttp.makeParamListWithSuffix(request, rawParametersMap, modelParam.stringListSuffix, null);
                 value = paramList;
             } else {
                 // first check the multi-part map
-                value = multiPartMap.get(name);
+                value = rawParametersMap.get(name);
 
                 // next check attributes; do this before parameters so that attribute which can be changed by code can override parameters which can't
                 if (UtilValidate.isEmpty(value)) {
