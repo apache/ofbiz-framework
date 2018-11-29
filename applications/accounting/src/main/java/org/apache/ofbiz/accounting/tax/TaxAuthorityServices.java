@@ -248,7 +248,7 @@ public class TaxAuthorityServices {
         BigDecimal totalPrice = ZERO_BASE;
         Map<GenericValue,BigDecimal> productWeight = new HashMap<>();
         // Loop through the products; get the taxCategory; and lookup each in the cache.
-        for (int i = 0; i < itemProductList.size(); i++) {  
+        for (int i = 0; i < itemProductList.size(); i++) {
             GenericValue product = itemProductList.get(i);
             BigDecimal itemAmount = itemAmountList.get(i);
             BigDecimal itemPrice = itemPriceList.get(i);
@@ -272,8 +272,10 @@ public class TaxAuthorityServices {
         // converts the totals of the products into percent weights
         for (GenericValue prod : productWeight.keySet()) {
             BigDecimal value = productWeight.get(prod);
-            BigDecimal weight = value.divide(totalPrice, 100, salestaxRounding);
-            productWeight.put(prod, weight);
+            if (totalPrice.compareTo(BigDecimal.ZERO) > 0) {
+                BigDecimal weight = value.divide(totalPrice, 100, salestaxRounding);
+                productWeight.put(prod, weight);
+            }
         }
 
         if (orderShippingAmount != null && orderShippingAmount.compareTo(BigDecimal.ZERO) > 0) {
@@ -391,8 +393,6 @@ public class TaxAuthorityServices {
             EntityCondition productCategoryCond;
             productCategoryCond = setProductCategoryCond(delegator, product);
 
-            // FIXME handles shipping and promo tax. Simple solution, see
-            // https://issues.apache.org/jira/browse/OFBIZ-4160 for a better one
             if (product == null && shippingAmount != null) {
                 EntityCondition taxShippingCond = EntityCondition.makeCondition(
                         EntityCondition.makeCondition("taxShipping", EntityOperator.EQUALS, null),
