@@ -14811,16 +14811,6 @@
         <value xml:lang="zh">税务机关</value>
         <value xml:lang="zh-TW">稅務機關</value>
     </property>
-    <property key="AccountingTaxAuthorityCategoryAdvice">
-        <value xml:lang="ar">أنتبه: لا تستخدم أكثر من سطر واحد في "شحن الضرائب" و/أو "عروض الضرائب" بالقيمة = "ص"</value>
-        <value xml:lang="de">Achtung: verwenden Sie nicht mehr als eine Zeile mit "Steuer Lieferung" und/oder "Steuer Promotions" Wert = "Y"</value>
-        <value xml:lang="en">Beware: don't use more than one line with "Tax Shipping" and/or "Tax Promotions" value = "Y"</value>
-        <value xml:lang="fr">Attention: n'utilisez pas plus d'une ligne avec "Taxes sur livraison" et/ou "Taxes sur promotions" = "Y"</value>
-        <value xml:lang="ja">注意: "発送税"および/または"プロモーション税"に値="Y"の行を複数使用しないでください</value>
-        <value xml:lang="vi">Lưu ý: bạn không sử dụng nhiều hơn một dòng với "Thuế chuyển hàng" và/hoặc "Thuế khuyến mãi giá trị"= "Y"</value>
-        <value xml:lang="zh">注意："航运税"不能多于一行，且/或"业务推广税"的值 = "Y"</value>
-        <value xml:lang="zh-TW">注意:"航運稅"不能多於一行,且/或"業務推廣稅"的值 = "Y"</value>
-    </property>
     <property key="AccountingTaxAuthorityGeo">
         <value xml:lang="ar">جيوغرافية مصلحة الضرائب</value>
         <value xml:lang="de">Steuerbehörde Geo</value>
