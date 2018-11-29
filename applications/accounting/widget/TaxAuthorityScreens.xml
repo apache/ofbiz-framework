@@ -193,10 +193,8 @@ under the License.
                 <decorator-screen name="CommonTaxAuthorityDecorator" location="${parameters.taxAuthDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="TaxAuthorityCategoryPanel" title="${uiLabelMap.PageTitleAddTaxAuthorityCategory}" collapsible="true">
-                            <label style="h3">${uiLabelMap.AccountingTaxAuthorityCategoryAdvice}</label>
                             <include-form name="AddTaxAuthorityRateProduct" location="component://accounting/widget/TaxAuthorityForms.xml"/>
                         </screenlet>
-                        <label style="h3">${uiLabelMap.AccountingTaxAuthorityCategoryAdvice}</label>                        
                         <include-form name="ListTaxAuthorityRateProducts" location="component://accounting/widget/TaxAuthorityForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
