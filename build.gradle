@@ -194,6 +194,9 @@ dependencies {
     // libs needed for junitreport
     junitReport 'junit:junit:4.12'
     junitReport 'org.apache.ant:ant-junit:1.10.5'
+    
+    // bug workaround - see OFBIZ-9873
+    asciidoctor 'org.jruby:jruby-complete:9.2.4.0' 
 
     // local libs
     getDirectoryInActiveComponentsIfExists('lib').each { libDir ->
@@ -504,12 +507,7 @@ task createTenant(group: ofbizServer, description: 'Create a new tenant in your 
 
 // ========== Documentation tasks ==========
 tasks.withType(AsciidoctorTask) { task ->
-    // bug workaround - see OFBIZ-9873
-    if (os.contains('windows')) {
-        backends 'html5'
-    } else {
-        backends 'html5', 'pdf'
-    }
+    backends 'html5', 'pdf'
     attributes \
         'doctype': 'book',
         'experimental': '',
