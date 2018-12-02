@@ -18,9 +18,12 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.util;
 
+import static org.apache.ofbiz.base.util.UtilGenerics.checkList;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -49,6 +52,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
@@ -56,8 +63,10 @@ import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.ssl.SSLContexts;
+import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader;
+import org.apache.ofbiz.webapp.event.FileUploadProgressListener;
 import org.apache.ofbiz.widget.renderer.VisualTheme;
 import org.apache.oro.text.regex.MalformedPatternException;
 import org.apache.oro.text.regex.Pattern;
@@ -154,7 +163,7 @@ public final class UtilHttp {
 
         if (paramMap.size() == 0) {
             // nothing found in the parameters; maybe we read the stream instead
-            Map<String, Object> multiPartMap = UtilGenerics.checkMap(request.getAttribute("multiPartMap"));
+            Map<String, Object> multiPartMap = getMultiPartParameterMap(request);
             if (UtilValidate.isNotEmpty(multiPartMap)) {
                 paramMap.putAll(multiPartMap);
             }
@@ -165,6 +174,112 @@ public final class UtilHttp {
         }
 
         return canonicalizeParameterMap(paramMap);
+    }
+
+    public static Map<String, Object> getMultiPartParameterMap(HttpServletRequest request) {
+        Map<String, Object> multiPartMap = new HashMap<String, Object>();
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
+        HttpSession session = request.getSession();
+        boolean isMultiPart = ServletFileUpload.isMultipartContent(request);
+        if (isMultiPart) {
+            // get the http upload configuration
+            String maxSizeStr = EntityUtilProperties.getPropertyValue("general", "http.upload.max.size", "-1", delegator);
+            long maxUploadSize = -1;
+            try {
+                maxUploadSize = Long.parseLong(maxSizeStr);
+            } catch (NumberFormatException e) {
+                Debug.logError(e, "Unable to obtain the max upload size from general.properties; using default -1", module);
+                maxUploadSize = -1;
+            }
+            // get the http size threshold configuration - files bigger than this will be
+            // temporarly stored on disk during upload
+            String sizeThresholdStr = EntityUtilProperties.getPropertyValue("general", "http.upload.max.sizethreshold", "10240", delegator);
+            int sizeThreshold = 10240; // 10K
+            try {
+                sizeThreshold = Integer.parseInt(sizeThresholdStr);
+            } catch (NumberFormatException e) {
+                Debug.logError(e, "Unable to obtain the threshold size from general.properties; using default 10K", module);
+                sizeThreshold = -1;
+            }
+            // directory used to temporarily store files that are larger than the configured size threshold
+            String tmpUploadRepository = EntityUtilProperties.getPropertyValue("general", "http.upload.tmprepository", "runtime/tmp", delegator);
+            String encoding = request.getCharacterEncoding();
+            // check for multipart content types which may have uploaded items
+
+            ServletFileUpload upload = new ServletFileUpload(new DiskFileItemFactory(sizeThreshold, new File(tmpUploadRepository)));
+
+            // create the progress listener and add it to the session
+            FileUploadProgressListener listener = new FileUploadProgressListener();
+            upload.setProgressListener(listener);
+            session.setAttribute("uploadProgressListener", listener);
+
+            if (encoding != null) {
+                upload.setHeaderEncoding(encoding);
+            }
+            upload.setSizeMax(maxUploadSize);
+
+            List<FileItem> uploadedItems = null;
+            try {
+                uploadedItems = UtilGenerics.<FileItem>checkList(upload.parseRequest(request));
+            } catch (FileUploadException e) {
+                Debug.logError("File upload error" + e, module);
+            }
+            if (uploadedItems != null) {
+                for (FileItem item: uploadedItems) {
+                    String fieldName = item.getFieldName();
+                    //byte[] itemBytes = item.get();
+                    /*
+                    Debug.logInfo("Item Info [" + fieldName + "] : " + item.getName() + " / " + item.getSize() + " / " +
+                            item.getContentType() + " FF: " + item.isFormField(), module);
+                    */
+                    if (item.isFormField() || item.getName() == null) {
+                        if (multiPartMap.containsKey(fieldName)) {
+                            Object mapValue = multiPartMap.get(fieldName);
+                            if (mapValue instanceof List<?>) {
+                                checkList(mapValue, Object.class).add(item.getString());
+                            } else if (mapValue instanceof String) {
+                                List<String> newList = new LinkedList<String>();
+                                newList.add((String) mapValue);
+                                newList.add(item.getString());
+                                multiPartMap.put(fieldName, newList);
+                            } else {
+                                Debug.logWarning("Form field found [" + fieldName + "] which was not handled!", module);
+                            }
+                        } else {
+                            if (encoding != null) {
+                                try {
+                                    multiPartMap.put(fieldName, item.getString(encoding));
+                                } catch (java.io.UnsupportedEncodingException uee) {
+                                    Debug.logError(uee, "Unsupported Encoding, using deafault", module);
+                                    multiPartMap.put(fieldName, item.getString());
+                                }
+                            } else {
+                                multiPartMap.put(fieldName, item.getString());
+                            }
+                        }
+                    } else {
+                        String fileName = item.getName();
+                        if (fileName.indexOf('\\') > -1 || fileName.indexOf('/') > -1) {
+                            // get just the file name IE and other browsers also pass in the local path
+                            int lastIndex = fileName.lastIndexOf('\\');
+                            if (lastIndex == -1) {
+                                lastIndex = fileName.lastIndexOf('/');
+                            }
+                            if (lastIndex > -1) {
+                                fileName = fileName.substring(lastIndex + 1);
+                            }
+                        }
+                        multiPartMap.put(fieldName, ByteBuffer.wrap(item.get()));
+                        multiPartMap.put("_" + fieldName + "_size", item.getSize());
+                        multiPartMap.put("_" + fieldName + "_fileName", fileName);
+                        multiPartMap.put("_" + fieldName + "_contentType", item.getContentType());
+                    }
+                }
+            }
+        }
+
+
+        return multiPartMap;
     }
 
     public static Map<String, Object> getQueryStringOnlyParameterMap(String queryString) {
