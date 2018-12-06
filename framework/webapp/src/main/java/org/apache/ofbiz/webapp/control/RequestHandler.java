@@ -406,8 +406,9 @@ public class RequestHandler {
 
             // If its the first visit run the first visit events.
             if (this.trackVisit(request) && session.getAttribute("_FIRST_VISIT_EVENTS_") == null) {
-                if (Debug.infoOn())
+                if (Debug.infoOn()) {
                     Debug.logInfo("This is the first request in this visit." + showSessionId(request), module);
+                }
                 session.setAttribute("_FIRST_VISIT_EVENTS_", "complete");
                 for (ConfigXMLReader.Event event: ccfg.getFirstVisitEventList().values()) {
                     try {
