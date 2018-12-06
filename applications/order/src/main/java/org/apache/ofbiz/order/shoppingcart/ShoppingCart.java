@@ -2239,16 +2239,18 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     }
 
     public void cleanUpShipGroups() {
-        for (CartShipInfo csi : this.shipInfo) {
-            Iterator<ShoppingCartItem> si = csi.shipItemInfo.keySet().iterator();
+        Iterator<CartShipInfo> csi = this.shipInfo.iterator();
+        while (csi.hasNext()) {
+            CartShipInfo info = csi.next();
+            Iterator<ShoppingCartItem> si = info.shipItemInfo.keySet().iterator();
             while (si.hasNext()) {
                 ShoppingCartItem item = si.next();
                 if (item.getQuantity().compareTo(BigDecimal.ZERO) == 0) {
                     si.remove();
                 }
             }
-            if (csi.shipItemInfo.size() == 0) {
-                this.shipInfo.remove(csi);
+            if (info.shipItemInfo.size() == 0) {
+                csi.remove();
             }
         }
     }
