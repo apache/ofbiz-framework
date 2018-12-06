@@ -444,24 +444,23 @@ public class ShoppingListEvents {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         GenericValue productStore = ProductStoreWorker.getProductStore(request);
-
-        if (!ProductStoreWorker.autoSaveCart(productStore)) {
-            // if auto-save is disabled just return here
-            return "success";
-        }
-
         HttpSession session = request.getSession();
         ShoppingCart cart = ShoppingCartEvents.getCartObject(request);
-
-        // safety check for missing required parameter.
-        if (cart.getWebSiteId() == null) {
-            cart.setWebSiteId(WebSiteWorker.getWebSiteId(request));
-        }
 
         // locate the user's identity
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         if (userLogin == null) {
             userLogin = (GenericValue) session.getAttribute("autoUserLogin");
+        }
+        
+        if (!ProductStoreWorker.autoSaveCart(productStore) || userLogin == null) {
+            // if auto-save is disabled or there is still no userLogin just return here
+            return "success";
+        }
+
+        // safety check for missing required parameter.
+        if (cart.getWebSiteId() == null) {
+            cart.setWebSiteId(WebSiteWorker.getWebSiteId(request));
         }
 
         // find the list ID
@@ -650,7 +649,7 @@ public class ShoppingListEvents {
         }
 
         // clear the auto-save info
-        if (ProductStoreWorker.autoSaveCart(delegator, productStoreId)) {
+        if (userLogin!= null && ProductStoreWorker.autoSaveCart(delegator, productStoreId)) {
             if (UtilValidate.isEmpty(autoSaveListId)) {
                 try {
                     Map<String, Object> listFields = UtilMisc.<String, Object>toMap("userLogin", userLogin, "productStoreId", productStoreId, "shoppingListTypeId", "SLT_SPEC_PURP", "listName", PERSISTANT_LIST_NAME);
