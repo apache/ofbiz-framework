@@ -791,7 +791,10 @@ public class LoginWorker {
         createSecuredLoginIdCookie(request, response);
 
         // make sure the autoUserLogin is set to the same and that the client cookie has the correct userLoginId
-        return autoLoginSet(request, response);
+        autoLoginSet(request, response);
+
+        return autoLoginCheck(request, response);
+        
     }
 
     public static void doBasicLogin(GenericValue userLogin, HttpServletRequest request) {
@@ -968,7 +971,8 @@ public class LoginWorker {
         }
         if (cookies != null) {
             for (Cookie cookie: cookies) {
-                if (cookie.getName().equals(getAutoLoginCookieName(request))) {
+                if (cookie.getName().equals(getAutoLoginCookieName(request)) 
+                        && cookie.getMaxAge() > 0) {
                     autoUserLoginId = cookie.getValue();
                     break;
                 }
