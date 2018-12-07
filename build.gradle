@@ -556,11 +556,23 @@ task generatePluginDocumentation(group: docsGroup) {
     iterateOverActiveComponents { component ->
         if (project.hasProperty('pluginId') && component.name == pluginId) {
             def pluginAsciidoc = task "${component.name}Documentation" (type: AsciidoctorTask) {
-                sourceDir file("${component}/src/docs/asciidoc")
-                outputDir file("${buildDir}/asciidoc/plugins/${component.name}")
-                mustRunAfter deletePluginDocumentation
+                def asciidocFolder = new File("${component}/src/docs/asciidoc")
+                if (asciidocFolder.exists()) {
+                    copy {
+                        from "${rootDir}/docs/asciidoc/images/OFBiz-Logo.svg" 
+                        into "${component}/src/docs/asciidoc/images"
+                    }
+                    sourceDir file("${component}/src/docs/asciidoc")
+                    outputDir file("${buildDir}/asciidoc/plugins/${component.name}")
+                    doLast { println "Documentation generated for plugin ${component.name}" }
+                    
+                } else {
+                      println "No documentation found for plugin ${component.name}"
+                  }
+            mustRunAfter deletePluginDocumentation
             }
             dependsOn pluginAsciidoc
+            doLast { delete "${component}/src/docs/asciidoc/images/OFBiz-Logo.svg" }
         }
     }
 }
@@ -573,14 +585,25 @@ task generateAllPluginsDocumentation(group: docsGroup,
         iterateOverActiveComponents { component ->
             if (component.name == plugin.name) {
                 if (subprojectExists(":plugins:${plugin.name}")) {
-                    def pluginAsciidoc = task "${component.name}-Documentation" (type: AsciidoctorTask) {
-                        sourceDir file("${component}/src/docs/asciidoc")
-                        outputDir file("${buildDir}/asciidoc/plugins/${component.name}")
-                        doLast { println "Documentation generated for plugin ${component.name}" }
-                        mustRunAfter deleteAllPluginsDocumentation
+                    // Note: the "-" between "component.name" and "Documentation" allows to differentiate from 
+                    // the other inner task temporary created by the generatePluginDocumentation task 
+                    def pluginAsciidoc = task "${component.name}-Documentation" (type: AsciidoctorTask) { 
+                        def asciidocFolder = new File("${component}/src/docs/asciidoc")
+                        if (asciidocFolder.exists()) {
+                            copy {
+                                from "${rootDir}/docs/asciidoc/images/OFBiz-Logo.svg" 
+                                into "${component}/src/docs/asciidoc/images"
+                            }
+                            sourceDir file("${component}/src/docs/asciidoc")
+                            outputDir file("${buildDir}/asciidoc/plugins/${component.name}")
+                            doLast { println "Documentation generated for plugin ${component.name}" }
+                        }
+                    mustRunAfter deleteAllPluginsDocumentation
                     }
+                    
                     dependsOn pluginAsciidoc
                 }
+                doLast { delete "${component}/src/docs/asciidoc/images/OFBiz-Logo.svg" }
             }
         }
     }
