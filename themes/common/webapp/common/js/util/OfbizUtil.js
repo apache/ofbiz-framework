@@ -858,7 +858,7 @@ function ajaxInPlaceEditDisplayField(element, url, options) {
             data : settings.submitdata,
             success : function(data) {
                 // adding the new value to the field and make the modified field 'blink' a little bit to show the user that somethink have changed
-                jElement.html(value).fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500).css('background-color', 'transparent');
+                jElement.text(value).fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500).css('background-color', 'transparent');
             }
         });
     }, options);
