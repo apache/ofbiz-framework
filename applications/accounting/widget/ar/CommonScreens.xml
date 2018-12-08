@@ -55,7 +55,8 @@ under the License.
                                 <script location="component://accounting/groovyScripts/invoice/InvoiceReport.groovy"/>
                             </actions>
                             <widgets>
-                                <include-portal-page id="ArPortalPage"/>
+                                <include-screen name="ArPastDueInvoices"/>
+                                <include-screen name="ArInvoicesDueSoon"/>
                             </widgets>
                         </section>
                     </decorator-section>
