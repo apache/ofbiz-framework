@@ -797,6 +797,10 @@
         <value xml:lang="zh">验证电子邮件站点标识</value>
         <value xml:lang="zh-TW">驗證電子郵件站台識別</value>
     </property>
+    <property key="MarketingContactMechNotExists">
+        <value xml:lang="de">Der bevorzugte Kontaktmechanismus für Party [${partyId}] konnte nicht gefunden werden</value>
+        <value xml:lang="en">Could not find the preferred contact mechanism for party [${parameters.partyId}]</value>
+    </property>
     <property key="MarketingContactMechNotRightForContactList">
         <value xml:lang="de">Der bevorzugte Kontaktmechanismus [${preferredContactMechType.description}] ist vom falschen Typ für die Liste [${listContactMechType.description}].</value>
         <value xml:lang="en">The preferred contact mechanism [${preferredContactMechType.description}] was not of the right type for the list [${listContactMechType.description}].</value>
