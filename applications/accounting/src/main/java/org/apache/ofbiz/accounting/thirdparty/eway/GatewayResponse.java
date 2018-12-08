@@ -157,30 +157,40 @@ public class GatewayResponse {
             switch(name) {
             case "ewayTrxnError":
                 txTrxnError = value;
+                break;
             case "ewayTrxnStatus":
                 if ("true".equals(value.toLowerCase(Locale.getDefault()).trim())) {
                     txTrxnStatus = true;
                 }
+                break;
             case "ewayTrxnNumber":
                 txTrxnNumber = value;
+                break;
             case "ewayTrxnOption1":
                 txTrxnOption1 = value;
+                break;
             case "ewayTrxnOption2":
                 txTrxnOption2 = value;
+                break;
             case "ewayTrxnOption3":
                 txTrxnOption3 = value;
+                break;
             case "ewayReturnAmount":
                 if (!value.equals("")) {
                     txReturnAmount = Integer.parseInt(value);
                 }
+                break;
             case "ewayAuthCode":
                 txAuthCode = value;
+                break;
             case "ewayTrxnReference":
                 txTrxnReference = value;
+                break;
             case "ewayBeagleScore": 
                 if (!value.equals("")) {
                     txBeagleScore = Double.parseDouble(value);
                 }
+                break;
             default:
                 throw new Exception("Unknown field in response: " + name);
             }
