@@ -85,18 +85,28 @@ under the License.
                     <result-to-field result-name="contactMechId" field="parameters.preferredContactMechId"/>
                 </call-service>        
             </if-empty>
-        </if-empty>    
+        </if-empty>
 
-        <make-value entity-name="ContactListParty" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <if-empty field="newEntity.fromDate"><now-timestamp field="newEntity.fromDate"/></if-empty>
+        <if-not-empty field="parameters.preferredContactMechId">
+            <make-value entity-name="ContactListParty" value-field="newEntity"/>
+            <set-nonpk-fields map="parameters" value-field="newEntity"/>
+            <set-pk-fields map="parameters" value-field="newEntity"/>
+            <if-empty field="newEntity.fromDate"><now-timestamp field="newEntity.fromDate"/></if-empty>
 
-        <create-value value-field="newEntity"/>
-        
-        <set-service-fields service-name="createContactListPartyStatus" map="newEntity" to-map="createContactListPartyStatusMap"/>
-        <set field="createContactListPartyStatusMap.baseLocation" from-field="parameters.baseLocation"/>
-        <call-service service-name="createContactListPartyStatus" in-map-name="createContactListPartyStatusMap"/>
+            <create-value value-field="newEntity"/>
+            <set-service-fields service-name="createContactListPartyStatus" map="newEntity" to-map="createContactListPartyStatusMap"/>
+            <set field="createContactListPartyStatusMap.baseLocation" from-field="parameters.baseLocation"/>
+            <call-service service-name="createContactListPartyStatus" in-map-name="createContactListPartyStatusMap"/>
+
+            <!-- Some parties happen to not have email addresses, this should be logged -->
+            <else>
+                <log level="info" message="Could not find the preferred contact mechanism for party [${parameters.partyId}]"/>
+                <set field="partyId" from-field="parameters.partyId"/>
+                <property-to-field resource="MarketingUiLabels.xml" property="MarketingContactMechNotExists" field="message"/>
+                <field-to-result field="message" result-name="errorMessage"></field-to-result>
+            </else>
+        </if-not-empty>
+
     </simple-method>
     <simple-method method-name="updateContactListParty" short-description="Update Add Party To ContactList">
         <!-- allow if userLogin.partyId = parameters.partyId or has permission -->
