@@ -18,7 +18,6 @@ specific language governing permissions and limitations
 under the License.
 -->
 <entity-engine-xml>
-    <TemporalExpression tempExprId="MIDNIGHT_DAILY" tempExprTypeId="FREQUENCY" description="Daily Midnight" date1="2000-01-01 00:00:00.000" integer1="5" integer2="1"/>
     <!-- The JobManager handles purging old jobs now.
     <JobSandbox jobId="PURGE_OLD_JOBS" jobName="Purge Old Jobs" runTime="2000-01-01 00:00:00.000" serviceName="purgeOldJobs" poolId="pool" runAsUser="system" tempExprId="MIDNIGHT_DAILY" maxRecurrenceCount="-1"/>
     -->
