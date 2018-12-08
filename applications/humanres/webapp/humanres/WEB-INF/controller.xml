@@ -753,6 +753,12 @@ under the License.
         <response name="success" type="view" value="EditAgreementEmploymentAppls"/>
     </request-map>
     <!--====================Extended Requests===================================-->
+    <request-map uri="getAssociatedStateList">
+        <security https="true" auth="false"/>
+        <event type="service" invoke="getAssociatedStateList"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map>
     <request-map uri="EditPartySkillsExt">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditPartySkills"/>

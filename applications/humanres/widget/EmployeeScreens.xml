@@ -60,12 +60,25 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PartyCreateNewEmployee"/>
                 <set field="headerItem" value="Employees"/>
-                <property-to-field field="defaultCountryGeoId" resource="general" property="country.geo.id.default" default="USA"/>
+                <set field="dependentForm" value="AddEmployee"/>
+                <set field="paramKey" value="countryGeoId"/>
+                <set field="mainId" value="countryGeoId"/>
+                <set field="dependentId" value="stateProvinceGeoId"/>
+                <set field="requestName" value="getAssociatedStateList"/>
+                <set field="responseName" value="stateList"/>
+                <set field="dependentKeyName" value="geoId"/>
+                <set field="descName" value="geoName"/>
+                <set field="selectedDependentOption" from-field="country.geo.id.default" default-value="USA"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.HumanResNewEmployee}">
+                        <platform-specific>
+                            <html>
+                                <html-template location="component://common-theme/template/includes/SetDependentDropdownValuesJs.ftl"/>
+                            </html>
+                        </platform-specific>
                             <section>
                                 <widgets>
                                     <include-form name="AddEmployee" location="component://humanres/widget/forms/EmployeeForms.xml"/>
