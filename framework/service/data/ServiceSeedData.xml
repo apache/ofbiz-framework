@@ -21,6 +21,8 @@ under the License.
 <entity-engine-xml>
     <!-- Temporal Expression seed data -->
 
+    <TemporalExpression tempExprId="MIDNIGHT_DAILY" tempExprTypeId="FREQUENCY" description="Daily Midnight" date1="2000-01-01 00:00:00.000" integer1="5" integer2="1"/>
+
     <!-- Pre-define all 60 minutes -->
     <TemporalExpression tempExprId="MINUTE_00" tempExprTypeId="MINUTE_RANGE" description="Minute 0" integer1="0" integer2="0"/>
     <TemporalExpression tempExprId="MINUTE_01" tempExprTypeId="MINUTE_RANGE" description="Minute 1" integer1="1" integer2="1"/>
