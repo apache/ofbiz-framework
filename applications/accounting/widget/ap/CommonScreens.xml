@@ -53,7 +53,8 @@ under the License.
                                 <script location="component://accounting/groovyScripts/invoice/InvoiceReport.groovy"/>
                             </actions>
                             <widgets>
-                                <include-portal-page id="ApPortalPage"/>
+                                <include-screen name="ApPastDueInvoices"/>
+                                <include-screen name="ApInvoicesDueSoon"/>
                             </widgets>
                         </section>
                     </decorator-section>
