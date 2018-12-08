@@ -444,7 +444,7 @@ under the License.
                 <set field="layoutSettings.styleSheets[+0]" value="/common/js/jquery/ui/jquery-ui-1.12.1.min.css" global="true" />
                 <set field="layoutSettings.styleSheets[+0]" value="/common/js/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon-1.6.3.min.css" global="true" />
 
-                <set field="layoutSettings.javaScripts[]" value="/common/js/plugins/OpenLayers-2.13.1-modified-for-CSP-.js" global="true" />
+                <set field="layoutSettings.javaScripts[]" value="/common/js/plugins/OpenLayers-5.3.0.js" global="true" />
                 <set field="layoutSettings.javaScripts[]" value="/common/js/util/OfbizUtil.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/common/js/util/fieldlookup.js" global="true"/>
                 <!-- The default (global) shortcut icon -->
