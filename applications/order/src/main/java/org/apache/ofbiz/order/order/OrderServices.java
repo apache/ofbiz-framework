@@ -6253,25 +6253,22 @@ public class OrderServices {
         final EntityCondition cond = EntityCondition.makeCondition(orderCondList);
         List<String> orderIds;
         try {
-            orderIds = TransactionUtil.doNewTransaction(new Callable<List<String>>() {
-                @Override
-                public List<String> call() throws Exception {
-                    List<String> orderIds = new LinkedList<>();
+            orderIds = TransactionUtil.doNewTransaction(() -> {
+                List<String> oids = new LinkedList<>();
 
-                    EntityQuery eq = EntityQuery.use(delegator)
-                            .select("orderId")
-                            .from("OrderHeader")
-                            .where(cond)
-                            .orderBy("entryDate ASC");
+                EntityQuery eq = EntityQuery.use(delegator)
+                        .select("orderId")
+                        .from("OrderHeader")
+                        .where(cond)
+                        .orderBy("entryDate ASC");
 
-                    try (EntityListIterator eli = eq.queryIterator()) {
-                        GenericValue orderHeader;
-                        while ((orderHeader = eli.next()) != null) {
-                            orderIds.add(orderHeader.getString("orderId"));
-                        }
+                try (EntityListIterator eli = eq.queryIterator()) {
+                    GenericValue orderHeader;
+                    while ((orderHeader = eli.next()) != null) {
+                        oids.add(orderHeader.getString("orderId"));
                     }
-                    return orderIds;
                 }
+                return oids;
             }, "getSalesOrderIds", 0, true);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);

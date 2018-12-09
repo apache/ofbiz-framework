@@ -482,12 +482,10 @@ public class CatalinaContainer implements Container {
         Debug.logInfo("Creating context [" + appInfo.name + "]", module);
         Host host = prepareHost(tomcat, appInfo.getVirtualHosts());
 
-        return new Callable<Context>() {
-            public Context call() throws ContainerException, LifecycleException {
-                StandardContext context = prepareContext(host, configuration, appInfo, clusterProp);
-                host.addChild(context);
-                return context;
-            }
+        return () -> {
+            StandardContext context = prepareContext(host, configuration, appInfo, clusterProp);
+            host.addChild(context);
+            return context;
         };
     }
 

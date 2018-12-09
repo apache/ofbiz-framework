@@ -382,103 +382,97 @@ public class ArtifactInfoFactory {
 
     // private methods
     private Callable<Void> prepareTaskForServiceAnalysis(final String serviceName) {
-        return new Callable<Void>() {
-            @Override
-            public Void call() throws Exception {
-                try {
-                    getServiceArtifactInfo(serviceName);
-                } catch(Exception exc) {
-                    Debug.logWarning(exc, "Error processing service: " + serviceName, module);
-                }
-                return null;
+        return () -> {
+            try {
+                getServiceArtifactInfo(serviceName);
+            } catch(Exception exc) {
+                Debug.logWarning(exc, "Error processing service: " + serviceName, module);
             }
+            return null;
         };
     }
 
     private Callable<Void> prepareTaskForComponentAnalysis(final ComponentConfig componentConfig) {
-        return new Callable<Void>() {
-            @Override
-            public Void call() throws Exception {
-                String componentName = componentConfig.getGlobalName();
-                String rootComponentPath = componentConfig.getRootLocation();
-                List<File> screenFiles = new ArrayList<File>();
-                List<File> formFiles = new ArrayList<File>();
-                List<File> controllerFiles = new ArrayList<File>();
-                try {
-                    screenFiles = FileUtil.findXmlFiles(rootComponentPath, null, "screens", "widget-screen.xsd");
-                } catch (IOException ioe) {
-                    Debug.logWarning(ioe.getMessage(), module);
-                }
-                try {
-                    formFiles = FileUtil.findXmlFiles(rootComponentPath, null, "forms", "widget-form.xsd");
-                } catch (IOException ioe) {
-                    Debug.logWarning(ioe.getMessage(), module);
-                }
-                try {
-                    controllerFiles = FileUtil.findXmlFiles(rootComponentPath, null, "site-conf", "site-conf.xsd");
-                } catch (IOException ioe) {
-                    Debug.logWarning(ioe.getMessage(), module);
-                }
-                for (File screenFile: screenFiles) {
-                    String screenFilePath = screenFile.getAbsolutePath();
-                    screenFilePath = screenFilePath.replace('\\', '/');
-                    String screenFileRelativePath = screenFilePath.substring(rootComponentPath.length());
-                    String screenLocation = "component://" + componentName + "/" + screenFileRelativePath;
-                    Map<String, ModelScreen> modelScreenMap = null;
-                    try {
-                        modelScreenMap = ScreenFactory.getScreensFromLocation(screenLocation);
-                    } catch (Exception exc) {
-                        Debug.logWarning(exc.getMessage(), module);
-                    }
-                    for (String screenName : modelScreenMap.keySet()) {
-                        getScreenWidgetArtifactInfo(screenName, screenLocation);
-                    }
-                }
-                for (File formFile: formFiles) {
-                    String formFilePath = formFile.getAbsolutePath();
-                    formFilePath = formFilePath.replace('\\', '/');
-                    String formFileRelativePath = formFilePath.substring(rootComponentPath.length());
-                    String formLocation = "component://" + componentName + "/" + formFileRelativePath;
-                    Map<String, ModelForm> modelFormMap = null;
-                    try {
-                        modelFormMap = FormFactory.getFormsFromLocation(formLocation, getEntityModelReader(), getDispatchContext());
-                    } catch (Exception exc) {
-                        Debug.logWarning(exc.getMessage(), module);
-                    }
-                    for (String formName : modelFormMap.keySet()) {
-                        try {
-                            getFormWidgetArtifactInfo(formName, formLocation);
-                        } catch (GeneralException ge) {
-                            Debug.logWarning(ge.getMessage(), module);
-                        }
-                    }
-                }
-                for (File controllerFile: controllerFiles) {
-                    URL controllerUrl = null;
-                    try {
-                        controllerUrl = controllerFile.toURI().toURL();
-                    } catch (MalformedURLException mue) {
-                        Debug.logWarning(mue.getMessage(), module);
-                    }
-                    if (controllerUrl == null) continue;
-                    ControllerConfig cc = ConfigXMLReader.getControllerConfig(controllerUrl);
-                    for (String requestUri: cc.getRequestMapMap().keySet()) {
-                        try {
-                            getControllerRequestArtifactInfo(controllerUrl, requestUri);
-                        } catch (GeneralException e) {
-                            Debug.logWarning(e.getMessage(), module);
-                        }
-                    }
-                    for (String viewUri: cc.getViewMapMap().keySet()) {
-                        try {
-                            getControllerViewArtifactInfo(controllerUrl, viewUri);
-                        } catch (GeneralException e) {
-                            Debug.logWarning(e.getMessage(), module);
-                        }
-                    }
-                }
-                return null;
+        return () -> {
+            String componentName = componentConfig.getGlobalName();
+            String rootComponentPath = componentConfig.getRootLocation();
+            List<File> screenFiles = new ArrayList<File>();
+            List<File> formFiles = new ArrayList<File>();
+            List<File> controllerFiles = new ArrayList<File>();
+            try {
+                screenFiles = FileUtil.findXmlFiles(rootComponentPath, null, "screens", "widget-screen.xsd");
+            } catch (IOException ioe) {
+                Debug.logWarning(ioe.getMessage(), module);
             }
+            try {
+                formFiles = FileUtil.findXmlFiles(rootComponentPath, null, "forms", "widget-form.xsd");
+            } catch (IOException ioe) {
+                Debug.logWarning(ioe.getMessage(), module);
+            }
+            try {
+                controllerFiles = FileUtil.findXmlFiles(rootComponentPath, null, "site-conf", "site-conf.xsd");
+            } catch (IOException ioe) {
+                Debug.logWarning(ioe.getMessage(), module);
+            }
+            for (File screenFile: screenFiles) {
+                String screenFilePath = screenFile.getAbsolutePath();
+                screenFilePath = screenFilePath.replace('\\', '/');
+                String screenFileRelativePath = screenFilePath.substring(rootComponentPath.length());
+                String screenLocation = "component://" + componentName + "/" + screenFileRelativePath;
+                Map<String, ModelScreen> modelScreenMap = null;
+                try {
+                    modelScreenMap = ScreenFactory.getScreensFromLocation(screenLocation);
+                } catch (Exception exc) {
+                    Debug.logWarning(exc.getMessage(), module);
+                }
+                for (String screenName : modelScreenMap.keySet()) {
+                    getScreenWidgetArtifactInfo(screenName, screenLocation);
+                }
+            }
+            for (File formFile: formFiles) {
+                String formFilePath = formFile.getAbsolutePath();
+                formFilePath = formFilePath.replace('\\', '/');
+                String formFileRelativePath = formFilePath.substring(rootComponentPath.length());
+                String formLocation = "component://" + componentName + "/" + formFileRelativePath;
+                Map<String, ModelForm> modelFormMap = null;
+                try {
+                    modelFormMap = FormFactory.getFormsFromLocation(formLocation, getEntityModelReader(), getDispatchContext());
+                } catch (Exception exc) {
+                    Debug.logWarning(exc.getMessage(), module);
+                }
+                for (String formName : modelFormMap.keySet()) {
+                    try {
+                        getFormWidgetArtifactInfo(formName, formLocation);
+                    } catch (GeneralException ge) {
+                        Debug.logWarning(ge.getMessage(), module);
+                    }
+                }
+            }
+            for (File controllerFile: controllerFiles) {
+                URL controllerUrl = null;
+                try {
+                    controllerUrl = controllerFile.toURI().toURL();
+                } catch (MalformedURLException mue) {
+                    Debug.logWarning(mue.getMessage(), module);
+                }
+                if (controllerUrl == null) continue;
+                ControllerConfig cc = ConfigXMLReader.getControllerConfig(controllerUrl);
+                for (String requestUri: cc.getRequestMapMap().keySet()) {
+                    try {
+                        getControllerRequestArtifactInfo(controllerUrl, requestUri);
+                    } catch (GeneralException e) {
+                        Debug.logWarning(e.getMessage(), module);
+                    }
+                }
+                for (String viewUri: cc.getViewMapMap().keySet()) {
+                    try {
+                        getControllerViewArtifactInfo(controllerUrl, viewUri);
+                    } catch (GeneralException e) {
+                        Debug.logWarning(e.getMessage(), module);
+                    }
+                }
+            }
+            return null;
         };
     }
 
