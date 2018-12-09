@@ -231,11 +231,7 @@ public class DispatchContext implements Serializable {
     }
 
     private Callable<Map<String, ModelService>> createServiceReaderCallable(final ResourceHandler handler) {
-        return new Callable<Map<String, ModelService>>() {
-            public Map<String, ModelService> call() throws Exception {
-                return ModelServiceReader.getModelServiceMap(handler, DispatchContext.this.getDelegator());
-            }
-        };
+        return () -> ModelServiceReader.getModelServiceMap(handler, DispatchContext.this.getDelegator());
     }
 
     private Map<String, ModelService> getGlobalServiceMap() {

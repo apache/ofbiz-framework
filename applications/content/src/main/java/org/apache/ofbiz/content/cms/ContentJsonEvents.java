@@ -101,25 +101,25 @@ public class ContentJsonEvents {
         final Timestamp fromDate = Timestamp.valueOf(request.getParameter("fromDate"));
 
         final Timestamp now = UtilDateTime.nowTimestamp();
-        GenericValue assoc = TransactionUtil.inTransaction(new Callable<GenericValue>() {
-            @Override
-            public GenericValue call() throws Exception {
-                GenericValue oldAssoc = EntityQuery.use(delegator).from("ContentAssoc").where("contentIdTo", contentIdTo, "contentId", contentIdFrom, "contentAssocTypeId", contentAssocTypeId, "fromDate", fromDate).queryOne();
-                if (oldAssoc == null) {
-                    throw new GenericEntityNotFoundException("Could not find ContentAssoc by primary key [contentIdTo: $contentIdTo, contentId: $contentIdFrom, contentAssocTypeId: $contentAssocTypeId, fromDate: $fromDate]");
-                }
-                GenericValue newAssoc = (GenericValue) oldAssoc.clone();
-
-                oldAssoc.set("thruDate", now);
-                oldAssoc.store();
-
-                newAssoc.set("contentId", contentIdFromNew);
-                newAssoc.set("fromDate", now);
-                newAssoc.set("thruDate", null);
-                delegator.clearCacheLine(delegator.create(newAssoc));
-
-                return newAssoc;
+        GenericValue assoc = TransactionUtil.inTransaction(() -> {
+            GenericValue oldAssoc = EntityQuery.use(delegator).from("ContentAssoc")
+                    .where("contentIdTo", contentIdTo, "contentId", contentIdFrom, "contentAssocTypeId",
+                           contentAssocTypeId, "fromDate", fromDate)
+                    .queryOne();
+            if (oldAssoc == null) {
+                throw new GenericEntityNotFoundException("Could not find ContentAssoc by primary key [contentIdTo: $contentIdTo, contentId: $contentIdFrom, contentAssocTypeId: $contentAssocTypeId, fromDate: $fromDate]");
             }
+            GenericValue newAssoc = (GenericValue) oldAssoc.clone();
+
+            oldAssoc.set("thruDate", now);
+            oldAssoc.store();
+
+            newAssoc.set("contentId", contentIdFromNew);
+            newAssoc.set("fromDate", now);
+            newAssoc.set("thruDate", null);
+            delegator.clearCacheLine(delegator.create(newAssoc));
+
+            return newAssoc;
         }, String.format("move content [%s] from [%s] to [%s]", contentIdTo, contentIdFrom, contentIdFromNew), 0, true).call();
 
         IOUtils.write(JSON.from(getTreeNode(assoc)).toString(), response.getOutputStream());

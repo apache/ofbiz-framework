@@ -57,10 +57,8 @@ public class DelegatorEcaHandler implements EntityEcaHandler<EntityEcaRule> {
         this.delegatorName = delegator.getDelegatorName();
         this.entityEcaReaderName = EntityEcaUtil.getEntityEcaReaderName(delegator.getDelegatorBaseName());
 
-        Callable<DispatchContext> creator = new Callable<DispatchContext>() {
-            public DispatchContext call() {
-                return EntityServiceFactory.getDispatchContext(DelegatorEcaHandler.this.delegator);
-            }
+        Callable<DispatchContext> creator = () -> {
+            return EntityServiceFactory.getDispatchContext(DelegatorEcaHandler.this.delegator);
         };
         FutureTask<DispatchContext> futureTask = new FutureTask<DispatchContext>(creator);
         if (this.dctx.compareAndSet(null, futureTask)) {

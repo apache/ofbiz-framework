@@ -152,11 +152,7 @@ public final class EntityEcaUtil {
     }
 
     private static Callable<List<EntityEcaRule>> createEcaLoaderCallable(final ResourceHandler handler) {
-        return new Callable<List<EntityEcaRule>>() {
-            public List<EntityEcaRule> call() throws Exception {
-                return getEcaDefinitions(handler);
-            }
-        };
+        return () -> getEcaDefinitions(handler);
     }
 
     public static Collection<EntityEcaRule> getEntityEcaRules(Delegator delegator, String entityName, String event) {

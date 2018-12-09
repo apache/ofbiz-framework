@@ -91,11 +91,7 @@ public final class ServiceEcaUtil {
     }
 
     private static Callable<List<ServiceEcaRule>> createEcaLoaderCallable(final ResourceHandler handler) {
-        return new Callable<List<ServiceEcaRule>>() {
-            public List<ServiceEcaRule> call() throws Exception {
-                return getEcaDefinitions(handler);
-            }
-        };
+        return () -> getEcaDefinitions(handler);
     }
 
     public static void addEcaDefinitions(ResourceHandler handler) {

@@ -206,11 +206,9 @@ public final class EntityCrypto {
         newValue.set("keyName", hashedKeyName);
 
         try {
-            TransactionUtil.doNewTransaction(new Callable<Void>() {
-                public Void call() throws Exception {
-                    delegator.create(newValue);
-                    return null;
-                }
+            TransactionUtil.doNewTransaction(() -> {
+                delegator.create(newValue);
+                return null;
             }, "storing encrypted key", 0, true);
         } catch (GenericEntityException e) {
             throw new EntityCryptoException(e);

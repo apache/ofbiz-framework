@@ -1198,26 +1198,22 @@ public class EntityTestSuite extends EntityTestCase {
         final AtomicBoolean nullSeqIdReturned = new AtomicBoolean(false);
 
         List<Future<Void>> futures = new ArrayList<>();
-        Callable<Void> getSeqIdTask = new Callable<Void>() {
-                    public Void call() throws Exception {
-                        Long seqId = sequencer.getNextSeqId(sequenceName, 1, null);
-                        if (seqId == null) {
-                            nullSeqIdReturned.set(true);
-                            return null;
-                        }
-                        Long existingValue = seqIds.putIfAbsent(seqId, seqId);
-                        if (existingValue != null) {
-                            duplicateFound.set(true);
-                        }
-                        return null;
-                    }
-                };
-        Callable<Void> refreshTask = new Callable<Void>() {
-                            public Void call() throws Exception {
-                                sequencer.forceBankRefresh(sequenceName, 1);
-                                return null;
-                            }
-                        };
+        Callable<Void> getSeqIdTask = () -> {
+            Long seqId = sequencer.getNextSeqId(sequenceName, 1, null);
+            if (seqId == null) {
+                nullSeqIdReturned.set(true);
+                return null;
+            }
+            Long existingValue = seqIds.putIfAbsent(seqId, seqId);
+            if (existingValue != null) {
+                duplicateFound.set(true);
+            }
+            return null;
+        };
+        Callable<Void> refreshTask = () -> {
+            sequencer.forceBankRefresh(sequenceName, 1);
+            return null;
+        };
         double probabilityOfRefresh = 0.1;
         for (int i = 1; i <= 1000; i++) {
             Callable<Void> randomTask = Math.random() < probabilityOfRefresh ? refreshTask : getSeqIdTask;
