@@ -224,7 +224,7 @@ public class FindServices {
          * condition grouped by an {@link EntityOperator.OR}
          * That will allow union of search criteria, instead of default intersection.
          */
-        Map<String, List<EntityCondition>> savedGroups = new LinkedHashMap();
+        Map<String, List<EntityCondition>> savedGroups = new LinkedHashMap<>();
         for (ModelField modelField : fieldList) {
             fieldMap.put(modelField.getName(), modelField);
         }

@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilCodec;
+import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -48,7 +49,7 @@ public class OfbizContentAltUrlTransforms implements TemplateTransformModel {
     public final static String module = OfbizContentAltUrlTransforms.class.getName();
     private static final String defaultViewRequest = "contentViewInfo";
 
-    public String getStringArg(Map args, String key) {
+    public String getStringArg(Map<String, Object> args, String key) {
         Object o = args.get(key);
         if (o instanceof SimpleScalar) {
             return ((SimpleScalar) o).getAsString();
@@ -63,7 +64,7 @@ public class OfbizContentAltUrlTransforms implements TemplateTransformModel {
     }
 
     @Override
-    public Writer getWriter(final Writer out, final Map args)
+    public Writer getWriter(Writer out, @SuppressWarnings("rawtypes") Map args)
             throws TemplateModelException, IOException {
         final StringBuilder buf = new StringBuilder();
         return new Writer(out) {
@@ -85,8 +86,9 @@ public class OfbizContentAltUrlTransforms implements TemplateTransformModel {
                     BeanModel req = (BeanModel) env.getVariable("request");
                     BeanModel res = (BeanModel) env.getVariable("response");
                     if (req != null) {
-                        String contentId = getStringArg(args, "contentId");
-                        String viewContent = getStringArg(args, "viewContent");
+                        Map<String, Object> arguments = UtilGenerics.cast(args);
+                        String contentId = getStringArg(arguments, "contentId");
+                        String viewContent = getStringArg(arguments, "viewContent");
                         HttpServletRequest request = (HttpServletRequest) req.getWrappedObject();
                         HttpServletResponse response = null;
                         if (res != null) {

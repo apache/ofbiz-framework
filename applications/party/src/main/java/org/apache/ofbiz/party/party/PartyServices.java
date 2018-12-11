@@ -2004,7 +2004,6 @@ public class PartyServices {
         ByteBuffer fileBytes = (ByteBuffer) context.get("uploadedFile");
         String encoding = System.getProperty("file.encoding");
         String csvString = Charset.forName(encoding).decode(fileBytes).toString();
-        final BufferedReader csvReader = new BufferedReader(new StringReader(csvString));
         CSVFormat fmt = CSVFormat.DEFAULT.withHeader();
         List<String> errMsgs = new LinkedList<>();
         List<String> newErrMsgs = new LinkedList<>();
@@ -2034,7 +2033,7 @@ public class PartyServices {
         Boolean addParty = false; // when modify party, contact mech not added again
 
 
-        try {
+        try (BufferedReader csvReader = new BufferedReader(new StringReader(csvString))) {
             for (final CSVRecord rec : fmt.parse(csvReader)) {
                 if (UtilValidate.isNotEmpty(rec.get("partyId"))) {
                     currentPartyId =  rec.get("partyId");
@@ -2343,7 +2342,7 @@ public class PartyServices {
                                 currentContactMechPurposeTypeId= "PHONE_WORK";
                             }
                             Map<String, Object> resultMap = dispatcher.runSync("createPartyContactMech", UtilMisc.toMap("partyId", newPartyId, "contactMechId", newContactMechId, "contactMechPurposeTypeId", currentContactMechPurposeTypeId, "userLogin", userLogin));
-                            if (ServiceUtil.isError(result)) {
+                            if (ServiceUtil.isError(resultMap)) {
                                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
                             }
                         }
@@ -2358,7 +2357,7 @@ public class PartyServices {
                                 currentContactMechPurposeTypeId = "PRIMARY_EMAIL";
                             }
                             Map<String, Object> resultMap = dispatcher.runSync("createPartyContactMech", UtilMisc.toMap("partyId", newPartyId, "contactMechId", newContactMechId, "contactMechPurposeTypeId", currentContactMechPurposeTypeId, "userLogin", userLogin));
-                            if (ServiceUtil.isError(result)) {
+                            if (ServiceUtil.isError(resultMap)) {
                                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
                             }
                         }

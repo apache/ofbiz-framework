@@ -98,25 +98,7 @@ public final class WidgetWorker {
             }
 
             for (Map.Entry<String, String> parameter: parameterMap.entrySet()) {
-                String parameterValue = null;
-                if (parameter.getValue() instanceof String) {
-                    parameterValue = parameter.getValue();
-                } else {
-                    Object parameterObject = parameter.getValue();
-
-                    // skip null values
-                    if (parameterObject == null) continue;
-
-                    if (parameterObject instanceof String[]) {
-                        // it's probably a String[], just get the first value
-                        String[] parameterArray = (String[]) parameterObject;
-                        parameterValue = parameterArray[0];
-                        Debug.logInfo("Found String array value for parameter [" + parameter.getKey() + "], using first value: " + parameterValue, module);
-                    } else {
-                        // not a String, and not a String[], just use toString
-                        parameterValue = parameterObject.toString();
-                    }
-                }
+                String parameterValue = parameter.getValue();
 
                 if (needsAmp) {
                     externalWriter.append("&amp;");

@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilCodec;
+import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.webapp.taglib.ContentUrlTag;
 
@@ -42,7 +43,7 @@ public class OfbizContentTransform implements TemplateTransformModel {
 
     public final static String module = OfbizContentTransform.class.getName();
 
-    private static String getArg(Map args, String key) {
+    private static String getArg(Map<String, Object> args, String key) {
         String  result = "";
         Object obj = args.get(key);
         if (obj != null) {
@@ -61,9 +62,10 @@ public class OfbizContentTransform implements TemplateTransformModel {
         return result;
     }
 
-    public Writer getWriter(final Writer out, Map args) {
+    @Override
+    public Writer getWriter(Writer out, @SuppressWarnings("rawtypes") Map args) {
         final StringBuilder buf = new StringBuilder();
-        final String imgSize = OfbizContentTransform.getArg(args, "variant");
+        final String imgSize = OfbizContentTransform.getArg(UtilGenerics.cast(args), "variant");
         return new Writer(out) {
             @Override
             public void write(char cbuf[], int off, int len) {

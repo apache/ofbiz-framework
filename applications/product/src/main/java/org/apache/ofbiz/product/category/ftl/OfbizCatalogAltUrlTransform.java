@@ -78,7 +78,7 @@ public class OfbizCatalogAltUrlTransform implements TemplateTransformModel {
     }
 
     @Override
-    public Writer getWriter(final Writer out, final Map args)
+    public Writer getWriter(Writer out, @SuppressWarnings("rawtypes") Map args)
             throws TemplateModelException, IOException {
         final StringBuilder buf = new StringBuilder();
         final boolean fullPath = checkArg(args, "fullPath", false);

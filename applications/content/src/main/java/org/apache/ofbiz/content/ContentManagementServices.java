@@ -371,7 +371,7 @@ public class ContentManagementServices {
                     if (deactivateExisting) {
                         contentAssocExisting.put("thruDate", UtilDateTime.nowTimestamp());
                     } else if (UtilValidate.isNotEmpty(context.get("thruDate"))) {
-                        contentAssocExisting.put("thruDate", (Timestamp)context.get("thruDate"));
+                        contentAssocExisting.put("thruDate", context.get("thruDate"));
                     }
                     ModelService contentAssocModel = dispatcher.getDispatchContext().getModelService("updateContentAssoc");
                     Map<String, Object> ctx = contentAssocModel.makeValid(contentAssocExisting, ModelService.IN_PARAM);
@@ -615,8 +615,8 @@ public class ContentManagementServices {
               uploadImage.put("dataResourceTypeId", dataResourceTypeId);
               uploadImage.put("rootDir", context.get("objectInfo"));
               uploadImage.put("uploadedFile", imageDataBytes);
-              uploadImage.put("_uploadedFile_fileName", (String) context.get("_imageData_fileName"));
-              uploadImage.put("_uploadedFile_contentType", (String) context.get("_imageData_contentType"));
+              uploadImage.put("_uploadedFile_fileName", context.get("_imageData_fileName"));
+              uploadImage.put("_uploadedFile_contentType", context.get("_imageData_contentType"));
               thisResult = dispatcher.runSync("attachUploadToDataResource", uploadImage);
               if (ServiceUtil.isError(thisResult)) {
                   return ServiceUtil.returnError(ServiceUtil.getErrorMessage(thisResult));
@@ -658,8 +658,8 @@ public class ContentManagementServices {
               uploadImage.put("dataResourceTypeId", dataResourceTypeId);
               uploadImage.put("rootDir", context.get("objectInfo"));
               uploadImage.put("uploadedFile", imageDataBytes);
-              uploadImage.put("_uploadedFile_fileName", (String) context.get("_imageData_fileName"));
-              uploadImage.put("_uploadedFile_contentType", (String) context.get("_imageData_contentType"));
+              uploadImage.put("_uploadedFile_fileName", context.get("_imageData_fileName"));
+              uploadImage.put("_uploadedFile_contentType", context.get("_imageData_contentType"));
               thisResult = dispatcher.runSync("attachUploadToDataResource", uploadImage);
               if (ServiceUtil.isError(thisResult)) {
                   return ServiceUtil.returnError(ServiceUtil.getErrorMessage(thisResult));

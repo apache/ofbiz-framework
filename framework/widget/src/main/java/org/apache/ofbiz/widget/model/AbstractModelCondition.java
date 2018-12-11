@@ -689,7 +689,7 @@ public abstract class AbstractModelCondition implements Serializable, ModelCondi
             if (fieldString == null) {
                 fieldString = "";
             }
-            Class<?>[] paramTypes = new Class[] { String.class };
+            Class<?>[] paramTypes = { String.class };
             Object[] params = new Object[] { fieldString };
             Class<?> valClass;
             try {

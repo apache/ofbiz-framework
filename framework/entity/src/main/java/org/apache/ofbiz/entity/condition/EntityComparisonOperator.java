@@ -22,6 +22,7 @@ package org.apache.ofbiz.entity.condition;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.PatternFactory;
@@ -242,21 +243,11 @@ public abstract class EntityComparisonOperator<L, R> extends EntityOperator<L, R
         return true;
     }
 
-    public static final <L,R> boolean compareIn(L lhs, R rhs) {
-        if (lhs == null) {
-            if (rhs != null) {
-                return false;
-            }
-            return true;
-        } else if (rhs instanceof Collection<?>) {
-            if (((Collection<?>) rhs).contains(lhs)) {
-                return true;
-            }
-            return false;
-        } else if (lhs.equals(rhs)) {
-            return true;
+    public static final <L, R extends L> boolean compareIn(L lhs, R rhs) {
+        if (rhs instanceof Collection && lhs != null) {
+            return (((Collection<?>) rhs).contains(lhs));
         } else {
-            return false;
+            return Objects.equals(lhs, rhs);
         }
     }
 

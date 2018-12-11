@@ -1827,12 +1827,20 @@ public class ProductionRunServices {
                 BigDecimal totalCost = ZERO;
                 List<GenericValue> tasks = productionRun.getProductionRunRoutingTasks();
                 // generic_cost
-                List<GenericValue> actualGenCosts = EntityQuery.use(delegator).from("CostComponent").where("workEffortId", productionRunId, "costUomId", (String) partyAccountingPreference.get("baseCurrencyUomId")).queryList();
+                List<GenericValue> actualGenCosts = EntityQuery.use(delegator)
+                        .from("CostComponent")
+                        .where("workEffortId", productionRunId,
+                               "costUomId", partyAccountingPreference.get("baseCurrencyUomId"))
+                        .queryList();
                 for (GenericValue actualGenCost : actualGenCosts) {
                     totalCost = totalCost.add((BigDecimal) actualGenCost.get("cost"));
                 }
                 for (GenericValue task : tasks) {
-                    List<GenericValue> otherCosts = EntityQuery.use(delegator).from("CostComponent").where("workEffortId", task.get("workEffortId"), "costUomId", (String) partyAccountingPreference.get("baseCurrencyUomId")).queryList();
+                    List<GenericValue> otherCosts = EntityQuery.use(delegator)
+                            .from("CostComponent")
+                            .where("workEffortId", task.get("workEffortId"),
+                                   "costUomId", partyAccountingPreference.get("baseCurrencyUomId"))
+                            .queryList();
                     for (GenericValue otherCost : otherCosts) {
                         totalCost = totalCost.add((BigDecimal) otherCost.get("cost"));
                     }
@@ -3486,7 +3494,7 @@ public class ProductionRunServices {
                 TreeMap<Timestamp, Object> productMap = products.get(productId);
                 if (!productMap.containsKey(estimatedShipDate)) {
                     productMap.put(estimatedShipDate, 
-                            UtilMisc.<String, Object>toMap("remainingQty", BigDecimal.ZERO, "reservations", new LinkedList()));
+                            UtilMisc.toMap("remainingQty", BigDecimal.ZERO, "reservations", new LinkedList<>()));
                 }
                 Map<String, Object> dateMap = UtilGenerics.checkMap(productMap.get(estimatedShipDate));
                 BigDecimal remainingQty = (BigDecimal)dateMap.get("remainingQty");
@@ -3528,7 +3536,8 @@ public class ProductionRunServices {
                 }
                 TreeMap<Timestamp, Object> productMap = products.get(productId);
                 if (!productMap.containsKey(estimatedShipDate)) {
-                    productMap.put(estimatedShipDate, UtilMisc.toMap("remainingQty", BigDecimal.ZERO, "reservations", new LinkedList()));
+                    productMap.put(estimatedShipDate,
+                            UtilMisc.toMap("remainingQty", BigDecimal.ZERO, "reservations", new LinkedList<>()));
                 }
                 Map<String, Object> dateMap = UtilGenerics.checkMap(productMap.get(estimatedShipDate));
                 BigDecimal remainingQty = (BigDecimal)dateMap.get("remainingQty");

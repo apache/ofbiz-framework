@@ -138,6 +138,7 @@ public class ModelTheme implements Serializable {
                     for (Element visualTheme : UtilXml.childElementList(childElement)) {
                         initVisualThemes.put(visualTheme.getAttribute("id"), new VisualTheme(this, visualTheme));
                     }
+                    break;
                 case "theme-properties":
                     for (Element property : UtilXml.childElementList(childElement)) {
                         addThemeProperty(initThemePropertiesMap, property);
@@ -465,9 +466,6 @@ public class ModelTheme implements Serializable {
             this.formRendererLocation = exist && currentModelTemplate.formRendererLocation != null ? currentModelTemplate.formRendererLocation : originModelTemplate.formRendererLocation;
             this.treeRendererLocation = exist && currentModelTemplate.treeRendererLocation != null ? currentModelTemplate.treeRendererLocation : originModelTemplate.treeRendererLocation;
             this.menuRendererLocation = exist && currentModelTemplate.menuRendererLocation != null ? currentModelTemplate.menuRendererLocation : originModelTemplate.menuRendererLocation;
-        }
-        public String getName() {
-            return name;
         }
         public String getEncoder() {
             return encoder;

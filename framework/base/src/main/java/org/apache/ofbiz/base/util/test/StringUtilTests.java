@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.util.test;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +29,6 @@ import org.apache.ofbiz.base.lang.SourceMonitored;
 import org.apache.ofbiz.base.test.GenericTestCaseBase;
 import org.apache.ofbiz.base.util.GeneralRuntimeException;
 import org.apache.ofbiz.base.util.StringUtil;
-import org.apache.ofbiz.base.util.UtilGenerics;
 
 @SourceMonitored
 public class StringUtilTests extends GenericTestCaseBase {
@@ -48,7 +48,6 @@ public class StringUtilTests extends GenericTestCaseBase {
 
     public void testStringUtil() throws Exception {
         assertStaticHelperClass(StringUtil.class);
-        assertTrue("correct INSTANCE", StringUtil.INSTANCE instanceof StringUtil);
     }
 
     public void testInternString() {
@@ -151,12 +150,12 @@ public class StringUtilTests extends GenericTestCaseBase {
     }
 
     public void testCreateMap() {
-        List<String>[] badKeys = UtilGenerics.cast(new List[] {null, list("1"), list("2")});
-        List<String>[] badValues = UtilGenerics.cast(new List[] {list("one"), null, list("two", "extra")});
-        for (int i = 0; i < badKeys.length; i++) {
+        List<List<String>> badKeys = Arrays.asList(null, list("1"), list("2"));
+        List<List<String>> badValues = Arrays.asList(list("one"), null, list("two", "extra"));
+        for (int i = 0; i < badKeys.size(); i++) {
             IllegalArgumentException caught = null;
             try {
-                StringUtil.createMap(badKeys[i], badValues[i]);
+                StringUtil.createMap(badKeys.get(i), badValues.get(i));
             } catch (IllegalArgumentException e) {
                 caught = e;
             } finally {

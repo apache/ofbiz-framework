@@ -451,7 +451,7 @@ public class OrderServices {
                     if (ServiceUtil.isError(getNextOrderIdResult)) {
                         String errMsg = UtilProperties.getMessage(resource_error,
                                 "OrderErrorGettingNextOrderIdWhileCreatingOrder", locale);
-                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(getNextOrderIdResult));
+                        return ServiceUtil.returnError(errMsg);
                     }
                     orderId = (String) getNextOrderIdResult.get("orderId");
                 } catch (GenericServiceException e) {
@@ -3875,9 +3875,8 @@ public class OrderServices {
             }
 
             String[] itemInfo = key.split(":");
-            int groupIdx = -1;
             try {
-                groupIdx = Integer.parseInt(itemInfo[1]);
+                Integer.parseInt(itemInfo[1]);
             } catch (NumberFormatException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());
@@ -5864,7 +5863,8 @@ public class OrderServices {
      * @return
      * @throws GenericEntityException
      */
-    public static Map addOrderItemShipGroupAssoc(DispatchContext dctx, Map<String, Object> context) throws GenericEntityException {
+    public static Map<String, Object> addOrderItemShipGroupAssoc(DispatchContext dctx, Map<String, Object> context)
+            throws GenericEntityException {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Locale locale = (Locale) context.get("locale" );
@@ -5950,7 +5950,8 @@ public class OrderServices {
      * @return
      * @throws GeneralException
      */
-    public static Map updateOrderItemShipGroupAssoc(DispatchContext dctx, Map context) throws GeneralException{
+    public static Map<String, Object> updateOrderItemShipGroupAssoc(DispatchContext dctx, Map<String, Object> context)
+            throws GeneralException{
         Map<String, Object> result = ServiceUtil.returnSuccess();
         String message = null;
         Delegator delegator = dctx.getDelegator();

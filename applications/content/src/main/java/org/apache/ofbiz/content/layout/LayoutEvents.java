@@ -48,7 +48,6 @@ import org.apache.ofbiz.minilang.MiniLangException;
 import org.apache.ofbiz.minilang.SimpleMapProcessor;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
-import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
 
 /**

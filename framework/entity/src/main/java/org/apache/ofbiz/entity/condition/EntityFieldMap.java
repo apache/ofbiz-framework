@@ -47,6 +47,7 @@ public final class EntityFieldMap extends EntityConditionListBase<EntityExpr> {
         return list;
     }
 
+    @SafeVarargs
     public <V> EntityFieldMap(EntityComparisonOperator<?,?> compOp, EntityJoinOperator joinOp, V... keysValues) {
         this(EntityUtil.makeFields(keysValues), UtilGenerics.<EntityComparisonOperator<String,V>>cast(compOp), joinOp);
     }

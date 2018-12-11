@@ -323,7 +323,7 @@ public final class EntityUtil {
         //force check entity label before order by
         List<T> localizedValues = new ArrayList<T>();
         for (T value : values) {
-            T newValue = (T) value.clone();
+            T newValue = UtilGenerics.cast(value.clone());
             for (String orderByField : orderBy) {
                 if (orderByField.endsWith(" DESC")) {
                     orderByField= orderByField.substring(0, orderByField.length() - 5);

@@ -51,7 +51,6 @@ import org.apache.ofbiz.widget.model.FieldInfo;
 import org.apache.ofbiz.widget.model.ModelForm;
 import org.apache.ofbiz.widget.model.ModelForm.FieldGroup;
 import org.apache.ofbiz.widget.model.ModelForm.FieldGroupBase;
-import org.apache.ofbiz.widget.model.ModelFormField.DisplayField;
 import org.apache.ofbiz.widget.model.ModelFormField;
 import org.apache.ofbiz.widget.model.ModelGrid;
 
@@ -1216,8 +1215,7 @@ public class FormRenderer {
         }
         int itemIndex = -1;
         if (iter instanceof EntityListIterator) {
-            EntityListIterator eli = (EntityListIterator) iter;
-            try {
+            try (EntityListIterator eli = (EntityListIterator) iter) {
                 if(eli.getResultsSizeAfterPartialList() > 0){
                     itemIndex++;
                 }

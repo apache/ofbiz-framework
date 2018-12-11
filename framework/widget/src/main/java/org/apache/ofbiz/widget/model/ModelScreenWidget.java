@@ -853,17 +853,16 @@ public abstract class ModelScreenWidget extends ModelWidget {
         }
 
         @Override
-        @SuppressWarnings("unchecked")
         public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
             // isolate the scope
             if (!(context instanceof MapStack)) {
                 context = MapStack.create(context);
             }
 
-            MapStack contextMs = (MapStack) context;
+            MapStack<String> contextMs = UtilGenerics.cast(context);
 
             // create a standAloneStack, basically a "save point" for this SectionsRenderer, and make a new "screens" object just for it so it is isolated and doesn't follow the stack down
-            MapStack standAloneStack = contextMs.standAloneChildStack();
+            MapStack<String> standAloneStack = contextMs.standAloneChildStack();
             standAloneStack.put("screens", new ScreenRenderer(writer, standAloneStack, screenStringRenderer));
             SectionsRenderer sections = new SectionsRenderer(this.sectionMap, standAloneStack, writer, screenStringRenderer);
 

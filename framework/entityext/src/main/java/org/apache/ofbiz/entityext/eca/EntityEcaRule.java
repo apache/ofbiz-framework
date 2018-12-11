@@ -182,6 +182,7 @@ public final class EntityEcaRule implements java.io.Serializable {
      * @deprecated Not thread-safe, no replacement.
      * @param enabled
      */
+    @Deprecated
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }

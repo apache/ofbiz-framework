@@ -52,7 +52,6 @@ import org.apache.ofbiz.minilang.MiniLangException;
 import org.apache.ofbiz.minilang.SimpleMapProcessor;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
-import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceAuthException;
 import org.apache.ofbiz.service.ServiceUtil;
 
@@ -215,8 +214,8 @@ public class UploadContentAndImage {
                 sumContext.put("mapKey", "SUMMARY");
                 sumContext.put("dataTemplateTypeId", "NONE");
                 Map<String, Object> sumResults = dispatcher.runSync("persistContentAndAssoc", sumContext);
-                if (ServiceUtil.isError(ftlResults)) {
-                    String errorMessage = ServiceUtil.getErrorMessage(ftlResults);
+                if (ServiceUtil.isError(sumResults)) {
+                    String errorMessage = ServiceUtil.getErrorMessage(sumResults);
                     request.setAttribute("_ERROR_MESSAGE_", errorMessage);
                     Debug.logError(errorMessage, module);
                     TransactionUtil.rollback();
@@ -245,8 +244,8 @@ public class UploadContentAndImage {
                 txtContext.put("mapKey", "ARTICLE");
                 txtContext.put("dataTemplateTypeId", "NONE");
                 Map<String, Object> txtResults = dispatcher.runSync("persistContentAndAssoc", txtContext);
-                if (ServiceUtil.isError(ftlResults)) {
-                    String errorMessage = ServiceUtil.getErrorMessage(ftlResults);
+                if (ServiceUtil.isError(txtResults)) {
+                    String errorMessage = ServiceUtil.getErrorMessage(txtResults);
                     request.setAttribute("_ERROR_MESSAGE_", errorMessage);
                     Debug.logError(errorMessage, module);
                     TransactionUtil.rollback();
@@ -278,8 +277,8 @@ public class UploadContentAndImage {
                 imgContext.put("rootDir", "rootDir");
                 if (Debug.infoOn()) Debug.logInfo("[UploadContentAndImage]imgContext " + imgContext, module);
                 Map<String, Object> imgResults = dispatcher.runSync("persistContentAndAssoc", imgContext);
-                if (ServiceUtil.isError(ftlResults)) {
-                    String errorMessage = ServiceUtil.getErrorMessage(ftlResults);
+                if (ServiceUtil.isError(imgResults)) {
+                    String errorMessage = ServiceUtil.getErrorMessage(imgResults);
                     request.setAttribute("_ERROR_MESSAGE_", errorMessage);
                     Debug.logError(errorMessage, module);
                     TransactionUtil.rollback();

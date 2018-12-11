@@ -57,7 +57,7 @@ public class RenderContentAsText implements TemplateTransformModel {
 
     @Override
     @SuppressWarnings("unchecked")
-    public Writer getWriter(final Writer out, Map args) {
+    public Writer getWriter(Writer out, @SuppressWarnings("rawtypes") Map args) {
         final Environment env = Environment.getCurrentEnvironment();
         final LocalDispatcher dispatcher = FreeMarkerWorker.getWrappedObject("dispatcher", env);
         final HttpServletRequest request = FreeMarkerWorker.getWrappedObject("request", env);

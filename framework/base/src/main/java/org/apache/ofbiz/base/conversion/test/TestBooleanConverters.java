@@ -26,6 +26,7 @@ import org.apache.ofbiz.base.conversion.BooleanConverters;
 import org.apache.ofbiz.base.conversion.Converter;
 import org.apache.ofbiz.base.conversion.ConverterLoader;
 import org.apache.ofbiz.base.conversion.Converters;
+import org.apache.ofbiz.base.util.UtilGenerics;
 
 import junit.framework.TestCase;
 
@@ -49,12 +50,13 @@ public class TestBooleanConverters extends TestCase {
         assertEquals(label + " converted", Boolean.FALSE, converter.convert(falseSource));
     }
 
-    @SuppressWarnings("unchecked")
     public static <S> void assertToCollection(String label, S source) throws Exception {
-        Converter<S, ? extends Collection> toList = (Converter<S, ? extends Collection>) Converters.getConverter(source.getClass(), List.class);
+        Converter<S, ? extends Collection<S>> toList =
+                UtilGenerics.cast(Converters.getConverter(source.getClass(), List.class));
         Collection<S> listResult = toList.convert(source);
         assertEquals(label + " converted to List", source, listResult.toArray()[0]);
-        Converter<S, ? extends Collection> toSet = (Converter<S, ? extends Collection>) Converters.getConverter(source.getClass(), Set.class);
+        Converter<S, ? extends Collection<S>> toSet =
+                UtilGenerics.cast(Converters.getConverter(source.getClass(), Set.class));
         Collection<S> setResult = toSet.convert(source);
         assertEquals(label + " converted to Set", source, setResult.toArray()[0]);
     }

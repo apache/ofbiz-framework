@@ -152,8 +152,8 @@ public class SOAPEventHandler implements EventHandler {
 
         // get the service name and parameters
         try {
-            InputStream inputStream = (InputStream) request.getInputStream();
-            SOAPModelBuilder builder = (SOAPModelBuilder) OMXMLBuilderFactory.createSOAPModelBuilder(inputStream, "UTF-8");
+            InputStream inputStream = request.getInputStream();
+            SOAPModelBuilder builder = OMXMLBuilderFactory.createSOAPModelBuilder(inputStream, "UTF-8");
             reqEnv = (SOAPEnvelope) builder.getDocumentElement();
 
             // log the request message

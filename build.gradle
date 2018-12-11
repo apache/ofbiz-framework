@@ -70,11 +70,13 @@ javadoc.options {
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 
-// Java compile options, syntax gradlew -PXlint build
+// Java compile options, syntax gradlew -PXlint:none build
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
-    if (project.hasProperty('Xlint')) {
-        options.compilerArgs << "-Xlint"
+    if (!project.hasProperty('Xlint:none')) {
+    options.compilerArgs << "-Xlint:all"
+    // Exclude varargs warnings which are not silenced by @SafeVarargs.
+        options.compilerArgs << "-Xlint:-varargs"
     }
 }
 

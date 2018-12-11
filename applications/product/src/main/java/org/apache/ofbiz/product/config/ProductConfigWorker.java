@@ -96,8 +96,8 @@ public final class ProductConfigWorker {
             if (o instanceof String) {
                 opts = new String[]{(String)o};
             } else if(o instanceof List) {
-                List list = (List)o;
-                opts = (String[])((String[])list.toArray(new String[list.size()]));
+                List<?> list = (List<?>)o;
+                opts = list.toArray(new String[list.size()]);
             }
             if (opts == null) {
 

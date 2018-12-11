@@ -39,13 +39,12 @@ public class ProductStoreEvents {
     public static final String module = ProductStoreWorker.class.getName();
 
     // Please note : the structure of map in this function is according to the JSON data map of the jsTree
-    @SuppressWarnings("unchecked")
     public static String getChildProductStoreGroupTree(HttpServletRequest request, HttpServletResponse response){
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         String parentGroupId = request.getParameter("parentGroupId");
         String onclickFunction = request.getParameter("onclickFunction");
 
-        List productStoreGroupList = new LinkedList();
+        List<Map<Object, Object>> productStoreGroupList = new LinkedList<>();
         List<GenericValue> children;
         List<String> sortList = org.apache.ofbiz.base.util.UtilMisc.toList("sequenceNum");
 
@@ -56,7 +55,7 @@ public class ProductStoreEvents {
                 if (UtilValidate.isNotEmpty(children)) {
                     for (GenericValue child : children ) {
                         String productStoreGroupId = child.getString("productStoreGroupId");
-                        Map<String, Object> josonMap = new HashMap<>();
+                        Map<Object, Object> josonMap = new HashMap<>();
                         List<GenericValue> childList = null;
                         // Get the child list of chosen category
                         childList = EntityQuery.use(delegator).from("ProductStoreGroupRollupAndChild").where("parentGroupId", productStoreGroupId).cache(true).filterByDate().queryList();

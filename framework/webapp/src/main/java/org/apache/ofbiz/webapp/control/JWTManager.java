@@ -124,7 +124,7 @@ public class JWTManager {
             Claims claims = Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody();
             //OK, we can trust this JWT
             for (int i = 0; i < types.size(); i++) {
-                result.put(types.get(i), (String) claims.get(types.get(i)));
+                result.put(types.get(i), claims.get(types.get(i)));
             }
             return result;
         } catch (SignatureException e) {

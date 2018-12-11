@@ -281,6 +281,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
      *
      * @deprecated Use hasChanged()
      */
+    @Deprecated
     public boolean isModified() {
         return this.hasChanged();
     }

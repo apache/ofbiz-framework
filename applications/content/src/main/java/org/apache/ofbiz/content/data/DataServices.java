@@ -663,7 +663,6 @@ public class DataServices {
                 if (Debug.infoOn()) {
                     Debug.logInfo("in updateBinaryFileMethod, length:" + file.length(), module);
                 }
-                out.close();
             } catch (IOException e) {
                 Debug.logWarning(e, module);
                 throw new GenericServiceException(e.getMessage());

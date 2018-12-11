@@ -156,7 +156,9 @@ public class QRCodeServices {
                     typeMap.put("height", logoImageMaxHeight.toString());
                     Map<String, Map<String, String>> dimensionMap = new HashMap<>();
                     dimensionMap.put("QRCode", typeMap);
-                    Map<String, Object> logoImageResult = ImageTransform.scaleImage(logoBufferedImage, (double) logoBufferedImage.getWidth(), (double) logoBufferedImage.getHeight(), dimensionMap, "QRCode", locale);
+                    Map<String, Object> logoImageResult =
+                            ImageTransform.scaleImage(logoBufferedImage, logoBufferedImage.getWidth(),
+                                    logoBufferedImage.getHeight(), dimensionMap, "QRCode", locale);
                     logoBufferedImage = (BufferedImage) logoImageResult.get("bufferedImage");
                 }
                 BitMatrix newBitMatrix = bitMatrix.clone();

@@ -87,7 +87,6 @@ public class VCard {
         boolean isGroup = false;
         List<Map<String, String>> partiesCreated = new ArrayList<Map<String,String>>();
         List<Map<String, String>> partiesExist = new ArrayList<Map<String,String>>();
-        String partyName = ""; // TODO this is not used yet
 
         try (VCardReader vCardReader = new VCardReader(in)) {
             ezvcard.VCard vcard = null;
@@ -113,7 +112,6 @@ public class VCard {
                 if (!isGroup) {
                     serviceCtx.put("firstName", structuredName.getGiven());
                     serviceCtx.put("lastName", structuredName.getFamily());
-                    partyName = structuredName.getGiven() + " " + structuredName.getFamily();
                 }
 
                 // Resolve all postal Address
@@ -164,9 +162,7 @@ public class VCard {
                     } else {
                         //TODO change uncorrect labellisation
                         String emailFormatErrMsg = UtilProperties.getMessage(resourceError, "SfaImportVCardEmailFormatError", locale);
-                        vCardReader.close();
                         return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "MarketingEmailFormatError", UtilMisc.toMap("firstName", structuredName.getGiven(), "lastName", structuredName.getFamily(), "emailFOrmatErrMsg", emailFormatErrMsg), locale));
-
                     }
                 }
 

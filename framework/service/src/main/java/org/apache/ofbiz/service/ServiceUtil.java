@@ -670,6 +670,7 @@ public final class ServiceUtil {
         return locale;
     }
 
+    @SafeVarargs
     public static <T extends Object> Map<String, Object> makeContext(T... args) {
         if (args == null) {
             throw new IllegalArgumentException("args is null in makeContext, this would throw a NullPointerExcption.");

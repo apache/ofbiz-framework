@@ -48,13 +48,13 @@ public class RenderContentAndSubContent implements TemplateTransformModel {
 
     @Override
     @SuppressWarnings("unchecked")
-    public Writer getWriter(final Writer out, Map args) {
+    public Writer getWriter(Writer out, @SuppressWarnings("rawtypes") Map args) {
         final Environment env = Environment.getCurrentEnvironment();
         final LocalDispatcher dispatcher = FreeMarkerWorker.getWrappedObject("dispatcher", env);
         final HttpServletRequest request = FreeMarkerWorker.getWrappedObject("request", env);
         final Map<String, Object> envMap = FreeMarkerWorker.createEnvironmentMap(env);
         final MapStack<String> templateRoot = MapStack.create();
-        ((MapStack)templateRoot).push(envMap);
+        templateRoot.push(envMap);
         if (Debug.verboseOn()) {
             Debug.logVerbose("in RenderContentAndSubContent, contentId(0):" + templateRoot.get("contentId"), module);
         }

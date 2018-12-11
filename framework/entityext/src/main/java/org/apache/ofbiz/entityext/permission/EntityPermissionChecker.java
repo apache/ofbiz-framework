@@ -519,19 +519,6 @@ public class EntityPermissionChecker {
         // Note that "quickCheck" id come first in the list
         // Check with no roles or purposes on the chance that the permission fields contain _NA_ s.
         String pkFieldName = modelEntity.getFirstPkFieldName();
-        if (Debug.infoOn()) {
-        String entityIdString = "ENTITIES: ";
-        for (Object obj: entityIdList) {
-            if (obj instanceof GenericValue) {
-                String s = ((GenericValue)obj).getString(pkFieldName);
-                entityIdString += s + "  ";
-            } else {
-                entityIdString += obj + "  ";
-            }
-        }
-            //if (Debug.infoOn()) Debug.logInfo(entityIdString, module);
-        }
-
         
         Map<String, GenericValue> entities = new HashMap<String, GenericValue>();
         //List purposeList = null;

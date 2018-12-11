@@ -705,7 +705,7 @@ public class CommunicationEventServices {
             communicationEventId = (String) createResult.get("communicationEventId");
 
             //add content to newly created commEvent
-            Map createCommEventContentMap = new HashMap<>();
+            Map<String, Object> createCommEventContentMap = new HashMap<>();
             createCommEventContentMap.put("userLogin", userLogin);
             createCommEventContentMap.put("contentId", contentId);
             createCommEventContentMap.put("communicationEventId", communicationEventId);

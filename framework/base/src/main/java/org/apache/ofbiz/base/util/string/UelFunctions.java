@@ -451,21 +451,6 @@ public class UelFunctions {
         return label;
     }
 
-    public static boolean urlExists(String str) {
-        boolean result = false;
-        try {
-            URL url = FlexibleLocation.resolveLocation(str);
-            if (url != null) {
-                try (InputStream is = url.openStream();) {
-                result = true;
-                }
-            }
-        } catch (IOException e) {
-            Debug.log(e, module);
-        }
-        return result;
-    }
-
     public static Document readHtmlDocument(String str) {
         Document document = null;
         try {

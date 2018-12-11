@@ -19,6 +19,7 @@
 package org.apache.ofbiz.content.cms;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.sql.Timestamp;
 import java.util.Collections;
 import java.util.Comparator;
@@ -86,7 +87,7 @@ public class ContentJsonEvents {
             }
 
         });
-        IOUtils.write(JSON.from(nodes).toString(), response.getOutputStream());
+        IOUtils.write(JSON.from(nodes).toString(), response.getOutputStream(), Charset.defaultCharset());
 
         return "success";
     }
@@ -122,7 +123,7 @@ public class ContentJsonEvents {
             return newAssoc;
         }, String.format("move content [%s] from [%s] to [%s]", contentIdTo, contentIdFrom, contentIdFromNew), 0, true).call();
 
-        IOUtils.write(JSON.from(getTreeNode(assoc)).toString(), response.getOutputStream());
+        IOUtils.write(JSON.from(getTreeNode(assoc)).toString(), response.getOutputStream(), Charset.defaultCharset());
 
         return "success";
     }
