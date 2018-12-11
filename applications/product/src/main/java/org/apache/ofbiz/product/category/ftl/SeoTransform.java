@@ -62,7 +62,8 @@ public class SeoTransform implements TemplateTransformModel {
         return defaultValue;
     }
 
-    public Writer getWriter(final Writer out, Map args) {
+    @Override
+    public Writer getWriter(Writer out, @SuppressWarnings("rawtypes") Map args) {
         final StringBuffer buf = new StringBuffer();
         final boolean fullPath = checkArg(args, "fullPath", false);
         final boolean secure = checkArg(args, "secure", false);

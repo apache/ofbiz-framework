@@ -119,10 +119,10 @@ public class ModelTestSuite {
             }
         } else if ("groovy-test-suite".equals(nodeName)) {
             try {
-                Class testClass = GroovyUtil.getScriptClassFromLocation(testElement.getAttribute("location"));
-                TestCase groovyTestCase = (GroovyScriptTestCase) testClass.newInstance();
+                Class<? extends TestCase> testClass =
+                        UtilGenerics.cast(GroovyUtil.getScriptClassFromLocation(testElement.getAttribute("location")));
                 this.testList.add(new TestSuite(testClass, testElement.getAttribute("name")));
-            } catch (GeneralException|InstantiationException|IllegalAccessException e) {
+            } catch (GeneralException e) {
                 Debug.logError(e, module);
             }
         } else if ("service-test".equals(nodeName)) {

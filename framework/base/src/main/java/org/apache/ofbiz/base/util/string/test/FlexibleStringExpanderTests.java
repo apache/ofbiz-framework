@@ -223,6 +223,7 @@ public class FlexibleStringExpanderTests extends TestCase {
         Debug.set(Debug.VERBOSE, wasVerbose);
     }
 
+    @SuppressWarnings("serial")
     public static class ThrowException extends Exception{
         public Object getValue() throws Exception {
             throw new Exception();

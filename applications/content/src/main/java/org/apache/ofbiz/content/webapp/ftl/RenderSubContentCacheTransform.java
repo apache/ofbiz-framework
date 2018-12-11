@@ -54,8 +54,9 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
     public static final String module = RenderSubContentCacheTransform.class.getName();
     static final String[] upSaveKeyNames = { "globalNodeTrail" };
 
+    @Override
     @SuppressWarnings("unchecked")
-    public Writer getWriter(final Writer out, Map args) {
+    public Writer getWriter(Writer out, @SuppressWarnings("rawtypes") Map args) {
         final Environment env = Environment.getCurrentEnvironment();
         final LocalDispatcher dispatcher = FreeMarkerWorker.getWrappedObject("dispatcher", env);
         final Delegator delegator = FreeMarkerWorker.getWrappedObject("delegator", env);

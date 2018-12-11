@@ -218,6 +218,7 @@ public final class UtilNumber {
      * @return  int - Rounding mode to pass to BigDecimal's methods. Defaults to BigDecimal.ROUND_HALF_UP
      * @deprecated Use {@link #getRoundingMode(String,String)} instead
      */
+    @Deprecated
     public static int  getBigDecimalRoundingMode(String file, String property) {
         return getRoundingMode(file, property).ordinal();
     }
@@ -228,6 +229,7 @@ public final class UtilNumber {
      * @return  int - Rounding mode to pass to BigDecimal's methods. Defaults to BigDecimal.ROUND_HALF_UP
      * @deprecated Use {@link #getRoundingMode(String)} instead
      */
+    @Deprecated
     public static int getBigDecimalRoundingMode(String property) {
         return getRoundingMode(arithmeticPropertiesFile, property).ordinal();
     }
@@ -342,6 +344,7 @@ public final class UtilNumber {
      * @deprecated Use {@link #toPercentString(Number number, int scale, RoundingMode roundingMode)} instead
      * 
      */
+    @Deprecated
     public static String toPercentString(Number number, int scale, int roundingMode) {
         // convert to BigDecimal
         if (!(number instanceof BigDecimal)) {

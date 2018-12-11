@@ -37,10 +37,8 @@ public class SetRequestAttributeMethod implements TemplateMethodModelEx {
 
     public static final String module = SetRequestAttributeMethod.class.getName();
 
-    /*
-     * @see freemarker.template.TemplateMethodModel#exec(java.util.List)
-     */
-    public Object exec(List args) throws TemplateModelException {
+    @Override
+    public Object exec(@SuppressWarnings("rawtypes") List args) throws TemplateModelException {
         if (args == null || args.size() != 2)
             throw new TemplateModelException("Invalid number of arguements");
         if (!(args.get(0) instanceof TemplateScalarModel))

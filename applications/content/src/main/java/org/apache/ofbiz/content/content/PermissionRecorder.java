@@ -127,7 +127,7 @@ public class PermissionRecorder {
             currentContentMap = new HashMap<String, Object>();
             permCheckResults.add(currentContentMap);
             currentContentMap.put("contentId", id);
-            currentContentMap.put("checkResults", new LinkedList());
+            currentContentMap.put("checkResults", new LinkedList<>());
         }
         currentContentId = id;
     }

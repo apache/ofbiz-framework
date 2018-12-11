@@ -169,6 +169,7 @@ public final class UtilGenerics {
         return map;
     }
 
+    @SafeVarargs
     @SuppressWarnings("hiding")
     public static <K, Object> Map<K, Object> toMap(Class<K> keyType, Object... data) {
         if (data == null) {

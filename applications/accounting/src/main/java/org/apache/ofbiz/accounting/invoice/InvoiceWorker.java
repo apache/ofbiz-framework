@@ -331,7 +331,7 @@ public final class InvoiceWorker {
                 if (shipmentView != null) {
                     GenericValue shipment = EntityQuery.use(delegator).from("Shipment")
                         .where("shipmentId", shipmentView.get("shipmentId")).queryOne();
-                    postalAddress = shipment.getRelatedOne("DestinationPostalAddress");
+                    postalAddress = shipment.getRelatedOne("DestinationPostalAddress", false);
                 }
             } catch (GenericEntityException e) {
                 Debug.logError("Touble getting ContactMech entity from OISG", module);

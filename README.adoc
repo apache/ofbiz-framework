@@ -553,12 +553,13 @@ Create an admin user with login name MyUserName and default password with value
 
 `gradlew loadAdminUserLogin -PuserLoginId=MyUserName`
 
-[[compile-java-using-xlint-output]]
-==== Compile Java using Xlint output
+[[compile-java-without-using-xlint-output]]
+==== Compile Java without using Xlint output
 
-Xlint prints output of all warnings detected by the compiler
+By default Xlint prints output of all warnings detected by the compiler, if you
+want to silence them
 
-`gradlew -PXlint build`
+`gradlew -PXlint:none build`
 
 [[run-owasp-tool-to-identify-dependency-vulnerabilities-cves]]
 ==== Run OWASP tool to identify dependency vulnerabilities (CVEs)

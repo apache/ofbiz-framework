@@ -146,7 +146,9 @@ public class UspsServices {
         String serviceCode = null;
         try {
             GenericValue carrierShipmentMethod = EntityQuery.use(delegator).from("CarrierShipmentMethod")
-                    .where("shipmentMethodTypeId", (String) context.get("shipmentMethodTypeId"), "partyId", (String) context.get("carrierPartyId"), "roleTypeId", (String) context.get("carrierRoleTypeId"))
+                    .where("shipmentMethodTypeId", context.get("shipmentMethodTypeId"),
+                           "partyId", context.get("carrierPartyId"),
+                           "roleTypeId", context.get("carrierRoleTypeId"))
                     .queryOne();
             if (carrierShipmentMethod != null) {
                 serviceCode = carrierShipmentMethod.getString("carrierServiceCode").toUpperCase(Locale.getDefault());
@@ -315,7 +317,9 @@ public class UspsServices {
         String serviceCode = null;
         try {
             GenericValue carrierShipmentMethod = EntityQuery.use(delegator).from("CarrierShipmentMethod")
-                    .where("shipmentMethodTypeId", (String) context.get("shipmentMethodTypeId"), "partyId", (String) context.get("carrierPartyId"), "roleTypeId", (String) context.get("carrierRoleTypeId"))
+                    .where("shipmentMethodTypeId", context.get("shipmentMethodTypeId"),
+                           "partyId", context.get("carrierPartyId"),
+                           "roleTypeId", context.get("carrierRoleTypeId"))
                     .queryOne();
             if (carrierShipmentMethod != null) {
                 serviceCode = carrierShipmentMethod.getString("carrierServiceCode");
@@ -1450,7 +1454,6 @@ public class UspsServices {
                 try (FileOutputStream fileOut = new FileOutputStream(outFileName)) {
                     fileOut.write(labelImageBytes);
                     fileOut.flush();
-                    fileOut.close();
                 } catch (IOException e) {
                     Debug.logInfo(e, module);
                     return ServiceUtil.returnError(e.getMessage());

@@ -21,6 +21,7 @@ package org.apache.ofbiz.service;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import javax.wsdl.Definition;
 import javax.wsdl.Part;
@@ -209,6 +210,14 @@ public class ModelParam implements Serializable {
         return model.name.equals(this.name);
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(allowHtml, defaultValue, description, entityName, fieldName, entityName,
+                fieldName, formDisplay, formLabel, internal, mode, name, optional, overrideFormDisplay,
+                overrideOptional, requestAttributeName, stringListSuffix, stringMapPrefix, type, validators);
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof ModelParam)) {
             return false;

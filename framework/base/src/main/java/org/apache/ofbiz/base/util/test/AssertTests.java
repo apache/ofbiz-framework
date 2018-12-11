@@ -160,8 +160,7 @@ public class AssertTests extends TestCase {
             fail("isNotInstanceOf (argument list) threw an exception - " + e);
         }
         try {
-            Map[] mapArray = {strMap};
-            Assert.isAssignableTo("foo", strArray, mapArray.getClass());
+            Assert.isAssignableTo("foo", strArray, Map[].class);
             fail("isNotInstanceOf (argument list) - IllegalArgumentException not thrown");
         } catch (IllegalArgumentException e) {}
     }

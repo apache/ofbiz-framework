@@ -28,6 +28,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 import org.apache.ofbiz.base.util.Debug;
@@ -554,6 +555,11 @@ public class ProductConfigWrapper implements Serializable {
         @Override
         public String toString() {
             return configItem.getString("configItemId");
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(configItem, configItemAssoc, content, options, first);
         }
     }
 

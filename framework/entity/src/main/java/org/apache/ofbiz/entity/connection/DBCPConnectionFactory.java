@@ -56,11 +56,12 @@ public class DBCPConnectionFactory implements ConnectionFactory {
     public static final String module = DBCPConnectionFactory.class.getName();
     // ManagedDataSource is useful to debug the usage of connections in the pool (must be verbose)
     // In case you don't want to be disturbed in the log (focusing on something else), it's still easy to comment out the line from DebugManagedDataSource
-    protected static final ConcurrentHashMap<String, DebugManagedDataSource> dsCache = new ConcurrentHashMap<String, DebugManagedDataSource>();
+    protected static final ConcurrentHashMap<String, DebugManagedDataSource<? extends Connection>> dsCache =
+            new ConcurrentHashMap<>();
 
     public Connection getConnection(GenericHelperInfo helperInfo, JdbcElement abstractJdbc) throws SQLException, GenericEntityException {
         String cacheKey = helperInfo.getHelperFullName();
-        DebugManagedDataSource mds = dsCache.get(cacheKey);
+        DebugManagedDataSource<? extends Connection> mds = dsCache.get(cacheKey);
         if (mds != null) {
             return TransactionUtil.getCursorConnection(helperInfo, mds.getConnection());
         }
@@ -127,7 +128,7 @@ public class DBCPConnectionFactory implements ConnectionFactory {
         }
 
         // configure the pool settings
-        GenericObjectPoolConfig poolConfig = new GenericObjectPoolConfig();
+        GenericObjectPoolConfig<PoolableConnection> poolConfig = new GenericObjectPoolConfig<>();
         poolConfig.setMaxTotal(maxSize);
         // settings for idle connections
         poolConfig.setMaxIdle(maxIdle);
@@ -148,7 +149,7 @@ public class DBCPConnectionFactory implements ConnectionFactory {
         GenericObjectPool<PoolableConnection> pool = new GenericObjectPool<PoolableConnection>(factory, poolConfig);
         factory.setPool(pool);
 
-        mds = new DebugManagedDataSource(pool, xacf.getTransactionRegistry());
+        mds = new DebugManagedDataSource<>(pool, xacf.getTransactionRegistry());
         mds.setAccessToUnderlyingConnectionAllowed(true);
 
         // cache the pool
@@ -165,7 +166,7 @@ public class DBCPConnectionFactory implements ConnectionFactory {
 
     public static Map<String, Object> getDataSourceInfo(String helperName) {
         Map<String, Object> dataSourceInfo = new HashMap<String, Object>();
-        DebugManagedDataSource mds = dsCache.get(helperName);
+        DebugManagedDataSource<? extends Connection> mds = dsCache.get(helperName);
         if (mds != null) {
             dataSourceInfo = mds.getInfo();
         }

@@ -47,7 +47,8 @@ public class OfbizCatalogUrlTransform implements TemplateTransformModel {
     }
 
     @Override
-    public Writer getWriter(final Writer out, final Map args) throws TemplateModelException, IOException {
+    public Writer getWriter(Writer out, @SuppressWarnings("rawtypes") Map args)
+            throws TemplateModelException, IOException {
         final StringBuilder buf = new StringBuilder();
         return new Writer(out) {
 

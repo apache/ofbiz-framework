@@ -798,7 +798,7 @@ public class DatabaseUtil {
         protected Detection(String name, boolean required, String methodName, Object... params) throws NoSuchMethodException {
             this.name = name;
             this.required = required;
-            Class[] paramTypes = new Class[params.length];
+            Class<?>[] paramTypes = new Class<?>[params.length];
             for (int i = 0; i < params.length; i++) {
                 Class<?> paramType = params[i].getClass();
                 if (paramType == Integer.class) {

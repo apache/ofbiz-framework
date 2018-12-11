@@ -56,10 +56,12 @@ public abstract class EntityCondition extends EntityConditionBase implements IsE
         return new EntityExpr(lhs, operator, rhs);
     }
 
+    @SafeVarargs
     public static <T extends EntityCondition> EntityConditionList<T> makeCondition(EntityJoinOperator operator, T... conditionList) {
         return new EntityConditionList<>(Arrays.<T>asList(conditionList), operator);
     }
 
+    @SafeVarargs
     public static <T extends EntityCondition> EntityConditionList<T> makeCondition(T... conditionList) {
         return new EntityConditionList<>(Arrays.<T>asList(conditionList), EntityOperator.AND);
     }

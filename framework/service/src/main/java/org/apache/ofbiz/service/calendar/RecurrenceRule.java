@@ -322,6 +322,7 @@ public class RecurrenceRule {
      *@param currentCount The total number of times the recurrence has run.
      *@return long The current recurrence as long if valid. If next recurrence is not valid, returns 0.
      */
+    @SuppressWarnings("fallthrough")
     public long validCurrent(long startTime, long checkTime, long currentCount) {
         if (startTime == 0) {
             startTime = RecurrenceUtil.now();
@@ -354,7 +355,6 @@ public class RecurrenceRule {
             if (cal.get(Calendar.YEAR) != checkTimeCal.get(Calendar.YEAR)) {
                 return 0;
             }
-
         case MONTHLY:
             if (MONTHLY == getFrequency()) {
                 cal.add(Calendar.MONTH, -getIntervalInt());
@@ -364,7 +364,6 @@ public class RecurrenceRule {
             } else {
                 cal.set(Calendar.MONTH, checkTimeCal.get(Calendar.MONTH));
             }
-
         case WEEKLY:
             if (WEEKLY == getFrequency()) {
                 cal.add(Calendar.WEEK_OF_YEAR, -getIntervalInt());
@@ -374,7 +373,6 @@ public class RecurrenceRule {
             } else {
                 cal.set(Calendar.WEEK_OF_YEAR, checkTimeCal.get(Calendar.WEEK_OF_YEAR));
             }
-
         case DAILY:
             if (DAILY == getFrequency()) {
                 cal.add(Calendar.DAY_OF_MONTH, -getIntervalInt());
@@ -384,7 +382,6 @@ public class RecurrenceRule {
             } else {
                 cal.set(Calendar.DAY_OF_MONTH, checkTimeCal.get(Calendar.DAY_OF_MONTH));
             }
-
         case HOURLY:
             if (HOURLY == getFrequency()) {
                 cal.add(Calendar.HOUR_OF_DAY, -getIntervalInt());
@@ -394,7 +391,6 @@ public class RecurrenceRule {
             } else {
                 cal.set(Calendar.HOUR_OF_DAY, checkTimeCal.get(Calendar.HOUR_OF_DAY));
             }
-
         case MINUTELY:
             if (MINUTELY == getFrequency()) {
                 cal.add(Calendar.MINUTE, -getIntervalInt());
@@ -404,7 +400,6 @@ public class RecurrenceRule {
             } else {
                 cal.set(Calendar.MINUTE, checkTimeCal.get(Calendar.MINUTE));
             }
-
         case SECONDLY:
             if (SECONDLY == getFrequency()) {
                 cal.add(Calendar.SECOND, -getIntervalInt());

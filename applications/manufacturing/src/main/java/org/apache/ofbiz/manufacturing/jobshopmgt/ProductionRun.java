@@ -134,7 +134,7 @@ public class ProductionRun {
             productionRun.set("description",this.description);
             try {
                 if (quantityIsUpdated) {
-                    productionRun.set("quantityToProduce",(BigDecimal) this.quantity);
+                    productionRun.set("quantityToProduce", this.quantity);
                     productionRunProduct.set("estimatedQuantity",this.quantity.doubleValue());
                     productionRunProduct.store();
                     quantityIsUpdated = false;

@@ -229,7 +229,7 @@ public class GenericWebEvent {
             ModelField field = fieldIter.next();
 
             for (String curValidate : field.getValidators()) {
-                Class<?>[] paramTypes = new Class[] {String.class};
+                Class<?>[] paramTypes = { String.class };
                 Object[] params = new Object[] {findByEntity.get(field.getName()).toString()};
 
                 String className = "org.apache.ofbiz.base.util.UtilValidate";

@@ -58,6 +58,7 @@ import org.w3c.dom.Element;
  * An object that models the <code>&lt;entity&gt;</code> element.
  *
  */
+@SuppressWarnings("serial")
 public class ModelEntity implements Comparable<ModelEntity>, Serializable {
 
     public static final String module = ModelEntity.class.getName();

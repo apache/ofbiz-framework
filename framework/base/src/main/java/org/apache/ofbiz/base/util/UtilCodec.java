@@ -63,6 +63,7 @@ public class UtilCodec {
         /**
          * @deprecated Use {@link #sanitize(String,String)} instead
          */
+        @Deprecated
         public String sanitize(String outString); // Only really useful with HTML, else it simply calls encode() method
         public String sanitize(String outString, String contentTypeId); // Only really useful with HTML, else it simply calls encode() method
     }
@@ -83,6 +84,7 @@ public class UtilCodec {
         /**
          * @deprecated Use {@link #sanitize(String,String)} instead
          */
+        @Deprecated
         public String sanitize(String original) {
             return sanitize(original, null);
         }
@@ -144,6 +146,7 @@ public class UtilCodec {
         /**
          * @deprecated Use {@link #sanitize(String,String)} instead
          */
+        @Deprecated
         public String sanitize(String original) {
             return sanitize(original, null);
         }
@@ -164,6 +167,7 @@ public class UtilCodec {
         /**
          * @deprecated Use {@link #sanitize(String,String)} instead
          */
+        @Deprecated
         public String sanitize(String original) {
             return sanitize(original, null);
         }
@@ -192,6 +196,7 @@ public class UtilCodec {
         /**
          * @deprecated Use {@link #sanitize(String,String)} instead
          */
+        @Deprecated
         public String sanitize(String original) {
             return sanitize(original, null);
         }

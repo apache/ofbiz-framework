@@ -481,7 +481,8 @@ public class EntityQuery {
         if (whereEntityCondition == null && fieldMap != null) {
             if (this.searchPkOnly) {
                 //Resolve if the map contains a sub map parameters, use a containsKeys to avoid error when a GenericValue is given as map
-                Map<String, Object> parameters = fieldMap.containsKey("parameters") ? (Map<String, Object>) fieldMap.get("parameters") : null;
+                Map<String, Object> parameters =
+                        fieldMap.containsKey("parameters") ? UtilGenerics.cast(fieldMap.get("parameters")) : null;
                 GenericPK pk = GenericPK.create(delegator.getModelEntity(entityName));
                 pk.setPKFields(parameters);
                 pk.setPKFields(fieldMap);

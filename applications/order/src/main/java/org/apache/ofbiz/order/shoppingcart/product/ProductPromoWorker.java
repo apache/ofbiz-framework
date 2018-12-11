@@ -1,4 +1,4 @@
-/*******************************************************************************
+    /*******************************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -58,7 +58,6 @@ import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents;
 import org.apache.ofbiz.order.shoppingcart.ShoppingCartItem;
 import org.apache.ofbiz.product.product.ProductContentWrapper;
 import org.apache.ofbiz.product.product.ProductSearch;
-import org.apache.ofbiz.product.store.ProductStoreWorker;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceUtil;
@@ -907,14 +906,9 @@ public final class ProductPromoWorker {
         String otherValue = productPromoCond.getString("otherValue");
         String inputParamEnumId = productPromoCond.getString("inputParamEnumId");
         String operatorEnumId = productPromoCond.getString("operatorEnumId");
-        String shippingMethod = "";
-        String carrierPartyId = "";
         if (otherValue != null && otherValue.contains("@")) {
-            carrierPartyId = otherValue.substring(0, otherValue.indexOf('@'));
-            shippingMethod = otherValue.substring(otherValue.indexOf('@') + 1);
             otherValue = "";
         }
-        String partyId = cart.getPartyId();
         GenericValue userLogin = cart.getUserLogin();
         if (userLogin == null) {
             userLogin = cart.getAutoUserLogin();
@@ -1024,59 +1018,30 @@ public final class ProductPromoWorker {
         BigDecimal amountOff = listPrice.subtract(basePrice);
         BigDecimal percentOff = amountOff.divide(listPrice, 2, RoundingMode.HALF_UP).multiply(BigDecimal.valueOf(100L));
 
-        Integer compareBase = null;
-
-        if ("PPIP_LPMUP_AMT".equals(inputParamEnumId)) {
-            // NOTE: only check this after we know it's this type of cond, otherwise condValue may not be a number
-            BigDecimal condValueBigDecimal = new BigDecimal(condValue);
-            compareBase = amountOff.compareTo(condValueBigDecimal);
-        } else if ("PPIP_LPMUP_PER".equals(inputParamEnumId)) {
-            // NOTE: only check this after we know it's this type of cond, otherwise condValue may not be a number
-            BigDecimal condValueBigDecimal = new BigDecimal(condValue);
-            compareBase = percentOff.compareTo(condValueBigDecimal);
-        } else {
+        if (!"PPIP_LPMUP_AMT".equals(inputParamEnumId) && !"PPIP_LPMUP_PER".equals(inputParamEnumId)) {
             // condition doesn't apply to individual item, always passes
             return true;
         }
 
-        Debug.logInfo("Checking condition for item productId=" + cartItem.getProductId() + ", listPrice=" + listPrice + ", basePrice=" + basePrice + ", amountOff=" + amountOff + ", percentOff=" + percentOff + ", condValue=" + condValue + ", compareBase=" + compareBase + ", productPromoCond=" + productPromoCond, module);
+        // NOTE: only check this after we know it's this type of cond, otherwise condValue may not be a number
+        int compare = percentOff.compareTo(new BigDecimal(condValue));
 
-        if (compareBase != null) {
-            int compare = compareBase;
-            if ("PPC_EQ".equals(operatorEnumId)) {
-                if (compare == 0) {
-                    return true;
-                }
-            } else if ("PPC_NEQ".equals(operatorEnumId)) {
-                if (compare != 0) {
-                    return true;
-                }
-            } else if ("PPC_LT".equals(operatorEnumId)) {
-                if (compare < 0) {
-                    return true;
-                }
-            } else if ("PPC_LTE".equals(operatorEnumId)) {
-                if (compare <= 0) {
-                    return true;
-                }
-            } else if ("PPC_GT".equals(operatorEnumId)) {
-                if (compare > 0) {
-                    return true;
-                }
-            } else if ("PPC_GTE".equals(operatorEnumId)) {
-                if (compare >= 0) {
-                    return true;
-                }
-            } else {
-                Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderAnUnSupportedProductPromoCondCondition", UtilMisc.toMap("operatorEnumId",operatorEnumId) , cart.getLocale()), module);
-                return false;
-            }
-            // was a compareBase and nothing returned above, so condition didn't pass, return false
-            return false;
+        Debug.logInfo("Checking condition for item productId=" + cartItem.getProductId() + ","
+                + " listPrice=" + listPrice + ", basePrice=" + basePrice + ", amountOff=" + amountOff + ","
+                + " percentOff=" + percentOff + ", condValue=" + condValue + ", compareBase=" + compare + ", "
+                + "productPromoCond=" + productPromoCond, module);
+
+        boolean res = ("PPC_EQ".equals(operatorEnumId) && compare == 0)
+                || ("PPC_NEQ".equals(operatorEnumId) && compare != 0)
+                || ("PPC_LT".equals(operatorEnumId) && compare < 0)
+                || ("PPC_LTE".equals(operatorEnumId) && compare <= 0)
+                || ("PPC_GT".equals(operatorEnumId) && compare > 0)
+                || ("PPC_GTE".equals(operatorEnumId) && compare >= 0);
+        if (!res) {
+            Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderAnUnSupportedProductPromoCondCondition",
+                    UtilMisc.toMap("operatorEnumId", operatorEnumId) , cart.getLocale()), module);
         }
-
-        // no compareBase, this condition doesn't apply
-        return true;
+        return res;
     }
 
     public static int checkConditionPartyHierarchy(Delegator delegator, Timestamp nowTimestamp, String groupPartyId, String partyId) throws GenericEntityException{

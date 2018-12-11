@@ -40,10 +40,7 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilCodec;
 import org.apache.ofbiz.base.util.UtilHttp;
-import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.webapp.view.AbstractViewHandler;
 import org.apache.ofbiz.webapp.view.ApacheFopWorker;
 import org.apache.ofbiz.webapp.view.ViewHandlerException;
@@ -79,10 +76,9 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
     /**
      * @see org.apache.ofbiz.webapp.view.ViewHandler#render(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
+    @SuppressWarnings("unchecked")
     @Override
     public void render(String name, String page, String info, String contentType, String encoding, HttpServletRequest request, HttpServletResponse response) throws ViewHandlerException {
-
-        Delegator delegator = (Delegator) request.getAttribute("delegator");
         VisualTheme visualTheme = UtilHttp.getVisualTheme(request);
         ModelTheme modelTheme = visualTheme.getModelTheme();
 
@@ -189,7 +185,6 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
     protected void renderError(String msg, Exception e, String screenOutString, HttpServletRequest request, HttpServletResponse response) throws ViewHandlerException {
         Debug.logError(msg + ": " + e + "; Screen XSL:FO text was:\n" + screenOutString, module);
         try {
-            Delegator delegator = (Delegator) request.getAttribute("delegator");
             Writer writer = new StringWriter();
             VisualTheme visualTheme = UtilHttp.getVisualTheme(request);
             ModelTheme modelTheme = visualTheme.getModelTheme();

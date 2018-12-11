@@ -20,7 +20,6 @@ package org.apache.ofbiz.security;
 
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.apache.ofbiz.base.util.Debug;

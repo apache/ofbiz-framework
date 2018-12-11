@@ -83,7 +83,7 @@ public final class UelUtil {
      * @param expectedType The expected object Class to return
      * @return Result object
      */
-    public static Object evaluate(Map<String, ? extends Object> context, String expression, Class expectedType) {
+    public static Object evaluate(Map<String, ? extends Object> context, String expression, Class<?> expectedType) {
         ELContext elContext = new ReadOnlyContext(context);
         ValueExpression ve = exprFactory.createValueExpression(elContext, expression, expectedType);
         return ve.getValue(elContext);
@@ -95,7 +95,7 @@ public final class UelUtil {
      * @param expression UEL expression
      * @param expectedType The expected object Class to set
      */
-    public static void setValue(Map<String, Object> context, String expression, Class expectedType, Object value) {
+    public static void setValue(Map<String, Object> context, String expression, Class<?> expectedType, Object value) {
         if (Debug.verboseOn()) {
             Debug.logVerbose("UelUtil.setValue invoked, expression = " + expression + ", value = " + value, module);
         }
@@ -358,8 +358,8 @@ public final class UelUtil {
             super(isReadOnly);
             this.isReadOnly = isReadOnly;
         }
+
         @Override
-        @SuppressWarnings("unchecked")
         public void setValue(ELContext context, Object base, Object property, Object val) {
             if (context == null) {
                 throw new NullPointerException();
@@ -374,7 +374,7 @@ public final class UelUtil {
                         Debug.logVerbose("ExtendedListResolver.setValue adding List element: base = " + base + ", property = " + property + ", value = " + val, module);
                     }
                     context.setPropertyResolved(true);
-                    List list = (List) base;
+                    List<Object> list = UtilGenerics.cast(base);
                     list.add(val);
                 } else if (str.startsWith("insert@")) {
                     if (Debug.verboseOn()) {
@@ -383,7 +383,7 @@ public final class UelUtil {
                     context.setPropertyResolved(true);
                     String indexStr = str.replace("insert@", "");
                     int index = Integer.parseInt(indexStr);
-                    List list = (List) base;
+                    List<Object> list = UtilGenerics.cast(base);
                     try {
                         list.add(index, val);
                     } catch (UnsupportedOperationException ex) {
@@ -413,7 +413,7 @@ public final class UelUtil {
             }
             if (base != null && base instanceof LocalizedMap) {
                 context.setPropertyResolved(true);
-                LocalizedMap map = (LocalizedMap) base;
+                LocalizedMap<Object> map = (LocalizedMap<Object>) base;
                 Locale locale = null;
                 try {
                     VariableMapper vm = context.getVariableMapper();
@@ -436,11 +436,11 @@ public final class UelUtil {
                     }
                     locale = Locale.getDefault();
                 }
-                return resolveVariable(property.toString(), (Map) map, locale);
+                return resolveVariable(property.toString(), (Map<String, Object>) map, locale);
             }
             if (base != null && base instanceof Map && property instanceof String) {
                 context.setPropertyResolved(true);
-                return resolveVariable(property.toString(), (Map) base, null);
+                return resolveVariable(property.toString(), (Map<String, Object>) base, null);
             }
             return super.getValue(context, base, property);
         }

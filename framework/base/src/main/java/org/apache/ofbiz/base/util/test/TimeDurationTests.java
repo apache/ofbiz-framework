@@ -122,7 +122,6 @@ public class TimeDurationTests extends GenericTestCaseBase {
         assertEquals(label + ".equals(cal, string)", calDuration, stringDuration);
         assertEquals(label + ".equals(string, cal)", stringDuration, calDuration);
         assertEquals(label + ".equals(string, string)", stringDuration, stringDuration);
-        assertFalse(label + ".not-equals(string, this)", stringDuration.equals(TimeDurationTests.class));
         if (lastString != null) {
             assertFalse(label + ".not-equals(string, lastString)", stringDuration.equals(lastString));
         }

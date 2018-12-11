@@ -21,6 +21,8 @@ package org.apache.ofbiz.webapp.ftl;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ofbiz.base.util.UtilGenerics;
+
 import freemarker.core.Environment;
 import freemarker.ext.beans.BeanModel;
 import freemarker.template.SimpleScalar;
@@ -36,11 +38,8 @@ public class SetContextFieldTransform implements TemplateMethodModelEx {
 
     public static final String module = SetContextFieldTransform.class.getName();
 
-    /*
-     * @see freemarker.template.TemplateMethodModel#exec(java.util.List)
-     */
-    @SuppressWarnings("unchecked")
-    public Object exec(List args) throws TemplateModelException {
+    @Override
+    public Object exec(@SuppressWarnings("rawtypes") List args) throws TemplateModelException {
         if (args == null || args.size() != 2)
             throw new TemplateModelException("Invalid number of arguements");
         if (!(args.get(0) instanceof TemplateScalarModel))
@@ -50,7 +49,7 @@ public class SetContextFieldTransform implements TemplateMethodModelEx {
 
         Environment env = Environment.getCurrentEnvironment();
         BeanModel req = (BeanModel)env.getVariable("context");
-        Map context = (Map) req.getWrappedObject();
+        Map<String, Object> context = UtilGenerics.cast(req.getWrappedObject());
 
         String name = ((TemplateScalarModel) args.get(0)).getAsString();
         Object value = null;

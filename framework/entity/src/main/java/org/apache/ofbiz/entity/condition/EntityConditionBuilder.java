@@ -25,7 +25,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericModelException;
@@ -43,18 +42,6 @@ public class EntityConditionBuilder extends BuilderSupport {
 
         protected ConditionHolder(EntityCondition condition) {
             this.condition = condition;
-        }
-
-        public Object asType(Class clz) {
-            Debug.logInfo("asType(%s): %s", module, clz, condition);
-            if (clz == EntityCondition.class) {
-                return condition;
-            }
-            return this;
-        }
-
-        public EntityCondition build() {
-            return condition;
         }
 
         public boolean isEmpty() {
@@ -106,7 +93,7 @@ public class EntityConditionBuilder extends BuilderSupport {
     }
 
     @Override
-    protected Object createNode(Object methodName, Map mapArg) {
+    protected Object createNode(Object methodName, @SuppressWarnings("rawtypes") Map mapArg) {
         Map<String, Object> fieldValueMap = UtilGenerics.checkMap(mapArg);
         String operatorName = ((String)methodName).toLowerCase(Locale.getDefault());
         EntityComparisonOperator<String, Object> operator = EntityOperator.lookupComparison(operatorName);
@@ -121,7 +108,7 @@ public class EntityConditionBuilder extends BuilderSupport {
     }
 
     @Override
-    protected Object createNode(Object methodName, Map mapArg, Object objArg) {
+    protected Object createNode(Object methodName, @SuppressWarnings("rawtypes") Map mapArg, Object objArg) {
         return null;
     }
 

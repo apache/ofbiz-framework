@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilFormatOut;
+import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
 
 import freemarker.core.Environment;
@@ -46,7 +47,7 @@ public class OfbizAmountTransform implements TemplateTransformModel {
     public static final String module = OfbizAmountTransform.class.getName();
     public static final String SPELLED_OUT_FORMAT = "spelled-out";
 
-    private static String getArg(Map args, String key) {
+    private static String getArg(Map<String, Object> args, String key) {
         String  result = "";
         Object o = args.get(key);
         if (o != null) {
@@ -64,7 +65,7 @@ public class OfbizAmountTransform implements TemplateTransformModel {
         }
         return result;
     }
-    private static Double getAmount(Map args, String key) {
+    private static Double getAmount(Map<String, Object> args, String key) {
         if (args.containsKey(key)) {
             Object o = args.get(key);
             if (Debug.verboseOn()) Debug.logVerbose("Amount Object : " + o.getClass().getName(), module);
@@ -90,12 +91,15 @@ public class OfbizAmountTransform implements TemplateTransformModel {
         }
         return 0.00;
     }
-    public Writer getWriter(final Writer out, Map args) {
+
+    @Override
+    public Writer getWriter(Writer out, @SuppressWarnings("rawtypes") Map args) {
         final StringBuilder buf = new StringBuilder();
 
-        final Double amount = OfbizAmountTransform.getAmount(args, "amount");
-        final String locale = OfbizAmountTransform.getArg(args, "locale");
-        final String format = OfbizAmountTransform.getArg(args, "format");
+        Map<String, Object> arguments = UtilGenerics.cast(args);
+        final Double amount = OfbizAmountTransform.getAmount(arguments, "amount");
+        final String locale = OfbizAmountTransform.getArg(arguments, "locale");
+        final String format = OfbizAmountTransform.getArg(arguments, "format");
 
         return new Writer(out) {
             @Override

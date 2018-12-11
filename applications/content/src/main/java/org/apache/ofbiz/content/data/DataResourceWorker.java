@@ -987,8 +987,9 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
             if (!file.isAbsolute()) {
                 throw new GeneralException("File (" + objectInfo + ") is not absolute");
             }
-            InputStreamReader in = new InputStreamReader(new FileInputStream(file), UtilIO.getUtf8());
-            UtilIO.copy(in, true, out);
+            try (InputStreamReader in = new InputStreamReader(new FileInputStream(file), UtilIO.getUtf8())) {
+                UtilIO.copy(in, out);
+            }
         } else if ("OFBIZ_FILE".equals(dataResourceTypeId) && UtilValidate.isNotEmpty(objectInfo)) {
             String prefix = System.getProperty("ofbiz.home");
             String sep = "";
@@ -996,8 +997,9 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
                 sep = "/";
             }
             File file = FileUtil.getFile(prefix + sep + objectInfo);
-            InputStreamReader in = new InputStreamReader(new FileInputStream(file), UtilIO.getUtf8());
-            UtilIO.copy(in, true, out);
+            try (InputStreamReader in = new InputStreamReader(new FileInputStream(file), UtilIO.getUtf8())) {
+                UtilIO.copy(in, out);
+            }
         } else if ("CONTEXT_FILE".equals(dataResourceTypeId) && UtilValidate.isNotEmpty(objectInfo)) {
             String prefix = rootDir;
             String sep = "";
@@ -1005,21 +1007,18 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
                 sep = "/";
             }
             File file = FileUtil.getFile(prefix + sep + objectInfo);
-            InputStreamReader in = null;
-            try {
-                in = new InputStreamReader(new FileInputStream(file), UtilIO.getUtf8());
-                String enc = in.getEncoding();
+            try (InputStreamReader in = new InputStreamReader(new FileInputStream(file), UtilIO.getUtf8())) {
                 if (Debug.infoOn()) {
+                    String enc = in.getEncoding();
                     Debug.logInfo("in serveImage, encoding:" + enc, module);
                 }
-
+                UtilIO.copy(in, out);
             } catch (FileNotFoundException e) {
                 Debug.logError(e, " in renderDataResourceAsHtml(CONTEXT_FILE), in FNFexception:", module);
                 throw new GeneralException("Could not find context file to render", e);
             } catch (Exception e) {
                 Debug.logError(" in renderDataResourceAsHtml(CONTEXT_FILE), got exception:" + e.getMessage(), module);
             }
-            UtilIO.copy(in, true, out);
         }
     }
 

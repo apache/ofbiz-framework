@@ -32,6 +32,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.ScriptUtil;
+import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader.Event;
@@ -109,7 +110,7 @@ public final class ScriptEventHandler implements EventHandler {
                 return "error";
             }
             if (result instanceof Map) {
-                Map resultMap = (Map)result;
+                Map<String, Object> resultMap = UtilGenerics.cast(result);
                 String successMessage = (String)resultMap.get("_event_message_");
                 if (successMessage != null) {
                     request.setAttribute("_EVENT_MESSAGE_", successMessage);

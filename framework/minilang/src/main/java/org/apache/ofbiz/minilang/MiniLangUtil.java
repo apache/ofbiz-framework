@@ -172,7 +172,7 @@ public final class MiniLangUtil {
         Converter<Object, Object> converter = (Converter<Object, Object>) Converters.getConverter(sourceClass, targetClass);
         LocalizedConverter<Object, Object> localizedConverter = null;
         if (converter instanceof LocalizedConverter) {
-            localizedConverter = (LocalizedConverter) converter;
+            localizedConverter = (LocalizedConverter<Object, Object>) converter;
             if (locale == null) {
                 locale = Locale.getDefault();
             }

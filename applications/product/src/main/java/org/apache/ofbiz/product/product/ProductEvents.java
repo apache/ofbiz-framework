@@ -390,7 +390,7 @@ public class ProductEvents {
         // just store a new empty list in the session
         HttpSession session = request.getSession();
         if (session != null) {
-            session.setAttribute("lastViewedCategories", new LinkedList());
+            session.setAttribute("lastViewedCategories", new LinkedList<>());
         }
         return "success";
     }
@@ -400,7 +400,7 @@ public class ProductEvents {
         // just store a new empty list in the session
         HttpSession session = request.getSession();
         if (session != null) {
-            session.setAttribute("lastViewedProducts", new LinkedList());
+            session.setAttribute("lastViewedProducts", new LinkedList<>());
         }
         return "success";
     }
@@ -1140,7 +1140,7 @@ public class ProductEvents {
 
     public static String clearProductComparisonList(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-        session.setAttribute("productCompareList", new LinkedList());
+        session.setAttribute("productCompareList", new LinkedList<>());
         String eventMsg = UtilProperties.getMessage("ProductUiLabels", "ProductClearCompareListSuccess", UtilHttp.getLocale(request));
         request.setAttribute("_EVENT_MESSAGE_", eventMsg);
         return "success";

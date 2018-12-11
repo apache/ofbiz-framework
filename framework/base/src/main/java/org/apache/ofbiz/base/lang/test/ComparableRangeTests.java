@@ -34,26 +34,9 @@ public class ComparableRangeTests extends GenericTestCaseBase {
         super(name);
     }
 
-    @SuppressWarnings("unchecked")
     private static <L extends Comparable<L>, R extends Comparable<R>> void comparableRangeConstructorTest(L left, R right) {
         new ComparableRange<>(left, left);
         new ComparableRange<>(right, right);
-        IllegalArgumentException caught = null;
-        try {
-            new ComparableRange(left, right);
-        } catch (IllegalArgumentException e) {
-            caught = e;
-        } finally {
-            assertNotNull("expected exception", caught);
-        }
-        caught = null;
-        try {
-            new ComparableRange(right, left);
-        } catch (IllegalArgumentException e) {
-            caught = e;
-        } finally {
-            assertNotNull("expected exception", caught);
-        }
     }
 
     private static <T extends Comparable<T>, B extends Comparable<B>> void comparableRangeTest(String label, B bad, T a, T b, T c, T d) {

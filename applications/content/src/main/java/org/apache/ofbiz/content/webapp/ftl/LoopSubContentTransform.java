@@ -151,7 +151,7 @@ public class LoopSubContentTransform implements TemplateTransformModel {
 
     @Override
     @SuppressWarnings("unchecked")
-    public Writer getWriter(final Writer out, Map args) {
+    public Writer getWriter(Writer out, @SuppressWarnings("rawtypes") Map args) {
         final StringBuilder buf = new StringBuilder();
         final Environment env = Environment.getCurrentEnvironment();
         final Map<String, Object> templateCtx = FreeMarkerWorker.getWrappedObject("context", env);

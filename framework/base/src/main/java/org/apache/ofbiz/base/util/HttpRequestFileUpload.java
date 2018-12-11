@@ -231,7 +231,6 @@ public class HttpRequestFileUpload {
                             }
                         }
                         fos.flush();
-                        fos.close();
                     } catch (RuntimeException e) {
                         throw e;
                     } catch (Exception e) {

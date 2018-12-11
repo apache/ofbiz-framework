@@ -34,6 +34,7 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GroovyUtil;
 import org.apache.ofbiz.base.util.ScriptHelper;
 import org.apache.ofbiz.base.util.ScriptUtil;
+import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
@@ -111,7 +112,7 @@ public class GroovyEventHandler implements EventHandler {
             }
             // check the result
             if (result instanceof Map) {
-                Map resultMap = (Map)result;
+                Map<String, Object> resultMap = UtilGenerics.cast(result);
                 String successMessage = (String)resultMap.get("_event_message_");
                 if (successMessage != null) {
                     request.setAttribute("_EVENT_MESSAGE_", successMessage);

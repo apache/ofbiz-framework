@@ -566,8 +566,6 @@ public final class UtilProperties implements Serializable {
                      +"# The comments have been removed, you may still find them on the OFBiz repository... \n"
                      +"#");
              }
-
-             propFile.close();
          } catch (FileNotFoundException e) {
              Debug.logInfo(e, "Unable to located the resource file.", module);
          } catch (IOException e) {

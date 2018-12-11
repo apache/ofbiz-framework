@@ -519,25 +519,20 @@ public class PriceServices {
                 if (UtilValidate.isNotEmpty(result)) {
                     Map<String, Object> convertPriceMap = new HashMap<String, Object>();
                     for (Map.Entry<String, Object> entry : result.entrySet()) {
-                        BigDecimal tempPrice = BigDecimal.ZERO;
+                        BigDecimal tempPrice;
                         switch (entry.getKey()) {
                         case "basePrice":
-                            tempPrice = (BigDecimal) entry.getValue();
                         case "price":
-                            tempPrice = (BigDecimal) entry.getValue();
                         case "defaultPrice":
-                            tempPrice = (BigDecimal) entry.getValue();
                         case "competitivePrice":
-                            tempPrice = (BigDecimal) entry.getValue();
                         case "averageCost":
-                            tempPrice = (BigDecimal) entry.getValue();
                         case "promoPrice":
-                            tempPrice = (BigDecimal) entry.getValue();
                         case "specialPromoPrice":
-                            tempPrice = (BigDecimal) entry.getValue();
                         case "listPrice":
                             tempPrice = (BigDecimal) entry.getValue();
-
+                            break;
+                        default:
+                            tempPrice = BigDecimal.ZERO;
                         }
                         
                         if (tempPrice != null && tempPrice != BigDecimal.ZERO) {
