@@ -272,3 +272,5 @@ include::../../framework/webapp/src/docs/asciidoc/webapp.adoc[leveloffset=+1]
 include::../../framework/security/src/docs/asciidoc/security.adoc[leveloffset=+1]
 
 == Appendices
+
+include::../../framework/minilang/docs/asciidoc/minilang-to-groovy-manual.adoc[leveloffset=+1]
