@@ -506,7 +506,7 @@ tasks.withType(AsciidoctorTask) { task ->
         'sectnums': '',
         'chapter-label': '',
         'toc': '',
-        'toclevels': '5'
+        'toclevels': '3'
 }
 
 task deleteOfbizDocumentation {
