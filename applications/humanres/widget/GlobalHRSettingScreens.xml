@@ -159,7 +159,7 @@
                 <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <include-menu name="EmplPositionTypeTabBar" location="component://humanres/widget/HumanresMenus.xml"/>
-                        <screenlet id="AddEmplPositionTypeRatePanel" title="${uiLabelMap.CommonAdd} ${uiLabelMap.HumanResEmplPositionType} ${uiLabelMap.CommonRatioRate}" collapsible="true">
+                        <screenlet id="AddEmplPositionTypeRatePanel" title="${uiLabelMap.CommonAdd} ${uiLabelMap.HumanResEmplPositionType} ${uiLabelMap.CommonRate}" collapsible="true">
                             <include-form name="AddEmplPositionTypeRate" location="component://humanres/widget/forms/GlobalHRSettingForms.xml"/>
                         </screenlet>
                             <include-form name="ListEmplPositionTypeRates" location="component://humanres/widget/forms/GlobalHRSettingForms.xml"/>

@@ -9119,6 +9119,10 @@
         <value xml:lang="nl">Product</value>
         <value xml:lang="zh">产品</value>
     </property>
+    <property key="CommonProductRating"><!--  Used to demark the section where ProductRating setting are made. -->
+        <value xml:lang="de">Bewertung</value>
+        <value xml:lang="en">Rating</value>
+    </property>    
     <property key="CommonProfile">
         <value xml:lang="ar">خصائص</value>
         <value xml:lang="cs">Profil</value>
@@ -9398,7 +9402,7 @@
     <property key="CommonQuoteTerms">
         <value xml:lang="en">Quote Terms</value>
     </property>
-    <property key="CommonRatioRate">
+    <property key="CommonRate"> <!--  Rate as a tariff or day rate -->
         <value xml:lang="ar">النسبة</value>
         <value xml:lang="cs">Sazba</value>
         <value xml:lang="de">Satz</value>
@@ -9419,7 +9423,7 @@
         <value xml:lang="zh-CN">等级</value>
         <value xml:lang="zh-TW">評等</value>
     </property>
-    <property key="CommonRatioRates">
+    <property key="CommonRates"> <!--  Rate as a tariff or day rate -->
         <value xml:lang="ar">النسب</value>
         <value xml:lang="cs">Sazby</value>
         <value xml:lang="de">Sätze</value>
@@ -9440,10 +9444,6 @@
         <value xml:lang="zh-CN">费用</value>
         <value xml:lang="zh-TW">評等</value>
     </property>
-    <property key="CommonAssessRate">
-        <value xml:lang="de">Bewertung</value>
-        <value xml:lang="en">Rating</value>
-    </property>    
     <property key="CommonReady">
         <value xml:lang="ar">جاهز</value>
         <value xml:lang="cs">Připravený</value>
