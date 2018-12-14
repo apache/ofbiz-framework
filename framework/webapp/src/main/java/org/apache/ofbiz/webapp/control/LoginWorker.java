@@ -1003,6 +1003,11 @@ public class LoginWorker {
     public static String autoLoginCheck(HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         HttpSession session = request.getSession();
+        
+        GenericValue autoUserLogin = (GenericValue) session.getAttribute("autoUserLogin");
+        if (autoUserLogin != null){
+            return "success";
+        }
 
         return autoLoginCheck(delegator, session, getAutoUserLoginId(request));
     }
