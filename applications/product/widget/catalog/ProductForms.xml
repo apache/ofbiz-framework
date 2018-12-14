@@ -315,7 +315,7 @@ under the License.
                 <sort-field name="inventoryMessage"/>
                 <sort-field name="lotIdFilledIn"/>
             </field-group>
-            <field-group title="${uiLabelMap.CommonAssessRate}" collapsible="true" initially-collapsed="true">
+            <field-group title="${uiLabelMap.CommonProductRating}" collapsible="true" initially-collapsed="true">
                 <sort-field name="ratingTypeEnum"/>
                 <sort-field name="productRating"/>
             </field-group>

@@ -80,7 +80,7 @@
                 <parameter param-name="partyId"/>
             </link>
         </menu-item>
-        <menu-item name="EditPartyRates" title="${uiLabelMap.CommonRatioRates}">
+        <menu-item name="EditPartyRates" title="${uiLabelMap.CommonRates}">
             <link target="EditPartyRates">
                 <parameter param-name="partyId"/>
             </link>
