@@ -74,7 +74,8 @@ under the License.
       </#if>
               <td></td>
               <td>
-                <b>${uiLabelMap.ProductCondition} ${(productPromoCond.productPromoCondSeqId)!}</b>
+                <b>${uiLabelMap.ProductCondition} ${(productPromoCond.productPromoCondSeqId)!}.</b>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${uiLabelMap.ProductConditionXquantityOfProduct}
                 <form method="post" action="<@ofbizUrl>updateProductPromoCond</@ofbizUrl>">
                   <input type="hidden" name="productPromoId" value="${(productPromoCond.productPromoId)!}"/>
                   <input type="hidden" name="productPromoRuleId" value="${(productPromoCond.productPromoRuleId)!}"/>

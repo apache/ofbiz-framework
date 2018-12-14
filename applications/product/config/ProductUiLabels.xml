@@ -15247,6 +15247,10 @@
         <value xml:lang="zh">条件</value>
         <value xml:lang="zh-TW">條件</value>
     </property>
+    <property key="ProductConditionXquantityOfProduct">
+        <value xml:lang="en">[Note: if you use "X quantity of Product" beware that only the "Is Greater Than" and ""Is Greater Than or Equal to" are used.]</value>
+        <value xml:lang="fr">[Note: si vous utilisez "X quantité de produit", veillez à n'utiliser que les termes "est plus grand que" et "est plus grand que ou égal à".]</value>
+    </property>
     <property key="ProductConditions">
         <value xml:lang="de">Bedingungen</value>
         <value xml:lang="en">Conditions</value>
