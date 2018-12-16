@@ -21,25 +21,6 @@
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
-    <!-- base content CRUD services -->
-    <simple-method method-name="updateContent" short-description="Update a Content Record">
-        <entity-one entity-name="Content" value-field="content" auto-field-map="true"/>
-        <set-nonpk-fields map="parameters" value-field="content"/>
-
-        <now-timestamp field="nowTimestamp"/>
-        <set field="content.lastModifiedByUserLogin" from-field="userLogin.userLoginId"/>
-        <set field="content.lastModifiedDate" from-field="nowTimestamp"/>
-
-        <store-value value-field="content"/>
-        <field-to-result field="content.contentId" result-name="contentId"/>
-    </simple-method>
-    <simple-method method-name="removeContent" short-description="Remove a Content Record">
-        <make-value entity-name="Content" value-field="lookupKeyValue"/>
-        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
-        <find-by-primary-key entity-name="Content" map="lookupKeyValue" value-field="content"/>
-
-        <remove-value value-field="content"/>
-    </simple-method>
     <simple-method method-name="removeContentAndRelated" short-description="Remove a Content Record, related resource(s) and assocs.">
         <entity-one entity-name="Content" value-field="content"/> 
         <if-not-empty field="content">
