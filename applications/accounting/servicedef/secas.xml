@@ -21,6 +21,11 @@ under the License.
 <service-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/service-eca.xsd">
 
+    <eca service="createBudget" event="commit">
+        <set field-name="statusId" value="BG_CREATED"/>
+        <action service="createBudgetStatus" mode="sync" run-as-user="system"/>
+    </eca>
+
     <eca service="createPaymentApplication" event="commit">
         <condition field-name="invoiceId" operator="is-not-empty"/>
         <action service="checkInvoicePaymentApplications" mode="sync"/>

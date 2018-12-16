@@ -25,8 +25,8 @@ under the License.
     <version>1.0</version>
 
     <!-- Budget  -->
-    <service name="createBudget" default-entity-name="Budget" engine="groovy"
-                location="component://accounting/groovyScripts/budget/BudgetServices.groovy" invoke="createBudget" auth="true">
+    <service name="createBudget" default-entity-name="Budget" engine="entity-auto"
+                 invoke="create" auth="true">
         <description>Create a Budget</description>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
