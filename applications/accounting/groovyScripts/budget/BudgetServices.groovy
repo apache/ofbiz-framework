@@ -19,24 +19,6 @@
 
 import org.apache.ofbiz.entity.GenericValue
 
-
-def createBudget() {
-    //create new entity and create all the fields
-    GenericValue newEntity = makeValue('Budget', parameters)
-
-    //create a non existing ID if not supplied
-    newEntity.budgetId = delegator.getNextSeqId('Budget', 1)
-
-    //finally create the record (should not exist already)
-    newEntity.create()
-
-    Map setStatusMap = ['budgetId': newEntity.budgetId]
-    setStatusMap.statusId = 'BG_CREATED'
-    Map result = run service: 'updateBudgetStatus', with: setStatusMap
-    result.budgetId = newEntity.budgetId
-    return result
-}
-
 def updateBudgetStatus() {
     Map result = success()
     List budgetStatuses = from('BudgetStatus').where([budgetId: parameters.budgetId]).orderBy('-statusDate').queryList()
