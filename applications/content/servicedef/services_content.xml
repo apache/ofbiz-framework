@@ -118,8 +118,7 @@
     </service>
 
     <!-- update content services -->
-    <service name="updateContent" engine="simple" auth="true"
-            location="component://content/minilang/content/ContentServices.xml" invoke="updateContent">
+    <service name="updateContent" engine="entity-auto" auth="true" invoke="update">
         <description>Update a Content</description>
         <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
         <implements service="updateContentAssoc" optional="true"/>
@@ -146,8 +145,7 @@
         </group>
     </service>
 
-    <service name="removeContent" default-entity-name="Content" engine="simple"
-            location="component://content/minilang/content/ContentServices.xml" invoke="removeContent" auth="true">
+    <service name="removeContent" default-entity-name="Content" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove Content</description>
         <permission-service service-name="genericContentPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
