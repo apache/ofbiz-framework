@@ -943,9 +943,9 @@ under the License.
     </request-map>
 
     <!-- Create and Upload Party Content -->
-    <request-map uri="CreatePartyContent">
+    <request-map uri="EditPartyContent">
         <security auth="true" https="true"/>
-        <response name="success" type="view" value="CreatePartyContent"/>
+        <response name="success" type="view" value="EditPartyContent"/>
     </request-map>
     <request-map uri="EditPartyContents">
         <security auth="true" https="true"/>
@@ -1411,7 +1411,7 @@ under the License.
     <view-map name="PartyExportCsv" type="screencsv" page="component://party/widget/partymgr/PartyScreens.xml#PartyExportCsv" content-type="text/csv" encoding="none"/>
 
     <view-map name="EditPartyContents" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#EditPartyContents"/>
-    <view-map name="CreatePartyContent" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#CreatePartyContent"/>
+    <view-map name="EditPartyContent" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#EditPartyContent"/>
     <view-map name="editCarrierAccount" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#editCarrierAccount"/>
     <view-map name="partyInvitation" type="screen" page="component://party/widget/partymgr/PartyInvitationScreens.xml#FindPartyInvitations"/>
     <view-map name="editPartyInvitation" type="screen" page="component://party/widget/partymgr/PartyInvitationScreens.xml#EditPartyInvitation"/>

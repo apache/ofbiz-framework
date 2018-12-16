@@ -911,7 +911,7 @@ under the License.
                 <decorator-screen name="CommonPartyDecorator"  location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="button-bar">
-                            <link target="CreatePartyContent" text="${uiLabelMap.CommonCreateNew}" style="smallSubmit">
+                            <link target="EditPartyContent" text="${uiLabelMap.CommonCreateNew}" style="smallSubmit">
                                 <parameter param-name="partyId"/>
                             </link>
                         </container>
@@ -926,7 +926,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="CreatePartyContent">
+    <screen name="EditPartyContent">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleListContent"/>
@@ -938,7 +938,7 @@ under the License.
                 <decorator-screen name="CommonPartyDecorator"  location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="button-bar">
-                            <link target="CreatePartyContent" text="${uiLabelMap.CommonCreateNew}" style="smallSubmit">
+                            <link target="EditPartyContent" text="${uiLabelMap.CommonCreateNew}" style="smallSubmit">
                                 <parameter param-name="partyId"/>
                             </link>
                         </container>
