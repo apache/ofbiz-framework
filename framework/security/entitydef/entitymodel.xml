@@ -112,7 +112,7 @@ under the License.
       <relation type="one" fk-name="USER_LH_USER" rel-entity-name="UserLogin">
         <key-map field-name="userLoginId"/>
       </relation>
-      <relation type="one-nofk" fk-name="ORIG_USER_LH_USER" rel-entity-name="UserLogin">
+      <relation type="one-nofk" fk-name="ORIG_USER_LH_USER" rel-entity-name="UserLogin" title="Origin">
         <key-map field-name="originUserLoginId" rel-field-name="userLoginId"/>
       </relation>
     </entity>
