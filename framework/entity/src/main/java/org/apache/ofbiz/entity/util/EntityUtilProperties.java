@@ -202,6 +202,7 @@ public final class EntityUtilProperties implements Serializable {
             gvList = EntityQuery.use(delegator)
                     .from("SystemProperty")
                     .where("systemResourceId", resourceName)
+                    .cache()
                     .queryList();
             if (UtilValidate.isNotEmpty(gvList)) {
                 for (Iterator<GenericValue> i = gvList.iterator(); i.hasNext();) {
