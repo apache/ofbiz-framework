@@ -945,7 +945,6 @@ public class ServiceDispatcher {
             }
             if (hasPermission.booleanValue()) {
                 context.putAll(permResp);
-                context = origService.makeValid(context, ModelService.IN_PARAM);
             } else {
                 String message = (String) permResp.get("failMessage");
                 if (UtilValidate.isEmpty(message)) {
@@ -962,7 +961,7 @@ public class ServiceDispatcher {
             }
         }
 
-        return context;
+        return origService.makeValid(context, ModelService.IN_PARAM);
     }
 
     // gets a value object from name/password pair
