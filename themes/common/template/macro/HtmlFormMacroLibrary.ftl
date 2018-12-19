@@ -221,7 +221,7 @@ under the License.
       <#list options as item>
         <#if multiple?has_content>
           <option<#if currentValue?has_content && item.selected?has_content> selected="${item.selected}" <#elseif !currentValue?has_content && noCurrentSelectedKey?has_content && noCurrentSelectedKey == item.key> selected="selected" </#if> value="${item.key}">${item.description?replace("&#x5c;&#x27;","&#x27;")}</option><#rt/> <#-- replace("&#x5c;&#x27;","&#x27;") related to OFBIZ-6504 -->
-        <#elseif item.key?has_content && !(item.key == currentValue)>
+        <#else>
           <option<#if currentValue?has_content && currentValue == item.key && dDFCurrent?has_content && "selected" == dDFCurrent> selected="selected"<#elseif !currentValue?has_content && noCurrentSelectedKey?has_content && noCurrentSelectedKey == item.key> selected="selected"</#if> value="${item.key}">${item.description?replace("&#x5c;&#x27;","&#x27;")}</option><#rt/> <#-- replace("&#x5c;&#x27;","&#x27;") related to OFBIZ-6504 -->
         </#if>
       </#list>
