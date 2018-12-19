@@ -2914,24 +2914,9 @@ under the License.
         <field name="partyId" type="id"></field>
         <field name="idByIpContactMechId" type="id"></field>
         <field name="refByWebContactMechId" type="id"></field>
-        <relation type="one" fk-name="SERVER_HIT_PARTY" rel-entity-name="Party">
-            <key-map field-name="partyId"/>
-        </relation>
-        <relation type="one" fk-name="SERVER_HIT_IDBYIP" title="IdByIp" rel-entity-name="ContactMech">
-            <key-map field-name="idByIpContactMechId" rel-field-name="contactMechId"/>
-        </relation>
-        <relation type="one" fk-name="SERVER_HIT_REFWEB" title="RefByWeb" rel-entity-name="ContactMech">
-            <key-map field-name="refByWebContactMechId" rel-field-name="contactMechId"/>
-        </relation>
-        <relation type="one" fk-name="SERVER_HIT_CNT" rel-entity-name="Content">
-            <key-map field-name="internalContentId" rel-field-name="contentId"/>
-        </relation>
     </extend-entity>
     <extend-entity entity-name="ServerHitBin">
         <field name="internalContentId" type="id"></field>
-        <relation type="one" fk-name="SERVER_HBIN_CNT" rel-entity-name="Content">
-            <key-map field-name="internalContentId" rel-field-name="contentId"/>
-        </relation>
     </extend-entity>
     <extend-entity entity-name="Visit">
         <field name="contactMechId" type="id"></field>
