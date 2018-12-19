@@ -193,9 +193,6 @@ under the License.
         <field name="visitorId" type="id"></field>
         <field name="userLoginId" type="id-vlong"></field>
         <prim-key field="visitorId"/>
-        <relation type="one" fk-name="VISITOR_USRLGN" rel-entity-name="UserLogin">
-            <key-map field-name="userLoginId"/>
-        </relation>
     </entity>
 
   <!-- ========================================================= -->
