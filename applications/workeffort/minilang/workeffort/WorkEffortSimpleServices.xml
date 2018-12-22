@@ -692,6 +692,8 @@ under the License.
             </if-empty>
             <set-service-fields service-name="createWorkEffortAssoc"  map="parameters" to-map="createWorkEffortAssocParams"/>
             <call-service in-map-name="createWorkEffortAssocParams" service-name="createWorkEffortAssoc"/>
+            <field-to-result field="createWorkEffortAssocParams.workEffortIdFrom" result-name="workEffortIdFrom"/>
+            <field-to-result field="createWorkEffortAssocParams.workEffortAssocTypeId" result-name="workEffortAssocTypeId"/>
         </else>
         </if-not-empty>
     </simple-method>
