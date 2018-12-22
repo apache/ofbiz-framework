@@ -13165,6 +13165,9 @@
         <value xml:lang="zh">轮流的关键字字典</value>
         <value xml:lang="zh-TW">輪流的關鍵字字典</value>
     </property>
+    <property key="ProductAlreadyInCompareList">
+        <value xml:lang="en">Product ${name} already exist in compare list</value>
+    </property>
     <property key="ProductAmount">
         <value xml:lang="de">Betrag</value>
         <value xml:lang="en">Amount</value>

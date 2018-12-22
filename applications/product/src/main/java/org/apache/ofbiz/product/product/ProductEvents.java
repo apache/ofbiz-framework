@@ -1091,13 +1091,14 @@ public class ProductEvents {
                 break;
             }
         }
+        String productName = ProductContentWrapper.getProductContentAsText(product, "PRODUCT_NAME", request, "string");
         if (!alreadyInList) {
             compareList.add(product);
+            session.setAttribute("productCompareList", compareList);
+            request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage("ProductUiLabels", "ProductAddToCompareListSuccess", UtilMisc.toMap("name", productName), UtilHttp.getLocale(request)));
+        } else {
+            request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage("ProductUiLabels", "ProductAlreadyInCompareList", UtilMisc.toMap("name", productName), UtilHttp.getLocale(request)));
         }
-        session.setAttribute("productCompareList", compareList);
-        String productName = ProductContentWrapper.getProductContentAsText(product, "PRODUCT_NAME", request, "html");
-        String eventMsg = UtilProperties.getMessage("ProductUiLabels", "ProductAddToCompareListSuccess", UtilMisc.toMap("name", productName), UtilHttp.getLocale(request));
-        request.setAttribute("_EVENT_MESSAGE_", eventMsg);
         return "success";
     }
 
