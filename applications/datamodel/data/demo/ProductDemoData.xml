@@ -79,7 +79,12 @@ under the License.
     <!-- Product Demo Data -->
     <Facility facilityId="WebStoreWarehouse" facilityTypeId="WAREHOUSE" facilityName="Web Store Warehouse"
               description="Warehouse exclusively for the Web Store " ownerPartyId="Company"
-              defaultInventoryItemTypeId="NON_SERIAL_INV_ITEM" defaultWeightUomId="WT_lb" defaultDaysToShip="25" geoPointId="9000"/>
+              defaultInventoryItemTypeId="NON_SERIAL_INV_ITEM" defaultWeightUomId="WT_lb" defaultDaysToShip="25" geoPointId="9000" facilityLevel="0"/>
+    <Facility facilityId="RegionalWarehouse1" facilityTypeId="WAREHOUSE" facilityName="Regional Warehouse1" description="Warehouse exclusively for the Web Store " ownerPartyId="Company" defaultInventoryItemTypeId="NON_SERIAL_INV_ITEM" defaultWeightUomId="WT_lb" defaultDaysToShip="25" facilityLevel="1"/>
+    <Facility facilityId="RegionalWarehouse2" facilityTypeId="WAREHOUSE" facilityName="Regional Warehouse2" description="Warehouse exclusively for the Web Store " ownerPartyId="Company" defaultInventoryItemTypeId="NON_SERIAL_INV_ITEM" defaultWeightUomId="WT_lb" defaultDaysToShip="25" facilityLevel="1"/>
+    <Facility facilityId="StoreWarehouse1" facilityTypeId="WAREHOUSE" facilityName="Store Warehouse1" description="Warehouse exclusively for the Web Store " ownerPartyId="Company" defaultInventoryItemTypeId="NON_SERIAL_INV_ITEM" defaultWeightUomId="WT_lb" defaultDaysToShip="25" facilityLevel="2"/>
+    <Facility facilityId="StoreWarehouse2" facilityTypeId="WAREHOUSE" facilityName="Store Warehouse2" description="Warehouse exclusively for the Web Store " ownerPartyId="Company" defaultInventoryItemTypeId="NON_SERIAL_INV_ITEM" defaultWeightUomId="WT_lb" defaultDaysToShip="25" facilityLevel="2"/>
+
     <!-- Limited user demo -->
     <UserLoginSecurityGroup groupId="CATALOGADMIN_LTD" userLoginId="ltdadmin" fromDate="2001-01-01 12:00:00.0"/>
     <UserLoginSecurityGroup groupId="CATALOGADMIN_LTD" userLoginId="ltdadmin1" fromDate="2001-01-01 12:00:00.0"/>

@@ -2173,6 +2173,7 @@ under the License.
       <field name="createdByUserLogin" type="id-vlong"></field>
       <field name="lastModifiedDate" type="date-time"></field>
       <field name="lastModifiedByUserLogin" type="id-vlong"></field>
+      <field name="facilityIdTo" type="id"></field>
       <prim-key field="requirementId"/>
       <relation type="one" fk-name="REQ_TYPE" rel-entity-name="RequirementType">
         <key-map field-name="requirementTypeId"/>

@@ -31,6 +31,7 @@ under the License.
     <MrpEventType mrpEventTypeId="SALES_ORDER_SHIP" description="Sales order shipment"/>
     <MrpEventType mrpEventTypeId="SALES_FORECAST" description="Sales Forecast"/>
     <MrpEventType mrpEventTypeId="ERROR" description="Error"/>
+    <MrpEventType mrpEventTypeId="PROP_TRANSFER_RECP" description="Proposed Transfer receipt"/>
 
     <TechDataCalendarWeek calendarWeekId="SUPPLIER" description="8hours/days, currently the Re-Order Process convert day to mms with 8h/days" mondayStartTime="08:30:00" mondayCapacity="2.88E7" tuesdayStartTime="08:30:00" tuesdayCapacity="2.88E7" wednesdayStartTime="08:30:00" wednesdayCapacity="2.88E7" thursdayStartTime="08:30:00" thursdayCapacity="2.88E7" fridayStartTime="08:30:00" fridayCapacity="2.88E7"/>
     <TechDataCalendar calendarId="SUPPLIER" description="Calendar used for Re-Order date calculation for bought product" calendarWeekId="SUPPLIER"/>

@@ -100,6 +100,7 @@ under the License.
     <RequirementType description="Internal Requirement" hasTable="N" requirementTypeId="INTERNAL_REQUIREMENT"/>
     <RequirementType description="Product Requirement" hasTable="N" requirementTypeId="PRODUCT_REQUIREMENT"/>
     <RequirementType description="Work Requirement" hasTable="N" requirementTypeId="WORK_REQUIREMENT"/>
+    <RequirementType description="Inter Facility Transfer Requirement" requirementTypeId="TRANSFER_REQUIREMENT"/>
 
     <ShoppingListType description="Wish List" shoppingListTypeId="SLT_WISH_LIST"/>
     <ShoppingListType description="Gift Registry" shoppingListTypeId="SLT_GIFT_REG"/>

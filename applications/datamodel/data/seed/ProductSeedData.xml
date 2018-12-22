@@ -426,6 +426,8 @@ under the License.
     <FacilityType description="Retail Store" facilityTypeId="RETAIL_STORE" hasTable="N"/>
     <FacilityType description="Warehouse" facilityTypeId="WAREHOUSE" hasTable="N"/>
 
+    <FacilityAssocType facilityAssocTypeId="BACKUP_WAREHOUSE" description="Facility that serves another facility in terms of inventory"/>
+
     <FacilityGroupType description="Management Structure" facilityGroupTypeId="MGMT_STRUCTURE"/>
     <FacilityGroupType description="Pricing Group" facilityGroupTypeId="PRICING_GROUP"/>
 
@@ -780,4 +782,5 @@ under the License.
     <CustomMethod customMethodId="SHIP_EST_USPS"     customMethodTypeId="SHIP_EST" customMethodName="uspsRateInquire"   description="USPS rate estimate"/>
     <CustomMethod customMethodId="SHIP_EST_USPS_INT" customMethodTypeId="SHIP_EST" customMethodName="uspsInternationalRateInquire"   description="USPS rate estimate international"/>
 
+    <Enumeration description="Direct Store Delivery" enumCode="DIRECT_STORE_DELIVRY" enumId="DIRECT_STORE_DELIVRY" sequenceId="01"/>
 </entity-engine-xml>
