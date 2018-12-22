@@ -186,6 +186,14 @@ under the License.
     <FacilityLocationGeoPoint facilityId="WebStoreWarehouse" locationSeqId="TLTLTLUL02" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
     <FacilityLocationGeoPoint facilityId="WebStoreWarehouse" locationSeqId="TLTLTLLL03" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
     <FacilityLocationGeoPoint facilityId="WebStoreWarehouse" locationSeqId="TLTLTLUL04" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
+    <FacilityLocation facilityId="RegionalWarehouse1" locationSeqId="TLTLTLUL01" locationTypeEnumId="FLT_BULK" areaId="TL" aisleId="TL" sectionId="TL" levelId="UL" positionId="05"/>
+    <FacilityLocation facilityId="RegionalWarehouse1" locationSeqId="TLTLTLUL01" locationTypeEnumId="FLT_PICKLOC" areaId="TL" aisleId="TL" sectionId="TL" levelId="UL" positionId="06"/>
+    <FacilityLocation facilityId="RegionalWarehouse2" locationSeqId="TLTLTLUL01" locationTypeEnumId="FLT_BULK" areaId="TL" aisleId="TL" sectionId="TL" levelId="UL" positionId="05"/>
+    <FacilityLocation facilityId="RegionalWarehouse2" locationSeqId="TLTLTLUL01" locationTypeEnumId="FLT_PICKLOC" areaId="TL" aisleId="TL" sectionId="TL" levelId="UL" positionId="06"/>
+    <FacilityLocation facilityId="StoreWarehouse1" locationSeqId="TLTLTLUL01" locationTypeEnumId="FLT_BULK" areaId="TL" aisleId="TL" sectionId="TL" levelId="UL" positionId="05"/>
+    <FacilityLocation facilityId="StoreWarehouse1" locationSeqId="TLTLTLUL01" locationTypeEnumId="FLT_PICKLOC" areaId="TL" aisleId="TL" sectionId="TL" levelId="UL" positionId="06"/>
+    <FacilityLocation facilityId="StoreWarehouse2" locationSeqId="TLTLTLUL01" locationTypeEnumId="FLT_BULK" areaId="TL" aisleId="TL" sectionId="TL" levelId="UL" positionId="05"/>
+    <FacilityLocation facilityId="StoreWarehouse2" locationSeqId="TLTLTLUL01" locationTypeEnumId="FLT_PICKLOC" areaId="TL" aisleId="TL" sectionId="TL" levelId="UL" positionId="06"/>
 
     <ProductStore productStoreId="9000" storeName="OFBiz E-Commerce Store" companyName="Open For Business" title="Open For Commerce"
                   subtitle="Part of the Apache OFBiz Family of Open Source Software" payToPartyId="Company" daysToCancelNonPay="30" prorateShipping="Y" prorateTaxes="Y"
@@ -274,6 +282,11 @@ under the License.
     <WebAnalyticsConfig webSiteId="WebStore" webAnalyticsTypeId="BING_ANALYTICS" webAnalyticsCode="//--  enter here your analytic script code --"/>
 
     <ProductStoreFacility productStoreId="9000" facilityId="WebStoreWarehouse" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductStoreFacility productStoreId="9000" facilityId="RegionalWarehouse1" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductStoreFacility productStoreId="9000" facilityId="RegionalWarehouse2" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductStoreFacility productStoreId="9000" facilityId="StoreWarehouse1" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductStoreFacility productStoreId="9000" facilityId="StoreWarehouse2" fromDate="2001-05-13 12:00:00.0"/>
+
     <ProductStoreRole partyId="admin" roleTypeId="SALES_REP" productStoreId="9000" fromDate="2001-05-13 12:00:00.0"/>
     <ProductStoreKeywordOvrd productStoreId="9000" keyword="gizmo" fromDate="2001-05-13 12:00:00.0" target="100" targetTypeEnumId="KOTT_PRODCAT"/>
 
@@ -1229,6 +1242,10 @@ under the License.
     <ProductFacility productId="GZ-1001" facilityId="WebStoreWarehouse" minimumStock="2" reorderQuantity="10" daysToShip="1"/>
     <ProductFacility productId="GZ-1004" facilityId="WebStoreWarehouse" minimumStock="2" reorderQuantity="10" daysToShip="1"/>
     <ProductFacility productId="SV-1001" facilityId="WebStoreWarehouse" minimumStock="2" reorderQuantity="10" daysToShip="1"/>
+    <ProductFacility productId="GZ-8544" facilityId="RegionalWarehouse1" minimumStock="20" reorderQuantity="50" daysToShip="1"/>
+    <ProductFacility productId="GZ-8544" facilityId="RegionalWarehouse2" minimumStock="20" reorderQuantity="50" daysToShip="1"/>
+    <ProductFacility productId="GZ-8544" facilityId="StoreWarehouse1" minimumStock="20" reorderQuantity="50" daysToShip="1"/>
+    <ProductFacility productId="GZ-8544" facilityId="StoreWarehouse2" minimumStock="20" reorderQuantity="50" daysToShip="1"/>
 
     <ProductFacilityLocation productId="GZ-2644" facilityId="WebStoreWarehouse" locationSeqId="TLTLTLUL01"/>
     <ProductFacilityLocation productId="GZ-2644" facilityId="WebStoreWarehouse" locationSeqId="TLTLTLLL01" minimumStock="2" moveQuantity="5"/>
@@ -1242,6 +1259,17 @@ under the License.
     <ProductFacilityLocation productId="GZ-1001" facilityId="WebStoreWarehouse" locationSeqId="TLTLTLLL02" minimumStock="5" moveQuantity="20"/>
     <ProductFacilityLocation productId="GZ-1004" facilityId="WebStoreWarehouse" locationSeqId="TLTLTLLL04" minimumStock="5" moveQuantity="20"/>
     <ProductFacilityLocation productId="SV-1001" facilityId="WebStoreWarehouse" locationSeqId="TLTLTLLL04" minimumStock="5" moveQuantity="20"/>
+    <ProductFacilityLocation productId="GZ-8544" facilityId="RegionalWarehouse1" locationSeqId="TLTLTLUL01"/>
+    <ProductFacilityLocation productId="GZ-8544" facilityId="RegionalWarehouse2" locationSeqId="TLTLTLUL01"/>
+    <ProductFacilityLocation productId="GZ-8544" facilityId="StoreWarehouse1" locationSeqId="TLTLTLUL01"/>
+    <ProductFacilityLocation productId="GZ-8544" facilityId="StoreWarehouse2" locationSeqId="TLTLTLUL01"/>
+
+    <ProductFacilityAssoc productId="GZ-8544" facilityId ="StoreWarehouse1" facilityIdTo="RegionalWarehouse1" facilityAssocTypeId="BACKUP_WAREHOUSE" sequenceNum="01" fromDate="2001-01-01 12:00:00" transitTime="03"/>
+    <ProductFacilityAssoc productId="GZ-8544" facilityId ="RegionalWarehouse1" facilityIdTo="WebStoreWarehouse" facilityAssocTypeId="BACKUP_WAREHOUSE" sequenceNum="01" fromDate="2001-01-01 12:00:00" transitTime="03"/>
+    <ProductFacilityAssoc productId="GZ-8544" facilityId ="StoreWarehouse1" facilityIdTo="WebStoreWarehouse" facilityAssocTypeId="BACKUP_WAREHOUSE" sequenceNum="01" fromDate="2001-01-01 12:00:00" transitTime="00"/>
+    <ProductFacilityAssoc productId="GZ-8544" facilityId ="StoreWarehouse2" facilityIdTo="RegionalWarehouse2" facilityAssocTypeId="BACKUP_WAREHOUSE" sequenceNum="01" fromDate="2001-01-01 12:00:00" transitTime="00"/>
+    <ProductFacilityAssoc productId="GZ-8544" facilityId ="RegionalWarehouse2" facilityIdTo="WebStoreWarehouse" facilityAssocTypeId="BACKUP_WAREHOUSE" sequenceNum="01" fromDate="2001-01-01 12:00:00" transitTime="03"/>
+    <ProductFacilityAssoc productId="GZ-8544" facilityId ="StoreWarehouse2" facilityIdTo="WebStoreWarehouse" facilityAssocTypeId="BACKUP_WAREHOUSE" sequenceNum="01" fromDate="2001-01-01 12:00:00" transitTime="03"/>
 
     <!-- some default inventory quantities, things are a bit underutilized without these... -->
     <InventoryItem facilityId="WebStoreWarehouse" locationSeqId="TLTLTLUL01" datetimeReceived="2008-08-01 08:00:00.000"
@@ -1293,6 +1321,18 @@ under the License.
     <InventoryItem facilityId="WebStoreWarehouse" inventoryItemId="9028" inventoryItemTypeId="NON_SERIAL_INV_ITEM" datetimeReceived="2008-08-01 08:00:00.000" productId="GZ-1004" ownerPartyId="Company" currencyUomId="USD" unitCost="2.4"/>
     <InventoryItemDetail inventoryItemId="9028" inventoryItemDetailSeqId="0001" effectiveDate="2001-05-13 12:00:00.0" availableToPromiseDiff="8" quantityOnHandDiff="8" accountingQuantityDiff="8"/>
 
+    <InventoryItem facilityId="RegionalWarehouse1" locationSeqId="TLTLTLUL01" datetimeReceived="2008-08-01 08:00:00.000"
+                   inventoryItemId="GZ9001" inventoryItemTypeId="NON_SERIAL_INV_ITEM" productId="GZ-8544" ownerPartyId="Company" currencyUomId="USD" unitCost="3.0"/>
+    <InventoryItemDetail inventoryItemId="GZ9001" inventoryItemDetailSeqId="0001" effectiveDate="2001-05-13 12:00:00.0" availableToPromiseDiff="100" quantityOnHandDiff="100" accountingQuantityDiff="100"/>
+    <InventoryItem facilityId="RegionalWarehouse2" locationSeqId="TLTLTLUL01" datetimeReceived="2008-08-01 08:00:00.000"
+                   inventoryItemId="GZ9002" inventoryItemTypeId="NON_SERIAL_INV_ITEM" productId="GZ-8544" ownerPartyId="Company" currencyUomId="USD" unitCost="3.0"/>
+    <InventoryItemDetail inventoryItemId="GZ9002" inventoryItemDetailSeqId="0001" effectiveDate="2001-05-13 12:00:00.0" availableToPromiseDiff="100" quantityOnHandDiff="100" accountingQuantityDiff="100"/>
+    <InventoryItem facilityId="StoreWarehouse1" locationSeqId="TLTLTLUL01" datetimeReceived="2008-08-01 08:00:00.000"
+                   inventoryItemId="GZ9003" inventoryItemTypeId="NON_SERIAL_INV_ITEM" productId="GZ-8544" ownerPartyId="Company" currencyUomId="USD" unitCost="3.0"/>
+    <InventoryItemDetail inventoryItemId="GZ9003" inventoryItemDetailSeqId="0001" effectiveDate="2001-05-13 12:00:00.0" availableToPromiseDiff="100" quantityOnHandDiff="100" accountingQuantityDiff="100"/>
+    <InventoryItem facilityId="StoreWarehouse2" locationSeqId="TLTLTLUL01" datetimeReceived="2008-08-01 08:00:00.000"
+                   inventoryItemId="GZ9003" inventoryItemTypeId="NON_SERIAL_INV_ITEM" productId="GZ-8544" ownerPartyId="Company" currencyUomId="USD" unitCost="3.0"/>
+    <InventoryItemDetail inventoryItemId="GZ9003" inventoryItemDetailSeqId="0001" effectiveDate="2001-05-13 12:00:00.0" availableToPromiseDiff="100" quantityOnHandDiff="100" accountingQuantityDiff="100"/>
 
     <!-- Some additional test promotions -->
     <!-- GWP example on >$100 purchase -->
