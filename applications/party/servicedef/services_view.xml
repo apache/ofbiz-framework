@@ -104,6 +104,7 @@ under the License.
         <attribute name="partyRelationshipTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="ownerPartyIds" type="List" mode="IN" optional="true"/><!-- Lead Owners Parties -->
         <attribute name="sortField" type="String" mode="IN" optional="true"/>
+        <attribute name="partyClassificationGroupId" type="String" mode="IN" optional="true"/>
 
         <attribute name="listIt" type="org.apache.ofbiz.entity.util.EntityListIterator" mode="OUT" optional="true"/>
     </service>

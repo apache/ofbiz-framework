@@ -1415,6 +1415,22 @@ public class PartyServices {
         }
 
         // ----
+        // PartyClassificationGroup Fields
+        // ----
+
+        String partyClassificationGroupId = (String) context.get("partyClassificationGroupId");
+        if (UtilValidate.isNotEmpty(partyClassificationGroupId)) {
+            // add PartyClassification to view
+            dynamicView.addMemberEntity("PC", "PartyClassification");
+            dynamicView.addAlias("PC", "partyClassificationGroupId");
+            dynamicView.addViewLink("PT", "PC", Boolean.FALSE, ModelKeyMap.makeKeyMapList("partyId"));
+
+            // add the expr
+            andExprs.add(EntityCondition.makeCondition("partyClassificationGroupId", partyClassificationGroupId));
+            fieldsToSelect.add("partyClassificationGroupId");
+        }
+
+        // ----
         // PartyIdentification Fields
         // ----
 
