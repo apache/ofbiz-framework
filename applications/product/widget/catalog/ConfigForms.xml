@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="FindProductConfigItems" type="list" list-name="listIt"
         default-table-style="basic-table" odd-row-style="alternate-row" paginate-target="FindProductConfigItems"
@@ -219,7 +219,7 @@ under the License.
         default-table-style="basic-table" odd-row-style="alternate-row" paginate-target="FindProductConfigItems"
         target="" header-row-style="header-row-2" paginate="true">
         <auto-fields-entity entity-name="ProductConfigOption" default-field-type="display"/>
-        <field name="configItemId" widget-style="buttontext" title="${uiLabelMap.ProductConfigItem}">
+        <field name="configItemId" widget-style="buttontext" title="${uiLabelMap.ProductConfigOption}">
             <hyperlink description="${configOptionId} - ${configOptionName}" target="EditProductConfigOptions">
                 <parameter param-name="configItemId"/>
                 <parameter param-name="configOptionId"/>

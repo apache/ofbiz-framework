@@ -15364,6 +15364,9 @@
         <value xml:lang="zh">配置明细被找到了</value>
         <value xml:lang="zh-TW">配置細項被找到了</value>
     </property>
+    <property key="ProductConfigOption">
+        <value xml:lang="en">Config Option</value>
+    </property>
     <property key="ProductConfigOptionList">
         <value xml:lang="de">Konfigurationsoptionen Liste</value>
         <value xml:lang="en">Config Option List</value>
