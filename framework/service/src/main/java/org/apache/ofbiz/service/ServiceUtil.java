@@ -64,25 +64,18 @@ public final class ServiceUtil {
 
     /** A little short-cut method to check to see if a service returned an error */
     public static boolean isError(Map<String, ? extends Object> results) {
-        if (results == null || results.get(ModelService.RESPONSE_MESSAGE) == null) {
-            return false;
-        }
-        return ModelService.RESPOND_ERROR.equals(results.get(ModelService.RESPONSE_MESSAGE));
+        return !(results == null || results.get(ModelService.RESPONSE_MESSAGE) == null) &&
+                ModelService.RESPOND_ERROR.equals(results.get(ModelService.RESPONSE_MESSAGE));
     }
 
     public static boolean isFailure(Map<String, ? extends Object> results) {
-        if (results == null || results.get(ModelService.RESPONSE_MESSAGE) == null) {
-            return false;
-        }
-        return ModelService.RESPOND_FAIL.equals(results.get(ModelService.RESPONSE_MESSAGE));
+        return !(results == null || results.get(ModelService.RESPONSE_MESSAGE) == null) &&
+                ModelService.RESPOND_FAIL.equals(results.get(ModelService.RESPONSE_MESSAGE));
     }
 
     /** A little short-cut method to check to see if a service was successful (neither error or failed) */
     public static boolean isSuccess(Map<String, ? extends Object> results) {
-        if (ServiceUtil.isError(results) || ServiceUtil.isFailure(results)) {
-            return false;
-        }
-        return true;
+        return !(ServiceUtil.isError(results) || ServiceUtil.isFailure(results));
     }
 
     /** A small routine used all over to improve code efficiency, make a result map with the message and the error response code */
