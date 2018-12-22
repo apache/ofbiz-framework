@@ -290,6 +290,7 @@ under the License.
              the form it is extending (results in two workEffortId fields in the form)
         <field name="workEffortId"><hidden value=""/></field>
         -->
+        <alt-target use-when="workEffort==null" target="createWorkEffortAndAssoc"/>
         <field name="workEffortIdFrom"><display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName} [${workEffortId}]"/></field>
         <field name="workEffortIdTo"><lookup target-form-name="LookupWorkEffort"/></field>
         <field name="workEffortAssocTypeId">
