@@ -15232,6 +15232,9 @@
         <value xml:lang="zh">配置选项</value>
         <value xml:lang="zh-TW">配置選項</value>
     </property>
+    <property key="ProductConfigOption">
+        <value xml:lang="en">Config Option</value>
+    </property>
     <property key="ProductConfigs">
         <value xml:lang="de">Konfigurationen</value>
         <value xml:lang="en">Configurations</value>
