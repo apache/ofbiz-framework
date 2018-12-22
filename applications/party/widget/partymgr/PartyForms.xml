@@ -80,8 +80,8 @@ under the License.
         </field>
         <field name="partyClassificationGroupId" title="${uiLabelMap.PartyClassificationGroup}" use-when="parentTypeId == null">
             <drop-down allow-multiple="true" size="5" allow-empty="false">
-                <entity-options entity-name="PartyClassificationGroupAndType" description="${typeDescription}" key-field-name="partyClassificationTypeId">
-                    <entity-order-by field-name="partyClassificationTypeId"/>
+                <entity-options entity-name="PartyClassificationGroupAndType" description="${typeDescription}" key-field-name="partyClassificationGroupId">
+                    <entity-order-by field-name="partyClassificationGroupId"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -148,6 +148,7 @@ under the License.
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>
+        <field name="ClassificationGroup"><display description="${parameters.partyClassificationGroupId}"/></field>
         <field name="userLoginId" use-when="userLoginSize > 1"><include-grid name="ListPartyUserLogin" location="component://party/widget/partymgr/PartyForms.xml"/></field>
         <field name="userLoginId" use-when="userLoginSize == 1"><display description="${logins[0].userLoginId}"/></field>
         <field name="userLoginId" use-when="userLoginSize == 0"><display description="(${uiLabelMap.CommonNone})"/></field>
