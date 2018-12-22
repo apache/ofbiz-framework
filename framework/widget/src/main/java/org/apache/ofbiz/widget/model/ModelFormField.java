@@ -1591,7 +1591,7 @@ public class ModelFormField {
                     Debug.logError(e, errMsg, module);
                     throw new IllegalArgumentException(errMsg);
                 }
-            } else if ("date".equals(this.type) && retVal.length() > 10) {
+            } else if ("date".equals(this.type) && retVal.length() > 9) {
                 Locale locale = (Locale) context.get("locale");
                 if (locale == null) {
                     locale = Locale.getDefault();
