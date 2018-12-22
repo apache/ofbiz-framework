@@ -24,10 +24,10 @@ under the License.
         <tr>
           <td>
               <#if postalAddress?has_content>
-              <form method="post" action="<@ofbizUrl>updatePostalAddressOrderEntry</@ofbizUrl>" name="checkoutsetupform">
+              <form method="post" action="<@ofbizUrl>updatePostalAddressOrderEntry</@ofbizUrl>" id="checkoutsetupform" name="checkoutsetupform">
                 <input type="hidden" name="contactMechId" value="${shipContactMechId!}"/>
               <#else>
-              <form method="post" action="<@ofbizUrl>createPostalAddress</@ofbizUrl>" name="checkoutsetupform">
+              <form method="post" action="<@ofbizUrl>createPostalAddress</@ofbizUrl>" id="checkoutsetupform" name="checkoutsetupform">
                 <input type="hidden" name="contactMechTypeId" value="POSTAL_ADDRESS"/>
                 <input type="hidden" name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
               </#if>
@@ -85,7 +85,7 @@ under the License.
                     <td width="26%" align="right" valign="top"><div>${uiLabelMap.CommonStateProvince}</div></td>
                     <td width="5">&nbsp;</td>
                     <td width="74%">
-                      <select name="stateProvinceGeoId">
+                      <select id="checkoutsetupform_stateProvinceGeoId" name="stateProvinceGeoId">
                         <option value=""></option>
                         ${screens.render("component://common/widget/CommonScreens.xml#states")}
                       </select>
@@ -102,7 +102,7 @@ under the License.
                     <td width="26%" align="right" valign="top"><div>${uiLabelMap.CommonCountry}</div></td>
                     <td width="5">&nbsp;</td>
                     <td width="74%">
-                      <select name="countryGeoId">
+                      <select id="checkoutsetupform_countryGeoId" name="countryGeoId">
                         ${screens.render("component://common/widget/CommonScreens.xml#countries")}
                       </select>
                     *</td>
