@@ -228,7 +228,7 @@ function makeExpDate() {
               <td width="26%" align="right" valign="top"><div>${uiLabelMap.CommonStateProvince}</div></td>
               <td width="5">&nbsp;</td>
               <td width="74%">
-                <select name="stateProvinceGeoId" <#if requestParameters.useShipAddr??>disabled="disabled"</#if>>
+                <select id="checkoutsetupform_stateProvinceGeoId" name="stateProvinceGeoId" <#if requestParameters.useShipAddr??>disabled="disabled"</#if>>
                   <#if postalFields.stateProvinceGeoId??>
                   <option>${postalFields.stateProvinceGeoId}</option>
                   <option value="${postalFields.stateProvinceGeoId}">---</option>
@@ -249,7 +249,7 @@ function makeExpDate() {
               <td width="26%" align="right" valign="top"><div>${uiLabelMap.CommonCountry}</div></td>
               <td width="5">&nbsp;</td>
               <td width="74%">
-                <select name="countryGeoId" <#if requestParameters.useShipAddr??>disabled="disabled"</#if>>
+                <select id="checkoutsetupform_countryGeoId" name="countryGeoId" <#if requestParameters.useShipAddr??>disabled="disabled"</#if>>
                   <#if postalFields.countryGeoId??>
                   <option>${postalFields.countryGeoId}</option>
                   <option value="${postalFields.countryGeoId}">---</option>

@@ -106,6 +106,15 @@ under the License.
     <screen name="EditShipAddress">
         <section>
             <actions>
+                <set field="dependentForm" value="checkoutsetupform"/>
+                <set field="mainId" value="countryGeoId"/>
+                <set field="paramKey" value="countryGeoId"/>
+                <set field="dependentId" value="stateProvinceGeoId"/>
+                <set field="requestName" value="getAssociatedStateList"/>
+                <set field="responseName" value="stateList"/>
+                <set field="dependentKeyName" value="geoId"/>
+                <set field="descName" value="geoName"/>
+                <set field="selectedDependentOption" default-value="_none_"/>
                 <set field="stepTitleId" value="OrderOrderEntryShipToSettings"/>
                 <set field="stepLabelId" value="FacilityShipping"/>
                 <script location="component://order/groovyScripts/entry/ShipSettings.groovy"/>
@@ -113,6 +122,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonOrderCheckoutDecorator">
                     <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://common-theme/template/includes/SetDependentDropdownValuesJs.ftl"/></html></platform-specific>
                         <platform-specific>
                             <html><html-template location="component://order/template/entry/EditShipAddress.ftl"/></html>
                         </platform-specific>
@@ -161,6 +171,15 @@ under the License.
     <screen name="BillSettings">
         <section>
             <actions>
+                <set field="dependentForm" value="checkoutsetupform"/>
+                <set field="mainId" value="countryGeoId"/>
+                <set field="paramKey" value="countryGeoId"/>
+                <set field="dependentId" value="stateProvinceGeoId"/>
+                <set field="requestName" value="getAssociatedStateList"/>
+                <set field="responseName" value="stateList"/>
+                <set field="dependentKeyName" value="geoId"/>
+                <set field="descName" value="geoName"/>
+                <set field="selectedDependentOption" default-value="_none_"/>
                 <set field="stepTitleId" value="OrderOrderEntryPaymentSettings"/>
                 <set field="stepLabelId" value="AccountingPayment"/>
                 <script location="component://order/groovyScripts/entry/BillSettings.groovy"/>
@@ -169,6 +188,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonOrderCheckoutDecorator">
                     <decorator-section name="body">
+                      <platform-specific><html><html-template location="component://common-theme/template/includes/SetDependentDropdownValuesJs.ftl"/></html></platform-specific>
                       <platform-specific>
                             <html><html-template location="component://order/template/entry/BillSettings.ftl"/></html>
                         </platform-specific>
