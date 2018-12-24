@@ -1929,10 +1929,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         } catch (GenericEntityException e) {
             Debug.logInfo(e, "Problems getting PaymentMethodType", module);
         }
-        if (paymentMethodType == null) {
-            return false;
-        }
-        return true;
+        return paymentMethodType != null;
     }
 
     public GenericValue getBillingAddress() {
@@ -1985,10 +1982,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         try {
             GenericValue giftCertSettings = getGiftCertSettingFromStore(delegator);
             if (giftCertSettings != null) {
-                if ("Y".equals(giftCertSettings.getString("validateGCFinAcct"))) {
-                    return true;
-                }
-                return false;
+                return "Y".equals(giftCertSettings.getString("validateGCFinAcct"));
             }
             Debug.logWarning("No product store gift certificate settings found for store [" + getProductStoreId() + "]",
                     module);
