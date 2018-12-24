@@ -1070,12 +1070,7 @@ public final class UtilValidate {
      * @return true, if the number passed simple checks
      */
     public static boolean isGiftCard(String stPassed) {
-        if (isOFBGiftCard(stPassed)) {
-            return true;
-        } else if (isValueLinkCard(stPassed)) {
-            return true;
-        }
-        return false;
+        return isOFBGiftCard(stPassed) || isValueLinkCard(stPassed);
     }
 
     public static int getLuhnSum(String stPassed) {
