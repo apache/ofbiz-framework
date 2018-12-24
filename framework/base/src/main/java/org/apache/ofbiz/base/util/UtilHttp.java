@@ -1515,10 +1515,7 @@ public final class UtilHttp {
 
         String spiderRequest = (String) request.getAttribute("_REQUEST_FROM_SPIDER_");
         if (UtilValidate.isNotEmpty(spiderRequest)) {
-            if ("Y".equals(spiderRequest)) {
-                return true;
-            }
-            return false;
+            return "Y".equals(spiderRequest);
         }
         String initialUserAgent = request.getHeader("User-Agent") != null ? request.getHeader("User-Agent") : "";
         List<String> spiderList = StringUtil.split(UtilProperties.getPropertyValue("url", "link.remove_lsessionid.user_agent_list"), ",");
