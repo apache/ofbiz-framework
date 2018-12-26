@@ -1551,10 +1551,7 @@ public final class UtilHttp {
     public static boolean isJavaScriptEnabled(HttpServletRequest request) {
         HttpSession session = request.getSession();
         Boolean javaScriptEnabled = (Boolean) session.getAttribute("javaScriptEnabled");
-        if (javaScriptEnabled != null) {
-            return javaScriptEnabled;
-        }
-        return false;
+        return javaScriptEnabled != null ? javaScriptEnabled : false;
     }
 
     /** Returns the number or rows submitted by a multi form.
