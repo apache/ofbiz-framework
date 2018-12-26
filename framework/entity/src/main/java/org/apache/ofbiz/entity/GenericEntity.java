@@ -403,10 +403,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
             }
             fieldKeys.remove(fieldName);
         }
-        if (!fieldKeys.isEmpty()) {
-            return false;
-        }
-        return true;
+        return fieldKeys.isEmpty();
     }
 
     /** Returns true if the entity contains all of the primary key fields. */
