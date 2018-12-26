@@ -292,12 +292,10 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
         }
 
         try {
-            if (resultSet.isLast() || resultSet.isAfterLast()) {
-                return false;
-            }
             // do a quick game to see if the resultSet is empty:
             // if we are not in the first or beforeFirst positions and we haven't made any values yet, the result set is empty so return false
-            return haveMadeValue || resultSet.isBeforeFirst() || resultSet.isFirst();
+            return !(resultSet.isLast() || resultSet.isAfterLast())
+                    && (haveMadeValue || resultSet.isBeforeFirst() || resultSet.isFirst());
         } catch (SQLException e) {
             tryCloseWithWarning("Warning: auto-closed EntityListIterator because of exception: " + e.toString());
             throw new GeneralRuntimeException("Error while checking to see if this is the last result", e);
@@ -310,13 +308,10 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
      */
     public boolean hasPrevious() {
         try {
-            if (resultSet.isFirst() || resultSet.isBeforeFirst()) {
-                return false;
-            }
             // do a quick game to see if the resultSet is empty:
             // if we are not in the first or beforeFirst positions and we haven't made any values yet, the result set is
             // empty so return false
-            return haveMadeValue || resultSet.isAfterLast() || resultSet.isLast();
+            return !(resultSet.isFirst() || resultSet.isBeforeFirst()) && (haveMadeValue || resultSet.isAfterLast() || resultSet.isLast());
         } catch (SQLException e) {
             tryCloseWithWarning("Warning: auto-closed EntityListIterator because of exception: " + e.toString());
             throw new GeneralRuntimeException("Error while checking to see if this is the first result", e);
