@@ -1510,10 +1510,7 @@ public class TemporalExpressions implements Serializable {
 
         @Override
         public boolean includesDate(Calendar cal) {
-            if (this.included.includesDate(cal)) {
-                return true;
-            }
-            return this.substitute.isSubstitutionCandidate(cal, this.excluded);
+            return this.included.includesDate(cal) || this.substitute.isSubstitutionCandidate(cal, this.excluded);
         }
 
         @Override
