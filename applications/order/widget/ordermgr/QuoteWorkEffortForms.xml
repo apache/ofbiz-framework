@@ -47,7 +47,7 @@ under the License.
         </field>
     </form>
 
-    <form name="AddQuoteWorkEffort" extends="EditWorkEffort" extends-resource="component://workeffort/widget/WorkEffortForms.xml" target="/ordermgr/control/ensureWorkEffortAndCreateQuoteWorkEffort" target-type="inter-app" title="" type="single"
+    <form name="AddQuoteWorkEffort" extends="EditWorkEffort" extends-resource="component://workeffort/widget/WorkEffortForms.xml" target="/ordermgr/control/createQuoteWorkEffort" target-type="inter-app" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
 
         <field name="quoteId" map-name="parameters"><display/></field>

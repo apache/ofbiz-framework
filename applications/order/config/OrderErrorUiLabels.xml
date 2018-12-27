@@ -3181,6 +3181,14 @@
         <value xml:lang="zh">快速添加订单明细</value>
         <value xml:lang="zh-TW">快速添加訂單明細</value>
     </property>
+    <property key="OrderQuoteGetNextIdError">
+        <value xml:lang="en">Error during id creation</value>
+        <value xml:lang="fr">Erreur durant la création de l'ID.</value>
+    </property>
+    <property key="OrderQuoteIdAlreadyExists">
+        <value xml:lang="en">ERROR: Quote with ID ${quoteId} already exists</value>
+        <value xml:lang="fr">ERREUR : Un devis avec la référence ${quoteId} existe déjà.</value>
+    </property>
     <property key="OrderQuotePercent">
         <value xml:lang="ar">نسبة عرض السعر</value>
         <value xml:lang="de">Angebotsprozente</value>

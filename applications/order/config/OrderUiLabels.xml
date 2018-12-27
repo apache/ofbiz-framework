@@ -9014,6 +9014,7 @@
     </property>
     <property key="OrderOrderQuoteUpdatedSuccessfully">
         <value xml:lang="en">Quote updated successfully.</value>
+        <value xml:lang="fr">Le devis a été mis à jour avec succès.</value>
     </property>
     <property key="OrderOrderQuoteViewProfit">
         <value xml:lang="ar">مشاهدة ربحية عرض السعر</value>

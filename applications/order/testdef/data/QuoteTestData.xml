@@ -20,6 +20,25 @@ under the License.
 
 <entity-engine-xml>
     <Quote quoteId="9000" quoteTypeId="PRODUCT_QUOTE" partyId="DemoCustomer" issueDate="2009-12-11 12:00:00.000" statusId="QUO_CREATED" currencyUomId="USD" productStoreId="9000" salesChannelEnumId="EMAIL_SALES_CHANNEL" validFromDate="2009-12-11 12:00:00.000" quoteName="Most competitive quote ever"/>
-    <QuoteItem quoteId="9000" quoteItemSeqId="00001" productId="GZ-1001"/>
+    <QuoteItem quoteId="9000" quoteItemSeqId="00001" productId="GZ-1001" quantity="1"/>
+    <QuoteItem quoteId="9000" quoteItemSeqId="00002" productId="GZ-2644" quantity="1"/>
+    <QuoteItem quoteId="9000" quoteItemSeqId="00003" productId="GZ-1001" quantity="1"/>
     <WorkEffort workEffortId="9007" workEffortTypeId="TASK" workEffortName="Quote WorkEffort"/>
+    <QuoteTerm quoteId="9000" quoteItemSeqId="00002" termTypeId="FIN_PAYMENT_DISC" termValue="10" termDays="5" uomId="CNY" description="Update test term"/>
+    <QuoteTerm quoteId="9000" quoteItemSeqId="00003" termTypeId="FIN_PAYMENT_DISC" termValue="5" termDays="7" uomId="CNY" description="Delete test term"/>
+    <Quote quoteId="9001" quoteTypeId="PRODUCT_QUOTE" partyId="DemoCustomer" issueDate="2009-12-11 12:00:00.000" statusId="QUO_CREATED" currencyUomId="USD" productStoreId="9000" salesChannelEnumId="EMAIL_SALES_CHANNEL" validFromDate="2009-12-11 12:00:00.000" quoteName="Most competitive quote ever"/>
+    <QuoteItem quoteId="9001" quoteItemSeqId="00001" productId="GZ-1005" quantity="1"/>
+    <QuoteAdjustment quoteAdjustmentId="9001" quoteId="9001" quoteItemSeqId="00001" quoteAdjustmentTypeId="SALES_TAX" amount="2"/>
+    <PartyAcctgPreference partyId="DemoCustomer" quoteSeqCustMethId="QUOTE_HOOK_ENF_SEQ"/>
+    <CustRequest custRequestId="9000" custRequestDate="2008-07-28 09:45:31.928" custRequestTypeId="RF_QUOTE" statusId="CRQ_SUBMITTED" fromPartyId="DemoCustomer" priority="9" custRequestName="Customer Request Usage" description="Demo CustRequest" productStoreId="9000"/>
+    <CustRequestItem custRequestId="9000" statusId="CRQ_SUBMITTED" custRequestItemSeqId="00001" productId="GZ-1001" story="This can be the longer story of an item on the customer request."/>
+    <ShoppingList shoppingListId="9000" shoppingListTypeId="SLT_WISH_LIST" productStoreId="9000" currencyUom="USD" isActive="Y" isPublic="N" listName="Test Shopping List" partyId="DemoCustomer"/>
+    <ShoppingListItem shoppingListId="9000" shoppingListItemSeqId="00001" productId="SV-1001" quantity="1.000000"/>
+    <ProductPromo productPromoId="9010" promoName="Test Percent off product set " promoText="20% off any one item, either GZ-1005 (.NIT Gizmo) or GZ-1006 (Open Gizmo) with a limit of 1 per order" userEntered="Y" showToCustomer="Y" requireCode="N" useLimitPerOrder="1" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+
+    <ProductPromoRule productPromoId="9010" productPromoRuleId="01" ruleName="Test Percent off rule"/><ProductPromoAction productPromoId="9010" productPromoRuleId="01" productPromoActionSeqId="01" productPromoActionEnumId="PROMO_PROD_DISC" orderAdjustmentTypeId="PROMOTION_ADJUSTMENT" quantity="1.0" amount="20.0"/>
+    <ProductPromoProduct productPromoId="9010" productPromoRuleId="01" productPromoActionSeqId="01" productPromoCondSeqId="_NA_" productId="GZ-1005" productPromoApplEnumId="PPPA_INCLUDE"/>
+    <ProductPromoProduct productPromoId="9010" productPromoRuleId="_NA_" productPromoActionSeqId="_NA_" productPromoCondSeqId="_NA_" productId="GZ-1006" productPromoApplEnumId="PPPA_INCLUDE"/>
+    <ProductStorePromoAppl productStoreId="9000" productPromoId="9010" fromDate="2001-05-13 12:00:00.0" sequenceNum="5"/>
+
 </entity-engine-xml>
