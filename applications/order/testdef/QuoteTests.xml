@@ -25,8 +25,9 @@ under the License.
     <test-case case-name="loadQuoteTestData">
         <entity-xml action="load" entity-xml-url="component://order/testdef/data/QuoteTestData.xml"/>
     </test-case>
-
-    <test-case case-name="quote-tests">
-        <simple-method-test location="component://order/minilang/test/QuoteTests.xml"/>
+    <!-- <test-case case-name="quote-tests"> <simple-method-test location="component://order/minilang/test/QuoteTests.xml"/> 
+        </test-case> -->
+     <test-case case-name="quoteTests">
+        <groovy-test-suite name="quoteTests" location="component://order/groovyScripts/test/QuoteTests.groovy"/>
     </test-case>
 </test-suite>
