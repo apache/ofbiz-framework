@@ -1428,14 +1428,19 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="ProductFacility" package-name="org.apache.ofbiz.product.facility" title="Product Facility">
-        <field name="productId" type="id"></field>
-        <field name="facilityId" type="id"></field>
-        <field name="minimumStock" type="fixed-point"></field>
-        <field name="reorderQuantity" type="fixed-point"></field>
-        <field name="daysToShip" type="numeric"></field>
-        <field name="replenishMethodEnumId" type="id"></field>
-        <field name="lastInventoryCount" type="fixed-point"><description>This field represents availableToPromiseTotal of a product at a certain point of time and is being updated regularly by a schedule service every hour</description></field>
-        <field name="requirementMethodEnumId" type="id"></field>
+        <field name="productId" type="id"/>
+        <field name="facilityId" type="id"/>
+        <field name="minimumStock" type="fixed-point"/>
+        <field name="reorderQuantity" type="fixed-point"/>
+        <field name="daysToShip" type="numeric"/>
+        <field name="replenishMethodEnumId" type="id"/>
+        <field name="lastInventoryCount" type="fixed-point">
+            <description>
+                This field represents availableToPromiseTotal of a product at a certain point of time and is
+                being updated regularly by a schedule service every hour
+            </description>
+        </field>
+        <field name="requirementMethodEnumId" type="id"/>
         <prim-key field="productId"/>
         <prim-key field="facilityId"/>
         <relation type="one" fk-name="PROD_FAC_PROD" rel-entity-name="Product">
@@ -1444,10 +1449,10 @@ under the License.
         <relation type="one" fk-name="PROD_FAC_FAC" rel-entity-name="Facility">
             <key-map field-name="facilityId"/>
         </relation>
-        <relation type="one" fk-name="PROD_FAC_ENUM" title="RequirementMethod" rel-entity-name="Enumeration">
+        <relation type="one" fk-name="PROD_FAC_REQ" title="RequirementMethod" rel-entity-name="Enumeration">
             <key-map field-name="requirementMethodEnumId" rel-field-name="enumId"/>
         </relation>
-        <relation type="one" fk-name="PROD_FAC_ENUM" rel-entity-name="Enumeration">
+        <relation type="one" fk-name="PROD_FAC_REP" rel-entity-name="Enumeration">
             <key-map field-name="replenishMethodEnumId" rel-field-name="enumId"/>
         </relation>
     </entity>
