@@ -154,10 +154,8 @@ public abstract class EntityComparisonOperator<L, R> extends EntityOperator<L, R
             rightValue = rhs;
         }
 
-        if (leftValue == WILDCARD || rightValue == WILDCARD) {
-            return true;
-        }
-        return compare(UtilGenerics.<L>cast(leftValue), UtilGenerics.<R>cast(rightValue));
+        return leftValue == WILDCARD || rightValue == WILDCARD
+                || compare(UtilGenerics.<L>cast(leftValue), UtilGenerics.<R>cast(rightValue));
     }
 
     @Override

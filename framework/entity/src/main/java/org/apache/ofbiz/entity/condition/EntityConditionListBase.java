@@ -94,8 +94,7 @@ public abstract class EntityConditionListBase<T extends EntityCondition> extends
         }
         EntityConditionListBase<?> other = UtilGenerics.cast(obj);
 
-        boolean isEqual = conditionList.equals(other.conditionList) && operator.equals(other.operator);
-        return isEqual;
+        return conditionList.equals(other.conditionList) && operator.equals(other.operator);
     }
 
     @Override
