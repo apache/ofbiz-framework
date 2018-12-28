@@ -111,16 +111,8 @@ public class EntityFieldValue extends EntityConditionValue {
             return false;
         }
         EntityFieldValue otherValue = (EntityFieldValue) obj;
-        if (!fieldName.equals(otherValue.fieldName)) {
-            return false;
-        }
-        if (UtilMisc.compare(this.entityAlias, otherValue.entityAlias) != 0) {
-            return false;
-        }
-        if (UtilMisc.compare(this.entityAliasStack, otherValue.entityAliasStack) != 0) {
-            return false;
-        }
-        return true;
+        return fieldName.equals(otherValue.fieldName) && !(UtilMisc.compare(this.entityAlias, otherValue.entityAlias) != 0)
+                && !(UtilMisc.compare(this.entityAliasStack, otherValue.entityAliasStack) != 0);
     }
 
     @Override

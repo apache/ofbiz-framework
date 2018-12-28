@@ -264,10 +264,8 @@ public final class EntityExpr extends EntityCondition {
             return false;
         }
         EntityExpr other = (EntityExpr) obj;
-        boolean isEqual = equals(lhs, other.lhs) &&
-               equals(operator, other.operator) &&
-               equals(rhs, other.rhs);
-        return isEqual;
+        return equals(lhs, other.lhs) && equals(operator, other.operator)
+                && equals(rhs, other.rhs);
     }
 
     @Override

@@ -116,10 +116,7 @@ public class EntityJoinOperator extends EntityOperator<EntityCondition, EntityCo
 
     @Override
     public boolean entityMatches(GenericEntity entity, EntityCondition lhs, EntityCondition rhs) {
-        if (lhs.entityMatches(entity) == shortCircuitValue) {
-            return shortCircuitValue;
-        }
-        if (rhs.entityMatches(entity) == shortCircuitValue) {
+        if (lhs.entityMatches(entity) == shortCircuitValue || rhs.entityMatches(entity) == shortCircuitValue) {
             return shortCircuitValue;
         }
         return !shortCircuitValue;
@@ -135,10 +132,7 @@ public class EntityJoinOperator extends EntityOperator<EntityCondition, EntityCo
 
     @Override
     public boolean mapMatches(Delegator delegator, Map<String, ? extends Object> map, EntityCondition lhs, EntityCondition rhs) {
-        if (lhs.mapMatches(delegator, map) == shortCircuitValue) {
-            return shortCircuitValue;
-        }
-        if (rhs.mapMatches(delegator, map) == shortCircuitValue) {
+        if (lhs.mapMatches(delegator, map) == shortCircuitValue || rhs.mapMatches(delegator, map) == shortCircuitValue) {
             return shortCircuitValue;
         }
         return !shortCircuitValue;
