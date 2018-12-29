@@ -149,7 +149,7 @@ public class JWTManager {
      *
      * @param delegator
      * @param tokenMap Map name, value pairs to set as claims
-     * @param expirationtime the expiration time in seconds
+     * @param expireTime the expiration time in seconds
      * @return a JWT token
      */
     public static String createJwt (Delegator delegator, Map<String, String> claims, int expireTime) {
