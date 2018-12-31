@@ -1972,10 +1972,13 @@ public final class ProductPromoWorker {
         GenericValue prodPromo;
         try {
             prodPromo = EntityQuery.use(delegator).from("ProductPromo").where("productPromoId", prodPromoId).cache().queryOne();
+            if (UtilValidate.isNotEmpty(prodPromo.get("promoName"))) {
+                return (String) prodPromo.get("promoName");
+            }
             if (UtilValidate.isNotEmpty(prodPromo.get("promoText"))) {
                 return (String) prodPromo.get("promoText");
             }
-            return (String) prodPromo.get("promoName");
+            return "No promotion name nor text";
 
         } catch (GenericEntityException e) {
             Debug.logWarning("Error getting ProductPromo for Id " + prodPromoId, module);
