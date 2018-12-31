@@ -175,7 +175,7 @@ public class PreferenceServices {
 
         try {
             if (UtilValidate.isNotEmpty(userPrefDataType)) {
-                userPrefValue = ObjectType.simpleTypeConvert(userPrefValue, userPrefDataType, null, null, false);
+                userPrefValue = ObjectType.simpleTypeOrObjectConvert(userPrefValue, userPrefDataType, null, null, false);
             }
             GenericValue rec = delegator.makeValidValue("UserPreference", PreferenceWorker.toFieldMap(userLoginId, userPrefTypeId, userPrefGroupTypeId, userPrefValue));
             delegator.createOrStore(rec);

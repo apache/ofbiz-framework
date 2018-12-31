@@ -182,7 +182,7 @@ public class ModelParam implements Serializable {
         Object defaultValueObj = null;
         if (this.type != null) {
             try {
-                defaultValueObj = ObjectType.simpleTypeConvert(this.defaultValue, this.type, null, null, false);
+                defaultValueObj = ObjectType.simpleTypeOrObjectConvert(this.defaultValue, this.type, null, null, false);
             } catch (Exception e) {
                 Debug.logWarning(e, "Service attribute [" + name + "] default value could not be converted to type [" + type + "]: " + e.toString(), module);
             }
