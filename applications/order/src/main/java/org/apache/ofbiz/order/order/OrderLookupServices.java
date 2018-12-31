@@ -225,7 +225,7 @@ public class OrderLookupServices {
             paramList.add("minDate=" + minDate);
 
             try {
-                Object converted = ObjectType.simpleTypeConvert(minDate, "Timestamp", null, null);
+                Object converted = ObjectType.simpleTypeOrObjectConvert(minDate, "Timestamp", null, null);
                 if (converted != null) {
                     conditions.add(EntityCondition.makeCondition(dateField, EntityOperator.GREATER_THAN_EQUAL_TO, converted));
                 }
@@ -243,7 +243,7 @@ public class OrderLookupServices {
             paramList.add("maxDate=" + maxDate);
 
             try {
-                Object converted = ObjectType.simpleTypeConvert(maxDate, "Timestamp", null, null);
+                Object converted = ObjectType.simpleTypeOrObjectConvert(maxDate, "Timestamp", null, null);
                 if (converted != null) {
                     conditions.add(EntityCondition.makeCondition("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, converted));
                 }

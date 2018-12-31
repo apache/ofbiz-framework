@@ -180,7 +180,7 @@ public final class SetCalendar extends MethodOperation {
         int millis = 0;
         try {
             if (!this.localeFse.isEmpty()) {
-                locale = (Locale) ObjectType.simpleTypeConvert(this.localeFse.expand(methodContext.getEnvMap()), "Locale", null, null);
+                locale = (Locale) ObjectType.simpleTypeOrObjectConvert(this.localeFse.expand(methodContext.getEnvMap()), "Locale", null, null);
             }
             if (locale == null) {
                 locale = methodContext.getLocale();
@@ -189,7 +189,7 @@ public final class SetCalendar extends MethodOperation {
                 locale = Locale.getDefault();
             }
             if (!this.timeZoneFse.isEmpty()) {
-                timeZone = (TimeZone) ObjectType.simpleTypeConvert(this.timeZoneFse.expand(methodContext.getEnvMap()), "TimeZone", null, null);
+                timeZone = (TimeZone) ObjectType.simpleTypeOrObjectConvert(this.timeZoneFse.expand(methodContext.getEnvMap()), "TimeZone", null, null);
             }
             if (timeZone == null) {
                 timeZone = methodContext.getTimeZone();

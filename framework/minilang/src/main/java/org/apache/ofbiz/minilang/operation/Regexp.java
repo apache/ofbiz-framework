@@ -56,7 +56,7 @@ public class Regexp extends SimpleMapOperation {
         Object obj = inMap.get(fieldName);
         String fieldValue = null;
         try {
-            fieldValue = (String) ObjectType.simpleTypeConvert(obj, "String", null, locale);
+            fieldValue = (String) ObjectType.simpleTypeOrObjectConvert(obj, "String", null, locale);
         } catch (GeneralException e) {
             messages.add("Could not convert field value for comparison: " + e.getMessage());
             return;

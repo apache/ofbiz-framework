@@ -304,7 +304,7 @@ public class ModelTheme implements Serializable {
             name.put(initThemePropertiesMap, value);
         } else {
             try {
-                name.put(initThemePropertiesMap, ObjectType.simpleTypeConvert(value, type, null, null));
+                name.put(initThemePropertiesMap, ObjectType.simpleTypeOrObjectConvert(value, type, null, null));
             } catch (GeneralException e) {
                 Debug.logError("Impossible to parse the value " + value + " to type " + type + " for the property " + name + " on theme " + this.name, module);
             }

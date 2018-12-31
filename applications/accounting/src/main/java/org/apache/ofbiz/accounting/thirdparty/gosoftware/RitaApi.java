@@ -121,7 +121,7 @@ public class RitaApi {
 
         String objString = null;
         try {
-            objString = (String) ObjectType.simpleTypeConvert(value, "java.lang.String", null, null);
+            objString = (String) ObjectType.simpleTypeOrObjectConvert(value, "java.lang.String", null, null);
         } catch (GeneralException | ClassCastException e) {
             Debug.logError(e, module);
             throw new IllegalArgumentException("Unable to convert value to String");

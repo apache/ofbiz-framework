@@ -185,7 +185,7 @@ public class OrderManagerEvents {
             if (UtilValidate.isNotEmpty(paymentMethodAmountStr)) {
                 BigDecimal paymentMethodAmount = BigDecimal.ZERO;
                 try {
-                    paymentMethodAmount = (BigDecimal) ObjectType.simpleTypeConvert(paymentMethodAmountStr, "BigDecimal", null, locale);
+                    paymentMethodAmount = (BigDecimal) ObjectType.simpleTypeOrObjectConvert(paymentMethodAmountStr, "BigDecimal", null, locale);
                 } catch (GeneralException e) {
                     request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "OrderProblemsPaymentParsingAmount", locale));
                     return "error";
@@ -225,7 +225,7 @@ public class OrderManagerEvents {
             if (UtilValidate.isNotEmpty(amountStr)) {
                 BigDecimal paymentTypeAmount = BigDecimal.ZERO;
                 try {
-                    paymentTypeAmount = (BigDecimal) ObjectType.simpleTypeConvert(amountStr, "BigDecimal", null, locale);
+                    paymentTypeAmount = (BigDecimal) ObjectType.simpleTypeOrObjectConvert(amountStr, "BigDecimal", null, locale);
                 } catch (GeneralException e) {
                     request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "OrderProblemsPaymentParsingAmount", locale));
                     return "error";

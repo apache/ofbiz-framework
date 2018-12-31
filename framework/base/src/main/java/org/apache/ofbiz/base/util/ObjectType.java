@@ -485,14 +485,21 @@ public class ObjectType {
         return isOrSubOf(objectClass, typeClass);
     }
 
-    public static Object simpleTypeConvert(Object obj, String type, String format, Locale locale, boolean noTypeFail) throws GeneralException {
-        return simpleTypeConvert(obj, type, format, null, locale, noTypeFail);
+    public static Object simpleTypeOrObjectConvert(Object obj, String type, String format, Locale locale, boolean noTypeFail) throws GeneralException {
+        return simpleTypeOrObjectConvert(obj, type, format, null, locale, noTypeFail);
     }
 
     /**
-     * Converts the passed object to the named simple type.  Supported types
-     * include: String, Boolean, Double, Float, Long, Integer, Date (java.sql.Date),
-     * Time, Timestamp, TimeZone;
+     * Converts the passed object to the named type. 
+     * Initially created for only simple types but actually handle more types and not all simple types.
+     * See ObjectTypeTests class for more, and (normally) up to date information
+     * 
+     * Supported types: 
+     * - All primitives
+     * - Simple types: String, Boolean, Double, Float, Long, Integer, BigDecimal.
+     * - Other Objects: List, Map, Set, Calendar, Date (java.sql.Date), Time, Timestamp, TimeZone, Date (util.Date and sql.Date)
+     * - Simple types (maybe) not handled: Short, BigInteger, Byte, Character, ObjectName and Void...
+     * 
      * @param obj Object to convert
      * @param type Optional Java class name of type to convert to. A <code>null</code> or empty <code>String</code> will return the original object.
      * @param format Optional (can be null) format string for Date, Time, Timestamp
@@ -504,7 +511,7 @@ public class ObjectType {
      */
     @SourceMonitored
     @SuppressWarnings("unchecked")
-    public static Object simpleTypeConvert(Object obj, String type, String format, TimeZone timeZone, Locale locale, boolean noTypeFail) throws GeneralException {
+    public static Object simpleTypeOrObjectConvert(Object obj, String type, String format, TimeZone timeZone, Locale locale, boolean noTypeFail) throws GeneralException {
         if (obj == null || UtilValidate.isEmpty(type) || "Object".equals(type) || "java.lang.Object".equals(type)) {
             return obj;
         }
@@ -517,7 +524,7 @@ public class ObjectType {
             if ("String".equals(type) || "java.lang.String".equals(type)) {
                 return nodeValue;
             }
-            return simpleTypeConvert(nodeValue, type, format, timeZone, locale, noTypeFail);
+            return simpleTypeOrObjectConvert(nodeValue, type, format, timeZone, locale, noTypeFail);
         }
         int genericsStart = type.indexOf("<");
         if (genericsStart != -1) {
@@ -581,8 +588,8 @@ public class ObjectType {
         return obj;
     }
 
-    public static Object simpleTypeConvert(Object obj, String type, String format, Locale locale) throws GeneralException {
-        return simpleTypeConvert(obj, type, format, locale, true);
+    public static Object simpleTypeOrObjectConvert(Object obj, String type, String format, Locale locale) throws GeneralException {
+        return simpleTypeOrObjectConvert(obj, type, format, locale, true);
     }
 
     public static Boolean doRealCompare(Object value1, Object value2, String operator, String type, String format,
@@ -626,7 +633,7 @@ public class ObjectType {
                 value2Locale = UtilMisc.parseLocale("en");
             }
             try {
-                convertedValue2 = simpleTypeConvert(value2, type, format, value2Locale);
+                convertedValue2 = simpleTypeOrObjectConvert(value2, type, format, value2Locale);
             } catch (GeneralException e) {
                 Debug.logError(e, module);
                 messages.add("Could not convert value2 for comparison: " + e.getMessage());
@@ -642,7 +649,7 @@ public class ObjectType {
 
         Object convertedValue1 = null;
         try {
-            convertedValue1 = simpleTypeConvert(value1, type, format, locale);
+            convertedValue1 = simpleTypeOrObjectConvert(value1, type, format, locale);
         } catch (GeneralException e) {
             Debug.logError(e, module);
             messages.add("Could not convert value1 for comparison: " + e.getMessage());

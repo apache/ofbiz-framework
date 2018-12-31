@@ -843,7 +843,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                     newValue = new LinkedList();
                 } else {
                     try {
-                        newValue = ObjectType.simpleTypeConvert(newValue, this.type, null, (TimeZone) context.get("timeZone"),
+                        newValue = ObjectType.simpleTypeOrObjectConvert(newValue, this.type, null, (TimeZone) context.get("timeZone"),
                                 (Locale) context.get("locale"), true);
                     } catch (GeneralException e) {
                         String errMsg = "Could not convert field value for the field: [" + this.field.getOriginalName()

@@ -1472,7 +1472,7 @@ public class CheckOutHelper {
            }
 
            try {
-               this.cart.setShipBeforeDate(shipGroupIndex, (Timestamp) ObjectType.simpleTypeConvert(shipBeforeDate, "Timestamp", null, null));
+               this.cart.setShipBeforeDate(shipGroupIndex, (Timestamp) ObjectType.simpleTypeOrObjectConvert(shipBeforeDate, "Timestamp", null, null));
            } catch (Exception e) {
                errMsg = "Ship Before Date must be a valid date formed ";
                result = ServiceUtil.returnError(errMsg);
@@ -1487,7 +1487,7 @@ public class CheckOutHelper {
            }
 
            try {
-               this.cart.setShipAfterDate(shipGroupIndex, (Timestamp) ObjectType.simpleTypeConvert(shipAfterDate,"Timestamp", null, null));
+               this.cart.setShipAfterDate(shipGroupIndex, (Timestamp) ObjectType.simpleTypeOrObjectConvert(shipAfterDate,"Timestamp", null, null));
             } catch (Exception e) {
               errMsg = "Ship After Date must be a valid date formed ";
               result = ServiceUtil.returnError(errMsg);

@@ -146,7 +146,7 @@ public final class UtilProperties implements Serializable {
             return defaultNumber;
         }
         try {
-            return (Number)(ObjectType.simpleTypeConvert(str, type, null, null));
+            return (Number)(ObjectType.simpleTypeOrObjectConvert(str, type, null, null));
         } catch (GeneralException e) {
             Debug.logWarning("Error converting String \"" + str + "\" to " + type + "; using defaultNumber " + defaultNumber + ".", module);
         }

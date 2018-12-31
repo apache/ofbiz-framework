@@ -414,7 +414,7 @@ public class ShoppingCartEvents {
                 reservLengthStr = (String) paramMap.remove("reservLength");
                 // parse the reservation Length
                 try {
-                    reservLength = (BigDecimal) ObjectType.simpleTypeConvert(reservLengthStr, "BigDecimal", null, locale);
+                    reservLength = (BigDecimal) ObjectType.simpleTypeOrObjectConvert(reservLengthStr, "BigDecimal", null, locale);
                 } catch (Exception e) {
                     Debug.logWarning(e, "Problems parsing reservation length string: "
                             + reservLengthStr, module);
@@ -427,7 +427,7 @@ public class ShoppingCartEvents {
                 reservPersonsStr = (String) paramMap.remove("reservPersons");
                 // parse the number of persons
                 try {
-                    reservPersons = (BigDecimal) ObjectType.simpleTypeConvert(reservPersonsStr, "BigDecimal", null, locale);
+                    reservPersons = (BigDecimal) ObjectType.simpleTypeOrObjectConvert(reservPersonsStr, "BigDecimal", null, locale);
                 } catch (Exception e) {
                     Debug.logWarning(e, "Problems parsing reservation number of persons string: " + reservPersonsStr, module);
                     request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "OrderNumberOfPersonsShouldBeOneOrLarger", locale));
@@ -461,7 +461,7 @@ public class ShoppingCartEvents {
 
         // parse the price
         try {
-            price = (BigDecimal) ObjectType.simpleTypeConvert(priceStr, "BigDecimal", null, locale);
+            price = (BigDecimal) ObjectType.simpleTypeOrObjectConvert(priceStr, "BigDecimal", null, locale);
         } catch (Exception e) {
             Debug.logWarning(e, "Problems parsing price string: " + priceStr, module);
             price = null;
@@ -469,7 +469,7 @@ public class ShoppingCartEvents {
 
         // parse the quantity
         try {
-            quantity = (BigDecimal) ObjectType.simpleTypeConvert(quantityStr, "BigDecimal", null, locale);
+            quantity = (BigDecimal) ObjectType.simpleTypeOrObjectConvert(quantityStr, "BigDecimal", null, locale);
             //For quantity we should test if we allow to add decimal quantity for this product an productStore :
             // if not and if quantity is in decimal format then return error.
             if(! ProductWorker.isDecimalQuantityOrderAllowed(delegator, productId, cart.getProductStoreId())){
@@ -500,7 +500,7 @@ public class ShoppingCartEvents {
         BigDecimal amount = null;
         if (UtilValidate.isNotEmpty(selectedAmountStr)) {
             try {
-                amount = (BigDecimal) ObjectType.simpleTypeConvert(selectedAmountStr, "BigDecimal", null, locale);
+                amount = (BigDecimal) ObjectType.simpleTypeOrObjectConvert(selectedAmountStr, "BigDecimal", null, locale);
             } catch (Exception e) {
                 Debug.logWarning(e, "Problem parsing amount string: " + selectedAmountStr, module);
                 amount = null;

@@ -236,7 +236,7 @@ public class ProductEvents {
 
         if (UtilValidate.isNotEmpty(fromDateStr)) {
             try {
-                fromDate = (Timestamp) ObjectType.simpleTypeConvert(fromDateStr, "Timestamp", null, UtilHttp.getTimeZone(request), UtilHttp.getLocale(request), false);
+                fromDate = (Timestamp) ObjectType.simpleTypeOrObjectConvert(fromDateStr, "Timestamp", null, UtilHttp.getTimeZone(request), UtilHttp.getLocale(request), false);
             } catch (Exception e) {
                 errMsgList.add("From Date not formatted correctly.");
             }
@@ -307,7 +307,7 @@ public class ProductEvents {
 
         if (UtilValidate.isNotEmpty(thruDateStr)) {
             try {
-                thruDate = (Timestamp) ObjectType.simpleTypeConvert(thruDateStr, "Timestamp", null, UtilHttp.getTimeZone(request), UtilHttp.getLocale(request), false);
+                thruDate = (Timestamp) ObjectType.simpleTypeOrObjectConvert(thruDateStr, "Timestamp", null, UtilHttp.getTimeZone(request), UtilHttp.getLocale(request), false);
             } catch (Exception e) {
                 errMsgList.add(UtilProperties.getMessage(resource,"productevents.thru_date_not_formatted_correctly", UtilHttp.getLocale(request)));
             }
