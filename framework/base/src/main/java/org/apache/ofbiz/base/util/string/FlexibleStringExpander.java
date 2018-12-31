@@ -439,7 +439,7 @@ public abstract class FlexibleStringExpander implements Serializable, IsEmpty {
                 if (obj instanceof String) {
                     buffer.append(obj);
                 } else {
-                    buffer.append(ObjectType.simpleTypeConvert(obj, "String", null, timeZone, locale, true));
+                    buffer.append(ObjectType.simpleTypeOrObjectConvert(obj, "String", null, timeZone, locale, true));
                 }
             }
         } catch (GeneralException | RuntimeException e) {

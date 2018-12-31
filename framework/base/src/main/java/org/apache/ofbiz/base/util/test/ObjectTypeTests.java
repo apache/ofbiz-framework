@@ -96,7 +96,7 @@ public class ObjectTypeTests extends GenericTestCaseBase {
     }
 
     public static Object simpleTypeConvert(Object obj, String type, String format, TimeZone timeZone, Locale locale, boolean noTypeFail) throws GeneralException {
-        return ObjectType.simpleTypeConvert(obj, type, format, timeZone, locale, noTypeFail);
+        return ObjectType.simpleTypeOrObjectConvert(obj, type, format, timeZone, locale, noTypeFail);
     }
 
     public static void simpleTypeConvertTest(String label, Object toConvert, String type, Object wanted) throws GeneralException {
@@ -249,7 +249,7 @@ public class ObjectTypeTests extends GenericTestCaseBase {
     public void testClassNotFound() {
         GeneralException caught = null;
         try {
-            ObjectType.simpleTypeConvert(this, "foobarbaz", null, null, null, false);
+            ObjectType.simpleTypeOrObjectConvert(this, "foobarbaz", null, null, null, false);
         } catch (GeneralException e) {
             caught = e;
         } finally {

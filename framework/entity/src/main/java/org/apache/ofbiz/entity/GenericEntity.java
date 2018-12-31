@@ -485,7 +485,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
                 // make sure the type matches the field Java type
                 if (value instanceof TimeDuration) {
                     try {
-                        value = ObjectType.simpleTypeConvert(value, type.getJavaType(), null, null);
+                        value = ObjectType.simpleTypeOrObjectConvert(value, type.getJavaType(), null, null);
                     } catch (GeneralException e) {
                         Debug.logError(e, module);
                     }

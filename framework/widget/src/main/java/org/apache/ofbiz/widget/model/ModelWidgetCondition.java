@@ -417,7 +417,7 @@ public abstract class ModelWidgetCondition implements Serializable {
             }
             String fieldString = null;
             try {
-                fieldString = (String) ObjectType.simpleTypeConvert(fieldVal, "String", null, (TimeZone) context.get("timeZone"),
+                fieldString = (String) ObjectType.simpleTypeOrObjectConvert(fieldVal, "String", null, (TimeZone) context.get("timeZone"),
                         (Locale) context.get("locale"), true);
             } catch (GeneralException e) {
                 Debug.logError(e, "Could not convert object to String, using empty String", module);
@@ -542,7 +542,7 @@ public abstract class ModelWidgetCondition implements Serializable {
             String fieldString = null;
             if (fieldVal != null) {
                 try {
-                    fieldString = (String) ObjectType.simpleTypeConvert(fieldVal, "String", null,
+                    fieldString = (String) ObjectType.simpleTypeOrObjectConvert(fieldVal, "String", null,
                             (TimeZone) context.get("timeZone"), (Locale) context.get("locale"), true);
                 } catch (GeneralException e) {
                     Debug.logError(e, "Could not convert object to String, using empty String", module);

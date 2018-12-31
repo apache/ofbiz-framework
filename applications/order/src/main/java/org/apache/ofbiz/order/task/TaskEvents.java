@@ -62,7 +62,7 @@ public class TaskEvents {
         Locale locale = UtilHttp.getLocale(request);
 
         try {
-            fromDate = (java.sql.Timestamp) ObjectType.simpleTypeConvert(fromDateStr, "java.sql.Timestamp", null, null);
+            fromDate = (java.sql.Timestamp) ObjectType.simpleTypeOrObjectConvert(fromDateStr, "java.sql.Timestamp", null, null);
         } catch (GeneralException e) {
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderInvalidDateFormatForFromDate", locale));
             return "error";

@@ -541,7 +541,7 @@ public class ShoppingCartHelper {
                 if (UtilValidate.isNotEmpty(quantStr)) {
                     BigDecimal quantity;
                     try {
-                        quantity = (BigDecimal) ObjectType.simpleTypeConvert(quantStr, "BigDecimal", null, cart.getLocale());
+                        quantity = (BigDecimal) ObjectType.simpleTypeOrObjectConvert(quantStr, "BigDecimal", null, cart.getLocale());
                     } catch (GeneralException ge) {
                         quantity = BigDecimal.ZERO;
                     }
@@ -744,12 +744,12 @@ public class ShoppingCartHelper {
                         }
                     } else if (parameterName.startsWith("reservLength")) {
                         if (item != null) {
-                            BigDecimal reservLength = (BigDecimal) ObjectType.simpleTypeConvert(quantString, "BigDecimal", null, locale);
+                            BigDecimal reservLength = (BigDecimal) ObjectType.simpleTypeOrObjectConvert(quantString, "BigDecimal", null, locale);
                             item.setReservLength(reservLength);
                         }
                     } else if (parameterName.startsWith("reservPersons")) {
                         if (item != null) {
-                            BigDecimal reservPersons = (BigDecimal) ObjectType.simpleTypeConvert(quantString, "BigDecimal", null, locale);
+                            BigDecimal reservPersons = (BigDecimal) ObjectType.simpleTypeOrObjectConvert(quantString, "BigDecimal", null, locale);
                             item.setReservPersons(reservPersons);
                         }
                     } else if (parameterName.startsWith("shipBeforeDate")) {
@@ -784,7 +784,7 @@ public class ShoppingCartHelper {
                             item.setItemType(quantString);
                         }
                     } else {
-                        quantity = (BigDecimal) ObjectType.simpleTypeConvert(quantString, "BigDecimal", null, locale);
+                        quantity = (BigDecimal) ObjectType.simpleTypeOrObjectConvert(quantString, "BigDecimal", null, locale);
                         //For quantity we should test if we allow to add decimal quantity for this product an productStore :
                         // if not and if quantity is in decimal format then return error.
                         if (!ProductWorker.isDecimalQuantityOrderAllowed(delegator, item.getProductId(), cart.getProductStoreId()) && parameterName.startsWith("update")) {

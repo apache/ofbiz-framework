@@ -49,7 +49,7 @@ public class InFieldOper extends MakeInStringOperation {
             return null;
         }
         try {
-            return (String) ObjectType.simpleTypeConvert(obj, "String", null, locale);
+            return (String) ObjectType.simpleTypeOrObjectConvert(obj, "String", null, locale);
         } catch (GeneralException e) {
             Debug.logWarning(e, module);
             messages.add("Error converting incoming field \"" + fieldName + "\" in map processor: " + e.getMessage());

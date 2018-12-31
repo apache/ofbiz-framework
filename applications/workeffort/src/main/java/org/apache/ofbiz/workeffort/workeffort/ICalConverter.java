@@ -471,7 +471,7 @@ public class ICalConverter {
                 if (serviceMap.containsKey(modelParam.name)) {
                     Object value = serviceMap.get(modelParam.name);
                     if (UtilValidate.isNotEmpty(modelParam.type)) {
-                        value = ObjectType.simpleTypeConvert(value, modelParam.type, null, null, null, true);
+                        value = ObjectType.simpleTypeOrObjectConvert(value, modelParam.type, null, null, null, true);
                     }
                     localMap.put(modelParam.name, value);
                 }

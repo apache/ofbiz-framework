@@ -784,7 +784,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
             // convert to string
             String converted;
             try {
-                converted = (String) ObjectType.simpleTypeConvert(testValue, "String", null, null);
+                converted = (String) ObjectType.simpleTypeOrObjectConvert(testValue, "String", null, null);
             } catch (GeneralException e) {
                 throw new GeneralException("Unable to convert parameter to String");
             }
@@ -941,7 +941,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
 
                             try {
                                 // no need to fail on type conversion; the validator will catch this
-                                value = ObjectType.simpleTypeConvert(value, param.type, null, timeZone, locale, false);
+                                value = ObjectType.simpleTypeOrObjectConvert(value, param.type, null, timeZone, locale, false);
                             } catch (GeneralException e) {
                                 String errMsg = "Type conversion of field [" + key + "] to type [" + param.type + "] failed for value \"" + value + "\": " + e.toString();
                                 Debug.logWarning("[ModelService.makeValid] : " + errMsg, module);

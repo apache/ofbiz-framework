@@ -3691,7 +3691,7 @@ public class OrderServices {
             String quantityStr = itemQtyMap.get(key);
             BigDecimal groupQty = BigDecimal.ZERO;
             try {
-                groupQty = (BigDecimal) ObjectType.simpleTypeConvert(quantityStr, "BigDecimal", null, locale);
+                groupQty = (BigDecimal) ObjectType.simpleTypeOrObjectConvert(quantityStr, "BigDecimal", null, locale);
             } catch (GeneralException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());
@@ -3755,7 +3755,7 @@ public class OrderServices {
                     if (UtilValidate.isNotEmpty(priceStr)) {
                         BigDecimal price = null;
                         try {
-                            price = (BigDecimal) ObjectType.simpleTypeConvert(priceStr, "BigDecimal", null, locale);
+                            price = (BigDecimal) ObjectType.simpleTypeOrObjectConvert(priceStr, "BigDecimal", null, locale);
                         } catch (GeneralException e) {
                             Debug.logError(e, module);
                             return ServiceUtil.returnError(e.getMessage());
@@ -3866,7 +3866,7 @@ public class OrderServices {
             String quantityStr = itemQtyMap.get(key);
             BigDecimal groupQty = BigDecimal.ZERO;
             try {
-                groupQty = (BigDecimal) ObjectType.simpleTypeConvert(quantityStr, "BigDecimal", null, locale);
+                groupQty = (BigDecimal) ObjectType.simpleTypeOrObjectConvert(quantityStr, "BigDecimal", null, locale);
             } catch (GeneralException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());

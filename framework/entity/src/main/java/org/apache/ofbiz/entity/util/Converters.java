@@ -63,7 +63,7 @@ public class Converters implements ConverterLoader {
                     Object fieldValue = entry.getValue();
                     ModelField field = value.getModelEntity().getField(fieldName);
                     ModelFieldType type = delegator.getEntityFieldType(value.getModelEntity(), field.getType());
-                    value.set(fieldName, ObjectType.simpleTypeConvert(fieldValue, type.getJavaType(), null, null));
+                    value.set(fieldName, ObjectType.simpleTypeOrObjectConvert(fieldValue, type.getJavaType(), null, null));
                 }
                 return value;
             } catch (ConversionException e) {
