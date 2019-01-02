@@ -45,7 +45,7 @@ under the License.
 
     <!-- MarketingCampaignPrice Services -->
     <service name="addPriceRuleToMarketingCampaign" default-entity-name="MarketingCampaignPrice" engine="entity-auto" invoke="create" auth="true">
-        <deprecated since="Upcoming Release" use-instead="createMarketingCampaignPrice">
+        <deprecated since="Release 18.12" use-instead="createMarketingCampaignPrice">
             Renaming service to respect service name best practice
         </deprecated>
         <implements service="createMarketingCampaignPrice"/>
@@ -56,7 +56,7 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="removePriceRuleFromMarketingCampaign" default-entity-name="MarketingCampaignPrice" engine="entity-auto" invoke="delete" auth="true">
-            <deprecated since="Upcoming Release" use-instead="deleteMarketingCampaignPrice">
+            <deprecated since="Release 18.12" use-instead="deleteMarketingCampaignPrice">
                 Renaming service to respect service name best practice
             </deprecated>
         <implements service="deleteMarketingCampaignPrice"/>
@@ -78,7 +78,7 @@ under the License.
 
     <!-- MarketingCampaignPromo Services -->
     <service name="addPromoToMarketingCampaign" default-entity-name="MarketingCampaignPromo" engine="entity-auto" invoke="create" auth="true">
-        <deprecated since="Upcoming Release" use-instead="createMarketingCampaignPromo">
+        <deprecated since="Release 18.12" use-instead="createMarketingCampaignPromo">
             Renaming service to respect service name best practice
         </deprecated>
         <implements service="createMarketingCampaignPromo"/>
@@ -89,7 +89,7 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="removePromoFromMarketingCampaign" default-entity-name="MarketingCampaignPromo" engine="entity-auto" invoke="delete" auth="true">
-        <deprecated since="Upcoming Release" use-instead="deleteMarketingCampaignPromo">
+        <deprecated since="Release 18.12" use-instead="deleteMarketingCampaignPromo">
             Renaming service to respect service name best practice
         </deprecated>
         <implements service="deleteMarketingCampaignPromo"/>

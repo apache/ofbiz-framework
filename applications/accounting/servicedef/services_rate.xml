@@ -50,7 +50,7 @@ under the License.
     </service>
     <service name="deleteRateAmount" default-entity-name="RateAmount" engine="groovy" auth="true"
         location="component://accounting/groovyScripts/rate/RateServices.groovy" invoke="deleteRateAmount">
-        <description>Deprecated please use expireRateAmount</description>
+        <deprecated use-instead="expireRateAmount" since="Release 18.12"/>
         <permission-service service-name="acctgBasePermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <override name="rateTypeId" optional="false"/>
