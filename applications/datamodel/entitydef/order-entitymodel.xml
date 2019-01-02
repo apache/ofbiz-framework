@@ -99,9 +99,6 @@ under the License.
       <field name="originalAdjustmentId" type="id">
           <description>specifies relation to source OrderAdjustment - eg. for tax on shipping charges</description>
       </field>
-      <!-- old fields, deprecated -->
-        <field name="oldAmountPerQuantity" col-name="AMOUNT_PER_QUANTITY" type="currency-amount"></field>
-        <field name="oldPercentage" col-name="PERCENTAGE" type="floating-point"></field>
       <prim-key field="orderAdjustmentId"/>
       <relation type="one" fk-name="ORDER_ADJ_TYPE" rel-entity-name="OrderAdjustmentType">
         <key-map field-name="orderAdjustmentTypeId"/>
