@@ -2465,7 +2465,7 @@ under the License.
             </description>
         </field>
         <field name="enableAccounting" type="indicator"/>
-        <!-- Deprecated Field-->
+        <!-- Deprecated Field since Release 17.12-->
         <field name="oldInvoiceSequenceEnumId" col-name="INVOICE_SEQUENCE_ENUM_ID" type="id"/>
         <field name="oldOrderSequenceEnumId" col-name="ORDER_SEQUENCE_ENUM_ID" type="id"/>
         <field name="oldQuoteSequenceEnumId" col-name="QUOTE_SEQUENCE_ENUM_ID" type="id"/>
@@ -2497,7 +2497,7 @@ under the License.
         <relation type="one" fk-name="ACTGPREF_GLJRNL" rel-entity-name="GlJournal">
             <key-map field-name="errorGlJournalId" rel-field-name="glJournalId"/>
         </relation>
-        <!-- Deprecated relation-->
+        <!-- Deprecated relation since Release 17.12-->
         <relation type="one" fk-name="ACTGPREF_INVSQ" title="InvoiceSequence" rel-entity-name="Enumeration">
             <key-map field-name="oldInvoiceSequenceEnumId" rel-field-name="enumId"/>
         </relation>
