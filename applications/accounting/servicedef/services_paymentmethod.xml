@@ -352,10 +352,10 @@ under the License.
         <attribute name="processResult" type="String" mode="OUT" optional="false"/>
     </service>
 
-    <!-- deprecated in favour of captureBillingAccountPayments -->
     <service name="captureBillingAccountPayment" engine="java"
             location="org.apache.ofbiz.accounting.payment.PaymentGatewayServices" invoke="captureBillingAccountPayment" auth="true">
         <description>Records a settlement or payment of an invoice by a billing account for the given captureAmount</description>
+        <deprecated use-instead="captureBillingAccountPayments" since="Releases 17.12"/>
         <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
         <attribute name="billingAccountId" type="String" mode="IN" optional="false"/>
         <attribute name="captureAmount" type="BigDecimal" mode="IN" optional="false"/>
