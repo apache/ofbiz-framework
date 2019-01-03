@@ -40,23 +40,13 @@ public final class ModelField extends ModelChild {
     public static final String module = ModelField.class.getName();
 
     public enum EncryptMethod {
-        FALSE {
-            public boolean isEncrypted() {
-                return false;
-            }
-        },
-        TRUE {
-            public boolean isEncrypted() {
-                return true;
-            }
-        },
-        SALT {
-            public boolean isEncrypted() {
-                return true;
-            }
-        };
+        FALSE,
+        TRUE,
+        SALT;
 
-        public abstract boolean isEncrypted();
+        public boolean isEncrypted() {
+            return this != FALSE;
+        }
     }
 
     /**
