@@ -151,17 +151,11 @@ public class MessageString implements Serializable {
         this.fieldName = fieldName;
     }
     public boolean isForField(Set<String> fieldNameSet) {
-        if (fieldNameSet == null) {
-            return true;
-        }
-        return fieldNameSet.contains(this.fieldName);
+        return fieldNameSet == null || fieldNameSet.contains(this.fieldName);
     }
     public boolean isForField(String fieldName) {
         if (this.fieldName == null) {
-            if (fieldName == null) {
-                return true;
-            }
-            return false;
+            return fieldName == null;
         }
         return this.fieldName.equals(fieldName);
     }

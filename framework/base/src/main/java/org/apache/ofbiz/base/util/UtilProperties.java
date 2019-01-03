@@ -370,11 +370,7 @@ public final class UtilProperties implements Serializable {
      */
     public static boolean propertyValueEquals(URL url, String name, String compareString) {
         String value = getPropertyValue(url, name);
-
-        if (value == null) {
-            return false;
-        }
-        return value.trim().equals(compareString);
+        return !(value == null) && value.trim().equals(compareString);
     }
 
     /** Compares Ignoring Case the specified property to the compareString, returns true if they are the same, false otherwise
@@ -385,11 +381,7 @@ public final class UtilProperties implements Serializable {
      */
     public static boolean propertyValueEqualsIgnoreCase(URL url, String name, String compareString) {
         String value = getPropertyValue(url, name);
-
-        if (value == null) {
-            return false;
-        }
-        return value.trim().equalsIgnoreCase(compareString);
+        return !(value == null) && value.trim().equalsIgnoreCase(compareString);
     }
 
     /** Returns the value of the specified property name from the specified resource/properties file.
