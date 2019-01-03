@@ -31,7 +31,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -372,33 +375,7 @@ public class RequestHandler {
 
             // Check for HTTPS client (x.509) security
             if (request.isSecure() && requestMap.securityCert) {
-                X509Certificate[] clientCerts = (X509Certificate[]) request.getAttribute("javax.servlet.request.X509Certificate"); // 2.2 spec
-                if (clientCerts == null) {
-                    clientCerts = (X509Certificate[]) request.getAttribute("javax.net.ssl.peer_certificates"); // 2.1 spec
-                }
-                if (clientCerts == null) {
-                    Debug.logWarning("Received no client certificates from browser", module);
-                }
-
-                // check if the client has a valid certificate (in our db store)
-                boolean foundTrustedCert = false;
-
-                if (clientCerts == null) {
-                    throw new RequestHandlerException(requestMissingErrorMessage);
-                } else {
-                    if (Debug.infoOn()) {
-                        for (int i = 0; i < clientCerts.length; i++) {
-                            Debug.logInfo(clientCerts[i].getSubjectX500Principal().getName(), module);
-                        }
-                    }
-
-                    // check if this is a trusted cert
-                    if (SSLUtil.isClientTrusted(clientCerts, null)) {
-                        foundTrustedCert = true;
-                    }
-                }
-
-                if (!foundTrustedCert) {
+                if (!checkCertificates(request, certs -> SSLUtil.isClientTrusted(certs, null))) {
                     Debug.logWarning(requestMissingErrorMessage, module);
                     throw new RequestHandlerException(requestMissingErrorMessage);
                 }
@@ -1321,5 +1298,32 @@ public class RequestHandler {
             return " sessionId=" + UtilHttp.getSessionId(request); 
         }
         return " Hidden sessionId by default.";
+    }
+
+    /**
+     * Checks that the request contains some valid certificates.
+     *
+     * @param request the request to verify
+     * @param validator the predicate applied the certificates found
+     * @return true if the request contains some valid certificates, otherwise false.
+     */
+    static boolean checkCertificates(HttpServletRequest request, Predicate<X509Certificate[]> validator) {
+        return Stream.of("javax.servlet.request.X509Certificate", // 2.2 spec
+                         "javax.net.ssl.peer_certificates")       // 2.1 spec
+                .map(request::getAttribute)
+                .filter(Objects::nonNull)
+                .map(X509Certificate[].class::cast)
+                .peek(certs -> {
+                    if (Debug.infoOn()) {
+                        for (X509Certificate cert : certs) {
+                            Debug.logInfo(cert.getSubjectX500Principal().getName(), module);
+                        }
+                    }
+                })
+                .map(validator::test)
+                .findFirst().orElseGet(() -> {
+                    Debug.logWarning("Received no client certificates from browser", module);
+                    return false;
+                });
     }
 }

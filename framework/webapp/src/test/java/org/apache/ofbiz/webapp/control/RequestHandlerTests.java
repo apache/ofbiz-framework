@@ -25,9 +25,12 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.security.cert.CertificateEncodingException;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -195,6 +198,45 @@ public class RequestHandlerTests {
             assertTrue(RequestHandler.resolveMethod("post", rmaps).isPresent());
             assertTrue(RequestHandler.resolveMethod("put", rmaps).isPresent());
             assertTrue(RequestHandler.resolveMethod("delete", rmaps).isPresent());
+        }
+    }
+
+    public static class checkCertificatesTests {
+        private HttpServletRequest req;
+
+        @Before
+        public void setUp() {
+            req = mock(HttpServletRequest.class);
+            when(req.getAttribute(anyString())).thenReturn(null);
+        }
+
+        @Test
+        // Check that the verification fails when the request does not contain any certificate.
+        public void checkCertificatesFailure() {
+            assertFalse(RequestHandler.checkCertificates(req, x -> true));
+        }
+
+        @Test
+        // Check that certificates with 2.2 spec are handled correctly.
+        public void checkCertificates22() throws CertificateEncodingException {
+            when(req.getAttribute("javax.servlet.request.X509Certificate")).thenReturn(new X509Certificate[] {});
+            assertTrue(RequestHandler.checkCertificates(req, x -> true));
+            assertFalse(RequestHandler.checkCertificates(req, x -> false));
+        }
+
+        @Test
+        // Check that certificates with 2.1 spec are handled correctly.
+        public void checkCertificates21() {
+            when(req.getAttribute("javax.net.ssl.peer_certificates")).thenReturn(new X509Certificate[] {});
+            assertTrue(RequestHandler.checkCertificates(req, x -> true));
+            assertFalse(RequestHandler.checkCertificates(req, x -> false));
+        }
+
+        @Test
+        // Check that certificates in an invalid attribute are ignored.
+        public void checkCertificatesUnrecognized() {
+            when(req.getAttribute("NOT_RECOGNIZED")).thenReturn(new X509Certificate[] {});
+            assertFalse(RequestHandler.checkCertificates(req, x -> true));
         }
     }
 }
