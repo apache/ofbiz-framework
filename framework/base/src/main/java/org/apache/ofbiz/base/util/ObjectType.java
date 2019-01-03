@@ -611,15 +611,9 @@ public class ObjectType {
 
         if (value1 == null) {
             // some default behavior for null values, results in a bit cleaner operation
-            if ("is-null".equals(operator)) {
+            if ("is-null".equals(operator) || "is-empty".equals(operator)) {
                 return Boolean.TRUE;
-            } else if ("is-not-null".equals(operator)) {
-                return Boolean.FALSE;
-            } else if ("is-empty".equals(operator)) {
-                return Boolean.TRUE;
-            } else if ("is-not-empty".equals(operator)) {
-                return Boolean.FALSE;
-            } else if ("contains".equals(operator)) {
+            } else if ("is-not-null".equals(operator) || "is-not-empty".equals(operator) || "contains".equals(operator)) {
                 return Boolean.FALSE;
             }
         }
@@ -883,11 +877,8 @@ public class ObjectType {
 
         @Override
         public boolean equals(Object other) {
-            if (other instanceof NullObject) {
                 // should do equality of object? don't think so, just same type
-                return true;
-            }
-            return false;
+            return other instanceof NullObject;
         }
     }
 }

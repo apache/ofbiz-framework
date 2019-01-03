@@ -391,11 +391,7 @@ public final class SeoConfigUtil {
             contextPath = "/";
         }
         if (categoryUrlEnabled) {
-            if (allowedContextPaths.contains(contextPath.trim())) {
-                return true;
-            } else {
-                return false;
-            }
+            return allowedContextPaths.contains(contextPath.trim());
         }
         return false;
     }

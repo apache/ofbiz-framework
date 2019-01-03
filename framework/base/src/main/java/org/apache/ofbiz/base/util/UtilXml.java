@@ -1184,10 +1184,7 @@ public final class UtilXml {
 
         @Override
         public boolean canConvert(@SuppressWarnings("rawtypes") Class arg0) {
-            if (java.lang.ProcessBuilder.class.equals(arg0)) {
-                return true;
-            }
-            return false;
+            return java.lang.ProcessBuilder.class.equals(arg0);
         }
 
         @Override
