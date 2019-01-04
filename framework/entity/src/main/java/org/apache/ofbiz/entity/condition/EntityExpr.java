@@ -42,7 +42,7 @@ import org.apache.ofbiz.entity.model.ModelFieldType;
  *
  */
 @SuppressWarnings("serial")
-public final class EntityExpr extends EntityCondition {
+public final class EntityExpr implements EntityCondition {
     public static final String module = EntityExpr.class.getName();
 
     private final Object lhs;
@@ -262,5 +262,10 @@ public final class EntityExpr extends EntityCondition {
     @Override
     public int hashCode() {
         return Objects.hashCode(lhs) + Objects.hashCode(operator) + Objects.hashCode(rhs);
+    }
+
+    @Override
+    public String toString() {
+        return makeWhereString();
     }
 }

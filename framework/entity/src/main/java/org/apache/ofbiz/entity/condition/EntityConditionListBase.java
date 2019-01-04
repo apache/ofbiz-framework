@@ -33,13 +33,13 @@ import org.apache.ofbiz.entity.model.ModelEntity;
  *
  */
 @SuppressWarnings("serial")
-public abstract class EntityConditionListBase<T extends EntityCondition> extends EntityCondition {
+public abstract class EntityConditionListBase<T extends EntityCondition> implements EntityCondition {
     public static final String module = EntityConditionListBase.class.getName();
 
-    protected final List<T> conditionList;
+    protected final List<? extends T> conditionList;
     protected final EntityJoinOperator operator;
 
-    protected EntityConditionListBase(List<T> conditionList, EntityJoinOperator operator) {
+    protected EntityConditionListBase(List<? extends T> conditionList, EntityJoinOperator operator) {
         this.conditionList = conditionList;
         this.operator = operator;
     }
@@ -56,8 +56,9 @@ public abstract class EntityConditionListBase<T extends EntityCondition> extends
         return this.conditionList.size();
     }
 
+    @SuppressWarnings("unchecked")
     protected Iterator<T> getConditionIterator() {
-        return this.conditionList.iterator();
+        return (Iterator<T>)this.conditionList.iterator();
     }
 
     @Override
@@ -100,5 +101,10 @@ public abstract class EntityConditionListBase<T extends EntityCondition> extends
     @Override
     public int hashCode() {
         return conditionList.hashCode() + operator.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return makeWhereString();
     }
 }

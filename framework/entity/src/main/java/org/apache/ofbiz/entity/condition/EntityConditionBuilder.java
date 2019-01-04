@@ -37,7 +37,7 @@ public class EntityConditionBuilder extends BuilderSupport {
     public static final String module = EntityConditionBuilder.class.getName();
 
     @SuppressWarnings("serial")
-    private static class ConditionHolder extends EntityCondition {
+    private static class ConditionHolder implements EntityCondition {
         protected EntityCondition condition;
 
         protected ConditionHolder(EntityCondition condition) {
@@ -74,6 +74,11 @@ public class EntityConditionBuilder extends BuilderSupport {
         @Override
         public void accept(EntityConditionVisitor visitor) {
             throw new IllegalArgumentException(getClass().getName() + ".accept not implemented");
+        }
+
+        @Override
+        public String toString() {
+            return makeWhereString();
         }
     }
 
