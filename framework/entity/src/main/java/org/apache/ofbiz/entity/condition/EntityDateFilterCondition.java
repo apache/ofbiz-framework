@@ -19,7 +19,6 @@
 package org.apache.ofbiz.entity.condition;
 
 import java.sql.Timestamp;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -31,15 +30,26 @@ import org.apache.ofbiz.entity.config.model.Datasource;
 import org.apache.ofbiz.entity.model.ModelEntity;
 
 /**
- * Date-range condition.
- *
+ * Represents Date-range condition expression.
+ * <p>
+ * This is used to filter rows that are valid in a particular range.
  */
 @SuppressWarnings("serial")
 public final class EntityDateFilterCondition implements EntityCondition {
-
+    /** The column containing dates before which a row is considered invalid.  */
     private final String fromDateName;
+    /** The column containing dates after which a row is considered invalid.  */
     private final String thruDateName;
 
+    /**
+     * Constructs a condition expression to filter rows that are currently valid.
+     *
+     * This means that we remove rows whose from/thru date range does not match the current date.
+     * The <i>current date</i> is the one computed when the SQL query is generated.
+     *
+     * @param fromDateName the name of the field corresponding to the from date
+     * @param thruDateName the name of the field corresponding to the thru date
+     */
     public EntityDateFilterCondition(String fromDateName, String thruDateName) {
         this.fromDateName = fromDateName;
         this.thruDateName = thruDateName;
@@ -92,29 +102,40 @@ public final class EntityDateFilterCondition implements EntityCondition {
         return this;
     }
 
-    protected EntityCondition makeCondition() {
-        return makeCondition(UtilDateTime.nowTimestamp(), fromDateName, thruDateName);
-    }
-
     @Override
     public String toString() {
         return makeWhereString();
     }
 
-    public static EntityExpr makeCondition(Timestamp moment, String fromDateName, String thruDateName) {
+    /**
+     * Constructs a condition expression to filter rows that are valid now.
+     *
+     * @return a condition expression filtering rows that are currently valid
+     */
+    private EntityCondition makeCondition() {
+        return makeCondition(UtilDateTime.nowTimestamp(), fromDateName, thruDateName);
+    }
+
+    /**
+     * Constructs a condition expression to filter rows that are valid at a given time stamp.
+     *
+     * This means that we remove rows whose from/thru date range does not match the time stamp.
+     *
+     * @param moment the time stamp used to check validity
+     * @param fromDateName the name of the field corresponding to the from date
+     * @param thruDateName the name of the field corresponding to the thru date
+     * @return a condition expression filtering rows that are currently valid
+     */
+    public static EntityCondition makeCondition(Timestamp moment, String fromDateName, String thruDateName) {
         return EntityCondition.makeCondition(
-            EntityCondition.makeCondition(
-                EntityCondition.makeCondition(thruDateName, EntityOperator.EQUALS, null),
-                EntityOperator.OR,
-                EntityCondition.makeCondition(thruDateName, EntityOperator.GREATER_THAN, moment)
-           ),
-            EntityOperator.AND,
-            EntityCondition.makeCondition(
-                EntityCondition.makeCondition(fromDateName, EntityOperator.EQUALS, null),
-                EntityOperator.OR,
-                EntityCondition.makeCondition(fromDateName, EntityOperator.LESS_THAN_EQUAL_TO, moment)
-           )
-      );
+                EntityCondition.makeCondition(
+                        EntityCondition.makeCondition(thruDateName, null),
+                        EntityOperator.OR,
+                        EntityCondition.makeCondition(thruDateName, EntityOperator.GREATER_THAN, moment)),
+                EntityCondition.makeCondition(
+                        EntityCondition.makeCondition(fromDateName, null),
+                        EntityOperator.OR,
+                        EntityCondition.makeCondition(fromDateName, EntityOperator.LESS_THAN_EQUAL_TO, moment)));
     }
 
     /**
@@ -133,49 +154,21 @@ public final class EntityDateFilterCondition implements EntityCondition {
      * @param thruDateName  The name of the field containing the entity's "thruDate"
      * @return EntityCondition representing the date range filter
      */
-    public static EntityCondition makeRangeCondition(Timestamp rangeStart, Timestamp rangeEnd, String fromDateName, String thruDateName) {
-        List<EntityCondition> criteria = new LinkedList<>();
-        // fromDate is equal to or after rangeStart but before rangeEnd
-        criteria.add(
+    public static EntityCondition makeRangeCondition(Timestamp rangeStart, Timestamp rangeEnd, String fromDateName,
+            String thruDateName) {
+        return EntityCondition.makeCondition(EntityOperator.OR,
+                EntityCondition.makeConditionMap(thruDateName, null, fromDateName, null),
                 EntityCondition.makeCondition(
                         EntityCondition.makeCondition(fromDateName, EntityOperator.GREATER_THAN_EQUAL_TO, rangeStart),
-                        EntityOperator.AND,
-                        EntityCondition.makeCondition(fromDateName, EntityOperator.LESS_THAN, rangeEnd)
-                )
-        );
-        // thruDate is equal to or after rangeStart but before rangeEnd
-        criteria.add(
+                        EntityCondition.makeCondition(fromDateName, EntityOperator.LESS_THAN, rangeEnd)),
                 EntityCondition.makeCondition(
                         EntityCondition.makeCondition(thruDateName, EntityOperator.GREATER_THAN_EQUAL_TO, rangeStart),
-                        EntityOperator.AND,
-                        EntityCondition.makeCondition(thruDateName, EntityOperator.LESS_THAN, rangeEnd)
-                )
-        );
-        // fromDate is null and thruDate is equal to or after rangeStart
-        criteria.add(
+                        EntityCondition.makeCondition(thruDateName, EntityOperator.LESS_THAN, rangeEnd)),
                 EntityCondition.makeCondition(
-                        EntityCondition.makeCondition(fromDateName, EntityOperator.EQUALS, null),
-                        EntityOperator.AND,
-                        EntityCondition.makeCondition(thruDateName, EntityOperator.GREATER_THAN_EQUAL_TO, rangeStart)
-                )
-        );
-        // thruDate is null and fromDate is before rangeEnd
-        criteria.add(
+                        EntityCondition.makeCondition(fromDateName, null),
+                        EntityCondition.makeCondition(thruDateName, EntityOperator.GREATER_THAN_EQUAL_TO, rangeStart)),
                 EntityCondition.makeCondition(
-                        EntityCondition.makeCondition(thruDateName, EntityOperator.EQUALS, null),
-                        EntityOperator.AND,
-                        EntityCondition.makeCondition(fromDateName, EntityOperator.LESS_THAN, rangeEnd)
-                )
-        );
-        // fromDate is null and thruDate is null
-        criteria.add(
-                EntityCondition.makeCondition(
-                        EntityCondition.makeCondition(thruDateName, EntityOperator.EQUALS, null),
-                        EntityOperator.AND,
-                        EntityCondition.makeCondition(fromDateName, EntityOperator.EQUALS, null)
-                )
-        );
-        // require at least one of the above to be true
-        return EntityCondition.makeCondition(criteria, EntityOperator.OR);
+                        EntityCondition.makeCondition(thruDateName, null),
+                        EntityCondition.makeCondition(fromDateName, EntityOperator.LESS_THAN, rangeEnd)));
     }
 }
