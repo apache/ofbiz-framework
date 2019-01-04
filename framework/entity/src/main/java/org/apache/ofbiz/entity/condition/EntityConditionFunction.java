@@ -32,7 +32,7 @@ import org.apache.ofbiz.entity.model.ModelEntity;
  *
  */
 @SuppressWarnings("serial")
-public abstract class EntityConditionFunction extends EntityCondition {
+public abstract class EntityConditionFunction implements EntityCondition {
 
     public static final int ID_NOT = 1;
 
@@ -115,5 +115,10 @@ public abstract class EntityConditionFunction extends EntityCondition {
     @Override
     public void checkCondition(ModelEntity modelEntity) throws GenericModelException {
         condition.checkCondition(modelEntity);
+    }
+
+    @Override
+    public String toString() {
+        return makeWhereString();
     }
 }

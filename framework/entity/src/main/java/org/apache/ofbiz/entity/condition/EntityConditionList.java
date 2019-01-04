@@ -27,7 +27,7 @@ import java.util.List;
  */
 @SuppressWarnings("serial")
 public class EntityConditionList<T extends EntityCondition> extends EntityConditionListBase<T> {
-    public EntityConditionList(List<T> conditionList, EntityJoinOperator operator) {
+    public EntityConditionList(List<? extends T> conditionList, EntityJoinOperator operator) {
         super(conditionList, operator);
     }
 

@@ -35,7 +35,7 @@ import org.apache.ofbiz.entity.model.ModelEntity;
  *
  */
 @SuppressWarnings("serial")
-public final class EntityDateFilterCondition extends EntityCondition {
+public final class EntityDateFilterCondition implements EntityCondition {
 
     private final String fromDateName;
     private final String thruDateName;
@@ -94,6 +94,11 @@ public final class EntityDateFilterCondition extends EntityCondition {
 
     protected EntityCondition makeCondition() {
         return makeCondition(UtilDateTime.nowTimestamp(), fromDateName, thruDateName);
+    }
+
+    @Override
+    public String toString() {
+        return makeWhereString();
     }
 
     public static EntityExpr makeCondition(Timestamp moment, String fromDateName, String thruDateName) {

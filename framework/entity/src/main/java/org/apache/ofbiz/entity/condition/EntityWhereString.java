@@ -41,7 +41,7 @@ import org.apache.ofbiz.entity.model.ModelEntity;
  *
  */
 @SuppressWarnings("serial")
-public final class EntityWhereString extends EntityCondition {
+public final class EntityWhereString implements EntityCondition {
 
     private final String sqlString;
 
@@ -99,5 +99,10 @@ public final class EntityWhereString extends EntityCondition {
     @Override
     public int hashCode() {
         return Objects.hashCode(sqlString);
+    }
+
+    @Override
+    public String toString() {
+        return makeWhereString();
     }
 }
