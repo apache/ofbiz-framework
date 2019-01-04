@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.apache.ofbiz.entity.condition;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -50,15 +49,6 @@ public abstract class EntityConditionListBase<T extends EntityCondition> impleme
 
     public T getCondition(int index) {
         return this.conditionList.get(index);
-    }
-
-    protected int getConditionListSize() {
-        return this.conditionList.size();
-    }
-
-    @SuppressWarnings("unchecked")
-    protected Iterator<T> getConditionIterator() {
-        return (Iterator<T>)this.conditionList.iterator();
     }
 
     @Override

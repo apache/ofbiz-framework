@@ -22,23 +22,42 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * Encapsulates a list of EntityConditions to be used as a single EntityCondition combined as specified
- *
+ * A condition expression corresponding to an ordered collection of conditions
+ * that are joined by an operator.
+ * <p>
+ * The main objective it to express the conjunction or disjunction of a set of
+ * conditions which in the case of conjunction corresponds to SQL expression
+ * of the form {@code foo=bar AND bar=baz AND ...}.
  */
 @SuppressWarnings("serial")
-public class EntityConditionList<T extends EntityCondition> extends EntityConditionListBase<T> {
+public final class EntityConditionList<T extends EntityCondition> extends EntityConditionListBase<T> {
+    /**
+     * Constructs an entity condition list.
+     *
+     * @param conditionList the list of conditions
+     * @param operator the operator used to join the list of conditions
+     */
     public EntityConditionList(List<? extends T> conditionList, EntityJoinOperator operator) {
         super(conditionList, operator);
     }
 
-    @Override
+    /**
+     * Provides the size of the internal list of condition expressions.
+     *
+     * @return the size of the internal list of condition expressions
+     */
     public int getConditionListSize() {
-        return super.getConditionListSize();
+        return conditionList.size();
     }
 
-    @Override
+    /**
+     * Provides an iterator to iterate on the internal list of condition expressions.
+     *
+     * @return an iterator iterating on the internal list of condition expressions
+     */
+    @SuppressWarnings("unchecked")
     public Iterator<T> getConditionIterator() {
-        return super.getConditionIterator();
+        return (Iterator<T>)conditionList.iterator();
     }
 
     @Override
