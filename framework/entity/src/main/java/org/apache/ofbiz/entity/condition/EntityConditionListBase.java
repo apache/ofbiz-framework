@@ -28,54 +28,71 @@ import org.apache.ofbiz.entity.config.model.Datasource;
 import org.apache.ofbiz.entity.model.ModelEntity;
 
 /**
- * Encapsulates a list of EntityConditions to be used as a single EntityCondition combined as specified
- *
+ * Represents a combination of multiple condition expressions.
  */
 @SuppressWarnings("serial")
-public abstract class EntityConditionListBase<T extends EntityCondition> implements EntityCondition {
+abstract class EntityConditionListBase<T extends EntityCondition> implements EntityCondition {
     public static final String module = EntityConditionListBase.class.getName();
-
-    protected final List<? extends T> conditionList;
+    /** The list of condition expressions to combine.  */
+    protected final List<? extends T> conditions;
+    /** The infix operator used to combine every elements in the list of conditions.  */
     protected final EntityJoinOperator operator;
 
-    protected EntityConditionListBase(List<? extends T> conditionList, EntityJoinOperator operator) {
-        this.conditionList = conditionList;
+    /**
+     * Constructs a combination of multiple condition expressions.
+     *
+     * @param conditions the list of condition expressions to combine
+     * @param operator the infix operator used to combine every elements in the list of conditions
+     */
+    protected EntityConditionListBase(List<? extends T> conditions, EntityJoinOperator operator) {
+        this.conditions = conditions;
         this.operator = operator;
     }
 
+    /**
+     * Gets the infix operator used to combine every elements in the list of conditions.
+     *
+     * @return the infix operator used to combine every elements in the list of conditions.
+     */
     public EntityJoinOperator getOperator() {
-        return this.operator;
+        return operator;
     }
 
+    /**
+     * Gets the condition expression stored at a particular of the internal list of conditions.
+     *
+     * @param index the index of the condition expression to find
+     * @return the corresponding condition expression
+     */
     public T getCondition(int index) {
-        return this.conditionList.get(index);
+        return conditions.get(index);
     }
 
     @Override
     public boolean isEmpty() {
-        return operator.isEmpty(conditionList);
+        return operator.isEmpty(conditions);
     }
 
     @Override
     public String makeWhereString(ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, Datasource datasourceInfo) {
         StringBuilder sql = new StringBuilder();
-        operator.addSqlValue(sql, modelEntity, entityConditionParams, conditionList, datasourceInfo);
+        operator.addSqlValue(sql, modelEntity, entityConditionParams, conditions, datasourceInfo);
         return sql.toString();
     }
 
     @Override
     public void checkCondition(ModelEntity modelEntity) throws GenericModelException {
-        operator.validateSql(modelEntity, conditionList);
+        operator.validateSql(modelEntity, conditions);
     }
 
     @Override
     public boolean mapMatches(Delegator delegator, Map<String, ? extends Object> map) {
-        return operator.mapMatches(delegator, map, conditionList);
+        return operator.mapMatches(delegator, map, conditions);
     }
 
     @Override
     public EntityCondition freeze() {
-        return operator.freeze(conditionList);
+        return operator.freeze(conditions);
     }
 
     @Override
@@ -85,12 +102,12 @@ public abstract class EntityConditionListBase<T extends EntityCondition> impleme
         }
         EntityConditionListBase<?> other = UtilGenerics.cast(obj);
 
-        return conditionList.equals(other.conditionList) && operator.equals(other.operator);
+        return conditions.equals(other.conditions) && operator.equals(other.operator);
     }
 
     @Override
     public int hashCode() {
-        return conditionList.hashCode() + operator.hashCode();
+        return conditions.hashCode() + operator.hashCode();
     }
 
     @Override
