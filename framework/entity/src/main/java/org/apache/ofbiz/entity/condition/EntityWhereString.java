@@ -30,21 +30,27 @@ import org.apache.ofbiz.entity.config.model.Datasource;
 import org.apache.ofbiz.entity.model.ModelEntity;
 
 /**
- * <p>Encapsulates SQL expressions used for where clause snippets.
+ * Represents a raw SQL string condition expression.
+ * <p>
+ * Encapsulates SQL expressions used for where clause snippets.
  *  NOTE: This is UNSAFE and BREAKS the idea behind the Entity Engine where
  *  you avoid directly specifying SQL. So, KEEP IT MINIMAL and preferably replace
- *  it when the feature you are getting at is implemented in a more automatic way for you.</p>
- *
- * <p>By minimal I mean use this in conjunction with other EntityConditions like the
- *  EntityExpr, EntityConditionList and EntityFieldMap objects which more cleanly
- *  encapsulate where conditions and don't require you to directly write SQL.</p>
- *
+ *  it when the feature you are getting at is implemented in a more automatic way for you.
+ * <p>
+ * By minimal I mean use this in conjunction with other EntityConditions like the
+ * EntityExpr, EntityConditionList and EntityFieldMap objects which more cleanly
+ * encapsulate where conditions and don't require you to directly write SQL.
  */
 @SuppressWarnings("serial")
 public final class EntityWhereString implements EntityCondition {
-
+    /** The raw SQL string that is embedded.  */
     private final String sqlString;
 
+    /**
+     * Constructs a raw SQL string condition expression.
+     *
+     * @param sqlString the raw SQL to embed in a condition expression
+     */
     public EntityWhereString(String sqlString) {
         this.sqlString = sqlString;
     }
@@ -73,6 +79,11 @@ public final class EntityWhereString implements EntityCondition {
         throw new UnsupportedOperationException("Cannot do mapMatches on a WhereString, ie no SQL evaluation in EE; Where String is: " + sqlString);
     }
 
+    /**
+     * Provides access to the embedded raw SQL string.
+     *
+     * @return the corresponding SQL string
+     */
     public String getWhereString() {
         return sqlString;
     }
@@ -89,11 +100,8 @@ public final class EntityWhereString implements EntityCondition {
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof EntityWhereString)) {
-            return false;
-        }
-        EntityWhereString other = (EntityWhereString) obj;
-        return Objects.equals(sqlString, other.sqlString);
+        return (obj instanceof EntityWhereString)
+                && Objects.equals(sqlString, ((EntityWhereString) obj).sqlString);
     }
 
     @Override
