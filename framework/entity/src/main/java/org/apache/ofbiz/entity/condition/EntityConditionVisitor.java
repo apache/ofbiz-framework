@@ -34,8 +34,8 @@ package org.apache.ofbiz.entity.condition;
  * <pre>{@code
  *     EntityExpr expr;
  *     expr.accept(new EntityConditionVisitor() {
- *         public void visit(EntityConditionFunction func) {
- *              system.out.println("EntityConditionFunction");
+ *         public void visit(EntityNotCondition cond) {
+ *              system.out.println("EntityNotCondition");
  *         }
  *
  *         public <T extends EntityCondition> void visit(EntityConditionList<T> l) {
@@ -66,7 +66,7 @@ package org.apache.ofbiz.entity.condition;
  *     class ContainsRawCondition implements EntityConditionVisitor {
  *         public boolean hasRawCondition = false;
  *
- *         public void visit(EntityConditionFunction func) {}
+ *         public void visit(EntityNotCondition cond) {}
  *         public void visit(EntityFieldMap m) {}
  *         public void visit(EntityDateFilterCondition df) {}
  *
@@ -104,12 +104,12 @@ package org.apache.ofbiz.entity.condition;
  */
 public interface EntityConditionVisitor {
     /**
-     * Visits an entity condition function.
+     * Visits an entity NOT expression.
      *
-     * @param func the visited class
-     * @see EntityConditionFunction
+     * @param cond the visited class
+     * @see EntityNotCondition
      */
-    void visit(EntityConditionFunction func);
+    void visit(EntityNotCondition cond);
 
     /**
      * Visits a list of entity conditions.

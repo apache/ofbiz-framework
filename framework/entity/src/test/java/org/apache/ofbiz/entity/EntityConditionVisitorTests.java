@@ -28,7 +28,7 @@ import java.util.Iterator;
 
 import org.apache.ofbiz.entity.condition.EntityComparisonOperator;
 import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.condition.EntityConditionFunction;
+import org.apache.ofbiz.entity.condition.EntityNotCondition;
 import org.apache.ofbiz.entity.condition.EntityConditionList;
 import org.apache.ofbiz.entity.condition.EntityConditionVisitor;
 import org.apache.ofbiz.entity.condition.EntityDateFilterCondition;
@@ -50,8 +50,8 @@ public class EntityConditionVisitorTests {
         PrintWriter pw = new PrintWriter(os);
         expr.accept(new EntityConditionVisitor() {
             @Override
-            public void visit(EntityConditionFunction func) {
-                pw.print("EntityConditionFunction");
+            public void visit(EntityNotCondition cond) {
+                pw.print("EntityNotCondition");
             }
 
             @Override
@@ -90,7 +90,7 @@ public class EntityConditionVisitorTests {
         class ContainsRawCondition implements EntityConditionVisitor {
             public boolean hasRawCondition = false;
 
-            @Override public void visit(EntityConditionFunction func) {}
+            @Override public void visit(EntityNotCondition cond) {}
             @Override public void visit(EntityFieldMap m) {}
             @Override public void visit(EntityDateFilterCondition df) {}
 
