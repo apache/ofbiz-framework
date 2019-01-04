@@ -93,14 +93,14 @@ public abstract class EntityComparisonOperator<L, R> extends EntityOperator<L, R
             ecv.addSqlValue(sql, entity, entityConditionParams, false, datasourceInfo);
             field = ecv.getModelField(entity);
         } else if (compat && lhs instanceof String) {
-            field = getField(entity, (String) lhs);
+            field = EntityConditionUtils.getField(entity, (String) lhs);
             if (field == null) {
                 sql.append(lhs);
             } else {
                 sql.append(field.getColName());
             }
         } else {
-            addValue(sql, null, lhs, entityConditionParams);
+            EntityConditionUtils.addValue(sql, null, lhs, entityConditionParams);
             field = null;
         }
 
@@ -125,7 +125,7 @@ public abstract class EntityComparisonOperator<L, R> extends EntityOperator<L, R
             }
             ecv.addSqlValue(sql, entity, entityConditionParams, false, datasourceInfo);
         } else {
-            addValue(sql, field, rhs, entityConditionParams);
+            EntityConditionUtils.addValue(sql, field, rhs, entityConditionParams);
         }
     }
 

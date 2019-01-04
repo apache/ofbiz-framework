@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.entity.condition;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -42,7 +43,7 @@ import org.apache.ofbiz.entity.model.ModelEntity;
  *
  */
 @SuppressWarnings("serial")
-public abstract class EntityCondition extends EntityConditionBase implements IsEmpty {
+public abstract class EntityCondition implements IsEmpty, Serializable {
 
     public static <L,R,LL,RR> EntityExpr makeCondition(L lhs, EntityComparisonOperator<LL,RR> operator, R rhs) {
         return new EntityExpr(lhs, operator, rhs);
@@ -137,4 +138,15 @@ public abstract class EntityCondition extends EntityConditionBase implements IsE
     abstract public boolean mapMatches(Delegator delegator, Map<String, ? extends Object> map);
 
     abstract public EntityCondition freeze();
+
+    @Override
+    public boolean equals(Object obj) {
+        throw new UnsupportedOperationException("equals:" + getClass().getName());
+    }
+
+    @Override
+    public int hashCode() {
+        throw new UnsupportedOperationException("hashCode: " + getClass().getName());
+    }
+
 }

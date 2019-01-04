@@ -22,6 +22,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.ObjectType;
@@ -131,16 +132,6 @@ public final class EntityExpr extends EntityCondition {
             ((EntityCondition) lhs).checkCondition(modelEntity);
             ((EntityCondition) rhs).checkCondition(modelEntity);
         }
-    }
-
-    @Override
-    protected void addValue(StringBuilder buffer, ModelField field, Object value, List<EntityConditionParam> params) {
-        if (rhs instanceof EntityFunction.UPPER) {
-            if (value instanceof String) {
-                value = ((String) value).toUpperCase(Locale.getDefault());
-            }
-        }
-        super.addValue(buffer, field, value, params);
     }
 
     @Override
@@ -263,15 +254,13 @@ public final class EntityExpr extends EntityCondition {
         if (!(obj instanceof EntityExpr)) {
             return false;
         }
-        EntityExpr other = (EntityExpr) obj;
-        return equals(lhs, other.lhs) && equals(operator, other.operator)
-                && equals(rhs, other.rhs);
+        EntityExpr ee = (EntityExpr) obj;
+        return Objects.equals(lhs, ee.lhs) && Objects.equals(operator, ee.operator) && Objects.equals(rhs, ee.rhs);
+
     }
 
     @Override
     public int hashCode() {
-        return hashCode(lhs) +
-               hashCode(operator) +
-               hashCode(rhs);
+        return Objects.hashCode(lhs) + Objects.hashCode(operator) + Objects.hashCode(rhs);
     }
 }

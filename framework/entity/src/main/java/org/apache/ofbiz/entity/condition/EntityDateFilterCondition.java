@@ -22,6 +22,7 @@ import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.entity.Delegator;
@@ -73,12 +74,12 @@ public final class EntityDateFilterCondition extends EntityCondition {
             return false;
         }
         EntityDateFilterCondition other = (EntityDateFilterCondition) obj;
-        return equals(fromDateName, other.fromDateName) && equals(thruDateName, other.thruDateName);
+        return Objects.equals(fromDateName, other.fromDateName) && Objects.equals(thruDateName, other.thruDateName);
     }
 
     @Override
     public int hashCode() {
-        return hashCode(fromDateName) ^ hashCode(thruDateName);
+        return Objects.hashCode(fromDateName) ^ Objects.hashCode(thruDateName);
     }
 
     @Override

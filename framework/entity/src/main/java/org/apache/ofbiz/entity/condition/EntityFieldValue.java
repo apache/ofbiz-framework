@@ -19,6 +19,8 @@
 
 package org.apache.ofbiz.entity.condition;
 
+import static org.apache.ofbiz.entity.condition.EntityConditionUtils.getField;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -169,6 +171,46 @@ public class EntityFieldValue extends EntityConditionValue {
         } else {
             sql.append(getColName(tableAliases, modelEntity, fieldName, includeTableNamePrefix, datasourceInfo));
         }
+    }
+
+    private String getColName(Map<String, String> tableAliases, ModelEntity modelEntity, String fieldName,
+            boolean includeTableNamePrefix, Datasource datasourceInfo) {
+        if (modelEntity == null) {
+            return fieldName;
+        }
+        return getColName(tableAliases, modelEntity, getField(modelEntity, fieldName), fieldName,
+                includeTableNamePrefix, datasourceInfo);
+    }
+
+    private String getColName(Map<String, String> tableAliases, ModelEntity modelEntity, ModelField modelField,
+            String fieldName, boolean includeTableNamePrefix, Datasource datasourceInfo) {
+        if (modelEntity == null || modelField == null) {
+            return fieldName;
+        }
+
+        // If this is a view entity and we are configured to alias the views, use the alias here
+        // instead of the composite (i.e. table.column) field name.
+        if (datasourceInfo != null && datasourceInfo.getAliasViewColumns() && modelEntity instanceof ModelViewEntity) {
+            ModelViewEntity modelViewEntity = (ModelViewEntity) modelEntity;
+            ModelAlias modelAlias = modelViewEntity.getAlias(fieldName);
+            if (modelAlias != null) {
+                return modelAlias.getColAlias();
+            }
+        }
+
+        String colName = getColName(modelField, fieldName);
+        if (includeTableNamePrefix && datasourceInfo != null) {
+            String tableName = modelEntity.getTableName(datasourceInfo);
+            if (tableAliases.containsKey(tableName)) {
+                tableName = tableAliases.get(tableName);
+            }
+            colName = tableName + "." + colName;
+        }
+        return colName;
+    }
+
+    private String getColName(ModelField modelField, String fieldName) {
+        return (modelField == null) ? fieldName : modelField.getColValue();
     }
 
     @Override
