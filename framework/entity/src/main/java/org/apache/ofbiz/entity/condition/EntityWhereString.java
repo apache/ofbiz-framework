@@ -20,6 +20,7 @@ package org.apache.ofbiz.entity.condition;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
@@ -92,11 +93,11 @@ public final class EntityWhereString extends EntityCondition {
             return false;
         }
         EntityWhereString other = (EntityWhereString) obj;
-        return equals(sqlString, other.sqlString);
+        return Objects.equals(sqlString, other.sqlString);
     }
 
     @Override
     public int hashCode() {
-        return hashCode(sqlString);
+        return Objects.hashCode(sqlString);
     }
 }

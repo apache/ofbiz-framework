@@ -18,7 +18,10 @@
  *******************************************************************************/
 package org.apache.ofbiz.entity.condition;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -34,8 +37,9 @@ import org.apache.ofbiz.entity.model.ModelField;
  *
  */
 @SuppressWarnings("serial")
-public abstract class EntityConditionValue extends EntityConditionBase {
+public abstract class EntityConditionValue implements Serializable {
 
+    private static final Map<String, String> emptyAliases = Collections.unmodifiableMap(new HashMap<>());
     public static EntityConditionValue CONSTANT_NUMBER(Number value) { return new ConstantNumberValue(value); }
     public static final class ConstantNumberValue extends EntityConditionValue {
         private Number value;
@@ -108,5 +112,15 @@ public abstract class EntityConditionValue extends EntityConditionBase {
         StringBuilder sql = new StringBuilder();
         toString(sql);
         return sql.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        throw new UnsupportedOperationException("equals:" + getClass().getName());
+    }
+
+    @Override
+    public int hashCode() {
+        throw new UnsupportedOperationException("hashCode: " + getClass().getName());
     }
 }

@@ -19,6 +19,9 @@
 
 package org.apache.ofbiz.entity.condition;
 
+import static org.apache.ofbiz.entity.condition.EntityConditionUtils.addValue;
+
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -40,7 +43,7 @@ import org.apache.ofbiz.entity.model.ModelField;
  *
  */
 @SuppressWarnings("serial")
-public abstract class EntityOperator<L, R, T> extends EntityConditionBase {
+public abstract class EntityOperator<L, R, T> implements Serializable {
 
     public static final int ID_EQUALS = 1;
     public static final int ID_NOT_EQUAL = 2;

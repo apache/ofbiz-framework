@@ -127,7 +127,7 @@ public class EntityJoinOperator extends EntityOperator<EntityCondition, EntityCo
     }
 
     public Boolean eval(Delegator delegator, Map<String, ? extends Object> map, EntityCondition lhs, EntityCondition rhs) {
-        return castBoolean(mapMatches(delegator, map, lhs, rhs));
+        return mapMatches(delegator, map, lhs, rhs);
     }
 
     @Override
@@ -139,7 +139,7 @@ public class EntityJoinOperator extends EntityOperator<EntityCondition, EntityCo
     }
 
     public Boolean eval(Delegator delegator, Map<String, ? extends Object> map, List<? extends EntityCondition> conditionList) {
-        return castBoolean(mapMatches(delegator, map, conditionList));
+        return mapMatches(delegator, map, conditionList);
     }
 
     public boolean mapMatches(Delegator delegator, Map<String, ? extends Object> map, List<? extends EntityCondition> conditionList) {

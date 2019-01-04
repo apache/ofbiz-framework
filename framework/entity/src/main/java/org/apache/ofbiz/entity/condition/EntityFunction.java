@@ -195,7 +195,7 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
         if (nested != null) {
             nested.addSqlValue(sql, tableAliases, modelEntity, entityConditionParams, includeTableNamePrefix, datasourceinfo);
         } else {
-            addValue(sql, null, value, entityConditionParams);
+            EntityConditionUtils.addValue(sql, null, value, entityConditionParams);
         }
         sql.append(')');
     }
