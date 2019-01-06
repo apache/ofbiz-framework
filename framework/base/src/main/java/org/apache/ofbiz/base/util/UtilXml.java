@@ -92,7 +92,7 @@ public final class UtilXml {
     private static XStream createXStream() {
         XStream xstream = new XStream();
         /* This method is a pure helper method for XStream 1.4.x. 
-         * It initializes an XStream instance with a white list of well-known and simply types of the Java runtime
+         * It initializes an XStream instance with a white list of well-known and simple types of the Java runtime
          *  as it is done in XStream 1.5.x by default. This method will do therefore nothing in XStream 1.5
          *  and could be removed them  
          */ 
