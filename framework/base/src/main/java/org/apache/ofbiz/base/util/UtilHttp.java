@@ -668,7 +668,7 @@ public final class UtilHttp {
         if (request.getContextPath().length() > 1) {
             appName = request.getContextPath().substring(1);
         }
-        return appName.replaceAll("/","_");
+        return appName;
     }
 
     public static void setInitialRequestInfo(HttpServletRequest request) {
