@@ -710,7 +710,8 @@ public class LoginWorker {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         HttpSession session = request.getSession();
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
-        WebappInfo webappInfo = ComponentConfig.getWebappInfo("default-server", UtilHttp.getApplicationName(request));
+        ServletContext context = request.getServletContext();
+        WebappInfo webappInfo = ComponentConfig.getWebappInfo((String) context.getAttribute("_serverId"), UtilHttp.getApplicationName(request));
                 
         if (userLogin != null && webappInfo != null && webappInfo.isAutologinCookieUsed()) {
             Cookie autoLoginCookie = new Cookie(getAutoLoginCookieName(request), userLogin.getString("userLoginId"));
