@@ -574,24 +574,6 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#getEntityFieldTypeNames(org.apache.ofbiz.entity.model.ModelEntity)
-     */
-    @Override
-    public Collection<String> getEntityFieldTypeNames(ModelEntity entity) throws GenericEntityException {
-        String helperName = getEntityHelperName(entity);
-
-        if (UtilValidate.isEmpty(helperName)) {
-            return null;
-        }
-        ModelFieldTypeReader modelFieldTypeReader = ModelFieldTypeReader.getModelFieldTypeReader(helperName);
-
-        if (modelFieldTypeReader == null) {
-            throw new GenericEntityException("ModelFieldTypeReader not found for entity " + entity.getEntityName() + " with helper name " + helperName);
-        }
-        return modelFieldTypeReader.getFieldTypeNames();
-    }
-
-    /* (non-Javadoc)
      * @see org.apache.ofbiz.entity.Delegator#makeValue(java.lang.String)
      */
     @Override
