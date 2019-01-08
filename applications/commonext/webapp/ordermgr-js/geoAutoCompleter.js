@@ -59,12 +59,12 @@ function callStateAutocompleter(data){
         jQuery('#shipToStateProvinceGeoId').value = "_NA_";
         jQuery("#shipStates").fadeOut("fast");
         jQuery("#advice-required-shipToStateProvinceGeo").fadeOut("fast");
-        jQuery("#shipToStateProvinceGeo").unbind("blur");
+        jQuery("#shipToStateProvinceGeo").off("blur");
     } else {
         jQuery('#shipToStateProvinceGeo').value = "";
         jQuery('#shipToStateProvinceGeoId').value = "";
         jQuery("#shipStates").fadeIn("fast");
-        jQuery("#shipToStateProvinceGeo").bind("blur", function() {
+        jQuery("#shipToStateProvinceGeo").on("blur", function() {
             if (jQuery('#shipToStateProvinceGeo').val() == "") {
                 jQuery("#advice-required-shipToStateProvinceGeo").fadeIn("fast");
             }
@@ -105,11 +105,11 @@ function getAssociatedStateList(countryId, stateId, errorId, divId) {
                 if (jQuery("#" + divId).is(':visible') || jQuery("#" + errorId).is(':visible')) {
                     jQuery("#divId").fadeOut("fast");
                     jQuery("#errorId").fadeOut("fast");
-                    jQuery("#stateId").unbind("blur");
+                    jQuery("#stateId").off("blur");
                 }
             } else {
                 jQuery("#divId").fadeIn("fast");
-                jQuery("#stateId").bind("blur", function() {
+                jQuery("#stateId").on("blur", function() {
                     if (jQuery("#" + stateId).val() == "") {
                         jQuery("#errorId").fadeIn("fast")
                     }

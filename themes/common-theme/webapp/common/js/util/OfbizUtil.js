@@ -633,7 +633,7 @@ function ajaxAutoCompleter(areaCsvString, showDescription, defaultMinLength, def
         if (showDescription) {
             var lookupDescriptionLoader = new lookupDescriptionLoaded(areaArray[i], areaArray[i + 1], areaArray[i + 2], formName);
             lookupDescriptionLoader.update();
-            jQuery("#" + areaArray[i]).bind('change lookup:changed', function(){
+            jQuery("#" + areaArray[i]).on('change lookup:changed', function(){
                 lookupDescriptionLoader.update();
             });
         }

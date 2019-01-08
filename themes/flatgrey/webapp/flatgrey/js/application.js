@@ -180,7 +180,7 @@ var FORMALIZE = (function($, window, document, undefined) {
 						if (el.val() === text) {
 							el.val('');
 						}
-					}).bind('reset', function() {
+					}).on('reset', function() {
 						setTimeout(add_placeholder, 50);
 					});
 				});
