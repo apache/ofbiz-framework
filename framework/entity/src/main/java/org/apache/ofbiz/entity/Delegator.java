@@ -408,17 +408,6 @@ public interface Delegator {
     ModelFieldType getEntityFieldType(ModelEntity entity, String type) throws GenericEntityException;
 
     /**
-     * Gets field type names from the helper that corresponds to the specified
-     * entity
-     *
-     * @param entity
-     *            The entity
-     * @return Collection of field type names from the helper that corresponds
-     *         to the specified entity
-     */
-    Collection<String> getEntityFieldTypeNames(ModelEntity entity) throws GenericEntityException;
-
-    /**
      * Gets the helper name that corresponds to this delegator and the specified
      * entityName
      *
