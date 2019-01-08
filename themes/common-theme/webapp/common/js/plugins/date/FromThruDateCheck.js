@@ -21,8 +21,8 @@
 //this code needs modifications yet its specific.
 
 jQuery(document).ready( function() {
-  jQuery("input[name*='fromDate']").bind('focusout', checkDate);
-  jQuery("input[name*='thruDate']").bind('focusout', checkDate);
+  jQuery("input[name*='fromDate']").on('focusout', checkDate);
+  jQuery("input[name*='thruDate']").on('focusout', checkDate);
 });
 
 function checkDate() {
