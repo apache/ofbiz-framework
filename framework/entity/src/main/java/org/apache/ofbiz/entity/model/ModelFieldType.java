@@ -36,22 +36,15 @@ public class ModelFieldType implements Serializable {
     public static final String module = ModelFieldType.class.getName();
 
     /** The type of the Field */
-    protected String type = null;
-
+    private String type;
     /** The java-type of the Field */
-    protected String javaType = null;
-
+    private String javaType;
     /** The JDBC value handler for this Field */
-    protected JdbcValueHandler<?> jdbcValueHandler = null;
-
+    private JdbcValueHandler<?> jdbcValueHandler;
     /** The sql-type of the Field */
-    protected String sqlType = null;
-
+    private String sqlType;
     /** The sql-type-alias of the Field, this is optional */
-    protected String sqlTypeAlias = null;
-
-    /** Default Constructor */
-    public ModelFieldType() {}
+    private String sqlTypeAlias;
 
     /** XML Constructor */
     public ModelFieldType(Element fieldTypeElement) {
