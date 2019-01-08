@@ -374,7 +374,7 @@ var Lookup = function(options) {
     }
 
     function _dialogClose() {
-        jQuery(".ui-widget-overlay").unbind("click", _backgroundCloseClickEvent)
+        jQuery(".ui-widget-overlay").off("click", _backgroundCloseClickEvent)
 
         var prevLookup = null;
         if (ACTIVATED_LOOKUP) {
