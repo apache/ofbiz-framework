@@ -9053,7 +9053,7 @@
     </property>
     <property key="PartyNewEmail">
         <value xml:lang="ar">رسالة بريد الكتروني جديدة</value>
-        <value xml:lang="de">Neues E-Mail</value>
+        <value xml:lang="de">Neue E-Mail</value>
         <value xml:lang="en">New Email</value>
         <value xml:lang="es">Nuevo correo electrónico</value>
         <value xml:lang="fr">Nouveau courriel</value>
