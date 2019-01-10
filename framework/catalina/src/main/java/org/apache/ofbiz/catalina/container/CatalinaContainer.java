@@ -502,12 +502,13 @@ public class CatalinaContainer implements Container {
 
         context.setParent(host);
         context.setDocBase(location);
+        context.setName(appInfo.name);
+        context.setDisplayName(appInfo.name);
         context.setPath(getWebappMountPoint(appInfo));
         context.addLifecycleListener(new ContextConfig());
         context.setJ2EEApplication("OFBiz");
         context.setJ2EEServer("OFBiz Container");
         context.setLoader(new WebappLoader(Thread.currentThread().getContextClassLoader()));
-        context.setDisplayName(appInfo.name);
         context.setDocBase(location);
         context.setReloadable(ContainerConfig.getPropertyValue(configuration, "apps-context-reloadable", false));
         context.setDistributable(contextIsDistributable);
