@@ -52,7 +52,6 @@ public class ControlEventListener implements HttpSessionListener {
 
     public void sessionCreated(HttpSessionEvent event) {
         HttpSession session = event.getSession();
-        session.setMaxInactiveInterval(60*60); //in seconds
 
         // get/create the visit
         // NOTE: don't create the visit here, just let the control servlet do it; GenericValue visit = VisitHandler.getVisit(session);

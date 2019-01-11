@@ -86,6 +86,10 @@ under the License.
         <url-pattern>/*</url-pattern>
     </servlet-mapping>
 
+    <session-config>
+        <session-timeout>60</session-timeout><!-- in minutes -->
+    </session-config>
+
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
