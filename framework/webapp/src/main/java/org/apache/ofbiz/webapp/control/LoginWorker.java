@@ -923,13 +923,16 @@ public class LoginWorker {
         HttpSession session = request.getSession();
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         ServletContext context = request.getServletContext();
-        WebappInfo webappInfo = ComponentConfig.getWebappInfo((String) context.getAttribute("_serverId"), UtilHttp.getApplicationName(request));
+        String applicationName = UtilHttp.getApplicationName(request);
+        WebappInfo webappInfo = ComponentConfig.getWebappInfo((String) context.getAttribute("_serverId"), applicationName);
                 
-        if (userLogin != null && webappInfo != null && webappInfo.isAutologinCookieUsed()) {
+        if (userLogin != null && 
+                (webappInfo != null && webappInfo.isAutologinCookieUsed())
+                || webappInfo == null) { // When using an empty mounpoint, ie using root as mounpoint. Beware: works only for 1 webapp!
             Cookie autoLoginCookie = new Cookie(getAutoLoginCookieName(request), userLogin.getString("userLoginId"));
             autoLoginCookie.setMaxAge(60 * 60 * 24 * 365);
             autoLoginCookie.setDomain(EntityUtilProperties.getPropertyValue("url", "cookie.domain", delegator));
-            autoLoginCookie.setPath("/" + UtilHttp.getApplicationName(request).replaceAll("/","_"));
+            autoLoginCookie.setPath("/" + applicationName.replaceAll("/","_"));
             autoLoginCookie.setSecure(true);
             autoLoginCookie.setHttpOnly(true);
             response.addCookie(autoLoginCookie);
