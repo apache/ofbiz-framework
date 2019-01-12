@@ -144,8 +144,12 @@ public class PackingSession implements java.io.Serializable {
         // find the inventoryItemId to use
         if (reservations.size() == 1) {
             GenericValue res = EntityUtil.getFirst(reservations);
-            int checkCode = this.checkLineForAdd(res, orderId, orderItemSeqId, shipGroupSeqId, productId, quantity, packageSeqId, update);
-            this.createPackLineItem(checkCode, res, orderId, orderItemSeqId, shipGroupSeqId, productId, quantity, weight, packageSeqId);
+            BigDecimal resQty = numAvailableItems(res);
+
+            if (resQty.compareTo(quantity) > 0) {
+                int checkCode = this.checkLineForAdd(res, orderId, orderItemSeqId, shipGroupSeqId, productId, quantity, packageSeqId, update);
+                this.createPackLineItem(checkCode, res, orderId, orderItemSeqId, shipGroupSeqId, productId, quantity, weight, packageSeqId);
+            }
         } else {
             // more than one reservation found
             Map<GenericValue, BigDecimal> toCreateMap = new HashMap<GenericValue, BigDecimal>();
@@ -160,33 +164,36 @@ public class PackingSession implements java.io.Serializable {
                     continue;
                 }
 
-                BigDecimal resQty = res.getBigDecimal("quantity");
-                BigDecimal resPackedQty = this.getPackedQuantity(orderId, orderItemSeqId, shipGroupSeqId, productId, res.getString("inventoryItemId"), -1);
-                if (resPackedQty.compareTo(resQty) >= 0) {
-                    continue;
-                } else if (!update) {
-                    resQty = resQty.subtract(resPackedQty);
-                }
+                BigDecimal resQty = numAvailableItems(res);
 
-                BigDecimal thisQty = resQty.compareTo(qtyRemain) > 0 ? qtyRemain : resQty;
+                if (resQty.compareTo(BigDecimal.ZERO) > 0) {
+                    BigDecimal resPackedQty = this.getPackedQuantity(orderId, orderItemSeqId, shipGroupSeqId, productId, res.getString("inventoryItemId"), -1);
+                    if (resPackedQty.compareTo(resQty) >= 0) {
+                        continue;
+                    } else if (!update) {
+                        resQty = resQty.subtract(resPackedQty);
+                    }
 
-                int thisCheck = this.checkLineForAdd(res, orderId, orderItemSeqId, shipGroupSeqId, productId, thisQty, packageSeqId, update);
-                switch (thisCheck) {
-                    case 2:
-                        Debug.logInfo("Packing check returned '2' - new pack line will be created!", module);
-                        toCreateMap.put(res, thisQty);
-                        qtyRemain = qtyRemain.subtract(thisQty);
-                        break;
-                    case 1:
-                        Debug.logInfo("Packing check returned '1' - existing pack line has been updated!", module);
-                        qtyRemain = qtyRemain.subtract(thisQty);
-                        break;
-                    case 0:
-                        Debug.logInfo("Packing check returned '0' - doing nothing.", module);
-                        break;
-                default:
-                    Debug.logInfo("Packing check returned '> 2' or '< 0'", module);
-                    break;
+                    BigDecimal thisQty = resQty.compareTo(qtyRemain) > 0 ? qtyRemain : resQty;
+
+                    int thisCheck = this.checkLineForAdd(res, orderId, orderItemSeqId, shipGroupSeqId, productId, thisQty, packageSeqId, update);
+                    switch (thisCheck) {
+                        case 2:
+                            Debug.logInfo("Packing check returned '2' - new pack line will be created!", module);
+                            toCreateMap.put(res, thisQty);
+                            qtyRemain = qtyRemain.subtract(thisQty);
+                            break;
+                        case 1:
+                            Debug.logInfo("Packing check returned '1' - existing pack line has been updated!", module);
+                            qtyRemain = qtyRemain.subtract(thisQty);
+                            break;
+                        case 0:
+                            Debug.logInfo("Packing check returned '0' - doing nothing.", module);
+                            break;
+                        default:
+                            Debug.logInfo("Packing check returned '> 2' or '< 0'", module);
+                            break;
+                    }
                 }
             }
 
@@ -203,6 +210,20 @@ public class PackingSession implements java.io.Serializable {
 
         // run the add events
         this.runEvents(PackingEvent.EVENT_CODE_ADD);
+    }
+
+    private BigDecimal numAvailableItems(GenericValue res) {
+        // In simple situations, the reserved quantity will match the quantity from the order item.
+        // If there is a back order, quantity from order may exceed quantity currently reserved and on hand.
+        // resQty should never exceed the quantity from the order item, because that quantity was the quantity reserved in the first place.
+        BigDecimal notAvailable = res.getBigDecimal("quantityNotAvailable");
+        BigDecimal resQty = res.getBigDecimal("quantity");
+
+        if (notAvailable != null) {
+            resQty = resQty.subtract(notAvailable);
+        }
+
+        return resQty;
     }
 
     public void addOrIncreaseLine(String orderId, String orderItemSeqId, String shipGroupSeqId, BigDecimal quantity, int packageSeqId) throws GeneralException {
