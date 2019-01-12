@@ -81,7 +81,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="invoiceTypeId" sort-field="true"><display-entity entity-name="InvoiceType"/></field>
-        <field name="invoiceDate" sort-field="true"><display description="${date:dateTimeString(invoiceDate, timeZone, locale)}"/></field>
+        <field name="invoiceDate" sort-field="true"><display type="date"/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}" sort-field="true"><display-entity entity-name="StatusItem"/></field>
         <field name="description" sort-field="true"><display/></field>
         <field name="partyIdFrom" title="${uiLabelMap.AccountingFromParty}" sort-field="true">
