@@ -1576,49 +1576,6 @@ under the License.
         <attribute name="drDataResourceName" mode="IN" type="String" optional="false"/>
     </service>
     
-    <!-- Best Selling Category Services -->
-    <service name="loadBestSellingCategory" engine="simple"
-        location="component://product/minilang/product/category/CategoryServices.xml" invoke="loadBestSellingCategory" auth="true">
-        <description>Load data of best selling category by week.</description>
-        <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
-    </service>
-    
-    <service name="RemoveProductFromBestSellCategory" engine="simple"
-        location="component://product/minilang/product/category/CategoryServices.xml" invoke="RemoveProductFromBestSellCategory" auth="true">
-        <description>Remove products from best selling category.</description>
-        <attribute name="prodCatalogId" mode="IN" type="String" optional="false"/>
-    </service>
-    
-    <service name="AddProductToBestSellCategory" engine="simple"
-        location="component://product/minilang/product/category/CategoryServices.xml" invoke="AddProductToBestSellCategory" auth="true">
-        <description>Add products to best selling category.</description>
-        <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
-        <attribute name="prodCatalogId" mode="IN" type="String" optional="false"/>
-        <attribute name="week" mode="IN" type="Long" optional="false"/>
-        <attribute name="year" mode="IN" type="Long" optional="false"/>
-    </service>
-    
-    <service name="FindCategoryChild" engine="simple"
-        location="component://product/minilang/product/category/CategoryServices.xml" invoke="FindCategoryChild" auth="true">
-        <description>Find category child.</description>
-        <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
-        <attribute name="productCategoryId" mode="IN" type="String" optional="false"/>
-        <attribute name="primaryProductCategoryId" mode="IN" type="String" optional="false"/>
-        <attribute name="week" mode="IN" type="Long" optional="false"/>
-        <attribute name="year" mode="IN" type="Long" optional="false"/>
-    </service>
-    
-    <service name="FindBestSellingProduct" engine="simple"
-        location="component://product/minilang/product/category/CategoryServices.xml" invoke="FindBestSellingProduct" auth="true">
-        <description>Find best selling product.</description>
-        <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
-        <attribute name="productCategoryId" mode="IN" type="String" optional="false"/>
-        <attribute name="primaryProductCategoryId" mode="IN" type="String" optional="false"/>
-        <attribute name="week" mode="IN" type="Long" optional="false"/>
-        <attribute name="year" mode="IN" type="Long" optional="false"/>
-        <attribute name="productCategoryId" mode="OUT" type="String" optional="true"/>
-    </service>
-    
     <!-- Alternative URLs -->
     <service name="createMissingCategoryAndProductAltUrls" engine="simple"
                 location="component://product/minilang/product/catalog/CatalogServices.xml" invoke="createMissingCategoryAndProductAltUrls" auth="true" use-transaction="false">
