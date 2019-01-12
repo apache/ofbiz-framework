@@ -308,7 +308,7 @@ under the License.
     </service>
     <service name="convertUom" default-entity-name="UomConversion" engine="simple"
             location="component://common/minilang/CommonServices.xml" invoke="convertUom" auth="false">
-        <description>Make a unit of measure conversion, first using UomConversion, then with UomConversionDated</description>
+        <description>Make a unit of measure conversion, first using UomConversionDated, then with UomConversion</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="asOfDate" mode="IN" type="Timestamp" optional="true"/>
         <attribute name="originalValue" mode="IN" type="BigDecimal" optional="false"/>
