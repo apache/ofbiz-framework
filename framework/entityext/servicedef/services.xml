@@ -200,11 +200,6 @@ under the License.
         <permission-service service-name="entitySyncPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="updateEntitySyncRunning" engine="simple"
-            location="component://entityext/minilang/EntitySyncServices.xml" invoke="updateEntitySync" auth="true" require-new-transaction="true">
-        <description>Update EntitySync while Running</description>
-        <implements service="updateEntitySync"/>
-    </service>
     <service name="createEntitySyncHistory" default-entity-name="EntitySyncHistory" engine="simple"
             location="component://entityext/minilang/EntitySyncServices.xml" invoke="createEntitySyncHistory" auth="true" require-new-transaction="true">
         <description>Create EntitySyncHistory</description>
