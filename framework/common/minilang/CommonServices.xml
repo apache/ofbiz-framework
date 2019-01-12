@@ -80,45 +80,44 @@ under the License.
             </else>
         </if-empty>
 
-        <!-- first try the regular UomConversion entity (no dates) -->
-        <entity-one entity-name="UomConversion" value-field="uomConversion" auto-field-map="true" use-cache="true"/>
-
-        <!-- if not found, try the dated uom conversion entity -->
-        <if-empty field="uomConversion">
-            <entity-condition entity-name="UomConversionDated" list="uomConversions" use-cache="true">
-                <condition-list combine="and">
-                    <condition-expr field-name="uomId" from-field="parameters.uomId"/>
-                    <condition-expr field-name="uomIdTo" from-field="parameters.uomIdTo"/>
-                    <condition-expr field-name="purposeEnumId" operator="equals" from-field="parameters.purposeEnumId" ignore-if-empty="true"/>
-                    <condition-expr field-name="fromDate" operator="less-equals" from-field="asOfDate"/>
-                    <condition-list combine="or">
-                        <condition-expr field-name="thruDate" operator="greater-equals" from-field="asOfDate"/>
-                        <condition-expr field-name="thruDate" operator="equals" from-field="nullField"/>
-                    </condition-list>
+        <!-- first try the UomConversionDated entity -->
+        <entity-condition entity-name="UomConversionDated" list="uomConversions" use-cache="true">
+            <condition-list combine="and">
+                <condition-expr field-name="uomId" from-field="parameters.uomId"/>
+                <condition-expr field-name="uomIdTo" from-field="parameters.uomIdTo"/>
+                <condition-expr field-name="purposeEnumId" operator="equals" from-field="parameters.purposeEnumId" ignore-if-empty="true"/>
+                <condition-expr field-name="fromDate" operator="less-equals" from-field="asOfDate"/>
+                <condition-list combine="or">
+                    <condition-expr field-name="thruDate" operator="greater-equals" from-field="asOfDate"/>
+                    <condition-expr field-name="thruDate" operator="equals" from-field="nullField"/>
                 </condition-list>
-                    <!-- sort by descending fromDate to get newest (biggest) first -->
-                <order-by field-name="-fromDate"/>
-            </entity-condition>
-            <first-from-list list="uomConversions" entry="uomConversion"/>
+            </condition-list>
+            <!-- sort by descending fromDate to get newest (biggest) first -->
+            <order-by field-name="-fromDate"/>
+        </entity-condition>
+        <first-from-list list="uomConversions" entry="uomConversion"/>
 
-            <!-- if no conversion found with specified purpose, try w/o purpose -->
-            <if-empty field="uomConversion">
-                <if-not-empty field="parameters.purposeEnumId">
-                    <entity-condition entity-name="UomConversionDated" list="uomConversions" use-cache="true">
-                        <condition-list combine="and">
-                            <condition-expr field-name="uomId" from-field="parameters.uomId"/>
-                            <condition-expr field-name="uomIdTo" from-field="parameters.uomIdTo"/>
-                            <condition-expr field-name="fromDate" operator="less-equals" from-field="asOfDate"/>
-                            <condition-list combine="or">
-                                <condition-expr field-name="thruDate" operator="greater-equals" from-field="asOfDate"/>
-                                <condition-expr field-name="thruDate" operator="equals" from-field="nullField"/>
-                            </condition-list>
+        <!-- if no conversion found with specified purpose, try w/o purpose -->
+        <if-empty field="uomConversion">
+            <if-not-empty field="parameters.purposeEnumId">
+                <entity-condition entity-name="UomConversionDated" list="uomConversions" use-cache="true">
+                    <condition-list combine="and">
+                        <condition-expr field-name="uomId" from-field="parameters.uomId"/>
+                        <condition-expr field-name="uomIdTo" from-field="parameters.uomIdTo"/>
+                        <condition-expr field-name="fromDate" operator="less-equals" from-field="asOfDate"/>
+                        <condition-list combine="or">
+                            <condition-expr field-name="thruDate" operator="greater-equals" from-field="asOfDate"/>
+                            <condition-expr field-name="thruDate" operator="equals" from-field="nullField"/>
                         </condition-list>
-                        <order-by field-name="-fromDate"/>
-                    </entity-condition>
-                    <first-from-list list="uomConversions" entry="uomConversion"/>
-                </if-not-empty>
-            </if-empty>
+                    </condition-list>
+                    <order-by field-name="-fromDate"/>
+                </entity-condition>
+                <first-from-list list="uomConversions" entry="uomConversion"/>
+            </if-not-empty>
+        </if-empty>
+        <!-- if not found, try the uom conversion entity -->
+        <if-empty field="uomConversion">
+            <entity-one entity-name="UomConversion" value-field="uomConversion" auto-field-map="true" use-cache="true"/>
         </if-empty>
         <log level="verbose" message="using conversion factor=${uomConversion.conversionFactor}"/>
 
