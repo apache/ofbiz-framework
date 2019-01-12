@@ -25,4 +25,8 @@ under the License.
     <test-case case-name="custrequest-tests">
         <simple-method-test location="component://order/minilang/test/CustRequestTests.xml"/>
     </test-case>
+
+    <test-case case-name="test-cust-request-permission-check">
+        <groovy-test-suite location="component://order/groovyScripts/order/test/TestCustRequestPermissionCheck.groovy"/>
+    </test-case>
 </test-suite>
