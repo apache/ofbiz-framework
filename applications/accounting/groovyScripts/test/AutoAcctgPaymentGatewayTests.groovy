@@ -26,7 +26,7 @@ import org.apache.ofbiz.testtools.GroovyScriptTestCase
 class AutoAcctgPaymentGatewayTests extends GroovyScriptTestCase {
     void testUpdatePaymentGatewayConfig() {
         Map serviceCtx = [:]
-        serviceCtx.paymentGatewayConfigId = 'SAGEPAY_asdfCONFIG'
+        serviceCtx.paymentGatewayConfigId = 'SAGEPAY_CONFIG'
         serviceCtx.description = 'Test Payment Gateway Config Id'
         serviceCtx.userLogin = EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
         Map serviceResult = dispatcher.runSync('updatePaymentGatewayConfig', serviceCtx)
