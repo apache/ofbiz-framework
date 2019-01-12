@@ -4929,7 +4929,7 @@ under the License.
                 This is done so that all failures will be reported immediately rather than having to fix one failure before another can be discovered.
 
                 All process operations automatically convert the field value and other values from their current type to the type specified for the operation, where applicable.
-                The ObjectType.simpleTypeConvert method is used to do the conversion.
+                The ObjectType.simpleTypeOrObjectConvert method is used to do the conversion.
                 It supports the following types: String, Double, Float, Long, Integer, Date, Time, and Timestamp.
                 If the type is not specified String is the default.
             </xs:documentation>

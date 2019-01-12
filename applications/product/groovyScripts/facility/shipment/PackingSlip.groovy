@@ -54,7 +54,7 @@ previousShipmentIter = from("Shipment")
                                                 EntityCondition.makeCondition("primaryOrderId", EntityOperator.EQUALS, shipment.getString("primaryOrderId")),
                                                 EntityCondition.makeCondition("shipmentTypeId", EntityOperator.EQUALS, "SALES_SHIPMENT"),
                                                 EntityCondition.makeCondition("createdDate", EntityOperator.LESS_THAN_EQUAL_TO,
-                                                    ObjectType.simpleTypeConvert(shipment.getString("createdDate"), "Timestamp", null, null))
+                                                    ObjectType.simpleTypeOrObjectConvert(shipment.getString("createdDate"), "Timestamp", null, null))
                                             ),
                                         EntityOperator.AND))
                             .queryIterator()

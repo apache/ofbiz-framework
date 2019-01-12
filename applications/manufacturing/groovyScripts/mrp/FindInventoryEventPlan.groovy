@@ -44,7 +44,7 @@ if (lookupFlag) {
     eventDate = eventDate.trim()
     if (eventDate.length() < 14) eventDate = eventDate + " " + "00:00:00.000"
     paramList = paramList + "&eventDate=" + eventDate
-        andExprs.add(EntityCondition.makeCondition("eventDate", EntityOperator.GREATER_THAN, ObjectType.simpleTypeConvert(eventDate, "Timestamp", null, null)))
+        andExprs.add(EntityCondition.makeCondition("eventDate", EntityOperator.GREATER_THAN, ObjectType.simpleTypeOrObjectConvert(eventDate, "Timestamp", null, null)))
     }
 
     if (productId) {
