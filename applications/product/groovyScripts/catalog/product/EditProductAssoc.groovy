@@ -26,7 +26,7 @@ product = from("Product").where("productId", parameters.productId).queryOne()
 
 fromDate = UtilDateTime.nowTimestamp()
 if (UtilValidate.isNotEmpty(parameters.fromDate)) {
-    fromDate = ObjectType.simpleTypeConvert(parameters.fromDate, "Timestamp", null, timeZone, locale, false)
+    fromDate = ObjectType.simpleTypeOrObjectConvert(parameters.fromDate, "Timestamp", null, timeZone, locale, false)
 }
 
 productAssoc = from("ProductAssoc").where("productId", parameters.productId, "productIdTo", parameters.productIdTo, "productAssocTypeId", parameters.productAssocTypeId, "fromDate", fromDate).queryOne()

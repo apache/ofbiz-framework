@@ -34,7 +34,7 @@ fromDate = parameters.fromDate
 if (!fromDate) {
     fromDate = null
 } else {
-    fromDate = ObjectType.simpleTypeConvert(fromDate, "Timestamp", null, null, false)
+    fromDate = ObjectType.simpleTypeOrObjectConvert(fromDate, "Timestamp", null, null, false)
 }
 
 

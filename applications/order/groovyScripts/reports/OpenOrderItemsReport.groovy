@@ -30,9 +30,9 @@ import org.apache.ofbiz.base.util.Debug
 import org.apache.ofbiz.base.util.ObjectType
 
 module = "OpenOrderItemsReport.groovy" 
-productStoreId = ObjectType.simpleTypeConvert(parameters.productStoreId, "List", null, null)
-orderTypeId = ObjectType.simpleTypeConvert(parameters.orderTypeId, "List", null, null)
-orderStatusId = ObjectType.simpleTypeConvert(parameters.orderStatusId, "List", null, null)
+productStoreId = ObjectType.simpleTypeOrObjectConvert(parameters.productStoreId, "List", null, null)
+orderTypeId = ObjectType.simpleTypeOrObjectConvert(parameters.orderTypeId, "List", null, null)
+orderStatusId = ObjectType.simpleTypeOrObjectConvert(parameters.orderStatusId, "List", null, null)
 
 
 // search by orderTypeId is mandatory
