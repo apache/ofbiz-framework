@@ -2369,10 +2369,10 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="ListProductTag" type="multi" target="updateProductTag" title="" list-name=""
+    <form name="ListProductTag" type="multi" target="updateProductTag" title="" list-name="productKeywordList"
         odd-row-style="alternate-row" default-table-style="basic-table" paginate-target="EditProductTag" separate-columns="true">
         <actions>
-            <entity-condition entity-name="ProductKeyword">
+            <entity-condition entity-name="ProductKeyword" list="productKeywordList">
                 <condition-list combine="and">
                     <condition-expr field-name="keywordTypeId" operator="equals" value="KWT_TAG"/>
                     <condition-expr field-name="statusId" operator="equals" value="KW_PENDING"/>
@@ -2397,6 +2397,6 @@ under the License.
             </drop-down>
         </field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><check/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" use-when="productKeywordList.size != 0"><submit button-type="button"/></field>
     </form>
  </forms>
