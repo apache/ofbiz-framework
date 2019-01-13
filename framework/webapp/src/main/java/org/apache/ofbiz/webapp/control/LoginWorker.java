@@ -720,7 +720,7 @@ public class LoginWorker {
             Cookie autoLoginCookie = new Cookie(getAutoLoginCookieName(request), userLogin.getString("userLoginId"));
             autoLoginCookie.setMaxAge(60 * 60 * 24 * 365);
             autoLoginCookie.setDomain(EntityUtilProperties.getPropertyValue("url", "cookie.domain", delegator));
-            autoLoginCookie.setPath("/" + applicationName.replaceAll("/","_"));
+            autoLoginCookie.setPath("/" + applicationName);
             autoLoginCookie.setSecure(true);
             autoLoginCookie.setHttpOnly(true);
             response.addCookie(autoLoginCookie);
