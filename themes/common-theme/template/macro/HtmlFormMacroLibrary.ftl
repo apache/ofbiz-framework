@@ -94,87 +94,16 @@ under the License.
         <#if size?has_content> size="${size}"</#if><#rt/>
         <#if maxlength?has_content>  maxlength="${maxlength}"</#if>
         <#if id?has_content> id="${id}_i18n"</#if>/><#rt/>
+        <#local className = className + " date-time-picker"/>
     </#if>
     <input type="hidden" <#if tabindex?has_content> tabindex="${tabindex}"</#if> name="${name}" <#if event?has_content && action?has_content> ${event}="${action}"</#if> <@renderClass className alert /><#rt/>
       <#if title?has_content> title="${title}"</#if>
       <#if value?has_content> value="${value}"</#if>
       <#if size?has_content> size="${size}"</#if><#rt/>
       <#if maxlength?has_content>  maxlength="${maxlength}"</#if>
+      <#if mask?has_content> data-mask="${mask}"</#if><#rt/>
+      data-shortdate="${shortDateInput?string}"
       <#if id?has_content> id="${id}"</#if>/><#rt/>
-    <#if dateType!="time" >
-      <script type="application/javascript">
-        <#-- If language specific lib is found, use date / time converter else just copy the value fields -->
-        if (Date.CultureInfo != undefined) {
-          var initDate = <#if value?has_content>jQuery("#${id}").val()<#else>""</#if>;
-          if (initDate != "") {
-            var dateFormat = Date.CultureInfo.formatPatterns.shortDate<#if shortDateInput?? && !shortDateInput> + " " + Date.CultureInfo.formatPatterns.longTime</#if>;
-            <#-- The JS date parser doesn't understand the dot before ms in the date/time string. The ms here should be always 000 -->
-            if (initDate.indexOf('.') != -1) {
-              initDate = initDate.substring(0, initDate.indexOf('.'));
-            }
-            jQuery("#${id}").val(initDate);
-            var ofbizTime = "<#if shortDateInput?? && shortDateInput>yyyy-MM-dd<#else>yyyy-MM-dd HH:mm:ss</#if>";
-            var dateObj = Date.parseExact(initDate, ofbizTime);
-            var formatedObj = dateObj.toString(dateFormat);
-            jQuery("#${id}_i18n").val(formatedObj);
-          }
-
-          jQuery("#${id}").change(function() {
-            var ofbizTime = "<#if shortDateInput?? && shortDateInput>yyyy-MM-dd<#else>yyyy-MM-dd HH:mm:ss</#if>";
-            var newValue = ""
-            if (this.value != "") {
-              var dateObj = Date.parseExact(this.value, ofbizTime);
-              var dateFormat = Date.CultureInfo.formatPatterns.shortDate<#if shortDateInput?? && !shortDateInput> + " " + Date.CultureInfo.formatPatterns.longTime</#if>;
-              newValue = dateObj.toString(dateFormat);
-            }
-            jQuery("#${id}_i18n").val(newValue);
-          });
-          jQuery("#${id}_i18n").change(function() {
-            var dateFormat = Date.CultureInfo.formatPatterns.shortDate<#if shortDateInput?? && !shortDateInput> + " " + Date.CultureInfo.formatPatterns.longTime</#if>,
-            newValue = "",
-            dateObj = Date.parseExact(this.value, dateFormat),
-            ofbizTime;
-            if (this.value != "" && dateObj !== null) {
-              ofbizTime = "<#if shortDateInput?? && shortDateInput>yyyy-MM-dd<#else>yyyy-MM-dd HH:mm:ss</#if>";
-              newValue = dateObj.toString(ofbizTime);
-            }
-            else { // invalid input
-              jQuery("#${id}_i18n").val("");
-            }
-            jQuery("#${id}").val(newValue);
-          });
-        } else {
-          <#-- fallback if no language specific js date file is found -->
-          jQuery("#${id}").change(function() {
-          jQuery("#${id}_i18n").val(this.value);
-        });
-        jQuery("#${id}_i18n").change(function() {
-          jQuery("#${id}").val(this.value);
-        });
-      }
-
-      <#if shortDateInput?? && shortDateInput>
-        jQuery("#${id}").datepicker({
-      <#else>
-        jQuery("#${id}").datetimepicker({
-          showSecond: true,
-          <#-- showMillisec: true, -->
-          timeFormat: 'HH:mm:ss',
-          stepHour: 1,
-          stepMinute: 1,
-          stepSecond: 1,
-      </#if>
-          showWeek: true,
-          showOn: 'button',
-          buttonImage: '',
-          buttonText: '',
-          buttonImageOnly: false,
-          dateFormat: 'yy-mm-dd'
-        })
-        <#if mask?has_content>.mask("${mask}")</#if>
-        ;
-      </script>
-    </#if>
     <#if timeDropdown?has_content && timeDropdown=="time-dropdown">
       <select name="${timeHourName}" <#if classString?has_content>class="${classString}"</#if>><#rt/>
         <#if isTwelveHour>
