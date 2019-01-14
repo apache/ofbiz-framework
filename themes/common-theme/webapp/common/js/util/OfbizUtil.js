@@ -223,6 +223,108 @@ function bindObservers(bind_element) {
         var element = jQuery(this);
         element.validate();
     });
+
+    jQuery(bind_element).find(".date-time-picker").each(function(){
+        var element = jQuery(this);
+        var id = element.attr("id");
+        var element_i18n = jQuery("#" + id + "_i18n");
+        var shortDate = element.data("shortdate");
+        //If language specific lib is found, use date / time converter else just copy the value fields
+        if (Date.CultureInfo != undefined) {
+            var initDate = element.val();
+            if (initDate != "") {
+                var dateFormat;
+                var ofbizTime;
+                if (shortDate) {
+                    dateFormat = Date.CultureInfo.formatPatterns.shortDate;
+                    ofbizTime = "yyyy-MM-dd";
+                } else {
+                    dateFormat = Date.CultureInfo.formatPatterns.shortDate + " " + Date.CultureInfo.formatPatterns.longTime;
+                    ofbizTime = "yyyy-MM-dd HH:mm:ss"
+                }
+                // The JS date parser doesn't understand the dot before ms in the date/time string. The ms here should be always 000
+                if (initDate.indexOf('.') != -1) {
+                    initDate = initDate.substring(0, initDate.indexOf('.'));
+                }
+                element.val(initDate);
+                var dateObj = Date.parseExact(initDate, ofbizTime);
+                var formatedObj = dateObj.toString(dateFormat);
+                element_i18n.val(formatedObj);
+            }
+
+            element.change(function() {
+                var value = element.val();
+                var dateFormat;
+                var ofbizTime;
+                if (shortDate) {
+                    dateFormat = Date.CultureInfo.formatPatterns.shortDate;
+                    ofbizTime = "yyyy-MM-dd";
+                } else {
+                    dateFormat = Date.CultureInfo.formatPatterns.shortDate + " " + Date.CultureInfo.formatPatterns.longTime;
+                    ofbizTime = "yyyy-MM-dd HH:mm:ss"
+                }
+                var newValue = ""
+                if (value != "") {
+                    var dateObj = Date.parseExact(value, ofbizTime);
+                    newValue = dateObj.toString(dateFormat);
+                }
+                element_i18n.val(newValue);
+            });
+
+            element_i18n.change(function() {
+                var value = element_i18n.val();
+                var dateFormat;
+                var ofbizTime;
+                if (shortDate) {
+                    dateFormat = Date.CultureInfo.formatPatterns.shortDate;
+                    ofbizTime = "yyyy-MM-dd";
+                } else {
+                    dateFormat = Date.CultureInfo.formatPatterns.shortDate + " " + Date.CultureInfo.formatPatterns.longTime;
+                    ofbizTime = "yyyy-MM-dd HH:mm:ss"
+                }
+                var newValue = "";
+                var dateObj = Date.parseExact(this.value, dateFormat);
+                if (value != "" && dateObj !== null) {
+                    newValue = dateObj.toString(ofbizTime);
+                } else { // invalid input
+                    element_i18n.val("");
+                }
+                element.val(newValue);
+            });
+        } else {
+            //fallback if no language specific js date file is found
+            element.change(function() {
+                element_i18n.val(this.value);
+            });
+            element_i18n.change(function() {
+                element.val(this.value);
+            });
+        }
+        if (shortDate) {
+            element.datepicker({
+                showWeek: true,
+                showOn: 'button',
+                buttonImage: '',
+                buttonText: '',
+                buttonImageOnly: false,
+                dateFormat: 'yy-mm-dd'
+            })
+        } else {
+            element.datetimepicker({
+                showSecond: true,
+                // showMillisec: true,
+                timeFormat: 'HH:mm:ss',
+                stepHour: 1,
+                stepMinute: 1,
+                stepSecond: 1,
+                showOn: 'button',
+                buttonImage: '',
+                buttonText: '',
+                buttonImageOnly: false,
+                dateFormat: 'yy-mm-dd'
+            })
+        }
+    });
 }
 
 /* SelectAll: This utility can be used when we need to use parent and child box combination over any page. Here is the list of tasks it will do:
