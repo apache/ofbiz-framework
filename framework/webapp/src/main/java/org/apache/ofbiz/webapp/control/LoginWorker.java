@@ -927,8 +927,8 @@ public class LoginWorker {
         WebappInfo webappInfo = ComponentConfig.getWebappInfo((String) context.getAttribute("_serverId"), applicationName);
                 
         if (userLogin != null && 
-                (webappInfo != null && webappInfo.isAutologinCookieUsed())
-                || webappInfo == null) { // When using an empty mounpoint, ie using root as mounpoint. Beware: works only for 1 webapp!
+                ((webappInfo != null && webappInfo.isAutologinCookieUsed())
+                || webappInfo == null)) { // When using an empty mountpoint, ie using root as mountpoint. Beware: works only for 1 webapp!
             Cookie autoLoginCookie = new Cookie(getAutoLoginCookieName(request), userLogin.getString("userLoginId"));
             autoLoginCookie.setMaxAge(60 * 60 * 24 * 365);
             autoLoginCookie.setDomain(EntityUtilProperties.getPropertyValue("url", "cookie.domain", delegator));
