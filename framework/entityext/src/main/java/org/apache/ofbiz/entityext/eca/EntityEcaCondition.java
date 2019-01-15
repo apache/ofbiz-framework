@@ -25,15 +25,15 @@ import java.util.Map;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.ObjectType;
+import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.GenericEntity;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
-import org.w3c.dom.Element;
-import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceUtil;
+import org.w3c.dom.Element;
 
 /**
  * EntityEcaCondition
@@ -118,11 +118,7 @@ public final class EntityEcaCondition implements java.io.Serializable {
                 Debug.logWarning((String) message, module);
             }
         }
-        if (cond != null) {
-            return cond;
-        } else {
-            return false;
-        }
+        return cond;
     }
 
     public String getLValue() {

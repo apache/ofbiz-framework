@@ -485,6 +485,7 @@ public class ObjectType {
         return isOrSubOf(objectClass, typeClass);
     }
 
+    /** See also {@link #simpleTypeOrObjectConvert(Object obj, String type, String format, TimeZone timeZone, Locale locale, boolean noTypeFail)}. */
     public static Object simpleTypeOrObjectConvert(Object obj, String type, String format, Locale locale, boolean noTypeFail) throws GeneralException {
         return simpleTypeOrObjectConvert(obj, type, format, null, locale, noTypeFail);
     }
@@ -496,8 +497,11 @@ public class ObjectType {
      * 
      * Supported types: 
      * - All primitives
+     * 
      * - Simple types: String, Boolean, Double, Float, Long, Integer, BigDecimal.
+     * 
      * - Other Objects: List, Map, Set, Calendar, Date (java.sql.Date), Time, Timestamp, TimeZone, Date (util.Date and sql.Date)
+     * 
      * - Simple types (maybe) not handled: Short, BigInteger, Byte, Character, ObjectName and Void...
      * 
      * @param obj Object to convert
@@ -552,7 +556,6 @@ public class ObjectType {
 
         if (converter != null) {
             if (converter instanceof LocalizedConverter) {
-                @SuppressWarnings("rawtypes")
                 LocalizedConverter<Object, Object> localizedConverter = (LocalizedConverter) converter;
                 if (timeZone == null) {
                     timeZone = TimeZone.getDefault();
@@ -588,6 +591,7 @@ public class ObjectType {
         return obj;
     }
 
+    /** See also {@link #simpleTypeOrObjectConvert(Object obj, String type, String format, TimeZone timeZone, Locale locale, boolean noTypeFail)}. */
     public static Object simpleTypeOrObjectConvert(Object obj, String type, String format, Locale locale) throws GeneralException {
         return simpleTypeOrObjectConvert(obj, type, format, locale, true);
     }
@@ -631,7 +635,7 @@ public class ObjectType {
             } catch (GeneralException e) {
                 Debug.logError(e, module);
                 messages.add("Could not convert value2 for comparison: " + e.getMessage());
-                return null;
+                return Boolean.FALSE;
             }
         }
 
@@ -647,7 +651,7 @@ public class ObjectType {
         } catch (GeneralException e) {
             Debug.logError(e, module);
             messages.add("Could not convert value1 for comparison: " + e.getMessage());
-            return null;
+            return Boolean.FALSE;
         }
 
         // handle null values...
@@ -661,11 +665,11 @@ public class ObjectType {
             } else {
                 if (convertedValue1 == null) {
                     messages.add("Left value is null, cannot complete compare for the operator " + operator);
-                    return null;
+                    return Boolean.FALSE;
                 }
                 if (convertedValue2 == null) {
                     messages.add("Right value is null, cannot complete compare for the operator " + operator);
-                    return null;
+                    return Boolean.FALSE;
                 }
             }
         }
@@ -678,7 +682,7 @@ public class ObjectType {
                 return str1.indexOf(str2) < 0 ? Boolean.FALSE : Boolean.TRUE;
             }
             messages.add("Error in XML file: cannot do a contains compare between a String and a non-String type");
-            return null;
+            return Boolean.FALSE;
         } else if ("is-empty".equals(operator)) {
             if (convertedValue1 == null) {
                 return Boolean.TRUE;
@@ -720,7 +724,7 @@ public class ObjectType {
                     return str1.length() == 0 && str2.length() == 0 ? Boolean.FALSE : Boolean.TRUE;
                 } else {
                     messages.add("ERROR: Could not do a compare between strings with one empty string for the operator " + operator);
-                    return null;
+                    return Boolean.FALSE;
                 }
             }
             result = str1.compareTo(str2);
@@ -767,7 +771,7 @@ public class ObjectType {
                 }
             } else {
                 messages.add("Can only compare Booleans using the operators 'equals' or 'not-equals'");
-                return null;
+                return Boolean.FALSE;
             }
         } else if ("java.lang.Object".equals(type)) {
             if (convertedValue1.equals(convertedValue2)) {
@@ -777,7 +781,7 @@ public class ObjectType {
             }
         } else {
             messages.add("Type \"" + type + "\" specified for compare not supported.");
-            return null;
+            return Boolean.FALSE;
         }
 
         if (verboseOn) {
@@ -809,7 +813,7 @@ public class ObjectType {
             }
         } else {
             messages.add("Specified compare operator \"" + operator + "\" not known.");
-            return null;
+            return Boolean.FALSE;
         }
 
         if (verboseOn) {
