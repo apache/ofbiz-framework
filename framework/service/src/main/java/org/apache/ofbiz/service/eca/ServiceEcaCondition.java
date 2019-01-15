@@ -184,12 +184,10 @@ public class ServiceEcaCondition implements java.io.Serializable {
                 Debug.logWarning(message.toString(), module);
             }
         }
-        if (cond != null) {
-            return cond;
-        } else {
+        if (!cond) {
             Debug.logWarning("doRealCompare returned null, returning false", module);
-            return false;
         }
+        return cond;
     }
 
     @Override
