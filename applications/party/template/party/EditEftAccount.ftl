@@ -28,7 +28,7 @@ under the License.
   </div>
   <div class="screenlet-body">
         <div class="button-bar">
-          <a href="<@ofbizUrl>${donePage}?partyId=${partyId}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonCancelDone}</a>
+          <a href="<@ofbizUrl>${donePage}?partyId=${partyId!}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonCancelDone}</a>
           <a href="javascript:document.editeftaccountform.submit()" class="smallSubmit">${uiLabelMap.CommonSave}</a>
         </div>
     <#if !eftAccount??>
@@ -37,7 +37,7 @@ under the License.
       <form method="post" action='<@ofbizUrl>updateEftAccount?DONE_PAGE=${donePage}</@ofbizUrl>' name="editeftaccountform" style='margin: 0;'>
         <input type="hidden" name='paymentMethodId' value='${paymentMethodId}' />
     </#if>
-        <input type="hidden" name="partyId" value="${partyId}"/>
+        <input type="hidden" name="partyId" value="${partyId!}"/>
         <table class="basic-table" cellspacing="0">
         <tr>
           <td class="label">${uiLabelMap.AccountingNameAccount}</td>
