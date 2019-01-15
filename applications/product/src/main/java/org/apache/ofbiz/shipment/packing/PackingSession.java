@@ -146,7 +146,8 @@ public class PackingSession implements java.io.Serializable {
             GenericValue res = EntityUtil.getFirst(reservations);
             BigDecimal resQty = numAvailableItems(res);
 
-            if (resQty.compareTo(quantity) > 0) {
+            // If reservation has enough for the quantity required
+            if (resQty.compareTo(quantity) >= 0) {
                 int checkCode = this.checkLineForAdd(res, orderId, orderItemSeqId, shipGroupSeqId, productId, quantity, packageSeqId, update);
                 this.createPackLineItem(checkCode, res, orderId, orderItemSeqId, shipGroupSeqId, productId, quantity, weight, packageSeqId);
             }
