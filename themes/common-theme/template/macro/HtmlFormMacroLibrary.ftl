@@ -402,31 +402,20 @@ under the License.
   <#if conditionGroup?has_content>
     <input type="hidden" name="${name}_grp" value="${conditionGroup}"/>
   </#if>
+  <#if dateType != "time">
+    <#local className = className + " date-time-picker"/>
+  </#if>
+  <#local shortDateInput = "date" == dateType/>
   <span class="view-calendar">
-    <input id="${id}_fld0_value" type="text" <@renderClass className alert /><#if name?has_content> name="${name?html}_fld0_value"</#if><#if localizedInputTitle?has_content> title="${localizedInputTitle}"</#if><#if value?has_content> value="${value}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if>/><#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
-    <#if dateType != "time">
-      <script type="application/javascript">
-        <#if "date" == dateType>
-          jQuery("#${id}_fld0_value").datepicker({
-        <#else>
-          jQuery("#${id}_fld0_value").datetimepicker({
-            showSecond: true,
-            <#-- showMillisec: true, -->
-            timeFormat: 'HH:mm:ss',
-            stepHour: 1,
-            stepMinute: 5,
-            stepSecond: 10,
-        </#if>
-            showWeek: true,
-            showOn: 'button',
-            buttonImage: '',
-            buttonText: '',
-            buttonImageOnly: false,
-            dateFormat: 'yy-mm-dd'
-          });
-      </script>
-      <#rt/>
-    </#if>
+    <input id="${id}_fld0_value" type="text" <@renderClass className alert />
+        <#if name?has_content> name="${name?html}_fld0_value"</#if>
+        <#if localizedInputTitle?has_content> title="${localizedInputTitle}"</#if>
+        <#if value?has_content> value="${value}"</#if>
+        <#if size?has_content> size="${size}"</#if>
+        <#if maxlength?has_content> maxlength="${maxlength}"</#if>
+        <#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
+         data-shortdate="${shortDateInput?string}"
+    />
     <#if titleStyle?has_content>
       <span class="${titleStyle}"><#rt/>
     </#if>
@@ -440,30 +429,14 @@ under the License.
       </span><#rt/>
     </#if>
     <#rt/>
-    <input id="${id}_fld1_value" type="text" <@renderClass className alert /><#if name?has_content> name="${name}_fld1_value"</#if><#if localizedInputTitle??> title="${localizedInputTitle?html}"</#if><#if value2?has_content> value="${value2}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if>/><#rt/>
-    <#if dateType != "time">
-      <script type="application/javascript">
-        <#if "date" == dateType>
-          jQuery("#${id}_fld1_value").datepicker({
-        <#else>
-          jQuery("#${id}_fld1_value").datetimepicker({
-            showSecond: true,
-            <#-- showMillisec: true, -->
-            timeFormat: 'HH:mm:ss',
-            stepHour: 1,
-            stepMinute: 5,
-            stepSecond: 10,
-        </#if>
-            showWeek: true,
-            showOn: 'button',
-            buttonImage: '',
-            buttonText: '',
-            buttonImageOnly: false,
-            dateFormat: 'yy-mm-dd'
-          });
-      </script>
-      <#rt/>
-    </#if>
+    <input id="${id}_fld1_value" type="text" <@renderClass className alert />
+        <#if name?has_content> name="${name}_fld1_value"</#if>
+        <#if localizedInputTitle??> title="${localizedInputTitle?html}"</#if>
+        <#if value2?has_content> value="${value2}"</#if>
+        <#if size?has_content> size="${size}"</#if>
+        <#if maxlength?has_content> maxlength="${maxlength}"</#if>
+         data-shortdate="${shortDateInput?string}"
+    /><#rt/>
     <#if titleStyle?has_content>
       <span class="${titleStyle}"><#rt/>
     </#if>
