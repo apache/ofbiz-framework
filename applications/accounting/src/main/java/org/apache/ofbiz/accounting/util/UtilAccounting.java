@@ -117,15 +117,10 @@ public final class UtilAccounting {
 
         // first check the parentTypeId against inputTypeId
         String parentTypeId = paymentType.getString("parentTypeId");
-        if (parentTypeId == null) {
-            return false;
-        }
-        if (parentTypeId.equals(inputTypeId)) {
-            return true;
-        }
 
-        // otherwise, we have to go to the grandparent (recurse)
-        return isPaymentTypeRecurse(paymentType.getRelatedOne("ParentPaymentType", false), inputTypeId);
+        // isPaymentTypeRecurse => otherwise, we have to go to the grandparent (recurse)
+        return !(parentTypeId == null) &&
+                (parentTypeId.equals(inputTypeId) || isPaymentTypeRecurse(paymentType.getRelatedOne("ParentPaymentType", false), inputTypeId));
     }
 
 
@@ -144,12 +139,9 @@ public final class UtilAccounting {
         }
 
         String paymentTypeId = paymentType.getString("paymentTypeId");
-        if (inputTypeId.equals(paymentTypeId)) {
-            return true;
-        }
 
         // recurse up tree
-        return isPaymentTypeRecurse(paymentType, inputTypeId);
+        return inputTypeId.equals(paymentTypeId) || isPaymentTypeRecurse(paymentType, inputTypeId);
     }
 
 
@@ -179,15 +171,10 @@ public final class UtilAccounting {
 
         // check parentClassId against inputClassId
         String parentClassId = glAccountClass.getString("parentClassId");
-        if (parentClassId == null) {
-            return false;
-        }
-        if (parentClassId.equals(parentGlAccountClassId)) {
-            return true;
-        }
 
         // otherwise, we have to go to the grandparent (recurse)
-        return isAccountClassClass(glAccountClass.getRelatedOne("ParentGlAccountClass", true), parentGlAccountClassId);
+        return !(parentClassId == null) &&
+                (parentClassId.equals(parentGlAccountClassId) || isAccountClassClass(glAccountClass.getRelatedOne("ParentGlAccountClass", true), parentGlAccountClassId));
     }
 
     /**
@@ -248,15 +235,10 @@ public final class UtilAccounting {
         // first check the invoiceTypeId and parentTypeId against inputTypeId
         String invoiceTypeId = invoiceType.getString("invoiceTypeId");
         String parentTypeId = invoiceType.getString("parentTypeId");
-        if (parentTypeId == null || invoiceTypeId.equals(parentTypeId)) {
-            return false;
-        }
-        if (parentTypeId.equals(inputTypeId)) {
-            return true;
-        }
 
         // otherwise, we have to go to the grandparent (recurse)
-        return isInvoiceTypeRecurse(invoiceType.getRelatedOne("ParentInvoiceType", false), inputTypeId);
+        return !(parentTypeId == null || invoiceTypeId.equals(parentTypeId)) &&
+                (parentTypeId.equals(inputTypeId) || isInvoiceTypeRecurse(invoiceType.getRelatedOne("ParentInvoiceType", false), inputTypeId));
     }
 
     /**
@@ -274,12 +256,10 @@ public final class UtilAccounting {
         }
 
         String invoiceTypeId = invoiceType.getString("invoiceTypeId");
-        if (inputTypeId.equals(invoiceTypeId)) {
-            return true;
-        }
 
         // recurse up tree
-        return isInvoiceTypeRecurse(invoiceType, inputTypeId);
+        return inputTypeId.equals(invoiceTypeId)
+                || isInvoiceTypeRecurse(invoiceType, inputTypeId);
     }
 
 
