@@ -2232,17 +2232,14 @@ render borders around empty <td> elements */
 
 .fieldgroup-title-bar ul .collapsed, .fieldgroup-title-bar ul .collapsed:hover {
     background: url(../images/bullet_toggle_plus.png) no-repeat left center;
+    cursor: pointer;
+    padding-left: 10px;
 }
 
 .fieldgroup-title-bar ul .expanded, .fieldgroup-title-bar ul .expanded:hover {
     background: url(../images/bullet_toggle_minus.png) no-repeat left center;
-}
-
-.fieldgroup-title-bar a {
     cursor: pointer;
-    text-decoration: none;
     padding-left: 10px;
-    color: #000000;
 }
 
 /* == Portlet configuration screenlet == */

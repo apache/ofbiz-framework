@@ -325,6 +325,13 @@ function bindObservers(bind_element) {
             })
         }
     });
+    jQuery(bind_element).on("click", ".fieldgroup  li.collapsed, .fieldgroup  li.expanded", function(e){
+        var element = jQuery(this);
+        var collapsibleAreaId =  element.data("collapsible-area-id");
+        var expandToolTip =  element.data("expand-tooltip");
+        var collapseToolTip =  element.data("collapse-tooltip");
+        toggleCollapsiblePanel(element, collapsibleAreaId, expandToolTip, collapseToolTip);
+    });
 }
 
 /* SelectAll: This utility can be used when we need to use parent and child box combination over any page. Here is the list of tasks it will do:
@@ -879,7 +886,7 @@ function ajaxAutoCompleteDropDown() {
 */
 function toggleCollapsiblePanel(link, areaId, expandTxt, collapseTxt){
    var container = jQuery("#" + areaId);
-   var liElement = jQuery(link).parents('li:first');
+   var liElement = jQuery(link).is("li") ? jQuery(link) : jQuery(link).parents('li:first');
     if (liElement) {
       if (container.is(':visible')) {
         liElement.removeClass('expanded');
@@ -1096,7 +1103,7 @@ function expandAll(bool) {
     jQuery('.fieldgroup').each(function() {
         var titleBar = jQuery(this).children('.fieldgroup-title-bar'), body = jQuery(this).children('.fieldgroup-body');
         if (titleBar.children().length > 0 && body.is(':visible') != bool) {
-            toggleCollapsiblePanel(titleBar.find('a'), body.attr('id'), 'expand', 'collapse');
+            toggleCollapsiblePanel(titleBar.find('li.collapsed, li.expanded'), body.attr('id'), 'expand', 'collapse');
         }
     });
 }
