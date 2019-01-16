@@ -649,11 +649,8 @@ Parameter: delegatorName, String, optional - name of the delegator in context.
     <div class="fieldgroup-title-bar">
       <#if collapsible>
         <ul>
-          <li class="<#if collapsed>collapsed">
-                      <a onclick="javascript:toggleCollapsiblePanel(this, '${collapsibleAreaId}', '${expandToolTip}', '${collapseToolTip}');">
-                    <#else>expanded">
-                      <a onclick="javascript:toggleCollapsiblePanel(this, '${collapsibleAreaId}', '${expandToolTip}', '${collapseToolTip}');">
-                    </#if>
+          <li data-collapsible-area-id="${collapsibleAreaId}" data-expand-tooltip="${expandToolTip}" data-collapse-tooltip="${collapseToolTip}"
+                  class="<#if collapsed>collapsed"><#else>expanded"></#if>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<#if title?has_content>${title}</#if></a>
           </li>
         </ul>

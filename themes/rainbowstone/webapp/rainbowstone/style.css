@@ -910,6 +910,8 @@ text-decoration: underline;
     background: url(/images/expand.gif) no-repeat left center;
     min-height: 1.1em;
     min-width: 1.1em;
+    cursor: pointer;
+    padding-left: 10px;
 }
 
 .fieldgroup-title-bar ul .expanded,
@@ -917,13 +919,8 @@ text-decoration: underline;
     background: url(/images/collapse.gif) no-repeat left center;
     min-height: 1.1em;
     min-width: 1.1em;
-}
-
-.fieldgroup-title-bar a {
     cursor: pointer;
-    text-decoration: none;
-    padding-left: 10px; /* Setting must be in px */
-    color: #000000;
+    padding-left: 10px;
 }
 
 /* ----------------------------------------- */
