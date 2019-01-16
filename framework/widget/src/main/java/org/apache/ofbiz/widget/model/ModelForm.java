@@ -497,11 +497,11 @@ public abstract class ModelForm extends ModelWidget {
             lastOrderFields.addAll(parentModel.lastOrderFields);
         }
         String sortFieldParameterName = formElement.getAttribute("sort-field-parameter-name");
-        if (sortFieldParameterName.isEmpty() && parentModel != null) {
-            this.sortFieldParameterName = parentModel.targetType;
-        } else {
-            this.sortFieldParameterName = "sortField";
-        }
+        if (!sortFieldParameterName.isEmpty()) {
+            this.sortFieldParameterName = sortFieldParameterName;
+       } else {
+            this.sortFieldParameterName = (parentModel != null) ? parentModel.getSortFieldParameterName() : "sortField";
+       }
         String defaultRequiredFieldStyle = formElement.getAttribute("default-required-field-style");
         if (defaultRequiredFieldStyle.isEmpty() && parentModel != null) {
             defaultRequiredFieldStyle = parentModel.defaultRequiredFieldStyle;
