@@ -1450,10 +1450,7 @@ public class GiftCertificateServices {
 
     private static boolean checkNumberInDatabase(Delegator delegator, String number) throws GenericEntityException {
         GenericValue finAccount = EntityQuery.use(delegator).from("FinAccount").where("finAccountId", number).queryOne();
-        if (finAccount == null) {
-            return true;
-        }
-        return false;
+        return finAccount == null;
     }
 
     private static boolean checkCardNumber(String number) {

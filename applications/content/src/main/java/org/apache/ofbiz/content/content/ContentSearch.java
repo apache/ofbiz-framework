@@ -697,16 +697,10 @@ public class ContentSearch {
                 ContentSearchConstraint psc = (ContentSearchConstraint) obj;
                 if (psc instanceof KeywordConstraint) {
                     KeywordConstraint that = (KeywordConstraint) psc;
-                    if (this.anyPrefix != that.anyPrefix) {
-                        return false;
-                    }
-                    if (this.anySuffix != that.anySuffix) {
-                        return false;
-                    }
-                    if (this.isAnd != that.isAnd) {
-                        return false;
-                    }
-                    if (this.removeStems != that.removeStems) {
+                    if (this.anyPrefix != that.anyPrefix
+                            || this.anySuffix != that.anySuffix
+                            || this.isAnd != that.isAnd
+                            || this.removeStems != that.removeStems) {
                         return false;
                     }
                     if (this.keywordsString == null) {
