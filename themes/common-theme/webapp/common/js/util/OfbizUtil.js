@@ -76,6 +76,14 @@ function bindObservers(bind_element) {
         }
         element.elrte(opts);
     });
+    jQuery(bind_element).find(".ajaxAutoCompleter").each(function(){
+        var element = jQuery(this);
+        var ajaxUrl = element.data("ajax-url");
+        var showDescription = element.data("show-description");
+        var defaultMinLength = element.data("default-minlength");
+        var defaultDelay = element.data("default-delay");
+        ajaxAutoCompleter(ajaxUrl, showDescription, defaultMinLength, defaultDelay);
+    });
     jQuery(bind_element).find("[data-inplace-editor-url]").each(function(){
         var element = jQuery(this);
         var id =  element.attr("id");
