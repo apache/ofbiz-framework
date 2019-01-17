@@ -45,6 +45,15 @@ under the License.
 
 <#macro renderTextField name className alert value="" textSize="" maxlength="" id="" event="" action="" disabled="" clientAutocomplete="" ajaxUrl="" ajaxEnabled="" mask="" tabindex="" readonly="" placeholder="" delegatorName="default">
   <input type="text" name="${name?default("")?html}"<#t/>
+  <#if ajaxEnabled?has_content && ajaxEnabled && ajaxUrl?has_content>
+    <#local defaultMinLength = modelTheme.getAutocompleterDefaultMinLength()>
+    <#local defaultDelay = modelTheme.getAutocompleterDefaultDelay()>
+    <#local className = className + " ajaxAutoCompleter"/>
+     data-show-description="false"<#rt/>
+     data-default-minlength="${defaultMinLength!2}"<#rt/>
+     data-ajax-url="${ajaxUrl!}"<#rt/>
+     data-default-delay="${defaultDelay!300}"<#rt/>
+  </#if>
     <@renderClass className alert />
     <#if value?has_content> value="${value}"</#if><#rt/>
     <#if textSize?has_content> size="${textSize}"</#if><#rt/>
@@ -59,11 +68,6 @@ under the License.
     <#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
     require
   /><#t/>
-  <#if ajaxEnabled?has_content && ajaxEnabled>
-    <#local defaultMinLength = modelTheme.getAutocompleterDefaultMinLength()>
-    <#local defaultDelay = modelTheme.getAutocompleterDefaultDelay()>
-    <script type="application/javascript">ajaxAutoCompleter('${ajaxUrl!}', false, ${defaultMinLength!2}, ${defaultDelay!300});</script><#lt/>
-  </#if>
 </#macro>
 
 <#macro renderTextareaField name className alert cols="" rows="" maxlength="" id="" readonly="" value="" visualEditorEnable="" buttons="" tabindex="" language="">
