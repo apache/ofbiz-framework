@@ -395,10 +395,7 @@ public class WeightPackageSession implements Serializable {
         } else {
             diffInShipCostInPerc = (((actualShippingCost.subtract(estimatedShipCost)).divide(estimatedShipCost, 2, rounding)).multiply(new BigDecimal(100))).abs();
         }
-        if (doEstimates.compareTo(diffInShipCostInPerc) == -1) {
-            return true;
-        }
-        return false;
+        return doEstimates.compareTo(diffInShipCostInPerc) == -1;
     }
 
     protected void createPackages(String orderId) throws GeneralException {

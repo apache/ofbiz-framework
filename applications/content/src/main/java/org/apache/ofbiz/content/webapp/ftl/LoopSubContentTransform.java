@@ -88,9 +88,7 @@ public class LoopSubContentTransform implements TemplateTransformModel {
             idx = 0;
         }
         int i = idx;
-        if (UtilValidate.isEmpty(lst)) {
-            return false;
-        } else  if (i >= lst.size()) {
+        if (UtilValidate.isEmpty(lst) || i >= lst.size()) {
             return false;
         }
         GenericValue subContentDataResourceView = lst.get(i);

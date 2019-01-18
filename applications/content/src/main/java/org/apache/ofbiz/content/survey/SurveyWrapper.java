@@ -264,10 +264,7 @@ public class SurveyWrapper {
         }
 
         GenericValue survey = this.getSurvey();
-        if (!"Y".equals(survey.getString("allowMultiple")) && !"Y".equals(survey.getString("allowUpdate"))) {
-            return false;
-        }
-        return true;
+        return !(!"Y".equals(survey.getString("allowMultiple")) && !"Y".equals(survey.getString("allowUpdate")));
     }
 
     public boolean canRespond() {
@@ -276,10 +273,7 @@ public class SurveyWrapper {
             return true;
         }
         GenericValue survey = this.getSurvey();
-        if ("Y".equals(survey.getString("allowMultiple"))) {
-            return true;
-        }
-        return false;
+        return "Y".equals(survey.getString("allowMultiple"));
     }
 
     // returns a list of SurveyQuestions (in order by sequence number) for the current Survey

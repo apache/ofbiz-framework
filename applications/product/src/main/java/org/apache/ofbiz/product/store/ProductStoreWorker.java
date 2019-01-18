@@ -645,11 +645,7 @@ public final class ProductStoreWorker {
                 availableOkay = wantAvailable == "Y".equals(invAvailResult.get("available"));
             }
 
-            if ((requiredOkay == null || requiredOkay) && (availableOkay == null || availableOkay)) {
-                return true;
-            } else {
-                return false;
-            }
+            return (requiredOkay == null || requiredOkay) && (availableOkay == null || availableOkay);
         } catch (GenericServiceException e) {
             String errMsg = "Fatal error calling inventory checking services: " + e.toString();
             Debug.logError(e, errMsg, module);

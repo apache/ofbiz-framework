@@ -748,10 +748,7 @@ public class ProductConfigWrapper implements Serializable {
 
         public boolean isDefault() {
             ConfigOption defaultConfigOption = parentConfigItem.getDefault();
-            if (this.equals(defaultConfigOption)) {
-                return true;
-            }
-            return false;
+            return this.equals(defaultConfigOption);
         }
 
         public boolean hasVirtualComponent () {

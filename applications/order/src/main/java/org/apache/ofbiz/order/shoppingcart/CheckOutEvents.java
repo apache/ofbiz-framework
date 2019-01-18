@@ -531,10 +531,8 @@ public class CheckOutEvents {
             return false;
         }
         GenericValue productStore = ProductStoreWorker.getProductStore(cart.getProductStoreId(), delegator);
-        if (productStore == null || productStore.get("explodeOrderItems") == null) {
-            return false;
-        }
-        return productStore.getBoolean("explodeOrderItems");
+        return !(productStore == null || productStore.get("explodeOrderItems") == null)
+                && productStore.getBoolean("explodeOrderItems");
     }
 
     public static String checkShipmentNeeded(HttpServletRequest request, HttpServletResponse response) {
