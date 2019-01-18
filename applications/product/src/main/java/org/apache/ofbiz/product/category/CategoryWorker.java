@@ -308,12 +308,7 @@ public final class CategoryWorker {
 
     public static boolean checkTrailItem(ServletRequest request, String category) {
         List<String> crumb = getTrail(request);
-
-        if (crumb != null && crumb.contains(category)) {
-            return true;
-        } else {
-            return false;
-        }
+        return crumb != null && crumb.contains(category);
     }
 
     public static String lastTrailItem(ServletRequest request) {

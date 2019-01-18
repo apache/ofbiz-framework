@@ -1578,13 +1578,7 @@ public class ShoppingCartItem implements java.io.Serializable {
     }
 
     public boolean isInItemGroup(String groupNumber) {
-        if (this.itemGroup == null) {
-            return false;
-        }
-        if (this.itemGroup.getGroupNumber().equals(groupNumber)) {
-            return true;
-        }
-        return false;
+        return !(this.itemGroup == null) && this.itemGroup.getGroupNumber().equals(groupNumber);
     }
 
     /** Returns the item type description. */
@@ -2489,13 +2483,9 @@ public class ShoppingCartItem implements java.io.Serializable {
             return false;
         }
 
-        if ((this.orderItemAttributes == null && UtilValidate.isNotEmpty(orderItemAttributes)) || (UtilValidate.isNotEmpty(this.orderItemAttributes) && orderItemAttributes == null) ||
-                (this.orderItemAttributes != null && orderItemAttributes != null && (this.orderItemAttributes.size() != orderItemAttributes.size() || !(this.orderItemAttributes.equals(orderItemAttributes))))) {
             // order item attribute unique
-            return false;
-        }
-
-        return true;
+        return !((this.orderItemAttributes == null && UtilValidate.isNotEmpty(orderItemAttributes)) || (UtilValidate.isNotEmpty(this.orderItemAttributes) && orderItemAttributes == null) ||
+                (this.orderItemAttributes != null && orderItemAttributes != null && (this.orderItemAttributes.size() != orderItemAttributes.size() || !(this.orderItemAttributes.equals(orderItemAttributes)))));
     }
 
     /** Gets the Product entity. If it is not already retreived gets it from the delegator */

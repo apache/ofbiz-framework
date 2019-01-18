@@ -116,11 +116,8 @@ public class VerifyPickSessionRow implements Serializable {
     }
 
     public boolean isSameItem(VerifyPickSessionRow line) {
-        if (this.getInventoryItemId().equals(line.getInventoryItemId()) && this.getOrderItemSeqId().equals(line.getOrderItemSeqId())
-                && this.getOrderId().equals(line.getOrderId()) && this.getShipGroupSeqId().equals(line.getShipGroupSeqId())) {
-            return true;
-        }
-        return false;
+        return this.getInventoryItemId().equals(line.getInventoryItemId()) && this.getOrderItemSeqId().equals(line.getOrderItemSeqId())
+                && this.getOrderId().equals(line.getOrderId()) && this.getShipGroupSeqId().equals(line.getShipGroupSeqId());
     }
 
     protected void issueItemToShipment(String shipmentId, String picklistBinId, GenericValue userLogin, BigDecimal quantity, LocalDispatcher dispatcher, Locale locale) throws GeneralException {

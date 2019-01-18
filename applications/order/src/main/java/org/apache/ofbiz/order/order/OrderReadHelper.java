@@ -388,10 +388,7 @@ public class OrderReadHelper {
     }
 
     public boolean hasShippingAddress() {
-        if (UtilValidate.isNotEmpty(this.getShippingLocations())) {
-            return true;
-        }
-        return false;
+        return UtilValidate.isNotEmpty(this.getShippingLocations());
     }
 
     public boolean hasPhysicalProductItems() throws GenericEntityException {
