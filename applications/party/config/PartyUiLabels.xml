@@ -184,6 +184,7 @@
         <value xml:lang="de">Kommunikationsereignis Typ ID</value>
         <value xml:lang="en">Comm.Type ID</value>
         <value xml:lang="es">Código Tipo de evento de comunicación</value>
+        <value xml:lang="es-CL">Tipo de Evento de Comunicación</value>
         <value xml:lang="fr">Type d'évènement de communication</value>
         <value xml:lang="hi-IN">संचार घटना प्रकार का क्रमांक(communicationEventTypeId)</value>
         <value xml:lang="it">Tipo evento communicazioni</value>
@@ -215,6 +216,7 @@
         <value xml:lang="de">Kontaktliste ID</value>
         <value xml:lang="en">Contact List ID</value>
         <value xml:lang="es">Codigo Lista de contactos</value>
+        <value xml:lang="es-CL">Lista de contactos</value>
         <value xml:lang="fr">Liste de contact</value>
         <value xml:lang="hi-IN">संपर्क सूची क्रमांक</value>
         <value xml:lang="it">Lista contatto</value>
@@ -269,6 +271,7 @@
         <value xml:lang="de">Kontaktmechanismus Typ ID</value>
         <value xml:lang="en">Contact Mech Type ID</value>
         <value xml:lang="es">Código Tipo Mecanismo de contacto</value>
+        <value xml:lang="es-CL">Mecanismo de Contacto</value>
         <value xml:lang="fr">Type de coordonnées</value>
         <value xml:lang="hi-IN">संपर्क यांत्रिक प्रकार का क्रमांक</value>
         <value xml:lang="it">Tipo contatto</value>
@@ -286,6 +289,8 @@
         <value xml:lang="ar">دليل نوع المايم للمحتوى</value>
         <value xml:lang="de">Inhalt Mime Typ ID</value>
         <value xml:lang="en">Content Mime Type ID</value>
+        <value xml:lang="es">Content Mime Type Id</value>
+        <value xml:lang="es-CL">Content Mime Type</value>
         <value xml:lang="fr">Type de contenu</value>
         <value xml:lang="hi-IN">सामग्री माइम प्रकार का क्रमांक(contentMimeTypeId)</value>
         <value xml:lang="it">Codice tipo contenuto mime</value>
@@ -371,6 +376,8 @@
         <value xml:lang="cs">ID polohy zařízení</value>
         <value xml:lang="de">Zieleinrichtung</value>
         <value xml:lang="en">Destination Facility ID</value>
+        <value xml:lang="es">Id Almacén de destino</value>
+        <value xml:lang="es-CL">Bodega de Destino</value>
         <value xml:lang="fr">Lieu de stockage de destination</value>
         <value xml:lang="hi-IN">गंतव्य सुविधा क्रमांक(destinationFacilityId)</value>
         <value xml:lang="it">Stabilimento destinazione</value>
@@ -529,6 +536,7 @@
         <value xml:lang="de">Von Akteur ID</value>
         <value xml:lang="en">From Party ID</value>
         <value xml:lang="es">Código Participante origen</value>
+        <value xml:lang="es-CL">Participante de Origen</value>
         <value xml:lang="fr">Expéditeur</value>
         <value xml:lang="hi-IN">पार्टी क्रमांक से</value>
         <value xml:lang="it">Dal Soggetto</value>
@@ -1068,6 +1076,8 @@
         <value xml:lang="ar">دليل وسيلة إتصال المصدر</value>
         <value xml:lang="de">Kontaktherkunft ID</value>
         <value xml:lang="en">Origin Contact Mech ID</value>
+        <value xml:lang="es">Id Mecanismo de Contacto de Origen</value>
+        <value xml:lang="es-CL">Mecanismo de Contacto de Origen</value>
         <value xml:lang="fr">Coordonnées d'origine</value>
         <value xml:lang="hi-IN">मूल संपर्क यांत्रिक क्रमांक</value>
         <value xml:lang="it">Contatto origine</value>
@@ -1146,6 +1156,7 @@
         <value xml:lang="de">Übergeordnetes Kommunikationsereignis ID</value>
         <value xml:lang="en">Parent Comm Event ID</value>
         <value xml:lang="es">Codigo Precursor del evento de comunicación</value>
+        <value xml:lang="es-CL">Evento de Comunicación</value>
         <value xml:lang="fr">Evènement de communication de parent</value>
         <value xml:lang="hi-IN">उच्च(Parent) संचार घटना क्रमांक</value>
         <value xml:lang="it">Evento comunicazione padre</value>
@@ -1251,6 +1262,7 @@
         <value xml:lang="de">Akteur ID</value>
         <value xml:lang="en">Party ID</value>
         <value xml:lang="es">Id Grupo</value>
+        <value xml:lang="es-CL">Grupo</value>
         <value xml:lang="fr">Acteur</value>
         <value xml:lang="hi-IN">पार्टी क्रमांक</value>
         <value xml:lang="it">Codice Soggetto</value>
@@ -1270,6 +1282,7 @@
         <value xml:lang="de">Akteur ID von</value>
         <value xml:lang="en">From Party ID</value>
         <value xml:lang="es">Id Grupo Origen</value>
+        <value xml:lang="es-CL">Grupo de Origen</value>
         <value xml:lang="fr">De l'acteur</value>
         <value xml:lang="hi-IN">पार्टी क्रमांक से</value>
         <value xml:lang="it">Soggetto Da</value>
@@ -1289,6 +1302,7 @@
         <value xml:lang="de">Akteur ID zu</value>
         <value xml:lang="en">To Party ID</value>
         <value xml:lang="es">Id Grupo Destino</value>
+        <value xml:lang="es-CL">Grupo de Destino</value>
         <value xml:lang="fr">Vers l'acteur</value>
         <value xml:lang="hi-IN">पार्टी क्रमांक को</value>
         <value xml:lang="it">Soggetto a</value>
@@ -1637,6 +1651,7 @@
         <value xml:lang="de">Rolle Typ ID</value>
         <value xml:lang="en">Role Type ID</value>
         <value xml:lang="es">Codigo Tipo de rol</value>
+        <value xml:lang="es-CL">Tipo de rol</value>
         <value xml:lang="fr">Rôle</value>
         <value xml:lang="hi-IN">भूमिका प्रकार क्रमांक</value>
         <value xml:lang="it">Tipo Ruolo</value>
@@ -1655,6 +1670,7 @@
         <value xml:lang="de">Rolle Typ ID von</value>
         <value xml:lang="en">Role Type Id From</value>
         <value xml:lang="es">Código Tipo de rol desde</value>
+        <value xml:lang="es-CL">Tipo de rol desde</value>
         <value xml:lang="fr">Rôle d'origine</value>
         <value xml:lang="hi-IN">भूमिका प्रकार क्रमांक से</value>
         <value xml:lang="it">Tipo ruolo da</value>
@@ -1673,6 +1689,7 @@
         <value xml:lang="de">Rolle Typ ID nach</value>
         <value xml:lang="en">Role Type Id To</value>
         <value xml:lang="es">Código Tipo de rol hacia</value>
+        <value xml:lang="es-CL">Tipo de rol hasta</value>
         <value xml:lang="fr">Rôle de destination</value>
         <value xml:lang="hi-IN">भूमिका प्रकार क्रमांक को</value>
         <value xml:lang="it">Tipo ruolo a</value>
@@ -1877,6 +1894,8 @@
         <value xml:lang="cs">K partnerovi s ID</value>
         <value xml:lang="de">Empfänger ID</value>
         <value xml:lang="en">To Party ID</value>
+        <value xml:lang="es">Id Grupo Destino</value>
+        <value xml:lang="es-CL">Grupo de Destino</value>
         <value xml:lang="fr">Acteur destinataire</value>
         <value xml:lang="hi-IN">पार्टी क्रमांक को</value>
         <value xml:lang="it">Al soggetto</value>
@@ -3230,6 +3249,7 @@
         <value xml:lang="ar">أضافة علاقة بطرف آخر</value>
         <value xml:lang="de">Weitere Akteur Verbindung hinzufügen</value>
         <value xml:lang="en">Add other party relationship</value>
+        <value xml:lang="es">Añadir otra relación de Participante</value>
         <value xml:lang="fr">Ajouter une autre relation entre acteurs</value>
         <value xml:lang="hi-IN">अन्य पार्टी के रिश्ते जोड़ें</value>
         <value xml:lang="it">Aggiungi altro rapporto soggetti</value>
@@ -3715,6 +3735,7 @@
         <value xml:lang="cs">celá komunikace</value>
         <value xml:lang="de">Alle Ereignisse</value>
         <value xml:lang="en">All Communications</value>
+        <value xml:lang="es">Todas las Comunicaciones</value>
         <value xml:lang="fr">Toutes les communications</value>
         <value xml:lang="hi-IN">सारे संचार</value>
         <value xml:lang="it">Tutte le comunicazioni</value>
@@ -4760,6 +4781,7 @@
         <value xml:lang="ar">إتصالات الطرف</value>
         <value xml:lang="de">Akteur Kommunikationen</value>
         <value xml:lang="en">Communications of party</value>
+        <value xml:lang="es">Comunicaciones del Participante</value>
         <value xml:lang="fr">Communications de l'acteur</value>
         <value xml:lang="hi-IN">पार्टी के संचार</value>
         <value xml:lang="it">Comunicazioni del soggetto</value>
@@ -6183,6 +6205,7 @@
         <value xml:lang="ar">مسودة بريد الكتروني</value>
         <value xml:lang="de">Emailentwurf</value>
         <value xml:lang="en">Draft Emails</value>
+        <value xml:lang="es">Borrador de correos electrónicos</value>
         <value xml:lang="fr">Mél Brouillon</value>
         <value xml:lang="hi-IN">ईमेल मसौदा(Draft)</value>
         <value xml:lang="it">Bozze emails</value>
@@ -7025,6 +7048,7 @@
         <value xml:lang="de">Von Kontaktmechanismus</value>
         <value xml:lang="en">From Contact Mech</value>
         <value xml:lang="es">Mecanismo de contacto origen</value>
+        <value xml:lang="es-CL">Mecanismo de contacto desde</value>
         <value xml:lang="fr">Coordonné appelante</value>
         <value xml:lang="hi-IN">संपर्क यांत्रिक से</value>
         <value xml:lang="it">Da contatto</value>
@@ -7783,6 +7807,7 @@
         <value xml:lang="ar">هو</value>
         <value xml:lang="de">Ist ein</value>
         <value xml:lang="en">is A</value>
+        <value xml:lang="es">Es un</value>
         <value xml:lang="fr">est un</value>
         <value xml:lang="hi-IN">एक है</value>
         <value xml:lang="it">è un</value>
@@ -9991,6 +10016,7 @@
         <value xml:lang="de">Organisation Akteur ID</value>
         <value xml:lang="en">Organization Party ID</value>
         <value xml:lang="es">Código de participante</value>
+        <value xml:lang="es-CL">Código de organización participante</value>
         <value xml:lang="fr">Organisation de l'acteur</value>
         <value xml:lang="hi-IN">संगठन पार्टी क्रमांक</value>
         <value xml:lang="it">Codice Organizzazione</value>
@@ -10173,6 +10199,7 @@
         <value xml:lang="de">Akteur von</value>
         <value xml:lang="en">Party From</value>
         <value xml:lang="es">de participante</value>
+        <value xml:lang="es-CL">Participante desde</value>
         <value xml:lang="fr">De l'acteur</value>
         <value xml:lang="hi-IN">पार्टी से</value>
         <value xml:lang="it">Dal soggetto</value>
@@ -10298,6 +10325,7 @@
         <value xml:lang="de">Akteur ID</value>
         <value xml:lang="en">Party ID</value>
         <value xml:lang="es">Código de participante</value>
+        <value xml:lang="es-CL">Participante</value>
         <value xml:lang="fr">Acteur</value>
         <value xml:lang="hi-IN">पार्टी क्रमांक</value>
         <value xml:lang="it">Codice soggetto</value>
@@ -10458,6 +10486,7 @@
         <value xml:lang="de">Akteur an</value>
         <value xml:lang="en">Party To</value>
         <value xml:lang="es">al participante</value>
+        <value xml:lang="es-CL">Participante hasta</value>
         <value xml:lang="fr">à l'acteur</value>
         <value xml:lang="hi-IN">पार्टी को</value>
         <value xml:lang="it">Soggetto A</value>
@@ -11473,6 +11502,7 @@
         <value xml:lang="cs">Společnost</value>
         <value xml:lang="de">Zugehöriges Unternehmen</value>
         <value xml:lang="en">Related Company</value>
+        <value xml:lang="es">Compañía vinculada</value>
         <value xml:lang="fr">Société associée</value>
         <value xml:lang="it">Azienda relativa</value>
         <value xml:lang="ja">関連会社</value>
@@ -13114,6 +13144,7 @@
         <value xml:lang="de">Zum Kontaktmechanismus</value>
         <value xml:lang="en">To Contact Mech</value>
         <value xml:lang="es">A mecanismo de contacto</value>
+        <value xml:lang="es-CL">Mecanismo de contacto hasta</value>
         <value xml:lang="fr">A la coordonnée</value>
         <value xml:lang="hi-IN">संपर्क यांत्रिक को</value>
         <value xml:lang="it">Al contatto</value>
