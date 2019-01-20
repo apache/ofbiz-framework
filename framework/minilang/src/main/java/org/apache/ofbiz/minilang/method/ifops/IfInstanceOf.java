@@ -82,7 +82,7 @@ public final class IfInstanceOf extends MethodOperation {
         boolean runSubOps = false;
         Object fieldVal = fieldFma.get(methodContext.getEnvMap());
         if (fieldVal != null) {
-            runSubOps = ObjectType.instanceOf(fieldVal.getClass(), compareClass);
+            runSubOps = compareClass.isAssignableFrom(fieldVal.getClass());
         }
         if (runSubOps) {
             return SimpleMethod.runSubOps(subOps, methodContext);

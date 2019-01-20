@@ -493,7 +493,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
                     value = ((String) value).getBytes(UtilIO.getUtf8());
                 }
                 if (!ObjectType.instanceOf(value, type.getJavaType())) {
-                    if (!("java.sql.Blob".equals(type.getJavaType()) && (value instanceof byte[] || ObjectType.instanceOf(value, ByteBuffer.class)))) {
+                    if (!("java.sql.Blob".equals(type.getJavaType()) && (value instanceof byte[] || value == null || ByteBuffer.class.isInstance(value)))) {
                         String errMsg = "In entity field [" + this.getEntityName() + "." + name + "] set the value passed in [" + value.getClass().getName() + "] is not compatible with the Java type of the field [" + type.getJavaType() + "]";
                         // eventually we should do this, but for now we'll do a "soft" failure: throw new IllegalArgumentException(errMsg);
                         Debug.logWarning(new Exception("Location of database type warning"), "=-=-=-=-=-=-=-=-= Database type warning GenericEntity.set =-=-=-=-=-=-=-=-= " + errMsg, module);

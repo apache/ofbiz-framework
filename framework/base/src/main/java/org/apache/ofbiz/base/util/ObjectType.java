@@ -19,8 +19,6 @@
 package org.apache.ofbiz.base.util;
 
 import java.io.Serializable;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -169,203 +167,6 @@ public class ObjectType {
     }
 
     /**
-     * Tests if a class properly implements the specified interface.
-     * @param objectClass Class to test
-     * @param interfaceName Name of the interface to test against
-     * @return true if interfaceName is an interface of objectClass
-     * @throws ClassNotFoundException
-     */
-    public static boolean interfaceOf(Class<?> objectClass, String interfaceName) throws ClassNotFoundException {
-        Class<?> interfaceClass = loadClass(interfaceName);
-
-        return interfaceOf(objectClass, interfaceClass);
-    }
-
-    /**
-     * Tests if a class properly implements the specified interface.
-     * @param objectClass Class to test
-     * @param interfaceObject to test against
-     * @return true if interfaceObject is an interface of the objectClass
-     */
-    public static boolean interfaceOf(Class<?> objectClass, Object interfaceObject) {
-        Class<?> interfaceClass = interfaceObject.getClass();
-
-        return interfaceOf(objectClass, interfaceClass);
-    }
-
-    /**
-     * Returns an instance of the specified class using the constructor matching the specified parameters.
-     * @param className Name of the class to instantiate
-     * @param parameters Parameters passed to the constructor
-     * @return An instance of the className
-     * @throws ClassNotFoundException
-     * @throws InstantiationException
-     * @throws IllegalAccessException
-     */
-    public static Object getInstance(String className, Object[] parameters) throws ClassNotFoundException,
-            InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
-        Class<?>[] sig = new Class<?>[parameters.length];
-        for (int i = 0; i < sig.length; i++) {
-            sig[i] = parameters[i].getClass();
-        }
-        Class<?> c = loadClass(className);
-        Constructor<?> con = c.getConstructor(sig);
-        Object o = con.newInstance(parameters);
-
-        if (Debug.verboseOn()) {
-            Debug.logVerbose("Instantiated object: " + o.toString(), module);
-        }
-        return o;
-    }
-
-    /**
-     * Tests if an object properly implements the specified interface.
-     * @param obj Object to test
-     * @param interfaceName Name of the interface to test against
-     * @return true if interfaceName is an interface of obj
-     * @throws ClassNotFoundException
-     */
-    public static boolean interfaceOf(Object obj, String interfaceName) throws ClassNotFoundException {
-        Class<?> interfaceClass = loadClass(interfaceName);
-
-        return interfaceOf(obj, interfaceClass);
-    }
-
-    /**
-     * Tests if an object properly implements the specified interface.
-     * @param obj Object to test
-     * @param interfaceObject to test against
-     * @return true if interfaceObject is an interface of obj
-     */
-    public static boolean interfaceOf(Object obj, Object interfaceObject) {
-        Class<?> interfaceClass = interfaceObject.getClass();
-
-        return interfaceOf(obj, interfaceClass);
-    }
-
-    /**
-     * Tests if an object properly implements the specified interface.
-     * @param obj Object to test
-     * @param interfaceClass Class to test against
-     * @return true if interfaceClass is an interface of obj
-     */
-    public static boolean interfaceOf(Object obj, Class<?> interfaceClass) {
-        Class<?> objectClass = obj.getClass();
-
-        return interfaceOf(objectClass, interfaceClass);
-    }
-
-    /**
-     * Tests if a class properly implements the specified interface.
-     * @param objectClass Class to test
-     * @param interfaceClass Class to test against
-     * @return true if interfaceClass is an interface of objectClass
-     */
-    public static boolean interfaceOf(Class<?> objectClass, Class<?> interfaceClass) {
-        while (objectClass != null) {
-            Class<?>[] ifaces = objectClass.getInterfaces();
-
-            for (Class<?> iface: ifaces) {
-                if (iface == interfaceClass) {
-                    return true;
-                }
-            }
-            objectClass = objectClass.getSuperclass();
-        }
-        return false;
-    }
-
-    /**
-     * Tests if a class is a class of or a sub-class of the parent.
-     * @param objectClass Class to test
-     * @param parentName Name of the parent class to test against
-     * @return true if objectClass is a class of or a sub-class of the parent
-     * @throws ClassNotFoundException
-     */
-    public static boolean isOrSubOf(Class<?> objectClass, String parentName) throws ClassNotFoundException {
-        Class<?> parentClass = loadClass(parentName);
-
-        return isOrSubOf(objectClass, parentClass);
-    }
-
-    /**
-     * Tests if a class is a class of or a sub-class of the parent.
-     * @param objectClass Class to test
-     * @param parentObject Object to test against
-     * @return true if objectClass is a class of or a sub-class of the parent
-     */
-    public static boolean isOrSubOf(Class<?> objectClass, Object parentObject) {
-        Class<?> parentClass = parentObject.getClass();
-
-        return isOrSubOf(objectClass, parentClass);
-    }
-
-    /**
-     * Tests if an object is an instance of or a sub-class of the parent.
-     * @param obj Object to test
-     * @param parentName Name of the parent class to test against
-     * @return true if obj is an instance of or a sub-class of the parent
-     * @throws ClassNotFoundException
-     */
-    public static boolean isOrSubOf(Object obj, String parentName) throws ClassNotFoundException {
-        Class<?> parentClass = loadClass(parentName);
-
-        return isOrSubOf(obj, parentClass);
-    }
-
-    /**
-     * Tests if an object is an instance of or a sub-class of the parent.
-     * @param obj Object to test
-     * @param parentObject Object to test against
-     * @return true if obj is an instance of or a sub-class of the parent
-     */
-    public static boolean isOrSubOf(Object obj, Object parentObject) {
-        Class<?> parentClass = parentObject.getClass();
-
-        return isOrSubOf(obj, parentClass);
-    }
-
-    /**
-     * Tests if an object is an instance of or a sub-class of the parent.
-     * @param obj Object to test
-     * @param parentClass Class to test against
-     * @return true if obj is an instance of or a sub-class of the parent
-     */
-    public static boolean isOrSubOf(Object obj, Class<?> parentClass) {
-        Class<?> objectClass = obj.getClass();
-
-        return isOrSubOf(objectClass, parentClass);
-    }
-
-    /**
-     * Tests if a class is a class of or a sub-class of the parent.
-     * @param objectClass Class to test
-     * @param parentClass Class to test against
-     * @return true if objectClass is a class of or a sub-class of the parent
-     */
-    public static boolean isOrSubOf(Class<?> objectClass, Class<?> parentClass) {
-        while (objectClass != null) {
-            if (objectClass == parentClass) {
-                return true;
-            }
-            objectClass = objectClass.getSuperclass();
-        }
-        return false;
-    }
-
-    /**
-     * Tests if a class is a class of a sub-class of or properly implements an interface.
-     * @param objectClass Class to test
-     * @param typeObject Object to test against
-     * @return true if objectClass is a class of a sub-class of, or properly implements an interface
-     */
-    public static boolean instanceOf(Class<?> objectClass, Object typeObject) {
-        Class<?> typeClass = typeObject.getClass();
-
-        return instanceOf(objectClass, typeClass);
-    }
-
-    /**
      * Tests if a class is a class of a sub-class of or properly implements an interface.
      * @param objectClass Class to test
      * @param typeName name to test against
@@ -373,18 +174,6 @@ public class ObjectType {
      */
     public static boolean instanceOf(Class<?> objectClass, String typeName) {
         return instanceOf(objectClass, typeName, null);
-    }
-
-    /**
-     * Tests if an object is an instance of a sub-class of or properly implements an interface.
-     * @param obj Object to test
-     * @param typeObject Object to test against
-     * @return true if obj is an instance of a sub-class of, or properly implements an interface
-     */
-    public static boolean instanceOf(Object obj, Object typeObject) {
-        Class<?> typeClass = typeObject.getClass();
-
-        return instanceOf(obj, typeClass);
     }
 
     /**
@@ -411,7 +200,7 @@ public class ObjectType {
             throw new IllegalArgumentException("Illegal type found in info map (could not load class for specified type)");
         }
 
-        return instanceOf(objectClass, infoClass);
+        return infoClass.isAssignableFrom(objectClass);
     }
 
     /**
@@ -428,7 +217,7 @@ public class ObjectType {
             throw new IllegalArgumentException("Illegal type found in info map (could not load class for specified type)");
         }
 
-        return instanceOf(obj, infoClass);
+        return obj == null || infoClass.isInstance(obj);
     }
 
     public static Class<?> loadInfoClass(String typeName, ClassLoader loader) {
@@ -456,33 +245,6 @@ public class ObjectType {
                 }
             }
         }
-    }
-
-    /**
-     * Tests if an object is an instance of a sub-class of or properly implements an interface.
-     * @param obj Object to test
-     * @param typeClass Class to test against
-     * @return true if obj is an instance of a sub-class of typeClass
-     */
-    public static boolean instanceOf(Object obj, Class<?> typeClass) {
-        if (obj == null) {
-            return true;
-        }
-        Class<?> objectClass = obj.getClass();
-        return instanceOf(objectClass, typeClass);
-    }
-
-    /**
-     * Tests if a class is a class of a sub-class of or properly implements an interface.
-     * @param objectClass Class to test
-     * @param typeClass Class to test against
-     * @return true if objectClass is a class or sub-class of, or implements typeClass
-     */
-    public static boolean instanceOf(Class<?> objectClass, Class<?> typeClass) {
-        if (typeClass.isInterface() && !objectClass.isInterface()) {
-            return interfaceOf(objectClass, typeClass);
-        }
-        return isOrSubOf(objectClass, typeClass);
     }
 
     /** See also {@link #simpleTypeOrObjectConvert(Object obj, String type, String format, TimeZone timeZone, Locale locale, boolean noTypeFail)}. */
