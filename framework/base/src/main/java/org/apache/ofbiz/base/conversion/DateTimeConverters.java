@@ -26,7 +26,6 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import org.apache.ofbiz.base.util.ObjectType;
 import org.apache.ofbiz.base.util.TimeDuration;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilValidate;
@@ -42,7 +41,7 @@ public class DateTimeConverters implements ConverterLoader {
 
         @Override
         public boolean canConvert(Class<?> sourceClass, Class<?> targetClass) {
-            return ObjectType.instanceOf(sourceClass, this.getSourceClass()) && targetClass == this.getTargetClass();
+            return getSourceClass().isAssignableFrom(sourceClass) && targetClass == getTargetClass();
         }
 
         public Date convert(Calendar obj) throws ConversionException {
@@ -80,7 +79,7 @@ public class DateTimeConverters implements ConverterLoader {
 
         @Override
         public boolean canConvert(Class<?> sourceClass, Class<?> targetClass) {
-            return ObjectType.instanceOf(sourceClass, this.getSourceClass()) && targetClass == this.getTargetClass();
+            return getSourceClass().isAssignableFrom(sourceClass) && targetClass == getTargetClass();
         }
 
         public Timestamp convert(Calendar obj) throws ConversionException {
@@ -170,7 +169,7 @@ public class DateTimeConverters implements ConverterLoader {
 
         @Override
         public boolean canConvert(Class<?> sourceClass, Class<?> targetClass) {
-            return ObjectType.instanceOf(sourceClass, this.getSourceClass()) && targetClass == this.getTargetClass();
+            return getSourceClass().isAssignableFrom(sourceClass) && targetClass == getTargetClass();
         }
 
         public java.sql.Timestamp convert(java.util.Date obj) throws ConversionException {
@@ -279,7 +278,7 @@ public class DateTimeConverters implements ConverterLoader {
 
         @Override
         public boolean canConvert(Class<?> sourceClass, Class<?> targetClass) {
-            return ObjectType.instanceOf(sourceClass, this.getSourceClass()) && targetClass == this.getTargetClass();
+            return getSourceClass().isAssignableFrom(sourceClass) && targetClass == getTargetClass();
         }
 
         public java.util.Date convert(Number obj) throws ConversionException {
@@ -304,7 +303,7 @@ public class DateTimeConverters implements ConverterLoader {
 
         @Override
         public boolean canConvert(Class<?> sourceClass, Class<?> targetClass) {
-            return ObjectType.instanceOf(sourceClass, this.getSourceClass()) && targetClass == this.getTargetClass();
+            return getSourceClass().isAssignableFrom(sourceClass) && targetClass == getTargetClass();
         }
 
         public java.sql.Date convert(Number obj) throws ConversionException {
@@ -323,7 +322,7 @@ public class DateTimeConverters implements ConverterLoader {
 
         @Override
         public boolean canConvert(Class<?> sourceClass, Class<?> targetClass) {
-            return ObjectType.instanceOf(sourceClass, this.getSourceClass()) && targetClass == this.getTargetClass();
+            return getSourceClass().isAssignableFrom(sourceClass) && targetClass == getTargetClass();
         }
 
         public java.sql.Time convert(Number obj) throws ConversionException {
@@ -338,7 +337,7 @@ public class DateTimeConverters implements ConverterLoader {
 
         @Override
         public boolean canConvert(Class<?> sourceClass, Class<?> targetClass) {
-            return ObjectType.instanceOf(sourceClass, this.getSourceClass()) && targetClass == this.getTargetClass();
+            return getSourceClass().isAssignableFrom(sourceClass) && targetClass == getTargetClass();
         }
 
         public java.sql.Timestamp convert(Number obj) throws ConversionException {
@@ -560,7 +559,7 @@ public class DateTimeConverters implements ConverterLoader {
 
         @Override
         public boolean canConvert(Class<?> sourceClass, Class<?> targetClass) {
-            return ObjectType.instanceOf(sourceClass, this.getSourceClass()) && targetClass == this.getTargetClass();
+            return getSourceClass().isAssignableFrom(sourceClass) && targetClass == getTargetClass();
         }
 
         public java.sql.Date convert(String obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
@@ -593,7 +592,7 @@ public class DateTimeConverters implements ConverterLoader {
 
         @Override
         public boolean canConvert(Class<?> sourceClass, Class<?> targetClass) {
-            return ObjectType.instanceOf(sourceClass, this.getSourceClass()) && targetClass == this.getTargetClass();
+            return getSourceClass().isAssignableFrom(sourceClass) && targetClass == getTargetClass();
         }
 
         public java.sql.Time convert(String obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
@@ -622,7 +621,7 @@ public class DateTimeConverters implements ConverterLoader {
 
         @Override
         public boolean canConvert(Class<?> sourceClass, Class<?> targetClass) {
-            return ObjectType.instanceOf(sourceClass, this.getSourceClass()) && targetClass == this.getTargetClass();
+            return getSourceClass().isAssignableFrom(sourceClass) && targetClass == getTargetClass();
         }
 
         public java.sql.Timestamp convert(String obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {

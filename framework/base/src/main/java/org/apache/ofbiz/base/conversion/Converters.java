@@ -27,7 +27,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.ofbiz.base.lang.SourceMonitored;
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.ObjectType;
 import org.apache.ofbiz.base.util.UtilGenerics;
 
 /** A <code>Converter</code> factory and repository. */
@@ -203,7 +202,7 @@ OUTER:
         }
 
         public <S, T> Converter<S, T> createConverter(Class<S> sourceClass, Class<T> targetClass) {
-            if (ObjectType.instanceOf(sourceClass, targetClass)) {
+            if (targetClass.isAssignableFrom(sourceClass)) {
                 return new PassThruConverter<>(sourceClass, targetClass);
             }
             return null;
