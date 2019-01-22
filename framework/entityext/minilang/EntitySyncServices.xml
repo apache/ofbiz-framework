@@ -40,27 +40,6 @@ under the License.
         </if-compare>
     </simple-method>
 
-    <!-- EntitySyncHistory services -->
-    <simple-method method-name="createEntitySyncHistory" short-description="Create EntitySyncHistory">
-        <make-value entity-name="EntitySyncHistory" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <now-timestamp field="newEntity.startDate"/>
-        <field-to-result field="newEntity.startDate" result-name="startDate"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-
-        <!-- also set the lastHistoryStartDate on the EntitySync -->
-        <entity-one entity-name="EntitySync" value-field="entitySync"/>
-        <set from-field="newEntity.startDate" field="entitySync.lastHistoryStartDate"/>
-        <store-value value-field="entitySync"/>
-    </simple-method>
-    <simple-method method-name="deleteEntitySyncHistory" short-description="Delete EntitySyncHistory">
-        <make-value entity-name="EntitySyncHistory" value-field="lookupPKMap"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
     <!-- EntitySyncInclude services -->
     <simple-method method-name="createEntitySyncInclude" short-description="Create EntitySyncInclude">
         <make-value entity-name="EntitySyncInclude" value-field="newEntity"/>
