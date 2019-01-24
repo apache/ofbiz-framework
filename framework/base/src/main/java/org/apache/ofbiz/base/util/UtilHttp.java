@@ -668,6 +668,8 @@ public final class UtilHttp {
         if (request.getContextPath().length() > 1) {
             appName = request.getContextPath().substring(1);
         }
+        // When you set a mountpoint which contains a slash inside its name (ie not only a slash as a trailer, which is possible), 
+        // as it's needed with OFBIZ-10765, OFBiz tries to create a cookie with a slash in its name and that's impossible.
         return appName.replaceAll("/","_");
     }
 
