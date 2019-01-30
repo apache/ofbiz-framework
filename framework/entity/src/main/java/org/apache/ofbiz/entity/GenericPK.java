@@ -21,7 +21,6 @@ package org.apache.ofbiz.entity;
 import java.util.Map;
 
 import org.apache.ofbiz.entity.model.ModelEntity;
-import org.apache.sis.internal.jdk7.Objects;
 
 /**
  * Generic Entity Primary Key Object
