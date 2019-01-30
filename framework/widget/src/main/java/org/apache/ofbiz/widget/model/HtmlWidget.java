@@ -149,8 +149,7 @@ public class HtmlWidget extends ModelScreenWidget {
 
         if (location.endsWith(".ftl")) {
             try {
-                Map<String, ? extends Object> parameters = UtilGenerics.checkMap(context.get("parameters"));
-                boolean insertWidgetBoundaryComments = ModelWidget.widgetBoundaryCommentsEnabled(parameters);
+                boolean insertWidgetBoundaryComments = ModelWidget.widgetBoundaryCommentsEnabled(context);
                 if (insertWidgetBoundaryComments) {
                     writer.append(HtmlWidgetRenderer.formatBoundaryComment("Begin", "Template", location));
                 }
