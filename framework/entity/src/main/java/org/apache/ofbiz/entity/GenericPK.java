@@ -19,6 +19,7 @@
 package org.apache.ofbiz.entity;
 
 import java.util.Map;
+import java.util.Objects;
 
 import org.apache.ofbiz.entity.model.ModelEntity;
 
