@@ -201,27 +201,19 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <service name="updateEntitySyncRunning" default-entity-name="EntitySync" engine="entity-auto" invoke="update" auth="true">
-        <description>Update EntitySync</description>
-        <permission-service service-name="entitySyncPermissionCheck" main-action="UPDATE"/>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-    </service>
-
-    <service name="createEntitySyncHistory" default-entity-name="EntitySyncHistory" engine="entity-auto" invoke="create" auth="true">
+    <service name="createEntitySyncHistory" default-entity-name="EntitySyncHistory" engine="entity-auto" invoke="create" auth="true" require-new-transaction="true">
         <description>Create EntitySyncHistory</description>
         <permission-service service-name="entitySyncPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <override name="startDate" mode="OUT"/>
     </service>
-    <service name="updateEntitySyncHistory" default-entity-name="EntitySyncHistory" engine="entity-auto" invoke="update" auth="true">
+    <service name="updateEntitySyncHistory" default-entity-name="EntitySyncHistory" engine="entity-auto" invoke="update" auth="true" require-new-transaction="true">
         <description>Update EntitySyncHistory</description>
         <permission-service service-name="entitySyncPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteEntitySyncHistory" default-entity-name="EntitySyncHistory" engine="entity-auto" invoke="delete" auth="true">
+    <service name="deleteEntitySyncHistory" default-entity-name="EntitySyncHistory" engine="entity-auto" invoke="delete" auth="true" require-new-transaction="true">
         <description>Delete EntitySyncHistory</description>
         <permission-service service-name="entitySyncPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -307,12 +299,12 @@ under the License.
     </service>
 
     <!-- Services to call store (Push) remotely -->
-    <service name="remoteStoreEntitySyncDataHttp" engine="http" auth="true" use-transaction="false"
+    <service name="remoteStoreEntitySyncDataHttp" engine="http" auth="true" use-transaction="false" transaction-timeout="7200"
             location="entity-sync-http" invoke="storeEntitySyncData">
         <description>Remotely Store Entity Sync Date</description>
         <implements service="storeEntitySyncData"/>
     </service>
-    <service name="remoteStoreEntitySyncDataRmi" engine="rmi" auth="true" use-transaction="false"
+    <service name="remoteStoreEntitySyncDataRmi" engine="rmi" auth="true" use-transaction="false" transaction-timeout="7200"
             location="entity-sync-rmi" invoke="storeEntitySyncData">
         <description>Remotely Store Entity Sync Data</description>
         <implements service="storeEntitySyncData"/>
