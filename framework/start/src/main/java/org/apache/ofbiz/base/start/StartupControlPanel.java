@@ -21,10 +21,10 @@ package org.apache.ofbiz.base.start;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
+import org.apache.ofbiz.base.container.ContainerLoader;
 import org.apache.ofbiz.base.start.Start.ServerState;
 
 /**
@@ -62,15 +62,14 @@ final class StartupControlPanel {
             AtomicReference<ServerState> serverState,
             List<StartupCommand> ofbizCommands) throws StartupException {
 
-        //TODO loaders should be converted to a single loader
-        List<StartupLoader> loaders = new ArrayList<>();
-        Thread adminServer = createAdminServer(config, serverState, loaders);
+        ContainerLoader loader = new ContainerLoader();
+        Thread adminServer = createAdminServer(config, serverState, loader);
 
         createLogDirectoryIfMissing(config);
-        createRuntimeShutdownHook(config, loaders, serverState);
-        loadStartupLoaders(config, loaders, ofbizCommands, serverState);
+        createRuntimeShutdownHook(config, loader, serverState);
+        loadContainers(config, loader, ofbizCommands, serverState);
         printStartupMessage(config);
-        executeShutdownAfterLoadIfConfigured(config, loaders, serverState, adminServer);
+        executeShutdownAfterLoadIfConfigured(config, loader, serverState, adminServer);
     }
 
     /**
@@ -96,8 +95,8 @@ final class StartupControlPanel {
      * - Manually if requested by the client AdminClient
      * - Automatically if Config.shutdownAfterLoad is set to true
      */
-    static void stop(List<StartupLoader> loaders, AtomicReference<ServerState> serverState, Thread adminServer) {
-        shutdownServer(loaders, serverState, adminServer);
+    static void stop(ContainerLoader loader, AtomicReference<ServerState> serverState, Thread adminServer) {
+        shutdownServer(loader, serverState, adminServer);
         System.exit(0);
     }
 
@@ -121,7 +120,7 @@ final class StartupControlPanel {
         System.exit(1);
     }
 
-    private static void shutdownServer(List<StartupLoader> loaders, AtomicReference<ServerState> serverState, Thread adminServer) {
+    private static void shutdownServer(ContainerLoader loader, AtomicReference<ServerState> serverState, Thread adminServer) {
         ServerState currentState;
         do {
             currentState = serverState.get();
@@ -129,18 +128,10 @@ final class StartupControlPanel {
                 return;
             }
         } while (!serverState.compareAndSet(currentState, ServerState.STOPPING));
-        // The current thread was the one that successfully changed the state;
-        // continue with further processing.
-        synchronized (loaders) {
-            // Unload in reverse order
-            for (int i = loaders.size(); i > 0; i--) {
-                StartupLoader loader = loaders.get(i - 1);
-                try {
-                    loader.unload();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
+        try {
+            loader.unload();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         if (adminServer != null && adminServer.isAlive()) {
             adminServer.interrupt();
@@ -161,11 +152,11 @@ final class StartupControlPanel {
     private static Thread createAdminServer(
             Config config,
             AtomicReference<ServerState> serverState,
-            List<StartupLoader> loaders) throws StartupException {
+            ContainerLoader loader) throws StartupException {
 
         Thread adminServer = null;
         if (config.adminPort > 0) {
-            adminServer = new AdminServer(loaders, serverState, config);
+            adminServer = new AdminServer(loader, serverState, config);
             adminServer.start();
         } else {
             System.out.println("Admin socket not configured; set to port 0");
@@ -184,14 +175,14 @@ final class StartupControlPanel {
 
     private static void createRuntimeShutdownHook(
             Config config,
-            List<StartupLoader> loaders,
+            ContainerLoader loader,
             AtomicReference<ServerState> serverState) {
 
         if (config.useShutdownHook) {
             Runtime.getRuntime().addShutdownHook(new Thread() {
                 @Override
                 public void run() {
-                    shutdownServer(loaders, serverState, this);
+                    shutdownServer(loader, serverState, this);
                 }
             });
         } else {
@@ -199,38 +190,27 @@ final class StartupControlPanel {
         }
     }
 
-    private static void loadStartupLoaders(Config config,
-            List<StartupLoader> loaders,
+    private static void loadContainers(Config config,
+            ContainerLoader loader,
             List<StartupCommand> ofbizCommands,
             AtomicReference<ServerState> serverState) throws StartupException {
-
-        String startupLoaderName = "org.apache.ofbiz.base.container.ContainerLoader";
-        ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-
-        synchronized (loaders) {
+        synchronized (StartupControlPanel.class) {
             if (serverState.get() == ServerState.STOPPING) {
                 return;
             }
-            try {
-                Class<?> loaderClass = classloader.loadClass(startupLoaderName);
-                StartupLoader loader = (StartupLoader) loaderClass.newInstance();
-                loaders.add(loader); // add before loading, so unload can occur if error during loading
-                loader.load(config, ofbizCommands);
-            } catch (ReflectiveOperationException e) {
-                throw new StartupException(e);
-            }
+            loader.load(config, ofbizCommands);
         }
         serverState.compareAndSet(ServerState.STARTING, ServerState.RUNNING);
     }
 
     private static void executeShutdownAfterLoadIfConfigured(
             Config config,
-            List<StartupLoader> loaders,
+            ContainerLoader loader,
             AtomicReference<ServerState> serverState,
             Thread adminServer) {
 
         if (config.shutdownAfterLoad) {
-            stop(loaders, serverState, adminServer);
+            stop(loader, serverState, adminServer);
         }
     }
 }

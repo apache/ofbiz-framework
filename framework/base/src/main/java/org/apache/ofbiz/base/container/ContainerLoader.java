@@ -28,7 +28,6 @@ import org.apache.ofbiz.base.component.ComponentConfig;
 import org.apache.ofbiz.base.start.Config;
 import org.apache.ofbiz.base.start.StartupCommand;
 import org.apache.ofbiz.base.start.StartupException;
-import org.apache.ofbiz.base.start.StartupLoader;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilValidate;
 
@@ -37,21 +36,31 @@ import edu.emory.mathcs.backport.java.util.Collections;
 /**
  * An object that loads containers (background processes).
  *
- * <p>Normally, instances of this class are created by OFBiz startup code, and
+ * Normally, instances of this class are created by OFBiz startup code, and
  * client code should not create instances of this class. Client code is
- * responsible for making sure containers are shut down properly. </p>
- *
+ * responsible for making sure containers are shut down properly.
+ * <p>
+ * When OFBiz starts, the main thread will create the {@code ContainerLoader} instance and
+ * then call the loader's {@code load} method.
+ * After this instance has been created and initialized, the main thread will call the
+ * {@code start} method. When OFBiz shuts down, a separate shutdown thread will call
+ * the {@code unload} method.
  */
-public class ContainerLoader implements StartupLoader {
+public class ContainerLoader {
 
     public static final String module = ContainerLoader.class.getName();
 
     private final List<Container> loadedContainers = new LinkedList<>();
 
     /**
-     * @see org.apache.ofbiz.base.start.StartupLoader#load(Config, List)
+     * Starts the containers.
+     *
+     * @param config Startup config
+     * @param ofbizCommands Command-line arguments
+     * @throws StartupException If an error was encountered. Throwing this exception
+     * will halt loader loading, so it should be thrown only when OFBiz can't
+     * operate without it.
      */
-    @Override
     public synchronized void load(Config config, List<StartupCommand> ofbizCommands) throws StartupException {
 
         // loaders defined in startup (e.g. main, test, load-data, etc ...)
@@ -154,10 +163,9 @@ public class ContainerLoader implements StartupLoader {
     }
 
     /**
-     * @see org.apache.ofbiz.base.start.StartupLoader#unload()
+     * Stops the containers.
      */
-    @Override
-    public synchronized void unload() throws StartupException {
+    public synchronized void unload() {
         Debug.logInfo("Shutting down containers", module);
 
         List<Container> reversedContainerList = new ArrayList<>(loadedContainers);
