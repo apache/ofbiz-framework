@@ -1349,7 +1349,7 @@ function sendJWT(targetUrl) {
             async: false,
             type: 'POST',
             xhrFields: {withCredentials: true},
-            headers: {"Authorization" : jwtToken},
+            headers: {"Authorization" : "Bearer " + jwtToken},
             success: function(){
                 window.location.assign(redirectUrl);
             }
