@@ -31,7 +31,7 @@ under the License.
         <event name="checkRequestHeaderLogin" type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="checkRequestHeaderLogin"/>
         <event name="checkServletRequestRemoteUserLogin" type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="checkServletRequestRemoteUserLogin"/>
         <event name="checkExternalLoginKey" type="java" path="org.apache.ofbiz.webapp.control.ExternalLoginKeysManager" invoke="checkExternalLoginKey"/>
-        <event name="checkJWTLogin" type="java" path="org.apache.ofbiz.webapp.control.ExternalLoginKeysManager" invoke="checkJWTLogin"/>
+        <event name="checkJWTLogin" type="java" path="org.apache.ofbiz.webapp.control.JWTManager" invoke="checkJWTLogin"/>
         <event name="checkProtectedView" type="java" path="org.apache.ofbiz.webapp.control.ProtectViewWorker" invoke="checkProtectedView"/>
         <event name="extensionConnectLogin" type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="extensionConnectLogin"/>
     </preprocessor>
