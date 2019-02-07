@@ -40,7 +40,7 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true">
             <exclude field-name="visualThemeId"/>
         </auto-attributes>
-        <attribute name="ecomThemeId" mode="IN" type="String"/>
+        <attribute name="ecomThemeId" mode="IN" type="String" optional="true"/>
     </service>
 
     <service name="reserveStoreInventory" engine="simple"
