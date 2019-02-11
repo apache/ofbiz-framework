@@ -23,6 +23,7 @@
         <value xml:lang="de">Effektive Arbeitskosten</value>
         <value xml:lang="en">Actual Labor Cost</value>
         <value xml:lang="es">Coste de mano de obra actual</value>
+        <value xml:lang="es-CL">Costo de mano de obra actual</value>
         <value xml:lang="fr">Coût réel du travail</value>
         <value xml:lang="it">Costo attuale manodopera</value>
         <value xml:lang="ja">実績労働原価</value>
@@ -38,6 +39,7 @@
         <value xml:lang="de">Effektive Materialkosten</value>
         <value xml:lang="en">Actual Materials Cost</value>
         <value xml:lang="es">Coste de material actual</value>
+        <value xml:lang="es-CL">Costo de material actual</value>
         <value xml:lang="fr">Coût réel du matériel</value>
         <value xml:lang="it">Costo attuale materiali</value>
         <value xml:lang="ja">実績材料原価</value>
@@ -53,6 +55,7 @@
         <value xml:lang="de">Effektive andere Kosten</value>
         <value xml:lang="en">Actual Other Cost</value>
         <value xml:lang="es">Otro coste actual</value>
+        <value xml:lang="es-CL">Otro costo actual</value>
         <value xml:lang="fr">Autre coût réel</value>
         <value xml:lang="it">Altro costo attuale</value>
         <value xml:lang="ja">実績その他原価</value>
@@ -68,6 +71,7 @@
         <value xml:lang="de">Effektive Wegkosten (Anlageverwendung)</value>
         <value xml:lang="en">Actual Route (fixed asset usage) Cost</value>
         <value xml:lang="es">Coste de ruta actual (uso de activo fijo)</value>
+        <value xml:lang="es-CL">Costo de ruta actual (uso de activo fijo)</value>
         <value xml:lang="fr">Coût réel d'itinéraire (utilisation d'immobilisation)</value>
         <value xml:lang="it">Costo effettivo ciclo (utilizzo cespiti)</value>
         <value xml:lang="ja">実績経路(固定資産使用)原価</value>
@@ -83,6 +87,7 @@
         <value xml:lang="de">Geschätzte Arbeitskosten</value>
         <value xml:lang="en">Estimated Labor Cost</value>
         <value xml:lang="es">Coste estimado de mano de obra</value>
+        <value xml:lang="es-CL">Costo estimado de mano de obra</value>
         <value xml:lang="fr">Estimation de coût du travail</value>
         <value xml:lang="it">Costo stimato di lavoro</value>
         <value xml:lang="ja">見積労働原価</value>
@@ -109,6 +114,7 @@
         <value xml:lang="de">Geschätzte andere Kosten</value>
         <value xml:lang="en">Estimated Other Cost</value>
         <value xml:lang="es">Otros costes estimados</value>
+        <value xml:lang="es-CL">Otros costos estimados</value>
         <value xml:lang="fr">Autre estimation</value>
         <value xml:lang="it">Altro costo stimato</value>
         <value xml:lang="ja">見積その他原価</value>
@@ -122,6 +128,7 @@
         <value xml:lang="de">Geschätzte Standard-Arbeitskosten</value>
         <value xml:lang="en">Estimated Standard Labor Cost</value>
         <value xml:lang="es">Coste estimado estándar de mano de obra</value>
+        <value xml:lang="es-CL">Costo estimado estándar de mano de obra</value>
         <value xml:lang="fr">Estimation standard de coût du travail</value>
         <value xml:lang="it">Costo standard manodopera stimata</value>
         <value xml:lang="ja">見積標準労働原価</value>
@@ -137,6 +144,7 @@
         <value xml:lang="de">Geschätzte Standard-Materialkosten</value>
         <value xml:lang="en">Estimated Standard Materials Cost</value>
         <value xml:lang="es">Coste estimado estándar de materiales</value>
+        <value xml:lang="es-CL">Costo estimado estándar de materiales</value>
         <value xml:lang="fr">Estimation standard du coût du matériel</value>
         <value xml:lang="it">Costo standard materiali stimati</value>
         <value xml:lang="ja">見積標準材料原価</value>
@@ -152,6 +160,7 @@
         <value xml:lang="de">Geschätzte Standard andere Kosten</value>
         <value xml:lang="en">Estimated Standard Other Cost</value>
         <value xml:lang="es">Otro coste estimado estándar</value>
+        <value xml:lang="es-CL">Otro costo estimado estándar</value>
         <value xml:lang="fr">Autre estimation standard</value>
         <value xml:lang="it">Altro costo standard stimato</value>
         <value xml:lang="ja">見積標準その他原価</value>
@@ -167,6 +176,7 @@
         <value xml:lang="de">Geschätzte Wegkosten (Anlageverwendung)</value>
         <value xml:lang="en">Estimated Standard Route (fixed asset usage) Cost</value>
         <value xml:lang="es">Coste estimado estándar de ruta (uso de activo fijo)</value>
+        <value xml:lang="es-CL">Costo estimado estándar de ruta (uso de activo fijo)</value>
         <value xml:lang="fr">Estimation standard de coût d'itinéraire (utilisation d'immobilisation)</value>
         <value xml:lang="it">Costo standard ciclo stimato (utilizzo cespiti)</value>
         <value xml:lang="ja">見積標準経路(固定資産使用)原価</value>
@@ -182,6 +192,7 @@
         <value xml:lang="de">Arbeitskosten</value>
         <value xml:lang="en">Labor Cost</value>
         <value xml:lang="es">Coste de mano de obra</value>
+        <value xml:lang="es-CL">Costo de mano de obra</value>
         <value xml:lang="fr">Coût du travail</value>
         <value xml:lang="it">Costo manodopera</value>
         <value xml:lang="ja">労働原価</value>
@@ -197,6 +208,7 @@
         <value xml:lang="de">Materialkosten</value>
         <value xml:lang="en">Materials Cost</value>
         <value xml:lang="es">Coste de material</value>
+        <value xml:lang="es-CL">Costo de material</value>
         <value xml:lang="fr">Coût de matériel</value>
         <value xml:lang="it">Costo materiali</value>
         <value xml:lang="ja">材料原価</value>
@@ -212,6 +224,7 @@
         <value xml:lang="de">Andere Kosten</value>
         <value xml:lang="en">Other Cost</value>
         <value xml:lang="es">Otro coste</value>
+        <value xml:lang="es-CL">Otro costo</value>
         <value xml:lang="fr">Autre coût</value>
         <value xml:lang="it">Altro costo</value>
         <value xml:lang="ja">その他原価</value>
@@ -226,6 +239,7 @@
         <value xml:lang="de">Wegkosten (Anlageverwendung)</value>
         <value xml:lang="en">Route (fixed asset usage) Cost</value>
         <value xml:lang="es">Coste de ruta (uso de activo fijo)</value>
+        <value xml:lang="es-CL">Costo de ruta (uso de activo fijo)</value>
         <value xml:lang="fr">Coût d'itinéraire (utilisation d'immobilisation)</value>
         <value xml:lang="it">Costo ciclo (utilizzo cespiti)</value>
         <value xml:lang="ja">経路(固定資産使用)原価</value>
@@ -390,6 +404,7 @@
     <property key="GoodIdentificationType.description.GOOGLE_ID">
         <value xml:lang="de">Google ID</value>
         <value xml:lang="en">Google ID</value>
+        <value xml:lang="es">Código Google</value>
         <value xml:lang="fr">Identifiant Google</value>
         <value xml:lang="it">Codice Google</value>
         <value xml:lang="ja">Google ID</value>
@@ -557,6 +572,7 @@
     <property key="ProdCatalogCategoryType.description.PCCT_EBAY_ROOT">
         <value xml:lang="de">Ebay Root (Eine)</value>
         <value xml:lang="en">Ebay Root (One)</value>
+        <value xml:lang="es">Raíz de Ebay (uno)</value>
         <value xml:lang="fr">Ebay Root (Un)</value>
         <value xml:lang="ja">Epayルート(1)</value>
         <value xml:lang="vi">Thư mục gốc Ebay (duy nhất)</value>
@@ -729,7 +745,7 @@
     <property key="ProdConfItemContentType.description.LONG_DESCRIPTION">
         <value xml:lang="de">Beschreibung - Lang</value>
         <value xml:lang="en">Description - Long</value>
-        <value xml:lang="es">Descrpción - Larga</value>
+        <value xml:lang="es">Descripción - Larga</value>
         <value xml:lang="fr">Description - Longue</value>
         <value xml:lang="it">Descrizione - lunga</value>
         <value xml:lang="ja">詳細 - 長い</value>
@@ -759,6 +775,7 @@
     <property key="ProductAssocType.description.ALTERNATIVE_PACKAGE">
         <value xml:lang="de">Alternative Verpackung</value>
         <value xml:lang="en">Alternative Packaging</value>
+        <value xml:lang="es">Embalaje alternativo</value>
         <value xml:lang="fr">Conditionnement alternatif</value>
         <value xml:lang="ja">代わりのパッケージ</value>
         <value xml:lang="nl">Alternatieve verpakking</value>
@@ -886,6 +903,7 @@
     <property key="ProductAssocType.description.PRODUCT_CONF">
         <value xml:lang="de">Konfigurierbares Produkt</value>
         <value xml:lang="en">Configurable product instance</value>
+        <value xml:lang="es">Instancia de producto configurable</value>
         <value xml:lang="fr">Instance de produit configurable</value>
         <value xml:lang="it">Prodotto configurabile</value>
         <value xml:lang="ja">カスタマイズ可能製品インスタンス</value>
@@ -1044,6 +1062,7 @@
     <property key="ProductCategoryContentType.description.CATEGORY_IMAGE_ALT">
         <value xml:lang="de">Kategorie Bild Alternativtext</value>
         <value xml:lang="en">Category Image Alt Text</value>
+        <value xml:lang="es">Texto alternativo de categoría de Imagen</value>
         <value xml:lang="fr">Image catégorie - Texte alternatif</value>
         <value xml:lang="it">Testo alternativo immagine categoria</value>
         <value xml:lang="ja">カテゴリ画像代替(Alt)テキスト</value>
@@ -1125,6 +1144,7 @@
     <property key="ProductCategoryContentType.description.LINK1_ALT_TEXT">
         <value xml:lang="de">Link 1 Alternativtext</value>
         <value xml:lang="en">Link 1 Alt Text</value>
+        <value xml:lang="es">Enlace 1 Alt texto</value>
         <value xml:lang="fr">Lien 1 - Texte alternatif</value>
         <value xml:lang="it">Testo alternativo link 1</value>
         <value xml:lang="ja">リンク1代替(Alt)テキスト</value>
@@ -1136,6 +1156,7 @@
     <property key="ProductCategoryContentType.description.LINK2_ALT_TEXT">
         <value xml:lang="de">Link 2 Alternativtext</value>
         <value xml:lang="en">Link 2 Alt Text</value>
+        <value xml:lang="es">Enlace 2 Alt texto</value>
         <value xml:lang="fr">Lien 2 - Texte alternatif</value>
         <value xml:lang="it">Testo alternativo link 2</value>
         <value xml:lang="ja">リンク2代替(Alt)テキスト</value>
@@ -1320,15 +1341,18 @@
     </property>
     <property key="ProductContentType.description.DEFAULT_IMAGE">
         <value xml:lang="en">Defaut Image</value>
+        <value xml:lang="es">Imágen por defecto</value>
         <value xml:lang="fr">Image par défaut</value>
     </property>
     <property key="ProductContentType.description.ALTERNATIVE_URL">
         <value xml:lang="en">Alternative URL</value>
+        <value xml:lang="es">URL alternativa</value>
         <value xml:lang="fr">URL de remplacement</value>
     </property>
     <property key="ProductContentType.description.ADDITIONAL_IMAGE_1">
         <value xml:lang="de">Zusatzbild 1</value>
         <value xml:lang="en">Image - Additional View 1</value>
+        <value xml:lang="es">Imagen - Vista Adicional 1</value>
         <value xml:lang="fr">Image - Vue supplémentaire 1</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 1</value>
         <value xml:lang="ja">画像 - 追加表示1</value>
@@ -1340,6 +1364,7 @@
     <property key="ProductContentType.description.XTRA_IMG_1_SMALL">
         <value xml:lang="de">Zusatzbild 1 klein</value>
         <value xml:lang="en">Image - Additional View 1 Small</value>
+        <value xml:lang="es">Imagen - Vista 1 Adicional pequeña</value>
         <value xml:lang="fr">Image - Vue supplémentaire 1 Petite</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 1 piccola</value>
         <value xml:lang="ja">画像 - 追加表示1 小</value>
@@ -1351,6 +1376,7 @@
     <property key="ProductContentType.description.XTRA_IMG_1_MEDIUM">
         <value xml:lang="de">Zusatzbild 1 mittel</value>
         <value xml:lang="en">Image - Additional View 1 Medium</value>
+        <value xml:lang="es">Imagen - Vista 1 Adicional mediana</value>
         <value xml:lang="fr">Image - Vue supplémentaire 1 Moyenne</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 1 media</value>
         <value xml:lang="ja">画像 - 追加表示1 中</value>
@@ -1362,6 +1388,7 @@
     <property key="ProductContentType.description.XTRA_IMG_1_LARGE">
         <value xml:lang="de">Zusatzbild 1 groß</value>
         <value xml:lang="en">Image - Additional View 1 Large</value>
+        <value xml:lang="es">Imagen - Vista 1 Adicional grande</value>
         <value xml:lang="fr">Image - Vue supplémentaire 1 Grande</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 1 grande</value>
         <value xml:lang="ja">画像 - 追加表示1 大</value>
@@ -1373,6 +1400,7 @@
     <property key="ProductContentType.description.XTRA_IMG_1_DETAIL">
         <value xml:lang="de">Zusatzbild 1 Detail</value>
         <value xml:lang="en">Image - Additional View 1 Detail</value>
+        <value xml:lang="es">Imagen - Vista 1 Adicional detalle</value>
         <value xml:lang="fr">Image - Vue supplémentaire 1 Détaillée</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 1 dettaglio</value>
         <value xml:lang="ja">画像 - 追加表示1 詳細</value>
@@ -1384,6 +1412,7 @@
     <property key="ProductContentType.description.ADDITIONAL_IMAGE_2">
         <value xml:lang="de">Zusatzbild 2</value>
         <value xml:lang="en">Image - Additional View 2</value>
+        <value xml:lang="es">Imagen - Vista adicional 2</value>
         <value xml:lang="fr">Image - Vue supplémentaire 2</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 2</value>
         <value xml:lang="ja">画像 - 追加表示2</value>
@@ -1395,6 +1424,7 @@
     <property key="ProductContentType.description.XTRA_IMG_2_SMALL">
         <value xml:lang="de">Zusatzbild 2 klein</value>
         <value xml:lang="en">Image - Additional View 2 Small</value>
+        <value xml:lang="es">Imagen - Vista adicional 2 pequeña</value>
         <value xml:lang="fr">Image - Vue supplémentaire 2 Petite</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 2 piccola</value>
         <value xml:lang="ja">画像 - 追加表示2 小</value>
@@ -1406,6 +1436,7 @@
     <property key="ProductContentType.description.XTRA_IMG_2_MEDIUM">
         <value xml:lang="de">Zusatzbild 2 mittel</value>
         <value xml:lang="en">Image - Additional View 2 Medium</value>
+        <value xml:lang="es">Imagen - Vista adicional 2 mediana</value>
         <value xml:lang="fr">Image - Vue supplémentaire 2 Moyenne</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 2 media</value>
         <value xml:lang="ja">画像 - 追加表示2 中</value>
@@ -1417,6 +1448,7 @@
     <property key="ProductContentType.description.XTRA_IMG_2_LARGE">
         <value xml:lang="de">Zusatzbild 2 groß</value>
         <value xml:lang="en">Image - Additional View 2 Large</value>
+        <value xml:lang="es">Imagen - Vista adicional 2 grande</value>
         <value xml:lang="fr">Image - Vue supplémentaire 2 Grande</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 2 grande</value>
         <value xml:lang="ja">画像 - 追加表示2 大</value>
@@ -1428,6 +1460,7 @@
     <property key="ProductContentType.description.XTRA_IMG_2_DETAIL">
         <value xml:lang="de">Zusatzbild 2 Detail</value>
         <value xml:lang="en">Image - Additional View 2 Detail</value>
+        <value xml:lang="es">Imagen - Vista adicional detalle</value>
         <value xml:lang="fr">Image - Vue supplémentaire 2 Détaillée</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 2 dettaglio</value>
         <value xml:lang="ja">画像 - 追加表示2 詳細</value>
@@ -1439,6 +1472,7 @@
     <property key="ProductContentType.description.ADDITIONAL_IMAGE_3">
         <value xml:lang="de">Zusatzbild 3</value>
         <value xml:lang="en">Image - Additional View 3</value>
+        <value xml:lang="es">Imagen - Vista adicional 3</value>
         <value xml:lang="fr">Image - Vue supplémentaire 3</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 3</value>
         <value xml:lang="ja">画像 - 追加表示3</value>
@@ -1450,6 +1484,7 @@
     <property key="ProductContentType.description.XTRA_IMG_3_SMALL">
         <value xml:lang="de">Zusatzbild 3 klein</value>
         <value xml:lang="en">Image - Additional View 3 Small</value>
+        <value xml:lang="es">Imagen - Vista adicional 3 pequeña</value>
         <value xml:lang="fr">Image - Vue supplémentaire 3 Petite</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 3 piccola</value>
         <value xml:lang="ja">画像 - 追加表示3 小</value>
@@ -1461,6 +1496,7 @@
     <property key="ProductContentType.description.XTRA_IMG_3_MEDIUM">
         <value xml:lang="de">Zusatzbild 3 mittel</value>
         <value xml:lang="en">Image - Additional View 3 Medium</value>
+        <value xml:lang="es">Imagen - Vista adicional 3 mediana</value>
         <value xml:lang="fr">Image - Vue supplémentaire 3 Moyenne</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 3 media</value>
         <value xml:lang="ja">画像 - 追加表示3 中</value>
@@ -1472,6 +1508,7 @@
     <property key="ProductContentType.description.XTRA_IMG_3_LARGE">
         <value xml:lang="de">Zusatzbild 3 groß</value>
         <value xml:lang="en">Image - Additional View 3 Large</value>
+        <value xml:lang="es">Imagen - Vista adicional 3 grande</value>
         <value xml:lang="fr">Image - Vue supplémentaire 3 Grande</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 3 grande</value>
         <value xml:lang="ja">画像 - 追加表示3 大</value>
@@ -1483,6 +1520,7 @@
     <property key="ProductContentType.description.XTRA_IMG_3_DETAIL">
         <value xml:lang="de">Zusatzbild 3 Detail</value>
         <value xml:lang="en">Image - Additional View 3 Detail</value>
+        <value xml:lang="es">Imagen - Vista adicional 3 detalle</value>
         <value xml:lang="fr">Image - Vue supplémentaire 3 Détaillée</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 3 dettaglio</value>
         <value xml:lang="ja">画像 - 追加表示3 詳細</value>
@@ -1494,6 +1532,7 @@
     <property key="ProductContentType.description.ADDITIONAL_IMAGE_4">
         <value xml:lang="de">Zusatzbild 4</value>
         <value xml:lang="en">Image - Additional View 4</value>
+        <value xml:lang="es">Imagen - Vista adicional 4</value>
         <value xml:lang="fr">Image - Vue supplémentaire 4</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 4</value>
         <value xml:lang="ja">画像 - 追加表示4</value>
@@ -1505,6 +1544,7 @@
     <property key="ProductContentType.description.XTRA_IMG_4_SMALL">
         <value xml:lang="de">Zusatzbild 4 klein</value>
         <value xml:lang="en">Image - Additional View 4 Small</value>
+        <value xml:lang="es">Imagen - Vista adicional 4 pequeña</value>
         <value xml:lang="fr">Image - Vue supplémentaire 4 Petite</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 4 piccola</value>
         <value xml:lang="ja">画像 - 追加表示4 小</value>
@@ -1516,6 +1556,7 @@
     <property key="ProductContentType.description.XTRA_IMG_4_MEDIUM">
         <value xml:lang="de">Zusatzbild 4 mittel</value>
         <value xml:lang="en">Image - Additional View 4 Medium</value>
+        <value xml:lang="es">Imagen - Vista adicional 4 mediana</value>
         <value xml:lang="fr">Image - Vue supplémentaire 4 Moyenne</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 4 media</value>
         <value xml:lang="ja">画像 - 追加表示4 中</value>
@@ -1527,6 +1568,7 @@
     <property key="ProductContentType.description.XTRA_IMG_4_LARGE">
         <value xml:lang="de">Zusatzbild 4 groß</value>
         <value xml:lang="en">Image - Additional View 4 Large</value>
+        <value xml:lang="es">Imagen - Vista adicional 4 grande</value>
         <value xml:lang="fr">Image - Vue supplémentaire 4 Grande</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 4 grande</value>
         <value xml:lang="ja">画像 - 追加表示4 大</value>
@@ -1538,6 +1580,7 @@
     <property key="ProductContentType.description.XTRA_IMG_4_DETAIL">
         <value xml:lang="de">Zusatzbild 4 Detail</value>
         <value xml:lang="en">Image - Additional View 4 Detail</value>
+        <value xml:lang="es">Imagen - Vista adicional 4 detalle</value>
         <value xml:lang="fr">Image - Vue supplémentaire 4 Détaillée</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 4 dettaglio</value>
         <value xml:lang="ja">画像 - 追加表示4 詳細</value>
@@ -1549,6 +1592,7 @@
     <property key="ProductContentType.description.ADDTOCART_IMAGE">
         <value xml:lang="de">Zum Warenkorb hinzufügen Bild</value>
         <value xml:lang="en">Add To Cart Image</value>
+        <value xml:lang="es">Añadir Imagen a la cesta</value>
         <value xml:lang="fr">Image pour "Ajouter au panier"</value>
         <value xml:lang="it">Aggiungi immagine al carrello</value>
         <value xml:lang="ja">買い物かご画像に追加</value>
@@ -1559,23 +1603,28 @@
     </property>
     <property key="ProductContentType.description.XTRA_IMG_L_DETAIL">
         <value xml:lang="en">Image - Additional View Detail</value>
+        <value xml:lang="es">Imagen - Detalle Vista Adicional</value>
         <value xml:lang="fr">Image - Vue supplémentaire(Détaillée)</value>
     </property>
     <property key="ProductContentType.description.XTRA_IMG_L_LARGE">
         <value xml:lang="en">Image - Additional View Large</value>
+        <value xml:lang="es">Imagen - Vista adicional grande</value>
         <value xml:lang="fr">Image - Vue supplémentaire(grande)</value>
     </property>
     <property key="ProductContentType.description.XTRA_IMG_L_MEDIUM">
         <value xml:lang="en">Image - Additional View Medium</value>
+        <value xml:lang="es">Imagen - Vista adicional mediana</value>
         <value xml:lang="fr">Image - Vue supplémentaire(moyenne)</value>
     </property>
     <property key="ProductContentType.description.XTRA_IMG_L_SMALL">
         <value xml:lang="en">Image - Additional View Small</value>
+        <value xml:lang="es">Imagen - Vista adicional pequeña</value>
         <value xml:lang="fr">Image - Vue supplémentaire(petite)</value>
     </property>
     <property key="ProductContentType.description.ADDTOCART_LABEL">
         <value xml:lang="de">Zum Warenkorb hinzufügen Label</value>
         <value xml:lang="en">Add To Cart Label</value>
+        <value xml:lang="es">Añadir a la etiqueta del carrito</value>
         <value xml:lang="fr">Label pour "Ajouter au panier"</value>
         <value xml:lang="it">Aggiungi label al carrello</value>
         <value xml:lang="ja">買い物かごラベルに追加</value>
@@ -1587,6 +1636,7 @@
     <property key="ProductContentType.description.DELIVERY_INFO">
         <value xml:lang="de">Lieferinformation</value>
         <value xml:lang="en">Delivery Info</value>
+        <value xml:lang="es">Información de entrega</value>
         <value xml:lang="fr">Conditions de livraison</value>
         <value xml:lang="it">Informazioni sulla consegna</value>
         <value xml:lang="ja">配送情報</value>
@@ -1811,6 +1861,7 @@
     <property key="ProductContentType.description.ORIGINAL_IMAGE_URL">
         <value xml:lang="de">Bild - Original</value>
         <value xml:lang="en">Image - Original</value>
+        <value xml:lang="es">Imagen - Original</value>
         <value xml:lang="fr">Image - Originale</value>
         <value xml:lang="it">Immagine - originale</value>
         <value xml:lang="ja">画像 - 元</value>
@@ -1903,6 +1954,7 @@
     <property key="ProductContentType.description.TERMS_AND_CONDS">
         <value xml:lang="de">Allgemeine Geschäftsbedingungen </value>
         <value xml:lang="en">Terms and Conditions</value>
+        <value xml:lang="es">Términos y Condiciones</value>
         <value xml:lang="fr">Modalités et conditions</value>
         <value xml:lang="it">Termini e condizioni</value>
         <value xml:lang="ja">条項および条件</value>
@@ -1943,10 +1995,12 @@
     </property>
     <property key="ProductContentType.description.EBAY_DESCRIPTION">
         <value xml:lang="en">Detail Page for eBay Auctions</value>
+        <value xml:lang="es">Página de detalles para subastas de eBay</value>
         <value xml:lang="fr">Page de ventes aux enchères eBay.</value>
     </property>
     <property key="ProductContentType.description.META_DESCRIPTION">
         <value xml:lang="en">Meta Description</value>
+        <value xml:lang="es">Metadescripción</value>
         <value xml:lang="fr">Description méta</value>
     </property>
     <property key="ProductContentType.description.META_KEYWORD">
@@ -1955,10 +2009,12 @@
     </property>
     <property key="ProductContentType.description.PAGE_TITLE">
         <value xml:lang="en">Page Title</value>
+        <value xml:lang="es">Título de la página</value>
         <value xml:lang="fr">Page de titre</value>
     </property>
     <property key="ProductContentType.description.SPECIFICATION">
         <value xml:lang="en">Specification</value>
+        <value xml:lang="es">Especifícaciones</value>
         <value xml:lang="fr">Spécification</value>
     </property>
     <property key="ProductContentType.description.WARRANTY">
@@ -1992,6 +2048,7 @@
     <property key="ProductFeature.description.TEXT_BLACK">
         <value xml:lang="de">Schwarz</value>
         <value xml:lang="en">Black</value>
+        <value xml:lang="es">Negro</value>
         <value xml:lang="fr">Noir</value>
         <value xml:lang="ja">黒</value>
         <value xml:lang="nl">Tekst - zwart</value>
@@ -2001,6 +2058,7 @@
     <property key="ProductFeature.description.TEXT_BLUE">
         <value xml:lang="de">Blau</value>
         <value xml:lang="en">Blue</value>
+        <value xml:lang="es">Azul</value>
         <value xml:lang="fr">Bleu</value>
         <value xml:lang="ja">青</value>
         <value xml:lang="nl">Tekst - blauw</value>
@@ -2019,6 +2077,7 @@
     <property key="ProductFeature.description.TEXT_GREEN">
         <value xml:lang="de">Grün</value>
         <value xml:lang="en">Green</value>
+        <value xml:lang="es">Verde</value>
         <value xml:lang="fr">Vert</value>
         <value xml:lang="ja">緑</value>
         <value xml:lang="nl">Tekst - groen</value>
@@ -2028,6 +2087,7 @@
     <property key="ProductFeature.description.TEXT_RED">
         <value xml:lang="de">Rot</value>
         <value xml:lang="en">Red</value>
+        <value xml:lang="es">Rojo</value>
         <value xml:lang="fr">Rouge</value>
         <value xml:lang="ja">赤</value>
         <value xml:lang="nl">Tekst - rood</value>
@@ -2037,6 +2097,7 @@
     <property key="ProductFeature.description.TEXT_YELLOW">
         <value xml:lang="de">Gelb</value>
         <value xml:lang="en">Yellow</value>
+        <value xml:lang="es">Amarillo</value>
         <value xml:lang="fr">Jaune</value>
         <value xml:lang="ja">黄</value>
         <value xml:lang="nl">Tekst - geel</value>
@@ -2046,6 +2107,7 @@
     <property key="ProductFeature.description.TEXT_WHITE">
         <value xml:lang="de">Weiss</value>
         <value xml:lang="en">White</value>
+        <value xml:lang="es">Blanco</value>
         <value xml:lang="fr">Blanc</value>
         <value xml:lang="ja">白</value>
         <value xml:lang="nl">Tekst - wit</value>
@@ -2615,6 +2677,7 @@
     <property key="ProductMaintType.description.CHASSIS_LUBE">
         <value xml:lang="de">Fahrwerk Schmierung</value>
         <value xml:lang="en">Chassis Lubrication</value>
+        <value xml:lang="es">Lubricación del chasis</value>
         <value xml:lang="fr">Lubrification des châssis automobile</value>
         <value xml:lang="it">Lubrificazione telaio</value>
         <value xml:lang="ja">シャシー潤滑</value>
@@ -2626,6 +2689,7 @@
     <property key="ProductMaintType.description.CHECK_BATTERY">
         <value xml:lang="de">Batterie prüfen</value>
         <value xml:lang="en">Check Battery</value>
+        <value xml:lang="es">Comprobación de batería</value>
         <value xml:lang="fr">Vérification des batteries</value>
         <value xml:lang="it">Controllo batteria</value>
         <value xml:lang="ja">バッテリー検査</value>
@@ -2637,6 +2701,7 @@
     <property key="ProductMaintType.description.HVAC_CHECK_REFR">
         <value xml:lang="de">Kühlflüssigkeit prüfen/nachfüllen</value>
         <value xml:lang="en">Check/Recharge Refrigerant</value>
+        <value xml:lang="es">Comprobar/Recargar refrigerante</value>
         <value xml:lang="fr">Vérification/rechargement du liquide réfrigérant</value>
         <value xml:lang="it">Controllo/Ricarica refrigerante</value>
         <value xml:lang="ja">冷却水検査/補充</value>
@@ -2648,6 +2713,7 @@
     <property key="ProductMaintType.description.HVAC_MAINT">
         <value xml:lang="de">HVAC Wartung</value>
         <value xml:lang="en">HVAC Maintenance</value>
+        <value xml:lang="es">Mantención HVAC</value>
         <value xml:lang="fr">Maintenance de HVAC</value>
         <value xml:lang="it">Manutenzione HVAC</value>
         <value xml:lang="ja">空調メンテナンス</value>
@@ -2659,6 +2725,7 @@
     <property key="ProductMaintType.description.HVAC_REPLACE_FILTER">
         <value xml:lang="de">Ersetze Luftfilter</value>
         <value xml:lang="en">Replace Air Filter</value>
+        <value xml:lang="es">Reemplazo de filtro de aire</value>
         <value xml:lang="fr">Filtre à air - remplacement</value>
         <value xml:lang="it">Sostituzione filtro aria</value>
         <value xml:lang="ja">エアフィルター交換</value>
@@ -2715,6 +2782,7 @@
     <property key="ProductMaintType.description.ROTATE_TIRES">
         <value xml:lang="de">Reifen wechseln</value>
         <value xml:lang="en">Rotate Tires</value>
+        <value xml:lang="es">Rotar los neumáticos</value>
         <value xml:lang="fr">Permuter les pneus</value>
         <value xml:lang="it">Invertire le gomme</value>
         <value xml:lang="ja">タイヤローテーション</value>
@@ -2741,6 +2809,7 @@
     <property key="ProductMaintType.description.TUNE_UP">
         <value xml:lang="de">Einstellen</value>
         <value xml:lang="en">Tune Up</value>
+        <value xml:lang="es">Afinar</value>
         <value xml:lang="fr">Mise au point</value>
         <value xml:lang="it">Mettere a punto</value>
         <value xml:lang="ja">調整(チューンアップ)</value>
@@ -2827,6 +2896,7 @@
     <property key="ProductMeterType.description.ODOMETER">
         <value xml:lang="de">Hodometer</value>
         <value xml:lang="en">Odometer</value>
+        <value xml:lang="es">Odómetro</value>
         <value xml:lang="fr">Odomètre</value>
         <value xml:lang="it">Odometro</value>
         <value xml:lang="ja">走行距離計</value>
@@ -2883,6 +2953,7 @@
     <property key="ProductMeterType.description.TRIP_METER">
         <value xml:lang="de">Tageskilometerzähler</value>
         <value xml:lang="en">Use Trip Meter</value>
+        <value xml:lang="es">Usar medidor de viaje</value>
         <value xml:lang="fr">Utiliser le compteur de distance par trajet</value>
         <value xml:lang="ja">距離計を使用</value>
         <value xml:lang="nl">Afstandmeter</value>
@@ -2893,6 +2964,7 @@
     <property key="ProductMeterType.description.TACHOGRAPH">
         <value xml:lang="de">Fahrtenschreiber benutzen</value>
         <value xml:lang="en">Use Tacograph</value>
+        <value xml:lang="es">Utilizar tacógrafo</value>
         <value xml:lang="fr">Utiliser le tacographe</value>
         <value xml:lang="ja">タコグラフを使用</value>
         <value xml:lang="nl">Tachograaf gebruiken</value>
@@ -2903,6 +2975,7 @@
     <property key="ProductMeterType.description.TAXIMETER">
         <value xml:lang="de">Taxameter benutzen</value>
         <value xml:lang="en">Use Taximeter</value>
+        <value xml:lang="es">Utilizar taximetro</value>
         <value xml:lang="fr">Utiliser le taximètre</value>
         <value xml:lang="ja">タクシーメータを使用</value>
         <value xml:lang="nl">Taximeter gebruiken</value>
@@ -2923,6 +2996,7 @@
     <property key="ProductMeterType.description.PEDOMETER">
         <value xml:lang="de">Schrittzähler benutzen</value>
         <value xml:lang="en">Use Pedometer</value>
+        <value xml:lang="es">Utilizar Podómetro</value>
         <value xml:lang="fr">Utiliser le podomètre</value>
         <value xml:lang="ja">歩数計を使用</value>
         <value xml:lang="nl">Pedometer gebruiken</value>
@@ -3038,6 +3112,7 @@
     <property key="ProductPriceActionType.description.PRICE_POWHS">
         <value xml:lang="de">Prozent vom Grosshandelspreis</value>
         <value xml:lang="en">Percent Of Wholesale</value>
+        <value xml:lang="es">Porcentaje de venta al por mayor</value>
         <value xml:lang="fr">Pourcentage du prix de gros</value>
         <value xml:lang="ja">卸売割合(%)</value>
         <value xml:lang="nl">Percentage groothandelsprijs</value>
@@ -3124,6 +3199,7 @@
         <value xml:lang="de">Durchschnittskosten</value>
         <value xml:lang="en">Average Cost</value>
         <value xml:lang="es">Coste promedio</value>
+        <value xml:lang="es-CL">Costo promedio</value>
         <value xml:lang="fr">Coût moyen</value>
         <value xml:lang="it">Costo medio</value>
         <value xml:lang="ja">平均原価</value>
@@ -3211,6 +3287,7 @@
     <property key="ProductPriceType.description.MINIMUM_ORDER_PRICE">
         <value xml:lang="de">Minimum Bestellpreis</value>
         <value xml:lang="en">Minimum order Price</value>
+        <value xml:lang="es">Precio mínimo de pedido</value>
         <value xml:lang="fr">Prix minimum de commande</value>
         <value xml:lang="ja">最低注文価格</value>
         <value xml:lang="nl">Prijs minimum order</value>
@@ -3264,6 +3341,7 @@
     <property key="ProductPriceType.description.SPECIAL_PROMO_PRICE">
         <value xml:lang="de">Sonderaktionspreis</value>
         <value xml:lang="en">Special Promo Price</value>
+        <value xml:lang="es">Precio especial de promoción</value>
         <value xml:lang="fr">Prix spécial promo</value>
         <value xml:lang="it">Prezzo promozionale speciale</value>
         <value xml:lang="ja">特別プロモーション価格</value>
@@ -3321,6 +3399,7 @@
     <property key="ProductStoreGroup.productStoreGroupName._NA_">
         <value xml:lang="de">Nicht anwendbar</value>
         <value xml:lang="en">Not Applicable</value>
+        <value xml:lang="es">No Aplicable</value>
         <value xml:lang="fr">Non applicable</value>
         <value xml:lang="it">Non applicabile</value>
         <value xml:lang="ja">適用外</value>
@@ -3350,6 +3429,8 @@
     <property key="ProductType.description.AGGREGATED_CONF">
         <value xml:lang="de">Konfigurierbare Ware konfigurieren</value>
         <value xml:lang="en">Configurable Good Configuration</value>
+        <value xml:lang="es">Configuración bien configurable</value>
+        <value xml:lang="es-CL">Configuración de bien configurable</value>
         <value xml:lang="fr">Produit d'agrégat</value>
         <value xml:lang="it">Configurazione beni configurabili</value>
         <value xml:lang="ja">カスタマイズ可能商品設定</value>
@@ -3374,6 +3455,7 @@
     </property>
     <property key="ProductType.description.ASSET_USAGE_OUT_IN">
         <value xml:lang="en">Asset Rental</value>
+        <value xml:lang="es">Alquiler de activos</value>
         <value xml:lang="fr">Actif location</value>
         <value xml:lang="nl">Verhuur productiemiddel</value>
         <value xml:lang="zh">资产出租</value>
@@ -3441,6 +3523,7 @@
     <property key="ProductType.description.MARKETING_PKG">
         <value xml:lang="de">Marketingpaket</value>
         <value xml:lang="en">Marketing Package</value>
+        <value xml:lang="es">Paquete de marketing</value>
         <value xml:lang="fr">Offre marketing</value>
         <value xml:lang="it">Pacco di vendita</value>
         <value xml:lang="ja">販売パッケージ</value>
@@ -3453,6 +3536,7 @@
         <value xml:lang="de">Marketingpaket</value>
         <value xml:lang="en">Marketing Package: Auto Manufactured</value>
         <value xml:lang="es">Paquete de marketing</value>
+        <value xml:lang="es-CL">Paquete de Marketing: Auto Fabricado</value>
         <value xml:lang="fr">Conditionnement marketing</value>
         <value xml:lang="it">Pacco di vendita</value>
         <value xml:lang="ja">販売パッケージ: 自動生産</value>
@@ -4002,6 +4086,7 @@
     <property key="VarianceReason.description.VAR_MISSHIP_ORDERED">
         <value xml:lang="de">Falschgeliefertes Produkt bestellt (+)</value>
         <value xml:lang="en">Mis-shipped Item Ordered (+)</value>
+        <value xml:lang="es">Artículo enviado incorrectamente (+)</value>
         <value xml:lang="fr">Expédié par erreur - Article commandé (+)</value>
         <value xml:lang="it">Riga non-spedita ordinata (+)</value>
         <value xml:lang="ja">誤発送アイテム注文済 (+)</value>
@@ -4013,6 +4098,7 @@
     <property key="VarianceReason.description.VAR_MISSHIP_SHIPPED">
         <value xml:lang="de">Falschgeliefertes Produkt bestellt (-)</value>
         <value xml:lang="en">Mis-shipped Item Shipped (-)</value>
+        <value xml:lang="es">Artículo incorrectamente enviado (-)</value>
         <value xml:lang="fr">Expédié par erreur - Article expédié (-)</value>
         <value xml:lang="it">Riga non-spedita spedita (-)</value>
         <value xml:lang="ja">誤発送アイテム発送済 (-)</value>
@@ -4054,6 +4140,7 @@
     <property key="ProductCategoryLinkType.description.PCLT_SEARCH_PARAM">
         <value xml:lang="de">Suchparameter</value>
         <value xml:lang="en">Search Parameters</value>
+        <value xml:lang="es">Parámetros de búsqueda</value>
         <value xml:lang="fr">Paramètres de recherche</value>
         <value xml:lang="ja">検索パラメータ</value>
         <value xml:lang="nl">Zoekparameters</value>
@@ -4064,6 +4151,7 @@
     <property key="ProductCategoryLinkType.description.PCLT_ABS_URL">
         <value xml:lang="de">Absolute URL</value>
         <value xml:lang="en">Absolute URL</value>
+        <value xml:lang="es">URL Absoluta</value>
         <value xml:lang="fr">URL absolue</value>
         <value xml:lang="ja">絶対URL</value>
         <value xml:lang="vi">Đường dẫn tuyệt đối</value>
@@ -4073,6 +4161,7 @@
     <property key="ProductCategoryLinkType.description.PCLT_CAT_ID">
         <value xml:lang="de">Kategorie ID</value>
         <value xml:lang="en">Category ID</value>
+        <value xml:lang="es">ID Categoría</value>
         <value xml:lang="fr">Ref. de catégorie</value>
         <value xml:lang="ja">カテゴリID</value>
         <value xml:lang="vi">Mã Danh mục</value>
@@ -4084,6 +4173,7 @@
     <property key="FieldDescription.ProdCatalog.prodCatalogId">
         <value xml:lang="de">Kann nicht geändert werden ohne den Produktkatalog neu zu erstellen.</value>
         <value xml:lang="en">This cannot be changed without re-creating the Product Catalog.</value>
+        <value xml:lang="es">Esto no se puede cambiar sin volver a crear el Catálogo de productos.</value>
         <value xml:lang="fr">Cela ne peut pas être modifié. Une nouvelle entrée doit être créé</value>
         <value xml:lang="ja">変更できません、製品カタログを再作成してください。</value>
         <value xml:lang="vi">Phần này không thể thay đổi khi không tạo lại Danh mục sản phẩm.</value>
@@ -4093,6 +4183,7 @@
     <property key="FieldDescription.ProdCatalog.catalogName">
         <value xml:lang="de">Wird Ihren Kunden angezeigt, also denken Sie an das Image wenn Sie den Katalognamen auswählen.</value>
         <value xml:lang="en">This will be shown to your customers, so think of image when giving your catalog a name.</value>
+        <value xml:lang="es">Esto se mostrará a sus clientes, así que piense en la imagen cuando le dé un nombre a su catálogo.</value>
         <value xml:lang="fr">Ce sera visible par vos clients.</value>
         <value xml:lang="ja">これは顧客に表示されます、カタログに名前をつける時にイメージを考えてください。</value>
         <value xml:lang="vi">Phần này sẽ hiển thị tới khách hàng của bạn, hãy nghĩ về hình ảnh hi bạn đưa đến một cái tên danh mục.</value>
@@ -4102,6 +4193,7 @@
     <property key="FieldDescription.ProdCatalog.useQuickAdd">
         <value xml:lang="de">Setzen Sie dies auf Y wenn Ihre Benutzer die Möglichkeit zur Schnelleingabe der Produkte haben sollen.</value>
         <value xml:lang="en">Set this to Y if you want to give users the option to quick add products.</value>
+        <value xml:lang="es">Establezca esto en Y si desea dar a los usuarios la opción de agregar productos rápidamente.</value>
         <value xml:lang="fr">Si Oui, donner aux utilisateurs la possibilité d'ajouter rapidement des produits.</value>
         <value xml:lang="ja">ユーザに製品のクイック追加オプションを付加する場合は Y をセットしてください。</value>
         <value xml:lang="vi">Đặt là 'Y' nếu bạn muốn cho phép người dùng lựa chọn lệnh thêm nhanh sản phẩm.</value>
@@ -4111,6 +4203,7 @@
     <property key="FieldDescription.ProdCatalog.styleSheet">
         <value xml:lang="de">Der Pfad zu Ihrem eigenen Stylesheet, welches das Aussehen Ihres Katalogs steuert, wird hier eingegeben.</value>
         <value xml:lang="en">The path to your distinctive style sheet which will govern the appearance of your catalog goes here.</value>
+        <value xml:lang="es">El camino a su hoja de estilo distintivo que regirá la apariencia de su catálogo va aquí.</value>
         <value xml:lang="fr">Chemin vers votre feuille de style, qui contrôle l'apparence de votre catalogue.</value>
         <value xml:lang="ja">カタログの表示を管理するスタイルシートのパスを入力してください。</value>
         <value xml:lang="vi">Con đường dẫn đến phong cách trang đặc biệt của bạn mà sẽ chi phối sự xuất hiện của danh mục của bạn tại đây.</value>
@@ -4120,6 +4213,7 @@
     <property key="FieldDescription.ProdCatalog.headerLogo">
         <value xml:lang="de">Dies wird Ihren Kunden angezeigt. Visualisieren Sie Ihr Image und Ihre Botschaft mit diesem Logo.</value>
         <value xml:lang="en">This will be seen by your customers. Maintain your image and message with the logo presented.</value>
+        <value xml:lang="es">Esto será visto por sus clientes. Mantenga su imagen y mensaje con el logo presentado.</value>
         <value xml:lang="fr">Ce sera visible par vos clients.</value>
         <value xml:lang="ja">これは顧客に表示されます、ロゴと一緒に表示される画像とメッセージをメンテナンスしてください。</value>
         <value xml:lang="vi">Phần này sẽ được khách hàng nhìn thấy. Duy trì hình ảnh và thông điệp của bạn với logo</value>
@@ -4129,6 +4223,7 @@
     <property key="FieldDescription.ProdCatalog.contentPathPrefix">
         <value xml:lang="de">Wenn angegeben, wird dies den Bilder- und anderen Inhaltspfaden vorangestellt. Sollte mit einem Schrägstrich beginnen jedoch nicht abschliessen.</value>
         <value xml:lang="en">If specified will be prepended to image and other content paths. Should start with a slash but not end with one.</value>
+        <value xml:lang="es">Si se especifica, se agregará a la imagen y otras rutas de contenido. Debería comenzar con una barra oblicua pero no terminar con una.</value>
         <value xml:lang="fr">Si spécifié, le préfixe sera ajouté au début des chemins d'images et autres contenus. Le préfixe doit commencer par un slash, mais ne doit pas se terminer par un slash.</value>
         <value xml:lang="ja">指定した場合は、画像その他コンテンツのパスの前に付加されます。スラッシュ(/)で始まり、スラッシュなしで終わるようにします。</value>
         <value xml:lang="vi">Nếu quy định sẽ được cụm vào trước hình ảnh và đường dẫn nội dung khác. Nên bắt đầu bằng một dấu gạch chéo, nhưng không sử dụng gạch chéo để kết thúc</value>
@@ -4138,6 +4233,7 @@
     <property key="FieldDescription.ProdCatalog.templatePathPrefix">
         <value xml:lang="de">Wird dem Templatepfad vorangestellt, wenn angegeben. Sollte mit einem Schrägstrich beginnen und ohne einen enden.</value>
         <value xml:lang="en">If specified will be prepended to template paths. Should start with a slash but not end with one.</value>
+        <value xml:lang="es">Si se especifica se añadirá a las rutas de la plantilla. Debería comenzar con una barra oblicua pero no terminar con una.</value>
         <value xml:lang="fr">Si spécifié, le préfixe sera ajouté au début du chemin modèle. Le préfixe doit commencer par un slash, mais ne doit pas se terminer par un slash.</value>
         <value xml:lang="ja">指定した場合は、テンプレートのパスの前に付加されます。スラッシュ(/)で始まり、スラッシュなしで終わるようにします。</value>
         <value xml:lang="vi">Nếu được chỉ định sẽ được cụm vào trước đường dẫn mẫu. Nên bắt đầu bằng một dấu gạch chéo, nhưng không sử dụng gạch chéo để kết thúc</value>
@@ -4147,6 +4243,7 @@
     <property key="FieldDescription.ProdCatalog.viewAllowPermReqd">
         <value xml:lang="de">Wenn Y, können Administratoren nur Produkte zu 'Ansicht erlauben' Kategorien hinzufügen, wenn sie die CATALOG_VIEW_ALLOW Berechtigung besitzen</value>
         <value xml:lang="en">If Y, administrators can only add products to 'View Allow' categories if they have the permission CATALOG_VIEW_ALLOW</value>
+        <value xml:lang="es">Si es Y, los administradores solo pueden agregar productos a las categorías 'Ver permiso' si tienen el permiso CATALOG_VIEW_ALLOW</value>
         <value xml:lang="fr">Si Oui, les administrateurs ne peuvent ajouter des produits aux catégories «Visualisation» que s'ils ont la permission CATALOG_VIEW_ALLOW</value>
         <value xml:lang="ja">Y の場合、CATALOG_VIEW_ALLOW 権限をもつ管理者のみが'表示許可'カテゴリに製品を追加することができます。</value>
         <value xml:lang="vi">Nếu Y , các quản trị viên chỉ có thể thêm danh mục sản phẩm 'Cho phép xem' nếu họ có quyền CATALOG_VIEW_ALLOW</value>
@@ -4156,6 +4253,7 @@
     <property key="FieldDescription.ProdCatalog.purchaseAllowPermReqd">
         <value xml:lang="de">Wenn Y, können Administratoren nur Produkte zu 'Kauf erlauben' Kategorien hinzufügen, wenn sie die CATALOG_VIEW_ALLOW Berechtigung besitzen</value>
         <value xml:lang="en">If Y, administrators can only add products to 'Purchase Allow' categories if they have the permission CATALOG_VIEW_ALLOW</value>
+        <value xml:lang="es">Si es Y, los administradores solo pueden agregar productos a las categorías de "Permiso de compra" si tienen el permiso CATALOG_VIEW_ALLOW</value>
         <value xml:lang="fr">Si Oui, les administrateurs ne peuvent ajouter des produits aux catégories «Permission d'achat» que s'ils ont la permission CATALOG_VIEW_ALLOW</value>
         <value xml:lang="ja">Y の場合、CATALOG_VIEW_ALLOW 権限をもつ管理者のみが'購入許可'カテゴリに製品を追加することができます。</value>
         <value xml:lang="vi">Nếu Y, các quản trị viên chỉ có thể thêm danh mục sản phẩm 'Cho phép mua' nếu họ có quyền CATALOG_VIEW_ALLOW</value>
@@ -4166,6 +4264,7 @@
     <property key="FieldDescription.ProductStore.productStoreId">
         <value xml:lang="de">Die Id für den Laden.</value>
         <value xml:lang="en">The id for the product store.</value>
+        <value xml:lang="es">El id para la tienda de productos.</value>
         <value xml:lang="fr">L'identifiant du magasin.</value>
         <value xml:lang="ja">製品店舗に対するID.</value>
         <value xml:lang="vi">Mã này dành cho cửa hàng sản phẩm.</value>
