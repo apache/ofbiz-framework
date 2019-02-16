@@ -22,25 +22,47 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectStreamClass;
 import java.lang.reflect.Proxy;
+import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * ObjectInputStream
  *
  */
-public class ObjectInputStream extends java.io.ObjectInputStream {
+public class SafeObjectInputStream extends java.io.ObjectInputStream implements AutoCloseable {
 
     private ClassLoader classloader;
+    private Pattern WHITELIST_PATTERN = null;
 
-    public ObjectInputStream(InputStream in, ClassLoader loader) throws IOException {
+    public SafeObjectInputStream(InputStream in, ClassLoader loader) throws IOException {
         super(in);
         this.classloader = loader;
     }
+
+    public SafeObjectInputStream(InputStream in, ClassLoader loader, List<String> whitelist) throws IOException {
+        super(in);
+        this.classloader = loader;
+        StringBuilder bld = new StringBuilder("(");
+        for (int i = 0; i < whitelist.size(); i++) {
+            bld.append(whitelist.get(i));
+            if (i != whitelist.size() - 1) {
+                bld.append("|");
+            }
+        }
+        bld.append(")");
+        WHITELIST_PATTERN = Pattern.compile(bld.toString());
+    }
+
 
     /**
      * @see java.io.ObjectInputStream#resolveClass(java.io.ObjectStreamClass)
      */
     @Override
     protected Class<?> resolveClass(ObjectStreamClass classDesc) throws IOException, ClassNotFoundException {
+        if (!WHITELIST_PATTERN.matcher(classDesc.getName()).find()) {
+            throw new ClassCastException("Incompatible class: " + classDesc.getName());
+        }
+        
         return ObjectType.loadClass(classDesc.getName(), classloader);
     }
 
@@ -49,7 +71,7 @@ public class ObjectInputStream extends java.io.ObjectInputStream {
      */
     @Override
     protected Class<?> resolveProxyClass(String[] interfaces) throws IOException, ClassNotFoundException {
-        Class<?>[] cinterfaces = new Class[interfaces.length];
+        Class<?>[] cinterfaces = new Class<?>[interfaces.length];
         for (int i = 0; i < interfaces.length; i++) {
             cinterfaces[i] = classloader.loadClass(interfaces[i]);
         }
