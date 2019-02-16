@@ -139,16 +139,12 @@ public final class UtilObject {
 
     /** Deserialize a byte array back to an object */
     public static Object getObjectException(byte[] bytes) throws ClassNotFoundException, IOException {
-        ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-        try {
-            ObjectInputStream ois = new ObjectInputStream(bis, Thread.currentThread().getContextClassLoader());
-            try {
-                return ois.readObject();
-            } finally {
-                ois.close();
-            }
-        } finally {
-            bis.close();
+        try (ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+                SafeObjectInputStream wois = new SafeObjectInputStream(bis,
+                        Thread.currentThread().getContextClassLoader(),
+                        java.util.Arrays.asList("byte\\[\\]", "Number", "Long", "foo", "SerializationInjector"));
+                ) { // byte[] used in EntityCrypto::doDecrypt, all others used in UtilObjectTests::testGetObject
+            return wois.readObject();
         }
     }
 
