@@ -129,7 +129,7 @@ under the License.
             <display-entity entity-name="Product" description="${productId} - ${description}"/>
         </field>
         <field name="addToCart" title=" " widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.CommonAdd} ${quantity} ${uiLabelMap.OrderAddQntToOrder}" target="additem/editShoppingList" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonAdd} ${quantity} ${uiLabelMap.OrderAddQntToOrder}" target="additem" also-hidden="false">
                 <parameter param-name="shoppingListId"/>
                 <parameter param-name="shoppingListItemSeqId"/>
                 <parameter param-name="add_product_id" from-field="productId"/>
