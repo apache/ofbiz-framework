@@ -60,6 +60,9 @@ public class SafeObjectInputStream extends java.io.ObjectInputStream implements 
     @Override
     protected Class<?> resolveClass(ObjectStreamClass classDesc) throws IOException, ClassNotFoundException {
         if (!WHITELIST_PATTERN.matcher(classDesc.getName()).find()) {
+            Debug.logWarning("************************Incompatible class: " + classDesc.getName() + 
+                    ". Please see OFBIZ-10837.  Report to dev ML if you use OFBiz without changes. "
+                    + "Else add you class into UtilObject::getObjectException", "SafeObjectInputStream");
             throw new ClassCastException("Incompatible class: " + classDesc.getName());
         }
         
