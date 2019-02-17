@@ -142,7 +142,7 @@ public final class UtilObject {
         try (ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
                 SafeObjectInputStream wois = new SafeObjectInputStream(bis,
                         Thread.currentThread().getContextClassLoader(),
-                        java.util.Arrays.asList("byte\\[\\]", "Number", "Long", "foo", "SerializationInjector"));
+                        java.util.Arrays.asList("byte\\[\\]", "Number", "Long", "foo", "SerializationInjector", "java.util.HashMap", "Boolean", "Number", "Integer"));
                 ) { // byte[] used in EntityCrypto::doDecrypt, all others used in UtilObjectTests::testGetObject
             return wois.readObject();
         }
