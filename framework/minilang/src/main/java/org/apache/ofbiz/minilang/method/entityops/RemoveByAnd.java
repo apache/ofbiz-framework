@@ -58,7 +58,6 @@ public final class RemoveByAnd extends EntityOperation {
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
-        @Deprecated
         String entityName = entityNameFse.expandString(methodContext.getEnvMap());
         if (entityName.isEmpty()) {
             throw new MiniLangRuntimeException("Entity name not found.", this);

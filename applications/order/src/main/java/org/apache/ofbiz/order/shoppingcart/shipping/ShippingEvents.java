@@ -19,6 +19,7 @@
 package org.apache.ofbiz.order.shoppingcart.shipping;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -526,7 +527,7 @@ public class ShippingEvents {
         GenericValue shippingTimeEstimate = getShippingTimeEstimate(storeCarrierShipMethod, shippingTimeEstimates);
         if (shippingTimeEstimate == null) return null;
         BigDecimal leadTimeConverted = UomWorker.convertUom(shippingTimeEstimate.getBigDecimal("leadTime"), shippingTimeEstimate.getString("leadTimeUomId"), "TF_day", dispatcher);
-        return leadTimeConverted != null ? leadTimeConverted.setScale(2, BigDecimal.ROUND_UP).doubleValue() : null;
+        return leadTimeConverted != null ? leadTimeConverted.setScale(2, RoundingMode.UP).doubleValue() : null;
     }
 }
 

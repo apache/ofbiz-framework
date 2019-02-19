@@ -128,7 +128,7 @@ public class ImportProductServices {
                     // read QOH from ninth column
                     HSSFCell cell5 = row.getCell(5);
                     BigDecimal quantityOnHand = BigDecimal.ZERO;
-                    if (cell5 != null && cell5.getCellTypeEnum() == CellType.NUMERIC) {
+                    if (cell5 != null && cell5.getCellType() == CellType.NUMERIC) {
                         quantityOnHand = new BigDecimal(cell5.getNumericCellValue());
                     }
 
