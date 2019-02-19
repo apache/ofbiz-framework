@@ -2629,7 +2629,7 @@ public class OrderReturnServices {
         String settingPrefix = isSalesTax ? "salestax" : "order";
         String decimalsPrefix = isSalesTax ? ".calc" : "";
         int decimals = UtilNumber.getBigDecimalScale(settingPrefix + decimalsPrefix + ".decimals");
-        int rounding = UtilNumber.getRoundingMode(settingPrefix + ".rounding").ordinal();
+        RoundingMode rounding = UtilNumber.getRoundingMode(settingPrefix + ".rounding");
         returnTotal = returnTotal.setScale(decimals, rounding);
         originalTotal = originalTotal.setScale(decimals, rounding);
         BigDecimal newAmount = null;
