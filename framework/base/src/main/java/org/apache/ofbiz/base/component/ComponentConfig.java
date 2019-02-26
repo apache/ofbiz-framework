@@ -280,6 +280,118 @@ public final class ComponentConfig {
     private final List<WebappInfo> webappInfos;
     private final List<ContainerConfig.Configuration> configurations;
 
+    /**
+     * Instantiates a component configuration from a {@link ComponentConfig.Builder builder} object.
+     *
+     * This allows instantiating component configuration without an XML entity object,
+     * which is useful for example when writing unit tests.
+     *
+     * @param b the component configuration builder
+     */
+    private ComponentConfig(Builder b) {
+        this.globalName = b.globalName;
+        this.rootLocation = b.rootLocation;
+        this.componentName = b.componentName;
+        this.enabled = b.enabled;
+        this.resourceLoaderInfos = b.resourceLoaderInfos;
+        this.classpathInfos = b.classpathInfos;
+        this.dependsOnInfos = b.dependsOnInfos;
+        this.entityResourceInfos = b.entityResourceInfos;
+        this.serviceResourceInfos = b.serviceResourceInfos;
+        this.testSuiteInfos = b.testSuiteInfos;
+        this.keystoreInfos = b.keystoreInfos;
+        this.webappInfos = b.webappInfos;
+        this.configurations = b.configurations;
+    }
+
+    /**
+     * Builder for component configuration.
+     */
+    public static final class Builder {
+        private String globalName;
+        private String rootLocation;
+        private String componentName;
+        private boolean enabled = true;
+        private Map<String, ResourceLoaderInfo> resourceLoaderInfos;
+        private List<ClasspathInfo> classpathInfos;
+        private List<DependsOnInfo> dependsOnInfos;
+        private List<EntityResourceInfo> entityResourceInfos;
+        private List<ServiceResourceInfo> serviceResourceInfos;
+        private List<TestSuiteInfo> testSuiteInfos;
+        private List<KeystoreInfo> keystoreInfos;
+        private List<WebappInfo> webappInfos;
+        private List<ContainerConfig.Configuration> configurations;
+
+        public Builder globalName(String name) {
+            this.globalName = name;
+            return this;
+        }
+
+        public Builder rootLocation(String rootLocation) {
+            this.rootLocation = rootLocation;
+            return this;
+        }
+
+        public Builder componentName(String componentName) {
+            this.componentName = componentName;
+            return this;
+        }
+
+        public Builder enabled(boolean enabled) {
+            this.enabled = enabled;
+            return this;
+        }
+
+        public Builder resourceLoaderInfos(Map<String, ResourceLoaderInfo> resourceLoaderInfos) {
+            this.resourceLoaderInfos = resourceLoaderInfos;
+            return this;
+        }
+
+        public Builder classpathInfos(List<ClasspathInfo> classpathInfos) {
+            this.classpathInfos = classpathInfos;
+            return this;
+        }
+
+        public Builder dependsOnInfos(List<DependsOnInfo> dependsOnInfos) {
+            this.dependsOnInfos = dependsOnInfos;
+            return this;
+        }
+
+        public Builder entityResourceInfos(List<EntityResourceInfo> entityResourceInfos) {
+            this.entityResourceInfos = entityResourceInfos;
+            return this;
+        }
+
+        public Builder serviceResourceInfos(List<ServiceResourceInfo> serviceResourceInfos) {
+            this.serviceResourceInfos = serviceResourceInfos;
+            return this;
+        }
+
+        public Builder testSuiteInfos(List<TestSuiteInfo> testSuiteInfos) {
+            this.testSuiteInfos = testSuiteInfos;
+            return this;
+        }
+
+        public Builder keystoreInfos(List<KeystoreInfo> keystoreInfos) {
+            this.keystoreInfos = keystoreInfos;
+            return this;
+        }
+
+        public Builder webappInfos(List<WebappInfo> webappInfos) {
+            this.webappInfos = webappInfos;
+            return this;
+        }
+
+        public Builder configurations(List<ContainerConfig.Configuration> configurations) {
+            this.configurations = configurations;
+            return this;
+        }
+
+        public ComponentConfig create() {
+           return new ComponentConfig(this);
+        }
+    }
+
     private ComponentConfig(String globalName, String rootLocation) throws ComponentException {
         if (!rootLocation.endsWith("/")) {
             rootLocation = rootLocation + "/";
@@ -787,6 +899,146 @@ public final class ComponentConfig {
         private volatile boolean appBarDisplay;
         private final String accessPermission;
         private final boolean useAutologinCookie;
+
+        /**
+         * Instantiates a webapp information from a {@link WebappInfo.Builder builder} object.
+         *
+         * This allows instantiating webapp information without an XML entity object,
+         * which is useful for example when writing unit tests.
+         *
+         * @param b the webapp information builder
+         */
+        private WebappInfo(Builder b) {
+            this.componentConfig = b.componentConfig;
+            this.virtualHosts = b.virtualHosts;
+            this.initParameters = b.initParameters;
+            this.name = b.name;
+            this.title = b.title;
+            this.description = b.description;
+            this.menuName = b.menuName;
+            this.server = b.server;
+            this.mountPoint = b.mountPoint;
+            this.contextRoot = b.contextRoot;
+            this.location = b.location;
+            this.basePermission = b.basePermissions;
+            this.position = b.position;
+            this.privileged = b.privileged;
+            this.appBarDisplay = b.appBarDisplay;
+            this.accessPermission = b.accessPermission;
+            this.useAutologinCookie = b.useAutologinCookie;
+        }
+
+        /**
+         * Builder for webapp information.
+         */
+        public static class Builder {
+            private ComponentConfig componentConfig;
+            private List<String> virtualHosts;
+            private Map<String, String> initParameters;
+            private String name;
+            private String title;
+            private String description;
+            private String menuName;
+            private String server;
+            private String mountPoint;
+            private String contextRoot;
+            private String location;
+            private String[] basePermissions;
+            private String position;
+            private boolean privileged = false;
+            private boolean appBarDisplay = true;
+            private String accessPermission;
+            private boolean useAutologinCookie;
+
+            public Builder componentConfig(ComponentConfig componentConfig) {
+                this.componentConfig = componentConfig;
+                return this;
+            }
+
+            public Builder virtualHosts(List<String> virtualHosts) {
+                this.virtualHosts = virtualHosts;
+                return this;
+            }
+
+            public Builder initParameters(Map<String, String> initParameters) {
+                this.initParameters = initParameters;
+                return this;
+            }
+
+            public Builder name(String name) {
+                this.name = name;
+                return this;
+            }
+
+            public Builder title(String title) {
+                this.title = title;
+                return this;
+            }
+
+            public Builder description(String description) {
+                this.description = description;
+                return this;
+            }
+
+            public Builder menuName(String menuName) {
+                this.menuName = menuName;
+                return this;
+            }
+
+            public Builder server(String server) {
+                this.server = server;
+                return this;
+            }
+
+            public Builder mountPoint(String mountPoint) {
+                this.mountPoint = mountPoint;
+                return this;
+            }
+
+            public Builder contextRoot(String contextRoot) {
+                this.contextRoot = contextRoot;
+                return this;
+            }
+
+            public Builder location(String location) {
+                this.location = location;
+                return this;
+            }
+
+            public Builder basePermissions(String[] basePermissions) {
+                this.basePermissions = basePermissions;
+                return this;
+            }
+
+            public Builder position(String position) {
+                this.position = position;
+                return this;
+            }
+
+            public Builder privileged(boolean privileged) {
+                this.privileged = privileged;
+                return this;
+            }
+
+            public Builder appBarDisplay(boolean appBarDisplay) {
+                this.appBarDisplay = appBarDisplay;
+                return this;
+            }
+
+            public Builder accessPermission(String accessPermission) {
+                this.accessPermission = accessPermission;
+                return this;
+            }
+
+            public Builder useAutologinCookie(boolean useAutologinCookie) {
+                this.useAutologinCookie = useAutologinCookie;
+                return this;
+            }
+
+            public WebappInfo create() {
+                return new WebappInfo(this);
+            }
+        }
 
         private WebappInfo(ComponentConfig componentConfig, Element element) {
             this.componentConfig = componentConfig;
