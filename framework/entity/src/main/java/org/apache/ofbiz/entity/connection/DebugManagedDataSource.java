@@ -69,7 +69,7 @@ public class DebugManagedDataSource<C extends Connection> extends ManagedDataSou
 
     // Ensures that the close() method does not throw an InterruptedException
     // to conform to the AutoCloseable interface.
-    // This is fixing what should be down in org.apache.commons.dbcp2.PoolingDataSource.
+    // This is fixing what should be done in org.apache.commons.dbcp2.PoolingDataSource.
     @Override
     public void close() throws SQLException, RuntimeException {
         try {
