@@ -25,12 +25,10 @@ import java.security.KeyStore;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 import org.apache.ofbiz.base.container.ContainerConfig;
 import org.apache.ofbiz.base.container.ContainerConfig.Configuration;
@@ -55,12 +53,8 @@ public final class ComponentConfig {
 
     public static final String module = ComponentConfig.class.getName();
     public static final String OFBIZ_COMPONENT_XML_FILENAME = "ofbiz-component.xml";
-    /* Note: These Maps are not UtilCache instances because there is no strategy or implementation for reloading components.
-     * Also, we are using LinkedHashMap to maintain insertion order - which client code depends on. This means
-     * we will need to use synchronization code because there is no concurrent implementation of LinkedHashMap.
-     */
+    // This map is not a UtilCache instance because there is no strategy or implementation for reloading components.
     private static final ComponentConfigCache componentConfigCache = new ComponentConfigCache();
-    private static final Map<String, List<WebappInfo>> serverWebApps = new LinkedHashMap<>();
 
     public static Boolean componentExists(String componentName) {
         Assert.notEmpty("componentName", componentName);
@@ -187,55 +181,6 @@ public final class ComponentConfig {
         return webappInfos;
     }
 
-    public static List<WebappInfo> getAppBarWebInfos(String serverName) {
-        return ComponentConfig.getAppBarWebInfos(serverName, null, null);
-    }
-
-    public static List<WebappInfo> getAppBarWebInfos(String serverName, Comparator<? super String> comp, String menuName) {
-        String serverWebAppsKey = serverName + menuName;
-        List<WebappInfo> webInfos = null;
-        synchronized (serverWebApps) {
-            webInfos = serverWebApps.get(serverWebAppsKey);
-        }
-        if (webInfos == null) {
-            Map<String, WebappInfo> tm = null;
-            // use a TreeMap to sort the components alpha by title
-            if (comp != null) {
-                tm = new TreeMap<>(comp);
-            } else {
-                tm = new TreeMap<>();
-            }
-            for (ComponentConfig cc : getAllComponents()) {
-                for (WebappInfo wInfo : cc.getWebappInfos()) {
-                    String key = UtilValidate.isNotEmpty(wInfo.position) ? wInfo.position : wInfo.title;
-                    if (serverName.equals(wInfo.server) && wInfo.getAppBarDisplay()) {
-                        if (UtilValidate.isNotEmpty(menuName)) {
-                            if (menuName.equals(wInfo.menuName)) {
-                                tm.put(key, wInfo);
-                            }
-                        } else {
-                            tm.put(key, wInfo);
-                        }
-                    } if (!wInfo.getAppBarDisplay() && UtilValidate.isEmpty(menuName)) {
-                        tm.put(key, wInfo);
-                    }
-                }
-            }
-            webInfos = new ArrayList<>(tm.size());
-            webInfos.addAll(tm.values());
-            webInfos = Collections.unmodifiableList(webInfos);
-            synchronized (serverWebApps) {
-                // We are only preventing concurrent modification, we are not guaranteeing a singleton.
-                serverWebApps.put(serverWebAppsKey, webInfos);
-            }
-        }
-        return webInfos;
-    }
-
-    public static List<WebappInfo> getAppBarWebInfos(String serverName, String menuName) {
-        return getAppBarWebInfos(serverName, null, menuName);
-    }
-
     public static ComponentConfig getComponentConfig(String globalName) throws ComponentException {
         // TODO: we need to look up the rootLocation from the container config, or this will blow up
         return getComponentConfig(globalName, null);
@@ -314,21 +259,6 @@ public final class ComponentConfig {
         return info;
     }
     
-    public static WebappInfo getWebappInfo(String serverName, String webAppName) {
-        WebappInfo webappInfo = null;
-        List<WebappInfo> webappsInfo = getAppBarWebInfos(serverName);
-        for(WebappInfo currApp : webappsInfo) {
-            String currWebAppName = currApp.getMountPoint().replace("/", "").replace("*", "");
-            if (webAppName.equals(currWebAppName)) {
-                webappInfo = currApp;
-                break;
-            }
-        }
-        return webappInfo;
-    }    
-
-    
-
     public static boolean isFileResourceLoader(String componentName, String resourceLoaderName) throws ComponentException {
         ComponentConfig cc = getComponentConfig(componentName);
         return cc.isFileResourceLoader(resourceLoaderName);
