@@ -940,7 +940,7 @@ public final class ComponentConfig {
             private String description;
             private String menuName;
             private String server;
-            private String mountPoint;
+            private String mountPoint = "";
             private String contextRoot;
             private String location;
             private String[] basePermissions;

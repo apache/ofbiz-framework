@@ -24,7 +24,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.TreeMap;
 import java.util.function.Supplier;
 
@@ -111,32 +110,25 @@ public class WebAppCache {
             webInfos = serverWebApps.get(serverWebAppsKey);
         }
         if (webInfos == null) {
-            Map<String, WebappInfo> tm = null;
-            // use a TreeMap to sort the components alpha by title
-            if (comp != null) {
-                tm = new TreeMap<>(comp);
-            } else {
-                tm = new TreeMap<>();
-            }
-            for (ComponentConfig cc : ccs.get()) {
-                for (WebappInfo wInfo : cc.getWebappInfos()) {
-                    String key = UtilValidate.isNotEmpty(wInfo.position) ? wInfo.position : wInfo.title;
-                    if (serverName.equals(wInfo.server) && wInfo.getAppBarDisplay()) {
-                        if (UtilValidate.isNotEmpty(menuName)) {
-                            if (menuName.equals(wInfo.menuName)) {
-                                tm.put(key, wInfo);
-                            }
+            TreeMap<String, WebappInfo> tm = ccs.get().stream()
+                    .flatMap(cc -> cc.getWebappInfos().stream())
+                    .filter(wInfo -> {
+                        if (wInfo.getAppBarDisplay()) {
+                            return serverName.equals(wInfo.server)
+                                    && (UtilValidate.isEmpty(menuName) || menuName.equals(wInfo.menuName));
                         } else {
-                            tm.put(key, wInfo);
+                            return UtilValidate.isEmpty(menuName);
                         }
-                    } if (!wInfo.getAppBarDisplay() && UtilValidate.isEmpty(menuName)) {
-                        tm.put(key, wInfo);
-                    }
-                }
-            }
-            webInfos = new ArrayList<>(tm.size());
-            webInfos.addAll(tm.values());
-            webInfos = Collections.unmodifiableList(webInfos);
+                    })
+                    // Keep only one WebappInfo per title (the last appearing one).
+                    .collect(() -> new TreeMap<>(comp),
+                            (acc, wInfo) -> {
+                                String key = UtilValidate.isNotEmpty(wInfo.position) ? wInfo.position : wInfo.title;
+                                acc.put(key, wInfo);
+                            },
+                            TreeMap::putAll);
+            // Create the list of WebappInfos ordered by their title/position.
+            webInfos = Collections.unmodifiableList(new ArrayList<>(tm.values()));
             synchronized (serverWebApps) {
                 // We are only preventing concurrent modification, we are not guaranteeing a singleton.
                 serverWebApps.put(serverWebAppsKey, webInfos);
@@ -152,19 +144,13 @@ public class WebAppCache {
      * @param serverName the name of the server to match
      * @param webAppName the name of the web application to match
      * @return the corresponding web application information
-     * @throws NullPointerException when {@code serverName} or {@doc webAppName} are {@code null}
+     * @throws NullPointerException when {@code serverName} is {@code null}
      */
     public WebappInfo getWebappInfo(String serverName, String webAppName) {
-        WebappInfo webappInfo = null;
-        List<WebappInfo> webappsInfo = getAppBarWebInfos(serverName);
-        for(WebappInfo currApp : webappsInfo) {
-            String currWebAppName = currApp.getMountPoint().replace("/", "").replace("*", "");
-            if (webAppName.equals(currWebAppName)) {
-                webappInfo = currApp;
-                break;
-            }
-        }
-        return webappInfo;
+        return getAppBarWebInfos(serverName).stream()
+                .filter(app -> app.getMountPoint().replaceAll("[/*]", "").equals(webAppName))
+                .findFirst()
+                .orElse(null);
     }
 
     // Instance of the cache shared by the loginWorker and Freemarker appbar rendering.
