@@ -23,6 +23,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Optional;
 import java.util.TreeMap;
 import java.util.function.Supplier;
 
@@ -128,11 +129,10 @@ public class WebAppCache {
      * @return the corresponding web application information
      * @throws NullPointerException when {@code serverName} is {@code null}
      */
-    public WebappInfo getWebappInfo(String serverName, String webAppName) {
+    public Optional<WebappInfo> getWebappInfo(String serverName, String webAppName) {
         return getAppBarWebInfos(serverName).stream()
                 .filter(app -> app.getMountPoint().replaceAll("[/*]", "").equals(webAppName))
-                .findFirst()
-                .orElse(null);
+                .findFirst();
     }
 
     // Instance of the cache shared by the loginWorker and Freemarker appbar rendering.

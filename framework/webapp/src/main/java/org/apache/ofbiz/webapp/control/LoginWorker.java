@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.ServiceLoader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -926,11 +927,11 @@ public class LoginWorker {
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         String serverId = (String) request.getServletContext().getAttribute("_serverId");
         String applicationName = UtilHttp.getApplicationName(request);
-        WebappInfo webappInfo = webapps.getWebappInfo(serverId, applicationName);
+        Optional<WebappInfo> webappInfo = webapps.getWebappInfo(serverId, applicationName);
                 
         if (userLogin != null && 
-                ((webappInfo != null && webappInfo.isAutologinCookieUsed())
-                || webappInfo == null)) { // When using an empty mountpoint, ie using root as mountpoint. Beware: works only for 1 webapp!
+                // When using an empty mountpoint, ie using root as mountpoint. Beware: works only for 1 webapp!
+                webappInfo.map(WebappInfo::isAutologinCookieUsed).orElse(!webappInfo.isPresent())) {
             Cookie autoLoginCookie = new Cookie(getAutoLoginCookieName(request), userLogin.getString("userLoginId"));
             autoLoginCookie.setMaxAge(60 * 60 * 24 * 365);
             autoLoginCookie.setDomain(EntityUtilProperties.getPropertyValue("url", "cookie.domain", delegator));
