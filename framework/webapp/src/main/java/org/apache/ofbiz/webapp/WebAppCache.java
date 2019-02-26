@@ -21,7 +21,6 @@ package org.apache.ofbiz.webapp;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.TreeMap;
@@ -71,7 +70,7 @@ public class WebAppCache {
      * @return the corresponding web applications information
      */
     public List<WebappInfo> getAppBarWebInfos(String serverName) {
-        return getAppBarWebInfos(serverName, null, null);
+        return getAppBarWebInfos(serverName, null);
     }
 
     /**
@@ -87,23 +86,6 @@ public class WebAppCache {
      * @throws NullPointerException when {@code serverName} is {@code null}
      */
     public List<WebappInfo> getAppBarWebInfos(String serverName, String menuName) {
-        return getAppBarWebInfos(serverName, null, menuName);
-    }
-
-    /**
-     * Retrieves the web applications information that must be visible inside
-     * the menu {@code menuName} in the context of the server {@code serverName}.
-     * <p>
-     * When an empty string or {@code null} is used for {@code menuName},
-     * all the web application information corresponding to {@code serverName} are matched.
-     *
-     * @param serverName the name of server to match
-     * @param comp the comparator used for ordering the results
-     * @param menuName the name of the menu to match
-     * @return the corresponding web applications information
-     * @throws NullPointerException when {@code serverName} is {@code null}
-     */
-    private List<WebappInfo> getAppBarWebInfos(String serverName, Comparator<? super String> comp, String menuName) {
         String serverWebAppsKey = serverName + menuName;
         List<WebappInfo> webInfos = null;
         synchronized (serverWebApps) {
@@ -121,7 +103,7 @@ public class WebAppCache {
                         }
                     })
                     // Keep only one WebappInfo per title (the last appearing one).
-                    .collect(() -> new TreeMap<>(comp),
+                    .collect(TreeMap::new,
                             (acc, wInfo) -> {
                                 String key = UtilValidate.isNotEmpty(wInfo.position) ? wInfo.position : wInfo.title;
                                 acc.put(key, wInfo);
