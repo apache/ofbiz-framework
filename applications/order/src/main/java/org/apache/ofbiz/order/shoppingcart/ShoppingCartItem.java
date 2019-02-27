@@ -1118,6 +1118,15 @@ public class ShoppingCartItem implements java.io.Serializable {
                 if (partyId != null) {
                     priceContext.put("partyId", partyId);
                 }
+                GenericValue userLogin= cart.getUserLogin();
+                if (userLogin != null) {
+                    priceContext.put("userLogin", userLogin);
+                }
+                GenericValue autoUserLogin= cart.getAutoUserLogin();
+                if (autoUserLogin != null) {
+                    priceContext.put("autoUserLogin", autoUserLogin);
+                }
+
                 // check alternative packaging
                 boolean isAlternativePacking = ProductWorker.isAlternativePacking(delegator, this.productId , this.getParentProductId());
                 BigDecimal pieces = BigDecimal.ONE;
