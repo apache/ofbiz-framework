@@ -142,7 +142,7 @@ dependencies {
     compile 'org.apache.axis2:axis2-kernel:1.7.8'
     compile 'org.apache.commons:commons-collections4:4.2'
     compile 'org.apache.commons:commons-csv:1.6'
-    compile 'org.apache.commons:commons-dbcp2:2.5.0'
+    compile 'org.apache.commons:commons-dbcp2:2.5.0' // When changing for 2.6.1+ we can remove ManagedDataSource::close, see DBCP-539
     compile 'org.apache.geronimo.components:geronimo-transaction:3.1.4'
     compile 'org.apache.geronimo.specs:geronimo-jms_1.1_spec:1.1.1'
     compile 'org.apache.httpcomponents:httpclient-cache:4.5.6'
