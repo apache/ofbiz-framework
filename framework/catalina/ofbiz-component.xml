@@ -99,6 +99,7 @@ under the License.
             <!--<property name="address" value=""/>-->
             <property name="port" value="8080"/>
             <property name="protocol" value="HTTP/1.1"/>
+            <property name="upgradeProtocol" value="true"/>
             <property name="scheme" value="http"/>
             <property name="secure" value="false"/>
             <property name="URIEncoding" value="UTF-8"/>
@@ -128,6 +129,7 @@ under the License.
             <!--<property name="address" value=""/>-->
             <property name="port" value="8443"/>
             <property name="protocol" value="HTTP/1.1"/>
+            <property name="upgradeProtocol" value="true"/>
             <property name="scheme" value="https"/>
             <property name="secure" value="true"/>
             <property name="SSLEnabled" value="true"/>
@@ -183,6 +185,7 @@ under the License.
             <!--<property name="address" value=""/>-->
             <property name="port" value="8080"/>
             <property name="protocol" value="HTTP/1.1"/>
+            <property name="upgradeProtocol" value="true"/>
             <property name="scheme" value="http"/>
             <property name="secure" value="false"/>
             <property name="URIEncoding" value="UTF-8"/>
@@ -194,6 +197,7 @@ under the License.
             <!--<property name="address" value=""/>-->
             <property name="port" value="8443"/>
             <property name="protocol" value="HTTP/1.1"/>
+            <property name="upgradeProtocol" value="true"/>
             <property name="scheme" value="https"/>
             <property name="secure" value="true"/>
             <property name="SSLEnabled" value="true"/>
