@@ -1050,14 +1050,9 @@ def spawnProcess(command) {
 }
 
 def getDirectoryInActiveComponentsIfExists(String dirName) {
-    def dirInComponents = []
-    activeComponents().each { component ->
-        def subDir = file(component.toString() + '/' + dirName)
-        if (subDir.exists()) {
-            dirInComponents.add subDir
-        }
-    }
-    return dirInComponents
+    activeComponents()
+        .collect { file(it.toString() + '/' + dirName) }
+        .findAll { it.exists() }
 }
 
 def deleteAllInDirWithExclusions(dirName, exclusions) {
