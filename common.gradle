@@ -54,5 +54,7 @@ List<File> activeComponents() {
 }
 
 ext {
+    subdirs = this.&subdirs
     activeComponents = this.&activeComponents.memoize()
+    isComponentEnabled = this.&isComponentEnabled.memoize()
 }
