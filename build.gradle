@@ -1099,9 +1099,7 @@ def getJarManifestClasspathForCurrentOs() {
 
 def subprojectExists(fullyQualifiedProject) {
     subprojects.stream()
-        .filter { it.path == fullyQualifiedProject.toString() }
-        .findAny()
-        .isPresent()
+        .anyMatch { it.path == fullyQualifiedProject.toString() }
 }
 
 def taskExistsInproject(fullyQualifiedProject, taskName) {
