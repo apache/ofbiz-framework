@@ -906,18 +906,13 @@ task pullAllPluginsSource(group: ofbizPlugin,
     dependsOn pullPluginsFromSvn
 
     task installAllPlugins {
-        file("${pluginsDir}").eachDir { plugin ->
-            activeComponents().each { component ->
-                if (component.name == plugin.name) {
-                    if (subprojectExists(":plugins:${plugin.name}")) {
-                        if (taskExistsInproject(":plugins:${plugin.name}", 'install')) {
-                            dependsOn ":plugins:${plugin.name}:install"
-                            doLast { println "installed plugin ${plugin.name}" }
-                        }
-                    }
-                }
-            }
-        }
+        subdirs(file("${pluginsDir}"))
+            .filter(this.isComponentEnabled)
+            .filter { taskExistsInproject(":plugins:${it.name}", 'install') }
+            .forEach({ plugin ->
+                dependsOn ":plugins:${plugin.name}:install"
+                doLast { println "installed plugin ${plugin.name}" }
+            })
     }
     doLast {
         gradlewSubprocess(['installAllPlugins'])
