@@ -552,8 +552,9 @@ task generateOfbizDocumentation(group: docsGroup, type: AsciidoctorTask) {
 task generatePluginDocumentation(group: docsGroup) {
     dependsOn deletePluginDocumentation
     description 'Generate plugin documentation. Expects pluginId flag'
-    activeComponents().each { component ->
-        if (project.hasProperty('pluginId') && component.name == pluginId) {
+    activeComponents()
+        .findAll { project.hasProperty('pluginId') && it.name == pluginId }
+        .each { component ->
             def pluginAsciidoc = task "${component.name}Documentation" (type: AsciidoctorTask) {
                 def asciidocFolder = new File("${component}/src/docs/asciidoc")
                 if (asciidocFolder.exists()) {
@@ -573,7 +574,6 @@ task generatePluginDocumentation(group: docsGroup) {
             dependsOn pluginAsciidoc
             doLast { delete "${component}/src/docs/asciidoc/images/OFBiz-Logo.svg" }
         }
-    }
 }
 
 task generateAllPluginsDocumentation(group: docsGroup, 
@@ -747,18 +747,16 @@ task installPlugin(group: ofbizPlugin, description: 'executes plugin install tas
     }
 
     if (project.hasProperty('pluginId')) {
-        activeComponents().each { component ->
-            if (component.name == pluginId) {
-                if (subprojectExists(":plugins:${pluginId}")) {
-                    if (taskExistsInproject(":plugins:${pluginId}", 'install')) {
-                        dependsOn ":plugins:${pluginId}:install"
-                        doLast { println "installed plugin ${pluginId}" }
-                    } else {
-                        doLast { println "No install task defined for plugin ${pluginId}, nothing to do" }
-                    }
+        activeComponents()
+            .findAll { it.name == pluginId }
+            .each { component ->
+                if (taskExistsInproject(":plugins:${pluginId}", 'install')) {
+                    dependsOn ":plugins:${pluginId}:install"
+                    doLast { println "installed plugin ${pluginId}" }
+                } else {
+                    doLast { println "No install task defined for plugin ${pluginId}, nothing to do" }
                 }
             }
-        }
     }
 }
 
