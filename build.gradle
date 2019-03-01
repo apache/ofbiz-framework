@@ -292,7 +292,7 @@ eclipse.classpath.file.whenMerged { classpath ->
      */
     def fileSep = System.getProperty("file.separator")
 
-    iterateOverActiveComponents { component ->
+    activeComponents().each { component ->
         def componentName = component.toString() - rootDir.toString() - fileSep
         def eclipseEntry = os.contains('windows') ? componentName.replaceAll("\\\\", "/") : componentName
 
@@ -526,15 +526,11 @@ task deleteOfbizDocumentation {
 }
 
 task deletePluginDocumentation {
-    def activeComponents = []
-    iterateOverActiveComponents { component ->
-        activeComponents.add(component.name)
-    }
     doFirst {
         if (!project.hasProperty('pluginId')) {
             throw new GradleException('Missing property \"pluginId\"')
         }
-        if(!activeComponents.contains(pluginId)) {
+        if(!activeComponents().contains(pluginId)) {
             throw new GradleException("Could not find plugin with id ${pluginId}")
         }
         delete "${buildDir}/asciidoc/plugins/${pluginId}"
@@ -556,7 +552,7 @@ task generateOfbizDocumentation(group: docsGroup, type: AsciidoctorTask) {
 task generatePluginDocumentation(group: docsGroup) {
     dependsOn deletePluginDocumentation
     description 'Generate plugin documentation. Expects pluginId flag'
-    iterateOverActiveComponents { component ->
+    activeComponents().each { component ->
         if (project.hasProperty('pluginId') && component.name == pluginId) {
             def pluginAsciidoc = task "${component.name}Documentation" (type: AsciidoctorTask) {
                 def asciidocFolder = new File("${component}/src/docs/asciidoc")
@@ -585,7 +581,7 @@ task generateAllPluginsDocumentation(group: docsGroup,
         
     dependsOn deleteAllPluginsDocumentation
     file("${pluginsDir}").eachDir { plugin ->
-        iterateOverActiveComponents { component ->
+        activeComponents().each { component ->
             if (component.name == plugin.name) {
                 if (subprojectExists(":plugins:${plugin.name}")) {
                     // Note: the "-" between "component.name" and "Documentation" allows to differentiate from 
@@ -751,7 +747,7 @@ task installPlugin(group: ofbizPlugin, description: 'executes plugin install tas
     }
 
     if (project.hasProperty('pluginId')) {
-        iterateOverActiveComponents { component ->
+        activeComponents().each { component ->
             if (component.name == pluginId) {
                 if (subprojectExists(":plugins:${pluginId}")) {
                     if (taskExistsInproject(":plugins:${pluginId}", 'install')) {
@@ -911,7 +907,7 @@ task pullAllPluginsSource(group: ofbizPlugin,
 
     task installAllPlugins {
         file("${pluginsDir}").eachDir { plugin ->
-            iterateOverActiveComponents { component ->
+            activeComponents().each { component ->
                 if (component.name == plugin.name) {
                     if (subprojectExists(":plugins:${plugin.name}")) {
                         if (taskExistsInproject(":plugins:${plugin.name}", 'install')) {
@@ -1055,7 +1051,7 @@ def spawnProcess(command) {
 
 def getDirectoryInActiveComponentsIfExists(String dirName) {
     def dirInComponents = []
-    iterateOverActiveComponents { component ->
+    activeComponents().each { component ->
         def subDir = file(component.toString() + '/' + dirName)
         if (subDir.exists()) {
             dirInComponents.add subDir

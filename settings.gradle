@@ -23,7 +23,7 @@ rootProject.name = 'ofbiz'
 def fileSep = System.getProperty("file.separator")
 def isWindows = System.getProperty('os.name').toLowerCase().contains("windows")
 
-iterateOverActiveComponents { File component ->
+activeComponents().each { File component ->
     def subProject = (component.toString() - rootDir)
     if (isWindows) 
         include subProject.replaceAll('\\' + fileSep, ':') 
