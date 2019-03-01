@@ -23,22 +23,28 @@ import org.asciidoctor.gradle.AsciidoctorTask
 /* ========================================================
  * Project setup
  * ======================================================== */
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'at.bxm.gradleplugins:gradle-svntools-plugin:latest.release'
-        classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.8.1' // Rather than using 1.5.9.2 see OFBIZ-10693
-        classpath 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.16'
+plugins {
+    id 'java'
+    id 'groovy'
+    id 'eclipse'
+    id 'maven-publish'
+    id 'at.bxm.svntools' version '2.2.1'
+    id 'org.asciidoctor.convert' version '1.5.8.1'  // Rather than using 1.5.9.2 see OFBIZ-10693
+}
+
+/* OWASP plugin
+ *
+ * If project property "enableOwasp" is flagged then
+ * gradle will download required dependencies and
+ * activate Gradle's OWASP plugin and its related tasks.
+ *
+ * Syntax: gradlew -PenableOwasp dependencyCheckAnalyze
+ */
+if (project.hasProperty('enableOwasp')) {
+    plugins {
+	id 'org.owasp.dependencycheck' version '3.0.2'
     }
 }
-apply plugin: 'java'
-apply plugin: 'groovy'
-apply plugin: 'eclipse'
-apply plugin: 'maven-publish'
-apply plugin: "at.bxm.svntools"
-apply plugin: 'org.asciidoctor.convert'
 
 apply from: 'common.gradle'
 
@@ -198,6 +204,7 @@ dependencies {
     junitReport 'junit:junit:4.12'
     junitReport 'org.apache.ant:ant-junit:1.10.5'
     
+    asciidoctor 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.16'
     // bug workaround - see OFBIZ-9873
     asciidoctor 'org.jruby:jruby-complete:9.2.4.0' 
 
@@ -310,25 +317,6 @@ eclipse.classpath.file.whenMerged { classpath ->
     }
 }
 tasks.eclipse.dependsOn(cleanEclipse)
-
-/* OWASP plugin
- *
- * If project property "enableOwasp" is flagged then
- * gradle will download required dependencies and
- * activate Gradle's OWASP plugin and its related tasks.
- *
- * Syntax: gradlew -PenableOwasp dependencyCheckAnalyze
- */
-buildscript {
-    if (project.hasProperty('enableOwasp')) {
-        dependencies {
-            classpath 'org.owasp:dependency-check-gradle:3.0.2'
-        }
-    }
-}
-if (project.hasProperty('enableOwasp')) {
-    apply plugin: 'org.owasp.dependencycheck'
-}
 
 /* ========================================================
  * Tasks
