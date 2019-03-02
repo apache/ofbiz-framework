@@ -164,13 +164,6 @@ public class GroovyUtil {
         }
     }
 
-    public static Class<?> loadClass(String path) throws ClassNotFoundException, IOException {
-        GroovyClassLoader groovyClassLoader = new GroovyClassLoader();
-        Class<?> classLoader = groovyClassLoader.loadClass(path);
-        groovyClassLoader.close();
-        return classLoader;
-    }
-
     /**
      * Parses a Groovy class from an input stream.
      * <p>
