@@ -42,7 +42,7 @@ plugins {
  */
 if (project.hasProperty('enableOwasp')) {
     plugins {
-	id 'org.owasp.dependencycheck' version '3.0.2'
+    id 'org.owasp.dependencycheck' version '3.0.2'
     }
 }
 
