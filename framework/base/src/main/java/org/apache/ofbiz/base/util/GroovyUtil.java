@@ -192,15 +192,25 @@ public class GroovyUtil {
         return classLoader;
     }
 
-    public static Object runScriptAtLocation(String location, String methodName, Map<String, Object> context) throws GeneralException {
+    /**
+     * Runs a Groovy script with a context argument.
+     * <p>
+     * A Groovy script can be either a stand-alone script or a method embedded in a script.
+     *
+     * @param location  the location of the script file
+     * @param methodName  the name of the method inside the script to be run,
+     *                    if it is {@code null} consider the script as stand-alone
+     * @param context  the context of execution which is in the case
+     *                 of a method inside a script passed as an argument
+     * @return the invocation result
+     * @throws GeneralException when the script is not properly located
+     */
+    public static Object runScriptAtLocation(String location, String methodName, Map<String, Object> context)
+            throws GeneralException {
         Script script = InvokerHelper.createScript(getScriptClassFromLocation(location), getBinding(context));
-        Object result = null;
-        if (UtilValidate.isEmpty(methodName)) {
-            result = script.run();
-        } else {
-            result = script.invokeMethod(methodName, new Object[] { context });
-        }
-        return result;
+        return UtilValidate.isEmpty(methodName)
+                ? script.run()
+                : script.invokeMethod(methodName, new Object[] { context });
     }
 
     private GroovyUtil() {}
