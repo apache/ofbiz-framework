@@ -27,10 +27,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.ServiceLoader;
 import java.util.Set;
 
 import javax.script.Bindings;
@@ -47,6 +45,8 @@ import javax.script.SimpleScriptContext;
 
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.cache.UtilCache;
+import org.apache.ofbiz.base.util.ScriptHelper;
+import org.apache.ofbiz.common.scripting.ScriptHelperImpl;
 import org.codehaus.groovy.runtime.InvokerHelper;
 
 /**
@@ -70,7 +70,6 @@ public final class ScriptUtil {
     public static final String SCRIPT_HELPER_KEY = "ofbiz";
     private static final UtilCache<String, CompiledScript> parsedScripts = UtilCache.createUtilCache("script.ParsedScripts", 0, 0, false);
     private static final Object[] EMPTY_ARGS = {};
-    private static ScriptHelperFactory helperFactory = null;
     /** A set of script names - derived from the JSR-223 scripting engines. */
     public static final Set<String> SCRIPT_NAMES;
 
@@ -104,15 +103,6 @@ public final class ScriptUtil {
             }
         }
         SCRIPT_NAMES = Collections.unmodifiableSet(writableScriptNames);
-        Iterator<ScriptHelperFactory> iter = ServiceLoader.load(ScriptHelperFactory.class).iterator();
-        if (iter.hasNext()) {
-            helperFactory = iter.next();
-            if (Debug.verboseOn()) {
-                Debug.logVerbose("ScriptHelper factory set to " + helperFactory.getClass().getName(), module);
-            }
-        } else {
-            Debug.logWarning("ScriptHelper factory not found", module);
-        }
     }
 
     /**
@@ -206,7 +196,7 @@ public final class ScriptUtil {
         localContext.put(WIDGET_CONTEXT_KEY, context);
         localContext.put("context", context);
         ScriptContext scriptContext = new SimpleScriptContext();
-        ScriptHelper helper = createScriptHelper(scriptContext);
+        ScriptHelper helper = new ScriptHelperImpl(scriptContext);
         if (helper != null) {
             localContext.put(SCRIPT_HELPER_KEY, helper);
         }
@@ -233,21 +223,11 @@ public final class ScriptUtil {
         ScriptContext scriptContext = new SimpleScriptContext();
         Bindings bindings = new ProtectedBindings(localContext, Collections.unmodifiableSet(protectedKeys));
         scriptContext.setBindings(bindings, ScriptContext.ENGINE_SCOPE);
-        ScriptHelper helper = createScriptHelper(scriptContext);
-        if (helper != null) {
-            localContext.put(SCRIPT_HELPER_KEY, helper);
-        }
+        localContext.put(SCRIPT_HELPER_KEY, new ScriptHelperImpl(scriptContext));
         return scriptContext;
     }
 
-    public static ScriptHelper createScriptHelper(ScriptContext context) {
-        if (helperFactory != null) {
-            return helperFactory.getInstance(context);
-        }
-        return null;
-    }
-
-     /**
+    /**
      * Executes a script <code>String</code> and returns the result.
      *
      * @param language
