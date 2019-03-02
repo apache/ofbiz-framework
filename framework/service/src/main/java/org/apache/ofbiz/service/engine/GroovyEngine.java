@@ -75,15 +75,9 @@ public final class GroovyEngine extends GenericAsyncEngine {
         runSync(localName, modelService, context);
     }
 
-    /**
-     * @see org.apache.ofbiz.service.engine.GenericEngine#runSync(java.lang.String, org.apache.ofbiz.service.ModelService, java.util.Map)
-     */
     @Override
-    public Map<String, Object> runSync(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
-        return serviceInvoker(localName, modelService, context);
-    }
-
-    private Map<String, Object> serviceInvoker(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
+    public Map<String, Object> runSync(String localName, ModelService modelService, Map<String, Object> context)
+            throws GenericServiceException {
         if (UtilValidate.isEmpty(modelService.location)) {
             throw new GenericServiceException("Cannot run Groovy service with empty location");
         }
@@ -105,13 +99,16 @@ public final class GroovyEngine extends GenericAsyncEngine {
             if (scriptHelper != null) {
                 gContext.put(ScriptUtil.SCRIPT_HELPER_KEY, scriptHelper);
             }
-            Script script = InvokerHelper.createScript(GroovyUtil.getScriptClassFromLocation(this.getLocation(modelService)), GroovyUtil.getBinding(gContext));
-            Object resultObj = null;
-            if (UtilValidate.isEmpty(modelService.invoke)) {
-                resultObj = script.run();
-            } else {
-                resultObj = script.invokeMethod(modelService.invoke, EMPTY_ARGS);
-            }
+
+            Script script = InvokerHelper.createScript(
+                    GroovyUtil.getScriptClassFromLocation(getLocation(modelService)),
+                    GroovyUtil.getBinding(gContext));
+
+            // Groovy services can either be implemented as a stand-alone script or with a method inside a script.
+            Object resultObj = UtilValidate.isEmpty(modelService.invoke)
+                    ? script.run()
+                    : script.invokeMethod(modelService.invoke, EMPTY_ARGS);
+
             if (resultObj == null) {
                 resultObj = scriptContext.getAttribute(ScriptUtil.RESULT_KEY);
             }
@@ -119,14 +116,18 @@ public final class GroovyEngine extends GenericAsyncEngine {
                 return cast(resultObj);
             }
             Map<String, Object> result = ServiceUtil.returnSuccess();
-            result.putAll(modelService.makeValid(scriptContext.getBindings(ScriptContext.ENGINE_SCOPE), ModelService.OUT_PARAM));
+            result.putAll(modelService.makeValid(
+                    scriptContext.getBindings(ScriptContext.ENGINE_SCOPE),
+                    ModelService.OUT_PARAM));
             return result;
         } catch (GeneralException ge) {
             throw new GenericServiceException(ge);
         } catch (Exception e) {
-            // detailMessage can be null.  If it is null, the exception won't be properly returned and logged, and that will
-            // make spotting problems very difficult.  Disabling this for now in favor of returning a proper exception.
-            throw new GenericServiceException("Error running Groovy method [" + modelService.invoke + "] in Groovy file [" + modelService.location + "]: ", e);
+            // detailMessage can be null.  If it is null, the exception won't be properly returned and logged,
+            // and that will make spotting problems very difficult.
+            // Disabling this for now in favor of returning a proper exception.
+            throw new GenericServiceException("Error running Groovy method [" + modelService.invoke + "]"
+                    + " in Groovy file [" + modelService.location + "]: ", e);
         }
     }
 }
