@@ -145,11 +145,7 @@ public class GroovyUtil {
                 if (scriptUrl == null) {
                     throw new GeneralException("Script not found at location [" + location + "]");
                 }
-                if (groovyScriptClassLoader != null) {
-                    scriptClass = parseClass(scriptUrl.openStream(), location, groovyScriptClassLoader);
-                } else {
-                    scriptClass = parseClass(scriptUrl.openStream(), location);
-                }
+                scriptClass = parseClass(scriptUrl.openStream(), location);
                 Class<?> scriptClassCached = parsedScripts.putIfAbsent(location, scriptClass);
                 if (scriptClassCached == null) { // putIfAbsent returns null if the class is added to the cache
                     if (Debug.verboseOn()) {
@@ -175,14 +171,27 @@ public class GroovyUtil {
         return classLoader;
     }
 
-    public static Class<?> parseClass(InputStream in, String location) throws IOException {
-        GroovyClassLoader groovyClassLoader = new GroovyClassLoader();
-        Class<?> classLoader = groovyClassLoader.parseClass(UtilIO.readString(in), location);
-        groovyClassLoader.close();
-        return classLoader;
-    }
-    public static Class<?> parseClass(InputStream in, String location, GroovyClassLoader groovyClassLoader) throws IOException {
-        return groovyClassLoader.parseClass(UtilIO.readString(in), location);
+    /**
+     * Parses a Groovy class from an input stream.
+     * <p>
+     * This method is useful for parsing a Groovy script referenced by
+     * a flexible location like {@code component://myComponent/script.groovy}.
+     *
+     * @param in  the input stream containing the class source code
+     * @param location  the file name to associate with this class
+     * @return the corresponding class object
+     * @throws IOException when parsing fails
+     */
+    private static Class<?> parseClass(InputStream in, String location) throws IOException {
+        String classText = UtilIO.readString(in);
+        if (groovyScriptClassLoader != null) {
+            return groovyScriptClassLoader.parseClass(classText, location);
+        } else {
+            GroovyClassLoader classLoader = new GroovyClassLoader();
+            Class<?> klass = classLoader.parseClass(classText, location);
+            classLoader.close();
+            return klass;
+        }
     }
 
     public static Class<?> parseClass(String text) throws IOException {
