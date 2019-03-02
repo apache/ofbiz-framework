@@ -262,11 +262,11 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
 
     @Override
     public URL getLocationURL() throws MalformedURLException {
-        return FlexibleLocation.resolveLocation(this.modelService.definitionLocation, null);
+        return FlexibleLocation.resolveLocation(modelService.definitionLocation);
     }
 
     public URL getImplementationLocationURL() throws MalformedURLException {
-        return FlexibleLocation.resolveLocation(this.modelService.location, null);
+        return FlexibleLocation.resolveLocation(modelService.location);
     }
 
     public Set<EntityArtifactInfo> getEntitiesUsedByService() {
