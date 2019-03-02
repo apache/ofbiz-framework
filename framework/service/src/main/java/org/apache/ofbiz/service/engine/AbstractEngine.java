@@ -65,12 +65,15 @@ public abstract class AbstractEngine implements GenericEngine {
         return Collections.unmodifiableMap(tmpMap);
     }
 
-    // uses the lookup map to determine if the location has been aliased by a service-location element in serviceengine.xml
+    /**
+     * Looks for location aliases which are set by {@code service-location} elements
+     * inside the {@code serviceengine.xml} configuration file.
+     *
+     * @param model  the object representing a service
+     * @return the actual location where to find the service implementation
+     */
     protected String getLocation(ModelService model) {
-        if (locationMap.containsKey(model.location)) {
-            return locationMap.get(model.location);
-        }
-        return model.location;
+        return locationMap.getOrDefault(model.location, model.location);
     }
 
     @Override
