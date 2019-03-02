@@ -45,8 +45,6 @@ under the License.
     </xs:element>
     <xs:attributeGroup name="attlist.test-suite">
         <xs:attribute type="xs:string" name="suite-name" use="required"/>
-        <xs:attribute type="xs:string" name="delegator-name" default="test"/>
-        <xs:attribute type="xs:string" name="dispatcher-name" default="test-dispatcher"/>
     </xs:attributeGroup>
     <xs:element name="test-case">
         <xs:annotation><xs:documentation></xs:documentation></xs:annotation>
