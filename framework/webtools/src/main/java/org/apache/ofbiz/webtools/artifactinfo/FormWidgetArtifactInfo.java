@@ -205,7 +205,7 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
 
     @Override
     public URL getLocationURL() throws MalformedURLException {
-        return FlexibleLocation.resolveLocation(this.formLocation, null);
+        return FlexibleLocation.resolveLocation(formLocation);
     }
 
     @Override

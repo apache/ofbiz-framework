@@ -85,7 +85,7 @@ public class ServiceEcaArtifactInfo extends ArtifactInfoBase {
 
     @Override
     public URL getLocationURL() throws MalformedURLException {
-        return FlexibleLocation.resolveLocation(this.serviceEcaRule.getDefinitionLocation(), null);
+        return FlexibleLocation.resolveLocation(serviceEcaRule.getDefinitionLocation());
     }
 
     public ServiceEcaRule getServiceEcaRule() {
