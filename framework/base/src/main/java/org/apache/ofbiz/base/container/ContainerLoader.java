@@ -122,8 +122,8 @@ public class ContainerLoader implements StartupLoader {
         // create a new instance of the container object
         Container containerObj;
         try {
-            containerObj = (Container) containerClass.newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
+            containerObj = (Container) containerClass.getDeclaredConstructor().newInstance();
+        } catch (ReflectiveOperationException e) {
             throw new StartupException("Cannot create " + containerCfg.name, e);
         }
         if (containerObj == null) {

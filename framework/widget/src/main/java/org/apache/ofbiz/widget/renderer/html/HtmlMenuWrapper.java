@@ -217,11 +217,11 @@ public class HtmlMenuWrapper {
         if (menuWrapper == null) {
             try {
                 Class<?> cls = Class.forName("org.apache.ofbiz.widget.html." + menuWrapperClassName);
-                menuWrapper = (HtmlMenuWrapper)cls.newInstance();
+                menuWrapper = (HtmlMenuWrapper)cls.getDeclaredConstructor().newInstance();
                 menuWrapper.init(menuDefFile, menuName, request, response);
             } catch (InstantiationException | IllegalAccessException | IOException | SAXException | ParserConfigurationException e) {
                 throw new RuntimeException(e.getMessage());
-            } catch (ClassNotFoundException e) {
+            } catch (ReflectiveOperationException e) {
                 throw new RuntimeException("Class not found:" + e.getMessage());
             }
         } else {

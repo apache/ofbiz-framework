@@ -327,15 +327,11 @@ public class GenericDelegator implements Delegator {
 
             try {
                 Class<?> eecahClass = loader.loadClass(entityEcaHandlerClassName);
-                EntityEcaHandler<?> entityEcaHandler = UtilGenerics.cast(eecahClass.newInstance());
+                EntityEcaHandler<?> entityEcaHandler = UtilGenerics.cast(eecahClass.getDeclaredConstructor().newInstance());
                 entityEcaHandler.setDelegator(this);
                 return entityEcaHandler;
-            } catch (ClassNotFoundException e) {
+            } catch (ReflectiveOperationException e) {
                 Debug.logWarning(e, "EntityEcaHandler class with name " + entityEcaHandlerClassName + " was not found, Entity ECA Rules will be disabled", module);
-            } catch (InstantiationException e) {
-                Debug.logWarning(e, "EntityEcaHandler class with name " + entityEcaHandlerClassName + " could not be instantiated, Entity ECA Rules will be disabled", module);
-            } catch (IllegalAccessException e) {
-                Debug.logWarning(e, "EntityEcaHandler class with name " + entityEcaHandlerClassName + " could not be accessed (illegal), Entity ECA Rules will be disabled", module);
             } catch (ClassCastException e) {
                 Debug.logWarning(e, "EntityEcaHandler class with name " + entityEcaHandlerClassName + " does not implement the EntityEcaHandler interface, Entity ECA Rules will be disabled", module);
             }
@@ -2627,15 +2623,11 @@ public class GenericDelegator implements Delegator {
 
             try {
                 Class<?> dccClass = loader.loadClass(distributedCacheClearClassName);
-                DistributedCacheClear distributedCacheClear = UtilGenerics.cast(dccClass.newInstance());
+                DistributedCacheClear distributedCacheClear = UtilGenerics.cast(dccClass.getDeclaredConstructor().newInstance());
                 distributedCacheClear.setDelegator(this, this.delegatorInfo.getDistributedCacheClearUserLoginId());
                 return distributedCacheClear;
-            } catch (ClassNotFoundException e) {
+            } catch (ReflectiveOperationException e) {
                 Debug.logWarning(e, "DistributedCacheClear class with name " + distributedCacheClearClassName + " was not found, distributed cache clearing will be disabled", module);
-            } catch (InstantiationException e) {
-                Debug.logWarning(e, "DistributedCacheClear class with name " + distributedCacheClearClassName + " could not be instantiated, distributed cache clearing will be disabled", module);
-            } catch (IllegalAccessException e) {
-                Debug.logWarning(e, "DistributedCacheClear class with name " + distributedCacheClearClassName + " could not be accessed (illegal), distributed cache clearing will be disabled", module);
             } catch (ClassCastException e) {
                 Debug.logWarning(e, "DistributedCacheClear class with name " + distributedCacheClearClassName + " does not implement the DistributedCacheClear interface, distributed cache clearing will be disabled", module);
             }

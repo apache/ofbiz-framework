@@ -146,7 +146,7 @@ public final class FreeMarkerWorker {
                 Debug.logVerbose("Adding FTL Transform " + key + " with class " + className, module);
             }
             try {
-                config.setSharedVariable(key, loader.loadClass(className).newInstance());
+                config.setSharedVariable(key, loader.loadClass(className).getDeclaredConstructor().newInstance());
             } catch (Exception e) {
                 Debug.logError(e, "Could not pre-initialize dynamically loaded class: " + className + ": " + e, module);
             }

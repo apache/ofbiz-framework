@@ -67,7 +67,7 @@ public class WebDavServlet extends GenericServlet {
             this.dispatcher = ServiceContainer.getLocalDispatcher(dispatcherName, this.delegator);
             this.security = SecurityFactory.getInstance(this.delegator);
             String factoryClassName = context.getInitParameter("requestHandlerFactoryClass");
-            this.handlerFactory = (RequestHandlerFactory) Class.forName(factoryClassName).newInstance();
+            this.handlerFactory = (RequestHandlerFactory) Class.forName(factoryClassName).getDeclaredConstructor().newInstance();
         } catch (Exception e) {
             Debug.logError(e, "Error while initializing WebDAV servlet: ", module);
             throw new ServletException(e);
