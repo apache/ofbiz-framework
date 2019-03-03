@@ -19,6 +19,7 @@
 package org.apache.ofbiz.base.util;
 
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -154,11 +155,13 @@ public class ObjectType {
      * @throws ClassNotFoundException
      * @throws InstantiationException
      * @throws IllegalAccessException
+     * @throws NoSuchMethodException 
+     * @throws InvocationTargetException,  
      */
-    public static Object getInstance(String className) throws ClassNotFoundException,
-            InstantiationException, IllegalAccessException {
+    public static Object getInstance(String className) throws ClassNotFoundException, InstantiationException,
+            IllegalAccessException, NoSuchMethodException, InvocationTargetException {
         Class<?> c = loadClass(className);
-        Object o = c.newInstance();
+        Object o = c.getDeclaredConstructor().newInstance();
 
         if (Debug.verboseOn()) {
             Debug.logVerbose("Instantiated object: " + o.toString(), module);

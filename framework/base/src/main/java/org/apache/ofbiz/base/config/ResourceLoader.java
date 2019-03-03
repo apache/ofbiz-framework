@@ -154,10 +154,10 @@ public abstract class ResourceLoader {
             Class<?> lClass = null;
             ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
             lClass = classLoader.loadClass(className);
-            loader = (ResourceLoader) lClass.newInstance();
+            loader = (ResourceLoader) lClass.getDeclaredConstructor().newInstance();
             loader.init(loaderName, loaderElement.getAttribute("prefix"), loaderElement.getAttribute("prepend-env"));
             return loader;
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+        } catch (ReflectiveOperationException e) {
             throw new GenericConfigException("Exception thrown while loading ResourceLoader class \"" + className
                     + "\" ", e);
         }
