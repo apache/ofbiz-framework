@@ -62,7 +62,7 @@ public final class FlexibleLocation {
                     String locationType = (String) entry.getKey();
                     String locationResolverName = (String) entry.getValue();
                     Class<?> lClass = classLoader.loadClass(locationResolverName);
-                    resolverMap.put(locationType, (LocationResolver) lClass.newInstance());
+                    resolverMap.put(locationType, (LocationResolver) lClass.getDeclaredConstructor().newInstance());
                 }
             }
         } catch (Throwable e) {

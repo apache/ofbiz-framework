@@ -829,16 +829,6 @@ public class SQLProcessor implements AutoCloseable {
         _ind++;
     }
 
-    @Override
-    protected void finalize() throws Throwable {
-        try {
-            this.close();
-        } catch (Exception e) {
-            Debug.logError(e, "Error closing the result, connection, etc in finalize SQLProcessor", module);
-        }
-        super.finalize();
-    }
-
     protected void testConnection(Connection con) throws GenericEntityException {
         if (SQLProcessor.ENABLE_TEST) {
             if (SQLProcessor.CONNECTION_TEST_LIST.contains(con.toString())) {

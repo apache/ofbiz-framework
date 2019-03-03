@@ -88,7 +88,7 @@ public class DBCPConnectionFactory implements ConnectionFactory {
         synchronized (DBCPConnectionFactory.class) {
             // Sync needed for MS SQL JDBC driver. See OFBIZ-5216.
             try {
-                jdbcDriver = (Driver) Class.forName(driverName, true, Thread.currentThread().getContextClassLoader()).newInstance();
+                jdbcDriver = (Driver) Class.forName(driverName, true, Thread.currentThread().getContextClassLoader()).getDeclaredConstructor().newInstance();
             } catch (Exception e) {
                 Debug.logError(e, module);
                 throw new GenericEntityException(e.getMessage(), e);

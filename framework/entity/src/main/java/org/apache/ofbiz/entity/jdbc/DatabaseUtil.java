@@ -116,14 +116,10 @@ public class DatabaseUtil {
         if (driverName != null) {
             if (DriverManager.getDriver(driverName) == null) {
                 try {
-                    Driver driver = (Driver) Class.forName(driverName, true, Thread.currentThread().getContextClassLoader()).newInstance();
+                    Driver driver = (Driver) Class.forName(driverName, true, Thread.currentThread().getContextClassLoader()).getDeclaredConstructor().newInstance();
                     DriverManager.registerDriver(driver);
-                } catch (ClassNotFoundException e) {
+                } catch (ReflectiveOperationException e) {
                     Debug.logWarning(e, "Unable to load driver [" + driverName + "]", module);
-                } catch (InstantiationException e) {
-                    Debug.logWarning(e, "Unable to instantiate driver [" + driverName + "]", module);
-                } catch (IllegalAccessException e) {
-                    Debug.logWarning(e, "Illegal access exception [" + driverName + "]", module);
                 }
             }
         }

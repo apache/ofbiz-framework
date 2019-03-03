@@ -526,27 +526,6 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
     }
 
     /**
-     * Extends {@link Object#finalize()} to make sure that the {@link EntityListIterator} is closed when it is garbage collected.
-     *
-     * {@inheritDoc}
-     */
-    @Override
-    protected void finalize() throws Throwable {
-        try {
-            if (!closed) {
-                this.close();
-                Debug.logError("\n==============================================================================\n"
-                        + "EntityListIterator Not Closed for Entity [%s], caught in Finalize\n"
-                        + "\n==============================================================================\n",
-                        module, modelEntity == null ? "" : modelEntity.getEntityName());
-            }
-        } catch (Exception e) {
-            Debug.logError(e, "Error closing the SQLProcessor in finalize EntityListIterator", module);
-        }
-        super.finalize();
-    }
-
-    /**
      * Closes the {@link EntityListIterator} and logs a warning if it isn't already closed.
      *
      * If you don't want to handle the {@link GenericEntityException} thrown by {@link #close()}, use {@link #tryCloseWithWarning()}.
