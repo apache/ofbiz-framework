@@ -70,8 +70,8 @@ public class JWTManager {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
 
         if(!"true".equals(EntityUtilProperties.getPropertyValue("security", "security.internal.sso.enabled", "false", delegator))) {
-            if(Debug.infoOn()) {
-                Debug.logInfo("Internal single sign on is disabled.", module);
+            if(Debug.verboseOn()) {
+                Debug.logVerbose("Internal single sign on is disabled.", module);
             }
             return "success";
         }
