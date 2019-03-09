@@ -63,4 +63,7 @@
     <test-case case-name="auto-accounting-paymentgateway-tests">
         <groovy-test-suite location="component://accounting/groovyScripts/test/AutoAcctgPaymentGatewayTests.groovy"/>
     </test-case>
+    <test-case case-name="auto-accounting-ledger-tests">
+        <groovy-test-suite location="component://accounting/groovyScripts/test/AutoAcctgLedgerTests.groovy"/>
+    </test-case>
 </test-suite>
