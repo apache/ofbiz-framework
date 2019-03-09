@@ -27,25 +27,6 @@ under the License.
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <title>${title!}</title>
-  <#-- the trick "<scr" + "ipt below is because browsers should not parse the contents of CDATA elements, but apparently they do. -->
-  <script type="application/javascript">//<![CDATA[
-      var jQueryLibLoaded = false;
-      function initJQuery() {
-          if (typeof(jQuery) == 'undefined') {
-              if (!jQueryLibLoaded) {
-                  jQueryLibLoaded = true;
-                  document.write("<scr" + "ipt type=\"application/javascript\" src=\"<@ofbizContentUrl>/common/js/jquery/jquery-3.2.1.min.js</@ofbizContentUrl>\"></scr" + "ipt>");
-                  document.write("<scr" + "ipt type=\"application/javascript\" src=\"<@ofbizContentUrl>/common/js/jquery/jquery-migrate-3.0.0.min.js</@ofbizContentUrl>\"></scr" + "ipt>");
-                document.write("<scr" + "ipt type=\"application/javascript\" src=\"<@ofbizContentUrl>/common/js/jquery/plugins/browser-plugin/jquery.browser-0.1.0.min.js</@ofbizContentUrl>\"></scr" + "ipt>");
-              }
-              setTimeout("initJQuery()", 50);
-          }
-      }
-      initJQuery();
-      //]]>
-  </script>
-  <script src="<@ofbizContentUrl>/common/js/util/OfbizUtil.js</@ofbizContentUrl>"
-          type="application/javascript"></script>
   <#if layoutSettings.javaScripts?has_content>
     <#--layoutSettings.javaScripts is a list of java scripts. -->
     <#-- use a Set to make sure each javascript is declared only once, but iterate the list to maintain the correct order -->
