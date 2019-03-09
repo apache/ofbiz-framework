@@ -143,6 +143,8 @@ under the License.
         <attribute name="supplierPartyId" type="String" mode="IN" optional="true"/>
         <attribute name="orderId" type="String" mode="INOUT" optional="true"/>
         <attribute name="originOrderId" type="String" mode="IN" optional="true"/>
+        <attribute name="isRushOrder" type="String" mode="IN" optional="true"/>
+        <attribute name="priority" type="String" mode="IN" optional="true"/>
         <attribute name="statusId" type="String" mode="OUT" optional="false"/>
     </service>
 
