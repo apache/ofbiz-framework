@@ -548,11 +548,11 @@ public class OrderServices {
             orderHeader.set("createdBy", userLogin.getString("userLoginId"));
         }
         
-        if (context.get("isRushOrder") != null) {
+        if (UtilValidate.isNotEmpty(context.get("isRushOrder"))) {
             orderHeader.set("isRushOrder", context.get("isRushOrder"));
         }
         
-        if (context.get("priority") != null) {
+        if (UtilValidate.isNotEmpty(context.get("priority"))) {
             orderHeader.set("priority", context.get("priority"));
         }
 
