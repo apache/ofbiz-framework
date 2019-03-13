@@ -143,8 +143,8 @@ public final class UtilObject {
                 SafeObjectInputStream wois = new SafeObjectInputStream(bis,
                         Thread.currentThread().getContextClassLoader(),
                         java.util.Arrays.asList("byte\\[\\]", "Number", "Long", "foo", "SerializationInjector",
-                                "java.util.HashMap", "Boolean", "Number", "Integer", "FlexibleStringExpander"));) {
-                        // byte[] used in EntityCrypto::doDecrypt, all others used in UtilObjectTests::testGetObject
+                                "java.util.HashMap", "Boolean", "Number", "Integer", "FlexibleStringExpander",
+                                "sun.util.calendar.ZoneInfo"));) {
             return wois.readObject();
         }
     }
