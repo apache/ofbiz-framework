@@ -72,6 +72,7 @@ under the License.
     <service-resource type="model" loader="main" location="servicedef/services_qrcode.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_security.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_test.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_telecom.xml"/>
     <service-resource type="group" loader="main" location="servicedef/groups_test.xml"/>
     <service-resource type="eca" loader="main" location="servicedef/secas_test.xml"/>
     <service-resource type="eca" loader="main" location="servicedef/secas_cdyne.xml"/>

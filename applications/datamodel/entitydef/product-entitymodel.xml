@@ -4963,4 +4963,32 @@ under the License.
         <key-map field-name="jobId"/>
       </relation>
     </entity>
+
+    <entity entity-name="ProductStoreTelecomSetting"
+            package-name="org.apache.ofbiz.product.store"
+            title="Product Store Telecom Settings">
+        <field name="productStoreId" type="id"></field>
+        <field name="telecomMethodTypeId" type="id"></field>
+        <field name="telecomMsgTypeEnumId" type="id"></field>
+        <field name="telecomCustomMethodId" type="id"></field>
+        <field name="telecomGatewayConfigId" type="id"></field>
+        <prim-key field="productStoreId"/>
+        <prim-key field="telecomMethodTypeId"/>
+        <prim-key field="telecomMsgTypeEnumId"/>
+        <relation type="one" fk-name="PRDS_TS_PRDS" rel-entity-name="ProductStore">
+            <key-map field-name="productStoreId"/>
+        </relation>
+        <relation type="one" fk-name="PRDS_TS_TELTP" rel-entity-name="TelecomMethodType">
+            <key-map field-name="telecomMethodTypeId"/>
+        </relation>
+        <relation type="one" fk-name="PRDS_TS_ENUM" rel-entity-name="Enumeration">
+            <key-map field-name="telecomMsgTypeEnumId" rel-field-name="enumId"/>
+        </relation>
+        <relation type="one" fk-name="PRDS_TS_PGC" rel-entity-name="TelecomGatewayConfig">
+            <key-map field-name="telecomGatewayConfigId"/>
+        </relation>
+        <relation type="one" fk-name="PRDS_TS_CUS_MET" rel-entity-name="CustomMethod">
+            <key-map field-name="telecomCustomMethodId" rel-field-name="customMethodId"/>
+        </relation>
+    </entity>
 </entitymodel>

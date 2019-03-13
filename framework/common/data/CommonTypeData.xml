@@ -148,4 +148,10 @@ under the License.
     <EnumerationType enumTypeId="JM_OFBIZ_INSTANCE" hasTable="N" description="OFBiz Instance"/>
     <Enumeration enumId="JM_OFBIZ_INS_0" enumTypeId="JM_OFBIZ_INSTANCE" enumCode="_NA_" sequenceId="00" description="ALL instance"/>
     <Enumeration enumId="JM_OFBIZ_INS_1" enumTypeId="JM_OFBIZ_INSTANCE" enumCode="ofbiz1" sequenceId="01" description="OFBiz instance 1"/>
+    
+    <!-- Telecom Services Seed Data -->
+    <EnumerationType enumTypeId="TELECOM_MSG" description="Telcom Message Type Enum" hasTable="N"/>
+    <TelecomMethodType telecomMethodTypeId="SMS" description="Short Messaging Service Method"/>
+    <TelecomMethodType telecomMethodTypeId="WHATSAPP" description="WhatsApp Messaging Service Method"/>
+    <CustomMethodType customMethodTypeId="TELECOM_GATEWAY" description="Telecom Gateway Custom Method"/>
 </entity-engine-xml>

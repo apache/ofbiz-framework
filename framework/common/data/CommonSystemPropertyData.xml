@@ -34,4 +34,5 @@
     <SystemProperty systemResourceId="general" systemPropertyId="mail.smtp.socketFactory.class" systemPropertyValue="javax.net.ssl.SSLSocketFactory" description="JSSE socket factory"/>
     <SystemProperty systemResourceId="general" systemPropertyId="mail.smtp.socketFactory.fallback" systemPropertyValue="false" description="Fallback [true|false] determines whether you will allow a non secure connection if you are unable to get a secure one"/>
     <SystemProperty systemResourceId="general" systemPropertyId="mail.smtp.sendpartial" systemPropertyValue="true" description="setting this property to false will abort sending the message"/>
+    <SystemProperty systemResourceId="general" systemPropertyId="telecom.notifications.enabled" systemPropertyValue="N" description="Telecom notifications enabled (Y|N)"/>
 </entity-engine-xml>
