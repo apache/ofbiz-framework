@@ -892,4 +892,23 @@ under the License.
         <prim-key field="systemResourceId"/>
         <prim-key field="systemPropertyId"/>
     </entity>
+    
+    <!-- ============================ -->
+    <!-- org.apache.ofbiz.common.telecom -->
+    <!-- ============================ -->
+    <entity entity-name="TelecomMethodType" 
+            package-name="org.apache.ofbiz.common.telecom"
+            title="Telecom Method Type">
+        <field name="telecomMethodTypeId" type="id"></field>
+        <field name="description" type="description"></field>
+        <prim-key field="telecomMethodTypeId"/>
+    </entity>
+
+    <entity entity-name="TelecomGatewayConfig"
+            package-name="org.apache.ofbiz.common.telecom"
+            title="Telecom Gateway Config">
+        <field name="telecomGatewayConfigId" type="id"></field>
+        <field name="description" type="description"></field>
+        <prim-key field="telecomGatewayConfigId"/>
+    </entity>
 </entitymodel>

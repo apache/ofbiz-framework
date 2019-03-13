@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+    <description>Common Telecom Services</description>
+    <vendor>OFBiz</vendor>
+
+    <service name="sendTelecomMessageInterface" engine="interface">
+        <attribute name="numbers" type="List" mode="IN" optional="false" />
+        <attribute name="message" type="String" mode="IN" optional="false"/>
+        <attribute name="configId" type="String" mode="IN" optional="true"/>
+        <attribute name="response" type="String" mode="OUT" optional="true"/>
+    </service>
+    
+    <service name="sendTelecomMessage" engine="java" 
+             location="org.apache.ofbiz.common.telecom.TelecomServices" 
+             invoke="sendTelecomMessage" auth="true">
+        <description>Service to send telecom message</description>
+        <attribute name="productStoreId" type="String" mode="IN" optional="false" />
+        <attribute name="telecomMsgTypeEnumId" type="String" mode="IN" optional="false"/>
+        <attribute name="telecomMethodTypeId" type="String" mode="IN" optional="true" default-value="SMS"/>
+        <attribute name="telecomGatewayConfigId" type="String" mode="IN" optional="true"/>
+        <attribute name="numbers" type="List" mode="IN" optional="false" />
+        <attribute name="message" type="String" mode="IN" optional="true" />
+    </service>
+</services>
