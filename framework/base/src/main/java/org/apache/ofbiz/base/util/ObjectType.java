@@ -289,6 +289,17 @@ public class ObjectType {
         }
         if (obj instanceof Node) {
             Node node = (Node) obj;
+
+            /* We can't get the text value of Document, Document Type and Notation Node,
+             * thus simply returning the same object from simpleTypeOrObjectConvert method.
+             * Please refer to OFBIZ-10832 Jira and
+             * https://docs.oracle.com/javase/7/docs/api/org/w3c/dom/Node.html#getTextContent() for more details.
+             */
+            short nodeType = node.getNodeType();
+            if (Node.DOCUMENT_NODE == nodeType || Node.DOCUMENT_TYPE_NODE == nodeType || Node.NOTATION_NODE == nodeType) {
+                return obj;
+            }
+
             String nodeValue =  node.getTextContent();
             if ("String".equals(type) || "java.lang.String".equals(type)) {
                 return nodeValue;
