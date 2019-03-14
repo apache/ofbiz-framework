@@ -144,7 +144,7 @@ public final class UtilObject {
                         Thread.currentThread().getContextClassLoader(),
                         java.util.Arrays.asList("byte\\[\\]", "Number", "Long", "foo", "SerializationInjector",
                                 "java.util.HashMap", "Boolean", "Number", "Integer", "FlexibleStringExpander",
-                                "sun.util.calendar.ZoneInfo"));) {
+                                "sun.util.calendar.ZoneInfo", "java.sql.Timestamp"));) {
             return wois.readObject();
         }
     }
