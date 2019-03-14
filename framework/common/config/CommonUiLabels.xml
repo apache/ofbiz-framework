@@ -1364,9 +1364,9 @@
         <value xml:lang="zh-TW">回報</value>
     </property>
     <property key="CommonBranch">
-        <value xml:lang="en"> branch</value>
-        <value xml:lang="es"> rama</value>
-        <value xml:lang="fr"> branche</value>
+        <value xml:lang="en">branch</value>
+        <value xml:lang="es">rama</value>
+        <value xml:lang="fr">branche</value>
     </property>
     <property key="CommonBuiltOn">
         <value xml:lang="en">built on</value>
