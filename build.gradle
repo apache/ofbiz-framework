@@ -52,10 +52,10 @@ ext.os = System.getProperty('os.name').toLowerCase()
 ext.pluginsDir = "${rootDir}/plugins"
 
 // java settings
-List jvmArguments = ['-Xms128M', '-Xmx1024M']
-if (project.hasProperty('jvmArgs')) {
-    jvmArguments = jvmArgs.tokenize()
-}
+List jvmArguments = project.hasProperty('jvmArgs')
+        ? jvmArgs.tokenize()
+        : ['-Xms128M', '-Xmx1024M']
+
 ext.ofbizMainClass = 'org.apache.ofbiz.base.start.Start'
 
 javadoc.failOnError = true
