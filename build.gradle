@@ -283,15 +283,11 @@ sourceSets {
     }
 }
 
-jar {
-    manifest {
-        attributes(
-            "Implementation-Title": project.name,
-            "Main-Class": ofbizMainClass,
-            "Class-Path": getJarManifestClasspathForCurrentOs()
-        )
-    }
-}
+jar.manifest.attributes(
+    'Implementation-Title': project.name,
+    'Main-Class': ofbizMainClass,
+    'Class-Path': getJarManifestClasspathForCurrentOs()
+)
 
 // Eclipse plugin settings
 eclipse.classpath.file.whenMerged { classpath ->
