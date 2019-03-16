@@ -156,7 +156,7 @@ public class ObjectType {
      * @throws InstantiationException
      * @throws IllegalAccessException
      * @throws NoSuchMethodException 
-     * @throws InvocationTargetException,  
+     * @throws InvocationTargetException
      */
     public static Object getInstance(String className) throws ClassNotFoundException, InstantiationException,
             IllegalAccessException, NoSuchMethodException, InvocationTargetException {
