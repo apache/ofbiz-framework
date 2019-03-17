@@ -383,16 +383,13 @@ task loadTenant(group: ofbizServer, description: 'Load data using tenantId') {
     createOfbizCommandTask('executeLoadTenant', [], jvmArguments, false)
 
     if (project.hasProperty('tenantId')) {
-        executeLoadTenant.args '--load-data'
-        executeLoadTenant.args "delegator=default#${tenantId}"
+        executeLoadTenant.args '--load-data', "delegator=default#${tenantId}"
     }
     if (project.hasProperty('tenantReaders')) {
-        executeLoadTenant.args '--load-data'
-        executeLoadTenant.args "readers=${tenantReaders}"
+        executeLoadTenant.args '--load-data', "readers=${tenantReaders}"
     }
     if (project.hasProperty('tenantComponent')) {
-        executeLoadTenant.args '--load-data'
-        executeLoadTenant.args "component=${tenantComponent}"
+        executeLoadTenant.args '--load-data', "component=${tenantComponent}"
     }
 
     executeLoadTenant.doFirst {
@@ -472,17 +469,14 @@ task createTenant(group: ofbizServer, description: 'Create a new tenant in your 
      * because we are in the configuration phase. We cannot
      * set the parameters at the execution phase. */
     if (project.hasProperty('tenantId')) {
-        loadTenantData.args '--load-data'
-        loadTenantData.args "delegator=default#${tenantId}"
-
-        loadTenantAdminUserLogin.args '--load-data'
-        loadTenantAdminUserLogin.args "delegator=default#${tenantId}"
-        loadTenantAdminUserLogin.args '--load-data'
-        loadTenantAdminUserLogin.args "file=${rootDir}/runtime/tmp/tmpFilteredUserLogin.xml"
+        loadTenantData.args '--load-data', "delegator=default#${tenantId}"
+        loadTenantAdminUserLogin.args(
+            '--load-data', "delegator=default#${tenantId}",
+            '--load-data', "file=${rootDir}/runtime/tmp/tmpFilteredUserLogin.xml"
+        )
     }
     if (project.hasProperty('tenantReaders')) {
-        loadTenantData.args '--load-data'
-        loadTenantData.args "readers=${tenantReaders}"
+        loadTenantData.args '--load-data', "readers=${tenantReaders}"
     }
 
     dependsOn(loadTenantAdminUserLogin)
@@ -996,9 +990,7 @@ def createOfbizCommandTask(taskName, arguments, jvmArguments, isDebugMode) {
         debug = isDebugMode
         classpath = files(ofbizJarName)
         main = ofbizMainClass
-        arguments.each { argument ->
-            args argument
-        }
+        args arguments
 
         if (taskName ==~ /^ofbiz.*--test.*/
             || taskName ==~ /^ofbiz.*-t.*/) {
