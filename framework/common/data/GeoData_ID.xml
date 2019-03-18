@@ -52,7 +52,7 @@ under the License.
     <Geo abbreviation="SB" geoCode="SB" geoId="ID-SB" geoName="Sumatera Barat" geoTypeId="PROVINCE"/>
     <Geo abbreviation="SS" geoCode="SS" geoId="ID-SS" geoName="Sumatera Selatan" geoTypeId="PROVINCE"/>
     <Geo abbreviation="SU" geoCode="SU" geoId="ID-SU" geoName="Sumatera Utara" geoTypeId="PROVINCE"/>
-    <Geo abbreviation="YO" geoCode="YO" geoId="ID-YO" geoName="Yogyakarta" geoTypeId="REGIOIN"/>
+    <Geo abbreviation="YO" geoCode="YO" geoId="ID-YO" geoName="Yogyakarta" geoTypeId="REGION"/>
     
     
     <GeoAssoc geoId="IDN" geoIdTo="ID-AC" geoAssocTypeId="REGIONS"/>
