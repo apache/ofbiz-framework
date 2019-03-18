@@ -984,9 +984,7 @@ def createOfbizCommandTask(taskName, arguments) {
         classpath = files(jar.outputs)
         main = ofbizMainClass
         args arguments
-
-        if (taskName ==~ /^ofbiz.*--test.*/
-            || taskName ==~ /^ofbiz.*-t.*/) {
+        if (taskName ==~ /^ofbiz.*(--test|-t).*/) {
             finalizedBy(createTestReports)
         }
     }
