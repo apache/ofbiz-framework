@@ -52,11 +52,10 @@ ext.os = System.getProperty('os.name').toLowerCase()
 ext.pluginsDir = "${rootDir}/plugins"
 
 // java settings
-List jvmArguments = project.hasProperty('jvmArgs')
+ext.ofbizMainClass = 'org.apache.ofbiz.base.start.Start'
+ext.jvmArguments = project.hasProperty('jvmArgs')
         ? jvmArgs.tokenize()
         : ['-Xms128M', '-Xmx1024M']
-
-ext.ofbizMainClass = 'org.apache.ofbiz.base.start.Start'
 
 javadoc {
     failOnError = true
@@ -363,7 +362,7 @@ task loadAdminUserLogin(group: ofbizServer) {
     description 'Create admin user with temporary password equal to ofbiz. You must provide userLoginId'
     createOfbizCommandTask('executeLoadAdminUser',
         ['--load-data', 'file=/runtime/tmp/AdminUserLoginData.xml'],
-        jvmArguments, false)
+        false)
     executeLoadAdminUser.doFirst {
         copy {
             from ("${rootDir}/framework/resources/templates/AdminUserLoginData.xml") {
@@ -380,7 +379,7 @@ task loadAdminUserLogin(group: ofbizServer) {
 
 task loadTenant(group: ofbizServer, description: 'Load data using tenantId') {
 
-    createOfbizCommandTask('executeLoadTenant', [], jvmArguments, false)
+    createOfbizCommandTask('executeLoadTenant', [], false)
 
     if (project.hasProperty('tenantId')) {
         executeLoadTenant.args '--load-data', "delegator=default#${tenantId}"
@@ -454,15 +453,15 @@ task createTenant(group: ofbizServer, description: 'Create a new tenant in your 
     createOfbizCommandTask('loadTenantOnMasterTenantDb',
         ['--load-data', 'file=/runtime/tmp/tmpFilteredTenantData.xml',
          '--load-data', 'readers=tenant'],
-        jvmArguments, false)
+        false)
     loadTenantOnMasterTenantDb.dependsOn(generateDatabaseTemplateFile, generateAdminUserTemplateFile)
 
     // Load the actual tenant data
-    createOfbizCommandTask('loadTenantData', [], jvmArguments, false)
+    createOfbizCommandTask('loadTenantData', [], false)
     loadTenantData.dependsOn(loadTenantOnMasterTenantDb)
 
     // Load the tenant admin user account
-    createOfbizCommandTask('loadTenantAdminUserLogin', [], jvmArguments, false)
+    createOfbizCommandTask('loadTenantAdminUserLogin', [], false)
     loadTenantAdminUserLogin.dependsOn(loadTenantData)
 
     /* pass arguments to tasks, must be done this way
@@ -960,14 +959,14 @@ task cleanAll(group: cleanupGroup, dependsOn: [cleanTasks, clean]) {
 tasks.addRule('Pattern: ofbiz <Commands>: Execute OFBiz startup commands') { String taskName ->
     if (taskName ==~ /^ofbiz\s.*/ || taskName == 'ofbiz') {
         def arguments = (taskName - 'ofbiz').tokenize(' ')
-        createOfbizCommandTask(taskName, arguments, jvmArguments, false)
+        createOfbizCommandTask(taskName, arguments, false)
     }
 }
 
 tasks.addRule('Pattern: ofbizDebug <Commands>: Execute OFBiz startup commands in remote debug mode') { String taskName ->
     if (taskName ==~ /^ofbizDebug\s.*/ || taskName == 'ofbizDebug') {
         def arguments = (taskName - 'ofbizDebug').tokenize(' ')
-        createOfbizCommandTask(taskName, arguments, jvmArguments, true)
+        createOfbizCommandTask(taskName, arguments, true)
     }
 }
 
@@ -981,7 +980,7 @@ tasks.addRule('Pattern: ofbizBackground <Commands>: Execute OFBiz startup comman
  * Helper Functions
  * ======================================================== */
 
-def createOfbizCommandTask(taskName, arguments, jvmArguments, isDebugMode) {
+def createOfbizCommandTask(taskName, arguments, isDebugMode) {
 
     def ofbizJarName = buildDir.toString()+'/libs/'+project.name+'.jar'
 
