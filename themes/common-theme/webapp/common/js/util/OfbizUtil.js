@@ -1314,7 +1314,7 @@ function submitPagination(obj, url) {
         form.submit();
         return false;
     } else {
-        if (obj.tagName == "SELECT") {
+        if (obj.tagName == "SELECT" || obj.tagName == "INPUT") {
             location.href = url;
             return false;
         } else {
