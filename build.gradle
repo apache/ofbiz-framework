@@ -134,98 +134,91 @@ configurations {
 }
 
 dependencies {
-    // ofbiz compile libs
-    compile 'apache-xerces:xercesImpl:2.9.1'
-    compile 'com.google.zxing:core:3.3.3'
-    compile 'com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.4.2'
-    compile 'com.googlecode.ez-vcard:ez-vcard:0.9.10'
-    compile 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:20180219.1'
-    compile 'com.googlecode.libphonenumber:libphonenumber:8.9.16'
-    compile 'com.ibm.icu:icu4j:63.1'
-    compile 'com.lowagie:itext:2.1.7' // Don't update due to license change in newer versions, see OFBIZ-10455
-    compile 'com.sun.mail:javax.mail:1.6.2'
-    compile 'com.sun.syndication:com.springsource.com.sun.syndication:0.9.0'
-    compile 'com.thoughtworks.xstream:xstream:1.4.11.1'
-    compile 'commons-cli:commons-cli:1.4'
-    compile 'commons-net:commons-net:3.6'
-    compile 'commons-validator:commons-validator:1.6'
-    compile 'commons-fileupload:commons-fileupload:1.3.3'
-    compile 'de.odysseus.juel:juel-impl:2.2.7'
-    compile 'javax.el:javax.el-api:3.0.1-b06'
-    compile 'javax.servlet:javax.servlet-api:4.0.1'
-    compile 'javax.servlet.jsp:javax.servlet.jsp-api:2.3.3'
-    compile 'junit:junit-dep:4.11'
-    compile 'net.fortuna.ical4j:ical4j:1.0-rc3-atlassian-11'
-    compile 'org.apache.ant:ant-junit:1.10.5'
-    compile 'org.apache.axis2:axis2-kernel:1.7.8'
-    compile 'org.apache.commons:commons-collections4:4.2'
-    compile 'org.apache.commons:commons-csv:1.6'
-    compile 'org.apache.commons:commons-dbcp2:2.5.0' // When changing for 2.6.1+ we can remove ManagedDataSource::close, see DBCP-539
-    compile 'org.apache.geronimo.components:geronimo-transaction:3.1.4'
-    compile 'org.apache.geronimo.specs:geronimo-jms_1.1_spec:1.1.1'
-    compile 'org.apache.httpcomponents:httpclient-cache:4.5.6'
-    compile 'org.apache.logging.log4j:log4j-api:2.11.1' // the API of log4j 2
-    compile 'org.apache.poi:poi:3.17'
-    compile 'org.apache.shiro:shiro-core:1.4.0'
-    compile 'org.apache.sshd:sshd-core:1.7.0'
-    compile 'org.apache.tika:tika-core:1.20'
-    compile 'org.apache.tika:tika-parsers:1.20'
-    compile 'org.apache.tomcat:tomcat-catalina-ha:9.0.13'
-    compile 'org.apache.tomcat:tomcat-catalina:9.0.13'
-    compile 'org.apache.tomcat:tomcat-jasper:9.0.13'
-    compile 'org.apache.tomcat:tomcat-tribes:9.0.13'
-    compile 'org.apache.xmlgraphics:fop:2.3'
-    compile 'org.apache.xmlrpc:xmlrpc-client:3.1.3'
-    compile 'org.apache.xmlrpc:xmlrpc-server:3.1.3'
-    compile 'org.codehaus.groovy:groovy-all:2.4.16' // Remember to change the version number in javadoc.options block
-    compile 'org.freemarker:freemarker:2.3.28' // Remember to change the version number in FreeMarkerWorker class when upgrading
-    compile 'org.hamcrest:hamcrest-all:1.3'
-    compile 'org.owasp.esapi:esapi:2.1.0.1'
-    compile 'org.springframework:spring-test:5.1.2.RELEASE'
-    compile 'org.zapodot:jackson-databind-java-optional:2.6.1'
-    compile 'oro:oro:2.0.8'
-    compile 'wsdl4j:wsdl4j:1.6.3'
-    compile 'org.jsoup:jsoup:1.11.3'
-    compile 'io.jsonwebtoken:jjwt:0.9.1'
+    implementation 'apache-xerces:xercesImpl:2.9.1'
+    implementation 'com.google.zxing:core:3.3.3'
+    implementation 'com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.4.2'
+    implementation 'com.googlecode.ez-vcard:ez-vcard:0.9.10'
+    implementation 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:20180219.1'
+    implementation 'com.googlecode.libphonenumber:libphonenumber:8.9.16'
+    implementation 'com.ibm.icu:icu4j:63.1'
+    implementation 'com.lowagie:itext:2.1.7' // Don't update due to license change in newer versions, see OFBIZ-10455
+    implementation 'com.sun.mail:javax.mail:1.6.2'
+    implementation 'com.sun.syndication:com.springsource.com.sun.syndication:0.9.0'
+    implementation 'com.thoughtworks.xstream:xstream:1.4.11.1'
+    implementation 'commons-cli:commons-cli:1.4'
+    implementation 'commons-net:commons-net:3.6'
+    implementation 'commons-validator:commons-validator:1.6'
+    implementation 'commons-fileupload:commons-fileupload:1.3.3'
+    implementation 'de.odysseus.juel:juel-impl:2.2.7'
+    implementation 'javax.el:javax.el-api:3.0.1-b06'
+    implementation 'javax.servlet:javax.servlet-api:4.0.1'
+    implementation 'javax.servlet.jsp:javax.servlet.jsp-api:2.3.3'
+    implementation 'junit:junit-dep:4.11'
+    implementation 'net.fortuna.ical4j:ical4j:1.0-rc3-atlassian-11'
+    implementation 'org.apache.ant:ant-junit:1.10.5'
+    implementation 'org.apache.axis2:axis2-kernel:1.7.8'
+    implementation 'org.apache.commons:commons-collections4:4.2'
+    implementation 'org.apache.commons:commons-csv:1.6'
+    implementation 'org.apache.commons:commons-dbcp2:2.5.0' // When changing for 2.6.1+ we can remove ManagedDataSource::close, see DBCP-539
+    implementation 'org.apache.geronimo.components:geronimo-transaction:3.1.4'
+    implementation 'org.apache.geronimo.specs:geronimo-jms_1.1_spec:1.1.1'
+    implementation 'org.apache.httpcomponents:httpclient-cache:4.5.6'
+    implementation 'org.apache.logging.log4j:log4j-api:2.11.1' // the API of log4j 2
+    implementation 'org.apache.poi:poi:3.17'
+    implementation 'org.apache.shiro:shiro-core:1.4.0'
+    implementation 'org.apache.sshd:sshd-core:1.7.0'
+    implementation 'org.apache.tika:tika-core:1.20'
+    implementation 'org.apache.tika:tika-parsers:1.20'
+    implementation 'org.apache.tomcat:tomcat-catalina-ha:9.0.13'
+    implementation 'org.apache.tomcat:tomcat-catalina:9.0.13'
+    implementation 'org.apache.tomcat:tomcat-jasper:9.0.13'
+    implementation 'org.apache.tomcat:tomcat-tribes:9.0.13'
+    implementation 'org.apache.xmlgraphics:fop:2.3'
+    implementation 'org.apache.xmlrpc:xmlrpc-client:3.1.3'
+    implementation 'org.apache.xmlrpc:xmlrpc-server:3.1.3'
+    implementation 'org.codehaus.groovy:groovy-all:2.4.16' // Remember to change the version number in javadoc.options block
+    implementation 'org.freemarker:freemarker:2.3.28' // Remember to change the version number in FreeMarkerWorker class when upgrading
+    implementation 'org.hamcrest:hamcrest-all:1.3'
+    implementation 'org.owasp.esapi:esapi:2.1.0.1'
+    implementation 'org.springframework:spring-test:5.1.2.RELEASE'
+    implementation 'org.zapodot:jackson-databind-java-optional:2.6.1'
+    implementation 'oro:oro:2.0.8'
+    implementation 'wsdl4j:wsdl4j:1.6.3'
+    implementation 'org.jsoup:jsoup:1.11.3'
+    implementation 'io.jsonwebtoken:jjwt:0.9.1'
+    testImplementation 'org.mockito:mockito-core:2.23.0'
+    runtimeOnly 'javax.xml.soap:javax.xml.soap-api:1.4.0'
+    runtimeOnly 'de.odysseus.juel:juel-spi:2.2.7'
+    runtimeOnly 'net.sf.barcode4j:barcode4j-fop-ext:2.1'
+    runtimeOnly 'net.sf.barcode4j:barcode4j:2.1'
+    runtimeOnly 'org.apache.axis2:axis2-transport-http:1.7.8'
+    runtimeOnly 'org.apache.axis2:axis2-transport-local:1.7.8'
+    runtimeOnly 'org.apache.derby:derby:10.14.2.0'
+    runtimeOnly 'org.apache.geronimo.specs:geronimo-jaxrpc_1.1_spec:1.1'
+    runtimeOnly 'org.apache.logging.log4j:log4j-1.2-api:2.11.1' // for external jars using the old log4j1.2: routes logging to log4j 2
+    runtimeOnly 'org.apache.logging.log4j:log4j-core:2.11.1' // the implementation of the log4j 2 API
+    runtimeOnly 'org.apache.logging.log4j:log4j-jul:2.11.1' // for external jars using the java.util.logging: routes logging to log4j 2
+    runtimeOnly 'org.apache.logging.log4j:log4j-slf4j-impl:2.11.1' // for external jars using slf4j: routes logging to log4j 2
+    runtimeOnly 'org.codeartisans.thirdparties.swing:batik-all:1.8pre-r1084380'
 
-    // ofbiz unit-test compile libs
-    testCompile 'org.mockito:mockito-core:2.23.0'
-
-    // ofbiz runtime libs
-    runtime 'javax.xml.soap:javax.xml.soap-api:1.4.0'
-    runtime 'de.odysseus.juel:juel-spi:2.2.7'
-    runtime 'net.sf.barcode4j:barcode4j-fop-ext:2.1'
-    runtime 'net.sf.barcode4j:barcode4j:2.1'
-    runtime 'org.apache.axis2:axis2-transport-http:1.7.8'
-    runtime 'org.apache.axis2:axis2-transport-local:1.7.8'
-    runtime 'org.apache.derby:derby:10.14.2.0'
-    runtime 'org.apache.geronimo.specs:geronimo-jaxrpc_1.1_spec:1.1'
-    runtime 'org.apache.logging.log4j:log4j-1.2-api:2.11.1' // for external jars using the old log4j1.2: routes logging to log4j 2
-    runtime 'org.apache.logging.log4j:log4j-core:2.11.1' // the implementation of the log4j 2 API
-    runtime 'org.apache.logging.log4j:log4j-jul:2.11.1' // for external jars using the java.util.logging: routes logging to log4j 2
-    runtime 'org.apache.logging.log4j:log4j-slf4j-impl:2.11.1' // for external jars using slf4j: routes logging to log4j 2
-    runtime 'org.codeartisans.thirdparties.swing:batik-all:1.8pre-r1084380'
-
-    // plugin libs
+    // Dependencies defined by the plugins
     subprojects.each { subProject ->
-        compile project(path: subProject.path, configuration: 'pluginLibsCompile')
-        runtime project(path: subProject.path, configuration: 'pluginLibsRuntime')
+        implementation project(path: subProject.path, configuration: 'pluginLibsCompile')
+        runtimeOnly project(path: subProject.path, configuration: 'pluginLibsRuntime')
         compileOnly project(path: subProject.path, configuration: 'pluginLibsCompileOnly')
     }
 
-    // libs needed for junitreport
     junitReport 'junit:junit:4.12'
     junitReport 'org.apache.ant:ant-junit:1.10.5'
-    
     asciidoctor 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.16'
     // bug workaround - see OFBIZ-9873
     asciidoctor 'org.jruby:jruby-complete:9.2.4.0' 
 
-    // local libs
+    // Libraries downloaded manually
+    implementation fileTree(dir: file("${rootDir}/lib"), include: '**/*.jar')
     getDirectoryInActiveComponentsIfExists('lib').each { libDir ->
-        compile fileTree(dir: libDir, include: '**/*.jar')
+        implementation fileTree(dir: libDir, include: '**/*.jar')
     }
-    compile fileTree(dir: file("${rootDir}/lib"), include: '**/*.jar')
 }
 
 def excludedJavaSources = [
@@ -1054,11 +1047,11 @@ def generateFileFromTemplate(templateFileInFullPath, targetDirectory, filterToke
 def getJarManifestClasspathForCurrentOs() {
     def osClassPath = ''
     if (os.contains('windows')) {
-        configurations.runtime.files.each { cpEntry ->
+        configurations.runtimeClasspath.each { cpEntry ->
             osClassPath += '\\' + cpEntry.toString() + ' '
         }
     } else {
-        osClassPath = configurations.runtime.files.collect { "$it" }.join(' ')
+        osClassPath = configurations.runtimeClasspath.collect { "$it" }.join(' ')
     }
     return osClassPath
 }
