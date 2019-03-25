@@ -24,6 +24,7 @@ import org.asciidoctor.gradle.AsciidoctorTask
  * Project setup
  * ======================================================== */
 plugins {
+    id 'application'
     id 'java'
     id 'groovy'
     id 'eclipse'
@@ -51,11 +52,22 @@ apply from: 'common.gradle'
 ext.os = System.getProperty('os.name').toLowerCase()
 ext.pluginsDir = "${rootDir}/plugins"
 
-// java settings
-ext.ofbizMainClass = 'org.apache.ofbiz.base.start.Start'
-ext.jvmArguments = project.hasProperty('jvmArgs')
-        ? jvmArgs.tokenize()
-        : ['-Xms128M', '-Xmx1024M']
+application {
+    mainClassName = 'org.apache.ofbiz.base.start.Start'
+    applicationDefaultJvmArgs = project.hasProperty('jvmArgs')
+            ? jvmArgs.tokenize()
+            : ['-Xms128M', '-Xmx1024M']
+}
+
+distributions.main.contents.from(rootDir) {
+    include 'framework/**', 'applications/**', 'themes/**', 'plugins/**'
+}
+
+// XXX: Remove the :distTar and :distZip tasks from the dependency
+// graph of the :build task which cost an important amount of disk
+// space and build time due to the huge number of dependencies to be
+// packed.
+assemble.setDependsOn([jar])
 
 javadoc {
     failOnError = true
@@ -284,7 +296,7 @@ sourceSets {
 
 jar.manifest.attributes(
     'Implementation-Title': project.name,
-    'Main-Class': ofbizMainClass,
+    'Main-Class': application.mainClassName,
     'Class-Path': getJarManifestClasspathForCurrentOs()
 )
 
@@ -980,9 +992,9 @@ tasks.addRule('Pattern: ofbizBackground <Commands>: Execute OFBiz startup comman
 
 def createOfbizCommandTask(taskName, arguments) {
     task(type: JavaExec, dependsOn: build, taskName) {
-        jvmArgs(jvmArguments)
+        jvmArgs(application.applicationDefaultJvmArgs)
         classpath = files(jar.outputs)
-        main = ofbizMainClass
+        main = application.mainClassName
         args arguments
         if (taskName ==~ /^ofbiz.*(--test|-t).*/) {
             finalizedBy(createTestReports)
