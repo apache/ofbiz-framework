@@ -366,6 +366,13 @@ public class ModelTheme implements Serializable {
         }
         return null;
     }
+    public String getErrorTemplateLocation(String name) {
+        ModelTemplate modelTemplate = modelTemplateMap.get(name);
+        if (modelTemplate != null) {
+            return modelTemplate.getErrorTemplateLocation();
+        }
+        return null;
+    }
 
     public Map<String,String> getModelCommonScreens() {
         return modelCommonScreensMap;
@@ -385,6 +392,7 @@ public class ModelTheme implements Serializable {
         private final String formRendererLocation;
         private final String menuRendererLocation;
         private final String treeRendererLocation;
+        private final String errorTemplateLocation;
 
         /**
          * Constructor to initialize a ModelTemplate class from xml definition
@@ -402,6 +410,7 @@ public class ModelTheme implements Serializable {
             String formRendererLocation = null;
             String menuRendererLocation = null;
             String treeRendererLocation = null;
+            String errorTemplateLocation = null;
             for (Element templateFile : UtilXml.childElementList(template)) {
                 switch (templateFile.getAttribute("widget")) {
                     case "screen":
@@ -416,12 +425,16 @@ public class ModelTheme implements Serializable {
                     case "menu":
                         menuRendererLocation = templateFile.getAttribute("location");
                         break;
+                    case "error":
+                        errorTemplateLocation = templateFile.getAttribute("location");
+                        break;
                 }
             }
             this.screenRendererLocation = screenRendererLocation;
             this.formRendererLocation = formRendererLocation;
             this.menuRendererLocation = menuRendererLocation;
             this.treeRendererLocation = treeRendererLocation;
+            this.errorTemplateLocation = errorTemplateLocation;
         }
 
         /**
@@ -441,6 +454,7 @@ public class ModelTheme implements Serializable {
             this.formRendererLocation = exist && currentModelTemplate.formRendererLocation != null ? currentModelTemplate.formRendererLocation : originModelTemplate.formRendererLocation;
             this.treeRendererLocation = exist && currentModelTemplate.treeRendererLocation != null ? currentModelTemplate.treeRendererLocation : originModelTemplate.treeRendererLocation;
             this.menuRendererLocation = exist && currentModelTemplate.menuRendererLocation != null ? currentModelTemplate.menuRendererLocation : originModelTemplate.menuRendererLocation;
+            this.errorTemplateLocation = exist && currentModelTemplate.errorTemplateLocation != null ? currentModelTemplate.errorTemplateLocation : originModelTemplate.errorTemplateLocation;
         }
         public String getName() {
             return name;
@@ -470,6 +484,9 @@ public class ModelTheme implements Serializable {
         }
         public String getMenuRendererLocation() {
             return menuRendererLocation;
+        }
+        public String getErrorTemplateLocation() {
+            return errorTemplateLocation;
         }
     }
 }

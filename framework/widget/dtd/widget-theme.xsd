@@ -157,7 +157,7 @@ under the License.
     <xs:element name="template">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="1" maxOccurs="4" ref="template-file" />
+                <xs:element minOccurs="1" maxOccurs="5" ref="template-file" />
             </xs:sequence>
             <xs:attribute type="xs:string" name="name" use="required" />
             <xs:attribute type="xs:string" name="type" use="required"/>
@@ -183,6 +183,7 @@ under the License.
                     <xs:enumeration value="form" />
                     <xs:enumeration value="tree" />
                     <xs:enumeration value="menu" />
+                    <xs:enumeration value="error" />
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
