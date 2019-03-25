@@ -585,7 +585,24 @@ it will download source packages available for project dependencies.
 
 `gradlew eclipse`
 
+[[package-and-distribute-ofbiz]]
+==== Package and distribute OFBiz
 
+In order to deploy OFBiz on a target system and in particular in a production
+environment without requiring the target system to download Gradle and OFBiz
+dependencies from the internet, it is possible to generate an archive bundling
+OFBiz with all the Jars it depends on as a `tar` archive
+
+`gradlew distTar`
+
+or as a `zip` archive.
+
+`gradlew distZip`
+
+Those archives are available in the `build/distributions` directory.  To run
+OFBiz from those archive you must first unarchive them with `tar xf` or `unzip`
+and then from that directory you can run either `bin/ofbiz` shell script or
+`bin/ofbiz.bat` batch script with the appropriate ofbiz options.
 
 [[ofbiz-plugin-system]]
 == OFBiz plugin system
