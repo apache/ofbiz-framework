@@ -290,7 +290,7 @@ sourceSets {
 jar.manifest.attributes(
     'Implementation-Title': project.name,
     'Main-Class': application.mainClassName,
-    'Class-Path': getJarManifestClasspathForCurrentOs()
+    'Class-Path': getJarClasspath()
 )
 
 // Eclipse plugin settings
@@ -1044,18 +1044,10 @@ def generateFileFromTemplate(templateFileInFullPath, targetDirectory, filterToke
     }
 }
 
-def getJarManifestClasspathForCurrentOs() {
-    def osClassPath = ''
-    if (os.contains('windows')) {
-        configurations.runtimeClasspath.each { cpEntry ->
-            osClassPath += '\\' + cpEntry.toString() + ' '
-        }
-    } else {
-        osClassPath = configurations.runtimeClasspath.collect { "$it" }.join(' ')
-    }
-    return osClassPath
+def getJarClasspath() {
+    def mapper = os.contains('windows') ? { '\\' + "$it" } : { "$it" }
+    configurations.runtimeClasspath.collect(mapper).join(' ')
 }
-
 
 def subprojectExists(fullyQualifiedProject) {
     subprojects.stream()
