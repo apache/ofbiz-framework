@@ -93,6 +93,7 @@ under the License.
             <template-file widget="form" location="component://common-theme/template/macro/HtmlFormMacroLibrary.ftl"/>
             <template-file widget="tree" location="component://common-theme/template/macro/HtmlTreeMacroLibrary.ftl"/>
             <template-file widget="menu" location="component://common-theme/template/macro/HtmlMenuMacroLibrary.ftl"/>
+            <template-file widget="error" location="component://common-theme/template/ErrorPage.ftl"/>
         </template>
         <template name="screenxml" type="xml" content-type="UTF-8" encoding="none" encoder="xml">
             <template-file widget="screen" location="component://common-theme/template/macro/XmlScreenMacroLibrary.ftl"/>

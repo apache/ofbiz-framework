@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.apache.ofbiz.webapp.control;
 
+import java.net.MalformedURLException;
+import org.apache.ofbiz.base.location.FlexibleLocation;
 import static org.apache.ofbiz.base.util.UtilGenerics.checkMap;
 
 import java.io.IOException;
@@ -802,14 +804,17 @@ public class RequestHandler {
 
     /** Returns the default error page for this request. */
     public String getDefaultErrorPage(HttpServletRequest request) {
-        String errorpage = null;
+        URL errorPage = null;
         try {
-            errorpage = getControllerConfig().getErrorpage();
-        } catch (WebAppConfigurationException e) {
+            String errorPageLocation = getControllerConfig().getErrorpage();
+            errorPage = FlexibleLocation.resolveLocation(errorPageLocation);
+        } catch (WebAppConfigurationException | MalformedURLException e) {
             Debug.logError(e, "Exception thrown while parsing controller.xml file: ", module);
         }
-        if (UtilValidate.isNotEmpty(errorpage)) return errorpage;
-        return "/error/error.jsp";
+        if (errorPage == null) {
+            return "/error/error.jsp";
+        }
+        return errorPage.toString();
     }
 
     /** Returns the default status-code for this request. */
