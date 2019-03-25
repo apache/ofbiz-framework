@@ -23,7 +23,7 @@ under the License.
     <include location="component://common/webcommon/WEB-INF/handlers-controller.xml"/>
     <description>Common ControlServlet Configuration File</description>
 
-    <errorpage>/error/error.jsp</errorpage>
+    <errorpage>component://common/webcommon/error/Error.ftl</errorpage>
 
     <preprocessor>
         <!-- Events to run on every request before security (chains exempt) -->
