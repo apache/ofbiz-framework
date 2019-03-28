@@ -145,7 +145,7 @@ public final class UtilObject {
                         java.util.Arrays.asList("byte\\[\\]", "Number", "Long", "foo", "SerializationInjector",
                                 "java.util.HashMap", "Boolean", "Number", "Integer", "FlexibleStringExpander",
                                 "sun.util.calendar.ZoneInfo", "java.sql.Timestamp", "java.util.Date",
-                                "java.math.BigDecimal", "[Z ","[B ","[S ","[I ","[J ","[F ","[D ","[C ",
+                                "java.math.BigDecimal", "[Z","[B","[S","[I","[J","[F","[D","[C",
                                 "org.apache.ofbiz.widget.renderer.VisualTheme"));) {
             return wois.readObject();
         }
