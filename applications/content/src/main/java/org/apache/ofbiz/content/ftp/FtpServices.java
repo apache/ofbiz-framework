@@ -75,7 +75,7 @@ public class FtpServices {
         boolean forceTransferControlSuccess = EntityUtilProperties.propertyValueEqualsIgnoreCase("ftp", "ftp.force.transfer.control", "Y", delegator);
         boolean ftpNotificationEnabled = EntityUtilProperties.propertyValueEqualsIgnoreCase("ftp", "ftp.notifications.enabled", "Y", delegator);
 
-        if (ftpNotificationEnabled) return ServiceUtil.returnSuccess();
+        if (!ftpNotificationEnabled) return ServiceUtil.returnSuccess();
 
         // for ECA communicationEvent process
         Map<String, Object> resultMap = ServiceUtil.returnSuccess();
