@@ -62,6 +62,7 @@ import freemarker.template.TemplateHashModel;
 import freemarker.template.TemplateModel;
 import freemarker.template.TemplateModelException;
 import freemarker.template.Version;
+import org.apache.ofbiz.widget.model.ModelWidget;
 
 /**
  * FreeMarkerWorker - Freemarker Template Engine Utilities.
@@ -108,7 +109,11 @@ public final class FreeMarkerWorker {
             newConfig.setAutoImports(freemarkerImports);
         }
         newConfig.setLogTemplateExceptions(false);
-        newConfig.setTemplateExceptionHandler(new FreeMarkerWorker.OFBizTemplateExceptionHandler());
+        boolean verboseTemplate = ModelWidget.widgetBoundaryCommentsEnabled(null)
+                || UtilProperties.getPropertyAsBoolean("widget", "widget.freemarker.template.verbose", false);
+        newConfig.setTemplateExceptionHandler(verboseTemplate
+                ? OFBizTemplateExceptionHandler.OFBIZ_DEBUG_HANDLER
+                : OFBizTemplateExceptionHandler.OFBIZ_DEFAULT_HANDLER);
         try {
             newConfig.setSetting("datetime_format", "yyyy-MM-dd HH:mm:ss.SSS");
             newConfig.setSetting("number_format", "0.##########");
@@ -491,16 +496,33 @@ public final class FreeMarkerWorker {
     }
 
     /**
-     * OFBiz specific TemplateExceptionHandler.
+     * OFBiz specific {@link TemplateExceptionHandler} interface.
      */
-    static class OFBizTemplateExceptionHandler implements TemplateExceptionHandler {
-        public void handleTemplateException(TemplateException te, Environment env, Writer out) throws TemplateException {
+    interface OFBizTemplateExceptionHandler {
+
+        /**
+         * {@link TemplateExceptionHandler} that suppresses the exception and keep the rendering going on.
+         * It sanitizes any messages present in the stack trace prior to printing to the output writer.
+         */
+        TemplateExceptionHandler OFBIZ_DEBUG_HANDLER = (te, env, out) -> {
             try {
                 out.write(te.getMessage());
                 Debug.logError(te, module);
             } catch (IOException e) {
                 Debug.logError(e, module);
             }
-        }
+        };
+
+        /**
+         * {@link TemplateExceptionHandler} that suppresses the exception and replace by a generic char for quiet alert.
+         * As mentioned in the doc, the stack trace is still logged {@link TemplateExceptionHandler#IGNORE_HANDLER}
+         */
+        TemplateExceptionHandler OFBIZ_DEFAULT_HANDLER = (te, env, out) -> {
+            try {
+                out.write(UtilProperties.getPropertyValue("widget", "widget.freemarker.template.exception.message","∎"));
+            } catch (IOException e) {
+                Debug.logError(e, module);
+            }
+        };
     }
 }
