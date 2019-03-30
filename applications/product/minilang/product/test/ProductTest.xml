@@ -17,6 +17,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
+<!-- TODO: All the test cases of this file will be migrated to ProductTests.groovy -->
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">

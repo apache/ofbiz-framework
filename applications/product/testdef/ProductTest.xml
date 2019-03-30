@@ -30,4 +30,7 @@ under the License.
         <simple-method-test location="component://product/minilang/product/test/ProductTest.xml"/>
     </test-case>
 
+    <test-case case-name="product-tests">
+        <groovy-test-suite location="component://product/groovyScripts/test/ProductTests.groovy"/>
+    </test-case>
 </test-suite>
