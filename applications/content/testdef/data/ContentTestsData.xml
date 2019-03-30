@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <DataResourceType dataResourceTypeId="TEST_RESOURCE_TYPE" description="Test Data Resource Type" hasTable="N"/>
+    <DataResource dataResourceId="TEST_RESOURCE" dataResourceTypeId="TEST_RESOURCE_TYPE"/>
+    <DataResource dataResourceId="TEST_RESOURCE2" dataResourceTypeId="TEST_RESOURCE_TYPE"/>
+    <DataResource dataResourceId="TEST_RESOURCE3" dataResourceTypeId="TEST_RESOURCE_TYPE"/>
+    <DataResource dataResourceId="TEST_SUBJECT" dataResourceTypeId="TEST_RESOURCE_TYPE"/>
+    <DataResource dataResourceId="TEST_PLAIN_BODY" dataResourceTypeId="TEST_RESOURCE_TYPE"/>
+    <DataResource dataResourceId="TEST_HTML_BODY" dataResourceTypeId="TEST_RESOURCE_TYPE"/>
+    <ElectronicText dataResourceId="TEST_SUBJECT" textData="Test Subject"/>
+    <ElectronicText dataResourceId="TEST_PLAIN_BODY" textData="Test plain body"/>
+    <ElectronicText dataResourceId="TEST_HTML_BODY" textData="&lt;HTML&gt; &lt;BODY&gt; &lt;P&gt;Test html body&lt;/P&gt; &lt;/BODY&gt; &lt;/HTML&gt;"/>
+    <DataResource dataResourceId="TEST_CONTENT_TEXT1" dataResourceTypeId="TEST_RESOURCE_TYPE"/>
+    <ElectronicText dataResourceId="TEST_CONTENT_TEXT1" textData="Test text"/>
+    <ContentType contentTypeId="TEST_CONTENT_TYPE"/>
+    <Content contentId="TEST_CONTENT1" contentTypeId="TEST_CONTENT_TYPE" dataResourceId="TEST_RESOURCE"/>
+    <Content contentId="TEST_CONTENT2" contentTypeId="TEST_CONTENT_TYPE" dataResourceId="TEST_RESOURCE"/>
+    <Content contentId="TEST_CONTENT3" contentTypeId="TEST_CONTENT_TYPE" dataResourceId="TEST_RESOURCE3"/>
+    <ContentAssocType contentAssocTypeId="TEST_ASSOC_TYPE"/>
+    <ContentAssoc contentId="TEST_CONTENT1" contentIdTo="TEST_CONTENT2" contentAssocTypeId="TEST_ASSOC_TYPE" mapKey="Test_key" fromDate="2013-07-04 00:00:00"/>
+</entity-engine-xml>
+
