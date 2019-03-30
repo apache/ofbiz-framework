@@ -384,7 +384,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ServiceValueNotFound", locale));
         }
 
-        //        localContext.put("lookedUpValue", lookedUpValue);
+        localContext.put("lookedUpValue", lookedUpValue);
 
         // populate the oldStatusId out if there is a service parameter for it, and before we do the set non-pk fields
         /*
