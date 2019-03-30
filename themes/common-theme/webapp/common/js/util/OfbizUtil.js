@@ -25,6 +25,8 @@ var AJAX_REQUEST_TIMEOUT = 5000;
 
 // Add observers on DOM ready.
 $(document).ready(function() {
+    //initializing UI combobox dropdown by overriding its methods.
+    ajaxAutoCompleteDropDown();
     // bindObservers will add observer on passed html section when DOM is ready.
     bindObservers("body");
 });
@@ -62,6 +64,30 @@ function bindObservers(bind_element) {
         var element = jQuery(this);
         var mask = element.data('mask');
         element.mask(mask);
+    });
+    jQuery(bind_element).find('.autoCompleteDropDown').each(function(){
+        jQuery(this).combobox();
+    });
+    jQuery(bind_element).find('[data-other-field-name]').each(function(){
+        var element = jQuery(this);
+        var otherFieldName = element.data("other-field-name");
+        var otherFieldValue = element.data("other-field-value");
+        var otherFieldSize = element.data("other-field-size");
+        var disabled = true;
+        if(other_choice(this))
+            disabled = false;
+        var $input = jQuery("<input>", {type: "text", name: otherFieldName})
+            .attr("size", otherFieldSize)
+            .val(otherFieldValue)
+            .on("focus", function(e){
+                check_choice(element);
+            })
+            .css('visibility', 'hidden');
+            $input.prop("disabled", disabled);
+        $input.insertAfter(element.closest(".ui-widget"));
+        element.on("change", function(e) {
+            process_choice(element[0], $input);
+        })
     });
     jQuery(bind_element).find(".visual-editor").each(function(){
         var element = jQuery(this);
@@ -830,6 +856,13 @@ function ajaxAutoCompleteDropDown() {
                         });
                     },
                     change: function( event, ui ) {
+                        var element = jQuery(this);
+                        if (element.data('other-field-name') != undefined) {
+                            var otherField = (element.form()).find("input[name=" + element.data('other-field-name') + "]");
+                            if (otherField != undefined) {
+                                process_choice(element, jQuery(otherField));
+                            }
+                        }
                         if ( !ui.item ) {
                             var matcher = new RegExp( "^" + jQuery.ui.autocomplete.escapeRegex( jQuery(this).val() ) + "$", "i" ),
                                 valid = false;
