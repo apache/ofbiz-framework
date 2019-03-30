@@ -18,26 +18,21 @@
  */
 
 function other_choice(dropDown) {
-    opt = dropDown.options[dropDown.selectedIndex];
-    ret = false;
-    if (opt.value == "_OTHER_") ret = true;
-    return ret;
+    var optValue = jQuery(dropDown).children("option:selected").val();
+    return optValue == "_OTHER_";
 }
 
 function activate(field) {
-  field.disabled=false;
-  if(document.styleSheets)field.style.visibility  = 'visible';
-  field.focus();
+  field.prop("disabled",false)
+      .css('visibility', 'visible')
+      .focus();
 }
 
 function process_choice(selection,textfield) {
-  b = other_choice(selection);
-  if(b) {
-    activate(textfield); }
-  else {
-    textfield.disabled = true;
-    if(document.styleSheets)textfield.style.visibility  = 'hidden';
-    textfield.value = '';
+  if(other_choice(selection)) {
+    activate(textfield);
+  } else {
+    textfield.prop("disabled", true).val('').css('visibility', 'hidden');
   }
 }
 
