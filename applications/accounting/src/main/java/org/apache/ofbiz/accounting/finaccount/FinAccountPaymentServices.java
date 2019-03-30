@@ -1040,7 +1040,7 @@ public class FinAccountPaymentServices {
             throw new GeneralException(e);
         }
         if (payResult == null) {
-            throw new GeneralException("Unknow error in creating financial account transaction!");
+            throw new GeneralException("Unknown error in creating financial account transaction!");
         }
         if (ServiceUtil.isError(payResult)) {
             throw new GeneralException(ServiceUtil.getErrorMessage(payResult));

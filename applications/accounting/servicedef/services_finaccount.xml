@@ -339,6 +339,7 @@ under the License.
              location="org.apache.ofbiz.accounting.payment.GiftCertificateServices" invoke="createGiftCertificate" auth="true">
         <description>Generate a Gift Certificate number/pin and store as a FinAccount</description>
         <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="initialAmount" type="BigDecimal" mode="INOUT" optional="false"/>
         <attribute name="currency" type="String" mode="IN" optional="true"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
@@ -367,6 +368,7 @@ under the License.
              location="org.apache.ofbiz.accounting.payment.GiftCertificateServices" invoke="redeemGiftCertificate" auth="true">
         <description>Deduct funds from a Gift Certificate</description>
         <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="true"/>
         <attribute name="cardNumber" type="String" mode="IN" optional="false"/>
         <attribute name="pinNumber" type="String" mode="IN" optional="false"/>
         <attribute name="amount" type="BigDecimal" mode="INOUT" optional="false"/>
