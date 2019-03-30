@@ -54,5 +54,6 @@ under the License.
     <OrderRole orderId="TEST_DEMO10090" partyId="TestDemoCustomer" roleTypeId="SHIP_TO_CUSTOMER"/>
     <OrderContactMech orderId="TEST_DEMO10090" contactMechPurposeTypeId="ORDER_EMAIL" contactMechId="TestContactMech"/>
     <Requirement requirementId="1000" requirementTypeId="CUSTOMER_REQUIREMENT"/>
+    <ReturnHeader returnId="1009" statusId="RETURN_RECEIVED" returnHeaderTypeId="CUSTOMER_RETURN"/>
 
 </entity-engine-xml>
