@@ -33,4 +33,7 @@ under the License.
     <test-case case-name="product-tests">
         <groovy-test-suite location="component://product/groovyScripts/test/ProductTests.groovy"/>
     </test-case>
+</test-suite>    <test-case case-name="testCreateProductFeatureType">
+        <groovy-test-suite location="component://product/groovyScripts/product/test/ProductFeatureTypeTests.groovy"/>
+    </test-case>
 </test-suite>
