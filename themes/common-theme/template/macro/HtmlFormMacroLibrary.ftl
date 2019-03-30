@@ -140,12 +140,17 @@ under the License.
   </span>
 </#macro>
 
-<#macro renderDropDownField name className alert id formName otherFieldName action explicitDescription options fieldName otherFieldName otherValue otherFieldSize ajaxEnabled ajaxOptions frequency minChars choices autoSelect partialSearch partialChars ignoreCase fullSearch conditionGroup="" tabindex="" multiple="" event="" size="" firstInList="" currentValue="" allowEmpty="" dDFCurrent="" noCurrentSelectedKey="">
+<#macro renderDropDownField name className alert id formName action explicitDescription options fieldName otherFieldName otherValue otherFieldSize ajaxEnabled ajaxOptions frequency minChars choices autoSelect partialSearch partialChars ignoreCase fullSearch conditionGroup="" tabindex="" multiple="" event="" size="" firstInList="" currentValue="" allowEmpty="" dDFCurrent="" noCurrentSelectedKey="">
   <#if conditionGroup?has_content>
     <input type="hidden" name="${name}_grp" value="${conditionGroup}"/>
   </#if>
   <span class="ui-widget">
-    <select name="${name?default("")}<#rt/>" <@renderClass className alert /><#if id?has_content> id="${id}"</#if><#if multiple?has_content> multiple="multiple"</#if><#if otherFieldSize gt 0> onchange="process_choice(this,document.${formName}.${otherFieldName})"</#if><#if event?has_content> ${event}="${action}"</#if><#if size?has_content> size="${size}"</#if><#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>>
+    <select name="${name?default("")}<#rt/>" <@renderClass className alert /><#if id?has_content> id="${id}"</#if><#if multiple?has_content> multiple="multiple"</#if><#if ajaxEnabled> class="autoCompleteDropDown"</#if><#if event?has_content> ${event}="${action}"</#if><#if size?has_content> size="${size}"</#if><#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
+    <#if otherFieldName?has_content>
+    data-other-field-name="${otherFieldName}"
+    data-other-field-value='${otherValue?js_string}'
+    data-other-field-size='${otherFieldSize}'
+    </#if>>
       <#if firstInList?has_content && currentValue?has_content && !multiple?has_content>
         <option selected="selected" value="${currentValue}">${explicitDescription?replace("&#x5c;&#x27;","&#x27;")}</option><#rt/><#-- replace("&#x5c;&#x27;","&#x27;") related to OFBIZ-6504 -->
       </#if>
@@ -165,23 +170,6 @@ under the License.
   </span>
   <#if otherFieldName?has_content>
     <noscript><input type='text' name='${otherFieldName}' /></noscript>
-    <script type='application/javascript'><!--
-      disa = ' disabled';
-      if(other_choice(document.${formName}.${fieldName}))
-        disa = '';
-      document.write("<input type='text' name='${otherFieldName}' value='${otherValue?js_string}' size='${otherFieldSize}'"+disa+" onfocus='check_choice(document.${formName}.${fieldName})' />");
-      if(disa && document.styleSheets)
-      document.${formName}.${otherFieldName}.style.visibility  = 'hidden';
-    //--></script>
-  </#if>
-
-  <#if ajaxEnabled>
-    <script type="application/javascript">
-      ajaxAutoCompleteDropDown();
-      jQuery(function() {
-        jQuery("#${id}").combobox();
-      });
-    </script>
   </#if>
 </#macro>
 
