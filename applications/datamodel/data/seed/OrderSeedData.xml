@@ -361,15 +361,15 @@ under the License.
     <ReturnReason sequenceId="06" returnReasonId="RTN_SIZE_EXCHANGE" description="Size Exchange"/>
     <ReturnReason sequenceId="07" returnReasonId="RTN_NORMAL_RETURN" description="Normal Return"/>
     <!-- Return Types -->
-    <ReturnType sequenceId="01" returnTypeId="RTN_CREDIT" description="Store Credit"/>
-    <ReturnType sequenceId="02" returnTypeId="RTN_REFUND" description="Refund"/>
-    <ReturnType sequenceId="03" returnTypeId="RTN_REPLACE" description="Wait Replacement"/>
-    <ReturnType sequenceId="04" returnTypeId="RTN_CSREPLACE" description="Cross-Ship Replacement"/>
-    <ReturnType sequenceId="05" returnTypeId="RTN_REPAIR_REPLACE" description="Repair Replacement"/>
-    <ReturnType sequenceId="06" returnTypeId="RTN_WAIT_REPLACE_RES" description="Wait Replacement Reserved"/>
-    <ReturnType sequenceId="07" returnTypeId="RTN_REPLACE_IMMEDIAT" description="Replace Immediately"/>
-    <ReturnType sequenceId="08" returnTypeId="RTN_REFUND_IMMEDIATE" description="Refund immediately"/>
-    <ReturnType sequenceId="09" returnTypeId="RTN_RENTAL" description="Rental"/>
+    <ReturnType sequenceId="01" returnTypeId="RTN_CREDIT" description="Store Credit" hasTable="N"/>
+    <ReturnType sequenceId="02" returnTypeId="RTN_REFUND" description="Refund" hasTable="N"/>
+    <ReturnType sequenceId="03" returnTypeId="RTN_REPLACE" description="Wait Replacement" hasTable="N"/>
+    <ReturnType sequenceId="04" returnTypeId="RTN_CSREPLACE" description="Cross-Ship Replacement" hasTable="N"/>
+    <ReturnType sequenceId="05" returnTypeId="RTN_REPAIR_REPLACE" description="Repair Replacement" hasTable="N"/>
+    <ReturnType sequenceId="06" returnTypeId="RTN_WAIT_REPLACE_RES" description="Wait Replacement Reserved" hasTable="N"/>
+    <ReturnType sequenceId="07" returnTypeId="RTN_REPLACE_IMMEDIAT" description="Replace Immediately" hasTable="N"/>
+    <ReturnType sequenceId="08" returnTypeId="RTN_REFUND_IMMEDIATE" description="Refund immediately" hasTable="N"/>
+    <ReturnType sequenceId="09" returnTypeId="RTN_RENTAL" description="Rental" hasTable="N"/>
 
     <WorkReqFulfType description="Implements" workReqFulfTypeId="WRF_IMPLEMENTS"/>
     <WorkReqFulfType description="Fixes" workReqFulfTypeId="WRF_FIXES"/>
