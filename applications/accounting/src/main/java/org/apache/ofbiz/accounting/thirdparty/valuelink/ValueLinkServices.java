@@ -842,7 +842,7 @@ public class ValueLinkServices {
         } catch (GenericEntityException e) {
             Debug.logError("Unable to get GiftCard from OrderPaymentPreference", module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                    "AccountingGiftCerticateNumberCannotLocateItFromOrderPaymentPreference", locale));
+                    "AccountingGiftCertificateNumberCannotLocateItFromOrderPaymentPreference", locale));
         }
 
         if (giftCard == null) {
@@ -907,7 +907,7 @@ public class ValueLinkServices {
         } catch (GenericEntityException e) {
             Debug.logError("Unable to get GiftCard from OrderPaymentPreference", module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                    "AccountingGiftCerticateNumberCannotLocateItFromOrderPaymentPreference", locale));
+                    "AccountingGiftCertificateNumberCannotLocateItFromOrderPaymentPreference", locale));
         }
 
         if (giftCard == null) {
@@ -993,7 +993,7 @@ public class ValueLinkServices {
         }
         if (productStoreId == null) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                    "AccountingGiftCerticateNumberCannotProcess", locale));
+                    "AccountingGiftCertificateNumberCannotProcess", locale));
         }
 
         // payment config
@@ -1028,7 +1028,7 @@ public class ValueLinkServices {
         }
         if (product == null) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                    "AccountingGiftCerticateNumberCannotFulfill", locale));
+                    "AccountingGiftCertificateNumberCannotFulfill", locale));
         }
 
         // get the productFeature type TYPE (VL promo code)
@@ -1071,7 +1071,7 @@ public class ValueLinkServices {
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
-                    "AccountingGiftCerticateNumberCannotFulfillFromSurvey", locale));
+                    "AccountingGiftCertificateNumberCannotFulfillFromSurvey", locale));
         }
 
         // get the response answers
@@ -1081,7 +1081,7 @@ public class ValueLinkServices {
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
-                    "AccountingGiftCerticateNumberCannotFulfillFromSurveyAnswers", locale));
+                    "AccountingGiftCertificateNumberCannotFulfillFromSurveyAnswers", locale));
         }
 
         // make a map of answer info
@@ -1094,7 +1094,7 @@ public class ValueLinkServices {
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                     return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
-                            "AccountingGiftCerticateNumberCannotFulfillFromSurveyAnswers", locale));
+                            "AccountingGiftCertificateNumberCannotFulfillFromSurveyAnswers", locale));
                 }
                 if (question != null) {
                     String desc = question.getString("description");
@@ -1170,7 +1170,7 @@ public class ValueLinkServices {
             } catch (GenericServiceException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
-                        "AccountingGiftCerticateNumberCannotStoreFulfillmentInfo",
+                        "AccountingGiftCertificateNumberCannotStoreFulfillmentInfo",
                         UtilMisc.toMap("errorString", e.toString() ), locale));
             }
 
@@ -1229,7 +1229,7 @@ public class ValueLinkServices {
                     Debug.logError(e, "Problem sending mail", module);
                     // this is fatal; we will rollback and try again later
                     return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
-                            "AccountingGiftCerticateNumberCannotSendEmailNotice", 
+                            "AccountingGiftCertificateNumberCannotSendEmailNotice",
                             UtilMisc.toMap("errorString", e.toString()), locale));
                 }
             }
@@ -1277,7 +1277,7 @@ public class ValueLinkServices {
         }
         if (productStoreId == null) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
-                    "AccountingGiftCerticateNumberCannotProcess", 
+                    "AccountingGiftCertificateNumberCannotProcess",
                     UtilMisc.toMap("orderId", orderId), locale));
         }
 
@@ -1289,7 +1289,7 @@ public class ValueLinkServices {
         }
         if (paymentConfig == null) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
-                    "AccountingGiftCerticateNumberCannotGetPaymentConfiguration", locale));
+                    "AccountingGiftCertificateNumberCannotGetPaymentConfiguration", locale));
         }
 
         // party ID for tracking
@@ -1316,7 +1316,7 @@ public class ValueLinkServices {
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
-                    "AccountingGiftCerticateNumberCannotFulfillFromSurvey", locale));
+                    "AccountingGiftCertificateNumberCannotFulfillFromSurvey", locale));
         }
 
         // get the response answers
@@ -1326,7 +1326,7 @@ public class ValueLinkServices {
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
-                    "AccountingGiftCerticateNumberCannotFulfillFromSurveyAnswers", locale));
+                    "AccountingGiftCertificateNumberCannotFulfillFromSurveyAnswers", locale));
         }
 
         // make a map of answer info
@@ -1339,7 +1339,7 @@ public class ValueLinkServices {
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                     return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
-                            "AccountingGiftCerticateNumberCannotFulfillFromSurveyAnswers", locale));
+                            "AccountingGiftCertificateNumberCannotFulfillFromSurveyAnswers", locale));
                 }
                 if (question != null) {
                     String desc = question.getString("description");
@@ -1394,7 +1394,7 @@ public class ValueLinkServices {
         } catch (GenericServiceException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
-                    "AccountingGiftCerticateNumberCannotStoreFulfillmentInfo", locale));
+                    "AccountingGiftCertificateNumberCannotStoreFulfillmentInfo", locale));
         }
 
         Boolean processResult = (Boolean) reloadResult.get("processResult");
@@ -1466,7 +1466,7 @@ public class ValueLinkServices {
                 Debug.logError(e, "Problem sending mail", module);
                 // this is fatal; we will rollback and try again later
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource,
-                        "AccountingGiftCerticateNumberCannotSendEmailNotice",
+                        "AccountingGiftCertificateNumberCannotSendEmailNotice",
                         UtilMisc.toMap("errorString", e.toString()), locale));
             }
         }
