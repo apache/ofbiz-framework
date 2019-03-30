@@ -915,15 +915,8 @@ public class GiftCertificateServices {
                 emailCtx.put("sendBcc", bcc);
                 emailCtx.put("subject", productStoreEmail.getString("subject"));
                 emailCtx.put("userLogin", userLogin);
-                
-                // send off the email async so we will retry on failed attempts
-                // SC 20060405: Changed to runSync because runAsync kept getting an error:
-                // Problem serializing service attributes (Cannot serialize object of class java.util.PropertyResourceBundle)
                 try {
-                    Map<String, Object> serviceResults = dispatcher.runSync("sendMailFromScreen", emailCtx);
-                    if (ServiceUtil.isError(serviceResults)) {
-                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResults));
-                    }
+                    dispatcher.runAsync("sendMailFromScreen", emailCtx);
                 } catch (GenericServiceException e) {
                     Debug.logError(e, "Problem sending mail", module);
                     // this is fatal; we will rollback and try again later
@@ -933,7 +926,6 @@ public class GiftCertificateServices {
                 }
             }
         }
-
         return ServiceUtil.returnSuccess();
     }
 
