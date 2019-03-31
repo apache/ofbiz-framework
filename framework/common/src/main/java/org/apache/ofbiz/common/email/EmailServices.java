@@ -160,6 +160,9 @@ public class EmailServices {
         }
 
         String sendFrom = (String) context.get("sendFrom");
+        if (UtilValidate.isEmpty(sendFrom)) {
+            sendFrom = EntityUtilProperties.getPropertyValue("general", "defaultFromEmailAddress", delegator);
+        }
         String sendType = (String) context.get("sendType");
         String port = (String) context.get("port");
         String socketFactoryClass = (String) context.get("socketFactoryClass");
