@@ -217,7 +217,7 @@ public class DatabaseUtil {
             Debug.logError(message, module);
             return;
         }
-        List<Future<CreateTableCallable>> tableFutures = new LinkedList<Future<CreateTableCallable>>();
+
         for (ModelEntity entity: modelEntityList) {
             curEnt++;
 
@@ -399,9 +399,6 @@ public class DatabaseUtil {
                     }
                 }
             }
-        }
-        for (CreateTableCallable tableCallable: ExecutionPool.getAllFutures(tableFutures)) {
-            tableCallable.updateData(messages, entitiesAdded);
         }
 
         timer.timerString("After Individual Table/Column Check");
@@ -1480,47 +1477,6 @@ public class DatabaseUtil {
             }
         }
         return indexInfo;
-    }
-
-    private class CreateTableCallable implements Callable<CreateTableCallable> {
-        private final ModelEntity entity;
-        private final Map<String, ModelEntity> modelEntities;
-        private final String tableName;
-        private String message;
-        private boolean success;
-
-        protected CreateTableCallable(ModelEntity entity, Map<String, ModelEntity> modelEntities, String tableName) {
-            this.entity = entity;
-            this.modelEntities = modelEntities;
-            this.tableName = tableName;
-        }
-
-        public CreateTableCallable call() throws Exception {
-            String errMsg = createTable(entity, modelEntities, false);
-            if (UtilValidate.isNotEmpty(errMsg)) {
-                this.success = false;
-                this.message = "Could not create table [" + tableName + "]: " + errMsg;
-                Debug.logError(this.message, module);
-            } else {
-                this.success = true;
-                this.message = "Created table [" + tableName + "]";
-                Debug.logImportant(this.message, module);
-            }
-            return this;
-        }
-
-        protected void updateData(Collection<String> messages, List<ModelEntity> entitiesAdded) {
-            if (this.success) {
-                entitiesAdded.add(entity);
-                if (messages != null) {
-                    messages.add(this.message);
-                }
-            } else {
-                if (messages != null) {
-                    messages.add(this.message);
-                }
-            }
-        }
     }
 
     private abstract class AbstractCountingCallable implements Callable<AbstractCountingCallable> {
