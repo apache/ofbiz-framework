@@ -45,7 +45,7 @@ public final class EntityExpr implements EntityCondition {
     /** The left hand side of the expression.  */
     private final Object lhs;
     /** The operator used to combine the two sides of the expression.  */
-    private final EntityOperator<Object, Object, ?> operator;
+    private final EntityOperator<Object, Object> operator;
     /** The right hand side of the expression.  */
     private final Object rhs;
 
@@ -120,7 +120,7 @@ public final class EntityExpr implements EntityCondition {
      *
      * @return the operator used to combine the two sides of the condition expression.
      */
-    public <L,R,T> EntityOperator<L,R,T> getOperator() {
+    public <L,R> EntityOperator<L,R> getOperator() {
         return UtilGenerics.cast(operator);
     }
 

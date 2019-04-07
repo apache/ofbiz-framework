@@ -154,7 +154,7 @@ public final class EntityFinderUtil {
     @SuppressWarnings("serial")
     public static final class ConditionExpr implements Condition {
         private final String fieldName;
-        private final EntityOperator<?,?,?> operator;
+        private final EntityOperator<?,?> operator;
         private final FlexibleMapAccessor<Object> envNameAcsr;
         private final FlexibleStringExpander valueExdr;
         private final FlexibleStringExpander ignoreExdr;
@@ -258,7 +258,7 @@ public final class EntityFinderUtil {
     @SuppressWarnings("serial")
     public static final class ConditionList implements Condition {
         private final List<Condition> conditionList;
-        private final EntityOperator<?,?,?> operator;
+        private final EntityOperator<?,?> operator;
 
         public ConditionList(Element conditionListElement) {
             String operatorAttribute = conditionListElement.getAttribute("combine");

@@ -37,7 +37,7 @@ import org.apache.ofbiz.entity.model.ModelEntity;
  *
  */
 @SuppressWarnings("serial")
-public class EntityJoinOperator extends EntityOperator<EntityCondition, EntityCondition, Boolean> {
+public class EntityJoinOperator extends EntityOperator<EntityCondition, EntityCondition> {
 
     protected boolean shortCircuitValue;
 
