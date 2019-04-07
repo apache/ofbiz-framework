@@ -82,4 +82,12 @@ public class PurgeJob extends AbstractJob implements Serializable {
             throw new InvalidJobException("Illegal state change");
         }
     }
+
+    /* 
+     * Returns JobPriority.LOW
+     */
+    @Override
+    public long getPriority() {
+        return JobPriority.LOW;
+    }
 }

@@ -41,6 +41,7 @@ import org.apache.ofbiz.service.job.GenericServiceJob;
 import org.apache.ofbiz.service.job.Job;
 import org.apache.ofbiz.service.job.JobManager;
 import org.apache.ofbiz.service.job.JobManagerException;
+import org.apache.ofbiz.service.job.JobPriority;
 
 /**
  * Generic Asynchronous Engine
@@ -112,6 +113,7 @@ public abstract class GenericAsyncEngine extends AbstractEngine {
                 jFields.put("loaderName", localName);
                 jFields.put("maxRetry", (long) modelService.maxRetry);
                 jFields.put("runtimeDataId", dataId);
+                jFields.put("priority", JobPriority.NORMAL);
                 if (UtilValidate.isNotEmpty(authUserLoginId)) {
                     jFields.put("authUserLoginId", authUserLoginId);
                 }

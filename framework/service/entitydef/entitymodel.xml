@@ -44,6 +44,7 @@ under the License.
         <field name="jobId" type="id"></field>
         <field name="jobName" type="name"></field>
         <field name="runTime" type="date-time"></field>
+        <field name="priority" type="numeric"></field>
         <field name="poolId" type="name"></field>
         <field name="statusId" type="id"></field>
         <field name="parentJobId" type="id"></field>
