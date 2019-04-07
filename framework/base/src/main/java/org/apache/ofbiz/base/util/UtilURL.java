@@ -136,6 +136,7 @@ public final class UtilURL {
             }
         } catch (java.net.MalformedURLException e) {
             Debug.logError(e, "unable to retrieve URL for file: " + filename, module);
+            url = null;
         }
         return url;
     }

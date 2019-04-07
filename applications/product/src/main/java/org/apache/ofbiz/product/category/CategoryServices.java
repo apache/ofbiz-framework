@@ -249,7 +249,7 @@ public class CategoryServices {
             Debug.logError(e.getMessage(), module);
         }
 
-        GenericValue productCategory;
+        GenericValue productCategory = null;
         try {
             productCategory = EntityQuery.use(delegator).from("ProductCategory").where("productCategoryId", productCategoryId).cache().queryOne();
         } catch (GenericEntityException e) {

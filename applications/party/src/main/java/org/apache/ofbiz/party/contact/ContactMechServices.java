@@ -157,7 +157,7 @@ public class ContactMechServices {
         }
 
         String contactMechId = (String) context.get("contactMechId");
-        GenericValue contactMech;
+        GenericValue contactMech = null;
         GenericValue partyContactMech = null;
 
         try {
@@ -427,7 +427,7 @@ public class ContactMechServices {
         }
 
         String contactMechId = (String) context.get("contactMechId");
-        GenericValue contactMech;
+        GenericValue contactMech = null;
         GenericValue partyContactMech = null;
 
         try {
@@ -469,7 +469,8 @@ public class ContactMechServices {
         GenericValue relatedEntityToSet = null;
 
         if ("POSTAL_ADDRESS".equals(contactMech.getString("contactMechTypeId"))) {
-            GenericValue addr;
+            GenericValue addr = null;
+
             try {
                 addr = EntityQuery.use(delegator).from("PostalAddress").where("contactMechId", contactMechId).queryOne();
             } catch (GenericEntityException e) {
@@ -668,6 +669,7 @@ public class ContactMechServices {
         } catch (GenericEntityException e) {
             Debug.logWarning(e.getMessage(), module);
             contactMech = null;
+            partyContactMech = null;
         }
         if (contactMech == null) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
@@ -685,7 +687,8 @@ public class ContactMechServices {
         GenericValue relatedEntityToSet = null;
 
         if ("TELECOM_NUMBER".equals(contactMech.getString("contactMechTypeId"))) {
-            GenericValue telNum;
+            GenericValue telNum = null;
+
             try {
                 telNum = EntityQuery.use(delegator).from("TelecomNumber").where("contactMechId", contactMechId).queryOne();
             } catch (GenericEntityException e) {
@@ -831,7 +834,7 @@ public class ContactMechServices {
         String contactMechPurposeTypeId = (String) context.get("contactMechPurposeTypeId");
         Timestamp fromDate = (Timestamp) context.get("fromDate");
 
-        GenericValue tempVal;
+        GenericValue tempVal = null;
         try {
             tempVal = EntityQuery.use(delegator).from("PartyContactWithPurpose")
                     .where("partyId", partyId, "contactMechId", contactMechId, "contactMechPurposeTypeId", contactMechPurposeTypeId)

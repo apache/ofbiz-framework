@@ -471,7 +471,7 @@ public class ShoppingListEvents {
                 Debug.logError(e, module);
             }
             cart.setAutoSaveListId(autoSaveListId);
-        } else {
+        } else if (userLogin != null) {
             String existingAutoSaveListId = null;
             try {
                 existingAutoSaveListId = getAutoSaveListId(delegator, dispatcher, null, userLogin, cart.getProductStoreId());
@@ -519,7 +519,7 @@ public class ShoppingListEvents {
         if (okayToLoad) {
             String prodCatalogId = CatalogWorker.getCurrentCatalogId(request);
             try {
-                addListToCart(delegator, dispatcher, cart, prodCatalogId, autoSaveListId, false, false, true);
+                addListToCart(delegator, dispatcher, cart, prodCatalogId, autoSaveListId, false, false, userLogin != null ? true : false);
                 cart.setLastListRestore(UtilDateTime.nowTimestamp());
             } catch (IllegalArgumentException e) {
                 Debug.logError(e, module);

@@ -222,6 +222,7 @@ public class ContentManagementEvents {
             Timestamp origFromDate = null;
             for (Object [] pubArr : origSubList) {
                 Timestamp fromDate = (Timestamp)pubArr[2];
+                origSubContentId = null;
                 if (fromDate != null) {
                     origSubContentId = (String)pubArr[0];
                     origFromDate = fromDate;

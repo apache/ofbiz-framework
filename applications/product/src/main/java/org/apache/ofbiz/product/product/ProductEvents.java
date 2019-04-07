@@ -281,6 +281,7 @@ public class ProductEvents {
                 productAssoc = EntityQuery.use(delegator).from(tempProductAssoc.getEntityName()).where(tempProductAssoc.getPrimaryKey()).queryOne();
             } catch (GenericEntityException e) {
                 Debug.logWarning(e.getMessage(), module);
+                productAssoc = null;
             }
             if (productAssoc == null) {
                 errMsg = UtilProperties.getMessage(resource,"productevents.could_not_remove_product_association_exist", UtilHttp.getLocale(request));
@@ -347,7 +348,8 @@ public class ProductEvents {
                 request.setAttribute("ProductAssocCreateFromDate", fromDate);
             }
 
-            GenericValue productAssoc;
+            GenericValue productAssoc = null;
+
             try {
                 productAssoc = EntityQuery.use(delegator).from(tempProductAssoc.getEntityName()).where(tempProductAssoc.getPrimaryKey()).queryOne();
             } catch (GenericEntityException e) {

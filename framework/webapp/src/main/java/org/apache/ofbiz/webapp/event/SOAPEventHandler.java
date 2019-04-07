@@ -116,7 +116,9 @@ public class SOAPEventHandler implements EventHandler {
                     sendError(response, "Unable to obtain WSDL", serviceName);
                     throw new EventHandlerException("Unable to obtain WSDL");
                 }
-            } else {
+            }
+
+            if (serviceName == null) {
                 try {
                     Writer writer = response.getWriter();
                     StringBuilder sb = new StringBuilder();
