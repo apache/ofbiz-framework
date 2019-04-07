@@ -335,7 +335,7 @@ public class ObjectType {
 
         if (converter != null) {
             if (converter instanceof LocalizedConverter) {
-                LocalizedConverter<Object, Object> localizedConverter = (LocalizedConverter) converter;
+                LocalizedConverter<Object, Object> localizedConverter = UtilGenerics.cast(converter);
                 if (timeZone == null) {
                     timeZone = TimeZone.getDefault();
                 }
