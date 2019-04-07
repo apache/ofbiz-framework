@@ -889,6 +889,7 @@ under the License.
             <create-value value-field="runtimeData"/>
 
              <!-- Create Job For ProductGroupOrder -->
+             <!-- FIXME: Jobs should not be manually created -->
             <make-value entity-name="JobSandbox" value-field="jobSandbox"/>
             <sequenced-id sequence-name="JobSandbox" field="jobSandbox.jobId"/>
             <set field="jobId" from-field="jobSandbox.jobId"/>
@@ -900,6 +901,7 @@ under the License.
             <set field="jobSandbox.runAsUser" value="system"/>
             <set field="jobSandbox.runtimeDataId" from-field="runtimeDataId"/>
             <set field="jobSandbox.maxRecurrenceCount" value="1" type="Long"/>
+            <set field="jobSandbox.priority" value="50" type="Long"/>
             <create-value value-field="jobSandbox"/>
 
             <set field="productGroupOrder.jobId" from-field="jobId"/>

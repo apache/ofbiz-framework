@@ -211,6 +211,10 @@ public class PersistedServiceJob extends GenericServiceJob {
                 newJob.set("currentRetryCount", 0L);
             }
             nextRecurrence = next;
+            // Set priority if missing
+            if (newJob.getLong("priority") == null) {
+                newJob.set("priority", JobPriority.NORMAL);
+            }
             delegator.createSetNextSeqId(newJob);
             if (Debug.verboseOn()) {
                 Debug.logVerbose("Created next job entry: " + newJob, module);
@@ -378,5 +382,18 @@ public class PersistedServiceJob extends GenericServiceJob {
     @Override
     public Date getStartTime() {
         return new Date(startTime);
+    }
+
+    /* 
+     * Returns the priority stored in the JobSandbox.priority field, if no value is present
+     * then it defaults to AbstractJob.getPriority()
+     */
+    @Override
+    public long getPriority() {
+        Long priority = jobValue.getLong("priority");
+        if (priority == null) {
+            return super.getPriority();
+        }
+        return priority;
     }
 }

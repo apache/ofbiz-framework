@@ -213,7 +213,10 @@ public final class JobManager {
                 Debug.logWarning("Unable to poll JobSandbox for jobs; unable to begin transaction.", module);
                 return poll;
             }
-            try (EntityListIterator jobsIterator = EntityQuery.use(delegator).from("JobSandbox").where(mainCondition).orderBy("runTime").queryIterator()) {
+            try (EntityListIterator jobsIterator = EntityQuery.use(delegator)
+                    .from("JobSandbox").where(mainCondition)
+                    .orderBy("priority DESC NULLS LAST", "runTime")
+                    .maxRows(limit).queryIterator()) {
                 GenericValue jobValue = jobsIterator.next();
                 while (jobValue != null) {
                     // Claim ownership of this value. Using storeByCondition to avoid a race condition.
@@ -546,7 +549,8 @@ public final class JobManager {
             jobName = Long.toString((new Date().getTime()));
         }
         Map<String, Object> jFields = UtilMisc.<String, Object> toMap("jobName", jobName, "runTime", new java.sql.Timestamp(startTime),
-                "serviceName", serviceName, "statusId", "SERVICE_PENDING", "recurrenceInfoId", infoId, "runtimeDataId", dataId);
+                "serviceName", serviceName, "statusId", "SERVICE_PENDING", "recurrenceInfoId", infoId, "runtimeDataId", dataId,
+                "priority", JobPriority.NORMAL);
         // set the pool ID
         if (UtilValidate.isNotEmpty(poolName)) {
             jFields.put("poolId", poolName);
