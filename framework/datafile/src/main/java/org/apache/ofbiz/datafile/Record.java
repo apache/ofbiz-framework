@@ -573,8 +573,6 @@ public class Record implements Serializable {
                     catch (NoSuchElementException nsee) {
                         throw new DataFileException("Field " + modelField.name + " could not be read from a line (" + lineNum + ") with only " + line.length() + " chars.", nsee);
                     }
-                } else { //if input line is less than the header model then pad with null
-                    strVal = null;
                 }
             }
             try {

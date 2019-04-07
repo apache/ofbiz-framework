@@ -101,8 +101,7 @@ public class SimpleMapProcessor {
         MapProcessor processor = mapProcessors.get(name);
         if (processor == null) {
             throw new MiniLangException("Could not find SimpleMapProcessor named " + name + " in XML document resource: " + xmlResource);
-        }
-        if (processor != null) {
+        } else {
             processor.exec(inMap, results, messages, locale, loader);
         }
     }
@@ -114,8 +113,7 @@ public class SimpleMapProcessor {
         MapProcessor processor = mapProcessors.get(name);
         if (processor == null) {
             throw new MiniLangException("Could not find SimpleMapProcessor named " + name + " in XML document: " + xmlURL.toString());
-        }
-        if (processor != null) {
+        } else {
             processor.exec(inMap, results, messages, locale, loader);
         }
     }

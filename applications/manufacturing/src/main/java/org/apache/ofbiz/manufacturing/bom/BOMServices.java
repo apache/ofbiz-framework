@@ -319,16 +319,16 @@ public class BOMServices {
             fromDate = new Date();
         }
 
-        BOMTree tree = null;
+        BOMTree tree;
         try {
             tree = new BOMTree(productId, bomType, fromDate, type, delegator, dispatcher, userLogin);
         } catch (GenericEntityException gee) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingBomErrorCreatingBillOfMaterialsTree", UtilMisc.toMap("errorString", gee.getMessage()), locale));
         }
-        if (tree != null && quantity != null) {
+        if (quantity != null) {
             tree.setRootQuantity(quantity);
         }
-        if (tree != null && amount != null) {
+        if (amount != null) {
             tree.setRootAmount(amount);
         }
         result.put("tree", tree);

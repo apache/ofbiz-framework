@@ -435,18 +435,20 @@ public class CheckOutEvents {
     public static String checkoutValidation(HttpServletRequest request, HttpServletResponse response) {
         ShoppingCart cart = (ShoppingCart) request.getSession().getAttribute("shoppingCart");
         if (cart.isSalesOrder()) {
-        List<GenericValue> paymentMethodTypes = cart.getPaymentMethodTypes();
-        if (UtilValidate.isEmpty(paymentMethodTypes)) {
-            String errMsg = UtilProperties.getMessage(resource_error, "OrderNoPaymentMethodTypeSelected", (cart != null ? cart.getLocale() : UtilHttp.getLocale(request)));
-            request.setAttribute("_ERROR_MESSAGE_",errMsg);
-            return "error";
-        }
-        String shipmentMethod = cart.getShipmentMethodTypeId();
-        if (UtilValidate.isEmpty(shipmentMethod)) {
-            String errMsg = UtilProperties.getMessage(resource_error, "OrderNoShipmentMethodSelected", (cart != null ? cart.getLocale() : UtilHttp.getLocale(request)));
-            request.setAttribute("_ERROR_MESSAGE_",errMsg);
-            return "error";
-        }
+            List<GenericValue> paymentMethodTypes = cart.getPaymentMethodTypes();
+            if (UtilValidate.isEmpty(paymentMethodTypes)) {
+                String errMsg = UtilProperties.getMessage(resource_error, "OrderNoPaymentMethodTypeSelected",
+                        cart.getLocale());
+                request.setAttribute("_ERROR_MESSAGE_",errMsg);
+                return "error";
+            }
+            String shipmentMethod = cart.getShipmentMethodTypeId();
+            if (UtilValidate.isEmpty(shipmentMethod)) {
+                String errMsg = UtilProperties.getMessage(resource_error, "OrderNoShipmentMethodSelected",
+                        cart.getLocale());
+                request.setAttribute("_ERROR_MESSAGE_",errMsg);
+                return "error";
+            }
         }
         return "success";
     }

@@ -212,8 +212,7 @@ public class PaymentMethodServices {
             // add a PartyContactMechPurpose of BILLING_LOCATION if necessary
             String contactMechPurposeTypeId = "BILLING_LOCATION";
 
-            GenericValue tempVal = null;
-
+            GenericValue tempVal;
             try {
                 List<GenericValue> allPCWPs = EntityQuery.use(delegator).from("PartyContactWithPurpose")
                         .where("partyId", partyId, "contactMechId", contactMechId, "contactMechPurposeTypeId", contactMechPurposeTypeId).queryList();
@@ -393,8 +392,7 @@ public class PaymentMethodServices {
             // add a PartyContactMechPurpose of BILLING_LOCATION if necessary
             String contactMechPurposeTypeId = "BILLING_LOCATION";
 
-            GenericValue tempVal = null;
-
+            GenericValue tempVal;
             try {
                 List<GenericValue> allPCWPs = EntityQuery.use(delegator).from("PartyContactWithPurpose")
                         .where("partyId", partyId, "contactMechId", contactMechId, "contactMechPurposeTypeId", contactMechPurposeTypeId).queryList();
@@ -740,7 +738,7 @@ public class PaymentMethodServices {
             // add a PartyContactMechPurpose of BILLING_LOCATION if necessary
             String contactMechPurposeTypeId = "BILLING_LOCATION";
 
-            GenericValue tempVal = null;
+            GenericValue tempVal;
             try {
                 List<GenericValue> allPCWPs = EntityQuery.use(delegator).from("PartyContactWithPurpose")
                         .where("partyId", partyId, "contactMechId", contactMechId, "contactMechPurposeTypeId", contactMechPurposeTypeId).queryList();
@@ -871,8 +869,7 @@ public class PaymentMethodServices {
             // add a PartyContactMechPurpose of BILLING_LOCATION if necessary
             String contactMechPurposeTypeId = "BILLING_LOCATION";
 
-            GenericValue tempVal = null;
-
+            GenericValue tempVal;
             try {
                 List<GenericValue> allPCWPs = EntityQuery.use(delegator).from("PartyContactWithPurpose")
                         .where("partyId", partyId, "contactMechId", contactMechId, "contactMechPurposeTypeId", contactMechPurposeTypeId).queryList();
@@ -976,7 +973,7 @@ public class PaymentMethodServices {
             // add a PartyContactMechPurpose of BILLING_LOCATION if necessary
             String contactMechPurposeTypeId = "BILLING_LOCATION";
 
-            GenericValue tempVal = null;
+            GenericValue tempVal;
             try {
                 List<GenericValue> allPCWPs = EntityQuery.use(delegator).from("PartyContactWithPurpose")
                         .where("partyId", partyId, "contactMechId", contactMechId, "contactMechPurposeTypeId", contactMechPurposeTypeId).queryList();
@@ -1098,8 +1095,7 @@ public class PaymentMethodServices {
             // add a PartyContactMechPurpose of BILLING_LOCATION if necessary
             String contactMechPurposeTypeId = "BILLING_LOCATION";
 
-            GenericValue tempVal = null;
-
+            GenericValue tempVal;
             try {
                 List<GenericValue> allPCWPs = EntityQuery.use(delegator).from("PartyContactWithPurpose")
                         .where("partyId", partyId, "contactMechId", contactMechId, "contactMechPurposeTypeId", contactMechPurposeTypeId).queryList();

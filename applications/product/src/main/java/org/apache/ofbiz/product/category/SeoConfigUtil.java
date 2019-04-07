@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.apache.ofbiz.product.category;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
@@ -101,7 +100,6 @@ public final class SeoConfigUtil {
      * Initialize url regular express configuration.
      */
     public static void init() {
-        FileInputStream configFileIS = null;
         String result = "success";
         seoPatterns = new HashMap<String, Pattern>();
         seoReplacements = new HashMap<String, String>();
@@ -322,15 +320,6 @@ public final class SeoConfigUtil {
         } catch (IOException e) {
             result = "error";
             Debug.logError(e, module);
-        } finally {
-            if (configFileIS != null) {
-                try {
-                    configFileIS.close();
-                } catch (IOException e) {
-                    result = "error";
-                    Debug.logError(e, module);
-                }
-            }
         }
         if (seoReplacements.keySet().isEmpty()) {
             useUrlRegexp = false;

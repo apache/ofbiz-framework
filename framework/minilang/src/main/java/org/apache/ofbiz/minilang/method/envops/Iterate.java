@@ -154,7 +154,8 @@ public final class Iterate extends MethodOperation {
             }
         } else {
             if (Debug.verboseOn()) {
-                Debug.logVerbose("Cannot iterate over a " + objList == null ? "null object" : objList.getClass().getName()
+                Debug.logVerbose("Cannot iterate over a "
+                        + (objList == null ? "null object" : objList.getClass().getName())
                         + ", doing nothing: " + this, module);
             }
             return true;

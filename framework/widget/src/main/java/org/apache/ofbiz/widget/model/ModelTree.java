@@ -512,7 +512,7 @@ public class ModelTree extends ModelWidget {
                 getChildren(context);
                 nodeCount = (long) subNodeValues.size();
             }
-            if (nodeCount != null && nodeCount.intValue() > 0) {
+            if (nodeCount.intValue() > 0) {
                 hasChildren = true;
             }
             return hasChildren;
@@ -639,7 +639,7 @@ public class ModelTree extends ModelWidget {
                 showPeers = true;
             } else if (!isFollowTrail()) {
                 showPeers = true;
-            } else if ((currentDepth < trailSize) && (rStyle != null)
+            } else if ((currentDepth < trailSize)
                     && ("show-peers".equals(rStyle) || "expand-collapse".equals(rStyle))) {
                 showPeers = true;
             } else if (openDepth >= currentDepth) {
