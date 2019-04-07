@@ -1215,8 +1215,7 @@ public class FormRenderer {
         }
         int itemIndex = -1;
         if (iter instanceof EntityListIterator) {
-            EntityListIterator eli = (EntityListIterator) iter;
-            try {
+            try (EntityListIterator eli = (EntityListIterator) iter) {
                 if(eli.getResultsSizeAfterPartialList() > 0){
                     itemIndex++;
                 }
