@@ -73,11 +73,6 @@ import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.converters.Converter;
-import com.thoughtworks.xstream.converters.MarshallingContext;
-import com.thoughtworks.xstream.converters.UnmarshallingContext;
-import com.thoughtworks.xstream.io.HierarchicalStreamReader;
-import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 
 /**
  * Utilities methods to simplify dealing with JAXP and DOM XML parsing
@@ -1172,29 +1167,6 @@ public final class UtilXml {
                     + exception.getMessage(), module
                );
             }
-        }
-    }
-
-    /** This method is now useless
-     * Enhance rather the white list created by XStream::setupDefaultSecurity
-     * using xstream::allowTypesByWildcard with your own classes  
-     */
-    @Deprecated
-    private static class UnsupportedClassConverter implements Converter {
-
-        @Override
-        public boolean canConvert(@SuppressWarnings("rawtypes") Class arg0) {
-            return java.lang.ProcessBuilder.class.equals(arg0);
-        }
-
-        @Override
-        public void marshal(Object arg0, HierarchicalStreamWriter arg1, MarshallingContext arg2) {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public Object unmarshal(HierarchicalStreamReader arg0, UnmarshallingContext arg1) {
-            throw new UnsupportedOperationException();
         }
     }
 
