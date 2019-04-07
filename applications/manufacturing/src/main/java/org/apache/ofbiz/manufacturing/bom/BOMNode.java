@@ -350,11 +350,9 @@ public class BOMNode {
             oneChildNode = new BOMNode(oneChild.getString("productId"), delegator, dispatcher, userLogin);
             // Configurator
             // If the node is null this means that the node has been discarded by the rules.
-            if (oneChildNode != null) {
-                oneChildNode.setParentNode(this);
-                oneChildNode.setTree(tree);
-                oneChildNode.loadParents(partBomTypeId, inDate, productFeatures);
-            }
+            oneChildNode.setParentNode(this);
+            oneChildNode.setTree(tree);
+            oneChildNode.loadParents(partBomTypeId, inDate, productFeatures);
             childrenNodes.add(oneChildNode);
         }
     }

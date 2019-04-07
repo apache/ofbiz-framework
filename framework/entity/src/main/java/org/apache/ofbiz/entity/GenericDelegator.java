@@ -1271,7 +1271,7 @@ public class GenericDelegator implements Delegator {
                 if (!primaryKey.isPrimaryKey()) {
                     throw new GenericModelException("[GenericDelegator.storeAll] One of the passed primary keys is not a valid primary key: " + primaryKey);
                 }
-                GenericValue existing = null;
+                GenericValue existing;
                 try {
                     existing = helper.findByPrimaryKey(primaryKey);
                 } catch (GenericEntityNotFoundException e) {
