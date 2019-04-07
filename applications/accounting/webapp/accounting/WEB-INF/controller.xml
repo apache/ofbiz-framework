@@ -270,6 +270,23 @@ under the License.
         <response name="success" type="view" value="invoiceTerms"/>
         <response name="error" type="view" value="invoiceTerms"/>
     </request-map>
+    <request-map uri="updateInvoiceTerm">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateInvoiceTerm"/>
+        <response name="success" type="view" value="invoiceTerms"/>
+        <response name="error" type="view" value="invoiceTerms"/>
+    </request-map>
+    <request-map uri="deleteInvoiceTerm">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteInvoiceTerm"/>
+        <response name="success" type="view" value="invoiceTerms"/>
+        <response name="error" type="view" value="invoiceTerms"/>
+    </request-map>
+    <request-map uri="editInvoiceTerm">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="invoiceTerms"/>
+        <response name="error" type="view" value="invoiceTerms"/>
+    </request-map>
     
     <request-map uri="sendPerEmail">
         <security https="true" auth="true"/>
