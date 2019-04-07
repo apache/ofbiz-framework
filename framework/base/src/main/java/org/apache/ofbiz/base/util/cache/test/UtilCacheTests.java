@@ -38,11 +38,11 @@ import org.apache.ofbiz.base.util.cache.UtilCache;
 public class UtilCacheTests extends GenericTestCaseBase implements Serializable {
     public static final String module = UtilCacheTests.class.getName();
 
-    protected static abstract class Change<V> {
+    protected static abstract class Change {
         protected int count = 1;
     }
 
-    protected static final class Removal<V> extends Change<V> {
+    protected static final class Removal<V> extends Change {
         private final V oldValue;
 
         protected Removal(V oldValue) {
@@ -64,7 +64,7 @@ public class UtilCacheTests extends GenericTestCaseBase implements Serializable 
         }
     }
 
-    protected static final class Addition<V> extends Change<V> {
+    protected static final class Addition<V> extends Change {
         private final V newValue;
 
         protected Addition(V newValue) {
@@ -86,7 +86,7 @@ public class UtilCacheTests extends GenericTestCaseBase implements Serializable 
         }
     }
 
-    protected static final class Update<V> extends Change<V> {
+    protected static final class Update<V> extends Change {
         private final V newValue;
         private final V oldValue;
 
@@ -114,15 +114,15 @@ public class UtilCacheTests extends GenericTestCaseBase implements Serializable 
     }
 
     protected static class Listener<K, V> implements CacheListener<K, V> {
-        protected Map<K, Set<Change<V>>> changeMap = new HashMap<>();
+        protected Map<K, Set<Change>> changeMap = new HashMap<>();
 
-        private void add(K key, Change<V> change) {
-            Set<Change<V>> changeSet = changeMap.get(key);
+        private void add(K key, Change change) {
+            Set<Change> changeSet = changeMap.get(key);
             if (changeSet == null) {
                 changeSet = new HashSet<>();
                 changeMap.put(key, changeSet);
             }
-            for (Change<V> checkChange: changeSet) {
+            for (Change checkChange: changeSet) {
                 if (checkChange.equals(change)) {
                     checkChange.count++;
                     return;

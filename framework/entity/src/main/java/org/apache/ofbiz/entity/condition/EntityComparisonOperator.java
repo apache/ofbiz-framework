@@ -43,7 +43,7 @@ import org.apache.oro.text.regex.Perl5Matcher;
  * Base class for comparisons.
  */
 @SuppressWarnings("serial")
-public abstract class EntityComparisonOperator<L, R> extends EntityOperator<L, R, Boolean> {
+public abstract class EntityComparisonOperator<L, R> extends EntityOperator<L, R> {
 
     public static final String module = EntityComparisonOperator.class.getName();
 
