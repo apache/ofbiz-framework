@@ -139,6 +139,7 @@ public class NotificationServices {
                 } else {
                     // otherwise just report the error
                     Debug.logError("prepareNotification failed: " + bodyResult.get(ModelService.ERROR_MESSAGE), module);
+                    body = null;
                 }
             }
 

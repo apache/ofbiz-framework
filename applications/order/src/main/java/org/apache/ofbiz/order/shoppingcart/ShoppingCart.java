@@ -4706,7 +4706,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             Delegator delegator = cart.delegator;
             //check information from the cart ship info
             try {
-                if (facilityId != null) {
+                if (originAddress == null && facilityId != null) {
                     originAddress = ShippingEvents.getShippingOriginContactMechFromFacility(delegator, facilityId);
                 }
                 if (originAddress == null && supplierPartyId != null) {

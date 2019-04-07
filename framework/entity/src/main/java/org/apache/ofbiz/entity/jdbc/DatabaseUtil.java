@@ -217,7 +217,7 @@ public class DatabaseUtil {
             Debug.logError(message, module);
             return;
         }
-
+        List<Future<CreateTableCallable>> tableFutures = new LinkedList<Future<CreateTableCallable>>();
         for (ModelEntity entity: modelEntityList) {
             curEnt++;
 
@@ -252,37 +252,38 @@ public class DatabaseUtil {
             if (tableNames.contains(tableName)) {
                 tableNames.remove(tableName);
 
-                Map<String, ModelField> fieldColNames = new HashMap<String, ModelField>();
-                Iterator<ModelField> fieldIter = entity.getFieldsIterator();
-                while (fieldIter.hasNext()) {
-                    ModelField field = fieldIter.next();
-                    fieldColNames.put(field.getColName(), field);
-                }
+                if (colInfo != null) {
+                    Map<String, ModelField> fieldColNames = new HashMap<String, ModelField>();
+                    Iterator<ModelField> fieldIter = entity.getFieldsIterator();
+                    while (fieldIter.hasNext()) {
+                        ModelField field = fieldIter.next();
+                        fieldColNames.put(field.getColName(), field);
+                    }
 
-                Map<String, ColumnCheckInfo> colMap = colInfo.get(tableName);
-                if (colMap != null) {
-                    for (ColumnCheckInfo ccInfo: colMap.values()) {
-                        // -list all columns that do not have a corresponding field
-                        if (fieldColNames.containsKey(ccInfo.columnName)) {
-                            ModelField field = null;
+                    Map<String, ColumnCheckInfo> colMap = colInfo.get(tableName);
+                    if (colMap != null) {
+                        for (ColumnCheckInfo ccInfo: colMap.values()) {
+                            // -list all columns that do not have a corresponding field
+                            if (fieldColNames.containsKey(ccInfo.columnName)) {
+                                ModelField field = null;
 
-                            field = fieldColNames.remove(ccInfo.columnName);
-                            ModelFieldType modelFieldType = modelFieldTypeReader.getModelFieldType(field.getType());
+                                field = fieldColNames.remove(ccInfo.columnName);
+                                ModelFieldType modelFieldType = modelFieldTypeReader.getModelFieldType(field.getType());
 
-                            if (modelFieldType != null) {
-                                // make sure each corresponding column is of the correct type
-                                String fullTypeStr = modelFieldType.getSqlType();
-                                String typeName;
-                                int columnSize = -1;
-                                int decimalDigits = -1;
+                                if (modelFieldType != null) {
+                                    // make sure each corresponding column is of the correct type
+                                    String fullTypeStr = modelFieldType.getSqlType();
+                                    String typeName;
+                                    int columnSize = -1;
+                                    int decimalDigits = -1;
 
-                                int openParen = fullTypeStr.indexOf('(');
-                                int closeParen = fullTypeStr.indexOf(')');
-                                int comma = fullTypeStr.indexOf(',');
+                                    int openParen = fullTypeStr.indexOf('(');
+                                    int closeParen = fullTypeStr.indexOf(')');
+                                    int comma = fullTypeStr.indexOf(',');
 
-                                if (openParen > 0 && closeParen > 0 && closeParen > openParen) {
-                                    typeName = fullTypeStr.substring(0, openParen);
-                                    if (!("DATETIME".equals(typeName) || "TIME".equals(typeName))) { // for DATETIME and TIME fields the number within the parenthesis doesn't represent the column size
+                                    if (openParen > 0 && closeParen > 0 && closeParen > openParen) {
+                                        typeName = fullTypeStr.substring(0, openParen);
+                                        if (!("DATETIME".equals(typeName) || "TIME".equals(typeName))) { // for DATETIME and TIME fields the number within the parenthesis doesn't represent the column size
                                         if (comma > 0 && comma > openParen && comma < closeParen) {
                                             String csStr = fullTypeStr.substring(openParen + 1, comma);
                                             try {
@@ -305,100 +306,113 @@ public class DatabaseUtil {
                                                 Debug.logError(e, module);
                                             }
                                         }
+                                        }
+                                    } else {
+                                        typeName = fullTypeStr;
                                     }
-                                } else {
-                                    typeName = fullTypeStr;
-                                }
 
-                                // override the default typeName with the sqlTypeAlias if it is specified
-                                if (UtilValidate.isNotEmpty(modelFieldType.getSqlTypeAlias())) {
-                                    typeName = modelFieldType.getSqlTypeAlias();
-                                }
+                                    // override the default typeName with the sqlTypeAlias if it is specified
+                                    if (UtilValidate.isNotEmpty(modelFieldType.getSqlTypeAlias())) {
+                                        typeName = modelFieldType.getSqlTypeAlias();
+                                    }
 
-                                // NOTE: this may need a toUpperCase in some cases, keep an eye on it, okay just compare with ignore case
-                                if (!ccInfo.typeName.equalsIgnoreCase(typeName)) {
-                                    String message = "Column [" + ccInfo.columnName + "] of table [" + tableName + "] of entity [" +
+                                    // NOTE: this may need a toUpperCase in some cases, keep an eye on it, okay just compare with ignore case
+                                    if (!ccInfo.typeName.equalsIgnoreCase(typeName)) {
+                                        String message = "Column [" + ccInfo.columnName + "] of table [" + tableName + "] of entity [" +
                                             entity.getEntityName() + "] is of type [" + ccInfo.typeName + "] in the database, but is defined as type [" +
                                             typeName + "] in the entity definition.";
-                                    Debug.logError(message, module);
-                                    if (messages != null) messages.add(message);
-                                }
-                                if (columnSize != -1 && ccInfo.columnSize != -1 && columnSize != ccInfo.columnSize && (columnSize * 3) != ccInfo.columnSize) {
-                                    String message = "Column [" + ccInfo.columnName + "] of table [" + tableName + "] of entity [" +
+                                        Debug.logError(message, module);
+                                        if (messages != null) messages.add(message);
+                                    }
+                                    if (columnSize != -1 && ccInfo.columnSize != -1 && columnSize != ccInfo.columnSize && (columnSize * 3) != ccInfo.columnSize) {
+                                        String message = "Column [" + ccInfo.columnName + "] of table [" + tableName + "] of entity [" +
                                             entity.getEntityName() + "] has a column size of [" + ccInfo.columnSize +
                                             "] in the database, but is defined to have a column size of [" + columnSize + "] in the entity definition.";
-                                    Debug.logWarning(message, module);
-                                    if (messages != null) messages.add(message);
-                                    if (columnSize > ccInfo.columnSize && colWrongSize != null) {
-                                        // add item to list of wrong sized columns; only if the entity is larger
-                                        colWrongSize.add(entity.getEntityName() + "." + field.getName());
+                                        Debug.logWarning(message, module);
+                                        if (messages != null) messages.add(message);
+                                        if (columnSize > ccInfo.columnSize && colWrongSize != null) {
+                                            // add item to list of wrong sized columns; only if the entity is larger
+                                            colWrongSize.add(entity.getEntityName() + "." + field.getName());
+                                        }
                                     }
-                                }
-                                if (decimalDigits != -1 && decimalDigits != ccInfo.decimalDigits) {
-                                    String message = "Column [" + ccInfo.columnName + "] of table [" + tableName + "] of entity [" +
+                                    if (decimalDigits != -1 && decimalDigits != ccInfo.decimalDigits) {
+                                        String message = "Column [" + ccInfo.columnName + "] of table [" + tableName + "] of entity [" +
                                             entity.getEntityName() + "] has a decimalDigits of [" + ccInfo.decimalDigits +
                                             "] in the database, but is defined to have a decimalDigits of [" + decimalDigits + "] in the entity definition.";
-                                    Debug.logWarning(message, module);
-                                    if (messages != null) messages.add(message);
-                                }
+                                        Debug.logWarning(message, module);
+                                        if (messages != null) messages.add(message);
+                                    }
 
-                                // do primary key matching check
-                                if (checkPks && ccInfo.isPk && !field.getIsPk()) {
-                                    String message = "Column [" + ccInfo.columnName + "] of table [" + tableName + "] of entity [" +
+                                    // do primary key matching check
+                                    if (checkPks && ccInfo.isPk && !field.getIsPk()) {
+                                        String message = "Column [" + ccInfo.columnName + "] of table [" + tableName + "] of entity [" +
                                             entity.getEntityName() + "] IS a primary key in the database, but IS NOT a primary key in the entity definition. The primary key for this table needs to be re-created or modified so that this column is NOT part of the primary key.";
-                                    Debug.logError(message, module);
-                                    if (messages != null) messages.add(message);
-                                }
-                                if (checkPks && !ccInfo.isPk && field.getIsPk()) {
-                                    String message = "Column [" + ccInfo.columnName + "] of table [" + tableName + "] of entity [" +
+                                        Debug.logError(message, module);
+                                        if (messages != null) messages.add(message);
+                                    }
+                                    if (checkPks && !ccInfo.isPk && field.getIsPk()) {
+                                        String message = "Column [" + ccInfo.columnName + "] of table [" + tableName + "] of entity [" +
                                             entity.getEntityName() + "] IS NOT a primary key in the database, but IS a primary key in the entity definition. The primary key for this table needs to be re-created or modified to add this column to the primary key. Note that data may need to be added first as a primary key column cannot have an null values.";
+                                        Debug.logError(message, module);
+                                        if (messages != null) messages.add(message);
+                                    }
+                                } else {
+                                    String message = "Column [" + ccInfo.columnName + "] of table [" + tableName + "] of entity [" + entity.getEntityName() +
+                                        "] has a field type name of [" + field.getType() + "] which is not found in the field type definitions";
                                     Debug.logError(message, module);
                                     if (messages != null) messages.add(message);
                                 }
                             } else {
-                                String message = "Column [" + ccInfo.columnName + "] of table [" + tableName + "] of entity [" + entity.getEntityName() +
-                                        "] has a field type name of [" + field.getType() + "] which is not found in the field type definitions";
-                                Debug.logError(message, module);
+                                String message = "Column [" + ccInfo.columnName + "] of table [" + tableName + "] of entity [" + entity.getEntityName() + "] exists in the database but has no corresponding field" + ((checkPks && ccInfo.isPk) ? " (and it is a PRIMARY KEY COLUMN)" : "");
+                                Debug.logWarning(message, module);
                                 if (messages != null) messages.add(message);
                             }
-                        } else {
-                            String message = "Column [" + ccInfo.columnName + "] of table [" + tableName + "] of entity [" + entity.getEntityName() + "] exists in the database but has no corresponding field" + ((checkPks && ccInfo.isPk) ? " (and it is a PRIMARY KEY COLUMN)" : "");
+                        }
+
+                        // -display message if number of table columns does not match number of entity fields
+                        if (colMap.size() != entity.getFieldsSize()) {
+                            String message = "Entity [" + entity.getEntityName() + "] has " + entity.getFieldsSize() + " fields but table [" + tableName + "] has " + colMap.size() + " columns.";
                             Debug.logWarning(message, module);
                             if (messages != null) messages.add(message);
                         }
                     }
 
-                    // -display message if number of table columns does not match number of entity fields
-                    if (colMap.size() != entity.getFieldsSize()) {
-                        String message = "Entity [" + entity.getEntityName() + "] has " + entity.getFieldsSize() + " fields but table [" + tableName + "] has " + colMap.size() + " columns.";
+                    // -list all fields that do not have a corresponding column
+                    for (ModelField field : fieldColNames.values()) {
+                        String message = "Field [" + field.getName() + "] of entity [" + entity.getEntityName() + "] is missing its corresponding column [" + field.getColName() + "]" + (field.getIsPk() ? " (and it is a PRIMARY KEY FIELD)" : "");
+
                         Debug.logWarning(message, module);
                         if (messages != null) messages.add(message);
-                    }
-                }
 
-                // -list all fields that do not have a corresponding column
-                for (ModelField field : fieldColNames.values()) {
-                    String message = "Field [" + field.getName() + "] of entity [" + entity.getEntityName() + "] is missing its corresponding column [" + field.getColName() + "]" + (field.getIsPk() ? " (and it is a PRIMARY KEY FIELD)" : "");
+                        if (addMissing) {
+                            // add the column
+                            String errMsg = addColumn(entity, field);
 
-                    Debug.logWarning(message, module);
-                    if (messages != null) messages.add(message);
-
-                    if (addMissing) {
-                        // add the column
-                        String errMsg = addColumn(entity, field);
-
-                        if (UtilValidate.isNotEmpty(errMsg)) {
-                            message = "Could not add column [" + field.getColName() + "] to table [" + tableName + "]: " + errMsg;
-                            Debug.logError(message, module);
-                            if (messages != null) messages.add(message);
-                        } else {
-                            message = "Added column [" + field.getColName() + "] to table [" + tableName + "]" + (field.getIsPk() ? " (NOTE: this is a PRIMARY KEY FIELD, but the primary key was not updated automatically (not considered a safe operation), be sure to fill in any needed data and re-create the primary key)" : "");
-                            Debug.logImportant(message, module);
-                            if (messages != null) messages.add(message);
+                            if (UtilValidate.isNotEmpty(errMsg)) {
+                                message = "Could not add column [" + field.getColName() + "] to table [" + tableName + "]: " + errMsg;
+                                Debug.logError(message, module);
+                                if (messages != null) messages.add(message);
+                            } else {
+                                message = "Added column [" + field.getColName() + "] to table [" + tableName + "]" + (field.getIsPk() ? " (NOTE: this is a PRIMARY KEY FIELD, but the primary key was not updated automatically (not considered a safe operation), be sure to fill in any needed data and re-create the primary key)" : "");
+                                Debug.logImportant(message, module);
+                                if (messages != null) messages.add(message);
+                            }
                         }
                     }
                 }
+            } else {
+                String message = "Entity [" + entity.getEntityName() + "] has no table in the database";
+                Debug.logWarning(message, module);
+                if (messages != null) messages.add(message);
+
+                if (addMissing) {
+                    // create the table
+                    tableFutures.add(executor.submit(new CreateTableCallable(entity, modelEntities, tableName)));
+                }
             }
+        }
+        for (CreateTableCallable tableCallable: ExecutionPool.getAllFutures(tableFutures)) {
+            tableCallable.updateData(messages, entitiesAdded);
         }
 
         timer.timerString("After Individual Table/Column Check");
@@ -680,10 +694,12 @@ public class DatabaseUtil {
                     }
 
                     // show index key references that exist but are unknown
-                    for (String indexLeft: tableIndexList) {
-                        String message = "Unknown Index " + indexLeft + " found in table " + entity.getTableName(datasourceInfo);
-                        Debug.logImportant(message, module);
-                        if (messages != null) messages.add(message);
+                    if (tableIndexList != null) {
+                        for (String indexLeft: tableIndexList) {
+                            String message = "Unknown Index " + indexLeft + " found in table " + entity.getTableName(datasourceInfo);
+                            Debug.logImportant(message, module);
+                            if (messages != null) messages.add(message);
+                        }
                     }
                 }
             }
@@ -1477,6 +1493,47 @@ public class DatabaseUtil {
             }
         }
         return indexInfo;
+    }
+
+    private class CreateTableCallable implements Callable<CreateTableCallable> {
+        private final ModelEntity entity;
+        private final Map<String, ModelEntity> modelEntities;
+        private final String tableName;
+        private String message;
+        private boolean success;
+
+        protected CreateTableCallable(ModelEntity entity, Map<String, ModelEntity> modelEntities, String tableName) {
+            this.entity = entity;
+            this.modelEntities = modelEntities;
+            this.tableName = tableName;
+        }
+
+        public CreateTableCallable call() throws Exception {
+            String errMsg = createTable(entity, modelEntities, false);
+            if (UtilValidate.isNotEmpty(errMsg)) {
+                this.success = false;
+                this.message = "Could not create table [" + tableName + "]: " + errMsg;
+                Debug.logError(this.message, module);
+            } else {
+                this.success = true;
+                this.message = "Created table [" + tableName + "]";
+                Debug.logImportant(this.message, module);
+            }
+            return this;
+        }
+
+        protected void updateData(Collection<String> messages, List<ModelEntity> entitiesAdded) {
+            if (this.success) {
+                entitiesAdded.add(entity);
+                if (messages != null) {
+                    messages.add(this.message);
+                }
+            } else {
+                if (messages != null) {
+                    messages.add(this.message);
+                }
+            }
+        }
     }
 
     private abstract class AbstractCountingCallable implements Callable<AbstractCountingCallable> {

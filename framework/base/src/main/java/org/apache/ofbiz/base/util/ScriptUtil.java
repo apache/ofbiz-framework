@@ -197,7 +197,9 @@ public final class ScriptUtil {
         localContext.put("context", context);
         ScriptContext scriptContext = new SimpleScriptContext();
         ScriptHelper helper = new ScriptHelperImpl(scriptContext);
-        localContext.put(SCRIPT_HELPER_KEY, helper);
+        if (helper != null) {
+            localContext.put(SCRIPT_HELPER_KEY, helper);
+        }
         Bindings bindings = new SimpleBindings(localContext);
         scriptContext.setBindings(bindings, ScriptContext.ENGINE_SCOPE);
         return scriptContext;

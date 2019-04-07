@@ -234,7 +234,7 @@ public class WebToolsServices {
         }
 
         if (UtilValidate.isNotEmpty(path)) {
-            long pauseLong = filePause;
+            long pauseLong = filePause != null ? filePause : 0;
             File baseDir = new File(path);
 
             if (baseDir.isDirectory() && baseDir.canRead()) {
