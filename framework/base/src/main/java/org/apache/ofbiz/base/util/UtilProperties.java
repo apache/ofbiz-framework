@@ -1177,17 +1177,11 @@ public final class UtilProperties implements Serializable {
             super(defaults);
         }
         public ExtendedProperties(URL url, Locale locale) throws IOException, InvalidPropertiesFormatException {
-            InputStream in = null;
-            try {
-                in = new BufferedInputStream(url.openStream());
+            try (InputStream in = new BufferedInputStream(url.openStream())) {
                 if (url.getFile().endsWith(".xml")) {
                     xmlToProperties(in, locale, this);
                 } else {
                     load(in);
-                }
-            } finally {
-                if (in != null) {
-                    in.close();
                 }
             }
         }

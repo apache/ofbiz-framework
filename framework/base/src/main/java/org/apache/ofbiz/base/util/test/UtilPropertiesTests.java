@@ -75,7 +75,8 @@ public class UtilPropertiesTests extends GenericTestCaseBase {
                 "\">Key Value</value>\n" +
                 "    </property>\n" +
                 "</resource>";
-        InputStream in = new ByteArrayInputStream(new String(xmlData.getBytes(), Charset.forName("UTF-8")).getBytes());
+        try (InputStream in = new ByteArrayInputStream(new String(xmlData.getBytes(), Charset.forName("UTF-8")).getBytes())) {
         return UtilProperties.xmlToProperties(in, locale, null);
+        }
     }
 }

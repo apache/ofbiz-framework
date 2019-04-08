@@ -188,9 +188,10 @@ public class EntitySaxReader extends DefaultHandler {
             Debug.logWarning("content was null, doing nothing", module);
             return 0;
         }
-        ByteArrayInputStream bis = new ByteArrayInputStream(content.getBytes("UTF-8"));
 
+        try (ByteArrayInputStream bis = new ByteArrayInputStream(content.getBytes("UTF-8"))) {
         return this.parse(bis, "Internal Content");
+        }
     }
 
     public long parse(URL location) throws SAXException, java.io.IOException {
@@ -199,17 +200,9 @@ public class EntitySaxReader extends DefaultHandler {
             return 0;
         }
         Debug.logImportant("Beginning import from URL: " + location.toExternalForm(), module);
-        InputStream is = null;
         long numberRead = 0;
-        try {
-            is = location.openStream();
+        try (InputStream is = location.openStream()) {
             numberRead = this.parse(is, location.toString());
-        } finally {
-            if (is != null) {
-                try {
-                    is.close();
-                } catch(Exception e) {}
-            }
         }
         return numberRead;
     }

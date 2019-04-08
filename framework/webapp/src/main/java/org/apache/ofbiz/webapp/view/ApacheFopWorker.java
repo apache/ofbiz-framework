@@ -138,10 +138,10 @@ public final class ApacheFopWorker {
     public static void transform(File srcFile, File destFile, File stylesheetFile, String outputFormat) throws IOException, FOPException {
         StreamSource src = new StreamSource(srcFile);
         StreamSource stylesheet = stylesheetFile == null ? null : new StreamSource(stylesheetFile);
-        BufferedOutputStream dest = new BufferedOutputStream(new FileOutputStream(destFile));
+        try (BufferedOutputStream dest = new BufferedOutputStream(new FileOutputStream(destFile))) {
         Fop fop = createFopInstance(dest, outputFormat);
         transform(src, stylesheet, fop);
-        dest.close();
+        }
     }
 
     /** Transform an xsl-fo InputStream to the specified OutputStream format.

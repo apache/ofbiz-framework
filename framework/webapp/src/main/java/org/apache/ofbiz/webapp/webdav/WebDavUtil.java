@@ -55,14 +55,8 @@ public final class WebDavUtil {
 
     public static Document getDocumentFromRequest(HttpServletRequest request) throws IOException, SAXException, ParserConfigurationException {
         Document document = null;
-        InputStream is = null;
-        try {
-            is = request.getInputStream();
+        try (InputStream is = request.getInputStream()) {
             document = UtilXml.readXmlDocument(is, false, "WebDAV request");
-        } finally {
-            if (is != null) {
-                is.close();
-            }
         }
         return document;
     }

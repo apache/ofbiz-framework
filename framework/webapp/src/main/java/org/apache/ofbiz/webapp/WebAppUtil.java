@@ -249,7 +249,6 @@ public final class WebAppUtil {
                 throw new IllegalArgumentException(webXmlFileLocation + " does not exist.");
             }
             boolean namespaceAware = true;
-            InputStream is = new FileInputStream(file);
             result = new WebXml();
             LocalResolver lr = new LocalResolver(new DefaultHandler());
             ErrorHandler handler = new LocalErrorHandler(webXmlFileLocation, lr);
@@ -257,17 +256,10 @@ public final class WebAppUtil {
             digester.getParser();
             digester.push(result);
             digester.setErrorHandler(handler);
-            try {
+            try (InputStream is = new FileInputStream(file)) {
                 digester.parse(new InputSource(is));
             } finally {
                 digester.reset();
-                if (is != null) {
-                    try {
-                        is.close();
-                    } catch (Throwable t) {
-                        Debug.logError(t, "Exception thrown while parsing " + webXmlFileLocation + ": ", module);
-                    }
-                }
             }
             result = webXmlCache.putIfAbsentAndGet(webXmlFileLocation, result);
         }
