@@ -17,8 +17,9 @@
  * under the License.
  */
 
+import org.apache.ofbiz.base.util.*
 import java.sql.Timestamp
-import org.apache.ofbiz.content.content.ContentSearchSession
+import org.apache.ofbiz.content.content.*
 
 searchOperator = parameters.get("SEARCH_OPERATOR")
 if (!"AND".equals(searchOperator) && !"OR".equals(searchOperator)) {

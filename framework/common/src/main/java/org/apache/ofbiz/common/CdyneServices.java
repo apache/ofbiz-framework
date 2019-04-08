@@ -75,7 +75,13 @@ public class CdyneServices {
         } catch (HttpClientException e) {
             Debug.logError(e, "Error calling CDyne service at URL [" + serviceUrl + "]: " + e.toString(), module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonCDyneCallingError", UtilMisc.toMap("serviceUrl", serviceUrl, "errorString", e.toString()), locale));
-        } catch (SAXException | ParserConfigurationException | IOException e) {
+        } catch (SAXException e) {
+            Debug.logError(e, "Error parsing XML result from CDyne service at URL [" + serviceUrl + "]: " + e.toString(), module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonCDyneParsingError", UtilMisc.toMap("serviceUrl", serviceUrl, "errorString", e.toString()), locale));
+        } catch (ParserConfigurationException e) {
+            Debug.logError(e, "Error parsing XML result from CDyne service at URL [" + serviceUrl + "]: " + e.toString(), module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonCDyneParsingError", UtilMisc.toMap("serviceUrl", serviceUrl, "errorString", e.toString()), locale));
+        } catch (IOException e) {
             Debug.logError(e, "Error parsing XML result from CDyne service at URL [" + serviceUrl + "]: " + e.toString(), module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonCDyneParsingError", UtilMisc.toMap("serviceUrl", serviceUrl, "errorString", e.toString()), locale));
         }

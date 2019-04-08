@@ -1,0 +1,708 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.15" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 2.2.2.r222_v20071226 Build &lt;2.2.2.v20080226-1155></property>
+    <property name="units">in</property>
+    <property name="comments">Copyright (c) 2007 &lt;&lt;Your Company Name here>></property>
+    <html-property name="description">Creates a blank report with no predefined content.</html-property>
+    <list-property name="userProperties">
+        <structure>
+            <property name="name">Data Cube.Inventory.x</property>
+            <property name="type">integer</property>
+            <property name="isVisible">false</property>
+        </structure>
+        <structure>
+            <property name="name">Data Cube.Inventory.y</property>
+            <property name="type">integer</property>
+            <property name="isVisible">false</property>
+        </structure>
+        <structure>
+            <property name="name">Data Cube.productOrd.NewTabularHierarchy1.x</property>
+            <property name="type">integer</property>
+            <property name="isVisible">false</property>
+        </structure>
+        <structure>
+            <property name="name">Data Cube.productOrd.NewTabularHierarchy1.y</property>
+            <property name="type">integer</property>
+            <property name="isVisible">false</property>
+        </structure>
+        <structure>
+            <property name="name">Data Cube.Inventory.width</property>
+            <property name="type">integer</property>
+            <property name="isVisible">false</property>
+        </structure>
+        <structure>
+            <property name="name">Data Cube.Inventory.height</property>
+            <property name="type">integer</property>
+            <property name="isVisible">false</property>
+        </structure>
+    </list-property>
+    <property name="Data Cube.Inventory.x">239</property>
+    <property name="Data Cube.Inventory.y">50</property>
+    <property name="Data Cube.productOrd.NewTabularHierarchy1.x">20</property>
+    <property name="Data Cube.productOrd.NewTabularHierarchy1.y">3</property>
+    <property name="Data Cube.Inventory.width">150</property>
+    <property name="Data Cube.Inventory.height">200</property>
+    <method name="initialize"><![CDATA[importPackage(Packages.org.apache.ofbiz.base.util)
+
+
+module = "InventoryReport.rptdesign";]]></method>
+    <text-property name="displayName">Blank Report</text-property>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <parameters>
+        <scalar-parameter name="facilityId" id="186">
+            <property name="valueType">static</property>
+            <property name="dataType">string</property>
+            <property name="paramType">simple</property>
+            <property name="isRequired">false</property>
+            <property name="controlType">text-box</property>
+            <property name="distinct">true</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <script-data-source name="OFBiz" id="8"/>
+    </data-sources>
+    <data-sets>
+        <script-data-set name="Inventory" id="9">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">productId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">quantityOnHand</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">availableToPromise</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">retailPrice</property>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">productName</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">datetimeReceived</property>
+                    <property name="dataType">date-time</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">productId</property>
+                </structure>
+                <structure>
+                    <property name="columnName">quantityOnHand</property>
+                </structure>
+                <structure>
+                    <property name="columnName">availableToPromise</property>
+                </structure>
+                <structure>
+                    <property name="columnName">retailPrice</property>
+                </structure>
+                <structure>
+                    <property name="columnName">productName</property>
+                </structure>
+                <structure>
+                    <property name="columnName">datetimeReceived</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">productId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">quantityOnHand</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">availableToPromise</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">retailPrice</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">productName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">datetimeReceived</property>
+                        <property name="dataType">date-time</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">OFBiz</property>
+            <method name="open"><![CDATA[inventories = null;
+userLogin = null;
+try {
+    userLogin = delegator.findOne("UserLogin",UtilMisc.toMap("userLoginId","admin"), false);
+} catch(e) {
+        Debug.logError(e,"");
+}
+
+inputInvent =  new HashMap();
+inputInventFields =  new HashMap();
+if(params!=null){
+    inputInventFields.put("facilityId", params["facilityId"]);
+    inputInventFields.put("noConditionFind", "Y");
+    //inputFields.put("productInternalName", params["internalName"]);
+    /*
+    inputFields.put("quantityOnHandTotal", params["offsetQOHQty"]);
+    inputFields.put("availableToPromiseTotal", params["offsetATPQty"]);
+    inputFields.put("productId", params["productId"]);
+    inputFields.put("productTypeId", params["productTypeId"]);
+    inputFields.put("searchInProductCategoryId", params["searchInProductCategoryId"]);
+    inputFields.put("productSupplierId", params["productSupplierId"]);
+    inputFields.put("productsSoldThruTimestamp", params["productsSoldThruTimestamp"]);
+    inputFields.put("statusId", params["statusId"]);
+    inputFields.put("VIEW_SIZE", params["VIEW_SIZE"]);
+    inputFields.put("monthsInPastLimit", params["monthsInPastLimit"]);
+    inputFields.put("fromDateSellThrough", params["fromDateSellThrough"]);
+    inputFields.put("thruDateSellThrough", params["thruDateSellThrough"]);*/
+}
+inputInvent.put("userLogin",userLogin);
+inputInvent.put("inputFields",inputInventFields);
+inputInvent.put("entityName","InventoryItemSchema");
+inputInvent.put("orderBy","inventoryDateDateValue DESC");
+
+try {
+    result = dispatcher.runSync("performFind", inputInvent);
+    inventories = result.get("listIt");
+} catch (e) {
+    Debug.logError(e, module);
+}]]></method>
+            <method name="fetch"><![CDATA[if(inventories == null)return false;
+if(inventory = inventories.next()){
+    row["productId"] = inventory.getString("productProductId");
+    row["productName"] = inventory.getString("productInternalName");
+    row["quantityOnHand"] = inventory.getString("quantityOnHandTotal");
+    row["availableToPromise"] = inventory.getString("availableToPromiseTotal");
+    row["retailPrice"] = inventory.getString("unitCost");
+    row["datetimeReceived"] = inventory.getString("inventoryDateDateValue");
+    Debug.logInfo("-----------inventory---------"+inventory.getString("productProductId"),module);
+    return true;
+}else{
+    inventories.close();
+    return false;
+}]]></method>
+        </script-data-set>
+        <script-data-set name="Order" id="191">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">quantity</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">productOrderId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">orderDate</property>
+                    <property name="dataType">any</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">quantity</property>
+                </structure>
+                <structure>
+                    <property name="columnName">productOrderId</property>
+                </structure>
+                <structure>
+                    <property name="columnName">orderDate</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">quantity</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">productOrderId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">orderDate</property>
+                        <property name="dataType">any</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">OFBiz</property>
+            <method name="open"><![CDATA[inputOrder =  new HashMap();
+userLogin = null;
+try {
+    userLogin = delegator.findOne("UserLogin",UtilMisc.toMap("userLoginId","admin"), false);
+} catch(e) {
+        Debug.logError(e,"");
+}
+inputOrderFields =  new HashMap();
+if(params!=null){
+    inputOrderFields.put("orderDateDateValue_fld0_op", params["orderDateDateValue_fld0_op"]);
+    inputOrderFields.put("noConditionFind", "Y");
+}
+
+orders = null;
+
+inputOrder.put("userLogin",userLogin);
+inputOrder.put("inputFields",inputOrderFields);
+inputOrder.put("entityName","SalesOrderItemStarSchema");
+inputOrder.put("orderBy","orderDateDateValue DESC");
+try {
+    results = dispatcher.runSync("performFind", inputOrder);
+    orders = results.get("listIt");
+} catch (e) {
+    Debug.logError(e, module);
+}]]></method>
+            <method name="fetch"><![CDATA[if(orders == null)return false;
+if(order = orders.next()){
+    row["productOrderId"] = order.getString("productProductId");
+    row["quantity"] = order.getString("quantity");
+    row["orderDate"] = order.getString("orderDateDescription");
+    Debug.logInfo("++++++++++++order++++++++"+order.getString("quantity"),module);
+    return true;
+}else{
+    orders.close();
+    return false;
+}]]></method>
+        </script-data-set>
+    </data-sets>
+    <styles>
+        <style name="crosstab-cell" id="4">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+        <style name="crosstab" id="5">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+    </styles>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <property name="leftMargin">1.2333333333in</property>
+            <property name="rightMargin">1.3111111111in</property>
+            <page-footer>
+                <text id="3">
+                    <property name="contentType">html</property>
+                    <text-property name="content"><![CDATA[<value-of>new Date()</value-of>]]></text-property>
+                </text>
+            </page-footer>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <table id="68">
+            <property name="marginTop">0pt</property>
+            <property name="textAlign">justify</property>
+            <property name="width">100%</property>
+            <property name="dataSet">Inventory</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">productId</property>
+                    <expression name="expression">dataSetRow["productId"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">quantityOnHand</property>
+                    <expression name="expression">dataSetRow["quantityOnHand"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">availableToPromise</property>
+                    <expression name="expression">dataSetRow["availableToPromise"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">retailPrice</property>
+                    <expression name="expression">dataSetRow["retailPrice"]</expression>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="name">productName</property>
+                    <expression name="expression">dataSetRow["productName"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">datetimeReceived</property>
+                    <expression name="expression">dataSetRow["datetimeReceived"]</expression>
+                    <property name="dataType">date-time</property>
+                </structure>
+                <structure>
+                    <property name="name">Column Binding</property>
+                    <property name="displayName">Qoh</property>
+                    <expression name="expression">dataSetRow["quantityOnHand"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">QoH</property>
+                    <expression name="expression">dataSetRow["quantityOnHand"]</expression>
+                    <property name="dataType">any</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>productId</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">AtP</property>
+                    <expression name="expression">dataSetRow["availableToPromise"]</expression>
+                    <property name="dataType">integer</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>productId</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">TotalSold</property>
+                    <expression name="expression">dataSetRow["quantityOnHand"]-dataSetRow["availableToPromise"]</expression>
+                    <property name="dataType">integer</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>productId</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+            </list-property>
+            <property name="repeatHeader">false</property>
+            <property name="sortByGroups">true</property>
+            <column id="87">
+                <property name="width">1.1111111111in</property>
+            </column>
+            <column id="88">
+                <property name="width">1.1222222222in</property>
+            </column>
+            <column id="89">
+                <property name="width">1.0777777778in</property>
+            </column>
+            <column id="90">
+                <property name="width">1.3in</property>
+            </column>
+            <column id="91"/>
+            <header>
+                <row id="69">
+                    <property name="fontSize">small</property>
+                    <property name="fontWeight">bold</property>
+                    <property name="color">green</property>
+                    <property name="borderBottomColor">#808080</property>
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <cell id="70">
+                        <label id="92">
+                            <property name="color">gray</property>
+                            <text-property name="text">Product Id</text-property>
+                        </label>
+                    </cell>
+                    <cell id="71">
+                        <label id="94">
+                            <property name="color">gray</property>
+                            <text-property name="text">Quantiy on hand</text-property>
+                        </label>
+                    </cell>
+                    <cell id="72">
+                        <label id="95">
+                            <property name="color">gray</property>
+                            <text-property name="text">Available to promise</text-property>
+                        </label>
+                    </cell>
+                    <cell id="73">
+                        <label id="96">
+                            <property name="color">gray</property>
+                            <text-property name="text">Retail Price</text-property>
+                        </label>
+                    </cell>
+                    <cell id="74"/>
+                </row>
+            </header>
+            <group id="168">
+                <property name="groupName">productId</property>
+                <property name="interval">none</property>
+                <property name="sortDirection">asc</property>
+                <expression name="keyExpr">row["productId"]</expression>
+                <structure name="toc">
+                    <expression name="expressionValue">row["productId"]</expression>
+                </structure>
+                <property name="repeatHeader">true</property>
+                <property name="hideDetail">false</property>
+                <property name="pageBreakAfter">auto</property>
+                <property name="pageBreakBefore">auto</property>
+                <property name="pageBreakInside">auto</property>
+                <list-property name="sort">
+                    <structure>
+                        <expression name="key">row["productId"]</expression>
+                        <property name="direction">asc</property>
+                    </structure>
+                </list-property>
+                <header>
+                    <row id="169">
+                        <property name="height">1cm</property>
+                        <property name="fontSize">small</property>
+                        <property name="fontWeight">bold</property>
+                        <property name="textAlign">center</property>
+                        <property name="verticalAlign">middle</property>
+                        <property name="pageBreakAfter">auto</property>
+                        <cell id="170">
+                            <data id="181">
+                                <property name="resultSetColumn">productId</property>
+                            </data>
+                        </cell>
+                        <cell id="171">
+                            <data id="380">
+                                <property name="resultSetColumn">QoH</property>
+                            </data>
+                        </cell>
+                        <cell id="172">
+                            <data id="381">
+                                <property name="resultSetColumn">AtP</property>
+                            </data>
+                        </cell>
+                        <cell id="173">
+                            <data id="384">
+                                <property name="resultSetColumn">retailPrice</property>
+                            </data>
+                        </cell>
+                        <cell id="174"/>
+                    </row>
+                </header>
+                <footer>
+                    <row id="175">
+                        <cell id="176"/>
+                        <cell id="177"/>
+                        <cell id="178"/>
+                        <cell id="179"/>
+                        <cell id="180"/>
+                    </row>
+                </footer>
+            </group>
+            <detail>
+                <row id="75">
+                    <property name="fontSize">small</property>
+                    <property name="textAlign">center</property>
+                    <cell id="76"/>
+                    <cell id="77"/>
+                    <cell id="78"/>
+                    <cell id="79"/>
+                    <cell id="80"/>
+                </row>
+            </detail>
+            <footer>
+                <row id="81">
+                    <property name="height">1cm</property>
+                    <property name="fontSize">medium</property>
+                    <property name="color">maroon</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
+                    <cell id="82"/>
+                    <cell id="83"/>
+                    <cell id="84"/>
+                    <cell id="85"/>
+                    <cell id="86"/>
+                </row>
+            </footer>
+        </table>
+        <table id="193">
+            <property name="width">100%</property>
+            <property name="dataSet">Order</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">quantity</property>
+                    <expression name="expression">dataSetRow["quantity"]</expression>
+                    <property name="dataType">any</property>
+                </structure>
+                <structure>
+                    <property name="name">productOrderId</property>
+                    <expression name="expression">dataSetRow["productOrderId"]</expression>
+                    <property name="dataType">any</property>
+                </structure>
+                <structure>
+                    <property name="name">sumSoldOutQty</property>
+                    <expression name="expression">dataSetRow["quantity"]</expression>
+                    <property name="dataType">any</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>productOrderId</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">orderDate</property>
+                    <expression name="expression">dataSetRow["orderDate"]</expression>
+                    <property name="dataType">any</property>
+                </structure>
+            </list-property>
+            <column id="212">
+                <property name="width">1.3333333333in</property>
+            </column>
+            <column id="213">
+                <property name="width">0.2666666667in</property>
+            </column>
+            <column id="214">
+                <property name="width">2.2444444444in</property>
+            </column>
+            <column id="215">
+                <property name="width">0.8111111111in</property>
+            </column>
+            <column id="216"/>
+            <header>
+                <row id="194">
+                    <property name="height">0.367in</property>
+                    <property name="borderBottomColor">#000000</property>
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <cell id="195">
+                        <label id="416">
+                            <property name="color">gray</property>
+                            <text-property name="text">Order Date</text-property>
+                        </label>
+                    </cell>
+                    <cell id="196"/>
+                    <cell id="197">
+                        <label id="413">
+                            <property name="fontWeight">bold</property>
+                            <property name="color">gray</property>
+                            <text-property name="text">Item sold out summary</text-property>
+                        </label>
+                    </cell>
+                    <cell id="198"/>
+                    <cell id="199">
+                        <label id="287">
+                            <property name="fontWeight">bold</property>
+                            <property name="color">gray</property>
+                            <text-property name="text">Sold out qty</text-property>
+                        </label>
+                    </cell>
+                </row>
+            </header>
+            <group id="291">
+                <property name="groupName">productOrderId</property>
+                <property name="interval">none</property>
+                <property name="sortDirection">asc</property>
+                <expression name="keyExpr">row["productOrderId"]</expression>
+                <structure name="toc">
+                    <expression name="expressionValue">row["productOrderId"]</expression>
+                </structure>
+                <property name="repeatHeader">true</property>
+                <property name="hideDetail">false</property>
+                <property name="pageBreakAfter">auto</property>
+                <property name="pageBreakBefore">auto</property>
+                <property name="pageBreakInside">auto</property>
+                <header>
+                    <row id="292">
+                        <property name="height">0.344in</property>
+                        <property name="textAlign">center</property>
+                        <property name="verticalAlign">middle</property>
+                        <cell id="293">
+                            <data id="415">
+                                <property name="resultSetColumn">orderDate</property>
+                            </data>
+                        </cell>
+                        <cell id="294"/>
+                        <cell id="295">
+                            <data id="304">
+                                <property name="fontWeight">bold</property>
+                                <property name="resultSetColumn">productOrderId</property>
+                            </data>
+                        </cell>
+                        <cell id="296"/>
+                        <cell id="297">
+                            <data id="305">
+                                <property name="marginTop">0pt</property>
+                                <property name="paddingTop">1pt</property>
+                                <property name="resultSetColumn">sumSoldOutQty</property>
+                            </data>
+                        </cell>
+                    </row>
+                </header>
+                <footer>
+                    <row id="298">
+                        <cell id="299"/>
+                        <cell id="300"/>
+                        <cell id="301"/>
+                        <cell id="302"/>
+                        <cell id="303"/>
+                    </row>
+                </footer>
+            </group>
+            <detail>
+                <row id="200">
+                    <cell id="201"/>
+                    <cell id="202"/>
+                    <cell id="203"/>
+                    <cell id="204"/>
+                    <cell id="205"/>
+                </row>
+            </detail>
+            <footer>
+                <row id="206">
+                    <cell id="207"/>
+                    <cell id="208"/>
+                    <cell id="209"/>
+                    <cell id="210"/>
+                    <cell id="211"/>
+                </row>
+            </footer>
+        </table>
+    </body>
+</report>

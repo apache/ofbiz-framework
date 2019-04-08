@@ -21,18 +21,17 @@ under the License.
     <!-- OFBiz Core security -->
     
     <!--  administrative security groups -->
-    <SecurityGroup groupId="FULLADMIN" description="Full Admin group, has all general permissions." groupName="Full Admin"/>
-    <SecurityGroup groupId="FLEXADMIN" description="Flexible Admin group, has all granular permissions." groupName="Flex Admin"/>
-    <SecurityGroup groupId="VIEWADMIN" description="Demo Admin group, has all view permissions." groupName="View Admin"/>
-    <SecurityGroup groupId="BIZADMIN" description="Full Business Applications permission group, has all business app admin permissions, not technical permissions." groupName="Biz Admin"/>
-    <SecurityGroup groupId="IMPERSONATION" description="Permission group to impersonate user."/>
-
+    <SecurityGroup groupId="FULLADMIN" description="Full Admin group, has all general permissions."/>
+    <SecurityGroup groupId="FLEXADMIN" description="Flexible Admin group, has all granular permissions."/>
+    <SecurityGroup groupId="VIEWADMIN" description="Demo Admin group, has all view permissions."/>
+    <SecurityGroup groupId="BIZADMIN" description="Full Business Applications permission group, has all business app admin permissions, not technical permissions."/>
+    
     <!-- general admin tools permission -->
     <SecurityPermission description="Permission to access the Stock OFBiz Manager Applications." permissionId="OFBTOOLS_VIEW"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="OFBTOOLS_VIEW"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="OFBTOOLS_VIEW"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="VIEWADMIN" permissionId="OFBTOOLS_VIEW"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="BIZADMIN" permissionId="OFBTOOLS_VIEW"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="OFBTOOLS_VIEW"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="OFBTOOLS_VIEW"/>
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="OFBTOOLS_VIEW"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="OFBTOOLS_VIEW"/>
 
     <!-- allocate userLoginId's -->
     <UserLoginSecurityGroup groupId="FULLADMIN" userLoginId="admin" fromDate="2001-01-01 12:00:00.0"/>

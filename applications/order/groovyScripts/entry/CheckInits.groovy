@@ -17,11 +17,18 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.util.EntityUtil
-import org.apache.ofbiz.order.shoppingcart.ShoppingCart
-import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents
+import org.apache.ofbiz.service.*
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.entity.condition.*
+import org.apache.ofbiz.entity.util.*
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.order.shoppingcart.*
+import org.apache.ofbiz.party.party.PartyWorker
 import org.apache.ofbiz.party.contact.ContactHelper
+import org.apache.ofbiz.product.catalog.CatalogWorker
 import org.apache.ofbiz.product.store.ProductStoreWorker
+import org.apache.ofbiz.order.shoppingcart.product.ProductDisplayWorker
+import org.apache.ofbiz.order.shoppingcart.product.ProductPromoWorker
 
 productStore = ProductStoreWorker.getProductStore(request)
 if (productStore) {
@@ -46,6 +53,7 @@ organizations = from("PartyAcctgPrefAndGroup").queryList()
 context.organizations = organizations
 
 // Set Shipping From the Party 
+partyId = null
 partyId = parameters.partyId
 if (partyId) {
     party = from("Person").where("partyId", partyId).queryOne()

@@ -37,6 +37,7 @@ import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.collections.MapStack;
 import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
 import org.apache.ofbiz.content.content.ContentWorker;
+import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.webapp.control.RequestHandler;
 
@@ -51,16 +52,16 @@ public class RenderContentTransform implements TemplateTransformModel {
 
     public static final String module = RenderContentTransform.class.getName();
 
-    @Override
     @SuppressWarnings("unchecked")
-    public Writer getWriter(Writer out, @SuppressWarnings("rawtypes") Map args) {
+    public Writer getWriter(final Writer out, Map args) {
         final Environment env = Environment.getCurrentEnvironment();
+        final Delegator delegator = FreeMarkerWorker.getWrappedObject("delegator", env);
         final LocalDispatcher dispatcher = FreeMarkerWorker.getWrappedObject("dispatcher", env);
         final HttpServletRequest request = FreeMarkerWorker.getWrappedObject("request", env);
         final HttpServletResponse response = FreeMarkerWorker.getWrappedObject("response", env);
 
-        final MapStack<String> templateRoot = MapStack.create(FreeMarkerWorker.createEnvironmentMap(env));
-        templateRoot.push(args);
+        final Map<String, Object> templateRoot = MapStack.create(FreeMarkerWorker.createEnvironmentMap(env));
+        ((MapStack)templateRoot).push(args);
         final String xmlEscape =  (String)templateRoot.get("xmlEscape");
         final String thisContentId = (String)templateRoot.get("contentId");
 
@@ -102,9 +103,9 @@ public class RenderContentTransform implements TemplateTransformModel {
 
                     String mapKey = (String)templateRoot.get("mapKey");
                     if (UtilValidate.isEmpty(mapKey)) {
-                        txt = ContentWorker.renderContentAsText(dispatcher, thisContentId, templateRoot, locale, mimeTypeId, true);
+                        txt = ContentWorker.renderContentAsText(dispatcher, delegator, thisContentId, templateRoot, locale, mimeTypeId, true);
                     } else {
-                        txt = ContentWorker.renderSubContentAsText(dispatcher, thisContentId, mapKey, templateRoot, locale, mimeTypeId, true);
+                        txt = ContentWorker.renderSubContentAsText(dispatcher, delegator, thisContentId, mapKey, templateRoot, locale, mimeTypeId, true);
                     }
                     if ("true".equals(xmlEscape)) {
                         txt = UtilFormatOut.encodeXmlValue(txt);

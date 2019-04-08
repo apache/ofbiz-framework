@@ -30,7 +30,7 @@ under the License.
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="partyRelationshipTypeId" value="LEAD_OWNER"/>
-                <set field="title" from-field="uiLabelMap.SfaFindLeads"/>
+                <set field="title" value="${uiLabelMap.SfaFindLeads}"/>
                 <set field="partyTypeId" value="PERSON"/>
                 <set field="currentUrl" value="LookupLeads"/>
                 <set field="entityName" value="PartyRoleAndContactMechDetail"/>
@@ -59,7 +59,7 @@ under the License.
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="partyRelationshipTypeId" value="ACCOUNT"/>
-                <set field="title" from-field="uiLabelMap.SfaFindAccounts"/>
+                <set field="title" value="${uiLabelMap.SfaFindAccounts}"/>
                 <set field="partyTypeId" value="PARTY_GROUP"/>
                 <set field="currentUrl" value="LookupAccounts"/>
                 <set field="entityName" value="PartyRoleAndContactMechDetail"/>
@@ -88,7 +88,7 @@ under the License.
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="partyRelationshipTypeId" value="ACCOUNT"/>
-                <set field="title" from-field="uiLabelMap.SfaFindAccountLeads"/>
+                <set field="title" value="${uiLabelMap.SfaFindAccountLeads}"/>
                 <set field="partyTypeId" value="PARTY_GROUP"/>
                 <set field="currentUrl" value="LookupAccountLeads"/>
                 <set field="entityName" value="PartyRoleAndContactMechDetail"/>

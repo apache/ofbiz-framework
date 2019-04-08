@@ -21,6 +21,10 @@ package org.apache.ofbiz.minilang.method.conditional;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.oro.text.regex.MalformedPatternException;
+import org.apache.oro.text.regex.Pattern;
+import org.apache.oro.text.regex.PatternMatcher;
+import org.apache.oro.text.regex.Perl5Matcher;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.PatternFactory;
 import org.apache.ofbiz.base.util.UtilXml;
@@ -34,16 +38,12 @@ import org.apache.ofbiz.minilang.SimpleMethod;
 import org.apache.ofbiz.minilang.artifact.ArtifactInfoContext;
 import org.apache.ofbiz.minilang.method.MethodContext;
 import org.apache.ofbiz.minilang.method.MethodOperation;
-import org.apache.oro.text.regex.MalformedPatternException;
-import org.apache.oro.text.regex.Pattern;
-import org.apache.oro.text.regex.PatternMatcher;
-import org.apache.oro.text.regex.Perl5Matcher;
 import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;if-regexp&gt; element.
  *
- * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
+ * @see <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/Mini-language+Reference#Mini-languageReference-{{<ifregexp>}}">Mini-language Reference</a>
  */
 public class RegexpCondition extends MethodOperation implements Conditional {
 

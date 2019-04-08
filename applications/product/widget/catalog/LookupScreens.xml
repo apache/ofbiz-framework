@@ -27,7 +27,7 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.PageTitleLookupProduct"/>
+                <set field="title" value="${uiLabelMap.PageTitleLookupProduct}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="entityName" value="Product"/>
                 <set field="searchFields" value="[productId, internalName, brandName]"/>
@@ -51,7 +51,7 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.PageTitleLookupProductVirtual"/>
+                <set field="title" value="${uiLabelMap.PageTitleLookupProductVirtual}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="entityName" value="Product"/>
                 <set field="searchFields" value="[productId, brandName, internalName]"/>
@@ -76,11 +76,11 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.PageTitleLookupProductVariant"/>
+                <set field="title" value="${uiLabelMap.PageTitleLookupProductVariant}"/>
                 <set field="entityName" value="Product"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <script location="component://product/groovyScripts/catalog/lookup/LookupVariantProduct.groovy"/>
             </actions>
@@ -102,7 +102,7 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.PageTitleLookupProductPrice"/>
+                <set field="title" value="${uiLabelMap.PageTitleLookupProductPrice}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
                 <set field="entityName" value="ProductAndPriceView"/>
@@ -128,7 +128,7 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.PageTitleLookupProductCategory"/>
+                <set field="title" value="${uiLabelMap.PageTitleLookupProductCategory}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="entityName" value="ProductCategory"/>
                 <set field="searchFields" value="[productCategoryId, categoryName, description]"/>
@@ -152,7 +152,7 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.PageTitleLookupProductFeature"/>
+                <set field="title" value="${uiLabelMap.PageTitleLookupProductFeature}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="entityName" value="ProductFeature"/>
                 <set field="searchFields" value="[productFeatureId, description, productFeatureCategoryId]"/>
@@ -178,7 +178,7 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.PageTitleLookupProductStore"/>
+                <set field="title" value="${uiLabelMap.PageTitleLookupProductStore}"/>
                 <set field="entityName" value="ProductStore"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="entityName" value="ProductStore"/>
@@ -231,10 +231,10 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.PageTitleLookupCostComponentCalc"/>
+                <set field="title" value="${uiLabelMap.PageTitleLookupCostComponentCalc}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="entityName" value="CostComponentCalc"/>
                 <set field="searchFields" value="[costComponentCalcId, description, costGlAccountTypeId, offsettingGlAccountTypeId]"/>

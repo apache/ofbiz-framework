@@ -49,7 +49,7 @@ under the License.
         <select name="roleTypeId">
           <option value="">${uiLabelMap.PartySelectRole}</option>
           <#list roles as role>
-            <option value="${role.roleTypeId}" <#if "_NA_" == role.roleTypeId>selected="selected"</#if>>${role.get("description", locale)?default(role.roleTypeId)}</option>
+            <option value="${role.roleTypeId}" <#if role.roleTypeId == "_NA_">selected="selected"</#if>>${role.get("description", locale)?default(role.roleTypeId)}</option>
           </#list>
         </select>
         <input type="submit" value="${uiLabelMap.CommonUpload}" />
@@ -57,7 +57,7 @@ under the License.
       <div id='progress_bar'><div></div></div>
     </div>
   </div>
-  <script type="application/javascript">
+  <script type="text/javascript">
     jQuery("#uploadPartyContent").validate({
         submitHandler: function(form) {
             <#-- call upload scripts - functions defined in PartyProfileContent.js -->

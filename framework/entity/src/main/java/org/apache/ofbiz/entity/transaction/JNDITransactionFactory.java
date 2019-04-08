@@ -37,9 +37,7 @@ import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.JNDIContextFactory;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.config.model.Datasource;
-import org.apache.ofbiz.entity.config.model.EntityConfig;
-import org.apache.ofbiz.entity.config.model.JndiJdbc;
+import org.apache.ofbiz.entity.config.model.*;
 import org.apache.ofbiz.entity.datasource.GenericHelperInfo;
 import org.apache.ofbiz.entity.jdbc.ConnectionFactoryLoader;
 
@@ -51,10 +49,11 @@ public class JNDITransactionFactory implements TransactionFactory {
     // Debug module name
     public static final String module = JNDITransactionFactory.class.getName();
 
-    volatile TransactionManager transactionManager = null;
-    volatile UserTransaction userTransaction = null;
+    static TransactionManager transactionManager = null;
+    static UserTransaction userTransaction = null;
 
-    protected static final ConcurrentHashMap<String, DataSource> dsCache = new ConcurrentHashMap<>();
+    // protected static UtilCache dsCache = new UtilCache("entity.JndiDataSources", 0, 0);
+    protected static ConcurrentHashMap<String, DataSource> dsCache = new ConcurrentHashMap<String, DataSource>();
 
     public TransactionManager getTransactionManager() {
         if (transactionManager == null) {
@@ -66,6 +65,8 @@ public class JNDITransactionFactory implements TransactionFactory {
                         String jndiServerName = EntityConfig.getInstance().getTransactionFactory().getTransactionManagerJndi().getJndiServerName();
 
                         if (UtilValidate.isNotEmpty(jndiName)) {
+                            // if (Debug.verboseOn()) Debug.logVerbose("[JNDITransactionFactory.getTransactionManager] Trying JNDI name " + jndiName, module);
+
                             try {
                                 InitialContext ic = JNDIContextFactory.getInitialContext(jndiServerName);
 
@@ -137,34 +138,35 @@ public class JNDITransactionFactory implements TransactionFactory {
             String jndiName = jndiJdbcElement.getJndiName();
             String jndiServerName = jndiJdbcElement.getJndiServerName();
             Connection con = getJndiConnection(jndiName, jndiServerName);
-            if (con != null) {
-                return TransactionUtil.getCursorConnection(helperInfo, con);
-            }
+            if (con != null) return TransactionUtil.getCursorConnection(helperInfo, con);
         } else {
+           // Debug.logError("JNDI loaded is the configured transaction manager but no jndi-jdbc element was specified in the " + helperName + " datasource. Please check your configuration.", module);
         }
 
         if (datasourceInfo.getInlineJdbc() != null) {
             Connection otherCon = ConnectionFactoryLoader.getInstance().getConnection(helperInfo, datasourceInfo.getInlineJdbc());
             return TransactionUtil.getCursorConnection(helperInfo, otherCon);
+        } else {
+            //no real need to print an error here
+            return null;
         }
-        //no real need to print an error here
-        return null;
     }
 
     public static Connection getJndiConnection(String jndiName, String jndiServerName) throws SQLException, GenericEntityException {
+        // if (Debug.verboseOn()) Debug.logVerbose("Trying JNDI name " + jndiName, module);
         DataSource ds = dsCache.get(jndiName);
         if (ds != null) {
             if (ds instanceof XADataSource) {
                 XADataSource xads = (XADataSource) ds;
 
                 return TransactionUtil.enlistConnection(xads.getXAConnection());
+            } else {
+                return ds.getConnection();
             }
-            return ds.getConnection();
         }
         try {
-            if (Debug.infoOn()) {
+            if (Debug.infoOn())
                 Debug.logInfo("Doing JNDI lookup for name " + jndiName, module);
-            }
             InitialContext ic = JNDIContextFactory.getInitialContext(jndiServerName);
 
             if (ic != null) {
@@ -174,31 +176,29 @@ public class JNDITransactionFactory implements TransactionFactory {
             }
 
             if (ds != null) {
-                if (Debug.verboseOn()) {
-                     Debug.logVerbose("Got a Datasource object.", module);
-                }
+                if (Debug.verboseOn())
+                    Debug.logVerbose("Got a Datasource object.", module);
                 dsCache.putIfAbsent(jndiName, ds);
                 ds = dsCache.get(jndiName);
                 Connection con;
 
                 if (ds instanceof XADataSource) {
-                    if (Debug.infoOn()) {
+                    if (Debug.infoOn())
                         Debug.logInfo("Got XADataSource for name " + jndiName, module);
-                    }
                     XADataSource xads = (XADataSource) ds;
                     XAConnection xac = xads.getXAConnection();
 
                     con = TransactionUtil.enlistConnection(xac);
                 } else {
-                    if (Debug.infoOn()) {
+                    if (Debug.infoOn())
                         Debug.logInfo("Got DataSource for name " + jndiName, module);
-                    }
 
                     con = ds.getConnection();
                 }
                 return con;
+            } else {
+                Debug.logError("Datasource returned was NULL.", module);
             }
-            Debug.logError("Datasource returned was NULL.", module);
         } catch (NamingException ne) {
             Debug.logWarning(ne, "Failed to find DataSource named " + jndiName + " in JNDI server with name " + jndiServerName + ". Trying normal database.", module);
         } catch (GenericConfigException gce) {

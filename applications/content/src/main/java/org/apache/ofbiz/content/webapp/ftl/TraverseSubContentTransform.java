@@ -80,9 +80,8 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
         return FreeMarkerWorker.getArg(args, key, ctx);
     }
 
-    @Override
     @SuppressWarnings("unchecked")
-    public Writer getWriter(final Writer out, @SuppressWarnings("rawtypes") Map args) {
+    public Writer getWriter(final Writer out, Map args) {
         final StringBuilder buf = new StringBuilder();
         final Environment env = Environment.getCurrentEnvironment();
         final Map<String, Object> templateCtx = FreeMarkerWorker.getWrappedObject("context", env);
@@ -163,7 +162,7 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
                 ContentWorker.traceNodeTrail("2", nodeTrail);
                 nodeTrail.add(rootNode);
                 boolean isPick = checkWhen(subContentDataResourceView, (String)traverseContext.get("contentAssocTypeId"));
-                rootNode.put("isPick", isPick);
+                rootNode.put("isPick", Boolean.valueOf(isPick));
                 if (!isPick) {
                     ContentWorker.traceNodeTrail("3", nodeTrail);
                     isPick = ContentWorker.traverseSubContent(traverseContext);
@@ -196,7 +195,7 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
             public void close() throws IOException {
                 String wrappedFTL = buf.toString();
                 String encloseWrappedText = (String)templateCtx.get("encloseWrappedText");
-                if (UtilValidate.isEmpty(encloseWrappedText) || "false".equalsIgnoreCase(encloseWrappedText)) {
+                if (UtilValidate.isEmpty(encloseWrappedText) || encloseWrappedText.equalsIgnoreCase("false")) {
                     out.write(wrappedFTL);
                     wrappedFTL = null; // So it won't get written again below.
                 }
@@ -210,7 +209,7 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
                     if (locale == null)
                         locale = Locale.getDefault();
                     try {
-                        ContentWorker.renderContentAsText(dispatcher, wrapTemplateId, out, templateRoot, locale, mimeTypeId, null, null, true);
+                        ContentWorker.renderContentAsText(dispatcher, delegator, wrapTemplateId, out, templateRoot, locale, mimeTypeId, null, null, true);
                     } catch (GeneralException e) {
                         Debug.logError(e, "Error rendering content", module);
                         throw new IOException("Error rendering content" + e.toString());
@@ -232,7 +231,7 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
                 assocContext.put("contentAssocTypeId", contentAssocTypeId);
                 String thisDirection = (String)templateCtx.get("direction");
                 String thisContentId = (String)templateCtx.get("thisContentId");
-                if (thisDirection != null && "From".equalsIgnoreCase(thisDirection)) {
+                if (thisDirection != null && thisDirection.equalsIgnoreCase("From")) {
                     assocContext.put("contentIdFrom", thisContentId);
                 } else {
                     assocContext.put("contentIdTo", thisContentId);
@@ -250,8 +249,8 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
                 assocContext.put("typeAncestry", contentTypeAncestry);
                 Map<String, Object> whenMap = UtilGenerics.checkMap(traverseContext.get("whenMap"));
                 List<Map<String, ? extends Object>> nodeTrail = UtilGenerics.checkList(traverseContext.get("nodeTrail"));
-                int indentSz = indent + nodeTrail.size();
-                assocContext.put("indentObj", indentSz);
+                int indentSz = indent.intValue() + nodeTrail.size();
+                assocContext.put("indentObj", Integer.valueOf(indentSz));
                 isPick = ContentWorker.checkWhen(assocContext, (String)whenMap.get("pickWhen"), true);
                 return isPick;
             }
@@ -263,8 +262,8 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
                 String contentId = (String)node.get("contentId");
                 templateContext.put("subContentId", contentId);
                 templateContext.put("subContentDataResourceView", null);
-                int indentSz = indent + nodeTrail.size();
-                templateContext.put("indent", indentSz);
+                int indentSz = indent.intValue() + nodeTrail.size();
+                templateContext.put("indent", Integer.valueOf(indentSz));
                 if (sz >= 2) {
                     Map<String, Object> parentNode = nodeTrail.get(sz - 2);
                     GenericValue parentContent = (GenericValue)parentNode.get("value");

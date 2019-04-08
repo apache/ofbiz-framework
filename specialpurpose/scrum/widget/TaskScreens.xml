@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
+    <screen name="FindTask">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleFindTask"/>
+                <set field="headerItem" value="Tasks"/>
+                <set field="tabButtonItem" value="find"/>
+                <set field="labelTitleProperty" value="ScrumTasksList"/>
+                <set field="viewIndex_1" from-field="parameters.TasksListError_index_1" type="Integer"/>
+                <set field="viewIndex_2" from-field="parameters.TasksListInstall_index_2" type="Integer"/>
+                <set field="viewIndex_3" from-field="parameters.TasksListTest_index_3" type="Integer"/>
+                <set field="viewIndex_4" from-field="parameters.TasksListCoding_index_4" type="Integer"/>
+                <set field="viewIndexNo_1" from-field="parameters.TasksListErrorNoAction_index_1" type="Integer"/>
+                <set field="viewIndexNo_2" from-field="parameters.TasksListInstallNoAction_index_2" type="Integer"/>
+                <set field="viewIndexNo_3" from-field="parameters.TasksListTestNoAction_index_3" type="Integer"/>
+                <set field="viewIndexNo_4" from-field="parameters.TasksListCodingNoAction_index_4" type="Integer"/>
+                <script location="component://scrum/groovyScripts/FindTaskList.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="scrumCommonDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-service-permission service-name="scrumPermissionCheck" main-action="VIEW" resource-description="SCRUM"/>
+                            </condition>
+                            <widgets>
+                                <section>
+                                    <condition>
+                                        <if-has-permission permission="SCRUM_ADMIN"/>
+                                    </condition>
+                                    <widgets>
+                                        <container style="button-bar">
+                                            <link target="EditTask" text="${uiLabelMap.ScrumNewTask}" style="buttontext create"/>
+                                        </container>
+                                    </widgets>
+                                </section>
+                                <screenlet name="FindTask" title="${uiLabelMap.PageTitleFindTask}" collapsible="true" initially-collapsed="false">
+                                    <include-form name="FindTask" location="component://scrum/widget/TaskForms.xml"/>
+                                </screenlet>
+                                <section>
+                                    <condition>
+                                            <if-has-permission permission="SCRUM_ADMIN"/>
+                                    </condition>
+                                    <widgets>
+                                        <screenlet name="TasksListError" title="${uiLabelMap.ScrumErrorTasksList}" collapsible="true" initially-collapsed="false">
+                                            <include-form name="TasksListError" location="component://scrum/widget/TaskForms.xml"/>
+                                        </screenlet>
+                                        <screenlet name="TasksListInstall" title="${uiLabelMap.ScrumInstallationTasksList}" collapsible="true" initially-collapsed="false">
+                                            <include-form name="TasksListInstall" location="component://scrum/widget/TaskForms.xml"/>
+                                        </screenlet>
+                                        <screenlet name="TasksListTest" title="${uiLabelMap.ScrumTestTasksList}" collapsible="true" initially-collapsed="false">
+                                            <include-form name="TasksListTest" location="component://scrum/widget/TaskForms.xml"/>
+                                        </screenlet>
+                                        <screenlet name="TasksListCoding" title="${uiLabelMap.ScrumCodingTasksList}" collapsible="true" initially-collapsed="false">
+                                            <include-form name="TasksListCoding" location="component://scrum/widget/TaskForms.xml"/>
+                                        </screenlet>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <screenlet name="TasksListError" title="${uiLabelMap.ScrumErrorTasksList}" collapsible="true" initially-collapsed="false">
+                                            <include-form name="TasksListErrorNoAction" location="component://scrum/widget/TaskForms.xml"/>
+                                        </screenlet>
+                                        <screenlet name="TasksListInstall" title="${uiLabelMap.ScrumInstallationTasksList}" collapsible="true" initially-collapsed="false">
+                                            <include-form name="TasksListInstallNoAction" location="component://scrum/widget/TaskForms.xml"/>
+                                        </screenlet>
+                                        <screenlet name="TasksListTest" title="${uiLabelMap.ScrumTestTasksList}" collapsible="true" initially-collapsed="false">
+                                            <include-form name="TasksListTestNoAction" location="component://scrum/widget/TaskForms.xml"/>
+                                        </screenlet>
+                                        <screenlet name="TasksListCoding" title="${uiLabelMap.ScrumCodingTasksList}" collapsible="true" initially-collapsed="false">
+                                            <include-form name="TasksListCodingNoAction" location="component://scrum/widget/TaskForms.xml"/>
+                                        </screenlet>
+                                    </fail-widgets>
+                                </section>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditTask">
+        <section>
+            <actions>
+                <set field="headerItem" value="task"/>
+                <set field="titleProperty" value="PageTitleEditTask"/>
+                <set field="tabButtonItem" value="edittask"/>
+                <set field="labelTitleProperty" value="PageTitleEditTaskList"/>
+                <set field="workEffortId" from-field="parameters.taskId"/>
+                <entity-one entity-name="WorkEffort" value-field="task"/>
+                <entity-and entity-name="CustRequestWorkEffort" list="custRequestWorkEffort">
+                    <field-map field-name="workEffortId" from-field="workEffortId"/>
+                </entity-and>
+                <set field="parameters.custRequestId" from-field="custRequestWorkEffort[0].custRequestId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.PageTitleEditTask} #${task.workEffortId} ${uiLabelMap.CommonInformation}">
+                                    <include-form name="EditTask" location="component://scrum/widget/TaskForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="RevisionList">
+        <section>
+            <actions>
+                <set field="title" value="${uiLabelMap.ScrumRevisions}"/>
+                <set field="parameters.custRequestId" from-field="custRequestWorkEffort[0].custRequestId"/>
+                <set field="parameters.noConditionFind" value="Y"/>
+                <entity-and entity-name="WorkEffortAndContentDataResource" list="listIt">
+                    <field-map field-name="workEffortContentTypeId" value="TASK_SUB_INFO"/>
+                    <field-map field-name="workEffortId" from-field="parameters.taskId"/>
+                    <order-by field-name="fromDate"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <screenlet title="${title}">
+                    <include-form name="ListTaskRevisions" location="component://scrum/widget/TaskForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="FindTaskRevision">
+        <section>
+            <actions>
+                <set field="headerItem" value="revision"/>
+                <set field="titleProperty" value="ScrumRevision"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX_1" type="Integer"/>
+                <script location="component://scrum/groovyScripts/ListRevision.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-service-permission service-name="scrumPermissionCheck" main-action="CREATE" resource-description="TASK"/>
+                            </condition>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.PageTitleFindRevision}">
+                                    <include-form name="FindTaskRevision" location="component://scrum/widget/TaskForms.xml"/>
+                                </screenlet>
+                                <screenlet title="${uiLabelMap.ScrumRevisionList}">
+                                    <include-form name="TaskRevisionTotals" location="component://scrum/widget/TaskForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.ScrumViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="RevisionInfo">
+        <section>
+            <actions>
+                <service service-name="viewScrumRevision" result-map="result">
+                    <field-map field-name="revision" from-field="parameters.revision"/>
+                    <field-map field-name="repository" from-field="parameters.repository"/>
+                </service>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html>
+                        <html-template location="component://scrum/template/includes/Revision.ftl"/>
+                    </html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditTimeEntries">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleListTimeEntries"/>
+                <set field="tabButtonItem" value="timeEntries"/>
+                <set field="labelTitleProperty" value="PageTitleEditSkill"/>
+                <set field="workEffortId" from-field="parameters.workEffortId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="ListTimeEntries" location="component://scrum/widget/TaskForms.xml"/>
+                        <screenlet title="${uiLabelMap.ScrumAddTimeEntry}">
+                            <include-form name="createTimeEntry" location="component://scrum/widget/TaskForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditTaskPartyAssigns">
+        <section>
+            <actions>
+                <set field="headerItem" value="task"/>
+                <set field="titleProperty" value="PageTitleListWorkEffortPartyAssigns"/>
+                <set field="tabButtonItem" value="Members"/>
+                <set field="labelTitleProperty" value="PageTitleListWorkEffortPartyAssigns"/>
+                <set field="workEffortId" from-field="parameters.taskId"/>
+                <set field="nowDate" value="${groovy:org.apache.ofbiz.base.util.UtilDateTime.nowDateString(&quot;yyyy-MM-dd HH:mm:ss.S&quot;)}" type="String"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet name="AddTaskPartyAssign" title="${uiLabelMap.ScrumAddTaskMember}">
+                            <include-form name="AddTaskPartyAssign" location="component://scrum/widget/TaskForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.ScrumTaskMemberList}">
+                            <include-form name="ListTaskParties" location="component://scrum/widget/TaskForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditTaskNotes">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleListTaskNotes"/>
+                <set field="headerItem" value="task"/>
+                <set field="tabButtonItem" value="notes"/>
+                <set field="labelTitleProperty" value="PageTitleListTaskNotes"/>
+
+                <set field="workEffortId" from-field="parameters.workEffortId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="ListTaskNotes" location="component://scrum/widget/TaskForms.xml"/>
+                        <screenlet id="AddTaskNotesPanel" title="${uiLabelMap.PageTitleAddTaskNotes}" collapsible="true">
+                            <include-form name="AddTaskNote" location="component://scrum/widget/TaskForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="SprintTaskView">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="SprintTask"/>
+                <set field="workEffortId" from-field="parameters.taskId" />
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonSprintScreenDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                        <actions>
+                            <entity-one value-field="task" entity-name="WorkEffort"/>
+                            <entity-and entity-name="CustRequestWorkEffort" list="custRequestWorkEffort">
+                                <field-map field-name="workEffortId" from-field="workEffortId"/>
+                            </entity-and>
+                            <set field="parameters.custRequestId" from-field="custRequestWorkEffort[0].custRequestId" type="String"/>
+                            <entity-and entity-name="WorkEffortPartyAssignment" list="assignTo">
+                                <field-map field-name="workEffortId" from-field="parameters.taskId"/>
+                            </entity-and>
+                            <set field="partyId" from-field="assignTo[0].partyId"/>
+                            <entity-one entity-name="Person" value-field="person"/>
+                            <entity-condition list="SprintTasks" entity-name="ProjectSprintBacklogAndTask">
+                                <condition-list combine="and">
+                                    <condition-expr field-name="projectId" from-field="parameters.projectId"/>
+                                    <condition-expr field-name="sprintId" from-field="parameters.sprintId"/>
+                                    <condition-expr field-name="sprintTypeId" value="SCRUM_SPRINT"/>
+                                        <condition-list combine="or">
+                                            <condition-expr field-name="taskTypeId" value="SCRUM_TASK_IMPL"/>
+                                            <condition-expr field-name="taskTypeId" value="SCRUM_TASK_INST"/>
+                                            <condition-expr field-name="taskTypeId" value="SCRUM_TASK_TEST"/>
+                                            <condition-expr field-name="taskTypeId" value="SCRUM_TASK_ERROR"/>
+                                        </condition-list>
+                                </condition-list>
+                            </entity-condition>
+                            <set field="sprintId" from-field="SprintTasks[3].sprintId"/>
+                            <entity-and entity-name="WorkEffortPartyAssignment" list="sprintMembers">
+                                <field-map field-name="workEffortId" from-field="parameters.sprintId"/>
+                            </entity-and>
+                        </actions>
+                        <widgets>
+                            <screenlet title="${uiLabelMap.PageTitleTaskInformation}">
+                                  <include-form name="TaskInfo" location="component://scrum/widget/TaskForms.xml"/>
+                            </screenlet>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="TaskView">
+        <section>
+            <actions>
+                <set field="titleProperty" value="ScrumTaskSummary"/>
+                <set field="tabButtonItem" value="taskView"/>
+                <set field="workEffortId" from-field="parameters.taskId"/>
+                <entity-and entity-name="CustRequestWorkEffort" list="custRequestWorkEffort">
+                    <field-map field-name="workEffortId" from-field="workEffortId"/>
+                </entity-and>
+                <set field="custRequestId" from-field="custRequestWorkEffort[0].custRequestId"/>
+                <entity-and entity-name="CustRequestNoteView" list="notes">
+                    <field-map field-name="custRequestId" from-field="custRequestId"/>
+                </entity-and>
+                <set field="sprintId" from-field="parameters.sprintId"/>
+                <entity-one entity-name="WorkEffort" value-field="sprint">
+                    <field-map field-name="workEffortId" from-field="sprintId"/>
+                </entity-one>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="lefthalf">
+                            <include-screen name="ViewTask"/>
+                            <include-screen name="RevisionList"/>
+                        </container>
+                        <container style="righthalf">
+                            <screenlet title="${uiLabelMap.ScrumTaskAttachements}">
+                                <include-form name="ContentTask" location="component://scrum/widget/OpenTestForms.xml"/>
+                            </screenlet>
+                            <include-screen name="TaskNoteInfo"/>
+                            <screenlet title="${uiLabelMap.PageTitleTaskMember}">
+                                <include-screen name="taskMembersList"/>
+                            </screenlet>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="TaskNote">
+        <section>
+            <actions>
+                <set field="titleProperty" value="CommonNotes"/>
+                <set field="tabButtonItem" value="taskNote"/>
+                <set field="workEffortId" from-field="parameters.taskId"/>
+                <set field="taskId" from-field="parameters.taskId"/>
+                <entity-and entity-name="WorkEffortNote" list="workNoteList">
+                    <field-map field-name="workEffortId" from-field="workEffortId"/>
+                    <order-by field-name="-noteId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet id="AddTaskNote" title="${uiLabelMap.PageTitleNewTaskNote}" collapsible="true">
+                            <include-form name="AddTaskNote" location="component://scrum/widget/TaskForms.xml"/>
+                        </screenlet>
+                        <screenlet id="ListTaskNote" title="${uiLabelMap.PageTitleTaskNoteList}" collapsible="true">
+                            <include-form name="ListTaskNote" location="component://scrum/widget/TaskForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="TaskNoteInfo">
+        <section>
+        <actions>
+            <set field="workEffortId" from-field="parameters.taskId"/>
+            <set field="taskId" from-field="parameters.taskId"/>
+            <entity-condition entity-name="WorkEffortNote" list="workNoteList" >
+                <condition-expr field-name="workEffortId" from-field="workEffortId"/>
+                <order-by field-name="-noteId"/>
+                <limit-range start="0" size="5"/>
+            </entity-condition>
+        </actions>
+            <widgets>
+                <screenlet id="ListTaskNoteInfo" title="${uiLabelMap.PageTitleTaskNoteList}">
+                    <include-form name="ListTaskNoteInfo" location="component://scrum/widget/TaskForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="taskMembersList">
+        <section>
+            <condition>
+                <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="TASK"/>
+            </condition>
+            <widgets>
+                <include-form name="TaskMemberListInfo" location="component://scrum/widget/TaskForms.xml"/>
+            </widgets>
+            <fail-widgets>
+                <include-form name="TaskMemberListInfoForStakeholder" location="component://scrum/widget/TaskForms.xml"/>
+            </fail-widgets>
+        </section>
+    </screen>
+    <screen name="ViewTask">
+        <section>
+            <actions>
+                <entity-one entity-name="WorkEffort" value-field="task"/>
+            </actions>
+            <widgets>
+                <include-screen name="taskInfo"/>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="InfoTestTaskNote">
+        <section>        
+        <actions>       
+                <entity-one entity-name="WorkEffort" value-field="task"/>
+                <set field="taskId" from-field="task.workEffortId"/>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.PageTitleTaskInformation}">
+                    <include-form name="InfoTestTaskNote" location="component://scrum/widget/TaskForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="taskInfo">
+        <section>
+            <condition>
+                <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="TASK"/>
+            </condition>
+            <widgets>
+                <screenlet title="${uiLabelMap.PageTitleTaskInformation}">
+                    <include-form name="TaskInfo" location="component://scrum/widget/TaskForms.xml"/>
+                </screenlet>
+            </widgets>
+            <fail-widgets>
+                <screenlet title="${uiLabelMap.PageTitleTaskInformation}">
+                    <include-form name="TaskInfoForStakeholder" location="component://scrum/widget/TaskForms.xml"/>
+                </screenlet>
+            </fail-widgets>
+        </section>
+    </screen>
+    <screen name="TaskTeamInfo">
+        <section>
+            <actions>
+                <set field="taskParties" from-field="result.taskParties"/>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.ScrumMgrTaskTeam}">
+                    <section>
+                        <condition>
+                            <if-has-permission permission="SCRUM" action="_ADMIN"/>
+                        </condition>
+                        <widgets>
+                            <include-form name="ListTaskParties" location="component://scrum/widget/TaskForms.xml"/>
+                        </widgets>
+                        <fail-widgets>
+                            <include-form name="ListTaskPartiesNoAction" location="component://scrum/widget/TaskForms.xml"/>
+                        </fail-widgets>
+                    </section>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="taskMember">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleTaskMember"/>
+                <set field="tabButtonItem" value="taskMember"/>
+                <set field="workEffortId" from-field="parameters.taskId" default-value="${parameters.workEffortId}"/>
+                <set field="sprintId" from-field="parameters.sprintId"/>
+                <entity-and entity-name="ProjectSprintBacklogAndTask" list="sprintList">
+                    <field-map field-name="taskId" from-field="parameters.taskId"/>
+                    <field-map field-name="sprintTypeId" value="SCRUM_SPRINT"/>
+                </entity-and>
+                <set field="sprint" from-field="sprintList[0]"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet id="addMemberTask" title="${uiLabelMap.PageTitleTaskMember}" collapsible="true">
+                            <include-form name="TaskMember" location="component://scrum/widget/TaskForms.xml"/>
+                        </screenlet>
+                        <screenlet id="taskMemberList" title="${uiLabelMap.ScrumTaskMemberList}">
+                            <include-form name="TaskMemberList" location="component://scrum/widget/TaskForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens>

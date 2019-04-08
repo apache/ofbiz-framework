@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<script type="application/javascript">
+<script type="text/javascript">
 function setProductVariantId(e, value, fieldname) {
     var cform = document.selectAllForm;
     var len = cform.elements.length;
@@ -71,7 +71,7 @@ function clickAll(e) {
             <#assign curProductFeatureAndAppls = featureCombinationInfo.curProductFeatureAndAppls>
             <#assign existingVariantProductIds = featureCombinationInfo.existingVariantProductIds>
             <#assign defaultVariantProductId = featureCombinationInfo.defaultVariantProductId>
-            <tr valign="middle"<#if "1" == rowClass> class="alternate-row"</#if>>
+            <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
                 <#assign productFeatureIds = "">
                 <#list curProductFeatureAndAppls as productFeatureAndAppl>
                 <td>
@@ -100,7 +100,7 @@ function clickAll(e) {
             <#assign defaultSequenceNum = defaultSequenceNum + 10>
             <#assign rowCount = rowCount + 1>
             <#-- toggle the row color -->
-            <#if "2" == rowClass>
+            <#if rowClass == "2">
                 <#assign rowClass = "1">
             <#else>
                 <#assign rowClass = "2">

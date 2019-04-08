@@ -22,12 +22,17 @@ import java.util.Map;
 
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
+import org.apache.ofbiz.widget.model.AbstractModelCondition;
 import org.apache.ofbiz.widget.model.AbstractModelCondition.DefaultConditionFactory;
+import org.apache.ofbiz.widget.model.ModelCondition;
+import org.apache.ofbiz.widget.model.ModelConditionFactory;
+import org.apache.ofbiz.widget.model.ModelConditionVisitor;
+import org.apache.ofbiz.widget.model.ModelWidget;
 import org.w3c.dom.Element;
 
 /**
  * Models the &lt;condition&gt; element.
- *
+ * 
  * @see <code>widget-screen.xsd</code>
  */
 @SuppressWarnings("serial")
@@ -37,14 +42,14 @@ public final class ModelScreenCondition {
      * ----------------------------------------------------------------------- *
      *                     DEVELOPERS PLEASE READ
      * ----------------------------------------------------------------------- *
-     *
+     * 
      * This model is intended to be a read-only data structure that represents
      * an XML element. Outside of object construction, the class should not
      * have any behaviors.
-     *
+     * 
      * Instances of this class will be shared by multiple threads - therefore
      * it is immutable. DO NOT CHANGE THE OBJECT'S STATE AT RUN TIME!
-     *
+     * 
      */
 
     public static final String module = ModelScreenCondition.class.getName();
@@ -83,8 +88,9 @@ public final class ModelScreenCondition {
             }
             if ("if-empty-section".equals(conditionElement.getNodeName())) {
                 return new IfEmptySection(this, modelWidget, conditionElement);
+            } else {
+                return super.newInstance(this, modelWidget,conditionElement);
             }
-            return super.newInstance(this, modelWidget,conditionElement);
         }
     }
 }

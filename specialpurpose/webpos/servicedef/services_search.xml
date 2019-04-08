@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+    <description>Web Pos Search Services</description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
+    
+    <service name="findProducts" engine="java"
+             location="org.apache.ofbiz.webpos.search.WebPosSearch" invoke="findProducts">
+        <description>Find products by name/description/good identification value</description>
+        <attribute type="String" mode="IN" name="searchByProductIdValue" optional="true"/>
+        <attribute type="String" mode="IN" name="searchByProductName" optional="true"/>
+        <attribute type="String" mode="IN" name="searchByProductDescription" optional="true"/>
+        <attribute type="String" mode="IN" name="goodIdentificationTypeId" optional="true"/>
+        <attribute type="java.util.List" mode="OUT" name="productsList" optional="true"/>
+    </service>
+    
+    <service name="findParties" engine="java"
+             location="org.apache.ofbiz.webpos.search.WebPosSearch" invoke="findParties">
+        <description>Find parties by name/surname/good identification value</description>
+        <attribute type="String" mode="IN" name="searchByPartyLastName" optional="true"/>
+        <attribute type="String" mode="IN" name="searchByPartyFirstName" optional="true"/>
+        <attribute type="String" mode="IN" name="searchByPartyIdValue" optional="true"/>
+        <attribute type="String" mode="IN" name="partyIdentificationTypeId" optional="true"/>
+        <attribute type="String" mode="IN" name="billingLocation" optional="false"/>
+        <attribute type="String" mode="IN" name="shippingLocation" optional="false"/>
+        <attribute type="java.util.List" mode="OUT" name="partiesList" optional="true"/>
+    </service>
+</services>

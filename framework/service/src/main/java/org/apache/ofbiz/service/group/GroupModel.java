@@ -18,10 +18,9 @@
  *******************************************************************************/
 package org.apache.ofbiz.service.group;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilMisc;
@@ -50,10 +49,10 @@ public class GroupModel {
     public GroupModel(Element group) {
         this.sendMode = group.getAttribute("send-mode");
         this.groupName = group.getAttribute("name");
-        this.services = new LinkedList<>();
+        this.services = new LinkedList<GroupServiceModel>();
         this.lastServiceRan = -1;
 
-        if (groupName.isEmpty()) {
+        if (groupName == null) {
             throw new IllegalArgumentException("Group Definition found with no name attribute! : " + group);
         }
 
@@ -70,9 +69,8 @@ public class GroupModel {
                     + "] found with OLD 'service' attribute, change to use 'invoke'", module);
         }
 
-        if (Debug.verboseOn()) {
-             Debug.logVerbose("Created Service Group Model --> " + this, module);
-        }
+        if (Debug.verboseOn())
+            Debug.logVerbose("Created Service Group Model --> " + this, module);
     }
 
     /**
@@ -126,17 +124,17 @@ public class GroupModel {
      */
     public Map<String, Object> run(ServiceDispatcher dispatcher, String localName, Map<String, Object> context)
             throws GenericServiceException {
-        if ("all".equals(this.getSendMode())) {
+        if (this.getSendMode().equals("all")) {
             return runAll(dispatcher, localName, context);
-        } else if ("round-robin".equals(this.getSendMode())) {
+        } else if (this.getSendMode().equals("round-robin")) {
             return runIndex(dispatcher, localName, context, (++lastServiceRan % services.size()));
-        } else if ("random".equals(this.getSendMode())) {
+        } else if (this.getSendMode().equals("random")) {
             int randomIndex = (int) (Math.random() * (services.size()));
             return runIndex(dispatcher, localName, context, randomIndex);
-        } else if ("first-available".equals(this.getSendMode())) {
+        } else if (this.getSendMode().equals("first-available")) {
             return runOne(dispatcher, localName, context);
-        } else if ("none".equals(this.getSendMode())) {
-            return new HashMap<>();
+        } else if (this.getSendMode().equals("none")) {
+            return new HashMap<String, Object>();
         } else {
             throw new GenericServiceException("This mode is not currently supported");
         }
@@ -159,15 +157,13 @@ public class GroupModel {
     private Map<String, Object> runAll(ServiceDispatcher dispatcher, String localName, Map<String, Object> context)
             throws GenericServiceException {
         Map<String, Object> runContext = UtilMisc.makeMapWritable(context);
-        Map<String, Object> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<String, Object>();
         for (GroupServiceModel model : services) {
-            if (Debug.verboseOn()) {
-                 Debug.logVerbose("Using Context: " + runContext, module);
-            }
+            if (Debug.verboseOn())
+                Debug.logVerbose("Using Context: " + runContext, module);
             Map<String, Object> thisResult = model.invoke(dispatcher, localName, runContext);
-            if (Debug.verboseOn()) {
-                 Debug.logVerbose("Result: " + thisResult, module);
-            }
+            if (Debug.verboseOn())
+                Debug.logVerbose("Result: " + thisResult, module);
 
             // make sure we didn't fail
             if (ServiceUtil.isError(thisResult)) {
@@ -178,7 +174,7 @@ public class GroupModel {
             result.putAll(thisResult);
             if (model.resultToContext()) {
                 runContext.putAll(thisResult);
-                if (Debug.verboseOn()) Debug.logVerbose("Added result(s) to context.", module);
+                Debug.logVerbose("Added result(s) to context.", module);
             }
         }
         return result;

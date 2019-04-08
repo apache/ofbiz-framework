@@ -36,17 +36,20 @@ public interface LocalDispatcher {
 
     /**
      * Disables running of Service Engine Condition Actions (SECAs).  Intended to be turned off temporarily.
+     * @throws GenericServiceException
      */
     void disableEcas();
 
     /**
      * Reenables running of Service Engine Condition Actions (SECAs).
+     * @throws GenericServiceException
      */
     void enableEcas();
 
     /**
      * Returns whether Service Engine Condition Actions (SECAs) are disabled or not.
      * @return returns whether Service Engine Condition Actions (SECAs) are disabled or not.
+     * @throws GenericServiceException
      */
     boolean isEcasDisabled();
 

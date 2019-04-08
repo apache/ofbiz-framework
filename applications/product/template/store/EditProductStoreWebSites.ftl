@@ -32,21 +32,21 @@ under the License.
             <#if storeWebSites?has_content>
               <#assign rowClass = "2">
               <#list storeWebSites as webSite>
-                <tr valign="middle"<#if "1" == rowClass> class="alternate-row"</#if>>
+                <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
                   <td><a href="/content/control/EditWebSite?webSiteId=${webSite.webSiteId}&amp;externalLoginKey=${requestAttributes.externalLoginKey}" class="buttontext">${webSite.siteName!} [${webSite.webSiteId}]</a></td>
                   <td>${webSite.httpHost?default('&nbsp;')}</td>
                   <td>${webSite.httpPort?default('&nbsp;')}</td>
                   <td align="center">
+                    <a href="javascript:document.storeUpdateWebSite_${webSite_index}.submit();" class="buttontext">${uiLabelMap.CommonDelete}</a>
                     <form name="storeUpdateWebSite_${webSite_index}" method="post" action="<@ofbizUrl>storeUpdateWebSite</@ofbizUrl>">
                         <input type="hidden" name="viewProductStoreId" value="${productStoreId}"/>
                         <input type="hidden" name="productStoreId" value=""/>
                         <input type="hidden" name="webSiteId" value="${webSite.webSiteId}"/>
-                        <input type="submit" value="${uiLabelMap.CommonDelete}"/>
                     </form>                      
                   </td>
                 </tr>
                 <#-- toggle the row color -->
-                <#if "2" == rowClass>
+                <#if rowClass == "2">
                     <#assign rowClass = "1">
                 <#else>
                     <#assign rowClass = "2">

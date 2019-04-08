@@ -30,10 +30,10 @@ under the License.
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.PageTitleLookupOrderHeader"/>
+                <set field="title" value="${uiLabelMap.PageTitleLookupOrderHeader}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="entityName" value="OrderHeader"/>
                 <set field="searchFields" value="[orderId, orderName]"/>
@@ -57,11 +57,11 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.PageTitleLookupOrderHeaderAndShipInfo"/>
+                <set field="title" value="${uiLabelMap.PageTitleLookupOrderHeaderAndShipInfo}"/>
                 <set field="parameters.roleTypeId" to-scope="screen" default-value="SHIP_TO_CUSTOMER"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="entityName" value="OrderHeaderAndShipGroups"/>
                 <set field="searchDistinct" value="true" type="Boolean"/>
@@ -86,10 +86,10 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.PageTitleLookupPurchaseOrderHeaderAndShipInfo"/>
+                <set field="title" value="${uiLabelMap.PageTitleLookupPurchaseOrderHeaderAndShipInfo}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="entityName" value="OrderHeaderAndShipGroups"/>
                 <set field="searchFields" value="[orderId, orderName, toName]"/>
@@ -116,10 +116,10 @@ under the License.
             <actions>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.PageTitleLookupCustomerRequest"/>
+                <set field="title" value="${uiLabelMap.PageTitleLookupCustomerRequest}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="entityName" value="CustRequest"/>
                 <set field="searchFields" value="[custRequestId, custRequestName]"/>
@@ -143,11 +143,11 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.PageTitleLookupCustomerRequestItem"/>
+                <set field="title" value="${uiLabelMap.PageTitleLookupCustomerRequestItem}"/>
                 <set field="custRequestId" from-field="parameters.custRequestId" default-value="${parameters.parm0}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="entityName" value="CustRequestItem"/>
                 <set field="searchFields" value="[custRequestItemSeqId, custRequestId, productId]"/>
@@ -171,10 +171,10 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.PageTitleLookupQuote"/>
+                <set field="title" value="${uiLabelMap.PageTitleLookupQuote}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="entityName" value="Quote"/>
                 <set field="searchFields" value="[quoteId, quoteName, description]"/>
@@ -198,11 +198,11 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.PageTitleLookupQuoteItem"/>
+                <set field="title" value="${uiLabelMap.PageTitleLookupQuoteItem}"/>
                 <set field="quoteId" from-field="parameters.quoteId" default-value="${parameters.parm0}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="entityName" value="QuoteItem"/>
                 <set field="searchFields" value="[quoteItemSeqId, quoteId, productId, comments]"/> 
@@ -226,10 +226,10 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.PageTitleLookupRequirement"/>
+                <set field="title" value="${uiLabelMap.PageTitleLookupRequirement}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="entityName" value="Requirement"/>
                 <set field="searchFields" value="[requirementId, description]"/>
@@ -253,10 +253,10 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.PageTitleLookupShoppingList"/>
+                <set field="title" value="${uiLabelMap.PageTitleLookupShoppingList}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="entityName" value="ShoppingList"/>
                 <set field="searchFields" value="[shoppingListId, listName, description]"/>
@@ -268,33 +268,6 @@ under the License.
                     </decorator-section>
                     <decorator-section name="search-results">
                         <include-form name="ListLookupShoppingList" location="component://order/widget/ordermgr/FieldLookupForms.xml"/>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-    <screen name="LookupReturnHeader">
-        <section>
-            <condition>
-                <if-has-permission permission="ORDERMGR" action="_VIEW"/>
-            </condition>
-            <actions>
-                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.PageTitleLookupReturnHeader"/>
-                <set field="queryString" from-field="result.queryString"/>
-                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
-                <set field="entityName" value="ReturnHeader"/>
-                <set field="searchFields" value="[returnId]"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
-                    <decorator-section name="search-options">
-                        <include-form name="LookupReturnHeader" location="component://order/widget/ordermgr/FieldLookupForms.xml"/>
-                    </decorator-section>
-                    <decorator-section name="search-results">
-                        <include-form name="ListLookupReturnHeader" location="component://order/widget/ordermgr/FieldLookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

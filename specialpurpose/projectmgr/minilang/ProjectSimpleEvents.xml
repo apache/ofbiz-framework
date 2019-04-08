@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
+    <simple-method method-name="CreateCustRequestAndAssignTaskToPerson" short-description="">
+        <set field="parameters.statusId" value="CRQ_ACCEPTED"/><!-- entered by employee, should only enter accepted customer requests -->
+        <if-not-empty field="parameters.communicationEventId">
+            <set-service-fields service-name="createCustRequestFromCommEvent" map="parameters" to-map="eventCreateCust"/>
+            <call-service service-name="createCustRequestFromCommEvent" in-map-name="eventCreateCust">
+                <result-to-field result-name="custRequestId"/>
+            </call-service>
+            <!-- set the status of all participants to complete so not somebody else will also create a customer request -->
+            <entity-and entity-name="CommunicationEventRole" list="commRoles">
+                <field-map field-name="communicationEventId" from-field="parameters.communicationEventId"/>
+            </entity-and>
+            <iterate list="commRoles" entry="commRole">
+                <set field="commRole.statusId" value="COM_ROLE_COMPLETED"/>
+                <store-value value-field="commRole"/>
+            </iterate>
+            <else>
+                <set-service-fields service-name="createCustRequest" map="parameters" to-map="eventCreateCust"/>
+                <call-service service-name="createCustRequest" in-map-name="eventCreateCust">
+                    <result-to-field result-name="custRequestId"/>
+                </call-service>
+            </else>
+        </if-not-empty>
+        <set field="eventMessage" value="Customer request: ${custRequestId} created"/>
+        <if-not-empty field="parameters.workEffortParentId">
+            <set-service-fields service-name="createWorkEffort" map="parameters" to-map="createTask"/>
+            <set field="createTask.custRequestId" from-field="custRequestId"/>
+            <set field="createTask.workEffortName" from-field="parameters.custRequestName"/>
+            <call-service service-name="createWorkEffort" in-map-name="createTask" >
+                <result-to-field result-name="workEffortId" field="workEffortId"/>
+            </call-service>
+            <set field="eventMessage" value="${eventMessage} and attached to task: ${workEffortId}"/>
+            <set field="updCust.statusId" value="CRQ_REVIEWED"/>
+            <set field="updCust.custRequestId" from-field="custRequestId"/>
+            <call-service service-name="updateCustRequest" in-map-name="updCust"/>
+            <if-not-empty field="parameters.partyId">
+                <set field="assignParty.workEffortId" from-field="workEffortId"/>
+                <set field="assignParty.partyId" from-field="parameters.partyId"/>
+                <set field="assignParty.roleTypeId" from-field="parameters.roleTypeId"/>
+                <set field="assignParty.statusId" value="PAS_ASSIGNED"/>
+                <call-service service-name="assignPartyToWorkEffort" in-map-name="assignParty"/>
+                <set field="eventMessage" value="${eventMessage} and assigned to party: ${parameters.partyId}"/>
+            </if-not-empty>
+        </if-not-empty>
+        <set field="_event_message_" from-field="eventMessage"/>
+    </simple-method>
+    <simple-method method-name="acceptRequestAndConnectToTask" short-description="Accept a customer request and connect to an existing task">
+        <entity-one entity-name="WorkEffort" value-field="workEffort"/>
+        <if-empty field="workEffort">
+            <add-error><fail-property resource="ProjectMgrUiLabels" property="ProjectMgrErrorTaskNotFound"/></add-error>
+        </if-empty>
+        <if-compare field="workEffort.currentStatusId" value="PTS_CREATED" operator="not-equals">
+            <add-error><fail-property resource="ProjectMgrUiLabels" property="ProjectMgrErrorTaskStatusWrongNoRequestAdded"/></add-error>
+        </if-compare>
+        <entity-one entity-name="CustRequest" value-field="custRequest"/>
+        <if-empty field="custRequest">
+            <add-error><fail-property resource="ProjectMgrUiLabels" property="ProjectMgrErrorRequestNotFound"/></add-error>
+        </if-empty>
+        <if-compare field="custRequest.statusId" value="CRQ_ACCEPTED" operator="not-equals">
+            <entity-one entity-name="StatusItem" value-field="status">
+                <field-map field-name="statusId" value="custRequest.statusId"/>
+            </entity-one>
+            <add-error><fail-property resource="ProjectMgrUiLabels" property="ProjectMgrErrorRequestStatusWrong"/></add-error>
+        </if-compare>
+        <check-errors/>
+        <set field="updCust.statusId" value="CRQ_REVIEWED"/>
+        <set field="updCust.custRequestId" from-field="parameters.custRequestId"/>
+        <call-service service-name="updateCustRequest" in-map-name="updCust"/>
+        <set-service-fields service-name="createWorkEffortRequest" map="parameters" to-map="connectMap"/>
+        <call-service service-name="createWorkEffortRequest" in-map-name="connectMap"/>
+    </simple-method>
+    <simple-method method-name="setTaskStatusToComplete" short-description="Set the task status to complete, if resources assigned that status will also be set to complete">
+        <entity-one entity-name="WorkEffort" value-field="workEffort"/>
+        <if-empty field="workEffort">
+            <add-error><fail-property resource="ProjectMgrUiLabels" property="ProjectMgrErrorTaskNotFound"/></add-error>
+        </if-empty>
+        <if-compare field="workEffort.currentStatusId" value="PTS_CREATED" operator="not-equals">
+            <add-error><fail-property resource="ProjectMgrUiLabels" property="ProjectMgrErrorTaskStatusWrongToBeComplete"/></add-error>
+        </if-compare>
+        <check-errors/>
+        <entity-and entity-name="WorkEffortPartyAssignment" list="assigns" filter-by-date="true">
+            <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
+        </entity-and>
+        <!-- if all assigns are complete the task will be set to complete -->
+        <if-not-empty field="assigns">
+            <iterate list="assigns" entry="assign">
+                <set-service-fields service-name="updateTaskAssigment" map="assign" to-map="upd"/>
+                <set field="upd.statusId" value="PAS_COMPLETED"/>
+                <call-service service-name="updateTaskAssigment" in-map-name="upd"/>
+            </iterate>
+            <else>
+                <set-service-fields service-name="updateWorkEffort" map="parameters" to-map="upd"/>
+                <set field="upd.currentStatusId" value="PTS_COMPLETED"/>
+                <call-service service-name="updateWorkEffort" in-map-name="upd"/>
+            </else>
+        </if-not-empty>
+    </simple-method>
+    <simple-method method-name="addProjectMgrResource" short-description="make parties available in the project manager.">
+        <set-service-fields service-name="ensurePartyRole" map="parameters" to-map="roleData"/>
+        <call-service service-name="ensurePartyRole" in-map-name="roleData"/>
+        <set field="roleData.roleTypeId" value="PROJECT_TEAM"/>
+        <call-service service-name="ensurePartyRole" in-map-name="roleData"/>
+    </simple-method>
+    <!-- create workEffort content -->
+    <simple-method method-name="createWorkEffortContent" short-description="Creates Party Associated Content" login-required="false">
+        <call-class-method class-name="org.apache.ofbiz.content.layout.LayoutWorker"
+            method-name="uploadImageAndParameters"
+            ret-field="formInput">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <string value="dataResourceName"/>
+        </call-class-method>
+        <if-empty field="formInput.formInput.contentIdTo">
+            <set-service-fields service-name="createContentFromUploadedFile" map="formInput.formInput" to-map="inMap"/>
+            <set field="inMap._uploadedFile_fileName" from-field="formInput.imageFileName"/>
+            <set field="inMap.uploadedFile" from-field="formInput.imageData"/>
+            <set field="inMap._uploadedFile_contentType" from-field="formInput.formInput.mimeTypeId"/>
+            
+            <call-service service-name="createContentFromUploadedFile" in-map-name="inMap">
+                <result-to-field result-name="contentId" field="context.contentId"/>
+            </call-service>
+            <else>
+                <set field="context.contentId" from-field="formInput.formInput.contentIdTo"/>
+            </else>
+        </if-empty>
+        <if-empty field="formInput.formInput.workEffortId">
+            <if-not-empty field="formInput.formInput.projectId">
+                <set field="context.workEffortId" from-field="formInput.formInput.projectId"/>
+            </if-not-empty>
+            <else>
+                <set field="context.workEffortId" from-field="formInput.formInput.workEffortId"/>
+            </else>
+        </if-empty>
+        <set field="context.workEffortContentTypeId" from-field="formInput.formInput.workEffortContentTypeId"/>
+        <now-timestamp field="context.fromDate"/>
+        <call-map-processor in-map-name="context" out-map-name="workEffortContext">
+            <simple-map-processor name="newWorkEffortContent">
+                <process field="workEffortContentTypeId"><copy to-field="workEffortContentTypeId"/></process>
+                <process field="contentId"><copy to-field="contentId"/></process>
+                <process field="workEffortId"><copy to-field="workEffortId"/></process>
+                <process field="fromDate"><copy to-field="fromDate"/></process>
+            </simple-map-processor>
+        </call-map-processor>
+        <!-- create WorkEffortContent-->
+        <call-service service-name="createWorkEffortContent" in-map-name="workEffortContext">
+            <result-to-field result-name="contentId" field="contentId"/>
+        </call-service>
+        
+        <!-- create ContentAssoc-->
+        <set field="context.contentAssocTypeId" value="SUB_CONTENT"/>
+        <if-not-empty field="formInput.formInput.contentIdFrom">
+            <set field="context.contentIdFrom" from-field="formInput.formInput.contentIdFrom"/>
+            <call-map-processor in-map-name="context" out-map-name="contentAssocContext">
+                <simple-map-processor name="newContentAssoc">
+                    <process field="contentIdFrom"><copy to-field="contentId"/></process>
+                    <process field="contentIdFrom"><copy to-field="contentIdFrom"/></process>
+                    <process field="contentId"><copy to-field="contentIdTo"/></process>
+                    <process field="contentAssocTypeId"><copy to-field="contentAssocTypeId"/></process>
+                    <process field="fromDate"><copy to-field="fromDate"/></process>
+                </simple-map-processor>
+            </call-map-processor>
+            <entity-and entity-name="ContentAssoc" list="contentAssoList">
+                <field-map field-name="contentId" from-field="contentAssocContext.contentId"/>
+                <field-map field-name="contentIdTo" from-field="contentAssocContext.contentIdTo"/>
+            </entity-and>
+            <if-empty field="contentAssonList">
+                <call-service service-name="createContentAssoc" in-map-name="contentAssocContext"/>           
+            </if-empty>
+        </if-not-empty>
+        
+        <!-- set the partyId in the request -->
+        <field-to-request field="context.workEffortId" request-name="workEffortId"/>
+        <field-to-request field="context.projectId" request-name="projectId"/>
+        <field-to-request field="contentId" request-name="contentId"/>
+    </simple-method>
+
+    <!-- Update workEffort content -->
+    <simple-method method-name="updateWorkEffortContent" short-description="Update Party Associated Content" login-required="false">
+        <call-class-method class-name="org.apache.ofbiz.content.layout.LayoutWorker"
+            method-name="uploadImageAndParameters"
+            ret-field="formInput">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <string value="dataResourceName"/>
+        </call-class-method>
+        <entity-one entity-name="Content" value-field="content">
+            <field-map field-name="contentId" from-field="formInput.formInput.contentId"/>
+        </entity-one>
+        <set-service-fields service-name="updateContentAndUploadedFile" map="formInput.formInput" to-map="inMap"/>
+        <set field="inMap._uploadedFile_fileName" from-field="formInput.imageFileName"/>
+        <set field="inMap.uploadedFile" from-field="formInput.imageData"/>
+        <set field="inMap._uploadedFile_contentType" from-field="formInput.formInput.mimeTypeId"/>
+        <set field="inMap.contentId" from-field="formInput.formInput.contentId"/>
+        <set field="inMap.dataResourceId" from-field="content.dataResourceId"/>
+        <call-service service-name="updateContentAndUploadedFile" in-map-name="inMap">
+            <result-to-field result-name="contentId" field="context.contentId"/>
+        </call-service>
+        <if-empty field="formInput.formInput.workEffortId">
+            <if-not-empty field="formInput.formInput.projectId">
+                <set field="workEffortId" from-field="formInput.formInput.projectId"/>
+            </if-not-empty>
+            <else>
+                <set field="workEffortId" from-field="formInput.formInput.workEffortId"/>
+            </else>
+        </if-empty>
+
+        <!-- set the partyId in the request -->
+        <field-to-request field="workEffortId" request-name="workEffortId"/>
+        <field-to-request field="projectId" request-name="projectId"/>
+        <field-to-request field="contentId" request-name="context"/>
+    </simple-method>
+</simple-methods>

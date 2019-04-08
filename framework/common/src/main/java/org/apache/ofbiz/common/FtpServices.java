@@ -42,7 +42,7 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 /**
  * FTP Services.
- *
+ * 
  */
 public class FtpServices {
 
@@ -59,13 +59,13 @@ public class FtpServices {
             Debug.logError(ioe, "[putFile] Problem opening local file", module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonFtpFileCannotBeOpen", locale));
         }
-        List<String> errorList = new LinkedList<>();
+        List<String> errorList = new LinkedList<String>();
         FTPClient ftp = new FTPClient();
         try {
             Integer defaultTimeout = (Integer) context.get("defaultTimeout");
             if (UtilValidate.isNotEmpty(defaultTimeout)) {
-                Debug.logInfo("[putFile] set default timeout to: " + defaultTimeout + " milliseconds", module);
-                ftp.setDefaultTimeout(defaultTimeout);
+                Debug.logInfo("[putFile] set default timeout to: " + defaultTimeout.intValue() + " milliseconds", module);
+                ftp.setDefaultTimeout(defaultTimeout.intValue());
             }
             Debug.logInfo("[putFile] connecting to: " + (String) context.get("hostname"), module);
             ftp.connect((String) context.get("hostname"));
@@ -81,12 +81,12 @@ public class FtpServices {
                     errorList.add(UtilProperties.getMessage(resource, "CommonFtpLoginFailure", UtilMisc.toMap("username", username, "password", password), locale));
                 } else {
                     Boolean binaryTransfer = (Boolean) context.get("binaryTransfer");
-                    boolean binary = (binaryTransfer == null) ? false : binaryTransfer;
+                    boolean binary = (binaryTransfer == null) ? false : binaryTransfer.booleanValue();
                     if (binary) {
                         ftp.setFileType(FTP.BINARY_FILE_TYPE);
                     }
                     Boolean passiveMode = (Boolean) context.get("passiveMode");
-                    boolean passive = (passiveMode == null) ? true : passiveMode;
+                    boolean passive = (passiveMode == null) ? true : passiveMode.booleanValue();
                     if (passive) {
                         ftp.enterLocalPassiveMode();
                     }
@@ -120,6 +120,11 @@ public class FtpServices {
             } catch (Exception e) {
                 Debug.logWarning(e, "[putFile] Problem with FTP disconnect: ", module);
             }
+            try {
+                localFile.close();
+            } catch (Exception e) {
+                Debug.logWarning(e, "[putFile] Problem closing local file: ", module);
+            }
         }
         if (errorList.size() > 0) {
             Debug.logError("[putFile] The following error(s) (" + errorList.size() + ") occurred: " + errorList, module);
@@ -139,13 +144,13 @@ public class FtpServices {
             Debug.logError(ioe, "[getFile] Problem opening local file", module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonFtpFileCannotBeOpen", locale));
         }
-        List<String> errorList = new LinkedList<>();
+        List<String> errorList = new LinkedList<String>();
         FTPClient ftp = new FTPClient();
         try {
             Integer defaultTimeout = (Integer) context.get("defaultTimeout");
             if (UtilValidate.isNotEmpty(defaultTimeout)) {
-                Debug.logInfo("[getFile] Set default timeout to: " + defaultTimeout + " milliseconds", module);
-                ftp.setDefaultTimeout(defaultTimeout);
+                Debug.logInfo("[getFile] Set default timeout to: " + defaultTimeout.intValue() + " milliseconds", module);
+                ftp.setDefaultTimeout(defaultTimeout.intValue());
             }
             ftp.connect((String) context.get("hostname"));
             if (!FTPReply.isPositiveCompletion(ftp.getReplyCode())) {
@@ -157,12 +162,12 @@ public class FtpServices {
                     errorList.add(UtilProperties.getMessage(resource, "CommonFtpLoginFailure", UtilMisc.toMap("username", username, "password", password), locale));
                 } else {
                     Boolean binaryTransfer = (Boolean) context.get("binaryTransfer");
-                    boolean binary = (binaryTransfer == null) ? false : binaryTransfer;
+                    boolean binary = (binaryTransfer == null) ? false : binaryTransfer.booleanValue();
                     if (binary) {
                         ftp.setFileType(FTP.BINARY_FILE_TYPE);
                     }
                     Boolean passiveMode = (Boolean) context.get("passiveMode");
-                    boolean passive = (passiveMode == null) ? false : passiveMode;
+                    boolean passive = (passiveMode == null) ? false : passiveMode.booleanValue();
                     if (passive) {
                         ftp.enterLocalPassiveMode();
                     }
@@ -182,6 +187,11 @@ public class FtpServices {
                 }
             } catch (Exception e) {
                 Debug.logWarning(e, "[getFile] Problem with FTP disconnect: ", module);
+            }
+            try {
+                localFile.close();
+            } catch (Exception e) {
+                Debug.logWarning(e, "[getFile] Problem closing local file: ", module);
             }
         }
         if (errorList.size() > 0) {

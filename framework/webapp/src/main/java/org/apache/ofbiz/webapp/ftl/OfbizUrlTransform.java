@@ -43,14 +43,14 @@ import freemarker.template.TemplateTransformModel;
 
 /**
  * Freemarker Transform for creating OFBiz URLs (links).
- * <p>This transform accepts several arguments:</p>
+ * <p>This transform accepts several arguments:<br>
  * <ul>
  * <li><b>fullPath</b> (true/false) - generate a full URL including scheme and host, defaults to false.</li>
  * <li><b>secure</b> (true/false) - generate a secure (https) URL, defaults to false. Server settings will
  * override this argument.</li>
  * <li><b>encode</b> (true/false) - encode the URL, defaults to true. Encoding is UTF-8.</li>
  * <li><b>webSiteId</b> - generate a full URL using the web site settings found in the WebSite entity.</li>
- * </ul>
+ * </ul></p>
  * <p>In addition, this transform accepts an environment variable - <b>urlPrefix</b>. If the variable
  * exists, it is prepended to the contents of the transform (the part between
  * <code>&lt;@ofbizUrl&gt;</code> and <code>&lt;/@ofbizUrl&gt;</code>), and all transform arguments are
@@ -74,9 +74,8 @@ public class OfbizUrlTransform implements TemplateTransformModel {
     private static String convertToString(Object o) {
         String result = "";
         if (o != null) {
-            if (Debug.verboseOn()) {
-                 Debug.logVerbose("Arg Object : " + o.getClass().getName(), module);
-            }
+            if (Debug.verboseOn())
+                Debug.logVerbose("Arg Object : " + o.getClass().getName(), module);
             if (o instanceof TemplateScalarModel) {
                 TemplateScalarModel s = (TemplateScalarModel) o;
                 try {

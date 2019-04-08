@@ -52,11 +52,10 @@ import freemarker.template.TemplateTransformModel;
 public class RenderSubContentCacheTransform implements TemplateTransformModel {
 
     public static final String module = RenderSubContentCacheTransform.class.getName();
-    static final String[] upSaveKeyNames = { "globalNodeTrail" };
+    public static final String [] upSaveKeyNames = {"globalNodeTrail"};
 
-    @Override
     @SuppressWarnings("unchecked")
-    public Writer getWriter(Writer out, @SuppressWarnings("rawtypes") Map args) {
+    public Writer getWriter(final Writer out, Map args) {
         final Environment env = Environment.getCurrentEnvironment();
         final LocalDispatcher dispatcher = FreeMarkerWorker.getWrappedObject("dispatcher", env);
         final Delegator delegator = FreeMarkerWorker.getWrappedObject("delegator", env);
@@ -71,7 +70,7 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
         List<Map<String, ? extends Object>> trail = UtilGenerics.checkList(templateRoot.get("globalNodeTrail"));
         String contentAssocPredicateId = (String)templateRoot.get("contentAssocPredicateId");
         String strNullThruDatesOnly = (String)templateRoot.get("nullThruDatesOnly");
-        Boolean nullThruDatesOnly = (strNullThruDatesOnly != null && "true".equalsIgnoreCase(strNullThruDatesOnly)) ? Boolean.TRUE :Boolean.FALSE;
+        Boolean nullThruDatesOnly = (strNullThruDatesOnly != null && strNullThruDatesOnly.equalsIgnoreCase("true")) ? Boolean.TRUE :Boolean.FALSE;
         String thisSubContentId =  (String)templateRoot.get("subContentId");
         final boolean directAssocMode = UtilValidate.isNotEmpty(thisSubContentId) ? true : false;
         GenericValue val = null;
@@ -163,7 +162,7 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
                     String contentId = thisView.getString("contentId");
                     if (contentId != null) {
                         try {
-                            ContentWorker.renderContentAsText(dispatcher, contentId, out, templateRoot, locale, mimeTypeId, null, null, true);
+                            ContentWorker.renderContentAsText(dispatcher, delegator, contentId, out, templateRoot, locale, mimeTypeId, null, null, true);
                         } catch (GeneralException e) {
                             Debug.logError(e, "Error rendering content", module);
                             throw new IOException("Error rendering thisView:" + thisView + " msg:" + e.toString());

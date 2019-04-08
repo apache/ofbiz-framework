@@ -24,7 +24,7 @@ under the License.
     </div>
     <div class="screenlet-body">
         <table class="basic-table" cellspacing='0'>
-          <tr>
+          <tr class="label">
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td align="right">${uiLabelMap.CommonToday}</td>

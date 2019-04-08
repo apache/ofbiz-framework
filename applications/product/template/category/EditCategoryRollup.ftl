@@ -53,7 +53,7 @@ under the License.
                     <#if productCategoryRollup.fromDate?? && nowTimestamp.before(productCategoryRollup.getTimestamp("fromDate"))><#assign hasntStarted = true></#if>
                     <#assign hasExpired = false>
                     <#if productCategoryRollup.thruDate?? && nowTimestamp.after(productCategoryRollup.getTimestamp("thruDate"))><#assign hasExpired = true></#if>
-                    <tr valign="middle"<#if "1" == rowClass> class="alternate-row"</#if>>
+                    <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
                         <td><#if curCategory?has_content>
                                 <a href="<@ofbizUrl>EditCategory?productCategoryId=${curCategory.productCategoryId}</@ofbizUrl>" >
                                     <#assign catContentWrapper = Static["org.apache.ofbiz.product.category.CategoryContentWrapper"].makeCategoryContentWrapper(curCategory, request)!>
@@ -80,7 +80,7 @@ under the License.
                         </td>
                     </tr>
                     <#-- toggle the row color -->
-                    <#if "2" == rowClass>
+                    <#if rowClass == "2">
                         <#assign rowClass = "1">
                     <#else>
                         <#assign rowClass = "2">
@@ -161,7 +161,7 @@ under the License.
                     <#if productCategoryRollup.fromDate?? && nowTimestamp.before(productCategoryRollup.getTimestamp("fromDate"))><#assign hasntStarted = true></#if>
                     <#assign hasExpired = false>
                     <#if productCategoryRollup.thruDate?? && nowTimestamp.after(productCategoryRollup.getTimestamp("thruDate"))><#assign hasExpired = true></#if>
-                        <tr valign="middle"<#if "1" == rowClass> class="alternate-row"</#if>>
+                        <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
                             <td><#if curCategory?has_content>
                                     <a href="<@ofbizUrl>EditCategory?productCategoryId=${curCategory.productCategoryId}</@ofbizUrl>" >
                                         <#assign catContentWrapper = Static["org.apache.ofbiz.product.category.CategoryContentWrapper"].makeCategoryContentWrapper(curCategory, request)!>
@@ -188,7 +188,7 @@ under the License.
                             </td>
                         </tr>
                         <#-- toggle the row color -->
-                        <#if "2" == rowClass>
+                        <#if rowClass == "2">
                             <#assign rowClass = "1">
                         <#else>
                             <#assign rowClass = "2">

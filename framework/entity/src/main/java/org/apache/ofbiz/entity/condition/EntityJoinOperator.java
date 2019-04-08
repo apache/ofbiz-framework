@@ -37,7 +37,7 @@ import org.apache.ofbiz.entity.model.ModelEntity;
  *
  */
 @SuppressWarnings("serial")
-public class EntityJoinOperator extends EntityOperator<EntityCondition, EntityCondition> {
+public class EntityJoinOperator extends EntityOperator<EntityCondition, EntityCondition, Boolean> {
 
     protected boolean shortCircuitValue;
 
@@ -48,7 +48,7 @@ public class EntityJoinOperator extends EntityOperator<EntityCondition, EntityCo
 
     @Override
     public void addSqlValue(StringBuilder sql, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, boolean compat, EntityCondition lhs, EntityCondition rhs, Datasource datasourceInfo) {
-        List<EntityCondition> conditions = new LinkedList<>();
+        List<EntityCondition> conditions = new LinkedList<EntityCondition>();
         conditions.add(lhs);
         conditions.add(rhs);
         addSqlValue(sql, modelEntity, entityConditionParams, conditions, datasourceInfo);
@@ -89,11 +89,25 @@ public class EntityJoinOperator extends EntityOperator<EntityCondition, EntityCo
     }
 
     public EntityCondition freeze(List<? extends EntityCondition> conditionList) {
-        List<EntityCondition> newList = new ArrayList<>(conditionList.size());
+        List<EntityCondition> newList = new ArrayList<EntityCondition>(conditionList.size());
         for (EntityCondition condition: conditionList) {
             newList.add(condition.freeze());
         }
         return EntityCondition.makeCondition(newList, this);
+    }
+
+    public void visit(EntityConditionVisitor visitor, List<? extends EntityCondition> conditionList) {
+        if (UtilValidate.isNotEmpty(conditionList)) {
+            for (EntityCondition condition: conditionList) {
+                visitor.visit(condition);
+            }
+        }
+    }
+
+    @Override
+    public void visit(EntityConditionVisitor visitor, EntityCondition lhs, EntityCondition rhs) {
+        lhs.visit(visitor);
+        visitor.visit(rhs);
     }
 
     public Boolean eval(GenericEntity entity, EntityCondition lhs, EntityCondition rhs) {
@@ -116,9 +130,8 @@ public class EntityJoinOperator extends EntityOperator<EntityCondition, EntityCo
 
     @Override
     public boolean entityMatches(GenericEntity entity, EntityCondition lhs, EntityCondition rhs) {
-        if (lhs.entityMatches(entity) == shortCircuitValue || rhs.entityMatches(entity) == shortCircuitValue) {
-            return shortCircuitValue;
-        }
+        if (lhs.entityMatches(entity) == shortCircuitValue) return shortCircuitValue;
+        if (rhs.entityMatches(entity) == shortCircuitValue) return shortCircuitValue;
         return !shortCircuitValue;
     }
 
@@ -127,27 +140,24 @@ public class EntityJoinOperator extends EntityOperator<EntityCondition, EntityCo
     }
 
     public Boolean eval(Delegator delegator, Map<String, ? extends Object> map, EntityCondition lhs, EntityCondition rhs) {
-        return mapMatches(delegator, map, lhs, rhs);
+        return castBoolean(mapMatches(delegator, map, lhs, rhs));
     }
 
     @Override
     public boolean mapMatches(Delegator delegator, Map<String, ? extends Object> map, EntityCondition lhs, EntityCondition rhs) {
-        if (lhs.mapMatches(delegator, map) == shortCircuitValue || rhs.mapMatches(delegator, map) == shortCircuitValue) {
-            return shortCircuitValue;
-        }
+        if (lhs.mapMatches(delegator, map) == shortCircuitValue) return shortCircuitValue;
+        if (rhs.mapMatches(delegator, map) == shortCircuitValue) return shortCircuitValue;
         return !shortCircuitValue;
     }
 
     public Boolean eval(Delegator delegator, Map<String, ? extends Object> map, List<? extends EntityCondition> conditionList) {
-        return mapMatches(delegator, map, conditionList);
+        return castBoolean(mapMatches(delegator, map, conditionList));
     }
 
     public boolean mapMatches(Delegator delegator, Map<String, ? extends Object> map, List<? extends EntityCondition> conditionList) {
         if (UtilValidate.isNotEmpty(conditionList)) {
             for (EntityCondition condition: conditionList) {
-                if (condition.mapMatches(delegator, map) == shortCircuitValue) {
-                    return shortCircuitValue;
-                }
+                if (condition.mapMatches(delegator, map) == shortCircuitValue) return shortCircuitValue;
             }
         }
         return !shortCircuitValue;

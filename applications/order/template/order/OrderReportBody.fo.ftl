@@ -64,7 +64,7 @@ under the License.
                         </fo:table-cell>
                         <fo:table-cell>
                             <fo:block>
-                                <#if "PURCHASE_ORDER" == orderHeader.orderTypeId>
+                                <#if orderHeader.orderTypeId == "PURCHASE_ORDER">
                                     <#if internalImageUrl?has_content>
                                         <fo:external-graphic src="${internalImageUrl}" overflow="hidden" content-width="100"/>
                                     </#if>

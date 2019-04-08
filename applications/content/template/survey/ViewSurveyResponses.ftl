@@ -27,9 +27,9 @@ under the License.
 
         <tr>
           <#-- seperator options -->
-          <#if "SEPERATOR_TEXT" == question.surveyQuestionTypeId>
+          <#if question.surveyQuestionTypeId == "SEPERATOR_TEXT">
             <td colspan="5" class="label">${question.question!}</td>
-          <#elseif "SEPERATOR_LINE" == question.surveyQuestionTypeId>
+          <#elseif question.surveyQuestionTypeId == "SEPERATOR_LINE">
             <td colspan="5"><hr/></td>
           <#else>
 
@@ -48,7 +48,7 @@ under the License.
 
             <#-- answers -->
             <td>
-              <#if "BOOLEAN" == question.surveyQuestionTypeId>
+              <#if question.surveyQuestionTypeId == "BOOLEAN">
                 <#assign selectedOption = (answer.booleanResponse)?default("Y")>
                 <div>
                   <span style="white-space: nowrap;">${uiLabelMap.CommonY}&nbsp;[${results._yes_total?default(0)?string("#")} / ${results._yes_percent?default(0)?string("#")}%]</span>
@@ -56,7 +56,7 @@ under the License.
                 <div>
                   <span style="white-space: nowrap;">${uiLabelMap.CommonN}&nbsp;[${results._no_total?default(0)?string("#")} / ${results._no_percent?default(0)?string("#")}%]</span>
                 </div>
-              <#elseif "OPTION" == question.surveyQuestionTypeId>
+              <#elseif question.surveyQuestionTypeId == "OPTION">
                 <#assign options = question.getRelated("SurveyQuestionOption", null, sequenceSort, false)!>
                 <#if options?has_content>
                   <#list options as option>
@@ -73,31 +73,31 @@ under the License.
                 <#assign answers = surveyWrapper.getQuestionResponses(question, 0, 0)>
                 <#if answers?has_content>
                   <#list answers as answer>
-                    <#if "TEXTAREA" == question.surveyQuestionTypeId>
+                    <#if question.surveyQuestionTypeId == "TEXTAREA">
                       <div>${(answer.textResponse)!}</div>
-                    <#elseif "TEXT_SHORT" == question.surveyQuestionTypeId>
+                    <#elseif question.surveyQuestionTypeId == "TEXT_SHORT">
                       <div>${(answer.textResponse)!}</div>
-                    <#elseif "TEXT_LONG" == question.surveyQuestionTypeId>
+                    <#elseif question.surveyQuestionTypeId == "TEXT_LONG">
                       <div>${(answer.textResponse)!}</div>
-                    <#elseif "EMAIL" == question.surveyQuestionTypeId>
+                    <#elseif question.surveyQuestionTypeId == "EMAIL">
                       <div>${(answer.textResponse)!}</div>
-                    <#elseif "URL" == question.surveyQuestionTypeId>
+                    <#elseif question.surveyQuestionTypeId == "URL">
                       <div>${(answer.textResponse)!}</div>
-                    <#elseif "DATE" == question.surveyQuestionTypeId>
+                    <#elseif question.surveyQuestionTypeId == "DATE">
                       <div>${(answer.textResponse)!}</div>
-                    <#elseif "CREDIT_CARD" == question.surveyQuestionTypeId>
+                    <#elseif question.surveyQuestionTypeId == "CREDIT_CARD">
                       <div>${(answer.textResponse)!}</div>
-                    <#elseif "GIFT_CARD" == question.surveyQuestionTypeId>
+                    <#elseif question.surveyQuestionTypeId == "GIFT_CARD">
                       <div>${(answer.textResponse)!}</div>
-                    <#elseif "NUMBER_CURRENCY" == question.surveyQuestionTypeId>
+                    <#elseif question.surveyQuestionTypeId == "NUMBER_CURRENCY">
                       <div>${answer.currencyResponse?default(0)}</div>
-                    <#elseif "NUMBER_FLOAT" == question.surveyQuestionTypeId>
+                    <#elseif question.surveyQuestionTypeId == "NUMBER_FLOAT">
                       <div>${answer.floatResponse?default(0)?string("#")}</div>
-                    <#elseif "NUMBER_LONG" == question.surveyQuestionTypeId>
+                    <#elseif question.surveyQuestionTypeId == "NUMBER_LONG">
                       <div>${answer.numericResponse?default(0)?string("#")}&nbsp;${uiLabelMap.CommonTally}: ${results._tally?default(0)?string("#")} / ${uiLabelMap.CommonAverage}: ${results._average?default(0)?string("#")}</div>
-                    <#elseif "PASSWORD" == question.surveyQuestionTypeId>
+                    <#elseif question.surveyQuestionTypeId == "PASSWORD">
                       <div>${uiLabelMap.CommonNotShown}</div>
-                    <#elseif "CONTENT" == question.surveyQuestionTypeId>
+                    <#elseif question.surveyQuestionTypeId == "CONTENT">
                        <#if answer.contentId?has_content>
                          <#assign content = answer.getRelatedOne("Content", false)>
                          <a href="<@ofbizUrl>img?imgId=${content.dataResourceId}</@ofbizUrl>" class="buttontext">${answer.contentId}</a>&nbsp;-&nbsp;${content.contentName!}

@@ -39,7 +39,6 @@ under the License.
         <xs:attribute name="sender"/>
         <xs:attribute name="receiver"/>
         <xs:attribute name="delimiter"/>
-        <xs:attribute name="start-line"/>
         <xs:attribute name="text-delimiter"/>
         <xs:attribute name="record-length"/>
         <xs:attribute name="separator-style" use="required">
@@ -48,14 +47,6 @@ under the License.
                     <xs:enumeration value="fixed-length"/>
                     <xs:enumeration value="fixed-record"/>
                     <xs:enumeration value="delimited"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute name="eol-type" default="CR">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="CR"/>
-                    <xs:enumeration value="CRLF"/>
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
@@ -74,7 +65,14 @@ under the License.
         <xs:attribute name="type-code"/>
         <xs:attribute name="tc-min"/>
         <xs:attribute name="tc-max"/>
-        <xs:attribute name="tc-isnum" type="xs:boolean" default="true"/>
+        <xs:attribute name="tc-isnum" default="true">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="false"/>
+                    <xs:enumeration value="true"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
         <xs:attribute name="tc-position"/>
         <xs:attribute name="tc-length"/>
         <xs:attribute name="description"/>
@@ -128,9 +126,30 @@ under the License.
         <xs:attribute name="valid-exp"/>
         <xs:attribute name="description"/>
         <xs:attribute name="default-value"/>
-        <xs:attribute name="prim-key" type="xs:boolean" default="false"/>
-        <xs:attribute name="ignored" type="xs:boolean" default="false"/>
-        <xs:attribute name="expression" type="xs:boolean" default="false"/>
+        <xs:attribute name="prim-key" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="ignored" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="expression" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
         <xs:attribute name="ref-field"/>
     </xs:attributeGroup>
 </xs:schema>

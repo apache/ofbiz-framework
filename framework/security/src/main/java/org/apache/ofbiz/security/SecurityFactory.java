@@ -87,7 +87,7 @@ public final class SecurityFactory {
 
         private Delegator delegator = null;
 
-        private static final Map<String, Map<String, String>> simpleRoleEntity = UtilMisc.toMap(
+        protected static final Map<String, Map<String, String>> simpleRoleEntity = UtilMisc.toMap(
             "ORDERMGR", UtilMisc.<String, String>toMap("name", "OrderRole", "pkey", "orderId"),
             "FACILITY", UtilMisc.<String, String>toMap("name", "FacilityParty", "pkey", "facilityId"),
             "MARKETING", UtilMisc.<String, String>toMap("name", "MarketingCampaignRole", "pkey", "marketingCampaignId"));
@@ -225,7 +225,7 @@ public final class SecurityFactory {
                 entityName = simpleRoleMap.get("name");
                 String pkey = simpleRoleMap.get("pkey");
                 if (pkey != null) {
-                    List<EntityExpr> expressions = new ArrayList<>();
+                    List<EntityExpr> expressions = new ArrayList<EntityExpr>();
                     for (String role: roles) {
                         expressions.add(EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, role));
                     }
@@ -263,7 +263,7 @@ public final class SecurityFactory {
         @Deprecated
         public boolean securityGroupPermissionExists(String groupId, String permission) {
             try {
-                return EntityQuery.use(delegator).from("SecurityGroupPermission").where("groupId", groupId, "permissionId", permission).cache(true).filterByDate().queryFirst() != null;
+                return EntityQuery.use(delegator).from("SecurityGroupPermission").where("groupId", groupId, "permissionId", permission).cache(true).queryOne() != null;
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
                 return false;

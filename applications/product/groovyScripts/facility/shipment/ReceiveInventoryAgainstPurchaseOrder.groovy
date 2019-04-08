@@ -90,7 +90,7 @@ if (facility) {
     owner = facility.getRelatedOne("OwnerParty", false)
     if (owner) {
         result = runService('getPartyAccountingPreferences', [organizationPartyId : owner.partyId, userLogin : request.getAttribute("userLogin")])
-        if (ServiceUtil.isSuccess(result) && result.partyAccountingPreference) {
+        if (!ServiceUtil.isError(result) && result.partyAccountingPreference) {
             ownerAcctgPref = result.partyAccountingPreference
         }
     }
@@ -107,12 +107,16 @@ if (!itemQuantitiesToReceive) {
     itemQuantitiesToReceive = [_shipmentId : shipmentId, _orderId : orderId]
 }
 
+oiasgaLimitMap = null
+if (shipGroupSeqId) {
+    oiasgaLimitMap = [shipGroupSeqId : shipGroupSeqId]
+}
 
 orderItemDatas = [:] as TreeMap
 totalAvailableToReceive = 0
 
 // Populate the order item data for the FTL
-orderItems = from("OrderItemAndShipGroupAssoc").where("shipGroupSeqId", shipGroupSeqId, "orderId", orderHeader.orderId).orderBy('shipGroupSeqId', 'orderItemSeqId').queryList();
+orderItems = orderHeader.getRelated("OrderItemAndShipGroupAssoc", oiasgaLimitMap, ['shipGroupSeqId', 'orderItemSeqId'], false)
 orderItems.each { orderItemAndShipGroupAssoc ->
     product = orderItemAndShipGroupAssoc.getRelatedOne("Product", false)
 
@@ -158,7 +162,7 @@ orderItems.each { orderItemAndShipGroupAssoc ->
     if (baseCurrencyUomId && orderHeader.currencyUom) {
         if (product) {
             result = runService('convertUom', [uomId : orderHeader.currencyUom, uomIdTo : baseCurrencyUomId, originalValue : orderItem.unitPrice])
-            if (ServiceUtil.isSuccess(result)) {
+            if (!ServiceUtil.isError(result)) {
                 orderItem.unitPrice = result.convertedValue
             }
         }
@@ -216,10 +220,8 @@ if (productIdToReceive) {
         if (productQtyToReceive) {
             try {
                 quantity = Double.parseDouble(productQtyToReceive)
-            } catch (NumberFormatException nfe) {
-                Debug.logError(nfe, "Caught an exception : " + nfe.toString(), module)
-                request.setAttribute("_ERROR_MESSAGE", "The quantity to update seems non-numeric")
-                return
+            } catch (Exception e) {
+                // Ignore the quantity update if there's a problem parsing it
             }
         }
 

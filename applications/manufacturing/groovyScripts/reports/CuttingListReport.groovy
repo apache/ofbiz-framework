@@ -18,7 +18,7 @@
  */
 
 import java.awt.Dimension
-import org.apache.ofbiz.entity.util.EntityUtil
+import org.apache.ofbiz.entity.util.*
 import org.apache.ofbiz.manufacturing.jobshopmgt.ProductionRun
 import org.apache.ofbiz.manufacturing.jobshopmgt.ProductionRunHelper
 
@@ -37,7 +37,7 @@ selectPrimaryCategoryIdParameter = "CABINETS" // struttura
 shipmentId = request.getParameter("shipmentId")
 context.shipmentId = shipmentId
 
-shipment = from("Shipment").where("shipmentId", shipmentId).queryOne();
+shipment = delegator.findOne("Shipment", [shipmentId : shipmentId], false)
 context.shipment = shipment
 
 // dimensionsByFeatureMap [key=feature; value=productsByShapeMap]

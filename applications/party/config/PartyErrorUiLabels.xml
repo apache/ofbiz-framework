@@ -19,47 +19,10 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
-    <property key="PartyErrorCreatePermissionError">
-        <value xml:lang="ar">خطأ أمني: يجب أن يكون لديك أذن PARTYMGR_CREATE أو PARTYMGR_UPDATE لتشغل ${resourceDescription}</value>
-        <value xml:lang="de">Berechtigungsfehler: Um ${resourceDescription} auszuführen muss man PARTYMGR_CREATE oder PARTYMGR_UPDATE Berechtigungen haben</value>
-        <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the PARTYMGR_CREATE or PARTYMGR_UPDATE permission</value>
-        <value xml:lang="fr">Erreur de sécurité : pour effectuer ${resourceDescription} vous devez avoir l'autorisation PARTYMGR_CREATE ou PARTYMGR_UPDATE</value>
-        <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} devi avere il permesso PARTYMGR_CREATE o PARTYMGR_UPDATE</value>
-        <value xml:lang="ja">セキュリティエラー: ${resourceDescription} を実行するには PARTYMGR_CREATE または PARTYMGR_UPDATE 権限が必要です</value>
-        <value xml:lang="vi">Lỗi phân quyền: để thực thi ${resourceDescription} bạn cần có quyền PARTYMGR_CREATE hoặc PARTYMGR_UPDATE</value>
-        <value xml:lang="zh">系统错误：要运行${resourceDescription}，你必须有 PARTYMGR_CREATE 或 PARTYMGR_UPDATE 权限</value>
-    </property>
-    <property key="PartyRequiredFieldMissingAddress1">
-        <value xml:lang="en">Required Field Missing : Address1.</value>
-    </property>
-    <property key="PartyRequiredFieldMissingCity">
-        <value xml:lang="en">Required Field Missing : City.</value>
-    </property>
-    <property key="PartyRequiredFieldMissingContactMechTypeId">
-        <value xml:lang="en">Required Field Missing : ContactMech Type Id.</value>
-    </property>
-    <property key="PartyRequiredFieldMissingCurrentStatusId">
-        <value xml:lang="en">Required Field Missing : Current Status Id.</value>
-    </property>
-    <property key="PartyRequiredFieldMissingPartyIdTo">
-        <value xml:lang="en">Required Field Missing : Party Id To.</value>
-    </property>
-    <property key="PartyRequiredFieldMissingPostalCode">
-        <value xml:lang="en">Required Field Missing : Postal Code.</value>
-    </property>
-    <property key="PartyRequiredFieldMissingWorkEffortName">
-        <value xml:lang="en">Required Field Missing : WorkEffort Name.</value>
-    </property>
-    <property key="PartyRequiredFieldMissingWorkEffortTypeId">
-        <value xml:lang="en">Required Field Missing : WorkEffort Type Id.</value>
-    </property>
-    <property key="PartyUploadedFileDataNotFound">
-        <value xml:lang="en">Uploaded file data not found</value>
-    </property>
     <property key="commeventservices.communication_event_from_contact_mech_must_be_email">
         <value xml:lang="cs">Chyba: Komunikační událost musí mít jako odesílatele uvedenu emailovou adresu.</value>
         <value xml:lang="de">FEHLER: Kommunikationsereignis muss ein "Kontaktmechanismus von" besitzen das ein E-Mail als Kommunikationereignis ID ist</value>
-        <value xml:lang="en">ERROR: Communication event must have a from contact mech that is an email for comm event ID</value>
+        <value xml:lang="en">ERROR: Communication event must have a from contact mech that is an email for comm event Id</value>
         <value xml:lang="es">Error: Los eventos de comunicación deben tener un e-mail asociado</value>
         <value xml:lang="fr">ERREUR: la réf. d'évènement de communication doit avoir une coordonnée qui soit un courriel pour évènement de communication</value>
         <value xml:lang="hi-IN">त्रुटि: संचार आयोजन के पास एक संपर्क तंत्र होगा अर्थात संचार घटना(event) क्रमांक के लिए एक ईमेल</value>
@@ -73,12 +36,6 @@
         <value xml:lang="zh">错误：沟通事件必须来自一个电子邮件联系方式，沟通事件标识</value>
         <value xml:lang="zh-TW">錯誤:通訊事件必須來自一個電子郵件聯絡方式,通訊事件識別</value>
     </property>
-    <property key="commeventservices.communication_event_from_contact_mech_must_be_ftp">
-        <value xml:lang="de">FEHLER: Kommunikationsereignis muss ein "Kontaktmechanismus von" besitzen das ein ftp server als Kommunikationereignis ID ist</value>
-        <value xml:lang="en">ERROR: Communication event must have a from contact mech that is an ftp server for communication event Id</value>
-        <value xml:lang="es">Error: Los eventos de comunicación deben tener un servidor ftp asociado</value>
-        <value xml:lang="fr">ERREUR: la réf. d'évènement de communication doit avoir une coordonnée qui soit un serveur ftp pour évènement de communication</value>
-    </property>
     <property key="commeventservices.communication_event_must_be_email_for_email">
         <value xml:lang="de">FEHLER: Kommunikationsereignis ist keine E-Mail Kommunikation und kann nicht als E-Mail versendet werden für Kommunikationsereignis ID</value>
         <value xml:lang="en">ERROR: Communication event is not an email communication and cannot be emailed for communication event Id </value>
@@ -87,7 +44,7 @@
         <value xml:lang="hi-IN">त्रुटि: संचार घटना(event) एक ईमेल संचार नहीं है और संचार घटना(event) क्रमांक के लिए ईमेल नहीं किया जा सकता है</value>
         <value xml:lang="it">ERRORE: Evento comunicazioni non è una comunicazione email e non può essere inviata email per l'evento comunicazioni</value>
         <value xml:lang="ja">エラー: 通信イベントはEメールではないためEメールを受け取ることはできません。通信イベントID</value>
-        <value xml:lang="nl">Fout: Communicatie is geen email communicatie en kan niet gemaild worden voor communicatie event ID</value>
+        <value xml:lang="nl">Fout: Communicatie is geen email communicatie en kan niet gemaild worden voor communicatie event Id</value>
         <value xml:lang="pt-BR">ERRO: A comunicação não é um e-mail e não pode ser enviado para o ID de evento de comunicação</value>
         <value xml:lang="ro">EROARE: Eveniment Comunicatii nu este un email de comunicatie si nu poate fi emailed pentru codul  evenimentului comunicatii</value>
         <value xml:lang="ru">ОШИБКА: Коммуникационное событие не является электронной почтой и не может быть отправлено для кода события </value>
@@ -95,21 +52,15 @@
         <value xml:lang="zh">错误：沟通事件不是电子邮件沟通，所以不能发邮件，沟通事件标识 </value>
         <value xml:lang="zh-TW">錯誤:通訊事件不是電子郵件通訊,所以不能發郵件,通訊事件識別 </value>
     </property>
-    <property key="commeventservices.communication_event_must_be_ftp_for_ftp">
-        <value xml:lang="de">FEHLER: Kommunikationsereignis ist keine Ftp Kommunikation und kann nicht als Ftp versendet werden für Kommunikationsereignis ID</value>
-        <value xml:lang="en">ERROR: Communication event is not an Ftp communication and cannot be transfered for communication event Id </value>
-        <value xml:lang="es">ERROR: La comunicación no es un transferencia ftp y no puede se enviado</value>
-        <value xml:lang="fr">ERREUR: l'évènement de communication n'est pas un transfert ftp et ne peut être envoyé comme réf. d'évènement de communication </value>
-    </property>
     <property key="commeventservices.communication_event_not_found_failure">
         <value xml:lang="de">FEHLER: Kommunikationsereignis nicht gefunden mit der Kommunikationsereignis ID</value>
-        <value xml:lang="en">ERROR: Communication Event not found for communication event ID</value>
+        <value xml:lang="en">ERROR: Communication Event not found for communication event Id</value>
         <value xml:lang="es">ERROR: No se ha encontrado una comunicación con dicho código</value>
         <value xml:lang="fr">ERREUR: l'évènement de communication n'est pas trouvé pour cette réf.</value>
         <value xml:lang="hi-IN">त्रुटि: संचार घटना(event) क्रमांक के लिए संचार घटना(event) नहीं मिला है</value>
         <value xml:lang="it">ERRORE: Evento comunicazioni non trovato per l'evento comunicazione con codice evento</value>
         <value xml:lang="ja">エラー: 通信イベントが見つかりません。通信イベントID</value>
-        <value xml:lang="nl">Fout: Communicatie event niet gevonden voor deze communicatie ID</value>
+        <value xml:lang="nl">Fout: Communicatie event niet gevonden voor deze communicatie Id</value>
         <value xml:lang="pt-BR">ERRO: Evento de comunicação não encontrado para ID de evento de comunicação</value>
         <value xml:lang="ro">EROARE: Eveniment Comunicatie negasit pentru evenimentul comunicatie cu cod eveniment</value>
         <value xml:lang="ru">ОШИБКА: Коммуникационное событие не найдено для кода события</value>
@@ -135,13 +86,13 @@
     </property>
     <property key="commeventservices.communication_event_to_contact_mech_must_be_email">
         <value xml:lang="de">FEHLER: Kommunikationsereignis muss ein "Kontaktmechanismus an" besitzen das ein E-Mail als Kommunikationereignis ID ist</value>
-        <value xml:lang="en">ERROR: Communication event must have a to contact mech that is an email for comm event ID</value>
+        <value xml:lang="en">ERROR: Communication event must have a to contact mech that is an email for comm event Id</value>
         <value xml:lang="es">ERROR: La comunicación debe tener especificado un mecanismo de contacto</value>
         <value xml:lang="fr">ERREUR: l'évènement de communication doit avoir une coordonnée destinataire qui soit un courriel pour réf. d'évènement de communication</value>
         <value xml:lang="hi-IN">त्रुटि: संचार आयोजन के पास एक संपर्क तंत्र होगा अर्थात संचार घटना(event) क्रमांक के लिए एक ईमेल</value>
         <value xml:lang="it">ERRORE: Evento comunicazioni deve avere un contatto che ha un email per l'evento comunicazioni</value>
         <value xml:lang="ja">エラー: 通信イベントはEメールの連絡方法(先)を持つ必要があります。通信イベントID</value>
-        <value xml:lang="nl">Fout: Communicatie event moet een 'naar' adres hebben dat een email is voor communicatie event ID</value>
+        <value xml:lang="nl">Fout: Communicatie event moet een 'naar' adres hebben dat een email is voor communicatie event Id</value>
         <value xml:lang="pt-BR">ERRO: O evento de comunicação deve ter um mecanismo de contato associado que seja um e-mail para o ID de evento de comunicação</value>
         <value xml:lang="ro">EROARE: Evenimentul Comunicatii Trebbie sa aibe un contact mech ca si un email pentru codul eveniment comunicatii</value>
         <value xml:lang="ru">ОШИБКА: Коммуникационное событие должно иметь способ связи эл. почту для кода коммуникационного события</value>
@@ -373,7 +324,7 @@
         <value xml:lang="en">Could not delete contact info (read failure): ${errMessage}.</value>
         <value xml:lang="es">Las informaciones de contacto no se pueden borrar (error de lectura): ${errMessage}</value>
         <value xml:lang="fr">Impossible de supprimer l'information de contact (erreur de lecture): ${errMessage}.</value>
-        <value xml:lang="hi-IN">संपर्क जानकारी को नष्ट नहीं कर पाएँ (पढ़ने में असफल): ${errMessage}|</value>
+        <value xml:lang="hi-IN">संपर्क जानकारी को नष्ट नहीं कर पाएँ (पड़ने में असफल): ${errMessage}|</value>
         <value xml:lang="it">Non cancellare informazioni contatto (lettura fallita): ${errMessage}.</value>
         <value xml:lang="ja">連絡情報を削除できません (読み込み失敗): ${errMessage}.</value>
         <value xml:lang="nl">Fout: Contactinformatie kan niet worden verwijderd (leesfout): ${errMessage}.</value>
@@ -418,7 +369,7 @@
         <value xml:lang="de">Zweck kann nicht von einem Kontaktmechanismus entfernt werden (Lesefehler): ${errMessage}</value>
         <value xml:lang="en">Could not delete purpose from contact mechanism (read failure): ${errMessage}.</value>
         <value xml:lang="fr">Impossible de supprimer le but de la coordonnée (erreur de lecture) : ${errMessage}.</value>
-        <value xml:lang="hi-IN">संपर्क तंत्र से उद्देश्य नहीं हटा पाएँ (पढ़ने में असफल): ${errMessage}|</value>
+        <value xml:lang="hi-IN">संपर्क तंत्र से उद्देश्य नहीं हटा पाएँ (पड़ने में असफल): ${errMessage}|</value>
         <value xml:lang="it">Non è possibile cancellare lo scopo del contatto (lettura fallita): ${errMessage}.</value>
         <value xml:lang="ja">連絡方法から目的を削除できません (読み込み失敗): ${errMessage}.</value>
         <value xml:lang="nl">Fout: Doel kan niet van contactinformatie worden verwijderd (leesfout): ${errMessage}.</value>
@@ -449,7 +400,7 @@
         <value xml:lang="en">ERROR: Could not find specified contact info (read error).</value>
         <value xml:lang="es">ERROR: No se encontró la información del contacto (error de lectura).</value>
         <value xml:lang="fr">ERREUR: Ne peut pas trouver l'information de contact spécifiée (erreur de lecture).</value>
-        <value xml:lang="hi-IN">त्रुटि: निर्दिष्ट संपर्क जानकारी नहीं मिली(पढ़ने में त्रुटि)|</value>
+        <value xml:lang="hi-IN">त्रुटि: निर्दिष्ट संपर्क जानकारी नहीं मिली(पड़ने में त्रुटि)|</value>
         <value xml:lang="it">ERRORE: Non è possibile cambiare informazioni contatto (errore di lettura).</value>
         <value xml:lang="ja">エラー: 指定した連絡方法が見つかりません (読み込み失敗)。</value>
         <value xml:lang="nl">Fout: Kan opgegeven contactinformatie niet vinden (leesfout).</value>
@@ -604,6 +555,24 @@
         <value xml:lang="zh">指定的会员标识不能以数字开始，数字标识为自动生成的标识预留</value>
         <value xml:lang="zh-TW">指定的團體識別不能以數字開始,數字識別為自動產生的識別預留</value>
     </property>
+    <property key="partytypehelper.NotPersonType">
+        <value xml:lang="de">Der Akteur ${0} ist nicht vom Typ PERSON</value>
+        <value xml:lang="en">The party ${0} is not a PERSON type party</value>
+        <value xml:lang="fr">L`acteur ${0} n'est pas du type personne.</value> <!-- ` used instead of ' else because ' may interfere with the result from ${0} and prevent it to appears-->
+        <value xml:lang="ja">取引先 ${0} の種類が個人ではありません</value>
+        <value xml:lang="nl">De relatie ${0} is niet van het soort PERSON</value>
+        <value xml:lang="zh">会员${0}不是人员（PERSON）类型的会员</value>
+        <value xml:lang="zh-TW">團體${0}不是人員(PERSON)類型的團體</value>
+    </property>
+    <property key="partytypehelper.NotGroupType">
+        <value xml:lang="de">Der Akteur ${0} ist nicht vom Typ PARTYGROUP</value>
+        <value xml:lang="en">The party ${0} is not a PARTYGROUP type party</value>
+        <value xml:lang="fr">L`acteur ${0} n'est pas du type groupe.</value> <!-- ` used instead of ' else because ' may interfere with the result from ${0} and prevent it to appears-->
+        <value xml:lang="ja">取引先 ${0} の種類が取引先グループではありません</value>
+        <value xml:lang="nl">De relatie ${0} is not van het soort PARTYGROUP</value>
+        <value xml:lang="zh">会员${0}不是会员组（PARTYGROUP）类型的会员</value>
+        <value xml:lang="zh-TW">團體${0}不是團體群組(PARTYGROUP)類型的團體</value>
+    </property>
     <property key="partyrelationshipservices.cannot_create_party_relationship_partyIdFrom_not_in_role">
         <value xml:lang="de">Kann Akteur Beziehung nicht erstellen, Akteur ID Von besitzt nicht die angebenene Rolle.</value>
         <value xml:lang="en">Cannot create party relationship, partyIdFrom is not in specified role.</value>
@@ -673,7 +642,7 @@
         <value xml:lang="en">Could not create party role (read failure): ${errMessage}.</value>
         <value xml:lang="es">No se puede crear la relación(error de lectura): ${errMessage}</value>
         <value xml:lang="fr">Impossible de créer le rôle de l'acteur (erreur de lecture) : ${errMessage}.</value>
-        <value xml:lang="hi-IN">पार्टी की भूमिका तैयार नहीं कर पाएँ (पढ़ने में असफल): ${errMessage}.</value>
+        <value xml:lang="hi-IN">पार्टी की भूमिका तैयार नहीं कर पाएँ (पड़ने में असफल): ${errMessage}.</value>
         <value xml:lang="it">Non è possibile creare ruolo soggetto (lettura fallita): ${errMessage}.</value>
         <value xml:lang="ja">取引先の関係を作成できません (読み込み失敗): ${errMessage}.</value>
         <value xml:lang="nl">De relatierol kan niet worden aangemaakt (leesfout): ${errMessage}.</value>
@@ -721,7 +690,7 @@
         <value xml:lang="en">Could not update party relation (read failure): ${errMessage}.</value>
         <value xml:lang="es">No se puede actualizar las relaciones(error de lectura): ${errMessage}</value>
         <value xml:lang="fr">Impossible de mettre à jour la relation de l'acteur (erreur de lecture) : ${errMessage}.</value>
-        <value xml:lang="hi-IN">पार्टी के रिश्ते को अद्यतन(update) नहीं कर पाएँ (पढ़ने में असफल): ${errMessage}|</value>
+        <value xml:lang="hi-IN">पार्टी के रिश्ते को अद्यतन(update) नहीं कर पाएँ (पड़ने में असफल): ${errMessage}|</value>
         <value xml:lang="it">Non è possibile aggiornare il rapporto soggetto (lettura fallita): ${errMessage}.</value>
         <value xml:lang="ja">取引先の関係を更新できません (読み込み失敗): ${errMessage}.</value>
         <value xml:lang="nl">De relatie kan niet worden aangepast (leesfout): ${errMessage}.</value>
@@ -968,7 +937,7 @@
         <value xml:lang="en">Cannot get party entities (read failure): ${errMessage}.</value>
         <value xml:lang="es">No se pudo obtener la entidad participante: ${errMessage}</value>
         <value xml:lang="fr">Impossible d'obtenir des entités d'acteur (erreur de lecture) : ${errMessage}.</value>
-        <value xml:lang="hi-IN">पार्टी इकाईयाँ नहीं मिली (पढ़ने में असफल): ${errMessage}|</value>
+        <value xml:lang="hi-IN">पार्टी इकाईयाँ नहीं मिली (पड़ने में असफल): ${errMessage}|</value>
         <value xml:lang="it">Non possibile leggere l'entità Party (lettura fallita): ${errMessage}.</value>
         <value xml:lang="ja">取引先エンティティを取得できません (読み込み失敗): ${errMessage}.</value>
         <value xml:lang="nl">De relatie entiteiten kunnen niet worden opgehaald (leesfout: ${errMessage}.</value>
@@ -1048,7 +1017,7 @@
         <value xml:lang="en">Could not update affiliate information (read failure): ${errMessage}.</value>
         <value xml:lang="es">No se pudo actualizar la información del afiliado: ${errMessage}</value>
         <value xml:lang="fr">Impossible de mettre à jour l'information de filiale (erreur de lecture) : ${errMessage}.</value>
-        <value xml:lang="hi-IN">संबद्ध जानकारी का अद्यतन(update) नहीं कर पाएँ (पढ़ने में असफल): ${errMessage}|</value>
+        <value xml:lang="hi-IN">संबद्ध जानकारी का अद्यतन(update) नहीं कर पाएँ (पड़ने में असफल): ${errMessage}|</value>
         <value xml:lang="it">Non è possibile aggiornare informazione affiliato (lettura fallita): ${errMessage}.</value>
         <value xml:lang="ja">アフェリエイト情報を更新できません (読み込み失敗): ${errMessage}.</value>
         <value xml:lang="nl">De affiliate informatie kan niet worden aangepast (leesfout): ${errMessage}.</value>
@@ -1096,7 +1065,7 @@
         <value xml:lang="en">Could not update party or party group information (read failure): ${errMessage}.</value>
         <value xml:lang="es">No se pudo actualizar la información del participante(error de lectura): ${errMessage}</value>
         <value xml:lang="fr">Impossible de mettre à jour l'information d'acteur ou de groupe d'acteur (erreur de lecture) : ${errMessage}.</value>
-        <value xml:lang="hi-IN">पार्टी या पार्टी समूह जानकारी का अद्यतन(update) नहीं कर पाएँ (पढ़ने में असफल): ${errMessage}|</value>
+        <value xml:lang="hi-IN">पार्टी या पार्टी समूह जानकारी का अद्यतन(update) नहीं कर पाएँ (पड़ने में असफल): ${errMessage}|</value>
         <value xml:lang="it">Non è possibile aggiornare informazione gruppo soggetto (lettura fallita): ${errMessage}.</value>
         <value xml:lang="ja">取引先または取引先グループ情報を更新できません (読み込み失敗): ${errMessage}。</value>
         <value xml:lang="nl">De relatie of relatiegroep kan niet worden aangepast (leesfout): ${errMessage}.</value>
@@ -1203,29 +1172,24 @@
         <value xml:lang="zh">必须的参数 'email' 不能为空。</value>
         <value xml:lang="zh-TW">必要的參數 'email' 不能為空.</value>
     </property>
-    <property key="partytypehelper.NotGroupType">
-        <value xml:lang="de">Der Akteur ${0} ist nicht vom Typ PARTYGROUP</value>
-        <value xml:lang="en">The party ${0} is not a PARTYGROUP type party</value>
-        <value xml:lang="fr">L`acteur ${0} n'est pas du type groupe.</value>
-        <value xml:lang="ja">取引先 ${0} の種類が取引先グループではありません</value>
-        <value xml:lang="nl">De relatie ${0} is not van het soort PARTYGROUP</value>
-        <value xml:lang="zh">会员${0}不是会员组（PARTYGROUP）类型的会员</value>
-        <value xml:lang="zh-TW">團體${0}不是團體群組(PARTYGROUP)類型的團體</value>
+    <property key="PartyErrorCreatePermissionError">
+        <value xml:lang="ar">خطأ أمني: يجب أن يكون لديك أذن PARTYMGR_CREATE أو PARTYMGR_UPDATE لتشغل ${resourceDescription}</value>
+        <value xml:lang="de">Berechtigungsfehler: Um ${resourceDescription} auszuführen muss man PARTYMGR_CREATE oder PARTYMGR_UPDATE Berechtigungen haben</value>
+        <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the PARTYMGR_CREATE or PARTYMGR_UPDATE permission</value>
+        <value xml:lang="fr">Erreur de sécurité : pour effectuer ${resourceDescription} vous devez avoir l'autorisation PARTYMGR_CREATE ou PARTYMGR_UPDATE</value>
+        <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} devi avere il permesso PARTYMGR_CREATE o PARTYMGR_UPDATE</value>
+        <value xml:lang="ja">セキュリティエラー: ${resourceDescription} を実行するには PARTYMGR_CREATE または PARTYMGR_UPDATE 権限が必要です</value>
+        <value xml:lang="vi">Lỗi phân quyền: để thực thi ${resourceDescription} bạn cần có quyền PARTYMGR_CREATE hoặc PARTYMGR_UPDATE</value>
+        <value xml:lang="zh">系统错误：要运行${resourceDescription}，你必须有 PARTYMGR_CREATE 或 PARTYMGR_UPDATE 权限</value>
     </property>
-    <property key="partytypehelper.NotPersonType">
-        <value xml:lang="de">Der Akteur ${0} ist nicht vom Typ PERSON</value>
-        <value xml:lang="en">The party ${0} is not a PERSON type party</value>
-        <value xml:lang="fr">L`acteur ${0} n'est pas du type personne.</value>
-        <value xml:lang="ja">取引先 ${0} の種類が個人ではありません</value>
-        <value xml:lang="nl">De relatie ${0} is niet van het soort PERSON</value>
-        <value xml:lang="zh">会员${0}不是人员（PERSON）类型的会员</value>
-        <value xml:lang="zh-TW">團體${0}不是人員(PERSON)類型的團體</value>
+    <property key="PartyUploadedFileDataNotFound">
+        <value xml:lang="en">Uploaded file data not found</value>
     </property>
     <property key="person.create.db_error">
         <value xml:lang="de">Kann Informationen zur Person nicht hinzufügen (Schreibfehler): ${0}</value>
         <value xml:lang="en">Could not add person info (write failure): ${0}</value>
         <value xml:lang="es">No se pudo añadir la información de la persona (error en la escritura): ${0}</value>
-        <value xml:lang="fr">Ajout d`information sur la personne impossible (échec en écriture): ${0}</value>
+        <value xml:lang="fr">Ajout d`information sur la personne impossible (échec en écriture): ${0}</value> <!-- ` used instead of ' else because ' may interfere with the result from ${0} and prevent it to appears-->
         <value xml:lang="hi-IN">व्यक्ति की जानकारी नहीं जोड़ पाएँ (लिखने में असफल): ${0}</value>
         <value xml:lang="it">Non è possibile aggiungere informazioni sulla persona (fallita scrittura): ${0}</value>
         <value xml:lang="ja">個人情報を追加できません (書き込み失敗): ${0}。</value>
@@ -1293,8 +1257,8 @@
         <value xml:lang="de">Daten zur Person können nicht aktualisiert werden (Lesefehler): ${0}</value>
         <value xml:lang="en">Could not update person information (read failure): ${0}</value>
         <value xml:lang="es">No se pudo actualizar la información de la persona(error de lectura): ${0}</value>
-        <value xml:lang="fr">Mise à jour d`information personne impossible (échec lecture): ${0}</value>
-        <value xml:lang="hi-IN">व्यक्ति की जानकारी अद्यतन(update) नहीं कर पाएँ (पढ़ने में असफल): ${0}</value>
+        <value xml:lang="fr">Mise à jour d`information personne impossible (échec lecture): ${0}</value> <!-- ` used instead of ' else ' may interfere with the result from {0} and prevent it to appears-->
+        <value xml:lang="hi-IN">व्यक्ति की जानकारी अद्यतन(update) नहीं कर पाएँ (पड़ने में असफल): ${0}</value>
         <value xml:lang="it">Non è possibile aggiornare informazioni sulla persona (fallita lettura): ${0}</value>
         <value xml:lang="ja">個人情報を更新できません (読み込み失敗): ${0}</value>
         <value xml:lang="nl">De persoonsgegevens kunnen niet worden aangepast (read failure): ${0}</value>
@@ -1327,7 +1291,7 @@
         <value xml:lang="de">Daten zur Person können nicht aktualisiert werden (Schreibfehler): ${0}</value>
         <value xml:lang="en">Could not update person information (write failure): ${0}</value>
         <value xml:lang="es">No se pudo actualizar la información de la persona(error de escritura): ${0}</value>
-        <value xml:lang="fr">Mise à jour d`information sur la personne impossible (échec en écriture): ${0}</value>
+        <value xml:lang="fr">Mise à jour d`information sur la personne impossible (échec en écriture): ${0}</value> <!-- ` used instead of ' else because ' may interfere with the result from {0} and prevent it to appears-->
         <value xml:lang="hi-IN">व्यक्ति की जानकारी अद्यतन(update) नहीं कर पाएँ (लिखने में असफल): ${0}</value>
         <value xml:lang="it">Non è possibile aggiornare informazioni sulla persona (fallita scrittura): ${0}</value>
         <value xml:lang="ja">個人情報を更新できません (書き込み失敗): ${0}</value>
@@ -1339,5 +1303,29 @@
         <value xml:lang="th">ไม่สามารถเปลี่ยนแปลงข้อมูลส่วนบุคคลได้ (ความผิดพลาดในการเขียน): ${0}</value>
         <value xml:lang="zh">无法更新人员信息 (写失败)：${0}</value>
         <value xml:lang="zh-TW">無法更新人員資訊 (寫失敗):${0}</value>
+    </property>
+    <property key="PartyRequiredFieldMissingContactMechTypeId">
+        <value xml:lang="en">Required Field Missing : ContactMech Type Id.</value>
+    </property>
+    <property key="PartyRequiredFieldMissingCurrentStatusId">
+        <value xml:lang="en">Required Field Missing : Current Status Id.</value>
+    </property>
+    <property key="PartyRequiredFieldMissingWorkEffortName">
+        <value xml:lang="en">Required Field Missing : WorkEffort Name.</value>
+    </property>
+    <property key="PartyRequiredFieldMissingWorkEffortTypeId">
+        <value xml:lang="en">Required Field Missing : WorkEffort Type Id.</value>
+    </property>
+    <property key="PartyRequiredFieldMissingPartyIdTo">
+        <value xml:lang="en">Required Field Missing : Party Id To.</value>
+    </property>
+    <property key="PartyRequiredFieldMissingAddress1">
+        <value xml:lang="en">Required Field Missing : Address1.</value>
+    </property>
+    <property key="PartyRequiredFieldMissingCity">
+        <value xml:lang="en">Required Field Missing : City.</value>
+    </property>
+    <property key="PartyRequiredFieldMissingPostalCode">
+        <value xml:lang="en">Required Field Missing : Postal Code.</value>
     </property>
 </resource>

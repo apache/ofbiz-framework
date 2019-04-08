@@ -222,44 +222,4 @@ under the License.
         <description>Delete a SequenceValueItem</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-
-    <!-- JobSandbox Services -->
-    <service name="createJobSandbox" engine="entity-auto" invoke="create" default-entity-name="JobSandbox" auth="true">
-        <description>Create JobSandbox record</description>
-        <permission-service service-name="commonGenericPermission" main-action="CREATE"/>
-        <auto-attributes include="pk" mode="INOUT" optional="true"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-    </service>
-    <service name="updateJobSandbox" engine="entity-auto" invoke="update" default-entity-name="JobSandbox" auth="true">
-        <description>Update JobSandbox record</description>
-        <permission-service service-name="commonGenericPermission" main-action="UPDATE"/>
-        <auto-attributes include="pk" mode="IN"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-    </service>
-    <service name="deleteJobSandbox" engine="entity-auto" invoke="delete" default-entity-name="JobSandbox" auth="true">
-        <description>Delete JobSandbox record</description>
-        <permission-service service-name="commonGenericPermission" main-action="DELETE"/>
-        <auto-attributes include="pk" mode="IN"/>
-    </service>
-
-    <!-- RuntimeData Services -->
-    <service name="createRuntimeData" engine="entity-auto" invoke="create" default-entity-name="RuntimeData" auth="true">
-        <description>Create RuntimeData record</description>
-        <permission-service service-name="commonGenericPermission" main-action="CREATE"/>
-        <auto-attributes include="pk" mode="INOUT" optional="true"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <override name="runtimeInfo" allow-html="any"></override>
-    </service>
-    <service name="updateRuntimeData" engine="entity-auto" invoke="update" default-entity-name="RuntimeData" auth="true">
-        <description>Update RuntimeData record</description>
-        <permission-service service-name="commonGenericPermission" main-action="UPDATE"/>
-        <auto-attributes include="pk" mode="IN"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-    </service>
-    <service name="deleteRuntimeData" engine="entity-auto" invoke="delete" default-entity-name="RuntimeData" auth="true">
-        <description>Delete RuntimeData record</description>
-        <permission-service service-name="commonGenericPermission" main-action="DELETE"/>
-        <auto-attributes include="pk" mode="IN"/>
-    </service>
-
 </services>

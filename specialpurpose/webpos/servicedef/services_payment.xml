@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+    <description>Web Pos Payment Services</description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
+    
+    <service name="payCash" engine="simple" auth="false"
+             location="component://webpos/minilang/PaymentEvents.xml" invoke="payCash">
+        <description>Pay Cash</description>
+        <attribute name="amountCash" type="String" mode="IN" optional="false"/>
+    </service>
+    
+    <service name="payCheck" engine="simple" auth="false"
+             location="component://webpos/minilang/PaymentEvents.xml" invoke="payCheck">
+        <description>Pay Check</description>
+        <attribute name="amountCheck" type="String" mode="IN" optional="false"/>
+        <attribute name="refNum" type="String" mode="IN" optional="true"/>
+    </service>
+    
+    <service name="payGiftCard" engine="simple" auth="false"
+             location="component://webpos/minilang/PaymentEvents.xml" invoke="payGiftCard">
+        <description>Pay Gift Card</description>
+        <attribute name="amountGiftCard" type="String" mode="IN" optional="false"/>
+        <attribute name="refNum" type="String" mode="IN" optional="true"/>
+    </service>
+    
+    <service name="payCreditCard" engine="simple" auth="false"
+             location="component://webpos/minilang/PaymentEvents.xml" invoke="payCreditCard">
+        <description>Pay Credit Card</description>
+        <attribute name="swipeCard" type="String" mode="IN" optional="false"/>
+        <attribute name="swipeData" type="String" mode="IN" optional="true"/>
+        <attribute name="cardType" type="String" mode="IN" optional="false"/>
+        <attribute name="amountCreditCard" type="String" mode="IN" optional="false"/>
+        <attribute name="refNum" type="String" mode="IN" optional="true"/>
+        <attribute name="cardNum" type="String" mode="IN" optional="true"/>
+        <attribute name="expMonth" type="String" mode="IN" optional="true"/>
+        <attribute name="expYear" type="String" mode="IN" optional="true"/>
+        <attribute name="securityCode" type="String" mode="IN" optional="true"/>
+        <attribute name="postalCode" type="String" mode="IN" optional="true"/>
+        <attribute name="firstName" type="String" mode="IN" optional="true"/>
+        <attribute name="lastName" type="String" mode="IN" optional="true"/>
+        <attribute name="track2" type="String" mode="IN" optional="true"/>
+    </service>
+    
+    <service name="payFinish" engine="simple" auth="false"
+             location="component://webpos/minilang/PaymentEvents.xml" invoke="payFinish">
+        <description>Pay Finish</description>
+    </service>
+    
+    <service name="clearPayment" engine="simple" auth="false"
+             location="component://webpos/minilang/PaymentEvents.xml" invoke="clearPayment">
+        <description>Clear Payment</description>
+        <attribute name="clearCash"   type="String" mode="IN" optional="true"/>
+        <attribute name="clearCheck"  type="String" mode="IN" optional="true"/>
+        <attribute name="clearGift"   type="String" mode="IN" optional="true"/>
+        <attribute name="clearCredit" type="String" mode="IN" optional="true"/>
+    </service>
+    
+    <service name="clearAllPayments" engine="simple" auth="false"
+             location="component://webpos/minilang/PaymentEvents.xml" invoke="clearAllPayments">
+        <description>Clear All Payments</description>
+    </service>
+</services>

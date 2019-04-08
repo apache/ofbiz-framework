@@ -42,7 +42,7 @@ under the License.
             <#assign priceStyle = "regularPrice">
         </#if>
 
-        <#if (price.price?default(0) > 0 && "N" == product.requireAmount?default("N"))>
+        <#if (price.price?default(0) > 0 && product.requireAmount?default("N") == "N")>
                 <#if "Y" = product.isVirtual!> ${uiLabelMap.CommonFrom} </#if><span class="${priceStyle}"><@ofbizCurrency amount=price.price isoCode=price.currencyUsed/></span>
         </#if>
     </#if>
@@ -54,18 +54,18 @@ under the License.
     <#elseif product.salesDiscontinuationDate?? && nowTimestamp.after(product.salesDiscontinuationDate)/>
                 <div style="color: red;">${uiLabelMap.ProductNoLongerAvailable}</div>
     <#-- check to see if it is a rental item; will enter parameters on the detail screen-->
-    <#elseif "ASSET_USAGE" == product.productTypeId!/>
+    <#elseif product.productTypeId! == "ASSET_USAGE"/>
                 <a href="javascript:doGetViaParent('${productUrl}');" class="buttontext">${uiLabelMap.OrderMakeBooking}...</a>
-    <#elseif "ASSET_USAGE_OUT_IN" == product.productTypeId!/>
+    <#elseif product.productTypeId! == "ASSET_USAGE_OUT_IN"/>
                 <a href="javascript:doGetViaParent('${productUrl}');" class="buttontext">${uiLabelMap.OrderRent}...</a>
     <#-- check to see if it is an aggregated or configurable product; will enter parameters on the detail screen-->
-    <#elseif "AGGREGATED" == product.productTypeId! || "AGGREGATED_SERVICE" == product.productTypeId!/>
+    <#elseif product.productTypeId! == "AGGREGATED" || product.productTypeId! == "AGGREGATED_SERVICE"/>
                 <a href="javascript:doGetViaParent('${productUrl}');" class="buttontext">${uiLabelMap.OrderConfigure}...</a>
     <#-- check to see if the product is a virtual product -->
-    <#elseif product.isVirtual?? && "Y" == product.isVirtual/>
+    <#elseif product.isVirtual?? && product.isVirtual == "Y"/>
                 <a href="javascript:doGetViaParent('${productUrl}');" class="buttontext">${uiLabelMap.OrderChooseVariations}...</a>
     <#-- check to see if the product requires an amount -->
-    <#elseif product.requireAmount?? && "Y" == product.requireAmount/>
+    <#elseif product.requireAmount?? && product.requireAmount == "Y"/>
                 <a href="javascript:doGetViaParent('${productUrl}');" class="buttontext">${uiLabelMap.OrderChooseAmount}...</a>
     <#else>
                 <form method="post" action="<@ofbizUrl secure="${request.isSecure()?string}">additem</@ofbizUrl>" name="compareFormAdd${product_index}">
@@ -158,18 +158,18 @@ under the License.
     <#elseif product.salesDiscontinuationDate?? && nowTimestamp.after(product.salesDiscontinuationDate)/>
                 <div style="color: red;">${uiLabelMap.ProductNoLongerAvailable}</div>
     <#-- check to see if it is a rental item; will enter parameters on the detail screen-->
-    <#elseif "ASSET_USAGE" == product.productTypeId!/>
+    <#elseif product.productTypeId! == "ASSET_USAGE"/>
                 <a href="javascript:doGetViaParent('${productUrl}');" class="buttontext">${uiLabelMap.OrderMakeBooking}...</a>
-    <#elseif "ASSET_USAGE_OUT_IN" == product.productTypeId!/>
+    <#elseif product.productTypeId! == "ASSET_USAGE_OUT_IN"/>
                 <a href="javascript:doGetViaParent('${productUrl}');" class="buttontext">${uiLabelMap.OrderRent}...</a>
     <#-- check to see if it is an aggregated or configurable product; will enter parameters on the detail screen-->
-    <#elseif "AGGREGATED" == product.productTypeId! || "AGGREGATED_SERVICE" == product.productTypeId!/>
+    <#elseif product.productTypeId! == "AGGREGATED" || product.productTypeId! == "AGGREGATED_SERVICE"/>
                 <a href="javascript:doGetViaParent('${productUrl}');" class="buttontext">${uiLabelMap.OrderConfigure}...</a>
     <#-- check to see if the product is a virtual product -->
-    <#elseif product.isVirtual?? && "Y" == product.isVirtual/>
+    <#elseif product.isVirtual?? && product.isVirtual == "Y"/>
                 <a href="javascript:doGetViaParent('${productUrl}');" class="buttontext">${uiLabelMap.OrderChooseVariations}...</a>
     <#-- check to see if the product requires an amount -->
-    <#elseif product.requireAmount?? && "Y" == product.requireAmount/>
+    <#elseif product.requireAmount?? && product.requireAmount == "Y"/>
                 <a href="javascript:doGetViaParent('${productUrl}');" class="buttontext">${uiLabelMap.OrderChooseAmount}...</a>
     <#else>
                 <form method="post" action="<@ofbizUrl secure="${request.isSecure()?string}">additem</@ofbizUrl>" name="compare2FormAdd${product_index}">

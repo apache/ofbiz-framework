@@ -37,8 +37,8 @@ public final class UtilJavaParse {
     public static final String module = UtilJavaParse.class.getName();
 
     // FIXME: Not thread safe
-    private static Set<String> serviceMethodNames = new HashSet<>();
-    private static Set<String> entityMethodNames = new HashSet<>();
+    private static Set<String> serviceMethodNames = new HashSet<String>();
+    private static Set<String> entityMethodNames = new HashSet<String>();
     static {
         serviceMethodNames.add("runSync");
         serviceMethodNames.add("runSyncIgnore");
@@ -48,7 +48,7 @@ public final class UtilJavaParse {
         serviceMethodNames.add("schedule"); // NOTE: the service name may be the 1st, 2nd or 3rd param for variations on this
         serviceMethodNames.add("addRollbackService");
         serviceMethodNames.add("addCommitService");
-
+        
         entityMethodNames.add("getModelEntity");
         entityMethodNames.add("getEntityGroupName");
         entityMethodNames.add("getModelEntityMapByGroup");
@@ -101,9 +101,7 @@ public final class UtilJavaParse {
         Collection<ComponentConfig> allComponentConfigs = ComponentConfig.getAllComponents();
         for (ComponentConfig cc: allComponentConfigs) {
             String rootDirectory = cc.getRootLocation();
-            if (!rootDirectory.endsWith(File.separatorChar + "")) {
-                rootDirectory += File.separatorChar;
-            }
+            if (!rootDirectory.endsWith(File.separatorChar + "")) rootDirectory += File.separatorChar;
             rootDirectory += "src" + File.separatorChar;
 
             File rootDirFile = new File(rootDirectory);
@@ -122,9 +120,7 @@ public final class UtilJavaParse {
             String fullPathAndFile = classDir + File.separatorChar + classFileName;
             File classFile = new File(fullPathAndFile);
             if (classFile.exists()) {
-                if (Debug.verboseOn()) {
-                    Debug.logVerbose("In findRealPathAndFileForClass for [" + fullyQualifiedClassName + "]: [" + fullPathAndFile + "]", module);
-                }
+                if (Debug.verboseOn()) Debug.logVerbose("In findRealPathAndFileForClass for [" + fullyQualifiedClassName + "]: [" + fullPathAndFile + "]", module);
                 return fullPathAndFile;
             }
         }
@@ -133,57 +129,40 @@ public final class UtilJavaParse {
     }
 
     public static int findServiceMethodBlockStart(String methodName, String javaFile) {
-        if (Debug.verboseOn()) {
-            Debug.logVerbose("In findServiceMethodBlockStart for " + methodName, module);
-        }
+        if (Debug.verboseOn()) Debug.logVerbose("In findServiceMethodBlockStart for " + methodName, module);
 
         // starts with something like this: public static Map exportServiceEoModelBundle(DispatchContext dctx, Map context) {
 
         // start with the main pattern
         int methodNameIndex = javaFile.indexOf("public static Map " + methodName + "(DispatchContext dctx, Map context) {");
         // try a little less... and some nice messy variations...
-        if (methodNameIndex < 0) {
-            methodNameIndex = javaFile.indexOf(" Map " + methodName + "(DispatchContext ");
-        }
-        if (methodNameIndex < 0) {
-            methodNameIndex = javaFile.indexOf(" Map  " + methodName + "(DispatchContext ");
-        }
-        if (methodNameIndex < 0) {
-            methodNameIndex = javaFile.indexOf(" Map " + methodName + " (DispatchContext ");
-        }
-        if (methodNameIndex < 0) {
-            methodNameIndex = javaFile.indexOf(" Map " + methodName + "(DispatchContext ");
-        }
-        if (methodNameIndex < 0) {
-            methodNameIndex = javaFile.indexOf(" Map " + methodName + " (DispatchContext ");
-        }
+        if (methodNameIndex < 0) methodNameIndex = javaFile.indexOf(" Map " + methodName + "(DispatchContext ");
+        if (methodNameIndex < 0) methodNameIndex = javaFile.indexOf(" Map  " + methodName + "(DispatchContext ");
+        if (methodNameIndex < 0) methodNameIndex = javaFile.indexOf(" Map " + methodName + " (DispatchContext ");
+        if (methodNameIndex < 0) methodNameIndex = javaFile.indexOf(" Map " + methodName + "(DispatchContext ");
+        if (methodNameIndex < 0) methodNameIndex = javaFile.indexOf(" Map " + methodName + " (DispatchContext ");
 
         // not found!
-        if (methodNameIndex < 0) {
-            return -1;
-        }
+        if (methodNameIndex < 0) return -1;
 
         // find the open brace and return its position
         return javaFile.indexOf("{", methodNameIndex);
     }
 
     public static int findEndOfBlock(int blockStart, String javaFile) {
+        //Debug.logInfo("In findEndOfBlock for blockStart " + blockStart, module);
 
         int nextOpen = javaFile.indexOf("{", blockStart+1);
         int nextClose = javaFile.indexOf("}", blockStart+1);
         if (nextOpen > 0 && nextClose > 0 && nextClose > nextOpen) {
-            javaFile = javaFile.substring(nextOpen, nextClose);
+            javaFile.substring(nextOpen, nextClose);
         }
         // if no close, end with couldn't find
-        if (nextClose < 0) {
-            return -1;
-        }
+        if (nextClose < 0) return -1;
         // while nextOpen is found and is before the next close, then recurse (list
         while (nextOpen > -1 && nextOpen < nextClose) {
             int endOfSubBlock = findEndOfBlock(nextOpen, javaFile);
-            if (endOfSubBlock < 0) {
-                return -1;
-            }
+            if (endOfSubBlock < 0) return -1;
             nextOpen = javaFile.indexOf("{", endOfSubBlock+1);
             nextClose = javaFile.indexOf("}", endOfSubBlock+1);
         }
@@ -193,7 +172,7 @@ public final class UtilJavaParse {
     }
 
     public static Set<String> findServiceCallsInBlock(int blockStart, int blockEnd, String javaFile) {
-        Set<String> serviceNameSet = new HashSet<>();
+        Set<String> serviceNameSet = new HashSet<String>();
 
         int dispatcherIndex = javaFile.indexOf("dispatcher.", blockStart+1);
         while (dispatcherIndex > 0 && dispatcherIndex < blockEnd) {
@@ -218,7 +197,7 @@ public final class UtilJavaParse {
     }
 
     public static Set<String> findEntityUseInBlock(int blockStart, int blockEnd, String javaFile) {
-        Set<String> entityNameSet = new HashSet<>();
+        Set<String> entityNameSet = new HashSet<String>();
 
         int delegatorIndex = javaFile.indexOf("delegator.", blockStart+1);
         while (delegatorIndex > 0 && delegatorIndex < blockEnd) {

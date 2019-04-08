@@ -22,7 +22,7 @@ under the License.
     <Geo abbreviation="BW" geoCode="BW" geoId="DE-BW" geoName="Baden-Württemberg" geoTypeId="STATE"/>
     <Geo abbreviation="BY" geoCode="BY" geoId="DE-BY" geoName="Bayern" geoTypeId="STATE"/>
     <Geo abbreviation="BE" geoCode="BE" geoId="DE-BE" geoName="Berlin" geoTypeId="STATE"/>
-    <Geo abbreviation="BB" geoCode="BB" geoId="DE-BB" geoName="Brandenburg" geoTypeId="STATE"/>
+    <Geo abbreviation="BR" geoCode="BR" geoId="DE-BR" geoName="Brandenburg" geoTypeId="STATE"/>
     <Geo abbreviation="HB" geoCode="HB" geoId="DE-HB" geoName="Bremen" geoTypeId="STATE"/>
     <Geo abbreviation="HH" geoCode="HH" geoId="DE-HH" geoName="Hamburg" geoTypeId="STATE"/>
     <Geo abbreviation="HE" geoCode="HE" geoId="DE-HE" geoName="Hessen" geoTypeId="STATE"/>
@@ -33,13 +33,13 @@ under the License.
     <Geo abbreviation="SL" geoCode="SL" geoId="DE-SL" geoName="Saarland" geoTypeId="STATE"/>
     <Geo abbreviation="SH" geoCode="SH" geoId="DE-SH" geoName="Schleswig-Holstein" geoTypeId="STATE"/>
     <Geo abbreviation="SN" geoCode="SN" geoId="DE-SN" geoName="Sachsen" geoTypeId="STATE"/>
-    <Geo abbreviation="ST" geoCode="ST" geoId="DE-ST" geoName="Sachsen-Anhalt" geoTypeId="STATE"/>
+    <Geo abbreviation="SA" geoCode="SA" geoId="DE-SA" geoName="Sachsen-Anhalt" geoTypeId="STATE"/>
     <Geo abbreviation="TH" geoCode="TH" geoId="DE-TH" geoName="Thüringen" geoTypeId="STATE"/>
 
     <GeoAssoc geoId="DEU" geoIdTo="DE-BW" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="DEU" geoIdTo="DE-BY" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="DEU" geoIdTo="DE-BE" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoId="DEU" geoIdTo="DE-BB" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="DEU" geoIdTo="DE-BR" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="DEU" geoIdTo="DE-HB" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="DEU" geoIdTo="DE-HH" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="DEU" geoIdTo="DE-HE" geoAssocTypeId="REGIONS"/>
@@ -50,6 +50,6 @@ under the License.
     <GeoAssoc geoId="DEU" geoIdTo="DE-SL" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="DEU" geoIdTo="DE-SH" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="DEU" geoIdTo="DE-SN" geoAssocTypeId="REGIONS"/>
-    <GeoAssoc geoId="DEU" geoIdTo="DE-ST" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="DEU" geoIdTo="DE-SA" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="DEU" geoIdTo="DE-TH" geoAssocTypeId="REGIONS"/> 
 </entity-engine-xml>

@@ -52,6 +52,11 @@ under the License.
     </service>
 
     <!-- Party services -->
+    <service name="deleteParty" engine="java"
+            location="org.apache.ofbiz.party.party.PartyServices" invoke="deleteParty" auth="true">
+        <description>Delete a Party</description>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+    </service>
     <service name="setPartyStatus" engine="java"
             location="org.apache.ofbiz.party.party.PartyServices" invoke="setPartyStatus" auth="true">
         <description>Set the party status. Requires PARTYMGR_UPDATE or PARTYMGR_STS_UPDATE permission. The change to statusId must be defined in StatusValidChange, otherwise
@@ -463,8 +468,6 @@ under the License.
         <attribute name="paymentMethodId" type="String" mode="IN" optional="true"/>
         <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="OUT" optional="false"/>
-        <attribute name="latitude" type="String" mode="IN" optional="true"/>
-        <attribute name="longitude" type="String" mode="IN" optional="true"/>
         <override name="address1" optional="false"/>
         <override name="city" optional="false"/>
         <override name="postalCode" optional="false"/>
@@ -477,8 +480,6 @@ under the License.
         <attribute name="directions" type="String" mode="IN" optional="true"/> <!-- ?? -->
         <attribute name="oldContactMechId" type="String" mode="OUT" optional="false"/> <!-- this is the id of the old address -->
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
-        <attribute name="latitude" type="String" mode="IN" optional="true"/>
-        <attribute name="longitude" type="String" mode="IN" optional="true"/>
         <override name="address1" optional="false"/>
         <override name="city" optional="false"/>
         <override name="postalCode" optional="false"/>
@@ -564,40 +565,7 @@ under the License.
         <attribute name="partyIdFrom" type="String" mode="IN" optional="false"/>
         <attribute name="partyIdTo" type="String" mode="IN" optional="false"/>
     </service>
-    <service name="createPartyFtpAddress" engine="groovy"
-             location="component://party/groovyScripts/party/ContactMechServices.groovy" invoke="createPartyFtpAddress" auth="true">
-        <description>Create an Ftp Address associated to a party</description>
-        <permission-service service-name="partyContactMechPermissionCheck" main-action="CREATE"/>
-        <auto-attributes entity-name="ContactMech" include="nonpk" mode="IN" optional="true"/>
-        <auto-attributes entity-name="PartyContactMech" mode="IN" optional="true"/>
-        <auto-attributes entity-name="FtpAddress" mode="IN" optional="true"/>
-        <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="true"/>
-        <attribute name="contactMechId" type="String" mode="INOUT" optional="true"/>
-    </service>
-    <service name="updatePartyFtpAddress" engine="groovy"
-             location="component://party/groovyScripts/party/ContactMechServices.groovy" invoke="updatePartyFtpAddress" auth="true">
-        <description>Update an Ftp Address associated to a party</description>
-        <permission-service service-name="partyContactMechPermissionCheck" main-action="UPDATE"/>
-        <auto-attributes entity-name="PartyContactMech" mode="IN" optional="true"/>
-        <auto-attributes entity-name="FtpAddress" mode="IN" optional="true"/>
-        <attribute name="contactMechId" type="String" mode="INOUT"/>
-    </service>
-    <service name="createFtpAddress" default-entity-name="FtpAddress" engine="groovy" invoke="createFtpAddress"
-             location="component://party/groovyScripts/party/ContactMechServices.groovy">
-        <description>create FtpAddress</description>
-        <permission-service service-name="partyBasePermissionCheck" main-action="CREATE"/>
-        <auto-attributes mode="OUT" include="pk"/>
-        <auto-attributes mode="IN" include="nonpk" optional="true"/>
-    </service>
-    <service name="updateFtpAddressWithHistory" default-entity-name="FtpAddress" engine="groovy" invoke="updateFtpAddressWithHistory"
-        location="component://party/groovyScripts/party/ContactMechServices.groovy">
-        <description>update FtpAddress</description>
-        <permission-service service-name="partyBasePermissionCheck" main-action="UPDATE"/>
-        <auto-attributes mode="IN" include="pk"/>
-        <auto-attributes mode="IN" include="nonpk" optional="true"/>
-        <attribute name="contactMechId" type="String" mode="INOUT"/> <!-- the out paramater is the id of the new address -->
-        <attribute name="oldContactMechId" type="String" mode="OUT"/> <!-- this is the id of the old address -->
-    </service>
+
     <!-- contact mech attribute services -->
     <service name="createContactMechAttribute" engine="entity-auto" default-entity-name="ContactMechAttribute" invoke="create" auth="true">
         <description>create a contact mech attribute record</description>
@@ -626,15 +594,20 @@ under the License.
         <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="false"/>
         <attribute name="fromDate" type="Timestamp" mode="INOUT" optional="true"/>
     </service>
-    <service name="deletePartyContactMechPurpose" default-entity-name="PartyContactMechPurpose" engine="entity-auto" invoke="delete">
-        <description>Delete a Party Contact Mech Purpose</description>
-        <permission-service service-name="partyIdPermissionCheck" main-action="DELETE"/>
-        <auto-attributes mode="IN" include="pk" optional="false"/>
+    <service name="deletePartyContactMechPurpose" engine="java"
+            location="org.apache.ofbiz.party.contact.ContactMechServices" invoke="deletePartyContactMechPurpose" auth="true">
+        <description>Delete a Party ContactMech Purpose</description>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
+        <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
     </service>
-    <service name="expirePartyContactMechPurpose" default-entity-name="PartyContactMechPurpose" engine="entity-auto" invoke="expire">
-        <description>Expires a Party Contact Mech Purpose</description>
-        <permission-service service-name="partyContactMechPermissionCheck" main-action="DELETE"/>
-        <auto-attributes mode="IN" include="pk" optional="false"/>
+    <service name="deletePartyContactMechPurposeIfExists" engine="java"
+            location="org.apache.ofbiz.party.contact.ContactMechServices" invoke="deletePartyContactMechPurposeIfExists" auth="true">
+        <description>Delete a Party ContactMech Purpose</description>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
+        <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="false"/>
     </service>
 
     <!-- ContactMechLink services -->
@@ -740,12 +713,13 @@ under the License.
     </service>
 
     <!-- PartyDataSource services -->
-    <service name="createPartyDataSource" engine="entity-auto" default-entity-name="PartyDataSource" invoke="create" auth="true">
+    <service name="createPartyDataSource" engine="java"
+            location="org.apache.ofbiz.party.party.PartyServices" invoke="createPartyDataSource" auth="true">
         <description>Creates a relation between a Party and a DataSource using PartyDataSource. The userLogin must have PARTYMGR_SRC_CREATE permission.</description>
         <permission-service service-name="partyDatasourcePermissionCheck" main-action="CREATE"/>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <override name="fromDate" mode="IN" type="Timestamp" optional="true"/>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="dataSourceId" type="String" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
     </service>
 
     <!-- Communication Event Services -->
@@ -774,7 +748,6 @@ under the License.
         <auto-attributes entity-name="CommunicationEvent" include="pk" mode="INOUT" optional="true"/>
         <attribute name="productId" type="String" mode="IN" optional="true"/>
         <attribute name="orderId" type="String" mode="IN" optional="true"/>
-        <attribute name="returnId" type="String" mode="IN" optional="true"/>
         <attribute name="custRequestId" type="String" mode="IN" optional="true"/>
         <attribute name="action" type="String" mode="IN" optional="true"/><!-- to indicate any special action like: REPLY, REPLYALL, FORWARD or empty for no special action-->
         <override name="headerString" allow-html="any"/>
@@ -914,25 +887,6 @@ under the License.
             be of type EMAIL_COMMUNICATION. Will look for a contactMechIdTo to send the emails</description>
         <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>
     </service>
-    <!-- ftp communicationEvent services -->
-    <service name="sendCommEventAsFtp" engine="java"
-             location="org.apache.ofbiz.party.communication.CommunicationEventServices" invoke="sendCommEventAsFtp" auth="true"
-             transaction-timeout="7200">  <!-- set transaction time out for 2 hours, since this sometimes may last long during big file transfer -->
-        <description>Sends communication event associated contents to a ftp server. All parameters come from CommunicationEvent, which must
-            be of type FILE_TRANSFER_COMM. Will look for a contactMechIdTo to connect to Ftp</description>
-        <attribute name="communicationEventId" type="String" mode="IN"/>
-    </service>
-    <service name="createCommEventFromFtpTransfer" engine="java"
-             location="org.apache.ofbiz.party.communication.CommunicationEventServices" invoke="createCommEventFromFtpTransfer" auth="true">
-        <description>Creates a CommunicationEvent record based on information before
-            running a sendContentToFtp service (to be used via ECA)
-        </description>
-        <attribute name="partyId" type="String" mode="IN" optional="true"/>
-        <attribute name="contentId" type="String" mode="IN"/>
-        <attribute name="contactMechId" type="String" mode="IN"/>
-        <attribute name="communicationEventId" type="String" mode="OUT"/>
-    </service>
-
 
     <!--  email to communication event ECA services -->
     <service name="createCommEventFromEmail" engine="java"
@@ -947,7 +901,6 @@ under the License.
         <attribute name="contentType" type="String" mode="IN" optional="true"/>
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
         <attribute name="orderId" type="String" mode="IN" optional="true"/>
-        <attribute name="returnId" type="String" mode="IN" optional="true"/>
         <attribute name="communicationEventId" type="String" mode="OUT"/>
     </service>
     <service name="updateCommEventAfterEmail" engine="java"
@@ -986,8 +939,7 @@ under the License.
 
     <service name="setCommEventComplete" engine="java"
         location="org.apache.ofbiz.party.communication.CommunicationEventServices" invoke="setCommEventComplete" auth="true">
-        <description>Sets the status of a communication event to COM_COMPLETE using the updateCommunicationEvent service,
-            set datetimeEnded to now if not defined</description>
+        <description>Sets the status of a communication event to COM_COMPLETE using the updateCommunicationEvent service</description>
         <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>
         <attribute name="partyIdFrom" type="String" mode="IN" optional="true"/>
     </service>

@@ -112,22 +112,22 @@ public class ServiceEcaAction implements java.io.Serializable {
         }
 
         if (eventName.startsWith("global-")) {
-            if ("global-rollback".equals(eventName)) {
+            if (eventName.equals("global-rollback")) {
                 ServiceSynchronization.registerRollbackService(dctx, serviceName, runAsUser, context, "async".equals(serviceMode), persist); // using the actual context so we get updates
-            } else if ("global-commit".equals(eventName)) {
+            } else if (eventName.equals("global-commit")) {
                 ServiceSynchronization.registerCommitService(dctx, serviceName, runAsUser, context, "async".equals(serviceMode), persist); // using the actual context so we get updates
-            } else if ("global-commit-post-run".equals(eventName)) {
+            } else if (eventName.equals("global-commit-post-run")) {
                 ServiceSynchronization.registerCommitService(dctx, serviceName, runAsUser, context, "async".equals(serviceMode), persist); // using the actual context so we get updates
             }
         } else {
             // standard ECA
-            if ("sync".equals(this.serviceMode)) {
+            if (this.serviceMode.equals("sync")) {
                 if (newTransaction) {
                     actionResult = dispatcher.runSync(this.serviceName, actionContext, -1, true);
                 } else {
                     actionResult = dispatcher.runSync(this.serviceName, actionContext);
                 }
-            } else if ("async".equals(this.serviceMode)) {
+            } else if (this.serviceMode.equals("async")) {
                 dispatcher.runAsync(serviceName, actionContext, persist);
             }
         }
@@ -230,41 +230,6 @@ public class ServiceEcaAction implements java.io.Serializable {
         }
 
         return success;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder buf = new StringBuilder();
-        if (UtilValidate.isNotEmpty(eventName)) buf.append("[").append(eventName).append("]");
-        if (UtilValidate.isNotEmpty(ignoreError)) buf.append("[").append(ignoreError).append("]");
-        if (UtilValidate.isNotEmpty(ignoreFailure)) buf.append("[").append(ignoreFailure).append("]");
-        if (UtilValidate.isNotEmpty(newTransaction)) buf.append("[").append(newTransaction).append("]");
-        if (UtilValidate.isNotEmpty(persist)) buf.append("[").append(persist).append("]");
-        if (UtilValidate.isNotEmpty(resultMapName)) buf.append("[").append(resultMapName).append("]");
-        if (UtilValidate.isNotEmpty(resultToContext)) buf.append("[").append(resultToContext).append("]");
-        if (UtilValidate.isNotEmpty(resultToResult)) buf.append("[").append(resultToResult).append("]");
-        if (UtilValidate.isNotEmpty(runAsUser)) buf.append("[").append(runAsUser).append("]");
-        if (UtilValidate.isNotEmpty(serviceMode)) buf.append("[").append(serviceMode).append("]");
-        if (UtilValidate.isNotEmpty(serviceName)) buf.append("[").append(serviceName).append("]");
-        return buf.toString();
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((eventName == null) ? 0 : eventName.hashCode());
-        result = prime * result + (ignoreError ? 1231 : 1237);
-        result = prime * result + (ignoreFailure ? 1231 : 1237);
-        result = prime * result + (newTransaction ? 1231 : 1237);
-        result = prime * result + (persist ? 1231 : 1237);
-        result = prime * result + ((resultMapName == null) ? 0 : resultMapName.hashCode());
-        result = prime * result + (resultToContext ? 1231 : 1237);
-        result = prime * result + (resultToResult ? 1231 : 1237);
-        result = prime * result + ((runAsUser == null) ? 0 : runAsUser.hashCode());
-        result = prime * result + ((serviceMode == null) ? 0 : serviceMode.hashCode());
-        result = prime * result + ((serviceName == null) ? 0 : serviceName.hashCode());
-        return result;
     }
 
     @Override

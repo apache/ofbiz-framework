@@ -52,7 +52,7 @@ under the License.
         <section>
             <actions>
                 <set field="tabMenuItem" value="findExpression"/>
-                <set field="titleProperty" from-field="titleProperty" default-value="TemporalExpressionFind"/>
+                <set field="titleProperty" value="${titleProperty}" default-value="TemporalExpressionFind"/>
             </actions>
             <widgets>
                 <decorator-screen name="TemporalExpressionDecorator" location="${parameters.tempExprDecoratorLocation}">
@@ -87,7 +87,7 @@ under the License.
         <section>
             <actions>
                 <set field="tabMenuItem" value="editExpression"/>
-                <set field="titleProperty" from-field="titleProperty" default-value="TemporalExpressionMaintenance"/>
+                <set field="titleProperty" value="${titleProperty}" default-value="TemporalExpressionMaintenance"/>
                 <entity-one entity-name="TemporalExpression" value-field="temporalExpression"/>
                 <set field="fromTempExprId" from-field="parameters.tempExprId"/>
                 <entity-condition entity-name="TemporalExpressionChild" list="childExpressionList">

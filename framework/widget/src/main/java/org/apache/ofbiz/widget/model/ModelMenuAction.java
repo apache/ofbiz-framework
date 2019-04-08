@@ -49,7 +49,7 @@ public abstract class ModelMenuAction {
 
     public static List<ModelAction> readSubActions(ModelMenu modelMenu, Element parentElement) {
         List<? extends Element> actionElementList = UtilXml.childElementList(parentElement);
-        List<ModelAction> actions = new ArrayList<>(actionElementList.size());
+        List<ModelAction> actions = new ArrayList<ModelAction>(actionElementList.size());
         for (Element actionElement : actionElementList) {
             if ("set".equals(actionElement.getNodeName())) {
                 actions.add(new SetField(modelMenu, actionElement));
@@ -62,7 +62,7 @@ public abstract class ModelMenuAction {
 
     /**
      * Models the &lt;set&gt; element.
-     *
+     * 
      * @see <code>widget-common.xsd</code>
      */
     @SuppressWarnings("serial")
@@ -99,30 +99,26 @@ public abstract class ModelMenuAction {
             boolean global = "true".equals(globalStr);
 
             Object newValue = null;
-            if (this.fromScope != null && "user".equals(this.fromScope)) {
+            if (this.fromScope != null && this.fromScope.equals("user")) {
                 if (!this.fromField.isEmpty()) {
                     String originalName = this.fromField.getOriginalName();
                     String currentWidgetTrail = (String)context.get("_WIDGETTRAIL_");
                     String newKey = currentWidgetTrail + "|" + originalName;
                     HttpSession session = (HttpSession)context.get("session");
                     newValue = session.getAttribute(newKey);
-                    if (Debug.verboseOn()) {
-                        Debug.logVerbose("In user getting value for field from [" + this.fromField.getOriginalName() + "]: " + newValue, module);
-                    }
+                    if (Debug.verboseOn()) Debug.logVerbose("In user getting value for field from [" + this.fromField.getOriginalName() + "]: " + newValue, module);
                 } else if (!this.valueExdr.isEmpty()) {
                     newValue = this.valueExdr.expandString(context);
                 }
 
-            } else if (this.fromScope != null && "application".equals(this.fromScope)) {
+            } else if (this.fromScope != null && this.fromScope.equals("application")) {
                 if (!this.fromField.isEmpty()) {
                     String originalName = this.fromField.getOriginalName();
                     String currentWidgetTrail = (String)context.get("_WIDGETTRAIL_");
                     String newKey = currentWidgetTrail + "|" + originalName;
                     ServletContext servletContext = (ServletContext)context.get("application");
                     newValue = servletContext.getAttribute(newKey);
-                    if (Debug.verboseOn()) {
-                        Debug.logVerbose("In application getting value for field from [" + this.fromField.getOriginalName() + "]: " + newValue, module);
-                    }
+                    if (Debug.verboseOn()) Debug.logVerbose("In application getting value for field from [" + this.fromField.getOriginalName() + "]: " + newValue, module);
                 } else if (!this.valueExdr.isEmpty()) {
                     newValue = this.valueExdr.expandString(context);
                 }
@@ -130,9 +126,7 @@ public abstract class ModelMenuAction {
             } else {
                 if (!this.fromField.isEmpty()) {
                     newValue = this.fromField.get(context);
-                    if (Debug.verboseOn()) {
-                        Debug.logVerbose("In screen getting value for field from [" + this.fromField.getOriginalName() + "]: " + newValue, module);
-                    }
+                    if (Debug.verboseOn()) Debug.logVerbose("In screen getting value for field from [" + this.fromField.getOriginalName() + "]: " + newValue, module);
                 } else if (!this.valueExdr.isEmpty()) {
                     newValue = this.valueExdr.expandString(context);
                 }
@@ -152,7 +146,7 @@ public abstract class ModelMenuAction {
                     newValue = new LinkedList();
                 } else {
                     try {
-                        newValue = ObjectType.simpleTypeOrObjectConvert(newValue, this.type, null, (TimeZone) context.get("timeZone"), (Locale) context.get("locale"), true);
+                        newValue = ObjectType.simpleTypeConvert(newValue, this.type, null, (TimeZone) context.get("timeZone"), (Locale) context.get("locale"), true);
                     } catch (GeneralException e) {
                         String errMsg = "Could not convert field value for the field: [" + this.field.getOriginalName() + "] to the [" + this.type + "] type for the value [" + newValue + "]: " + e.toString();
                         Debug.logError(e, errMsg, module);
@@ -160,30 +154,24 @@ public abstract class ModelMenuAction {
                     }
                 }
             }
-            if (this.toScope != null && "user".equals(this.toScope)) {
+            if (this.toScope != null && this.toScope.equals("user")) {
                     String originalName = this.field.getOriginalName();
                     String currentWidgetTrail = (String)context.get("_WIDGETTRAIL_");
                     String newKey = currentWidgetTrail + "|" + originalName;
                     HttpSession session = (HttpSession)context.get("session");
                     session.setAttribute(newKey, newValue);
-                    if (Debug.verboseOn()) {
-                        Debug.logVerbose("In user setting value for field from [" + this.field.getOriginalName() + "]: " + newValue, module);
-                    }
+                    if (Debug.verboseOn()) Debug.logVerbose("In user setting value for field from [" + this.field.getOriginalName() + "]: " + newValue, module);
 
-            } else if (this.toScope != null && "application".equals(this.toScope)) {
+            } else if (this.toScope != null && this.toScope.equals("application")) {
                     String originalName = this.field.getOriginalName();
                     String currentWidgetTrail = (String)context.get("_WIDGETTRAIL_");
                     String newKey = currentWidgetTrail + "|" + originalName;
                     ServletContext servletContext = (ServletContext)context.get("application");
                     servletContext.setAttribute(newKey, newValue);
-                    if (Debug.verboseOn()) {
-                        Debug.logVerbose("In application setting value for field from [" + this.field.getOriginalName() + "]: " + newValue, module);
-                    }
+                    if (Debug.verboseOn()) Debug.logVerbose("In application setting value for field from [" + this.field.getOriginalName() + "]: " + newValue, module);
 
             } else {
-                if (Debug.verboseOn()) {
-                    Debug.logVerbose("In screen setting field [" + this.field.getOriginalName() + "] to value: " + newValue, module);
-                }
+                if (Debug.verboseOn()) Debug.logVerbose("In screen setting field [" + this.field.getOriginalName() + "] to value: " + newValue, module);
                 this.field.put(context, newValue);
             }
 
@@ -233,3 +221,6 @@ public abstract class ModelMenuAction {
         }
     }
 }
+
+
+

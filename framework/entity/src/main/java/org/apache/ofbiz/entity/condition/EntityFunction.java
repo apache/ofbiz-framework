@@ -20,7 +20,6 @@
 package org.apache.ofbiz.entity.condition;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import org.apache.ofbiz.base.util.UtilGenerics;
@@ -65,7 +64,7 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
      *
      */
     public static class LENGTH extends EntityFunctionSingle<Integer> {
-        public static final Fetcher<Integer> FETCHER = new Fetcher<Integer>() {
+        public static Fetcher<Integer> FETCHER = new Fetcher<Integer>() {
             public Integer getValue(Object value) { return value.toString().length(); }
         };
 
@@ -79,7 +78,7 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
      *
      */
     public static class TRIM extends EntityFunctionSingle<String> {
-        public static final Fetcher<String> FETCHER = new Fetcher<String>() {
+        public static Fetcher<String> FETCHER = new Fetcher<String>() {
             public String getValue(Object value) { return value.toString().trim(); }
         };
 
@@ -93,8 +92,8 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
      *
      */
     public static class UPPER extends EntityFunctionSingle<String> {
-        public static final Fetcher<String> FETCHER = new Fetcher<String>() {
-            public String getValue(Object value) { return value.toString().toUpperCase(Locale.getDefault()); }
+        public static Fetcher<String> FETCHER = new Fetcher<String>() {
+            public String getValue(Object value) { return value.toString().toUpperCase(); }
         };
 
         private UPPER(Object value) {
@@ -107,8 +106,8 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
      *
      */
     public static class LOWER extends EntityFunctionSingle<String> {
-        public static final Fetcher<String> FETCHER = new Fetcher<String>() {
-            public String getValue(Object value) { return value.toString().toLowerCase(Locale.getDefault()); }
+        public static Fetcher<String> FETCHER = new Fetcher<String>() {
+            public String getValue(Object value) { return value.toString().toLowerCase(); }
         };
 
         private LOWER(Object value) {
@@ -157,8 +156,9 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
     public EntityConditionValue freeze() {
         if (nested != null) {
             return new EntityFunctionNested<T>(fetcher, function, nested.freeze()) {};
+        } else {
+            return new EntityFunctionSingle<T>(fetcher, function, value) {};
         }
-        return new EntityFunctionSingle<T>(fetcher, function, value) {};
     }
 
     public String getCode() {
@@ -180,9 +180,7 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof EntityFunction<?>)) {
-            return false;
-        }
+        if (!(obj instanceof EntityFunction<?>)) return false;
         EntityFunction<?> otherFunc = UtilGenerics.cast(obj);
         return (this.function == otherFunc.function &&
             (this.nested != null ? nested.equals(otherFunc.nested) : otherFunc.nested == null) &&
@@ -195,9 +193,23 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
         if (nested != null) {
             nested.addSqlValue(sql, tableAliases, modelEntity, entityConditionParams, includeTableNamePrefix, datasourceinfo);
         } else {
-            EntityConditionUtils.addValue(sql, null, value, entityConditionParams);
+            addValue(sql, null, value, entityConditionParams);
         }
         sql.append(')');
+    }
+
+    @Override
+    public void visit(EntityConditionVisitor visitor) {
+        if (nested != null) {
+            visitor.acceptEntityConditionValue(nested);
+        } else {
+            visitor.acceptObject(value);
+        }
+    }
+
+    @Override
+    public void accept(EntityConditionVisitor visitor) {
+        visitor.acceptEntityFunction(this);
     }
 
     @Override

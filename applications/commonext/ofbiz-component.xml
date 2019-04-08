@@ -24,12 +24,15 @@ under the License.
     <resource-loader name="main" type="component"/>
     <classpath type="dir" location="config"/>
     
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/EntityDiagramGroupData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/CommonExtSecurityPermissionSeedData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/CommonExtSecurityGroupDemoData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/CommonExtHelpData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/SystemInfoPortletData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/SetupData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/OfbizSetupSecurityPermissionSeedData.xml"/>
-
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/OfbizSetupSecurityGroupDemoData.xml"/>
+    
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel.xml"/>
     
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>

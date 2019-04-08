@@ -17,9 +17,13 @@
  * under the License.
  */
 
-import org.apache.ofbiz.party.contact.ContactHelper;
-import org.apache.ofbiz.product.store.ProductStoreWorker
-import org.apache.ofbiz.order.shoppingcart.shipping.ShippingEstimateWrapper;
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.entity.util.*
+import org.apache.ofbiz.accounting.payment.*
+import org.apache.ofbiz.party.contact.*
+import org.apache.ofbiz.product.store.*
+import org.apache.ofbiz.order.shoppingcart.shipping.*
 
 shoppingCart = session.getAttribute("shoppingCart")
 currencyUomId = shoppingCart.getCurrency()

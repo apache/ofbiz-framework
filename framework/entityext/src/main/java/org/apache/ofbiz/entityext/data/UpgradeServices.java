@@ -1,30 +1,5 @@
-/*******************************************************************************
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- *******************************************************************************/
 package org.apache.ofbiz.entityext.data;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -41,6 +16,14 @@ import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.ServiceUtil;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+
 /**
  * Entity Data Upgrade Services
  *
@@ -56,13 +39,13 @@ public class UpgradeServices {
      * mySql added support in 5.6 to support microseconds for datetime field.
      * https://dev.mysql.com/doc/refman/5.6/en/fractional-seconds.html
      * <ul>
-     * <li>Service will take [groupName] as in param,</li>
+     * <li>Service will take groupName as in param,</li>
      * <li>iterate all the entity and check for datetime and time field</li>
      * <li>it will generate alter table sql statement to update the field data type</li>
      * <li>datetime will be altered with DATETIME(3)</li>
      * <li>time will be altered with TIME(3)</li>
      * <li>sql fiel will be created at following location</li>
-     * <li>${ofbiz.home}/runtime/tempfiles/[groupName].sql</li>
+     * <li>${ofbiz.home}/runtime/tempfiles/<groupName>.sql</></li>
      * </ul>
      * @param dctx
      * @param context
@@ -83,9 +66,11 @@ public class UpgradeServices {
         String groupName = (String) context.get("groupName");
 
         Map<String, ModelEntity> modelEntities;
-        try (PrintWriter dataWriter = new PrintWriter(new BufferedWriter(new OutputStreamWriter(
-                    new FileOutputStream(new File(System.getProperty("ofbiz.home") + "/runtime/tempfiles/" + groupName + ".sql")), "UTF-8")))) {
+        PrintWriter dataWriter = null;
+        try {
             modelEntities = delegator.getModelEntityMapByGroup(groupName);
+            dataWriter = new PrintWriter(new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream(new File(System.getProperty("ofbiz.home") + "/runtime/tempfiles/" + groupName + ".sql")), "UTF-8")));
 
             /* TODO:
             1) fetch the meta data of the "date-time" field using the JDBC connection and JDBC meta data;
@@ -107,12 +92,16 @@ public class UpgradeServices {
                 }
             }
             dataWriter.println("SET FOREIGN_KEY_CHECKS=1;");
+            dataWriter.close();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error getting list of entities in group: " + e.toString(), module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityExtErrorGettingListOfEntityInGroup", UtilMisc.toMap("errorString", e.toString()), locale));
         } catch (FileNotFoundException | UnsupportedEncodingException e) {
             Debug.logError(e, e.getMessage(), module);
             return ServiceUtil.returnError(e.getMessage());
+        } finally {
+            if (dataWriter != null)
+                dataWriter.close();
         }
 
         return ServiceUtil.returnSuccess();

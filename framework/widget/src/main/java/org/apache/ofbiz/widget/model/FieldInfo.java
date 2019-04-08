@@ -73,37 +73,37 @@ public abstract class FieldInfo {
     private static List<Integer> nonInputFieldTypeList = createNonInputFieldTypeList();
 
     private static Map<String, Integer> createFieldTypeMap() {
-        Map<String, Integer> fieldTypeByName = new HashMap<>();
-        fieldTypeByName.put("display", 1);
-        fieldTypeByName.put("hyperlink", 2);
-        fieldTypeByName.put("text", 3);
-        fieldTypeByName.put("textarea", 4);
-        fieldTypeByName.put("date-time", 5);
-        fieldTypeByName.put("drop-down", 6);
-        fieldTypeByName.put("check", 7);
-        fieldTypeByName.put("radio", 8);
-        fieldTypeByName.put("submit", 9);
-        fieldTypeByName.put("reset", 10);
-        fieldTypeByName.put("hidden", 11);
-        fieldTypeByName.put("ignored", 12);
-        fieldTypeByName.put("text-find", 13);
-        fieldTypeByName.put("date-find", 14);
-        fieldTypeByName.put("range-find", 15);
-        fieldTypeByName.put("lookup", 16);
-        fieldTypeByName.put("file", 17);
-        fieldTypeByName.put("password", 18);
-        fieldTypeByName.put("image", 19);
-        fieldTypeByName.put("display-entity", 20);
-        fieldTypeByName.put("container", 21);
-        fieldTypeByName.put("include-menu", 22);
-        fieldTypeByName.put("include-form", 23);
-        fieldTypeByName.put("include-grid", 24);
-        fieldTypeByName.put("include-screen", 25);
+        Map<String, Integer> fieldTypeByName = new HashMap<String, Integer>();
+        fieldTypeByName.put("display", Integer.valueOf(1));
+        fieldTypeByName.put("hyperlink", Integer.valueOf(2));
+        fieldTypeByName.put("text", Integer.valueOf(3));
+        fieldTypeByName.put("textarea", Integer.valueOf(4));
+        fieldTypeByName.put("date-time", Integer.valueOf(5));
+        fieldTypeByName.put("drop-down", Integer.valueOf(6));
+        fieldTypeByName.put("check", Integer.valueOf(7));
+        fieldTypeByName.put("radio", Integer.valueOf(8));
+        fieldTypeByName.put("submit", Integer.valueOf(9));
+        fieldTypeByName.put("reset", Integer.valueOf(10));
+        fieldTypeByName.put("hidden", Integer.valueOf(11));
+        fieldTypeByName.put("ignored", Integer.valueOf(12));
+        fieldTypeByName.put("text-find", Integer.valueOf(13));
+        fieldTypeByName.put("date-find", Integer.valueOf(14));
+        fieldTypeByName.put("range-find", Integer.valueOf(15));
+        fieldTypeByName.put("lookup", Integer.valueOf(16));
+        fieldTypeByName.put("file", Integer.valueOf(17));
+        fieldTypeByName.put("password", Integer.valueOf(18));
+        fieldTypeByName.put("image", Integer.valueOf(19));
+        fieldTypeByName.put("display-entity", Integer.valueOf(20));
+        fieldTypeByName.put("container", Integer.valueOf(21));
+        fieldTypeByName.put("include-menu", Integer.valueOf(22));
+        fieldTypeByName.put("include-form", Integer.valueOf(23));
+        fieldTypeByName.put("include-grid", Integer.valueOf(24));
+        fieldTypeByName.put("include-screen", Integer.valueOf(25));
         return Collections.unmodifiableMap(fieldTypeByName);
     }
 
     private static List<Integer> createNonInputFieldTypeList() {
-        List<Integer> nonInputFieldTypeList = new ArrayList<>();
+        List<Integer> nonInputFieldTypeList = new ArrayList<Integer>();
         nonInputFieldTypeList.add(FieldInfo.IGNORED);
         nonInputFieldTypeList.add(FieldInfo.HIDDEN);
         nonInputFieldTypeList.add(FieldInfo.DISPLAY);
@@ -120,8 +120,9 @@ public abstract class FieldInfo {
         Integer fieldTypeInt = FieldInfo.fieldTypeByName.get(name);
         if (fieldTypeInt != null) {
             return fieldTypeInt;
+        } else {
+            throw new IllegalArgumentException("Could not get fieldType for field type name " + name);
         }
-        throw new IllegalArgumentException("Could not get fieldType for field type name " + name);
     }
 
     public static boolean isInputFieldType(Integer fieldType) {
@@ -150,7 +151,7 @@ public abstract class FieldInfo {
 
     /**
      * Returns a new instance of this object.
-     *
+     * 
      * @param modelFormField
      */
     public abstract FieldInfo copy(ModelFormField modelFormField);

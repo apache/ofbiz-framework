@@ -37,7 +37,7 @@ under the License.
             <#assign line = line + 1>
             <#assign prodCatalog = prodCatalogCategory.getRelatedOne("ProdCatalog", false)>
             <#assign curProdCatalogCategoryType = prodCatalogCategory.getRelatedOne("ProdCatalogCategoryType", true)>
-            <tr valign="middle"<#if "1" == rowClass> class="alternate-row"</#if>>
+            <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
                 <td><a href="<@ofbizUrl>EditProdCatalog?prodCatalogId=${(prodCatalogCategory.prodCatalogId)!}</@ofbizUrl>" class="buttontext"><#if prodCatalog??>${(prodCatalog.catalogName)!}</#if> [${(prodCatalogCategory.prodCatalogId)!}]</a></td>
                 <td>
                     ${(curProdCatalogCategoryType.get("description",locale))?default(prodCatalogCategory.prodCatalogCategoryTypeId)}
@@ -65,12 +65,12 @@ under the License.
                     <input type="hidden" name="productCategoryId" value="${(prodCatalogCategory.productCategoryId)!}"/>
                     <input type="hidden" name="prodCatalogCategoryTypeId" value="${prodCatalogCategory.prodCatalogCategoryTypeId}"/>
                     <input type="hidden" name="fromDate" value="${(prodCatalogCategory.fromDate)!}"/>
-                    <input type="submit" value="${uiLabelMap.CommonDelete}"/>
+                    <a href="javascript:document.lineForm_delete${line}.submit()" class="buttontext">${uiLabelMap.CommonDelete}</a>
                   </form>
                 </td>
             </tr>
             <#-- toggle the row color -->
-            <#if "2" == rowClass>
+            <#if rowClass == "2">
                 <#assign rowClass = "1">
             <#else>
                 <#assign rowClass = "2">

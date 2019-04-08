@@ -25,22 +25,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.ofbiz.entity.GenericDelegator;
-import org.apache.ofbiz.security.Security;
-import org.apache.ofbiz.service.LocalDispatcher;
-
-@FunctionalInterface
 public interface RequestHandler {
-    /**
-     *  Method called by the the WebDAV servlet to handle a WebDAV request.
-     *
-     *  @param req the HTTP request to handle which contains the {@link GenericDelegator delegator},
-     *             {@link LocalDispatcher dispatcher}, and {@link Security security} attributes
-     *  @param resp the HTTP response to send
-     *  @param ctx the context of the current servlet
-     *  @throws ServletException if servlet execution failed
-     *  @throws IOException if communication with the HTTP request/response buffers failed
+    /** Called by the the WebDAV servlet to handle a WebDAV request.
+     * <p>The <code>HttpServletRequest</code> contains the following attributes:<br/>
+     * <table cellspacing="0" cellpadding="2" border="1">
+     *   <tr><td>delegator</td><td>A <code>GenericDelgator</code> instance</td></tr>
+     *   <tr><td>dispatcher</td><td>A <code>LocalDispatcher</code> instance</td></tr>
+     *   <tr><td>security</td><td>A <code>Security</code> instance</td></tr>
+     * </table></p>
      */
-    void handleRequest(HttpServletRequest req, HttpServletResponse resp, ServletContext ctx)
-            throws ServletException, IOException;
+    public void handleRequest(HttpServletRequest request, HttpServletResponse response, ServletContext context) throws ServletException, IOException;
 }

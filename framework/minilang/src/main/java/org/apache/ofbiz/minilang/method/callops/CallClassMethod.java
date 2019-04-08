@@ -40,7 +40,7 @@ import org.w3c.dom.Element;
 /**
  * Implements the &lt;call-class-method&gt; element.
  * 
- * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
+ * @see <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/Mini-language+Reference#Mini-languageReference-{{%3Ccallclassmethod%3E}}">Mini-language Reference</a>
  */
 public final class CallClassMethod extends MethodOperation {
 

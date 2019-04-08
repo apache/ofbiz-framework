@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
+    <screen name="GlobalDecorator">
+        <section>
+            <actions>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true" />
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true" />
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true" />
+            </actions>
+            <widgets>
+                <include-screen name="GlobalActions" location="component://common/widget/CommonScreens.xml" />
+                <platform-specific>
+                    <html>
+                        <html-template location="component://hhfacility/template/includes/Header.ftl" />
+                    </html>
+                </platform-specific>
+                <platform-specific>
+                    <html>
+                        <html-template location="component://hhfacility/template/includes/Messages.ftl" />
+                    </html>
+                </platform-specific>
+                <decorator-section-include name="body" />
+                <platform-specific>
+                    <html>
+                        <html-template location="component://hhfacility/template/includes/Footer.ftl" />
+                    </html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="CommonDecorator">
+        <section>
+            <actions>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="applicationTitle" value="mFacility"/>
+            </actions>
+            <widgets>
+                <include-screen name="GlobalDecorator"/>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="FacilityDecorator">
+        <section>
+            <actions>
+                <set field="facilityId" from-field="parameters.facilityId"/>
+                <entity-one entity-name="Facility" value-field="parameters.facility"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonDecorator">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <not><if-empty field="parameters.facilityId"/></not>
+                            </condition>
+                            <widgets>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <include-screen name="facilities"/>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="login">
+        <section>
+            <actions>
+                <set field="title" value="Login Page"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://hhfacility/template/Login.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="menu">
+        <section>
+            <actions>
+                <set field="title" value="Select Activity"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="FacilityDecorator">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://hhfacility/template/Menu.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="receipt">
+        <section>
+            <actions>
+                <set field="title" value="${uiLabelMap.ProductGoodsReceipt}"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="FacilityDecorator">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://hhfacility/template/Receipt.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="poreceipt">
+        <section>
+            <actions>
+                <set field="title" value="${uiLabelMap.ProductReceiptPurchaseOrder}"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="FacilityDecorator">
+                    <decorator-section name="body">
+                        <include-form name="POEnter" location="component://hhfacility/widget/hhfacility/FacilityForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="linereceipt">
+        <section>
+            <widgets>
+                <decorator-screen name="FacilityDecorator">
+                    <decorator-section name="body">
+                        <container>
+                            <label style="h1">${uiLabelMap.ProductReceiptPurchaseOrder}</label>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="productreceipt">
+        <section>
+            <actions>
+                <set field="title" value="${uiLabelMap.ProductReceipt}"/>
+                <set field="focusField" value="productId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="FacilityDecorator">
+                    <decorator-section name="body">
+                        <include-form name="ProductEnter" location="component://hhfacility/widget/hhfacility/FacilityForms.xml"/>
+                        <platform-specific><html><html-template location="component://hhfacility/template/SetFocusOnField.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="qtyreceipt">
+        <section>
+            <actions>
+                <set field="productId" from-field="parameters.productId"/>
+                <entity-one entity-name="Product" value-field="product"/>
+                <set field="focusField" value="productLocation"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="FacilityDecorator">
+                    <decorator-section name="body">
+                        <include-form name="ProductQtyEnter" location="component://hhfacility/widget/hhfacility/FacilityForms.xml"/>
+                        <platform-specific><html><html-template location="component://hhfacility/template/SetFocusOnField.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="movement">
+        <section>
+            <widgets>
+                <decorator-screen name="FacilityDecorator">
+                    <decorator-section name="body">
+                        <container>
+                            <label style="h1">${uiLabelMap.ProductFacilityMovement}</label>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="picking">
+        <section>
+            <widgets>
+                <decorator-screen name="FacilityDecorator">
+                    <decorator-section name="body">
+                        <container>
+                            <label style="h1">${uiLabelMap.ProductPicking}</label>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="packing">
+        <section>
+            <widgets>
+                <decorator-screen name="FacilityDecorator">
+                    <decorator-section name="body">
+                        <container>
+                            <label style="h1">${uiLabelMap.ProductPacking}</label>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="stocktake">
+        <section>
+            <actions>
+                <set field="title" value="${uiLabelMap.PageTitleFindProductStocktake}"/>
+                <set field="idValue" from-field="parameters.idValue"/>
+                <script location="component://hhfacility/groovyScripts/ProductList.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="FacilityDecorator">
+                    <decorator-section name="body">
+                        <include-form name="FindProductStock" location="component://hhfacility/widget/hhfacility/FacilityForms.xml"/>
+                        <platform-specific><html><html-template location="component://hhfacility/template/StockTake.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="productstocktake">
+        <section>
+            <actions>
+                <set field="title" value="${uiLabelMap.PageTitleProductStocktake}"/>
+                <script location="component://hhfacility/groovyScripts/ProductStockTake.groovy"/>
+
+                <set field="locationSeqId" from-field="productFacilityLocations"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="FacilityDecorator">
+                    <decorator-section name="body">
+                        <include-form name="ProductStocktake" location="component://hhfacility/widget/hhfacility/FacilityForms.xml"/>
+                        <include-form name="UpdateProductStocktake" location="component://hhfacility/widget/hhfacility/FacilityForms.xml"/>
+                        <platform-specific><html><html-template location="component://hhfacility/template/ProductStockTake.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="facilities">
+        <section>
+            <actions>
+                <set field="title" value="Select Facility"/>
+                <entity-condition entity-name="Facility" list="facilities">
+                    <condition-expr field-name="facilityTypeId" value="WAREHOUSE"/>
+                    <order-by field-name="facilityId"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://hhfacility/template/Facilities.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+</screens>

@@ -18,7 +18,6 @@ specific language governing permissions and limitations
 under the License.
 -->
 <entity-engine-xml>
-    <!-- party help data -->
     <DataResource dataResourceId="HELP_PARTY" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
         objectInfo="applications/party/data/helpdata/HELP_PARTY.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
         dataResourceName="Party Overview" mimeTypeId="text/xml" isPublic="Y" />
@@ -30,4 +29,5 @@ under the License.
         objectInfo="applications/party/data/helpdata/HELP_PARTY_findparty.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="List parties Help" mimeTypeId="text/xml" isPublic="Y" />
     <Content contentId="PARTY_findparty" contentTypeId="DOCUMENT" contentName="List parties Help" templateDataResourceId="HELP_TEMPL" dataResourceId="PARTY_findparty" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
     <ContentAssoc contentId="HELP_PARTY" contentIdTo="PARTY_findparty" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="PARTY_findparty"/>
+
 </entity-engine-xml>

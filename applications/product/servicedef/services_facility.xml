@@ -49,20 +49,14 @@ under the License.
         <override name="productId" optional="false"/>
         <override name="facilityId" optional="false"/>
     </service>
-
     <service name="createInventoryItemCheckSetAtpQoh" engine="simple"
                 location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="createInventoryItemCheckSetAtpQoh" auth="false">
         <description>
         </description>
-        <attribute name="inventoryItemId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ProductErrorUiLabels" property="facility.inventoryItemId"/>
-            </type-validate>
-        </attribute>
+        <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
         <attribute name="availableToPromiseTotal" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="quantityOnHandTotal" type="BigDecimal" mode="IN" optional="true"/>
     </service>
-
 
     <service name="updateInventoryItem" default-entity-name="InventoryItem" engine="simple"
                 location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="updateInventoryItem" auth="true">
@@ -80,12 +74,7 @@ under the License.
     <service name="changeOwnerUponIssuance" engine="simple"  auth="true"
         location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="changeOwnerUponIssuance">
         <description>If product store setOwnerUponIssuance is Y or empty, set the inventory item owner upon issuance.</description>
-        <attribute name="itemIssuanceId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.itemIssuanceId"/>
-        </type-validate>
-        </attribute>
-
+        <attribute name="itemIssuanceId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="createInventoryItemStatus" engine="simple" default-entity-name="InventoryItemStatus"
             location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="createInventoryItemStatus">
@@ -98,12 +87,7 @@ under the License.
     <service name="checkProductInventoryDiscontinuation" engine="simple"
                 location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="checkProductInventoryDiscontinuation" auth="false">
         <description>Check Product Inventory Discontinuation</description>
-        <attribute name="productId" mode="IN" optional="false" type="String">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.productId"/>
-        </type-validate>
-        </attribute>
-
+        <attribute name="productId" mode="IN" optional="false" type="String"/>
     </service>
     <service name="inventoryItemCheckSetDefaultValues" default-entity-name="InventoryItem" engine="simple"
                 location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="inventoryItemCheckSetDefaultValues" auth="false">
@@ -126,20 +110,12 @@ under the License.
             Sums all availableToPromiseDiff and quantityOnHandDiff elements for the inventoryItemId and sets the availableToPromise and quantityOnHand fields on the corresponding InventoryItem.
             Meant to be run as an Entity ECA triggered on any modify operation on the InventoryItemDetail entity.
         </description>
-        <attribute name="inventoryItemId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.inventoryItemId"/>
-        </type-validate>
-        </attribute>
+        <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="updateSerializedInventoryTotals" default-entity-name="InventoryItem" engine="simple"
                 location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="updateSerializedInventoryTotals" auth="false">
         <description>Sets the ATP/QOH totals for serialized inventory items</description>
-        <attribute name="inventoryItemId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.inventoryItemId"/>
-        </type-validate>
-        </attribute>
+        <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
     </service>
 
     <service name="createInventoryItemVariance" default-entity-name="InventoryItemVariance" engine="simple"
@@ -167,12 +143,7 @@ under the License.
     <service name="getMktgPackagesAvailable" engine="simple"
                 location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="getMktgPackagesAvailable" auth="false" use-transaction="false">
         <description>Get Marketing Packages Available From Components In Inventory</description>
-        <attribute name="productId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.productId"/>
-        </type-validate>
-        </attribute>
-
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="facilityId" type="String" mode="IN" optional="true"/>
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
         <attribute name="quantityOnHandTotal" type="BigDecimal" mode="OUT" optional="false"/>
@@ -181,90 +152,49 @@ under the License.
     <service name="getProductInventoryAvailable" engine="simple"
                 location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="getProductInventoryAvailable" auth="false" use-transaction="false">
         <description>Get Inventory Availability for a Product</description>
-        <attribute name="productId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.productId"/>
-        </type-validate>
-        </attribute>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
         <attribute name="quantityOnHandTotal" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="availableToPromiseTotal" type="BigDecimal" mode="OUT" optional="false"/>
-        <attribute name="accountingQuantityTotal" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="useCache" type="Boolean" mode="IN" optional="true"/>
     </service>
     <service name="getInventoryAvailableByFacility" engine="simple"
                 location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="getProductInventoryAvailable" auth="false" use-transaction="false">
         <description>Get Inventory Availability for a Product constrained by a facilityId</description>
-        <attribute name="productId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.productId"/>
-        </type-validate>
-        </attribute>
-        <attribute name="facilityId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.facilityId"/>
-        </type-validate>
-        </attribute>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
         <attribute name="lotId" mode="IN" type="String" optional="true"/>
         <attribute name="quantityOnHandTotal" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="availableToPromiseTotal" type="BigDecimal" mode="OUT" optional="false"/>
-        <attribute name="accountingQuantityTotal" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="useCache" type="Boolean" mode="IN" optional="true"/>
     </service>
     <service name="getInventoryAvailableByLocation" engine="simple"
                 location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="getProductInventoryAvailable" auth="false">
         <description>Get Inventory Availability for a Product constrained by a facility and location</description>
-        <attribute name="productId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.productId"/>
-        </type-validate>
-        </attribute>
-        <attribute name="facilityId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.facilityId"/>
-        </type-validate>
-        </attribute>
-        <attribute name="locationSeqId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.locationSeqId"/>
-        </type-validate>
-        </attribute>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+        <attribute name="locationSeqId" type="String" mode="IN" optional="false"/>
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
         <attribute name="quantityOnHandTotal" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="availableToPromiseTotal" type="BigDecimal" mode="OUT" optional="false"/>
-        <attribute name="accountingQuantityTotal" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="useCache" type="Boolean" mode="IN" optional="true"/>
     </service>
     <service name="getInventoryAvailableByContainer" engine="simple"
                 location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="getProductInventoryAvailable" auth="false" use-transaction="false">
         <description>Get Inventory Availability for a Product constrained by a containerId</description>
-        <attribute name="productId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.productId"/>
-        </type-validate>
-        </attribute>
-        <attribute name="containerId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.containerId"/>
-        </type-validate>
-        </attribute>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="containerId" type="String" mode="IN" optional="false"/>
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
         <attribute name="quantityOnHandTotal" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="availableToPromiseTotal" type="BigDecimal" mode="OUT" optional="false"/>
-        <attribute name="accountingQuantityTotal" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
     <service name="getInventoryAvailableByItem" engine="simple"
              location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="getProductInventoryAvailable" auth="false" use-transaction="false">
         <description>Get Inventory Availability for an InventoryItem</description>
-        <attribute name="inventoryItemId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.inventoryItemId"/>
-        </type-validate>
-        </attribute>
+        <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
         <attribute name="quantityOnHandTotal" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="availableToPromiseTotal" type="BigDecimal" mode="OUT" optional="false"/>
-        <attribute name="accountingQuantityTotal" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="useCache" type="Boolean" mode="IN" optional="true"/>
     </service>
     <service name="getProductInventoryAvailableFromAssocProducts" engine="java"
@@ -274,11 +204,7 @@ under the License.
             usually marketing package components.
         </description>
         <attribute name="facilityId" type="String" mode="IN" optional="true"/>
-        <attribute name="assocProducts" type="List" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.assocProducts"/>
-        </type-validate>
-        </attribute>
+        <attribute name="assocProducts" type="List" mode="IN" optional="false"/>
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
         <attribute name="quantityOnHandTotal" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="availableToPromiseTotal" type="BigDecimal" mode="OUT" optional="false"/>
@@ -286,66 +212,29 @@ under the License.
     <service name="getProductInventoryAvailableBySupplier" engine="simple"
                 location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="getProductInventoryAvailable" auth="false" use-transaction="false">
         <description>Get Inventory Availability for a Product by a Supplier</description>
-        <attribute name="productId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.productId"/>
-        </type-validate>
-        </attribute>
-        <attribute name="partyId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.partyId"/>
-        </type-validate>
-        </attribute>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
         <attribute name="quantityOnHandTotal" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="availableToPromiseTotal" type="BigDecimal" mode="OUT" optional="false"/>
-        <attribute name="accountingQuantityTotal" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="useCache" type="Boolean" mode="IN" optional="true"/>
     </service>
     <service name="countProductInventoryOnHand" engine="simple"
                 location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="countProductInventoryOnHand" auth="true" use-transaction="false">
         <description>Count Inventory On Hand for a Product constrained by a facilityId at a given date.</description>
-        <attribute name="productId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.productId"/>
-        </type-validate>
-        </attribute>
-        <attribute name="facilityId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.facilityId"/>
-        </type-validate>
-        </attribute>
-        <attribute name="statusId" type="String" mode="IN" optional="true">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.statusId"/>
-        </type-validate>
-        </attribute>
-        <attribute name="inventoryCountDate" type="Timestamp" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.inventoryCountDate"/>
-        </type-validate>
-        </attribute>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+        <attribute name="statusId" type="String" mode="IN" optional="true"/>
+        <attribute name="inventoryCountDate" type="Timestamp" mode="IN" optional="false"/>
         <attribute name="quantityOnHandTotal" type="BigDecimal" mode="OUT" optional="true"/>
     </service>
     <service name="countProductInventoryShippedForSales" engine="simple"
                 location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="countProductInventoryShippedForSales" auth="true" use-transaction="false">
         <description>Count Inventory Shipped for Sales Orders for a Product constrained by a facilityId in a given date range.</description>
-        <attribute name="productId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.productId"/>
-        </type-validate>
-        </attribute>
-        <attribute name="facilityId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.facilityId"/>
-        </type-validate>
-        </attribute>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
-        <attribute name="fromDate" type="Timestamp" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.fromDate"/>
-        </type-validate>
-        </attribute>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
         <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="quantityOnHandTotal" type="BigDecimal" mode="OUT" optional="true"/>
     </service>
@@ -353,11 +242,7 @@ under the License.
                 location="org.apache.ofbiz.product.inventory.InventoryServices" invoke="getProductInventorySummaryForItems" auth="false" use-transaction="false">
         <description>Get ATP/QOH Availability for a list of OrderItems by summing over all facilities.  If the item is a MARKETING_PKG_AUTO/PICK, then put its quantity available from components
             in the mktgPkgATPMap and mktgPkgQOHMap.</description>
-        <attribute name="orderItems" type="List" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.orderItems"/>
-        </type-validate>
-        </attribute>
+        <attribute name="orderItems" type="List" mode="IN" optional="false"/>
         <attribute name="facilityId" type="String" mode="IN" optional="true"/>
         <attribute name="quantityOnHandMap" type="Map" mode="OUT" optional="false"/>
         <attribute name="availableToPromiseMap" type="Map" mode="OUT" optional="false"/>
@@ -369,16 +254,8 @@ under the License.
         <description>Get ATP/QOH Availability for a list of OrderItems by summing over all facilities.  If the item is a MARKETING_PKG_AUTO/PICK, then put its quantity available from components
             in the mktgPkgATPMap and mktgPkgQOHMap.</description>
         <attribute name="checkTime" type="Timestamp" mode="IN" optional="true"/>
-        <attribute name="facilityId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.facilityId"/>
-        </type-validate>
-        </attribute>
-        <attribute name="productId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.productId"/>
-        </type-validate>
-        </attribute>
+        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="minimumStock" mode="IN" type="BigDecimal" optional="true"/>
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
         <attribute name="quantityUomId" type="String" mode="OUT" optional="true"/>
@@ -403,11 +280,7 @@ under the License.
     <service name="balanceInventoryItems" engine="simple" transaction-timeout="600"
             location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="balanceInventoryItems" auth="true">
         <description>Balance inventory items based on the new item specified which will have available inventory that back-order (negative ATP) reservations can be reassigned to.</description>
-        <attribute name="inventoryItemId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.inventoryItemId"/>
-        </type-validate>
-        </attribute>
+        <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
         <attribute name="priorityOrderId" type="String" mode="IN" optional="true"/>
         <attribute name="priorityOrderItemSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="noLongerOnBackOrderIdSet" type="Set" mode="OUT" optional="true"/>
@@ -416,16 +289,8 @@ under the License.
     <service name="reassignInventoryReservations" engine="simple" transaction-timeout="600"
             location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="reassignInventoryReservations" auth="true">
         <description>Balance inventory reservations for a given product/facility, considering all the reservations with promised date greater than fromDate.</description>
-        <attribute name="productId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.productId"/>
-        </type-validate>
-        </attribute>
-        <attribute name="facilityId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.facilityId"/>
-        </type-validate>
-        </attribute>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="noLongerOnBackOrderIdSet" type="Set" mode="OUT" optional="true"/>
         <attribute name="priority" type="String" mode="IN"  optional="true"/>
@@ -433,59 +298,23 @@ under the License.
     <service name="balanceOrderItemsWithNegativeReservations" engine="simple"
                 location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="balanceOrderItemsWithNegativeReservations">
         <description>For each product with a negative reservation in the order, calls reassignInventoryReservations</description>
-        <attribute name="orderId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.orderId"/>
-        </type-validate>
-        </attribute>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
     </service>
 
     <service name="reserveAnInventoryItem" engine="simple"
             location="component://product/minilang/product/inventory/InventoryReserveServices.xml" invoke="reserveAnInventoryItem" auth="true">
         <description></description>
-        <attribute name="inventoryItemId" type="String" mode="INOUT" optional="false">
-            <type-validate>
-                <fail-property resource="ProductErrorUiLabels" property="facility.inventoryItemId"/>
-            </type-validate>
-        </attribute>
-        <attribute name="productId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.productId"/>
-        </type-validate>
-        </attribute>
-        <attribute name="orderId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.orderId"/>
-        </type-validate>
-        </attribute>
-        <attribute name="orderItemSeqId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.orderItemSeqId"/>
-        </type-validate>
-        </attribute>
-        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.shipGroupSeqId"/>
-        </type-validate>
-        </attribute>
-        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.quantity"/>
-        </type-validate>
-        </attribute>
+        <attribute name="inventoryItemId" type="String" mode="INOUT" optional="false"/>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="reservedDatetime" type="Timestamp" mode="IN" optional="true"/>
-        <attribute name="requireInventory" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.requireInventory"/>
-        </type-validate>
-        </attribute>
+        <attribute name="requireInventory" type="String" mode="IN" optional="false"/>
         <attribute name="serialNumber" type="String" mode="IN" optional="true"/>
         <attribute name="sequenceId" type="Long" mode="IN" optional="true"/>
-        <attribute name="promisedDatetime" type="Timestamp" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.promisedDatetime"/>
-        </type-validate>
-        </attribute>
+        <attribute name="promisedDatetime" type="Timestamp" mode="IN" optional="false"/>
         <attribute name="priority" type="String" mode="IN" optional="true"/>
     </service>
 
@@ -495,42 +324,14 @@ under the License.
             If requireInventory is Y the quantity not reserved is returned, if N then a negative
             availableToPromise will be used to track quantity ordered beyond what is in stock.
         </description>
-        <attribute name="productId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.productId"/>
-        </type-validate>
-        </attribute>
-        <attribute name="orderId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.orderId"/>
-        </type-validate>
-        </attribute>
-        <attribute name="orderItemSeqId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.orderItemSeqId"/>
-        </type-validate>
-        </attribute>
-        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.shipGroupSeqId"/>
-        </type-validate>
-        </attribute>
-        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.quantity"/>
-        </type-validate>
-        </attribute>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="reservedDatetime" type="Timestamp" mode="IN" optional="true"/>
-        <attribute name="requireInventory" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.requireInventory"/>
-        </type-validate>
-        </attribute>
-        <attribute name="reserveOrderEnumId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.reserveOrderEnumId"/>
-        </type-validate>
-        </attribute>
+        <attribute name="requireInventory" type="String" mode="IN" optional="false"/>
+        <attribute name="reserveOrderEnumId" type="String" mode="IN" optional="false"/>
         <attribute name="sequenceId" type="Long" mode="IN" optional="true"/>
         <attribute name="lotId" mode="IN" type="String" optional="true" />
         <attribute name="priority" type="String" mode="IN" optional="true"/>
@@ -542,46 +343,14 @@ under the License.
             If requireInventory is Y the quantity not reserved is returned, if N then a negative
             availableToPromise will be used to track quantity ordered beyond what is in stock.
         </description>
-        <attribute name="productId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.productId"/>
-        </type-validate>
-        </attribute>
-        <attribute name="facilityId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.facilityId"/>
-        </type-validate>
-        </attribute>
-        <attribute name="orderId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.orderId"/>
-        </type-validate>
-        </attribute>
-        <attribute name="orderItemSeqId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.orderItemSeqId"/>
-        </type-validate>
-        </attribute>
-        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.shipGroupSeqId"/>
-        </type-validate>
-        </attribute>
-        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.quantity"/>
-        </type-validate>
-        </attribute>
-        <attribute name="reservedDatetime" type="Timestamp" mode="IN" optional="true">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.reservedDatetime"/>
-        </type-validate>
-        </attribute>
-        <attribute name="requireInventory" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.requireInventory"/>
-        </type-validate>
-        </attribute>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"/>
+        <attribute name="reservedDatetime" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="requireInventory" type="String" mode="IN" optional="false"/>
         <attribute name="reserveOrderEnumId" type="String" mode="IN" optional="true"/>
         <attribute name="sequenceId" type="Long" mode="IN" optional="true"/>
         <attribute name="quantityNotReserved" type="BigDecimal" mode="OUT" optional="false"/>
@@ -594,42 +363,14 @@ under the License.
             If requireInventory is Y the quantity not reserved is returned, if N then a negative
             availableToPromise will be used to track quantity ordered beyond what is in stock.
         </description>
-        <attribute name="productId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.productId"/>
-        </type-validate>
-        </attribute>
-        <attribute name="containerId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.containerId"/>
-        </type-validate>
-        </attribute>
-        <attribute name="orderId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.orderId"/>
-        </type-validate>
-        </attribute>
-        <attribute name="orderItemSeqId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.orderItemSeqId"/>
-        </type-validate>
-        </attribute>
-        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.shipGroupSeqId"/>
-        </type-validate>
-        </attribute>
-        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.quantity"/>
-        </type-validate>
-        </attribute>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="containerId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="reservedDatetime" type="Timestamp" mode="IN" optional="true"/>
-        <attribute name="requireInventory" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.requireInventory"/>
-        </type-validate>
-        </attribute>
+        <attribute name="requireInventory" type="String" mode="IN" optional="false"/>
         <attribute name="reserveOrderEnumId" type="String" mode="IN" optional="true"/>
         <attribute name="sequenceId" type="Long" mode="IN" optional="true"/>
         <attribute name="quantityNotReserved" type="BigDecimal" mode="OUT" optional="false"/>
@@ -653,27 +394,15 @@ under the License.
             inventoryItem's availableToPromise quantity, or setting the status of the
             corresponding serialized inventoryItem to available.
         </description>
-        <attribute name="orderId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.orderId"/>
-        </type-validate>
-        </attribute>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="orderItemSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="shipGroupSeqId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="cancelOrderItemInvResQty" engine="simple"
             location="component://product/minilang/product/inventory/InventoryReserveServices.xml" invoke="cancelOrderItemInvResQty" auth="true">
         <description>Cancel a specific quantity for an order item</description>
-        <attribute name="orderId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.orderId"/>
-        </type-validate>
-        </attribute>
-        <attribute name="orderItemSeqId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.orderItemSeqId"/>
-        </type-validate>
-        </attribute>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
         <attribute name="shipGroupSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="cancelQuantity" type="BigDecimal" mode="IN" optional="true"/>
     </service>
@@ -686,16 +415,8 @@ under the License.
 
     <service name="interfaceInventoryTransfer" engine="interface" location="" invoke="">
         <description>Inventory Transfer Interface</description>
-        <attribute name="inventoryItemId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.inventoryItemId"/>
-        </type-validate>
-        </attribute>
-        <attribute name="statusId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.statusId"/>
-        </type-validate>
-        </attribute>
+        <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
+        <attribute name="statusId" type="String" mode="IN" optional="false"/>
         <attribute name="facilityId" type="String" mode="IN" optional="true"/>
         <attribute name="locationSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="containerId" type="String" mode="IN" optional="true"/>
@@ -712,11 +433,7 @@ under the License.
         <description>Create an inventory transfer.  Uses the prepareInventoryTransfer service; see comments there about transfer quantities and inventory items.</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <implements service="interfaceInventoryTransfer"/>
-        <attribute name="xferQty" type="BigDecimal" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.xferQty"/>
-        </type-validate>
-        </attribute>
+        <attribute name="xferQty" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="inventoryTransferId" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="updateInventoryTransfer" engine="simple"
@@ -724,70 +441,37 @@ under the License.
         <description>Update an inventory transfer record</description>
         <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
         <implements service="interfaceInventoryTransfer"/>
-        <attribute name="inventoryTransferId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.inventoryTransferId"/>
-        </type-validate>
-        </attribute>
+        <attribute name="inventoryTransferId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="prepareInventoryTransfer" engine="java"
             location="org.apache.ofbiz.product.inventory.InventoryServices" invoke="prepareInventoryTransfer">
         <description>Prepares inventory item for transfer.  If the xferQty is less than quantityOnHandTotal of the inventory item, then the inventory
                 item is "split," and an new inventory item will be created with xferQty and used for the inventory transfer.</description> 
         <attribute name="inventoryItemId" type="String" mode="INOUT" optional="false"/>
-        <attribute name="xferQty" type="BigDecimal" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.xferQty"/>
-        </type-validate>
-        </attribute>
+        <attribute name="xferQty" type="BigDecimal" mode="IN" optional="false"/>
     </service>
     <service name="completeInventoryTransfer" engine="java"
             location="org.apache.ofbiz.product.inventory.InventoryServices" invoke="completeInventoryTransfer">
         <description>Completes the inventory transfer</description>
-        <attribute name="inventoryTransferId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.inventoryTransferId"/>
-        </type-validate>
-        </attribute>
+        <attribute name="inventoryTransferId" type="String" mode="IN" optional="false"/>
         <attribute name="receiveDate" type="Timestamp" mode="IN" optional="true"/>
     </service>
     <service name="cancelInventoryTransfer" engine="java"
             location="org.apache.ofbiz.product.inventory.InventoryServices" invoke="cancelInventoryTransfer">
         <description>Cancel the inventory transfer</description>
-        <attribute name="inventoryTransferId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.inventoryTransferId"/>
-        </type-validate>
-        </attribute>
+        <attribute name="inventoryTransferId" type="String" mode="IN" optional="false"/>
     </service>
 
     <service name="createInventoryTransfersForProduct" engine="simple"
             location="component://product/minilang/product/inventory/InventoryServices.xml" invoke="createInventoryTransfersForProduct" auth="true">
         <description>Create inventory transfers for the given product and quantity. Return the units not available for transfers.</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
-        <attribute name="facilityId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.facilityId"/>
-        </type-validate>
-        </attribute>
+        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
         <attribute name="containerId" type="String" mode="IN" optional="true"/>
-        <attribute name="locationSeqIdTo" type="String" mode="IN" optional="true"/>
-        <attribute name="facilityIdTo" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.facilityIdTo"/>
-        </type-validate>
-        </attribute>
+        <attribute name="facilityIdTo" type="String" mode="IN" optional="false"/>
         <attribute name="sendDate" type="Timestamp" mode="IN" optional="true"/>
-        <attribute name="productId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.productId"/>
-        </type-validate>
-        </attribute>
-        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.quantity"/>
-        </type-validate>
-        </attribute>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="reserveOrderEnumId" type="String" mode="IN" optional="true"/>
         <attribute name="quantityNotTransferred" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
@@ -799,27 +483,15 @@ under the License.
             Issues the Inventory for an Order that was Immediately Fulfilled.
             Note that this skips the normal inventory reservation process, and the shipment process (no shipment is created).
         </description>
-        <attribute name="orderId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.orderId"/>
-        </type-validate>
-        </attribute>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="issueImmediatelyFulfilledOrderItem" engine="simple"
                 location="component://product/minilang/product/inventory/InventoryIssueServices.xml" invoke="issueImmediatelyFulfilledOrderItem" auth="false">
         <description>
             Issues the Inventory for an Order Item that was Immediately Fulfilled for more info see the issueImmediatelyFulfilledOrder service.
         </description>
-        <attribute name="orderId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.orderId"/>
-        </type-validate>
-        </attribute>
-        <attribute name="orderItemSeqId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.orderItemSeqId"/>
-        </type-validate>
-        </attribute>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
         <attribute name="orderHeader" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
         <attribute name="orderItem" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
         <attribute name="productStore" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
@@ -904,12 +576,7 @@ under the License.
         <description>Create a Facility Location</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <attribute name="facilityId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ProductErrorUiLabels" property="facility.facilityId"/>
-            </type-validate>
-        </attribute>
-
+        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
         <attribute name="locationSeqId" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="updateFacilityLocation" default-entity-name="FacilityLocation" engine="entity-auto" invoke="update" auth="true">
@@ -960,13 +627,7 @@ under the License.
         <permission-service service-name="facilityPermissionCheck" main-action="UPDATE"/>
         <auto-attributes entity-name="FacilityContactMech" include="all" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="INOUT" optional="false"/>
-        <attribute name="contactMechTypeId" type="String" mode="IN" optional="false">
-                <type-validate>
-                    <fail-property resource="ProductErrorUiLabels" property="facility.contactMechTypeId"/>
-                </type-validate>
-        </attribute>
-
-
+        <attribute name="contactMechTypeId" type="String" mode="IN" optional="false"/>
         <attribute name="infoString" type="String" mode="IN" optional="true"/>
         <attribute name="newContactMechId" type="String" mode="IN" optional="true"/>
     </service>
@@ -974,16 +635,8 @@ under the License.
             location="component://product/minilang/product/storage/FacilityContactMechServices.xml" invoke="deleteFacilityContactMech" auth="true">
         <description>Delete a FacilityContactMech</description>
         <permission-service service-name="facilityPermissionCheck" main-action="DELETE"/>
-        <attribute name="facilityId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.facilityId"/>
-        </type-validate>
-        </attribute>
-        <attribute name="contactMechId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.contactMechId"/>
-        </type-validate>
-        </attribute>
+        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+        <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="createFacilityPostalAddress" engine="simple"
             location="component://product/minilang/product/storage/FacilityContactMechServices.xml" invoke="createFacilityPostalAddress" auth="true">
@@ -994,8 +647,6 @@ under the License.
         <attribute name="paymentMethodId" type="String" mode="IN" optional="true"/>
         <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="OUT" optional="false"/>
-        <attribute name="latitude" type="String" mode="IN" optional="true"/>
-        <attribute name="longitude" type="String" mode="IN" optional="true"/>
         <override name="address1" optional="false"/>
         <override name="city" optional="false"/>
         <override name="postalCode" optional="true"/>
@@ -1006,8 +657,6 @@ under the License.
         <permission-service service-name="facilityPermissionCheck" main-action="UPDATE"/>
         <auto-attributes entity-name="FacilityContactMech" include="all" mode="IN" optional="true"/>
         <auto-attributes entity-name="PostalAddress" include="nonpk" mode="IN" optional="true"/>
-        <attribute name="latitude" type="String" mode="IN" optional="true"/>
-        <attribute name="longitude" type="String" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="INOUT" optional="false"/>
         <attribute name="directions" type="String" mode="IN" optional="true"/>
     </service>
@@ -1036,11 +685,7 @@ under the License.
         <auto-attributes entity-name="FacilityContactMech" include="all" mode="IN" optional="true"/>
         <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="INOUT" optional="true"/>
-        <attribute name="emailAddress" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.emailAddress"/>
-        </type-validate>
-        </attribute>
+        <attribute name="emailAddress" type="String" mode="IN" optional="false"/>
     </service>
     <service name="updateFacilityEmailAddress" engine="simple"
             location="component://product/minilang/product/storage/FacilityContactMechServices.xml" invoke="updateFacilityEmailAddress" auth="true">
@@ -1048,11 +693,7 @@ under the License.
         <permission-service service-name="facilityPermissionCheck" main-action="UPDATE"/>
         <auto-attributes entity-name="FacilityContactMech" include="all" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="INOUT" optional="false"/>
-        <attribute name="emailAddress" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ProductErrorUiLabels" property="facility.emailAddress"/>
-            </type-validate>
-        </attribute>
+        <attribute name="emailAddress" type="String" mode="IN" optional="false"/>
     </service>
 
     <service name="createFacilityContactMechPurpose" engine="simple"
@@ -1128,13 +769,8 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true"/>
     </service>
-    <service name="updateFacilityParty" default-entity-name="FacilityParty" engine="entity-auto" invoke="update" auth="true">
-        <description>Update Party From Facility</description>
-        <permission-service service-name="facilityGenericPermission" main-action="UPDATE"/>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-    </service>
-    <service name="removePartyFromFacility" default-entity-name="FacilityParty" engine="entity-auto" invoke="expire" auth="true">
+    <service name="removePartyFromFacility" default-entity-name="FacilityParty" engine="simple"
+                location="component://product/minilang/product/storage/StorageServices.xml" invoke="removePartyFromFacility" auth="true">
         <description>Remove Party From Facility</description>
         <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -1157,7 +793,8 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true"/>
     </service>
-    <service name="deleteFacilityContent" default-entity-name="FacilityContent" engine="entity-auto" invoke="expire" auth="true">
+    <service name="deleteFacilityContent" default-entity-name="FacilityContent" engine="simple"
+                location="component://product/minilang/product/storage/StorageServices.xml" invoke="deleteFacilityContent" auth="true">
         <description>Delete Content From Facility</description>
         <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -1173,11 +810,7 @@ under the License.
             some promised inventory is in a bulk location and needs to be moved to a pick location.
         </description>
         <permission-service service-name="facilityPermissionCheck" main-action="VIEW"/>
-        <attribute name="facilityId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ProductErrorUiLabels" property="facility.facilityId"/>
-            </type-validate>
-        </attribute>
+        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
         <attribute name="moveByOisgirInfoList" type="List" mode="OUT" optional="true"/>
         <attribute name="stockMoveHandled" type="Map" mode="OUT" optional="true"/>
         <attribute name="warningMessageList" type="List" mode="OUT" optional="true"/>
@@ -1188,11 +821,7 @@ under the License.
             Find all Stock Moves that should be done based on minimum quantities on each Pick/Primary ProductFacilityLocation.
         </description>
         <permission-service service-name="facilityPermissionCheck" main-action="VIEW"/>
-        <attribute name="facilityId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ProductErrorUiLabels" property="facility.facilityId"/>
-            </type-validate>
-        </attribute>
+        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
         <attribute name="stockMoveHandled" type="Map" mode="IN" optional="true"/>
         <attribute name="moveByPflInfoList" type="List" mode="OUT" optional="true"/>
         <attribute name="warningMessageList" type="List" mode="OUT" optional="true"/>
@@ -1204,31 +833,11 @@ under the License.
             This service will not only move quantities from one InventoryItem to another but it will
             also reassign any existing OrderItemShipGrpInvRes records to the new InventoryItem.
         </description>
-        <attribute name="productId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ProductErrorUiLabels" property="facility.productId"/>
-            </type-validate>
-        </attribute>
-        <attribute name="facilityId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ProductErrorUiLabels" property="facility.facilityId"/>
-            </type-validate>
-        </attribute>
-        <attribute name="locationSeqId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ProductErrorUiLabels" property="facility.locationSeqId"/>
-            </type-validate>
-        </attribute>
-        <attribute name="targetLocationSeqId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ProductErrorUiLabels" property="facility.targetLocationSeqId"/>
-            </type-validate>
-        </attribute>
-        <attribute name="quantityMoved" type="BigDecimal" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ProductErrorUiLabels" property="facility.quantityMoved"/>
-            </type-validate>
-        </attribute>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+        <attribute name="locationSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="targetLocationSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="quantityMoved" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="warningMessageList" type="List" mode="INOUT" optional="true"/>
     </service>
     <!-- Inventory Label Services -->
@@ -1301,16 +910,8 @@ under the License.
                 location="component://product/minilang/product/inventory/StockMoveServices.xml" invoke="findProductInventorylocations">
        <description>Find Product's inventory locations from facility</description>
        <permission-service service-name="facilityGenericPermission" main-action="VIEW"/>
-       <attribute name="facilityId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.facilityId"/>
-        </type-validate>
-       </attribute>
-       <attribute name="productId" type="String" mode="IN" optional="false">
-        <type-validate>
-            <fail-property resource="ProductErrorUiLabels" property="facility.productId"/>
-        </type-validate>
-       </attribute>
+       <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+       <attribute name="productId" type="String" mode="IN" optional="false"/>
        <attribute name="LocationList" type="List" mode="OUT" optional="true"/>
     </service>
     <service name="setLastInventoryCount" engine="simple"

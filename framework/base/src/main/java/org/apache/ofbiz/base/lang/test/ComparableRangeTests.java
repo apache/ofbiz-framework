@@ -18,14 +18,13 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.lang.test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.lessThan;
-
+import org.apache.ofbiz.base.test.GenericTestCaseBase;
 import org.apache.ofbiz.base.lang.ComparableRange;
 import org.apache.ofbiz.base.lang.SourceMonitored;
-import org.apache.ofbiz.base.test.GenericTestCaseBase;
 import org.apache.ofbiz.base.util.UtilGenerics;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
 @SourceMonitored
 public class ComparableRangeTests extends GenericTestCaseBase {
@@ -34,19 +33,36 @@ public class ComparableRangeTests extends GenericTestCaseBase {
         super(name);
     }
 
+    @SuppressWarnings("unchecked")
     private static <L extends Comparable<L>, R extends Comparable<R>> void comparableRangeConstructorTest(L left, R right) {
-        new ComparableRange<>(left, left);
-        new ComparableRange<>(right, right);
+        new ComparableRange<L>(left, left);
+        new ComparableRange<R>(right, right);
+        IllegalArgumentException caught = null;
+        try {
+            new ComparableRange(left, right);
+        } catch (IllegalArgumentException e) {
+            caught = e;
+        } finally {
+            assertNotNull("expected exception", caught);
+        }
+        caught = null;
+        try {
+            new ComparableRange(right, left);
+        } catch (IllegalArgumentException e) {
+            caught = e;
+        } finally {
+            assertNotNull("expected exception", caught);
+        }
     }
 
     private static <T extends Comparable<T>, B extends Comparable<B>> void comparableRangeTest(String label, B bad, T a, T b, T c, T d) {
         comparableRangeConstructorTest(bad, a);
-        assertTrue(label + ":a-isPoint", new ComparableRange<>(a, a).isPoint());
-        assertTrue(label + ":b-isPoint", new ComparableRange<>(b, b).isPoint());
-        assertTrue(label + ":c-isPoint", new ComparableRange<>(c, c).isPoint());
-        ComparableRange<T> first = new ComparableRange<>(a, b);
-        ComparableRange<T> second = new ComparableRange<>(c, d);
-        ComparableRange<T> all = new ComparableRange<>(a, d);
+        assertTrue(label + ":a-isPoint", new ComparableRange<T>(a, a).isPoint());
+        assertTrue(label + ":b-isPoint", new ComparableRange<T>(b, b).isPoint());
+        assertTrue(label + ":c-isPoint", new ComparableRange<T>(c, c).isPoint());
+        ComparableRange<T> first = new ComparableRange<T>(a, b);
+        ComparableRange<T> second = new ComparableRange<T>(c, d);
+        ComparableRange<T> all = new ComparableRange<T>(a, d);
         assertEquals(label + ":a-b toString", a + " - " + b, first.toString());
         assertEquals(label + ":c-d toString", c + " - " + d, second.toString());
         assertEquals(label + ":a-d toString", a + " - " + d, all.toString());
@@ -55,10 +71,10 @@ public class ComparableRangeTests extends GenericTestCaseBase {
         assertFalse(label + ":a-d isPoint", all.isPoint());
         assertEquals(label + ":a-b == a-b", first, first);
         assertEquals(label + ":a-b.compareTo(a-b)", 0, first.compareTo(first));
-        assertEquals(label + ":a-b equals a-b", first, new ComparableRange<>(a, b));
-        assertEquals(label + ":a-b.compareTo(new a-b)", 0, first.compareTo(new ComparableRange<>(a, b)));
-        assertEquals(label + ":a-b equals b-a", first, new ComparableRange<>(b, a));
-        assertEquals(label + ":a-b.compareTo(new b-a)", 0, first.compareTo(new ComparableRange<>(b, a)));
+        assertEquals(label + ":a-b equals a-b", first, new ComparableRange<T>(a, b));
+        assertEquals(label + ":a-b.compareTo(new a-b)", 0, first.compareTo(new ComparableRange<T>(a, b)));
+        assertEquals(label + ":a-b equals b-a", first, new ComparableRange<T>(b, a));
+        assertEquals(label + ":a-b.compareTo(new b-a)", 0, first.compareTo(new ComparableRange<T>(b, a)));
         assertNotEquals(label + ":a-b not-equal other", first, ComparableRangeTests.class);
         assertFalse(label + ":a-d equals null", all.equals(null));
         ClassCastException caught = null;
@@ -69,12 +85,12 @@ public class ComparableRangeTests extends GenericTestCaseBase {
         } finally {
             assertNotNull(label + " compareTo CCE", caught);
         }
-        assertNotEquals(label + ":a-a != a-b", new ComparableRange<>(a, a), first);
-        assertThat(label + ":a-a.compareTo(a-b) < 0", 0, greaterThan(new ComparableRange<>(a, a).compareTo(first)));
-        assertNotEquals(label + ":a-a != c-d", new ComparableRange<>(a, a), second);
-        assertThat(label + ":a-a.compareTo(c-d) < 0", 0, greaterThan(new ComparableRange<>(a, a).compareTo(second)));
-        assertNotEquals(label + ":a-a != a-d", new ComparableRange<>(a, a), all);
-        assertThat(label + ":a-a.compareTo(a-d) < 0", 0, greaterThan(new ComparableRange<>(a, a).compareTo(all)));
+        assertNotEquals(label + ":a-a != a-b", new ComparableRange<T>(a, a), first);
+        assertThat(label + ":a-a.compareTo(a-b) < 0", 0, greaterThan(new ComparableRange<T>(a, a).compareTo(first)));
+        assertNotEquals(label + ":a-a != c-d", new ComparableRange<T>(a, a), second);
+        assertThat(label + ":a-a.compareTo(c-d) < 0", 0, greaterThan(new ComparableRange<T>(a, a).compareTo(second)));
+        assertNotEquals(label + ":a-a != a-d", new ComparableRange<T>(a, a), all);
+        assertThat(label + ":a-a.compareTo(a-d) < 0", 0, greaterThan(new ComparableRange<T>(a, a).compareTo(all)));
         assertTrue(label + ":b-c after a-b", second.after(first));
         assertThat(label + ":b-c.compareTo(a-b)", 0, lessThan(second.compareTo(first)));
         assertFalse(label + ":c-d !after c-d", second.after(second));
@@ -84,18 +100,18 @@ public class ComparableRangeTests extends GenericTestCaseBase {
         assertFalse(label + ":a-b !before a-b", first.before(first));
         assertEquals(label + ":a-b.compareTo(a-b)", 0, first.compareTo(first));
         assertTrue(label + ":a-d includes a-b", all.includes(first));
-        assertTrue(label + ":a-b overlaps b-c", first.overlaps(new ComparableRange<>(b, c)));
-        assertTrue(label + ":b-c overlaps c-d", new ComparableRange<>(b, c).overlaps(second));
+        assertTrue(label + ":a-b overlaps b-c", first.overlaps(new ComparableRange<T>(b, c)));
+        assertTrue(label + ":b-c overlaps c-d", new ComparableRange<T>(b, c).overlaps(second));
         assertTrue(label + ":a-b overlaps a-d", first.overlaps(all));
         assertTrue(label + ":a-d overlaps a-b", all.overlaps(first));
-        assertTrue(label + ":a-d overlaps b-c", all.overlaps(new ComparableRange<>(b, c)));
-        assertTrue(label + ":b-c overlaps a-d", new ComparableRange<>(b, c).overlaps(all));
+        assertTrue(label + ":a-d overlaps b-c", all.overlaps(new ComparableRange<T>(b, c)));
+        assertTrue(label + ":b-c overlaps a-d", new ComparableRange<T>(b, c).overlaps(all));
         assertFalse(label + ":a-b overlaps c-d", first.overlaps(second));
         assertFalse(label + ":c-d overlaps a-b", second.overlaps(first));
         assertTrue(label + ":a-b includes a", first.includes(a));
         assertTrue(label + ":a-b includes b", first.includes(b));
         assertFalse(label + ":a-b includes c", first.includes(c));
-        assertFalse(label + ":a includes a-b", new ComparableRange<>(a, a).includes(first));
+        assertFalse(label + ":a includes a-b", new ComparableRange<T>(a, a).includes(first));
         assertTrue(label + ":c-d after a", second.after(a));
         assertTrue(label + ":c-d after b", second.after(b));
         assertFalse(label + ":c-d after c", second.after(c));

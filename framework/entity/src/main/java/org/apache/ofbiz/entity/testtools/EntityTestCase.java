@@ -19,9 +19,9 @@
 
 package org.apache.ofbiz.entity.testtools;
 
-import org.apache.ofbiz.entity.Delegator;
-
 import junit.framework.TestCase;
+
+import org.apache.ofbiz.entity.Delegator;
 
 public class EntityTestCase extends TestCase {
 

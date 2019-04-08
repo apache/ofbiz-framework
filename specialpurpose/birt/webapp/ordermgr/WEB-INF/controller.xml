@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns="http://ofbiz.apache.org/Site-Conf" xsi:schemaLocation="http://ofbiz.apache.org/Site-Conf http://ofbiz.apache.org/dtds/site-conf.xsd">
+    <include location="component://order/webapp/ordermgr/WEB-INF/controller.xml"/>
+
+    <description>Extended Order Manager Controller Configuration File</description>
+
+    <handler name="birt" type="view" class="org.apache.ofbiz.birt.webapp.view.BirtViewHandler"/>
+
+
+
+    <request-map uri="checkReportBy">
+        <security https="true" auth="true"/>
+        <event type="groovy" path="component://birt/groovyScripts/order/CheckReportBy.groovy"/>
+        <response name="dayPDF" type="request" value="SalesReport.pdf"/>
+        <response name="weekPDF" type="request" value="SalesReportWeek.pdf"/>
+        <response name="monthPDF" type="request" value="SalesReportMonth.pdf"/>
+        <response name="dayExcel" type="request" value="SalesReport.excel"/>
+        <response name="weekExcel" type="request" value="SalesReportWeek.excel"/>
+        <response name="monthExcel" type="request" value="SalesReportMonth.excel"/>
+        <response name="dayHTML" type="request" value="SalesReport.html"/>
+        <response name="weekHTML" type="request" value="SalesReportWeek.html"/>
+        <response name="monthHTML" type="request" value="SalesReportMonth.html"/>
+        <response name="error" type="request-redirect" value="OrderPurchaseReportOptions">
+            <redirect-parameter name="fromDate"/>
+            <redirect-parameter name="reportBy" from="parameters.reportDate"/>
+        </response>
+    </request-map>
+    <request-map uri="SalesReport.pdf"><security https="true" auth="true"/>
+        <event type="groovy" path="component://birt/groovyScripts/order/SalesReport.groovy"/>
+        <response name="success" type="view" value="SalesOrderReportPDF"/>
+    </request-map>
+    <request-map uri="SalesReportWeek.pdf"><security https="true" auth="true"/>
+        <event type="groovy" path="component://birt/groovyScripts/order/SalesReport.groovy"/>
+        <response name="success" type="view" value="SalesOrderReportWeekPDF"/>
+    </request-map>
+    <request-map uri="SalesReportMonth.pdf"><security https="true" auth="true"/>
+        <event type="groovy" path="component://birt/groovyScripts/order/SalesReport.groovy"/>
+        <response name="success" type="view" value="SalesOrderReportMonthPDF"/>
+    </request-map>
+    <request-map uri="SalesReport.excel"><security https="true" auth="true"/>
+        <event type="groovy" path="component://birt/groovyScripts/order/SalesReport.groovy"/>
+        <response name="success" type="view" value="SalesOrderReportExcel"/>
+    </request-map>
+    <request-map uri="SalesReportWeek.excel"><security https="true" auth="true"/>
+        <event type="groovy" path="component://birt/groovyScripts/order/SalesReport.groovy"/>
+        <response name="success" type="view" value="SalesOrderReportWeekExcel"/>
+    </request-map>
+    <request-map uri="SalesReportMonth.excel"><security https="true" auth="true"/>
+        <event type="groovy" path="component://birt/groovyScripts/order/SalesReport.groovy"/>
+        <response name="success" type="view" value="SalesOrderReportMonthExcel"/>
+    </request-map>
+    <request-map uri="SalesReport.html"><security https="true" auth="true"/>
+        <event type="groovy" path="component://birt/groovyScripts/order/SalesReport.groovy"/>
+        <response name="success" type="view" value="SalesOrderReportHTML"/>
+    </request-map>
+    <request-map uri="SalesReportWeek.html"><security https="true" auth="true"/>
+        <event type="groovy" path="component://birt/groovyScripts/order/SalesReport.groovy"/>
+        <response name="success" type="view" value="SalesOrderReportWeekHTML"/>
+    </request-map>
+    <request-map uri="SalesReportMonth.html"><security https="true" auth="true"/>
+        <event type="groovy" path="component://birt/groovyScripts/order/SalesReport.groovy"/>
+        <response name="success" type="view" value="SalesOrderReportMonthHTML"/>
+    </request-map>
+    <request-map uri="ProductDemandReport.pdf"><security https="true" auth="true"/>
+        <event type="groovy" path="component://birt/groovyScripts/order/ProductDemandReport.groovy"/>
+        <response name="success" type="view" value="ProductDemandOrderReport"/>
+    </request-map>
+    <request-map uri="ProductContributionReport.pdf"><security https="true" auth="true"/>
+        <event type="groovy" path="component://birt/groovyScripts/order/ProductContributionReport.groovy"/>
+        <response name="success" type="view" value="ProductDemandOrderReport"/>
+    </request-map>
+
+    <request-map uri="OrdersByChannel.pdf"><security https="true" auth="true"/>
+        <event type="groovy" path="component://birt/groovyScripts/order/OrderByChannel.groovy"/>
+        <response name="success" type="view" value="OrdersByChannelReport"/>
+    </request-map>
+    <request-map uri="OrderDiscountCode.pdf">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="SaleOrderDiscountCodeReport"/>
+    </request-map>
+    <request-map uri="Last3MonthsSalesReport.pdf"><security https="true" auth="true"/>
+        <response name="success" type="view" value="Last3MonthsSalesReport"/>
+    </request-map>
+    <request-map uri="CouponSalesReport.pdf"><security https="true" auth="true"/>
+        <response name="success" type="view" value="CouponSalesReport"/>
+    </request-map>
+
+
+    <view-map name="SalesOrderReportPDF" type="birt" page="component://birt/webapp/ordermgr/reports/SalesReport.rptdesign" content-type="application/pdf"/>
+    <view-map name="SalesOrderReportWeekPDF" type="birt" page="component://birt/webapp/ordermgr/reports/SalesReportWeek.rptdesign" content-type="application/pdf"/>
+    <view-map name="SalesOrderReportMonthPDF" type="birt" page="component://birt/webapp/ordermgr/reports/SalesReportMonth.rptdesign" content-type="application/pdf"/>
+    <view-map name="SalesOrderReportExcel" type="birt" page="component://birt/webapp/ordermgr/reports/SalesReport.rptdesign" content-type="application/vnd.ms-excel"/>
+    <view-map name="SalesOrderReportWeekExcel" type="birt" page="component://birt/webapp/ordermgr/reports/SalesReportWeek.rptdesign" content-type="application/vnd.ms-excel"/>
+    <view-map name="SalesOrderReportMonthExcel" type="birt" page="component://birt/webapp/ordermgr/reports/SalesReportMonth.rptdesign" content-type="application/vnd.ms-excel"/>
+    <view-map name="SalesOrderReportHTML" type="birt" page="component://birt/webapp/ordermgr/reports/SalesReport.rptdesign" content-type="text/html"/>
+    <view-map name="SalesOrderReportWeekHTML" type="birt" page="component://birt/webapp/ordermgr/reports/SalesReportWeek.rptdesign" content-type="text/html"/>
+    <view-map name="SalesOrderReportMonthHTML" type="birt" page="component://birt/webapp/ordermgr/reports/SalesReportMonth.rptdesign" content-type="text/html"/>
+    <view-map name="ProductDemandOrderReport" type="birt" page="component://birt/webapp/ordermgr/reports/ProductDemandReport.rptdesign" content-type="application/pdf"/>
+    <view-map name="OrdersByChannelReport" type="birt" page="component://birt/webapp/ordermgr/reports/OrdersByChannel.rptdesign" content-type="application/pdf"/>
+    <view-map name="SaleOrderDiscountCodeReport" type="birt" page="component://birt/webapp/ordermgr/reports/OrderDiscountCodeReport.rptdesign" content-type="application/pdf"/>
+    <view-map name="Last3MonthsSalesReport" type="birt" page="component://birt/webapp/ordermgr/reports/Last3MonthsSalesReport.rptdesign" content-type="application/pdf"/>
+    <view-map name="CouponSalesReport" type="birt" page="component://birt/webapp/ordermgr/reports/CouponSalesReport.rptdesign" content-type="application/pdf"/>
+
+</site-conf>

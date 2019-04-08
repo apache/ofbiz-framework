@@ -23,7 +23,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
@@ -44,7 +43,7 @@ public class ModelEntityChecker {
     public static void checkEntities(Delegator delegator, List<String> warningList) throws GenericEntityException {
         ModelReader reader = delegator.getModelReader();
 
-        Set<String> reservedWords = new HashSet<>();
+        Set<String> reservedWords = new HashSet<String>();
         if (Debug.infoOn()) {
             Debug.logInfo("[initReservedWords] array length = " + rwArray.length, module);
         }
@@ -52,13 +51,13 @@ public class ModelEntityChecker {
             reservedWords.add(rwArray[i]);
         }
 
-        Map<String, Set<String>> packages = new HashMap<>();
-        Set<String> packageNames = new TreeSet<>();
-        Set<String> tableNames = new HashSet<>();
+        Map<String, Set<String>> packages = new HashMap<String, Set<String>>();
+        Set<String> packageNames = new TreeSet<String>();
+        Set<String> tableNames = new HashSet<String>();
 
         //put the entityNames TreeSets in a HashMap by packageName
         Collection<String> ec = reader.getEntityNames();
-        Set<String> entityNames = new HashSet<>(ec);
+        Set<String> entityNames = new HashSet<String>(ec);
         for (String eName: ec) {
             ModelEntity ent = reader.getModelEntity(eName);
 
@@ -69,15 +68,15 @@ public class ModelEntityChecker {
 
             Set<String> entities = packages.get(ent.getPackageName());
             if (entities == null) {
-                entities = new TreeSet<>();
+                entities = new TreeSet<String>();
                 packages.put(ent.getPackageName(), entities);
                 packageNames.add(ent.getPackageName());
             }
             entities.add(eName);
         }
 
-        Set<String> fkNames = new HashSet<>();
-        Set<String> indexNames = new HashSet<>();
+        Set<String> fkNames = new HashSet<String>();
+        Set<String> indexNames = new HashSet<String>();
 
         for (String pName: packageNames) {
             Set<String> entities = packages.get(pName);
@@ -96,16 +95,16 @@ public class ModelEntityChecker {
                 if (entity.getPlainTableName() != null && entity.getPlainTableName().length() > 30) {
                         warningList.add("[TableNameGT30] Table name [" + entity.getPlainTableName() + "] of entity " + entity.getEntityName() + " is longer than 30 characters.");
                 }
-                if (entity.getPlainTableName() != null && reservedWords.contains(entity.getPlainTableName().toUpperCase(Locale.getDefault()))) {
+                if (entity.getPlainTableName() != null && reservedWords.contains(entity.getPlainTableName().toUpperCase())) {
                         warningList.add("[TableNameRW] Table name [" + entity.getPlainTableName() + "] of entity " + entity.getEntityName() + " is a reserved word.");
                 }
-
+                
                 // don't check columns/relations/keys when never-check is set to "true"
                 if (entity.getNeverCheck()) {
                     continue;
                 }
-
-                Set<String> ufields = new HashSet<>();
+                
+                Set<String> ufields = new HashSet<String>();
                 Iterator<ModelField> fieldIter = entity.getFieldsIterator();
                 while (fieldIter.hasNext()) {
                     ModelField field = fieldIter.next();
@@ -122,7 +121,7 @@ public class ModelEntityChecker {
                     if (field.getColName().length() == 0) {
                         warningList.add("[FieldNameEQ0] Column name for field name \"" + field.getName() + "\" of entity " + entity.getEntityName() + " is empty (zero length).");
                     }
-                    if (reservedWords.contains(field.getColName().toUpperCase(Locale.getDefault())))
+                    if (reservedWords.contains(field.getColName().toUpperCase()))
                             warningList.add("[FieldNameRW] Column name " + field.getColName() + " of entity " + entity.getEntityName() + " is a reserved word.");
                     if (type == null) {
                         StringBuilder warningMsg = new StringBuilder();
@@ -168,7 +167,7 @@ public class ModelEntityChecker {
                         }
                     }
 
-                    Set<String> relations = new HashSet<>();
+                    Set<String> relations = new HashSet<String>();
                     for (int r = 0; r < entity.getRelationsSize(); r++) {
                         ModelRelation relation = entity.getRelation(r);
 
@@ -271,7 +270,7 @@ public class ModelEntityChecker {
                                 // &&
                                 // !rfield.getType().startsWith(field.getType()))
                                 // {
-                                if (!field.getType().equals(rfield.getType())) {
+                                if (!field.getType().equals(rfield.getType()) && !field.getType().equals(rfield.getType() + "-ne") && !rfield.getType().equals(field.getType() + "-ne")) {
                                     warningList.add("[RelationFieldTypesDifferent] The field type ("+ field.getType()
                                                     + ") of " + field.getName() + " of entity " + entity.getEntityName()
                                                     + " is not the same as field type (" + rfield.getType() + ") of "
@@ -286,7 +285,7 @@ public class ModelEntityChecker {
         }
     }
 
-    protected static final String[] rwArray = { "ABORT", "ABS", "ABSOLUTE",
+    public static final String[] rwArray = { "ABORT", "ABS", "ABSOLUTE",
             "ACCEPT", "ACCES", "ACCESS", "ACS", "ACTION", "ACTIVATE", "ADD", "ADDFORM",
             "ADMIN", "AFTER", "AGGREGATE", "ALIAS", "ALL", "ALLOCATE", "ALTER",
             "ANALYZE", "AND", "ANDFILENAME", "ANY", "ANYFINISH", "APPEND",

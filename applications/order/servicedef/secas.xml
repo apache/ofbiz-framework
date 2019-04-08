@@ -349,14 +349,7 @@ under the License.
         <condition field-name="custRequestItemSeqId" operator="is-not-empty"/>
         <action service="associatedRequirementWithRequestItem" mode="sync"/>
     </eca>
-    <eca service="createRequirement" event="commit" run-on-error="false">
-        <condition field-name="statusId" operator="is-not-empty" />
-        <action service="createRequirementStatus" mode="async"/>
-    </eca>
-    <eca service="updateRequirement" event="commit" run-on-error="false">
-        <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
-        <action service="createRequirementStatus" mode="async"/>
-    </eca>
+
     <eca service="createRequirement" event="commit">
         <condition field-name="productId" operator="is-not-empty"/>
         <condition field-name="requirementTypeId" operator="equals" value="PRODUCT_REQUIREMENT"/>
@@ -392,6 +385,11 @@ under the License.
         <action service="updateRequirementsToOrdered" mode="sync"/>
     </eca>
 
+    <!-- WorkEffort -->
+    <eca service="createQuoteWorkEffort" event="in-validate">
+        <condition field-name="workEffortId" operator="is-empty"/>
+        <action service="createWorkEffort" mode="sync"/>
+    </eca>
     <!-- Ensure Quote Role -->
     <eca service="createQuoteRole" event="invoke">
         <action service="ensurePartyRole" mode="sync"/>
@@ -403,6 +401,7 @@ under the License.
         <condition field-name="oldStatusId" operator="not-equals" value="CRQ_ACCEPTED"/>
         <condition field-name="oldStatusId" operator="not-equals" value="CRQ_PENDING"/>
         <condition field-name="statusId" operator="equals" value="CRQ_ACCEPTED"/>
+        <condition field-name="webSiteId" operator="equals" value="OrderEntry"/>
         <set field-name="bodyParameters.custRequestId" env-name="custRequestId"/>
         <set field-name="bodyParameters.custRequestName" env-name="custRequestName"/>
         <set field-name="partyIdTo" env-name="fromPartyId"/>
@@ -413,6 +412,7 @@ under the License.
     <eca service="setCustRequestStatus" event="commit">
         <condition field-name="oldStatusId" operator="not-equals" value="CRQ_COMPLETED"/>
         <condition field-name="statusId" operator="equals" value="CRQ_COMPLETED"/>
+        <condition field-name="webSiteId" operator="equals" value="OrderEntry"/>
         <set field-name="bodyParameters.custRequestId" env-name="custRequestId"/>
         <set field-name="partyIdTo" env-name="fromPartyId"/>
         <set field-name="emailTemplateSettingId" value="CUST_REQ_COMPLETED"/>

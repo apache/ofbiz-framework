@@ -41,8 +41,6 @@ import org.apache.ofbiz.entity.model.ModelViewEntity.ComplexAlias
 import org.apache.ofbiz.entity.model.ModelViewEntity.ComplexAliasField
 import org.apache.ofbiz.product.inventory.*
 
-module = "CountFacilityInventoryByProduct"
-
 action = request.getParameter("action")
 
 searchParameterString = "action=Y&facilityId=" + facilityId
@@ -68,8 +66,6 @@ if (action) {
             hasOffsetQOH = true
             searchParameterString = searchParameterString + "&offsetQOHQty=" + offsetQOH
         } catch (NumberFormatException nfe) {
-            Debug.logError(nfe, "Caught an exception : " + nfe.toString(), module)
-            request.setAttribute("_ERROR_MESSAGE", "An entered value seems non-numeric")
         }
     }
     if (offsetATPQty) {
@@ -78,8 +74,6 @@ if (action) {
             hasOffsetATP = true
             searchParameterString = searchParameterString + "&offsetATPQty=" + offsetATP
         } catch (NumberFormatException nfe) {
-            Debug.logError(nfe, "Caught an exception : " + nfe.toString(), module)
-            request.setAttribute("_ERROR_MESSAGE", "An entered value seems non-numeric")
         }
     }
 
@@ -181,8 +175,7 @@ if (action) {
             checkTime = UtilDateTime.toTimestamp(cal.getTime())
             searchParameterString += "&monthsInPastLimit=" + monthsInPastLimitStr
         } catch (Exception e) {
-            Debug.logError(e, "Caught an exception : " + e.toString(), module)
-            request.setAttribute("_ERROR_MESSAGE", "An exception occured please check the log")
+            // Ignore
         }
     }
 
@@ -279,8 +272,7 @@ if (action) {
                         try {
                             salesUsageQuantity += salesUsageItem.getDouble("quantity").doubleValue()
                         } catch (Exception e) {
-                            Debug.logError(e, "Caught an exception : " + e.toString(), module)
-                            request.setAttribute("_ERROR_MESSAGE", "An exception occured please check the log")
+                            // Ignore
                         }
                     }
                 }
@@ -301,8 +293,7 @@ if (action) {
                         try {
                             productionUsageQuantity += productionUsageItem.getDouble("quantity").doubleValue()
                         } catch (Exception e) {
-                            Debug.logError(e, "Caught an exception : " + e.toString(), module)
-                            request.setAttribute("_ERROR_MESSAGE", "An exception occured please check the log")
+                            // Ignore
                         }
                     }
                 }
@@ -347,12 +338,12 @@ if (action) {
 
     } catch (GenericEntityException e) {
         errMsg = "Failure in operation, rolling back transaction"
-        Debug.logError(e, errMsg, module)
+        Debug.logError(e, errMsg, "ViewFacilityInventoryByProduct")
         try {
             // only rollback the transaction if we started one...
             TransactionUtil.rollback(beganTransaction, errMsg, e)
         } catch (GenericEntityException e2) {
-            Debug.logError(e2, "Could not rollback transaction: " + e2.toString(), module)
+            Debug.logError(e2, "Could not rollback transaction: " + e2.toString(), "ViewFacilityInventoryByProduct")
         }
         // after rolling back, rethrow the exception
         throw e

@@ -83,7 +83,7 @@ standard order confirmation page and to be re-usable by other screens.
 
         <td rowspan="${numberOfItems}" valign="top">
           <#assign supplier =  delegator.findOne("PartyGroup", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("partyId", cartShipInfo.getSupplierPartyId()), false)! />
-          <#if supplier?has_content>${supplier.groupName?default(supplier.partyId)} <#if cartShipInfo.getSupplierAgreementId()??> (${cartShipInfo.getSupplierAgreementId()})</#if></#if>
+          <#if supplier?has_content>${supplier.groupName?default(supplier.partyId)}</#if>
         </td>
 
         <#-- carrier column (also spans rows = number of items) -->

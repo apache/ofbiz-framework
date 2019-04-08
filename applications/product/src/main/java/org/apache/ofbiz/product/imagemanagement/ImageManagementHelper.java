@@ -38,9 +38,7 @@ public final class ImageManagementHelper {
 
     public static String getInternalImageUrl(HttpServletRequest request, String productId) {
         String internalImageUrl = null;
-        if (request == null) {
-            return internalImageUrl;
-        }
+        if (request == null) return internalImageUrl; 
         try {
             Delegator delegator = (Delegator) request.getAttribute("delegator");
             List<GenericValue> defaultImageList = EntityQuery.use(delegator).from("ProductContentAndInfo").where("productId", productId, "productContentTypeId", "DEFAULT_IMAGE", "statusId", "IM_APPROVED", "drIsPublic", "N").orderBy("sequenceNum").queryList();

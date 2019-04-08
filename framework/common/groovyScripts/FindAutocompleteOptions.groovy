@@ -142,6 +142,9 @@ if (orExprs && entityName && displayFieldsSet) {
     def entityConditionList = EntityCondition.makeCondition(mainAndConds, EntityOperator.AND)
 
     String viewSizeStr = context.autocompleterViewSize
+    if (viewSizeStr == null) {
+        viewSizeStr = EntityUtilProperties.getPropertyValue("widget", "widget.autocompleter.defaultViewSize", delegator)
+    }
     Integer autocompleterViewSize = Integer.valueOf(viewSizeStr ?: 10)
     EntityFindOptions findOptions = new EntityFindOptions()
     findOptions.setMaxRows(autocompleterViewSize)

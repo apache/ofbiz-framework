@@ -61,9 +61,7 @@ public class ServiceSemaphore {
     }
 
     public void acquire() throws SemaphoreWaitException, SemaphoreFailException {
-        if (mode == SEMAPHORE_MODE_NONE) {
-            return;
-        }
+        if (mode == SEMAPHORE_MODE_NONE) return;
 
         lockTime = UtilDateTime.nowTimestamp();
 
@@ -72,10 +70,8 @@ public class ServiceSemaphore {
         }
     }
 
-    public synchronized void release() throws SemaphoreFailException {
-        if (mode == SEMAPHORE_MODE_NONE) {
-            return;
-        }
+    public void release() throws SemaphoreFailException {
+        if (mode == SEMAPHORE_MODE_NONE) return;
 
         // remove the lock file
         if (lock != null) {
@@ -110,6 +106,7 @@ public class ServiceSemaphore {
             if (timedOut) {
                 double waitTimeSec = ((System.currentTimeMillis() - lockTime.getTime()) / 1000.0);
                 String errMsg = "Service [" + model.name + "] with wait semaphore exceeded wait timeout, waited [" + waitTimeSec + "], wait started at " + lockTime;
+                Debug.logWarning(errMsg, module);
                 throw new SemaphoreWaitException(errMsg);
             }
         } else if (SEMAPHORE_MODE_NONE == mode) {
@@ -133,18 +130,14 @@ public class ServiceSemaphore {
             semaphore = delegator.makeValue("ServiceSemaphore", "serviceName", model.name, "lockedByInstanceId", JobManager.instanceId, "lockThread", threadName, "lockTime", lockTime);
 
             // use the special method below so we can reuse the unqiue tx functions
-            try {
-                dbWrite(semaphore, false);
-            } catch (SemaphoreFailException e) {
-                // can't write a new semaphore, need to wait
-                return true;
-            }
+            dbWrite(semaphore, false);
 
             // we own the lock, no waiting
             return false;
+        } else {
+            // found a semaphore, need to wait
+            return true;
         }
-        // found a semaphore, need to wait
-        return true;
     }
 
     private synchronized void dbWrite(GenericValue value, boolean delete) throws SemaphoreFailException {
@@ -154,9 +147,7 @@ public class ServiceSemaphore {
 
         try {
             // prepare the suspended transaction
-            if (TransactionUtil.isTransactionInPlace()) {
-                parent = TransactionUtil.suspend();
-            }
+            parent = TransactionUtil.suspend();
             beganTx = TransactionUtil.begin();
             if (!beganTx) {
                 throw new SemaphoreFailException("Cannot obtain unique transaction for semaphore logging");
@@ -183,7 +174,7 @@ public class ServiceSemaphore {
                         Debug.logError(e, module);
                     }
                 }
-                if (!isError) {
+                if (!isError && beganTx) {
                     try {
                         TransactionUtil.commit(beganTx);
                     } catch (GenericTransactionException e) {

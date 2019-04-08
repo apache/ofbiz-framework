@@ -27,14 +27,14 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="ManufacturingUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.PageTitleLookupRouting"/>
+                <set field="title" value="${uiLabelMap.PageTitleLookupRouting}"/>
                 <set field="entityName" value="WorkEffort"/>
                 <set field="requestParameters.workEffortTypeId" to-scope="screen" default-value="ROUTING"/>
                 <set field="requestParameters.fixedAssetId" to-scope="screen" default-value=""/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="searchFields" value="[workEffortId]"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
             </actions>
             <widgets>
@@ -56,14 +56,14 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="ManufacturingUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.PageTitleLookupRoutingTask"/>
+                <set field="title" value="${uiLabelMap.PageTitleLookupRoutingTask}"/>
                 <set field="entityName" value="WorkEffort"/>
                 <set field="requestParameters.workEffortTypeId" to-scope="screen" default-value="ROU_TASK"/>
                 <set field="requestParameters.fixedAssetId" to-scope="screen" default-value=""/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="searchFields" value="[workEffortId, workEffortName]"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
             </actions>
             <widgets>

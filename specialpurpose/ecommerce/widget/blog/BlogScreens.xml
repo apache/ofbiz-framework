@@ -1,0 +1,704 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations
+  under the License.
+  -->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
+    <screen name="CommonBlogTitle">
+        <section>
+            <condition>
+                <not>
+                    <if-empty field="parameters.blogContentId"/>
+                </not>
+            </condition>
+            <actions>
+                <entity-one entity-name="Content" value-field="blogContent">
+                    <field-map field-name="contentId" from-field="parameters.blogContentId"/>
+                </entity-one>
+
+                <!-- permission fields -->
+                <set field="crPerm.ownerContentId" from-field="blogContentId"/>
+                <set field="crPerm.contentOperationId" value="CONTENT_CREATE"/>
+                <set field="crPerm.contentPurposeTypeId" value="ARTICLE"/>
+            </actions>
+            <widgets>
+                <container style="bloghr">
+                    <container style="leftjustify">
+                        <link text="${blogContent.contentName} - ${blogContent.description}" target="MainBlog" style="blogtitle">
+                            <parameter param-name="blogContentId"/>
+                        </link>
+                    </container>
+                    <container style="rightjustify">
+                        <section>
+                            <condition>
+                                <if-service-permission service-name="genericContentPermission" main-action="CREATE" context-map="crPerm"/>
+                            </condition>
+                            <widgets>
+                                <link text="${uiLabelMap.CommonAddNew}" target="NewBlogArticle" style="buttontext">
+                                    <parameter param-name="blogContentId"/>
+                                </link>
+                            </widgets>
+                        </section>
+                        <link target="ViewBlogRss" target-window="_blank" link-type="anchor">
+                            <parameter param-name="blogContentId" from-field="blogContent.contentId"/>
+                            <parameter param-name="mainLinkReq" value="MainBlog"/>
+                            <parameter param-name="entryLinkReq" value="ViewBlogArticle"/>
+                            <image src="/images/feed-icon-14x14.png" id="feedIcon" height="12px"/>
+                        </link>
+                    </container>
+                </container>
+            </widgets>
+            <fail-widgets>
+                <label text="${uiLabelMap.EcommerceBlogContentNotFound}" style="blogtitle"/>
+            </fail-widgets>
+        </section>
+    </screen>
+
+    <screen name="MainBlog">
+        <section>
+            <actions>
+                <set field="MainColumnStyle" value="nocolumns"/>
+                <set field="blogContentId" from-field="parameters.blogContentId"/>
+                <entity-condition entity-name="ContentAssocViewTo" use-cache="false" list="blogList">
+                    <condition-list combine="and">
+                        <condition-expr field-name="contentIdStart" operator="equals" from-field="blogContentId"/>
+                        <condition-expr field-name="caContentAssocTypeId" operator="equals" value="PUBLISH_LINK"/>
+                        <condition-expr field-name="caThruDate" operator="equals" value=""/>
+                        <condition-expr field-name="statusId" operator="equals" value="CTNT_PUBLISHED"/>
+                    </condition-list>
+                    <order-by field-name="caFromDate DESC"/>
+                </entity-condition>
+
+                <!-- permission fields -->
+                <set field="upPerm.contentId" from-field="blogContentId"/>
+                <set field="upPerm.contentOperationId" value="CONTENT_UPDATE"/>
+                <set field="upPerm.contentPurposeTypeId" value="ARTICLE"/>
+            </actions>
+            <widgets>
+                <section>
+                    <!-- if viewer has update permission, show all blogs, even those that were preview only -->
+                    <condition>
+                        <if-service-permission service-name="genericContentPermission" main-action="UPDATE" context-map="upPerm"/>
+                    </condition>
+                    <actions>
+                        <service service-name="getOwnedOrPublishedBlogEntries" result-map="result">
+                            <field-map field-name="contentId" from-field="blogContentId"/>
+                            <field-map field-name="userLogin" from-field="userLogin"/>
+                        </service>
+                        <set field="blogList" from-field="result.blogList" default-value="${blogList}"/>
+                    </actions>
+                    <widgets/>
+                </section>
+                <decorator-screen name="CommonBlog" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <iterate-section list="blogList" entry="blog" paginate="true" paginate-target="MainBlog">
+                            <section name="firstBlog">
+                                <condition>
+                                    <if-compare field="itemIndex" operator="equals" type="Integer" value="0"/>
+                                </condition>
+                                <widgets>
+                                    <container style="blogwrapper">
+                                        <include-menu name="ViewEdit" location="component://ecommerce/widget/blog/BlogMenus.xml"/>
+                                        <platform-specific><html><html-template location="component://ecommerce/template/blog/BlogContentAltLink.ftl"/></html></platform-specific>
+                                        <!--<link text="${blog.contentName} [${blog.contentId}]" target="ViewBlogArticle" style="blogheader">
+                                            <parameter param-name="contentId" from-field="blog.contentId"/>
+                                            <parameter param-name="blogContentId"/>
+                                        </link>-->
+                                        <!--
+                                            <link text="Latest" target="LatestResponses" >
+                                                <parameter param-name="ownerContentId" from-field="blog.ownerContentId"/>
+                                            </link>
+                                        -->
+                                        <container style="blogtext">
+                                            <sub-content map-key="SUMMARY" content-id="${blog.contentId}"/>
+                                        </container>
+                                    </container>
+                                </widgets>
+                            </section>
+                            <section name="allOtherBlogs">
+                                <condition>
+                                    <if-compare field="itemIndex" operator="greater" type="Integer" value="0"/>
+                                </condition>
+                                <widgets>
+                                    <container style="blogwrapper">
+                                        <include-menu name="ViewEdit" location="component://ecommerce/widget/blog/BlogMenus.xml"/>
+                                        <!--<label text="${blog.contentName} [${blog.contentId}]" style="blogheader"/>-->
+                                        <platform-specific><html><html-template location="component://ecommerce/template/blog/BlogContentAltLink.ftl"/></html></platform-specific>
+                                        <!--<link text="${blog.contentName} [${blog.contentId}]" target="ViewBlogArticle" style="blogheader">
+                                            <parameter param-name="contentId" from-field="blog.contentId"/>
+                                            <parameter param-name="blogContentId"/>
+                                        </link>-->
+                                        <!--
+                                            <link text="Latest" target="LatestResponses" >
+                                                <parameter param-name="ownerContentId" from-field="blog.ownerContentId"/>
+                                            </link>
+                                        -->
+                                        <container style="blogtext">
+                                            <label text="${blog.description}" style="blogtext"/>
+                                        </container>
+                                    </container>
+                                </widgets>
+                            </section>
+                        </iterate-section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="NewArticle">
+        <section>
+            <actions>
+                <set field="crPerm.ownerContentId" from-field="parameters.blogContentId"/>
+                <set field="crPerm.contentOperationId" value="CONTENT_CREATE"/>
+                <set field="crPerm.contentPurposeTypeId" value="ARTICLE"/>
+            </actions>
+            <widgets>
+                <section>
+                    <condition>
+                        <if-service-permission service-name="genericContentPermission" main-action="CREATE" context-map="crPerm"/>
+                    </condition>
+                    <widgets>
+                        <decorator-screen name="CommonBlog" location="${parameters.mainDecoratorLocation}">
+                            <decorator-section name="body">
+                                <include-form name="EditArticle" location="component://content/widget/forum/BlogForms.xml"/>
+                            </decorator-section>
+                        </decorator-screen>
+                    </widgets>
+                    <fail-widgets>
+                        <label text="${uiLabelMap.PageTitleEditBlogArticlePermissionError}"></label>
+                    </fail-widgets>
+                </section>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="EditArticle">
+        <section>
+            <actions>
+                <set field="blogContentId" from-field="parameters.blogContentId"/>
+                <set field="upPerm.contentId" from-field="parameters.blogContentId"/>
+                <set field="upPerm.contentOperationId" value="CONTENT_UPDATE"/>
+                <set field="upPerm.contentPurposeTypeId" value="ARTICLE"/>
+                <set field="contentId" from-field="parameters.contentId"/>
+            </actions>
+            <widgets>
+                <section>
+                    <!--condition>
+                        <if-service-permission service-name="genericContentPermission" main-action="UPDATE"/>
+                    </condition-->
+                    <actions>
+                        <service service-name="getBlogEntry" result-map="blogEntry" auto-field-map="true"/>
+                    </actions>
+                    <widgets>
+                        <decorator-screen name="CommonBlog" location="${parameters.mainDecoratorLocation}">
+                            <decorator-section name="body">
+                                <sub-content content-id="${parameters.contentId}" map-key="IMAGE"/>
+                                <include-form name="EditArticle" location="component://content/widget/forum/BlogForms.xml"/>
+                            </decorator-section>
+                        </decorator-screen>
+                    </widgets>
+                    <fail-widgets>
+                        <label text="${uiLabelMap.PageTitleEditBlogArticlePermissionError}: ${contentId} ${uiLabelMap.ContentBlog}: ${blogContentId}"></label>
+                    </fail-widgets>
+                </section>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="ViewArticle">
+        <section>
+            <actions>
+                <set field="articleContentId" from-field="parameters.articleContentId" default-value="${parameters.contentId}"/>
+                <set field="ownerContentId" from-field="parameters.ownerContentId"/>
+                <set field="blogContentId" from-field="parameters.blogContentId"/>
+                <entity-one entity-name="Content" value-field="content" use-cache="true">
+                    <field-map field-name="contentId" from-field="articleContentId"/>
+                </entity-one>
+                <set field="enableEdit" value="false"/>
+                <property-to-field property="root.publish.point.blog" field="webPutPt" resource="blog"/>
+                <set field="rsp.contentName" value="RE: ${content.contentName}"/>
+
+                <!-- for permission service -->
+                <set field="upPerm.contentOperationId" value="CONTENT_UPDATE"/>
+                <set field="upPerm.contentPurposeTypeId" value="ARTICLE"/>
+                <set field="upPerm.ownerContentId" from-field="ownerContentId"/>
+                <set field="upPerm.contentId" from-field="articleContentId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonBlog" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="bloghr">
+                            <container style="leftjustify">
+                                <label text="${content.contentName}: ${content.description}" style="blogtitle"/>
+                            </container>
+                            <section>
+                                <condition>
+                                    <if-service-permission service-name="genericContentPermission" main-action="UPDATE" context-map="upPerm"/>
+                                </condition>
+                                <widgets>
+                                    <container style="rightjustify">
+                                        <link text="${uiLabelMap.CommonEdit}" target="EditBlogArticle" style="buttontext">
+                                        <parameter param-name="contentId" from-field="articleContentId"/>
+                                        <parameter param-name="blogContentId"/>
+                                    </link>
+                                    </container>
+                                </widgets>
+                            </section>
+                        </container>
+                        <container style="blogcontentwrapper">
+                            <container style="responsetext">
+                                <label text="${uiLabelMap.EcommerceBlogPostedOn}: ${content.createdDate}" style="responsetext"/>
+                            </container>
+                            <content content-id="${articleContentId}"/>
+                        </container>
+
+                        <include-screen name="BlogResponses"/>
+                        <!--
+                            <link text="Latest" target="LatestResponses" >
+                                <parameter param-name="ownerContentId" from-field="webPubPt"/>
+                            </link>
+                        -->
+                        <include-screen name="AddBlogResponse"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="ViewResponse">
+        <section>
+            <actions>
+                <set field="contentId" from-field="parameters.contentId"/>
+                <set field="responseContentId" from-field="parameters.contentId"/>
+                <set field="articleContentId" from-field="parameters.articleContentId"/>
+                <set field="ownerContentId" from-field="parameters.ownerContentId"/>
+                <set field="blogContentId" from-field="parameters.blogContentId"/>
+                <entity-one entity-name="Content" value-field="content" use-cache="true">
+                    <field-map field-name="contentId" from-field="contentId"/>
+                </entity-one>
+                <entity-one entity-name="Content" value-field="article">
+                    <field-map field-name="contentId" from-field="articleContentId"/>
+                </entity-one>
+
+                <set field="trail" from-field="articleContentId"/>
+                <set field="enableEdit" value="false"/>
+                <property-to-field property="root.publish.point.blog" field="webPubPt" resource="blog"/>
+                <set field="rsp.contentName" value="${content.contentName}"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonBlog" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="bloghr">
+                            <container style="leftjustify">
+                                <link text="${article.contentName}: ${article.description}" target="ViewBlogArticle" style="blogtitle">
+                                    <parameter param-name="articleContentId"/>
+                                    <parameter param-name="blogContentId"/>
+                                </link>
+                                <label text="${content.contentName}: ${content.description}" style="blogtitle"/>
+                            </container>
+                            <section>
+                                <condition>
+                                    <!--
+                                    <if-service-permission service-name="genericContentPermission" main-action="UPDATE"/>
+                                    -->
+                                    <if-empty field="foobar"/>
+                                </condition>
+                                <widgets>
+                                    <container style="rightjustify">
+                                        <section>
+                                            <condition>
+                                                <if-compare field="parameters.edit" operator="not-equals" value="Y"/>
+                                            </condition>
+                                            <widgets>
+                                                <link text="${uiLabelMap.CommonEdit}" target="ViewResponse" style="buttontext">
+                                                    <parameter param-name="contentId" from-field="content.contentId"/>
+                                                    <parameter param-name="ownerContentId" from-field="content.ownerContentId"/>
+                                                    <parameter param-name="articleContentId"/>
+                                                    <parameter param-name="blogContentId"/>
+                                                    <parameter param-name="edit" value="Y"/>
+                                                </link>
+                                            </widgets>
+                                            <fail-widgets>
+                                                <link text="${uiLabelMap.CommonView}" target="ViewResponse" style="buttontext">
+                                                    <parameter param-name="contentId" from-field="content.contentId"/>
+                                                    <parameter param-name="ownerContentId" from-field="content.ownerContentId"/>
+                                                    <parameter param-name="articleContentId"/>
+                                                    <parameter param-name="blogContentId"/>
+                                                    <parameter param-name="edit" value="N"/>
+                                                 </link>
+                                            </fail-widgets>
+                                        </section>
+                                    </container>
+                                </widgets>
+                            </section>
+                        </container>
+                        <container style="blogcontentwrapper">
+                            <content content-id="${contentId}"/>
+                        </container>
+
+                        <include-screen name="AddBlogResponse"/>
+
+                        <container style="bloghr">
+                            <label text="${uiLabelMap.ContentForumThread}: " style="blogtitle"/>
+                        </container>
+                        <include-tree name="ResponseTree" location="component://ecommerce/widget/blog/BlogTrees.xml"/>
+                        <section>
+                            <condition>
+                                <or>
+                                    <if-compare field="content.statusId" operator="equals" value="CTNT_INITIAL_DRAFT"/>
+                                    <and>
+                                        <if-entity-permission entity-id="${content.contentId}" entity-name="Content" target-operation="CONTENT_UPDATE"/>
+                                        <if-compare field="parameters.edit" operator="equals" value="Y"/>
+                                    </and>
+                                </or>
+
+                            </condition>
+                            <widgets>
+                                <container style="bloghr">
+                                    <label text="${uiLabelMap.EcommerceEditThisComment}: " style="blogtitle"/>
+                                </container>
+                                <include-screen name="EditBlogResponse"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="BlogContent">
+        <section>
+            <condition>
+                <not>
+                    <if-empty field="contentId"/>
+                </not>
+            </condition>
+            <actions/>
+
+            <widgets>
+                <content content-id="${contentId}"/>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="AdminBlog">
+        <section>
+            <actions/>
+
+            <widgets>
+                <decorator-screen name="CommonBlog" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="FindBlogContent" location="component://ecommerce/widget/blog/BlogForms.xml"/>
+                        <include-grid name="listFindBlogContent" location="component://ecommerce/widget/blog/BlogForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="BlogResponses">
+        <section>
+            <actions>
+                <entity-condition entity-name="ContentAssocViewTo" use-cache="true" list="responseList">
+                    <condition-list combine="and">
+                        <condition-expr field-name="caContentId" operator="equals" value="${articleContentId}"/>
+                        <condition-expr field-name="caContentAssocTypeId" operator="equals" value="RESPONSE"/>
+                        <condition-expr field-name="caThruDate" operator="equals" value=""/>
+                    </condition-list>
+                    <order-by field-name="caFromDate DESC"/>
+                </entity-condition>
+
+                <set field="viewIndex" from-field="requestParameters.VIEW_INDEX" type="Integer"/>
+            </actions>
+            <widgets>
+                <container style="bloghr">
+                    <label text="${uiLabelMap.CommonComments}: " style="blogtitle"/>
+                </container>
+                <iterate-section list="responseList" entry="rsp" view-size="10">
+                    <section name="BlogResponses">
+                        <widgets>
+                            <include-screen name="responseTreeLine"/>
+                        </widgets>
+                    </section>
+                </iterate-section>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="LatestResponses">
+        <section>
+            <actions>
+                <entity-condition entity-name="ContentAssocDataResourceViewTo" use-cache="false" list="responseList">
+                    <condition-list combine="and">
+                        <condition-expr field-name="ownerContentId" operator="equals" value="${parameters.ownerContentId}"/>
+                        <condition-expr field-name="caContentAssocTypeId" operator="equals" value="RESPONSE"/>
+                        <condition-expr field-name="caThruDate" operator="equals" value=""/>
+                    </condition-list>
+                    <order-by field-name="caFromDate DESC"/>
+                </entity-condition>
+
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonBlog" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <label text="${uiLabelMap.EcommerceBlogLatestResponses}"/>
+                        <iterate-section list="responseList" entry="rsp">
+                            <section name="BlogResponses">
+                                <widgets>
+                                    <include-screen name="responseTreeLine"/>
+                                </widgets>
+                            </section>
+                        </iterate-section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="responseTreeLine">
+        <section>
+            <widgets>
+                <section>
+                    <condition>
+                        <if-compare-field field="responseContentId" operator="not-equals" to-field="rsp.contentId"/>
+                    </condition>
+                    <widgets>
+                        <container>
+                            <link text="${rsp.contentName}[${rsp.contentId}]" target="ViewResponse" style="responseheader">
+                                <parameter param-name="contentId" from-field="rsp.contentId"/>
+                                <parameter param-name="ownerContentId" from-field="rsp.ownerContentId"/>
+                                <parameter param-name="articleContentId"/>
+                                <parameter param-name="blogContentId" from-field="parameters.blogContentId"/>
+                            </link>
+                                            <link text="${uiLabelMap.CommonView}" target="ViewResponse" style="buttontext">
+                                <parameter param-name="contentId" from-field="rsp.contentId"/>
+                                <parameter param-name="ownerContentId" from-field="rsp.ownerContentId"/>
+                                <parameter param-name="articleContentId"/>
+                                <parameter param-name="blogContentId" from-field="parameters.blogContentId"/>
+                            </link>
+                            <container style="responsetext">
+                                <label text="${rsp.description}" style="responsetext"/>
+                                <label text="(${uiLabelMap.EcommerceBlogPostedOn}: ${rsp.createdDate})" style="responsetext"/>
+                            </container>
+                        </container>
+                    </widgets>
+                </section>
+                <section>
+                    <condition>
+                        <if-compare-field field="responseContentId" operator="equals" to-field="rsp.contentId"/>
+                    </condition>
+                    <widgets>
+                        <container style="responseSelected">
+                            <link text="${rsp.contentName}[${rsp.contentId}]" target="ViewResponse" style="responseheader">
+                                <parameter param-name="contentId" from-field="rsp.contentId"/>
+                                <parameter param-name="ownerContentId" from-field="rsp.ownerContentId"/>
+                                <parameter param-name="articleContentId"/>
+                                <parameter param-name="blogContentId" from-field="parameters.blogContentId"/>
+                            </link>
+                                            <link text="${uiLabelMap.CommonView}" target="ViewResponse" style="buttontext">
+                                <parameter param-name="contentId" from-field="rsp.contentId"/>
+                                <parameter param-name="ownerContentId" from-field="rsp.ownerContentId"/>
+                                <parameter param-name="articleContentId"/>
+                                <parameter param-name="blogContentId" from-field="parameters.blogContentId"/>
+                            </link>
+                            <container style="responsetext">
+                                <label text="${rsp.description}" style="responsetext"/>
+                                <label text="(${uiLabelMap.EcommerceBlogPostedOn}: ${rsp.createdDate})" style="responsetext"/>
+                            </container>
+                        </container>
+                    </widgets>
+                </section>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="blogTreeLine">
+        <section>
+            <widgets>
+                <container>
+                    <link text="${rsp.contentName}[${rsp.contentId}]" target="ViewBlogArticle" style="responseheader">
+                        <parameter param-name="articleContentId"/>
+                        <parameter param-name="ownerContentId" from-field="rsp.ownerContentId"/>
+                        <parameter param-name="blogContentId" from-field="parameters.blogContentId"/>
+                    </link>
+                    <link text="${uiLabelMap.EcommerceBlogViewArticle}" target="ViewBlogArticle" style="buttontext">
+                        <parameter param-name="articleContentId"/>
+                        <parameter param-name="ownerContentId" from-field="rsp.ownerContentId"/>
+                        <parameter param-name="blogContentId" from-field="parameters.blogContentId"/>
+                    </link>
+                    <container style="responsetext">
+                        <label text="${rsp.description}" style="responsetext"/>
+                        <label text="(${uiLabelMap.EcommerceBlogPostedOn}: ${rsp.createdDate})" style="responsetext"/>
+                    </container>
+                </container>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="AddBlogResponse">
+        <section>
+            <widgets>
+                <section>
+                    <condition>
+                        <if-empty field="parameters.contentId"/>
+                    </condition>
+                    <actions>
+                        <set field="rsp.contentIdFrom" from-field="parameters.articleContentId"/>
+                    </actions>
+                    <widgets/>
+                </section>
+                <section>
+                    <condition>
+                        <not>
+                            <if-empty field="parameters.contentId"/>
+                        </not>
+                    </condition>
+                    <actions>
+                        <set field="rsp.contentIdFrom" from-field="parameters.contentId"/>
+                    </actions>
+                    <widgets/>
+                </section>
+                <section>
+                    <actions>
+                        <set field="rsp.contentTypeId" value="DOCUMENT"/>
+                        <set field="rsp.contentAssocTypeId" value="RESPONSE"/>
+                        <set field="rsp.dataResourceTypeId" value="ELECTRONIC_TEXT"/>
+                        <set field="rsp.contentOperationId" value="CONTENT_CREATE"/>
+                        <set field="rsp.contentPurposeTypeId" value="RESPONSE"/>
+                        <set field="rsp.articleContentId" from-field="articleContentId"/>
+                        <set field="rsp.ownerContentId" from-field="content.contentId"/>
+                        <set field="rsp.blogContentId" from-field="parameters.blogContentId"/>
+                        <set field="useRequestParameters" value="false" type="Boolean"/>
+
+                        <!-- used for permission check -->
+                        <set field="contentPurposeTypeId" value="ARTICLE"/>
+                        <set field="contentOperationId" value="CONTENT_RESPOND"/>
+                        <set field="ownerContentId" from-field="content.contentId"/>
+                    </actions>
+                    <widgets>
+                        <container style="bloghr">
+                            <label text="${uiLabelMap.CommonAdd} ${uiLabelMap.CommonComment} ${content.contentId}: " style="blogtitle"/>
+                            <section>
+                                <condition>
+                                    <if-service-permission service-name="genericContentPermission" main-action="CREATE"/>
+                                </condition>
+
+                                <actions>
+                                    <set field="displayForm" value="Y"/>
+                                </actions>
+                                <widgets/>
+                                <fail-widgets>
+                                    <label text="${uiLabelMap.EcommerceBlogPostComments}"/>
+                                </fail-widgets>
+                            </section>
+                        </container>
+                        <section>
+                            <condition>
+                                <if-compare field="displayForm" operator="equals" value="Y"/>
+                            </condition>
+                            <widgets>
+                                <container style="blogcontentwrapper">
+                                    <include-form name="AddBlogResponse" location="component://ecommerce/widget/blog/BlogForms.xml"/>
+                                </container>
+                            </widgets>
+                        </section>
+                    </widgets>
+                </section>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="EditBlogResponse">
+        <section>
+            <actions>
+                <set field="rsp.contentPurposeTypeId" value="RESPONSE"/>
+                <set field="rsp.contentOperationId" value="CONTENT_UPDATE"/>
+                <set field="rsp.ownerContentId" from-field="parameters.ownerContentId"/>
+                <set field="rsp.blogContentId" from-field="parameters.blogContentId"/>
+
+                <!-- permission fields -->
+                <set field="upPerm.ownerContentId" from-field="parameters.ownerContentId"/>
+                <set field="upPerm.contentId" from-field="parameters.contentId"/>
+                <set field="upPerm.contentOperationId" value="CONTENT_UPDATE"/>
+                <set field="upPerm.contentPurposeTypeId" value="RESPONSE"/>
+            </actions>
+            <widgets>
+                <section>
+                    <!--
+                    <condition>
+                        <if-service-permission service-name="genericContentPermission" main-action="UPDATE"/>
+                    </condition>
+                    -->
+                    <actions>
+                        <set field="rsp.articleContentId" from-field="articleContentId"/>
+                        <entity-one entity-name="DataResource" value-field="dataResource" use-cache="false">
+                            <field-map field-name="dataResourceId" from-field="content.dataResourceId"/>
+                        </entity-one>
+                        <entity-one entity-name="ElectronicText" value-field="electronicText" use-cache="false">
+                            <field-map field-name="dataResourceId" from-field="content.dataResourceId"/>
+                        </entity-one>
+                    </actions>
+                    <widgets>
+                        <container style="blogcontentwrapper">
+                            <include-form name="EditBlogResponse" location="component://ecommerce/widget/blog/BlogForms.xml"/>
+                        </container>
+                    </widgets>
+                    <fail-widgets>
+                        <label text="${uiLabelMap.EcommerceBlogEditComments}"/>
+                    </fail-widgets>
+                </section>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- Column Included Screens -->
+    <screen name="blogs">
+        <section>
+            <actions>
+                <entity-condition entity-name="ContentAssocViewTo" list="blogs" use-cache="true">
+                    <condition-list combine="and">
+                        <condition-expr field-name="contentIdStart" operator="equals" value="BLOGROOT"/>
+                        <condition-expr field-name="caContentAssocTypeId" operator="equals" value="SUB_CONTENT"/>
+                        <condition-list combine="or">
+                            <condition-expr field-name="caFromDate" operator="equals" from-field="null"/>
+                            <condition-expr field-name="caFromDate" operator="less-equals" from-field="nowTimestamp"/>
+                        </condition-list>
+                        <condition-list combine="or">
+                            <condition-expr field-name="caThruDate" operator="equals" from-field="null"/>
+                            <condition-expr field-name="caThruDate" operator="greater-equals" from-field="nowTimestamp"/>
+                        </condition-list>
+                    </condition-list>
+                    <order-by field-name="contentName"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html>
+                        <html-template location="component://ecommerce/template/blog/Blogs.ftl"/>
+
+                    </html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+</screens>
+
+

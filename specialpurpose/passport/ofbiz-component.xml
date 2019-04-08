@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ofbiz-component name="passport"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-component.xsd">
+    <!-- define resource loaders; most common is to use the component resource loader -->
+    <resource-loader name="main" type="component"/>
+
+    <!-- place the config directory on the classpath to access configuration files -->
+    <classpath type="dir" location="config"/>
+
+    <!-- entity resources: model(s), eca(s), group, and data definitions -->
+    <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel.xml"/>
+    
+    <!-- Seed Data -->
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/OAuth2CommonSeedData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/OAuth2LinkedInSeedData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/OAuth2GitHubSeedData.xml"/>
+
+    <!-- service resources: model(s), eca(s) and group definitions -->
+    <!-- 
+    <service-resource type="model" loader="main" location="servicedef/services.xml"/>
+     -->
+
+    <!-- web applications; will be mounted when using the embedded container -->
+    <webapp name="passport"
+            title="OFBiz Passport"
+            server="default-server"
+            location="webapp/passport"
+            mount-point="/passport"
+            app-bar-display="false" />
+</ofbiz-component>

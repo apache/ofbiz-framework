@@ -21,9 +21,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ofbiz.base.util.Assert;
-
 import junit.framework.TestCase;
+
+import org.apache.ofbiz.base.util.Assert;
 
 /**
  * Assert tests {@link org.apache.ofbiz.base.util.Assert}.
@@ -160,7 +160,8 @@ public class AssertTests extends TestCase {
             fail("isNotInstanceOf (argument list) threw an exception - " + e);
         }
         try {
-            Assert.isAssignableTo("foo", strArray, Map[].class);
+            Map[] mapArray = {strMap};
+            Assert.isAssignableTo("foo", strArray, mapArray.getClass());
             fail("isNotInstanceOf (argument list) - IllegalArgumentException not thrown");
         } catch (IllegalArgumentException e) {}
     }

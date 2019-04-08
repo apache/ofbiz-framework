@@ -20,15 +20,15 @@
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
     <property key="EntityCreatedSuccessfully">
-        <value xml:lang="en">${label} created successfully</value>
+        <value xml:lang="en">${entityName} created successfully</value>
     </property>
     <property key="EntityUpdatedSuccessfully">
-        <value xml:lang="en">${label} updated successfully</value>
+        <value xml:lang="en">${entityName} updated successfully</value>
     </property>
     <property key="EntityDeletedSuccessfully">
-        <value xml:lang="en">${label} deleted successfully</value>
+        <value xml:lang="en">${entityName} deleted successfully</value>
     </property>
     <property key="EntityExpiredSuccessfully">
-        <value xml:lang="en">${label} expired successfully</value>
+        <value xml:lang="en">${entityName} expired successfully</value>
     </property>
 </resource>

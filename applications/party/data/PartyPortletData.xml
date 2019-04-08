@@ -1,26 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Licensed to the Apache Software Foundation (ASF) under one
-or more contributor license agreements.  See the NOTICE file
-distributed with this work for additional information
-regarding copyright ownership.  The ASF licenses this file
-to you under the Apache License, Version 2.0 (the
-"License"); you may not use this file except in compliance
-with the License.  You may obtain a copy of the License at
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+    http://www.apache.org/licenses/LICENSE-2.0
 
-Unless required by applicable law or agreed to in writing,
-software distributed under the License is distributed on an
-"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, either express or implied.  See the License for the
-specific language governing permissions and limitations
-under the License.
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
 -->
-
 <entity-engine-xml>
 
-    <!-- party portlet data -->
+    <!-- party -->
     <PortletCategory portletCategoryId="PARTY_PROFILE" description="Profiles"/>
     <PortalPortlet portalPortletId="party"
         portletName="Party Info"
@@ -40,7 +39,8 @@ under the License.
     <PortalPortlet portalPortletId="PartyIdentifications" portletName="Party Identification"
         screenName="PartyIdentifications"
         screenLocation="component://party/widget/partymgr/ProfileScreens.xml"
-        description="Identification associate to a party"/>
+        description="Identification associate to a party"
+        screenshot=""/>
     <PortletPortletCategory portalPortletId="PartyIdentifications" portletCategoryId="PARTY_PROFILE"/>
 
     <PortalPortlet portalPortletId="AvsSettings" portletName="Avs Settings"
@@ -164,4 +164,5 @@ under the License.
     <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="Content" portletSeqId="00001" columnSeqId="00002" sequenceNum="5"/>
     <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="Notes" portletSeqId="00001" columnSeqId="00002" sequenceNum="6"/>
     <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="ProductStores" portletSeqId="00001" columnSeqId="00002" sequenceNum="8"/>
+
 </entity-engine-xml>

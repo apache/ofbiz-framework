@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements. See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to you under the Apache License, Version
+    2.0 (the "License"); you may not use this file except in compliance
+    with the License. You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+    applicable law or agreed to in writing, software distributed under the
+    License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+    CONDITIONS OF ANY KIND, either express or implied. See the License for
+    the specific language governing permissions and limitations under the
+    License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>Search Products in category screen.</title>
+    <para>
+This screen allows the user to see the results of products the find it from  conditions. The user can select products they want export to ebay categories in this screen.
+    </para>
+    <section>
+        <title>How to remove the conditions to find products?</title>
+        <orderedlist>
+            <listitem><para>In the section 'Search Products, you searched for:' you will see list of conditions show on the top in the section, So you can click 'X' to remove the condition you don't want and then the results of products will have changes.</para></listitem>
+        </orderedlist>
+    </section>
+    <section>
+        <title>What is a 'refine search' button?</title>
+        <orderedlist>
+            <listitem><para>The 'Refine search' button use for go back to page to put the conditions again. </para></listitem>
+        </orderedlist>
+    </section>
+    <section>
+        <title>How to select products?</title>
+        <orderedlist>
+            <listitem><para>In the results section you can select products which you want to export by use checkbox in front of name of products.You can select one or many products if you want.</para></listitem>
+        </orderedlist>
+    </section>
+    <section>
+        <title>What is 'Export To eBay' button?</title>
+        <orderedlist>
+            <listitem><para>After you select products then you want to export it you can click 'Export To eBay' button. It will take you to go to the screen for setup ebay categories,start price for auction and payment method before you export the products. </para></listitem>
+        </orderedlist>
+    </section>
+</section>

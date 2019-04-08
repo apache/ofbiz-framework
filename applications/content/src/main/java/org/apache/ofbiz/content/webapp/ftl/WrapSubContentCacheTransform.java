@@ -49,8 +49,8 @@ import freemarker.template.TemplateTransformModel;
 public class WrapSubContentCacheTransform implements TemplateTransformModel {
 
     public static final String module = WrapSubContentCacheTransform.class.getName();
-    static final String [] upSaveKeyNames = {"globalNodeTrail"};
-    static final String [] saveKeyNames = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale",  "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly"};
+    public static final String [] upSaveKeyNames = {"globalNodeTrail"};
+    public static final String [] saveKeyNames = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale",  "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly"};
 
     /**
      * @deprecated use FreeMarkerWorker.getWrappedObject()
@@ -77,9 +77,8 @@ public class WrapSubContentCacheTransform implements TemplateTransformModel {
         return FreeMarkerWorker.getArg(args, key, ctx);
     }
 
-    @Override
     @SuppressWarnings("unchecked")
-    public Writer getWriter(Writer out, @SuppressWarnings("rawtypes") Map args) {
+    public Writer getWriter(final Writer out, Map args) {
         final StringBuilder buf = new StringBuilder();
         final Environment env = Environment.getCurrentEnvironment();
         Map<String, Object> envContext = FreeMarkerWorker.getWrappedObject("context", env);
@@ -101,7 +100,7 @@ public class WrapSubContentCacheTransform implements TemplateTransformModel {
         List<Map<String, ? extends Object>> trail = UtilGenerics.checkList(templateCtx.get("globalNodeTrail"));
         String contentAssocPredicateId = (String)templateCtx.get("contentAssocPredicateId");
         String strNullThruDatesOnly = (String)templateCtx.get("nullThruDatesOnly");
-        Boolean nullThruDatesOnly = (strNullThruDatesOnly != null && "true".equalsIgnoreCase(strNullThruDatesOnly)) ? Boolean.TRUE :Boolean.FALSE;
+        Boolean nullThruDatesOnly = (strNullThruDatesOnly != null && strNullThruDatesOnly.equalsIgnoreCase("true")) ? Boolean.TRUE :Boolean.FALSE;
         GenericValue val = null;
         try {
             val = ContentWorker.getCurrentContent(delegator, trail, userLogin, templateCtx, nullThruDatesOnly, contentAssocPredicateId);
@@ -171,15 +170,10 @@ public class WrapSubContentCacheTransform implements TemplateTransformModel {
 
                     templateRoot.put("context", templateCtx);
 
-                    String mimeTypeId = (String) templateCtx.get("mimeTypeId");
-                    
-                    Locale locale = (Locale) templateCtx.get("locale");
-                    if (locale == null) {
-                        locale = Locale.getDefault();
-                    }
-                    
+                    String mimeTypeId = (String)templateCtx.get("mimeTypeId");
+                    Locale locale = null;
                     try {
-                        ContentWorker.renderContentAsText(dispatcher, wrapTemplateId, out, templateRoot, locale, mimeTypeId, null, null, true);
+                        ContentWorker.renderContentAsText(dispatcher, delegator, wrapTemplateId, out, templateRoot, locale, mimeTypeId, null, null, true);
                     } catch (IOException e) {
                         Debug.logError(e, "Error rendering content" + e.getMessage(), module);
                         throw new IOException("Error rendering content" + e.toString());

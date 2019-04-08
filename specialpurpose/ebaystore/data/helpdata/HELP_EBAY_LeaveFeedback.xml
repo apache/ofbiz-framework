@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements. See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to you under the Apache License, Version
+    2.0 (the "License"); you may not use this file except in compliance
+    with the License. You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+    applicable law or agreed to in writing, software distributed under the
+    License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+    CONDITIONS OF ANY KIND, either express or implied. See the License for
+    the specific language governing permissions and limitations under the
+    License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>EBay Leave Feedback help screen.</title>
+        <section>
+            <section>
+                <para>
+                    This screen have 3 tab button All, bought, sold. "All" = bought and sold, "bought" = this account is buyer, "sold" = this account is seller.
+                    All item in the list can leave message to buyer and  seller multi action that mean each item is seperated. If item is bought it have 3 options to select 
+                    and then when select "Positive", "Neutral" and "Negative" a rating section appear,add rating to seller, and comment, if select "I'll leave Feedback later" a rating section disappear. 
+                    If item is sold it have 2 options to select and then when select "Positive" a comment box appear to add comment text to buyer, if select "I'll leave Feedback later" this comment box will disappear.
+                </para>
+            </section>
+            <section>
+                <title>
+                    Note :
+                </title>
+                <para>
+                    If you don't add comment in text box, leave feedback don't send.
+                </para>
+            </section>
+        </section>
+</section>

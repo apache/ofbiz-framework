@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
+    <!-- list all examplefeatures in a tabular format -->
+    <screen name="FindExampleFeature">
+        <section>
+            <actions>
+                <set field="headerItem" value="ExampleFeature"/>
+                <set field="titleProperty" value="PageTitleFindExampleFeature"/>
+                <set field="exampleFeatureCtx" from-field="parameters"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="EXAMPLE" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                                    <decorator-section name="menu-bar">
+                                        <container style="button-bar"><link target="EditExampleFeature" text="${uiLabelMap.ExampleNewExampleFeature}" style="buttontext create"/></container>
+                                    </decorator-section>
+                                    <decorator-section name="search-options">
+                                        <include-form name="FindExampleFeatures" location="component://example/widget/example/ExampleFeatureForms.xml"/>
+                                    </decorator-section>
+                                    <decorator-section name="search-results">
+                                        <include-form name="ListExampleFeatures" location="component://example/widget/example/ExampleFeatureForms.xml"/>
+                                    </decorator-section>
+                                </decorator-screen>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.ExampleViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="EditExampleFeature">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditExampleFeature"/>
+                <set field="tabButtonItem" value="EditExampleFeature"/>
+                <set field="exampleFeatureId" from-field="parameters.exampleFeatureId"/>
+                <entity-one entity-name="ExampleFeature" value-field="exampleFeature"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonExampleFeatureDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.ExampleFeature}">
+                            <include-form name="EditExampleFeature" location="component://example/widget/example/ExampleFeatureForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="EditExampleFeatureExampleAppls">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditExampleFeatureExampleAppls"/>
+                <set field="tabButtonItem" value="EditExampleFeatureExampleAppls"/>
+                <set field="exampleFeatureId" from-field="parameters.exampleFeatureId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonExampleFeatureDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.ExampleFeaturesByExample}">
+                            <include-form name="ListExampleFeatureAppls" location="component://example/widget/example/ExampleFeatureForms.xml"/>
+                        </screenlet>
+                        <screenlet title="Add Feature To Example">
+                            <include-form name="AddExampleFeatureAppl" location="component://example/widget/example/ExampleFeatureForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="LookupExampleFeature">
+        <section>
+            <condition>
+                <if-has-permission permission="EXAMPLE" action="_VIEW"/>
+            </condition>
+            <actions>
+                <property-map resource="ExampleUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="title" value="${uiLabelMap.PageTitleLookupExampleFeature}"/>
+                <set field="queryString" from-field="result.queryString"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
+                
+                <!-- entries needed for lookup ajax auto completer -->
+                <!-- required: entity to search in -->
+                <set field="entityName" value="ExampleFeature"/>
+
+                <!-- required: fields to search a match -->
+                <set field="searchFields" value="[exampleFeatureId, description]"/>
+                
+                <!-- optional: field to return after user selection, default is first element of searchFields -->
+                <!-- return field might be hidden based on widget.autocompleter.displayReturnField property in widget.properties -->
+                <!--set field="returnField" value="exampleFeatureId"/-->
+
+                <!-- optional: fields to display, default are searchFields -->
+                <!--set field="displayFields" value="[exampleFeatureId, description]"/-->
+                
+            </actions>
+
+            <widgets>
+                <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="search-options">
+                        <include-form name="LookupFindExampleFeature" location="component://example/widget/example/ExampleFeatureForms.xml"/>
+                    </decorator-section>
+                    <decorator-section name="search-results">
+                        <include-form name="LookupListExampleFeature" location="component://example/widget/example/ExampleFeatureForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens>

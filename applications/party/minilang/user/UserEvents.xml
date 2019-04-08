@@ -112,10 +112,10 @@ under the License.
 
             <!-- Check the password, etc for validity -->
             <script>groovy:
-                String password = (String) userLoginContext.get("currentPassword")
-                String confirmPassword = (String) userLoginContext.get("currentPasswordVerify")
-                String passwordHint = (String) userLoginContext.get("passwordHint")
-                org.apache.ofbiz.common.login.LoginServices.checkNewPassword(newUserLogin, null, password, confirmPassword, passwordHint, error_list, true, locale)
+                String password = (String) userLoginContext.get("currentPassword");
+                String confirmPassword = (String) userLoginContext.get("currentPasswordVerify");
+                String passwordHint = (String) userLoginContext.get("passwordHint");
+                org.apache.ofbiz.common.login.LoginServices.checkNewPassword(newUserLogin, null, password, confirmPassword, passwordHint, error_list, true, locale);
             </script>
         <else>
             <if-compare field="require_login" operator="equals" value="true">
@@ -128,7 +128,7 @@ under the License.
         <!-- Create the Person -->
         <call-map-processor in-map-name="parameters" out-map-name="personContext">
             <simple-map-processor name="newPerson">
-                <process field="USER_PARTY_ID"><copy to-field="partyId"/></process>
+            	<process field="USER_PARTY_ID"><copy to-field="partyId"/></process>
                 <process field="USER_FIRST_NAME"><copy to-field="firstName"/><not-empty><fail-property resource="PartyUiLabels" property="PartyFirstNameMissing"/></not-empty></process>
                 <process field="USER_MIDDLE_NAME"><copy to-field="middleName"/></process>
                 <process field="USER_LAST_NAME"><copy to-field="lastName"/><not-empty><fail-property resource="PartyUiLabels" property="PartyLastNameMissingError"/></not-empty></process>
@@ -318,11 +318,8 @@ under the License.
             <!-- If password encryption is enabled, encrpyt it now -->
             <set field="delegator" from-field="parameters.delegator" type="Object"/>
             <script>groovy:
-                boolean useEncryption = "true".equals(org.apache.ofbiz.entity.util.EntityUtilProperties.getPropertyValue("security", "password.encrypt", delegator))
-                if (useEncryption) {
-                    String hashType = org.apache.ofbiz.common.login.LoginServices.getHashType()
-                    newUserLogin.set("currentPassword", org.apache.ofbiz.base.crypto.HashCrypt.digestHash(hashType, null, newUserLogin.get("currentPassword"))) 
-                }
+                boolean useEncryption = "true".equals(org.apache.ofbiz.entity.util.EntityUtilProperties.getPropertyValue("security", "password.encrypt", delegator));
+                if (useEncryption) { newUserLogin.set("currentPassword", org.apache.ofbiz.base.crypto.HashCrypt.getDigestHash((String) newUserLogin.get("currentPassword"))); }
             </script>
 
             <!-- create the UserLogin manually to get around ordering and security constraints in the service -->

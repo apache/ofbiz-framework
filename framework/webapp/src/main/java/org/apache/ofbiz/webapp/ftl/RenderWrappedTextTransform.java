@@ -18,18 +18,17 @@
  *******************************************************************************/
 package org.apache.ofbiz.webapp.ftl;
 
-import static org.apache.ofbiz.base.util.UtilGenerics.checkMap;
-
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Map;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
-
 import freemarker.core.Environment;
 import freemarker.template.TemplateTransformModel;
+
+import org.apache.ofbiz.base.util.Debug;
+import static org.apache.ofbiz.base.util.UtilGenerics.checkMap;
+import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
 
 /**
  * RenderWrappedTextTransform - Freemarker Transform for URLs (links)
@@ -38,8 +37,7 @@ public class RenderWrappedTextTransform implements  TemplateTransformModel {
 
     public static final String module = RenderWrappedTextTransform.class.getName();
 
-    @Override
-    public Writer getWriter(final Writer out, @SuppressWarnings("rawtypes") Map args) {
+    public Writer getWriter(final Writer out, Map args) {
         final Environment env = Environment.getCurrentEnvironment();
         Map<String, Object> ctx = checkMap(FreeMarkerWorker.getWrappedObject("context", env), String.class, Object.class);
         final String wrappedFTL = FreeMarkerWorker.getArg(checkMap(args, String.class, Object.class), "wrappedFTL", ctx);

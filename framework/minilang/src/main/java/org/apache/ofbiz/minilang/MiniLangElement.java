@@ -18,8 +18,8 @@
  *******************************************************************************/
 package org.apache.ofbiz.minilang;
 
-import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.minilang.artifact.ArtifactInfoContext;
+import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.minilang.method.MethodContext;
 import org.w3c.dom.Element;
 

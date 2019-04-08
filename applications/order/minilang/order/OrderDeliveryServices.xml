@@ -113,7 +113,7 @@ under the License.
             <string-append string=" Item #${orderDeliverySchedule.orderItemSeqId}" field="sendEmailMap.subject"/>
         </if-compare>
         <set field="sendEmailMap.contentType" value="text/html"/>
-        <set field="sendEmailMap.templateName" value="component://order/template/email/OrderDeliveryUpdatedNotice.ftl"/>
+        <set field="sendEmailMap.templateName" value="default/OrderDeliveryUpdatedNotice.ftl"/>
         <set field="sendEmailMap.templateData.orderDeliverySchedule" from-field="orderDeliverySchedule"/>
 
         <!-- call sendGenericNotificationEmail service, if enough information was found -->

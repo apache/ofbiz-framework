@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
+    <screen name="main-decorator">
+        <section>
+            <actions>
+                <!-- base/top/specific map first, then more common map added for shared labels -->
+                <property-map resource="BiUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+
+                <set field="layoutSettings.companyName" from-field="uiLabelMap.BusinessIntelligenceCompanyName" global="true"/>
+                <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.BusinessIntelligenceCompanySubtitle" global="true"/>
+                <set field="activeApp" value="bi" global="true"/>
+                <set field="applicationMenuName" value="BiAppBar" global="true"/>
+                <set field="applicationMenuLocation" value="component://bi/widget/BiMenus.xml" global="true"/>
+                <set field="applicationTitle" value="${uiLabelMap.BusinessIntelligenceApplication}" global="true"/>
+            </actions>
+            <widgets>
+                <include-screen name="ApplicationDecorator" location="component://commonext/widget/CommonScreens.xml"/>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ReportBuilderSelectStarSchema">
+        <section>
+            <actions>
+                <set field="titleProperty" value="BusinessIntelligenceReportBuilderSelectStarSchema"/>
+                <set field="headerItem" value="reportbuilder"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.BusinessIntelligenceReportBuilderSelectStarSchema}">
+                            <include-form name="SelectStarSchema" location="component://bi/widget/BiForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ReportBuilderSelectStarSchemaFields">
+        <section>
+            <actions>
+                <set field="titleProperty" value="BusinessIntelligenceReportBuilderSelectStarSchemaFields"/>
+                <set field="headerItem" value="reportbuilder"/>
+                <script location="component://bi/groovyScripts/GetStarSchemaFields.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.BusinessIntelligenceReportBuilderSelectStarSchemaFields}">
+                            <platform-specific>
+                                <html><html-template location="component://bi/template/reportbuilder/SelectStarSchemaFields.ftl"/></html>
+                            </platform-specific>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ReportBuilderRenderStarSchemaReport">
+        <section>
+            <actions>
+                <set field="titleProperty" value="BusinessIntelligenceReportBuilderRenderStarSchemaReport"/>
+                <set field="headerItem" value="reportbuilder"/>
+                <script location="component://bi/groovyScripts/RunStarSchemaQuery.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.BusinessIntelligenceReportBuilderRenderStarSchemaReport}">
+                            <platform-specific>
+                                <html><html-template location="component://bi/template/reportbuilder/RenderStarSchemaReport.ftl"/></html>
+                            </platform-specific>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="main">
+        <section>
+            <actions>
+                <set field="titleProperty" value="BusinessIntelligenceMainPage"/>
+                <set field="headerItem" value="main"/>
+                <property-to-field resource="bi" property="fromDate" field="fromDateProp" no-locale="true"/>
+                <property-to-field resource="bi" property="thruDate" field="thruDateProp" no-locale="true"/>
+                <set field="fromDate" from-field="fromDateProp" type="Timestamp"/>
+                <set field="thruDate" from-field="thruDateProp" type="Timestamp"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet>
+                            <container>
+                                <platform-specific>
+                                    <html><html-template location="component://bi/template/Main.ftl"/></html>
+                                </platform-specific>
+                            </container>
+                            <container>
+                                <link target="quickInitDataWarehouse" text="${uiLabelMap.BusinessIntelligenceQuickInitDataWarehouse}" style="buttontext">
+                                    <parameter param-name="fromDate"/>
+                                    <parameter param-name="thruDate"/>
+                                </link>
+                                <label style="note"> (${uiLabelMap.CommonFromDate} ${fromDate} ${uiLabelMap.CommonThruDate} ${thruDate})</label>
+                                <label style="note">
+                                    ${uiLabelMap.BusinessIntelligenceNote29}
+                                    ${uiLabelMap.BusinessIntelligenceNote30}
+                                    ${uiLabelMap.BusinessIntelligenceNote31}
+                                </label>
+                            </container>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens>

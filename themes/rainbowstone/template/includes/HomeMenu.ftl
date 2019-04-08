@@ -21,15 +21,15 @@ under the License.
 <#if (externalLoginKey)?exists><#assign externalKeyParam = "?externalLoginKey=" + requestAttributes.externalLoginKey?if_exists></#if>
 <#assign ofbizServerName = application.getAttribute("_serverId")?default("default-server")>
 <#assign contextPath = request.getContextPath()>
-<#assign displayApps = Static["org.apache.ofbiz.webapp.WebAppCache"].getShared().getAppBarWebInfos(ofbizServerName, "main")>
-<#assign displaySecondaryApps = Static["org.apache.ofbiz.webapp.WebAppCache"].getShared().getAppBarWebInfos(ofbizServerName, "secondary")>
-<#assign avatarList = EntityQuery.use(delegator).from("PartyContent").where("partyId", person.partyId!, "partyContentTypeId", "LGOIMGURL").queryList()!>
+<#assign displayApps = Static["org.apache.ofbiz.base.component.ComponentConfig"].getAppBarWebInfos(ofbizServerName, "main")>
+<#assign displaySecondaryApps = Static["org.apache.ofbiz.base.component.ComponentConfig"].getAppBarWebInfos(ofbizServerName, "secondary")>
+<#assign avatarList = delegator.findByAnd("PartyContent", {"partyId" : person.partyId, "partyContentTypeId" : "LGOIMGURL"}, null, false)>
 <#if avatarList?has_content>
     <#assign avatar = Static["org.apache.ofbiz.entity.util.EntityUtil"].getFirst(avatarList)>
-    <#assign avatarDetail = EntityQuery.use(delegator).from("PartyContentDetail").where("partyId", person.partyId!, "contentId", avatar.contentId!).queryFirst()!>
+    <#assign avatarDetail = Static["org.apache.ofbiz.entity.util.EntityUtil"].getFirst(delegator.findByAnd("PartyContentDetail", {"partyId" : person.partyId, "contentId" : avatar.contentId}, null, false))>
 </#if>
 <body onpageshow="showHideFavorites()">
-<script type="application/javascript">
+<script type="text/javascript">
     function showHideFavorites() {
         var showHideStatus = document.getElementById("showHideBtn");
         var normalItems = document.getElementsByClassName("normalItem");
@@ -85,7 +85,7 @@ under the License.
             <img id="homeGlyph" src="/rainbowstone/images/home.svg" alt="Home">
             <span id="homePageTitle">Home Page</span>
             <label class="main-bar-label">${uiLabelMap.EmbiHomeMenuDisplayAllMenu}</label>
-            <input id="showHideBtn" type="checkbox" class="nrd-chkbox" <#if "true" == displayFavorites>checked</#if> onchange="showHideFavorites()">
+            <input id="showHideBtn" type="checkbox" class="nrd-chkbox" <#if displayFavorites == "true">checked</#if> onchange="showHideFavorites()">
             <label for="showHideBtn"></label>
             <label class="main-bar-label">${uiLabelMap.EmbiHomeMenuDisplayFavorites}</label>
         </div> <!-- main-nav-bar-left -->
@@ -107,7 +107,7 @@ under the License.
                     <#assign tileNumber = tileNumber+1>
                     <#assign isComponentEmpty=false>
                     <#assign menuTitle = Static["org.apache.ofbiz.base.util.string.FlexibleStringExpander"].expandString(itemMenu.menuTitle, context)/>
-                    <li  id="Tile${tileNumber}" class="hp-menu-item <#if "white" == itemMenu.favorite>normalItem<#else>favoriteItem</#if>">
+                    <li  id="Tile${tileNumber}" class="hp-menu-item <#if itemMenu.favorite == "white">normalItem<#else>favoriteItem</#if>">
                         <a href="${itemMenu.urlLink}" class="menu-link" title="${itemMenu.menuTitle}">${menuTitle}</a>
                         <a href="javascript:addToFavorite('Tile${tileNumber}', '${itemMenu.urlLink}')" title="${uiLabelMap.ClicToAddInFavorite}">
                             <img id='imgTile${tileNumber}' class="star-link" src="/rainbowstone/images/star-${itemMenu.favorite}.svg">

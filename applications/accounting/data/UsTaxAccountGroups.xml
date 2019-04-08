@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<entity-engine-xml>
+    <GlAccountGroupType glAccountGroupTypeId="TAX_FIELD_US" description="Tax Form Field: USA"/>
+
+    <GlAccountGroup glAccountGroupId="9001" glAccountGroupTypeId="TAX_FIELD_US" description="Form 1040: Other income, misc."/>
+    <GlAccountGroup glAccountGroupId="9002" glAccountGroupTypeId="TAX_FIELD_US" description="Form 1040: IRA contribution, self"/>
+    <GlAccountGroup glAccountGroupId="9003" glAccountGroupTypeId="TAX_FIELD_US" description="Form 1040: IRA contribution, spouse"/>
+    <GlAccountGroup glAccountGroupId="9004" glAccountGroupTypeId="TAX_FIELD_US" description="Form 1040: Keogh deduction, self"/>
+    <GlAccountGroup glAccountGroupId="9005" glAccountGroupTypeId="TAX_FIELD_US" description="Form 1040: Keogh deduction, spouse"/>
+    <GlAccountGroup glAccountGroupId="9006" glAccountGroupTypeId="TAX_FIELD_US" description="Form 1040: SEP deduction, self"/>
+    <GlAccountGroup glAccountGroupId="9007" glAccountGroupTypeId="TAX_FIELD_US" description="Form 1040: SEP deduction, spouse"/>
+    <GlAccountGroup glAccountGroupId="9008" glAccountGroupTypeId="TAX_FIELD_US" description="Form 1040: SIMPLE contribution, self"/>
+    <GlAccountGroup glAccountGroupId="9009" glAccountGroupTypeId="TAX_FIELD_US" description="Form 1040: SIMPLE contribution, spouse"/>
+    <GlAccountGroup glAccountGroupId="9010" glAccountGroupTypeId="TAX_FIELD_US" description="Form 1040: Federal estimated tax, quarterly"/>
+
+    <GlAccountGroup glAccountGroupId="9021" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule B: Interest income"/>
+    <GlAccountGroup glAccountGroupId="9022" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule B: Dividend income"/>
+
+    <GlAccountGroup glAccountGroupId="9031" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule C: Gross receipts or sales"/>
+    <GlAccountGroup glAccountGroupId="9032" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule C: Returns and allowances"/>
+    <GlAccountGroup glAccountGroupId="9033" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule C: Other business income"/>
+    <GlAccountGroup glAccountGroupId="9034" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule C: Advertising"/>
+    <GlAccountGroup glAccountGroupId="9035" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule C: Bad debts from sales/services"/>
+    <GlAccountGroup glAccountGroupId="9036" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule C: Car and truck expenses"/>
+    <GlAccountGroup glAccountGroupId="9037" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule C: Commissions and fees"/>
+    <GlAccountGroup glAccountGroupId="9038" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule C: Depletion"/>
+    <GlAccountGroup glAccountGroupId="9039" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule C: Employee benefit programs"/>
+    <GlAccountGroup glAccountGroupId="9040" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule C: Insurance (other than health)"/>
+    <GlAccountGroup glAccountGroupId="9041" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule C: Interest expense, mortgage"/>
+    <GlAccountGroup glAccountGroupId="9042" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule C: Interest expense, other"/>
+    <GlAccountGroup glAccountGroupId="9043" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule C: Legal and professional fees"/>
+    <GlAccountGroup glAccountGroupId="9044" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule C: Office expenses"/>
+    <GlAccountGroup glAccountGroupId="9045" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule C: Pension/profit-sharing plans"/>
+    <GlAccountGroup glAccountGroupId="9046" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule C: Rent/lease vehicles, equipment"/>
+    <GlAccountGroup glAccountGroupId="9047" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule C: Rent/lease other business property"/>
+    <GlAccountGroup glAccountGroupId="9048" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule C: Repairs and maintenance"/>
+    <GlAccountGroup glAccountGroupId="9049" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule C: Supplies purchased (not from COGS)"/>
+    <GlAccountGroup glAccountGroupId="9050" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule C: Taxes and licenses"/>
+    <GlAccountGroup glAccountGroupId="9051" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule C: Travel"/>
+    <GlAccountGroup glAccountGroupId="9052" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule C: Meals and entertainment"/>
+    <GlAccountGroup glAccountGroupId="9053" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule C: Utilities"/>
+    <GlAccountGroup glAccountGroupId="9054" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule C: Wages paid"/>
+    <GlAccountGroup glAccountGroupId="9055" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule C: Other business expenses"/>
+    <GlAccountGroup glAccountGroupId="9056" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule C: COGS purchases"/>
+    <GlAccountGroup glAccountGroupId="9057" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule C: COGS labor"/>
+    <GlAccountGroup glAccountGroupId="9058" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule C: COGS materials/supplies"/>
+    <GlAccountGroup glAccountGroupId="9059" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule C: COGS other"/>
+
+    <GlAccountGroup glAccountGroupId="9071" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule E: Rents received"/>
+    <GlAccountGroup glAccountGroupId="9072" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule E: Royalties received"/>
+    <GlAccountGroup glAccountGroupId="9073" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule E: Advertising"/>
+    <GlAccountGroup glAccountGroupId="9074" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule E: Auto and travel"/>
+    <GlAccountGroup glAccountGroupId="9075" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule E: Cleaning and maintenance"/>
+    <GlAccountGroup glAccountGroupId="9076" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule E: Commissions"/>
+    <GlAccountGroup glAccountGroupId="9077" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule E: Insurance"/>
+    <GlAccountGroup glAccountGroupId="9078" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule E: Legal and professional fees"/>
+    <GlAccountGroup glAccountGroupId="9079" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule E: Management fees"/>
+    <GlAccountGroup glAccountGroupId="9080" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule E: Interest expense, mortgage"/>
+    <GlAccountGroup glAccountGroupId="9081" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule E: Interest expense, other"/>
+    <GlAccountGroup glAccountGroupId="9082" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule E: Repairs and maintenance"/>
+    <GlAccountGroup glAccountGroupId="9083" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule E: Supplies purchased"/>
+    <GlAccountGroup glAccountGroupId="9084" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule E: Taxes"/>
+    <GlAccountGroup glAccountGroupId="9085" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule E: Utilities"/>
+    <GlAccountGroup glAccountGroupId="9086" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule E: Other expenses"/>
+
+    <GlAccountGroup glAccountGroupId="9101" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule F: Resales livestock/items"/>
+    <GlAccountGroup glAccountGroupId="9102" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule F: Cost of resale livestock/items"/>
+    <GlAccountGroup glAccountGroupId="9103" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule F: Sale of livestock/produce"/>
+    <GlAccountGroup glAccountGroupId="9104" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule F: Total co-op distributions"/>
+    <GlAccountGroup glAccountGroupId="9105" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule F: Agricultural program payments"/>
+    <GlAccountGroup glAccountGroupId="9106" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule F: CCC loans reported/election"/>
+    <GlAccountGroup glAccountGroupId="9107" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule F: CCC loans forfeited/repaid"/>
+    <GlAccountGroup glAccountGroupId="9108" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule F: Crop insurance proceeds received"/>
+    <GlAccountGroup glAccountGroupId="9109" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule F: Crop insurance proceeds deferred"/>
+    <GlAccountGroup glAccountGroupId="9110" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule F: Custom hire income"/>
+    <GlAccountGroup glAccountGroupId="9111" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule F: Other farm income"/>
+    <GlAccountGroup glAccountGroupId="9112" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule F: Car and truck expenses"/>
+    <GlAccountGroup glAccountGroupId="9113" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule F: Chemicals"/>
+    <GlAccountGroup glAccountGroupId="9114" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule F: Conservation expenses"/>
+    <GlAccountGroup glAccountGroupId="9115" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule F: Custom hire expenses"/>
+    <GlAccountGroup glAccountGroupId="9116" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule F: Employee benefit programs"/>
+    <GlAccountGroup glAccountGroupId="9117" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule F: Feed purchased"/>
+    <GlAccountGroup glAccountGroupId="9118" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule F: Fertilizers and lime"/>
+    <GlAccountGroup glAccountGroupId="9119" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule F: Freight and trucking"/>
+    <GlAccountGroup glAccountGroupId="9120" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule F: Gasoline, fuel, and oil"/>
+    <GlAccountGroup glAccountGroupId="9121" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule F: Insurance (other than health)"/>
+    <GlAccountGroup glAccountGroupId="9122" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule F: Interest expense, mortgage"/>
+    <GlAccountGroup glAccountGroupId="9123" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule F: Interest expense, other"/>
+    <GlAccountGroup glAccountGroupId="9124" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule F: Labor hired"/>
+    <GlAccountGroup glAccountGroupId="9125" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule F: Pension/profit-sharing plans"/>
+    <GlAccountGroup glAccountGroupId="9126" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule F: Rent/lease vehicles, equipment"/>
+    <GlAccountGroup glAccountGroupId="9127" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule F: Rent/lease land, animals"/>
+    <GlAccountGroup glAccountGroupId="9128" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule F: Repairs and maintenance"/>
+    <GlAccountGroup glAccountGroupId="9129" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule F: Seeds and plants purchased"/>
+    <GlAccountGroup glAccountGroupId="9130" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule F: Storage and warehousing"/>
+    <GlAccountGroup glAccountGroupId="9131" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule F: Supplies purchased"/>
+    <GlAccountGroup glAccountGroupId="9132" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule F: Taxes"/>
+    <GlAccountGroup glAccountGroupId="9133" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule F: Utilities"/>
+    <GlAccountGroup glAccountGroupId="9134" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule F: Vet, breeding, medicine"/>
+    <GlAccountGroup glAccountGroupId="9135" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule F: Other farm expenses"/>
+
+    <GlAccountGroup glAccountGroupId="9151" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule K-1: Ordinary income or loss"/>
+    <GlAccountGroup glAccountGroupId="9152" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule K-1: Rental RE income or loss"/>
+    <GlAccountGroup glAccountGroupId="9153" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule K-1: Other rental income or loss"/>
+    <GlAccountGroup glAccountGroupId="9154" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule K-1: Interest income"/>
+    <GlAccountGroup glAccountGroupId="9155" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule K-1: Dividends"/>
+    <GlAccountGroup glAccountGroupId="9156" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule K-1: Royalties"/>
+    <GlAccountGroup glAccountGroupId="9157" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule K-1: Net ST capital gain or loss"/>
+    <GlAccountGroup glAccountGroupId="9158" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule K-1: Net LT capital gain or loss"/>
+    <GlAccountGroup glAccountGroupId="9159" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule K-1: 28% rate gain or loss"/>
+    <GlAccountGroup glAccountGroupId="9160" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule K-1: Qualified 5-year gain"/>
+    <GlAccountGroup glAccountGroupId="9161" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule K-1: Guaranteed partner payments"/>
+    <GlAccountGroup glAccountGroupId="9162" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule K-1: Net Section 1231 gain or loss"/>
+    <GlAccountGroup glAccountGroupId="9163" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule K-1: Other income or loss"/>
+    <GlAccountGroup glAccountGroupId="9164" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule K-1: Tax-exempt interest income"/>
+    <GlAccountGroup glAccountGroupId="9165" glAccountGroupTypeId="TAX_FIELD_US" description="Schedule K-1: Total foreign tax"/>
+
+    <GlAccountGroup glAccountGroupId="9201" glAccountGroupTypeId="TAX_FIELD_US" description="Form 1099-MISC: Prizes and awards"/>
+    <GlAccountGroup glAccountGroupId="9202" glAccountGroupTypeId="TAX_FIELD_US" description="Form 1099-MISC: Rents"/>
+    <GlAccountGroup glAccountGroupId="9203" glAccountGroupTypeId="TAX_FIELD_US" description="Form 1099-MISC: Royalties"/>
+    <GlAccountGroup glAccountGroupId="9204" glAccountGroupTypeId="TAX_FIELD_US" description="Form 1099-MISC: Other income"/>
+    <GlAccountGroup glAccountGroupId="9205" glAccountGroupTypeId="TAX_FIELD_US" description="Form 1099-MISC: Federal tax withheld"/>
+    <GlAccountGroup glAccountGroupId="9206" glAccountGroupTypeId="TAX_FIELD_US" description="Form 1099-MISC: Fishing boat proceeds"/>
+    <GlAccountGroup glAccountGroupId="9207" glAccountGroupTypeId="TAX_FIELD_US" description="Form 1099-MISC: Medical/health payments"/>
+    <GlAccountGroup glAccountGroupId="9208" glAccountGroupTypeId="TAX_FIELD_US" description="Form 1099-MISC: Nonemployee compensation"/>
+    <GlAccountGroup glAccountGroupId="9209" glAccountGroupTypeId="TAX_FIELD_US" description="Form 1099-MISC: Crop insurance proceeds"/>
+    <GlAccountGroup glAccountGroupId="9210" glAccountGroupTypeId="TAX_FIELD_US" description="Form 1099-MISC: State tax withheld"/>
+
+    <GlAccountGroup glAccountGroupId="9401" glAccountGroupTypeId="TAX_FIELD_US" description="Form 4835: Sale of livestock/produce"/>
+    <GlAccountGroup glAccountGroupId="9402" glAccountGroupTypeId="TAX_FIELD_US" description="Form 4835: Total co-op distributions"/>
+    <GlAccountGroup glAccountGroupId="9403" glAccountGroupTypeId="TAX_FIELD_US" description="Form 4835: Agricultural program payments"/>
+    <GlAccountGroup glAccountGroupId="9404" glAccountGroupTypeId="TAX_FIELD_US" description="Form 4835: CCC loans reported/election"/>
+    <GlAccountGroup glAccountGroupId="9405" glAccountGroupTypeId="TAX_FIELD_US" description="Form 4835: CCC loans forfeited/repaid"/>
+    <GlAccountGroup glAccountGroupId="9406" glAccountGroupTypeId="TAX_FIELD_US" description="Form 4835: Crop insurance proceeds received"/>
+    <GlAccountGroup glAccountGroupId="9407" glAccountGroupTypeId="TAX_FIELD_US" description="Form 4835: Crop insurance proceeds deferred"/>
+    <GlAccountGroup glAccountGroupId="9408" glAccountGroupTypeId="TAX_FIELD_US" description="Form 4835: Other income"/>
+    <GlAccountGroup glAccountGroupId="9409" glAccountGroupTypeId="TAX_FIELD_US" description="Form 4835: Car and truck expenses"/>
+    <GlAccountGroup glAccountGroupId="9410" glAccountGroupTypeId="TAX_FIELD_US" description="Form 4835: Chemicals"/>
+    <GlAccountGroup glAccountGroupId="9411" glAccountGroupTypeId="TAX_FIELD_US" description="Form 4835: Conservation expenses"/>
+    <GlAccountGroup glAccountGroupId="9412" glAccountGroupTypeId="TAX_FIELD_US" description="Form 4835: Custom hire expenses"/>
+    <GlAccountGroup glAccountGroupId="9413" glAccountGroupTypeId="TAX_FIELD_US" description="Form 4835: Employee benefit programs"/>
+    <GlAccountGroup glAccountGroupId="9414" glAccountGroupTypeId="TAX_FIELD_US" description="Form 4835: Feed purchased"/>
+    <GlAccountGroup glAccountGroupId="9415" glAccountGroupTypeId="TAX_FIELD_US" description="Form 4835: Fertilizers and lime"/>
+    <GlAccountGroup glAccountGroupId="9416" glAccountGroupTypeId="TAX_FIELD_US" description="Form 4835: Freight and trucking"/>
+    <GlAccountGroup glAccountGroupId="9417" glAccountGroupTypeId="TAX_FIELD_US" description="Form 4835: Gasoline, fuel, and oil"/>
+    <GlAccountGroup glAccountGroupId="9418" glAccountGroupTypeId="TAX_FIELD_US" description="Form 4835: Insurance (other than health)"/>
+    <GlAccountGroup glAccountGroupId="9419" glAccountGroupTypeId="TAX_FIELD_US" description="Form 4835: Interest expense, mortgage"/>
+    <GlAccountGroup glAccountGroupId="9420" glAccountGroupTypeId="TAX_FIELD_US" description="Form 4835: Interest expense, other"/>
+    <GlAccountGroup glAccountGroupId="9421" glAccountGroupTypeId="TAX_FIELD_US" description="Form 4835: Labor hired"/>
+    <GlAccountGroup glAccountGroupId="9422" glAccountGroupTypeId="TAX_FIELD_US" description="Form 4835: Pension/profit-sharing plans"/>
+    <GlAccountGroup glAccountGroupId="9423" glAccountGroupTypeId="TAX_FIELD_US" description="Form 4835: Rent/lease vehicles, equipment"/>
+    <GlAccountGroup glAccountGroupId="9424" glAccountGroupTypeId="TAX_FIELD_US" description="Form 4835: Rent/lease land, animals"/>
+    <GlAccountGroup glAccountGroupId="9425" glAccountGroupTypeId="TAX_FIELD_US" description="Form 4835: Repairs and maintenance"/>
+    <GlAccountGroup glAccountGroupId="9426" glAccountGroupTypeId="TAX_FIELD_US" description="Form 4835: Seeds and plants purchased"/>
+    <GlAccountGroup glAccountGroupId="9427" glAccountGroupTypeId="TAX_FIELD_US" description="Form 4835: Storage and warehousing"/>
+    <GlAccountGroup glAccountGroupId="9428" glAccountGroupTypeId="TAX_FIELD_US" description="Form 4835: Supplies purchased"/>
+    <GlAccountGroup glAccountGroupId="9429" glAccountGroupTypeId="TAX_FIELD_US" description="Form 4835: Taxes"/>
+    <GlAccountGroup glAccountGroupId="9430" glAccountGroupTypeId="TAX_FIELD_US" description="Form 4835: Utilities"/>
+    <GlAccountGroup glAccountGroupId="9431" glAccountGroupTypeId="TAX_FIELD_US" description="Form 4835: Vet, breeding, medicine"/>
+    <GlAccountGroup glAccountGroupId="9432" glAccountGroupTypeId="TAX_FIELD_US" description="Form 4835: Other expenses"/>
+
+    <GlAccountGroup glAccountGroupId="9801" glAccountGroupTypeId="TAX_FIELD_US" description="Form 8829: Deductable mortgage expense"/>
+    <GlAccountGroup glAccountGroupId="9802" glAccountGroupTypeId="TAX_FIELD_US" description="Form 8829: Real estate taxes"/>
+    <GlAccountGroup glAccountGroupId="9803" glAccountGroupTypeId="TAX_FIELD_US" description="Form 8829: Insurance"/>
+    <GlAccountGroup glAccountGroupId="9804" glAccountGroupTypeId="TAX_FIELD_US" description="Form 8829: Repairs and maintenance"/>
+    <GlAccountGroup glAccountGroupId="9805" glAccountGroupTypeId="TAX_FIELD_US" description="Form 8829: Utilities"/>
+    <GlAccountGroup glAccountGroupId="9806" glAccountGroupTypeId="TAX_FIELD_US" description="Form 8829: Other expenses"/>
+</entity-engine-xml>

@@ -43,7 +43,7 @@ import org.w3c.dom.Element;
 /**
  * Implements the &lt;call-simple-method&gt; element.
  * 
- * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
+ * @see <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/Mini-language+Reference#Mini-languageReference-{{%3Ccallsimplemethod%3E}}">Mini-language Reference</a>
  */
 public final class CallSimpleMethod extends MethodOperation {
 
@@ -110,9 +110,8 @@ public final class CallSimpleMethod extends MethodOperation {
             localContext = new MethodContext(localEnv, methodContext.getLoader(), methodContext.getMethodType());
         }
         String returnVal = simpleMethodToCall.exec(localContext);
-        if (Debug.verboseOn()) {
-             Debug.logVerbose("Called simple-method named [" + this.methodName + "] in resource [" + this.xmlResource + "], returnVal is [" + returnVal + "]", module);
-        }
+        if (Debug.verboseOn())
+            Debug.logVerbose("Called simple-method named [" + this.methodName + "] in resource [" + this.xmlResource + "], returnVal is [" + returnVal + "]", module);
         if (simpleMethodToCall.getDefaultErrorCode().equals(returnVal)) {
             if (methodContext.getMethodType() == MethodContext.EVENT) {
                 methodContext.putEnv(simpleMethod.getEventResponseCodeName(), simpleMethod.getDefaultErrorCode());

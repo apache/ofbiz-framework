@@ -25,17 +25,23 @@ under the License.
     <classpath type="dir" location="config"/>
 
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel_view.xml"/>
+    <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel_old.xml"/>
     <entity-resource type="eca" reader-name="main" loader="main" location="entitydef/eecas.xml"/>
     
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/ProductTypeData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/ProductHelpData.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/ShipmentTypeData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/ProductSecurityPermissionSeedData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/FacilitySecurityPermissionSeedData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/ApiSchemaDhl.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/ProductPortletData.xml"/>
-    <entity-resource type="data" reader-name="seed" loader="main" location="data/PromoCustomMethodData.xml"/>
-
+    
     <entity-resource type="data" reader-name="seed-initial" loader="main" location="data/ProductScheduledServices.xml"/>
     <entity-resource type="data" reader-name="seed-initial" loader="main" location="data/CatalogSystemPropertyData.xml"/>
+    
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/ProductSecurityGroupDemoData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/FacilitySecurityGroupDemoData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/ProductDemoData.xml"/>
 
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_facility.xml"/>
@@ -62,6 +68,7 @@ under the License.
     <service-resource type="model" loader="main" location="servicedef/services_uom.xml"/>
     <service-resource type="eca" loader="main" location="servicedef/secas.xml"/>
     <service-resource type="eca" loader="main" location="servicedef/secas_shipment.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_upgrade.xml"/>
     <service-resource type="group" loader="main" location="servicedef/groups.xml"/>
 
     <!-- test suite -->
@@ -71,7 +78,6 @@ under the License.
     <test-suite loader="main" location="testdef/GroupOrderTest.xml"/>
     <test-suite loader="main" location="testdef/ProductTagTest.xml"/>
     <test-suite loader="main" location="testdef/ProductTest.xml"/>
-    <test-suite loader="main" location="testdef/ProductPromoTests.xml"/>
 
     <webapp name="catalog"
         title="Catalog"

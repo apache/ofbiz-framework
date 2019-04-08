@@ -17,10 +17,9 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.condition.EntityCondition
-import org.apache.ofbiz.entity.condition.EntityFunction
-import org.apache.ofbiz.entity.condition.EntityFieldValue
-import org.apache.ofbiz.entity.condition.EntityOperator
+import org.apache.ofbiz.entity.condition.*
+import org.apache.ofbiz.entity.util.EntityUtil
+import org.apache.ofbiz.base.util.*
 import org.apache.ofbiz.order.shoppingcart.ShoppingCart
 import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents
 import org.apache.ofbiz.order.order.OrderReadHelper

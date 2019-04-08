@@ -22,7 +22,6 @@ import java.util.Map;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.GenericEntity;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
@@ -114,52 +113,6 @@ public final class EntityEcaAction implements java.io.Serializable {
             } else {
                 Debug.logError(e, "Error running Entity ECA action service", module);
             }
-        }
-    }
-
-    public String toString() {
-        StringBuilder buf = new StringBuilder();
-        if (UtilValidate.isNotEmpty(serviceName)) buf.append("[").append(serviceName).append("]");
-        if (UtilValidate.isNotEmpty(serviceMode)) buf.append("[").append(serviceMode).append("]");
-        if (UtilValidate.isNotEmpty(runAsUser)) buf.append("[").append(runAsUser).append("]");
-        if (UtilValidate.isNotEmpty(valueAttr)) buf.append("[").append(valueAttr).append("]");
-        if (UtilValidate.isNotEmpty(resultToValue)) buf.append("[").append(resultToValue).append("]");
-        if (UtilValidate.isNotEmpty(abortOnError)) buf.append("[").append(abortOnError).append("]");
-        if (UtilValidate.isNotEmpty(rollbackOnError)) buf.append("[").append(rollbackOnError).append("]");
-        if (UtilValidate.isNotEmpty(persist)) buf.append("[").append(persist).append("]");
-        return buf.toString();
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((serviceName == null) ? 0 : serviceName.hashCode());
-        result = prime * result + ((serviceMode == null) ? 0 : serviceMode.hashCode());
-        result = prime * result + ((runAsUser == null) ? 0 : runAsUser.hashCode());
-        result = prime * result + ((valueAttr == null) ? 0 : valueAttr.hashCode());
-        result = prime * result + (resultToValue ? 1231 : 1237);
-        result = prime * result + (abortOnError ? 1231 : 1237);
-        result = prime * result + (rollbackOnError ? 1231 : 1237);
-        result = prime * result + (persist ? 1231 : 1237);
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof EntityEcaAction) {
-            EntityEcaAction other = (EntityEcaAction) obj;
-            if (!UtilValidate.areEqual(this.serviceName, other.serviceName)) return false;
-            if (!UtilValidate.areEqual(this.serviceMode, other.serviceMode)) return false;
-            if (!UtilValidate.areEqual(this.runAsUser, other.runAsUser)) return false;
-            if (!UtilValidate.areEqual(this.valueAttr, other.valueAttr)) return false;
-            if (this.resultToValue != other.resultToValue) return false;
-            if (this.abortOnError != other.abortOnError) return false;
-            if (this.rollbackOnError != other.rollbackOnError) return false;
-            if (this.persist != other.persist) return false;
-            return true;
-        } else {
-            return false;
         }
     }
 }

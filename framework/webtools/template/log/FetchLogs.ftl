@@ -19,41 +19,28 @@ under the License.
 
 <div class="page-title"><span>${uiLabelMap.WebtoolsFetchLogs}</span></div>
 <div>
-  <form class="basic-form" name="fetchLogs" method="post" action="<@ofbizUrl>FetchLogs</@ofbizUrl>">
-        <table class="basic-table" cellspacing="0">
-            <tbody>
-              <tr>
-                <td class="label">
-                    <label for="logFileName">${uiLabelMap.CommonSelectFile}: </label>
-                </td>
-                <td>
-                <select name="logFileName">
-                  <option value="">${uiLabelMap.CommonSelectFile}</option>
-                      <#if parameters.logFileName?has_content>
-                        <option selected value="${parameters.logFileName}">${parameters.logFileName}</option>
-                      </#if>
-                      <#if listLogFileNames?has_content>
-                        <#list listLogFileNames as logFileName>
-                          <option value="${logFileName}">${logFileName}</option>
-                        </#list>
-                      </#if>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td class="label">
-                    <label for="searchString">${uiLabelMap.WebtoolsSearchString}: </label>
-                </td>
-                <td>
-                    <input name="searchString" class="required" type="text" value="${parameters.searchString!}" />
-                </td>
-            </tr>
-            <tr>
-                <td class="label"></td>
-                <td colspan="4"><input type="submit" value="${uiLabelMap.CommonSubmit}" /></td>
-            </tr>
-        </tbody>
-      </table>
+  <form name="fetchLogs" method="post" action="<@ofbizUrl>FetchLogs</@ofbizUrl>">
+    <fieldset>
+      <span>
+        <label for="logFileName">${uiLabelMap.CommonSelectFile}: </label>
+        <select name="logFileName">
+          <option value="">${uiLabelMap.CommonSelectFile}</option>
+          <#if parameters.logFileName?has_content>
+            <option selected value="${parameters.logFileName}">${parameters.logFileName}</option>
+          </#if>
+          <#if listLogFileNames?has_content>
+            <#list listLogFileNames as logFileName>
+              <option value="${logFileName}">${logFileName}</option>
+            </#list>
+          </#if>
+        </select>
+      </span>
+      <span>
+        <label for="searchString">${uiLabelMap.WebtoolsSearchString}: </label>
+        <input name="searchString" class="required" type="text" value="${parameters.searchString!}" />
+      </span>
+    </fieldset>
+    <input type="submit" value="${uiLabelMap.CommonSubmit}" />
   </form>
 </div>
 <#if logLines?has_content>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
+    <form name="ListResourcesTasks" extends="MyTasks" extends-resource="component://scrum/widget/TaskForms.xml" paginate-target="listResourcesTask"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <field name="UpdateButton"><ignored/> </field>
+        <field name="RemoveButton"><ignored/> </field>
+        <field name="taskName"><display description="${taskName} - [${taskId}] "/> </field>
+        <field name="planHours"><display description="${taskInfo.planHours}"/> </field>
+    </form>
+    <form name="AddResourceTaskParty" extends="AssignTaskToMe" extends-resource="component://scrum/widget/TaskForms.xml" type="single" target="addTaskPartyAssign"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="partyId"><hidden value="${parameters.partyId}"/></field>
+    </form>
+    <form name="AddResourceProjectParty" target="addWorkEffortPartyAssign" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="projectId"><hidden/></field>
+        <field name="statusId"><hidden value="PRTYASGN_ASSIGNED"/></field>
+        <field name="workEffortId"><hidden value="${workEffortId}"/></field>
+        <field name="partyId"><hidden/></field>
+        <field use-when="workEffortId==projectId" name="workEffortId" entry-name="test" title="${uiLabelMap.ScrumProjectName}"><!-- project level -->
+            <drop-down allow-empty="false">
+                <entity-options entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName}">
+                    <entity-constraint name="workEffortTypeId" value="SCRUM_PROJECT"/>
+                    <entity-constraint name="currentStatusId" operator="equals" value="SPJ_ACTIVE"/>
+                    <entity-order-by field-name="workEffortName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field use-when="project==null" name="currentStatusId"><hidden value="_NA_"/></field>
+        <field entry-name="test" name="roleTypeId" title="${uiLabelMap.PartyRoleType}">
+            <drop-down>
+                <entity-options entity-name="RoleType">
+                    <entity-constraint name="parentTypeId" value="SCRUM_MEMBER"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field entry-name="test" name="fromDate"><date-time type="date"/></field>
+        <field entry-name="test" name="thruDate"><date-time type="date"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListResourcesProjects" type="list" list-name="parties" target="deleteProjectPartyAssign"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" use-row-submit="true">
+        <row-actions>
+            <entity-one entity-name="WorkEffort" value-field="project">
+                <field-map field-name="workEffortId" from-field="workEffortId"/>
+            </entity-one>
+            <set field="currentStatusId" from-field="project.currentStatusId"/>
+            <set field="priority" from-field="project.priority"/>
+            <set field="plannedHours" value="${groovy: if (project.estimatedMilliSeconds != null) return project.estimatedMilliSeconds/3600000}"/>
+            <set field="actualHours" value="${groovy: if (project.actualMilliSeconds != null) return project.actualMilliSeconds/3600000}"/>
+            <set field="createdStamp" from-field="project.createdStamp" type="Timestamp"/>
+            <set field="estimatedStartDate" from-field="project.estimatedStartDate" type="Timestamp"/>
+            <set field="estimatedCompletionDate" from-field="rproject.estimatedCompletionDate" type="Timestamp"/>
+            <set field="actualStartDate" from-field="project.actualStartDate" type="Timestamp"/>
+            <set field="actualCompletionDate" from-field="project.actualCompletionDate" type="Timestamp"/>
+        </row-actions>
+        <field name="workEffortId" parameter-name="projectId"><hidden/></field>
+        <field name="partyId"><hidden value="${parameters.partyId}"/></field>
+        <field name="fromDate"><hidden/></field>
+        <field entry-name="workEffortName" name="projectName" parameter-name="workEffortName" title="${uiLabelMap.CommonName}" widget-style="buttontext">
+            <hyperlink description="${workEffortName}[${workEffortId}]" target="viewScrumProject">
+                <parameter param-name="projectId" from-field="workEffortId"/>
+            </hyperlink>
+        </field>
+        <field name="roleTypeId">
+            <display-entity entity-name="RoleType" key-field-name="roleTypeId"/>
+        </field>
+        <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
+            <display-entity entity-name="StatusItem" key-field-name="statusId"/>
+        </field>
+        <field name="priority" widget-area-style="centered"><display description="${Priority}"/></field>
+        <field name="estimatedStartDate" widget-area-style="centered"><display type="date"/></field>
+        <field name="estimatedCompletionDate" widget-area-style="centered"><display  type="date"/></field>
+        <field name="actualStartDate" ><display type="date"/></field>
+        <field name="actualCompletionDate"><display type="date"/></field>
+        <field name="plannedHours" widget-area-style="centered"><display/></field>
+        <field name="actualHours" widget-area-style="centered"><display/></field>
+        <field name="createdStamp" ><display type="date"/></field>
+        <field name="removeButton" title="${uiLabelMap.CommonRemove}"><submit/></field>
+    </form>
+ </forms>

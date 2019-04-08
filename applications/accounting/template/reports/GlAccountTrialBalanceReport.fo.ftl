@@ -112,10 +112,10 @@ under the License.
                                     <fo:block text-align="center">${(acctgTransAndEntry.origCurrencyUomId)!}</fo:block>
                                 </fo:table-cell>
                                 <fo:table-cell  border="1pt solid" border-width=".1mm">
-                                    <fo:block text-align="center"><#if "D" == (acctgTransAndEntry.debitCreditFlag)!>${(acctgTransAndEntry.amount)!}<#else>0</#if></fo:block>
+                                    <fo:block text-align="center"><#if (acctgTransAndEntry.debitCreditFlag)! == "D">${(acctgTransAndEntry.amount)!}<#else>0</#if></fo:block>
                                 </fo:table-cell>
                                 <fo:table-cell  border="1pt solid" border-width=".1mm">
-                                    <fo:block text-align="center"><#if "C" == (acctgTransAndEntry.debitCreditFlag)!>${(acctgTransAndEntry.amount)!}<#else>0</#if></fo:block>
+                                    <fo:block text-align="center"><#if (acctgTransAndEntry.debitCreditFlag)! == "C">${(acctgTransAndEntry.amount)!}<#else>0</#if></fo:block>
                                 </fo:table-cell>
                                 <fo:table-cell  border="1pt solid" border-width=".1mm">
                                     <fo:block text-align="center"></fo:block>

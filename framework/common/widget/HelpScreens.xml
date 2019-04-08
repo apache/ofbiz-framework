@@ -21,48 +21,191 @@ under the License.
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
-    <screen name="LookupDecorator"><!--This screen is deprecated use LookupHelpDecorator instead-->
+    <screen name="LookupDecorator">
         <section>
-            <widgets><include-screen name="LookupHelpDecorator"/></widgets>
-        </section>
-    </screen>
-    <screen name="LookupHelpDecorator">
-        <section>
+            <actions>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
+                <service service-name="getUserPreferenceGroup" result-map="prefResult">
+                    <field-map field-name="userPrefGroupTypeId" value="GLOBAL_PREFERENCES"/>
+                </service>
+                <set field="userPreferences" from-field="prefResult.userPrefMap" global="true"/>
+                <set field="lookupType" value="HELP"/>
+                <set field="visualThemeId" from-field="userPreferences.VISUAL_THEME" global="true"/>
+                <service service-name="getVisualThemeResources">
+                    <field-map field-name="visualThemeId"/>
+                    <field-map field-name="themeResources" from-field="layoutSettings"/>
+                </service>
+                <set field="layoutSettings" from-field="themeResources" default-value="${layoutSettings}" global="true"/>
+                <set field="messagesTemplateLocation" from-field="layoutSettings.VT_MSG_TMPLT_LOC[0]" default-value="component://common/template/includes/Messages.ftl"/>
+            </actions>
             <widgets>
-                <include-screen name="MinimalActions" location="component://common/widget/CommonScreens.xml"/>
-                <include-screen name="LookupHelpDecorator" location="${groovy:commonScreenLocations.LookupHelpDecorator?commonScreenLocations.LookupHelpDecorator:commonDecoratorLocation}"/>
+                <platform-specific><html><html-template location="component://common/template/includes/Lookup.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="${messagesTemplateLocation}"/></html></platform-specific>
+                <container style="contentarea">
+                    <container id="column-container">
+                        <!-- by default will render left-bar only if leftbarScreen value not empty -->
+                        <include-screen name="${leftbarScreenName}" location="${leftbarScreenLocation}"/>
+                        <container id="content-main-section" style="${MainColumnStyle}">
+                            <decorator-section-include name="body"/>
+                        </container>
+                    </container>                            
+                </container>
+                <container style="clear"></container>
+                
+                <platform-specific><html><html-template location="component://common/template/includes/LookupFooter.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
     
     <screen name="ShowHelp">
         <section>
+            <condition>
+                <and>
+                    <if-compare field="parameters.helpTopic" operator="equals" value="navigateHelp"/>
+                    <if-empty field="parameters.portalPageId"/>
+                </and>
+            </condition>
             <widgets>
-                <include-screen name="MinimalActions" location="component://common/widget/CommonScreens.xml"/>
-                <include-screen name="ShowHelp" location="${groovy:commonScreenLocations.ShowHelp?commonScreenLocations.ShowHelp:commonDecoratorLocation}"/>
+                <include-screen name="navigateHelp"/>
             </widgets>
+            <fail-widgets>
+                <section>
+                    <condition>
+                        <if-empty field="parameters.portalPageId"/>
+                    </condition>
+                    <actions>
+                        <entity-condition entity-name="ContentAssoc" list="contentAssocs">
+                            <condition-list>
+                                <condition-expr field-name="mapKey" from-field="parameters.helpTopic"/>
+                                <condition-expr field-name="fromDate" operator="less-equals" from-field="nowTimestamp"/>
+                                <condition-list combine="or">
+                                    <condition-expr field-name="thruDate" operator="greater-equals" from-field="nowTimestamp"/>
+                                    <condition-expr field-name="thruDate" operator="equals" from-field="nullField"/>
+                                </condition-list>
+                            </condition-list>
+                            <order-by field-name="sequenceNum"/>
+                        </entity-condition>
+                        <set field="contentId" from-field="contentAssocs[0].contentIdTo"/>
+                        <entity-one entity-name="Content" value-field="content"/>
+                    </actions>
+                    <widgets>
+                        <section>
+                            <condition>
+                                <if-empty field="content"/>
+                            </condition>
+                            <widgets>
+                                <include-screen name="navigateHelp"/>
+                            </widgets>
+                            <fail-widgets>
+                                <decorator-screen name="LookupDecorator">
+                                    <decorator-section name="body">
+                                        <screenlet title="${uiLabelMap.CommonExtHelpTitle}" navigation-menu-name="lookupMenu">
+                                            <include-menu name="lookupMenu" location="component://content/widget/content/ContentMenus.xml"/>
+                                            <iterate-section entry="contentAssoc" list="contentAssocs">
+                                              <section>
+                                                <actions>
+                                                  <set field="contentId" from-field="contentAssoc.contentIdTo"/>
+                                                </actions>
+                                                <widgets>
+                                                  <include-screen name="showDocument"/>
+                                                </widgets>
+                                              </section>
+                                            </iterate-section>
+                                        </screenlet>
+                                    </decorator-section>
+                                </decorator-screen>
+                            </fail-widgets>
+                        </section>
+                    </widgets>
+                    <fail-widgets>
+                      <section>
+                        <actions>
+                          <!-- Read portalPage to retrieve helpContentId,
+                               if portalPage.originalPortalPageId is not null retrieve originalPortalPage-->
+                          <entity-one entity-name="PortalPage" value-field="portalPageTmp" use-cache="true"/>
+                          <set field="originalPortalPageId" from-field="portalPageTmp.originalPortalPageId" default-value="${parameters.portalPageId}"/>
+                          <entity-one entity-name="PortalPage" value-field="portalPage" use-cache="true">
+                            <field-map field-name="portalPageId" from-field="originalPortalPageId"/>
+                          </entity-one>
+                        </actions>
+                        <widgets>
+                        <decorator-screen name="LookupDecorator">
+                            <decorator-section name="body">
+                                <screenlet title="${uiLabelMap.CommonExtHelpTitle}" navigation-menu-name="lookupMenu">
+                                    <include-menu name="lookupMenu" location="component://content/widget/content/ContentMenus.xml"/>
+                                    <content content-id="${portalPage.helpContentId}"/>
+                                </screenlet>
+                                <screenlet title="${uiLabelMap.CommonSelectPortletToHelp}">
+                                    <include-form name="PortletList" location="component://common/widget/PortalPageForms.xml"/>
+                                </screenlet>
+                            </decorator-section>
+                          </decorator-screen>
+                        </widgets>
+                      </section>
+                    </fail-widgets>
+                </section>
+            </fail-widgets>
         </section>
     </screen>
-
-    <screen name="showDocument"><!--This screen is deprecated use showDocumentHelp instead-->
+    
+    <screen name="showDocument">
         <section>
-            <widgets><include-screen name="showDocumentHelp"/></widgets>
-        </section>
-    </screen>
-    <screen name="showDocumentHelp">
-        <section>
+            <actions>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonExtUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="contentId" from-field="parameters.contentId" default-value="${contentId}"/>
+                <set field="visualThemeId" from-field="userPreferences.VISUAL_THEME" global="true"/>
+                <service service-name="getVisualThemeResources">
+                    <field-map field-name="visualThemeId"/>
+                    <field-map field-name="themeResources" from-field="layoutSettings"/>
+                </service>
+                <set field="layoutSettings" from-field="themeResources" default-value="${layoutSettings}" global="true"/>
+            </actions>
             <widgets>
-                <include-screen name="MinimalActions" location="component://common/widget/CommonScreens.xml"/>
-                <include-screen name="showDocumentHelp" location="${groovy:commonScreenLocations.showDocumentHelp?commonScreenLocations.showDocumentHelp:'test'}"/>
+                <container id="Document">
+                    <content content-id="${contentId}" />
+                </container>
             </widgets>
         </section>
     </screen>
 
     <screen name="navigateHelp">
         <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleNavigateContent"/>
+                <entity-condition entity-name="ContentAssoc" list="contentAssoc">
+                    <condition-list>
+                        <condition-expr field-name="contentId" value="HELP_ROOT"/>
+                        <condition-expr field-name="contentAssocTypeId" value="TREE_CHILD"/>
+                        <condition-expr field-name="fromDate" operator="less-equals" from-field="nowTimestamp"/>
+                        <condition-list combine="or">
+                            <condition-expr field-name="thruDate" operator="greater-equals" from-field="nowTimestamp"/>
+                            <condition-expr field-name="thruDate" operator="equals" from-field="nullField"/>
+                        </condition-list>
+                    </condition-list>
+                    <order-by field-name="sequenceNum"/>
+                </entity-condition>
+                <set field="contentId" from-field="parameters.contentId" default-value="HELP_ROOT"/>
+            </actions>
             <widgets>
-                <include-screen name="MinimalActions" location="component://common/widget/CommonScreens.xml"/>
-                <include-screen name="navigateHelp" location="${groovy:commonScreenLocations.navigateHelp?commonScreenLocations.navigateHelp:commonDecoratorLocation}"/>
+                <decorator-screen name="LookupDecorator">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.PageTitleNavigateContent}" >
+                                    <container style="left-border">
+                                        <container id="EditDocumentTree"/>
+                                        <platform-specific><html><html-template location="component://content/template/content/DisplayContentNav.ftl"/></html></platform-specific>
+                                    </container>
+                                    <container style="leftonly">
+                                        <include-screen name="showDocument"/>
+                                    </container>
+                                </screenlet>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
             </widgets>
         </section>
     </screen>

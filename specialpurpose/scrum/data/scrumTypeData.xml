@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<entity-engine-xml>
+    <RoleType roleTypeId="SCRUM_MEMBER" hasTable="N" description="Scrum Member"/>
+    <RoleType roleTypeId="PRODUCT_OWNER" parentTypeId="SCRUM_MEMBER" hasTable="N" description="Product Owner"/>
+    <RoleType roleTypeId="SCRUM_MASTER" parentTypeId="SCRUM_MEMBER" hasTable="N" description="SCRUM Master"/>
+    <RoleType roleTypeId="SCRUM_TEAM" parentTypeId="SCRUM_MEMBER" hasTable="N" description="SCRUM Team"/>
+    <RoleType roleTypeId="PRODUCT_OWNER_COMP" parentTypeId="SCRUM_MEMBER" hasTable="N" description="Product Owner Company"/>
+    <!-- special role  -->
+    <RoleType roleTypeId="STAKEHOLDER" parentTypeId="SCRUM_MEMBER" hasTable="N" description="Stakeholder"/>
+
+    <WorkEffortType workEffortTypeId="SCRUM_PROJECT" hasTable="N" description="Scrum Project"/>
+    <WorkEffortType workEffortTypeId="SCRUM_SPRINT" hasTable="N" description="Scrum Sprint"/>
+    <WorkEffortType workEffortTypeId="SCRUM_TASK" description="Scrum Task Type" hasTable="N"/>
+    <WorkEffortType workEffortTypeId="SCRUM_TASK_ERROR" parentTypeId="SCRUM_TASK" description="Error" hasTable="N"/>
+    <WorkEffortType workEffortTypeId="SCRUM_TASK_IMPL" parentTypeId="SCRUM_TASK" description="Implementation" hasTable="N"/>
+    <WorkEffortType workEffortTypeId="SCRUM_TASK_INST" parentTypeId="SCRUM_TASK" description="Installation" hasTable="N"/>
+    <WorkEffortType workEffortTypeId="SCRUM_TASK_TEST" parentTypeId="SCRUM_TASK" description="Test" hasTable="N"/>
+    
+    <WorkEffortPurposeType workEffortPurposeTypeId="SCRUM_DEFAULT_TASK" description="Default Task"/>
+    <WorkEffortPurposeType workEffortPurposeTypeId="SYSTEM_DEFAULT_TASK" description="System Default Task"/>
+    <CustRequestType custRequestTypeId="RF_PROD_BACKLOG" hasTable="N" description="Request For Product Backlog Items"/>
+    <CustRequestType custRequestTypeId="RF_PARENT_BACKLOG" hasTable="N" description="Request For Parent Product Backlog"/>
+    <CustRequestType custRequestTypeId="RF_SCRUM_MEETINGS" hasTable="N" description="Request For Scrum Meetings"/>
+    <CustRequestType custRequestTypeId="RF_UNPLAN_BACKLOG" hasTable="N" description="Request For Unplan Backlog Items"/>
+    
+    <StatusType description="Scrum Project status" statusTypeId="SCRUM_PROJECT_STATUS" hasTable="N"/>
+    <StatusType description="Sprint Status" statusTypeId="SPRINT_STATUS" hasTable="N"/>
+    <StatusType description="Scrum Task" statusTypeId="SCRUM_TASK_STATUS" hasTable="N"/>
+    <StatusType description="Product Status" statusTypeId="PRODUCT_STATUS" hasTable="N"/>
+    
+    <!-- status of project and phase is defined by the underlying task status.
+        however to remove the project from current lists the closed status is introduced -->
+    <StatusItem description="Active" sequenceId="01" statusCode="ACTIVE" statusId="SPJ_ACTIVE" statusTypeId="SCRUM_PROJECT_STATUS"/>
+    <StatusItem description="Closed" sequenceId="09" statusCode="CLOSED" statusId="SPJ_CLOSED" statusTypeId="SCRUM_PROJECT_STATUS"/>
+    <StatusValidChange statusId="SPJ_ACTIVE" statusIdTo="SPJ_CLOSED" transitionName="Close project"/>
+    <StatusValidChange statusId="SPJ_CLOSED" statusIdTo="SPJ_ACTIVE" transitionName="Re-Open project"/>
+    <!-- for current installations -->
+    <StatusValidChange statusId="_NA_" statusIdTo="SPJ_CLOSED" transitionName="Close project"/>
+    
+    <StatusItem statusId="SPRINT_ACTIVE" statusTypeId="SPRINT_STATUS" description="Active" sequenceId="01" statusCode="ACTIVE"/>
+    <StatusItem statusId="SPRINT_CLOSED" statusTypeId="SPRINT_STATUS" description="Closed" sequenceId="02" statusCode="CLOSED"/>
+    <StatusValidChange statusId="SPRINT_ACTIVE" statusIdTo="SPRINT_CLOSED" transitionName="Sprint Complete"/>
+    <StatusValidChange statusId="SPRINT_CLOSED" statusIdTo="SPRINT_ACTIVE" transitionName="Project Re-Open with Sprint Open"/>
+    
+    <StatusItem statusId="PRODUCT_ACTIVE" statusTypeId="PRODUCT_STATUS" description="Active" sequenceId="01" statusCode="ACTIVE"/>
+    <StatusItem statusId="PRODUCT_CLOSED" statusTypeId="PRODUCT_STATUS" description="Closed" sequenceId="02" statusCode="CLOSED"/>
+    <StatusValidChange statusId="PRODUCT_ACTIVE" statusIdTo="PRODUCT_CLOSED" transitionName="Product Complete"/>
+    <StatusValidChange statusId="SPRINT_ACTIVE" statusIdTo="SPJ_CLOSED" transitionName="Product Complete with sprint active"/>
+    <StatusValidChange statusId="SPRINT_CLOSED" statusIdTo="SPJ_CLOSED" transitionName="Product Complete with sprint close"/>
+    
+    <StatusType description="Scrum Assignment" statusTypeId="SCRUM_ASSGN_STATUS" hasTable="N"/>
+    <!-- assignment status on a task -->
+    <StatusItem description="Assigned" sequenceId="01" statusCode="ASSIGNED" statusId="SCAS_ASSIGNED" statusTypeId="SCRUM_ASSGN_STATUS"/>
+    <StatusItem description="Completed" sequenceId="02" statusCode="COMPLETED" statusId="SCAS_COMPLETED" statusTypeId="SCRUM_ASSGN_STATUS"/>
+    <StatusValidChange statusId="SCAS_ASSIGNED" statusIdTo="SCAS_COMPLETED" transitionName="Assignment Complete"/>
+    
+    <!-- status of the task itself -->
+    <StatusItem description="Created" sequenceId="01" statusCode="CREATED" statusId="STS_CREATED" statusTypeId="SCRUM_TASK_STATUS"/>
+    <StatusItem description="Unassigned" sequenceId="02" statusCode="CREATED" statusId="STS_CREATED_UA" statusTypeId="SCRUM_TASK_STATUS"/>
+    <StatusItem description="Assigned" sequenceId="03" statusCode="CREATED" statusId="STS_CREATED_AS" statusTypeId="SCRUM_TASK_STATUS"/>
+    <StatusItem description="In Progress" sequenceId="04" statusCode="CREATED" statusId="STS_CREATED_IP" statusTypeId="SCRUM_TASK_STATUS"/>
+    <StatusItem description="Completed" sequenceId="05" statusCode="COMPLETED" statusId="STS_COMPLETED" statusTypeId="SCRUM_TASK_STATUS"/>
+    <StatusItem description="On Hold" sequenceId="07" statusCode="ON_HOLD" statusId="STS_ON_HOLD" statusTypeId="SCRUM_TASK_STATUS"/>
+    <StatusItem description="Cancelled" sequenceId="09" statusCode="CANCELLED" statusId="STS_CANCELLED" statusTypeId="SCRUM_TASK_STATUS"/>
+    <StatusValidChange statusId="STS_CREATED" statusIdTo="STS_COMPLETED" transitionName="Task Complete"/>
+    <StatusValidChange statusId="STS_CREATED" statusIdTo="STS_ON_HOLD" transitionName="Task On Hold"/>
+    <StatusValidChange statusId="STS_CREATED" statusIdTo="STS_CANCELLED" transitionName="Task On Hold"/>
+    <StatusValidChange statusId="STS_ON_HOLD" statusIdTo="STS_CREATED" transitionName="Activated"/>
+    <StatusValidChange statusId="STS_COMPLETED" statusIdTo="STS_CREATED" transitionName="Task Re-Open"/>
+    <StatusValidChange statusId="STS_CREATED" statusIdTo="SPJ_CLOSED" transitionName="Task Complete with Project Complete"/>
+    
+    <StatusItem description="Open" sequenceId="02" statusCode="ACCEPTED" statusId="CRQ_ACCEPTED" statusTypeId="CUSTREQ_STTS"/>
+    <StatusItem description="Being implemented" sequenceId="03" statusCode="REVIEWED" statusId="CRQ_REVIEWED" statusTypeId="CUSTREQ_STTS"/>
+    <StatusItem description="Reopened" sequenceId="05" statusCode="REOPENED" statusId="CRQ_REOPENED" statusTypeId="CUSTREQ_STTS"/>
+    
+    <ProductType productTypeId="SCRUM_ITEM" description="Product From Scrum"/>
+    
+    <WorkEffortGoodStandardType workEffortGoodStdTypeId="SCRUM_PRO_WORKEFF" hasTable="N" description="Product and Workeffort Association in scrum"/>
+    
+    <!-- Party SVN Identification-->
+    <PartyIdentificationType partyIdentificationTypeId="SVN_LOGIN" description="SVN login name"/>
+    
+    <StatusValidChange statusId="CRQ_REVIEWED" statusIdTo="CRQ_ACCEPTED" transitionName="Accept Request"/>
+    <StatusValidChange statusId="CRQ_CANCELLED" statusIdTo="CRQ_ACCEPTED" transitionName="Re-open Request"/>
+    <StatusValidChange statusId="CRQ_COMPLETED" statusIdTo="CRQ_REOPENED" transitionName="Re-open Request"/>
+    <StatusValidChange statusId="CRQ_REOPENED" statusIdTo="CRQ_COMPLETED" transitionName="Complete Request"/>
+    <StatusValidChange statusId="CRQ_REOPENED" statusIdTo="CRQ_CANCELLED" transitionName="Cancel Request"/>
+    <StatusValidChange statusId="CRQ_REOPENED" statusIdTo="CRQ_PENDING" transitionName="Pending Customer"/>
+    <StatusValidChange statusId="CRQ_REOPENED" statusIdTo="CRQ_ACCEPTED" transitionName="Accept Request"/>
+    <StatusValidChange statusId="CRQ_REOPENED" statusIdTo="CRQ_REVIEWED" transitionName="Review Request"/>
+    <!-- Preferences -->
+    <EnumerationType description="Scrum preferences" enumTypeId="SCRUM_PREFERENCE"/>
+    <Enumeration description="Sprint Active Notification" enumId="SPRINT_ACTIVE" enumTypeId="SCRUM_PREFERENCE" sequenceId="01"/>
+    <Enumeration description="Sprint Closed Notification" enumId="SPRINT_CLOSED" enumTypeId="SCRUM_PREFERENCE" sequenceId="02"/>
+    <Enumeration description="Product Backlog Accepted Notification" enumId="BACKLOG_ACCEPTED" enumTypeId="SCRUM_PREFERENCE" sequenceId="03"/>
+    <Enumeration description="Product Backlog Review Notification" enumId="BACKLOG_REVIEWED" enumTypeId="SCRUM_PREFERENCE" sequenceId="03"/>
+    <Enumeration description="Product Backlog Completed Notification" enumId="BACKLOG_COMPLETED" enumTypeId="SCRUM_PREFERENCE" sequenceId="04"/>
+    <!-- Email Template -->
+    <EmailTemplateSetting emailTemplateSettingId="SPRINT_ACTIVE"
+        bodyScreenLocation="component://scrum/widget/EmailTemplates.xml#ActiveSprintNotification"
+        subject="Scrum - Your Sprint is started, sprintId# ${sprintId}"/>
+    <EmailTemplateSetting emailTemplateSettingId="SPRINT_CLOSED"
+        bodyScreenLocation="component://scrum/widget/EmailTemplates.xml#ClosedSprintNotification"
+        subject="Scrum - Your Sprint is closed, sprintId# ${sprintId}"/>
+    <EmailTemplateSetting emailTemplateSettingId="CUST_REQ_ACCEPTED"
+        bodyScreenLocation="component://scrum/widget/EmailTemplates.xml#AcceptedBacklogNotification"
+        subject="Scrum - Your Backlog/request has been received, custRequestId# ${custRequestId}"/>
+    <EmailTemplateSetting emailTemplateSettingId="CUST_REQ_REVIEWED"
+        bodyScreenLocation="component://scrum/widget/EmailTemplates.xml#ReviewedBacklogNotification"
+        subject="Scrum - Your Backlog/request custRequestId# ${custRequestId} has been added to sprintId# ${sprintId}"/>
+    <EmailTemplateSetting emailTemplateSettingId="CUST_REQ_COMPLETED"
+        bodyScreenLocation="component://scrum/widget/EmailTemplates.xml#CompletedBacklogNotification"
+        subject="Scrum - Your Backlog/request is completed, custRequestId# ${custRequestId}"/>
+    <EmailTemplateSetting emailTemplateSettingId="CUST_REQ_CANCELLED"
+        bodyScreenLocation="component://scrum/widget/EmailTemplates.xml#CancelledBacklogNotification"
+        subject="Scrum - Your Backlog is cancelled custRequestId# ${custRequestId}"/>
+     
+    <WorkEffortContentType description="Task Subversion Information" workEffortContentTypeId="TASK_SUB_INFO"/>
+    
+    <!-- Portal -->
+    <PortalPortlet portalPortletId="Revisions" portletName="Revisions"
+        screenName="PartyRevisions"
+        screenLocation="component://scrum/widget/ResourceScreens.xml"
+        description="Identification associate to a party"
+        screenshot=""/>
+    <PortalPage portalPageId="ScrumPartyProfile" sequenceNum="0" portalPageName="Parties" description="Party profile page using flexible Portal technology" ownerUserLoginId="_NA_"/>
+    <PortalPageColumn portalPageId="ScrumPartyProfile" columnSeqId="00001" columnWidthPercentage="50"/>
+    <PortalPageColumn portalPageId="ScrumPartyProfile" columnSeqId="00002"/><!-- no width in pixels or percent, use the rest of the space available -->
+    
+    <PortalPagePortlet portalPageId="ScrumPartyProfile" portalPortletId="party" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
+    <PortalPagePortlet portalPageId="ScrumPartyProfile" portalPortletId="partyRelContacts" portletSeqId="00001" columnSeqId="00001" sequenceNum="1"/>
+    <PortalPagePortlet portalPageId="ScrumPartyProfile" portalPortletId="partyRelAccounts" portletSeqId="00001" columnSeqId="00001" sequenceNum="2"/>
+    <PortalPagePortlet portalPageId="ScrumPartyProfile" portalPortletId="contact" portletSeqId="00001" columnSeqId="00001" sequenceNum="3"/>
+    <PortalPagePortlet portalPageId="ScrumPartyProfile" portalPortletId="LoyaltyPoints" portletSeqId="00001" columnSeqId="00001" sequenceNum="4"/>
+    <PortalPagePortlet portalPageId="ScrumPartyProfile" portalPortletId="PaymentMethods" portletSeqId="00001" columnSeqId="00001" sequenceNum="5"/>
+    <PortalPagePortlet portalPageId="ScrumPartyProfile" portalPortletId="PartyIdentifications" portletSeqId="00001" columnSeqId="00001" sequenceNum="6"/>
+    <PortalPagePortlet portalPageId="ScrumPartyProfile" portalPortletId="UserLogin" portletSeqId="00001" columnSeqId="00002" sequenceNum="1"/>
+    <PortalPagePortlet portalPageId="ScrumPartyProfile" portalPortletId="Attributes" portletSeqId="00001" columnSeqId="00002" sequenceNum="2"/>
+    <PortalPagePortlet portalPageId="ScrumPartyProfile" portalPortletId="AvsSettings" portletSeqId="00001" columnSeqId="00002" sequenceNum="3"/>
+    <PortalPagePortlet portalPageId="ScrumPartyProfile" portalPortletId="Visits" portletSeqId="00001" columnSeqId="00002" sequenceNum="4"/>
+    <PortalPagePortlet portalPageId="ScrumPartyProfile" portalPortletId="Content" portletSeqId="00001" columnSeqId="00002" sequenceNum="5"/>
+    <PortalPagePortlet portalPageId="ScrumPartyProfile" portalPortletId="Notes" portletSeqId="00001" columnSeqId="00002" sequenceNum="6"/>
+    <PortalPagePortlet portalPageId="ScrumPartyProfile" portalPortletId="ProductStores" portletSeqId="00001" columnSeqId="00002" sequenceNum="7"/>
+    <PortalPagePortlet portalPageId="ScrumPartyProfile" portalPortletId="Revisions" portletSeqId="00001" columnSeqId="00001" sequenceNum="8"/>
+    
+</entity-engine-xml>

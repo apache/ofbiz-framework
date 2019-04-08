@@ -1568,6 +1568,7 @@ div.autocomplete ul li {
 }
 
 .button-style-1 ul li, .tabContainer ul li {
+    background-color: #ffffff;
     color: #000099;
 }
 
@@ -1600,6 +1601,7 @@ div.autocomplete ul li {
 
 /* ===== Button style decorator ===== */
 .button-style-2 ul li {
+    background-color: #ffffff;
     color: #000099;
 }
 
@@ -2188,7 +2190,6 @@ render borders around empty <td> elements */
     margin-top: 3px;
     width: 35px;
     height: 22px;
-    cursor: pointer;
 }
 
 .CalLookupImage {
@@ -2232,14 +2233,17 @@ render borders around empty <td> elements */
 
 .fieldgroup-title-bar ul .collapsed, .fieldgroup-title-bar ul .collapsed:hover {
     background: url(../images/bullet_toggle_plus.png) no-repeat left center;
-    cursor: pointer;
-    padding-left: 10px;
 }
 
 .fieldgroup-title-bar ul .expanded, .fieldgroup-title-bar ul .expanded:hover {
     background: url(../images/bullet_toggle_minus.png) no-repeat left center;
+}
+
+.fieldgroup-title-bar a {
     cursor: pointer;
+    text-decoration: none;
     padding-left: 10px;
+    color: #000000;
 }
 
 /* == Portlet configuration screenlet == */
@@ -4513,18 +4517,4 @@ html > /**/ body .jstree-default a {
 * + html .jstree-default a {
     white-space: normal;
     height: auto;
-}
-
-
-/*The Custom css for SELECT 2*/
-.select2-container--default .select2-selection--multiple{
-    -webkit-border-radius: 0px;
-    -moz-border-radius: 0px;
-    border-radius: 0px;
-    border-color: #848484 #c1c1c1 #e1e1e1;
-    min-height: unset !important;
-}
-
-.button-bar > a.buttontext {
-    text-transform:none!important;
 }

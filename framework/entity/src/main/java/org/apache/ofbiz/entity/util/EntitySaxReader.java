@@ -18,11 +18,11 @@
  *******************************************************************************/
 package org.apache.ofbiz.entity.util;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Reader;
 import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -32,7 +32,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -40,7 +39,6 @@ import javax.xml.parsers.SAXParserFactory;
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Base64;
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilIO;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
@@ -96,7 +94,6 @@ public class EntitySaxReader extends DefaultHandler {
     private boolean maintainTxStamps = false;
     private boolean createDummyFks = false;
     private boolean checkDataOnly = false;
-    private boolean continueOnFail = false;
     private enum Action {CREATE, CREATE_UPDATE, CREATE_REPLACE, DELETE};
     private List<String> actionTags = UtilMisc.toList("create", "create-update", "create-replace", "delete");
     private Action currentAction = Action.CREATE_UPDATE;
@@ -150,11 +147,7 @@ public class EntitySaxReader extends DefaultHandler {
     public void setCheckDataOnly(boolean checkDataOnly) {
         this.checkDataOnly = checkDataOnly;
     }
-
-    public void setContinueOnFail(boolean continueOnFail) {
-        this.continueOnFail = continueOnFail;
-    }
-
+    
     public void setPlaceholderValues(Map<String,Object> placeholderValues) {
         this.placeholderValues = placeholderValues;
     }
@@ -188,10 +181,9 @@ public class EntitySaxReader extends DefaultHandler {
             Debug.logWarning("content was null, doing nothing", module);
             return 0;
         }
+        ByteArrayInputStream bis = new ByteArrayInputStream(content.getBytes("UTF-8"));
 
-        try (ByteArrayInputStream bis = new ByteArrayInputStream(content.getBytes("UTF-8"))) {
         return this.parse(bis, "Internal Content");
-        }
     }
 
     public long parse(URL location) throws SAXException, java.io.IOException {
@@ -200,9 +192,17 @@ public class EntitySaxReader extends DefaultHandler {
             return 0;
         }
         Debug.logImportant("Beginning import from URL: " + location.toExternalForm(), module);
+        InputStream is = null;
         long numberRead = 0;
-        try (InputStream is = location.openStream()) {
+        try {
+            is = location.openStream();
             numberRead = this.parse(is, location.toString());
+        } finally {
+            if (is != null) {
+                try {
+                    is.close();
+                } catch(Exception e) {}
+            }
         }
         return numberRead;
     }
@@ -233,7 +233,7 @@ public class EntitySaxReader extends DefaultHandler {
                     valuesToDelete.clear();
                 }
                 TransactionUtil.commit(beganTransaction);
-            } catch (GenericEntityException | IOException | IllegalArgumentException | SAXException e) {
+            } catch (Exception e) {
                 String errMsg = "An error occurred saving the data, rolling back transaction (" + beganTransaction + ")";
                 Debug.logError(e, errMsg, module);
                 TransactionUtil.rollback(beganTransaction, errMsg, e);
@@ -312,7 +312,7 @@ public class EntitySaxReader extends DefaultHandler {
                 throw new SAXException("Could not find transform template with resource path: " + templatePath);
             } else {
                 try {
-                    BufferedReader templateReader = new BufferedReader(new InputStreamReader(templateUrl.openStream(),UtilIO.getUtf8()));
+                    Reader templateReader = new InputStreamReader(templateUrl.openStream());
 
                     StringWriter outWriter = new StringWriter();
                     Configuration config = FreeMarkerWorker.newConfiguration();
@@ -366,15 +366,14 @@ public class EntitySaxReader extends DefaultHandler {
                         ModelEntity modelEntity = currentValue.getModelEntity();
                         ModelField modelField = modelEntity.getField(currentFieldName.toString());
                         String type = modelField.getType();
-                        if (type != null && "blob".equals(type)) {
+                        if (type != null && type.equals("blob")) {
                             byte[] binData = Base64.base64Decode((new String(currentFieldValue)).getBytes());
                             currentValue.setBytes(currentFieldName.toString(), binData);
                         } else {
                             currentValue.setString(currentFieldName.toString(), new String(currentFieldValue));
                         }
                     } else {
-                        Debug.logWarning("Ignoring invalid field name [" + currentFieldName + "] found for the entity: "
-                                + currentValue.getEntityName() + " with value=" + currentFieldValue.toString(), module);
+                        Debug.logWarning("Ignoring invalid field name [" + currentFieldName + "] found for the entity: " + currentValue.getEntityName() + " with value=" + currentFieldValue, module);
                     }
                     currentFieldValue = null;
                 }
@@ -531,11 +530,7 @@ public class EntitySaxReader extends DefaultHandler {
                     currentValue.setIsFromEntitySync(true);
                 }
             } catch (Exception e) {
-                if (continueOnFail) {
-                    Debug.logError(e, module);
-                } else {
-                    throw new SAXException(e);
-                }
+                Debug.logError(e, module);
             }
 
             if (currentValue != null) {

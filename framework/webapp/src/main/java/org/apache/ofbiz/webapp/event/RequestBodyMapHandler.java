@@ -18,17 +18,16 @@
  */
 package org.apache.ofbiz.webapp.event;
 
+import javax.servlet.ServletRequest;
 import java.io.IOException;
 import java.util.Map;
 
-import javax.servlet.ServletRequest;
-
 /** An handler that can extract a Map (typically used as a service input map) from the data in the body of a <code>ServletRequest</code>. */
 public interface RequestBodyMapHandler {
-    /** Extracts from the data in the body of the <code>ServletRequest</code> an instance of <code>Map&lt;String, Object&gt;</code>.
+    /** Extracts from the data in the body of the <code>ServletRequest</code> an instance of <code>Map<String, Object></code>.
      *
      * @param request the request with the data in its body
-     * @return an instance of <code>Map&lt;String, Object&gt;</code> that represents the data in the request body
+     * @return an instance of <code>Map<String, Object></code> that represents the data in the request body
      */
     public Map<String, Object> extractMapFromRequestBody(ServletRequest request) throws IOException;
 }

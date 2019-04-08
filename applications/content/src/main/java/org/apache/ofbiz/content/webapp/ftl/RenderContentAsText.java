@@ -39,6 +39,7 @@ import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
 import org.apache.ofbiz.content.content.ContentWorker;
+import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.webapp.control.RequestHandler;
 
@@ -52,14 +53,14 @@ import freemarker.template.TemplateTransformModel;
 public class RenderContentAsText implements TemplateTransformModel {
 
     public static final String module = RenderContentAsText.class.getName();
-    static final String [] upSaveKeyNames = {"globalNodeTrail"};
-    static final String [] saveKeyNames = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale",  "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly", "globalNodeTrail"};
+    public static final String [] upSaveKeyNames = {"globalNodeTrail"};
+    public static final String [] saveKeyNames = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale",  "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly", "globalNodeTrail"};
 
-    @Override
     @SuppressWarnings("unchecked")
-    public Writer getWriter(Writer out, @SuppressWarnings("rawtypes") Map args) {
+    public Writer getWriter(final Writer out, Map args) {
         final Environment env = Environment.getCurrentEnvironment();
         final LocalDispatcher dispatcher = FreeMarkerWorker.getWrappedObject("dispatcher", env);
+        final Delegator delegator = FreeMarkerWorker.getWrappedObject("delegator", env);
         final HttpServletRequest request = FreeMarkerWorker.getWrappedObject("request", env);
         final HttpServletResponse response = FreeMarkerWorker.getWrappedObject("response", env);
         final Map<String, Object> templateRoot = FreeMarkerWorker.createEnvironmentMap(env);
@@ -67,7 +68,7 @@ public class RenderContentAsText implements TemplateTransformModel {
             Debug.logVerbose("in RenderSubContent, contentId(0):" + templateRoot.get("contentId"), module);
         }
         FreeMarkerWorker.getSiteParameters(request, templateRoot);
-        final Map<String, Object> savedValuesUp = new HashMap<>();
+        final Map<String, Object> savedValuesUp = new HashMap<String, Object>();
         FreeMarkerWorker.saveContextValues(templateRoot, upSaveKeyNames, savedValuesUp);
         FreeMarkerWorker.overrideWithArgs(templateRoot, args);
         if (Debug.verboseOn()) {
@@ -80,7 +81,7 @@ public class RenderContentAsText implements TemplateTransformModel {
             Debug.logVerbose("in Render(0), directAssocMode ." + directAssocMode , module);
         }
 
-        final Map<String, Object> savedValues = new HashMap<>();
+        final Map<String, Object> savedValues = new HashMap<String, Object>();
 
         return new Writer(out) {
 
@@ -128,7 +129,7 @@ public class RenderContentAsText implements TemplateTransformModel {
                 }
                 FreeMarkerWorker.saveContextValues(templateRoot, saveKeyNames, savedValues);
                     try {
-                        String txt = ContentWorker.renderContentAsText(dispatcher, thisContentId, templateRoot, locale, mimeTypeId, true);
+                        String txt = ContentWorker.renderContentAsText(dispatcher, delegator, thisContentId, templateRoot, locale, mimeTypeId, true);
                         if ("true".equals(xmlEscape)) {
                             txt = UtilFormatOut.encodeXmlValue(txt);
                         }

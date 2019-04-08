@@ -32,7 +32,7 @@ under the License.
         <entity-one entity-name="FixedAssetStdCost" value-field="fixedAssetStdCost" >
             <field-map field-name="fixedAssetId" value="1000"/>
             <field-map field-name="fixedAssetStdCostTypeId" value="SETUP_COST"/>
-            <field-map field-name="fromDate" value="2016-11-03 00:00:00"/>
+            <field-map field-name="fromDate" value="2016-11-03 00:00:00" type="Timestamp"/>
         </entity-one>
         <now-timestamp field="nowTimestamp"/>
         <assert>

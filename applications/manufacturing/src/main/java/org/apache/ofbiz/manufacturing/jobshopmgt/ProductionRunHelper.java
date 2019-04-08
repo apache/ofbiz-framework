@@ -45,11 +45,12 @@ public final class ProductionRunHelper {
 
     /**
      * Get a Production Run.
-     * Check if routing - product link exists.
-     * 
+     *  <li> check if routing - product link exist
      * @param delegator the delegator
      * @param productionRunId the production run id
      * @return Map with the result of the service, the output parameters are
+     * <li> the productionRun
+     * <li> the productionRunProduct
      */
     public static Map<String, Object> getProductionRun(Delegator delegator, String productionRunId) {
         Map<String, Object> result = new HashMap<String, Object>();

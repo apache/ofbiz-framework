@@ -18,8 +18,8 @@
  *******************************************************************************/
 package org.apache.ofbiz.entity.transaction;
 
-import javax.transaction.xa.XAException;
 import javax.transaction.xa.Xid;
+import javax.transaction.xa.XAException;
 
 import org.apache.ofbiz.base.util.Debug;
 
@@ -39,17 +39,13 @@ public class DebugXaResource extends GenericXaResource {
     @Override
     public void commit(Xid xid, boolean onePhase) throws XAException {
         TransactionUtil.debugResMap.remove(xid);
-        if (Debug.verboseOn()) {
-            Debug.logVerbose("Xid : " + xid.toString() + " cleared [commit]", module);
-        }
+        if (Debug.verboseOn()) Debug.logVerbose("Xid : " + xid.toString() + " cleared [commit]", module);
     }
 
     @Override
     public void rollback(Xid xid) throws XAException {
         TransactionUtil.debugResMap.remove(xid);
-        if (Debug.verboseOn()) {
-            Debug.logVerbose("Xid : " + xid.toString() + " cleared [rollback]", module);
-        }
+        if (Debug.verboseOn()) Debug.logVerbose("Xid : " + xid.toString() + " cleared [rollback]", module);
     }
 
     @Override

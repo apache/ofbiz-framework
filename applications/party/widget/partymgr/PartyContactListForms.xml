@@ -19,7 +19,7 @@ under the License.
 -->
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
 
-    <grid name="ListPartyContactLists" target="updateContactListParty"
+    <form name="ListPartyContactLists" type="list" target="updateContactListParty"
         separate-columns="false" header-row-style="header-row-2"  odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="ContactListParty">
@@ -65,7 +65,7 @@ under the License.
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
-    </grid>
+    </form>
 
     <form name="AddPartyContactList" type="single" target="createContactListParty"
         header-row-style="header-row" default-table-style="basic-table">
@@ -92,7 +92,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
     </form>
 
-    <grid name="ListLookupContactList" target="LookupContactList" default-map-name="contactList"
+    <form name="ListLookupContactList" type="list" target="LookupContactList" default-map-name="contactList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="ContactList"/>
@@ -104,5 +104,5 @@ under the License.
         <field name="contactListTypeId"><display-entity entity-name="ContactListType"/></field>
         <field name="contactMechTypeId" title="${uiLabelMap.PartyContactMechType}"><display-entity entity-name="ContactMechType"/></field>
         <field name="marketingCampaignId"><display-entity entity-name="MarketingCampaign" description="${campaignName}"/></field>
-    </grid>
+    </form>
 </forms>

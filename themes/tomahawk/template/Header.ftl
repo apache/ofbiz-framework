@@ -32,19 +32,15 @@ under the License.
     <#if layoutSettings.shortcutIcon?has_content>
       <#assign shortcutIcon = layoutSettings.shortcutIcon/>
     <#elseif layoutSettings.VT_SHORTCUT_ICON?has_content>
-      <#assign shortcutIcon = layoutSettings.VT_SHORTCUT_ICON/>
+      <#assign shortcutIcon = layoutSettings.VT_SHORTCUT_ICON.get(0)/>
     </#if>
     <#if shortcutIcon?has_content>
-        <link rel="shortcut icon" href="<@ofbizContentUrl>${StringUtil.wrapString(shortcutIcon)+".ico"}</@ofbizContentUrl>" type="image/x-icon">
-        <link rel="icon" href="<@ofbizContentUrl>${StringUtil.wrapString(shortcutIcon)+".png"}</@ofbizContentUrl>" type="image/png">
-        <link rel="icon" sizes="32x32" href="<@ofbizContentUrl>${StringUtil.wrapString(shortcutIcon)+"-32.png"}</@ofbizContentUrl>" type="image/png">
-        <link rel="icon" sizes="64x64" href="<@ofbizContentUrl>${StringUtil.wrapString(shortcutIcon)+"-64.png"}</@ofbizContentUrl>" type="image/png">
-        <link rel="icon" sizes="96x96" href="<@ofbizContentUrl>${StringUtil.wrapString(shortcutIcon)+"-96.png"}</@ofbizContentUrl>" type="image/png">
+      <link rel="shortcut icon" href="<@ofbizContentUrl>${StringUtil.wrapString(shortcutIcon)}</@ofbizContentUrl>" />
     </#if>
-
+    
     <#if layoutSettings.VT_HDR_JAVASCRIPT?has_content>
         <#list layoutSettings.VT_HDR_JAVASCRIPT as javaScript>
-            <script src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>" type="application/javascript"></script>
+            <script src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>" type="text/javascript"></script>
         </#list>
     </#if>
     <#if layoutSettings.javaScripts?has_content>
@@ -54,7 +50,7 @@ under the License.
       <#list layoutSettings.javaScripts as javaScript>
         <#if javaScriptsSet.contains(javaScript)>
           <#assign nothing = javaScriptsSet.remove(javaScript)/>
-          <script src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>" type="application/javascript"></script>
+          <script src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>" type="text/javascript"></script>
         </#if>
       </#list>
     </#if>
@@ -70,13 +66,13 @@ under the License.
             <link rel="stylesheet" href="<@ofbizContentUrl>${StringUtil.wrapString(styleSheet)}</@ofbizContentUrl>" type="text/css"/>
         </#list>
     </#if>
-    <#if layoutSettings.rtlStyleSheets?has_content && "rtl" == langDir>
+    <#if layoutSettings.rtlStyleSheets?has_content && langDir == "rtl">
         <#--layoutSettings.rtlStyleSheets is a list of rtl style sheets.-->
         <#list layoutSettings.rtlStyleSheets as styleSheet>
             <link rel="stylesheet" href="<@ofbizContentUrl>${StringUtil.wrapString(styleSheet)}</@ofbizContentUrl>" type="text/css"/>
         </#list>
     </#if>
-    <#if layoutSettings.VT_RTL_STYLESHEET?has_content && "rtl" == langDir>
+    <#if layoutSettings.VT_RTL_STYLESHEET?has_content && langDir == "rtl">
         <#list layoutSettings.VT_RTL_STYLESHEET as styleSheet>
             <link rel="stylesheet" href="<@ofbizContentUrl>${StringUtil.wrapString(styleSheet)}</@ofbizContentUrl>" type="text/css"/>
         </#list>
@@ -87,7 +83,7 @@ under the License.
         </#list>
     </#if>
     <#if layoutSettings.WEB_ANALYTICS?has_content>
-      <script type="application/javascript">
+      <script language="JavaScript" type="text/javascript">
         <#list layoutSettings.WEB_ANALYTICS as webAnalyticsConfig>
           ${StringUtil.wrapString(webAnalyticsConfig.webAnalyticsCode!)}
         </#list>
@@ -102,7 +98,6 @@ under the License.
 <#assign organizationLogoLinkURL = "${layoutSettings.organizationLogoLinkUrl!}">
 
 <body>
-  <#include "component://common-theme/template/ImpersonateBanner.ftl"/>
   <div id="wait-spinner" style="display:none">
     <div id="wait-spinner-image"></div>
   </div>
@@ -112,7 +107,7 @@ under the License.
         ${uiLabelMap.CommonSkipNavigation}
       </a>
     </div>
-    <#if "N" == (userPreferences.COMPACT_HEADER)?default("N")>
+    <#if (userPreferences.COMPACT_HEADER)?default("N") == "N">
       <div id="masthead">
         <ul>
           <#if layoutSettings.headerImageUrl??>
@@ -120,7 +115,7 @@ under the License.
           <#elseif layoutSettings.commonHeaderImageUrl??>
             <#assign headerImageUrl = layoutSettings.commonHeaderImageUrl>
           <#elseif layoutSettings.VT_HDR_IMAGE_URL??>
-            <#assign headerImageUrl = layoutSettings.VT_HDR_IMAGE_URL>
+            <#assign headerImageUrl = layoutSettings.VT_HDR_IMAGE_URL.get(0)>
           </#if>
           <#if headerImageUrl??>
             <#if organizationLogoLinkURL?has_content>

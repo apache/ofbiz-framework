@@ -55,7 +55,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleFindPaymentGatewayConfig"/>
                 <set field="tabButtonItem" value="paymentGatewayConfigTab"/> 
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
             </actions>
             <widgets>
@@ -112,6 +112,9 @@ under the License.
                     <field-map field-name="paymentGatewayConfigId" from-field="parameters.paymentGatewayConfigId"/>
                 </entity-one>
                 <entity-one entity-name="PaymentGatewaySecurePay" value-field="paymentGatewaySecurePay">
+                    <field-map field-name="paymentGatewayConfigId" from-field="parameters.paymentGatewayConfigId"/>
+                </entity-one>
+                <entity-one entity-name="PaymentGatewayiDEAL" value-field="paymentGatewayiDEAL">
                     <field-map field-name="paymentGatewayConfigId" from-field="parameters.paymentGatewayConfigId"/>
                 </entity-one>
             </actions>
@@ -222,6 +225,16 @@ under the License.
                                 </screenlet>
                             </widgets>
                         </section>
+                        <section>
+                            <condition>
+                                <not><if-empty field="paymentGatewayiDEAL"/></not>
+                            </condition>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.PageTitleUpdatePaymentGatewayConfigiDEAL}">
+                                    <include-form name="EditPaymentGatewayConfigiDEAL" location="component://accounting/widget/PaymentGatewayConfigForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -234,7 +247,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleFindPaymentGatewayConfigTypes"/>
                 <set field="tabButtonItem" value="paymentGatewayConfigTypesTab"/> 
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
             </actions>
             <widgets>

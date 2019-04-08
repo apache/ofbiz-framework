@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<entity-engine-xml>
+    <SecurityGroup groupId="COMPDOCADMIN" description="CompDoc admin group, all permissions."/>
+    <SecurityGroupPermission groupId="COMPDOCADMIN" permissionId="CONTENTMGR_VIEW"/>
+    <SecurityGroupPermission groupId="COMPDOCADMIN" permissionId="CONTENTMGR_CREATE"/>
+    <SecurityGroupPermission groupId="COMPDOCADMIN" permissionId="CONTENTMGR_DELETE"/>
+    <SecurityGroupPermission groupId="COMPDOCADMIN" permissionId="CONTENTMGR_UPDATE"/>
+    <SecurityGroupPermission groupId="COMPDOCADMIN" permissionId="CONTENTMGR_ADMIN"/>
+
+    <RoleType roleTypeId="APPROVER" description="Approver"/>
+    <RoleType roleTypeId="REVIEWER" description="Reviewer"/>
+    <Party partyId="approver" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person firstName="Robert" lastName="Smith" partyId="approver" personalTitle="Captain"/>
+    <PartyRole partyId="approver" roleTypeId="APPROVER"/>
+    <PartyRole partyId="approver" roleTypeId="REVIEWER"/>
+    <PartyRole partyId="admin" roleTypeId="APPROVER"/>
+    <PartyStatus partyId="approver" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <UserLogin userLoginId="approver" partyId="approver"/>
+    <UserLoginSecurityGroup groupId="COMPDOCADMIN" userLoginId="approver" fromDate="2006-01-01 12:00:00.0"/>
+
+
+    <DataResource dataResourceId="DR1103b" dataResourceTypeId="OFBIZ_FILE_BIN" objectInfo="/applications/content/data/pdftest2.pdf" mimeTypeId="application/pdf" dataResourceName="Personal Profile"/>
+    <DataResource dataResourceId="DR1105b" dataResourceTypeId="OFBIZ_FILE_BIN" objectInfo="/applications/content/data/mswordtest2.doc" mimeTypeId="application/msword" dataResourceName="2nd Quarter Review"/>
+
+    <DataResource dataResourceId="DR1103a" dataResourceTypeId="OFBIZ_FILE_BIN" objectInfo="/applications/content/data/pdftest2.pdf" mimeTypeId="application/pdf" dataResourceName="Personal Profile"/>
+    <DataResource dataResourceId="DR1105a" dataResourceTypeId="OFBIZ_FILE_BIN" objectInfo="/applications/content/data/mswordtest2.doc" mimeTypeId="application/msword" dataResourceName="2nd Quarter Review"/>
+
+    <DataResource dataResourceId="DR1101"  mimeTypeId="application/pdf" dataResourceName="Letter of inquiry"/>
+    <DataResource dataResourceId="DR1102"  mimeTypeId="application/pdf" dataResourceName="POA Contract"/>
+    <DataResource dataResourceId="DR1103"  mimeTypeId="application/pdf" dataResourceName="Personal Profile"/>
+    <DataResource dataResourceId="DR1104"  mimeTypeId="application/pdf" dataResourceName="1st Quarter Review"/>
+    <DataResource dataResourceId="DR1105"  mimeTypeId="application/pdf" dataResourceName="2nd Quarter Review"/>
+    <DataResource dataResourceId="DR1106"  mimeTypeId="application/pdf" dataResourceName="3rd Quarter Review"/>
+    <DataResource dataResourceId="DR1107"  mimeTypeId="application/pdf" dataResourceName="4th Quarter Review"/>
+    <DataResource dataResourceId="DR1108"  mimeTypeId="application/pdf" dataResourceName="Phase I Budget"/>
+    <DataResource dataResourceId="DR1109"  mimeTypeId="application/pdf" dataResourceName="Phase II Budget"/>
+    <DataResource dataResourceId="DR1110"  mimeTypeId="application/pdf" dataResourceName="IJK 4988"/>
+    <DataResource dataResourceId="DR1111"  mimeTypeId="application/pdf" dataResourceName="ABC 123"/>
+    <DataResource dataResourceId="DR1112"  mimeTypeId="application/pdf" dataResourceName="Yearly Review"/>
+    <DataResource dataResourceId="DR1113"  mimeTypeId="application/pdf" dataResourceName="Miscellaneous Notes"/>
+    <DataResource dataResourceId="DR1114"  mimeTypeId="application/pdf" dataResourceName="Disclosure Agreement"/>
+    <DataResource dataResourceId="DR1115"  mimeTypeId="application/pdf" dataResourceName="Performance Review"/>
+    <DataResource dataResourceId="DR1116"  mimeTypeId="application/pdf" dataResourceName="Other Upload"/>
+
+        <!-- A CDT (Composite Document Template) that can be used independently, or as part of CD0001 defined below -->
+    <Content contentId="CDT1201" contentTypeId="COMPDOC_TEMPLATE" contentName="Demo Template Root (CDT) 1201"  ownerContentId=""/>
+
+
+    <Content contentId="CDT1101" dataResourceId="DR1101" contentTypeId="TEMPLATE" contentName="Letter of inquiry"/>
+    <Content contentId="CDT1102" dataResourceId="DR1102" contentTypeId="TEMPLATE" contentName="POA Contract"/>
+    <Content contentId="CDT1103" dataResourceId="DR1103" contentTypeId="TEMPLATE" contentName="Personal Profile"/>
+    <Content contentId="CDT1104" dataResourceId="DR1104" contentTypeId="TEMPLATE" contentName="1st Quarter Review"/>
+    <Content contentId="CDT1105" dataResourceId="DR1105" contentTypeId="TEMPLATE" contentName="2nd Quarter Review"/>
+    <Content contentId="CDT1106" dataResourceId="DR1106" contentTypeId="TEMPLATE" contentName="3rd Quarter Review"/>
+    <Content contentId="CDT1107" dataResourceId="DR1107" contentTypeId="TEMPLATE" contentName="4th Quarter Review"/>
+    <Content contentId="CDT1108" dataResourceId="DR1108" contentTypeId="TEMPLATE" contentName="Phase I Budget"/>
+    <Content contentId="CDT1109" dataResourceId="DR1109" contentTypeId="TEMPLATE" contentName="Phase II Budget"/>
+    <Content contentId="CDT1110" dataResourceId="DR1110" contentTypeId="TEMPLATE" contentName="IJK 4988"/>
+    <Content contentId="CDT1111" dataResourceId="DR1111" contentTypeId="TEMPLATE" contentName="ABC 123"/>
+    <Content contentId="CDT1112" dataResourceId="DR1112" contentTypeId="TEMPLATE" contentName="Yearly Review"/>
+    <Content contentId="CDT1113" dataResourceId="DR1113" contentTypeId="TEMPLATE" contentName="Miscellaneous Notes"/>
+    <Content contentId="CDT1114" dataResourceId="DR1114" contentTypeId="TEMPLATE" contentName="Disclosure Agreement"/>
+    <Content contentId="CDT1115" dataResourceId="DR1115" contentTypeId="TEMPLATE" contentName="Performance Review"/>
+    <Content contentId="CDT1116" dataResourceId="DR1116" contentTypeId="TEMPLATE" contentName="Other Upload"/>
+
+    <ContentAssoc contentIdTo="CDT1201" contentId="CDT1101" contentAssocTypeId="COMPDOC_PART" fromDate="2006-01-12 01:01:01" sequenceNum="0010"/>
+    <ContentAssoc contentIdTo="CDT1201" contentId="CDT1102" contentAssocTypeId="COMPDOC_PART" fromDate="2006-01-12 01:01:01" sequenceNum="0020"/>
+    <ContentAssoc contentIdTo="CDT1201" contentId="CDT1103" contentAssocTypeId="COMPDOC_PART" fromDate="2006-01-12 01:01:01" sequenceNum="0030"/>
+    <ContentAssoc contentIdTo="CDT1201" contentId="CDT1104" contentAssocTypeId="COMPDOC_PART" fromDate="2006-01-12 01:01:01" sequenceNum="0040"/>
+    <ContentAssoc contentIdTo="CDT1201" contentId="CDT1105" contentAssocTypeId="COMPDOC_PART" fromDate="2006-01-12 01:01:01" sequenceNum="0050"/>
+    <ContentAssoc contentIdTo="CDT1201" contentId="CDT1106" contentAssocTypeId="COMPDOC_PART" fromDate="2006-01-12 01:01:01" sequenceNum="0060"/>
+    <ContentAssoc contentIdTo="CDT1201" contentId="CDT1107" contentAssocTypeId="COMPDOC_PART" fromDate="2006-01-12 01:01:01" sequenceNum="0070"/>
+    <ContentAssoc contentIdTo="CDT1201" contentId="CDT1108" contentAssocTypeId="COMPDOC_PART" fromDate="2006-01-12 01:01:01" sequenceNum="0080"/>
+    <ContentAssoc contentIdTo="CDT1201" contentId="CDT1109" contentAssocTypeId="COMPDOC_PART" fromDate="2006-01-12 01:01:01" sequenceNum="0090"/>
+    <ContentAssoc contentIdTo="CDT1201" contentId="CDT1110" contentAssocTypeId="COMPDOC_PART" fromDate="2006-01-12 01:01:01" sequenceNum="0100"/>
+    <ContentAssoc contentIdTo="CDT1201" contentId="CDT1111" contentAssocTypeId="COMPDOC_PART" fromDate="2006-01-12 01:01:01" sequenceNum="0110"/>
+    <ContentAssoc contentIdTo="CDT1201" contentId="CDT1112" contentAssocTypeId="COMPDOC_PART" fromDate="2006-01-12 01:01:01" sequenceNum="0120"/>
+    <ContentAssoc contentIdTo="CDT1201" contentId="CDT1113" contentAssocTypeId="COMPDOC_PART" fromDate="2006-01-12 01:01:01" sequenceNum="0130"/>
+    <ContentAssoc contentIdTo="CDT1201" contentId="CDT1114" contentAssocTypeId="COMPDOC_PART" fromDate="2006-01-12 01:01:01" sequenceNum="0140"/>
+    <ContentAssoc contentIdTo="CDT1201" contentId="CDT1115" contentAssocTypeId="COMPDOC_PART" fromDate="2006-01-12 01:01:01" sequenceNum="0150"/>
+    <ContentAssoc contentIdTo="CDT1201" contentId="CDT1116" contentAssocTypeId="COMPDOC_PART" fromDate="2006-01-12 01:01:01" sequenceNum="0160"/>
+
+        <!-- sample instances CDT CDT1201 -->
+    <Content contentId="CDI1201" instanceOfContentId="CDT1201" contentTypeId="COMPDOC_INSTANCE" contentName="Demo Instance Root (CDI) 1201"  ownerContentId=""/>
+    <Content contentId="CDI1103" instanceOfContentId="CDT1103" dataResourceId="DR1103b" contentTypeId="DOCUMENT" contentName="Personal Profile"  ownerContentId=""/>
+    <Content contentId="CDI1105" instanceOfContentId="CDT1105" dataResourceId="DR1105b" contentTypeId="DOCUMENT" contentName="2nd Quarter Review"  ownerContentId=""/>
+
+    <ContentAssoc contentIdTo="CDT1201" contentId="CDI1201" contentAssocTypeId="INSTANCE" fromDate="2006-01-12 01:01:01" sequenceNum="0020"/>
+    <ContentAssoc contentIdTo="CDI1201" contentId="CDI1103" contentAssocTypeId="COMPDOC_PART" fromDate="2006-01-12 01:01:01" sequenceNum="00130"/>
+    <ContentAssoc contentIdTo="CDI1201" contentId="CDI1105" contentAssocTypeId="COMPDOC_PART" fromDate="2006-01-12 01:01:01" sequenceNum="0050"/>
+
+        <!-- sample revision entries for CDT CDT1201 -->
+    <ContentRevision contentId="CDT1201" contentRevisionSeqId="000002"/>
+    <ContentRevisionItem contentId="CDT1201" contentRevisionSeqId="000002" itemContentId="CDT1101"/>
+    <ContentRevisionItem contentId="CDT1201" contentRevisionSeqId="000002" itemContentId="CDT1102"/>
+    <ContentRevisionItem contentId="CDT1201" contentRevisionSeqId="000002" itemContentId="CDT1103"/>
+    <ContentRevisionItem contentId="CDT1201" contentRevisionSeqId="000002" itemContentId="CDT1104"/>
+    <ContentRevisionItem contentId="CDT1201" contentRevisionSeqId="000002" itemContentId="CDT1105"/>
+    <ContentRevisionItem contentId="CDT1201" contentRevisionSeqId="000002" itemContentId="CDT1106"/>
+    <ContentRevisionItem contentId="CDT1201" contentRevisionSeqId="000002" itemContentId="CDT1107"/>
+    <ContentRevisionItem contentId="CDT1201" contentRevisionSeqId="000002" itemContentId="CDT1108"/>
+    <ContentRevisionItem contentId="CDT1201" contentRevisionSeqId="000002" itemContentId="CDT1109"/>
+    <ContentRevisionItem contentId="CDT1201" contentRevisionSeqId="000002" itemContentId="CDT1110"/>
+    <ContentRevisionItem contentId="CDT1201" contentRevisionSeqId="000002" itemContentId="CDT1111"/>
+    <ContentRevisionItem contentId="CDT1201" contentRevisionSeqId="000002" itemContentId="CDT1112"/>
+    <ContentRevisionItem contentId="CDT1201" contentRevisionSeqId="000002" itemContentId="CDT1113"/>
+    <ContentRevisionItem contentId="CDT1201" contentRevisionSeqId="000002" itemContentId="CDT1114"/>
+    <ContentRevisionItem contentId="CDT1201" contentRevisionSeqId="000002" itemContentId="CDT1115"/>
+    <ContentRevisionItem contentId="CDT1201" contentRevisionSeqId="000002" itemContentId="CDT1116"/>
+
+    <ContentRevision contentId="CDT1201" contentRevisionSeqId="000004"/>
+
+    <ContentRevision contentId="CDT1201" contentRevisionSeqId="000013"/>
+    <ContentRevisionItem contentId="CDT1201" contentRevisionSeqId="000013" itemContentId="CDT1103" oldDataResourceId="DR1103a" newDataResourceId="DR1103b"/>
+    <ContentRevisionItem contentId="CDT1201" contentRevisionSeqId="000013" itemContentId="CDT1105" oldDataResourceId="DR1105a" newDataResourceId="DR1105b"/>
+
+    <ContentRevision contentId="CDI1201" contentRevisionSeqId="000005"/>
+    <ContentRevisionItem contentId="CDI1201" contentRevisionSeqId="000005" itemContentId="CDI1103" newDataResourceId="DR1103a"/>
+    <ContentRevision contentId="CDI1201" contentRevisionSeqId="000006"/>
+    <ContentRevisionItem contentId="CDI1201" contentRevisionSeqId="000006" itemContentId="CDI1105" newDataResourceId="DR1105a"/>
+
+    <ContentRevision contentId="CDI1201" contentRevisionSeqId="000009"/>
+    <ContentRevisionItem contentId="CDI1201" contentRevisionSeqId="000009" itemContentId="CDI1103" oldDataResourceId="DR1103a" newDataResourceId="DR1103b"/>
+    <ContentRevision contentId="CDI1201" contentRevisionSeqId="000010"/>
+    <ContentRevisionItem contentId="CDI1201" contentRevisionSeqId="000010" itemContentId="CDI1105" oldDataResourceId="DR1105a" newDataResourceId="DR1105b"/>
+
+    <ContentRevision contentId="CDI1201" contentRevisionSeqId="000013"/>
+    <ContentRevisionItem contentId="CDI1201" contentRevisionSeqId="000013" itemContentId="CDI1103" oldDataResourceId="DR1103a" newDataResourceId="DR1103b"/>
+    <ContentRevision contentId="CDI1201" contentRevisionSeqId="000014"/>
+    <ContentRevisionItem contentId="CDI1201" contentRevisionSeqId="000014" itemContentId="CDI1105" oldDataResourceId="DR1105a" newDataResourceId="DR1105b"/>
+
+
+    <!-- sample approval entries for CDT CD0001 -->
+    <ContentApproval contentApprovalId="CA0101" contentId="CDT1201" contentRevisionSeqId="000002" partyId="admin" approvalStatusId="CNTAP_READY"/>
+    <ContentApproval contentApprovalId="CA0102" contentId="CDT1201" contentRevisionSeqId="000002" partyId="approver" approvalStatusId="CNTAP_READY"/>
+    <ContentApproval contentApprovalId="CA0103" contentId="CDT1201" contentRevisionSeqId="000002" roleTypeId="APPROVER" approvalStatusId="CNTAP_READY"/>
+    <ContentApproval contentApprovalId="CA0104" contentId="CDT1201" contentRevisionSeqId="000002" roleTypeId="REVIEWER" approvalStatusId="CNTAP_READY"/>
+
+    <ContentApproval contentApprovalId="CA0111" contentId="CDT1201" contentRevisionSeqId="000004" partyId="admin" approvalStatusId="CNTAP_READY"/>
+    <ContentApproval contentApprovalId="CA0112" contentId="CDT1201" contentRevisionSeqId="000004" partyId="approver" approvalStatusId="CNTAP_READY"/>
+    <ContentApproval contentApprovalId="CA0113" contentId="CDT1201" contentRevisionSeqId="000004" roleTypeId="APPROVER" approvalStatusId="CNTAP_READY"/>
+    <ContentApproval contentApprovalId="CA0114" contentId="CDT1201" contentRevisionSeqId="000004" roleTypeId="REVIEWER" approvalStatusId="CNTAP_READY"/>
+
+    <ContentApproval contentApprovalId="CA0121" contentId="CDT1201" contentRevisionSeqId="000013" partyId="admin" approvalStatusId="CNTAP_READY"/>
+    <ContentApproval contentApprovalId="CA0122" contentId="CDT1201" contentRevisionSeqId="000013" partyId="approver" approvalStatusId="CNTAP_READY"/>
+    <ContentApproval contentApprovalId="CA0123" contentId="CDT1201" contentRevisionSeqId="000013" roleTypeId="APPROVER" approvalStatusId="CNTAP_READY"/>
+    <ContentApproval contentApprovalId="CA0124" contentId="CDT1201" contentRevisionSeqId="000013" roleTypeId="REVIEWER" approvalStatusId="CNTAP_READY"/>
+
+    <ContentApproval contentApprovalId="CA0221" contentId="CDI1201" contentRevisionSeqId="000010" partyId="admin" sequenceNum="10" approvalStatusId="CNTAP_APPROVED"/>
+    <ContentApproval contentApprovalId="CA0122" contentId="CDI1201" contentRevisionSeqId="000010" partyId="approver" sequenceNum="20" approvalStatusId="CNTAP_APPROVED"/>
+    <ContentApproval contentApprovalId="CA0123" contentId="CDI1201" contentRevisionSeqId="000010" roleTypeId="APPROVER" sequenceNum="30" approvalStatusId="CNTAP_SOFT_REJ"/>
+    <ContentApproval contentApprovalId="CA0124" contentId="CDI1201" contentRevisionSeqId="000010" roleTypeId="REVIEWER" sequenceNum="40" approvalStatusId="CNTAP_READY"/>
+
+</entity-engine-xml>

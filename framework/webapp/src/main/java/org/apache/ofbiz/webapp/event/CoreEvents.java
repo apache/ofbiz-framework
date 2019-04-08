@@ -42,11 +42,8 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntity;
-import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
@@ -110,7 +107,7 @@ public class CoreEvents {
         Security security = (Security) request.getAttribute("security");
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        Delegator delegator = (Delegator) request.getAttribute("delegator");
+        //Delegator delegator = (Delegator) request.getAttribute("delegator");
         Locale locale = UtilHttp.getLocale(request);
         TimeZone timeZone = UtilHttp.getTimeZone(request);
 
@@ -125,18 +122,17 @@ public class CoreEvents {
         String serviceIntr = (String) params.remove("SERVICE_INTERVAL");
         String serviceCnt = (String) params.remove("SERVICE_COUNT");
         String retryCnt = (String) params.remove("SERVICE_MAXRETRY");
-        String runAsSystemUser = (String) params.remove("SERVICE_RUN_AS_SYSTEM");
 
         // the frequency map
         Map<String, Integer> freqMap = new HashMap<String, Integer>();
 
-        freqMap.put("SECONDLY", 1);
-        freqMap.put("MINUTELY", 2);
-        freqMap.put("HOURLY", 3);
-        freqMap.put("DAILY", 4);
-        freqMap.put("WEEKLY", 5);
-        freqMap.put("MONTHLY", 6);
-        freqMap.put("YEARLY", 7);
+        freqMap.put("SECONDLY", Integer.valueOf(1));
+        freqMap.put("MINUTELY", Integer.valueOf(2));
+        freqMap.put("HOURLY", Integer.valueOf(3));
+        freqMap.put("DAILY", Integer.valueOf(4));
+        freqMap.put("WEEKLY", Integer.valueOf(5));
+        freqMap.put("MONTHLY", Integer.valueOf(6));
+        freqMap.put("YEARLY", Integer.valueOf(7));
 
         // some defaults
         long startTime = (new Date()).getTime();
@@ -208,17 +204,6 @@ public class CoreEvents {
 
         if (userLogin != null) {
             serviceContext.put("userLogin", userLogin);
-        }
-
-        // Override the userLogin with system when runAsSystem is Y
-        if ("Y".equals(runAsSystemUser)) {
-            try {
-                userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").queryOne();
-                serviceContext.put("userLogin", userLogin);
-            } catch (GenericEntityException e) {
-                request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
-                return "error";
-            }
         }
 
         if (locale != null) {
@@ -297,7 +282,7 @@ public class CoreEvents {
                     String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.invalid_format_frequency", locale);
                     errorBuf.append(errMsg);
                 } else {
-                    frequency = freqMap.get(serviceFreq.toUpperCase());
+                    frequency = freqMap.get(serviceFreq.toUpperCase()).intValue();
                 }
             }
         }
@@ -327,7 +312,7 @@ public class CoreEvents {
         Map<String, Object> syncServiceResult = null;
         // schedule service
         try {
-            if (null!=request.getParameter("_RUN_SYNC_") && "Y".equals(request.getParameter("_RUN_SYNC_"))) {
+            if (null!=request.getParameter("_RUN_SYNC_") && request.getParameter("_RUN_SYNC_").equals("Y")) {
                 syncServiceResult = dispatcher.runSync(serviceName, serviceContext);
             } else {
                 dispatcher.schedule(jobName, poolName, serviceName, serviceContext, startTime, frequency, interval, count, endTime, maxRetry);
@@ -357,7 +342,7 @@ public class CoreEvents {
             return "error";
         }
 
-        if (null!=request.getParameter("_CLEAR_PREVIOUS_PARAMS_") && "on".equalsIgnoreCase(request.getParameter("_CLEAR_PREVIOUS_PARAMS_")))
+        if (null!=request.getParameter("_CLEAR_PREVIOUS_PARAMS_") && request.getParameter("_CLEAR_PREVIOUS_PARAMS_").equalsIgnoreCase("on"))
             session.removeAttribute("_SAVED_SYNC_RESULT_");
 
         Map<String, String[]> serviceFieldsToSave = checkMap(request.getParameterMap(), String.class, String[].class);
@@ -494,7 +479,7 @@ public class CoreEvents {
         // load the file
         File file = new File(filePath);
         if (file.exists()) {
-            Long longLen = file.length();
+            Long longLen = Long.valueOf(file.length());
             int length = longLen.intValue();
             try {
                 FileInputStream fis = new FileInputStream(file);

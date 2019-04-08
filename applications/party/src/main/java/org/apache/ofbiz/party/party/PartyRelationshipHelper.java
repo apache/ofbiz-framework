@@ -56,7 +56,7 @@ public final class PartyRelationshipHelper {
         String partyRelationshipTypeId = (String) partyRelationshipValues.get("partyRelationshipTypeId") ;
         Timestamp fromDate = UtilDateTime.nowTimestamp();
 
-        List<EntityCondition> condList = new LinkedList<>();
+        List<EntityCondition> condList = new LinkedList<EntityCondition>();
         condList.add(EntityCondition.makeCondition("partyIdFrom", partyIdFrom));
         condList.add(EntityCondition.makeCondition("partyIdTo", partyIdTo));
         condList.add(EntityCondition.makeCondition("roleTypeIdFrom", roleTypeIdFrom));
@@ -79,7 +79,8 @@ public final class PartyRelationshipHelper {
         }
         if (UtilValidate.isNotEmpty(partyRelationships)) {
            return partyRelationships;
+        } else {
+            return null;
         }
-        return null;
     }
 }

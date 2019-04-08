@@ -34,7 +34,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 
 import org.apache.ofbiz.base.util.Debug;
@@ -88,13 +87,13 @@ public class ProductServices {
         Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
         Map<String, String> selectedFeatures = UtilGenerics.checkMap(context.get("selectedFeatures"));
-        List<GenericValue> products = new LinkedList<>();
+        List<GenericValue> products = new LinkedList<GenericValue>();
         // All the variants for this products are retrieved
         Map<String, Object> resVariants = prodFindAllVariants(dctx, context);
         List<GenericValue> variants = UtilGenerics.checkList(resVariants.get("assocProducts"));
         for (GenericValue oneVariant: variants) {
             // For every variant, all the standard features are retrieved
-            Map<String, String> feaContext = new HashMap<>();
+            Map<String, String> feaContext = new HashMap<String, String>();
             feaContext.put("productId", oneVariant.getString("productIdTo"));
             feaContext.put("type", "STANDARD_FEATURE");
             Map<String, Object> resFeatures = prodGetFeatures(dctx, feaContext);
@@ -145,7 +144,7 @@ public class ProductServices {
         }
         Locale locale = (Locale) context.get("locale");
         String errMsg=null;
-        Set<String> featureSet = new LinkedHashSet<>();
+        Set<String> featureSet = new LinkedHashSet<String>();
 
         try {
             List<GenericValue> features = EntityQuery.use(delegator).from("ProductFeatureAndAppl").where("productId", productId, "productFeatureApplTypeId", productFeatureApplTypeId).orderBy("sequenceNum", "productFeatureTypeId").cache(true).filterByDate().queryList();
@@ -178,22 +177,22 @@ public class ProductServices {
 
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        Map<String, Object> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<String, Object>();
         List<String> featureOrder = UtilMisc.makeListWritable(UtilGenerics.<String>checkCollection(context.get("featureOrder")));
 
         if (UtilValidate.isEmpty(featureOrder)) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                     "ProductFeatureTreeCannotFindFeaturesList", locale));
         }
 
         List<GenericValue> variants = UtilGenerics.checkList(prodFindAllVariants(dctx, context).get("assocProducts"));
-        List<String> virtualVariant = new LinkedList<>();
+        List<String> virtualVariant = new LinkedList<String>();
 
         if (UtilValidate.isEmpty(variants)) {
             return ServiceUtil.returnSuccess();
         }
-        List<String> items = new LinkedList<>();
-        List<GenericValue> outOfStockItems = new LinkedList<>();
+        List<String> items = new LinkedList<String>();
+        List<GenericValue> outOfStockItems = new LinkedList<GenericValue>();
 
         for (GenericValue variant: variants) {
             String productIdTo = variant.getString("productIdTo");
@@ -206,7 +205,7 @@ public class ProductServices {
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
                 Map<String, String> messageMap = UtilMisc.toMap("productIdTo", productIdTo, "errMessage", e.toString());
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
+                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "productservices.error_finding_associated_variant_with_ID_error", messageMap, locale));
             }
             if (productTo == null) {
@@ -244,11 +243,11 @@ public class ProductServices {
                 if (checkInventory) {
                     Map<String, Object> invReqResult = dispatcher.runSync("isStoreInventoryAvailableOrNotRequired", UtilMisc.<String, Object>toMap("productStoreId", productStoreId, "productId", productIdTo, "quantity", BigDecimal.ONE));
                     if (ServiceUtil.isError(invReqResult)) {
-                        return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                        return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                                 "ProductFeatureTreeCannotCallIsStoreInventoryRequired", locale), null, null, invReqResult);
                     } else if ("Y".equals(invReqResult.get("availableOrNotRequired"))) {
                         items.add(productIdTo);
-                        if (productTo.getString("isVirtual") != null && "Y".equals(productTo.getString("isVirtual"))) {
+                        if (productTo.getString("isVirtual") != null && productTo.getString("isVirtual").equals("Y")) {
                             virtualVariant.add(productIdTo);
                         }
                     } else {
@@ -256,13 +255,13 @@ public class ProductServices {
                     }
                 } else {
                     items.add(productIdTo);
-                    if (productTo.getString("isVirtual") != null && "Y".equals(productTo.getString("isVirtual"))) {
+                    if (productTo.getString("isVirtual") != null && productTo.getString("isVirtual").equals("Y")) {
                         virtualVariant.add(productIdTo);
                     }
                 }
             } catch (GenericServiceException e) {
                 Debug.logError(e, "Error calling the isStoreInventoryRequired when building the variant product tree: " + e.toString(), module);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                         "ProductFeatureTreeCannotCallIsStoreInventoryRequired", locale));
             }
         }
@@ -275,16 +274,16 @@ public class ProductServices {
             selectableFeatures = EntityQuery.use(delegator).from("ProductFeatureAndAppl").where("productId", productId, "productFeatureApplTypeId", "SELECTABLE_FEATURE").orderBy("sequenceNum").cache(true).filterByDate().queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                     "productservices.empty_list_of_selectable_features_found", locale));
         }
-        Map<String, List<String>> features = new HashMap<>();
+        Map<String, List<String>> features = new HashMap<String, List<String>>();
         for (GenericValue v: selectableFeatures) {
             String featureType = v.getString("productFeatureTypeId");
             String feature = v.getString("description");
 
             if (!features.containsKey(featureType)) {
-                List<String> featureList = new LinkedList<>();
+                List<String> featureList = new LinkedList<String>();
                 featureList.add(feature);
                 features.put(featureType, featureList);
             } else {
@@ -303,7 +302,7 @@ public class ProductServices {
         }
         if (UtilValidate.isEmpty(tree)) {
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
-            result.put(ModelService.ERROR_MESSAGE, UtilProperties.getMessage(resourceError,
+            result.put(ModelService.ERROR_MESSAGE, UtilProperties.getMessage(resourceError, 
                     "productservices.feature_grouping_came_back_empty", locale));
         } else {
             result.put("variantTree", tree);
@@ -334,7 +333,7 @@ public class ProductServices {
         // String type          -- Type of feature (STANDARD_FEATURE, SELECTABLE_FEATURE)
         // String distinct      -- Distinct feature (SIZE, COLOR)
         Delegator delegator = dctx.getDelegator();
-        Map<String, Object> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<String, Object>();
         String productId = (String) context.get("productId");
         String distinct = (String) context.get("distinct");
         String type = (String) context.get("type");
@@ -345,18 +344,14 @@ public class ProductServices {
         try {
             Map<String, String> fields = UtilMisc.toMap("productId", productId);
 
-            if (distinct != null) {
-                fields.put("productFeatureTypeId", distinct);
-            }
-            if (type != null) {
-                fields.put("productFeatureApplTypeId", type);
-            }
+            if (distinct != null) fields.put("productFeatureTypeId", distinct);
+            if (type != null) fields.put("productFeatureApplTypeId", type);
             features = EntityQuery.use(delegator).from("ProductFeatureAndAppl").where(fields).orderBy("sequenceNum", "productFeatureTypeId").cache(true).queryList();
             result.put("productFeatures", features);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         } catch (GenericEntityException e) {
             Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.toString());
-            errMsg = UtilProperties.getMessage(resourceError,
+            errMsg = UtilProperties.getMessage(resourceError, 
                     "productservices.problem_reading_product_feature_entity", messageMap, locale);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
             result.put(ModelService.ERROR_MESSAGE, errMsg);
@@ -369,13 +364,13 @@ public class ProductServices {
      */
     public static Map<String, Object> prodFindProduct(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
-        Map<String, Object> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<String, Object>();
         String productId = (String) context.get("productId");
         Locale locale = (Locale) context.get("locale");
         String errMsg = null;
 
         if (UtilValidate.isEmpty(productId)) {
-            errMsg = UtilProperties.getMessage(resourceError,
+            errMsg = UtilProperties.getMessage(resourceError, 
                     "productservices.invalid_productId_passed", locale);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
             result.put(ModelService.ERROR_MESSAGE, errMsg);
@@ -386,7 +381,7 @@ public class ProductServices {
             GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).cache().queryOne();
             GenericValue mainProduct = product;
 
-            if (product.get("isVariant") != null && "Y".equalsIgnoreCase(product.getString("isVariant"))) {
+            if (product.get("isVariant") != null && product.getString("isVariant").equalsIgnoreCase("Y")) {
                 List<GenericValue> c = product.getRelated("AssocProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_VARIANT"), null, true);
                 c = EntityUtil.filterByDate(c);
                 if (c.size() > 0) {
@@ -397,10 +392,10 @@ public class ProductServices {
             result.put("product", mainProduct);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         } catch (GenericEntityException e) {
+            e.printStackTrace();
             Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.getMessage());
-            errMsg = UtilProperties.getMessage(resourceError,
+            errMsg = UtilProperties.getMessage(resourceError, 
                     "productservices.problems_reading_product_entity", messageMap, locale);
-            Debug.logError(e, errMsg, module);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
             result.put(ModelService.ERROR_MESSAGE, errMsg);
         }
@@ -412,9 +407,9 @@ public class ProductServices {
      * Finds associated products by product ID and association ID.
      */
     public static Map<String, Object> prodFindAssociatedByType(DispatchContext dctx, Map<String, ? extends Object> context) {
-        // String type -- Type of association (ie PRODUCT_UPGRADE, PRODUCT_COMPLEMENT, PRODUCT_VARIANT)
+        // String type -- Type of association (ie PRODUCT_UPGRADE, PRODUCT_COMPLEMENT, PRODUCT_VARIANT) 
         Delegator delegator = dctx.getDelegator();
-        Map<String, Object> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<String, Object>();
         String productId = (String) context.get("productId");
         String productIdTo = (String) context.get("productIdTo");
         String type = (String) context.get("type");
@@ -425,12 +420,12 @@ public class ProductServices {
         boolean checkViewAllow = (cvaBool == null ? false : cvaBool);
         String prodCatalogId = (String) context.get("prodCatalogId");
         Boolean bidirectional = (Boolean) context.get("bidirectional");
-        bidirectional = bidirectional == null ? Boolean.FALSE : bidirectional;
+        bidirectional = bidirectional == null ? false : bidirectional;
         Boolean sortDescending = (Boolean) context.get("sortDescending");
-        sortDescending = sortDescending == null ? Boolean.FALSE : sortDescending;
+        sortDescending = sortDescending == null ? false : sortDescending;
 
         if (productId == null && productIdTo == null) {
-            errMsg = UtilProperties.getMessage(resourceError,
+            errMsg = UtilProperties.getMessage(resourceError, 
                     "productservices.both_productId_and_productIdTo_cannot_be_null", locale);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
             result.put(ModelService.ERROR_MESSAGE, errMsg);
@@ -438,7 +433,7 @@ public class ProductServices {
         }
 
         if (productId != null && productIdTo != null) {
-            errMsg = UtilProperties.getMessage(resourceError,
+            errMsg = UtilProperties.getMessage(resourceError, 
                     "productservices.both_productId_and_productIdTo_cannot_be_defined", locale);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
             result.put(ModelService.ERROR_MESSAGE, errMsg);
@@ -452,7 +447,7 @@ public class ProductServices {
             product = EntityQuery.use(delegator).from("Product").where("productId", productId).cache().queryOne();
         } catch (GenericEntityException e) {
             Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.getMessage());
-            errMsg = UtilProperties.getMessage(resourceError,
+            errMsg = UtilProperties.getMessage(resourceError, 
                     "productservices.problems_reading_product_entity", messageMap, locale);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
             result.put(ModelService.ERROR_MESSAGE, errMsg);
@@ -460,7 +455,7 @@ public class ProductServices {
         }
 
         if (product == null) {
-            errMsg = UtilProperties.getMessage(resourceError,
+            errMsg = UtilProperties.getMessage(resourceError, 
                     "productservices.problems_getting_product_entity", locale);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
             result.put(ModelService.ERROR_MESSAGE, errMsg);
@@ -470,7 +465,7 @@ public class ProductServices {
         try {
             List<GenericValue> productAssocs = null;
 
-            List<String> orderBy = new LinkedList<>();
+            List<String> orderBy = new LinkedList<String>();
             if (sortDescending) {
                 orderBy.add("sequenceNum DESC");
             } else {
@@ -510,7 +505,7 @@ public class ProductServices {
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         } catch (GenericEntityException e) {
             Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.getMessage());
-            errMsg = UtilProperties.getMessage(resourceError,
+            errMsg = UtilProperties.getMessage(resourceError, 
                     "productservices.problems_product_association_relation_error", messageMap, locale);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
             result.put(ModelService.ERROR_MESSAGE, errMsg);
@@ -523,8 +518,8 @@ public class ProductServices {
     // Builds a product feature tree
     private static Map<String, Object> makeGroup(Delegator delegator, Map<String, List<String>> featureList, List<String> items, List<String> order, int index)
         throws IllegalArgumentException, IllegalStateException {
-        Map<String, List<String>> tempGroup = new HashMap<>();
-        Map<String, Object> group = new LinkedHashMap<>();
+        Map<String, List<String>> tempGroup = new HashMap<String, List<String>>();
+        Map<String, Object> group = new LinkedHashMap<String, Object>();
         String orderKey = order.get(index);
 
         if (featureList == null) {
@@ -544,9 +539,7 @@ public class ProductServices {
             // Gather the necessary data
             // -------------------------------
 
-            if (Debug.verboseOn()) {
-                Debug.logVerbose("ThisItem: " + thisItem, module);
-            }
+            if (Debug.verboseOn()) Debug.logVerbose("ThisItem: " + thisItem, module);
             List<GenericValue> features = null;
 
             try {
@@ -560,9 +553,7 @@ public class ProductServices {
             } catch (GenericEntityException e) {
                 throw new IllegalStateException("Problem reading relation: " + e.getMessage());
             }
-            if (Debug.verboseOn()) {
-                Debug.logVerbose("Features: " + features, module);
-            }
+            if (Debug.verboseOn()) Debug.logVerbose("Features: " + features, module);
 
             // -------------------------------
             for (GenericValue item: features) {
@@ -571,9 +562,8 @@ public class ProductServices {
                 if (tempGroup.containsKey(itemKey)) {
                     List<String> itemList = tempGroup.get(itemKey);
 
-                    if (!itemList.contains(thisItem)) {
+                    if (!itemList.contains(thisItem))
                         itemList.add(thisItem);
-                    }
                 } else {
                     List<String> itemList = UtilMisc.toList(thisItem);
 
@@ -581,9 +571,7 @@ public class ProductServices {
                 }
             }
         }
-        if (Debug.verboseOn()) {
-            Debug.logVerbose("TempGroup: " + tempGroup, module);
-        }
+        if (Debug.verboseOn()) Debug.logVerbose("TempGroup: " + tempGroup, module);
 
         // Loop through the feature list and order the keys in the tempGroup
         List<String> orderFeatureList = featureList.get(orderKey);
@@ -593,14 +581,11 @@ public class ProductServices {
         }
 
         for (String featureStr: orderFeatureList) {
-            if (tempGroup.containsKey(featureStr)) {
+            if (tempGroup.containsKey(featureStr))
                 group.put(featureStr, tempGroup.get(featureStr));
-            }
         }
 
-        if (Debug.verboseOn()) {
-            Debug.logVerbose("Group: " + group, module);
-        }
+        if (Debug.verboseOn()) Debug.logVerbose("Group: " + group, module);
 
         // no groups; no tree
         if (group.size() == 0) {
@@ -612,13 +597,14 @@ public class ProductServices {
         }
 
         // loop through the keysets and get the sub-groups
-        for (Entry<String, Object> entry : group.entrySet()) {
-            String key = entry.getKey();
+        for (String key: group.keySet()) {
             List<String> itemList = UtilGenerics.checkList(group.get(key));
 
             if (UtilValidate.isNotEmpty(itemList)) {
                 Map<String, Object> subGroup = makeGroup(delegator, featureList, itemList, order, index + 1);
                 group.put(key, subGroup);
+            } else {
+                // do nothing, ie put nothing in the Map
             }
         }
         return group;
@@ -626,8 +612,8 @@ public class ProductServices {
 
     // builds a variant sample (a single sku for a featureType)
     private static Map<String, GenericValue> makeVariantSample(Delegator delegator, Map<String, List<String>> featureList, List<String> items, String feature) {
-        Map<String, GenericValue> tempSample = new HashMap<>();
-        Map<String, GenericValue> sample = new LinkedHashMap<>();
+        Map<String, GenericValue> tempSample = new HashMap<String, GenericValue>();
+        Map<String, GenericValue> sample = new LinkedHashMap<String, GenericValue>();
         for (String productId: items) {
             List<GenericValue> features = null;
 
@@ -656,9 +642,8 @@ public class ProductServices {
         // Sort the sample based on the feature list.
         List<String> features = featureList.get(feature);
         for (String f: features) {
-            if (tempSample.containsKey(f)) {
+            if (tempSample.containsKey(f))
                 sample.put(f, tempSample.get(f));
-            }
         }
 
         return sample;
@@ -666,7 +651,7 @@ public class ProductServices {
 
     public static Map<String, Object> quickAddVariant(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
-        Map<String, Object> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<String, Object>();
         Locale locale = (Locale) context.get("locale");
         String errMsg=null;
         String productId = (String) context.get("productId");
@@ -679,7 +664,7 @@ public class ProductServices {
             GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
             if (product == null) {
                 Map<String, String> messageMap = UtilMisc.toMap("productId", productId);
-                errMsg = UtilProperties.getMessage(resourceError,
+                errMsg = UtilProperties.getMessage(resourceError, 
                         "productservices.product_not_found_with_ID", messageMap, locale);
                 result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
                 result.put(ModelService.ERROR_MESSAGE, errMsg);
@@ -745,7 +730,7 @@ public class ProductServices {
         } catch (GenericEntityException e) {
             Debug.logError(e, "Entity error creating quick add variant data", module);
             Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.toString());
-            errMsg = UtilProperties.getMessage(resourceError,
+            errMsg = UtilProperties.getMessage(resourceError, 
                     "productservices.entity_error_quick_add_variant_data", messageMap, locale);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
             result.put(ModelService.ERROR_MESSAGE, errMsg);
@@ -769,7 +754,7 @@ public class ProductServices {
         String productFeatureIdTwo = (String) context.get("productFeatureIdTwo");
         String productFeatureIdThree = (String) context.get("productFeatureIdThree");
         Locale locale = (Locale) context.get("locale");
-
+        
         Map<String, Object> successResult = ServiceUtil.returnSuccess();
 
         try {
@@ -799,14 +784,14 @@ public class ProductServices {
 
             // separate variantProductIdsBag into a Set of variantProductIds
             //note: can be comma, tab, or white-space delimited
-            Set<String> prelimVariantProductIds = new HashSet<>();
+            Set<String> prelimVariantProductIds = new HashSet<String>();
             List<String> splitIds = Arrays.asList(variantProductIdsBag.split("[,\\p{Space}]"));
             Debug.logInfo("Variants: bag=" + variantProductIdsBag, module);
             Debug.logInfo("Variants: split=" + splitIds, module);
             prelimVariantProductIds.addAll(splitIds);
             //note: should support both direct productIds and GoodIdentification entries (what to do if more than one GoodID? Add all?
 
-            Map<String, GenericValue> variantProductsById = new HashMap<>();
+            Map<String, GenericValue> variantProductsById = new HashMap<String, GenericValue>();
             for (String variantProductId: prelimVariantProductIds) {
                 if (UtilValidate.isEmpty(variantProductId)) {
                     // not sure why this happens, but seems to from time to time with the split method
@@ -821,7 +806,7 @@ public class ProductServices {
                     List<GenericValue> goodIdentificationList = EntityQuery.use(delegator).from("GoodIdentification").where("idValue", variantProductId).queryList();
                     if (UtilValidate.isEmpty(goodIdentificationList)) {
                         // whoops, nothing found... return error
-                        return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                        return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                                 "ProductVirtualVariantCreation", UtilMisc.toMap("variantProductId", variantProductId), locale));
                     }
 
@@ -840,10 +825,10 @@ public class ProductServices {
             }
 
             // Attach productFeatureIdOne, Two, Three to the new virtual and all variant products as a standard feature
-            Set<String> featureProductIds = new HashSet<>();
+            Set<String> featureProductIds = new HashSet<String>();
             featureProductIds.add(productId);
             featureProductIds.addAll(variantProductsById.keySet());
-            Set<String> productFeatureIds = new HashSet<>();
+            Set<String> productFeatureIds = new HashSet<String>();
             productFeatureIds.add(productFeatureIdOne);
             productFeatureIds.add(productFeatureIdTwo);
             productFeatureIds.add(productFeatureIdThree);
@@ -911,9 +896,6 @@ public class ProductServices {
                         Map<String, Object> invRes = null;
                         try {
                             invRes = dispatcher.runSync("getProductInventoryAvailable", UtilMisc.<String, Object>toMap("productId", productId, "userLogin", userLogin));
-                            if (ServiceUtil.isError(invRes)) {
-                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(invRes));
-                            }
                         } catch (GenericServiceException e) {
                             Debug.logError(e, module);
                             return ServiceUtil.returnError(e.getMessage());
@@ -947,8 +929,8 @@ public class ProductServices {
         return ServiceUtil.returnSuccess();
     }
 
-    public static Map<String, Object> addAdditionalViewForProduct(DispatchContext dctx,
-            Map<String, ? extends Object> context) {
+    public static Map<String, Object> addAdditionalViewForProduct(DispatchContext dctx, Map<String, ? extends Object> context)
+        throws IOException, JDOMException {
 
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
@@ -958,7 +940,7 @@ public class ProductServices {
         Locale locale = (Locale) context.get("locale");
 
         if (UtilValidate.isNotEmpty(context.get("_uploadedFile_fileName"))) {
-            Map<String, Object> imageContext = new HashMap<>();
+            Map<String, Object> imageContext = new HashMap<String, Object>();
             imageContext.putAll(context);
             imageContext.put("delegator", delegator);
             imageContext.put("tenantId",delegator.getDelegatorTenantId());
@@ -973,23 +955,20 @@ public class ProductServices {
             String viewType = "additional" + viewNumber;
             String id = productId;
             if (imageFilenameFormat.endsWith("${id}")) {
-                id = productId + "_View_" + viewNumber;
+                id = productId + "_View_" + viewNumber;   
                 viewType = "additional";
             }
             String fileLocation = filenameExpander.expandString(UtilMisc.toMap("location", "products", "id", id, "viewtype", viewType, "sizetype", "original"));
             String filePathPrefix = "";
             String filenameToUse = fileLocation;
-            if (fileLocation.lastIndexOf('/') != -1) {
-                filePathPrefix = fileLocation.substring(0, fileLocation.lastIndexOf('/') + 1); // adding 1 to include the trailing slash
-                filenameToUse = fileLocation.substring(fileLocation.lastIndexOf('/') + 1);
+            if (fileLocation.lastIndexOf("/") != -1) {
+                filePathPrefix = fileLocation.substring(0, fileLocation.lastIndexOf("/") + 1); // adding 1 to include the trailing slash
+                filenameToUse = fileLocation.substring(fileLocation.lastIndexOf("/") + 1);
             }
 
-            List<GenericValue> fileExtension;
+            List<GenericValue> fileExtension = new LinkedList<GenericValue>();
             try {
-                fileExtension = EntityQuery.use(delegator)
-                        .from("FileExtension")
-                        .where("mimeTypeId", context.get("_uploadedFile_contentType"))
-                        .queryList();
+                fileExtension = EntityQuery.use(delegator).from("FileExtension").where("mimeTypeId", (String) context.get("_uploadedFile_contentType")).queryList();
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());
@@ -1016,14 +995,9 @@ public class ProductServices {
                 // Images are ordered by productId (${location}/${id}/${viewtype}/${sizetype})
                 } else if (!filenameToUse.contains(productId)) {
                     try {
-                        File[] files = targetDir.listFiles();
+                        File[] files = targetDir.listFiles(); 
                         for (File file : files) {
-                            if (file.isFile()) {
-                                if (!file.delete()) {
-                                    Debug.logError("File : " + file.getName() + ", couldn't be deleted", module);
-                                }
-                            }
-
+                            if (file.isFile()) file.delete(); 
                         }
                     } catch (SecurityException e) {
                         Debug.logError(e,module);
@@ -1031,13 +1005,9 @@ public class ProductServices {
                 // Images aren't ordered by productId (${location}/${viewtype}/${sizetype}/${id})
                 } else {
                     try {
-                        File[] files = targetDir.listFiles();
+                        File[] files = targetDir.listFiles(); 
                         for (File file : files) {
-                            if (file.isFile() && file.getName().startsWith(productId + "_View_" + viewNumber)) {
-                                if (!file.delete()) {
-                                    Debug.logError("File : " + file.getName() + ", couldn't be deleted", module);
-                                }
-                            }
+                            if (file.isFile() && file.getName().startsWith(productId + "_View_" + viewNumber)) file.delete();
                         }
                     } catch (SecurityException e) {
                         Debug.logError(e,module);
@@ -1055,11 +1025,11 @@ public class ProductServices {
                     out.close();
                 } catch (FileNotFoundException e) {
                     Debug.logError(e, module);
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                             "ProductImageViewUnableWriteFile", UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
                 } catch (IOException e) {
                     Debug.logError(e, module);
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                             "ProductImageViewUnableWriteBinaryData", UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
                 }
             } catch (NullPointerException e) {
@@ -1067,16 +1037,16 @@ public class ProductServices {
             }
 
             /* scale Image in different sizes */
-            Map<String, Object> resultResize = new HashMap<>();
+            Map<String, Object> resultResize = new HashMap<String, Object>();
             try {
                 resultResize.putAll(ScaleImage.scaleImageInAllSize(imageContext, filenameToUse, "additional", viewNumber));
             } catch (IOException e) {
                 Debug.logError(e, "Scale additional image in all different sizes is impossible : " + e.toString(), module);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                         "ProductImageViewScaleImpossible", UtilMisc.toMap("errorString", e.toString()), locale));
             } catch (JDOMException e) {
                 Debug.logError(e, "Errors occur in parsing ImageProperties.xml : " + e.toString(), module);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                         "ProductImageViewParsingError", UtilMisc.toMap("errorString", e.toString()), locale));
             }
 
@@ -1095,13 +1065,9 @@ public class ProductServices {
                 imageUrl = imageUrlMap.get(sizeType);
                 if( UtilValidate.isNotEmpty(imageUrl)) {
                     try {
-                        GenericValue productContentType = EntityQuery.use(delegator)
-                                .from("ProductContentType")
-                                .where("productContentTypeId", "XTRA_IMG_" + viewNumber + "_" + sizeType.toUpperCase(Locale.getDefault()))
-                                .cache()
-                                .queryOne();
+                        GenericValue productContentType = EntityQuery.use(delegator).from("ProductContentType").where("productContentTypeId", "XTRA_IMG_" + viewNumber + "_" + sizeType.toUpperCase()).cache().queryOne();
                         if (UtilValidate.isNotEmpty(productContentType)) {
-                            result = addImageResource(dispatcher, delegator, context, imageUrl, "XTRA_IMG_" + viewNumber + "_" + sizeType.toUpperCase(Locale.getDefault()));
+                            result = addImageResource(dispatcher, delegator, context, imageUrl, "XTRA_IMG_" + viewNumber + "_" + sizeType.toUpperCase());
                             if( ServiceUtil.isError(result)) {
                                 Debug.logError(ServiceUtil.getErrorMessage(result), module);
                                 return result;
@@ -1117,7 +1083,7 @@ public class ProductServices {
         return ServiceUtil.returnSuccess();
     }
 
-    private static Map<String,Object> addImageResource( LocalDispatcher dispatcher, Delegator delegator, Map<String, ? extends Object> context,
+    private static Map<String,Object> addImageResource( LocalDispatcher dispatcher, Delegator delegator, Map<String, ? extends Object> context, 
             String imageUrl, String productContentTypeId ) {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String productId = (String) context.get("productId");
@@ -1125,12 +1091,12 @@ public class ProductServices {
         if (UtilValidate.isNotEmpty(imageUrl) && imageUrl.length() > 0) {
             String contentId = (String) context.get("contentId");
 
-            Map<String, Object> dataResourceCtx = new HashMap<>();
+            Map<String, Object> dataResourceCtx = new HashMap<String, Object>();
             dataResourceCtx.put("objectInfo", imageUrl);
             dataResourceCtx.put("dataResourceName", context.get("_uploadedFile_fileName"));
             dataResourceCtx.put("userLogin", userLogin);
 
-            Map<String, Object> productContentCtx = new HashMap<>();
+            Map<String, Object> productContentCtx = new HashMap<String, Object>();
             productContentCtx.put("productId", productId);
             productContentCtx.put("productContentTypeId", productContentTypeId);
             productContentCtx.put("fromDate", context.get("fromDate"));
@@ -1158,10 +1124,7 @@ public class ProductServices {
                     if (dataResource != null) {
                         dataResourceCtx.put("dataResourceId", dataResource.getString("dataResourceId"));
                         try {
-                            Map<String, Object> serviceResult = dispatcher.runSync("updateDataResource", dataResourceCtx);
-                            if (ServiceUtil.isError(serviceResult)) {
-                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
-                            }
+                            dispatcher.runSync("updateDataResource", dataResourceCtx);
                         } catch (GenericServiceException e) {
                             Debug.logError(e, module);
                             return ServiceUtil.returnError(e.getMessage());
@@ -1169,26 +1132,20 @@ public class ProductServices {
                     } else {
                         dataResourceCtx.put("dataResourceTypeId", "SHORT_TEXT");
                         dataResourceCtx.put("mimeTypeId", "text/html");
-                        Map<String, Object> dataResourceResult;
+                        Map<String, Object> dataResourceResult = new HashMap<String, Object>();
                         try {
                             dataResourceResult = dispatcher.runSync("createDataResource", dataResourceCtx);
-                            if (ServiceUtil.isError(dataResourceResult)) {
-                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(dataResourceResult));
-                            }
                         } catch (GenericServiceException e) {
                             Debug.logError(e, module);
                             return ServiceUtil.returnError(e.getMessage());
                         }
 
-                        Map<String, Object> contentCtx = new HashMap<>();
+                        Map<String, Object> contentCtx = new HashMap<String, Object>();
                         contentCtx.put("contentId", contentId);
                         contentCtx.put("dataResourceId", dataResourceResult.get("dataResourceId"));
                         contentCtx.put("userLogin", userLogin);
                         try {
-                            Map<String, Object> serviceResult = dispatcher.runSync("updateContent", contentCtx);
-                            if (ServiceUtil.isError(serviceResult)) {
-                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
-                            }
+                            dispatcher.runSync("updateContent", contentCtx);
                         } catch (GenericServiceException e) {
                             Debug.logError(e, module);
                             return ServiceUtil.returnError(e.getMessage());
@@ -1197,10 +1154,7 @@ public class ProductServices {
 
                     productContentCtx.put("contentId", contentId);
                     try {
-                        Map<String, Object> serviceResult = dispatcher.runSync("updateProductContent", productContentCtx);
-                        if (ServiceUtil.isError(serviceResult)) {
-                            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
-                        }
+                        dispatcher.runSync("updateProductContent", productContentCtx);
                     } catch (GenericServiceException e) {
                         Debug.logError(e, module);
                         return ServiceUtil.returnError(e.getMessage());
@@ -1209,27 +1163,21 @@ public class ProductServices {
             } else {
                 dataResourceCtx.put("dataResourceTypeId", "SHORT_TEXT");
                 dataResourceCtx.put("mimeTypeId", "text/html");
-                Map<String, Object> dataResourceResult;
+                Map<String, Object> dataResourceResult = new HashMap<String, Object>();
                 try {
                     dataResourceResult = dispatcher.runSync("createDataResource", dataResourceCtx);
-                    if (ServiceUtil.isError(dataResourceResult)) {
-                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(dataResourceResult));
-                    }
                 } catch (GenericServiceException e) {
                     Debug.logError(e, module);
                     return ServiceUtil.returnError(e.getMessage());
                 }
 
-                Map<String, Object> contentCtx = new HashMap<>();
+                Map<String, Object> contentCtx = new HashMap<String, Object>();
                 contentCtx.put("contentTypeId", "DOCUMENT");
                 contentCtx.put("dataResourceId", dataResourceResult.get("dataResourceId"));
                 contentCtx.put("userLogin", userLogin);
-                Map<String, Object> contentResult;
+                Map<String, Object> contentResult = new HashMap<String, Object>();
                 try {
                     contentResult = dispatcher.runSync("createContent", contentCtx);
-                    if (ServiceUtil.isError(contentResult)) {
-                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(contentResult));
-                    }
                 } catch (GenericServiceException e) {
                     Debug.logError(e, module);
                     return ServiceUtil.returnError(e.getMessage());
@@ -1237,10 +1185,7 @@ public class ProductServices {
 
                 productContentCtx.put("contentId", contentResult.get("contentId"));
                 try {
-                    Map<String, Object> serviceResult = dispatcher.runSync("createProductContent", productContentCtx);
-                    if (ServiceUtil.isError(serviceResult)) {
-                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
-                    }
+                    dispatcher.runSync("createProductContent", productContentCtx);
                 } catch (GenericServiceException e) {
                     Debug.logError(e, module);
                     return ServiceUtil.returnError(e.getMessage());
@@ -1289,8 +1234,8 @@ public class ProductServices {
         return result;
     }
 
-    public static Map<String, Object> addImageForProductPromo(DispatchContext dctx,
-            Map<String, ? extends Object> context) {
+    public static Map<String, Object> addImageForProductPromo(DispatchContext dctx, Map<String, ? extends Object> context)
+            throws IOException, JDOMException {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -1301,7 +1246,7 @@ public class ProductServices {
         Locale locale = (Locale) context.get("locale");
 
         if (UtilValidate.isNotEmpty(context.get("_uploadedFile_fileName"))) {
-            Map<String, Object> imageContext = new HashMap<>();
+            Map<String, Object> imageContext = new HashMap<String, Object>();
             imageContext.putAll(context);
             imageContext.put("tenantId",delegator.getDelegatorTenantId());
             String imageFilenameFormat = EntityUtilProperties.getPropertyValue("catalog", "image.filename.format", delegator);
@@ -1315,18 +1260,14 @@ public class ProductServices {
             String fileLocation = filenameExpander.expandString(UtilMisc.toMap("location", "products", "type", "promo", "id", id));
             String filePathPrefix = "";
             String filenameToUse = fileLocation;
-            if (fileLocation.lastIndexOf('/') != -1) {
-                filePathPrefix = fileLocation.substring(0, fileLocation.lastIndexOf('/') + 1); // adding 1 to include
-                                                                                               // the trailing slash
-                filenameToUse = fileLocation.substring(fileLocation.lastIndexOf('/') + 1);
+            if (fileLocation.lastIndexOf("/") != -1) {
+                filePathPrefix = fileLocation.substring(0, fileLocation.lastIndexOf("/") + 1); // adding 1 to include the trailing slash
+                filenameToUse = fileLocation.substring(fileLocation.lastIndexOf("/") + 1);
             }
 
-            List<GenericValue> fileExtension;
+            List<GenericValue> fileExtension = new LinkedList<GenericValue>();
             try {
-                fileExtension = EntityQuery.use(delegator)
-                        .from("FileExtension")
-                        .where("mimeTypeId", EntityOperator.EQUALS, context.get("_uploadedFile_contentType"))
-                        .queryList();
+                fileExtension = EntityQuery.use(delegator).from("FileExtension").where("mimeTypeId", EntityOperator.EQUALS, (String) context.get("_uploadedFile_contentType")).queryList();
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());
@@ -1339,9 +1280,7 @@ public class ProductServices {
 
             File makeResourceDirectory  = new File(imageServerPath + "/" + filePathPrefix);
             if (!makeResourceDirectory.exists()) {
-                if (!makeResourceDirectory.mkdirs()) {
-                    Debug.logError("Directory :" + makeResourceDirectory.getPath() + ", couldn't be created", module);
-                }
+                makeResourceDirectory.mkdirs();
             }
 
             File file = new File(imageServerPath + "/" + filePathPrefix + filenameToUse);
@@ -1352,23 +1291,23 @@ public class ProductServices {
                 out.close();
             } catch (FileNotFoundException e) {
                 Debug.logError(e, module);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                         "ProductImageViewUnableWriteFile", UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
             } catch (IOException e) {
                 Debug.logError(e, module);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                         "ProductImageViewUnableWriteBinaryData", UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
             }
 
             String imageUrl = imageUrlPrefix + "/" + filePathPrefix + filenameToUse;
 
             if (UtilValidate.isNotEmpty(imageUrl) && imageUrl.length() > 0) {
-                Map<String, Object> dataResourceCtx = new HashMap<>();
+                Map<String, Object> dataResourceCtx = new HashMap<String, Object>();
                 dataResourceCtx.put("objectInfo", imageUrl);
                 dataResourceCtx.put("dataResourceName", context.get("_uploadedFile_fileName"));
                 dataResourceCtx.put("userLogin", userLogin);
 
-                Map<String, Object> productPromoContentCtx = new HashMap<>();
+                Map<String, Object> productPromoContentCtx = new HashMap<String, Object>();
                 productPromoContentCtx.put("productPromoId", productPromoId);
                 productPromoContentCtx.put("productPromoContentTypeId", productPromoContentTypeId);
                 productPromoContentCtx.put("fromDate", context.get("fromDate"));
@@ -1396,10 +1335,7 @@ public class ProductServices {
                         if (dataResource != null) {
                             dataResourceCtx.put("dataResourceId", dataResource.getString("dataResourceId"));
                             try {
-                                Map<String, Object> serviceResult = dispatcher.runSync("updateDataResource", dataResourceCtx);
-                                if (ServiceUtil.isError(serviceResult)) {
-                                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
-                                }
+                                dispatcher.runSync("updateDataResource", dataResourceCtx);
                             } catch (GenericServiceException e) {
                                 Debug.logError(e, module);
                                 return ServiceUtil.returnError(e.getMessage());
@@ -1407,26 +1343,20 @@ public class ProductServices {
                         } else {
                             dataResourceCtx.put("dataResourceTypeId", "SHORT_TEXT");
                             dataResourceCtx.put("mimeTypeId", "text/html");
-                            Map<String, Object> dataResourceResult;
+                            Map<String, Object> dataResourceResult = new HashMap<String, Object>();
                             try {
                                 dataResourceResult = dispatcher.runSync("createDataResource", dataResourceCtx);
-                                if (ServiceUtil.isError(dataResourceResult)) {
-                                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(dataResourceResult));
-                                }
                             } catch (GenericServiceException e) {
                                 Debug.logError(e, module);
                                 return ServiceUtil.returnError(e.getMessage());
                             }
 
-                            Map<String, Object> contentCtx = new HashMap<>();
+                            Map<String, Object> contentCtx = new HashMap<String, Object>();
                             contentCtx.put("contentId", contentId);
                             contentCtx.put("dataResourceId", dataResourceResult.get("dataResourceId"));
                             contentCtx.put("userLogin", userLogin);
                             try {
-                                Map<String, Object> serviceResult = dispatcher.runSync("updateContent", contentCtx);
-                                if (ServiceUtil.isError(serviceResult)) {
-                                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
-                                }
+                                dispatcher.runSync("updateContent", contentCtx);
                             } catch (GenericServiceException e) {
                                 Debug.logError(e, module);
                                 return ServiceUtil.returnError(e.getMessage());
@@ -1435,10 +1365,7 @@ public class ProductServices {
 
                         productPromoContentCtx.put("contentId", contentId);
                         try {
-                            Map<String, Object> serviceResult = dispatcher.runSync("updateProductPromoContent", productPromoContentCtx);
-                            if (ServiceUtil.isError(serviceResult)) {
-                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
-                            }
+                            dispatcher.runSync("updateProductPromoContent", productPromoContentCtx);
                         } catch (GenericServiceException e) {
                             Debug.logError(e, module);
                             return ServiceUtil.returnError(e.getMessage());
@@ -1447,27 +1374,21 @@ public class ProductServices {
                 } else {
                     dataResourceCtx.put("dataResourceTypeId", "SHORT_TEXT");
                     dataResourceCtx.put("mimeTypeId", "text/html");
-                    Map<String, Object> dataResourceResult;
+                    Map<String, Object> dataResourceResult = new HashMap<String, Object>();
                     try {
                         dataResourceResult = dispatcher.runSync("createDataResource", dataResourceCtx);
-                        if (ServiceUtil.isError(dataResourceResult)) {
-                            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(dataResourceResult));
-                        }
                     } catch (GenericServiceException e) {
                         Debug.logError(e, module);
                         return ServiceUtil.returnError(e.getMessage());
                     }
 
-                    Map<String, Object> contentCtx = new HashMap<>();
+                    Map<String, Object> contentCtx = new HashMap<String, Object>();
                     contentCtx.put("contentTypeId", "DOCUMENT");
                     contentCtx.put("dataResourceId", dataResourceResult.get("dataResourceId"));
                     contentCtx.put("userLogin", userLogin);
-                    Map<String, Object> contentResult;
+                    Map<String, Object> contentResult = new HashMap<String, Object>();
                     try {
                         contentResult = dispatcher.runSync("createContent", contentCtx);
-                        if (ServiceUtil.isError(contentResult)) {
-                            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(contentResult));
-                        }
                     } catch (GenericServiceException e) {
                         Debug.logError(e, module);
                         return ServiceUtil.returnError(e.getMessage());
@@ -1475,10 +1396,7 @@ public class ProductServices {
 
                     productPromoContentCtx.put("contentId", contentResult.get("contentId"));
                     try {
-                        Map<String, Object> serviceResult = dispatcher.runSync("createProductPromoContent", productPromoContentCtx);
-                        if (ServiceUtil.isError(serviceResult)) {
-                            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
-                        }
+                        dispatcher.runSync("createProductPromoContent", productPromoContentCtx);
                     } catch (GenericServiceException e) {
                         Debug.logError(e, module);
                         return ServiceUtil.returnError(e.getMessage());
@@ -1486,7 +1404,7 @@ public class ProductServices {
                 }
             }
         } else {
-            Map<String, Object> productPromoContentCtx = new HashMap<>();
+            Map<String, Object> productPromoContentCtx = new HashMap<String, Object>();
             productPromoContentCtx.put("productPromoId", productPromoId);
             productPromoContentCtx.put("productPromoContentTypeId", productPromoContentTypeId);
             productPromoContentCtx.put("contentId", contentId);
@@ -1494,10 +1412,7 @@ public class ProductServices {
             productPromoContentCtx.put("thruDate", context.get("thruDate"));
             productPromoContentCtx.put("userLogin", userLogin);
             try {
-                Map<String, Object> serviceResult = dispatcher.runSync("updateProductPromoContent", productPromoContentCtx);
-                if (ServiceUtil.isError(serviceResult)) {
-                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
-                }
+                dispatcher.runSync("updateProductPromoContent", productPromoContentCtx);
             } catch (GenericServiceException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());

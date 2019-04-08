@@ -26,7 +26,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleListContactList"/>
                 <set field="headerItem" value="find"/>
                 <set field="tabButtonItem" value="ContactList"/>
-                <set field="partyId" from-field="parameters.partyId"/>
+                <set field="partyId" value="${parameters.partyId}"/>
                 <set field="entityName" value="ContactListParty"/>
             </actions>
             <widgets>
@@ -41,9 +41,7 @@ under the License.
                                 <screenlet id="AddPartyContactListPanel" title="${uiLabelMap.PartyContactListPartyCreate}" collapsible="true">
                                     <include-form name="AddPartyContactList" location="component://party/widget/partymgr/PartyContactListForms.xml"/>
                                 </screenlet>
-                                <screenlet>
-                                  <include-grid name="ListPartyContactLists" location="component://party/widget/partymgr/PartyContactListForms.xml"/>
-                                </screenlet>
+                                <include-form name="ListPartyContactLists" location="component://party/widget/partymgr/PartyContactListForms.xml"/>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.PartyMgrViewPermissionError}</label>
@@ -60,8 +58,8 @@ under the License.
                 <property-map resource="MarketingUiLabels" map-name="uiLabelMap"/>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="tabButtonItem" value="ContactList"/>
-                <set field="labelTitleProperty" from-field="uiLabelMap.PageTitleListContactList"/>
-                <set field="title" from-field="uiLabelMap.PageTitleListContactList"/>
+                <set field="labelTitleProperty" value="${uiLabelMap.PageTitleListContactList}"/>
+                <set field="title" value="${uiLabelMap.PageTitleListContactList}"/>
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListContactList"/>
                 <set field="contactListId" from-field="parameters.contactListId"/>
                 <set field="entityName" value="ContactList"/>
@@ -70,7 +68,7 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-results">
-                        <include-grid name="ListLookupContactList" location="component://party/widget/partymgr/PartyContactListForms.xml"/>
+                        <include-form name="ListLookupContactList" location="component://party/widget/partymgr/PartyContactListForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

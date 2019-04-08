@@ -1,0 +1,325 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+</head>
+<body>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<h1 id="apache-ofbiz">Apache OFBiz®</h1>
+<p>Welcome to <strong>Apache OFBiz®</strong>! A powerful top level Apache software project. OFBiz is an Enterprise Resource Planning (ERP) System written in Java and houses a large set of libraries, entities, services and features to run all aspects of your business.</p>
+<p>For more details about OFBiz please visit the OFBiz Documentation page:</p>
+<p><a href="http://ofbiz.apache.org/documentation.html">OFBiz documentation</a></p>
+<p><a href="http://www.apache.org/licenses/LICENSE-2.0">OFBiz License</a></p>
+<h2 id="system-requirements">System requirements</h2>
+<p>The only requirement to run OFBiz is to have the Java Development Kit (JDK) version 8 installed on your system (not just the JRE, but the full JDK) which you can download from the below link.</p>
+<p><a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">JDK download</a></p>
+<blockquote>
+<p><em>Note</em>: if you are using Eclipse, make sure of running the appropriate Eclipse command <code>gradlew eclipse</code> before creating the project in Eclipse. This command will prepare OFBiz for Eclipse with the correct classpath and settings by creating the.classpath and .project files.</p>
+</blockquote>
+<h2 id="security">Security</h2>
+<p>You can trust the OFBiz Project Management Committee members and committers do their best to keep OFBiz secure from external exploits, and fix vulnerabilities as soon as they are known. Despite these efforts, if ever you find and want to report a security issue, please report at: security @ ofbiz.apache.org, before disclosing them in a public forum.</p>
+<blockquote>
+<p><em>Note</em>: Be sure to read this Wiki page if ever you plan to use RMI, JNDI, JMX or Spring and maybe other Java classes OFBiz does not use Out Of The Box (OOTB): <a href="https://cwiki.apache.org/confluence/display/OFBIZ/The+infamous+Java+serialization+vulnerability">The infamous Java serialization vulnerability</a></p>
+</blockquote>
+<p>You can find more information about security in OFBiz at <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Keeping+OFBiz+secure">Keeping OFBiz secure</a></p>
+<h2 id="quick-start">Quick start</h2>
+<p>To quickly install and fire-up OFBiz, please follow the below instructions from the command line at the OFBiz top level directory (folder)</p>
+<h3 id="prepare-ofbiz">Prepare OFBiz:</h3>
+<p><strong>Note</strong>: Depending on your Internet connection speed it might take a long time for this step to complete if you are using OFBiz for the first time as it needs to download all dependencies. So please be patient!</p>
+<p>MS Windows: <code>gradlew cleanAll loadDefault</code></p>
+<p>Unix-like OS: <code>./gradlew cleanAll loadDefault</code></p>
+<h3 id="start-ofbiz">Start OFBiz:</h3>
+<p>MS Windows: <code>gradlew ofbiz</code></p>
+<p>Unix-like OS: <code>./gradlew ofbiz</code></p>
+<h3 id="visit-ofbiz-through-your-browser">Visit OFBiz through your browser:</h3>
+<p><a href="https://localhost:8443/ordermgr">Order Back Office</a></p>
+<p><a href="https://localhost:8443/accounting">Accounting Back Office</a></p>
+<p><a href="https://localhost:8443/webtools">Administrator interface</a></p>
+<p>You can log in with the user <strong>admin</strong> and password <strong>ofbiz</strong>.</p>
+<blockquote>
+<p><em>Note</em>: the default configuration uses an embedded Java database (Apache Derby) and embedded application server components such as Apache Tomcat®, Apache Geronimo (transaction manager), etc.</p>
+</blockquote>
+<hr />
+<h2 id="build-system-syntax">Build system syntax</h2>
+<p>All build tasks are executed using the <strong>Gradle</strong> build system which is embedded in OFBiz. To execute build tasks go to OFBiz top-level directory (folder) and execute tasks from there.</p>
+<h3 id="operating-system-syntax">Operating System Syntax</h3>
+<p>The syntax for tasks differ slightly between windows and Unix-like systems</p>
+<ul>
+<li><p><strong>Windows</strong>: <code>gradlew &lt;tasks-in-here&gt;</code></p></li>
+<li><p><strong>Unix-like</strong>: <code>./gradlew &lt;tasks-in-here&gt;</code></p></li>
+</ul>
+<p>For the rest of this document, we will use the windows syntax, if you are on a Unix-like system, you need to add the <code>./</code> to gradlew</p>
+<h3 id="types-of-tasks-in-gradle">Types of tasks in Gradle</h3>
+<p>There are two types of tasks designed for OFBiz in Gradle:</p>
+<ul>
+<li><p><strong>Standard tasks</strong>: To execute general standard Gradle tasks</p></li>
+<li><strong>OFBiz server tasks</strong>: To execute OFBiz startup commands. These tasks start with one of the following words:</li>
+<li><strong>ofbiz</strong> : standard server commands</li>
+<li><strong>ofbizDebug</strong> : server commands running in remote debug mode</li>
+<li><p><strong>ofbizBackground</strong> ; server commands running in a background forked process</p></li>
+</ul>
+<p>Tips:</p>
+<ul>
+<li><p>OFBiz <strong>server commands</strong> require <strong>&quot;quoting&quot;</strong> the commands. For example: <code>gradlew &quot;ofbiz --help&quot;</code></p></li>
+<li><p>Shortcuts to task names can be used by writing the first letter of every word in a task name. However, you cannot use the shortcut form for OFBiz server tasks. Example: <code>gradlew loadAdminUserLogin -PuserLoginId=myadmin</code> = <code>gradlew lAUL -PuserLoginId=myadmin</code></p></li>
+</ul>
+<h4 id="example-standard-tasks">Example standard tasks</h4>
+<p><code>gradlew build</code></p>
+<p><code>gradlew cleanAll loadDefault testIntegration</code></p>
+<h4 id="example-ofbiz-server-tasks">Example OFBiz server tasks</h4>
+<p><code>gradlew &quot;ofbiz --help&quot;</code></p>
+<p><code>gradlew &quot;ofbizDebug --test&quot;</code></p>
+<p><code>gradlew &quot;ofbizBackground --start --portoffset 10000&quot;</code></p>
+<p><code>gradlew &quot;ofbiz --shutdown --portoffset 10000&quot;</code></p>
+<p><code>gradlew ofbiz</code> (default is --start)</p>
+<h4 id="example-mixed-tasks-standard-and-ofbiz-server">Example mixed tasks (standard and OFBiz server)</h4>
+<p><code>gradlew cleanAll loadDefault &quot;ofbiz --start&quot;</code></p>
+<hr />
+<h2 id="quick-reference">Quick reference</h2>
+<p>You can use the below common list of tasks as a quick reference for controlling the system. This document uses the windows task syntax, if you are on a Unix-like system, you need to add the <code>./</code> to gradlew i.e. <code>./gradlew</code></p>
+<hr />
+<h3 id="help-tasks">Help tasks</h3>
+<h4 id="list-ofbiz-server-commands">List OFBiz server commands</h4>
+<p>List all available commands to control the OFBiz server</p>
+<p><code>gradlew &quot;ofbiz --help&quot;</code></p>
+<h4 id="list-build-tasks">List build tasks</h4>
+<p>List all available tasks from the build system</p>
+<p><code>gradlew tasks</code></p>
+<h4 id="list-build-projects">List build projects</h4>
+<p>List all available projects in the build system</p>
+<p><code>gradlew projects</code></p>
+<h4 id="gradle-build-system-help">Gradle build system help</h4>
+<p>Show usage and options for the Gradle build system</p>
+<p><code>gradlew --help</code></p>
+<hr />
+<h3 id="server-command-tasks">Server command tasks</h3>
+<h4 id="start-ofbiz-1">Start OFBiz</h4>
+<p><code>gradlew &quot;ofbiz --start&quot;</code></p>
+<p>start is the default server task so this also works:</p>
+<p><code>gradlew ofbiz</code></p>
+<h4 id="shutdown-ofbiz">Shutdown OFBiz</h4>
+<p><code>gradlew &quot;ofbiz --shutdown&quot;</code></p>
+<h4 id="get-ofbiz-status">Get OFBiz status</h4>
+<p><code>gradlew &quot;ofbiz --status&quot;</code></p>
+<h4 id="force-ofbiz-shutdown">Force OFBiz shutdown</h4>
+<p>Terminate all running OFBiz server instances by calling the appropriate operating system kill command. Use this command to force OFBiz termination if the --shutdown command does not work. Usually this is needed when in the middle of data loading or testing in OFBiz.</p>
+<p>Warning: Be careful in using this command as force termination might lead to inconsistent state / data</p>
+<p><code>gradlew terminateOfbiz</code></p>
+<h4 id="start-ofbiz-in-remote-debug-mode">Start OFBiz in remote debug mode</h4>
+<p>Starts OFBiz in remote debug mode and waits for debugger or IDEs to connect on port <strong>5005</strong></p>
+<p><code>gradlew &quot;ofbizDebug --start&quot;</code></p>
+<p>OR</p>
+<p><code>gradlew ofbizDebug</code></p>
+<h4 id="start-ofbiz-on-a-different-port">Start OFBiz on a different port</h4>
+<p>Start OFBiz of the network port offsetted by the range provided in the argument to --portoffset</p>
+<p><code>gradlew &quot;ofbiz --start --portoffset 10000&quot;</code></p>
+<h4 id="start-ofbiz-in-the-background">Start OFBiz in the background</h4>
+<p>Start OFBiz in the background by forking it to a new process and redirecting the output to <strong>runtime/logs/console.log</strong></p>
+<p><code>gradlew &quot;ofbizBackground --start&quot;</code></p>
+<p>OR</p>
+<p><code>gradlew ofbizBackground</code></p>
+<p>You can also offset the port, for example:</p>
+<p><code>gradlew &quot;ofbizBackground --start --portoffset 10000&quot;</code></p>
+<hr />
+<h3 id="data-loading-tasks">Data loading tasks</h3>
+<p>OFBiz contains the following data reader types:</p>
+<ul>
+<li><strong>seed</strong>: OFBiz and External Seed Data - to be maintained along with source and updated whenever a system deployment is updated</li>
+<li><strong>seed-initial</strong>: OFBiz and External Seed Data - to be maintained along with source like other seed data, but only loaded initially and not updated when a system is updated except manually reviewing each line</li>
+<li><strong>demo</strong>: OFBiz Only Demo Data</li>
+<li><strong>ext</strong>: External General Data (custom)</li>
+<li><strong>ext-test</strong>: External Test Data (custom)</li>
+<li><strong>ext-demo</strong>: External Demo Data (custom)</li>
+</ul>
+<p>you can choose which data readers to pass in the following syntax:</p>
+<p><code>gradlew &quot;ofbiz --load-data readers=&lt;readers-here-comma-separated&gt;&quot;</code></p>
+<p>Example:</p>
+<p><code>gradlew &quot;ofbiz --load-data readers=seed,seed-initial,ext,ext-demo&quot;</code></p>
+<h4 id="load-default-ofbiz-data">Load default OFBiz data</h4>
+<p>Loads default data set; meant for initial loading of generic OFBiz data. Can be applied for development, testing, demonstration, etc. purposes. Be aware that executing this task can result in your data being overwritten in your database of choice. Use with caution in production environments. The default data set is defined by datasource using the read-data attribute, followed by the name of the data set, into the datasource element of the 'entityengine.xml' file.</p>
+<p><code>gradlew loadDefault</code></p>
+<p>OR</p>
+<p><code>gradlew &quot;ofbiz --load-data&quot;</code></p>
+<h4 id="load-seed-data">Load seed data</h4>
+<p>Load ONLY the seed data (not seed-initial, demo, ext* or anything else); meant for use after an update of the code to reload the seed data as it is generally maintained along with the code and needs to be in sync for operation</p>
+<p><code>gradlew &quot;ofbiz --load-data readers=seed&quot;</code></p>
+<h4 id="load-ext-data">load ext data</h4>
+<p>Load seed, seed-initial and ext data; meant for manual/generic testing, development, or going into production with a derived system based on stock OFBiz where the ext data basically replaces the demo data</p>
+<p><code>gradlew &quot;ofbiz --load-data readers=seed,seed-initial,ext&quot;</code></p>
+<h4 id="load-ext-test-data">load ext test data</h4>
+<p>Load seed, seed-initial, ext and ext-test data; meant for automated testing with a derived system based on stock OFBiz</p>
+<p><code>gradlew &quot;ofbiz --load-data readers=seed,seed-initial,ext,ext-test&quot;</code></p>
+<h4 id="load-data-from-an-entity-file">load data from an entity file</h4>
+<p>Load data from an XML file holding entity data.</p>
+<p><code>gradlew &quot;ofbiz --load-data file=foo/bar/FileNameHere.xml&quot;</code></p>
+<h4 id="create-a-new-tenant">create a new tenant</h4>
+<p>Create a new tenant in your environment, create the delegator, load initial data with admin-user and password (needs multitenant=Y in general.properties). The following project parameters are passed:</p>
+<ul>
+<li>tenantId: mandatory</li>
+<li>tenantName: optional, default is value of tenantId</li>
+<li>domainName: optional, default is org.apache.ofbiz</li>
+<li>tenantReaders: optional, default value is seed,seed-initial,demo</li>
+<li>dbPlatform: optional, D(Derby), M(MySQL), O(Oracle), P(PostgreSQL) (default D)</li>
+<li>dbIp: optional, ip address of the database</li>
+<li>dbUser: optional, username of the database</li>
+<li>dbPassword: optional, password of the database</li>
+</ul>
+<p><code>gradlew createTenant -PtenantId=mytenant</code></p>
+<p><code>gradlew createTenant -PtenantId=mytenant -PtenantName=&quot;My Name&quot; -PdomainName=com.example -PtenantReaders=seed,seed-initial,ext -PdbPlatform=M -PdbIp=127.0.0.1 -PdbUser=mydbuser -PdbPassword=mydbpass</code></p>
+<p>If run successfully, the system creates a new tenant having:</p>
+<ul>
+<li>delegator: default#${tenandId} (e.g. default#mytenant)</li>
+<li>admin user: ${tenantId}-admin (e.g. mytenant-admin)</li>
+<li>admin user password: ofbiz</li>
+</ul>
+<h4 id="load-data-for-a-specific-tenant">load data for a specific tenant</h4>
+<p>Load data for one specific tenant in a multitenant environment. Note that you must set multitenant=Y in general.properties and the following project parameters are passed:</p>
+<ul>
+<li>tenantId (mandatory)</li>
+<li>tenantReaders (optional)</li>
+<li>tenantComponent (optional)</li>
+</ul>
+<p><code>gradlew loadTenant -PtenantId=mytenant</code></p>
+<p><code>gradlew loadTenant -PtenantId=mytenant -PtenantReaders=seed,seed-initial,demo -PtenantComponent=base</code></p>
+<hr />
+<h3 id="testing-tasks">Testing tasks</h3>
+<h4 id="execute-all-unit-tests">Execute all unit tests</h4>
+<p><code>gradlew test</code></p>
+<h4 id="execute-all-integration-tests">Execute all integration tests</h4>
+<p><code>gradlew testIntegration</code></p>
+<p>OR</p>
+<p><code>gradlew 'ofbiz --test'</code></p>
+<h4 id="execute-an-integration-test-case">Execute an integration test case</h4>
+<p>run a test case, in this example the componnet is &quot;entity&quot; and the case name is &quot;entity-tests&quot;</p>
+<p><code>gradlew &quot;ofbiz --test component=entity --test case=entity-tests&quot;</code></p>
+<h4 id="execute-an-integration-test-case-in-debug-mode">Execute an integration test case in debug mode</h4>
+<p>listens on port <strong>5005</strong></p>
+<p><code>gradlew &quot;ofbizDebug --test component=entity --test case=entity-tests&quot;</code></p>
+<h4 id="execute-an-integration-test-suite">Execute an integration test suite</h4>
+<p><code>gradlew &quot;ofbiz --test component=widget --test suitename=org.apache.ofbiz.widget.test.WidgetMacroLibraryTests&quot;</code></p>
+<h4 id="execute-an-integration-test-suite-in-debug-mode">Execute an integration test suite in debug mode</h4>
+<p>listens on port <strong>5005</strong></p>
+<p><code>gradlew &quot;ofbizDebug --test component=widget --test suitename=org.apache.ofbiz.widget.test.WidgetMacroLibraryTests&quot;</code></p>
+<hr />
+<h3 id="miscellaneous-tasks">Miscellaneous tasks</h3>
+<h4 id="launch-a-graphical-user-interface-of-gradle">Launch a graphical user interface of Gradle</h4>
+<p>This is a very convenient feature of Gradle which allows the user to interact with Gradle through a swing GUI. You can save frequently used commands in a list of favorites for frequent reuse.</p>
+<p><code>gradlew --gui</code></p>
+<h4 id="run-all-tests-on-a-clean-system">Run all tests on a clean system</h4>
+<p><code>gradlew cleanAll loadDefault testIntegration</code></p>
+<h4 id="clean-all-generated-artifacts">Clean all generated artifacts</h4>
+<p><code>gradlew cleanAll</code></p>
+<h4 id="refresh-the-generated-artifacts">Refresh the generated artifacts</h4>
+<p><code>gradlew clean build</code></p>
+<h4 id="create-an-admin-user-account">Create an admin user account</h4>
+<p>Create an admin user with login name MyUserName and default password with value &quot;ofbiz&quot;. Upon first login OFBiz will request changing the default password</p>
+<p><code>gradlew loadAdminUserLogin -PuserLoginId=MyUserName</code></p>
+<h4 id="compile-java-using-xlint-output">Compile Java using Xlint output</h4>
+<p>Xlint prints output of all warnings detected by the compiler</p>
+<p><code>gradlew -PXlint build</code></p>
+<h4 id="run-owasp-tool-to-identify-dependency-vulnerabilities-cves">Run OWASP tool to identify dependency vulnerabilities (CVEs)</h4>
+<p>The below command activates a gradle plugin (OWASP) and Identifies and reports known vulnerabilities (CVEs) in OFBiz library dependencies. This command takes a long time to execute because it needs to download all plugin dependencies and the CVE identification process is also time consuming</p>
+<p><code>gradlew -PenableOwasp dependencyCheck</code></p>
+<h4 id="setup-eclipse-project-for-ofbiz">Setup eclipse project for OFBiz</h4>
+<p>Thanks to some gradle magic, setting up OFBiz on eclipse is very easy. All you need is to execute one command and then you can import the project to eclipse. This command will generate the necessary <strong>.classpath</strong> and <strong>.project</strong> files for eclipse.</p>
+<p><code>gradlew eclipse</code></p>
+<hr />
+<h2 id="ofbiz-plugin-system">OFBiz plugin system</h2>
+<p>OFBiz provides an extension mechanism through plugins. Plugins are standard OFBiz components that reside in the specialpurpose directory. Plugins can be added manually or fetched from a maven repository. The standard tasks for managing plugins are listed below.</p>
+<blockquote>
+<p><em>Note</em>: OFBiz plugin versions follow <a href="http://semver.org/">Semantic Versioning 2.0.0</a></p>
+</blockquote>
+<h3 id="pull-download-and-install-a-plugin-automatically">Pull (download and install) a plugin automatically</h3>
+<p>Download a plugin with all its dependencies (plugins) and install them one-by-one starting with the dependencies and ending with the plugin itself.</p>
+<p><code>gradlew pullPlugin -PdependencyId=&quot;org.apache.ofbiz.plugin:myplugin:0.1.0&quot;</code></p>
+<p>If the plugin resides in a custom maven repository (not jcenter or localhost) then you can use specify the repository using below command:</p>
+<p><code>gradlew pullPlugin -PrepoUrl=&quot;http://www.example.com/custom-maven&quot; -PdependencyId=&quot;org.apache.ofbiz.plugin:myplugin:0.1.0&quot;</code></p>
+<p>If you need username and password to access the custom repository:</p>
+<p><code>gradlew pullPlugin -PrepoUrl=&quot;http://www.example.com/custom-maven&quot; -PrepoUser=myuser -PrepoPassword=mypassword -PdependencyId=&quot;org.apache.ofbiz.plugin:myplugin:0.1.0&quot;</code></p>
+<h3 id="install-a-plugin">Install a plugin</h3>
+<p>If you have a plugin called mycustomplugin and want to install it in OFBiz follow the below instructions:</p>
+<ul>
+<li>Extract the plugin if it is compressed</li>
+<li>Place the extracted directory into /specialpurpose</li>
+<li>Run the below command</li>
+</ul>
+<p><code>gradlew installPlugin -PpluginId=myplugin</code></p>
+<p>The above commands achieve the following:</p>
+<ul>
+<li>add the plugin to /specialpurpose/component-load.xml</li>
+<li>executes the task &quot;install&quot; in the plugin's build.gradle file if it exists</li>
+</ul>
+<h3 id="uninstall-a-plugin">Uninstall a plugin</h3>
+<p>If you have an existing plugin called mycustomplugin and you wish to uninstall run the below command</p>
+<p><code>gradlew uninstallPlugin -PpluginId=myplugin</code></p>
+<p>The above commands achieve the following:</p>
+<ul>
+<li>executes the task &quot;uninstall&quot; in the plugin's build.gradle file if it exists</li>
+<li>removes the plugin from /specialpurpose/component-load.xml</li>
+</ul>
+<h3 id="remove-a-plugin">Remove a plugin</h3>
+<p>Calls <strong>uninstallPlugin</strong> on an existing plugin and then delete it from the file-system</p>
+<p><code>gradlew removePlugin -PpluginId=myplugin</code></p>
+<h3 id="create-a-new-plugin">Create a new plugin</h3>
+<p>Create a new plugin. The following project parameters are passed:</p>
+<ul>
+<li>pluginId: mandatory</li>
+<li>pluginResourceName: optional, default is the Capitalized value of pluginId</li>
+<li>webappName: optional, default is the value of pluginId</li>
+<li>basePermission: optional, default is the UPPERCASE value of pluginId</li>
+</ul>
+<p><code>gradlew createPlugin -PpluginId=myplugin</code></p>
+<p><code>gradlew createPlugin -PpluginId=myplugin -PpluginResourceName=MyPlugin -PwebappName=mypluginweb -PbasePermission=MYSECURITY</code></p>
+<p>The above commands achieve the following:</p>
+<ul>
+<li>create a new plugin in /specialpurpose/myplugin</li>
+<li>add the plugin to /specialpurpose/component-load.xml</li>
+</ul>
+<h3 id="push-a-plugin-to-a-repository">Push a plugin to a repository</h3>
+<p>This task publishes an OFBiz plugin into a maven package and then uploads it to a maven repository. Currently, pushing is limited to localhost maven repository (work in progress). To push a plugin the following parameters are passed:</p>
+<ul>
+<li>pluginId: mandatory</li>
+<li>groupId: optional, defaults to org.apache.ofbiz.plugin</li>
+<li>pluginVersion: optional, defaults to 0.1.0-SNAPSHOT</li>
+<li>pluginDescription: optional, defaults to &quot;Publication of OFBiz plugin ${pluginId}&quot;</li>
+</ul>
+<p><code>gradlew pushPlugin -PpluginId=myplugin</code></p>
+<p><code>gradlew pushPlugin -PpluginId=mycompany -PpluginGroup=com.mycompany.ofbiz.plugin -PpluginVersion=1.2.3 -PpluginDescription=&quot;Introduce special functionality X&quot;</code></p>
+<hr />
+<h2 id="useful-tips">Useful Tips</h2>
+<h3 id="gradle-tab-completion-on-unix-like-systems">Gradle tab-completion on Unix-like systems:</h3>
+<p>To get tab completion (auto complete gradle commands by pressing tab) you can download the script from the below link and place it in the appropriate location for your system.</p>
+<p><a href="https://gist.github.com/nolanlawson/8694399">Gradle tab completion</a></p>
+<p>For example, on debian based systems, you can use the following command:</p>
+<p><code>sudo curl -L -s https://gist.github.com/nolanlawson/8694399/raw/gradle-tab-completion.bash -o /etc/bash_completion.d/gradle-tab-completion.bash</code></p>
+<h2 id="crypto-notice">Crypto notice</h2>
+<p>This distribution includes cryptographic software. The country in which you currently reside may have restrictions on the import, possession, use, and/or re-export to another country, of encryption software. BEFORE using any encryption software, please check your country's laws, regulations and policies concerning the import, possession, or use, and re-export of encryption software, to see if this is permitted. See <a href="http://www.wassenaar.org/" class="uri">http://www.wassenaar.org/</a> for more information.</p>
+<p>The U.S. Government Department of Commerce, Bureau of Industry and Security (BIS), has classified this software as Export Commodity Control Number (ECCN) 5D002.C.1, which includes information security software using or performing cryptographic functions with asymmetric algorithms. The form and manner of this Apache Software Foundation distribution makes it eligible for export under the License Exception ENC Technology Software Unrestricted (TSU) exception (see the BIS Export Administration Regulations, Section 740.13) for both object code and source code.</p>
+<p>The following provides more details on the included cryptographic software:</p>
+<ul>
+<li>Various classes in OFBiz, including DesCrypt, HashCrypt, and BlowFishCrypt use libraries from the Sun Java JDK API including java.security.* and javax.crypto.* (the JCE, Java Cryptography Extensions API)</li>
+<li>Other classes such as HttpClient and various related ones use the JSSE (Java Secure Sockets Extension) API</li>
+</ul>
+</body>
+</html>

@@ -156,7 +156,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="productPromoActionSeqId" mode="OUT"/>
-        <override name="customMethodId" optional="false" />
+        <override name="productPromoActionEnumId" optional="false"/>
     </service>
     <service name="updateProductPromoAction" default-entity-name="ProductPromoAction" engine="entity-auto" invoke="update" auth="true">
         <description>Update a ProductPromo</description>
@@ -323,7 +323,6 @@ under the License.
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="amount" type="BigDecimal" mode="IN" optional="true"/>
-        <attribute name="agreementId" type="String" mode="IN" optional="true"/>
 
         <attribute name="price" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="validPriceFound" type="Boolean" mode="OUT" optional="false"/>
@@ -368,158 +367,4 @@ under the License.
         <description>Delete a ProductPriceAutoNotice</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-
-    <!-- ProductPricePromoCond services -->
-    <service name="interfaceProductPromoCond" engine="interface" location="" invoke="">
-        <attribute name="productPromoCond" type="org.apache.ofbiz.entity.GenericValue" mode="IN"/>
-        <attribute name="shoppingCart" type="org.apache.ofbiz.order.shoppingcart.ShoppingCart" mode="IN"/>
-        <attribute name="nowTimestamp" type="Timestamp" mode="IN"/>
-        <attribute name="directResult" type="Boolean" mode="OUT" optional="true"/>
-        <attribute name="compareBase" type="Integer" mode="OUT" optional="true"/>
-        <attribute name="operatorEnumId" type="String" mode="OUT" optional="true"/>
-    </service>
-    <service name="productPromoCondProductAmount" engine="groovy" auth="false"
-            location="component://product/groovyScripts/product/promo/ProductPromoCondServices.groovy" invoke="productAmount">
-        <description>Product promo condition service on the product amount</description>
-        <implements service="interfaceProductPromoCond"/>
-    </service>
-    <service name="productPromoCondProductTotal" engine="groovy" auth="false"
-            location="component://product/groovyScripts/product/promo/ProductPromoCondServices.groovy" invoke="productTotal">
-        <description>Product promo condition service on the product Total</description>
-        <implements service="interfaceProductPromoCond"/> 
-    </service>
-    <service name="productPromoCondProductQuant" engine="groovy" auth="false"
-            location="component://product/groovyScripts/product/promo/ProductPromoCondServices.groovy" invoke="productQuant">
-        <description>Product promo condition service on quantity </description>
-        <implements service="interfaceProductPromoCond"/> 
-    </service>
-    <service name="productPromoCondNewACCT" engine="groovy" auth="false"
-            location="component://product/groovyScripts/product/promo/ProductPromoCondServices.groovy" invoke="productNewACCT">
-        <description>Product promo condition service on Account Days Since Created </description>
-        <implements service="interfaceProductPromoCond"/> 
-    </service>
-    <service name="productPromoCondPartyID" engine="groovy" auth="false"
-            location="component://product/groovyScripts/product/promo/ProductPromoCondServices.groovy" invoke="productPartyID">
-        <description>Product promo condition service on party ID </description>
-        <implements service="interfaceProductPromoCond"/> 
-    </service>
-    <service name="productPromoCondPartyGM" engine="groovy" auth="false"
-            location="component://product/groovyScripts/product/promo/ProductPromoCondServices.groovy" invoke="productPartyGM">
-        <description>Product promo condition service on party group member </description>
-        <implements service="interfaceProductPromoCond"/> 
-    </service>
-    <service name="productPromoCondPartyClass" engine="groovy" auth="false"
-            location="component://product/groovyScripts/product/promo/ProductPromoCondServices.groovy" invoke="productPartyClass">
-        <description>Product promo condition service on party Classification </description>
-        <implements service="interfaceProductPromoCond"/> 
-    </service>
-    <service name="productPromoCondRoleType" engine="groovy" auth="false"
-            location="component://product/groovyScripts/product/promo/ProductPromoCondServices.groovy" invoke="productRoleType">
-        <description>Product promo condition service on role type </description>
-        <implements service="interfaceProductPromoCond"/> 
-    </service>
-    <service name="productPromoCondGeoID" engine="groovy" auth="false"
-            location="component://product/groovyScripts/product/promo/ProductPromoCondServices.groovy" invoke="productGeoID">
-        <description>Product promo condition service on shipping destination </description>
-        <implements service="interfaceProductPromoCond"/> 
-    </service>
-    <service name="productPromoCondOrderTotal" engine="groovy" auth="false"
-            location="component://product/groovyScripts/product/promo/ProductPromoCondServices.groovy" invoke="productOrderTotal">
-        <description>Product promo condition service on cart sub-total </description>
-        <implements service="interfaceProductPromoCond"/> 
-    </service>
-    <service name="productPromoCondOrderHist" engine="groovy" auth="false"
-            location="component://product/groovyScripts/product/promo/ProductPromoCondServices.groovy" invoke="productOrderHist">
-        <description>Product promo condition service on Order sub-total X in last Y Months </description>
-        <implements service="interfaceProductPromoCond"/> 
-    </service>
-    <service name="productPromoCondOrderYear" engine="groovy" auth="false"
-            location="component://product/groovyScripts/product/promo/ProductPromoCondServices.groovy" invoke="productOrderYear">
-        <description>Product promo condition service on Order sub-total X since beginning of current year </description>
-        <implements service="interfaceProductPromoCond"/> 
-    </service>
-    <service name="productPromoCondOrderLastYear" engine="groovy" auth="false"
-            location="component://product/groovyScripts/product/promo/ProductPromoCondServices.groovy" invoke="productOrderLastYear">
-        <description>Product promo condition service on Order sub-total X last year </description>
-        <implements service="interfaceProductPromoCond"/> 
-    </service>
-    <service name="productPromoCondPromoRecurrence" engine="groovy" auth="false"
-            location="component://product/groovyScripts/product/promo/ProductPromoCondServices.groovy" invoke="productPromoRecurrence">
-        <description>Product promo condition service on promotion recurrence </description>
-        <implements service="interfaceProductPromoCond"/>
-    </service>
-    <service name="productPromoCondOrderShipTotal" engine="groovy" auth="false"
-            location="component://product/groovyScripts/product/promo/ProductPromoCondServices.groovy" invoke="productShipTotal">
-        <description>Product promo condition service on promotion recurrence </description>
-        <implements service="interfaceProductPromoCond"/> 
-    </service>
-    <service name="productPromoCondListPriceMinAmount" engine="groovy" auth="false"
-            location="component://product/groovyScripts/product/promo/ProductPromoCondServices.groovy" invoke="productListPriceMinAmount">
-        <description>Product promo condition service on shipping total </description>
-        <implements service="interfaceProductPromoCond"/> 
-    </service>
-    <service name="productPromoCondListPriceMinPercent" engine="groovy" auth="false"
-            location="component://product/groovyScripts/product/promo/ProductPromoCondServices.groovy" invoke="productListPriceMinPercent">
-        <description>Product promo condition service on shipping total </description>
-        <implements service="interfaceProductPromoCond"/> 
-    </service>
-
-    <!-- ProductPricePromoAction services -->
-    <service name="interfaceProductPromoAction" engine="interface" location="" invoke="">
-        <attribute name="productPromoAction" type="org.apache.ofbiz.entity.GenericValue" mode="IN"/>
-        <attribute name="shoppingCart" type="org.apache.ofbiz.order.shoppingcart.ShoppingCart" mode="IN"/>
-        <attribute name="nowTimestamp" type="Timestamp" mode="IN"/>
-        <attribute name="actionResultInfo" type="org.apache.ofbiz.order.shoppingcart.product.ProductPromoWorker$ActionResultInfo" mode="INOUT" />
-        <attribute name="cartItemModifyException" type="org.apache.ofbiz.order.shoppingcart.CartItemModifyException" mode="OUT" optional="true"/>
-    </service>
-    <service name="productPromoActGiftGWP" engine="groovy" auth="false"
-            location="component://product/groovyScripts/product/promo/ProductPromoActionServices.groovy" invoke="productGWP">
-        <description>Product promo Action gift with purchase </description>
-        <implements service="interfaceProductPromoAction"/> 
-    </service>
-    <service name="productPromoActFreeShip" engine="groovy" auth="false"
-            location="component://product/groovyScripts/product/promo/ProductPromoActionServices.groovy" invoke="productActFreeShip">
-        <description>Product promo Action free shipping </description>
-        <implements service="interfaceProductPromoAction"/> 
-    </service>
-    <service name="productPromoActProdDISC" engine="groovy" auth="false"
-            location="component://product/groovyScripts/product/promo/ProductPromoActionServices.groovy" invoke="productDISC">
-        <description>Product promo Action product discount % </description>
-        <implements service="interfaceProductPromoAction"/> 
-    </service>
-    <service name="productPromoActProdAMDISC" engine="groovy" auth="false"
-            location="component://product/groovyScripts/product/promo/ProductPromoActionServices.groovy" invoke="productAMDISC">
-        <description>Product promo Action product discount </description>
-        <implements service="interfaceProductPromoAction"/> 
-    </service>
-    <service name="productPromoActProdPrice" engine="groovy" auth="false"
-            location="component://product/groovyScripts/product/promo/ProductPromoActionServices.groovy" invoke="productPrice">
-        <description>Product promo Action product price </description>
-        <implements service="interfaceProductPromoAction"/> 
-    </service>
-    <service name="productPromoActOrderPercent" engine="groovy" auth="false"
-            location="component://product/groovyScripts/product/promo/ProductPromoActionServices.groovy" invoke="productOrderPercent">
-        <description>Product promo Action order percent </description>
-        <implements service="interfaceProductPromoAction"/> 
-    </service>
-    <service name="productPromoActOrderAmount" engine="groovy" auth="false"
-            location="component://product/groovyScripts/product/promo/ProductPromoActionServices.groovy" invoke="productOrderAmount">
-        <description>Product promo Action order amount </description>
-        <implements service="interfaceProductPromoAction"/> 
-    </service>
-    <service name="productPromoActProdSpecialPrice" engine="groovy" auth="false"
-            location="component://product/groovyScripts/product/promo/ProductPromoActionServices.groovy" invoke="productSpecialPrice">
-        <description>Product promo Action product special price </description>
-        <implements service="interfaceProductPromoAction"/> 
-    </service>
-    <service name="productPromoActTaxPercent" engine="groovy" auth="false"
-            location="component://product/groovyScripts/product/promo/ProductPromoActionServices.groovy" invoke="productTaxPercent">
-        <description>Product promo Action product tax percent </description>
-        <implements service="interfaceProductPromoAction"/> 
-    </service>
-    <service name="productPromoActShipCharge" engine="groovy" auth="false"
-            location="component://product/groovyScripts/product/promo/ProductPromoActionServices.groovy" invoke="productShipCharge">
-        <description>Product promo Action product shipping charge </description>
-        <implements service="interfaceProductPromoAction"/> 
-    </service>
-</services> 
+</services>

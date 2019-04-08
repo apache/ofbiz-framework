@@ -50,15 +50,15 @@ import org.apache.ofbiz.entity.transaction.TransactionUtil;
  * SQLProcessor - provides utility functions to ease database access
  *
  */
-public class SQLProcessor implements AutoCloseable {
+public class SQLProcessor {
 
     /** Module Name Used for debugging */
     public static final String module = SQLProcessor.class.getName();
 
     /** Used for testing connections when test is enabled */
-    private static final List<String> CONNECTION_TEST_LIST = new ArrayList<String>();
-    public static final int MAX_CONNECTIONS = 1000;
-    public static final boolean ENABLE_TEST = false;
+    public static List<String> CONNECTION_TEST_LIST = new ArrayList<String>();
+    public static int MAX_CONNECTIONS = 1000;
+    public static boolean ENABLE_TEST = false;
 
     private final Delegator delegator;
 
@@ -200,7 +200,6 @@ public class SQLProcessor implements AutoCloseable {
      *
      * @throws GenericDataSourceException
      */
-    @Override
     public void close() throws GenericDataSourceException {
         if (_manualTX) {
             if (Debug.verboseOn()) Debug.logVerbose("SQLProcessor:close() calling commit : _manualTX=" + _manualTX, module);
@@ -281,15 +280,15 @@ public class SQLProcessor implements AutoCloseable {
                 Debug.logError(e, "Problems getting the connection's isolation level", module);
             }
             if (isoLevel == Connection.TRANSACTION_NONE) {
-                if (Debug.verboseOn()) Debug.logVerbose("Transaction isolation level set to 'None'.", module);
+                Debug.logVerbose("Transaction isolation level set to 'None'.", module);
             } else if (isoLevel == Connection.TRANSACTION_READ_COMMITTED) {
-                if (Debug.verboseOn()) Debug.logVerbose("Transaction isolation level set to 'ReadCommited'.", module);
+                Debug.logVerbose("Transaction isolation level set to 'ReadCommited'.", module);
             } else if (isoLevel == Connection.TRANSACTION_READ_UNCOMMITTED) {
-                if (Debug.verboseOn()) Debug.logVerbose("Transaction isolation level set to 'ReadUncommitted'.", module);
+                Debug.logVerbose("Transaction isolation level set to 'ReadUncommitted'.", module);
             } else if (isoLevel == Connection.TRANSACTION_REPEATABLE_READ) {
-                if (Debug.verboseOn()) Debug.logVerbose("Transaction isolation level set to 'RepeatableRead'.", module);
+                Debug.logVerbose("Transaction isolation level set to 'RepeatableRead'.", module);
             } else if (isoLevel == Connection.TRANSACTION_SERIALIZABLE) {
-                if (Debug.verboseOn()) Debug.logVerbose("Transaction isolation level set to 'Serializable'.", module);
+                Debug.logVerbose("Transaction isolation level set to 'Serializable'.", module);
             }
         }
         */
@@ -443,12 +442,22 @@ public class SQLProcessor implements AutoCloseable {
      * @throws GenericDataSourceException
      */
     public int executeUpdate(String sql) throws GenericDataSourceException {
+        Statement stmt = null;
 
-        try (Statement stmt = _connection.createStatement()) {
+        try {
+            stmt = _connection.createStatement();
             return stmt.executeUpdate(sql);
         } catch (SQLException sqle) {
             // passing on this exception as nested, no need to log it here: Debug.logError(sqle, "SQLProcessor.executeUpdate(sql) : ERROR : ", module);
             throw new GenericDataSourceException("SQL Exception while executing the following:" + _sql, sqle);
+        } finally {
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException sqle) {
+                    Debug.logWarning("Unable to close 'statement': " + sqle.getMessage(), module);
+                }
+            }
         }
     }
 
@@ -631,7 +640,7 @@ public class SQLProcessor implements AutoCloseable {
      */
     public void setValue(Integer field) throws SQLException {
         if (field != null) {
-            _ps.setInt(_ind, field);
+            _ps.setInt(_ind, field.intValue());
         } else {
             _ps.setNull(_ind, Types.NUMERIC);
         }
@@ -647,7 +656,7 @@ public class SQLProcessor implements AutoCloseable {
      */
     public void setValue(Long field) throws SQLException {
         if (field != null) {
-            _ps.setLong(_ind, field);
+            _ps.setLong(_ind, field.longValue());
         } else {
             _ps.setNull(_ind, Types.NUMERIC);
         }
@@ -663,7 +672,7 @@ public class SQLProcessor implements AutoCloseable {
      */
     public void setValue(Float field) throws SQLException {
         if (field != null) {
-            _ps.setFloat(_ind, field);
+            _ps.setFloat(_ind, field.floatValue());
         } else {
             _ps.setNull(_ind, Types.NUMERIC);
         }
@@ -679,7 +688,7 @@ public class SQLProcessor implements AutoCloseable {
      */
     public void setValue(Double field) throws SQLException {
         if (field != null) {
-            _ps.setDouble(_ind, field);
+            _ps.setDouble(_ind, field.doubleValue());
         } else {
             _ps.setNull(_ind, Types.NUMERIC);
         }
@@ -711,7 +720,7 @@ public class SQLProcessor implements AutoCloseable {
      */
     public void setValue(Boolean field) throws SQLException {
         if (field != null) {
-            _ps.setBoolean(_ind, field);
+            _ps.setBoolean(_ind, field.booleanValue());
         } else {
             _ps.setNull(_ind, Types.BOOLEAN);
         }
@@ -827,6 +836,16 @@ public class SQLProcessor implements AutoCloseable {
             }
         }
         _ind++;
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        try {
+            this.close();
+        } catch (Exception e) {
+            Debug.logError(e, "Error closing the result, connection, etc in finalize SQLProcessor", module);
+        }
+        super.finalize();
     }
 
     protected void testConnection(Connection con) throws GenericEntityException {

@@ -48,7 +48,6 @@ under the License.
         <attribute name="messageId" type="String" mode="INOUT" optional="true"/>
         <attribute name="emailType" type="String" mode="INOUT" optional="true"/>
         <attribute name="orderId" type="String" mode="INOUT" optional="true"/>
-        <attribute name="returnId" type="String" mode="INOUT" optional="true"/>
         <attribute name="custRequestId" type="String" mode="INOUT" optional="true"/>
         <attribute name="messageWrapper" type="org.apache.ofbiz.service.mail.MimeMessageWrapper" mode="OUT" optional="true"/><!-- mail can be disabled in general.properties so no output -->
         <!--  used for parsing and ECAs -->
@@ -110,8 +109,6 @@ under the License.
         <attribute name="attachmentName" type="String" mode="IN" optional="true"/>
         <attribute name="xslfoAttachScreenLocationList" type="List" mode="IN" optional="true"/>
         <attribute name="attachmentNameList" type="List" mode="IN" optional="true"/>
-        <attribute name="attachmentType" type="String" mode="IN" optional="true"/>
-        <attribute name="attachmentTypeList" type="List" mode="IN" optional="true"/>
         <attribute name="bodyParameters" type="Map" mode="IN" optional="true"/>
         <!-- FIXME: webSiteId should not be optional, async service can't construct valid URLs without it -->
         <attribute name="webSiteId" type="String" mode="IN" optional="true"/>

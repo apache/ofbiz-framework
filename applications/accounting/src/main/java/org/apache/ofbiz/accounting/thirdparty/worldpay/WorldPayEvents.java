@@ -48,7 +48,6 @@ import org.apache.ofbiz.product.store.ProductStoreWorker;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
-import org.apache.ofbiz.service.ServiceUtil;
 
 /**
  * WorldPay Select Junior Integration Events/Services
@@ -229,7 +228,7 @@ public class WorldPayEvents {
         String description = UtilProperties.getMessage(resource, "AccountingOrderNr", locale) + orderId + " " +
                                  (company != null ? UtilProperties.getMessage(commonResource, "CommonFrom", locale) + " "+ company : "");
         // check the instId - very important
-        if (instId == null || "NONE".equals(instId)) {
+        if (instId == null || instId.equals("NONE")) {
             Debug.logError("Worldpay InstId not found, cannot continue", module);
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "worldPayEvents.problemsGettingInstId", locale));
             return "error";
@@ -250,7 +249,7 @@ public class WorldPayEvents {
             }
         }
         // create the redirect string
-        Map<String, Object> parameters = new HashMap<>();
+        Map<String, Object> parameters = new HashMap<String, Object>();
         parameters.put("instId", instId);
         parameters.put("cartId", orderId);
         parameters.put("currency", defCur);
@@ -389,6 +388,8 @@ public class WorldPayEvents {
             }
         }
         if (okay) {
+            // attempt to release the offline hold on the order (workflow)
+            OrderChangeHelper.releaseInitialOrderHold(dispatcher, orderId);
             // call the email confirm service
             Map<String, Object> emailContext = UtilMisc.toMap("orderId", orderId, "userLogin", userLogin);
             try {
@@ -401,7 +402,7 @@ public class WorldPayEvents {
     }
 
     private static boolean setPaymentPreferences(Delegator delegator, LocalDispatcher dispatcher, GenericValue userLogin, String orderId, HttpServletRequest request) {
-        if (Debug.verboseOn()) Debug.logVerbose("Setting payment preferences..", module);
+        Debug.logVerbose("Setting payment preferences..", module);
         List<GenericValue> paymentPrefs = null;
         try {
             paymentPrefs = EntityQuery.use(delegator).from("OrderPaymentPreference")
@@ -425,14 +426,14 @@ public class WorldPayEvents {
         Locale locale = UtilHttp.getLocale(request);
         String paymentStatus = request.getParameter("transStatus");
         String paymentAmount = request.getParameter("authAmount");
-        Long paymentDate = Long.valueOf(request.getParameter("transTime"));
+        Long paymentDate = new Long(request.getParameter("transTime"));
         String transactionId = request.getParameter("transId");
         String gatewayFlag = request.getParameter("rawAuthCode");
         String avs = request.getParameter("AVS");
-        List<GenericValue> toStore = new LinkedList<>();
+        List<GenericValue> toStore = new LinkedList<GenericValue>();
         java.sql.Timestamp authDate = null;
         try {
-            authDate = new java.sql.Timestamp(paymentDate);
+            authDate = new java.sql.Timestamp(paymentDate.longValue());
         } catch (Exception e) {
             Debug.logError(e, "Cannot create date from long: " + paymentDate, module);
             authDate = UtilDateTime.nowTimestamp();
@@ -482,10 +483,9 @@ public class WorldPayEvents {
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "worldPayEvents.failedToExecuteServiceCreatePaymentFromPreference", locale));
             return false;
         }
-
-        if (ServiceUtil.isError(results)) {
+        if ((results == null) || (results.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR))) {
             Debug.logError((String) results.get(ModelService.ERROR_MESSAGE), module);
-            request.setAttribute("_ERROR_MESSAGE_", results.get(ModelService.ERROR_MESSAGE));
+            request.setAttribute("_ERROR_MESSAGE_", (String) results.get(ModelService.ERROR_MESSAGE));
             return false;
         }
         return true;

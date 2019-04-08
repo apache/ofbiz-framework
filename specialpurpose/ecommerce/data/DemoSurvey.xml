@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <Survey surveyId="1000" description="Gift Card Purchase Information" isAnonymous="Y" allowMultiple="Y" allowUpdate="N"/>
+    <Survey surveyId="1001" description="Gift Card Reload Information" isAnonymous="Y" allowMultiple="Y" allowUpdate="N"/>
+    <Survey surveyId="1002" surveyName="Shopping Survey" description="Tell us about your on-line shopping patterns" submitCaption="Complete Survey" comments="Your answers will help us serve you better" isAnonymous="N" allowMultiple="Y" allowUpdate="Y"/>
+    <Survey surveyId="1003" surveyName="Mini-Poll Poll" description="Tell us where the mini-poll should go" submitCaption="Vote!" isAnonymous="N" allowMultiple="N" allowUpdate="N"/>
+    <Survey surveyId="1004" surveyName="Mouse Hand Poll" description="Your mouse hand is" isAnonymous="N" allowMultiple="N" allowUpdate="N"/>
+
+    <SurveyPage surveyId="1002" surveyPageSeqId="01" pageName="Shopping Survey Page 1" sequenceNum="1"/>
+    <SurveyPage surveyId="1002" surveyPageSeqId="02" pageName="Shopping Survey Page 2" sequenceNum="2"/>
+
+    <SurveyMultiResp surveyId="1002" surveyMultiRespId="01" multiRespTitle="In the last..."/>
+    <SurveyMultiRespColumn surveyId="1002" surveyMultiRespId="01" surveyMultiRespColId="01" columnTitle="Last Month" sequenceNum="1"/>
+    <SurveyMultiRespColumn surveyId="1002" surveyMultiRespId="01" surveyMultiRespColId="02" columnTitle="Last Six Months" sequenceNum="2"/>
+    <SurveyMultiRespColumn surveyId="1002" surveyMultiRespId="01" surveyMultiRespColId="03" columnTitle="Last Year" sequenceNum="3"/>
+
+    <SurveyQuestionCategory surveyQuestionCategoryId="1000" description="Gift Card Purchase Questions"/>
+    <SurveyQuestionCategory surveyQuestionCategoryId="1001" description="Shopping Questions"/>
+    <SurveyQuestionCategory surveyQuestionCategoryId="1002" description="Poll Questions"/>
+
+    <SurveyQuestion surveyQuestionId="1000" surveyQuestionCategoryId="1000" surveyQuestionTypeId="TEXT_LONG" description="senderName" question="Sender&apos;s Name:"/>
+    <SurveyQuestion surveyQuestionId="1001" surveyQuestionCategoryId="1000" surveyQuestionTypeId="TEXT_LONG" description="recipientName" question="Recipient&apos;s Name:"/>
+    <SurveyQuestion surveyQuestionId="1002" surveyQuestionCategoryId="1000" surveyQuestionTypeId="EMAIL" description="recipientEmail" question="Recipient&apos;s Email:"/>
+    <SurveyQuestion surveyQuestionId="1003" surveyQuestionCategoryId="1000" surveyQuestionTypeId="TEXTAREA" description="giftMessage" question="Gift Message:"/>
+    <SurveyQuestion surveyQuestionId="1010" surveyQuestionCategoryId="1000" surveyQuestionTypeId="GIFT_CARD" description="giftCardNumber" question="Gift Card Number:"/>
+    <SurveyQuestion surveyQuestionId="1011" surveyQuestionCategoryId="1000" surveyQuestionTypeId="TEXT_SHORT" description="giftCardPin" question="PIN Number:"/>
+
+    <SurveyQuestion surveyQuestionId="1030" surveyQuestionCategoryId="1001" surveyQuestionTypeId="OPTION" question="How often do you shop on-line?"/>
+    <SurveyQuestion surveyQuestionId="1031" surveyQuestionCategoryId="1001" surveyQuestionTypeId="BOOLEAN" question="Have you shopped here?"/>
+    <SurveyQuestion surveyQuestionId="1031B" surveyQuestionCategoryId="1001" surveyQuestionTypeId="BOOLEAN" question="Have you shopped here in the last six months?"/>
+    <SurveyQuestion surveyQuestionId="1031C" surveyQuestionCategoryId="1001" surveyQuestionTypeId="BOOLEAN" question="Have you shopped here in the last year?"/>
+    <SurveyQuestion surveyQuestionId="1032" surveyQuestionCategoryId="1001" surveyQuestionTypeId="SEPERATOR_LINE"/>
+    <SurveyQuestion surveyQuestionId="1033" surveyQuestionCategoryId="1001" surveyQuestionTypeId="OPTION" question="How would you rate this store for products?"/>
+    <SurveyQuestion surveyQuestionId="1034" surveyQuestionCategoryId="1001" surveyQuestionTypeId="OPTION" question="How would you rate this store for on-line functionality?"/>
+    <SurveyQuestion surveyQuestionId="1035" surveyQuestionCategoryId="1001" surveyQuestionTypeId="URL" question="What is your favorite on-line store? (Enter Valid URL)"/>
+    <SurveyQuestion surveyQuestionId="1036" surveyQuestionCategoryId="1001" surveyQuestionTypeId="TEXTAREA" question="Comments:"/>
+    <SurveyQuestion surveyQuestionId="1037" surveyQuestionCategoryId="1001" surveyQuestionTypeId="SEPERATOR_TEXT" question="&lt;img src=&quot;https://localhost:8443/images/ofbiz_logo.gif&quot;&gt;"/>
+    <SurveyQuestion surveyQuestionId="1038" surveyQuestionCategoryId="1001" surveyQuestionTypeId="SEPERATOR_LINE"/>
+    <SurveyQuestion surveyQuestionId="1042" surveyQuestionCategoryId="1001" surveyQuestionTypeId="CONTENT" question="Do you have a picture you would like to attach?"/>
+
+    <SurveyQuestion surveyQuestionId="1040" surveyQuestionCategoryId="1002" surveyQuestionTypeId="OPTION" question="Which side should the mini-poll box show?"/>
+    <SurveyQuestion surveyQuestionId="1041" surveyQuestionCategoryId="1002" surveyQuestionTypeId="OPTION" question="Which hand do you use your mouse with?"/>
+
+    <SurveyQuestionAppl surveyId="1000" surveyQuestionId="1000" fromDate="2001-01-01 00:00:00.0" requiredField="Y" sequenceNum="1"/>
+    <SurveyQuestionAppl surveyId="1000" surveyQuestionId="1001" fromDate="2001-01-01 00:00:00.0" requiredField="Y" sequenceNum="2"/>
+    <SurveyQuestionAppl surveyId="1000" surveyQuestionId="1002" fromDate="2001-01-01 00:00:00.0" requiredField="Y" sequenceNum="3"/>
+    <SurveyQuestionAppl surveyId="1000" surveyQuestionId="1003" fromDate="2001-01-01 00:00:00.0" requiredField="N" sequenceNum="4"/>
+    <SurveyQuestionAppl surveyId="1001" surveyQuestionId="1010" fromDate="2001-01-01 00:00:00.0" requiredField="Y" sequenceNum="1"/>
+    <SurveyQuestionAppl surveyId="1001" surveyQuestionId="1011" fromDate="2001-01-01 00:00:00.0" requiredField="Y" sequenceNum="2"/>
+
+    <SurveyQuestionAppl surveyId="1002" surveyQuestionId="1037" fromDate="2001-01-01 00:00:00.0" surveyPageSeqId="01" sequenceNum="1" requiredField="N"/>
+    <SurveyQuestionAppl surveyId="1002" surveyQuestionId="1030" fromDate="2001-01-01 00:00:00.0" surveyPageSeqId="01" sequenceNum="2" requiredField="Y"/>
+    <!-- NOTE: these questions are associated with different columns to demonstrate the ability to have one question per cell MultiResp; for this to work these must be sequenced properly by sequenceNum,surveyMultiRespColId; the first one for a row (set of questions) will be used for the row title -->
+    <SurveyQuestionAppl surveyId="1002" surveyQuestionId="1031" fromDate="2001-01-01 00:00:00.0" surveyPageSeqId="01" sequenceNum="3" surveyMultiRespId="01" surveyMultiRespColId="01" requiredField="Y"/>
+    <SurveyQuestionAppl surveyId="1002" surveyQuestionId="1031B" fromDate="2001-01-01 00:00:00.0" surveyPageSeqId="01" sequenceNum="3" surveyMultiRespId="01" surveyMultiRespColId="02" requiredField="Y"/>
+    <SurveyQuestionAppl surveyId="1002" surveyQuestionId="1031C" fromDate="2001-01-01 00:00:00.0" surveyPageSeqId="01" sequenceNum="3" surveyMultiRespId="01" surveyMultiRespColId="03" requiredField="Y"/>
+    <SurveyQuestionAppl surveyId="1002" surveyQuestionId="1032" fromDate="2001-01-01 00:00:00.0" surveyPageSeqId="01" sequenceNum="4" requiredField="N"/>
+
+    <SurveyQuestionAppl surveyId="1002" surveyQuestionId="1033" fromDate="2001-01-01 00:00:00.0" surveyPageSeqId="02" sequenceNum="5" surveyMultiRespId="01" requiredField="N"/>
+    <SurveyQuestionAppl surveyId="1002" surveyQuestionId="1034" fromDate="2001-01-01 00:00:00.0" surveyPageSeqId="02" sequenceNum="6" surveyMultiRespId="01" requiredField="Y"/>
+    <SurveyQuestionAppl surveyId="1002" surveyQuestionId="1038" fromDate="2001-01-01 00:00:00.0" surveyPageSeqId="02" sequenceNum="7" requiredField="N"/>
+    <SurveyQuestionAppl surveyId="1002" surveyQuestionId="1042" fromDate="2001-01-01 00:00:00.0" surveyPageSeqId="02" sequenceNum="8" requiredField="N"/>
+    <SurveyQuestionAppl surveyId="1002" surveyQuestionId="1035" fromDate="2001-01-01 00:00:00.0" surveyPageSeqId="02" sequenceNum="9" requiredField="N"/>
+    <!-- this one doesn't have a surveyPageSeqId on purpose so that the default will be used -->
+    <SurveyQuestionAppl surveyId="1002" surveyQuestionId="1036" fromDate="2001-01-01 00:00:00.0" sequenceNum="10" requiredField="N"/>
+
+    <SurveyQuestionAppl surveyId="1003" surveyQuestionId="1040" fromDate="2001-01-01 00:00:00.0" requiredField="Y" sequenceNum="1"/>
+
+    <SurveyQuestionAppl surveyId="1004" surveyQuestionId="1041" fromDate="2001-01-01 00:00:00.0" requiredField="Y" sequenceNum="1"/>
+
+    <SurveyQuestionOption surveyQuestionId="1030" surveyOptionSeqId="00001" description="1-2 times per year" sequenceNum="1"/>
+    <SurveyQuestionOption surveyQuestionId="1030" surveyOptionSeqId="00002" description="2-5 times per year" sequenceNum="2"/>
+    <SurveyQuestionOption surveyQuestionId="1030" surveyOptionSeqId="00003" description="6-10 time per year" sequenceNum="3"/>
+    <SurveyQuestionOption surveyQuestionId="1030" surveyOptionSeqId="00004" description="more then 10 times per year" sequenceNum="4"/>
+    <SurveyQuestionOption surveyQuestionId="1033" surveyOptionSeqId="00001" description="The Best!" sequenceNum="1"/>
+    <SurveyQuestionOption surveyQuestionId="1033" surveyOptionSeqId="00002" description="Above Average" sequenceNum="2"/>
+    <SurveyQuestionOption surveyQuestionId="1033" surveyOptionSeqId="00003" description="Average" sequenceNum="3"/>
+    <SurveyQuestionOption surveyQuestionId="1033" surveyOptionSeqId="00004" description="Below Average" sequenceNum="4"/>
+    <SurveyQuestionOption surveyQuestionId="1033" surveyOptionSeqId="00005" description="Poor" sequenceNum="5"/>
+    <SurveyQuestionOption surveyQuestionId="1034" surveyOptionSeqId="00001" description="Excellent Functionality" sequenceNum="1"/>
+    <SurveyQuestionOption surveyQuestionId="1034" surveyOptionSeqId="00002" description="Good Functionality" sequenceNum="2"/>
+    <SurveyQuestionOption surveyQuestionId="1034" surveyOptionSeqId="00003" description="Poor Functionality" sequenceNum="3"/>
+    <SurveyQuestionOption surveyQuestionId="1040" surveyOptionSeqId="00001" description="Right Side" sequenceNum="1"/>
+    <SurveyQuestionOption surveyQuestionId="1040" surveyOptionSeqId="00002" description="Left Side" sequenceNum="2"/>
+    <SurveyQuestionOption surveyQuestionId="1041" surveyOptionSeqId="00001" description="Right Hand" sequenceNum="1"/>
+    <SurveyQuestionOption surveyQuestionId="1041" surveyOptionSeqId="00002" description="Left Hand" sequenceNum="2"/>
+
+    <ProductStoreSurveyAppl productStoreSurveyId="1000" productStoreId="9000" surveyApplTypeId="CART_ADD" surveyId="1000" productCategoryId="GC-101" fromDate="2003-11-24 16:00:02.467" surveyTemplate="component://content/template/survey/GenericSurvey.ftl"/>
+    <ProductStoreSurveyAppl productStoreSurveyId="1001" productStoreId="9000" surveyApplTypeId="CART_ADD" surveyId="1001" productCategoryId="GC-102" fromDate="2003-11-24 16:00:51.693" surveyTemplate="component://content/template/survey/GenericSurvey.ftl"/>
+    <ProductStoreSurveyAppl productStoreSurveyId="1002" productStoreId="9000" surveyApplTypeId="CUSTOMER_PROFILE" surveyId="1002" fromDate="2003-12-05 19:22:40.925" surveyTemplate="component://content/template/survey/GenericSurvey.ftl" resultTemplate="component://ecommerce/template/survey/GenericResult.ftl" sequenceNum="1"/>
+    <ProductStoreSurveyAppl productStoreSurveyId="1003" productStoreId="9000" surveyApplTypeId="RANDOM_POLL" groupName="testSurveyGroup" surveyId="1003" fromDate="2003-12-05 19:22:40.925" surveyTemplate="component://ecommerce/template/survey/MiniSurvey.ftl" resultTemplate="component://ecommerce/template/survey/MiniResult.ftl" sequenceNum="1"/>
+    <ProductStoreSurveyAppl productStoreSurveyId="1004" productStoreId="9000" surveyApplTypeId="RANDOM_POLL" groupName="testSurveyGroup" surveyId="1004" fromDate="2003-12-05 19:22:40.925" surveyTemplate="component://ecommerce/template/survey/MiniSurvey.ftl" resultTemplate="component://ecommerce/template/survey/MiniResult.ftl" sequenceNum="1"/>
+</entity-engine-xml>

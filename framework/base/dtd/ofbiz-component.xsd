@@ -43,28 +43,10 @@ under the License.
             <xs:attributeGroup ref="attlist.depends-on">
                 <xs:annotation>
                     <xs:documentation>
-                        Alter the way components are loaded. 
-                        
-                        By default components are loaded in the order they are found (i.e. alphabetic or creation date).
-                        For the plugins, all components will be loaded after the OFBiz components, including, in this order, those in:
-                            framework
-                            themes
-                            applications
-                        The plugins Auto-Loading feature also loads all components in the order they are found (i.e. alphabetic or creation date).
-                         
-                        Using depends-on allows to create a series of dependencies for component loading, before loading a particular component.
-                        For instance we can define dependency for a component like component ebaystore is dependent on component ebay 
-                        (even multiple dependencies for a single component is supported). 
-                        
-                        If any anomaly is found loading of components will stop.
-                        
-                        We can declare it in this fashion in ofbiz-component.xml file (beware ebaystore is disabled by default)
-                        <![CDATA[
-                        <ofbiz-component name="ebaystore" enabled="true"
-                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-component.xsd">
-                        <depends-on component-name="ebay"/>
-                        ]]>
+                        This is yet unimplemented. It's not a trivial implementation because at the moment components are loaded
+                        in the order they are found (i.e. alphabetic or creation date).
+                        While this feature would require them all to be located first and then reordered and loaded.
+                        So, for now, simply follow the README file in hot-deploy root folder.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attributeGroup>
@@ -172,8 +154,22 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="password" type="xs:string" use="required"/>
-        <xs:attribute name="is-truststore" type="xs:boolean" use="required"/>
-        <xs:attribute name="is-certstore" type="xs:boolean" use="required"/>
+        <xs:attribute name="is-truststore" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="is-certstore" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
         <xs:attribute type="xs:string" name="loader" use="required"/>
         <xs:attribute type="xs:string" name="location" use="required"/>
     </xs:attributeGroup>
@@ -200,7 +196,7 @@ under the License.
             <xs:annotation>
                 <xs:documentation>
                     This value determines in which application menu the application is shown. 
-                    For instance "secondary" is used by plugins and webtools webapps to put their menu-names in the second menu.
+                    For instance "secondary" is used by specialpurpose and webtools webapps to put their menu-names in the second menu.
                     Note that not all OOTB themes use this "secondary" option, for instance Flat-Grey does not.
                 </xs:documentation>
             </xs:annotation>
@@ -228,15 +224,35 @@ under the License.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute name="privileged" type="xs:boolean" default="false"/>
-        <xs:attribute name="app-bar-display" type="xs:boolean" default="true"/>
-        <xs:attribute name="use-autologin-cookie" type="xs:boolean" default="false">
-            <xs:annotation>
-                <xs:documentation>
-                    Defines if the webapp uses the auto login feature which keeps a memory of the user last visit.
-                    This allows an user easier login by showing his/her username.
-                </xs:documentation>
-            </xs:annotation>
+        <xs:attribute name="privileged" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="app-bar-display" default="true">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="keep-autologin-cookie" default="false">
+            <xs:simpleType>
+                <xs:annotation>
+                    <xs:documentation>
+                        Defines if the webapp uses the auto login feature which keeps a memory of the user last visit.
+                        This allows an user easier login by showing his/her username.
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="virtual-host">
@@ -290,3 +306,24 @@ under the License.
         </xs:sequence>
     </xs:complexType>
 </xs:schema>
+<!--
+    <ofbiz-component name="core">
+        <resource-loader name="maincomponent" type="component"/>
+        <resource-loader name="mainfile" type="file" prepend-env="ofbiz.home" prefix=""/>
+        <resource-loader name="maincp" type="classpath"/>
+        <resource-loader name="mainurl" type="url"/>
+
+        <classpath type="jar" location="lib/product.jar"/>
+        <classpath type="dir" location="classes"/>
+
+        <entity-resource type="model" reader-name="main" loader="maincomponent" location="entity/entitymodel.xml"/>
+        <entity-resource type="group" reader-name="main" loader="maincomponent" location="entity/entitygroup.xml"/>
+        <entity-resource type="eca" reader-name="main" loader="maincomponent" location="entity/eecas.xml"/>
+
+        <service-resource type="model" loader="maincomponent" location="service/services_test.xml"/>
+        <service-resource type="group" loader="maincomponent" location="service/groups_test.xml"/>
+        <service-resource type="eca" loader="maincomponent" location="service/secas_test.xml"/>
+
+        <webapp name="webtools" title="WebTools" server="default" location="webtools" mount-point="/webtools"/>
+    </ofbiz-component>
+-->

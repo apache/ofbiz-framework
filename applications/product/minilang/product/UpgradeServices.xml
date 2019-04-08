@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
+
+    <simple-method method-name="migrateFacilityRole" short-description="Migrate Data From OldFacilityRole To FacilityParty">
+        <entity-condition entity-name="OldFacilityRole" list="oldFacilityRoles"/>
+        <now-timestamp field="fromDate"/>
+        <iterate list="oldFacilityRoles" entry="oldFacilityRole">
+            <make-value entity-name="FacilityParty" value-field="facilityParty"/>
+            <set field="facilityParty.facilityId" from-field="oldFacilityRole.facilityId"/>
+            <set field="facilityParty.partyId" from-field="oldFacilityRole.partyId"/>
+            <set field="facilityParty.roleTypeId" from-field="oldFacilityRole.roleTypeId"/>
+            <set field="facilityParty.fromDate" from-field="fromDate"/>
+            <entity-one entity-name="PartyRole" value-field="partyRole" auto-field-map="false">
+                <field-map field-name="partyId" from-field="facilityParty.partyId"/>
+                <field-map field-name="roleTypeId" from-field="facilityParty.roleTypeId"/>
+            </entity-one>
+            <if-empty field="partyRole">
+                <make-value entity-name="PartyRole" value-field="partyRole"/>
+                <set field="partyRole.partyId" from-field="facilityParty.partyId"/>
+                <set field="partyRole.roleTypeId" from-field="facilityParty.roleTypeId"/>
+                <create-value value-field="partyRole"/>
+                <check-errors/>
+            </if-empty>
+            <create-value value-field="facilityParty"/>
+        </iterate>
+    </simple-method>
+
+    <simple-method method-name="migrateFacilitySquareFootage" short-description="Migrate Data From from Facility.oldSquareFootage to Facility.facilitySize">
+        <entity-condition entity-name="Facility" list="facilities"/>
+        <iterate list="facilities" entry="facility">
+            <if-not-empty field="facility.oldSquareFootage">
+                <set field="facility.facilitySize" from-field="facility.oldSquareFootage"/>
+                <set field="facility.facilitySizeUomId" value="AREA_ft2"/>
+                <store-value value-field="facility"/>
+            </if-not-empty>
+        </iterate>
+    </simple-method>
+
+     <simple-method method-name="migrateProductKeyword" short-description="Migrate Data From OldProductKeyword To ProductKeyword">
+        <entity-condition entity-name="OldProductKeyword" list="oldProductKeywords"/>
+        <iterate list="oldProductKeywords" entry="oldProductKeyword">
+            <entity-one entity-name="ProductKeyword" value-field="checkProductKeyword">
+                <field-map field-name="productId" from-field="oldProductKeyword.productId"/>
+                <field-map field-name="keyword" from-field="oldProductKeyword.keyword"/>
+                <field-map field-name="keywordTypeId" value="KWT_KEYWORD"/>
+            </entity-one>
+            <if-empty field="checkProductKeyword">
+                <make-value entity-name="ProductKeyword" value-field="productKeyword"/>
+                <set field="productKeyword.productId" from-field="oldProductKeyword.productId"/>
+                <set field="productKeyword.keyword" from-field="oldProductKeyword.keyword"/>
+                <set field="productKeyword.keywordTypeId" value="KWT_KEYWORD"/>
+                <set field="productKeyword.relevancyWeight" from-field="oldProductKeyword.relevancyWeight"/>
+                <create-value value-field="productKeyword"/>
+            </if-empty>
+        </iterate>
+    </simple-method>
+
+</simple-methods>

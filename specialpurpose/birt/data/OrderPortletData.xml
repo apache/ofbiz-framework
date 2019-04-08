@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<entity-engine-xml>
+    <PortalPortlet portalPortletId="OrderByChannel"
+                   portletName="Sale Orders by Channel"
+                   screenName="SaleOrdersByChannelReport"
+                   screenLocation="component://birt/widget/order/OrderScreens.xml"
+                   description=""/>
+    <PortletPortletCategory portalPortletId="OrderByChannel" portletCategoryId="REPORT"/>
+    <PortalPagePortlet portalPageId="OrderReportPage" portalPortletId="OrderByChannel" portletSeqId="00001" columnSeqId="00001" sequenceNum="6"/>
+
+    <PortalPortlet portalPortletId="OrderDiscountCode"
+                   portletName="Orders with discount code"
+                   screenName="SaleOrderDiscountCodeReport"
+                   screenLocation="component://birt/widget/order/OrderScreens.xml"
+                   description=""/>
+    <PortletPortletCategory portalPortletId="OrderDiscountCode" portletCategoryId="REPORT"/>
+    <PortalPagePortlet portalPageId="OrderReportPage" portalPortletId="OrderDiscountCode" portletSeqId="00001" columnSeqId="00001" sequenceNum="7"/>
+
+    <PortalPortlet portalPortletId="Last3MSalesReport"
+                   portletName="Last 3 Months Sales Report"
+                   screenName="Last3MonthsSalesReport"
+                   screenLocation="component://birt/widget/order/OrderScreens.xml"
+                   description=""/>
+    <PortletPortletCategory portalPortletId="Last3MSalesReport" portletCategoryId="REPORT"/>
+    <PortalPagePortlet portalPageId="OrderReportPage" portalPortletId="Last3MSalesReport" portletSeqId="00001" columnSeqId="00002" sequenceNum="8"/>
+
+    <PortalPortlet portalPortletId="CouponSalesReport"
+                   portletName="Coupon Sales Report"
+                   screenName="CouponSalesReport"
+                   screenLocation="component://birt/widget/order/OrderScreens.xml"
+                   description=""/>
+    <PortletPortletCategory portalPortletId="CouponSalesReport" portletCategoryId="REPORT"/>
+    <PortalPagePortlet portalPageId="OrderReportPage" portalPortletId="CouponSalesReport" portletSeqId="00001" columnSeqId="00002" sequenceNum="9"/>
+
+    <PortalPortlet portalPortletId="SalesReport"
+                   portletName="Sales Report"
+                   screenName="SalesReport"
+                   screenLocation="component://birt/widget/order/OrderScreens.xml"
+                   description=""/>
+    <PortletPortletCategory portalPortletId="SalesReport" portletCategoryId="REPORT"/>
+    <PortalPagePortlet portalPageId="OrderReportPage" portalPortletId="SalesReport" portletSeqId="00001" columnSeqId="00002" sequenceNum="10"/>
+
+    <PortalPortlet portalPortletId="PDR_Report"
+                   portletName="Product Demand Report"
+                   screenName="ProductDemandReport"
+                   screenLocation="component://birt/widget/order/OrderScreens.xml"
+                   description=""/>
+    <PortletPortletCategory portalPortletId="PDR_Report" portletCategoryId="REPORT"/>
+    <PortalPagePortlet portalPageId="OrderReportPage" portalPortletId="PDR_Report" portletSeqId="00001" columnSeqId="00002" sequenceNum="12"/>
+</entity-engine-xml>

@@ -48,14 +48,7 @@ public class MapComparator implements Comparator<Map<Object, Object>> {
      */
     @Override
     public boolean equals(Object obj) {
-        if (obj==null) {
-            return false;
-        }
         return obj.equals(this);
-    }
-
-    public int hashCode() {
-        return super.hashCode();
     }
 
     /**
@@ -124,8 +117,9 @@ public class MapComparator implements Comparator<Map<Object, Object>> {
             if (compareResult != 0) {
                 if (ascending) {
                     return compareResult;
+                } else {
+                    return -compareResult;
                 }
-                return -compareResult;
             }
         }
 

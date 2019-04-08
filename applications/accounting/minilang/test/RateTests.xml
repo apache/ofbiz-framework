@@ -47,7 +47,7 @@ under the License.
         </assert>
         <check-errors/>
     </simple-method>
-    <simple-method method-name="testExpireRateAmount" short-description="test to expire RateAmount" login-required="false">
+    <simple-method method-name="testDeleteRateAmount" short-description="test to delete RateAmount" login-required="false">
         <set field="serviceCtx.rateTypeId" value="AVERAGE_PAY_RATE"/>
         <set field="serviceCtx.emplPositionTypeId" value="TEST_EMPLOYEE"/>
         <set field="serviceCtx.periodTypeId" value="RATE_MONTH"/>
@@ -56,7 +56,7 @@ under the License.
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <set field="serviceCtx.userLogin" from-field="userLogin"/>
-        <call-service service-name="expireRateAmount" in-map-name="serviceCtx"/>
+        <call-service service-name="deleteRateAmount" in-map-name="serviceCtx"/>
         <entity-one entity-name="RateAmount" value-field="rateAmount">
             <field-map field-name="rateTypeId" value="AVERAGE_PAY_RATE"/>
             <field-map field-name="workEffortId" value="_NA_"/>
@@ -170,16 +170,15 @@ under the License.
         </assert>
         <check-errors/>
     </simple-method>
-    <simple-method method-name="testExpirePartyRate" short-description="test to expire PartyRate" login-required="false">
+    <simple-method method-name="testDeletePartyRate" short-description="test to delete PartyRate" login-required="false">
         <set field="serviceCtx.partyId" value="TEST_PARTY"/>
         <set field="serviceCtx.rateTypeId" value="AVERAGE_PAY_RATE"/>
         <set field="serviceCtx.fromDate" type="Timestamp" value="2013-07-04 00:00:00"/>
-        <set field="serviceCtx.rateAmountFromDate" type="Timestamp" value="2013-07-04 00:00:00"/>
         <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <set field="serviceCtx.userLogin" from-field="userLogin"/>
-        <call-service service-name="expirePartyRate" in-map-name="serviceCtx"/>
+        <call-service service-name="deletePartyRate" in-map-name="serviceCtx"/>
          <entity-one entity-name="PartyRate" value-field="partyRate">
             <field-map field-name="rateTypeId" value="AVERAGE_PAY_RATE"/>
             <field-map field-name="partyId" value="TEST_PARTY"/>

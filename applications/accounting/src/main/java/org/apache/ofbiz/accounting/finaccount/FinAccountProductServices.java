@@ -25,35 +25,34 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import org.apache.ofbiz.service.DispatchContext;
+import org.apache.ofbiz.service.LocalDispatcher;
+import org.apache.ofbiz.service.ServiceUtil;
+import org.apache.ofbiz.service.GenericServiceException;
+import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.entity.GenericEntityException;
+import org.apache.ofbiz.entity.util.EntityQuery;
+import org.apache.ofbiz.entity.util.EntityUtil;
+import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.util.EntityQuery;
-import org.apache.ofbiz.entity.util.EntityUtil;
-import org.apache.ofbiz.entity.util.EntityUtilProperties;
-import org.apache.ofbiz.order.finaccount.FinAccountHelper;
 import org.apache.ofbiz.order.order.OrderReadHelper;
-import org.apache.ofbiz.service.DispatchContext;
-import org.apache.ofbiz.service.GenericServiceException;
-import org.apache.ofbiz.service.LocalDispatcher;
-import org.apache.ofbiz.service.ServiceUtil;
+import org.apache.ofbiz.order.finaccount.FinAccountHelper;
 
 /**
- * FinAccountProductServices - Financial Accounts created from product purchases
- * (i.e. gift certificates)
+ * FinAccountProductServices - Financial Accounts created from product purchases (i.e. gift certificates)
  */
 public class FinAccountProductServices {
 
     public static final String module = FinAccountProductServices.class.getName();
     public static final String resourceOrderError = "OrderErrorUiLabels";
     public static final String resourceError = "AccountingErrorUiLabels";
-
+    
     public static Map<String, Object> createPartyFinAccountFromPurchase(DispatchContext dctx, Map<String, Object> context) {
         // this service should always be called via FULFILLMENT_EXTASYNC
         LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -72,7 +71,7 @@ public class FinAccountProductServices {
             orderHeader = orderItem.getRelatedOne("OrderHeader", false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Unable to get OrderHeader from OrderItem", module);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceOrderError,
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceOrderError, 
                     "OrderCannotGetOrderHeader", UtilMisc.toMap("orderId", orderId), locale));
         }
 
@@ -129,8 +128,8 @@ public class FinAccountProductServices {
         }
         if (productStoreId == null) {
             Debug.logFatal("Unable to create financial accout; no productStoreId on OrderHeader : " + orderId, module);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
-                    "AccountingFinAccountCannotCreate",
+            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
+                    "AccountingFinAccountCannotCreate", 
                     UtilMisc.toMap("orderId", orderId), locale));
         }
 
@@ -175,7 +174,7 @@ public class FinAccountProductServices {
         }
 
         // create the context for FSE
-        Map<String, Object> expContext = new HashMap<>();
+        Map<String, Object> expContext = new HashMap<String, Object>();
         expContext.put("orderHeader", orderHeader);
         expContext.put("orderItem", orderItem);
         expContext.put("party", party);
@@ -192,7 +191,7 @@ public class FinAccountProductServices {
         BigDecimal deposit = price.multiply(quantity).setScale(FinAccountHelper.decimals, FinAccountHelper.rounding);
 
         // create the financial account
-        Map<String, Object> createCtx = new HashMap<>();
+        Map<String, Object> createCtx = new HashMap<String, Object>();
         String finAccountId;
 
         createCtx.put("finAccountTypeId", finAccountTypeId);
@@ -218,13 +217,13 @@ public class FinAccountProductServices {
         }
         if (ServiceUtil.isError(createResp)) {
             Debug.logFatal(ServiceUtil.getErrorMessage(createResp), module);
-            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(createResp));
+            return createResp;
         }
 
         finAccountId = (String) createResp.get("finAccountId");
 
         // create the owner role
-        Map<String, Object> roleCtx = new HashMap<>();
+        Map<String, Object> roleCtx = new HashMap<String, Object>();
         roleCtx.put("partyId", partyId);
         roleCtx.put("roleTypeId", "OWNER");
         roleCtx.put("finAccountId", finAccountId);
@@ -239,11 +238,11 @@ public class FinAccountProductServices {
         }
         if (ServiceUtil.isError(roleResp)) {
             Debug.logFatal(ServiceUtil.getErrorMessage(roleResp), module);
-            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(roleResp));
+            return roleResp;
         }
 
         // create the initial deposit
-        Map<String, Object> depositCtx = new HashMap<>();
+        Map<String, Object> depositCtx = new HashMap<String, Object>();
         depositCtx.put("finAccountId", finAccountId);
         depositCtx.put("productStoreId", productStoreId);
         depositCtx.put("currency", currency);
@@ -263,7 +262,7 @@ public class FinAccountProductServices {
         }
         if (ServiceUtil.isError(depositResp)) {
             Debug.logFatal(ServiceUtil.getErrorMessage(depositResp), module);
-            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(depositResp));
+            return depositResp;
         }
 
         Map<String, Object> result = ServiceUtil.returnSuccess();

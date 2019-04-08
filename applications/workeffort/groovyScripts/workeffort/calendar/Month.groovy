@@ -21,7 +21,6 @@ import java.sql.Timestamp
 import org.apache.ofbiz.base.util.UtilDateTime
 import org.apache.ofbiz.base.util.UtilMisc
 import org.apache.ofbiz.base.util.UtilValidate
-import org.apache.ofbiz.service.ModelService
 
 String startParam = parameters.startTime
 Timestamp start = null
@@ -59,7 +58,7 @@ if (followingMonthDays < 0) {
     followingMonthDays += 7
 }
 numDays += followingMonthDays
-Map serviceCtx = dispatcher.getDispatchContext().makeValidContext("getWorkEffortEventsByPeriod", ModelService.IN_PARAM, parameters)
+Map serviceCtx = dispatcher.getDispatchContext().makeValidContext("getWorkEffortEventsByPeriod", "IN", parameters)
 serviceCtx.putAll(UtilMisc.toMap("userLogin", userLogin, "start", getFrom, "calendarType", "VOID", "numPeriods", numDays, "periodType", Calendar.DATE, "locale", locale, "timeZone", timeZone))
 if (context.entityExprList) {
     serviceCtx.entityExprList = entityExprList

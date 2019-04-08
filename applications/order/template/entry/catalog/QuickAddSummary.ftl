@@ -50,7 +50,7 @@ under the License.
     <#elseif product.salesDiscontinuationDate?? && nowTimestamp.before(product.salesDiscontinuationDate)>
       ${uiLabelMap.ProductNoLongerAvailable}
     <#-- check to see if the product is a virtual product -->
-    <#elseif "Y" == product.isVirtual?default("N")>
+    <#elseif product.isVirtual?default("N") == "Y">
         <a href="<@ofbizUrl>product?<#if categoryId??>category_id=${categoryId}&amp;</#if>product_id=${product.productId}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderChooseVariations}...</a>
     <#else>
         <input type="text" size="5" name="quantity_${product.productId}" value="" />

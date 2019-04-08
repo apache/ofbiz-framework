@@ -58,7 +58,6 @@ import org.w3c.dom.Element;
  * An object that models the <code>&lt;entity&gt;</code> element.
  *
  */
-@SuppressWarnings("serial")
 public class ModelEntity implements Comparable<ModelEntity>, Serializable {
 
     public static final String module = ModelEntity.class.getName();
@@ -95,32 +94,32 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
 
     /** Model fields in the order they were defined. This list duplicates the values in fieldsMap, but
      *  we must keep the list in its original sequence for SQL DISTINCT operations to work properly. */
-    private final List<ModelField> fieldsList = new ArrayList<>();
+    private final List<ModelField> fieldsList = new ArrayList<ModelField>();
 
-    private final Map<String, ModelField> fieldsMap = new HashMap<>();
+    private final Map<String, ModelField> fieldsMap = new HashMap<String, ModelField>();
 
-    private final ArrayList<String> pkFieldNames = new ArrayList<>();
+    private final ArrayList<String> pkFieldNames = new ArrayList<String>();
 
     /** A List of the Field objects for the Entity, one for each Primary Key */
-    private final ArrayList<ModelField> pks = new ArrayList<>();
+    private final ArrayList<ModelField> pks = new ArrayList<ModelField>();
 
     /** A List of the Field objects for the Entity, one for each NON Primary Key */
-    private final ArrayList<ModelField> nopks = new ArrayList<>();
+    private final ArrayList<ModelField> nopks = new ArrayList<ModelField>();
 
     /** relations defining relationships between this entity and other entities */
-    protected CopyOnWriteArrayList<ModelRelation> relations = new CopyOnWriteArrayList<>();
+    protected CopyOnWriteArrayList<ModelRelation> relations = new CopyOnWriteArrayList<ModelRelation>();
 
     /** indexes on fields/columns in this entity */
-    private CopyOnWriteArrayList<ModelIndex> indexes = new CopyOnWriteArrayList<>();
+    private CopyOnWriteArrayList<ModelIndex> indexes = new CopyOnWriteArrayList<ModelIndex>();
 
     /** The reference of the dependentOn entity model */
     protected ModelEntity specializationOfModelEntity = null;
 
     /** The list of entities that are specialization of on this entity */
-    protected Map<String, ModelEntity> specializedEntities = new HashMap<>();
+    protected Map<String, ModelEntity> specializedEntities = new HashMap<String, ModelEntity>();
 
     /** map of ModelViewEntities that references this model */
-    private final Set<String> viewEntities = new HashSet<>();
+    private final Set<String> viewEntities = new HashSet<String>();
 
     /** An indicator to specify if this entity requires locking for updates */
     protected boolean doLock = false;
@@ -233,7 +232,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         this.modelReader = null;
         this.modelInfo = ModelInfo.DEFAULT;
         this.tableName = tableName;
-        int dotIndex = this.tableName.indexOf('.');
+        int dotIndex = this.tableName.indexOf(".");
         if (dotIndex >= 0) {
             this.tableName = this.tableName.substring(dotIndex + 1);
         }
@@ -275,24 +274,24 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
     }
 
     protected void populateRelated(ModelReader reader, Element entityElement) {
-        List<ModelRelation> tempList = new ArrayList<>(this.relations);
+        List<ModelRelation> tempList = new ArrayList<ModelRelation>(this.relations);
         for (Element relationElement: UtilXml.childElementList(entityElement, "relation")) {
             ModelRelation relation = reader.createRelation(this, relationElement);
             if (relation != null) {
                 tempList.add(relation);
             }
         }
-        this.relations = new CopyOnWriteArrayList<>(tempList);
+        this.relations = new CopyOnWriteArrayList<ModelRelation>(tempList);
     }
 
 
     protected void populateIndexes(Element entityElement) {
-        List<ModelIndex> tempList = new ArrayList<>(this.indexes);
+        List<ModelIndex> tempList = new ArrayList<ModelIndex>(this.indexes);
         for (Element indexElement: UtilXml.childElementList(entityElement, "index")) {
             ModelIndex index = ModelIndex.create(this, indexElement);
             tempList.add(index);
         }
-        this.indexes = new CopyOnWriteArrayList<>(tempList);
+        this.indexes = new CopyOnWriteArrayList<ModelIndex>(tempList);
     }
 
     public boolean containsAllPkFieldNames(Set<String> fieldNames) {
@@ -311,19 +310,19 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         if (extendEntityElement.hasAttribute("enable-lock")) {
             this.doLock = UtilXml.checkBoolean(extendEntityElement.getAttribute("enable-lock"), false);
         }
-
+        
         if (extendEntityElement.hasAttribute("no-auto-stamp")) {
             this.noAutoStamp = UtilXml.checkBoolean(extendEntityElement.getAttribute("no-auto-stamp"), false);
         }
-
+        
         if (extendEntityElement.hasAttribute("auto-clear-cache")) {
             this.autoClearCache = UtilXml.checkBoolean(extendEntityElement.getAttribute("auto-clear-cache"), false);
         }
-
+        
         if (extendEntityElement.hasAttribute("never-cache")) {
             this.neverCache = UtilXml.checkBoolean(extendEntityElement.getAttribute("never-cache"), false);
         }
-
+        
         if (extendEntityElement.hasAttribute("sequence-bank-size")) {
             String sequenceBankSizeStr = UtilXml.checkEmpty(extendEntityElement.getAttribute("sequence-bank-size"));
             if (UtilValidate.isNotEmpty(sequenceBankSizeStr)) {
@@ -334,7 +333,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
                 }
             }
         }
-
+        
         for (Element fieldElement : UtilXml.childElementList(extendEntityElement, "field")) {
             ModelField newField = ModelField.create(this, fieldElement, false);
             ModelField existingField = this.getField(newField.getName());
@@ -458,7 +457,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
     public void setNeverCache(boolean neverCache) {
         this.neverCache = neverCache;
     }
-
+    
     /**
      * An indicator to specific if this entity should ignore automatic DB checks.
      * This should be set when the entity is mapped to a database view to prevent
@@ -467,11 +466,11 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
     public boolean getNeverCheck() {
         return neverCheck;
     }
-
+    
     public void setNeverCheck(boolean neverCheck) {
         this.neverCheck = neverCheck;
     }
-
+        
     public boolean getAutoClearCache() {
         return this.autoClearCache;
     }
@@ -558,7 +557,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
 
     public List<ModelField> getPkFields() {
         synchronized (fieldsLock) {
-            return new ArrayList<>(this.pks);
+            return new ArrayList<ModelField>(this.pks);
         }
     }
 
@@ -587,7 +586,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
 
     public List<ModelField> getNopksCopy() {
         synchronized (fieldsLock) {
-            return new ArrayList<>(this.nopks);
+            return new ArrayList<ModelField>(this.nopks);
         }
     }
 
@@ -599,14 +598,14 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
 
     public Iterator<ModelField> getFieldsIterator() {
         synchronized (fieldsLock) {
-            List<ModelField> newList = new ArrayList<>(this.fieldsList);
+            List<ModelField> newList = new ArrayList<ModelField>(this.fieldsList);
             return newList.iterator();
         }
     }
 
     public List<ModelField> getFieldsUnmodifiable() {
         synchronized (fieldsLock) {
-            List<ModelField> newList = new ArrayList<>(this.fieldsList);
+            List<ModelField> newList = new ArrayList<ModelField>(this.fieldsList);
             return Collections.unmodifiableList(newList);
         }
     }
@@ -662,13 +661,13 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
 
     public List<String> getAllFieldNames() {
         synchronized (fieldsLock) {
-            return new ArrayList<>(this.fieldsMap.keySet());
+            return new ArrayList<String>(this.fieldsMap.keySet());
         }
     }
 
     public List<String> getPkFieldNames() {
         synchronized (fieldsLock) {
-            return new ArrayList<>(pkFieldNames);
+            return new ArrayList<String>(pkFieldNames);
         }
     }
 
@@ -677,7 +676,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
     }
 
     private List<String> getFieldNamesFromFieldVector(List<ModelField> modelFields) {
-        List<String> nameList = new ArrayList<>(modelFields.size());
+        List<String> nameList = new ArrayList<String>(modelFields.size());
         for (ModelField field: modelFields) {
             nameList.add(field.getName());
         }
@@ -688,7 +687,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
      * @return field names list, managed by entity-engine
      */
     public List<String> getAutomaticFieldNames() {
-        List<String> nameList = new LinkedList<>();
+        List<String> nameList = new LinkedList<String>();
         if (! this.noAutoStamp) {
             nameList.add(STAMP_FIELD);
             nameList.add(STAMP_TX_FIELD);
@@ -723,7 +722,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
     }
 
     public List<ModelRelation> getRelationsList(boolean includeOne, boolean includeOneNoFk, boolean includeMany) {
-        List<ModelRelation> relationsList = new LinkedList<>();
+        List<ModelRelation> relationsList = new LinkedList<ModelRelation>();
         Iterator<ModelRelation> allIter = this.getRelationsIterator();
         while (allIter.hasNext()) {
             ModelRelation modelRelation = allIter.next();
@@ -798,7 +797,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
 
     public Iterator<String> getViewConvertorsIterator() {
         synchronized (viewEntities) {
-            return new HashSet<>(this.viewEntities).iterator();
+            return new HashSet<String>(this.viewEntities).iterator();
         }
     }
 
@@ -1376,7 +1375,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
             throw new IllegalArgumentException(errMsg);
         }
         try {
-            return ObjectType.simpleTypeOrObjectConvert(value, fieldJavaType, null, null, false);
+            return ObjectType.simpleTypeConvert(value, fieldJavaType, null, null, false);
         } catch (GeneralException e) {
             String errMsg = "Could not convert field value for the field: [" + modelField.getName() + "] on the [" + this.getEntityName() + "] entity to the [" + fieldJavaType + "] type for the value [" + value + "]: " + e.toString();
             Debug.logError(e, errMsg, module);
@@ -1404,7 +1403,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         }
         String fieldJavaType = modelFieldTypeReader.getModelFieldType(modelField.getType()).getJavaType();
         try {
-            return ObjectType.simpleTypeOrObjectConvert(value, fieldJavaType, null, (TimeZone) context.get("timeZone"), (Locale) context.get("locale"), true);
+            return ObjectType.simpleTypeConvert(value, fieldJavaType, null, (TimeZone) context.get("timeZone"), (Locale) context.get("locale"), true);
         } catch (GeneralException e) {
             String errMsg = "Could not convert field value for the field: [" + modelField.getName() + "] on the [" + this.getEntityName() + "] entity to the [" + fieldJavaType + "] type for the value [" + value + "]: " + e.toString();
             Debug.logError(e, errMsg, module);
@@ -1464,7 +1463,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         if (this.getNeverCache()) {
             root.setAttribute("never-cache", "true");
         }
-
+        
         if (this.getNeverCheck()) {
             root.setAttribute("never-check", "true");
         }
@@ -1500,7 +1499,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
 
         // append field elements
         Iterator<ModelField> fieldIter = this.getFieldsIterator();
-        while (fieldIter.hasNext()) {
+        while (fieldIter != null && fieldIter.hasNext()) {
             ModelField field = fieldIter.next();
             if (!field.getIsAutoCreatedInternal()) {
                 root.appendChild(field.toXmlElement(document));
@@ -1518,14 +1517,14 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
 
         // append relation elements
         Iterator<ModelRelation> relIter = this.getRelationsIterator();
-        while (relIter.hasNext()) {
+        while (relIter != null && relIter.hasNext()) {
             ModelRelation rel = relIter.next();
             root.appendChild(rel.toXmlElement(document));
         }
 
         // append index elements
         Iterator<ModelIndex> idxIter = this.getIndexesIterator();
-        while (idxIter.hasNext()) {
+        while (idxIter != null && idxIter.hasNext()) {
             ModelIndex idx = idxIter.next();
             root.appendChild(idx.toXmlElement(document));
 
@@ -1563,14 +1562,14 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         final boolean useRelationshipNames = false;
         ModelFieldTypeReader modelFieldTypeReader = ModelFieldTypeReader.getModelFieldTypeReader(helperName);
 
-        Map<String, Object> topLevelMap = new HashMap<>();
+        Map<String, Object> topLevelMap = new HashMap<String, Object>();
 
         topLevelMap.put("name", this.getEntityName());
         topLevelMap.put("externalName", this.getTableName(helperName));
         topLevelMap.put("className", "EOGenericRecord");
 
         // for classProperties add field names AND relationship names to get a nice, complete chart
-        List<String> classPropertiesList = new LinkedList<>();
+        List<String> classPropertiesList = new LinkedList<String>();
         topLevelMap.put("classProperties", classPropertiesList);
         for (ModelField field: this.fieldsList) {
             if (field.getIsAutoCreatedInternal()) continue;
@@ -1588,14 +1587,14 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         }
 
         // attributes
-        List<Map<String, Object>> attributesList = new LinkedList<>();
+        List<Map<String, Object>> attributesList = new LinkedList<Map<String, Object>>();
         topLevelMap.put("attributes", attributesList);
         for (ModelField field: this.fieldsList) {
             if (field.getIsAutoCreatedInternal()) continue;
 
             ModelFieldType fieldType = modelFieldTypeReader.getModelFieldType(field.getType());
 
-            Map<String, Object> attributeMap = new HashMap<>();
+            Map<String, Object> attributeMap = new HashMap<String, Object>();
             attributesList.add(attributeMap);
 
             if (field.getIsPk()) {
@@ -1607,15 +1606,15 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
             attributeMap.put("valueClassName", fieldType.getJavaType());
 
             String sqlType = fieldType.getSqlType();
-            if (sqlType.indexOf('(') >= 0) {
-                attributeMap.put("externalType", sqlType.substring(0, sqlType.indexOf('(')));
+            if (sqlType.indexOf("(") >= 0) {
+                attributeMap.put("externalType", sqlType.substring(0, sqlType.indexOf("(")));
                 // since there is a field length set that
-                String widthStr = sqlType.substring(sqlType.indexOf('(') + 1, sqlType.indexOf(')'));
+                String widthStr = sqlType.substring(sqlType.indexOf("(") + 1, sqlType.indexOf(")"));
                 // if there is a comma split by it for width,precision
-                if (widthStr.indexOf(',') >= 0) {
-                    attributeMap.put("width", widthStr.substring(0, widthStr.indexOf(',')));
+                if (widthStr.indexOf(",") >= 0) {
+                    attributeMap.put("width", widthStr.substring(0, widthStr.indexOf(",")));
                     // since there is a field precision set that
-                    attributeMap.put("precision", widthStr.substring(widthStr.indexOf(',') + 1));
+                    attributeMap.put("precision", widthStr.substring(widthStr.indexOf(",") + 1));
                 } else {
                     attributeMap.put("width", widthStr);
                 }
@@ -1625,19 +1624,19 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         }
 
         // primaryKeyAttributes
-        List<String> primaryKeyAttributesList = new LinkedList<>();
+        List<String> primaryKeyAttributesList = new LinkedList<String>();
         topLevelMap.put("primaryKeyAttributes", primaryKeyAttributesList);
         for (ModelField pkField : getPkFields()) {
             primaryKeyAttributesList.add(pkField.getName());
         }
 
         // relationships
-        List<Map<String, Object>> relationshipsMapList = new LinkedList<>();
+        List<Map<String, Object>> relationshipsMapList = new LinkedList<Map<String, Object>>();
         for (ModelRelation relationship: this.relations) {
             if (entityNameIncludeSet.contains(relationship.getRelEntityName())) {
                 ModelEntity relEntity = entityModelReader.getModelEntity(relationship.getRelEntityName());
 
-                Map<String, Object> relationshipMap = new HashMap<>();
+                Map<String, Object> relationshipMap = new HashMap<String, Object>();
                 relationshipsMapList.add(relationshipMap);
 
                 if (useRelationshipNames || relationship.isAutoRelation()) {
@@ -1656,10 +1655,10 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
                 relationshipMap.put("joinSemantic", "EOInnerJoin");
 
 
-                List<Map<String, Object>> joinsMapList = new LinkedList<>();
+                List<Map<String, Object>> joinsMapList = new LinkedList<Map<String, Object>>();
                 relationshipMap.put("joins", joinsMapList);
                 for (ModelKeyMap keyMap: relationship.getKeyMaps()) {
-                    Map<String, Object> joinsMap = new HashMap<>();
+                    Map<String, Object> joinsMap = new HashMap<String, Object>();
                     joinsMapList.add(joinsMap);
 
                     ModelField thisField = this.getField(keyMap.getFieldName());

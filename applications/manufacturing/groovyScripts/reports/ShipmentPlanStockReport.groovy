@@ -17,6 +17,8 @@
  * under the License.
  */
 
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.base.util.*
 
 inventoryStock = [:]
 shipmentId = parameters.shipmentId

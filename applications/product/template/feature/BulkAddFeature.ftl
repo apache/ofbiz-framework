@@ -35,7 +35,7 @@ under the License.
           </tr>
         <#assign rowClass = "2">
         <#list 0..featureNum-1 as feature>
-          <tr id="productFeatureTypeId_tableRow_${feature_index}" valign="middle"<#if "1" == rowClass> class="alternate-row"</#if>>
+          <tr id="productFeatureTypeId_tableRow_${feature_index}" valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
               <td><input type="text" size='15' name="description_o_${feature_index}" /></td>
               <td><select name='productFeatureTypeId_o_${feature_index}' size="1">
                   <#list productFeatureTypes as productFeatureType>
@@ -49,7 +49,7 @@ under the License.
               <td align="right"><input type="checkbox" name="_rowSubmit_o_${feature_index}" value="Y" onclick="highlightRow(this,'productFeatureTypeId_tableRow_${feature_index}');" /></td>
           </tr>
           <#-- toggle the row color -->
-          <#if "2" == rowClass>
+          <#if rowClass == "2">
             <#assign rowClass = "1">
           <#else>
             <#assign rowClass = "2">

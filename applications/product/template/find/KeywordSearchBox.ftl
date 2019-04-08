@@ -18,7 +18,7 @@ under the License.
 -->
 <#if (requestAttributes.uiLabelMap)??><#assign uiLabelMap = requestAttributes.uiLabelMap></#if>
 
-<script type="application/javascript">
+<script type="text/javascript">
 //<![CDATA[
      function changeCategory() {
          document.forms["keywordsearchform"].elements["SEARCH_CATEGORY_ID"].value=document.forms["advancedsearchform"].elements["DUMMYCAT"].value;
@@ -44,11 +44,11 @@ under the License.
     </div>
     <div>
       <label for="keywordSearchCointains">${uiLabelMap.CommonNoContains}</label>
-      <input type="checkbox" name="SEARCH_CONTAINS" id="keywordSearchCointains" value="N" <#if "N" == requestParameters.SEARCH_CONTAINS!>checked="checked"</#if> />
+      <input type="checkbox" name="SEARCH_CONTAINS" id="keywordSearchCointains" value="N" <#if requestParameters.SEARCH_CONTAINS! == "N">checked="checked"</#if> />
       <label for="keywordSearchOperatorOr">${uiLabelMap.CommonAny}</label>
-      <input type="radio" name="SEARCH_OPERATOR" id="keywordSearchOperatorOr" value="OR" <#if "AND" != requestParameters.SEARCH_OPERATOR!>checked="checked"</#if> />
+      <input type="radio" name="SEARCH_OPERATOR" id="keywordSearchOperatorOr" value="OR" <#if requestParameters.SEARCH_OPERATOR! != "AND">checked="checked"</#if> />
       <label for="keywordSearchOperatorAnd">${uiLabelMap.CommonAll}</label>
-      <input type="radio" name="SEARCH_OPERATOR" id="keywordSearchOperatorAnd" value="AND" <#if "AND" == requestParameters.SEARCH_OPERATOR!>checked="checked"</#if> />
+      <input type="radio" name="SEARCH_OPERATOR" id="keywordSearchOperatorAnd" value="AND" <#if requestParameters.SEARCH_OPERATOR! == "AND">checked="checked"</#if> />
     </div>
     <div>
       <input type="submit" name="find" value="${uiLabelMap.CommonFind}" class="buttontext" />
@@ -62,7 +62,7 @@ under the License.
       <@htmlTemplate.lookupField value="${requestParameters.SEARCH_CATEGORY_ID!}" formName="advancedsearchform" name="SEARCH_CATEGORY_ID" id="searchCategoryId" fieldFormName="LookupProductCategory"/>
     </div>
     <div>
-    <input type="submit" value="${uiLabelMap.ProductAdvancedSearch}"/>
+    <a href="javascript:document.getElementById('advancedSearchForm').submit()" class="buttontext">${uiLabelMap.ProductAdvancedSearch}</a>
     </div>
   </fieldset>
 </form>

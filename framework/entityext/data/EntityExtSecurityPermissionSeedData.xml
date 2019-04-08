@@ -22,6 +22,6 @@ under the License.
     <SecurityPermission description="Use the Entity Sync Admin pages." permissionId="ENTITY_SYNC_ADMIN"/>
     
     <!-- add admin to SUPER permission group -->
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="ENTITY_SYNC_ADMIN"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="ENTITY_SYNC_ADMIN"/>
     
 </entity-engine-xml>

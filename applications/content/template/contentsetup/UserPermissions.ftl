@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<script type="application/javascript">
+<script type="text/javascript" language="javascript1.2">
 function call_fieldlookup3(view_name) {
     var obj_lookupwindow = window.open(view_name + "?webSitePublishPoint=" + webSitePublishPoint,'FieldLookup', 'width=700,height=550,scrollbars=yes,status=no,top='+my+',left='+mx+',dependent=yes,alwaysRaised=yes');
     obj_lookupwindow.opener = window;
@@ -54,7 +54,7 @@ function call_fieldlookup3(view_name) {
 
 <#-- ============================================================= -->
 <br />
-<table border="0" width='100%' cellspacing='0' cellpadding='0' class="form-table">
+<table border="0" width='100%' cellspacing='0' cellpadding='0' class='boxoutside'>
   <tr>
     <td width='100%'>
       <form name="userform" method="post" action="<@ofbizUrl>UserPermissions</@ofbizUrl>" >
@@ -79,9 +79,8 @@ function call_fieldlookup3(view_name) {
   <tr>
     <td width='100%'>
       <form name="siteRoleForm" method="post" action="<@ofbizUrl>updateSiteRoles</@ofbizUrl>">
-      <table width='100%' border='0' cellspacing='0' cellpadding='4' >
+      <table width='100%' border='0' cellspacing='0' cellpadding='4' class='boxoutside'>
         <tr>
-            <td class="label"/>
             <td class="">${uiLabelMap.ContentWebSite}</td>
             <#list blogRoleIdList as roleTypeId>
               <td class="">${roleTypeId}</td>
@@ -95,7 +94,7 @@ function call_fieldlookup3(view_name) {
             <#list blogRoleIdList as roleTypeId>
               <#assign cappedSiteRole= Static["org.apache.ofbiz.entity.model.ModelUtil"].dbNameToVarName(roleTypeId) />
               <td align="center">
-              <input type="checkbox" name="${cappedSiteRole}_o_${rowCount}" value="Y" <#if map[cappedSiteRole]?has_content && "Y" == map[cappedSiteRole]>checked="checked"</#if>/>
+              <input type="checkbox" name="${cappedSiteRole}_o_${rowCount}" value="Y" <#if map[cappedSiteRole]?has_content && map[cappedSiteRole] == "Y">checked="checked"</#if>/>
               </td>
             </#list>
           </tr>
@@ -104,7 +103,6 @@ function call_fieldlookup3(view_name) {
           <#assign rowCount=rowCount + 1/>
         </#list>
           <tr>
-            <td class="label"/>
             <td>
               <div class="smallSubmit" ><a href="javascript:submitRows('${rowCount!}')">${uiLabelMap.CommonUpdate}</a></div>
             </td>

@@ -673,23 +673,23 @@ under the License.
     <!-- ======================================== -->
     <!-- Product Category Services -->
     <!-- ======================================== -->
-    <service name="createProductCategory" default-entity-name="ProductCategory" engine="groovy"
-                location="component://product/groovyScripts/product/category/CategoryServices.groovy" invoke="createProductCategory" auth="true">
+    <service name="createProductCategory" default-entity-name="ProductCategory" engine="simple"
+                location="component://product/minilang/product/category/CategoryServices.xml" invoke="createProductCategory" auth="true">
         <description>Create an ProductCategory</description>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="productCategoryTypeId" optional="false"/>
     </service>
-    <service name="updateProductCategory" default-entity-name="ProductCategory" engine="groovy"
-                location="component://product/groovyScripts/product/category/CategoryServices.groovy" invoke="updateProductCategory" auth="true">
+    <service name="updateProductCategory" default-entity-name="ProductCategory" engine="simple"
+                location="component://product/minilang/product/category/CategoryServices.xml" invoke="updateProductCategory" auth="true">
         <description>Update an ProductCategory</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="productCategoryTypeId" optional="false"/>
     </service>
 
-    <service name="duplicateProductCategory" engine="groovy"
-                location="component://product/groovyScripts/product/category/CategoryServices.groovy" invoke="duplicateProductCategory" auth="true">
+    <service name="duplicateProductCategory" engine="simple"
+                location="component://product/minilang/product/category/CategoryServices.xml" invoke="duplicateProductCategory" auth="true">
         <description>Duplicate a Product Category using from oldProductCategoryId to a new productCategoryId</description>
         <attribute name="productCategoryId" type="String" mode="IN" optional="false"/>
         <attribute name="oldProductCategoryId" type="String" mode="IN" optional="false"/>
@@ -711,8 +711,8 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
 
-    <service name="addProductToCategories" default-entity-name="ProductCategoryMember" engine="groovy"
-                location="component://product/groovyScripts/product/category/CategoryServices.groovy" invoke="addProductToCategories" auth="true">
+    <service name="addProductToCategories" default-entity-name="ProductCategoryMember" engine="simple"
+                location="component://product/minilang/product/category/CategoryServices.xml" invoke="addProductToCategories" auth="true">
         <description>Add Product To Multiple Categories</description>
         <permission-service service-name="checkCategoryPermissionWithViewPurchaseAllow" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false">
@@ -735,15 +735,15 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeProductFromCategory" default-entity-name="ProductCategoryMember" engine="groovy"
-                location="component://product/groovyScripts/product/category/CategoryServices.groovy" invoke="removeProductFromCategory" auth="true">
+    <service name="removeProductFromCategory" default-entity-name="ProductCategoryMember" engine="simple"
+                location="component://product/minilang/product/category/CategoryServices.xml" invoke="removeProductFromCategory" auth="true">
         <description>Remove Product From Category</description>
         <permission-service service-name="checkCategoryPermissionWithViewPurchaseAllow" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <service name="createProductInCategory" engine="groovy"
-                location="component://product/groovyScripts/product/category/CategoryServices.groovy" invoke="createProductInCategory" auth="true">
+    <service name="createProductInCategory" engine="simple"
+                location="component://product/minilang/product/category/CategoryServices.xml" invoke="createProductInCategory" auth="true">
         <description></description>
         <auto-attributes entity-name="ProductCategory" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="Product" include="pk" mode="INOUT" optional="true"/>
@@ -755,8 +755,8 @@ under the License.
         <attribute name="currencyUomId" type="String" mode="IN" optional="true"/>
     </service>
 
-    <service name="addPartyToCategory" engine="groovy"
-                location="component://product/groovyScripts/product/category/CategoryServices.groovy" invoke="addPartyToCategory" auth="true">
+    <service name="addPartyToCategory" engine="simple"
+                location="component://product/minilang/product/category/CategoryServices.xml" invoke="addPartyToCategory" auth="true">
         <description>Add Party To Category</description>
         <attribute name="productCategoryId" type="String" mode="IN" optional="false"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
@@ -765,8 +765,8 @@ under the License.
         <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="comments" type="String" mode="IN" optional="true"/>
     </service>
-    <service name="updatePartyToCategory" engine="groovy"
-                location="component://product/groovyScripts/product/category/CategoryServices.groovy" invoke="updatePartyToCategory" auth="true">
+    <service name="updatePartyToCategory" engine="simple"
+                location="component://product/minilang/product/category/CategoryServices.xml" invoke="updatePartyToCategory" auth="true">
         <description>Update Party To Category</description>
         <attribute name="productCategoryId" type="String" mode="IN" optional="false"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
@@ -775,8 +775,8 @@ under the License.
         <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="comments" type="String" mode="IN" optional="true"/>
     </service>
-    <service name="removePartyFromCategory" engine="groovy"
-                location="component://product/groovyScripts/product/category/CategoryServices.groovy" invoke="removePartyFromCategory" auth="true">
+    <service name="removePartyFromCategory" engine="simple"
+                location="component://product/minilang/product/category/CategoryServices.xml" invoke="removePartyFromCategory" auth="true">
         <description>Remove Party From Category</description>
         <attribute name="productCategoryId" type="String" mode="IN" optional="false"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
@@ -815,8 +815,8 @@ under the License.
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
     </service>
 
-    <service name="safeAddProductCategoryToCategory" engine="groovy"
-            location="component://product/groovyScripts/product/category/CategoryServices.groovy" invoke="addProductCategoryToCategory" auth="true">
+    <service name="safeAddProductCategoryToCategory" engine="simple"
+                location="component://product/minilang/product/category/CategoryServices.xml" invoke="addProductCategoryToCategory" auth="true">
         <description>Safe Add ProductCategory To Category (requires fromDate)</description>
         <attribute name="productCategoryId" type="String" mode="IN" optional="false"/>
         <attribute name="parentProductCategoryId" type="String" mode="IN" optional="false"/>
@@ -825,8 +825,8 @@ under the License.
         <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
     </service>
 
-    <service name="addProductCategoryToCategory" engine="groovy"
-                location="component://product/groovyScripts/product/category/CategoryServices.groovy" invoke="addProductCategoryToCategory" auth="true">
+    <service name="addProductCategoryToCategory" engine="simple"
+                location="component://product/minilang/product/category/CategoryServices.xml" invoke="addProductCategoryToCategory" auth="true">
         <description>Add ProductCategory To Category</description>
         <attribute name="productCategoryId" type="String" mode="IN" optional="false"/>
         <attribute name="parentProductCategoryId" type="String" mode="IN" optional="false"/>
@@ -834,8 +834,8 @@ under the License.
         <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
     </service>
-    <service name="addProductCategoryToCategories" engine="groovy"
-                location="component://product/groovyScripts/product/category/CategoryServices.groovy" invoke="addProductCategoryToCategories" auth="true">
+    <service name="addProductCategoryToCategories" engine="simple"
+                location="component://product/minilang/product/category/CategoryServices.xml" invoke="addProductCategoryToCategories" auth="true">
         <description>Add ProductCategory To Categories</description>
         <attribute name="productCategoryId" type="String" mode="IN" optional="false"/>
         <attribute name="categories" type="Object" mode="IN" optional="false"/>
@@ -843,8 +843,8 @@ under the License.
         <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
     </service>
-    <service name="updateProductCategoryToCategory" engine="groovy"
-                location="component://product/groovyScripts/product/category/CategoryServices.groovy" invoke="updateProductCategoryToCategory" auth="true">
+    <service name="updateProductCategoryToCategory" engine="simple"
+                location="component://product/minilang/product/category/CategoryServices.xml" invoke="updateProductCategoryToCategory" auth="true">
         <description>Update ProductCategory To Category</description>
         <attribute name="productCategoryId" type="String" mode="INOUT" optional="false"/>
         <attribute name="parentProductCategoryId" type="String" mode="IN" optional="false"/>
@@ -852,8 +852,8 @@ under the License.
         <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
     </service>
-    <service name="removeProductCategoryFromCategory" engine="groovy"
-                location="component://product/groovyScripts/product/category/CategoryServices.groovy" invoke="removeProductCategoryFromCategory" auth="true">
+    <service name="removeProductCategoryFromCategory" engine="simple"
+                location="component://product/minilang/product/category/CategoryServices.xml" invoke="removeProductCategoryFromCategory" auth="true">
         <description>Remove ProductCategory From Category</description>
         <attribute name="productCategoryId" type="String" mode="IN" optional="false"/>
         <attribute name="parentProductCategoryId" type="String" mode="IN" optional="false"/>
@@ -861,27 +861,27 @@ under the License.
     </service>
 
     <!-- Product Category Attribute SErvices -->
-    <service name="createProductCategoryAttribute" default-entity-name="ProductCategoryAttribute" engine="groovy"
-            location="component://product/groovyScripts/product/category/CategoryServices.groovy"
+    <service name="createProductCategoryAttribute" default-entity-name="ProductCategoryAttribute" engine="simple"
+            location="component://product/minilang/product/category/CategoryServices.xml"
             invoke="createProductCategoryAttribute" auth="true">
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateProductCategoryAttribute" default-entity-name="ProductCategoryAttribute" engine="groovy"
-            location="component://product/groovyScripts/product/category/CategoryServices.groovy"
+    <service name="updateProductCategoryAttribute" default-entity-name="ProductCategoryAttribute" engine="simple"
+            location="component://product/minilang/product/category/CategoryServices.xml"
             invoke="updateProductCategoryAttribute" auth="true">
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteProductCategoryAttribute" default-entity-name="ProductCategoryAttribute" engine="groovy"
-            location="component://product/groovyScripts/product/category/CategoryServices.groovy"
+    <service name="deleteProductCategoryAttribute" default-entity-name="ProductCategoryAttribute" engine="simple"
+            location="component://product/minilang/product/category/CategoryServices.xml"
             invoke="deleteProductCategoryAttribute" auth="true">
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <!-- Product Category Link Services -->
-    <service name="createProductCategoryLink" default-entity-name="ProductCategoryLink" engine="groovy"
-            location="component://product/groovyScripts/product/category/CategoryServices.groovy"
+    <service name="createProductCategoryLink" default-entity-name="ProductCategoryLink" engine="simple"
+            location="component://product/minilang/product/category/CategoryServices.xml"
             invoke="createProductCategoryLink" auth="true">
         <description>Create a ProductCategoryLink</description>
         <permission-service service-name="productCategoryGenericPermission" main-action="CREATE"/>
@@ -897,14 +897,16 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteProductCategoryLink" default-entity-name="ProductCategoryLink" engine="entity-auto" invoke="delete" auth="true">
+    <service name="deleteProductCategoryLink" default-entity-name="ProductCategoryLink" engine="simple"
+            location="component://product/minilang/product/category/CategoryServices.xml"
+            invoke="deleteProductCategoryLink" auth="true">
         <description>Delete a ProductCategoryLink</description>
         <permission-service service-name="productCategoryGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <service name="duplicateCategoryEntities" engine="groovy"
-                location="component://product/groovyScripts/product/category/CategoryServices.groovy" invoke="duplicateCategoryEntities" auth="true">
+    <service name="duplicateCategoryEntities" engine="simple"
+                location="component://product/minilang/product/category/CategoryServices.xml" invoke="duplicateCategoryEntities" auth="true">
         <description>Duplicates a named entity from one productCategoryId to another</description>
         <attribute name="productCategoryId" type="String" mode="IN" optional="false"/>
         <attribute name="productCategoryIdTo" type="String" mode="IN" optional="false"/>
@@ -1244,16 +1246,16 @@ under the License.
         location="component://product/minilang/product/product/ProductServices.xml" invoke="productGenericPermission">
         <implements service="permissionInterface"/>
     </service>
-    <service name="productCategoryGenericPermission" engine="groovy"
-        location="component://product/groovyScripts/product/category/CategoryServices.groovy" invoke="productCategoryGenericPermission">
+    <service name="productCategoryGenericPermission" engine="simple"
+        location="component://product/minilang/product/category/CategoryServices.xml" invoke="productCategoryGenericPermission">
         <implements service="permissionInterface"/>
     </service>
     <service name="productPriceGenericPermission" engine="simple"
         location="component://product/minilang/product/product/ProductServices.xml" invoke="productPriceGenericPermission">
         <implements service="permissionInterface"/>
     </service>
-    <service name="checkCategoryPermissionWithViewPurchaseAllow" engine="groovy"
-        location="component://product/groovyScripts/product/category/CategoryServices.groovy" invoke="checkCategoryPermissionWithViewPurchaseAllow">
+    <service name="checkCategoryPermissionWithViewPurchaseAllow" engine="simple"
+        location="component://product/minilang/product/category/CategoryServices.xml" invoke="checkCategoryPermissionWithViewPurchaseAllow">
         <implements service="permissionInterface"/>
         <attribute type="String" mode="IN" name="productCategoryId" optional="true"/>
     </service>
@@ -1572,6 +1574,49 @@ under the License.
         <attribute name="productId" mode="IN" type="String" optional="false"/>
         <attribute name="contentId" mode="IN" type="String" optional="false"/>
         <attribute name="drDataResourceName" mode="IN" type="String" optional="false"/>
+    </service>
+    
+    <!-- Best Selling Category Services -->
+    <service name="loadBestSellingCategory" engine="simple"
+        location="component://product/minilang/product/category/CategoryServices.xml" invoke="loadBestSellingCategory" auth="true">
+        <description>Load data of best selling category by week.</description>
+        <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
+    </service>
+    
+    <service name="RemoveProductFromBestSellCategory" engine="simple"
+        location="component://product/minilang/product/category/CategoryServices.xml" invoke="RemoveProductFromBestSellCategory" auth="true">
+        <description>Remove products from best selling category.</description>
+        <attribute name="prodCatalogId" mode="IN" type="String" optional="false"/>
+    </service>
+    
+    <service name="AddProductToBestSellCategory" engine="simple"
+        location="component://product/minilang/product/category/CategoryServices.xml" invoke="AddProductToBestSellCategory" auth="true">
+        <description>Add products to best selling category.</description>
+        <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
+        <attribute name="prodCatalogId" mode="IN" type="String" optional="false"/>
+        <attribute name="week" mode="IN" type="Long" optional="false"/>
+        <attribute name="year" mode="IN" type="Long" optional="false"/>
+    </service>
+    
+    <service name="FindCategoryChild" engine="simple"
+        location="component://product/minilang/product/category/CategoryServices.xml" invoke="FindCategoryChild" auth="true">
+        <description>Find category child.</description>
+        <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
+        <attribute name="productCategoryId" mode="IN" type="String" optional="false"/>
+        <attribute name="primaryProductCategoryId" mode="IN" type="String" optional="false"/>
+        <attribute name="week" mode="IN" type="Long" optional="false"/>
+        <attribute name="year" mode="IN" type="Long" optional="false"/>
+    </service>
+    
+    <service name="FindBestSellingProduct" engine="simple"
+        location="component://product/minilang/product/category/CategoryServices.xml" invoke="FindBestSellingProduct" auth="true">
+        <description>Find best selling product.</description>
+        <attribute name="productStoreId" mode="IN" type="String" optional="false"/>
+        <attribute name="productCategoryId" mode="IN" type="String" optional="false"/>
+        <attribute name="primaryProductCategoryId" mode="IN" type="String" optional="false"/>
+        <attribute name="week" mode="IN" type="Long" optional="false"/>
+        <attribute name="year" mode="IN" type="Long" optional="false"/>
+        <attribute name="productCategoryId" mode="OUT" type="String" optional="true"/>
     </service>
     
     <!-- Alternative URLs -->

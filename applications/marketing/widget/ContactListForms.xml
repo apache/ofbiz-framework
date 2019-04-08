@@ -28,7 +28,7 @@ under the License.
         <field use-when="contactList==null&amp;&amp;contactListId==null" name="contactListId" title="${uiLabelMap.MarketingContactListContactListId}"><ignored/></field>
         <field use-when="contactList==null&amp;&amp;contactListId!=null" name="contactListId" title="${uiLabelMap.MarketingContactListContactListId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${contactListId}]"><display/></field>
 
-        <field name="contactListName" title="${uiLabelMap.MarketingContactListContactListName}" required-field="true"><text size="30" maxlength="255"/></field>
+        <field name="contactListName" title="${uiLabelMap.MarketingContactListContactListName}"><text/></field>
         <field name="contactListTypeId" title="${uiLabelMap.MarketingContactListContactListTypeId}">
             <drop-down>
                 <entity-options entity-name="ContactListType" key-field-name="contactListTypeId">
@@ -76,7 +76,7 @@ under the License.
         </field>
         <field name="optOutScreen"><text size="60"/></field>
         
-        <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
         <!-- <field name="DONE_PAGE"><hidden value="${donePage}"/></field> -->
         <!-- <field name="cancelLink" title=" " widget-style="buttontext"><hyperlink description="${uiLabelMap.CommonCancelDone}" target="${donePage}" also-hidden="false" target-type="inter-app"/></field> -->
     </form>

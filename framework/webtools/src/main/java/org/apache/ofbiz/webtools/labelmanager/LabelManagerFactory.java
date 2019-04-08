@@ -131,6 +131,7 @@ public class LabelManagerFactory {
                                     || labelKey.contains(".geoName.")
                                     || labelKey.contains(".categoryName.")
                                     || labelKey.contains("FieldDescription.")
+                                    || labelKey.contains("ProductShipmentUomAbbreviation_")
                                     || labelKey.contains("TemporalExpression_")
                                     || labelKey.contains(".portalPageName.")
                                     || labelKey.contains("ProductStoreGroup.productStoreGroupName.NA")
@@ -228,7 +229,7 @@ public class LabelManagerFactory {
                         label = new LabelInfo(key, keyComment, fileName, localeName, localeValue, localeComment);
                         labels.put(key + keySeparator + fileName, label);
                     } catch (Exception e) {
-                        Debug.logError(e, module);;
+                        e.printStackTrace();
                     }
                 } else {
                     label.setLabelKeyComment(keyComment);

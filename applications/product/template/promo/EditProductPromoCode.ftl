@@ -39,7 +39,7 @@ under the License.
                     <span class="label">${uiLabelMap.ProductAddEmail}:</span><input type="text" size="40" name="emailAddress" />
                     <input type="submit" value="${uiLabelMap.CommonAdd}" />
                 </form>
-                <#if "N" == productPromoCode.requireEmailOrParty!>
+                <#if productPromoCode.requireEmailOrParty! == "N">
                     <div class="tooltip">${uiLabelMap.ProductNoteRequireEmailParty}</div>
                 </#if>
                 <form method="post" action="<@ofbizUrl>createBulkProductPromoCodeEmail?productPromoCodeId=${productPromoCodeId!}</@ofbizUrl>" enctype="multipart/form-data" style="margin: 0;">

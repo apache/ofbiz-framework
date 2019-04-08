@@ -18,6 +18,8 @@
  */
 package org.apache.ofbiz.webapp.event;
 
+import groovy.lang.Script;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -30,11 +32,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.codehaus.groovy.runtime.InvokerHelper;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GroovyUtil;
 import org.apache.ofbiz.base.util.ScriptHelper;
 import org.apache.ofbiz.base.util.ScriptUtil;
-import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
@@ -42,9 +44,6 @@ import org.apache.ofbiz.entity.transaction.GenericTransactionException;
 import org.apache.ofbiz.entity.transaction.TransactionUtil;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader.Event;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
-import org.codehaus.groovy.runtime.InvokerHelper;
-
-import groovy.lang.Script;
 
 public class GroovyEventHandler implements EventHandler {
 
@@ -112,7 +111,7 @@ public class GroovyEventHandler implements EventHandler {
             }
             // check the result
             if (result instanceof Map) {
-                Map<String, Object> resultMap = UtilGenerics.cast(result);
+                Map resultMap = (Map)result;
                 String successMessage = (String)resultMap.get("_event_message_");
                 if (successMessage != null) {
                     request.setAttribute("_EVENT_MESSAGE_", successMessage);

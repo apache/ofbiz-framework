@@ -24,11 +24,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.service.ModelService;
-import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.service.testtools.OFBizTestCase;
 
 /**
@@ -38,7 +36,7 @@ import org.apache.ofbiz.service.testtools.OFBizTestCase;
  */
 public class UspsServicesTests extends OFBizTestCase {
 
-    public static final String module = UspsServicesTests.class.getName();
+    public static String module = UspsServicesTests.class.getName();
 
     public UspsServicesTests(String name) {
         super(name);
@@ -56,10 +54,6 @@ public class UspsServicesTests extends OFBizTestCase {
 
         // run the service
         Map<String, Object> result = dispatcher.runSync("uspsTrackConfirm", UtilMisc.toMap("trackingId", "EJ958083578US", "shipmentGatewayConfigId", "USPS_CONFIG", "configProps", "shipment"));
-        if (ServiceUtil.isError(result)) {
-            String errorMessage = ServiceUtil.getErrorMessage(result);
-            throw new GeneralException(errorMessage);
-        }
 
         // verify the results
         String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
@@ -94,10 +88,6 @@ public class UspsServicesTests extends OFBizTestCase {
         paramInp.put("shipmentGatewayConfigId", "USPS_CONFIG");
         paramInp.put("configProps", "shipment");
         Map<String, Object> result = dispatcher.runSync("uspsAddressValidation", paramInp);
-        if (ServiceUtil.isError(result)) {
-            String errorMessage = ServiceUtil.getErrorMessage(result);
-            throw new GeneralException(errorMessage);
-        }
 
         // verify the results
         String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
@@ -129,10 +119,7 @@ public class UspsServicesTests extends OFBizTestCase {
 
         // run the service
         Map<String, Object> result = dispatcher.runSync("uspsCityStateLookup", UtilMisc.toMap("zip5", "90210", "shipmentGatewayConfigId", "USPS_CONFIG", "configProps", "shipment"));
-        if (ServiceUtil.isError(result)) {
-            String errorMessage = ServiceUtil.getErrorMessage(result);
-            throw new GeneralException(errorMessage);
-        }
+        
         // verify the results
         String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
         Debug.logInfo("[testUspsCityStateLookup] responseMessage: " + responseMessage, module);
@@ -151,10 +138,7 @@ public class UspsServicesTests extends OFBizTestCase {
 
         // run the service
         Map<String, Object> result = dispatcher.runSync("uspsPriorityMailStandard", UtilMisc.toMap("originZip", "4", "destinationZip", "4", "shipmentGatewayConfigId", "USPS_CONFIG", "configProps", "shipment"));
-        if (ServiceUtil.isError(result)) {
-            String errorMessage = ServiceUtil.getErrorMessage(result);
-            throw new GeneralException(errorMessage);
-        }
+
         // verify the results
         String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
         Debug.logInfo("[testUspsPriorityMailStandard] responseMessage: " + responseMessage, module);
@@ -169,10 +153,7 @@ public class UspsServicesTests extends OFBizTestCase {
 
         // run the service
         Map<String, Object> result = dispatcher.runSync("uspsPackageServicesStandard", UtilMisc.toMap("originZip", "4", "destinationZip", "4", "shipmentGatewayConfigId", "USPS_CONFIG", "configProps", "shipment"));
-        if (ServiceUtil.isError(result)) {
-            String errorMessage = ServiceUtil.getErrorMessage(result);
-            throw new GeneralException(errorMessage);
-        }
+
         // verify the results
         String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
         Debug.logInfo("[testUspsPackageServicesStandard] responseMessage: " + responseMessage, module);
@@ -201,10 +182,7 @@ public class UspsServicesTests extends OFBizTestCase {
 
         // run the service
         Map<String, Object> result = dispatcher.runSync("uspsDomesticRate", context);
-        if (ServiceUtil.isError(result)) {
-            String errorMessage = ServiceUtil.getErrorMessage(result);
-            throw new GeneralException(errorMessage);
-        }
+
         // verify the results
         String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
         Debug.logInfo("[testUspsDomesticRate] responseMessage: " + responseMessage, module);

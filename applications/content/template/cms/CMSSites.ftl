@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<script type="application/javascript">
+<script type="text/javascript" language="javascript">
 function call_fieldlookup4(rootForumId, parentForumId ) {
     var obj_lookupwindow = window.open("addSubSite?rootForumId=" + rootForumId + "&amp;parentForumId=" + parentForumId, 'FieldLookup', 'width=500,height=250,scrollbars=yes,status=no,top='+my+',left='+mx+',dependent=yes,alwaysRaised=yes');
     obj_lookupwindow.opener = window;
@@ -48,7 +48,7 @@ function call_fieldlookup4(rootForumId, parentForumId ) {
             </div>
           </td>
           <td valign="middle" align="right">
-            <input type="submit" value="Refresh"/>
+            <a href="javascript:document.userform.submit()" class="submenutextright">Refresh</a>
           </td>
         </tr>
       </table>
@@ -227,7 +227,7 @@ function call_fieldlookup4(rootForumId, parentForumId ) {
             <#list blogRoleIdList as roleTypeId>
               <#assign cappedSiteRole= Static["org.apache.ofbiz.entity.model.ModelUtil"].dbNameToVarName(roleTypeId) />
               <td align="center">
-              <input type="checkbox" name="${cappedSiteRole}_o_${rowCount}" value="Y" <#if "Y" == siteRoleMap[cappedSiteRole]!>checked="checked"</#if>/>
+              <input type="checkbox" name="${cappedSiteRole}_o_${rowCount}" value="Y" <#if siteRoleMap[cappedSiteRole]! == "Y">checked="checked"</#if>/>
               </td>
           <input type="hidden" name="${cappedSiteRole}FromDate_o_${rowCount}" value="${siteRoleMap[cappedSiteRole + "FromDate"]!}"/>
             </#list>
@@ -261,7 +261,7 @@ function call_fieldlookup4(rootForumId, parentForumId ) {
   </tr>
 </table>
 
-<script type="application/javascript">
+<script type="text/javascript" language="javascript">
 function call_fieldlookup3(view_name) {
         window.target = document.siteRoleForm.partyId_o_${rowCount - 1};
     var obj_lookupwindow = window.open(view_name,'FieldLookup', 'width=700,height=550,scrollbars=yes,status=no,top='+my+',left='+mx+',dependent=yes,alwaysRaised=yes');

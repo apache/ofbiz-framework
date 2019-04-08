@@ -30,7 +30,7 @@ under the License.
       <tr>
         <td>
           <!-- Suspended Processes -->
-          <#if "WF_SUSPENDED" == workEffortStatus>
+          <#if workEffortStatus == "WF_SUSPENDED">
             <form action="<@ofbizUrl>releasehold</@ofbizUrl>" method="post" name="activityForm">
               <input type="hidden" name="workEffortId" value="${workEffortId}" />
               <table class="basic-table" cellspacing='0'>
@@ -44,7 +44,7 @@ under the License.
             </form>
           </#if>
           <!-- Active Processes -->
-          <#if "WF_RUNNING" == workEffortStatus>
+          <#if workEffortStatus == "WF_RUNNING">
             <form action="<@ofbizUrl>holdorder</@ofbizUrl>" method="post" name="activityForm">
               <input type="hidden" name="workEffortId" value="${workEffortId}" />
               <table class="basic-table" cellspacing='0'>

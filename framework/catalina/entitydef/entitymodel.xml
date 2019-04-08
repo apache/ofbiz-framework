@@ -41,7 +41,7 @@ under the License.
     <entity entity-name="CatalinaSession"
             package-name="org.apache.ofbiz.catalina.session"
             title="Catalina Session Store">
-      <field name="sessionId" type="id-long"></field>
+      <field name="sessionId" type="id-long-ne"></field>
       <field name="sessionSize" type="numeric"></field>
       <field name="sessionInfo" type="blob"></field>
       <field name="isValid" type="indicator"></field>

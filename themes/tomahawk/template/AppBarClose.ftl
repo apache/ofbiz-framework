@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#assign appModelMenu = Static["org.apache.ofbiz.widget.model.MenuFactory"].getMenuFromLocation(applicationMenuLocation,applicationMenuName,visualTheme)>
+<#assign appModelMenu = Static["org.apache.ofbiz.widget.model.MenuFactory"].getMenuFromLocation(applicationMenuLocation,applicationMenuName)>
 <#if person?has_content>
   <#assign userName = (person.firstName!) + " " + (person.middleName!) + " " + person.lastName!>
 <#elseif partyGroup?has_content>
@@ -53,7 +53,7 @@ under the License.
 <div id="control-area">
   <ul id="preferences-menu">
     <#if userLogin??>
-      <#if "Y" == (userPreferences.COMPACT_HEADER)?default("N")>
+      <#if (userPreferences.COMPACT_HEADER)?default("N") == "Y">
         <li class="collapsed"><a href="javascript:document.setUserPreferenceCompactHeaderN.submit()">&nbsp;</a>
           <form name="setUserPreferenceCompactHeaderN" method="post" action="<@ofbizUrl>setUserPreference</@ofbizUrl>">
             <input type="hidden" name="userPrefGroupTypeId" value="GLOBAL_PREFERENCES"/>
@@ -74,8 +74,8 @@ under the License.
     <#if userLogin??>
       <#--if webSiteId?? && requestAttributes._CURRENT_VIEW_?? && helpTopic??-->
       <#if parameters.componentName?? && requestAttributes._CURRENT_VIEW_?? && helpTopic??>
-        <#include "component://common-theme/template/includes/HelpLink.ftl" />
-        <li><a class="help-link <#if pageAvail?has_content> alert</#if>" href="javascript:lookup_popup1('showHelp?helpTopic=${helpTopic}&amp;portalPageId=${(parameters.portalPageId!)?html}','help' ,500,500);" title="${uiLabelMap.CommonHelp}"></a></li>
+        <#include "component://common/template/includes/HelpLink.ftl" />
+        <li><a class="help-link <#if pageAvail?has_content> alert</#if>" href="javascript:lookup_popup1('showHelp?helpTopic=${helpTopic}&amp;portalPageId=${parameters.portalPageId!}','help' ,500,500);" title="${uiLabelMap.CommonHelp}"></a></li>
       </#if>
       <li><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
       <li><a href="<@ofbizUrl>ListVisualThemes</@ofbizUrl>">${uiLabelMap.CommonVisualThemes}</a></li>
@@ -106,7 +106,7 @@ under the License.
 </div>
 
 <#if userLogin??>
-<script type="application/javascript">
+<script type="text/javascript">
   var mainmenu = new DropDownMenu(jQuery('#main-navigation'));
   var appmenu = new DropDownMenu(jQuery('#app-navigation'));
 </script>

@@ -104,13 +104,13 @@ public class ContentPermissionServices {
         GenericValue content = (GenericValue) context.get("currentContent");
         Boolean bDisplayFailCond = (Boolean)context.get("displayFailCond");
         boolean displayFailCond = false;
-        if (bDisplayFailCond != null && bDisplayFailCond) {
+        if (bDisplayFailCond != null && bDisplayFailCond.booleanValue()) {
              displayFailCond = true;
         }
                 Debug.logInfo("displayFailCond(0):" + displayFailCond, "");
         Boolean bDisplayPassCond = (Boolean)context.get("displayPassCond");
         boolean displayPassCond = false;
-        if (bDisplayPassCond != null && bDisplayPassCond) {
+        if (bDisplayPassCond != null && bDisplayPassCond.booleanValue()) {
              displayPassCond = true;
         }
         Debug.logInfo("displayPassCond(0):" + displayPassCond, "");
@@ -178,7 +178,7 @@ public class ContentPermissionServices {
 
         String entityAction = (String) context.get("entityOperation");
         if (entityAction == null) entityAction = "_ADMIN";
-        if (userLogin != null) {
+        if (userLogin != null && entityAction != null) {
             passed = security.hasEntityPermission("CONTENTMGR", entityAction, userLogin);
         }
 
@@ -219,8 +219,8 @@ public class ContentPermissionServices {
             errBuf.append(permissionStatus);
         }
 
-        if (("granted".equals(permissionStatus) && displayPassCond)
-            || ("rejected".equals(permissionStatus) && displayFailCond)) {
+        if ((permissionStatus.equals("granted") && displayPassCond)
+            || (permissionStatus.equals("rejected") && displayFailCond)) {
             // Don't show this if passed on 'hasEntityPermission'
             if (displayFailCond || displayPassCond) {
               if (!passed) {
@@ -235,11 +235,15 @@ public class ContentPermissionServices {
                  errBuf.append("\n    entityIds:");
                  errBuf.append(entityIds);
 
-                 errBuf.append("\n    auxList:");
-                 errBuf.append(auxGetter.getList());
+                 if (auxGetter != null) {
+                     errBuf.append("\n    auxList:");
+                     errBuf.append(auxGetter.getList());
+                 }
 
-                 errBuf.append("\n    roleList:");
-                 errBuf.append(roleGetter.getList());
+                 if (roleGetter != null) {
+                     errBuf.append("\n    roleList:");
+                     errBuf.append(roleGetter.getList());
+                 }
               }
 
             }
@@ -291,15 +295,12 @@ public class ContentPermissionServices {
 
         try {
             permResults = dispatcher.runSync("checkContentPermission", serviceInMap);
-            if (ServiceUtil.isError(permResults)) {
-                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(permResults));
-            }
         } catch (GenericServiceException e) {
             Debug.logError(e, "Problem checking permissions", "ContentServices");
         }
         permissionStatus = (String)permResults.get("permissionStatus");
-        if (permissionStatus == null || !"granted".equals(permissionStatus)) {
-            if (bDisplayFailCond != null && bDisplayFailCond) {
+        if (permissionStatus == null || !permissionStatus.equals("granted")) {
+            if (bDisplayFailCond != null && bDisplayFailCond.booleanValue()) {
                 String errMsg = (String)permResults.get(ModelService.ERROR_MESSAGE);
                 results.put(ModelService.ERROR_MESSAGE, errMsg);
             }
@@ -310,17 +311,14 @@ public class ContentPermissionServices {
         serviceInMap.put("contentPurposeList", relatedPurposes);
         try {
             permResults = dispatcher.runSync("checkContentPermission", serviceInMap);
-            if (ServiceUtil.isError(permResults)) {
-                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(permResults));
-            }
         } catch (GenericServiceException e) {
             Debug.logError(e, "Problem checking permissions", "ContentServices");
         }
         permissionStatus = (String)permResults.get("permissionStatus");
-        if (permissionStatus != null && "granted".equals(permissionStatus)) {
+        if (permissionStatus != null && permissionStatus.equals("granted")) {
             results.put("permissionStatus", "granted");
         } else {
-            if (bDisplayFailCond != null && bDisplayFailCond) {
+            if (bDisplayFailCond != null && bDisplayFailCond.booleanValue()) {
                 String errMsg = (String)permResults.get(ModelService.ERROR_MESSAGE);
                 results.put(ModelService.ERROR_MESSAGE, errMsg);
             }

@@ -45,7 +45,7 @@ public class UtilCodec {
     private static final UrlCodec urlCodec = new UrlCodec();
     private static final List<Codec> codecs;
     static {
-        List<Codec> tmpCodecs = new ArrayList<>();
+        List<Codec> tmpCodecs = new ArrayList<Codec>();
         tmpCodecs.add(new HTMLEntityCodec());
         tmpCodecs.add(new PercentCodec());
         codecs = Collections.unmodifiableList(tmpCodecs);
@@ -60,12 +60,7 @@ public class UtilCodec {
 
     public static interface SimpleEncoder {
         public String encode(String original);
-        /**
-         * @deprecated Use {@link #sanitize(String,String)} instead
-         */
-        @Deprecated
-        public String sanitize(String outString); // Only really useful with HTML, else it simply calls encode() method
-        public String sanitize(String outString, String contentTypeId); // Only really useful with HTML, else it simply calls encode() method
+        public String sanitize(String outString); // Only really useful with HTML, else simply calls encode() method 
     }
 
     public static interface SimpleDecoder {
@@ -81,56 +76,25 @@ public class UtilCodec {
             }
             return htmlCodec.encode(IMMUNE_HTML, original);
         }
-        /**
-         * @deprecated Use {@link #sanitize(String,String)} instead
-         */
-        @Deprecated
         public String sanitize(String original) {
-            return sanitize(original, null);
-        }
-        public String sanitize(String original, String contentTypeId) {
             if (original == null) {
                 return null;
             }
             PolicyFactory sanitizer = Sanitizers.FORMATTING.and(Sanitizers.BLOCKS).and(Sanitizers.IMAGES).and(Sanitizers.LINKS).and(Sanitizers.STYLES);
-
-            // TODO to be improved to use a (or several) contentTypeId/s when necessary. Below is an example with BIRT_FLEXIBLE_REPORT_POLICY
             if (UtilProperties.getPropertyAsBoolean("owasp", "sanitizer.permissive.policy", false)) {
                 sanitizer = sanitizer.and(PERMISSIVE_POLICY);
             }
-            if ("FLEXIBLE_REPORT".equals(contentTypeId)) {
-                sanitizer = sanitizer.and(BIRT_FLEXIBLE_REPORT_POLICY);
-            }
             return sanitizer.sanitize(original);
         }
-
         // Given as an example based on rendering cmssite as it was before using the sanitizer.
-        // To use the PERMISSIVE_POLICY set sanitizer.permissive.policy to true.
-        // Note that I was unable to render </html> and </body>. I guess because <html> and <body> are not sanitized in 1st place (else the sanitizer makes some damages I found)
+        // To use the PERMISSIVE_POLICY set sanitizer.permissive.policy to true. 
+        // Note that I was unable to render </html> and </body>. I guess because are <html> and <body> are not sanitized in 1st place (else the sanitizer makes some damages I found)
         // You might even want to adapt the PERMISSIVE_POLICY to your needs... Be sure to check https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet before...
-        // And https://github.com/OWASP/java-html-sanitizer/blob/master/docs/getting_started.md for examples.
-        // If you want another example: https://android.googlesource.com/platform/packages/apps/UnifiedEmail/+/ec0fa48/src/com/android/mail/utils/HtmlSanitizer.java
         public static final PolicyFactory PERMISSIVE_POLICY = new HtmlPolicyBuilder()
-                .allowWithoutAttributes("html", "body")
                 .allowAttributes("id", "class").globally()
-                .allowElements("div", "center", "span", "table", "td")
+                .allowElements("html", "body", "div", "center", "span", "table", "td")
                 .allowWithoutAttributes("html", "body", "div", "span", "table", "td")
                 .allowAttributes("width").onElements("table")
-                .toFactory();
-
-        // This is the PolicyFactory used for the Birt Report Builder usage feature. ("FLEXIBLE_REPORT" contentTypeId)
-        // It allows to use the OOTB Birt Report Builder example.
-        // You might need to enhance it for your needs (when using a new REPORT_MASTER) but normally you should not. See PERMISSIVE_POLICY above for documentation and examples
-        public static final PolicyFactory BIRT_FLEXIBLE_REPORT_POLICY = new HtmlPolicyBuilder()
-                .allowWithoutAttributes("html", "body")
-                .allowElements("form", "div", "span", "table", "tr", "td", "input", "textarea", "label", "select", "option")
-                .allowAttributes("id", "class", "name", "value", "onclick").globally()
-                .allowAttributes("width", "cellspacing").onElements("table")
-                .allowAttributes("type", "size", "maxlength").onElements("input")
-                .allowAttributes("cols", "rows").onElements("textarea")
-                .allowAttributes("class").onElements("td")
-                .allowAttributes("method").onElements("form")
-                .allowAttributes("accept", "action", "accept-charset", "autocomplete", "enctype", "method", "name", "novalidate", "target").onElements("form")
                 .toFactory();
     }
 
@@ -139,18 +103,11 @@ public class UtilCodec {
         private XMLEntityCodec xmlCodec = new XMLEntityCodec();
         public String encode(String original) {
             if (original == null) {
-                return null;
-            }
-            return xmlCodec.encode(IMMUNE_XML, original);
+                   return null;
+               }
+               return xmlCodec.encode(IMMUNE_XML, original);
         }
-        /**
-         * @deprecated Use {@link #sanitize(String,String)} instead
-         */
-        @Deprecated
         public String sanitize(String original) {
-            return sanitize(original, null);
-        }
-        public String sanitize(String original, String contentTypeId) {
             return encode(original);
         }
     }
@@ -164,14 +121,7 @@ public class UtilCodec {
                 return null;
             }
         }
-        /**
-         * @deprecated Use {@link #sanitize(String,String)} instead
-         */
-        @Deprecated
         public String sanitize(String original) {
-            return sanitize(original, null);
-        }
-        public String sanitize(String original, String contentTypeId) {
             return encode(original);
         }
 
@@ -193,14 +143,7 @@ public class UtilCodec {
             }
             return original;
         }
-        /**
-         * @deprecated Use {@link #sanitize(String,String)} instead
-         */
-        @Deprecated
         public String sanitize(String original) {
-            return sanitize(original, null);
-        }
-        public String sanitize(String original, String contentTypeId) {
             return encode(original);
         }
     }
@@ -224,8 +167,9 @@ public class UtilCodec {
     public static SimpleDecoder getDecoder(String type) {
         if ("url".equals(type)) {
             return urlCodec;
+        } else {
+            return null;
         }
-        return null;
     }
 
     public static String canonicalize(String value) throws IntrusionException {
@@ -272,36 +216,34 @@ public class UtilCodec {
         if (foundCount >= 2 && mixedCount > 1) {
             if (restrictMultiple || restrictMixed) {
                 throw new IntrusionException("Input validation failure");
+            } else {
+                Debug.logWarning("Multiple (" + foundCount + "x) and mixed encoding (" + mixedCount + "x) detected in " + input, module);
             }
-            Debug.logWarning("Multiple (" + foundCount + "x) and mixed encoding (" + mixedCount + "x) detected in " + input, module);
         } else if (foundCount >= 2) {
             if (restrictMultiple) {
                 throw new IntrusionException("Input validation failure");
+            } else {
+                Debug.logWarning("Multiple (" + foundCount + "x) encoding detected in " + input, module);
             }
-            Debug.logWarning("Multiple (" + foundCount + "x) encoding detected in " + input, module);
         } else if (mixedCount > 1) {
             if (restrictMixed) {
                 throw new IntrusionException("Input validation failure");
+            } else {
+                Debug.logWarning("Mixed encoding (" + mixedCount + "x) detected in " + input, module);
             }
-            Debug.logWarning("Mixed encoding (" + mixedCount + "x) detected in " + input, module);
         }
         return working;
     }
 
     /**
      * Uses a black-list approach for necessary characters for HTML.
-     * <p>
-     * Does not allow various characters (after canonicalization), including
-     * "&lt;", "&gt;", "&amp;" (if not followed by a space), and "%" (if not
-     * followed by a space).
+     * Does not allow various characters (after canonicalization), including "<", ">", "&" (if not followed by a space), and "%" (if not followed by a space).
      *
      * @param value
      * @param errorMessageList
      */
     public static String checkStringForHtmlStrictNone(String valueName, String value, List<String> errorMessageList) {
-        if (UtilValidate.isEmpty(value)) {
-            return value;
-        }
+        if (UtilValidate.isEmpty(value)) return value;
 
         // canonicalize, strict (error on double-encoding)
         try {
@@ -327,11 +269,9 @@ public class UtilCodec {
      */
     public static class HtmlEncodingMapWrapper<K> implements Map<K, Object> {
         public static <K> HtmlEncodingMapWrapper<K> getHtmlEncodingMapWrapper(Map<K, Object> mapToWrap, SimpleEncoder encoder) {
-            if (mapToWrap == null) {
-                return null;
-            }
+            if (mapToWrap == null) return null;
 
-            HtmlEncodingMapWrapper<K> mapWrapper = new HtmlEncodingMapWrapper<>();
+            HtmlEncodingMapWrapper<K> mapWrapper = new HtmlEncodingMapWrapper<K>();
             mapWrapper.setup(mapToWrap, encoder);
             return mapWrapper;
         }
@@ -358,8 +298,9 @@ public class UtilCodec {
             if (theObject instanceof String) {
                 if (this.encoder != null) {
                     return encoder.encode((String) theObject);
+                } else {
+                    return UtilCodec.getEncoder("html").encode((String) theObject);
                 }
-                return UtilCodec.getEncoder("html").encode((String) theObject);
             } else if (theObject instanceof Map<?, ?>) {
                 return HtmlEncodingMapWrapper.getHtmlEncodingMapWrapper(UtilGenerics.<K, Object>checkMap(theObject), this.encoder);
             }

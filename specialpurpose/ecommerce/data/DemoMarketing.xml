@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <MarketingCampaign marketingCampaignId="FirstMarkCamp" statusId="MKTG_CAMP_INPROGRESS" campaignName="My First Marketing Campaign" campaignSummary="This campaign is the first of the Company. It will be the parent campaign of 'My Second Marketing Campaign'." budgetedCost="10000.00" actualCost="8900.00" estimatedCost="10000.00" currencyUomId="USD" fromDate="2016-07-22 00:00:00.0" thruDate="2016-07-30 00:00:00.0" isActive="Y" convertedLeads="15" expectedResponsePercent="33.0" expectedRevenue="25000.00" numSent="1000" startDate="2016-07-23 00:00:00.0"/>
+    <MarketingCampaign marketingCampaignId="SecondMarkCamp" parentCampaignId="FirstMarkCamp" statusId="MKTG_CAMP_PLANNED" campaignName="My Second Marketing Campaing" campaignSummary="This is the next step of 'My First Marketing Campaing'." budgetedCost="20000.00" actualCost="22000.00" estimatedCost="20000.00" currencyUomId="USD" fromDate="2016-07-31 00:00:00.0" thruDate="2016-08-31 00:00:00.0" isActive="Y" expectedResponsePercent="50.0" expectedRevenue="50000.00" numSent="2000" startDate="2016-07-31 00:00:00.0"/>
+    <MarketingCampaign marketingCampaignId="SmallCampaign1" statusId="MKTG_CAMP_PLANNED" campaignName="A small campaign" campaignSummary="This is a little marketing campaign." budgetedCost="500.00" actualCost="470.00" estimatedCost="400.00" currencyUomId="USD" fromDate="2016-07-28 00:00:00.0" thruDate="2016-08-30 00:00:00.0" isActive="Y" expectedResponsePercent="75.0" expectedRevenue="1000.00" numSent="100" startDate="2016-07-29 00:00:00.0"/>
+    <MarketingCampaign marketingCampaignId="SmallCampaign2" statusId="MKTG_CAMP_PLANNED" campaignName="Another small campaign" campaignSummary="This is another little marketing campaign." budgetedCost="200.00" actualCost="200.00" estimatedCost="200.00" currencyUomId="USD" fromDate="2016-08-02 00:00:00.0" thruDate="2016-08-03 00:00:00.0" isActive="Y" expectedResponsePercent="80.0" expectedRevenue="500.00" numSent="75" startDate="2016-08-02 00:00:00.0"/>
+    <MarketingCampaign marketingCampaignId="BigCampaign" statusId="MKTG_CAMP_PLANNED" campaignName="A large marketing campaign" campaignSummary="This is a large marketing campaign." budgetedCost="150000.00" actualCost="180000.00" estimatedCost="175000.00" currencyUomId="USD" fromDate="2016-09-01 00:00:00.0" thruDate="2016-11-01 00:00:00.0" isActive="Y" expectedResponsePercent="66.0" expectedRevenue="200000.00" numSent="1000000" startDate="2016-08-02 00:00:00.0"/>
+    <MarketingCampaign marketingCampaignId="OnlineCampaign" statusId="MKTG_CAMP_APPROVED" campaignName="An online campaign" campaignSummary="This is a marketing campaign done online. A form is displayed to customer, the results will undergo furthre analysis." budgetedCost="250.00" actualCost="250.00" currencyUomId="USD" fromDate="2016-08-05 00:00:00.0" thruDate="2016-08-10 00:00:00.0" isActive="Y" expectedResponsePercent="20.0" startDate="2016-08-06 00:00:00.0"/>
+    <MarketingCampaign marketingCampaignId="PosterCampaign" statusId="MKTG_CAMP_CANCELLED" campaignName="A campaign with Poster" campaignSummary="This is campaign with poster to display in the town." estimatedCost="75000.00" currencyUomId="USD" fromDate="2016-10-01 00:00:00.0" thruDate="2016-11-01 00:00:00.0" isActive="Y" expectedResponsePercent="12.5" expectedRevenue="20000.00" numSent="10" startDate="2016-10-01 00:00:00.0"/>
+    <MarketingCampaign marketingCampaignId="VendorCampaign" statusId="MKTG_CAMP_PLANNED" campaignName="Vendor will do the campaign" campaignSummary="Vendors are to promote a product of their choice when successfully selling a good." budgetedCost="0.00" actualCost="120.00" estimatedCost="0.00" currencyUomId="USD" fromDate="2016-08-01 00:00:00.0" thruDate="2016-12-31 00:00:00.0" isActive="Y" expectedResponsePercent="40.0" startDate="2016-09-01 00:00:00.0"/>
+    <MarketingCampaign marketingCampaignId="SocialMediaCamp" statusId="MKTG_CAMP_INPROGRESS" campaignName="Social Media Campaign" campaignSummary="This campaign uses the social media to promote our products." budgetedCost="10000.00" estimatedCost="10000.00" currencyUomId="USD" fromDate="2016-07-01 00:00:00.0" isActive="Y" expectedResponsePercent="7.0" startDate="2016-07-10 00:00:00.0"/>
+    <MarketingCampaign marketingCampaignId="CatchWord" statusId="MKTG_CAMP_COMPLETED" campaignName="CatchWord" campaignSummary="This campaign will try our new CatchWord." budgetedCost="50000.00" actualCost="60000.00" estimatedCost="55000.00" currencyUomId="USD" fromDate="2016-06-01 00:00:00.0" thruDate="2016-07-30 00:00:00.0" isActive="Y" convertedLeads="10000" expectedResponsePercent="33.0" startDate="2016-06-05 00:00:00.0"/>
+    <MarketingCampaign marketingCampaignId="SearchEngineHelp" statusId="MKTG_CAMP_PLANNED" campaignName="Improve Search Engine visibility" campaignSummary="This campaign aims to improve the visibility of our internet website by boosting the website rank in some Seach Engine." budgetedCost="30000.00" estimatedCost="30000.00" currencyUomId="USD" fromDate="2016-12-01 00:00:00.0" thruDate="2016-12-31 00:00:00.0" isActive="Y" expectedRevenue="100000.00" startDate="2016-12-02 00:00:00.0"/>
+    <MarketingCampaign marketingCampaignId="9000" statusId="MKTG_CAMP_INPROGRESS" parentCampaignId="" campaignName="eCommerce Site Internal Campaign" campaignSummary=""/>
+
+    <ContactList contactListId="9000" contactListTypeId="ANNOUNCEMENT" contactMechTypeId="EMAIL_ADDRESS" marketingCampaignId="9000"
+        contactListName="New Product Announcements" description="New Product Announcements Mailing List (email)" comments="" isPublic="Y" ownerPartyId="Company"
+        verifyEmailFrom="ofbiztest@example.com" verifyEmailScreen="component://ecommerce/widget/EmailContactListScreens.xml#ContactListVerifyEmail"
+        verifyEmailSubject="Subscription Verify Email" verifyEmailWebSiteId="WebStore"/>
+    <ContactList contactListId="9010" contactListTypeId="NEWSLETTER" contactMechTypeId="EMAIL_ADDRESS" marketingCampaignId="9000"
+        contactListName="Product Tips Newsletter" description="Product Tips Newsletter Mailing List (email)" comments="" isPublic="Y" ownerPartyId="Company"
+        verifyEmailFrom="ofbiztest@example.com" verifyEmailScreen="component://ecommerce/widget/EmailContactListScreens.xml#ContactListVerifyEmail"
+        verifyEmailSubject="Subscription Verify Email" verifyEmailWebSiteId="WebStore"/>
+
+    <ContactListParty contactListId="9000" partyId="DemoCustCompany" preferredContactMechId="9021" statusId="CLPT_ACCEPTED" fromDate="2001-05-13 00:00:00"/>
+    <ContactListParty contactListId="9000" partyId="DemoCustAgent" preferredContactMechId="9023" statusId="CLPT_ACCEPTED" fromDate="2001-05-13 00:00:00"/>
+    <ContactListParty contactListId="9000" partyId="DemoCustomer" preferredContactMechId="9026" statusId="CLPT_ACCEPTED" fromDate="2001-05-13 00:00:00"/>
+
+    <!-- some sample affiliate and tracking codes for marketing campaigns -->
+    <MarketingCampaign statusId="MKTG_CAMP_INPROGRESS" marketingCampaignId="9001" campaignName="Pay Per Click Advertising"/>
+    <MarketingCampaign statusId="MKTG_CAMP_INPROGRESS" marketingCampaignId="9002" campaignName="Affiliate Sites"/>
+
+    <!-- tracking codes are used in URLs to track specific campaigns.  The lifetimes are defined in seconds -->
+    <TrackingCode trackingCodeId="9000" trackingCodeTypeId="EXTERNAL" description ="PPC Campaign 1" marketingCampaignId="9001" trackableLifetime="2592000" billableLifetime="2592000"/>
+    <TrackingCode trackingCodeId="9001" trackingCodeTypeId="EXTERNAL" description ="PPC Campaign 2" marketingCampaignId="9001" trackableLifetime="2592000" billableLifetime="2592000"/>
+    <TrackingCode trackingCodeId="9002" trackingCodeTypeId="EXTERNAL" description ="PPC Campaign 3" marketingCampaignId="9001" trackableLifetime="2592000" billableLifetime="2592000"/>
+
+    <TrackingCode trackingCodeId="9010" trackingCodeTypeId="EXTERNAL" description ="Affiliate 1" marketingCampaignId="9002" trackableLifetime="2592000" billableLifetime="2592000"/>
+    <TrackingCode trackingCodeId="9011" trackingCodeTypeId="EXTERNAL" description ="Affiliate 2" marketingCampaignId="9002" trackableLifetime="2592000" billableLifetime="2592000"/>
+    <TrackingCode trackingCodeId="9012" trackingCodeTypeId="EXTERNAL" description ="Affiliate 3" marketingCampaignId="9002" trackableLifetime="2592000" billableLifetime="2592000"/>
+
+    <!-- Demo WebSiteContactList -->
+    <WebSiteContactList webSiteId="WebStore" contactListId="9000" fromDate="2011-08-16 17:15:20.0"/>
+    <WebSiteContactList webSiteId="WebStore" contactListId="9010" fromDate="2011-08-16 17:15:20.0"/>
+</entity-engine-xml>

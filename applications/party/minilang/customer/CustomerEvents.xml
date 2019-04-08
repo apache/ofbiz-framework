@@ -77,10 +77,10 @@ under the License.
 
         <!-- Check the password, etc for validity -->
         <script>groovy:
-            String password = (String) userLoginContext.get("currentPassword")
-            String confirmPassword = (String) userLoginContext.get("currentPasswordVerify")
-            String passwordHint = (String) userLoginContext.get("passwordHint")
-            org.apache.ofbiz.common.login.LoginServices.checkNewPassword(newUserLogin, null, password, confirmPassword, passwordHint, error_list, true, locale)
+            String password = (String) userLoginContext.get("currentPassword");
+            String confirmPassword = (String) userLoginContext.get("currentPasswordVerify");
+            String passwordHint = (String) userLoginContext.get("passwordHint");
+            org.apache.ofbiz.common.login.LoginServices.checkNewPassword(newUserLogin, null, password, confirmPassword, passwordHint, error_list, true, locale);
         </script>
 
         <!-- Create the Person -->

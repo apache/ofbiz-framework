@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<entity-engine-xml>
+
+    <DataResource dataResourceId="HELP_EXAMPLE" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="specialpurpose/example/data/helpdata/HELP_EXAMPLE.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
+        dataResourceName="Framework Example" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="HELP_EXAMPLE" contentTypeId="DOCUMENT" contentName="Framework Example" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="HELP_EXAMPLE" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_EXAMPLE" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000"/>
+
+    <DataResource dataResourceId="HELP_EXAMPLE_FR" localeString="fr" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="specialpurpose/example/data/helpdata/HELP_EXAMPLE_FR.xml" dataTemplateTypeId="NONE"  statusId="CTNT_IN_PROGRESS"
+        dataResourceName="Exemple pour le développement" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="HELP_EXAMPLE_FR" contentTypeId="DOCUMENT" contentName="Exemple pour le développement" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="HELP_EXAMPLE_FR" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html" localeString="fr" />
+    <ContentAssoc contentId="HELP_EXAMPLE" contentIdTo="HELP_EXAMPLE_FR" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-01-12 01:01:01"/>
+    
+    <DataResource dataResourceId="EXAMPLE_main" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="specialpurpose/example/data/helpdata/HELP_EXAMPLE_main.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Example help main page" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="EXAMPLE_main" contentTypeId="DOCUMENT" contentName="Example main menu." templateDataResourceId="HELP_TEMPL" dataResourceId="EXAMPLE_main" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_EXAMPLE" contentIdTo="EXAMPLE_main" mapKey="EXAMPLE_main" fromDate="2006-01-12 01:01:01" contentAssocTypeId="TREE_CHILD" sequenceNum="000"/>
+    <ContentAssoc contentId="HELP_EXAMPLE" contentIdTo="EXAMPLE_main" mapKey="EXAMPLE_FindExample" fromDate="2006-01-12 01:01:02" sequenceNum="000" contentAssocTypeId="INSTANCE"/>
+
+    <DataResource dataResourceId="EXAMPLE_docbook" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="specialpurpose/example/data/helpdata/HELP_EXAMPLE_docbook.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Example docBook usage" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="EXAMPLE_docbook" contentTypeId="DOCUMENT" contentName="Example Docbook usage" templateDataResourceId="HELP_TEMPL" dataResourceId="EXAMPLE_docbook" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_EXAMPLE" contentIdTo="EXAMPLE_docbook" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="EXAMPLE_docbook"/>
+
+
+</entity-engine-xml>

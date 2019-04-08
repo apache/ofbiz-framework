@@ -32,18 +32,19 @@ public class ServiceSOAPTests extends OFBizTestCase {
     public final static String module = ServiceSOAPTests.class.getName();
 
     public ServiceSOAPTests(String name) {
+        // TODO Auto-generated constructor stub
         super(name);
     }
 
     public void testSOAPSimpleService() throws Exception {
-        Map<String, Object> serviceContext = new HashMap<>();
-        serviceContext.put("defaultValue", Double.valueOf("123.4567"));
+        Map<String, Object> serviceContext = new HashMap<String, Object>();
+        serviceContext.put("defaultValue", new Double("123.4567"));
         serviceContext.put("message", "Test Message !!!");
         dispatcher.runSync("testSoapSimple", serviceContext);
     }
 
     public void testSOAPService() throws Exception {
-        Map<String, Object> serviceContext = new HashMap<>();
+        Map<String, Object> serviceContext = new HashMap<String, Object>();
         GenericValue testing = delegator.makeValue("Testing");
         testing.put("testingId", "COMPLEX_TYPE_TEST");
         testing.put("testingTypeId", "SOAP_TEST");

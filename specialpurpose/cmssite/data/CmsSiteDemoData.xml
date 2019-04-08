@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <!-- Making the CmsSite as a default site in multisite setup -->
+    <WebSite webSiteId="CmsSite" siteName="CMS Web Site" hostedPathAlias="cmssite" isDefault="Y"/>
+    <Content contentId="CMSS_PPOINT" contentTypeId="WEB_SITE_PUB_PT" contentName="CMS Site Publish Point" description=""/>
+    <WebSiteContent webSiteId="CmsSite" contentId="CMSS_PPOINT" webSiteContentTypeId="PUBLISH_POINT" fromDate="2001-01-01 00:00:00"/>
+
+    <!-- Main Decorator -->
+    <!--
+         CMSS_DEC (Content of type DECORATOR associated to a DataResource with placeholders for mapKeys "htmlHead", "header", "footer")
+          |_____(ContentAssoc of type SUB_CONTENT with mapKey "htmlHead")______> CMSS_HHEAD (Content of type DOCUMENT)
+          |_____(ContentAssoc of type SUB_CONTENT with mapKey "header")________> CMSS_DEMO_HEADER (Content of type DOCUMENT)
+          |_____(ContentAssoc of type SUB_CONTENT with mapKey "footer")________> CMSS_DEMO_FOOTER (Content of type DOCUMENT)
+    -->
+    <DataResource dataResourceId="CMSS_DEC" dataResourceTypeId="URL_RESOURCE" dataTemplateTypeId="FTL"
+        objectInfo="component://cmssite/template/cms/MainDecorator.ftl"/>
+    <Content contentId="CMSS_DEC" contentTypeId="DECORATOR" contentName="CMS Site Main Decorator" dataResourceId="CMSS_DEC"/>
+    <ContentPurpose contentId="CMSS_DEC" contentPurposeTypeId="SECTION"/>
+
+    <DataResource dataResourceId="CMSS_HHEAD" dataResourceTypeId="URL_RESOURCE" dataTemplateTypeId="FTL"
+        objectInfo="component://cmssite/template/cms/HtmlHead.ftl"/>
+    <Content contentId="CMSS_HHEAD" contentTypeId="DOCUMENT" contentName="CMS Site HTML Head" dataResourceId="CMSS_HHEAD"/>
+    <ContentPurpose contentId="CMSS_HHEAD" contentPurposeTypeId="SECTION"/>
+
+    <DataResource dataResourceId="CMSS_DEMO_HEADER" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
+    <ElectronicText dataResourceId="CMSS_DEMO_HEADER">
+        <textData><![CDATA[
+            <div id="header">
+                <h1>This is the header!</h1>
+            </div>
+            ]]></textData>
+    </ElectronicText>
+    <Content contentId="CMSS_DEMO_HEADER" contentTypeId="DOCUMENT" contentName="CMS Site Demo Header" dataResourceId="CMSS_DEMO_HEADER"/>
+    <ContentPurpose contentId="CMSS_DEMO_HEADER" contentPurposeTypeId="SECTION"/>
+
+    <DataResource dataResourceId="CMSS_DEMO_FOOTER" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
+    <ElectronicText dataResourceId="CMSS_DEMO_FOOTER">
+        <textData><![CDATA[
+            <div id="footer">
+                <h4>This is the footer!</h4>
+            </div>
+            </body>
+            </html>
+            ]]></textData>
+    </ElectronicText>
+    <Content contentId="CMSS_DEMO_FOOTER" contentTypeId="DOCUMENT" contentName="CMS Site Demo Footer" dataResourceId="CMSS_DEMO_FOOTER"/>
+    <ContentPurpose contentId="CMSS_DEMO_FOOTER" contentPurposeTypeId="SECTION"/>
+
+    <ContentAssoc contentId="CMSS_DEC" contentIdTo="CMSS_HHEAD" contentAssocTypeId="SUB_CONTENT" mapKey="htmlHead" fromDate="2001-01-01 00:00:00"/>
+    <ContentAssoc contentId="CMSS_DEC" contentIdTo="CMSS_DEMO_HEADER" contentAssocTypeId="SUB_CONTENT" mapKey="header" fromDate="2001-01-01 00:00:00"/>
+    <ContentAssoc contentId="CMSS_DEC" contentIdTo="CMSS_DEMO_FOOTER" contentAssocTypeId="SUB_CONTENT" mapKey="footer" fromDate="2001-01-01 00:00:00"/>
+
+    <!-- demo home page -->
+    <DataResource dataResourceId="CMSS_DEMO_HOME" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
+    <ElectronicText dataResourceId="CMSS_DEMO_HOME">
+        <textData><![CDATA[
+            <div>
+              <h1>Welcome to the CmsSite Home page.</h1>
+              <center><table width="350"><tr><td>
+              <p>
+              This is a site to demonstrate the CMS capabilities of OFBiz. Its basic function is the editing of website text
+              inside a browser. If you want to edit the text you are reading now, logon to the backend system, select the content component
+              click on 'cmssite' in the website list and then click on the 'cms' button. There you see on the left hand side the tree of this website.
+              If you click on 'homepage' then you can edit the content of this page at the box in the r 
+              </p>
+              <p>
+              This is only the basic function of the CMS which is part of the content component. The content component is actually more than a 
+              CMS it can also handle documents pretty well. An example is the apache OFBiz document you can see when you click on the last option in the list below. 
+              <p>
+              </td></tr></table></center>
+              <ul>
+                <li><a href="/cmssite/cms/CMSS_DEMO_PAGE1">Demo Page 1 - Hard Coded Link</a></div>
+                <li><a href="/cmssite/cms/CMSS_PPOINT/demoPage1">Demo Page 1 - Hard Coded Link using the Sub-Content Pattern</a></li>
+                <li><a href="${thisContent.content.CMSS_DEMO_PAGE1.link}">Demo Page 1 - Dynamic Link</a></li>
+                <li><a href="${thisContent.content.CMSS_DEMO_SCREEN.link}">Demo Page with screen widget and screen decorator</a></li>
+                <li><a href="${thisContent.content.CMSS_DEMO_BLOG.link}">Demo Page with blog using screen decorator</a></li>
+                <li><a href="${thisContent.content.CMSS_DEMO_TPL_DATA.link}">Demo Page with an xml resource formatted with a template ftl resource</a></li>
+                <li><a href="${thisContent.content.PUBLIC_DOCS.link}">The ofbiz public documents</a></li>
+                <li><a href="/cmssite/website-1">WebSite 1</a></li>
+                <li><a href="/cmssite/website-2">WebSite 2</a></li>
+              </ul>  
+            </div>
+            ]]></textData>
+    </ElectronicText>
+    <Content contentId="CMSS_DEMO_HOME" contentTypeId="DOCUMENT" decoratorContentId="CMSS_DEC"
+        contentName="CMS Site Demo Home Page" dataResourceId="CMSS_DEMO_HOME"/>
+    <ContentPurpose contentId="CMSS_DEMO_HOME" contentPurposeTypeId="SECTION"/>
+    <ContentAssoc contentId="CMSS_PPOINT" contentIdTo="CMSS_DEMO_HOME" contentAssocTypeId="SUB_CONTENT" fromDate="2001-01-01 00:00:00"/>
+    <WebSiteContent webSiteId="CmsSite" contentId="CMSS_DEMO_HOME" webSiteContentTypeId="DEFAULT_PAGE" fromDate="2001-01-01 00:00:00"/>
+    <!-- WebSitePathAlias will be used for serving the page -->
+    <WebSitePathAlias webSiteId="CmsSite" pathAlias="demoHome" contentId="CMSS_DEMO_HOME" fromDate="2016-06-09 13:37:30.43"/>
+
+    <!-- yet another demo page -->
+    <DataResource dataResourceId="CMSS_DEMO_PAGE1" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
+    <ElectronicText dataResourceId="CMSS_DEMO_PAGE1">
+        <textData><![CDATA[
+            <div>Sub-content 1: ${thisContent.subcontent.sub1}</div>
+            <div>Sub-content 2: ${thisContent.subcontent.sub2}</div>
+            ]]></textData>
+    </ElectronicText>
+    <Content contentId="CMSS_DEMO_PAGE1" contentTypeId="DOCUMENT" decoratorContentId="CMSS_DEC" contentName="CMS Site Demo Page 1" dataResourceId="CMSS_DEMO_PAGE1"/>
+    <ContentPurpose contentId="CMSS_DEMO_PAGE1" contentPurposeTypeId="SECTION"/>
+    <ContentAssoc contentId="CMSS_PPOINT" contentIdTo="CMSS_DEMO_PAGE1" contentAssocTypeId="SUB_CONTENT" fromDate="2001-01-01 00:00:00"/>
+    <WebSiteContent webSiteId="CmsSite" contentId="CMSS_DEMO_PAGE1" webSiteContentTypeId="WEB_PAGE" fromDate="2001-01-01 00:00:00"/>
+    <WebSitePathAlias webSiteId="CmsSite" pathAlias="demoPage1" contentId="CMSS_DEMO_PAGE1" fromDate="2016-06-09 13:37:30.43"/>
+    
+    <DataResource dataResourceId="CMSS_DEMO_PAGE1_1" dataResourceTypeId="SHORT_TEXT" objectInfo="Sub-content 1"/>
+    <Content contentId="CMSS_DEMO_PAGE1_1" contentTypeId="DOCUMENT" contentName="CMS Site Demo Page 1_1" dataResourceId="CMSS_DEMO_PAGE1_1"/>
+    <ContentPurpose contentId="CMSS_DEMO_PAGE1_1" contentPurposeTypeId="SECTION"/>
+    <ContentAssoc contentId="CMSS_DEMO_PAGE1" contentIdTo="CMSS_DEMO_PAGE1_1" contentAssocTypeId="SUB_CONTENT" mapKey="sub1" fromDate="2001-01-01 00:00:00"/>
+    <DataResource dataResourceId="CMSS_DEMO_PAGE1_2" dataResourceTypeId="SHORT_TEXT" objectInfo="Sub-content 2"/>
+    <Content contentId="CMSS_DEMO_PAGE1_2" contentTypeId="DOCUMENT" contentName="CMS Site Demo Page 1_2" dataResourceId="CMSS_DEMO_PAGE1_2"/>
+    <ContentPurpose contentId="CMSS_DEMO_PAGE1_2" contentPurposeTypeId="SECTION"/>
+    <ContentAssoc contentId="CMSS_DEMO_PAGE1" contentIdTo="CMSS_DEMO_PAGE1_2" contentAssocTypeId="SUB_CONTENT" mapKey="sub2" fromDate="2001-01-01 00:00:00"/>
+    <!--  the following entries are used to override the default footer with a page specific one -->
+    <DataResource dataResourceId="CMSS_DEMO_PAGE1_FTR" dataResourceTypeId="SHORT_TEXT" objectInfo="This is a page specific footer for Demo Page 1"/>
+    <Content contentId="CMSS_DEMO_PAGE1_FTR" contentTypeId="DOCUMENT" contentName="CMS Site Demo Page FTR" dataResourceId="CMSS_DEMO_PAGE1_FTR"/>
+    <ContentAssoc contentId="CMSS_DEMO_PAGE1" contentIdTo="CMSS_DEMO_PAGE1_FTR" contentAssocTypeId="SUB_CONTENT" mapKey="footer" fromDate="2001-01-01 00:00:00"/>
+
+    <DataResource dataResourceId="CMSS_DEMO_SCREEN" dataResourceTypeId="URL_RESOURCE" dataTemplateTypeId="SCREEN_COMBINED" objectInfo="component://cmssite/widget/CmssiteScreens.xml#testScreen"/>
+    <Content contentId="CMSS_DEMO_SCREEN" contentTypeId="DOCUMENT" contentName="CMS Site Demo screen/decorator example" dataResourceId="CMSS_DEMO_SCREEN"/>
+    <ContentAssoc contentId="CMSS_PPOINT" contentIdTo="CMSS_DEMO_SCREEN" contentAssocTypeId="SUB_CONTENT" fromDate="2001-01-01 00:00:00"/>
+
+    <DataResource dataResourceId="CMSS_DEMO_BLOG" dataResourceTypeId="URL_RESOURCE" dataTemplateTypeId="SCREEN_COMBINED" objectInfo="component://cmssite/widget/CmssiteScreens.xml#blogScreen"/>
+    <Content contentId="CMSS_DEMO_BLOG" contentTypeId="DOCUMENT" contentName="CMS Site Demo blog screen example" dataResourceId="CMSS_DEMO_BLOG"/>
+    <ContentAssoc contentId="CMSS_PPOINT" contentIdTo="CMSS_DEMO_BLOG" contentAssocTypeId="SUB_CONTENT" fromDate="2001-01-01 00:00:00"/>
+
+    <DataResource dataResourceId="CMSS_DEMO_TPL_DATA" localeString="en" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="data xml file" mimeTypeId="text/xml" isPublic="Y"/>
+    <DataResource dataResourceId="CMSS_DEMO_TPL_TEMPL" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" statusId="CTNT_IN_PROGRESS" dataResourceName="demo xml templ" mimeTypeId="text/html" isPublic="Y" />
+    <Content contentId="CMSS_DEMO_TPL_DATA" contentTypeId="DOCUMENT" templateDataResourceId="CMSS_DEMO_TPL_TEMPL" dataResourceId="CMSS_DEMO_TPL_DATA" statusId="CTNT_IN_PROGRESS" contentName="Demo xml data + ftl template file" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="CMSS_PPOINT" contentIdTo="CMSS_DEMO_TPL_DATA" contentAssocTypeId="SUB_CONTENT" fromDate="2001-01-01 00:00:00"/>
+    <ElectronicText dataResourceId="CMSS_DEMO_TPL_DATA">
+        <textData><![CDATA[
+            <root>
+                <headerText>
+                    Demo to show how to format a xml resource using an ftl template dataresource.
+                </headerText>
+                <bodyText>
+                    This is XML data in dataResourceId CMSS_DEMO_TPL_DATA which is normal xml data, stored in a dataresource.
+                    It is formatted using the ftl template in dataResourceId CMSS_DEMO_TPL_TEMPL  and rendered in the program renderContentAsText in
+                    java file ContentWorker.java
+                </bodyText>
+            </root>
+        ]]></textData>
+    </ElectronicText>
+    <ElectronicText dataResourceId="CMSS_DEMO_TPL_TEMPL" >
+        <textData><![CDATA[
+            <h3>${doc.root.headerText}</h3>
+                ${doc.root.bodyText}
+                <br/><br/>
+        ]]></textData>
+    </ElectronicText>
+    
+    <!-- Specific Error Pages -->
+    <DataResource dataResourceId="CMSS_ERROR_ROOT" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
+    <ElectronicText dataResourceId="CMSS_ERROR_ROOT">
+        <textData><![CDATA[<html><head><title>Status Code : ${statusCode?if_exists}</title></head><body>Error ${statusCode?if_exists}</body></html>]]></textData>
+    </ElectronicText>
+    <Content contentId="CMSS_ERROR_ROOT" contentTypeId="DOCUMENT"
+        contentName="CMS Site Error Page Container" dataResourceId="CMSS_ERROR_ROOT"/>
+    <WebSiteContent webSiteId="CmsSite" contentId="CMSS_ERROR_ROOT" webSiteContentTypeId="ERROR_ROOT" fromDate="2001-01-01 00:00:00"/>
+    <DataResource dataResourceId="CMSS_ERROR_404" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
+    <ElectronicText dataResourceId="CMSS_ERROR_404">
+        <textData><![CDATA[<html><head><title>cmsSite : Page not found</title></head><body>cmsSite : ${statusCode?if_exists} Not Found</body></html>]]></textData>
+    </ElectronicText>
+    <Content contentId="CMSS_ERROR_404" contentTypeId="DOCUMENT" contentName="Specific CMS 404 Page Not Found For CmsSite" dataResourceId="CMSS_ERROR_404"/>
+    <ContentAssoc contentId="CMSS_ERROR_ROOT" contentIdTo="CMSS_ERROR_404" contentAssocTypeId="TREE_CHILD" fromDate="2001-01-01 00:00:00" mapKey="404"/>
+
+    <!--
+      CmsSite (WebSite)
+       |___(WebSiteContent of type DEFAULT_PAGE)_____> CMSS_DEMO_HOME (Content of type DOCUMENT with decorator CMSS_DEC)
+       |___(WebSiteContent of type PUBLISH_POINT)_____> CMSS_PPOINT (Content of type WEB_SITE_PUB_PT)
+                                                         |________(ContentAssoc of type SUB_CONTENT)______> CMSS_DEMO_HOME (Content of type DOCUMENT with decorator CMSS_DEC)
+                                                         |________(ContentAssoc of type SUB_CONTENT)______> CMSS_DEMO_PAGE1 (Content of type DOCUMENT with decorator CMSS_DEC associated to a DataResource with placeholders for mapKeys "sub1" and "sub2")
+                                                                                                             |________(ContentAssoc of type SUB_CONTENT with mapKey "sub1")______> CMSS_DEMO_PAGE1_1 (Content of type DOCUMENT)
+                                                                                                             |________(ContentAssoc of type SUB_CONTENT with mapKey "sub2")______> CMSS_DEMO_PAGE1_2 (Content of type DOCUMENT)
+    -->
+
+<!-- =========================official OFBiz website ============================================ -->
+    <WebSite webSiteId="OfbizSite" siteName="OFBiz Web Site"/>
+    <Content contentId="OFBIZ_PPOINT" contentTypeId="WEB_SITE_PUB_PT" contentName="OFBiz Site Publish Point" description=""/>
+    <WebSiteContent webSiteId="OfbizSite" contentId="OFBIZ_PPOINT" webSiteContentTypeId="PUBLISH_POINT" fromDate="2001-01-01 00:00:00"/>
+    <DataResource dataResourceId="OFBIZ_HOME" dataResourceTypeId="URL_RESOURCE" dataTemplateTypeId="SCREEN_COMBINED"
+        objectInfo="component://cmssite/widget/OfbizsiteScreens.xml#main"/>
+    <Content contentId="OFBIZ_HOME" contentTypeId="DOCUMENT" contentName="OFBiz Site Home Page" dataResourceId="OFBIZ_HOME"/>
+    <ContentAssoc contentId="OFBIZ_PPOINT" contentIdTo="OFBIZ_HOME" contentAssocTypeId="SUB_CONTENT" fromDate="2001-01-01 00:00:00" mapKey="demoHome"/>
+    <WebSiteContent webSiteId="OfbizSite" contentId="OFBIZ_HOME" webSiteContentTypeId="DEFAULT_PAGE" fromDate="2001-01-01 00:00:00"/>
+
+    <!-- documents website -->
+    <DataResource dataResourceId="DOCBOOK_HTML_TEMPL" dataResourceTypeId="OFBIZ_FILE" objectInfo="specialpurpose/cmssite/template/docbook/html/docbook.xsl" dataTemplateTypeId="XSLT" statusId="CTNT_IN_PROGRESS" dataResourceName="Help template file" mimeTypeId="text/html" isPublic="Y"/>
+    <DataResource dataResourceId="DOCBOOK_PDF_TEMPL" dataResourceTypeId="OFBIZ_FILE" objectInfo="specialpurpose/cmssite/template/docbook/fo/docbook.xsl" dataTemplateTypeId="XSLT" statusId="CTNT_IN_PROGRESS" dataResourceName="Help template file" mimeTypeId="text/html" isPublic="Y"/>
+
+    <DataResource dataResourceId="PUBLIC_DOCS" dataResourceTypeId="URL_RESOURCE" dataTemplateTypeId="SCREEN_COMBINED" objectInfo="component://cmssite/widget/CmssiteScreens.xml#publicDocs"/>
+    <Content contentId="PUBLIC_DOCS" contentTypeId="DOCUMENT" contentName="OFBIz public documents" dataResourceId="PUBLIC_DOCS"/>
+
+    <DataResource dataResourceId="APACHE_OFBIZ" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="specialpurpose/cmssite/documents/ApacheOfbiz.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Apache OFBiz document" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="APACHE_OFBIZ_HTML" contentTypeId="DOCUMENT" templateDataResourceId="DOCBOOK_HTML_TEMPL" dataResourceId="APACHE_OFBIZ" localeString="en" statusId="CTNT_IN_PROGRESS" contentName="The User &amp; Technical Apache OFBiz document in one page HTML" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="DOCUMENTS" contentIdTo="APACHE_OFBIZ_HTML" contentAssocTypeId="SUB_CONTENT" fromDate="2006-01-12 01:01:01" sequenceNum=""/>
+
+    <Content contentId="APACHE_OFBIZ_PDF" contentTypeId="DOCUMENT" templateDataResourceId="DOCBOOK_PDF_TEMPL" dataResourceId="APACHE_OFBIZ" localeString="en" statusId="CTNT_IN_PROGRESS" contentName="The general Apache document in PDF format" mimeTypeId="application/pdf"/>
+    <ContentAssoc contentId="DOCUMENTS" contentIdTo="APACHE_OFBIZ_PDF" contentAssocTypeId="SUB_CONTENT" fromDate="2006-01-12 01:01:01" sequenceNum=""/>
+
+    <DataResource dataResourceId="APACHE_OFBIZ_TECH" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="specialpurpose/cmssite/documents/ApacheOfbizTechnical.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Apache OFBiz document" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="APACHE_OFBIZ_T_HTML" contentTypeId="DOCUMENT" templateDataResourceId="DOCBOOK_HTML_TEMPL" dataResourceId="APACHE_OFBIZ_TECH" localeString="en" statusId="CTNT_IN_PROGRESS" contentName="The Apache OFBiz Technical Guide in one page HTML" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="DOCUMENTS" contentIdTo="APACHE_OFBIZ_T_HTML" contentAssocTypeId="SUB_CONTENT" fromDate="2006-01-12 01:01:01" sequenceNum=""/>
+    <DataResource dataResourceId="APACHE_OFBIZ_USER" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="specialpurpose/cmssite/documents/ApacheOfbizUser.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Apache OFBiz User document" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="APACHE_OFBIZ_U_HTML" contentTypeId="DOCUMENT" templateDataResourceId="DOCBOOK_HTML_TEMPL" dataResourceId="APACHE_OFBIZ_USER" localeString="en" statusId="CTNT_IN_PROGRESS" contentName="The Apache OFBizUser Guide in one page HTML" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="DOCUMENTS" contentIdTo="APACHE_OFBIZ_U_HTML" contentAssocTypeId="SUB_CONTENT" fromDate="2006-01-12 01:01:01" sequenceNum=""/>
+
+
+    <ContentAssoc contentId="CMSS_PPOINT" contentIdTo="PUBLIC_DOCS" contentAssocTypeId="SUB_CONTENT" fromDate="2001-01-01 00:00:00"/>
+    <ContentAssoc contentId="CMSS_PPOINT" contentIdTo="APACHE_OFBIZ_HTML" contentAssocTypeId="SUB_CONTENT" fromDate="2001-01-01 00:00:00" mapKey="documents"/>
+    <ContentAssoc contentId="CMSS_PPOINT" contentIdTo="APACHE_OFBIZ_PDF" contentAssocTypeId="SUB_CONTENT" fromDate="2001-01-01 00:00:00" mapKey="documents"/>
+    <WebSiteContent webSiteId="CmsSite" contentId="MAINTENANCE_PAGE" webSiteContentTypeId="MAINTENANCE_PAGE" fromDate="2016-05-21 00:00:00"/>
+</entity-engine-xml>

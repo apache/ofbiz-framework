@@ -109,8 +109,10 @@ public class CategoryContentWrapper implements ContentWrapper {
                 outString = productCategory.getModelEntity().isField(candidateFieldName) ? productCategory.getString(candidateFieldName): "";
                 outString = outString == null? "" : outString;
             }
-            outString = encoder.sanitize(outString, null);
-            categoryContentCache.put(cacheKey, outString);
+            outString = encoder.sanitize(outString);
+            if (categoryContentCache != null) {
+                categoryContentCache.put(cacheKey, outString);
+            }
             return outString;
         } catch (GeneralException e) {
             Debug.logError(e, "Error rendering CategoryContent, inserting empty String", module);
@@ -149,7 +151,7 @@ public class CategoryContentWrapper implements ContentWrapper {
             Map<String, Object> inContext = new HashMap<String, Object>();
             inContext.put("productCategory", productCategory);
             inContext.put("categoryContent", categoryContent);
-            ContentWorker.renderContentAsText(dispatcher, categoryContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, null, null, cache);
+            ContentWorker.renderContentAsText(dispatcher, delegator, categoryContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, null, null, cache);
             return;
         }
         

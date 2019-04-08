@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<section id="ProductStores" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0" 
+    xmlns:xl="http://www.w3.org/1999/xlink" 
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+
+
+    <title> Product Stores</title>
+<para>A product store has all the information needed to sell products. It is composed of a series of catalogs, which are composed of product categories and products. Each store can have its own shipping, fulfillment, notification, promotions, payment processing, and tax calculation policies. A product store can point to several different websites, allowing the same products to be sold on multiple hosted sites or domains. Alternatively, multiple stores, each with their own website, can be set up to allow different pricing and fulfillment procedures for, say, different countries or different market segments (wholesale versus retail.)
+
+</para>
+
+<section>
+ <procedure>
+
+                <step performance="required">
+                    <para>Go to Catalog Manager
+</para>
+                </step>
+                <step performance="required">
+                    <para> Go to Catalog Manager - Stores tab
+Stores tab (with a store selected) brings up Roles, Promos, Catalogs, Web Sites, Sales Tax, Shipping, Payments, Emails, Surveys, and Override tabs to perform a host of other store-related functions.
+</para>
+                </step>
+                <step performance="required">
+                    <para> Select existing store
+</para>
+                </step>
+                <step performance="required">
+                    <para>If none, Create New Product Store
+</para>
+                </step>
+                <step performance="required">
+                    <para> Complete fields
+</para>
+                </step>
+                <step performance="required">
+                    <para>Click on Update]</para>   </step>
+            </procedure>
+
+
+
+</section>
+<section>
+    <title> Working with Product Stores</title>
+<para>When you click on 'Stores,' you will see a list of product stores that have been defined. Click on one and you will see several tabs for administering different aspects of that store. Some of those aspects are discussed below.
+</para>
+</section>
+<section>
+    <title> Why use stores?</title>
+ <para>The 'Stores' tab in the catalog manager as used to define all the properties of a working store, is a group of products sold together under the same policies. Stores greatly improve the flexibility of Apache OFBiz applications. It is possible for a company to set up multiple stores, each with its warehouses, fulfillment policies, currencies, languages, promotions, and look-and-feel. These stores can be web-based b2b or consumer ecommerce stores or for internal order entry. They could even be in different countries with different shipping and taxation rules.
+</para>
+</section>
+<section>
+    <title> Product Store</title>
+ <para>This very complete screen provides entry for all of the myriad choices available which define the store and establish parameters.
+</para>
+</section>
+<section>
+    <title> Roles</title>
+ <para>Defines parties with specific roles for this store. For an employee to be able to take orders using the internal order manager application, he must be defined as a 'Sales Representative' here. Restrictions are enforced through the Party Manager - SecurityGroupsList which grants rights according to party roles.
+</para>
+</section>
+<section>
+    <title> Promos</title>
+ <para>Shows a list of active promotions for this store.
+</para>
+</section>
+<section>
+    <title> Catalogs</title>
+ <para>Catalogs which are available for the current store and the sequence in which they are to be shown to the user in a navigation menu.
+</para>
+</section>
+<section>
+    <title> Web Sites</title>
+ <para>Websites which are related to this store. This is directly used to link a store to a web application. Each web application has a configuration file called web.xml, and it is defined to reference a particular web site. The web site in turn is defined to relate to a product store. Thus, by setting a store on a web site, it becomes 'live' on that web application.
+NOTE: It is possible for a web application to have more than one store associated with it, as long as the application knows how to use the correct one.
+
+</para>
+</section>
+<section>
+    <title> Shipping</title>
+ <para>This page shows the shipping options available to store customers. A list of shipping options and their pricing is shown. Click on View for a shipping option shows all the settings for this shipping option. At this point, this tab can only view shipping options available and can not be used to define them.
+</para>
+</section>
+<section>
+    <title>Payments</title>
+<para>his is used to set up payment processing for the store. The payment processing interfaces are defined as Apache OFBiz services. Each payment method will have a series of service types available to it, such as for authorizing, capturing, and refunding payment. This page links the payment types and the services together by their purpose. Thus, one service would be used for credit card authorizations, another for credit card capture, and so forth
+</para>
+</section>
+<section>
+    <title>EMails</title>
+ <para>This defines emails which the store would send to customers. The actual email services are either mounted in the controller, such as the order confirmation email, or from scheduled services, such as back order notifications. This page defines where the template for the email is located on the file system, the addresses and subject of each email, and a content type (which can be left blank).
+</para>
+</section>
+<section>
+    <title> Surveys</title>
+ <para>This page is for adding surveys to the store. Surveys can be associated with certain events or with products and categories.
+</para>
+</section>
+<section>
+    <title>Override</title>
+ <para>Allows certain keywords to be ascendant at this store for a particular time period.
+</para>
+</section>
+<section>
+    <title>Segments</title>
+ <para>Identifies the Sales or Market Segments targeted for this Store. The actual assignment is made under the Marketing tab > Segment sub-tab. Here under the Product Store you will see a summary table of those assignments along with links to make any additions or changes.
+</para>
+</section></section>

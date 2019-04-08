@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-transform-xml template="component://ecommerce/template/data/Content.ftl">
+    <contents>
+        <content id="180000" name="rocketoperation" type="text/xml">
+            <content_heading>Maintenance</content_heading>
+            <content_desc>How to operate the Rocket Launcher Widget</content_desc>
+            <source id="001" name="Automation Groups"></source>
+            <revision_number>11</revision_number>
+            <expiration_date>2005-12-04</expiration_date>
+            <issue_date>2003-12-04</issue_date>
+            <revision_date>2003-12-03 16:11:20.0</revision_date>
+            <content_text>
+                <![CDATA[
+<?xml version="1.0"?>
+<ask:document name="rocketoperation" type="procedure" xmlns:ask="http://www.automationgroups.com/dtd/ask/"><ask:title>Rocket Launcher Operation Instructions</ask:title>
+<ask:body>
+<ask:section name="setup"><ask:sectionTitle>Setup</ask:sectionTitle>
+<p>
+Put the rocket launcher on a flat surface. Clear everyone away from the launcher for a radius of one thousand feet except for operators, kids and spectators.
+</p>
+</ask:section>
+<ask:section name="charging"><ask:sectionTitle>Charging</ask:sectionTitle>
+<p>
+Before charging, make sure the launch lever is pulled back and secured by the PVC T-joint.
+</p>
+<p>
+Connect a bicycle pump to the launcher via the valve that looks like the stem of a automobile tire.
+It is not, really; it is a high tech air control device.
+Do not use one of those prissy little air pumps that cyclists use; connect a real bicycle pump.
+Do not even think about connecting an air compressor to the rocket launcher.
+The rockets could go into orbit and you would never retrieve them again.
+Plus there is the chance that you really could hurt someone.
+</p>
+</ask:section>
+<ask:section name="launch"><ask:sectionTitle>Launching</ask:sectionTitle>
+<p>
+Count down from 10 to 1 (thats going backwards; write it down if you can't figure it out).
+Stop at 3 to tell kids not to look directly down on the rocket.
+</p>
+<p>
+After reaching 1, yell "Blast Off" and pull the lever back.
+</p>
+</ask:section>
+<ask:section name="retrieval"><ask:sectionTitle>Retrieval</ask:sectionTitle>
+<p>
+After each launch send out two search parties.
+</p>
+<p>
+Party ONE should look for construction paper fins that fell off of the launch vehicle during blast off.
+</p>
+<p>
+Party TWO should look for the rocket itself.
+</p>
+</ask:section>
+</ask:body>
+</ask:document>
+    ]]></content_text>
+            <keywords>fun,danger,adventure,foolishness</keywords>
+            <category id="122" name="">Whatever</category>
+        </content>
+
+        <content id="180001" name="rocketfuture" type="text/xml">
+            <content_heading>Future</content_heading>
+            <content_desc>Future Directions in Rocket Launcher Widgets</content_desc>
+            <source id="001" name="Automation Groups"></source>
+            <revision_number>11</revision_number>
+            <expiration_date>2005-12-04</expiration_date>
+            <issue_date>2003-12-04</issue_date>
+            <revision_date>2003-12-03 16:11:20.0</revision_date>
+            <content_text>
+                <![CDATA[
+<?xml version="1.0"?>
+<ask:document name="rocketfuture" type="procedure" xmlns:ask="http://www.automationgroups.com/dtd/ask/"><ask:title>Future Directions in Rocket Launcher Widgets</ask:title>
+<ask:body>
+<ask:section name="xprize"><ask:sectionTitle>X Prize</ask:sectionTitle>
+<p>
+The immediate goal is to catch and overtake <a href="http://www.scaled.com/projects/tierone/New_Index/news/062104.htm">Scaled Composites</a>  in their bid to win the Ansari X Prize.
+In order to win, the rocket launcher and the vehicle will have to be scaled up a bit,
+but that is not expected to take long.
+</p>
+</ask:section>
+<ask:section name="mrs_brown"><ask:sectionTitle>Mrs. Brown's Yard</ask:sectionTitle>
+<p>
+A long-term goal is to retrieve all the rockets that have landed in Mrs. Brown's yard.
+</p>
+<p>
+Before retrieval can start, Mrs. Brown's dog, Beau-Beau, will have to be neutralized.
+Planning on this operation is on-going.
+</p>
+</ask:section>
+</ask:body>
+</ask:document>
+    ]]></content_text>
+            <keywords>fun,danger,adventure,foolishness</keywords>
+            <category id="122" name="">Whatever</category>
+        </content>
+
+        <content id="180002" name="rocketfuture2" type="text/xml">
+            <content_heading>Future</content_heading>
+            <content_desc>Future Directions in Rocket Launcher Widgets - Marketing</content_desc>
+            <source id="001" name="Automation Groups"></source>
+            <revision_number>11</revision_number>
+            <expiration_date>2005-12-04</expiration_date>
+            <issue_date>2003-12-04</issue_date>
+            <revision_date>2003-12-03 16:11:20.0</revision_date>
+            <content_text>
+                <![CDATA[
+<?xml version="1.0"?>
+<ask:document name="rocketfuture2" type="procedure" xmlns:ask="http://www.automationgroups.com/dtd/ask/"><ask:title>Future Directions in Rocket Launcher Widgets - Marketing</ask:title>
+<ask:body>
+<ask:section name="ensignia"><ask:sectionTitle>Ensignia</ask:sectionTitle>
+<p>
+In order to raise money in our bid to win the X Prize
+we will be offering advertising space on our launch vehicles.
+Since space is limited on the tubes, we will have to charge $1,000,000 per square
+inch in order to raise the money needed.
+</p>
+</ask:section>
+</ask:body>
+</ask:document>
+    ]]></content_text>
+            <keywords>fun,danger,adventure,foolishness</keywords>
+            <category id="122" name="">Whatever</category>
+        </content>
+    </contents>
+</entity-engine-transform-xml>

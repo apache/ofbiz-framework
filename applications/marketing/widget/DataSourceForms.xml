@@ -25,7 +25,7 @@ under the License.
         <alt-target use-when="dataSource==null" target="createDataSource"/>
 
         <field use-when="dataSource!=null" name="dataSourceId" title="${uiLabelMap.DataSourceDataSourceId}"><display/></field>
-        <field use-when="dataSource==null&amp;&amp;dataSourceId==null" name="dataSourceId" title="${uiLabelMap.DataSourceDataSourceId}" required-field="true"><text/></field>
+        <field use-when="dataSource==null&amp;&amp;dataSourceId==null" name="dataSourceId" title="${uiLabelMap.DataSourceDataSourceId}"><text/></field>
         <field use-when="dataSource==null&amp;&amp;dataSourceId!=null" name="dataSourceId" title="${uiLabelMap.DataSourceDataSourceId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${dataSourceId}]"><display/></field>
 
         <field name="dataSourceTypeId" title="${uiLabelMap.DataSourceDataSourceTypeId}">
@@ -37,7 +37,7 @@ under the License.
         </field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
 
-        <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
         <!-- <field name="DONE_PAGE"><hidden value="${donePage}"/></field> -->
         <!-- <field name="cancelLink" title=" " widget-style="buttontext"><hyperlink description="${uiLabelMap.CommonCancelDone}" target="${donePage}" also-hidden="false" target-type="inter-app"/></field> -->
     </form>

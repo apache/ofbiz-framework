@@ -22,49 +22,47 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.apache.ofbiz.base.component.ComponentConfig;
 import org.apache.ofbiz.base.start.Config;
 import org.apache.ofbiz.base.start.StartupCommand;
 import org.apache.ofbiz.base.start.StartupException;
+import org.apache.ofbiz.base.start.StartupLoader;
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilValidate;
 
 import edu.emory.mathcs.backport.java.util.Collections;
 
 /**
  * An object that loads containers (background processes).
- *
- * Normally, instances of this class are created by OFBiz startup code, and
+ * 
+ * <p>Normally, instances of this class are created by OFBiz startup code, and
  * client code should not create instances of this class. Client code is
- * responsible for making sure containers are shut down properly.
- * <p>
- * When OFBiz starts, the main thread will create the {@code ContainerLoader} instance and
- * then call the loader's {@code load} method.
- * After this instance has been created and initialized, the main thread will call the
- * {@code start} method. When OFBiz shuts down, a separate shutdown thread will call
- * the {@code unload} method.
+ * responsible for making sure containers are shut down properly. </p>
+ *
  */
-public class ContainerLoader {
+public class ContainerLoader implements StartupLoader {
 
     public static final String module = ContainerLoader.class.getName();
 
-    private final List<Container> loadedContainers = new LinkedList<>();
+    private final List<Container> loadedContainers = new LinkedList<Container>();
 
     /**
-     * Starts the containers.
-     *
-     * @param config Startup config
-     * @param ofbizCommands Command-line arguments
-     * @throws StartupException If an error was encountered. Throwing this exception
-     * will halt loader loading, so it should be thrown only when OFBiz can't
-     * operate without it.
+     * @see org.apache.ofbiz.base.start.StartupLoader#load(Config, String[])
      */
+    @Override
     public synchronized void load(Config config, List<StartupCommand> ofbizCommands) throws StartupException {
 
         // loaders defined in startup (e.g. main, test, load-data, etc ...)
-        List<String> loaders = config.loaders;
+        List<String> loaders = null;
+        for (Map<String,String> loaderMap: config.loaders) {
+            if (module.equals(loaderMap.get("class"))) {
+                loaders = StringUtil.split((String)loaderMap.get("profiles"), ",");
+            }
+        }
 
         // load containers defined in ofbiz-containers.xml
         Debug.logInfo("[Startup] Loading containers...", module);
@@ -87,11 +85,11 @@ public class ContainerLoader {
             return ContainerConfig.getConfigurations(configFile);
         } catch (ContainerException e) {
             throw new StartupException(e);
-        }
+        }        
     }
 
     private List<ContainerConfig.Configuration> filterContainersHavingMatchingLoaders(List<String> loaders,
-            Collection<ContainerConfig.Configuration> containerConfigs) {
+            Collection<ContainerConfig.Configuration> containerConfigs) throws StartupException {
         return containerConfigs.stream()
                 .filter(containerCfg ->
                     UtilValidate.isEmpty(containerCfg.loaders) &&
@@ -103,7 +101,7 @@ public class ContainerLoader {
     private List<Container> loadContainersFromConfigurations(List<ContainerConfig.Configuration> containerConfigs,
             Config config, List<StartupCommand> ofbizCommands) throws StartupException {
 
-        List<Container> loadContainers = new ArrayList<>();
+        List<Container> loadContainers = new ArrayList<Container>();
         for (ContainerConfig.Configuration containerCfg : containerConfigs) {
             Debug.logInfo("Loading container: " + containerCfg.name, module);
             Container tmpContainer = loadContainer(config.containerConfig, containerCfg, ofbizCommands);
@@ -113,7 +111,7 @@ public class ContainerLoader {
         return loadContainers;
     }
 
-    private Container loadContainer(String configFile,
+    private Container loadContainer(String configFile, 
             ContainerConfig.Configuration containerCfg,
             List<StartupCommand> ofbizCommands) throws StartupException {
         // load the container class
@@ -131,8 +129,8 @@ public class ContainerLoader {
         // create a new instance of the container object
         Container containerObj;
         try {
-            containerObj = (Container) containerClass.getDeclaredConstructor().newInstance();
-        } catch (ReflectiveOperationException e) {
+            containerObj = (Container) containerClass.newInstance();
+        } catch (InstantiationException | IllegalAccessException e) {
             throw new StartupException("Cannot create " + containerCfg.name, e);
         }
         if (containerObj == null) {
@@ -163,12 +161,13 @@ public class ContainerLoader {
     }
 
     /**
-     * Stops the containers.
+     * @see org.apache.ofbiz.base.start.StartupLoader#unload()
      */
-    public synchronized void unload() {
+    @Override
+    public synchronized void unload() throws StartupException {
         Debug.logInfo("Shutting down containers", module);
 
-        List<Container> reversedContainerList = new ArrayList<>(loadedContainers);
+        List<Container> reversedContainerList = new ArrayList<Container>(loadedContainers);
         Collections.reverse(reversedContainerList);
 
         for(Container loadedContainer : reversedContainerList) {

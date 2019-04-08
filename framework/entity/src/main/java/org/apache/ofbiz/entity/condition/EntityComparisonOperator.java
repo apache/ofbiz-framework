@@ -22,8 +22,12 @@ package org.apache.ofbiz.entity.condition;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
+import org.apache.oro.text.perl.Perl5Util;
+import org.apache.oro.text.regex.MalformedPatternException;
+import org.apache.oro.text.regex.Pattern;
+import org.apache.oro.text.regex.PatternMatcher;
+import org.apache.oro.text.regex.Perl5Matcher;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.PatternFactory;
 import org.apache.ofbiz.base.util.UtilGenerics;
@@ -33,17 +37,12 @@ import org.apache.ofbiz.entity.GenericModelException;
 import org.apache.ofbiz.entity.config.model.Datasource;
 import org.apache.ofbiz.entity.model.ModelEntity;
 import org.apache.ofbiz.entity.model.ModelField;
-import org.apache.oro.text.perl.Perl5Util;
-import org.apache.oro.text.regex.MalformedPatternException;
-import org.apache.oro.text.regex.Pattern;
-import org.apache.oro.text.regex.PatternMatcher;
-import org.apache.oro.text.regex.Perl5Matcher;
 
 /**
  * Base class for comparisons.
  */
 @SuppressWarnings("serial")
-public abstract class EntityComparisonOperator<L, R> extends EntityOperator<L, R> {
+public abstract class EntityComparisonOperator<L, R> extends EntityOperator<L, R, Boolean> {
 
     public static final String module = EntityComparisonOperator.class.getName();
 
@@ -79,7 +78,14 @@ public abstract class EntityComparisonOperator<L, R> extends EntityOperator<L, R
     }
 
     @Override
+    public void visit(EntityConditionVisitor visitor, L lhs, R rhs) {
+        visitor.accept(lhs);
+        visitor.accept(rhs);
+    }
+
+    @Override
     public void addSqlValue(StringBuilder sql, ModelEntity entity, List<EntityConditionParam> entityConditionParams, boolean compat, L lhs, R rhs, Datasource datasourceInfo) {
+        //Debug.logInfo("EntityComparisonOperator.addSqlValue field=" + lhs + ", value=" + rhs + ", value type=" + (rhs == null ? "null object" : rhs.getClass().getName()), module);
 
         // if this is an IN operator and the rhs Object isEmpty, add "1=0" instead of the normal SQL.  Note that "FALSE" does not work with all databases.
         if (this.idInt == EntityOperator.ID_IN && UtilValidate.isEmpty(rhs)) {
@@ -93,14 +99,14 @@ public abstract class EntityComparisonOperator<L, R> extends EntityOperator<L, R
             ecv.addSqlValue(sql, entity, entityConditionParams, false, datasourceInfo);
             field = ecv.getModelField(entity);
         } else if (compat && lhs instanceof String) {
-            field = EntityConditionUtils.getField(entity, (String) lhs);
+            field = getField(entity, (String) lhs);
             if (field == null) {
                 sql.append(lhs);
             } else {
                 sql.append(field.getColName());
             }
         } else {
-            EntityConditionUtils.addValue(sql, null, lhs, entityConditionParams);
+            addValue(sql, null, lhs, entityConditionParams);
             field = null;
         }
 
@@ -125,14 +131,14 @@ public abstract class EntityComparisonOperator<L, R> extends EntityOperator<L, R
             }
             ecv.addSqlValue(sql, entity, entityConditionParams, false, datasourceInfo);
         } else {
-            EntityConditionUtils.addValue(sql, field, rhs, entityConditionParams);
+            addValue(sql, field, rhs, entityConditionParams);
         }
     }
 
     public abstract boolean compare(L lhs, R rhs);
 
     public Boolean eval(Delegator delegator, Map<String, ? extends Object> map, L lhs, R rhs) {
-        return mapMatches(delegator, map, lhs, rhs);
+        return Boolean.valueOf(mapMatches(delegator, map, lhs, rhs));
     }
 
     @Override
@@ -154,8 +160,8 @@ public abstract class EntityComparisonOperator<L, R> extends EntityOperator<L, R
             rightValue = rhs;
         }
 
-        return leftValue == WILDCARD || rightValue == WILDCARD
-                || compare(UtilGenerics.<L>cast(leftValue), UtilGenerics.<R>cast(rightValue));
+        if (leftValue == WILDCARD || rightValue == WILDCARD) return true;
+        return compare(UtilGenerics.<L>cast(leftValue), UtilGenerics.<R>cast(rightValue));
     }
 
     @Override
@@ -167,8 +173,9 @@ public abstract class EntityComparisonOperator<L, R> extends EntityOperator<L, R
         if (item instanceof EntityConditionValue) {
             EntityConditionValue ecv = (EntityConditionValue) item;
             return ecv.freeze();
+        } else {
+            return item;
         }
-        return item;
     }
 
     public EntityComparisonOperator(int id, String code) {
@@ -241,11 +248,23 @@ public abstract class EntityComparisonOperator<L, R> extends EntityOperator<L, R
         return true;
     }
 
-    public static final <L, R extends L> boolean compareIn(L lhs, R rhs) {
-        if (rhs instanceof Collection && lhs != null) {
-            return (((Collection<?>) rhs).contains(lhs));
+    public static final <L,R> boolean compareIn(L lhs, R rhs) {
+        if (lhs == null) {
+            if (rhs != null) {
+                return false;
+            } else {
+                return true;
+            }
+        } else if (rhs instanceof Collection<?>) {
+            if (((Collection<?>) rhs).contains(lhs)) {
+                return true;
+            } else {
+                return false;
+            }
+        } else if (lhs.equals(rhs)) {
+            return true;
         } else {
-            return Objects.equals(lhs, rhs);
+            return false;
         }
     }
 

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<entity-engine-xml>
+    <ContentOperation contentOperationId="CONTENT_ADMIN" description="Content Admin"/>
+    <ContentOperation contentOperationId="CONTENT_CREATE" description="Content Create"/>
+    <ContentOperation contentOperationId="CONTENT_UPDATE" description="Content Update"/>
+    <ContentOperation contentOperationId="CONTENT_DELETE" description="Content Delete"/>
+    <ContentOperation contentOperationId="CONTENT_VIEW" description="Content View"/>
+    <ContentOperation contentOperationId="CONTENT_PUBLISH" description="Content Publish"/>
+    <ContentOperation contentOperationId="CONTENT_RESPOND" description="Content Respond"/>
+    <ContentOperation contentOperationId="CONTENT_PUBLISH_SELF" description="Content Publish"/>
+    <ContentOperation contentOperationId="_NA_" description="Not Applicable"/>
+    <ContentOperation contentOperationId="HAS_OWNER_ROLE" description="Has User Role"/>
+    <ContentOperation contentOperationId="HAS_USER_ROLE" description="Has User Role"/>
+    <ContentOperation contentOperationId="HAS_AUTHOR_ROLE" description="Has Author Role"/>
+    <ContentOperation contentOperationId="HAS_EDITOR_ROLE" description="Has Editor Role"/>
+    <ContentOperation contentOperationId="HAS_ADMIN_ROLE" description="Has Admin Role"/>
+    <ContentOperation contentOperationId="HAS_PUBLISHER_ROLE" description="Has Publisher Role"/>
+    <ContentOperation contentOperationId="CONTENT_CREATE_SUB" description="Create SubContent"/>
+    <ContentOperation contentOperationId="CONTENT_VIEW_SHORT" description="View Short Desc"/>
+    <ContentOperation contentOperationId="CHILD_CREATE" description="Child Create"/>
+    <ContentOperation contentOperationId="CHILD_UPDATE" description="Child Update"/>
+    <ContentOperation contentOperationId="CHILD_DELETE" description="Child Delete"/>
+    <ContentOperation contentOperationId="CHILD_VIEW" description="Child View"/>
+    <ContentOperation contentOperationId="CONTENT_LINK" description="Content Link"/>
+    <ContentOperation contentOperationId="CONTENT_LINK_TO" description="Content Link To"/>
+    <ContentOperation contentOperationId="CONTENT_LINK_FROM" description="Content Link From"/>
+
+    <!-- These ContentTypes are primarily for structuring documents or content -->
+    <ContentPurposeType contentPurposeTypeId="ARTICLE" description="Article"/>
+    <ContentPurposeType contentPurposeTypeId="MESSAGE" description="Message"/>
+    <ContentPurposeType contentPurposeTypeId="FEEDBACK" description="Feedback"/>
+    <ContentPurposeType contentPurposeTypeId="COMMENT" description="Comment"/>
+    <ContentPurposeType contentPurposeTypeId="PRODUCT_INFO" description="Product Info"/>
+    <ContentPurposeType contentPurposeTypeId="PROJECT_INFO" description="Project Info"/>
+    <ContentPurposeType contentPurposeTypeId="COMPANY_INFO" description="Company Info"/>
+    <ContentPurposeType contentPurposeTypeId="ADVERTISEMENT" description="Advertisement"/>
+    <ContentPurposeType contentPurposeTypeId="GENERAL_INFO" description="General Info"/>
+    <ContentPurposeType contentPurposeTypeId="LEGAL_INFO" description="Legal Info"/>
+
+    <ContentPurposeType contentPurposeTypeId="DESCRIPTION" description="Description"/>
+    <ContentPurposeType contentPurposeTypeId="OWNER" description="Owner"/>
+    <ContentPurposeType contentPurposeTypeId="ARTICLE" description="Article"/>
+    <ContentPurposeType contentPurposeTypeId="RESPONSE" description="Response"/>
+    <ContentPurposeType contentPurposeTypeId="_NA_" description="Not Applicable"/>
+    <ContentPurposeType contentPurposeTypeId="SECTION" description="Section"/>
+    <ContentPurposeType contentPurposeTypeId="TOPIC" description="Topic"/>
+    <ContentPurposeType contentPurposeTypeId="SUMMARY" description="Summary"/>
+    <ContentPurposeType contentPurposeTypeId="MAIN_ARTICLE" description="Main Content"/>
+    <ContentPurposeType contentPurposeTypeId="SUB_ARTICLE" description="Sub Content"/>
+    <ContentPurposeType contentPurposeTypeId="USER" description="User"/>
+    <ContentPurposeType contentPurposeTypeId="FAQ" description="FAQ"/>
+    <ContentPurposeType contentPurposeTypeId="SOURCE" description="General Source"/>
+    <ContentPurposeType contentPurposeTypeId="LANDING_PAGE_IMAGE" description="Landing Page Image"/>
+
+    <ContentPurposeOperation contentPurposeTypeId="ARTICLE" contentOperationId="CONTENT_CREATE" roleTypeId="CONTENT_AUTHOR" statusId="CTNT_PUBLISHED" privilegeEnumId="CNT_PRV_NA_"/>
+    <ContentPurposeOperation contentPurposeTypeId="ARTICLE" contentOperationId="CONTENT_CREATE" roleTypeId="CONTENT_AUTHOR" statusId="_NA_" privilegeEnumId="CNT_PRV_NA_"/>
+    <ContentPurposeOperation contentPurposeTypeId="ARTICLE" contentOperationId="CONTENT_CREATE" roleTypeId="CONTENT_EDITOR" statusId="_NA_" privilegeEnumId="CNT_PRV_NA_"/>
+    <ContentPurposeOperation contentPurposeTypeId="ARTICLE" contentOperationId="CONTENT_CREATE_SUB" roleTypeId="OWNER" statusId="_NA_" privilegeEnumId="CNT_PRV_NA_"/>
+    <ContentPurposeOperation contentPurposeTypeId="ARTICLE" contentOperationId="CONTENT_UPDATE" roleTypeId="CONTENT_AUTHOR" statusId="_NA_" privilegeEnumId="CNT_PRV_NA_"/>
+    <ContentPurposeOperation contentPurposeTypeId="ARTICLE" contentOperationId="CONTENT_UPDATE" roleTypeId="CONTENT_EDITOR" statusId="_NA_" privilegeEnumId="CNT_PRV_NA_"/>
+    <ContentPurposeOperation contentPurposeTypeId="ARTICLE" contentOperationId="CONTENT_UPDATE" roleTypeId="OWNER" statusId="CTNT_INITIAL_DRAFT" privilegeEnumId="CNT_PRV_NA_"/>
+    <ContentPurposeOperation contentPurposeTypeId="ARTICLE" contentOperationId="CONTENT_PUBLISH" roleTypeId="CONTENT_EDITOR" statusId="_NA_" privilegeEnumId="CNT_PRV_NA_"/>
+    <ContentPurposeOperation contentPurposeTypeId="ARTICLE" contentOperationId="CONTENT_PUBLISH" roleTypeId="CONTENT_PUBLISHER" statusId="CTNT_PUBLISHED" privilegeEnumId="CNT_PRV_NA_"/>
+    <ContentPurposeOperation contentPurposeTypeId="ARTICLE" contentOperationId="CONTENT_PUBLISH" roleTypeId="OWNER" statusId="_NA_" privilegeEnumId="CNT_PRV_NA_"/>
+    <ContentPurposeOperation contentPurposeTypeId="ARTICLE" contentOperationId="CONTENT_PUBLISH_SELF" roleTypeId="CONTENT_AUTHOR" statusId="CTNT_PUBLISHED" privilegeEnumId="CNT_PRV_NA_"/>
+    <ContentPurposeOperation contentPurposeTypeId="ARTICLE" contentOperationId="CONTENT_RESPOND" roleTypeId="CONTENT_USER" statusId="CTNT_PUBLISHED" privilegeEnumId="CNT_PRV_NA_"/>
+    <ContentPurposeOperation contentPurposeTypeId="ARTICLE" contentOperationId="CONTENT_VIEW" roleTypeId="CONTENT_AUTHOR" statusId="CTNT_PUBLISHED" privilegeEnumId="CNT_PRV_NA_"/>
+    <ContentPurposeOperation contentPurposeTypeId="ARTICLE" contentOperationId="CONTENT_VIEW" roleTypeId="CONTENT_EDITOR" statusId="_NA_" privilegeEnumId="CNT_PRV_NA_"/>
+    <ContentPurposeOperation contentPurposeTypeId="ARTICLE" contentOperationId="CONTENT_VIEW" roleTypeId="OWNER" statusId="CTNT_INITIAL_DRAFT" privilegeEnumId="CNT_PRV_NA_"/>
+    <ContentPurposeOperation contentPurposeTypeId="ARTICLE" contentOperationId="CONTENT_LINK_FROM" roleTypeId="_NA_" statusId="_NA_" privilegeEnumId="CNT_PRV_NA_"/>
+    <ContentPurposeOperation contentPurposeTypeId="ARTICLE" contentOperationId="CONTENT_LINK_TO" roleTypeId="_NA_" statusId="_NA_" privilegeEnumId="CNT_PRV_NA_"/>
+
+    <ContentPurposeOperation contentPurposeTypeId="RESPONSE" contentOperationId="CONTENT_CREATE" roleTypeId="CONTENT_EDITOR" statusId="_NA_" privilegeEnumId="CNT_PRV_NA_"/>
+    <ContentPurposeOperation contentPurposeTypeId="RESPONSE" contentOperationId="CONTENT_UPDATE" roleTypeId="CONTENT_EDITOR" statusId="_NA_" privilegeEnumId="CNT_PRV_NA_"/>
+    <ContentPurposeOperation contentPurposeTypeId="RESPONSE" contentOperationId="CONTENT_UPDATE" roleTypeId="OWNER" statusId="_NA_" privilegeEnumId="CNT_PRV_NA_"/>
+    <ContentPurposeOperation contentPurposeTypeId="RESPONSE" contentOperationId="CONTENT_PUBLISH" roleTypeId="CONTENT_PUBLISHER" statusId="CTNT_PUBLISHED" privilegeEnumId="CNT_PRV_NA_"/>
+    <ContentPurposeOperation contentPurposeTypeId="RESPONSE" contentOperationId="CONTENT_PUBLISH" roleTypeId="CONTENT_USER" statusId="CTNT_PUBLISHED" privilegeEnumId="CNT_PRV_NA_"/>
+    <ContentPurposeOperation contentPurposeTypeId="RESPONSE" contentOperationId="CONTENT_RESPOND" roleTypeId="CONTENT_USER" statusId="CTNT_PUBLISHED" privilegeEnumId="CNT_PRV_NA_"/>
+    <ContentPurposeOperation contentPurposeTypeId="RESPONSE" contentOperationId="CONTENT_LINK_FROM" roleTypeId="_NA_" statusId="_NA_" privilegeEnumId="CNT_PRV_NA_"/>
+    <ContentPurposeOperation contentPurposeTypeId="RESPONSE" contentOperationId="CONTENT_LINK_TO" roleTypeId="_NA_" statusId="_NA_" privilegeEnumId="CNT_PRV_NA_"/>
+
+    <ContentPurposeOperation contentPurposeTypeId="SECTION" contentOperationId="CONTENT_UPDATE" roleTypeId="CONTENT_AUTHOR" statusId="_NA_" privilegeEnumId="CNT_PRV_NA_"/>
+    <ContentPurposeOperation contentPurposeTypeId="SECTION" contentOperationId="CONTENT_UPDATE" roleTypeId="CONTENT_EDITOR" statusId="_NA_" privilegeEnumId="CNT_PRV_NA_"/>
+    <ContentPurposeOperation contentPurposeTypeId="SECTION" contentOperationId="CONTENT_UPDATE" roleTypeId="OWNER" statusId="CTNT_INITIAL_DRAFT" privilegeEnumId="CNT_PRV_NA_"/>
+    <ContentPurposeOperation contentPurposeTypeId="SECTION" contentOperationId="CONTENT_PUBLISH" roleTypeId="CONTENT_EDITOR" statusId="_NA_" privilegeEnumId="CNT_PRV_NA_"/>
+    <ContentPurposeOperation contentPurposeTypeId="SECTION" contentOperationId="CONTENT_PUBLISH" roleTypeId="CONTENT_PUBLISHER" statusId="CTNT_PUBLISHED" privilegeEnumId="CNT_PRV_NA_"/>
+    <ContentPurposeOperation contentPurposeTypeId="SECTION" contentOperationId="CONTENT_PUBLISH" roleTypeId="OWNER" statusId="_NA_" privilegeEnumId="CNT_PRV_NA_"/>
+    <ContentPurposeOperation contentPurposeTypeId="SECTION" contentOperationId="CONTENT_VIEW" roleTypeId="CONTENT_AUTHOR" statusId="_NA_" privilegeEnumId="CNT_PRV_NA_"/>
+    <ContentPurposeOperation contentPurposeTypeId="SECTION" contentOperationId="CONTENT_VIEW" roleTypeId="CONTENT_EDITOR" statusId="_NA_" privilegeEnumId="CNT_PRV_NA_"/>
+    <ContentPurposeOperation contentPurposeTypeId="SECTION" contentOperationId="CONTENT_VIEW" roleTypeId="OWNER" statusId="_NA_" privilegeEnumId="CNT_PRV_NA_"/>
+    <ContentPurposeOperation contentPurposeTypeId="SECTION" contentOperationId="CONTENT_VIEW" roleTypeId="_NA_" statusId="CTNT_PUBLISHED" privilegeEnumId="CNT_PRV_NA_"/>
+
+    <ContentPurposeOperation contentPurposeTypeId="USER" contentOperationId="CONTENT_UPDATE" roleTypeId="OWNER" statusId="_NA_" privilegeEnumId="CNT_PRV_NA_"/>
+
+    <ContentPurposeOperation contentPurposeTypeId="_NA_" contentOperationId="HAS_OWNER_ROLE" roleTypeId="OWNER" statusId="_NA_" privilegeEnumId="CNT_PRV_NA_"/>
+    <ContentPurposeOperation contentPurposeTypeId="_NA_" contentOperationId="HAS_USER_ROLE" roleTypeId="CONTENT_USER" statusId="_NA_" privilegeEnumId="CNT_PRV_NA_"/>
+    <ContentPurposeOperation contentPurposeTypeId="_NA_" contentOperationId="HAS_AUTHOR_ROLE" roleTypeId="CONTENT_AUTHOR" statusId="_NA_" privilegeEnumId="CNT_PRV_NA_"/>
+    <ContentPurposeOperation contentPurposeTypeId="_NA_" contentOperationId="HAS_EDITOR_ROLE" roleTypeId="CONTENT_EDITOR" statusId="_NA_" privilegeEnumId="CNT_PRV_NA_"/>
+    <ContentPurposeOperation contentPurposeTypeId="_NA_" contentOperationId="HAS_ADMIN_ROLE" roleTypeId="CONTENT_ADMIN" statusId="_NA_" privilegeEnumId="CNT_PRV_NA_"/>
+    <ContentPurposeOperation contentPurposeTypeId="_NA_" contentOperationId="HAS_PUBLISHER_ROLE" roleTypeId="CONTENT_PUBLISHER" statusId="_NA_" privilegeEnumId="CNT_PRV_NA_"/>
+    <ContentPurposeOperation contentPurposeTypeId="_NA_" contentOperationId="CONTENT_PUBLISH" roleTypeId="CONTENT_PUBLISHER" statusId="_NA_" privilegeEnumId="CNT_PRV_NA_"/>
+    <ContentPurposeOperation contentPurposeTypeId="_NA_" contentOperationId="CONTENT_VIEW" roleTypeId="CONTENT_ADMIN" statusId="_NA_" privilegeEnumId="CNT_PRV_NA_"/>
+    <ContentPurposeOperation contentPurposeTypeId="_NA_" contentOperationId="CONTENT_VIEW" roleTypeId="CONTENT_USER" statusId="CTNT_PUBLISHED" privilegeEnumId="CNT_PRV_NA_"/>
+    <ContentPurposeOperation contentPurposeTypeId="_NA_" contentOperationId="CONTENT_LINK_TO" roleTypeId="OWNER" statusId="_NA_" privilegeEnumId="CNT_PRV_NA_"/>
+    <ContentPurposeOperation contentPurposeTypeId="_NA_" contentOperationId="CONTENT_LINK_FROM" roleTypeId="OWNER" statusId="_NA_" privilegeEnumId="CNT_PRV_NA_"/>
+    <ContentPurposeOperation contentPurposeTypeId="_NA_" contentOperationId="CONTENT_LINK_TO" roleTypeId="CONTENT_ADMIN" statusId="_NA_" privilegeEnumId="CNT_PRV_NA_"/>
+    <ContentPurposeOperation contentPurposeTypeId="_NA_" contentOperationId="CONTENT_LINK_FROM" roleTypeId="CONTENT_ADMIN" statusId="_NA_" privilegeEnumId="CNT_PRV_NA_"/>
+    <ContentPurposeOperation contentPurposeTypeId="_NA_" contentOperationId="_NA_" roleTypeId="CONTENT_ADMIN" statusId="_NA_" privilegeEnumId="CNT_PRV_NA_"/>
+</entity-engine-xml>

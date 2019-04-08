@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <!-- Asset Maintenance demo data -->
+    <Product productId="FORKLIFT_PROPANE" productTypeId="ASSET_USAGE" productName="Forklift - Propane" internalName="Forklift - Propane" description="Forklift - Propane Powered."/>
+    <Product productId="FORKLIFT_BATTERY" productTypeId="ASSET_USAGE" productName="Forklift - Battery" internalName="Forklift - Battery" description="Forklift - Battery Powered."/>
+    <Product productId="COMPANY_VEHICLE" productTypeId="ASSET_USAGE" productName="Company Vehicle" internalName="Company Vehicle" description="Company Vehicle."/>
+    <Product productId="HVAC_UNIT" productTypeId="ASSET_USAGE" productName="Heating/Cooling Unit" internalName="Heating/Cooling Unit" description="Heating/Cooling Unit."/>
+    <FixedAsset fixedAssetId="DEMO_FORKLIFT_01" instanceOfProductId="FORKLIFT_PROPANE" fixedAssetName="Forklift #1" fixedAssetTypeId="EQUIPMENT" purchaseCost="1500" purchaseCostUomId="USD"/>
+    <FixedAssetGeoPoint fixedAssetId="DEMO_FORKLIFT_01" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
+    <FixedAsset fixedAssetId="DEMO_FORKLIFT_02" instanceOfProductId="FORKLIFT_BATTERY" fixedAssetName="Forklift #2" fixedAssetTypeId="EQUIPMENT" purchaseCost="2000" purchaseCostUomId="USD"/>
+    <FixedAssetGeoPoint fixedAssetId="DEMO_FORKLIFT_02" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
+    <FixedAsset fixedAssetId="DEMO_VEHICLE_01" instanceOfProductId="COMPANY_VEHICLE" fixedAssetName="Company Pickup Truck" fixedAssetTypeId="VEHICLE" purchaseCost="45000" purchaseCostUomId="USD" partyId="Company" roleTypeId="OWNER" dateAcquired="2009-01-01 00:00:00.000" expectedEndOfLife="2015-12-31"/>
+    <FixedAssetGeoPoint fixedAssetId="DEMO_VEHICLE_01" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
+    <FixedAssetDepMethod fixedAssetId="DEMO_VEHICLE_01" depreciationCustomMethodId="STR_LINE_DEP_FORMULA" fromDate="2009-01-01 00:00:00.000"/>
+    <FixedAsset fixedAssetId="DEMO_VEHICLE_02" instanceOfProductId="COMPANY_VEHICLE" fixedAssetName="Company Delivery Van" fixedAssetTypeId="VEHICLE" purchaseCost="25000" purchaseCostUomId="USD"/>
+    <FixedAssetGeoPoint fixedAssetId="DEMO_VEHICLE_02" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
+    <FixedAsset fixedAssetId="DEMO_HVAC_01" instanceOfProductId="HVAC_UNIT" fixedAssetName="HVAC Unit - First Floor" fixedAssetTypeId="EQUIPMENT" purchaseCost="6000" purchaseCostUomId="USD"/>
+    <FixedAssetGeoPoint fixedAssetId="DEMO_HVAC_01" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
+    <FixedAsset fixedAssetId="DEMO_HVAC_02" instanceOfProductId="HVAC_UNIT" fixedAssetName="HVAC Unit - Second Floor" fixedAssetTypeId="EQUIPMENT" purchaseCost="6000" purchaseCostUomId="USD"/>
+    <FixedAssetGeoPoint fixedAssetId="DEMO_HVAC_02" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
+    <ProductMaint productId="FORKLIFT_PROPANE" productMaintSeqId="seq01" productMaintTypeId="TUNE_UP" maintName="Tune Up" intervalQuantity="1000" intervalMeterTypeId="ODOMETER"/>
+    <ProductMaint productId="FORKLIFT_BATTERY" productMaintSeqId="seq01" productMaintTypeId="CHECK_BATTERY" maintName="Check Battery" intervalQuantity="1000" intervalMeterTypeId="ODOMETER"/>
+    <ProductMaint productId="COMPANY_VEHICLE" productMaintSeqId="seq01" productMaintTypeId="OIL_CHANGE" maintName="Oil Change - Post Break-in" intervalQuantity="2500" intervalMeterTypeId="ODOMETER" repeatCount="1"/>
+    <ProductMaint productId="COMPANY_VEHICLE" productMaintSeqId="seq02" productMaintTypeId="OIL_CHANGE" maintName="Oil Change" intervalQuantity="5000" intervalMeterTypeId="ODOMETER"/>
+    <ProductMaint productId="COMPANY_VEHICLE" productMaintSeqId="seq03" productMaintTypeId="ROTATE_TIRES" maintName="Rotate Tires" intervalQuantity="10000" intervalMeterTypeId="ODOMETER"/>
+</entity-engine-xml>

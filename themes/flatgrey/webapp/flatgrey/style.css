@@ -1243,7 +1243,6 @@ form .basic-table,
     margin-top: 0.3em;
     width: 16px; /* Setting must be in px */
     height: 16px; /* Setting must be in px */
-    cursor: pointer;
 }
 
 /* --------------------------- */
@@ -1262,8 +1261,6 @@ form .basic-table,
     background: url(/images/expand.gif) no-repeat left center;
     min-height: 1.1em;
     min-width: 1.1em;
-    cursor: pointer;
-    padding-left: 10px;
 }
 
 .fieldgroup-title-bar ul .expanded,
@@ -1271,8 +1268,13 @@ form .basic-table,
     background: url(/images/collapse.gif) no-repeat left center;
     min-height: 1.1em;
     min-width: 1.1em;
+}
+
+.fieldgroup-title-bar a {
     cursor: pointer;
-    padding-left: 10px;
+    text-decoration: none;
+    padding-left: 10px; /* Setting must be in px */
+    color: #000000;
 }
 
 /* ----------------------------------------- */
@@ -2248,14 +2250,4 @@ html > /**/ body .jstree-default a {
 * + html .jstree-default a {
     white-space: normal;
     height: auto;
-}
-
-
-/*The Custom css for SELECT 2*/
-.select2-container--default .select2-selection--multiple{
-    -webkit-border-radius: 0px;
-    -moz-border-radius: 0px;
-    border-radius: 0px;
-    border-color: #848484 #c1c1c1 #e1e1e1;
-    min-height: unset !important;
 }

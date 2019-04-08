@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<entity-engine-xml>
+    <Party partyId="USA_IRS" partyTypeId="PARTY_GROUP"/>
+    <PartyGroup partyId="USA_IRS" groupName="United States of America - Internal Revenue Service"/>
+    <PartyRole partyId="USA_IRS" roleTypeId="TAX_AUTHORITY"/>
+    
+    <Party partyId="CA_BOE" partyTypeId="PARTY_GROUP"/>
+    <PartyGroup partyId="CA_BOE" groupName="State of California Board of Equalization"/>
+    <ContactMech contactMechId="CA_BOE_0" contactMechTypeId="POSTAL_ADDRESS"/>
+    <PostalAddress contactMechId="CA_BOE_0" toName="Board of Equalization" address1="P O BOX 942879" city="Sacramento" stateProvinceGeoId="CA" postalCode="94279" countryGeoId="USA"/>
+    <PartyContactMech partyId="CA_BOE" contactMechId="CA_BOE_0" fromDate="2000-01-01 00:00:00.000" allowSolicitation="N"/>
+    <PartyContactMechPurpose partyId="CA_BOE" contactMechId="CA_BOE_0" contactMechPurposeTypeId="PAYMENT_LOCATION" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyContactMechPurpose partyId="CA_BOE" contactMechId="CA_BOE_0" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="CA_BOE" roleTypeId="TAX_AUTHORITY"/>
+    
+    <Party partyId="NY_DTF" partyTypeId="PARTY_GROUP"/>
+    <PartyGroup partyId="NY_DTF" groupName="New York Department of Taxation and Finance"/>
+    <ContactMech contactMechId="NY_DTF_0" contactMechTypeId="POSTAL_ADDRESS"/>
+    <PostalAddress contactMechId="NY_DTF_0" toName="NYS Sales Tax Processing" address1="JAF Building" address2="PO BOX 1205" city="New York" stateProvinceGeoId="NY" postalCode="11016" countryGeoId="USA"/>
+    <PartyContactMech partyId="NY_DTF" contactMechId="NY_DTF_0" fromDate="2000-01-01 00:00:00.000" allowSolicitation="N"/>
+    <PartyContactMechPurpose partyId="NY_DTF" contactMechId="NY_DTF_0" contactMechPurposeTypeId="PAYMENT_LOCATION" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyContactMechPurpose partyId="NY_DTF" contactMechId="NY_DTF_0" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2000-01-01 00:00:00.000"/>
+    <PartyRole partyId="NY_DTF" roleTypeId="TAX_AUTHORITY"/>
+    
+    <Party partyId="TX_TAXMAN" partyTypeId="PARTY_GROUP"/>
+    <PartyGroup partyId="TX_TAXMAN" groupName="Texas Sales Tax Authority"/>
+    <PartyRole partyId="TX_TAXMAN" roleTypeId="TAX_AUTHORITY"/>
+    
+    <Party partyId="UT_TAXMAN" partyTypeId="PARTY_GROUP"/>
+    <PartyGroup partyId="UT_TAXMAN" groupName="Utah Sales Tax Authority"/>
+    <PartyRole partyId="UT_TAXMAN" roleTypeId="TAX_AUTHORITY"/>
+    <Party partyId="UT_UTAH_TAXMAN" partyTypeId="PARTY_GROUP"/>
+    <PartyGroup partyId="UT_UTAH_TAXMAN" groupName="Utah County, Utah Sales Tax Authority"/>
+    <PartyRole partyId="UT_UTAH_TAXMAN" roleTypeId="TAX_AUTHORITY"/>
+    
+    <Party partyId="CAN_TAXMAN" partyTypeId="PARTY_GROUP"/>
+    <PartyGroup partyId="CAN_TAXMAN" groupName="Canada Tax Authority"/>
+    <PartyRole partyId="CAN_TAXMAN" roleTypeId="TAX_AUTHORITY"/>
+    <Party partyId="ON_TAXMAN" partyTypeId="PARTY_GROUP"/>
+    <PartyGroup partyId="ON_TAXMAN" groupName="Ontario Sales Tax (VAT) Authority"/>
+    <PartyRole partyId="ON_TAXMAN" roleTypeId="TAX_AUTHORITY"/>
+    
+    <!-- _NA_ TaxAuthority defs -->
+    <ProductCategory productCategoryId="20111"/>
+    <TaxAuthority taxAuthGeoId="_NA_" taxAuthPartyId="_NA_" includeTaxInPrice="N"/>
+    <TaxAuthorityGlAccount taxAuthGeoId="_NA_" taxAuthPartyId="_NA_" organizationPartyId="Company" glAccountId="224000"/>
+    <TaxAuthorityCategory taxAuthGeoId="_NA_" taxAuthPartyId="_NA_" productCategoryId="20111"/> <!-- Micro Widgets, a category to be used to test categorized rates -->
+    <!-- taxAuthorityRateSeqId left blank to be auto-sequenced during the EE XML import -->
+    <TaxAuthorityRateProduct taxAuthorityRateSeqId="9000" taxAuthGeoId="_NA_" taxAuthPartyId="_NA_" taxAuthorityRateTypeId="SALES_TAX"
+        productCategoryId="" titleTransferEnumId="" minItemPrice="25.00" minPurchase="0.00" taxShipping="N" taxPercentage="1" taxPromotions="N"
+        fromDate="2001-05-13 00:00:00.001" thruDate="" description="1% OFB _NA_ Tax"/>
+    
+    <!-- USA TaxAuthority defs -->
+    <TaxAuthority taxAuthGeoId="USA" taxAuthPartyId="USA_IRS" taxIdFormatPattern="\d{2}\-\d{7}|\d{3}\-\d{2}\-\d{4}" includeTaxInPrice="N"/>
+    <TaxAuthorityGlAccount taxAuthGeoId="USA" taxAuthPartyId="USA_IRS" organizationPartyId="Company" glAccountId="224100"/>
+    
+    <TaxAuthority taxAuthGeoId="CA" taxAuthPartyId="CA_BOE" includeTaxInPrice="N"/>
+    <TaxAuthorityGlAccount taxAuthGeoId="CA" taxAuthPartyId="CA_BOE" organizationPartyId="Company" glAccountId="224106"/>
+    <TaxAuthorityAssoc taxAuthGeoId="USA" taxAuthPartyId="USA_IRS" toTaxAuthGeoId="CA" toTaxAuthPartyId="CA_BOE" taxAuthorityAssocTypeId="EXEMPT_INHER" fromDate="2001-05-13 00:00:00.001" thruDate=""/>
+    <TaxAuthorityRateProduct taxAuthorityRateSeqId="9001" taxAuthGeoId="CA" taxAuthPartyId="CA_BOE" taxAuthorityRateTypeId="SALES_TAX"
+        productCategoryId="" titleTransferEnumId="" minItemPrice="0.00" minPurchase="0.00" taxShipping="N" taxPercentage="6.25" taxPromotions="N"
+        fromDate="2001-05-13 00:00:00.001" thruDate="" description="California State Sales Tax"/>
+    
+    <TaxAuthority taxAuthGeoId="NY" taxAuthPartyId="NY_DTF" includeTaxInPrice="N"/>
+    <TaxAuthorityGlAccount taxAuthGeoId="NY" taxAuthPartyId="NY_DTF" organizationPartyId="Company" glAccountId="224140"/>
+    <TaxAuthorityAssoc taxAuthGeoId="USA" taxAuthPartyId="USA_IRS" toTaxAuthGeoId="NY" toTaxAuthPartyId="NY_DTF" taxAuthorityAssocTypeId="EXEMPT_INHER" fromDate="2001-05-13 00:00:00.001" thruDate=""/>
+    <TaxAuthorityRateProduct taxAuthorityRateSeqId="9002" taxAuthGeoId="NY" taxAuthPartyId="NY_DTF" taxAuthorityRateTypeId="SALES_TAX"
+        productCategoryId="" titleTransferEnumId="" minItemPrice="0.00" minPurchase="0.00" taxShipping="N" taxPercentage="4.25" taxPromotions="N"
+        fromDate="2001-05-13 00:00:00.001" thruDate="" description="New York State Sales Tax"/>
+    
+    <TaxAuthority taxAuthGeoId="TX" taxAuthPartyId="TX_TAXMAN" includeTaxInPrice="N"/>
+    <TaxAuthorityGlAccount taxAuthGeoId="TX" taxAuthPartyId="TX_TAXMAN" organizationPartyId="Company" glAccountId="224151"/>
+    <TaxAuthorityAssoc taxAuthGeoId="USA" taxAuthPartyId="USA_IRS" toTaxAuthGeoId="TX" toTaxAuthPartyId="TX_TAXMAN" taxAuthorityAssocTypeId="EXEMPT_INHER" fromDate="2001-05-13 00:00:00.001" thruDate=""/>
+    <TaxAuthorityRateProduct taxAuthorityRateSeqId="9003" taxAuthGeoId="TX" taxAuthPartyId="TX_TAXMAN" taxAuthorityRateTypeId="SALES_TAX"
+        productCategoryId="" titleTransferEnumId="" minItemPrice="0.00" minPurchase="0.00" taxShipping="N" taxPercentage="6.25" taxPromotions="N"
+        fromDate="2001-05-13 00:00:00.001" thruDate="" description="Texas State Sales Tax"/>
+    
+    <TaxAuthority taxAuthGeoId="UT" taxAuthPartyId="UT_TAXMAN" includeTaxInPrice="N"/>
+    <TaxAuthorityGlAccount taxAuthGeoId="UT" taxAuthPartyId="UT_TAXMAN" organizationPartyId="Company" glAccountId="224153"/>
+    <TaxAuthorityAssoc taxAuthGeoId="USA" taxAuthPartyId="USA_IRS" toTaxAuthGeoId="UT" toTaxAuthPartyId="UT_TAXMAN" taxAuthorityAssocTypeId="EXEMPT_INHER" fromDate="2001-05-13 00:00:00.001" thruDate=""/>
+    <TaxAuthorityRateProduct taxAuthorityRateSeqId="9004" taxAuthGeoId="UT" taxAuthPartyId="UT_TAXMAN" taxAuthorityRateTypeId="SALES_TAX"
+        productCategoryId="" titleTransferEnumId="" minItemPrice="0.00" minPurchase="0.00" taxShipping="N" taxPercentage="4.75" taxPromotions="N"
+        fromDate="2001-05-13 00:00:00.001" thruDate="" description="Utah State Sales Tax"/>
+    <!-- An example county; there is some zip code data for testing this; note this is ONLY test data, there isn't really extra sales tax for this county -->
+    <TaxAuthority taxAuthGeoId="UT-UTAH" taxAuthPartyId="UT_UTAH_TAXMAN" includeTaxInPrice="N"/>
+    <!-- NOTE: using the state's sales tax GL Account -->
+    <TaxAuthorityGlAccount taxAuthGeoId="UT-UTAH" taxAuthPartyId="UT_UTAH_TAXMAN" organizationPartyId="Company" glAccountId="224153"/>
+    <TaxAuthorityAssoc taxAuthGeoId="UT" taxAuthPartyId="UT_TAXMAN" toTaxAuthGeoId="UT-UTAH" toTaxAuthPartyId="UT_UTAH_TAXMAN" taxAuthorityAssocTypeId="EXEMPT_INHER" fromDate="2001-05-13 00:00:00.001" thruDate=""/>
+    <TaxAuthorityRateProduct taxAuthorityRateSeqId="9005" taxAuthGeoId="UT-UTAH" taxAuthPartyId="UT_UTAH_TAXMAN" taxAuthorityRateTypeId="SALES_TAX"
+        productCategoryId="" titleTransferEnumId="" minItemPrice="0.00" minPurchase="0.00" taxShipping="N" taxPercentage="0.1"
+        fromDate="2001-05-13 00:00:00.001" thruDate="" description="Utah County, Utah Sales Tax"/>
+    
+    <!-- Canada TaxAuthority defs -->
+    <TaxAuthority taxAuthGeoId="CAN" taxAuthPartyId="CAN_TAXMAN" includeTaxInPrice="N"/>
+    <TaxAuthorityGlAccount taxAuthGeoId="CAN" taxAuthPartyId="CAN_TAXMAN" organizationPartyId="Company" glAccountId="224209"/>
+    <TaxAuthority taxAuthGeoId="ON" taxAuthPartyId="ON_TAXMAN" includeTaxInPrice="Y"/>
+    <TaxAuthorityGlAccount taxAuthGeoId="ON" taxAuthPartyId="ON_TAXMAN" organizationPartyId="Company" glAccountId="224209"/>
+    
+    <!-- Party TaxAuthority info for Company -->
+    <!-- some interesting information at: http://www.taxadmin.org/fta/rate/tax_stru.html -->
+    <PartyTaxAuthInfo partyId="Company" taxAuthGeoId="_NA_" taxAuthPartyId="_NA_" fromDate="2001-05-13 00:00:00.001" thruDate="" partyTaxId="" isExempt="" isNexus="Y"/>
+    <PartyTaxAuthInfo partyId="Company" taxAuthGeoId="USA" taxAuthPartyId="USA_IRS" fromDate="2001-05-13 00:00:00.001" thruDate="" partyTaxId="12-3456789" isExempt="Y" isNexus="N"/>
+    <PartyTaxAuthInfo partyId="Company" taxAuthGeoId="CA" taxAuthPartyId="CA_BOE" fromDate="2001-05-13 00:00:00.001" thruDate="" partyTaxId="" isExempt="" isNexus="Y"/>
+    <PartyTaxAuthInfo partyId="Company" taxAuthGeoId="NY" taxAuthPartyId="NY_DTF" fromDate="2001-05-13 00:00:00.001" thruDate="" partyTaxId="" isExempt="" isNexus="Y"/>
+    <PartyTaxAuthInfo partyId="Company" taxAuthGeoId="TX" taxAuthPartyId="TX_TAXMAN" fromDate="2001-05-13 00:00:00.001" thruDate="" partyTaxId="" isExempt="" isNexus="N"/> <!-- this one is not a nexus to test that feature -->
+    <PartyTaxAuthInfo partyId="Company" taxAuthGeoId="UT" taxAuthPartyId="UT_TAXMAN" fromDate="2001-05-13 00:00:00.001" thruDate="" partyTaxId="" isExempt="" isNexus="Y"/>
+    <PartyTaxAuthInfo partyId="Company" taxAuthGeoId="UT-UTAH" taxAuthPartyId="UT_UTAH_TAXMAN" fromDate="2001-05-13 00:00:00.001" thruDate="" partyTaxId="" isExempt="" isNexus="Y"/>
+    <PartyTaxAuthInfo partyId="Company" taxAuthGeoId="CAN" taxAuthPartyId="CAN_TAXMAN" fromDate="2001-05-13 00:00:00.001" thruDate="" partyTaxId="87654321" isExempt="N" isNexus="Y"/>
+    <PartyTaxAuthInfo partyId="Company" taxAuthGeoId="ON" taxAuthPartyId="ON_TAXMAN" fromDate="2001-05-13 00:00:00.001" thruDate="" partyTaxId="" isExempt="" isNexus="Y"/>
+    
+    <!-- EU tax authorities -->
+    <Party partyId="AUT_BMF" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="EUR" statusId="PARTY_ENABLED" createdDate="2009-01-01 00:00:00.000"/>
+    <PartyGroup partyId="AUT_BMF" groupName="Bundesministerium für Finanzen"/>
+    <PartyRole partyId="AUT_BMF" roleTypeId="TAX_AUTHORITY"/>
+    <TaxAuthority taxAuthPartyId="AUT_BMF" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="AUT" taxIdFormatPattern="^(AT-?)[U]\d{9}$"/>
+    
+    <Party partyId="BEL_FOD" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="EUR" statusId="PARTY_ENABLED" createdDate="2009-01-01 00:00:00.000"/>
+    <PartyGroup partyId="BEL_FOD" groupName="Federale OverheidsDienst FINANCIËN"/>
+    <PartyRole partyId="BEL_FOD" roleTypeId="TAX_AUTHORITY"/>
+    <TaxAuthority taxAuthPartyId="BEL_FOD" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="BEL" taxIdFormatPattern="^(BE-?)\d{10}$"/>
+    
+    <Party partyId="BGR_TA" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="BGN" statusId="PARTY_ENABLED" createdDate="2009-01-01 00:00:00.000"/>
+    <PartyGroup partyId="BGR_TA" groupName="Tax Authority of Bulgaria"/>
+    <PartyRole partyId="BGR_TA" roleTypeId="TAX_AUTHORITY"/>
+    <TaxAuthority taxAuthPartyId="BGR_TA" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="BGR" taxIdFormatPattern="^(BG-?)\d{10}$"/>
+    
+    <Party partyId="DEU_BZSt" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="EUR" statusId="PARTY_ENABLED" createdDate="2009-01-01 00:00:00.000"/>
+    <PartyGroup partyId="DEU_BZSt" groupName="Bundeszentralamt für Steuern"/>
+    <PartyRole partyId="DEU_BZSt" roleTypeId="TAX_AUTHORITY"/>
+    <TaxAuthority taxAuthPartyId="DEU_BZSt" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="DEU" taxIdFormatPattern="^(DE-?)?{0,1}[0-9]{9}$"/>
+    
+    <Party partyId="DNK_SKAT" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="DKK" statusId="PARTY_ENABLED" createdDate="2009-01-01 00:00:00.000"/>
+    <PartyGroup partyId="DNK_SKAT" groupName="SKAT"/>
+    <PartyRole partyId="DNK_SKAT" roleTypeId="TAX_AUTHORITY"/>
+    <TaxAuthority taxAuthPartyId="DNK_SKAT" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="DNK" taxIdFormatPattern="^(DK-?)?([0-9]{2}\ ?){3}[0-9]{2}$"/>
+    
+    <Party partyId="CYP_ΤΕΠ" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="EUR" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
+    <PartyGroup partyId="CYP_ΤΕΠ" groupName="Τμήματος Εσωτερικών Προσόδων"/>
+    <PartyRole partyId="CYP_ΤΕΠ" roleTypeId="TAX_AUTHORITY"/>
+    <TaxAuthority taxAuthPartyId="CYP_ΤΕΠ" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="CYP" taxIdFormatPattern="^(CY-?)?[0-9]{8}[A-Z]$"/>
+
+    <Party partyId="CZE_CDS" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="CZK" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
+    <PartyGroup partyId="CZE_CDS" groupName="Česká daňová správa - Ministerstvo financí ČR"/>
+    <PartyRole partyId="CZE_CDS" roleTypeId="TAX_AUTHORITY"/>
+    <TaxAuthority taxAuthPartyId="CZE_CDS" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="CZE" taxIdFormatPattern="^(CZ-?)?[0-9]{8,10}$"/>
+    
+    <Party partyId="ESP_AT" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="EUR" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
+    <PartyGroup partyId="ESP_AT" groupName="Agenzia Tributaria"/>
+    <PartyRole partyId="ESP_AT" roleTypeId="TAX_AUTHORITY"/>
+    <TaxAuthority taxAuthPartyId="ESP_AT" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="ESP" taxIdFormatPattern="^(ES-?)?([0-9A-Z][0-9]{7}[A-Z])|([A-Z][0-9]{7}[0-9A-Z])$"/>
+
+    <Party partyId="EST_EMTA" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="EUR" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
+    <PartyGroup partyId="EST_EMTA" groupName="Maksu- ja Tolliamet"/>
+    <PartyRole partyId="EST_EMTA" roleTypeId="TAX_AUTHORITY"/>
+    <TaxAuthority taxAuthPartyId="EST_EMTA" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="EST" taxIdFormatPattern="^(EE-?)?{0,1}[0-9]{9}$"/>
+    
+    <Party partyId="FIN_VERO" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="EUR" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
+    <PartyGroup partyId="FIN_VERO" groupName="Verohallinto"/>
+    <PartyRole partyId="FIN_VERO" roleTypeId="TAX_AUTHORITY"/>
+    <TaxAuthority taxAuthPartyId="FIN_VERO" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="FIN" taxIdFormatPattern="^(FI-?)?{0,1}[0-9]{8}$"/>
+
+    <Party partyId="FRA_TA" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="EUR" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
+    <PartyGroup partyId="FRA_TA" groupName="Ministère de l'économie et des finances"/>
+    <PartyRole partyId="FRA_TA" roleTypeId="TAX_AUTHORITY"/>
+    <TaxAuthority taxAuthPartyId="FRA_TA" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="FRA" taxIdFormatPattern="^(FR-?)?[0-9A-Z]{2}\ ?[0-9]{9}$"/>
+
+    <Party partyId="GBR_TA" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="GBP" statusId="PARTY_ENABLED" createdDate="2009-01-01 00:00:00.000"/>
+    <PartyGroup partyId="GBR_TA" groupName="HM Revenue and Customs"/>
+    <PartyRole partyId="GBR_TA" roleTypeId="TAX_AUTHORITY"/>
+    <TaxAuthority taxAuthPartyId="GBR_TA" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="GBR" taxIdFormatPattern="^(GB)?([0-9]{9}|[0-9]{12}|(GD|HA)[0-9]{3})$"/>
+    
+    <Party partyId="GRC_TA" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="EUR" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
+    <PartyGroup partyId="GRC_TA" groupName="Tax Authority of Greece"/>
+    <PartyRole partyId="GRC_TA" roleTypeId="TAX_AUTHORITY"/>
+    <TaxAuthority taxAuthPartyId="GRC_TA" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="GRC" taxIdFormatPattern="^(EL-?)?{0,1}[0-9]{9}$"/>
+
+    <Party partyId="HRV_TA" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="EUR" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
+    <PartyGroup partyId="HRV_TA" groupName="Porezna Uprava"/>
+    <PartyRole partyId="HRV_TA" roleTypeId="TAX_AUTHORITY"/>
+    <TaxAuthority taxAuthPartyId="HRV_TA" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="HRV" taxIdFormatPattern="^(HR-?)?{0,1}[0-9]{11}$"/>
+
+    <Party partyId="HUN_TA" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="HUF" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
+    <PartyGroup partyId="HUN_TA" groupName="Tax Authority of Hungary"/>
+    <PartyRole partyId="HUN_TA" roleTypeId="TAX_AUTHORITY"/>
+    <TaxAuthority taxAuthPartyId="HUN_TA" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="HUN" taxIdFormatPattern="^(HU-?)?{0,1}[0-9]{8}$"/>
+
+    <Party partyId="IRL_ITC" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="EUR" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
+    <PartyGroup partyId="IRL_ITC" groupName="Irish Tax and Customs"/>
+    <PartyRole partyId="IRL_ITC" roleTypeId="TAX_AUTHORITY"/>
+    <TaxAuthority taxAuthPartyId="IRL_ITC" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="IRL" taxIdFormatPattern="^(IE-?)?[0-9][0-9A-Z\+\*][0-9]{5}[A-Z]$"/>
+
+    <Party partyId="ITA_ADE" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="EUR" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
+    <PartyGroup partyId="ITA_ADE" groupName="Agenzia delle Entrata"/>
+    <PartyRole partyId="ITA_ADE" roleTypeId="TAX_AUTHORITY"/>
+    <TaxAuthority taxAuthPartyId="ITA_ADE" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="ITA" taxIdFormatPattern="^(IT-?)?{0,1}[0-9]{11}$"/>
+
+    <Party partyId="LVA_TA" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="EUR" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
+    <PartyGroup partyId="LVA_TA" groupName="Tax Authority of Lativa"/>
+    <PartyRole partyId="LVA_TA" roleTypeId="TAX_AUTHORITY"/>
+    <TaxAuthority taxAuthPartyId="LVA_TA" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="LVA" taxIdFormatPattern="^(LV-?)?{0,1}[0-9]{11}$"/>
+
+    <Party partyId="LTU_TA" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="EUR" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
+    <PartyGroup partyId="LTU_TA" groupName="Tax Authority of Lithuania"/>
+    <PartyRole partyId="LTU_TA" roleTypeId="TAX_AUTHORITY"/>
+    <TaxAuthority taxAuthPartyId="LTU_TA" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="LTU" taxIdFormatPattern="^(LT-?)?([0-9]{9}|[0-9]{12})$"/>
+
+    <Party partyId="LUX_ACD" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="EUR" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
+    <PartyGroup partyId="LUX_ACD" groupName="Administration des Contributions Directe"/>
+    <PartyRole partyId="LUX_ACD" roleTypeId="TAX_AUTHORITY"/>
+    <TaxAuthority taxAuthPartyId="LUX_ACD" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="LUX" taxIdFormatPattern="^(LU-?)?{0,1}[0-9]{8}$"/>
+
+    <Party partyId="MLT_TA" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="EUR" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
+    <PartyGroup partyId="MLT_TA" groupName="Tax Authority of MT (Malta)"/>
+    <PartyRole partyId="MLT_TA" roleTypeId="TAX_AUTHORITY"/>
+    <TaxAuthority taxAuthPartyId="MLT_TA" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="MLT" taxIdFormatPattern="^(MT-?)?{0,1}[0-9]{8}$"/>
+
+    <Party partyId="NLD_NBD" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="EUR" statusId="PARTY_ENABLED" createdDate="2009-01-01 00:00:00.000"/>
+    <PartyGroup partyId="NLD_NBD" groupName="Ned. Belastingdienst"/>
+    <PartyRole partyId="NLD_NBD" roleTypeId="TAX_AUTHORITY"/>
+    <TaxAuthority taxAuthPartyId="NLD_NBD" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="NLD" taxIdFormatPattern="^(NL-?)?[0-9]{9}B[0-9]{2}$"/>
+    
+    <Party partyId="POL_TA" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="PLN" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
+    <PartyGroup partyId="POL_TA" groupName="Tax Authority of PL"/>
+    <PartyRole partyId="POL_TA" roleTypeId="TAX_AUTHORITY"/>
+    <TaxAuthority taxAuthPartyId="POL_TA" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="POL" taxIdFormatPattern="^(PL-?)?{0,1}[0-9]{10}$"/>
+
+    <Party partyId="PRT_AT" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="EUR" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
+    <PartyGroup partyId="PRT_AT" groupName="Autoritade Tributária e Aduaneira"/>
+    <PartyRole partyId="PRT_AT" roleTypeId="TAX_AUTHORITY"/>
+    <TaxAuthority taxAuthPartyId="PRT_AT" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="PRT" taxIdFormatPattern="^(PT-?)?{0,1}[0-9]{9}$"/>
+
+    <Party partyId="ROM_TA" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="RON" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
+    <PartyGroup partyId="ROM_TA" groupName="Tax Authority of Romania"/>
+    <PartyRole partyId="ROM_TA" roleTypeId="TAX_AUTHORITY"/>
+    <TaxAuthority taxAuthPartyId="ROM_TA" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="ROU" taxIdFormatPattern=""/>
+
+    <Party partyId="SVK_TA" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="EUR" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
+    <PartyGroup partyId="SVK_TA" groupName="Tax Authority of Slovakia"/>
+    <PartyRole partyId="SVK_TA" roleTypeId="TAX_AUTHORITY"/>
+    <TaxAuthority taxAuthPartyId="SVK_TA" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="SVK" taxIdFormatPattern="^(SK-?)?{0,1}[0-9]{10}$"/>
+
+    <Party partyId="SVN_TA" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="EUR" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
+    <PartyGroup partyId="SVN_TA" groupName="Tax Authority of Slovenia"/>
+    <PartyRole partyId="SVN_TA" roleTypeId="TAX_AUTHORITY"/>
+    <TaxAuthority taxAuthPartyId="SVN_TA" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="SVN" taxIdFormatPattern="^(SI-?)?{0,1}[0-9]{8}$"/>
+
+    <Party partyId="SWE_SV" partyTypeId="PARTY_GROUP" preferredCurrencyUomId="SEK" statusId="PARTY_ENABLED" createdDate="2013-07-12 00:00:00.000"/>
+    <PartyGroup partyId="SWE_SV" groupName="Skatteverket"/>
+    <PartyRole partyId="SWE_SV" roleTypeId="TAX_AUTHORITY"/>
+    <TaxAuthority taxAuthPartyId="SWE_SV" includeTaxInPrice="N" requireTaxIdForExemption="Y" taxAuthGeoId="SWE" taxIdFormatPattern="^(SE-?)?{0,1}[0-9]{12}$"/>
+
+</entity-engine-xml>

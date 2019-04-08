@@ -18,12 +18,12 @@
  *******************************************************************************/
 package org.apache.ofbiz.order.task;
 
-import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Locale;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
@@ -31,14 +31,14 @@ import org.apache.ofbiz.base.util.ObjectType;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.webapp.control.RequestHandler;
+import org.apache.ofbiz.webapp.control.ConfigXMLReader.Event;
+import org.apache.ofbiz.webapp.event.EventHandler;
+import org.apache.ofbiz.webapp.event.EventHandlerException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
-import org.apache.ofbiz.service.ServiceUtil;
-import org.apache.ofbiz.webapp.control.ConfigXMLReader.Event;
-import org.apache.ofbiz.webapp.control.RequestHandler;
-import org.apache.ofbiz.webapp.event.EventHandler;
-import org.apache.ofbiz.webapp.event.EventHandlerException;
+import org.apache.ofbiz.service.ModelService;
 
 /**
  * Order Processing Task Events
@@ -62,7 +62,7 @@ public class TaskEvents {
         Locale locale = UtilHttp.getLocale(request);
 
         try {
-            fromDate = (java.sql.Timestamp) ObjectType.simpleTypeOrObjectConvert(fromDateStr, "java.sql.Timestamp", null, null);
+            fromDate = (java.sql.Timestamp) ObjectType.simpleTypeConvert(fromDateStr, "java.sql.Timestamp", null, null);
         } catch (GeneralException e) {
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderInvalidDateFormatForFromDate", locale));
             return "error";
@@ -73,10 +73,8 @@ public class TaskEvents {
             Map<String, ? extends Object> context = UtilMisc.toMap("workEffortId", workEffortId, "partyId", partyId, "roleTypeId", roleTypeId,
                     "fromDate", fromDate, "result", parameterMap, "userLogin", userLogin);
             result = dispatcher.runSync("wfCompleteAssignment", context);
-            if (ServiceUtil.isError(result)) {
-                String errorMessage = ServiceUtil.getErrorMessage(result);
-                request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                Debug.logError(errorMessage, module);
+            if (result.containsKey(ModelService.RESPOND_ERROR)) {
+                request.setAttribute("_ERROR_MESSAGE_", result.get(ModelService.ERROR_MESSAGE));
                 return "error";
             }
         } catch (GenericServiceException e) {
@@ -136,12 +134,6 @@ public class TaskEvents {
         Map<String, Object> result = null;
         try {
             result = dispatcher.runSync("addOrderRole", context);
-            if (ServiceUtil.isError(result)) {
-                String errorMessage = ServiceUtil.getErrorMessage(result);
-                request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                Debug.logError(errorMessage, module);
-                return false;
-            }
             Debug.logInfo("Added user to order role " + result, module);
         } catch (GenericServiceException gse) {
             request.setAttribute("_ERROR_MESSAGE_", gse.getMessage());

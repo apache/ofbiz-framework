@@ -97,9 +97,6 @@ under the License.
         <menu-item name="ListCarrierShipmentMethods" title="${uiLabelMap.ProductCarrierShipmentMethods}">
             <link target="ListCarrierShipmentMethods"/>
         </menu-item>
-        <menu-item name="ListShipmentTimeEstimates" title="${uiLabelMap.ProductShipmentTimeEstimates}">
-            <link target="ListShipmentTimeEstimates"/>
-        </menu-item>
     </menu>
 
     <menu name="CategoryTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
@@ -606,7 +603,10 @@ under the License.
         </menu-item>
         <menu-item name="ImageUpload" title="${uiLabelMap.CommonUpload}">
             <condition>
-                <if-has-permission permission="IMAGE_MANAGEMENT" action="_UPLOAD"/>
+                <or>
+                    <if-has-permission permission="IMAGE_MANAGEMENT_UPLOAD"/>
+                    <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
+                </or>
             </condition>
             <link target="ImageUpload"/>
         </menu-item>
@@ -620,19 +620,28 @@ under the License.
         </menu-item>
         <menu-item name="ImageApprove" title="${uiLabelMap.ImageManagementApprove}">
             <condition>
-                <if-has-permission permission="IMAGE_MANAGEMENT" action="_APPROVE"/>
+                <or>
+                    <if-has-permission permission="IMAGE_MANAGEMENT_APPROVE"/>
+                    <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
+                </or>
             </condition>
             <link target="ImageApprove"/>
         </menu-item>
         <menu-item name="ImageRejected" title="${uiLabelMap.CommonRejected}">
             <condition>
-                <if-has-permission permission="IMAGE_MANAGEMENT" action="_APPROVE"/>
+                <or>
+                    <if-has-permission permission="IMAGE_MANAGEMENT_APPROVE"/>
+                    <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
+                </or>
             </condition>
             <link target="ImageRejected"/>
         </menu-item>
         <menu-item name="ImageRecentlyApproved" title="${uiLabelMap.ImageManagementRecentlyApproved}">
             <condition>
-                <if-has-permission permission="IMAGE_MANAGEMENT" action="_APPROVE"/>
+                <or>
+                    <if-has-permission permission="IMAGE_MANAGEMENT_APPROVE"/>
+                    <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
+                </or>
             </condition>
             <link target="ImageRecentlyApproved"/>
         </menu-item>

@@ -36,7 +36,7 @@ import org.w3c.dom.Element;
 /**
  * Implements the &lt;remove-by-and&gt; element.
  * 
- * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
+ * @see <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/Mini-language+Reference#Mini-languageReference-{{%3Cremovebyand%3E}}">Mini-language Reference</a>
  */
 public final class RemoveByAnd extends EntityOperation {
 
@@ -58,6 +58,7 @@ public final class RemoveByAnd extends EntityOperation {
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
+        @Deprecated
         String entityName = entityNameFse.expandString(methodContext.getEnvMap());
         if (entityName.isEmpty()) {
             throw new MiniLangRuntimeException("Entity name not found.", this);

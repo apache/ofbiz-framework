@@ -73,6 +73,7 @@ under the License.
     </form>
     <form name="EditEvent" extends="EditCalEvent" extends-resource="component://workeffort/widget/CalendarForms.xml">
         <field name="workEffortTypeId"><hidden value="TASK"/></field>
+        <field name="statusId"><hidden value="PRTYASGN_ASSIGNED"/></field>
         <field name="currentStatusId"><hidden value="CAL_ACCEPTED"/></field>
         <field name="scopeEnumId"><hidden/></field>
         <field name="actualStartDate"><hidden/></field>
@@ -93,11 +94,6 @@ under the License.
         <field name="estimatedStartDate"><date-time input-method="time-dropdown" default-value="${nowTimestamp}"/></field>
         <field name="estimatedCompletionDate"><date-time input-method="time-dropdown" default-value="${nowTimestamp}"/></field>
         <field name="partyId" title="${uiLabelMap.FormFieldTitle_toPartyId}"><lookup target-form-name="LookupPartyName" default-value="${userLogin.partyId}"/></field>
-        <field name="workEffortPurposeTypeId" title="${uiLabelMap.CommonPurpose}">
-            <drop-down allow-empty="true">
-                <entity-options entity-name="WorkEffortPurposeType" key-field-name="workEffortPurposeTypeId" description="${description}"></entity-options>
-            </drop-down>
-        </field>
         <sort-order>
             <sort-field name="workEffortId"/>
             <sort-field name="partyId"/>
@@ -109,7 +105,6 @@ under the License.
             <sort-field name="scopeEnumId"/>
             <sort-field name="actualStartDate"/>
             <sort-field name="actualCompletionDate"/>
-            <sort-field name="workEffortPurposeTypeId"/>
             <sort-field name="workEffortName"/>
             <sort-field name="description"/>
             <sort-field name="priority"/>

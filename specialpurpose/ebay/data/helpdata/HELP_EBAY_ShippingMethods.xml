@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements. See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to you under the Apache License, Version
+    2.0 (the "License"); you may not use this file except in compliance
+    with the License. You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+    applicable law or agreed to in writing, software distributed under the
+    License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+    CONDITIONS OF ANY KIND, either express or implied. See the License for
+    the specific language governing permissions and limitations under the
+    License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>Ebay Shipping Methods screen.</title>
+    <para>
+This screen allows the user to add shipping methods rate for intregrate ofbiz and Ebay.
+    </para>
+    <section>
+        <title>How to add shipping methods?</title>
+        <orderedlist>
+            <listitem><para>Enter  'Shipment Method Name ' (ex:'LocalDelivery')</para></listitem>
+        <listitem><para>Select 'product store' (ex:'OFBiz E-Commerce Store [9000]')</para></listitem>
+        <listitem><para>Enter  'Amount' </para></listitem>
+        <listitem><para>Enter  'Additional Amount' (if you want )</para></listitem>
+        <listitem><para>Enter  'Additional Percent' (if you want )</para></listitem>
+        <listitem><para>Enter  'Method Type Enum Id' (ex:Flat Rate Shipping)</para></listitem>
+        <listitem><para>Enter  'Carrier Party Id' select from lookup (Default is UPS)</para></listitem>
+        <listitem><para>select   'Shipment Method Type Id' </para></listitem>
+ 
+            <listitem><para>Press the 'Add' button to add shipping method.</para></listitem>
+        </orderedlist>
+    </section>
+    <section>
+        <title>How to update shipping methods?</title>
+        <orderedlist>
+            <listitem><para> Update the fields required in the screen</para></listitem>
+            <listitem><para>Press the 'Update' button</para></listitem>
+        </orderedlist>
+    </section>
+    <section>
+        <title>How to delete shipping methods?</title>
+        <orderedlist>
+            <listitem><para>Press the 'Delete' button in each shipping method</para></listitem>
+        </orderedlist>
+    </section>
+</section>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-transform-xml template="component://ecommerce/template/data/Topic.ftl">
+    <topics>
+        <topic id="9401" name="WIDGETS.MAINTENANCE">
+            <topic_heading>Maintenance</topic_heading>
+            <topic_desc>Maintenance of all products</topic_desc>
+            <category id="53" name="DEP-TOPIC"></category>
+            <keywords>support,manual,documentation</keywords>
+        </topic>
+        <topic id="9402" name="WIDGETS.FUTURE">
+            <topic_heading>Future</topic_heading>
+            <topic_desc>Future product directions</topic_desc>
+            <category id="53" name="DEP-TOPIC"></category>
+            <keywords>future,concept,innovations</keywords>
+        </topic>
+        <topic id="9403" name="WIDGETS.FEEDBACK">
+            <topic_heading>Feedback</topic_heading>
+            <topic_desc>Comments, feedback, etc.</topic_desc>
+            <category id="53" name="DEP-TOPIC"></category>
+            <keywords>feedback,complaint,comment</keywords>
+        </topic>
+    </topics>
+</entity-engine-transform-xml>

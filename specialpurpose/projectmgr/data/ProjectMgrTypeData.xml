@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <RoleType description="Project Team" hasTable="N" parentTypeId="" roleTypeId="PROJECT_TEAM"/>
+    <RoleType description="Client Manager" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="CLIENT_MANAGER"/>
+    <RoleType description="Client Analyst" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="CLIENT_ANALYST"/>
+    <RoleType description="Client Billing" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="CLIENT_BILLING"/>
+    <RoleType description="Provider Manager" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="PROVIDER_MANAGER"/>
+    <RoleType description="Provider Accounting" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="PROVIDER_ACCOUNTING"/>
+    <RoleType description="Provider Analyst" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="PROVIDER_ANALYST"/>
+    <RoleType description="Provider Validator" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="PROVIDER_VALIDATOR"/>
+    <RoleType description="Provider Func. Impl" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="PROVIDER_FUNCTIONAL"/>
+    <RoleType description="Provider Tester" hasTable="N" parentTypeId="PROJECT_TEAM" roleTypeId="PROVIDER_TESTER"/>
+
+    <!-- to be able to store project templates -->
+    <WorkEffortType workEffortTypeId="TEMPLATE" description="Template"/>
+    <WorkEffortType workEffortTypeId="PROJECT_TEMPLATE" parentTypeId="TEMPLATE" description="Project Template"/>
+    <WorkEffortType workEffortTypeId="PHASE_TEMPLATE" parentTypeId="TEMPLATE" description="Project Phase Template"/>
+    <WorkEffortType workEffortTypeId="TASK_TEMPLATE" parentTypeId="TEMPLATE" description="Project Task Template"/>
+
+    <!-- some skills required. -->
+    <SkillType skillTypeId="9000" description="Java/Groovy/BSH"/>
+    <SkillType skillTypeId="9001" description="Mini Language"/>
+    <SkillType skillTypeId="9002" description="HTML/FTL"/>
+    <SkillType skillTypeId="9003" description="Javascript/Dojo"/>
+    <SkillType skillTypeId="9004" description="Screens/Forms"/>
+    <SkillType skillTypeId="9005" description="OFBiz Installation"/>
+    <SkillType skillTypeId="_NA_" description="Not Applicable"/>
+
+    <StatusType description="Project" statusTypeId="PROJECT" hasTable="N" parentTypeId=""/>
+    <StatusType description="Project status" statusTypeId="PROJECT_STATUS" hasTable="N" parentTypeId="PROJECT"/>
+    <StatusType description="Project Task" statusTypeId="PROJECT_TASK_STATUS" hasTable="N" parentTypeId="PROJECT"/>
+    <StatusType description="Project Assignment" statusTypeId="PROJECT_ASSGN_STATUS" hasTable="N" parentTypeId="PROJECT"/>
+
+    <!-- assignment status on a task -->
+    <StatusItem description="Assigned" sequenceId="01" statusCode="ASSIGNED" statusId="PAS_ASSIGNED" statusTypeId="PROJECT_ASSGN_STATUS"/>
+    <StatusItem description="Completed" sequenceId="02" statusCode="COMPLETED" statusId="PAS_COMPLETED" statusTypeId="PROJECT_ASSGN_STATUS"/>
+    <StatusValidChange statusId="PAS_ASSIGNED" statusIdTo="PAS_COMPLETED" transitionName="Assignment Complete"/>
+
+    <!-- status of the task itself -->
+    <StatusItem description="Created" sequenceId="01" statusCode="CREATED" statusId="PTS_CREATED" statusTypeId="PROJECT_TASK_STATUS"/>
+    <StatusItem description="Unassigned" sequenceId="02" statusCode="CREATED" statusId="PTS_CREATED_UA" statusTypeId="PROJECT_TASK_STATUS"/>
+    <StatusItem description="Assigned" sequenceId="03" statusCode="CREATED" statusId="PTS_CREATED_AS" statusTypeId="PROJECT_TASK_STATUS"/>
+    <StatusItem description="In Progress" sequenceId="04" statusCode="CREATED" statusId="PTS_CREATED_IP" statusTypeId="PROJECT_TASK_STATUS"/>
+    <StatusItem description="Completed" sequenceId="05" statusCode="COMPLETED" statusId="PTS_COMPLETED" statusTypeId="PROJECT_TASK_STATUS"/>
+    <StatusItem description="On Hold" sequenceId="07" statusCode="ON_HOLD" statusId="PTS_ON_HOLD" statusTypeId="PROJECT_TASK_STATUS"/>
+    <StatusItem description="Cancelled" sequenceId="09" statusCode="CANCELLED" statusId="PTS_CANCELLED" statusTypeId="PROJECT_TASK_STATUS"/>
+    <StatusValidChange statusId="PTS_CREATED" statusIdTo="PTS_COMPLETED" transitionName="Task Complete"/>
+    <StatusValidChange statusId="PTS_CREATED" statusIdTo="PTS_ON_HOLD" transitionName="Task On Hold"/>
+    <StatusValidChange statusId="PTS_CREATED" statusIdTo="PTS_CANCELLED" transitionName="Task On Hold"/>
+    <StatusValidChange statusId="PTS_ON_HOLD" statusIdTo="PTS_CREATED" transitionName="Activated"/>
+
+    <!-- status of project and phase is defined by the underlying task status.
+        however to remove the project from current lists the closed status is introduced -->
+    <StatusItem description="Active" sequenceId="01" statusCode="ACTIVE" statusId="PRJ_ACTIVE" statusTypeId="PROJECT_STATUS"/>
+    <StatusItem description="Closed" sequenceId="09" statusCode="CLOSED" statusId="PRJ_CLOSED" statusTypeId="PROJECT_STATUS"/>
+    <StatusValidChange statusId="PRJ_ACTIVE" statusIdTo="PRJ_CLOSED" transitionName="Close project"/>
+    <!-- for current installations -->
+    <StatusValidChange statusId="_NA_" statusIdTo="PRJ_CLOSED" transitionName="Close project"/>
+
+</entity-engine-xml>

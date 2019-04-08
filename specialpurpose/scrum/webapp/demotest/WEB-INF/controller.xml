@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://ofbiz.apache.org/Site-Conf" xsi:schemaLocation="http://ofbiz.apache.org/Site-Conf http://ofbiz.apache.org/dtds/site-conf.xsd">
+    <include location="component://common/webcommon/WEB-INF/common-controller.xml" />
+    <include location="component://humanres/webapp/humanres/WEB-INF/controller.xml" />
+    <include
+        location="component://workeffort/webapp/workeffort/WEB-INF/controller.xml" />
+    <description>scrum Component Site Configuration File</description>
+
+    <request-map uri="main">
+        <security https="false" auth="false" />
+        <response name="success" type="view" value="main" />
+    </request-map>
+    <request-map uri="demotest">
+        <security https="false" auth="false"/>
+        <event type="simple" invoke="setNewDemoUser" path="component://scrum/minilang/ScrumEvents.xml" />
+        <response name="success" type="url" value="../scrum/control/main" />
+        <response name="error" type="view" value="main" />
+    </request-map>
+
+    <view-map name="main" type="screen" page="component://scrum/widget/demotest/DemotestScreen.xml#main" />
+</site-conf>

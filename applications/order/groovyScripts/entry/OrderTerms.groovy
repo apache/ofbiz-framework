@@ -17,7 +17,10 @@
  * under the License.
  */
 
-import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.order.shoppingcart.*
+
 
 cart = ShoppingCartEvents.getCartObject(request)
 context.cart = cart
@@ -45,7 +48,6 @@ if (request.getParameter('createNew') == 'Y') {
 
         } catch (NumberFormatException nfe) {
             Debug.log("Error parsing termIndex: ${termIndexStr}")
-            request.setAttribute("_ERROR_MESSAGE", "Error parsing termIndex: ${termIndexStr}")
         }
     }
 

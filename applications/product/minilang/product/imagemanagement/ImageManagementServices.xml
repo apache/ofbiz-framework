@@ -147,7 +147,7 @@ under the License.
                 </iterate>
             </if-not-empty>
             
-            <make-value entity-name="ProductContent" value-field="lookupPKMap"/>
+            <make-value value-field="lookupPKMap" entity-name="ProductContent"/>
             <set-pk-fields map="parameters" value-field="lookupPKMap"/>
             <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
             <remove-value value-field="lookedUpValue"/>

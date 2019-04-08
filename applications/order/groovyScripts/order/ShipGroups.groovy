@@ -17,6 +17,7 @@
  * under the License.
  */
 
+import org.apache.ofbiz.base.util.UtilMisc
 import org.apache.ofbiz.entity.util.EntityTypeUtil
 import org.apache.ofbiz.entity.util.EntityUtil
 

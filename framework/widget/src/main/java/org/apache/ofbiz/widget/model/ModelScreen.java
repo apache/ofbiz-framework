@@ -163,8 +163,6 @@ public class ModelScreen extends ModelWidget {
             // render the screen, starting with the top-level section
             this.section.renderWidgetString(writer, context, screenStringRenderer);
             TransactionUtil.commit(beganTransaction);
-        } catch (RuntimeException e) {
-            throw e;
         } catch (Exception e) {
             String errMsg = "Error rendering screen [" + this.sourceLocation + "#" + getName() + "]: " + e.toString();
             Debug.logError(errMsg + ". Rolling back transaction.", module);

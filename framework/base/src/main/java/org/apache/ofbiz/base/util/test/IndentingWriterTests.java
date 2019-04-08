@@ -21,8 +21,8 @@ package org.apache.ofbiz.base.util.test;
 import java.io.StringWriter;
 
 import org.apache.ofbiz.base.lang.SourceMonitored;
-import org.apache.ofbiz.base.test.GenericTestCaseBase;
 import org.apache.ofbiz.base.util.IndentingWriter;
+import org.apache.ofbiz.base.test.GenericTestCaseBase;
 
 @SourceMonitored
 public class IndentingWriterTests extends GenericTestCaseBase {

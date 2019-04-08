@@ -49,8 +49,8 @@ import freemarker.template.TransformControl;
 public class TraverseSubContentCacheTransform implements TemplateTransformModel {
 
     public static final String module = TraverseSubContentCacheTransform.class.getName();
-    static final String [] upSaveKeyNames = {"globalNodeTrail"};
-    static final String [] saveKeyNames = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale",  "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly", "globalNodeTrail"};
+    public static final String [] upSaveKeyNames = {"globalNodeTrail"};
+    public static final String [] saveKeyNames = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale",  "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly", "globalNodeTrail"};
 
     /**
      * @deprecated use FreeMarkerWorker.getWrappedObject()
@@ -77,9 +77,8 @@ public class TraverseSubContentCacheTransform implements TemplateTransformModel 
         return FreeMarkerWorker.getArg(args, key, ctx);
     }
 
-    @Override
     @SuppressWarnings("unchecked")
-    public Writer getWriter(final Writer out, @SuppressWarnings("rawtypes") Map args) {
+    public Writer getWriter(final Writer out, Map args) {
         final StringBuilder buf = new StringBuilder();
         final Environment env = Environment.getCurrentEnvironment();
         final Map<String, Object> templateRoot = FreeMarkerWorker.createEnvironmentMap(env);
@@ -95,7 +94,7 @@ public class TraverseSubContentCacheTransform implements TemplateTransformModel 
         List<Map<String, ? extends Object>> globalNodeTrail = UtilGenerics.checkList(templateRoot.get("globalNodeTrail"));
         String strNullThruDatesOnly = (String)templateRoot.get("nullThruDatesOnly");
         String contentAssocPredicateId = (String)templateRoot.get("contentAssocPredicateId");
-        Boolean nullThruDatesOnly = (strNullThruDatesOnly != null && "true".equalsIgnoreCase(strNullThruDatesOnly)) ? Boolean.TRUE :Boolean.FALSE;
+        Boolean nullThruDatesOnly = (strNullThruDatesOnly != null && strNullThruDatesOnly.equalsIgnoreCase("true")) ? Boolean.TRUE :Boolean.FALSE;
         try {
             // getCurrentContent puts the "current" node on the end of globalNodeTrail.
             // It may have already been there, but getCurrentContent will compare its contentId
@@ -156,7 +155,7 @@ public class TraverseSubContentCacheTransform implements TemplateTransformModel 
                     node = UtilGenerics.checkMap(globalNodeTrail.get(sz - 1));
                     Boolean checkedObj = (Boolean)node.get("checked");
                     Map<String, Object> whenMap = UtilGenerics.checkMap(templateRoot.get("whenMap"));
-                    if (checkedObj == null || !checkedObj) {
+                    if (checkedObj == null || !checkedObj.booleanValue()) {
                         ContentWorker.checkConditions(delegator, node, null, whenMap);
                     }
                 } else {
@@ -164,7 +163,7 @@ public class TraverseSubContentCacheTransform implements TemplateTransformModel 
                 }
 
                 Boolean isReturnBeforePickBool = (Boolean)node.get("isReturnBeforePick");
-                if (isReturnBeforePickBool != null && isReturnBeforePickBool) {
+                if (isReturnBeforePickBool != null && isReturnBeforePickBool.booleanValue()) {
                     return TransformControl.SKIP_BODY;
                 }   
 
@@ -174,8 +173,8 @@ public class TraverseSubContentCacheTransform implements TemplateTransformModel 
                 Boolean isPickBool = (Boolean)node.get("isPick");
                 Boolean isFollowBool = (Boolean)node.get("isFollow");
                 boolean isPick = true;
-                if ((isPickBool == null || !isPickBool)
-                   && (isFollowBool != null && isFollowBool)) {
+                if ((isPickBool == null || !isPickBool.booleanValue())
+                   && (isFollowBool != null && isFollowBool.booleanValue())) {
                     isPick = ContentWorker.traverseSubContent(traverseContext);
                 }
                 if (isPick) {
@@ -230,7 +229,6 @@ public class TraverseSubContentCacheTransform implements TemplateTransformModel 
                     contentIdStart = (String)ndStart.get("contentId");
                 } else {
                     globalNodeTrail = new LinkedList<Map<String,? extends Object>>();
-                    contentIdStart = "";
                 }
                 boolean bIdEnd = UtilValidate.isNotEmpty(contentIdEnd);
                 boolean bIdStart = UtilValidate.isNotEmpty(contentIdStart);
@@ -242,7 +240,7 @@ public class TraverseSubContentCacheTransform implements TemplateTransformModel 
                     globalNodeTrail.addAll(nodeTrail);
                 }
                 int indentSz = globalNodeTrail.size();
-                envWrap("indent", indentSz);
+                envWrap("indent", Integer.valueOf(indentSz));
                 String trailCsv = ContentWorker.nodeTrailToCsv(globalNodeTrail);
                 envWrap("nodeTrailCsv", trailCsv);
                 envWrap("globalNodeTrail", globalNodeTrail);

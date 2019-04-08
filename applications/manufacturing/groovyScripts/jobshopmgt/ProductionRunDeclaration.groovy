@@ -97,7 +97,7 @@ if (productionRunId) {
         //---------------
         // routingTask update sub-screen
         routingTaskId = parameters.routingTaskId
-        if (routingTaskId && ("UpdateRoutingTask".equals(actionForm) || "EditRoutingTask".equals(actionForm))) {
+        if (routingTaskId && (actionForm.equals("UpdateRoutingTask") || actionForm.equals("EditRoutingTask"))) {
             routingTask = from("WorkEffort").where("workEffortId", routingTaskId).queryOne()
             Map routingTaskData = routingTask.getAllFields()
             routingTaskData.estimatedSetupMillis = routingTask.getDouble("estimatedSetupMillis")

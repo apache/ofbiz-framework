@@ -45,7 +45,7 @@ public final class ProtectViewWorker {
     private static final String resourceWebapp = "WebappUiLabels";
     private static final Map<String, Long> hitsByViewAccessed = new ConcurrentHashMap<String, Long>();
     private static final Map<String, Long> durationByViewAccessed = new ConcurrentHashMap<String, Long>();
-    private static final Long one = 1L;
+    private static final Long one = new Long(1);
 
     private ProtectViewWorker () {}
 
@@ -89,7 +89,7 @@ public final class ProtectViewWorker {
                         if (now < tarpitReleaseDateTime) {
                             String tarpittedMessage = UtilProperties.getMessage(resourceWebapp, "protectedviewevents.tarpitted_message", UtilHttp.getLocale(request));
                             // reset since now protected by the tarpit duration
-                            hitsByViewAccessed.put(viewNameUserLoginId, 0L);
+                            hitsByViewAccessed.put(viewNameUserLoginId, new Long(0));
                             return ":_protect_:" + tarpittedMessage;
                         }
                     }

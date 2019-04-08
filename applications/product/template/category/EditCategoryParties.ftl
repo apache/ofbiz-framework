@@ -36,7 +36,7 @@ under the License.
             <#list productCategoryRoles as productCategoryRole>
             <#assign line = line + 1>
             <#assign curRoleType = productCategoryRole.getRelatedOne("RoleType", true)>
-            <tr valign="middle"<#if "1" == rowClass> class="alternate-row"</#if>>
+            <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
             <td><a href="/partymgr/control/viewprofile?party_id=${(productCategoryRole.partyId)!}" target="_blank" class="buttontext">${(productCategoryRole.partyId)!}</a></td>
             <td>${(curRoleType.get("description",locale))!}</td>
             <#assign hasntStarted = false>
@@ -62,12 +62,12 @@ under the License.
                     <input type="hidden" name="partyId" value="${(productCategoryRole.partyId)!}" />
                     <input type="hidden" name="roleTypeId" value="${(productCategoryRole.roleTypeId)!}" />
                     <input type="hidden" name="fromDate" value="${(productCategoryRole.getTimestamp("fromDate"))!}" />
-                    <input type="submit" value="${uiLabelMap.CommonDelete}" />
+                    <a href="javascript:document.lineForm_delete${line}.submit()" class="buttontext">${uiLabelMap.CommonDelete}</a>
                 </form>
             </td>
             </tr>
             <#-- toggle the row color -->
-            <#if "2" == rowClass>
+            <#if rowClass == "2">
                 <#assign rowClass = "1">
             <#else>
                 <#assign rowClass = "2">
@@ -89,7 +89,7 @@ under the License.
                             <@htmlTemplate.lookupField value="${parameters.partyId!}"  formName="addNewForm" name="partyId" id="partyId" fieldFormName="LookupPartyName"/>
                             <select name="roleTypeId" size="1">
                             <#list roleTypes as roleType>
-                                <option value="${(roleType.roleTypeId)!}" <#if "_NA_" == roleType.roleTypeId> selected="selected"</#if>>${(roleType.get("description",locale))!}</option>
+                                <option value="${(roleType.roleTypeId)!}" <#if roleType.roleTypeId.equals("_NA_")> selected="selected"</#if>>${(roleType.get("description",locale))!}</option>
                             </#list>
                             </select>
 

@@ -76,7 +76,7 @@ by hand from a real template using a ruler.
                                                 </fo:table-row>
                                                 <fo:table-row>
                                                     <fo:table-cell number-columns-spanned="2">
-                                                        <#assign amount = Static["org.apache.ofbiz.base.util.UtilNumber"].formatRuleBasedAmount(payment.getDouble("amount"), locale).toUpperCase()>
+                                                        <#assign amount = Static["org.apache.ofbiz.base.util.UtilNumber"].formatRuleBasedAmount(payment.getDouble("amount"), "%dollars-and-hundredths", locale).toUpperCase()>
                                                         <fo:block padding-before="0.4cm" margin-left="1.3cm">${amount}<#list 1..(100-amount.length()) as x>*</#list></fo:block>
                                                     </fo:table-cell>
                                                 </fo:table-row>
@@ -159,7 +159,7 @@ by hand from a real template using a ruler.
                                                             <fo:block text-align="end">${paymentApplication.getBigDecimal("amountApplied").setScale(decimals, rounding).toString()}</fo:block>
                                                         </fo:table-cell>
                                                     </fo:table-row>
-                                                        <#if "PAYROL_INVOICE" == invoice.invoiceTypeId!>
+                                                        <#if invoice.invoiceTypeId! == "PAYROL_INVOICE">
                                                             <#assign InvoiceItems = invoice.getRelated("InvoiceItem", null, null, false)!>
                                                             <#assign PayrolGroups = PayrolGroup!>
                                                             <#list PayrolGroups as payrolGroup>
@@ -345,7 +345,7 @@ by hand from a real template using a ruler.
                                                         </fo:table-cell>
                                                     </fo:table-row>
                                                     
-                                                    <#if "PAYROL_INVOICE" == invoice.invoiceTypeId!>
+                                                    <#if invoice.invoiceTypeId! == "PAYROL_INVOICE">
                                                         <#assign InvoiceItems = invoice.getRelated("InvoiceItem", null, null, false)!>
                                                         <#assign PayrolGroups = PayrolGroup!>
                                                         <#list PayrolGroups as payrolGroup>

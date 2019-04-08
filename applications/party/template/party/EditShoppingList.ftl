@@ -25,7 +25,7 @@ under the License.
       <li>
         <form id="createEmptyShoppingList" action="<@ofbizUrl>createEmptyShoppingList</@ofbizUrl>" method="post">
           <input type="hidden" name="partyId" value="${partyId!}" />
-          <input type="submit" value="${uiLabelMap.CommonCreateNew}"/>
+          <a href="javascript:document.getElementById('createEmptyShoppingList').submit();" class="buttontext">${uiLabelMap.CommonCreateNew}</a>
         </form>
       </li>
     </ul>
@@ -44,7 +44,7 @@ under the License.
           </#list>
         </select>
         <input type="hidden" name="partyId" value="${partyId!}" />
-        <input type="submit" value="${uiLabelMap.CommonEdit}"/>
+        <a href="javascript:document.selectShoppingList.submit();" class="smallSubmit">${uiLabelMap.CommonEdit}</a>
       </form>
     <#else>
       ${uiLabelMap.PartyNoShoppingListsParty}.
@@ -62,8 +62,8 @@ under the License.
       <form method="post" name="createQuoteFromShoppingListForm" action="/ordermgr/control/createQuoteFromShoppingList">
         <input type= "hidden" name= "applyStorePromotions" value= "N"/>
         <input type= "hidden" name= "shoppingListId" value= "${shoppingList.shoppingListId!}"/>
-        <input type="submit" value="${uiLabelMap.PartyCreateNewQuote}"/>
       </form>
+      <a href="javascript:document.createQuoteFromShoppingListForm.submit()">${uiLabelMap.PartyCreateNewQuote}</a>
       </li>
       <li><a href="/ordermgr/control/createCustRequestFromShoppingList?shoppingListId=${shoppingList.shoppingListId!}">${uiLabelMap.PartyCreateNewCustRequest}</a></li>
       <li><a href="/ordermgr/control/loadCartFromShoppingList?shoppingListId=${shoppingList.shoppingListId!}">${uiLabelMap.OrderNewOrder}</a></li>
@@ -77,16 +77,16 @@ under the License.
       <table class="basic-table" cellspacing='0'>
         <tr>
           <td class="label">${uiLabelMap.PartyListName}</td>
-          <td><input type="text" size="25" name="listName" value="${shoppingList.listName}" <#if "auto-save" == shoppingList.listName?default("")>disabled="disabled"</#if> />
+          <td><input type="text" size="25" name="listName" value="${shoppingList.listName}" <#if shoppingList.listName?default("") == "auto-save">disabled="disabled"</#if> />
         </tr>
         <tr>
           <td class="label">${uiLabelMap.CommonDescription}</td>
-          <td><input type="text" size="70" name="description" value="${shoppingList.description!}" <#if "auto-save" == shoppingList.listName?default("")>disabled="disabled"</#if> />
+          <td><input type="text" size="70" name="description" value="${shoppingList.description!}" <#if shoppingList.listName?default("") == "auto-save">disabled="disabled"</#if> />
         </tr>
         <tr>
           <td class="label">${uiLabelMap.PartyListType}</td>
           <td>
-            <select name="shoppingListTypeId" <#if "auto-save" == shoppingList.listName?default("")>disabled</#if>>
+            <select name="shoppingListTypeId" <#if shoppingList.listName?default("") == "auto-save">disabled</#if>>
               <#if shoppingListType??>
                 <option value="${shoppingListType.shoppingListTypeId}">${shoppingListType.get("description",locale)?default(shoppingListType.shoppingListTypeId)}</option>
                 <option value="${shoppingListType.shoppingListTypeId}">--</option>
@@ -100,7 +100,7 @@ under the License.
         <tr>
           <td class="label">${uiLabelMap.PartyPublic}?</td>
           <td>
-            <select name="isPublic" <#if "auto-save" == shoppingList.listName?default("")>disabled</#if>>
+            <select name="isPublic" <#if shoppingList.listName?default("") == "auto-save">disabled</#if>>
               <option>${shoppingList.isPublic}</option>
               <option value="${shoppingList.isPublic}">--</option>
               <option value="Y">${uiLabelMap.CommonYes}</option>
@@ -111,7 +111,7 @@ under the License.
         <tr>
           <td class="label">${uiLabelMap.PartyParentList}</td>
           <td>
-            <select name="parentShoppingListId" <#if "auto-save" == shoppingList.listName?default("")>disabled</#if>>
+            <select name="parentShoppingListId" <#if shoppingList.listName?default("") == "auto-save">disabled</#if>>
               <#if parentShoppingList??>
                 <option value="${parentShoppingList.shoppingListId}">${parentShoppingList.listName?default(parentShoppingList.shoppingListId)}</option>
               </#if>
@@ -197,7 +197,7 @@ under the License.
           <#assign unitPrice = shoppingListItemData.unitPrice>
           <#assign totalPrice = shoppingListItemData.totalPrice>
           <#assign productVariantAssocs = shoppingListItemData.productVariantAssocs!>
-          <#assign isVirtual = product.isVirtual?? && "Y" == product.isVirtual>
+          <#assign isVirtual = product.isVirtual?? && product.isVirtual.equals("Y")>
           <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
             <td><a href="/catalog/control/EditProduct?productId=${shoppingListItem.productId}&amp;externalLoginKey=${requestAttributes.externalLoginKey}">${shoppingListItem.productId} -
               ${productContentWrapper.get("PRODUCT_NAME", "html")?default("No Name")}</a> : ${productContentWrapper.get("DESCRIPTION", "html")!}

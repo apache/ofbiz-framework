@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
+
+    <simple-method method-name="updateRateAmount" short-description="update/create a rate amount value">
+        <!-- set defaults -->
+        <if-empty field="parameters.rateCurrencyUomId">
+            <property-to-field resource="general.properties" property="currency.uom.id.default" field="parameters.rateCurrencyUomId"/>
+        </if-empty>
+        <if-empty field="parameters.periodTypeId">
+            <set field="parameters.periodTypeId" value="RATE_HOUR"/>
+        </if-empty>
+        <if-empty field="parameters.emplPositionTypeId">
+            <set field="parameters.emplPositionTypeId" value="_NA_"/>
+        </if-empty>
+        <if-empty field="parameters.partyId">
+            <set field="parameters.partyId" value="_NA_"/>
+        </if-empty>
+        <if-empty field="parameters.workEffortId">
+            <set field="parameters.workEffortId" value="_NA_"/>
+        </if-empty>
+
+        <!-- try to find existing value -->
+        <entity-and entity-name="RateAmount" list="rateAmounts" filter-by-date="true">
+            <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
+            <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
+            <field-map field-name="rateCurrencyUomId" from-field="parameters.rateCurrencyUomId"/>
+            <field-map field-name="emplPositionTypeId" from-field="parameters.emplPositionTypeId"/>
+            <field-map field-name="partyId" from-field="parameters.partyId"/>
+            <field-map field-name="periodTypeId" from-field="parameters.periodTypeId"/>
+        </entity-and>
+
+        <!-- end existing value -->
+        <if-not-empty field="rateAmounts">
+            <first-from-list list="rateAmounts" entry="rateAmount"/>
+            <if-compare-field field="rateAmount.rateAmount" operator="not-equals" to-field="parameters.rateAmount">
+                <set-service-fields service-name="deleteRateAmount" map="rateAmount" to-map="delRateAmount"/>
+                <call-service service-name="deleteRateAmount" in-map-name="delRateAmount"/>
+            </if-compare-field>
+        </if-not-empty>
+
+        <make-value entity-name="RateAmount" value-field="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        <if-empty field="newEntity.fromDate"><now-timestamp field="newEntity.fromDate"/></if-empty>
+        <clear-field field="newEntity.thruDate"/>
+        <create-value value-field="newEntity"/>
+    </simple-method>
+
+    <simple-method method-name="deleteRateAmount" short-description="update/create a rate amount value">
+        <!-- set defaults -->
+        <if-empty field="parameters.rateCurrencyUomId">
+            <property-to-field resource="general.properties" property="currency.uom.id.default" field="parameters.rateCurrencyUomId"/>
+        </if-empty>
+        <if-empty field="parameters.periodTypeId">
+            <set field="parameters.periodTypeId" value="RATE_HOUR"/>
+        </if-empty>
+        <if-empty field="parameters.emplPositionTypeId">
+            <set field="parameters.emplPositionTypeId" value="_NA_"/>
+        </if-empty>
+        <if-empty field="parameters.partyId">
+            <set field="parameters.partyId" value="_NA_"/>
+        </if-empty>
+        <if-empty field="parameters.workEffortId">
+            <set field="parameters.workEffortId" value="_NA_"/>
+        </if-empty>
+
+        <entity-one entity-name="RateAmount" value-field="rateAmount"/>
+
+        <if-not-empty field="rateAmount">
+            <now-timestamp field="nowTimestamp"/>
+            <set field ="previousDay" value="${groovy: org.apache.ofbiz.base.util.UtilDateTime.adjustTimestamp(nowTimestamp,5,-1)}" type="Timestamp"/>
+            <set field="rateAmount.thruDate" value="${groovy: org.apache.ofbiz.base.util.UtilDateTime.getDayEnd(previousDay)}" type="Timestamp"/>
+            <store-value value-field="rateAmount"/>
+        <else>
+            <add-error>
+                <fail-property resource="AccountingErrorUiLabels" property="AccountingDeleteRateAmount"/>
+            </add-error>
+        </else>
+        </if-not-empty>
+
+    </simple-method>
+
+    <simple-method method-name="getRateAmount" short-description="Get the applicable rate amount value">
+        <!--
+           Search for the applicable rate from most specific to most general in the RateAmount entity
+           Defaults for periodTypeId is per hour and default currency is the currency in general.properties
+           The order is:
+               1. for specific rateTypeId, workEffortId (workEffort)
+               2. for specific rateTypeId, partyId (party)
+               3. for specific rateTypeId, emplPositionTypeId (emplPositionType)
+               4. for specific rateTypeId (rateType)
+
+               Then, the results are filtered to improve the result. If you pass a workEffortId and a partyId,
+               the service will first search the list of all the rateAmount with the specified workEffortId. Then, if
+               there is at least one rateAmount with same partyId than the one in the parameter in the list, the list will
+               be reduced to those entries.
+               At the end, the first record of the list is chosen.
+
+               For a easier debugging time, there is a log triggered when no records are found for the input. This log
+               shows up when there are rateAmounts corresponding to the input parameters without the rateCurrencyUomId and
+               the periodTypeId.
+        -->
+        <if-empty field="parameters.rateCurrencyUomId">
+            <property-to-field resource="general.properties" property="currency.uom.id.default" field="parameters.rateCurrencyUomId"/>
+        </if-empty>
+        <if-empty field="parameters.periodTypeId">
+            <set field="parameters.periodTypeId" value="RATE_HOUR"/>
+        </if-empty>
+
+        <if><!-- workeffort level -->
+            <condition>
+                <and>
+                    <not><if-empty field="parameters.workEffortId"/></not>
+                    <if-compare field="parameters.workEffortId" value="_NA_" operator="not-equals"/>
+                </and>
+            </condition>
+            <then>
+                <set field="level" value="workEffort"/>
+                <call-service service-name="getRatesAmountsFromWorkEffortId" in-map-name="parameters">
+                    <result-to-field result-name="ratesList" field="parameters.ratesList"/>
+                </call-service>
+                <call-service service-name="filterRateAmountList" in-map-name="parameters">
+                    <result-to-field result-name="filteredRatesList" field="parameters.ratesList"/>
+                </call-service>
+            </then>
+        <else-if> <!-- party level -->
+            <condition>
+                <and>
+                    <not><if-empty field="parameters.partyId"/></not>
+                    <if-compare field="parameters.partyId" value="_NA_" operator="not-equals"/>
+                </and>
+            </condition>
+            <then>
+                <set field="level" value="partyId"/>
+                <call-service service-name="getRatesAmountsFromPartyId" in-map-name="parameters">
+                    <result-to-field result-name="ratesList" field="parameters.ratesList"/>
+                </call-service>
+                <call-service service-name="filterRateAmountList" in-map-name="parameters">
+                    <result-to-field result-name="filteredRatesList" field="parameters.ratesList"/>
+                </call-service>
+            </then>
+        </else-if>
+        <else-if> <!-- emplPositionType level -->
+            <condition>
+                <and>
+                    <not><if-empty field="parameters.emplPositionTypeId"/></not>
+                    <if-compare field="parameters.emplPositionTypeId" value="_NA_" operator="not-equals"/>
+                </and>
+            </condition>
+            <then>
+                <set field="level" value="emplPositionType"/>
+                <call-service service-name="getRatesAmountsFromEmplPositionTypeId" in-map-name="parameters">
+                    <result-to-field result-name="ratesList" field="parameters.ratesList"/>
+                </call-service>
+                <call-service service-name="filterRateAmountList" in-map-name="parameters">
+                    <result-to-field result-name="filteredRatesList" field="parameters.ratesList"/>
+                </call-service>
+            </then>
+        </else-if>
+        </if>
+
+        <if-empty field="parameters.ratesList">
+            <entity-and entity-name="RateAmount" list="ratesList" filter-by-date="true">
+                <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
+            </entity-and>
+            <call-service service-name="filterRateAmountList" in-map-name="parameters">
+                <result-to-field result-name="filteredRatesList" field="parameters.ratesList"/>
+            </call-service>
+        </if-empty>
+
+        <if-empty field="parameters.ratesList">
+            <entity-one entity-name="RateType" value-field="rateType"/>
+            <log level="error" message="A valid rate amount could not be found for rateType: ${rateType.description}"/>
+        </if-empty>
+
+        <!-- We narrowed as much as we could the result, now returning the first record of the list -->
+        <if-not-empty field="parameters.ratesList">
+            <first-from-list list="parameters.ratesList" entry="amount"/>
+            <if-empty field="amount.rateAmount">
+                <set field="amount.rateAmount" value="0" type="BigDecimal"/>
+            </if-empty>
+            <field-to-result field="amount.rateAmount" result-name="rateAmount"/>
+            <field-to-result field="amount.periodTypeId" result-name="periodTypeId"/>
+            <field-to-result field="amount.rateCurrencyUomId" result-name="rateCurrencyUomId"/>
+            <field-to-result field="level"/>
+            <field-to-result field="amount.fromDate" result-name="fromDate"/>
+        </if-not-empty>
+    </simple-method>
+
+    <simple-method method-name="getRatesAmountsFromWorkEffortId" short-description="Get all the rateAmount for a given workEffortId">
+        <entity-and entity-name="RateAmount" list="amounts" filter-by-date="true">
+            <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
+            <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
+            <field-map field-name="periodTypeId" from-field="parameters.periodTypeId"/>
+            <field-map field-name="rateCurrencyUomId" from-field="parameters.rateCurrencyUomId"/>
+        </entity-and>
+
+        <if-empty field="amounts">
+            <entity-one entity-name="Uom" value-field="currencyUomId">
+                <field-map field-name="uomId" from-field="parameters.rateCurrencyUomId"/>
+            </entity-one>
+            <entity-one entity-name="PeriodType" value-field="periodType"/>
+            <entity-one entity-name="RateType" value-field="rateType"/>
+            <entity-one entity-name="WorkEffort" value-field="workEffort"/>
+            <entity-one entity-name="PartyNameView" value-field="partyNameView"/>
+            <log level="error" message="A valid rate entry could be found for rateType: ${rateType.description}, workEffort: ${workEffort.workEffortName}, party: ${partyNameView.lastName} ${partyNameView.middleName} ${partyNameView.firstName}${partyNameView.groupName} However.....not for the period: ${period.description} and currency: ${currencyUomId.description}"/>
+        </if-empty>
+
+        <field-to-result field="amounts" result-name="ratesList"/>
+        <field-to-result field="level"/>
+    </simple-method>
+
+    <simple-method method-name="getRatesAmountsFromPartyId" short-description="Get all the rateAmount for a given partyId">
+        <entity-and entity-name="RateAmount" list="amounts" filter-by-date="true">
+            <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
+            <field-map field-name="partyId" from-field="parameters.partyId"/>
+            <field-map field-name="periodTypeId" from-field="parameters.periodTypeId"/>
+            <field-map field-name="rateCurrencyUomId" from-field="parameters.rateCurrencyUomId"/>
+        </entity-and>
+
+        <if-empty field="amounts">
+            <entity-one entity-name="Uom" value-field="currencyUomId">
+                <field-map field-name="uomId" from-field="parameters.rateCurrencyUomId"/>
+            </entity-one>
+            <entity-one entity-name="PeriodType" value-field="periodType"/>
+            <entity-one entity-name="RateType" value-field="rateType"/>
+            <entity-one entity-name="PartyNameView" value-field="partyNameView"/>
+            <log level="error" message="A valid rate entry could be found for rateType: ${rateType.description}, party: ${partyNameView.lastName} ${partyNameView.middleName} ${partyNameView.firstName}${partyNameView.groupName} However..... NOT   for the period: ${period.description} and currency: ${currencyUomId.description}"/>
+        </if-empty>
+
+        <field-to-result field="amounts" result-name="ratesList"/>
+        <field-to-result field="level"/>
+    </simple-method>
+
+    <simple-method method-name="getRatesAmountsFromEmplPositionTypeId" short-description="Get all the rateAmount for a given emplPositionTypeId">
+        <entity-and entity-name="RateAmount" list="amounts" filter-by-date="true">
+            <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
+            <field-map field-name="emplPositionTypeId" from-field="parameters.emplPositionTypeId"/>
+            <field-map field-name="periodTypeId" from-field="parameters.periodTypeId"/>
+            <field-map field-name="rateCurrencyUomId" from-field="parameters.rateCurrencyUomId"/>
+        </entity-and>
+
+        <if-empty field="amounts">
+            <entity-one entity-name="Uom" value-field="currencyUomId">
+                <field-map field-name="uomId" from-field="parameters.rateCurrencyUomId"/>
+            </entity-one>
+            <entity-one entity-name="PeriodType" value-field="periodType"/>
+            <entity-one entity-name="RateType" value-field="rateType"/>
+            <entity-one entity-name="EmplPositionType" value-field="emplPositionType"/>
+            <log level="error" message="A valid rate entry could be found for rateType: ${rateType.description}, emplPositionType: ${emplPositionType.description}.... However.....NOT for the period: ${period.description} and currency: ${currencyUomId.description}"/>
+        </if-empty>
+
+        <field-to-result field="amounts" result-name="ratesList"/>
+        <field-to-result field="level"/>
+    </simple-method>
+
+    <simple-method method-name="filterRateAmountList" short-description="Filter a list of rateAmount. The result is the
+        most heavily-filtered non-empty list">
+        <if-empty field="parameters.ratesList">
+            <log level="warning" message="The list parameters.ratesList was empty, not processing any further"/>
+            <return/>
+        </if-empty>
+        <!-- Check if there is a more specific rate -->
+        <set field="filterMap"/>
+        <!-- First : if there are rates from the list with the workEffortId from the parameter -->
+        <if-not-empty field="parameters.workEffortId">
+            <set field="filterMap.workEffortId" from-field="parameters.workEffortId"/>
+            <filter-list-by-and list="parameters.ratesList" map="filterMap" to-list="tempRatesFilteredList"/>
+            <if-not-empty field="tempRatesFilteredList">
+                <set field="parameters.ratesList" from-field="tempRatesFilteredList"/>
+            </if-not-empty>
+
+            <clear-field field="filterMap"/>
+            <clear-field field="tempRatesFilteredList"/>
+        </if-not-empty>
+
+        <!-- Then : if there are rates from the list with the partyId from the parameter -->
+        <if-not-empty field="parameters.partyId">
+            <set field="filterMap.partyId" from-field="parameters.partyId"/>
+            <filter-list-by-and list="parameters.ratesList" map="filterMap" to-list="tempRatesFilteredList"/>
+            <if-not-empty field="tempRatesFilteredList">
+                <set field="parameters.ratesList" from-field="tempRatesFilteredList"/>
+            </if-not-empty>
+
+            <clear-field field="filterMap"/>
+            <clear-field field="tempRatesFilteredList"/>
+        </if-not-empty>
+
+        <!-- Then : if there are rates from the list with the emplPositionTypeId from the parameter -->
+        <if-not-empty field="parameters.emplPositionTypeId">
+            <set field="filterMap.emplPositionTypeId" from-field="parameters.emplPositionTypeId"/>
+            <filter-list-by-and list="parameters.ratesList" map="filterMap" to-list="tempRatesFilteredList"/>
+            <if-not-empty field="tempRatesFilteredList">
+                <set field="parameters.ratesList" from-field="tempRatesFilteredList"/>
+            </if-not-empty>
+
+            <clear-field field="filterMap"/>
+            <clear-field field="tempRatesFilteredList"/>
+        </if-not-empty>
+
+        <!-- Finally : if there are rates from the list with the rateTypeId from the parameter -->
+        <if-not-empty field="parameters.rateTypeId">
+            <set field="filterMap.rateTypeId" from-field="parameters.rateTypeId"/>
+            <filter-list-by-and list="parameters.ratesList" map="filterMap" to-list="tempRatesFilteredList"/>
+            <if-not-empty field="tempRatesFilteredList">
+                <set field="parameters.ratesList" from-field="tempRatesFilteredList"/>
+            </if-not-empty>
+            <clear-field field="filterMap"/>
+            <clear-field field="tempRatesFilteredList"/>
+        </if-not-empty>
+
+        <!-- Return the list -->
+        <field-to-result field="parameters.ratesList" result-name="filteredRatesList"/>
+    </simple-method>
+
+    <!-- party rate services -->
+    <simple-method method-name="updatePartyRate" short-description="Update/Create PartyRate">
+        <!-- check if already exist is so expire current record -->
+        <entity-and entity-name="PartyRate" list="partyRates" filter-by-date="true">
+            <field-map field-name="partyId" from-field="parameters.partyId"/>
+            <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
+        </entity-and>
+        <if-not-empty field="partyRates">
+            <first-from-list list="partyRates" entry="partyRate"/>
+            <now-timestamp field="partyRate.thruDate"/>
+            <store-value value-field="partyRate"/>
+        </if-not-empty>
+
+        <make-value value-field="newEntity" entity-name="PartyRate"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
+        <if-empty field="newEntity.fromDate"><now-timestamp field="newEntity.fromDate"/></if-empty>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        <call-simple-method method-name="checkOtherDefaultRate"/>
+        <create-value value-field="newEntity"/>
+
+        <if-not-empty field="parameters.rateAmount">
+            <set-service-fields service-name="updateRateAmount" map="parameters" to-map="updRate"/>
+            <call-service service-name="updateRateAmount" in-map-name="updRate"/>
+        </if-not-empty>
+    </simple-method>
+
+    <simple-method method-name="checkOtherDefaultRate" short-description="remove an other defaultRate flag">
+        <set value="_CREATE" field="securityAction"/>
+        <check-permission permission="ACCOUNTING" action="${securityAction}">
+            <fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/>
+        </check-permission>
+        <check-errors/>
+        <if-compare field="newEntity.defaultRate" value="Y" operator="equals">
+            <entity-and entity-name="PartyRate" list="rates" filter-by-date="true">
+                <field-map field-name="partyId" from-field="newEntity.partyId"/>
+                <field-map field-name="defaultRate" value="Y"/>
+            </entity-and>
+            <if-not-empty field="rates">
+                <first-from-list list="rates" entry="rate"/>
+                <set field="rate.defaultRate" value="N"/>
+                <store-value value-field="rate"/>
+            </if-not-empty>
+        </if-compare>
+    </simple-method>
+    <simple-method method-name="deletePartyRate" short-description="Delete PartyRate">
+        <entity-one entity-name="PartyRate" value-field="lookedUpValue"/>
+        <now-timestamp field="lookedUpValue.thruDate"/>
+        <store-value value-field="lookedUpValue"/>
+
+        <set-service-fields service-name="deleteRateAmount" map="parameters" to-map="delRateAmount"/>
+        <set field="delRateAmount.fromDate" from-field="parameters.rateAmountFromDate"/>
+        <call-service service-name="deleteRateAmount" in-map-name="delRateAmount"/>
+    </simple-method>
+
+    <!-- migrate service -->
+    <simple-method method-name="migrateRateFactor" short-description="migrate the several entities which were change in the rate refactor activity">
+        <entity-condition entity-name="OldEmplPositionTypeRate" list="posRates"/>
+        <iterate list="posRates" entry="posRate">
+            <make-value value-field="emplPositionTypeRate" entity-name="EmplPositionTypeRate"/>
+            <set-pk-fields value-field="posRate" map="emplPositionTypeRate"/>
+            <set-nonpk-fields map="emplPositionTypeRate" value-field="posRate"/>
+            <create-value value-field="emplPositionTypeRate"/>
+            <make-value value-field="rateAmount" entity-name="RateAmount"/>
+            <set-pk-fields value-field="posRate" map="rateAmount"/>
+            <set-nonpk-fields map="rateAmount" value-field="posRate"/>
+            <set field="rateAmount.workeffortId" value="_NA_"/>
+            <set field="rateAmount.partyId" value="_NA_"/>
+            <property-to-field resource="general.properties" property="currency.uom.id.default" field="rateAmount.rateCurrencyUomId"/>
+            <create-value value-field="rateAmount"/>
+        </iterate>
+        <entity-condition entity-name="OldPartyRate" list="partyRates"/>
+        <iterate list="oldPartyRates" entry="oldPartyRate">
+            <make-value value-field="partyRate" entity-name="PartyRate"/>
+            <set-pk-fields value-field="oldPartyRate" map="partyRate"/>
+            <set-nonpk-fields map="partyRate" value-field="oldPartyRate"/>
+            <create-value value-field="partyRate"/>
+            <make-value value-field="rateAmount" entity-name="RateAmount"/>
+            <set-pk-fields value-field="oldPartyRate" map="rateAmount"/>
+            <set-nonpk-fields map="rateAmount" value-field="oldPartyRate"/>
+            <set field="rateAmount.workeffortId" value="_NA_"/>
+            <set field="rateAmount.emplPositionTypeId" value="_NA_"/>
+            <set field="rateAmount.periodTypeId" value="RATE_HOUR"/>
+            <create-value value-field="rateAmount"/>
+        </iterate>
+    </simple-method>
+</simple-methods>

@@ -19,6 +19,9 @@
 
 import java.util.*
 import java.sql.Timestamp
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.entity.util.*
 
 module = "FindOrders.groovy"
 
@@ -143,7 +146,8 @@ context.thruDateStr = toStr
 viewIndex = request.getParameter("viewIndex") ? Integer.valueOf(request.getParameter("viewIndex")) : 1
 context.viewIndex = viewIndex
 
-viewSize = request.getParameter("viewSize") ? Integer.valueOf(request.getParameter("viewSize")) : modelTheme.getDefaultViewSize()?:20
+viewSize = request.getParameter("viewSize") ? Integer.valueOf(request.getParameter("viewSize")) : 
+                                                                EntityUtilProperties.getPropertyValue("widget", "widget.form.defaultViewSize", "20", delegator)
 context.viewSize = viewSize
 
 // get the lookup flag

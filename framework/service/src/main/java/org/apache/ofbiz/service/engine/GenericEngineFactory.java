@@ -38,7 +38,7 @@ public class GenericEngineFactory {
 
     public GenericEngineFactory(ServiceDispatcher dispatcher) {
         this.dispatcher = dispatcher;
-        engines = new HashMap<>();
+        engines = new HashMap<String, GenericEngine>();
     }
 
     /**

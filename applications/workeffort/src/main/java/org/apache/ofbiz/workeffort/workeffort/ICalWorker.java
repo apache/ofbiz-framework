@@ -29,10 +29,10 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilGenerics;
@@ -52,7 +52,6 @@ import org.apache.ofbiz.webapp.webdav.ResponseHelper;
 import org.apache.ofbiz.webapp.webdav.WebDavUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.xml.sax.SAXException;
 
 /** iCalendar worker class. This class handles the WebDAV requests and
  * delegates the calendar conversion tasks to <code>ICalConverter</code>.
@@ -60,7 +59,7 @@ import org.xml.sax.SAXException;
 public final class ICalWorker {
 
     public static final String module = ICalWorker.class.getName();
-
+    
     private ICalWorker() {};
 
     public static final class ResponseProperties {
@@ -73,7 +72,7 @@ public final class ICalWorker {
     }
 
     private static Map<String, Object> createConversionContext(HttpServletRequest request) {
-        Map<String, Object> context = new HashMap<>();
+        Map<String, Object> context = new HashMap<String, Object>();
         Enumeration<String> attributeEnum = UtilGenerics.cast(request.getAttributeNames());
         while (attributeEnum.hasMoreElements()) {
             String attributeName = attributeEnum.nextElement();
@@ -91,7 +90,7 @@ public final class ICalWorker {
      *
      * @param statusMessage Optional status message - usually <code>null</code>
      * for security reasons
-     * @return Create an HTTP Forbidden response
+     * @return Create an HTTP Forbidden response 
      */
     public static ResponseProperties createForbiddenResponse(String statusMessage) {
         return new ResponseProperties(HttpServletResponse.SC_FORBIDDEN, statusMessage);
@@ -136,11 +135,12 @@ public final class ICalWorker {
         GenericValue iCalData = publishProperties.getRelatedOne("WorkEffortIcalData", false);
         if (iCalData != null) {
             return iCalData.getTimestamp("lastUpdatedStamp");
+        } else {
+            return publishProperties.getTimestamp("lastUpdatedStamp");
         }
-        return publishProperties.getTimestamp("lastUpdatedStamp");
     }
 
-    public static void handleGetRequest(HttpServletRequest request, HttpServletResponse response, ServletContext context) throws IOException {
+    public static void handleGetRequest(HttpServletRequest request, HttpServletResponse response, ServletContext context) throws ServletException, IOException {
         if (!isValidRequest(request, response)) {
             return;
         }
@@ -160,7 +160,7 @@ public final class ICalWorker {
         writeResponse(responseProps, request, response, context);
     }
 
-    public static void handlePropFindRequest(HttpServletRequest request, HttpServletResponse response, ServletContext context) throws IOException {
+    public static void handlePropFindRequest(HttpServletRequest request, HttpServletResponse response, ServletContext context) throws ServletException, IOException {
         if (!isValidRequest(request, response)) {
             return;
         }
@@ -174,8 +174,8 @@ public final class ICalWorker {
             PropFindHelper helper = new PropFindHelper(requestDocument);
             if (!helper.isAllProp() && !helper.isPropName()) {
                 Document responseDocument = helper.getResponseDocument();
-                List<Element> supportedProps = new LinkedList<>();
-                List<Element> unSupportedProps = new LinkedList<>();
+                List<Element> supportedProps = new LinkedList<Element>();
+                List<Element> unSupportedProps = new LinkedList<Element>();
                 List<Element> propElements = helper.getFindPropsList(ResponseHelper.DAV_NAMESPACE_URI);
                 for (Element propElement : propElements) {
                     if ("getetag".equals(propElement.getNodeName())) {
@@ -208,19 +208,22 @@ public final class ICalWorker {
                     Debug.logVerbose("[handlePropFindRequest] PROPFIND response:\r\n" + UtilXml.writeXmlDocument(responseDocument), module);
                 }
                 ResponseHelper.prepareResponse(response, 207, "Multi-Status");
-                try (Writer writer = response.getWriter()) {
+                Writer writer = response.getWriter();
+                try {
                     helper.writeResponse(response, writer);
+                } finally {
+                    writer.close();
                 }
                 return;
             }
-        } catch (RuntimeException | GenericEntityException | SAXException | ParserConfigurationException e) {
+        } catch (Exception e) {
             Debug.logError(e, "PROPFIND error: ", module);
         }
         response.setStatus(HttpServletResponse.SC_OK);
         response.flushBuffer();
     }
 
-    public static void handlePutRequest(HttpServletRequest request, HttpServletResponse response, ServletContext context) throws IOException {
+    public static void handlePutRequest(HttpServletRequest request, HttpServletResponse response, ServletContext context) throws ServletException, IOException {
         if (!isValidRequest(request, response)) {
             return;
         }
@@ -268,10 +271,7 @@ public final class ICalWorker {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         Map<String, Object> result = dispatcher.runSync("userLogin", serviceMap);
         if (ServiceUtil.isError(result) || ServiceUtil.isFailure(result)) {
-            String errorMessage = ServiceUtil.getErrorMessage(result);
-            request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-            Debug.logError(errorMessage, module);
-            throw new GenericServiceException(errorMessage);
+            return;
         }
         userLogin = (GenericValue) result.get("userLogin");
         request.setAttribute("userLogin", userLogin);
@@ -319,8 +319,11 @@ public final class ICalWorker {
         }
         if (responseProps.statusMessage != null) {
             response.setContentLength(responseProps.statusMessage.length());
-            try (Writer writer = response.getWriter()) {
+            Writer writer = response.getWriter();
+            try {
                 writer.write(responseProps.statusMessage);
+            } finally {
+                writer.close();
             }
         }
     }

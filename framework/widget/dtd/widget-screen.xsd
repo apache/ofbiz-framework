@@ -37,8 +37,22 @@ under the License.
                     <xs:documentation>Transaction timeout in seconds</xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="use-transaction" type="xs:boolean" default="true"/>
-            <xs:attribute name="use-cache" type="xs:boolean" default="false"/>
+            <xs:attribute name="use-transaction" default="true">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="use-cache" default="false">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
     <xs:element name="section" substitutionGroup="AllWidgets">
@@ -115,8 +129,23 @@ under the License.
                 </xs:choice>
             </xs:sequence>
             <xs:attribute type="xs:string" name="entity-name" use="required" />
-            <xs:attribute name="use-cache" type="xs:boolean" default="false"/>
-            <xs:attribute name="filter-by-date" type="xs:boolean" default="false"/>
+            <xs:attribute name="use-cache" default="false">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="filter-by-date" default="false">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                        <xs:enumeration value="by-name" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
             <xs:attribute type="xs:string" name="list" use="required" />
             <xs:attribute name="result-set-type" default="scroll">
                 <xs:simpleType>
@@ -146,7 +175,14 @@ under the License.
                 </xs:choice>
             </xs:sequence>
             <xs:attribute type="xs:string" name="entity-name" use="required" />
-            <xs:attribute name="use-cache" type="xs:boolean" default="false"/>
+            <xs:attribute name="use-cache" default="false">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
             <xs:attribute name="filter-by-date" default="false">
                 <xs:simpleType>
                     <xs:restriction base="xs:token">
@@ -156,7 +192,14 @@ under the License.
                     </xs:restriction>
                 </xs:simpleType>
             </xs:attribute>
-            <xs:attribute name="distinct" type="xs:boolean" default="false"/>
+            <xs:attribute name="distinct" default="false">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
             <xs:attribute type="xs:string" name="delegator-name" />
             <xs:attribute type="xs:string" name="list" use="required" />
             <xs:attribute name="result-set-type" default="scroll">
@@ -220,13 +263,6 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute type="xs:string" name="type">
-                <xs:annotation>
-                    <xs:documentation>With the type it is possible to render different containers
-                        than div like section.
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
             <xs:attribute type="xs:string" name="auto-update-interval">
                 <xs:annotation>
                     <xs:documentation>The auto-update interval, in seconds.</xs:documentation>
@@ -282,21 +318,40 @@ under the License.
             </xs:attribute>
             <xs:attribute name="id" type="xs:string" />
             <xs:attribute name="name" type="xs:string" />
-            <xs:attribute name="collapsible" type="xs:boolean" default="false"/>
+            <xs:attribute name="collapsible" default="false">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
             <xs:attribute name="initially-collapsed" type="xs:string" default="false">
                 <xs:annotation>
                     <xs:documentation>When set to true, screenlet will be collapsed initially. Can be an expanded string to get the value from a variable. Defaults to false.</xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="save-collapsed" type="xs:boolean" default="true">
+            <xs:attribute name="save-collapsed" default="true">
                 <xs:annotation>
                     <xs:documentation>When set to true, screenlet collapse status is saved as user preference. Defaults to true.</xs:documentation>
                 </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
             </xs:attribute>
-            <xs:attribute name="padded" type="xs:boolean" default="true">
+            <xs:attribute name="padded" default="true">
                 <xs:annotation>
                     <xs:documentation>When set to true, screenlet content will be padded. Defaults to true.</xs:documentation>
                 </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
             </xs:attribute>
             <xs:attribute type="xs:string" name="navigation-menu-name">
                 <xs:annotation>
@@ -325,7 +380,14 @@ under the License.
             <xs:attribute type="xs:string" name="edit-request" />
             <xs:attribute type="xs:string" name="edit-container-style" default="editWrapper" />
             <xs:attribute type="xs:string" name="enable-edit-name" default="enableEdit" />
-            <xs:attribute name="xml-escape" type="xs:boolean" default="false"/>
+            <xs:attribute name="xml-escape" default="false">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
             <xs:attribute type="xs:string" name="width">
                 <xs:annotation>
                     <xs:documentation>Used if non-html content to specify width of iframe.</xs:documentation>
@@ -378,14 +440,28 @@ under the License.
         <xs:complexType>
             <xs:attribute type="xs:string" name="name" use="required" />
             <xs:attribute type="xs:string" name="location" use="required" />
-            <xs:attribute name="share-scope" type="xs:boolean" default="false"/>
+            <xs:attribute name="share-scope" default="false">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
     <xs:element name="include-grid" substitutionGroup="AllWidgets">
         <xs:complexType>
             <xs:attribute type="xs:string" name="name" use="required" />
             <xs:attribute type="xs:string" name="location" use="required" />
-            <xs:attribute name="share-scope" type="xs:boolean" default="false"/>
+            <xs:attribute name="share-scope" default="false">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
     <xs:element name="include-menu" substitutionGroup="AllWidgets">
@@ -398,28 +474,54 @@ under the License.
         <xs:complexType>
             <xs:attribute type="xs:string" name="name" use="required" />
             <xs:attribute type="xs:string" name="location" />
-            <xs:attribute name="share-scope" type="xs:boolean" default="false"/>
+            <xs:attribute name="share-scope" default="false">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
     <xs:element name="include-tree" substitutionGroup="AllWidgets">
         <xs:complexType>
             <xs:attribute type="xs:string" name="name" use="required" />
             <xs:attribute type="xs:string" name="location" use="required" />
-            <xs:attribute name="share-scope" type="xs:boolean" default="false"/>
+            <xs:attribute name="share-scope" default="false">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
     <xs:element name="include-portal-page" substitutionGroup="AllWidgets">
         <xs:complexType>
             <xs:attribute type="xs:string" name="id" />
-            <xs:attribute name="conf-mode" type="xs:boolean" default="false">
+            <xs:attribute name="conf-mode" default="false">
                 <xs:annotation>
                     <xs:documentation>Show the portal in configuration mode.</xs:documentation>
                 </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
             </xs:attribute>
-            <xs:attribute name="use-private" type="xs:boolean" default="true">
+            <xs:attribute name="use-private" default="true">
                 <xs:annotation>
                     <xs:documentation>If a derived private PortalPage exists for the actual UserLogin than show the private PortalPage instead of the original.</xs:documentation>
                 </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
             </xs:attribute>
         </xs:complexType>
     </xs:element>
@@ -431,7 +533,14 @@ under the License.
             <xs:attribute type="xs:string" name="edit-request" />
             <xs:attribute type="xs:string" name="edit-container-style" default="editWrapper" />
             <xs:attribute type="xs:string" name="enable-edit-name" default="enableEdit" />
-            <xs:attribute name="xml-escape" type="xs:boolean" default="false"/>
+            <xs:attribute name="xml-escape" default="false">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
 

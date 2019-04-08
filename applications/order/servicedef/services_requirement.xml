@@ -24,27 +24,36 @@ under the License.
     <vendor>OFBiz</vendor>
     <version>1.0</version>
 
-    <service name="createRequirement" default-entity-name="Requirement" engine="entity-auto" invoke="create" auth="true">
+    <!-- Requirement Services -->
+    <service name="requirementInterface" engine="interface" location="" invoke="">
+        <description>Requirement Interface</description>
+        <auto-attributes mode="IN" entity-name="Requirement" include="nonpk" optional="true">
+            <exclude field-name="createdDate"/>
+            <exclude field-name="createdByUserLogin"/>
+            <exclude field-name="lastModifiedDate"/>
+            <exclude field-name="lastModifiedByUserLogin"/>
+        </auto-attributes>
+    </service>
+    <service name="createRequirement" engine="simple"
+            location="component://order/minilang/requirement/RequirementServices.xml" invoke="createRequirement">
         <description>Create a new requirement</description>
-        <auto-attributes include="pk" mode="INOUT" optional="true"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <attribute name="custRequestId" mode="IN" type="String" optional="true"/>
-        <attribute name="custRequestItemSeqId" mode="IN" type="String" optional="true"/>
-        <override name="statusId" default-value="REQ_CREATED"/>
+        <implements service="requirementInterface"/>
+        <attribute name="requirementTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="custRequestId" type="String" mode="IN" optional="true"/>
+        <attribute name="custRequestItemSeqId" type="String" mode="IN" optional="true"/>
+        <attribute name="requirementId" type="String" mode="INOUT" optional="true"/>
     </service>
-    <service name="updateRequirement" default-entity-name="Requirement" engine="entity-auto" invoke="update" auth="true">
+    <service name="updateRequirement" engine="simple"
+            location="component://order/minilang/requirement/RequirementServices.xml" invoke="updateRequirement">
         <description>Update an existing requirement</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <attribute name="oldStatusId" type="String" mode="OUT" optional="true"/>
+        <implements service="requirementInterface"/>
+        <attribute name="requirementId" type="String" mode="IN" optional="false"/>
+        <attribute name="oldStatusId" type="String" mode="OUT" optional="false"/>
     </service>
-    <service name="deleteRequirement" engine="entity-auto" default-entity-name="Requirement" auth="true" invoke="delete">
+
+    <service name="deleteRequirement" engine="simple"
+            location="component://order/minilang/requirement/RequirementServices.xml" invoke="deleteRequirement">
         <description>Delete a requirement</description>
-        <auto-attributes mode="IN" include="pk" optional="false"/>
-    </service>
-    <service name="deleteRequirementAndRelated" engine="simple"
-            location="component://order/minilang/requirement/RequirementServices.xml" invoke="deleteRequirementAndRelated">
-        <description>Delete a requirement after deleting related entity records.</description>
         <attribute name="requirementId" type="String" mode="IN" optional="false"/>
     </service>
 
@@ -71,10 +80,6 @@ under the License.
         <description>Create Requirement Status </description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
-    </service>
-    <service name="removeRequirementStatus" engine="entity-auto" invoke="delete" default-entity-name="RequirementStatus" auth="true">
-        <description>Remove Requirement Status</description>
-        <auto-attributes include="pk" mode="IN"/>
     </service>
 
     <service name="associatedRequirementWithRequestItem" engine="simple"

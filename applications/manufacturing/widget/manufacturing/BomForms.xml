@@ -70,7 +70,7 @@ under the License.
         </field>
     </form>
 
-    <grid name="ListProductManufacturingRules" target="UpdateProductManufacturingRule" title="" list-name="manufacturingRules"
+    <form name="ListProductManufacturingRules" type="list" target="UpdateProductManufacturingRule" title="" list-name="manufacturingRules"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="updateProductManufacturingRule" map-name="manufacturingRule"/>
         <field name="ruleId"><display/></field>
@@ -95,7 +95,7 @@ under the License.
                 <parameter param-name="ruleId"/>
             </hyperlink>
         </field>
-    </grid>
+    </form>
 
     <form name="UpdateProductManufacturingRule" type="single" target="UpdateProductManufacturingRule" title=""
         header-row-style="header-row" default-table-style="basic-table">
@@ -141,8 +141,7 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submit" title="${uiLabelMap.CommonFind}"><submit/></field>
     </form>
-    
-    <grid name="ListBom" list-name="ListProductBom" odd-row-style="alternate-row"
+    <form name="ListBom"  type="list" list-name="ListProductBom" odd-row-style="alternate-row"
         default-table-style="basic-table hover-bar"  paginate-target="FindBom">
         <field name="productId" title="${uiLabelMap.ProductProductId}" use-when="">
             <hyperlink description="${productId}" target="EditProductBom">
@@ -154,5 +153,5 @@ under the License.
         <field name="productAssocTypeId" title="${uiLabelMap.ManufacturingBomType}">
             <display-entity entity-name="ProductAssocType" key-field-name="productAssocTypeId"/>
         </field>
-    </grid>
+    </form>
 </forms>

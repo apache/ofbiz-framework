@@ -19,14 +19,13 @@ under the License.
 -->
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
+        xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
     <!-- Included Screens -->
     <screen name="states">
         <section>
             <widgets>
-                <include-screen name="MinimalActions" />
-                <include-screen name="states" location="${groovy:commonScreenLocations.states?commonScreenLocations.states:commonDecoratorLocation}"/>
+                <platform-specific><html><html-template location="component://common/template/includes/States.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -36,8 +35,7 @@ under the License.
                 <property-to-field field="defaultCountryGeoId" resource="general" property="country.geo.id.default" default="USA"/>
             </actions>
             <widgets>
-                <include-screen name="MinimalActions" />
-                <include-screen name="countries" location="${groovy:commonScreenLocations.countries?commonScreenLocations.countries:commonDecoratorLocation}"/>
+                <platform-specific><html><html-template location="component://common/template/includes/Countries.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -48,16 +46,14 @@ under the License.
                 <script location="component://common/groovyScripts/CcTypes.groovy"/>
             </actions>
             <widgets>
-                <include-screen name="MinimalActions" />
-                <include-screen name="cctypes" location="${groovy:commonScreenLocations.countries?commonScreenLocations.countries:commonDecoratorLocation}"/>
+                <platform-specific><html><html-template location="component://common/template/includes/CcTypes.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
     <screen name="ccmonths">
         <section>
             <widgets>
-                <include-screen name="MinimalActions" />
-                <include-screen name="ccmonths" location="${groovy:commonScreenLocations.ccmonths?commonScreenLocations.ccmonths:commonDecoratorLocation}"/>
+                <platform-specific><html><html-template location="component://common/template/includes/CcMonths.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -67,8 +63,7 @@ under the License.
                 <set field="thisDate" from-field="nowTimestamp"/>
             </actions>
             <widgets>
-                <include-screen name="MinimalActions" />
-                <include-screen name="ccyears" location="${groovy:commonScreenLocations.ccyears?commonScreenLocations.ccyears:commonDecoratorLocation}"/>
+                <platform-specific><html><html-template location="component://common/template/includes/CcYears.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -94,8 +89,7 @@ under the License.
     <screen name="genericLink">
         <section>
             <widgets>
-                <include-screen name="MinimalActions" />
-                <include-screen name="genericLink" location="${groovy:commonScreenLocations.genericLink?commonScreenLocations.genericLink:commonDecoratorLocation}"/>
+                <platform-specific><html><html-template location="component://common/template/includes/GenericLink.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -106,8 +100,17 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true" />
             </actions>
             <widgets>
-                <include-screen name="MinimalActions" />
-                <include-screen name="AjaxGlobalDecorator" location="${groovy:commonScreenLocations.AjaxGlobalDecorator?commonScreenLocations.AjaxGlobalDecorator:commonDecoratorLocation}"/>
+                <platform-specific>
+                    <html>
+                        <html-template location="component://common/template/includes/HtmlHeaderForAjax.ftl" />
+                    </html>
+                </platform-specific>
+                <decorator-section-include name="body" />
+                <platform-specific>
+                    <html>
+                        <html-template location="component://common/template/includes/HtmlFooterForAjax.ftl" />
+                    </html>
+                </platform-specific>
             </widgets>
         </section>
     </screen>
@@ -120,31 +123,38 @@ under the License.
                 <set field="autocompleteOptions" from-field="parameters.autocompleteOptions" />
             </actions>
             <widgets>
-                <include-screen name="MinimalActions" />
-                <include-screen name="ajaxAutocompleteOptions" location="${groovy:commonScreenLocations.ajaxAutocompleteOptions?commonScreenLocations.ajaxAutocompleteOptions:commonDecoratorLocation}"/>
+                <decorator-screen name="AjaxGlobalDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://common/template/includes/AjaxAutocompleteOptions.ftl" /></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
             </widgets>
         </section>
     </screen>
-
-    <!-- tiny screen rendering context initialization with theme and locale, intended to be included in screen decorators. Devs - please really carefull keep this simple and generic. -->
-    <screen name="MinimalActions">
-        <section>
-            <actions>
-                <script location="component://common/groovyScripts/InitTheme.groovy"/>
-                <set field="commonDecoratorLocation" from-field="layoutSettings.VT_COMMON_DECO_LOC" default-value="component://common-theme/widget/CommonScreens.xml" global="true"/>
-                <set field="initialLocaleComplete" type="String" value="${groovy:parameters?.userLogin?.lastLocale}" default-value="${groovy:locale.toString()}" global="true"/>
-            </actions>
-            <widgets />
-        </section>
-    </screen>
-
-    <!-- Global screen rendering context initialization, intended to be included in screen decorators. Devs - please keep this simple and generic. you can sucharge it on the theme-->
+    <!-- Global screen rendering context initialization, intended to be included in screen decorators. Devs - please keep this simple and generic. -->
     <screen name="GlobalActions">
         <section>
-            <widgets>
-                <include-screen name="MinimalActions" />
-                <include-screen name="GlobalActions" location="${groovy:commonScreenLocations.GlobalActions?commonScreenLocations.GlobalActions:commonDecoratorLocation}"/>
-            </widgets>
+            <actions>
+                <set field="visualThemeId" from-field="userPreferences.VISUAL_THEME" global="true" />
+                <service service-name="getVisualThemeResources">
+                    <field-map field-name="visualThemeId" />
+                    <field-map field-name="themeResources" from-field="layoutSettings" />
+                </service>
+                <set field="layoutSettings" from-field="themeResources" default-value="${layoutSettings}" global="true" />
+                
+                <set field="initialLocaleComplete" type="String" value="${groovy:parameters?.userLogin?.lastLocale}" default-value="${groovy:locale.toString()}" />
+                <set field="layoutSettings.javaScripts[+0]" value="${groovy: org.apache.ofbiz.common.JsLanguageFilesMapping.datejs.getFilePath(initialLocaleComplete)}" global="true" />
+                <set field="layoutSettings.javaScripts[+0]" value="${groovy: org.apache.ofbiz.common.JsLanguageFilesMapping.jquery.getFilePath(initialLocaleComplete)}" global="true" />
+                <set field="layoutSettings.javaScripts[+0]" value="${groovy: org.apache.ofbiz.common.JsLanguageFilesMapping.validation.getFilePath(initialLocaleComplete)}" global="true" />
+                <set field="layoutSettings.javaScripts[+0]" value="${groovy: org.apache.ofbiz.common.JsLanguageFilesMapping.dateTime.getFilePath(initialLocaleComplete)}" global="true" />
+                <!-- Jgrowl -->
+                <set field="layoutSettings.javaScripts[]" value="/images/jquery/plugins/Readmore.js-master/readmore.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/images/jquery/plugins/jquery-jgrowl/1.4.1/jquery.jgrowl.min.js" global="true"/>
+                <set field="layoutSettings.styleSheets[+0]" value="/images/jquery/plugins/jquery-jgrowl/1.4.1/jquery.jgrowl.min.css" global="true" />
+            </actions>
+            <widgets />
         </section>
     </screen>
 
@@ -153,7 +163,189 @@ under the License.
         <section>
             <widgets>
                 <include-screen name="GlobalActions" />
-                <include-screen name="GlobalDecorator" location="${groovy:commonScreenLocations.GlobalDecorator?commonScreenLocations.GlobalDecorator:commonDecoratorLocation}"/>
+                <section>
+                    <actions>
+                        <set field="layoutSettings.commonHeaderImageLinkUrl" from-field="layoutSettings.commonHeaderImageLinkUrl" default-value="main" global="true" />
+                        <set field="iconsLocation" from-field="layoutSettings.VT_ICONS_LOC[0]" default-value="/images/icons/famfamfam" global="true" />
+                        <set field="headerTemplateLocation" from-field="layoutSettings.VT_HDR_TMPLT_LOC[0]" />
+                        <set field="footerTemplateLocation" from-field="layoutSettings.VT_FTR_TMPLT_LOC[0]" />
+                        <set field="appbarTemplateLocation" from-field="layoutSettings.VT_NAV_TMPLT_LOC[0]" />
+                        <set field="appbarOpenTemplateLocation" from-field="layoutSettings.VT_NAV_OPEN_TMPLT[0]" />
+                        <set field="appbarCloseTemplateLocation" from-field="layoutSettings.VT_NAV_CLOSE_TMPLT[0]" />
+                        <set field="messagesTemplateLocation" from-field="layoutSettings.VT_MSG_TMPLT_LOC[0]" />
+                        <set field="layoutSettings.suppressTab" value="ofbizsetup"/><!-- diseable ofbiz setup by default -->
+                    </actions>
+                    <widgets />
+                </section>
+                <section>
+                    <condition>
+                        <if-empty field="parameters.ajaxUpdateEvent" />
+                    </condition>
+                    <widgets>
+                        <!-- render header -->
+                        <platform-specific>
+                            <html>
+                                <html-template location="${headerTemplateLocation}" />
+                            </html>
+                        </platform-specific>
+                        <!-- render appbar or its opening part -->
+                        <section name="Render-Main-Nav">
+                            <condition>
+                                <not>
+                                    <if-empty field="appbarOpenTemplateLocation" />
+                                </not>
+                            </condition>
+                            <widgets>
+                                <platform-specific>
+                                    <html>
+                                        <html-template location="${appbarOpenTemplateLocation}" />
+                                    </html>
+                                </platform-specific>
+                            </widgets>
+                            <fail-widgets>
+                                <platform-specific>
+                                    <html>
+                                        <html-template location="${appbarTemplateLocation}" />
+                                    </html>
+                                </platform-specific>
+                            </fail-widgets>
+                        </section>
+                    </widgets>
+                </section>
+                <section>
+                    <condition>
+                        <if-empty field="parameters.ajaxUpdateEvent" />
+                    </condition>
+                    <widgets>
+                        <!-- render appheader: both menu widget style and ftl template style menus are supported-->
+                        <section name="Render-App-Nav">
+                            <condition>
+                                <not>
+                                    <if-empty field="userLogin" />
+                                </not>
+                            </condition>
+                            <widgets>
+                                <section>
+                                    <condition>
+                                        <not>
+                                            <if-empty field="appheaderTemplate" />
+                                        </not>
+                                    </condition>
+                                    <widgets>
+                                        <platform-specific>
+                                            <html>
+                                                <html-template location="${appheaderTemplate}" />
+                                            </html>
+                                        </platform-specific>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <section>
+                                            <condition>
+                                                <not>
+                                                    <if-empty field="parameters.applicationTitle" />
+                                                </not>
+                                            </condition>
+                                            <widgets>
+                                                <label style="apptitle">${parameters.applicationTitle}</label>
+                                            </widgets>
+                                        </section>
+                                        <section>
+                                            <condition>
+                                                <not>
+                                                    <if-empty field="applicationMenuLocation" />
+                                                </not>
+                                            </condition>
+                                            <widgets>
+                                                <include-menu name="${applicationMenuName}" location="${applicationMenuLocation}" />
+                                            </widgets>
+                                        </section>
+                                    </fail-widgets>
+                                </section>
+                            </widgets>
+                            <fail-widgets>
+                                <!-- better to just not include this, the CommonAppBarMenu doesn't show anything by default if the user isn't logged in, causing a funny empty menu: <include-menu name="CommonAppBarMenu" location="component://common/widget/CommonMenus.xml"/> -->
+                            </fail-widgets>
+                        </section>
+                    </widgets>
+                </section>
+                <!-- render the appbar closing part -->
+                <section>
+                    <condition>
+                        <and>
+                            <if-empty field="parameters.ajaxUpdateEvent" />
+                            <not>
+                                <if-empty field="appbarCloseTemplateLocation" />
+                            </not>
+                        </and>
+                    </condition>
+                    <widgets>
+                        <platform-specific>
+                            <html>
+                                <html-template location="${appbarCloseTemplateLocation}" />
+                            </html>
+                        </platform-specific>
+                    </widgets>
+                </section>
+                <!-- render messages -->
+                <platform-specific>
+                    <html>
+                        <html-template location="${messagesTemplateLocation}" />
+                    </html>
+                </platform-specific>
+                <!-- render content area -->
+                <container style="contentarea">
+                    <decorator-section-include name="pre-body" />
+                    <container id="column-container">
+                        <section>
+                            <condition>
+                                <if-empty-section section-name="left-column" />
+                            </condition>
+                            <widgets>
+                                <container id="content-main-section">
+                                    <decorator-section-include name="body" />
+                                </container>
+                            </widgets>
+                            <fail-widgets>
+                                <container style="left">
+                                    <decorator-section-include name="left-column" />
+                                </container>
+                                <container id="content-main-section" style="leftonly">
+                                    <container style="no-clear" id="centerdiv">
+                                        <decorator-section-include name="body" />
+                                    </container>
+                                </container>
+                            </fail-widgets>
+                        </section>
+                        <container style="clear"></container>
+                    </container>
+                </container>
+                <section>
+                    <condition>
+                        <if-empty field="parameters.ajaxUpdateEvent" />
+                    </condition>
+                    <widgets>
+                        <!-- render footer -->
+                        <section name="Render-Footer">
+                            <condition>
+                                <if-empty field="applicationFooterTemplate" />
+                            </condition>
+                            <widgets>
+                                <platform-specific>
+                                    <html>
+                                        <html-template location="${footerTemplateLocation}" />
+                                    </html>
+                                </platform-specific>
+                            </widgets>
+                            <fail-widgets>
+                                <platform-specific>
+                                    <html>
+                                        <html-template location="${applicationFooterTemplate}" />
+                                    </html>
+                                </platform-specific>
+                            </fail-widgets>
+                        </section>
+                    </widgets>
+                </section>
             </widgets>
         </section>
     </screen>
@@ -161,10 +353,91 @@ under the License.
     <!-- Global decorator for Lookup pop-up windows or layered CSS -->
     <screen name="LookupDecorator">
         <section>
+            <condition>
+                <not><if-compare operator="equals" value="Y" field="parameters.ajaxLookup"/></not>
+            </condition>
             <widgets>
-                <include-screen name="GlobalActions" />
-                <include-screen name="LookupDecorator" location="${groovy:commonScreenLocations.LookupDecorator?commonScreenLocations.LookupDecorator:commonDecoratorLocation}"/>
+                <section>
+                    <actions>
+                        <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                        <service service-name="getUserPreferenceGroup" result-map="prefResult">
+                            <field-map field-name="userPrefGroupTypeId" value="GLOBAL_PREFERENCES"/>
+                        </service>
+                        <set field="userPreferences" from-field="prefResult.userPrefMap" global="true"/>
+
+                        <property-map resource="general" map-name="generalProperties" global="true"/>
+                        <set field="visualThemeId" from-field="userPreferences.VISUAL_THEME" global="true"/>
+                        <set field="defaultOrganizationPartyId" from-field="userPreferences.ORGANIZATION_PARTY" global="true"/>
+                        <service service-name="getVisualThemeResources">
+                            <field-map field-name="visualThemeId"/>
+                            <field-map field-name="themeResources" from-field="layoutSettings"/>
+                        </service>
+
+                        <set field="layoutSettings" from-field="themeResources" default-value="${layoutSettings}" global="true"/>
+
+                        <set field="messagesTemplateLocation" from-field="layoutSettings.VT_MSG_TMPLT_LOC[0]" default-value="component://common/template/includes/Messages.ftl"/>
+                    </actions>
+                    <widgets>
+                        <section>
+                        <condition>
+                                <if-compare value="layer" operator="not-equals" field="parameters.presentation"/>
+                        </condition>
+                            <widgets>
+                                <platform-specific><html><html-template location="component://common/template/includes/Lookup.ftl" /></html></platform-specific>
+                            </widgets>
+                        </section>
+                        <platform-specific><html><html-template location="${messagesTemplateLocation}"/></html></platform-specific>
+                        <section>
+                            <condition>
+                                <not><if-empty-section section-name="body"/></not>
+                            </condition>
+                            <widgets>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <screenlet title="${title}" id="findScreenlet" collapsible="true" padded="false">
+                                    <container id="search-options">
+                                        <decorator-section-include name="search-options"/>
+                                    </container>
+                                </screenlet>
+                                <screenlet>
+                                    <container id="search-results">
+                                        <decorator-section-include name="search-results"/>
+                                    </container>
+                                </screenlet>
+                            </fail-widgets>
+                        </section>
+                        <section>
+                        <condition>
+                            <if-compare value="layer" operator="not-equals" field="parameters.presentation"/>
+                        </condition>
+                            <widgets>
+                                <platform-specific><html><html-template location="component://common/template/includes/LookupFooter.ftl"/></html></platform-specific>
+                            </widgets>
+                        </section>
+                    </widgets>
+                </section>
             </widgets>
+            <fail-widgets>
+                <section>
+                    <actions>
+                        <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                        <set field="searchType" from-field="parameters.searchType" default-value="${searchType}"/>
+                        <script location="component://common/groovyScripts/FindAutocompleteOptions.groovy"/>
+                    </actions>
+                    <widgets>
+                        <decorator-screen name="AjaxGlobalDecorator">
+                            <decorator-section name="body">
+                                <platform-specific>
+                                    <html>
+                                        <html-template location="component://common/template/includes/AjaxAutocompleteOptions.ftl" />
+                                    </html>
+                                </platform-specific>
+                            </decorator-section>
+                        </decorator-screen>
+                    </widgets>
+                </section>
+            </fail-widgets>
         </section>
     </screen>
 
@@ -174,9 +447,50 @@ under the License.
     -->
     <screen name="SimpleDecorator">
         <section>
+            <actions>
+                <!-- The default (global) java scripts -->
+                    <!-- jQuery part -->
+                <!-- Load available JS Language Files -->
+                <set field="initialLocaleComplete" type="String" value="${groovy:parameters?.userLogin?.lastLocale}" default-value="${groovy:locale.toString()}"/>
+                <set field="layoutSettings.javaScripts[+0]" value="${groovy: org.apache.ofbiz.common.JsLanguageFilesMapping.datejs.getFilePath(initialLocaleComplete)}" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="${groovy: org.apache.ofbiz.common.JsLanguageFilesMapping.jquery.getFilePath(initialLocaleComplete)}" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="${groovy: org.apache.ofbiz.common.JsLanguageFilesMapping.validation.getFilePath(initialLocaleComplete)}" global="true"/>
+
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/plugins/asmselect/jquery.asmselect-1.0.4a-beta.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon.min-1.4.3.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/ui/js/jquery-ui-1.10.3.min.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/plugins/jeditable/jquery.jeditable.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/plugins/fjTimer/jquerytimer-min.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/plugins/validate/jquery.validate.min.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/jquery-migrate-1.2.1.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/jquery-1.11.0.min.js" global="true"/>
+                    <!-- jQuery CSSs -->
+                <set field="layoutSettings.styleSheets[+0]" value="/images/jquery/plugins/asmselect/jquery.asmselect-1.0.4a-beta.css" global="true"/>
+
+                <set field="layoutSettings.javaScripts[]" value="/images/OpenLayers-2.13.1.js" global="true" />
+                <set field="layoutSettings.javaScripts[]" value="/images/OfbizUtil.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/images/fieldlookup.js" global="true"/>
+                <!-- The default (global) shortcut icon -->
+                <set field="layoutSettings.shortcutIcon" value="/images/ofbiz.ico" global="true"/>
+                <!-- The settings below are used for xsl-fo screens -->
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId" default-value="${userPreferences.ORGANIZATION_PARTY}" global="true" to-scope="user"/>
+                <entity-one entity-name="PartyNameView" value-field="currentOrganization">
+                    <field-map field-name="partyId" from-field="organizationPartyId"/>
+                </entity-one>
+                <set field="logoImageUrl" value="/images/ofbiz_logo.gif"/>
+                <!--<set field="defaultFontFamily" value="Arial"/>-->
+            </actions>
             <widgets>
-                <include-screen name="GlobalActions" />
-                <include-screen name="SimpleDecorator" location="${groovy:commonScreenLocations.SimpleDecorator?commonScreenLocations.SimpleDecorator:commonDecoratorLocation}"/>
+                <!-- render header -->
+                <platform-specific>
+                    <html><html-template location="component://common/template/includes/Simple.ftl"/></html>
+                    <xsl-fo><html-template location="component://common/template/includes/Simple.fo.ftl"/></xsl-fo>
+                    <xml><html-template location="component://common/template/includes/MinimalDecorator.ftl"/></xml>
+                    <text><html-template location="component://common/template/includes/MinimalDecorator.ftl"/></text>
+                    <csv><html-template location="component://common/template/includes/MinimalDecorator.ftl"/></csv>
+                    <xls><html-template location="component://common/template/includes/Simple.xls.ftl"/></xls>
+                </platform-specific>
             </widgets>
         </section>
     </screen>
@@ -186,10 +500,11 @@ under the License.
         <section>
             <actions>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="logoImageUrl" value="/images/ofbiz_logo.gif" global="true"/>
+                <property-to-field resource="fop.properties" field="defaultFontFamily" property="fop.font.family" default="NotoSans"/>
             </actions>
             <widgets>
-                <include-screen name="GlobalActions" />
-                <include-screen name="FoReportDecorator" location="${groovy:commonScreenLocations.FoReportDecorator?commonScreenLocations.FoReportDecorator:commonDecoratorLocation}"/>
+                <platform-specific><xsl-fo><html-template location="component://common/template/includes/ReportTemplate.fo.ftl"/></xsl-fo></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -197,9 +512,19 @@ under the License.
     <!-- Decorator for xsl-fo rendering -->
     <screen name="GlobalFoDecorator">
         <section>
+            <actions>
+                <set field="layoutSettings.commonHeaderImageUrl" value="/images/ofbiz_logo.gif"/>
+            </actions>
             <widgets>
-                <include-screen name="GlobalActions" />
-                <include-screen name="GlobalFoDecorator" location="${groovy:commonScreenLocations.GlobalFoDecorator?commonScreenLocations.GlobalFoDecorator:commonDecoratorLocation}"/>
+                <platform-specific>
+                    <xsl-fo>
+                        <html-template location="component://common/template/includes/fo/Start.fo.ftl"/>
+                        <html-template location="component://common/template/includes/fo/BasicHeader.fo.ftl"/>
+                        <html-template location="component://common/template/includes/fo/BasicFooter.fo.ftl"/>
+                    </xsl-fo>
+                </platform-specific>
+                <decorator-section-include name="body"/>
+                <platform-specific><xsl-fo><html-template location="component://common/template/includes/fo/End.fo.ftl"/></xsl-fo></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -209,10 +534,14 @@ under the License.
         <section>
             <actions>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="logoImageUrl" value="/images/ofbiz_logo.gif"/>
             </actions>
             <widgets>
-                <include-screen name="MinimalActions" />
-                <include-screen name="FoError" location="${groovy:commonScreenLocations.FoError?commonScreenLocations.FoError:commonDecoratorLocation}"/>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+<!--                <platform-specific><xsl-fo><html-template location="component://common/template/Error.fo.ftl"/></xsl-fo></platform-specific> -->
+                    </decorator-section>
+                </decorator-screen>
             </widgets>
         </section>
     </screen>
@@ -223,20 +552,19 @@ under the License.
                 <set field="titleProperty" value="PageTitleLogin" />
             </actions>
             <widgets>
-                <include-screen name="MinimalActions" />
-                <include-screen name="login" location="${groovy:commonScreenLocations.login?commonScreenLocations.login:commonDecoratorLocation}"/>
-            </widgets>
-        </section>
-    </screen>
-
-    <screen name="impersonated">
-        <section>
-            <actions>
-                <set field="titleProperty" value="PageTitleImpersonated" />
-            </actions>
-            <widgets>
-                <include-screen name="MinimalActions" />
-                <include-screen name="impersonated" location="${groovy:commonScreenLocations.impersonated?commonScreenLocations.impersonated:commonDecoratorLocation}"/>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <actions>
+                                <set field="loginTemplateLocation" from-field="layoutSettings.VT_LOGIN_TMPLT_LOC[0]" default-value="component://common/template/Login.ftl"/>
+                            </actions>
+                            <widgets />
+                        </section>
+                        <platform-specific>
+                            <html><html-template location="${loginTemplateLocation}"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
             </widgets>
         </section>
     </screen>
@@ -244,8 +572,11 @@ under the License.
     <screen name="ajaxNotLoggedIn">
         <section>
             <widgets>
-                <include-screen name="MinimalActions" />
-                <include-screen name="ajaxNotLoggedIn" location="${groovy:commonScreenLocations.ajaxNotLoggedIn?commonScreenLocations.ajaxNotLoggedIn:commonDecoratorLocation}"/>
+                <decorator-screen name="AjaxGlobalDecorator">
+                    <decorator-section name="body">
+                        <label style="message" text="${uiLabelMap.CommonSessionTimeoutPleaseLogIn}"/>
+                    </decorator-section>
+                </decorator-screen>
             </widgets>
         </section>
     </screen>
@@ -263,8 +594,19 @@ under the License.
                 </entity-one>
             </actions>
             <widgets>
-                <include-screen name="MinimalActions" />
-                <include-screen name="requirePasswordChange" location="${groovy:commonScreenLocations.requirePasswordChange?commonScreenLocations.requirePasswordChange:commonDecoratorLocation}"/>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <actions>
+                                <set field="changePasswordTemplateLocation" from-field="layoutSettings.VT_CHPWD_TMPLT_LOC[0]" default-value="component://common/template/ChangePassword.ftl"/>
+                            </actions>
+                            <widgets />
+                        </section>
+                        <platform-specific>
+                            <html><html-template location="${changePasswordTemplateLocation}"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
             </widgets>
         </section>
     </screen>
@@ -272,8 +614,19 @@ under the License.
     <screen name="forgotPassword_step1">
         <section>
             <widgets>
-                <include-screen name="MinimalActions" />
-                <include-screen name="forgotPassword_step1" location="${groovy:commonScreenLocations.forgotPassword_step1?commonScreenLocations.forgotPassword_step1:commonDecoratorLocation}"/>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <actions>
+                                <set field="forgotPasswordTemplateLocation" from-field="layoutSettings.VT_FGPWD_TMPLT_LOC[0]" default-value="component://common/template/ForgotPassword.ftl"/>
+                            </actions>
+                            <widgets />
+                        </section>
+                        <platform-specific>
+                            <html><html-template location="${forgotPasswordTemplateLocation}"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
             </widgets>
         </section>
     </screen>
@@ -288,11 +641,22 @@ under the License.
                 <set field="questionEnumId" from-field="securityQuestions[0].questionEnumId" />
                 <entity-one entity-name="Enumeration" value-field="securityQuestion">
                     <field-map field-name="enumId" from-field="questionEnumId"/>
-                </entity-one>
+                </entity-one> 
             </actions>
             <widgets>
-                <include-screen name="MinimalActions" />
-                <include-screen name="forgotPassword_step2" location="${groovy:commonScreenLocations.forgotPassword_step2?commonScreenLocations.forgotPassword_step2:commonDecoratorLocation}"/>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <actions>
+                                <set field="getSecurityQuestionTemplateLocation" from-field="layoutSettings.VT_GSQUE_TMPLT_LOC[0]" default-value="component://common/template/GetSecurityQuestion.ftl"/>
+                            </actions>
+                            <widgets />
+                        </section>
+                        <platform-specific>
+                            <html><html-template location="${getSecurityQuestionTemplateLocation}"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
             </widgets>
         </section>
     </screen>
@@ -300,8 +664,19 @@ under the License.
     <screen name="forgotPassword">
         <section>
             <widgets>
-                <include-screen name="MinimalActions" />
-                <include-screen name="forgotPassword" location="${groovy:commonScreenLocations.forgotPassword?commonScreenLocations.forgotPassword:commonDecoratorLocation}"/>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <actions>
+                                <set field="forgotPasswordTemplateLocation" from-field="layoutSettings.VT_FGPWD_TMPLT_LOC[0]" default-value="component://common/template/ForgotPassword.ftl"/>
+                            </actions>
+                            <widgets />
+                         </section>
+                         <platform-specific>
+                            <html><html-template location="${forgotPasswordTemplateLocation}"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
             </widgets>
         </section>
     </screen>
@@ -312,8 +687,7 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
             </actions>
             <widgets>
-                <include-screen name="MinimalActions" />
-                <include-screen name="EventMessages" location="${groovy:commonScreenLocations.EventMessages?commonScreenLocations.EventMessages:commonDecoratorLocation}"/>
+                <platform-specific><html><html-template location="component://common/template/includes/Messages.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
@@ -321,35 +695,74 @@ under the License.
     <screen name="FindScreenDecorator">
         <section>
             <widgets>
-                <include-screen name="MinimalActions" />
-                <include-screen name="FindScreenDecorator" location="${groovy:commonScreenLocations.FindScreenDecorator?commonScreenLocations.FindScreenDecorator:commonDecoratorLocation}"/>
+                <section>
+                    <condition>
+                        <if-empty field="titleProperty"/>
+                    </condition>
+                    <widgets>
+                        <container style="page-title"><label text="${title}"></label></container>
+                    </widgets>
+                    <fail-widgets>
+                        <container style="page-title"><label text="${uiLabelMap[titleProperty]}"></label></container>
+                    </fail-widgets>
+                </section>
+                <decorator-section-include name="menu-bar"/>
+                <container style="clear"/>
+                <screenlet id="searchOptions" name="findScreenlet" collapsible="true" title="${uiLabelMap.CommonSearchOptions}">
+                    <container id="search-options">
+                        <decorator-section-include name="search-options" />
+                    </container>
+                </screenlet>
+                <screenlet padded="false">
+                    <label style="h3" text="${uiLabelMap.CommonSearchResults}"/>
+                    <container id="search-results">
+                        <decorator-section-include name="search-results"/>
+                    </container>
+                </screenlet>
             </widgets>
         </section>
     </screen>
 
     <screen name="help">
         <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleHelp"></set>
+                <property-map resource="CommonHelpUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="helpText" value="${uiLabelMap[parameters.topic]}" default-value="${uiLabelMap.HelpNotFound}"/>
+            </actions>
             <widgets>
-                <include-screen name="MinimalActions" />
-                <include-screen name="help" location="${groovy:commonScreenLocations.help?commonScreenLocations.help:commonDecoratorLocation}"/>
+                <decorator-screen name="SimpleDecorator">
+                    <decorator-section name="body">
+                        <label style="h1">${uiLabelMap.PageTitleHelp}</label>
+                        <label style="h3">${helpText}</label>
+                    </decorator-section>
+                </decorator-screen>
             </widgets>
         </section>
     </screen>
 
     <screen name="viewBlocked">
         <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleViewBlocked"></set>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+            </actions>
             <widgets>
-                <include-screen name="MinimalActions" />
-                <include-screen name="viewBlocked" location="${groovy:commonScreenLocations.viewBlocked?commonScreenLocations.viewBlocked:commonDecoratorLocation}"/>
+                <platform-specific><html><html-template location="component://common/template/ViewBlocked.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://common/template/includes/Messages.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
 
     <screen name="geoChart">
         <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleCommonGeoLocation"/>
+            </actions>
             <widgets>
-                <include-screen name="MinimalActions" />
-                <include-screen name="geoChart" location="${groovy:commonScreenLocations.geoChart?commonScreenLocations.geoChart:commonDecoratorLocation}"/>
+                <platform-specific>
+                    <html><html-template location="component://common/template/includes/GeoLocation.ftl"/></html>
+                </platform-specific>
             </widgets>
         </section>
     </screen>

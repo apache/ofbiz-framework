@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
+    <property key="AssetMaintApplication">
+        <value xml:lang="de">Instandhaltungsanwendung</value>
+        <value xml:lang="en">Asset Maintenance Application</value>
+        <value xml:lang="fr">Application de maintenance des biens</value>
+        <value xml:lang="it">Applicazione manutenzione cespiti</value>
+        <value xml:lang="ja">資産管理業務</value>
+        <value xml:lang="th">บำรุงรักษาโปรแกรม</value>
+        <value xml:lang="vi">Ứng dụng Quản lý Tài sản</value>
+        <value xml:lang="zh">资产维护应用程序</value>
+        <value xml:lang="zh-TW">資產維護應用程式</value>
+    </property>
+    <property key="AssetMaintCompanyName">
+        <value xml:lang="de">OFBiz: Instandhaltung</value>
+        <value xml:lang="en">OFBiz: Asset Maintenance</value>
+        <value xml:lang="fr">OFBiz : maintenance des biens</value>
+        <value xml:lang="it">OFBiz: Manutenzione cespiti</value>
+        <value xml:lang="ja">OFBiz: 資産管理</value>
+        <value xml:lang="th">OFBiz: การบำรุงรักษา</value>
+        <value xml:lang="vi">OFBiz: Quản lý tài sản</value>
+        <value xml:lang="zh">OFBiz：资产维护</value>
+        <value xml:lang="zh-TW">OFBiz:資產維護</value>
+    </property>
+    <property key="AssetMaintCompanySubtitle">
+        <value xml:lang="en">Maintenance Department</value>
+        <value xml:lang="fr">Service de maintenance</value>
+        <value xml:lang="it">Servizio manutenzione</value>
+        <value xml:lang="ja">メンテナンス部門</value>
+        <value xml:lang="th">แผนกการดูแลรักษา</value>
+        <value xml:lang="vi">Phòng Quản lý tài sản</value>
+        <value xml:lang="zh">维护部门</value>
+        <value xml:lang="zh-TW">維護部門</value>
+    </property>
+    <property key="AssetMaintInvalidPartProductIdError">
+        <value xml:lang="en">"Part Id ${productId} provided is invalid please check and try again"</value>
+        <value xml:lang="fr">"La réf. de piéce ${productId} fournie n'est pas valable, SVP recommencez"</value>
+        <value xml:lang="it">"Il Codice parte ${productId} fornito non è valido. Per favore controllare e riprovare"</value>
+        <value xml:lang="ja">"部品Id ${productId} は正しくありません。確認して再度実行してください"</value>
+        <value xml:lang="th">รหัสส่วน ${productId} ใช้ไม่ได้ กรุณาตรวจสอบและลองอีกครั้ง</value>
+        <value xml:lang="vi">"Tài sản Id ${productId} không hợp lệ, bạn hãy kiểm tra và thử lại"</value>
+        <value xml:lang="zh">"提供的零部件标识${productId}无效，请检查重试"</value>
+        <value xml:lang="zh-TW">"提供的零部件識別${productId}無效,請檢查重試"</value>
+    </property>
+    <property key="AssetMaintItemIssuance">
+        <value xml:lang="en">Parts</value>
+        <value xml:lang="fr">Pièces</value>
+        <value xml:lang="it">Parti</value>
+        <value xml:lang="ja">部品</value>
+        <value xml:lang="th">ส่วนหนึ่ง</value>
+        <value xml:lang="vi">Tài sản</value>
+        <value xml:lang="zh">零部件</value>
+        <value xml:lang="zh-TW">零部件</value>
+    </property>
+    <property key="AssetMaintLowPartInventoryError">
+        <value xml:lang="en">"Available Inventory level for ${productId} is ${quantity}"</value>
+        <value xml:lang="fr">"Le niveau de stock disponible pour ${productId} est ${quantity"</value>
+        <value xml:lang="it">"La quantità disponibile a magazzino per ${productId} è ${quantity}"</value>
+        <value xml:lang="ja">"${productId} の有効な在庫レベルは ${quantity} です"</value>
+        <value xml:lang="th">รดับสินค้าคงเหลือของ ${productId} คือ ${quantity}</value>
+        <value xml:lang="vi">"Mức độ sẵn có trong kho của Sản phẩm ${productId} với số lượng là ${quantity}"</value>
+        <value xml:lang="zh">"${productId}的有效的库存级别是${quantity}"</value>
+        <value xml:lang="zh-TW">"${productId}的有效的庫存級別是${quantity}"</value>
+    </property>
+    <property key="AssetMaintManager">
+        <value xml:lang="de">Instandhaltungsanwendung</value>
+        <value xml:lang="en">Asset Maintenance</value>
+        <value xml:lang="fr">Application de maintenance des biens</value>
+        <value xml:lang="it">Manutenzione cespiti</value>
+        <value xml:lang="ja">資産管理</value>
+        <value xml:lang="th">บำรุงรักษาโปรแกรม</value>
+        <value xml:lang="vi">Quản lý Tài sản</value>
+        <value xml:lang="zh">资产维护应用程序</value>
+        <value xml:lang="zh-TW">資產維護應用程式</value>
+    </property>
+    <property key="AssetMaintParentWorkEffort">
+        <value xml:lang="en">Parent Work Effort</value>
+        <value xml:lang="fr">"Tâche parente"</value>
+        <value xml:lang="it">Impegno di lavoro padre</value>
+        <value xml:lang="ja">上位(親)の作業成果</value>
+        <value xml:lang="vi">Lượng giá nguồn lực cấp trên</value>
+        <value xml:lang="zh">上级人工服务</value>
+        <value xml:lang="zh-TW">上級工作投入</value>
+    </property>
+    <property key="AssetMaintPartId">
+        <value xml:lang="en">Part Id</value>
+        <value xml:lang="fr">Réf. de la pièce</value>
+        <value xml:lang="it">Codice parte</value>
+        <value xml:lang="ja">部品ID</value>
+        <value xml:lang="vi">Id Tài sản</value>
+        <value xml:lang="zh">零部件标识</value>
+        <value xml:lang="zh-TW">零部件識別</value>
+    </property>
+    <property key="AssetMaintProblemCallingService">
+        <value xml:lang="en">Problem in calling service issueInventoryItemToFixedAssetMaint</value>
+        <value xml:lang="it">Problema durante la chiamata al servizio issueInventoryItemToFixedAssetMaint</value>
+        <value xml:lang="ja">issueInventoryItemToFixedAssetMaintサービスの呼び出し時エラー</value>
+        <value xml:lang="vi">Lỗi khi thực hiện dịch vụ issueInventoryItemToFixedAssetMaint</value>
+        <value xml:lang="zh">调用发送库存明细到固定资产维护（issueInventoryItemToFixedAssetMaint）服务时出错</value>
+        <value xml:lang="zh-TW">呼叫發送庫存細項到固定資產維護(issueInventoryItemToFixedAssetMaint)服務時出錯</value>
+    </property>
+    <property key="AssetMaintProblemGettingInventoryLevel">
+        <value xml:lang="en">Problem in getting Inventory level for </value>
+        <value xml:lang="it">Problema ad ottenere il livello di inventario per </value>
+        <value xml:lang="ja">在庫レベルの取得時にエラー: </value>
+        <value xml:lang="vi">Lỗi khi lấy Mức độ cung ứng (kho) của</value>
+        <value xml:lang="zh">获取库存水平时出错： </value>
+        <value xml:lang="zh-TW">獲取庫存水準時出錯: </value>
+    </property>
+    <property key="AssetMaintProductMaint">
+        <value xml:lang="en">Product Maint</value>
+        <value xml:lang="fr">Maintenance</value>
+        <value xml:lang="it">Manutenzione</value>
+        <value xml:lang="ja">製品メンテナンス</value>
+        <value xml:lang="vi">Quản trị Sản phẩm</value>
+        <value xml:lang="zh">产品维护</value>
+        <value xml:lang="zh-TW">產品維護</value>
+    </property>
+    <property key="AssetMaintViewPermissionError">
+        <value xml:lang="en">View Permission Error</value>
+        <value xml:lang="fr">Afficher l'erreur d'autorisation</value>
+        <value xml:lang="it">Mostra errore di autorizzazione</value>
+        <value xml:lang="ja">参照権限エラー</value>
+        <value xml:lang="th">แสดงข้อผิดพลาดในการอนุญาต</value>
+        <value xml:lang="vi">Bạn chưa có quyền Xem</value>
+        <value xml:lang="zh">浏览权限错误</value>
+        <value xml:lang="zh-TW">流覽許可權錯誤</value>
+    </property>
+    <property key="PageTitleAddItemIssuance">
+        <value xml:lang="en">Add Item Issuance</value>
+        <value xml:lang="fr">Ajouter une émission d'article</value>
+        <value xml:lang="it">Aggiungi prelievo articolo</value>
+        <value xml:lang="ja">アイテム発行追加</value>
+        <value xml:lang="th">เพิ่มรายการที่ออกมา</value>
+        <value xml:lang="vi">Thêm hạng mục ban hành</value>
+        <value xml:lang="zh">添加交付明细</value>
+        <value xml:lang="zh-TW">增加交付細項</value>
+    </property>
+    <property key="PageTitleChildWorkEfforts">
+        <value xml:lang="en">Task Breakdown</value>
+        <value xml:lang="fr">Décomposition de tâche</value>
+        <value xml:lang="it">Scoposizione compito</value>
+        <value xml:lang="ja">タスクブレークダウン</value>
+        <value xml:lang="th">งานหยุด</value>
+        <value xml:lang="vi">Phân nhỏ Tác vụ</value>
+        <value xml:lang="zh">任务分解</value>
+        <value xml:lang="zh-TW">任務分解</value>
+    </property>
+    <property key="PageTitleFindFixedAssetMaints">
+        <value xml:lang="de">Verwaltungen finden</value>
+        <value xml:lang="en">Find Maintenances</value>
+        <value xml:lang="fr">Chercher des maintenances</value>
+        <value xml:lang="it">Ricerca manutenzioni</value>
+        <value xml:lang="ja">メンテナンスを検索</value>
+        <value xml:lang="th">ค้นหาการบำรุงรักษา</value>
+        <value xml:lang="vi">Tìm Bảo trì</value>
+        <value xml:lang="zh">查找维修保养</value>
+        <value xml:lang="zh-TW">尋找維修保養</value>
+    </property>
+    <property key="PageTitleFindFixedAssets">
+        <value xml:lang="en">Find Equipments</value>
+        <value xml:lang="fr">Chercher des équipements</value>
+        <value xml:lang="it">Ricerca cespite</value>
+        <value xml:lang="ja">設備を検索</value>
+        <value xml:lang="th">ค้นหาเครื่องมือ</value>
+        <value xml:lang="vi">Tìm Thiết bị</value>
+        <value xml:lang="zh">查找设备</value>
+        <value xml:lang="zh-TW">尋找設備</value>
+    </property>
+    <property key="PageTitleListItemIssuance">
+        <value xml:lang="en">Parts List</value>
+        <value xml:lang="fr">Liste des pièces</value>
+        <value xml:lang="it">Lista parti</value>
+        <value xml:lang="ja">部品一覧</value>
+        <value xml:lang="th">ส่วนหนึ่งของรายการ</value>
+        <value xml:lang="vi">Danh sách Tài sản</value>
+        <value xml:lang="zh">零部件列表</value>
+        <value xml:lang="zh-TW">零部件清單</value>
+    </property>
+</resource>

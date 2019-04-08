@@ -21,6 +21,7 @@ package org.apache.ofbiz.product.supplier;
 
 import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -54,7 +55,7 @@ public class SupplierProductServices {
      *         filtered by date and optionally by partyId, ordered with lowest price first
      */
     public static Map<String, Object> getSuppliersForProduct(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map<String, Object> results;
+        Map<String, Object> results = new HashMap<String, Object>();
         Delegator delegator = dctx.getDelegator();
 
         GenericValue product = null;
@@ -73,7 +74,7 @@ public class SupplierProductServices {
             List<GenericValue> supplierProducts = product.getRelated("SupplierProduct", null, null, true);
 
             // if there were no related SupplierProduct entities and the item is a variant, then get the SupplierProducts of the virtual parent product
-            if (supplierProducts.size() == 0 && product.getString("isVariant") != null && "Y".equals(product.getString("isVariant"))) {
+            if (supplierProducts.size() == 0 && product.getString("isVariant") != null && product.getString("isVariant").equals("Y")) {
                 String virtualProductId = ProductWorker.getVariantVirtualId(product);
                 GenericValue virtualProduct = EntityQuery.use(delegator).from("Product").where("productId", virtualProductId).cache().queryOne();
                 if (virtualProduct != null) {
@@ -113,6 +114,9 @@ public class SupplierProductServices {
         } catch (GenericEntityException ex) {
             Debug.logError(ex, ex.getMessage(), module);
             return ServiceUtil.returnError(ex.getMessage());
+        } catch (Exception ex) {
+            Debug.logError(ex, ex.getMessage(), module);
+            return ServiceUtil.returnError(ex.getMessage());
         }
         return results;
     }
@@ -123,7 +127,7 @@ public class SupplierProductServices {
      * SupplierProduct entity for that supplier party and feature, and return it as convertedProductFeatures
      */
     public static Map<String, Object> convertFeaturesForSupplier(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map<String, Object> results;
+        Map<String, Object> results = new HashMap<String, Object>();
         String partyId = (String) context.get("partyId");
         Collection<GenericValue> features = UtilGenerics.checkList(context.get("productFeatures"));
 

@@ -50,19 +50,18 @@ import org.apache.ofbiz.entity.util.EntityUtil;
  */
 public class PartyWorker {
 
-    public static final String module = PartyWorker.class.getName();
+    public static String module = PartyWorker.class.getName();
 
     private PartyWorker() {}
 
     public static Map<String, GenericValue> getPartyOtherValues(ServletRequest request, String partyId, String partyAttr, String personAttr, String partyGroupAttr) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
-        Map<String, GenericValue> result = new HashMap<>();
+        Map<String, GenericValue> result = new HashMap<String, GenericValue>();
         try {
             GenericValue party = EntityQuery.use(delegator).from("Party").where("partyId", partyId).queryOne();
 
-            if (party != null) {
+            if (party != null)
                 result.put(partyAttr, party);
-            }
         } catch (GenericEntityException e) {
             Debug.logWarning(e, "Problems getting Party entity", module);
         }
@@ -70,9 +69,8 @@ public class PartyWorker {
         try {
             GenericValue person = EntityQuery.use(delegator).from("Person").where("partyId", partyId).queryOne();
 
-            if (person != null) {
+            if (person != null)
                 result.put(personAttr, person);
-            }
         } catch (GenericEntityException e) {
             Debug.logWarning(e, "Problems getting Person entity", module);
         }
@@ -80,9 +78,8 @@ public class PartyWorker {
         try {
             GenericValue partyGroup = EntityQuery.use(delegator).from("PartyGroup").where("partyId", partyId).queryOne();
 
-            if (partyGroup != null) {
+            if (partyGroup != null)
                 result.put(partyGroupAttr, partyGroup);
-            }
         } catch (GenericEntityException e) {
             Debug.logWarning(e, "Problems getting PartyGroup entity", module);
         }
@@ -102,7 +99,7 @@ public class PartyWorker {
 
         // generate the sequenced number and pad
         Long seq = delegator.getNextSeqIdLong(clubSeqName);
-        clubId = clubId + UtilFormatOut.formatPaddedNumber(seq, (length - clubId.length() - 1));
+        clubId = clubId + UtilFormatOut.formatPaddedNumber(seq.longValue(), (length - clubId.length() - 1));
 
         // get the check digit
         int check = UtilValidate.getLuhnCheckDigit(clubId);
@@ -231,7 +228,7 @@ public class PartyWorker {
      * The matching process is as follows:
      * 1. Calls {@link #findMatchingPartyPostalAddress(Delegator, String, String, String, String, String, String, String, String)} to retrieve a list of address matched PartyAndPostalAddress records.  Results are limited to Parties of type PERSON.
      * 2. For each matching PartyAndPostalAddress record, the Person record for the Party is then retrieved and an upper case comparison is performed against the supplied firstName, lastName and if provided, middleName.
-     *
+     * 
      * @param delegator             Delegator instance
      * @param address1              PostalAddress.address1 to match against (Required).
      * @param address2              Optional PostalAddress.address2 to match against.
@@ -250,7 +247,7 @@ public class PartyWorker {
             String stateProvinceGeoId, String postalCode, String postalCodeExt, String countryGeoId,
             String firstName, String middleName, String lastName) throws GeneralException {
         // return list
-        List<GenericValue> returnList = new LinkedList<>();
+        List<GenericValue> returnList = new LinkedList<GenericValue>();
 
         // address information
         if (firstName == null || lastName == null) {
@@ -268,10 +265,10 @@ public class PartyWorker {
                         String fName = p.getString("firstName");
                         String lName = p.getString("lastName");
                         String mName = p.getString("middleName");
-                        if (lName.toUpperCase(Locale.getDefault()).equals(lastName.toUpperCase(Locale.getDefault()))) {
-                            if (fName.toUpperCase(Locale.getDefault()).equals(firstName.toUpperCase(Locale.getDefault()))) {
+                        if (lName.toUpperCase().equals(lastName.toUpperCase())) {
+                            if (fName.toUpperCase().equals(firstName.toUpperCase())) {
                                 if (mName != null && middleName != null) {
-                                    if (mName.toUpperCase(Locale.getDefault()).equals(middleName.toUpperCase(Locale.getDefault()))) {
+                                    if (mName.toUpperCase().equals(middleName.toUpperCase())) {
                                         returnList.add(partyAndAddr);
                                     }
                                 } else if (middleName == null) {
@@ -301,7 +298,7 @@ public class PartyWorker {
      * Finds all matching parties based on the values provided.  Excludes party records with a statusId of PARTY_DISABLED.  Results are ordered by descending PartyContactMech.fromDate.
      * 1. Candidate addresses are found by querying PartyAndPostalAddress using the supplied city and if provided, stateProvinceGeoId, postalCode, postalCodeExt and countryGeoId
      * 2. In-memory address line comparisons are then performed against the supplied address1 and if provided, address2.  Address lines are compared after the strings have been converted using {@link #makeMatchingString(Delegator, String)}.
-     *
+     * 
      * @param delegator             Delegator instance
      * @param address1              PostalAddress.address1 to match against (Required).
      * @param address2              Optional PostalAddress.address2 to match against.
@@ -314,26 +311,26 @@ public class PartyWorker {
      * @return List of PartyAndPostalAddress GenericValue objects that match the supplied criteria.
      * @throws GenericEntityException
      */
-    public static List<GenericValue> findMatchingPartyPostalAddress(Delegator delegator, String address1, String address2, String city,
+    public static List<GenericValue> findMatchingPartyPostalAddress(Delegator delegator, String address1, String address2, String city, 
                             String stateProvinceGeoId, String postalCode, String postalCodeExt, String countryGeoId, String partyTypeId) throws GenericEntityException {
 
         if (address1 == null || city == null || postalCode == null) {
             throw new IllegalArgumentException();
         }
 
-        List<EntityCondition> addrExprs = new LinkedList<>();
+        List<EntityCondition> addrExprs = new LinkedList<EntityCondition>();
         if (stateProvinceGeoId != null) {
             if ("**".equals(stateProvinceGeoId)) {
                 Debug.logWarning("Illegal state code passed!", module);
             } else if ("NA".equals(stateProvinceGeoId)) {
                 addrExprs.add(EntityCondition.makeCondition("stateProvinceGeoId", EntityOperator.EQUALS, "_NA_"));
             } else {
-                addrExprs.add(EntityCondition.makeCondition("stateProvinceGeoId", EntityOperator.EQUALS, stateProvinceGeoId.toUpperCase(Locale.getDefault())));
+                addrExprs.add(EntityCondition.makeCondition("stateProvinceGeoId", EntityOperator.EQUALS, stateProvinceGeoId.toUpperCase()));
             }
         }
 
         if (!postalCode.startsWith("*")) {
-            if (postalCode.length() == 10 && postalCode.indexOf('-') != -1) {
+            if (postalCode.length() == 10 && postalCode.indexOf("-") != -1) {
                 String[] zipSplit = postalCode.split("-", 2);
                 postalCode = zipSplit[0];
                 postalCodeExt = zipSplit[1];
@@ -348,7 +345,7 @@ public class PartyWorker {
         addrExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("city"), EntityOperator.EQUALS, EntityFunction.UPPER(city)));
 
         if (countryGeoId != null) {
-            addrExprs.add(EntityCondition.makeCondition("countryGeoId", EntityOperator.EQUALS, countryGeoId.toUpperCase(Locale.getDefault())));
+            addrExprs.add(EntityCondition.makeCondition("countryGeoId", EntityOperator.EQUALS, countryGeoId.toUpperCase()));
         }
 
         // limit to only non-disabled status
@@ -370,7 +367,7 @@ public class PartyWorker {
             return addresses;
         }
 
-        List<GenericValue> validFound = new LinkedList<>();
+        List<GenericValue> validFound = new LinkedList<GenericValue>();
         // check the address line
         for (GenericValue address: addresses) {
             // address 1 field
@@ -421,7 +418,7 @@ public class PartyWorker {
         }
 
         // upper case the address
-        String str = address.trim().toUpperCase(Locale.getDefault());
+        String str = address.trim().toUpperCase();
 
         // replace mapped words
         List<GenericValue> addressMap = null;
@@ -433,7 +430,7 @@ public class PartyWorker {
 
         if (addressMap != null) {
             for (GenericValue v: addressMap) {
-                str = str.replaceAll(v.getString("mapKey").toUpperCase(Locale.getDefault()), v.getString("mapValue").toUpperCase(Locale.getDefault()));
+                str = str.replaceAll(v.getString("mapKey").toUpperCase(), v.getString("mapValue").toUpperCase());
             }
         }
 
@@ -442,7 +439,7 @@ public class PartyWorker {
     }
 
     public static List<String> getAssociatedPartyIdsByRelationshipType(Delegator delegator, String partyIdFrom, String partyRelationshipTypeId) {
-        List<GenericValue> partyList = new LinkedList<>();
+        List<GenericValue> partyList = new LinkedList<GenericValue>();
         List<String> partyIds = null;
         try {
             EntityConditionList<EntityExpr> baseExprs = EntityCondition.makeCondition(UtilMisc.toList(
@@ -451,7 +448,7 @@ public class PartyWorker {
             List<GenericValue> associatedParties = EntityQuery.use(delegator).from("PartyRelationship").where(baseExprs).cache(true).queryList();
             partyList.addAll(associatedParties);
             while (UtilValidate.isNotEmpty(associatedParties)) {
-                List<GenericValue> currentAssociatedParties = new LinkedList<>();
+                List<GenericValue> currentAssociatedParties = new LinkedList<GenericValue>();
                 for (GenericValue associatedParty : associatedParties) {
                     EntityConditionList<EntityExpr> innerExprs = EntityCondition.makeCondition(UtilMisc.toList(
                             EntityCondition.makeCondition("partyIdFrom", associatedParty.get("partyIdTo")),
@@ -488,9 +485,7 @@ public class PartyWorker {
             String idToFind, String partyIdentificationTypeId,
             boolean searchPartyFirst, boolean searchAllId) throws GenericEntityException {
 
-        if (Debug.verboseOn()) {
-            Debug.logVerbose("Analyze partyIdentification: entered id = " + idToFind + ", partyIdentificationTypeId = " + partyIdentificationTypeId, module);
-        }
+        if (Debug.verboseOn()) Debug.logVerbose("Analyze partyIdentification: entered id = " + idToFind + ", partyIdentificationTypeId = " + partyIdentificationTypeId, module);
 
         GenericValue party = null;
         List<GenericValue> partiesFound = null;
@@ -514,15 +509,10 @@ public class PartyWorker {
         }
 
         if (party != null) {
-            if (UtilValidate.isNotEmpty(partiesFound)) {
-                partiesFound.add(party);
-            } else {
-                partiesFound = UtilMisc.toList(party);
-            }
+            if (UtilValidate.isNotEmpty(partiesFound)) partiesFound.add(party);
+            else partiesFound = UtilMisc.toList(party);
         }
-        if (Debug.verboseOn()) {
-            Debug.logVerbose("Analyze partyIdentification: found party.partyId = " + party + ", and list : " + partiesFound, module);
-        }
+        if (Debug.verboseOn()) Debug.logVerbose("Analyze partyIdentification: found party.partyId = " + party + ", and list : " + partiesFound, module);
         return partiesFound;
     }
 

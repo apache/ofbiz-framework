@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<book xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0" 
+      xmlns:xl="http://www.w3.org/1999/xlink"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xsi:schemaLocation="http://docbook.org/ns/docbook ../../content/dtd/docbook.xsd"
+      xmlns="http://docbook.org/ns/docbook">
+
+    <info>
+        <title>Apache OFBiz User documentation</title>
+            </info>    
+    
+    <chapter>
+        <title>Introduction</title>
+        <para>
+            Welcome to Apache OFBiz the ready to use open source ERP system.
+        </para>
+        <para>
+            A project introduction can be found at the <link xl:href="http://cwiki.apache.org/confluence/display/OFBADMIN/Apache+OFBiz+Project+Overview">OFBiz documentation site</link>
+        </para>
+        <para>
+            A general Business setup guide can be found at <link xl:href="http://cwiki.apache.org/confluence/display/OFBENDUSER/Apache+OFBiz+Business+Setup+Guide">OFBiz documentation site</link>
+            For a quick setup check the <link xl:href="#componentSetup">Setup component.</link>
+        </para>
+        
+    </chapter>
+    <xi:include href="../../../applications/commonext/documents/Setup.xml"/>
+    <xi:include href="../../../applications/accounting/documents/Accounting.xml"/>
+    <xi:include href="../../../applications/party/documents/Party.xml"/>
+    <xi:include href="../../../applications/product/documents/Product.xml"/>
+    <xi:include href="../../../applications/order/documents/Order.xml"/>
+    <xi:include href="../../../applications/content/documents/Content.xml"/>
+    <xi:include href="../../../applications/marketing/documents/Marketing.xml"/>
+    <xi:include href="../../../applications/humanres/documents/Humanres.xml"/>
+    <xi:include href="../../myportal/documents/MyPortal.xml"/>
+    <xi:include href="../../projectmgr/documents/ProjectMgr.xml"/>
+    <xi:include href="../../ebay/documents/Ebay.xml"/>
+    <xi:include href="../../ebaystore/documents/EbayStore.xml"/>
+    
+    <appendix>
+        <title>New features recently added</title>
+        <para>
+           A description of the new features recently added can be found at the <link xl:href="http://cwiki.apache.org/confluence/display/OFBIZ/Main+New+Features">OFBiz documentation site</link>
+        </para>
+    </appendix>
+    
+</book>

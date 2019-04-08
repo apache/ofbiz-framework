@@ -1,0 +1,171 @@
+<?xml version="1.0"?>
+
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<web-app version="3.0">
+
+    <display-name>Apache OFBiz - demostore</display-name>
+    <description>Demo Store for the Apache OFBiz Project</description>
+
+    <context-param>
+        <description>A unique ID used to look up the WebSite entity</description>
+        <param-name>webSiteId</param-name>
+        <param-value>WebStore</param-value>
+    </context-param>
+    <context-param>
+        <description>A unique name used to identify/recognize the local dispatcher for the Service Engine</description>
+        <param-name>localDispatcherName</param-name>
+        <param-value>ecommerce</param-value>
+    </context-param>
+    <context-param>
+        <description>The Name of the Entity Delegator to use, defined in entityengine.xml</description>
+        <param-name>entityDelegatorName</param-name>
+        <param-value>default</param-value>
+    </context-param>
+    <context-param>
+        <description>The location of the main-decorator screen to use for this webapp; referred to as a context variable in screen def XML files.</description>
+        <param-name>mainDecoratorLocation</param-name>
+        <param-value>component://ecommerce/widget/CommonScreens.xml</param-value>
+    </context-param>
+
+    <filter>
+        <display-name>ContextFilter</display-name>
+        <filter-name>ContextFilter</filter-name>
+        <filter-class>org.apache.ofbiz.webapp.control.ContextFilter</filter-class>
+    </filter>
+    <filter>
+        <display-name>CatalogUrlFilter</display-name>
+        <filter-name>CatalogUrlFilter</filter-name>
+        <filter-class>org.apache.ofbiz.product.category.CatalogUrlFilter</filter-class>
+        <init-param>
+            <param-name>defaultLocaleString</param-name>
+            <param-value>en_US</param-value>
+        </init-param>
+    </filter>
+    <filter>
+        <display-name>ContentUrlFilter</display-name>
+        <filter-name>ContentUrlFilter</filter-name>
+        <filter-class>org.apache.ofbiz.content.content.ContentUrlFilter</filter-class>
+        <init-param>
+            <param-name>defaultLocaleString</param-name>
+            <param-value>en_US</param-value>
+        </init-param>
+        <init-param>
+            <param-name>viewRequest</param-name>
+            <param-value>ViewBlogArticle</param-value>
+        </init-param>
+    </filter>
+    <filter>
+        <display-name>ControlFilter</display-name>
+        <filter-name>ControlFilter</filter-name>
+        <filter-class>org.apache.ofbiz.webapp.control.ControlFilter</filter-class>
+        <init-param>
+            <param-name>allowedPaths</param-name>
+            <param-value>/error:/control:/products:/select:/index.html:/index.jsp:/robots.txt:/default.html:/default.jsp:/images</param-value>
+        </init-param>
+        <init-param>
+            <param-name>redirectPath</param-name>
+            <param-value>/control/main</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>ContextFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>CatalogUrlFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>ContentUrlFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>ControlFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <listener><listener-class>org.apache.ofbiz.webapp.control.ControlEventListener</listener-class></listener>
+    <!-- NOTE: not all app servers support mounting implementations of the HttpSessionActivationListener interface -->
+    <!-- <listener><listener-class>org.apache.ofbiz.webapp.control.ControlActivationEventListener</listener-class></listener> -->
+
+    <!-- this listener will save any abandoned cart info -->
+    <listener><listener-class>org.apache.ofbiz.order.shoppingcart.CartEventListener</listener-class></listener>
+    <!-- this listener will clean up info -->
+    <listener><listener-class>org.apache.ofbiz.webapp.control.LoginEventListener</listener-class></listener>
+
+    <servlet>
+        <display-name>ControlServlet</display-name>
+        <servlet-name>ControlServlet</servlet-name>
+        <description>Main Control Servlet</description>
+        <servlet-class>org.apache.ofbiz.webapp.control.ControlServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <!-- un-comment for Worldpay
+    <servlet>
+        <description>WorldPay Select Handler Service</description>
+        <display-name>SelectHandler</display-name>
+        <servlet-name>select</servlet-name>
+        <servlet-class>com.worldpay.select.merchant.SelectHandler</servlet-class>
+        <load-on-startup>5</load-on-startup>
+    </servlet>
+    -->
+    <servlet>
+        <description>Catalog (Category/Product) URL Servlet</description>
+        <display-name>CatalogUrlServlet</display-name>
+        <servlet-name>CatalogUrlServlet</servlet-name>
+        <servlet-class>org.apache.ofbiz.product.category.CatalogUrlServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ControlServlet</servlet-name>
+        <url-pattern>/control/*</url-pattern>
+    </servlet-mapping>
+    <!-- un-comment for Worldpay
+    <servlet-mapping>
+        <servlet-name>select</servlet-name>
+        <url-pattern>/select/*</url-pattern>
+    </servlet-mapping>
+    -->
+    <servlet-mapping>
+        <servlet-name>CatalogUrlServlet</servlet-name>
+        <url-pattern>/products/*</url-pattern>
+    </servlet-mapping>
+
+    <session-config>
+        <session-timeout>60</session-timeout>
+        <cookie-config>
+          <http-only>true</http-only>
+          <secure>true</secure>
+        </cookie-config>
+        <tracking-mode>COOKIE</tracking-mode>
+    </session-config>
+
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.htm</welcome-file>
+    </welcome-file-list>
+
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error/404.jsp</location>
+    </error-page>
+</web-app>

@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
+import java.util.regex.PatternSyntaxException;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -70,21 +71,21 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
      * ----------------------------------------------------------------------- *
      *                     DEVELOPERS PLEASE READ
      * ----------------------------------------------------------------------- *
-     *
+     * 
      * This model is intended to be a read-only data structure that represents
      * an XML element. Outside of object construction, the class should not
      * have any behaviors.
-     *
+     * 
      * Instances of this class will be shared by multiple threads - therefore
      * it is immutable. DO NOT CHANGE THE OBJECT'S STATE AT RUN TIME!
-     *
+     * 
      */
 
     public static final String module = AbstractModelAction.class.getName();
 
     /**
      * Returns a new <code>ModelAction</code> instance, built from <code>actionElement</code>.
-     *
+     * 
      * @param modelWidget The <code>ModelWidget</code> that contains the &lt;actions&gt; element
      * @param actionElement
      * @return A new <code>ModelAction</code> instance
@@ -118,7 +119,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
 
     public static List<ModelAction> readSubActions(ModelWidget modelWidget, Element parentElement) {
         List<? extends Element> actionElementList = UtilXml.childElementList(parentElement);
-        List<ModelAction> actions = new ArrayList<>(actionElementList.size());
+        List<ModelAction> actions = new ArrayList<ModelAction>(actionElementList.size());
         for (Element actionElement : actionElementList) {
             actions.add(newInstance(modelWidget, actionElement));
         }
@@ -132,13 +133,11 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
      * @param context
      */
     public static void runSubActions(List<ModelAction> actions, Map<String, Object> context) {
-        if (actions == null) {
+        if (actions == null)
             return;
-        }
         for (ModelAction action : actions) {
-            if (Debug.verboseOn()) {
-                 Debug.logVerbose("Running action " + action.getClass().getName(), module);
-            }
+            if (Debug.verboseOn())
+                Debug.logVerbose("Running action " + action.getClass().getName(), module);
             try {
                 action.runAction(context);
             } catch (GeneralException e) {
@@ -156,9 +155,8 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
 
     protected AbstractModelAction(ModelWidget modelWidget, Element actionElement) {
         this.modelWidget = modelWidget;
-        if (Debug.verboseOn()) {
-             Debug.logVerbose("Reading widget action with name: " + actionElement.getNodeName(), module);
-        }
+        if (Debug.verboseOn())
+            Debug.logVerbose("Reading widget action with name: " + actionElement.getNodeName(), module);
     }
 
     /**
@@ -184,7 +182,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
 
     /**
      * Models the &lt;entity-and&gt; element.
-     *
+     * 
      * @see <code>widget-screen.xsd</code>
      */
     public static class EntityAnd extends AbstractModelAction {
@@ -218,7 +216,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
 
     /**
      * Models the &lt;entity-condition&gt; element.
-     *
+     * 
      * @see <code>widget-screen.xsd</code>
      */
     public static class EntityCondition extends AbstractModelAction {
@@ -252,7 +250,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
 
     /**
      * Models the &lt;entity-one&gt; element.
-     *
+     * 
      * @see <code>widget-common.xsd</code>
      */
     public static class EntityOne extends AbstractModelAction {
@@ -286,7 +284,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
 
     /**
      * Models the &lt;get-related&gt; element.
-     *
+     * 
      * @see <code>widget-common.xsd</code>
      */
     public static class GetRelated extends AbstractModelAction {
@@ -320,7 +318,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
         public void runAction(Map<String, Object> context) {
             Object valueObject = valueNameAcsr.get(context);
             if (valueObject == null) {
-                if (Debug.verboseOn()) Debug.logVerbose("Value not found with name: " + valueNameAcsr + ", not getting related...", module);
+                Debug.logVerbose("Value not found with name: " + valueNameAcsr + ", not getting related...", module);
                 return;
             }
             if (!(valueObject instanceof GenericValue)) {
@@ -371,7 +369,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
 
     /**
      * Models the &lt;get-related-one&gt; element.
-     *
+     * 
      * @see <code>widget-common.xsd</code>
      */
     public static class GetRelatedOne extends AbstractModelAction {
@@ -401,7 +399,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
         public void runAction(Map<String, Object> context) {
             Object valueObject = valueNameAcsr.get(context);
             if (valueObject == null) {
-                if (Debug.verboseOn()) Debug.logVerbose("Value not found with name: " + valueNameAcsr + ", not getting related...", module);
+                Debug.logVerbose("Value not found with name: " + valueNameAcsr + ", not getting related...", module);
                 return;
             }
             if (!(valueObject instanceof GenericValue)) {
@@ -436,7 +434,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
 
     /**
      * Models the &lt;property-map&gt; element.
-     *
+     * 
      * @see <code>widget-common.xsd</code>
      */
     public static class PropertyMap extends AbstractModelAction {
@@ -510,7 +508,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
 
     /**
      * Models the &lt;property-to-field&gt; element.
-     *
+     * 
      * @see <code>widget-common.xsd</code>
      */
     public static class PropertyToField extends AbstractModelAction {
@@ -540,6 +538,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
 
         @Override
         public void runAction(Map<String, Object> context) {
+            //String globalStr = this.globalExdr.expandString(context);
             // default to false
             //boolean global = "true".equals(globalStr);
             Locale locale = (Locale) context.get("locale");
@@ -598,7 +597,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
 
     /**
      * Models the &lt;script&gt; element.
-     *
+     * 
      * @see <code>widget-common.xsd</code>
      */
     public static class Script extends AbstractModelAction {
@@ -620,7 +619,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
         @Override
         public void runAction(Map<String, Object> context) throws GeneralException {
             if (location.endsWith(".xml")) {
-                Map<String, Object> localContext = new HashMap<>();
+                Map<String, Object> localContext = new HashMap<String, Object>();
                 localContext.putAll(context);
                 DispatchContext ctx = WidgetWorker.getDispatcher(context).getDispatchContext();
                 MethodContext methodContext = new MethodContext(ctx, localContext, null);
@@ -646,7 +645,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
 
     /**
      * Models the &lt;service&gt; element.
-     *
+     * 
      * @see <code>widget-screen.xsd</code>
      */
     public static class Service extends AbstractModelAction {
@@ -684,7 +683,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                 if ("true".equals(autoFieldMapString)) {
                     DispatchContext dc = WidgetWorker.getDispatcher(context).getDispatchContext();
                     // try a map called "parameters", try it first so values from here are overriden by values in the main context
-                    Map<String, Object> combinedMap = new HashMap<>();
+                    Map<String, Object> combinedMap = new HashMap<String, Object>();
                     Map<String, Object> parametersObj = UtilGenerics.toMap(context.get("parameters"));
                     if (parametersObj != null) {
                         combinedMap.putAll(parametersObj);
@@ -700,13 +699,28 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                     }
                 }
                 if (serviceContext == null) {
-                    serviceContext = new HashMap<>();
+                    serviceContext = new HashMap<String, Object>();
                 }
                 if (this.fieldMap != null) {
                     EntityFinderUtil.expandFieldMapToContext(this.fieldMap, context, serviceContext);
                 }
                 Map<String, Object> result = WidgetWorker.getDispatcher(context).runSync(serviceNameExpanded, serviceContext);
-                ModelActionUtil.contextPutQueryStringOrAllResult(context, result, this.resultMapNameAcsr);
+                if (!this.resultMapNameAcsr.isEmpty()) {
+                    this.resultMapNameAcsr.put(context, result);
+                    String queryString = (String) result.get("queryString");
+                    context.put("queryString", queryString);
+                    context.put("queryStringMap", result.get("queryStringMap"));
+                    if (UtilValidate.isNotEmpty(queryString)) {
+                        try {
+                            String queryStringEncoded = queryString.replaceAll("&", "%26");
+                            context.put("queryStringEncoded", queryStringEncoded);
+                        } catch (PatternSyntaxException e) {
+
+                        }
+                    }
+                } else {
+                    context.putAll(result);
+                }
             } catch (GenericServiceException e) {
                 String errMsg = "Error calling service with name " + serviceNameExpanded + ": " + e.toString();
                 Debug.logError(e, errMsg, module);
@@ -729,7 +743,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
 
     /**
      * Models the &lt;set&gt; element.
-     *
+     * 
      * @see <code>widget-common.xsd</code>
      */
     public static class SetField extends AbstractModelAction {
@@ -741,8 +755,6 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
         private final String toScope;
         private final String type;
         private final FlexibleStringExpander valueExdr;
-        private final boolean setIfNull;
-        private final boolean setIfEmpty;
 
         public SetField(ModelWidget modelWidget, Element setElement) {
             super(modelWidget, setElement);
@@ -754,8 +766,6 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
             this.type = setElement.getAttribute("type");
             this.toScope = setElement.getAttribute("to-scope");
             this.fromScope = setElement.getAttribute("from-scope");
-            this.setIfNull = !"false".equals(setElement.getAttribute("set-if-null")); //default to true
-            this.setIfEmpty = !"false".equals(setElement.getAttribute("set-if-empty")); //default to true
             if (!this.fromField.isEmpty() && !this.valueExdr.isEmpty()) {
                 throw new IllegalArgumentException("Cannot specify a from-field [" + setElement.getAttribute("from-field")
                         + "] and a value [" + setElement.getAttribute("value") + "] on the set action in a widget");
@@ -771,18 +781,17 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
             Object newValue = null;
             String originalName = this.fromField.getOriginalName();
             List<String> currentWidgetTrail = UtilGenerics.toList(context.get("_WIDGETTRAIL_"));
-            List<String> trailList = new ArrayList<>();
+            List<String> trailList = new ArrayList<String>();
             if (currentWidgetTrail != null) {
                 trailList.addAll(currentWidgetTrail);
             }
             for (int i = trailList.size(); i >= 0; i--) {
                 List<String> subTrail = trailList.subList(0, i);
                 String newKey = null;
-                if (subTrail.size() > 0) {
+                if (subTrail.size() > 0)
                     newKey = StringUtil.join(subTrail, "|") + "|" + originalName;
-                } else {
+                else
                     newKey = originalName;
-                }
                 if (storeAgent instanceof ServletContext) {
                     newValue = ((ServletContext) storeAgent).getAttribute(newKey);
                 } else if (storeAgent instanceof HttpSession) {
@@ -802,32 +811,32 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
             // default to false
             boolean global = "true".equals(globalStr);
             Object newValue = null;
-            if (this.fromScope != null && "user".equals(this.fromScope)) {
+            if (this.fromScope != null && this.fromScope.equals("user")) {
                 if (!this.fromField.isEmpty()) {
                     HttpSession session = (HttpSession) context.get("session");
                     newValue = getInMemoryPersistedFromField(session, context);
-                    if (Debug.verboseOn()) {
-                         Debug.logVerbose("In user getting value for field from [" + this.fromField.getOriginalName() + "]: " + newValue, module);
-                    }
+                    if (Debug.verboseOn())
+                        Debug.logVerbose("In user getting value for field from [" + this.fromField.getOriginalName() + "]: "
+                                + newValue, module);
                 } else if (!this.valueExdr.isEmpty()) {
                     newValue = this.valueExdr.expand(context);
                 }
-            } else if (this.fromScope != null && "application".equals(this.fromScope)) {
+            } else if (this.fromScope != null && this.fromScope.equals("application")) {
                 if (!this.fromField.isEmpty()) {
                     ServletContext servletContext = (ServletContext) context.get("application");
                     newValue = getInMemoryPersistedFromField(servletContext, context);
-                    if (Debug.verboseOn()) {
-                         Debug.logVerbose("In application getting value for field from [" + this.fromField.getOriginalName() + "]: " + newValue, module);
-                    }
+                    if (Debug.verboseOn())
+                        Debug.logVerbose("In application getting value for field from [" + this.fromField.getOriginalName()
+                                + "]: " + newValue, module);
                 } else if (!this.valueExdr.isEmpty()) {
                     newValue = this.valueExdr.expandString(context);
                 }
             } else {
                 if (!this.fromField.isEmpty()) {
                     newValue = this.fromField.get(context);
-                    if (Debug.verboseOn()) {
-                         Debug.logVerbose("Getting value for field from [" + this.fromField.getOriginalName() + "]: " + newValue, module);
-                    }
+                    if (Debug.verboseOn())
+                        Debug.logVerbose("Getting value for field from [" + this.fromField.getOriginalName() + "]: " + newValue,
+                                module);
                 } else if (!this.valueExdr.isEmpty()) {
                     newValue = this.valueExdr.expand(context);
                 }
@@ -843,7 +852,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                     newValue = new LinkedList();
                 } else {
                     try {
-                        newValue = ObjectType.simpleTypeOrObjectConvert(newValue, this.type, null, (TimeZone) context.get("timeZone"),
+                        newValue = ObjectType.simpleTypeConvert(newValue, this.type, null, (TimeZone) context.get("timeZone"),
                                 (Locale) context.get("locale"), true);
                     } catch (GeneralException e) {
                         String errMsg = "Could not convert field value for the field: [" + this.field.getOriginalName()
@@ -853,19 +862,7 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                     }
                 }
             }
-            if (!setIfNull && newValue == null){
-                if (Debug.warningOn()) {
-                    Debug.logWarning("Field value not found (null) for the field: [" + this.field.getOriginalName() + " and there was no default value, so field was not set", module);
-                }
-                return;
-            }
-            if (!setIfEmpty && ObjectType.isEmpty(newValue)){
-                if (Debug.warningOn()) {
-                    Debug.logWarning("Field value not found (empty) for the field: [" + this.field.getOriginalName() + " and there was no default value, so field was not set", module);
-                }
-                return;
-            }
-            if (this.toScope != null && "user".equals(this.toScope)) {
+            if (this.toScope != null && this.toScope.equals("user")) {
                 String originalName = this.field.getOriginalName();
                 List<String> currentWidgetTrail = UtilGenerics.toList(context.get("_WIDGETTRAIL_"));
                 String newKey = "";
@@ -878,10 +875,10 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                 newKey += originalName;
                 HttpSession session = (HttpSession) context.get("session");
                 session.setAttribute(newKey, newValue);
-                if (Debug.verboseOn()) {
-                     Debug.logVerbose("In user setting value for field from [" + this.field.getOriginalName() + "]: " + newValue, module);
-                }
-            } else if (this.toScope != null && "application".equals(this.toScope)) {
+                if (Debug.verboseOn())
+                    Debug.logVerbose("In user setting value for field from [" + this.field.getOriginalName() + "]: " + newValue,
+                            module);
+            } else if (this.toScope != null && this.toScope.equals("application")) {
                 String originalName = this.field.getOriginalName();
                 List<String> currentWidgetTrail = UtilGenerics.toList(context.get("_WIDGETTRAIL_"));
                 String newKey = "";
@@ -894,15 +891,14 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                 newKey += originalName;
                 ServletContext servletContext = (ServletContext) context.get("application");
                 servletContext.setAttribute(newKey, newValue);
-                if (Debug.verboseOn()) {
-                     Debug.logVerbose("In application setting value for field from [" + this.field.getOriginalName() + "]: " + newValue, module);
-                }
+                if (Debug.verboseOn())
+                    Debug.logVerbose("In application setting value for field from [" + this.field.getOriginalName() + "]: "
+                            + newValue, module);
             } else {
                 // only do this if it is not global, if global ONLY put it in the global context
                 if (!global) {
-                    if (Debug.verboseOn()) {
-                         Debug.logVerbose("Setting field [" + this.field.getOriginalName() + "] to value: " + newValue, module);
-                    }
+                    if (Debug.verboseOn())
+                        Debug.logVerbose("Setting field [" + this.field.getOriginalName() + "] to value: " + newValue, module);
                     this.field.put(context, newValue);
                 }
             }

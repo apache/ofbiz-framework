@@ -39,7 +39,7 @@ import org.w3c.dom.Element;
 /**
  * Implements the &lt;set&gt; element.
  * 
- * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Referenc</a>
+ * @see <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/Mini-language+Reference#Mini-languageReference-{{%3Cset%3E}}">Mini-language Reference</a>
  */
 public final class SetOperation extends MethodOperation {
 
@@ -144,9 +144,8 @@ public final class SetOperation extends MethodOperation {
             }
         } else if (!this.fromFma.isEmpty()) {
             newValue = this.fromFma.get(methodContext.getEnvMap());
-            if (Debug.verboseOn()) {
-                 Debug.logVerbose("In screen getting value for field from [" + this.fromFma.toString() + "]: " + newValue, module);
-            }
+            if (Debug.verboseOn())
+                Debug.logVerbose("In screen getting value for field from [" + this.fromFma.toString() + "]: " + newValue, module);
         } else if (!this.valueFse.isEmpty()) {
             newValue = this.valueFse.expand(methodContext.getEnvMap());
             isConstant = true;
@@ -157,15 +156,13 @@ public final class SetOperation extends MethodOperation {
             isConstant = true;
         }
         if (!setIfNull && newValue == null && !"NewMap".equals(this.type) && !"NewList".equals(this.type)) {
-            if (Debug.verboseOn()) {
-                 Debug.logVerbose("Field value not found (null) with name [" + fromFma + "] and value [" + valueFse + "], and there was not default value, not setting field", module);
-            }
+            if (Debug.verboseOn())
+                Debug.logVerbose("Field value not found (null) with name [" + fromFma + "] and value [" + valueFse + "], and there was not default value, not setting field", module);
             return true;
         }
         if (!setIfEmpty && ObjectType.isEmpty(newValue)) {
-            if (Debug.verboseOn()) {
-                 Debug.logVerbose("Field value not found (empty) with name [" + fromFma + "] and value [" + valueFse + "], and there was not default value, not setting field", module);
-            }
+            if (Debug.verboseOn())
+                Debug.logVerbose("Field value not found (empty) with name [" + fromFma + "] and value [" + valueFse + "], and there was not default value, not setting field", module);
             return true;
         }
         if (this.type.length() > 0) {
@@ -197,9 +194,8 @@ public final class SetOperation extends MethodOperation {
                 }
             }
         }
-        if (Debug.verboseOn()) {
-             Debug.logVerbose("Setting field [" + this.fieldFma.toString() + "] to value: " + newValue, module);
-        }
+        if (Debug.verboseOn())
+            Debug.logVerbose("Setting field [" + this.fieldFma.toString() + "] to value: " + newValue, module);
         this.fieldFma.put(methodContext.getEnvMap(), newValue);
         return true;
     }

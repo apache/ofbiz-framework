@@ -60,7 +60,7 @@ public class PagedList<E> implements Iterable<E> {
      */
     public static <E> PagedList<E> empty(int viewIndex, int viewSize) {
         List<E> emptyList = Collections.emptyList();
-        return new PagedList<>(0, 0, 0, viewIndex, viewSize, emptyList);
+        return new PagedList<E>(0, 0, 0, viewIndex, viewSize, emptyList);
     }
 
     /**
@@ -78,7 +78,7 @@ public class PagedList<E> implements Iterable<E> {
     }
 
     /**
-     * @return the size of the full list, this can be the
+     * @return the size of the full list, this can be the 
      * result of <code>EntityListIterator.getResultsSizeAfterPartialList()</code>
      */
     public int getSize() {

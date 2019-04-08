@@ -63,7 +63,6 @@ under the License.
                <parameter param-name="entityName"/>
             </hyperlink>
         </field>
-        <field name="title"><display/></field>
         <field name="actions" title=" ">
             <include-menu name="ListEntitiesAction" location="component://webtools/widget/Menus.xml"/>
         </field>
@@ -71,7 +70,7 @@ under the License.
 
     <form name="EntitySQLCommand" target="EntitySQLProcessor">
         <field name="group" title="${uiLabelMap.CommonGroup}">
-            <drop-down no-current-selected-key="org.apache.ofbiz">
+            <drop-down allow-empty="false">
                 <list-options list-name="groups" key-name="group" description="${group}"/>
             </drop-down>
         </field>

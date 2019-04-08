@@ -34,28 +34,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.ofbiz.base.util.DateRange;
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.GeneralException;
-import org.apache.ofbiz.base.util.ObjectType;
-import org.apache.ofbiz.base.util.TimeDuration;
-import org.apache.ofbiz.base.util.UtilGenerics;
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilProperties;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.util.EntityQuery;
-import org.apache.ofbiz.service.GenericServiceException;
-import org.apache.ofbiz.service.LocalDispatcher;
-import org.apache.ofbiz.service.ModelParam;
-import org.apache.ofbiz.service.ModelService;
-import org.apache.ofbiz.service.ServiceUtil;
-import org.apache.ofbiz.service.calendar.TemporalExpression;
-import org.apache.ofbiz.service.calendar.TemporalExpressionWorker;
-import org.apache.ofbiz.workeffort.workeffort.ICalWorker.ResponseProperties;
-
 import net.fortuna.ical4j.data.CalendarBuilder;
 import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.model.Calendar;
@@ -98,6 +76,27 @@ import net.fortuna.ical4j.model.property.Summary;
 import net.fortuna.ical4j.model.property.Uid;
 import net.fortuna.ical4j.model.property.Version;
 import net.fortuna.ical4j.model.property.XProperty;
+
+import org.apache.ofbiz.base.util.DateRange;
+import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.ObjectType;
+import org.apache.ofbiz.base.util.TimeDuration;
+import org.apache.ofbiz.base.util.UtilGenerics;
+import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.UtilProperties;
+import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.entity.GenericEntityException;
+import org.apache.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.entity.util.EntityQuery;
+import org.apache.ofbiz.service.GenericServiceException;
+import org.apache.ofbiz.service.LocalDispatcher;
+import org.apache.ofbiz.service.ModelParam;
+import org.apache.ofbiz.service.ModelService;
+import org.apache.ofbiz.service.ServiceUtil;
+import org.apache.ofbiz.service.calendar.TemporalExpression;
+import org.apache.ofbiz.service.calendar.TemporalExpressionWorker;
+import org.apache.ofbiz.workeffort.workeffort.ICalWorker.ResponseProperties;
 
 /** iCalendar converter class. This class uses the <a href="http://ical4j.sourceforge.net/index.html">
  * iCal4J</a> library.
@@ -149,7 +148,7 @@ public class ICalConverter {
     }
 
     protected static ResponseProperties createWorkEffort(Component component, Map<String, Object> context) {
-        Map<String, Object> serviceMap = new HashMap<>();
+        Map<String, Object> serviceMap = new HashMap<String, Object>();
         setWorkEffortServiceMap(component, serviceMap);
         serviceMap.put("workEffortTypeId", "VTODO".equals(component.getName()) ? "TASK" : "EVENT");
         serviceMap.put("currentStatusId", "VTODO".equals(component.getName()) ? "CAL_NEEDS_ACTION" : "CAL_TENTATIVE");
@@ -227,7 +226,7 @@ public class ICalConverter {
         }
         Dur dur = iCalObj.getDuration();
         TimeDuration td = new TimeDuration(0, 0, (dur.getWeeks() * 7) + dur.getDays(), dur.getHours(), dur.getMinutes(), dur.getSeconds(), 0);
-        return (double) TimeDuration.toLong(td);
+        return new Double(TimeDuration.toLong(td));
     }
 
     protected static Timestamp fromLastModified(PropertyList propertyList) {
@@ -259,7 +258,7 @@ public class ICalConverter {
         if (iCalObj == null) {
             return null;
         }
-        return (long) iCalObj.getPercentage();
+        return new Long(iCalObj.getPercentage());
     }
 
     protected static Double fromPriority(PropertyList propertyList) {
@@ -267,7 +266,7 @@ public class ICalConverter {
         if (iCalObj == null) {
             return null;
         }
-        return (double) iCalObj.getLevel();
+        return new Double(iCalObj.getLevel());
     }
 
     protected static String fromStatus(PropertyList propertyList) {
@@ -370,7 +369,7 @@ public class ICalConverter {
                     alarm.validate(true);
                     Debug.logVerbose("iCalendar alarm passes validation", module);
                 } catch (ValidationException e) {
-                    if (Debug.verboseOn()) Debug.logVerbose("iCalendar alarm fails validation: " + e, module);
+                    Debug.logVerbose("iCalendar alarm fails validation: " + e, module);
                 }
             }
         }
@@ -382,7 +381,7 @@ public class ICalConverter {
      * @param context The conversion context
      * @return An iCalendar as a <code>String</code>, or <code>null</code>
      * if <code>workEffortId</code> is invalid.
-     * @throws GenericEntityException if communications with the database failed
+     * @throws GenericEntityException
      */
     public static ResponseProperties getICalendar(String workEffortId, Map<String, Object> context) throws GenericEntityException {
         Delegator delegator = (Delegator) context.get("delegator");
@@ -415,7 +414,7 @@ public class ICalConverter {
                 calendar.validate(true);
                 Debug.logVerbose("iCalendar passes validation", module);
             } catch (ValidationException e) {
-                if (Debug.verboseOn()) Debug.logVerbose("iCalendar fails validation: " + e, module);
+                Debug.logVerbose("iCalendar fails validation: " + e, module);
             }
         }
         return ICalWorker.createOkResponse(calendar.toString());
@@ -437,7 +436,7 @@ public class ICalConverter {
         }
     }
 
-    protected static List<GenericValue> getRelatedWorkEfforts(GenericValue workEffort, Map<String, Object> context) {
+    protected static List<GenericValue> getRelatedWorkEfforts(GenericValue workEffort, Map<String, Object> context) throws GenericEntityException {
         Map<String, ? extends Object> serviceMap = UtilMisc.toMap("workEffortId", workEffort.getString("workEffortId"));
         Map<String, Object> resultMap = invokeService("getICalWorkEfforts", serviceMap, context);
         List<GenericValue> workEfforts = UtilGenerics.checkList(resultMap.get("workEfforts"), GenericValue.class);
@@ -455,15 +454,16 @@ public class ICalConverter {
         Map<String, Object> serviceResult = invokeService("workEffortICalendarPermission", serviceMap, context);
         Boolean hasPermission = (Boolean) serviceResult.get("hasPermission");
         if (hasPermission != null) {
-            return hasPermission;
+            return hasPermission.booleanValue();
+        } else {
+            return false;
         }
-        return false;
     }
 
     protected static Map<String, Object> invokeService(String serviceName, Map<String, ? extends Object> serviceMap, Map<String, Object> context) {
         LocalDispatcher dispatcher = (LocalDispatcher) context.get("dispatcher");
         Locale locale = (Locale) context.get("locale");
-        Map<String, Object> localMap = new HashMap<>();
+        Map<String, Object> localMap = new HashMap<String, Object>();
         try {
             ModelService modelService = null;
             modelService = dispatcher.getDispatchContext().getModelService(serviceName);
@@ -471,12 +471,12 @@ public class ICalConverter {
                 if (serviceMap.containsKey(modelParam.name)) {
                     Object value = serviceMap.get(modelParam.name);
                     if (UtilValidate.isNotEmpty(modelParam.type)) {
-                        value = ObjectType.simpleTypeOrObjectConvert(value, modelParam.type, null, null, null, true);
+                        value = ObjectType.simpleTypeConvert(value, modelParam.type, null, null, null, true);
                     }
                     localMap.put(modelParam.name, value);
                 }
             }
-        } catch (GeneralException e) {
+        } catch (Exception e) {
             String errMsg = UtilProperties.getMessage("WorkEffortUiLabels", "WorkeffortErrorWhileCreatingServiceMapForService", UtilMisc.toMap("serviceName", serviceName), locale);
             Debug.logError(e, errMsg, module);
             return ServiceUtil.returnError(errMsg + e);
@@ -486,11 +486,7 @@ public class ICalConverter {
         }
         localMap.put("locale", context.get("locale"));
         try {
-            Map<String, Object> result = dispatcher.runSync(serviceName, localMap);
-            if (ServiceUtil.isError(result)) {
-                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
-            }
-            return result;
+            return dispatcher.runSync(serviceName, localMap);
         } catch (GenericServiceException e) {
             String errMsg = UtilProperties.getMessage("WorkEffortUiLabels", "WorkeffortErrorWhileInvokingService", UtilMisc.toMap("serviceName", serviceName), locale);
             Debug.logError(e, errMsg, module);
@@ -517,9 +513,11 @@ public class ICalConverter {
             }
         }
         ParameterList parameterList = property.getParameters();
-        replaceParameter(parameterList, toXParameter(partyIdXParamName, partyAssign.getString("partyId")));
-        replaceParameter(parameterList, new Cn(makePartyName(partyAssign)));
-        replaceParameter(parameterList, toParticipationStatus(partyAssign.getString("assignmentStatusId")));
+        if (partyAssign != null) {
+            replaceParameter(parameterList, toXParameter(partyIdXParamName, partyAssign.getString("partyId")));
+            replaceParameter(parameterList, new Cn(makePartyName(partyAssign)));
+            replaceParameter(parameterList, toParticipationStatus(partyAssign.getString("assignmentStatusId")));
+        }
     }
 
     protected static void loadRelatedParties(List<GenericValue> relatedParties, PropertyList componentProps, Map<String, Object> context) {
@@ -578,12 +576,13 @@ public class ICalConverter {
         boolean newCalendar = true;
         Calendar calendar = null;
         if (iCalData == null) {
-            if (Debug.verboseOn()) Debug.logVerbose("iCalendar Data not found, creating new Calendar", module);
+            Debug.logVerbose("iCalendar Data not found, creating new Calendar", module);
             calendar = new Calendar();
         } else {
-            if (Debug.verboseOn()) Debug.logVerbose("iCalendar Data found, using saved Calendar", module);
-            try (StringReader reader = new StringReader(iCalData)) {
+            Debug.logVerbose("iCalendar Data found, using saved Calendar", module);
+            StringReader reader = new StringReader(iCalData);
             CalendarBuilder builder = new CalendarBuilder();
+            try {
                 calendar = builder.build(reader);
                 newCalendar = false;
             } catch (Exception e) {
@@ -679,20 +678,15 @@ public class ICalConverter {
         }
     }
 
-    /**
-     * Updates work efforts from an incoming iCalendar request.
-     *
-     * @param is the input feeding the calendar parser
-     * @param context parameters from the execution environment
-     * @return the response from the ICalWorker
-     * @throws IOException if there is an issue with {@code is}
-     * @throws ParserException if the calendar build process failed
-     * @throws GenericEntityException if communications with the database failed
-     * @throws GenericServiceException if {@code createWorkEffortICalData} or {@code updateWorkEffortICalData}
-     *         service invocation failed
+    /** Update work efforts from an incoming iCalendar request.
+     * @param is
+     * @param context
+     * @throws IOException
+     * @throws ParserException
+     * @throws GenericEntityException
+     * @throws GenericServiceException
      */
-    public static ResponseProperties storeCalendar(InputStream is, Map<String, Object> context)
-            throws IOException, ParserException, GenericEntityException, GenericServiceException {
+    public static ResponseProperties storeCalendar(InputStream is, Map<String, Object> context) throws IOException, ParserException, GenericEntityException, GenericServiceException {
         CalendarBuilder builder = new CalendarBuilder();
         Calendar calendar = null;
         try {
@@ -728,7 +722,7 @@ public class ICalConverter {
         }
         boolean hasCreatePermission = hasPermission(workEffortId, "CREATE", context);
         List<GenericValue> workEfforts = getRelatedWorkEfforts(publishProperties, context);
-        Set<String> validWorkEfforts = new HashSet<>();
+        Set<String> validWorkEfforts = new HashSet<String>();
         if (UtilValidate.isNotEmpty(workEfforts)) {
             // Security issue: make sure only related work efforts get updated
             for (GenericValue workEffort : workEfforts) {
@@ -782,8 +776,8 @@ public class ICalConverter {
 
     protected static ResponseProperties storePartyAssignments(String workEffortId, Component component, Map<String, Object> context) {
         ResponseProperties responseProps = null;
-        Map<String, Object> serviceMap = new HashMap<>();
-        List<Property> partyList = new LinkedList<>();
+        Map<String, Object> serviceMap = new HashMap<String, Object>();
+        List<Property> partyList = new LinkedList<Property>();
         partyList.addAll(UtilGenerics.checkList(component.getProperties("ATTENDEE"), Property.class));
         partyList.addAll(UtilGenerics.checkList(component.getProperties("CONTACT"), Property.class));
         partyList.addAll(UtilGenerics.checkList(component.getProperties("ORGANIZER"), Property.class));
@@ -792,7 +786,7 @@ public class ICalConverter {
             if (partyId == null) {
                 serviceMap.clear();
                 String address = property.getValue();
-                if (address.toUpperCase(Locale.getDefault()).startsWith("MAILTO:")) {
+                if (address.toUpperCase().startsWith("MAILTO:")) {
                     address = address.substring(7);
                 }
                 serviceMap.put("address", address);
@@ -824,7 +818,7 @@ public class ICalConverter {
         return responseProps;
     }
 
-    protected static ResponseProperties storeWorkEffort(Component component, Map<String, Object> context) throws GenericEntityException {
+    protected static ResponseProperties storeWorkEffort(Component component, Map<String, Object> context) throws GenericEntityException, GenericServiceException {
         PropertyList propertyList = component.getProperties();
         String workEffortId = fromXProperty(propertyList, workEffortIdXPropName);
         Delegator delegator = (Delegator) context.get("delegator");
@@ -835,7 +829,7 @@ public class ICalConverter {
         if (!hasPermission(workEffortId, "UPDATE", context)) {
             return null;
         }
-        Map<String, Object> serviceMap = new HashMap<>();
+        Map<String, Object> serviceMap = new HashMap<String, Object>();
         serviceMap.put("workEffortId", workEffortId);
         setWorkEffortServiceMap(component, serviceMap);
         invokeService("updateWorkEffort", serviceMap, context);

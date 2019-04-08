@@ -35,7 +35,6 @@ import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.collections.PagedList;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.GenericPK;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.condition.EntityCondition;
 import org.apache.ofbiz.entity.model.DynamicViewEntity;
@@ -68,20 +67,20 @@ public class EntityQuery {
     private boolean filterByDate = false;
     private Timestamp filterByDateMoment;
     private List<String> filterByFieldNames = null;
-    private boolean searchPkOnly = false;
-    private Map<String, Object> fieldMap = null;
 
 
 
     /** Construct an EntityQuery object for use against the specified Delegator
-     * @param delegator The delegator instance to use for the query
+     * @param delegator - The delegator instance to use for the query
+     * @return Returns a new EntityQuery object
      */
     public static EntityQuery use(Delegator delegator) {
         return new EntityQuery(delegator);
     }
 
     /** Construct an EntityQuery object for use against the specified Delegator
-     * @param delegator The delegator instance to use for the query
+     * @param delegator - The delegator instance to use for the query
+     * @return Returns a new EntityQuery object
      */
     public EntityQuery(Delegator delegator) {
         this.delegator = delegator;
@@ -105,7 +104,7 @@ public class EntityQuery {
      * Note that the select methods are not additive, if a subsequent 
      * call is made to select then the existing fields for selection 
      * will be replaced.
-     * @param fields - Strings containing the field names to be selected
+     * @param fieldsToSelect - Strings containing the field names to be selected
      * @return this EntityQuery object, to enable chaining
      */
     public EntityQuery select(String...fields) {
@@ -151,14 +150,14 @@ public class EntityQuery {
      * @return this EntityQuery object, to enable chaining
      */
     public EntityQuery where(Map<String, Object> fieldMap) {
-        this.fieldMap = fieldMap;
+        this.whereEntityCondition = EntityCondition.makeCondition(fieldMap);
         return this;
     }
 
     /** Set a series of field name/values to be ANDed together as the WHERE clause for the query
      * 
      * NOTE: Each successive call to any of the where(...) methods will replace the currently set condition for the query.
-     * @param fields - A series of field names/values to be ANDed together as the where clause for the query
+     * @param fieldMap - A series of field names/values to be ANDed together as the where clause for the query
      * @return this EntityQuery object, to enable chaining
      */
     public EntityQuery where(Object...fields) {
@@ -180,7 +179,7 @@ public class EntityQuery {
     /** Set a list of EntityCondition objects to be ANDed together as the WHERE clause for the query
      * 
      * NOTE: Each successive call to any of the where(...) methods will replace the currently set condition for the query.
-     * @param andConditions - A list of EntityCondition objects to be ANDed together as the WHERE clause for the query
+     * @param fieldMap - A list of EntityCondition objects to be ANDed together as the WHERE clause for the query
      * @return this EntityQuery object, to enable chaining
      */
     public <T extends EntityCondition> EntityQuery where(List<T> andConditions) {
@@ -215,7 +214,7 @@ public class EntityQuery {
     /** The fields of the named entity to order the resultset by; optionally add a " ASC" for ascending or " DESC" for descending
      * 
      * NOTE: Each successive call to any of the orderBy(...) methods will replace the currently set orderBy fields for the query.
-     * @param fields - The fields of the named entity to order the resultset by
+     * @param orderBy - The fields of the named entity to order the resultset by
      * @return this EntityQuery object, to enable chaining
      */
     public EntityQuery orderBy(String...fields) {
@@ -350,7 +349,7 @@ public class EntityQuery {
 
     /** Specifies whether the query should return only values that are currently active using the specified from/thru field name pairs.
      * 
-     * @param filterByFieldName - String pairs representing the from/thru date field names e.g. "fromDate", "thruDate", "contactFromDate", "contactThruDate"
+     * @param fromThruFieldName - String pairs representing the from/thru date field names e.g. "fromDate", "thruDate", "contactFromDate", "contactThruDate"
      * @return this EntityQuery object, to enable chaining
      */
     public EntityQuery filterByDate(String... filterByFieldName) {
@@ -360,7 +359,7 @@ public class EntityQuery {
     /** Specifies whether the query should return only values that are active during the specified moment using the specified from/thru field name pairs.
      * 
      * @param moment - Timestamp representing the moment in time that the values should be active during
-     * @param filterByFieldName - String pairs representing the from/thru date field names e.g. "fromDate", "thruDate", "contactFromDate", "contactThruDate"
+     * @param fromThruFieldName - String pairs representing the from/thru date field names e.g. "fromDate", "thruDate", "contactFromDate", "contactThruDate"
      * @return this EntityQuery object, to enable chaining
      */
     public EntityQuery filterByDate(Timestamp moment, String... filterByFieldName) {
@@ -419,7 +418,6 @@ public class EntityQuery {
      * @return GenericValue representing the only result record from the query
      */
     public GenericValue queryOne() throws GenericEntityException {
-        this.searchPkOnly = true;
         GenericValue result =  EntityUtil.getOnly(queryList());
         return result;
     }
@@ -432,8 +430,14 @@ public class EntityQuery {
      */
     public long queryCount() throws GenericEntityException {
         if (dynamicViewEntity != null) {
-            try (EntityListIterator iterator = queryIterator()) {
+            EntityListIterator iterator = null;
+            try {
+                iterator = queryIterator();
                 return iterator.getResultsSizeAfterPartialList();
+            } finally {
+                if (iterator != null) {
+                    iterator.close();
+                }
             }
         }
         return delegator.findCountByCondition(entityName, makeWhereCondition(false), havingEntityCondition, makeEntityFindOptions());
@@ -447,19 +451,19 @@ public class EntityQuery {
             findOptions = efo;
         }
         List<GenericValue> result = null;
-        if (dynamicViewEntity == null && this.havingEntityCondition == null) {
+        if (dynamicViewEntity == null) {
             result = delegator.findList(entityName, makeWhereCondition(useCache), fieldsToSelect, orderBy, findOptions, useCache);
         } else {
-            try (EntityListIterator it = queryIterator()) { 
-                result = it.getCompleteList();
-            }
+            EntityListIterator it = queryIterator();
+            result = it.getCompleteList();
+            it.close();
         }
         if (filterByDate && useCache) {
             return EntityUtil.filterByCondition(result, this.makeDateCondition());
         }
         return result;
     }
-
+    
     private EntityFindOptions makeEntityFindOptions() {
         EntityFindOptions findOptions = new EntityFindOptions();
         if (resultSetType != null) {
@@ -478,19 +482,6 @@ public class EntityQuery {
     }
 
     private EntityCondition makeWhereCondition(boolean usingCache) {
-        if (whereEntityCondition == null && fieldMap != null) {
-            if (this.searchPkOnly) {
-                //Resolve if the map contains a sub map parameters, use a containsKeys to avoid error when a GenericValue is given as map
-                Map<String, Object> parameters =
-                        fieldMap.containsKey("parameters") ? UtilGenerics.cast(fieldMap.get("parameters")) : null;
-                GenericPK pk = GenericPK.create(delegator.getModelEntity(entityName));
-                pk.setPKFields(parameters);
-                pk.setPKFields(fieldMap);
-                this.whereEntityCondition = EntityCondition.makeCondition(pk.getPrimaryKey());
-            } else {
-                this.whereEntityCondition = EntityCondition.makeCondition(fieldMap);
-            }
-        }
         // we don't use the useCache field here because not all queries will actually use the cache, e.g. findCountByCondition never uses the cache
         if (filterByDate && !usingCache) {
             if (whereEntityCondition != null) {
@@ -521,7 +512,9 @@ public class EntityQuery {
     }
 
     public <T> List<T> getFieldList(final String fieldName) throws GenericEntityException {select(fieldName);
-        try (EntityListIterator genericValueEli = queryIterator()) {
+        EntityListIterator genericValueEli = null;
+        try {
+            genericValueEli = queryIterator();
             if (Boolean.TRUE.equals(this.distinct)) {
                 Set<T> distinctSet = new HashSet<T>();
                 GenericValue value = null;
@@ -545,6 +538,11 @@ public class EntityQuery {
                 return fieldList;
             }
         }
+        finally {
+            if (genericValueEli != null) {
+                genericValueEli.close();
+            }
+        }
     }
 
     /**
@@ -555,8 +553,15 @@ public class EntityQuery {
      * @see EntityUtil#getPagedList
      */
     public PagedList<GenericValue> queryPagedList(final int viewIndex, final int viewSize) throws GenericEntityException {
-        try (EntityListIterator genericValueEli = queryIterator()) {
+        EntityListIterator genericValueEli = null;
+        try {
+            genericValueEli = queryIterator();
             return EntityUtil.getPagedList(genericValueEli, viewIndex, viewSize);
+        }
+        finally {
+            if (genericValueEli != null) {
+                genericValueEli.close();
+            }
         }
     }
 

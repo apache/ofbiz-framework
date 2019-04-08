@@ -301,7 +301,7 @@ under the License.
     <request-map uri="importContactListParties">
         <security https="true" auth="true"/>
         <event type="simple" path="component://marketing/minilang/marketing/contact/ContactListEvents.xml" invoke="importContactListParties"/>
-        <response name="success" type="request-redirect-noparam" value="FindImportContactListParties"/>
+        <response name="success" type="request-redirect" value="FindImportContactListParties"/>
         <response name="error" type="request-redirect" value="FindImportContactListParties"/>
     </request-map>
     <request-map uri="contactListOptOut" track-serverhit="false" track-visit="false">
@@ -382,6 +382,7 @@ under the License.
     <request-map uri="LookupPartyClassificationGroup"><security https="true" auth="true"/><response name="success" type="view" value="LookupPartyClassificationGroup"/></request-map>
     <request-map uri="LookupContactMech"><security https="true" auth="true"/><response name="success" type="view" value="LookupContactMech"/></request-map>
 
+    <request-map uri="LookupCommEvent"><security https="true" auth="true"/><response name="success" type="view" value="LookupCommEvent"/></request-map>
     <request-map uri="LookupPreferredContactMech"><security https="true" auth="true"/><response name="success" type="view" value="LookupPreferredContactMech"/></request-map>
     <request-map uri="LookupCommEvent"><security https="true" auth="true"/><response name="success" type="view" value="LookupCommEvent"/></request-map>
 

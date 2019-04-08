@@ -80,8 +80,8 @@ under the License.
         </field>
         <field name="partyClassificationGroupId" title="${uiLabelMap.PartyClassificationGroup}" use-when="parentTypeId == null">
             <drop-down allow-multiple="true" size="5" allow-empty="false">
-                <entity-options entity-name="PartyClassificationGroupAndType" description="${typeDescription}" key-field-name="partyClassificationGroupId">
-                    <entity-order-by field-name="partyClassificationGroupId"/>
+                <entity-options entity-name="PartyClassificationGroupAndType" description="${typeDescription}" key-field-name="partyClassificationTypeId">
+                    <entity-order-by field-name="partyClassificationTypeId"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -128,7 +128,7 @@ under the License.
         </sort-order>
     </form>
 
-    <grid name="ListParty" target="expirePartyRate" list-name="listIt"
+    <grid name="ListParty" target="deletePartyRate" list-name="listIt"
           odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFindParty" auto-field-map="parameters" result-map-list="listIt"/>
@@ -148,7 +148,6 @@ under the License.
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>
-        <field name="ClassificationGroup"><display description="${parameters.partyClassificationGroupId}"/></field>
         <field name="userLoginId" use-when="userLoginSize > 1"><include-grid name="ListPartyUserLogin" location="component://party/widget/partymgr/PartyForms.xml"/></field>
         <field name="userLoginId" use-when="userLoginSize == 1"><display description="${logins[0].userLoginId}"/></field>
         <field name="userLoginId" use-when="userLoginSize == 0"><display description="(${uiLabelMap.CommonNone})"/></field>
@@ -478,7 +477,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="taxAuthPartyId" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="taxAuthPartyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="isExempt">
             <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
@@ -565,7 +564,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
     </form>
 
-    <grid name="ListPartyRates" target="expirePartyRate"
+    <form name="ListPartyRates" type="list" target="deletePartyRate"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="PartyRate" filter-by-date="true">
@@ -594,7 +593,7 @@ under the License.
         <field name="defaultRate"><display/></field>
         <field name="percentageUsed"><display/></field>
         <field name="deleteButton" widget-style="smallSubmit"><submit /></field>
-    </grid>
+    </form>
 
     <form name="NewUser" type="single" target="${target}${previousParams}"
         focus-field-name="USER_TITLE" header-row-style="header-row" default-table-style="basic-table">
@@ -676,7 +675,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
     </form>
 
-    <grid name="ListSegmentRoles" target="updateSegmentGroupRole"
+    <form name="ListSegmentRoles" type="list" target="updateSegmentGroupRole"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="SegmentGroupRole">
@@ -700,7 +699,7 @@ under the License.
                 <parameter param-name="roleTypeId"/>
             </hyperlink>
         </field>
-    </grid>
+    </form>
 
     <form name="AddSegmentRole" type="single" target="createSegmentRole" default-map-name="segmentGroupRole"
         focus-field-name="segmentGroupId" header-row-style="header-row" default-table-style="basic-table">
@@ -773,7 +772,7 @@ under the License.
             </drop-down>
         </field>
         <field name="fromDate" use-when="partyContent==null" required-field="true"><date-time default-value="${nowTimestamp}"/></field>
-        <field name="fromDate" use-when="partyContent!=null" map-name="partyContent"><display/></field>
+		<field name="fromDate" use-when="partyContent!=null" map-name="partyContent"><display/></field>
         <field name="thruDate" map-name="partyContent"><date-time/></field>
         <field name="statusId" use-when="content==null">
             <drop-down allow-empty="false" no-current-selected-key="CTNT_AVAILABLE">
@@ -816,7 +815,7 @@ under the License.
         <field name="updateButton" use-when="content!=null"><submit button-type="button"/></field>
     </form>
 
-    <grid name="ListPartyContents" separate-columns="false"
+    <form name="ListPartyContents" type="list" separate-columns="false"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="PartyContentDetail">
@@ -863,7 +862,7 @@ under the License.
                 <parameter param-name="partyContentTypeId"/>
             </hyperlink>
         </field>
-    </grid>
+    </form>
 
     <form name="ApplyServiceCredit" type="single" target="applyServiceCredit" default-map-name="serviceCredit" focus-field-name="amount"
         header-row-style="header-row" default-table-style="basic-table">
@@ -988,7 +987,7 @@ under the License.
         <field name="comments"><display/></field>
     </form>
 
-    <grid name="ListPartyRelationships" list-name="partyRelationships" default-table-style="basic-table" target="updatePartyRelationship" odd-row-style="alternate-row">
+    <form name="ListPartyRelationships" type="list" list-name="partyRelationships" default-table-style="basic-table" target="updatePartyRelationship" odd-row-style="alternate-row">
         <field name="partyId"><hidden value="${parameters.partyId}"/></field>
         <field name="partyIdTo" title="${uiLabelMap.PartyPartyId}">
             <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}" key-field-name="partyId">
@@ -1023,7 +1022,7 @@ under the License.
                 <parameter param-name="roleTypeIdFrom"/>
                 <parameter param-name="fromDate"/>
             </hyperlink></field>
-    </grid>
+    </form>
 
     <form name="AddOtherPartyRelationship" type="single" target="createPartyRelationship">
         <field name="partyId"><hidden value="${parameters.partyId}"/></field>
@@ -1065,7 +1064,7 @@ under the License.
         <field name="securityGroupId" title="${uiLabelMap.CommonSecurityGroupId}">
             <drop-down allow-empty="true" text-size="60">
                 <entity-options entity-name="SecurityGroup" key-field-name="groupId">
-                    <entity-order-by field-name="groupName"/>
+                    <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -1089,7 +1088,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
 
-    <grid name="ListInvoicesApplPayments" list-name="ListInvoicesApplPayments"
+    <form name="ListInvoicesApplPayments" type="list" list-name="ListInvoicesApplPayments"
         default-title-style="tableheadtext" odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
        >
         <actions>
@@ -1123,9 +1122,8 @@ under the License.
         <field name="pmEffectiveDate" title="${uiLabelMap.AccountingEffectiveDate}"><display type="date"/></field>
         <field name="pmAmount" title="${uiLabelMap.AccountingPaymentAmount}" use-when="actualCurrency==false"><display type="currency" currency="${actualCurrencyUomId}"/></field>
         <field name="pmAmount" title="${uiLabelMap.AccountingPaymentAmount}" entry-name="pmActualCurrencyAmount" use-when="actualCurrency==true"><display type="currency" currency="${actualCurrencyUomId}"/></field>
-    </grid>
-    
-    <grid name="ListUnAppliedInvoices" list-name="ListUnAppliedInvoices"
+    </form>
+    <form name="ListUnAppliedInvoices" type="list" list-name="ListUnAppliedInvoices"
         default-title-style="tableheadtext" odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
        >
         <actions>
@@ -1145,9 +1143,8 @@ under the License.
         <field name="invoiceDate"><display type="date"/></field>
         <field name="amount"><display type="currency" currency="${invoiceCurrencyUomId}"/></field>
         <field name="unAppliedAmount"><display type="currency" currency="${invoiceCurrencyUomId}"/></field>
-    </grid>
-    
-    <grid name="ListUnAppliedPayments" list-name="paymentList"
+    </form>
+    <form name="ListUnAppliedPayments" type="list" list-name="paymentList"
         default-title-style="tableheadtext" odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
        >
         <actions>
@@ -1171,8 +1168,7 @@ under the License.
         </field>
         <field name="amount"><display type="currency" currency="${paymentCurrencyUomId}"/></field>
         <field name="unAppliedAmount"><display type="currency" currency="${paymentCurrencyUomId}"/></field>
-    </grid>
-    
+    </form>
     <form name="PartyFinancialSummary" type="single" title="Financial summary" default-map-name="finanSummary"
         default-title-style="tableheadtext">
         <actions>
@@ -1189,8 +1185,7 @@ under the License.
         <field position="1" name="totalToBePaid" use-when="finanSummary.get(&quot;totalToBePaid&quot;)!=null" title="${uiLabelMap.PartyToBeReceivedFrom} ${parameters.partyId}"><display type="currency" currency="${actualCurrencyUomId}"/></field>
         <field position="1" name="totalToBeReceived" use-when="finanSummary.get(&quot;totalToBeReceived&quot;)!=null" title="${uiLabelMap.PartyToBePaidTo} ${parameters.partyId}"><display type="currency" currency="${actualCurrencyUomId}"/></field>
     </form>
-    
-    <grid name="ViewPartyRoles" list-name="partyRoles" target="viewroles"
+    <form name="ViewPartyRoles" type="list" list-name="partyRoles" target="viewroles"
         default-title-style="tableheadtext"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}"><display/></field>
@@ -1202,8 +1197,7 @@ under the License.
                 <parameter param-name="roleTypeId"/>
             </hyperlink>
         </field>
-    </grid>
-    
+    </form>
     <form name="AddPartyRole" type="single" title="Add a role to party" target="addrole">
         <field name="partyId"><hidden value="${parameters.partyId}"/></field>
         <field name="roleTypeId">
@@ -1250,8 +1244,7 @@ under the License.
         <field name="description" title="${uiLabelMap.CommonDescription}" required-field="true"><text/></field>
         <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
-    
-    <grid name="ListPreference" target="removePreference" list-name="enumTypeChildAndEnums"
+    <form name="ListPreference" type="list" target="removePreference" list-name="enumTypeChildAndEnums"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true" use-row-submit="true" >
         <row-actions>
             <service service-name="getUserPreference" result-map="values">
@@ -1267,22 +1260,19 @@ under the License.
         <field name="userPrefUserLoginId"><hidden/></field>
         <field name="userPrefValue" title="${uiLabelMap.CommonValue}"><display/></field>
         <field name="submit" title="${uiLabelMap.CommonRemove}" use-when="userPrefValue!=null"><submit/></field>
-    </grid>
-    
-    <grid name="PartyBillingAccount" list-name="billingAccounts" default-table-style="basic-table hover-bar">
+    </form>
+    <form name="PartyBillingAccount" type="list" list-name="billingAccounts" default-table-style="basic-table hover-bar">
         <field name="billingAccountId"><display/></field>
         <field name="accountLimit"><display type="currency"/></field>
         <field name="accountBalance"><display type="currency"/></field>
         <field name="description"><display/></field>
-    </grid>
-    
-    <grid name="PartyReturns" list-name="returnList" default-table-style="basic-table hover-bar">
+    </form>
+    <form name="PartyReturns" type="list" list-name="returnList" default-table-style="basic-table hover-bar">
         <field name="returnId"><display/></field>
         <field name="statusId"><display-entity entity-name="StatusItem"/></field>
         <field name="fromPartyId"><display/></field>
         <field name="toPartyId"><display/></field>
-    </grid>
-    
+    </form>
     <form name="PartySalesOpportunities" type="list" list-name="salesOpportunities" default-table-style="basic-table hover-bar">
         <field name="opportunityName" title="${uiLabelMap.SfaOpportunityName}">
             <hyperlink description="${opportunityName} [${salesOpportunityId}]" target="ViewSalesOpportunity">
@@ -1294,9 +1284,8 @@ under the License.
         <field name="partyId"><display/></field>
     </form>
 
-    <!-- For an unknown reason yet grid can't be used here see OFBIZ-9405 -->
-    <form name="ListPartyIdentification" list-name="listIt" type="list"
-                 default-table-style="basic-table" target="EditPartyIdentification">
+    <form name="ListPartyIdentification" type="list" list-name="listIt"
+                 default-table-style="basic-table hover-bar" target="EditPartyIdentification">
         <actions>
             <entity-and entity-name="PartyIdentificationAndParty" >
                 <field-map field-name="partyId" from-field="partyId"/>
@@ -1316,7 +1305,7 @@ under the License.
     </form>
     
     <form name="EditPartyIdentification" type="single" list-name="partyIdents"
-                 default-table-style="basic-table" target="createPartyIdentification" focus-field-name="idValue">
+                 default-table-style="basic-table hover-bar" target="createPartyIdentification" focus-field-name="idValue">
         <alt-target use-when="partyIdentification !=null" target="updatePartyIdentification"/>
         <field name="partyIdentificationTypeId" use-when="partyIdentification == null">
             <drop-down>
@@ -1355,8 +1344,7 @@ under the License.
             </drop-down>
         </field>
     </form>
-    
-    <grid name="ListProductStoreRole" list-name="listIt" paginate-target="FindProductStoreRoles" default-entity-name="ProductStoreRole" separate-columns="true"
+    <form name="ListProductStoreRole" type="list" list-name="listIt" paginate-target="FindProductStoreRoles" default-entity-name="ProductStoreRole" separate-columns="true"
             odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
@@ -1394,14 +1382,14 @@ under the License.
                 <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
-    </grid>
+    </form>
 
     <form name="ExportParty" type="single" target="ExportPartyCsv.csv" title="" >
         <field name="partyId" tooltip="blank for all"><lookup target-form-name="LookupPartyName"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
     </form>
 
-    <grid name="ExportPartyCsv" list-name="listIt" target="" title="" view-size="99999"
+    <form name="ExportPartyCsv" list-name="listIt" target="" title="" type="list" view-size="99999"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" paginate="false">
         <actions>
             <entity-condition entity-name="PartyExport">
@@ -1438,7 +1426,7 @@ under the License.
         <field name="stateProvinceGeoId" title="stateProvinceGeoId"><display/></field>
         <field name="postalCode" title="postalCode"><display/></field>
         <field name="countryGeoId" title="countryGeoId"><display/></field>
-    </grid>
+    </form>
     
     <form name="ImportParty" type="upload" target="uploadParty" title="" >
         <field name="uploadedFile"><file/></field>

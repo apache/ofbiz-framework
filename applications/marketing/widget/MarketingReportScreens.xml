@@ -103,7 +103,7 @@ under the License.
     <screen name="MarketingCampaignReport">
         <section>
             <actions>
-                <set field="title" from-field="uiLabelMap.MarketingTrackingCodeReportTitle"/>
+                <set field="title" value="${uiLabelMap.MarketingTrackingCodeReportTitle}"/>
                 <property-map resource="MarketingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="fromDate" from-field="requestParameters.fromDate" type="Timestamp"/>
@@ -124,7 +124,7 @@ under the License.
     <screen name= "EmailStatusReport">
         <section>
             <actions>
-                <set field="title" from-field="uiLabelMap.MarketingEmailStatusReport"/>
+                <set field="title" value="${uiLabelMap.MarketingEmailStatusReport}"/>
                 <set field="fromDate" from-field="parameters.fromDate" type="Timestamp"/>
                 <set field="thruDate" from-field="parameters.thruDate" type="Timestamp"/>
                 <set field="statusId" from-field="parameters.statusId" type="String"/> 
@@ -147,7 +147,7 @@ under the License.
     <screen name= "PartyStatusReport">
         <section>
             <actions>
-                <set field="title" from-field="uiLabelMap.MarketingPartyStatusReport"/>
+                <set field="title" value="${uiLabelMap.MarketingPartyStatusReport}"/>
                 <set field="fromDate" from-field="parameters.fromDate" type="Timestamp"/>
                 <set field="statusDate" from-field="parameters.statusDate" type="Timestamp"/>
                 <set field="thruDate" from-field="parameters.thruDate" type="Timestamp"/>

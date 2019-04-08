@@ -19,7 +19,6 @@
 package org.apache.ofbiz.minilang.method.otherops;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Locale;
@@ -40,7 +39,7 @@ import org.w3c.dom.Element;
 /**
  * Implements the &lt;calculate&gt; element.
  * 
- * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
+ * @see <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/Mini-language+Reference#Mini-languageReference-{{%3Ccalculate%3E}}">Mini-language Reference</a>
  */
 public final class Calculate extends MethodOperation {
 
@@ -110,26 +109,26 @@ public final class Calculate extends MethodOperation {
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
         String roundingModeString = roundingModeFse.expandString(methodContext.getEnvMap());
-        RoundingMode roundingMode = RoundingMode.HALF_EVEN;
+        int roundingMode = BigDecimal.ROUND_HALF_EVEN;
         if ("Ceiling".equals(roundingModeString)) {
-            roundingMode = RoundingMode.CEILING;
+            roundingMode = BigDecimal.ROUND_CEILING;
         } else if ("Floor".equals(roundingModeString)) {
-            roundingMode = RoundingMode.FLOOR;
+            roundingMode = BigDecimal.ROUND_FLOOR;
         } else if ("Up".equals(roundingModeString)) {
-            roundingMode = RoundingMode.UP;
+            roundingMode = BigDecimal.ROUND_UP;
         } else if ("Down".equals(roundingModeString)) {
-            roundingMode = RoundingMode.DOWN;
+            roundingMode = BigDecimal.ROUND_DOWN;
         } else if ("HalfUp".equals(roundingModeString)) {
-            roundingMode = RoundingMode.HALF_UP;
+            roundingMode = BigDecimal.ROUND_HALF_UP;
         } else if ("HalfDown".equals(roundingModeString)) {
-            roundingMode = RoundingMode.HALF_DOWN;
+            roundingMode = BigDecimal.ROUND_HALF_DOWN;
         } else if ("Unnecessary".equals(roundingModeString)) {
-            roundingMode = RoundingMode.UNNECESSARY;
+            roundingMode = BigDecimal.ROUND_UNNECESSARY;
         }
         String decimalScaleString = decimalScaleFse.expandString(methodContext.getEnvMap());
         int decimalScale = 2;
         if (!decimalScaleString.isEmpty()) {
-            decimalScale = Integer.valueOf(decimalScaleString);
+            decimalScale = Integer.valueOf(decimalScaleString).intValue();
         }
         BigDecimal resultValue = BigDecimal.ZERO.setScale(decimalScale, roundingMode);
         for (Calculate.SubCalc calcop : calcops) {
@@ -139,18 +138,18 @@ public final class Calculate extends MethodOperation {
         Object resultObj = null;
         switch (type) {
             case TYPE_DOUBLE:
-                resultObj = resultValue.doubleValue();
+                resultObj = Double.valueOf(resultValue.doubleValue());
                 break;
             case TYPE_FLOAT:
-                resultObj = resultValue.floatValue();
+                resultObj = Float.valueOf(resultValue.floatValue());
                 break;
             case TYPE_LONG:
                 resultValue = resultValue.setScale(0, roundingMode);
-                resultObj = resultValue.longValue();
+                resultObj = Long.valueOf(resultValue.longValue());
                 break;
             case TYPE_INTEGER:
                 resultValue = resultValue.setScale(0, roundingMode);
-                resultObj = resultValue.intValue();
+                resultObj = Integer.valueOf(resultValue.intValue());
                 break;
             case TYPE_STRING:
                 // run the decimal-formatting
@@ -197,13 +196,13 @@ public final class Calculate extends MethodOperation {
      * Interface for &lt;calculate&gt; sub-element implementations.
      */
     public interface SubCalc {
-        BigDecimal calcValue(MethodContext methodContext, int scale, RoundingMode roundingMode) throws MiniLangException;
+        BigDecimal calcValue(MethodContext methodContext, int scale, int roundingMode) throws MiniLangException;
     }
 
     /**
      * Implements the &lt;calcop&gt; element.
      * 
-     * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
+     * @see <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/Mini-language+Reference#Mini-languageReference-{{%3Ccalcop%3E}}">Mini-language Reference</a>
      */
     public final class CalcOp extends MiniLangElement implements SubCalc {
         private static final int OPERATOR_ADD = 1;
@@ -254,17 +253,17 @@ public final class Calculate extends MethodOperation {
         }
 
         @Override
-        public BigDecimal calcValue(MethodContext methodContext, int scale, RoundingMode roundingMode) throws MiniLangException {
+        public BigDecimal calcValue(MethodContext methodContext, int scale, int roundingMode) throws MiniLangException {
             BigDecimal resultValue = BigDecimal.ZERO.setScale(scale, roundingMode);
             boolean isFirst = true;
             Object fieldObj = fieldFma.get(methodContext.getEnvMap());
             if (fieldObj != null) {
                 if (fieldObj instanceof Double) {
-                    resultValue = new BigDecimal((Double) fieldObj);
+                    resultValue = new BigDecimal(((Double) fieldObj).doubleValue());
                 } else if (fieldObj instanceof Long) {
-                    resultValue = BigDecimal.valueOf((Long) fieldObj);
+                    resultValue = BigDecimal.valueOf(((Long) fieldObj).longValue());
                 } else if (fieldObj instanceof Float) {
-                    resultValue = new BigDecimal((Float) fieldObj);
+                    resultValue = new BigDecimal(((Float) fieldObj).floatValue());
                 } else if (fieldObj instanceof Integer) {
                     resultValue = BigDecimal.valueOf(((Integer) fieldObj).longValue());
                 } else if (fieldObj instanceof String) {
@@ -307,7 +306,7 @@ public final class Calculate extends MethodOperation {
     /**
      * Implements the &lt;number&gt; element.
      * 
-     * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
+     * @see <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/Mini-language+Reference#Mini-languageReference-{{%3Cnumber%3E}}">Mini-language Reference</a>
      */
     public final class NumberOp extends MiniLangElement implements SubCalc {
 
@@ -324,7 +323,7 @@ public final class Calculate extends MethodOperation {
         }
 
         @Override
-        public BigDecimal calcValue(MethodContext methodContext, int scale, RoundingMode roundingMode) throws MiniLangException {
+        public BigDecimal calcValue(MethodContext methodContext, int scale, int roundingMode) throws MiniLangException {
             String valueStr = valueFse.expandString(methodContext.getEnvMap());
             Locale locale = methodContext.getLocale();
             if (locale == null)
@@ -345,7 +344,7 @@ public final class Calculate extends MethodOperation {
         }
 
         @Override
-        public BigDecimal calcValue(MethodContext methodContext, int scale, RoundingMode roundingMode) throws MiniLangException {
+        public BigDecimal calcValue(MethodContext methodContext, int scale, int roundingMode) throws MiniLangException {
             throw new MiniLangRuntimeException("Invalid calculate sub-element.", this);
         }
     }

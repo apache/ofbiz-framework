@@ -27,10 +27,10 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.PageTitleLookupWorkEffort"/>
+                <set field="title" value="${uiLabelMap.PageTitleLookupWorkEffort}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="entityName" value="WorkEffort"/>
                 <set field="searchFields" value="[workEffortId, workEffortName, description]"/>
@@ -41,7 +41,7 @@ under the License.
                         <include-form name="LookupWorkEffort" location="component://workeffort/widget/LookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-grid name="ListLookupWorkEffort" location="component://workeffort/widget/LookupForms.xml"/>
+                        <include-form name="ListLookupWorkEffort" location="component://workeffort/widget/LookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -55,10 +55,10 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.PageTitleLookupTimesheet"/>
+                <set field="title" value="${uiLabelMap.PageTitleLookupTimesheet}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="entityName" value="Timesheet"/>
                 <set field="searchFields" value="[timesheetId, partyId, clientPartyId, comments]"/>
@@ -69,7 +69,7 @@ under the License.
                         <include-form name="LookupTimesheet" location="component://workeffort/widget/LookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-grid name="ListLookupTimesheet" location="component://workeffort/widget/LookupForms.xml"/>
+                        <include-form name="ListLookupTimesheet" location="component://workeffort/widget/LookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -83,10 +83,10 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.PageTitleLookupWorkEffort"/>
+                <set field="title" value="${uiLabelMap.PageTitleLookupWorkEffort}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="entityName" value="WorkEffort"/>
                 <set field="searchFields" value="[workEffortId, workEffortName, description]"/>

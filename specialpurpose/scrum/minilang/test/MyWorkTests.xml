@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
+    <simple-method method-name="testUpdateTimesheetEntryByWorkeffortNotComplete" short-description="Test update timesheet entry by workeffort" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="scrumteam1"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="inMap.timesheetId" value="DEMO-TIMESHEET1" />
+        <set field="inMap.workEffortId" value="DEMO-TASK-1"/>
+        <set field="inMap.planHours_o_0" value="2.0" type="Double"/>
+        <set field="inMap.hoursDay0_o_0" value="1.0" type="Double"/>
+        <set field="inMap.checkComplete" value="N"/>
+        <call-service service-name="updateTimesheetEntryByWorkeffort" in-map-name="inMap"></call-service>
+    </simple-method>
+    
+    <simple-method method-name="testUpdateTimesheetEntryByWorkeffortComplete" short-description="Test update timesheet entry by workeffort" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="scrumteam1"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="inMap.timesheetId" value="DEMO-TIMESHEET1" />
+        <set field="inMap.workEffortId" value="DEMO-TASK-1"/>
+        <set field="inMap.planHours_o_0" value="2.0" type="Double"/>
+        <set field="inMap.hoursDay0_o_0" value="1.0" type="Double"/>
+        <set field="inMap.checkComplete" value="Y"/>
+        <call-service service-name="updateTimesheetEntryByWorkeffort" in-map-name="inMap"></call-service>
+    </simple-method>
+    <simple-method method-name="testUpdateTask" short-description="Test update tasks" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="scrumteam2"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="parameters.planHours" value="1.0" type="Double"/>
+        <set field="parameters.workEffortId" value="DEMO-SPRINT-1"/>
+        <set field="parameters.taskId" value="DEMO-TASK-2"/>
+        <set field="parameters.partyId" value="SCRUMTEAM-2"/>
+        <call-simple-method method-name="updateTask" xml-resource="component://scrum/minilang/ScrumEvents.xml"/>
+    </simple-method>
+    
+    <simple-method method-name="testRemoveTaskAssignToMe" short-description="Test remove task assign to me" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="scrumteam2"/>
+        </entity-one>
+        <entity-and entity-name="WorkEffortPartyAssignment" list="listWorkAssignment">
+            <field-map field-name="workEffortId" value="DEMO-TASK-2" />
+            <field-map field-name="partyId" value="SCRUMTEAM-2"/>
+        </entity-and>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="parameters.workEffortId" value="DEMO-TASK-2"/>
+        <set field="parameters.partyId" value="SCRUMTEAM-2"/>
+        <set field="parameters.roleTypeId" from-field="listWorkAssignment[0].roleTypeId"/>
+        <set field="parameters.fromDate" from-field="listWorkAssignment[0].fromDate"/>
+        <call-service service-name="unassignPartyFromWorkEffort" in-map-name="parameters"></call-service>
+    </simple-method>
+    
+    <simple-method method-name="testAddNewTimesheet" short-description="Test add a new timesheet" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="scrumteam2"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="inMap.partyId" value="SCRUMTEAM-2"/>
+        <set field="inMap.requiredDate" value="2010-08-23 11:44:08.418" type="Timestamp"/>
+        <call-service service-name="createTimesheetForThisWeek" in-map-name="inMap" >
+        </call-service>
+    </simple-method>
+    <simple-method method-name="testSetTimeSheetStatusToComplete" short-description="Test set timesheet status to complete" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="scrumteam2"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="inMap.timesheetId" value="DEMO-TIMESHEET2"/>
+        <set field="inMap.statusId" value="TIMESHEET_COMPLETED"/>
+        <call-service service-name="updateTimesheet" in-map-name="inMap"></call-service>
+    </simple-method>
+</simple-methods>

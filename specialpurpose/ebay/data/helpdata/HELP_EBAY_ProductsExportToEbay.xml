@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements. See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to you under the Apache License, Version
+    2.0 (the "License"); you may not use this file except in compliance
+    with the License. You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+    applicable law or agreed to in writing, software distributed under the
+    License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+    CONDITIONS OF ANY KIND, either express or implied. See the License for
+    the specific language governing permissions and limitations under the
+    License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>Export Products to eBay screen.</title>
+    <para>
+This screen allows the user to setup properties of products for the start auction on ebay, And allows the user to export product to the ebay site. On the 'Export Products to eBay' section have  many fields to use for start auction listing(products) on the ebay site. 
+    </para>
+        <section>
+        <title>Fields Description : </title>
+        <orderedlist>
+            <listitem><para>eBay Category : Ofbiz retrieve this field from ebay categories and threre are several levels. You may need to select several time to get your categories for example : Your product is in "Drawing" category but the category is lower level of "Art" and ".......". So you need to select "Art" first and .... and "Drawing" to get the category. </para></listitem>
+            <listitem><para>Country : use for select country you want to show the listing on the ebay site.</para></listitem>
+            <listitem><para>Location : for located item location. </para></listitem>
+            <listitem><para>Listing Duration is a duration for auction and show the listing on  ebay.  </para></listitem>
+            <listitem><para>Start Price is a price for start auction (note : if you product have a minimum price(* Purpose is 'eBay Auction') don't need to set this field, the system will auto use the minimum price for start auctions. )</para></listitem>
+            <listitem><para>Quantity : Quantity of product</para></listitem>
+            <listitem><para>Website : </para></listitem>
+            <listitem><para>Web Site Url :</para></listitem>
+            <listitem><para>Payment Methods Accepted : This is Type of payment you want to use on the ebay.</para></listitem>
+            <listitem><para>PayPal email : We need it when you select payment by paypal.</para></listitem>
+            <listitem><para>Custom XML : It was auto generate from ebay configurations, it use for ebay know about currency, shipping method and other informations for shipping with this listing.</para></listitem>
+        </orderedlist>
+        </section>
+    <section>
+        <title>How to set export products?</title>
+        <orderedlist>
+            <listitem><para>select ebay category you want to put products(listing). You may need to select several time to get your categories for example : Your product is in "Drawing" category but the category is lower level of "Art" and ".......". So you need to select "Art" first and .... and "Drawing" to get the category.</para></listitem>
+            <listitem><para>select country you want to show the listing on the ebay site.</para></listitem>
+            <listitem><para>enter location</para></listitem>
+            <listitem><para>select duration for auction and show the listing on  ebay. </para></listitem>
+            <listitem><para>enter start price, if you product have a minimum price(* Purpose is 'eBay Auction') don't need to set this field, the system will auto use the minimum price for start auctions.</para></listitem>
+            <listitem><para>select Website but now this field </para></listitem>
+            <listitem><para>enter Website url (*require field)</para></listitem>
+            <listitem><para>Select at least one payment method</para></listitem>
+            <listitem><para>enter paypal email when you select payment by paypal.</para></listitem>
+            <listitem><para>For Custom XML it was auto generate from ebay configurations, but if you want to change you can edit.</para></listitem>
+            <listitem><para>Press 'Export to Ebay' button  then system will post your listing to ebay site. </para></listitem>
+            <listitem><para>note : when export process is success system will be return message to show on the screen and tell you what is done.</para></listitem>
+        </orderedlist>
+    </section>
+</section>

@@ -208,59 +208,46 @@
 =========================================================================
 
 This product bundles "Noto Sans" fonts, which are available under the
-"Apache License Version 2.0".
-For details, see framework/resources/fonts/NotoSans/.
-
-=========================================================================
-
-This product bundles the "Quicksand" fonts, which is available
-under the "SIL OFL License 1.1" license.
-For details, see themes/rainbowstone/webapp/rainbowstone/fonts/quicksand
+"Apache License Version 2.0". For details, see framework/resources/fonts/NotoSans/.
 
 =========================================================================
 
 This product bundles "timezones" files, which are available in the "Public Domain".
-For details, see themes/common/webapp/common/js/plugins/date/timezones.
+For details, see framework/images/webapp/images/date/timezones/.
 
 =========================================================================
 
 This product bundles "Date Format 1.2.3", which is available
-under the "MIT" license. 
-For details, see themes/common/webapp/common/js/plugins/date/date.format-1.2.3*
+under the "MIT" license. For details, see framework/images/webapp/images/date/date.format-1.2.3*
 
 =========================================================================
 
 This product bundles "jQuery" and "jQuery" plugins and extensions, which are available
 under the "MIT" license. For details, see:
-themes/common/webapp/common/js/jquery
-plugins/webpos/webapp/webpos/images/js/jquery.hotkeys-0.7.9.min.js
-plugins/webpos/webapp/webpos/images/js/WebPosHotkeys.js
+framework/images/webapp/images/jquery/
+specialpurpose/webpos/webapp/webpos/images/js/jquery.hotkeys-0.7.9.min.js
+specialpurpose/webpos/webapp/webpos/images/js/WebPosHotkeys.js
+
+=========================================================================
+
+This product bundles "FamFamFam" icons, developed by
+Mark James <mjames@gmail.com> (www.famfamfam.com) and included without modifications,
+which are available under the "Creative Commons Attribution 2.5" license.
+For details, see framework/images/webapp/images/icons/
 
 =========================================================================
 
 This product bundles files from the "Birt" technology platform (www.eclipse.org/birt/)
 which are available under the "Eclipse Public License - v 1.0".
-For details, see plugins/birt/webapp/birt/webcontent/birt/
+For details, see specialpurpose/birt/webapp/birt/webcontent/birt/
 
 =========================================================================
 
 This product bundles "Webhelp for DocBook", which is available
-under the "MIT" License. For details, see plugins/cmssite/template/docbook/webhelp/
+under the "MIT" License. For details, see specialpurpose/cmssite/template/docbook/webhelp/
 
 =========================================================================
 
 This product bundles "DocBook XSL Stylesheets 1.77.1", which is available
 under the "MIT" license.
-For details, see plugins/cmssite/template/docbook/
-=========================================================================
-
-This product bundles "Openlayers", which is available
-under the "FreeBSD" license.
-For details, see themes/common/webapp/images/OpenLayers-2.13.1-modified-for-CSP-.js
-=========================================================================
-
-This product bundles "Bootstrap", which is available
-under the "MIT" license.
-For details, see:
-plugins/ecommerce/webapp/ecommerce/js 
-plugins/ecommerce/webapp/ecommerce/css
+For details, see specialpurpose/cmssite/template/docbook/

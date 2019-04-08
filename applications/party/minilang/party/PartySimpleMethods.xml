@@ -21,7 +21,7 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="updateAVSOverride" short-description="Create/Update The AVS Override String">
-        <make-value entity-name="PartyIcsAvsOverride" value-field="lookupPKMap"/>
+        <make-value value-field="lookupPKMap" entity-name="PartyIcsAvsOverride"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="PartyIcsAvsOverride" map="lookupPKMap" value-field="lookedUpValue"/>
         <if-not-empty field="lookedUpValue.partyId">
@@ -35,7 +35,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="deleteAVSOverride" short-description="Delete The AVS Override String">
-        <make-value entity-name="PartyIcsAvsOverride" value-field="lookupPKMap"/>
+        <make-value value-field="lookupPKMap" entity-name="PartyIcsAvsOverride"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="PartyIcsAvsOverride" map="lookupPKMap" value-field="lookedUpValue"/>
         <if-not-empty field="lookedUpValue.partyId">
@@ -79,7 +79,7 @@ under the License.
         <if-not-empty field="lookupPKMap.partyId">
             <find-by-primary-key entity-name="PartyRole" map="lookupPKMap" value-field="lookedUpValue" use-cache="true"/>
             <if-empty field="lookedUpValue">
-                <make-value entity-name="PartyRole" value-field="partyRole" map="lookupPKMap"/>
+                <make-value value-field="partyRole" entity-name="PartyRole" map="lookupPKMap"/>
                 <create-value value-field="partyRole"/>
             </if-empty>
         </if-not-empty>

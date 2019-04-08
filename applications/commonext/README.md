@@ -1,4 +1,4 @@
-<img src="http://ofbiz.apache.org/images/OFBiz-logo.png" alt="Apache OFBiz" />
+<img src="http://ofbiz.apache.org/images/logo.png" alt="Apache OFBiz" />
 
 # commonext component
 This OFBiz component enables organisations to extend the elements in the common component.

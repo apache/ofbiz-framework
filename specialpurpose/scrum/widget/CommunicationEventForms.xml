@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
+
+    <form name="EditEmail" type="single" target="${target}" default-map-name="communicationEvent" id="updateEmailForProductBacklog">
+        <actions>
+            <!--<set field="partyIdFrom" value="${communicationEvent.partyIdFrom}" default-value="${userLogin.partyId}"/>-->
+            <entity-one entity-name="ContactMech" value-field="contactMechMapFrom">
+                <field-map field-name="contactMechId" from-field="contactMechIdFrom"/>
+            </entity-one>
+            <entity-one entity-name="ContactMech" value-field="contactMechMapTo">
+                <field-map field-name="contactMechId" from-field="contactMechIdTo"/>
+            </entity-one>
+        </actions>
+        <field name="form"><hidden/></field>
+        <field name="communicationEventId"><hidden value="${communicationEvent.communicationEventId}"/></field>
+        <field name="custRequestId"><hidden value="${custRequest.custRequestId}"/></field>
+        <field name="productIdIn"><hidden value="${parameters.productId}"/></field>
+        <field name="partyIdFrom" title="${uiLabelMap.CommonFrom}"> <display description="${contactMechMapFrom.infoString}"></display></field>
+        <!--<field name="partyIdFrom" title="${uiLabelMap.CommonFrom}" use-when="partyIdFromIn!=null" ><display-entity entity-name="PartyNameView" description="${firstName} ${lastName} ${middleName}" key-field-name="partyId"/></field>-->
+        <field name="partyIdTo" title="${uiLabelMap.CommonTo}"><display description="${contactMechMapTo.infoString}"></display></field>
+        <!--<field name="partyIdTo" title="${uiLabelMap.CommonTo}" use-when="partyIdToIn!=null" ><display-entity entity-name="PartyNameView" description="${firstName} ${lastName} ${middleName} ${groupName}" key-field-name="partyId"/></field>-->
+        <field name="datetimeStarted"><hidden value="${communicationEvent.datetimeStarted}"/></field>
+        <field name="subject" tooltip="Do not remove the &quot;CR#${custRequest.custRequestId}&quot; number"><text size="74"  maxlength="255" default-value="CR#${custRequest.custRequestId} - ${custRequest.description}"/></field>
+        <field name="statusId"><hidden value="COM_IN_PROGRESS"/></field>
+        <field name="contentMimeTypeId"><hidden value="text/plain"/></field>
+        <field name="contactMechPurposeTypeIdFrom"><hidden value="SUPPORT_EMAIL"/></field>
+        <field name="content" title="${uiLabelMap.CommonContent}" encode-output="false"><textarea cols="72" rows="15" default-value="${parameters.content}"/></field>
+        <field name="send" title="${uiLabelMap.CommonSend}" position="1" widget-style="buttontext" 
+            use-when="&quot;${communicationEvent.statusId}&quot;!=&quot;COM_COMPLETE&quot;&amp;&amp;&quot;${communicationEvent.statusId}&quot;!=&quot;COM_IN_PROGRESS&quot;">
+            <submit button-type="button"/>
+        </field>
+        <field name="dummy" position="400"><hidden/></field>
+    </form>
+    <form name="ViewRequestCommunicationEvents" type="list" paginate="true" list-name="commEvents"
+        odd-row-style="alternate-row" header-row-style="header-row" default-table-style="basic-table hover-bar">
+        <row-actions>
+            <set field="subject" from-field="subject" default-value="${uiLabelMap.PartyNoSubject}"/>
+        </row-actions>
+        <field name="communicationEventId"><hidden/></field>
+        <field name="subject">
+            <hyperlink description="${subject}[${communicationEventId}]" target="ViewProductBacklogEmail" link-type="hidden-form">
+                <parameter param-name="communicationEventId"/>
+                <parameter param-name="partyIdFrom" from-field="partyId"/>
+                <parameter param-name="roleTypeId"/>
+                <parameter param-name="custRequestId" from-field="parameters.custRequestId"/>
+                <parameter param-name="productId" from-field="parameters.productId"/>
+            </hyperlink>
+        </field>
+        <field name="statusId">
+            <display-entity entity-name="StatusItem" key-field-name="statusId"/>
+        </field>
+        <field name="partyIdFrom" title="${uiLabelMap.CommonFrom}">
+            <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView" key-field-name="partyId">
+                <sub-hyperlink target="viewprofile" description="[${partyIdFrom}]">
+                    <parameter param-name="partyId" from-field="partyIdFrom"/>
+                </sub-hyperlink>
+            </display-entity>
+        </field>
+        <field name="partyIdTo" title="${uiLabelMap.CommonTo}">
+            <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView" key-field-name="partyId">
+                <sub-hyperlink target="viewprofile" description="[${partyIdTo}]">
+                    <parameter param-name="partyId" from-field="partyIdTo"/>
+                </sub-hyperlink>
+            </display-entity>
+        </field>
+        <field name="entryDate" title="${uiLabelMap.CommonCreated}"><display type="date"/></field>
+        <field name="datetimeStarted" title="${uiLabelMap.CommonSend}"><hidden/></field>
+    </form>
+    <form name="UploadContent" type="upload" target="uploadAttachFiletoEmail?productId=${parameters.productId}&amp;custRequestId=${parameters.custRequestId}">
+        <field name="custRequestId"><hidden value="${parameters.custRequestId}"/></field>
+        <field name="dataCategoryId"><hidden value="PERSONAL"/></field>
+        <field name="contentTypeId"><hidden value="DOCUMENT"/></field>
+        <field name="resourceStatusId"><hidden value="CTNT_PUBLISHED"/></field>
+        <field name="partyId"><hidden value="${partyIdFrom}"/></field>
+        <field name="partyContentTypeId" ><hidden value="USERDEF"/></field>
+        <field name="roleTypeId"><hidden value="CONTENT"/></field>
+        <field name="communicationEventId"><hidden value="${communicationEvent.communicationEventId}"/></field>
+        <field name="communicationEventTypeId"><hidden value="${communicationEvent.communicationEventTypeId}"/></field>
+        <field name="parentCommEventId"><hidden value="${communicationEvent.parentCommEventId}"/></field>
+        <field name="origCommEventId"><hidden value="${communicationEvent.origCommEventId}"/></field>
+        <field name="subject"><hidden/></field>
+        <field name="content"><hidden/></field>
+        <field name="partyIdTo"><hidden/></field>
+        <field name="datetimeStarted"><hidden/></field>
+        <field name="my"><hidden value="${my}"/></field>
+        <field name="uploadedFile"><file/></field>
+        <field name="send" title=" " widget-style="buttontext">
+            <hyperlink also-hidden="true"
+                target-type="plain" description="${uiLabelMap.CommonUpload}"
+                target="javascript:
+                    (document.uploadContent.datetimeStarted.value=document.EditEmail.datetimeStarted.value),
+                    (document.uploadContent.partyId.value=document.EditEmail.partyIdFrom.value),
+                    (document.uploadContent.partyIdTo.value=document.EditEmail.partyIdTo.value),
+                    (document.uploadContent.subject.value=document.EditEmail.subject.value),
+                    (document.uploadContent.custRequestId.value=document.EditEmail.custRequestId.value),
+                    (document.uploadContent.content.value=document.EditEmail.content.value),
+                    (document.uploadContent.submit())"/>
+        </field>
+    </form>
+    <form name="ListCommContent" type="list" list-name="contentDataResourceList" paginate-target="/ListCommContent" target="removeAttachFile"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-and entity-name="CommEventContentDataResource" list="contentDataResourceList">
+                <field-map field-name="communicationEventId" from-field="parameters.communicationEventId"/>
+            </entity-and>
+        </actions>
+        <field name="custRequestId"><hidden value="${parameters.custRequestId}"/></field>
+        <field name="productId"><hidden value="${parameters.productId}"/></field>
+        <field name="communicationEventId"><hidden/></field>
+        <field name="contentId"><hidden/></field>
+        <field name="fromDate"><hidden/></field>
+        <field name="my"><hidden/></field>
+        <field name="contentName">
+            <hyperlink description="${contentName} [${contentId}]" target="ViewSimpleContent" also-hidden="false">
+                <parameter param-name="contentId"/>
+                <parameter param-name="dataResourceId"/>
+                <parameter param-name="communicationEventId"/>
+                <parameter param-name="fromDate"/>
+                <parameter param-name="productId"/>
+                <parameter param-name="custRequstId"/>
+            </hyperlink>
+        </field>
+        <field name="deleteButton"><submit button-type="text-link"/></field>
+    </form>
+    <form name="ListCommEvents" type="list" paginate="true" list-name="commEvents" extends="ListCommEvents" extends-resource="component://party/widget/partymgr/CommunicationEventForms.xml"
+        odd-row-style="alternate-row" header-row-style="header-row" default-table-style="basic-table hover-bar">
+        <field name="subject">
+            <hyperlink description="${subject}[${communicationEventId}]" target="ViewCommunicationEvent" link-type="hidden-form">
+                <parameter param-name="communicationEventId"/>
+                <parameter param-name="partyIdFrom" from-field="partyId"/>
+                <parameter param-name="roleTypeId"/>
+                <parameter param-name="custRequestId" from-field="parameters.custRequestId"/>
+                <parameter param-name="productId" from-field="parameters.productId"/>
+            </hyperlink>
+        </field>
+        <field name="partyId" title="${uiLabelMap.CommonFrom}">
+            <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView" key-field-name="partyId">
+                <sub-hyperlink target="viewprofile" description="[${partyIdFrom}]">
+                    <parameter param-name="partyId" from-field="partyIdFrom"/>
+                </sub-hyperlink>
+            </display-entity>
+        </field>
+    </form>
+    
+    <!-- product Communication Events -->
+    <form name="ViewProductCommunicationEvents" type="list" extends="ViewRequestCommunicationEvents" paginate="true" list-name="commEvents"
+        odd-row-style="alternate-row" header-row-style="header-row" default-table-style="basic-table hover-bar">
+        <field name="roleTypeIdFrom"><hidden/> </field>
+        <field name="roleTypeIdTo"><hidden/> </field>
+        <field name="subject">
+            <hyperlink description="${subject}[${communicationEventId}]" target="ViewProductEmail" link-type="hidden-form">
+                <parameter param-name="communicationEventId"/>
+                <parameter param-name="partyIdFrom" from-field="userlogin.partyId"/>
+                <parameter param-name="roleTypeIdFrom"/>
+                <parameter param-name="productId" from-field="productId"/>
+            </hyperlink>
+        </field>
+    </form>
+    <form name="EditEmailForProduct" type="single" extends="EditEmail" target="${target}" default-map-name="communicationEvent" id="updateEmailForProduct">
+        <field name="custRequestId"><ignored/> </field>
+        <field name="productId"><hidden value="${parameters.productId}"/></field>
+        <field name="subject" tooltip="Do not remove the &quot;PD#${product.productId}&quot; number"><text size="74"  maxlength="255" default-value="PD#${product.productId} - ${product.internalName}"/></field>
+        <field name="send" title=" " position="1" widget-style="buttontext" 
+            use-when="&quot;${communicationEvent.statusId}&quot;!=&quot;COM_COMPLETE&quot;&amp;&amp;&quot;${communicationEvent.statusId}&quot;!=&quot;COM_IN_PROGRESS&quot;">
+            <hyperlink description="${uiLabelMap.CommonSend}" target="javascript:(document.EditEmailForProduct.form.value='list'),(document.EditEmailForProduct.statusId.value='COM_IN_PROGRESS'),(document.EditEmailForProduct.submit())" also-hidden="false" target-type="plain"/>
+        </field>
+    </form>
+    <form name="ViewEmailForProduct" type="single" extends="EditEmail" target="${target}" default-map-name="communicationEvent" id="updateEmailForProduct">
+        <field name="subject"><text size="74"  maxlength="255" disabled="true"/> </field>
+        <field name="content"><textarea cols="72" rows="15" read-only="true"/> </field>
+    </form>
+    <form name="ListCommContentForProduct" type="list" extends="ListCommContent" list-name="contentDataResourceList" paginate-target="/ListCommContent" target="removeAttachFileForProduct"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="custRequestId"><ignored/> </field>
+         <field name="contentName">
+            <hyperlink description="${contentName} [${contentId}]" target="ViewSimpleContent" also-hidden="false">
+                <parameter param-name="contentId"/>
+                <parameter param-name="dataResourceId"/>
+                <parameter param-name="communicationEventId"/>
+                <parameter param-name="fromDate"/>
+                <parameter param-name="productId"/>
+            </hyperlink>
+        </field>
+    </form>
+    <form name="UploadContentForProduct" type="upload" extends="UploadContent" target="uploadAttachFiletoEmailForProduct?productId=${parameters.productId}">
+        <field name="custRequestId"><ignored/> </field>
+        <field name="productId"><hidden value="${parameters.productId}"/></field>
+        <field name="partyId"><hidden value="${userLogin.partyId}"/> </field>
+        <field name="send" title=" " widget-style="buttontext">
+            <hyperlink also-hidden="true"
+                target-type="plain" description="${uiLabelMap.CommonUpload}"
+                target="javascript:
+                    (document.UploadContentForProduct.datetimeStarted.value=document.EditEmailForProduct.datetimeStarted.value),
+                    (document.UploadContentForProduct.partyIdTo.value=document.EditEmailForProduct.partyIdTo.value),
+                    (document.UploadContentForProduct.subject.value=document.EditEmailForProduct.subject.value),
+                    (document.UploadContentForProduct.productId.value=document.EditEmailForProduct.productId.value),
+                    (document.UploadContentForProduct.content.value=document.EditEmailForProduct.content.value),
+                    (document.UploadContentForProduct.submit())"/>
+        </field>
+    </form>
+    <form name="ListCommEventsForProduct" type="list" paginate="true" list-name="commEvents" extends="ListCommEvents" extends-resource="component://party/widget/partymgr/CommunicationEventForms.xml"
+        odd-row-style="alternate-row" header-row-style="header-row" default-table-style="basic-table hover-bar">
+        <field name="subject">
+            <hyperlink description="${subject}[${communicationEventId}]" target="ViewProductEmail" link-type="hidden-form">
+                <parameter param-name="communicationEventId"/>
+                <parameter param-name="partyIdFrom" from-field="userlogin.partyId"/>
+                <parameter param-name="roleTypeIdFrom"/>
+                <parameter param-name="productId" from-field="productId"/>
+            </hyperlink>
+        </field>
+        <field name="partyId" title="${uiLabelMap.CommonFrom}">
+            <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView" key-field-name="partyId">
+                <sub-hyperlink target="viewprofile" description="[${partyIdFrom}]">
+                    <parameter param-name="partyId" from-field="partyIdFrom"/>
+                </sub-hyperlink>
+            </display-entity>
+        </field>
+    </form>
+</forms>

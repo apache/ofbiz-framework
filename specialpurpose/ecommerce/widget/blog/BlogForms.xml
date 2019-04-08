@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations
+  under the License.
+  -->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
+    <form name="FindBlogContent" default-entity-name="ContentAssocDataResourceViewFrom" target="CMSContentFind" title="" type="single"
+        default-title-style="tableheadtext" default-widget-style="inputBox">
+        <field name="caContentIdTo" title="${uiLabelMap.ContentPublishToContent}">
+            <drop-down>
+                <option key="OFBIZBLOGROOT" description="${uiLabelMap.ContentBlogs}"/>
+                <option key="OFBIZFORUMROOT" description="${uiLabelMap.ContentForums}"/>
+            </drop-down>
+        </field>
+        <field name="caMapKey">
+            <text-find/>
+        </field>
+        <field name="caContentAssocTypeId" title="${uiLabelMap.FormFieldTitle_contentAssocTypeId}">
+            <text-find/>
+        </field>
+        <field name="caFromDate" title="${uiLabelMap.CommonFromDate}">
+            <date-find/>
+        </field>
+        <field name="contentId" title="${uiLabelMap.ContentContent}">
+            <text-find/>
+        </field>
+        <field name="dataResourceId" title="${uiLabelMap.ContentDataResource}">
+            <text-find/>
+        </field>
+        <field name="contentName">
+            <text-find/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+        <field name="createBlog" title=" " widget-style="buttontext">
+            <hyperlink description="${uiLabelMap.CommonNew} ${uiLabelMap.ContentForum}" target="EditBlogArticle" also-hidden="false"/>
+        </field>
+        <field name="createForum" title=" " widget-style="buttontext">
+            <hyperlink description="${uiLabelMap.CommonNew} ${uiLabelMap.ContentForum}" target="EditForumArticle" also-hidden="false"/>
+        </field>
+    </form>
+
+    <grid name="listFindBlogContent" target=""
+        default-title-style="tableheadtext" default-widget-style="inputBox"
+        paginate-target="/CMSContentFind" view-size="20">
+        <actions>
+            <service service-name="performFind" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="requestParameters"/>
+                <field-map field-name="entityName" from-field="entityName"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
+            </service>
+        </actions>
+
+        <field name="editContent" title=" ">
+            <hyperlink description="${uiLabelMap.CommonEdit}" target="CMSContentEdit" also-hidden="false">
+                <parameter param-name="contentId"/>
+                <parameter param-name="drDataResourceId"/>
+                <parameter param-name="contentIdTo"/>
+             </hyperlink>
+        </field>
+        <field name="contentId" title="${uiLabelMap.ContentContent}">
+            <display/>
+        </field>
+        <field name="dataResourceId" title="${uiLabelMap.ContentDataResource}">
+            <display/>
+        </field>
+        <field name="contentName">
+            <display/>
+        </field>
+    </grid>
+
+    <form name="AddBlogResponse" target="createBlogResponse" title="" type="single"
+        default-title-style="treeHeader" default-widget-style="inputBox">
+        <auto-fields-entity entity-name="ContentAssocDataResourceViewTo" default-field-type="hidden" map-name="rsp"/>
+        <field name="contentName" entry-name="contentName" map-name="rsp">
+            <text size="40"/>
+        </field>
+        <field name="description" map-name="rsp">
+            <textarea cols="40" rows="6"/>
+        </field>
+        <field name="textData" title="${uiLabelMap.EcommerceRespond}" map-name="rsp" widget-style="inputBox dojo-ResizableTextArea">
+            <textarea cols="60" rows="12"/>
+        </field>
+        <field name="statusId">
+            <radio no-current-selected-key="CTNT_INITIAL_DRAFT">
+                <option key="CTNT_PUBLISHED" description="${uiLabelMap.ContentBlogPost}"/>
+                <option key="CTNT_INITIAL_DRAFT" description="${uiLabelMap.ContentBlogPreview}"/>
+            </radio>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+        <field name="blogContentId" entry-name="blogContentId" map-name="rsp">
+            <hidden/>
+        </field>
+        <field name="articleContentId" entry-name="articleContentId" map-name="rsp">
+            <hidden/>
+        </field>
+        <field name="ownerContentId" entry-name="ownerContentId" map-name="rsp">
+            <hidden/>
+        </field>
+        <field name="contentIdFrom" entry-name="contentIdFrom" map-name="rsp">
+            <hidden/>
+        </field>
+        <field name="contentTypeId" entry-name="contentTypeId" map-name="rsp">
+            <hidden/>
+        </field>
+        <field name="contentAssocTypeId" entry-name="contentAssocTypeId" map-name="rsp">
+            <hidden/>
+        </field>
+        <field name="dataResourceTypeId" entry-name="dataResourceTypeId" map-name="rsp">
+            <hidden/>
+        </field>
+        <field name="contentPurposeTypeId" entry-name="contentPurposeTypeId" map-name="rsp">
+            <hidden/>
+        </field>
+        <field name="contentOperationId" entry-name="contentOperationId" map-name="rsp">
+            <hidden/>
+        </field>
+        <field name="partyId" entry-name="partyId" map-name="userLogin">
+            <hidden/>
+        </field>
+        <sort-order>
+            <sort-field name="contentName"/>
+            <sort-field name="description"/>
+            <sort-field name="textData"/>
+            <sort-field name="statusId"/>
+            <sort-field name="submitButton"/>
+        </sort-order>
+    </form>
+
+    <form name="EditBlogResponse" target="updateBlogResponse" title="" type="single"
+        default-title-style="treeHeader" default-widget-style="inputBox">
+        <auto-fields-entity entity-name="Content" default-field-type="hidden" map-name="content"/>
+        <auto-fields-entity entity-name="DataResource" default-field-type="hidden" map-name="dataResource"/>
+        <field name="contentName" entry-name="contentName" map-name="rsp">
+            <text size="40"/>
+        </field>
+        <field name="description">
+            <textarea cols="40" rows="6"/>
+        </field>
+        <field name="contentId" entry-name="contentId" map-name="parameters">
+            <display/>
+        </field>
+        <field name="articleContentId" entry-name="articleContentId" map-name="rsp">
+            <hidden/>
+        </field>
+        <field name="textData" title="${uiLabelMap.EcommerceRespond}" map-name="electronicText" widget-style="inputBox dojo-ResizableTextArea">
+            <textarea cols="60" rows="12"/>
+        </field>
+        <field name="statusId">
+            <radio no-current-selected-key="CTNT_INITIAL_DRAFT">
+                <option key="CTNT_PUBLISHED" description="${uiLabelMap.ContentBlogPost}"/>
+                <option key="CTNT_INITIAL_DRAFT" description="${uiLabelMap.ContentBlogPreview}"/>
+            </radio>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+        <field name="blogContentId" entry-name="blogContentId" map-name="rsp">
+            <hidden/>
+        </field>
+        <field name="contentPurposeTypeId" entry-name="contentPurposeTypeId" map-name="rsp">
+            <hidden/>
+        </field>
+        <field name="contentOperationId" entry-name="contentOperationId" map-name="rsp">
+            <hidden/>
+        </field>
+        <field name="partyId" entry-name="partyId" map-name="userLogin">
+            <hidden/>
+        </field>
+        <sort-order>
+            <sort-field name="contentId"/>
+            <sort-field name="contentName"/>
+            <sort-field name="description"/>
+            <sort-field name="textData"/>
+            <sort-field name="statusId"/>
+            <sort-field name="submitButton"/>
+        </sort-order>
+    </form>
+
+    <form name="EditFormSubmit" target="" title="" type="single" skip-start="true" skip-end="true"
+        default-title-style="treeHeader" default-widget-style="inputBox">
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+
+    <form name="EditFormEnd" target="" title="" type="single" skip-start="true"
+        default-title-style="treeHeader" default-widget-style="inputBox">
+    </form>
+
+</forms>

@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
+    <form name="EditWeekTimesheet" type="multi" list-name="timeEntries" use-row-submit="true"
+        separate-columns="true" target="update${my}Timesheet" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <row-actions>
+            <service service-name="getProjectIdAndNameFromTask" result-map="result">
+                <field-map field-name="taskId" from-field="workEffortId"/>
+            </service>
+        </row-actions>
+        <field name="timesheetId"><hidden/></field>
+        <field name="roleTypeId"><hidden/></field>
+        <field name="fromDate"><hidden/></field>
+        <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}">
+            <drop-down allow-empty="true" current-description="${result.taskWbsId} ${result.projectName} -- ${result.phaseName} -- ${result.taskName} ${phaseName}">
+                <entity-options entity-name="ProjectPartyAndPhaseAndTask" description="${projectId}.${phaseSeqNum}.${sequenceNum} ${projectName} -- ${phaseName} -- ${workEffortName}">
+                    <entity-constraint name="projectStatusId" operator="not-equals" value="PRJ_CLOSED"/>
+                    <entity-constraint name="workEffortTypeId" operator="equals" value="TASK"/>
+                    <entity-constraint name="partyId" env-name="timesheet.partyId"/>
+                    <entity-constraint name="currentStatusId" value="PTS_CREATED"/>
+                    <entity-order-by field-name="projectName"/>
+                    <entity-order-by field-name="phaseSeqNum"/>
+                    <entity-order-by field-name="phaseName"/>
+                    <entity-order-by field-name="sequenceNum"/>
+                    <entity-order-by field-name="workEffortName"/>
+                </entity-options>
+                <sub-hyperlink target="taskView" description="${workEffortId}">
+                    <parameter param-name="workEffortId"/>
+                    <parameter param-name="my"/>
+                </sub-hyperlink>
+            </drop-down>
+        </field>
+        <field name="checkComplete" title="${uiLabelMap.ProjectMgrCheckComplete}"><check/></field>
+        <field name="rateTypeId" title="${uiLabelMap.ProjectMgrRateTypeId}">
+            <drop-down allow-empty="false" no-current-selected-key="${defaultRateTypeId}">
+                <entity-options entity-name="RateType"/>
+            </drop-down>
+        </field>
+        <field name="d0" parameter-name="hoursDay0" title="${uiLabelMap.ProjectMgrMon}"><text size="2"/></field>
+        <field name="d1" parameter-name="hoursDay1" title="${uiLabelMap.ProjectMgrTue}"><text size="2"/></field>
+        <field name="d2" parameter-name="hoursDay2" title="${uiLabelMap.ProjectMgrWen}"><text size="2"/></field>
+        <field name="d3" parameter-name="hoursDay3" title="${uiLabelMap.ProjectMgrThu}"><text size="2"/></field>
+        <field name="d4" parameter-name="hoursDay4" title="${uiLabelMap.ProjectMgrFri}"><text size="2"/></field>
+        <field name="d5" parameter-name="hoursDay5" title="${uiLabelMap.ProjectMgrSat}"><text size="2"/></field>
+        <field name="d6" parameter-name="hoursDay6" title="${uiLabelMap.ProjectMgrSun}"><text size="2"/></field>
+        <field name="total" title="${uiLabelMap.ProjectMgrActualHours}"><display/></field>
+        <field name="actualHours" title="${uiLabelMap.ProjectMgrActualTotal}"><display/></field>
+        <field name="plannedHours" title="${uiLabelMap.ProjectMgrPlanHours}"><display/></field>
+        <field name="updateButton"><submit button-type="button"/></field>
+        <field name="_rowSubmit" title="${uiLabelMap.ProjectMgrRowSubmit}"><hidden value="Y"/></field>
+    </form>
+
+    <form name="ListTimeSheets" type="list" list-name="timesheets" paginate-target="MyTimesheet"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <set field="complete" value="${uiLabelMap.ProjectMgrToComplete}"/>
+        </actions>
+        <field name="timesheetId" title="${uiLabelMap.WorkEffortTimesheetTimesheetId}" widget-style="buttontext">
+            <hyperlink description="${timesheetId}" target="${my}Timesheet" also-hidden="false">
+                <parameter param-name="timesheetId"/>
+            </hyperlink>
+        </field>
+        <field name="weekNumber" title="${uiLabelMap.ProjectMgrWeekNumber}"><display/></field>
+        <field name="statusId"><display-entity entity-name="StatusItem"/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display type="date"/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display type="date"/></field>
+        <field name="hours"><display/></field>
+        <field name="comments" title="${uiLabelMap.CommonComments}"><display/></field>
+        <field name="completeLink" title="${uiLabelMap.CommonStatustoComplete}" widget-style="buttontext">
+            <hyperlink description="${groovy:statusId.equals(&quot;TIMESHEET_IN_PROCESS&quot;)?complete:&quot;&quot;}" target="TimeSheetStatusToComplete" also-hidden="false">
+                <parameter param-name="timesheetId"/>
+                <parameter param-name="statusId" value="TIMESHEET_COMPLETED"/>
+            </hyperlink>
+        </field>
+    </form>
+    <form name="FindTimeSheet" target="FindTimeSheet" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
+        <field name="timesheetId"><text-find ignore-case="true"/></field>
+        <field name="comments"><text-find ignore-case="true"/></field>
+        <field name="partyId" title="${uiLabelMap.PartyParty}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="PartyRoleAndPartyDetail" description="${firstName} ${lastName}">
+                    <entity-constraint name="statusId" operator="not-equals" value="PARTY_DISABLED"/>
+                    <entity-constraint name="roleTypeId" value="PROJECT_TEAM"/>
+                    <entity-order-by field-name="lastName"/>
+                    <entity-order-by field-name="groupName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}" position="1">
+            <check all-checked="false">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
+                    <entity-constraint name="statusTypeId" value="TIMESHEET_STATUS"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </check>
+        </field>
+        <field name="fromDate"><date-find/></field>
+        <field name="find" title="${uiLabelMap.CommonFind}"><submit/></field>
+    </form>
+    <form name="ListFindTimeSheet" type="list" list-name="listIt" paginate-target="FindTimeSheet"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" value="Timesheet"/>
+                <field-map field-name="orderBy" value="fromDate DESC"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
+            </service>
+            <set field="complete" value="${uiLabelMap.ProjectMgrToComplete}"/>
+        </actions>
+        <row-actions>
+            <set field="actualHours" value="${groovy:org.apache.ofbiz.project.Various.calculateActualHours(delegator, timesheetId)}"/>
+            <set field="completeLink" value="${groovy:&quot;TIMESHEET_IN_PROCESS&quot;.equals(statusId)?complete:&quot;&quot;}"/>
+        </row-actions>
+        <field name="timesheetId" title="${uiLabelMap.WorkEffortTimesheetTimesheetId}" widget-style="buttontext">
+            <hyperlink description="${timesheetId}" target="Timesheet" also-hidden="false">
+                <parameter param-name="timesheetId"/>
+            </hyperlink>
+        </field>
+        <field name="partyId" title="${uiLabelMap.PartyParty}"><display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}"/></field>
+        <field name="actualHours" title="${uiLabelMap.ProjectMgrActualHours}"><display/></field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display type="date"/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display type="date"/></field>
+        <!--field name="comments" title="${uiLabelMap.CommonComments}"><display/></field-->
+        <field name="completeLink" title="${uiLabelMap.CommonStatustoComplete}" widget-style="buttontext">
+            <hyperlink description="${groovy:statusId.equals(&quot;TIMESHEET_IN_PROCESS&quot;)?complete:&quot;&quot;}" target="TimeSheetStatusToComplete">
+                <parameter param-name="timesheetId"/>
+                <parameter param-name="statusId" value="TIMESHEET_COMPLETED"/>
+            </hyperlink>
+        </field>
+    </form>
+
+    <form name="AddMyWeeklyTimesheet" type="single" target="createMyWeeklyTimesheet" title=""
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="partyId"><hidden value="${userLogin.partyId}"/></field>
+        <field entry-name="dummy" name="requiredDate" title="${uiLabelMap.ProjectMgrSelectedDate}"><date-time type="date"/></field>
+        <field name="addButton"><submit/></field>
+    </form>
+
+    <form name="AddWeeklyTimesheet" type="single" target="createWeeklyTimesheet" title=""
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="partyId" title="${uiLabelMap.PartyParty}">
+            <drop-down allow-empty="true" no-current-selected-key="${timesheet.partyId}">
+                <entity-options entity-name="PartyRoleDetailAndPartyDetail" description="${firstName} ${lastName}">
+                    <entity-constraint name="parentTypeId" value="PROJECT_TEAM"/>
+                    <entity-order-by field-name="lastName"/>
+                    <entity-order-by field-name="groupName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field entry-name="dummy" name="requiredDate" title="${uiLabelMap.ProjectMgrSelectedDate}"><date-time type="date"/></field>
+        <field name="addButton"><submit/></field>
+    </form>
+
+    <form name="AddTimesheetEntry" type="single" target="createTimesheetEntry" title=""
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="createTimeEntry"/>
+
+        <field name="timeEntryId"><ignored/><!-- don't pass, will be sequenced --></field>
+        <field name="timesheetId"><hidden/></field>
+
+        <field name="partyId" title="${uiLabelMap.PartyParty}"><lookup target-form-name="LookupPartyName" default-value="${timesheet.partyId}"/></field>
+        <field name="rateTypeId" title="${uiLabelMap.WorkEffortTimesheetRateType}">
+            <drop-down no-current-selected-key="STANDARD">
+                <entity-options entity-name="RateType">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="ProjectAndPhaseAndTask" key-field-name="workEffortId" description="${projectName}--${phaseName}--${workEffortName}">
+                    <entity-order-by field-name="projectName"/>
+                    <entity-order-by field-name="phaseName"/>
+                    <entity-order-by field-name="workEffortName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="invoiceId"><ignored/><!-- don't pass, will be populated when this is added to an invoice later --></field>
+        <field name="invoiceItemSeqId"><ignored/><!-- don't pass, will be populated when this is added to an invoice later --></field>
+
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="QuickCreateTimeEntry" target="createQuickTimeEntry" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <entity-one entity-name="WorkEffort" value-field="workEffortId"/>
+        </actions>
+        <field name="timesheetId" map-name="currentTimesheet"><hidden/></field>
+        <field name="partyId" map-name="userLogin"><hidden/></field>
+        <field name="rateTypeId" title="${uiLabelMap.WorkEffortTimesheetRateType}">
+            <drop-down no-current-selected-key="STANDARD" >
+                <entity-options entity-name="RateType">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="workEffortId"><drop-down allow-empty="false">
+            <entity-options entity-name="ProjectPartyAndPhaseAndTask" description="${projectName}--${phaseName}--${workEffortName}">
+                <entity-constraint name="projectStatusId" operator="not-equals" value="PRJ_CLOSED"/>
+                <entity-constraint name="partyId" env-name="userLogin.partyId"/>
+                <entity-order-by field-name="projectName"/>
+                <entity-order-by field-name="phaseName"/>
+                <entity-order-by field-name="workEffortName"/>
+            </entity-options>
+        </drop-down></field>
+        <field name="hours"><text size="5"/></field>
+        <field name="comments"><text size="40"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListTimesheetEntries" type="list" list-name="timesheetEntries" target="updateTimesheetEntry"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="TimeEntry">
+                <condition-expr field-name="timesheetId" from-field="timesheetId"/>
+                <order-by field-name="partyId"/>
+                <order-by field-name="rateTypeId"/>
+                <order-by field-name="-fromDate"/>
+            </entity-condition>
+        </actions>
+        <auto-fields-service service-name="updateTimeEntry"/>
+
+        <field name="timeEntryId"><hidden/></field>
+        <field name="timesheetId"><hidden/></field>
+
+        <field name="partyId" title="${uiLabelMap.PartyParty}"><lookup size="12" target-form-name="LookupPartyName" default-value="${timesheet.partyId}"/></field>
+        <field name="rateTypeId" title="${uiLabelMap.WorkEffortTimesheetRateType}">
+            <drop-down>
+                <entity-options entity-name="RateType">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+
+        <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="ProjectAndPhaseAndTask" key-field-name="workEffortId" description="${projectName}--${phaseName}--${workEffortName}">
+                    <entity-order-by field-name="projectName"/>
+                    <entity-order-by field-name="phaseName"/>
+                    <entity-order-by field-name="workEffortName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+
+        <field name="invoiceId"><ignored/><!-- don't pass, will be populated when this is added to an invoice later --></field>
+        <field name="invoiceItemSeqId"><ignored/><!-- don't pass, will be populated when this is added to an invoice later --></field>
+
+        <field name="comments"><text size="60"/></field>
+
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+
+        <field name="deleteLink" title=" " widget-style="buttontext">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteTimesheetEntry" also-hidden="false">
+                <parameter param-name="timesheetId"/>
+                <parameter param-name="timeEntryId"/>
+            </hyperlink>
+        </field>
+    </form>
+    <form name="WeekTimesheet" type="list" list-name="timeEntries" separate-columns="true"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="timesheetId"><hidden/></field>
+        <field name="taskWbsId"><display/></field>
+        <field name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}">
+            <hyperlink description="${workEffortName}" target="taskView">
+                <parameter param-name="workEffortId"/>
+            </hyperlink>
+        </field>
+        <field name="phaseName" title="${uiLabelMap.ProjectMgrPhaseName}"><display/></field>
+        <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}">
+            <hyperlink target="projectView"  description="${projectName}">
+                <parameter param-name="projectId"/>
+            </hyperlink>
+        </field>
+        <field name="checkComplete" title="${uiLabelMap.ProjectMgrCheckComplete}"><display/></field>
+        <field name="rateTypeId" title="${uiLabelMap.ProjectMgrRateTypeId}"><display-entity entity-name="RateType"/></field>
+        <field name="d0" parameter-name="hoursDay0" title="${uiLabelMap.ProjectMgrMon}"><display/></field>
+        <field name="d1" parameter-name="hoursDay1" title="${uiLabelMap.ProjectMgrTue}"><display/></field>
+        <field name="d2" parameter-name="hoursDay2" title="${uiLabelMap.ProjectMgrWen}"><display/></field>
+        <field name="d3" parameter-name="hoursDay3" title="${uiLabelMap.ProjectMgrThu}"><display/></field>
+        <field name="d4" parameter-name="hoursDay4" title="${uiLabelMap.ProjectMgrFri}"><display/></field>
+        <field name="d5" parameter-name="hoursDay5" title="${uiLabelMap.ProjectMgrSat}"><display/></field>
+        <field name="d6" parameter-name="hoursDay6" title="${uiLabelMap.ProjectMgrSun}"><display/></field>
+        <field name="total" title="${uiLabelMap.ProjectMgrActualHours}"><display/></field>
+        <field name="actualHours" title="${uiLabelMap.ProjectMgrActualTotal}"><display/></field>
+        <field name="plannedHours" title="${uiLabelMap.ProjectMgrPlanHours}"><display/></field>
+    </form>
+</forms>

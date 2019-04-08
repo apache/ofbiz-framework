@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <Party partyId="accountant_group" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
+    <PartyGroup partyId="accountant_group" groupName="Accountant Group"/>
+    <PartyRole partyId="accountant_group" roleTypeId="ORGANIZATION_ROLE"/>
+    <PartyRole partyId="accountant_group" roleTypeId="_NA_"/>
+    <PartyStatus partyId="accountant_group" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyRelationship partyIdFrom="Company" partyIdTo="accountant_group" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-01-01 12:00:00.0"/>
+
+    <Party partyId="accountingadmin" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="accountingadmin" firstName="Accounting" lastName="Administrator"/>
+    <PartyRole partyId="accountingadmin" roleTypeId="ACCOUNTANT"/>
+    <PartyRole partyId="accountingadmin" roleTypeId="EMPLOYEE"/>
+    <PartyRole partyId="accountingadmin" roleTypeId="_NA_"/>
+    <PartyStatus partyId="accountant_group" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <UserLogin userLoginId="accountingadmin" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" partyId="accountingadmin" passwordHint=""/>
+    <UserLoginSecurityGroup groupId="ACCTG_FUNCTNL_ADMIN" userLoginId="accountingadmin" fromDate="2001-01-01 12:00:00.0"/>
+
+    <PartyRelationship partyIdFrom="Company" partyIdTo="accountingadmin" partyRelationshipTypeId="EMPLOYMENT" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2001-01-01 12:00:00.0"/>
+    <PartyRelationship partyIdFrom="accountant_group" partyIdTo="accountingadmin" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="ORGANIZATION_ROLE" roleTypeIdTo="ACCOUNTANT" fromDate="2001-01-01 12:00:00.0"/>
+</entity-engine-xml>

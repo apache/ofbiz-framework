@@ -876,7 +876,7 @@ under the License.
         <check-errors/>
     </simple-method>
 
-    <simple-method method-name="testExpirePartyContactMechPurpose" short-description="Test the service expirePartyContactMechPurpose" login-required="false">
+    <simple-method method-name="testDeletePartyContactMechPurpose" short-description="Test the service deletePartyContactMechPurpose" login-required="false">
         <set field="serviceCtx.partyId" value="TestCustomer"/>
         <set field="serviceCtx.contactMechId" value="TestContactMech"/>
         <set field="serviceCtx.contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
@@ -885,10 +885,32 @@ under the License.
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <set field="serviceCtx.userLogin" from-field="userLogin"/>
-        <call-service service-name="expirePartyContactMechPurpose" in-map-name="serviceCtx"/>
+        <call-service service-name="deletePartyContactMechPurpose" in-map-name="serviceCtx"/>
         <entity-one entity-name="PartyContactMechPurpose" value-field="partyContactMechPurpose">
             <field-map field-name="partyId" value="TestCustomer"/>
             <field-map field-name="contactMechId" value="TestContactMech"/>
+            <field-map field-name="contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
+            <field-map field-name="fromDate" value="2000-01-01 00:00:00"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="partyContactMechPurpose"/></not>
+            <not><if-empty field="partyContactMechPurpose.thruDate"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testDeletePartyContactMechPurposeIfExists" short-description="Test the service deletePartyContactMechPurposeIfExists" login-required="false">
+        <set field="serviceCtx.partyId" value="TestCustomer"/>
+        <set field="serviceCtx.contactMechId" value="TestContactMech2"/>
+        <set field="serviceCtx.contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="serviceCtx"/>
+        <entity-one entity-name="PartyContactMechPurpose" value-field="partyContactMechPurpose">
+            <field-map field-name="partyId" value="TestCustomer"/>
+            <field-map field-name="contactMechId" value="TestContactMech2"/>
             <field-map field-name="contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
             <field-map field-name="fromDate" value="2000-01-01 00:00:00"/>
         </entity-one>
@@ -1206,7 +1228,7 @@ under the License.
     <simple-method method-name="testUpdatePartyGroup" short-description="Test the service to update party group" login-required="false">
         <set field="serviceCtx.partyId" value="TestGroup-1"/>
         <set field="serviceCtx.groupName" value="Test Party Group"/>
-        <set field="serviceCtx.logoImageUrl" value="/images/ofbiz_logo.png"/>
+        <set field="serviceCtx.logoImageUrl" value="http://ofbiz.apache.org/images/ofbiz_logo.gif"/>
 
         <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
@@ -1219,7 +1241,7 @@ under the License.
         <assert>
             <not><if-empty field="partyGroup"/></not>
             <if-compare field="partyGroup.groupName" operator="equals" value="Test Party Group"/>
-            <if-compare field="partyGroup.logoImageUrl" operator="equals" value="/images/ofbiz_logo.png"/>
+            <if-compare field="partyGroup.logoImageUrl" operator="equals" value="http://ofbiz.apache.org/images/ofbiz_logo.gif"/>
         </assert>
         <check-errors/>
     </simple-method>

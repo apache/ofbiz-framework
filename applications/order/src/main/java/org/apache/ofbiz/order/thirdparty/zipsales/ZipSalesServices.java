@@ -62,7 +62,7 @@ public class ZipSalesServices {
     public static final String resource_error = "OrderErrorUiLabels";
 
     // date formatting
-    private static final String DATE_PATTERN = "yyyyMMdd";
+    private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
 
     // import table service
     public static Map<String, Object> importFlatTable(DispatchContext dctx, Map<String, ? extends Object> context) {
@@ -278,7 +278,6 @@ public class ZipSalesServices {
         }
 
         // the filtered list
-        // TODO: taxLookup is always null, so filter by County will never be executed
         List<GenericValue> taxLookup = null;
 
         // only do filtering if there are more then one zip code found
@@ -485,7 +484,6 @@ public class ZipSalesServices {
     // formatting methods
     private static Timestamp parseDate(String dateString, Timestamp useWhenNull) {
         Timestamp ts = null;
-        SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_PATTERN);
         if (dateString != null) {
             try {
                 ts = new Timestamp(dateFormat.parse(dateString).getTime());

@@ -23,5 +23,6 @@ under the License.
     <load-components parent-directory="framework"/>
     <load-components parent-directory="themes"/>
     <load-components parent-directory="applications"/>
-    <load-components parent-directory="plugins"/>
+    <load-components parent-directory="specialpurpose"/>
+    <load-components parent-directory="hot-deploy"/>
 </component-loader>

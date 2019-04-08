@@ -17,8 +17,11 @@
  * under the License.
  */
 
-import org.apache.ofbiz.product.catalog.CatalogWorker
-import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.entity.util.*
+import org.apache.ofbiz.product.catalog.*
+import org.apache.ofbiz.order.shoppingcart.*
+import org.apache.ofbiz.product.store.ProductStoreWorker
 
 catalogCol = null
 currentCatalogId = null

@@ -56,7 +56,7 @@ under the License.
               </tr>
               <#if paymentSetups?has_content>
                 <#list paymentSetups as paymentSetting>
-                  <#if rowStyle?? && "alternate-row" == rowStyle>
+                  <#if rowStyle?? && rowStyle == "alternate-row">
                     <#assign rowStyle = "alternate-rowSelected">
                   <#else>
                     <#assign rowStyle = "alternate-row">

@@ -140,14 +140,14 @@ under the License.
               <td valign="top">
                 <span class="label">${uiLabelMap.ProductCarrierShipmentMethod}</span>
                 <br />
-                <#if "USPS" == carrier>
+                <#if carrier == "USPS">
                   <#assign color = "red">
-                <#elseif "UPS" == carrier>
+                <#elseif carrier == "UPS">
                   <#assign color = "green">
                 <#else>
                   <#assign color = "black">
                 </#if>
-                <#if "_NA_" != carrier>
+                <#if carrier != "_NA_">
                   <font color="${color}">${carrier}</font>
                   &nbsp;
                 </#if>
@@ -208,10 +208,10 @@ under the License.
                 <#assign readyToVerify = verifyPickSession.getReadyToVerifyQuantity(orderId,orderItemSeqId)>
                 <#assign orderItemQuantity = orderItem.getBigDecimal("quantity")>
                 <#assign verifiedQuantity = 0.000000>
-                <#assign shipments = EntityQuery.use(delegator).from("Shipment").where("primaryOrderId", orderItem.getString("orderId")!, "statusId", "SHIPMENT_PICKED").queryList()!/>
+                <#assign shipments = delegator.findByAnd("Shipment", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("primaryOrderId", orderItem.getString("orderId"), "statusId", "SHIPMENT_PICKED"), null, false)/>
                 <#if (shipments?has_content)>
                   <#list shipments as shipment>
-                    <#assign itemIssuances = EntityQuery.use(delegator).from("ItemIssuance").where("shipmentId", shipment.getString("shipmentId")!, "orderItemSeqId", orderItemSeqId!).queryList()!/>
+                    <#assign itemIssuances = delegator.findByAnd("ItemIssuance", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("shipmentId", shipment.getString("shipmentId"), "orderItemSeqId", orderItemSeqId), null, false)/>
                     <#if itemIssuances?has_content>
                       <#list itemIssuances as itemIssuance>
                         <#assign verifiedQuantity = verifiedQuantity + itemIssuance.getBigDecimal("quantity")>
@@ -267,7 +267,7 @@ under the License.
                   <#if workOrderItemFulfillment?has_content>
                     <#assign workEffort = workOrderItemFulfillment.getRelatedOne("WorkEffort", false)/>
                     <#if workEffort?has_content>
-                      <#assign workEffortTask = EntityQuery.use(delegator).from("WorkEffort").where("workEffortParentId", workEffort.workEffortId!).queryFirst()!/>
+                      <#assign workEffortTask = Static["org.apache.ofbiz.entity.util.EntityUtil"].getFirst(delegator.findByAnd("WorkEffort", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("workEffortParentId", workEffort.workEffortId), null, false))/>
                       <#if workEffortTask?has_content>
                         <#assign workEffortInventoryAssigns = workEffortTask.getRelated("WorkEffortInventoryAssign", null, null, false)/>
                         <#if workEffortInventoryAssigns?has_content>
@@ -302,7 +302,7 @@ under the License.
             </tr>
             <tr>
               <td colspan="12" align="right">
-                <#if "true" == isShowVerifyItemButton>
+                <#if isShowVerifyItemButton == "true">
                   <input type="submit" value="${uiLabelMap.ProductVerify}&nbsp;${uiLabelMap.OrderItems}"/>
                 </#if>
                 &nbsp;
@@ -341,7 +341,7 @@ under the License.
                 <td>&nbsp;</td>
               </tr>
               <#list pickRows as pickRow>
-                <#if (pickRow.getOrderId()! == orderId)>
+                <#if (pickRow.getOrderId()!).equals(orderId)>
                   <tr>
                     <td>${pickRow.getOrderItemSeqId()!}</td>
                     <td>${pickRow.getProductId()!}</td>
@@ -360,16 +360,16 @@ under the License.
     </form>
   </#if>
   <#if orderId?has_content>
-    <script type="application/javascript">
+    <script language="javascript" type="text/javascript">
       document.singlePickForm.productId.focus();
     </script>
   <#else>
-    <script type="application/javascript">
+    <script language="javascript" type="text/javascript">
       document.selectOrderForm.orderId.focus();
     </script>
   </#if>
   <#if shipmentId?has_content>
-    <script type="application/javascript">
+    <script language="javascript" type="text/javascript">
       document.selectOrderForm.orderId.focus();
     </script>
   </#if>

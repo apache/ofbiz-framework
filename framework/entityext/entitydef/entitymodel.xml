@@ -42,17 +42,17 @@ under the License.
 
     <entity entity-name="EntityGroup"
             package-name="org.apache.ofbiz.entity.group"
-            title="Entity Grouping">
-      <field name="entityGroupId" type="id"></field>
+            title="Entity Grouping Entity">
+      <field name="entityGroupId" type="id-ne"></field>
       <field name="entityGroupName" type="name"></field>
       <prim-key field="entityGroupId"/>
     </entity>
     <entity entity-name="EntityGroupEntry"
             package-name="org.apache.ofbiz.entity.group"
-            title="Entity Grouping">
-      <field name="entityGroupId" type="id"></field>
+            title="Entity Grouping Entity">
+      <field name="entityGroupId" type="id-ne"></field>
       <field name="entityOrPackage" type="long-varchar"></field>
-      <field name="applEnumId" type="id"></field>
+      <field name="applEnumId" type="id-ne"></field>
       <prim-key field="entityGroupId"/>
       <prim-key field="entityOrPackage"/>
       <relation type="one" fk-name="ENTGRP_GRP" rel-entity-name="EntityGroup">
@@ -66,9 +66,9 @@ under the License.
 
     <entity entity-name="EntitySync"
             package-name="org.apache.ofbiz.entity.synchronization"
-            title="Entity Synchronization">
-      <field name="entitySyncId" type="id"></field>
-      <field name="runStatusId" type="id"></field>
+            title="Entity Synchronization Entity">
+      <field name="entitySyncId" type="id-ne"></field>
+      <field name="runStatusId" type="id-ne"></field>
       <field name="lastSuccessfulSynchTime" type="date-time"></field>
       <field name="lastHistoryStartDate" type="date-time"></field>
       <field name="preOfflineSynchTime" type="date-time"></field>
@@ -92,10 +92,10 @@ under the License.
     </entity>
     <entity entity-name="EntitySyncHistory"
             package-name="org.apache.ofbiz.entity.synchronization"
-            title="Entity Synchronization History">
-      <field name="entitySyncId" type="id"></field>
+            title="Entity Synchronization History Entity">
+      <field name="entitySyncId" type="id-ne"></field>
       <field name="startDate" type="date-time"></field>
-      <field name="runStatusId" type="id"></field>
+      <field name="runStatusId" type="id-ne"></field>
       <field name="beginningSynchTime" type="date-time"></field>
       <field name="lastSuccessfulSynchTime" type="date-time"></field>
       <field name="lastCandidateEndTime" type="date-time"></field>
@@ -127,10 +127,10 @@ under the License.
     </entity>
     <entity entity-name="EntitySyncInclude"
             package-name="org.apache.ofbiz.entity.synchronization"
-            title="Entity Synchronization Include">
-      <field name="entitySyncId" type="id"></field>
+            title="Entity Synchronization Include Entity">
+      <field name="entitySyncId" type="id-ne"></field>
       <field name="entityOrPackage" type="long-varchar"></field>
-      <field name="applEnumId" type="id"></field>
+      <field name="applEnumId" type="id-ne"></field>
       <prim-key field="entitySyncId"/>
       <prim-key field="entityOrPackage"/>
       <relation type="one" fk-name="ENTSYNC_INCSNC" rel-entity-name="EntitySync">
@@ -139,9 +139,9 @@ under the License.
     </entity>
     <entity entity-name="EntitySyncIncludeGroup"
             package-name="org.apache.ofbiz.entity.synchronization"
-            title="Entity Synchronization Include Entity Group">
-      <field name="entitySyncId" type="id"></field>
-      <field name="entityGroupId" type="id"></field>
+            title="Entity Synchronization Include Entity Group Entity">
+      <field name="entitySyncId" type="id-ne"></field>
+      <field name="entityGroupId" type="id-ne"></field>
       <prim-key field="entitySyncId"/>
       <prim-key field="entityGroupId"/>
       <relation type="one" fk-name="ENTSNCGU_GRP" rel-entity-name="EntityGroup">
@@ -153,7 +153,7 @@ under the License.
     </entity>
     <view-entity entity-name="EntitySyncInclGrpDetailView"
             package-name="org.apache.ofbiz.entity.synchronization"
-            title="Entity Synchronization Include Entity Group Detail View">
+            title="Entity Synchronization Include Entity Group Detail View Entity">
       <member-entity entity-alias="ESIG" entity-name="EntitySyncIncludeGroup"/>
       <member-entity entity-alias="EGE" entity-name="EntityGroupEntry"/>
       <alias-all entity-alias="ESIG"/>
@@ -164,8 +164,8 @@ under the License.
     </view-entity>
     <entity entity-name="EntitySyncRemove"
             package-name="org.apache.ofbiz.entity.synchronization"
-            title="Entity Synchronization Remove">
-      <field name="entitySyncRemoveId" type="id"></field>
+            title="Entity Synchronization Remove Entity">
+      <field name="entitySyncRemoveId" type="id-ne"></field>
       <field name="primaryKeyRemoved" type="very-long"></field>
       <prim-key field="entitySyncRemoveId"/>
     </entity>

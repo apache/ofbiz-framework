@@ -191,7 +191,7 @@ under the License.
                                                 <fo:table-cell><fo:block font-size="10pt"><@ofbizCurrency amount=orderItem.unitPrice isoCode=currencyUomId/></fo:block></fo:table-cell>
                                             </fo:table-row>
                                             </#if>
-                                            <#if "MARKETING_PKG_AUTO" == product.productTypeId>
+                                            <#if product.productTypeId == "MARKETING_PKG_AUTO">
                                                 <fo:table-row background-color="${rowColor}">
                                                     <fo:table-cell  number-columns-spanned="6">
                                                         <fo:block text-align="left" font-weight="bold">
@@ -205,7 +205,7 @@ under the License.
                                                     <#if workOrderItemFulfillment?has_content>
                                                         <#assign workEffort = workOrderItemFulfillment.getRelatedOne("WorkEffort", false)/>
                                                         <#if workEffort?has_content>
-                                                            <#assign workEffortTask = EntityQuery.use(delegator).from("WorkEffort").where("workEffortParentId", workEffort.workEffortId!).queryFirst()!/>
+                                                            <#assign workEffortTask = Static["org.apache.ofbiz.entity.util.EntityUtil"].getFirst(delegator.findByAnd("WorkEffort", {"workEffortParentId" :  workEffort.workEffortId}, null, false))/>
                                                             <#if workEffortTask?has_content>
                                                                 <#assign workEffortInventoryAssigns = workEffortTask.getRelated("WorkEffortInventoryAssign", null, null, false)/>
                                                                 <#if workEffortInventoryAssigns?has_content>
@@ -250,7 +250,7 @@ under the License.
                                                     </#if>
                                                 </#if>
                                             </#if>
-                                            <#if "#D4D0C8" == rowColor>
+                                            <#if rowColor == "#D4D0C8">
                                                  <#assign rowColor = "white"/>
                                             <#else>
                                                 <#assign rowColor = "#D4D0C8"/>  

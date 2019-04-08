@@ -32,7 +32,7 @@ import org.w3c.dom.Element;
 /**
  * Implements the &lt;map-to-map&gt; element.
  * 
- * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Referenc</a>
+ * @see <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/Mini-language+Reference#Mini-languageReference-{{%3Cmaptomap%3E}}">Mini-language Reference</a>
  */
 public final class MapToMap extends MethodOperation {
 

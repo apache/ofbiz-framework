@@ -32,24 +32,72 @@ import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 
+import org.apache.commons.io.IOUtils;
+
 public final class UtilIO {
     private static final Charset UTF8 = Charset.forName("UTF-8");
     public static final String module = UtilIO.class.getName();
 
     private UtilIO () {}
+    /** Copy an InputStream to an OutputStream, optionally closing either
+     *  the input or the output.
+     *
+     * @param in the InputStream to copy from
+     * @param closeIn whether to close the input when the copy is done
+     * @param out the OutputStream to copy to
+     * @param closeOut whether to close the output when the copy is done
+     * @throws IOException if an error occurs
+     */
+    public static void copy(InputStream in, boolean closeIn, OutputStream out, boolean closeOut) throws IOException {
+        try {
+            try {
+                IOUtils.copy(in, out);
+            } finally {
+                if (closeIn) IOUtils.closeQuietly(in);
+            }
+        } finally {
+            if (closeOut) IOUtils.closeQuietly(out);
+        }
+    }
 
-    /** Copy a Reader to an Appendable.
+    /** Copy a Reader to a Writer, optionally closing either the input or
+     *  the output.
      *
      * @param reader the Reader to copy from
+     * @param closeIn whether to close the input when the copy is done
+     * @param writer the Writer to copy to
+     * @param closeOut whether to close the output when the copy is done
+     * @throws IOException if an error occurs
+     */
+    public static void copy(Reader reader, boolean closeIn, Writer writer, boolean closeOut) throws IOException {
+        try {
+            try {
+                IOUtils.copy(reader, writer);
+            } finally {
+                if (closeIn) IOUtils.closeQuietly(reader);
+            }
+        } finally {
+            if (closeOut) IOUtils.closeQuietly(writer);
+        }
+    }
+
+    /** Copy a Reader to an Appendable, optionally closing the input.
+     *
+     * @param reader the Reader to copy from
+     * @param closeIn whether to close the input when the copy is done
      * @param out the Appendable to copy to
      * @throws IOException if an error occurs
      */
-    public static void copy(Reader reader, Appendable out) throws IOException {
-        CharBuffer buffer = CharBuffer.allocate(4096);
-        while (reader.read(buffer) > 0) {
-            buffer.flip();
-            buffer.rewind();
-            out.append(buffer);
+    public static void copy(Reader reader, boolean closeIn, Appendable out) throws IOException {
+        try {
+            CharBuffer buffer = CharBuffer.allocate(4096);
+            while (reader.read(buffer) > 0) {
+                buffer.flip();
+                buffer.rewind();
+                out.append(buffer);
+            }
+        } finally {
+            if (closeIn) IOUtils.closeQuietly(reader);
         }
     }
 
@@ -60,7 +108,7 @@ public final class UtilIO {
      * @return the converted string, with platform line endings converted
      * to \n
      */
-    public static final String readString(byte[] bytes) {
+    public static final String readString(byte[] bytes) throws IOException {
         return readString(bytes, 0, bytes.length, UTF8);
     }
 
@@ -74,7 +122,7 @@ public final class UtilIO {
      * @return the converted string, with platform line endings converted
      * to \n
      */
-    public static final String readString(byte[] bytes, int offset, int length) {
+    public static final String readString(byte[] bytes, int offset, int length) throws IOException {
         return readString(bytes, offset, length, UTF8);
     }
 
@@ -87,7 +135,7 @@ public final class UtilIO {
      * @return the converted string, with platform line endings converted
      * to \n
      */
-    public static final String readString(byte[] bytes, String charset) {
+    public static final String readString(byte[] bytes, String charset) throws IOException {
         return readString(bytes, 0, bytes.length, Charset.forName(charset));
     }
 
@@ -103,7 +151,7 @@ public final class UtilIO {
      * @return the converted string, with platform line endings converted
      * to \n
      */
-    public static final String readString(byte[] bytes, int offset, int length, String charset) {
+    public static final String readString(byte[] bytes, int offset, int length, String charset) throws IOException {
         return readString(bytes, 0, bytes.length, Charset.forName(charset));
     }
 
@@ -115,7 +163,7 @@ public final class UtilIO {
      * @return the converted string, with platform line endings converted
      * to \n
      */
-    public static final String readString(byte[] bytes, Charset charset) {
+    public static final String readString(byte[] bytes, Charset charset) throws IOException {
         return readString(bytes, 0, bytes.length, charset);
     }
 
@@ -131,7 +179,7 @@ public final class UtilIO {
      * @return the converted string, with platform line endings converted
      * to \n
      */
-    public static final String readString(byte[] bytes, int offset, int length, Charset charset) {
+    public static final String readString(byte[] bytes, int offset, int length, Charset charset) throws IOException {
         ByteBuffer buf = ByteBuffer.allocate(length);
         buf.put(bytes, offset, length);
         buf.flip();
@@ -200,7 +248,7 @@ public final class UtilIO {
 
     private static StringBuilder filterLineEndings(StringBuilder sb) {
         String nl = System.getProperty("line.separator");
-        if (!"\n".equals(nl)) {
+        if (!nl.equals("\n")) {
             int r = 0;
             while (r < sb.length()) {
                 int i = sb.indexOf(nl, r);
@@ -251,23 +299,22 @@ public final class UtilIO {
      * @param out where to write the converted bytes to
      * @param charset the charset to use to convert the raw bytes
      * @param value the value to write
-     * @throws IOException
      */
     public static void writeString(OutputStream out, Charset charset, String value) throws IOException {
-        try (Writer writer = new OutputStreamWriter(out, charset)) {
-            String nl = System.getProperty("line.separator");
-            int r = 0;
-            while (r < value.length()) {
-                int i = value.indexOf("\n", r);
-                if (i == -1) {
-                    break;
-                }
-                writer.write(value.substring(r, i));
-                writer.write(nl);
-                r = i + 1;
+        Writer writer = new OutputStreamWriter(out, charset);
+        String nl = System.getProperty("line.separator");
+        int r = 0;
+        while (r < value.length()) {
+            int i = value.indexOf("\n", r);
+            if (i == -1) {
+                break;
             }
-            writer.write(value.substring(r));
+            writer.write(value.substring(r, i));
+            writer.write(nl);
+            r = i + 1;
         }
+        writer.write(value.substring(r));
+        writer.close();
     }
 
     public static Charset getUtf8() {

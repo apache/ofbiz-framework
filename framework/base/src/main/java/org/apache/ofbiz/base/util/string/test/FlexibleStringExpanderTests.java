@@ -26,14 +26,14 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
-import org.apache.ofbiz.base.conversion.AbstractConverter;
-import org.apache.ofbiz.base.conversion.ConversionException;
-import org.apache.ofbiz.base.conversion.Converters;
+import junit.framework.TestCase;
+
 import org.apache.ofbiz.base.lang.SourceMonitored;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
-
-import junit.framework.TestCase;
+import org.apache.ofbiz.base.conversion.AbstractConverter;
+import org.apache.ofbiz.base.conversion.ConversionException;
+import org.apache.ofbiz.base.conversion.Converters;
 
 @SourceMonitored
 public class FlexibleStringExpanderTests extends TestCase {
@@ -60,7 +60,7 @@ public class FlexibleStringExpanderTests extends TestCase {
 
     public void testParsing() {
         parserTest("visible nested replacement", "${'Hello ${var}'}!", true, "${'Hello ${var}'}!");
-        parserTest("hidden (runtime) nested null callreplacement", "Hello ${${groovy:" + FlexibleStringExpanderTests.class.getName() + ".staticReturnNull()}}World!", true, "Hello ${${groovy:" + FlexibleStringExpanderTests.class.getName() + ".staticReturnNull()}}World!");
+        parserTest("hidden (runtime) nested null callreplacement", "Hello ${${groovy:" + FlexibleStringExpanderTests.class.getName() + ".StaticReturnNull()}}World!", true, "Hello ${${groovy:" + FlexibleStringExpanderTests.class.getName() + ".StaticReturnNull()}}World!");
         parserTest("UEL integration(nested): throw Exception", "${${throwException.value}}", true, "${${throwException.value}}");
         parserTest("nested-constant-emptynest-emptynest", "${a${}${}", true, "${a${}${}");
         parserTest("null", null, true, "");
@@ -146,7 +146,7 @@ public class FlexibleStringExpanderTests extends TestCase {
                 if (input != null) {
                     assertNotSame(label, expand, fse.expand(context, null, null));
                 }
-                Map<String, Object> autoUserLogin = new HashMap<>();
+                Map<String, Object> autoUserLogin = new HashMap<String, Object>();
                 autoUserLogin.put("lastLocale", locale.toString());
                 autoUserLogin.put("lastTimeZone", timeZone == null ? null : timeZone.getID());
                 context.put("autoUserLogin", autoUserLogin);
@@ -205,14 +205,14 @@ public class FlexibleStringExpanderTests extends TestCase {
         }
     }
 
-    public static String staticReturnNull() {
+    public static String StaticReturnNull() {
         return null;
     }
 
     @Override
     public void setUp() {
         wasVerbose = Debug.isOn(Debug.VERBOSE);
-        if ("testWithVerbosity".equals(getName())) {
+        if (getName().equals("testWithVerbosity")) {
             Debug.set(Debug.VERBOSE, true);
         }
         Converters.registerConverter(new SpecialNumberToString());
@@ -223,8 +223,7 @@ public class FlexibleStringExpanderTests extends TestCase {
         Debug.set(Debug.VERBOSE, wasVerbose);
     }
 
-    @SuppressWarnings("serial")
-    public static class ThrowException extends Exception{
+    public static class ThrowException {
         public Object getValue() throws Exception {
             throw new Exception();
         }
@@ -267,7 +266,7 @@ public class FlexibleStringExpanderTests extends TestCase {
     }
 
     private void everythingTest() {
-        Map<String, Object> testMap = new HashMap<>();
+        Map<String, Object> testMap = new HashMap<String, Object>();
         testMap.put("date", new java.util.Date(1234567890));
         testMap.put("usd", "USD");
         testMap.put("amount", new BigDecimal("1234567.89"));
@@ -281,7 +280,7 @@ public class FlexibleStringExpanderTests extends TestCase {
         testMap.put("testMap", testMap);
         testMap.put("nestedNull", "Hello ${nullVar}${var}");
         testMap.put("specialNumber", new SpecialNumber("1.00"));
-        List<String> testList = new ArrayList<>();
+        List<String> testList = new ArrayList<String>();
         testList.add("World");
         testMap.put("testList", testList);
         fseTest("null FlexibleStringExpander, null map", null, null, null, null, "", null, true);

@@ -1,0 +1,761 @@
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations
+  under the License.
+  -->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
+    <!-- Store reserve inventory -->
+    <screen name="ebayStoreInventory">
+        <section>
+            <actions>
+                <set field="headerItem" value="ebayStore"/>
+                <set field="sellingManagerItem" value="inventory"/>
+                <entity-and entity-name="ProductStoreFacility" list="productStoreFacilityList">
+                    <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                </entity-and>
+                <set  field="check"  value="${groovy: 
+                    check= &quot;false&quot;;
+                    if(productStoreFacilityList!=null &amp;&amp; productStoreFacilityList.size()== 1)  check = &quot;true&quot;;
+                    return check;
+                    }" type="String"/>
+                <set field="facilityId"  value="${groovy:
+                    if(check.equals(&quot;true&quot;)) facility = productStoreFacilityList.get(0);
+                    if(facility!=null) facilityId = facility.facilityId;
+                    return facilityId;}" type="String"/>
+            </actions>
+            <widgets>
+                <section>
+                    <condition>
+                        <if-compare field="check" operator="equals" value="true"/>
+                    </condition>
+                    <widgets>
+                        <section>
+                            <actions>
+                                <set field="parameters.facilityId" value="${facilityId}"/>
+                                <set field="parameters.productStoreId" from-field="parameters.productStoreId"/>
+                                <service service-name="getFolderInEbayStoreInventory" result-map="result">
+                                    <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                                </service>
+                                <set field="ebayfolderId" value="${result.folderId}"/>
+                            </actions>
+                            <widgets>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field="ebayfolderId"/></not>
+                                    </condition>
+                                    <widgets><include-screen name="ViewInventoryItemDetail"/></widgets>
+                                    <fail-widgets><include-screen name="ebayStoreInventoryFail"/></fail-widgets>
+                                </section>
+                            </widgets>
+                        </section>
+                    </widgets>
+                    <fail-widgets>
+                        <section>
+                            <actions>
+                                <set field="parameters.facilityId" value="${facilityId}"/>
+                                <set field="parameters.productStoreId" from-field="parameters.productStoreId"/>
+                            </actions>
+                            <widgets>
+                                <decorator-screen name="SellingManagerDecorator" location="${parameters.mainDecoratorLocation}">
+                                    <decorator-section name="body">
+                                        <screenlet>
+                                            <include-form name="EbayStoreFacilityList" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                                        </screenlet>
+                                    </decorator-section>
+                                </decorator-screen>
+                            </widgets>
+                        </section>
+                    </fail-widgets>
+                </section>
+            </widgets>
+        </section>
+    </screen> 
+    <screen name="ebayLoadStoreInventory">
+        <section>
+            <actions>
+                <set field="headerItem" value="ebayStore"/>
+                <set field="sellingManagerItem" value="inventory"/>
+                <entity-and entity-name="ProductStoreFacility" list="productStoreFacilityList">
+                    <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <section>
+                    <widgets>
+                        <section>
+                            <actions>
+                                <set field="facilityId" from-field="parameters.facilityId"/>
+                                <set field="productStoreId" from-field="parameters.productStoreId"/>
+                                <set field="ebayfolderId" from-field="parameters.folderId"/>
+                            </actions>
+                            <widgets><include-screen name="ViewInventoryItemDetail"/></widgets>
+                        </section>
+                    </widgets>
+                </section>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ViewInventoryItemDetail">
+        <section>
+            <actions>
+                <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="PageTitleEditInventoryItem"/>
+                <set field="headerItem" value="ebayStore"/>
+                <set field="sellingManagerItem" value="inventory"/>
+                <set field="facilityId" from-field="parameters.facilityId"/>
+                <set field="productStoreId" from-field="parameters.productStoreId"/>
+                <entity-one entity-name="ProductStore" value-field="productStore">
+                    <field-map field-name="productStoreId" from-field="productStoreId"/>
+                    <select-field field-name="storeName"/>
+                </entity-one>
+                <entity-one entity-name="Facility" value-field="facility">
+                    <field-map field-name="facilityId" from-field="facilityId"/>
+                    <select-field field-name="facilityName"/>
+                </entity-one>
+                <entity-and entity-name="EbayProductStoreInventory" list="ebayProductStoreInventoryList">
+                    <field-map field-name="productStoreId"  from-field="productStoreId"/>
+                    <field-map field-name="facilityId"  from-field="facilityId"/>
+                </entity-and>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="SellingManagerDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.ProductInventoryDetails} ${uiLabelMap.ProductStoreNameId} : ${productStore.storeName}[${productStore.productStoreId}] ${uiLabelMap.FacilityFacility} : ${facility.facilityName}">
+                            <section>
+                                <widgets>
+                                    <link name="updateEbayInventoryStatus" secure="true" target="updateEbayInventoryStatus"  style="buttontext" text="${uiLabelMap.EbayUpdateInventoryStatus}">
+                                        <parameter param-name="productStoreId" from-field="productStoreId"/>
+                                        <parameter param-name="facilityId" from-field="facilityId"/>
+                                    </link>
+                                    <link name="reserveEbayProductInventory" target="reserveEbayProductInventory"  style="buttontext" text="${uiLabelMap.EbayReserveProductInventory}">
+                                        <parameter param-name="productStoreId" from-field="productStoreId"/>
+                                        <parameter param-name="facilityId" from-field="facilityId"/>
+                                    </link>
+                                </widgets>
+                            </section>
+                            <include-form name="ListEbayProductInventoryDetail" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="reserveEbayProductInventory">
+        <section>
+            <actions>
+                <set field="headerItem" value="ebayStore"/>
+                <set field="sellingManagerItem" value="inventory"/>
+                <set field="productStoreId" from-field="parameters.productStoreId"/>
+                <entity-one entity-name="Facility" value-field="facility">
+                    <field-map field-name="facilityId"  value="${parameters.facilityId}"/>
+                    <select-field field-name="facilityName"/>
+                </entity-one>
+            </actions>
+            <widgets>
+                <decorator-screen name="SellingManagerDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.EbayReserveProductFrom} : ${facility.facilityName}">
+                            <include-form name="ReserveEbayProductInventory" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ebayStoreInventoryFail">
+        <section>
+            <actions>
+                <set field="headerItem" value="ebayStore"/>
+                <set field="sellingManagerItem" value="inventory"/>
+                <set field="productStoreId" from-field="parameters.productStoreId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="SellingManagerDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="notes">
+                            <label style="label" text="Please subscribed to Selling Manager Pro before you use this function because ebay product inventory will open when you start selling manager pro on ebay site."></label>
+                            <label style="label" text="if you subscribed already then still can not use, please check you internet connection."></label>
+                            <label text="- To subscribe for production site"></label>
+                            <link target="http://pages.ebay.com/selling_manager_pro" text="http://pages.ebay.com/selling_manager_pro"  target-window="_BLANK" url-mode="plain"></link>
+                            <label text="- To upgrade store level sandbox site"></label>
+                            <link target="http://k2b-bulk.sandbox.ebay.com/ws/eBayISAPI.dll?MyeBaySellingPendingListings" target-window="_BLANK" url-mode="plain" text="http://k2b-bulk.sandbox.ebay.com/ws/eBayISAPI.dll?MyeBaySellingPendingListings"></link>
+                        </screenlet>
+                        <screenlet title="How to upgrade sandbox store level?">
+                            <label text="- Click on the link &quot;To upgrade store level for sandbox site&quot;"></label>
+                            <label text="- Go to &quot;Selling Related links&quot; section"></label>
+                            <label text="- Click on &quot;Edit my eBay store&quot;"></label>
+                            <label text="- Page Manage my eBay store will show up"></label>
+                            <label text="- Go to &quot;Store Usage Information&quot; section"></label>
+                            <label text="- Click upgrade at &quot;Subscription level&quot; then select &quot;Premium Store&quot; and &quot;Selling Manager Pro&quot; then submit."></label>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="updateQuantityReserved">
+        <section>
+            <actions>
+                <set field="headerItem" value="ebayStore"/>
+                <set field="sellingManagerItem" value="inventory"/>
+                <entity-one entity-name="EbayProductStoreInventory" value-field="ebayProductStoreInventory">
+                    <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                    <field-map field-name="facilityId" from-field="parameters.facilityId"/>
+                    <field-map field-name="productId" from-field="parameters.productId"/>
+                </entity-one>
+            </actions>
+            <widgets>
+                <decorator-screen name="SellingManagerDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="Inventory Quantities">
+                            <include-form name="UpdateQuantityReserved" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <!-- Automation Preferences -->
+    <screen name="EbayAutomationPreferences">
+        <section>
+            <actions>
+                <set field="headerItem" value="ebayStore"/>
+                <set field="sellingManagerItem" value="automationPreferences"/>
+                <service service-name="getEbayStoreUser" result-map="result">
+                    <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                </service>
+                <set field="userLoginId" from-field="result.userLoginId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="SellingManagerDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <decorator-section-include name="body"/>
+                        <include-screen name="AutomationRelistSoldItems"/>
+                        <include-screen name="AutomationDispute"/>
+                        <screenlet title="${uiLabelMap.EbayTxtAutoPositiveFeedbackBuyer}" id="autoPositiveFeedback" collapsible="true" initially-collapsed="true">
+                            <include-form name="AutoPositiveFeedbackForBuyers" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.EbayIsAutoFeedbackReminder}" id="autoSendFeedbackReminder" collapsible="true" initially-collapsed="true">
+                            <include-form name="AutoSendFeedbackReminder" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.EbayAutoPaymentReceviedEmail}" id="autoSendPaymentReceivedEmail" collapsible="true" initially-collapsed="true">
+                            <include-form name="AutoSendPaymentReceivedEmail" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.EbayCombineOrderSetting}" id="combineOrdersSetting" collapsible="true" initially-collapsed="true">
+                            <include-form name="CombineOrdersSetting" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.EbayAutoSendWinBuyerEmail}" id="winningBuyerNotification" collapsible="true" initially-collapsed="true">
+                            <include-form name="WinningBuyerNotification" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.EbayAutoSendItemDispatchEmail}" id="itemDispatchedNotification" collapsible="true" initially-collapsed="true">
+                            <include-form name="ItemDispatchedNotification" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.EbayBlockItemOutOfStock}" id="blockItemsOutOfStock" collapsible="true" initially-collapsed="true">
+                            <include-form name="BlockItemsOutOfStock" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.AutoBestOfferSetting}" id="bestOfferSetting" collapsible="true" initially-collapsed="true">
+                            <include-form name="BestOffer" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="AutomationRelistSoldItems">
+        <section>
+            <actions>
+                <set field="headerItem" value="ebayStore"/>
+                <set field="autoPrefEnumId" value="EBAY_AUTO_RELISTING"/>
+                <set field="serviceName" value="autoRelistingItems"/>
+                <entity-one entity-name="EbayProductStorePref" value-field="ebayPrefRelisting">
+                    <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                    <field-map field-name="autoPrefEnumId" from-field="autoPrefEnumId"/>
+                </entity-one>
+                 <service service-name="getEbayStoreUser" result-map="result">
+                     <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                </service>
+                <set field="userLoginId" from-field="result.userLoginId"/>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.EbayAutomationRelistItems}" collapsible="true" name="EbayAutomationRelistItems">
+                    <include-form name="EditAutomationRelistSoldItems"  location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="AutomationDispute">
+        <section>
+            <actions>
+                <set field="headerItem" value="ebayStore"/>
+                <set field="tabButtonItem" value="automaticEbayDisputeItems"/>
+                <set field="autoPrefEnumId1" value="EBAY_AUTO_DISPUTE1"/>
+                <set field="autoPrefEnumId2" value="EBAY_AUTO_DISPUTE2"/>
+                <set field="serviceName1" value="automaticEbayDisputeNotComplete"/>
+                <set field="serviceName2" value="automaticEbayDisputeNotPay"/>
+                <entity-one entity-name="EbayProductStorePref" value-field="ebayPrefDispute1">
+                    <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                    <field-map field-name="autoPrefEnumId" from-field="autoPrefEnumId1"/>
+                </entity-one>
+                <entity-one entity-name="EbayProductStorePref" value-field="ebayPrefDispute2">
+                    <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                    <field-map field-name="autoPrefEnumId" from-field="autoPrefEnumId2"/>
+                </entity-one>
+                <script location="component://ebaystore/groovyScripts/automationPreferences/GetDisputeInfo.groovy"/>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.EbayAutomatiionDisputeItems}" collapsible="true" name="AutomationDispute">
+                    <include-form name="AutomationDisputeNotComplete"  location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                    <include-form name="AutomationDisputeNotPay"  location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+    <!-- Sold -->
+    <screen name="EbaySoldListing">
+        <section>
+            <actions>
+                <set field="sellingManagerItem" value="soldListing"/>
+            </actions>
+            <widgets>
+               <decorator-screen name="SellingManagerDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <decorator-section-include name="body"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="SoldListing">
+        <section>
+            <actions>
+                <service service-name="getEbaySoldItems" result-map="result">
+                    <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                </service>
+                <set field="soldItemList" from-field="result.soldItems"/>
+                <set field="target" value="soldListing"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="EbaySoldListing">
+                    <decorator-section name="body">
+                        <screenlet title="Sold Listing">
+                            <include-grid location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="SoldItemList"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="OpenUnpaid">
+        <section>
+            <widgets>
+                <decorator-screen name="EbaySoldListing">
+                    <decorator-section name="body">
+                        <screenlet title="Open Unpaid">
+                               <include-form name="OpenUnpaid" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                           </screenlet>
+                       </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="MakeSecondChanceOffer">
+        <section>
+            <actions>
+                <service service-name="getEbayAllBidders" result-map="results">
+                    <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                    <field-map field-name="itemId" from-field="parameters.itemId"/>
+                </service>
+                <set field="allBidders" from-field="results.allBidders"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="EbaySoldListing">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.EbayAddSecondChanceOffer}">
+                            <include-form name="MakeSecondChanceOffer" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditEmailTemplate">
+        <section>
+            <actions>
+                <set field="headerItem" value="ebayStore"/>
+                <set field="sellingManagerItem" value="automationPreferences"/>
+                <service service-name="getEbayStoreUser" result-map="result">
+                    <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                </service>
+                <service service-name="getEbayUser" result-map="ebayUser">
+                    <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                </service>
+                <set field="userLoginId" from-field="result.userLoginId"/>
+                <set field="emailType" from-field="parameters.emailType"/>
+                <entity-one entity-name="ProductStoreEmailSetting" value-field="emailSetting">
+                    <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                    <field-map field-name="emailType" from-field="emailType"/>
+                </entity-one>
+                <set field="subject" from-field="emailSetting.subject"/>
+                <set field="bodyScreenLocation" value="component://ebaystore/widget/EbayEmailScreens.xml#EbayEmailTemplate"/>
+                   <set field="fromAddress" from-field="ebayUser.email"/>
+                   <entity-one entity-name="UserLogin" value-field="userLoginCheck">
+                       <field-map field-name="userLoginId" from-field="userLoginId"/>
+                   </entity-one>
+                   <set field="partyId" from-field="userLoginCheck.partyId"/>
+                   <script location="component://ebaystore/groovyScripts/email/GetProductStoreEmailTemplate.groovy"/>
+                   <entity-one entity-name="Content" value-field="templateContent"/>
+                   <get-related-one value-field="templateContent" relation-name="DataResource" to-value-field="templateDataResource"/>
+                   <get-related-one value-field="templateDataResource" relation-name="ElectronicText" to-value-field="templateData"/>
+                   <set field="textData" from-field="templateData.textData"/>
+                   <set field="dataResourceId" from-field="templateData.dataResourceId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="SellingManagerDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.EbayEditEmailTemplate}">
+                            <include-form name="EditEmailTemplate"  location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EbayActiveListing">
+        <section>
+            <actions>
+                <set field="sellingManagerItem" value="activeListing"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="SellingManagerDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <decorator-section-include name="body"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ActiveListing">
+        <section>
+            <actions>
+                <service service-name="getMyeBaySelling" result-map="result">
+                    <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                    <field-map field-name="listingType" from-field="requestParameters.listingType"/>
+                </service>
+                <set field="activeItemList" from-field="result.activeItems"/>
+                <set field="target" value="activeListing"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="EbayActiveListing">
+                    <decorator-section name="body">
+                        <screenlet title="Active to Open Listings">
+                            <include-form name="ItemOption" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                            <include-grid location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="ActiveItemList"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EbayUnsoldListing">
+        <section>
+            <actions>
+                <set field="sellingManagerItem" value="unsoldListing"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="SellingManagerDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <decorator-section-include name="body"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="UnsoldListing">
+        <section>
+            <actions>
+                <service service-name="getMyeBaySelling" result-map="result">
+                    <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                    <field-map field-name="listingType" from-field="parameters.listingType"/>
+                </service>
+                <set field="unsoldItemList" from-field="result.unsoldItems"/>
+                <set field="target" value="unsoldListing"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="EbayUnsoldListing">
+                    <decorator-section name="body">
+                        <screenlet title="Unsold Listing">
+                            <include-form name="ItemOption" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                            <include-grid location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="UnsoldItemList"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="WaitingToShipping">
+        <section>
+            <actions>
+                <set field="sellingManagerItem" value="waitingToShipping"/>
+                <service service-name="getEbaySoldItems" result-map="result">
+                    <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                    <field-map field-name="filter" value="PAID_NOT_SHIPPED"/>
+                    <field-map field-name="itemId" from-field="parameters.itemId"/>
+                    <field-map field-name="buyerId" from-field="parameters.buyerId"/>
+                </service>
+                <set field="soldItemList" from-field="result.soldItems"/>
+                <set field="target" value="waitingToShipping"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="SellingManagerDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="uiLabelMap.EbayWaitingToShipping">
+                            <include-form name="WaitingToShippingOption" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                            <include-grid location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="SoldItemList"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ordersImported">
+        <section>
+            <actions>
+                <set field="headerItem" value="ebayStore"/>
+                <set field="sellingManagerItem" value="ordersImported"/>
+                <script location="component://order/groovyScripts/order/FindOrders.groovy"/>
+                <set field="orderList" value="${orderList}" type="List"/>
+                <set field="productStoreId" from-field="parameters.productStoreId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="SellingManagerDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="Find Orders Imported">
+                            <include-form name="FindOrdersImported" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                        </screenlet>
+                        <platform-specific>
+                            <html>
+                                <html-template location="component://ebaystore/template/store/OrderImported.ftl"/>
+                            </html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="GetItemProduct">
+        <section>
+            <actions>
+                <set field="headerItem" value="ebayStore"/>
+                <service service-name="getEbayStoreProductItem" result-map="result">
+                    <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                    <field-map field-name="itemId" from-field="parameters.itemId"/>
+                </service>
+                <set field="title" from-field="result.title"/>
+                <set field="description" from-field="result.description"/>
+                <set field="price" from-field="result.price"/>
+                <set field="pictureURL" from-field="result.pictureURL"/>
+                <set field="listingType" from-field="result.listingType"/>
+                <set field="currencyId" from-field="result.currencyId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="SellingManagerDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <decorator-section-include name="body"/>
+                            <screenlet title="Edit Product Item" collapsible="true" name="GetItemProduct">
+                                <include-form name="EditItemProduct"  location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                            </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="customerService">
+        <section>
+            <actions>
+                    <set field="headerItem" value="ebayStore"/>
+                    <service service-name="getEbayStoreUser" result-map="result">
+                        <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                    </service>
+                    <set field="productStoreId" from-field="parameters.productStoreId"/>
+                    <set field="userLoginId" from-field="result.userLoginId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="SellingManagerDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet name="ebayCustomerService" title="Customer Offer Included Message" collapsible="true">
+                            <include-grid location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="bestOfferIncludeMessage"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="customerOfferData">
+        <section>
+           <actions>
+               <set field="productStoreId" value="${parameters.productStoreId}"/>
+               <set field="itemId" value="${parameters.itemId}"/>
+               <set field="userId" value="${parameters.userId}"/>
+               <set field="itemName" value="${parameters.itemName}"/>
+               <set field="email" value="${parameters.email}"/>
+               <set field="quantity" value="${parameters.quantity}"/>
+               <set field="price" value="${parameters.price}"/>
+               <set field="message" value="${parameters.message}"/>
+               <set field="offerId" value="${parameters.offerId}"/>
+               <set field="contactStatus" value="${parameters.contactStatus}"/>
+           </actions>
+           <widgets>
+               <decorator-screen name="SellingManagerDecorator" location="${parameters.mainDecoratorLocation}">
+                   <decorator-section name="body">
+                       <screenlet name="customerData"  title="Customer Offer Data">
+                           <include-form name="ViewCustomerOfferData" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                       </screenlet>
+                   </decorator-section>
+               </decorator-screen>
+           </widgets>
+        </section>
+    </screen>
+    <screen name="EbayclosedListing">
+        <section>
+            <actions>
+                <set field="sellingManagerItem" value="closedListing"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="SellingManagerDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <decorator-section-include name="body"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ClosedListing">
+        <section>
+            <actions>
+                <service service-name="geteBayClosedItem" result-map="closedItemMap">
+                    <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                </service>
+                <set field="closedList" from-field="closedItemMap.closedItemList"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="EbayclosedListing">
+                    <decorator-section name="body">
+                        <screenlet title="Closed Item Listings">
+                            <include-form name="ItemOption" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                            <include-grid location="component://ebaystore/widget/EbaySellingManagerForms.xml" name="ClosedItemList"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EbayOrderListing">
+        <section>
+            <actions>
+                <set field="sellingManagerItem" value="orderListing"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="SellingManagerDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <decorator-section-include name="body"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="OrderListing">
+        <section>
+            <actions>
+                <set field="productStoreId" from-field="parameters.productStoreId"/>
+                <set field="check" from-field="parameters.formSelect" default-value="transaction"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="EbayOrderListing">
+                    <decorator-section name="body">
+                    <section>
+                        <condition>
+                            <if-compare operator="equals" value="transaction" field="check"/>
+                        </condition>
+                        <widgets>
+                            <section>
+                                <actions>
+                                    <set field="selectedDate" from-field="parameters.selectedDate" default-value="false"/>
+                                </actions>
+                                <widgets>
+                                <section>
+                                    <condition>
+                                        <if-compare operator="equals" value="true" field="selectedDate"/>
+                                    </condition>
+                                    <actions>
+                                        <service service-name="getEbayStoreTransaction" result-map="transactionResult">
+                                            <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                                            <field-map field-name="fromDate" from-field="parameters.fromDate"/>
+                                            <field-map field-name="thruDate" from-field="parameters.thruDate"/>
+                                        </service>
+                                        <set field="transactionsList" from-field="transactionResult.transactionsList"/>
+                                        <set field="selectedDate" value="false"/>
+                                    </actions>
+                                    <widgets/>
+                                </section>
+                                    <screenlet title="Order Listings (Import single Transactions)">
+                                        <include-menu location="component://ebaystore/widget/EbayStoreMenus.xml" name="EbayOrderSubBar"/>
+                                        <include-form name="FindEbayStoreOrders" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                                        <include-form name="TransactionList" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                                    </screenlet>
+                                </widgets>
+                            </section>
+                        </widgets>
+                        <fail-widgets>
+                            <section>
+                                <actions>
+                                    <set field="formSelect" from-field="parameters.formSelect"/>
+                                    <set field="selectedDate" from-field="parameters.selectedDate" default-value="false"/>
+                                </actions>
+                                <widgets>
+                                <section>
+                                    <condition>
+                                        <if-compare operator="equals" value="true" field="selectedDate"/>
+                                    </condition>
+                                    <actions>
+                                        <service service-name="getEbayStoreOrder" result-map="orderResult">
+                                            <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                                            <field-map field-name="fromDate" from-field="parameters.fromDate"/>
+                                            <field-map field-name="thruDate" from-field="parameters.thruDate"/>
+                                        </service>
+                                        <set field="orderList" from-field="orderResult.orderList"/>
+                                        <script location="component://ebaystore/groovyScripts/store/OrderListPrepare.groovy"/>
+                                        <set field="selectedDate" value="false"/>
+                                    </actions>
+                                    <widgets/>
+                                </section>
+                                    <screenlet title="Order Listings (Import many transactions)">
+                                        <include-menu location="component://ebaystore/widget/EbayStoreMenus.xml" name="EbayOrderSubBar"/>
+                                        <include-form name="FindEbayStoreOrders" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                                        <include-form name="OrderList" location="component://ebaystore/widget/EbaySellingManagerForms.xml"/>
+                                    </screenlet>
+                                </widgets>
+                            </section>
+                        </fail-widgets>
+                    </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens>

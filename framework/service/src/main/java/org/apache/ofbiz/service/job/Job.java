@@ -72,10 +72,5 @@ public interface Job extends Runnable {
      * Returns the time this job is scheduled to start.
      */
     Date getStartTime();
-
-    /**
-     * Returns the priority of this job, higher the number the higher the priority
-     */
-    long getPriority();
 }
 

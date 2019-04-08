@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<entity-engine-xml>
+    <DataResource dataResourceId="HELP_EBAY" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="specialpurpose/ebay/data/helpdata/HELP_EBAY.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
+        dataResourceName="Ebay" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="HELP_EBAY" contentTypeId="DOCUMENT" contentName="Ebay" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="HELP_EBAY" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_EBAY" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000"/>
+
+    <!-- options -->
+    <DataResource dataResourceId="EBAY_main" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="specialpurpose/ebay/data/helpdata/HELP_EBAY_main.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Ebay" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="EBAY_main" contentTypeId="DOCUMENT" contentName="Ebay Main." templateDataResourceId="HELP_TEMPL" dataResourceId="EBAY_main" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_EBAY" contentIdTo="EBAY_main" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="EBAY_main"/>
+    
+
+    <!--  features -->
+    <DataResource dataResourceId="EBAY_Features" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="specialpurpose/ebay/data/helpdata/HELP_EBAY_Features.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Ebay" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="EBAY_Features" contentTypeId="DOCUMENT" contentName="Ebay features." templateDataResourceId="HELP_TEMPL" dataResourceId="EBAY_Features" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_EBAY" contentIdTo="EBAY_Features" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000"/>
+
+    <!--  -->
+    <DataResource dataResourceId="EBAY_FindEbayConfig" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="specialpurpose/ebay/data/helpdata/HELP_EBAY_FindConfigurations.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Ebay" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="EBAY_FindEbayConfig" contentTypeId="DOCUMENT" contentName="Ebay find configurations." templateDataResourceId="HELP_TEMPL" dataResourceId="EBAY_FindEbayConfig" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_EBAY" contentIdTo="EBAY_FindEbayConfig" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="EBAY_FindEbayConfigurations"/>
+    
+    <DataResource dataResourceId="EBAY_EditEbayConfig" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="specialpurpose/ebay/data/helpdata/HELP_EBAY_EditEbayConfiguration.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Ebay" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="EBAY_EditEbayConfig" contentTypeId="DOCUMENT" contentName="Ebay edit configurations." templateDataResourceId="HELP_TEMPL" dataResourceId="EBAY_EditEbayConfig" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_EBAY" contentIdTo="EBAY_EditEbayConfig" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="EBAY_EditEbayConfiguration"/>
+    
+    <DataResource dataResourceId="EBAY_AddEbayConfig" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="specialpurpose/ebay/data/helpdata/HELP_EBAY_AddEbayConfiguration.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Ebay" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="EBAY_AddEbayConfig" contentTypeId="DOCUMENT" contentName="EBAY_AddEbayConfig" templateDataResourceId="HELP_TEMPL" dataResourceId="EBAY_AddEbayConfig" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_EBAY" contentIdTo="EBAY_AddEbayConfig" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="EBAY_EditEbayConfiguration"/>
+
+    <DataResource dataResourceId="EBAY_ShippingMethods" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="specialpurpose/ebay/data/helpdata/HELP_EBAY_ShippingMethods.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Ebay" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="EBAY_ShippingMethods" contentTypeId="DOCUMENT" contentName="Ebay shippingMethods" templateDataResourceId="HELP_TEMPL" dataResourceId="EBAY_ShippingMethods" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_EBAY" contentIdTo="EBAY_ShippingMethods" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="EBAY_EbayShippingMethods"/>
+    
+    <DataResource dataResourceId="EBAY_AdvanceSearch" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="specialpurpose/ebay/data/helpdata/HELP_EBAY_AdvanceSearch.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Ebay" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="EBAY_AdvanceSearch" contentTypeId="DOCUMENT" contentName="Ebay advance Search" templateDataResourceId="HELP_TEMPL" dataResourceId="EBAY_AdvanceSearch" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_EBAY" contentIdTo="EBAY_AdvanceSearch" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="EBAY_advancedsearch"/>
+
+    <DataResource dataResourceId="EBAY_KeywordSearch" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="specialpurpose/ebay/data/helpdata/HELP_EBAY_KeywordSearch.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Ebay" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="EBAY_KeywordSearch" contentTypeId="DOCUMENT" contentName="Ebay keyword Search" templateDataResourceId="HELP_TEMPL" dataResourceId="EBAY_KeywordSearch" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_EBAY" contentIdTo="EBAY_KeywordSearch" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="EBAY_keywordsearch"/>
+
+    <DataResource dataResourceId="EBAY_ProdsExpToEbay" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="specialpurpose/ebay/data/helpdata/HELP_EBAY_ProductsExportToEbay.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Ebay" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="EBAY_ProdsExpToEbay" contentTypeId="DOCUMENT" contentName="Ebay products export to Ebay" templateDataResourceId="HELP_TEMPL" dataResourceId="EBAY_ProdsExpToEbay" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_EBAY" contentIdTo="EBAY_ProdsExpToEbay" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="EBAY_ProductsExportToEbay"/>
+    
+    <DataResource dataResourceId="EBAY_MOrdsFromEbay" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="specialpurpose/ebay/data/helpdata/HELP_EBAY_ManageOrdersFromEbay.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Ebay" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="EBAY_MOrdsFromEbay" contentTypeId="DOCUMENT" contentName="Ebay import single transections from Ebay" templateDataResourceId="HELP_TEMPL" dataResourceId="EBAY_MOrdsFromEbay" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_EBAY" contentIdTo="EBAY_MOrdsFromEbay" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="EBAY_ManageOrdersFromEbay"/>
+    
+    <DataResource dataResourceId="EBAY_EbayOrders" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="specialpurpose/ebay/data/helpdata/HELP_EBAY_eBayOrders.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Ebay" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="EBAY_EbayOrders" contentTypeId="DOCUMENT" contentName="Ebay orders import" templateDataResourceId="HELP_TEMPL" dataResourceId="EBAY_EbayOrders" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_EBAY" contentIdTo="EBAY_EbayOrders" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="EBAY_FindEbayOrders"/>
+    
+</entity-engine-xml>

@@ -39,7 +39,7 @@ under the License.
                 <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.PartyCompanySubtitle" global="true"/>
                 <!-- layoutSettings.headerImageUrl can be used to specify an application specific logo; if not set,
                      then the global layoutSettings.commonHeaderImageUrl (specified in GlobalDecorator) will be used. -->
-                <!--<set field="layoutSettings.headerImageUrl" value="/images/ofbiz_logo.png" global="true"/>-->
+                <!--<set field="layoutSettings.headerImageUrl" value="/images/ofbiz_logo.gif" global="true"/>-->
 
                 <!-- <set field="layoutSettings.headerMiddleBackgroundUrl" value="" global="true"/> -->
                 <!-- <set field="layoutSettings.headerRightBackgroundUrl" value="" global="true"/> -->
@@ -49,7 +49,7 @@ under the License.
                 <set field="activeApp" value="partymgr" global="true"/>
                 <set field="applicationMenuName" value="PartyAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://party/widget/partymgr/PartyMenus.xml" global="true"/>
-                <set field="applicationTitle" from-field="uiLabelMap.PartyManagerApplication" global="true"/>
+                <set field="applicationTitle" value="${uiLabelMap.PartyManagerApplication}" global="true"/>
             </actions>
             <widgets>
                 <include-screen name="ApplicationDecorator" location="component://commonext/widget/CommonScreens.xml"/>
@@ -75,7 +75,7 @@ under the License.
                                 </and>
                             </condition>
                             <widgets>
-                                <include-menu name="ProfileTabBar" location="component://party/widget/partymgr/PartyMenus.xml"/>
+                                <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="ProfileTabBar"/>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -89,7 +89,7 @@ under the License.
                                 <section>
                                     <condition><not><if-empty field="partyId"/></not></condition>
                                     <widgets>
-                                        <include-menu name="ProfileSubTabBar" location="component://party/widget/partymgr/PartyMenus.xml"/>
+                                        <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="ProfileSubTabBar"/>
                                         <container style="clear"/>
                                         <container style="page-title">
                                             <section>

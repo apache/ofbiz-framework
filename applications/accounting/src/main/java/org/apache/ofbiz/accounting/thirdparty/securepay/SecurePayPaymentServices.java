@@ -67,13 +67,13 @@ public class SecurePayPaymentServices {
         BigDecimal newAmount = null;
         int amont;
 
-        if ("Y".equals(enableamountround)) {
-            newAmount = new BigDecimal(processAmount.setScale(0, RoundingMode.HALF_UP)+".00");
+        if (enableamountround.equals("Y")) {
+            newAmount = new BigDecimal(processAmount.setScale(0, BigDecimal.ROUND_HALF_UP)+".00");
         } else {
             newAmount = processAmount;
         }
 
-        if ("JPY".equals(currency)) {
+        if (currency.equals("JPY")) {
             amont = newAmount.intValue();
         } else {
             amont = newAmount.multiply(multiplyAmount).intValue();
@@ -113,12 +113,12 @@ public class SecurePayPaymentServices {
                 Txn resp = payment.getTxn(0);
                 boolean approved = resp.getApproved();
                 if (approved == false){
-                    result.put("authResult", Boolean.FALSE);
+                    result.put("authResult", new Boolean(false));
                     result.put("authRefNum", "N/A");
                     result.put("processAmount", BigDecimal.ZERO);
                 } else {
                     result.put("authRefNum", resp.getTxnId());
-                    result.put("authResult", Boolean.TRUE);
+                    result.put("authResult", new Boolean(true));
                     result.put("processAmount", processAmount);
                 }
                 result.put("authCode", resp.getResponseCode());
@@ -162,13 +162,13 @@ public class SecurePayPaymentServices {
         BigDecimal newAmount = null;
         int amont;
 
-        if ("Y".equals(enableamountround)) {
-            newAmount = new BigDecimal(captureAmount.setScale(0, RoundingMode.HALF_UP)+".00");
+        if (enableamountround.equals("Y")) {
+            newAmount = new BigDecimal(captureAmount.setScale(0, BigDecimal.ROUND_HALF_UP)+".00");
         } else {
             newAmount = captureAmount;
         }
 
-        if ("JPY".equals(currency)) {
+        if (currency.equals("JPY")) {
             amont = newAmount.intValue();
         } else {
             amont = newAmount.multiply(multiplyAmount).intValue();
@@ -241,13 +241,13 @@ public class SecurePayPaymentServices {
         BigDecimal newAmount = null;
         int amont;
 
-        if ("Y".equals(enableamountround)) {
-            newAmount = new BigDecimal(releaseAmount.setScale(0, RoundingMode.HALF_UP)+".00");
+        if (enableamountround.equals("Y")) {
+            newAmount = new BigDecimal(releaseAmount.setScale(0, BigDecimal.ROUND_HALF_UP)+".00");
         } else {
             newAmount = releaseAmount;
         }
 
-        if ("JPY".equals(currency)) {
+        if (currency.equals("JPY")) {
             amont = newAmount.intValue();
         } else {
             amont = newAmount.multiply(multiplyAmount).intValue();
@@ -308,7 +308,7 @@ public class SecurePayPaymentServices {
                     .queryFirst();
             referenceNum = paymentGatewayResponse != null ? paymentGatewayResponse.get("referenceNum") : authTransaction.getString("referenceNum");
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            e.printStackTrace();
         }
 
         Properties props = buildScProperties(context, delegator);
@@ -327,14 +327,14 @@ public class SecurePayPaymentServices {
         BigDecimal multiplyAmount = new BigDecimal(100);
         BigDecimal newAmount = null;
 
-        if ("Y".equals(enableamountround)) {
-            newAmount = new BigDecimal(refundAmount.setScale(0, RoundingMode.HALF_UP)+".00");
+        if (enableamountround.equals("Y")) {
+            newAmount = new BigDecimal(refundAmount.setScale(0, BigDecimal.ROUND_HALF_UP)+".00");
         } else {
             newAmount = refundAmount;
         }
 
         int amont;
-        if ("JPY".equals(currency)) {
+        if (currency.equals("JPY")) {
             amont = newAmount.intValue();
         } else {
             amont = newAmount.multiply(multiplyAmount).intValue();
@@ -400,13 +400,13 @@ public class SecurePayPaymentServices {
         BigDecimal newAmount = null;
         int amont;
 
-        if ("Y".equals(enableamountround)) {
-            newAmount = new BigDecimal(creditAmount.setScale(0, RoundingMode.HALF_UP)+".00");
+        if (enableamountround.equals("Y")) {
+            newAmount = new BigDecimal(creditAmount.setScale(0, BigDecimal.ROUND_HALF_UP)+".00");
         } else {
             newAmount = creditAmount;
         }
 
-        if ("JPY".equals(currency)) {
+        if (currency.equals("JPY")) {
             amont = newAmount.intValue();
         } else {
             amont = newAmount.multiply(multiplyAmount).intValue();

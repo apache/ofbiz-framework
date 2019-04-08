@@ -43,7 +43,7 @@ under the License.
             package-name="org.apache.ofbiz.security.cert"
             never-cache="true"
             title="Valid issuer data for authentication of x.509 certificates">
-      <field name="certProvisionId" type="id"></field>
+      <field name="certProvisionId" type="id-ne"></field>
       <field name="commonName" type="value"></field>
       <field name="organizationalUnit" type="value"></field>
       <field name="organizationName" type="value"></field>
@@ -60,9 +60,9 @@ under the License.
 
     <entity entity-name="UserLogin"
             package-name="org.apache.ofbiz.security.login"
-            title="User Login">
-      <field name="userLoginId" type="id-vlong"></field>
-      <field name="currentPassword" type="long-varchar"></field>
+            title="User Login Entity">
+      <field name="userLoginId" type="id-vlong-ne"></field>
+      <field name="currentPassword" type="short-varchar"></field>
       <field name="passwordHint" type="description"></field>
       <field name="isSystem" type="indicator"></field>
       <field name="enabled" type="indicator"></field>
@@ -73,10 +73,10 @@ under the License.
       <field name="lastTimeZone" type="id-long"></field>
       <field name="disabledDateTime" type="date-time"></field>
       <field name="successiveFailedLogins" type="numeric"></field>
-      <field name="externalAuthId" type="id-vlong">
+      <field name="externalAuthId" type="id-vlong-ne">
           <description>For use with external authentication; the userLdapDn should be replaced with this</description>
       </field>
-      <field name="userLdapDn" type="id-vlong">
+      <field name="userLdapDn" type="id-vlong-ne">
           <description>The user's LDAP Distinguished Name - used for LDAP authentication</description>
       </field>
       <field name="disabledBy" type="id-vlong"></field>
@@ -85,11 +85,11 @@ under the License.
     <entity entity-name="UserLoginPasswordHistory"
             package-name="org.apache.ofbiz.security.login"
             never-cache="true"
-            title="User Login Password History">
-      <field name="userLoginId" type="id-vlong"></field>
+            title="User Login Password History Entity">
+      <field name="userLoginId" type="id-vlong-ne"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
-      <field name="currentPassword" type="long-varchar"></field>
+      <field name="currentPassword" type="short-varchar"></field>
       <prim-key field="userLoginId"/>
       <prim-key field="fromDate"/>
       <relation type="one" fk-name="USER_LPH_USER" rel-entity-name="UserLogin">
@@ -99,28 +99,24 @@ under the License.
     <entity entity-name="UserLoginHistory"
             package-name="org.apache.ofbiz.security.login"
             never-cache="true"
-            title="User Login History">
-      <field name="userLoginId" type="id-vlong"></field>
+            title="User Login History Entity">
+      <field name="userLoginId" type="id-vlong-ne"></field>
       <field name="visitId" type="id"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
       <field name="passwordUsed" type="long-varchar" encrypt="true"></field>
       <field name="successfulLogin" type="indicator"></field>
-      <field name="originUserLoginId" type="id-vlong"></field>
       <prim-key field="userLoginId"/>
       <prim-key field="fromDate"/>
       <relation type="one" fk-name="USER_LH_USER" rel-entity-name="UserLogin">
         <key-map field-name="userLoginId"/>
       </relation>
-      <relation type="one-nofk" fk-name="ORIG_USER_LH_USER" rel-entity-name="UserLogin" title="Origin">
-        <key-map field-name="originUserLoginId" rel-field-name="userLoginId"/>
-      </relation>
     </entity>
     <entity entity-name="UserLoginSession"
             package-name="org.apache.ofbiz.security.login"
             never-cache="true"
-            title="User Login History">
-      <field name="userLoginId" type="id-vlong"></field>
+            title="User Login History Entity">
+      <field name="userLoginId" type="id-vlong-ne"></field>
       <field name="savedDate" type="date-time"></field>
       <field name="sessionData" type="very-long"></field>
       <prim-key field="userLoginId"/>
@@ -136,23 +132,19 @@ under the License.
     <entity entity-name="SecurityGroup"
             package-name="org.apache.ofbiz.security.securitygroup"
             default-resource-name="SecurityEntityLabels"
-            title="Security Component - Security Group">
-      <field name="groupId" type="id"></field>
-      <field name="groupName" type="value"></field>
+            title="Security Component - Security Group Entity">
+      <field name="groupId" type="id-ne"></field>
       <field name="description" type="description"></field>
       <prim-key field="groupId"/>
     </entity>
     <entity entity-name="SecurityGroupPermission"
             package-name="org.apache.ofbiz.security.securitygroup"
-            title="Security Component - Security Group Permission">
+            title="Security Component - Security Group Permission Entity">
       <description>Defines a permission available to a security group; there is no FK to SecurityPermission because we want to leave open the possibility of ad-hoc permissions, especially for the Entity Data Maintenance pages which have TONS of permissions</description>
-      <field name="groupId" type="id"></field>
-      <field name="permissionId" type="id-long"></field>
-      <field name="fromDate" type="date-time"></field>
-      <field name="thruDate" type="date-time"></field>
+      <field name="groupId" type="id-ne"></field>
+      <field name="permissionId" type="id-long-ne"></field>
       <prim-key field="groupId"/>
       <prim-key field="permissionId"/>
-      <prim-key field="fromDate"/>
       <relation type="one" fk-name="SEC_GRP_PERM_GRP" rel-entity-name="SecurityGroup">
         <key-map field-name="groupId"/>
       </relation>
@@ -163,15 +155,15 @@ under the License.
     <entity entity-name="SecurityPermission"
             package-name="org.apache.ofbiz.security.securitygroup"
             default-resource-name="SecurityEntityLabels"
-            title="Security Component - Security Permission">
-      <field name="permissionId" type="id-long"></field>
+            title="Security Component - Security Permission Entity">
+      <field name="permissionId" type="id-long-ne"></field>
       <field name="description" type="description"></field>
       <prim-key field="permissionId"/>
     </entity>
     <view-entity entity-name="UserLoginAndSecurityGroup"
           package-name="org.apache.ofbiz.security.securitygroup"
           never-cache="true"
-          title="UserLogin And SecurityGroup View">
+          title="UserLogin And SecurityGroup View Entity">
       <member-entity entity-alias="ULSG" entity-name="UserLoginSecurityGroup"/>
       <member-entity entity-alias="UL" entity-name="UserLogin"/>
       <alias-all entity-alias="ULSG"/>
@@ -180,31 +172,12 @@ under the License.
         <key-map field-name="userLoginId"/>
       </view-link>
     </view-entity>
-    <view-entity entity-name="UserLoginAndPermission"
-                 package-name="org.apache.ofbiz.security.securitygroup"
-                 never-cache="true"
-                 title="UserLogin And Permission View">
-        <member-entity entity-alias="ULSG" entity-name="UserLoginSecurityGroup"/>
-        <member-entity entity-alias="UL" entity-name="UserLogin"/>
-        <member-entity entity-alias="SGP" entity-name="SecurityGroupPermission"/>
-        <alias-all entity-alias="UL"/>
-        <alias-all entity-alias="ULSG"/>
-        <alias name="permissionId" entity-alias="SGP"/>
-        <alias name="permissionFromDate" field="fromDate" entity-alias="SGP"/>
-        <alias name="permissionThruDate" field="thruDate" entity-alias="SGP"/>
-        <view-link entity-alias="ULSG" rel-entity-alias="UL">
-            <key-map field-name="userLoginId"/>
-        </view-link>
-        <view-link entity-alias="ULSG" rel-entity-alias="SGP">
-            <key-map field-name="groupId"/>
-        </view-link>
-    </view-entity>
     <entity entity-name="UserLoginSecurityGroup"
             package-name="org.apache.ofbiz.security.securitygroup"
-            title="Security Component - User Login Security Group">
+            title="Security Component - User Login Security Group Entity">
       <description>Maps a UserLogin to a security group</description>
-      <field name="userLoginId" type="id-vlong"></field>
-      <field name="groupId" type="id"></field>
+      <field name="userLoginId" type="id-vlong-ne"></field>
+      <field name="groupId" type="id-ne"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
       <prim-key field="userLoginId"/>
@@ -222,10 +195,10 @@ under the License.
     </entity>
     <entity entity-name="ProtectedView"
           package-name="org.apache.ofbiz.security.securitygroup"
-          title="Security Component - Protected View">
+          title="Security Component - Protected View Entity">
       <description>Defines views protected from data leakage</description>
-      <field name="groupId" type="id"></field>
-      <field name="viewNameId" type="id-long"><description>name of view to protect from data theft</description></field>
+      <field name="groupId" type="id-ne"></field>
+      <field name="viewNameId" type="id-long-ne"><description>name of view to protect from data theft</description></field>
       <field name="maxHits" type="numeric"><description>number of hits before tarpitting a login for a view</description></field>
       <field name="maxHitsDuration" type="numeric"><description>period of time associated with maxHits (in seconds)</description></field>
       <field name="tarpitDuration" type="numeric"><description>period of time a login will not be able to acces  this view again (in seconds)</description></field>
@@ -240,7 +213,7 @@ under the License.
     </entity>
     <view-entity entity-name="UserLoginAndProtectedView"
           package-name="org.apache.ofbiz.security.securitygroup"
-          title="UserLogin And ProtectedView View">
+          title="UserLogin And ProtectedView View Entity">
       <member-entity entity-alias="ULSGPV" entity-name="UserLoginSecurityGroup"/>
       <member-entity entity-alias="PV" entity-name="ProtectedView"/>
       <alias-all entity-alias="ULSGPV"/>
@@ -251,17 +224,17 @@ under the License.
     </view-entity>
     <entity entity-name="TarpittedLoginView"
           package-name="org.apache.ofbiz.security.securitygroup"
-          title="Security Component - Protected View">
+          title="Security Component - Protected View Entity">
       <description>Login View couple currently tarpitted : any access to the view for the login is denied</description>
-      <field name="viewNameId" type="id-long"><description>name of view protected from data theft</description></field>
-      <field name="userLoginId" type="id-vlong"/>
+      <field name="viewNameId" type="id-long-ne"><description>name of view protected from data theft</description></field>
+      <field name="userLoginId" type="id-vlong-ne"/>
       <field name="tarpitReleaseDateTime" type="numeric"><description>Date/Time at which the login will gain anew access to the view (in milliseconds from midnight, January 1, 1970 UTC , 0 meaning no tarpit to allow the admin to free a view and to keep history</description></field>
       <prim-key field="viewNameId"/>
       <prim-key field="userLoginId"/>
     </entity>
     <entity entity-name="UserLoginSecurityQuestion" package-name="org.apache.ofbiz.security.login">
-      <field name="questionEnumId" type="id" />
-      <field name="userLoginId" type="id-vlong" />
+      <field name="questionEnumId" type="id-ne" />
+      <field name="userLoginId" type="id-vlong-ne" />
       <field name="securityAnswer" type="description" />
       <prim-key field="questionEnumId"/>
       <prim-key field="userLoginId"/>

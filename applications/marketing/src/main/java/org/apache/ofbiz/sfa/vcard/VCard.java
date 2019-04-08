@@ -50,7 +50,6 @@ import org.apache.ofbiz.party.party.PartyWorker;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
-import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
 
 import ezvcard.Ezvcard;
@@ -87,6 +86,7 @@ public class VCard {
         boolean isGroup = false;
         List<Map<String, String>> partiesCreated = new ArrayList<Map<String,String>>();
         List<Map<String, String>> partiesExist = new ArrayList<Map<String,String>>();
+        String partyName = ""; // TODO this is not used yet
 
         try (VCardReader vCardReader = new VCardReader(in)) {
             ezvcard.VCard vcard = null;
@@ -112,6 +112,7 @@ public class VCard {
                 if (!isGroup) {
                     serviceCtx.put("firstName", structuredName.getGiven());
                     serviceCtx.put("lastName", structuredName.getFamily());
+                    partyName = structuredName.getGiven() + " " + structuredName.getFamily();
                 }
 
                 // Resolve all postal Address
@@ -162,7 +163,9 @@ public class VCard {
                     } else {
                         //TODO change uncorrect labellisation
                         String emailFormatErrMsg = UtilProperties.getMessage(resourceError, "SfaImportVCardEmailFormatError", locale);
+                        vCardReader.close();
                         return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "MarketingEmailFormatError", UtilMisc.toMap("firstName", structuredName.getGiven(), "lastName", structuredName.getFamily(), "emailFOrmatErrMsg", emailFormatErrMsg), locale));
+
                     }
                 }
 
@@ -204,21 +207,15 @@ public class VCard {
                     }
                 }
                 Map<String, Object> resp = dispatcher.runSync(serviceName, serviceCtx);
-                if (ServiceUtil.isError(resp)) {
-                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(resp));
-                }
                 partiesCreated.add(UtilMisc.toMap("partyId", (String) resp.get("partyId")));
 
                 if (formattedName != null) {
                     //store the origin creation
-                    Map<String, Object> createPartyIdentificationMap = dctx.makeValidContext("createPartyIdentification", ModelService.IN_PARAM, context);
+                    Map<String, Object> createPartyIdentificationMap = dctx.makeValidContext("createPartyIdentification", "IN", context);
                     createPartyIdentificationMap.put("partyId", resp.get("partyId"));
                     createPartyIdentificationMap.put("partyIdentificationTypeId", "VCARD_FN_ORIGIN");
                     createPartyIdentificationMap.put("idValue", formattedName.getValue());
                     resp = dispatcher.runSync("createPartyIdentification", createPartyIdentificationMap);
-                    if (ServiceUtil.isError(resp)) {
-                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(resp));
-                    }
                 }
             }
         } catch (IOException | GenericEntityException | GenericServiceException e) {

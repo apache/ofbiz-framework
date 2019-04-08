@@ -114,10 +114,10 @@ under the License.
               <table class="basic-table" cellpadding="2" cellspacing='0'>
                 <tr>
                   <th>
-                    ${uiLabelMap.ProductPackedWeight} <#if defaultWeightUom?has_content>(${defaultWeightUom.get("abbreviation",locale)!})</#if>:
+                    ${uiLabelMap.ProductPackedWeight} (${("uiLabelMap.ProductShipmentUomAbbreviation_" + defaultWeightUomId)?eval}):
                   </th>
                   <th>
-                    ${uiLabelMap.CommonDimension} <#if defaultDimensionUom?has_content>(${defaultDimensionUom.get("abbreviation",locale)!})</#if>:
+                    ${uiLabelMap.CommonDimension} (${("uiLabelMap.ProductShipmentUomAbbreviation_" + defaultDimensionUomId)?eval}):
                   </th>
                   <th>
                     ${uiLabelMap.ProductPackageInputBox}:
@@ -145,7 +145,7 @@ under the License.
                           <#if shipmentBoxTypes?has_content>
                             <#assign shipmentBoxTypeId = "${(packedLine.getShipmentBoxTypeId())!}"/>
                             <#list shipmentBoxTypes as shipmentBoxType>
-                              <#if "${shipmentBoxType.shipmentBoxTypeId}" == shipmentBoxTypeId>
+                              <#if shipmentBoxTypeId == "${shipmentBoxType.shipmentBoxTypeId}">
                                 <option value="${shipmentBoxType.shipmentBoxTypeId}">${shipmentBoxType.description}</option>
                               </#if>
                             </#list>
@@ -156,7 +156,7 @@ under the License.
                           </#if>
                         </select>
                       </td>
-                      <td align="right"><input type="submit" value="${uiLabelMap.CommonUpdate}" /></td>
+                      <td align="right"><a href="javascript:document.updateWeightPackageForm_${packedLine.getWeightPackageSeqId()}.submit()" class="buttontext">${uiLabelMap.CommonUpdate}</a></td>
                       <td align="right"><a href="javascript:document.updateWeightPackageForm_${packedLine.getWeightPackageSeqId()}.action='<@ofbizUrl>deletePackedLine</@ofbizUrl>';document.updateWeightPackageForm_${packedLine.getWeightPackageSeqId()}.submit();" class="buttontext">${uiLabelMap.CommonDelete}</a></div>
                     </tr>
                   </form>
@@ -189,14 +189,14 @@ under the License.
                 </#if>
                 <tr>
                   <td>
-                    <span class="label">${uiLabelMap.ProductPackedWeight} <#if defaultWeightUom?has_content>(${defaultWeightUom.get("abbreviation",locale)!})</#if>:
+                    <span class="label">${uiLabelMap.ProductPackedWeight} (${("uiLabelMap.ProductShipmentUomAbbreviation_" + defaultWeightUomId)?eval}):
                       <br />
                       ${uiLabelMap.ProductPackage}
                       <input type="text" size="7" name="packageWeight" value=""/>
                     </span>
                   </td>
                   <td>
-                    <span class="label">${uiLabelMap.CommonDimension} <#if defaultDimensionUom?has_content>(${defaultDimensionUom.get("abbreviation",locale)!})</#if>:</span>
+                    <span class="label">${uiLabelMap.CommonDimension} (${("uiLabelMap.ProductShipmentUomAbbreviation_" + defaultDimensionUomId)?eval}):</span>
                     <br />
                     <span class="label">${uiLabelMap.CommonLength}<input type="text" name="packageLength" value="" size="5"/></span>
                     <span class="label">${uiLabelMap.ProductWidth}<input type="text" name="packageWidth" value="" size="5"/></span>
@@ -223,10 +223,10 @@ under the License.
             <table class="basic-table" cellpadding="2" cellspacing='0'> 
              <tr>
                 <th>
-                 ${uiLabelMap.ProductPackedWeight} <#if defaultWeightUom?has_content>(${defaultWeightUom.get("abbreviation",locale)!})</#if>:
+                 ${uiLabelMap.ProductPackedWeight} (${("uiLabelMap.ProductShipmentUomAbbreviation_" + defaultWeightUomId)?eval}):
                 </th>
                  <th>
-                  ${uiLabelMap.CommonDimension} <#if defaultDimensionUom?has_content>(${defaultDimensionUom.get("abbreviation",locale)!})</#if>:
+                  ${uiLabelMap.CommonDimension} (${("uiLabelMap.ProductShipmentUomAbbreviation_" + defaultDimensionUomId)?eval}):
                 </th>
                 <th>
                   ${uiLabelMap.ProductPackageInputBox}:

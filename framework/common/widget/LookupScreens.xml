@@ -25,10 +25,10 @@ under the License.
     <screen name="LookupGeo">
         <section>
             <actions>
-                <set field="title" from-field="uiLabelMap.PageTitleLookupGeo"/>
+                <set field="title" value="${uiLabelMap.PageTitleLookupGeo}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
 
                 <!-- entries needed for lookup ajax auto completer -->
@@ -62,10 +62,10 @@ under the License.
     <screen name="LookupGeoName">
         <section>
             <actions>
-                <set field="title" from-field="uiLabelMap.PageTitleLookupGeo"/>
+                <set field="title" value="${uiLabelMap.PageTitleLookupGeo}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
 
                 <!-- entries needed for lookup ajax auto completer -->
@@ -100,9 +100,20 @@ under the License.
     <!-- Locales Lookup Screen -->
     <screen name="ListLocales">
         <section>
+            <actions>
+                <set field="title" value="${uiLabelMap.CommonChooseLanguage}"/>
+                <set field="parameters.presentation" value="window"/>
+            </actions>
             <widgets>
-                <include-screen name="MinimalActions" location="component://common/widget/CommonScreens.xml"/>
-                <include-screen name="ListLocales" location="${groovy:commonScreenLocations.ListLocales?commonScreenLocations.ListLocales:commonDecoratorLocation}"/>
+               <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
+                <decorator-section name="body">
+                    <platform-specific>
+                        <html>
+                            <html-template location="component://common/template/includes/ListLocales.ftl"/>
+                        </html>
+                    </platform-specific>
+                </decorator-section>
+              </decorator-screen>
             </widgets>
         </section>
     </screen>
@@ -110,9 +121,24 @@ under the License.
     <!-- Companies Lookup Screen -->
     <screen name="ListSetCompanies">
         <section>
+            <actions>
+                <set field="titleProperty" value="CommonCompany"/>
+                <entity-condition entity-name="PartyAcctgPrefAndGroup" list="companyList" distinct="true">
+                    <condition-list>
+                        <condition-expr field-name="roleTypeId" operator="equals" value="INTERNAL_ORGANIZATIO"/>
+                    </condition-list>
+                    <select-field field-name="partyId"/>
+                    <select-field field-name="groupName"/>
+                </entity-condition>
+            </actions>
             <widgets>
-                <include-screen name="MinimalActions" location="component://common/widget/CommonScreens.xml"/>
-                <include-screen name="ListSetCompanies" location="${groovy:commonScreenLocations.ListSetCompanies?commonScreenLocations.ListSetCompanies:commonDecoratorLocation}"/>
+                <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://common/template/includes/listCompanies.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
             </widgets>
         </section>
     </screen>
@@ -120,9 +146,20 @@ under the License.
     <!-- Timezones Lookup Screen -->
     <screen name="ListTimezones">
         <section>
+            <actions>
+                <set field="title" value="${uiLabelMap.CommonTime}"/>
+                <set field="parameters.presentation" value="window"/>
+            </actions>
             <widgets>
-                <include-screen name="MinimalActions" location="component://common/widget/CommonScreens.xml"/>
-                <include-screen name="ListTimezones" location="${groovy:commonScreenLocations.ListTimezones?commonScreenLocations.ListTimezones:commonDecoratorLocation}"/>
+               <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
+                <decorator-section name="body">
+                    <platform-specific>
+                        <html>
+                            <html-template location="component://common/template/includes/ListTimezones.ftl"/>
+                        </html>
+                    </platform-specific>
+                </decorator-section>
+              </decorator-screen>
             </widgets>
         </section>
     </screen>
@@ -130,9 +167,25 @@ under the License.
     <!-- Visual Themes Lookup Screen -->
     <screen name="ListVisualThemes">
         <section>
+            <actions>
+                <set field="title" value="${uiLabelMap.CommonVisualThemes}"/>
+                <set field="parameters.presentation" value="window"/>
+                <entity-one entity-name="WebSite" value-field="webSite"/>
+                <set field="visualThemeSetId" from-field="webSite.visualThemeSetId" default-value="BACKOFFICE" />
+                <entity-condition entity-name="VisualTheme" list="visualThemes">
+                    <condition-expr field-name="visualThemeSetId" from-field="visualThemeSetId" />
+                </entity-condition>
+            </actions>
             <widgets>
-                <include-screen name="MinimalActions" location="component://common/widget/CommonScreens.xml"/>
-                <include-screen name="ListVisualThemes" location="${groovy:commonScreenLocations.ListVisualThemes?commonScreenLocations.ListVisualThemes:commonDecoratorLocation}"/>
+               <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
+                <decorator-section name="body">
+                    <platform-specific>
+                        <html>
+                            <html-template location="component://common/template/includes/ListVisualThemes.ftl"/>
+                        </html>
+                    </platform-specific>
+                </decorator-section>
+              </decorator-screen>
             </widgets>
         </section>
     </screen>
@@ -140,9 +193,20 @@ under the License.
     <!-- Time Duration Screen -->
     <screen name="TimeDuration">
         <section>
+            <actions>
+                <set field="title" value="${uiLabelMap.CommonTime}"/>
+                <set field="parameters.presentation" value="window"/>
+            </actions>
             <widgets>
-                <include-screen name="MinimalActions" location="component://common/widget/CommonScreens.xml"/>
-                <include-screen name="TimeDuration" location="${groovy:commonScreenLocations.TimeDuration?commonScreenLocations.TimeDuration:commonDecoratorLocation}"/>
+               <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
+                <decorator-section name="body">
+                    <platform-specific>
+                        <html>
+                            <html-template location="component://common/template/includes/TimeDuration.ftl"/>
+                        </html>
+                    </platform-specific>
+                </decorator-section>
+              </decorator-screen>
             </widgets>
         </section>
     </screen>
@@ -154,9 +218,9 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="SecurityUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.LookupUserLogin"/>
+                <set field="title" value="${uiLabelMap.LookupUserLogin}"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
             </actions>
             <widgets>
@@ -175,7 +239,7 @@ under the License.
     <screen name="LookupPortalPage">
         <section>
             <actions>
-                <set field="title" from-field="uiLabelMap.CommonPortalPage"/>
+                <set field="title" value="${uiLabelMap.CommonPortalPage}"/>
             </actions>
             <widgets>
                <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
@@ -195,9 +259,9 @@ under the License.
             <actions>
                 <property-map resource="SecurityUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.CommonLookupLocale"/>
+                <set field="title" value="${uiLabelMap.CommonLookupLocale}"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="inputFields" from-field="parameters"/>
                 <script location="component://common/groovyScripts/GetLocaleList.groovy"/>

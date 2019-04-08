@@ -48,7 +48,7 @@ import org.apache.ofbiz.minilang.MiniLangException;
 import org.apache.ofbiz.minilang.SimpleMapProcessor;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
-import org.apache.ofbiz.service.ServiceUtil;
+import org.apache.ofbiz.service.ModelService;
 
 /**
  * LayoutEvents Class
@@ -77,7 +77,7 @@ public class LayoutEvents {
             String imageFileName = (String) uploadResults.get("imageFileName");
             String imageFileNameExt = null;
             if (UtilValidate.isNotEmpty(imageFileName)) {
-                int pos = imageFileName.lastIndexOf('.');
+                int pos = imageFileName.lastIndexOf(".");
                 if (pos >= 0) {
                     imageFileNameExt = imageFileName.substring(pos + 1);
                 }
@@ -111,12 +111,6 @@ public class LayoutEvents {
             }
 
             Map<String, Object> result = dispatcher.runSync("persistContentAndAssoc", context);
-            if (ServiceUtil.isError(result)) {
-                String errorMessage = ServiceUtil.getErrorMessage(result);
-                request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                Debug.logError(errorMessage, module);
-                return "error";
-            }
 
             String dataResourceId = (String) result.get("dataResourceId");
             String activeContentId = (String) result.get("contentId");
@@ -132,14 +126,8 @@ public class LayoutEvents {
 
                 context2.put("contentIdTo", formInput.get("contentIdTo"));
                 context2.put("mapKey", formInput.get("mapKey"));
-                Map<String, Object> serviceResult = new HashMap<String, Object>();
-                serviceResult = dispatcher.runSync("deactivateAssocs", context2);
-                if (ServiceUtil.isError(serviceResult)) {
-                    String errorMessage = ServiceUtil.getErrorMessage(serviceResult);
-                    request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                    Debug.logError(errorMessage, module);
-                    return "error";
-                }
+
+                dispatcher.runSync("deactivateAssocs", context2);
             }
 
             GenericValue dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", dataResourceId).queryOne();
@@ -185,7 +173,7 @@ public class LayoutEvents {
                 return "error";
             }
             String imageFileName = (String) uploadResults.get("imageFileName");
-            if (Debug.verboseOn()) Debug.logVerbose("in createLayoutImage(java), context:" + context, "");
+            Debug.logVerbose("in createLayoutImage(java), context:" + context, "");
             context.put("userLogin", session.getAttribute("userLogin"));
             context.put("dataResourceTypeId", "IMAGE_OBJECT");
             context.put("contentAssocTypeId", "SUB_CONTENT");
@@ -197,13 +185,13 @@ public class LayoutEvents {
             context.put("drDataResourceTypeId", null);
 
             String dataResourceId = (String) context.get("drDataResourceId");
-            if (Debug.verboseOn()) Debug.logVerbose("in createLayoutImage(java), dataResourceId:" + dataResourceId, "");
+            Debug.logVerbose("in createLayoutImage(java), dataResourceId:" + dataResourceId, "");
 
             GenericValue dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", dataResourceId).queryOne();
-            if (Debug.verboseOn()) Debug.logVerbose("in createLayoutImage(java), dataResource:" + dataResource, "");
+            Debug.logVerbose("in createLayoutImage(java), dataResource:" + dataResource, "");
             // Use objectInfo field to store the name of the file, since there is no
             // place in ImageDataResource for it.
-            if (Debug.verboseOn()) Debug.logVerbose("in createLayoutImage(java), imageFileName:" + imageFileName, "");
+            Debug.logVerbose("in createLayoutImage(java), imageFileName:" + imageFileName, "");
             if (dataResource != null) {
                 dataResource.setNonPKFields(context);
                 dataResource.store();
@@ -232,7 +220,7 @@ public class LayoutEvents {
         Locale locale = UtilHttp.getLocale(request);
         Map<String, Object> context = new HashMap<String, Object>();
         Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
-        if (Debug.verboseOn()) Debug.logVerbose("in replaceSubContent, paramMap:" + paramMap, module);
+        Debug.logVerbose("in replaceSubContent, paramMap:" + paramMap, module);
         String dataResourceId = (String) paramMap.get("dataResourceId");
         if (UtilValidate.isEmpty(dataResourceId)) {
             String errMsg = UtilProperties.getMessage(LayoutEvents.err_resource, "layoutEvents.data_ressource_id_null", locale);
@@ -259,12 +247,6 @@ public class LayoutEvents {
 
             try {
                 Map<String, Object> result = dispatcher.runSync("persistContentAndAssoc", context);
-                if (ServiceUtil.isError(result)) {
-                    String errorMessage = ServiceUtil.getErrorMessage(result);
-                    request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                    Debug.logError(errorMessage, module);
-                    return "error";
-                }
                 request.setAttribute("contentId", contentIdTo);
                 Map<String, Object> context2 = new HashMap<String, Object>();
                 context2.put("activeContentId", contentId);
@@ -276,14 +258,8 @@ public class LayoutEvents {
 
                 context2.put("contentIdTo", contentIdTo);
                 context2.put("mapKey", mapKey);
-                Map<String, Object> serviceResult = new HashMap<String, Object>();
-                serviceResult = dispatcher.runSync("deactivateAssocs", context2);
-                if (ServiceUtil.isError(serviceResult)) {
-                    String errorMessage = ServiceUtil.getErrorMessage(serviceResult);
-                    request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                    Debug.logError(errorMessage, module);
-                    return "error";
-                }
+
+                dispatcher.runSync("deactivateAssocs", context2);
             } catch (GenericServiceException e) {
                 request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                 return "error";
@@ -300,14 +276,14 @@ public class LayoutEvents {
         Locale locale = UtilHttp.getLocale(request);
         Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
         String contentId = (String) paramMap.get("contentId");
-        if (Debug.verboseOn()) Debug.logVerbose("in cloneLayout, contentId:" + contentId, "");
+        Debug.logVerbose("in cloneLayout, contentId:" + contentId, "");
         if (UtilValidate.isEmpty(contentId)) {
             String errMsg = UtilProperties.getMessage(LayoutEvents.err_resource, "layoutEvents.content_id_empty", locale);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
         String contentIdTo = (String) paramMap.get("contentIdTo");
-        if (Debug.verboseOn()) Debug.logVerbose("in cloneLayout, contentIdTo:" + contentIdTo, "");
+        Debug.logVerbose("in cloneLayout, contentIdTo:" + contentIdTo, "");
         GenericValue content = null;
         GenericValue newContent = null;
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
@@ -317,14 +293,14 @@ public class LayoutEvents {
         String newDataResourceId = null;
         try {
             content = EntityQuery.use(delegator).from("Content").where("contentId", contentId).queryOne();
-            if (Debug.verboseOn()) Debug.logVerbose("in cloneLayout, content:" + content, "");
+            Debug.logVerbose("in cloneLayout, content:" + content, "");
             if (content == null) {
                 String errMsg = UtilProperties.getMessage(LayoutEvents.err_resource, "layoutEvents.content_empty", locale);
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
                 return "error";
             }
             newContent = delegator.makeValue("Content", content);
-            if (Debug.verboseOn()) Debug.logVerbose("in cloneLayout, newContent:" + newContent, "");
+            Debug.logVerbose("in cloneLayout, newContent:" + newContent, "");
             String oldName = (String) content.get("contentName");
             newId = delegator.getNextSeqId("Content");
             newContent.set("contentId", newId);
@@ -332,7 +308,7 @@ public class LayoutEvents {
             GenericValue dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", dataResourceId).queryOne();
             if (dataResource != null) {
                 GenericValue newDataResource = delegator.makeValue("DataResource", dataResource);
-                if (Debug.verboseOn()) Debug.logVerbose("in cloneLayout, newDataResource:" + newDataResource, "");
+                Debug.logVerbose("in cloneLayout, newDataResource:" + newDataResource, "");
                 String dataResourceName = "Copy:" + (String) dataResource.get("dataResourceName");
                 newDataResource.set("dataResourceName", dataResourceName);
                 newDataResourceId = delegator.getNextSeqId("DataResource");
@@ -349,7 +325,7 @@ public class LayoutEvents {
             newContent.set("createdByUserLogin", userLoginId);
             newContent.set("lastModifiedByUserLogin", userLoginId);
             newContent.create();
-            if (Debug.verboseOn()) Debug.logVerbose("in cloneLayout, newContent:" + newContent, "");
+            Debug.logVerbose("in cloneLayout, newContent:" + newContent, "");
 
             GenericValue newContentAssoc = delegator.makeValue("ContentAssoc");
             newContentAssoc.set("contentId", newId);
@@ -357,7 +333,7 @@ public class LayoutEvents {
             newContentAssoc.set("contentAssocTypeId", "SUB_CONTENT");
             newContentAssoc.set("fromDate", UtilDateTime.nowTimestamp());
             newContentAssoc.create();
-            if (Debug.verboseOn()) Debug.logVerbose("in cloneLayout, newContentAssoc:" + newContentAssoc, "");
+            Debug.logVerbose("in cloneLayout, newContentAssoc:" + newContentAssoc, "");
         } catch (GenericEntityException e) {
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             return "error";
@@ -372,12 +348,6 @@ public class LayoutEvents {
         serviceIn.put("assocTypes", UtilMisc.toList("SUB_CONTENT"));
         try {
             results = dispatcher.runSync("getAssocAndContentAndDataResource", serviceIn);
-            if (ServiceUtil.isError(results)) {
-                String errorMessage = ServiceUtil.getErrorMessage(results);
-                request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                Debug.logError(errorMessage, module);
-                return "error";
-            }
             entityList = UtilGenerics.checkList(results.get("entityList"));
             if (UtilValidate.isEmpty(entityList)) {
                 String errMsg = UtilProperties.getMessage(LayoutEvents.err_resource, "layoutEvents.no_subcontent", locale);
@@ -412,7 +382,7 @@ public class LayoutEvents {
             String mapKey = (String) view.get("caMapKey");
             Timestamp fromDate = (Timestamp) view.get("caFromDate");
             Timestamp thruDate = (Timestamp) view.get("caThruDate");
-            if (Debug.verboseOn()) Debug.logVerbose("in cloneLayout, contentIdFrom:" + contentIdFrom + " fromDate:" + fromDate + " thruDate:" + thruDate + " mapKey:" + mapKey, "");
+            Debug.logVerbose("in cloneLayout, contentIdFrom:" + contentIdFrom + " fromDate:" + fromDate + " thruDate:" + thruDate + " mapKey:" + mapKey, "");
             if (beenThere.get(contentIdFrom) == null) {
                 serviceIn.put("contentIdFrom", contentIdFrom);
                 serviceIn.put("contentIdTo", newId);
@@ -420,12 +390,6 @@ public class LayoutEvents {
                 serviceIn.put("thruDate", null);
                 try {
                     results = dispatcher.runSync("persistContentAndAssoc", serviceIn);
-                    if (ServiceUtil.isError(results)) {
-                        String errorMessage = ServiceUtil.getErrorMessage(results);
-                        request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                        Debug.logError(errorMessage, module);
-                        return "error";
-                    }
                 } catch (GenericServiceException e) {
                     request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                     return "error";
@@ -437,7 +401,7 @@ public class LayoutEvents {
         GenericValue view = delegator.makeValue("ContentDataResourceView");
         view.set("contentId", newId);
         view.set("drDataResourceId", newDataResourceId);
-        if (Debug.verboseOn()) Debug.logVerbose("in cloneLayout, view:" + view, "");
+        Debug.logVerbose("in cloneLayout, view:" + view, "");
         ContentManagementWorker.setCurrentEntityMap(request, view);
         request.setAttribute("contentId", view.get("contentId"));
         request.setAttribute("drDataResourceId", view.get("drDataResourceId"));
@@ -456,7 +420,7 @@ public class LayoutEvents {
                 Debug.logVerbose("in createSubContent, mapKey:" + mapKey, module);
             }
             Map<String, Object> context = new HashMap<String, Object>();
-            List<Object> errorMessages = new LinkedList<>();
+            List<Object> errorMessages = null;
             Locale loc = (Locale) request.getSession().getServletContext().getAttribute("locale");
             if (loc == null) {
                 loc = Locale.getDefault();
@@ -488,10 +452,9 @@ public class LayoutEvents {
                 Debug.logVerbose("in createSubContent, context:" + context, module);
             }
             Map<String, Object> result = dispatcher.runSync("persistContentAndAssoc", context);
-            if (ServiceUtil.isError(result)) {
-                String errorMessage = ServiceUtil.getErrorMessage(result);
-                request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                Debug.logError(errorMessage, module);
+            boolean isError = ModelService.RESPOND_ERROR.equals(result.get(ModelService.RESPONSE_MESSAGE));
+            if (isError) {
+                request.setAttribute("_ERROR_MESSAGE_", result.get(ModelService.ERROR_MESSAGE));
                 return "error";
             }
 
@@ -510,14 +473,8 @@ public class LayoutEvents {
             context2.put("contentIdTo", contentIdTo);
             context2.put("mapKey", mapKey);
             context2.put("userLogin", userLogin);
-            Map<String, Object> serviceResult = new HashMap<String, Object>();
-            serviceResult = dispatcher.runSync("deactivateAssocs", context2);
-            if (ServiceUtil.isError(serviceResult)) {
-                String errorMessage = ServiceUtil.getErrorMessage(serviceResult);
-                request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                Debug.logError(errorMessage, module);
-                return "error";
-            }
+
+            dispatcher.runSync("deactivateAssocs", context2);
         } catch (GenericServiceException e) {
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             return "error";
@@ -531,7 +488,7 @@ public class LayoutEvents {
             HttpSession session = request.getSession();
             Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
             Map<String, Object> context = new HashMap<String, Object>();
-            List<Object> errorMessages = new LinkedList<>();
+            List<Object> errorMessages = null;
             Locale loc = (Locale) request.getSession().getServletContext().getAttribute("locale");
             if (loc == null) {
                 loc = Locale.getDefault();
@@ -560,10 +517,9 @@ public class LayoutEvents {
             context.put("textData", paramMap.get("textData"));
             context.put("contentAssocTypeId", null);
             Map<String, Object> result = dispatcher.runSync("persistContentAndAssoc", context);
-            if (ServiceUtil.isError(result)) {
-                String errorMessage = ServiceUtil.getErrorMessage(result);
-                request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                Debug.logError(errorMessage, module);
+            boolean isError = ModelService.RESPOND_ERROR.equals(result.get(ModelService.RESPONSE_MESSAGE));
+            if (isError) {
+                request.setAttribute("_ERROR_MESSAGE_", result.get(ModelService.ERROR_MESSAGE));
                 return "error";
             }
             String contentId = (String) result.get("contentId");
@@ -597,8 +553,8 @@ public class LayoutEvents {
             if (attrVal == null) {
                 attrVal = (String) paramMap.get(attrName);
             }
-            if (Debug.verboseOn()) Debug.logVerbose("in copyToClip, attrName:" + attrName,"");
-            if (Debug.verboseOn()) Debug.logVerbose("in copyToClip, attrVal:" + attrVal,"");
+            Debug.logVerbose("in copyToClip, attrName:" + attrName,"");
+            Debug.logVerbose("in copyToClip, attrVal:" + attrVal,"");
             if (UtilValidate.isNotEmpty(attrVal)) {
                 passedPK.put(attrName,attrVal);
             } else {

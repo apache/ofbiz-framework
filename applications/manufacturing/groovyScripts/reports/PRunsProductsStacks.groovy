@@ -20,6 +20,7 @@
 // PRunsProductsStacks
 // ReportC
 
+import org.apache.ofbiz.entity.util.EntityUtil
 
 if (productCategoryIdPar) {
     category = from("ProductCategory").where("productCategoryId", productCategoryIdPar).queryOne()
@@ -32,6 +33,8 @@ if (productFeatureTypeIdPar) {
 
 allProductionRuns = from("WorkEffortAndGoods").where("workEffortName", planName).orderBy("productId").queryList()
 productionRuns = []
+features = [:]
+products = [:]
 
 if (allProductionRuns) {
     allProductionRuns.each { productionRun ->

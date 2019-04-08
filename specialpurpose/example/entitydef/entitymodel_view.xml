@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
+    <!-- ========================================================= -->
+    <!-- ======================== Defaults ======================= -->
+    <!-- ========================================================= -->
+    <title>Entity of an Apache OFBiz Component</title>
+    <description>None</description>
+    <version>1.0</version>
+
+    <view-entity entity-name="ExampleStatusDetail" package-name="org.apache.ofbiz.example.example">
+        <member-entity entity-alias="EXPL" entity-name="Example"/>
+        <member-entity entity-alias="EXST" entity-name="ExampleStatus"/>
+        <member-entity entity-alias="STIT" entity-name="StatusItem"/>
+        <alias-all entity-alias="EXPL">
+            <exclude field="statusId"/>
+        </alias-all>
+        <alias-all entity-alias="EXST"/>
+        <alias-all entity-alias="STIT">
+            <exclude field="description"/>
+        </alias-all>
+        <alias name="statusDescription" entity-alias="STIT" field="description"/>
+        <alias entity-alias="EXPL" name="currentStatusId" field="statusId"/>
+        <alias name="statusDelay">
+            <complex-alias operator="-">
+                <complex-alias-field entity-alias="EXST" field="statusDate"/>
+                <complex-alias-field entity-alias="EXPL" field="exampleDate"/>
+            </complex-alias>
+        </alias>
+        <view-link entity-alias="EXPL" rel-entity-alias="EXST">
+            <key-map field-name="exampleId"/>
+        </view-link>
+        <view-link entity-alias="EXST" rel-entity-alias="STIT">
+            <key-map field-name="statusId"/>
+        </view-link>
+    </view-entity>
+
+    <view-entity entity-name="ExampleStatusItem" package-name="org.apache.ofbiz.example.example">
+        <member-entity entity-alias="SI" entity-name="StatusItem"/>
+        <alias-all entity-alias="SI"/>
+        <entity-condition>
+            <condition-expr entity-alias="SI" field-name="statusTypeId" operator="equals" value="EXAMPLE_STATUS"/>
+            <order-by field-name="sequenceId"/>
+        </entity-condition>
+    </view-entity>
+    
+    <!-- Some examples of nested views and conditions for report -->
+    <view-entity entity-name="ExampleFeatureApplAndType" package-name="org.apache.ofbiz.example.example">
+        <member-entity entity-alias="EXFTAP" entity-name="ExampleFeatureAppl"/>
+        <member-entity entity-alias="EXFTAPTP" entity-name="ExampleFeatureApplType"/>
+        <alias-all entity-alias="EXFTAP"/>
+        <alias-all entity-alias="EXFTAPTP"/>
+        <view-link entity-alias="EXFTAP" rel-entity-alias="EXFTAPTP">
+            <key-map field-name="exampleFeatureApplTypeId"/>
+        </view-link>
+    </view-entity>
+    <view-entity entity-name="ExampleFeatureAndApplAndType" package-name="org.apache.ofbiz.example.example">
+        <member-entity entity-alias="EXFT" entity-name="ExampleFeature"/>
+        <member-entity entity-alias="EFAAT" entity-name="ExampleFeatureApplAndType"/>
+        <alias-all entity-alias="EXFT"/>
+        <alias-all entity-alias="EFAAT">
+            <exclude field="description"/>
+        </alias-all>
+        <alias name="typeDescription" entity-alias="EFAAT" field="description"/>
+        <view-link entity-alias="EXFT" rel-entity-alias="EFAAT">
+            <key-map field-name="exampleFeatureId"/>
+        </view-link>
+    </view-entity>
+    <view-entity entity-name="ExampleFeatureAndApplFullView" package-name="org.apache.ofbiz.example.example">
+        <member-entity entity-alias="EX" entity-name="Example"/>
+        <member-entity entity-alias="EFAAAT" entity-name="ExampleFeatureAndApplAndType"/>
+        <alias-all entity-alias="EX"/>
+        <alias-all entity-alias="EFAAAT">
+            <exclude field="description"/>
+        </alias-all>
+        <alias name="featureDescription" entity-alias="EFAAAT" field="description"/>
+        <view-link entity-alias="EX" rel-entity-alias="EFAAAT">
+            <key-map field-name="exampleId"/>
+        </view-link>
+    </view-entity>
+    <view-entity entity-name="ContrivedExamplesWithRequiredFeaturesReport" package-name="org.apache.ofbiz.example.example">
+        <member-entity entity-alias="EFAAFV" entity-name="ExampleFeatureAndApplFullView"/>
+        <alias-all entity-alias="EFAAFV"/>
+        <entity-condition>
+            <condition-list combine="and">
+                <condition-expr entity-alias="EFAAFV" field-name="exampleTypeId" operator="equals" value="CONTRIVED"/>
+                <condition-expr entity-alias="EFAAFV" field-name="exampleFeatureApplTypeId" operator="equals" value="REQUIRED"/>
+            </condition-list>
+            <order-by field-name="exampleName"/>
+        </entity-condition>
+    </view-entity>
+
+    <!-- example for nested view-entity with conditions on nested views -->
+    <view-entity entity-name="ExampleFeatureApplAndTypeDesired" package-name="org.apache.ofbiz.example.example">
+        <member-entity entity-alias="EXFTAP" entity-name="ExampleFeatureAppl"/>
+        <member-entity entity-alias="EXFTAPTP" entity-name="ExampleFeatureApplType"/>
+        <alias-all entity-alias="EXFTAP"/>
+        <alias-all entity-alias="EXFTAPTP">
+            <exclude field="description"/>
+        </alias-all>
+        <alias name="typeDescription" entity-alias="EXFTAPTP" field="description"/>
+        <view-link entity-alias="EXFTAP" rel-entity-alias="EXFTAPTP">
+            <key-map field-name="exampleFeatureApplTypeId"/>
+        </view-link>
+        <entity-condition>
+            <condition-expr entity-alias="EXFTAPTP" field-name="exampleFeatureApplTypeId" operator="equals" value="DESIRED"/>
+        </entity-condition>
+    </view-entity>
+    <view-entity entity-name="AllExamplesWithDesiredCustomerFeaturesReport" package-name="org.apache.ofbiz.example.example">
+        <member-entity entity-alias="EFAATD" entity-name="ExampleFeatureApplAndTypeDesired"/>
+        <member-entity entity-alias="EXFT" entity-name="ExampleFeature"/>
+        <member-entity entity-alias="EX" entity-name="Example"/>
+        <alias-all entity-alias="EFAATD"/>
+        <alias-all entity-alias="EXFT">
+            <exclude field="description"/>
+        </alias-all>
+        <alias-all entity-alias="EX"/>
+        <alias name="featureDescription" entity-alias="EXFT" field="description"/>
+        <view-link entity-alias="EFAATD" rel-entity-alias="EXFT">
+            <key-map field-name="exampleFeatureId"/>
+        </view-link>
+        <view-link entity-alias="EFAATD" rel-entity-alias="EX">
+            <key-map field-name="exampleId"/>
+        </view-link>
+        <entity-condition>
+            <condition-expr entity-alias="EXFT" field-name="featureSourceEnumId" operator="equals" value="EXFTSRC_CUSTOMER"/>
+            <order-by field-name="exampleName"/>
+        </entity-condition>
+    </view-entity>
+    <!--example view for creating charts -->
+    <view-entity entity-name="ExampleCountByType" package-name="org.apache.ofbiz.example.example">
+        <member-entity entity-alias="EX" entity-name="Example"/>
+        <alias entity-alias="EX" name="total" field="exampleId" function="count-distinct"/>
+        <alias entity-alias="EX" name="exampleTypeId" group-by="true"/>
+    </view-entity>
+</entitymodel>

@@ -1,0 +1,1 @@
+0 3 * * * /home/ofbizDemo/check-svn-update.sh > /home/ofbizDemo/cronlog-svn-update.log 2>&1

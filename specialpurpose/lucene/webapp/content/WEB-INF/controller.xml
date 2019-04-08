@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Site-Conf" xsi:schemaLocation="http://ofbiz.apache.org/Site-Conf http://ofbiz.apache.org/dtds/site-conf.xsd">
+    <!-- The controller elements that are common to all OFBiz components
+         can be found in the following xml file. A component can override the
+         elements found in the common-controller.xml file. -->
+    <include location="component://content/webapp/content/WEB-INF/controller.xml"/>
+
+    <description>Lucene Component Site Configuration File</description>
+
+    <handler name="groovy" type="request" class="org.apache.ofbiz.webapp.event.GroovyEventHandler"/>
+
+    <!-- Request Mappings -->
+    <request-map uri="AdminSearch"><security https="true" auth="true"/><response name="success" type="view" value="AdminSearch"/></request-map>
+    <request-map uri="AdminIndex"><security https="true" auth="true"/><response name="success" type="view" value="AdminIndex"/></request-map>
+    <request-map uri="indexContentTree">
+        <security https="true" auth="true"/>
+        <event invoke="indexContentTree" path="org.apache.ofbiz.content.search.SearchEvents" type="java"/>
+        <response name="success" type="view" value="AdminIndex"/>
+        <response name="error" type="view" value="AdminIndex"/>
+    </request-map>
+
+    <request-map uri="indexProducts">
+        <security https="true" auth="true"/>
+        <event path="component://lucene/groovyScripts/content/IndexProducts.groovy" type="groovy"/>
+        <response name="success" type="view" value="AdminIndex"/>
+        <response name="error" type="view" value="AdminIndex"/>
+    </request-map>
+
+    <request-map uri="ProductSearch">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ProductSearch"/>
+        <response name="error" type="view" value="ProductSearch"/>
+    </request-map>
+
+    <!-- View Mappings -->
+    <view-map name="ProductSearch" page="component://lucene/widget/LuceneScreens.xml#ProductSearch" type="screen"/>
+    <view-map name="AdminSearch" page="component://lucene/widget/LuceneScreens.xml#AdminSearch" type="screen"/>
+    <view-map name="AdminIndex" page="component://lucene/widget/LuceneScreens.xml#AdminIndex" type="screen"/>
+</site-conf>

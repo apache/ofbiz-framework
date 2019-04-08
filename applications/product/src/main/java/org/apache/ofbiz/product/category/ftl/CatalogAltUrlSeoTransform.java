@@ -26,6 +26,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
 import org.apache.ofbiz.entity.Delegator;
@@ -48,12 +49,11 @@ import freemarker.template.SimpleNumber;
 import freemarker.template.SimpleScalar;
 import freemarker.template.TemplateModelException;
 import freemarker.template.TemplateTransformModel;
-import org.apache.ofbiz.entity.util.EntityQuery;
 
 public class CatalogAltUrlSeoTransform implements TemplateTransformModel {
     public final static String module = CatalogUrlSeoTransform.class.getName();
 
-    public String getStringArg(Map<?, ?> args, String key) {
+    public String getStringArg(Map args, String key) {
         Object o = args.get(key);
         if (o instanceof SimpleScalar) {
             return ((SimpleScalar) o).getAsString();
@@ -67,21 +67,21 @@ public class CatalogAltUrlSeoTransform implements TemplateTransformModel {
         return null;
     }
 
-    public boolean checkArg(Map<?, ?> args, String key, boolean defaultValue) {
+    public boolean checkArg(Map args, String key, boolean defaultValue) {
         if (!args.containsKey(key)) {
             return defaultValue;
+        } else {
+            Object o = args.get(key);
+            if (o instanceof SimpleScalar) {
+                SimpleScalar s = (SimpleScalar) o;
+                return "true".equalsIgnoreCase(s.getAsString());
+            }
+            return defaultValue;
         }
-        Object o = args.get(key);
-        if (o instanceof SimpleScalar) {
-            SimpleScalar s = (SimpleScalar) o;
-            return "true".equalsIgnoreCase(s.getAsString());
-        }
-        return defaultValue;
     }
 
     @Override
-    public Writer getWriter(Writer out, @SuppressWarnings("rawtypes") Map args)
-            throws TemplateModelException, IOException {
+    public Writer getWriter(final Writer out, final Map args) throws TemplateModelException, IOException {
         final StringBuilder buf = new StringBuilder();
         final boolean fullPath = checkArg(args, "fullPath", false);
         final boolean secure = checkArg(args, "secure", false);
@@ -144,12 +144,12 @@ public class CatalogAltUrlSeoTransform implements TemplateTransformModel {
                         String prefixString = ((StringModel) prefix).getAsString();
                         prefixString = prefixString.replaceAll("&#47;", "/");
                         String contextPath = prefixString;
-                        int lastSlashIndex = prefixString.lastIndexOf('/');
+                        int lastSlashIndex = prefixString.lastIndexOf("/");
                         if (lastSlashIndex > -1 && lastSlashIndex < prefixString.length()) {
-                            contextPath = prefixString.substring(prefixString.lastIndexOf('/'));
+                            contextPath = prefixString.substring(prefixString.lastIndexOf("/"));
                         }
                         if (UtilValidate.isNotEmpty(productId)) {
-                            GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
+                            GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
                             ProductContentWrapper wrapper = new ProductContentWrapper(dispatcher, product, locale, EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8", delegator));
                             if (SeoConfigUtil.isCategoryUrlEnabled(contextPath)) {
                                 url = CatalogUrlSeoTransform.makeProductUrl(delegator, wrapper, prefixString, contextPath, productCategoryId, previousCategoryId, productId);
@@ -157,7 +157,7 @@ public class CatalogAltUrlSeoTransform implements TemplateTransformModel {
                                 url = CatalogUrlFilter.makeProductUrl(wrapper, null, prefixString, previousCategoryId, productCategoryId, productId);
                             }
                         } else {
-                            GenericValue productCategory = EntityQuery.use(delegator).from("ProductCategory").where("productCategoryId", productCategoryId).queryOne();
+                            GenericValue productCategory = delegator.findOne("ProductCategory", UtilMisc.toMap("productCategoryId", productCategoryId), false);
                             CategoryContentWrapper wrapper = new CategoryContentWrapper(dispatcher, productCategory, locale, EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8", delegator));
                             if (SeoConfigUtil.isCategoryUrlEnabled(contextPath)) {
                                 url = CatalogUrlSeoTransform.makeCategoryUrl(delegator, wrapper, prefixString, productCategoryId, previousCategoryId, productId, viewSize, viewIndex, viewSort, searchString);
@@ -166,11 +166,13 @@ public class CatalogAltUrlSeoTransform implements TemplateTransformModel {
                                         productId, viewSize, viewIndex, viewSort, searchString);
                             }
                         }
-                        out.write(url);
+                        out.write(url.toString());
                     } else {
                         out.write(buf.toString());
                     }
-                } catch (TemplateModelException | GenericEntityException e) {
+                } catch (TemplateModelException e) {
+                    throw new IOException(e.getMessage());
+                } catch (GenericEntityException e) {
                     throw new IOException(e.getMessage());
                 }
             }

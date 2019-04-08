@@ -347,15 +347,6 @@ under the License.
                      <call-service service-name="getPartyAccountingPreferences" in-map-name="partyAccountingPreferencesCallMap">
                          <result-to-field result-name="partyAccountingPreference" field="partyAcctgPreference"/>
                      </call-service>
-                    <if>
-                        <condition>
-                            <if-compare field="partyAcctgPreference.enableAccounting" value="N" operator="equals"/>
-                        </condition>
-                        <then>
-                            <log level="warning" message="The internal organization with id [${acctgTransEntry.organizationPartyId}] has no PartyAcctgPreference setting; the following accounting transaction will be ignored: ${acctgTransEntry}"/>
-                            <return/>
-                        </then>
-                    </if>
                     <if-empty field="partyAcctgPreference.errorGlJournalId">
                         <!-- if no error journal is set, then return the error messages -->
                         <check-errors/>

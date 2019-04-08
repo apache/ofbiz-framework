@@ -32,26 +32,27 @@ public class MapStack<K> extends MapContext<K, Object> {
     public static final String module = MapStack.class.getName();
 
     public static <K> MapStack<K> create() {
-        MapStack<K> newValue = new MapStack<>();
+        MapStack<K> newValue = new MapStack<K>();
         // initialize with a single entry
         newValue.push();
         return newValue;
     }
 
+    @SuppressWarnings("unchecked")
     public static <K> MapStack<K> create(Map<K, Object> baseMap) {
-        MapStack<K> newValue = new MapStack<>();
+        MapStack<K> newValue = new MapStack<K>();
         if (baseMap instanceof MapStack) {
-            newValue.contexts.addAll(((MapStack<K>) baseMap).contexts);
+            newValue.stackList.addAll(((MapStack) baseMap).stackList);
         } else {
-            newValue.contexts.addFirst(baseMap);
+            newValue.stackList.add(0, baseMap);
         }
         return newValue;
     }
 
     /** Does a shallow copy of the internal stack of the passed MapStack; enables simultaneous stacks that share common parent Maps */
     public static <K> MapStack<K> create(MapStack<K> source) {
-        MapStack<K> newValue = new MapStack<>();
-        newValue.contexts.addAll(source.contexts);
+        MapStack<K> newValue = new MapStack<K>();
+        newValue.stackList.addAll(source.stackList);
         return newValue;
     }
 
@@ -65,6 +66,7 @@ public class MapStack<K> extends MapContext<K, Object> {
      * situation where a parent and child context are operating simultaneously
      * using two different MapStack objects, but sharing the Maps in common
      */
+    @Override
     public MapStack<K> standAloneStack() {
         MapStack<K> standAlone = MapStack.create(this);
         return standAlone;
@@ -76,6 +78,7 @@ public class MapStack<K> extends MapContext<K, Object> {
      * situation where a parent and child context are operating simultaneously
      * using two different MapStack objects, but sharing the Maps in common
      */
+    @Override
     public MapStack<K> standAloneChildStack() {
         MapStack<K> standAloneChild = MapStack.create(this);
         standAloneChild.push();

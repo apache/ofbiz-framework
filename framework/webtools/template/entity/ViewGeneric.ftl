@@ -18,7 +18,7 @@ under the License.
 -->
 
 <#assign enableEdit = parameters.enableEdit?default("false")>
-<script type="application/javascript">
+<script language="JavaScript" type="text/javascript">
 var numTabs=${(entity.getRelationsSize()+1)};
 function ShowTab(lname) {
   for(inc=1; inc <= numTabs; inc++) {
@@ -50,7 +50,7 @@ function ShowTab(lname) {
     <h2>${uiLabelMap.WebtoolsWithPk}: ${findByPk}</h2>
     <br />
     <div class="button-bar">
-      <a href='<@ofbizUrl>FindGeneric?entityName=${entityName}&amp;noConditionFind=Y</@ofbizUrl>' class="buttontext">${uiLabelMap.WebtoolsBackToFindScreen}</a>
+      <a href='<@ofbizUrl>FindGeneric?entityName=${entityName}&amp;find=true&amp;VIEW_SIZE=50&amp;VIEW_INDEX=0</@ofbizUrl>' class="buttontext">${uiLabelMap.WebtoolsBackToFindScreen}</a>
       <#if enableEdit = "false">
         <#if hasCreatePermission>
           <a href='<@ofbizUrl>ViewGeneric?entityName=${entityName}&amp;enableEdit=true</@ofbizUrl>' class="buttontext create">${uiLabelMap.CommonCreateNew}</a>
@@ -228,7 +228,7 @@ function ShowTab(lname) {
             <div class="screenlet-title-bar">
               <ul>
                 <li class="h3">${uiLabelMap.WebtoolsRelatedEntity}: ${relation.title}${relation.relatedTable} (${relation.type})</li>
-                <li><a href="<@ofbizUrl>FindGeneric?${relation.encodeRelatedEntityFindString}</@ofbizUrl>">${uiLabelMap.CommonFind}</a></li>
+                <li><a href="<@ofbizUrl>FindGeneric?${relation.encodeRelatedEntityFindString}&amp;find=true</@ofbizUrl>">${uiLabelMap.CommonFind}</a></li>
                 <#if relation.valueRelated?has_content>
                   <li><a href="<@ofbizUrl>ViewGeneric?${relation.encodeRelatedEntityFindString}</@ofbizUrl>">${uiLabelMap.CommonView}</a></li>
                 </#if>
@@ -257,7 +257,7 @@ function ShowTab(lname) {
               <#if "one" = relation.type>
               <b>${uiLabelMap.WebtoolsNoValueFoundFor}</b> ${relation.title}${relation.relatedTable}.
               <#else>
-              <a href="<@ofbizUrl>FindGeneric?${relation.encodeRelatedEntityFindString}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonFind}</a>
+              <a href="<@ofbizUrl>FindGeneric?${relation.encodeRelatedEntityFindString}&amp;find=true</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonFind}</a>
               </#if>
             </#if>
           </div>

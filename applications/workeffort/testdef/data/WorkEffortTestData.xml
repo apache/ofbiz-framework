@@ -48,14 +48,14 @@ under the License.
     <PartyContactMech partyId="TestCompany" contactMechId="TestContactMech" fromDate="2001-05-13 00:00:00.000"/>
     <PartyContactMech partyId="TestParty" contactMechId="TestContactMech2" fromDate="2001-05-13 00:00:00.000"/>
 
-    <WorkEffort workEffortId="TestWorkeffort-2" currentStatusId="CAL_ACCEPTED" workEffortName="Test Workeffort" workEffortTypeId="TASK"/>
-    <WorkEffort workEffortId="TestWorkeffort-3" currentStatusId="CAL_ACCEPTED" workEffortName="New Test Workeffort" workEffortTypeId="TASK"/>
-    <WorkEffort workEffortId="TestWorkeffort-4" currentStatusId="CAL_ACCEPTED" workEffortName="New Test Workeffort" workEffortTypeId="TASK"/>
+    <WorkEffort workEffortId="TestWorkeffort-2" currentStatusId="PTS_CREATED" workEffortName="Test Workeffort" workEffortTypeId="TASK"/>
+    <WorkEffort workEffortId="TestWorkeffort-3" currentStatusId="PTS_CREATED" workEffortName="New Test Workeffort" workEffortTypeId="TASK"/>
+    <WorkEffort workEffortId="TestWorkeffort-4" currentStatusId="PTS_CREATED" workEffortName="New Test Workeffort" workEffortTypeId="TASK"/>
 
-    <WorkEffortPartyAssignment partyId="TestParty" currentStatusId="PRTYASGN_ASSIGNED" roleTypeId="CONTACT" workEffortId="TestWorkeffort-3" fromDate="2009-09-09 01:01:01"/>
-    <WorkEffortPartyAssignment partyId="TestParty" currentStatusId="PRTYASGN_ASSIGNED" roleTypeId="CUSTOMER" workEffortId="TestWorkeffort-3" fromDate="2009-09-09 02:02:02"/>
-    <WorkEffortPartyAssignment partyId="TestParty" currentStatusId="PRTYASGN_ASSIGNED" roleTypeId="ACCOUNTANT" workEffortId="TestWorkeffort-3" fromDate="2009-09-09 02:02:02"/>
-    <WorkEffortPartyAssignment partyId="TestParty-1" currentStatusId="PRTYASGN_ASSIGNED" roleTypeId="ACCOUNTANT" workEffortId="TestWorkeffort-3" fromDate="2009-09-09 02:02:02"/>
+    <WorkEffortPartyAssignment partyId="TestParty" roleTypeId="CONTACT" workEffortId="TestWorkeffort-3" fromDate="2009-09-09 01:01:01" statusId="PAS_ASSIGNED"/>
+    <WorkEffortPartyAssignment partyId="TestParty" roleTypeId="CUSTOMER" workEffortId="TestWorkeffort-3" fromDate="2009-09-09 02:02:02" statusId="PAS_ASSIGNED"/>
+    <WorkEffortPartyAssignment partyId="TestParty" roleTypeId="ACCOUNTANT" workEffortId="TestWorkeffort-3" fromDate="2009-09-09 02:02:02" statusId="PAS_ASSIGNED"/>
+    <WorkEffortPartyAssignment partyId="TestParty-1" roleTypeId="ACCOUNTANT" workEffortId="TestWorkeffort-3" fromDate="2009-09-09 02:02:02" statusId="PAS_ASSIGNED"/>
 
     <CommunicationEvent communicationEventId="TestEvent-1" communicationEventTypeId="EMAIL_COMMUNICATION" statusId="COM_IN_PROGRESS" contactMechIdFrom="TestContactMech" contactMechIdTo="TestContactMech2" roleTypeIdFrom="BILL_TO_CUSTOMER" roleTypeIdTo="CUSTOMER" partyIdFrom="TestCompany" partyIdTo="TestParty" entryDate="2010-10-27 15:04:17.895" subject="Test Subject 1" contentMimeTypeId="text/plain" />
 

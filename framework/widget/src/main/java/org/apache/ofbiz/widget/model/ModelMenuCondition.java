@@ -23,7 +23,7 @@ import org.w3c.dom.Element;
 
 /**
  * Models the &lt;condition&gt; element.
- *
+ * 
  * @see <code>widget-menu.xsd</code>
  */
 public final class ModelMenuCondition {
@@ -32,14 +32,14 @@ public final class ModelMenuCondition {
      * ----------------------------------------------------------------------- *
      *                     DEVELOPERS PLEASE READ
      * ----------------------------------------------------------------------- *
-     *
+     * 
      * This model is intended to be a read-only data structure that represents
      * an XML element. Outside of object construction, the class should not
      * have any behaviors.
-     *
+     * 
      * Instances of this class will be shared by multiple threads - therefore
      * it is immutable. DO NOT CHANGE THE OBJECT'S STATE AT RUN TIME!
-     *
+     * 
      */
 
     public static final String module = ModelMenuCondition.class.getName();

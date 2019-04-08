@@ -92,7 +92,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
             boolean allPksInOnly = true;
             List<String> pkFieldNameOutOnly = null;
             /* Check for each pk if it's :
-             * 1. part IN
+             * 1. part IN 
              * 2. or part IN and OUT, but without value but present on parameters map
              * Help the engine to determinate the operation to realize for a create call or validate that
              * any pk is present for update/delete call.
@@ -102,7 +102,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
                 boolean pkValueInParameters = pkParam.isIn() && UtilValidate.isNotEmpty(parameters.get(pkParam.getFieldName()));
                 if (pkParam.isOut() && !pkValueInParameters) {
                     if (pkFieldNameOutOnly == null) {
-                        pkFieldNameOutOnly = new LinkedList<>();
+                        pkFieldNameOutOnly = new LinkedList<String>();
                         allPksInOnly = false;
                     }
                     pkFieldNameOutOnly.add(pkField.getName());
@@ -112,18 +112,22 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
             switch (modelService.invoke) {
             case "create":
                 result = invokeCreate(dctx, parameters, modelService, modelEntity, allPksInOnly, pkFieldNameOutOnly);
+                result.put("successMessage", UtilProperties.getMessage("ServiceUiLabels", "EntityCreatedSuccessfully", UtilMisc.toMap("entityName", modelEntity.getEntityName()), locale));
                 break;
             case "update":
                 result = invokeUpdate(dctx, parameters, modelService, modelEntity, allPksInOnly);
+                result.put("successMessage", UtilProperties.getMessage("ServiceUiLabels", "EntityUpdatedSuccessfully", UtilMisc.toMap("entityName", modelEntity.getEntityName()), locale));
                 break;
             case "delete":
                 result = invokeDelete(dctx, parameters, modelService, modelEntity, allPksInOnly);
+                result.put("successMessage", UtilProperties.getMessage("ServiceUiLabels", "EntityDeletedSuccessfully", UtilMisc.toMap("entityName", modelEntity.getEntityName()), locale));
                 break;
             case "expire":
                 result = invokeExpire(dctx, parameters, modelService, modelEntity, allPksInOnly);
                 if (ServiceUtil.isSuccess(result)) {
                     result = invokeUpdate(dctx, parameters, modelService, modelEntity, allPksInOnly);
                 }
+                result.put("successMessage", UtilProperties.getMessage("ServiceUiLabels", "EntityExpiredSuccessfully", UtilMisc.toMap("entityName", modelEntity.getEntityName()), locale));
                 break;
             default:
                 break;
@@ -131,13 +135,13 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
             GenericValue crudValue = (GenericValue) result.get("crudValue");
             if (crudValue != null) {
                 result.remove("crudValue");
-                result.putAll(modelService.makeValid(crudValue, ModelService.OUT_PARAM));
+                result.putAll(modelService.makeValid(crudValue, "OUT"));
             }
         } catch (GeneralException e) {
             Debug.logError(e, "Error doing entity-auto operation for entity [" + modelEntity.getEntityName() + "] in service [" + modelService.name + "]: " + e.toString(), module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ServiceEntityAutoOperation", UtilMisc.toMap("entityName", modelEntity.getEntityName(), "serviceName", modelService.name,"errorString", e.toString()), locale));
         }
-        result.put(ModelService.SUCCESS_MESSAGE, ServiceUtil.makeSuccessMessage(result, "", "", "", ""));
+        result.put(ModelService.SUCCESS_MESSAGE, result.get("successMessage"));
         return result;
     }
 
@@ -277,7 +281,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
                 newEntity.setPKFields(parameters, true);
                 String pkFieldName = pkFieldNameOutOnly.get(0);
                 //if it's a fromDate, don't update it now, it's will be done next step
-                if (! "fromDate".equals(pkFieldName)) {
+                if (! "fromDate".equals(pkFieldName)) { 
                     String pkValue = dctx.getDelegator().getNextSeqId(modelEntity.getEntityName());
                     newEntity.set(pkFieldName, pkValue);
                 }
@@ -339,7 +343,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
                     if (modelEntity.getField("statusEndDate") != null) {
                         ModelEntity relatedEntity = dctx.getDelegator().getModelEntity(modelEntity.getEntityName().replaceFirst("Status", ""));
                         if (relatedEntity != null) {
-                            Map<String, Object> conditionRelatedPkFieldMap = new HashMap<>();
+                            Map<String, Object> conditionRelatedPkFieldMap = new HashMap<String, Object>();
                             for (String pkRelatedField : relatedEntity.getPkFieldNames()) {
                                 conditionRelatedPkFieldMap.put(pkRelatedField, parameters.get(pkRelatedField));
                             }
@@ -355,7 +359,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
             }
         }
         newEntity.create();
-        Map<String, Object> result = ServiceUtil.returnSuccess(UtilProperties.getMessage("ServiceUiLabels", "EntityCreatedSuccessfully", UtilMisc.toMap("label", modelEntity.getTitle()), locale));
+        Map<String, Object> result = ServiceUtil.returnSuccess(UtilProperties.getMessage("ServiceUiLabels", "EntityCreatedSuccessfully", UtilMisc.toMap("entityName", modelEntity.getEntityName()), locale));
         result.put("crudValue", newEntity);
         return result;
     }
@@ -363,7 +367,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
     private static Map<String, Object> invokeUpdate(DispatchContext dctx, Map<String, Object> parameters, ModelService modelService, ModelEntity modelEntity, boolean allPksInOnly)
             throws GeneralException {
         Locale locale = (Locale) parameters.get("locale");
-        Map<String, Object> localContext = new HashMap<>();
+        Map<String, Object> localContext = new HashMap<String, Object>();
         localContext.put("parameters", parameters);
         Map<String, Object> result = ServiceUtil.returnSuccess();
         /*
@@ -384,7 +388,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ServiceValueNotFound", locale));
         }
 
-        localContext.put("lookedUpValue", lookedUpValue);
+        //        localContext.put("lookedUpValue", lookedUpValue);
 
         // populate the oldStatusId out if there is a service parameter for it, and before we do the set non-pk fields
         /*
@@ -468,7 +472,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
 
         lookedUpValue.store();
         result.put("crudValue", lookedUpValue);
-        result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage("ServiceUiLabels", "EntityUpdatedSuccessfully", UtilMisc.toMap("label", modelEntity.getTitle()), locale));
+        result.put(ModelService.SUCCESS_MESSAGE, UtilProperties.getMessage("ServiceUiLabels", "EntityUpdatedSuccessfully", UtilMisc.toMap("entityName", modelEntity.getEntityName()), locale));
         return result;
     }
 
@@ -499,7 +503,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ServiceValueNotFoundForRemove", locale));
         }
         lookedUpValue.remove();
-        Map<String, Object> result = ServiceUtil.returnSuccess(UtilProperties.getMessage("ServiceUiLabels", "EntityDeletedSuccessfully", UtilMisc.toMap("label", modelEntity.getTitle()), locale));
+        Map<String, Object> result = ServiceUtil.returnSuccess(UtilProperties.getMessage("ServiceUiLabels", "EntityDeletedSuccessfully", UtilMisc.toMap("entityName", modelEntity.getEntityName()), locale));
         return result;
     }
 
@@ -517,7 +521,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
     private static Map<String, Object> invokeExpire(DispatchContext dctx, Map<String, Object> parameters, ModelService modelService, ModelEntity modelEntity, boolean allPksInOnly)
             throws GeneralException {
         Locale locale = (Locale) parameters.get("locale");
-        List<String> fieldThruDates = new LinkedList<>();
+        List<String> fieldThruDates = new LinkedList<String>();
         boolean thruDatePresent = false;
         String fieldDateNameIn = null;
 
@@ -544,36 +548,27 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
             }
         }
 
-        if (Debug.infoOn()) {
+        if (Debug.infoOn())
             Debug.logInfo(" FIELD FOUND : " + fieldDateNameIn + " ## # " + fieldThruDates + " ### " + thruDatePresent, module);
-        }
 
-        if (Debug.infoOn()) {
+        if (Debug.infoOn())
             Debug.logInfo(" parameters IN  : " + parameters, module);
-        }
         // Resolve the field without value to expire and check if the value is present on parameters or use now
         if (fieldDateNameIn != null) {
-            if (parameters.get(fieldDateNameIn) == null) {
-                parameters.put(fieldDateNameIn, UtilDateTime.nowTimestamp());
-            }
+            if (parameters.get(fieldDateNameIn) == null) parameters.put(fieldDateNameIn, UtilDateTime.nowTimestamp());
         } else if (thruDatePresent && UtilValidate.isEmpty(lookedUpValue.getTimestamp("thruDate"))) {
-            if (UtilValidate.isEmpty(parameters.get("thruDate"))) {
-                parameters.put("thruDate", UtilDateTime.nowTimestamp());
-            }
+            if (UtilValidate.isEmpty(parameters.get("thruDate"))) parameters.put("thruDate", UtilDateTime.nowTimestamp());
         } else {
             for (String fieldDateName: fieldThruDates) {
                 if (UtilValidate.isEmpty(lookedUpValue.getTimestamp(fieldDateName))) {
-                    if (UtilValidate.isEmpty(parameters.get(fieldDateName))) {
-                        parameters.put(fieldDateName, UtilDateTime.nowTimestamp());
-                    }
+                    if (UtilValidate.isEmpty(parameters.get(fieldDateName))) parameters.put(fieldDateName, UtilDateTime.nowTimestamp());
                     break;
                 }
             }
         }
-        if (Debug.infoOn()) {
+        if (Debug.infoOn())
             Debug.logInfo(" parameters OUT  : " + parameters, module);
-        }
-        Map<String, Object> result = ServiceUtil.returnSuccess(UtilProperties.getMessage("ServiceUiLabels", "EntityExpiredSuccessfully", UtilMisc.toMap("label", modelEntity.getTitle()), locale));
+        Map<String, Object> result = ServiceUtil.returnSuccess(UtilProperties.getMessage("ServiceUiLabels", "EntityExpiredSuccessfully", UtilMisc.toMap("entityName", modelEntity.getEntityName()), locale));
         return result;
     }
 }

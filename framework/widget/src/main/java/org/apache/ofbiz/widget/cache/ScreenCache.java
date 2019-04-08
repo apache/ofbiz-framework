@@ -30,9 +30,7 @@ public class ScreenCache extends AbstractCache {
 
     public GenericWidgetOutput get(String screenName, WidgetContextCacheKey wcck) {
         UtilCache<WidgetContextCacheKey,GenericWidgetOutput> screenCache = getCache(screenName);
-        if (screenCache == null) {
-            return null;
-        }
+        if (screenCache == null) return null;
         return screenCache.get(wcck);
     }
 
@@ -43,16 +41,10 @@ public class ScreenCache extends AbstractCache {
 
     public GenericWidgetOutput remove(String screenName, WidgetContextCacheKey wcck) {
         UtilCache<WidgetContextCacheKey,GenericWidgetOutput> screenCache = getCache(screenName);
-        if (Debug.verboseOn()) {
-            Debug.logVerbose("Removing from ScreenCache with key [" + wcck + "], will remove from this cache: " + (screenCache == null ? "[No cache found to remove from]" : screenCache.getName()), module);
-        }
-        if (screenCache == null) {
-            return null;
-        }
+        if (Debug.verboseOn()) Debug.logVerbose("Removing from ScreenCache with key [" + wcck + "], will remove from this cache: " + (screenCache == null ? "[No cache found to remove from]" : screenCache.getName()), module);
+        if (screenCache == null) return null;
         GenericWidgetOutput retVal = screenCache.remove(wcck);
-        if (Debug.verboseOn()) {
-            Debug.logVerbose("Removing from ScreenCache with key [" + wcck + "], found this in the cache: " + retVal, module);
-        }
+        if (Debug.verboseOn()) Debug.logVerbose("Removing from ScreenCache with key [" + wcck + "], found this in the cache: " + retVal, module);
         return retVal;
     }
 }

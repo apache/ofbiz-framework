@@ -19,6 +19,7 @@
 package org.apache.ofbiz.entity.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -102,6 +103,20 @@ public class ModelFieldTypeReader implements Serializable {
 
     public ModelFieldTypeReader(Map<String, ModelFieldType> fieldTypeMap) {
         this.fieldTypeCache = fieldTypeMap;
+    }
+
+    /** Creates a Collection with all of the ModelFieldType names
+     * @return A Collection of ModelFieldType names
+     */
+    public Collection<String> getFieldTypeNames() {
+        return this.fieldTypeCache.keySet();
+    }
+
+    /** Creates a Collection with all of the ModelFieldTypes
+     * @return A Collection of ModelFieldTypes
+     */
+    public Collection<ModelFieldType> getFieldTypes() {
+        return this.fieldTypeCache.values();
     }
 
     /** Gets an FieldType object based on a definition from the specified XML FieldType descriptor file.

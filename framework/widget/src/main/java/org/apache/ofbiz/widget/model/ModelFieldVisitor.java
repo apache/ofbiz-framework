@@ -64,7 +64,7 @@ public interface ModelFieldVisitor {
     void visit(DropDownField dropDownField) throws Exception ;
 
     void visit(FileField fileField) throws Exception ;
-
+    
     void visit(FormField formField) throws Exception ;
 
     void visit(GridField gridField) throws Exception ;

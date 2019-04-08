@@ -35,8 +35,8 @@ public class ServiceMcaRule implements java.io.Serializable {
     public static final String module = ServiceMcaRule.class.getName();
 
     protected String ruleName = null;
-    protected List<ServiceMcaCondition> conditions = new LinkedList<>();
-    protected List<ServiceMcaAction> actions = new LinkedList<>();
+    protected List<ServiceMcaCondition> conditions = new LinkedList<ServiceMcaCondition>();
+    protected List<ServiceMcaAction> actions = new LinkedList<ServiceMcaAction>();
     protected boolean enabled = true;
 
     public ServiceMcaRule(Element mca) {

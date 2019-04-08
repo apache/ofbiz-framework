@@ -22,13 +22,15 @@
  * should not contain order component's specific code.
  */
 
-import org.apache.ofbiz.base.util.UtilMisc
-import org.apache.ofbiz.base.util.UtilProperties
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.entity.util.EntityQuery
+import org.apache.ofbiz.service.*
 import org.apache.ofbiz.product.product.ProductContentWrapper
 import org.apache.ofbiz.product.config.ProductConfigWorker
-import org.apache.ofbiz.product.catalog.CatalogWorker
-import org.apache.ofbiz.product.store.ProductStoreWorker
-import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents
+import org.apache.ofbiz.product.catalog.*
+import org.apache.ofbiz.product.store.*
+import org.apache.ofbiz.order.shoppingcart.*
 import org.apache.ofbiz.product.product.ProductWorker
 import org.apache.ofbiz.webapp.website.WebSiteWorker
 import java.text.NumberFormat
@@ -52,7 +54,7 @@ if (cart.isSalesOrder()) {
 }
 
 if (!facilityId) {
-    productStoreFacility = select("facilityId").from("ProductStoreFacility").where("productStoreId", productStoreId).queryFirst()
+    productStoreFacility = EntityQuery.use(delegator).select("facilityId").from("ProductStoreFacility").where("productStoreId", productStoreId).queryFirst()
     if (productStoreFacility) {
         facilityId = productStoreFacility.facilityId
     }
@@ -154,7 +156,7 @@ if (product) {
         
         // get alternative product price when product doesn't have any feature 
         jsBuf = new StringBuffer()
-        jsBuf.append("<script type=\"application/javascript\">")
+        jsBuf.append("<script language=\"JavaScript\" type=\"text/javascript\">")
         
         // make a list of variant sku with requireAmount
         virtualVariantsRes = runService('getAssociatedProducts', [productIdTo : productId, type : "ALTERNATIVE_PACKAGE", checkViewAllow : true, prodCatalogId : categoryId])

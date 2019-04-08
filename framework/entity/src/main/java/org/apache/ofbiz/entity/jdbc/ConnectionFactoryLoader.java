@@ -43,7 +43,7 @@ public class ConnectionFactoryLoader {
             }
             ClassLoader loader = Thread.currentThread().getContextClassLoader();
             Class<?> tfClass = loader.loadClass(className);
-            instance = (ConnectionFactory) tfClass.getDeclaredConstructor().newInstance();
+            instance = (ConnectionFactory) tfClass.newInstance();
         } catch (ClassNotFoundException cnfe) {
             Debug.logError(cnfe, "Could not find connection factory class", module);
         } catch (Exception e) {

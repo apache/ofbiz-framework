@@ -38,10 +38,10 @@ under the License.
                 <fo:instream-foreign-object>
                     <barcode:barcode xmlns:barcode="http://barcode4j.krysalis.org/ns"
                                      message="${productId}">
-                        <barcode:code128>
+                        <barcode:code39>
                             <barcode:height>0.75in</barcode:height>
                             <barcode:module-width>.375mm</barcode:module-width>
-                        </barcode:code128>
+                        </barcode:code39>
                         <barcode:human-readable>
                             <barcode:placement>bottom</barcode:placement>
                             <barcode:font-name>Helvetica</barcode:font-name>

@@ -27,10 +27,10 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.AccountingLookupPayment"/>
+                <set field="title" value="${uiLabelMap.AccountingLookupPayment}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="entityName" value="Payment"/>
                 <set field="searchFields" value="[paymentId, partyIdFrom, partyIdTo, currencyUomId]"/>
@@ -41,7 +41,7 @@ under the License.
                         <include-form name="LookupPayment" location="component://accounting/widget/FieldLookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-grid name="ListPayment" location="component://accounting/widget/FieldLookupForms.xml"/>
+                        <include-form name="ListPayment" location="component://accounting/widget/FieldLookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -54,10 +54,10 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.AccountingLookupInvoices"/>
+                <set field="title" value="${uiLabelMap.AccountingLookupInvoices}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="entityName" value="Invoice"/>
                 <set field="searchFields" value="[invoiceId, partyIdFrom, partyId, description, currencyUomId]"/>
@@ -68,7 +68,7 @@ under the License.
                         <include-form name="LookupInvoice" location="component://accounting/widget/FieldLookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-grid name="ListInvoice" location="component://accounting/widget/FieldLookupForms.xml"/>
+                        <include-form name="ListInvoice" location="component://accounting/widget/FieldLookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -81,10 +81,10 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.PageTitleLookupFixedAsset"/>
+                <set field="title" value="${uiLabelMap.PageTitleLookupFixedAsset}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="entityName" value="FixedAsset"/>
                 <set field="searchFields" value="[fixedAssetId, fixedAssetName]"/>
@@ -95,7 +95,7 @@ under the License.
                         <include-form name="LookupFixedAsset" location="component://accounting/widget/FieldLookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-grid name="ListLookupFixedAsset" location="component://accounting/widget/FieldLookupForms.xml"/>
+                        <include-form name="ListLookupFixedAsset" location="component://accounting/widget/FieldLookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -109,10 +109,10 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.PageTitleLookupBillingAccount"/>
+                <set field="title" value="${uiLabelMap.PageTitleLookupBillingAccount}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="entityName" value="BillingAccount"/>
                 <set field="searchFields" value="[billingAccountId, description, externalAccountId, accountCurrencyUomId]"/>
@@ -123,7 +123,7 @@ under the License.
                         <include-form name="lookupBillingAccount" location="component://accounting/widget/FieldLookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-grid name="ListBillingAccount" location="component://accounting/widget/FieldLookupForms.xml"/>
+                        <include-form name="ListBillingAccount" location="component://accounting/widget/FieldLookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -137,10 +137,10 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.PageTitleLookupGlAccount"/>
+                <set field="title" value="${uiLabelMap.PageTitleLookupGlAccount}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="entityName" value="GlAccount"/>
                 <set field="searchFields" value="[glAccountId, accountName, glAccountTypeId, glAccountClassId]"/>
@@ -151,7 +151,7 @@ under the License.
                         <include-form name="LookupGlAccount" location="component://accounting/widget/FieldLookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-grid name="ListLookupGlAccount" location="component://accounting/widget/FieldLookupForms.xml"/>
+                        <include-form name="ListLookupGlAccount" location="component://accounting/widget/FieldLookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -165,10 +165,10 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.AccountingLookupAgreement"/>
+                <set field="title" value="${uiLabelMap.AccountingLookupAgreement}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="entityName" value="Agreement"/>
                 <set field="searchFields" value="[agreementId, productId, description]"/>
@@ -179,7 +179,7 @@ under the License.
                         <include-form name="LookupAgreement" location="component://accounting/widget/FieldLookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-grid name="ListAgreements" location="component://accounting/widget/FieldLookupForms.xml"/>
+                        <include-form name="ListAgreements" location="component://accounting/widget/FieldLookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -193,10 +193,10 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.AccountingLookupAgreementItem"/>
+                <set field="title" value="${uiLabelMap.AccountingLookupAgreementItem}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="entityName" value="AgreementItem"/>
                 <set field="searchFields" value="[agreementItemSeqId, agreementId, currencyUomId]"/>
@@ -207,7 +207,7 @@ under the License.
                         <include-form name="LookupAgreementItem" location="component://accounting/widget/FieldLookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-grid name="ListAgreementItems" location="component://accounting/widget/FieldLookupForms.xml"/>
+                        <include-form name="ListAgreementItems" location="component://accounting/widget/FieldLookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -221,10 +221,10 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.AccountingLookupPaymentGroupMember"/>
+                <set field="title" value="${uiLabelMap.AccountingLookupPaymentGroupMember}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="entityName" value="PaymentGroupMember"/>
                 <set field="searchFields" value="[paymentGroupId, paymentId, sequenceNum]"/>
@@ -235,7 +235,7 @@ under the License.
                         <include-form name="LookupPaymentGroupMember" location="component://accounting/widget/FieldLookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-grid name="ListPaymentGroupMember" location="component://accounting/widget/FieldLookupForms.xml"/>
+                        <include-form name="ListPaymentGroupMember" location="component://accounting/widget/FieldLookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -249,9 +249,9 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.AccountingLookupGlReconciliations"/>
+                <set field="title" value="${uiLabelMap.AccountingLookupGlReconciliations}"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="entityName" value="GlReconciliation"/>
                 <set field="searchFields" value="[glReconciliationId, glReconciliationName, description]"/>
@@ -262,7 +262,7 @@ under the License.
                         <include-form name="LookupGlReconciliation" location="component://accounting/widget/FieldLookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-grid name="ListLookupReconciliation" location="component://accounting/widget/FieldLookupForms.xml"/>
+                        <include-form name="ListLookupReconciliation" location="component://accounting/widget/FieldLookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -273,10 +273,10 @@ under the License.
         <section>
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.PageTitleLookupCustomTimePeriod"/>
+                <set field="title" value="${uiLabelMap.PageTitleLookupCustomTimePeriod}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="entityName" value="CustomTimePeriod"/>
                 <set field="searchFields" value="[customTimePeriodId, periodName]"/>
@@ -287,7 +287,7 @@ under the License.
                         <include-form name="LookupCustomTimePeriod" location="component://accounting/widget/FieldLookupForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-grid name="ListLookupCustomTimePeriod" location="component://accounting/widget/FieldLookupForms.xml"/>
+                        <include-form name="ListLookupCustomTimePeriod" location="component://accounting/widget/FieldLookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

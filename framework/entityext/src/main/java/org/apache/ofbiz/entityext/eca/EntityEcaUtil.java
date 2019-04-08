@@ -121,11 +121,6 @@ public final class EntityEcaUtil {
                         eventMap.put(eventName, rules);
                     }
                 }
-                //remove the old rule if found and keep the recent one
-                //This will prevent duplicate rule execution along with enabled/disabled eca workflow
-                if (rules.remove(rule)) {
-                    Debug.logWarning("Duplicate Entity ECA [" + entityName + "]" + "for operation [ "+ rule.getOperationName() + "] " + "on [" + eventName + "] ", module);
-                }
                 rules.add(rule);
             }
         }
@@ -152,7 +147,11 @@ public final class EntityEcaUtil {
     }
 
     private static Callable<List<EntityEcaRule>> createEcaLoaderCallable(final ResourceHandler handler) {
-        return () -> getEcaDefinitions(handler);
+        return new Callable<List<EntityEcaRule>>() {
+            public List<EntityEcaRule> call() throws Exception {
+                return getEcaDefinitions(handler);
+            }
+        };
     }
 
     public static Collection<EntityEcaRule> getEntityEcaRules(Delegator delegator, String entityName, String event) {

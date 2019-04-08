@@ -32,7 +32,7 @@ public final class JNDIConfigUtil {
 
     public static final String module = JNDIConfigUtil.class.getName();
     private static final String JNDI_CONFIG_XML_FILENAME = "jndiservers.xml";
-    private static final ConcurrentHashMap<String, JndiServerInfo> jndiServerInfos = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<String, JndiServerInfo> jndiServerInfos = new ConcurrentHashMap<String, JndiServerInfo>();
     private JNDIConfigUtil() {};
 
     private static Element getXmlRootElement() throws GenericConfigException {
@@ -50,7 +50,7 @@ public final class JNDIConfigUtil {
             Debug.logError(e, "Error loading JNDI config XML file " + JNDI_CONFIG_XML_FILENAME, module);
         }
     }
-    public static void initialize(Element rootElement) {
+    public static void initialize(Element rootElement) throws GenericConfigException {
         // jndi-server - jndiServerInfos
         for (Element curElement: UtilXml.childElementList(rootElement, "jndi-server")) {
             JndiServerInfo jndiServerInfo = new JndiServerInfo(curElement);

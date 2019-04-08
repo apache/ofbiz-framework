@@ -32,9 +32,9 @@ public class ControlServlet extends org.apache.ofbiz.webapp.control.ControlServl
 
     public static final String module = ControlServlet.class.getName();
 
-    private static String defaultPage = null;
-    private static String pageNotFound = null;
-    private static String controlServlet = null;
+    protected static String defaultPage = null;
+    protected static String pageNotFound = null;
+    protected static String controlServlet = null;
 
     public ControlServlet() {
         super();
@@ -47,47 +47,22 @@ public class ControlServlet extends org.apache.ofbiz.webapp.control.ControlServl
         super.init(config);
 
         ServletContext context = this.getServletContext();
-        if (UtilValidate.isEmpty(getDefaultPage())) {
-            setDefaultPage(context.getInitParameter("defaultPage"));
+        if (UtilValidate.isEmpty(defaultPage)) {
+            defaultPage = context.getInitParameter("defaultPage");
         }
-        if (UtilValidate.isEmpty(getDefaultPage())) {
-            setDefaultPage("/main");
+        if (UtilValidate.isEmpty(defaultPage)) {
+            defaultPage = "/main";
         }
-        if (UtilValidate.isEmpty(getPageNotFound())) {
-            setPageNotFound(context.getInitParameter("pageNotFound"));
+        if (UtilValidate.isEmpty(pageNotFound)) {
+            pageNotFound = context.getInitParameter("pageNotFound");
         }
-        if (UtilValidate.isEmpty(getPageNotFound())) {
-            setPageNotFound("/pagenotfound");
+        if (UtilValidate.isEmpty(pageNotFound)) {
+            pageNotFound = "/pagenotfound";
         }
 
-        if (getDefaultPage().startsWith("/") && getDefaultPage().lastIndexOf('/') > 0) {
-            setControlServlet(getDefaultPage().substring(1));
-            setControlServlet(getControlServlet().substring(0, getControlServlet().indexOf('/')));
+        if (defaultPage.startsWith("/") && defaultPage.lastIndexOf("/") > 0) {
+            controlServlet = defaultPage.substring(1);
+            controlServlet = controlServlet.substring(0, controlServlet.indexOf("/"));
         }
     }
-
-    public static String getDefaultPage() {
-        return defaultPage;
-    }
-
-    public static void setDefaultPage(String defaultPage) {
-        ControlServlet.defaultPage = defaultPage;
-    }
-
-    public static String getPageNotFound() {
-        return pageNotFound;
-    }
-
-    public static void setPageNotFound(String pageNotFound) {
-        ControlServlet.pageNotFound = pageNotFound;
-    }
-
-    public static String getControlServlet() {
-        return controlServlet;
-    }
-
-    public static void setControlServlet(String controlServlet) {
-        ControlServlet.controlServlet = controlServlet;
-    }
-
 }

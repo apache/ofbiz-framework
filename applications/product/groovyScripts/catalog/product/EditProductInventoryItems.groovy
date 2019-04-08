@@ -43,7 +43,6 @@ if (product) {
     
             variantInventorySummary = [productId : variant.productIdTo,
                                        availableToPromiseTotal : inventoryAvailable.availableToPromiseTotal,
-                                       accountingQuantityTotal : inventoryAvailable.accountingQuantityTotal,
                                        quantityOnHandTotal : inventoryAvailable.quantityOnHandTotal]
     
             //add the applicable features to the map
@@ -87,7 +86,6 @@ if (product) {
             quantitySummary.facilityId = facility.facilityId
             quantitySummary.totalQuantityOnHand = resultOutput.quantityOnHandTotal
             quantitySummary.totalAvailableToPromise = resultOutput.availableToPromiseTotal
-            quantitySummary.accountingQuantityTotal = resultOutput.accountingQuantityTotal
     
             // if the product is a MARKETING_PKG_AUTO/PICK, then also get the quantity which can be produced from components
             if (isMarketingPackage) {

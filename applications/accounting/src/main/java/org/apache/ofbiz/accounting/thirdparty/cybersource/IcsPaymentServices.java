@@ -53,7 +53,7 @@ public class IcsPaymentServices {
 
     public static final String module = IcsPaymentServices.class.getName();
     private static int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
-    private static RoundingMode rounding = UtilNumber.getRoundingMode("invoice.rounding");
+    private static int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
     public final static String resource = "AccountingUiLabels";
 
     // load the JSSE properties

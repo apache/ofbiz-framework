@@ -33,9 +33,7 @@ import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.order.order.OrderChangeHelper;
-import org.apache.ofbiz.order.shoppingcart.CartItemModifyException;
 import org.apache.ofbiz.order.shoppingcart.CheckOutHelper;
-import org.apache.ofbiz.order.shoppingcart.ItemNotFoundException;
 import org.apache.ofbiz.order.shoppingcart.ShoppingCart;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
@@ -55,14 +53,11 @@ public class OrderTestServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Integer numberOfOrders = (Integer) context.get("numberOfOrders");
 
-        int numberOfOrdersInt = numberOfOrders;
+        int numberOfOrdersInt = numberOfOrders.intValue();
         for (int i = 1; i <= numberOfOrdersInt; i++) {
             try {
                 ModelService modelService = dctx.getModelService("createTestSalesOrderSingle");
                 Map<String, Object> outputMap = dispatcher.runSync("createTestSalesOrderSingle", modelService.makeValid(context, ModelService.IN_PARAM));
-                if (ServiceUtil.isError(outputMap)) {
-                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(outputMap));
-                }
                 String orderId = (String)outputMap.get("orderId");
                 Debug.logInfo("Test sales order with id [" + orderId + "] has been processed.", module);
             } catch (GenericServiceException e) {
@@ -96,9 +91,6 @@ public class OrderTestServices {
                 numberOfProductsPerOrder = 1;
             } else {
                 Map<String, Object> result = dispatcher.runSync("getProductCategoryMembers", UtilMisc.toMap("categoryId", productCategoryId));
-                if (ServiceUtil.isError(result)) {
-                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
-                }
                 if (result.get("categoryMembers") != null) {
                     List<GenericValue> productCategoryMembers = UtilGenerics.checkList(result.get("categoryMembers"));
                     if (productCategoryMembers != null) {
@@ -137,7 +129,7 @@ public class OrderTestServices {
         } catch (Exception exc) {
             Debug.logWarning("Error setting userLogin in the cart: " + exc.getMessage(), module);
         }
-        int numberOfProductsPerOrderInt = numberOfProductsPerOrder;
+        int numberOfProductsPerOrderInt = numberOfProductsPerOrder.intValue();
         for (int j = 1; j <= numberOfProductsPerOrderInt; j++) {
             // get a product
             int k = r.nextInt(productsList.size());
@@ -145,7 +137,7 @@ public class OrderTestServices {
                 cart.addOrIncreaseItem(productsList.get(k), null, BigDecimal.ONE, null, null, null,
                                        null, null, null, null,
                                        null /*catalogId*/, null, null/*itemType*/, null/*itemGroupNumber*/, null, dispatcher);
-            } catch (CartItemModifyException | ItemNotFoundException exc) {
+            } catch (Exception exc) {
                 Debug.logWarning("Error adding product with id " + productsList.get(k) + " to the cart: " + exc.getMessage(), module);
             }
         }
@@ -163,12 +155,9 @@ public class OrderTestServices {
             resultMap.put("orderId", orderId);
         }
         Boolean shipOrder = (Boolean) context.get("shipOrder");
-        if (shipOrder && UtilValidate.isNotEmpty(orderId)) {
+        if (shipOrder.booleanValue() && UtilValidate.isNotEmpty(orderId)) {
             try {
-                Map<String, Object> result = dispatcher.runSync("quickShipEntireOrder", UtilMisc.toMap("orderId", orderId, "userLogin", userLogin));
-                if (ServiceUtil.isError(result)) {
-                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
-                }
+                dispatcher.runSync("quickShipEntireOrder", UtilMisc.toMap("orderId", orderId, "userLogin", userLogin));
                 Debug.logInfo("Test sales order with id [" + orderId + "] has been shipped", module);
             } catch (GenericServiceException gse) {
                 Debug.logWarning("Unable to quick ship test sales order with id [" + orderId + "] with error: " + gse.getMessage(), module);

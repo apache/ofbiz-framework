@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
+
+    <simple-method method-name="testCreateProductBacklogByAdmin" short-description="Test Create Product Backlog" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="admin"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="parameters.userLogin" from-field="userLogin"/>
+        <set field="parameters.custRequestName" value="TEST Product Backlog"/>
+        <set field="parameters.productId" value="DEMO-PRODUCT-1"/>
+        <set field="parameters.description" value="TEST Product Backlog"/>
+        <call-simple-method method-name="createProductBacklog" xml-resource="component://scrum/minilang/ScrumEvents.xml"/>
+    </simple-method>
+    
+    <simple-method method-name="testCreateProductBacklogByProductOwner" short-description="Test Create Product Backlog" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="productowner"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="parameters.userLogin" from-field="userLogin"/>
+        <set field="parameters.custRequestName" value="TEST Product Backlog"/>
+        <set field="parameters.productId" value="DEMO-PRODUCT-1"/>
+        <set field="parameters.description" value="TEST Product Backlog"/>
+        <call-simple-method method-name="createProductBacklog" xml-resource="component://scrum/minilang/ScrumEvents.xml"/>
+    </simple-method>
+    
+    <simple-method method-name="testCreateProductBacklogByScrumMaster" short-description="Test Create Product Backlog" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="scrummaster"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="parameters.userLogin" from-field="userLogin"/>
+        <set field="parameters.custRequestName" value="TEST Product Backlog"/>
+        <set field="parameters.productId" value="DEMO-PRODUCT-1"/>
+        <set field="parameters.description" value="TEST Product Backlog"/>
+        <call-simple-method method-name="createProductBacklog" xml-resource="component://scrum/minilang/ScrumEvents.xml"/>
+    </simple-method>
+    
+    <simple-method method-name="testUpdateProductBacklogByAdmin" short-description="Test Update Product Backlog" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="admin"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="parameters.userLogin" from-field="userLogin"/>
+        <set field="parameters.custRequestId" value="TEST5"/>
+        <set field="parameters.custRequestName" value="TEST Product Backlog"/>
+        <set field="parameters.noteInfo" value="TestNote"/>
+        <set field="parameters.description" value="TEST Product Backlog"/>
+        <call-simple-method method-name="updateProductBacklog" xml-resource="component://scrum/minilang/ScrumEvents.xml"/>
+    </simple-method>
+    
+    <simple-method method-name="testUpdateProductBacklogByProductOwner" short-description="Test Update Product Backlog" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="productowner"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="parameters.userLogin" from-field="userLogin"/>
+        <set field="parameters.custRequestId" value="TEST6"/>
+        <set field="parameters.custRequestName" value="TEST Product Backlog"/>
+        <set field="parameters.description" value="TEST Product Backlog"/>
+        <set field="parameters.noteData" value="note"/>
+        <set field="parameters.note" value="note1"/>
+        <set field="parameters.noteId" value="NOTE-1"/>
+        <set field="parameters.noteInfo" value="TestNote"/>
+        <set field="parameters.valueAcsr" value=""/>
+        <call-simple-method method-name="updateProductBacklog" xml-resource="component://scrum/minilang/ScrumEvents.xml"/>
+    </simple-method>
+    
+    <simple-method method-name="testDeleteProductBacklogByAdmin" short-description="Test Delete Product Backlog" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="admin"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="parameters.userLogin" from-field="userLogin"/>
+        <set field="parameters.productId" value="DEMO-PRODUCT-1"/>
+        <set field="parameters.custRequestId" value="TEST5"/>
+        <entity-one entity-name="CustRequest" value-field="result">
+            <field-map field-name="custRequestId" from-field="parameters.custRequestId"/>
+        </entity-one>
+        <if-compare operator="equals" value="CRQ_ACCEPTED" field="result.statusId">
+            <call-simple-method method-name="deleteCustRequest" xml-resource="component://scrum/minilang/ScrumEvents.xml"/>
+        </if-compare>
+    </simple-method>
+    
+    <simple-method method-name="testDeleteProductBacklogByProducOwner" short-description="Test Delete Product Backlog" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="productowner"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="parameters.userLogin" from-field="userLogin"/>
+        <set field="parameters.productId" value="DEMO-PRODUCT-1"/>
+        <set field="parameters.custRequestId" value="TEST6"/>
+        <entity-one entity-name="CustRequest" value-field="result">
+            <field-map field-name="custRequestId" from-field="parameters.custRequestId"/>
+        </entity-one>
+        <if-compare operator="equals" value="CRQ_ACCEPTED" field="result.statusId">
+            <call-simple-method method-name="deleteCustRequest" xml-resource="component://scrum/minilang/ScrumEvents.xml"/>
+        </if-compare>
+    </simple-method>
+    
+    <simple-method method-name="testDeleteProductBacklogByScrumMaster" short-description="Test Delete Product Backlog" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="scrummaster"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="parameters.userLogin" from-field="userLogin"/>
+        <set field="parameters.productId" value="DEMO-PRODUCT-1"/>
+        <set field="parameters.custRequestId" value="TEST7"/>
+        <call-simple-method method-name="deleteCustRequest" xml-resource="component://scrum/minilang/ScrumEvents.xml"/>
+    </simple-method>
+    
+    <simple-method method-name="testCreateBacklogSetStatus" short-description=" Test Set Status Create Product Backlog" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="productowner"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="parameters.userLogin" from-field="userLogin"/>
+        <set field="parameters.custRequestName" value="TEST Product Backlog"/>
+        <set field="parameters.productId" value="DEMO-PRODUCT-1"/>
+        <set field="parameters.description" value ="TEST Product Backlog"/>
+        <call-simple-method method-name="createProductBacklog" xml-resource="component://scrum/minilang/ScrumEvents.xml"/>
+    </simple-method>
+    
+    <simple-method method-name="testCreateDefaultBacklogs" short-description="Test Create DefaultBacklogs" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="admin"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <entity-one entity-name="WorkEffort" value-field="workEffort">
+            <field-map field-name="workEffortId" value="DEMO-PROJECT-1"/>
+        </entity-one>
+        <set field="parameters.workEffortName" value="Test Default Task"/>
+        <set field="parameters.productId" value="DEMO-PRODUCT-1"/>
+        <set field="parameters.description" from-field="workEffort.description"/>
+        <set field="parameters.workEffortTypeId" value="SCRUM_TASK_IMPL"/>
+        <set field="parameters.workEffortPurposeTypeId" value="SCRUM_DEFAULT_TASK"/>
+        <set field="parameters.currentStatusId" value="STS_CREATED"/>
+        <call-simple-method method-name="createDefaultTask" xml-resource="component://scrum/minilang/ScrumEvents.xml" />
+    </simple-method>
+    
+    <simple-method method-name="testCreateProductBacklogCategory" short-description="Test Create Product Backlog Category" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="admin"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="parameters.productId" value="DEMO-PRODUCT-1"/>
+        <set field="parameters.custRequestId" value="TEST11"/>
+        <set field="parameters.custRequestName" value="Backlog"/>
+        <call-simple-method method-name="createProductBacklogCategory" xml-resource="component://scrum/minilang/ScrumEvents.xml"/>
+    </simple-method>
+    
+    <simple-method method-name="testUpdateProductBacklogCategory" short-description="Test Update Product Backlog Category" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="admin"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="parameters.productId" value="DEMO-PRODUCT-1"/>
+        <set field="parameters.custRequestId" value="TEST10"/>
+        <set field="parameters.custRequestName" value="Backlog"/>
+        <call-simple-method method-name="updateProductBacklogCategory" xml-resource="component://scrum/minilang/ScrumEvents.xml"/>
+    </simple-method>
+    
+    <simple-method method-name="testNewProductBacklogEmail" short-description="Test New Product Backlog Email" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.productId" value="DEMO-PRODUCT-1"/>
+        <set field="serviceCtx.custRequestId" value="TEST10"/>
+        <set field="serviceCtx.communicationEventTypeId" value="EMAIL_COMMUNICATION" />
+        <set field="serviceCtx.partyIdFrom" value="DemoCustomer-1"/>
+        <set field="serviceCtx.partyIdTo" value="SCRUMASTER"/>
+        <set field="serviceCtx.subject" value="Test New Product Backlog Email"/>
+        <call-service service-name="createCommunicationEvent" in-map-name="serviceCtx"/>
+    </simple-method>
+    
+    <simple-method method-name="testUpdateProductBacklogEmail" short-description="Test Update Product Backlog Email" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.communicationEventId" value="DEMO-COM-PRODUCT-1"/>
+        <set field="serviceCtx.productId" value="DEMO-PRODUCT-1"/>
+        <set field="serviceCtx.custRequestId" value="TEST10"/>
+        <set field="serviceCtx.communicationEventTypeId" value="EMAIL_COMMUNICATION" />
+        <set field="serviceCtx.subject" value="Test New Product Backlog Email"/>
+        <call-service service-name="updateCommunicationEvent" in-map-name="serviceCtx"/>
+    </simple-method>
+    
+    <simple-method method-name="testUpdateSprintBacklogseqDown" short-description="Test Update Sprint Backlog Sequence on Down" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.mode" value="DWN"/>
+        <set field="serviceCtx.custRequestId" value="TEST9"/>
+        <set field="serviceCtx.productId" value="DEMO-PRODUCT-1"/>
+        <set field="serviceCtx.custRequestItemSeqId" value="TESTSEQ9"/>
+        <set field="serviceCtx.statusId" value="CRQ_ACCEPTED"/>
+        <set field="serviceCtx.searchOption_statusId" value="CRQ_ACCEPTED"/>
+        <call-service service-name="updateSprintBacklogseq" in-map-name="serviceCtx"/>
+    </simple-method>
+    <simple-method method-name="testUpdateSprintBacklogseqUP" short-description="Test Update Sprint Backlog Sequence on UP" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.mode" value="UP"/>
+        <set field="serviceCtx.custRequestId" value="TEST9"/>
+        <set field="serviceCtx.productId" value="DEMO-PRODUCT-1"/>
+        <set field="serviceCtx.custRequestItemSeqId" value="TESTSEQ9"/>
+        <set field="serviceCtx.statusId" value="CRQ_ACCEPTED"/>
+        <set field="serviceCtx.searchOption_statusId" value="CRQ_ACCEPTED"/>
+        <call-service service-name="updateSprintBacklogseq" in-map-name="serviceCtx"/>
+    </simple-method>
+    <simple-method method-name="testUpdateSprintBacklogseqBotton" short-description="Test Update Sprint Backlog Sequence on Botton" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.mode" value="BOT"/>
+        <set field="serviceCtx.custRequestId" value="TEST9"/>
+        <set field="serviceCtx.productId" value="DEMO-PRODUCT-1"/>
+        <set field="serviceCtx.custRequestItemSeqId" value="TESTSEQ9"/>
+        <set field="serviceCtx.statusId" value="CRQ_ACCEPTED"/>
+        <set field="serviceCtx.searchOption_statusId" value="CRQ_ACCEPTED"/>
+        <call-service service-name="updateSprintBacklogseq" in-map-name="serviceCtx"/>
+    </simple-method>
+    <simple-method method-name="testUpdateSprintBacklogseqTOP" short-description="Test Update Sprint Backlog Sequence on TOP" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.mode" value="TOP"/>
+        <set field="serviceCtx.custRequestId" value="TEST9"/>
+        <set field="serviceCtx.productId" value="DEMO-PRODUCT-1"/>
+        <set field="serviceCtx.custRequestItemSeqId" value="TESTSEQ9"/>
+        <set field="serviceCtx.statusId" value="CRQ_ACCEPTED"/>
+        <set field="serviceCtx.searchOption_statusId" value="CRQ_ACCEPTED"/>
+        <call-service service-name="updateSprintBacklogseq" in-map-name="serviceCtx"/>
+    </simple-method>
+</simple-methods>

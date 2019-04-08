@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="PassportApplication">
+        <value xml:lang="en">Passport Third Party Auth Application</value>
+        <value xml:lang="zh">第三方认证应用程序</value>
+    </property>
+    <property key="ThirdPartyLogin">
+        <value xml:lang="en">Third Party Login</value>
+        <value xml:lang="zh">第三方登录</value>
+    </property>
+
+    <!-- LinkedIn labels -->
+    <property key="LinkedInFailedToMatchState">
+        <value xml:lang="en">Failed to match the state parameter in LinkedIn response. Just try to login again.</value>
+        <value xml:lang="zh">领英响应中的state参数不一致。重试登录即可。</value>
+    </property>
+    <property key="RedirectToLinkedInOAuth2NullException">
+        <value xml:lang="en">Error while redirecting to LinkedIn authorization URL. Please use other login method for now.</value>
+        <value xml:lang="zh">转到领英认证网址时出错。请先使用其它登录方式。</value>
+    </property>
+    <property key="RedirectToLinkedInOAuth2Error">
+        <value xml:lang="en">Error while redirecting to LinkedIn authorization URL: ${errorMessage}</value>
+        <value xml:lang="zh">转到领英认证网址时出错：${errorMessage}。</value>
+    </property>
+    <property key="FailedToGetLinkedInAuthorizationCode">
+        <value xml:lang="en">Failed to get LinkedIn authorization code.&lt;br&gt;Error: ${error}&lt;br&gt;Error description: ${error_description}</value>
+        <value xml:lang="zh">获取领英授权码时出错。&lt;br&gt;错误: ${error}&lt;br&gt;错误描述: ${error_description}</value>
+    </property>
+    <property key="GetLinkedInAuthorizationCodeError">
+        <value xml:lang="en">Failed to get LinkedIn authorization code.</value>
+        <value xml:lang="zh">获取领英授权码时出错。</value>
+    </property>
+    <property key="GetOAuth2LinkedInConfigError">
+        <value xml:lang="en">Failed to get LinkedIn configuration. Please check whether OAuth2LinkedIn entity has your productStoreId configured.</value>
+        <value xml:lang="zh">获取领英配置时出错。请检查OAuth2LinkedIn实体中是否配置了你的店铺标识(productStoreId)。</value>
+    </property>
+    <property key="GetOAuth2LinkedInAccessTokenError">
+        <value xml:lang="en">Failed to get LinkedIn access token.</value>
+        <value xml:lang="zh">获取领英访问令牌时出错。</value>
+    </property>
+    <property key="GetOAuth2LinkedInError">
+        <value xml:lang="en">Failed to get OAuth2LinkedIn entity: ${errorMessage}</value>
+        <value xml:lang="zh">获取OAuth2LinkedIn实体时出错：${errorMessage}</value>
+    </property>
+    
+    <!-- GitHub labels -->
+    <property key="RedirectToGitHubOAuth2NullException">
+        <value xml:lang="en">Error while redirecting to GitHub authorization URL. Please use other login method for now.</value>
+        <value xml:lang="zh">转到GitHub认证网址时出错。请先使用其它登录方式。</value>
+    </property>
+    <property key="RedirectToGitHubOAuth2Error">
+        <value xml:lang="en">Error while redirecting to GitHub authorization URL: ${errorMessage}</value>
+        <value xml:lang="zh">转到GitHub认证网址时出错：${errorMessage}。</value>
+    </property>
+    <property key="GitHubFailedToMatchState">
+        <value xml:lang="en">Failed to match the state parameter in GitHub response. Just try to login again.</value>
+        <value xml:lang="zh">GitHub响应中的state参数不一致。重试登录即可。</value>
+    </property>
+    <property key="GetGitHubAuthorizationCodeError">
+        <value xml:lang="en">Failed to get GitHub authorization code.</value>
+        <value xml:lang="zh">获取GitHub授权码时出错。</value>
+    </property>
+    <property key="GetOAuth2GitHubConfigError">
+        <value xml:lang="en">Failed to get GitHub configuration. Please check whether OAuth2GitHub entity has your productStoreId configured.</value>
+        <value xml:lang="zh">获取GitHub配置时出错。请检查OAuth2GitHub实体中是否配置了你的店铺标识(productStoreId)。</value>
+    </property>
+    <property key="GetOAuth2GitHubAccessTokenError">
+        <value xml:lang="en">Failed to get GitHub access token: ${error}</value>
+        <value xml:lang="zh">获取GitHub访问令牌时出错：${error}</value>
+    </property>
+    <property key="GetOAuth2GitHubError">
+        <value xml:lang="en">Failed to get OAuth2GitHub entity: ${errorMessage}</value>
+        <value xml:lang="zh">获取OAuth2GitHub实体时出错：${errorMessage}</value>
+    </property>
+</resource>

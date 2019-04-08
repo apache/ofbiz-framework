@@ -51,13 +51,13 @@ public final class WorkEffortWorker {
             right = "workEffortIdTo";
         }
 
-        List<GenericValue> workEfforts = new LinkedList<>();
+        List<GenericValue> workEfforts = new LinkedList<GenericValue>();
         try {
             List<GenericValue> childWEAssocsLevelFirst = EntityQuery.use(delegator).from("WorkEffortAssoc").where(left, workEffortId, "workEffortAssocTypeId", workEffortAssocTypeId).cache(true).queryList();
             for (GenericValue childWEAssocLevelFirst : childWEAssocsLevelFirst) {
                 List<GenericValue> childWEAssocsLevelNext = EntityQuery.use(delegator).from("WorkEffortAssoc").where(left, childWEAssocLevelFirst.get(right), "workEffortAssocTypeId", workEffortAssocTypeId).cache(true).queryList();
                 while (UtilValidate.isNotEmpty(childWEAssocsLevelNext)) {
-                    List<GenericValue> tempWorkEffortList = new LinkedList<>();
+                    List<GenericValue> tempWorkEffortList = new LinkedList<GenericValue>();
                     for (GenericValue childWEAssocLevelNext : childWEAssocsLevelNext) {
                         List<GenericValue> childWEAssocsLevelNth = EntityQuery.use(delegator).from("WorkEffortAssoc").where(left, childWEAssocLevelNext.get(right), "workEffortAssocTypeId", workEffortAssocTypeId).cache(true).queryList();
                         if (UtilValidate.isNotEmpty(childWEAssocsLevelNth)) {
@@ -76,8 +76,8 @@ public final class WorkEffortWorker {
     }
 
     public static List<GenericValue> removeDuplicateWorkEfforts(List<GenericValue> workEfforts) {
-        Set<String> keys = new HashSet<>();
-        Set<GenericValue> exclusions = new HashSet<>();
+        Set<String> keys = new HashSet<String>();
+        Set<GenericValue> exclusions = new HashSet<GenericValue>();
         for (GenericValue workEffort : workEfforts) {
             String workEffortId = workEffort.getString("workEffortId");
             if (keys.contains(workEffortId)) {

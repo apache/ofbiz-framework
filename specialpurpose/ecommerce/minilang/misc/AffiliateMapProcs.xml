@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-map-processors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
+  <simple-map-processor name="newAffilParty">
+    <process field="AFFILIATE_ID"><copy to-field="partyId"/><not-empty>
+    <fail-property resource="PartyUiLabels" property="PartyAffiliateCodeMissingError"/></not-empty></process>
+  </simple-map-processor>
+
+  <simple-map-processor name="newAffilGroup">
+    <process field="COMPANY_NAME"><copy to-field="groupName"/><not-empty>
+    <fail-property resource="PartyUiLabels" property="PartyCompanyNameMissingError"/></not-empty></process>
+  </simple-map-processor>
+
+  <simple-map-processor name="newAffilPostal">
+    <process field="COMPANY_NAME"><copy to-field="toName"/></process>
+    <process field="COMPANY_ATTN"><copy to-field="attnName"/></process>
+    <process field="COMPANY_ADDRESS1"><copy to-field="address1"/><not-empty>
+    <fail-property resource="PartyUiLabels" property="PartyAddressLine1MissingError"/></not-empty></process>
+    <process field="COMPANY_ADDRESS2"><copy to-field="address2"/></process>
+    <process field="COMPANY_CITY"><copy to-field="city"/><not-empty>
+    <fail-property resource="PartyUiLabels" property="PartyCityMissing"/></not-empty></process>
+    <process field="COMPANY_STATE"><copy to-field="stateProvinceGeoId"/><not-empty>
+    <fail-property resource="PartyUiLabels" property="PartyProvinceMissing"/></not-empty></process>
+    <process field="COMPANY_POSTAL_CODE"><copy to-field="postalCode"/><not-empty>
+    <fail-property resource="PartyUiLabels" property="PartyZipCodeMissing"/></not-empty></process>
+    <process field="COMPANY_COUNTRY"><copy to-field="countryGeoId"/></process>
+    <process field="COMPANY_ADDRESS_ALLOW_SOL"><copy to-field="allowSolicitation"/></process>
+  </simple-map-processor>
+
+  <simple-map-processor name="newAffilPostalPurpose">
+    <make-in-string field="contactMechPurposeTypeId"><constant>BILLING_LOCATION</constant></make-in-string>
+    <process field="contactMechId"><copy/><not-empty>
+    <fail-property resource="PartyUiLabels" property="PartyContactMechIdMissing"/></not-empty></process>
+    <process field="contactMechPurposeTypeId"><copy/></process>
+  </simple-map-processor>
+
+  <simple-map-processor name="newAffilContact">
+    <process field="CONTACT_FIRST_NAME"><copy to-field="firstName"/><not-empty>
+    <fail-property resource="PartyUiLabels" property="PartyFirstNameMissing"/></not-empty></process>
+    <process field="CONTACT_LAST_NAME"><copy to-field="lastName"/><not-empty>
+    <fail-property resource="PartyUiLabels" property="PartyLastNameMissingError"/></not-empty></process>
+  </simple-map-processor>
+
+  <simple-map-processor name="newAffilPhone">
+    <process field="COMPANY_WORK_COUNTRY"><copy to-field="countryCode"/></process>
+    <process field="COMPANY_WORK_AREA"><copy to-field="areaCode"/></process>
+    <process field="COMPANY_WORK_CONTACT"><copy to-field="contactNumber"/><not-empty>
+    <fail-property resource="PartyUiLabels" property="PartyContactNumberMissing"/></not-empty></process>
+    <process field="COMPANY_WORK_EXT"><copy to-field="extension"/></process>
+    <process field="COMPANY_WORK_ALLOW_SOL"><copy to-field="allowSolicitation"/></process>
+  </simple-map-processor>
+
+  <simple-map-processor name="newAffilPhonePurpose">
+    <make-in-string field="contactMechPurposeTypeId"><constant>PHONE_WORK</constant></make-in-string>
+    <process field="contactMechId"><copy/><not-empty>
+    <fail-property resource="PartyUiLabels" property="PartyContactMechIdMissing"/></not-empty></process>
+    <process field="contactMechPurposeTypeId"><copy/></process>
+  </simple-map-processor>
+
+  <simple-map-processor name="newAffilFax">
+    <process field="COMPANY_FAX_COUNTRY"><copy to-field="countryCode"/></process>
+    <process field="COMPANY_FAX_AREA"><copy to-field="areaCode"/></process>
+    <process field="COMPANY_FAX_CONTACT"><copy to-field="contactNumber"/></process>
+    <process field="COMPANY_FAX_ALLOW_SOL"><copy to-field="allowSolicitation"/></process>
+  </simple-map-processor>
+
+  <simple-map-processor name="newAffilFaxPurpose">
+    <make-in-string field="contactMechPurposeTypeId"><constant>FAX_NUMBER</constant></make-in-string>
+    <process field="contactMechId"><copy/></process>
+    <process field="contactMechPurposeTypeId"><copy/></process>
+  </simple-map-processor>
+
+  <simple-map-processor name="newAffilEmail">
+    <process field="COMPANY_EMAIL">
+      <copy to-field="emailAddress"/>
+      <not-empty>
+      <fail-property resource="PartyUiLabels" property="PartyEmailAddressMissingError"/>
+      </not-empty>
+      <validate-method method="isEmail">
+      <fail-property resource="PartyUiLabels" property="PartyEmailAddressNotFormattedCorrectly"/>
+      </validate-method>
+    </process>
+    <process field="COMPANY_EMAIL_ALLOW_SOL"><copy to-field="allowSolicitation"/></process>
+  </simple-map-processor>
+
+  <simple-map-processor name="newAffilEmailPurpose">
+    <make-in-string field="contactMechPurposeTypeId"><constant>PRIMARY_EMAIL</constant></make-in-string>
+    <process field="contactMechId"><copy/><not-empty>
+    <fail-property resource="PartyUiLabels" property="PartyContactMechIdMissing"/></not-empty></process>
+    <process field="contactMechPurposeTypeId"><copy/></process>
+  </simple-map-processor>
+
+  <simple-map-processor name="newAffilURL">
+    <make-in-string field="contactMechTypeId"><constant>WEB_ADDRESS</constant></make-in-string>
+    <make-in-string field="allowSolicitation"><constant>Y</constant></make-in-string>
+    <process field="SITE_URL"><copy to-field="infoString"/><not-empty>
+    <fail-property resource="PartyUiLabels" property="PartySiteURLMissing"/></not-empty></process>
+    <process field="contactMechTypeId"><copy/></process>
+    <process field="allowSolicitation"><copy/></process>
+  </simple-map-processor>
+
+  <simple-map-processor name="newAffil">
+    <process field="SITE_NAME"><copy to-field="affiliateName"/><not-empty>
+     <fail-property resource="PartyUiLabels" property="PartyAffiliateNameMissing"/></not-empty></process>
+    <process field="SITE_DESCRIPTION"><copy to-field="affiliateDescription"/></process>
+  </simple-map-processor>
+
+  <simple-map-processor name="newAffilUser">
+    <process field="AFFILIATE_ID"><copy to-field="userLoginId"/><not-empty>
+    <fail-property resource="PartyUiLabels" property="PartyAffiliateCodeMissingError"/></not-empty></process>
+    <process field="PASSWORD"><copy to-field="currentPassword"/><not-empty>
+    <fail-property resource="PartyUiLabels" property="PartyPasswordMissing"/></not-empty></process>
+    <process field="CONFIRM_PASSWORD">
+      <compare-field operator="equals" field="PASSWORD">
+    <fail-property resource="PartyUiLabels" property="PartyPasswordMatchError"/>
+      </compare-field>
+        <not-empty>
+         <fail-property resource="PartyUiLabels" property="PartyEnterPasswordTwice"/>
+        </not-empty>
+        <copy to-field="currentPasswordVerify"/>
+    </process>
+    <process field="PASSWORD_HINT"><copy to-field="passwordHint"/></process>
+  </simple-map-processor>
+
+</simple-map-processors>

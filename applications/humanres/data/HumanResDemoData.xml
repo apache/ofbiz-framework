@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<entity-engine-xml>
+    <Party partyId="DemoEmployee" statusId="PARTY_ENABLED"/>
+    <PartyRole partyId="DemoEmployee" roleTypeId="EMPLOYEE"/><!-- data completed by components loaded later -->
+    <PartyStatus partyId="DemoEmployee" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+
+    <RateAmount rateTypeId="AVERAGE_PAY_RATE" rateCurrencyUomId="USD" periodTypeId="RATE_MONTH" workEffortId="_NA_" partyId="DemoEmployee" emplPositionTypeId="_NA_" fromDate="2000-01-30 17:58:56.038" rateAmount="2300"/>
+    <RateAmount rateTypeId="AVERAGE_PAY_RATE" rateCurrencyUomId="USD" periodTypeId="RATE_MONTH" workEffortId="_NA_" partyId="_NA_" emplPositionTypeId="PROGRAMMER" fromDate="2000-01-30 17:58:56.038" rateAmount="2000"/>
+    <EmplPosition emplPositionId="DEMO100" statusId="EMPL_POS_ACTIVE" partyId="Company" emplPositionTypeId="PROGRAMMER" salaryFlag="Y" exemptFlag="Y" fulltimeFlag="Y" temporaryFlag="Y"/>
+    <EmplPositionFulfillment emplPositionId="DEMO100" partyId="DemoEmployee" fromDate="2009-01-30 17:58:02.745"/>
+    <EmplPositionTypeRate emplPositionTypeId="PROGRAMMER" rateTypeId="AVERAGE_PAY_RATE" fromDate="2009-01-30 17:58:56.038"/>
+    <Employment roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" partyIdFrom="Company" partyIdTo="DemoEmployee" fromDate="2000-01-30 17:50:15.767"/>
+
+    <Party partyId="DemoApprover" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="DemoApprover" firstName="Demo" lastName="Approver"/>
+    <PartyStatus partyId="DemoApprover" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+
+    <UserLogin userLoginId="demoapprover" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N" partyId="DemoApprover"/>
+    <UserLoginSecurityGroup groupId="HUMANRES_APPROVER" userLoginId="demoapprover" fromDate="2001-01-01 12:00:00.0"/>
+
+    <UserLogin userLoginId="demoemployee" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N" partyId="DemoEmployee"/>
+    <SecurityPermission description="Employee can check the status of his requests and trainings assigned to him with this permission." permissionId="EMPLOYEE_VIEW"/>
+    <SecurityGroupPermission groupId="HUMANRES_EMPLOYEE" permissionId="EMPLOYEE_VIEW"/>
+    <UserLoginSecurityGroup groupId="HUMANRES_EMPLOYEE" userLoginId="demoemployee" fromDate="2001-01-01 12:00:00.0"/>
+
+</entity-engine-xml>

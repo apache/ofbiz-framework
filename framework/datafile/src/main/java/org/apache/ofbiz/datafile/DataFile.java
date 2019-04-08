@@ -18,9 +18,11 @@
  *******************************************************************************/
 package org.apache.ofbiz.datafile;
 
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,8 +32,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilIO;
 import org.apache.ofbiz.base.util.UtilValidate;
+
 
 /**
  *  DataFile main class
@@ -43,7 +45,7 @@ public class DataFile {
     public static final String module = DataFile.class.getName();
 
     /** List of record in the file, contains Record objects */
-    protected List<Record> records = new ArrayList<>();
+    protected List<Record> records = new ArrayList<Record>();
 
     /** Contains the definition for the file */
     protected ModelDataFile modelDataFile;
@@ -91,8 +93,7 @@ public class DataFile {
         this.modelDataFile = modelDataFile;
     }
 
-    protected DataFile() {
-    }
+    protected DataFile() {}
 
     public ModelDataFile getModelDataFile() {
         return modelDataFile;
@@ -132,11 +133,10 @@ public class DataFile {
      * @throws DataFileException Exception thown for various errors, generally has a nested exception
      */
     public void readDataFile(String content) throws DataFileException {
-        if (UtilValidate.isEmpty(content)) {
+        if (UtilValidate.isEmpty(content))
             throw new IllegalStateException("Content is empty, can't read file");
-        }
 
-        ByteArrayInputStream bis = new ByteArrayInputStream(content.getBytes(UtilIO.getUtf8()));
+        ByteArrayInputStream bis = new ByteArrayInputStream(content.getBytes());
 
         readDataFile(bis, null);
     }
@@ -169,23 +169,29 @@ public class DataFile {
         return new RecordIterator(dataFileStream, this.modelDataFile, locationInfo);
     }
 
-    /**
-     * Writes the records in this DataFile object to a text data file
-     *
-     * @param filename
-     *            The filename to put the data into
-     * @throws DataFileException
-     *             Exception thrown for various errors, generally has a nested
-     *             exception
+    /** Writes the records in this DataFile object to a text data file
+     * @param filename The filename to put the data into
+     * @throws DataFileException Exception thown for various errors, generally has a nested exception
      */
     public void writeDataFile(String filename) throws DataFileException {
         File outFile = new File(filename);
+        FileOutputStream fos = null;
 
-        try (FileOutputStream fos = new FileOutputStream(outFile);) {
-            writeDataFile(fos);
+        try {
+            fos = new FileOutputStream(outFile);
+        } catch (FileNotFoundException e) {
+            throw new DataFileException("Could not open file " + filename, e);
         }
-        catch (IOException e) {
-            throw new DataFileException("Error occured while writing data to file" + filename, e);
+
+        try {
+            writeDataFile(fos);
+        } finally {
+            try {
+                if (fos != null)
+                    fos.close();
+            } catch (IOException e) {
+                throw new DataFileException("Could not close file " + filename + ", may not have written correctly;", e);
+            }
         }
     }
 
@@ -194,13 +200,15 @@ public class DataFile {
      * @return A String containing what would go into a data file as plain text
      */
     public String writeDataFile() throws DataFileException {
-        String outString = "";
-        try (ByteArrayOutputStream bos = new ByteArrayOutputStream();) {
-            writeDataFile(bos);
-            outString = bos.toString("UTF-8");
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
 
-        }
-        catch (IOException e) {
+        writeDataFile(bos);
+        String outString = bos.toString();
+
+        try {
+            if (bos != null)
+                bos.close();
+        } catch (IOException e) {
             Debug.logWarning(e, module);
         }
         return outString;
@@ -215,13 +223,12 @@ public class DataFile {
     }
 
     protected void writeRecords(OutputStream outStream, List<Record> records) throws DataFileException {
-        for (Record record : records) {
+        for (Record record: records) {
             String line = record.writeLineString(modelDataFile);
 
             try {
-                outStream.write(line.getBytes(UtilIO.getUtf8()));
-            }
-            catch (IOException e) {
+                outStream.write(line.getBytes());
+            } catch (IOException e) {
                 throw new DataFileException("Could not write to stream;", e);
             }
 
@@ -231,3 +238,4 @@ public class DataFile {
         }
     }
 }
+

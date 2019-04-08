@@ -82,7 +82,6 @@ under the License.
                       <#if carrierShipmentMethod.partyId != "_NA_">${carrierShipmentMethod.partyId!}&nbsp;</#if>${carrierShipmentMethod.description!}
                       <#if cart.getShippingContactMechId(shipGroupIndex)??>
                         <#assign shippingEst = shipEstimateWrapper.getShippingEstimate(carrierShipmentMethod)?default(-1)>
-                        <#assign shippingTimeEstimateInDay = shipEstimateWrapper.getShippingTimeEstimateInDay(carrierShipmentMethod)?default(-1)>
                         <#if shippingEst?has_content>
                           &nbsp;-&nbsp;
                           <#if (shippingEst > -1)>
@@ -90,7 +89,6 @@ under the License.
                           <#else>
                             Calculated Offline
                           </#if>
-                          <#if (shippingTimeEstimateInDay > 0)> - ${shippingTimeEstimateInDay} ${uiLabelMap.CommonDays}</#if>
                         </#if>
                       </#if>
                     </label>
@@ -128,7 +126,7 @@ under the License.
                 <tr>
                   <td valign="top">
                   <label>
-                    <input type='radio' <#if "N" == cart.getMaySplit(shipGroupIndex)?default("N")>checked="checked"</#if> name='${shipGroupIndex?default("0")}_may_split' value='false' />
+                    <input type='radio' <#if cart.getMaySplit(shipGroupIndex)?default("N") == "N">checked="checked"</#if> name='${shipGroupIndex?default("0")}_may_split' value='false' />
                     ${uiLabelMap.FacilityWaitEntireOrderReady}
                   </label>
                   </td>
@@ -136,7 +134,7 @@ under the License.
                 <tr>
                   <td valign="top">
                     <label>
-                    <input <#if "Y" == cart.getMaySplit(shipGroupIndex)?default("N")>checked="checked"</#if> type='radio' name='${shipGroupIndex?default("0")}_may_split' value='true' />
+                    <input <#if cart.getMaySplit(shipGroupIndex)?default("N") == "Y">checked="checked"</#if> type='radio' name='${shipGroupIndex?default("0")}_may_split' value='true' />
                     ${uiLabelMap.FacilityShipAvailable}
                     </label>
                   </td>

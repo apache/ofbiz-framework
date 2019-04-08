@@ -68,7 +68,7 @@ under the License.
                 <set field="tabButtonItem" value="Calendar"/>
                 <set field="headerItem" value="calendar"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
 
                 <entity-condition entity-name="TechDataCalendar" list="techDataCalendars"/>
@@ -94,7 +94,7 @@ under the License.
                 <set field="tabButtonItem" value="CalendarWeek"/>
                 <set field="headerItem" value="calendar"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
 
                 <entity-condition entity-name="TechDataCalendarWeek" list="calendarWeeks"/>

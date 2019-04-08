@@ -23,7 +23,7 @@ under the License.
 
 <#-- virtual product javascript -->
 ${virtualJavaScript!}
-<script type="application/javascript">
+<script language="JavaScript" type="text/javascript">
 <!--
     var detailImageUrl = null;
      function setAddProductId(name) {
@@ -58,15 +58,15 @@ ${virtualJavaScript!}
 
     function popupDetail() {
         var defaultDetailImage = "${firstDetailImage?default(mainDetailImageUrl?default("_NONE_"))}";
-        if (defaultDetailImage == null || "null" == defaultDetailImage || "" == defaultDetailImage) {
+        if (defaultDetailImage == null || defaultDetailImage == "null" || defaultDetailImage == "") {
             defaultDetailImage = "_NONE_";
         }
 
-        if (detailImageUrl == null || "null" == detailImageUrl) {
+        if (detailImageUrl == null || detailImageUrl == "null") {
             detailImageUrl = defaultDetailImage;
         }
 
-        if ("_NONE_" == detailImageUrl) {
+        if (detailImageUrl == "_NONE_") {
             hack = document.createElement('span');
             hack.innerHTML="${uiLabelMap.CommonNoDetailImageAvailableToDisplay}";
             showErrorAlert("${uiLabelMap.CommonErrorMessage2}","${uiLabelMap.CommonNoDetailImageAvailableToDisplay}");
@@ -135,7 +135,7 @@ ${virtualJavaScript!}
  //-->
  </script>
 
-<script type="application/javascript">
+<script language="JavaScript" type="text/javascript">
 <!--
 
 jQuery(document).ready( function() {
@@ -287,7 +287,7 @@ function getConfigDetails() {
       <form method="post" action="<@ofbizUrl>additem<#if requestAttributes._CURRENT_VIEW_??>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>" name="addform" style='margin: 0;'>
         <#assign inStock = true>
         <#-- Variant Selection -->
-        <#if product.isVirtual?? && "Y" == product.isVirtual?upper_case>
+        <#if product.isVirtual?? && product.isVirtual?upper_case == "Y">
           <#if variantTree?? && 0 < variantTree.size()>
             <#list featureSet as currentType>
               <div>
@@ -330,7 +330,7 @@ function getConfigDetails() {
         <#-- check to see if the product requires inventory check and has inventory -->
         <#else>
           <#if inStock>
-            <#if "Y" == product.requireAmount?default("N")>
+            <#if product.requireAmount?default("N") == "Y">
               <#assign hiddenStyle = "visible">
             <#else>
               <#assign hiddenStyle = "hidden">
@@ -379,7 +379,7 @@ function getConfigDetails() {
       </div>
       <#-- Prefill first select box (virtual products only) -->
       <#if variantTree?? && 0 < variantTree.size()>
-        <script type="application/javascript">eval("list" + "${featureOrderFirst}" + "()");</script>
+        <script language="JavaScript" type="text/javascript">eval("list" + "${featureOrderFirst}" + "()");</script>
       </#if>
 
       <#-- Swatches (virtual products only) -->
@@ -458,7 +458,7 @@ function getConfigDetails() {
                 <a name='#${question.getConfigItem().getString("configItemId")}'></a>
                 <div>${question.description!}</div>
                 <#assign instructions = question.content.get("INSTRUCTIONS", "html")!>
-                <#if instructions?has_content && instructions != "">
+                <#if instructions?has_content>
                   <a href="javascript:showErrorAlert("${uiLabelMap.CommonErrorMessage2}","${instructions}");" class="buttontext">Instructions</a>
                 </#if>
                 <#assign image = question.content.get("IMAGE_URL", "url")!>
@@ -622,13 +622,13 @@ function getConfigDetails() {
 
 <#-- Upgrades/Up-Sell/Cross-Sell -->
   <#macro associated assocProducts beforeName showName afterName formNamePrefix targetRequestName>
-  <#local targetRequest = "product">
+  <#assign targetRequest = "product">
   <#if targetRequestName?has_content>
-    <#local targetRequest = targetRequestName>
+    <#assign targetRequest = targetRequestName>
   </#if>
   <#if assocProducts?has_content>
     <tr><td>&nbsp;</td></tr>
-    <tr><td colspan="2"><h2>${beforeName!}<#if "Y" == showName>${productContentWrapper.get("PRODUCT_NAME", "html")!}</#if>${afterName!}</h2></td></tr>
+    <tr><td colspan="2"><h2>${beforeName!}<#if showName == "Y">${productContentWrapper.get("PRODUCT_NAME", "html")!}</#if>${afterName!}</h2></td></tr>
     <tr><td><hr /></td></tr>
     <#list assocProducts as productAssoc>
       <tr><td>

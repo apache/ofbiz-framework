@@ -33,14 +33,14 @@ under the License.
                 <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.WebtoolsCompanySubtitle" global="true"/>
                 <!-- layoutSettings.headerImageUrl can be used to specify an application specific logo; if not set,
                      then the global layoutSettings.commonHeaderImageUrl (specified in GlobalDecorator) will be used. -->
-                <!--<set field="layoutSettings.headerImageUrl" value="/images/ofbiz_logo.png" global="true"/>-->
+                <!--<set field="layoutSettings.headerImageUrl" value="/images/ofbiz_logo.gif" global="true"/>-->
                 <!-- <set field="layoutSettings.headerMiddleBackgroundUrl" value="" global="true"/> -->
                 <!-- <set field="layoutSettings.headerRightBackgroundUrl" value="" global="true"/> -->
                 <!-- Help link actions -->
                 <set field="helpTopic" value="${groovy: webappName.toUpperCase() + '_' + requestAttributes._CURRENT_VIEW_}"/>
                 <set field="applicationMenuLocation" value="component://webtools/widget/Menus.xml" global="true"/>
                 <set field="applicationMenuName" value="WebtoolsAppBar" global="true"/>
-                <set field="applicationTitle" from-field="uiLabelMap.FrameworkWebTools" global="true"/>
+                <set field="applicationTitle" value="${uiLabelMap.FrameworkWebTools}" global="true"/>
             </actions>
             <widgets>
                 <include-screen name="GlobalDecorator" location="component://common/widget/CommonScreens.xml"/>

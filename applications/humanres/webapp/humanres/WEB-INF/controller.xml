@@ -243,11 +243,6 @@ under the License.
         <event type="service" invoke="deletePayHistory"/>
         <response name="success" type="view" value="ListPayHistories"/>
     </request-map>
-    <request-map uri="expirePayHistory">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="expirePayHistory"/>
-        <response name="success" type="view" value="ListPayHistories"/>
-    </request-map>
     <request-map uri="findPartyBenefits">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditPartyBenefits"/>
@@ -675,6 +670,10 @@ under the License.
     <request-map uri="globalHRSettings">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditSkillTypes"/>
+    </request-map>
+    <request-map uri="EditTerminationTypes">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditTerminationTypes"/>
     </request-map>
     <request-map uri="EditTerminationTypes">
         <security https="true" auth="true"/>

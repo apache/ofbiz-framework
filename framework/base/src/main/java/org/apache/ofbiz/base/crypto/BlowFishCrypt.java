@@ -23,7 +23,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 
 import javax.crypto.Cipher;
@@ -31,14 +30,12 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
-import org.apache.ofbiz.base.util.Debug;
-
 /**
  * Blowfish (Two-Way) Byte/String encryption
  *
  */
 public class BlowFishCrypt {
-    private static final String module = BlowFishCrypt.class.getName();
+
     private SecretKeySpec secretKeySpec = null;
 
     /**
@@ -56,9 +53,7 @@ public class BlowFishCrypt {
     public BlowFishCrypt(byte[] key) {
         try {
             secretKeySpec = new SecretKeySpec(key, "Blowfish");
-        } catch (IllegalArgumentException e) {
-            Debug.logError(e, module);
-        }
+        } catch (Exception e) {}
     }
 
     /**
@@ -66,16 +61,17 @@ public class BlowFishCrypt {
      * @param keyFile A file object containing the secret key as a String object.
      */
     public BlowFishCrypt(File keyFile) {
-        try (
+        try {
             FileInputStream is = new FileInputStream(keyFile);
             ObjectInputStream os = new ObjectInputStream(is);
-        ) {
             String keyString = (String) os.readObject();
-            byte[] keyBytes = keyString.getBytes(StandardCharsets.UTF_8);
+
+            is.close();
+
+            byte[] keyBytes = keyString.getBytes();
+
             secretKeySpec = new SecretKeySpec(keyBytes, "Blowfish");
-        } catch (Exception e) {
-            Debug.logError(e, module);
-        }
+        } catch (Exception e) {}
     }
 
     /**
@@ -83,7 +79,7 @@ public class BlowFishCrypt {
      * @param string The string to encrypt.
      */
     public byte[] encrypt(String string) {
-        return encrypt(string.getBytes(StandardCharsets.UTF_8));
+        return encrypt(string.getBytes());
     }
 
     /**
@@ -91,7 +87,7 @@ public class BlowFishCrypt {
      * @param string The string to decrypt.
      */
     public byte[] decrypt(String string) {
-        return decrypt(string.getBytes(StandardCharsets.UTF_8));
+        return decrypt(string.getBytes());
     }
 
     /**
@@ -99,12 +95,14 @@ public class BlowFishCrypt {
      * @param bytes The array of bytes to encrypt.
      */
     public byte[] encrypt(byte[] bytes) {
+        byte[] resp = null;
+
         try {
-            return crypt(bytes, Cipher.ENCRYPT_MODE);
+            resp = crypt(bytes, Cipher.ENCRYPT_MODE);
         } catch (Exception e) {
-            Debug.logError(e, module);
-            return new byte[0];
+            return null;
         }
+        return resp;
     }
 
     /**
@@ -112,18 +110,19 @@ public class BlowFishCrypt {
      * @param bytes The array of bytes to decrypt.
      */
     public byte[] decrypt(byte[] bytes) {
+        byte[] resp = null;
+
         try {
-            return crypt(bytes, Cipher.DECRYPT_MODE);
+            resp = crypt(bytes, Cipher.DECRYPT_MODE);
         } catch (Exception e) {
-            Debug.logError(e, module);
-            return new byte[0];
+            return null;
         }
+        return resp;
     }
 
     private byte[] crypt(byte[] bytes, int mode) throws Exception {
-        if (secretKeySpec == null) {
+        if (secretKeySpec == null)
             throw new Exception("SecretKey cannot be null.");
-        }
         Cipher cipher = Cipher.getInstance("Blowfish");
 
         cipher.init(mode, secretKeySpec);
@@ -144,10 +143,10 @@ public class BlowFishCrypt {
         String testString = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstufwxyz";
         BlowFishCrypt c = new BlowFishCrypt(key);
         byte[] encryptedBytes = c.encrypt(testString);
-        String encryptedMessage = new String(encryptedBytes, StandardCharsets.UTF_8);
+        String encryptedMessage = new String(encryptedBytes);
 
         byte[] decryptedBytes = c.decrypt(encryptedMessage);
-        String decryptedMessage = new String(decryptedBytes, StandardCharsets.UTF_8);
+        String decryptedMessage = new String(decryptedBytes);
 
         if (testString.equals(decryptedMessage)) {
             return true;
@@ -163,12 +162,11 @@ public class BlowFishCrypt {
 
         byte[] key = generateKey();
         if (testKey(key)) {
-            try (FileOutputStream fos = new FileOutputStream(args[0]); 
-                    ObjectOutputStream os = new ObjectOutputStream(fos)) {
-                String keyString = new String(key, StandardCharsets.UTF_8);
-                os.writeObject(keyString);
-            }
+            FileOutputStream fos = new FileOutputStream(args[0]);
+            ObjectOutputStream os = new ObjectOutputStream(fos);
+            String keyString = new String(key);
+            os.writeObject(keyString);
+            fos.close();
         }
     }
-
 }

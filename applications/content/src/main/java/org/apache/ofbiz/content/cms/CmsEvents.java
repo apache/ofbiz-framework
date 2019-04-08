@@ -47,10 +47,8 @@ import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.webapp.control.RequestHandler;
 import org.apache.ofbiz.webapp.website.WebSiteWorker;
-import org.apache.ofbiz.widget.model.ThemeFactory;
 import org.apache.ofbiz.widget.renderer.FormStringRenderer;
 import org.apache.ofbiz.widget.renderer.ScreenRenderer;
-import org.apache.ofbiz.widget.renderer.VisualTheme;
 import org.apache.ofbiz.widget.renderer.macro.MacroFormRenderer;
 
 import freemarker.template.TemplateException;
@@ -68,7 +66,6 @@ public class CmsEvents {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         ServletContext servletContext = request.getSession().getServletContext();
         HttpSession session = request.getSession();
-        VisualTheme visualTheme = UtilHttp.getVisualTheme(request);
         Writer writer = null;
         Locale locale = UtilHttp.getLocale(request);
 
@@ -108,7 +105,7 @@ public class CmsEvents {
                 writer = response.getWriter();
                 GenericValue webSiteContent = EntityQuery.use(delegator).from("WebSiteContent").where("webSiteId", webSiteId, "webSiteContentTypeId", "MAINTENANCE_PAGE").filterByDate().queryFirst();
                 if (webSiteContent != null) {
-                    ContentWorker.renderContentAsText(dispatcher, webSiteContent.getString("contentId"), writer, null, locale, "text/html", null, null, true);
+                    ContentWorker.renderContentAsText(dispatcher, delegator, webSiteContent.getString("contentId"), writer, null, locale, "text/html", null, null, true);
                     return "success";
                 } else {
                     request.setAttribute("_ERROR_MESSAGE_", "Not able to display maintenance page for [" + webSiteId + "]");
@@ -117,9 +114,9 @@ public class CmsEvents {
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             } catch (IOException e) {
-                throw new GeneralRuntimeException("Error in the response writer/output stream while rendering content.", e);
+                throw new GeneralRuntimeException(String.format("Error in the response writer/output stream while rendering content [%s]", contentId), e);
             } catch (GeneralException e) {
-                throw new GeneralRuntimeException("Error rendering content", e);
+                throw new GeneralRuntimeException(String.format("Error rendering content [%s]", contentId), e);
             } 
         } else {
         // If an override view is present then use that in place of request.getPathInfo()
@@ -247,14 +244,12 @@ public class CmsEvents {
                         Debug.logError(e, module);
                     }
                     if (errorPage != null) {
-                        if (Debug.verboseOn()) {
-                             Debug.logVerbose("Found error pages " + statusCode + " : " + errorPage, module);
-                        }
+                        if (Debug.verboseOn())
+                            Debug.logVerbose("Found error pages " + statusCode + " : " + errorPage, module);
                         contentId = errorPage.getString("contentId");
                     } else {
-                        if (Debug.verboseOn()) {
-                             Debug.logVerbose("No specific error page, falling back to the Error Container for " + statusCode, module);
-                        }
+                        if (Debug.verboseOn())
+                            Debug.logVerbose("No specific error page, falling back to the Error Container for " + statusCode, module);
                         contentId = errorContainer.getString("contentId");
                     }
                     mapKey = null;
@@ -265,7 +260,7 @@ public class CmsEvents {
                     try {
                         GenericValue errorPage = EntityQuery.use(delegator).from("Content").where("contentId", "CONTENT_ERROR_" + statusCode).cache().queryOne();
                         if (errorPage != null) {
-                            if (Debug.verboseOn()) Debug.logVerbose("Found generic page " + statusCode, module);
+                            Debug.logVerbose("Found generic page " + statusCode, module);
                             contentId = errorPage.getString("contentId");
                             mapKey = null;
                             hasErrorPage = true;
@@ -288,32 +283,23 @@ public class CmsEvents {
                 RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
                 templateMap.put("_REQUEST_HANDLER_", rh);
 
-                //Cache Headers
-                UtilHttp.setResponseBrowserProxyNoCache(response);
-                //Security Headers
-                UtilHttp.setResponseBrowserDefaultSecurityHeaders(response, null);
-
                 response.setStatus(statusCode);
 
                 try {
                     writer = response.getWriter();
                     // TODO: replace "screen" to support dynamic rendering of different output
-                    if (visualTheme == null) {
-                        String defaultVisualThemeId = EntityUtilProperties.getPropertyValue("general", "VISUAL_THEME", delegator);
-                        visualTheme = ThemeFactory.getVisualThemeFromId(defaultVisualThemeId);  
-                    }
-                    FormStringRenderer formStringRenderer = new MacroFormRenderer(visualTheme.getModelTheme().getFormRendererLocation("screen"), request, response);
+                    FormStringRenderer formStringRenderer = new MacroFormRenderer(EntityUtilProperties.getPropertyValue("widget", "screen.formrenderer", delegator), request, response);
                     templateMap.put("formStringRenderer", formStringRenderer);
 
                     // if use web analytics
                     List<GenericValue> webAnalytics = EntityQuery.use(delegator).from("WebAnalyticsConfig").where("webSiteId", webSiteId).queryList();
                     // render
                     if (UtilValidate.isNotEmpty(webAnalytics) && hasErrorPage) {
-                        ContentWorker.renderContentAsText(dispatcher, contentId, writer, templateMap, locale, "text/html", null, null, true, webAnalytics);
+                        ContentWorker.renderContentAsText(dispatcher, delegator, contentId, writer, templateMap, locale, "text/html", null, null, true, webAnalytics);
                     } else if (UtilValidate.isEmpty(mapKey)) {
-                        ContentWorker.renderContentAsText(dispatcher, contentId, writer, templateMap, locale, "text/html", null, null, true);
+                        ContentWorker.renderContentAsText(dispatcher, delegator, contentId, writer, templateMap, locale, "text/html", null, null, true);
                     } else {
-                        ContentWorker.renderSubContentAsText(dispatcher, contentId, writer, mapKey, templateMap, locale, "text/html", true);
+                        ContentWorker.renderSubContentAsText(dispatcher, delegator, contentId, writer, mapKey, templateMap, locale, "text/html", true);
                     }
 
                 } catch (TemplateException e) {
@@ -333,7 +319,7 @@ public class CmsEvents {
                     if (content != null && UtilValidate.isNotEmpty(content.getString("contentName"))) {
                         contentName = content.getString("contentName");
                     } else {
-                        request.setAttribute("_ERROR_MESSAGE_", "Content: [" + contentId + "] is not a publish point for the current website: [" + webSiteId + "]");
+                        request.setAttribute("_ERROR_MESSAGE_", "Content: " + contentName + " [" + contentId + "] is not a publish point for the current website: [" + webSiteId + "]");
                         return "error";
                     }
                     siteName = EntityQuery.use(delegator).from("WebSite").where("webSiteId", webSiteId).cache().queryOne().getString("siteName");

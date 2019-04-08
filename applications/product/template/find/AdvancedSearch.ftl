@@ -106,8 +106,8 @@ under the License.
           <td valign="middle">
             <div>
               <input type="text" name="SEARCH_STRING" size="40" value="${requestParameters.SEARCH_STRING!}"/>&nbsp;
-              <label>${uiLabelMap.CommonAny}<input type="radio" name="SEARCH_OPERATOR" value="OR" <#if "OR" == searchOperator>checked="checked"</#if>/></label>
-              <label>${uiLabelMap.CommonAll}<input type="radio" name="SEARCH_OPERATOR" value="AND" <#if "AND" == searchOperator>checked="checked"</#if>/></label>
+              <label>${uiLabelMap.CommonAny}<input type="radio" name="SEARCH_OPERATOR" value="OR" <#if searchOperator == "OR">checked="checked"</#if>/></label>
+              <label>${uiLabelMap.CommonAll}<input type="radio" name="SEARCH_OPERATOR" value="AND" <#if searchOperator == "AND">checked="checked"</#if>/></label>
             </div>
           </td>
         </tr>
@@ -308,7 +308,7 @@ under the License.
         <tr>
           <td align="center" colspan="2">
             <hr />
-            <input type="submit" value="${uiLabelMap.CommonFind}">
+            <a href="javascript:document.advtokeywordsearchform.submit()" class="buttontext">${uiLabelMap.CommonFind}</a>
           </td>
         </tr>
       </table>

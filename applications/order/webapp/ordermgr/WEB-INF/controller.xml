@@ -95,61 +95,61 @@ under the License.
     <request-map uri="massApproveOrders">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="massChangeOrderApproved"/>
-        <response name="success" type="request-redirect-noparam" value="findorders"/>
+        <response name="success" type="request-redirect" value="findorders"/>
         <response name="error" type="view" value="findorders"/>
     </request-map>
     <request-map uri="massProcessOrders">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="massProcessOrders"/>
-        <response name="success" type="request-redirect-noparam" value="findorders"/>
+        <response name="success" type="request-redirect" value="findorders"/>
         <response name="error" type="view" value="findorders"/>
     </request-map>
     <request-map uri="massHoldOrders">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="massHoldOrders"/>
-        <response name="success" type="request-redirect-noparam" value="findorders"/>
+        <response name="success" type="request-redirect" value="findorders"/>
         <response name="error" type="view" value="findorders"/>
     </request-map>
     <request-map uri="massCancelOrders">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="massCancelOrders"/>
-        <response name="success" type="request-redirect-noparam" value="findorders"/>
+        <response name="success" type="request-redirect" value="findorders"/>
         <response name="error" type="view" value="findorders"/>
     </request-map>
     <request-map uri="massCancelRemainingPurchaseOrderItems">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="massCancelRemainingPurchaseOrderItems"/>
-        <response name="success" type="request-redirect-noparam" value="findorders"/>
+        <response name="success" type="request-redirect" value="findorders"/>
         <response name="error" type="view" value="findorders"/>
     </request-map>
     <request-map uri="massRejectOrders">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="massRejectOrders"/>
-        <response name="success" type="request-redirect-noparam" value="findorders"/>
+        <response name="success" type="request-redirect" value="findorders"/>
         <response name="error" type="view" value="findorders"/>
     </request-map>
     <request-map uri="massQuickShipOrders">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="massQuickShipOrders"/>
-        <response name="success" type="request-redirect-noparam" value="findorders"/>
+        <response name="success" type="request-redirect" value="findorders"/>
         <response name="error" type="view" value="findorders"/>
     </request-map>
     <request-map uri="massPickOrders">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="massPickOrders"/>
-        <response name="success" type="request-redirect-noparam" value="findorders"/>
+        <response name="success" type="request-redirect" value="findorders"/>
         <response name="error" type="view" value="findorders"/>
     </request-map>
     <request-map uri="massPrintOrders">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="massPrintOrders"/>
-        <response name="success" type="request-redirect-noparam" value="findorders"/>
+        <response name="success" type="request-redirect" value="findorders"/>
         <response name="error" type="view" value="findorders"/>
     </request-map>
     <request-map uri="massCreateFileForOrders">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="massCreateFileForOrders"/>
-        <response name="success" type="request-redirect-noparam" value="findorders"/>
+        <response name="success" type="request-redirect" value="findorders"/>
         <response name="error" type="view" value="findorders"/>
     </request-map>
 
@@ -820,9 +820,9 @@ under the License.
         <response name="success" type="view" value="editcontactmech"/>
         <response name="error" type="view" value="editcontactmech"/>
     </request-map>
-    <request-map uri="expirePartyContactMechPurpose">
+    <request-map uri="deletePartyContactMechPurpose">
         <security https="true" auth="true"/>
-        <event type="service" invoke="expirePartyContactMechPurpose"/>
+        <event type="service" invoke="deletePartyContactMechPurpose"/>
         <response name="success" type="view" value="editcontactmech"/>
         <response name="error" type="view" value="editcontactmech"/>
     </request-map>
@@ -1200,7 +1200,7 @@ under the License.
     </request-map>
     <request-map uri="deleteRequirement">
         <security https="true" auth="true"/>
-        <event type="service" invoke="deleteRequirementAndRelated"/>
+        <event type="service" invoke="deleteRequirement"/>
         <response name="success" type="view" value="FindRequirements"/>
     </request-map>
     <request-map uri="removeRequirementRole">
@@ -1288,14 +1288,14 @@ under the License.
 
     <request-map uri="createCustRequestContent">
         <security auth="true" https="true"/>
-        <event type="simple" invoke="createCustRequestContent" path="component://order/minilang/request/CustRequestEvents.xml"/>
+        <event path="component://order/minilang/request/CustRequestEvents.xml" type="simple"  invoke="createCustRequestContent"/>
         <response name="success" type="request-redirect" value="EditCustRequestContent"><redirect-parameter name="custRequestId"/></response>
         <response name="error" type="view" value="EditCustRequestContent"/>
     </request-map>
 
     <request-map uri="deleteCustRequestContent">
         <security auth="true" https="true"/>
-        <event type="service" invoke="deleteCustRequestContent"/>
+        <event invoke="deleteCustRequestContent" type="service"/>
         <response name="success" type="request-redirect" value="EditCustRequestContent"><redirect-parameter name="custRequestId"/></response>
         <response name="error" type="view" value="EditCustRequestContent"/>
     </request-map>
@@ -1617,9 +1617,9 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditQuoteWorkEffort"/>
     </request-map>
-    <request-map uri="ensureWorkEffortAndCreateQuoteWorkEffort">
+    <request-map uri="createQuoteWorkEffort">
         <security https="true" auth="true"/>
-        <event type="service" invoke="ensureWorkEffortAndCreateQuoteWorkEffort"/>
+        <event type="service" invoke="createQuoteWorkEffort"/>
         <response name="success" type="view" value="EditQuoteWorkEffort"/>
         <response name="error" type="view" value="AddQuoteWorkEffort"/>
     </request-map>
@@ -1718,6 +1718,12 @@ under the License.
         <event type="service" invoke="createUpdateShippingAddress"/>
         <response name="success" type="request" value="updateShipGroupShipInfo"/>
         <response name="error" type="view" value="orderview"/>
+    </request-map>
+    <request-map uri="getAssociatedStateList">
+        <security https="true" auth="false"/>
+        <event type="service" invoke="getAssociatedStateList"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
     </request-map>
 
     <!-- UPS carrier requests -->
@@ -1989,10 +1995,10 @@ under the License.
     <view-map name="ListRequirementOrders" type="screen" page="component://order/widget/ordermgr/RequirementScreens.xml#ListRequirementOrders"/>
     <view-map name="ListRequirementRoles" type="screen" page="component://order/widget/ordermgr/RequirementScreens.xml#ListRequirementRoles"/>
     <view-map name="EditRequirementRole" type="screen" page="component://order/widget/ordermgr/RequirementScreens.xml#EditRequirementRole"/>
-    <view-map name="ApproveRequirements" type="screen" page="component://order/widget/ordermgr/RequirementScreens.xml#ApproveRequirements"/>
-    <view-map name="ApprovedProductRequirements" type="screen" page="component://order/widget/ordermgr/RequirementScreens.xml#ApprovedProductRequirements"/>
+    <view-map name="ApproveRequirements" page="component://order/widget/ordermgr/RequirementScreens.xml#ApproveRequirements" type="screen"/>
+    <view-map name="ApprovedProductRequirements" page="component://order/widget/ordermgr/RequirementScreens.xml#ApprovedProductRequirements" type="screen"/>
     <view-map name="ApprovedProductRequirementsReport" type="screenfop" page="component://order/widget/ordermgr/RequirementScreens.xml#ApprovedProductRequirementsReport" content-type="application/pdf" encoding="none"/>
-    <view-map name="ApprovedProductRequirementsByVendor" type="screen" page="component://order/widget/ordermgr/RequirementScreens.xml#ApprovedProductRequirementsByVendor"/>
+    <view-map name="ApprovedProductRequirementsByVendor" page="component://order/widget/ordermgr/RequirementScreens.xml#ApprovedProductRequirementsByVendor" type="screen"/>
     <view-map name="ApprovedProductRequirementsByVendorReport" type="screenfop" page="component://order/widget/ordermgr/RequirementScreens.xml#ApprovedProductRequirementsByVendorReport" content-type="application/pdf" encoding="none"/>
     <view-map name="RequirementsForSupplier" type="screen" page="component://order/widget/ordermgr/OrderEntryScreens.xml#RequirementsForSupplier"/>
     <view-map name="FindQuoteForCart" type="screen" page="component://order/widget/ordermgr/OrderEntryScreens.xml#FindQuoteForCart"/>
@@ -2066,9 +2072,9 @@ under the License.
     <view-map name="LookupWorkEffort" type="screen" page="component://workeffort/widget/LookupScreens.xml#LookupWorkEffort"/>
     <view-map name="LookupBulkAddProducts" type="screen" page="component://order/widget/ordermgr/OrderEntryCartScreens.xml#LookupBulkAddProducts"/>
     <view-map name="LookupBulkAddSupplierProducts" type="screen" page="component://order/widget/ordermgr/OrderEntryCartScreens.xml#LookupBulkAddSupplierProducts"/>
-    <view-map name="LookupContent" type="screen" page="component://content/widget/content/ContentScreens.xml#LookupContent"/>
+    <view-map name="LookupContent" page="component://content/widget/content/ContentScreens.xml#LookupContent" type="screen"/>
     <view-map name="LookupAssociatedProducts" type="screen" page="component://order/widget/ordermgr/OrderEntryCartScreens.xml#LookupAssociatedProducts"/>
-    <view-map name="LookupBillingAccount" type="screen" page="component://accounting/widget/LookupScreens.xml#LookupBillingAccount"/>
+    <view-map name="LookupBillingAccount" page="component://accounting/widget/LookupScreens.xml#LookupBillingAccount" type="screen"/>
     <!-- PDFs  -->
     <view-map name="OrderPDF" type="screenfop" page="component://order/widget/ordermgr/OrderPrintScreens.xml#OrderPDF" content-type="application/pdf" encoding="none"/>
     <view-map name="ReturnPDF" type="screenfop" page="component://order/widget/ordermgr/OrderPrintScreens.xml#ReturnPDF" content-type="application/pdf" encoding="none"/>

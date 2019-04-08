@@ -17,13 +17,14 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.Debug
-import org.apache.ofbiz.base.util.UtilDateTime
-import org.apache.ofbiz.base.util.UtilFormatOut
-import org.apache.ofbiz.content.data.DataResourceWorker
+import org.apache.ofbiz.base.util.*
 import org.apache.ofbiz.minilang.SimpleMapProcessor
+import org.apache.ofbiz.content.ContentManagementWorker
+import org.apache.ofbiz.content.content.ContentWorker
+import org.apache.ofbiz.content.data.DataResourceWorker
 import org.apache.ofbiz.webapp.ftl.FreeMarkerViewHandler
 
+userLogin = session.getAttribute("userLogin")
 contentAssocDataResourceViewFrom = delegator.makeValue("ContentAssocDataResourceViewFrom")
 
 contentId = context.contentId

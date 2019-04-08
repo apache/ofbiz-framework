@@ -1,0 +1,589 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
+    <simple-method method-name="scrumPermissionCheck" short-description="general service to check access to the scrum component">
+        <set field="primaryPermission" value="SCRUM"/>
+        <set field="hasPermission" value="true" type="Boolean"/>
+        <set field="hasNoPermission" value="false" type="Boolean"/>
+        <set field="partyId" from-field="parameters.userLogin.partyId"/>
+
+        <if-compare field="parameters.resourceDescription" value="MEMBER" operator="equals">
+            <set field="sec_object" value="MEMBER"/>
+        </if-compare>
+        <if-compare field="parameters.resourceDescription" value="TEST" operator="equals">
+            <set field="sec_object" value="TEST"/>
+        </if-compare>
+        <if-compare field="parameters.resourceDescription" value="TASK" operator="equals">
+            <set field="sec_object" value="TASK"/>
+        </if-compare>
+        <if-compare field="parameters.resourceDescription" value="BACKLOG" operator="equals">
+            <set field="sec_object" value="BACKLOG"/>
+        </if-compare>
+        <if-compare field="parameters.resourceDescription" value="PRODUCT" operator="equals">
+            <set field="sec_object" value="PRODUCT"/>
+        </if-compare>
+        <if-compare field="parameters.resourceDescription" value="SPRINT" operator="equals">
+            <set field="sec_object" value="SPRINT"/>
+        </if-compare>
+        <if-compare field="parameters.resourceDescription" value="PROJECT" operator="equals">
+            <set field="sec_object" value="PROJECT"/>
+        </if-compare>
+        <if-compare field="parameters.resourceDescription" value="SCRUM" operator="equals">
+            <set field="sec_object" value="SCRUM"/>
+        </if-compare>
+        <!-- Administrator -->
+        <if-has-permission permission="SCRUM" action="_ADMIN">
+            <field-to-result field="hasPermission"/>
+            <return/>
+        </if-has-permission>
+        
+        <!-- Scrum CommonDecorator Only-->
+        <if-compare operator="equals" value="SCRUM" field="sec_object">
+            <entity-condition entity-name="ScrumMemberUserLoginAndSecurityGroup" list="securityGroupList">
+                <condition-list combine="and">
+                    <condition-expr field-name="partyId" operator="equals" from-field="partyId"/>
+                    <condition-expr field-name="partyStatusId" operator="not-equals" value="PARTY_DISABLED"/>
+                    <condition-expr field-name="thruDate" operator="equals" value=""/>
+                </condition-list>
+            </entity-condition>
+            <first-from-list list="securityGroupList" entry="securityGroupMap"/>
+            <if>
+                <condition>
+                    <or>
+                        <if-compare field="securityGroupMap.groupId" operator="equals" value="SCRUM_PRODUCT_OWNER" />
+                        <if-compare field="securityGroupMap.groupId" operator="equals" value="SCRUM_MASTER" />
+                        <if-compare field="securityGroupMap.groupId" operator="equals" value="SCRUM_TEAM" />
+                    </or>
+                </condition>
+                <then>
+                    <if>
+                       <condition>
+                           <and>
+                               <if-has-permission permission="SCRUM_ROLE" action="_VIEW"/>
+                               <if-compare field="parameters.mainAction" value="VIEW" operator="equals"/>
+                           </and>
+                       </condition>
+                        <then>
+                            <field-to-result field="hasPermission"/>
+                            <return/>
+                        </then>
+                        <else>
+                            <property-to-field resource="scrumUiLabels" property="ScrumNoAccessToScrum" field="failMessage"/>
+                            <field-to-result field="failMessage"/>
+                            <field-to-result field="hasNoPermission" result-name="hasPermission"/>
+                            <return/>
+                        </else>
+                   </if>
+                </then>
+                <else>
+                    <if>
+                        <condition>
+                            <and>
+                                <if-has-permission permission="SCRUM" action="_VIEW"/>
+                                <if-compare field="parameters.mainAction" value="VIEW" operator="equals"/>
+                            </and>
+                        </condition>
+                         <then>
+                             <field-to-result field="hasPermission"/>
+                             <return/>
+                         </then>
+                         <else>
+                             <property-to-field resource="scrumUiLabels" property="ScrumNoAccessToScrum" field="failMessage"/>
+                             <field-to-result field="failMessage"/>
+                             <field-to-result field="hasNoPermission" result-name="hasPermission"/>
+                             <return/>
+                         </else>
+                    </if>
+                </else>
+            </if>
+        </if-compare>
+        <!-- PRODUCT -->
+        <if-compare operator="equals" value="PRODUCT" field="sec_object">
+            <set field="productId" from-field="parameters.productId"/>
+            <if>
+                <condition>
+                    <if-compare operator="equals" value="VIEW" field="parameters.mainAction"/>
+                </condition>
+                <then>
+                    <if>
+                        <condition>
+                            <and>
+                                <or>
+                                    <if-has-permission permission="SCRUM_PRODUCT_ROLE" action="_VIEW"/>
+                                    <if-has-permission permission="SCRUM_PRODUCT_ROLE" action="_ADMIN"/>
+                                </or>
+                                <not><if-empty field="productId"/></not>
+                            </and>
+                        </condition>
+                        <then>
+                            <!-- Product Owner -->
+                            <entity-and entity-name="ProductRole" list="productRoles">
+                                <field-map field-name="productId" from-field="productId"/>
+                                <field-map field-name="partyId" from-field="partyId"/>
+                                <field-map field-name="roleTypeId" value="PRODUCT_OWNER"/>
+                            </entity-and>
+                            <!-- Memberships related to this product. -->
+                            <entity-and entity-name="ProjectSprint" list="projectSprints">
+                                <field-map field-name="productId" from-field="productId"/>
+                            </entity-and>
+                            <set field="isMembership" type="Boolean" value="false"/>
+                            <iterate list="projectSprints" entry="projectSprintEntry">
+                                <entity-condition list="assigns" entity-name="WorkEffortPartyAssignAndRoleType">
+                                    <condition-list>
+                                        <condition-expr field-name="workEffortId" operator="equals" from-field="projectSprintEntry.sprintId"/>
+                                        <condition-expr field-name="partyId" from-field="partyId"/>
+                                    </condition-list>
+                                </entity-condition>
+                                <if-not-empty field="assigns">
+                                    <set field="isMembership" type="Boolean" value="true"/>
+                                </if-not-empty>
+                            </iterate>
+                            <if>
+                                <condition>
+                                    <or>
+                                        <not><if-empty field="productRoles"/></not>
+                                        <if-compare operator="equals" value="true" field="isMembership" type="Boolean"/>
+                                    </or>
+                                </condition>
+                                <then>
+                                    <field-to-result field="hasPermission"/>
+                                    <return/>
+                                </then>
+                                <else>
+                                    <property-to-field resource="scrumUiLabels" property="scrumNoAccessToProduct" field="failMessage"/>
+                                    <field-to-result field="failMessage"/>
+                                    <field-to-result field="hasNoPermission" result-name="hasPermission"/>
+                                    <return/>
+                                </else>
+                            </if>
+                        </then>
+                        <else>
+                            <if>
+                                <condition>
+                                    <or>
+                                        <if-has-permission permission="SCRUM_PRODUCT" action="_VIEW"/>
+                                        <if-has-permission permission="SCRUM_PRODUCT" action="_ADMIN"/>
+                                    </or>
+                                </condition>
+                                <then>
+                                    <field-to-result field="hasPermission"/>
+                                    <return/>
+                                </then>
+                                <else>
+                                    <property-to-field resource="scrumUiLabels" property="scrumNoAccessToProduct" field="failMessage"/>
+                                    <field-to-result field="failMessage"/>
+                                    <field-to-result field="hasNoPermission" result-name="hasPermission"/>
+                                    <return/>
+                                </else>
+                            </if>
+                        </else>
+                    </if>
+                </then>
+                <else-if>
+                    <condition>
+                        <if-compare operator="equals" value="CREATE" field="parameters.mainAction"/>
+                    </condition>
+                    <then>
+                        <!-- Only Scrum Administrator -->
+                        <property-to-field resource="scrumUiLabels" property="scrumNoAccessToProduct" field="failMessage"/>
+                        <field-to-result field="failMessage"/>
+                        <field-to-result field="hasNoPermission" result-name="hasPermission"/>
+                        <return/>
+                    </then>
+                </else-if>
+                <else-if>
+                    <condition>
+                        <if-compare operator="equals" value="UPDATE" field="parameters.mainAction"/>
+                    </condition>
+                    <then>
+                        <!-- Only Scrum Administrator -->
+                        <property-to-field resource="scrumUiLabels" property="scrumNoAccessToProduct" field="failMessage"/>
+                        <field-to-result field="failMessage"/>
+                        <field-to-result field="hasNoPermission" result-name="hasPermission"/>
+                        <return/>
+                    </then>
+                </else-if>
+                <else-if>
+                    <condition>
+                        <if-compare operator="equals" value="DELETE" field="parameters.mainAction"/>
+                    </condition>
+                    <then>
+                        <!-- Only Scrum Administrator -->
+                        <property-to-field resource="scrumUiLabels" property="scrumNoAccessToProduct" field="failMessage"/>
+                        <field-to-result field="failMessage"/>
+                        <field-to-result field="hasNoPermission" result-name="hasPermission"/>
+                        <return/>
+                    </then>
+                </else-if>
+                <else>
+                    <property-to-field resource="scrumUiLabels" property="ScrumNoAccessToProduct" field="failMessage"/>
+                    <field-to-result field="failMessage"/>
+                    <field-to-result field="hasNoPermission" result-name="hasPermission"/>
+                    <return/>
+                </else>
+            </if>
+        </if-compare>
+        <!-- BACKLOG -->
+        <if-compare operator="equals" value="BACKLOG" field="sec_object">
+            <if>
+                <condition>
+                    <or>
+                        <and>
+                            <if-compare operator="equals" value="VIEW" field="parameters.mainAction"/>
+                            <if-has-permission permission="SCRUM_PRODUCT_BACKLOG" action="_ADMIN"/>
+                        </and>
+                        <and>
+                            <if-compare operator="equals" value="CREATE" field="parameters.mainAction"/>
+                            <if-has-permission permission="SCRUM_PRODUCT_BACKLOG" action="_CREATE"/>
+                        </and>
+                        <and>
+                            <if-compare operator="equals" value="UPDATE" field="parameters.mainAction"/>
+                            <or>
+                                <if-has-permission permission="SCRUM_PRODUCT_BACKLOG" action="_UPDATE"/>
+                                <if-has-permission permission="SCRUM_PRODUCT_BACKLOG" action="_ADMIN"/>
+                            </or>
+                        </and>
+                        <and>
+                            <if-compare operator="equals" value="DELETE" field="parameters.mainAction"/>
+                            <or>
+                                <if-has-permission permission="SCRUM_PRODUCT_BACKLOG" action="_DELETE"/>
+                                <if-has-permission permission="SCRUM_PRODUCT_BACKLOG" action="_ADMIN"/>
+                            </or>
+                        </and>
+                    </or>
+                </condition>
+                <then>
+                    <field-to-result field="hasPermission"/>
+                    <return/>
+                </then>
+                <else>
+                    <property-to-field resource="scrumUiLabels" property="scrumNoAccessToProduct" field="failMessage"/>
+                    <field-to-result field="failMessage"/>
+                    <field-to-result field="hasNoPermission" result-name="hasPermission"/>
+                    <return/>
+                </else>
+            </if>
+        </if-compare>
+        <!-- PROJECT -->
+        <if-compare operator="equals" value="PROJECT" field="sec_object">
+            <if>
+                <condition>
+                    <or>
+                        <and>
+                            <if-compare operator="equals" value="VIEW" field="parameters.mainAction"/>
+                            <if-has-permission permission="SCRUM_PROJECT_ROLE" action="_VIEW"/>
+                        </and>
+                        <and>
+                            <if-compare operator="equals" value="CREATE" field="parameters.mainAction"/>
+                            <if-has-permission permission="SCRUM_PROJECT_ROLE" action="_ADMIN"/>
+                        </and>
+                        <and>
+                            <if-compare operator="equals" value="UPDATE" field="parameters.mainAction"/>
+                            <if-has-permission permission="SCRUM_PROJECT_ROLE" action="_ADMIN"/>
+                        </and>
+                        <and>
+                            <if-compare operator="equals" value="DELETE" field="parameters.mainAction"/>
+                            <if-has-permission permission="SCRUM_PROJECT_ROLE" action="_ADMIN"/>
+                        </and>
+                    </or>
+                </condition>
+                <then>
+                    <field-to-result field="hasPermission"/>
+                    <return/>
+                </then>
+                <else>
+                    <property-to-field resource="scrumUiLabels" property="ScrumNoAccessToProject" field="failMessage"/>
+                    <field-to-result field="failMessage"/>
+                    <field-to-result field="hasNoPermission" result-name="hasPermission"/>
+                    <return/>
+                </else>
+            </if>
+        </if-compare>
+        <!-- SPRINT -->
+        <if-compare operator="equals" value="SPRINT" field="sec_object">
+            <if>
+                <condition>
+                    <or>
+                        <and>
+                            <if-compare operator="equals" value="VIEW" field="parameters.mainAction"/>
+                            <if-has-permission permission="SCRUM_SPRINT" action="_VIEW"/>
+                        </and>
+                        <and>
+                            <if-compare operator="equals" value="CREATE" field="parameters.mainAction"/>
+                            <if-has-permission permission="SCRUM_SPRINT" action="_CREATE"/>
+                        </and>
+                        <and>
+                            <if-compare operator="equals" value="UPDATE" field="parameters.mainAction"/>
+                            <if-has-permission permission="SCRUM_SPRINT" action="_UPDATE"/>
+                        </and>
+                        <and>
+                            <if-compare operator="equals" value="DELETE" field="parameters.mainAction"/>
+                            <if-has-permission permission="SCRUM_SPRINT" action="_DELETE"/>
+                        </and>
+                    </or>
+                </condition>
+                <then>
+                    <field-to-result field="hasPermission"/>
+                    <return/>
+                </then>
+                <else>
+                    <property-to-field resource="scrumUiLabels" property="ScrumNoAccessToProject" field="failMessage"/>
+                    <field-to-result field="failMessage"/>
+                    <field-to-result field="hasNoPermission" result-name="hasPermission"/>
+                    <return/>
+                </else>
+            </if>
+        </if-compare>
+        <!-- TASK -->
+        <if-compare operator="equals" value="TASK" field="sec_object">
+            <if>
+                <condition>
+                    <or>
+                        <and>
+                           <if-compare operator="equals" value="VIEW" field="parameters.mainAction"/>
+                           <or>
+                               <if-has-permission permission="SCRUM_TASK" action="_VIEW"/>
+                               <if-has-permission permission="SCRUM_TEST" action="_ADMIN"/>
+                               <if-has-permission permission="SCRUM_TASK" action="_ADMIN"/>
+                           </or>
+                        </and>
+                        <and>
+                            <if-compare operator="equals" value="CREATE" field="parameters.mainAction"/>
+                            <or>
+                                <if-has-permission permission="SCRUM_TASK" action="_CREATE"/>
+                                <if-has-permission permission="SCRUM_TEST" action="_ADMIN"/>
+                            </or>
+                        </and>
+                        <and>
+                            <if-compare operator="equals" value="UPDATE" field="parameters.mainAction"/>
+                            <if-has-permission permission="SCRUM_TASK" action="_UPDATE"/>
+                        </and>
+                        <and>
+                            <if-compare operator="equals" value="DELETE" field="parameters.mainAction"/>
+                            <if-has-permission permission="SCRUM_TASK" action="_DELETE"/>
+                        </and>
+                    </or>
+                    
+                </condition>
+                <then>
+                    <field-to-result field="hasPermission"/>
+                    <return/>
+                </then>
+                <else>
+                    <property-to-field resource="scrumUiLabels" property="ScrumNoAccessToTask" field="failMessage"/>
+                    <field-to-result field="failMessage"/>
+                    <field-to-result field="hasNoPermission" result-name="hasPermission"/>
+                    <return/>
+                </else>
+            </if>
+        </if-compare>
+        <!-- MEMBER -->
+        <if-compare operator="equals" value="MEMBER" field="sec_object">
+            <if>
+                <condition>
+                    <or>
+                        <and>
+                            <if-compare operator="equals" value="VIEW" field="parameters.mainAction"/>
+                            <if-has-permission permission="SCRUM_MEMBER" action="_VIEW"/>
+                        </and>
+                        <and>
+                            <if-compare operator="equals" value="CREATE" field="parameters.mainAction"/>
+                            <if-has-permission permission="SCRUM_MEMBER" action="_CREATE"/>
+                        </and>
+                        <and>
+                            <if-compare operator="equals" value="UPDATE" field="parameters.mainAction"/>
+                            <if-has-permission permission="SCRUM_MEMBER" action="_UPDATE"/>
+                        </and>
+                        <and>
+                            <if-compare operator="equals" value="DELETE" field="parameters.mainAction"/>
+                            <if-has-permission permission="SCRUM_MEMBER" action="_DELETE"/>
+                        </and>
+                    </or>
+                    
+                </condition>
+                <then>
+                    <field-to-result field="hasPermission"/>
+                    <return/>
+                </then>
+                <else>
+                    <property-to-field resource="scrumUiLabels" property="ScrumNoAccessToMember" field="failMessage"/>
+                    <field-to-result field="failMessage"/>
+                    <field-to-result field="hasNoPermission" result-name="hasPermission"/>
+                    <return/>
+                </else>
+            </if>
+        </if-compare>
+        <!-- TEST -->
+        <if-compare operator="equals" value="TEST" field="sec_object">
+            <if>
+                <condition>
+                    <or>
+                        <and>
+                            <if-compare operator="equals" value="VIEW" field="parameters.mainAction"/>
+                            <or>
+                                <if-has-permission permission="SCRUM_TEST" action="_READ"/>
+                                <if-has-permission permission="SCRUM_TEST" action="_ADMIN"/>
+                            </or>
+                        </and>
+                        <and>
+                            <if-compare operator="equals" value="UPDATE" field="parameters.mainAction"/>
+                            <or>
+                                <if-has-permission permission="SCRUM_PRODUCT_BACKLOG" action="_ADMIN"/>
+                                <if-has-permission permission="SCRUM_TASK" action="_CREATE"/>
+                                <if-has-permission permission="SCRUM_TEST" action="_ADMIN"/>
+                            </or>
+                        </and>
+                    </or>
+                    
+                </condition>
+                <then>
+                    <field-to-result field="hasPermission"/>
+                    <return/>
+                </then>
+                <else>
+                    <property-to-field resource="scrumUiLabels" property="ScrumNoAccessToTest" field="failMessage"/>
+                    <field-to-result field="failMessage"/>
+                    <field-to-result field="hasNoPermission" result-name="hasPermission"/>
+                    <return/>
+                </else>
+            </if>
+        </if-compare>
+        <field-to-result field="hasPermission"/>
+        <return/>
+    </simple-method>
+    
+    <simple-method method-name="projectUpdateMemberPermission" short-description="Check Project update Member Permission">
+        <set field="hasPermission" value="false" type="Boolean"/>
+        <if-has-permission permission="PROJECT" action="_UPDATE">
+            <entity-condition entity-name="WorkEffortPartyAssignment" list="workEffortPartyAssignments">
+                <condition-list combine="and">
+                    <condition-expr field-name="partyId" from-field="userLogin.partyId"/>
+                    <condition-expr field-name="workEffortId" from-field="parameters.projectId"/>
+                </condition-list>
+            </entity-condition>
+            <if-not-empty field="workEffortPartyAssignments">
+                <set field="hasPermission" value="true" type="Boolean"/>
+            </if-not-empty>
+        </if-has-permission>
+        <field-to-result field="hasPermission"/>
+    </simple-method>
+    <simple-method method-name="taskUpdateMemberPermission" short-description="Check Project update Member Permission">
+        <set field="hasPermission" value="false" type="Boolean"/>
+        <if-has-permission permission="TASK" action="_UPDATE">
+            <entity-condition entity-name="WorkEffortPartyAssignment" list="workEffortPartyAssignments">
+                <condition-list combine="and">
+                    <condition-expr field-name="partyId" from-field="userLogin.partyId"/>
+                    <condition-expr field-name="roleTypeId" value="SCRUM_MASTER"/>
+                    <condition-expr field-name="workEffortId" from-field="parameters.projectId"/>
+                </condition-list>
+            </entity-condition>
+            <if-not-empty field="workEffortPartyAssignments">
+                <set field="hasPermission" value="true" type="Boolean"/>
+            </if-not-empty>
+        </if-has-permission>
+        <field-to-result field="hasPermission"/>
+    </simple-method>
+    <!-- Sprint -->
+    <simple-method method-name="sprintAddPermission" short-description="Check Create Sprint Permission">
+        <set field="hasPermission" default-value="false" type="Boolean"/>
+        <if-has-permission permission="SCRUM_SPRINT" action="_CREATE">
+            <set field="hasPermission" value="true" type="Boolean"/>
+        </if-has-permission>
+        <field-to-result field="hasPermission"/>
+    </simple-method>
+    <simple-method method-name="sprintViewPermission" short-description="Check View Sprint Permission">
+        <set field="hasPermission" default-value="false" type="Boolean"/>
+        <if-has-permission permission="SCRUM_SPRINT" action="_VIEW">
+            <if-not-empty field="parameters.sprintId">
+                <if-not-empty field="parameters.projectId">
+                    <set field="hasPermission" value="true" type="Boolean"/>
+                </if-not-empty>
+            </if-not-empty>
+        </if-has-permission>
+        <field-to-result field="hasPermission"/>
+    </simple-method>
+    <simple-method method-name="sprintUpdatePermission" short-description="Check Update Sprint Permission">
+        <set field="hasPermission" default-value="false" type="Boolean"/>
+        <if-has-permission permission="SCRUM_SPRINT" action="_UPDATE">
+            <if-not-empty field="parameters.sprintId">
+                <if-not-empty field="parameters.projectId">
+                    <set field="hasPermission" value="true" type="Boolean"/>
+                </if-not-empty>
+            </if-not-empty>
+        </if-has-permission>
+        <field-to-result field="hasPermission"/>
+    </simple-method>
+    <simple-method method-name="sprintDeletePermission" short-description="Check Delete Sprint Permission">
+        <set field="hasPermission" default-value="false" type="Boolean"/>
+        <if-has-permission permission="SCRUM_SPRINT" action="_Delete">
+            <if-not-empty field="parameters.sprintId">
+                <if-not-empty field="parameters.projectId">
+                    <set field="hasPermission" value="true" type="Boolean"/>
+                </if-not-empty>
+            </if-not-empty>
+        </if-has-permission>
+        <field-to-result field="hasPermission"/>
+    </simple-method>
+    
+    <simple-method method-name="sprintBacklogDeletePermission" short-description="Check Delete Sprint Backlog Permission">
+        <set field="hasPermission" default-value="false" type="Boolean"/>
+        <if-has-permission permission="SPRINT_BACKLOG" action="_DELETE">
+            <if-not-empty field="parameters.sprintId">
+                <if-not-empty field="parameters.projectId">
+                    <set field="hasPermission" value="true" type="Boolean"/>
+                </if-not-empty>
+            </if-not-empty>
+        </if-has-permission>
+        <field-to-result field="hasPermission"/>
+    </simple-method>
+    <simple-method method-name="projectTaskCreatePermission" short-description="Check Project Create Task Permission">
+        <set field="hasPermission" value="false" type="Boolean"/>
+        <if-has-permission permission="TASK" action="_CREATE">
+            <entity-condition entity-name="WorkEffortPartyAssignment" list="workEffortPartyAssignments">
+                <condition-list combine="and">
+                    <condition-expr field-name="partyId" from-field="userLogin.partyId"/>
+                    <condition-expr field-name="workEffortId" from-field="parameters.projectId"/>
+                </condition-list>
+            </entity-condition>
+            <if-not-empty field="workEffortPartyAssignments">
+                <set field="hasPermission" value="true" type="Boolean"/>
+            </if-not-empty>
+        </if-has-permission>
+        <field-to-result field="hasPermission"/>
+    </simple-method>
+    <simple-method method-name="projectTaskDeletePermission" short-description="Check Project Delete Task Permission">
+        <set field="hasPermission" value="false" type="Boolean"/>
+        <if-has-permission permission="TASK" action="_DELETE">
+            <entity-condition entity-name="WorkEffortPartyAssignment" list="workEffortPartyAssignments">
+                <condition-list combine="and">
+                    <condition-expr field-name="partyId" from-field="userLogin.partyId"/>
+                    <condition-expr field-name="workEffortId" from-field="parameters.projectId"/>
+                </condition-list>
+            </entity-condition>
+            <if-not-empty field="workEffortPartyAssignments">
+                <set field="hasPermission" value="true" type="Boolean"/>
+            </if-not-empty>
+        </if-has-permission>
+        <field-to-result field="hasPermission"/>
+    </simple-method>
+
+</simple-methods>

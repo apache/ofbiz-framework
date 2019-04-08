@@ -65,7 +65,7 @@ public class PackingServices {
         }
 
         try {
-            session.addOrIncreaseLine(orderId, null, shipGroupSeqId, productId, quantity, packageSeq, weight, false);
+            session.addOrIncreaseLine(orderId, null, shipGroupSeqId, productId, quantity, packageSeq.intValue(), weight, false);
         } catch (GeneralException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -76,16 +76,17 @@ public class PackingServices {
 
     /**
      * <p>Create or update package lines.</p>
-     * Context parameters:
+     * <p>Context parameters:
      * <ul>
      * <li>selInfo - selected rows</li>
      * <li>iteInfo - orderItemIds</li>
      * <li>prdInfo - productIds</li>
      * <li>pkgInfo - package numbers</li>
      * <li>wgtInfo - weights to pack</li>
-     * <li>numPackagesInfo - number of packages to pack per line (&gt;= 1, default: 1)<br>
+     * <li>numPackagesInfo - number of packages to pack per line (>= 1, default: 1)<br/>
      * Packs the same items n times in consecutive packages, starting from the package number retrieved from pkgInfo.</li>
      * </ul>
+     * </p>
      * @param dctx the dispatch context
      * @param context the context
      * @return returns the result of the service execution
@@ -138,7 +139,7 @@ public class PackingServices {
                 String[] weights;
 
                 // process the package array
-                if (pkgStr.indexOf(',') != -1) {
+                if (pkgStr.indexOf(",") != -1) {
                     // this is a multi-box update
                     packages = pkgStr.split(",");
                 } else {
@@ -146,7 +147,7 @@ public class PackingServices {
                 }
 
                 // check to make sure there is at least one package
-                if (packages.length == 0) {
+                if (packages == null || packages.length == 0) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                             "ProductPackBulkNoPackagesDefined", locale));
                 }
@@ -194,7 +195,7 @@ public class PackingServices {
                             }
                         }
                         for (int numPackage=0; numPackage<numPackages; numPackage++) {
-                            session.addOrIncreaseLine(orderId, orderItemSeqId, shipGroupSeqId, prdStr, quantity, packageSeq+numPackage, weightSeq, updateQuantity);
+                            session.addOrIncreaseLine(orderId, orderItemSeqId, shipGroupSeqId, prdStr, quantity, packageSeq+numPackage, weightSeq, updateQuantity.booleanValue());
                         }
                     } catch (GeneralException e) {
                         Debug.logError(e, module);
@@ -211,7 +212,7 @@ public class PackingServices {
         PackingSession session = (PackingSession) context.get("packingSession");
         int nextSeq = session.nextPackageSeq();
         Map<String, Object> result = ServiceUtil.returnSuccess();
-        result.put("nextPackageSeq", nextSeq);
+        result.put("nextPackageSeq", Integer.valueOf(nextSeq));
         return result;
     }
 
@@ -219,7 +220,7 @@ public class PackingServices {
         PackingSession session = (PackingSession) context.get("packingSession");
         int nextSeq = session.clearLastPackage();
         Map<String, Object> result = ServiceUtil.returnSuccess();
-        result.put("nextPackageSeq", nextSeq);
+        result.put("nextPackageSeq", Integer.valueOf(nextSeq));
         return result;
     }
 
@@ -234,7 +235,7 @@ public class PackingServices {
         Locale locale = (Locale) context.get("locale");
 
         PackingSessionLine line = session.findLine(orderId, orderItemSeqId, shipGroupSeqId,
-                productId, inventoryItemId, packageSeqId);
+                productId, inventoryItemId, packageSeqId.intValue());
 
         // remove the line
         if (line != null) {

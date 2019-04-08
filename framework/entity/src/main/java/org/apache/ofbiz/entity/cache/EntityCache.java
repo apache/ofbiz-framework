@@ -36,16 +36,12 @@ public class EntityCache extends AbstractCache<GenericPK, GenericValue> {
 
     public GenericValue get(GenericPK pk) {
         UtilCache<GenericPK, GenericValue> entityCache = getCache(pk.getEntityName());
-        if (entityCache == null) {
-            return null;
-        }
+        if (entityCache == null) return null;
         return entityCache.get(pk);
     }
 
     public GenericValue put(GenericValue entity) {
-        if (entity == null) {
-            return null;
-        }
+        if (entity == null) return null;
         return put(entity.getPrimaryKey(), entity);
     }
 
@@ -67,17 +63,11 @@ public class EntityCache extends AbstractCache<GenericPK, GenericValue> {
 
     public void remove(String entityName, EntityCondition condition) {
         UtilCache<GenericPK, GenericValue> entityCache = getCache(entityName);
-        if (entityCache == null) {
-            return;
-        }
+        if (entityCache == null) return;
         for (GenericPK pk: entityCache.getCacheLineKeys()) {
             GenericValue entity = entityCache.get(pk);
-            if (entity == null) {
-                continue;
-            }
-            if (condition.entityMatches(entity)) {
-                entityCache.remove(pk);
-            }
+            if (entity == null) continue;
+            if (condition.entityMatches(entity)) entityCache.remove(pk);
         }
     }
 
@@ -87,12 +77,8 @@ public class EntityCache extends AbstractCache<GenericPK, GenericValue> {
 
     public GenericValue remove(GenericPK pk) {
         UtilCache<GenericPK, GenericValue> entityCache = getCache(pk.getEntityName());
-        if (Debug.verboseOn()) {
-            Debug.logVerbose("Removing from EntityCache with PK [" + pk + "], will remove from this cache: " + (entityCache == null ? "[No cache found to remove from]" : entityCache.getName()), module);
-        }
-        if (entityCache == null) {
-            return null;
-        }
+        if (Debug.verboseOn()) Debug.logVerbose("Removing from EntityCache with PK [" + pk + "], will remove from this cache: " + (entityCache == null ? "[No cache found to remove from]" : entityCache.getName()), module);
+        if (entityCache == null) return null;
         GenericValue retVal = entityCache.remove(pk);
         ModelEntity model = pk.getModelEntity();
         if (model != null) {
@@ -102,9 +88,7 @@ public class EntityCache extends AbstractCache<GenericPK, GenericValue> {
                 UtilCache.clearCache(getCacheName(targetEntityName));
             }
         }
-        if (Debug.verboseOn()) {
-            Debug.logVerbose("Removing from EntityCache with PK [" + pk + "], found this in the cache: " + retVal, module);
-        }
+        if (Debug.verboseOn()) Debug.logVerbose("Removing from EntityCache with PK [" + pk + "], found this in the cache: " + retVal, module);
         return retVal;
     }
 }

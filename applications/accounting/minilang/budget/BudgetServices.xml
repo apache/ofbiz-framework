@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
+
+    <!-- create a new Budget header record -->
+    <simple-method method-name="createBudget" short-description="Create an Budget">
+          <!-- create new entity and create all the fields -->
+        <make-value value-field="newEntity" entity-name="Budget"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
+
+        <!-- create a non existing ID if not supplied -->
+        <sequenced-id sequence-name="Budget" field="newEntity.budgetId"/>
+
+        <!-- finally create the record (should not exist already)-->
+        <create-value value-field="newEntity"/>
+        <set field="setStatus.budgetId" from-field="newEntity.budgetId"/>
+        <set field="setStatus.statusId" value="BG_CREATED"/>
+        <call-service service-name="updateBudgetStatus" in-map-name="setStatus"/>
+        <field-to-result field="newEntity.budgetId" result-name="budgetId"/>
+    </simple-method>
+
+    <!-- update Budget Status -->
+    <simple-method method-name="updateBudgetStatus" short-description="Update Budget Status">
+        <entity-and entity-name="BudgetStatus" list="budgetStatuses">
+            <field-map field-name="budgetId" from-field="parameters.budgetId"/>
+            <order-by field-name="-statusDate"/>
+        </entity-and>
+        <if-not-empty field="budgetStatuses">
+            <first-from-list entry="budgetStatus" list="budgetStatuses"/>
+            <entity-one entity-name="StatusValidChange" value-field="statusValidChange">
+                <field-map field-name="statusId" from-field="budgetStatus.statusId"/>
+                <field-map field-name="statusIdTo" from-field="parameters.statusId"/>
+            </entity-one>
+            <if-not-empty field="statusValidChange">
+                <set-service-fields service-name="createBudgetStatus" map="parameters" to-map="createBudgetStatusMap"/>
+                <call-service service-name="createBudgetStatus" in-map-name="createBudgetStatusMap"/>
+            </if-not-empty>
+            <else>
+                <set-service-fields service-name="createBudgetStatus" map="parameters" to-map="createBudgetStatusMap"/>
+                <call-service service-name="createBudgetStatus" in-map-name="createBudgetStatusMap"/>
+            </else>
+        </if-not-empty>
+    </simple-method>
+
+</simple-methods>
+

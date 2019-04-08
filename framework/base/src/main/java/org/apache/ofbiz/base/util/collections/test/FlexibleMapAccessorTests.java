@@ -18,12 +18,12 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.util.collections.test;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.math.BigDecimal;
 
 import org.apache.ofbiz.base.lang.SourceMonitored;
 import org.apache.ofbiz.base.test.GenericTestCaseBase;

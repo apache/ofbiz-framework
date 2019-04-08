@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<entity-engine-xml>
+
+    <DataResource dataResourceId="HELP_PROJECTMGR" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="specialpurpose/projectmgr/data/helpdata/HELP_PROJECTMGR.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
+        dataResourceName="ProjectMgr Overview" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="HELP_PROJECTMGR" contentTypeId="DOCUMENT" contentName="Project Manager" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="HELP_PROJECTMGR" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_PROJECTMGR" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000"/>
+    
+    <DataResource dataResourceId="PROJECTMGR_main" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="specialpurpose/projectmgr/data/helpdata/HELP_PROJECTMGR_main.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" 
+        dataResourceName="ProjectMgr Main Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="PROJECTMGR_main" contentTypeId="DOCUMENT" contentName="Main: open projects" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="PROJECTMGR_main" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_PROJECTMGR" contentIdTo="PROJECTMGR_main" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="PROJECTMGR_main"/>
+    
+    <DataResource dataResourceId="PROJECTMGR_MyTasks" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="specialpurpose/projectmgr/data/helpdata/HELP_PROJECTMGR_MyTasks.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" 
+        dataResourceName="ProjectMgr My Tasks Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="PROJECTMGR_MyTasks" contentTypeId="DOCUMENT" contentName="My Tasks" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="PROJECTMGR_MyTasks" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_PROJECTMGR" contentIdTo="PROJECTMGR_MyTasks" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="PROJECTMGR_MyTasks"/>
+    
+    <DataResource dataResourceId="PROJECTMGR_MyTimes" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="specialpurpose/projectmgr/data/helpdata/HELP_PROJECTMGR_MyTimesheet.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" 
+        dataResourceName="ProjectMgr My Timesheet Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="PROJECTMGR_MyTimes" contentTypeId="DOCUMENT" contentName="My Timesheets" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="PROJECTMGR_MyTimes" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_PROJECTMGR" contentIdTo="PROJECTMGR_MyTimes" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="PROJECTMGR_MyTimesheet"/>
+    
+    <!-- regarding projects -->
+    <DataResource dataResourceId="PROJECTMGR_Projects" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="specialpurpose/projectmgr/data/helpdata/HELP_PROJECTMGR_Projects.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" 
+        dataResourceName="ProjectMgr Find Project Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="PROJECTMGR_Projects" contentTypeId="DOCUMENT" contentName="Projects" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="PROJECTMGR_Projects" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_PROJECTMGR" contentIdTo="PROJECTMGR_Projects" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="PROJECTMGR_FindProject"/>
+    
+    <DataResource dataResourceId="PROJECTMGR_EProject" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="specialpurpose/projectmgr/data/helpdata/HELP_PROJECTMGR_ProjectEditProject.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" 
+        dataResourceName="ProjectMgr Find Project Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="PROJECTMGR_EProject" contentTypeId="DOCUMENT" contentName="Edit Project" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="PROJECTMGR_EProject" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="PROJECTMGR_Projects" contentIdTo="PROJECTMGR_EProject" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="PROJECTMGR_EditProject"/>
+    
+    <DataResource dataResourceId="PROJECTMGR_Project" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="specialpurpose/projectmgr/data/helpdata/HELP_PROJECTMGR_Project.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" 
+        dataResourceName="ProjectMgr Find Project Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="PROJECTMGR_Project" contentTypeId="DOCUMENT" contentName=" Project Summary" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="PROJECTMGR_Project" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="PROJECTMGR_Projects" contentIdTo="PROJECTMGR_Project" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="PROJECTMGR_projectView"/>
+    
+    <DataResource dataResourceId="PROJECTMGR_Mailing" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="specialpurpose/projectmgr/data/helpdata/HELP_PROJECTMGR_ProjectMailingList.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" 
+        dataResourceName="ProjectMgr Project Phases Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="PROJECTMGR_Mailing" contentTypeId="DOCUMENT" contentName="Mailing" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="PROJECTMGR_Mailing" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="PROJECTMGR_Project" contentIdTo="PROJECTMGR_Mailing" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="PROJECTMGR_FindMailingList"/>
+    
+    <DataResource dataResourceId="PROJECTMGR_Phases" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="specialpurpose/projectmgr/data/helpdata/HELP_PROJECTMGR_ProjectPhases.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" 
+        dataResourceName="ProjectMgr Project Phases Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="PROJECTMGR_Phases" contentTypeId="DOCUMENT" contentName="Phases" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="PROJECTMGR_Phases" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="PROJECTMGR_Project" contentIdTo="PROJECTMGR_Phases" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="PROJECTMGR_FindPhase"/>
+    
+    <DataResource dataResourceId="PROJECTMGR_Tasks" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="specialpurpose/projectmgr/data/helpdata/HELP_PROJECTMGR_ProjectTasks.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" 
+        dataResourceName="ProjectMgr Project Tasks Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="PROJECTMGR_Tasks" contentTypeId="DOCUMENT" contentName="Tasks" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="PROJECTMGR_Tasks" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="PROJECTMGR_Project" contentIdTo="PROJECTMGR_Tasks" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="PROJECTMGR_EditProjectTasks"/>
+    
+    <DataResource dataResourceId="PROJECTMGR_Orders" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="specialpurpose/projectmgr/data/helpdata/HELP_PROJECTMGR_ProjectOrders.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" 
+        dataResourceName="ProjectMgr Project Orders Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="PROJECTMGR_Orders" contentTypeId="DOCUMENT" contentName="Orders" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="PROJECTMGR_Orders" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="PROJECTMGR_Project" contentIdTo="PROJECTMGR_Orders" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="PROJECTMGR_EditProjectOrders"/>
+    
+    <DataResource dataResourceId="PROJECTMGR_Resources" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="specialpurpose/projectmgr/data/helpdata/HELP_PROJECTMGR_ProjectResources.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" 
+        dataResourceName="ProjectMgr Project Resources Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="PROJECTMGR_Resources" contentTypeId="DOCUMENT" contentName="Resources" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="PROJECTMGR_Resources" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="PROJECTMGR_Project" contentIdTo="PROJECTMGR_Resources" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="PROJECTMGR_ListWorkEffortPartyAssigns"/>
+    
+    <DataResource dataResourceId="PROJECTMGR_Content" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="specialpurpose/projectmgr/data/helpdata/HELP_PROJECTMGR_ProjectContent.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" 
+        dataResourceName="ProjectMgr SProject Content Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="PROJECTMGR_Content" contentTypeId="DOCUMENT" contentName="Content" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="PROJECTMGR_Content" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="PROJECTMGR_Project" contentIdTo="PROJECTMGR_Content" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="PROJECTMGR_EditProjectContents"/>
+    
+    <DataResource dataResourceId="PROJECTMGR_Notes" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="specialpurpose/projectmgr/data/helpdata/HELP_PROJECTMGR_ProjectNotes.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" 
+        dataResourceName="ProjectMgr Project Notes Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="PROJECTMGR_Notes" contentTypeId="DOCUMENT" contentName="Notes" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="PROJECTMGR_Notes" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="PROJECTMGR_Project" contentIdTo="PROJECTMGR_Notes" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="PROJECTMGR_EditWorkEffortNotes"/>
+    
+    <DataResource dataResourceId="PROJECTMGR_Subs" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="specialpurpose/projectmgr/data/helpdata/HELP_PROJECTMGR_ProjectSubProjects.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" 
+        dataResourceName="ProjectMgr Sub projects Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="PROJECTMGR_Subs" contentTypeId="DOCUMENT" contentName="Sub projects" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="PROJECTMGR_Subs" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="PROJECTMGR_Project" contentIdTo="PROJECTMGR_Subs" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="PROJECTMGR_ListSubProjects"/>
+    
+    <DataResource dataResourceId="PROJECTMGR_Billing" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="specialpurpose/projectmgr/data/helpdata/HELP_PROJECTMGR_ProjectBilling.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" 
+        dataResourceName="ProjectMgr Project Billing Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="PROJECTMGR_Billing" contentTypeId="DOCUMENT" contentName="Billing" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="PROJECTMGR_Billing" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="PROJECTMGR_Project" contentIdTo="PROJECTMGR_Billing" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="PROJECTMGR_projectBilling"/>
+    
+    <!-- regarding tasks -->
+    <DataResource dataResourceId="PROJECTMGR_Tasks" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="specialpurpose/projectmgr/data/helpdata/HELP_PROJECTMGR_Tasks.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" 
+        dataResourceName="ProjectMgr Find Task Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="PROJECTMGR_Tasks" contentTypeId="DOCUMENT" contentName="Tasks" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="PROJECTMGR_Tasks" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_PROJECTMGR" contentIdTo="PROJECTMGR_Tasks" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="PROJECTMGR_FindTask"/>
+    
+    <DataResource dataResourceId="PROJECTMGR_Resources" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="specialpurpose/projectmgr/data/helpdata/HELP_PROJECTMGR_Resources.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" 
+        dataResourceName="ProjectMgr Resource Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="PROJECTMGR_Resources" contentTypeId="DOCUMENT" contentName="Resources" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="PROJECTMGR_Resources" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_PROJECTMGR" contentIdTo="PROJECTMGR_Resources" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="PROJECTMGR_FindResource"/>
+    
+    <!-- regarding timesheets -->
+    <DataResource dataResourceId="PROJECTMGR_Timesheet" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="specialpurpose/projectmgr/data/helpdata/HELP_PROJECTMGR_Timesheets.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" 
+        dataResourceName="ProjectMgr Timesheet Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="PROJECTMGR_Timesheet" contentTypeId="DOCUMENT" contentName="Timesheets" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="PROJECTMGR_Timesheet" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_PROJECTMGR" contentIdTo="PROJECTMGR_Timesheet" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="PROJECTMGR_FindTimesheet"/>
+    
+    <!-- regarding skills -->
+    <DataResource dataResourceId="PROJECTMGR_Skills" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="specialpurpose/projectmgr/data/helpdata/HELP_PROJECTMGR_Skills.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" 
+        dataResourceName="ProjectMgr Edit Skill Types Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="PROJECTMGR_Skills" contentTypeId="DOCUMENT" contentName="Skill Types" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="PROJECTMGR_Skills" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_PROJECTMGR" contentIdTo="PROJECTMGR_Skills" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="PROJECTMGR_EditSkillTypes"/>
+    
+    <!-- regarding requests -->
+    <DataResource dataResourceId="PROJECTMGR_Requests" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="specialpurpose/projectmgr/data/helpdata/HELP_PROJECTMGR_Requests.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" 
+        dataResourceName="ProjectMgr Requests Help" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="PROJECTMGR_Requests" contentTypeId="DOCUMENT" contentName="Request List" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="PROJECTMGR_Requests" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_PROJECTMGR" contentIdTo="PROJECTMGR_Requests" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="PROJECTMGR_RequestList"/>
+    
+
+</entity-engine-xml>

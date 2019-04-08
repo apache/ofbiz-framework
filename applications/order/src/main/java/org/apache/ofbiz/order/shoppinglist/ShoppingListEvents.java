@@ -55,6 +55,7 @@ import org.apache.ofbiz.product.config.ProductConfigWrapper;
 import org.apache.ofbiz.product.store.ProductStoreWorker;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
+import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.webapp.website.WebSiteWorker;
 
@@ -98,22 +99,23 @@ public class ShoppingListEvents {
             errMsg = UtilProperties.getMessage(resource_error, "shoppinglistevents.select_items_to_add_to_list", cart.getLocale());
             throw new IllegalArgumentException(errMsg);
         }
-
+       
         if (UtilValidate.isEmpty(shoppingListId)) {
             // create a new shopping list
             Map<String, Object> newListResult = null;
             try {
                 newListResult = dispatcher.runSync("createShoppingList", UtilMisc.<String, Object>toMap("userLogin", userLogin, "productStoreId", cart.getProductStoreId(), "partyId", cart.getOrderPartyId(), "shoppingListTypeId", shoppingListTypeId, "currencyUom", cart.getCurrency()));
-                if (ServiceUtil.isError(newListResult)) {
-                    String errorMessage = ServiceUtil.getErrorMessage(newListResult);
-                    Debug.logError(errorMessage, module);
-                    throw new IllegalArgumentException(errorMessage);
-                }
             } catch (GenericServiceException e) {
                 Debug.logError(e, "Problems creating new ShoppingList", module);
                 errMsg = UtilProperties.getMessage(resource_error,"shoppinglistevents.cannot_create_new_shopping_list", cart.getLocale());
                 throw new IllegalArgumentException(errMsg);
             }
+
+            // check for errors
+            if (ServiceUtil.isError(newListResult)) {
+                throw new IllegalArgumentException(ServiceUtil.getErrorMessage(newListResult));
+            }
+
             // get the new list id
             if (newListResult != null) {
                 shoppingListId = (String) newListResult.get("shoppingListId");
@@ -133,15 +135,15 @@ public class ShoppingListEvents {
             }
         }
 
-        for (String item2 : items) {
+        for (int i = 0; i < items.length; i++) {
             Integer cartIdInt = null;
             try {
-                cartIdInt = Integer.valueOf(item2);
+                cartIdInt = Integer.valueOf(items[i]);
             } catch (Exception e) {
                 Debug.logWarning(e, UtilProperties.getMessage(resource_error,"OrderIllegalCharacterInSelectedItemField", cart.getLocale()), module);
             }
             if (cartIdInt != null) {
-                ShoppingCartItem item = cart.findCartItem(cartIdInt);
+                ShoppingCartItem item = cart.findCartItem(cartIdInt.intValue());
                 if (allowPromo || !item.getIsPromo()) {
                     Debug.logInfo("Adding cart item to shopping list [" + shoppingListId + "], allowPromo=" + allowPromo + ", item.getIsPromo()=" + item.getIsPromo() + ", item.getProductId()=" + item.getProductId() + ", item.getQuantity()=" + item.getQuantity(), module);
                     Map<String, Object> serviceResult = null;
@@ -154,15 +156,15 @@ public class ShoppingListEvents {
                             ctx.put("configId", item.getConfigWrapper().getConfigId());
                         }
                         serviceResult = dispatcher.runSync("createShoppingListItem", ctx);
-                        if (ServiceUtil.isError(serviceResult)) {
-                            String errorMessage = ServiceUtil.getErrorMessage(serviceResult);
-                            Debug.logError(errorMessage, module);
-                            throw new IllegalArgumentException(errorMessage);
-                        }
                     } catch (GenericServiceException e) {
                         Debug.logError(e, "Problems creating ShoppingList item entity", module);
                         errMsg = UtilProperties.getMessage(resource_error,"shoppinglistevents.error_adding_item_to_shopping_list", cart.getLocale());
                         throw new IllegalArgumentException(errMsg);
+                    }
+
+                    // check for errors
+                    if (ServiceUtil.isError(serviceResult)) {
+                        throw new IllegalArgumentException(ServiceUtil.getErrorMessage(serviceResult));
                     }
                 }
             }
@@ -181,6 +183,7 @@ public class ShoppingListEvents {
         String includeChild = request.getParameter("includeChild");
         String prodCatalogId =  CatalogWorker.getCurrentCatalogId(request);
 
+        String eventMessage = null;
         try {
             addListToCart(delegator, dispatcher, cart, prodCatalogId, shoppingListId, (includeChild != null), true, true);
         } catch (IllegalArgumentException e) {
@@ -188,6 +191,9 @@ public class ShoppingListEvents {
             return "error";
         }
 
+        if (UtilValidate.isNotEmpty(eventMessage)) {
+            request.setAttribute("_EVENT_MESSAGE_", eventMessage);
+        }
 
         return "success";
     }
@@ -213,7 +219,7 @@ public class ShoppingListEvents {
 
             shoppingListItems = shoppingList.getRelated("ShoppingListItem", null, null, false);
             if (shoppingListItems == null) {
-                shoppingListItems = new LinkedList<>();
+                shoppingListItems = new LinkedList<GenericValue>();
             }
 
             // include all items of child lists if flagged to do so
@@ -260,7 +266,7 @@ public class ShoppingListEvents {
                 String listId = shoppingListItem.getString("shoppingListId");
                 String itemId = shoppingListItem.getString("shoppingListItemSeqId");
 
-                Map<String, Object> attributes = new HashMap<>();
+                Map<String, Object> attributes = new HashMap<String, Object>();
                 // list items are noted in the shopping cart
                 if (setAsListItem) {
                     attributes.put("shoppingListId", listId);
@@ -319,9 +325,8 @@ public class ShoppingListEvents {
         BigDecimal quantity = null;
         try {
             quantity = new BigDecimal(quantityStr);
-        } catch (NumberFormatException e) {
+        } catch (Exception e) {
             // do nothing, just won't pass to service if it is null
-            Debug.logError(e, module);
         }
 
         Map<String, Object> serviceInMap = new HashMap<String, Object>();
@@ -333,12 +338,6 @@ public class ShoppingListEvents {
         Map<String, Object> result = null;
         try {
             result = dispatcher.runSync("updateShoppingListItem", serviceInMap);
-            if (ServiceUtil.isError(result)) {
-                String errorMessage = ServiceUtil.getErrorMessage(result);
-                request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                Debug.logError(errorMessage, module);
-                return "error";
-            }
         } catch (GenericServiceException e) {
             String errMsg = UtilProperties.getMessage(resource_error,"shoppingListEvents.error_calling_update", locale) + ": "  + e.toString();
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -346,7 +345,13 @@ public class ShoppingListEvents {
             Debug.logError(e, errorMsg, module);
             return "error";
         }
-        return "success";
+
+        ServiceUtil.getMessages(request, result, "", "", "", "", "", "", "");
+        if ("error".equals(result.get(ModelService.RESPONSE_MESSAGE))) {
+            return "error";
+        } else {
+            return "success";
+        }
     }
 
     /**
@@ -364,7 +369,7 @@ public class ShoppingListEvents {
             Map<String, Object> findMap = UtilMisc.<String, Object>toMap("partyId", partyId, "productStoreId", productStoreId, "shoppingListTypeId", "SLT_SPEC_PURP", "listName", PERSISTANT_LIST_NAME);
             List<GenericValue> existingLists = EntityQuery.use(delegator).from("ShoppingList").where(findMap).queryList();
             Debug.logInfo("Finding existing auto-save shopping list with:  \nfindMap: " + findMap + "\nlists: " + existingLists, module);
-
+    
             if (UtilValidate.isNotEmpty(existingLists)) {
                 list = EntityUtil.getFirst(existingLists);
                 autoSaveListId = list.getString("shoppingListId");
@@ -373,11 +378,7 @@ public class ShoppingListEvents {
         if (list == null && dispatcher != null) {
             Map<String, Object> listFields = UtilMisc.<String, Object>toMap("userLogin", userLogin, "productStoreId", productStoreId, "shoppingListTypeId", "SLT_SPEC_PURP", "listName", PERSISTANT_LIST_NAME);
             Map<String, Object> newListResult = dispatcher.runSync("createShoppingList", listFields);
-            if (ServiceUtil.isError(newListResult)) {
-                String errorMessage = ServiceUtil.getErrorMessage(newListResult);
-                Debug.logError(errorMessage, module);
-                return null;
-            }
+
             if (newListResult != null) {
                 autoSaveListId = (String) newListResult.get("shoppingListId");
             }
@@ -409,9 +410,9 @@ public class ShoppingListEvents {
 
             try {
                 String[] itemsArray = makeCartItemsArray(cart);
-                if (itemsArray.length != 0) {
+                if (itemsArray != null && itemsArray.length != 0) {
                     addBulkFromCart(delegator, dispatcher, cart, userLogin, autoSaveListId, null, itemsArray, false, false);
-                } else if (currentListSize != 0) {
+                }else if(itemsArray.length == 0 && currentListSize != 0){
                     clearListInfo(delegator, autoSaveListId);
                 }
             } catch (IllegalArgumentException e) {
@@ -443,23 +444,24 @@ public class ShoppingListEvents {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         GenericValue productStore = ProductStoreWorker.getProductStore(request);
+
+        if (!ProductStoreWorker.autoSaveCart(productStore)) {
+            // if auto-save is disabled just return here
+            return "success";
+        }
+
         HttpSession session = request.getSession();
         ShoppingCart cart = ShoppingCartEvents.getCartObject(request);
+
+        // safety check for missing required parameter.
+        if (cart.getWebSiteId() == null) {
+            cart.setWebSiteId(WebSiteWorker.getWebSiteId(request));
+        }
 
         // locate the user's identity
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         if (userLogin == null) {
             userLogin = (GenericValue) session.getAttribute("autoUserLogin");
-        }
-        
-        if (!ProductStoreWorker.autoSaveCart(productStore) || userLogin == null) {
-            // if auto-save is disabled or there is still no userLogin just return here
-            return "success";
-        }
-
-        // safety check for missing required parameter.
-        if (cart.getWebSiteId() == null) {
-            cart.setWebSiteId(WebSiteWorker.getWebSiteId(request));
         }
 
         // find the list ID
@@ -563,7 +565,7 @@ public class ShoppingListEvents {
      * Returns Map keyed on item sequence ID containing a list of survey response IDs
      */
     public static Map<String, List<String>> getItemSurveyInfos(List<GenericValue> items) {
-        Map<String, List<String>> surveyInfos = new HashMap<>();
+        Map<String, List<String>> surveyInfos = new HashMap<String, List<String>>();
         if (UtilValidate.isNotEmpty(items)) {
             for (GenericValue item : items) {
                 String listId = item.getString("shoppingListId");
@@ -579,7 +581,7 @@ public class ShoppingListEvents {
      * Returns a list of survey response IDs for a shopping list item
      */
     public static List<String> getItemSurveyInfo(GenericValue item) {
-        List<String> responseIds = new LinkedList<>();
+        List<String> responseIds = new LinkedList<String>();
         List<GenericValue> surveyResp = null;
         try {
             surveyResp = item.getRelated("ShoppingListItemSurvey", null, null, false);
@@ -612,7 +614,7 @@ public class ShoppingListEvents {
         }
         return arr;
     }
-
+    
     /**
      * Create the guest cookies for a shopping list
      */
@@ -628,7 +630,7 @@ public class ShoppingListEvents {
         int cookieAge = (60 * 60 * 24 * 30);
         String autoSaveListId = null;
         Cookie[] cookies = request.getCookies();
-
+        
         // check userLogin
         if (userLogin != null) {
             String partyId = userLogin.getString("partyId");
@@ -636,7 +638,7 @@ public class ShoppingListEvents {
                 return "success";
             }
         }
-
+        
         // find shopping list ID
         if (cookies != null) {
             for (Cookie cookie: cookies) {
@@ -646,18 +648,13 @@ public class ShoppingListEvents {
                 }
             }
         }
-
+        
         // clear the auto-save info
-        if (userLogin!= null && ProductStoreWorker.autoSaveCart(delegator, productStoreId)) {
+        if (ProductStoreWorker.autoSaveCart(delegator, productStoreId)) {
             if (UtilValidate.isEmpty(autoSaveListId)) {
                 try {
                     Map<String, Object> listFields = UtilMisc.<String, Object>toMap("userLogin", userLogin, "productStoreId", productStoreId, "shoppingListTypeId", "SLT_SPEC_PURP", "listName", PERSISTANT_LIST_NAME);
                     Map<String, Object> newListResult = dispatcher.runSync("createShoppingList", listFields);
-                    if (ServiceUtil.isError(newListResult)) {
-                        String errorMessage = ServiceUtil.getErrorMessage(newListResult);
-                        Debug.logError(errorMessage, module);
-                        return null;
-                    }
                     if (newListResult != null) {
                         autoSaveListId = (String) newListResult.get("shoppingListId");
                     }
@@ -667,10 +664,8 @@ public class ShoppingListEvents {
                 Cookie guestShoppingListCookie = new Cookie(guestShoppingUserName, autoSaveListId);
                 guestShoppingListCookie.setMaxAge(cookieAge);
                 guestShoppingListCookie.setPath("/");
-                guestShoppingListCookie.setSecure(true);
-                guestShoppingListCookie.setHttpOnly(true);
                 response.addCookie(guestShoppingListCookie);
-            }
+            } 
         }
         if (UtilValidate.isNotEmpty(autoSaveListId)) {
             if (UtilValidate.isNotEmpty(cart)) {
@@ -682,7 +677,7 @@ public class ShoppingListEvents {
         }
         return "success";
     }
-
+    
     /**
      * Clear the guest cookies for a shopping list
      */

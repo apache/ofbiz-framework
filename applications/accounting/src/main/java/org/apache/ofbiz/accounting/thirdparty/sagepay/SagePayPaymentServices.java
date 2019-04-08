@@ -130,11 +130,7 @@ public class SagePayPaymentServices {
         }
 
         billingInfo.put("orderId", orderId);
-        if(processAmount != null){
-            billingInfo.put("amount", processAmount.toString());
-        } else {
-            billingInfo.put("amount", "");
-        }
+        billingInfo.put("amount", processAmount.toString());
         billingInfo.put("currency", currency);
         billingInfo.put("description", orderId);
         billingInfo.put("cardNumber", cardNumber);
@@ -160,7 +156,7 @@ public class SagePayPaymentServices {
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         
         if (orderPaymentPreference == null) {
-            response = ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingSagePayOrderPaymenPreferenceIsNull", UtilMisc.toMap("orderId", orderId, "orderPaymentPreference", null), locale));
+            response = ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingSagePayOrderPaymenPreferenceIsNull", UtilMisc.toMap("orderId", orderId, "orderPaymentPreference", orderPaymentPreference), locale));
         } else {
             response = processCardAuthorisationPayment(dctx, context);
         }

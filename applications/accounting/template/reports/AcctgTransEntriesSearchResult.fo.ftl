@@ -31,9 +31,9 @@ under the License.
                 <#if acctgTransEntryList?has_content>
                     <fo:block>${uiLabelMap.AccountingAcctgTransEntriesFor}
                         <#assign partyName = (delegator.findOne("PartyNameView", {"partyId" : parameters.get('ApplicationDecorator|organizationPartyId')}, false))!>
-                        <#if "PERSON" == partyName.partyTypeId>
+                        <#if partyName.partyTypeId == "PERSON">
                             ${(partyName.firstName)!} ${(partyName.lastName)!}
-                        <#elseif "PARTY_GROUP" == (partyName.partyTypeId)!>
+                        <#elseif (partyName.partyTypeId)! == "PARTY_GROUP">
                             ${(partyName.groupName)!}
                         </#if>
                     </fo:block>

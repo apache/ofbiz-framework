@@ -19,7 +19,8 @@
 
 import org.apache.ofbiz.entity.condition.EntityCondition
 import org.apache.ofbiz.entity.condition.EntityOperator
-import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents
+import org.apache.ofbiz.entity.util.EntityUtil
+import org.apache.ofbiz.order.shoppingcart.*
 import org.apache.ofbiz.product.catalog.CatalogWorker
 
 

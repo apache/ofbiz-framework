@@ -26,6 +26,7 @@ import java.util.concurrent.ConcurrentMap;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.cache.UtilCache;
 import org.apache.ofbiz.entity.GenericEntity;
 import org.apache.ofbiz.entity.GenericPK;
@@ -43,9 +44,7 @@ public abstract class AbstractEntityConditionCache<K, V> extends AbstractCache<E
 
     protected V get(String entityName, EntityCondition condition, K key) {
         ConcurrentMap<K, V> conditionCache = getConditionCache(entityName, condition);
-        if (conditionCache == null) {
-            return null;
-        }
+        if (conditionCache == null) return null;
         return conditionCache.get(key);
     }
 
@@ -66,26 +65,24 @@ public abstract class AbstractEntityConditionCache<K, V> extends AbstractCache<E
     public void remove(GenericEntity entity) {
         UtilCache.clearCache(getCacheName(entity.getEntityName()));
         ModelEntity model = entity.getModelEntity();
-        Iterator<String> it = model.getViewConvertorsIterator();
-        while (it.hasNext()) {
-            String targetEntityName = it.next();
-            UtilCache.clearCache(getCacheName(targetEntityName));
+        if (model != null) {
+            Iterator<String> it = model.getViewConvertorsIterator();
+            while (it.hasNext()) {
+                String targetEntityName = it.next();
+                UtilCache.clearCache(getCacheName(targetEntityName));
+            }
         }
     }
 
     public void remove(String entityName, EntityCondition condition) {
         UtilCache<EntityCondition, ConcurrentMap<K, V>> cache = getCache(entityName);
-        if (cache == null) {
-            return;
-        }
+        if (cache == null) return;
         cache.remove(condition);
     }
 
     protected V remove(String entityName, EntityCondition condition, K key) {
         ConcurrentMap<K, V> conditionCache = getConditionCache(entityName, condition);
-        if (conditionCache == null) {
-            return null;
-        }
+        if (conditionCache == null) return null;
         return conditionCache.remove(key);
     }
 
@@ -95,14 +92,19 @@ public abstract class AbstractEntityConditionCache<K, V> extends AbstractCache<E
 
     public static final EntityCondition getFrozenConditionKey(EntityCondition condition) {
         EntityCondition frozenCondition = condition != null ? condition.freeze() : null;
+        // This is no longer needed, fixed issue with unequal conditions after freezing
+        //if (condition != null) {
+        //    if (!condition.equals(frozenCondition)) {
+        //        Debug.logWarning("Frozen condition does not equal condition:\n -=-=-=-Original=" + condition + "\n -=-=-=-Frozen=" + frozenCondition, module);
+        //        Debug.logWarning("Frozen condition not equal info: condition class=" + condition.getClass().getName() + "; frozenCondition class=" + frozenCondition.getClass().getName(), module);
+        //    }
+        //}
         return frozenCondition;
     }
 
     protected ConcurrentMap<K, V> getConditionCache(String entityName, EntityCondition condition) {
         UtilCache<EntityCondition, ConcurrentMap<K, V>> cache = getCache(entityName);
-        if (cache == null) {
-            return null;
-        }
+        if (cache == null) return null;
         return cache.get(getConditionKey(condition));
     }
 
@@ -111,7 +113,7 @@ public abstract class AbstractEntityConditionCache<K, V> extends AbstractCache<E
         EntityCondition conditionKey = getConditionKey(condition);
         ConcurrentMap<K, V> conditionCache = utilCache.get(conditionKey);
         if (conditionCache == null) {
-            conditionCache = new ConcurrentHashMap<>();
+            conditionCache = new ConcurrentHashMap<K, V>();
             utilCache.put(conditionKey, conditionCache);
         }
         return conditionCache;
@@ -155,32 +157,41 @@ public abstract class AbstractEntityConditionCache<K, V> extends AbstractCache<E
         storeHook(true, oldPK, newEntity);
     }
 
-    protected List<? extends Map<String, Object>> convert(String targetEntityName, GenericEntity entity) {
-        if (isNull(entity)) {
-            return null;
+    protected List<? extends Map<String, Object>> convert(boolean isPK, String targetEntityName, GenericEntity entity) {
+        if (isNull(entity)) return null;
+        if (isPK) {
+            return entity.getModelEntity().convertToViewValues(targetEntityName, entity);
+        } else {
+            return entity.getModelEntity().convertToViewValues(targetEntityName, entity);
         }
-        return entity.getModelEntity().convertToViewValues(targetEntityName, entity);
     }
 
     public void storeHook(boolean isPK, GenericEntity oldEntity, GenericEntity newEntity) {
         ModelEntity model = getModelCheckValid(oldEntity, newEntity);
         String entityName = model.getEntityName();
         // for info about cache clearing
+        if (newEntity == null) {
+            //Debug.logInfo("In storeHook calling sub-storeHook for entity name [" + entityName + "] for the oldEntity: " + oldEntity, module);
+        }
         storeHook(entityName, isPK, UtilMisc.toList(oldEntity), UtilMisc.toList(newEntity));
         Iterator<String> it = model.getViewConvertorsIterator();
         while (it.hasNext()) {
             String targetEntityName = it.next();
-            storeHook(targetEntityName, isPK, convert(targetEntityName, oldEntity), convert(targetEntityName, newEntity));
+            storeHook(targetEntityName, isPK, convert(isPK, targetEntityName, oldEntity), convert(false, targetEntityName, newEntity));
         }
     }
 
     protected <T1 extends Map<String, Object>, T2 extends Map<String, Object>> void storeHook(String entityName, boolean isPK, List<T1> oldValues, List<T2> newValues) {
         UtilCache<EntityCondition, Map<K, V>> entityCache = UtilCache.findCache(getCacheName(entityName));
         // for info about cache clearing
+        if (UtilValidate.isEmpty(newValues) || newValues.get(0) == null) {
+            //Debug.logInfo("In storeHook (cache clear) for entity name [" + entityName + "], got entity cache with name: " + (entityCache == null ? "[No cache found to remove from]" : entityCache.getName()), module);
+        }
         if (entityCache == null) {
             return;
         }
         for (EntityCondition condition: entityCache.getCacheLineKeys()) {
+            //Debug.logInfo("In storeHook entityName [" + entityName + "] checking against condition: " + condition, module);
             boolean shouldRemove = false;
             if (condition == null) {
                 shouldRemove = true;
@@ -197,11 +208,13 @@ public abstract class AbstractEntityConditionCache<K, V> extends AbstractCache<E
                     T1 oldValue = oldValueIter.next();
                     if (condition.mapMatches(getDelegator(), oldValue)) {
                         oldMatched = true;
+                        //Debug.logInfo("In storeHook, oldMatched for entityName [" + entityName + "]; shouldRemove is false", module);
                         if (newValues != null) {
                             Iterator<T2> newValueIter = newValues.iterator();
                             while (newValueIter.hasNext() && !shouldRemove) {
                                 T2 newValue = newValueIter.next();
                                 shouldRemove |= isNull(newValue) || condition.mapMatches(getDelegator(), newValue);
+                                //Debug.logInfo("In storeHook, for entityName [" + entityName + "] shouldRemove is now " + shouldRemove, module);
                             }
                         } else {
                             shouldRemove = true;
@@ -210,13 +223,12 @@ public abstract class AbstractEntityConditionCache<K, V> extends AbstractCache<E
                 }
                 // QUESTION: what is this? why would we do this?
                 if (!oldMatched && isPK) {
+                    //Debug.logInfo("In storeHook, for entityName [" + entityName + "] oldMatched is false and isPK is true, so setting shouldRemove to true (will remove from cache)", module);
                     shouldRemove = true;
                 }
             }
             if (shouldRemove) {
-                if (Debug.verboseOn()) {
-                    Debug.logVerbose("In storeHook, matched condition, removing from cache for entityName [" + entityName + "] in cache with name [" + entityCache.getName() + "] entry with condition: " + condition, module);
-                }
+                if (Debug.verboseOn()) Debug.logVerbose("In storeHook, matched condition, removing from cache for entityName [" + entityName + "] in cache with name [" + entityCache.getName() + "] entry with condition: " + condition, module);
                 // doesn't work anymore since this is a copy of the cache keySet, can call remove directly though with a concurrent mod exception: cacheKeyIter.remove();
                 entityCache.remove(condition);
             }

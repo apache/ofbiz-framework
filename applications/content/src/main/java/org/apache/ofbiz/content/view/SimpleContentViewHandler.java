@@ -41,6 +41,7 @@ import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.content.content.ContentWorker;
 import org.apache.ofbiz.content.data.DataResourceWorker;
 import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
@@ -109,14 +110,10 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
                         if (Debug.verboseOn()) Debug.logVerbose("dataResourceId:" + dataResourceId, module);
                     }
                 } else {
-                    GenericValue contentRevisionItem = EntityQuery.use(delegator)
-                            .from("ContentRevisionItem")
-                            .where("contentId", rootContentId, "itemContentId", contentId, "contentRevisionSeqId", contentRevisionSeqId)
-                            .cache()
-                            .queryOne();
+                    GenericValue contentRevisionItem = EntityQuery.use(delegator).from("ContentRevisionItem").where("contentId", rootContentId, "itemContentId", contentId, "contentRevisionSeqId", contentRevisionSeqId).cache().queryOne();
                     if (contentRevisionItem == null) {
                         throw new ViewHandlerException("ContentRevisionItem record not found for contentId=" + rootContentId
-                                + ", contentRevisionSeqId=" + contentRevisionSeqId + ", itemContentId=" + contentId);
+                                                       + ", contentRevisionSeqId=" + contentRevisionSeqId + ", itemContentId=" + contentId);
                     }
                     dataResourceId = contentRevisionItem.getString("newDataResourceId");
                     if (Debug.verboseOn()) Debug.logVerbose("contentRevisionItem:" + contentRevisionItem, module);
@@ -176,7 +173,7 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
 
                     // no service errors; now check the actual response
                     Boolean hasPermission = (Boolean) permSvcResp.get("hasPermission");
-                    if (!hasPermission) {
+                    if (!hasPermission.booleanValue()) {
                         String errorMsg = (String) permSvcResp.get("failMessage");
                         Debug.logError(errorMsg, module);
                         request.setAttribute("_ERROR_MESSAGE_", errorMsg);
@@ -185,7 +182,11 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
                 }
                 UtilHttp.streamContentToBrowser(response, bais, byteBuffer.limit(), contentType2, fileName);
             }
-        } catch (IOException | GeneralException e) {
+        } catch (GenericEntityException e) {
+            throw new ViewHandlerException(e.getMessage());
+        } catch (IOException e) {
+            throw new ViewHandlerException(e.getMessage());
+        } catch (GeneralException e) {
             throw new ViewHandlerException(e.getMessage());
         }
     }

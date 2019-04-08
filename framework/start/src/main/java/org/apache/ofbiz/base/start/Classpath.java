@@ -27,7 +27,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * A class path accumulator.
@@ -36,7 +35,9 @@ import java.util.Locale;
  */
 public final class Classpath {
 
-    private List<File> elements = new ArrayList<>();
+    private static final String nativeLibExt = System.mapLibraryName("someLib").replace("someLib", "").toLowerCase();
+    private List<File> elements = new ArrayList<File>();
+    private final List<File> nativeFolders = new ArrayList<File>();
 
     /**
      * Default constructor.
@@ -47,7 +48,7 @@ public final class Classpath {
     /**
      * Adds a class path component. The component may be a directory or a file.
      * If <code>component</code> does not exist, the method does nothing.
-     *
+     * 
      * @param component The class path component to add
      * @return <code>true</code> if the component was added
      * @throws IOException if there was a problem parsing the component
@@ -74,7 +75,7 @@ public final class Classpath {
     /**
      * Adds a class path component. The component may be a directory or a file.
      * If <code>component</code> does not exist, the method does nothing.
-     *
+     * 
      * @param component The class path component to add
      * @return <code>true</code> if the component was added
      * @throws IOException if there was a problem parsing the component
@@ -91,7 +92,7 @@ public final class Classpath {
      * Scans a directory and adds all files ending with ".jar" or ".zip" to
      * the class path.
      * If <code>path</code> is not a directory, the method does nothing.
-     *
+     * 
      * @param path the directory to scan
      * @throws IOException if there was a problem processing the directory
      * @throws IllegalArgumentException if <code>path</code> is null
@@ -100,22 +101,27 @@ public final class Classpath {
         if (path == null) {
             throw new IllegalArgumentException("path cannot be null");
         }
-        File[] listedFiles;
         if (path.isDirectory() && path.exists()) {
             // load all .jar, .zip files and native libs in this directory
-            listedFiles = path.listFiles();
-        } else {
-            listedFiles = null;
-        }
-        if (listedFiles != null) {
-            for (File file : listedFiles) {
-                String fileName = file.getName().toLowerCase(Locale.getDefault());
+            boolean containsNativeLibs = false;
+            for (File file : path.listFiles()) {
+                String fileName = file.getName().toLowerCase();
                 if (fileName.endsWith(".jar") || fileName.endsWith(".zip")) {
                     File key = file.getCanonicalFile();
                     synchronized (elements) {
                         if (!elements.contains(key)) {
                             elements.add(key);
                         }
+                    }
+                } else if (fileName.endsWith(nativeLibExt)) {
+                    containsNativeLibs = true;
+                }
+            }
+            if (containsNativeLibs) {
+                File key = path.getCanonicalFile();
+                synchronized (nativeFolders) {
+                    if (!nativeFolders.contains(key)) {
+                        nativeFolders.add(key);
                     }
                 }
             }
@@ -135,8 +141,19 @@ public final class Classpath {
     }
 
     /**
+     * Returns a list of folders containing native libraries.
+     * 
+     * @return A list of folders containing native libraries
+     */
+    public List<File> getNativeFolders() {
+        synchronized (nativeFolders) {
+            return new ArrayList<File>(nativeFolders);
+        }
+    }
+
+    /**
      * Returns a list of class path component URLs.
-     *
+     * 
      * @return A list of class path component URLs
      * @throws MalformedURLException
      */

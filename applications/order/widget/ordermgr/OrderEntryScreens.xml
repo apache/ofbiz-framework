@@ -54,10 +54,10 @@ under the License.
     <screen name="RequirementsForSupplier">
         <section>
             <actions>
-                <set field="title" from-field="uiLabelMap.OrderFindRequirementsForSupplier"/>
+                <set field="title" value="${uiLabelMap.OrderFindRequirementsForSupplier}"/>
                 <set field="entityName" value="Requirement"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <script location="component://order/groovyScripts/entry/SetShoppingCart.groovy"/>
             </actions>
@@ -92,9 +92,9 @@ under the License.
     <screen name="FindQuoteForCart">
         <section>
             <actions>
-                <set field="title" from-field="uiLabelMap.OrderFindQuotes"/>
+                <set field="title" value="${uiLabelMap.OrderFindQuotes}"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
 
                 <set field="requestParameters.statusId" to-scope="screen" default-value="QUO_APPROVED"/>
@@ -119,7 +119,7 @@ under the License.
     <screen name="ViewShoppingLists">
         <section>
             <actions>
-                <set field="title" from-field="uiLabelMap.PageTitleShoppingList"/>
+                <set field="title" value="${uiLabelMap.PageTitleShoppingList}"/>
                 <set field="partyId" from-field="requestParameters.partyId"/>
                 <entity-and entity-name="ShoppingList" list="customershoppinglists">
                     <field-map field-name="partyId" from-field="partyId"/>
@@ -139,7 +139,7 @@ under the License.
     <screen name="AddFromShoppingList">
         <section>
             <actions>
-                <set field="title" from-field="uiLabelMap.PageTitleShoppingListItem"/>
+                <set field="title" value="${uiLabelMap.PageTitleShoppingListItem}"/>
                 <set field="shoppingListId" from-field="requestParameters.shoppingListId"/>
                 <entity-and entity-name="ShoppingListItem" list="shoppinglistitems">
                     <field-map field-name="shoppingListId" from-field="shoppingListId"/>

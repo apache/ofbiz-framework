@@ -32,7 +32,7 @@ under the License.
     <fo:page-sequence master-reference="first" language="en" hyphenate="true">
         <fo:static-content flow-name="xsl-region-before">
             <fo:block line-height="10pt" font-size="8pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always">
-                <#if "Y" == showLocation>
+                <#if showLocation == "Y">
                     <#if mrpName??>
                       Doc.F0
                     <#else>
@@ -158,7 +158,7 @@ under the License.
         </fo:table-cell>
         <fo:table-cell border-style="solid" border-color="black" border-width="1pt">
             <fo:block line-height="12pt" font-size="8pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always" text-align="center">
-                <#if "Y" == showLocation>
+                <#if showLocation == "Y">
                     ${uiLabelMap.ManufacturingQtyM2}
                 <#else>
                     ${uiLabelMap.CommonQuantity}
@@ -167,7 +167,7 @@ under the License.
         </fo:table-cell>
         <fo:table-cell border-style="solid" border-color="black" border-width="1pt">
             <fo:block line-height="12pt" font-size="8pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always" text-align="center">
-                <#if "Y" == showLocation>
+                <#if showLocation == "Y">
                     ${uiLabelMap.ManufacturingPanelNumber}
                 <#else>
                     ${uiLabelMap.ProductFacilityLocation}
@@ -202,7 +202,7 @@ under the License.
         </fo:table-cell>
         <fo:table-cell border-style="solid" border-color="black" border-width="1pt">
             <fo:block line-height="12pt" font-size="10pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always" text-align="end">
-                <#if "Y" == showLocation>
+                <#if showLocation == "Y">
                 ${product.panelQuantity!}
                 <#else>
                     ${product.Location!}

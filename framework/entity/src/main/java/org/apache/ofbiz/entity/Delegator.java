@@ -210,6 +210,9 @@ public interface Delegator {
      */
     GenericValue createSingle(String entityName, Object singlePkValue) throws GenericEntityException;
 
+    @Deprecated
+    Object decryptFieldValue(String entityName, String encValue) throws EntityCryptoException;
+
     Object decryptFieldValue(String entityName, ModelField.EncryptMethod encryptMethod, String encValue) throws EntityCryptoException;
 
     Object encryptFieldValue(String entityName, ModelField.EncryptMethod encryptMethod, Object fieldValue) throws EntityCryptoException;
@@ -246,7 +249,7 @@ public interface Delegator {
     EntityListIterator find(String entityName, EntityCondition whereEntityCondition, EntityCondition havingEntityCondition, Set<String> fieldsToSelect, List<String> orderBy, EntityFindOptions findOptions) throws GenericEntityException;
 
     /**
-     * Finds all Generic entities
+     * Finds all Generic entities 
      *
      * @param entityName
      *            The Name of the Entity as defined in the entity XML file
@@ -291,7 +294,7 @@ public interface Delegator {
 
     /**
      * Gets the hit count of GenericValues for the given EntityCondition objects.
-     *
+     * 
      * @param entityName
      * @param whereEntityCondition
      * @param havingEntityCondition
@@ -408,6 +411,17 @@ public interface Delegator {
     ModelFieldType getEntityFieldType(ModelEntity entity, String type) throws GenericEntityException;
 
     /**
+     * Gets field type names from the helper that corresponds to the specified
+     * entity
+     *
+     * @param entity
+     *            The entity
+     * @return Collection of field type names from the helper that corresponds
+     *         to the specified entity
+     */
+    Collection<String> getEntityFieldTypeNames(ModelEntity entity) throws GenericEntityException;
+
+    /**
      * Gets the helper name that corresponds to this delegator and the specified
      * entityName
      *
@@ -489,10 +503,11 @@ public interface Delegator {
     ModelEntity getModelEntity(String entityName);
 
     /**
-     * Gets a Map of entity name and entity model pairs that are in the named
+     * Gets a Map of entity name & entity model pairs that are in the named
      * group
      *
-     * @param groupName The name of the group
+     * @param groupName
+     *            The name of the group
      * @return Map of entityName String keys and ModelEntity instance values
      */
     Map<String, ModelEntity> getModelEntityMapByGroup(String groupName) throws GenericEntityException;
@@ -724,16 +739,15 @@ public interface Delegator {
     void refreshSequencer();
 
     /**
-     * <p>Remove the Entities from the List from the persistent store.</p>
-     * <p>The List contains GenericEntity objects, can be either GenericPK or
-     * GenericValue. </p>
-     * <p>If a certain entity contains a complete primary key, the entity in
-     * the datasource corresponding to that primary key will be removed, this
-     * is like a removeByPrimary Key.</p>
-     * <p>On the other hand, if a certain entity is an incomplete or non
-     * primary key, if will behave like the removeByAnd method. </p>
-     * <p>These updates all happen in one transaction, so they will either
-     * all succeed or all fail, if the data source supports transactions.</p>
+     * Remove the Entities from the List from the persistent store. <br/>The
+     * List contains GenericEntity objects, can be either GenericPK or
+     * GenericValue. <br/>If a certain entity contains a complete primary key,
+     * the entity in the datasource corresponding to that primary key will be
+     * removed, this is like a removeByPrimary Key. <br/>On the other hand, if a
+     * certain entity is an incomplete or non primary key, if will behave like
+     * the removeByAnd method. <br/>These updates all happen in one transaction,
+     * so they will either all succeed or all fail, if the data source supports
+     * transactions.
      *
      * @param dummyPKs
      *            Collection of GenericEntity instances containing the entities
@@ -844,16 +858,14 @@ public interface Delegator {
     int store(GenericValue value) throws GenericEntityException;
 
     /**
-     * <p>Store the Entities from the List GenericValue instances to the persistent
-     * store.</p>
-     * <p>This is different than the normal store method in that the
+     * Store the Entities from the List GenericValue instances to the persistent
+     * store. <br/>This is different than the normal store method in that the
      * store method only does an update, while the storeAll method checks to see
      * if each entity exists, then either does an insert or an update as
-     * appropriate.</p>
-     * <p>These updates all happen in one transaction, so they
+     * appropriate. <br/>These updates all happen in one transaction, so they
      * will either all succeed or all fail, if the data source supports
      * transactions. This is just like to othersToStore feature of the
-     * GenericEntity on a create or store.</p>
+     * GenericEntity on a create or store.
      *
      * @param values
      *            List of GenericValue instances containing the entities to
@@ -863,16 +875,14 @@ public interface Delegator {
     int storeAll(List<GenericValue> values) throws GenericEntityException;
 
     /**
-     * <p>Store the Entities from the List GenericValue instances to the persistent
-     * store.</p>
-     * <p>This is different than the normal store method in that the
+     * Store the Entities from the List GenericValue instances to the persistent
+     * store. <br/>This is different than the normal store method in that the
      * store method only does an update, while the storeAll method checks to see
      * if each entity exists, then either does an insert or an update as
-     * appropriate.</p>
-     * <p>These updates all happen in one transaction, so they
+     * appropriate. <br/>These updates all happen in one transaction, so they
      * will either all succeed or all fail, if the data source supports
      * transactions. This is just like to othersToStore feature of the
-     * GenericEntity on a create or store.</p>
+     * GenericEntity on a create or store.
      *
      * @param storeOptions
      *            An instance of EntityStoreOptions that specifies advanced store
@@ -886,7 +896,7 @@ public interface Delegator {
     int storeAll(List<GenericValue> values, EntityStoreOptions storeOptions) throws GenericEntityException;
 
     /**
-     * Store a group of values.
+     * Store a group of values
      *
      * @param entityName
      *            The name of the Entity as defined in the entity XML file
@@ -901,7 +911,7 @@ public interface Delegator {
 
     /**
      * Get use of Distributed Cache Clear mechanism status
-     * @return boolean true if this delegator uses a Distributed Cache Clear mechanism
+     * @return boolean true if this delegator uses a Distributed Cache Clear mechanism 
      */
     boolean useDistributedCacheClear();
 }

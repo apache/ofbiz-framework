@@ -18,10 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.entity.condition;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -37,15 +34,19 @@ import org.apache.ofbiz.entity.model.ModelField;
  *
  */
 @SuppressWarnings("serial")
-public abstract class EntityConditionValue implements Serializable {
+public abstract class EntityConditionValue extends EntityConditionBase {
 
-    private static final Map<String, String> emptyAliases = Collections.unmodifiableMap(new HashMap<>());
     public static EntityConditionValue CONSTANT_NUMBER(Number value) { return new ConstantNumberValue(value); }
     public static final class ConstantNumberValue extends EntityConditionValue {
         private Number value;
 
         private ConstantNumberValue(Number value) {
             this.value = value;
+        }
+
+        @Override
+        public void accept(EntityConditionVisitor visitor) {
+            visitor.acceptEntityConditionValue(this);
         }
 
         @Override
@@ -76,6 +77,11 @@ public abstract class EntityConditionValue implements Serializable {
         @Override
         public void validateSql(org.apache.ofbiz.entity.model.ModelEntity modelEntity) {
         }
+
+        @Override
+        public void visit(EntityConditionVisitor visitor) {
+            visitor.acceptObject(value);
+        }
     }
 
     public abstract ModelField getModelField(ModelEntity modelEntity);
@@ -103,6 +109,12 @@ public abstract class EntityConditionValue implements Serializable {
 
     public abstract EntityConditionValue freeze();
 
+    public abstract void visit(EntityConditionVisitor visitor);
+
+    public void accept(EntityConditionVisitor visitor) {
+        throw new IllegalArgumentException("accept not implemented");
+    }
+
     public void toString(StringBuilder sb) {
         addSqlValue(sb, null, new ArrayList<EntityConditionParam>(), false, null);
     }
@@ -112,15 +124,5 @@ public abstract class EntityConditionValue implements Serializable {
         StringBuilder sql = new StringBuilder();
         toString(sql);
         return sql.toString();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        throw new UnsupportedOperationException("equals:" + getClass().getName());
-    }
-
-    @Override
-    public int hashCode() {
-        throw new UnsupportedOperationException("hashCode: " + getClass().getName());
     }
 }

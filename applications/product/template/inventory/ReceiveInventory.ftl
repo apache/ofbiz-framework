@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<script type="application/javascript">
+<script language="JavaScript" type="text/javascript">
     function setNow(field) { eval('document.selectAllForm.' + field + '.value="${nowTimestamp}"'); }
 </script>
 <div class="page-title">${title}</div>
@@ -280,7 +280,7 @@ under the License.
                 <td colspan="2"><input type="submit" value="${uiLabelMap.CommonReceive}" /></td>
               </tr>
             </table>
-            <script type="application/javascript">
+            <script language="JavaScript" type="text/javascript">
               document.selectAllForm.quantityAccepted.focus();
             </script>
           </form>
@@ -373,12 +373,7 @@ under the License.
                   </td>
                 </tr>
                 <#list purchaseOrderItems as orderItem>
-                    <#if orderItem.cancelQuantity?has_content>
-                      <#assign cancelQuantity = orderItem.cancelQuantity>
-                    <#else>
-                      <#assign cancelQuantity = 0>
-                    </#if>
-                  <#assign defaultQuantity = orderItem.quantity - cancelQuantity - receivedQuantities[orderItem.orderItemSeqId]?double/>
+                  <#assign defaultQuantity = orderItem.quantity - receivedQuantities[orderItem.orderItemSeqId]?double/>
                   <#assign itemCost = orderItem.unitPrice?default(0)/>
                   <#assign salesOrderItem = salesOrderItems[orderItem.orderItemSeqId]!/>
                   <#if shipment?has_content>

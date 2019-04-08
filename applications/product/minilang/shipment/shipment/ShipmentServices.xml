@@ -22,7 +22,7 @@ under the License.
         xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <!-- Shipment services -->
     <simple-method method-name="createShipment" short-description="Create Shipment">
-        <make-value entity-name="Shipment" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="Shipment"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <if-not-empty field="parameters.shipmentId">
@@ -76,7 +76,7 @@ under the License.
             <if>
                 <condition>
                     <or>
-                        <if-compare field="shipmentTypeId" operator="equals" value="INCOMING_SHIPMENT"/>
+                        <if-compare field="shipmentTypeId" operator="equals" value="INGOING_SHIPMENT"/>
                         <if-compare field="shipmentTypeId" operator="equals" value="PURCHASE_SHIPMENT"/>
                         <if-compare field="shipmentTypeId" operator="equals" value="SALES_RETURN"/>
                     </or>
@@ -116,7 +116,7 @@ under the License.
         <call-simple-method method-name="checkCanChangeShipmentStatusDelivered"/>
         <check-errors/>
 
-        <make-value entity-name="Shipment" value-field="lookupPKMap"/>
+        <make-value value-field="lookupPKMap" entity-name="Shipment"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
 
@@ -622,19 +622,19 @@ under the License.
 
         <if-empty field="shipment.estimatedShipCost">
             <script>groovy:
-                    import java.math.BigDecimal
-                    import org.apache.ofbiz.order.order.OrderReadHelper
+                    import java.math.BigDecimal;
+                    import org.apache.ofbiz.order.order.OrderReadHelper;
 
-                    orderReadHelper = new OrderReadHelper(orderHeader)
-                    orderItems = orderReadHelper.getValidOrderItems()
-                    orderAdjustments = orderReadHelper.getAdjustments()
-                    orderHeaderAdjustments = orderReadHelper.getOrderHeaderAdjustments()
-                    orderSubTotal = orderReadHelper.getOrderItemsSubTotal()
+                    orderReadHelper = new OrderReadHelper(orderHeader);
+                    orderItems = orderReadHelper.getValidOrderItems();
+                    orderAdjustments = orderReadHelper.getAdjustments();
+                    orderHeaderAdjustments = orderReadHelper.getOrderHeaderAdjustments();
+                    orderSubTotal = orderReadHelper.getOrderItemsSubTotal();
 
-                    shippingAmount = OrderReadHelper.getAllOrderItemsAdjustmentsTotal(orderItems, orderAdjustments, false, false, true)
-                    shippingAmount = shippingAmount.add(OrderReadHelper.calcOrderAdjustments(orderHeaderAdjustments, orderSubTotal, false, false, true))
-                    //org.apache.ofbiz.base.util.Debug.log("shippingAmmount=" + shippingAmount)
-                    shipment.put("estimatedShipCost", shippingAmount)
+                    shippingAmount = OrderReadHelper.getAllOrderItemsAdjustmentsTotal(orderItems, orderAdjustments, false, false, true);
+                    shippingAmount = shippingAmount.add(OrderReadHelper.calcOrderAdjustments(orderHeaderAdjustments, orderSubTotal, false, false, true));
+                    //org.apache.ofbiz.base.util.Debug.log("shippingAmmount=" + shippingAmount);
+                    shipment.put("estimatedShipCost", shippingAmount);
             </script>
         </if-empty>
 
@@ -683,8 +683,8 @@ under the License.
             <if-empty field="shipment.originContactMechId">
                 <script>groovy:
                     facilityContactMech = org.apache.ofbiz.party.contact.ContactMechWorker.getFacilityContactMechByPurpose(
-                                delegator, shipment.get("originFacilityId"), 
-                                org.apache.ofbiz.base.util.UtilMisc.toList("SHIP_ORIG_LOCATION", "PRIMARY_LOCATION"))
+                                delegator, shipment.get("originFacilityId"), org.apache.ofbiz.base.util.UtilMisc.toList("SHIP_ORIG_LOCATION", "PRIMARY_LOCATION")
+                            );
                     if (facilityContactMech != null) {
                         shipment.put("originContactMechId", facilityContactMech.get("contactMechId"));
                     }
@@ -693,10 +693,10 @@ under the License.
             <if-empty field="shipment.originTelecomNumberId">
                 <script>groovy:
                     facilityContactMech = org.apache.ofbiz.party.contact.ContactMechWorker.getFacilityContactMechByPurpose(
-                                delegator, shipment.get("originFacilityId"), 
-                                org.apache.ofbiz.base.util.UtilMisc.toList("PHONE_SHIP_ORIG", "PRIMARY_PHONE"))
+                                delegator, shipment.get("originFacilityId"), org.apache.ofbiz.base.util.UtilMisc.toList("PHONE_SHIP_ORIG", "PRIMARY_PHONE")
+                            );
                     if (facilityContactMech != null) {
-                        shipment.put("originTelecomNumberId", facilityContactMech.get("contactMechId"))
+                        shipment.put("originTelecomNumberId", facilityContactMech.get("contactMechId"));
                     }
                 </script>
             </if-empty>
@@ -705,20 +705,20 @@ under the License.
             <if-empty field="shipment.destinationContactMechId">
                 <script>groovy:
                     facilityContactMech = org.apache.ofbiz.party.contact.ContactMechWorker.getFacilityContactMechByPurpose(
-                                delegator, shipment.get("destinationFacilityId"), 
-                                org.apache.ofbiz.base.util.UtilMisc.toList("SHIPPING_LOCATION", "PRIMARY_LOCATION"))
+                                delegator, shipment.get("destinationFacilityId"), org.apache.ofbiz.base.util.UtilMisc.toList("SHIPPING_LOCATION", "PRIMARY_LOCATION")
+                            );
                     if (facilityContactMech != null) {
-                        shipment.put("destinationContactMechId", facilityContactMech.get("contactMechId"))
+                        shipment.put("destinationContactMechId", facilityContactMech.get("contactMechId"));
                     }
                 </script>
             </if-empty>
             <if-empty field="shipment.destinationTelecomNumberId">
                 <script>groovy:
                     facilityContactMech = org.apache.ofbiz.party.contact.ContactMechWorker.getFacilityContactMechByPurpose(
-                                delegator, shipment.get("destinationFacilityId"), 
-                                org.apache.ofbiz.base.util.UtilMisc.toList("PHONE_SHIPPING", "PRIMARY_PHONE"))
+                                delegator, shipment.get("destinationFacilityId"), org.apache.ofbiz.base.util.UtilMisc.toList("PHONE_SHIPPING", "PRIMARY_PHONE")
+                            );
                     if (facilityContactMech != null) {
-                        shipment.put("destinationTelecomNumberId", facilityContactMech.get("contactMechId"))
+                        shipment.put("destinationTelecomNumberId", facilityContactMech.get("contactMechId"));
                     }
                 </script>
             </if-empty>
@@ -773,7 +773,7 @@ under the License.
             <string-append string=" for Primary Order ${shipment.primaryOrderId}" field="sendEmailMap.subject"/>
         </if-not-empty>
         <set value="text/html" field="sendEmailMap.contentType"/>
-        <set value="component://product/template/shipment/ShipmentScheduledNotice.ftl" field="sendEmailMap.templateName"/>
+        <set value="org/apache/ofbiz/shipment/shipment/ShipmentScheduledNotice.ftl" field="sendEmailMap.templateName"/>
         <set from-field="shipment" field="sendEmailMap.templateData.shipment"/>
 
         <!-- call sendGenericNotificationEmail service, if enough information was found -->
@@ -822,7 +822,7 @@ under the License.
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
         <check-errors/>
 
-        <make-value entity-name="ShipmentItem" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="ShipmentItem"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <!-- if no shipmentItemSeqId, generate one based on existing items, ie one greater than the current higher number -->
@@ -835,7 +835,7 @@ under the License.
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
         <check-errors/>
 
-        <make-value entity-name="ShipmentItem" value-field="lookupPKMap"/>
+        <make-value value-field="lookupPKMap" entity-name="ShipmentItem"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ShipmentItem" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
@@ -857,7 +857,7 @@ under the License.
             </add-error>
             <check-errors/>
         <else>
-            <make-value entity-name="ShipmentItem" value-field="lookupPKMap"/>
+            <make-value value-field="lookupPKMap" entity-name="ShipmentItem"/>
             <set-pk-fields map="parameters" value-field="lookupPKMap"/>
             <find-by-primary-key entity-name="ShipmentItem" map="lookupPKMap" value-field="lookedUpValue"/>
             <remove-value value-field="lookedUpValue"/>
@@ -950,7 +950,7 @@ under the License.
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
         <check-errors/>
 
-        <make-value entity-name="ShipmentPackage" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="ShipmentPackage"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
@@ -975,7 +975,7 @@ under the License.
         <call-simple-method method-name="checkCanChangeShipmentStatusShipped"/>
         <check-errors/>
 
-        <make-value entity-name="ShipmentPackage" value-field="lookupPKMap"/>
+        <make-value value-field="lookupPKMap" entity-name="ShipmentPackage"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ShipmentPackage" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
@@ -1034,7 +1034,7 @@ under the License.
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
         <check-errors/>
 
-        <make-value entity-name="ShipmentPackageContent" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="ShipmentPackageContent"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
@@ -1046,7 +1046,7 @@ under the License.
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
         <check-errors/>
 
-        <make-value entity-name="ShipmentPackageContent" value-field="lookupPKMap"/>
+        <make-value value-field="lookupPKMap" entity-name="ShipmentPackageContent"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ShipmentPackageContent" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
@@ -1057,7 +1057,7 @@ under the License.
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
         <check-errors/>
 
-        <make-value entity-name="ShipmentPackageContent" value-field="lookupPKMap"/>
+        <make-value value-field="lookupPKMap" entity-name="ShipmentPackageContent"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ShipmentPackageContent" map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
@@ -1066,7 +1066,7 @@ under the License.
         <set value="Create ShipmentPackageContent" field="operationName"/>
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
         <check-errors/>
-        <make-value entity-name="ShipmentPackageContent" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="ShipmentPackageContent"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <find-by-primary-key value-field="shipmentPackageContent" map="newEntity"/>
         <log level="verbose" message="In addShipmentContentToPackage trying values: ${newEntity}"/>
@@ -1091,7 +1091,7 @@ under the License.
 
     <!-- ShipmentPackageRouteSeg services -->
     <simple-method method-name="createShipmentPackageRouteSeg" short-description="Create ShipmentPackageRouteSeg">
-        <make-value entity-name="ShipmentPackageRouteSeg" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="ShipmentPackageRouteSeg"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
@@ -1102,7 +1102,7 @@ under the License.
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
         <check-errors/>
 
-        <make-value entity-name="ShipmentPackageRouteSeg" value-field="lookupPKMap"/>
+        <make-value value-field="lookupPKMap" entity-name="ShipmentPackageRouteSeg"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ShipmentPackageRouteSeg" map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
@@ -1114,7 +1114,7 @@ under the License.
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
         <check-errors/>
 
-        <make-value entity-name="ShipmentRouteSegment" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="ShipmentRouteSegment"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
@@ -1228,6 +1228,34 @@ under the License.
                 <string-to-list string="Cannot perform operation ${operationName} when the shipment is in the ${testShipmentStatus.description} [${testShipment.statusId}] status." list="error_list"/>
             </then>
         </if>
+    </simple-method>
+
+    <!-- shipment method type services -->
+    <simple-method method-name="createCarrierShipmentMethod" short-description="Creates a CarrierShipmentMethod">
+        <make-value value-field="carrierShipmentMethod" entity-name="CarrierShipmentMethod"/>
+        <set-pk-fields map="parameters" value-field="carrierShipmentMethod"/>
+        <set-nonpk-fields map="parameters" value-field="carrierShipmentMethod"/>
+        <create-value value-field="carrierShipmentMethod"/>
+    </simple-method>
+    <simple-method method-name="deleteCarrierShipmentMethod" short-description="Removes a CarrierShipmentMethod">
+        <entity-one entity-name="CarrierShipmentMethod" value-field="carrierShipmentMethod"/>
+        <remove-value value-field="carrierShipmentMethod"/>
+    </simple-method>
+
+    <simple-method method-name="createShipmentMethodType" short-description="Creates a ShipmentMethodType">
+        <make-value value-field="shipmentMethodType" entity-name="ShipmentMethodType"/>
+        <set-pk-fields map="parameters" value-field="shipmentMethodType"/>
+        <set-nonpk-fields map="parameters" value-field="shipmentMethodType"/>
+        <create-value value-field="shipmentMethodType"/>
+    </simple-method>
+    <simple-method method-name="updateShipmentMethodType" short-description="Updates a ShipmentMethodType">
+        <entity-one entity-name="ShipmentMethodType" value-field="shipmentMethodType"/>
+        <set-nonpk-fields map="parameters" value-field="shipmentMethodType"/>
+        <store-value value-field="shipmentMethodType"/>
+    </simple-method>
+    <simple-method method-name="deleteShipmentMethodType" short-description="Deletes a ShipmentMethodType">
+        <entity-one entity-name="ShipmentMethodType" value-field="shipmentMethodType"/>
+        <remove-value value-field="shipmentMethodType"/>
     </simple-method>
 
     <!-- quick ship entire order in one package per facility & ship group -->
@@ -1359,13 +1387,12 @@ under the License.
         </iterate>
     </simple-method>
 
-    <simple-method method-name="quickReceivePurchaseOrder" short-description="Quick receives an entire purchase order in a facility">
+    <simple-method method-name="quickShipPurchaseOrder" short-description="Quick ships an entire purchase order to a facility">
         <entity-one entity-name="OrderHeader" value-field="orderHeader"/>
         <entity-one entity-name="Facility" value-field="facility"/>
         <call-simple-method method-name="getOrderItemShipGroupLists"/>
         <call-simple-method method-name="createShipmentForFacilityAndShipGroup"/>
-        <log level="info" message="Finished quickReceivePurchaseOrder for orderId ${parameters.orderId} and destination facilityId ${parameters.facilityId} shipment created ${shipmentIds}"/>
-        <field-to-result field="shipmentIds" result-name="shipmentIds"/>
+        <log level="info" message="Finished quickShipPurchaseOrder for orderId ${parameters.orderId} and destination facilityId ${parameters.facilityId}"/>
     </simple-method>
 
     <simple-method method-name="getOrderItemShipGroupLists"
@@ -1546,11 +1573,9 @@ under the License.
                 <set field="argListNames[]" from-field="shipmentShipGroupFacility.facilityId"/>
                 <property-to-field property="FacilityShipmentIdCreated" resource="ProductUiLabels" field="successMessage" arg-list-name="argListNames"/>
                 <clear-field field="shipmentShipGroupFacility"/>
-                <set field="shipmentIds[]" from-field="shipment.shipmentId"/>
             </else>
             </if-empty>
         </iterate>
-        <field-to-result field="shipmentIds" result-name="shipmentIds"/>
     </simple-method>
 
     <simple-method method-name="createOrderShipmentPlan" short-description="Create Shipment, ShipmentItems and OrderShipment">
@@ -1991,7 +2016,7 @@ under the License.
     <!-- QuantityBreak services -->
     <!-- create a new QuantityBreak -->
     <simple-method method-name="createQuantityBreak" short-description="Create a QuoteAttribute">
-        <make-value entity-name="QuantityBreak" value-field="quantityBreak"/>
+        <make-value value-field="quantityBreak" entity-name="QuantityBreak"/>
         <set-nonpk-fields map="parameters" value-field="quantityBreak"/>
         <sequenced-id sequence-name="QuantityBreak" field="quantityBreak.quantityBreakId"/>
         <create-value value-field="quantityBreak"/>

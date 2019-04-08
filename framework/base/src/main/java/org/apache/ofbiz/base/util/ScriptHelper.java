@@ -24,20 +24,17 @@ import java.util.Map;
 import javax.script.ScriptException;
 
 /**
- * A script helper object. The OFBiz scripting framework will include an
- * instance of this class in the script's bindings.
- * <p>The scripting language will determine how the helper is used. Most
- * languages will access it as a variable:<br>
- * <code>partyValue = ofbiz.findOne("Party");</code><br>
- * while other languages might access it as a native method or function:<br>
- * <code>partyValue = findOne("Party");</code>
- * </p>
+ * A script helper object. The OFBiz scripting framework will include an instance of this class in the script's bindings.
+ * <p>The scripting language will determine how the helper is used. Most languages will access it as a variable:<br />
+ * <code>partyValue = ofbiz.findOne("Party");</code><br />
+ * while other languages might access it as a native method or function:<br />
+ * <code>partyValue = findOne("Party");</code></p>
  */
 public interface ScriptHelper {
 
     /**
      * Extracts service IN parameters from <code>inputMap</code> and returns them in a new <code>Map</code>.
-     *
+     * 
      * @param serviceName
      * @param inputMap
      * @return The matching service parameters
@@ -47,14 +44,14 @@ public interface ScriptHelper {
 
     /**
      * Sets the event/service status to error status.
-     *
+     * 
      * @param message
      */
     void error(String message);
 
     /**
      * Evaluates a <code>String</code> and returns the result.
-     *
+     * 
      * @param original
      * @return
      */
@@ -62,7 +59,7 @@ public interface ScriptHelper {
 
     /**
      * Sets the event/service status to failure status.
-     *
+     * 
      * @param message
      */
     void failure(String message);
@@ -97,21 +94,21 @@ public interface ScriptHelper {
 
     /**
      * Logs an error message.
-     *
+     * 
      * @param message
      */
     void logError(String message);
 
     /**
      * Logs an info message.
-     *
+     * 
      * @param message
      */
     void logInfo(String message);
 
     /**
      * Logs a warning message.
-     *
+     * 
      * @param message
      */
     void logWarning(String message);
@@ -126,7 +123,7 @@ public interface ScriptHelper {
 
     /**
      * Creates a new, empty <code>GenericValue</code>.
-     *
+     * 
      * @param entityName
      * @param fields
      * @return
@@ -136,7 +133,7 @@ public interface ScriptHelper {
 
     /**
      * Runs a service synchronously.
-     *
+     * 
      * @param serviceName
      * @param inputMap
      * @return
@@ -146,7 +143,7 @@ public interface ScriptHelper {
 
     /**
      * Runs a service synchronously.
-     *
+     * 
      * @param serviceName
      * @param inputMap
      * @param args
@@ -162,7 +159,7 @@ public interface ScriptHelper {
 
     /**
      * Sets the event/service status to success status.
-     *
+     * 
      * @param message
      */
     void success(String message);

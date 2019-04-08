@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
+    <screen name="ActiveSprintNotification">
+        <section>
+            <condition>
+                <or>
+                    <not><if-empty field="sprintId"/></not>
+                    <not><if-empty field="partyIdTo"/></not>
+                </or>
+            </condition>
+            <actions>
+                <entity-one entity-name="WorkEffort" value-field="sprint">
+                    <field-map field-name="workEffortId" from-field="sprintId"/>
+                </entity-one>
+                <entity-and entity-name="WorkEffortAndProduct" list="projectList">
+                    <field-map field-name="workEffortId" from-field="sprint.workEffortParentId"/>
+                </entity-and>
+                <set field="project" from-field="projectList[0]"/>
+                <entity-one entity-name="Product" value-field="prodcut">
+                    <field-map field-name="productId" from-field="project.productId"/>
+                </entity-one>
+                <entity-one entity-name="PartyNameView" value-field="person">
+                    <field-map field-name="partyId" from-field="partyIdTo"/>
+                </entity-one>
+                <set field="title" value="Sprint Notification SprintId# ${sprintId}"/>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://scrum/template/ActiveSprintNotification.ftl"/></html></platform-specific>
+            </widgets>
+            <fail-widgets>
+                <label text="SprintId is required or PartyId is required"></label>
+            </fail-widgets>
+        </section>
+    </screen>
+    <screen name="ClosedSprintNotification">
+        <section>
+            <condition>
+                <or>
+                    <not><if-empty field="sprintId"/></not>
+                    <not><if-empty field="partyIdTo"/></not>
+                </or>
+            </condition>
+            <actions>
+                <entity-one entity-name="WorkEffort" value-field="sprint">
+                    <field-map field-name="workEffortId" from-field="sprintId"/>
+                </entity-one>
+                <entity-and entity-name="WorkEffortAndProduct" list="projectList">
+                    <field-map field-name="workEffortId" from-field="sprint.workEffortParentId"/>
+                </entity-and>
+                <set field="project" from-field="projectList[0]"/>
+                <entity-one entity-name="Product" value-field="prodcut">
+                    <field-map field-name="productId" from-field="project.productId"/>
+                </entity-one>
+                <entity-one entity-name="PartyNameView" value-field="person">
+                    <field-map field-name="partyId" from-field="partyIdTo"/>
+                </entity-one>
+                <set field="title" value="Sprint Notification SprintId# ${sprintId}"/>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://scrum/template/ClosedSprintNotification.ftl"/></html></platform-specific>
+            </widgets>
+            <fail-widgets>
+                <label text="SprintId is required or PartyIdTo is required"></label>
+            </fail-widgets>
+        </section>
+    </screen>
+    <screen name="AcceptedBacklogNotification">
+        <section>
+            <condition>
+                <not><if-empty field="custRequestId"/></not>
+            </condition>
+            <actions>
+                <set field="custRequestId" from-field="custRequestId"/>
+                <set field="partyIdTo" from-field="partyIdTo"/>
+                <script location="component://scrum/groovyScripts/BacklogNotifications.groovy"/>
+                <set field="title" value="Backlog Notification backlog item# ${custRequestId}"/>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://scrum/template/AcceptedBacklogNotification.ftl"/></html></platform-specific>
+            </widgets>
+            <fail-widgets>
+                <label text="Backlog Id is required."></label>
+            </fail-widgets>
+        </section>
+    </screen>
+    <screen name="ReviewedBacklogNotification">
+        <section>
+            <condition>
+                <or>
+                    <not><if-empty field="custRequestId"/></not>
+                    <not><if-empty field="partyIdTo"/></not>
+                </or>
+            </condition>
+            <actions>
+                <set field="custRequestId" from-field="custRequestId"/>
+                <set field="partyIdTo" from-field="partyIdTo"/>
+                <script location="component://scrum/groovyScripts/BacklogNotifications.groovy"/>
+                <set field="title" value="Backlog Notification backlog item# ${custRequestId}"/>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://scrum/template/ReviewedBacklogNotification.ftl"/></html></platform-specific>
+            </widgets>
+            <fail-widgets>
+                <label text="Backlog Id is required."></label>
+            </fail-widgets>
+        </section>
+    </screen>
+    <screen name="CompletedBacklogNotification">
+        <section>
+            <condition>
+                <not><if-empty field="custRequestId"/></not>
+            </condition>
+            <actions>
+                <set field="custRequestId" from-field="custRequestId"/>
+                <set field="partyIdTo" from-field="partyIdTo"/>
+                <script location="component://scrum/groovyScripts/BacklogNotifications.groovy"/>
+                <set field="title" value="Backlog Notification backlog item# ${custRequestId}"/>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://scrum/template/CompletedBacklogNotification.ftl"/></html></platform-specific>
+            </widgets>
+            <fail-widgets>
+                <label text="Backlog Id is required."></label>
+            </fail-widgets>
+        </section>
+    </screen>
+    <screen name="CancelledBacklogNotification">
+        <section>
+            <condition>
+                <or>
+                    <not><if-empty field="custRequestId"/></not>
+                    <not><if-empty field="partyIdTo"/></not>
+                </or>
+            </condition>
+            <actions>
+                <set field="custRequestId" from-field="custRequestId"/>
+                <set field="partyIdTo" from-field="partyIdTo"/>
+                <script location="component://scrum/groovyScripts/BacklogNotifications.groovy"/>
+                <set field="title" value="Backlog Notification backlog item# ${custRequestId}"/>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://scrum/template/CancelledBacklogNotification.ftl"/></html></platform-specific>
+            </widgets>
+            <fail-widgets>
+                <label text="Backlog Id is required."></label>
+            </fail-widgets>
+        </section>
+    </screen>
+
+</screens>

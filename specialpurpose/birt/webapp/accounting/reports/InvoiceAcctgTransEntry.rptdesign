@@ -1,0 +1,1447 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.21" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 2.6.0.v20100531 Build &lt;2.6.0.v20100609-1613></property>
+    <property name="units">in</property>
+    <method name="initialize"><![CDATA[
+importPackage(Packages.org.apache.ofbiz.base.util)
+importPackage(Packages.org.apache.ofbiz.entity.util)
+importPackage(Packages.org.apache.ofbiz.entity.condition)
+
+module = "InvoiceAcctgTransEntry.rptdesign";
+
+// prepare uiLabelMap
+uiLabelMap = new HashMap();
+uiLabelMap.putAll(UtilProperties.getResourceBundleMap("CommonUiLabels", reportContext.getLocale()));
+uiLabelMap.putAll(UtilProperties.getResourceBundleMap("AccountingUiLabels", reportContext.getLocale()));
+
+invoiceId = params["invoiceId"].value;
+userLoginId = params["userLoginId"].value;
+
+parameters = new HashMap();
+parameters.put("invoiceId", invoiceId);
+parameters.put("userLoginId", userLoginId);
+
+userLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", userLoginId), false);
+userLoginNameView = delegator.findOne("PartyNameView", UtilMisc.toMap("partyId", userLogin.get("partyId")), false);
+dateFormatter = new java.text.SimpleDateFormat("dd MMMMM yyyy");
+
+invoice = delegator.findOne("Invoice", UtilMisc.toMap("invoiceId", invoiceId), false);
+
+organizationPartyId = null;
+if ("PURCHASE_INVOICE".equals(invoice.get("invoiceTypeId")) || "PURCHASE_INVOICE".equals(invoice.getRelatedOne("InvoiceType", false).get("parentTypeId"))) {
+    organizationPartyId = invoice.get("partyId");
+} else {
+    organizationPartyId = invoice.get("partyIdFrom");
+}
+
+// get company header
+var companyLogoCtx = new HashMap();
+companyLogoCtx.put("invoice", invoice);
+companyLogoCtx.put("nowTimestamp", UtilDateTime.nowTimestamp());
+companyLogoCtx.put("locale", reportContext.getLocale());
+companyLogoCtx.put("parameters", parameters);
+companyLogoCtx.put("delegator", delegator);
+GroovyUtil.runScriptAtLocation("component://order/groovyScripts/order/CompanyHeader.groovy", companyLogoCtx);
+logoImageUrl = companyLogoCtx.get("logoImageUrl");
+if (!logoImageUrl) {
+    logoImageUrl = FileUtil.getFile("component://images/webapp/images/ofbiz_logo.gif").getPath();
+}
+
+// create application list
+var context = new HashMap();
+context.put("invoice", invoice);
+GroovyUtil.runScriptAtLocation("component://accounting/groovyScripts/invoice/CreateApplicationList.groovy", context);
+invoiceApplications = context.get("invoiceApplications");
+
+// create debit/credit total variable
+debitTotal = 0;
+creditTotal = 0;]]></method>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <parameters>
+        <scalar-parameter name="invoiceId" id="266">
+            <property name="valueType">static</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="userLoginId" id="294">
+            <property name="valueType">static</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <script-data-source name="OFBiz" id="110"/>
+    </data-sources>
+    <data-sets>
+        <script-data-set name="AcctgTransAndEntries" id="260">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">0</property>
+                    <property name="name">glFiscalTypeId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">acctgTransTypeId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">transactionDate</property>
+                    <property name="dataType">date-time</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">postedDate</property>
+                    <property name="dataType">date-time</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">transDescription</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">glJournalId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">invoiceId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">paymentId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">glAccountId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">debitCreditFlag</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">10</property>
+                    <property name="name">amount</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">11</property>
+                    <property name="name">currencyUomId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">12</property>
+                    <property name="name">origAmount</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">13</property>
+                    <property name="name">origCurrencyUomId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">14</property>
+                    <property name="name">glAccountTypeId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">15</property>
+                    <property name="name">accountCode</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">16</property>
+                    <property name="name">accountName</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">17</property>
+                    <property name="name">glAccountClassId</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">glFiscalTypeId</property>
+                    <text-property name="displayName">glFiscalTypeId</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">acctgTransTypeId</property>
+                    <text-property name="displayName">acctgTransTypeId</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">transactionDate</property>
+                    <text-property name="displayName">transactionDate</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">postedDate</property>
+                    <text-property name="displayName">postedDate</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">transDescription</property>
+                    <text-property name="displayName">transDescription</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">glJournalId</property>
+                    <text-property name="displayName">glJournalId</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">invoiceId</property>
+                    <text-property name="displayName">invoiceId</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">paymentId</property>
+                    <text-property name="displayName">paymentId</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">glAccountId</property>
+                    <text-property name="displayName">glAccountId</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">debitCreditFlag</property>
+                    <text-property name="displayName">debitCreditFlag</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">amount</property>
+                    <text-property name="displayName">amount</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">currencyUomId</property>
+                    <text-property name="displayName">currencyUomId</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">origAmount</property>
+                    <text-property name="displayName">origAmount</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">origCurrencyUomId</property>
+                    <text-property name="displayName">origCurrencyUomId</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">glAccountTypeId</property>
+                    <text-property name="displayName">glAccountTypeId</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">accountCode</property>
+                    <text-property name="displayName">accountCode</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">accountName</property>
+                    <text-property name="displayName">accountName</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">glAccountClassId</property>
+                    <text-property name="displayName">glAccountClassId</text-property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">glFiscalTypeId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">acctgTransTypeId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">transactionDate</property>
+                        <property name="dataType">date-time</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">postedDate</property>
+                        <property name="dataType">date-time</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">transDescription</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">glJournalId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">invoiceId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">paymentId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">glAccountId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">debitCreditFlag</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">11</property>
+                        <property name="name">amount</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">12</property>
+                        <property name="name">currencyUomId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">13</property>
+                        <property name="name">origAmount</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">14</property>
+                        <property name="name">origCurrencyUomId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">15</property>
+                        <property name="name">glAccountTypeId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">16</property>
+                        <property name="name">accountCode</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">17</property>
+                        <property name="name">accountName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">18</property>
+                        <property name="name">glAccountClassId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">OFBiz</property>
+            <method name="open"><![CDATA[acctgTransAndEntries = new LinkedList();
+
+// get acctg trans entry of invoice
+invoiceAcctgTransAndEntries = new LinkedList();
+var orderBy = UtilMisc.toList("acctgTransId", "acctgTransEntrySeqId");
+try {
+    var conds = new LinkedList();
+    conds.add(EntityCondition.makeCondition("invoiceId", EntityOperator.EQUALS, invoiceId));
+    conds.add(EntityCondition.makeCondition("paymentId", EntityOperator.EQUALS, null));
+    invoiceAcctgTransAndEntries = delegator.findList("AcctgTransAndEntries", EntityCondition.makeCondition(conds), null, orderBy, null, false);
+    acctgTransAndEntries.addAll(invoiceAcctgTransAndEntries);
+} catch (e) {
+    Debug.logError(e, module);
+}
+
+totalRow = 0;
+countOfRow = 0;
+
+if (acctgTransAndEntries) {
+    totalRow = acctgTransAndEntries.size();
+}
+]]></method>
+            <method name="fetch"><![CDATA[if (countOfRow >= totalRow) return false;
+
+var acctgTransAndEntry = acctgTransAndEntries.get(countOfRow);
+row["glFiscalTypeId"] = acctgTransAndEntry.get("glFiscalTypeId");
+row["acctgTransTypeId"] = acctgTransAndEntry.get("acctgTransTypeId");
+row["transactionDate"] = acctgTransAndEntry.get("transactionDate");
+row["postedDate"] = acctgTransAndEntry.get("postedDate");
+row["transDescription"] = acctgTransAndEntry.get("transDescription");
+row["glJournalId"] = acctgTransAndEntry.get("glJournalId");
+row["invoiceId"] = acctgTransAndEntry.get("invoiceId");
+row["paymentId"] = acctgTransAndEntry.get("paymentId");
+row["glAccountId"] = acctgTransAndEntry.get("glAccountId");
+row["debitCreditFlag"] = acctgTransAndEntry.get("debitCreditFlag");
+row["amount"] = acctgTransAndEntry.get("amount");
+row["currencyUomId"] = acctgTransAndEntry.get("currencyUomId");
+row["origAmount"] = acctgTransAndEntry.get("origAmount");
+row["origCurrencyUomId"] = acctgTransAndEntry.get("origCurrencyUomId");
+row["glAccountTypeId"] = acctgTransAndEntry.get("glAccountTypeId");
+row["accountCode"] = acctgTransAndEntry.get("accountCode");
+row["accountName"] = acctgTransAndEntry.get("accountName");
+row["glAccountClassId"] = acctgTransAndEntry.get("glAccountClassId");
+
+countOfRow ++;
+return true;]]></method>
+        </script-data-set>
+        <script-data-set name="Invoice" id="286">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">invoiceId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">description</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">invoiceTypeDescription</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">statusDescription</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">invoiceDate</property>
+                    <property name="dataType">date-time</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">partyId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">partyName</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">invoiceId</property>
+                    <text-property name="displayName">invoiceId</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">description</property>
+                    <text-property name="displayName">description</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">invoiceTypeDescription</property>
+                    <text-property name="displayName">invoiceTypeDescription</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">statusDescription</property>
+                    <text-property name="displayName">statusDescription</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">invoiceDate</property>
+                    <text-property name="displayName">invoiceDate</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">partyId</property>
+                    <text-property name="displayName">partyId</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">partyName</property>
+                    <text-property name="displayName">partyName</text-property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">invoiceId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">description</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">invoiceTypeDescription</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">statusDescription</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">invoiceDate</property>
+                        <property name="dataType">date-time</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">partyId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">partyName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">OFBiz</property>
+            <method name="open"><![CDATA[countOfRow = 0;]]></method>
+            <method name="fetch"><![CDATA[if (countOfRow >= 1) return false;
+row["invoiceId"] = invoice.get("invoiceId");
+row["description"] = invoice.get("description");
+row["invoiceTypeDescription"] = invoice.getRelatedOne("InvoiceType", false).get("description");
+row["statusDescription"] = invoice.getRelatedOne("StatusItem", false).get("description");
+row["invoiceDate"] = invoice.get("invoiceDate");
+
+var partyId = null;
+if ("PURCHASE_INVOICE".equals(invoice.get("invoiceTypeId")) || "PURCHASE_INVOICE".equals(invoice.getRelatedOne("InvoiceType", false).get("parentTypeId"))) {
+    partyId = invoice.get("partyIdFrom");
+} else {
+    partyId = invoice.get("partyId");
+}
+
+var partyName = "";
+partyNameView = delegator.findOne("PartyNameView", UtilMisc.toMap("partyId", partyId), false);
+if (partyNameView.get("firstName")) {
+    partyName += partyNameView.get("firstName") + " ";
+}
+if (partyNameView.get("lastName")) {
+    partyName += partyNameView.get("lastName") + " ";
+}
+if (partyNameView.get("groupName")) {
+    partyName += partyNameView.get("groupName") + " ";
+}
+
+row["partyId"] = partyId;
+row["partyName"] = partyName;
+
+countOfRow ++;
+return true;]]></method>
+        </script-data-set>
+    </data-sets>
+    <styles>
+        <style name="report" id="4">
+            <property name="fontFamily">sans-serif</property>
+            <property name="fontSize">10pt</property>
+        </style>
+        <style name="crosstab-cell" id="5">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+        <style name="crosstab" id="6">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+    </styles>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <property name="orientation">landscape</property>
+            <property name="headerHeight">2.7in</property>
+            <page-header>
+                <grid id="7">
+                    <property name="width">10.363636363636363in</property>
+                    <column id="8">
+                        <property name="width">1.494949494949495in</property>
+                        <property name="fontWeight">bold</property>
+                        <property name="textAlign">right</property>
+                    </column>
+                    <column id="9">
+                        <property name="width">3.696969696969697in</property>
+                    </column>
+                    <column id="46">
+                        <property name="width">2.585858585858586in</property>
+                        <property name="fontSize">10pt</property>
+                        <property name="fontWeight">bold</property>
+                        <property name="textAlign">right</property>
+                    </column>
+                    <column id="56">
+                        <property name="width">2.585858585858586in</property>
+                    </column>
+                    <row id="10">
+                        <cell id="11">
+                            <property name="colSpan">2</property>
+                            <property name="rowSpan">1</property>
+                            <property name="textAlign">left</property>
+                            <image id="28">
+                                <method name="onCreate"><![CDATA[if (logoImageUrl) {
+    if (logoImageUrl.startsWith("http")) {
+        this.URL = logoImageUrl;
+    } else {
+        this.file = logoImageUrl;
+    }
+}]]></method>
+                                <property name="source">url</property>
+                                <property name="fitToContainer">false</property>
+                            </image>
+                        </cell>
+                        <cell id="37">
+                            <label id="57">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">right</property>
+                                <method name="onCreate"><![CDATA[this.text = uiLabelMap.get("CommonUsername") + ":";]]></method>
+                                <text-property name="text">Username: </text-property>
+                            </label>
+                        </cell>
+                        <cell id="47">
+                            <text-data id="151">
+                                <expression name="valueExpr">if (userLogin != null ) {userLoginNameView.getString("firstName") + "&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;" + userLoginNameView.getString("lastName")}</expression>
+                                <property name="contentType">html</property>
+                            </text-data>
+                        </cell>
+                    </row>
+                    <row id="13">
+                        <cell id="14">
+                            <label id="91">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">right</property>
+                                <method name="onCreate"><![CDATA[this.text = uiLabelMap.get("FormFieldTitle_invoiceId") + ":";]]></method>
+                                <text-property name="text">Invoice ID: </text-property>
+                            </label>
+                        </cell>
+                        <cell id="15">
+                            <data id="287">
+                                <property name="dataSet">Invoice</property>
+                                <list-property name="boundDataColumns">
+                                    <structure>
+                                        <property name="name">invoiceId</property>
+                                        <text-property name="displayName">invoiceId</text-property>
+                                        <expression name="expression">dataSetRow["invoiceId"]</expression>
+                                        <property name="dataType">string</property>
+                                    </structure>
+                                </list-property>
+                                <property name="resultSetColumn">invoiceId</property>
+                            </data>
+                        </cell>
+                        <cell id="38">
+                            <label id="58">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">right</property>
+                                <method name="onCreate"><![CDATA[this.text = uiLabelMap.get("CommonDate") + ":";]]></method>
+                                <text-property name="text">Date: </text-property>
+                            </label>
+                        </cell>
+                        <cell id="48">
+                            <data id="290">
+                                <property name="dataSet">Invoice</property>
+                                <list-property name="boundDataColumns">
+                                    <structure>
+                                        <property name="name">invoiceDate</property>
+                                        <text-property name="displayName">invoiceDate</text-property>
+                                        <expression name="expression">dataSetRow["invoiceDate"]</expression>
+                                        <property name="dataType">date-time</property>
+                                    </structure>
+                                </list-property>
+                                <method name="onCreate"><![CDATA[this.setDisplayValue(dateFormatter.format(row["invoiceDate"]));]]></method>
+                                <property name="resultSetColumn">invoiceDate</property>
+                            </data>
+                        </cell>
+                    </row>
+                    <row id="16">
+                        <cell id="17">
+                            <label id="63">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">right</property>
+                                <method name="onCreate"><![CDATA[this.text = uiLabelMap.get("FormFieldTitle_description") + ":";]]></method>
+                                <text-property name="text">Description: </text-property>
+                            </label>
+                        </cell>
+                        <cell id="18">
+                            <data id="288">
+                                <property name="dataSet">Invoice</property>
+                                <list-property name="boundDataColumns">
+                                    <structure>
+                                        <property name="name">description</property>
+                                        <text-property name="displayName">description</text-property>
+                                        <expression name="expression">dataSetRow["description"]</expression>
+                                        <property name="dataType">string</property>
+                                    </structure>
+                                </list-property>
+                                <property name="resultSetColumn">description</property>
+                            </data>
+                        </cell>
+                        <cell id="39">
+                            <label id="60">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">right</property>
+                                <method name="onCreate"><![CDATA[this.text = uiLabelMap.get("FormFieldTitle_partyId");]]></method>
+                                <text-property name="text">Party ID: </text-property>
+                            </label>
+                        </cell>
+                        <cell id="49">
+                            <data id="291">
+                                <property name="dataSet">Invoice</property>
+                                <list-property name="boundDataColumns">
+                                    <structure>
+                                        <property name="name">partyId</property>
+                                        <text-property name="displayName">partyId</text-property>
+                                        <expression name="expression">dataSetRow["partyId"]</expression>
+                                        <property name="dataType">string</property>
+                                    </structure>
+                                </list-property>
+                                <property name="resultSetColumn">partyId</property>
+                            </data>
+                        </cell>
+                    </row>
+                    <row id="19">
+                        <cell id="20">
+                            <label id="64">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">right</property>
+                                <method name="onCreate"><![CDATA[this.text = uiLabelMap.get("FormFieldTitle_status");]]></method>
+                                <text-property name="text">Status: </text-property>
+                            </label>
+                        </cell>
+                        <cell id="21">
+                            <data id="289">
+                                <property name="dataSet">Invoice</property>
+                                <list-property name="boundDataColumns">
+                                    <structure>
+                                        <property name="name">statusDescription</property>
+                                        <text-property name="displayName">statusDescription</text-property>
+                                        <expression name="expression">dataSetRow["statusDescription"]</expression>
+                                        <property name="dataType">string</property>
+                                    </structure>
+                                </list-property>
+                                <property name="resultSetColumn">statusDescription</property>
+                            </data>
+                        </cell>
+                        <cell id="40">
+                            <label id="61">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">right</property>
+                                <method name="onCreate"><![CDATA[this.text = uiLabelMap.get("FormFieldTitle_partyName");]]></method>
+                                <text-property name="text">Party Name: </text-property>
+                            </label>
+                        </cell>
+                        <cell id="50">
+                            <data id="292">
+                                <property name="dataSet">Invoice</property>
+                                <list-property name="boundDataColumns">
+                                    <structure>
+                                        <property name="name">partyName</property>
+                                        <text-property name="displayName">partyName</text-property>
+                                        <expression name="expression">dataSetRow["partyName"]</expression>
+                                        <property name="dataType">string</property>
+                                    </structure>
+                                </list-property>
+                                <property name="resultSetColumn">partyName</property>
+                            </data>
+                        </cell>
+                    </row>
+                    <row id="279">
+                        <cell id="280">
+                            <label id="302">
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">right</property>
+                                <method name="onCreate"><![CDATA[this.text = uiLabelMap.get("FormFieldTitle_referenceNumber");]]></method>
+                                <text-property name="text">Reference Number: </text-property>
+                            </label>
+                        </cell>
+                        <cell id="281">
+                            <data id="303">
+                                <method name="onCreate"><![CDATA[this.setDisplayValue(invoice.get("referenceNumber"));]]></method>
+                            </data>
+                        </cell>
+                        <cell id="282"/>
+                        <cell id="283"/>
+                    </row>
+                    <row id="273">
+                        <cell id="274">
+                            <property name="colSpan">4</property>
+                            <property name="rowSpan">1</property>
+                            <data id="293">
+                                <property name="fontSize">16pt</property>
+                                <property name="fontWeight">bold</property>
+                                <property name="textAlign">center</property>
+                                <property name="whiteSpace">nowrap</property>
+                                <property name="dataSet">Invoice</property>
+                                <list-property name="boundDataColumns">
+                                    <structure>
+                                        <property name="name">invoiceTypeDescription</property>
+                                        <text-property name="displayName">invoiceTypeDescription</text-property>
+                                        <expression name="expression" type="javascript">dataSetRow["invoiceTypeDescription"]</expression>
+                                        <property name="dataType">string</property>
+                                    </structure>
+                                </list-property>
+                                <property name="resultSetColumn">invoiceTypeDescription</property>
+                            </data>
+                        </cell>
+                    </row>
+                </grid>
+            </page-header>
+            <page-footer>
+                <grid id="138">
+                    <property name="height">0.4583333333333333in</property>
+                    <property name="width">10.354166666666666in</property>
+                    <column id="256">
+                        <property name="width">4.041666666666667in</property>
+                    </column>
+                    <column id="139">
+                        <property name="width">0.71875in</property>
+                    </column>
+                    <column id="140">
+                        <property name="width">0.3541666666666667in</property>
+                    </column>
+                    <column id="141">
+                        <property name="width">0.6875in</property>
+                    </column>
+                    <column id="257">
+                        <property name="width">4.552083333333333in</property>
+                    </column>
+                    <row id="142">
+                        <property name="height">0.4583333333333333in</property>
+                        <cell id="258"/>
+                        <cell id="143">
+                            <auto-text id="144">
+                                <property name="textAlign">right</property>
+                                <property name="type">page-number</property>
+                            </auto-text>
+                        </cell>
+                        <cell id="145">
+                            <text id="146">
+                                <property name="textAlign">center</property>
+                                <property name="contentType">plain</property>
+                                <text-property name="content"><![CDATA[of]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="147">
+                            <property name="textAlign">right</property>
+                            <auto-text id="148">
+                                <property name="textAlign">left</property>
+                                <property name="type">total-page</property>
+                            </auto-text>
+                        </cell>
+                        <cell id="259">
+                            <property name="textAlign">right</property>
+                        </cell>
+                    </row>
+                </grid>
+            </page-footer>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <table id="73">
+            <property name="borderBottomColor">#000000</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">thin</property>
+            <property name="borderLeftColor">#000000</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">thin</property>
+            <property name="borderRightColor">#000000</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">thin</property>
+            <property name="borderTopColor">#000000</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">thin</property>
+            <property name="width">10.505050505050505in</property>
+            <property name="dataSet">AcctgTransAndEntries</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">glFiscalTypeId</property>
+                    <expression name="expression">dataSetRow["glFiscalTypeId"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">acctgTransTypeId</property>
+                    <expression name="expression">dataSetRow["acctgTransTypeId"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">transactionDate</property>
+                    <expression name="expression">dataSetRow["transactionDate"]</expression>
+                    <property name="dataType">date-time</property>
+                </structure>
+                <structure>
+                    <property name="name">postedDate</property>
+                    <expression name="expression">dataSetRow["postedDate"]</expression>
+                    <property name="dataType">date-time</property>
+                </structure>
+                <structure>
+                    <property name="name">transDescription</property>
+                    <expression name="expression">dataSetRow["transDescription"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">glJournalId</property>
+                    <expression name="expression">dataSetRow["glJournalId"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">invoiceId</property>
+                    <expression name="expression">dataSetRow["invoiceId"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">paymentId</property>
+                    <expression name="expression">dataSetRow["paymentId"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">glAccountId</property>
+                    <expression name="expression">dataSetRow["glAccountId"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">debitCreditFlag</property>
+                    <expression name="expression">dataSetRow["debitCreditFlag"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">amount</property>
+                    <expression name="expression">dataSetRow["amount"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">currencyUomId</property>
+                    <expression name="expression">dataSetRow["currencyUomId"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">origAmount</property>
+                    <expression name="expression">dataSetRow["origAmount"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">origCurrencyUomId</property>
+                    <expression name="expression">dataSetRow["origCurrencyUomId"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">glAccountTypeId</property>
+                    <expression name="expression">dataSetRow["glAccountTypeId"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">accountCode</property>
+                    <expression name="expression">dataSetRow["accountCode"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">accountName</property>
+                    <expression name="expression">dataSetRow["accountName"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">glAccountClassId</property>
+                    <expression name="expression">dataSetRow["glAccountClassId"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <column id="86">
+                <property name="width">1.4895833333333333in</property>
+            </column>
+            <column id="87">
+                <property name="width">4.090909090909091in</property>
+            </column>
+            <column id="88">
+                <property name="width">1.3232323232323233in</property>
+                <property name="textAlign">center</property>
+            </column>
+            <column id="307">
+                <property name="width">1.3232323232323233in</property>
+                <property name="textAlign">center</property>
+            </column>
+            <column id="105">
+                <property name="width">1.1111111111111112in</property>
+                <property name="textAlign">center</property>
+            </column>
+            <column id="101">
+                <property name="width">1.1515151515151516in</property>
+                <property name="textAlign">center</property>
+            </column>
+            <header>
+                <row id="74">
+                    <property name="backgroundColor">#BFBFBF</property>
+                    <property name="fontWeight">bold</property>
+                    <property name="borderBottomColor">#000000</property>
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftColor">#000000</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightColor">#000000</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopColor">#000000</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <cell id="75">
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <label id="92">
+                            <method name="onCreate"><![CDATA[this.text = uiLabelMap.get("FormFieldTitle_accountCode");]]></method>
+                            <text-property name="text">Account Code</text-property>
+                        </label>
+                    </cell>
+                    <cell id="76">
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <label id="93">
+                            <method name="onCreate"><![CDATA[this.text = uiLabelMap.get("FormFieldTitle_accountName");]]></method>
+                            <text-property name="text">Account Name</text-property>
+                        </label>
+                    </cell>
+                    <cell id="77">
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <label id="106">
+                            <method name="onCreate"><![CDATA[this.text = uiLabelMap.get("AccountingOriginalCurrency");]]></method>
+                            <text-property name="text">Original Currency</text-property>
+                        </label>
+                    </cell>
+                    <cell id="304">
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <label id="308">
+                            <method name="onCreate"><![CDATA[this.text = uiLabelMap.get("FormFieldTitle_exchangeRate");]]></method>
+                            <text-property name="text">Exchange Rate</text-property>
+                        </label>
+                    </cell>
+                    <cell id="102">
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <label id="108">
+                            <method name="onCreate"><![CDATA[this.text = uiLabelMap.get("FormFieldTitle_debit");]]></method>
+                            <text-property name="text">Debit</text-property>
+                        </label>
+                    </cell>
+                    <cell id="98">
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <label id="109">
+                            <method name="onCreate"><![CDATA[this.text = uiLabelMap.get("FormFieldTitle_credit");]]></method>
+                            <text-property name="text">Credit</text-property>
+                        </label>
+                    </cell>
+                </row>
+            </header>
+            <detail>
+                <row id="78">
+                    <property name="borderBottomColor">#000000</property>
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftColor">#000000</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightColor">#000000</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopColor">#000000</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <cell id="79">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="261">
+                            <property name="resultSetColumn">accountCode</property>
+                        </data>
+                    </cell>
+                    <cell id="80">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="262">
+                            <property name="resultSetColumn">accountName</property>
+                        </data>
+                    </cell>
+                    <cell id="81">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="265">
+                            <property name="resultSetColumn">origCurrencyUomId</property>
+                        </data>
+                    </cell>
+                    <cell id="305">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="309">
+                            <property name="fontFamily">cursive</property>
+                            <list-property name="visibility">
+                                <structure>
+                                    <property name="format">all</property>
+                                    <expression name="valueExpr" type="javascript">row["origCurrencyUomId"].equals(row["currencyUomId"])</expression>
+                                </structure>
+                            </list-property>
+                            <method name="onCreate"><![CDATA[var exchangeRate = row["origAmount"]/row["amount"] + " " + row["origCurrencyUomId"] + "/" + row["currencyUomId"];
+this.setDisplayValue(exchangeRate);]]></method>
+                        </data>
+                    </cell>
+                    <cell id="103">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="310">
+                            <structure name="numberFormat">
+                                <property name="category">Currency</property>
+                                <property name="pattern">#,##0.00{RoundingMode=HALF_UP}</property>
+                            </structure>
+                            <method name="onCreate"><![CDATA[if ("D".equals(row["debitCreditFlag"])) {
+    debitTotal += row["amount"];
+    this.setDisplayValue(row["amount"]);
+}]]></method>
+                        </data>
+                    </cell>
+                    <cell id="99">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="311">
+                            <structure name="numberFormat">
+                                <property name="category">Currency</property>
+                                <property name="pattern">#,##0.00{RoundingMode=HALF_UP}</property>
+                            </structure>
+                            <method name="onCreate"><![CDATA[if ("C".equals(row["debitCreditFlag"])) {
+    creditTotal += row["amount"];
+    this.setDisplayValue(row["amount"]);
+}]]></method>
+                        </data>
+                    </cell>
+                </row>
+            </detail>
+            <footer>
+                <row id="82">
+                    <property name="verticalAlign">middle</property>
+                    <cell id="83">
+                        <label id="295">
+                            <property name="fontWeight">bold</property>
+                            <property name="textAlign">right</property>
+                            <method name="onCreate"><![CDATA[this.text = uiLabelMap.get("CommonTotal") + ":";]]></method>
+                            <text-property name="text">Total: </text-property>
+                        </label>
+                    </cell>
+                    <cell id="84">
+                        <data id="345">
+                            <property name="fontFamily">"Bitstream Charter"</property>
+                            <property name="fontSize">8pt</property>
+                            <property name="fontWeight">bold</property>
+                            <method name="onCreate"><![CDATA[if (debitTotal == creditTotal) {
+    var rule = null;
+    var amountLocale = null;
+    var baseCurrencyUomId = delegator.findOne("PartyAcctgPreference", UtilMisc.toMap("partyId", organizationPartyId), false).get("baseCurrencyUomId");
+    if ("THB".equals(baseCurrencyUomId)) {
+        rule = "%bahts-and-stangs";
+        amountLocale = new java.util.Locale("th");
+    } else {
+        rule = "%dollars-and-cents";
+        amountLocale = new java.util.Locale("us");
+    }
+    var formatRuleBaseAmount = UtilNumber.formatRuleBasedAmount(debitTotal, rule, amountLocale).toUpperCase();
+    this.setDisplayValue(formatRuleBaseAmount);
+} else {
+    this.setDisplayValue("Debit not equal to credit.");
+}]]></method>
+                        </data>
+                    </cell>
+                    <cell id="85"/>
+                    <cell id="306"/>
+                    <cell id="104">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="300">
+                            <property name="fontWeight">bold</property>
+                            <property name="textUnderline">underline</property>
+                            <structure name="numberFormat">
+                                <property name="category">Currency</property>
+                                <property name="pattern">#,##0.00{RoundingMode=HALF_UP}</property>
+                            </structure>
+                            <method name="onCreate"><![CDATA[this.setDisplayValue(debitTotal);]]></method>
+                        </data>
+                    </cell>
+                    <cell id="100">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="301">
+                            <property name="fontWeight">bold</property>
+                            <property name="textUnderline">underline</property>
+                            <structure name="numberFormat">
+                                <property name="category">Currency</property>
+                                <property name="pattern">#,##0.00{RoundingMode=HALF_UP}</property>
+                            </structure>
+                            <method name="onCreate"><![CDATA[this.setDisplayValue(creditTotal);]]></method>
+                        </data>
+                    </cell>
+                </row>
+            </footer>
+        </table>
+        <grid id="312">
+            <property name="width">9.727272727272727in</property>
+            <column id="313">
+                <property name="width">1.2323232323232323in</property>
+            </column>
+            <column id="328">
+                <property name="width">1.4747474747474747in</property>
+            </column>
+            <column id="314">
+                <property name="width">1.7777777777777777in</property>
+            </column>
+            <column id="331">
+                <property name="width">1.5555555555555556in</property>
+            </column>
+            <column id="315">
+                <property name="width">1.9191919191919191in</property>
+            </column>
+            <column id="334">
+                <property name="width">1.7676767676767677in</property>
+            </column>
+            <row id="316">
+                <cell id="317">
+                    <property name="paddingTop">0.5in</property>
+                    <text id="324">
+                        <property name="textAlign">right</property>
+                        <property name="contentType">auto</property>
+                        <text-property name="content"><![CDATA[Prepared by]]></text-property>
+                    </text>
+                </cell>
+                <cell id="326">
+                    <property name="paddingTop">0.5in</property>
+                    <text id="339">
+                        <property name="textAlign">center</property>
+                        <property name="contentType">auto</property>
+                        <text-property name="content"><![CDATA[..........................................]]></text-property>
+                    </text>
+                </cell>
+                <cell id="318">
+                    <property name="paddingTop">0.5in</property>
+                    <text id="335">
+                        <property name="textAlign">right</property>
+                        <property name="contentType">auto</property>
+                        <text-property name="content"><![CDATA[Approved by]]></text-property>
+                    </text>
+                </cell>
+                <cell id="329">
+                    <property name="paddingTop">0.5in</property>
+                    <text id="341">
+                        <property name="textAlign">center</property>
+                        <property name="contentType">auto</property>
+                        <text-property name="content"><![CDATA[..........................................]]></text-property>
+                    </text>
+                </cell>
+                <cell id="319">
+                    <property name="paddingTop">0.5in</property>
+                    <text id="337">
+                        <property name="textAlign">right</property>
+                        <property name="contentType">auto</property>
+                        <text-property name="content"><![CDATA[Received by]]></text-property>
+                    </text>
+                </cell>
+                <cell id="332">
+                    <property name="paddingTop">0.5in</property>
+                    <text id="343">
+                        <property name="textAlign">center</property>
+                        <property name="contentType">auto</property>
+                        <text-property name="content"><![CDATA[..........................................]]></text-property>
+                    </text>
+                </cell>
+            </row>
+            <row id="320">
+                <cell id="321">
+                    <property name="paddingTop">0.5in</property>
+                    <text id="325">
+                        <property name="textAlign">right</property>
+                        <method name="onCreate"><![CDATA[this.text = uiLabelMap.get("CommonDate");]]></method>
+                        <property name="contentType">auto</property>
+                        <text-property name="content"><![CDATA[Date]]></text-property>
+                    </text>
+                </cell>
+                <cell id="327">
+                    <property name="paddingTop">0.5in</property>
+                    <text id="340">
+                        <property name="textAlign">center</property>
+                        <property name="contentType">auto</property>
+                        <text-property name="content"><![CDATA[..........................................]]></text-property>
+                    </text>
+                </cell>
+                <cell id="322">
+                    <property name="paddingTop">0.5in</property>
+                    <text id="336">
+                        <property name="textAlign">right</property>
+                        <method name="onCreate"><![CDATA[this.text = uiLabelMap.get("CommonDate");]]></method>
+                        <property name="contentType">auto</property>
+                        <text-property name="content"><![CDATA[Date]]></text-property>
+                    </text>
+                </cell>
+                <cell id="330">
+                    <property name="paddingTop">0.5in</property>
+                    <text id="342">
+                        <property name="textAlign">center</property>
+                        <property name="contentType">auto</property>
+                        <text-property name="content"><![CDATA[..........................................]]></text-property>
+                    </text>
+                </cell>
+                <cell id="323">
+                    <property name="paddingTop">0.5in</property>
+                    <text id="338">
+                        <property name="textAlign">right</property>
+                        <method name="onCreate"><![CDATA[this.text = uiLabelMap.get("CommonDate");]]></method>
+                        <property name="contentType">auto</property>
+                        <text-property name="content"><![CDATA[Date]]></text-property>
+                    </text>
+                </cell>
+                <cell id="333">
+                    <property name="paddingTop">0.5in</property>
+                    <text id="344">
+                        <property name="textAlign">center</property>
+                        <property name="contentType">auto</property>
+                        <text-property name="content"><![CDATA[..........................................]]></text-property>
+                    </text>
+                </cell>
+            </row>
+        </grid>
+    </body>
+</report>

@@ -21,17 +21,14 @@ package org.apache.ofbiz.base.util;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Writer;
 import java.net.MalformedURLException;
@@ -40,11 +37,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import java.util.UUID;
-import java.util.zip.Deflater;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
-import java.util.zip.ZipOutputStream;
 import org.apache.commons.io.FileUtils;
 import org.apache.ofbiz.base.location.ComponentLocationResolver;
 
@@ -60,8 +52,8 @@ public final class FileUtil {
 
     private static class SearchTextFilesFilter implements FilenameFilter {
         String fileExtension;
-        Set<String> stringsToFindInFile = new HashSet<>();
-        Set<String> stringsToFindInPath = new HashSet<>();
+        Set<String> stringsToFindInFile = new HashSet<String>();
+        Set<String> stringsToFindInPath = new HashSet<String>();
 
         public SearchTextFilesFilter(String fileExtension, Set<String> stringsToFindInPath, Set<String> stringsToFindInFile) {
             this.fileExtension = fileExtension;
@@ -99,6 +91,9 @@ public final class FileUtil {
                 StringBuffer xmlFileBuffer = null;
                 try {
                     xmlFileBuffer = FileUtil.readTextFile(file, true);
+                } catch (FileNotFoundException e) {
+                    Debug.logWarning("Error reading xml file [" + file + "] for file search: " + e.toString(), module);
+                    return false;
                 } catch (IOException e) {
                     Debug.logWarning("Error reading xml file [" + file + "] for file search: " + e.toString(), module);
                     return false;
@@ -151,14 +146,22 @@ public final class FileUtil {
         writeString(null, fileName, s);
     }
 
-    public static void writeString(String path, String name, String s) {
-
-        try (
+    public static void writeString(String path, String name, String s) throws IOException {
         Writer out = getBufferedWriter(path, name);
-        ) {
+
+        try {
             out.write(s + System.getProperty("line.separator"));
         } catch (IOException e) {
             Debug.logError(e, module);
+            throw e;
+        } finally {
+            if (out != null) {
+                try {
+                    out.close();
+                } catch (IOException e) {
+                    Debug.logError(e, module);
+                }
+            }
         }
     }
 
@@ -200,7 +203,7 @@ public final class FileUtil {
             throw new IOException("Cannot obtain buffered writer for an empty filename!");
         }
 
-        return new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileName), UtilIO.getUtf8()));
+        return new BufferedWriter(new FileWriter(fileName));
     }
 
     public static OutputStream getBufferedOutputStream(String path, String name) throws IOException {
@@ -242,9 +245,9 @@ public final class FileUtil {
         }
 
         StringBuffer buf = new StringBuffer();
-        try (
-                BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(file), UtilIO
-                        .getUtf8()));) {
+        BufferedReader in = null;
+        try {
+            in = new BufferedReader(new FileReader(file));
 
             String str;
             while ((str = in.readLine()) != null) {
@@ -255,6 +258,15 @@ public final class FileUtil {
             }
         } catch (IOException e) {
             Debug.logError(e, module);
+            throw e;
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    Debug.logError(e, module);
+                }
+            }
         }
 
         return buf;
@@ -299,8 +311,8 @@ public final class FileUtil {
             basePath = System.getProperty("ofbiz.home");
         }
 
-        Set<String> stringsToFindInPath = new HashSet<>();
-        Set<String> stringsToFindInFile = new HashSet<>();
+        Set<String> stringsToFindInPath = new HashSet<String>();
+        Set<String> stringsToFindInFile = new HashSet<String>();
 
         if (partialPath != null) {
            stringsToFindInPath.add(partialPath);
@@ -309,7 +321,7 @@ public final class FileUtil {
            stringsToFindInFile.add(stringToFind);
         }
 
-        List<File> fileList = new LinkedList<>();
+        List<File> fileList = new LinkedList<File>();
         FileUtil.searchFiles(fileList, new File(basePath), new SearchTextFilesFilter(fileExt, stringsToFindInPath, stringsToFindInFile), true);
 
         return fileList;
@@ -320,20 +332,14 @@ public final class FileUtil {
             basePath = System.getProperty("ofbiz.home");
         }
 
-        Set<String> stringsToFindInPath = new HashSet<>();
-        Set<String> stringsToFindInFile = new HashSet<>();
+        Set<String> stringsToFindInPath = new HashSet<String>();
+        Set<String> stringsToFindInFile = new HashSet<String>();
 
-        if (partialPath != null) {
-            stringsToFindInPath.add(partialPath);
-        }
-        if (rootElementName != null) {
-            stringsToFindInFile.add("<" + rootElementName + " ");
-        }
-        if (xsdOrDtdName != null) {
-            stringsToFindInFile.add(xsdOrDtdName);
-        }
+        if (partialPath != null) stringsToFindInPath.add(partialPath);
+        if (rootElementName != null) stringsToFindInFile.add("<" + rootElementName + " ");
+        if (xsdOrDtdName != null) stringsToFindInFile.add(xsdOrDtdName);
 
-        List<File> fileList = new LinkedList<>();
+        List<File> fileList = new LinkedList<File>();
         FileUtil.searchFiles(fileList, new File(basePath), new SearchTextFilesFilter("xml", stringsToFindInPath, stringsToFindInFile), true);
         return fileList;
     }
@@ -356,14 +362,9 @@ public final class FileUtil {
        int count = 0;
        while((numCharsRead = reader.read(buffer)) > 0) {
            for (int c = 0; c < numCharsRead; ++c) {
-               if (buffer[c] == searchString.charAt(count)) {
-                   count++;
-               } else {
-                   count = 0;
-               }
-               if (count == searchString.length()) {
-                   return true;
-               }
+               if (buffer[c] == searchString.charAt(count)) count++;
+               else count = 0;
+               if (count == searchString.length()) return true;
            }
        }
        return false;
@@ -385,15 +386,17 @@ public final class FileUtil {
    public static boolean containsString(final String fileName, final String searchString) throws IOException {
        File inFile = new File(fileName);
        if (inFile.exists()) {
-            try (
-           BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(inFile),UtilIO.getUtf8()));
-            ) {
+           BufferedReader in = new BufferedReader(new FileReader(inFile));
+           try {
                return containsString(in, searchString);
+           } finally {
+               if (in != null)in.close();
            }
+       } else {
+           return false;
        }
-       return false;
    }
-
+   
    /**
    *
    *
@@ -408,84 +411,5 @@ public final class FileUtil {
        File f = new File(fileName);
        return f.isFile();
    }
-
-    /**
-     * For an inputStream and a file name, create a zip stream containing only one entry with the inputStream set to fileName
-     * If fileName is empty, generate a unique one.
-     *
-     * @param fileStream
-     * @param fileName
-     * @return
-     * @throws IOException
-     */
-    public static ByteArrayInputStream zipFileStream(InputStream fileStream, String fileName) throws IOException {
-        if (fileStream == null) return null;
-        if (fileName == null) fileName = UUID.randomUUID().toString();
-        // Create zip file from content input stream
-        String zipFileName = UUID.randomUUID().toString() + ".zip";
-        String zipFilePath = UtilProperties.getPropertyValue("general", "http.upload.tmprepository", "runtime/tmp");
-        FileOutputStream fos = new FileOutputStream(new File(zipFilePath, zipFileName));
-        ZipOutputStream zos = new ZipOutputStream(fos);
-        zos.setMethod(ZipOutputStream.DEFLATED);
-        zos.setLevel(Deflater.BEST_COMPRESSION);
-        ZipEntry ze = new ZipEntry(fileName);
-        zos.putNextEntry(ze);
-        int len;
-        byte[] bufferData = new byte[8192];
-        while ((len = fileStream.read(bufferData)) > 0) {
-            zos.write(bufferData, 0, len);
-        }
-        zos.closeEntry();
-        zos.close();
-        fos.close();
-
-        //prepare zip stream
-        File tmpZipFile = new File(zipFilePath, zipFileName);
-        ByteArrayInputStream zipStream = new ByteArrayInputStream(FileUtils.readFileToByteArray(tmpZipFile));
-
-        //Then delete zip file
-        tmpZipFile.delete();
-        return zipStream;
-    }
-
-    /**
-     * Unzip file structure of the given zipFile to specified outputFolder
-     *
-     * @param zipFile
-     * @param outputFolder
-     * @throws IOException
-     */
-    public static void unzipFileToFolder(File zipFile, String outputFolder) throws IOException {
-        byte[] buffer = new byte[8192];
-
-        //create output directory if not exists
-        File folder = new File(outputFolder);
-        if (!folder.exists()) {
-            folder.mkdir();
-        }
-
-        //get the zip file content
-        ZipInputStream zis = new ZipInputStream(new FileInputStream(zipFile));
-        //get the zipped file list entry
-        ZipEntry ze = zis.getNextEntry();
-
-        while (ze != null) {
-            String fileName = ze.getName();
-            File newFile = new File(outputFolder, fileName);
-
-            //create all non existing folders
-            //else you will hit FileNotFoundException for compressed folder
-            new File(newFile.getParent()).mkdirs();
-
-            FileOutputStream fos = new FileOutputStream(newFile);
-            int len;
-            while ((len = zis.read(buffer)) > 0) {
-                fos.write(buffer, 0, len);
-            }
-            fos.close();
-            ze = zis.getNextEntry();
-        }
-        zis.closeEntry();
-        zis.close();
-    }
+   
 }

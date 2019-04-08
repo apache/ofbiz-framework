@@ -170,6 +170,8 @@ under the License.
             <widgets>
                 <include-screen name="breadcrumbs"/>
                 <platform-specific><html><html-template location="component://order/template/entry/catalog/EditProduct.ftl"/></html></platform-specific>
+                <!--<platform-specific><html><html-template location="component://order/template/product/productdetail.ftl"/></html></platform-specific>-->
+                <!-- Warning: this ftl file in the order component is slightly different from that of the ecommerce one (the edit product link is shown) -->
                 <platform-specific><html><html-template location="component://order/template/entry/catalog/ProductDetail.ftl"/></html></platform-specific>
             </widgets>
         </section>
@@ -180,11 +182,13 @@ under the License.
                 <set field="productsummaryScreen" value="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#productsummary"/>
                 <set field="inlineProductDetailScreen" value="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#inlineProductDetail"/>
                 <script location="component://order/groovyScripts/entry/catalog/ProductDetail.groovy"/>
+                <!--<script location="component://ecommerce/groovyScripts/catalog/prepareconfigform.bsh"/>-->
                 <script location="component://order/groovyScripts/entry/catalog/PrepareConfigForm.groovy"/>
             </actions>
             <widgets>
                 <include-screen name="breadcrumbs"/>
                 <platform-specific><html><html-template location="component://order/template/entry/catalog/EditProduct.ftl"/></html></platform-specific>
+                <!--<platform-specific><html><html-template location="component://order/template/product/configproductdetail.ftl"/></html></platform-specific>-->
                 <platform-specific><html><html-template location="component://order/template/entry/catalog/ConfigProductDetail.ftl"/></html></platform-specific>
             </widgets>
         </section>

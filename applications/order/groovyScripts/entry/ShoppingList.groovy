@@ -17,6 +17,12 @@
  * under the License.
  */
 
+import org.apache.ofbiz.service.*
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.entity.condition.*
+import org.apache.ofbiz.entity.util.*
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.order.shoppingcart.*
 
 shoppingCart = session.getAttribute("shoppingCart")
 partyId = shoppingCart.getPartyId()

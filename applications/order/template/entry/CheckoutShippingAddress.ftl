@@ -17,22 +17,22 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<script type="application/javascript">
+<script type="text/javascript">
 //<![CDATA[
 function submitForm(form, mode, value) {
-    if ("DN" == mode) {
+    if (mode == "DN") {
         // done action; checkout
         form.action="<@ofbizUrl>checkoutoptions</@ofbizUrl>";
         form.submit();
-    } else if ("CS" == mode) {
+    } else if (mode == "CS") {
         // continue shopping
         form.action="<@ofbizUrl>updateCheckoutOptions/showcart</@ofbizUrl>";
         form.submit();
-    } else if ("NA" == mode) {
+    } else if (mode == "NA") {
         // new address
         form.action="<@ofbizUrl>updateCheckoutOptions/editcontactmech?preContactMechTypeId=POSTAL_ADDRESS&contactMechPurposeTypeId=SHIPPING_LOCATION&DONE_PAGE=checkoutshippingaddress</@ofbizUrl>";
         form.submit();
-    } else if ("EA" == mode) {
+    } else if (mode == "EA") {
         // edit address
         form.action="<@ofbizUrl>updateCheckoutOptions/editcontactmech?DONE_PAGE=checkoutshippingaddress&contactMechId="+value+"</@ofbizUrl>";
         form.submit();

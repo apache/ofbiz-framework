@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <VisualTheme visualThemeId="MULTIFLEX" visualThemeSetId="ECOMMERCE" description="Alternative VisualTheme for Ecommerce"/>
+    <VisualThemeResource visualThemeId="MULTIFLEX" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/ecommerce/images/blog.css" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="MULTIFLEX" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/multiflex/style.css" sequenceId="02"/>
+    <VisualThemeResource visualThemeId="MULTIFLEX" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/content/images/contentForum.css" sequenceId="04"/>
+    <VisualThemeResource visualThemeId="MULTIFLEX" resourceTypeEnumId="VT_SHORTCUT_ICON" resourceValue="/images/ofbiz.ico" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="MULTIFLEX" resourceTypeEnumId="VT_HDR_IMAGE_URL" resourceValue="/images/ofbiz_logo.gif" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="MULTIFLEX" resourceTypeEnumId="VT_HDR_TMPLT_LOC" resourceValue="component://multiflex/template/Header.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="MULTIFLEX" resourceTypeEnumId="VT_FTR_TMPLT_LOC" resourceValue="component://multiflex/template/Footer.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="MULTIFLEX" resourceTypeEnumId="VT_SCREENSHOT" resourceValue="/multiflex/screenshot.jpg" sequenceId="01"/>
+</entity-engine-xml>

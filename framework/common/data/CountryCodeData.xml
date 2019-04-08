@@ -556,7 +556,7 @@ under the License.
     <CountryTeleCode countryCode="BR" teleCode="55"/>
     <CountryTeleCode countryCode="BS" teleCode="1-242"/>
     <CountryTeleCode countryCode="BT" teleCode="975"/>
-    <CountryTeleCode countryCode="BV"/>
+    <CountryTeleCode countryCode="BV" teleCode=""/>
     <CountryTeleCode countryCode="BW" teleCode="267"/>
     <CountryTeleCode countryCode="BY" teleCode="375"/>
     <CountryTeleCode countryCode="BZ" teleCode="501"/>
@@ -587,7 +587,7 @@ under the License.
     <CountryTeleCode countryCode="EC" teleCode="593"/>
     <CountryTeleCode countryCode="EE" teleCode="372"/>
     <CountryTeleCode countryCode="EG" teleCode="20"/>
-    <CountryTeleCode countryCode="EH"/>
+    <CountryTeleCode countryCode="EH" teleCode=""/>
     <CountryTeleCode countryCode="ER" teleCode="291"/>
     <CountryTeleCode countryCode="ES" teleCode="34"/>
     <CountryTeleCode countryCode="ET" teleCode="251"/>
@@ -610,13 +610,13 @@ under the License.
     <CountryTeleCode countryCode="GP" teleCode="590"/>
     <CountryTeleCode countryCode="GQ" teleCode="240"/>
     <CountryTeleCode countryCode="GR" teleCode="30"/>
-    <CountryTeleCode countryCode="GS"/>
+    <CountryTeleCode countryCode="GS" teleCode=""/>
     <CountryTeleCode countryCode="GT" teleCode="502"/>
     <CountryTeleCode countryCode="GU" teleCode="1-671"/>
     <CountryTeleCode countryCode="GW" teleCode="245"/>
     <CountryTeleCode countryCode="GY" teleCode="592"/>
     <CountryTeleCode countryCode="HK" teleCode="852"/>
-    <CountryTeleCode countryCode="HM"/>
+    <CountryTeleCode countryCode="HM" teleCode=""/>
     <CountryTeleCode countryCode="HN" teleCode="504"/>
     <CountryTeleCode countryCode="HR" teleCode="385"/>
     <CountryTeleCode countryCode="HT" teleCode="509"/>
@@ -625,7 +625,7 @@ under the License.
     <CountryTeleCode countryCode="IE" teleCode="353"/>
     <CountryTeleCode countryCode="IL" teleCode="972"/>
     <CountryTeleCode countryCode="IN" teleCode="91"/>
-    <CountryTeleCode countryCode="IO"/>
+    <CountryTeleCode countryCode="IO" teleCode=""/>
     <CountryTeleCode countryCode="IQ" teleCode="964"/>
     <CountryTeleCode countryCode="IR" teleCode="98"/>
     <CountryTeleCode countryCode="IS" teleCode="354"/>
@@ -697,7 +697,7 @@ under the License.
     <CountryTeleCode countryCode="PK" teleCode="92"/>
     <CountryTeleCode countryCode="PL" teleCode="48"/>
     <CountryTeleCode countryCode="PM" teleCode="508"/>
-    <CountryTeleCode countryCode="PN"/>
+    <CountryTeleCode countryCode="PN" teleCode=""/>
     <CountryTeleCode countryCode="PR" teleCode="1-787"/>
     <CountryTeleCode countryCode="PT" teleCode="351"/>
     <CountryTeleCode countryCode="PW" teleCode="680"/>
@@ -715,7 +715,7 @@ under the License.
     <CountryTeleCode countryCode="SG" teleCode="65"/>
     <CountryTeleCode countryCode="SH" teleCode="290"/>
     <CountryTeleCode countryCode="SI" teleCode="386"/>
-    <CountryTeleCode countryCode="SJ"/>
+    <CountryTeleCode countryCode="SJ" teleCode=""/>
     <CountryTeleCode countryCode="SK" teleCode="421"/>
     <CountryTeleCode countryCode="SL" teleCode="232"/>
     <CountryTeleCode countryCode="SM" teleCode="378"/>
@@ -728,7 +728,7 @@ under the License.
     <CountryTeleCode countryCode="SZ" teleCode="268"/>
     <CountryTeleCode countryCode="TC" teleCode="1-649"/>
     <CountryTeleCode countryCode="TD" teleCode="235"/>
-    <CountryTeleCode countryCode="TF"/>
+    <CountryTeleCode countryCode="TF" teleCode=""/>
     <CountryTeleCode countryCode="TG" teleCode="228"/>
     <CountryTeleCode countryCode="TH" teleCode="66"/>
     <CountryTeleCode countryCode="TJ" teleCode="992"/>
@@ -744,7 +744,7 @@ under the License.
     <CountryTeleCode countryCode="TZ" teleCode="255"/>
     <CountryTeleCode countryCode="UA" teleCode="380"/>
     <CountryTeleCode countryCode="UG" teleCode="256"/>
-    <CountryTeleCode countryCode="UM"/>
+    <CountryTeleCode countryCode="UM" teleCode=""/>
     <CountryTeleCode countryCode="US" teleCode="1"/>
     <CountryTeleCode countryCode="UY" teleCode="598"/>
     <CountryTeleCode countryCode="UZ" teleCode="998"/>

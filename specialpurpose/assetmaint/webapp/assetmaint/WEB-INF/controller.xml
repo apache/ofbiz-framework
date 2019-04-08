@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Site-Conf" xsi:schemaLocation="http://ofbiz.apache.org/Site-Conf http://ofbiz.apache.org/dtds/site-conf.xsd">
+    <!-- Note: The order of the following include elements is important -->
+    <include location="component://workeffort/webapp/workeffort/WEB-INF/controller.xml"/>
+    <include location="component://product/webapp/catalog/WEB-INF/controller.xml"/>
+    <include location="component://product/webapp/facility/WEB-INF/controller.xml"/>
+    <include location="component://accounting/webapp/accounting/WEB-INF/controller.xml"/>
+
+    <description>Asset Maintenance Component Site Configuration File</description>
+
+    <request-map uri="main">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="mytasks"/>
+    </request-map>
+
+    <!-- FixedAssetMaintenance -->
+    <request-map uri="printFixedAssetMaint.pdf">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="PrintFixedAssetMaint"/>
+    </request-map>
+    <request-map uri="createFixedAssetMaintUpdateWorkEffort">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createFixedAssetMaintUpdateWorkEffort"/>
+        <response name="success" type="view" value="EditFixedAssetMaint"/>
+        <response name="error" type="view" value="EditFixedAssetMaint"/>
+    </request-map>
+    <request-map uri="updateFixedAssetMaintAndWorkEffort">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateFixedAssetMaintAndWorkEffort"/>
+        <response name="success" type="view" value="EditFixedAssetMaint"/>
+        <response name="error" type="view" value="EditFixedAssetMaint"/>
+    </request-map>
+    <request-map uri="findFixedAssetMaints">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindFixedAssetMaints"/>
+    </request-map>
+
+    <!--  WorkEffort request mappings -->
+    <request-map uri="EditWorkEfforts">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditWorkEfforts"/>
+    </request-map>
+    <request-map uri="createWorkEffort">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createWorkEffort"/>
+        <response name="success" type="view" value="EditWorkEfforts"/>
+        <response name="error" type="view" value="EditWorkEfforts"/>
+    </request-map>
+    <request-map uri="createWorkEffortPartyAssign">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="assignPartyToWorkEffort"/>
+        <response name="success" type="view" value="EditWorkEfforts"/>
+        <response name="error" type="view" value="EditWorkEfforts"/>
+    </request-map>
+    <request-map uri="updateWorkEffort">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateWorkEffort"/>
+        <response name="success" type="view" value="EditWorkEfforts"/>
+        <response name="error" type="view" value="EditWorkEfforts"/>
+    </request-map>
+    <request-map uri="updateWorkEffortPartyAssign">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updatePartyToWorkEffortAssignment"/>
+        <response name="success" type="view" value="EditWorkEfforts"/>
+        <response name="error" type="view" value="EditWorkEfforts"/>
+    </request-map>
+
+    <request-map uri="createWorkEffortAndAssoc">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createWorkEffortAndAssocWithParent"/>
+        <response name="success" type="view" value="EditWorkEfforts"/>
+        <response name="error" type="view" value="EditWorkEfforts"/>
+    </request-map>
+    <request-map uri="updateWorkEffortAndAssoc">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateWorkEffortAndAssoc"/>
+        <response name="success" type="view" value="EditWorkEfforts"/>
+        <response name="error" type="view" value="EditWorkEfforts"/>
+    </request-map>
+    <request-map uri="EditItemIssuances">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditItemIssuances"/>
+    </request-map>
+    <request-map uri="issueInventoryItemToFixedAssetMaint">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="addPartFixedAssetMaint"/>
+        <response name="success" type="view" value="EditItemIssuances"/>
+        <response name="error" type="view" value="EditItemIssuances"/>
+    </request-map>
+    <request-map uri="returnPartIssuedToFixedAssetMaint">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="returnInventoryItemIssuedToFixedAssetMaint"/>
+        <response name="success" type="view" value="EditItemIssuances"/>
+        <response name="error" type="view" value="EditItemIssuances"/>
+    </request-map>
+
+    <!-- ================ Lookup Requests ================= -->
+    <request-map uri="LookupPartsProduct"><security auth="true" https="true"/><response name="success" type="view" value="LookupPartsProduct"/></request-map>
+    <request-map uri="LookupWorkEffortShort"><security auth="true" https="true"/><response name="success" type="view" value="LookupWorkEffortShort"/></request-map>
+
+    <!-- end of request mappings -->
+
+    <!-- View Mappings -->
+    <view-map name="main" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#mytasks"/>
+
+    <!-- FixedAsset Maintenance screens -->
+    <view-map name="FindFixedAssetMaints" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#FindFixedAssetMaints"/>
+    <view-map name="EditFixedAssetMaint" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#EditFixedAssetMaint"/>
+    <view-map name="EditWorkEfforts" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#EditWorkEfforts"/>
+    <view-map name="EditWorkEffortTimeEntries" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#EditWorkEffortTimeEntries"/>
+    <view-map name="EditWorkEffortNotes" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#EditWorkEffortNotes"/>
+    <view-map name="EditItemIssuances" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#EditItemIssuances"/>
+    <view-map name="PrintFixedAssetMaint" type="screenfop" page="component://assetmaint/widget/AssetmaintScreens.xml#PrintFixedAssetMaint" content-type="application/pdf"/>
+
+    <!-- Lookup request mappings -->
+    <view-map name="LookupPartsProduct" type="screen" page="component://assetmaint/widget/ProductScreens.xml#LookupPartsProduct"/>
+    <view-map name="LookupWorkEffortShort" type="screen" page="component://workeffort/widget/LookupScreens.xml#LookupWorkEffortShort"/>
+
+<!--    <view-map name="EditWorkEffort" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#EditFixedAssetMaint"/> -->
+    <view-map name="EditProductMaints" type="screen" page="component://assetmaint/widget/ProductScreens.xml#EditProductMaints"/>
+    <!-- end of view mappings -->
+</site-conf>

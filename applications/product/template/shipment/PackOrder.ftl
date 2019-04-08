@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<script type="application/javascript">
+<script language="JavaScript" type="text/javascript">
     function clearLine(facilityId, orderId, orderItemSeqId, productId, shipGroupSeqId, inventoryItemId, packageSeqId) {
         document.clearPackLineForm.facilityId.value = facilityId;
         document.clearPackLineForm.orderId.value = orderId;
@@ -80,12 +80,13 @@ under the License.
                     /
                     <input type="text" name="shipGroupSeqId" size="6" maxlength="6" value="${shipGroupSeqId?default("00001")}"/>
                   </td>
-                  <td><label><span class="label">${uiLabelMap.ProductHideGrid}</span>&nbsp;<input type="checkbox" name="hideGrid" value="Y" <#if ("Y" == hideGrid)>checked=""</#if> /></label></td>
+                  <td><label><span class="label">${uiLabelMap.ProductHideGrid}</span>&nbsp;<input type="checkbox" name="hideGrid" value="Y" <#if (hideGrid == "Y")>checked=""</#if> /></label></td>
                   <td>&nbsp;</td>
                 </tr>
                 <tr>
                   <td colspan="2">&nbsp;</td>
                   <td colspan="2">
+                    <input type="image" src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" onclick="javascript:document.selectOrderForm.submit();" />
                     <a href="javascript:document.selectOrderForm.submit();" class="buttontext">${uiLabelMap.ProductPackOrder}</a>
                     <a href="javascript:document.selectOrderForm.action='<@ofbizUrl>WeightPackageOnly</@ofbizUrl>';document.selectOrderForm.submit();" class="buttontext">${uiLabelMap.ProductWeighPackageOnly}</a>
                   </td>
@@ -104,12 +105,13 @@ under the License.
                   <td width="25%">
                     <input type="text" name="picklistBinId" size="29" maxlength="60" value="${picklistBinId!}"/>
                   </td>
-                  <td><label><span class="label">${uiLabelMap.ProductHideGrid}</span>&nbsp;<input type="checkbox" name="hideGrid" value="Y" <#if ("Y" == hideGrid)>checked=""</#if> /></label></td>
+                  <td><label><span class="label">${uiLabelMap.ProductHideGrid}</span>&nbsp;<input type="checkbox" name="hideGrid" value="Y" <#if (hideGrid == "Y")>checked=""</#if> /></label></td>
                   <td>&nbsp;</td>
                 </tr>
                 <tr>
                   <td colspan="2">&nbsp;</td>
                   <td colspan="1">
+                    <input type="image" src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" onclick="javascript:document.selectPicklistBinForm.submit();" />
                     <a href="javascript:document.selectPicklistBinForm.submit();" class="buttontext">${uiLabelMap.ProductPackOrder}</a>
                     <a href="javascript:document.selectPicklistBinForm.action='<@ofbizUrl>WeightPackageOnly</@ofbizUrl>';document.selectPicklistBinForm.submit();" class="buttontext">${uiLabelMap.ProductWeighPackageOnly}</a>
                   </td>
@@ -180,14 +182,14 @@ under the License.
                     <td valign="top">
                       <span class="label">${uiLabelMap.ProductCarrierShipmentMethod}</span>
                       <br />
-                      <#if "USPS" == carrier>
+                      <#if carrier == "USPS">
                         <#assign color = "red">
-                      <#elseif "UPS" == carrier>
+                      <#elseif carrier == "UPS">
                         <#assign color = "green">
                       <#else>
                         <#assign color = "black">
                       </#if>
-                      <#if "_NA_" != carrier>
+                      <#if carrier != "_NA_">
                         <font color="${color}">${carrier}</font>
                         &nbsp;
                       </#if>
@@ -263,7 +265,7 @@ under the License.
                       <td align="right">${uiLabelMap.ProductPackedQty}</td>
                       <td>&nbsp;</td>
                       <td align="center">${uiLabelMap.ProductPackQty}</td>
-                      <td align="center">${uiLabelMap.ProductPackedWeight}&nbsp;<#if defaultWeightUom?has_content>(${defaultWeightUom.get("abbreviation",locale)!})</#if></td>
+                      <td align="center">${uiLabelMap.ProductPackedWeight}&nbsp;(${("uiLabelMap.ProductShipmentUomAbbreviation_" + defaultWeightUomId)?eval})</td>
                       <td align="center">${uiLabelMap.ProductPackage}</td>
                       <td align="right">&nbsp;<b>*</b>&nbsp;${uiLabelMap.ProductPackages}</td>
                     </tr>
@@ -356,7 +358,7 @@ under the License.
                         <#assign packageSeqIds = packingSession.getPackageSeqIds()/>
                         <#if packageSeqIds?has_content>
                             <td>
-                                <span class="label">${uiLabelMap.ProductPackedWeight} <#if defaultWeightUom?has_content>(${defaultWeightUom.get("abbreviation",locale)!})</#if>:</span>
+                                <span class="label">${uiLabelMap.ProductPackedWeight} (${("uiLabelMap.ProductShipmentUomAbbreviation_" + defaultWeightUomId)?eval}):</span>
                                 <br />
                                 <#list packageSeqIds as packageSeqId>
                                     ${uiLabelMap.ProductPackage} ${packageSeqId}
@@ -405,10 +407,10 @@ under the License.
                       <td align="right">
                         <div>
                           <#assign buttonName = "${uiLabelMap.ProductComplete}">
-                          <#if "true" == forceComplete?default("false")>
+                          <#if forceComplete?default("false") == "true">
                             <#assign buttonName = "${uiLabelMap.ProductCompleteForce}">
                           </#if>
-                          <input type="submit" value="${buttonName}"/>
+                          <input type="button" value="${buttonName}" onclick="javascript:document.completePackForm.submit();"/>
                         </div>
                       </td>
                     </tr>
@@ -446,7 +448,7 @@ under the License.
                     <td>${uiLabelMap.ProductProductDescription}</td>
                     <td>${uiLabelMap.ProductInventoryItem} ${uiLabelMap.CommonNbr}</td>
                     <td align="right">${uiLabelMap.ProductPackedQty}</td>
-                    <td align="right">${uiLabelMap.ProductPackedWeight}&nbsp;<#if defaultWeightUom?has_content>(${defaultWeightUom.get("abbreviation",locale)!})</#if>&nbsp;(${uiLabelMap.ProductPackage})</td>
+                    <td align="right">${uiLabelMap.ProductPackedWeight}&nbsp;(${("uiLabelMap.ProductShipmentUomAbbreviation_" + defaultWeightUomId)?eval})&nbsp;(${uiLabelMap.ProductPackage})</td>
                     <td align="right">${uiLabelMap.ProductPackage} ${uiLabelMap.CommonNbr}</td>
                     <td>&nbsp;</td>
                   </tr>
@@ -490,7 +492,7 @@ under the License.
                   <td>${uiLabelMap.ProductProductDescription}</td>
                   <td>${uiLabelMap.ProductInventoryItem} ${uiLabelMap.CommonNbr}</td>
                   <td align="right">${uiLabelMap.ProductPackedQty}</td>
-                  <td align="right">${uiLabelMap.ProductPackedWeight}&nbsp;<#if defaultWeightUom?has_content>(${defaultWeightUom.get("abbreviation",locale)!})</#if>&nbsp;(${uiLabelMap.ProductPackage})</td>
+                  <td align="right">${uiLabelMap.ProductPackedWeight}&nbsp;(${("uiLabelMap.ProductShipmentUomAbbreviation_" + defaultWeightUomId)?eval})&nbsp;(${uiLabelMap.ProductPackage})</td>
                   <td align="right">${uiLabelMap.ProductPackage} ${uiLabelMap.CommonNbr}</td>
                   <td>&nbsp;</td>
               </tr>
@@ -516,11 +518,11 @@ under the License.
   </#if>
 
   <#if orderId?has_content>
-    <script type="application/javascript">
+    <script language="javascript" type="text/javascript">
       document.singlePackForm.productId.focus();
     </script>
   <#else>
-    <script type="application/javascript">
+    <script language="javascript" type="text/javascript">
       document.selectOrderForm.orderId.focus();
     </script>
   </#if>

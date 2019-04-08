@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0" 
+      xmlns:xl="http://www.w3.org/1999/xlink"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xsi:schemaLocation="http://docbook.org/ns/docbook ../../content/dtd/docbook.xsd"
+      xmlns="http://docbook.org/ns/docbook">
+
+    <info>
+        <title>Apache OFBiz official documentation.</title>
+        <abstract>
+            <para>
+                This Book is currently in an experimental stage. It will be the start of moving the OFBiz documentation from the current 
+                <link xl:href="https://cwiki.apache.org/confluence/display/OFBIZ/Home">OFBiz documentation site</link> and the old ofbiz website (Entity documents) to the OFBiz content component. 
+                The layout is currently open for discussion by the OFBiz community. 
+            </para>
+            <para>
+                The advantages of using it within OFBiz are:
+                <orderedlist>
+                    <listitem><para>No external system required for documentation</para></listitem>
+                    <listitem><para>The content of the internal help files can be used within the documentation</para></listitem>
+                    <listitem><para>The documentation always has the same version as the system (It is part of it)</para></listitem>
+                    <listitem><para>The content is stored in a internationally accepted <link xl:href="http://docbook.org">'DocBook'</link> format</para></listitem>
+                    <listitem><para>The content can be easily presented in the selected visual schemas (To be implemented)</para></listitem>
+                </orderedlist>
+            </para>
+            <para>
+                If you want to contribute to this document, you are very welcome.
+                Several possibilities exist:
+                <orderedlist>
+                    <listitem><para>Convert existing OFBiz documents on the <link xl:href="https://cwiki.apache.org/confluence/display/OFBADMIN/OFBiz+Documentation+Index">OFBiz documentation site</link> to the <link xl:href="http://docbook.org">docbookformat</link></para></listitem>
+                    <listitem><para>Write new document chapters for an OFBiz component</para></listitem>
+                    <listitem><para>Write new Help screens which can be inserted as sections in the document.</para></listitem>
+                </orderedlist>
+                How to contribute? It depends if you have a local OFBiz system or not. If you have, check the appendix for an explanation how the document text is stored within the OFBiz system.
+                If you do not have a local OFBiz system write your text in an xml editor using the DocBook V5.0 schema's.
+                If you have text to contribute create a Jira issue and upload your text to the issue.           
+            </para>
+        </abstract>
+    </info> 
+
+    <xi:include href="ApacheOfbizUser.xml"/>
+    <xi:include href="ApacheOfbizTechnical.xml"/>
+
+</set>

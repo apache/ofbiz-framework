@@ -98,12 +98,13 @@ public class ResponseHelper {
     }
 
     public void writeResponse(HttpServletResponse response, Writer writer) throws IOException {
-        try (ByteArrayOutputStream os = new ByteArrayOutputStream()) {
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        try {
             UtilXml.writeXmlDocument(os, this.responseDocument, "UTF-8", true, true);
-        response.setContentLength(os.size());
-        writer.write(os.toString("UTF-8"));
         } catch (Exception e) {
             throw new IOException(e.getMessage());
         }
+        response.setContentLength(os.size());
+        writer.write(os.toString("UTF-8"));
     }
 }

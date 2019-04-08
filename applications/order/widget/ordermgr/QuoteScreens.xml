@@ -67,7 +67,7 @@ under the License.
                 <set field="titleProperty" value="OrderFindQuote"/>
                 <set field="headerItem" value="quote"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
             </actions>
             <widgets>
@@ -307,7 +307,7 @@ under the License.
                 <set field="tabButtonItem" value="ListQuoteItems"/>
 
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <entity-one entity-name="Quote" value-field="quote" auto-field-map="true"/>
                 <entity-and entity-name="QuoteItem" list="quoteItems">
@@ -387,7 +387,7 @@ under the License.
                 <decorator-screen name="CommonQuoteDecorator" location="${parameters.quoteDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.OrderOrderQuoteListAttributes}">
-                            <container style="basic-nav">
+                            <container>
                                 <link target="EditQuoteAttribute" text="${uiLabelMap.OrderCreateOrderQuoteAttribute}" style="buttontext">
                                     <parameter param-name="quoteId" from-field="quote.quoteId"/>
                                 </link>
@@ -442,7 +442,7 @@ under the License.
                 <decorator-screen name="CommonQuoteDecorator" location="${parameters.quoteDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.OrderOrderQuoteListCoefficients}">
-                            <container style="basic-nav">
+                            <container>
                                 <link target="EditQuoteCoefficient" text="${uiLabelMap.OrderCreateOrderQuoteCoefficient}" style="buttontext">
                                     <parameter param-name="quoteId" from-field="quote.quoteId"/>
                                 </link>
@@ -488,7 +488,7 @@ under the License.
                 <set field="titleProperty" value="OrderOrderQuotePrices"/>
                 <set field="tabButtonItem" value="ManageQuotePrices"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
 
                 <entity-one entity-name="Quote" value-field="quote" auto-field-map="true"/>
@@ -530,7 +530,7 @@ under the License.
                 <set field="titleProperty" value="OrderOrderQuoteListAdjustments"/>
                 <set field="tabButtonItem" value="ListQuoteAdjustments"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
 
                 <set field="quoteId" from-field="parameters.quoteId"/>
@@ -543,7 +543,7 @@ under the License.
                 <decorator-screen name="CommonQuoteDecorator" location="${parameters.quoteDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.OrderOrderQuoteListAdjustments}">
-                            <container style="basic-nav">
+                            <container>
                                 <link target="autoCreateQuoteAdjustments" text="${uiLabelMap.OrderRunStorePromotions}" style="buttontext">
                                     <parameter param-name="quoteId"/>
                                 </link>
@@ -592,7 +592,7 @@ under the License.
                 <set field="titleProperty" value="OrderOrderQuoteViewProfit"/>
                 <set field="tabButtonItem" value="ViewQuoteProfit"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
 
                 <entity-one entity-name="Quote" value-field="quote" auto-field-map="true"/>
@@ -766,7 +766,7 @@ under the License.
     <screen name="EditQuoteTerm">
         <section>
             <actions>
-                <set field="titleProperty" from-field="uiLabelMap.OrderOrderQuoteEditTerm"/>
+                <set field="titleProperty" value="${uiLabelMap.OrderOrderQuoteEditTerm}"/>
                 <set field="tabButtonItem" value="QuoteTerms"/>
                 <set field="quoteId" from-field="parameters.quoteId"/>
                 <set field="termTypeId" from-field="parameters.termTypeId"/>
@@ -789,7 +789,7 @@ under the License.
     <screen name="EditQuoteTermItem">
         <section>
             <actions>
-                <set field="titleProperty" from-field="uiLabelMap.OrderOrderQuoteEditTerm"/>
+                <set field="titleProperty" value="${uiLabelMap.OrderOrderQuoteEditTerm}"/>
                 <set field="tabButtonItem" value="ListQuoteItems"/>
                 <set field="quoteId" from-field="parameters.quoteId"/>
                 <set field="termTypeId" from-field="parameters.termTypeId"/>
@@ -812,7 +812,7 @@ under the License.
     <screen name="ListQuoteTerms">
         <section>
             <actions>
-                <set field="titleProperty" from-field="uiLabelMap.OrderOrderQuoteEditTerm"/>
+                <set field="titleProperty" value="${uiLabelMap.OrderOrderQuoteEditTerm}"/>
                 <set field="tabButtonItem" value="QuoteTerms"/>
                 <set field="quoteId" from-field="parameters.quoteId"/>
                 <set field="termTypeId" from-field="parameters.termTypeId"/>

@@ -25,6 +25,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -35,6 +36,9 @@ import java.util.TimeZone;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
+import freemarker.cache.MultiTemplateLoader;
+import freemarker.cache.StringTemplateLoader;
+import freemarker.cache.TemplateLoader;
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
@@ -44,9 +48,6 @@ import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.cache.UtilCache;
 
-import freemarker.cache.MultiTemplateLoader;
-import freemarker.cache.StringTemplateLoader;
-import freemarker.cache.TemplateLoader;
 import freemarker.cache.URLTemplateLoader;
 import freemarker.core.Environment;
 import freemarker.ext.beans.BeanModel;
@@ -62,7 +63,6 @@ import freemarker.template.TemplateHashModel;
 import freemarker.template.TemplateModel;
 import freemarker.template.TemplateModelException;
 import freemarker.template.Version;
-import org.apache.ofbiz.widget.model.ModelWidget;
 
 /**
  * FreeMarkerWorker - Freemarker Template Engine Utilities.
@@ -104,16 +104,12 @@ public final class FreeMarkerWorker {
         TemplateLoader[] templateLoaders = {new FlexibleTemplateLoader(), new StringTemplateLoader()};
         MultiTemplateLoader multiTemplateLoader = new MultiTemplateLoader(templateLoaders);
         newConfig.setTemplateLoader(multiTemplateLoader);
-        Map<?, ?> freemarkerImports = UtilProperties.getProperties("freemarkerImports");
+        Map freemarkerImports = UtilProperties.getProperties("freemarkerImports");
         if (freemarkerImports != null) {
             newConfig.setAutoImports(freemarkerImports);
         }
         newConfig.setLogTemplateExceptions(false);
-        boolean verboseTemplate = ModelWidget.widgetBoundaryCommentsEnabled(null)
-                || UtilProperties.getPropertyAsBoolean("widget", "widget.freemarker.template.verbose", false);
-        newConfig.setTemplateExceptionHandler(verboseTemplate
-                ? OFBizTemplateExceptionHandler.OFBIZ_DEBUG_HANDLER
-                : OFBizTemplateExceptionHandler.OFBIZ_DEFAULT_HANDLER);
+        newConfig.setTemplateExceptionHandler(new FreeMarkerWorker.OFBizTemplateExceptionHandler());
         try {
             newConfig.setSetting("datetime_format", "yyyy-MM-dd HH:mm:ss.SSS");
             newConfig.setSetting("number_format", "0.##########");
@@ -144,14 +140,14 @@ public final class FreeMarkerWorker {
     }
 
     private static void loadTransforms(ClassLoader loader, Properties props, Configuration config) {
-        for (Object object : props.keySet()) {
-            String key = (String) object;
+        for (Iterator<Object> i = props.keySet().iterator(); i.hasNext();) {
+            String key = (String) i.next();
             String className = props.getProperty(key);
             if (Debug.verboseOn()) {
                 Debug.logVerbose("Adding FTL Transform " + key + " with class " + className, module);
             }
             try {
-                config.setSharedVariable(key, loader.loadClass(className).getDeclaredConstructor().newInstance());
+                config.setSharedVariable(key, loader.loadClass(className).newInstance());
             } catch (Exception e) {
                 Debug.logError(e, "Could not pre-initialize dynamically loaded class: " + className + ": " + e, module);
             }
@@ -222,7 +218,7 @@ public final class FreeMarkerWorker {
      * @param env An Environment instance
      * @param context The context Map containing the user settings
      */
-    private static void applyUserSettings(Environment env, Map<String, Object> context) {
+    private static void applyUserSettings(Environment env, Map<String, Object> context) throws TemplateException {
         Locale locale = (Locale) context.get("locale");
         if (locale == null) {
             locale = Locale.getDefault();
@@ -241,7 +237,7 @@ public final class FreeMarkerWorker {
      * call this method instead of creating its own <code>Configuration</code> instance. The instance
      * returned by this method includes the <code>component://</code> resolver and the OFBiz custom
      * transformations.
-     *
+     * 
      * @return A <code>Configuration</code> instance.
      */
     public static Configuration getDefaultOfbizConfig() {
@@ -253,11 +249,11 @@ public final class FreeMarkerWorker {
      * found in the cache, then one will be created.
      * @param templateLocation Location of the template - file path or URL
      */
-    public static Template getTemplate(String templateLocation) throws IOException {
+    public static Template getTemplate(String templateLocation) throws TemplateException, IOException {
         return getTemplate(templateLocation, cachedTemplates, defaultOfbizConfig);
     }
 
-    public static Template getTemplate(String templateLocation, UtilCache<String, Template> cache, Configuration config) throws IOException {
+    public static Template getTemplate(String templateLocation, UtilCache<String, Template> cache, Configuration config) throws TemplateException, IOException {
         Template template = cache.get(templateLocation);
         if (template == null) {
             template = config.getTemplate(templateLocation);
@@ -355,7 +351,7 @@ public final class FreeMarkerWorker {
     }
 
     public static Map<String, Object> createEnvironmentMap(Environment env) {
-        Map<String, Object> templateRoot = new HashMap<>();
+        Map<String, Object> templateRoot = new HashMap<String, Object>();
         Set<String> varNames = null;
         try {
             varNames = UtilGenerics.checkSet(env.getKnownVariableNames());
@@ -383,7 +379,7 @@ public final class FreeMarkerWorker {
     }
 
     public static Map<String, Object> saveValues(Map<String, Object> context, String [] saveKeyNames) {
-        Map<String, Object> saveMap = new HashMap<>();
+        Map<String, Object> saveMap = new HashMap<String, Object>();
         for (String key: saveKeyNames) {
             Object o = context.get(key);
             if (o instanceof Map<?, ?>) {
@@ -403,7 +399,7 @@ public final class FreeMarkerWorker {
             if (o instanceof Map<?, ?>) {
                 context.put(key, UtilMisc.makeMapWritable(UtilGenerics.checkMap(o)));
             } else if (o instanceof List<?>) {
-                List<Object> list = new ArrayList<>();
+                List<Object> list = new ArrayList<Object>();
                 list.addAll(UtilGenerics.checkList(o));
                 context.put(key, list);
             } else {
@@ -482,9 +478,7 @@ public final class FreeMarkerWorker {
     static class FlexibleTemplateLoader extends URLTemplateLoader {
         @Override
         protected URL getURL(String name) {
-            if (name != null && name.startsWith("delegator:")) {
-                return null; // this is a template stored in the database
-            }
+            if (name != null && name.startsWith("delegator:")) return null; // this is a template stored in the database
             URL locationUrl = null;
             try {
                 locationUrl = FlexibleLocation.resolveLocation(name);
@@ -496,33 +490,16 @@ public final class FreeMarkerWorker {
     }
 
     /**
-     * OFBiz specific {@link TemplateExceptionHandler} interface.
+     * OFBiz specific TemplateExceptionHandler.
      */
-    interface OFBizTemplateExceptionHandler {
-
-        /**
-         * {@link TemplateExceptionHandler} that suppresses the exception and keep the rendering going on.
-         * It sanitizes any messages present in the stack trace prior to printing to the output writer.
-         */
-        TemplateExceptionHandler OFBIZ_DEBUG_HANDLER = (te, env, out) -> {
+    static class OFBizTemplateExceptionHandler implements TemplateExceptionHandler {
+        public void handleTemplateException(TemplateException te, Environment env, Writer out) throws TemplateException {
             try {
                 out.write(te.getMessage());
                 Debug.logError(te, module);
             } catch (IOException e) {
                 Debug.logError(e, module);
             }
-        };
-
-        /**
-         * {@link TemplateExceptionHandler} that suppresses the exception and replace by a generic char for quiet alert.
-         * As mentioned in the doc, the stack trace is still logged {@link TemplateExceptionHandler#IGNORE_HANDLER}
-         */
-        TemplateExceptionHandler OFBIZ_DEFAULT_HANDLER = (te, env, out) -> {
-            try {
-                out.write(UtilProperties.getPropertyValue("widget", "widget.freemarker.template.exception.message","∎"));
-            } catch (IOException e) {
-                Debug.logError(e, module);
-            }
-        };
+        }
     }
 }

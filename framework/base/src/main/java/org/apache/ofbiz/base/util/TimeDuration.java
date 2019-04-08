@@ -19,7 +19,6 @@
 package org.apache.ofbiz.base.util;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 import org.apache.ofbiz.base.lang.SourceMonitored;
 import org.apache.ofbiz.base.lang.ThreadSafe;
@@ -177,13 +176,9 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
         }
         try {
             TimeDuration that = (TimeDuration) obj;
-            return this.years == that.years
-                    && this.months == that.months
-                    && this.days == that.days
-                    && this.hours == that.hours
-                    && this.minutes == that.minutes
-                    && this.seconds == that.seconds
-                    && this.milliseconds == that.milliseconds;
+            return this.years == that.years && this.months == that.months && this.days == that.days
+            && this.hours == that.hours && this.minutes == that.minutes && this.seconds == that.seconds
+            && this.milliseconds == that.milliseconds;
         } catch (Exception e) {}
         return false;
     }
@@ -295,11 +290,6 @@ public class TimeDuration implements Serializable, Comparable<TimeDuration> {
         cal.add(Calendar.MONTH, this.months);
         cal.add(Calendar.YEAR, this.years);
         return cal;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(milliseconds, seconds, minutes, hours, days, months, years);
     }
 
     /** Returns a <code>TimeDuration</code> instance derived from an encoded

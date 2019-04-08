@@ -17,5 +17,5 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#include "component://common-theme/template/macro/HtmlFormMacroLibrary.ftl" ignore_missing=true />
-<#include "component://common-theme/template/includes/HtmlTemplate.ftl" ignore_missing=true />
+<#include "component://widget/templates/HtmlFormMacroLibrary.ftl" ignore_missing=true />
+<#include "component://common/template/includes/HtmlTemplate.ftl" ignore_missing=true />

@@ -209,7 +209,7 @@ public class UtilObjectTests extends GenericTestCaseBase {
     }
 
     public void testGetBytes_Object() {
-        assertNotNull("long", UtilObject.getBytes(0L));
+        assertNotNull("long", UtilObject.getBytes(Long.valueOf(0)));
         assertNotNull("injector good", UtilObject.getBytes(new SerializationInjector(false, false)));
         boolean errorOn = Debug.isOn(Debug.ERROR);
         try {
@@ -222,7 +222,7 @@ public class UtilObjectTests extends GenericTestCaseBase {
     }
 
     public void testGetObject() {
-        Long one = 1L;
+        Long one = Long.valueOf(1);
         byte[] oneBytes = UtilObject.getBytes(one);
         assertNotNull("oneBytes", oneBytes);
         assertEquals("one getObject", one, UtilObject.getObject(oneBytes));
@@ -249,7 +249,7 @@ public class UtilObjectTests extends GenericTestCaseBase {
     }
 
     public void testGetByteCount() throws Exception {
-        assertNotSame("long", 0, UtilObject.getByteCount(0L));
+        assertNotSame("long", 0, UtilObject.getByteCount(Long.valueOf(0)));
         Exception caught = null;
         try {
             UtilObject.getByteCount(this);
@@ -271,8 +271,8 @@ public class UtilObjectTests extends GenericTestCaseBase {
     }
 
     public void testCompareToHelper() {
-        Long one = 1L;
-        Long two = 2L;
+        Long one = Long.valueOf(1);
+        Long two = Long.valueOf(2);
         assertComparison("one <-> two", -1, UtilObject.compareToHelper(one, two));
         assertComparison("one <-> one", 0, UtilObject.compareToHelper(one, one));
         assertComparison("two <-> one", 1, UtilObject.compareToHelper(two, one));

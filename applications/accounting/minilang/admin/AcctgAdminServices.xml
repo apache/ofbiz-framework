@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
+    <!-- ========= Miscellaenous services for accounting ========= -->
+    <simple-method method-name="createPartyAcctgPreference"
+        short-description="Create accounting preference settings for a party">
+        <!-- permission checking is done in the services definition file (services_other.xml) -->
+
+        <!-- check that the party is an INTERNAL_ORGANIZATION, as defined in PartyRole -->
+        <set from-field="parameters.partyId" field="lookupParams.partyId"/>
+        <set value="INTERNAL_ORGANIZATIO" field="lookupParams.roleTypeId"/>
+        <find-by-primary-key entity-name="PartyRole" map="lookupParams" value-field="partyRole" use-cache="true"/>
+        <if-empty field="partyRole">
+            <add-error><fail-property resource="AccountingUiLabels" property="AccountingPartyMustBeInternalOrganization"/></add-error>
+            <check-errors/>
+        </if-empty>
+        <!-- Does not check if the Party is actually a company because real people have to pay taxes too -->
+
+        <!-- TODO: maybe check to make sure that all fields are not null -->
+        <make-value value-field="newEntity" entity-name="PartyAcctgPreference"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        <create-value value-field="newEntity"/>
+    </simple-method>
+
+    <simple-method method-name="getPartyAccountingPreferences"
+            short-description="Get the accounting preference settings for a party (organization)">
+        <make-value entity-name="PartyAcctgPreference" value-field="aggregatedPartyAcctgPref"/>
+        <set field="currentOrganizationPartyId" from-field="parameters.organizationPartyId"/>
+        <set field="containsEmptyFields" type="Boolean" value="true"/>
+        <while>
+            <condition>
+                <and>
+                    <not><if-empty field="currentOrganizationPartyId"></if-empty></not>
+                    <if-compare field="containsEmptyFields" operator="equals" value="true"/>
+                </and>
+            </condition>
+            <then>
+                <clear-field field="parentPartyRelationship"/>
+                <clear-field field="entityKey"/>
+                <clear-field field="entityValue"/>
+                <entity-one entity-name="PartyAcctgPreference" value-field="currentPartyAcctgPref">
+                    <field-map field-name="partyId" from-field="currentOrganizationPartyId"/>
+                </entity-one>
+                <set field="containsEmptyFields" type="Boolean" value="false"/>
+
+                <if-not-empty field="currentPartyAcctgPref">
+                    <iterate-map map="currentPartyAcctgPref" key="entityKey" value="entityValue">
+                        <if-empty field="aggregatedPartyAcctgPref.${entityKey}">
+                            <if-not-empty field="entityValue">
+                                <set field="aggregatedPartyAcctgPref.${entityKey}" from-field="entityValue"/>
+                            <else>
+                                <set field="containsEmptyFields" type="Boolean" value="true"/>
+                            </else>
+                            </if-not-empty>
+                        </if-empty>
+                    </iterate-map>
+                <else>
+                    <set field="containsEmptyFields" type="Boolean" value="true"/>
+                </else>
+                </if-not-empty>
+
+                <entity-and entity-name="PartyRelationship" list="parentPartyRelationships" filter-by-date="true">
+                    <field-map field-name="partyIdTo" from-field="currentOrganizationPartyId"/>
+                    <field-map field-name="partyRelationshipTypeId" value="GROUP_ROLLUP"/>
+                    <field-map field-name="roleTypeIdFrom" value="_NA_"/>
+                    <field-map field-name="roleTypeIdTo" value="_NA_"/>
+                </entity-and>
+
+                <if-not-empty field="parentPartyRelationships">
+                    <first-from-list list="parentPartyRelationships" entry="parentPartyRelationship"/>
+                    <set field="currentOrganizationPartyId" from-field="parentPartyRelationship.partyIdFrom"/>
+                <else>
+                    <clear-field field="currentOrganizationPartyId"/>
+                </else>
+                </if-not-empty>
+            </then>
+        </while>
+
+        <if-not-empty field="aggregatedPartyAcctgPref">
+            <set field="aggregatedPartyAcctgPref.partyId" from-field="parameters.organizationPartyId"/>
+            <field-to-result field="aggregatedPartyAcctgPref" result-name="partyAccountingPreference"/>
+        </if-not-empty>
+    </simple-method>
+
+    <simple-method method-name="setAcctgCompany" short-description="Set Accounting Company when select or create an accounting company">
+        <!-- set user preference -->
+        <entity-one entity-name="PartyAcctgPreference" value-field="partyAcctgPreference">
+            <field-map field-name="partyId" from-field="parameters.organizationPartyId"/>
+        </entity-one>
+        <if-not-empty field="partyAcctgPreference">
+            <set field="setUserPref.userPrefGroupTypeId" value="GLOBAL_PREFERENCES"/>
+            <set field="setUserPref.userPrefTypeId" value="ORGANIZATION_PARTY"/>
+            <set field="setUserPref.userPrefValue" from-field="parameters.organizationPartyId"/>
+            <call-service service-name="setUserPreference" in-map-name="setUserPref"/>
+        </if-not-empty>
+        <field-to-result field="parameters.organizationPartyId" result-name="organizationPartyId"/>
+    </simple-method>
+
+    <!-- update currency conversion rates in the UomConversionDated entity -->
+    <simple-method method-name="updateFXConversion" short-description="Update Foreign Exchange conversion rate">
+        <!-- set the FX rate changes as of now -->
+        <if-empty field="parameters.asOfTimestamp">
+            <now-timestamp field="nowTimestamp"/>
+        <else>
+            <set from-field="parameters.asOfTimestamp" field="nowTimestamp"/>
+        </else>
+        </if-empty>
+
+        <!-- find the existing exchange rates for this currency pair -->
+        <entity-condition entity-name="UomConversionDated" list="uomConversions" filter-by-date="true">
+            <condition-list>
+                <condition-expr field-name="uomId" operator="equals" from-field="parameters.uomId"/>
+                <condition-expr field-name="uomIdTo" operator="equals" from-field="parameters.uomIdTo"/>
+                <condition-expr field-name="purposeEnumId" operator="equals" from-field="parameters.purposeEnumId" ignore-if-empty="true"/>
+            </condition-list>
+        </entity-condition>
+
+        <!-- expire all of them -->
+        <iterate list="uomConversions" entry="uomConversion">
+            <if-empty field="parameters.fromDate">
+                <set from-field="nowTimestamp" field="uomConversion.thruDate"/>
+            <else>
+                <set from-field="parameters.fromDate" field="uomConversion.thruDate"/>
+            </else>
+            </if-empty>
+        </iterate>
+        <store-list list="uomConversions"/>
+
+        <!-- now create a new conversion relationship -->
+        <set-service-fields service-name="createUomConversionDated" map="parameters" to-map="createParams"/>
+        <if-empty field="parameters.fromDate">
+            <set field="createParams.fromDate" from-field="nowTimestamp"/>
+        </if-empty>
+        <call-service service-name="createUomConversionDated" in-map-name="createParams"/>
+    </simple-method>
+    
+    <!-- Get currency conversion rates in the UomConversionDated entity -->
+    <simple-method method-name="getFXConversion" short-description="Get Foreign Exchange conversion rate">
+        <if-empty field="parameters.asOfTimestamp">
+            <now-timestamp field="asOfTimestamp"/>
+            <else>
+                <set field="asOfTimestamp" from-field="parameters.asOfTimestamp"/>
+            </else>
+        </if-empty>
+        <!-- find the existing exchange rates-->
+        <entity-condition entity-name="UomConversionDated" list="rates" filter-by-date="true">
+            <condition-list combine="and">
+                <condition-expr field-name="uomId" from-field="parameters.uomId"/>
+                <condition-expr field-name="uomIdTo" from-field="parameters.uomIdTo"/>
+                <condition-expr field-name="fromDate" operator="less-equals" from-field="asOfTimestamp"/>
+                <condition-list combine="or">
+                    <condition-expr field-name="thruDate" operator="greater-equals" from-field="asOfTimestamp"/>
+                    <condition-expr field-name="thruDate" operator="equals" from-field="nullField"/>
+                </condition-list>
+            </condition-list>
+            <order-by field-name="-fromDate"/>
+        </entity-condition>
+        
+        <set field="conversionRate" type="BigDecimal" value="1"/>
+        <if-not-empty field="rates">
+            <set field="conversionFactor" from-field="rates[0].conversionFactor"/>
+            <set field="originalValue" type="BigDecimal" value="1"/>
+            
+            <calculate field="conversionRate" type="BigDecimal" decimal-scale="2" rounding-mode="HalfUp">
+                <calcop operator="divide">
+                    <calcop operator="get" field="originalValue"/>
+                    <calcop operator="get" field="conversionFactor"/>
+                </calcop>
+            </calculate>
+            <else>
+                <log level="error" message="Could not find conversion rate"></log>
+            </else>
+        </if-not-empty>
+        <field-to-result field="conversionRate" result-name="conversionRate"/>
+    </simple-method>
+</simple-methods>

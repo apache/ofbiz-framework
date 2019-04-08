@@ -56,6 +56,7 @@ import org.apache.ofbiz.service.ModelService;
 public final class ProductWorker {
 
     public static final String module = ProductWorker.class.getName();
+    private static final String resource = "ProductUiLabels";
 
     private static final MathContext generalRounding = new MathContext(10);
 
@@ -73,10 +74,12 @@ public final class ProductWorker {
 
             if (chargeShipping == null) {
                 return true;
+            } else {
+                return chargeShipping.booleanValue();
             }
-            return chargeShipping;
+        } else {
+            throw new IllegalArgumentException(errMsg);
         }
-        throw new IllegalArgumentException(errMsg);
     }
 
     public static boolean isBillableToAddress(GenericValue product, GenericValue postalAddress) {
@@ -147,10 +150,12 @@ public final class ProductWorker {
 
             if (taxable == null) {
                 return true;
+            } else {
+                return taxable.booleanValue();
             }
-            return taxable;
+        } else {
+            throw new IllegalArgumentException(errMsg);
         }
-        throw new IllegalArgumentException(errMsg);
     }
 
     public static String getInstanceAggregatedId(Delegator delegator, String instanceProductId) throws GenericEntityException {
@@ -196,8 +201,9 @@ public final class ProductWorker {
         GenericValue productAssoc = EntityUtil.getFirst(productAssocs);
         if (productAssoc != null) {
             return productAssoc.getString("productId");
+        } else {
+            return null;
         }
-        return null;
     }
 
     public static List<GenericValue> getVariantVirtualAssocs(GenericValue variantProduct) throws GenericEntityException {
@@ -232,17 +238,12 @@ public final class ProductWorker {
 
         // check to see if we got enough back...
         if (availableToPromise.compareTo(quantity) >= 0) {
-            if (Debug.infoOn()) {
-                Debug.logInfo("Inventory IS available in facility with id " + inventoryFacilityId + " for product id " + productId + "; desired quantity is " + quantity + ", available quantity is " + availableToPromise, module);
-            }
+            if (Debug.infoOn()) Debug.logInfo("Inventory IS available in facility with id " + inventoryFacilityId + " for product id " + productId + "; desired quantity is " + quantity + ", available quantity is " + availableToPromise, module);
             return true;
+        } else {
+            if (Debug.infoOn()) Debug.logInfo("Returning false because there is insufficient inventory available in facility with id " + inventoryFacilityId + " for product id " + productId + "; desired quantity is " + quantity + ", available quantity is " + availableToPromise, module);
+            return false;
         }
-        if (Debug.infoOn()) {
-            Debug.logInfo("Returning false because there is insufficient inventory available in facility with id "
-                    + inventoryFacilityId + " for product id " + productId + "; desired quantity is " + quantity
-                    + ", available quantity is " + availableToPromise, module);
-        }
-        return false;
     }
 
     /**
@@ -278,7 +279,7 @@ public final class ProductWorker {
      */
     public static Set<GenericValue> getVariantDistinguishingFeatures(GenericValue variantProduct) throws GenericEntityException {
         if (variantProduct == null) {
-            return new HashSet<>();
+            return new HashSet<GenericValue>();
         }
         if (!"Y".equals(variantProduct.getString("isVariant"))) {
             throw new IllegalArgumentException("Cannot get distinguishing features for a product that is not a variant (ie isVariant!=Y).");
@@ -287,7 +288,7 @@ public final class ProductWorker {
         String virtualProductId = getVariantVirtualId(variantProduct);
 
         // find all selectable features on the virtual product that are also standard features on the variant
-        Set<GenericValue> distFeatures = new HashSet<>();
+        Set<GenericValue> distFeatures = new HashSet<GenericValue>();
 
         List<GenericValue> variantDistinguishingFeatures = EntityQuery.use(delegator).from("ProductFeatureAndAppl").where("productId", variantProduct.get("productId"), "productFeatureApplTypeId", "DISTINGUISHING_FEAT").cache(true).queryList();
 
@@ -299,7 +300,7 @@ public final class ProductWorker {
 
         List<GenericValue> virtualSelectableFeatures = EntityQuery.use(delegator).from("ProductFeatureAndAppl").where("productId", virtualProductId, "productFeatureApplTypeId", "SELECTABLE_FEATURE").cache(true).queryList();
 
-        Set<String> virtualSelectableFeatureIds = new HashSet<>();
+        Set<String> virtualSelectableFeatureIds = new HashSet<String>();
         for (GenericValue virtualSelectableFeature: EntityUtil.filterByDate(virtualSelectableFeatures)) {
             virtualSelectableFeatureIds.add(virtualSelectableFeature.getString("productFeatureId"));
         }
@@ -350,6 +351,8 @@ public final class ProductWorker {
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
+        } catch (Exception e) {
+            Debug.logError(e, module);
         }
         // finally fall back to the ID in square braces
         return "[" + alternativeOptionProductId + "]";
@@ -395,7 +398,7 @@ public final class ProductWorker {
             features = EntityUtil.orderBy(features, UtilMisc.toList("description"));
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
-            features = new LinkedList<>();
+            features = new LinkedList<GenericValue>();
         }
         return features;
     }
@@ -410,8 +413,9 @@ public final class ProductWorker {
 
         if (product != null) {
             return product.getString("virtualVariantMethodEnum");
+        } else {
+            return null;
         }
-        return null;
     }
 
     /**
@@ -423,7 +427,7 @@ public final class ProductWorker {
         if (product == null) {
             return null;
         }
-        List <List<Map<String,String>>> featureTypeFeatures = new LinkedList<>();
+        List <List<Map<String,String>>> featureTypeFeatures = new LinkedList<List<Map<String,String>>>();
         try {
             Delegator delegator = product.getDelegator();
             List<GenericValue> featuresSorted = EntityQuery.use(delegator)
@@ -433,13 +437,13 @@ public final class ProductWorker {
                                                     .cache(true)
                                                     .queryList();
             String oldType = null;
-            List<Map<String,String>> featureList = new LinkedList<>();
+            List<Map<String,String>> featureList = new LinkedList<Map<String,String>>();
             for (GenericValue productFeatureAppl: featuresSorted) {
                 if (oldType == null || !oldType.equals(productFeatureAppl.getString("productFeatureTypeId"))) {
                     // use first entry for type and description
                     if (oldType != null) {
                         featureTypeFeatures.add(featureList);
-                        featureList = new LinkedList<>();
+                        featureList = new LinkedList<Map<String,String>>();
                     }
                     GenericValue productFeatureType = EntityQuery.use(delegator).from("ProductFeatureType").where("productFeatureTypeId", productFeatureAppl.getString("productFeatureTypeId")).queryOne();
                     featureList.add(UtilMisc.<String, String>toMap("productFeatureTypeId", productFeatureAppl.getString("productFeatureTypeId"),
@@ -496,7 +500,7 @@ public final class ProductWorker {
         List<String> selectableTypes = EntityUtil.getFieldListFromEntityList(selectableFeatures, "productFeatureTypeId", true);
         // The standard features from the variant product
         List<GenericValue> standardFeatures = ProductWorker.getProductFeaturesByApplTypeId(variantProduct, "STANDARD_FEATURE");
-        List<GenericValue> result = new LinkedList<>();
+        List<GenericValue> result = new LinkedList<GenericValue>();
         for (GenericValue standardFeature : standardFeatures) {
             // For each standard variant feature check it is also a virtual selectable feature and
             // if a feature of the same type hasn't already been added to the list
@@ -509,7 +513,7 @@ public final class ProductWorker {
     }
 
     public static Map<String, List<GenericValue>> getOptionalProductFeatures(Delegator delegator, String productId) {
-        Map<String, List<GenericValue>> featureMap = new LinkedHashMap<>();
+        Map<String, List<GenericValue>> featureMap = new LinkedHashMap<String, List<GenericValue>>();
 
         List<GenericValue> productFeatureAppls = null;
         try {
@@ -523,7 +527,7 @@ public final class ProductWorker {
                 String featureType = appl.getString("productFeatureTypeId");
                 List<GenericValue> features = featureMap.get(featureType);
                 if (features == null) {
-                    features = new LinkedList<>();
+                    features = new LinkedList<GenericValue>();
                 }
                 features.add(appl);
                 featureMap.put(featureType, features);
@@ -560,24 +564,18 @@ public final class ProductWorker {
     }
 
     public static List<GenericValue> filterOrderAdjustments(List<GenericValue> adjustments, boolean includeOther, boolean includeTax, boolean includeShipping, boolean forTax, boolean forShipping) {
-        List<GenericValue> newOrderAdjustmentsList = new LinkedList<>();
+        List<GenericValue> newOrderAdjustmentsList = new LinkedList<GenericValue>();
 
         if (UtilValidate.isNotEmpty(adjustments)) {
             for (GenericValue orderAdjustment: adjustments) {
                 boolean includeAdjustment = false;
 
                 if ("SALES_TAX".equals(orderAdjustment.getString("orderAdjustmentTypeId"))) {
-                    if (includeTax) {
-                        includeAdjustment = true;
-                    }
+                    if (includeTax) includeAdjustment = true;
                 } else if ("SHIPPING_CHARGES".equals(orderAdjustment.getString("orderAdjustmentTypeId"))) {
-                    if (includeShipping) {
-                        includeAdjustment = true;
-                    }
+                    if (includeShipping) includeAdjustment = true;
                 } else {
-                    if (includeOther) {
-                        includeAdjustment = true;
-                    }
+                    if (includeOther) includeAdjustment = true;
                 }
 
                 // default to yes, include for shipping; so only exclude if includeInShipping is N, or false; if Y or null or anything else it will be included
@@ -698,7 +696,7 @@ public final class ProductWorker {
         if (product == null) {
             return null;
         }
-        List<GenericValue> categories = new LinkedList<>();
+        List<GenericValue> categories = new LinkedList<GenericValue>();
         try {
             List<GenericValue> categoryMembers = product.getRelated("ProductCategoryMember", null, null, false);
             categoryMembers = EntityUtil.filterByDate(categoryMembers);
@@ -833,24 +831,25 @@ public final class ProductWorker {
 
         if (weight == null) {
             return null;
-        }
-        // attempt a conversion if necessary
-        if (desiredUomId != null && product.get("weightUomId") != null && !desiredUomId.equals(product.get("weightUomId"))) {
-            Map<String, Object> result = new HashMap<>();
-            try {
-                result = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", weightUomId, "uomIdTo", desiredUomId, "originalValue", weight));
-            } catch (GenericServiceException e) {
-                Debug.logError(e, module);
-            }
+        } else {
+            // attempt a conversion if necessary
+            if (desiredUomId != null && product.get("weightUomId") != null && !desiredUomId.equals(product.get("weightUomId"))) {
+                Map<String, Object> result = new HashMap<String, Object>();
+                try {
+                    result = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", weightUomId, "uomIdTo", desiredUomId, "originalValue", weight));
+                } catch (GenericServiceException e) {
+                    Debug.logError(e, module);
+                }
 
-            if (result.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_SUCCESS) && result.get("convertedValue") != null) {
-                weight = (BigDecimal) result.get("convertedValue");
-            } else {
-                Debug.logError("Unsupported conversion from [" + weightUomId + "] to [" + desiredUomId + "]", module);
-                return null;
+                if (result.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_SUCCESS) && result.get("convertedValue") != null) {
+                    weight = (BigDecimal) result.get("convertedValue");
+                } else {
+                    Debug.logError("Unsupported conversion from [" + weightUomId + "] to [" + desiredUomId + "]",module);
+                    return null;
+                }
             }
+            return weight;
         }
-        return weight;
     }
 
 
@@ -872,9 +871,7 @@ public final class ProductWorker {
             String idToFind, String goodIdentificationTypeId,
             boolean searchProductFirst, boolean searchAllId) throws GenericEntityException {
 
-        if (Debug.verboseOn()) {
-            Debug.logVerbose("Analyze goodIdentification: entered id = " + idToFind + ", goodIdentificationTypeId = " + goodIdentificationTypeId, module);
-        }
+        if (Debug.verboseOn()) Debug.logVerbose("Analyze goodIdentification: entered id = " + idToFind + ", goodIdentificationTypeId = " + goodIdentificationTypeId, module);
 
         GenericValue product = null;
         List<GenericValue> productsFound = null;
@@ -898,15 +895,10 @@ public final class ProductWorker {
         }
 
         if (product != null) {
-            if (UtilValidate.isNotEmpty(productsFound)) {
-                productsFound.add(product);
-            } else {
-                productsFound = UtilMisc.toList(product);
-            }
+            if (UtilValidate.isNotEmpty(productsFound)) productsFound.add(product);
+            else productsFound = UtilMisc.toList(product);
         }
-        if (Debug.verboseOn()) {
-            Debug.logVerbose("Analyze goodIdentification: found product.productId = " + product + ", and list : " + productsFound, module);
-        }
+        if (Debug.verboseOn()) Debug.logVerbose("Analyze goodIdentification: found product.productId = " + product + ", and list : " + productsFound, module);
         return productsFound;
     }
 
@@ -990,7 +982,7 @@ public final class ProductWorker {
     }
 
     public static Set<String> getRefurbishedProductIdSet(String productId, Delegator delegator) throws GenericEntityException {
-        Set<String> productIdSet = new HashSet<>();
+        Set<String> productIdSet = new HashSet<String>();
 
         // find associated refurb items, we want serial number for main item or any refurb items too
         List<GenericValue> refubProductAssocs = EntityQuery.use(delegator).from("ProductAssoc").where("productId", productId, "productAssocTypeId", "PRODUCT_REFURB").filterByDate().queryList();
@@ -1148,13 +1140,13 @@ nextProd:
 
         return variantProductId;
     }
-
+    
     public static boolean isAlternativePacking(Delegator delegator, String productId, String virtualVariantId) {
         boolean isAlternativePacking = false;
         if(productId != null || virtualVariantId != null){
             List<GenericValue> alternativePackingProds = null;
             try {
-                List<EntityCondition> condList = new LinkedList<>();
+                List<EntityCondition> condList = new LinkedList<EntityCondition>();
 
                 if (UtilValidate.isNotEmpty(productId)) {
                     condList.add(EntityCondition.makeCondition("productIdTo", productId));
@@ -1164,16 +1156,14 @@ nextProd:
                 }
                 condList.add(EntityCondition.makeCondition("productAssocTypeId", "ALTERNATIVE_PACKAGE"));
                 alternativePackingProds = EntityQuery.use(delegator).from("ProductAssoc").where(condList).cache(true).queryList();
-                if(UtilValidate.isNotEmpty(alternativePackingProds)) {
-                    isAlternativePacking = true;
-                }
+                if(UtilValidate.isNotEmpty(alternativePackingProds)) isAlternativePacking = true;
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, "Could not found alternative product: " + e.getMessage(), module);
             }
         }
         return isAlternativePacking;
     }
-
+    
     public static String getOriginalProductId(Delegator delegator, String productId){
         boolean isAlternativePacking = isAlternativePacking(delegator, null, productId);
         if (isAlternativePacking) {
@@ -1183,15 +1173,17 @@ nextProd:
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
-
+            
             if (productAssocs != null) {
                 GenericValue productAssoc = EntityUtil.getFirst(productAssocs);
                 return productAssoc.getString("productIdTo");
+            } else {
+                return null;
             }
+        }else{
             return null;
         }
-        return null;
-
+        
     }
     /**
      * worker to test if product can be order with a decimal quantity
@@ -1208,7 +1200,7 @@ nextProd:
         }
         String allowDecimalStore = EntityQuery.use(delegator).from("ProductStore").where("productStoreId", productStoreId).cache(true).queryOne().getString("orderDecimalQuantity");
         String allowDecimalProduct = EntityQuery.use(delegator).from("Product").where("productId", productId).cache(true).queryOne().getString("orderDecimalQuantity");
-
+        
         if("N".equals(allowDecimalProduct) || (UtilValidate.isEmpty(allowDecimalProduct) && "N".equals(allowDecimalStore))){
             return Boolean.FALSE;
         }
@@ -1228,23 +1220,23 @@ nextProd:
         return false;
     }
 
-    // Method to filter-out out of stock products
+    // Method to filter-out out of stock products 
     public static List<GenericValue> filterOutOfStockProducts (List<GenericValue> productsToFilter, LocalDispatcher dispatcher, Delegator delegator) throws GeneralException {
-        List<GenericValue> productsInStock = new ArrayList<>();
+        List<GenericValue> productsInStock = new ArrayList<GenericValue>();
         if (UtilValidate.isNotEmpty(productsToFilter)) {
             for (GenericValue genericRecord : productsToFilter) {
                 String productId = genericRecord.getString("productId");
                 GenericValue product = null;
                 product = EntityQuery.use(delegator).from("Product").where("productId", productId).cache(true).queryOne();
                 Boolean isMarketingPackage = EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", product.getString("productTypeId"), "parentTypeId", "MARKETING_PKG");
-
+                
                 if ( UtilValidate.isNotEmpty(isMarketingPackage) && isMarketingPackage) {
-                    Map<String, Object> resultOutput = new HashMap<>();
+                    Map<String, Object> resultOutput = new HashMap<String, Object>();
                     resultOutput = dispatcher.runSync("getMktgPackagesAvailable", UtilMisc.toMap("productId" ,productId));
                     Debug.logWarning("Error getting available marketing package.", module);
-
+                    
                     BigDecimal availableInventory = (BigDecimal) resultOutput.get("availableToPromiseTotal");
-                    if(availableInventory.compareTo(BigDecimal.ZERO) > 0) {
+                    if(availableInventory.compareTo(BigDecimal.ZERO) > 0) { 
                         productsInStock.add(genericRecord);
                     }
                 } else {

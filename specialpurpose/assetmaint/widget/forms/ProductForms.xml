@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
+
+    <form name="EditProduct" type="single" target="updateProduct" title="" default-map-name="product"
+        header-row-style="header-row" default-table-style="basic-table">
+        <alt-target use-when="product==null" target="createProduct"/>
+
+        <field use-when="product==null" name="isCreate"><hidden value="true"/></field>
+
+        <field use-when="product!=null" name="productId" title="${uiLabelMap.ProductProductId}" tooltip="${uiLabelMap.ProductNotModificationRecreatingProduct}"><display/></field>
+        <field use-when="product==null&amp;&amp;productId==null" name="productId" title="${uiLabelMap.ProductProductId}"><text size="20" maxlength="20"/></field>
+        <field use-when="product==null&amp;&amp;productId!=null" name="productId" title="${uiLabelMap.ProductProductId}" tooltip="${uiLabelMap.ProductNotFindProductId} [${productId}]"><text size="20" maxlength="20"/></field>
+
+        <field name="productTypeId"><hidden value="FINISHED_GOOD"/></field>
+        <field name="primaryProductCategoryId"><hidden/></field>
+        <field name="internalName" title="${uiLabelMap.ProductInternalName}"><text size="30" maxlength="60"/></field>
+        <field name="brandName" title="${uiLabelMap.ProductBrandName}" ><text size="30" maxlength="60"/></field>
+        <field name="manufacturerPartyId" title="${uiLabelMap.AccountingFixedAssetManufacturerId}" ><lookup target-form-name="LookupPartyName"/></field>
+        <field name="comments" title="${uiLabelMap.CommonComments}"><text size="60" maxlength="250"/></field>
+        <field name="requireInventory"><hidden value="N"/></field>
+        <field name="autoCreateKeywords"><hidden value="N"/></field>
+        <field name="primaryProductCategoryId" title="${uiLabelMap.ProductPrimaryCategory}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="ProductCategory" key-field-name="productCategoryId" description="${description} [${productCategoryId}]">
+                    <entity-constraint name="productCategoryTypeId" value="CATALOG_CATEGORY"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" use-when="product!=null"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" use-when="product==null"><submit button-type="button"/></field>
+        <field use-when="product!=null" name="lastUpdatedByText" title="${uiLabelMap.ProductLastModifiedBy}:">
+            <display description="[${product.lastModifiedByUserLogin}] ${uiLabelMap.CommonOn} ${product.lastModifiedDate}" also-hidden="false"/>
+        </field>
+        <field use-when="product!=null" name="createdByText" title="${uiLabelMap.CommonCreatedBy}:">
+            <display description="[${product.createdByUserLogin}] ${uiLabelMap.CommonOn} ${product.createdDate}" also-hidden="false"/>
+        </field>
+    </form>
+    <!-- List Product  -->
+    <form name="ListProducts" type="list" list-name="listIt" paginate-target="${submitTarget}"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" value="Product"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
+            </service>
+        </actions>
+        <field name="productId" title="${uiLabelMap.CommonId}" widget-style="buttontext">
+            <hyperlink description="${productId}" target="EditProduct" also-hidden="false">
+                <parameter param-name="productId"/>
+            </hyperlink>
+        </field>
+        <field name="brandName" title="${uiLabelMap.ProductBrandName}"><display/></field>
+        <field name="internalName" title="${uiLabelMap.ProductInternalName}"><display/></field>
+        <field name="searchVariants" title="" widget-style="buttontext" use-when="isVirtual!=null&amp;&amp;&quot;${isVirtual}&quot;.equals(&quot;Y&quot;)">
+            <hyperlink description="${uiLabelMap.ProductVariants}" target="LookupVariantProduct" also-hidden="false" target-type="plain">
+                <parameter param-name="productId"/>
+            </hyperlink>
+        </field>
+    </form>
+    <form name="LookupProduct" target="${submitTarget}" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <!-- <auto-fields-entity entity-name="Product" default-field-type="hidden"/> -->
+        <field name="productId" title="${uiLabelMap.CommonId}"><text-find ignore-case="true"/></field>
+        <field name="brandName" title="${uiLabelMap.ProductBrandName}"><text-find ignore-case="true"/></field>
+        <field name="internalName" title="${uiLabelMap.ProductInternalName}"><text-find ignore-case="true"/></field>
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
+       <!-- <field name="isVariant"><hidden value="N"/></field>  -->
+        <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
+    </form>
+
+    <form name="ListLookupProduct" list-name="listIt" paginate-target="${submitTarget}" title="" type="list"
+         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" value="Product"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
+            </service>
+        </actions>
+        <field name="productId" title="${uiLabelMap.CommonId}" widget-style="buttontext">
+            <hyperlink description="${productId}" target="javascript:set_values('${productId}', '${internalName}')" also-hidden="false" target-type="plain"/>
+        </field>
+        <field name="brandName" title="${uiLabelMap.ProductBrandName}"><display/></field>
+        <field name="internalName" title="${uiLabelMap.ProductInternalName}"><display/></field>
+        <field name="primaryProductCategoryId" title="${uiLabelMap.ProductPrimaryCategory}"><display/></field>
+        <field name="searchVariants" title="" widget-style="buttontext" use-when="isVirtual!=null&amp;&amp;&quot;${isVirtual}&quot;.equals(&quot;Y&quot;)">
+            <hyperlink description="${uiLabelMap.ProductVariants}" target="LookupVariantProduct" also-hidden="false" target-type="plain">
+                <parameter param-name="productId"/>
+            </hyperlink>
+        </field>
+    </form>
+
+    <form name="AddProductMaint" extends="AddProductMaint" extends-resource="component://product/widget/catalog/ProductForms.xml">
+        <field name="fixedAssetId"><hidden value="${parameters.fixedAssetId}"></hidden></field>
+    </form>
+
+    <form name="ListProductMaints" type="list" list-name="listIt" target="updateProductMaint" paginate-target="EditProductMaints"
+        header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table">
+        <actions>
+            <entity-condition entity-name="ProductMaint" list="listIt">
+                <condition-expr field-name="productId" from-field="productId"/>
+            </entity-condition>
+        </actions>
+        <field name="fixedAssetId"><hidden value="${parameters.fixedAssetId}"></hidden></field>
+        <field name="productId"><hidden/></field>
+        <field name="productMaintSeqId"><hidden/></field>
+        <field name="productMaintTypeId">
+            <display-entity entity-name="ProductMaintType" key-field-name="productMaintTypeId"/>
+        </field>
+        <field name="maintName"><display/></field>
+        <field name="intervalMeterTypeId">
+            <display-entity entity-name="ProductMeterType" key-field-name="productMeterTypeId"/>
+        </field>
+        <field name="intervalUomId">
+            <display-entity entity-name="Uom" key-field-name="uomId"/>
+        </field>
+        <field name="intervalQuantity"><text/></field>
+        <field name="repeatCount"><text/></field>
+        <field name="maintTemplateWorkEffortId"><lookup target-form-name="LookupWorkEffort"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteProductMaint" also-hidden="false">
+                <parameter param-name="fixedAssetId" from-field="parameters.fixedAssetId"/>
+                <parameter param-name="productId"/>
+                <parameter param-name="productMaintSeqId"/>
+            </hyperlink>
+        </field>
+    </form>
+
+</forms>

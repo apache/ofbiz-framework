@@ -18,14 +18,14 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.util.test;
 
-import org.apache.ofbiz.base.lang.SourceMonitored;
-import org.apache.ofbiz.base.test.GenericTestCaseBase;
-import org.apache.ofbiz.base.util.TimeDuration;
-
 //import com.ibm.icu.util.Calendar;
 //import com.ibm.icu.util.TimeZone;
 import com.ibm.icu.util.Calendar;
 import com.ibm.icu.util.TimeZone;
+
+import org.apache.ofbiz.base.lang.SourceMonitored;
+import org.apache.ofbiz.base.util.TimeDuration;
+import org.apache.ofbiz.base.test.GenericTestCaseBase;
 
 @SourceMonitored
 public class TimeDurationTests extends GenericTestCaseBase {
@@ -122,6 +122,7 @@ public class TimeDurationTests extends GenericTestCaseBase {
         assertEquals(label + ".equals(cal, string)", calDuration, stringDuration);
         assertEquals(label + ".equals(string, cal)", stringDuration, calDuration);
         assertEquals(label + ".equals(string, string)", stringDuration, stringDuration);
+        assertFalse(label + ".not-equals(string, this)", stringDuration.equals(TimeDurationTests.class));
         if (lastString != null) {
             assertFalse(label + ".not-equals(string, lastString)", stringDuration.equals(lastString));
         }

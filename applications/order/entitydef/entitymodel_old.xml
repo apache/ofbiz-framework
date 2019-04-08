@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
+    <!-- ========================================================= -->
+    <!-- ======================== Defaults ======================= -->
+    <!-- ========================================================= -->
+    <title>Entity of an Apache OFBiz Component</title>
+    <description>None</description>
+    <version>1.0</version>
+    <!-- ========================================================= -->
+    <!-- ======================== Data Model ===================== -->
+    <!-- The modules in this file are as follows:                  -->
+    <!--  - org.apache.ofbiz.order.order -->
+    <!-- ========================================================= -->
+
+
+    <!-- ========================================================= -->
+    <!-- org.apache.ofbiz.order.order -->
+    <!-- ========================================================= -->
+
+    <entity entity-name="OldOrderItemAssociation" table-name="ORDER_ITEM_ASSOCIATION"
+            package-name="org.apache.ofbiz.order.order"
+            never-cache="true"
+            title="The OLD Order Item Association Entity (replaced by OrderItemAssoc)">
+      <field name="salesOrderId" type="id-ne"></field>
+      <field name="soItemSeqId" type="id-ne"></field>
+      <field name="purchaseOrderId" type="id-ne"></field>
+      <field name="poItemSeqId" type="id-ne"></field>
+      <prim-key field="salesOrderId"/>
+      <prim-key field="soItemSeqId"/>
+      <prim-key field="purchaseOrderId"/>
+      <prim-key field="poItemSeqId"/>
+      <relation type="one" fk-name="ORDER_ITASSC_SOHD" title="Sales" rel-entity-name="OrderHeader">
+        <key-map field-name="salesOrderId" rel-field-name="orderId"/>
+      </relation>
+      <relation type="one-nofk" title="Sales" rel-entity-name="OrderItem">
+        <key-map field-name="salesOrderId" rel-field-name="orderId"/>
+        <key-map field-name="soItemSeqId" rel-field-name="orderItemSeqId"/>
+      </relation>
+      <relation type="one" fk-name="ORDER_ITASSC_POHD" title="Purchase" rel-entity-name="OrderHeader">
+        <key-map field-name="purchaseOrderId" rel-field-name="orderId"/>
+      </relation>
+      <relation type="one-nofk" title="Purchase" rel-entity-name="OrderItem">
+        <key-map field-name="purchaseOrderId" rel-field-name="orderId"/>
+        <key-map field-name="poItemSeqId" rel-field-name="orderItemSeqId"/>
+      </relation>
+    </entity>
+
+    <entity entity-name="OldOrderItemInventoryRes" table-name="ORDER_ITEM_INVENTORY_RES"
+            package-name="org.apache.ofbiz.order.order"
+            never-cache="true"
+            title="The OLD Order Item Inventory Reservation Entity">
+      <field name="orderId" type="id-ne"></field>
+      <field name="orderItemSeqId" type="id-ne"></field>
+      <field name="inventoryItemId" type="id-ne"></field>
+      <field name="reserveOrderEnumId" type="id-ne"></field>
+      <field name="quantity" type="floating-point"></field>
+      <field name="quantityNotAvailable" type="floating-point"></field>
+      <field name="reservedDatetime" type="date-time"></field>
+      <field name="createdDatetime" type="date-time"></field>
+      <field name="promisedDatetime" type="date-time"></field>
+      <field name="currentPromisedDate" type="date-time"></field>
+      <field name="pickStartDate" type="date-time"></field>
+      <prim-key field="orderId"/>
+      <prim-key field="orderItemSeqId"/>
+      <prim-key field="inventoryItemId"/>
+      <relation type="one-nofk" rel-entity-name="OrderHeader">
+        <key-map field-name="orderId"/>
+      </relation>
+      <relation type="one" fk-name="OLDODR_ITIR_OITM" rel-entity-name="OrderItem">
+        <key-map field-name="orderId"/>
+        <key-map field-name="orderItemSeqId"/>
+      </relation>
+      <relation type="one" fk-name="OLDODR_ITIR_INVITM" rel-entity-name="InventoryItem">
+        <key-map field-name="inventoryItemId"/>
+      </relation>
+    </entity>
+    <entity entity-name="OldOrderShipmentPreference" table-name="ORDER_SHIPMENT_PREFERENCE"
+        package-name="org.apache.ofbiz.order.order"
+        never-cache="true"
+        title="The Order Shipment Preference Entity (Deprecated)">
+        <field name="orderId" type="id-ne"></field>
+        <field name="orderItemSeqId" type="id-ne"></field>
+        <field name="shipmentMethodTypeId" type="id"></field>
+        <field name="carrierPartyId" type="id"></field>
+        <field name="carrierRoleTypeId" type="id"></field>
+        <field name="trackingNumber" type="short-varchar"></field>
+        <field name="shippingInstructions" type="long-varchar"></field>
+        <field name="maySplit" type="indicator"></field>
+        <field name="giftMessage" type="long-varchar"></field>
+        <field name="isGift" type="indicator"></field>
+        <field name="shipAfterDate" type="date-time"></field>
+        <field name="shipBeforeDate" type="date-time"></field>
+        <prim-key field="orderId"/>
+        <prim-key field="orderItemSeqId"/>
+        <relation type="one" fk-name="ORDER_SHPREF_CSHM" rel-entity-name="CarrierShipmentMethod">
+            <key-map field-name="shipmentMethodTypeId"/>
+            <key-map field-name="carrierPartyId" rel-field-name="partyId"/>
+            <key-map field-name="carrierRoleTypeId" rel-field-name="roleTypeId"/>
+        </relation>
+        <relation type="one" fk-name="ORDER_SHPREF_OHDR" rel-entity-name="OrderHeader">
+            <key-map field-name="orderId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="OrderItem">
+            <key-map field-name="orderId"/>
+            <key-map field-name="orderItemSeqId"/>
+        </relation>
+        <relation type="one" fk-name="ORDER_SHPREF_CPRTY" title="Carrier" rel-entity-name="Party">
+            <key-map field-name="carrierPartyId" rel-field-name="partyId"/>
+        </relation>
+        <relation type="one" fk-name="ORDER_SHPREF_CPRLE" title="Carrier" rel-entity-name="PartyRole">
+            <key-map field-name="carrierPartyId" rel-field-name="partyId"/>
+            <key-map field-name="carrierRoleTypeId" rel-field-name="roleTypeId"/>
+        </relation>
+        <relation type="one" fk-name="ORDER_SHPREF_SHMTP" rel-entity-name="ShipmentMethodType">
+            <key-map field-name="shipmentMethodTypeId"/>
+        </relation>
+    </entity>
+
+    <entity entity-name="OldCustRequestRole" table-name="CUST_REQUEST_ROLE"
+            package-name="org.apache.ofbiz.order.request"
+            title="Old Customer Request Role Entity">
+      <field name="custRequestId" type="id-ne"></field>
+      <field name="partyId" type="id-ne"></field>
+      <field name="roleTypeId" type="id-ne"></field>
+      <prim-key field="custRequestId"/>
+      <prim-key field="partyId"/>
+      <prim-key field="roleTypeId"/>
+      <relation type="one" fk-name="CUSTREQ_RL_CRQST" rel-entity-name="CustRequest">
+        <key-map field-name="custRequestId"/>
+      </relation>
+      <relation type="one" fk-name="CUSTREQ_RL_PARTY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="RoleType">
+        <key-map field-name="roleTypeId"/>
+      </relation>
+      <relation type="one" fk-name="CUSTREQ_RL_PROLE" rel-entity-name="PartyRole">
+        <key-map field-name="partyId"/>
+        <key-map field-name="roleTypeId"/>
+      </relation>
+    </entity>
+
+</entitymodel>

@@ -465,23 +465,10 @@ under the License.
         <field name="uomId" title="${uiLabelMap.Uom}">
             <display-entity entity-name="Uom"/>
         </field>
-        <field name="edit" title="" widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.CommonEdit}" target="editInvoiceTerm" also-hidden="false">
-                <parameter param-name="invoiceTermId"/>
-                <parameter param-name="invoiceId"/>
-            </hyperlink>
-        </field>
-        <field name="delete" title="" widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteInvoiceTerm" also-hidden="false">
-                <parameter param-name="invoiceTermId"/>
-                <parameter param-name="invoiceId"/>
-            </hyperlink>
-        </field>
     </form>
     
-    <form name="EditInvoiceTerm" type="single" target="createInvoiceTerm" title="" 
-        header-row-style="header-row" default-table-style="basic-table" default-map-name="invoiceTerm" default-entity-name="InvoiceTerm" >
-        <alt-target use-when="invoiceTerm!=null" target="updateInvoiceTerm"/>
+    <form name="EditInvoiceTerm" type="single" target="createInvoiceTerm" title=""
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="InvoiceTerm"/>
         <field name="invoiceId"><hidden/></field>
         <field name="termTypeId">

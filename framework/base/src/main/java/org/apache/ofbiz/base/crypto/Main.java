@@ -19,23 +19,21 @@
 package org.apache.ofbiz.base.crypto;
 
 import org.apache.commons.codec.binary.Base64;
-import org.apache.ofbiz.base.util.Debug;
 import org.apache.shiro.crypto.AesCipherService;
 
 public class Main {
-    
-    public static final String module = Main.class.getName(); 
     public static void main(String[] args) throws Exception {
-        if ("-crypt".equals(args[0])) {
-            Debug.logInfo(HashCrypt.cryptUTF8(args[1], null, args[2]), module);
-        } else if ("-digest".equals(args[0])) {
-            String digest = HashCrypt.digestHash("SHA", null, args[1]);
-            Debug.logInfo(digest, module);
-        } else if ("-kek".equals(args[0])) {
+        if (args[0].equals("-crypt")) {
+            System.out.println(HashCrypt.cryptUTF8(args[1], null, args[2]));
+        } else if (args[0].equals("-digest")) {
+            @SuppressWarnings("deprecation")
+            String digest = HashCrypt.getDigestHash(args[1]);
+            System.out.println(digest);
+        } else if (args[0].equals("-kek")) {
             AesCipherService cs = new AesCipherService();
-            Debug.logInfo(Base64.encodeBase64String(cs.generateNewKey().getEncoded()), module);
-        } else if ("-kek-old".equals(args[0])) {
-            Debug.logInfo(Base64.encodeBase64String(DesCrypt.generateKey().getEncoded()), module);
+            System.out.println(Base64.encodeBase64String(cs.generateNewKey().getEncoded()));
+        } else if (args[0].equals("-kek-old")) {
+            System.out.println(Base64.encodeBase64String(DesCrypt.generateKey().getEncoded()));
         }
     }
 }

@@ -20,19 +20,17 @@
 import java.math.BigDecimal
 import java.util.*
 import java.sql.Timestamp
-import org.apache.ofbiz.entity.GenericValue
-import org.apache.ofbiz.entity.condition.EntityCondition
-import org.apache.ofbiz.entity.condition.EntityOperator
-import org.apache.ofbiz.entity.util.EntityUtil
-import org.apache.ofbiz.base.util.UtilMisc
-import org.apache.ofbiz.base.util.UtilValidate
-import org.apache.ofbiz.order.order.OrderReadHelper
-import org.apache.ofbiz.party.contact.ContactMechWorker
-import org.apache.ofbiz.party.contact.ContactHelper
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.entity.condition.*
+import org.apache.ofbiz.entity.util.*
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.base.util.collections.*
+import org.apache.ofbiz.order.order.*
+import org.apache.ofbiz.party.contact.*
 import org.apache.ofbiz.product.inventory.InventoryWorker
 import org.apache.ofbiz.product.catalog.CatalogWorker
 import org.apache.ofbiz.product.store.ProductStoreWorker
-import org.apache.ofbiz.accounting.payment.PaymentWorker
+import org.apache.ofbiz.accounting.payment.*
 
 orderId = parameters.orderId
 context.orderId = orderId
@@ -73,11 +71,9 @@ if (orderHeader) {
     orderAdjustments = orderReadHelper.getAdjustments()
     orderHeaderAdjustments = orderReadHelper.getOrderHeaderAdjustments()
     orderSubTotal = orderReadHelper.getOrderItemsSubTotal()
-    backorderQuantity = orderReadHelper.getOrderBackorderQuantity()
     orderTerms = orderHeader.getRelated("OrderTerm", null, null, false)
 
     context.orderHeader = orderHeader
-    context.backorderQuantity = backorderQuantity
     context.comments = comments
     context.orderReadHelper = orderReadHelper
     context.orderItems = orderItems
@@ -296,13 +292,13 @@ if (orderHeader) {
             supplierContactMechValueMaps.each { supplierContactMechValueMap ->
                 contactMechPurposes = supplierContactMechValueMap.partyContactMechPurposes
                 contactMechPurposes.each { contactMechPurpose ->
-                    if ("GENERAL_LOCATION".equals(contactMechPurpose.contactMechPurposeTypeId)) {
+                    if (contactMechPurpose.contactMechPurposeTypeId.equals("GENERAL_LOCATION")) {
                         context.supplierGeneralContactMechValueMap = supplierContactMechValueMap
-                    } else if ("SHIPPING_LOCATION".equals(contactMechPurpose.contactMechPurposeTypeId)) {
+                    } else if (contactMechPurpose.contactMechPurposeTypeId.equals("SHIPPING_LOCATION")) {
                         context.supplierShippingContactMechValueMap = supplierContactMechValueMap
-                    } else if ("BILLING_LOCATION".equals(contactMechPurpose.contactMechPurposeTypeId)) {
+                    } else if (contactMechPurpose.contactMechPurposeTypeId.equals("BILLING_LOCATION")) {
                         context.supplierBillingContactMechValueMap = supplierContactMechValueMap
-                    } else if ("PAYMENT_LOCATION".equals(contactMechPurpose.contactMechPurposeTypeId)) {
+                    } else if (contactMechPurpose.contactMechPurposeTypeId.equals("PAYMENT_LOCATION")) {
                         context.supplierPaymentContactMechValueMap = supplierContactMechValueMap
                     }
                 }
@@ -495,7 +491,7 @@ if (workEffortId && assignPartyId && assignRoleTypeId && fromDate) {
         workEffortStatus = workEffort.currentStatusId
         if (workEffortStatus) {
             context.workEffortStatus = workEffortStatus
-            if ("WF_RUNNING".equals(workEffortStatus) || "WF_SUSPENDED".equals(workEffortStatus))
+            if (workEffortStatus.equals("WF_RUNNING") || workEffortStatus.equals("WF_SUSPENDED"))
                 context.inProcess = true
         }
 
@@ -552,7 +548,7 @@ if (shipments) {
 // get orderAdjustmentId for SHIPPING_CHARGES
 orderAdjustmentId = null
 orderAdjustments.each { orderAdjustment ->
-    if("SHIPPING_CHARGES".equals(orderAdjustment.orderAdjustmentTypeId)) {
+    if(orderAdjustment.orderAdjustmentTypeId.equals("SHIPPING_CHARGES")) {
         orderAdjustmentId = orderAdjustment.orderAdjustmentId
     }
 }

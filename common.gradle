@@ -16,45 +16,31 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import java.util.stream.Stream
-import java.util.stream.Collectors
+def iterateOverActiveComponents(applyFunction) {
+    def frameworkComponents = new XmlParser().parse("${rootDir}/framework/component-load.xml")
+    def applicationsComponents = new XmlParser().parse("${rootDir}/applications/component-load.xml")
+    def specialpurposeComponents = new XmlParser().parse("${rootDir}/specialpurpose/component-load.xml")
 
-mkdir "${rootDir}/plugins"
+    applyFunction file("${rootDir}/framework/start")
 
-// The ‘file’ argument can be either a string or a file.
-Stream<Node> xmlChildren(file) {
-    new XmlParser().parse(file).children().stream()
+    frameworkComponents.children().each { component ->
+        applyFunction file("${rootDir}/framework/"+component.@"component-location")
+    }
+    applicationsComponents.children().each { component ->
+        applyFunction file("${rootDir}/applications/"+component.@"component-location")
+    }
+    specialpurposeComponents.children().each { component ->
+        applyFunction file("${rootDir}/specialpurpose/"+component.@"component-location")
+    }
+
+    file("${rootDir}/themes").eachDir { component ->
+        applyFunction(component)
+    }
+    file("${rootDir}/hot-deploy").eachDir { component ->
+        applyFunction(component)
+    }
 }
 
-Stream<File> subdirs(File dir) {
-    def res = []
-    dir.eachDir res.&add
-    res.stream()
-}
-
-boolean isComponentEnabled(File componentDir) {
-    File componentFile = file(componentDir.toString() + '/ofbiz-component.xml')
-    componentFile.exists() && new XmlParser().parse(componentFile)
-                                             .with { it.@enabled in [null, 'true'] }
-}
-
-List<File> activeComponents() {
-    xmlChildren("${rootDir}/framework/base/config/component-load.xml")
-	.map { "${rootDir}/" + it.@'parent-directory' }
-        .flatMap({ dir ->
-	    File loader = file(dir + '/component-load.xml')
-	    if (loader.exists()) {
-		xmlChildren(loader).map { file dir + '/' + it.@'component-location' }
-	    } else {
-		subdirs file(dir)
-	    }
-	})
-	.filter(this.&isComponentEnabled)
-        .collect(Collectors.toList()) + file("${rootDir}/framework/start")
-}
-
-ext {
-    subdirs = this.&subdirs
-    activeComponents = this.&activeComponents.memoize()
-    isComponentEnabled = this.&isComponentEnabled.memoize()
+ext{
+    iterateOverActiveComponents = this.&iterateOverActiveComponents
 }

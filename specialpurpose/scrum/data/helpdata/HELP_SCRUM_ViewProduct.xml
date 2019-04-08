@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>Product Overview</title>
+    <section>
+        <title></title>
+        <para>
+            On the product overview there are 8 sub menus -Overview,Update,Backlog,Billing,Default Tasks,Categories,
+            Content,and Communications
+        </para>
+        <para>
+            The product overview consist of:
+            <orderedlist>
+                <listitem><para>Product Information</para></listitem>
+                <listitem><para>Backlogs Status Chart</para></listitem>
+                <listitem><para>Find Product Backlog Item</para></listitem>
+                <listitem><para>Product Backlogs Item List</para></listitem>
+                <listitem><para>Emails</para></listitem>
+                <listitem><para>Product Content List</para></listitem>
+                <listitem><para>Project and Sprint List</para></listitem>
+            </orderedlist>
+        </para>
+    </section>
+    <section>
+        <title>Product Information</title>
+        <para>
+            Show the product's information.
+        </para>
+    </section>
+    <section>
+        <title>Backlogs Status Chart</title>
+        <para>
+            Show backlogs' status in the pie chart concerning with open(yellow),be implement(blue),and finished(red).
+        </para>
+    </section>
+    <section>
+        <title>Find Product Backlog Item</title>
+        <para>
+            To find any Product backlog which belongs to the product.
+        </para>
+    </section>
+    <section>
+        <title>Product Backlogs Item List</title>
+        <para>
+            Product Backlogs Item List will show the backlogs which are not in the sprint by default.
+        </para>
+    </section>
+    <section>
+        <title>Emails</title>
+        <para>
+            List of the e-mails which are sent to the product owner who created the product.
+        </para>
+    </section>
+    <section>
+        <title>Product Content List</title>
+        <para>
+            List of the contents which concern to the product.
+        </para>
+    </section>
+    <section>
+        <title>Project and Sprint List</title>
+        <para>
+            To show the project which concerns this product and the sprint list which belong to project.
+        </para>
+    </section>
+</section>

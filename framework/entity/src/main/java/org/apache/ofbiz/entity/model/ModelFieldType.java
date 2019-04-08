@@ -19,7 +19,6 @@
 package org.apache.ofbiz.entity.model;
 
 import java.io.Serializable;
-import java.util.Locale;
 
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.entity.jdbc.JdbcValueHandler;
@@ -36,15 +35,22 @@ public class ModelFieldType implements Serializable {
     public static final String module = ModelFieldType.class.getName();
 
     /** The type of the Field */
-    private String type;
+    protected String type = null;
+
     /** The java-type of the Field */
-    private String javaType;
+    protected String javaType = null;
+
     /** The JDBC value handler for this Field */
-    private JdbcValueHandler<?> jdbcValueHandler;
+    protected JdbcValueHandler<?> jdbcValueHandler = null;
+
     /** The sql-type of the Field */
-    private String sqlType;
+    protected String sqlType = null;
+
     /** The sql-type-alias of the Field, this is optional */
-    private String sqlTypeAlias;
+    protected String sqlTypeAlias = null;
+
+    /** Default Constructor */
+    public ModelFieldType() {}
 
     /** XML Constructor */
     public ModelFieldType(Element fieldTypeElement) {
@@ -84,18 +90,18 @@ public class ModelFieldType implements Serializable {
      * @return max length of a String representing the Field value
      */
     public int stringLength() {
-        String sqlTypeUpperCase = sqlType.toUpperCase(Locale.getDefault());
+       String sqlTypeUpperCase = sqlType.toUpperCase();
         if (sqlTypeUpperCase.indexOf("VARCHAR") >= 0) {
-            if (sqlTypeUpperCase.indexOf('(') > 0 && sqlTypeUpperCase.indexOf(')') > 0) {
-                String length = sqlTypeUpperCase.substring(sqlTypeUpperCase.indexOf('(') + 1, sqlTypeUpperCase.indexOf(')'));
+            if (sqlTypeUpperCase.indexOf("(") > 0 && sqlTypeUpperCase.indexOf(")") > 0) {
+                String length = sqlTypeUpperCase.substring(sqlTypeUpperCase.indexOf("(") + 1, sqlTypeUpperCase.indexOf(")"));
 
                 return Integer.parseInt(length);
             } else {
                 return 255;
             }
         } else if (sqlTypeUpperCase.indexOf("CHAR") >= 0) {
-            if (sqlTypeUpperCase.indexOf('(') > 0 && sqlTypeUpperCase.indexOf(')') > 0) {
-                String length = sqlTypeUpperCase.substring(sqlTypeUpperCase.indexOf('(') + 1, sqlTypeUpperCase.indexOf(')'));
+            if (sqlTypeUpperCase.indexOf("(") > 0 && sqlTypeUpperCase.indexOf(")") > 0) {
+                String length = sqlTypeUpperCase.substring(sqlTypeUpperCase.indexOf("(") + 1, sqlTypeUpperCase.indexOf(")"));
 
                 return Integer.parseInt(length);
             } else {

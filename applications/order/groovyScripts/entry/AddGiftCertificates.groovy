@@ -17,6 +17,8 @@
  * under the License.
  */
 import org.apache.ofbiz.base.util.UtilValidate
+import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.product.store.ProductStoreWorker
 
 cart = session.getAttribute("shoppingCart")

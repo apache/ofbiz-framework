@@ -86,7 +86,7 @@ under the License.
                         <screenlet id="EditProductManufacturingRulePanel" title="${uiLabelMap.PageTitleEditProductManufacturingRules}" collapsible="true">
                             <include-form name="UpdateProductManufacturingRule" location="component://manufacturing/widget/manufacturing/BomForms.xml"/>
                         </screenlet>
-                        <include-grid name="ListProductManufacturingRules" location="component://manufacturing/widget/manufacturing/BomForms.xml"/>
+                        <include-form name="ListProductManufacturingRules" location="component://manufacturing/widget/manufacturing/BomForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -129,7 +129,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
     <screen name="FindBom">
         <section>
             <actions>
@@ -150,7 +149,7 @@ under the License.
                                 <include-form name="FindBom" location="component://manufacturing/widget/manufacturing/BomForms.xml"/>
                             </decorator-section>
                             <decorator-section name="search-results">
-                                <include-grid name="ListBom" location="component://manufacturing/widget/manufacturing/BomForms.xml"/>
+                                <include-form name="ListBom" location="component://manufacturing/widget/manufacturing/BomForms.xml"/>
                             </decorator-section>
                         </decorator-screen>
                     </decorator-section>

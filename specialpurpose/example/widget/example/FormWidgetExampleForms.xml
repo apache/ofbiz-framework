@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
+
+    <form name="DateTimeFieldsExampleForm" type="single" title="">
+        <actions>
+            <set field="exampleDateField" value="${date:nowTimestamp()}" type="Timestamp"/>
+        </actions>
+        <!-- ***************** -->
+        <!-- ***   field1  *** -->
+        <!-- ***************** -->
+        <field name="field1"
+               title="${uiLabelMap.ExampleDateField1Title}"
+               tooltip="${uiLabelMap.ExampleToDo}" tooltip-style="button-text">
+            <date-time mask="Y"/>
+        </field>
+        <!-- ***************** -->
+        <!-- ***   field9  *** -->
+        <!-- ***************** -->
+        <field name="field9"
+            title="${uiLabelMap.ExampleDateField9Title}">
+            <!--tooltip="${uiLabelMap.ExampleDateField9Tooltip}" tooltip-style="button-text"-->
+            <date-time default-value="${groovy:org.apache.ofbiz.base.util.UtilDateTime.nowTimestamp()}"/>
+        </field>
+        <!-- ***************** -->
+        <!-- ***   field10  *** -->
+        <!-- ***************** -->
+        <field name="field10"
+               title="${uiLabelMap.ExampleDateField10Title}"
+               tooltip="${uiLabelMap.ExampleDateField10Tooltip}" tooltip-style="button-text">
+            <date-time default-value="${nowTimestamp}"/>
+        </field>
+        <!-- ***************** -->
+        <!-- ***   field11  *** -->
+        <!-- ***************** -->
+        <field name="field11"
+               title="${uiLabelMap.ExampleDateField11Title}"
+               tooltip="${uiLabelMap.ExampleDateField11Tooltip}" tooltip-style="button-text">
+            <date-time default-value="${date:dayStart(nowTimestamp, timeZone, locale)}"/>
+        </field>
+        <!-- ***************** -->
+        <!-- ***   field2  *** -->
+        <!-- ***************** -->
+        <field name="field2"
+               title="${uiLabelMap.ExampleDateField2Title}"
+               tooltip="${uiLabelMap.ExampleToDo}" tooltip-style="button-text">
+            <date-time type="date"/>
+        </field>
+        <!-- ***************** -->
+        <!-- ***   field3  *** -->
+        <!-- ***************** -->
+        <field name="field3"
+               title="${uiLabelMap.ExampleDateField3Title}"
+               tooltip="${uiLabelMap.ExampleToDo}" tooltip-style="button-text">
+            <date-time type="time"/>
+        </field>
+        <!-- ***************** -->
+        <!-- ***   field4  *** -->
+        <!-- ***************** -->
+        <field name="field4"
+               title="${uiLabelMap.ExampleDateField4Title}"
+               tooltip="${uiLabelMap.ExampleDateField4Tooltip}" tooltip-style="button-text">
+            <date-time input-method="time-dropdown" clock="24" default-value="${exampleDateField}"/>
+        </field>
+        <!-- ***************** -->
+        <!-- ***   field5  *** -->
+        <!-- ***************** -->
+        <field name="field5"
+               title="${uiLabelMap.ExampleDateField5Title}"
+               tooltip="${uiLabelMap.ExampleDateField4Tooltip}" tooltip-style="button-text">
+            <date-time input-method="time-dropdown" clock="12" default-value="${exampleDateField}"/>
+        </field>
+        <!-- ***************** -->
+        <!-- ***   field6  *** -->
+        <!-- ***************** -->
+        <field name="field6"
+               entry-name="exampleDateField"
+               title="${uiLabelMap.ExampleDateField6Title}"
+               tooltip="${uiLabelMap.ExampleToDo}" tooltip-style="button-text">
+            <display type="date-time"/>
+        </field>
+        <!-- ***************** -->
+        <!-- ***   field7  *** -->
+        <!-- ***************** -->
+        <field name="field7"
+               entry-name="exampleDateField"
+               title="${uiLabelMap.ExampleDateField7Title}"
+               tooltip="${uiLabelMap.ExampleDateField7Tooltip}" tooltip-style="button-text">
+            <display description="${groovy:org.apache.ofbiz.base.util.UtilDateTime.toDateString(exampleDateField, &quot;MM/dd/yyyy&quot;);}"/>
+        </field>
+        <!-- ***************** -->
+        <!-- ***   field8  *** -->
+        <!-- ***************** -->
+        <field name="field8"
+               entry-name="exampleDateField"
+               title="${uiLabelMap.ExampleDateField8Title}"
+               tooltip="${uiLabelMap.ExampleDateField8Tooltip}" tooltip-style="button-text">
+            <display description="${groovy:org.apache.ofbiz.base.util.UtilDateTime.toDateString(exampleDateField, &quot;MMMM,dd,yyyy&quot;);}"/>
+        </field>
+        <!-- ***************** -->
+        <!-- ***   field12  *** -->
+        <!-- ***************** -->
+        <field name="field12"
+               title="${uiLabelMap.ExampleDateField12Title}"
+               tooltip="${uiLabelMap.ExampleDateField12Tooltip}" tooltip-style="button-text">
+            <date-time input-method="time-dropdown" clock="24" default-value="${exampleDateField}" step="5"/>
+        </field>
+    </form>
+
+    <form name="DropDownFieldsExampleForm" type="single" title="">
+        <field name="dropDownFields1" title="${uiLabelMap.ExampleDropDown}">
+            <display description="${uiLabelMap.ExampleDropDownTooltip}" also-hidden="false"/>
+        </field>
+        <!-- ***************** -->
+        <!-- ***   field1  *** -->
+        <!-- ***************** -->
+        <field name="field1"
+               title="${uiLabelMap.ExampleDropDownField1Title}"
+               tooltip="${uiLabelMap.ExampleDropDownField1Tooltip}" tooltip-style="button-text">
+            <drop-down allow-empty="true">
+                <option key="Y" description="${uiLabelMap.CommonY}"/>
+                <option key="N" description="${uiLabelMap.CommonN}"/>
+            </drop-down>
+        </field>
+        <!-- ***************** -->
+        <!-- ***   field2  *** -->
+        <!-- ***************** -->
+        <field name="field2"
+               title="${uiLabelMap.ExampleDropDownField2Title}"
+               tooltip="${uiLabelMap.ExampleDropDownField2Tooltip}" tooltip-style="button-text">
+            <drop-down allow-empty="false"> <!-- allow-empty="false" is also the default value, so you can also not specify this attribute here -->
+                <option key="Y" description="${uiLabelMap.CommonY}"/>
+                <option key="N" description="${uiLabelMap.CommonN}"/>
+            </drop-down>
+        </field>
+        <!-- ***************** -->
+        <!-- ***   field5  *** -->
+        <!-- ***************** -->
+        <field name="field5"
+               title="${uiLabelMap.ExampleDropDownField5Title}"
+               tooltip="${uiLabelMap.ExampleDropDownField5Tooltip}" tooltip-style="button-text">
+            <drop-down no-current-selected-key="N">
+                <option key="Y" description="${uiLabelMap.CommonY}"/>
+                <option key="N" description="${uiLabelMap.CommonN}"/>
+            </drop-down>
+        </field>
+        <!-- ***************** -->
+        <!-- ***   field8  *** -->
+        <!-- ***************** -->
+        <field name="field8"
+               title="${uiLabelMap.ExampleDropDownField8Title}"
+               event="onchange"
+               action="return showErrorAlert('${uiLabelMap.CommonErrorMessage2}','${uiLabelMap.YouChangedTheSelectBoxValue}');"
+               tooltip="${uiLabelMap.ExampleDropDownField8Tooltip}" tooltip-style="button-text">
+            <drop-down>
+                <option key="Y" description="${uiLabelMap.CommonY}"/>
+                <option key="N" description="${uiLabelMap.CommonN}"/>
+            </drop-down>
+        </field>
+
+        <field name="entityOptionsFields1" title="${uiLabelMap.ExampleDropDownEntityOptions}"><display description="${uiLabelMap.ExampleDropDownEntityOptionsTooltip1}" also-hidden="false"/></field>
+        <field name="entityOptionsFields2" title=" "><display description="${uiLabelMap.ExampleDropDownEntityOptionsTooltip2}" also-hidden="false"/></field>
+        <field name="entityOptionsFields3" title=" "><display description="${uiLabelMap.ExampleDropDownEntityOptionsTooltip3}" also-hidden="false"/></field>
+        <!-- ***************** -->
+        <!-- ***   field3  *** -->
+        <!-- ***************** -->
+        <field name="field3"
+               title="${uiLabelMap.ExampleDropDownField3Title}"
+               tooltip="${uiLabelMap.ExampleToDo}" tooltip-style="button-text">
+            <drop-down>
+                <entity-options entity-name="ExampleType" key-field-name="exampleTypeId">
+                    <entity-order-by field-name="-description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <!-- ***************** -->
+        <!-- ***   field4  *** -->
+        <!-- ***************** -->
+        <field name="field4"
+               title="${uiLabelMap.ExampleDropDownField4Title}"
+               tooltip="${uiLabelMap.ExampleToDo}" tooltip-style="button-text">
+            <drop-down>
+                <entity-options entity-name="ExampleType"
+                                key-field-name="exampleTypeId"
+                                description="${exampleTypeId} - ${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <!-- ***************** -->
+        <!-- ***   field6  *** -->
+        <!-- ***************** -->
+        <field name="exampleTypeId"
+               title="${uiLabelMap.ExampleDropDownField6Title}"
+               tooltip="${uiLabelMap.ExampleToDo}" tooltip-style="button-text">
+            <drop-down>
+                <entity-options entity-name="ExampleType"/>
+            </drop-down>
+        </field>
+        <!-- ***************** -->
+        <!-- ***   field7  *** -->
+        <!-- ***************** -->
+        <field name="field7"
+            title="${uiLabelMap.ExampleDropDownField7Title}"
+            tooltip="${uiLabelMap.ExampleToDo}" tooltip-style="button-text">
+            <drop-down>
+                <entity-options entity-name="ExampleType" key-field-name="exampleTypeId">
+                    <entity-constraint name="exampleTypeId"
+                        value="INSPIRED"
+                        operator="greater"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <!-- ****************************** -->
+        <!-- *** Autocomplete dropdown *** -->
+        <!-- ****************************** -->
+        <!-- TODO : return only the Id, else you need to edit the field to remove the description -->
+        <field name="emptyField1" title=" "><display/></field>
+        <field name="geoId" title="${uiLabelMap.ExampleAutocompleteDropdown}"
+            tooltip="${uiLabelMap.ExampleAutocompleteTooltip}" tooltip-style="button-text">
+            <drop-down>
+                <auto-complete/>
+                <entity-options entity-name="Geo" description="${geoId}: ${geoName}">
+                    <entity-constraint name="geoTypeId" value="COUNTRY"/>
+                    <entity-order-by field-name="geoName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <!-- ****************************** -->
+        <!-- *** Specify-other dropdown *** -->
+        <!-- ****************************** -->
+        <field name="emptyField1" title=" "><display/></field>
+        <field name="otherValue" title="${uiLabelMap.ExampleSpecifyOtherDropdown}"
+            tooltip="${uiLabelMap.ExampleSpecifyOtherTooltip}" tooltip-style="button-text" >
+            <drop-down other-field-size="15">
+                <option key="A" description="Option A" />
+                <option key="B" description="Option B" />
+                <option key="C" description="Option C" />
+                <option key="_OTHER_" description="specify other" />
+            </drop-down>
+        </field>
+        <!-- ****************************** -->
+        <!-- ***   Dependent dropdowns  *** -->
+        <!-- ****************************** -->
+        <field name="emptyField2" title=" "><display/></field>
+        <field name="dependendDropDownFields" title="${uiLabelMap.ExampleDependentDropDowns}">
+            <display description="${uiLabelMap.ExampleDependentDropDownTooltip}"/>
+        </field>
+        <field name="stateProvinceGeoId" title="${uiLabelMap.CommonState}" required-field="true"><drop-down allow-empty="false"/></field>
+        <field name="countryGeoId" title="${uiLabelMap.CommonCountry}" required-field="true">
+            <drop-down no-current-selected-key="USA">
+                <entity-options entity-name="Geo" key-field-name="geoId" description="${geoName}">
+                    <entity-constraint name="geoTypeId" value="COUNTRY"/>
+                    <entity-order-by field-name="geoName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+    </form>
+    
+        <!-- ****************************** -->
+        <!-- ***   Multiple Dropdown    *** -->
+        <!-- ****************************** -->
+        <!-- See why this is used here http://www.ryancramer.com/journal/entries/select_multiple/ -->
+    <form name="DropDownMultipleFieldExampleForm" type="single" title="">
+        <field name="emptyField1" title=" "><display/></field>
+        <field name="multipleDropDownFields" title="${uiLabelMap.ExampleMultipleDropDowns}">
+            <display description="${uiLabelMap.ExampleMultipleDropDownTooltip}"/>
+        </field>
+        <field name="countryGeoIdMultiple" title="${uiLabelMap.CommonCountry}">
+            <drop-down no-current-selected-key="USA">
+                <entity-options entity-name="Geo" key-field-name="geoId" description="${geoName}">
+                    <entity-constraint name="geoTypeId" value="COUNTRY"/>
+                    <entity-order-by field-name="geoName"/>
+                </entity-options>
+            </drop-down>
+        </field>        
+    </form>
+
+    <!-- Simple form to print a FOP PDF file with the  fonts available in OFBiz Project -->
+    <form name="FOPFontsExampleForm" type="single" target="printExampleFOPFonts">
+            <field name="printButton" title="${uiLabelMap.ExamplePrintButton}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <form name="FieldGroupExampleForm" type="single" title="">
+        <field name="field1" title="${uiLabelMap.ExampleField} 1"><text/></field>
+        <field name="field2" title="${uiLabelMap.ExampleField} 2"><text/></field>
+        <field name="field3" title="${uiLabelMap.ExampleField} 3"><text/></field>
+        <field name="field4" title="${uiLabelMap.ExampleField} 4"><text/></field>
+        <field name="field5" title="${uiLabelMap.ExampleField} 5"><text/></field>
+        <field name="field6" title="${uiLabelMap.ExampleField} 6"><text/></field>
+        <field name="field7" title="${uiLabelMap.ExampleField} 7"><text/></field>
+        <field name="field8" title="${uiLabelMap.ExampleField} 8"><text/></field>
+        <field name="field9" title="${uiLabelMap.ExampleField} 9"><text/></field>
+        <field name="field10" title="${uiLabelMap.ExampleField} 10"><text/></field>
+        <field name="field11" title="${uiLabelMap.ExampleField} 11"><text/></field>
+        <field name="field12" title="${uiLabelMap.ExampleField} 12"><text/></field>
+        <field name="field13" title="${uiLabelMap.ExampleField} 13"><text/></field>
+        <field name="field14" title="${uiLabelMap.ExampleField} 14"><text/></field>
+        <field name="field14" title="${uiLabelMap.ExampleField} 15"><text/></field>
+
+        <sort-order>
+            <field-group title="${uiLabelMap.ExampleGroupField} 1" collapsible="true" initially-collapsed="true">
+                <sort-field name="field1"/>
+                <sort-field name="field2"/>
+                <sort-field name="field3"/>
+                <sort-field name="field4"/>
+                <sort-field name="field5"/>
+            </field-group>
+
+            <field-group title="${uiLabelMap.ExampleGroupField} 2" collapsible="true">
+                <sort-field name="field6"/>
+                <sort-field name="field7"/>
+                <sort-field name="field8"/>
+                <sort-field name="field9"/>
+                <sort-field name="field10"/>
+            </field-group>
+
+            <field-group title="${uiLabelMap.ExampleGroupField} 3">
+                <sort-field name="field11"/>
+                <sort-field name="field12"/>
+                <sort-field name="field13"/>
+                <sort-field name="field14"/>
+                <sort-field name="field15"/>
+            </field-group>
+        </sort-order>
+
+    </form>
+
+    <!-- Lookup Examples -->
+    <form name="ExampleLookupFields" type="single" title="">
+        <!-- Old style lookup (in a popup window without autocompletion), geoIdAlone because we have another geoId below -->
+        <field name="geoIdAlone" title="${uiLabelMap.CommonGeoId}"  tooltip="${uiLabelMap.ExampleLookupFields1}" tooltip-style="button-text">
+            <lookup target-form-name="LookupGeo" presentation="window"/>
+        </field>
+        <!-- Standard lookup (in a layer with autocompletion) -->
+        <field name="geoIdStd" title="${uiLabelMap.CommonGeoId}" tooltip="${uiLabelMap.ExampleLookupFields2}" tooltip-style="button-text">
+            <lookup target-form-name="LookupGeo"/>
+        </field>
+        <!-- Standard read only lookup (in a layer with autocompletion) -->
+        <field name="geoIdReadOnly" title="${uiLabelMap.CommonGeoId}"  tooltip="${uiLabelMap.ExampleLookupFields3}" tooltip-style="button-text">
+            <lookup target-form-name="LookupGeo" read-only="true"/>
+        </field>
+        <!-- Standard lookup (in a layer with autocompletion) -->
+        <!-- passes the name in one field and the id in another -->
+        <field name="geoName" title="${uiLabelMap.CommonGeoName}" tooltip="${uiLabelMap.ExampleLookupFields4}" tooltip-style="button-text">
+            <lookup target-form-name="LookupGeoName" description-field-name="geoId"/>
+        </field>
+        <!-- This field may be hidden and the name rendered in geoName using default-value if geoId is known when loading the form-->
+        <field name="geoId" title="${uiLabelMap.CommonGeoId}"><text/></field><!-- the text field is only used for rendering. In the "real life" you would use the hidden field commented below to pass the data to the request  -->
+        <!--field name="geoId"><hidden/></field-->
+        
+        <sort-order>
+            <field-group>
+                <sort-field name="geoIdAlone"/>
+            </field-group>
+            <field-group>
+                <sort-field name="geoIdStd"/>
+            </field-group>
+            <field-group>
+                <sort-field name="geoIdReadOnly"/>
+            </field-group>
+            <field-group>
+                <sort-field name="geoName"/>
+                <sort-field name="geoId"/>
+            </field-group>
+        </sort-order>
+    </form>
+
+    <form name="SelectionBoxesExampleForm" type="single">
+        <field name="ExampleTypeId">
+           <check>
+              <entity-options key-field-name="exampleTypeId" entity-name="ExampleType"/>
+           </check>
+        </field>
+    </form>
+
+     <form name="LinksExampleForm" type="single">
+        <!-- ************************ -->
+        <!-- ***   Layered-modal  *** -->
+        <!-- ************************ -->
+        <field name="emptyField0" title=" "><display/></field>
+        <field name="newExample" title=" " widget-area-style="smallSubmit" position="1">
+            <hyperlink description="${uiLabelMap.ExampleNewExample} (Layered-modal)" target="EditExampleLayer" also-hidden="false" link-type="layered-modal"/>
+        </field>
+    </form>
+</forms>

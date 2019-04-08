@@ -85,7 +85,7 @@
     <property key="AccountingEftPartyNotAuthorized">
         <value xml:lang="ar">دليل طرف ${partyId} ليس المالك لطيقة الدفع ${paymentMethodId} وليس لديه صلاحية تغييرها</value>
         <value xml:lang="de">Akteur Id ${partyId} ist nicht der Besitzer der Bezahlmethode ${paymentMethodId} und hat keine Berechtigung diese zu ändern.</value>
-        <value xml:lang="en">Party ID ${partyId} is not the owner of payment method ${paymentMethodId} and does not have permission to change it.</value>
+        <value xml:lang="en">Party Id ${partyId} is not the owner of payment method ${paymentMethodId} and does not have permission to change it.</value>
         <value xml:lang="it">Il soggetto ${partyId} non è il propretario del metodo di pagamento ${paymentMethodId} non hai il permesso per cambiarlo.</value>
         <value xml:lang="ja">取引先ID ${partyId} は支払方法 ${paymentMethodId} の所有者ではないため変更する権限がありません。</value>
         <value xml:lang="nl">Partij ${partyId} is niet de eigenaar van betaalmethode ${paymentMethodId}, en heeft geen permissies tot wijzigen.</value>
@@ -424,14 +424,14 @@
     <property key="AccountingGiftCardPartyNotAuthorized">
         <value xml:lang="ar">دليل الطرف ${partyId} ليس مالك طريقة الدفع ${paymentMethodId} وليس لديه صلاحية تغييرها</value>
         <value xml:lang="de">Akteur Id ${partyId} ist nicht Besitzer der Zahlmethode ${paymentMethodId} und hat keine Berechtigung sie zu ändern.</value>
-        <value xml:lang="en">Party ID ${partyId} is not the owner of payment method ${paymentMethodId} and does not have permission to change it.</value>
+        <value xml:lang="en">Party Id ${partyId} is not the owner of payment method ${paymentMethodId} and does not have permission to change it.</value>
         <value xml:lang="it">Il soggetto ${partyId} non è il propretario del metodo di pagamento ${paymentMethodId} non hai il permesso per cambiarlo.</value>
         <value xml:lang="ja">取引先ID ${partyId} は支払方法 ${paymentMethodId} の所有者ではないため変更する権限がありません。</value>
         <value xml:lang="pt">ID de Participante ${partyId} não é o proprietário do método de pagamento de ${paymentMethodId} e não têm permissão para alterá-lo.</value>
         <value xml:lang="zh">标识为 ${partyId} 的会员不是支付方法 ${paymentMethodId} 的拥有者，无权修改它。</value>
         <value xml:lang="zh-TW">標識為 ${partyId} 的團體不是支付方法 ${paymentMethodId} 的擁有者,無權修改它.</value>
     </property>
-    <property key="AccountingGiftCertificateNumberCannotAuthorize">
+    <property key="AccountingGiftCerticateNumberCannotAuthorize">
         <value xml:lang="ar">لا يمكن التصريح ببطاقة الهدية بسبب: ${errorString}</value>
         <value xml:lang="de">Kann Geschenkzertifikat nicht authorisieren weil: ${errorString}</value>
         <value xml:lang="en">Cannot authorize gift certificate due to: ${errorString}</value>
@@ -441,7 +441,7 @@
         <value xml:lang="zh">无法授权礼券，原因：${errorString}</value>
         <value xml:lang="zh-TW">無法授權禮券,原因:${errorString}</value>
     </property>
-    <property key="AccountingGiftCertificateNumberCannotBeExpired">
+    <property key="AccountingGiftCerticateNumberCannotBeExpired">
         <value xml:lang="ar">غير ممكن انهاء صلاحية تصريح الحساب المالي لشهادة الهدية</value>
         <value xml:lang="de">Kann Finanzkonto Authorisierung für Geschenkzertifikat nicht ablaufen lassen: </value>
         <value xml:lang="en">Unable to expire financial account authorization for Gift Certificate: </value>
@@ -451,7 +451,7 @@
         <value xml:lang="zh">无法令礼券的财务账目授权失效，礼券为：</value>
         <value xml:lang="zh-TW">無法令禮券的財務帳目授權失效,禮券為:</value>
     </property>
-    <property key="AccountingGiftCertificateNumberCannotFulfill">
+    <property key="AccountingGiftCerticateNumberCannotFulfill">
         <value xml:lang="ar">لا يوجد سلع مرتبطة ببند أمر البيع/الشراء, لا يمكن الوفاء ببطاقة الهدية</value>
         <value xml:lang="de">Kein Produkt mit Bestellposition verknüpft, kann Geschenkkarte nicht verarbeiten</value>
         <value xml:lang="en">No product associated with OrderItem, cannot fulfill gift card</value>
@@ -461,10 +461,7 @@
         <value xml:lang="zh">没有产品与订单明细关联，无法应用礼品卡</value>
         <value xml:lang="zh-TW">沒有產品與訂單細項結合,無法使用禮物卡</value>
     </property>
-    <property key="AccountingGiftCertificateNumberCannotFulfillFromSurvey">
-        <value xml:lang="en">Unable to get survey response; cannot fulfill gift card reload</value>
-    </property>
-    <property key="AccountingGiftCertificateNumberCannotFulfillFromSurveyAnswers">
+    <property key="AccountingGiftCerticateNumberCannotFulfillFromSurveyAnswers">
         <value xml:lang="de">Kann keine Umfrageantworten von Umfrageantwort ermitteln; kann Geschenkkarte nicht verarbeiten</value>
         <value xml:lang="en">Unable to get survey response answers from survey response; cannot fulfill gift card</value>
         <value xml:lang="it">Non è possibile ottenere la risposta sondaggio dalle domande; non è possibile caricare la carta regalo</value>
@@ -473,7 +470,7 @@
         <value xml:lang="zh">无法从调查答复中获得调查答复的回答；不能应用礼品卡</value>
         <value xml:lang="zh-TW">無法從調查回應中獲得調查回應的回答;不能使用禮物卡</value>
     </property>
-    <property key="AccountingGiftCertificateNumberCannotGetPaymentConfiguration">
+    <property key="AccountingGiftCerticateNumberCannotGetPaymentConfiguration">
         <value xml:lang="de">Kann Konfigurationsdatei für Zahlung nicht ermitteln</value>
         <value xml:lang="en">Unable to get payment configuration file</value>
         <value xml:lang="it">Non è possibile ottenere il file configurazione pagamento</value>
@@ -482,7 +479,7 @@
         <value xml:lang="zh">无法获得支付配置文件</value>
         <value xml:lang="zh-TW">無法獲得支付設定檔</value>
     </property>
-    <property key="AccountingGiftCertificateNumberCannotLocateItFromOrderPaymentPreference">
+    <property key="AccountingGiftCerticateNumberCannotLocateItFromOrderPaymentPreference">
         <value xml:lang="de">Kann Geschenkkarte aus der OrderPaymentPreference nicht ermitteln</value>
         <value xml:lang="en">Unable to get GiftCard from OrderPaymentPreference</value>
         <value xml:lang="it">Non è possibile localizzare il certificato regalo dalla preferenze pagamento dell'ordine</value>
@@ -491,7 +488,7 @@
         <value xml:lang="zh">不能从订单支付设置中获得礼品卡</value>
         <value xml:lang="zh-TW">不能從訂單支付偏好中取得禮物卡</value>
     </property>
-    <property key="AccountingGiftCertificateNumberCannotProcess">
+    <property key="AccountingGiftCerticateNumberCannotProcess">
         <value xml:lang="ar">غير ممكن تفعيل شراء بطاقة الهدية: لا يوجد دليل محل السلعة على رأس أمر البيع/الشراء: ${orderId}</value>
         <value xml:lang="de">Kann Geschenkkartenkauf nicht verarbeiten; keine productStoreId an Bestellkopf: ${orderId}</value>
         <value xml:lang="en">Unable to process gift card purchase; no productStoreId on OrderHeader: ${orderId}</value>
@@ -501,7 +498,7 @@
         <value xml:lang="zh">无法处理礼品卡购物；订单头中没有产品店铺标识，订单标识：${orderId}</value>
         <value xml:lang="zh-TW">無法處理禮物卡購物;訂單頭中沒有產品商店標識,訂單標識:${orderId}</value>
     </property>
-    <property key="AccountingGiftCertificateNumberCannotRelease">
+    <property key="AccountingGiftCerticateNumberCannotRelease">
         <value xml:lang="ar">فشل محاولة إطلاق دفعة بطاقة الهدية: سجل بطاقة الهدية غير صالح</value>
         <value xml:lang="de">Ausgabeversuch für Geschenkkartenzahlung fehlgeschlagen; keine gültige Geschenkkarte</value>
         <value xml:lang="en">Attempt to release GiftCard payment failed; not a valid GiftCard record</value>
@@ -511,7 +508,7 @@
         <value xml:lang="zh">尝试释放礼品卡支付时失败；不是有效的礼品卡记录</value>
         <value xml:lang="zh-TW">嘗試釋放禮物卡支付時失敗;不是有效的禮物卡記錄</value>
     </property>
-    <property key="AccountingGiftCertificateNumberCannotReload">
+    <property key="AccountingGiftCerticateNumberCannotReload">
         <value xml:lang="de">Kann Aufladung für Geschenkkarte nicht verarbeiten; keine productStoreId an Bestellkopf: ${orderId}</value>
         <value xml:lang="en">Unable to process gift card reload; no productStoreId on OrderHeader: ${orderId}</value>
         <value xml:lang="it">Non è possibile processare la ricarica con la carta regalo; nessun negozio impostato sulla testata ordine: ${orderId}</value>
@@ -520,7 +517,7 @@
         <value xml:lang="zh">无法处理礼品卡重新载入；订单头中没有产品店铺标识，订单标识：${orderId}</value>
         <value xml:lang="zh-TW">無法處理禮物卡重新載入;訂單頭中沒有產品商店標識,訂單標識:${orderId}</value>
     </property>
-    <property key="AccountingGiftCertificateNumberCannotReloadFromSurveyAnswers">
+    <property key="AccountingGiftCerticateNumberCannotReloadFromSurveyAnswers">
         <value xml:lang="de">Kann keine Fragen für Umfrage ermitteln; kann Geschenkkartenaufladung nicht durchführen</value>
         <value xml:lang="en">Unable to get survey response answers from survey response; cannot fulfill gift card reload</value>
         <value xml:lang="it">Non è possibile ottenere l'informazione relativa alla risposta sondaggio dalle domande; non è possibile ricaricare la carta regalo</value>
@@ -529,7 +526,7 @@
         <value xml:lang="zh">无法从调查答复中获得调查答复的回答；不能重新载入礼品卡</value>
         <value xml:lang="zh-TW">無法從調查回應中獲得調查回應的回答;不能重新載入禮物卡</value>
     </property>
-    <property key="AccountingGiftCertificateNumberCannotSendEmailNotice">
+    <property key="AccountingGiftCerticateNumberCannotSendEmailNotice">
         <value xml:lang="ar">خطأ اثناء ارسال بريد الكتروني لتنبيه بطاقة الهدية: ${errorString}</value>
         <value xml:lang="de">Fehler beim Senden der Geschenkkarten Benachrichtigungsmail:  ${errorString}</value>
         <value xml:lang="en">Error sending Gift Card notice email:  ${errorString}</value>
@@ -539,7 +536,7 @@
         <value xml:lang="zh">发送礼品卡通知邮件时出错：${errorString}</value>
         <value xml:lang="zh-TW">發送禮物卡通知訊息時出錯:${errorString}</value>
     </property>
-    <property key="AccountingGiftCertificateNumberCannotStoreFulfillmentInfo">
+    <property key="AccountingGiftCerticateNumberCannotStoreFulfillmentInfo">
         <value xml:lang="de">Kann Ausführungsinformation nicht speichern:  ${errorString}</value>
         <value xml:lang="en">Unable to store fulfillment info:  ${errorString}</value>
         <value xml:lang="it">Non è possibile registrazione le informazioni di ricarica: ${errorString}</value>
@@ -548,7 +545,7 @@
         <value xml:lang="zh">无法存储执行信息：${errorString}</value>
         <value xml:lang="zh-TW">無法儲存責任履行履行資訊:${errorString}</value>
     </property>
-    <property key="AccountingGiftCertificateNumberCreationError">
+    <property key="AccountingGiftCerticateNumberCreationError">
         <value xml:lang="ar">غير ممكن خلق رقم شهادة الهدية</value>
         <value xml:lang="de">Kann Geschenkzertifikatsnummer nicht erstellen.</value>
         <value xml:lang="en">Unable to create gift certificate number.</value>
@@ -558,7 +555,7 @@
         <value xml:lang="zh">无法新建礼券编号。</value>
         <value xml:lang="zh-TW">無法新建禮券編號.</value>
     </property>
-    <property key="AccountingGiftCertificateNumberExpired">
+    <property key="AccountingGiftCerticateNumberExpired">
         <value xml:lang="ar">انتهت صلاحية شهادة الهدية منذ ${thruDate}</value>
         <value xml:lang="de">Geschenkzertifikat ist seit ${thruDate} abgelaufen</value>
         <value xml:lang="en">Gift certificate has expired as of  ${thruDate}</value>
@@ -568,7 +565,7 @@
         <value xml:lang="zh">礼券已过期，过期日期是 ${thruDate}</value>
         <value xml:lang="zh-TW">禮券已過期,過期日期是 ${thruDate}</value>
     </property>
-    <property key="AccountingGiftCertificateNumberNotFound">
+    <property key="AccountingGiftCerticateNumberNotFound">
         <value xml:lang="ar">لا يمكن إيجاد شهادة الهدية ${finAccountId}</value>
         <value xml:lang="de">Geschenkzertifikat nicht gefunden ${finAccountId}</value>
         <value xml:lang="en">Gift certificate not found ${finAccountId}</value>
@@ -578,7 +575,7 @@
         <value xml:lang="zh">找不到礼券 ${finAccountId}</value>
         <value xml:lang="zh-TW">找不到禮券 ${finAccountId}</value>
     </property>
-    <property key="AccountingGiftCertificateNumberPinNotValid">
+    <property key="AccountingGiftCerticateNumberPinNotValid">
         <value xml:lang="ar">الرمز السري غير صالح</value>
         <value xml:lang="de">PIN Nummer ist ungültig</value>
         <value xml:lang="en">PIN number is not valid</value>
@@ -588,7 +585,7 @@
         <value xml:lang="zh">PIN密码无效</value>
         <value xml:lang="zh-TW">PIN密碼無效</value>
     </property>
-    <property key="AccountingGiftCertificateNumberRefundCallError">
+    <property key="AccountingGiftCerticateNumberRefundCallError">
         <value xml:lang="ar">غير ممكن الإتصال بخدمة الإسترجاع!</value>
         <value xml:lang="de">Kann Service zur Rückerstattung nicht aufrufen!</value>
         <value xml:lang="en">Unable to call refund service!</value>
@@ -766,10 +763,6 @@
         <value xml:lang="zh">获取税务设置时数据错误：${errorString}</value>
         <value xml:lang="zh-TW">獲取稅務設定時資料錯誤:${errorString}</value>
     </property>
-    <property key="AccountingUpdateRateAmountAlreadyExist">
-        <value xml:lang="en">The Rate amount already exist</value>
-        <value xml:lang="fr">Le taux est déjà existant</value>
-    </property>
     <property key="AccountingUploadedFileDataNotFound">
         <value xml:lang="en">Uploaded file data not found</value>
     </property>
@@ -779,6 +772,67 @@
     <property key="AccountingProcessingAuthResultEmpty">
         <value xml:lang="en">No authentification result available. Payment preference can't be checked.</value>
         <value xml:lang="de">Es ist kein Authentifizierungsergebnis vorhanden. Die Zahlungsmethode kann nicht überprüft werden.</value>
+    </property>
+    <property key="idealEvents.failedToExecuteServiceCreatePaymentFromPreference">
+        <value xml:lang="ar">فشل في تنفيذ خدمة CreatePaymentFromPreference</value>
+        <value xml:lang="de">Ausführen des Service CreatePaymentFromPreference fehlgeschlagen</value>
+        <value xml:lang="en">Failed To Execute Service CreatePaymentFromPreference</value>
+        <value xml:lang="fr">Échec sur l'execution du service de création d'un payment suivant les préférence (CreatePaymentFromPreference)</value>
+        <value xml:lang="hi-IN">सर्विस CreatePaymentFromPreference पर अमल(execute) करने में असफल</value>
+        <value xml:lang="it">Fallita esecuzione servizio CreatePaymentFromPreference</value>
+        <value xml:lang="zh">执行从设置创建支付（CreatePaymentFromPreference）这个服务时出错</value>
+        <value xml:lang="zh-TW">執行從偏好新建支付(CreatePaymentFromPreference)這個服務時出錯</value>
+    </property>
+    <property key="idealEvents.noValidOrderIdReturned">
+        <value xml:lang="ar">لا يوجد أمر بيع/شراء صحيح مسترجع</value>
+        <value xml:lang="de">Es wurde keine gültige BestellId zurückgegeben</value>
+        <value xml:lang="en">No Valid OrderId Returned</value>
+        <value xml:lang="fr">Référence commande retournée n'est pas valide</value>
+        <value xml:lang="hi-IN">मान्य OrderId वापस नहीं लौटा</value>
+        <value xml:lang="it">Nessun numero ordine restituito</value>
+        <value xml:lang="zh">返回的订单标识无效</value>
+        <value xml:lang="zh-TW">返回的訂單標識無效</value>
+    </property>
+    <property key="idealEvents.problemsConnectingWithIdeal">
+        <value xml:lang="de">Probleme bei der Verbindung zu iDEAL</value>
+        <value xml:lang="en">Problems Connecting With iDEAL</value>
+        <value xml:lang="fr">Problème rencontré dans la connexion avec iDEAL</value>
+        <value xml:lang="hi-IN">iDEAL के साथ जोड़ने में समस्या</value>
+        <value xml:lang="it">Problema nella connessione con iDEAL</value>
+        <value xml:lang="zh">连接 iDEAL 时出错</value>
+        <value xml:lang="zh-TW">連接 iDEAL 時出錯</value>
+    </property>
+    <property key="idealEvents.problemsGettingAuthenticationUser">
+        <value xml:lang="ar">مشاكل في مصادقة المستخدم</value>
+        <value xml:lang="de">Probleme beim Ermitteln des berechtigten Benutzers</value>
+        <value xml:lang="en">Problems Getting Authentication User</value>
+        <value xml:lang="fr">Problème sur l'authentification de l'utilisateur</value>
+        <value xml:lang="hi-IN">उपयोगकर्ता(user) के प्रमाणीकरण में समस्याएँ हो रही</value>
+        <value xml:lang="it">Problema durante l'autenticazione utente</value>
+        <value xml:lang="zh">获取认证用户时出错</value>
+        <value xml:lang="zh-TW">獲取認證使用者時出錯</value>
+    </property>
+    <property key="idealEvents.problemsGettingMerchantConfiguration">
+        <value xml:lang="ar">مشاكل في ترتيبات التاجر</value>
+        <value xml:lang="de">Probleme beim Ermitteln der Verkaufs-Konfiguration</value>
+        <value xml:lang="en">Problems Getting Merchant Configuration</value>
+        <value xml:lang="fr">Problème de récupération de la configuration marchand</value>
+        <value xml:lang="hi-IN">व्यापारी विन्यास में समस्याएँ हो रही</value>
+        <value xml:lang="it">Problema nel ricavare la configurazione del negoziante</value>
+        <value xml:lang="ja">マーチャント設定の取得時にエラー</value>
+        <value xml:lang="zh">获取商户配置时出错</value>
+        <value xml:lang="zh-TW">獲取商戶配置時出錯</value>
+    </property>
+    <property key="idealEvents.problemsGettingOrderHeader">
+        <value xml:lang="ar">مشاكل في رأس أمر البيع/الشراء</value>
+        <value xml:lang="de">Probleme beim Ermitteln des Bestellkopfs</value>
+        <value xml:lang="en">Problems Getting OrderHeader</value>
+        <value xml:lang="fr">Problème de récupération de la commande</value>
+        <value xml:lang="hi-IN">OrderHeader में समस्याएँ हो रही</value>
+        <value xml:lang="it">Problema nel ricavare la testata ordine</value>
+        <value xml:lang="ja">注文ヘッダ取得時にエラー</value>
+        <value xml:lang="zh">获取订单头时出错</value>
+        <value xml:lang="zh-TW">獲取訂單頭時出錯</value>
     </property>
     <property key="payPalEvents.failedToExecuteServiceCreatePaymentFromPreference">
         <value xml:lang="ar">فشل في تنفيذ خدمة createPaymentFromPreference</value>
@@ -922,11 +976,11 @@
         <value xml:lang="zh-TW">獲取認證使用者時出錯</value>
     </property>
     <property key="worldPayEvents.problemsGettingInstId">
-        <value xml:lang="de">Probleme beim Ermitteln der Inst ID</value>
-        <value xml:lang="en">Problems Getting Inst ID</value>
-        <value xml:lang="fr">Problème de récupération de la ref. de "l'Inst"</value>
+        <value xml:lang="de">Probleme beim Ermitteln der Inst Id</value>
+        <value xml:lang="en">Problems Getting Inst Id</value>
+        <value xml:lang="fr">Problème de récupération de l'Inst Id</value>
         <value xml:lang="hi-IN">Inst Id में समस्याएँ हो रही</value>
-        <value xml:lang="it">Problema nel ricavare il parametro Inst ID</value>
+        <value xml:lang="it">Problema nel ricavare il parametro Inst Id</value>
         <value xml:lang="ja">導入IDの取得に問題があります。</value>
         <value xml:lang="pt">Problemas ao obter ID de inst</value>
         <value xml:lang="zh">获取实例标识时出错</value>

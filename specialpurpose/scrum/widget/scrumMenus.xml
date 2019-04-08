@@ -1,0 +1,1144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://ofbiz.apache.org/Widget-Menu" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Menu http://ofbiz.apache.org/dtds/widget-menu.xsd">
+    <menu name="ScrumAppBar" title="${uiLabelMap.ScrumApplication}" 
+        default-menu-item-name="products" id="app-navigation" type="simple"
+                default-selected-style="selected" menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="headerItem">
+        <menu-item name="products" title="${uiLabelMap.ScrumProductBacklog}">
+            <condition>
+                <if-service-permission service-name="scrumPermissionCheck" main-action="VIEW" resource-description="SCRUM"/>
+            </condition>
+               <link target="main"/>
+        </menu-item>
+        <menu-item name="Sprints" title="${uiLabelMap.ScrumProjectSprint}">
+            <link target="Sprints"/>
+        </menu-item>
+        <menu-item name="ProjectMember" title="${uiLabelMap.ScrumMembers}">
+            <condition>
+                <and>
+                    <not><if-has-permission permission="SCRUM" action="_ADMIN"/></not>
+                    <and>
+                        <if-service-permission service-name="scrumPermissionCheck" main-action="CREATE" resource-description="MEMBER"/>
+                    </and>
+                </and>
+            </condition>
+            <link target="FindResource"/>
+        </menu-item>
+        <menu-item name="MyWork" title="${uiLabelMap.ScrumMyWork}">
+            <condition>
+                <if-service-permission service-name="scrumPermissionCheck" main-action="CREATE" resource-description="TASK"/>
+            </condition>
+            <link target="MyWork"/>
+        </menu-item>
+        <menu-item name="Tasks" title="${uiLabelMap.ScrumTasks}">
+            <condition>
+                <if-service-permission service-name="scrumPermissionCheck" main-action="CREATE" resource-description="TASK"/>
+               </condition>
+            <link target="FindTask"/>
+        </menu-item>
+        <menu-item name="openTest" title="${uiLabelMap.ScrumOpenTest}">
+            <condition>
+                <if-service-permission service-name="scrumPermissionCheck" main-action="VIEW" resource-description="TEST"/>
+            </condition>
+            <link target="openTest"/>
+        </menu-item>
+        <menu-item name="revision" title="${uiLabelMap.ScrumRevision}">
+            <condition>
+                <if-service-permission service-name="scrumPermissionCheck" main-action="CREATE" resource-description="TASK"/>
+            </condition>
+            <link target="FindTaskRevision"/>
+        </menu-item>
+        <menu-item name="admin" title="${uiLabelMap.ScrumAdmin}">
+               <condition>
+                     <if-has-permission permission="SCRUM" action="_ADMIN"/>
+               </condition>
+               <link target="adminScrum"/>
+        </menu-item>
+        <menu-item name="myProfile" title="${uiLabelMap.ScrumMyProfile}">
+            <link target="viewprofile">
+                <parameter param-name="partyId" from-field="userLogin.partyId"/>
+            </link>
+        </menu-item>
+    </menu>
+    
+    <menu name="ScrumAdminSubMenu" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="totalBacklog" title="${uiLabelMap.PageTitleAllBacklog}">
+            <condition>
+                <if-has-permission permission="SCRUM" action="_ADMIN"/>
+            </condition>
+            <link target="FindTotalBacklog"/>
+        </menu-item>
+        <menu-item name="timesheets" title="${uiLabelMap.ScrumTimesheet}">
+            <condition>
+                <if-has-permission permission="SCRUM" action="_ADMIN"/>
+            </condition>
+            <link target="FindTimeSheet"/>
+        </menu-item>
+        <menu-item name="totalBilling" title="${uiLabelMap.PageTitleBilling}">
+            <condition>
+                <or>
+                    <if-has-permission permission="SCRUM" action="_ADMIN"/>
+                    <if-has-permission permission="SCRUM_BILLING" action="_ADMIN"/>
+                    <if-has-permission permission="SCRUM_BILLING" action="_CREATE"/>
+                </or>
+            </condition>
+            <link target="TotalBilling"/>
+        </menu-item>
+        <menu-item name="defaultTasks" title="${uiLabelMap.ScrumDefaultTasks}">
+            <condition>
+                <if-has-permission permission="SCRUM" action="_ADMIN"/>
+            </condition>
+            <link target="defaultTaskScrum"/>
+        </menu-item>
+        <menu-item name="ProjectMember" title="${uiLabelMap.PageTitleScrumMember}">
+            <condition>
+               <if-has-permission permission="SCRUM" action="_ADMIN"/>
+            </condition>
+            <link target="FindResource"/>
+        </menu-item>
+        <menu-item name="quickAddNewTask" title="${uiLabelMap.ScrumQuickAddNewTask}">
+            <condition>
+                <if-has-permission permission="SCRUM" action="_ADMIN"/>
+            </condition>
+            <link target="quickAddNewTask"/>
+        </menu-item>
+        <menu-item name="quickAddBacklog" title="${uiLabelMap.ScrumQuickAddBacklog}">
+            <condition>
+                <if-has-permission permission="SCRUM" action="_ADMIN"/>
+            </condition>
+            <link target="QuickAddBacklog"/>
+        </menu-item>
+        <menu-item name="productStatistics" title="${uiLabelMap.ScrumProductStatistics}">
+            <condition>
+                <if-has-permission permission="SCRUM" action="_ADMIN"/>
+            </condition>
+            <link target="ProductStatistics"/>
+        </menu-item>
+    </menu>
+    
+    <menu name="SprintMenu" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="SprintSummary" title="${uiLabelMap.CommonOverview}">
+            <link target="ViewSprint">
+                <parameter param-name="sprintId" from-field="parameters.sprintId"/>
+            </link>
+        </menu-item>
+        <menu-item name="EditSprint" title="${uiLabelMap.CommonUpdate}">
+            <condition>
+                <and>
+                    <if-compare operator="not-equals" value="SPRINT_CLOSED" field="sprint.currentStatusId"/>
+                    <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="SPRINT"/>
+                </and>
+            </condition>
+            <link target="EditSprint">
+                <parameter param-name="sprintId" from-field="parameters.sprintId"/>
+            </link>
+        </menu-item>
+        <menu-item name="SprintMember" title="${uiLabelMap.ScrumMembers}">
+            <condition>
+                <and>
+                    <if-compare operator="not-equals" value="SPRINT_CLOSED" field="sprint.currentStatusId"/>
+                    <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="SPRINT"/>
+                </and>
+            </condition>
+            <link target="SprintMember">
+                <parameter param-name="sprintId" from-field="parameters.sprintId"/>
+            </link>
+        </menu-item>
+        <menu-item name="DailySprintMeetingMinute" title="${uiLabelMap.PageTitleDailyMeetingMinutes}">
+            <condition>
+                <and>
+                    <if-compare operator="not-equals" value="SPRINT_CLOSED" field="sprint.currentStatusId"/>
+                    <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="SPRINT"/>
+                </and>
+            </condition>
+            <link target="DailyScrumMeetingMinute">
+                <parameter param-name="sprintId" from-field="parameters.sprintId"/>
+            </link>
+        </menu-item>
+    </menu>
+    
+    <menu name="SprintSubMenu" extends="CommonButtonBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+        menu-container-style="button-bar button-style-2">
+        <menu-item name="AddSprintBacklog" title="${uiLabelMap.ScrumAddSprintBacklog}">
+            <condition>
+               <and>
+                    <if-compare-field operator="less-equals" field="nowTimestamp" to-field="sprint.actualCompletionDate" type="Timestamp"/>
+                    <if-compare field="sprint.currentStatusId" operator="not-equals" value="SPRINT_CLOSED"/>
+                    <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="SPRINT"/>
+                </and>
+            </condition>
+            <link target="AddSprintBacklog">
+                <parameter param-name="sprintId" from-field="parameters.sprintId"/>
+            </link>
+        </menu-item>
+        <menu-item name="CloseSprint" title="${uiLabelMap.ScrumCloseSprint}">
+            <condition>
+                <and>
+                    <if-compare-field operator="greater-equals" field="nowTimestamp" to-field="sprint.actualCompletionDate" type="Timestamp"/>
+                    <if-compare field="sprint.currentStatusId" operator="not-equals" value="SPRINT_CLOSED"/>
+                    <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="SPRINT"/>
+                </and>
+            </condition>
+            <link target="CloseSprint" style="buttontext delete" confirmation-message="Are you sure to close the spirnt ?">
+                <parameter param-name="projectId" from-field="parameters.projectId"/>
+                <parameter param-name="sprintId" from-field="parameters.sprintId"/>
+            </link>
+        </menu-item>
+        <menu-item name="CopyMemberLastSprint" title="${uiLabelMap.ScrumCopymenber}">
+            <condition>
+                <and>
+                    <if-compare field="sprint.currentStatusId" operator="equals" value="SPRINT_ACTIVE"/>
+                    <if-compare-field operator="less" field="nowTimestamp" to-field="sprint.actualCompletionDate" type="Timestamp"/>
+                    <if-compare field="primeSprintId" operator="not-equals" value="${sprint.workEffortId}"/>
+                    <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="SPRINT"/>
+                </and>
+            </condition>
+            <link target="CopyMemberLastSprint">
+                <parameter param-name="projectId" from-field="parameters.projectId"/>
+                <parameter param-name="sprintId" from-field="parameters.sprintId"/>
+            </link>
+        </menu-item>
+    </menu>
+    
+    <menu name="ProjectMenu" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="projectSummary" title="${uiLabelMap.CommonOverview}">
+            <link target="viewScrumProject">
+                <parameter param-name="projectId" from-field="parameters.projectId"/>
+            </link>
+        </menu-item>
+        <menu-item name="editProject" title="${uiLabelMap.CommonUpdate}">
+            <condition>
+                <and>
+                    <not><if-empty field="workEffortId"/></not>
+                    <if-compare operator="equals" value="SPJ_ACTIVE" field="workEffort.currentStatusId"/>
+                    <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="SPRINT"/>
+                </and>
+            </condition>
+            <link target="editScrumProject">
+                <parameter param-name="projectId" from-field="parameters.projectId"/>
+            </link>
+        </menu-item>
+        <menu-item name="projectContent" title="${uiLabelMap.CommonContent}">
+            <condition>
+                <and>
+                    <not><if-empty field="workEffortId"/></not>
+                    <if-compare operator="equals" value="SPJ_ACTIVE" field="workEffort.currentStatusId"/>
+                    <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="SPRINT"/>
+                </and>
+            </condition>
+            <link target="EditProjectContents">
+                <parameter param-name="projectId" from-field="parameters.projectId"/>
+            </link>
+        </menu-item>
+    </menu>
+    
+    <menu name="ProductTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <actions>
+          <set field="productId" from-field="parameters.productId"/>
+            <set field="hasUpdatePermission" value="${groovy:
+                result = dispatcher.runSync(&quot;scrumPermissionCheck&quot;,
+                org.apache.ofbiz.base.util.UtilMisc.toMap(&quot;userLogin&quot;, parameters.get(&quot;userLogin&quot;),
+                &quot;resourceDescription&quot;, &quot;PRODUCT&quot;,
+                &quot;mainAction&quot;, &quot;VIEW&quot;,
+                &quot;productId&quot;, productId));
+                return result.get(&quot;hasPermission&quot;); }" type="Boolean"/>
+        </actions>
+        <menu-item name="view" title="${uiLabelMap.ScrumProductOverview}">
+            <condition>
+                   <not><if-empty field="product"/></not>
+            </condition>
+            <link target="ViewProduct">
+                <parameter param-name="productId" value="${parameters.productId}"/>
+            </link>
+        </menu-item>
+        <menu-item name="edit" title="${uiLabelMap.ScrumProductUpdate}">
+            <condition>
+                <and>
+                    <or>
+                        <if-has-permission permission="SCRUM_ADMIN"/>
+                    </or>
+                    <not><if-empty field="product"/></not>
+                    <if-empty field="product.supportDiscontinuationDate"/>
+                    <if-compare field="hasUpdatePermission" operator="equals" value="true"/>
+                </and>
+            </condition>
+            <link target="EditProduct">
+                <parameter param-name="productId" value="${parameters.productId}"/>
+            </link>
+        </menu-item>
+        <menu-item name="productMember" title="${uiLabelMap.ScrumProductMember}">
+            <condition>
+                <and>
+                    <or>
+                        <if-has-permission permission="SCRUM_ADMIN"/>
+                    </or>
+                    <not><if-empty field="product"/></not>
+                    <if-empty field="product.supportDiscontinuationDate"/>
+                    <if-compare field="hasUpdatePermission" operator="equals" value="true"/>
+                </and>
+            </condition>
+            <link target="ProductMember">
+                <parameter param-name="productId" value="${parameters.productId}"/>
+            </link>
+        </menu-item>
+        <menu-item name="totalProductBacklog" title="${uiLabelMap.PageTitleTotalBacklog}">
+            <condition>
+                <and>
+                    <not><if-empty field="product"/></not>
+                    <if-empty field="product.supportDiscontinuationDate"/>
+                </and>
+            </condition>
+            <link target="ViewTotalBacklog">
+                <parameter param-name="productId" value="${parameters.productId}"/>
+            </link>
+        </menu-item>
+        <menu-item name="editProductBacklog" title="${uiLabelMap.ScrumEditBacklog}">
+            <condition>
+                <and>
+                    <not><if-empty field="product"/></not>
+                    <if-empty field="product.supportDiscontinuationDate"/>
+                    <if-service-permission service-name="scrumPermissionCheck" main-action="VIEW" resource-description="BACKLOG"/>
+                </and>
+            </condition>
+            <link target="AddProdBacklog">
+                <parameter param-name="productId" value="${parameters.productId}"/>
+            </link>
+        </menu-item>
+        <menu-item name="unplanBacklog" title="${uiLabelMap.ScrumUnplanSprint}">
+            <condition>
+                <and>
+                    <or>
+                        <if-has-permission permission="SCRUM_PRODUCT_ROLE_VIEW"/>
+                        <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="BACKLOG"/>
+                    </or>
+                    <not><if-empty field="product"/></not>
+                    <if-empty field="product.supportDiscontinuationDate"/>
+                    <not><if-empty field="unPlannedBacklogList"/></not>
+                </and>
+            </condition>
+            <link target="unplanBacklog">
+                <parameter param-name="productId" value="${parameters.productId}"/>
+            </link>
+        </menu-item>
+        <menu-item name="billing" title="${uiLabelMap.PageTitleBilling}">
+            <condition>
+                <and>
+                    <or>
+                        <if-has-permission permission="SCRUM" action="_ADMIN"/>
+                        <if-has-permission permission="SCRUM_BILLING" action="_ADMIN"/>
+                        <if-has-permission permission="SCRUM_BILLING" action="_CREATE"/>
+                    </or>
+                    <not><if-empty field="product"/></not>
+                    <if-empty field="product.supportDiscontinuationDate"/>
+                </and>
+            </condition>
+            <link text="Billing" target="ProductBilling">
+                <parameter param-name="productId" value="${parameters.productId}"/>
+            </link>
+        </menu-item>
+        <menu-item name="defaultTasks" title="${uiLabelMap.ScrumDefaultTasks}">
+            <condition>
+                <and>
+                    <not><if-empty field="product"/></not>
+                    <if-empty field="product.supportDiscontinuationDate"/>
+                    <if-service-permission service-name="scrumPermissionCheck" main-action="VIEW" resource-description="BACKLOG"/>
+                </and>
+            </condition>
+            <link text="Default Tasks" target="defaultTasks">
+                <parameter param-name="productId" value="${parameters.productId}"/>
+            </link>
+        </menu-item>
+        <menu-item name="categories" title="${uiLabelMap.ScrumCategories}">
+            <condition>
+                <and>
+                    <not><if-empty field="product"/></not>
+                    <if-empty field="product.supportDiscontinuationDate"/>
+                    <if-service-permission service-name="scrumPermissionCheck" main-action="VIEW" resource-description="BACKLOG"/>
+                </and>
+            </condition>
+            <link text="Categories" target="ListProductBacklogCategories">
+                <parameter param-name="productId" value="${parameters.productId}"/>
+            </link>
+        </menu-item>
+        <menu-item name="productContent" title="${uiLabelMap.CommonContent}">
+            <condition>
+                <and>
+                    <if-service-permission service-name="scrumPermissionCheck" main-action="VIEW" resource-description="BACKLOG"/>
+                    <not><if-empty field="product"/></not>
+                    <if-empty field="product.supportDiscontinuationDate"/>
+                </and>
+            </condition>
+            <link target="EditProductContents">
+                <parameter param-name="productId" value="${parameters.productId}"/>
+            </link>
+        </menu-item>
+        <menu-item name="productComm" title="${uiLabelMap.ScrumCommunications}">
+            <condition>
+                <and>
+                    <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="BACKLOG"/>
+                    <not><if-empty field="product"/></not>
+                    <if-empty field="product.supportDiscontinuationDate"/>
+                </and>
+            </condition>
+            <link target="ProductEmails">
+                <parameter param-name="productId" value="${parameters.productId}"/>
+            </link>
+        </menu-item>
+    </menu>
+     <menu name="ProductBackLogItemTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="view" title="${uiLabelMap.CommonOverview}">
+            <condition>
+                   <not><if-empty field="product"/></not>
+            </condition>
+            <link target="ViewProdBacklogItem">
+                <parameter param-name="custRequestId" value="${parameters.custRequestId}"/>
+                <parameter param-name="productId" value="${parameters.productId}"/>
+            </link>
+        </menu-item>
+        <menu-item name="editProductBacklogItem" title="${uiLabelMap.CommonUpdate}">
+            <condition>
+                <and>
+                    <not><if-empty field="product"/></not>
+                    <if-empty field="product.supportDiscontinuationDate"/>
+                    <or>
+                        <if-compare operator="equals" value="CRQ_ACCEPTED" field="custRequestMap.statusId"/>
+                        <if-compare operator="equals" value="CRQ_REVIEWED" field="custRequestMap.statusId"/>
+                        <if-compare operator="equals" value="CRQ_REOPENED" field="custRequestMap.statusId"/>
+                    </or>
+                    <or>
+                        <if-service-permission service-name="scrumPermissionCheck" main-action="CREATE" resource-description="TASK"/>
+                        <or>
+                            <and>
+                                <if-has-permission permission="SCRUM_PRODUCT_ADMIN"/>
+                                <if-compare operator="equals" value="CRQ_ACCEPTED" field="custRequestMap.statusId"/>
+                            </and>
+                        </or>
+                    </or>
+                </and>
+            </condition>
+            <link target="EditProdBacklog">
+                <parameter param-name="custRequestId" value="${parameters.custRequestId}"/>
+                <parameter param-name="productId" value="${parameters.productId}"/>
+            </link>
+        </menu-item>
+        <menu-item name="productBacklogItemNote" title="${uiLabelMap.CommonNotes}">
+            <condition>
+                <and>
+                    <not><if-empty field="product"/></not>
+                    <if-empty field="product.supportDiscontinuationDate"/>
+                    <or>
+                        <if-compare operator="equals" value="CRQ_ACCEPTED" field="custRequestMap.statusId"/>
+                        <if-compare operator="equals" value="CRQ_REVIEWED" field="custRequestMap.statusId"/>
+                        <if-compare operator="equals" value="CRQ_REOPENED" field="custRequestMap.statusId"/>
+                    </or>
+                </and>
+            </condition>
+            <link target="ProdBacklogNote">
+                <parameter param-name="custRequestId" value="${parameters.custRequestId}"/>
+                <parameter param-name="productId" value="${parameters.productId}"/>
+            </link>
+        </menu-item>
+        <menu-item name="productBacklogItemContent" title="${uiLabelMap.CommonContent}">
+            <condition>
+                <and>
+                    <not><if-empty field="product"/></not>
+                    <if-empty field="product.supportDiscontinuationDate"/>
+                    <or>
+                        <if-compare operator="equals" value="CRQ_ACCEPTED" field="custRequestMap.statusId"/>
+                        <if-compare operator="equals" value="CRQ_REVIEWED" field="custRequestMap.statusId"/>
+                        <if-compare operator="equals" value="CRQ_REOPENED" field="custRequestMap.statusId"/>
+                    </or>
+                    <if-service-permission service-name="scrumPermissionCheck" main-action="VIEW" resource-description="BACKLOG"/>
+                </and>
+            </condition>
+            <link target="EditBacklogItemContent">
+                <parameter param-name="custRequestId" value="${parameters.custRequestId}"/>
+                <parameter param-name="productId" value="${parameters.productId}"/>
+            </link>
+        </menu-item>
+        <menu-item name="productBacklogItemComm" title="${uiLabelMap.ScrumCommunications}">
+            <condition>
+                <and>
+                    <not><if-empty field="product"/></not>
+                    <if-empty field="product.supportDiscontinuationDate"/>
+                    <or>
+                        <if-compare operator="equals" value="CRQ_ACCEPTED" field="custRequestMap.statusId"/>
+                        <if-compare operator="equals" value="CRQ_REVIEWED" field="custRequestMap.statusId"/>
+                        <if-compare operator="equals" value="CRQ_REOPENED" field="custRequestMap.statusId"/>
+                    </or>
+                    <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="TEST"/>
+                </and>
+            </condition>
+            <link target="ProductBacklogEmails">
+                <parameter param-name="custRequestId" value="${parameters.custRequestId}"/>
+                <parameter param-name="productId" value="${parameters.productId}"/>
+            </link>
+        </menu-item>
+    </menu>
+    <menu name="ProductBackLogItemStatusTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          menu-container-style="button-bar button-style-2">
+        <menu-item name="addProdBacklog" title="${uiLabelMap.ScrumNewBacklogItem}" >
+            <condition>
+                <and>
+                    <not><if-empty field="product"/></not>
+                    <if-service-permission service-name="scrumPermissionCheck" main-action="VIEW" resource-description="BACKLOG"/>
+                    <if-empty field="product.supportDiscontinuationDate"/>
+                </and>
+            </condition>
+            <link target="AddProdBacklog" style="buttontext create">
+                <parameter param-name="productId" from-field="parameters.productId"/>
+            </link>
+        </menu-item>
+        <menu-item name="viewTotalBacklog" title="${uiLabelMap.PageTitleTotalBacklog}" >
+            <condition>
+                <and>
+                    <not><if-empty field="product"/></not>
+                    <not><if-service-permission service-name="scrumPermissionCheck" main-action="VIEW" resource-description="BACKLOG"/></not>
+                    <if-empty field="product.supportDiscontinuationDate"/>
+                </and>
+            </condition>
+            <link target="ViewTotalBacklog">
+                <parameter param-name="productId" from-field="parameters.productId"/>
+            </link>
+        </menu-item>
+        <menu-item name="billedProdBacklog" title="${uiLabelMap.ScrumBilled}" >
+            <condition>
+                <and>
+                    <if-service-permission service-name="scrumPermissionCheck" main-action="VIEW" resource-description="BACKLOG"/>
+                    <if-empty field="product.supportDiscontinuationDate"/>
+                    <if-compare field="custRequestMap.billed" operator="equals" value="N"/>
+                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
+                </and>
+            </condition>
+            <link target="updateProductBacklog">
+                <parameter param-name="custRequestId" from-field="parameters.custRequestId"/>
+                <parameter param-name="productId" from-field="parameters.productId"/>
+                <parameter param-name="description" from-field="custRequestMap.description"/>
+                <parameter param-name="billed" value="Y"/>
+            </link>
+        </menu-item>
+        <menu-item name="notBilledProdBacklog" title="${uiLabelMap.ScrumNotBilled}" >
+            <condition>
+                <and>
+                    <if-service-permission service-name="scrumPermissionCheck" main-action="VIEW" resource-description="BACKLOG"/>
+                    <if-empty field="product.supportDiscontinuationDate"/>
+                    <if-compare field="custRequestMap.billed" operator="equals" value="Y"/>
+                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
+                </and>
+            </condition>
+            <link target="updateProductBacklog">
+                <parameter param-name="custRequestId" from-field="parameters.custRequestId"/>
+                <parameter param-name="productId" from-field="parameters.productId"/>
+                <parameter param-name="description" from-field="custRequestMap.description"/>
+                <parameter param-name="billed" value="N"/>
+            </link>
+        </menu-item>
+        <menu-item name="setReopenCancelled" title="${uiLabelMap.ScrumReOpen}" >
+            <condition>
+                <and>
+                    <if-compare field="custRequest.statusId" operator="equals" value="CRQ_CANCELLED"/>
+                    <if-service-permission service-name="scrumPermissionCheck" main-action="VIEW" resource-description="BACKLOG"/>
+                </and>
+            </condition>
+            <link target="setAccept">
+                <parameter param-name="custRequestId" from-field="parameters.custRequestId"/>
+                <parameter param-name="productId" from-field="parameters.productId"/>
+            </link>
+        </menu-item>
+        <menu-item name="setReopenCompleted" title="${uiLabelMap.ScrumReOpen}" >
+            <condition>
+                <and>
+                    <if-compare field="custRequest.statusId" operator="equals" value="CRQ_COMPLETED"/>
+                    <if-service-permission service-name="scrumPermissionCheck" main-action="VIEW" resource-description="BACKLOG"/>
+                </and>
+            </condition>
+            <link target="editTask">
+                <parameter param-name="custRequestId" from-field="parameters.custRequestId"/>
+                <parameter param-name="productId" from-field="parameters.productId"/>
+                <parameter param-name="sprintStatusId" from-field="sprintStatusId"/>
+                <parameter param-name="sprintId" from-field="sprintId"/>
+            </link>
+        </menu-item>
+        <menu-item name="delete" title="${uiLabelMap.CommonDelete}">
+            <condition>
+                <and>
+                    <if-service-permission service-name="scrumPermissionCheck" main-action="VIEW" resource-description="BACKLOG"/>
+                    <or>
+                        <if-compare operator="equals" value="CRQ_ACCEPTED" field="custRequestMap.statusId"/>
+                        <if-compare operator="equals" value="CRQ_REVIEWED" field="custRequestMap.statusId"/>
+                        <if-compare operator="equals" value="CRQ_REOPENED" field="custRequestMap.statusId"/>
+                    </or>
+                    <not><if-empty field="product"/></not>
+                    <if-empty field="product.supportDiscontinuationDate"/>
+                </and>
+            </condition>
+            <link target="EditDeleteBacklogItem">
+                <parameter param-name="productId" from-field="parameters.productId"/>
+                <parameter param-name="custRequestId" from-field="custRequestId"/>
+            </link>
+        </menu-item>
+        <menu-item name="addNewTask" title="${uiLabelMap.ScrumNewTask}" title-style="hidden">
+            <condition>
+                <and>
+                    <not><if-empty field="product"/></not>
+                    <if-empty field="product.supportDiscontinuationDate"/>
+                    <if-compare field="custRequestMap.statusId" operator="equals" value="CRQ_ACCEPTED" />
+                    <if-service-permission service-name="scrumPermissionCheck" main-action="CREATE" resource-description="MEMBER"/>
+                </and>
+            </condition>
+            <link target="newBacklogTask">
+                <parameter param-name="custRequestId" from-field="parameters.custRequestId"/>
+                <parameter param-name="productId" from-field="parameters.productId"/>
+            </link>
+        </menu-item>
+        <menu-item name="addNewErrorTask" title="${uiLabelMap.ScrumNewErrorTask}" title-style="hidden">
+            <condition>
+                <and>
+                    <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="TEST"/>
+                    <if-compare operator="not-equals" value="CRQ_COMPLETED" field="custRequestMap.statusId"/>
+                    <or>
+                        <if-compare operator="equals" value="CRQ_REVIEWED" field="custRequestMap.statusId"/>
+                        <if-compare operator="equals" value="CRQ_REOPENED" field="custRequestMap.statusId"/>
+                    </or>
+                    <not><if-empty field="product"/></not>
+                    <if-empty field="product.supportDiscontinuationDate"/>
+                </and>
+            </condition>
+            <link target="editTask">
+                <parameter param-name="custRequestId" from-field="parameters.custRequestId"/>
+                <parameter param-name="sprintId" from-field="parameters.sprintId"/>
+            </link>
+        </menu-item>
+    </menu>
+    
+    <menu name="ProductSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          menu-container-style="button-bar button-style-2">
+          <actions>
+            <set field="productId" from-field="parameters.productId"/>
+            <set field="hasViewPermission" value="${groovy:
+                result = dispatcher.runSync(&quot;scrumPermissionCheck&quot;,
+                org.apache.ofbiz.base.util.UtilMisc.toMap(&quot;userLogin&quot;, parameters.get(&quot;userLogin&quot;),
+                &quot;resourceDescription&quot;, &quot;PRODUCT&quot;,
+                &quot;mainAction&quot;, &quot;VIEW&quot;,
+                &quot;productId&quot;, productId));
+                return result.get(&quot;hasPermission&quot;); }" type="Boolean"/>
+          </actions>
+        <menu-item name="AddProduct">
+            <condition>
+                <and>
+                    <if-empty field="product"/>
+                    <if-compare field="hasViewPermission" operator="equals" value="true"/>
+                </and>
+            </condition>
+            <link text="Add Product" target="EditProduct" style="buttontext create"></link>
+        </menu-item>
+        <menu-item name="NewProject">
+            <condition>
+                <and>
+                    <not><if-empty field="parameters.productId"/></not>
+                    <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="SPRINT"/>
+                    <if-empty field="product.supportDiscontinuationDate"/>
+                </and>
+            </condition>
+            <link text="New Project" target="newScrumProject" style="buttontext create">
+                <parameter param-name="productId" from-field="parameters.productId"/>
+            </link>
+        </menu-item>
+        <menu-item name="CreateDefaultTask">
+            <condition>
+                <and>
+                    <if-compare field="tabButtonItem" operator="equals" value="defaultTasks"/>
+                    <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="SPRINT"/>
+                    <if-empty field="product.supportDiscontinuationDate"/>
+                </and>
+            </condition>
+            <link text="Create A Default Task" target="editDefaultTask" style="buttontext create">
+                <parameter param-name="productId" from-field="product.productId"/>
+            </link>
+        </menu-item>
+        <menu-item name="NewCategory">
+            <condition>
+                <and>
+                    <if-compare field="tabButtonItem" operator="equals" value="categories"/>
+                    <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="PROJECT"/>
+                    <if-empty field="product.supportDiscontinuationDate"/>
+                </and>
+            </condition>
+            <link text="New Category" target="EditProductBacklogCategory" style="buttontext create">
+                <parameter param-name="productId" from-field="product.productId"/>
+            </link>
+        </menu-item>
+        <menu-item name="CloseProduct">
+            <condition>
+                <and>
+                    <not><if-empty field="parameters.productId"/></not>
+                    <if-has-permission permission="SCRUM" action="_ADMIN"/>
+                    <not><if-empty field="product"/></not>
+                    <if-empty field="product.supportDiscontinuationDate"/>
+                </and>
+            </condition>
+            <link text="Close Product" style="buttontext delete" target="updateProduct" request-confirmation="true" confirmation-message="The product and all related stuff(s) will be removed, Do you want to continue?">
+                <parameter param-name="productId" from-field="parameters.productId"/>
+                <parameter param-name="statusId" value="PRODUCT_CLOSED"/>
+                <parameter param-name="partyId" from-field="productOwnerId"/>
+                <parameter param-name="isCloseBtn" value="Y"/>
+                <parameter param-name="companyId" from-field="companyId"/>
+            </link>
+        </menu-item>
+        <menu-item name="NewEmail" title="${uiLabelMap.ScrumNewEmail}">
+            <condition>
+            <and>
+                <if-compare field="tabButtonItem" operator="equals" value="productComm"/>
+                <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="TASK"/>
+                <if-empty field="product.supportDiscontinuationDate"/>
+            </and>
+            </condition>
+            <link target="NewProductEmail" text="${uiLabelMap.ScrumNewEmail}" style="buttontext create">
+                <parameter param-name="productId" from-field="parameters.productId"/>
+            </link>
+        </menu-item>
+        <menu-item name="Reply" title="${uiLabelMap.ScrumReply}">
+            <condition>
+                <and>
+                    <if-compare field="tabButtonItem" operator="equals" value="productComm"/>
+                    <if-compare-field operator="equals" field="productOwnerId" to-field="communicationEvent.partyIdFrom"/>
+                    <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="TASK"/>
+                    <if-empty field="product.supportDiscontinuationDate"/>
+                </and>
+            </condition>
+            <link target="replyEmailForProduct" style="buttontext" text="${uiLabelMap.ScrumReply}">
+                <parameter param-name="parentCommEventId" from-field="communicationEvent.communicationEventId"/>
+                <parameter param-name="action" value="REPLY"/>
+                <parameter param-name="productId" from-field="parameters.productId"/>
+                <parameter param-name="subject" value="Reply : ${communicationEvent.subject}"/>
+                <parameter param-name="content" value="${communicationEvent.content}"/>
+                <parameter param-name="partyIdFrom" from-field="communicationEvent.partyIdTo"/>
+                <parameter param-name="partyIdTo" from-field="communicationEvent.partyIdFrom"/>
+            </link>
+         </menu-item>
+    </menu>
+        
+    <menu name="ResourceTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          default-menu-item-name="edittimesheet">
+        <menu-item name="viewprofile" title="${uiLabelMap.PartyProfile}">
+            <link target="viewprofile">
+                <parameter param-name="partyId"/>
+            </link>
+        </menu-item>
+        <menu-item name="preferences" title="${uiLabelMap.CommonPreferences}">
+            <condition>
+                <and>
+                    <if-service-permission service-name="scrumPermissionCheck" main-action="VIEW" resource-description="BACKLOG"/>
+                    <if-compare-field field="userLogin.partyId" operator="equals" to-field="partyId"/>
+                </and>
+            </condition>
+            <link target="Preferences">
+                <parameter param-name="partyId"/>
+            </link>
+        </menu-item>
+        <menu-item name="viewroles" title="${uiLabelMap.PartyRoles}">
+            <condition>
+                <if-has-permission permission="SCRUM" action="_ADMIN"/>
+            </condition>
+            <link target="viewroles">
+                <parameter param-name="partyId"/>
+            </link>
+        </menu-item>
+        <menu-item name="listResourcesProject" title="${uiLabelMap.ScrumProjects}">
+            <condition>
+                <if-service-permission service-name="scrumPermissionCheck" main-action="VIEW" resource-description="BACKLOG"/>
+            </condition>
+            <link target="listResourcesProject">
+                <parameter param-name="partyId"/>
+            </link>
+        </menu-item>
+        <menu-item name="listResourcesTask"  title="${uiLabelMap.ScrumTasks}">
+            <condition>
+                <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="TASK"/>
+            </condition>
+            <link target="listResourcesTask">
+                <parameter param-name="partyId"/>
+            </link>
+        </menu-item>
+        <menu-item name="EditPartyRates" title="${uiLabelMap.CommonRates}">
+            <condition>
+                <if-has-permission permission="SCRUM" action="_ADMIN"/>
+            </condition>
+            <link target="EditPartyRates">
+                <parameter param-name="partyId"/>
+            </link>
+        </menu-item>
+        <menu-item name="findPartyRevision"  title="${uiLabelMap.ScrumRevisions}">
+            <condition>
+                <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="TASK"/>
+            </condition>
+            <link target="findPartyRevision">
+                <parameter param-name="partyId"/>
+            </link>
+        </menu-item>
+    </menu>
+    <menu name="TaskTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="FindTask" title="${uiLabelMap.CommonFind}">
+            <condition>
+                <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="TASK"/>
+            </condition>
+            <link target="FindTask"></link>
+        </menu-item>
+        <menu-item name="taskView" title="${uiLabelMap.CommonOverview}">
+            <condition>
+               <not><if-empty field="task"/></not>
+            </condition>
+            <link target="taskView">
+                <parameter param-name="sprintId" from-field="parameters.sprintId"/>
+                <parameter param-name="taskId" from-field="parameters.taskId"/>
+            </link>
+        </menu-item>
+        <menu-item name="edittask" title="${uiLabelMap.CommonUpdate}">
+            <condition>
+                <and>
+                    <not><if-empty field="task"/></not>
+                    <if-compare field="task.currentStatusId" operator="not-equals" value="STS_COMPLETED"/>
+                    <if-compare field="task.currentStatusId" operator="not-equals" value="STS_CANCELLED"/>
+                    <if-compare field="task.currentStatusId" operator="not-equals" value="STS_ON_HOLD"/>
+                    <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="TASK"/>
+                </and>
+            </condition>
+            <link target="EditTask">
+                <parameter param-name="taskId" from-field="parameters.taskId"/>
+            </link>
+        </menu-item>
+        <menu-item name="taskNote" title="${uiLabelMap.CommonNotes}">
+            <condition>
+                <and>
+                    <not><if-empty field="task"/></not>
+                    <if-compare field="task.currentStatusId" operator="not-equals" value="STS_COMPLETED"/>
+                    <if-compare field="task.currentStatusId" operator="not-equals" value="STS_CANCELLED"/>
+                    <if-compare field="task.currentStatusId" operator="not-equals" value="STS_ON_HOLD"/>
+                </and>
+            </condition>
+            <link target="TaskNote">
+                <parameter param-name="taskId" from-field="parameters.taskId"/>
+            </link>
+        </menu-item>
+        <menu-item name="taskMember" title="${uiLabelMap.ScrumMember}">
+            <condition>
+                <and>
+                    <if-compare field="task.currentStatusId" operator="not-equals" value="STS_COMPLETED"/>
+                    <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="TASK"/>
+                </and>
+            </condition>
+            <link target="taskMember">
+                <parameter param-name="taskId" from-field="parameters.taskId"/>
+            </link>
+        </menu-item>
+    </menu>
+    
+    <menu name="TaskSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          menu-container-style="button-bar button-style-2">
+        <menu-item name="new" title="${uiLabelMap.CommonNew}">
+            <condition>
+                <and>
+                    <if-compare field="task.currentStatusId" operator="not-equals" value="STS_COMPLETED"/>
+                    <or>
+                        <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="TASK"/>
+                        <not><if-empty field="task"/></not>
+                        <and>
+                            <if-compare field="task.currentStatusId" operator="equals" value="STS_CREATED"/>
+                        </and>
+                    </or>
+                </and>
+            </condition>
+            <link target="EditTask"/> 
+        </menu-item>
+        <menu-item name="setonhold" title="${uiLabelMap.ScrumSetOnHold}" >
+            <condition>
+                <and>
+                    <not><if-empty field="task"/></not>
+                    <if-compare field="task.currentStatusId" operator="equals" value="STS_CREATED"/>
+                    <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="TASK"/>
+                </and>
+            </condition>
+            <link target="setTaskStatus">
+                <parameter param-name="workEffortId" from-field="parameters.taskId"/>
+                <parameter param-name="taskId" from-field="parameters.taskId"/>
+                <parameter param-name="currentStatusId" value="STS_ON_HOLD"/>
+            </link>
+        </menu-item>
+        <menu-item name="setcomplete" title="${uiLabelMap.ScrumSetComplete}" >
+            <condition>
+                <and>
+                    <not><if-empty field="task"/></not>
+                    <if-compare field="task.currentStatusId" operator="equals" value="STS_CREATED"/>
+                    <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="TASK"/>
+                </and>
+            </condition>
+            <link target="setTaskStatusToComplete" confirmation-message="Are you sure to complete the task ?">
+                <parameter param-name="workEffortId" from-field="parameters.taskId"/>
+            </link>
+        </menu-item>
+        <menu-item name="release" title="${uiLabelMap.ScrumRelease}" >
+            <condition>
+                <and>
+                    <not><if-empty field="task"/></not>
+                    <if-compare field="task.currentStatusId" operator="equals" value="STS_ON_HOLD"/>
+                    <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="TASK"/>
+                </and>
+            </condition>
+            <link target="setTaskStatus">
+                <parameter param-name="workEffortId" from-field="parameters.taskId"/>
+                <parameter param-name="taskId" from-field="parameters.taskId"/>
+                <parameter param-name="currentStatusId" value="STS_CREATED"/>
+            </link>
+        </menu-item>
+        <menu-item name="cancel" title="${uiLabelMap.CommonCancel}" >
+            <condition>
+                <and>
+                    <not><if-empty field="task"/></not>
+                    <if-compare field="task.currentStatusId" operator="equals" value="STS_CREATED"/>
+                    <if-has-permission permission="SCRUM" action="_ADMIN"/>
+                </and>
+            </condition>
+           <link target="setTaskStatus">
+                <parameter param-name="workEffortId" from-field="parameters.taskId"/>
+                <parameter param-name="taskId" from-field="parameters.taskId"/>
+                <parameter param-name="currentStatusId" value="STS_CANCELLED"/>
+            </link>
+        </menu-item>
+        <menu-item name="setreopenTask" title="${uiLabelMap.ScrumReOpen}" >
+            <condition>
+                <and>
+                    <if-compare field="task.currentStatusId" operator="equals" value="STS_COMPLETED"/>
+                    <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="SPRINT"/>
+                    <not><if-empty field="task"/></not>
+                </and>
+            </condition>
+            <link target="setTaskStatusReOpen">
+                <parameter param-name="workEffortId" from-field="parameters.taskId"/>
+                <parameter param-name="taskId" from-field="parameters.taskId"/>
+                <parameter param-name="currentStatusId" value="STS_CREATED"/>
+            </link>
+        </menu-item>
+    </menu>
+    
+    <menu name="ProjectSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          menu-container-style="button-bar button-style-2">
+        <menu-item name="AddSprint" title="${uiLabelMap.ScrumNewSprint}">
+            <condition>
+                <and>
+                    <not><if-empty field="workEffortId"/></not>
+                    <if-compare operator="equals" value="SPJ_ACTIVE" field="workEffort.currentStatusId"/>
+                    <if-service-permission service-name="scrumPermissionCheck" main-action="CREATE" resource-description="SPRINT"/>
+                </and>
+            </condition>
+            <link target="AddSprint" style="buttontext create">
+                <parameter param-name="projectId" from-field="parameters.projectId"/>
+            </link>
+        </menu-item>
+        <menu-item name="close" title="${uiLabelMap.CommonClose}">
+            <condition>
+                <and>
+                    <not><if-empty field="workEffortId"/></not>
+                    <if-compare operator="equals" value="SPJ_ACTIVE" field="workEffort.currentStatusId"/>
+                    <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="SPRINT"/>
+                </and>
+            </condition>
+            <link target="updateScrumProject" request-confirmation="true" confirmation-message="Are you sure you want to close this project?" style="buttontext delete">
+                <parameter param-name="workEffortId" from-field="parameters.workEffortId"/>
+                <parameter param-name="projectId" from-field="parameters.projectId"/>
+                <parameter param-name="productId" from-field="project.productId"/>
+                <parameter param-name="currentStatusId" value="SPJ_CLOSED"/>
+                <parameter param-name="isCloseBtn" value="Y"/>
+            </link>
+        </menu-item>
+        <menu-item name="reopenScrumProject" title="${uiLabelMap.ScrumReOpen}">
+            <condition>
+                <and>
+                    <not><if-empty field="workEffortId"/></not>
+                    <if-compare operator="equals" value="SPJ_CLOSED" field="workEffort.currentStatusId"/>
+                    <or>
+                        <if-has-permission permission="SCRUM" action="_ADMIN"/>
+                    </or>
+                </and>
+            </condition>
+            <link target="updateScrumProject" request-confirmation="true" confirmation-message="Are you sure you want to Re-Open this project?">
+                <parameter param-name="workEffortId" from-field="parameters.workEffortId"/>
+                <parameter param-name="projectId" from-field="parameters.projectId"/>
+                <parameter param-name="productId" from-field="project.productId"/>
+                <parameter param-name="currentStatusId" value="SPJ_ACTIVE"/>
+            </link>
+        </menu-item>
+    </menu>
+    <menu name="TimesheetBar">
+        <menu-item name="setToComplete" title="${uiLabelMap.CommonStatustoComplete}">
+            <condition>
+                <if-compare field="timesheet.statusId" operator="equals" value="TIMESHEET_IN_PROCESS"/>
+            </condition>
+            <link target="${my}TimeSheetStatusToComplete" link-type="hidden-form">
+                <parameter param-name="timesheetId" from-field="timesheet.timesheetId"/>
+                <parameter param-name="statusId" value="TIMESHEET_COMPLETED"/>
+            </link>
+        </menu-item>
+    </menu>
+    
+    <menu name="BacklogListOption">
+        <actions>
+            <set field="viewSize" value="${parameters.VIEW_SIZE_1}" default-value="20"/>
+            <set field="viewIndex" value="${parameters.VIEW_INDEX_1}" default-value="0"/>
+        </actions>
+        <menu-item name="sequence" title="${uiLabelMap.CommonSequence}">
+            <condition>
+                <if-compare field="sequence" operator="not-equals" value="Y"/>
+            </condition>
+            <link target="${backlogListTarget}">
+                <parameter param-name="productId" from-field="parameters.productId"/>
+                <parameter param-name="sequence" value="Y"/>
+                <parameter param-name="custRequestId" value="${parameters.custRequestId}"/>
+                <parameter param-name="description" value="${parameters.description}"/>
+                <parameter param-name="parentCustRequestId" value="${parameters.parentCustRequestId}"/>
+                <parameter param-name="statusId" value="${parameters.statusId}"/>
+                <parameter param-name="noConditionFind" value="${parameters.noConditionFind}"/>
+                <parameter param-name="VIEW_SIZE_1" from-field="viewSize"/>
+                <parameter param-name="VIEW_INDEX_1" from-field="viewIndex"/>
+            </link>
+        </menu-item>
+        <menu-item name="category" title="${uiLabelMap.ScrumCategory}">
+            <condition>
+                <if-compare field="sequence" operator="equals" value="Y"/>
+            </condition>
+            <link target="${backlogListTarget}">
+                <parameter param-name="productId" from-field="parameters.productId"/>
+                <parameter param-name="sequence" value="N"/>
+                <parameter param-name="custRequestId" value="${parameters.custRequestId}"/>
+                <parameter param-name="description" value="${parameters.description}"/>
+                <parameter param-name="parentCustRequestId" value="${parameters.parentCustRequestId}"/>
+                <parameter param-name="statusId" value="${parameters.statusId}"/>
+                <parameter param-name="noConditionFind" value="${parameters.noConditionFind}"/>
+                <parameter param-name="VIEW_SIZE_1" from-field="viewSize"/>
+                <parameter param-name="VIEW_INDEX_1" from-field="viewIndex"/>
+            </link>
+        </menu-item>
+    </menu>
+    
+    <menu name="UnplannedBacklogListOption">
+        <actions>
+            <set field="viewSize" value="${parameters.VIEW_SIZE_1}" default-value="20"/>
+            <set field="viewIndex" value="${parameters.VIEW_INDEX_1}" default-value="0"/>
+        </actions>
+        <menu-item name="UnplannedSequence" title="${uiLabelMap.CommonSequence}">
+            <condition>
+                <if-compare field="UnplannedSequence" operator="not-equals" value="Y"/>
+            </condition>
+            <link target="${backlogListTarget}">
+                <parameter param-name="productId" from-field="productId"/>
+                <parameter param-name="UnplannedSequence" value="Y"/>
+                <parameter param-name="custRequestId" value="${parameters.custRequestId}"/>
+                <parameter param-name="description" value="${parameters.description}"/>
+                <parameter param-name="parentCustRequestId" value="${parameters.parentCustRequestId}"/>
+                <parameter param-name="statusId" value="${parameters.statusId}"/>
+                <parameter param-name="noConditionFind" value="${parameters.noConditionFind}"/>
+                <parameter param-name="VIEW_SIZE_1" from-field="viewSize"/>
+                <parameter param-name="VIEW_INDEX_1" from-field="viewIndex"/>
+            </link>
+        </menu-item>
+        <menu-item name="UnplannedCategory" title="${uiLabelMap.ScrumCategory}">
+            <condition>
+                <if-compare field="UnplannedSequence" operator="equals" value="Y"/>
+            </condition>
+            <link target="${backlogListTarget}">
+                <parameter param-name="productId" from-field="productId"/>
+                <parameter param-name="UnplannedSequence" value="N"/>
+                <parameter param-name="custRequestId" value="${parameters.custRequestId}"/>
+                <parameter param-name="description" value="${parameters.description}"/>
+                <parameter param-name="parentCustRequestId" value="${parameters.parentCustRequestId}"/>
+                <parameter param-name="statusId" value="${parameters.statusId}"/>
+                <parameter param-name="noConditionFind" value="${parameters.noConditionFind}"/>
+                <parameter param-name="VIEW_SIZE_1" from-field="viewSize"/>
+                <parameter param-name="VIEW_INDEX_1" from-field="viewIndex"/>
+            </link>
+        </menu-item>
+    </menu>
+    <menu name="ProductBacklogEmailTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          menu-container-style="button-bar button-style-2">
+        <menu-item name="NewEmail" title="${uiLabelMap.ScrumNewEmail}">
+            <condition>
+                    <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="TASK"/>
+            </condition>
+            <link target="NewProductBacklogEmail" text="${uiLabelMap.ScrumNewEmail}" link-type="hidden-form">
+                <parameter param-name="productIdIn" from-field="parameters.productId"/>
+                <parameter param-name="custRequestId" from-field="parameters.custRequestId"/>
+            </link>
+        </menu-item>
+        <menu-item name="Reply" title="${uiLabelMap.ScrumReply}">
+            <condition>
+                <and>
+                    <if-compare-field operator="equals" field="productOwnerId" to-field="communicationEvent.partyIdFrom"/>
+                    <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="TASK"/>
+                </and>
+            </condition>
+            <link target="replyEmailForProductBacklog" link-type="hidden-form" text="${uiLabelMap.ScrumReply}">
+                <parameter param-name="parentCommEventId" from-field="communicationEvent.communicationEventId"/>
+                <parameter param-name="action" value="REPLY"/>
+                <parameter param-name="productIdIn" from-field="parameters.productId"/>
+                <parameter param-name="custRequestId" from-field="parameters.custRequestId"/>
+                <parameter param-name="subject" value="Reply : ${communicationEvent.subject}"/>
+                <parameter param-name="content" value="${communicationEvent.content}"/>
+                <parameter param-name="partyIdFrom" from-field="communicationEvent.partyIdTo"/>
+                <parameter param-name="partyIdTo" from-field="communicationEvent.partyIdFrom"/>
+            </link>
+         </menu-item>
+     </menu>
+     <menu name="AllBacklogItem">
+        <menu-item name="allBacklogItem"  title="${uiLabelMap.ScrumAllBacklogItem}">
+            <link target="ViewSprint" link-type="auto">
+                <parameter param-name="sprintId" value="${parameters.sprintId}"/>
+                <parameter param-name="backlogStatusId" value="Any"/>
+            </link>
+        </menu-item>
+     </menu>
+     <menu name="NotCompleteBacklogItem">
+        <menu-item name="notCompleteBacklogItem"  title="${uiLabelMap.ScrumBeingImplementBacklogItem}">
+            <link target="ViewSprint" link-type="auto">
+                <parameter param-name="sprintId" value="${parameters.sprintId}"/>
+                <parameter param-name="backlogStatusId" value="CRQ_REVIEWED"/>
+            </link>
+        </menu-item>
+     </menu>
+     <menu name="AllUnplanBacklogItem">
+        <menu-item name="allBacklogItem"  title="${uiLabelMap.ScrumAllBacklogItem}">
+            <link target="unplanBacklog" link-type="auto">
+                <parameter param-name="productId" from-field="parameters.productId"/>
+                <parameter param-name="backlogStatusId" value="Any"/>
+            </link>
+        </menu-item>
+     </menu>
+     <menu name="notCompleteUnplanBacklogItem">
+        <menu-item name="notCompleteBacklogItem"  title="${uiLabelMap.ScrumBeingImplementBacklogItem}">
+            <link target="unplanBacklog" link-type="auto">
+                <parameter param-name="productId" from-field="parameters.productId"/>
+                <parameter param-name="backlogStatusId" value="CRQ_REVIEWED"/>
+            </link>
+        </menu-item>
+     </menu>
+     
+     <menu name="MainDemoUser" title="${uiLabelMap.ScrumDemoUser}" extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+<!--        <menu-item name="Sprints" title="Project/Sprint"><link target="Sprints"/></menu-item>-->
+    </menu>
+</menus>

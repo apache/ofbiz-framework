@@ -17,9 +17,12 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.util.EntityUtil
-import org.apache.ofbiz.base.util.UtilHttp
-import org.apache.ofbiz.accounting.payment.BillingAccountWorker
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.entity.util.*
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.accounting.payment.*
+import org.apache.ofbiz.order.shoppingcart.*
+import org.apache.ofbiz.party.contact.*
 
 cart = session.getAttribute("shoppingCart")
 orderPartyId = cart.getPartyId()
@@ -37,7 +40,7 @@ if (newPaymentMethodId) {
     context.checkOutPaymentId = newPaymentMethodId
 }
 
-if (orderPartyId && !"_NA_".equals(orderPartyId)) {
+if (orderPartyId && !orderPartyId.equals("_NA_")) {
     orderParty = from("Party").where("partyId", orderPartyId).queryOne()
     orderPerson = orderParty.getRelatedOne("Person", false)
     context.orderParty = orderParty

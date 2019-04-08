@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
+    <screen name="commonCmsDecorator">
+        <section>
+            <actions>
+                <set field="currentCMSMenuItemName" from-field="currentCMSMenuItemName" from-scope="user"/>
+                <set field="headerItem" value="CMS"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="CONTENTMGR" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <include-menu name="Cms" location="component://lucene/widget/LuceneMenus.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="CONTENTMGR" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <container style="button-bar"><link target="EditAddContent" text="${uiLabelMap.CommonCreateNew}" style="buttontext create"/></container>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.ContentViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="AdminSearch">
+        <section>
+            <actions>
+                <script location="component://content/groovyScripts/cms/GetMenuContext.groovy"/>
+                <script location="component://lucene/groovyScripts/content/AdvancedSearchPrep.groovy"/>
+                <script location="component://lucene/groovyScripts/content/Search.groovy"/>
+                <set field="titleProperty" value="ContentCMSSearchPage"/>
+                <set field="currentCMSMenuItemName" value="search" to-scope="user"/>
+                <property-map map-name="uiLabelMap" resource="ProductUiLabels"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonCmsDecorator">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.ContentCMSSearchPage}">
+                            <platform-specific>
+                                <html><html-template location="component://lucene/template/AdminSearch.ftl"/></html>
+                            </platform-specific>
+                            <include-form name="SearchList" location="component://lucene/widget/LuceneForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="ProductSearch">
+        <section>
+            <actions>
+                <script location="component://content/groovyScripts/cms/GetMenuContext.groovy"/>
+                <script location="component://lucene/groovyScripts/content/SearchProducts.groovy"/>
+                <set field="titleProperty" value="ContentCMSSearchPage"/>
+                <set field="currentCMSMenuItemName" value="productSearch" to-scope="user"/>
+                <property-map map-name="uiLabelMap" resource="ProductUiLabels"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonCmsDecorator">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.ContentCMSSearchPage}">
+                            <include-form name="LuceneQuery" location="component://lucene/widget/LuceneForms.xml"/>
+                            <include-form name="ProductList" location="component://lucene/widget/LuceneForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="AdminIndex">
+        <section>
+            <actions>
+                <script location="component://content/groovyScripts/cms/GetMenuContext.groovy"/>
+                <set field="titleProperty" value="ContentCMSSearchPage"/>
+                <set field="currentCMSMenuItemName" value="index" to-scope="user"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonCmsDecorator">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.ContentCMSSearchPage}">
+                            <include-form name="IndexContentDocuments" location="component://lucene/widget/LuceneForms.xml"/>
+                            <include-form name="IndexProductDocuments" location="component://lucene/widget/LuceneForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+</screens>

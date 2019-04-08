@@ -27,7 +27,7 @@ under the License.
             <set field="parameters.partyId" from-field="userLogin.partyId"/>
         </if-empty>
 
-        <make-value entity-name="PartyNameHistory" value-field="partyNameHistory"/>
+        <make-value value-field="partyNameHistory" entity-name="PartyNameHistory"/>
         <set-pk-fields value-field="partyNameHistory" map="parameters"/>
         <now-timestamp field="partyNameHistory.changeDate"/>
 
@@ -203,7 +203,7 @@ under the License.
         <!-- lookup existing value -->
         <entity-one entity-name="PartyProfileDefault" value-field="partyProfileDefault"/>
         <if-empty field="partyProfileDefault">
-            <make-value entity-name="PartyProfileDefault" value-field="partyProfileDefault"/>
+            <make-value value-field="partyProfileDefault" entity-name="PartyProfileDefault"/>
             <set-pk-fields value-field="partyProfileDefault" map="parameters"/>
             <create-value value-field="partyProfileDefault"/>
         </if-empty>
@@ -279,7 +279,7 @@ under the License.
             <set value="OWNER" field="contentRole.roleTypeId"/>
             <call-service service-name="createContentRole" in-map-name="contentRole" break-on-error="false"/>
             <!-- check party role -->
-            <make-value entity-name="PartyRole" value-field="partyRole"/>
+            <make-value value-field="partyRole" entity-name="PartyRole"/>
             <set-pk-fields value-field="partyRole" map="contentRole"/>
             <find-by-and entity-name="PartyRole" map="partyRole" list="pRoles"/>
             <if-empty field="pRoles">
@@ -373,6 +373,27 @@ under the License.
           <call-service service-name="createAnonFile" in-map-name="fileCtx" include-user-login="true"/>
       </if-not-empty>
         <field-to-result  field="parameters.contentId" result-name="contentId"/>
+    </simple-method>
+
+    <!-- get parties based on PartyRelationship -->
+    <simple-method method-name="getPartiesByRelationship"
+            short-description="Gets all parties related to partyIdFrom using the PartyRelationship entity" login-required="false">
+        <set from-field="parameters.partyIdFrom" field="lookupMap.partyIdFrom"/>
+        <set from-field="parameters.partyIdTo" field="lookupMap.partyIdTo"/>
+        <set from-field="parameters.roleTypeIdFrom" field="lookupMap.roleTypeIdFrom"/>
+        <set from-field="parameters.roleTypeIdTo" field="lookupMap.roleTypeIdTo"/>
+        <set from-field="parameters.statusId" field="lookupMap.statusId"/>
+        <set from-field="parameters.priorityTypeId" field="lookupMap.priorityTypeId"/>
+        <set from-field="parameters.partyRelationshipTypeId" field="lookupMap.partyRelationshipTypeId"/>
+
+        <find-by-and entity-name="PartyRelationship" map="lookupMap" list="partyRelationships"/>
+        <iterate list="partyRelationships" entry="partyRelationship">
+            <get-related-one value-field="partyRelationship" relation-name="ToParty" to-value-field="party"/>
+            <field-to-list field="party" list="parties"/>
+        </iterate>
+        <if-not-empty field="parties">
+            <field-to-result field="parties"/>
+        </if-not-empty>
     </simple-method>
 
     <simple-method method-name="getParentOrganizations" short-description="Gets Parent Organizations for an Organization Party">
@@ -790,7 +811,7 @@ under the License.
         </entity-and>
 
         <if-empty field="partyRels">
-            <make-value entity-name="PartyRelationship" value-field="newEntity"/>
+            <make-value value-field="newEntity" entity-name="PartyRelationship"/>
             <set-pk-fields map="parameters" value-field="newEntity"/>
             <set-nonpk-fields map="parameters" value-field="newEntity"/>
             <create-value value-field="newEntity"/>

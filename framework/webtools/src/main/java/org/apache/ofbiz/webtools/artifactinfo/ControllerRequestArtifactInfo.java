@@ -87,7 +87,7 @@ public class ControllerRequestArtifactInfo extends ArtifactInfoBase {
                 } catch (GeneralException e) {
                     Debug.logWarning(e.toString(), module);
                 }
-            } else if ("request".equals(response.type)) {
+            } else if (response.type.equals("request")) {
                 String otherRequestUri = response.value;
                 if (otherRequestUri.startsWith("/")) {
                     otherRequestUri = otherRequestUri.substring(1);
@@ -99,12 +99,12 @@ public class ControllerRequestArtifactInfo extends ArtifactInfoBase {
                 } catch (GeneralException e) {
                     Debug.logWarning(e.toString(), module);
                 }
-            } else if ("request-redirect".equals(response.type)) {
+            } else if (response.type.equals("request-redirect")) {
                 String otherRequestUri = response.value;
                 ControllerRequestArtifactInfo artInfo = this.aif.getControllerRequestArtifactInfo(controllerXmlUrl, otherRequestUri);
                 this.requestsThatAreResponsesToThisRequest.add(artInfo);
                 UtilMisc.addToSortedSetInMap(this, this.aif.allRequestInfosReferringToRequest, artInfo.getUniqueId());
-            } else if ("request-redirect-noparam".equals(response.type)) {
+            } else if (response.type.equals("request-redirect-noparam")) {
                 String otherRequestUri = response.value;
                 ControllerRequestArtifactInfo artInfo = this.aif.getControllerRequestArtifactInfo(controllerXmlUrl, otherRequestUri);
                 this.requestsThatAreResponsesToThisRequest.add(artInfo);

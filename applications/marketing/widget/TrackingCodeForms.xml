@@ -67,7 +67,7 @@ under the License.
         <!-- <field name="cancelLink" title=" " widget-style="buttontext"><hyperlink description="${uiLabelMap.CommonCancelDone}" target="${donePage}" also-hidden="false" target-type="inter-app"/></field> -->
     </form>
 
-    <grid name="ListTrackingCode" target="ListTrackingCode" title=""
+    <form name="ListTrackingCode" target="ListTrackingCode" title="" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="TrackingCode"/>
@@ -87,8 +87,7 @@ under the License.
                 <parameter param-name="trackingCodeId"/>
             </hyperlink>
         </field>
-    </grid>
-    
+    </form>
     <!-- UNUSED FORM
     <form name="FindTrackingCode" type="single" target="ListTrackingCode" title=""
         header-row-style="header-row" default-table-style="basic-table">
@@ -132,8 +131,7 @@ under the License.
 
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
-    
-    <grid name="ListTrackingCodeOrders" title="" paginate-target="FindTrackingCodeOrders" list-name="listIt"
+    <form name="ListTrackingCodeOrders" type="list" title="" paginate-target="FindTrackingCodeOrders" list-name="listIt"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
@@ -149,7 +147,7 @@ under the License.
         <field name="orderId" title="${uiLabelMap.MarketingTrackingCodeOrderOrderId}"><display-entity entity-name="OrderHeader" description="${orderDate} [${orderId}]"/></field>
         <field name="trackingCodeTypeId" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeTypeId}"><display-entity entity-name="TrackingCodeType"/></field>
         <field name="isBillable" title="${uiLabelMap.MarketingTrackingCodeOrderIsBilliable}"><display/></field>
-    </grid>
+    </form>
 
     <form name="EditTrackingCodeVisit" default-map-name="visit" target="updateTrackingCodeVisit" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
@@ -168,7 +166,6 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit button-type="button"/>        </field>
         <field name="cancelLink" title="${uiLabelMap.CommonCancel}" widget-style="buttontext"><hyperlink description="${uiLabelMap.CommonCancelDone}" target="${donePage}" also-hidden="false"/></field>
     </form>
-    
     <form name="FindTrackingCodeVisits" target="ListTrackingCodeVisits" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="trackingCodeId" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeId}"><text/></field>
@@ -260,8 +257,7 @@ under the License.
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-find/></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
-    
-    <grid name="ListLookupVisit" target="" title=""
+    <form name="ListLookupVisit" target="" title="" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service result-map-list="listIt" result-map="result" service-name="performFind">
@@ -289,8 +285,7 @@ under the License.
         <field name="clientHostName" title="${uiLabelMap.MarketingTrackingCodeVisitClientHostName}"><display/></field>
         <field name="webappName" title="${uiLabelMap.MarketingTrackingCodeVisitWebappName}"><display/></field>
         <field name="sessionId" title="${uiLabelMap.MarketingTrackingCodeVisitSessionId}"><display/></field>
-    </grid>
-    
+    </form>
     <form name="EditTrackingCodeType" type="single" target="updateTrackingCodeType" title="" default-map-name="trackingCodeType"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="trackingCodeType==null" target="createTrackingCodeType"/>
@@ -305,7 +300,7 @@ under the License.
         <!-- <field name="cancelLink" title=" " widget-style="buttontext"><hyperlink description="${uiLabelMap.CommonCancelDone}" target="${donePage}" also-hidden="false" target-type="inter-app"/></field> -->
     </form>
 
-    <grid name="ListTrackingCodeType" target="ListTrackingCodeType" title=""
+    <form name="ListTrackingCodeType" target="ListTrackingCodeType" title="" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="TrackingCodeType"/>
@@ -322,16 +317,14 @@ under the License.
                 <parameter param-name="trackingCodeTypeId"/>
             </hyperlink>
         </field>
-    </grid>
-    
+    </form>
     <form name="LookupTrackingCodeType" default-map-name="trackingCode" target="LookupTrackingCodeType" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="trackingCodeTypeId" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeTypeId}"><text-find/></field>
         <field name="description" title="${uiLabelMap.MarketingTrackingCodeTypeDescription}"><text-find/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
-    
-    <grid name="ListLookupTrackingCodeType" target="" title=""
+    <form name="ListLookupTrackingCodeType" target="" title="" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service result-map-list="listIt" result-map="result" service-name="performFind">
@@ -345,5 +338,5 @@ under the License.
             <hyperlink description="${trackingCodeTypeId}" target="javascript:set_value('${trackingCodeTypeId}')" also-hidden="false" target-type="plain"/>
         </field>
         <field name="description" title="${uiLabelMap.MarketingTrackingCodeTypeDescription}"><display/></field>
-    </grid>
+    </form>
 </forms>

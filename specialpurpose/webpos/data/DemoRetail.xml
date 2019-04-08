@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<entity-engine-xml>
+    <UserLogin userLoginId="1" partyId="admin" currentPassword="356a192b7913cf4c54574d18bdf24699395428d4" passwordHint="The Number One, Yeah, Literally"/>
+    <UserLogin userLoginId="2" partyId="ltdadmin" currentPassword="a54bed37c5b3b28ee30760b5c8d1bbd735ef10cf" passwordHint="The Number Two, Yeah, Literally"/>
+    <UserLoginSecurityGroup groupId="POSCLERK" userLoginId="1" fromDate="2001-01-01 12:00:00.0"/>
+    <UserLoginSecurityGroup groupId="POSCLERK" userLoginId="2" fromDate="2001-01-01 12:00:00.0"/>
+    <Facility facilityId="MyRetailStore" ownerPartyId="Company" facilityTypeId="RETAIL_STORE" facilityName="My Retail Store" description="Example Retail (POS) Store"/>
+    <ContactMech contactMechId="9300" contactMechTypeId="POSTAL_ADDRESS"/>
+    <ContactMech contactMechId="9301" contactMechTypeId="TELECOM_NUMBER"/>
+    <PostalAddress contactMechId="9300" toName="My Retail Store" attnName="" address1="7 E. 8th St. #308" city="New York" postalCode="10003" countryGeoId="USA" stateProvinceGeoId="NY"/>
+    <TelecomNumber contactMechId="9301" areaCode="212" contactNumber="555-5555"/>
+    <FacilityContactMech facilityId="MyRetailStore" contactMechId="9300" fromDate="2001-05-13 12:00:00.0"/>
+    <FacilityContactMech facilityId="MyRetailStore" contactMechId="9301" fromDate="2001-05-13 12:00:00.0"/>
+    <FacilityContactMechPurpose facilityId="MyRetailStore" contactMechId="9300" contactMechPurposeTypeId="PUR_RET_LOCATION" fromDate="2004-07-26 16:49:50.161"/>
+    <FacilityContactMechPurpose facilityId="MyRetailStore" contactMechId="9300" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2004-07-26 16:49:54.497"/>
+    <FacilityContactMechPurpose facilityId="MyRetailStore" contactMechId="9300" contactMechPurposeTypeId="PAYMENT_LOCATION" fromDate="2004-07-26 16:49:58.747"/>
+    <FacilityContactMechPurpose facilityId="MyRetailStore" contactMechId="9300" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2004-07-26 16:50:05.459"/>
+    <FacilityContactMechPurpose facilityId="MyRetailStore" contactMechId="9300" contactMechPurposeTypeId="SHIP_ORIG_LOCATION" fromDate="2004-07-26 16:50:09.65"/>
+    <FacilityContactMechPurpose facilityId="MyRetailStore" contactMechId="9300" contactMechPurposeTypeId="SHIPPING_LOCATION" fromDate="2004-07-26 16:50:13.755"/>
+    <FacilityContactMechPurpose facilityId="MyRetailStore" contactMechId="9301" contactMechPurposeTypeId="PHONE_SHIPPING" fromDate="2001-05-13 12:00:00.0"/>
+    <FacilityContactMechPurpose facilityId="MyRetailStore" contactMechId="9301" contactMechPurposeTypeId="PHONE_SHIP_ORIG" fromDate="2001-05-13 12:00:00.0"/>
+    <FacilityContactMechPurpose facilityId="MyRetailStore" contactMechId="9301" contactMechPurposeTypeId="PHONE_PAYMENT" fromDate="2004-07-26 16:48:47.311"/>
+    <FacilityContactMechPurpose facilityId="MyRetailStore" contactMechId="9301" contactMechPurposeTypeId="PHONE_BILLING" fromDate="2004-07-26 16:48:51.652"/>
+    <FacilityContactMechPurpose facilityId="MyRetailStore" contactMechId="9301" contactMechPurposeTypeId="PHONE_SHIP_ORIG" fromDate="2004-07-26 16:49:04.176"/>
+    <FacilityContactMechPurpose facilityId="MyRetailStore" contactMechId="9301" contactMechPurposeTypeId="PHONE_SHIPPING" fromDate="2004-07-26 16:49:09.267"/>
+
+    <ProductStore productStoreId="9100" storeName="OFBiz Physical Retail Store" companyName="Apache OFBiz" title="Open For Retail"
+        subtitle="Part of the Apache OFBiz Family of Open Source Software" payToPartyId="Company" daysToCancelNonPay="30" prorateShipping="Y" prorateTaxes="Y"
+        inventoryFacilityId="MyRetailStore" oneInventoryFacility="Y" checkInventory="N" reserveInventory="Y"
+        reserveOrderEnumId="INVRO_FIFO_REC" requireInventory="N" isImmediatelyFulfilled="Y"
+        defaultLocaleString="en_US" defaultCurrencyUomId="USD" allowPassword="Y" explodeOrderItems="N" retryFailedAuths="N" manualAuthIsCapture="Y"
+        headerApprovedStatus="ORDER_APPROVED" itemApprovedStatus="ITEM_APPROVED" digitalItemApprovedStatus="ITEM_APPROVED" headerDeclinedStatus="ORDER_REJECTED"
+        itemDeclinedStatus="ITEM_REJECTED" headerCancelStatus="ORDER_CANCELLED" itemCancelStatus="ITEM_CANCELLED" orderNumberPrefix="RS"
+        authDeclinedMessage="There has been a problem with your method of payment. Please try a different method or call customer service."
+        authFraudMessage="Your order has been rejected and your account has been disabled due to fraud."
+        authErrorMessage="Problem connecting to payment processor."
+        visualThemeId="EC_DEFAULT" autoApproveInvoice="Y" shipIfCaptureFails="Y" autoApproveOrder="Y"/>
+
+    <ProductStorePaymentSetting productStoreId="9100" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_AUTH" paymentService="alwaysApproveWithCaptureCCProcessor" paymentCustomMethodId="CC_AUTH_CAPTURE_ALWA"/>
+    <ProductStorePaymentSetting productStoreId="9100" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_RELEASE" paymentService="testCCRelease" paymentCustomMethodId="CC_RELEASE_TEST"/>
+    <ProductStorePaymentSetting productStoreId="9100" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_CAPTURE" paymentService="testCCCapture" paymentCustomMethodId="CC_CAPTURE_TEST"/>
+    <ProductStorePaymentSetting productStoreId="9100" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_REAUTH" paymentService="alwaysApproveCCProcessor" paymentCustomMethodId="CC_AUTH_ALWAYSAPPROV"/>
+    <ProductStorePaymentSetting productStoreId="9100" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_REFUND" paymentService="testCCRefund" paymentCustomMethodId="CC_REFUND_TEST"/>
+    <ProductStorePaymentSetting productStoreId="9100" paymentMethodTypeId="EFT_ACCOUNT" paymentServiceTypeEnumId="PRDS_PAY_AUTH" paymentService="alwaysApproveEFTProcessor" paymentCustomMethodId="EFT_AUTH_ALWAYSAPPRO"/>
+    <ProductStorePaymentSetting productStoreId="9100" paymentMethodTypeId="GIFT_CARD" paymentServiceTypeEnumId="PRDS_PAY_EXTERNAL" paymentService="" paymentCustomMethodId=""/>
+
+    <ProductStoreFacility productStoreId="9100" facilityId="MyRetailStore" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductStoreRole partyId="admin" roleTypeId="SALES_REP" productStoreId="9100" fromDate="2001-05-13 12:00:00.0"/>
+
+    <ProductStoreCatalog productStoreId="9100" prodCatalogId="DemoCatalog" fromDate="2001-05-13 12:00:00.0" sequenceNum="1"/>
+
+    <Facility facilityId="MyRetailStore" productStoreId="9100" defaultInventoryItemTypeId="NON_SERIAL_INV_ITEM"/>
+
+    <!-- Use these SKUs in the POS terminal -->
+    <GoodIdentification goodIdentificationTypeId="SKU" productId="GZ-1000" idValue="12345"/>
+    <GoodIdentification goodIdentificationTypeId="OTHER_ID" productId="GZ-1001" idValue="12345"/>
+    <GoodIdentification goodIdentificationTypeId="SKU" productId="GZ-1001" idValue="67890"/>
+
+
+    <!-- use this one when the scheduled PUSH service is enabled
+    <PosTerminal posTerminalId="pos-1" terminalName="Pos Terminal 1" facilityId="MyRetailStore" pushEntitySyncId="5505"/>
+    <PosTerminal posTerminalId="pos-2" terminalName="Pos Terminal 2" facilityId="MyRetailStore" pushEntitySyncId="5505"/>
+    <PosTerminal posTerminalId="pos-3" terminalName="Pos Terminal 3" facilityId="MyRetailStore" pushEntitySyncId="5505"/>
+    -->
+
+    <!-- use this one when the scheduled PUSH service is not enabled -->
+    <PosTerminal posTerminalId="pos-1" terminalName="Pos Terminal 1" facilityId="MyRetailStore"/>
+    <PosTerminal posTerminalId="pos-2" terminalName="Pos Terminal 2" facilityId="MyRetailStore"/>
+    <PosTerminal posTerminalId="pos-3" terminalName="Pos Terminal 3" facilityId="MyRetailStore"/>
+
+    <!-- NOTE: this should be commented out for testing the POS without inventory, but should be included on PSS and MCS machines to handle inventory issuance -->
+    <!-- <InventoryItem facilityId="MyRetailStore" inventoryItemId="9100" inventoryItemTypeId="NON_SERIAL_INV_ITEM" productId="GZ-1001"/>
+    <InventoryItemDetail inventoryItemId="9100" inventoryItemDetailSeqId="0001" availableToPromiseDiff="20" quantityOnHandDiff="20"/> -->
+    <!-- NOTE: for testing now leaving out GZ-5005 which is the other default product with a button in the POS, should create a new inventory item with negative QOH -->
+
+    <EnumerationType description="Pos Paid Reason In" enumTypeId="POS_PAID_REASON_IN" hasTable="N" parentTypeId=""/>
+    <Enumeration description="Banking during the day" enumCode="BANKING_IN_REASON" enumId="BANKING_IN_REASON" sequenceId="01" enumTypeId="POS_PAID_REASON_IN"/>
+    <Enumeration description="Change added to Till's float" enumCode="CHANGE_IN_REASON" enumId="CHANGE_IN_REASON" sequenceId="02" enumTypeId="POS_PAID_REASON_IN"/>
+    <Enumeration description="Petty Cash Paid into Till" enumCode="CASH_IN_REASON" enumId="CASH_IN_REASON" sequenceId="03" enumTypeId="POS_PAID_REASON_IN"/>
+
+    <EnumerationType description="Pos Paid Reason Out" enumTypeId="POS_PAID_REASON_OUT" hasTable="N" parentTypeId=""/>
+    <Enumeration description="Banking during the day" enumCode="BANKING_OUT_REASON" enumId="BANKING_OUT_REASON" sequenceId="01" enumTypeId="POS_PAID_REASON_OUT"/>
+    <Enumeration description="Petty Cash out" enumCode="CASH_OUT_REASON" enumId="CASH_OUT_REASON" sequenceId="03" enumTypeId="POS_PAID_REASON_OUT"/>
+
+    <!-- _NA_ TaxAuthority defs -->
+    <TaxAuthority taxAuthGeoId="_NA_" taxAuthPartyId="_NA_" includeTaxInPrice="N"/>
+    <TaxAuthorityGlAccount taxAuthGeoId="_NA_" taxAuthPartyId="_NA_" organizationPartyId="Company" glAccountId="224000"/>
+    <TaxAuthorityCategory taxAuthGeoId="_NA_" taxAuthPartyId="_NA_" productCategoryId="20111"/> <!-- Micro Widgets, a category to be used to test categorized rates -->
+    <!-- taxAuthorityRateSeqId left blank to be auto-sequenced during the EE XML import -->
+    <TaxAuthorityRateProduct taxAuthorityRateSeqId="9006" taxAuthGeoId="_NA_" taxAuthPartyId="_NA_" taxAuthorityRateTypeId="SALES_TAX" productStoreId="9100"
+        productCategoryId="" titleTransferEnumId="" minItemPrice="25.00" minPurchase="0.00" taxShipping="N" taxPercentage="1" taxPromotions="N"
+        fromDate="2008-12-03 00:00:00.001" thruDate="" description="1% OFB _NA_ Tax"/>
+
+</entity-engine-xml>
+
+

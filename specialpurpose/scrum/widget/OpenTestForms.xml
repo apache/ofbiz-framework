@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
+    <form name="DefaultTaskList" type="list" target="removeTask" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+             <entity-and entity-name="WorkEffortAndProduct">
+                 <field-map field-name="workEffortPurposeTypeId" value="SCRUM_DEFAULT_TASK"/>
+                 <field-map field-name="productId" from-field="parameters.productId"/>
+             </entity-and>
+        </actions>
+        <row-actions>
+            <entity-and entity-name="WorkEffortPartyAssignment" list="partyAssignViewList">
+                <field-map field-name="workEffortId" from-field="workEffortId"/>
+            </entity-and>
+            <set field="partyId" from-field="partyAssignViewList[0].partyId"/>
+        </row-actions>
+        <field name="workEffortId" title="${uiLabelMap.ScrumTaskName}">
+            <hyperlink description="${workEffortName}" target="editDefaultTask">
+                <parameter param-name="workEffortId"/>
+                <parameter param-name="productId"/>
+            </hyperlink></field>
+        <field name="workEffortTypeId" title="${uiLabelMap.CommonType}"><display-entity entity-name="WorkEffortType"/></field>
+        <field name="createdDate" title="${uiLabelMap.FormFieldTitle_createdDate}"><display/></field>
+        <field name="partyId" title="${uiLabelMap.ScrumAssignedTo}">
+            <display-entity entity-name="PartyNameView" description="${lastName} ${firstName} ${middleName}" key-field-name="partyId"/>
+        </field>
+        <field name="deleteButton" title="${uiLabelMap.CommonRemove}" widget-style="buttontext">
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="deleteDefaultTask">
+                <parameter param-name="workEffortId"/>
+                <parameter param-name="productId"/>
+            </hyperlink>
+        </field>
+    </form>
+    <form name="EditDefaultTask" type="single" target="createDefaultTask">
+        <actions>
+            <entity-one entity-name="WorkEffort" value-field="workEffort"/>
+            <set field="workEffortName" from-field="workEffort.workEffortName"/>
+            <set field="description" from-field="workEffort.description"/>
+            <set field="workEffortTypeId" from-field="workEffort.workEffortTypeId"/>
+            <set field="plannedHours" value="${groovy: if (workEffort) return workEffort.estimatedMilliSeconds/1000/60/60 else return 0}" type="Double"/>
+            <entity-and entity-name="WorkEffortPartyAssignment" list="partyAssignlist">
+                <field-map field-name="workEffortId" from-field="workEffortId"/>
+            </entity-and>
+            <set field="partyId" from-field="partyAssignlist[0].partyId"/>
+        </actions>
+        <alt-target use-when="workEffortId!=null" target="updateDefaultTask"/>
+        <field name="workEffortId"><hidden/></field>
+        <field name="workEffortName" title="${uiLabelMap.ScrumTaskName}"><text default-value="${workEffortName}"/></field>
+        <field name="productId" title="${uiLabelMap.ScrumProduct}"><display-entity entity-name="Product" description="${internalName}"></display-entity></field>
+        <field name="workEffortTypeId" title="${uiLabelMap.CommonType}">
+            <drop-down >
+                <entity-options entity-name="WorkEffortType">
+                    <entity-constraint name="parentTypeId" value="SCRUM_TASK"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="workEffortPurposeTypeId"><hidden value="SCRUM_DEFAULT_TASK"/></field>
+        <field name="plannedHours" title="${uiLabelMap.ScrumInitialPlannedHours}"><text size="3"/></field>
+        <field name="currentStatusId"><hidden value="STS_CREATED"/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><textarea/></field>
+        <field name="partyId" title="${uiLabelMap.ScrumAssignedTo}">
+            <drop-down allow-empty="true">
+                <entity-options description="${lastName} ${firstName} ${middleName}" entity-name="ScrumMemberUserLoginAndSecurityGroup" key-field-name="partyId" >
+                    <entity-constraint name="partyStatusId" operator="not-equals" value="PARTY_DISABLED"/>
+                    <entity-constraint name="groupId" operator="equals" value="SCRUM_TEAM"/>
+                    <entity-constraint name="enabled" operator="not-equals" value="N"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" use-when="workEffortId==null"><submit/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" use-when="workEffortId!=null"><submit/></field>
+    </form>
+    
+    <form name="ListCompletedTask" type="list" target="" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+    <actions>
+        <entity-and entity-name="WorkEffortAndPartyAssign">
+            <field-map field-name="currentStatusId" value="STS_COMPLETED"/>
+        </entity-and>
+    </actions>
+    <row-actions>
+        <entity-one entity-name="PartyNameView" value-field="party"/>
+    </row-actions>
+    <field name="workEffortId" title="Task Name">
+        <hyperlink description="${workEffortName}" target="taskView">
+            <parameter param-name="taskId" from-field="workEffortId"/>
+        </hyperlink>
+    </field>
+    <field name="description"><display/></field>
+    <field name="partyId">
+        <hyperlink description="${party.firstName} ${party.lastName}" target="viewprofile">
+            <parameter param-name="partyId"/>
+        </hyperlink>
+    </field>
+    </form>
+    <form name="FindBacklog" type="single" target="findBacklog">
+        <field name="productId" title="${uiLabelMap.PageTitleProduct}">
+            <drop-down allow-empty="true">
+                <entity-options description=" ${internalName} [${productId}]" entity-name="Product" key-field-name="productId">
+                     <entity-constraint name="productTypeId" value="SCRUM_ITEM"/>
+                     <entity-constraint name="supportDiscontinuationDate" operator="equals" value=""/>
+                     <entity-order-by field-name="internalName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="Find"><submit/></field>
+    </form>
+    <form name="ListTask" type="list" list-name="backlogList" paginate-target="findBacklog" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <row-actions>
+            <entity-and entity-name="CustRequestItem" list="story">
+                <field-map field-name="custRequestId" from-field="custRequestId"/>
+            </entity-and>
+            <set field="custRequestType" value="${groovy: 
+                 if (custRequestTypeId.equals(&quot;RF_UNPLAN_BACKLOG&quot;))
+                     custRequestType = &quot;Y&quot;
+                 else
+                     custRequestType = &quot;N&quot;
+                }"/>
+        </row-actions>
+        <field name="backlogName" title="${uiLabelMap.ScrumBacklogItem}">
+            <hyperlink description="${description}[${custRequestId}]" target="ViewProdBacklogItem" target-window="_blank">
+                <parameter param-name="custRequestId" from-field="custRequestId"/>
+                <parameter param-name="productId" from-field="parameters.productId"/>
+            </hyperlink>
+        </field>
+        <field name="custRequestTypeId"><display></display> </field>
+        <field name="custRequestTypeId" title="${uiLabelMap.ScrumUnplanBacklog}">
+            <display description="${custRequestType}"/>
+        </field>
+        <field name="story"><display description="${story[0].story}"></display> </field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}">
+            <display-entity entity-name="StatusItem"/>
+        </field>
+    </form>
+    <form name="EditTask" type="upload" target="createTestTask">
+        <actions>
+            <entity-and entity-name="WorkEffortPartyAssignView" list="membersPartyId">
+                <field-map field-name="workEffortId" from-field="sprintId"/>
+            </entity-and>
+            <entity-one entity-name="WorkEffort" value-field="sprint">
+                <field-map field-name="workEffortId" from-field="sprintId"/>
+            </entity-one>
+            <set field="projectId" from-field="sprint.workEffortParentId"/>
+            <set field="partyId" from-field="workEffortPartyAssignment.partyId"/>
+            <set field="custRequestId" from-field="parameters.custRequestId"/>
+            <entity-one entity-name="WorkEffort" value-field="project">
+                <field-map field-name="workEffortId" from-field="projectId"/>
+            </entity-one>
+            <entity-and entity-name="CustRequestItem" list="CustRequest">
+                <field-map field-name="custRequestId" from-field="custRequestId"/>
+            </entity-and>
+            <entity-condition entity-name="ScrumMemberUserLoginAndSecurityGroup" list="ScrumMember">
+                <condition-list combine="and">
+                    <condition-expr field-name="partyStatusId" operator="not-equals" value="PARTY_DISABLED"/>
+                    <condition-expr field-name="groupId" operator="equals" value="SCRUM_TEAM"/>
+                </condition-list>
+            </entity-condition>
+        </actions>
+        <field name="sprintStatusId"><hidden value="${parameters.sprintStatusId}"/></field>
+        <field name="projectName" title="${uiLabelMap.ScrumProjectName}" use-when="projectId!=null">
+            <display description="${project.workEffortName} [${projectId}]"/>
+        </field>
+        <field name="projectId"><hidden/></field>
+        <field name="sprintName" title="${uiLabelMap.ScrumSprintName}" use-when="sprintId!=null">
+            <display description="${sprint.workEffortName} [${sprintId}]"/>
+        </field>
+        <field name="custRequestId" title="${uiLabelMap.ScrumBacklogItem}">
+            <display-entity entity-name="CustRequest">
+                <sub-hyperlink target="EditProdBacklog"></sub-hyperlink>
+            </display-entity>
+        </field>
+        <field name="workEffortName" title="${uiLabelMap.ScrumTaskName}" required-field="true" tooltip="${uiLabelMap.ScrumToolTip100CharsMaximun}"><text/></field>
+        <field name="workEffortTypeId"><hidden value="SCRUM_TASK_ERROR"/></field>
+        <field name="currentStatusId"><hidden value="STS_CREATED"/></field>
+        <field name="roleTypeId"><hidden value="SCRUM_TEAM"/></field>
+        <field name="statusId"><hidden value="SCAS_ASSIGNED"/></field>
+        <field name="priority"><hidden value="1"/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><textarea rows="6"/></field>
+        <field name="uploadedFile"><file/></field>
+        <field name="contentTypeId"><hidden value="DOCUMENT"/></field>
+        <field name="resourceStatusId"><hidden value="CTNT_PUBLISHED"/></field>
+        <field name="workEffortContentTypeId"><hidden value="CREATED_MEDIA"/></field>
+        <field name="mimeTypeId"><hidden value="application/octet-stream"/></field>
+        <field name="sprintId"><hidden value="${parameters.sprintId}"/></field>
+        <field name="partyId" title="${uiLabelMap.ScrumAssignedTo}" use-when="sprintId!=null">
+            <drop-down >
+                <list-options key-name="partyId" list-name="membersPartyId" description="${lastName} ${firstName} ${middleName}"/>
+            </drop-down>
+        </field>
+        <field name="partyId" title="${uiLabelMap.ScrumAssignedTo}" use-when="sprintId==null">
+            <drop-down>
+            <list-options key-name="partyId" list-name="ScrumMember" description="${lastName} ${firstName} ${middleName}"/>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit/></field>
+    </form>
+    <form name="ContentTask" type="list" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-and entity-name="WorkEffortContent">
+                <field-map field-name="workEffortId" from-field="parameters.taskId"/>
+                <field-map field-name="workEffortContentTypeId" value="CREATED_MEDIA"/>
+            </entity-and>
+        </actions> 
+        <field name="contentId">   
+        <display-entity entity-name="Content" key-field-name="contentId" description="${contentName}" also-hidden="true">
+                <sub-hyperlink target="/content/control/ViewSimpleContent" description="[${contentId}]" link-style="buttontext" target-type="inter-app">
+                    <parameter param-name="contentId"/>
+                </sub-hyperlink>
+            </display-entity>
+        </field>
+        <field name="mimeTypeId"><display/></field>
+        <field name="fromDate"><display/></field>
+    </form>
+    
+    <form name="DefaultTaskScrumList" type="list" target="removeTask" list-name="defaultTasks" odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="defaultTaskScrum">
+        <actions>
+             <entity-and entity-name="WorkEffort">
+                 <field-map field-name="workEffortPurposeTypeId" value="SYSTEM_DEFAULT_TASK"/>
+             </entity-and>
+        </actions>
+        <row-actions>
+            <entity-and entity-name="WorkEffortPartyAssignment" list="partyAssignViewList">
+                <field-map field-name="workEffortId" from-field="workEffortId"/>
+            </entity-and>
+            <set field="partyId" from-field="partyAssignViewList[0].partyId"/>
+        </row-actions>
+        <field name="workEffortId" title="${uiLabelMap.ScrumTaskName}">
+            <hyperlink description="${workEffortName}" target="editDefaultTaskScrum">
+                <parameter param-name="workEffortId"/>
+            </hyperlink></field>
+        <field name="workEffortTypeId" title="${uiLabelMap.CommonType}"><display-entity entity-name="WorkEffortType"/></field>
+        <field name="createdDate" title="${uiLabelMap.FormFieldTitle_createdDate}"><display/></field>
+        <field name="partyId" title="${uiLabelMap.ScrumAssignedTo}">
+            <display-entity entity-name="PartyNameView" description="${lastName} ${firstName} ${middleName}" key-field-name="partyId"/>
+        </field>
+        <field name="deleteButton" title="${uiLabelMap.CommonRemove}" widget-style="buttontext">
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="deleteDefaultTaskScrum">
+                <parameter param-name="workEffortId"/>
+            </hyperlink>
+        </field>
+    </form>
+    
+    <form name="EditDefaultTaskScrum" type="single" target="createDefaultTaskScrum">
+        <actions>
+            <entity-one entity-name="WorkEffort" value-field="workEffort"/>
+            <set field="workEffortName" from-field="workEffort.workEffortName"/>
+            <set field="description" from-field="workEffort.description"/>
+            <set field="workEffortTypeId" from-field="workEffort.workEffortTypeId"/>
+            <set field="plannedHours" value="${groovy: if (workEffort) return workEffort.estimatedMilliSeconds/1000/60/60 else return 0}" type="Double"/>
+            <entity-and entity-name="WorkEffortPartyAssignment" list="partyAssignlist">
+                <field-map field-name="workEffortId" from-field="workEffortId"/>
+            </entity-and>
+            <set field="partyId" from-field="partyAssignlist[0].partyId"/>
+        </actions>
+        <alt-target use-when="workEffortId!=null" target="updateDefaultTaskScrum"/>
+        <field name="workEffortId"><hidden/></field>
+        <field name="workEffortName" title="${uiLabelMap.ScrumTaskName}"><text default-value="${workEffortName}"/></field>
+        <!--<field name="productId" title="${uiLabelMap.ScrumProduct}"><display-entity entity-name="Product" description="${internalName}"></display-entity></field>-->
+        <field name="workEffortTypeId" title="${uiLabelMap.CommonType}">
+            <drop-down >
+                <entity-options entity-name="WorkEffortType">
+                    <entity-constraint name="parentTypeId" value="SCRUM_TASK"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="workEffortPurposeTypeId"><hidden value="SYSTEM_DEFAULT_TASK"/></field>
+        <field name="plannedHours" title="${uiLabelMap.ScrumInitialPlannedHours}"><text size="3"/></field>
+        <field name="currentStatusId"><hidden value="STS_CREATED"/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><textarea/></field>
+        <field name="partyId" title="${uiLabelMap.ScrumAssignedTo}">
+            <drop-down allow-empty="true">
+                <entity-options description="${lastName} ${firstName} ${middleName}" entity-name="ScrumMemberUserLoginAndSecurityGroup" key-field-name="partyId" >
+                    <entity-constraint name="partyStatusId" operator="not-equals" value="PARTY_DISABLED"/>
+                    <entity-constraint name="groupId" operator="equals" value="SCRUM_TEAM"/>
+                    <entity-constraint name="enabled" operator="not-equals" value="N"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" use-when="workEffortId==null"><submit/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" use-when="workEffortId!=null"><submit/></field>
+    </form>
+</forms>

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
+    <form name="FindTimeSheet" target="FindTimeSheet" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <entity-condition entity-name="PartyRoleDetailAndPartyDetail" distinct="true" list="parties">
+                <condition-list combine="or">
+                    <condition-expr field-name="roleTypeId" operator="equals" value="SCRUM_TEAM"/>
+                    <condition-expr field-name="roleTypeId" operator="equals" value="SCRUM_MASTER"/>
+                </condition-list>
+                <select-field field-name="firstName"/>
+                <select-field field-name="middleName"/>
+                <select-field field-name="lastName"/>
+                <select-field field-name="partyId"/>
+                <order-by field-name="lastName"/>
+            </entity-condition>
+        </actions>
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
+        <field name="timesheetId"><text-find ignore-case="true"/></field>
+        <field name="comments"><text-find ignore-case="true"/></field>
+        <field name="partyId" title="${uiLabelMap.PartyParty}">
+            <drop-down allow-empty="true">
+                <list-options key-name="partyId" list-name="parties" description="${lastName} ${firstName} ${middleName}"/>
+            </drop-down>
+        </field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}" position="1">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
+                    <entity-constraint name="statusTypeId" value="TIMESHEET_STATUS"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="fromDate"><date-find/></field>
+        <field name="find" title="${uiLabelMap.CommonFind}"><submit/></field>
+    </form>
+    <form name="ListTimeSheets" type="list" list-name="timesheets" paginate-target="FindTimeSheet"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <set field="complete" value="${uiLabelMap.ScrumToComplete}"/>
+            <set field="inProcess" value="Set To In-progress"/>
+        </actions>
+        <row-actions>
+            <set field="completeLink" value="${groovy:&quot;TIMESHEET_IN_PROCESS&quot;.equals(statusId)?complete:&quot;&quot;}"/>
+        </row-actions>
+        <field name="timesheetId" title="${uiLabelMap.WorkEffortTimesheetTimesheetId}" widget-style="buttontext">
+            <hyperlink description="${timesheetId}" target="ViewTimeSheet" also-hidden="false">
+                <parameter param-name="timesheetId"/>
+            </hyperlink>
+        </field>
+        <field name="partyId" title="${uiLabelMap.PartyParty}"><display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}"/></field>
+        <field name="hours" title="${uiLabelMap.ScrumActualHours}"><display/></field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display type="date"/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display type="date"/></field>
+        <!--field name="comments" title="${uiLabelMap.CommonComments}"><display/></field-->
+        <field name="completeLink" title="${uiLabelMap.CommonStatustoComplete}" widget-style="buttontext">
+            <hyperlink description="${groovy:statusId.equals(&quot;TIMESHEET_IN_PROCESS&quot;)?complete:&quot;&quot;}" target="TimeSheetStatusToComplete">
+                <parameter param-name="timesheetId"/>
+                <parameter param-name="statusId" value="TIMESHEET_COMPLETED"/>
+            </hyperlink>
+        </field>
+        <field name="inProcessLink" title="${uiLabelMap.StatusToInProcess}" widget-style="buttontext">
+            <hyperlink description="${groovy:statusId.equals(&quot;TIMESHEET_COMPLETED&quot;)?inProcess:&quot;&quot;}" target="updateTimesheetToInProcess" >
+                <parameter param-name="timesheetId"/>
+                <parameter param-name="statusId" value="TIMESHEET_IN_PROCESS"/>
+            </hyperlink>
+        </field>
+    </form>
+    <form name="ListPartyTimeSheets" type="list" list-name="timesheets" paginate-target="MyTimesheet"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <set field="complete" value="${uiLabelMap.ScrumToComplete}"/>
+        </actions>
+        <field name="timesheetId" title="${uiLabelMap.WorkEffortTimesheetTimesheetId}" widget-style="buttontext">
+            <hyperlink description="${timesheetId}" target="${my}Timesheet" also-hidden="false">
+                <parameter param-name="timesheetId"/>
+            </hyperlink>
+        </field>
+        <field name="weekNumber" title="${uiLabelMap.ScrumWeekNumber}"><display/></field>
+        <field name="statusId"><display-entity entity-name="StatusItem"/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display type="date"/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display type="date"/></field>
+        <field name="hours"><display/></field>
+        <field name="comments" title="${uiLabelMap.CommonComments}"><display/></field>
+        <field name="completeLink" title="${uiLabelMap.CommonStatustoComplete}" widget-style="buttontext">
+            <hyperlink description="${groovy:statusId.equals(&quot;TIMESHEET_IN_PROCESS&quot;)?complete:&quot;&quot;}" target="TimeSheetStatusToComplete" also-hidden="false">
+                <parameter param-name="timesheetId"/>
+                <parameter param-name="statusId" value="TIMESHEET_COMPLETED"/>
+            </hyperlink>
+        </field>
+    </form>
+    <form name="WeekTimesheet" extends="WeekTimesheet" extends-resource="component://scrum/widget/MyWorkForms.xml" paginate-target="ViewTimeSheet">
+    </form>
+    <form name="EditWeekTimesheet" type="multi" list-name="timeEntries" use-row-submit="true" paginate-target="ViewTimeSheet"
+        separate-columns="true" target="update${my}Timesheet" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <row-actions>
+            <service service-name="getProjectInfoFromTask" result-map="result">
+                <field-map field-name="taskId" from-field="workEffortId"/>
+            </service>
+            <entity-and entity-name="CustRequestWorkEffort" list="custRequestList">
+                <field-map field-name="workEffortId" from-field="workEffortId"/>
+            </entity-and>
+            <entity-and entity-name="CustRequest" list="custRequest">
+                <field-map field-name="custRequestId" from-field="custRequestList[0].custRequestId"/>
+                <field-map field-name="custRequestTypeId" value="RF_UNPLAN_BACKLOG"/>
+            </entity-and>
+            <entity-and entity-name="CustRequestItem" list="productList">
+                <field-map field-name="custRequestId" from-field="custRequest[0].custRequestId"/>
+            </entity-and>
+            <entity-one entity-name="Product" value-field="product">
+                <field-map field-name="productId" from-field="productList[0].productId"/>
+            </entity-one>
+            <entity-and entity-name="EmplLeave" list="emplLeaveList">
+                <field-map field-name="partyId" from-field="partyId"/>
+                <field-map field-name="leaveTypeId" from-field="leaveTypeId"/>
+                <field-map field-name="fromDate" from-field="leavefromDate"/>
+            </entity-and >
+            <set field="taskId" value="${emplLeaveList[0].leaveTypeId}" default-value="${result.taskId}"></set>
+        </row-actions>
+        <field name="timesheetId"><hidden/></field>
+        <field name="roleTypeId"><hidden/></field>
+        <field name="fromDate"><hidden/></field>
+        <field name="taskId" title="${uiLabelMap.ScrumTaskName}" parameter-name="workEffortId" encode-output="true">
+            <drop-down allow-empty="true" current-description="${result.projectId} ${product.productId} - ${result.projectName}${product.internalName} - ${result.sprintName} - ${groovy:result.backlogName.toString().substring(0,Math.min(result.backlogName.toString().length(),30))}[${result.backlogId}] - ${groovy:result.taskName.toString().substring(0,Math.min(result.taskName.toString().length(),30))}[${result.taskId}]">
+                <list-options key-name="taskId" list-name="taskListDropdown" description="${projectId}${productId} - ${projectName} ${productName} - ${sprintName} - ${groovy: if (description) description.substring(0,Math.min(description.length(),30))} [${custRequestId}] - ${groovy:taskName.substring(0,Math.min(taskName.length(),20))}[${taskId}]"/>
+                <entity-options entity-name="EmplLeaveType" key-field-name="leaveTypeId"/>
+                <sub-hyperlink target="taskView" description="${workEffortId}">
+                    <parameter param-name="taskId" from-field="workEffortId"/>
+                </sub-hyperlink>
+            </drop-down>
+        </field>
+        <field name="checkComplete" title="${uiLabelMap.ScrumCheckComplete}"><check/></field>
+        <field name="rateTypeId" title="${uiLabelMap.ScrumRateTypeId}">
+            <drop-down allow-empty="false" no-current-selected-key="${defaultRateTypeId}">
+                <entity-options entity-name="RateType"/>
+            </drop-down>
+        </field>
+        <field name="planHours" title="${uiLabelMap.ScrumPlanHrs}"><text size="2"/></field>
+        <field name="pl0" parameter-name="planHoursDay0" title="${uiLabelMap.ScrumPlhrs}"><hidden/></field>
+        <field name="d0" parameter-name="hoursDay0" title="${uiLabelMap.ScrumMon}"><text size="2"/></field>
+        <field name="pd1" parameter-name="planHoursDay1" title="${uiLabelMap.ScrumPlhrs}"><hidden/></field>
+        <field name="d1" parameter-name="hoursDay1" title="${uiLabelMap.ScrumTue}"><text size="2"/></field>
+        <field name="pd2" parameter-name="planHoursDay2" title="${uiLabelMap.ScrumPlhrs}"><hidden/></field>
+        <field name="d2" parameter-name="hoursDay2" title="${uiLabelMap.ScrumWen}"><text size="2"/></field>
+        <field name="pd3" parameter-name="planHoursDay3" title="${uiLabelMap.ScrumPlhrs}"><hidden/></field>
+        <field name="d3" parameter-name="hoursDay3" title="${uiLabelMap.ScrumThu}"><text size="2"/></field>
+        <field name="pd4" parameter-name="planHoursDay4" title="${uiLabelMap.ScrumPlhrs}"><hidden/></field>
+        <field name="d4" parameter-name="hoursDay4" title="${uiLabelMap.ScrumFri}"><text size="2"/></field>
+        <field name="pd5" parameter-name="planHoursDay5" title="${uiLabelMap.ScrumPlhrs}"><hidden/></field>
+        <field name="d5" parameter-name="hoursDay5" title="${uiLabelMap.ScrumSat}" title-style="alert"><text size="2"/></field>
+        <field name="pd6" parameter-name="planHoursDay6" title="${uiLabelMap.ScrumPlhrs}"><hidden/></field>
+        <field name="d6" parameter-name="hoursDay6" title="${uiLabelMap.ScrumSun}" title-style="alert"><text size="2"/></field>
+        <field name="acualTotal" title="${uiLabelMap.ScrumActualHours}"><display/></field>
+        <field name="actualHours" title="${uiLabelMap.ScrumActualTotal}"><display/></field>
+        <field name="updateButton"><submit button-type="button"/></field>
+        <field name="_rowSubmit" title="${uiLabelMap.ScrumRowSubmit}"><hidden value="Y"/></field>
+    </form>
+
+    <form name="AddWeeklyTimesheet" type="single" target="createWeeklyTimesheet" title=""
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="partyId" title="${uiLabelMap.PartyParty}">
+            <drop-down allow-empty="true" no-current-selected-key="${timesheet.partyId}">
+                <entity-options entity-name="PartyRoleDetailAndPartyDetail" description="${firstName} ${lastName}">
+                    <entity-constraint name="parentTypeId" value="SCRUM_MEMBER"/>
+                    <entity-order-by field-name="lastName"/>
+                    <entity-order-by field-name="groupName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field entry-name="dummy" name="requiredDate" title="${uiLabelMap.ScrumSelectedDate}"><date-time type="date"/></field>
+        <field name="addButton"><submit/></field>
+    </form>
+    
+    <form name="AddMyWeeklyTimesheet" type="single" target="createMyWeeklyTimesheet" title=""
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="partyId"><hidden value="${userLogin.partyId}"/></field>
+        <field entry-name="dummy" name="requiredDate" title="${uiLabelMap.ScrumSelectedDate}"><date-time type="date"/></field>
+        <field name="addButton"><submit/></field>
+    </form>
+</forms>

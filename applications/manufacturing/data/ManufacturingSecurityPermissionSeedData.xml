@@ -27,5 +27,5 @@ under the License.
     <SecurityPermission description="ALL operations in the Manufacturing Manager." permissionId="MANUFACTURING_ADMIN"/>
     
         <!-- add admin to SUPER permission group -->
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="MANUFACTURING_ADMIN"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="MANUFACTURING_ADMIN"/>
 </entity-engine-xml>

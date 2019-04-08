@@ -87,7 +87,7 @@
     </property>
     <property key="TemporalExpressionId">
         <value xml:lang="de">Ausdrucks-Id</value>
-        <value xml:lang="en">Expression ID</value>
+        <value xml:lang="en">Expression Id</value>
         <value xml:lang="es">Id de la expresión</value>
         <value xml:lang="fr">Réf. d'expression</value>
         <value xml:lang="it">Espressione</value>

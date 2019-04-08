@@ -20,7 +20,7 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <grid name="ListCostComponentCalc" list-name="allCostComponentCalcs" use-row-submit="true" target="updateCostComponentCalc"
+    <form name="ListCostComponentCalc" type="list" list-name="allCostComponentCalcs" use-row-submit="true" target="updateCostComponentCalc"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" paginate-target="EditCostCalcs">
         <auto-fields-entity entity-name="CostComponentCalc" default-field-type="display"/>
         <field name="costComponentCalcId" widget-style="buttontext"></field>
@@ -41,8 +41,7 @@ under the License.
                 <parameter param-name="costComponentCalcId"/>
             </hyperlink>
         </field>
-    </grid>
-    
+    </form>
     <form name="AddCostComponentCalc" type="single" target="createCostComponentCalc"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createCostComponentCalc"/>

@@ -47,9 +47,9 @@ under the License.
   ========================================================= -->
     <entity entity-name="Testing"
         package-name="org.apache.ofbiz.entity.test"
-        title="Testing">
-        <field name="testingId" type="id"/>
-        <field name="testingTypeId" type="id"/>
+        title="Testing Entity">
+        <field name="testingId" type="id-ne"/>
+        <field name="testingTypeId" type="id-ne"/>
         <field name="testingName" type="name" enable-audit-log="true"/>
         <field name="description" type="description"/>
         <field name="comments" type="comment"/>
@@ -66,7 +66,7 @@ under the License.
     <entity entity-name="TestingType"
         package-name="org.apache.ofbiz.entity.test"
         title="Testing Entity Type">
-        <field name="testingTypeId" type="id"/>
+        <field name="testingTypeId" type="id-ne"/>
         <field name="description" type="description"/>
         <prim-key field="testingTypeId"/>
     </entity>
@@ -74,8 +74,8 @@ under the License.
     Used for testing views with pks.
     This simulates the Party->PartyGroup and Party->Person entity relationships.
   ========================================================= -->
-    <entity entity-name="TestingSubtype" package-name="org.apache.ofbiz.entity.test" title="Testing Subtype">
-        <field name="testingTypeId" type="id" />
+    <entity entity-name="TestingSubtype" package-name="org.apache.ofbiz.entity.test" title="Testing Subtype Entity">
+        <field name="testingTypeId" type="id-ne" />
         <field name="subtypeDescription" type="description" />
         <prim-key field="testingTypeId" />
     </entity>
@@ -98,9 +98,9 @@ under the License.
             package-name="org.apache.ofbiz.entity.test"
             title="Entity for testing EntityStatus concept">
         <description>An entity for testing EntityStatus concept</description>
-        <field name="testingStatusId" type="id"/>
-        <field name="testingId" type="id" />
-        <field name="statusId" type="id"/>
+        <field name="testingStatusId" type="id-ne"/>
+        <field name="testingId" type="id-ne" />
+        <field name="statusId" type="id-ne"/>
         <field name="statusDate" type="date-time"/>
         <field name="changeByUserLoginId" type="id-vlong"/>
         <prim-key field="testingStatusId"/>
@@ -112,13 +112,24 @@ under the License.
         </relation>
     </entity>
   <!-- =========================================================
+     An entity for testing the BLOB data type
+   ========================================================== -->
+    <entity entity-name="TestBlob"
+        package-name="org.apache.ofbiz.entity.test"
+        title="Entity for testing the blob type (Deprecated)">
+        <description>Deprecated - use TestFieldType instead</description>
+        <field name="testBlobId" type="id-ne"/>
+        <field name="testBlobField" type="blob"/>
+         <prim-key field="testBlobId"/>
+    </entity>
+  <!-- =========================================================
      An entity for testing the field data types
    ========================================================== -->
     <entity entity-name="TestFieldType"
         package-name="org.apache.ofbiz.entity.test"
         title="Entity for testing the field data types">
         <description>An entity for testing the field data types</description>
-        <field name="testFieldTypeId" type="id"/>
+        <field name="testFieldTypeId" type="id-ne"/>
         <field name="blobField" type="blob"/>
         <field name="byteArrayField" type="byte-array"/>
         <field name="objectField" type="object"/>
@@ -137,8 +148,8 @@ under the License.
     <entity entity-name="TestingItem"
             package-name="org.apache.ofbiz.entity.test"
             title="Testing Item">
-        <field name="testingId" type="id"/>
-        <field name="testingSeqId" type="id"/>
+        <field name="testingId" type="id-ne"/>
+        <field name="testingSeqId" type="id-ne"/>
         <field name="testingHistory" type="very-long"/>
         <prim-key field="testingId"/>
         <prim-key field="testingSeqId"/>
@@ -153,7 +164,7 @@ under the License.
     <entity entity-name="TestingNode"
             package-name="org.apache.ofbiz.entity.test"
             title="Testing Node">
-        <field name="testingNodeId" type="id"></field>
+        <field name="testingNodeId" type="id-ne"></field>
         <field name="primaryParentNodeId" type="id"></field>
         <field name="description" type="description"></field>
         <prim-key field="testingNodeId"/>
@@ -171,8 +182,8 @@ under the License.
     <entity entity-name="TestingNodeMember"
             package-name="org.apache.ofbiz.entity.test"
             title="Testing Node Member">
-      <field name="testingNodeId" type="id"/>
-      <field name="testingId" type="id"/>
+      <field name="testingNodeId" type="id-ne"/>
+      <field name="testingId" type="id-ne"/>
       <field name="fromDate" type="date-time"/>
       <field name="thruDate" type="date-time"/>
       <field name="extendFromDate" type="date-time"/><!--use to test filterDate -->
@@ -218,9 +229,9 @@ under the License.
     ========================================================= -->
     <entity entity-name="TestingCrypto"
         package-name="org.apache.ofbiz.entity.test"
-        title="Testing Crypto">
-        <field name="testingCryptoId" type="id"/>
-        <field name="testingCryptoTypeId" type="id"/>
+        title="Testing Crypto Entity">
+        <field name="testingCryptoId" type="id-ne"/>
+        <field name="testingCryptoTypeId" type="id-ne"/>
         <field name="unencryptedValue" type="description"/>
         <field name="encryptedValue" type="description" encrypt="true"/>
         <field name="saltedEncryptedValue" type="description" encrypt="salt"/>
@@ -244,8 +255,8 @@ under the License.
     </view-entity>
     <entity entity-name="TestingRemoveAll"
         package-name="org.apache.ofbiz.entity.test"
-        title="Testing">
-        <field name="testingRemoveAllId" type="id"/>
+        title="Testing Entity">
+        <field name="testingRemoveAllId" type="id-ne"/>
         <field name="description" type="description"/>
         <prim-key field="testingRemoveAllId"/>
     </entity>

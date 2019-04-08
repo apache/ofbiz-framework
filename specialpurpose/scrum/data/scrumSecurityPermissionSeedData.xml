@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<entity-engine-xml>
+    <!-- Scrum Component -->
+    <SecurityPermission description="View operations in the SCRUM Component." permissionId="SCRUM_VIEW"/>
+    <SecurityPermission description="Create operations in the SCRUM Component." permissionId="SCRUM_CREATE"/>
+    <SecurityPermission description="Update operations in the SCRUM Component." permissionId="SCRUM_UPDATE"/>
+    <SecurityPermission description="Delete operations in the SCRUM Component." permissionId="SCRUM_DELETE"/>
+    <SecurityPermission description="ALL operations in the SCRUM Component." permissionId="SCRUM_ADMIN"/>
+    <!-- General, Role dependent (must be member of the project) -->
+    <SecurityPermission permissionId="SCRUM_ROLE_ADMIN" description="All admin operations in the Scrum component for a project/sprint/task the user is member of."/>
+    <SecurityPermission permissionId="SCRUM_ROLE_VIEW" description="All view operations in the Scrum component for a project/sprint/task the user is member of."/>
+    <SecurityPermission permissionId="SCRUM_ROLE_UPDATE" description="Update operations in the Scrum component for a project/sprint/task the user is member of."/>
+   <!-- Role and Project dependent -->
+    <SecurityPermission permissionId="SCRUM_PROJECT_ROLE_ADMIN" description="All admin operations in the Scrum component for a project the user is member of."/>
+    <SecurityPermission permissionId="SCRUM_PROJECT_ROLE_VIEW" description="All view operations in the Scrum component for a project the user is member of."/>
+    <SecurityPermission permissionId="SCRUM_PROJECT_ROLE_UPDATE" description="Update operations in the Scrum component for a project the user is member of."/>
+    <!-- Product -->
+    <SecurityPermission description="View operations for Product" permissionId="SCRUM_PRODUCT_VIEW"/>
+    <SecurityPermission description="Create operations for Product" permissionId="SCRUM_PRODUCT_CREATE"/>
+    <SecurityPermission description="Update operations for Product" permissionId="SCRUM_PRODUCT_UPDATE"/>
+    <SecurityPermission description="Delete operations for Product" permissionId="SCRUM_PRODUCT_DELETE"/>
+    <SecurityPermission description="Admin operations for Product" permissionId="SCRUM_PRODUCT_ADMIN"/>
+    <SecurityPermission description="Limited view operations in the SCRUM Component." permissionId="SCRUM_PRODUCT_ROLE_VIEW"/>
+    <SecurityPermission description="Limited update operations in the SCRUM Component." permissionId="SCRUM_PRODUCT_ROLE_UPDATE"/>
+    <!-- Product Backlog-->
+    <SecurityPermission description="View operations for Product Backlog" permissionId="SCRUM_PRODUCT_BACKLOG_VIEW"/>
+    <SecurityPermission description="Create operations for Product Backlog" permissionId="SCRUM_PRODUCT_BACKLOG_CREATE"/>
+    <SecurityPermission description="Update operations for Product Backlog" permissionId="SCRUM_PRODUCT_BACKLOG_UPDATE"/>
+    <SecurityPermission description="Delete operations for Product Backlog" permissionId="SCRUM_PRODUCT_BACKLOG_DELETE"/>
+    <SecurityPermission description="Admin operations for Product Backlog" permissionId="SCRUM_PRODUCT_BACKLOG_ADMIN"/>
+    <!-- Project -->
+    <SecurityPermission description="View operations for Project" permissionId="SCRUM_PROJECT_VIEW"/>
+    <SecurityPermission description="Create operations for Project" permissionId="SCRUM_PROJECT_CREATE"/>
+    <SecurityPermission description="Update operations for Project" permissionId="SCRUM_PROJECT_UPDATE"/>
+    <SecurityPermission description="Delete operations for Project" permissionId="SCRUM_PROJECT_DELETE"/>
+    <!-- Sprint -->
+    <SecurityPermission description="View operations for Sprint" permissionId="SCRUM_SPRINT_VIEW"/>
+    <SecurityPermission description="Create operations for Sprint" permissionId="SCRUM_SPRINT_CREATE"/>
+    <SecurityPermission description="Update operations for Sprint" permissionId="SCRUM_SPRINT_UPDATE"/>
+    <SecurityPermission description="Delete operations for Sprint" permissionId="SCRUM_SPRINT_DELETE"/>
+    <!-- Task -->
+    <SecurityPermission description="View operations for Task" permissionId="SCRUM_TASK_VIEW"/>
+    <SecurityPermission description="Create operations for Task" permissionId="SCRUM_TASK_CREATE"/>
+    <SecurityPermission description="Update operations for Task" permissionId="SCRUM_TASK_UPDATE"/>
+    <SecurityPermission description="Delete operations for Task" permissionId="SCRUM_TASK_DELETE"/>
+    <!-- Daily Meeting Minute -->
+    <SecurityPermission description="View Daily Scrum Meeting Minute" permissionId="SCRUM_DAILY_VIEW"/>
+    <SecurityPermission description="Create Daily Scrum Meeting Minute" permissionId="SCRUM_DAILY_CREATE"/>
+    <SecurityPermission description="Update Daily Scrum Meeting Minute" permissionId="SCRUM_DAILY_UPDATE"/>
+    <SecurityPermission description="Delete Daily Scrum Meeting Minute" permissionId="SCRUM_DAILY_DELETE"/>
+    <!-- Member -->
+    <SecurityPermission description="View member operations for Scrum" permissionId="SCRUM_MEMBER_VIEW"/>
+    <SecurityPermission description="Create member operations for Scrum" permissionId="SCRUM_MEMBER_CREATE"/>
+    <SecurityPermission description="Update member operations for Scrum" permissionId="SCRUM_MEMBER_UPDATE"/>
+    <SecurityPermission description="Delete member operations for Scrum" permissionId="SCRUM_MEMBER_DELETE"/>
+    <SecurityPermission description="Update member operations for Scrum the user is member of." permissionId="SCRUM_MEMBER_ROLE_UPDATE"/>
+    <!-- Billing -->
+    <SecurityPermission description="View operations for Billing" permissionId="SCRUM_BILLING_VIEW"/>
+    <SecurityPermission description="Create operations for Billing" permissionId="SCRUM_BILLING_CREATE"/>
+    <SecurityPermission description="Update operations for Billing" permissionId="SCRUM_BILLING_UPDATE"/>
+    <SecurityPermission description="Delete operations for Billing" permissionId="SCRUM_BILLING_DELETE"/>
+    <SecurityPermission description="Admin operations for Billing" permissionId="SCRUM_BILLING_ADMIN"/>
+    <!-- Test -->
+    <SecurityPermission description="All Admin Test operations for Scrum" permissionId="SCRUM_TEST_ADMIN"/>
+    <SecurityPermission description="View Test operations for Scrum" permissionId="SCRUM_TEST_VIEW"/>
+    <SecurityPermission description="Create Test operations for Scrum" permissionId="SCRUM_TEST_CREATE"/>
+    <SecurityPermission description="Update Test operations for Scrum" permissionId="SCRUM_TEST_UPDATE"/>
+    <SecurityPermission description="Delete Test operations for Scrum" permissionId="SCRUM_TEST_DELETE"/>
+    <!-- Timesheet dependent -->
+    <SecurityPermission description="Be able to create any weekly timesheet." permissionId="SCRUM_TIMESHEET_CREATE"/>
+    <SecurityPermission description="Be able to update any weekly timesheet." permissionId="SCRUM_TIMESHEET_UPDATE"/>
+    <SecurityPermission description="Be able to create a weekly timesheet for the loginid." permissionId="SCRUM_ROLE_TIMESHEET_CREATE"/>
+    <SecurityPermission description="Be able to update(report) on an existing own timesheet" permissionId="SCRUM_ROLE_TIMESHEET_UPDATE"/>
+    
+    <!-- SUPER group -->
+    <SecurityGroupPermission groupId="SUPER" permissionId="SCRUM_ADMIN"/>
+</entity-engine-xml>

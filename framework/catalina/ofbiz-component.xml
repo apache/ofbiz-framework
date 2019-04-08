@@ -99,13 +99,12 @@ under the License.
             <!--<property name="address" value=""/>-->
             <property name="port" value="8080"/>
             <property name="protocol" value="HTTP/1.1"/>
-            <property name="upgradeProtocol" value="true"/>
             <property name="scheme" value="http"/>
             <property name="secure" value="false"/>
             <property name="URIEncoding" value="UTF-8"/>
             <property name="xpoweredBy" value="false"/>
             <property name="compression" value="on"/>
-            <property name="compressibleMimeType" value="text/html,text/xml,text/plain,text/css,application/javascript,application/json"/>
+            <property name="compressibleMimeType" value="text/html,text/xml,text/plain,text/javascript,text/css,application/json"/>
             <!-- commented out because the values match the Tomcat defaults:
             <property name="allowTrace" value="false"/>
             <property name="enableLookups" value="false"/>
@@ -129,14 +128,13 @@ under the License.
             <!--<property name="address" value=""/>-->
             <property name="port" value="8443"/>
             <property name="protocol" value="HTTP/1.1"/>
-            <property name="upgradeProtocol" value="true"/>
             <property name="scheme" value="https"/>
             <property name="secure" value="true"/>
             <property name="SSLEnabled" value="true"/>
             <property name="URIEncoding" value="UTF-8"/>
             <property name="xpoweredBy" value="false"/>
             <property name="compression" value="on"/>
-            <property name="compressibleMimeType" value="text/html,text/xml,text/plain,text/css,application/javascript,application/json"/>
+            <property name="compressibleMimeType" value="text/html,text/xml,text/plain,text/javascript,text/css,application/json"/>
             <!-- SSL connector attributes -->
             <property name="sslImplementationName" value="org.apache.tomcat.util.net.jsse.JSSEImplementation"/>
             <property name="algorithm" value="SunX509"/>
@@ -185,26 +183,24 @@ under the License.
             <!--<property name="address" value=""/>-->
             <property name="port" value="8080"/>
             <property name="protocol" value="HTTP/1.1"/>
-            <property name="upgradeProtocol" value="true"/>
             <property name="scheme" value="http"/>
             <property name="secure" value="false"/>
             <property name="URIEncoding" value="UTF-8"/>
             <property name="xpoweredBy" value="false"/>
             <property name="compression" value="on"/>
-            <property name="compressibleMimeType" value="text/html,text/xml,text/plain,text/css,application/javascript,application/json"/>
+            <property name="compressibleMimeType" value="text/html,text/xml,text/plain,text/javascript,text/css,application/json"/>
         </property>
         <property name="https-connector" value="connector">
             <!--<property name="address" value=""/>-->
             <property name="port" value="8443"/>
             <property name="protocol" value="HTTP/1.1"/>
-            <property name="upgradeProtocol" value="true"/>
             <property name="scheme" value="https"/>
             <property name="secure" value="true"/>
             <property name="SSLEnabled" value="true"/>
             <property name="URIEncoding" value="UTF-8"/>
             <property name="xpoweredBy" value="false"/>
             <property name="compression" value="on"/>
-            <property name="compressibleMimeType" value="text/html,text/xml,text/plain,text/css,application/javascript,application/json"/>
+            <property name="compressibleMimeType" value="text/html,text/xml,text/plain,text/javascript,text/css,application/json"/>
             <property name="sslImplementationName" value="org.apache.tomcat.util.net.jsse.JSSEImplementation"/>
             <property name="algorithm" value="SunX509"/>
             <property name="keystoreFile" value="framework/base/config/ofbizssl.jks"/>

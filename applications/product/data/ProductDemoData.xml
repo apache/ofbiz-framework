@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <!-- Limited user demo -->
+    <UserLoginSecurityGroup groupId="CATALOGADMIN_LTD" userLoginId="ltdadmin" fromDate="2001-01-01 12:00:00.0"/>
+    <UserLoginSecurityGroup groupId="CATALOGADMIN_LTD" userLoginId="ltdadmin1" fromDate="2001-01-01 12:00:00.0"/>
+
+    <!-- Image Management user demo -->
+    <Party partyId="imageAdmin" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="imageAdmin" firstName="Image Management" lastName="Administrator"/>
+    <PartyStatus partyId="imageAdmin" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <UserLogin userLoginId="imageAdmin" partyId="imageAdmin" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
+    <UserLoginSecurityGroup userLoginId="imageAdmin" groupId="FULLADMIN" fromDate="2010-01-01 12:00:00.0"/>
+    <UserLoginSecurityGroup userLoginId="imageAdmin" groupId="IMAGEADMIN" fromDate="2010-01-01 12:00:00.0"/>
+
+    <Party partyId="imageApprove" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="imageApprove" firstName="Image Management" lastName="Approve"/>
+    <PartyStatus partyId="imageApprove" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <UserLogin userLoginId="imageApprove" partyId="imageApprove" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
+    <UserLoginSecurityGroup userLoginId="imageApprove" groupId="FLEXADMIN" fromDate="2010-01-01 12:00:00.0"/>
+    <UserLoginSecurityGroup userLoginId="imageApprove" groupId="IMAGEAPPROVE" fromDate="2010-01-01 12:00:00.0"/>
+
+    <Party partyId="imageUpload" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="imageUpload" firstName="Image Management" lastName="Upload"/>
+    <PartyStatus partyId="imageUpload" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <UserLogin userLoginId="imageUpload" partyId="imageUpload" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
+    <UserLoginSecurityGroup userLoginId="imageUpload" groupId="CATALOGADMIN" fromDate="2010-01-01 12:00:00.0"/>
+    <UserLoginSecurityGroup userLoginId="imageUpload" groupId="IMAGEUPLOAD" fromDate="2010-01-01 12:00:00.0"/>
+
+    <PartyRole partyId="admin" roleTypeId="IMAGEAPPROVER"/>
+    <!-- Product store group management demo -->
+    <ProductStoreGroupType productStoreGroupTypeId="PSGT_AREA" description="Area cover"/>
+</entity-engine-xml>

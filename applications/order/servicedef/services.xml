@@ -34,7 +34,6 @@ under the License.
         <attribute name="body" type="String" mode="OUT" optional="true"/>
         <attribute name="sendTo" type="String" mode="IN" optional="true"/>
         <attribute name="sendCc" type="String" mode="IN" optional="true"/>
-        <attribute name="sendBcc" type="String" mode="IN" optional="true"/>
         <attribute name="note" type="String" mode="IN" optional="true"/>
         <attribute name="temporaryAnonymousUserLogin" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
         <attribute name="messageWrapper" type="org.apache.ofbiz.service.mail.MimeMessageWrapper" mode="OUT" optional="true"/>
@@ -108,7 +107,6 @@ under the License.
         <attribute name="webSiteId" type="String" mode="IN" optional="true"/>
         <attribute name="externalId" type="String" mode="IN" optional="true"/>
         <attribute name="internalCode" type="String" mode="IN" optional="true"/>
-        <attribute name="agreementId" type="String" mode="IN" optional="true"/>
         <attribute name="distributorId" type="String" mode="IN" optional="true"/>
         <attribute name="orderTypeId" type="String" mode="INOUT" optional="false"/>
         <attribute name="salesChannelEnumId" type="String" mode="IN" optional="true"/>
@@ -143,8 +141,6 @@ under the License.
         <attribute name="supplierPartyId" type="String" mode="IN" optional="true"/>
         <attribute name="orderId" type="String" mode="INOUT" optional="true"/>
         <attribute name="originOrderId" type="String" mode="IN" optional="true"/>
-        <attribute name="isRushOrder" type="String" mode="IN" optional="true"/>
-        <attribute name="priority" type="String" mode="IN" optional="true"/>
         <attribute name="statusId" type="String" mode="OUT" optional="false"/>
     </service>
 
@@ -313,7 +309,6 @@ under the License.
         <attribute name="itemAttributesMap" type="Map" mode="IN" string-map-prefix="iam_" optional="true"/>
         <attribute name="itemShipDateMap" type="Map" mode="IN" string-map-prefix="isdm_" optional="true"/>
         <attribute name="itemDeliveryDateMap" type="Map" mode="IN" string-map-prefix="iddm_" optional="true"/>
-        <attribute name="itemReserveAfterDateMap" type="Map" mode="IN" string-map-prefix="iradm_" optional="true"/>
         <attribute name="shoppingCart" type="org.apache.ofbiz.order.shoppingcart.ShoppingCart" mode="OUT" optional="false"/>
     </service>
     <service name="loadCartForUpdate" engine="java" auth="true"
@@ -1108,13 +1103,14 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <service name="createQuoteTerm" engine="entity-auto" default-entity-name="QuoteTerm" invoke="create">
+    <service name="createQuoteTerm" engine="simple" default-entity-name="QuoteTerm"
+        location="component://order/minilang/quote/QuoteServices.xml" invoke="createQuoteTerm">
         <description>
             Create a new Quate term.
         </description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
-        <override name="quoteItemSeqId" type="String" mode="IN" default-value="_NA_"/>
+        <override name="quoteItemSeqId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="updateQuoteTerm" engine="entity-auto" default-entity-name="QuoteTerm" invoke="update">
         <description>
@@ -1123,7 +1119,8 @@ under the License.
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
-    <service name="deleteQuoteTerm" engine="entity-auto" default-entity-name="QuoteTerm" invoke="delete">
+    <service name="deleteQuoteTerm" engine="simple" default-entity-name="QuoteTerm"
+        location="component://order/minilang/quote/QuoteServices.xml" invoke="deleteQuoteTerm">
         <description>
             delete the Quate term.
         </description>
@@ -1219,6 +1216,21 @@ under the License.
     </service>
     <service name="deleteOrderAdjustmentTypeAttr" default-entity-name="OrderAdjustmentTypeAttr" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a OrderAdjustmentTypeAttr</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <service name="createSalesOrderItemFact" default-entity-name="SalesOrderItemFact" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a SalesOrderItemFact</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateSalesOrderItemFact" default-entity-name="SalesOrderItemFact" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a SalesOrderItemFact</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteSalesOrderItemFact" default-entity-name="SalesOrderItemFact" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a SalesOrderItemFact</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 

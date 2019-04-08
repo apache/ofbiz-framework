@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+
+    <!-- Project Manager security -->
+    <!-- General, all projects -->
+    <SecurityPermission permissionId="PROJECTMGR_ADMIN" description="ALL operations in the Project Manager."/>
+    <SecurityPermission permissionId="PROJECTMGR_VIEW" description="ALL View operations in the Project Manager(but can be limited by ROLE_VIEW)"/>
+    <!-- General, Role dependent (must be member of the project) -->
+    <SecurityPermission permissionId="PROJECTMGR_ROLE_ADMIN" description="All admin operations in the Project Manager for a project/phase/task the user is member of."/>
+    <SecurityPermission permissionId="PROJECTMGR_ROLE_VIEW" description="All view operations in the Project Manager for a project/phase/task the user is member of."/>
+    <SecurityPermission permissionId="PROJECTMGR_ROLE_UPDATE" description="Update operations in the Project Manager for a project/phase/task the user is member of."/>
+    <!-- Role and Task dependent -->
+    <SecurityPermission permissionId="PROJECTMGR_ROLE_TASK_CREATE" description="Be able to create a task (should be member of project)"/>
+    <!-- Timesheet dependent -->
+    <SecurityPermission description="Be able to create any weekly timesheet." permissionId="PROJECTMGR_TIMESHEET_CREATE"/>
+    <SecurityPermission description="Be able to update any weekly timesheet." permissionId="PROJECTMGR_TIMESHEET_UPDATE"/>
+    <SecurityPermission description="Be able to create a weekly timesheet for the loginid." permissionId="PROJECTMGR_ROLE_TIMESHEET_CREATE"/>
+    <SecurityPermission description="Be able to update(report) on an existing own timesheet" permissionId="PROJECTMGR_ROLE_TIMESHEET_UPDATE"/>
+
+    <!-- SUPER group -->
+    <SecurityGroupPermission groupId="SUPER" permissionId="PROJECTMGR_ADMIN"/>
+
+</entity-engine-xml>

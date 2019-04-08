@@ -1,0 +1,133 @@
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations
+  under the License.
+  -->
+
+<entity-engine-xml>
+    <!-- survey -->
+    <Survey surveyId="1100" description="Account Activation" isAnonymous="Y" allowMultiple="Y" allowUpdate="N"/>
+    <SurveyQuestionCategory surveyQuestionCategoryId="1100" description="Account Activation Questions"/>
+    <SurveyQuestion surveyQuestionId="1100" surveyQuestionCategoryId="1100" surveyQuestionTypeId="TEXT_LONG" description="activationSerialNumber" question="Activation Serial Number:"/>
+    <SurveyQuestionAppl surveyId="1100" surveyQuestionId="1100" fromDate="2001-01-01 00:00:00.0" requiredField="Y" sequenceNum="1"/>
+
+    <!-- settings -->
+    <ProductStoreFinActSetting productStoreId="9000" finAccountTypeId="DEPOSIT_ACCOUNT" requirePinCode="N" validateGCFinAcct="Y" allowAuthToNegative="Y" replenishThreshold="0.0"
+        purchaseSurveyId="1100" purchSurveySendTo="recipientEmail" purchSurveyCopyMe="copyMe" accountCodeLength="12" pinCodeLength="4" accountValidDays="365" authValidDays="5"/>
+
+    <ProductStoreFinActSetting productStoreId="9000" finAccountTypeId="REPLENISH_ACCOUNT" requirePinCode="N" validateGCFinAcct="Y" allowAuthToNegative="Y" replenishThreshold="0.0"
+        purchaseSurveyId="1100" purchSurveySendTo="recipientEmail" purchSurveyCopyMe="copyMe" accountCodeLength="12" pinCodeLength="4" accountValidDays="365" authValidDays="5"/>
+    
+    <ProductStoreFinActSetting productStoreId="9000" finAccountTypeId="STORE_CREDIT_ACCT" requirePinCode="N" validateGCFinAcct="Y" allowAuthToNegative="Y" replenishThreshold="0.0"
+        purchaseSurveyId="1100" purchSurveySendTo="recipientEmail" purchSurveyCopyMe="copyMe" accountCodeLength="12" pinCodeLength="4" accountValidDays="365" authValidDays="5"/>
+
+    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="FIN_ACCOUNT" paymentServiceTypeEnumId="PRDS_PAY_AUTH" paymentService="ofbFaAuthorize" paymentCustomMethodId="FIN_AUTH_OFBIZ"/>
+    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="FIN_ACCOUNT" paymentServiceTypeEnumId="PRDS_PAY_RELEASE" paymentService="ofbFaRelease" paymentCustomMethodId="FIN_RELEASE_OFBIZ"/>
+    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="FIN_ACCOUNT" paymentServiceTypeEnumId="PRDS_PAY_CAPTURE" paymentService="ofbFaCapture" paymentCustomMethodId="FIN_CAPTURE_OFBIZ"/>
+    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="FIN_ACCOUNT" paymentServiceTypeEnumId="PRDS_PAY_REAUTH" paymentService="ofbFaAuthorize" paymentCustomMethodId="FIN_AUTH_OFBIZ"/>
+    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="FIN_ACCOUNT" paymentServiceTypeEnumId="PRDS_PAY_REFUND" paymentService="ofbFaRefund" paymentCustomMethodId="FIN_REFUND_OFBIZ"/>
+
+    <!-- product / category -->
+    <ProductCategory productCategoryId="FA-100" description="Account Activation" productCategoryTypeId="CATALOG_CATEGORY"/>
+
+    <Product productId="FA-001" productTypeId="DIGITAL_GOOD" primaryProductCategoryId="FA-100" internalName="Financial Account Activation" productName="Financial Account Activation" description="Balance Account Activation" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="Y" isVariant="N" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
+    <Product productId="FA-001-30" productTypeId="DIGITAL_GOOD" internalName="Financial Account Activation" productName="Financial Account Activation" description="Financial Account Activation" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="N" isVariant="Y" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
+    <Product productId="FA-001-50" productTypeId="DIGITAL_GOOD" internalName="Financial Account Activation" productName="Financial Account Activation" description="Financial Account Activation" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="N" isVariant="Y" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
+    <Product productId="FA-001-O" productTypeId="DIGITAL_GOOD" internalName="Financial Account Activation" productName="Financial Account Activation" description="Financial Account Activation" requireAmount="Y" amountUomTypeId="CURRENCY_MEASURE" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="N" isVariant="Y" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
+
+    <ProductAssoc productId="FA-001" productIdTo="FA-001-30" productAssocTypeId="PRODUCT_VARIANT" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductAssoc productId="FA-001" productIdTo="FA-001-50" productAssocTypeId="PRODUCT_VARIANT" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductAssoc productId="FA-001" productIdTo="FA-001-O" productAssocTypeId="PRODUCT_VARIANT" fromDate="2001-05-13 12:00:00.0"/>
+
+    <ProductPrice productId="FA-001-30" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="30.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+    <ProductPrice productId="FA-001-50" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="50.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+    <ProductPrice productId="FA-001-O" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="1.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+
+    <ProductCategoryMember productCategoryId="FA-100" productId="FA-001" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductCategoryMember productCategoryId="PROMOTIONS" productId="FA-001" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductCategoryMember productCategoryId="CATALOG1_SEARCH" productId="FA-001" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductCategoryRollup parentProductCategoryId="CATALOG1" productCategoryId="FA-100" fromDate="2001-05-13 12:00:00.0"/>
+
+    <ProductFeatureCategory productFeatureCategoryId="2100" description="Account Features"/>
+    <ProductFeature productFeatureId="2101" productFeatureTypeId="AMOUNT" productFeatureCategoryId="2100" description="$30.00" uomId="USD" numberSpecified="10.0" defaultSequenceNum="1"/>
+    <ProductFeature productFeatureId="2102" productFeatureTypeId="AMOUNT" productFeatureCategoryId="2100" description="$50.00" uomId="USD" numberSpecified="25.0" defaultSequenceNum="2"/>
+    <ProductFeature productFeatureId="2103" productFeatureTypeId="AMOUNT" productFeatureCategoryId="2100" description="Other Amount"/>
+    <ProductFeature productFeatureId="2104" productFeatureTypeId="TYPE" productFeatureCategoryId="2100" description="Customer Balance Account" idCode="DEPOSIT_ACCOUNT"/>
+
+    <ProductFeatureAppl productId="FA-001" productFeatureId="2101" productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2003-11-20 13:50:07.796" sequenceNum="1"/>
+    <ProductFeatureAppl productId="FA-001" productFeatureId="2102" productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2003-11-20 13:50:26.411" sequenceNum="2"/>
+    <ProductFeatureAppl productId="FA-001" productFeatureId="2103" productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2003-11-20 13:49:07.293" sequenceNum="3"/>
+    <ProductFeatureAppl productId="FA-001" productFeatureId="2003" productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2003-11-20 13:49:26.542" sequenceNum="4"/>
+
+    <ProductFeatureAppl productId="FA-001-30" productFeatureId="2101" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:51:53.35" sequenceNum="1"/>
+    <ProductFeatureAppl productId="FA-001-30" productFeatureId="2104" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:51:53.35" sequenceNum="2"/>
+    <ProductFeatureAppl productId="FA-001-50" productFeatureId="2102" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:51:53.226" sequenceNum="1"/>
+    <ProductFeatureAppl productId="FA-001-50" productFeatureId="2104" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:51:53.35" sequenceNum="2"/>
+    <ProductFeatureAppl productId="FA-001-O" productFeatureId="2103" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-21 10:26:48.937" sequenceNum="1"/>
+    <ProductFeatureAppl productId="FA-001-O" productFeatureId="2104" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:51:53.35" sequenceNum="2"/>
+
+    <!-- survey appl -->
+    <ProductStoreSurveyAppl productStoreSurveyId="1100" productStoreId="9000" surveyApplTypeId="CART_ADD" surveyId="1100" productId="FA-001" fromDate="2003-11-24 16:00:02.467" surveyTemplate="/applications/content/template/survey/GenericSurvey.ftl"/>
+
+    <!-- fulfillment service -->
+    <Content contentId="FA_ACTIVATION" customMethodId="FIN_PURCH_OFBIZ"/>
+
+    <!-- associate the fulfillment service with the products -->
+    <ProductContent productId="FA-001" contentId="FA_ACTIVATION" productContentTypeId="FULFILLMENT_EXTASYNC" fromDate="2000-01-01 00:00:00"/>
+    
+    <!-- alternative URL -->
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="FA-100-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRFA-100-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="FA-001-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRFA-001-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="FA-001-30-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRFA-001-30-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="FA-001-50-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRFA-001-50-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="FA-001-O-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRFA-001-O-ALTEN" localeString="en_US"/>
+    <ElectronicText dataResourceId="FA-100-ALT" textData="account-activation"/>
+    <ElectronicText dataResourceId="FA-001-ALT" textData="financial-account-activation"/>
+    <ElectronicText dataResourceId="FA-001-30-ALT" textData="financial-account-activation-30"/>
+    <ElectronicText dataResourceId="FA-001-50-ALT" textData="financial-account-activation-50"/>
+    <ElectronicText dataResourceId="FA-001-O-ALT" textData="financial-account-activation-o"/>
+    
+    <ElectronicText dataResourceId="DRFA-100-ALTEN" textData="account-activation"/>
+    <ElectronicText dataResourceId="DRFA-001-ALTEN" textData="financial-account-activation"/>
+    <ElectronicText dataResourceId="DRFA-001-30-ALTEN" textData="financial-account-activation-30"/>
+    <ElectronicText dataResourceId="DRFA-001-50-ALTEN" textData="financial-account-activation-50"/>
+    <ElectronicText dataResourceId="DRFA-001-O-ALTEN" textData="financial-account-activation-o"/>
+    <Content contentId="FA-100-ALT" contentTypeId="DOCUMENT" dataResourceId="FA-100-ALT" localeString="en"/>
+    <Content contentId="CFA-100-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRFA-100-ALTEN" localeString="en_US"/>
+    <Content contentId="FA-001-ALT" contentTypeId="DOCUMENT" dataResourceId="FA-001-ALT" localeString="en"/>
+    <Content contentId="CFA-001-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRFA-001-ALTEN" localeString="en_US"/>
+    <Content contentId="FA-001-30-ALT" contentTypeId="DOCUMENT" dataResourceId="FA-001-30-ALT" localeString="en"/>
+    <Content contentId="CFA-001-30-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRFA-001-30-ALTEN" localeString="en_US"/>
+    <Content contentId="FA-001-50-ALT" contentTypeId="DOCUMENT" dataResourceId="FA-001-50-ALT" localeString="en"/>
+    <Content contentId="CFA-001-50-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRFA-001-50-ALTEN" localeString="en_US"/>
+    <Content contentId="FA-001-O-ALT" contentTypeId="DOCUMENT" dataResourceId="FA-001-O-ALT" localeString="en"/>
+    <Content contentId="CFA-001-O-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRFA-001-O-ALTEN" localeString="en_US"/>
+    <ContentAssoc contentId="FA-100-ALT" contentIdTo="CFA-100-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="FA-001-ALT" contentIdTo="CFA-001-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="FA-001-30-ALT" contentIdTo="CFA-001-30-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="FA-001-50-ALT" contentIdTo="CFA-001-50-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="FA-001-O-ALT" contentIdTo="CFA-001-O-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ProductCategoryContent prodCatContentTypeId="ALTERNATIVE_URL" productCategoryId="FA-100" contentId="FA-100-ALT" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="FA-001" contentId="FA-001-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="FA-001-30" contentId="FA-001-30-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="FA-001-50" contentId="FA-001-50-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="FA-001-O" contentId="FA-001-O-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+</entity-engine-xml>

@@ -763,7 +763,7 @@ under the License.
 
        <!-- Picklist -->
     <simple-method method-name="createPicklist" short-description="Create Picklist">
-        <make-value entity-name="Picklist" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="Picklist"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <sequenced-id sequence-name="Picklist" field="newEntity.picklistId"/>
@@ -783,7 +783,7 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updatePicklist" short-description="Update Picklist">
-        <make-value entity-name="Picklist" value-field="lookupPKMap"/>
+        <make-value value-field="lookupPKMap" entity-name="Picklist"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
 
@@ -822,7 +822,7 @@ under the License.
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deletePicklist" short-description="Delete Picklist">
-        <make-value entity-name="Picklist" value-field="lookupPKMap"/>
+        <make-value value-field="lookupPKMap" entity-name="Picklist"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
@@ -830,7 +830,7 @@ under the License.
 
     <!-- PicklistBin -->
     <simple-method method-name="createPicklistBin" short-description="Create PicklistBin">
-        <make-value entity-name="PicklistBin" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="PicklistBin"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <sequenced-id sequence-name="PicklistBin" field="newEntity.picklistBinId"/>
@@ -839,7 +839,7 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="deletePicklistBin" short-description="Delete PicklistBin">
-        <make-value entity-name="PicklistBin" value-field="lookupPKMap"/>
+        <make-value value-field="lookupPKMap" entity-name="PicklistBin"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
@@ -847,7 +847,7 @@ under the License.
 
     <!-- PicklistItem -->
     <simple-method method-name="createPicklistItem" short-description="Create PicklistItem">
-        <make-value entity-name="PicklistItem" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="PicklistItem"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
@@ -858,7 +858,7 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updatePicklistItem" short-description="Update PicklistItem">
-        <make-value entity-name="PicklistItem" value-field="lookupPKMap"/>
+        <make-value value-field="lookupPKMap" entity-name="PicklistItem"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
 
@@ -888,7 +888,7 @@ under the License.
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deletePicklistItem" short-description="Delete PicklistItem">
-        <make-value entity-name="PicklistItem" value-field="lookupPKMap"/>
+        <make-value value-field="lookupPKMap" entity-name="PicklistItem"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
@@ -900,7 +900,7 @@ under the License.
     -->
     <simple-method method-name="editPicklistItem" short-description="Edit a Picklist Item">
 
-        <make-value entity-name="PicklistItem" value-field="lookupPKMap"/>
+        <make-value value-field="lookupPKMap" entity-name="PicklistItem"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="picklistItem"/>
         
@@ -1102,7 +1102,7 @@ under the License.
 
     <!-- PicklistRole -->
     <simple-method method-name="createPicklistRole" short-description="Create PicklistRole">
-        <make-value entity-name="PicklistRole" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="PicklistRole"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
@@ -1113,7 +1113,7 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="deletePicklistRole" short-description="Delete PicklistRole">
-        <make-value entity-name="PicklistRole" value-field="lookupPKMap"/>
+        <make-value value-field="lookupPKMap" entity-name="PicklistRole"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
@@ -1192,7 +1192,7 @@ under the License.
                          A Map with a List of PicklistItemInfo records keyed by the productId
                 -->
                 <if-not-empty field="picklistItemInfo.inventoryItemAndLocation.locationSeqId">
-                    <make-value entity-name="FacilityLocation" value-field="facilityLocation" map="picklistItemInfo.inventoryItemAndLocation"/>
+                    <make-value value-field="facilityLocation" entity-name="FacilityLocation" map="picklistItemInfo.inventoryItemAndLocation"/>
                     <set from-field="facilityLocation" field="facilityLocationByLocationSeqIdMap[facilityLocation.locationSeqId]"/>
 
                     <clear-field field="picklistItemInfoTempList"/>
@@ -1550,12 +1550,12 @@ under the License.
     <!-- special method to check update the picklist status from the item status -->
     <simple-method method-name="checkPicklistBinItemStatuses" short-description="Checks the item status and updates the pick list status">
         <!-- find the picklist bin -->
-        <make-value entity-name="PicklistBin" value-field="binLookup"/>
+        <make-value value-field="binLookup" entity-name="PicklistBin"/>
         <set-pk-fields map="parameters" value-field="binLookup"/>
         <find-by-primary-key map="binLookup" value-field="picklistBin"/>
 
         <!-- find the pick list -->
-        <make-value entity-name="Picklist" value-field="plLookup"/>
+        <make-value value-field="plLookup" entity-name="Picklist"/>
         <set-pk-fields map="picklistBin" value-field="plLookup"/>
         <find-by-primary-key map="plLookup" value-field="picklist"/>
 

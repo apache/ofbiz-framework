@@ -35,7 +35,7 @@ under the License.
             <set field="parameters.statusId" value="FNACT_ACTIVE"/>
         </if-empty>
 
-        <make-value entity-name="FinAccount" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="FinAccount"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
@@ -168,7 +168,7 @@ under the License.
         <check-errors/>
         <call-simple-method method-name="getArithmeticSettingsInline"/>
 
-        <make-value entity-name="FinAccountTrans" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="FinAccountTrans"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <sequenced-id sequence-name="FinAccountTrans" field="newEntity.finAccountTransId"/>
 
@@ -211,7 +211,7 @@ under the License.
             </add-error>
         </if-compare>
         <check-errors/>
-        <make-value entity-name="FinAccountRole" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="FinAccountRole"/>
         <set-pk-fields value-field="newEntity" map="parameters"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
@@ -226,7 +226,7 @@ under the License.
     <simple-method method-name="createFinAccountAuth" short-description="Create a Financial Account Authorization">
         <call-simple-method method-name="getArithmeticSettingsInline"/>
 
-        <make-value entity-name="FinAccountAuth" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="FinAccountAuth"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <sequenced-id sequence-name="FinAccountAuth" field="newEntity.finAccountAuthId"/>
@@ -756,7 +756,7 @@ under the License.
                     </if-compare> 
                     <iterate list="acctgTransEntries" entry="oldAcctgTransEntry">
                         <if-compare field="oldAcctgTransEntry.debitCreditFlag" operator="equals" value="D">
-                            <make-value entity-name="AcctgTransEntry" value-field="newAcctgTransEntry"/>
+                            <make-value value-field="newAcctgTransEntry" entity-name="AcctgTransEntry"/>
                             <set field="newAcctgTransEntry.glAccountId" from-field="oldAcctgTransEntry.glAccountId"/>
                             <set field="organizationPartyId" from-field="oldAcctgTransEntry.organizationPartyId"/>
                             <set field="newAcctgTransEntry.organizationPartyId" from-field="organizationPartyId"/>
@@ -775,7 +775,7 @@ under the License.
                 <clear-field field="createAcctgTransAndEntriesMap.acctgTransId"/>
                 <set field="createAcctgTransAndEntriesMap.transactionDate" from-field="nowTimestamp"/>
                 <set field="createAcctgTransAndEntriesMap.postedDate" from-field="nowTimestamp"/>
-                <make-value entity-name="AcctgTransEntry" value-field="newAcctgTransEntry"/>
+                <make-value value-field="newAcctgTransEntry" entity-name="AcctgTransEntry"/>
                 <set field="newAcctgTransEntry.glAccountId" from-field="finAccount.postToGlAccountId"/>
                 <set field="newAcctgTransEntry.organizationPartyId" from-field="organizationPartyId"/>
                 <set field="newAcctgTransEntry.partyId" from-field="oldAcctgTransEntry.partyId"/>
@@ -839,7 +839,7 @@ under the License.
                     </if-compare> 
                     <iterate list="acctgTransEntries" entry="oldAcctgTransEntry">
                         <if-compare field="oldAcctgTransEntry.debitCreditFlag" operator="equals" value="C">
-                            <make-value entity-name="AcctgTransEntry" value-field="newAcctgTransEntry"/>
+                            <make-value value-field="newAcctgTransEntry" entity-name="AcctgTransEntry"/>
                             <set field="newAcctgTransEntry.glAccountId" from-field="oldAcctgTransEntry.glAccountId"/>
                             <set field="organizationPartyId" from-field="oldAcctgTransEntry.organizationPartyId"/>
                             <set field="newAcctgTransEntry.organizationPartyId" from-field="organizationPartyId"/>
@@ -858,7 +858,7 @@ under the License.
                 <clear-field field="createAcctgTransAndEntriesMap.acctgTransId"/>
                 <set field="createAcctgTransAndEntriesMap.transactionDate" from-field="nowTimestamp"/>
                 <set field="createAcctgTransAndEntriesMap.postedDate" from-field="nowTimestamp"/>
-                <make-value entity-name="AcctgTransEntry" value-field="newAcctgTransEntry"/>
+                <make-value value-field="newAcctgTransEntry" entity-name="AcctgTransEntry"/>
                 <set field="newAcctgTransEntry.glAccountId" from-field="finAccount.postToGlAccountId"/>
                 <set field="newAcctgTransEntry.organizationPartyId" from-field="organizationPartyId"/>
                 <set field="newAcctgTransEntry.partyId" from-field="oldAcctgTransEntry.partyId"/>

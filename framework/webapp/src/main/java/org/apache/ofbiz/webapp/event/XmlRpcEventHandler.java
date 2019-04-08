@@ -37,19 +37,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.DelegatorFactory;
-import org.apache.ofbiz.service.DispatchContext;
-import org.apache.ofbiz.service.GenericServiceException;
-import org.apache.ofbiz.service.LocalDispatcher;
-import org.apache.ofbiz.service.ModelService;
-import org.apache.ofbiz.service.ServiceContainer;
-import org.apache.ofbiz.service.ServiceUtil;
-import org.apache.ofbiz.webapp.control.ConfigXMLReader;
-import org.apache.ofbiz.webapp.control.ConfigXMLReader.Event;
-import org.apache.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
 import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.XmlRpcHandler;
 import org.apache.xmlrpc.XmlRpcRequest;
@@ -66,8 +53,21 @@ import org.apache.xmlrpc.server.XmlRpcNoSuchHandlerException;
 import org.apache.xmlrpc.util.HttpUtil;
 import org.apache.xmlrpc.util.SAXParsers;
 import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
+import org.xml.sax.SAXException;
+import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.entity.DelegatorFactory;
+import org.apache.ofbiz.service.DispatchContext;
+import org.apache.ofbiz.service.GenericServiceException;
+import org.apache.ofbiz.service.LocalDispatcher;
+import org.apache.ofbiz.service.ModelService;
+import org.apache.ofbiz.service.ServiceContainer;
+import org.apache.ofbiz.service.ServiceUtil;
+import org.apache.ofbiz.webapp.control.ConfigXMLReader;
+import org.apache.ofbiz.webapp.control.ConfigXMLReader.Event;
+import org.apache.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
 
 /**
  * XmlRpcEventHandler
@@ -388,7 +388,7 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
                 // more than one parameter; use list notation based on service def order
                 if (parameterCount > 1) {
                     int x = 0;
-                    for (String name: model.getParameterNames(ModelService.IN_PARAM, true, true)) {
+                    for (String name: model.getParameterNames("IN", true, true)) {
                         context.put(name, xmlRpcReq.getParameter(x));
                         x++;
 

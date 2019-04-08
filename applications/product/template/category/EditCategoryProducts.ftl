@@ -72,13 +72,12 @@ under the License.
                 <#if productCategoryMember.fromDate?? && nowTimestamp.before(productCategoryMember.getTimestamp("fromDate"))><#assign hasntStarted = true></#if>
                 <#assign hasExpired = false>
                 <#if productCategoryMember.thruDate?? && nowTimestamp.after(productCategoryMember.getTimestamp("thruDate"))><#assign hasExpired = true></#if>
-                  <tr valign="middle"<#if "1" == rowClass> class="alternate-row"</#if>>
+                  <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
                     <td>
-                      <#assign parametersMap = Static['org.apache.ofbiz.base.util.UtilHttp'].urlEncodeArgs(Static['org.apache.ofbiz.base.util.UtilMisc'].toMap('productId', productCategoryMember.productId!))/>
                       <#if (product.smallImageUrl)??>
-                        <a href="<@ofbizUrl>EditProduct?${parametersMap!}</@ofbizUrl>"><img alt="Small Image" src="<@ofbizContentUrl>${product.smallImageUrl}</@ofbizContentUrl>" class="cssImgSmall" align="middle" /></a>
+                         <a href="<@ofbizUrl>EditProduct?productId=${(productCategoryMember.productId)!}</@ofbizUrl>"><img alt="Small Image" src="<@ofbizContentUrl>${product.smallImageUrl}</@ofbizContentUrl>" class="cssImgSmall" align="middle" /></a>
                       </#if>
-                      <a href="<@ofbizUrl>EditProduct?${parametersMap!}</@ofbizUrl>" class="buttontext"><#if product??>${(product.internalName)!}</#if> [${(productCategoryMember.productId)!}]</a>
+                      <a href="<@ofbizUrl>EditProduct?productId=${(productCategoryMember.productId)!}</@ofbizUrl>" class="buttontext"><#if product??>${(product.internalName)!}</#if> [${(productCategoryMember.productId)!}]</a>
                     </td>
                     <td <#if hasntStarted> style="color: red;"</#if>>${(productCategoryMember.fromDate)!}</td>
                     <td align="center">
@@ -97,7 +96,7 @@ under the License.
                     </td>
                   </tr>
                   <#-- toggle the row color -->
-                  <#if "2" == rowClass>
+                  <#if rowClass == "2">
                       <#assign rowClass = "1">
                   <#else>
                       <#assign rowClass = "2">

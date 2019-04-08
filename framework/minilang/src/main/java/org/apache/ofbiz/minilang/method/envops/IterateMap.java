@@ -38,7 +38,7 @@ import org.w3c.dom.Element;
 /**
  * Implements the &lt;iterate-map&gt; element.
  * 
- * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Referenc</a>
+ * @see <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/Mini-language+Reference#Mini-languageReference-{{%3Citeratemap%3E}}">Mini-language Reference</a>
  */
 public final class IterateMap extends MethodOperation {
 
@@ -70,26 +70,22 @@ public final class IterateMap extends MethodOperation {
         Object oldKey = keyFma.get(methodContext.getEnvMap());
         Object oldValue = valueFma.get(methodContext.getEnvMap());
         if (oldKey != null) {
-            if (Debug.verboseOn()) {
-                 Debug.logVerbose("In iterate-map the key had a non-null value before entering the loop for the operation: " + this, module);
-            }
+            if (Debug.verboseOn())
+                Debug.logVerbose("In iterate-map the key had a non-null value before entering the loop for the operation: " + this, module);
         }
         if (oldValue != null) {
-            if (Debug.verboseOn()) {
-                 Debug.logVerbose("In iterate-map the value had a non-null value before entering the loop for the operation: " + this, module);
-            }
+            if (Debug.verboseOn())
+                Debug.logVerbose("In iterate-map the value had a non-null value before entering the loop for the operation: " + this, module);
         }
         Map<? extends Object, ? extends Object> theMap = mapFma.get(methodContext.getEnvMap());
         if (theMap == null) {
-            if (Debug.verboseOn()) {
-                 Debug.logVerbose("Map not found with name " + mapFma + ", doing nothing: " + this, module);
-            }
+            if (Debug.verboseOn())
+                Debug.logVerbose("Map not found with name " + mapFma + ", doing nothing: " + this, module);
             return true;
         }
         if (theMap.size() == 0) {
-            if (Debug.verboseOn()) {
-                 Debug.logVerbose("Map with name " + mapFma + " has zero entries, doing nothing: " + this, module);
-            }
+            if (Debug.verboseOn())
+                Debug.logVerbose("Map with name " + mapFma + " has zero entries, doing nothing: " + this, module);
             return true;
         }
         for (Map.Entry<? extends Object, ? extends Object> theEntry : theMap.entrySet()) {

@@ -92,9 +92,9 @@ under the License.
 
     <simple-method method-name="createCustomerTaxAuthInfo" short-description="Create a Customer PartyTaxAuthInfo">
         <script>groovy:
-            taxAuthPartyGeoIds = parameters.get("taxAuthPartyGeoIds")
-            parameters.put("taxAuthPartyId", taxAuthPartyGeoIds.substring(0, taxAuthPartyGeoIds.indexOf("::")))
-            parameters.put("taxAuthGeoId", taxAuthPartyGeoIds.substring(taxAuthPartyGeoIds.indexOf("::") + 2))
+            taxAuthPartyGeoIds = parameters.get("taxAuthPartyGeoIds");
+            parameters.put("taxAuthPartyId", taxAuthPartyGeoIds.substring(0, taxAuthPartyGeoIds.indexOf("::")));
+            parameters.put("taxAuthGeoId", taxAuthPartyGeoIds.substring(taxAuthPartyGeoIds.indexOf("::") + 2));
         </script>
         <set-service-fields service-name="createPartyTaxAuthInfo" map="parameters" to-map="createPartyTaxAuthInfoMap"/>
         <call-service service-name="createPartyTaxAuthInfo" in-map-name="createPartyTaxAuthInfoMap" include-user-login="true"/>

@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 ${virtualJavaScript!}
-<script type="application/javascript">
+<script type="text/javascript">
 <!--
     function displayProductVirtualId(variantId, virtualProductId, pForm) {
         if(variantId){
@@ -53,7 +53,7 @@ ${virtualJavaScript!}
 </script>
 <#if product??>
     <#-- variable setup -->
-    <#if "Y" == backendPath?default("N")>
+    <#if backendPath?default("N") == "Y">
         <#assign productUrl><@ofbizCatalogUrl productId=product.productId productCategoryId=categoryId/></#assign>
     <#else>
         <#assign productUrl><@ofbizCatalogAltUrl productId=product.productId productCategoryId=categoryId/></#assign>
@@ -93,7 +93,7 @@ ${virtualJavaScript!}
             </tr>
           </table>
         </div>
-        <script type="application/javascript">
+        <script type="text/javascript">
           jQuery("#${productInfoLinkId}").attr('title', jQuery("#${productDetailId}").remove().html());
           jQuery("#${productInfoLinkId}").tooltip({
               content: function(){
@@ -111,18 +111,18 @@ ${virtualJavaScript!}
           <#elseif product.salesDiscontinuationDate?? && nowTimestamp.after(product.salesDiscontinuationDate)>
             <div style="color: red;">${uiLabelMap.ProductNoLongerAvailable}</div>
           <#-- check to see if it is a rental item; will enter parameters on the detail screen-->
-          <#elseif "ASSET_USAGE" == product.productTypeId!>
+          <#elseif product.productTypeId! == "ASSET_USAGE">
             <a href="${productUrl}" class="buttontext">${uiLabelMap.OrderMakeBooking}...</a>
           <#-- check to see if it is an aggregated or configurable product; will enter parameters on the detail screen-->
-          <#elseif "AGGREGATED" == product.productTypeId! || "AGGREGATED_SERVICE" == product.productTypeId!>
+          <#elseif product.productTypeId! == "AGGREGATED" || product.productTypeId! == "AGGREGATED_SERVICE">
             <a href="${productUrl}" class="buttontext">${uiLabelMap.OrderConfigure}...</a>
           <#-- check to see if the product is a virtual product -->
-          <#elseif product.isVirtual?? && "Y" == product.isVirtual>
+          <#elseif product.isVirtual?? && product.isVirtual == "Y">
             <a href="${productUrl}" class="buttontext">${uiLabelMap.OrderChooseVariations}...</a>
           <#-- check to see if the product requires an amount -->
-          <#elseif product.requireAmount?? && "Y" == product.requireAmount>
+          <#elseif product.requireAmount?? && product.requireAmount == "Y">
             <a href="${productUrl}" class="buttontext">${uiLabelMap.OrderChooseAmount}...</a>
-          <#elseif "ASSET_USAGE_OUT_IN" == product.productTypeId!>
+          <#elseif product.productTypeId! == "ASSET_USAGE_OUT_IN">
             <a href="${productUrl}" class="buttontext">${uiLabelMap.OrderRent}...</a>
           <#else>
             <form method="post" action="<@ofbizUrl>additem</@ofbizUrl>" name="the${requestAttributes.formNamePrefix!}${requestAttributes.listIndex!}form" style="margin: 0;">
@@ -210,7 +210,7 @@ ${virtualJavaScript!}
                     <#assign priceStyle = "regularPrice">
                   </#if>
 
-                  <#if (price.price?default(0) > 0 && "N" == product.requireAmount?default("N"))>
+                  <#if (price.price?default(0) > 0 && product.requireAmount?default("N") == "N")>
                     ${uiLabelMap.OrderYourPrice}: <#if "Y" = product.isVirtual!> ${uiLabelMap.CommonFrom} </#if><span class="${priceStyle}"><@ofbizCurrency amount=price.price isoCode=price.currencyUsed/></span>
                   </#if>
                 </b>
@@ -221,7 +221,7 @@ ${virtualJavaScript!}
                 </#if>
                 </#if>
                 <#-- show price details ("showPriceDetails" field can be set in the screen definition) -->
-                <#if (showPriceDetails?? && "Y" == showPriceDetails?default("N"))>
+                <#if (showPriceDetails?? && showPriceDetails?default("N") == "Y")>
                     <#if price.orderItemPriceInfos??>
                         <#list price.orderItemPriceInfos as orderItemPriceInfo>
                             <div>${orderItemPriceInfo.description!}</div>

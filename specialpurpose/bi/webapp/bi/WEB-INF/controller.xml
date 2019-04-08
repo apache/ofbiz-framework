@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Site-Conf" xsi:schemaLocation="http://ofbiz.apache.org/Site-Conf http://ofbiz.apache.org/dtds/site-conf.xsd">
+
+    <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
+    <description>Business Intelligence Component Site Configuration File</description>
+
+    <!-- Request Mappings -->
+    <request-map uri="view">
+        <security https="false" auth="false"/>
+        <response name="success" type="view" value="main"/>
+    </request-map>
+
+    <request-map uri="main">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="main"/>
+    </request-map>
+    <request-map uri="quickInitDataWarehouse">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="quickInitDataWarehouse"/>
+        <response name="success" type="view" value="main"/>
+    </request-map>
+
+    <request-map uri="ReportBuilderSelectStarSchema">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ReportBuilderSelectStarSchema"/>
+    </request-map>
+    <request-map uri="ReportBuilderSelectStarSchemaFields">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ReportBuilderSelectStarSchemaFields"/>
+    </request-map>
+    <request-map uri="ReportBuilderRenderStarSchemaReport">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ReportBuilderRenderStarSchemaReport"/>
+    </request-map>
+
+    <!-- end of request mappings -->
+
+    <!-- View Mappings -->
+    <view-map name="main" type="screen" page="component://bi/widget/BiScreens.xml#main"/>
+
+    <view-map name="ReportBuilderSelectStarSchema" type="screen" page="component://bi/widget/BiScreens.xml#ReportBuilderSelectStarSchema"/>
+    <view-map name="ReportBuilderSelectStarSchemaFields" type="screen" page="component://bi/widget/BiScreens.xml#ReportBuilderSelectStarSchemaFields"/>
+    <view-map name="ReportBuilderRenderStarSchemaReport" type="screen" page="component://bi/widget/BiScreens.xml#ReportBuilderRenderStarSchemaReport"/>
+
+    <!-- end of view mappings -->
+</site-conf>

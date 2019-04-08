@@ -382,7 +382,7 @@ under the License.
                 <decorator-screen name="commonCompDocDecorator" location="component://content/widget/CommonScreens.xml">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ContentCompDocViewInstances}">
-                            <container style="button-bar">
+                            <container>
                                 <link target="AddRootCompDocTemplate" text="${uiLabelMap.PageTitleCreateNewRootCompDocTemplate}" style="buttontext">
                                     <parameter param-name="contentId"/>
                                     <parameter param-name="contentRevisionSeqId"/>

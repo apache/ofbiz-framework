@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<script type="application/javascript">
+<script language="JavaScript" type="text/javascript">
   function quicklookup(element) {
     window.location='<@ofbizUrl>LookupBulkAddSupplierProductsInApprovedOrder</@ofbizUrl>?orderId='+element.value;
   }
@@ -41,7 +41,7 @@ under the License.
                 <input type="hidden" name="prodCatalogId" value="${catalogCol.first}"/>
             </#if>
             <#if shipGroups?size == 1>
-                <input type="hidden" name="shipGroupSeqId" value="${shipGroups?first.shipGroupSeqId}"/>
+                <input type="hidden" name="shipGroupSeqId" value="${shipGroups.first.shipGroupSeqId}"/>
             </#if>
             <table class="basic-table" cellspacing="0">
               <#if catalogCol?has_content && (catalogCol?size > 1)>
@@ -105,7 +105,7 @@ under the License.
                     </select>
                   </td>
                 </tr>
-                <#if "PURCHASE_ORDER" == orderHeader.orderTypeId && purchaseOrderItemTypeList?has_content>
+                <#if orderHeader.orderTypeId == "PURCHASE_ORDER" && purchaseOrderItemTypeList?has_content>
                 <tr>
                   <td class="label">${uiLabelMap.OrderOrderItemType}</td>
                   <td>

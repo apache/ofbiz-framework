@@ -23,15 +23,14 @@ under the License.
     <include location="component://common/webcommon/WEB-INF/handlers-controller.xml"/>
     <description>Common ControlServlet Configuration File</description>
 
-    <errorpage>component://common/webcommon/error/Error.ftl</errorpage>
+    <errorpage>/error/error.jsp</errorpage>
 
     <preprocessor>
         <!-- Events to run on every request before security (chains exempt) -->
         <event name="check509CertLogin" type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="check509CertLogin"/>
         <event name="checkRequestHeaderLogin" type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="checkRequestHeaderLogin"/>
         <event name="checkServletRequestRemoteUserLogin" type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="checkServletRequestRemoteUserLogin"/>
-        <event name="checkExternalLoginKey" type="java" path="org.apache.ofbiz.webapp.control.ExternalLoginKeysManager" invoke="checkExternalLoginKey"/>
-        <event name="checkJWTLogin" type="java" path="org.apache.ofbiz.webapp.control.JWTManager" invoke="checkJWTLogin"/>
+        <event name="checkExternalLoginKey" type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="checkExternalLoginKey"/>
         <event name="checkProtectedView" type="java" path="org.apache.ofbiz.webapp.control.ProtectViewWorker" invoke="checkProtectedView"/>
         <event name="extensionConnectLogin" type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="extensionConnectLogin"/>
     </preprocessor>
@@ -40,32 +39,19 @@ under the License.
     </postprocessor>
 
     <!-- Security Mappings -->
-    <request-map uri="checkLogin">
+    <request-map uri="checkLogin" edit="false">
         <description>Verify a user is logged in.</description>
         <security https="true" auth="false"/>
         <event type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="extensionCheckLogin"/>
         <response name="success" type="view" value="main"/>
-        <response name="impersonated" type="view" value="impersonated"/>
         <response name="error" type="view" value="login"/>
     </request-map>
-    <request-map uri="ajaxCheckLogin">
+    <request-map uri="ajaxCheckLogin" edit="false">
         <description>Verify a user is logged in.</description>
         <security https="true" auth="false"/>
         <event type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="extensionCheckLogin"/>
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="ajaxLogin"/>
-    </request-map>
-    <request-map uri="impersonateLogin">
-        <security https="true" auth="true"/>
-        <event type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="impersonateLogin"/>
-        <response name="success" type="view" value="main"/>
-        <response name="error" type="view-last"/>
-    </request-map>
-    <request-map uri="depersonateLogin">
-        <security https="true" auth="true"/>
-        <event type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="depersonateLogin"/>
-        <response name="success" type="view" value="main"/>
-        <response name="error" type="view-last"/>
     </request-map>
     <request-map uri="login">
         <security https="true" auth="false"/>
@@ -77,7 +63,7 @@ under the License.
     <request-map uri="logout">
         <security https="true" auth="true"/>
         <event type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="logout"/>
-        <response name="success" type="request-redirect-noparam" value="main"/>
+        <response name="success" type="request-redirect" value="main"/>
         <response name="error" type="view" value="main"/>
     </request-map>
     <request-map uri="forgotPassword">
@@ -131,20 +117,6 @@ under the License.
 
     <!-- Common Mappings used for Set user organization -->
     <request-map uri="ListSetCompanies"><security https="true" auth="false"/><response name="success" type="view" value="ListSetCompanies" save-last-view="true"/></request-map>
-
-    <!-- Change theme-->
-    <request-map uri="selectTheme">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="setUserPreference"/>
-        <response name="success" type="request" value="setSessionTheme"/>
-        <response name="error" type="request" value="main"/>
-    </request-map>
-    <request-map uri="setSessionTheme">
-        <security https="true" auth="true"/>
-        <event type="java" path="org.apache.ofbiz.common.CommonEvents" invoke="setSessionTheme"/>
-        <response name="success" type="view-last" value="main"/>
-        <response name="error" type="request" value="main"/>
-    </request-map>
 
     <!-- User preference mapping -->
     <request-map uri="setUserPreference">
@@ -271,14 +243,6 @@ under the License.
         <response name="error" type="none" />
     </request-map>
 
-    <!-- Common JavaScript loadJWT Request, to receive JwtToken within regular JS Code -->
-    <request-map uri="loadJWT">
-        <security https="true" auth="false"/>
-        <event type="java" path="org.apache.ofbiz.common.CommonEvents" invoke="loadJWT"/>
-        <response name="success" type="none" />
-        <response name="error" type="none" />
-    </request-map>
-
     <!-- Check if an UomConversion exists -->
     <request-map uri="checkUomConversion">
         <security https="true" auth="false"/>
@@ -293,42 +257,33 @@ under the License.
         <response name="success" type="request" value="json"/>
         <response name="error" type="request" value="json"/>
     </request-map>
-
+    
     <request-map uri="getServerTimestamp">
         <security https="true" auth="true"/>
         <event type="service" invoke="getServerTimestamp"/>
         <response name="success" type="request" value="json"/>
         <response name="error" type="request" value="json"/>
     </request-map>
-
+    
     <request-map uri="getServerTimeZone">
         <security https="true" auth="true"/>
         <event type="service" invoke="getServerTimeZone"/>
         <response name="success" type="request" value="json"/>
         <response name="error" type="request" value="json"/>
     </request-map>
-
+    
     <request-map uri="getServerTimestampAsLong">
         <security https="true" auth="true"/>
         <event type="service" invoke="getServerTimestampAsLong"/>
         <response name="success" type="request" value="json"/>
         <response name="error" type="request" value="json"/>
     </request-map>
-
+    
     <request-map uri="qrcode">
         <security auth="true" https="false" />
         <event type="java" path="org.apache.ofbiz.common.qrcode.QRCodeEvents" invoke="serveQRCodeImage"/>
         <response name="success" type="none" />
         <response name="error" type="none" />
-    </request-map>
-
-    <!-- Set TimeZone from user's browser -->
-    <!-- XXX The auth setting is inconsistent with the one in the service for a good reason, see OFBIZ-10471 for an explanation -->
-    <request-map uri="SetTimeZoneFromBrowser">
-        <security https="false" auth="false"/>
-        <event type="service" invoke="SetTimeZoneFromBrowser"/>
-        <response name="success" type="request" value="json"/>
-        <response name="error" type="request" value="json"/>
     </request-map>
 
     <!--========================== AJAX events =====================-->
@@ -337,7 +292,6 @@ under the License.
     <view-map name="error" page="/error/error.jsp"/>
     <view-map name="main" type="none"/>
     <view-map name="login" type="screen" page="component://common/widget/CommonScreens.xml#login"/>
-    <view-map name="impersonated" type="screen" page="component://common/widget/CommonScreens.xml#impersonated"/>
     <view-map name="ajaxLogin" type="screen" page="component://common/widget/CommonScreens.xml#ajaxNotLoggedIn"/>
     <view-map name="requirePasswordChange" type="screen" page="component://common/widget/CommonScreens.xml#requirePasswordChange"/>
     <view-map name="forgotPassword" type="screen" page="component://common/widget/CommonScreens.xml#forgotPassword"/>

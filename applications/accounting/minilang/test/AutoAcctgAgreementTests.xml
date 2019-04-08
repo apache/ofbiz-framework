@@ -26,7 +26,7 @@ under the License.
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <set field="serviceCtx.userLogin" from-field="userLogin"/>
-        <call-service service-name="expireAgreement" in-map-name="serviceCtx"/>
+        <call-service service-name="cancelAgreement" in-map-name="serviceCtx"/>
         <now-timestamp field="nowTimestamp"/>
  
         <entity-one entity-name="Agreement" value-field="agreement">

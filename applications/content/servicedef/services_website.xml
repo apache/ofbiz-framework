@@ -136,35 +136,15 @@
     <service name="autoCreateWebSiteContent" engine="simple" auth="true"
             location="component://content/minilang/website/WebSiteServices.xml" invoke="quickCreateWebSiteContent">
         <description>Auto Create Content Publish Points</description>
-        <attribute name="webSiteId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingWebSiteId"/>
-            </type-validate>
-        </attribute>
-        <attribute name="webSiteContentTypeId" type="List" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingWebSiteContentTypeId"/>
-            </type-validate>
-        </attribute>
+        <attribute name="webSiteId" type="String" mode="IN" optional="false"/>
+        <attribute name="webSiteContentTypeId" type="List" mode="IN" optional="false"/>
     </service>
 
     <service name="generateMissingSeoUrlForWebsite" engine="simple" auth="true"
             location="component://content/minilang/website/WebSiteServices.xml" invoke="generateMissingSeoUrlForWebsite" transaction-timeout="36000000">
         <description>Generate Missing Seo URL's for Website</description>
-        <attribute name="webSiteId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingWebSiteId"/>
-            </type-validate>
-        </attribute>
-        <attribute name="prodCatalogId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingProdCatalogId"/>
-            </type-validate>
-        </attribute>
-        <attribute name="typeGenerate" type="List" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingTypeGenerate"/>
-            </type-validate>
-        </attribute>
+        <attribute name="webSiteId" type="String" mode="IN" optional="false"/>
+        <attribute name="prodCatalogId" type="String" mode="IN" optional="false"/>
+        <attribute name="typeGenerate" type="List" mode="IN" optional="false"/>
     </service>
 </services>

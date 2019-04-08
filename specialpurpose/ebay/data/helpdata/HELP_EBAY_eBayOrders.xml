@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements. See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to you under the Apache License, Version
+    2.0 (the "License"); you may not use this file except in compliance
+    with the License. You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+    applicable law or agreed to in writing, software distributed under the
+    License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+    CONDITIONS OF ANY KIND, either express or implied. See the License for
+    the specific language governing permissions and limitations under the
+    License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>Ebay Orders Import screen.</title>
+    <para>
+This screen allows the user to find and import orders data from ebay site. you can search an order by specify begin/end time  then select orders to import
+    </para>
+    <section>
+        <title>Section 'Search Options'.</title>
+        <orderedlist>
+            <listitem><para>select product store ex: use 'OFBiz E-Commerce Store' because example ebay catalog link with this store.</para></listitem>
+        <listitem><para>enter begin time in field 'From Date Time' </para></listitem>
+        <listitem><para>enter end time in field 'Thru Date Time' </para></listitem>
+        <listitem><para>Press 'Find' button then  system will show results from ebay site. </para></listitem>
+        </orderedlist>
+    </section>
+    <section>
+        <title>Section 'Search Results'.</title>
+        <orderedlist>
+            <listitem><para>This section show search results, it has many detail get from ebay site, At  the last filed on the  screen left you will see checkbox for select the order rows and then import it into ofbiz.</para></listitem>
+        </orderedlist>
+    </section>
+    <section>
+        <title>How to import order from eBay?</title>
+        <orderedlist>
+            <listitem><para></para></listitem>
+        <listitem><para>Click checkbox at rows you want to import orders  in the  'Search Result' section</para></listitem>
+        <listitem><para>Press 'Import Orders From ebay' button then system will return the message on the screen. and you can check orders list in the 'Order' module.</para></listitem>
+        </orderedlist>
+    </section>
+</section>

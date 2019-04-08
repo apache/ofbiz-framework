@@ -85,19 +85,13 @@ under the License.
         <td class="label">${StringUtil.wrapString(uiLabelMap.WebtoolsOutToBrowser)}</td>
         <td><input type="checkbox" name="tobrowser"<#if tobrowser?has_content> checked="checked"</#if> /></td>
       </tr>
-        <tr>
-        <td class="label"></td>
-    <td><@displayButtonBar/></td>
-    </tr>
-    <tr>
-      <td class="label"><label>${uiLabelMap.WebtoolsEntitySyncDump}</label></td>
-        <td><input type="text" name="entitySyncId" size="30" value="${entitySyncId!}"/></td>
-        </tr>
-        <tr>
-        <td class="label">
-      <label>${uiLabelMap.WebtoolsPreConfiguredSet}:<label>
-      </td>
-      <td>
+    </table>
+    <br />
+    <@displayButtonBar/>
+      <div>${uiLabelMap.WebtoolsEntitySyncDump}:
+        <input type="text" name="entitySyncId" size="30" value="${entitySyncId!}"/>
+      </div>
+      ${uiLabelMap.WebtoolsPreConfiguredSet}:
       <select name="preConfiguredSetName">
         <option value="">${uiLabelMap.CommonNone}</option>
         <option value="CatalogExport">${uiLabelMap.WebtoolsPreConfiguredSet1}</option>
@@ -106,12 +100,9 @@ under the License.
         <option value="Product3">${uiLabelMap.WebtoolsPreConfiguredSet4}</option>
         <option value="Product4">${uiLabelMap.WebtoolsPreConfiguredSet5}</option>
       </select>
-      </td>
-      </tr>
-        </table>
       <br />
 
-      <h2>${uiLabelMap.WebtoolsEntityNames}:</h2>
+      <p>${uiLabelMap.WebtoolsEntityNames}:</p>
       <table>
         <tr>
           <#assign entCount = 0>
@@ -122,7 +113,7 @@ under the License.
             </#if>
             <#assign entCount = entCount + 1>
             <#assign check = checkAll/>
-            <#if "true" == checkAll && "org.apache.ofbiz.entity.model.ModelViewEntity" == modelEntity.getClass().getName()>
+            <#if checkAll == "true" && modelEntity.getClass().getName() == "org.apache.ofbiz.entity.model.ModelViewEntity">
                 <#assign check = "false"/>
             </#if>
             <#assign curEntityName = modelEntity.getEntityName()/>

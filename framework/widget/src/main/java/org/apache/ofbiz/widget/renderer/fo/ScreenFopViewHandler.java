@@ -28,7 +28,6 @@ import java.io.Writer;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.stream.StreamSource;
 
 import org.apache.fop.apps.FOUserAgent;
@@ -37,23 +36,19 @@ import org.apache.fop.apps.FopFactory;
 import org.apache.fop.pdf.PDFEncryptionParams;
 import org.apache.fop.render.pdf.PDFEncryptionOption;
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilCodec;
-import org.apache.ofbiz.base.util.UtilHttp;
+import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.webapp.view.AbstractViewHandler;
 import org.apache.ofbiz.webapp.view.ApacheFopWorker;
 import org.apache.ofbiz.webapp.view.ViewHandlerException;
-import org.apache.ofbiz.widget.model.ModelTheme;
 import org.apache.ofbiz.widget.renderer.FormStringRenderer;
 import org.apache.ofbiz.widget.renderer.ScreenRenderer;
 import org.apache.ofbiz.widget.renderer.ScreenStringRenderer;
-import org.apache.ofbiz.widget.renderer.VisualTheme;
 import org.apache.ofbiz.widget.renderer.macro.MacroFormRenderer;
 import org.apache.ofbiz.widget.renderer.macro.MacroScreenRenderer;
-import org.xml.sax.SAXException;
-
-import freemarker.template.TemplateException;
 
 /**
  * Uses XSL-FO formatted templates to generate PDF, PCL, POSTSCRIPT etc.  views
@@ -76,28 +71,26 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
     /**
      * @see org.apache.ofbiz.webapp.view.ViewHandler#render(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
-    @SuppressWarnings("unchecked")
     @Override
     public void render(String name, String page, String info, String contentType, String encoding, HttpServletRequest request, HttpServletResponse response) throws ViewHandlerException {
-        VisualTheme visualTheme = UtilHttp.getVisualTheme(request);
-        ModelTheme modelTheme = visualTheme.getModelTheme();
 
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         // render and obtain the XSL-FO
         Writer writer = new StringWriter();
         try {
-            ScreenStringRenderer screenStringRenderer = new MacroScreenRenderer(modelTheme.getType(getName()), modelTheme.getScreenRendererLocation(getName()));
-            FormStringRenderer formStringRenderer = new MacroFormRenderer(modelTheme.getFormRendererLocation(getName()), request, response);
+            ScreenStringRenderer screenStringRenderer = new MacroScreenRenderer(EntityUtilProperties.getPropertyValue("widget", getName() + ".name", delegator), EntityUtilProperties.getPropertyValue("widget", getName() + ".screenrenderer", delegator));
+            FormStringRenderer formStringRenderer = new MacroFormRenderer(EntityUtilProperties.getPropertyValue("widget", getName() + ".formrenderer", delegator), request, response);
             // TODO: uncomment these lines when the renderers are implemented
-            //TreeStringRenderer treeStringRenderer = new MacroTreeRenderer(modelTheme.getTreeRendererLocation(getName()), writer);
-            //MenuStringRenderer menuStringRenderer = new MacroMenuRenderer(modelTheme.getMenuRendererLocation(getName()), writer);
+            //TreeStringRenderer treeStringRenderer = new MacroTreeRenderer(UtilProperties.getPropertyValue("widget", getName() + ".treerenderer"), writer);
+            //MenuStringRenderer menuStringRenderer = new MacroMenuRenderer(UtilProperties.getPropertyValue("widget", getName() + ".menurenderer"), writer);
             ScreenRenderer screens = new ScreenRenderer(writer, null, screenStringRenderer);
             screens.populateContextForRequest(request, response, servletContext);
 
             // this is the object used to render forms from their definitions
             screens.getContext().put("formStringRenderer", formStringRenderer);
-            screens.getContext().put("simpleEncoder", UtilCodec.getEncoder(modelTheme.getEncoder(getName())));
+            screens.getContext().put("simpleEncoder", UtilCodec.getEncoder(EntityUtilProperties.getPropertyValue("widget", getName() + ".encoder", delegator)));
             screens.render(page);
-        } catch (IOException | GeneralException | SAXException | ParserConfigurationException | TemplateException e) {
+        } catch (Exception e) {
             renderError("Problems with the response writer/output stream", e, "[Not Yet Rendered]", request, response);
             return;
         }
@@ -110,7 +103,7 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
         if (Debug.verboseOn()) Debug.logVerbose("XSL:FO Screen Output: " + screenOutString, module);
 
         if (UtilValidate.isEmpty(contentType)) {
-            contentType = modelTheme.getContentType(getName());
+            contentType = UtilProperties.getPropertyValue("widget", getName() + ".default.contenttype");
         }
         
         // get encryption related parameters
@@ -185,11 +178,10 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
     protected void renderError(String msg, Exception e, String screenOutString, HttpServletRequest request, HttpServletResponse response) throws ViewHandlerException {
         Debug.logError(msg + ": " + e + "; Screen XSL:FO text was:\n" + screenOutString, module);
         try {
+            Delegator delegator = (Delegator) request.getAttribute("delegator");
             Writer writer = new StringWriter();
-            VisualTheme visualTheme = UtilHttp.getVisualTheme(request);
-            ModelTheme modelTheme = visualTheme.getModelTheme();
-            ScreenStringRenderer screenStringRenderer = new MacroScreenRenderer(modelTheme.getType("screen"),
-                    modelTheme.getScreenRendererLocation("screen"));
+            ScreenStringRenderer screenStringRenderer = new MacroScreenRenderer(EntityUtilProperties.getPropertyValue("widget", "screen.name", delegator),
+                    EntityUtilProperties.getPropertyValue("widget", "screen.screenrenderer", delegator));
 
             ScreenRenderer screens = new ScreenRenderer(writer, null, screenStringRenderer);
             screens.populateContextForRequest(request, response, servletContext);
@@ -198,7 +190,7 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
             response.setContentType("text/html");
             response.getWriter().write(writer.toString());
             writer.close();
-        } catch (IOException | GeneralException | SAXException | ParserConfigurationException | TemplateException x) {
+        } catch (Exception x) {
             Debug.logError("Multiple errors rendering FOP", module);
             throw new ViewHandlerException("Multiple errors rendering FOP", x);
         }

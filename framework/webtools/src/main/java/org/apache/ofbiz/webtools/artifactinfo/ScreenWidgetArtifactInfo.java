@@ -184,7 +184,7 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
 
     @Override
     public URL getLocationURL() throws MalformedURLException {
-        return FlexibleLocation.resolveLocation(screenLocation);
+        return FlexibleLocation.resolveLocation(this.screenLocation, null);
     }
 
     @Override

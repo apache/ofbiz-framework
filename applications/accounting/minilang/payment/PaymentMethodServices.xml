@@ -22,7 +22,7 @@ under the License.
         xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="setPaymentMethodAddress" short-description="Set the initial payment method address">
-        <make-value entity-name="PaymentMethod" value-field="lookupPKMap"/>
+        <make-value value-field="lookupPKMap" entity-name="PaymentMethod"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="PaymentMethod" map="lookupPKMap" value-field="lookedUpValue"/>
         <if-compare field="lookedUpValue.paymentMethodTypeId" operator="equals" value="CREDIT_CARD">
@@ -82,7 +82,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createPayPalPaymentMethod" short-description="Create a PayPal Payment Method">
-        <make-value entity-name="PaymentMethod" value-field="newPaymentMethod"/>
+        <make-value value-field="newPaymentMethod" entity-name="PaymentMethod"/>
         <set-pk-fields value-field="newPaymentMethod" map="parameters"/>
         <if-empty field="newPaymentMethod.paymentMethodId">
             <sequenced-id sequence-name="PaymentMethod" field="newPaymentMethod.paymentMethodId"/>
@@ -91,7 +91,7 @@ under the License.
         <set field="newPaymentMethod.paymentMethodTypeId" value="EXT_PAYPAL"/>
         <create-value value-field="newPaymentMethod"/>
 
-        <make-value entity-name="PayPalPaymentMethod" value-field="newPayPalPaymentMethod"/>
+        <make-value value-field="newPayPalPaymentMethod" entity-name="PayPalPaymentMethod"/>
         <set field="newPayPalPaymentMethod.paymentMethodId" from-field="newPaymentMethod.paymentMethodId"/>
         <set-nonpk-fields map="parameters" value-field="newPayPalPaymentMethod"/>
         <create-value value-field="newPayPalPaymentMethod"/>

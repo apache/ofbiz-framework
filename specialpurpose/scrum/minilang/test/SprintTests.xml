@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
+
+    <simple-method method-name="testUpdateSprintBacklog" short-description="Update Sprint Backlog" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="parameters.custRequestId" value="TEST9"/>
+        <set field="parameters.estimatedMilliSeconds" value="36000000"/>
+        <set field="parameters.userLogin" from-field="userLogin"/>
+        <set-service-fields service-name="updateCustRequest" map="parameters" to-map="inMap"/>
+        <call-service service-name="updateCustRequest" in-map-name="inMap"/>
+    </simple-method>
+    
+    <simple-method method-name="testCreateSprintByScrummaster" short-description="Test Create Sprint By Scrummaster" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="scrummaster"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="parameters.userLogin" from-field="userLogin"/>
+        <set field="parameters.maxNum" value="20"/>
+        <set field="parameters.projectId" value="DEMO-PROJECT-1"/>
+        <set field="parameters.sprintName" value="SprintTest"/>
+        <set field="parameters.sprintDescription" value="Test Create Sprint"/>
+        <set field="parameters.sprintEstimatedStart" value="2010-07-23 11:44:08.418" type="Timestamp"/>
+        <set field="parameters.sprintEstimatedEnd" value="2010-08-23 11:44:08.418" type="Timestamp"/>
+        <set field="parameters.sprintBacklogs" value="1"/>
+        <set field="parameters.custRequestName" value="TestSprint"/>
+        <set field="parameters.sprintDuration" value="1"/>
+        <call-simple-method method-name="createSprint" xml-resource="component://scrum/minilang/ScrumEvents.xml"/>
+    </simple-method>
+    
+    <simple-method method-name="testUpdateSprintByScrummaster" short-description="Test Update Sprint By Scrummaster" login-required="false">
+        
+        <call-simple-method method-name="testCreateSprintByScrummaster" xml-resource="component://scrum/minilang/test/SprintTests.xml"/>
+        
+        <set field="parameters.workEffortId" from-field="parameters.sprintId"/>
+        <set field="parameters.workEffortName" value="SprintTest"/>
+        <set field="parameters.actualStartDate" value="2010-07-23 11:44:08.418" type="Timestamp"/>
+        <set field="parameters.currentStatusId" value="SPRINT_ACTIVE"/>
+        <call-simple-method method-name="updateSprintInfo" xml-resource="component://scrum/minilang/ScrumEvents.xml"/>
+    </simple-method>
+    
+    <simple-method method-name="testCreateSprintByAdmin" short-description="Test Create Sprint By Admin" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="admin"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="parameters.userLogin" from-field="userLogin"/>
+        <set field="parameters.maxNum" value="20"/>
+        <set field="parameters.projectId" value="DEMO-PROJECT-1"/>
+        <set field="parameters.sprintName" value="SprintTest"/>
+        <set field="parameters.sprintDescription" value="SprintDescription"/>
+        <set field="parameters.sprintEstimatedStart" value="2010-07-23 11:44:08.418" type="Timestamp"/>
+        <set field="parameters.sprintEstimatedEnd" value="2010-08-23 11:44:08.418" type="Timestamp"/>
+        <set field="parameters.sprintBacklogs" value="2"/>
+        <set field="parameters.custRequestName" value="TestSprint"/>
+        <set field="parameters.sprintDuration" value="1"/>
+        <call-simple-method method-name="createSprint" xml-resource="component://scrum/minilang/ScrumEvents.xml"/>
+    </simple-method>
+    
+    <simple-method method-name="testUpdateSprintByAdmin" short-description="Test Update Sprint By Admin" login-required="false">
+        
+        <call-simple-method method-name="testCreateSprintByAdmin" xml-resource="component://scrum/minilang/test/SprintTests.xml"/>
+        
+        <set field="parameters.workEffortId" from-field="parameters.sprintId"/>
+        <set field="parameters.workEffortName" value="SprintTest"/>
+        <set field="parameters.actualStartDate" value="2010-07-23 11:44:08.418" type="Timestamp"/>
+        <set field="parameters.currentStatusId" value="SPRINT_ACTIVE"/>
+        <call-simple-method method-name="updateSprintInfo" xml-resource="component://scrum/minilang/ScrumEvents.xml"/>
+    </simple-method>
+    
+    <simple-method method-name="testAddSprintMember" short-description="Test add Sprint member" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="scrummaster"/>
+        </entity-one>
+        <set field="parameters.workEffortId" value="DEMO-SPRINT-1"/>
+        <set field="parameters.roleTypeId" value="SCRUM_TEAM"/>
+        <set field="parameters.statusId" value="PRTYASGN_ASSIGNED"/>
+        <set field="parameters.partyId" value="DemoCustomer-1"/>
+        <set field="parameters.fromDate" value="2010-07-30 00:00:00.000"/>
+        <set field="parameters.userLogin" from-field="userLogin"/>
+        <call-service service-name="assignPartyToWorkEffort" in-map-name="parameters"/>
+    </simple-method>
+    
+    <simple-method method-name="testRemoveSprintMember" short-description="Test remove Sprint member" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="scrummaster"/>
+        </entity-one>
+        <set field="parameters.workEffortId" value="DEMO-SPRINT-1"/>
+        <set field="parameters.roleTypeId" value="SCRUM_TEAM"/>
+        <set field="parameters.partyId" value="DemoCustomer-1"/>
+        <set field="parameters.fromDate" value="2010-07-30 00:00:00.000"/>
+        <set field="parameters.userLogin" from-field="userLogin"/>
+        <call-service service-name="unassignPartyFromWorkEffort" in-map-name="parameters"/>
+    </simple-method>
+</simple-methods>

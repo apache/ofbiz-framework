@@ -49,7 +49,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createCustRequest" short-description="Create Customer Request">
-        <make-value entity-name="CustRequest" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="CustRequest"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <now-timestamp field="newEntity.lastModifiedDate"/>
 
@@ -214,7 +214,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createCustRequestAttribute" short-description="Create Customer Request Attribute">
-        <make-value entity-name="CustRequestAttribute" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="CustRequestAttribute"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
@@ -231,7 +231,7 @@ under the License.
 
     <simple-method method-name="createCustRequestItem" short-description="Create Customer Request Item">
         <call-simple-method method-name="checkStatusCustRequest"/>
-        <make-value entity-name="CustRequestItem" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="CustRequestItem"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="parameters.custRequestItemSeqId">
@@ -261,11 +261,11 @@ under the License.
         <set from-field="parameters.roleTypeId" field="lookupPKMap.roleTypeId"/>
         <find-by-primary-key entity-name="PartyRole" map="lookupPKMap" value-field="partyRole"/>
         <if-empty field="partyRole.partyId">
-            <make-value entity-name="PartyRole" value-field="partyRole"/>
+            <make-value value-field="partyRole" entity-name="PartyRole"/>
             <set-pk-fields map="lookupPKMap" value-field="partyRole"/>
             <create-value value-field="partyRole"/>
         </if-empty>
-        <make-value entity-name="CustRequestParty" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="CustRequestParty"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate">
@@ -296,7 +296,7 @@ under the License.
         <call-simple-method method-name="updateCustRequestLastModifiedDate"/>
     </simple-method>
     <simple-method method-name="createCustRequestNote" short-description="Create Customer Request Note">
-        <make-value entity-name="CustRequestNote" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="CustRequestNote"/>
         <set from-field="parameters.custRequestId" field="newEntity.custRequestId"/>
         <set from-field="parameters.noteInfo" field="newNoteMap.note"/>
         <call-service service-name="createNote" in-map-name="newNoteMap">
@@ -320,7 +320,7 @@ under the License.
     </simple-method>
     <simple-method method-name="createCustRequestItemNote" short-description="Create Customer RequestItem Note">
         <call-simple-method method-name="checkStatusCustRequest"/>        
-        <make-value entity-name="CustRequestItemNote" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="CustRequestItemNote"/>
         <set from-field="parameters.custRequestId" field="newEntity.custRequestId"/>
         <set from-field="parameters.custRequestItemSeqId" field="newEntity.custRequestItemSeqId"/>
         <set from-field="parameters.note" field="newNoteMap.note"/>

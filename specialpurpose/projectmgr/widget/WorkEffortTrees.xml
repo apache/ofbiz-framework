@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<trees xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Widget-Tree" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Tree http://ofbiz.apache.org/dtds/widget-tree.xsd">
+    <tree name="TreeWorkEffort" root-node-name="node-root" entity-name="WorkEffort"
+        default-render-style="simple" default-wrap-style="treeWrapper">
+        <node name="node-root"  entity-name="WorkEffort" render-style="expand-collapse">
+            <entity-one entity-name="WorkEffort" value-field="workEffort"/>
+            <include-screen name="WorkEffortTreeLine" location="component://projectmgr/widget/ProjectScreens.xml"/>
+            <sub-node node-name="node-list">
+                <entity-condition entity-name="WorkEffortAssoc">
+                    <condition-expr field-name="workEffortIdFrom" operator="equals" from-field="workEffortId"/>
+                </entity-condition>
+            </sub-node>
+        </node>
+        <node name="node-list" entry-name="workEffortAssoc" entity-name="WorkEffortAssoc" join-field-name="workEffortIdFrom" render-style="expand-collapse">
+            <entity-one entity-name="WorkEffort" value-field="workEffort">
+                <field-map field-name="workEffortId" from-field="workEffortAssoc.workEffortIdTo"/>
+            </entity-one>
+            <include-screen name="WorkEffortTreeLine" location="component://projectmgr/widget/ProjectScreens.xml"/>
+            <sub-node node-name="node-list">
+                <entity-condition entity-name="WorkEffortAssoc">
+                    <condition-expr field-name="workEffortIdFrom" operator="equals" from-field="workEffortAssoc.workEffortIdTo"/>
+                </entity-condition>
+            </sub-node>
+        </node>
+    </tree>
+    <tree name="TreeTaskWorkEffort" root-node-name="node-root" entity-name="WorkEffort"
+        default-render-style="simple" default-wrap-style="treeWrapper">
+        <node name="node-root"  entity-name="WorkEffort" render-style="expand-collapse">
+            <entity-one entity-name="WorkEffort" value-field="workEffort"/>
+            <include-screen name="WorkEffortTreeLine" location="component://projectmgr/widget/TaskScreens.xml"/>
+            <sub-node node-name="node-list">
+                <entity-condition entity-name="WorkEffortAssoc">
+                    <condition-expr field-name="workEffortIdFrom" operator="equals" from-field="workEffortId"/>
+                </entity-condition>
+            </sub-node>
+        </node>
+        <node name="node-list" entry-name="workEffortAssoc" entity-name="WorkEffortAssoc" join-field-name="workEffortIdFrom" render-style="expand-collapse">
+            <entity-one entity-name="WorkEffort" value-field="workEffort">
+                <field-map field-name="workEffortId" from-field="workEffortAssoc.workEffortIdTo"/>
+            </entity-one>
+            <include-screen name="WorkEffortTreeLine" location="component://projectmgr/widget/TaskScreens.xml"/>
+            <sub-node node-name="node-list">
+                <entity-condition entity-name="WorkEffortAssoc">
+                    <condition-expr field-name="workEffortIdFrom" operator="equals" from-field="workEffortAssoc.workEffortIdTo"/>
+                </entity-condition>
+            </sub-node>
+        </node>
+    </tree>
+</trees>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Site-Conf" xsi:schemaLocation="http://ofbiz.apache.org/Site-Conf http://ofbiz.apache.org/dtds/site-conf.xsd">
+    <!-- Note: The order of the following include elements is important -->
+    <include location="component://workeffort/webapp/workeffort/WEB-INF/controller.xml"/>
+    <include location="component://product/webapp/catalog/WEB-INF/controller.xml"/>
+    <include location="component://product/webapp/facility/WEB-INF/controller.xml"/>
+    <include location="component://accounting/webapp/accounting/WEB-INF/controller.xml"/>
+
+    <description>Information Systems Management Component Site Configuration File</description>
+
+    <request-map uri="main">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ListComputerHardware"/>
+    </request-map>
+
+    <request-map uri="ListComputerHardware">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ListComputerHardware"/>
+    </request-map>
+
+    <request-map uri="ListComputerSoftware">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ListComputerSoftware"/>
+    </request-map>
+
+    <request-map uri="EditComputerHardware"><security https="true" auth="true"/><response name="success" type="view" value="EditComputerHardware"/></request-map>
+    <request-map uri="createComputerHardware">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createFixedAsset"/>
+        <response name="success" type="view" value="EditComputerHardware"/>
+        <response name="error" type="view" value="EditComputerHardware"/>
+    </request-map>
+    <request-map uri="updateComputerHardware">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateFixedAsset"/>
+        <response name="success" type="view" value="EditComputerHardware"/>
+        <response name="error" type="view" value="EditComputerHardware"/>
+    </request-map>
+
+    <request-map uri="EditComputerSoftware"><security https="true" auth="true"/><response name="success" type="view" value="EditComputerSoftware"/></request-map>
+    <request-map uri="createComputerSoftware">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createFixedAsset"/>
+        <response name="success" type="view" value="EditComputerSoftware"/>
+        <response name="error" type="view" value="EditComputerSoftware"/>
+    </request-map>
+    <request-map uri="updateComputerSoftware">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateFixedAsset"/>
+        <response name="success" type="view" value="EditComputerSoftware"/>
+        <response name="error" type="view" value="EditComputerSoftware"/>
+    </request-map>
+
+    <!-- List all children fixed assets of type ComputerHardware -->
+    <request-map uri="ListHardwareAccessories"><security https="true" auth="true"/><response name="success" type="view" value="ListHardwareAccessories"/></request-map>
+    <request-map uri="ListInstalledSoftware"><security https="true" auth="true"/><response name="success" type="view" value="ListInstalledSoftware"/></request-map>
+
+
+    <request-map uri="LookupComputerHardware"><security https="true" auth="true"/><response name="success" type="view" value="LookupComputerHardware"/></request-map>
+    <request-map uri="LookupComputerSoftware"><security https="true" auth="true"/><response name="success" type="view" value="LookupComputerSoftware"/></request-map>
+    <view-map name="LookupComputerHardware" type="screen" page="component://assetmaint/widget/ismgr/LookupScreens.xml#LookupComputerHardware"/>
+    <view-map name="LookupComputerSoftware" type="screen" page="component://assetmaint/widget/ismgr/LookupScreens.xml#LookupComputerSoftware"/>
+
+    <view-map name="EditComputerHardware" type="screen" page="component://assetmaint/widget/ismgr/FixedAssetScreens.xml#EditComputerHardware"/>
+    <view-map name="ListComputerHardware" type="screen" page="component://assetmaint/widget/ismgr/FixedAssetScreens.xml#ListComputerHardware"/>
+
+    <view-map name="EditComputerSoftware" type="screen" page="component://assetmaint/widget/ismgr/FixedAssetScreens.xml#EditComputerSoftware"/>
+    <view-map name="ListComputerSoftware" type="screen" page="component://assetmaint/widget/ismgr/FixedAssetScreens.xml#ListComputerSoftware"/>
+
+    <view-map name="ListHardwareAccessories" type="screen" page="component://assetmaint/widget/ismgr/FixedAssetScreens.xml#ListHardwareAccessories"/>
+    <view-map name="ListInstalledSoftware" type="screen" page="component://assetmaint/widget/ismgr/FixedAssetScreens.xml#ListInstalledSoftware"/>
+    <!-- end of view mappings -->
+</site-conf>

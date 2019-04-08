@@ -122,7 +122,7 @@ public class EntityCryptoTestSuite extends EntityTestCase {
         assertEquals(1, (EntityQuery.use(delegator).from("TestingCrypto").where("testingCryptoTypeId", "LOOKUP", "saltedEncryptedValue", null).queryList()).size());
         assertEquals(1, (EntityQuery.use(delegator).from("TestingCrypto").where("testingCryptoTypeId", "LOOKUP", "encryptedValue", nanoTime).queryList()).size());
         assertEquals(0, (EntityQuery.use(delegator).from("TestingCrypto").where("testingCryptoTypeId", "LOOKUP", "saltedEncryptedValue", nanoTime).queryList()).size());
-
+        
         assertEquals(1, EntityQuery.use(delegator).from("TestingCrypto").where("testingCryptoTypeId", "LOOKUP", "encryptedValue", nanoTime).queryList().size());
     }
 

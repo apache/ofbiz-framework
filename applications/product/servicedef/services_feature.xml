@@ -28,16 +28,16 @@ under the License.
     <service name="createProductFeatureCategory" engine="entity-auto" invoke="create" default-entity-name="ProductFeatureCategory" auth="true">
         <description>Create a ProductFeatureCategory record</description>
         <permission-service service-name="productGenericPermission" main-action="CREATE"/>
-        <auto-attributes include="pk" mode="OUT" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <override name="description" optional="false"/>
+        <attribute name="parentCategoryId" type="String" mode="IN" optional="true"/>
+        <attribute name="description" type="String" mode="IN" optional="false"/>
+        <attribute name="productFeatureCategoryId" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="updateProductFeatureCategory" engine="entity-auto" invoke="update" default-entity-name="ProductFeatureCategory" auth="true">
         <description>Update a ProductFeatureCategory record</description>
         <permission-service service-name="productGenericPermission" main-action="UPDATE"/>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <override name="description" optional="false"/>
+        <attribute name="productFeatureCategoryId" type="String" mode="IN" optional="false"/>
+        <attribute name="parentCategoryId" type="String" mode="IN" optional="true"/>
+        <attribute name="description" type="String" mode="IN" optional="false"/>
     </service>
 
     <service name="createProductFeature" engine="entity-auto" invoke="create" default-entity-name="ProductFeature" auth="true">

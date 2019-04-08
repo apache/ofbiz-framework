@@ -21,7 +21,6 @@ package org.apache.ofbiz.accounting.thirdparty.paypal;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.net.URL;
@@ -56,7 +55,6 @@ import org.apache.ofbiz.product.store.ProductStoreWorker;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
-import org.apache.ofbiz.service.ServiceUtil;
 
 
 public class PayPalEvents {
@@ -148,7 +146,7 @@ public class PayPalEvents {
         }
 
         // create the redirect string
-        Map<String, Object> parameters = new LinkedHashMap<>();
+        Map <String, Object> parameters = new LinkedHashMap <String, Object>();
         parameters.put("cmd", "_xclick");
         parameters.put("business", payPalAccount);
         parameters.put("item_name", itemName);
@@ -182,9 +180,8 @@ public class PayPalEvents {
         return "success";
     }
 
-    /** PayPal Call-Back Event 
-     * @throws IOException */
-    public static String payPalIPN(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    /** PayPal Call-Back Event */
+    public static String payPalIPN(HttpServletRequest request, HttpServletResponse response) {
         Locale locale = UtilHttp.getLocale(request);
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
@@ -229,20 +226,23 @@ public class PayPalEvents {
 
         // send off the confirm request
         String confirmResp = null;
-        String str = UtilHttp.urlEncodeArgs(parametersMap);
-        URL u = new URL(redirectUrl);
-        URLConnection uc = u.openConnection();
-        uc.setDoOutput(true);
-        uc.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 
-        try (BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
-                PrintWriter pw = new PrintWriter(new OutputStreamWriter(uc.getOutputStream(), "UTF-8"))) {
-
+        try {
+            String str = UtilHttp.urlEncodeArgs(parametersMap);
+            URL u = new URL(redirectUrl);
+            URLConnection uc = u.openConnection();
+            uc.setDoOutput(true);
+            uc.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            PrintWriter pw = new PrintWriter(uc.getOutputStream());
             pw.println(str);
+            pw.close();
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
             confirmResp = in.readLine();
+            in.close();
             Debug.logError("PayPal Verification Response: " + confirmResp, module);
         } catch (IOException e) {
-            Debug.logError(e, "Problems sending verification message.", module);
+            Debug.logError(e, "Problems sending verification message", module);
         }
 
         Debug.logInfo("Got verification from PayPal, processing..", module);
@@ -303,9 +303,9 @@ public class PayPalEvents {
         try {
             beganTransaction = TransactionUtil.begin();
 
-            if ("Completed".equals(paymentStatus)) {
+            if (paymentStatus.equals("Completed")) {
                 okay = OrderChangeHelper.approveOrder(dispatcher, userLogin, orderId);
-            } else if ("Failed".equals(paymentStatus) || "Denied".equals(paymentStatus)) {
+            } else if (paymentStatus.equals("Failed") || paymentStatus.equals("Denied")) {
                 okay = OrderChangeHelper.cancelOrder(dispatcher, userLogin, orderId);
             }
 
@@ -339,6 +339,9 @@ public class PayPalEvents {
 
 
         if (okay) {
+            // attempt to release the offline hold on the order (workflow)
+            OrderChangeHelper.releaseInitialOrderHold(dispatcher, orderId);
+
             // call the email confirm service
             Map <String, String> emailContext = UtilMisc.toMap("orderId", orderId);
             try {
@@ -385,6 +388,10 @@ public class PayPalEvents {
             }
         }
 
+        // attempt to release the offline hold on the order (workflow)
+        if (okay)
+            OrderChangeHelper.releaseInitialOrderHold(dispatcher, orderId);
+
         request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(resourceErr, "payPalEvents.previousPayPalOrderHasBeenCancelled", locale));
         return "success";
     }
@@ -416,7 +423,7 @@ public class PayPalEvents {
         String paymentStatus = request.getParameter("payment_status");
         String transactionId = request.getParameter("txn_id");
 
-        List<GenericValue> toStore = new LinkedList<>();
+        List <GenericValue> toStore = new LinkedList <GenericValue> ();
 
         // PayPal returns the timestamp in the format 'hh:mm:ss Jan 1, 2000 PST'
         // Parse this into a valid Timestamp Object
@@ -433,9 +440,9 @@ public class PayPalEvents {
         }
 
         paymentPreference.set("maxAmount", new BigDecimal(paymentAmount));
-        if ("Completed".equals(paymentStatus)) {
+        if (paymentStatus.equals("Completed")) {
             paymentPreference.set("statusId", "PAYMENT_RECEIVED");
-        } else if ("Pending".equals(paymentStatus)) {
+        } else if (paymentStatus.equals("Pending")) {
             paymentPreference.set("statusId", "PAYMENT_NOT_RECEIVED");
         } else {
             paymentPreference.set("statusId", "PAYMENT_CANCELLED");
@@ -482,7 +489,7 @@ public class PayPalEvents {
             return false;
         }
 
-        if (ServiceUtil.isError(results)) {
+        if ((results == null) || (results.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR))) {
             Debug.logError((String) results.get(ModelService.ERROR_MESSAGE), module);
             request.setAttribute("_ERROR_MESSAGE_", results.get(ModelService.ERROR_MESSAGE));
             return false;

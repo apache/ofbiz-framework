@@ -49,7 +49,7 @@ under the License.
             <check-errors/>
         </if-compare>
 
-        <make-value entity-name="ProductStore" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="ProductStore"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <sequenced-id sequence-name="ProductStore" field="productStoreId"/>
@@ -62,7 +62,7 @@ under the License.
         <now-timestamp field="nowTimestamp"/>
 
         <if-not-empty field="newEntity.inventoryFacilityId">
-            <make-value entity-name="ProductStoreFacility" value-field="storeFacility"/>
+            <make-value value-field="storeFacility" entity-name="ProductStoreFacility"/>
             <set from-field="newEntity.inventoryFacilityId" field="storeFacility.facilityId"/>
             <set from-field="newEntity.productStoreId" field="storeFacility.productStoreId"/>
             <set from-field="nowTimestamp" field="storeFacility.fromDate"/>
@@ -88,9 +88,6 @@ under the License.
         <find-by-primary-key entity-name="ProductStore" map="lookupPKMap" value-field="store"/>
         <set from-field="store.inventoryFacilityId" field="oldFacilityId"/>
         <set-nonpk-fields map="parameters" value-field="store"/>
-
-        <!-- visualThemeId must be replaced by ecomThemeId because of Entity.field names conflict. See OFBIZ-10567 -->
-        <set field="store.visualThemeId" from-field="parameters.ecomThemeId"/>
 
         <if-compare field="store.showPricesWithVatTax" operator="equals" value="Y">
             <if-empty field="store.vatTaxAuthGeoId">
@@ -122,7 +119,7 @@ under the License.
                 </iterate>
             </if-compare>
             <!-- create the new entry -->
-            <make-value entity-name="ProductStoreFacility" value-field="storeFacility"/>
+            <make-value value-field="storeFacility" entity-name="ProductStoreFacility"/>
             <set from-field="store.inventoryFacilityId" field="storeFacility.facilityId"/>
             <set from-field="store.productStoreId" field="storeFacility.productStoreId"/>
             <set from-field="nowTimestamp" field="storeFacility.fromDate"/>

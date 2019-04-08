@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+    <SecurityPermission description="View operations in the OfbizDemo Component." permissionId="OFBIZDEMO_VIEW"/>
+    <SecurityPermission description="Create operations in the OfbizDemo Component." permissionId="OFBIZDEMO_CREATE"/>
+    <SecurityPermission description="Update operations in the OfbizDemo Component." permissionId="OFBIZDEMO_UPDATE"/>
+    <SecurityPermission description="Delete operations in the OfbizDemo Component." permissionId="OFBIZDEMO_DELETE"/>
+    <SecurityPermission description="ALL operations in the OfbizDemo Component." permissionId="OFBIZDEMO_ADMIN"/>
+
+    <SecurityGroupPermission groupId="SUPER" permissionId="OFBIZDEMO_ADMIN"/>
+
+</entity-engine-xml>

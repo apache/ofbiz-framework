@@ -117,8 +117,8 @@ under the License.
         <attribute name="categoryMembers" type="java.util.Collection" mode="OUT"/>
     </service>
     
-    <service name="getAssociatedProductsList" engine="groovy" auth="false"
-        location="component://product/groovyScripts/product/category/CategoryServices.groovy" invoke="getAssociatedProductsList">
+    <service name="getAssociatedProductsList" engine="simple" auth="false"
+        location="component://product/minilang/product/category/CategoryServices.xml" invoke="getAssociatedProductsList">
         <description>Set the product options for selected product category, mostly used by getDependentDropdownValues</description>
         <attribute name="productCategoryId" mode="IN" type="String" optional="false"/>
         <attribute name="products" mode="OUT" type="java.util.List"/>

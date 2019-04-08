@@ -1,0 +1,150 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+/***********************************************
+Forms
+***********************************************/
+form {margin:0; padding:0}
+
+form p.desc {margin:.5em 0; padding:.75em 0;}
+
+fieldset {margin: 0 0 2em 0;}
+fieldset.col {clear:none; float:left; display:inline; margin:0 2em 2em 0}
+
+legend {padding: 0 0 1.286em; font-size: 1.167em; font-weight: 700;}
+fieldset fieldset legend {padding: 0 0 1.5em; font-size: 1em;}
+* html legend {margin-left: -7px;}
+*+html legend {margin-left: -7px;}
+
+form div, .buttons {clear: both; margin: 0 0 0.8em;}
+form div label {display: block; padding-bottom:.08em}
+form ul li {list-style-type: none; margin: 0;}
+form .inline li, form .inline label {display: inline;}
+form .inline li {padding: 0 .75em 0 0;}
+
+form .form-row input, form .form-row select, form .form-row textarea, form table input, form table select,select { 
+border-style:solid; 
+border-width:1px; 
+background-color:#fbfbfb; 
+border-color: #7a7a7a #B4B4B4 #DADADA #B4B4B4;
+font:12px Arial, Helvetica, sans-serif;
+padding:4px; 
+}
+
+form table thead th {padding:0 .5em;}
+form td {padding:.5em;}
+
+input[type=text],input[type=password]{vertical-align:middle}
+input.radio {vertical-align: top;}
+input.checkbox {vertical-align: middle;}
+label, button, input.submit, input.image {cursor: pointer;}
+* html input.radio, * html input.checkbox {vertical-align: middle;}
+*+html input.radio, *+html input.checkbox {vertical-align: middle;}
+
+textarea {overflow: auto;}
+
+* html button {margin: 0 .34em 0 0;}
+*+html button {margin: 0 .34em 0 0;}
+
+form.horizontal div label {display: inline; float: left; text-align:right; padding-right:.34em}
+
+form div span {
+display:block;
+float:left;
+line-height:20px;
+margin:0;
+padding:0 0.4em 0 0;
+}
+form div span label {
+color:#404040;
+display:block;
+font-size:85%;
+font-weight:normal;
+margin:0.3em 0 0;
+}
+
+/***********************************************
+Buttons
+***********************************************/
+.buttons { font-size:100%; padding:5px 0px 5px 0px;}
+a.button, button.button, input[type=submit].button, input[type=reset].button{
+display:inline;
+margin:0 7px 0 0;
+background-color:#f5f5f5;
+border:1px solid #dedede;
+border-top:1px solid #eee;
+border-left:1px solid #eee;
+font-family:"Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
+font-size:100%;
+line-height:260%;
+text-decoration:none;
+font-weight:bold;
+color:#565656;
+cursor:pointer;
+padding:5px 10px 6px 7px; /* Links */
+}
+button{
+width:auto;
+overflow:visible;
+padding:4px 10px 3px 7px; /* IE6 */
+}
+button[type]{
+padding:5px 10px 5px 7px; /* Firefox */
+line-height:17px; /* Safari */
+}
+*:first-child+html button[type]{
+padding:4px 10px 3px 7px; /* IE7 */
+}
+button:hover, a.button:hover{
+background-color:#dff4ff;
+border:1px solid #c2e1ef;
+color:#336699;
+}
+a.button:active{
+background-color:#6299c5;
+border:1px solid #6299c5;
+color:#fff;
+}
+
+input[type=submit].button:hover {
+background-color:#dff4ff;
+border:1px solid #c2e1ef;
+color:#336699;
+}
+a.submit:active{
+background-color:#529214;
+border:1px solid #529214;
+color:#fff;
+}
+a.reset, button.reset{color:#d12f19;}
+a.reset:hover, button.reset:hover{
+background:#fbe3e4;
+border:1px solid #fbc2c4;
+color:#d12f19;
+}
+input[type=reset].button:hover, button[type=reset].button:hover {
+background:#fbe3e4;
+border:1px solid #fbc2c4;
+color:#d12f19;
+}
+a.reset:active{
+background-color:#d12f19;
+border:1px solid #d12f19;
+color:#fff;
+}

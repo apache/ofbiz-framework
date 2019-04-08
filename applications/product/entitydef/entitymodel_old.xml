@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
+    <!-- ========================================================= -->
+    <!-- ======================== Defaults ======================= -->
+    <!-- ========================================================= -->
+    <title>Entity of an Apache OFBiz Component</title>
+    <description>None</description>
+    <version>1.0</version>
+    <!-- ========================================================= -->
+    <!-- ======================== Data Model ===================== -->
+    <!-- The modules in this file are as follows:                  -->
+    <!--  - org.apache.ofbiz.product.facility -->
+    <!-- ========================================================= -->
+
+
+    <!-- ========================================================= -->
+    <!-- org.apache.ofbiz.product.facility -->
+    <!-- ========================================================= -->
+
+    <entity entity-name="OldFacilityRole" table-name="FACILITY_ROLE"
+            package-name="org.apache.ofbiz.product.facility"
+            title="Facility Role Entity">
+      <field name="facilityId" type="id-ne"></field>
+      <field name="partyId" type="id-ne"></field>
+      <field name="roleTypeId" type="id-ne"></field>
+      <prim-key field="facilityId"/>
+      <prim-key field="partyId"/>
+      <prim-key field="roleTypeId"/>
+      <relation type="one" fk-name="FACILITY_RLE_FAC" rel-entity-name="Facility">
+        <key-map field-name="facilityId"/>
+      </relation>
+      <relation type="one" fk-name="FACILITY_RLE_PRTY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one-nofk" fk-name="FACILITY_RLE_ROLE"  rel-entity-name="RoleType">
+        <key-map field-name="roleTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="OldProductKeyword" table-name="PRODUCT_KEYWORD"
+            package-name="org.apache.ofbiz.product.facility"
+            title="Old Product Keyword Entity">
+      <field name="productId" type="id-ne"></field>
+      <field name="keyword" type="short-varchar"></field>
+      <field name="relevancyWeight" type="numeric"></field>
+      <prim-key field="productId"/>
+      <prim-key field="keyword"/>
+      <relation type="one" fk-name="PROD_KWD_PROD" rel-entity-name="Product">
+        <key-map field-name="productId"/>
+      </relation>
+      <index name="PROD_KWD_KWD">
+        <index-field name="keyword"/>
+      </index>
+    </entity>
+    <entity entity-name="OldProductKeywordResult" table-name="PRODUCT_KEYWORD_RESULT"
+            package-name="org.apache.ofbiz.product.product"
+            never-cache="true"
+            title="Product Keyword Result Entity">
+      <field name="productKeywordResultId" type="id-ne"></field>
+      <field name="visitId" type="id"></field>
+      <field name="productCategoryId" type="id"></field>
+      <field name="searchString" type="short-varchar"></field>
+      <field name="intraKeywordOperator" type="very-short"></field>
+      <field name="anyPrefix" type="indicator"></field>
+      <field name="anySuffix" type="indicator"></field>
+      <field name="removeStems" type="indicator"></field>
+      <field name="numResults" type="numeric"></field>
+      <prim-key field="productKeywordResultId"/>
+      <relation type="one-nofk" rel-entity-name="ProductCategory">
+        <key-map field-name="productCategoryId"/>
+      </relation>
+    </entity>
+
+</entitymodel>

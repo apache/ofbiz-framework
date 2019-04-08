@@ -48,15 +48,16 @@
         </field>
     </form>
     <form name="AddPriceRules" type="single" target="createProductPriceRule">
-        <field name="ruleName" title="${uiLabelMap.ProductName}" required-field="true"><text size="30"/></field>
+        <field name="ruleName" title="${uiLabelMap.ProductName}"><text size="30"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
+    
     <!-- Below, I tried also single forms but lists are better as long as we have not introduced a better way to handle positions -->   
     <form name="EditProductPriceRule" type="list" target="updateProductPriceRule" title="" list-name="productPriceRules" 
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true">
         <field name="productPriceRuleId"><hidden/></field><!-- Users don't need this information there, the screen is already sufficiently complex! -->
-        <field name="ruleName" title="${uiLabelMap.CommonName}"><text size="15"/></field>
-        <field name="description" title="${uiLabelMap.CommonDescription}"><text size="25"/></field>
+        <field name="ruleName" title="${uiLabelMap.CommonName}"><text size="25"/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><text size="60"/></field>
         <field name="isSale" title="${uiLabelMap.ProductSaleRule}">
             <drop-down>
                 <option key="Y" description="${uiLabelMap.CommonY}"/>

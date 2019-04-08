@@ -31,6 +31,7 @@ import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
+import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
 
 /**
@@ -71,6 +72,7 @@ public final class OrderChangeHelper {
 
         try {
             OrderChangeHelper.orderStatusChanges(dispatcher, userLogin, orderId, HEADER_STATUS, "ITEM_CREATED", ITEM_STATUS, DIGITAL_ITEM_STATUS);
+            OrderChangeHelper.releaseInitialOrderHold(dispatcher, orderId);
         } catch (GenericServiceException e) {
             Debug.logError(e, "Service invocation error, status changes were not updated for order #" + orderId, module);
             return false;
@@ -94,6 +96,7 @@ public final class OrderChangeHelper {
             OrderChangeHelper.orderStatusChanges(dispatcher, userLogin, orderId, HEADER_STATUS, null, ITEM_STATUS, null);
             OrderChangeHelper.cancelInventoryReservations(dispatcher, userLogin, orderId);
             OrderChangeHelper.releasePaymentAuthorizations(dispatcher, userLogin,orderId);
+            OrderChangeHelper.releaseInitialOrderHold(dispatcher, orderId);
         } catch (GenericServiceException e) {
             Debug.logError(e, "Service invocation error, status changes were not updated for order #" + orderId, module);
             return false;
@@ -106,6 +109,9 @@ public final class OrderChangeHelper {
             OrderChangeHelper.createReceivedPayments(dispatcher, userLogin, orderId);
             OrderChangeHelper.createOrderInvoice(dispatcher, userLogin, orderId);
             OrderChangeHelper.orderStatusChanges(dispatcher, userLogin, orderId, "ORDER_COMPLETED", "ITEM_APPROVED", "ITEM_COMPLETED", null);
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+            return false;
         } catch (GenericServiceException e) {
             Debug.logError(e, module);
             return false;
@@ -128,6 +134,7 @@ public final class OrderChangeHelper {
             OrderChangeHelper.orderStatusChanges(dispatcher, userLogin, orderId, HEADER_STATUS, null, ITEM_STATUS, null);
             OrderChangeHelper.cancelInventoryReservations(dispatcher, userLogin, orderId);
             OrderChangeHelper.releasePaymentAuthorizations(dispatcher, userLogin,orderId);
+            OrderChangeHelper.releaseInitialOrderHold(dispatcher, orderId);
         } catch (GenericServiceException e) {
             Debug.logError(e, "Service invocation error, status changes were not updated for order #" + orderId, module);
             return false;
@@ -139,10 +146,8 @@ public final class OrderChangeHelper {
         // set the status on the order header
         Map<String, Object> statusFields = UtilMisc.<String, Object>toMap("orderId", orderId, "statusId", orderStatus, "userLogin", userLogin);
         Map<String, Object> statusResult = dispatcher.runSync("changeOrderStatus", statusFields);
-        if (ServiceUtil.isError(statusResult)) {
-            String errorMessage = ServiceUtil.getErrorMessage(statusResult);
-            Debug.logError(errorMessage, module);
-            throw new GenericServiceException(errorMessage);
+        if (statusResult.containsKey(ModelService.ERROR_MESSAGE)) {
+            Debug.logError("Problems adjusting order header status for order #" + orderId, module);
         }
 
         // set the status on the order item(s)
@@ -151,10 +156,8 @@ public final class OrderChangeHelper {
             itemStatusFields.put("fromStatusId", fromItemStatus);
         }
         Map<String, Object> itemStatusResult = dispatcher.runSync("changeOrderItemStatus", itemStatusFields);
-        if (ServiceUtil.isError(itemStatusResult)) {
-            String errorMessage = ServiceUtil.getErrorMessage(itemStatusResult);
-            Debug.logError(errorMessage, module);
-            throw new GenericServiceException(errorMessage);
+        if (itemStatusResult.containsKey(ModelService.ERROR_MESSAGE)) {
+            Debug.logError("Problems adjusting order item status for order #" + orderId, module);
         }
 
         // now set the status for digital items
@@ -196,10 +199,8 @@ public final class OrderChangeHelper {
                                     // update the status
                                     Map<String, Object> digitalStatusFields = UtilMisc.<String, Object>toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId, "statusId", digitalItemStatus, "userLogin", userLogin);
                                     Map<String, Object> digitalStatusChange = dispatcher.runSync("changeOrderItemStatus", digitalStatusFields);
-                                    if (ServiceUtil.isError(digitalStatusChange)) {
-                                        String errorMessage = ServiceUtil.getErrorMessage(digitalStatusChange);
-                                        Debug.logError(errorMessage, module);
-                                        throw new GenericServiceException(errorMessage);
+                                    if (ModelService.RESPOND_ERROR.equals(digitalStatusChange.get(ModelService.RESPONSE_MESSAGE))) {
+                                        Debug.logError("Problems with digital product status change : " + product, module);
                                     }
                                 }
                             }
@@ -209,10 +210,8 @@ public final class OrderChangeHelper {
                                 // non-product items don't ship; treat as a digital item
                                 Map<String, Object> digitalStatusFields = UtilMisc.<String, Object>toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId, "statusId", digitalItemStatus, "userLogin", userLogin);
                                 Map<String, Object> digitalStatusChange = dispatcher.runSync("changeOrderItemStatus", digitalStatusFields);
-                                if (ServiceUtil.isError(digitalStatusChange)) {
-                                    String errorMessage = ServiceUtil.getErrorMessage(digitalStatusChange);
-                                    Debug.logError(errorMessage, module);
-                                    throw new GenericServiceException(errorMessage);
+                                if (ModelService.RESPOND_ERROR.equals(digitalStatusChange.get(ModelService.RESPONSE_MESSAGE))) {
+                                    Debug.logError("Problems with digital product status change : " + product, module);
                                 }
                             }
                         }
@@ -226,24 +225,20 @@ public final class OrderChangeHelper {
         // cancel the inventory reservations
         Map<String, Object> cancelInvFields = UtilMisc.<String, Object>toMap("orderId", orderId, "userLogin", userLogin);
         Map<String, Object> cancelInvResult = dispatcher.runSync("cancelOrderInventoryReservation", cancelInvFields);
-        if (ServiceUtil.isError(cancelInvResult)) {
-            String errorMessage = ServiceUtil.getErrorMessage(cancelInvResult);
-            Debug.logError(errorMessage, module);
-            throw new GenericServiceException(errorMessage);
+        if (ModelService.RESPOND_ERROR.equals(cancelInvResult.get(ModelService.RESPONSE_MESSAGE))) {
+            Debug.logError("Problems reversing inventory reservations for order #" + orderId, module);
         }
     }
 
     public static void releasePaymentAuthorizations(LocalDispatcher dispatcher, GenericValue userLogin, String orderId) throws GenericServiceException {
         Map<String, Object> releaseFields = UtilMisc.<String, Object>toMap("orderId", orderId, "userLogin", userLogin);
         Map<String, Object> releaseResult = dispatcher.runSync("releaseOrderPayments", releaseFields);
-        if (ServiceUtil.isError(releaseResult)) {
-            String errorMessage = ServiceUtil.getErrorMessage(releaseResult);
-            Debug.logError(errorMessage, module);
-            throw new GenericServiceException(errorMessage);
+        if (ModelService.RESPOND_ERROR.equals(releaseResult.get(ModelService.RESPONSE_MESSAGE))) {
+            Debug.logError("Problems releasing payment authorizations for order #" + orderId, module);
         }
     }
 
-    public static void createReceivedPayments(LocalDispatcher dispatcher, GenericValue userLogin, String orderId) throws GenericServiceException {
+    public static void createReceivedPayments(LocalDispatcher dispatcher, GenericValue userLogin, String orderId) throws GenericEntityException, GenericServiceException {
         GenericValue orderHeader = null;
         try {
             orderHeader = dispatcher.getDelegator().findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
@@ -267,10 +262,8 @@ public final class OrderChangeHelper {
                         Map<String, Object> results = dispatcher.runSync("createPaymentFromPreference",
                                 UtilMisc.<String, Object>toMap("userLogin", userLogin, "orderPaymentPreferenceId", opp.getString("orderPaymentPreferenceId"),
                                 "paymentRefNum",  UtilDateTime.nowTimestamp().toString(), "paymentFromId", partyId));
-                        if (ServiceUtil.isError(results)) {
-                            String errorMessage = ServiceUtil.getErrorMessage(results);
-                            Debug.logError(errorMessage, module);
-                            throw new GenericServiceException(errorMessage);
+                        if (results.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR)) {
+                            Debug.logError((String) results.get(ModelService.ERROR_MESSAGE), module);
                         }
                     }
                 }
@@ -292,10 +285,17 @@ public final class OrderChangeHelper {
             Map<String, Object> serviceParam = UtilMisc.<String, Object>toMap("orderId", orderId, "billItems", items, "userLogin", userLogin);
             Map<String, Object> serviceRes = dispatcher.runSync("createInvoiceForOrder", serviceParam);
             if (ServiceUtil.isError(serviceRes)) {
-                String errorMessage = ServiceUtil.getErrorMessage(serviceRes);
-                Debug.logError(errorMessage, module);
-                throw new GenericServiceException(errorMessage);
+                throw new GenericServiceException(ServiceUtil.getErrorMessage(serviceRes));
             }
         }
+    }
+
+
+    public static boolean releaseInitialOrderHold(LocalDispatcher dispatcher, String orderId) {
+        return true;
+    }
+
+    public static boolean abortOrderProcessing(LocalDispatcher dispatcher, String orderId) {
+        return true;
     }
 }

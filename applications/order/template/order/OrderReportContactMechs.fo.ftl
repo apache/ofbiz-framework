@@ -18,7 +18,7 @@ under the License.
 -->
 <#escape x as x?xml>
 
-<#if "PURCHASE_ORDER" == orderHeader.getString("orderTypeId")>
+<#if orderHeader.getString("orderTypeId") == "PURCHASE_ORDER">
     <#if supplierGeneralContactMechValueMap??>
         <#assign contactMech = supplierGeneralContactMechValueMap.contactMech>
         <fo:block font-weight="bold">${uiLabelMap.OrderPurchasedFrom}:</fo:block>
@@ -52,7 +52,7 @@ under the License.
 <#list orderContactMechValueMaps as orderContactMechValueMap>
     <#assign contactMech = orderContactMechValueMap.contactMech>
     <#assign contactMechPurpose = orderContactMechValueMap.contactMechPurposeType>
-    <#if "POSTAL_ADDRESS" == contactMech.contactMechTypeId>
+    <#if contactMech.contactMechTypeId == "POSTAL_ADDRESS">
         <#assign postalAddress = orderContactMechValueMap.postalAddress>
         <fo:block font-weight="bold">${contactMechPurpose.get("description",locale)}:</fo:block>
         <fo:block text-indent="0.2in">
@@ -81,7 +81,7 @@ under the License.
     <#list orderPaymentPreferences as orderPaymentPreference>
         <fo:block text-indent="0.2in">
             <#assign paymentMethodType = orderPaymentPreference.getRelatedOne("PaymentMethodType", false)!>
-            <#if (orderPaymentPreference?? && ("CREDIT_CARD" == orderPaymentPreference.getString("paymentMethodTypeId")) && (orderPaymentPreference.getString("paymentMethodId")?has_content))>
+            <#if (orderPaymentPreference?? && (orderPaymentPreference.getString("paymentMethodTypeId") == "CREDIT_CARD") && (orderPaymentPreference.getString("paymentMethodId")?has_content))>
                 <#assign creditCard = orderPaymentPreference.getRelatedOne("PaymentMethod", false).getRelatedOne("CreditCard", false)>
                 ${Static["org.apache.ofbiz.party.contact.ContactHelper"].formatCreditCard(creditCard)}
             <#else>
@@ -90,7 +90,7 @@ under the License.
         </fo:block>
     </#list>
 </#if>
-<#if "SALES_ORDER" == orderHeader.getString("orderTypeId") && shipGroups?has_content>
+<#if orderHeader.getString("orderTypeId") == "SALES_ORDER" && shipGroups?has_content>
     <fo:block font-weight="bold">${uiLabelMap.OrderShipmentInformation}:</fo:block>
     <#list shipGroups as shipGroup>
         <fo:block text-indent="0.2in">

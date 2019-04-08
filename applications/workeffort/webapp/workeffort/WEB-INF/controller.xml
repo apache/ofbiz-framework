@@ -178,7 +178,7 @@ under the License.
     </request-map>
     <request-map uri="deleteWorkEffortRate">
         <security https="true" auth="true"/>
-        <event type="service" invoke="expireRateAmount"/>
+        <event type="service" invoke="deleteRateAmount"/>
         <response name="success" type="view" value="EditWorkEffortRates"/>
         <response name="error" type="view" value="EditWorkEffortRates"/>
     </request-map>
@@ -482,21 +482,21 @@ under the License.
 
     <request-map uri="createWorkEffortContent">
         <security auth="true" https="true"/>
-        <event type="service" invoke="createWorkEffortContent" path=""/>
+        <event invoke="createWorkEffortContent" path="" type="service"/>
         <response name="success" type="view" value="EditWorkEffortContents"/>
         <response name="error" type="view" value="EditWorkEffortContents"/>
     </request-map>
 
     <request-map uri="updateWorkEffortContent">
         <security auth="true" https="true"/>
-        <event type="service" invoke="updateWorkEffortContent" path=""/>
+        <event invoke="updateWorkEffortContent" path="" type="service"/>
         <response name="success" type="view" value="EditWorkEffortContents"/>
         <response name="error" type="view" value="EditWorkEffortContents"/>
     </request-map>
 
     <request-map uri="deleteWorkEffortContent">
         <security auth="true" https="true"/>
-        <event type="service" invoke="deleteWorkEffortContent" path=""/>
+        <event invoke="deleteWorkEffortContent" path="" type="service"/>
         <response name="success" type="view" value="EditWorkEffortContents"/>
         <response name="error" type="view" value="EditWorkEffortContents"/>
     </request-map>
@@ -509,21 +509,21 @@ under the License.
 
     <request-map uri="createWorkEffortGoodStandard">
         <security auth="true" https="true"/>
-        <event type="service" invoke="createWorkEffortGoodStandard" path=""/>
+        <event invoke="createWorkEffortGoodStandard" path="" type="service"/>
         <response name="success" type="view" value="EditWorkEffortGoodStandards"/>
         <response name="error" type="view" value="EditWorkEffortGoodStandards"/>
     </request-map>
 
     <request-map uri="updateWorkEffortGoodStandard">
         <security auth="true" https="true"/>
-        <event type="service" invoke="updateWorkEffortGoodStandard" path=""/>
+        <event invoke="updateWorkEffortGoodStandard" path="" type="service"/>
         <response name="success" type="view" value="EditWorkEffortGoodStandards"/>
         <response name="error" type="view" value="EditWorkEffortGoodStandards"/>
     </request-map>
 
     <request-map uri="removeWorkEffortGoodStandard">
         <security auth="true" https="true"/>
-        <event type="service" invoke="removeWorkEffortGoodStandard" path=""/>
+        <event invoke="removeWorkEffortGoodStandard" path="" type="service"/>
         <response name="success" type="view" value="EditWorkEffortGoodStandards"/>
         <response name="error" type="view" value="EditWorkEffortGoodStandards"/>
     </request-map>
@@ -770,14 +770,14 @@ under the License.
     <view-map name="LookupQuote" type="screen" page="component://order/widget/ordermgr/LookupScreens.xml#LookupQuote"/>
     <view-map name="LookupQuoteItem" type="screen" page="component://order/widget/ordermgr/LookupScreens.xml#LookupQuoteItem"/>
     <view-map name="LookupOrderHeader" type="screen" page="component://order/widget/ordermgr/LookupScreens.xml#LookupOrderHeader"/>
-    <view-map name="LookupInvoice" type="screen" page="component://accounting/widget/LookupScreens.xml#LookupInvoice"/>
-    <view-map name="LookupContent" type="screen" page="component://content/widget/content/ContentScreens.xml#LookupContent"/>
+    <view-map name="LookupInvoice" page="component://accounting/widget/LookupScreens.xml#LookupInvoice" type="screen"/>
+    <view-map name="LookupContent" page="component://content/widget/content/ContentScreens.xml#LookupContent" type="screen"/>
     <view-map name="LookupContactMech" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupContactMech"/>
     <view-map name="LookupPreferredContactMech" type="screen" page="component://marketing/widget/ContactListScreens.xml#LookupPreferredContactMech"/>
     <view-map name="LookupContactList" type="screen" page="component://party/widget/partymgr/PartyContactListScreens.xml#ListLookupContactList"/>
 
     <view-map name="EditAgreementWorkEffortApplics" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#EditAgreementWorkEffortApplics"/>
-    <view-map name="LookupAgreement" type="screen" page="component://accounting/widget/LookupScreens.xml#LookupAgreement"/>
-    <view-map name="LookupAgreementItem" type="screen" page="component://accounting/widget/LookupScreens.xml#LookupAgreementItem"/>
+    <view-map name="LookupAgreement" page="component://accounting/widget/LookupScreens.xml#LookupAgreement" type="screen"/>
+    <view-map name="LookupAgreementItem" page="component://accounting/widget/LookupScreens.xml#LookupAgreementItem" type="screen"/>
     <!-- end of view mappings -->
 </site-conf>

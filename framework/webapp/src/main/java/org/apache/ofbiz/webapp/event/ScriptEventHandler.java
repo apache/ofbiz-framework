@@ -32,7 +32,6 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.ScriptUtil;
-import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader.Event;
@@ -40,7 +39,7 @@ import org.apache.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
 
 /**
  * Generic Script Event Handler. This event handler uses the javax.script package (JSR-223) to invoke scripts or script functions.
- * <p>The script event handler will put the following artifacts in the script engine's bindings:</p>
+ * <p>The script event handler will put the following artifacts in the script engine's bindings:<br />
  * <ul>
  *   <li><code>parameters</code> - a <code>Map</code> containing servlet context, session, request attributes and parameters</li>
  *   <li><code>request</code> - a <code>HttpServletRequest</code> instance</li>
@@ -52,7 +51,7 @@ import org.apache.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
  *   <li><code>locale</code> - a <code>Locale</code> instance</li>
  *   <li><code>timeZone</code> - a <code>TimeZone</code> instance</li>
  *   <li><code>userLogin</code> - a UserLogin <code>GenericValue</code></li>
- * </ul>
+ * </ul></p>
  * <p>If the event element includes an invoke attribute, then the matching script function/method will be called
  * with a single argument - the bindings <code>Map</code>.</p>
  */
@@ -110,7 +109,7 @@ public final class ScriptEventHandler implements EventHandler {
                 return "error";
             }
             if (result instanceof Map) {
-                Map<String, Object> resultMap = UtilGenerics.cast(result);
+                Map resultMap = (Map)result;
                 String successMessage = (String)resultMap.get("_event_message_");
                 if (successMessage != null) {
                     request.setAttribute("_EVENT_MESSAGE_", successMessage);

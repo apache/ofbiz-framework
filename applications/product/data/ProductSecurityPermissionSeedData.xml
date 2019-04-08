@@ -38,10 +38,10 @@ under the License.
     <SecurityPermission description="Upload photos in the Image Management." permissionId="IMAGE_MANAGEMENT_UPLOAD"/>
     
     <!-- add admin to SUPER permission group -->
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="CATALOG_ADMIN"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="CATALOG_PRICE_MAINT"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="CATALOG_VIEW_ALLOW"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="CATALOG_PURCHASE_ALLOW"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="IMAGE_MANAGEMENT_ADMIN"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="CATALOG_ADMIN"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="CATALOG_PRICE_MAINT"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="CATALOG_VIEW_ALLOW"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="CATALOG_PURCHASE_ALLOW"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="IMAGE_MANAGEMENT_ADMIN"/>
         
 </entity-engine-xml>

@@ -207,8 +207,8 @@
 
     <view-map name="EntityExportAll" type="screen" page="component://commonext/widget/ofbizsetup/CommonScreens.xml#EntityExportAll"/>
 
-    <view-map name="FindWebSite" type="screen" page="component://commonext/widget/ofbizsetup/SetupScreens.xml#FindWebSite"/>
-    <view-map name="EditWebSite" type="screen" page="component://commonext/widget/ofbizsetup/SetupScreens.xml#EditWebSite"/>
+    <view-map name="FindWebSite" page="component://commonext/widget/ofbizsetup/SetupScreens.xml#FindWebSite" type="screen"/>
+    <view-map name="EditWebSite" page="component://commonext/widget/ofbizsetup/SetupScreens.xml#EditWebSite" type="screen"/>
     
     <view-map name="firstcustomer" type="screen" page="component://commonext/widget/ofbizsetup/ProfileScreens.xml#FirstCustomer"/>
     <view-map name="firstproduct" type="screen" page="component://commonext/widget/ofbizsetup/SetupScreens.xml#EditProdCatalog"/>

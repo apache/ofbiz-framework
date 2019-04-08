@@ -40,8 +40,7 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    
-    <grid name="ListRoutings" title="" list-name="listIt"
+    <form name="ListRoutings" type="list" title="" list-name="listIt"
         paginate-target="FindRouting" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <set field="entityName" value="WorkEffort"/>
@@ -61,8 +60,7 @@ under the License.
         <field name="description"><display/></field>
         <field name="quantityToProduce" title="${uiLabelMap.ManufacturingQuantityToProduce}"><display/></field>
         <field name="currentStatusId"><display-entity entity-name="StatusItem" description="${description}" key-field-name="statusId"/></field>
-    </grid>
-    
+    </form>
     <form name="EditRouting" type="single" target="UpdateRouting" title="" default-map-name="routing"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="routing==null" target="CreateRouting"/>
@@ -103,8 +101,7 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    
-    <grid name="ListRoutingTasks" title="" list-name="listIt"
+    <form name="ListRoutingTasks" type="list" title="" list-name="listIt"
         paginate-target="FindRoutingTask" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <set field="entityName" value="WorkEffort"/>
@@ -130,8 +127,7 @@ under the License.
         </field>
         <field name="estimatedSetupMillis" title="${uiLabelMap.ManufacturingTaskEstimatedSetupMillis}"><display/></field>
         <field name="estimatedMilliSeconds" title="${uiLabelMap.ManufacturingTaskEstimatedMilliSeconds}"><display/></field>
-    </grid>
-    
+    </form>
     <form name="EditRoutingTask" type="single" target="UpdateRoutingTask" title="" default-map-name="routingTask"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="routingTask==null" target="CreateRoutingTask"/>
@@ -168,8 +164,7 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    
-    <grid name="ListRoutingTaskCosts" title="" list-name="allCosts"
+    <form name="ListRoutingTaskCosts" type="list" title="" list-name="allCosts"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="WorkEffortCostCalc" default-field-type="display"/>
         <field name="workEffortId"><hidden/></field>
@@ -194,8 +189,7 @@ under the License.
                 <parameter param-name="workEffortId"/>
             </hyperlink>
         </field>
-    </grid>
-    
+    </form>
     <form name="AddRoutingTaskCost" type="single" target="addRoutingTaskCost" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="WorkEffortCostCalc" default-field-type="edit"/>
@@ -218,8 +212,7 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    
-    <grid name="ListRoutingTaskRoutings" title="" list-name="allRoutings"
+    <form name="ListRoutingTaskRoutings" type="list" title="" list-name="allRoutings"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="workEffortIdFrom" title="${uiLabelMap.ManufacturingRouting}">
             <display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="[${workEffortId}] ${workEffortName}"/>
@@ -232,10 +225,10 @@ under the License.
                 <parameter param-name="workEffortId" from-field="workEffortIdFrom"/>
             </hyperlink>
         </field>
-    </grid>
+    </form>
 
     <!-- Routing Task Assoc Forms -->
-    <grid name="ListRoutingTaskAssoc" target="EditRoutingTaskAssoc" title="" list-name="allRoutingTasks"
+    <form name="ListRoutingTaskAssoc" type="list" target="EditRoutingTaskAssoc" title="" list-name="allRoutingTasks"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="updateWorkEffortAssoc" map-name="routingTaskAssoc"/>
         <field name="workEffortIdFrom"><hidden/></field>
@@ -264,7 +257,7 @@ under the License.
             <sort-field name="workEffortIdTo"/>
             <sort-field name="sequenceNum"/>
         </sort-order>
-    </grid>
+    </form>
 
      <form name="UpdateRoutingTaskAssoc" type="single" target="UpdateRoutingTaskAssoc" title=""
         header-row-style="header-row" default-table-style="basic-table">
@@ -305,7 +298,7 @@ under the License.
         </field>
     </form>
 
-   <grid name="ListRoutingProductLink" target="EditRoutingProductLink" title="" list-name="allRoutingProductLinks"
+   <form name="ListRoutingProductLink" type="list" target="EditRoutingProductLink" title="" list-name="allRoutingProductLinks"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="productId" widget-style="buttontext">
             <hyperlink description="${productId}" target="/catalog/control/ViewProductManufacturing" also-hidden="false" target-type="inter-app">
@@ -334,9 +327,8 @@ under the License.
                 <parameter param-name="workEffortGoodStdTypeId" value="ROU_PROD_TEMPLATE"/>
             </hyperlink>
         </field>
-    </grid>
-    
-   <grid name="ListRoutingTaskProducts" target="ListRoutingTaskProducts" title="" list-name="allProducts"
+    </form>
+   <form name="ListRoutingTaskProducts" type="list" target="ListRoutingTaskProducts" title="" list-name="allProducts"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="productId" title="${uiLabelMap.ProductProductName}">
             <display-entity entity-name="Product" description="${productId} ${internalName}"/>
@@ -359,7 +351,7 @@ under the License.
                 <parameter param-name="workEffortGoodStdTypeId" value="PRUNT_PROD_DELIV"/>
                 </hyperlink>
         </field>
-    </grid>
+    </form>
     <form name="EditRoutingTaskProduct" type="single" target="updateRoutingTaskProduct" title="" default-map-name="routingProductLink"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="routingProductLink==null" target="addRoutingTaskProduct"/>
@@ -382,7 +374,7 @@ under the License.
     </form>
 
     <!-- RoutingTask-FixedAsset association (WorkEffortFixedAssetStd) -->
-    <grid name="ListRoutingTaskFixedAssets" title="" target="updateRoutingTaskFixedAsset" list-name="allFixedAssets"
+    <form name="ListRoutingTaskFixedAssets" type="list" title="" target="updateRoutingTaskFixedAsset" list-name="allFixedAssets"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" separate-columns="true">
         <auto-fields-entity entity-name="WorkEffortFixedAssetStd"/>
         <field name="workEffortId"><hidden/></field>
@@ -398,8 +390,7 @@ under the License.
                 <parameter param-name="fixedAssetTypeId"/>
             </hyperlink>
         </field>
-    </grid>
-    
+    </form>
     <form name="EditRoutingTaskFixedAsset" type="single" title="" target="createRoutingTaskFixedAsset"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="WorkEffortFixedAssetStd" default-field-type="edit"/>
@@ -429,8 +420,7 @@ under the License.
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
         <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    
-    <grid name="ListRoutingTaskParties" target="updateRoutinTaskPartyAssign" list-name="routingTaskParties"
+    <form name="ListRoutingTaskParties" type="list" target="updateRoutinTaskPartyAssign" list-name="routingTaskParties"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" paginate-target="EditRoutingTaskParties">
         <field name="workEffortId"><hidden/></field>
         <field name="partyId">
@@ -444,37 +434,5 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
-    </grid>
-    
-    <form name="AddRoutingTaskSkill" target="createRoutingTaskSkill" type="single"
-          header-row-style="header-row" default-table-style="basic-table">
-        <auto-fields-entity entity-name="WorkEffortSkillStandard" default-field-type="edit"/>
-        <field name="workEffortId"><hidden/></field>
-        <field name="skillTypeId" required-field="true">
-            <drop-down allow-empty="false">
-                <entity-options entity-name="SkillType">
-                    <entity-order-by field-name="description"/>
-                </entity-options>
-            </drop-down>
-        </field>
-        <field name="submitButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    
-    <grid name="ListRoutingTaskSkills" target="updateRoutingTaskSkill" list-name="routingTaskSkills"
-          odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" paginate-target="EditRoutingTaskSkills" separate-columns="true">
-        <auto-fields-entity entity-name="WorkEffortSkillStandard"/>
-        <field name="workEffortId"><hidden/></field>
-        <field name="skillTypeId">
-            <display-entity entity-name="SkillType" key-field-name="skillTypeId"/>
-        </field>
-        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
-            <submit button-type="button"/>
-        </field>
-        <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteRoutingTaskSkill" also-hidden="false">
-                <parameter param-name="workEffortId"/>
-                <parameter param-name="skillTypeId"/>
-            </hyperlink>
-        </field>
-    </grid>
 </forms>

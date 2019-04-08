@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ofbiz.apache.org/Site-Conf" xsi:schemaLocation="http://ofbiz.apache.org/Site-Conf http://ofbiz.apache.org/dtds/site-conf.xsd">
+    <!-- The controller elements that are common to all OFBiz components can be found in the following xml file. A component
+        can override the elements found in the common-controller.xml file. -->
+
+    <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
+    <include location="component://commonext/webapp/WEB-INF/controller.xml"/>
+
+    <description>Solr Configuration File</description>
+
+    <!-- Events to run on every request before security (chains exempt) -->
+    <preprocessor>
+        <event name="checkExternalLoginKey" type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="checkExternalLoginKey" />
+    </preprocessor>
+    
+    <!-- Security Mappings -->
+    <request-map uri="checkLogin" edit="false">
+        <description>Verify a user is logged in.</description>
+        <security https="true" auth="false"/>
+        <event type="java" path="org.apache.ofbiz.solr.control.OFBizSolrLoginWorker" invoke="extensionCheckLogin"/>
+        <response name="success" type="none"/>
+        <response name="error" type="view" value="login"/>
+    </request-map>
+    <request-map uri="login">
+        <security https="true" auth="false"/>
+        <event type="java" path="org.apache.ofbiz.solr.control.OFBizSolrLoginWorker" invoke="login"/>
+        <response name="success" type="none"/>
+        <response name="requirePasswordChange" type="view" value="requirePasswordChange"/>
+        <response name="error" type="view" value="login"/>
+    </request-map>
+    <request-map uri="logout">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="logout"/>
+        <response name="success" type="view" value="login"/>
+        <response name="error" type="view" value="login"/>
+    </request-map>
+    <request-map uri="main">
+        <security https="true" auth="false"/>
+        <response name="success" type="view" value="main"/>
+    </request-map>
+    <request-map uri="newquery">
+        <security https="true" auth="false"/>
+        <response name="success" type="view" value="newquery"/>
+    </request-map>
+    
+    <!-- view-maps -->
+    <view-map name="main" type="screen" page="component://solr/widget/SolrScreens.xml#Main"/>
+    <view-map name="newquery" type="screen" page="component://solr/widget/SolrScreens.xml#NewQuery"/>
+    
+</site-conf>

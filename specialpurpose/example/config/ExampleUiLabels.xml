@@ -1,0 +1,1212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
+    <property key="ContentFopFonts">
+        <value xml:lang="en">FOP fonts in a PDF</value>
+        <value xml:lang="fr">Polices FOP dans un PDF</value>
+        <value xml:lang="zh">PDF中的FOP字体</value>
+    </property>
+    <property key="ExampleAjaxExamples">
+        <value xml:lang="en">Ajax Examples</value>
+        <value xml:lang="fr">Exemples Ajax</value>
+        <value xml:lang="it">Esempi Ajax</value>
+        <value xml:lang="ja">AJAXサンプル</value>
+        <value xml:lang="zh">Ajax样例</value>
+        <value xml:lang="zh-TW">Ajax範例</value>
+    </property>
+    <property key="ExampleAjaxIntro">
+        <value xml:lang="en">To use this Ajax demonstration, you must have JavaScript enabled on your browser.</value>
+        <value xml:lang="fr">Pour utiliser cette démonstration Ajax, vous devez avoir activé Javascript </value>
+        <value xml:lang="it">Per usare questa dimostrazione Ajax, tu devi avere JavaScript abilitato sul tuo browser.</value>
+        <value xml:lang="ja">このAJAXデモを使用するには、ブラウザのJavaScriptを有効にする必要があります。</value>
+        <value xml:lang="zh">要使用这个Ajax演示，你必须让你的浏览器启用JavaScript。</value>
+        <value xml:lang="zh-TW">要使用這個Ajax演示,你必須讓你的瀏覽器啟用JavaScript.</value>
+    </property>
+  <!-- Example component properties -->
+    <property key="ExampleApplication">
+        <value xml:lang="en">Example Application</value>
+        <value xml:lang="fr">Application exemple</value>
+        <value xml:lang="it">Applicazione Esempi</value>
+        <value xml:lang="ja">サンプルアプリケーション</value>
+        <value xml:lang="ro">Aplicatie Exemple</value>
+        <value xml:lang="ru">Приложение Пример</value>
+        <value xml:lang="th">ตัวอย่างโปรแกรมคอมพิวเตอร์</value>
+        <value xml:lang="zh">样例应用</value>
+        <value xml:lang="zh-TW">範例應用</value>
+    </property>
+    <property key="ExampleAutocompleteDropdown">
+        <value xml:lang="en">Autocomplete Dropdown</value>
+        <value xml:lang="fr">Liste déroulante à auto complétion</value>
+        <value xml:lang="ja">ドロップダウン・オートコンプリート</value>
+        <value xml:lang="zh">自动填充的下拉框</value>
+        <value xml:lang="zh-TW">自動填滿的下拉清單</value>
+    </property>
+    <property key="ExampleAutocompleteTooltip">
+        <value xml:lang="en">COUNTRY type based example, use Geo.Geoid and Geo.GeoName Entity.fields for completion</value>
+        <value xml:lang="fr">Exemple sur le type COUNTRY et utilisant Geo.Geoid et Geo.GeoName comme Entité.champs pour la complétion</value>
+        <value xml:lang="ja">国種類に基づくサンプル。位置ID、位置名称のエンティティ項目を使用して完了します</value>
+        <value xml:lang="zh">基于国家类型的样例，使用Geo.Geoid和Geo.GeoName等Entity.fields来填充</value>
+        <value xml:lang="zh-TW">基於國家類型的範例,使用Geo.Geoid和Geo.GeoName等Entity.fields來完成</value>
+    </property>
+    <property key="ExampleSpecifyOtherDropdown">
+        <value xml:lang="en">Specify-other Dropdown</value>
+        <value xml:lang="zh">指定其它输入的下拉框</value>
+        <value xml:lang="zh-TW">指定其它輸入的下拉清單</value>
+    </property>
+    <property key="ExampleSpecifyOtherTooltip">
+        <value xml:lang="en">Select "specify other" option, an input box will be shown next to dropdown. See tootip of other-field-size attribute of drop-down form element</value>
+        <value xml:lang="zh">如果选择"specify other"，下拉框旁边会出现本文框。参考form的drop-down元素的other-field-size属性说明</value>
+        <value xml:lang="zh-TW">如果選擇"specify other",下拉清單旁邊會出現本文框.參考form的drop-down元素的other-field-size屬性說明</value>
+    </property>
+    <property key="ExampleBarChart">
+        <value xml:lang="en">Bar Chart</value>
+        <value xml:lang="fr">Histogramme</value>
+        <value xml:lang="zh">柱图</value>
+    </property>
+    <property key="ExampleBaseNodeVersion">
+        <value xml:lang="de">Verion des Content Knoten</value>
+        <value xml:lang="en">Version of the base content node</value>
+        <value xml:lang="ja">基本コンテンツノードのバージョン</value>
+        <value xml:lang="zh">基础内容节点的版本</value>
+        <value xml:lang="zh-TW">基礎內容節點的版本</value>
+    </property>
+    <property key="ExampleCalendarFromLayer">
+        <value xml:lang="en">Calendar field (only test purp.)</value>
+        <value xml:lang="fr">Calendrier (only test)</value>
+        <value xml:lang="ja">カレンダ項目 (テスト目的のみ)</value>
+        <value xml:lang="zh">日历数据项（仅用于测试）</value>
+        <value xml:lang="zh-TW">日曆資料項目(僅用於測試)</value>
+    </property>
+    <property key="ExampleCompanyName">
+        <value xml:lang="en">OFBiz: Example</value>
+        <value xml:lang="fr">OFBiz : Exemple</value>
+        <value xml:lang="it">OFBiz: Esempi</value>
+        <value xml:lang="ja">OFBiz: サンプル</value>
+        <value xml:lang="ro">OFBiz: Exemple</value>
+        <value xml:lang="ru">OFBiz: Пример</value>
+        <value xml:lang="th">OFBiz: ตัวอย่าง</value>
+        <value xml:lang="zh">OFBiz: 样例</value>
+        <value xml:lang="zh-TW">OFBiz: 範例</value>
+    </property>
+    <property key="ExampleCompanySubtitle">
+    <!--value xml:lang="ar">جزء من عائلة أوفبيز للبرمجيات الحرة</value-->
+        <value xml:lang="ar">جزء من عائلة أوفبيز للتطبيقات الحرة للتسيير</value>
+        <value xml:lang="de">Teil der Apache OFBiz Familie von Open Source Software</value>
+        <value xml:lang="en">Part of the Apache OFBiz Family of Open Source Software</value>
+    <!--value xml:lang="es">Parte de la familia "Open for Bussiness" de Software Libre</value-->
+        <value xml:lang="es">Parte de la familia de software Apache OFBiz de código abierto</value>
+        <value xml:lang="fr">Un module de la famille Apache OFBiz, logiciel libre de gestion d'entreprise.</value>
+        <value xml:lang="it">Un modulo della famiglia di software open source Apache OFBiz</value>
+    <!--value xml:lang="nl">Onderdeel van de Apache OFBiz'-suite</value-->
+        <value xml:lang="ja">Part of the Apache OFBiz Family of Open Source Software</value>
+        <value xml:lang="nl">Deel van de Apache OFBiz-suite van Open Source Software</value>
+        <value xml:lang="pt-BR">Parte da família OfBiz de software de fonte aberta</value>
+    <!--value xml:lang="pt-PT">Parte do Software de Fonte Aberta para Grupos Abertos Para o Negócio</value-->
+        <value xml:lang="pt-PT">Parte da família OfBiz de software de fonte aberta</value>
+    <!--value xml:lang="ro">Parte accesibila pentru Business Family of Open Source Software</valuevalue xml:lang="ro">Parte din Open for Business Family of Open Source Software</value-->
+        <value xml:lang="ro">Partea de Deschidere Pentru Afaceri Familiale din Open Source Software</value>
+    <!--value xml:lang="ru">Часть семейства ПО Apache OFBiz</valuevalue xml:lang="ru">Часть семейства "Apache OFBiz Family" программных продуктов Open Source </value-->
+        <value xml:lang="ru">Входит в состав семейства Apache OFBiz</value>
+    <!--value xml:lang="th">เป็นส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value-->
+        <value xml:lang="th">ส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value>
+    <!--value xml:lang="zh">开源软件OFBiz的组成部分</valuevalue xml:lang="zh">开源软件OFBiz的组成部分</value-->
+        <value xml:lang="zh">开源软件OFBiz家族的一部分</value>
+        <value xml:lang="zh-CN">OFBiz的一部分</value>
+        <value xml:lang="zh-TW">開源軟體OFBiz家族的一部分</value>
+    </property>
+    <property key="ExampleChart">
+        <value xml:lang="en">Chart examples</value>
+        <value xml:lang="fr">Graphes</value>
+        <value xml:lang="zh">绘图样例</value>
+    </property>
+    <property key="ExampleCompoundWidgets">
+        <value xml:lang="en">Compound Screen Widget</value>
+        <value xml:lang="fr">Screen Widget composé</value>
+    </property>
+    <property key="ExampleDashboard">
+        <value xml:lang="en">Dashboard</value>
+        <value xml:lang="fr">Personnalisation des pages</value>
+        <value xml:lang="it">Cruscotto</value>
+        <value xml:lang="ja">ダッシュボード</value>
+        <value xml:lang="zh">个人主页</value>
+        <value xml:lang="zh-TW">個人主頁</value>
+    </property>
+    <property key="ExampleDateField10Title">
+        <value xml:lang="en">Field10: date and time selection field with default value</value>
+        <value xml:lang="fr">Champ 10 : sélection de date et temps (valeur par défaut)</value>
+        <value xml:lang="it">Campo10: campo di selezione con valore di default per data e ora</value>
+        <value xml:lang="ja">フィールド10: デフォルト値での日付および時間の選択フィールド</value>
+        <value xml:lang="zh">数据项10：带有缺省值的日期和时间选择</value>
+        <value xml:lang="zh-TW">資料項目10:帶有預設值的日期和時間選擇</value>
+    </property>
+    <property key="ExampleDateField10Tooltip">
+        <value xml:lang="en">Same as above, uses the nowTimestamp variable (always available in the form context) to set the default value to now</value>
+        <value xml:lang="fr">La même chose mais la variable nowTimestamp (toujours disponible dans context) est utilisée pour affecter la valeur par défaut à "maintenant"</value>
+        <value xml:lang="it">Lo stesso di sopra, usare la variabile nowTimestamp (sempre disponibile nel contesto della form) per impostare il valore di default ad adesso</value>
+        <value xml:lang="ja">同上、デフォルト値に現在をセットするために、現在のタイムスタンプを使用 (フォームコンテキストの中で常に使用可能)</value>
+        <value xml:lang="zh">同上，使用nowTimstamp变量(在表单中总是可用的)来把缺省值设置为现在</value>
+        <value xml:lang="zh-TW">同上,使用nowTimstamp變數(在表單中總是可用的)來把預設值設置為現在</value>
+    </property>
+    <property key="ExampleDateField11Title">
+        <value xml:lang="en">Field11: date and time selection field with default value</value>
+        <value xml:lang="fr">Champ 11 : sélection de date et temps (valeur par défaut)</value>
+        <value xml:lang="it">Campo11: campo di selezione con valore di default per data e ora</value>
+        <value xml:lang="ja">フィールド11: デフォルト値での日付および時間の選択</value>
+        <value xml:lang="zh">数据项11：带有缺省值的日期和时间选择</value>
+        <value xml:lang="zh-TW">資料項目11:帶有預設值的日期和時間選擇</value>
+    </property>
+    <property key="ExampleDateField11Tooltip">
+        <value xml:lang="en">Uses the \${date:dayStart(nowTimestamp, timeZone, locale)} UEL expression to set the default value to the start of today</value>
+        <value xml:lang="ja">デフォルト値に今日の開始をセットするために \${date:dayStart(nowTimestamp, timeZone, locale)} UEL 表現を使用</value>
+        <value xml:lang="zh">使用\${date:dayStart(nowTimestamp, timeZone, locale)}表达式来把缺省值设置为今天的开始时间</value>
+        <value xml:lang="zh-TW">使用\${date:dayStart(nowTimestamp, timeZone, locale)}運算式來把預設值設置為今天的開始時間</value>
+    </property>
+    <property key="ExampleDateField12Title">
+        <value xml:lang="en">Field12: advanced date time selection with a step value for minutes</value>
+        <value xml:lang="fr">Champ 12 : Sélection avancée date et temps avec la possibilité de choisir un pas pour les minutes</value>
+        <value xml:lang="ja">フィールド12: 分の段階のある拡張日時選択</value>
+        <value xml:lang="zh">数据项12：带有分钟步长的高级日期时间选择</value>
+        <value xml:lang="zh-TW">資料項目12:帶有分鐘步長的高級日期時間選擇</value>
+    </property>
+    <property key="ExampleDateField12Tooltip">
+        <value xml:lang="en">Use step=1 (default), 5, 10, 15, 30</value>
+        <value xml:lang="fr">Utiliser 1 (valeur par défaut), 5, 10, 15, 30 pour la valeur du pas</value>
+        <value xml:lang="ja">ステップ=1 (デフォルト), 5, 10, 15, 30 を使用します</value>
+        <value xml:lang="zh">使用步长=1 (缺省), 5, 10, 15, 30</value>
+        <value xml:lang="zh-TW">使用步長=1 (預設), 5, 10, 15, 30</value>
+    </property>
+    <property key="ExampleDateField1Title">
+        <value xml:lang="en">Field1: date and time selection field</value>
+        <value xml:lang="fr">Champ 1 : sélection de date et temps</value>
+        <value xml:lang="it">Campo1: campo di selezione data e ora</value>
+        <value xml:lang="ja">フィールド1: 日付および時間の選択フィールド</value>
+        <value xml:lang="zh">数据项1：日期和时间选择</value>
+        <value xml:lang="zh-TW">資料項目1:日期和時間選擇</value>
+    </property>
+    <property key="ExampleDateField2Title">
+        <value xml:lang="en">Field2: date selection field</value>
+        <value xml:lang="fr">Champ 2 : sélection de date</value>
+        <value xml:lang="it">Campo2: campo di selezione data</value>
+        <value xml:lang="ja">フィールド2: 日付の選択フィールド</value>
+        <value xml:lang="zh">数据项2：日期选择</value>
+        <value xml:lang="zh-TW">資料項目2:日期選擇</value>
+    </property>
+    <property key="ExampleDateField3Title">
+        <value xml:lang="en">Field3: time selection field</value>
+        <value xml:lang="fr">Champ 3 : sélection de temps</value>
+        <value xml:lang="it">Campo3: campo di selezione ora</value>
+        <value xml:lang="ja">フィールド3: 時間の選択フィールド</value>
+        <value xml:lang="zh">数据项3：时间选择</value>
+        <value xml:lang="zh-TW">資料項目3:時間選擇</value>
+    </property>
+    <property key="ExampleDateField4Title">
+        <value xml:lang="en">Field4: advanced date time selection</value>
+        <value xml:lang="fr">Champ 4 : sélection avancée de date et temps </value>
+        <value xml:lang="it">Campo4: selezione avanzata data e ora</value>
+        <value xml:lang="ja">フィールド4: 詳細な日付時間の選択</value>
+        <value xml:lang="zh">数据项4：高级日期时间选择</value>
+        <value xml:lang="zh-TW">資料項目4:高級日期時間選擇</value>
+    </property>
+    <property key="ExampleDateField4Tooltip">
+        <value xml:lang="en">Use the input-method (time-dropdown) and clock (24) attributes to create drop down boxes for hour and minute selections</value>
+        <value xml:lang="fr">Utilise des listes déroulantes pour définir les heures et minutes</value>
+        <value xml:lang="it">Usare il metodo di input (time-dropdown) e gli attributi ora (24) per creare i box per la selezione ore e minuti</value>
+        <value xml:lang="ja">時および分の選択のためのドロップダウンボックスを作成するために入力方法 (時間のドロップダウン) および 時計 (24) 属性の使用</value>
+        <value xml:lang="zh">使用输入方法(时间下拉框)和时钟(24)属性来创建小时和分钟的下拉框</value>
+        <value xml:lang="zh-TW">使用輸入方法(時間下拉清單)和時鐘(24)屬性來新建小時和分鐘的下拉清單</value>
+    </property>
+    <property key="ExampleDateField5Title">
+        <value xml:lang="en">Field5: advanced date time selection (AM/PM)</value>
+        <value xml:lang="fr">Champ 5 : sélection avancée de date et temps (AM/PM)</value>
+        <value xml:lang="it">Campo5: selezione avanzata data e ora (AM/PM)</value>
+        <value xml:lang="ja">フィールド5: 詳細な日付時間の選択</value>
+        <value xml:lang="zh">数据项5：高级日期时间选择(上午/下午)</value>
+        <value xml:lang="zh-TW">資料項目5:高級日期時間選擇(上午/下午)</value>
+    </property>
+    <property key="ExampleDateField6Title">
+        <value xml:lang="en">Field6: date and time simple display</value>
+        <value xml:lang="fr">Champ 5 : affichage simple de date et temps</value>
+        <value xml:lang="it">Campo6: data e ora semplice da visualizzare</value>
+        <value xml:lang="ja">フィールド6: 日付および時間のシンプル表示</value>
+        <value xml:lang="zh">数据项6：日期和时间简单显示</value>
+        <value xml:lang="zh-TW">資料項目6:日期和時間簡單顯示</value>
+    </property>
+    <property key="ExampleDateField7Title">
+        <value xml:lang="en">Field7: date and time display with custom format</value>
+        <value xml:lang="fr">Champ 7 : affichage de date et temps à un format spécifique</value>
+        <value xml:lang="it">Campo7: data e ora da visualizzare con un formato personalizzato</value>
+        <value xml:lang="ja">フィールド7: 日付および時間のカスタム書式表示</value>
+        <value xml:lang="zh">数据项7：使用定制格式显示日期和时间</value>
+        <value xml:lang="zh-TW">資料項目7:使用客製格式顯示日期和時間</value>
+    </property>
+    <property key="ExampleDateField7Tooltip">
+        <value xml:lang="en">This is an example of MM/dd/yyyy format</value>
+        <value xml:lang="fr">Exemple auformat MM/dd/yyyy</value>
+        <value xml:lang="it">Questo è un'esempio di formato data MM/gg/aaaa</value>
+        <value xml:lang="ja">書式 MM/dd/yyyy のサンプル</value>
+        <value xml:lang="zh">这是MM/dd/yyyy格式样例</value>
+        <value xml:lang="zh-TW">這是MM/dd/yyyy格式範例</value>
+    </property>
+    <property key="ExampleDateField8Title">
+        <value xml:lang="en">Field8: date and time display with custom format</value>
+        <value xml:lang="fr">Champ 8 : affichage de date et temps à un format spécifique</value>
+        <value xml:lang="it">Campo8: data e ora da visualizzare con un formato personalizzato</value>
+        <value xml:lang="ja">フィールド8: 日付および時間のカスタム書式表示</value>
+        <value xml:lang="zh">数据项8：使用定制格式显示日期和时间</value>
+        <value xml:lang="zh-TW">資料項目8:使用客製格式顯示日期和時間</value>
+    </property>
+    <property key="ExampleDateField8Tooltip">
+        <value xml:lang="en">This is an example of MMMM, dd, yyyy format</value>
+        <value xml:lang="fr">Exemple au format MMMM, dd, yyyy</value>
+        <value xml:lang="it">Questo è un'esempio di formato data MMMM, gg, aaaa</value>
+        <value xml:lang="ja">書式 MMMM, dd, yyyy のサンプル</value>
+        <value xml:lang="zh">这是MMMM, dd, yyyy格式样例</value>
+        <value xml:lang="zh-TW">這是MMMM, dd, yyyy格式範例</value>
+    </property>
+    <property key="ExampleDateField9Title">
+        <value xml:lang="en">Field9: date and time selection field with default value</value>
+        <value xml:lang="fr">Champ 9 : sélection de date et temps avec valeur par défaut</value>
+        <value xml:lang="it">Campo9: campo di selezione con valore di default per data e ora</value>
+        <value xml:lang="ja">フィールド9: デフォルト値での日付および時間の選択フィールド</value>
+        <value xml:lang="zh">数据项9：日期和时间选择带有缺省值</value>
+        <value xml:lang="zh-TW">資料項目9:日期和時間選擇帶有預設值</value>
+    </property>
+    <property key="ExampleDateField9Tooltip">
+        <value xml:lang="en">Same as above, uses the \${groovy:...} notation to call an util method to get the now timestamp</value>
+        <value xml:lang="fr">La même chose mais utilise la notation \${groovy:...} pour appeler un méthode utilitaire pour obtenir l'heure du moment</value>
+        <value xml:lang="it">Lo stesso di sopra, usare la notazione \${groovy:...} per eseguire un metodo di utilità per ottenere un nuovo timestamp</value>
+        <value xml:lang="ja">同上、現在のタイムスタンプを取得するため untilメソッドを呼び出す \${groovy:...} 表記を使用</value>
+        <value xml:lang="zh">同上，使用\${groovy:...}来调用一个应用方法来获得现在的时间戳</value>
+        <value xml:lang="zh-TW">同上,使用\${groovy:...}來呼叫一個應用方法來獲得現在的時間戳記</value>
+    </property>
+    <property key="ExampleDateTimeFields">
+        <value xml:lang="en">Date/Time fields</value>
+        <value xml:lang="fr">Champs de date et temps</value>
+        <value xml:lang="it">Campi data/ora</value>
+        <value xml:lang="ja">日付/時間フィールド</value>
+        <value xml:lang="zh">日期/时间数据项</value>
+        <value xml:lang="zh-TW">日期/時間資料項目</value>
+    </property>
+    <property key="ExampleDefinitionFile">
+        <value xml:lang="en">in the file: </value>
+        <value xml:lang="fr">dans le fichier : </value>
+        <value xml:lang="it">nel file: </value>
+        <value xml:lang="ja">ファイル:</value>
+        <value xml:lang="zh">在文件：</value>
+        <value xml:lang="zh-TW">在檔:</value>
+    </property>
+    <property key="ExampleDefinitionFileTooltip">
+        <value xml:lang="en">specialpurpose/example/widget/example/FormWidgetExampleForms.xml</value>
+    </property>
+    <property key="ExampleDefinitionName">
+        <value xml:lang="en">See the form definition with name</value>
+        <value xml:lang="fr">Voir la définition avec la form de nom </value>
+        <value xml:lang="it">Vedi la definizione della form con il nome</value>
+        <value xml:lang="ja">- フォーム定義を参照、名称</value>
+        <value xml:lang="zh"> - 参见表单定义，名称为</value>
+        <value xml:lang="zh-TW"> - 參見表單定義,名稱為</value>
+    </property>
+    <property key="ExampleDependentDropDownTooltip">
+        <value xml:lang="en">Needs some fields to be set, see in FormWidgetExampleScreens.xml (begins with dependentForm)</value>
+        <value xml:lang="fr">Nécessite de définir certains champs, voir dans FormWidgetExampleScreens.xml (commence avec dependentForm)</value>
+        <value xml:lang="ja">セットする必要のある項目がいくつかあります。FormWidgetExampleScreens.xml を参照してください (dependentFormから始まる)</value>
+        <value xml:lang="zh">需要设置一些数据项，参见 FormWidgetExampleScreens.xml (从dependentForm开始)</value>
+        <value xml:lang="zh-TW">需要設置一些資料項目,參見 FormWidgetExampleScreens.xml (從dependentForm開始)</value>
+    </property>
+    <property key="ExampleDependentDropDowns">
+        <value xml:lang="en">Dependent drop-downs</value>
+        <value xml:lang="fr">liste déroulante dépendantes</value>
+        <value xml:lang="ja">独立したドロップダウン</value>
+        <value xml:lang="zh">相互依赖的下拉框</value>
+        <value xml:lang="zh-TW">相互依賴的下拉清單</value>
+    </property>
+    <property key="ExampleDropDown">
+        <value xml:lang="en">drop-down</value>
+        <value xml:lang="fr">liste déroulante</value>
+        <value xml:lang="it">drop-down</value>
+        <value xml:lang="ja">ドロップダウン</value>
+        <value xml:lang="zh">下拉框</value>
+        <value xml:lang="zh-TW">下拉清單</value>
+    </property>
+    <property key="ExampleDropDownEntityOptions">
+        <value xml:lang="en">entity-options</value>
+        <value xml:lang="fr">entity-options</value>
+        <value xml:lang="it">entity-options</value>
+        <value xml:lang="ja">エンティティオプション</value>
+        <value xml:lang="zh">实体选项</value>
+        <value xml:lang="zh-TW">資料資料實體選項</value>
+    </property>
+    <property key="ExampleDropDownEntityOptionsTooltip1">
+        <value xml:lang="en">All these fields retrieve the list of values from another entity by using the entity-options element.</value>
+        <value xml:lang="fr">Tous ces champs récupèrent leurs listes de valeurs depuis une autre entité en utilisant l'élement entity-options</value>
+        <value xml:lang="it">Tutti questi campi ricavano la lista di valori da un'altra entità che usa l'elemento entity-options.</value>
+        <value xml:lang="ja">このすべてのフィールドは、エンティティオプション要素を使用して別のエンティティから値のリストを取り出します。</value>
+        <value xml:lang="zh">全部这些数据项是通过使用实体选项元素从另一个实体抽取数据列表得到的。</value>
+        <value xml:lang="zh-TW">全部這些資料項目是通過使用資料資料實體選項元素從另一個資料資料實體抽取資料清單得到的.</value>
+    </property>
+    <property key="ExampleDropDownEntityOptionsTooltip2">
+        <value xml:lang="en">entity-options will look up options for the field in the given entity.</value>
+        <value xml:lang="fr">entity-options recherchera les options de ce champ en fonction de l'entité utilisée</value>
+        <value xml:lang="it">entity-options ricercherà le opzioni per il campo nell'entità specificata.</value>
+        <value xml:lang="ja">エンティティオプションは、与えられたエンティティの中のフィールドに対してオプションを検索します。</value>
+        <value xml:lang="zh">实体选项会查找指定实体的数据项选项</value>
+        <value xml:lang="zh-TW">資料資料實體選項會尋找指定資料資料實體的資料項目選項</value>
+    </property>
+    <property key="ExampleDropDownEntityOptionsTooltip3">
+        <value xml:lang="en">The complete syntax is... TODO</value>
+        <value xml:lang="fr">La syntaxe complète est... A FAIRE </value>
+        <value xml:lang="it">La sintassi completa è.... DA FARE</value>
+        <value xml:lang="ja">完全な文法は... TODO</value>
+        <value xml:lang="zh">完整的语法是... 待实现</value>
+        <value xml:lang="zh-TW">完整的語法是... 待實現</value>
+    </property>
+    <property key="ExampleDropDownField1Title">
+        <value xml:lang="en">Field1: optional</value>
+        <value xml:lang="fr">Champ1 : optionnel</value>
+        <value xml:lang="it">Campo1: opzionale</value>
+        <value xml:lang="ja">フィールド1: オプション</value>
+        <value xml:lang="zh">数据项1：可选的</value>
+        <value xml:lang="zh-TW">資料項目1:可選的</value>
+    </property>
+    <property key="ExampleDropDownField1Tooltip">
+        <value xml:lang="en">This is an example of a drop-down field with allow-empty set to true: as you can see, an empty entry is automatically added.</value>
+        <value xml:lang="fr">Exemple de champ à liste déroulante ayant allow-empty définit comme vrai. Comme vous le voyez, une option vide est automatiquement ajoutée en tête</value>
+        <value xml:lang="it">Questo è un'esempio di un campo drop-down con allow-empty impostato a vero: come tu puoi vedere, una riga automatica verrà aggiunta</value>
+        <value xml:lang="ja">空を許可にtrueをセットしたドロップダウンフィールドのサンプル: 空のエントリが自動的に追加されます。</value>
+        <value xml:lang="zh">这是一个下拉数据项的例子，允许空设置为是：如你所见，会自动添加一个空的记录。</value>
+        <value xml:lang="zh-TW">這是一個下拉資料項目的例子,允許空設置為是:如你所見,會自動增加一個空的記錄.</value>
+    </property>
+    <property key="ExampleDropDownField2Title">
+        <value xml:lang="en">Field2: mandatory</value>
+        <value xml:lang="fr">Champ 2 : obligatoire</value>
+        <value xml:lang="it">Campo2: obbligatorio</value>
+        <value xml:lang="ja">フィールド2: 必須</value>
+        <value xml:lang="zh">数据项2：强制</value>
+        <value xml:lang="zh-TW">資料項目2:強制</value>
+    </property>
+    <property key="ExampleDropDownField2Tooltip">
+        <value xml:lang="en">The same as above, but here allow-empty is set to false (the default, if not specified): as you can see, there is no empty selection.</value>
+        <value xml:lang="fr">La même chose mais ici allow-empty est faux (la valeur par défaut n'est pas spécifiée). Comme vous pouvez le voir, il n'y a pas d'option vide en tête</value>
+        <value xml:lang="it">Lo stesso di spota, ma qui allow-empty è falso (di default, se non specificato): come puoi vedere, non c'è nessuna selezione vuota.</value>
+        <value xml:lang="ja">同上、ただし空を許可にfalseをセット (指定しない場合のデフォルト): 空の選択項目は表示されません。</value>
+        <value xml:lang="zh">同上，但是这里允许空设置为否(如果没有指明的话，否是缺省值)：如你所见，没有空的选择。</value>
+        <value xml:lang="zh-TW">同上,但是這裡允許空設置為否(如果沒有指明的話,否是預設值):如你所見,沒有空的選擇.</value>
+    </property>
+    <property key="ExampleDropDownField3Title">
+        <value xml:lang="en">Field3: sort in descending order</value>
+        <value xml:lang="fr">Champ 3 : tri descendant</value>
+        <value xml:lang="it">Campo3: ordinato in ordine discendente</value>
+        <value xml:lang="ja">フィールド3: 降順でソート</value>
+        <value xml:lang="zh">数据项3：按降序排序</value>
+        <value xml:lang="zh-TW">資料項目3:按降冪排序</value>
+    </property>
+    <property key="ExampleDropDownField4Title">
+        <value xml:lang="en">Field4: combined description</value>
+        <value xml:lang="fr">Champ 4 : description combinée</value>
+        <value xml:lang="it">Campo4: descrizione combinata</value>
+        <value xml:lang="ja">フィールド4: 詳細の組み合わせ</value>
+        <value xml:lang="zh">数据项4：组合的描述</value>
+        <value xml:lang="zh-TW">資料項目4:組合的描述</value>
+    </property>
+    <property key="ExampleDropDownField5Title">
+        <value xml:lang="en">Field5: selection of a default value from the list</value>
+        <value xml:lang="fr">Champ 5 : choix d'une valeur par défaut dans la liste</value>
+        <value xml:lang="it">Campo5: seleziona un valore di default dalla lista</value>
+        <value xml:lang="ja">フィールド5: リストからデフォルト値の選択</value>
+        <value xml:lang="zh">数据项5：从列表选择一个缺省值</value>
+        <value xml:lang="zh-TW">資料項目5:從清單選擇一個預設值</value>
+    </property>
+    <property key="ExampleDropDownField5Tooltip">
+        <value xml:lang="en">How to use the no-current-selected-key to select a default value from the options</value>
+        <value xml:lang="fr">Comment utiliser no-current-selected-key pour choisir une valeur par défaut parmi les options</value>
+        <value xml:lang="it">Come usare no-current-selected-key per selezionare un valore di default dalle opzioni</value>
+        <value xml:lang="ja">オプションからデフォルト値を選択するための no-current-selected-key の使用方法</value>
+        <value xml:lang="zh">怎样使用没有当前选择键来从选项中选择一个缺省值</value>
+        <value xml:lang="zh-TW">怎樣使用沒有當前選擇鍵來從選項中選擇一個預設值</value>
+    </property>
+    <property key="ExampleDropDownField6Title">
+        <value xml:lang="en">Field6: (exampleTypeId): shortest notation</value>
+        <value xml:lang="fr">Champ 6 : (exampleTypeId): notation plus courte</value>
+        <value xml:lang="it">Campo6: (exampleTypeId): notazione breve</value>
+        <value xml:lang="ja">フィールド6: (種類ID例): 短縮表記</value>
+        <value xml:lang="zh">数据项6：(样例类型标识)：最短注释</value>
+        <value xml:lang="zh-TW">資料項目6:(範例類型識別):最短注釋</value>
+    </property>
+    <property key="ExampleDropDownField7Title">
+        <value xml:lang="en">Field7: additional constraint</value>
+        <value xml:lang="fr">Champ 8 : contrainte additionnelle</value>
+        <value xml:lang="it">Campo7: costrizioni aggiuntive</value>
+        <value xml:lang="ja">フィールド7: 追加制約</value>
+        <value xml:lang="zh">数据项7：额外限制</value>
+        <value xml:lang="zh-TW">資料項目7:額外限制</value>
+    </property>
+    <property key="ExampleDropDownField8Title">
+        <value xml:lang="en">Field8: Javascript event</value>
+        <value xml:lang="fr">Champ 8 : évènement Javascript</value>
+        <value xml:lang="it">Campo8: evento Javascript</value>
+        <value xml:lang="ja">フィールド8: Javascriptイベント</value>
+        <value xml:lang="zh">数据项8：Javascript事件</value>
+        <value xml:lang="zh-TW">資料項目8:JAVAscript事件</value>
+    </property>
+    <property key="ExampleDropDownField8Tooltip">
+        <value xml:lang="en">How to use the event and action attributes (in the field element) to trigger a Javascript action (in this example a popup message when the option is changed).</value>
+        <value xml:lang="fr">Comment utiliser les attributs évènement (event) et action, dans l'élément champ (field) pour déclencher une action Javascript, dans cet exemple un message surgissant quand l'option est changée</value>
+        <value xml:lang="it">Come usare gli eventi a l'azione attributi (nell'elemento field) per avviare l'azione Javascript (nell'esempio un messaggio popup quando l'opzione viene cambiata).</value>
+        <value xml:lang="ja">Javascriptアクションを操作するための (フィールド要素中) イベントおよびアクション属性の使用方法 (このサンプルはオプションの変更時にポップアップメッセージを表示)</value>
+        <value xml:lang="zh">怎样使用事件和操作属性(在数据项元素(field))中触发一个Javascript操作(在这个样例中，当选项变化时会弹出一个信息)。</value>
+        <value xml:lang="zh-TW">怎樣使用事件和操作屬性(在資料項目元素(field))中觸發一個JAVAscript操作(在這個範例中,當選項變化時會彈出一個資訊).</value>
+    </property>
+    <property key="ExampleDropDownFields">
+        <value xml:lang="en">Drop down fields</value>
+        <value xml:lang="fr">Champs à listes déroulantes</value>
+        <value xml:lang="it">Campi drop down</value>
+        <value xml:lang="ja">ドロップダウンフィールド</value>
+        <value xml:lang="zh">下拉框数据项</value>
+        <value xml:lang="zh-TW">下拉清單資料項目</value>
+    </property>
+    <property key="ExampleDropDownTooltip">
+        <value xml:lang="en">First of all you have to define a drop-down element inside of the field element that you want to render as a drop down field.</value>
+        <value xml:lang="fr">Pour commencer vous définissez un élément liste déroulante (drop-down) à l'intérieur de l'élément champ (field) que vous voulez créer comme liste déroulante</value>
+        <value xml:lang="it">Prima di tutto tu devi definire un'elemento drop-down dentro un'elemento field che tu visualizzerai come campo drop down.</value>
+        <value xml:lang="ja">ドロップダウンフィールドを作成する場合、フィールド要素の中に、最初にドロップダウンの要素を定義する必要があります。</value>
+        <value xml:lang="zh">首先，你必须在数据项元素内定义一个下拉元素，来修饰为下拉数据项。</value>
+        <value xml:lang="zh-TW">首先,你必須在資料項目元素內定義一個下拉元素,來修飾為下拉資料項目.</value>
+    </property>
+    <property key="ExampleExample">
+        <value xml:lang="en">Example</value>
+        <value xml:lang="fr">Exemple</value>
+        <value xml:lang="it">Esempio</value>
+        <value xml:lang="ja">サンプル</value>
+        <value xml:lang="ro">Exemplu</value>
+        <value xml:lang="ru">Пример</value>
+        <value xml:lang="th">ตัวอย่าง</value>
+        <value xml:lang="zh">样例</value>
+        <value xml:lang="zh-TW">範例</value>
+    </property>
+    <property key="ExampleExampleFeature">
+        <value xml:lang="en">Example Feature</value>
+        <value xml:lang="fr">Caractéristique exemple</value>
+        <value xml:lang="it">Caratteristica Esempio</value>
+        <value xml:lang="ja">サンプル機能</value>
+        <value xml:lang="ro">Caracteristica Exemplu</value>
+        <value xml:lang="ru">Особенность примера</value>
+        <value xml:lang="th">ลักษณะตัวอย่าง</value>
+        <value xml:lang="zh">样例特征</value>
+        <value xml:lang="zh-TW">範例特色</value>
+    </property>
+    <property key="ExampleExampleFeatureId">
+        <value xml:lang="en">Example Feature ID</value>
+        <value xml:lang="fr">Réf. de caractéristique exemple</value>
+        <value xml:lang="it">Codice Caratteristica Esempio</value>
+        <value xml:lang="ja">サンプル機能ID</value>
+        <value xml:lang="ro">Cod Caracteristica Exemplu </value>
+        <value xml:lang="ru">Код особенности примера</value>
+        <value xml:lang="th">ตัวอย่างรหัสลักษณะ</value>
+        <value xml:lang="zh">样例特征标识</value>
+        <value xml:lang="zh-TW">範例特色識別</value>
+    </property>
+    <property key="ExampleExampleId">
+        <value xml:lang="en">Example ID</value>
+        <value xml:lang="fr">Réf. exemple</value>
+        <value xml:lang="it">Codice esempio</value>
+        <value xml:lang="ja">サンプルID</value>
+        <value xml:lang="ro">Cod Exemplu</value>
+        <value xml:lang="ru">Код примера</value>
+        <value xml:lang="th">รหัสตัวอย่าง</value>
+        <value xml:lang="zh">样例标识</value>
+        <value xml:lang="zh-TW">範例識別</value>
+    </property>
+    <property key="ExampleExamples">
+        <value xml:lang="en">Examples</value>
+        <value xml:lang="fr">Exemples</value>
+        <value xml:lang="it">Esempi</value>
+        <value xml:lang="ja">サンプル</value>
+        <value xml:lang="ro">Exemple</value>
+        <value xml:lang="ru">Примеры</value>
+        <value xml:lang="th">ตัวอย่าง</value>
+        <value xml:lang="zh">样例</value>
+        <value xml:lang="zh-TW">範例</value>
+    </property>
+    <property key="ExampleExplicitOption">
+        <value xml:lang="en">Explicit Option</value>
+        <value xml:lang="fr">Option explicite</value>
+        <value xml:lang="it">Opzione Esplicita</value>
+        <value xml:lang="ja">明示オプション</value>
+        <value xml:lang="th">ทางเลือกที่ชัดเจน</value>
+        <value xml:lang="zh">显在选项</value>
+        <value xml:lang="zh-TW">顯在選項</value>
+    </property>
+    <property key="ExampleFeature">
+        <value xml:lang="en">Feature</value>
+        <value xml:lang="fr">Caractéristique</value>
+        <value xml:lang="it">Caratteristica</value>
+        <value xml:lang="ja">機能</value>
+        <value xml:lang="ro">Caracteristica</value>
+        <value xml:lang="ru">Особенность</value>
+        <value xml:lang="th">ลักษณะ</value>
+        <value xml:lang="zh">特征</value>
+        <value xml:lang="zh-TW">特色</value>
+    </property>
+    <property key="ExampleFeatureSource">
+        <value xml:lang="en">Feature Source</value>
+        <value xml:lang="fr">Caractéristique d'origine</value>
+        <value xml:lang="it">Caratteristica Origine</value>
+        <value xml:lang="ja">機能ソース</value>
+        <value xml:lang="ro">Origine Caracteristici </value>
+        <value xml:lang="ru">Источник особенности</value>
+        <value xml:lang="th">ที่มา</value>
+        <value xml:lang="zh">特征源</value>
+        <value xml:lang="zh-TW">特色源</value>
+    </property>
+    <property key="ExampleFeatures">
+        <value xml:lang="en">Features</value>
+        <value xml:lang="fr">Caractéristiques</value>
+        <value xml:lang="it">Caratteristiche</value>
+        <value xml:lang="ja">機能</value>
+        <value xml:lang="ro">Caracteristici</value>
+        <value xml:lang="ru">Особенности</value>
+        <value xml:lang="th">ลักษณะ</value>
+        <value xml:lang="zh">特征</value>
+        <value xml:lang="zh-TW">特色</value>
+    </property>
+    <property key="ExampleFeaturesAddToExample">
+        <value xml:lang="en">Add Feature To Example</value>
+        <value xml:lang="ja">サンプルに機能を追加</value>
+        <value xml:lang="zh">为样例添加特征</value>
+        <value xml:lang="zh-TW">為範例增加特色</value>
+    </property>
+    <property key="ExampleFeaturesByExample">
+        <value xml:lang="en">Features by Example</value>
+        <value xml:lang="ja">サンプル別機能</value>
+        <value xml:lang="zh">按样例的特征</value>
+        <value xml:lang="zh-TW">按範例的特色</value>
+    </property>
+    <property key="ExampleField">
+        <value xml:lang="en">Field</value>
+        <value xml:lang="it">Campo</value>
+        <value xml:lang="ja">フィールド</value>
+        <value xml:lang="zh">数据项</value>
+        <value xml:lang="zh-TW">資料項目</value>
+    </property>
+    <property key="ExampleFopFonts">
+        <value xml:lang="en">This will print a simple PDF file which will show the FOP fonts avalaible in OFBiz</value>
+        <value xml:lang="fr">Impression d'un simple fichier PDF qui montre les polices FOP disponibles dans OFBiz</value>
+        <value xml:lang="it">Questo stampa un file PDF semplice che mostrerà i font FOP disponibili in OFBiz</value>
+        <value xml:lang="ja">OFBizで可能なFOPフォントを表示する、シンプルなPDFファイルを印刷します</value>
+        <value xml:lang="zh">这将打印一个简单的PDF文件，这个文件会显示OFBiz中可用的FOP字体</value>
+        <value xml:lang="zh-TW">這將列印一個簡單的PDF檔,這個檔會顯示OFBiz中可用的FOP字體</value>
+    </property>
+    <property key="ExampleFormWidgetExamples">
+        <value xml:lang="en">Form Widget Examples</value>
+        <value xml:lang="fr">Exemple de Form Widget</value>
+        <value xml:lang="it">Esempi form widget</value>
+        <value xml:lang="ja">フォームウィジットサンプル</value>
+        <value xml:lang="th">ตัวอย่างรูปแบบ Widget</value>
+        <value xml:lang="zh">表单挂件样例</value>
+        <value xml:lang="zh-TW">表單器件範例</value>
+    </property>
+    <property key="ExampleGeneralErrorRenderingScreen">
+        <value xml:lang="en">General error rendering screen [${screenLocation}]: ${errorString}</value>
+    </property>
+    <property key="ExampleGroupField">
+        <value xml:lang="en">Group</value>
+        <value xml:lang="it">Gruppo</value>
+        <value xml:lang="ja">グループ</value>
+        <value xml:lang="zh">组</value>
+        <value xml:lang="zh-TW">群組</value>
+    </property>
+    <property key="ExampleGroupFields">
+        <value xml:lang="en">Fields groups</value>
+        <value xml:lang="it">Gruppi campi</value>
+        <value xml:lang="ja">フィールドグループ</value>
+        <value xml:lang="zh">数据项组</value>
+        <value xml:lang="zh-TW">資料項目群組</value>
+    </property>
+    <property key="ExampleIOErrorRenderingScreen">
+        <value xml:lang="en">I/O error rendering screen [${screenLocation}]: ${errorString}</value>
+    </property>
+    <property key="ExampleLanguageTextVersion">
+        <value xml:lang="de">Verion der gewählten sprache</value>
+        <value xml:lang="en">Version of the choosen language</value>
+        <value xml:lang="ja">選択した言語のバージョン</value>
+        <value xml:lang="zh">所选语言的版本</value>
+        <value xml:lang="zh-TW">所選語言的版本</value>
+    </property>
+    <property key="ExampleLayerFromLayer">
+        <value xml:lang="en">Layered lookup field (only test purp.)</value>
+        <value xml:lang="fr">Lookup de type layer (only test)</value>
+        <value xml:lang="ja">検索フィールドのレイヤー表示 (テスト目的のみ)</value>
+        <value xml:lang="zh">分层的查找数据项（仅用于测试）</value>
+        <value xml:lang="zh-TW">階層式尋找資料項目(僅用於測試)</value>
+    </property>
+    <property key="ExampleLinks">
+        <value xml:lang="en">Links</value>
+        <value xml:lang="fr">Liens</value>
+    </property>
+    <property key="ExampleLongDescription">
+        <value xml:lang="en">Long Description</value>
+        <value xml:lang="it">Descrizione lunga</value>
+        <value xml:lang="ja">詳細</value>
+        <value xml:lang="zh">详细描述</value>
+        <value xml:lang="zh-TW">詳細描述</value>
+    </property>
+    <property key="ExampleLookupFields1">
+        <value xml:lang="en">Popup lookup field (old way, maybe be useful in some cases, notably if javascript is not enabled)</value>
+        <value xml:lang="fr">Champ de recherche type popup (ancienne manière, encore utile, notamment si javascript n'est pas disponible)</value>
+        <value xml:lang="ja">検索フィールドのポップアップ (古い方法、javascriptが有効でない場合に便利かもしれません)</value>
+        <value xml:lang="zh">弹出式查找数据项（老式的、某些情况下可能有用，特别是禁用了javascript时）</value>
+        <value xml:lang="zh-TW">彈出式尋找資料項目(老式的、某些情況下可能有用,特別是禁用了javascript時)</value>
+    </property>
+    <property key="ExampleLookupFields2">
+        <value xml:lang="en">Layered lookup field with autocompletion and description at right</value>
+        <value xml:lang="fr">Champs de recherche de type layer avec autocompletion et description à droite</value>
+        <value xml:lang="ja">オートコンプリートと説明を持つ、検索フィールドのレイヤー表示</value>
+        <value xml:lang="zh">分层的查找数据项，带有自动填充功能，并在右侧有描述</value>
+        <value xml:lang="zh-TW">階層式尋找資料項目,帶有自動完成功能,並在右側有描述</value>
+    </property>
+    <property key="ExampleLookupFields3">
+        <value xml:lang="en">Read only layered lookup field, only the button is available</value>
+        <value xml:lang="fr">Champs de recherche de type layer en mode lecture seule, seul le bouton est utilisable</value>
+        <value xml:lang="ja">読み取り専用検索フィールド。ボタンのみ有効</value>
+        <value xml:lang="zh">只读分层查找数据项，仅按钮可用</value>
+        <value xml:lang="zh-TW">唯讀分層尋找資料項目,僅按鈕可用</value>
+    </property>
+    <property key="ExampleLookupFields4">
+        <value xml:lang="en">Lookup Field of type layered and showing use of set_values underneath, ie returning not only Id but also another value. Both using also autocomplete</value>
+        <value xml:lang="fr">Champ de recherche de type layer avec usage sous-jacent de set_values qui permet de traiter non seulement une référence mais aussi une autre valeur. Les 2 utilisent aussi l'autocompletion</value>
+        <value xml:lang="ja">レイヤー表示の種類の検索フィールド。下にセットした値の使用方法を表示。IDだけでなくその他の値を戻す。両方ともオートコンプリート使用</value>
+        <value xml:lang="zh">类型分层的查找数据项，并在下面显示数值集合的使用，比如不仅返回标识（Id），还有另一个数值。这两个数值都使用自动填充</value>
+        <value xml:lang="zh-TW">類型階層式尋找資料項目,並在下面顯示數值集合的使用,比如不僅返回識別(Id),還有另一個數值.這兩個數值都使用自動完成</value>
+    </property>
+    <property key="ExampleLookupFieldsTitle">
+        <value xml:lang="en">Lookup Fields</value>
+        <value xml:lang="fr">Champs de recherche</value>
+        <value xml:lang="ja">検索フィールド</value>
+        <value xml:lang="zh">查找数据项</value>
+        <value xml:lang="zh-TW">尋找資料項目</value>
+    </property>
+    <property key="ExampleMainPage">
+        <value xml:lang="en">Example Main Page</value>
+        <value xml:lang="fr">Exemple de page principale</value>
+        <value xml:lang="it">Pagina principale esempi</value>
+        <value xml:lang="ja">サンプルメインページ</value>
+        <value xml:lang="th">ตัวอย่างหน้าหลัก</value>
+        <value xml:lang="zh">样例首页</value>
+        <value xml:lang="zh-TW">範例首頁</value>
+    </property>
+    <property key="ExampleMessage">
+        <value xml:lang="en">For something interesting make sure you are logged in, try username:admin, password:ofbiz.</value>
+        <value xml:lang="fr">Pour voir les exemples, vérifiez que vous être connecté, essayez l'utilisateur admin et le mot de passe ofbiz</value>
+        <value xml:lang="it">Per qualsiasi interesse devi essere sicuro di essere entrato, provare nome utente:admin, password:ofbiz.</value>
+        <value xml:lang="ja">興味を感じたことを確実なものにするため、Username;Admin;Password Ofbiz でログインしてください</value>
+        <value xml:lang="ro">Pentru a fi sigur ca te-ai logat, incearca username:admin, password:ofbiz.</value>
+        <value xml:lang="ru">Для того чтобы иметь возможность сделать что-нибудь интересное убедитесь что вы зарегистрировались в системе, попробуйте имя:admin, пароль:ofbiz.</value>
+        <value xml:lang="th">สำหรับท่านที่สนใจสามารถเข้าสู่ระบบได้, โดยใช้ ชื่อผู้ใช้:admin, รหัสผ่าน:ofbiz</value>
+        <value xml:lang="zh">如果对某部分感兴趣，请先确信你已登录，可以尝试用 用户名:admin、密码:ofbiz登录。</value>
+        <value xml:lang="zh-TW">如果對某部分感興趣,請先確信你已登入,可以嘗試用 使用者名:admin、密碼:ofbiz登入.</value>
+    </property>
+    <property key="ExampleMultipleDropDownTooltip">
+        <value xml:lang="en">Needs some fields to be set, see in FormWidgetExampleScreens.xml (begins with multipleSelect)</value>
+        <value xml:lang="fr">Nécessite de définir certains champs, voir dans FormWidgetExampleScreens.xml (commence avec multipleSelect)</value>
+        <value xml:lang="ja">いくつかのフィールドをセットする必要があります。FormWidgetExampleScreens.xml を参照してください (multipleSelectで始まる)</value>
+        <value xml:lang="zh">需要设置一些数据项，参见 FormWidgetExampleScreens.xml (从multipleSelect开始)</value>
+        <value xml:lang="zh-TW">需要設置一些資料項目,參見 FormWidgetExampleScreens.xml (從multipleSelect開始)</value>
+    </property>
+    <property key="ExampleMultipleDropDowns">
+        <value xml:lang="en">Multiple drop-downs</value>
+        <value xml:lang="fr">liste déroulante avec choix multiples</value>
+        <value xml:lang="ja">複数ドロップダウン</value>
+        <value xml:lang="zh">多个下拉框</value>
+        <value xml:lang="zh-TW">多個下拉清單</value>
+    </property>
+    <property key="ExampleNewExample">
+        <value xml:lang="en">New Example</value>
+        <value xml:lang="fr">Nouvel exemple</value>
+        <value xml:lang="it">Nuovo Esempio</value>
+        <value xml:lang="ja">新規サンプル</value>
+        <value xml:lang="ro">Nou Exemplu</value>
+        <value xml:lang="ru">Новый пример</value>
+        <value xml:lang="th">ตัวอย่างใหม่</value>
+        <value xml:lang="zh">新建样例</value>
+        <value xml:lang="zh-TW">新建範例</value>
+    </property>
+    <property key="ExampleNewExampleFeature">
+        <value xml:lang="en">New Example Feature</value>
+        <value xml:lang="fr">Nouvelle caractéristique exemple</value>
+        <value xml:lang="it">Nuova Caratteristica Esempio</value>
+        <value xml:lang="ja">新規サンプル機能</value>
+        <value xml:lang="ro">Noua Caracteristica Exemplu</value>
+        <value xml:lang="ru">Новая особенность примера</value>
+        <value xml:lang="th">ลักษณะตัวอย่างใหม่</value>
+        <value xml:lang="zh">新建样例特征</value>
+        <value xml:lang="zh-TW">新建範例特色</value>
+    </property>
+    <property key="ExampleNoAttributeSet">
+        <value xml:lang="en">No SpecificTitle attribute set for this portlet. You can use the Portlet attribute editing button to set them.</value>
+        <value xml:lang="it">Non si è specificato nessun valore per l'attributo SpecificTitle in questo Portlet. Utilizza la funzione editing dei parametri per impostarlo.</value>
+        <value xml:lang="ja">このポートレットの SpecificTitle 属性設定がありません。設定するためにポートレット属性編集ボタンを使用してください。</value>
+        <value xml:lang="zh">这个小窗口没有设置指定标题（SpecificTitle）属性。你可以用小窗口属性编辑按钮来设置它们。</value>
+        <value xml:lang="zh-TW">這個小視窗沒有設置指定標題(SpecificTitle)屬性.你可以用小視窗屬性編輯按鈕來設置它們.</value>
+    </property>
+    <property key="ExampleOriginalExample">
+        <value xml:lang="en">Original Example</value>
+        <value xml:lang="fr">Exemple original</value>
+        <value xml:lang="it">Esempio originale</value>
+        <value xml:lang="ja">オリジナルサンプル</value>
+        <value xml:lang="ru">Оригинальный пример</value>
+        <value xml:lang="th">ตัวอย่างเดิม</value>
+        <value xml:lang="zh">原样例</value>
+        <value xml:lang="zh-TW">原範例</value>
+    </property>
+    <property key="ExampleParserConfigurationErrorRenderingScreen">
+        <value xml:lang="en">Parser configuration error rendering screen [${screenLocation}]: ${errorString}</value>
+    </property>
+    <property key="ExamplePermissionError">
+        <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the EXAMPLE_${mainAction} or EXAMPLE_ADMIN permission</value>
+        <value xml:lang="fr">Erreur de sécurité : pour exécuter ${resourceDescription} vous devez avoir l'autorisation EXAMPLE_${mainAction} ou EXAMPLE_ADMIN</value>
+        <value xml:lang="it">Errore Sicurezza: per eseguire ${resourceDescription} tu devi avere il permesso EXAMPLE${mainAction} o EXAMPLE_ADMIN</value>
+        <value xml:lang="ja">セキュリティエラー: ${resourceDescription} の実行は EXAMPLE_${mainAction} または EXAMPLE_ADMIN 権限が必要です</value>
+        <value xml:lang="ro">Eroare Siguranta: pentru executare ${resourceDescription} trebuie sa ai permisul EXAMPLE${mainAction} sau EXAMPLE_ADMIN</value>
+        <value xml:lang="ru">Ошибка безопасности: для выполнения ${resourceDescription} у вас должны быть права EXAMPLE_${mainAction} или EXAMPLE_ADMIN</value>
+        <value xml:lang="th">ข้อผิดพลาดในส่วนของความปลอดภัย: ในการรัน ${resourceDescription} คุณต้องได้รับอนุญาตจาก EXAMPLE_${mainAction} หรือ EXAMPLE_ADMIN ก่อน</value>
+        <value xml:lang="zh">安全错误: 要运行${methodShortDescription}，你必须具有EXAMPLE${securityAction}或EXAMPLE_ADMIN权限</value>
+        <value xml:lang="zh-TW">安全錯誤: 要執行${methodShortDescription},你必須具有EXAMPLE${securityAction}或EXAMPLE_ADMIN許可權</value>
+    </property>
+    <property key="ExamplePermissionMainActionAttributeMissing">
+        <value xml:lang="en">In the permission-service element for the exampleGenericPermission service the main-action attribute was missing but is required</value>
+        <value xml:lang="it">Nell'elemento permission-service per il servizio exampleGenericPermission l'attributo è mancancate ma è richiesto</value>
+        <value xml:lang="ja">exampleGenericPermission サービスの中の permission-service 要素で、必要な main-action 属性が正しくありません</value>
+        <value xml:lang="zh">在用于exampleGenericPermission服务的permission-service元素中，缺少必须的main-action属性</value>
+        <value xml:lang="zh-TW">在用於exampleGenericPermission服務的permission-service元素中,缺少必須的main-action屬性</value>
+    </property>
+    <property key="ExamplePieChart">
+        <value xml:lang="en">Pie Chart</value>
+        <value xml:lang="fr">Camembert</value>
+        <value xml:lang="zh">饼图</value>
+    </property>
+    <property key="ExamplePointAddress">
+        <value xml:lang="en">Geolocation via address</value>
+        <value xml:lang="fr">Géolocalisation par l'adresse</value>
+        <value xml:lang="ja">住所から位置情報</value>
+        <value xml:lang="zh">从地址获得地理位置</value>
+        <value xml:lang="zh-TW">從位址獲得地理位置</value>
+    </property>
+    <property key="ExamplePortletAttributNeedToBeDefineClickHere">
+        <value xml:lang="en">Portlet Attribut need to be define, click here to resolve it </value>
+        <value xml:lang="fr">Les attributs de la portlet doivent être definie. Cliquez ici pour résoudre le problème.</value>
+        <value xml:lang="ja">Portlet 属性を定義する必要があります。ここをクリックして解決してください</value>
+        <value xml:lang="zh">需要定义小窗口属性，点击这里来解决它</value>
+        <value xml:lang="zh-TW">需要定義小視窗屬性,點擊這裡來解決它</value>
+    </property>
+    <property key="ExamplePortletFirst">
+        <value xml:lang="en">Hi, this is a first example of portlet</value>
+        <value xml:lang="it">Salve, questo è il primo esempio di portlet</value>
+        <value xml:lang="ja">ポートレットの最初のサンプル</value>
+        <value xml:lang="zh">你好，这是第一个Portlet样例</value>
+        <value xml:lang="zh-TW">你好,這是第一個Portlet範例</value>
+    </property>
+    <property key="ExamplePortletGoToConfiguredPortalPage">
+        <value xml:lang="en">Go to configured portal page -&gt; </value>
+        <value xml:lang="fr">Allez à la page portail configurée -&gt; </value>
+        <value xml:lang="ja">設定されたポータルページに移動 -&gt; </value>
+        <value xml:lang="zh">转到已配置的门户页面 -&gt; </value>
+        <value xml:lang="zh-TW">轉到已配置的入口網站頁面 -&gt; </value>
+    </property>
+    <property key="ExamplePortletSecond">
+        <value xml:lang="en">Hi, this is a second example of portlet</value>
+        <value xml:lang="it">Salve, questo è il secondo esempio di portlet</value>
+        <value xml:lang="ja">ポートレットの二番目のサンプル</value>
+        <value xml:lang="zh">你好，这是第二个Portlet样例</value>
+        <value xml:lang="zh-TW">你好,這是第二個Portlet範例</value>
+    </property>
+    <property key="ExamplePortletSpecificSubTitle">
+        <value xml:lang="en">Specific Sub Title</value>
+        <value xml:lang="it">Sotto-titolo specifico</value>
+        <value xml:lang="ja">サブタイトルの指定</value>
+        <value xml:lang="zh">指定的子标题</value>
+        <value xml:lang="zh-TW">指定的子標題</value>
+    </property>
+    <property key="ExamplePortletSpecificTitle">
+        <value xml:lang="en">Specific Title</value>
+        <value xml:lang="it">Titolo specifico</value>
+        <value xml:lang="ja">タイトルの指定</value>
+        <value xml:lang="zh">指定的标题</value>
+        <value xml:lang="zh-TW">指定的標題</value>
+    </property>
+    <property key="ExamplePortletThird">
+        <value xml:lang="en">Hi, this is a third example of portlet with editable parameters.</value>
+        <value xml:lang="it">Salve, questo è il terzo esempio di portlet con parametri modificabili.</value>
+        <value xml:lang="ja">編集可能なパラメータをもつポートレットの三番目のサンプル</value>
+        <value xml:lang="zh">你好，这是第三个Portlet样例，具有编辑参数。</value>
+        <value xml:lang="zh-TW">你好,這是第三個Portlet範例,具有編輯參數.</value>
+    </property>
+    <property key="ExamplePrintButton">
+        <value xml:lang="en">Print Button</value>
+        <value xml:lang="it">Bottone di stampa</value>
+        <value xml:lang="ja">印刷ボタン</value>
+        <value xml:lang="zh">打印按钮</value>
+        <value xml:lang="zh-TW">列印按鈕</value>
+    </property>
+    <property key="ExampleRepositoryFile">
+        <value xml:lang="de">Datei</value>
+        <value xml:lang="en">File</value>
+        <value xml:lang="ja">ファイル</value>
+        <value xml:lang="zh">文件</value>
+        <value xml:lang="zh-TW">檔</value>
+    </property>
+    <property key="ExampleRepositoryFolder">
+        <value xml:lang="de">Ordner</value>
+        <value xml:lang="en">Folder</value>
+        <value xml:lang="ja">フォルダ</value>
+        <value xml:lang="zh">文件夹</value>
+        <value xml:lang="zh-TW">資料夾</value>
+    </property>
+    <property key="ExampleRepositoryMessage">
+        <value xml:lang="de">Text Nachricht</value>
+        <value xml:lang="en">Text message</value>
+        <value xml:lang="ja">テキストメッセージ</value>
+        <value xml:lang="zh">本文消息</value>
+        <value xml:lang="zh-TW">本文訊息</value>
+    </property>
+    <property key="ExampleRepositoryNode">
+        <value xml:lang="de">Knoten</value>
+        <value xml:lang="en">Node</value>
+        <value xml:lang="ja">ノード</value>
+        <value xml:lang="zh">节点</value>
+        <value xml:lang="zh-TW">節點</value>
+    </property>
+    <property key="ExampleSAXErrorRenderingScreen">
+        <value xml:lang="en">SAX (XML parse) error rendering screen [${screenLocation}]: ${errorString}</value>
+    </property>
+    <property key="ExampleScanRepositoryStrukture">
+        <value xml:lang="de">Repository Struktur überprüfen</value>
+        <value xml:lang="en">Scan repository structure</value>
+        <value xml:lang="ja">リポジトリ構造のスキャン</value>
+        <value xml:lang="zh">扫瞄库结构</value>
+        <value xml:lang="zh-TW">掃瞄庫結構</value>
+    </property>
+    <property key="ExampleSelectionBoxes">
+        <value xml:lang="en">Selection boxes</value>
+        <value xml:lang="fr">Boutons de sélection</value>
+        <value xml:lang="ja">選択ボックス</value>
+        <value xml:lang="zh">选择框</value>
+        <value xml:lang="zh-TW">選擇框</value>
+    </property>
+    <property key="ExampleSourceCode">
+        <value xml:lang="en">Source Code</value>
+        <value xml:lang="it">Codice sorgente</value>
+        <value xml:lang="ja">ソースコード</value>
+        <value xml:lang="zh">源代码</value>
+        <value xml:lang="zh-TW">原始程式碼</value>
+    </property>
+    <property key="ExampleTextDescription">
+        <value xml:lang="en">This example text means we are in the extended form.</value>
+        <value xml:lang="it">Questo testo di esempio significa che noi siamo nella form estesa di esempio.</value>
+        <value xml:lang="ja">サンプルテキストが拡張フォームの中にあるサンプル。</value>
+        <value xml:lang="zh">这个样例文本意味着我们处于扩展表单中。</value>
+        <value xml:lang="zh-TW">這個範例文本意味著我們處於擴展表單中.</value>
+    </property>
+    <property key="ExampleToDo">
+        <value xml:lang="en">Explanation TODO</value>
+        <value xml:lang="fr">Explication à faire</value>
+        <value xml:lang="it">DA FARE</value>
+        <value xml:lang="ja">ToDo説明</value>
+        <value xml:lang="zh">待实现</value>
+        <value xml:lang="zh-TW">待實現</value>
+    </property>
+    <property key="ExampleUnableToPrintPDFFromXSL-FO">
+        <value xml:lang="en">Unable to print PDF from XSL-FO: ${errorString}</value>
+    </property>
+    <property key="ExampleViewPermissionError">
+        <value xml:lang="en">You do not have permission to view this page. ("EXAMPLE_VIEW" or "EXAMPLE_ADMIN" needed)</value>
+        <value xml:lang="fr">Vous n'avez pas l'autorisation de voir cette page ("EXAMPLE_VIEW" ou "EXAMPLE_ADMIN" nécessaire)</value>
+        <value xml:lang="it">Tu non sei autorizzare a vedere questa pagina. (Permesso "EXAMPLE_VIEW" o "EXAMPLE_ADMIN" necessario)</value>
+        <value xml:lang="ja">このページを表示する権限がありません。"EXAMPLE_VIEW" または "EXAMPLE_ADMIN" が必要です</value>
+        <value xml:lang="ro">Nu esti autorizat sa vezi aceasta pagina. (Este necesar Permisul "EXAMPLE_VIEW" sau "EXAMPLE_ADMIN")</value>
+        <value xml:lang="ru">У вас нет прав для просмотра этой страницы. (необходимы права "EXAMPLE_VIEW" или "EXAMPLE_ADMIN")</value>
+        <value xml:lang="th">คุณไม่ได้รับอนุญาตให้เข้าดูหน้านี้ได้ (หน้า "EXAMPLE_VIEW" หรือ "EXAMPLE_ADMIN" ที่ต้องการ)</value>
+        <value xml:lang="zh">你没有浏览这个页面的权限。(需要"EXAMPLE_VIEW"或"EXAMPLE_ADMIN")</value>
+        <value xml:lang="zh-TW">你沒有流覽這個頁面的許可權.(需要"EXAMPLE_VIEW"或"EXAMPLE_ADMIN")</value>
+    </property>
+    <property key="ExampleWelcome">
+        <value xml:lang="en">Welcome to the Example application!</value>
+        <value xml:lang="fr">Bienvenue dans l'application exemple</value>
+        <value xml:lang="it">Benvenuto nell'Applicazione Esempi!</value>
+        <value xml:lang="ja">サンプルアプリケーションへようこそ!</value>
+        <value xml:lang="ro">Bine ai venit in Aplicatia Exemple!</value>
+        <value xml:lang="ru">Добро пожаловать в учебное приложение Пример!</value>
+        <value xml:lang="th">ยินดีต้อนรับสู่ตัวอย่างโปรแกรม!</value>
+        <value xml:lang="zh">欢迎使用样例应用！</value>
+        <value xml:lang="zh-TW">歡迎使用範例應用！</value>
+    </property>
+    <property key="FormFieldTitle_anotherDate">
+        <value xml:lang="en">Another Date</value>
+        <value xml:lang="fr">Une autre date</value>
+        <value xml:lang="it">Altra Data</value>
+        <value xml:lang="ja">別の日付</value>
+        <value xml:lang="th">วันที่อื่น ๆ</value>
+        <value xml:lang="zh">另一个日期</value>
+        <value xml:lang="zh-TW">另一個日期</value>
+    </property>
+    <property key="FormFieldTitle_anotherText">
+        <value xml:lang="en">Another Text</value>
+        <value xml:lang="fr">Un autre texte</value>
+        <value xml:lang="it">Altro testo</value>
+        <value xml:lang="ja">別のテキスト</value>
+        <value xml:lang="th">ตัวหนังสืออื่น ๆ</value>
+        <value xml:lang="zh">另一个文本</value>
+        <!--value xml:lang="zh_TW">另一個文本</value-->
+        <value xml:lang="zh-TW">另一個本文</value>
+    </property>
+    <property key="FormFieldTitle_displayAnotherText">
+        <value xml:lang="en">Another Text</value>
+        <value xml:lang="it">Testo alternativo</value>
+        <value xml:lang="ja">別のテキスト</value>
+        <value xml:lang="zh">另一个文本</value>
+        <!--value xml:lang="zh_TW">另一個文本</value-->
+        <value xml:lang="zh-TW">另一個本文</value>
+    </property>
+    <property key="FormFieldTitle_exampleDate">
+        <value xml:lang="en">Example Date</value>
+        <value xml:lang="fr">Exemple de date</value>
+        <value xml:lang="it">Esempio Data</value>
+        <value xml:lang="ja">サンプル日付</value>
+        <value xml:lang="ro">Data Exemplu</value>
+        <value xml:lang="ru">Дата примера</value>
+        <value xml:lang="th">ตัวอย่างวันที่</value>
+        <value xml:lang="zh">样例日期</value>
+        <value xml:lang="zh-TW">範例日期</value>
+    </property>
+  <!-- Form Field Labels -->
+    <property key="FormFieldTitle_exampleName">
+        <value xml:lang="en">Example Name</value>
+        <value xml:lang="fr">Nom d'exemple</value>
+        <value xml:lang="it">Nome Esempio</value>
+        <value xml:lang="ja">サンプル名称</value>
+        <value xml:lang="ro">Nume Exemplu</value>
+        <value xml:lang="ru">Имя примера</value>
+        <value xml:lang="th">ตัวอย่างชื่อ</value>
+        <value xml:lang="zh">样例名称</value>
+        <value xml:lang="zh-TW">範例名稱</value>
+    </property>
+    <property key="FormFieldTitle_exampleSize">
+        <value xml:lang="en">Example Size</value>
+        <value xml:lang="fr">Exemple de taille</value>
+        <value xml:lang="it">Esempio Taglia</value>
+        <value xml:lang="ja">サンプルサイズ</value>
+        <value xml:lang="ro">Marime-size Exemplu</value>
+        <value xml:lang="ru">Размер примера</value>
+        <value xml:lang="th">ตัวอย่างขนาด</value>
+        <value xml:lang="zh">样例尺寸</value>
+        <value xml:lang="zh-TW">範例尺寸</value>
+    </property>
+    <property key="FormFieldTitle_exampleText">
+        <value xml:lang="en">Example Text</value>
+        <value xml:lang="it">Testo esempio</value>
+        <value xml:lang="ja">サンプルテキスト</value>
+        <value xml:lang="zh">样例文本</value>
+        <!--value xml:lang="zh_TW">範例文本</value-->
+        <value xml:lang="zh-TW">範例本文</value>
+    </property>
+    <property key="PageTitleEditExample">
+        <value xml:lang="en">Edit Example</value>
+        <value xml:lang="fr">Modifier l'exemple</value>
+        <value xml:lang="it">Aggiorna Esempio</value>
+        <value xml:lang="ja">編集サンプル</value>
+        <value xml:lang="ro">Actualizeaza Exemplu</value>
+        <value xml:lang="ru">Изменить пример</value>
+        <value xml:lang="th">แก้ไขตัวอย่าง</value>
+        <value xml:lang="zh">编辑样例</value>
+        <value xml:lang="zh-TW">編輯範例</value>
+    </property>
+    <property key="PageTitleEditExampleFeature">
+        <value xml:lang="en">Edit Example Feature</value>
+        <value xml:lang="fr">Modifier la caractéristique de l'exemple</value>
+        <value xml:lang="it">Aggiorna Caratteristica Esempio</value>
+        <value xml:lang="ja">編集サンプル機能</value>
+        <value xml:lang="ro">Actualizeaza Caracteristica Exemplu</value>
+        <value xml:lang="ru">Изменить особенности примера</value>
+        <value xml:lang="th">แก้ไขลักษณะตัวอย่าง</value>
+        <value xml:lang="zh">编辑样例特征</value>
+        <value xml:lang="zh-TW">編輯範例特色</value>
+    </property>
+    <property key="PageTitleEditExampleFeatureAppls">
+        <value xml:lang="en">Edit Example Features</value>
+        <value xml:lang="fr">Modifier les caractéristiques de l'exemple</value>
+        <value xml:lang="it">Aggiorna Caratteristiche Esempio</value>
+        <value xml:lang="ja">編集サンプル機能</value>
+        <value xml:lang="ro">Actualizeaza Carateristici Exemplu</value>
+        <value xml:lang="ru">Изменить особенность примера</value>
+        <value xml:lang="th">แก้ไขลักษณะตัวอย่าง</value>
+        <value xml:lang="zh">编辑样例特征</value>
+        <value xml:lang="zh-TW">編輯範例特色</value>
+    </property>
+    <property key="PageTitleEditExampleFeatureExampleAppls">
+        <value xml:lang="en">Edit Example Feature Examples</value>
+        <value xml:lang="fr">Modifier la caractéristique exemple des exemples</value>
+        <value xml:lang="it">Aggiorna Esempio Caratteristica Esempi</value>
+        <value xml:lang="ja">編集サンプル機能サンプル</value>
+        <value xml:lang="ro">Actualizeaza Exemplu Caratteristica Exemple</value>
+        <value xml:lang="ru">Изменить примеры особенностей</value>
+        <value xml:lang="th">แก้ไขตัวอย่างลักษณะตัวอย่าง</value>
+        <value xml:lang="zh">编辑样例特征的样例</value>
+        <value xml:lang="zh-TW">編輯範例特色的範例</value>
+    </property>
+    <property key="PageTitleEditExampleItems">
+        <value xml:lang="en">Edit Example Items</value>
+        <value xml:lang="fr">Modifier la ligne de l'exemple</value>
+        <value xml:lang="it">Aggiorna Righe Esempio</value>
+        <value xml:lang="ja">編集サンプルアイテム</value>
+        <value xml:lang="ro">Actualizeaza Linii Exemplu</value>
+        <value xml:lang="ru">Изменить позиции примера</value>
+        <value xml:lang="th">แก้ไขสินค้าตัวอย่าง</value>
+        <value xml:lang="zh">编辑样例明细</value>
+        <value xml:lang="zh-TW">編輯範例細項</value>
+    </property>
+  <!-- Page Titles -->
+    <property key="PageTitleFindExample">
+        <value xml:lang="en">Find Example</value>
+        <value xml:lang="fr">Recherche d'un exemple</value>
+        <value xml:lang="it">Ricerca Esempio</value>
+        <value xml:lang="ja">検索サンプル</value>
+        <value xml:lang="ro">Cauta Exemplu</value>
+        <value xml:lang="ru">Найти пример</value>
+        <value xml:lang="th">ค้นหาตัวอย่าง</value>
+        <value xml:lang="zh">查找样例</value>
+        <value xml:lang="zh-TW">尋找範例</value>
+    </property>
+    <property key="PageTitleFindExampleFeature">
+        <value xml:lang="en">Find Example Feature</value>
+        <value xml:lang="fr">Rechercher la caractéristique de l'exemple</value>
+        <value xml:lang="it">Ricerca Caratteristica Esempio</value>
+        <value xml:lang="ja">検索サンプル機能</value>
+        <value xml:lang="ro">Cauta Caracteristica Exemplu</value>
+        <value xml:lang="ru">Найти особенность примера</value>
+        <value xml:lang="th">ค้นหาลักษณะตัวอย่าง</value>
+        <value xml:lang="zh">查找样例特征</value>
+        <value xml:lang="zh-TW">尋找範例特色</value>
+    </property>
+    <property key="PageTitleFormWidgetExamples">
+        <value xml:lang="en">Form Widget Examples</value>
+        <value xml:lang="fr">Exemples Form Widget</value>
+        <value xml:lang="it">Esempio form widget</value>
+        <value xml:lang="ja">フォームウィジットサンプル</value>
+        <value xml:lang="th">ตัวอย่าง Widget</value>
+        <value xml:lang="zh">表单挂件样例</value>
+        <value xml:lang="zh-TW">表單器件範例</value>
+    </property>
+    <property key="PageTitleLookupExampleFeature">
+        <value xml:lang="en">Lookup Example Feature</value>
+        <value xml:lang="fr">Rechercher une ou des caractéristiques exemple</value>
+        <value xml:lang="it">Ricerca Caratteristica Esempio</value>
+        <value xml:lang="ja">検索サンプル機能</value>
+        <value xml:lang="ro">Cauta Caracteristica Exemplu</value>
+        <value xml:lang="ru">Искать особенности примера</value>
+        <value xml:lang="th">ดูลักษณะตัวอย่าง</value>
+        <value xml:lang="zh">查找样例特征</value>
+        <value xml:lang="zh-TW">尋找範例特色</value>
+    </property>
+    <property key="YouChangedTheSelectBoxValue">
+        <value xml:lang="de">Sie haben den Wert in der Select Box geändert.</value>
+        <value xml:lang="en">You have changed the value in the select box</value>
+        <value xml:lang="ja">選択ボックスで値を変更されています</value>
+        <value xml:lang="zh">你修改了选择框中的值</value>
+        <value xml:lang="zh-TW">你修改了選擇框中的值</value>
+    </property>
+    <property key="ExamplePdfPassword">
+        <value xml:lang="en">PDF With Password</value>
+        <value xml:lang="zh">有密码的PDF</value>
+    </property>
+    <property key="ExamplePdfBarcode">
+        <value xml:lang="de">Barcode</value>
+        <value xml:lang="en">Barcode</value>
+        <value xml:lang="es">Código de barra</value>
+        <value xml:lang="fr">Code barre</value>
+        <value xml:lang="it">Codice a barre</value>
+        <value xml:lang="ja">バーコード</value>
+        <value xml:lang="ro">Cod bara</value>
+        <value xml:lang="ru">Баркод</value>
+        <value xml:lang="th">บาร์โคด</value>
+        <value xml:lang="vi">Mã vạch (Barcode)</value>
+        <value xml:lang="zh">条形码</value>
+        <value xml:lang="zh-TW">條形碼</value>
+    </property>
+    <property key="PageTitleSetExamplePdfPassword">
+        <value xml:lang="en">Set PDF Protected By Password</value>
+        <value xml:lang="zh">设置有密码保护的PDF</value>
+    </property>
+    <property key="ExampleGeneratePDF">
+        <value xml:lang="en">Generate PDF</value>
+        <value xml:lang="zh">生成PDF</value>
+    </property>
+    <property key="password_not_equal_confirm_password">
+        <value xml:lang="en">Password did not match confirm password.</value>
+        <value xml:lang="zh">密码与验证密码不一致。</value>
+    </property>
+    <property key="PDFOwnerPassword">
+        <value xml:lang="en">Owner Password</value>
+        <value xml:lang="zh">拥有者密码</value>
+    </property>
+    <property key="PDFUserPassword">
+        <value xml:lang="en">User Password</value>
+        <value xml:lang="zh">使用者密码</value>
+    </property>
+    <property key="PDFAllowPrint">
+        <value xml:lang="en">Allow Print</value>
+        <value xml:lang="zh">允许打印</value>
+    </property>
+    <property key="PDFAllowCopyContent">
+        <value xml:lang="en">Allow Copy Content</value>
+        <value xml:lang="zh">允许复制内容</value>
+    </property>
+    <property key="PDFAllowEditContent">
+        <value xml:lang="en">Allow Edit Content</value>
+        <value xml:lang="zh">允许编辑内容</value>
+    </property>
+    <property key="PDFAllowEditAnnotations">
+        <value xml:lang="en">Allow Edit Annotations</value>
+        <value xml:lang="zh">允许编辑注释</value>
+    </property>
+    <property key="PDFAllowFillInForms">
+        <value xml:lang="en">Allow Fill-in Forms</value>
+        <value xml:lang="zh">允许填写表格</value>
+    </property>
+    <property key="PDFAllowAccessContent">
+        <value xml:lang="en">Allow Access Content</value>
+        <value xml:lang="zh">允许访问内容</value>
+    </property>
+    <property key="PDFAllowAssembleDocument">
+        <value xml:lang="en">Allow Assemble Document</value>
+        <value xml:lang="zh">允许组装文档</value>
+    </property>
+    <property key="PDFAllowPrintHq">
+        <value xml:lang="en">Allow Print HQ</value>
+        <value xml:lang="zh">允许高质量打印</value>
+    </property>
+    <property key="PDFEncryptMetadata">
+        <value xml:lang="en">Encrypt Metadata</value>
+        <value xml:lang="zh">加密元数据</value>
+    </property>
+    <property key="PDFEncryptionLength">
+        <value xml:lang="en">Encryption Length</value>
+        <value xml:lang="zh">密钥长度</value>
+    </property>
+</resource>

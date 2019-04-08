@@ -42,7 +42,7 @@ import org.w3c.dom.Element;
 public class WidgetFactory {
 
     public static final String module = WidgetFactory.class.getName();
-    protected static final Map<String, Constructor<? extends ModelScreenWidget>> screenWidgets = new ConcurrentHashMap<>();
+    protected static final Map<String, Constructor<? extends ModelScreenWidget>> screenWidgets = new ConcurrentHashMap<String, Constructor<? extends ModelScreenWidget>>();
 
     static {
         loadStandardWidgets();
@@ -99,9 +99,7 @@ public class WidgetFactory {
                             Class<? extends ModelScreenWidget> widgetClass = UtilGenerics.cast(clz);
                             registerScreenWidget(fieldObject.toString(), widgetClass);
                         }
-                    } catch (Exception e) {
-                        Debug.logError(e, module);
-                    }
+                    } catch (Exception e) {}
                 }
             } catch (Exception e) {
                 Debug.logError(e, module);

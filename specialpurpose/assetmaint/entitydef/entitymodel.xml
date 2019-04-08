@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
+
+  <!-- ========================================================= -->
+  <!-- ======================== Defaults ======================= -->
+  <!-- ========================================================= -->
+    <title>Entity of an Apache OFBiz Component</title>
+    <description>None</description>
+    <version>1.0</version>
+
+    <view-entity entity-name="FixedAssetAndIdent" package-name="org.apache.ofbiz.specialpurpose.assetmaint"
+        title="FixedAsset and FixedAssetIdent View Entity">
+        <member-entity entity-alias="FA" entity-name="FixedAsset"/>
+        <member-entity entity-alias="FAI" entity-name="FixedAssetIdent"/>
+        <alias-all entity-alias="FA"/>
+        <alias-all entity-alias="FAI"/>
+        <view-link entity-alias="FA" rel-entity-alias="FAI">
+            <key-map field-name="fixedAssetId"/>
+        </view-link>
+    </view-entity>
+    <view-entity entity-name="FixedAssetMaintWorkEffortAndPartyAssignment"
+        package-name="org.apache.ofbiz.specialpurpose.assetmaint"
+        title="View of FixedAssetMaint and WorkEffort and WorkEffortPartyAssignment">
+        <member-entity entity-alias="FAM" entity-name="FixedAssetMaint"/>
+        <member-entity entity-alias="WE" entity-name="WorkEffort"/>
+        <member-entity entity-alias="WEPA" entity-name="WorkEffortPartyAssignment"/>
+        <alias-all entity-alias="FAM"/>
+        <alias-all entity-alias="WE">
+            <exclude field="fixedAssetId"/>
+        </alias-all>
+        <alias entity-alias="WEPA" name="workEffortId"/>
+        <alias entity-alias="WEPA" name="partyId"/>
+        <alias entity-alias="WEPA" name="roleTypeId"/>
+        <alias entity-alias="WEPA" name="fromDate"/>
+        <alias entity-alias="WEPA" name="thruDate"/>
+        <view-link entity-alias="FAM" rel-entity-alias="WE">
+            <key-map field-name="scheduleWorkEffortId" rel-field-name="workEffortId"/>
+        </view-link>
+        <view-link entity-alias="WE" rel-entity-alias="WEPA">
+            <key-map field-name="workEffortId"/>
+        </view-link>
+        <relation type="one"  rel-entity-name="WorkEffort">
+            <key-map field-name="scheduleWorkEffortId" rel-field-name="workEffortId"/>
+        </relation>
+        <relation type="many" rel-entity-name="WorkEffortPartyAssignment">
+            <key-map field-name="workEffortId"/>
+        </relation>
+    </view-entity>
+    <view-entity entity-name="FixedAssetMaintWorkEffortAndTimeEntry"
+        package-name="org.apache.ofbiz.specialpurpose.assetmaint"
+        title="View of FixedAssetMaint and WorkEffort and TimeEntry">
+        <member-entity entity-alias="FAM" entity-name="FixedAssetMaint"/>
+        <member-entity entity-alias="WE" entity-name="WorkEffort"/>
+        <member-entity entity-alias="TE" entity-name="TimeEntry"/>
+        <alias-all entity-alias="FAM"/>
+        <alias-all entity-alias="WE">
+            <exclude field="fixedAssetId"/>
+        </alias-all>
+        <alias-all entity-alias="TE"/>
+        <view-link entity-alias="FAM" rel-entity-alias="WE">
+            <key-map field-name="scheduleWorkEffortId" rel-field-name="workEffortId"/>
+        </view-link>
+        <view-link entity-alias="WE" rel-entity-alias="TE">
+            <key-map field-name="workEffortId"/>
+        </view-link>
+        <relation type="one" rel-entity-name="WorkEffort">
+            <key-map field-name="scheduleWorkEffortId" rel-field-name="workEffortId"/>
+        </relation>
+        <relation type="many" rel-entity-name="TimeEntry">
+            <key-map field-name="workEffortId"/>
+        </relation>
+    </view-entity>
+    <view-entity entity-name="ItemIssuanceInventoryItemAndProduct"
+        package-name="org.apache.ofbiz.specialpurpose.assetmaint"
+        title="View of Item Issuance,Inventory Item and Product">
+        <member-entity entity-alias="IMIE" entity-name="ItemIssuance"/>
+        <member-entity entity-alias="IYIM" entity-name="InventoryItem"/>
+        <member-entity entity-alias="PT" entity-name="Product"/>
+        <alias-all entity-alias="IMIE"/>
+        <alias-all entity-alias="IYIM">
+            <exclude field="facilityId"/>
+            <exclude field="fixedAssetId"/>
+        </alias-all>
+        <alias entity-alias="PT" name="productId"/>
+        <alias entity-alias="PT" name="productTypeId"/>
+        <alias entity-alias="PT" name="primaryProductCategoryId"/>
+        <alias entity-alias="PT" name="manufacturerPartyId"/>
+        <alias entity-alias="PT" name="facilityId"/>
+        <alias entity-alias="PT" name="introductionDate"/>
+        <alias entity-alias="PT" name="internalName"/>
+        <alias entity-alias="PT" name="description"/>
+        <alias entity-alias="PT" name="requireInventory"/>
+        <alias entity-alias="PT" name="taxable"/>
+        <alias entity-alias="PT" name="chargeShipping"/>
+        <alias entity-alias="PT" name="isVirtual"/>
+        <alias entity-alias="PT" name="isVariant"/>
+        <alias entity-alias="PT" name="createdDate"/>
+        <alias entity-alias="PT" name="createdByUserLogin"/>
+        <alias entity-alias="IYIM" name="inventoryItemFixedAssetId" field="fixedAssetId"/>
+        <view-link entity-alias="IMIE" rel-entity-alias="IYIM">
+            <key-map field-name="inventoryItemId"/>
+        </view-link>
+        <view-link entity-alias="IYIM" rel-entity-alias="PT">
+            <key-map field-name="productId"/>
+        </view-link>
+        <relation type="one" rel-entity-name="InventoryItem">
+            <key-map field-name="inventoryItemId"/>
+        </relation>
+        <relation type="one" rel-entity-name="Product">
+            <key-map field-name="productId"/>
+        </relation>
+    </view-entity>
+    <view-entity entity-name="ProductInventoryItemAndItemIssuance"
+        package-name="org.apache.ofbiz.specialpurpose.assetmaint"
+        title="View of Product,Inventory Item and ItemIssuance">
+        <member-entity entity-alias="PT" entity-name="Product"/>
+        <member-entity entity-alias="IYIM" entity-name="InventoryItem"/>
+        <member-entity entity-alias="IMIE" entity-name="ItemIssuance"/>
+        <alias-all entity-alias="IMIE"/>
+        <alias-all entity-alias="IYIM">
+            <exclude field="facilityId"/>
+            <exclude field="fixedAssetId"/>
+        </alias-all>
+        <alias entity-alias="PT" name="productId"/>
+        <alias entity-alias="PT" name="productTypeId"/>
+        <alias entity-alias="PT" name="primaryProductCategoryId"/>
+        <alias entity-alias="PT" name="manufacturerPartyId"/>
+        <alias entity-alias="PT" name="facilityId"/>
+        <alias entity-alias="PT" name="introductionDate"/>
+        <alias entity-alias="PT" name="internalName"/>
+        <alias entity-alias="PT" name="description"/>
+        <alias entity-alias="PT" name="requireInventory"/>
+        <alias entity-alias="PT" name="taxable"/>
+        <alias entity-alias="PT" name="chargeShipping"/>
+        <alias entity-alias="PT" name="isVirtual"/>
+        <alias entity-alias="PT" name="isVariant"/>
+        <alias entity-alias="PT" name="createdDate"/>
+        <alias entity-alias="PT" name="createdByUserLogin"/>
+        <alias entity-alias="IYIM" name="inventoryItemFixedAssetId" field="fixedAssetId"/>
+        <view-link entity-alias="PT" rel-entity-alias="IYIM">
+            <key-map field-name="productId"/>
+        </view-link>
+        <view-link entity-alias="IYIM" rel-entity-alias="IMIE">
+            <key-map field-name="inventoryItemId"/>
+        </view-link>
+        <relation type="many" rel-entity-name="InventoryItem">
+            <key-map field-name="productId"/>
+        </relation>
+        <relation type="many" rel-entity-name="ItemIssuance">
+            <key-map field-name="inventoryItemId"/>
+        </relation>
+    </view-entity>
+</entitymodel>

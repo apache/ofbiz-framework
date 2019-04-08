@@ -58,13 +58,19 @@ public class HtmlMenuWrapperImage extends HtmlMenuWrapper {
             throws IOException, SAXException, ParserConfigurationException {
 
         super.init(resourceName, menuName, request, response);
-        Map<String, Object> dummyMap = new HashMap<>();
+        //String pubPt = (String)request.getAttribute("pubPt");
+        //if (Debug.infoOn()) Debug.logInfo("in init, pubPt:" + pubPt, module);
+        Map<String, Object> dummyMap = new HashMap<String, Object>();
         Delegator delegator = (Delegator)request.getAttribute("delegator");
+        //if (Debug.infoOn()) Debug.logInfo("in init, delegator:" + delegator, module);
         try {
             for (ModelMenuItem menuItem : modelMenu.getMenuItemList()) {
                String contentId = menuItem.getAssociatedContentId(dummyMap);
+               //if (Debug.infoOn()) Debug.logInfo("in init, contentId:" + contentId, module);
                GenericValue webSitePublishPoint = EntityQuery.use(delegator).from("WebSitePublishPoint").where("contentId", contentId).cache().queryOne();
                String menuItemName = menuItem.getName();
+               //if (Debug.infoOn()) Debug.logInfo("in init, menuItemName:" + menuItemName, module);
+               //if (Debug.infoOn()) Debug.logInfo("in init, webSitePublishPoint:" + webSitePublishPoint, module);
                putInContext(menuItemName, "WebSitePublishPoint", webSitePublishPoint);
             }
         } catch (GenericEntityException e) {

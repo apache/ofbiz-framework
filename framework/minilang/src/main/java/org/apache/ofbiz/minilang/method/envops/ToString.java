@@ -32,7 +32,7 @@ import org.w3c.dom.Element;
 /**
  * Implements the &lt;to-string&gt; element.
  * 
- * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Referenc</a>
+ * @see <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/Mini-language+Reference#Mini-languageReference-{{%3Ctostring%3E}}">Mini-language Reference</a>
  */
 public final class ToString extends MethodOperation {
 
@@ -78,7 +78,7 @@ public final class ToString extends MethodOperation {
                 throw new MiniLangRuntimeException("Exception thrown while converting field to a string: " + e.getMessage(), this);
             }
             if (this.numericPadding != null) {
-                value = StringUtil.padNumberString(value.toString(), this.numericPadding);
+                value = StringUtil.padNumberString(value.toString(), this.numericPadding.intValue());
             }
             fieldFma.put(methodContext.getEnvMap(), value);
         }

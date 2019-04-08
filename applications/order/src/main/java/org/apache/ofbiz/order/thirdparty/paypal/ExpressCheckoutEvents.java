@@ -72,9 +72,8 @@ public class ExpressCheckoutEvents {
                 return "error";
             }
             if (ServiceUtil.isError(result)) {
-                String errorMessage = ServiceUtil.getErrorMessage(result);
-                request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                Debug.logError(errorMessage, module);
+                Debug.logError(ServiceUtil.getErrorMessage(result), module);
+                request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(resourceErr, "AccountingPayPalCommunicationError", locale));
                 return "error";
             }
         }
@@ -92,7 +91,9 @@ public class ExpressCheckoutEvents {
             Debug.logError("No ExpressCheckout token found in cart, you must do a successful setExpressCheckout before redirecting.", module);
             return "error";
         }
-        productStoreId = cart.getProductStoreId();
+        if (cart != null) {
+            productStoreId = cart.getProductStoreId();
+        }
         if (productStoreId != null) {
             GenericValue payPalPaymentSetting = ProductStoreWorker.getProductStorePaymentSetting(delegator, productStoreId, "EXT_PAYPAL", null, true);
             if (payPalPaymentSetting != null) {
@@ -126,17 +127,11 @@ public class ExpressCheckoutEvents {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         CheckoutType checkoutType = determineCheckoutType(request);
         if (checkoutType.equals(CheckoutType.STANDARD)) {
-            Map<String, Object> inMap = new HashMap<>();
+            Map<String, Object> inMap = new HashMap<String, Object>();
             inMap.put("request", request);
             inMap.put("response", response);
             try {
-                Map<String, Object> result = dispatcher.runSync("payPalCheckoutUpdate", inMap);
-                if (ServiceUtil.isError(result)) {
-                    String errorMessage = ServiceUtil.getErrorMessage(result);
-                    request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                    Debug.logError(errorMessage, module);
-                    return "error";
-                }
+                dispatcher.runSync("payPalCheckoutUpdate", inMap);
             } catch (GenericServiceException e) {
                 Debug.logError(e, module);
             }
@@ -166,9 +161,8 @@ public class ExpressCheckoutEvents {
                 return "error";
             }
             if (ServiceUtil.isError(result)) {
-                String errorMessage = ServiceUtil.getErrorMessage(result);
-                request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                Debug.logError(errorMessage, module);
+                Debug.logError(ServiceUtil.getErrorMessage(result), module);
+                request.setAttribute("_EVENT_MESSAGE_", ServiceUtil.getErrorMessage(result));
                 return "error";
             }
         }
@@ -185,15 +179,12 @@ public class ExpressCheckoutEvents {
             } else if (checkoutType.equals(CheckoutType.STANDARD)) {
                 serviceName = "payPalDoExpressCheckout";
             }
-            Map<String, Object> inMap = new HashMap<>();
+            Map<String, Object> inMap = new HashMap<String, Object>();
             inMap.put("userLogin", userLogin);
             inMap.put("orderPaymentPreference", paymentPref);
             Map<String, Object> result = null;
             try {
                 result = dispatcher.runSync(serviceName, inMap);
-                if (ServiceUtil.isError(result)) {
-                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
-                }
             } catch (GenericServiceException e) {
                 return ServiceUtil.returnError(e.getMessage());
             }
@@ -216,16 +207,15 @@ public class ExpressCheckoutEvents {
     }
 
     public static CheckoutType determineCheckoutType(Delegator delegator, String productStoreId) {
-        GenericValue payPalPaymentSetting = ProductStoreWorker.getProductStorePaymentSetting(delegator, productStoreId,
-                "EXT_PAYPAL", null, true);
+        GenericValue payPalPaymentSetting = ProductStoreWorker.getProductStorePaymentSetting(delegator, productStoreId, "EXT_PAYPAL", null, true);
         if (payPalPaymentSetting != null && payPalPaymentSetting.getString("paymentGatewayConfigId") != null) {
             try {
                 GenericValue paymentGatewayConfig = payPalPaymentSetting.getRelatedOne("PaymentGatewayConfig", false);
+                String paymentGatewayConfigTypeId = paymentGatewayConfig.getString("paymentGatewayConfigTypeId");
                 if (paymentGatewayConfig != null) {
-                    String paymentGatewayConfigTypeId = paymentGatewayConfig.getString("paymentGatewayConfigTypeId");
-                    if ("PAY_GATWY_PAYFLOWPRO".equals(paymentGatewayConfigTypeId)) {
+                    if ("PAYFLOWPRO".equals(paymentGatewayConfigTypeId)) {
                         return CheckoutType.PAYFLOW;
-                    } else if ("PAY_GATWY_PAYPAL".equals(paymentGatewayConfigTypeId)) {
+                    } else if ("PAYPAL".equals(paymentGatewayConfigTypeId)) {
                         GenericValue payPalConfig = paymentGatewayConfig.getRelatedOne("PaymentGatewayPayPal", false);
                         // TODO: Probably better off with an indicator field to indicate Express Checkout use
                         if (UtilValidate.isNotEmpty(payPalConfig.get("apiUserName"))) {

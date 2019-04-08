@@ -21,8 +21,9 @@ package org.apache.ofbiz.base.config;
 import java.io.InputStream;
 import java.net.URL;
 
-import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilXml;
+import org.apache.ofbiz.base.util.Debug;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -34,17 +35,15 @@ import org.w3c.dom.Element;
 public final class MainResourceHandler implements ResourceHandler {
 
     public static final String module = MainResourceHandler.class.getName();
-    private final String xmlFilename;
-    private final String loaderName;
-    private final String location;
+    protected final String xmlFilename;
+    protected final String loaderName;
+    protected final String location;
 
     public MainResourceHandler(String xmlFilename, Element element) {
         this.xmlFilename = xmlFilename;
         this.loaderName = element.getAttribute("loader");
         this.location = element.getAttribute("location");
-        if (Debug.verboseOn()) {
-            Debug.logVerbose("Created " + this.toString(), module);
-        }
+        if (Debug.verboseOn()) Debug.logVerbose("Created " + this.toString(), module);
     }
 
     public MainResourceHandler(String xmlFilename, String loaderName, String location) {
@@ -64,7 +63,11 @@ public final class MainResourceHandler implements ResourceHandler {
     public Document getDocument() throws GenericConfigException {
         try {
             return UtilXml.readXmlDocument(this.getStream(), this.xmlFilename, true);
-        } catch (org.xml.sax.SAXException | javax.xml.parsers.ParserConfigurationException | java.io.IOException e) {
+        } catch (org.xml.sax.SAXException e) {
+            throw new GenericConfigException("Error reading " + this.toString(), e);
+        } catch (javax.xml.parsers.ParserConfigurationException e) {
+            throw new GenericConfigException("Error reading " + this.toString(), e);
+        } catch (java.io.IOException e) {
             throw new GenericConfigException("Error reading " + this.toString(), e);
         }
     }
@@ -80,7 +83,11 @@ public final class MainResourceHandler implements ResourceHandler {
     public boolean isFileResource() throws GenericConfigException {
         ResourceLoader loader = ResourceLoader.getLoader(this.xmlFilename, this.loaderName);
 
-        return loader instanceof FileLoader;
+        if (loader instanceof FileLoader) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public String getFullLocation() throws GenericConfigException {
@@ -91,14 +98,16 @@ public final class MainResourceHandler implements ResourceHandler {
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof MainResourceHandler)) {
-            return false;
-        }
+        if (obj instanceof MainResourceHandler) {
+            MainResourceHandler other = (MainResourceHandler) obj;
 
-        MainResourceHandler other = (MainResourceHandler) obj;
-        return this.loaderName.equals(other.loaderName) &&
-            this.xmlFilename.equals(other.xmlFilename) &&
-                this.location.equals(other.location);
+            if (this.loaderName.equals(other.loaderName) &&
+                this.xmlFilename.equals(other.xmlFilename) &&
+                this.location.equals(other.location)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

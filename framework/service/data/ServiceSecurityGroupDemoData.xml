@@ -19,6 +19,6 @@ under the License.
 -->
 <entity-engine-xml>
     <!-- Remote Service security -->
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="SERVICE_INVOKE_ANY"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="SERVICE_INVOKE_ANY"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="SERVICE_INVOKE_ANY"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="SERVICE_INVOKE_ANY"/>
 </entity-engine-xml>

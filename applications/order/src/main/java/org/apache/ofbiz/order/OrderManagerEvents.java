@@ -47,7 +47,8 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.order.order.OrderChangeHelper;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
-import org.apache.ofbiz.service.ServiceUtil;
+import org.apache.ofbiz.service.ModelService;
+
 /**
  * Order Manager Events
  */
@@ -90,18 +91,19 @@ public class OrderManagerEvents {
                     try {
                         results = dispatcher.runSync("createPaymentFromPreference", UtilMisc.toMap("orderPaymentPreferenceId", ppref.get("orderPaymentPreferenceId"),
                                 "paymentFromId", placingCustomer.getString("partyId"), "comments", "Payment received offline and manually entered."));
-                        if (ServiceUtil.isError(results)) {
-                            String errorMessage = ServiceUtil.getErrorMessage(results);
-                            request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                            Debug.logError(errorMessage, module);
-                            return "error";
-                        }
                     } catch (GenericServiceException e) {
                         Debug.logError(e, "Failed to execute service createPaymentFromPreference", module);
                         request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                         return "error";
                     }
+
+                    if ((results == null) || (results.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR))) {
+                        Debug.logError((String) results.get(ModelService.ERROR_MESSAGE), module);
+                        request.setAttribute("_ERROR_MESSAGE_", results.get(ModelService.ERROR_MESSAGE));
+                        return "error";
+                    }
                 }
+
                 // store the updated preferences
                 try {
                     delegator.storeAll(toBeStored);
@@ -185,7 +187,7 @@ public class OrderManagerEvents {
             if (UtilValidate.isNotEmpty(paymentMethodAmountStr)) {
                 BigDecimal paymentMethodAmount = BigDecimal.ZERO;
                 try {
-                    paymentMethodAmount = (BigDecimal) ObjectType.simpleTypeOrObjectConvert(paymentMethodAmountStr, "BigDecimal", null, locale);
+                    paymentMethodAmount = (BigDecimal) ObjectType.simpleTypeConvert(paymentMethodAmountStr, "BigDecimal", null, locale);
                 } catch (GeneralException e) {
                     request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "OrderProblemsPaymentParsingAmount", locale));
                     return "error";
@@ -200,15 +202,15 @@ public class OrderManagerEvents {
                                     "paymentRefNum", paymentMethodReference, 
                                     "comments", "Payment received offline and manually entered.",
                                     "userLogin", userLogin));
-                        if (ServiceUtil.isError(results)) {
-                            String errorMessage = ServiceUtil.getErrorMessage(results);
-                            request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                            Debug.logError(errorMessage, module);
-                            return "error";
-                        }
                     } catch (GenericServiceException e) {
                         Debug.logError(e, "Failed to execute service createPaymentFromOrder", module);
                         request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
+                        return "error";
+                    }
+
+                    if ((results == null) || (results.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR))) {
+                        Debug.logError((String) results.get(ModelService.ERROR_MESSAGE), module);
+                        request.setAttribute("_ERROR_MESSAGE_", results.get(ModelService.ERROR_MESSAGE));
                         return "error";
                     }
                 }
@@ -225,7 +227,7 @@ public class OrderManagerEvents {
             if (UtilValidate.isNotEmpty(amountStr)) {
                 BigDecimal paymentTypeAmount = BigDecimal.ZERO;
                 try {
-                    paymentTypeAmount = (BigDecimal) ObjectType.simpleTypeOrObjectConvert(amountStr, "BigDecimal", null, locale);
+                    paymentTypeAmount = (BigDecimal) ObjectType.simpleTypeConvert(amountStr, "BigDecimal", null, locale);
                 } catch (GeneralException e) {
                     request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "OrderProblemsPaymentParsingAmount", locale));
                     return "error";
@@ -258,15 +260,15 @@ public class OrderManagerEvents {
                         results = dispatcher.runSync("createPaymentFromPreference", UtilMisc.toMap("userLogin", userLogin,
                                 "orderPaymentPreferenceId", paymentPreference.get("orderPaymentPreferenceId"), "paymentRefNum", paymentReference,
                                 "paymentFromId", placingCustomer.getString("partyId"), "comments", "Payment received offline and manually entered."));
-                        if (ServiceUtil.isError(results)) {
-                            String errorMessage = ServiceUtil.getErrorMessage(results);
-                            request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                            Debug.logError(errorMessage, module);
-                            return "error";
-                        }
                     } catch (GenericServiceException e) {
                         Debug.logError(e, "Failed to execute service createPaymentFromPreference", module);
                         request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
+                        return "error";
+                    }
+
+                    if ((results == null) || (results.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR))) {
+                        Debug.logError((String) results.get(ModelService.ERROR_MESSAGE), module);
+                        request.setAttribute("_ERROR_MESSAGE_", results.get(ModelService.ERROR_MESSAGE));
                         return "error";
                     }
                 }

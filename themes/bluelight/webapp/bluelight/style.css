@@ -1286,8 +1286,8 @@ ul#preferences-menu li a.help-link {
     text-decoration: none;
 }
 
-.screenlet-title-bar ul .collapsed,
-.screenlet-title-bar ul .expanded{
+.screenlet-title-bar ul .collapsed a,
+.screenlet-title-bar ul .expanded a {
     /* IE fix */
     cursor: default;
 }
@@ -1942,14 +1942,17 @@ render borders around empty <td> elements */
 
 .fieldgroup-title-bar ul .collapsed, .fieldgroup-title-bar ul .collapsed:hover {
     background: url(/bluelight/images/bullet_toggle_plus.png) no-repeat left center;
-    cursor: pointer;
-    padding-left: 10px;
 }
 
 .fieldgroup-title-bar ul .expanded, .fieldgroup-title-bar ul .expanded:hover {
     background: url(/bluelight/images/bullet_toggle_minus.png) no-repeat left center;
+}
+
+.fieldgroup-title-bar a {
     cursor: pointer;
+    text-decoration: none;
     padding-left: 10px;
+    color: #000000;
 }
 
 /* == Portlet configuration screenlet == */
@@ -4058,13 +4061,4 @@ html > /**/ body .jstree-default a {
 * + html .jstree-default a {
     white-space: normal;
     height: auto;
-}
-
-/*The Custom css for SELECT 2*/
-.select2-container--default .select2-selection--multiple{
-    -webkit-border-radius: 0px;
-    -moz-border-radius: 0px;
-    border-radius: 0px;
-    border-color: #848484 #c1c1c1 #e1e1e1;
-    min-height: unset !important;
 }

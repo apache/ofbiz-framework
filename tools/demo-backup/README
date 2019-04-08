@@ -1,0 +1,41 @@
+3 instances of OFBiz on this VM:
+
+trunk: the trunk version
+stable: the last stable version (currently 13.07)
+old: the previous stable version (currently 12.04)
+
+{checking}
+        Note: Only run the ofbiz demos using the 'ofbizDemo' user, never run as root.
+
+        To do this sudo to the ofbizDemo user:
+
+        sudo -s -u ofbizDemo -H
+
+        sudo uses OTP (One Time Password), so you not only need to be registered as a sudoer (ask Infra) but also to use a tool like Donkey on Ubuntu (jleroux: I use that) to generate the OTP
+        Then you can start/stop as required.
+
+        To check if the demos are being run as the ofbizDemo user:
+
+        ps aux | grep ofbizDemo
+
+        The first column on the left tell you the username the demo is
+        being run as - it should say ofbizDemo (UID) or 9997 (GID) !
+{checking}
+
+Also note that the demos are usually updated and started/stopped
+automatically using the check-svn-update.sh script in this
+directory, it is run by an ofbiz cron job every 24 hours at 3 AM.
+You should therefore only need to start/stop manually if there is
+a problem.
+
+If you want to tackle only a single instance you can respectively use
+
+trunk-manual-nicely.sh
+stable-manual-nicely.sh
+old-manual-nicely.sh
+
+{checking}
+        Type 'exit' to exit the ofbizDemo user and return to your normal user.
+{checking}
+
+Note: the notsoserial-1.0-SNAPSHOT.jar library is provided as an example, it might not be up to date. Be sure to check https://cwiki.apache.org/confluence/display/OFBIZ/Keeping+OFBiz+secure

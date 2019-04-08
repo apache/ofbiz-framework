@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
+
+    <!-- ========================================================= -->
+    <!-- ======================== Defaults ======================= -->
+    <!-- ========================================================= -->
+    <title>Entity of an Apache OFBiz Component</title>
+    <description>None</description>
+    <version>1.0</version>
+
+    <extend-entity entity-name="EbayConfig">
+        <field name="apiServerUrl" type="value"></field>
+    </extend-entity>
+    <entity entity-name="EbayProductStoreInventory"
+        package-name="org.apache.ofbiz.ebay.store"
+        title="Ebay store product inventory and status of listing">
+        <field name="productStoreId" type="id-ne"></field>
+        <field name="facilityId" type="id-ne"></field>
+        <field name="productId" type="id-ne"></field>
+        <field name="folderId" type="id-ne"></field>
+        <field name="ebayProductId" type="numeric"></field>
+        <field name="quantityReserved" type="fixed-point"></field>
+        <field name="availableToPromiseListing" type="fixed-point"></field>
+        <field name="scheduled" type="fixed-point"></field>
+        <field name="activeListing" type="fixed-point"></field>
+        <field name="sold" type="fixed-point"></field>
+        <field name="unSold" type="fixed-point"></field>
+        <field name="successRatio" type="floating-point"></field>
+        <field name="avgSellingPrice" type="floating-point"></field>
+        <field name="reservedDate" type="date-time"></field>
+        <prim-key field="productStoreId"/>
+        <prim-key field="facilityId"/>
+        <prim-key field="productId"/>
+        <relation type="one" fk-name="EBYPSI_PRD_STRE" rel-entity-name="ProductStore">
+            <key-map field-name="productStoreId"/>
+        </relation>
+    </entity>
+    <entity entity-name="EbayProductStorePref" package-name="org.apache.ofbiz.ebay.store"
+         title="Ebay store and Preference">
+        <field name="productStoreId" type="id-ne"/>
+        <field name="autoPrefEnumId" type="id-ne"/>
+        <field name="autoPrefJobId" type="id-ne"/>
+        <field name="enabled" type="indicator"/>
+        <field name="condition1" type="value"/>
+        <field name="condition2" type="value"/>
+        <field name="condition3" type="value"/>
+        <field name="parentPrefCondId" type="id-ne"></field>
+        <prim-key field="productStoreId"/>
+        <prim-key field="autoPrefEnumId"/>
+        <relation type="one" fk-name="EBY_STR_PREF" rel-entity-name="ProductStore">
+            <key-map field-name="productStoreId"/>
+        </relation>
+        <relation type="one" fk-name="EBY_STR_ENUM" rel-entity-name="Enumeration">
+            <key-map field-name="autoPrefEnumId" rel-field-name="enumId"/>
+        </relation>
+        <relation type="one" fk-name="EBY_STR_JOB" rel-entity-name="JobSandbox">
+            <key-map field-name="autoPrefJobId" rel-field-name="jobId"/>
+        </relation>
+    </entity>
+    <entity entity-name="EbayProductListing" package-name="org.apache.ofbiz.ebay.store"
+        title="eBay Product Listing">
+        <field name="productListingId" type="id-ne"/>
+        <field name="itemId" type="id-long"/>
+        <field name="productStoreId" type="id-ne"/>
+        <field name="productId" type="id-ne"/>
+        <field name="userLoginId" type="id-vlong"/>
+        <field name="statusId" type="id-ne"/>
+        <field name="listingXml" type="very-long"/>
+        <field name="startDateTime" type="date-time"/>
+        <field name="endDateTime" type="date-time"/>
+        <field name="autoRelisting" type="indicator"/>
+        <prim-key field="productListingId"/>
+        <relation type="one" fk-name="EBAY_PRODUCT" rel-entity-name="Product">
+            <key-map field-name="productId"/>
+        </relation>
+        <relation type="one" fk-name="EBAY_STORE" rel-entity-name="ProductStore">
+            <key-map field-name="productStoreId"/>
+        </relation>
+        <relation type="one" fk-name="EBAY_STATUS" rel-entity-name="StatusItem">
+            <key-map field-name="statusId"/>
+        </relation>
+    </entity>
+    <entity entity-name="EbayProductListingAttribute" package-name="org.apache.ofbiz.ebay.store"
+        title="eBay Product Listing">
+        <field name="productListingId" type="id-ne"/>
+        <field name="attrName" type="id-long-ne"/>
+        <field name="attrValue" type="value"/>
+        <prim-key field="productListingId"/>
+        <prim-key field="attrName"/>
+        <relation type="one" fk-name="EBAY_PROD_ATTR" rel-entity-name="EbayProductListing">
+            <key-map field-name="productListingId"/>
+        </relation>
+    </entity>
+    <entity entity-name="EBayLogMessagesInfo" package-name="org.apache.ofbiz.ebay.store"
+        title="eBay Log Messages Info">
+        <field name="productStoreId" type="id-ne"/>
+        <field name="logAck" type="name"/>
+        <field name="functionName" type="name"/>
+        <field name="logMessage" type="very-long"/>
+        <field name="createDatetime" type="date-time"/>
+        <prim-key field="productStoreId"/>
+        <prim-key field="createDatetime"/>
+        <relation type="one" fk-name="EBAY_ERROR_STR" rel-entity-name="ProductStore">
+            <key-map field-name="productStoreId"/>
+        </relation>
+    </entity>
+    <entity entity-name="EbayProductStorePrefCond" package-name="org.apache.ofbiz.ebay.store">
+        <field name="prefCondId" type="id-ne"/>
+        <field name="acceptanceCondition" type="long-varchar"></field>
+        <field name="description" type="long-varchar"></field>
+        <field name="parentPrefCondId" type="id-ne"></field>
+        <prim-key field="prefCondId"/>
+    </entity>
+    <entity entity-name="EbayUserBestOffer" package-name="org.apache.ofbiz.ebay.store"
+        title="ebay User Best Offer">
+        <field name="itemId" type="value"/>
+        <field name="userId" type="value"/>
+        <field name="bestOfferId" type="value"/>
+        <field name="productStoreId" type="id-ne"/>
+        <field name="contactStatus" type="value"/>
+        <prim-key field="itemId"/>
+        <prim-key field="userId"/>
+    </entity>
+</entitymodel>

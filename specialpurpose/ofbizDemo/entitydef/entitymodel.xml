@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
+    <!-- ========================================================= -->
+    <!-- ======================== Defaults ======================= -->
+    <!-- ========================================================= -->
+    <title>Entity of OfbizDemo Component</title>
+    <description>None</description>
+    <copyright></copyright>
+    <version></version>
+
+	<entity entity-name="OfbizDemoType" package-name="org.apache.ofbiz.ofbizdemo" title="OfbizDemo Type Entity">
+        <field name="ofbizDemoTypeId" type="id"><description>primary sequenced ID</description></field>
+        <field name="description" type="description"></field>
+        <prim-key field="ofbizDemoTypeId"/>
+    </entity>
+  
+    <entity entity-name="OfbizDemo" package-name="org.apache.ofbiz.ofbizdemo" title="OfbizDemo Entity">
+        <field name="ofbizDemoId" type="id"><description>primary sequenced ID</description></field>
+        <field name="ofbizDemoTypeId" type="id"></field>
+        <field name="firstName" type="name"></field>
+        <field name="lastName" type="name"></field>
+        <field name="comments" type="comment"></field>
+        <prim-key field="ofbizDemoId"/>
+        <relation type="one" fk-name="ODEM_OD_TYPE_ID" rel-entity-name="OfbizDemoType">
+            <key-map field-name="ofbizDemoTypeId"/>
+        </relation>
+    </entity>
+</entitymodel>

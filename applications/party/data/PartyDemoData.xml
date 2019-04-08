@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<entity-engine-xml>
+
+    <!-- allow admin and demo employee to read company EMail -->
+    <Party partyId="admin" statusId="PARTY_ENABLED"/>
+    <Party partyId="Company" statusId="PARTY_ENABLED"/>
+    <Party partyId="DemoEmployee" statusId="PARTY_ENABLED"/>
+    <PartyRole partyId="admin" roleTypeId="EMAIL_ADMIN"/>
+    <PartyRole partyId="Company" roleTypeId="_NA_"/>
+    <PartyRole partyId="DemoEmployee" roleTypeId="EMAIL_ADMIN"/>
+    <PartyStatus partyId="admin" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyStatus partyId="Company" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyStatus partyId="DemoEmployee" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyRelationship partyIdFrom="admin" roleTypeIdFrom="EMAIL_ADMIN" partyIdTo="Company" roleTypeIdTo="_NA_" fromDate="2000-01-01 00:00:00"/>
+    <PartyRelationship partyIdFrom="DemoEmployee" roleTypeIdFrom="EMAIL_ADMIN" partyIdTo="Company" roleTypeIdTo="_NA_" fromDate="2000-01-01 00:00:00"/>
+
+    <ContactMech contactMechId="admin" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@example.com"/>
+    <PartyContactMech partyId="admin" contactMechId="admin" fromDate="2003-01-01 00:00:00.0" allowSolicitation="Y"/>
+    <PartyContactMechPurpose contactMechPurposeTypeId="PRIMARY_EMAIL" partyId="admin" contactMechId="admin" fromDate="2003-01-01 00:00:00.0"/>
+
+    <!-- Party Identification numbers-->
+    <Party partyId="DemoSupplier" statusId="PARTY_ENABLED"/>
+    <PartyRole partyId="DemoSupplier" roleTypeId="ACCOUNT"/>
+    <PartyStatus partyId="DemoSupplier" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyIdentificationType partyIdentificationTypeId="SIRET" description="French company identification number (SIRET)"/>
+    <PartyIdentification partyId="DemoSupplier" partyIdentificationTypeId="SIRET" idValue="1234 5678 90123"/>
+
+    <!-- email from an unknown party -->
+    <CommunicationEvent communicationEventId="9000" communicationEventTypeId="EMAIL_COMMUNICATION" statusId="COM_UNKNOWN_PARTY" contactMechTypeId="EMAIL_ADDRESS" contactMechIdTo="admin" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" partyIdTo="admin" entryDate="2008-07-28 13:55:55.827" datetimeStarted="2008-07-28 13:55:19.0" subject="Why i would use the OFBiz system" contentMimeTypeId="text/plain" content="Every time i think of you, only you...you are always on my mind......." note="Sent from: my@email.com; Sent Name from: Jo Easy User; Sent to: ofbiztest@example.com; Delivered-To: ofbiztest@example.com; " fromString="mailinglist@example.com" toString="ofbiztest@example.com"/>
+    <PartyRole partyId="admin" roleTypeId="ADDRESSEE"/>
+    <CommunicationEventRole communicationEventId="9000" partyId="admin" roleTypeId="ADDRESSEE" contactMechId="admin" statusId="COM_ROLE_CREATED"/>
+
+    <!-- new registration notification -->
+    <EmailTemplateSetting emailTemplateSettingId="PARTY_REGISTER" bodyScreenLocation="component://party/widget/partymgr/PartyScreens.xml#CreateUserNotification" subject="New Account Created" bccAddress="ofbiztest@example.com" fromAddress="ofbiztest@example.com"/>
+
+    <!-- make admin an employee of Company -->
+    <PartyRole partyId="admin" roleTypeId="CONTACT"/>
+    <PartyRole partyId="Company" roleTypeId="ACCOUNT"/>
+    <PartyRelationship partyIdFrom="Company" roleTypeIdFrom="ACCOUNT" partyIdTo="admin" roleTypeIdTo="CONTACT" fromDate="2000-01-01 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
+
+</entity-engine-xml>

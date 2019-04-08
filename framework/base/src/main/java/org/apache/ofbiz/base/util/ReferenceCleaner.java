@@ -63,7 +63,7 @@ public final class ReferenceCleaner {
     private ReferenceCleaner() {
     }
 
-    private static final ReferenceQueue<Object> QUEUE = new ReferenceQueue<>();
+    private static final ReferenceQueue<Object> QUEUE = new ReferenceQueue<Object>();
 
     public interface Removable {
         void remove() throws Exception;

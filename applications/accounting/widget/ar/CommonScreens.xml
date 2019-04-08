@@ -32,7 +32,7 @@ under the License.
                 <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.AccountingCompanySubtitle" global="true"/>
                 <set field="applicationMenuName" value="ArAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://accounting/widget/ar/ArMenus.xml" global="true"/>
-                <set field="applicationTitle" from-field="uiLabelMap.AccountingArManagerApplication" global="true"/>
+                <set field="applicationTitle" value="${uiLabelMap.AccountingArManagerApplication}" global="true"/>
             </actions>
            <widgets>
                <include-screen name="ApplicationDecorator" location="component://commonext/widget/CommonScreens.xml"/>
@@ -55,8 +55,7 @@ under the License.
                                 <script location="component://accounting/groovyScripts/invoice/InvoiceReport.groovy"/>
                             </actions>
                             <widgets>
-                                <include-screen name="ArPastDueInvoices"/>
-                                <include-screen name="ArInvoicesDueSoon"/>
+                                <include-portal-page id="ArPortalPage"/>
                             </widgets>
                         </section>
                     </decorator-section>

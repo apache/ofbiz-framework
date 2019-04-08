@@ -29,7 +29,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TimeZone;
 
@@ -69,10 +68,10 @@ public class FindServices {
 
     public static final String module = FindServices.class.getName();
     public static final String resource = "CommonUiLabels";
-    public static final Map<String, EntityComparisonOperator<?, ?>> entityOperators;
+    public static Map<String, EntityComparisonOperator<?, ?>> entityOperators;
 
     static {
-        entityOperators =  new LinkedHashMap<>();
+        entityOperators =  new LinkedHashMap<String, EntityComparisonOperator<?, ?>>();
         entityOperators.put("between", EntityOperator.BETWEEN);
         entityOperators.put("equals", EntityOperator.EQUALS);
         entityOperators.put("greaterThan", EntityOperator.GREATER_THAN);
@@ -112,9 +111,8 @@ public class FindServices {
         // Note that "normalizedFields" will contain values other than those
         // Contained in the associated entity.
         // Those extra fields will be ignored in the second half of this method.
-        Map<String, Map<String, Map<String, Object>>> normalizedFields = new LinkedHashMap<>();
-        for (Entry<String, ?> entry : inputFields.entrySet()) { // The name as it appears in the HTML form
-            String fieldNameRaw = entry.getKey();
+        Map<String, Map<String, Map<String, Object>>> normalizedFields = new LinkedHashMap<String, Map<String, Map<String, Object>>>();
+        for (String fieldNameRaw: inputFields.keySet()) { // The name as it appeas in the HTML form
             String fieldNameRoot = null; // The entity field name. Everything to the left of the first "_" if
                                                                  //  it exists, or the whole word, if not.
             String fieldPair = null; // "fld0" or "fld1" - begin/end of range or just fld0 if no range.
@@ -126,19 +124,19 @@ public class FindServices {
             Map<String, Object> subMap2 = null;
             String fieldMode = null;
 
-            fieldValue = entry.getValue();
+            fieldValue = inputFields.get(fieldNameRaw);
             if (ObjectType.isEmpty(fieldValue)) {
                 continue;
             }
 
             queryStringMap.put(fieldNameRaw, fieldValue);
-            iPos = fieldNameRaw.indexOf('_'); // Look for suffix
+            iPos = fieldNameRaw.indexOf("_"); // Look for suffix
 
             // This is a hack to skip fields from "multi" forms
             // These would have the form "fieldName_o_1"
             if (iPos >= 0) {
                 String suffix = fieldNameRaw.substring(iPos + 1);
-                iPos2 = suffix.indexOf('_');
+                iPos2 = suffix.indexOf("_");
                 if (iPos2 == 1) {
                     continue;
                 }
@@ -155,7 +153,7 @@ public class FindServices {
 
                 fieldNameRoot = fieldNameRaw.substring(0, iPos);
                 String suffix = fieldNameRaw.substring(iPos + 1);
-                iPos2 = suffix.indexOf('_');
+                iPos2 = suffix.indexOf("_");
                 if (iPos2 < 0) {
                     if (suffix.startsWith("fld")) {
                         // If only one token and it starts with "fld"
@@ -183,19 +181,19 @@ public class FindServices {
             }
             subMap = normalizedFields.get(fieldNameRoot);
             if (subMap == null) {
-                subMap = new LinkedHashMap<>();
+                subMap = new LinkedHashMap<String, Map<String, Object>>();
                 normalizedFields.put(fieldNameRoot, subMap);
             }
             subMap2 = subMap.get(fieldPair);
             if (subMap2 == null) {
-                subMap2 = new LinkedHashMap<>();
+                subMap2 = new LinkedHashMap<String, Object>();
                 subMap.put(fieldPair, subMap2);
             }
             subMap2.put(fieldMode, fieldValue);
 
             List<Object[]> origList = origValueMap.get(fieldNameRoot);
             if (origList == null) {
-                origList = new LinkedList<>();
+                origList = new LinkedList<Object[]>();
                 origValueMap.put(fieldNameRoot, origList);
             }
             Object [] origValues = {fieldNameRaw, fieldValue};
@@ -215,22 +213,14 @@ public class FindServices {
      * @return returns an EntityCondition list
      */
     public static List<EntityCondition> createConditionList(Map<String, ? extends Object> parameters, List<ModelField> fieldList, Map<String, Object> queryStringMap, Delegator delegator, Map<String, ?> context) {
-        Set<String> processed = new LinkedHashSet<>();
-        Set<String> keys = new LinkedHashSet<>();
-        Map<String, ModelField> fieldMap = new LinkedHashMap<>();
-        /**
-         * When inputFields contains several xxxx_grp, yyyy_grp ... values,
-         * Corresponding conditions will grouped by an {@link EntityOperator.AND} then all added to final
-         * condition grouped by an {@link EntityOperator.OR}
-         * That will allow union of search criteria, instead of default intersection.
-         */
-        Map<String, List<EntityCondition>> savedGroups = new LinkedHashMap<>();
+        Set<String> processed = new LinkedHashSet<String>();
+        Set<String> keys = new LinkedHashSet<String>();
+        Map<String, ModelField> fieldMap = new LinkedHashMap<String, ModelField>();
         for (ModelField modelField : fieldList) {
             fieldMap.put(modelField.getName(), modelField);
         }
-        List<EntityCondition> result = new LinkedList<>();
+        List<EntityCondition> result = new LinkedList<EntityCondition>();
         for (Map.Entry<String, ? extends Object> entry : parameters.entrySet()) {
-            String currentGroup = null;
             String parameterName = entry.getKey();
             if (processed.contains(parameterName)) {
                 continue;
@@ -245,15 +235,7 @@ public class FindServices {
             } else if (parameterName.endsWith("_value")) {
                 fieldName = parameterName.substring(0, parameterName.length() - 6);
             }
-
-            String key = fieldName.concat("_grp");
-            if (parameters.containsKey(key)) {
-                if (parameters.containsKey(key)) {
-                    keys.add(key);
-                }
-                currentGroup = (String) parameters.get(key);
-            }
-            key = fieldName.concat("_ic");
+            String key = fieldName.concat("_ic");
             if (parameters.containsKey(key)) {
                 keys.add(key);
                 ignoreCase = "Y".equals(parameters.get(key));
@@ -288,34 +270,17 @@ public class FindServices {
             if (ObjectType.isEmpty(fieldValue) && !"empty".equals(operation)) {
                 continue;
             }
-            if (UtilValidate.isNotEmpty(currentGroup)){
-                List<EntityCondition> groupedConditions = new LinkedList<>();
-                if(savedGroups.get(currentGroup) != null) {
-                    groupedConditions.addAll(savedGroups.get(currentGroup));
-                }
-                groupedConditions.add(createSingleCondition(modelField, operation, fieldValue, ignoreCase, delegator, context));
-                savedGroups.put(currentGroup, groupedConditions);
-            } else {
-                result.add(createSingleCondition(modelField, operation, fieldValue, ignoreCase, delegator, context));
-            }
-
+            result.add(createSingleCondition(modelField, operation, fieldValue, ignoreCase, delegator, context));
             for (String mapKey : keys) {
                 queryStringMap.put(mapKey, parameters.get(mapKey));
             }
         }
-        //Add OR-grouped conditions
-        List<EntityCondition> orConditions = new LinkedList<>();
-        for (String groupedConditions : savedGroups.keySet()) {
-            orConditions.add(EntityCondition.makeCondition(savedGroups.get(groupedConditions)));
-        }
-        if (orConditions.size() > 0) result.add(EntityCondition.makeCondition(orConditions, EntityOperator.OR));
-
         return result;
     }
 
     /**
      * Creates a single <code>EntityCondition</code> based on a set of parameters.
-     *
+     * 
      * @param modelField
      * @param operation
      * @param fieldValue
@@ -377,8 +342,7 @@ public class FindServices {
             fieldObject = modelField.getModelEntity().convertFieldValue(modelField, fieldValue, delegator, context);
         }
         if (ignoreCase && fieldObject instanceof String) {
-            cond = EntityCondition.makeCondition(EntityFunction.UPPER_FIELD(fieldName), fieldOp, EntityFunction.UPPER(
-                    ((String) fieldValue).toUpperCase(Locale.getDefault())));
+            cond = EntityCondition.makeCondition(EntityFunction.UPPER_FIELD(fieldName), fieldOp, EntityFunction.UPPER(((String)fieldValue).toUpperCase()));
         } else {
             if (fieldObject.equals(GenericEntity.NULL_FIELD.toString())) {
                 fieldObject = null;
@@ -406,7 +370,7 @@ public class FindServices {
         Object fieldValue = null; // If it is a "value" field, it will be the value to be used in the query.
                                   // If it is an "op" field, it will be "equals", "greaterThan", etc.
         EntityCondition cond = null;
-        List<EntityCondition> tmpList = new LinkedList<>();
+        List<EntityCondition> tmpList = new LinkedList<EntityCondition>();
         String opString = null;
         boolean ignoreCase = false;
         List<ModelField> fields = modelEntity.getFieldsUnmodifiable();
@@ -424,7 +388,7 @@ public class FindServices {
                 continue;
             }
             ignoreCase = "Y".equals(subMap2.get("ic"));
-            cond = createSingleCondition(modelField, opString, fieldValue, ignoreCase, delegator, context);
+            cond = createSingleCondition(modelField, opString, fieldValue, ignoreCase, delegator, context); 
             tmpList.add(cond);
             subMap2 = subMap.get("fld1");
             if (subMap2 == null) {
@@ -436,7 +400,7 @@ public class FindServices {
                 continue;
             }
             ignoreCase = "Y".equals(subMap2.get("ic"));
-            cond = createSingleCondition(modelField, opString, fieldValue, ignoreCase, delegator, context);
+            cond = createSingleCondition(modelField, opString, fieldValue, ignoreCase, delegator, context); 
             tmpList.add(cond);
             // add to queryStringMap
             List<Object[]> origList = origValueMap.get(fieldName);
@@ -463,26 +427,24 @@ public class FindServices {
      */
     public static Map<String, Object> performFindList(DispatchContext dctx, Map<String, Object> context) {
         Integer viewSize = (Integer) context.get("viewSize");
-        if (viewSize == null) {
-            viewSize = 20;       // default
-        }
+        if (viewSize == null) viewSize = Integer.valueOf(20);       // default
         context.put("viewSize", viewSize);
         Integer viewIndex = (Integer) context.get("viewIndex");
-        if (viewIndex == null) {
-            viewIndex = 0;  // default
-        }
+        if (viewIndex == null)  viewIndex = Integer.valueOf(0);  // default
         context.put("viewIndex", viewIndex);
 
         Map<String, Object> result = performFind(dctx,context);
 
-        int start = viewIndex * viewSize;
+        int start = viewIndex.intValue() * viewSize.intValue();
         List<GenericValue> list = null;
         Integer listSize = 0;
-        try (EntityListIterator it = (EntityListIterator) result.get("listIt")) {
+        try {
+            EntityListIterator it = (EntityListIterator) result.get("listIt");
             list = it.getPartialList(start+1, viewSize); // list starts at '1'
             listSize = it.getResultsSizeAfterPartialList();
-        } catch (ClassCastException | NullPointerException | GenericEntityException e) {
-            Debug.logInfo("Problem getting partial list" + e, module);
+            it.close();
+        } catch (Exception e) {
+            Debug.logInfo("Problem getting partial list" + e,module);
         }
 
         result.put("listSize", listSize);
@@ -565,9 +527,7 @@ public class FindServices {
         }
 
         if (executeResult.get("listIt") == null) {
-            if (Debug.verboseOn()) {
-                Debug.logVerbose("No list iterator found for query string + [" + prepareResult.get("queryString") + "]", module);
-            }
+            if (Debug.verboseOn()) Debug.logVerbose("No list iterator found for query string + [" + prepareResult.get("queryString") + "]", module);
         }
 
         Map<String, Object> results = ServiceUtil.returnSuccess();
@@ -607,7 +567,7 @@ public class FindServices {
         String fromDateName = (String) context.get("fromDateName");
         String thruDateName = (String) context.get("thruDateName");
 
-        Map<String, Object> queryStringMap = new LinkedHashMap<>();
+        Map<String, Object> queryStringMap = new LinkedHashMap<String, Object>();
         ModelEntity modelEntity = delegator.getModelEntity(entityName);
         List<EntityCondition> tmpList = createConditionList(inputFields, modelEntity.getFieldsUnmodifiable(), queryStringMap, delegator, context);
 
@@ -618,16 +578,10 @@ public class FindServices {
         if (tmpList.size() > 0 || "Y".equals(noConditionFind)) {
             if ("Y".equals(filterByDate)) {
                 queryStringMap.put("filterByDate", filterByDate);
-                if (UtilValidate.isEmpty(fromDateName)) {
-                    fromDateName = "fromDate";
-                } else {
-                    queryStringMap.put("fromDateName", fromDateName);
-                }
-                if (UtilValidate.isEmpty(thruDateName)) {
-                    thruDateName = "thruDate";
-                } else {
-                    queryStringMap.put("thruDateName", thruDateName);
-                }
+                if (UtilValidate.isEmpty(fromDateName)) fromDateName = "fromDate";
+                else queryStringMap.put("fromDateName", fromDateName);
+                if (UtilValidate.isEmpty(thruDateName)) thruDateName = "thruDate";
+                else queryStringMap.put("thruDateName", thruDateName);
                 if (UtilValidate.isEmpty(filterByDateValue)) {
                     EntityCondition filterByDateCondition = EntityUtil.getFilterByDateExpr(fromDateName, thruDateName);
                     tmpList.add(filterByDateCondition);
@@ -740,29 +694,29 @@ public class FindServices {
         // Contained in the associated entity.
         // Those extra fields will be ignored in the second half of this method.
         ModelEntity modelEntity = delegator.getModelEntity(entityName);
-        Map<String, Object> normalizedFields = new LinkedHashMap<>();
+        Map<String, Object> normalizedFields = new LinkedHashMap<String, Object>();
         //StringBuffer queryStringBuf = new StringBuffer();
-        for (Entry<String, ?> entry : inputFields.entrySet()) { // The name as it appears in the HTML form
-            String fieldNameRaw = entry.getKey();
+        for (String fieldNameRaw: inputFields.keySet()) { // The name as it appeas in the HTML form
             String fieldNameRoot = null; // The entity field name. Everything to the left of the first "_" if
                                                                  //  it exists, or the whole word, if not.
             Object fieldValue = null; // If it is a "value" field, it will be the value to be used in the query.
                                                         // If it is an "op" field, it will be "equals", "greaterThan", etc.
             int iPos = -1;
             int iPos2 = -1;
-
-            fieldValue = entry.getValue();
+            
+            fieldValue = inputFields.get(fieldNameRaw);
             if (ObjectType.isEmpty(fieldValue)) {
                 continue;
             }
 
-            iPos = fieldNameRaw.indexOf('_'); // Look for suffix
+            //queryStringBuffer.append(fieldNameRaw + "=" + fieldValue);
+            iPos = fieldNameRaw.indexOf("_"); // Look for suffix
 
             // This is a hack to skip fields from "multi" forms
             // These would have the form "fieldName_o_1"
             if (iPos >= 0) {
                 String suffix = fieldNameRaw.substring(iPos + 1);
-                iPos2 = suffix.indexOf('_');
+                iPos2 = suffix.indexOf("_");
                 if (iPos2 == 1) {
                     continue;
                 }
@@ -789,7 +743,7 @@ public class FindServices {
      *
      * @param dctx
      * @param context
-     * @return returns the first item
+     * @return returns the first item 
      */
     public static Map<String, Object> performFindItem(DispatchContext dctx, Map<String, Object> context) {
         context.put("viewSize", 1);
@@ -798,12 +752,14 @@ public class FindServices {
 
         List<GenericValue> list = null;
         GenericValue item= null;
-        try (EntityListIterator it = (EntityListIterator) result.get("listIt")) {
+        try {
+            EntityListIterator it = (EntityListIterator) result.get("listIt");
             list = it.getPartialList(1, 1); // list starts at '1'
             if (UtilValidate.isNotEmpty(list)) {
                 item = list.get(0);
             }
-        } catch (ClassCastException | NullPointerException | GenericEntityException e) {
+            it.close();
+        } catch (Exception e) {
             Debug.logInfo("Problem getting list Item" + e,module);
         }
 
@@ -811,7 +767,7 @@ public class FindServices {
             result.put("item",item);
         }
         result.remove("listIt");
-
+        
         if (result.containsKey("listSize")) {
             result.remove("listSize");
         }

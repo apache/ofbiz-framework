@@ -27,7 +27,7 @@ public class GenericSingletonToList<T> extends AbstractConverter<T, List<T>> {
     }
 
     public List<T> convert(T obj) throws ConversionException {
-        List<T> tempList = new LinkedList<>();
+        List<T> tempList = new LinkedList<T>();
         tempList.add(obj);
         return tempList;
     }

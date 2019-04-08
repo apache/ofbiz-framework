@@ -37,7 +37,7 @@ under the License.
     <!-- ========================================================= -->
 
     <entity entity-name="EntityAuditLog" package-name="org.apache.ofbiz.entity.audit" title="Entity Audit Log">
-        <field name="auditHistorySeqId" type="id"><description>Sequenced primary key</description></field>
+        <field name="auditHistorySeqId" type="id-ne"><description>Sequenced primary key</description></field>
         <field name="changedEntityName" type="long-varchar"></field>
         <field name="changedFieldName" type="long-varchar"></field>
         <field name="pkCombinedValueText" type="long-varchar"></field>
@@ -48,18 +48,18 @@ under the License.
         <field name="changedSessionInfo" type="long-varchar"><description>This should contain whatever information is available about the session during which the value was changed. This could be a visitId, but could be something else too, so there is no foreign key.</description></field>
         <prim-key field="auditHistorySeqId"/>
     </entity>
-    <entity entity-name="EntityKeyStore" package-name="org.apache.ofbiz.entity.crypto" title="Entity Key Store">
-        <field name="keyName" type="id-vlong"></field>
+    <entity entity-name="EntityKeyStore" package-name="org.apache.ofbiz.entity.crypto" title="Entity Key Store Entity">
+        <field name="keyName" type="id-vlong-ne"></field>
         <field name="keyText" type="long-varchar"></field>
         <prim-key field="keyName"/>
     </entity>
-    <entity entity-name="SequenceValueItem" package-name="org.apache.ofbiz.entity.sequence" title="Sequence Value Item">
-      <field name="seqName" type="id-long"></field>
+    <entity entity-name="SequenceValueItem" package-name="org.apache.ofbiz.entity.sequence" title="Sequence Value Item Entity">
+      <field name="seqName" type="id-long-ne"></field>
       <field name="seqId" type="numeric"></field>
       <prim-key field="seqName"/>
     </entity>
     <entity entity-name="JavaResource" package-name="org.apache.ofbiz.entity" title="Java Resource">
-        <field name="resourceName" type="id-vlong" />
+        <field name="resourceName" type="id-vlong-ne" />
         <field name="resourceValue" type="byte-array" />
         <prim-key field="resourceName" />
     </entity>
@@ -69,7 +69,7 @@ under the License.
     <!-- ========================================================= -->
     
     <entity entity-name="Tenant" package-name="org.apache.ofbiz.entity.tenant">
-        <field name="tenantId" type="id"/>
+        <field name="tenantId" type="id-ne"/>
         <field name="tenantName" type="name"/>
         <field name="initialPath" type="value"/>
         <field name="disabled" type="indicator"><description>Disabled if 'Y', defaults to 'N' (not disabled).</description></field>
@@ -80,7 +80,7 @@ under the License.
             There should be one record for each tenant and each group-map for the active delegator.
             The jdbc fields will override the datasource -> inline-jdbc values for the per-tenant delegator.
         </description>
-        <field name="tenantId" type="id"/>
+        <field name="tenantId" type="id-ne"/>
         <field name="entityGroupName" type="name"/>
         <field name="jdbcUri" type="long-varchar"/>
         <field name="jdbcUsername" type="long-varchar"/>
@@ -114,7 +114,7 @@ under the License.
             There should be one record for each tenant and each group-map for the active delegator.
             The jdbc fields will override the datasource -> inline-jdbc values for the per-tenant delegator.
         </description>
-        <field name="tenantId" type="id"/>
+        <field name="tenantId" type="id-ne"/>
         <field name="kekText" type="long-varchar"></field>
         <prim-key field="tenantId"/>
         <relation type="one" fk-name="TNTKEK_TNT" rel-entity-name="Tenant">
@@ -124,8 +124,8 @@ under the License.
     <!-- may be no reason for this entity, user is authenticated inside the tenant and this would only be useful to 
     get a list of tenants per user
     <entity entity-name="TenantUserLogin" package-name="org.apache.ofbiz.entity.tenant">
-        <field name="tenantId" type="id"/>
-        <field name="userLoginId" type="id-vlong"/>
+        <field name="tenantId" type="id-ne"/>
+        <field name="userLoginId" type="id-vlong-ne"/>
         <field name="fromDate" type="date-time"/>
         <field name="thruDate" type="date-time"/>
         <prim-key field="tenantId"/>
@@ -145,7 +145,7 @@ under the License.
     </entity>
     <entity entity-name="TenantComponent" package-name="org.apache.ofbiz.entity.tenant">
         <description></description>
-        <field name="tenantId" type="id"></field>
+        <field name="tenantId" type="id-ne"></field>
         <field name="componentName" type="name"></field>
         <field name="sequenceNum" type="numeric"></field>
         <prim-key field="componentName"/>
@@ -159,7 +159,7 @@ under the License.
     </entity>
     <entity entity-name="TenantDomainName" package-name="org.apache.ofbiz.entity.tenant" 
             title="Tenant and its Domain Name">
-        <field name="tenantId" type="id"></field>
+        <field name="tenantId" type="id-ne"></field>
         <field name="domainName" type="long-varchar"></field>
         <prim-key field="domainName"/>
         <relation type="one" fk-name="TNNT_DMNAM" rel-entity-name="Tenant">

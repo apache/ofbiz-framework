@@ -113,14 +113,6 @@ public abstract class AbstractJob implements Job {
 
     @Override
     public Date getStartTime() {
-        return (Date) startTime.clone();
-    }
-
-    /* 
-     * Returns JobPriority.NORMAL, the default setting
-     */
-    @Override
-    public long getPriority() {
-        return JobPriority.NORMAL;
+        return startTime;
     }
 }

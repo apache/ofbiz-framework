@@ -48,11 +48,9 @@ public class ParametricSearch {
 
     public static final int DEFAULT_PER_TYPE_MAX_SIZE = 1000;
 
-    /**
-     * Gets all features associated with the specified category through:<br>
-     * ProductCategory -&gt; ProductFeatureCategoryAppl -&gt; ProductFeatureCategory -&gt; ProductFeature.
-     *
-     * @return a Map of Lists of ProductFeature GenericValue objects organized by productFeatureTypeId.
+    /** Gets all features associated with the specified category through:
+     * ProductCategory -> ProductFeatureCategoryAppl -> ProductFeatureCategory -> ProductFeature.
+     * Returns a Map of Lists of ProductFeature GenericValue objects organized by productFeatureTypeId.
      */
     public static Map<String, List<GenericValue>> makeCategoryFeatureLists(String productCategoryId, Delegator delegator) {
         return makeCategoryFeatureLists(productCategoryId, delegator, DEFAULT_PER_TYPE_MAX_SIZE);
@@ -123,8 +121,9 @@ public class ParametricSearch {
     }
     public static Map<String, List<GenericValue>> getAllFeaturesByType(Delegator delegator, int perTypeMaxSize) {
         Map<String, List<GenericValue>> productFeaturesByTypeMap = new HashMap<String, List<GenericValue>>();
-        Set<String> typesWithOverflowMessages = new HashSet<String>();
-        try (EntityListIterator productFeatureEli = EntityQuery.use(delegator).from("ProductFeature").orderBy("description").queryIterator()) {
+        try {
+            Set<String> typesWithOverflowMessages = new HashSet<String>();
+            EntityListIterator productFeatureEli = EntityQuery.use(delegator).from("ProductFeature").orderBy("description").queryIterator();
             GenericValue productFeature = null;
             while ((productFeature = productFeatureEli.next()) != null) {
                 String productFeatureTypeId = productFeature.getString("productFeatureTypeId");
@@ -142,6 +141,7 @@ public class ParametricSearch {
                     featuresByType.add(productFeature);
                 }
             }
+            productFeatureEli.close();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error getting all features", module);
         }

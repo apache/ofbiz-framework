@@ -52,7 +52,7 @@ under the License.
                   </td>
                 </tr>
                 </#if>
-                <tr valign="middle"<#if "1" == rowClass> class="alternate-row"</#if>>
+                <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
                   <td>
                     <form method="post" action="<@ofbizUrl>createKeywordThesaurus</@ofbizUrl>">
                       <div>
@@ -82,7 +82,7 @@ under the License.
                 ${keyword.alternateKeyword}&nbsp;(${uiLabelMap.ProductRelationship}:${(relationship.get("description",locale))?default(keyword.relationshipEnumId!)})
               </div>
               <#-- toggle the row color -->
-              <#if "2" == rowClass>
+              <#if rowClass == "2">
                   <#assign rowClass = "1">
               <#else>
                   <#assign rowClass = "2">

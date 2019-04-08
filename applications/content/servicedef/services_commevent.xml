@@ -39,11 +39,7 @@ under the License.
                 location="component://content/minilang/content/ContentServices.xml" invoke="createCommContentDataResource" auth="true">
         <description>Create CommunicationEvent and Content</description>
         <implements service="persistContentAndAssoc"/>
-        <attribute name="communicationEventId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingCommunicationEventId"/>
-            </type-validate>
-        </attribute>
+        <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>
         <attribute name="contentId" type="String" mode="IN" optional="false">
             <type-validate>
                 <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentId"/>
@@ -56,16 +52,8 @@ under the License.
                 location="component://content/minilang/content/ContentServices.xml" invoke="updateCommContentDataResource" auth="true">
         <description>Update CommunicationEvent and Content</description>
         <implements service="persistContentAndAssoc"/>
-        <attribute name="communicationEventId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingCommunicationEventId"/>
-            </type-validate>
-        </attribute>
-        <attribute name="fromDate" type="java.sql.Timestamp" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingFromDate"/>
-            </type-validate>
-        </attribute>
+        <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="java.sql.Timestamp" mode="IN" optional="false"/>
     </service>
 
     <service name="createCommEventContentAssoc" engine="simple"
@@ -78,30 +66,22 @@ under the License.
          <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
     </service>
 
-    <service name="updateCommEventContentAssoc" default-entity-name="CommEventContentAssoc" engine="entity-auto" invoke="update" auth="true">
+    <service name="updateCommEventContentAssoc" engine="simple"
+                location="component://content/minilang/content/ContentServices.xml" invoke="updateCommEventContentAssoc" auth="true">
         <description>Update CommEventContentAssoc</description>
-        <attribute name="communicationEventId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingCommunicationEventId"/>
-            </type-validate>
-        </attribute>
-        <attribute name="contentId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentId"/>
-            </type-validate>
-        </attribute>
-        <attribute name="fromDate" type="java.sql.Timestamp" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingFromDate"/>
-            </type-validate>
-        </attribute>
+        <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>
+        <attribute name="contentId" type="String" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="java.sql.Timestamp" mode="IN" optional="false"/>
         <attribute name="thruDate" type="java.sql.Timestamp" mode="IN" optional="true"/>
          <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
     </service>
 
-    <service name="expireCommEventContentAssoc" default-entity-name="CommEventContentAssoc" engine="entity-auto" invoke="expire" auth="true">
-        <description>Expire CommEventContentAssoc</description>
-        <auto-attributes mode="IN" include="pk" optional="false"/>
+    <service name="removeCommEventContentAssoc" engine="simple"
+                location="component://content/minilang/content/ContentServices.xml" invoke="removeCommEventContentAssoc" auth="true">
+        <description>Remove CommEventContentAssoc</description>
+        <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>
+        <attribute name="contentId" type="String" mode="IN" optional="false"/>
+        <attribute name="fromDate" type="java.sql.Timestamp" mode="IN" optional="false"/>
     </service>
 
     <service name="createCommContentAssocType" default-entity-name="CommContentAssocType" engine="entity-auto" invoke="create" auth="true">

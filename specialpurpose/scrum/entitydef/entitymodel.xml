@@ -1,0 +1,720 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
+    <!-- ========================================================= -->
+    <!-- ======================== Defaults ======================= -->
+    <!-- ========================================================= -->
+    <title>Entity of scrum Component</title>
+    <description>None</description>
+    <copyright></copyright>
+    <version></version>
+
+    <view-entity entity-name="ScrumProjectSprintBacklog"
+            package-name="org.apache.ofbiz.scrum"
+            title="Project Sprint Backlog">
+        <member-entity entity-alias="WAC" entity-name="WorkEffortAndChild"/>
+        <member-entity entity-alias="CAW" entity-name="CustRequestWorkEffort"/>
+        <member-entity entity-alias="CR" entity-name="CustRequest"/>
+        <alias-all entity-alias="WAC"/>
+        <alias-all entity-alias="CAW"/>
+        <alias-all entity-alias="CR"/>
+        <view-link entity-alias="WAC" rel-entity-alias="CAW">
+            <key-map field-name="childWorkEffortId" rel-field-name="workEffortId"/>
+        </view-link>
+        <view-link entity-alias="CAW" rel-entity-alias="CR">
+            <key-map field-name="custRequestId"/>
+        </view-link>
+    </view-entity>
+    
+    <view-entity entity-name="ProductBacklog"
+            package-name="org.apache.ofbiz.order.request"
+            title="Customer Request And WorkEffort View Entity">
+        <member-entity entity-alias="CRW" entity-name="CustRequestWorkEffort"/>
+        <member-entity entity-alias="CR" entity-name="CustRequest"/>
+        <member-entity entity-alias="CRI" entity-name="CustRequestItem"/>
+        <member-entity entity-alias="WE" entity-name="WorkEffort"/>
+        <member-entity entity-alias="PCR" entity-name="CustRequest"/>
+        <alias-all entity-alias="CR"/>
+        <alias name="custRequestItemSeqId" entity-alias="CRI"/>
+        <alias name="productId" entity-alias="CRI"/>
+        <alias entity-alias="CRW" field="workEffortId" name="workEffortId"/>
+        <alias entity-alias="WE" field="workEffortTypeId" name="workEffortTypeId"/>
+        <alias entity-alias="WE" field="currentStatusId" name="workEffortStatusId"/>
+        <alias entity-alias="PCR" field="custRequestName" name="parentCustRequestName"/>
+        <view-link entity-alias="CR" rel-entity-alias="CRW" rel-optional="true">
+          <key-map field-name="custRequestId"/>
+        </view-link>
+        <view-link entity-alias="CRW" rel-entity-alias="WE" rel-optional="true">
+          <key-map field-name="workEffortId"/>
+        </view-link>
+        <view-link entity-alias="CR" rel-entity-alias="CRI">
+          <key-map field-name="custRequestId"/>
+        </view-link>
+        <view-link entity-alias="CR" rel-entity-alias="PCR" rel-optional="true">
+          <key-map field-name="parentCustRequestId" rel-field-name="custRequestId"/>
+        </view-link>
+        <relation type="one-nofk" rel-entity-name="CustRequest">
+          <key-map field-name="custRequestId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="CustRequestItem">
+          <key-map field-name="custRequestId"/>
+          <key-map field-name="custRequestItemSeqId"/>
+        </relation>
+    </view-entity>
+    
+    <extend-entity entity-name="CustRequest">
+        <field name="custEstimatedMilliSeconds" type="floating-point"/>
+        <field name="custSequenceNum" type="numeric"/>
+        <field name="parentCustRequestId" type="id-ne"/>
+        <field name="billed" type="indicator"/>
+        <relation type="one" fk-name="CUST_REQ_PARENT" title="Parent" rel-entity-name="CustRequest">
+            <key-map field-name="parentCustRequestId" rel-field-name="custRequestId"/>
+        </relation>
+    </extend-entity>
+    
+    <view-entity entity-name="ScrumProjectSprintBacklogAndTask"
+            package-name="org.apache.ofbiz.scrum"
+            title="Project Sprint Backlog and Task View">
+        <member-entity entity-alias="WAC" entity-name="WorkEffortAndChild"/>
+        <member-entity entity-alias="CAW" entity-name="CustRequestWorkEffort"/>
+        <member-entity entity-alias="CR" entity-name="CustRequest"/>
+        <member-entity entity-alias="WAT" entity-name="WorkEffort"/>
+        <alias-all entity-alias="WAT" group-by="true"/>
+        <alias entity-alias="WAC" field="workEffortId" name="projectId" group-by="true"/>
+        <alias entity-alias="WAC" field="childWorkEffortId" name="sprintId" group-by="true"/>
+        <view-link entity-alias="WAC" rel-entity-alias="CAW">
+            <key-map field-name="childWorkEffortId" rel-field-name="workEffortId"/>
+        </view-link>
+        <view-link entity-alias="CAW" rel-entity-alias="CR">
+            <key-map field-name="custRequestId"/>
+        </view-link>
+        <view-link entity-alias="WAC" rel-entity-alias="WAT">
+            <key-map field-name="childWorkEffortId" rel-field-name="workEffortParentId"/>
+        </view-link>
+    </view-entity>
+    <view-entity entity-name="CustRequestAndCustRequestItem" 
+            package-name="org.apache.ofbiz.scrum"
+            title="Customer Request and Customer Request Item">
+        <member-entity entity-alias="CQI" entity-name="CustRequestItem"></member-entity>
+        <member-entity entity-alias="CQ" entity-name="CustRequest"></member-entity>
+        <alias-all entity-alias="CQ"/>
+        <alias name="custRequestItemSeqId" entity-alias="CQI"/>
+        <alias name="productId" entity-alias="CQI"/>
+        <view-link rel-entity-alias="CQ" entity-alias="CQI">
+            <key-map field-name="custRequestId"/>
+        </view-link>
+    </view-entity>
+    
+    <view-entity entity-name="ProjectSprintBacklogAndTask" package-name="org.apache.ofbiz.scrum">
+        <member-entity entity-alias="WE_PROJ" entity-name="WorkEffort"/>
+        <member-entity entity-alias="WE_SPRI" entity-name="WorkEffort"/>
+        <member-entity entity-alias="CW_SPRI" entity-name="CustRequestWorkEffort"/>
+        <member-entity entity-alias="CR" entity-name="CustRequest"/>
+        <member-entity entity-alias="CW_TASK" entity-name="CustRequestWorkEffort"/>
+        <member-entity entity-alias="WE_TASK" entity-name="WorkEffort"/>
+        <alias-all entity-alias="WE_TASK" prefix="task">
+            <exclude field="workEffortId"/>
+            <exclude field="workEffortName"/>
+            <exclude field="workEffortTypeId"/>
+        </alias-all>
+        <alias entity-alias="WE_PROJ" field="workEffortId" name="projectId"/>
+        <alias entity-alias="WE_PROJ" field="workEffortName" name="projectName"/>
+        <alias entity-alias="WE_SPRI" field="workEffortId" name="sprintId"/>
+        <alias entity-alias="WE_SPRI" field="workEffortName" name="sprintName"/>
+        <alias entity-alias="WE_SPRI" field="actualStartDate" name="sprintActualStartDate"/>
+        <alias entity-alias="WE_SPRI" field="estimatedStartDate" name="sprintEstimatedStartDate"/>
+        <alias entity-alias="WE_SPRI" field="workEffortTypeId" name="sprintTypeId"/>
+        <alias entity-alias="WE_TASK" field="workEffortId" name="taskId"/>
+        <alias entity-alias="WE_TASK" field="workEffortName" name="taskName"/>
+        <alias entity-alias="WE_TASK" field="workEffortTypeId" name="taskTypeId"/>
+        <alias entity-alias="CR" name="custRequestId" field="custRequestId"/>
+        <alias entity-alias="CR" name="custRequestTypeId" field="custRequestTypeId"/>
+        <alias entity-alias="CR" name="backlogStatusId" field="statusId"/>
+        <alias entity-alias="CR" name="description" field="description"/>
+        <alias entity-alias="CR" name="custEstimatedMilliSeconds" field="custEstimatedMilliSeconds"/>
+        <alias entity-alias="CR" name="custSequenceNum" field="custSequenceNum"/>
+        <view-link entity-alias="WE_SPRI" rel-entity-alias="CW_SPRI">
+            <key-map field-name="workEffortId"/>
+        </view-link>
+        <view-link entity-alias="WE_SPRI" rel-entity-alias="WE_PROJ">
+            <key-map field-name="workEffortParentId" rel-field-name="workEffortId"/>
+        </view-link>
+        <view-link entity-alias="CW_SPRI" rel-entity-alias="CR">
+            <key-map field-name="custRequestId"/>
+        </view-link>
+        <view-link entity-alias="CR" rel-entity-alias="CW_TASK" rel-optional="true">
+            <key-map field-name="custRequestId"/>
+        </view-link>
+        <view-link entity-alias="CW_TASK" rel-entity-alias="WE_TASK">
+            <key-map field-name="workEffortId"/>
+        </view-link>
+    </view-entity>
+
+    <view-entity entity-name="ProjectSprintBacklogTaskAndTimeEntryTimeSheet" package-name="org.apache.ofbiz.scrum">
+        <member-entity entity-alias="WE_PROJ" entity-name="WorkEffort"/>
+        <member-entity entity-alias="WEGSD" entity-name="WorkEffortGoodStandard"/>
+        <member-entity entity-alias="WE_SPRI" entity-name="WorkEffort"/>
+        <member-entity entity-alias="CW_SPRI" entity-name="CustRequestWorkEffort"/>
+        <member-entity entity-alias="CR" entity-name="CustRequest"/>
+        <member-entity entity-alias="CW_TASK" entity-name="CustRequestWorkEffort"/>
+        <member-entity entity-alias="WE_TASK" entity-name="WorkEffort"/>
+        <member-entity entity-alias="TE" entity-name="TimeEntry"/>
+        <member-entity entity-alias="TS" entity-name="Timesheet"/>
+        <alias-all entity-alias="WE_TASK" prefix="task">
+            <exclude field="workEffortId"/>
+            <exclude field="workEffortName"/>
+            <exclude field="workEffortTypeId"/>
+        </alias-all>
+        <alias-all entity-alias="TE">
+            <exclude field="workEffortId"/>
+        </alias-all>
+        <alias entity-alias="WE_PROJ" field="workEffortId" name="projectId"/>
+        <alias entity-alias="WE_PROJ" field="workEffortName" name="projectName"/>
+        <alias entity-alias="WEGSD" name="productId"/>
+        <alias entity-alias="WE_SPRI" field="workEffortId" name="sprintId"/>
+        <alias entity-alias="WE_SPRI" field="workEffortName" name="sprintName"/>
+        <alias entity-alias="WE_SPRI" field="actualStartDate" name="sprintActualStartDate"/>
+        <alias entity-alias="WE_SPRI" field="estimatedStartDate" name="sprintEstimatedStartDate"/>
+        <alias entity-alias="WE_SPRI" field="workEffortTypeId" name="sprintTypeId"/>
+        <alias entity-alias="WE_TASK" field="workEffortId" name="taskId"/>
+        <alias entity-alias="WE_TASK" field="workEffortName" name="taskName"/>
+        <alias entity-alias="WE_TASK" field="workEffortTypeId" name="taskTypeId"/>
+        <alias entity-alias="CR" field="custRequestId" name="custRequestId"/>
+        <alias entity-alias="CR" field="custRequestTypeId" name="custRequestTypeId"/>
+        <alias entity-alias="CR" field="statusId" name="custRequestStatusId"/>
+        <alias entity-alias="CR" field="parentCustRequestId" name="parentCustRequestId"/>
+        <alias entity-alias="CR" field="description" name="description"/>
+        <alias entity-alias="CR" field="custEstimatedMilliSeconds" name="custEstimatedMilliSeconds"/>
+        <alias entity-alias="CR" name="custSequenceNum" field="custSequenceNum"/>
+        <alias entity-alias="TS" field="statusId" name="timesheetStatusId"/>
+        <alias entity-alias="TS" field="partyId" name="timesheetPartyId"/>
+        <view-link entity-alias="WE_SPRI" rel-entity-alias="CW_SPRI">
+            <key-map field-name="workEffortId"/>
+        </view-link>
+        <view-link entity-alias="WE_SPRI" rel-entity-alias="WE_PROJ">
+            <key-map field-name="workEffortParentId" rel-field-name="workEffortId"/>
+        </view-link>
+        <view-link entity-alias="WE_PROJ" rel-entity-alias="WEGSD">
+            <key-map field-name="workEffortId"/>
+        </view-link>
+        <view-link entity-alias="CW_SPRI" rel-entity-alias="CR">
+            <key-map field-name="custRequestId"/>
+        </view-link>
+        <view-link entity-alias="CR" rel-entity-alias="CW_TASK" rel-optional="true">
+            <key-map field-name="custRequestId"/>
+        </view-link>
+        <view-link entity-alias="CW_TASK" rel-entity-alias="WE_TASK">
+            <key-map field-name="workEffortId"/>
+        </view-link>
+        <view-link entity-alias="WE_TASK"  rel-entity-alias="TE">
+            <key-map field-name="workEffortId"/>
+        </view-link>
+        <view-link entity-alias="TE" rel-entity-alias="TS">
+            <key-map field-name="timesheetId"/>
+        </view-link>
+        <relation type="one" rel-entity-name="Invoice">
+          <key-map field-name="invoiceId"/>
+        </relation>
+        <entity-condition>
+            <condition-list combine="and">
+                <condition-expr field-name="workEffortTypeId" operator="equals" value="SCRUM_SPRINT" entity-alias="WE_SPRI"/>
+                <condition-list combine="or">
+                    <condition-expr field-name="workEffortTypeId" operator="equals" value="SCRUM_TASK_ERROR" entity-alias="WE_TASK"/>
+                    <condition-expr field-name="workEffortTypeId" operator="equals" value="SCRUM_TASK_IMPL" entity-alias="WE_TASK"/>
+                    <condition-expr field-name="workEffortTypeId" operator="equals" value="SCRUM_TASK_INST" entity-alias="WE_TASK"/>
+                    <condition-expr field-name="workEffortTypeId" operator="equals" value="SCRUM_TASK_TEST" entity-alias="WE_TASK"/>
+                </condition-list>
+            </condition-list>
+        </entity-condition>
+    </view-entity>
+
+    <view-entity entity-name="WorkEffortAndProduct" package-name="org.apache.ofbiz.scrum">
+        <member-entity entity-alias="WE" entity-name="WorkEffort"></member-entity>
+        <member-entity entity-alias="WEGS" entity-name="WorkEffortGoodStandard"></member-entity>
+        <member-entity entity-alias="PD" entity-name="Product"></member-entity>
+        <alias-all entity-alias="WE"/>
+        <alias-all entity-alias="PD">
+            <exclude field="facilityId"/>
+            <exclude field="description"/>
+            <exclude field="createdDate"/>
+            <exclude field="reserv2ndPPPerc"/>
+            <exclude field="reservNthPPPerc"/>
+            <exclude field="createdByUserLogin"/>
+            <exclude field="lastModifiedDate"/>
+            <exclude field="lastModifiedByUserLogin"/>
+        </alias-all>
+        <alias entity-alias="WEGS" name="productId"></alias>
+        <view-link entity-alias="WE" rel-entity-alias="WEGS">
+          <key-map field-name="workEffortId"/>
+        </view-link>
+        <view-link entity-alias="WEGS" rel-entity-alias="PD">
+            <key-map field-name="productId"/>
+        </view-link>
+    </view-entity>
+
+    <view-entity entity-name="ProjectSprintBacklogTaskAndParty" package-name="org.apache.ofbiz.scrum">
+        <member-entity entity-alias="WE_PROJ" entity-name="WorkEffort"/>
+        <member-entity entity-alias="WE_SPRI" entity-name="WorkEffort"/>
+        <member-entity entity-alias="CR" entity-name="CustRequest"/>
+        <member-entity entity-alias="CW_TASK" entity-name="CustRequestWorkEffort"/>
+        <member-entity entity-alias="WE_TASK" entity-name="WorkEffort"/>
+        <member-entity entity-alias="WE_PT_ASS" entity-name="WorkEffortPartyAssignment"/>
+        <member-entity entity-alias="PS" entity-name="Person"/>
+        <alias-all entity-alias="WE_TASK" prefix="task">
+            <exclude field="workEffortId"/>
+            <exclude field="workEffortName"/>
+            <exclude field="workEffortTypeId"/>
+        </alias-all>
+        <alias entity-alias="WE_PROJ" field="workEffortId" name="projectId"/>
+        <alias entity-alias="WE_PROJ" field="workEffortName" name="projectName"/>
+        <alias entity-alias="WE_SPRI" field="workEffortId" name="sprintId"/>
+        <alias entity-alias="WE_SPRI" field="workEffortName" name="sprintName"/>
+        <alias entity-alias="WE_SPRI" field="actualStartDate" name="sprintActualStartDate"/>
+        <alias entity-alias="WE_SPRI" field="estimatedStartDate" name="sprintEstimatedStartDate"/>
+        <alias entity-alias="WE_SPRI" field="workEffortTypeId" name="sprintTypeId"/>
+        <alias entity-alias="WE_TASK" field="workEffortId" name="taskId"/>
+        <alias entity-alias="WE_TASK" field="workEffortName" name="taskName"/>
+        <alias entity-alias="WE_TASK" field="workEffortTypeId" name="taskTypeId"/>
+        <alias entity-alias="CR" name="custRequestId" field="custRequestId"/>
+        <alias entity-alias="CR" name="custRequestTypeId" field="custRequestTypeId"/>
+        <alias entity-alias="CR" name="description" field="description"/>
+        <alias entity-alias="CR" name="custEstimatedMilliSeconds" field="custEstimatedMilliSeconds"/>
+        <alias entity-alias="CR" name="custSequenceNum" field="custSequenceNum"/>
+        <alias entity-alias="PS" name="partyId" field="partyId"/>
+        <alias entity-alias="PS" name="firstName" field="firstName"/>
+        <alias entity-alias="PS" name="lastName" field="lastName"/>
+        <alias entity-alias="WE_PT_ASS" name="memberFromDate" field="fromDate"/>
+        <alias entity-alias="WE_PT_ASS" name="memberThruDate" field="thruDate"/>
+        <view-link entity-alias="CR" rel-entity-alias="CW_TASK">
+            <key-map field-name="custRequestId"/>
+        </view-link>
+        <view-link entity-alias="CW_TASK" rel-entity-alias="WE_TASK">
+            <key-map field-name="workEffortId"/>
+        </view-link>
+        <view-link entity-alias="WE_TASK" rel-entity-alias="WE_SPRI" rel-optional="true">
+            <key-map field-name="workEffortParentId" rel-field-name="workEffortId"/>
+        </view-link>
+        <view-link entity-alias="WE_TASK" rel-entity-alias="WE_PT_ASS">
+            <key-map field-name="workEffortId"/>
+        </view-link>
+        <view-link entity-alias="WE_PT_ASS" rel-entity-alias="PS">
+            <key-map field-name="partyId"/>
+        </view-link>
+        <view-link entity-alias="WE_SPRI" rel-entity-alias="WE_PROJ" rel-optional="true">
+            <key-map field-name="workEffortParentId" rel-field-name="workEffortId"/>
+        </view-link>
+        <entity-condition>
+            <condition-list combine="or">
+                <condition-expr field-name="workEffortTypeId" operator="equals" value="SCRUM_TASK_ERROR" entity-alias="WE_TASK"/>
+                <condition-expr field-name="workEffortTypeId" operator="equals" value="SCRUM_TASK_IMPL" entity-alias="WE_TASK"/>
+                <condition-expr field-name="workEffortTypeId" operator="equals" value="SCRUM_TASK_INST" entity-alias="WE_TASK"/>
+                <condition-expr field-name="workEffortTypeId" operator="equals" value="SCRUM_TASK_TEST" entity-alias="WE_TASK"/>
+            </condition-list>
+        </entity-condition>
+    </view-entity>
+    
+    <view-entity entity-name="ScrumPersonAndCompany"
+            package-name="org.apache.ofbiz.scrum" 
+            title="person -> partyrelationship -> company">
+        <member-entity entity-alias="PTY" entity-name="Party"/>
+        <member-entity entity-alias="P" entity-name="Person"/>
+        <member-entity entity-alias="PR" entity-name="PartyRelationship"/>
+        <member-entity entity-alias="PG" entity-name="PartyGroup"/>
+        <member-entity entity-alias="UL" entity-name="UserLogin"/>
+        <alias name="partyId" entity-alias="PTY"/>
+        <alias name="statusId" entity-alias="PTY"/>
+        <alias name="lastName" entity-alias="P"/>
+        <alias name="middleName" entity-alias="P"/>
+        <alias name="firstName" entity-alias="P"/>
+        <alias name="groupName" entity-alias="PG"/>
+        <alias name="partyIdFrom" entity-alias="PR"/>
+        <alias name="partyIdTo" entity-alias="PR"/>
+        <alias name="roleTypeIdFrom" entity-alias="PR"/>
+        <alias name="roleTypeIdTo" entity-alias="PR"/>
+        <alias name="fromDate" entity-alias="PR"/>
+        <alias name="thruDate" entity-alias="PR"/>
+        <alias name="partyRelationshipTypeId" entity-alias="PR"/>
+        <alias name="userLoginId" entity-alias="UL"/>
+        <view-link entity-alias="PR" rel-entity-alias="P">
+            <key-map field-name="partyIdTo" rel-field-name="partyId"/>
+        </view-link>
+        <view-link entity-alias="P" rel-entity-alias="PTY">
+            <key-map field-name="partyId"/>
+        </view-link>
+        <view-link entity-alias="PR" rel-entity-alias="PG">
+            <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
+        </view-link>
+        <view-link entity-alias="PTY" rel-entity-alias="UL" >
+            <key-map field-name="partyId"/>
+        </view-link>
+        <entity-condition>
+            <condition-list combine="and">
+                <condition-expr field-name="roleTypeIdFrom" operator="equals" value="ACCOUNT" entity-alias="PR"/>
+                <condition-expr field-name="roleTypeIdTo" operator="equals" value="CONTACT" entity-alias="PR"/>
+            </condition-list>
+        </entity-condition>
+    </view-entity>
+    <view-entity entity-name="ProductAndRole"
+            package-name="org.apache.ofbiz.scrum"
+            title="Product and PartyRole View Entity">
+        <member-entity entity-alias="PR" entity-name="ProductRole"/>
+        <member-entity entity-alias="PD" entity-name="Product"/>
+        <member-entity entity-alias="PTN" entity-name="PartyNameView"/>
+        <alias-all entity-alias="PR"/>
+        <alias-all entity-alias="PTN">
+            <exclude field="statusId"/>
+        </alias-all>
+        <alias entity-alias="PD" name="internalName"/>
+        <alias entity-alias="PD" name="productTypeId"/>
+        <alias entity-alias="PD" name="introductionDate"/>
+        <alias entity-alias="PD" name="supportDiscontinuationDate"/>
+        <view-link entity-alias="PR" rel-entity-alias="PD">
+          <key-map field-name="productId"/>
+        </view-link>
+        <view-link entity-alias="PR" rel-entity-alias="PTN">
+            <key-map field-name="partyId"/>
+        </view-link>
+        <relation type="one-nofk" rel-entity-name="Product">
+            <key-map field-name="productId"/>
+        </relation>
+    </view-entity>
+    
+    <extend-entity entity-name="TimeEntry">
+        <field name="planHours" type="floating-point"/>
+    </extend-entity>
+    
+    <view-entity entity-name="ScrumRolesPersonAndCompany"
+            package-name="org.apache.ofbiz.scrum"
+            title="PartyRole and PartyRelationship View Entity">
+        <member-entity entity-alias="PR" entity-name="PartyRole"/>
+        <member-entity entity-alias="PRS" entity-name="PartyRelationship"/>
+        <member-entity entity-alias="RT" entity-name="RoleType"/>
+        <member-entity entity-alias="PS" entity-name="Person"/>
+        <member-entity entity-alias="PG" entity-name="PartyGroup"/>
+        <member-entity entity-alias="PRT" entity-name="Party"/>
+        <alias-all entity-alias="PR"/>
+        <alias entity-alias="PS" field="firstName" name="firstName"/>
+        <alias entity-alias="PS" field="lastName" name="lastName"/>
+        <alias entity-alias="PS" field="middleName" name="middleName"/>
+        <alias entity-alias="RT" field="parentTypeId" name="parentTypeId"/>
+        <alias entity-alias="PRS" field="partyIdFrom" name="partyIdFrom"/>
+        <alias entity-alias="PRS" field="roleTypeIdFrom" name="roleTypeIdFrom"/>
+        <alias entity-alias="PRS" field="roleTypeIdTo" name="roleTypeIdTo"/>
+        <alias entity-alias="PRS" name="fromDate"/>
+        <alias entity-alias="PRS" name="thruDate"/>
+        <alias entity-alias="PG" field="groupName" name="groupName"/>
+        <alias entity-alias="RT" field="description" name="description"/>
+        <alias entity-alias="PRT" field="statusId" name="partyStatusId"></alias>
+        <view-link entity-alias="PR" rel-entity-alias="PS">
+            <key-map field-name="partyId"/>
+        </view-link>
+        <view-link entity-alias="PR" rel-entity-alias="RT">
+            <key-map field-name="roleTypeId"/>
+        </view-link>
+        <view-link entity-alias="PR" rel-entity-alias="PRS" rel-optional="true">
+            <key-map field-name="partyId" rel-field-name="partyIdTo"/>
+        </view-link>
+        <view-link entity-alias="PRS" rel-entity-alias="PG" rel-optional="true">
+            <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
+        </view-link>
+        <view-link entity-alias="PR" rel-entity-alias="PRT">
+            <key-map field-name="partyId"/>
+        </view-link>
+        <entity-condition>
+            <condition-expr field-name="parentTypeId" operator="equals" value="SCRUM_MEMBER" entity-alias="RT"/>
+        </entity-condition>
+    </view-entity>
+    
+    <view-entity entity-name="ProjectSprint"
+            package-name="org.apache.ofbiz.scrum"
+            title="ProjectSprint View">
+        <member-entity entity-alias="WE_PROJ" entity-name="WorkEffort"/><!--project -->
+        <member-entity entity-alias="WEGSD" entity-name="WorkEffortGoodStandard"/><!-- get workEffort associate with product -->
+        <member-entity entity-alias="WE_SPRI" entity-name="WorkEffort"/><!-- sprint -->
+        <alias-all entity-alias="WE_SPRI" prefix="sprint">
+            <exclude field="workEffortId"/>
+            <exclude field="workEffortName"/>
+        </alias-all>
+        <alias name="projectId" entity-alias="WE_PROJ" field="workEffortId"/>
+        <alias name="projectName" entity-alias="WE_PROJ" field="workEffortName"/>
+        <alias name="projectTypeId" entity-alias="WE_PROJ" field="workEffortTypeId"/>
+        <alias name="projectStatusId" entity-alias="WE_PROJ" field="currentStatusId"/>
+        <alias name="productId" entity-alias="WEGSD"/>
+        <alias name="sprintId" entity-alias="WE_SPRI" field="workEffortId"/>
+        <alias name="sprintName" entity-alias="WE_SPRI" field="workEffortName"/>
+        <view-link entity-alias="WE_PROJ" rel-entity-alias="WEGSD" rel-optional="true">
+          <key-map field-name="workEffortId"/>
+        </view-link>
+        <view-link entity-alias="WE_PROJ" rel-entity-alias="WE_SPRI" rel-optional="true">
+          <key-map field-name="workEffortId" rel-field-name="workEffortParentId"/>
+        </view-link>
+        <entity-condition>
+            <condition-list combine="or">
+                <condition-expr field-name="workEffortTypeId" operator="equals" value="SCRUM_PROJECT" entity-alias="WE_PROJ"/>
+                <condition-expr field-name="workEffortTypeId" operator="equals" value="SCRUM_SPRINT" entity-alias="WE_SPRI"/>
+            </condition-list>
+        </entity-condition>
+    </view-entity>
+    
+    <view-entity entity-name="ScrumPersonAndCompanyAndSecurityGroup"
+            package-name="org.apache.ofbiz.scrum" 
+            title="security group ->  person -> partyrelationship -> company">
+        <member-entity entity-alias="SG" entity-name="SecurityGroup"/>
+        <member-entity entity-alias="SU" entity-name="UserLoginSecurityGroup"/>
+        <member-entity entity-alias="UL" entity-name="UserLogin"/>
+        <member-entity entity-alias="PTY" entity-name="Party"/>
+        <member-entity entity-alias="P" entity-name="Person"/>
+        <member-entity entity-alias="PR" entity-name="PartyRelationship"/>
+        <member-entity entity-alias="PG" entity-name="PartyGroup"/>
+        <alias name="partyId" entity-alias="PTY"/>
+        <alias name="partyStatusId" field="statusId" entity-alias="PTY"/>
+        <alias name="groupId" entity-alias="SG"/>
+        <alias name="fromDate" entity-alias="SU"/>
+        <alias name="thruDate" entity-alias="SU"/>
+        <alias name="lastName" entity-alias="P"/>
+        <alias name="middleName" entity-alias="P"/>
+        <alias name="firstName" entity-alias="P"/>
+        <alias name="groupName" entity-alias="PG"/>
+        <alias name="partyIdFrom" entity-alias="PR"/>
+        <alias name="partyIdTo" entity-alias="PR"/>
+        <alias name="roleTypeIdFrom" entity-alias="PR"/>
+        <alias name="roleTypeIdTo" entity-alias="PR"/>
+        <alias name="partyRelFromDate" field="fromDate" entity-alias="PR"/>
+        <alias name="partyRelThruDate" field="thruDate" entity-alias="PR"/>
+        <alias name="partyRelationshipTypeId" entity-alias="PR"/>
+        <alias name="userLoginId" entity-alias="UL"/>
+        <alias name="enabled" entity-alias="UL"/>
+        <view-link entity-alias="SG" rel-entity-alias="SU">
+            <key-map field-name="groupId"/>
+        </view-link>
+        <view-link entity-alias="SU" rel-entity-alias="UL">
+            <key-map field-name="userLoginId"/>
+        </view-link>
+        <view-link entity-alias="UL" rel-entity-alias="PTY">
+            <key-map field-name="partyId"/>
+        </view-link>
+        <view-link entity-alias="PTY" rel-entity-alias="PR">
+          <key-map field-name="partyId" rel-field-name="partyIdTo"/>
+        </view-link>
+        <view-link entity-alias="PR" rel-entity-alias="P">
+            <key-map field-name="partyIdTo" rel-field-name="partyId"/>
+        </view-link>
+        <view-link entity-alias="PR" rel-entity-alias="PG">
+            <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
+        </view-link>
+        <entity-condition>
+            <condition-list combine="and">
+                <condition-expr field-name="roleTypeIdFrom" operator="equals" value="ACCOUNT" entity-alias="PR"/>
+                <condition-expr field-name="roleTypeIdTo" operator="equals" value="CONTACT" entity-alias="PR"/>
+                <condition-list combine="or">
+                    <condition-expr field-name="groupId" operator="equals" value="SCRUM_PRODUCT_OWNER" entity-alias="SG"/>
+                    <condition-expr field-name="groupId" operator="equals" value="SCRUM_MASTER" entity-alias="SG"/>
+                    <condition-expr field-name="groupId" operator="equals" value="SCRUM_TEAM" entity-alias="SG"/>
+                    <condition-expr field-name="groupId" operator="equals" value="SCRUM_STAKEHOLDER" entity-alias="SG"/>
+                </condition-list>
+            </condition-list>
+        </entity-condition>
+    </view-entity>
+    
+    <view-entity entity-name="UnPlannedBacklogsAndTasks" 
+            package-name="org.apache.ofbiz.scrum"
+            title="UnPlanned Backlog Items ->  tasks">
+        <member-entity entity-alias="CW" entity-name="CustRequestWorkEffort"/>
+        <member-entity entity-alias="CR" entity-name="CustRequest"/>
+        <member-entity entity-alias="CRI" entity-name="CustRequestItem"/>
+        <member-entity entity-alias="WE" entity-name="WorkEffort"/>
+        <alias-all entity-alias="CR"/>
+        <alias-all entity-alias="CRI">
+            <exclude field="statusId"/>
+            <exclude field="priority"/>
+            <exclude field="description"/>
+            <exclude field="reservPersons"/>
+        </alias-all>
+        <alias-all entity-alias="WE">
+            <exclude field="priority"/>
+            <exclude field="description"/>
+            <exclude field="createdDate"/>
+            <exclude field="createdByUserLogin"/>
+            <exclude field="lastModifiedDate"/>
+            <exclude field="lastModifiedByUserLogin"/>
+            <exclude field="sequenceNum"/>
+        </alias-all>
+        
+        <view-link entity-alias="CR" rel-entity-alias="CRI" rel-optional="true">
+            <key-map field-name="custRequestId"/>
+        </view-link>
+        <view-link entity-alias="CR" rel-entity-alias="CW" rel-optional="true">
+            <key-map field-name="custRequestId"/>
+        </view-link>
+        <view-link entity-alias="CW" rel-entity-alias="WE" rel-optional="true">
+            <key-map field-name="workEffortId"/>
+        </view-link>
+        <entity-condition>
+            <condition-expr field-name="custRequestTypeId" operator="equals" value="RF_UNPLAN_BACKLOG" entity-alias="CR"/>
+        </entity-condition>
+    </view-entity>
+    <view-entity entity-name="UnPlannedBacklogsTaskAndTimeEntryTimeSheet" 
+            package-name="org.apache.ofbiz.scrum"
+            title="UnPlanned Backlog Items ->  tasks">
+        <member-entity entity-alias="CW" entity-name="CustRequestWorkEffort"/>
+        <member-entity entity-alias="CR" entity-name="CustRequest"/>
+        <member-entity entity-alias="CRI" entity-name="CustRequestItem"/>
+        <member-entity entity-alias="WE" entity-name="WorkEffort"/>
+        <member-entity entity-alias="TE" entity-name="TimeEntry"/>
+        <member-entity entity-alias="TS" entity-name="Timesheet"/>
+        <alias-all entity-alias="TE">
+            <exclude field="workEffortId"/>
+        </alias-all>
+        <alias-all entity-alias="CR"/>
+        <alias-all entity-alias="CRI">
+            <exclude field="statusId"/>
+            <exclude field="priority"/>
+            <exclude field="description"/>
+            <exclude field="reservPersons"/>
+        </alias-all>
+        <alias-all entity-alias="WE">
+            <exclude field="workEffortId"/>
+            <exclude field="priority"/>
+            <exclude field="description"/>
+            <exclude field="createdDate"/>
+            <exclude field="createdByUserLogin"/>
+            <exclude field="lastModifiedDate"/>
+            <exclude field="lastModifiedByUserLogin"/>
+            <exclude field="sequenceNum"/>
+        </alias-all>
+        <alias entity-alias="WE" field="workEffortId" name="taskId"></alias>
+        <alias entity-alias="TS" field="statusId" name="timesheetStatusId"/>
+        <alias entity-alias="TS" field="partyId" name="timesheetPartyId"/>
+        <view-link entity-alias="CR" rel-entity-alias="CRI" rel-optional="true">
+            <key-map field-name="custRequestId"/>
+        </view-link>
+        <view-link entity-alias="CR" rel-entity-alias="CW" rel-optional="true">
+            <key-map field-name="custRequestId"/>
+        </view-link>
+        <view-link entity-alias="CW" rel-entity-alias="WE" rel-optional="true">
+            <key-map field-name="workEffortId"/>
+        </view-link>
+        <view-link entity-alias="WE"  rel-entity-alias="TE">
+            <key-map field-name="workEffortId"/>
+        </view-link>
+        <view-link entity-alias="TE" rel-entity-alias="TS">
+            <key-map field-name="timesheetId"/>
+        </view-link>
+        <entity-condition>
+            <condition-expr field-name="custRequestTypeId" operator="equals" value="RF_UNPLAN_BACKLOG" entity-alias="CR"/>
+        </entity-condition>
+    </view-entity>
+    
+    <view-entity entity-name="CancelledBacklogsTaskAndTimeEntryTimeSheet" 
+            package-name="org.apache.ofbiz.scrum"
+            title="UnPlanned Backlog Items ->  tasks">
+        <member-entity entity-alias="CW" entity-name="CustRequestWorkEffort"/>
+        <member-entity entity-alias="CR" entity-name="CustRequest"/>
+        <member-entity entity-alias="CRI" entity-name="CustRequestItem"/>
+        <member-entity entity-alias="WE" entity-name="WorkEffort"/>
+        <member-entity entity-alias="TE" entity-name="TimeEntry"/>
+        <member-entity entity-alias="TS" entity-name="Timesheet"/>
+        <alias-all entity-alias="TE">
+            <exclude field="workEffortId"/>
+        </alias-all>
+        <alias-all entity-alias="CR"/>
+        <alias-all entity-alias="CRI">
+            <exclude field="statusId"/>
+            <exclude field="priority"/>
+            <exclude field="sequenceNum"/>
+            <exclude field="description"/>
+            <exclude field="reservPersons"/>
+        </alias-all>
+        <alias-all entity-alias="WE">
+            <exclude field="workEffortId"/>
+            <exclude field="priority"/>
+            <exclude field="description"/>
+            <exclude field="createdDate"/>
+            <exclude field="createdByUserLogin"/>
+            <exclude field="lastModifiedDate"/>
+            <exclude field="lastModifiedByUserLogin"/>
+            <exclude field="sequenceNum"/>
+        </alias-all>
+        <alias entity-alias="WE" field="workEffortId" name="taskId"></alias>
+        <alias entity-alias="TS" field="statusId" name="timesheetStatusId"/>
+        <alias entity-alias="TS" field="partyId" name="timesheetPartyId"/>
+        <view-link entity-alias="CR" rel-entity-alias="CRI" rel-optional="true">
+            <key-map field-name="custRequestId"/>
+        </view-link>
+        <view-link entity-alias="CR" rel-entity-alias="CW" rel-optional="true">
+            <key-map field-name="custRequestId"/>
+        </view-link>
+        <view-link entity-alias="CW" rel-entity-alias="WE" rel-optional="true">
+            <key-map field-name="workEffortId"/>
+        </view-link>
+        <view-link entity-alias="WE"  rel-entity-alias="TE">
+            <key-map field-name="workEffortId"/>
+        </view-link>
+        <view-link entity-alias="TE" rel-entity-alias="TS">
+            <key-map field-name="timesheetId"/>
+        </view-link>
+        <entity-condition>
+            <condition-list combine="and">
+                <condition-expr field-name="custRequestTypeId" operator="equals" value="RF_PROD_BACKLOG" entity-alias="CR"/>
+                <condition-expr field-name="statusId" operator="equals" value="CRQ_CANCELLED" entity-alias="CR"/>
+            </condition-list>
+        </entity-condition>
+    </view-entity>
+    <view-entity entity-name="ScrumMemberUserLoginAndSecurityGroup"
+            package-name="org.apache.ofbiz.scrum"
+            never-cache="true"
+            title="Party, UserLogin And SecurityGroup View Entity">
+        <member-entity entity-alias="SG" entity-name="SecurityGroup"/>
+        <member-entity entity-alias="ULSG" entity-name="UserLoginSecurityGroup"/>
+        <member-entity entity-alias="UL" entity-name="UserLogin"/>
+        <member-entity entity-alias="PTY" entity-name="Party"/>
+        <member-entity entity-alias="P" entity-name="Person"/>
+        <alias-all entity-alias="ULSG"/>
+        <alias-all entity-alias="UL"/>
+        <alias name="partyId" entity-alias="PTY"/>
+        <alias name="partyStatusId" field="statusId" entity-alias="PTY"/>
+        <alias name="groupId" entity-alias="SG"/>
+        <alias name="lastName" entity-alias="P"/>
+        <alias name="middleName" entity-alias="P"/>
+        <alias name="firstName" entity-alias="P"/>
+          
+        <view-link entity-alias="SG" rel-entity-alias="ULSG">
+            <key-map field-name="groupId"/>
+        </view-link>
+        <view-link entity-alias="ULSG" rel-entity-alias="UL">
+            <key-map field-name="userLoginId"/>
+        </view-link>
+        <view-link entity-alias="UL" rel-entity-alias="PTY">
+            <key-map field-name="partyId"/>
+        </view-link>
+        <view-link entity-alias="PTY" rel-entity-alias="P">
+            <key-map field-name="partyId"/>
+        </view-link>
+        <entity-condition>
+            <condition-list combine="or">
+                <condition-expr field-name="groupId" operator="equals" value="SCRUM_PRODUCT_OWNER" entity-alias="SG"/>
+                <condition-expr field-name="groupId" operator="equals" value="SCRUM_MASTER" entity-alias="SG"/>
+                <condition-expr field-name="groupId" operator="equals" value="SCRUM_TEAM" entity-alias="SG"/>
+                <condition-expr field-name="groupId" operator="equals" value="SCRUM_STAKEHOLDER" entity-alias="SG"/>
+            </condition-list>
+         </entity-condition>
+      </view-entity>
+</entitymodel>

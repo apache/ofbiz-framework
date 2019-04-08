@@ -257,12 +257,12 @@
         <!-- Create partyId for UserLogin -->
         <session-to-field field="userLoginCtx" session-name="userLogin"/>
         <if-empty field="userLoginCtx.partyId">
-            <make-value entity-name="Party" value-field="newEntity"/>
+            <make-value value-field="newEntity" entity-name="Party"/>
             <set field="newEntity.partyId" from-field="userLoginCtx.userLoginId"/>
             <set field="newEntity.partyTypeId" value="PERSON"/>
             <create-value value-field="newEntity"/>
             <clear-field field="newEntity"/>
-            <make-value entity-name="Person" value-field="newPerson"/>
+            <make-value value-field="newPerson" entity-name="Person"/>
             <set field="newPerson.partyId" from-field="userLoginCtx.userLoginId"/>
             <create-value value-field="newPerson"/>
             <clear-field field="newPerson"/>
@@ -286,11 +286,11 @@
 
         <entity-one entity-name="PartyGroup" value-field="partyGroup"/>
         <script>groovy:
-           groupName = partyGroup.get("groupName")
-           if (groupName != null) {
-              parameters.put("invoiceIdPrefix", groupName.toUpperCase().substring(0, 2)+"CI")
-           } else {
-              parameters.put("invoiceIdPrefix", "CI")
+           groupName = partyGroup.get("groupName");
+           if(groupName != null){
+              parameters.put("invoiceIdPrefix", groupName.toUpperCase().substring(0, 2)+"CI");
+           }else{
+              parameters.put("invoiceIdPrefix", "CI");
            }
         </script>
 
@@ -309,7 +309,7 @@
         <!-- run demo General Chart Of Accounts  -->
         <entity-condition entity-name="GlAccount" list="glAccountList"/>
         <if-empty field="glAccountList">
-            <set field="importChartOfAccountCtx.filename" value="${sys:getProperty('ofbiz.home')}/applications/accounting/data/OfbizSetupChartOfAccountsData.xml"/>
+            <set field="importChartOfAccountCtx.filename" value="${sys:getProperty('ofbiz.home')}/applications/accounting/data/DemoGeneralChartOfAccounts.xml"/>
             <session-to-field field="importChartOfAccountCtx.userLogin" session-name="userLogin"/>
             <call-service service-name="entityImport" in-map-name="importChartOfAccountCtx"/>
             <check-errors/>
@@ -319,7 +319,7 @@
         <now-timestamp field="nowTimestamp"/>
         <set field="placeholderValues.orgPartyId" from="partyId"/>
         <set field="placeholderValues.fromDate" value="${groovy:nowTimestamp.toString()}"/>
-        <set field="importFileCtx.filename" value="${sys:getProperty('ofbiz.home')}/applications/commonext/data/OfbizSetupGlAccountData.xml"/>
+        <set field="importFileCtx.filename" value="${sys:getProperty('ofbiz.home')}/applications/commonext/data/GlAccountData.xml"/>
         <set field="importFileCtx.placeholderValues" from="placeholderValues"/>
         <call-service service-name="entityImport" in-map-name="importFileCtx"/>
         <check-errors/>
@@ -345,7 +345,7 @@
         </if-empty>
         <check-errors/>
         
-        <make-value entity-name="Facility" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="Facility"/>
         <set field="defaultDaysToShip" from-field="parameters.defaultDaysToShip" type="Long"/>
         <clear-field field="parameters.defaultDaysToShip"/>
         
@@ -406,7 +406,7 @@
         <check-errors/>
 
         <!-- Create ProductStore -->
-        <make-value entity-name="ProductStore" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="ProductStore"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set field="newEntity.storeCreditValidDays" value="90" type="Long"/>
         <set field="newEntity.daysToCancelNonPay"  value="30" type="Long"/>
@@ -426,7 +426,7 @@
         <!-- create the ProductStoreFacility record -->
         <now-timestamp field="nowTimestamp"/>
         <if-not-empty field="newEntity.inventoryFacilityId">
-            <make-value entity-name="ProductStoreFacility" value-field="storeFacility"/>
+            <make-value value-field="storeFacility" entity-name="ProductStoreFacility"/>
             <set from-field="newEntity.inventoryFacilityId" field="storeFacility.facilityId"/>
             <set from-field="newEntity.productStoreId" field="storeFacility.productStoreId"/>
             <set from-field="nowTimestamp" field="storeFacility.fromDate"/>
@@ -440,7 +440,7 @@
         <entity-condition entity-name="ShipmentMethodType" list="shipmentMethodTypeList"/>
         <if-empty field="shipmentMethodTypeList">
             <!-- run demo Shipping  -->
-            <set field="importShippingCtx.filename" value="${sys:getProperty('ofbiz.home')}/applications/commonext/data/OfbizSetupShippingData.xml"/>
+            <set field="importShippingCtx.filename" value="${sys:getProperty('ofbiz.home')}/applications/commonext/data/ShippingData.xml"/>
             <session-to-field field="importShippingCtx.userLogin" session-name="userLogin"/>
             <call-service service-name="entityImport" in-map-name="importShippingCtx"/>
             <check-errors/>
@@ -449,7 +449,7 @@
         <!-- Import Default ProductStore & Shipment data -->
         <set field="placeholderValues.orgPartyId" from="organizationPartyId"/>
         <set field="placeholderValues.productStoreId" from="productStoreId"/>
-        <set field="importFileCtx.filename" value="${sys:getProperty('ofbiz.home')}/applications/commonext/data/OfbizSetupProductStoreData.xml"/>
+        <set field="importFileCtx.filename" value="${sys:getProperty('ofbiz.home')}/applications/commonext/data/ProductStoreData.xml"/>
         <set field="importFileCtx.placeholderValues" from="placeholderValues"/>
         <call-service service-name="entityImport" in-map-name="importFileCtx"/>
         <check-errors/>
@@ -505,7 +505,7 @@
             <result-to-request result-name="productCategoryId" request-name="productCategoryId"/>
         </call-service>
 
-        <make-value entity-name="ProductCategoryRollup" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="ProductCategoryRollup"/>
         <set field="newEntity.parentProductCategoryId" from-field="parameters.primaryParentCategoryId"/>
         <set field="newEntity.productCategoryId" from-field="productCategoryId"/>
         <set field="newEntity.sequenceNum" value="1" type="Long"/>

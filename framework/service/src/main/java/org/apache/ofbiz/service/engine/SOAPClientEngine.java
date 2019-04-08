@@ -73,18 +73,16 @@ public final class SOAPClientEngine extends GenericAsyncEngine {
     public Map<String, Object> runSync(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
         Map<String, Object> result = serviceInvoker(modelService, context);
 
-        if (result == null) {
+        if (result == null)
             throw new GenericServiceException("Service did not return expected result");
-        }
         return result;
     }
 
     // Invoke the remote SOAP service
     private Map<String, Object> serviceInvoker(ModelService modelService, Map<String, Object> context) throws GenericServiceException {
         Delegator delegator = dispatcher.getDelegator();
-        if (modelService.location == null || modelService.invoke == null) {
+        if (modelService.location == null || modelService.invoke == null)
             throw new GenericServiceException("Cannot locate service to invoke");
-        }
 
         ServiceClient client = null;
         QName serviceName = null;
@@ -106,9 +104,7 @@ public final class SOAPClientEngine extends GenericAsyncEngine {
 
         List<ModelParam> inModelParamList = modelService.getInModelParamList();
 
-        if (Debug.infoOn()) {
-            Debug.logInfo("[SOAPClientEngine.invoke] : Parameter length - " + inModelParamList.size(), module);
-        }
+        if (Debug.infoOn()) Debug.logInfo("[SOAPClientEngine.invoke] : Parameter length - " + inModelParamList.size(), module);
 
         if (UtilValidate.isNotEmpty(modelService.nameSpace)) {
             serviceName = new QName(modelService.nameSpace, modelService.invoke);
@@ -118,11 +114,9 @@ public final class SOAPClientEngine extends GenericAsyncEngine {
 
         int i = 0;
 
-        Map<String, Object> parameterMap = new HashMap<>();
+        Map<String, Object> parameterMap = new HashMap<String, Object>();
         for (ModelParam p: inModelParamList) {
-            if (Debug.infoOn()) {
-                Debug.logInfo("[SOAPClientEngine.invoke} : Parameter: " + p.name + " (" + p.mode + ") - " + i, module);
-            }
+            if (Debug.infoOn()) Debug.logInfo("[SOAPClientEngine.invoke} : Parameter: " + p.name + " (" + p.mode + ") - " + i, module);
 
             // exclude params that ModelServiceReader insert into (internal params)
             if (!p.internal) {

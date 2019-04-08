@@ -40,13 +40,13 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 /**
  * Generic Script Service Engine. This service engine uses the javax.script package (JSR-223) to invoke scripts or script functions.
- * <p>The script service engine will put the following artifacts in the script engine's bindings:</p>
+ * <p>The script service engine will put the following artifacts in the script engine's bindings:<br />
  * <ul>
  *   <li><code>parameters</code> - the service attributes <code>Map</code></li>
  *   <li><code>dctx</code> - a <code>DispatchContext</code> instance</li>
  *   <li><code>dispatcher</code> - a <code>LocalDispatcher</code> instance</li>
  *   <li><code>delegator</code> - a <code>Delegator</code> instance</li>
- * </ul>
+ * </ul></p>
  * <p>If the service definition includes an invoke attribute, then the matching script function/method will be called
  * with a single argument - the bindings <code>Map</code>.</p>
  */
@@ -56,7 +56,7 @@ public final class ScriptEngine extends GenericAsyncEngine {
     private static final Set<String> protectedKeys = createProtectedKeys();
 
     private static Set<String> createProtectedKeys() {
-        Set<String> newSet = new HashSet<>();
+        Set<String> newSet = new HashSet<String>();
         /* Commenting out for now because some scripts write to the parameters Map - which should not be allowed.
         newSet.add(ScriptUtil.PARAMETERS_KEY);
         */
@@ -73,7 +73,7 @@ public final class ScriptEngine extends GenericAsyncEngine {
     @Override
     public Map<String, Object> runSync(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
         Assert.notNull("localName", localName, "modelService.location", modelService.location, "context", context);
-        Map<String, Object> params = new HashMap<>();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.putAll(context);
         context.put(ScriptUtil.PARAMETERS_KEY, params);
         DispatchContext dctx = dispatcher.getLocalContext(localName);
@@ -90,7 +90,7 @@ public final class ScriptEngine extends GenericAsyncEngine {
                 return cast(resultObj);
             }
             Map<String, Object> result = ServiceUtil.returnSuccess();
-            result.putAll(modelService.makeValid(scriptContext.getBindings(ScriptContext.ENGINE_SCOPE), ModelService.OUT_PARAM));
+            result.putAll(modelService.makeValid(scriptContext.getBindings(ScriptContext.ENGINE_SCOPE), "OUT"));
             return result;
         } catch (ScriptException se) {
             return ServiceUtil.returnError(se.getMessage());

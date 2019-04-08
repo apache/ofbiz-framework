@@ -33,7 +33,7 @@ package org.apache.ofbiz.base.metrics;
  * An object that tracks service metrics.
  * <p>This interface and its default implementation are based on the
  * <code>seda.sandstorm.internal.StageStats</code> class written by
- * Matt Welsh.
+ * Matt Welsh.</code>
  * @see <a href="http://www.eecs.harvard.edu/~mdw/proj/seda/">SEDA</a>
  */
 public interface Metrics {

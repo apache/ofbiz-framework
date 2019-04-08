@@ -40,7 +40,7 @@ import org.apache.ofbiz.workeffort.workeffort.WorkEffortSearch.WorkEffortSearchC
 public class WorkEffortSearchSession {
 
     public static final String module = WorkEffortSearchSession.class.getName();
-
+    
     @SuppressWarnings("serial")
     public static class WorkEffortSearchOptions implements java.io.Serializable {
         protected List<WorkEffortSearchConstraint> constraintList = null;
@@ -68,7 +68,7 @@ public class WorkEffortSearchSession {
         public static void addConstraint(WorkEffortSearchConstraint workEffortSearchConstraint, HttpSession session) {
             WorkEffortSearchOptions workEffortSearchOptions = getWorkEffortSearchOptions(session);
             if (workEffortSearchOptions.constraintList == null) {
-                workEffortSearchOptions.constraintList = new LinkedList<>();
+                workEffortSearchOptions.constraintList = new LinkedList<WorkEffortSearch.WorkEffortSearchConstraint>();
             }
             if (!workEffortSearchOptions.constraintList.contains(workEffortSearchConstraint)) {
                 workEffortSearchOptions.constraintList.add(workEffortSearchConstraint);
@@ -131,14 +131,12 @@ public class WorkEffortSearchSession {
 
         public List<String> searchGetConstraintStrings(boolean detailed, Delegator delegator, Locale locale) {
             List<WorkEffortSearchConstraint> workEffortSearchConstraintList = this.getConstraintList();
-            List<String> constraintStrings = new LinkedList<>();
+            List<String> constraintStrings = new LinkedList<String>();
             if (workEffortSearchConstraintList == null) {
                 return constraintStrings;
             }
             for (WorkEffortSearchConstraint workEffortSearchConstraint: workEffortSearchConstraintList) {
-                if (workEffortSearchConstraint == null) {
-                    continue;
-                }
+                if (workEffortSearchConstraint == null) continue;
                 String constraintString = workEffortSearchConstraint.prettyPrintConstraint(delegator, detailed, locale);
                 if (UtilValidate.isNotEmpty(constraintString)) {
                     constraintStrings.add(constraintString);
@@ -163,8 +161,9 @@ public class WorkEffortSearchSession {
         Boolean alreadyRun = (Boolean) request.getAttribute("processSearchParametersAlreadyRun");
         if (Boolean.TRUE.equals(alreadyRun)) {
             return;
+        } else {
+            request.setAttribute("processSearchParametersAlreadyRun", Boolean.TRUE);
         }
-        request.setAttribute("processSearchParametersAlreadyRun", Boolean.TRUE);
         HttpSession session = request.getSession();
         boolean constraintsChanged = false;
 
@@ -209,7 +208,7 @@ public class WorkEffortSearchSession {
 
 //      add a Product Set to the search
         if (UtilValidate.isNotEmpty(parameters.get("productId_1"))) {
-            List<String> productSet = new LinkedList<>();
+            List<String> productSet = new LinkedList<String>();
             productSet.add((String) parameters.get("productId_1"));
             if (UtilValidate.isNotEmpty(parameters.get("productId_2"))) {
                 productSet.add((String) parameters.get("productId_2"));
@@ -247,7 +246,7 @@ public class WorkEffortSearchSession {
         String sortAscending = (String) parameters.get("sortAscending");
         boolean ascending = !"N".equals(sortAscending);
         if (sortOrder != null) {
-            if ("SortKeywordRelevancy".equals(sortOrder)) {
+            if (sortOrder.equals("SortKeywordRelevancy")) {
                 searchSetSortOrder(new WorkEffortSearch.SortKeywordRelevancy(), session);
             } else if (sortOrder.startsWith("SortWorkEffortField:")) {
                 String fieldName = sortOrder.substring("SortWorkEffortField:".length());
@@ -268,7 +267,7 @@ public class WorkEffortSearchSession {
             } catch (Exception e) {
                 Debug.logError(e, "Error formatting VIEW_INDEX, setting to 0", module);
                 // we could just do nothing here, but we know something was specified so we don't want to use the previous value from the session
-                workEffortSearchOptions.setViewIndex(0);
+                workEffortSearchOptions.setViewIndex(Integer.valueOf(0));
             }
         }
 
@@ -278,7 +277,7 @@ public class WorkEffortSearchSession {
                 workEffortSearchOptions.setViewSize(Integer.valueOf(viewSizeStr));
             } catch (Exception e) {
                 Debug.logError(e, "Error formatting VIEW_SIZE, setting to 20", module);
-                workEffortSearchOptions.setViewSize(20);
+                workEffortSearchOptions.setViewSize(Integer.valueOf(20));
             }
         }
     }
@@ -292,7 +291,7 @@ public class WorkEffortSearchSession {
     public static List<WorkEffortSearchOptions> getSearchOptionsHistoryList(HttpSession session) {
         List<WorkEffortSearchOptions> optionsHistoryList = UtilGenerics.checkList(session.getAttribute("_WORK_EFFORT_SEARCH_OPTIONS_HISTORY_"));
         if (optionsHistoryList == null) {
-            optionsHistoryList = new LinkedList<>();
+            optionsHistoryList = new LinkedList<WorkEffortSearchSession.WorkEffortSearchOptions>();
             session.setAttribute("_WORK_EFFORT_SEARCH_OPTIONS_HISTORY_", optionsHistoryList);
         }
         return optionsHistoryList;
@@ -306,6 +305,7 @@ public class WorkEffortSearchSession {
     public static String searchGetSortOrderString(boolean detailed, HttpServletRequest request) {
         Locale locale = UtilHttp.getLocale(request);
         ResultSortOrder resultSortOrder = WorkEffortSearchOptions.getResultSortOrder(request);
+        if (resultSortOrder == null) return "";
         return resultSortOrder.prettyPrintSortOrder(detailed, locale);
     }
     public static void checkSaveSearchOptionsHistory(HttpSession session) {

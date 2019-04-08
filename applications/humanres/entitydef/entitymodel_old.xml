@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
+    <title>Entity of an Apache OFBiz Component</title>
+    <description>None</description>
+    <version>1.0</version>
+
+  <entity entity-name="OldEmplPositionTypeRate" table-name="EMPL_POSITION_TYPE_RATE"
+    package-name="org.apache.ofbiz.humanres.position"
+    title="EmplPosition Type Rate Entity">
+    <field name="emplPositionTypeId" type="id-ne"/>
+    <field name="periodTypeId" type="id-ne"/>
+    <field name="payGradeId" type="id"/>
+    <field name="salaryStepSeqId" type="id"/>
+    <field name="rateTypeId" type="id"/>
+    <field name="fromDate" type="date-time"/>
+    <field name="thruDate" type="date-time"/>
+    <field name="rate" type="id"/>
+    <prim-key field="emplPositionTypeId"/>
+    <prim-key field="periodTypeId"/>
+    <prim-key field="fromDate"/>
+    <relation type="one" fk-name="EMPL_PSTPRT_EPTP" rel-entity-name="EmplPositionType">
+      <key-map field-name="emplPositionTypeId"/>
+    </relation>
+    <relation type="one" fk-name="EMPL_PSTPRT_PRDTYP" rel-entity-name="PeriodType">
+      <key-map field-name="periodTypeId"/>
+    </relation>
+    <relation type="one-nofk" fk-name="EMPL_PSTPRT_SSTP" rel-entity-name="OldSalaryStep">
+      <key-map field-name="salaryStepSeqId"/>
+      <key-map field-name="payGradeId"/>
+    </relation>
+    <relation type="one-nofk" fk-name="EMPL_PSTPRT_RTTYP" rel-entity-name="RateType">
+      <key-map field-name="rateTypeId"/>
+    </relation>
+  </entity>
+  
+    <entity entity-name="OldSalaryStep" table-name="SALARY_STEP"
+            package-name="org.apache.ofbiz.humanres.employment"
+            title="Salary Step Entity">
+      <field name="salaryStepSeqId" type="id-ne"></field>
+      <field name="payGradeId" type="id-ne"></field>
+      <field name="dateModified" type="date-time"></field>
+      <field name="amount" type="currency-amount"></field>
+      <prim-key field="salaryStepSeqId"/>
+      <prim-key field="payGradeId"/>
+      <relation type="one" fk-name="SLRY_STP_PGRD" rel-entity-name="PayGrade">
+        <key-map field-name="payGradeId"/>
+      </relation>
+    </entity>
+  
+</entitymodel>

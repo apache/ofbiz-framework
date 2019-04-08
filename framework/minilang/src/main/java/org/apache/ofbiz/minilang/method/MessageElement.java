@@ -29,7 +29,7 @@ import org.w3c.dom.Element;
 
 /**
  * Implements the &lt;fail-message&gt; and &lt;fail-property&gt; elements.
- * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
+ * @see <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/Mini-language+Reference#Mini-languageReference-{{<failmessage>}}">Mini-language Reference</a>
  */
 public final class MessageElement extends MiniLangElement {
 

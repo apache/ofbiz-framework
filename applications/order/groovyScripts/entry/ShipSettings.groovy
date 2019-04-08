@@ -17,13 +17,14 @@
  * under the License.
  */
 
-
-import org.apache.ofbiz.entity.condition.EntityCondition
-import org.apache.ofbiz.entity.condition.EntityConditionBuilder
-import org.apache.ofbiz.entity.util.EntityUtil
-import org.apache.ofbiz.party.contact.ContactHelper
-import org.apache.ofbiz.party.contact.ContactMechWorker
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.order.shoppingcart.*
+import org.apache.ofbiz.party.contact.*
+import org.apache.ofbiz.product.catalog.*
 import org.apache.ofbiz.base.util.UtilValidate
+import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.util.EntityUtil
 
 cart = session.getAttribute("shoppingCart")
 
@@ -67,14 +68,6 @@ if ("SALES_ORDER".equals(cart.getOrderType())) {
     // suppliers for the drop-ship select box
     suppliers = from("PartyRole").where("roleTypeId", "SUPPLIER").queryList()
     context.suppliers = suppliers
-
-    //resolve Purchase agreements
-    EntityConditionBuilder conditionBuilder = new EntityConditionBuilder()
-    EntityCondition agreementCond = conditionBuilder.AND() {
-        IN(partyIdTo: EntityUtil.getFieldListFromEntityList(suppliers, 'partyId', true))
-        EQUALS(agreementTypeId: 'PURCHASE_AGREEMENT')
-    }
-    context.supplierAgreements = from("Agreement").where(agreementCond).queryList()
 
     // facilities used to reserve the items per ship group
     productStoreFacilities = from("ProductStoreFacility").where("productStoreId", cart.getProductStoreId()).queryList()

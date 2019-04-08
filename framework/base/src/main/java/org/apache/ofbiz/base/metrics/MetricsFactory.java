@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -51,39 +51,16 @@ public final class MetricsFactory {
     /**
      * Creates a <code>Metrics</code> instance based on <code>element</code> attributes.
      * If an instance with the same name already exists, it will be returned.
+     * <p><strong>Element Attributes</strong>
      * <table border="1">
-     *   <caption><strong>Element Attributes</strong></caption>
-     *   <tr><th>Attribute Name</th><th>Requirements</th><th>Description</th><th>Notes</th></tr>
-     *   <tr>
-     *     <td>name</td>
-     *     <td>Required</td>
-     *     <td>The metric name.</td>
-     *     <td>&nbsp;</td>
-     *   <tr>
-     *     <td>estimation-size</td>
-     *     <td>Optional</td>
-     *     <td>Positive integer number of events to include in the metrics calculation.</td>
-     *     <td>Defaults to "100".</td>
-     *   </tr>
-     *   <tr>
-     *     <td>estimation-time</td>
-     *     <td>Optional</td>
-     *     <td>Positive integer number of milliseconds to include in the metrics calculation.</td>
-     *     <td>Defaults to "1000".</td>
-     *   </tr>
-     *   <tr>
-     *     <td>smoothing</td>
-     *     <td>Optional</td>
-     *     <td>Smoothing factor - used to smooth the differences between calculations.</td>
-     *     <td>A value of "1" disables smoothing. Defaults to "0.7".</td>
-     *   </tr>
-     *   <tr>
-     *     <td>threshold</td>
-     *     <td>Optional</td>
-     *     <td>The metric threshold. The meaning of the threshold is determined by client code.</td>
-     *     <td>Defaults to "0.0".</td></tr>
-     * </table>
-     *
+     * <tr><th>Attribute Name</th><th>Requirements</th><th>Description</th><th>Notes</th></tr>
+     * <tr><td>name</td><td>Required</td><td>The metric name.</td><td>&nbsp;</td></tr>
+     * <tr><td>estimation-size</td><td>Optional</td><td>Positive integer number of events to include in the metrics calculation.</td><td>Defaults to "100".</td></tr>
+     * <tr><td>estimation-time</td><td>Optional</td><td>Positive integer number of milliseconds to include in the metrics calculation.</td><td>Defaults to "1000".</td></tr>
+     * <tr><td>smoothing</td><td>Optional</td><td>Smoothing factor - used to smooth the differences between calculations.</td><td>A value of "1" disables smoothing. Defaults to "0.7".</td></tr>
+     * <tr><td>threshold</td><td>Optional</td><td>The metric threshold. The meaning of the threshold is determined by client code.</td><td>Defaults to "0.0".</td></tr>
+     * </table></p>
+     * 
      * @param element The element whose attributes will be used to create the <code>Metrics</code> instance
      * @return A <code>Metrics</code> instance based on <code>element</code> attributes
      * @throws IllegalArgumentException if <code>element</code> is null or if the name attribute is empty
@@ -95,7 +72,7 @@ public final class MetricsFactory {
         Assert.notEmpty("name attribute", name);
         Metrics result = METRICS_CACHE.get(name);
         if (result == null) {
-            int estimationSize = UtilProperties.getPropertyAsInteger("serverstats", "metrics.estimation.size", 100);
+            int estimationSize = UtilProperties.getPropertyAsInteger("serverstats", "metrics.estimation.size", 100); 
             String attributeValue = element.getAttribute("estimation-size");
             if (!attributeValue.isEmpty()) {
                 estimationSize = Integer.parseInt(attributeValue);

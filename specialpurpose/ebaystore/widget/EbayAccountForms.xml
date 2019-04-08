@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
+    <form name="NewEbayAccount" type="single"  target="createEbayAccount">
+        <auto-fields-service service-name="createEbayAccount"/>
+        <field name="statusId"><hidden value="PARTY_ENABLED"/></field>
+        <field name="gender">
+            <drop-down allow-empty="true">
+                <option key="M" description="${uiLabelMap.CommonMale}"/>
+                <option key="F" description="${uiLabelMap.CommonFemale}"/>
+            </drop-down>
+        </field>
+        <field name="currentPassword"><password/></field>
+        <field name="currentPasswordVerify"><password/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
+    </form>
+    <!-- feedback -->
+    <grid name="ItemsAwaitingFeedback" list-name="itemsAwaitingFeedbackList"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <row-actions>
+            <set field="leave"  value="${commentType}"/>
+        </row-actions>
+        <field name="itemID"><display description="${itemID} - ${title}"/></field>
+        <field name="userID"><display description="${userID}"/></field>
+        <field name="actions" use-when="&quot;${commentType}&quot; == &quot;&quot;">
+            <hyperlink description="Leave Feedback" target="LeaveFeedback">
+                <parameter param-name="itemId" value="${itemID}"/>
+                <parameter param-name="transactionId" value="${transactionID}"/>
+                <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
+                <parameter param-name="targetUser" value="${userID}"/>
+                <parameter param-name="commentingUser" value="${commentingUser}"/>
+                <parameter param-name="role" value="${role}"/>
+            </hyperlink>
+        </field>
+    </grid>
+    <grid name="RecentFeedback" list-name="recentFeedbackList"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <field name="contentId" title="Feedback Id"><display/></field>
+        <field name="dataResourceId" title="${uiLabelMap.ContentDataResourceId}">
+            <display-entity entity-name="ElectronicText" key-field-name="dataResourceId" description="${textData}"/>
+        </field>
+        <field name="commentator" title="Commentator"><display/></field>
+        <field name="createdDate"><display type="date"/></field>
+    </grid>
+    <!-- Personal Information -->
+    <form name="EbayPersonalInformationForm" type="single" default-map-name="results.registrationAddress" default-table-style="basic-table">
+        <field name="firstName"><display/></field>
+        <field name="lastName"><display/></field>
+        <field name="cityName"><display/></field>
+        <field name="country"><display/></field>
+        <field name="stateOrProvince"><display/></field>
+        <field name="postalCode"><display/></field>
+        <field name="street"><display/></field>
+        <field name="street1"><display/></field>
+        <field name="street2"><display/></field>
+        <field name="phone"><display/></field>
+        <field name="email"><display description="${results.email}"/></field>
+        <field name="status"><display description="${results.status}"/></field>
+    </form>
+</forms>

@@ -65,7 +65,6 @@ public final class WebSiteProperties {
             String httpsPort = defaults.getHttpsPort();
             String httpsHost = defaults.getHttpsHost();
             boolean enableHttps = defaults.getEnableHttps();
-            String webappPath = null;
             if (delegator != null) {
                 String webSiteId = WebSiteWorker.getWebSiteId(request);
                 if (webSiteId != null) {
@@ -86,12 +85,6 @@ public final class WebSiteProperties {
                         if (webSiteValue.get("enableHttps") != null) {
                             enableHttps = webSiteValue.getBoolean("enableHttps");
                         }
-                        if (webSiteValue.get("webappPath") != null) {
-                            webappPath = webSiteValue.getString("webappPath");
-                            if (webappPath.endsWith("/")) {
-                                webappPath = webappPath.substring(0, webappPath.length() - 1);
-                            }
-                        }
                     }
                 }
             }
@@ -108,7 +101,7 @@ public final class WebSiteProperties {
             if (httpsHost.isEmpty()) {
                 httpsHost = request.getServerName();
             }
-
+            
             if (Start.getInstance().getConfig().portOffset != 0) {
                 Integer httpPortValue = Integer.valueOf(httpPort);
                 httpPortValue += Start.getInstance().getConfig().portOffset;
@@ -122,7 +115,7 @@ public final class WebSiteProperties {
                 }
             }
             
-            webSiteProps = new WebSiteProperties(httpPort, httpHost, httpsPort, httpsHost, webappPath, enableHttps);
+            webSiteProps = new WebSiteProperties(httpPort, httpHost, httpsPort, httpsHost, enableHttps);
             request.setAttribute("_WEBSITE_PROPS_", webSiteProps);
         }
         return webSiteProps;
@@ -144,7 +137,6 @@ public final class WebSiteProperties {
         String httpHost = (webSiteValue.get("httpHost") != null) ? webSiteValue.getString("httpHost") : defaults.getHttpHost();
         String httpsPort = (webSiteValue.get("httpsPort") != null) ? webSiteValue.getString("httpsPort") : defaults.getHttpsPort();
         String httpsHost = (webSiteValue.get("httpsHost") != null) ? webSiteValue.getString("httpsHost") : defaults.getHttpsHost();
-        String webappPath = (webSiteValue.get("webappPath") != null) ? webSiteValue.getString("webappPath") : null;
         boolean enableHttps = (webSiteValue.get("enableHttps") != null) ? webSiteValue.getBoolean("enableHttps") : defaults.getEnableHttps();
 
         if (Start.getInstance().getConfig().portOffset != 0) {
@@ -156,14 +148,13 @@ public final class WebSiteProperties {
             httpsPort = httpsPortValue.toString();
         }
         
-        return new WebSiteProperties(httpPort, httpHost, httpsPort, httpsHost, webappPath, enableHttps);
+        return new WebSiteProperties(httpPort, httpHost, httpsPort, httpsHost, enableHttps);
     }
 
     private final String httpPort;
     private final String httpHost;
     private final String httpsPort;
     private final String httpsHost;
-    private final String webappPath;
     private final boolean enableHttps;
 
     private WebSiteProperties(Delegator delegator) {
@@ -171,16 +162,14 @@ public final class WebSiteProperties {
         this.httpHost = EntityUtilProperties.getPropertyValue("url", "force.http.host", delegator);
         this.httpsPort = EntityUtilProperties.getPropertyValue("url", "port.https", delegator);
         this.httpsHost = EntityUtilProperties.getPropertyValue("url", "force.https.host", delegator);
-        this.webappPath = null;
         this.enableHttps = EntityUtilProperties.propertyValueEqualsIgnoreCase("url", "port.https.enabled", "Y", delegator);
     }
 
-    private WebSiteProperties(String httpPort, String httpHost, String httpsPort, String httpsHost, String webappPath, boolean enableHttps) {
+    private WebSiteProperties(String httpPort, String httpHost, String httpsPort, String httpsHost, boolean enableHttps) {
         this.httpPort = httpPort;
         this.httpHost = httpHost;
         this.httpsPort = httpsPort;
         this.httpsHost = httpsHost;
-        this.webappPath = webappPath;
         this.enableHttps = enableHttps;
     }
 
@@ -219,13 +208,6 @@ public final class WebSiteProperties {
         return enableHttps;
     }
 
-    /**
-     * Returns the configured webapp path on website linked to webapp or null.
-     */
-    public String getWebappPath() {
-        return webappPath;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("{httpPort=");
@@ -233,7 +215,6 @@ public final class WebSiteProperties {
         sb.append("httpHost=").append(httpHost).append(", ");
         sb.append("httpsPort=").append(httpsPort).append(", ");
         sb.append("httpsHost=").append(httpsHost).append(", ");
-        sb.append("webappPath=").append(webappPath).append(", ");
         sb.append("enableHttps=").append(enableHttps).append("}");
         return sb.toString();
     }

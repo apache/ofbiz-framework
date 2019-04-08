@@ -24,8 +24,6 @@ import org.apache.ofbiz.entity.util.EntityUtilProperties
 import org.apache.ofbiz.product.image.ScaleImage
 import org.apache.ofbiz.entity.condition.*
 
-module = "ImageUpload.groovy"
-
 context.nowTimestampString = UtilDateTime.nowTimestamp().toString()
 
 // make the image file formats
@@ -119,11 +117,11 @@ if (fileType) {
             try {
                 file1.delete()
             } catch (Exception e) {
-                Debug.logError(e, "error deleting existing file (not neccessarily a problem)", module)
+                System.out.println("error deleting existing file (not neccessarily a problem)")
             }
             file.renameTo(file1)
         } catch (Exception e) {
-            Debug.logError(e, module)
+            e.printStackTrace()
         }
 
         if (imageUrl && imageUrl.length() > 0) {
@@ -131,11 +129,11 @@ if (fileType) {
             product.set(fileType + "ImageUrl", imageUrl)
 
             // call scaleImageInAllSize
-            if ("original".equals(fileType)) {
+            if (fileType.equals("original")) {
                 context.delegator = delegator
                 result = ScaleImage.scaleImageInAllSize(context, filenameToUse, "main", "0")
 
-                if (result.containsKey("responseMessage") && "success".equals(result.get("responseMessage"))) {
+                if (result.containsKey("responseMessage") && result.get("responseMessage").equals("success")) {
                     imgMap = result.get("imageUrlMap")
                     imgMap.each() { key, value ->
                         product.set(key + "ImageUrl", value)

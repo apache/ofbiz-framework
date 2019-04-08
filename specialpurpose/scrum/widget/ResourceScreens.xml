@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
+    <screen name="FindResource">
+        <section>
+            <actions>
+                <set field="headerItem" value="admin"/>
+                <set field="titleProperty" value="PageTitleScrumMember"/>
+                <set field="labelTitleProperty" value="scrumResourceName"/>
+                <set field="workEffortId" from-field="parameters.projectId"/>
+                <set field="tabButtonItem" value="ProjectMember"/>
+                <set field="parameters.sortField" from-field="parameters.sortField" default-value="lastName"/>
+                <set field="noConditionFind" value="Y"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="button-bar">
+                            <link  text="${uiLabelMap.ScrumCreateNewParty}" target="quickAddParty" style="buttontext create"/>
+                            <link  text="${uiLabelMap.ScrumCreatePartyRelationship}" target="quickAddPartyRelationship" style="buttontext create"/>
+                        </container>
+                        <screenlet id="FindMemberResource" title="${uiLabelMap.ScrumFindScrumMember}" collapsible="true" initially-collapsed="true">
+                            <include-form name="FindMemberResource" location="component://scrum/widget/ResourceForms.xml"/>
+                        </screenlet>
+                        <section>
+                            <condition>
+                                <if-service-permission service-name="scrumPermissionCheck" main-action="CREATE" resource-description="MEMBER"/>
+                            </condition>
+                            <widgets>
+                                <screenlet id="AddResourcePanel" title="${uiLabelMap.ScrumAddScrumMember}" collapsible="true">
+                                    <include-form name="AddResource" location="component://scrum/widget/ResourceForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                        </section>
+                        <section>
+                            <condition>
+                                <if-service-permission service-name="scrumPermissionCheck" main-action="CREATE" resource-description="MEMBER"/>
+                            </condition>
+                            <widgets>
+                                <screenlet id="listResources" title="${uiLabelMap.ScrumScrumMembersList}" collapsible="true">
+                                    <include-form name="ListResources" location="component://scrum/widget/ResourceForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <section>
+                                    <condition>
+                                    <if-service-permission service-name="scrumPermissionCheck" main-action="VIEW" resource-description="PRODUCT"/>
+                                    </condition>
+                                    <widgets>
+                                        <screenlet id="listResourcesNoAction" title="${uiLabelMap.ScrumScrumMembersList}" collapsible="true">
+                                            <include-form name="ListResourcesNoAction" location="component://scrum/widget/ResourceForms.xml"/>
+                                        </screenlet>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <screenlet id="listResourcesForStakeholder" title="${uiLabelMap.ScrumScrumMembersList}" collapsible="true">
+                                            <include-form name="ListResourcesForStakeholder" location="component://scrum/widget/ResourceForms.xml"/>
+                                        </screenlet>
+                                    </fail-widgets>
+                                </section>
+                                
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="viewprofile">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleViewPartyProfile"/>
+                <set field="tabButtonItem" value="viewprofile"/>
+                <set field="labelTitleProperty" value="PartyTaxAuthInfos"/>
+                <set field="partyId" from-field="parameters.partyId"/>
+                <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/prototype.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/control.progress_bar.js" global="true"/>
+                <set field="layoutSettings.styleSheets[]" value="/images/prototypejs/progress_bar.css" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/partymgr/static/PartyProfileContent.js" global="true"/>
+                <script location="component://party/groovyScripts/party/ViewProfile.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <and>
+                                    <if-empty field="partyId"/>
+                                    <not><if-empty field="parameters.telno"/></not>
+                                </and>
+                            </condition>
+                            <actions>
+                                <service service-name="findPartyFromTelephone" auto-field-map="true" result-map="telnoMap"/>
+                                <entity-one entity-name="Party" value-field="party">
+                                    <field-map field-name="partyId" from-field="telnoMap.partyId"/>
+                                </entity-one>
+                                <set field="parameters.partyId" from-field="party.partyId"/>
+                            </actions>
+                            <widgets/>
+                        </section>
+                        <section>
+                            <condition>
+                                <and>
+                                    <if-empty field="partyId"/>
+                                    <not><if-empty field="parameters.email"/></not>
+                                </and>
+                            </condition>
+                            <actions>
+                                <service service-name="findPartyFromEmailAddress" result-map="emailMap">
+                                    <field-map field-name="address" from-field="parameters.email"/>
+                                </service>
+                                <entity-one entity-name="Party" value-field="party">
+                                    <field-map field-name="partyId" from-field="emailMap.partyId"/>
+                                </entity-one>
+                                <set field="parameters.partyId" from-field="party.partyId"/>
+                            </actions>
+                            <widgets/>
+                        </section>
+                        <section>
+                            <condition>
+                                <not><if-empty field="party"/></not>
+                            </condition>
+                            <widgets>
+                                <section>
+                                    <condition>
+                                        <if-compare field="showOld" operator="equals" value="true" type="Boolean"/>
+                                    </condition>
+                                    <widgets>
+                                        <container style="button-bar button-style-2">
+                                            <link target="viewprofile" text="${uiLabelMap.PartyHideOld}">
+                                                <parameter param-name="partyId" from-field="party.partyId"/>
+                                            </link>
+                                        </container>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <container style="button-bar button-style-2">
+                                            <link target="viewprofile" text="${uiLabelMap.PartyShowOld}">
+                                                <parameter param-name="partyId" from-field="party.partyId"/>
+                                                <parameter param-name="SHOW_OLD" value="true"/>
+                                            </link>
+                                        </container>
+                                    </fail-widgets>
+                                </section>
+                                <section>
+                                    <widgets>
+                                        <include-portal-page id="ScrumPartyProfile"/>
+                                    </widgets>
+                                </section>
+                            </widgets>
+                            <fail-widgets>
+                                <container>
+                                    <label style="h3">${uiLabelMap.PartyNoPartyFoundWithPartyId}: ${parameters.partyId}</label>
+                                </container>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="viewroles">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleViewPartyRole"/>
+                <set field="headerItem" value="find"/>
+                <set field="tabButtonItem" value="viewroles"/>
+                <set field="labelTitleProperty" value="PartyMemberRoles"/>
+                <entity-condition entity-name="RoleTypeAndParty" list="partyRoles">
+                    <condition-list combine="and">
+                        <condition-expr field-name="partyId" operator="equals" value="${parameters.partyId}"/>
+                        <condition-expr field-name="roleTypeId" operator="not-equals" value="_NA_"/>
+                        <condition-expr field-name="parentTypeId" operator="equals" value="SCRUM_MEMBER"/>
+                    </condition-list>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.PartyMemberRoles}" navigation-form-name="ViewPartyRoles">
+                            <include-form name="ViewPartyRoles" location="component://party/widget/partymgr/PartyForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.PartyAddToRole}">
+                            <include-form name="AddPartyRole" location="component://scrum/widget/ResourceForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="Preferences">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleViewPartyPreferences"/>
+                <set field="tabButtonItem" value="preferences"/>
+                <set field="partyId"  from-field="parameters.partyId"/>
+                <entity-and entity-name="UserLogin" list="userLogins">
+                    <field-map field-name="partyId" from-field="parameters.partyId"/>
+                    <field-map field-name="userLoginId" from-field="userLogin.userLoginId"/>
+                </entity-and>
+                <set field="userLoginId" from-field="userLogins[0].userLoginId"/>
+                <script location="component://scrum/groovyScripts/ListScrumPreferenceSecurityGroup.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <and>
+                                    <not><if-empty field="partyId"></if-empty></not>
+                                    <!-- <if-service-permission service-name="scrumPermissionCheck" main-action="CREATE" resource-description="BACKLOG"/> -->
+                                    <if-compare-field field="partyId" operator="equals" to-field="userLogin.partyId"/>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.CommonPreferences} : ${userLoginId}" >
+                                    <include-form name="ListPreference" location="component://scrum/widget/ResourceForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <screenlet title="${uiLabelMap.CommonPreferences}" >
+                                    <include-form name="ListPreferenceNoAction" location="component://scrum/widget/ResourceForms.xml"/>
+                                </screenlet>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditPartyRates">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditPartyRates"/>
+                <set field="headerItem" value="find"/>
+                <set field="tabButtonItem" value="EditPartyRates"/>
+                <set field="labelTitleProperty" value="PageTitleEditPartyRates"/>
+                <set field="partyId" from-field="parameters.partyId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet id="AddPartyRatePanel" title="${uiLabelMap.PageTitleEditPartyRates}" collapsible="true">
+                            <include-form name="AddPartyRate" location="component://scrum/widget/ResourceForms.xml"/>
+                        </screenlet>
+                        <include-form name="ListPartyRates" location="component://scrum/widget/ResourceForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="PartyRevisions">
+        <section>
+            <actions>
+                <set field="title" value="${uiLabelMap.ScrumRevisions}"/>
+                <set field="parameters.custRequestId" from-field="custRequestWorkEffort[0].custRequestId"/>
+                <set field="parameters.noConditionFind" value="Y"/>
+                <entity-condition entity-name="ContentRole" list="contents">
+                    <condition-list>
+                        <condition-expr field-name="partyId" from-field="parameters.partyId"/>
+                        <condition-expr field-name="roleTypeId" value="OWNER"/>
+                    </condition-list>
+                </entity-condition>
+                <set field="contentIds" value="${groovy:return org.apache.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(contents, &quot;contentId&quot;, true)}" type="List" />
+                <entity-condition entity-name="WorkEffortAndContentDataResource" list="listIt">
+                    <condition-list>
+                        <condition-expr field-name="workEffortContentTypeId" value="TASK_SUB_INFO"/>
+                        <condition-expr field-name="contentId" operator="in" from-field="contentIds"/>
+                    </condition-list>
+                    <order-by field-name="fromDate"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <screenlet title="${title}">
+                    <include-form name="PartyRevisions" location="component://scrum/widget/ResourceForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="FindPartyRevision">
+        <section>
+            <actions>
+                <set field="titleProperty" value="ScrumRevisions"/>
+                <set field="tabButtonItem" value="findPartyRevision"/>
+                <set field="partyId"  from-field="parameters.partyId"/>
+                <entity-and entity-name="Enumeration" list="userPreferenceList">
+                    <field-map field-name="enumTypeId" value="SCRUM_PREFERENCE"/>
+                </entity-and>
+                <set field="permissionMap.partyId" from-field="parameters.partyId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet name="findPartyRevision" title="Find Revision">
+                            <include-form name="FindPartyRevision" location="component://scrum/widget/ResourceForms.xml"/>
+                        </screenlet>
+                        <screenlet name="listPartyRevision" title="Revisions list">
+                            <include-form name="ListPartyRevisions" location="component://scrum/widget/ResourceForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="QuickAddParty">
+        <section>
+            <condition>
+                <if-has-permission permission="SCRUM" action="_ADMIN"/>
+            </condition>
+            <actions>
+                <set field="headerItem" value="admin"/>
+                <set field="titleProperty" value="PageTitleScrumMember"/>
+                <set field="tabButtonItem" value="ProjectMember"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.PartyEditPersonalInformation}">
+                            <include-form name="QuickAddParty" location="component://scrum/widget/ResourceForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="QuickAddPartyRelationship">
+        <section>
+            <condition>
+                <if-has-permission permission="SCRUM" action="_ADMIN"/>
+            </condition>
+            <actions>
+                <set field="headerItem" value="admin"/>
+                <set field="titleProperty" value="PageTitleScrumMember"/>
+                <set field="tabButtonItem" value="ProjectMember"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.ScrumPartyRelationship}">
+                            <include-form name="QuickAddPartyRelationship" location="component://scrum/widget/ResourceForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="QuickAddPartyRate">
+        <section>
+            <condition>
+                <if-has-permission permission="SCRUM" action="_ADMIN"/>
+            </condition>
+            <actions>
+                <set field="headerItem" value="admin"/>
+                <set field="titleProperty" value="PageTitleScrumMember"/>
+                <set field="tabButtonItem" value="ProjectMember"/>
+                <entity-one entity-name="PartyRate" value-field="partyRateMap"/>
+                <entity-one entity-name="UserLogin" value-field="systemUserLogin">
+                <field-map field-name="userLoginId" value="system"/>
+                </entity-one>
+                <service service-name="getRateAmount" result-map="rateResult" >
+                   <field-map field-name="fromDate" from-field="partyRateMap.fromDate"/>
+                   <field-map field-name="partyId" from-field="partyRateMap.partyId"/>
+                   <field-map field-name="rateTypeId" from-field="partyRateMap.rateTypeId"/>
+                   <field-map field-name="userLogin" from-field="systemUserLogin"/>
+                </service>
+                <set field="rateDefaultAmount" from-field="rateResult.rateAmount"/>
+                <set field="periodTypeId" from-field="rateResult.periodTypeId"/>
+                <set field="rateCurrencyUomId" from-field="rateResult.rateCurrencyUomId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.PageTitleEditPartyRates}">
+                            <include-form name="QuickAddPartyRate" location="component://scrum/widget/ResourceForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ProductMember">
+        <section>
+            <actions>
+                <set field="headerItem" value="admin"/>
+                <set field="titleProperty" value="PageTitleScrumProductMembers"/>
+                <set field="productId" from-field="parameters.productId"/>
+                <set field="tabButtonItem" value="productMember"/>
+                <entity-one entity-name="Product" value-field="product"/>
+                <script location="component://scrum/groovyScripts/ListScrumRolesPersonAndCompany.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonScrumProductDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                         <screenlet id="UpdateCompanyAndOwner" title="${uiLabelMap.ScrumAddCompanyAndProductOwner}" collapsible="true">
+                             <include-form name="UpdateCompanyAndOwner" location="component://scrum/widget/ResourceForms.xml"/>
+                         </screenlet>
+                         <screenlet id="AddResourcePanel" title="${uiLabelMap.ScrumAddProductMember}" collapsible="true">
+                             <include-form name="AddProductMember" location="component://scrum/widget/ResourceForms.xml"/>
+                         </screenlet>
+                         <screenlet id="listResources" title="${uiLabelMap.ScrumProductMembersList}" collapsible="true">
+                             <include-form name="ProductMemberList" location="component://scrum/widget/ResourceForms.xml"/>
+                         </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens>

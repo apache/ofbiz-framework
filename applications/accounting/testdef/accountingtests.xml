@@ -26,6 +26,7 @@
         <entity-xml action="load" entity-xml-url="component://accounting/testdef/data/AccountingTestsData.xml"/>
     </test-case>
 
+
     <test-case case-name="accounting-tests">
         <junit-test-suite class-name="org.apache.ofbiz.accounting.test.FinAccountTests"/>
     </test-case>
@@ -43,7 +44,7 @@
         <simple-method-test location="component://accounting/minilang/test/AutoAcctgAgreementTests.xml"/>
     </test-case>
     <test-case case-name="auto-accounting-budget-tests">
-        <groovy-test-suite location="component://accounting/groovyScripts/test/AutoAcctgBudgetTests.groovy"/>
+        <simple-method-test location="component://accounting/minilang/test/AutoAcctgBudgetTests.xml"/>
     </test-case>
     <test-case case-name="auto-accounting-cost-tests">
         <simple-method-test location="component://accounting/minilang/test/AutoAcctgCostTests.xml"/>
@@ -56,14 +57,5 @@
     </test-case>
     <test-case case-name="auto-accounting-invoice-tests">
         <simple-method-test location="component://accounting/minilang/test/AutoAcctgInvoiceTests.xml"/>
-    </test-case>
-    <test-case case-name="auto-accounting-payment-tests">
-        <groovy-test-suite location="component://accounting/groovyScripts/test/AutoAcctgPaymentTests.groovy"/>
-    </test-case>
-    <test-case case-name="auto-accounting-paymentgateway-tests">
-        <groovy-test-suite location="component://accounting/groovyScripts/test/AutoAcctgPaymentGatewayTests.groovy"/>
-    </test-case>
-    <test-case case-name="auto-accounting-ledger-tests">
-        <groovy-test-suite location="component://accounting/groovyScripts/test/AutoAcctgLedgerTests.groovy"/>
     </test-case>
 </test-suite>

@@ -48,7 +48,7 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
 
     public void testEntityAutoCreateSinglPkEntity() throws Exception {
         //test create with given pk
-        Map<String, Object> testingPkPresentMap = new HashMap<>();
+        Map<String, Object> testingPkPresentMap = new HashMap<String, Object>();
         testingPkPresentMap.put("testingId", "TESTING_1");
         testingPkPresentMap.put("testingName", "entity auto testing");
         Map<String, Object> results = dispatcher.runSync("testEntityAutoCreateTestingPkPresent", testingPkPresentMap);
@@ -57,7 +57,7 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
         assertNotNull(testing);
 
         //test create with auto sequence
-        Map<String, Object> testingPkMissingMap = new HashMap<>();
+        Map<String, Object> testingPkMissingMap = new HashMap<String, Object>();
         testingPkPresentMap.put("testingName", "entity auto testing without pk part in");
         results = dispatcher.runSync("testEntityAutoCreateTestingPkMissing", testingPkMissingMap);
         assertTrue(ServiceUtil.isSuccess(results));
@@ -162,7 +162,7 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
         delegator.create("TestingNode", "testingNodeId", "TESTNODE_6");
         Map<String, Object> testingNodeMemberPkMap = UtilMisc.toMap("testingId", "TESTING_6", "testingNodeId", "TESTNODE_6", "fromDate", now);
         delegator.create("TestingNodeMember", testingNodeMemberPkMap);
-
+ 
         //test expire the thruDate
         Map<String, Object> results = dispatcher.runSync("testEntityAutoExpireTestingNodeMember", testingNodeMemberPkMap);
         assertTrue(ServiceUtil.isSuccess(results));
@@ -200,7 +200,7 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
         delegator.create("StatusType", "statusTypeId", "TESTINGSTATUS");
         delegator.create("StatusItem", "statusId", "TESTING_CREATE", "statusTypeId", "TESTINGSTATUS");
         delegator.create("StatusItem", "statusId", "TESTING_UPDATE", "statusTypeId", "TESTINGSTATUS");
-        GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").cache().queryOne();
+        GenericValue userLogin = delegator.findOne("UserLogin", true, "userLoginId", "system");
 
         //test create testingStatus with userlogin
         Map<String, Object> testingStatusCreateMap = UtilMisc.toMap("testingId", "TESTING_7", "statusId", "TESTING_CREATE", "userLogin", userLogin);

@@ -21,11 +21,9 @@ package org.apache.ofbiz.base.start;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.ConnectException;
 import java.net.Socket;
-import java.nio.charset.StandardCharsets;
 
 import org.apache.ofbiz.base.start.AdminServer.OfbizSocketCommand;
 
@@ -37,11 +35,11 @@ import org.apache.ofbiz.base.start.AdminServer.OfbizSocketCommand;
 class AdminClient {
 
     /**
-     * Send a command through network to OFBiz server
+     * Send a command through network to OFBiz server 
      * to show its status (running, stopping, ...)
      *
-     * @param config OFBiz configuration
-     * @return status OFBiz server status
+     * @param config: OFBiz configuration
+     * @return status: OFBiz server status
      */
     static String requestStatus(Config config) {
         String status = null;
@@ -59,8 +57,8 @@ class AdminClient {
      * Send a command through network to OFBiz server
      * to shut itself down.
      *
-     * @param config OFBiz configuration
-     * @return shutdownMessage message from server
+     * @param config: OFBiz configuration
+     * @return shutdownMessage: message from server 
      *   on receiving shutdown request
      */
     static String requestShutdown(Config config) {
@@ -76,8 +74,9 @@ class AdminClient {
     private static String sendSocketCommand(OfbizSocketCommand socketCommand, Config config) throws IOException {
         String response = "OFBiz is Down";
         try (Socket socket = new Socket(config.adminAddress, config.adminPort);
-                PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.UTF_8), true);
-                BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8))) {
+                PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
+                BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
+
             // send the command
             writer.println(config.adminKey + ":" + socketCommand);
             writer.flush();

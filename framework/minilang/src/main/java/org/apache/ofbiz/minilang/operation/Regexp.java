@@ -22,14 +22,14 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.GeneralException;
-import org.apache.ofbiz.base.util.ObjectType;
-import org.apache.ofbiz.base.util.PatternFactory;
 import org.apache.oro.text.regex.MalformedPatternException;
 import org.apache.oro.text.regex.Pattern;
 import org.apache.oro.text.regex.PatternMatcher;
 import org.apache.oro.text.regex.Perl5Matcher;
+import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.GeneralException;
+import org.apache.ofbiz.base.util.ObjectType;
+import org.apache.ofbiz.base.util.PatternFactory;
 import org.w3c.dom.Element;
 
 /**
@@ -56,7 +56,7 @@ public class Regexp extends SimpleMapOperation {
         Object obj = inMap.get(fieldName);
         String fieldValue = null;
         try {
-            fieldValue = (String) ObjectType.simpleTypeOrObjectConvert(obj, "String", null, locale);
+            fieldValue = (String) ObjectType.simpleTypeConvert(obj, "String", null, locale);
         } catch (GeneralException e) {
             messages.add("Could not convert field value for comparison: " + e.getMessage());
             return;

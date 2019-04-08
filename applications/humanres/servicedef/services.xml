@@ -253,14 +253,10 @@ under the License.
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
 
-    <service name="deletePayHistory" engine="entity-auto" default-entity-name="PayHistory" invoke="delete" auth="true">
+    <service name="deletePayHistory" engine="simple" default-entity-name="PayHistory"
+             location="component://humanres/minilang/HumanResServices.xml" invoke="deletePayHistory" auth="true">
         <description>Delete Pay History</description>
         <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
-        <auto-attributes mode="IN" include="pk" optional="false"/>
-    </service>
-    <service name="expirePayHistory" engine="entity-auto" default-entity-name="PayHistory" invoke="expire" auth="true">
-        <description>Expire Pay History</description>
-        <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
 

@@ -58,8 +58,8 @@ under the License.
                                     <td ALIGN="left">${(acctgTransAndEntry.transDescription)!}</td>
                                     <td ALIGN="left">${(acctgTransAndEntry.currencyUomId)!}</td>
                                     <td ALIGN="left">${(acctgTransAndEntry.origCurrencyUomId)!}</td>
-                                    <td ALIGN="right"><#if "D" == (acctgTransAndEntry.debitCreditFlag)!>${(acctgTransAndEntry.amount)!}<#else>0</#if></td>
-                                    <td ALIGN="right"><#if "C" == (acctgTransAndEntry.debitCreditFlag)!>${(acctgTransAndEntry.amount)!}<#else>0</#if></td>
+                                    <td ALIGN="right"><#if (acctgTransAndEntry.debitCreditFlag)! == "D">${(acctgTransAndEntry.amount)!}<#else>0</#if></td>
+                                    <td ALIGN="right"><#if (acctgTransAndEntry.debitCreditFlag)! == "C">${(acctgTransAndEntry.amount)!}<#else>0</#if></td>
                                     <td ALIGN="right"></td>
                                     <td ALIGN="right"></td>
                                 </tr>

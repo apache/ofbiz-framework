@@ -26,7 +26,7 @@ under the License.
             <actions>
                 <set field="headerItem" value="Forum"/>
                 <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="pageTitle" from-field="uiLabelMap.[titleProperty]"/>
+                <set field="pageTitle" value="${uiLabelMap.${titleProperty}}"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -220,7 +220,7 @@ under the License.
                 <set field="trail" from-field="threadContentId"/>
                 <set field="enableEdit" value="false"/>
                 <set field="webPutPt" from-field="parameters.forumGroupId"/>
-                <set field="rsp.contentName" from-field="content.contentName"/>
+                <set field="rsp.contentName" value="${content.contentName}"/>
                 <set field="titleProperty" value="PageTitleFindForumMessages"/>
                 <set field="headerItem" value="ForumMessages"/>
                 <set field="tabBar" value="ForumMessagesTabBar"/>

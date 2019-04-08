@@ -257,9 +257,7 @@ under the License.
         </call-object-method>
 
         <!-- Shopping Cart Make all ShipGroupInfos -->
-        <call-object-method method-name="makeAllShipGroupInfos" obj-field="shoppingCart">
-            <field field="dispatcher" type="org.apache.ofbiz.service.LocalDispatcher"/>
-        </call-object-method>
+        <call-object-method method-name="makeAllShipGroupInfos" obj-field="shoppingCart"/>
 
         <!-- Shopping Cart checkout and create order -->
         <script>groovy:

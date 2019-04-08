@@ -25,12 +25,12 @@ import java.security.KeyStore;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.BiFunction;
-import java.util.stream.Collectors;
+import java.util.TreeMap;
 
 import org.apache.ofbiz.base.container.ContainerConfig;
 import org.apache.ofbiz.base.container.ContainerConfig.Configuration;
@@ -47,7 +47,7 @@ import org.w3c.dom.Element;
 
 /**
  * An object that models the <code>&lt;ofbiz-component&gt;</code> element.
- *
+ * 
  * @see <code>ofbiz-component.xsd</code>
  *
  */
@@ -55,8 +55,12 @@ public final class ComponentConfig {
 
     public static final String module = ComponentConfig.class.getName();
     public static final String OFBIZ_COMPONENT_XML_FILENAME = "ofbiz-component.xml";
-    // This map is not a UtilCache instance because there is no strategy or implementation for reloading components.
+    /* Note: These Maps are not UtilCache instances because there is no strategy or implementation for reloading components.
+     * Also, we are using LinkedHashMap to maintain insertion order - which client code depends on. This means
+     * we will need to use synchronization code because there is no concurrent implementation of LinkedHashMap.
+     */
     private static final ComponentConfigCache componentConfigCache = new ComponentConfigCache();
+    private static final Map<String, List<WebappInfo>> serverWebApps = new LinkedHashMap<String, List<WebappInfo>>();
 
     public static Boolean componentExists(String componentName) {
         Assert.notEmpty("componentName", componentName);
@@ -68,7 +72,7 @@ public final class ComponentConfig {
     }
 
     public static List<ClasspathInfo> getAllClasspathInfos(String componentName) {
-        List<ClasspathInfo> classpaths = new ArrayList<>();
+        List<ClasspathInfo> classpaths = new ArrayList<ClasspathInfo>();
         for (ComponentConfig cc : getAllComponents()) {
             if (componentName == null || componentName.equals(cc.getComponentName())) {
                 classpaths.addAll(cc.getClasspathInfos());
@@ -86,7 +90,7 @@ public final class ComponentConfig {
     }
 
     public static List<ContainerConfig.Configuration> getAllConfigurations(String componentName) {
-        List<ContainerConfig.Configuration> configurations = new ArrayList<>();
+        List<ContainerConfig.Configuration> configurations = new ArrayList<ContainerConfig.Configuration>();
         for (ComponentConfig cc : getAllComponents()) {
             if (componentName == null || componentName.equals(cc.getComponentName())) {
                 configurations.addAll(cc.getConfigurations());
@@ -100,7 +104,7 @@ public final class ComponentConfig {
     }
 
     public static List<EntityResourceInfo> getAllEntityResourceInfos(String type, String componentName) {
-        List<EntityResourceInfo> entityInfos = new ArrayList<>();
+        List<EntityResourceInfo> entityInfos = new ArrayList<EntityResourceInfo>();
         for (ComponentConfig cc : getAllComponents()) {
             if (componentName == null || componentName.equals(cc.getComponentName())) {
                 List<EntityResourceInfo> ccEntityInfoList = cc.getEntityResourceInfos();
@@ -123,7 +127,7 @@ public final class ComponentConfig {
     }
 
     public static List<KeystoreInfo> getAllKeystoreInfos(String componentName) {
-        List<KeystoreInfo> keystoreInfos = new ArrayList<>();
+        List<KeystoreInfo> keystoreInfos = new ArrayList<KeystoreInfo>();
         for (ComponentConfig cc : getAllComponents()) {
             if (componentName == null || componentName.equals(cc.getComponentName())) {
                 keystoreInfos.addAll(cc.getKeystoreInfos());
@@ -137,7 +141,7 @@ public final class ComponentConfig {
     }
 
     public static List<ServiceResourceInfo> getAllServiceResourceInfos(String type, String componentName) {
-        List<ServiceResourceInfo> serviceInfos = new ArrayList<>();
+        List<ServiceResourceInfo> serviceInfos = new ArrayList<ServiceResourceInfo>();
         for (ComponentConfig cc : getAllComponents()) {
             if (componentName == null || componentName.equals(cc.getComponentName())) {
                 List<ServiceResourceInfo> ccServiceInfoList = cc.getServiceResourceInfos();
@@ -160,7 +164,7 @@ public final class ComponentConfig {
     }
 
     public static List<TestSuiteInfo> getAllTestSuiteInfos(String componentName) {
-        List<TestSuiteInfo> testSuiteInfos = new ArrayList<>();
+        List<TestSuiteInfo> testSuiteInfos = new ArrayList<TestSuiteInfo>();
         for (ComponentConfig cc : getAllComponents()) {
             if (componentName == null || componentName.equals(cc.getComponentName())) {
                 testSuiteInfos.addAll(cc.getTestSuiteInfos());
@@ -174,7 +178,7 @@ public final class ComponentConfig {
     }
 
     public static List<WebappInfo> getAllWebappResourceInfos(String componentName) {
-        List<WebappInfo> webappInfos = new ArrayList<>();
+        List<WebappInfo> webappInfos = new ArrayList<WebappInfo>();
         for (ComponentConfig cc : getAllComponents()) {
             if (componentName == null || componentName.equals(cc.getComponentName())) {
                 webappInfos.addAll(cc.getWebappInfos());
@@ -183,13 +187,60 @@ public final class ComponentConfig {
         return webappInfos;
     }
 
+    public static List<WebappInfo> getAppBarWebInfos(String serverName) {
+        return ComponentConfig.getAppBarWebInfos(serverName, null, null);
+    }
+
+    public static List<WebappInfo> getAppBarWebInfos(String serverName, Comparator<? super String> comp, String menuName) {
+        String serverWebAppsKey = serverName + menuName;
+        List<WebappInfo> webInfos = null;
+        synchronized (serverWebApps) {
+            webInfos = serverWebApps.get(serverWebAppsKey);
+        }
+        if (webInfos == null) {
+            Map<String, WebappInfo> tm = null;
+            // use a TreeMap to sort the components alpha by title
+            if (comp != null) {
+                tm = new TreeMap<String, WebappInfo>(comp);
+            } else {
+                tm = new TreeMap<String, WebappInfo>();
+            }
+            for (ComponentConfig cc : getAllComponents()) {
+                for (WebappInfo wInfo : cc.getWebappInfos()) {
+                    String key = UtilValidate.isNotEmpty(wInfo.position) ? wInfo.position : wInfo.title;
+                    if (serverName.equals(wInfo.server) && wInfo.getAppBarDisplay()) {
+                        if (UtilValidate.isNotEmpty(menuName)) {
+                            if (menuName.equals(wInfo.menuName)) {
+                                tm.put(key, wInfo);
+                            }
+                        } else {
+                            tm.put(key, wInfo);
+                        }
+                    }
+                }
+            }
+            webInfos = new ArrayList<WebappInfo>(tm.size());
+            webInfos.addAll(tm.values());
+            webInfos = Collections.unmodifiableList(webInfos);
+            synchronized (serverWebApps) {
+                // We are only preventing concurrent modification, we are not guaranteeing a singleton.
+                serverWebApps.put(serverWebAppsKey, webInfos);
+            }
+        }
+        return webInfos;
+    }
+
+    public static List<WebappInfo> getAppBarWebInfos(String serverName, String menuName) {
+        return getAppBarWebInfos(serverName, null, menuName);
+    }
+
     public static ComponentConfig getComponentConfig(String globalName) throws ComponentException {
         // TODO: we need to look up the rootLocation from the container config, or this will blow up
         return getComponentConfig(globalName, null);
     }
 
     public static ComponentConfig getComponentConfig(String globalName, String rootLocation) throws ComponentException {
-        ComponentConfig componentConfig;
+        ComponentConfig componentConfig = null;
         if (globalName != null && !globalName.isEmpty()) {
             componentConfig = componentConfigCache.fromGlobalName(globalName);
             if (componentConfig != null) {
@@ -202,19 +253,23 @@ public final class ComponentConfig {
                 return componentConfig;
             }
         }
-        if (rootLocation == null) {
+        if (rootLocation != null) {
+            componentConfig = new ComponentConfig(globalName, rootLocation);
+            if (componentConfig.enabled()) {
+                componentConfigCache.put(componentConfig);
+            }
+            return componentConfig;
+        } else {
             // Do we really need to do this?
             throw new ComponentException("No component found named : " + globalName);
         }
-        componentConfig = new ComponentConfig(globalName, rootLocation);
-        if (componentConfig.enabled()) {
-            componentConfigCache.put(componentConfig);
-        }
-        return componentConfig;
     }
 
     public static String getFullLocation(String componentName, String resourceLoaderName, String location) throws ComponentException {
         ComponentConfig cc = getComponentConfig(componentName, null);
+        if (cc == null) {
+            throw new ComponentException("Could not find component with name: " + componentName);
+        }
         return cc.getFullLocation(resourceLoaderName, location);
     }
 
@@ -233,16 +288,25 @@ public final class ComponentConfig {
 
     public static String getRootLocation(String componentName) throws ComponentException {
         ComponentConfig cc = getComponentConfig(componentName);
+        if (cc == null) {
+            throw new ComponentException("Could not find component with name: " + componentName);
+        }
         return cc.getRootLocation();
     }
 
     public static InputStream getStream(String componentName, String resourceLoaderName, String location) throws ComponentException {
         ComponentConfig cc = getComponentConfig(componentName);
+        if (cc == null) {
+            throw new ComponentException("Could not find component with name: " + componentName);
+        }
         return cc.getStream(resourceLoaderName, location);
     }
 
     public static URL getURL(String componentName, String resourceLoaderName, String location) throws ComponentException {
         ComponentConfig cc = getComponentConfig(componentName);
+        if (cc == null) {
+            throw new ComponentException("Could not find component with name: " + componentName);
+        }
         return cc.getURL(resourceLoaderName, location);
     }
 
@@ -261,8 +325,26 @@ public final class ComponentConfig {
         return info;
     }
     
+    public static WebappInfo getWebappInfo(String serverName, String webAppName) {
+        WebappInfo webappInfo = null;
+        List<WebappInfo> webappsInfo = getAppBarWebInfos(serverName);
+        for(WebappInfo currApp : webappsInfo) {
+            String currWebAppName = currApp.getMountPoint().replace("/", "").replace("*", "");
+            if (webAppName.equals(currWebAppName)) {
+                webappInfo = currApp;
+                break;
+            }
+        }
+        return webappInfo;
+    }    
+
+    
+
     public static boolean isFileResourceLoader(String componentName, String resourceLoaderName) throws ComponentException {
         ComponentConfig cc = getComponentConfig(componentName);
+        if (cc == null) {
+            throw new ComponentException("Could not find component with name: " + componentName);
+        }
         return cc.isFileResourceLoader(resourceLoaderName);
     }
 
@@ -274,7 +356,6 @@ public final class ComponentConfig {
     private final boolean enabled;
     private final Map<String, ResourceLoaderInfo> resourceLoaderInfos;
     private final List<ClasspathInfo> classpathInfos;
-    private final List<DependsOnInfo> dependsOnInfos;
     private final List<EntityResourceInfo> entityResourceInfos;
     private final List<ServiceResourceInfo> serviceResourceInfos;
     private final List<TestSuiteInfo> testSuiteInfos;
@@ -282,127 +363,6 @@ public final class ComponentConfig {
     private final List<WebappInfo> webappInfos;
     private final List<ContainerConfig.Configuration> configurations;
 
-    /**
-     * Instantiates a component configuration from a {@link ComponentConfig.Builder builder} object.
-     *
-     * This allows instantiating component configuration without an XML entity object,
-     * which is useful for example when writing unit tests.
-     *
-     * @param b the component configuration builder
-     */
-    private ComponentConfig(Builder b) {
-        this.globalName = b.globalName;
-        this.rootLocation = b.rootLocation;
-        this.componentName = b.componentName;
-        this.enabled = b.enabled;
-        this.resourceLoaderInfos = b.resourceLoaderInfos;
-        this.classpathInfos = b.classpathInfos;
-        this.dependsOnInfos = b.dependsOnInfos;
-        this.entityResourceInfos = b.entityResourceInfos;
-        this.serviceResourceInfos = b.serviceResourceInfos;
-        this.testSuiteInfos = b.testSuiteInfos;
-        this.keystoreInfos = b.keystoreInfos;
-        this.webappInfos = b.webappInfos;
-        this.configurations = b.configurations;
-    }
-
-    /**
-     * Builder for component configuration.
-     */
-    public static final class Builder {
-        private String globalName;
-        private String rootLocation;
-        private String componentName;
-        private boolean enabled = true;
-        private Map<String, ResourceLoaderInfo> resourceLoaderInfos;
-        private List<ClasspathInfo> classpathInfos;
-        private List<DependsOnInfo> dependsOnInfos;
-        private List<EntityResourceInfo> entityResourceInfos;
-        private List<ServiceResourceInfo> serviceResourceInfos;
-        private List<TestSuiteInfo> testSuiteInfos;
-        private List<KeystoreInfo> keystoreInfos;
-        private List<WebappInfo> webappInfos;
-        private List<ContainerConfig.Configuration> configurations;
-
-        public Builder globalName(String name) {
-            this.globalName = name;
-            return this;
-        }
-
-        public Builder rootLocation(String rootLocation) {
-            this.rootLocation = rootLocation;
-            return this;
-        }
-
-        public Builder componentName(String componentName) {
-            this.componentName = componentName;
-            return this;
-        }
-
-        public Builder enabled(boolean enabled) {
-            this.enabled = enabled;
-            return this;
-        }
-
-        public Builder resourceLoaderInfos(Map<String, ResourceLoaderInfo> resourceLoaderInfos) {
-            this.resourceLoaderInfos = resourceLoaderInfos;
-            return this;
-        }
-
-        public Builder classpathInfos(List<ClasspathInfo> classpathInfos) {
-            this.classpathInfos = classpathInfos;
-            return this;
-        }
-
-        public Builder dependsOnInfos(List<DependsOnInfo> dependsOnInfos) {
-            this.dependsOnInfos = dependsOnInfos;
-            return this;
-        }
-
-        public Builder entityResourceInfos(List<EntityResourceInfo> entityResourceInfos) {
-            this.entityResourceInfos = entityResourceInfos;
-            return this;
-        }
-
-        public Builder serviceResourceInfos(List<ServiceResourceInfo> serviceResourceInfos) {
-            this.serviceResourceInfos = serviceResourceInfos;
-            return this;
-        }
-
-        public Builder testSuiteInfos(List<TestSuiteInfo> testSuiteInfos) {
-            this.testSuiteInfos = testSuiteInfos;
-            return this;
-        }
-
-        public Builder keystoreInfos(List<KeystoreInfo> keystoreInfos) {
-            this.keystoreInfos = keystoreInfos;
-            return this;
-        }
-
-        public Builder webappInfos(List<WebappInfo> webappInfos) {
-            this.webappInfos = webappInfos;
-            return this;
-        }
-
-        public Builder configurations(List<ContainerConfig.Configuration> configurations) {
-            this.configurations = configurations;
-            return this;
-        }
-
-        public ComponentConfig create() {
-           return new ComponentConfig(this);
-        }
-    }
-
-    /**
-     * Instantiates a component config from a component name and a root location.
-     *
-     * @param globalName  the global name of the component which can be {@code null}
-     * @param rootLocation  the root location of the component
-     * @throws ComponentException when component directory does not exist or if the
-     *         {@code ofbiz-component.xml} file of that component is not properly defined
-     * @throws NullPointerException when {@code rootLocation} is {@code null}
-     */
     private ComponentConfig(String globalName, String rootLocation) throws ComponentException {
         if (!rootLocation.endsWith("/")) {
             rootLocation = rootLocation + "/";
@@ -411,62 +371,126 @@ public final class ComponentConfig {
         File rootLocationDir = new File(rootLocation);
         if (!rootLocationDir.exists()) {
             throw new ComponentException("The component root location does not exist: " + rootLocation);
-        } else if (!rootLocationDir.isDirectory()) {
+        }
+        if (!rootLocationDir.isDirectory()) {
             throw new ComponentException("The component root location is not a directory: " + rootLocation);
         }
-        String xmlFilename = this.rootLocation + "/" + OFBIZ_COMPONENT_XML_FILENAME;
+        String xmlFilename = rootLocation + "/" + OFBIZ_COMPONENT_XML_FILENAME;
         URL xmlUrl = UtilURL.fromFilename(xmlFilename);
         if (xmlUrl == null) {
-            throw new ComponentException("Could not find the " + OFBIZ_COMPONENT_XML_FILENAME
-                    + " configuration file in the component root location: " + rootLocation);
+            throw new ComponentException("Could not find the " + OFBIZ_COMPONENT_XML_FILENAME + " configuration file in the component root location: " + rootLocation);
         }
-        Element componentElement = null;
+        Document ofbizComponentDocument = null;
         try {
-            Document ofbizComponentDocument = UtilXml.readXmlDocument(xmlUrl, true);
-            componentElement = ofbizComponentDocument.getDocumentElement();
+            ofbizComponentDocument = UtilXml.readXmlDocument(xmlUrl, true);
         } catch (Exception e) {
             throw new ComponentException("Error reading the component config file: " + xmlUrl, e);
         }
-
-        componentName = componentElement.getAttribute("name");
-        enabled = "true".equalsIgnoreCase(componentElement.getAttribute("enabled"));
-        this.globalName = UtilValidate.isEmpty(globalName) ? componentName : globalName;
-        dependsOnInfos = collectElements(componentElement, "depends-on", DependsOnInfo::new);
-        classpathInfos = collectElements(componentElement, "classpath", ClasspathInfo::new);
-        entityResourceInfos = collectElements(componentElement, "entity-resource", EntityResourceInfo::new);
-        serviceResourceInfos = collectElements(componentElement, "service-resource", ServiceResourceInfo::new);
-        testSuiteInfos = collectElements(componentElement, "test-suite", TestSuiteInfo::new);
-        keystoreInfos = collectElements(componentElement, "keystore", KeystoreInfo::new);
-        webappInfos = collectElements(componentElement, "webapp", WebappInfo::new);
-        resourceLoaderInfos = UtilXml.childElementList(componentElement, "resource-loader").stream()
-                .map(ResourceLoaderInfo::new)
-                .collect(Collectors.collectingAndThen(
-                        Collectors.toMap(rli -> rli.name, rli -> rli),
-                        Collections::unmodifiableMap));
+        Element ofbizComponentElement = ofbizComponentDocument.getDocumentElement();
+        this.componentName = ofbizComponentElement.getAttribute("name");
+        this.enabled = "true".equalsIgnoreCase(ofbizComponentElement.getAttribute("enabled"));
+        if (UtilValidate.isEmpty(globalName)) {
+            this.globalName = this.componentName;
+        } else {
+            this.globalName = globalName;
+        }
+        // resource-loader - resourceLoaderInfos
+        List<? extends Element> childElements = UtilXml.childElementList(ofbizComponentElement, "resource-loader");
+        if (!childElements.isEmpty()) {
+            Map<String, ResourceLoaderInfo> resourceLoaderInfos = new LinkedHashMap<String, ResourceLoaderInfo>();
+            for (Element curElement : childElements) {
+                ResourceLoaderInfo resourceLoaderInfo = new ResourceLoaderInfo(curElement);
+                resourceLoaderInfos.put(resourceLoaderInfo.name, resourceLoaderInfo);
+            }
+            this.resourceLoaderInfos = Collections.unmodifiableMap(resourceLoaderInfos);
+        } else {
+            this.resourceLoaderInfos = Collections.emptyMap();
+        }
+        // classpath - classpathInfos
+        childElements = UtilXml.childElementList(ofbizComponentElement, "classpath");
+        if (!childElements.isEmpty()) {
+            List<ClasspathInfo> classpathInfos = new ArrayList<ClasspathInfo>(childElements.size());
+            for (Element curElement : childElements) {
+                ClasspathInfo classpathInfo = new ClasspathInfo(this, curElement);
+                classpathInfos.add(classpathInfo);
+            }
+            this.classpathInfos = Collections.unmodifiableList(classpathInfos);
+        } else {
+            this.classpathInfos = Collections.emptyList();
+        }
+        // entity-resource - entityResourceInfos
+        childElements = UtilXml.childElementList(ofbizComponentElement, "entity-resource");
+        if (!childElements.isEmpty()) {
+            List<EntityResourceInfo> entityResourceInfos = new ArrayList<EntityResourceInfo>(childElements.size());
+            for (Element curElement : childElements) {
+                EntityResourceInfo entityResourceInfo = new EntityResourceInfo(this, curElement);
+                entityResourceInfos.add(entityResourceInfo);
+            }
+            this.entityResourceInfos = Collections.unmodifiableList(entityResourceInfos);
+        } else {
+            this.entityResourceInfos = Collections.emptyList();
+        }
+        // service-resource - serviceResourceInfos
+        childElements = UtilXml.childElementList(ofbizComponentElement, "service-resource");
+        if (!childElements.isEmpty()) {
+            List<ServiceResourceInfo> serviceResourceInfos = new ArrayList<ServiceResourceInfo>(childElements.size());
+            for (Element curElement : childElements) {
+                ServiceResourceInfo serviceResourceInfo = new ServiceResourceInfo(this, curElement);
+                serviceResourceInfos.add(serviceResourceInfo);
+            }
+            this.serviceResourceInfos = Collections.unmodifiableList(serviceResourceInfos);
+        } else {
+            this.serviceResourceInfos = Collections.emptyList();
+        }
+        // test-suite - serviceResourceInfos
+        childElements = UtilXml.childElementList(ofbizComponentElement, "test-suite");
+        if (!childElements.isEmpty()) {
+            List<TestSuiteInfo> testSuiteInfos = new ArrayList<TestSuiteInfo>(childElements.size());
+            for (Element curElement : childElements) {
+                TestSuiteInfo testSuiteInfo = new TestSuiteInfo(this, curElement);
+                testSuiteInfos.add(testSuiteInfo);
+            }
+            this.testSuiteInfos = Collections.unmodifiableList(testSuiteInfos);
+        } else {
+            this.testSuiteInfos = Collections.emptyList();
+        }
+        // keystore - (cert/trust store infos)
+        childElements = UtilXml.childElementList(ofbizComponentElement, "keystore");
+        if (!childElements.isEmpty()) {
+            List<KeystoreInfo> keystoreInfos = new ArrayList<KeystoreInfo>(childElements.size());
+            for (Element curElement : childElements) {
+                KeystoreInfo keystoreInfo = new KeystoreInfo(this, curElement);
+                keystoreInfos.add(keystoreInfo);
+            }
+            this.keystoreInfos = Collections.unmodifiableList(keystoreInfos);
+        } else {
+            this.keystoreInfos = Collections.emptyList();
+        }
+        // webapp - webappInfos
+        childElements = UtilXml.childElementList(ofbizComponentElement, "webapp");
+        if (!childElements.isEmpty()) {
+            List<WebappInfo> webappInfos = new ArrayList<WebappInfo>(childElements.size());
+            for (Element curElement : childElements) {
+                WebappInfo webappInfo = new WebappInfo(this, curElement);
+                webappInfos.add(webappInfo);
+            }
+            this.webappInfos = Collections.unmodifiableList(webappInfos);
+        } else {
+            this.webappInfos = Collections.emptyList();
+        }
+        // configurations
         try {
             Collection<Configuration> configurations = ContainerConfig.getConfigurations(xmlUrl);
-            this.configurations = Collections.unmodifiableList(new ArrayList<>(configurations));
+            if (!configurations.isEmpty()) {
+                this.configurations = Collections.unmodifiableList(new ArrayList<ContainerConfig.Configuration>(configurations));
+            } else {
+                this.configurations = Collections.emptyList();
+            }
         } catch (ContainerException ce) {
             throw new ComponentException("Error reading container configurations for component: " + this.globalName, ce);
         }
-        if (Debug.verboseOn()) {
+        if (Debug.verboseOn())
             Debug.logVerbose("Read component config : [" + rootLocation + "]", module);
-        }
-    }
-
-    /**
-     * Constructs an immutable list of objects from the the childs of an XML element.
-     *
-     * @param ofbizComponentElement  the XML element containing the childs
-     * @param elemName  the name of the child elements to collect
-     * @param mapper  the constructor use to map child elements to objects
-     * @return an immutable list of objects corresponding to {@code mapper}
-     */
-    private <T> List<T> collectElements(Element ofbizComponentElement, String elemName,
-            BiFunction<ComponentConfig, Element, T> mapper) {
-        return UtilXml.childElementList(ofbizComponentElement, elemName).stream()
-                .map(element -> mapper.apply(this, element))
-                .collect(Collectors.collectingAndThen(Collectors.toList(), Collections::unmodifiableList));
     }
 
     public boolean enabled() {
@@ -518,10 +542,6 @@ public final class ComponentConfig {
 
     public String getGlobalName() {
         return this.globalName;
-    }
-
-    public List<DependsOnInfo> getDependsOn() {
-        return this.dependsOnInfos;
     }
 
     public List<KeystoreInfo> getKeystoreInfos() {
@@ -607,7 +627,7 @@ public final class ComponentConfig {
 
     /**
      * An object that models the <code>&lt;classpath&gt;</code> element.
-     *
+     * 
      * @see <code>ofbiz-component.xsd</code>
      *
      */
@@ -627,10 +647,10 @@ public final class ComponentConfig {
     // so this class encapsulates the Maps and synchronization code required to do that.
     private static final class ComponentConfigCache {
         // Key is the global name.
-        private final Map<String, ComponentConfig> componentConfigs = new LinkedHashMap<>();
+        private final Map<String, ComponentConfig> componentConfigs = new LinkedHashMap<String, ComponentConfig>();
         // Root location mapped to global name.
-        private final Map<String, String> componentLocations = new HashMap<>();
-
+        private final Map<String, String> componentLocations = new HashMap<String, String>();
+        
         private synchronized ComponentConfig fromGlobalName(String globalName) {
             return componentConfigs.get(globalName);
         }
@@ -651,13 +671,13 @@ public final class ComponentConfig {
         }
 
         private synchronized Collection<ComponentConfig> values() {
-            return Collections.unmodifiableList(new ArrayList<>(componentConfigs.values()));
+            return Collections.unmodifiableList(new ArrayList<ComponentConfig>(componentConfigs.values()));
         }
     }
 
     /**
      * An object that models the <code>&lt;entity-resource&gt;</code> element.
-     *
+     * 
      * @see <code>ofbiz-component.xsd</code>
      *
      */
@@ -672,18 +692,9 @@ public final class ComponentConfig {
         }
     }
 
-    public static final class DependsOnInfo extends ResourceInfo {
-        public final String componentName;
-
-        private DependsOnInfo(ComponentConfig componentConfig, Element element) {
-            super(componentConfig, element);
-            this.componentName = element.getAttribute("component-name");
-        }
-    }
-
     /**
      * An object that models the <code>&lt;keystore&gt;</code> element.
-     *
+     * 
      * @see <code>ofbiz-component.xsd</code>
      *
      */
@@ -705,10 +716,12 @@ public final class ComponentConfig {
 
         public KeyStore getKeyStore() {
             ComponentResourceHandler rh = this.createResourceHandler();
-            try {
-                return KeyStoreUtil.getStore(rh.getURL(), this.getPassword(), this.getType());
-            } catch (Exception e) {
-                Debug.logWarning(e, module);
+            if (rh != null) {
+                try {
+                    return KeyStoreUtil.getStore(rh.getURL(), this.getPassword(), this.getType());
+                } catch (Exception e) {
+                    Debug.logWarning(e, module);
+                }
             }
             return null;
         }
@@ -760,7 +773,7 @@ public final class ComponentConfig {
 
     /**
      * An object that models the <code>&lt;resource-loader&gt;</code> element.
-     *
+     * 
      * @see <code>ofbiz-component.xsd</code>
      *
      */
@@ -780,7 +793,7 @@ public final class ComponentConfig {
 
     /**
      * An object that models the <code>&lt;service-resource&gt;</code> element.
-     *
+     * 
      * @see <code>ofbiz-component.xsd</code>
      *
      */
@@ -795,7 +808,7 @@ public final class ComponentConfig {
 
     /**
      * An object that models the <code>&lt;test-suite&gt;</code> element.
-     *
+     * 
      * @see <code>ofbiz-component.xsd</code>
      *
      */
@@ -807,7 +820,7 @@ public final class ComponentConfig {
 
     /**
      * An object that models the <code>&lt;webapp&gt;</code> element.
-     *
+     * 
      * @see <code>ofbiz-component.xsd</code>
      *
      */
@@ -831,147 +844,7 @@ public final class ComponentConfig {
         // CatalinaContainer modifies this field.
         private volatile boolean appBarDisplay;
         private final String accessPermission;
-        private final boolean useAutologinCookie;
-
-        /**
-         * Instantiates a webapp information from a {@link WebappInfo.Builder builder} object.
-         *
-         * This allows instantiating webapp information without an XML entity object,
-         * which is useful for example when writing unit tests.
-         *
-         * @param b the webapp information builder
-         */
-        private WebappInfo(Builder b) {
-            this.componentConfig = b.componentConfig;
-            this.virtualHosts = b.virtualHosts;
-            this.initParameters = b.initParameters;
-            this.name = b.name;
-            this.title = b.title;
-            this.description = b.description;
-            this.menuName = b.menuName;
-            this.server = b.server;
-            this.mountPoint = b.mountPoint;
-            this.contextRoot = b.contextRoot;
-            this.location = b.location;
-            this.basePermission = b.basePermissions;
-            this.position = b.position;
-            this.privileged = b.privileged;
-            this.appBarDisplay = b.appBarDisplay;
-            this.accessPermission = b.accessPermission;
-            this.useAutologinCookie = b.useAutologinCookie;
-        }
-
-        /**
-         * Builder for webapp information.
-         */
-        public static class Builder {
-            private ComponentConfig componentConfig;
-            private List<String> virtualHosts;
-            private Map<String, String> initParameters;
-            private String name;
-            private String title;
-            private String description;
-            private String menuName;
-            private String server;
-            private String mountPoint = "";
-            private String contextRoot;
-            private String location;
-            private String[] basePermissions;
-            private String position;
-            private boolean privileged = false;
-            private boolean appBarDisplay = true;
-            private String accessPermission;
-            private boolean useAutologinCookie;
-
-            public Builder componentConfig(ComponentConfig componentConfig) {
-                this.componentConfig = componentConfig;
-                return this;
-            }
-
-            public Builder virtualHosts(List<String> virtualHosts) {
-                this.virtualHosts = virtualHosts;
-                return this;
-            }
-
-            public Builder initParameters(Map<String, String> initParameters) {
-                this.initParameters = initParameters;
-                return this;
-            }
-
-            public Builder name(String name) {
-                this.name = name;
-                return this;
-            }
-
-            public Builder title(String title) {
-                this.title = title;
-                return this;
-            }
-
-            public Builder description(String description) {
-                this.description = description;
-                return this;
-            }
-
-            public Builder menuName(String menuName) {
-                this.menuName = menuName;
-                return this;
-            }
-
-            public Builder server(String server) {
-                this.server = server;
-                return this;
-            }
-
-            public Builder mountPoint(String mountPoint) {
-                this.mountPoint = mountPoint;
-                return this;
-            }
-
-            public Builder contextRoot(String contextRoot) {
-                this.contextRoot = contextRoot;
-                return this;
-            }
-
-            public Builder location(String location) {
-                this.location = location;
-                return this;
-            }
-
-            public Builder basePermissions(String[] basePermissions) {
-                this.basePermissions = basePermissions;
-                return this;
-            }
-
-            public Builder position(String position) {
-                this.position = position;
-                return this;
-            }
-
-            public Builder privileged(boolean privileged) {
-                this.privileged = privileged;
-                return this;
-            }
-
-            public Builder appBarDisplay(boolean appBarDisplay) {
-                this.appBarDisplay = appBarDisplay;
-                return this;
-            }
-
-            public Builder accessPermission(String accessPermission) {
-                this.accessPermission = accessPermission;
-                return this;
-            }
-
-            public Builder useAutologinCookie(boolean useAutologinCookie) {
-                this.useAutologinCookie = useAutologinCookie;
-                return this;
-            }
-
-            public WebappInfo create() {
-                return new WebappInfo(this);
-            }
-        }
+        private final boolean keepAutologinCookie;
 
         private WebappInfo(ComponentConfig componentConfig, Element element) {
             this.componentConfig = componentConfig;
@@ -1011,7 +884,7 @@ public final class ComponentConfig {
             this.appBarDisplay = !"false".equals(element.getAttribute("app-bar-display"));
             this.privileged = !"false".equals(element.getAttribute("privileged"));
             this.accessPermission = element.getAttribute("access-permission");
-            this.useAutologinCookie = !"false".equals(element.getAttribute("use-autologin-cookie"));
+            this.keepAutologinCookie = !"false".equals(element.getAttribute("keep-autologin-cookie"));
             String basePermStr = element.getAttribute("base-permission");
             if (!basePermStr.isEmpty()) {
                 this.basePermission = basePermStr.split(",");
@@ -1036,7 +909,7 @@ public final class ComponentConfig {
             // load the virtual hosts
             List<? extends Element> virtHostList = UtilXml.childElementList(element, "virtual-host");
             if (!virtHostList.isEmpty()) {
-                List<String> virtualHosts = new ArrayList<>(virtHostList.size());
+                List<String> virtualHosts = new ArrayList<String>(virtHostList.size());
                 for (Element e : virtHostList) {
                     virtualHosts.add(e.getAttribute("host-name"));
                 }
@@ -1047,7 +920,7 @@ public final class ComponentConfig {
             // load the init parameters
             List<? extends Element> initParamList = UtilXml.childElementList(element, "init-param");
             if (!initParamList.isEmpty()) {
-                Map<String, String> initParameters = new LinkedHashMap<>();
+                Map<String, String> initParameters = new LinkedHashMap<String, String>();
                 for (Element e : initParamList) {
                     initParameters.put(e.getAttribute("name"), e.getAttribute("value"));
                 }
@@ -1066,7 +939,7 @@ public final class ComponentConfig {
         }
 
         public String[] getBasePermission() {
-            return this.basePermission.clone();
+            return this.basePermission;
         }
 
         public String getContextRoot() {
@@ -1101,8 +974,8 @@ public final class ComponentConfig {
             return virtualHosts;
         }
 
-        public boolean isAutologinCookieUsed() {
-            return useAutologinCookie;
+        public boolean getKeepAutologinCookie() {
+            return keepAutologinCookie;
         }
 
         public synchronized void setAppBarDisplay(boolean appBarDisplay) {

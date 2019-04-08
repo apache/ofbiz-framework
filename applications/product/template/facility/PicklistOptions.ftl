@@ -53,7 +53,7 @@ under the License.
     <table cellspacing="0" class="basic-table">
       <#if pickMoveInfoList?has_content || rushOrderInfo?has_content>
         <tr class="header-row">
-          <#if !((requestParameters.groupByShippingMethod?? && "Y" == requestParameters.groupByShippingMethod) || (requestParameters.groupByWarehouseArea?? && "Y" == requestParameters.groupByWarehouseArea) || (requestParameters.groupByNoOfOrderItems?? && "Y" == requestParameters.groupByNoOfOrderItems))>
+          <#if !((requestParameters.groupByShippingMethod?? && requestParameters.groupByShippingMethod == "Y") || (requestParameters.groupByWarehouseArea?? && requestParameters.groupByWarehouseArea == "Y") || (requestParameters.groupByNoOfOrderItems?? && requestParameters.groupByNoOfOrderItems == "Y"))>
             <td>${uiLabelMap.OrderOrder} ${uiLabelMap.CommonNbr}</td>
           <#else>
             <td>${uiLabelMap.ProductShipmentMethod}</td>
@@ -115,7 +115,7 @@ under the License.
                       <input type="hidden" name="groupByNoOfOrderItems" value="${requestParameters.groupByNoOfOrderItems!}"/>
                       <input type="hidden" name="facilityId" value="${facilityId!}"/>
                     </form>
-              <#if ((requestParameters.groupByShippingMethod?? && "Y" == requestParameters.groupByShippingMethod) || (requestParameters.groupByWarehouseArea?? && "Y" == requestParameters.groupByWarehouseArea) || (requestParameters.groupByNoOfOrderItems?? && "Y" == requestParameters.groupByNoOfOrderItems))>
+              <#if ((requestParameters.groupByShippingMethod?? && requestParameters.groupByShippingMethod == "Y") || (requestParameters.groupByWarehouseArea?? && requestParameters.groupByWarehouseArea == "Y") || (requestParameters.groupByNoOfOrderItems?? && requestParameters.groupByNoOfOrderItems == "Y"))>
                   <#if groupName1?has_content>
                     <a href="javascript:document.viewGroupDetail_${pickMoveInfo_index}.submit()" class="buttontext">${groupName1}</a>
                   </#if>
@@ -134,14 +134,14 @@ under the License.
               </#if>
                 </td>
             <td>
-              <#if !((requestParameters.groupByShippingMethod?? && "Y" == requestParameters.groupByShippingMethod) || (requestParameters.groupByWarehouseArea?? && "Y" == requestParameters.groupByWarehouseArea) || (requestParameters.groupByNoOfOrderItems?? && "Y" == requestParameters.groupByNoOfOrderItems))>
+              <#if !((requestParameters.groupByShippingMethod?? && requestParameters.groupByShippingMethod == "Y") || (requestParameters.groupByWarehouseArea?? && requestParameters.groupByWarehouseArea == "Y") || (requestParameters.groupByNoOfOrderItems?? && requestParameters.groupByNoOfOrderItems == "Y"))>
                 <#if orderReadyToPickInfoListSize == 0 >${uiLabelMap.CommonN}<#else>${uiLabelMap.CommonY}</#if>
               <#else>
                 ${orderReadyToPickInfoListSize}
               </#if>
             </td>
             <td>
-              <#if !((requestParameters.groupByShippingMethod?? && "Y" == requestParameters.groupByShippingMethod) || (requestParameters.groupByWarehouseArea?? && "Y" == requestParameters.groupByWarehouseArea) || (requestParameters.groupByNoOfOrderItems?? && "Y" == requestParameters.groupByNoOfOrderItems))>
+              <#if !((requestParameters.groupByShippingMethod?? && requestParameters.groupByShippingMethod == "Y") || (requestParameters.groupByWarehouseArea?? && requestParameters.groupByWarehouseArea == "Y") || (requestParameters.groupByNoOfOrderItems?? && requestParameters.groupByNoOfOrderItems == "Y"))>
                 <#if orderNeedsStockMoveInfoListSize == 0>${uiLabelMap.CommonN}<#else>${uiLabelMap.CommonY}</#if>
               <#else>
                 ${orderNeedsStockMoveInfoListSize}
@@ -159,7 +159,7 @@ under the License.
                   <#list orderIdsForPickList as orderIdForPickList>
                     <input type="hidden" name="orderIdList" value="${orderIdForPickList.orderHeader.orderId}"/>
                   </#list>
-                  <#if ((requestParameters.groupByShippingMethod?? && "Y" == requestParameters.groupByShippingMethod) || (requestParameters.groupByWarehouseArea?? && "Y" == requestParameters.groupByWarehouseArea) || (requestParameters.groupByNoOfOrderItems?? && "Y" == requestParameters.groupByNoOfOrderItems))>
+                  <#if ((requestParameters.groupByShippingMethod?? && requestParameters.groupByShippingMethod == "Y") || (requestParameters.groupByWarehouseArea?? && requestParameters.groupByWarehouseArea == "Y") || (requestParameters.groupByNoOfOrderItems?? && requestParameters.groupByNoOfOrderItems == "Y"))>
                     <span class="label">${uiLabelMap.ProductPickFirst}</span>
                     <input type="text" size="4" name="maxNumberOfOrders" value="20"/>
                   </#if>
@@ -177,7 +177,7 @@ under the License.
                   <input type="hidden" name="groupByShippingMethod" value="${requestParameters.groupByShippingMethod!}"/>
                   <input type="hidden" name="groupByWarehouseArea" value="${requestParameters.groupByWarehouseArea!}"/>
                   <input type="hidden" name="groupByNoOfOrderItems" value="${requestParameters.groupByNoOfOrderItems!}"/>
-                  <#if !((requestParameters.groupByShippingMethod?? && "Y" == requestParameters.groupByShippingMethod) || (requestParameters.groupByWarehouseArea?? && "Y" == requestParameters.groupByWarehouseArea) || (requestParameters.groupByNoOfOrderItems?? && "Y" == requestParameters.groupByNoOfOrderItems))>
+                  <#if !((requestParameters.groupByShippingMethod?? && requestParameters.groupByShippingMethod == "Y") || (requestParameters.groupByWarehouseArea?? && requestParameters.groupByWarehouseArea == "Y") || (requestParameters.groupByNoOfOrderItems?? && requestParameters.groupByNoOfOrderItems == "Y"))>
                     <input type="hidden" name="maxNumberOfOrdersToPrint" value="1"/>
                     <input type="hidden" name="orderId" value="${groupName!}"/>
                   <#else>
@@ -194,7 +194,7 @@ under the License.
           <#-- toggle the row color -->
           <#assign alt_row = !alt_row>
         </#list>
-        <#if ((requestParameters.groupByShippingMethod?? && "Y" == requestParameters.groupByShippingMethod) || (requestParameters.groupByWarehouseArea?? && "Y" == requestParameters.groupByWarehouseArea) || (requestParameters.groupByNoOfOrderItems?? && "Y" == requestParameters.groupByNoOfOrderItems))>
+        <#if ((requestParameters.groupByShippingMethod?? && requestParameters.groupByShippingMethod == "Y") || (requestParameters.groupByWarehouseArea?? && requestParameters.groupByWarehouseArea == "Y") || (requestParameters.groupByNoOfOrderItems?? && requestParameters.groupByNoOfOrderItems == "Y"))>
           <tr<#if alt_row> class="alternate-row"</#if>>
             <th>${uiLabelMap.CommonAllMethods}</div></th>
             <td>&nbsp;</td>

@@ -26,11 +26,7 @@ under the License.
     <service name="sendPrintFromScreen" max-retry="0" engine="java"
         location="org.apache.ofbiz.content.output.OutputServices" invoke="sendPrintFromScreen">
         <description>Send Print From Screen Widget Service</description>
-        <attribute name="screenLocation" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingScreenLocation"/>
-            </type-validate>
-        </attribute>
+        <attribute name="screenLocation" type="String" mode="IN" optional="false"/>
         <attribute name="screenContext" type="Map" mode="IN" optional="true"/>
         <attribute name="contentType" type="String" mode="IN" optional="true"/>
         <attribute name="printerContentType" type="String" mode="IN" optional="true"/>
@@ -42,19 +38,11 @@ under the License.
     <service name="createFileFromScreen" max-retry="0" engine="java"
         location="org.apache.ofbiz.content.output.OutputServices" invoke="createFileFromScreen">
         <description>Create a File From Screen Widget Service</description>
-        <attribute name="screenLocation" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingScreenLocation"/>
-            </type-validate>
-        </attribute>
+        <attribute name="screenLocation" type="String" mode="IN" optional="false"/>
         <attribute name="screenContext" type="Map" mode="IN" optional="true"/>
         <attribute name="contentType" type="String" mode="IN" optional="true"/>
         <attribute name="filePath" type="String" mode="IN" optional="true"/>
-        <attribute name="fileName" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingFileName"/>
-            </type-validate>
-        </attribute>
+        <attribute name="fileName" type="String" mode="IN" optional="false"/>
     </service>
 
 </services>

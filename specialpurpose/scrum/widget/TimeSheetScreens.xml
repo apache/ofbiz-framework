@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
+    <screen name="FindTimeSheet">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleFindTimeSheet"/>
+                <set field="headerItem" value="admin"/>
+                <set field="labelTitleProperty" value="ScrumFindTimeSheet"/>
+                <set field="tabButtonItem" value="timesheets"/>
+                <script location="component://scrum/groovyScripts/ListTimeSheets.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <screenlet id="findTimeSheet" title="${uiLabelMap.PageTitleFindTimeSheet}" collapsible="true">
+                                    <include-form name="FindTimeSheet" location="component://scrum/widget/TimeSheetForms.xml"/>
+                                </screenlet>
+                                <screenlet title="${uiLabelMap.PageTitleTimesheets}" navigation-form-name="ListFindTimeSheet">
+                                    <include-form name="ListTimeSheets" location="component://scrum/widget/TimeSheetForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ViewTimeSheet">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleTimesheet"/>
+                <set field="headerItem" value="timesheet"/>
+                <set field="tabButtonItem" value="timesheets"/>
+                <script location="component://scrum/groovyScripts/EditDailyHourReport.groovy"/>
+                <entity-one entity-name="PartyNameView" value-field="partyNameViewMap">
+                    <field-map field-name="partyId" from-field="timesheet.partyId"/>
+                </entity-one>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.PageTitleTimesheet} ${uiLabelMap.CommonNbr} ${timesheet.timesheetId} ${uiLabelMap.CommonWeek}: ${weekNumber} 
+                        ${uiLabelMap.CommonFrom} ${groovy:timesheet.get(&quot;fromDate&quot;).toString().substring(0,10)} ${uiLabelMap.CommonTo} 
+                        ${groovy:timesheet.get(&quot;thruDate&quot;).toString().substring(0,10)} ${uiLabelMap.PartyParty} : ${partyNameViewMap.lastName} ${partyNameViewMap.firstName} ${partyNameViewMap.middleName} [${timesheet.partyId}]">
+                            <section>
+                                <condition>
+                                    <if-compare field="timesheet.statusId" operator="equals" value="TIMESHEET_COMPLETED"/>
+                                </condition>
+                                <widgets>
+                                    <include-form name="WeekTimesheet" location="component://scrum/widget/TimeSheetForms.xml"/>
+                                </widgets>
+                                <fail-widgets>
+                                    <include-form name="EditWeekTimesheet" location="component://scrum/widget/TimeSheetForms.xml"/>
+                                </fail-widgets>
+                            </section>
+                        </screenlet>
+                        <screenlet id="addWeeklyTimesheet" title="${uiLabelMap.PageTitleAddATimesheet}" collapsible="true">
+                            <include-form name="AddWeeklyTimesheet" location="component://scrum/widget/TimeSheetForms.xml"/>
+                        </screenlet>
+                        <include-screen name="ListPartyTimesheets"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ListPartyTimesheets">
+        <section>
+            <actions>
+                <entity-one entity-name="PartyNameView" value-field="partyNameView">
+                    <field-map field-name="partyId" from-field="timesheet.partyId"/>
+                </entity-one>
+            </actions>
+            <widgets>
+                <screenlet id="listTimeSheets" title="${uiLabelMap.PageTitleTimesheets} ${uiLabelMap.CommonOf} ${partyNameView.firstName} ${partyNameView.middleName} ${partyNameView.lastName}" collapsible="true">
+                    <include-form name="ListTimeSheets" location="component://scrum/widget/TimeSheetForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+</screens>

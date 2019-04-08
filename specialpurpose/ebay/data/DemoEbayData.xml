@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <ProductStore productStoreId="9000"/>
+    <WebSite webSiteId="EBAY" siteName="eBay" standardContentPrefix="http://demo-trunk.ofbiz.apache.org" productStoreId="9000"/>
+    <EbayConfig productStoreId="9000" devId="ppodkYk34Kh-279a-6khr-a07c-06fd1d65824b" appId="ApacheOFB-bf44-4c32-ac45-3e099a32b675" certId="99ca5f9f-dd5c-3de-9a4c-13b247ieidfg" compatibilityLevel="635" siteId="0" xmlGatewayUri="https://api.sandbox.ebay.com/ws/api.dll" webSiteId="EBAY">
+        <token><![CDATA[APACHEeerer**AQresT**aOFBIZ**Dddddg**nY+sHZ2PrBmdj6wVnY+sEZ2PrA2dj6wFddddddddsssererdafjk23232uy+seQ**IzABAA**AAMAAA**6kOEMXRyvyVRLt7vAL7W+5dfjdkfjkldfjlkdjfldj121219fjlkdfjldjf+oRU0d07B0jfdFxJj6OolPHiQN5c0qmVNDRsSKaOucPjXTHSBmVm62p7M9/YmRCag/Mz1DjvDTFyS1kaBinGH2lwd9AjcBSBUbD9tSZVTdKn5PQBh3kkCh5Fe+UK5fyq9OeikM/Bdfafja377dkdkBddDDll+zPbG8pYL13cBgCGj8/zzMSGX2ugZkbU01bCLKkTzLOSqIcxj9xgJ4uDHxhjjizyWlHd2ovFKP8mmc/bEjLANUqS1z0vhR0NHydU/izZR8eYAruTvX6eYzSfsZA85sVOpIAjVEYX9M4CqgXazYxDFAT+y7E4+oM9N+tx8+/dkdkfdoTTKdHhdlKwVmgdULRhW0nP04BMugLpRCQrITSVpSJ1mfkwwb4JEQRNwSSUOe/1P3t21JhUBj3OJjpwC1ds84DSh9nlyykxF3X+EfFxtE4rTKUO+fODRDD5FBDO2+TD3AROz/3u/OWOvTWUm13u2kxMiiEQ3DNkuxN4g7Gj5xhKk7uNMIRRM8YoxoDoiJnbvuLQctBtpn1vibjUJsxTlnq92PLOhsgkp2NfhcxzS1JJfDKX1snOkmWfiluqyW5oDayJoZnrHIVKD0RkYNd2h+U5DOyOJ2/YXYIAPJAcWloGLpKO7k]]></token>
+        <customXml><![CDATA[<custom-xml><Currency>USD</Currency><UseTaxTable>false</UseTaxTable><DispatchTimeMax>3</DispatchTimeMax><ReturnPolicy><ReturnsAcceptedOption>ReturnsNotAccepted</ReturnsAcceptedOption></ReturnPolicy><ShippingDetails><ShippingType>Flat</ShippingType><ShippingServiceOptions><ShippingService>UPS2ndDay</ShippingService><ShippingServicePriority>1</ShippingServicePriority><ShippingServiceCost>5</ShippingServiceCost><ShippingServiceAdditionalCost>2</ShippingServiceAdditionalCost><ShippingSurcharge>1</ShippingSurcharge></ShippingServiceOptions></ShippingDetails></custom-xml>]]></customXml>
+    </EbayConfig>
+
+    <!--Catalog specific to eBay-->
+    <ProdCatalog prodCatalogId="eBayCatalog" catalogName="eBay Catalog" useQuickAdd="Y"/>
+    <ProductStoreCatalog productStoreId="9000" prodCatalogId="eBayCatalog" fromDate="2009-11-05 12:00:00.0" sequenceNum="4"/>
+
+    <!-- Category specific to eBay -->
+    <ProductCategory categoryName="15064" productCategoryId="eBay_Category" productCategoryTypeId="EBAY_CATEGORY"/>
+    <ProdCatalogCategory prodCatalogId="eBayCatalog" productCategoryId="eBay_Category" fromDate="2009-11-05 12:00:00.0" sequenceNum="1" prodCatalogCategoryTypeId="PCCT_EBAY_ROOT"/>
+
+    <ProductCategory productCategoryId="eBay_ECom_Category" categoryName="15064" productCategoryTypeId="EBAY_CATEGORY"/>
+
+    <ProductCategoryRollup parentProductCategoryId="eBay_Category" productCategoryId="eBay_ECom_Category" fromDate="2009-11-05 12:00:00.0"/>
+
+    <!-- ProductCategoryMember record specific to eBay -->
+    <ProductCategoryMember productCategoryId="eBay_ECom_Category" productId="GZ-1000" fromDate="2009-11-05 12:15:00.0"/>
+    <ProductCategoryMember productCategoryId="eBay_ECom_Category" productId="GZ-1001" fromDate="2009-11-05 12:15:00.0"/>
+    <ProductCategoryMember productCategoryId="eBay_ECom_Category" productId="GZ-2644" fromDate="2009-11-05 12:15:00.0"/>
+
+    <!-- ProductPrice specific to eBay -->
+    <ProductPrice productId="GZ-1000" productPricePurposeId="EBAY" productPriceTypeId="MINIMUM_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="15.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+    <ProductPrice productId="GZ-1000" productPricePurposeId="EBAY" productPriceTypeId="MAXIMUM_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="18.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>    
+    <ProductPrice productId="GZ-1001" productPricePurposeId="EBAY" productPriceTypeId="MINIMUM_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="25.99" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+    <ProductPrice productId="GZ-2644" productPricePurposeId="EBAY" productPriceTypeId="MINIMUM_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="48.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+    <ProductPrice productId="GZ-2644" productPricePurposeId="EBAY" productPriceTypeId="MAXIMUM_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="55.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>    
+
+    <EbayShippingMethod methodTypeEnumId="EBAY_FLAT_RATE" shipmentMethodName="USPSPriority" productStoreId="9000" amount="20.00" carrierPartyId="USPS" shipmentMethodTypeId="STANDARD"/>
+    <EbayShippingMethod methodTypeEnumId="EBAY_FLAT_RATE" shipmentMethodName="UPSGround" productStoreId="9000" amount="10.00" carrierPartyId="UPS" shipmentMethodTypeId="GROUND"/>
+    <EbayShippingMethod methodTypeEnumId="EBAY_FLAT_RATE" shipmentMethodName="UPS3rdDay" productStoreId="9000" amount="0.00" carrierPartyId="UPS" shipmentMethodTypeId="THIRD_DAY"/>
+    <EbayShippingMethod methodTypeEnumId="EBAY_FLAT_RATE" shipmentMethodName="UPS2ndDay" productStoreId="9000" amount="20.00" carrierPartyId="UPS" shipmentMethodTypeId="SECOND_DAY"/>
+    <EbayShippingMethod methodTypeEnumId="EBAY_FLAT_RATE" shipmentMethodName="USPSExpressMailInternational" productStoreId="9000" amount="10.00" carrierPartyId="USPS" shipmentMethodTypeId="INT_EXPRESS"/>
+    <EbayShippingMethod methodTypeEnumId="EBAY_FLAT_RATE" shipmentMethodName="UPSNextDay" productStoreId="9000" amount="0.00" carrierPartyId="UPS" shipmentMethodTypeId="NEXT_DAY"/>
+    <EbayShippingMethod methodTypeEnumId="EBAY_FLAT_RATE" shipmentMethodName="UPSNextDayAir" productStoreId="9000" amount="20.00" carrierPartyId="UPS" shipmentMethodTypeId="AIR"/>
+    <EbayShippingMethod methodTypeEnumId="EBAY_FLAT_RATE" shipmentMethodName="ShippingMethodStandard" productStoreId="9000" amount="10.00" carrierPartyId="UPS" shipmentMethodTypeId="GROUND"/>
+    <EbayShippingMethod methodTypeEnumId="EBAY_FLAT_RATE" shipmentMethodName="StandardInternational" productStoreId="9000" amount="0.00" carrierPartyId="USPS" shipmentMethodTypeId="INT_EXPRESS"/>
+    <EbayShippingMethod methodTypeEnumId="EBAY_FLAT_RATE" shipmentMethodName="LocalDelivery" productStoreId="9000" amount="0.00" carrierPartyId="_NA_" shipmentMethodTypeId="STANDARD"/>
+
+</entity-engine-xml>

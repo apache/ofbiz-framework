@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+
+    <!-- Survey Data -->
+    <SurveyApplType surveyApplTypeId="TEST_SURVEY" description="Used for test a survey"/>
+    <Survey surveyId="1401" surveyName="Checkout Survey" description="Please tell us your views on the Checkout process." comments="Your answers will help us serve you better." submitCaption="Complete Survey" isAnonymous="Y" allowMultiple="Y" allowUpdate="N"/>
+    <Survey surveyId="1501" surveyName="New Customer Survey" description="Please tell us your views on the New Customer page." comments="Your answers will help us serve you better." submitCaption="Complete Survey" isAnonymous="Y" allowMultiple="Y" allowUpdate="N"/>
+    <Survey surveyId="1601" surveyName="View Profile Survey" description="Please tell us your views on the View Profile page." comments="Your answers will help us serve you better." submitCaption="Complete Survey" isAnonymous="Y" allowMultiple="Y" allowUpdate="N"/>
+    <Survey surveyId="1701" surveyName="Manage Address Survey" description="Please tell us your views on the Manage Address screen." comments="Your answers will help us serve you better." submitCaption="Complete Survey" isAnonymous="Y" allowMultiple="Y" allowUpdate="N"/>
+    <Survey surveyId="1801" surveyName="Category Detail Survey" description="Please tell us your views on the Category Detail page." comments="Your answers will help us serve you bette.r" submitCaption="Complete Survey" isAnonymous="Y" allowMultiple="Y" allowUpdate="N"/>
+    <Survey surveyId="1901" surveyName="Product Detail Survey" description="Please tell us your views on the Product Detail page." comments="Your answers will help us serve you better." submitCaption="Complete Survey" isAnonymous="Y" allowMultiple="Y" allowUpdate="N"/>
+    <Survey surveyId="2001" surveyName="Mini Cart Survey" description="Please tell us your views on the Mini Cart section." comments="Your answers will help us serve you better." submitCaption="Complete Survey" isAnonymous="Y" allowMultiple="Y" allowUpdate="N"/>
+    <Survey surveyId="2101" surveyName="Show Cart Survey" description="Please tell us your views on the Show Cart functionality." comments="Your answers will help us serve you better." submitCaption="Complete Survey" isAnonymous="Y" allowMultiple="Y" allowUpdate="N"/>
+    
+    <SurveyQuestionCategory surveyQuestionCategoryId="1401" description="Checkout process questions "/>
+    <SurveyQuestionCategory surveyQuestionCategoryId="1501" description="New Customer page questions "/>
+    <SurveyQuestionCategory surveyQuestionCategoryId="1601" description="View Profile page questions "/>
+    <SurveyQuestionCategory surveyQuestionCategoryId="1701" description="Manage Address screen questions "/>
+    <SurveyQuestionCategory surveyQuestionCategoryId="1801" description="Category Detail page questions "/>
+    <SurveyQuestionCategory surveyQuestionCategoryId="1901" description="Product Detail page questions "/>
+    <SurveyQuestionCategory surveyQuestionCategoryId="2001" description="Mini Cart section questions "/>
+    <SurveyQuestionCategory surveyQuestionCategoryId="2101" description="Show Cart functionality questions "/>
+    
+    <ProductStoreSurveyAppl productStoreSurveyId="1401" productStoreId="9000" surveyApplTypeId="TEST_SURVEY" surveyId="1401" surveyTemplate="/applications/content/template/survey/GenericSurvey.ftl"/>
+    <ProductStoreSurveyAppl productStoreSurveyId="1501" productStoreId="9000" surveyApplTypeId="TEST_SURVEY" surveyId="1501" surveyTemplate="/applications/content/template/survey/GenericSurvey.ftl"/>
+    <ProductStoreSurveyAppl productStoreSurveyId="1601" productStoreId="9000" surveyApplTypeId="TEST_SURVEY" surveyId="1601" surveyTemplate="/applications/content/template/survey/GenericSurvey.ftl"/>
+    <ProductStoreSurveyAppl productStoreSurveyId="1701" productStoreId="9000" surveyApplTypeId="TEST_SURVEY" surveyId="1701" surveyTemplate="/applications/content/template/survey/GenericSurvey.ftl"/>
+    <ProductStoreSurveyAppl productStoreSurveyId="1801" productStoreId="9000" surveyApplTypeId="TEST_SURVEY" surveyId="1801" surveyTemplate="/applications/content/template/survey/GenericSurvey.ftl"/>
+    <ProductStoreSurveyAppl productStoreSurveyId="1901" productStoreId="9000" surveyApplTypeId="TEST_SURVEY" surveyId="1901" surveyTemplate="/applications/content/template/survey/GenericSurvey.ftl"/>
+    <ProductStoreSurveyAppl productStoreSurveyId="2001" productStoreId="9000" surveyApplTypeId="TEST_SURVEY" surveyId="2001" surveyTemplate="/applications/content/template/survey/GenericSurvey.ftl"/>
+    <ProductStoreSurveyAppl productStoreSurveyId="2101" productStoreId="9000" surveyApplTypeId="TEST_SURVEY" surveyId="2101" surveyTemplate="/applications/content/template/survey/GenericSurvey.ftl"/>
+    
+    <!--CHECKOUT PAGE-->
+    <SurveyQuestion surveyQuestionId="1401" surveyQuestionCategoryId="1401" surveyQuestionTypeId="BOOLEAN" description="" question="Does clicking on the checkout link in minicart if the user is anonymous then page is displayed https://localhost:8443/ecommerce/control/checkoutoptions"/>
+    <SurveyQuestion surveyQuestionId="1402" surveyQuestionCategoryId="1401" surveyQuestionTypeId="BOOLEAN" description="" question="Does clicking on the onePagecheckout link in Top navigator or minicart if the user is anonymous then page is displayed https://localhost:8443/ecommerce/control/onePageCheckout"/>
+    <SurveyQuestion surveyQuestionId="1403" surveyQuestionCategoryId="1401" surveyQuestionTypeId="BOOLEAN" description="" question="Does clicking on the quickcheckout link in Top navigator or minicart if the user is anonymous then page is displayed https://localhost:8443/ecommerce/control/quickcheckout"/>
+    <SurveyQuestion surveyQuestionId="1404" surveyQuestionCategoryId="1401" surveyQuestionTypeId="BOOLEAN" description="" question="Does clicking on the onePagecheckout link on the login page,if the user is anonymous it takes you to url https://localhost:8443/ecommerce/control/anonOnePageCheckout"/>
+    <SurveyQuestion surveyQuestionId="1405" surveyQuestionCategoryId="1401" surveyQuestionTypeId="BOOLEAN" description="" question="Does clicking on the quickCheckout link on the login page,if the user is anonymous it takes you to url https://localhost:8443/ecommerce/control/quickAnonCheckout"/>
+    <SurveyQuestion surveyQuestionId="1406" surveyQuestionCategoryId="1401" surveyQuestionTypeId="BOOLEAN" description="" question="Does clicking on the checkout link on the login page,if the user is anonymous it takes you to url https://localhost:8443/ecommerce/control/setCustomer"/>
+    <SurveyQuestion surveyQuestionId="1407" surveyQuestionCategoryId="1401" surveyQuestionTypeId="BOOLEAN" description="" question="Does clicking on the checkout link in minicart if user is Registered then it takes you to url https://localhost:8443/ecommerce/control/checkoutoptions"/>
+    <SurveyQuestion surveyQuestionId="1408" surveyQuestionCategoryId="1401" surveyQuestionTypeId="BOOLEAN" description="" question="Does clicking on the onPagecheckout link in Top navigator ro minicart if user is Registered then it takes you to url https://localhost:8443/ecommerce/control/onePageCheckout"/>
+    <SurveyQuestion surveyQuestionId="1409" surveyQuestionCategoryId="1401" surveyQuestionTypeId="BOOLEAN" description="" question="Does clicking on the quickCheckout link in Top navigator or minicart if user is Registered then it takes you to url https://localhost:8443/ecommerce/control/quickcheckout"/>
+    <SurveyQuestion surveyQuestionId="1410" surveyQuestionCategoryId="1401" surveyQuestionTypeId="BOOLEAN" description="" question="Does the oneCheckout page displays the panels Shopping Cart,Shipping,Shipping Options,Billing,Submit order ?"/>
+    <SurveyQuestion surveyQuestionId="1411" surveyQuestionCategoryId="1401" surveyQuestionTypeId="BOOLEAN" description="" question="Does all the products of the cart appear on the list with accurate quantity, unit price,Item total and remove link and the quantity of product is editable ?"/>
+    <SurveyQuestion surveyQuestionId="1412" surveyQuestionCategoryId="1401" surveyQuestionTypeId="BOOLEAN" description="" question="Does on changing the quantity of product the item total, cart sub total and grand total also changed ?"/>
+    <SurveyQuestion surveyQuestionId="1413" surveyQuestionCategoryId="1401" surveyQuestionTypeId="BOOLEAN" description="" question="Does on clicking the remove link the product is removed from the shopping cart and also from the product list on UI?"/>
+    <SurveyQuestion surveyQuestionId="1414" surveyQuestionCategoryId="1401" surveyQuestionTypeId="BOOLEAN" description="" question="Does on entering the promotion code it is applied to all the products and if it is not valid then does it displays error message ?"/>
+    <SurveyQuestion surveyQuestionId="1415" surveyQuestionCategoryId="1401" surveyQuestionTypeId="BOOLEAN" description="" question="Does on clicking the 'continue to step 2' button the Edit panel disappears and the Cart summary page appears ?"/>
+    <SurveyQuestion surveyQuestionId="1416" surveyQuestionCategoryId="1401" surveyQuestionTypeId="BOOLEAN" description="" question="Does on summary panel 'click here to edit' link is appear and it disappear when panel is in edit form ?"/>
+    <SurveyQuestion surveyQuestionId="1417" surveyQuestionCategoryId="1401" surveyQuestionTypeId="BOOLEAN" description="" question="Does all the fields in the shipping panel have their values already filled in editable form if user is logged in and only email address is non editable?"/>
+    <SurveyQuestion surveyQuestionId="1418" surveyQuestionCategoryId="1401" surveyQuestionTypeId="BOOLEAN" description="" question="If user is anonymous then all the fields of shipping panel are blank and editable ?"/>
+    <SurveyQuestion surveyQuestionId="1419" surveyQuestionCategoryId="1401" surveyQuestionTypeId="BOOLEAN" description="" question="Does the Continue to next step button visible on the panel?"/>
+    <SurveyQuestion surveyQuestionId="1420" surveyQuestionCategoryId="1401" surveyQuestionTypeId="BOOLEAN" description="" question="If you leave mandatory fields blank then message displayed of required ?"/>
+    <SurveyQuestion surveyQuestionId="1421" surveyQuestionCategoryId="1401" surveyQuestionTypeId="BOOLEAN" description="" question="Does state drop down is showing state list of selected country if that country have states ?"/>
+    <SurveyQuestion surveyQuestionId="1422" surveyQuestionCategoryId="1401" surveyQuestionTypeId="BOOLEAN" description="" question="Does state drop down disappeares when selected country does not have state list ?"/>
+    <SurveyQuestion surveyQuestionId="1423" surveyQuestionCategoryId="1401" surveyQuestionTypeId="BOOLEAN" description="" question="Does click here to edit link is appeared when summary of every panel is shown ?"/>
+    <SurveyQuestion surveyQuestionId="1424" surveyQuestionCategoryId="1401" surveyQuestionTypeId="BOOLEAN" description="" question="Does shipping methods are appearing into drop down with respective price ?"/>
+    <SurveyQuestion surveyQuestionId="1425" surveyQuestionCategoryId="1401" surveyQuestionTypeId="BOOLEAN" description="" question="Does first name and last name fields are taking any inputs other than alphabets ?"/>
+    <SurveyQuestion surveyQuestionId="1426" surveyQuestionCategoryId="1401" surveyQuestionTypeId="BOOLEAN" description="" question="Does on checking the option Billing address same as shipping,all the values of shipping address copied to the billing address fields. And the Billing address fields gets disappeared And billing address is created same as shipping address ?  "/>
+    <SurveyQuestion surveyQuestionId="1427" surveyQuestionCategoryId="1401" surveyQuestionTypeId="BOOLEAN" description="" question="Does on unchecking the checkbox Billing address same as shipping,the billing address fields are appeared to the user and the billing address created separately?"/>
+    <SurveyQuestion surveyQuestionId="1428" surveyQuestionCategoryId="1401" surveyQuestionTypeId="BOOLEAN" description="" question="On clicking submit order Does it shows message of 'Please Wait Processing Order' ?"/>
+    <SurveyQuestion surveyQuestionId="1429" surveyQuestionCategoryId="1401" surveyQuestionTypeId="BOOLEAN" description="" question="On submission of order successfully Does you are redirected to Order Detail page ?"/>
+    
+    <!--NEW CUSTOMER PAGE-->    
+    <SurveyQuestion surveyQuestionId="1501" surveyQuestionCategoryId="1501" surveyQuestionTypeId="BOOLEAN" description="" question="Does clicking on Create on Login page redirects you to following url https://localhost:8443/ecommerce/control/newcustomer"/>
+    <SurveyQuestion surveyQuestionId="1502" surveyQuestionCategoryId="1501" surveyQuestionTypeId="BOOLEAN" description="" question="Does all the UiLabels are showing proper ?"/>
+    <SurveyQuestion surveyQuestionId="1503" surveyQuestionCategoryId="1501" surveyQuestionTypeId="BOOLEAN" description="" question="On leaving * fields blank Does they showing message of 'Required' ?"/>
+    <SurveyQuestion surveyQuestionId="1504" surveyQuestionCategoryId="1501" surveyQuestionTypeId="BOOLEAN" description="" question="On submitting blank form, Are you able to submit it ?"/>
+    <SurveyQuestion surveyQuestionId="1505" surveyQuestionCategoryId="1501" surveyQuestionTypeId="BOOLEAN" description="" question="Is the First name and Last name taking character other than Alphabet ?"/>
+    <SurveyQuestion surveyQuestionId="1506" surveyQuestionCategoryId="1501" surveyQuestionTypeId="BOOLEAN" description="" question="Is the username field taking any character other than email address ?"/>
+    <SurveyQuestion surveyQuestionId="1507" surveyQuestionCategoryId="1501" surveyQuestionTypeId="BOOLEAN" description="" question="Is password and confirm password taking same inputs ?"/>
+    <SurveyQuestion surveyQuestionId="1508" surveyQuestionCategoryId="1501" surveyQuestionTypeId="BOOLEAN" description="" question="Is country drop down showing only limited country ?"/>
+    <SurveyQuestion surveyQuestionId="1509" surveyQuestionCategoryId="1501" surveyQuestionTypeId="BOOLEAN" description="" question="Is state drop down is showing only the state list of selected country if country have states ?"/>
+    <SurveyQuestion surveyQuestionId="1510" surveyQuestionCategoryId="1501" surveyQuestionTypeId="BOOLEAN" description="" question="Is state drop down is disappear when a country has no state ?"/>
+    <SurveyQuestion surveyQuestionId="1511" surveyQuestionCategoryId="1501" surveyQuestionTypeId="BOOLEAN" description="" question="Is use shipping address for billing address checkbox is working and copies data from fields ?"/>
+    <SurveyQuestion surveyQuestionId="1512" surveyQuestionCategoryId="1501" surveyQuestionTypeId="BOOLEAN" description="" question="If user is creates account successfully then he is able to login by his user Id ?"/>
+    
+    <!--VIEW / EDIT PROFILE PAGE-->
+    <SurveyQuestion surveyQuestionId="1601" surveyQuestionCategoryId="1601" surveyQuestionTypeId="BOOLEAN" description="" question="Does clicking on Profile link it takes to https://localhost:8443/ecommerce/control/viewprofile page in case the user is logged in ?"/>
+    <SurveyQuestion surveyQuestionId="1602" surveyQuestionCategoryId="1601" surveyQuestionTypeId="BOOLEAN" description="" question="Does My Accounts section displays the name and email of the user corectly as entered?"/>
+    <SurveyQuestion surveyQuestionId="1603" surveyQuestionCategoryId="1601" surveyQuestionTypeId="BOOLEAN" description="" question="Does the EDIT link redirects to the page https://localhost:8443/ecommerce/control/editProfile"/>
+    <SurveyQuestion surveyQuestionId="1604" surveyQuestionCategoryId="1601" surveyQuestionTypeId="BOOLEAN" description="" question="Does the Billing and shipping address of user displayed correctly?"/>
+    <SurveyQuestion surveyQuestionId="1605" surveyQuestionCategoryId="1601" surveyQuestionTypeId="BOOLEAN" description="" question="Does the Manage Address link redirects user to manage addresses page https://localhost:8443/ecommerce/control/manageAddress?"/>
+    <SurveyQuestion surveyQuestionId="1606" surveyQuestionCategoryId="1601" surveyQuestionTypeId="BOOLEAN" description="" question="Does Quick add takes to the page https://localhost:8443/ecommerce/control/quickadd"/>
+    <SurveyQuestion surveyQuestionId="1607" surveyQuestionCategoryId="1601" surveyQuestionTypeId="BOOLEAN" description="" question="Does the 'Order History' redirects to order detail page. https://localhost:8443/ecommerce/control/orderhistory"/>
+    <SurveyQuestion surveyQuestionId="1608" surveyQuestionCategoryId="1601" surveyQuestionTypeId="BOOLEAN" description="" question="Does Shopping List link redirects to page https://localhost:8443/ecommerce/control/editShoppingList"/>
+    <SurveyQuestion surveyQuestionId="1609" surveyQuestionCategoryId="1601" surveyQuestionTypeId="BOOLEAN" description="" question="Does List quotes link redirects to page https://localhost:8443/ecommerce/control/ListQuotes"/>
+    <SurveyQuestion surveyQuestionId="1610" surveyQuestionCategoryId="1601" surveyQuestionTypeId="BOOLEAN" description="" question="Does List Requests link redirects to page https://localhost:8443/ecommerce/control/ListRequests"/>
+    <SurveyQuestion surveyQuestionId="1611" surveyQuestionCategoryId="1601" surveyQuestionTypeId="BOOLEAN" description="" question="Does on changing the email address the username changed ?"/>
+    <SurveyQuestion surveyQuestionId="1612" surveyQuestionCategoryId="1601" surveyQuestionTypeId="BOOLEAN" description="" question="Does the form gets submitted successfully if all the fields are validated properly?"/>
+    
+    <!--MANAGE ADDRESS PAGE-->
+    <SurveyQuestion surveyQuestionId="1701" surveyQuestionCategoryId="1701" surveyQuestionTypeId="BOOLEAN" description="" question="Does clicking on MANAGE ADDRESS redirects you to following https://localhost:8443/ecommerce/control/manageAddress"/>
+    <SurveyQuestion surveyQuestionId="1702" surveyQuestionCategoryId="1701" surveyQuestionTypeId="BOOLEAN" description="" question="Does it displays the three sections namely : Default address which have Billing and Shipping Addresses and Additional Addresses ?"/>
+    <SurveyQuestion surveyQuestionId="1703" surveyQuestionCategoryId="1701" surveyQuestionTypeId="BOOLEAN" description="" question="Does it diplays the Add New Address link and on click it opens a popup form for making new address ?"/>
+    <SurveyQuestion surveyQuestionId="1704" surveyQuestionCategoryId="1701" surveyQuestionTypeId="BOOLEAN" description="" question="Does Billing Address displays the correct Billing Address as entered by the user?"/>
+    <SurveyQuestion surveyQuestionId="1705" surveyQuestionCategoryId="1701" surveyQuestionTypeId="BOOLEAN" description="" question="Does on clicking the Change Billing Address link opens a pop up form for editing billing address ?"/>
+    <SurveyQuestion surveyQuestionId="1706" surveyQuestionCategoryId="1701" surveyQuestionTypeId="BOOLEAN" description="" question="If the checkbox in Billing Address section is checked then it creates a shipping address same as billing address and expires the previous shipping address and vice-versa ?"/>
+    <SurveyQuestion surveyQuestionId="1707" surveyQuestionCategoryId="1701" surveyQuestionTypeId="BOOLEAN" description="" question="Does Additional Addresses section diplays the addresses associated with the Login user without any purpose,if any available ?"/>
+    <SurveyQuestion surveyQuestionId="1708" surveyQuestionCategoryId="1701" surveyQuestionTypeId="BOOLEAN" description="" question="Does on clicking the Edit Address link opens a pop up for editing address ?"/>
+    <SurveyQuestion surveyQuestionId="1709" surveyQuestionCategoryId="1701" surveyQuestionTypeId="BOOLEAN" description="" question="Does on checking the option 'Make this My default Shipping address' sets the address as Default Shipping Address and vice-versa?"/>
+    <SurveyQuestion surveyQuestionId="1710" surveyQuestionCategoryId="1701" surveyQuestionTypeId="BOOLEAN" description="" question="Does the form gets submitted successfully if it passes all the validations successfuly?"/>
+    <SurveyQuestion surveyQuestionId="1711" surveyQuestionCategoryId="1701" surveyQuestionTypeId="BOOLEAN" description="" question="Does the delete address button works properly,on clicking removes the address from the page?"/>
+    <SurveyQuestion surveyQuestionId="1712" surveyQuestionCategoryId="1701" surveyQuestionTypeId="BOOLEAN" description="" question="Does on clicking the Add Address link opens a pop up for adding new address ?"/>
+    <SurveyQuestion surveyQuestionId="1713" surveyQuestionCategoryId="1701" surveyQuestionTypeId="BOOLEAN" description="" question="Does on clicking cancel button will the form gets disappear?"/>
+    <SurveyQuestion surveyQuestionId="1714" surveyQuestionCategoryId="1701" surveyQuestionTypeId="BOOLEAN" description="" question="Does the updated address displayed correctly on manage address form?"/>
+    
+    <!--CATEGORY DETAIL PAGE-->
+    <SurveyQuestion surveyQuestionId="1801" surveyQuestionCategoryId="1801" surveyQuestionTypeId="BOOLEAN" description="" question="Are breadcrumbs visible on the page and on clicking them, Are they working proper and takes you to clicked page ?"/>
+    <SurveyQuestion surveyQuestionId="1802" surveyQuestionCategoryId="1801" surveyQuestionTypeId="BOOLEAN" description="" question="Is the mincart visible and does it displays all the details it contains?"/>
+    <SurveyQuestion surveyQuestionId="1803" surveyQuestionCategoryId="1801" surveyQuestionTypeId="BOOLEAN" description="" question="Does the page contains the quantity and Add to cart option that on Clicking adds the Product to the Shopping cart?"/>
+    <SurveyQuestion surveyQuestionId="1804" surveyQuestionCategoryId="1801" surveyQuestionTypeId="BOOLEAN" description="" question="Does it contains the Search in Category options that takes to the Advance Search page https://localhost:8443/ecommerce/control/advancedsearch"/>
+    <SurveyQuestion surveyQuestionId="1805" surveyQuestionCategoryId="1801" surveyQuestionTypeId="BOOLEAN" description="" question="Does the page display the different product list with their names and images if available ?"/>
+    <SurveyQuestion surveyQuestionId="1806" surveyQuestionCategoryId="1801" surveyQuestionTypeId="BOOLEAN" description="" question="Does on clicking onto the product image this redirects you to that specified product detail page ?"/>
+    
+    <!--PRODUCT DETAIL PAGE-->
+    <SurveyQuestion surveyQuestionId="1901" surveyQuestionCategoryId="1901" surveyQuestionTypeId="BOOLEAN" description="" question="Are the breadcrumbs visible on the page and on clicking them, are they working proper and takes you to clicked page ?"/>
+    <SurveyQuestion surveyQuestionId="1902" surveyQuestionCategoryId="1901" surveyQuestionTypeId="BOOLEAN" description="" question="Is the Minicart visible and are all the links in Minicart are working properly ?"/>
+    <SurveyQuestion surveyQuestionId="1903" surveyQuestionCategoryId="1901" surveyQuestionTypeId="BOOLEAN" description="" question="Does it contains a Quantity text box and Add to Cart link that adds the Product into the Shopping Cart?"/>
+    <SurveyQuestion surveyQuestionId="1904" surveyQuestionCategoryId="1901" surveyQuestionTypeId="BOOLEAN" description="" question="Does it displays all the details of the Product and feature options if the product is configurable ?"/>
+    <SurveyQuestion surveyQuestionId="1905" surveyQuestionCategoryId="1901" surveyQuestionTypeId="BOOLEAN" description="" question="Does the Previous and next navigate properly to target pages ?"/>
+    <SurveyQuestion surveyQuestionId="1906" surveyQuestionCategoryId="1901" surveyQuestionTypeId="BOOLEAN" description="" question="Is the quantity is editable if required features are selected ?"/>
+    <SurveyQuestion surveyQuestionId="1907" surveyQuestionCategoryId="1901" surveyQuestionTypeId="BOOLEAN" description="" question="Are you able to add the product into the cart without selecting any feature ?"/>
+    <SurveyQuestion surveyQuestionId="1908" surveyQuestionCategoryId="1901" surveyQuestionTypeId="BOOLEAN" description="" question="Does it displays the links Tell a friend that takes to the respective target page?"/>
+    <SurveyQuestion surveyQuestionId="1909" surveyQuestionCategoryId="1901" surveyQuestionTypeId="BOOLEAN" description="" question="Does it displays the message with link Login You Must Login  To Add Selected Items To Shopping List if the user is not logged in."/>
+    <SurveyQuestion surveyQuestionId="1910" surveyQuestionCategoryId="1901" surveyQuestionTypeId="BOOLEAN" description="" question="Does Review the Product First link working and takes to the page https://localhost:8443/ecommerce/control/reviewProduct?"/>
+    
+    <!--MINI CART PAGE-->
+    <SurveyQuestion surveyQuestionId="2001" surveyQuestionCategoryId="2001" surveyQuestionTypeId="BOOLEAN" description="" question="Is the minicart displayed on the all the pages except profile and checkout page ?"/>
+    <SurveyQuestion surveyQuestionId="2002" surveyQuestionCategoryId="2001" surveyQuestionTypeId="BOOLEAN" description="" question="Does it displays the View Cart,Checkout,onePageCheckOut,quickCheckoutlink on the mini Cart"/>
+    <SurveyQuestion surveyQuestionId="2003" surveyQuestionCategoryId="2001" surveyQuestionTypeId="BOOLEAN" description="" question="Does on clicking to the checkout link in case the user is anonymous takes to login page and one clicking again to checkout link takes to https://localhost:8443/ecommerce/control/setCustomer"/>
+    <SurveyQuestion surveyQuestionId="2004" surveyQuestionCategoryId="2001" surveyQuestionTypeId="BOOLEAN" description="" question="Does on clicking to the checkout link in case the user is anonymous takes to login page and one clicking again to quickCheckout link takes to https://localhost:8443/ecommerce/control/quickAnonCheckout"/>
+    <SurveyQuestion surveyQuestionId="2005" surveyQuestionCategoryId="2001" surveyQuestionTypeId="BOOLEAN" description="" question="Does on clicking to the checkout link in case the user is anonymous takes to login page and one clicking again to onePageCheckout link takes to https://localhost:8443/ecommerce/control/anonOnePageCheckout"/>
+    <SurveyQuestion surveyQuestionId="2006" surveyQuestionCategoryId="2001" surveyQuestionTypeId="BOOLEAN" description="" question="Does on clicking to the checkout link in case the user is registered,takes to https://localhost:8443/ecommerce/control/checkoutoptions"/>
+    <SurveyQuestion surveyQuestionId="2007" surveyQuestionCategoryId="2001" surveyQuestionTypeId="BOOLEAN" description="" question="Does on clicking to the quickCheckout link in case the user is registered,takes to https://localhost:8443/ecommerce/control/quickcheckout"/>
+    <SurveyQuestion surveyQuestionId="2008" surveyQuestionCategoryId="2001" surveyQuestionTypeId="BOOLEAN" description="" question="Does on clicking to the quickCheckout link in case the user is registered,takes to https://localhost:8443/ecommerce/control/onePageCheckout"/>
+    <SurveyQuestion surveyQuestionId="2009" surveyQuestionCategoryId="2001" surveyQuestionTypeId="BOOLEAN" description="" question="Does on clicking ViewCart link will redirect to the show cart page at this url https://localhost:8443/ecommerce/control/view/showcart"/>
+    <SurveyQuestion surveyQuestionId="2010" surveyQuestionCategoryId="2001" surveyQuestionTypeId="BOOLEAN" description="" question="Does the mini cart displays the Quantity,Product and its price and total details correctly ?"/>
+    <SurveyQuestion surveyQuestionId="2011" surveyQuestionCategoryId="2001" surveyQuestionTypeId="BOOLEAN" description="" question="Does the Format of amount on mini cart have currency format like $00.00 ?"/>
+    
+    <!--SHOW CART PAGE-->
+    <SurveyQuestion surveyQuestionId="2101" surveyQuestionCategoryId="2101" surveyQuestionTypeId="BOOLEAN" description="" question="Does the Cart link on click takes to the https://localhost:8443/ecommerce/control/view/showcart?"/>
+    <SurveyQuestion surveyQuestionId="2102" surveyQuestionCategoryId="2101" surveyQuestionTypeId="BOOLEAN" description="" question="Does it diplays the panels Quick add,shopping cart,promotion coupon code,Special offers,you might interested in,Promotion information on the ViewCart Page"/>
+    <SurveyQuestion surveyQuestionId="2103" surveyQuestionCategoryId="2101" surveyQuestionTypeId="BOOLEAN" description="" question="Does the Cart displays the all the cart details ?"/>
+    <SurveyQuestion surveyQuestionId="2104" surveyQuestionCategoryId="2101" surveyQuestionTypeId="BOOLEAN" description="" question="Does the cart displays the images of the products it has or not and does those product images on clicking takes to the target page ?"/>
+    <SurveyQuestion surveyQuestionId="2105" surveyQuestionCategoryId="2101" surveyQuestionTypeId="BOOLEAN" description="" question="Does the product link displayed under SKU takes you to the specified product detail page ?"/>
+    <SurveyQuestion surveyQuestionId="2106" surveyQuestionCategoryId="2101" surveyQuestionTypeId="BOOLEAN" description="" question="Does the delete link is displayed and removes successfully the corresponding item from the cart ?"/>
+    <SurveyQuestion surveyQuestionId="2107" surveyQuestionCategoryId="2101" surveyQuestionTypeId="BOOLEAN" description="" question="Does the Promotion code text box is displayed and it applies the code successfully ?"/>
+    <SurveyQuestion surveyQuestionId="2108" surveyQuestionCategoryId="2101" surveyQuestionTypeId="BOOLEAN" description="" question="Does the subtotal,Discount, shipping, and total displayed on the page?"/>
+    <SurveyQuestion surveyQuestionId="2109" surveyQuestionCategoryId="2101" surveyQuestionTypeId="BOOLEAN" description="" question="Does it shows the message To save cart you must Login in case if not logged in?"/>
+    <SurveyQuestion surveyQuestionId="2110" surveyQuestionCategoryId="2101" surveyQuestionTypeId="BOOLEAN" description="" question="Does it displays the Update,Continue shopping and checkout link ?"/>
+    <SurveyQuestion surveyQuestionId="2111" surveyQuestionCategoryId="2101" surveyQuestionTypeId="BOOLEAN" description="" question="Does it on clicking the Continue shopping takes to last product detail page ?"/>
+    <SurveyQuestion surveyQuestionId="2112" surveyQuestionCategoryId="2101" surveyQuestionTypeId="BOOLEAN" description="" question="Does it on clicking the Details link on Special offers panel takes to https://localhost:8443/ecommerce/control/showPromotionDetails"/>
+    <SurveyQuestion surveyQuestionId="2113" surveyQuestionCategoryId="2101" surveyQuestionTypeId="BOOLEAN" description="" question="Does the shopping cart display the links create request for Quote and create new Quote from cart?"/>
+    <SurveyQuestion surveyQuestionId="2114" surveyQuestionCategoryId="2101" surveyQuestionTypeId="BOOLEAN" description="" question="Does You might interested in link contain Add to cart link that adds the product to the shopping cart"/>
+    <SurveyQuestion surveyQuestionId="2115" surveyQuestionCategoryId="2101" surveyQuestionTypeId="BOOLEAN" description="" question="Does You might interested in link contain Product link that https://localhost:8443/ecommerce/control/product"/>
+    <SurveyQuestion surveyQuestionId="2116" surveyQuestionCategoryId="2101" surveyQuestionTypeId="BOOLEAN" description="" question="Does Shopping cart contains the Recalculate Cart,Empty Cart,Remove Selected and Checkout link on the title Bar that takes to their respaective target page?"/>
+    <SurveyQuestion surveyQuestionId="2117" surveyQuestionCategoryId="2101" surveyQuestionTypeId="BOOLEAN" description="" question="Does Quick Add panel containing the Add to cart linnk adds the product to the shopping cart successfully on entering the ProductId"/>
+    
+    <!--CHECKOUT PAGE  -->
+    <SurveyQuestionAppl surveyId="1401" surveyQuestionId="1401" fromDate="2001-01-01 00:00:00.001" requiredField="N" sequenceNum="01"/>
+    <SurveyQuestionAppl surveyId="1401" surveyQuestionId="1402" fromDate="2001-01-01 00:00:00.002" requiredField="N" sequenceNum="02"/>
+    <SurveyQuestionAppl surveyId="1401" surveyQuestionId="1403" fromDate="2001-01-01 00:00:00.003" requiredField="N" sequenceNum="03"/>
+    <SurveyQuestionAppl surveyId="1401" surveyQuestionId="1404" fromDate="2001-01-01 00:00:00.004" requiredField="N" sequenceNum="04"/>
+    <SurveyQuestionAppl surveyId="1401" surveyQuestionId="1405" fromDate="2001-01-01 00:00:00.005" requiredField="N" sequenceNum="05"/>
+    <SurveyQuestionAppl surveyId="1401" surveyQuestionId="1406" fromDate="2001-01-01 00:00:00.006" requiredField="N" sequenceNum="06"/>
+    <SurveyQuestionAppl surveyId="1401" surveyQuestionId="1407" fromDate="2001-01-01 00:00:00.007" requiredField="N" sequenceNum="07"/>
+    <SurveyQuestionAppl surveyId="1401" surveyQuestionId="1408" fromDate="2001-01-01 00:00:00.008" requiredField="N" sequenceNum="08"/>
+    <SurveyQuestionAppl surveyId="1401" surveyQuestionId="1409" fromDate="2001-01-01 00:00:00.009" requiredField="N" sequenceNum="09"/>
+    <SurveyQuestionAppl surveyId="1401" surveyQuestionId="1410" fromDate="2001-01-01 00:00:00.010" requiredField="N" sequenceNum="10"/>
+    <SurveyQuestionAppl surveyId="1401" surveyQuestionId="1411" fromDate="2001-01-01 00:00:00.011" requiredField="N" sequenceNum="11"/>
+    <SurveyQuestionAppl surveyId="1401" surveyQuestionId="1412" fromDate="2001-01-01 00:00:00.012" requiredField="N" sequenceNum="12"/>
+    <SurveyQuestionAppl surveyId="1401" surveyQuestionId="1413" fromDate="2001-01-01 00:00:00.013" requiredField="N" sequenceNum="13"/>
+    <SurveyQuestionAppl surveyId="1401" surveyQuestionId="1414" fromDate="2001-01-01 00:00:00.014" requiredField="N" sequenceNum="14"/>
+    <SurveyQuestionAppl surveyId="1401" surveyQuestionId="1415" fromDate="2001-01-01 00:00:00.015" requiredField="N" sequenceNum="15"/>
+    <SurveyQuestionAppl surveyId="1401" surveyQuestionId="1416" fromDate="2001-01-01 00:00:00.016" requiredField="N" sequenceNum="16"/>
+    <SurveyQuestionAppl surveyId="1401" surveyQuestionId="1417" fromDate="2001-01-01 00:00:00.017" requiredField="N" sequenceNum="17"/>
+    <SurveyQuestionAppl surveyId="1401" surveyQuestionId="1418" fromDate="2001-01-01 00:00:00.018" requiredField="N" sequenceNum="18"/>
+    <SurveyQuestionAppl surveyId="1401" surveyQuestionId="1419" fromDate="2001-01-01 00:00:00.019" requiredField="N" sequenceNum="19"/>
+    <SurveyQuestionAppl surveyId="1401" surveyQuestionId="1420" fromDate="2001-01-01 00:00:00.020" requiredField="N" sequenceNum="20"/>
+    <SurveyQuestionAppl surveyId="1401" surveyQuestionId="1421" fromDate="2001-01-01 00:00:00.021" requiredField="N" sequenceNum="21"/>
+    <SurveyQuestionAppl surveyId="1401" surveyQuestionId="1422" fromDate="2001-01-01 00:00:00.022" requiredField="N" sequenceNum="22"/>
+    <SurveyQuestionAppl surveyId="1401" surveyQuestionId="1423" fromDate="2001-01-01 00:00:00.023" requiredField="N" sequenceNum="23"/>
+    <SurveyQuestionAppl surveyId="1401" surveyQuestionId="1424" fromDate="2001-01-01 00:00:00.024" requiredField="N" sequenceNum="24"/>
+    <SurveyQuestionAppl surveyId="1401" surveyQuestionId="1425" fromDate="2001-01-01 00:00:00.025" requiredField="N" sequenceNum="25"/>
+    <SurveyQuestionAppl surveyId="1401" surveyQuestionId="1426" fromDate="2001-01-01 00:00:00.026" requiredField="N" sequenceNum="26"/>
+    <SurveyQuestionAppl surveyId="1401" surveyQuestionId="1427" fromDate="2001-01-01 00:00:00.027" requiredField="N" sequenceNum="27"/>
+    <SurveyQuestionAppl surveyId="1401" surveyQuestionId="1428" fromDate="2001-01-01 00:00:00.028" requiredField="N" sequenceNum="28"/>
+    <SurveyQuestionAppl surveyId="1401" surveyQuestionId="1429" fromDate="2001-01-01 00:00:00.029" requiredField="N" sequenceNum="29"/>
+    
+    <!--NEW CUSTOMER PAGE-->
+    <SurveyQuestionAppl surveyId="1501" surveyQuestionId="1501" fromDate="2001-01-01 00:00:00.001" requiredField="N" sequenceNum="01"/>
+    <SurveyQuestionAppl surveyId="1501" surveyQuestionId="1502" fromDate="2001-01-01 00:00:00.002" requiredField="N" sequenceNum="02"/>
+    <SurveyQuestionAppl surveyId="1501" surveyQuestionId="1503" fromDate="2001-01-01 00:00:00.003" requiredField="N" sequenceNum="03"/>
+    <SurveyQuestionAppl surveyId="1501" surveyQuestionId="1504" fromDate="2001-01-01 00:00:00.004" requiredField="N" sequenceNum="04"/>
+    <SurveyQuestionAppl surveyId="1501" surveyQuestionId="1505" fromDate="2001-01-01 00:00:00.005" requiredField="N" sequenceNum="05"/>
+    <SurveyQuestionAppl surveyId="1501" surveyQuestionId="1506" fromDate="2001-01-01 00:00:00.006" requiredField="N" sequenceNum="06"/>
+    <SurveyQuestionAppl surveyId="1501" surveyQuestionId="1507" fromDate="2001-01-01 00:00:00.007" requiredField="N" sequenceNum="07"/>
+    <SurveyQuestionAppl surveyId="1501" surveyQuestionId="1508" fromDate="2001-01-01 00:00:00.008" requiredField="N" sequenceNum="08"/>
+    <SurveyQuestionAppl surveyId="1501" surveyQuestionId="1509" fromDate="2001-01-01 00:00:00.009" requiredField="N" sequenceNum="09"/>
+    <SurveyQuestionAppl surveyId="1501" surveyQuestionId="1510" fromDate="2001-01-01 00:00:00.010" requiredField="N" sequenceNum="10"/>
+    <SurveyQuestionAppl surveyId="1501" surveyQuestionId="1511" fromDate="2001-01-01 00:00:00.011" requiredField="N" sequenceNum="11"/>
+    <SurveyQuestionAppl surveyId="1501" surveyQuestionId="1512" fromDate="2001-01-01 00:00:00.012" requiredField="N" sequenceNum="12"/>
+   
+    <!--view profile page-->
+    <SurveyQuestionAppl surveyId="1601" surveyQuestionId="1601" fromDate="2001-01-01 00:00:00.001" requiredField="N" sequenceNum="01"/>
+    <SurveyQuestionAppl surveyId="1601" surveyQuestionId="1602" fromDate="2001-01-01 00:00:00.002" requiredField="N" sequenceNum="02"/>
+    <SurveyQuestionAppl surveyId="1601" surveyQuestionId="1603" fromDate="2001-01-01 00:00:00.003" requiredField="N" sequenceNum="03"/>
+    <SurveyQuestionAppl surveyId="1601" surveyQuestionId="1604" fromDate="2001-01-01 00:00:00.004" requiredField="N" sequenceNum="04"/>
+    <SurveyQuestionAppl surveyId="1601" surveyQuestionId="1605" fromDate="2001-01-01 00:00:00.005" requiredField="N" sequenceNum="05"/>
+    <SurveyQuestionAppl surveyId="1601" surveyQuestionId="1606" fromDate="2001-01-01 00:00:00.006" requiredField="N" sequenceNum="06"/>
+    <SurveyQuestionAppl surveyId="1601" surveyQuestionId="1607" fromDate="2001-01-01 00:00:00.007" requiredField="N" sequenceNum="07"/>
+    <SurveyQuestionAppl surveyId="1601" surveyQuestionId="1608" fromDate="2001-01-01 00:00:00.008" requiredField="N" sequenceNum="08"/>
+    <SurveyQuestionAppl surveyId="1601" surveyQuestionId="1609" fromDate="2001-01-01 00:00:00.009" requiredField="N" sequenceNum="09"/>
+    <SurveyQuestionAppl surveyId="1601" surveyQuestionId="1610" fromDate="2001-01-01 00:00:00.010" requiredField="N" sequenceNum="10"/>
+    <SurveyQuestionAppl surveyId="1601" surveyQuestionId="1611" fromDate="2001-01-01 00:00:00.011" requiredField="N" sequenceNum="11"/>
+    <SurveyQuestionAppl surveyId="1601" surveyQuestionId="1612" fromDate="2001-01-01 00:00:00.012" requiredField="N" sequenceNum="12"/>
+    
+    <!--MANAGE ADDRESS PAGE-->
+    <SurveyQuestionAppl surveyId="1701" surveyQuestionId="1701" fromDate="2001-01-01 00:00:00.001" requiredField="N" sequenceNum="01"/>
+    <SurveyQuestionAppl surveyId="1701" surveyQuestionId="1702" fromDate="2001-01-01 00:00:00.002" requiredField="N" sequenceNum="02"/>
+    <SurveyQuestionAppl surveyId="1701" surveyQuestionId="1703" fromDate="2001-01-01 00:00:00.003" requiredField="N" sequenceNum="03"/>
+    <SurveyQuestionAppl surveyId="1701" surveyQuestionId="1704" fromDate="2001-01-01 00:00:00.004" requiredField="N" sequenceNum="04"/>
+    <SurveyQuestionAppl surveyId="1701" surveyQuestionId="1705" fromDate="2001-01-01 00:00:00.005" requiredField="N" sequenceNum="05"/>
+    <SurveyQuestionAppl surveyId="1701" surveyQuestionId="1706" fromDate="2001-01-01 00:00:00.006" requiredField="N" sequenceNum="06"/>
+    <SurveyQuestionAppl surveyId="1701" surveyQuestionId="1707" fromDate="2001-01-01 00:00:00.007" requiredField="N" sequenceNum="07"/>
+    <SurveyQuestionAppl surveyId="1701" surveyQuestionId="1708" fromDate="2001-01-01 00:00:00.008" requiredField="N" sequenceNum="08"/>
+    <SurveyQuestionAppl surveyId="1701" surveyQuestionId="1709" fromDate="2001-01-01 00:00:00.009" requiredField="N" sequenceNum="09"/>
+    <SurveyQuestionAppl surveyId="1701" surveyQuestionId="1710" fromDate="2001-01-01 00:00:00.010" requiredField="N" sequenceNum="10"/>
+    <SurveyQuestionAppl surveyId="1701" surveyQuestionId="1711" fromDate="2001-01-01 00:00:00.011" requiredField="N" sequenceNum="11"/>
+    <SurveyQuestionAppl surveyId="1701" surveyQuestionId="1712" fromDate="2001-01-01 00:00:00.012" requiredField="N" sequenceNum="12"/>
+    <SurveyQuestionAppl surveyId="1701" surveyQuestionId="1713" fromDate="2001-01-01 00:00:00.013" requiredField="N" sequenceNum="13"/>
+    <SurveyQuestionAppl surveyId="1701" surveyQuestionId="1714" fromDate="2001-01-01 00:00:00.014" requiredField="N" sequenceNum="14"/>
+  
+    <!--CATEGORY DETAIL PAGE-->
+    <SurveyQuestionAppl surveyId="1801" surveyQuestionId="1801" fromDate="2001-01-01 00:00:00.001" requiredField="N" sequenceNum="01"/>
+    <SurveyQuestionAppl surveyId="1801" surveyQuestionId="1802" fromDate="2001-01-01 00:00:00.002" requiredField="N" sequenceNum="02"/>
+    <SurveyQuestionAppl surveyId="1801" surveyQuestionId="1803" fromDate="2001-01-01 00:00:00.003" requiredField="N" sequenceNum="03"/>
+    <SurveyQuestionAppl surveyId="1801" surveyQuestionId="1804" fromDate="2001-01-01 00:00:00.004" requiredField="N" sequenceNum="04"/>
+    <SurveyQuestionAppl surveyId="1801" surveyQuestionId="1805" fromDate="2001-01-01 00:00:00.005" requiredField="N" sequenceNum="05"/>
+    <SurveyQuestionAppl surveyId="1801" surveyQuestionId="1806" fromDate="2001-01-01 00:00:00.006" requiredField="N" sequenceNum="06"/>
+   
+    <!--PRODUCT DETAIL PAGE-->
+    <SurveyQuestionAppl surveyId="1901" surveyQuestionId="1901" fromDate="2001-01-01 00:00:00.001" requiredField="N" sequenceNum="01"/>
+    <SurveyQuestionAppl surveyId="1901" surveyQuestionId="1902" fromDate="2001-01-01 00:00:00.002" requiredField="N" sequenceNum="02"/>
+    <SurveyQuestionAppl surveyId="1901" surveyQuestionId="1903" fromDate="2001-01-01 00:00:00.003" requiredField="N" sequenceNum="03"/>
+    <SurveyQuestionAppl surveyId="1901" surveyQuestionId="1904" fromDate="2001-01-01 00:00:00.004" requiredField="N" sequenceNum="04"/>
+    <SurveyQuestionAppl surveyId="1901" surveyQuestionId="1905" fromDate="2001-01-01 00:00:00.005" requiredField="N" sequenceNum="05"/>
+    <SurveyQuestionAppl surveyId="1901" surveyQuestionId="1906" fromDate="2001-01-01 00:00:00.006" requiredField="N" sequenceNum="06"/>
+    <SurveyQuestionAppl surveyId="1901" surveyQuestionId="1907" fromDate="2001-01-01 00:00:00.007" requiredField="N" sequenceNum="07"/>
+    <SurveyQuestionAppl surveyId="1901" surveyQuestionId="1908" fromDate="2001-01-01 00:00:00.008" requiredField="N" sequenceNum="08"/>
+    <SurveyQuestionAppl surveyId="1901" surveyQuestionId="1909" fromDate="2001-01-01 00:00:00.009" requiredField="N" sequenceNum="09"/>
+    <SurveyQuestionAppl surveyId="1901" surveyQuestionId="1910" fromDate="2001-01-01 00:00:00.010" requiredField="N" sequenceNum="10"/>
+   
+    <!--MINI CART PAGE-->
+    <SurveyQuestionAppl surveyId="2001" surveyQuestionId="2001" fromDate="2001-01-01 00:00:00.001" requiredField="N" sequenceNum="01"/>
+    <SurveyQuestionAppl surveyId="2001" surveyQuestionId="2002" fromDate="2001-01-01 00:00:00.002" requiredField="N" sequenceNum="02"/>
+    <SurveyQuestionAppl surveyId="2001" surveyQuestionId="2003" fromDate="2001-01-01 00:00:00.003" requiredField="N" sequenceNum="03"/>
+    <SurveyQuestionAppl surveyId="2001" surveyQuestionId="2004" fromDate="2001-01-01 00:00:00.004" requiredField="N" sequenceNum="04"/>
+    <SurveyQuestionAppl surveyId="2001" surveyQuestionId="2005" fromDate="2001-01-01 00:00:00.005" requiredField="N" sequenceNum="05"/>
+    <SurveyQuestionAppl surveyId="2001" surveyQuestionId="2006" fromDate="2001-01-01 00:00:00.006" requiredField="N" sequenceNum="06"/>
+    <SurveyQuestionAppl surveyId="2001" surveyQuestionId="2007" fromDate="2001-01-01 00:00:00.007" requiredField="N" sequenceNum="07"/>
+    <SurveyQuestionAppl surveyId="2001" surveyQuestionId="2008" fromDate="2001-01-01 00:00:00.008" requiredField="N" sequenceNum="08"/>
+    <SurveyQuestionAppl surveyId="2001" surveyQuestionId="2009" fromDate="2001-01-01 00:00:00.009" requiredField="N" sequenceNum="09"/>
+    <SurveyQuestionAppl surveyId="2001" surveyQuestionId="2010" fromDate="2001-01-01 00:00:00.010" requiredField="N" sequenceNum="10"/>
+    <SurveyQuestionAppl surveyId="2001" surveyQuestionId="2011" fromDate="2001-01-01 00:00:00.011" requiredField="N" sequenceNum="11"/>
+    
+    <!--SHOW CART PAGE-->
+    <SurveyQuestionAppl surveyId="2101" surveyQuestionId="2101" fromDate="2001-01-01 00:00:00.001" requiredField="N" sequenceNum="01"/>
+    <SurveyQuestionAppl surveyId="2101" surveyQuestionId="2102" fromDate="2001-01-01 00:00:00.002" requiredField="N" sequenceNum="02"/>
+    <SurveyQuestionAppl surveyId="2101" surveyQuestionId="2103" fromDate="2001-01-01 00:00:00.003" requiredField="N" sequenceNum="03"/>
+    <SurveyQuestionAppl surveyId="2101" surveyQuestionId="2104" fromDate="2001-01-01 00:00:00.004" requiredField="N" sequenceNum="04"/>
+    <SurveyQuestionAppl surveyId="2101" surveyQuestionId="2105" fromDate="2001-01-01 00:00:00.005" requiredField="N" sequenceNum="05"/>
+    <SurveyQuestionAppl surveyId="2101" surveyQuestionId="2106" fromDate="2001-01-01 00:00:00.006" requiredField="N" sequenceNum="06"/>
+    <SurveyQuestionAppl surveyId="2101" surveyQuestionId="2107" fromDate="2001-01-01 00:00:00.007" requiredField="N" sequenceNum="07"/>
+    <SurveyQuestionAppl surveyId="2101" surveyQuestionId="2108" fromDate="2001-01-01 00:00:00.008" requiredField="N" sequenceNum="08"/>
+    <SurveyQuestionAppl surveyId="2101" surveyQuestionId="2109" fromDate="2001-01-01 00:00:00.009" requiredField="N" sequenceNum="09"/>
+    <SurveyQuestionAppl surveyId="2101" surveyQuestionId="2110" fromDate="2001-01-01 00:00:00.010" requiredField="N" sequenceNum="10"/>
+    <SurveyQuestionAppl surveyId="2101" surveyQuestionId="2111" fromDate="2001-01-01 00:00:00.011" requiredField="N" sequenceNum="11"/>
+    <SurveyQuestionAppl surveyId="2101" surveyQuestionId="2112" fromDate="2001-01-01 00:00:00.012" requiredField="N" sequenceNum="12"/>
+    <SurveyQuestionAppl surveyId="2101" surveyQuestionId="2113" fromDate="2001-01-01 00:00:00.013" requiredField="N" sequenceNum="13"/>
+    <SurveyQuestionAppl surveyId="2101" surveyQuestionId="2114" fromDate="2001-01-01 00:00:00.014" requiredField="N" sequenceNum="14"/>
+    <SurveyQuestionAppl surveyId="2101" surveyQuestionId="2115" fromDate="2001-01-01 00:00:00.015" requiredField="N" sequenceNum="15"/>
+    <SurveyQuestionAppl surveyId="2101" surveyQuestionId="2116" fromDate="2001-01-01 00:00:00.016" requiredField="N" sequenceNum="16"/>
+    <SurveyQuestionAppl surveyId="2101" surveyQuestionId="2117" fromDate="2001-01-01 00:00:00.017" requiredField="N" sequenceNum="17"/>
+</entity-engine-xml>

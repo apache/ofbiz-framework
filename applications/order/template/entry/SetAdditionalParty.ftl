@@ -35,7 +35,7 @@ under the License.
       <table border="0" cellspacing="0" cellpadding="0" class="boxbottom">
         <tr>
           <td align="right">
-            <input type="radio" id="additionalPartyType_Person" name="additionalPartyType" value="Person" onclick="<#if additionalPartyType??>javascript:document.quickAddPartyForm.additionalPartyId.value='';</#if>document.quickAddPartyForm.submit()"<#if (additionalPartyType?? && "Person" == additionalPartyType)> checked="checked"</#if> />
+            <input type="radio" id="additionalPartyType_Person" name="additionalPartyType" value="Person" onclick="<#if additionalPartyType??>javascript:document.quickAddPartyForm.additionalPartyId.value='';</#if>document.quickAddPartyForm.submit()"<#if (additionalPartyType?? && additionalPartyType == "Person")> checked="checked"</#if> />
       </td>
           <td>
             <label for="additionalPartyType_Person">${uiLabelMap.CommonPerson}</label>
@@ -43,7 +43,7 @@ under the License.
         </tr>
         <tr>
           <td align="right">
-            <input type="radio" id="additionalPartyType_Group" name="additionalPartyType" value="Group" onclick="<#if additionalPartyType??>javascript:document.quickAddPartyForm.additionalPartyId.value='';</#if>document.quickAddPartyForm.submit()"<#if additionalPartyType?? && "Group" == additionalPartyType> checked="checked"</#if> />
+            <input type="radio" id="additionalPartyType_Group" name="additionalPartyType" value="Group" onclick="<#if additionalPartyType??>javascript:document.quickAddPartyForm.additionalPartyId.value='';</#if>document.quickAddPartyForm.submit()"<#if additionalPartyType?? && additionalPartyType == "Group"> checked="checked"</#if> />
           </td>
           <td>
             <label for="additionalPartyType_Group">${uiLabelMap.CommonGroup}</label>
@@ -66,7 +66,7 @@ under the License.
   </tr>
 
   <#if additionalPartyType?? && additionalPartyType != "" && additionalPartyType != "None">
-    <#if "Person" == additionalPartyType>
+    <#if additionalPartyType == "Person">
       <#assign lookupPartyView="LookupPerson">
     <#else>
       <#assign lookupPartyView="LookupPartyGroup">

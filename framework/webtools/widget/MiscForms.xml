@@ -49,7 +49,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit button-type="button"/></field>
         <field name="cancelButton" title=" " widget-style="smallSubmit">
-            <hyperlink description="${uiLabelMap.CommonCancel}" target="${demoTargetUrl}"/>
+            <hyperlink description="${uiLabelMap.CommonCancel}" target="${demoTargetUrl}"></hyperlink>
         </field>
     </form>
 

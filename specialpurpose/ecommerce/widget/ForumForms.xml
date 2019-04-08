@@ -1,0 +1,740 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
+
+
+    <form name="AddForumMessage" type="single" target="createForumMessage">
+        <field name="VIEW_INDEX"><hidden value="${parameters.VIEW_INDEX}"/></field>
+        <field name="threadView"><hidden value="${parameters.threadView}"/></field>
+        <field name="forumId"><hidden value="${parameters.forumId}"/></field>
+        <field name="threadContentId"><hidden value="${parameters.threadContentId}"/></field>
+        <field name="dataResourceTypeId"><hidden value="ELECTRONIC_TEXT"/></field>
+        <field name="contentName" title="${uiLabelMap.EcommerceShortName}"><text/></field>
+        <field name="contentTypeId"><hidden value="DOCUMENT"/></field>
+        <field name="contentIdFrom"><hidden value="${contentAssoc.contentId}"/></field>
+        <field name="pubPtContentId"><hidden value="${parameters.forumId}"/></field>
+        <field name="contentAssocTypeId"><hidden value="${contentAssoc.contentAssocTypeId}"/></field>
+        <field name="textData" map-name="dummy">
+        <textarea  rows="10" visual-editor-enable="true" visual-editor-buttons="compact"/>
+        </field>
+        <field name="addButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <form name="EditCombo" target="uploadContentAndImage" title="" type="upload"
+        default-title-style="tableheadtext" default-widget-style="inputBox">
+        <field name="imageData" >
+            <file />
+        </field>
+        <field name="dataResourceId" title="${uiLabelMap.ContentDataResourceId}" >
+            <drop-down allow-empty="false" no-current-selected-key="TEMPLATE_TEXT_ONLY">
+                <option key="TEMPLATE_TEXT_ONLY" description="${uiLabelMap.EcommerceTextOnly}"/>
+                <option key="TEMPLATE_IMAGE_CENTERED" description="${uiLabelMap.EcommerceImageCenteredAbove}"/>
+                <option key="TEMPLATE_IMAGE_LEFT" description="${uiLabelMap.EcommerceImageLeft}"/>
+            </drop-down>
+        </field>
+        <field name="ftlContentId" position="1">
+            <display description="${ftlContentId}"/>
+        </field>
+        <field name="contentIdTo" position="2">
+            <display description="${contentIdTo}"/>
+        </field>
+        <field name="ownerContentId" >
+            <hidden value="${contentIdTo}"/>
+        </field>
+        <field name="contentName">
+            <text/>
+        </field>
+        <field name="description">
+            <text size="60"/>
+        </field>
+       <field name="summaryData" title="${uiLabelMap.ContentSummary}"
+            use-when="&quot;${summaryDataResourceTypeId}&quot;.length()>0"
+            id-name="summaryData">
+                <textarea rows="8" cols="80"/>
+        </field>
+
+        <field name="textData" title="${uiLabelMap.ProductText}" id-name="textData"><textarea rows="20" cols="60"/></field>
+        <field name="privilegeEnumId" >
+            <drop-down allow-empty="false" no-current-selected-key="SUBSCRIBE_BRONZE">
+                <option key="SUBSCRIBE_BRONZE" description="${uiLabelMap.EcommerceBronze}"/>
+                <option key="SUBSCRIBE_SILVER" description="${uiLabelMap.EcommerceSilver}"/>
+                <option key="SUBSCRIBE_GOLD" description="${uiLabelMap.EcommerceGold}"/>
+            </drop-down>
+        </field>
+        <field name="section" >
+            <drop-down no-current-selected-key="${targetSection}" allow-empty="true">
+                <list-options list-name="sectionList" key-name="contentId"/>
+            </drop-down>
+        </field>
+        <field name="topic" position="1">
+            <drop-down  no-current-selected-key="${targetTopic}" allow-empty="true">
+                <entity-options entity-name="Content" key-field-name="contentId">
+                    <entity-constraint name="contentTypeId" value="TOPIC"/>
+                    <entity-order-by field-name="contentId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <!--
+        <field name="newTopicId" position="2">
+            <text size="12"/>
+        </field>
+        <field name="newTopicDescription" title="Description"  position="3">
+            <text size="24"/>
+        </field>
+        <field name="createTopic" title=" "  position="4">
+            <hyperlink also-hidden="false" target="createTopic${pageName}" description="Create Topic">
+                <parameter param-name="mode" value="restore"/>
+            </hyperlink>
+        </field>
+        -->
+        <field name="submitButton" title="${uiLabelMap.CommonUpload}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+        <field name="ftlContentId" >
+            <hidden />
+        </field>
+        <field name="sumContentId" >
+            <hidden />
+        </field>
+        <field name="txtContentId" >
+            <hidden />
+        </field>
+        <field name="imgContentId" >
+            <hidden />
+        </field>
+        <field name="ftlDataResourceId" >
+            <hidden />
+        </field>
+        <field name="sumDataResourceId" >
+            <hidden />
+        </field>
+        <field name="txtDataResourceId" >
+            <hidden />
+        </field>
+        <field name="imgDataResourceId" >
+            <hidden />
+        </field>
+        <field name="statusId" >
+            <hidden />
+        </field>
+       <field name="contentPurposeString" >
+                <hidden value="${contentPurposeTypeId}"/>
+        </field>
+       <field name="targetOperationString" >
+                <hidden value="${targetOperation}"/>
+        </field>
+       <field name="nodeTrailCsv" >
+                <hidden value="${nodeTrailCsv}"/>
+        </field>
+    </form>
+    <form name="ViewComboResponse" target="" title="" type="single" extends="EditCombo"
+        default-title-style="tableheadtext" default-widget-style="inputBox">
+       <field name="summaryData" >
+                <ignored/>
+        </field>
+        <field name="dataResourceId" title="${uiLabelMap.ContentDataResourceId}" >
+            <display />
+        </field>
+        <field name="ftlContentId" position="1">
+            <display description="${ftlContentId}"/>
+        </field>
+        <field name="contentIdTo" position="2">
+            <display description="${contentIdTo}"/>
+        </field>
+        <field name="contentName">
+            <display/>
+        </field>
+        <field name="description">
+            <display/>
+        </field>
+        <field name="textData" title="${uiLabelMap.ContentText}" id-name="textData"><display/></field>
+        <field name="privilegeEnumId" >
+            <display/>
+        </field>
+
+    </form>
+
+    <form name="FindContent" default-entity-name="ContentAssocDataResourceViewFrom" target="FindContent" title="" type="single"
+        default-title-style="tableheadtext" default-widget-style="inputBox">
+        <field name="caContentIdTo" title="${uiLabelMap.ContentPublishToContent}"><text-find/></field>
+        <field name="caMapKey"><text-find/></field>
+        <field name="caContentAssocTypeId" title="${uiLabelMap.FormFieldTitle_contentAssocTypeId}" ><text-find/></field>
+        <field name="caFromDate" title="${uiLabelMap.CommonFromDate}" ><date-find/></field>
+        <field name="contentId"><text-find/></field>
+        <field name="dataResourceId" title="${uiLabelMap.ContentDataResourceId}"><text-find/></field>
+        <field name="contentName"><text-find/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
+<!--
+        <field name="createLink" title=" " widget-style="buttontext">
+            <hyperlink also-hidden="false" description="Create New"  target="AddContent"/>
+        </field>
+-->
+
+    </form>
+
+    <form name="ListFindContent" type="list" target=""
+        default-title-style="tableheadtext" default-widget-style="inputBox"
+        paginate-target="/FindContent">
+        <field name="editContent" title=" ">
+            <hyperlink description="${uiLabelMap.CommonEdit}" target="EditContent" also-hidden="false">
+                <parameter param-name="contentId"/>
+                <parameter param-name="drDataResourceId"/>
+            </hyperlink>
+<!--
+            <hyperlink description="${uiLabelMap.CommonEdit}" target="EditContent" also-hidden="false">
+                <parameter param-name="caContentIdTo"/>
+                <parameter param-name="caFromDate"/>
+                <parameter param-name="contentId"/>
+                <parameter param-name="drDataResourceId"/>
+                <parameter param-name="caContentId"/>
+                <parameter param-name="contentIdStart"/>
+                <parameter param-name="caContentAssocTypeId"/>
+            </hyperlink>
+-->
+        </field>
+<!--
+        <field name="caContentIdTo" title="Publish-to content" ><display/></field>
+        <field name="caMapKey" title="Map Key" ><display/></field>
+        <field name="caFromDate" title="From Date" ><display/></field>
+-->
+        <field name="contentId"><display/></field>
+        <field name="dataResourceId" title="${uiLabelMap.ContentDataResourceId}"><display/></field>
+        <field name="contentName"><display/></field>
+    </form>
+
+    <form name="EditContent" target="uploadContentAndImage" title="" type="upload"
+        default-title-style="tableheadtext" default-widget-style="inputBox">
+        <field name="imageData" >
+            <file />
+        </field>
+        <field name="dataResourceId" title="${uiLabelMap.ContentDataResourceId}" >
+            <drop-down allow-empty="false" no-current-selected-key="TEMPLATE_TEXT_ONLY">
+                <option key="TEMPLATE_TEXT_ONLY" description="${uiLabelMap.EcommerceTextOnly}"/>
+                <option key="TEMPLATE_IMAGE_CENTERED" description="${uiLabelMap.EcommerceImageCenteredAbove}"/>
+                <option key="TEMPLATE_IMAGE_LEFT" description="${uiLabelMap.EcommerceImageLeft}"/>
+            </drop-down>
+        </field>
+        <field name="ftlContentId" position="1">
+            <display description="${ftlContentId}"/>
+        </field>
+        <field name="contentIdTo" position="2">
+            <display description="${contentIdTo}"/>
+        </field>
+        <field name="ownerContentId" >
+            <hidden value="${contentIdTo}"/>
+        </field>
+        <field name="contentName">
+            <text/>
+        </field>
+        <field name="description">
+            <text size="60"/>
+        </field>
+       <field name="summaryData" title="${uiLabelMap.ContentSummary}"
+            use-when="&quot;${summaryDataResourceTypeId}&quot;.length()>0"
+            id-name="summaryData">
+                <textarea rows="8" cols="80"/>
+        </field>
+
+        <field name="textData" title="${uiLabelMap.ContentText}" id-name="textData"><textarea rows="20" cols="60"/></field>
+        <field name="statusId" >
+            <drop-down allow-empty="false" no-current-selected-key="SUBSCRIBE_BRONZE">
+                <list-options list-name="statusList" key-name="statusId"/>
+            </drop-down>
+        </field>
+        <field name="privilegeEnumId" >
+            <drop-down allow-empty="false" no-current-selected-key="SUBSCRIBE_BRONZE">
+                <list-options list-name="privilegeList" key-name="enumId"/>
+            </drop-down>
+        </field>
+        <field name="section" >
+            <drop-down no-current-selected-key="${targetSection}" allow-empty="true">
+                <list-options list-name="sectionList" key-name="contentId"/>
+            </drop-down>
+        </field>
+        <field name="topic" position="1">
+            <drop-down  no-current-selected-key="${targetTopic}" allow-empty="true">
+                <list-options list-name="topicList" key-name="contentId"/>
+            </drop-down>
+        </field>
+        <!--
+        <field name="newTopicId" position="2">
+            <text size="12"/>
+        </field>
+        <field name="newTopicDescription" title="Description"  position="3">
+            <text size="24"/>
+        </field>
+        <field name="createTopic" title=" "  position="4">
+            <hyperlink also-hidden="false" target="createTopic${pageName}" description="Create Topic">
+                <parameter param-name="mode" value="restore"/>
+            </hyperlink>
+        </field>
+        -->
+        <field name="submitButton" title="${uiLabelMap.CommonUpload}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+        <field name="ftlContentId" >
+            <hidden />
+        </field>
+        <field name="sumContentId" >
+            <hidden />
+        </field>
+        <field name="txtContentId" >
+            <hidden />
+        </field>
+        <field name="imgContentId" >
+            <hidden />
+        </field>
+        <field name="ftlDataResourceId" >
+            <hidden />
+        </field>
+        <field name="sumDataResourceId" >
+            <hidden />
+        </field>
+        <field name="txtDataResourceId" >
+            <hidden />
+        </field>
+        <field name="imgDataResourceId" >
+            <hidden />
+        </field>
+        <field name="statusId" >
+            <hidden />
+        </field>
+       <field name="contentPurposeString" >
+                <hidden value="${contentPurposeTypeId}"/>
+        </field>
+       <field name="targetOperationString" >
+                <hidden value="${targetOperation}"/>
+        </field>
+       <field name="nodeTrailCsv" >
+                <hidden value="${nodeTrailCsv}"/>
+        </field>
+    </form>
+
+    <form name="EditContentInfo" target="updateContent" title="" type="single" default-map-name="currentValue"
+        default-title-style="tableheadtext" default-widget-style="inputBox">
+        <auto-fields-entity entity-name="Content"/>
+        <field name="contentId"><display/></field>
+        <field name="contentTypeId">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="ContentType" key-field-name="contentTypeId"/>
+            </drop-down>
+        </field>
+        <field name="dataResourceId" title="${uiLabelMap.ContentDataResourceId}">
+            <drop-down allow-empty="false" no-current-selected-key="TEMPLATE_TEXT_ONLY">
+                <option key="TEMPLATE_TEXT_ONLY" description="${uiLabelMap.EcommerceTextOnly}"/>
+                <option key="TEMPLATE_IMAGE_CENTERED" description="${uiLabelMap.EcommerceImageCenteredAbove}"/>
+                <option key="TEMPLATE_IMAGE_CENTERED_FILE" description="${uiLabelMap.EcommerceImageCenteredAboveFile}"/>
+                <option key="TEMPLATE_IMAGE_LEFT" description="${uiLabelMap.EcommerceImageLeft}"/>
+                <option key="TEMPLATE_COMPOSITE" description="${uiLabelMap.EcommerceNestedContent}"/>
+            </drop-down>
+        </field>
+        <field name="ownerContentId"><lookup target-form-name="LookupContent"/></field>
+        <field name="mimeTypeId" encode-output="false">
+            <drop-down allow-empty="true">
+                <entity-options description="${mimeTypeId} - ${description}" entity-name="MimeType" key-field-name="mimeTypeId">
+                    <entity-order-by field-name="mimeTypeId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="characterSetId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="CharacterSet" key-field-name="characterSetId"/>
+            </drop-down>
+        </field>
+        <field name="statusId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
+                    <entity-constraint name="statusTypeId" value="CONTENT_STATUS"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="createdByUserLogin" position="1"><display/></field>
+        <field name="createdDate" position="2"><display/></field>
+        <field name="lastModifiedByUserLogin" position="1"><display/></field>
+        <field name="lastModifiedDate" position="2"><display/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="createLink" title=" " widget-style="buttontext" position="1">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonCreateNew}"  target="AddContent"/>
+        </field>
+        <field name="findContent" title=" " widget-style="buttontext" position="2">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonFind}"  target="FindContent"/>
+        </field>
+       <field name="nodeTrailCsv" map-name="dummy">
+                <hidden value="${nodeTrailCsv}"/>
+        </field>
+    </form>
+
+    <form name="DataResourceMaster" target="createDataResource" title="" type="single" default-map-name="currentValue"
+        default-title-style="tableheadtext" default-widget-style="inputBox">
+        <auto-fields-entity entity-name="DataResource" default-field-type="edit"/>
+        <field name="dataResourceId" title="${uiLabelMap.ContentDataResourceId}"></field>
+        <field name="dataResourceTypeId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="DataResourceType" key-field-name="dataResourceTypeId"/>
+            </drop-down>
+        </field>
+        <field name="dataTemplateTypeId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="DataTemplateType" key-field-name="dataTemplateTypeId"/>
+            </drop-down>
+        </field>
+        <field name="statusId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
+                    <entity-constraint name="statusTypeId" value="CONTENT_STATUS"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="dataCategoryId">
+            <drop-down allow-empty="true">
+                <list-options list-name="dataCategoryList"  key-name="dataCategoryId"  description="${categoryName}"/>
+            </drop-down>
+        </field>
+        <field name="mimeTypeId" encode-output="false">
+            <drop-down allow-empty="true">
+                <entity-options description="${mimeTypeId} - ${description}" entity-name="MimeType" key-field-name="mimeTypeId">
+                    <entity-order-by field-name="mimeTypeId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="characterSetId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="CharacterSet" key-field-name="characterSetId"/>
+            </drop-down>
+        </field>
+        <field name="createdDate"><display/></field>
+        <field name="lastModifiedDate"><display/></field>
+        <field name="createdByUserLogin"><display/></field>
+        <field name="lastModifiedByUserLogin"><display/></field>
+    </form>
+    <form name="EditDataResourceText" target="updateDataResourceText" title="" type="single" extends="DataResourceMaster"
+        default-title-style="tableheadtext" default-widget-style="inputBox">
+        <field name="dataResourceId" title="${uiLabelMap.ContentDataResourceId}"><display/></field>
+        <field name="dataResourceTypeId"><hidden value="ELECTRONIC_TEXT"/></field>
+        <field name="dataResourceTypeIdDisplay" title="${uiLabelMap.CommonType}" field-name="dataResourceTypeId" >
+            <display description="ELECTRONIC_TEXT" also-hidden="false"/>
+        </field>
+        <field name="textData" title="${uiLabelMap.ContentText}" id-name="textData"><textarea rows="20" cols="120"/> </field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ImageUpload" target="uploadImage" title="" type="upload"
+        default-title-style="tableheadtext" default-widget-style="inputBox">
+        <field name="dataResourceId" title="${uiLabelMap.ContentDataResourceId}" >
+            <display description="${currentValue.dataResourceId}"/>
+        </field>
+        <field name="objectInfo" title="${uiLabelMap.EcommerceImageFileName}">
+            <display description="${currentValue.objectInfo}"/>
+        </field>
+        <field name="imageData" entity-name="ImageDataResource">
+            <file />
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpload}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    <form name="AddContent" target="uploadArticleAndImage" title="" type="upload"
+        default-title-style="tableheadtext" default-widget-style="inputBox">
+        <field name="imageData" >
+            <file />
+        </field>
+        <field name="dataResourceId" title="${uiLabelMap.ContentDataResourceId}" >
+            <drop-down allow-empty="false" no-current-selected-key="TEMPLATE_TEXT_ONLY">
+                <option key="TEMPLATE_TEXT_ONLY" description="${uiLabelMap.EcommerceTextOnly}"/>
+                <option key="TEMPLATE_IMAGE_CENTERED" description="${uiLabelMap.EcommerceImageCenteredAbove}"/>
+                <option key="TEMPLATE_IMAGE_LEFT" description="${uiLabelMap.EcommerceImageLeft}"/>
+            </drop-down>
+        </field>
+        <field name="contentId" position="1">
+            <ignored />
+        </field>
+        <field name="contentName" title="${uiLabelMap.EcommerceShortSubject}">
+            <text/>
+        </field>
+        <field name="description" title="${uiLabelMap.EcommerceLongSubject}">
+            <text size="60"/>
+        </field>
+       <field name="summaryData" title="${uiLabelMap.ContentSummary}"
+            use-when="&quot;${summaryDataResourceTypeId}&quot;.length()>0"
+            id-name="summaryData">
+                <textarea rows="8" cols="80"/>
+        </field>
+
+        <field name="textData" title="${uiLabelMap.ContentText}" id-name="textData"><textarea rows="20" cols="80"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpload}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+        <field name="statusId" >
+            <hidden value="${statusId}"/>
+        </field>
+        <field name="publishOperation" >
+            <hidden value="${publishOperation}"/>
+        </field>
+        <field name="contentAssocTypeId" >
+            <hidden value="${contentAssocTypeId}"/>
+        </field>
+       <field name="contentPurposeString">
+                <hidden value="${contentPurpose}"/>
+        </field>
+       <field name="targetOperationString" >
+                <hidden value="${targetOperation}"/>
+        </field>
+       <field name="nodeTrailCsv" >
+                <hidden value="${nodeTrailCsv}"/>
+        </field>
+       <field name="contentIdTo" >
+                <hidden value="${contentIdTo}"/>
+        </field>
+       <field name="forumId" >
+                <hidden value="${forumId}"/>
+        </field>
+       <field name="contentTypeId" >
+                <hidden value="${contentTypeId}"/>
+        </field>
+    </form>
+    <form name="AddResponse" target="uploadResponse" title="" type="single" extends="AddContent"
+        default-title-style="tableheadtext" default-widget-style="inputBox">
+        <field name="contentIdTo" title="${uiLabelMap.EcommerceInResponseTo}">
+            <display description="${contentIdTo}"/>
+        </field>
+        <field name="ownerContentId" >
+            <hidden value="${currentValue.ownerContentId}"/>
+        </field>
+        <field name="dataResourceId" >
+                <hidden value=""/>
+        </field>
+        <field name="privilegeEnumId" >
+            <ignored />
+        </field>
+        <field name="statusId" >
+            <hidden value="CTNT_PUBLISHED"/>
+        </field>
+        <field name="contentAssocTypeId" >
+            <hidden value="RESPONSE"/>
+        </field>
+        <field name="contentName" title="${uiLabelMap.EcommerceShortSubject}" map-name="replyName">
+            <text/>
+        </field>
+        <field name="description" title="${uiLabelMap.EcommerceLongSubject}" map-name="replyName">
+            <text size="60"/>
+        </field>
+       <field name="dataResourceTypeId" >
+                <hidden value="ELECTRONIC_TEXT"/>
+        </field>
+       <field name="contentTypeId" >
+                <hidden value="DOCUMENT"/>
+        </field>
+       <field name="contentPurposeString" >
+                <hidden value="${contentPurposeTypeId}"/>
+        </field>
+       <field name="targetOperationString" >
+                <hidden value="${targetOperation}"/>
+        </field>
+       <field name="nodeTrailCsv" >
+                <hidden value="${nodeTrailCsv}"/>
+        </field>
+       <field name="deactivateExisting" >
+                <hidden value="false"/>
+        </field>
+    </form>
+
+    <form name="EditResponse" target="uploadResponse" title="" type="upload" extends="AddContent"
+        default-title-style="tableheadtext" default-widget-style="inputBox">
+        <field name="contentIdTo" title="${uiLabelMap.EcommerceInResponseTo}">
+            <display description="${contentIdTo}"/>
+        </field>
+        <field name="ownerContentId" >
+            <hidden value="${currentValue.ownerContentId}"/>
+        </field>
+       <field name="summaryData" >
+                <ignored/>
+        </field>
+        <field name="contentId" position="1">
+            <ignored />
+        </field>
+        <field name="imageData" >
+            <ignored />
+        </field>
+        <field name="dataResourceId" >
+                <hidden value="TEMPLATE_TEXT_ONLY"/>
+        </field>
+        <field name="privilegeEnumId" >
+            <ignored />
+        </field>
+        <field name="statusId" >
+            <hidden value="CTNT_PUBLISHED"/>
+        </field>
+        <field name="contentAssocTypeId" >
+            <hidden value="RESPONSE"/>
+        </field>
+
+    </form>
+
+    <form name="EditAddContentMaster" target="" title="" type="single"
+        default-title-style="tableheadtext" default-widget-style="inputBox">
+        <field name="dataResourceId" map-name="currentValue">
+            <hidden/>
+        </field>
+        <field name="contentId" position="1" map-name="currentValue"
+            use-when="&quot;${currentValue.contentId}&quot;.length()>0" >
+            <display />
+        </field>
+        <field name="ownerContentId" title="${uiLabelMap.EcommerceOwningDepartment}">
+            <hidden value="${contentIdTo}"/>
+        </field>
+        <field name="contentName" title="${uiLabelMap.CommonTitle}" map-name="currentValue">
+            <display/>
+        </field>
+        <field name="textData" title="${uiLabelMap.CommonText}" entry-name="summaryData" id-name="textData"
+            use-when="&quot;${textSource}&quot;.length()>0 &amp;&amp; &quot;${textSource}&quot;.equals(&quot;summaryData&quot;) "
+         ><textarea rows="20" cols="80"/></field>
+        <field name="textData" title="${uiLabelMap.CommonText}" id-name="textData" entry-name="textData"
+            use-when="&quot;${textSource}&quot;.length()>0 &amp;&amp; &quot;${textSource}&quot;.equals(&quot;textData&quot;) "
+         ><textarea rows="20" cols="80"/></field>
+        <field name="privilegeEnumId" >
+            <hidden/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpload}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+        <field name="statusId"  map-name="currentValue">
+            <hidden />
+        </field>
+        <field name="contentAssocTypeId" >
+            <hidden value="${contentAssocTypeId}"/>
+        </field>
+       <field name="contentTypeId" >
+                <hidden value="${contentTypeId}"/>
+        </field>
+       <field name="contentPurposeString" >
+                <hidden value="${contentPurposeTypeId}"/>
+        </field>
+       <field name="targetOperationString" >
+                <hidden value="${targetOperation}"/>
+        </field>
+       <field name="nodeTrailCsv" >
+                <hidden value="${nodeTrailCsv}"/>
+        </field>
+       <field name="contentIdTo" >
+                <hidden value="${contentIdTo}"/>
+        </field>
+       <field name="mapKey" >
+                <hidden value="${mapKey}"/>
+        </field>
+       <field name="dataResourceTypeId" >
+                <hidden value="${dataResourceTypeId}"/>
+        </field>
+<!--
+        <field name="submitContentEdit" title=" ">
+            <hyperlink description="Submit" target="javascript:document.EditAddContent.action='${persistAction}'; document.EditAddContent.submit()" also-hidden="false" target-type="plain"/>
+        </field>
+-->
+       <field name="deactivateExisting" >
+                <hidden value="true"/>
+        </field>
+    </form>
+    <form name="EditAddContent" target="persistContent" title="" type="single" extends="EditAddContentMaster">
+    </form>
+    <form name="EditAddBioContent" target="persistBioContent" title="" type="single" extends="EditAddContentMaster">
+    </form>
+<!--
+    <form name="AddResponse" target="uploadResponse" title="" type="single" extends="EditAddContentMaster">
+    </form>
+-->
+
+    <form name="EditAddImageMaster" target="" title="" type="upload"
+        default-title-style="tableheadtext" default-widget-style="inputBox">
+        <field name="dataResourceId" map-name="currentValue">
+            <hidden/>
+        </field>
+        <!--
+        <field name="contentId" position="1" map-name="currentValue"
+            use-when="&quot;${currentValue.contentId}&quot;.length()>0" >
+            <display />
+        </field>
+        -->
+        <field name="imageData" >
+            <file />
+        </field>
+        <field name="ownerContentId" title="${uiLabelMap.EcommerceOwningDepartment}">
+            <hidden value="${contentIdTo}"/>
+        </field>
+        <field name="contentName" title="${uiLabelMap.CommonTitle}" map-name="currentValue">
+            <hidden/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpload}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+        <field name="statusId"  map-name="currentValue">
+            <hidden />
+        </field>
+        <!--
+        <field name="contentAssocTypeId" >
+            <hidden value=""/>
+        </field>
+       <field name="contentTypeId" >
+                <hidden value="${contentTypeId}"/>
+        </field>
+        -->
+       <field name="contentPurposeString" >
+                <hidden value="${contentPurposeTypeId}"/>
+        </field>
+       <field name="targetOperationString" >
+                <hidden value="${targetOperation}"/>
+        </field>
+       <field name="entityOperation" >
+                <hidden value="${entityOperation}"/>
+        </field>
+       <field name="nodeTrailCsv" >
+                <hidden value="${nodeTrailCsv}"/>
+        </field>
+       <field name="contentIdTo" >
+                <hidden value="${contentIdTo}"/>
+        </field>
+       <field name="mapKey" >
+                <hidden value="${mapKey}"/>
+        </field>
+       <field name="dataResourceTypeId" >
+                <hidden value="${dataResourceTypeId}"/>
+        </field>
+        <field name="ftlContentId" >
+            <hidden value="${contentIdTo}"/>
+        </field>
+        <field name="imgContentId" >
+            <hidden />
+        </field>
+        <field name="ftlDataResourceId" >
+            <hidden />
+        </field>
+        <field name="imgDataResourceId" >
+            <hidden />
+        </field>
+       <field name="deactivateExisting" >
+                <hidden value="true"/>
+        </field>
+    </form>
+    <form name="EditAddImage" target="persistImage" title="" type="upload" extends="EditAddImageMaster">
+    </form>
+    <form name="EditAddBioImage" target="persistBioImage" title="" type="upload" extends="EditAddImageMaster">
+    </form>
+    
+</forms>

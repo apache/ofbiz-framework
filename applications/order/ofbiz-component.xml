@@ -23,7 +23,9 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-component.xsd">
     <resource-loader name="main" type="component"/>
     <classpath type="dir" location="config"/>
-
+    <classpath type="dir" location="email"/>
+    
+    <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel_old.xml"/>
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel_view.xml"/>
     <entity-resource type="eca" reader-name="main" loader="main" location="entitydef/eecas.xml"/>
     
@@ -34,6 +36,11 @@ under the License.
     
     <entity-resource type="data" reader-name="seed-initial" loader="main" location="data/OrderScheduledServices.xml"/>
     <entity-resource type="data" reader-name="seed-initial" loader="main" location="data/OrderSystemPropertyData.xml"/>
+    
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/OrderSecurityGroupDemoData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/OrderDemoUser.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/OrderDemoData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/OrderQuoteDemoData.xml"/>
 
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_cart.xml"/>
@@ -44,6 +51,7 @@ under the License.
     <service-resource type="model" loader="main" location="servicedef/services_requirement.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_reservations.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_return.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_upgrade.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_checkout.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_perm.xml"/>
     <service-resource type="eca" loader="main" location="servicedef/secas.xml"/>
@@ -51,7 +59,7 @@ under the License.
     <test-suite loader="main" location="testdef/FinAccountTests.xml"/>
     <test-suite loader="main" location="testdef/OrderTest.xml"/>
     <test-suite loader="main" location="testdef/CustRequestTests.xml"/>
-    <test-suite loader="main" location="testdef/QuoteTests.xml"/>
+    <test-suite loader="main" location="testdef/quotetests.xml"/>
     <test-suite loader="main" location="testdef/ShoppingListTests.xml"/>
     <test-suite loader="main" location="testdef/ShoppingCartTests.xml"/>
 

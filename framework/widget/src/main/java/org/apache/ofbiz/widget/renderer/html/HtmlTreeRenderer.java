@@ -26,19 +26,17 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilGenerics;
+import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.webapp.control.RequestHandler;
 import org.apache.ofbiz.webapp.taglib.ContentUrlTag;
 import org.apache.ofbiz.widget.WidgetWorker;
-import org.apache.ofbiz.widget.model.ModelTheme;
 import org.apache.ofbiz.widget.model.ModelTree;
 import org.apache.ofbiz.widget.model.ModelWidget;
 import org.apache.ofbiz.widget.renderer.ScreenRenderer;
 import org.apache.ofbiz.widget.renderer.ScreenStringRenderer;
-import org.apache.ofbiz.widget.renderer.VisualTheme;
 import org.apache.ofbiz.widget.renderer.TreeStringRenderer;
 import org.apache.ofbiz.widget.renderer.macro.MacroScreenRenderer;
 
@@ -91,6 +89,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
                 // Not on the trail
                 if (node.showPeers(depth, context)) {
                     context.put("processChildren", Boolean.FALSE);
+                    //expandCollapseLink.setText("&nbsp;+&nbsp;");
                     currentNodeTrailPiped = StringUtil.join(currentNodeTrail, "|");
                     StringBuilder target = new StringBuilder(node.getModelTree().getExpandCollapseRequest(context));
                     String trailName = node.getModelTree().getTrailName(context);
@@ -104,6 +103,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
                 }
             } else {
                 context.put("processChildren", Boolean.TRUE);
+                //expandCollapseLink.setText("&nbsp;-&nbsp;");
                 String lastContentId = currentNodeTrail.remove(currentNodeTrail.size() - 1);
                 currentNodeTrailPiped = StringUtil.join(currentNodeTrail, "|");
                 if (currentNodeTrailPiped == null) {
@@ -133,7 +133,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
 
     public void renderNodeEnd(Appendable writer, Map<String, Object> context, ModelTree.ModelNode node) throws IOException {
         Boolean processChildren = (Boolean) context.get("processChildren");
-        if (processChildren) {
+        if (processChildren.booleanValue()) {
             appendWhitespace(writer);
             writer.append("</ul>");
         }
@@ -149,7 +149,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
 
     public void renderLastElement(Appendable writer, Map<String, Object> context, ModelTree.ModelNode node) throws IOException {
         Boolean processChildren = (Boolean) context.get("processChildren");
-        if (processChildren) {
+        if (processChildren.booleanValue()) {
             appendWhitespace(writer);
             writer.append("<ul class=\"basic-tree\">");
         }
@@ -222,7 +222,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
             String prefix = link.getPrefix(context);
             HttpServletResponse res = (HttpServletResponse) context.get("response");
             HttpServletRequest req = (HttpServletRequest) context.get("request");
-            if (urlMode != null && "intra-app".equalsIgnoreCase(urlMode)) {
+            if (urlMode != null && urlMode.equalsIgnoreCase("intra-app")) {
                 if (req != null && res != null) {
                     WidgetWorker.buildHyperlinkUrl(writer, target, link.getUrlMode(), link.getParameterMap(context), link.getPrefix(context),
                         link.getFullPath(), link.getSecure(), link.getEncode(), req, res, context);
@@ -231,7 +231,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
                 } else {
                     writer.append(target);
                 }
-            } else if (urlMode != null && "content".equalsIgnoreCase(urlMode)) {
+            } else if (urlMode != null && urlMode.equalsIgnoreCase("content")) {
                 StringBuilder newURL = new StringBuilder();
                 ContentUrlTag.appendContentPrefix(req, newURL);
                 newURL.append(target);
@@ -307,7 +307,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
             boolean encode = false;
             HttpServletResponse response = (HttpServletResponse) context.get("response");
             HttpServletRequest request = (HttpServletRequest) context.get("request");
-            if (urlMode != null && "intra-app".equalsIgnoreCase(urlMode)) {
+            if (urlMode != null && urlMode.equalsIgnoreCase("intra-app")) {
                 if (request != null && response != null) {
                     ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
                     RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
@@ -316,7 +316,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
                 } else {
                     writer.append(src);
                 }
-            } else  if (urlMode != null && "content".equalsIgnoreCase(urlMode)) {
+            } else  if (urlMode != null && urlMode.equalsIgnoreCase("content")) {
                 if (request != null && response != null) {
                     StringBuilder newURL = new StringBuilder();
                     ContentUrlTag.appendContentPrefix(request, newURL);
@@ -333,17 +333,16 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
     }
 
     public ScreenStringRenderer getScreenStringRenderer(Map<String, Object> context) {
-        VisualTheme visualTheme = (VisualTheme) context.get("visualTheme");
-        ModelTheme modelTheme = visualTheme.getModelTheme();
         ScreenRenderer screenRenderer = (ScreenRenderer)context.get("screens");
         if (screenRenderer != null) {
             screenStringRenderer = screenRenderer.getScreenStringRenderer();
         } else {
             if (screenStringRenderer == null) {
                 try {
-                    screenStringRenderer = new MacroScreenRenderer(modelTheme.getType("screen"), modelTheme.getScreenRendererLocation("screen"));
+                    screenStringRenderer = new MacroScreenRenderer(UtilProperties.getPropertyValue("widget", "screen.name"), 
+                            UtilProperties.getPropertyValue("widget", "screen.screenrenderer"));
                 } catch (TemplateException | IOException e) {
-                    Debug.logError(e, module);
+                    e.printStackTrace();
                 }
             }
         }

@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
+    <!-- create and update a fixed asset of type Computer hardware. -->
+    <form name="EditComputerHardware" type="single" target="updateComputerHardware" title="" default-map-name="fixedAsset">
+        <alt-target use-when="fixedAsset==null" target="createComputerHardware"/>
+        <auto-fields-service service-name="updateFixedAsset" map-name="fixedAsset"/>
+
+        <field use-when="fixedAsset!=null" name="fixedAssetId"><display/></field>
+        <field use-when="fixedAsset==null&amp;&amp;fixedAssetId==null" name="fixedAssetId"><text size="20" maxlength="20"/></field>
+        <field use-when="fixedAsset==null&amp;&amp;fixedAssetId!=null" name="fixedAssetId" tooltip="${uiLabelMap.CommonCannotBeFound}:[${fixedAssetId}]"><text size="20" maxlength="20"/></field>
+
+        <field name="fixedAssetTypeId"><hidden value="COMPUTER_HARDWARE"/></field>
+        <field name="instanceOfProductId"><lookup target-form-name="LookupProduct"/></field>
+        <field name="classEnumId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
+                    <entity-constraint name="enumTypeId" operator="equals" value="FXAST_COMPU_HARDWARE"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}"> <hidden/> </field>
+        <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}"><hidden/></field>
+        <field name="uomId" title="${uiLabelMap.CommonUom}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="UomAndType" description="[${typeDescription}] ${description}">
+                    <entity-order-by field-name="uomTypeId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <!--<field name="calendarId"><hidden/></field>-->  <!-- not show, can better be maintained by the system -->
+        <field name="calendarId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="TechDataCalendar" description="[${calendarId}] ${description}">
+                    <entity-order-by field-name="calendarId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="parentFixedAssetId"><lookup target-form-name="LookupComputerHardware"/></field>
+        <field name="locatedAtFacilityId"><lookup target-form-name="LookupFacility"/></field>
+        <field name="locatedAtLocationSeqId"><lookup target-form-name="LookupFacilityLocation"/></field>
+
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="EditComputerSoftware" type="single" target="updateComputerSoftware" title="" default-map-name="fixedAsset">
+        <alt-target use-when="fixedAsset==null" target="createComputerSoftware"/>
+        <auto-fields-service service-name="updateFixedAsset" map-name="fixedAsset"/>
+
+        <field use-when="fixedAsset!=null" name="fixedAssetId"><display/></field>
+        <field use-when="fixedAsset==null&amp;&amp;fixedAssetId==null" name="fixedAssetId"><text size="20" maxlength="20"/></field>
+        <field use-when="fixedAsset==null&amp;&amp;fixedAssetId!=null" name="fixedAssetId" tooltip="${uiLabelMap.CommonCannotBeFound}:[${fixedAssetId}]"><text size="20" maxlength="20"/></field>
+
+        <field name="fixedAssetTypeId"><hidden value="COMPUTER_SOFTWARE"/></field>
+        <field name="instanceOfProductId"><lookup target-form-name="LookupProduct"/></field>
+        <field name="classEnumId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
+                    <entity-constraint name="enumTypeId" operator="equals" value="FXAST_COMPU_SOFTWARE"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}"> <hidden/> </field>
+        <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}"><hidden/></field>
+        <field name="uomId" title="${uiLabelMap.CommonUom}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="UomAndType" description="[${typeDescription}] ${description}">
+                    <entity-order-by field-name="uomTypeId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <!--<field name="calendarId"><hidden/></field>-->  <!-- not show, can better be maintained by the system -->
+        <field name="calendarId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="TechDataCalendar" description="[${calendarId}] ${description}">
+                    <entity-order-by field-name="calendarId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="parentFixedAssetId"><lookup target-form-name="LookupComputerHardware"/></field>
+        <field name="locatedAtFacilityId"><lookup target-form-name="LookupFacility"/></field>
+        <field name="locatedAtLocationSeqId"><lookup target-form-name="LookupFacilityLocation"/></field>
+
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <form name="FindComputerHardwareOptions" extends="LookupComputerHardware" extends-resource="component://assetmaint/widget/ismgr/FieldLookupForms.xml" target="ListComputerHardware">
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <!-- list all Computer Hardware in a tabular format -->
+    <form name="ListComputerHardware" type="list" list-name="listIt" paginate-target="ListFixedAssets"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" value="FixedAsset"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
+            </service>
+        </actions>
+        <field name="fixedAssetId" widget-style="linktext">
+            <hyperlink description="${fixedAssetName} ${fixedAssetId}" target="EditComputerHardware" also-hidden="false">
+                <parameter param-name="fixedAssetId"/>
+            </hyperlink>
+        </field>
+        <field name="fixedAssetTypeId"><hidden/></field>
+        <field name="classEnumId"><display-entity entity-name="Enumeration" key-field-name="enumId"/></field>
+        <field name="parentFixedAssetId">
+            <display-entity entity-name="FixedAsset" key-field-name="fixedAssetId" description="${fixedAssetName}">
+                <sub-hyperlink target="EditComputerHardware" description="${parentFixedAssetId}">
+                    <parameter param-name="fixedAssetId" from-field="parentFixedAssetId"/>
+                </sub-hyperlink>
+            </display-entity>
+        </field>
+        <on-event-update-area event-type="paginate" area-id="search-results" area-target="FixedAssetSearchResults"/>
+    </form>
+
+    <form name="FindComputerSoftwareOptions" extends="LookupComputerSoftware" extends-resource="component://assetmaint/widget/ismgr/FieldLookupForms.xml" target="ListComputerSoftware">
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <!-- list all Computer Software in a tabular format -->
+    <form name="ListComputerSoftware" type="list" list-name="listIt" paginate-target="ListFixedAssets"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" value="FixedAsset"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
+            </service>
+        </actions>
+        <field name="fixedAssetId" widget-style="linktext">
+            <hyperlink description="${fixedAssetName} ${fixedAssetId}" target="EditComputerSoftware" also-hidden="false">
+                <parameter param-name="fixedAssetId"/>
+            </hyperlink>
+        </field>
+        <field name="fixedAssetTypeId"><hidden/></field>
+        <field name="classEnumId"><display-entity entity-name="Enumeration" key-field-name="enumId"/></field>
+        <field name="parentFixedAssetId">
+            <display-entity entity-name="FixedAsset" key-field-name="fixedAssetId" description="${fixedAssetName}">
+                <sub-hyperlink target="EditComputerSoftware" description="${parentFixedAssetId}">
+                    <parameter param-name="fixedAssetId" from-field="parentFixedAssetId"/>
+                </sub-hyperlink>
+            </display-entity>
+        </field>
+        <on-event-update-area event-type="paginate" area-id="search-results" area-target="FixedAssetSearchResults"/>
+    </form>
+
+
+    <!-- list all children fixed assets in a tabular format -->
+    <form name="ChildrenFixedAssets" type="list" list-name="listIt"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="FixedAsset" list="listIt">
+                <condition-list combine="and">
+                    <condition-expr field-name="parentFixedAssetId" operator="equals" from-field="parameters.fixedAssetId"/>
+                    <condition-expr field-name="fixedAssetTypeId" operator="equals" from-field="fixedAssetTypeId"/>
+                </condition-list>
+            </entity-condition>
+        </actions>
+        <field name="fixedAssetId" widget-style="linktext">
+            <hyperlink description="${fixedAssetName} ${fixedAssetId}" target="EditComputerHardware" also-hidden="false">
+                <parameter param-name="fixedAssetId"/>
+            </hyperlink>
+        </field>
+        <field name="fixedAssetTypeId"><hidden/></field>
+        <field name="classEnumId"><display-entity entity-name="Enumeration" key-field-name="enumId"/></field>
+        <on-event-update-area event-type="paginate" area-id="search-results" area-target="FixedAssetSearchResults"/>
+    </form>
+
+</forms>

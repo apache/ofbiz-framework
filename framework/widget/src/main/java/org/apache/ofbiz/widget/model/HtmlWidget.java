@@ -19,6 +19,7 @@
 package org.apache.ofbiz.widget.model;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -59,7 +60,7 @@ public class HtmlWidget extends ModelScreenWidget {
     public static final String module = HtmlWidget.class.getName();
 
     private static final UtilCache<String, Template> specialTemplateCache = UtilCache.createUtilCache("widget.screen.template.ftl.general", 0, 0, false);
-    protected static final Configuration specialConfig = FreeMarkerWorker.makeConfiguration(new ExtendedWrapper(FreeMarkerWorker.version));
+    protected static Configuration specialConfig = FreeMarkerWorker.makeConfiguration(new ExtendedWrapper(FreeMarkerWorker.version));
 
     // not sure if this is the best way to get FTL to use my fancy MapModel derivative, but should work at least...
     public static class ExtendedWrapper extends BeansWrapper {
@@ -114,7 +115,7 @@ public class HtmlWidget extends ModelScreenWidget {
         if (childElementList.isEmpty()) {
             this.subWidgets = Collections.emptyList();
         } else {
-            List<ModelScreenWidget> subWidgets = new ArrayList<>(childElementList.size());
+            List<ModelScreenWidget> subWidgets = new ArrayList<ModelScreenWidget>(childElementList.size());
             for (Element childElement : childElementList) {
                 if ("html-template".equals(childElement.getNodeName())) {
                     subWidgets.add(new HtmlTemplate(modelScreen, childElement));
@@ -142,14 +143,16 @@ public class HtmlWidget extends ModelScreenWidget {
 
     public static void renderHtmlTemplate(Appendable writer, FlexibleStringExpander locationExdr, Map<String, Object> context) {
         String location = locationExdr.expandString(context);
+        //Debug.logInfo("Rendering template at location [" + location + "] with context: \n" + context, module);
 
         if (UtilValidate.isEmpty(location)) {
-            throw new IllegalArgumentException("Template location is empty with search string location " + locationExdr.getOriginal());
+            throw new IllegalArgumentException("Template location is empty");
         }
 
         if (location.endsWith(".ftl")) {
             try {
-                boolean insertWidgetBoundaryComments = ModelWidget.widgetBoundaryCommentsEnabled(context);
+                Map<String, ? extends Object> parameters = UtilGenerics.checkMap(context.get("parameters"));
+                boolean insertWidgetBoundaryComments = ModelWidget.widgetBoundaryCommentsEnabled(parameters);
                 if (insertWidgetBoundaryComments) {
                     writer.append(HtmlWidgetRenderer.formatBoundaryComment("Begin", "Template", location));
                 }
@@ -165,7 +168,19 @@ public class HtmlWidget extends ModelScreenWidget {
                 if (insertWidgetBoundaryComments) {
                     writer.append(HtmlWidgetRenderer.formatBoundaryComment("End", "Template", location));
                 }
-            } catch (IllegalArgumentException | TemplateException | IOException e) {
+            } catch (IllegalArgumentException e) {
+                String errMsg = "Error rendering included template at location [" + location + "]: " + e.toString();
+                Debug.logError(e, errMsg, module);
+                writeError(writer, errMsg);
+            } catch (MalformedURLException e) {
+                String errMsg = "Error rendering included template at location [" + location + "]: " + e.toString();
+                Debug.logError(e, errMsg, module);
+                writeError(writer, errMsg);
+            } catch (TemplateException e) {
+                String errMsg = "Error rendering included template at location [" + location + "]: " + e.toString();
+                Debug.logError(e, errMsg, module);
+                writeError(writer, errMsg);
+            } catch (IOException e) {
                 String errMsg = "Error rendering included template at location [" + location + "]: " + e.toString();
                 Debug.logError(e, errMsg, module);
                 writeError(writer, errMsg);
@@ -212,7 +227,7 @@ public class HtmlWidget extends ModelScreenWidget {
 
     public static class HtmlTemplateDecorator extends ModelScreenWidget {
         protected FlexibleStringExpander locationExdr;
-        protected Map<String, ModelScreenWidget> sectionMap = new HashMap<>();
+        protected Map<String, ModelScreenWidget> sectionMap = new HashMap<String, ModelScreenWidget>();
 
         public HtmlTemplateDecorator(ModelScreen modelScreen, Element htmlTemplateDecoratorElement) {
             super(modelScreen, htmlTemplateDecoratorElement);

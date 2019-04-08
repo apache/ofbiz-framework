@@ -71,7 +71,7 @@ public final class JobManager {
 
     public static final String module = JobManager.class.getName();
     public static final String instanceId = UtilProperties.getPropertyValue("general", "unique.instanceId", "ofbiz0");
-    private static final ConcurrentHashMap<String, JobManager> registeredManagers = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<String, JobManager> registeredManagers = new ConcurrentHashMap<String, JobManager>();
     private static boolean isShutDown = false;
 
     private static void assertIsRunning() {
@@ -129,7 +129,7 @@ public final class JobManager {
 
     /**
      * Get a List of each threads current state.
-     *
+     * 
      * @return List containing a Map of each thread's state.
      */
     public Map<String, Object> getPoolState() {
@@ -138,7 +138,7 @@ public final class JobManager {
 
     /**
      * Return true if the jobManager can run job.
-     *
+     * 
      * @return boolean.
      */
     public boolean isAvailable() {
@@ -160,7 +160,7 @@ public final class JobManager {
 
     private static List<String> getRunPools() throws GenericConfigException {
         List<RunFromPool> runFromPools = ServiceConfigUtil.getServiceEngine().getThreadPool().getRunFromPools();
-        List<String> readPools = new ArrayList<>(runFromPools.size());
+        List<String> readPools = new ArrayList<String>(runFromPools.size());
         for (RunFromPool runFromPool : runFromPools) {
             readPools.add(runFromPool.getName());
         }
@@ -201,11 +201,12 @@ public final class JobManager {
                 poolsExpr.add(EntityCondition.makeCondition("poolId", EntityOperator.EQUALS, poolName));
             }
         }
-        List<Job> poll = new ArrayList<>(limit);
+        List<Job> poll = new ArrayList<Job>(limit);
         // make the conditions
         EntityCondition baseCondition = EntityCondition.makeCondition(expressions);
         EntityCondition poolCondition = EntityCondition.makeCondition(poolsExpr, EntityOperator.OR);
         EntityCondition mainCondition = EntityCondition.makeCondition(UtilMisc.toList(baseCondition, poolCondition));
+        EntityListIterator jobsIterator = null;
         boolean beganTransaction = false;
         try {
             beganTransaction = TransactionUtil.begin();
@@ -213,25 +214,19 @@ public final class JobManager {
                 Debug.logWarning("Unable to poll JobSandbox for jobs; unable to begin transaction.", module);
                 return poll;
             }
-            try (EntityListIterator jobsIterator = EntityQuery.use(delegator)
-                    .from("JobSandbox").where(mainCondition)
-                    .orderBy("priority DESC NULLS LAST", "runTime")
-                    .maxRows(limit).queryIterator()) {
-                GenericValue jobValue = jobsIterator.next();
-                while (jobValue != null) {
-                    // Claim ownership of this value. Using storeByCondition to avoid a race condition.
-                    List<EntityExpr> updateExpression = UtilMisc.toList(EntityCondition.makeCondition("jobId", EntityOperator.EQUALS, jobValue.get("jobId")), EntityCondition.makeCondition("runByInstanceId", EntityOperator.EQUALS, null));
-                    int rowsUpdated = delegator.storeByCondition("JobSandbox", UtilMisc.toMap("runByInstanceId", instanceId), EntityCondition.makeCondition(updateExpression));
-                    if (rowsUpdated == 1) {
-                        poll.add(new PersistedServiceJob(dctx, jobValue, null));
-                        if (poll.size() == limit) {
-                            break;
-                        }
+            jobsIterator = EntityQuery.use(delegator).from("JobSandbox").where(mainCondition).orderBy("runTime").queryIterator();
+            GenericValue jobValue = jobsIterator.next();
+            while (jobValue != null) {
+                // Claim ownership of this value. Using storeByCondition to avoid a race condition.
+                List<EntityExpr> updateExpression = UtilMisc.toList(EntityCondition.makeCondition("jobId", EntityOperator.EQUALS, jobValue.get("jobId")), EntityCondition.makeCondition("runByInstanceId", EntityOperator.EQUALS, null));
+                int rowsUpdated = delegator.storeByCondition("JobSandbox", UtilMisc.toMap("runByInstanceId", instanceId), EntityCondition.makeCondition(updateExpression));
+                if (rowsUpdated == 1) {
+                    poll.add(new PersistedServiceJob(dctx, jobValue, null));
+                    if (poll.size() == limit) {
+                        break;
                     }
-                    jobValue = jobsIterator.next();
                 }
-            } catch (GenericEntityException e) {
-                Debug.logWarning(e, module);
+                jobValue = jobsIterator.next();
             }
             TransactionUtil.commit(beganTransaction);
         } catch (Throwable t) {
@@ -243,6 +238,14 @@ public final class JobManager {
             }
             Debug.logWarning(t, errMsg, module);
             return Collections.emptyList();
+        } finally {
+            if (jobsIterator != null) {
+                try {
+                    jobsIterator.close();
+                } catch (GenericEntityException e) {
+                    Debug.logWarning(e, module);
+                }
+            }
         }
         if (poll.isEmpty()) {
             // No jobs to run, see if there are any jobs to purge
@@ -260,23 +263,21 @@ public final class JobManager {
             EntityCondition doneCond = EntityCondition.makeCondition(UtilMisc.toList(EntityCondition.makeCondition(canExp), EntityCondition.makeCondition(finExp)), EntityOperator.OR);
             mainCondition = EntityCondition.makeCondition(UtilMisc.toList(EntityCondition.makeCondition("runByInstanceId", instanceId), doneCond));
             beganTransaction = false;
+            jobsIterator = null;
             try {
                 beganTransaction = TransactionUtil.begin();
                 if (!beganTransaction) {
                     Debug.logWarning("Unable to poll JobSandbox for jobs; unable to begin transaction.", module);
                     return Collections.emptyList();
                 }
-                try (EntityListIterator jobsIterator = EntityQuery.use(delegator).from("JobSandbox").where(mainCondition).orderBy("jobId").queryIterator()) {
-                    GenericValue jobValue = jobsIterator.next();
-                    while (jobValue != null) {
-                        poll.add(new PurgeJob(jobValue));
-                        if (poll.size() == limit) {
-                            break;
-                        }
-                        jobValue = jobsIterator.next();
+                jobsIterator = EntityQuery.use(delegator).from("JobSandbox").where(mainCondition).orderBy("jobId").queryIterator();
+                GenericValue jobValue = jobsIterator.next();
+                while (jobValue != null) {
+                    poll.add(new PurgeJob(jobValue));
+                    if (poll.size() == limit) {
+                        break;
                     }
-                } catch (GenericEntityException e) {
-                    Debug.logWarning(e, module);
+                    jobValue = jobsIterator.next();
                 }
                 TransactionUtil.commit(beganTransaction);
             } catch (Throwable t) {
@@ -288,6 +289,14 @@ public final class JobManager {
                 }
                 Debug.logWarning(t, errMsg, module);
                 return Collections.emptyList();
+            } finally {
+                if (jobsIterator != null) {
+                    try {
+                        jobsIterator.close();
+                    } catch (GenericEntityException e) {
+                        Debug.logWarning(e, module);
+                    }
+                }
             }
         }
         return poll;
@@ -314,9 +323,7 @@ public final class JobManager {
             Timestamp now = UtilDateTime.nowTimestamp();
             for (GenericValue job : crashed) {
                 try {
-                    if (Debug.infoOn()) {
-                        Debug.logInfo("Scheduling Job : " + job, module);
-                    }
+                    if (Debug.infoOn()) Debug.logInfo("Scheduling Job : " + job, module);
                     String pJobId = job.getString("parentJobId");
                     if (pJobId == null) {
                         pJobId = job.getString("jobId");
@@ -341,13 +348,11 @@ public final class JobManager {
                     Debug.logWarning(e, module);
                 }
             }
-            if (Debug.infoOn()) {
+            if (Debug.infoOn())
                 Debug.logInfo("-- " + rescheduled + " jobs re-scheduled", module);
-            }
         } else {
-            if (Debug.infoOn()) {
+            if (Debug.infoOn())
                 Debug.logInfo("No crashed jobs to re-schedule", module);
-            }
         }
         crashedJobsReloaded = true;
     }
@@ -365,7 +370,7 @@ public final class JobManager {
 
     /**
      * Schedule a job to start at a specific time with specific recurrence info
-     *
+     * 
      * @param serviceName
      *            The name of the service to invoke
      *@param context
@@ -385,7 +390,7 @@ public final class JobManager {
 
     /**
      * Schedule a job to start at a specific time with specific recurrence info
-     *
+     * 
      * @param serviceName
      *            The name of the service to invoke
      *@param context
@@ -407,7 +412,7 @@ public final class JobManager {
 
     /**
      * Schedule a job to start at a specific time with specific recurrence info
-     *
+     * 
      * @param serviceName
      *            The name of the service to invoke
      *@param context
@@ -427,7 +432,7 @@ public final class JobManager {
 
     /**
      * Schedule a job to start at a specific time with specific recurrence info
-     *
+     * 
      * @param poolName
      *            The name of the pool to run the service from
      *@param serviceName
@@ -452,7 +457,7 @@ public final class JobManager {
 
     /**
      * Schedule a job to start at a specific time with specific recurrence info
-     *
+     * 
      * @param poolName
      *            The name of the pool to run the service from
      *@param serviceName
@@ -468,7 +473,7 @@ public final class JobManager {
 
     /**
      * Schedule a job to start at a specific time with specific recurrence info
-     *
+     * 
      * @param jobName
      *            The name of the job
      *@param poolName
@@ -499,8 +504,12 @@ public final class JobManager {
             runtimeData.set("runtimeInfo", XmlSerializer.serialize(context));
             runtimeData = delegator.createSetNextSeqId(runtimeData);
             dataId = runtimeData.getString("runtimeDataId");
-        } catch (GenericEntityException | SerializeException | IOException e) {
-            throw new JobManagerException(e.getMessage(), e);
+        } catch (GenericEntityException ee) {
+            throw new JobManagerException(ee.getMessage(), ee);
+        } catch (SerializeException se) {
+            throw new JobManagerException(se.getMessage(), se);
+        } catch (IOException ioe) {
+            throw new JobManagerException(ioe.getMessage(), ioe);
         }
         // schedule the job
         schedule(jobName, poolName, serviceName, dataId, startTime, frequency, interval, count, endTime, maxRetry);
@@ -508,7 +517,7 @@ public final class JobManager {
 
     /**
      * Schedule a job to start at a specific time with specific recurrence info
-     *
+     * 
      * @param jobName
      *            The name of the job
      *@param poolName
@@ -549,8 +558,7 @@ public final class JobManager {
             jobName = Long.toString((new Date().getTime()));
         }
         Map<String, Object> jFields = UtilMisc.<String, Object> toMap("jobName", jobName, "runTime", new java.sql.Timestamp(startTime),
-                "serviceName", serviceName, "statusId", "SERVICE_PENDING", "recurrenceInfoId", infoId, "runtimeDataId", dataId,
-                "priority", JobPriority.NORMAL);
+                "serviceName", serviceName, "statusId", "SERVICE_PENDING", "recurrenceInfoId", infoId, "runtimeDataId", dataId);
         // set the pool ID
         if (UtilValidate.isNotEmpty(poolName)) {
             jFields.put("poolId", poolName);
@@ -564,8 +572,8 @@ public final class JobManager {
         // set the loader name
         jFields.put("loaderName", delegator.getDelegatorName());
         // set the max retry
-        jFields.put("maxRetry", (long) maxRetry);
-        jFields.put("currentRetryCount", 0L);
+        jFields.put("maxRetry", Long.valueOf(maxRetry));
+        jFields.put("currentRetryCount", new Long(0));
         // create the value and store
         GenericValue jobV;
         try {

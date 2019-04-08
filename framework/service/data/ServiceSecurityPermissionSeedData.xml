@@ -22,6 +22,6 @@ under the License.
     <SecurityPermission description="Permission to invoke any service remotely." permissionId="SERVICE_INVOKE_ANY"/>
 
     <!-- add admin to SUPER permission group -->
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="SERVICE_INVOKE_ANY"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="SERVICE_INVOKE_ANY"/>
 
 </entity-engine-xml>

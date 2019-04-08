@@ -18,38 +18,40 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.util.template;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.util.Map;
 import java.io.StringReader;
-import java.io.StringWriter;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.Map;
+import java.io.InputStream;
+import java.io.IOException;
+import java.io.StringWriter;
 
-import javax.xml.parsers.SAXParserFactory;
-import javax.xml.transform.Source;
-import javax.xml.transform.Templates;
+import org.xml.sax.InputSource;
+import org.xml.sax.XMLReader;
+import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.base.util.UtilXml;
+import org.apache.ofbiz.base.util.URLConnector;
+import org.apache.ofbiz.base.util.cache.UtilCache;
+import org.apache.ofbiz.base.location.FlexibleLocation;
+import org.apache.ofbiz.base.util.GeneralException;
+
 import javax.xml.transform.Transformer;
+import javax.xml.transform.Source;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMResult;
-import javax.xml.transform.dom.DOMSource;
+import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.sax.SAXSource;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
+import javax.xml.transform.Templates;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.dom.DOMResult;
 
-import org.apache.ofbiz.base.location.FlexibleLocation;
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.GeneralException;
-import org.apache.ofbiz.base.util.URLConnector;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.base.util.UtilXml;
-import org.apache.ofbiz.base.util.cache.UtilCache;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
-import org.xml.sax.InputSource;
-import org.xml.sax.XMLReader;
+
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.transform.stream.StreamResult;
 
 public final class XslTransform {
 
@@ -82,11 +84,10 @@ public final class XslTransform {
             // compile the xsl template
             Transformer transformer = tfactory.newTransformer(new StreamSource(template));
             // and apply the xsl template to the source document and save in a result string
-            try (StringWriter sw = new StringWriter()) {
+            StringWriter sw = new StringWriter();
             StreamResult sr = new StreamResult(sw);
             transformer.transform(source, sr);
             result = sw.toString();
-            } catch (IOException e) {}
         } else {
             Debug.logError("tfactory does not support SAX features!", module);
         }
@@ -148,7 +149,7 @@ public final class XslTransform {
      *  @deprecated
      */
     @Deprecated
-    private static Source getSource(Document inputDocument, String inputUrl, String inputString) throws IOException {
+    private static Source getSource(Document inputDocument, String inputUrl, String inputString) throws GeneralException, IOException {
         Source source = null;
         if (inputDocument != null) {
             source = new DOMSource(inputDocument);
@@ -157,9 +158,8 @@ public final class XslTransform {
         } else if (UtilValidate.isNotEmpty(inputUrl)) {
             URL url = FlexibleLocation.resolveLocation(inputUrl);
             URLConnection conn = URLConnector.openConnection(url);
-            try (InputStream in = conn.getInputStream()) {
+            InputStream in = conn.getInputStream();
             source = new StreamSource(in);
-            }
         }
         return source;
     }

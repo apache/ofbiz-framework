@@ -110,7 +110,13 @@ under the License.
                     </#if>
                 </#if>
             </#if>
-            <#assign description = Static["org.apache.ofbiz.accounting.invoice.InvoiceWorker"].getInvoiceItemDescription(dispatcher, invoiceItem, locale)>
+            <#if invoiceItem.description?has_content>
+                <#assign description=invoiceItem.description>
+            <#elseif taxRate?has_content & taxRate.get("description",locale)?has_content>
+                <#assign description=taxRate.get("description",locale)>
+            <#elseif itemType.get("description",locale)?has_content>
+                <#assign description=itemType.get("description",locale)>
+            </#if>
 
             <#if newShipmentId?? & newShipmentId != currentShipmentId>
                 <#-- the shipment id is printed at the beginning for each

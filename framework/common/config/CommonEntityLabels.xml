@@ -388,8 +388,8 @@
         <value xml:lang="ja">ブロンズ</value>
         <value xml:lang="nl">Niveau - brons</value>
         <value xml:lang="pt-BR">Nível bronze</value>
-        <value xml:lang="ru">Бронзовая</value>
         <value xml:lang="th">บรอนซ์</value>
+        <value xml:lang="ru">Бронзовая</value>
         <value xml:lang="vi">Đồng (chất liệu)</value>
         <value xml:lang="zh">铜</value>
         <value xml:lang="zh-TW">銅</value>
@@ -403,8 +403,8 @@
         <value xml:lang="ja">ゴールド</value>
         <value xml:lang="nl">Niveau - goud</value>
         <value xml:lang="pt-BR">Nível Ouro</value>
-        <value xml:lang="ru">Золотая</value>
         <value xml:lang="th">ทอง</value>
+        <value xml:lang="ru">Золотая</value>
         <value xml:lang="vi">Vàng (chất liệu)</value>
         <value xml:lang="zh">金</value>
         <value xml:lang="zh-TW">金</value>
@@ -418,8 +418,8 @@
         <value xml:lang="ja">適用外</value>
         <value xml:lang="nl">Niet beschikbaar/niet van toepassing</value>
         <value xml:lang="pt-BR">Não se aplica</value>
-        <value xml:lang="ru">Не применяется</value>
         <value xml:lang="th">ไม่เหมาะสม</value>
+        <value xml:lang="ru">Не применяется</value>
         <value xml:lang="vi">Không Khớp lệnh</value>
         <value xml:lang="zh">不可用</value>
         <value xml:lang="zh-TW">不適用</value>
@@ -433,8 +433,8 @@
         <value xml:lang="ja">シルバー</value>
         <value xml:lang="nl">Niveau - zilver</value>
         <value xml:lang="pt-BR">Nivel Prata</value>
-        <value xml:lang="ru">Серебрянная</value>
         <value xml:lang="th">เงิน</value>
+        <value xml:lang="ru">Серебрянная</value>
         <value xml:lang="vi">Bạc (chất liệu)</value>
         <value xml:lang="zh">银</value>
         <value xml:lang="zh-TW">銀</value>
@@ -3763,6 +3763,16 @@
         <value xml:lang="zh">通用，公共访问</value>
         <value xml:lang="zh-TW">通用,公共訪問</value>
     </property>
+    <property key="Enumeration.description.WF_PREDECESSOR">
+        <value xml:lang="en">Preceding</value>
+        <value xml:lang="nl">Voorafgaand</value>
+        <value xml:lang="zh">预处理</value>
+    </property>
+    <property key="Enumeration.description.WF_SUCCESSOR">
+        <value xml:lang="en">Succeeding</value>
+        <value xml:lang="nl">Opvolgend</value>
+        <value xml:lang="zh">后处理</value>
+    </property>
     <property key="Enumeration.description.WFI_MULTIPLE">
         <value xml:lang="en">WFI_MULTIPLE</value>
         <value xml:lang="es">Múltiples</value>
@@ -3788,16 +3798,6 @@
         <value xml:lang="vi">WFI_ONCE</value>
         <value xml:lang="zh">一次</value>
         <value xml:lang="zh-TW">一次</value>
-    </property>
-    <property key="Enumeration.description.WF_PREDECESSOR">
-        <value xml:lang="en">Preceding</value>
-        <value xml:lang="nl">Voorafgaand</value>
-        <value xml:lang="zh">预处理</value>
-    </property>
-    <property key="Enumeration.description.WF_SUCCESSOR">
-        <value xml:lang="en">Succeeding</value>
-        <value xml:lang="nl">Opvolgend</value>
-        <value xml:lang="zh">后处理</value>
     </property>
     <property key="Enumeration.description.WGC_FULL_BLOCKED">
         <value xml:lang="en">WGC_FULL_BLOCKED</value>
@@ -5941,6 +5941,26 @@
         <value xml:lang="vi">Georgia</value>
         <value xml:lang="zh">格鲁吉亚</value>
         <value xml:lang="zh-TW">格魯吉亞</value>
+    </property>
+    <property key="GeoAssocType.description.COUNTY_CITY">
+        <value xml:lang="en">City in a county</value>
+        <value xml:lang="fr">Ville du département</value>
+    </property>
+    <property key="GeoAssocType.description.COUNTY_SEAT">
+        <value xml:lang="en">Administrative Main City of a County</value>
+        <value xml:lang="fr">Chef-lieu du département</value>
+    </property>
+    <property key="GeoAssocType.description.GROUP_MEMBER">
+        <value xml:lang="en">Geo Group Member</value>
+        <value xml:lang="fr">Membre de la zone Géographique</value>
+    </property>
+    <property key="GeoAssocType.description.POSTAL_CODE">
+        <value xml:lang="en">Postal code associated to a GeoType</value>
+        <value xml:lang="fr">Code Postal associé au type Géographique</value>
+    </property>
+    <property key="GeoAssocType.description.REGIONS">
+        <value xml:lang="en">For a region of a larger Geo, i.e. states, counties, provinces...</value>
+        <value xml:lang="fr">Région d'une zone géographique plus large</value>
     </property>
     <property key="Geo.geoName.GHA">
         <value xml:lang="ar">غانا</value>
@@ -8756,26 +8776,6 @@
         <value xml:lang="zh">不可用</value>
         <value xml:lang="zh-TW">不適用</value>
     </property>
-    <property key="GeoAssocType.description.COUNTY_CITY">
-        <value xml:lang="en">City in a county</value>
-        <value xml:lang="fr">Ville du département</value>
-    </property>
-    <property key="GeoAssocType.description.COUNTY_SEAT">
-        <value xml:lang="en">Administrative Main City of a County</value>
-        <value xml:lang="fr">Chef-lieu du département</value>
-    </property>
-    <property key="GeoAssocType.description.GROUP_MEMBER">
-        <value xml:lang="en">Geo Group Member</value>
-        <value xml:lang="fr">Membre de la zone Géographique</value>
-    </property>
-    <property key="GeoAssocType.description.POSTAL_CODE">
-        <value xml:lang="en">Postal code associated to a GeoType</value>
-        <value xml:lang="fr">Code Postal associé au type Géographique</value>
-    </property>
-    <property key="GeoAssocType.description.REGIONS">
-        <value xml:lang="en">For a region of a larger Geo, i.e. states, counties, provinces...</value>
-        <value xml:lang="fr">Région d'une zone géographique plus large</value>
-    </property>
     <property key="GeoType.description.CITY">
         <value xml:lang="ar">مدينة</value>
         <value xml:lang="de">Stadt</value>
@@ -9359,7 +9359,7 @@
     </property>
     <property key="StatusItem.description.CNTAP_APPROVED">
         <value xml:lang="ar">موافق عليها</value>
-        <value xml:lang="cs">Schváleno</value>
+        <value xml:lang="cs">Schváleno</value>  
         <value xml:lang="en">Approved</value>
         <value xml:lang="es">Aprobado</value>
         <value xml:lang="fr">Approuvé</value>
@@ -10940,6 +10940,16 @@
         <value xml:lang="zh">合格的</value>
         <value xml:lang="zh-TW">合格的</value>
     </property>
+    <property key="StatusItem.description.LEAVE_CREATED">
+        <value xml:lang="ar">مخلقة</value>
+        <value xml:lang="en">Created</value>
+        <value xml:lang="fr">Créé</value>
+        <value xml:lang="ja">作成</value>
+        <value xml:lang="ru">Созданный</value>
+        <value xml:lang="vi">Đã tạo</value>
+        <value xml:lang="zh">已新建</value>
+        <value xml:lang="zh-TW">已新建</value>
+    </property>
     <property key="StatusItem.description.LEAVE_APPROVED">
         <value xml:lang="ar">موافق عليها</value>
         <value xml:lang="en">Approved</value>
@@ -10950,16 +10960,6 @@
         <value xml:lang="vi">Đã duyệt</value>
         <value xml:lang="zh">已批准</value>
         <value xml:lang="zh-TW">已核准</value>
-    </property>
-    <property key="StatusItem.description.LEAVE_CREATED">
-        <value xml:lang="ar">مخلقة</value>
-        <value xml:lang="en">Created</value>
-        <value xml:lang="fr">Créé</value>
-        <value xml:lang="ja">作成</value>
-        <value xml:lang="ru">Созданный</value>
-        <value xml:lang="vi">Đã tạo</value>
-        <value xml:lang="zh">已新建</value>
-        <value xml:lang="zh-TW">已新建</value>
     </property>
     <property key="StatusItem.description.LEAVE_REJECTED">
         <value xml:lang="ar">مرفوضة</value>
@@ -16385,10 +16385,10 @@
         <value xml:lang="es">Impreso</value>
         <value xml:lang="fr">Imprimé</value>
         <value xml:lang="it">Stampa</value>
-        <value xml:lang="ja">印刷済</value>
         <value xml:lang="nl">Picklijst - geprint</value>
-        <value xml:lang="pt-BR">Impresso</value>
         <value xml:lang="ru">Напечатанный</value>
+        <value xml:lang="ja">印刷済</value>
+        <value xml:lang="pt-BR">Impresso</value>
         <value xml:lang="zh">已打印</value>
         <value xml:lang="zh-TW">已列印</value>
     </property>
@@ -16445,10 +16445,10 @@
         <value xml:lang="es">Imprimir</value>
         <value xml:lang="fr">Imprimer</value>
         <value xml:lang="it">Stampa</value>
-        <value xml:lang="ja">印刷</value>
         <value xml:lang="nl">Picklijst - afgedrukt</value>
-        <value xml:lang="pt-BR">Imprimir</value>
         <value xml:lang="ru">Печатать</value>
+        <value xml:lang="ja">印刷</value>
+        <value xml:lang="pt-BR">Imprimir</value>
         <value xml:lang="zh">打印</value>
         <value xml:lang="zh-TW">列印</value>
     </property>
@@ -17258,35 +17258,23 @@
         <value xml:lang="zh">取消暂停</value>
         <value xml:lang="zh-TW">取消暫停</value>
     </property>
-    <property key="Uom.abbreviation.LEN_in">
-        <value xml:lang="en">in</value>
-        <value xml:lang="it">in</value>
-        <value xml:lang="ja">インチ</value>
-        <value xml:lang="vi">trong</value>
-        <value xml:lang="zh">英寸</value>
-        <value xml:lang="zh-TW">英寸</value>
-    </property>
-    <property key="Uom.abbreviation.WT_g">
-        <value xml:lang="en">g</value>
-    </property>
-    <property key="Uom.abbreviation.WT_kg">
-        <value xml:lang="en">kg</value>
-        <value xml:lang="ru">кг</value>
-        <value xml:lang="th">กิโลกรัม</value>
-        <value xml:lang="vi">cân</value>
-        <value xml:lang="zh">公斤</value>
-        <value xml:lang="zh-TW">公斤</value>
-    </property>
-    <property key="Uom.abbreviation.WT_lb">
-        <value xml:lang="de">Pfund (Gewicht)</value>
-        <value xml:lang="en">lbs</value>
-        <value xml:lang="es">libras</value>
-        <value xml:lang="fr">livres</value>
-        <value xml:lang="it">libre</value>
-        <value xml:lang="ja">ポンド</value>
-        <value xml:lang="ru">фнт</value>
-        <value xml:lang="zh">磅</value>
-        <value xml:lang="zh-TW">磅</value>
+    <property key="Uom.description.ADP">
+        <value xml:lang="ar">البيزيتا الاندورية</value>
+        <value xml:lang="cs">Andorská peseta</value>
+        <value xml:lang="de">Peseta Andorra</value>
+        <value xml:lang="en">Andoran peseta</value>
+        <value xml:lang="es">Peseta Andorra</value>
+        <value xml:lang="fr">Pesetas d'Andorran</value>
+        <value xml:lang="it">Peseta Andorra</value>
+        <value xml:lang="ja">アンドラ・ペセタ</value>
+        <value xml:lang="pt">Andoran peseta</value>
+        <value xml:lang="pt-BR">peseta Principado de Andorra</value>
+        <value xml:lang="ro">Peseta Andoran</value>
+        <value xml:lang="ru">Андорская песета</value>
+        <value xml:lang="th">Andoran peseta</value>
+        <value xml:lang="vi">Andoran peseta</value>
+        <value xml:lang="zh">安道尔比塞塔</value>
+        <value xml:lang="zh-TW">安道爾比薩斜塔</value>
     </property>
     <property key="Uom.description.AED">
         <value xml:lang="ar">درهم أماراتي</value>
@@ -17304,7 +17292,7 @@
         <value xml:lang="zh">阿联酋迪拉姆</value>
         <value xml:lang="zh-TW">阿聯酋迪拉姆</value>
     </property>
-    <property key="Uom.description.AFN">
+    <property key="Uom.description.AFA">
         <value xml:lang="ar">أفغاني</value>
         <value xml:lang="cs">Afghánský afghání</value>
         <value xml:lang="de">Afghani</value>
@@ -17368,7 +17356,7 @@
         <value xml:lang="zh">安第列斯群岛盾</value>
         <value xml:lang="zh-TW">安第列斯群島盾</value>
     </property>
-    <property key="Uom.description.AOA">
+    <property key="Uom.description.AOK">
         <value xml:lang="ar">كوانزا أنغولية</value>
         <value xml:lang="cs">Angolská kwanza</value>
         <value xml:lang="de">Kwanza Angola</value>
@@ -17383,6 +17371,22 @@
         <value xml:lang="th">ควันซา อังโกลา</value>
         <value xml:lang="zh">安哥拉宽扎</value>
         <value xml:lang="zh-TW">安哥拉寬紮</value>
+    </property>
+    <property key="Uom.description.ARA">
+        <value xml:lang="ar">اوسترال ارجنتيني</value>
+        <value xml:lang="cs">Argentinské peso</value>
+        <value xml:lang="de">Austral Argentinien</value>
+        <value xml:lang="en">Argentinian Austral</value>
+        <value xml:lang="fr">Argentin austral</value>
+        <value xml:lang="it">Austral Argentino</value>
+        <value xml:lang="ja">アルゼンチン・アウストラル</value>
+        <value xml:lang="pt">Argentinian Austral</value>
+        <value xml:lang="pt-BR">Austral argentino</value>
+        <value xml:lang="ro">Austral Argentino</value>
+        <value xml:lang="ru">Аргентинский астрал</value>
+        <value xml:lang="th">ออสตรัล อาเจนตินา</value>
+        <value xml:lang="zh">阿根廷奥斯特罗尔</value>
+        <value xml:lang="zh-TW">阿根廷奧斯特羅爾</value>
     </property>
     <property key="Uom.description.AREA_A">
         <value xml:lang="ar">فدان</value>
@@ -17665,7 +17669,7 @@
         <value xml:lang="zh">阿鲁巴盾</value>
         <value xml:lang="zh-TW">阿魯巴盾</value>
     </property>
-    <property key="Uom.description.AZN">
+    <property key="Uom.description.AZM">
         <value xml:lang="ar">أذربيجان مانات</value>
         <value xml:lang="cs">Ázerbájdžánský manat</value>
         <value xml:lang="de">Manat Aserbaidschan</value>
@@ -17680,6 +17684,22 @@
         <value xml:lang="th">มานาท อาเซอร์ไบจัน</value>
         <value xml:lang="zh">阿塞拜疆曼纳特</value>
         <value xml:lang="zh-TW">亞塞拜然曼納特</value>
+    </property>
+    <property key="Uom.description.BAD">
+        <value xml:lang="ar">دينار البوسنة والهرسك</value>
+        <value xml:lang="cs">Dinár (Bosna a Herzegovina)</value>
+        <value xml:lang="de">Dinar Bonsien-Herzegovina</value>
+        <value xml:lang="en">Bosnia-Herzogovinian Dinar</value>
+        <value xml:lang="fr">Dinar de Bosnie-Herzégovine</value>
+        <value xml:lang="it">Dinaro Bosnia-Herzogovinian</value>
+        <value xml:lang="ja">ボスナ・ヘルツェゴビナ・ディナール</value>
+        <value xml:lang="pt">Bosnia-Herzogovinian Dinar</value>
+        <value xml:lang="pt-BR">Dinar da Bósnia-Herzogovinian</value>
+        <value xml:lang="ro">Dinaro Bosnia-Herzogovinian</value>
+        <value xml:lang="ru">Динар Боснии и Герцеговины</value>
+        <value xml:lang="th">Bosnia-Herzogovinian Dinar</value>
+        <value xml:lang="zh">波斯尼亚和黑塞哥维那第纳尔</value>
+        <value xml:lang="zh-TW">波斯尼亞和黑塞哥維那第納爾</value>
     </property>
     <property key="Uom.description.BBD">
         <value xml:lang="ar">دولار بربادوس</value>
@@ -17841,6 +17861,22 @@
         <value xml:lang="zh">巴西里尔</value>
         <value xml:lang="zh-TW">巴西裡爾</value>
     </property>
+    <property key="Uom.description.BRR">
+        <value xml:lang="ar">برازيل</value>
+        <value xml:lang="cs">Brazil</value>
+        <value xml:lang="en">Brazil</value>
+        <value xml:lang="es">Brazil</value>
+        <value xml:lang="fr">Brésil</value>
+        <value xml:lang="it">Brazil</value>
+        <value xml:lang="ja">ブラジル</value>
+        <value xml:lang="pt">Brazil</value>
+        <value xml:lang="pt-BR">Brasil</value>
+        <value xml:lang="ro">Brazil</value>
+        <value xml:lang="ru">Бразилия</value>
+        <value xml:lang="th">บราซิล</value>
+        <value xml:lang="zh">巴西</value>
+        <value xml:lang="zh-TW">巴西</value>
+    </property>
     <property key="Uom.description.BSD">
         <value xml:lang="ar">دولار باهامي</value>
         <value xml:lang="cs">Bahamský dolar</value>
@@ -17873,7 +17909,7 @@
         <value xml:lang="zh">博茨瓦纳普拉</value>
         <value xml:lang="zh-TW">博茨瓦納普拉</value>
     </property>
-    <property key="Uom.description.BYN">
+    <property key="Uom.description.BYR">
         <value xml:lang="ar">روبل بيلاروسية</value>
         <value xml:lang="cs">Běloruský rubl</value>
         <value xml:lang="de">Rubel Weissrussland</value>
@@ -17919,6 +17955,20 @@
         <value xml:lang="th">ดอลลาร์ แคนาดา</value>
         <value xml:lang="zh">加拿大元</value>
         <value xml:lang="zh-TW">加拿大元</value>
+    </property>
+    <property key="Uom.description.CDP">
+        <value xml:lang="ar">سانتو دوميونغو</value>
+        <value xml:lang="en">Santo Domiongo</value>
+        <value xml:lang="es">Santo Domingo</value>
+        <value xml:lang="fr">Saint-Domingue</value>
+        <value xml:lang="it">Santo Domingo</value>
+        <value xml:lang="ja">サント・ドミンゴ</value>
+        <value xml:lang="pt">Santo Domiongo</value>
+        <value xml:lang="ro">Santo Domingo</value>
+        <value xml:lang="ru">Санто-Доминго</value>
+        <value xml:lang="th">Santo Domiongo</value>
+        <value xml:lang="zh">桑托多明哥</value>
+        <value xml:lang="zh-TW">桑托多明哥</value>
     </property>
     <property key="Uom.description.CHF">
         <value xml:lang="ar">فرنك سويسري</value>
@@ -18024,6 +18074,21 @@
         <value xml:lang="th">เอสคูโด สาธารณรัฐเคปเวิร์ด</value>
         <value xml:lang="zh">佛得角埃斯库多</value>
         <value xml:lang="zh-TW">維德角埃斯庫多</value>
+    </property>
+    <property key="Uom.description.CYP">
+        <value xml:lang="ar">الجنيه القبرصي</value>
+        <value xml:lang="de">Pfund Zypern</value>
+        <value xml:lang="en">Cyprus Pound</value>
+        <value xml:lang="fr">Pound de Chypre</value>
+        <value xml:lang="it">Sterlina Cipriota</value>
+        <value xml:lang="ja">キプロス・ポンド</value>
+        <value xml:lang="pt">Cyprus Pound</value>
+        <value xml:lang="pt-BR">Libra cipriota</value>
+        <value xml:lang="ro">Sterlina Cipriota</value>
+        <value xml:lang="ru">Кипрский фунт</value>
+        <value xml:lang="th">ปอนด์ ไซปรัส</value>
+        <value xml:lang="zh">塞普路斯镑</value>
+        <value xml:lang="zh-TW">塞普路斯鎊</value>
     </property>
     <property key="Uom.description.CZK">
         <value xml:lang="ar">الكرونا التشيكية</value>
@@ -18380,6 +18445,20 @@
         <value xml:lang="zh">多米加比索</value>
         <value xml:lang="zh-TW">多米加比索</value>
     </property>
+    <property key="Uom.description.DRP">
+        <value xml:lang="ar">بيزو الجمهورية الدومينيكية</value>
+        <value xml:lang="en">Dominican Republic Peso</value>
+        <value xml:lang="fr">Peso de la République Dominicaine</value>
+        <value xml:lang="it">Peso Repubblica Domenicana</value>
+        <value xml:lang="ja">(廃)ドミニカ共和国・ペソ</value>
+        <value xml:lang="pt">Dominican Republic Peso</value>
+        <value xml:lang="pt-BR">Peso da República Dominicana</value>
+        <value xml:lang="ro">Peso Repubblica Domenicana</value>
+        <value xml:lang="ru">Песо Доминиканской республики</value>
+        <value xml:lang="th">เปโซ  สาธารณรัฐโดมินิกัน</value>
+        <value xml:lang="zh">多米尼加共和国比索</value>
+        <value xml:lang="zh-TW">多明尼加共和國比索</value>
+    </property>
     <property key="Uom.description.DZD">
         <value xml:lang="ar">دينار جزائري</value>
         <value xml:lang="de">Dinar Algerien</value>
@@ -18395,6 +18474,21 @@
         <value xml:lang="zh">阿尔及利亚第纳尔</value>
         <value xml:lang="zh-TW">阿爾及利亞第納爾</value>
     </property>
+    <property key="Uom.description.ECS">
+        <value xml:lang="ar">سوكري إكوادوري</value>
+        <value xml:lang="de">Sucre Ecuador</value>
+        <value xml:lang="en">Ecuador Sucre</value>
+        <value xml:lang="fr">Sucre d'Equateur</value>
+        <value xml:lang="it">Sucre Ecuador</value>
+        <value xml:lang="ja">エクアドル・スクレ</value>
+        <value xml:lang="pt">Ecuador Sucre</value>
+        <value xml:lang="pt-BR">Sucre Equatoriano</value>
+        <value xml:lang="ro">Sucre Ecuador</value>
+        <value xml:lang="ru">Эквадорский сукре</value>
+        <value xml:lang="th">ซูเคร เอกวาดอร์</value>
+        <value xml:lang="zh">厄瓜多尔苏克雷</value>
+        <value xml:lang="zh-TW">厄瓜多 蘇克雷</value>
+    </property>
     <property key="Uom.description.ECU">
         <value xml:lang="ar">وحدة النقد الأوروبية</value>
         <value xml:lang="de">ECU European Currency Unit</value>
@@ -18409,6 +18503,21 @@
         <value xml:lang="th">หน่วยเงินตรายุโรป</value>
         <value xml:lang="zh">欧洲货币单位</value>
         <value xml:lang="zh-TW">歐洲貨幣單位</value>
+    </property>
+    <property key="Uom.description.EEK">
+        <value xml:lang="ar">كرون إستوني</value>
+        <value xml:lang="de">Krone Estland</value>
+        <value xml:lang="en">Estonian Krone</value>
+        <value xml:lang="fr">Krone d'Estonie</value>
+        <value xml:lang="it">Corona Estonia</value>
+        <value xml:lang="ja">エストニア・クローン</value>
+        <value xml:lang="pt">Estonian Krone</value>
+        <value xml:lang="pt-BR">Coroa Estôniana</value>
+        <value xml:lang="ro">Coroana Estonia</value>
+        <value xml:lang="ru">Эстонская крона</value>
+        <value xml:lang="th">โครน เอสโธเนีย</value>
+        <value xml:lang="zh">爱沙尼亚克郎</value>
+        <value xml:lang="zh-TW">愛沙尼亞克郎</value>
     </property>
     <property key="Uom.description.EGP">
         <value xml:lang="ar">جنيه مصري</value>
@@ -18652,7 +18761,21 @@
         <value xml:lang="zh">英镑</value>
         <value xml:lang="zh-TW">英鎊</value>
     </property>
-    <property key="Uom.description.GHS">
+    <property key="Uom.description.GEK">
+        <value xml:lang="ar">كبون جورجي</value>
+        <value xml:lang="en">Georgian Kupon</value>
+        <value xml:lang="fr">Kupon de Georgie</value>
+        <value xml:lang="it">Kupon Georgia</value>
+        <value xml:lang="ja">グルジア・クーポン</value>
+        <value xml:lang="pt">Georgian Kupon</value>
+        <value xml:lang="pt-BR">Kupon da Geórgia</value>
+        <value xml:lang="ro">Kupon Georgia</value>
+        <value xml:lang="ru">Грузинский купон</value>
+        <value xml:lang="th">คูปอนจอร์เจีย</value>
+        <value xml:lang="zh">乔治亚库庞</value>
+        <value xml:lang="zh-TW">喬治亞庫龐</value>
+    </property>
+    <property key="Uom.description.GHC">
         <value xml:lang="ar">سيدي غاني</value>
         <value xml:lang="de">Ghana Cedi</value>
         <value xml:lang="en">Ghanian Cedi</value>
@@ -18741,6 +18864,21 @@
         <value xml:lang="th">เก็ตซาล กัวเตมาลา</value>
         <value xml:lang="zh">危地马拉格查尔</value>
         <value xml:lang="zh-TW">危地馬拉格查爾</value>
+    </property>
+    <property key="Uom.description.GWP">
+        <value xml:lang="ar">بيزو غيني</value>
+        <value xml:lang="de">Peso Guinea</value>
+        <value xml:lang="en">Guinea Peso</value>
+        <value xml:lang="fr">Peso de Guinée</value>
+        <value xml:lang="it">Peso Guinea</value>
+        <value xml:lang="ja">ギニアビサウ・ペソ</value>
+        <value xml:lang="pt">Guinea Peso</value>
+        <value xml:lang="pt-BR">Peso da Guiné</value>
+        <value xml:lang="ro">Peso Guinea</value>
+        <value xml:lang="ru">Гвинейский песо</value>
+        <value xml:lang="th">เปโซ สาธารณรัฐกินีบิสเซา</value>
+        <value xml:lang="zh">几内亚比索</value>
+        <value xml:lang="zh-TW">幾內亞比索</value>
     </property>
     <property key="Uom.description.GYD">
         <value xml:lang="ar">دولار جوياني</value>
@@ -18863,18 +19001,19 @@
         <value xml:lang="zh-TW">愛爾蘭鎊</value>
     </property>
     <property key="Uom.description.ILS">
-        <value xml:lang="ar">الشيكل الإسرائيلي الجديد</value>
-        <value xml:lang="en">New Israeli Shekel</value>
-        <value xml:lang="fr">Nouveau shekel</value>
-        <value xml:lang="it">Shekel Nuovo Israele</value>
-        <value xml:lang="ja">イスラエル・新シェケル</value>
-        <value xml:lang="pt">New Israeli Shekel</value>
-        <value xml:lang="pt-BR">Novo Shekel israelita</value>
-        <value xml:lang="ro">Shekel Nuovo Israel</value>
-        <value xml:lang="ru">Новый Израильский шекель</value>
+        <value xml:lang="ar">شكيل إسرائيلي</value>
+        <value xml:lang="de">Scheckel Israel</value>
+        <value xml:lang="en">Israeli Scheckel</value>
+        <value xml:lang="fr">Scheckel israélien</value>
+        <value xml:lang="it">Scheckel Israeliano</value>
+        <value xml:lang="ja">イスラエル・シェケル</value>
+        <value xml:lang="pt">Israeli Scheckel</value>
+        <value xml:lang="pt-BR">Israel Scheckel</value>
+        <value xml:lang="ro">Scheckel Israelian</value>
+        <value xml:lang="ru">Израильский шекель</value>
         <value xml:lang="th">เชคเกิล อิสราเอล</value>
-        <value xml:lang="zh">新以色列谢克尔</value>
-        <value xml:lang="zh-TW">新以色列謝克爾</value>
+        <value xml:lang="zh">以色列谢克尔</value>
+        <value xml:lang="zh-TW">以色列謝克爾</value>
     </property>
     <property key="Uom.description.INR">
         <value xml:lang="ar">روبية هندية</value>
@@ -19012,20 +19151,6 @@
         <value xml:lang="zh">肯尼亚先令</value>
         <value xml:lang="zh-TW">肯尼亞先令</value>
     </property>
-    <property key="Uom.description.KGS">
-        <value xml:lang="ar">قيرغيزستان سوم</value>
-        <value xml:lang="en">Kirghizstan Som</value>
-        <value xml:lang="fr">Som du Kirghizstan</value>
-        <value xml:lang="it">Som Kirghizstan</value>
-        <value xml:lang="ja">キルギス・ソム</value>
-        <value xml:lang="pt">Kirghizstan Som</value>
-        <value xml:lang="pt-BR">Som do Quirguistão</value>
-        <value xml:lang="ro">Som Kirghizstan</value>
-        <value xml:lang="ru">Киргизстанский сом</value>
-        <value xml:lang="th">Kirghizstan Som</value>
-        <value xml:lang="zh">吉尔吉斯斯坦索姆</value>
-        <value xml:lang="zh-TW">吉爾吉斯斯坦索姆</value>
-    </property>
     <property key="Uom.description.KHR">
         <value xml:lang="ar">رييل كمبودي</value>
         <value xml:lang="de">Riel Kambodscha</value>
@@ -19040,6 +19165,20 @@
         <value xml:lang="th">เรียล กัมพูชา</value>
         <value xml:lang="zh">柬埔寨里尔</value>
         <value xml:lang="zh-TW">柬埔寨裡爾</value>
+    </property>
+    <property key="Uom.description.KIS">
+        <value xml:lang="ar">قيرغيزستان سوم</value>
+        <value xml:lang="en">Kirghizstan Som</value>
+        <value xml:lang="fr">Som du Kirghizstan</value>
+        <value xml:lang="it">Som Kirghizstan</value>
+        <value xml:lang="ja">キルギス・ソム</value>
+        <value xml:lang="pt">Kirghizstan Som</value>
+        <value xml:lang="pt-BR">Som do Quirguistão</value>
+        <value xml:lang="ro">Som Kirghizstan</value>
+        <value xml:lang="ru">Киргизстанский сом</value>
+        <value xml:lang="th">Kirghizstan Som</value>
+        <value xml:lang="zh">吉尔吉斯斯坦索姆</value>
+        <value xml:lang="zh-TW">吉爾吉斯斯坦索姆</value>
     </property>
     <property key="Uom.description.KMF">
         <value xml:lang="ar">فرنك جزر القمر</value>
@@ -19644,6 +19783,21 @@
         <value xml:lang="zh">莱索托洛蒂</value>
         <value xml:lang="zh-TW">萊索托洛蒂</value>
     </property>
+    <property key="Uom.description.LTL">
+        <value xml:lang="ar">ليتا لتواني</value>
+        <value xml:lang="de">Lita Litauen</value>
+        <value xml:lang="en">Lithuanian Lita</value>
+        <value xml:lang="fr">Lita de Lithuanie</value>
+        <value xml:lang="it">Lita Lituaniana</value>
+        <value xml:lang="ja">リトアニア・リタス</value>
+        <value xml:lang="pt">Lithuanian Lita</value>
+        <value xml:lang="pt-BR">Lita lituano</value>
+        <value xml:lang="ro">Lita Lituaniana</value>
+        <value xml:lang="ru">Литовская лита</value>
+        <value xml:lang="th">ลีทาส ลิธัวเนีย</value>
+        <value xml:lang="zh">立陶宛利塔</value>
+        <value xml:lang="zh-TW">立陶宛利塔</value>
+    </property>
     <property key="Uom.description.LUF">
         <value xml:lang="ar">فرنك لوكسمبورغي</value>
         <value xml:lang="de">Franc Luxemburg</value>
@@ -19658,6 +19812,21 @@
         <value xml:lang="th">ฟรังก์ ลักเซมเบิร์ก</value>
         <value xml:lang="zh">卢森堡法郎</value>
         <value xml:lang="zh-TW">盧森堡法郎</value>
+    </property>
+    <property key="Uom.description.LVL">
+        <value xml:lang="ar">لات لاتفية</value>
+        <value xml:lang="de">Lat Litauen</value>
+        <value xml:lang="en">Latvian Lat</value>
+        <value xml:lang="fr">Lat de Latvia</value>
+        <value xml:lang="it">Lat Latvian</value>
+        <value xml:lang="ja">ラトビア・ラッツ</value>
+        <value xml:lang="pt">Latvian Lat</value>
+        <value xml:lang="pt-BR">Lat letão</value>
+        <value xml:lang="ro">Lat Latvian</value>
+        <value xml:lang="ru">Латвийский лат</value>
+        <value xml:lang="th">ลัตส์ แลตเวีย</value>
+        <value xml:lang="zh">拉脫维亚拉特</value>
+        <value xml:lang="zh-TW">拉脫維亞拉特</value>
     </property>
     <property key="Uom.description.LYD">
         <value xml:lang="ar">دينار ليبي</value>
@@ -19703,6 +19872,21 @@
         <value xml:lang="th">ลิว มอลโดวา</value>
         <value xml:lang="zh">摩尔多瓦列伊</value>
         <value xml:lang="zh-TW">摩爾多瓦列伊</value>
+    </property>
+    <property key="Uom.description.MGF">
+        <value xml:lang="ar">فرنك مدغشقري</value>
+        <value xml:lang="de">Franc Madagaskar</value>
+        <value xml:lang="en">Madagascan Franc</value>
+        <value xml:lang="fr">Franc de Madagascar</value>
+        <value xml:lang="it">Franc Madagascar</value>
+        <value xml:lang="ja">マダガスカル・フラン</value>
+        <value xml:lang="pt">Madagascan Franc</value>
+        <value xml:lang="pt-BR">Franco de Madagascar</value>
+        <value xml:lang="ro">Franc Madagascar</value>
+        <value xml:lang="ru">Мадагаскарский франк</value>
+        <value xml:lang="th">ฟรังก์ มาดากัสการ์</value>
+        <value xml:lang="zh">马达加斯加法郎</value>
+        <value xml:lang="zh-TW">馬達加斯加法郎</value>
     </property>
     <property key="Uom.description.MNC">
         <value xml:lang="ar">موناكو</value>
@@ -19765,6 +19949,21 @@
         <value xml:lang="zh">毛里塔尼亚乌吉亚</value>
         <value xml:lang="zh-TW">毛裡塔尼亞烏吉亞</value>
     </property>
+    <property key="Uom.description.MTL">
+        <value xml:lang="ar">ليرة مالطية</value>
+        <value xml:lang="de">Lira Malta</value>
+        <value xml:lang="en">Maltese Lira</value>
+        <value xml:lang="fr">Lira de Malte</value>
+        <value xml:lang="it">Lira Maltese</value>
+        <value xml:lang="ja">マルタ・リラ</value>
+        <value xml:lang="pt">Maltese Lira</value>
+        <value xml:lang="pt-BR">Lira maltesa</value>
+        <value xml:lang="ro">Lira Maltese</value>
+        <value xml:lang="ru">Мальтийская лира</value>
+        <value xml:lang="th">ลีระ มอลตา</value>
+        <value xml:lang="zh">马耳他里拉</value>
+        <value xml:lang="zh-TW">馬耳他里拉</value>
+    </property>
     <property key="Uom.description.MUR">
         <value xml:lang="ar">روبي موريشية</value>
         <value xml:lang="de">Rupie Mauritius</value>
@@ -19811,19 +20010,34 @@
         <value xml:lang="zh-TW">馬拉維克瓦查</value>
     </property>
     <property key="Uom.description.MXN">
-        <value xml:lang="ar">بيزو مكسيكي</value>
-        <value xml:lang="de">Peso Mexiko</value>
-        <value xml:lang="en">Mexican Peso</value>
-        <value xml:lang="fr">Peso du Mexique</value>
-        <value xml:lang="it">Peso Messicano </value>
-        <value xml:lang="ja">メキシコ・ペソ</value>
-        <value xml:lang="pt">Mexican Peso</value>
-        <value xml:lang="pt-BR">Peso Mexicano</value>
-        <value xml:lang="ro">Peso Messicano</value>
-        <value xml:lang="ru">Мексиканский песо</value>
+        <value xml:lang="ar">بيزو مكسيكي (جديد)</value>
+        <value xml:lang="de">Peso Mexiko (neuer)</value>
+        <value xml:lang="en">Mexican Peso (new)</value>
+        <value xml:lang="fr">Peso (nouveau) du Mexique</value>
+        <value xml:lang="it">Peso Messicano (nuovo)</value>
+        <value xml:lang="ja">メキシコ・ペソ(新)</value>
+        <value xml:lang="pt">Mexican Peso (new)</value>
+        <value xml:lang="pt-BR">Peso Mexicano (novo)</value>
+        <value xml:lang="ro">Peso Messicano (nou)</value>
+        <value xml:lang="ru">Мексиканский песо (новый)</value>
         <value xml:lang="th">เปโซ เม็กซิโก</value>
-        <value xml:lang="zh">墨西哥比索</value>
-        <value xml:lang="zh-TW">墨西哥比索</value>
+        <value xml:lang="zh">墨西哥比索(新)</value>
+        <value xml:lang="zh-TW">墨西哥比索(新)</value>
+    </property>
+    <property key="Uom.description.MXP">
+        <value xml:lang="ar">بيزو مكسيكي (قديم)</value>
+        <value xml:lang="de">Peso Mexiko (alter)</value>
+        <value xml:lang="en">Mexican Peso (old)</value>
+        <value xml:lang="fr">Peso (ancien) du Mexique</value>
+        <value xml:lang="it">Peso Messicano (vecchio)</value>
+        <value xml:lang="ja">メキシコ・ペソ(旧)</value>
+        <value xml:lang="pt">Mexican Peso (old)</value>
+        <value xml:lang="pt-BR">Peso Mexicano (antigo)</value>
+        <value xml:lang="ro">Peso Messicano (vechi)</value>
+        <value xml:lang="ru">Мексиканский песо (старый)</value>
+        <value xml:lang="th">เปโซ เม็กซิกัน (เก่า)</value>
+        <value xml:lang="zh">墨西哥比索(旧)</value>
+        <value xml:lang="zh-TW">墨西哥比索(舊)</value>
     </property>
     <property key="Uom.description.MYR">
         <value xml:lang="ar">رينغيت ماليزي</value>
@@ -19840,7 +20054,7 @@
         <value xml:lang="zh">马来西亚林吉特</value>
         <value xml:lang="zh-TW">馬來西亞林吉特</value>
     </property>
-    <property key="Uom.description.MZN">
+    <property key="Uom.description.MZM">
         <value xml:lang="ar">متيكال موزمبيقي</value>
         <value xml:lang="de">Metical Mosambik</value>
         <value xml:lang="en">Mozambique Metical</value>
@@ -19870,6 +20084,22 @@
         <value xml:lang="zh">尼日利亚奈拉</value>
         <value xml:lang="zh-TW">尼日利亞奈拉</value>
     </property>
+    <property key="Uom.description.NIC">
+        <value xml:lang="ar">نيكاراغوا</value>
+        <value xml:lang="de">Nicaragua</value>
+        <value xml:lang="en">Nicaragua</value>
+        <value xml:lang="es">Nicaragua</value>
+        <value xml:lang="fr">Nicaragua</value>
+        <value xml:lang="it">Nicaragua</value>
+        <value xml:lang="ja">ニカラグア</value>
+        <value xml:lang="pt">Nicaragua</value>
+        <value xml:lang="pt-BR">Nicarágua</value>
+        <value xml:lang="ro">Nicaragua</value>
+        <value xml:lang="ru">Никарагуа</value>
+        <value xml:lang="th">นิคารากัว</value>
+        <value xml:lang="zh">尼加拉瓜</value>
+        <value xml:lang="zh-TW">尼加拉瓜</value>
+    </property>
     <property key="Uom.description.NIO">
         <value xml:lang="ar">كوردوبا نيكاراغوا</value>
         <value xml:lang="de">Cordoba Nicaragua</value>
@@ -19884,6 +20114,20 @@
         <value xml:lang="th">คอร์โดบา นิคารากัว</value>
         <value xml:lang="zh">尼加拉瓜科多巴</value>
         <value xml:lang="zh-TW">尼加拉瓜科多巴</value>
+    </property>
+    <property key="Uom.description.NIS">
+        <value xml:lang="ar">الشيكل الإسرائيلي الجديد</value>
+        <value xml:lang="en">New Israeli Shekel</value>
+        <value xml:lang="fr">Shekel du nouvel Israël</value>
+        <value xml:lang="it">Shekel Nuovo Israele</value>
+        <value xml:lang="ja">イスラエル・新シェケル</value>
+        <value xml:lang="pt">New Israeli Shekel</value>
+        <value xml:lang="pt-BR">Novo Shekel israelita</value>
+        <value xml:lang="ro">Shekel Nuovo Israel</value>
+        <value xml:lang="ru">Новый Израильский шекель</value>
+        <value xml:lang="th">เชคเกิล อิสราเอล</value>
+        <value xml:lang="zh">新以色列谢克尔</value>
+        <value xml:lang="zh-TW">新以色列謝克爾</value>
     </property>
     <property key="Uom.description.NLG">
         <value xml:lang="ar">الغيلدر الهولندي</value>
@@ -20045,7 +20289,37 @@
         <value xml:lang="zh">巴拿马巴波亚</value>
         <value xml:lang="zh-TW">巴拿馬巴波亞</value>
     </property>
+    <property key="Uom.description.PEI">
+        <value xml:lang="ar">انتي بيروفي</value>
+        <value xml:lang="de">Inti Peru</value>
+        <value xml:lang="en">Peruvian Inti</value>
+        <value xml:lang="fr">Inti péruvien</value>
+        <value xml:lang="it">Inti Peruviano</value>
+        <value xml:lang="ja">ペルー・インティ</value>
+        <value xml:lang="pt">Peruvian Inti</value>
+        <value xml:lang="pt-BR">Inti peruano</value>
+        <value xml:lang="ro">Inti Peruvian</value>
+        <value xml:lang="ru">Перуанский инти</value>
+        <value xml:lang="th">อินตี เปรู</value>
+        <value xml:lang="zh">秘鲁因蒂</value>
+        <value xml:lang="zh-TW">秘魯因蒂</value>
+    </property>
     <property key="Uom.description.PEN">
+        <value xml:lang="ar">سول بيروفي (جديد)</value>
+        <value xml:lang="de">Sol Peru (Neu)</value>
+        <value xml:lang="en">Peruvian Sol - New</value>
+        <value xml:lang="fr">Sol péruvien - Nouveau</value>
+        <value xml:lang="it">Sol Peruviano - Nuovo</value>
+        <value xml:lang="ja">ペルー・ソル - 新</value>
+        <value xml:lang="pt">Peruvian Sol - New</value>
+        <value xml:lang="pt-BR">Sol Peruano - Novo</value>
+        <value xml:lang="ro">Sol Peruvian - Nou</value>
+        <value xml:lang="ru">Перуанский сол - новый</value>
+        <value xml:lang="th">ซัล เปรู</value>
+        <value xml:lang="zh">秘鲁新索尔</value>
+        <value xml:lang="zh-TW">秘魯新索爾</value>
+    </property>
+    <property key="Uom.description.PES">
         <value xml:lang="ar">سول بيروفي</value>
         <value xml:lang="de">Sol Peru</value>
         <value xml:lang="en">Peruvian Sol</value>
@@ -20120,6 +20394,21 @@
         <value xml:lang="zh">波兰兹罗提</value>
         <value xml:lang="zh-TW">波蘭茲羅提</value>
     </property>
+    <property key="Uom.description.PLZ">
+        <value xml:lang="ar">بولندا</value>
+        <value xml:lang="en">Poland</value>
+        <value xml:lang="es">Polonia</value>
+        <value xml:lang="fr">Pologne</value>
+        <value xml:lang="it">Polonia</value>
+        <value xml:lang="ja">ポーランド</value>
+        <value xml:lang="pt">Poland</value>
+        <value xml:lang="pt-BR">Polônia</value>
+        <value xml:lang="ro">Polonia</value>
+        <value xml:lang="ru">Польша</value>
+        <value xml:lang="th">โปแลนด์</value>
+        <value xml:lang="zh">波兰</value>
+        <value xml:lang="zh-TW">波蘭</value>
+    </property>
     <property key="Uom.description.PTE">
         <value xml:lang="ar">اسكود برتغالي</value>
         <value xml:lang="de">Escudo Portugal</value>
@@ -20165,7 +20454,18 @@
         <value xml:lang="zh">卡塔尔里亚尔</value>
         <value xml:lang="zh-TW">卡塔爾裡亞爾</value>
     </property>
-    <property key="Uom.description.RON">
+  <!-- see https://issues.apache.org/jira/browse/OFBIZ-3246 property key="Uom.description.RMB">
+            <value xml:lang="en">Chinese Renminbi Yuan</value>
+            <value xml:lang="fr">Yuan Renmimbi chinois</value>
+            <value xml:lang="it">Chinese Renminbi Yuan</value>
+            <value xml:lang="ja">中国人民元</value>
+            <value xml:lang="pt">Chinese Renminbi Yuan</value>
+            <value xml:lang="ro">Chinese Renminbi Yuan</value>
+            <value xml:lang="ru">Китайский юань</value>
+            <value xml:lang="th">หยวน จีนเหรินหมินปี้</value>
+            <value xml:lang="zh">中国人民币元</value>
+      </property-->
+    <property key="Uom.description.ROL">
         <value xml:lang="ar">ليو روماني</value>
         <value xml:lang="de">Leu Rumänien</value>
         <value xml:lang="en">Romanian Leu</value>
@@ -20180,7 +20480,7 @@
         <value xml:lang="zh">罗马尼亚列伊</value>
         <value xml:lang="zh-TW">羅馬尼亞列伊</value>
     </property>
-    <property key="Uom.description.RUB">
+    <property key="Uom.description.RUR">
         <value xml:lang="ar">روبل روسي</value>
         <value xml:lang="de">Rubel Russland</value>
         <value xml:lang="en">Russian Rouble</value>
@@ -20255,7 +20555,7 @@
         <value xml:lang="zh">塞舌尔卢比</value>
         <value xml:lang="zh-TW">塞舌爾盧比</value>
     </property>
-    <property key="Uom.description.SDG">
+    <property key="Uom.description.SDP">
         <value xml:lang="ar">جنيه سوداني</value>
         <value xml:lang="de">Pfund Sudan</value>
         <value xml:lang="en">Sudanese Pound</value>
@@ -20360,6 +20660,21 @@
         <value xml:lang="zh">塞拉里昂</value>
         <value xml:lang="zh-TW">塞拉里昂</value>
     </property>
+    <property key="Uom.description.SOL">
+        <value xml:lang="ar">بيرو</value>
+        <value xml:lang="de">Peru</value>
+        <value xml:lang="en">Peru</value>
+        <value xml:lang="es">Perú</value>
+        <value xml:lang="fr">Nouveau sol (Pérou)</value>
+        <value xml:lang="it">Peru</value>
+        <value xml:lang="ja">ペルー・ソル</value>
+        <value xml:lang="pt">Peru</value>
+        <value xml:lang="ro">Peru</value>
+        <value xml:lang="ru">Перу</value>
+        <value xml:lang="th">เปรู</value>
+        <value xml:lang="zh">秘鲁</value>
+        <value xml:lang="zh-TW">秘魯</value>
+    </property>
     <property key="Uom.description.SOS">
         <value xml:lang="ar">شلن صومالي</value>
         <value xml:lang="de">Schilling Somalia</value>
@@ -20374,6 +20689,21 @@
         <value xml:lang="th">ชิลลิ่ง โซมาเนีย</value>
         <value xml:lang="zh">索马里先令</value>
         <value xml:lang="zh-TW">索馬利亞先令</value>
+    </property>
+    <property key="Uom.description.SRG">
+        <value xml:lang="ar">غيلدر سورينام</value>
+        <value xml:lang="de">Gulden Surinam</value>
+        <value xml:lang="en">Surinam Guilder</value>
+        <value xml:lang="fr">Guilder de Surinam</value>
+        <value xml:lang="it">Fiorino Suriname</value>
+        <value xml:lang="ja">スリナム・ギルダー</value>
+        <value xml:lang="pt">Surinam Guilder</value>
+        <value xml:lang="pt-BR">Florim do Suriname</value>
+        <value xml:lang="ro">Fiorin Suriname</value>
+        <value xml:lang="ru">Суринамский гульден</value>
+        <value xml:lang="th">ดอลลาร์ สุรินัม</value>
+        <value xml:lang="zh">苏里南盾</value>
+        <value xml:lang="zh-TW">蘇裡南盾</value>
     </property>
     <property key="Uom.description.STD">
         <value xml:lang="ar">ساو تومي / دوبرا</value>
@@ -20419,6 +20749,21 @@
         <value xml:lang="th">โคโลน เอลซาลวาดอร์</value>
         <value xml:lang="zh">萨尔瓦多科朗</value>
         <value xml:lang="zh-TW">薩爾瓦多科朗</value>
+    </property>
+    <property key="Uom.description.SYP">
+        <value xml:lang="ar">ليرة سورية</value>
+        <value xml:lang="de">Pfund Syrien</value>
+        <value xml:lang="en">Syrian Pound</value>
+        <value xml:lang="fr">Pound syrien</value>
+        <value xml:lang="it">Sterlina Siriana</value>
+        <value xml:lang="ja">シリア・ポンド</value>
+        <value xml:lang="pt">Syrian Pound</value>
+        <value xml:lang="pt-BR">Libra Síria</value>
+        <value xml:lang="ro">Sterlina Siriana</value>
+        <value xml:lang="ru">Сирийский фунт</value>
+        <value xml:lang="th">ปอนด์ ซีเรีย</value>
+        <value xml:lang="zh">叙利亚镑</value>
+        <value xml:lang="zh-TW">敘利亞鎊</value>
     </property>
     <property key="Uom.description.SZL">
         <value xml:lang="ar">ليلانغيني سوازيلاندي</value>
@@ -20699,7 +21044,23 @@
         <value xml:lang="zh">泰铢</value>
         <value xml:lang="zh-TW">泰銖</value>
     </property>
-    <property key="Uom.description.TMT">
+    <property key="Uom.description.TJR">
+        <value xml:lang="ar">روبل طاجيكي</value>
+        <value xml:lang="cs">Tádžický rubl</value>
+        <value xml:lang="de">Rubel Tadschikistan</value>
+        <value xml:lang="en">Tadzhikistani Ruble</value>
+        <value xml:lang="fr">Rouble de Tadzhikistan</value>
+        <value xml:lang="it">Rublo Tadzhikistani</value>
+        <value xml:lang="ja">タジキスタン・ルーブル</value>
+        <value xml:lang="pt">Tadzhikistani Ruble</value>
+        <value xml:lang="pt-BR">Rublo tajiquistanês</value>
+        <value xml:lang="ro">Rublo Tadzhikistani</value>
+        <value xml:lang="ru">Таджикистанский рубль</value>
+        <value xml:lang="th">มานาท เติร์กเมนิสถาน</value>
+        <value xml:lang="zh">塔吉克斯坦卢布</value>
+        <value xml:lang="zh-TW">塔吉克斯坦盧布</value>
+    </property>
+    <property key="Uom.description.TMM">
         <value xml:lang="ar">مانات تركمنستاني</value>
         <value xml:lang="cs">Turkmenský manat</value>
         <value xml:lang="de">Manat Turkmenistan</value>
@@ -20744,6 +21105,21 @@
         <value xml:lang="th">พาอานกา ทองกา</value>
         <value xml:lang="zh">汤加</value>
         <value xml:lang="zh-TW">湯加</value>
+    </property>
+    <property key="Uom.description.TPE">
+        <value xml:lang="ar">اسكود تيموري</value>
+        <value xml:lang="de">Escudo Timor</value>
+        <value xml:lang="en">Timor Escudo</value>
+        <value xml:lang="fr">Pa'anga de Tonga</value>
+        <value xml:lang="it">Escudo Timor</value>
+        <value xml:lang="ja">ティモール・エスクード</value>
+        <value xml:lang="pt">Timor Escudo</value>
+        <value xml:lang="pt-BR">Escudo do Timor</value>
+        <value xml:lang="ro">Escud Timor</value>
+        <value xml:lang="ru">Тиморский эскудо</value>
+        <value xml:lang="th">เอสคูโด ติมอร์ตะวันออก</value>
+        <value xml:lang="zh">帝汶埃斯库多</value>
+        <value xml:lang="zh-TW">帝汶埃斯庫多</value>
     </property>
     <property key="Uom.description.TRY">
         <value xml:lang="ar">ليرة تركية</value>
@@ -20837,7 +21213,7 @@
         <value xml:lang="zh">乌克兰格里夫那</value>
         <value xml:lang="zh-TW">烏克蘭格裡夫那</value>
     </property>
-    <property key="Uom.description.UGX">
+    <property key="Uom.description.UGS">
         <value xml:lang="ar">شلن اوغندي</value>
         <value xml:lang="cs">Ugandský šilink</value>
         <value xml:lang="de">Schilling Uganda</value>
@@ -20870,6 +21246,22 @@
         <value xml:lang="vi">Đô la Mỹ</value>
         <value xml:lang="zh">美元</value>
         <value xml:lang="zh-TW">美元</value>
+    </property>
+    <property key="Uom.description.UYP">
+        <value xml:lang="ar">بيزو اوروغواي الجديد</value>
+        <value xml:lang="cs">Nové uruguayské peso</value>
+        <value xml:lang="en">Uruguayan New Peso</value>
+        <value xml:lang="es">Nuevo Peso Uruguayo</value>
+        <value xml:lang="fr">Nouveau peso d'Uruguay</value>
+        <value xml:lang="it">Nuovo Peso Uruguaiano</value>
+        <value xml:lang="ja">ウルグアイ・ニューペソ</value>
+        <value xml:lang="pt">Uruguayan New Peso</value>
+        <value xml:lang="pt-BR">Novo Peso uruguaio</value>
+        <value xml:lang="ro">Nuovo Peso Uruguaian</value>
+        <value xml:lang="ru">Уругвайский новый песо</value>
+        <value xml:lang="th">เปโซ อุรุกวัย</value>
+        <value xml:lang="zh">乌拉圭新比索</value>
+        <value xml:lang="zh-TW">烏拉圭新比索</value>
     </property>
     <property key="Uom.description.UYU">
         <value xml:lang="ar">بيزو اوروغواي</value>
@@ -20999,7 +21391,7 @@
         <value xml:lang="zh">立方码</value>
         <value xml:lang="zh-TW">立方碼</value>
     </property>
-    <property key="Uom.description.VEF">
+    <property key="Uom.description.VEB">
         <value xml:lang="ar">بوليفار بنزويلي</value>
         <value xml:lang="cs">Venezuelský bolívar</value>
         <value xml:lang="de">Bolivar Venezuela</value>
@@ -21073,6 +21465,7 @@
         <value xml:lang="en">Cup</value>
         <value xml:lang="es">Taza</value>
         <value xml:lang="fr">Cup (236,59 cm³)</value>
+    <!-- a very good link : http://unit-converter.org -->
         <value xml:lang="it">Tazza</value>
         <value xml:lang="ja">カップ</value>
         <value xml:lang="pt">Taça</value>
@@ -21632,7 +22025,7 @@
         <value xml:lang="zh">南非兰特</value>
         <value xml:lang="zh-TW">南非蘭特</value>
     </property>
-    <property key="Uom.description.ZMW">
+    <property key="Uom.description.ZMK">
         <value xml:lang="ar">كواشا زامبية</value>
         <value xml:lang="cs">Zambijská kwacha</value>
         <value xml:lang="de">Kwacha Sambia</value>
@@ -21648,7 +22041,22 @@
         <value xml:lang="zh">赞比亚克瓦查</value>
         <value xml:lang="zh-TW">贊比亞克瓦查</value>
     </property>
-    <property key="Uom.description.ZWL">
+    <property key="Uom.description.ZRZ">
+        <value xml:lang="ar">زائير</value>
+        <value xml:lang="cs">Zaire</value>
+        <value xml:lang="de">Zaire</value>
+        <value xml:lang="en">Zaire</value>
+        <value xml:lang="fr">Zaïre</value>
+        <value xml:lang="it">Zaire</value>
+        <value xml:lang="ja">ザイール</value>
+        <value xml:lang="pt">Zaire</value>
+        <value xml:lang="ro">Zaire</value>
+        <value xml:lang="ru">Заир</value>
+        <value xml:lang="th">ซาเอียร์</value>
+        <value xml:lang="zh">扎伊尔</value>
+        <value xml:lang="zh-TW">紮伊爾</value>
+    </property>
+    <property key="Uom.description.ZWD">
         <value xml:lang="ar">دولار زمبابوي</value>
         <value xml:lang="cs">Zimbavský dolar</value>
         <value xml:lang="de">Dollar Simbabwe</value>

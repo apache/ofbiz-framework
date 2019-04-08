@@ -33,9 +33,9 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
+import org.apache.xerces.dom.NodeImpl;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.cache.UtilCache;
-import org.apache.xerces.dom.NodeImpl;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 

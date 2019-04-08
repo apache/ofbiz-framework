@@ -61,7 +61,7 @@ under the License.
                 <set field="tabButtonItem" value="findInventoryEventPlan"/>
                 <set field="headerItem" value="mrp"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
 
                 <entity-condition entity-name="JobSandbox" list="mrpActiveJobs">
@@ -101,10 +101,10 @@ under the License.
                 <decorator-screen name="CommonMrpDecorator">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ManufacturingMrpJobLastExecuted}">
-                            <include-grid name="ListFinishedMrpJobs" location="component://manufacturing/widget/manufacturing/MrpForms.xml"/>
+                            <include-form name="ListFinishedMrpJobs" location="component://manufacturing/widget/manufacturing/MrpForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.ManufacturingMrpJobScheduledOrRunning}">
-                            <include-grid name="ListRunningMrpJobs" location="component://manufacturing/widget/manufacturing/MrpForms.xml"/>
+                            <include-form name="ListRunningMrpJobs" location="component://manufacturing/widget/manufacturing/MrpForms.xml"/>
                         </screenlet>
                         <section>
                             <condition>

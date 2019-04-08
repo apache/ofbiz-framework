@@ -123,7 +123,7 @@ under the License.
                 <decorator-screen name="CommonQuoteDecorator" location="${parameters.quoteDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.OrderOrderQuoteWorkEfforts}">
-                            <container style="basic-nav">
+                            <container>
                                 <link target="AddQuoteWorkEffort" text="${uiLabelMap.OrderCreateQuoteWorkEffort}" style="buttontext">
                                     <parameter param-name="quoteId"/>
                                 </link>

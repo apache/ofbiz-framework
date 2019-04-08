@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
+    
+    <screen name="main-decorator">
+        <section>
+            <actions>
+                <property-map resource="WebPosUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
+                <script location="component://webpos/groovyScripts/WebPosSetup.groovy"/>
+                
+                <set field="layoutSettings.styleSheets[+0]" value="/webpos/images/webpos.css" global="true"/>
+                <set field="layoutSettings.companyName" from-field="uiLabelMap.WebPosCompanyName" global="true"/>
+                <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.WebPosCompanySubtitle" global="true"/>
+                <set field="activeApp" value="webpos" global="true"/>
+                <set field="applicationMenuName" value="WebPosAppBar" global="true"/>
+                <set field="applicationMenuLocation" value="component://webpos/widget/WebPosMenus.xml" global="true"/>
+                <set field="applicationTitle" value="${uiLabelMap.WebPosMenuMain}" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/webpos/images/js/jquery.hotkeys-0.7.9.min.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/webpos/images/js/WebPosHotkeys.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/webpos/images/js/Shortcuts.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/webpos/images/js/SearchProducts.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/webpos/images/js/SearchProductsResults.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/webpos/images/js/SearchParties.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/webpos/images/js/SearchPartiesResults.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/webpos/images/js/SearchSalesReps.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/webpos/images/js/ShowCart.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/webpos/images/js/ShowCartItemSelected.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/webpos/images/js/SideDeepCategory.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/webpos/images/js/CategoryDetail.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/webpos/images/js/PayCash.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/webpos/images/js/PayCheck.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/webpos/images/js/PayGiftCard.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/webpos/images/js/PayCreditCard.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/webpos/images/js/PayFinish.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/webpos/images/js/OpenTerminal.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/webpos/images/js/CloseTerminal.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/webpos/images/js/PaidOutAndIn.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/webpos/images/js/PromoCode.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/webpos/images/js/VoidOrder.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/webpos/images/js/ChooseVariant.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/webpos/images/js/EditAddress.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/webpos/images/js/Common.js" global="true"/>
+            </actions>
+            <widgets>
+                <include-screen name="ApplicationDecorator" location="component://commonext/widget/CommonScreens.xml"/>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="CommonWebPosMainDecorator">
+        <section>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <section>
+                            <widgets/>
+                        </section>
+                    </decorator-section>
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <container style="no-clear">
+                                    <container id="SchortcutsBar">
+                                        <include-screen name="SchortcutsBar"/>
+                                    </container>
+                                </container>
+                                <container style="no-clear">
+                                    <container id="TopBar">
+                                        <include-screen name="TopBar"/>
+                                    </container>
+                                </container>
+                                <container style="no-clear">
+                                    <container id="LeftBar" style="leftCenterBar">
+                                        <include-screen name="${leftbarScreenName}" location="${leftbarScreenLocation}"/>
+                                    </container>
+                                    <container id="RightBar" style="rightCenterBar">
+                                        <include-screen name="${rightbarScreenName}" location="${rightbarScreenLocation}"/>
+                                    </container>
+                                    <container id="CenterBar" style="centerCenterBar">
+                                        <decorator-section-include name="body"/>
+                                    </container>
+                                </container>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="CommonWebPosManagerDecorator">
+        <section>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <section>
+                            <widgets>
+                                <include-menu name="ManagerTabBar" location="component://webpos/widget/WebPosMenus.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <container style="no-clear">
+                                    <container id="SchortcutsBar">
+                                        <include-screen name="SchortcutsBar"/>
+                                    </container>
+                                </container>
+                                <container style="no-clear">
+                                    <container id="TopBar">
+                                        <include-screen name="TopBar"/>
+                                    </container>
+                                </container>
+                                <container style="no-clear">
+                                    <container id="LeftBar" style="leftCenterBar">
+                                        <include-screen name="${leftbarScreenName}" location="${leftbarScreenLocation}"/>
+                                    </container>
+                                    <container id="RightBar" style="rightCenterBar">
+                                        <include-screen name="${rightbarScreenName}" location="${rightbarScreenLocation}"/>
+                                    </container>
+                                    <container id="CenterBar" style="centerCenterBar">
+                                        <decorator-section-include name="body"/>
+                                    </container>
+                                </container>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="TopBar">
+        <section>
+            <widgets>
+                <container style="no-clear">
+                    <container style="leftTopBar">
+                        <include-screen name="CustomerAddressList" location="component://webpos/widget/SearchScreens.xml"/>
+                        <include-screen name="SearchPartiesResults" location="component://webpos/widget/SearchScreens.xml"/>
+                    </container>
+                    <container style="rightTopBar">
+                        <include-screen name="SearchSalesReps" location="component://webpos/widget/SearchScreens.xml"/>
+                    </container>
+                </container>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="LeftBar">
+        <section>
+            <widgets>
+                <include-screen name="Products" location="component://webpos/widget/SearchScreens.xml"/>
+                <include-screen name="SearchProductsResults" location="component://webpos/widget/SearchScreens.xml"/>
+                <include-screen name="CartItemSelected" location="component://webpos/widget/CartScreens.xml"/>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="CenterBar">
+        <section>
+            <widgets>
+                <container id="CenterBar">
+                    <include-screen name="Messages" location="component://webpos/widget/WebPosScreens.xml"/>
+                    <include-screen name="CartList" location="component://webpos/widget/CartScreens.xml"/>
+                    <include-screen name="ChooseVariant" location="component://webpos/widget/CartScreens.xml"/>
+                    <include-screen name="PayCash" location="component://webpos/widget/PaymentScreens.xml"/>
+                    <include-screen name="PayCheck" location="component://webpos/widget/PaymentScreens.xml"/>
+                    <include-screen name="PayGiftCard" location="component://webpos/widget/PaymentScreens.xml"/>
+                    <include-screen name="PayCreditCard" location="component://webpos/widget/PaymentScreens.xml"/>
+                    <include-screen name="OpenTerminal" location="component://webpos/widget/ManagerScreens.xml"/>
+                    <include-screen name="CloseTerminal" location="component://webpos/widget/ManagerScreens.xml"/>
+                    <include-screen name="PaidOutAndIn" location="component://webpos/widget/ManagerScreens.xml"/>
+                    <include-screen name="PromoCode" location="component://webpos/widget/PromoScreens.xml"/>
+                    <include-screen name="VoidOrder" location="component://webpos/widget/ManagerScreens.xml"/>
+                    <include-screen name="EditAddressList" location="component://webpos/widget/CustomerScreens.xml"/>
+                </container>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="RightBar">
+        <section>
+            <widgets>
+                <include-screen name="SideDeepCategoryList" location="component://webpos/widget/CatalogScreens.xml"/>
+                <include-screen name="CategoryDetailList" location="component://webpos/widget/CatalogScreens.xml"/>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="SchortcutsBar">
+        <section>
+            <widgets>
+                <include-screen name="ShortcutsList" location="component://webpos/widget/ShortcutsScreens.xml"/>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="Header">
+        <section>
+            <widgets>
+                <platform-specific><html><html-template location="component://webpos/template/includes/Header.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="Login">
+        <section>
+            <actions>
+                <set field="MainColumnStyle" value="leftonly"/>
+                <set field="titleProperty" value="PageTitleLogin"/>
+                <set field="headerItem" value="login"/>
+                <script location="component://webpos/groovyScripts/Login.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://webpos/template/Login.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="RequirePasswordChange">
+        <section>
+            <actions>
+                <set field="MainColumnStyle" value="leftonly"/>
+                <set field="titleProperty" value="PageTitleLogin"/>
+                <script location="component://webpos/groovyScripts/Login.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://webpos/template/RequirePasswordChange.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ForgotPassword_step1">
+        <section>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://webpos/template/ForgotPassword.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ForgotPassword_step2">
+        <section>
+            <actions>
+                <set field="userLoginId" from-field="parameters.USERNAME"/>
+                <entity-and entity-name="UserLoginSecurityQuestion" list="securityQuestions">
+                    <field-map field-name="userLoginId" />
+                </entity-and>
+                <set field="questionEnumId" from-field="securityQuestions[0].questionEnumId" />
+                <entity-one entity-name="Enumeration" value-field="securityQuestion">
+                    <field-map field-name="enumId" from-field="questionEnumId"/>
+                </entity-one>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://webpos/template/GetSecurityQuestion.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens>

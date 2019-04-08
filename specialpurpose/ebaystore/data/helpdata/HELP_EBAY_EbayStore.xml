@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements. See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to you under the Apache License, Version
+    2.0 (the "License"); you may not use this file except in compliance
+    with the License. You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+    applicable law or agreed to in writing, software distributed under the
+    License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+    CONDITIONS OF ANY KIND, either express or implied. See the License for
+    the specific language governing permissions and limitations under the
+    License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>Ebay Store screen.</title>
+    <para>
+This screen allows the user to access to ebay store by using their account and you can set up and manage your ebay store in ofbiz.
+Before you take action on this function, you should already have an ebay store and ebay account on the ebay site  because ebay does not allow to create a store from third party site.
+    </para>
+    <section>
+        <title>How to start ebay store in ofbiz?</title>
+        <orderedlist>
+            <listitem><para>Register with ebay developer site to obtain keys and certificate (eBayExport.devId,eBayExport.appId,eBayExport.cerId and eBayExport.token etc.) at<link xl:href="https://developer.ebay.com/join/">Join with ebay developers</link> </para></listitem>
+            <listitem><para>Press 'New Ebay Account' button to create your ebay account in ofbiz. After you have created ,the system will generate new product store in ofbiz which link to ebay store.
+                (note :An ebay account in ofbiz  use for access to your ebay store on the ebay site)</para></listitem>
+            <listitem><para>Put your keys  in Ebay Configurations Tab.</para></listitem>
+        </orderedlist>
+    </section>
+    <section>
+        <title>How to connect to your ebay store?</title>
+        <orderedlist>
+            <listitem><para>Go to 'Ebay Accounts' section select your account then press 'submit' button,the system will show functions.</para></listitem>
+        </orderedlist>
+    </section>
+</section>

@@ -35,8 +35,8 @@ import freemarker.template.TemplateTransformModel;
 
 public class OfbizCatalogUrlTransform implements TemplateTransformModel {
     public final static String module = OfbizCatalogUrlTransform.class.getName();
-
-    public String getStringArg(Map<?, ?> args, String key) {
+    
+    public String getStringArg(Map args, String key) {
         Object o = args.get(key);
         if (o instanceof SimpleScalar) {
             return ((SimpleScalar) o).getAsString();
@@ -47,8 +47,7 @@ public class OfbizCatalogUrlTransform implements TemplateTransformModel {
     }
 
     @Override
-    public Writer getWriter(Writer out, @SuppressWarnings("rawtypes") Map args)
-            throws TemplateModelException, IOException {
+    public Writer getWriter(final Writer out, final Map args) throws TemplateModelException, IOException {
         final StringBuilder buf = new StringBuilder();
         return new Writer(out) {
 

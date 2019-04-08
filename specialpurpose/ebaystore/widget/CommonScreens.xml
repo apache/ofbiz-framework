@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
+    <screen name="main-decorator">
+        <section>
+            <actions>
+                <property-map resource="EbayStoreUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="EbayUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="activeApp" value="ebaystore" global="true"/>
+                <set field="layoutSettings.companyName" from-field="uiLabelMap.EbayStoreCompanyName" global="true"/>
+                <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.EbayStoreApplication" global="true"/>
+                <set field="applicationMenuName" value="EbayStoreAppBar" global="true"/>
+                <set field="applicationMenuLocation" value="component://ebaystore/widget/EbayStoreMenus.xml" global="true"/>
+                <set field="applicationTitle" value="${uiLabelMap.EbayStoreApplication}" global="true"/>
+            </actions>
+            <widgets>
+                <include-screen name="ApplicationDecorator" location="component://commonext/widget/CommonScreens.xml"/>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="permission-decorator">
+        <section>
+            <actions>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="EBAYSTORE" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <container>
+                                    <section>
+                                        <condition>
+                                            <not><if-empty field="parameters.productStoreId"/></not>
+                                        </condition>
+                                        <actions>
+                                            <service service-name="getEbayStoreUser" result-map="result">
+                                                <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                                            </service>
+                                            <set field="userLoginId" from-field="result.userLoginId"/>
+                                            <entity-one entity-name="UserLogin" value-field="ebayUser">
+                                                <field-map field-name="userLoginId" from-field="result.userLoginId"/>
+                                            </entity-one>
+                                            <set field="parameters.partyId" from-field="ebayUser.partyId" global="true"/>
+                                            <entity-one entity-name="Person" value-field="person">
+                                               <field-map field-name="partyId" from-field="parameters.partyId"/>
+                                            </entity-one>
+                                        </actions>
+                                        <widgets>
+                                           <include-form name="EbayAccountSelection" location="component://ebaystore/widget/EbayStoreForms.xml"/>
+                                              <label text="${uiLabelMap.EbayAccount} : ${person.firstName} ${person.lastName}" style="h1"></label>
+                                            <include-menu name="EbayStoreFunctionTabBar"  location="component://ebaystore/widget/EbayStoreMenus.xml"/>
+                                        </widgets>
+                                    </section>
+                                </container>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.EbayViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="CommonEbayConfigDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="eBayConfigurations"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <!-- do check for Ebay, _VIEW permission -->
+                            <condition>
+                                <if-has-permission permission="EBAY" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <include-menu name="EbayConfigTabBar"  location="component://ebay/widget/EbayMenus.xml"/>
+                                <section>
+                                    <condition><not><if-empty field="ebayConfig"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <include-menu name="EbayConfigSubTabBar" location="component://ebay/widget/EbayMenus.xml"/>
+                                    </widgets>
+                                </section>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3" text="${uiLabelMap.EbayViewPermissionError}"/>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="SellingManagerDecorator">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="sellingManager"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <include-menu location="component://ebaystore/widget/EbayStoreMenus.xml" name="EbaySellingManagerTabBar"/>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="AccountDecorator">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="ebayAccount"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <include-menu location="component://ebaystore/widget/EbayStoreMenus.xml" name="EbayAccountTabBar"/>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens>

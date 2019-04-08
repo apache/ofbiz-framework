@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <QuantityBreakType description="Shipping Weight Break" quantityBreakTypeId="SHIP_WEIGHT"/>
+    <QuantityBreakType description="Shipping Quantity Break" quantityBreakTypeId="SHIP_QUANTITY"/>
+    <QuantityBreakType description="Shipping Price Break" quantityBreakTypeId="SHIP_PRICE"/>
+    <QuantityBreakType description="Price Component Quantity Break" quantityBreakTypeId="QUANTITY"/>
+    <QuantityBreakType description="Price Component Order Value Break" quantityBreakTypeId="ORDER_VALUE"/>
+
+    <ShipmentContactMechType description="Ship-To Address" shipmentContactMechTypeId="SHIP_TO_ADDRESS"/>
+    <ShipmentContactMechType description="Ship-From Address" shipmentContactMechTypeId="SHIP_FROM_ADDRESS"/>
+    <ShipmentContactMechType description="Ship-To Telecom Number" shipmentContactMechTypeId="SHIP_TO_TELECOM"/>
+    <ShipmentContactMechType description="Ship-From Telecom Number" shipmentContactMechTypeId="SHIP_FROM_TELECOM"/>
+    <ShipmentContactMechType description="Ship-To E-Mail" shipmentContactMechTypeId="SHIP_TO_EMAIL"/>
+    <ShipmentContactMechType description="Ship-From E-Mail" shipmentContactMechTypeId="SHIP_FROM_EMAIL"/>
+
+    <ShipmentType description="Incoming" hasTable="N" parentTypeId="" shipmentTypeId="INCOMING_SHIPMENT"/>
+    <ShipmentType description="Outgoing" hasTable="N" parentTypeId="" shipmentTypeId="OUTGOING_SHIPMENT"/>
+    <ShipmentType description="Sales Return" hasTable="N" parentTypeId="INCOMING_SHIPMENT" shipmentTypeId="SALES_RETURN"/>
+    <ShipmentType description="Sales Shipment" hasTable="N" parentTypeId="OUTGOING_SHIPMENT" shipmentTypeId="SALES_SHIPMENT"/>
+    <ShipmentType description="Purchase Shipment" hasTable="N" parentTypeId="INCOMING_SHIPMENT" shipmentTypeId="PURCHASE_SHIPMENT"/>
+    <ShipmentType description="Purchase Return" hasTable="N" parentTypeId="OUTGOING_SHIPMENT" shipmentTypeId="PURCHASE_RETURN"/>
+    <ShipmentType description="Drop Shipment" hasTable="N" parentTypeId="" shipmentTypeId="DROP_SHIPMENT"/>
+    <ShipmentType description="Transfer" hasTable="N" parentTypeId="" shipmentTypeId="TRANSFER"/>
+
+    <!-- Shipment status -->
+    <StatusType description="Shipment" hasTable="N" parentTypeId="" statusTypeId="SHIPMENT_STATUS"/>
+    <StatusItem description="Input" sequenceId="01" statusCode="INPUT" statusId="SHIPMENT_INPUT" statusTypeId="SHIPMENT_STATUS"/>
+    <StatusItem description="Scheduled" sequenceId="02" statusCode="SCHEDULED" statusId="SHIPMENT_SCHEDULED" statusTypeId="SHIPMENT_STATUS"/>
+    <StatusItem description="Picked" sequenceId="03" statusCode="PICKED" statusId="SHIPMENT_PICKED" statusTypeId="SHIPMENT_STATUS"/>
+    <StatusItem description="Packed" sequenceId="04" statusCode="PACKED" statusId="SHIPMENT_PACKED" statusTypeId="SHIPMENT_STATUS"/>
+    <StatusItem description="Shipped" sequenceId="05" statusCode="SHIPPED" statusId="SHIPMENT_SHIPPED" statusTypeId="SHIPMENT_STATUS"/>
+    <StatusItem description="Delivered" sequenceId="06" statusCode="DELIVERED" statusId="SHIPMENT_DELIVERED" statusTypeId="SHIPMENT_STATUS"/>
+    <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="SHIPMENT_CANCELLED" statusTypeId="SHIPMENT_STATUS"/>
+    <StatusValidChange statusId="SHIPMENT_INPUT" statusIdTo="SHIPMENT_SCHEDULED" transitionName="Schedule"/>
+    <StatusValidChange statusId="SHIPMENT_INPUT" statusIdTo="SHIPMENT_PICKED" transitionName="Pick"/>
+    <StatusValidChange statusId="SHIPMENT_INPUT" statusIdTo="SHIPMENT_PACKED" transitionName="Pack"/>
+    <StatusValidChange statusId="SHIPMENT_SCHEDULED" statusIdTo="SHIPMENT_PICKED" transitionName="Pick"/>
+    <StatusValidChange statusId="SHIPMENT_SCHEDULED" statusIdTo="SHIPMENT_PACKED" transitionName="Pack"/>
+    <StatusValidChange statusId="SHIPMENT_PICKED" statusIdTo="SHIPMENT_PACKED" transitionName="Pack"/>
+    <StatusValidChange statusId="SHIPMENT_PACKED" statusIdTo="SHIPMENT_SHIPPED" transitionName="Ship"/>
+    <StatusValidChange statusId="SHIPMENT_SHIPPED" statusIdTo="SHIPMENT_DELIVERED" transitionName="Deliver"/>
+    <StatusValidChange statusId="SHIPMENT_INPUT" statusIdTo="SHIPMENT_CANCELLED" transitionName="Cancel"/>
+    <StatusValidChange statusId="SHIPMENT_SCHEDULED" statusIdTo="SHIPMENT_CANCELLED" transitionName="Cancel"/>
+    <StatusValidChange statusId="SHIPMENT_PICKED" statusIdTo="SHIPMENT_CANCELLED" transitionName="Cancel"/>
+
+    <!-- these shipment status are intended for purchase shipments -->
+    <StatusType description="Purchase Shipment" hasTable="N" parentTypeId="" statusTypeId="PURCH_SHIP_STATUS"/>
+    <StatusItem description="Created" sequenceId="01" statusCode="CREATED" statusId="PURCH_SHIP_CREATED" statusTypeId="PURCH_SHIP_STATUS"/>
+    <StatusItem description="Shipped" sequenceId="02" statusCode="SHIPPED" statusId="PURCH_SHIP_SHIPPED" statusTypeId="PURCH_SHIP_STATUS"/>
+    <StatusItem description="Received" sequenceId="03" statusCode="RECEIVED" statusId="PURCH_SHIP_RECEIVED" statusTypeId="PURCH_SHIP_STATUS"/>
+    <StatusValidChange statusId="PURCH_SHIP_CREATED" statusIdTo="PURCH_SHIP_RECEIVED" transitionName="Receive"/>
+    <StatusValidChange statusId="PURCH_SHIP_CREATED" statusIdTo="PURCH_SHIP_SHIPPED" transitionName="Ship"/>
+    <StatusValidChange statusId="PURCH_SHIP_SHIPPED" statusIdTo="PURCH_SHIP_RECEIVED" transitionName="Receive"/>
+    <StatusValidChange statusId="PURCH_SHIP_RECEIVED" statusIdTo="PURCH_SHIP_SHIPPED" transitionName="Ship"/>
+
+    <!-- ShipmentRouteSegment CarrierService status -->
+    <StatusType description="ShipmentRouteSegment:CarrierService" hasTable="N" parentTypeId="" statusTypeId="SHPRTSG_CS_STATUS"/>
+    <StatusItem description="Not Started" sequenceId="01" statusCode="NOT_STARTED" statusId="SHRSCS_NOT_STARTED" statusTypeId="SHPRTSG_CS_STATUS"/>
+    <StatusItem description="Confirmed" sequenceId="02" statusCode="CONFIRMED" statusId="SHRSCS_CONFIRMED" statusTypeId="SHPRTSG_CS_STATUS"/>
+    <StatusItem description="Accepted" sequenceId="03" statusCode="ACCEPTED" statusId="SHRSCS_ACCEPTED" statusTypeId="SHPRTSG_CS_STATUS"/>
+    <StatusItem description="Voided" sequenceId="08" statusCode="VOIDED" statusId="SHRSCS_VOIDED" statusTypeId="SHPRTSG_CS_STATUS"/>
+    <StatusValidChange statusId="SHRSCS_NOT_STARTED" statusIdTo="SHRSCS_CONFIRMED" transitionName="Confirm"/>
+    <StatusValidChange statusId="SHRSCS_CONFIRMED" statusIdTo="SHRSCS_ACCEPTED" transitionName="Accept"/>
+    <StatusValidChange statusId="SHRSCS_CONFIRMED" statusIdTo="SHRSCS_VOIDED" transitionName="Void"/>
+    <StatusValidChange statusId="SHRSCS_ACCEPTED" statusIdTo="SHRSCS_VOIDED" transitionName="Void"/>
+    <!-- can go from accepted to voided? -->
+
+    <RejectionReason rejectionId="SRJ_DAMAGED" description="Damaged"/>
+    <RejectionReason rejectionId="SRJ_NOT_ORDERED" description="Not Ordered"/>
+    <RejectionReason rejectionId="SRJ_OVER_SHIPPED" description="Over Shipped"/>
+
+    <!-- Picklist status -->
+    <StatusType description="Picklist" hasTable="N" parentTypeId="" statusTypeId="PICKLIST_STATUS"/>
+    <StatusItem description="Input" sequenceId="01" statusCode="INPUT" statusId="PICKLIST_INPUT" statusTypeId="PICKLIST_STATUS"/>
+    <StatusItem description="Assigned" sequenceId="02" statusCode="ASSIGNED" statusId="PICKLIST_ASSIGNED" statusTypeId="PICKLIST_STATUS"/>
+    <StatusItem description="Printed" sequenceId="03" statusCode="PRINTED" statusId="PICKLIST_PRINTED" statusTypeId="PICKLIST_STATUS"/>
+    <StatusItem description="Picked" sequenceId="10" statusCode="PICKED" statusId="PICKLIST_PICKED" statusTypeId="PICKLIST_STATUS"/>
+    <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="PICKLIST_CANCELLED" statusTypeId="PICKLIST_STATUS"/>
+    <StatusValidChange statusId="PICKLIST_INPUT" statusIdTo="PICKLIST_ASSIGNED" transitionName="Assign"/>
+    <StatusValidChange statusId="PICKLIST_INPUT" statusIdTo="PICKLIST_PRINTED" transitionName="Print"/>
+    <StatusValidChange statusId="PICKLIST_INPUT" statusIdTo="PICKLIST_PICKED" transitionName="Pick"/>
+    <StatusValidChange statusId="PICKLIST_INPUT" statusIdTo="PICKLIST_CANCELLED" transitionName="Cancel"/>
+    <StatusValidChange statusId="PICKLIST_ASSIGNED" statusIdTo="PICKLIST_PICKED" transitionName="Pick"/>
+    <StatusValidChange statusId="PICKLIST_ASSIGNED" statusIdTo="PICKLIST_PRINTED" transitionName="Print"/>
+    <StatusValidChange statusId="PICKLIST_ASSIGNED" statusIdTo="PICKLIST_CANCELLED" transitionName="Cancel"/>
+    <StatusValidChange statusId="PICKLIST_PRINTED" statusIdTo="PICKLIST_PICKED" transitionName="Pick"/>
+    <StatusValidChange statusId="PICKLIST_PRINTED" statusIdTo="PICKLIST_CANCELLED" transitionName="Cancel"/>
+
+    <!-- Picklist item status -->
+    <StatusType description="Picklist Item" hasTable="N" parentTypeId="" statusTypeId="PICKITEM_STATUS"/>
+    <StatusItem description="Pending" sequenceId="01" statusCode="PENDING" statusId="PICKITEM_PENDING" statusTypeId="PICKITEM_STATUS"/>
+    <StatusItem description="Completed" sequenceId="50" statusCode="COMPLETED" statusId="PICKITEM_COMPLETED" statusTypeId="PICKITEM_STATUS"/>
+    <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="PICKITEM_CANCELLED" statusTypeId="PICKITEM_STATUS"/>
+    <StatusValidChange statusId="PICKITEM_PENDING" statusIdTo="PICKITEM_COMPLETED" transitionName="Complete"/>
+    <StatusValidChange statusId="PICKITEM_PENDING" statusIdTo="PICKITEM_CANCELLED" transitionName="Cancel"/>
+    
+    <!-- Shipment Gateway Config -->
+    <ShipmentGatewayConfigType shipmentGatewayConfTypeId="DHL" hasTable="N" description="DHL Shipment Gateway"/>
+    <ShipmentGatewayConfig shipmentGatewayConfigId="DHL_CONFIG" shipmentGatewayConfTypeId="DHL" description="DHL Config"/>
+    <ShipmentGatewayDhl shipmentGatewayConfigId="DHL_CONFIG" connectUrl="https://eCommerce.airborne.com/ApiLandingTest.asp" connectTimeout="60" headVersion="1.1" headAction="Request" accessUserId="YOUR DHL ShipIT USER ID" accessPassword="YOUR DHL ShipIT ACCESS PASSWORD" accessAccountNbr="YOUR DHL ShipIT ACCOUNT NUMBER" accessShippingKey="YOUR DHL ShipIT SHIPPING KEY" labelImageFormat="PNG" rateEstimateTemplate="api.schema.DHL"/>
+    
+    <ShipmentGatewayConfigType shipmentGatewayConfTypeId="FEDEX" hasTable="N" description="Fedex Shipment Gateway"/>
+    <ShipmentGatewayConfig shipmentGatewayConfigId="FEDEX_CONFIG" shipmentGatewayConfTypeId="FEDEX" description="Fedex Config"/>
+    <ShipmentGatewayFedex shipmentGatewayConfigId="FEDEX_CONFIG" connectUrl="https://gatewaybeta.fedex.com/GatewayDC" connectSoapUrl="https://gatewaybeta.fedex.com:443/web-services" connectTimeout="60" accessAccountNbr="" accessMeterNumber="" accessUserKey="" accessUserPwd="" labelImageType="PNG" defaultDropoffType="REGULARPICKUP" defaultPackagingType="YOURPACKNG" templateShipment="component://product/template/shipment/FedexShipRequestTemplate.xml.ftl" templateSubscription="component://product/template/shipment/FedexSubscriptionRequestTemplate.xml.ftl" rateEstimateTemplate="component://product/template/shipment/FedexRateEstimateRequestTemplate.xml.ftl"/>
+    
+    <ShipmentGatewayConfigType shipmentGatewayConfTypeId="UPS" hasTable="N" description="UPS Shipment Gateway"/>
+    <ShipmentGatewayConfig shipmentGatewayConfigId="UPS_CONFIG" shipmentGatewayConfTypeId="UPS" description="UPS Config"/>
+    <ShipmentGatewayUps shipmentGatewayConfigId="UPS_CONFIG" connectUrl="https://wwwcie.ups.com/ups.app/xml" connectTimeout="60" shipperNumber="12345E" billShipperAccountNumber="12345E" accessLicenseNumber="TEST262223144CAT" accessUserId="REG111111" accessPassword="REG111111" saveCertInfo="true" saveCertPath="${sys:getProperty('ofbiz.home')}/runtime/output/upscert" shipperPickupType="06" customerClassification="03" maxEstimateWeight="90" minEstimateWeight="0.1" codAllowCod="true" codSurchargeAmount="9" codSurchargeCurrencyUomId="USD" codSurchargeApplyToPackage="first" codFundsCode="0" defaultReturnLabelMemo="UPS Shipment Return Memo" defaultReturnLabelSubject="UPS Shipment Return Label"/>
+    
+    <ShipmentGatewayConfigType shipmentGatewayConfTypeId="USPS" hasTable="N" description="USPS Shipment Gateway"/>
+    <ShipmentGatewayConfig shipmentGatewayConfigId="USPS_CONFIG" shipmentGatewayConfTypeId="USPS" description="USPS Config"/>
+    <ShipmentGatewayUsps shipmentGatewayConfigId="USPS_CONFIG" connectUrl="http://production.shippingapis.com/ShippingAPITest.dll" connectUrlLabels="http://production.shippingapis.com/ShippingAPITest.dll" connectTimeout="60" accessUserId="000000000000" accessPassword="999999999999" maxEstimateWeight="70" test="N"/>
+    
+    <!-- Shipment Gateway custom methods by type -->
+    <CustomMethodType customMethodTypeId="SHIP_EST" parentTypeId="" hasTable="N" description="Shipment Gateway rate estimate methods"/>
+    
+    <CustomMethod customMethodId="SHIP_EST_DHL"      customMethodTypeId="SHIP_EST" customMethodName="dhlRateEstimate"   description="DHL rate estimate"/>
+    <CustomMethod customMethodId="SHIP_EST_FEDEX"    customMethodTypeId="SHIP_EST" customMethodName="fedexRateEstimate" description="FedEx rate estimate"/>
+    <CustomMethod customMethodId="SHIP_EST_UPS"      customMethodTypeId="SHIP_EST" customMethodName="upsRateEstimate"   description="UPS rate estimate"/>
+    <CustomMethod customMethodId="SHIP_EST_USPS"     customMethodTypeId="SHIP_EST" customMethodName="uspsRateInquire"   description="USPS rate estimate"/>
+    <CustomMethod customMethodId="SHIP_EST_USPS_INT" customMethodTypeId="SHIP_EST" customMethodName="uspsInternationalRateInquire"   description="USPS rate estimate international"/>
+</entity-engine-xml>

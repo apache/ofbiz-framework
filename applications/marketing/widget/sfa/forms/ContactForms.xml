@@ -40,9 +40,9 @@ under the License.
     <form name="ListContacts" paginate-target="${currentUrl}"
             extends="ListAccounts" extends-resource="component://marketing/widget/sfa/forms/AccountForms.xml">
         <actions>
-            <set field="roleTypeIdFrom" value="OWNER"/>
+            <set field="roleTypeIdFrom" value="ACCOUNT"/>
             <set field="roleTypeIdTo" value="CONTACT"/>
-            <set field="partyRelationshipTypeId" value="CONTACT_REL"/>
+            <set field="partyRelationshipTypeId" value="EMPLOYMENT"/>
             <set field="relatedCompanyRoleTypeIdTo" value="CONTACT"/>
             <set field="relatedCompanyRoleTypeIdFrom" value="ACCOUNT"/>
             <set field="relatedCompanyRelationshipTypeId" value="EMPLOYMENT"/>
@@ -66,9 +66,9 @@ under the License.
                 title="${uiLabelMap.SfaAssignToMe}" widget-style="buttontext">
             <hyperlink description="${uiLabelMap.SfaAssignToMe}" target="createPartyRelationshipAndRole">
                 <parameter param-name="partyIdFrom" from-field="userLogin.partyId"/>
-                <parameter param-name="roleTypeIdFrom" value="OWNER"/>
-                <parameter param-name="roleTypeIdTo" value="CONTACT"/>
-                <parameter param-name="partyRelationshipTypeId" value="CONTACT_REL"/>
+                <parameter param-name="roleTypeIdFrom"/>
+                <parameter param-name="roleTypeIdTo"/>
+                <parameter param-name="partyRelationshipTypeId"/>
                 <parameter param-name="partyIdTo" from-field="partyId"/>
             </hyperlink>
         </field>
@@ -92,9 +92,8 @@ under the License.
             <set field="parameters.roleTypeIdTo" value="CONTACT"/>
             <set field="parameters.partyStatusId" value="PARTY_DISABLED"/>
             <set field="parameters.partyStatusId_op" value="notEqual"/>
-            <set field="parameters.partyRelationshipTypeId" value="CONTACT_REL"/>
+            <set field="parameters.partyRelationshipTypeId" value="EMPLOYMENT"/>
             <set field="fieldList" value="${groovy:['partyIdFrom','partyId']}" type="List"/>
-            <set field="parameters.filterByDate" value="Y"/>
             <service service-name="performFind">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="PartyRelationshipAndContactMechDetail"/>

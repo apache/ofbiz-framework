@@ -19,7 +19,6 @@
 package org.apache.ofbiz.base.start;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -35,14 +34,14 @@ import java.util.concurrent.atomic.AtomicReference;
  * </p>
  * <p>
  * This class uses a singleton pattern to guarantee that only one server instance
- * is running in the VM. Client code retrieves the instance by using the
+ * is running in the VM. Client code retrieves the instance by using the 
  * <tt>getInstance()</tt> static method.
  * </p>
  */
 public final class Start {
 
     private Config config = null;
-    private final AtomicReference<ServerState> serverState = new AtomicReference<>(ServerState.STARTING);
+    private final AtomicReference<ServerState> serverState = new AtomicReference<ServerState>(ServerState.STARTING);
 
     // Singleton, do not change
     private static final Start instance = new Start();
@@ -50,10 +49,10 @@ public final class Start {
     }
 
     /**
-     * main is the entry point to execute high level OFBiz commands
+     * main is the entry point to execute high level OFBiz commands 
      * such as starting, stopping or checking the status of the server.
-     *
-     * @param args The commands for OFBiz
+     * 
+     * @param args: The commands for OFBiz
      */
     public static void main(String[] args) {
         List<StartupCommand> ofbizCommands = null;
@@ -71,22 +70,22 @@ public final class Start {
             instance.config = StartupControlPanel.init(ofbizCommands);
         }
         switch (commandType) {
-        case HELP:
-            StartupCommandUtil.printOfbizStartupHelp(System.out);
-            break;
-        case STATUS:
-            System.out.println("Current Status : " + AdminClient.requestStatus(instance.config));
-            break;
-        case SHUTDOWN:
-            System.out.println("Shutting down server : " + AdminClient.requestShutdown(instance.config));
-            break;
-        case START:
-            try {
-                StartupControlPanel.start(instance.config, instance.serverState, ofbizCommands);
-            } catch (StartupException e) {
-                StartupControlPanel.fullyTerminateSystem(e);
-            }
-            break;
+            case HELP:
+                StartupCommandUtil.printOfbizStartupHelp(System.out);
+                break;
+            case STATUS:
+                System.out.println("Current Status : " + AdminClient.requestStatus(instance.config));
+                break;
+            case SHUTDOWN:
+                System.out.println("Shutting down server : " + AdminClient.requestShutdown(instance.config));
+                break;
+            case START:
+                try {
+                    StartupControlPanel.start(instance.config, instance.serverState, ofbizCommands);
+                } catch (StartupException e) {
+                    StartupControlPanel.fullyTerminateSystem(e);
+                }
+                break;
         }
     }
 
@@ -119,7 +118,7 @@ public final class Start {
 
         @Override
         public String toString() {
-            return name().charAt(0) + name().substring(1).toLowerCase(Locale.getDefault());
+            return name().charAt(0) + name().substring(1).toLowerCase();
         }
     }
 

@@ -51,7 +51,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleFindProductPriceRule"/>
                 <set field="headerItem" value="pricerules"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
             </actions>
             <widgets>
@@ -68,6 +68,26 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <!-- Old screen kept for now, in case some would prefer the old way. Another option is to use an input field with Id instead of a drop-down in the new screen below (see also setPriceRulesCondEventJs.ftl and top of getAssociatedPriceRulesConds service) -->
+    <!--screen name="EditProductPriceRules">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditProductPriceRules"/>
+                <set field="headerItem" value="pricerules"/>
+
+                <script location="component://product/groovyScripts/catalog/price/EditProductPriceRules_old.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPriceDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/template/price/EditProductPriceRules.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen-->
     <screen name="EditProductPriceRules">
         <section>
             <actions>

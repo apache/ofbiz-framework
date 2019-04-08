@@ -36,7 +36,7 @@ under the License.
               <td>${userUserLogin.userLoginId}</td>
               <td>
                 <#assign enabled = uiLabelMap.PartyEnabled>
-                <#if "N" == (userUserLogin.enabled)?default("Y")>
+                <#if (userUserLogin.enabled)?default("Y") == "N">
                   <#if userUserLogin.disabledDateTime??>
                     <#assign disabledTime = userUserLogin.disabledDateTime.toString()>
                   <#else>
@@ -52,9 +52,6 @@ under the License.
                 </#if>
                 <#if security.hasEntityPermission("SECURITY", "_VIEW", session)>
                   <a href="<@ofbizUrl>ProfileEditUserLoginSecurityGroups?partyId=${party.partyId}&amp;userLoginId=${userUserLogin.userLoginId}</@ofbizUrl>">${uiLabelMap.SecurityGroups}</a>
-                </#if>
-                <#if security.hasEntityPermission("IMPERSONATE", "_ADMIN", session)>
-                    <a href="<@ofbizUrl>impersonateLogin?userLoginIdToImpersonate=${userUserLogin.userLoginId}</@ofbizUrl>">${uiLabelMap.CommonImpersonate}</a>
                 </#if>
               </td>
             </tr>

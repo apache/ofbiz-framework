@@ -25,23 +25,23 @@ under the License.
     <version>1.0</version>
 
 
-    <service name="getNextInvoiceId" engine="groovy"
-        location="component://accounting/groovyScripts/invoice/InvoiceServices.groovy" invoke="getNextInvoiceId">
+    <service name="getNextInvoiceId" engine="simple"
+        location="component://accounting/minilang/invoice/InvoiceServices.xml" invoke="getNextInvoiceId">
         <description>Get the Next Invoice ID According to Settings on the PartyAcctgPreference Entity for the given Party</description>
         <implements service="createInvoice"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="invoiceId" type="String" mode="OUT" optional="false"/>
     </service>
 
-    <service name="invoiceSequenceEnforced" engine="groovy"
-        location="component://accounting/groovyScripts/invoice/InvoiceServices.groovy" invoke="invoiceSequenceEnforced">
+    <service name="invoiceSequenceEnforced" engine="simple"
+        location="component://accounting/minilang/invoice/InvoiceServices.xml" invoke="invoiceSequenceEnforced">
         <implements service="getNextInvoiceId"/>
         <attribute name="partyAcctgPreference" type="org.apache.ofbiz.entity.GenericValue" mode="IN"/>
         <override name="invoiceId" type="Long" mode="OUT"/>
     </service>
 
-    <service name="invoiceSequenceRestart" engine="groovy"
-        location="component://accounting/groovyScripts/invoice/InvoiceServices.groovy" invoke="invoiceSequenceRestart">
+    <service name="invoiceSequenceRestart" engine="simple"
+        location="component://accounting/minilang/invoice/InvoiceServices.xml" invoke="invoiceSequenceRestart">
         <implements service="getNextInvoiceId"/>
         <attribute name="partyAcctgPreference" type="org.apache.ofbiz.entity.GenericValue" mode="IN"/>
     </service>

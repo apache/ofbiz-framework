@@ -18,6 +18,6 @@
  */
 
 if (geoPoint && geoPoint.elevationUomId) {
-    elevationUom = from("Uom").where("uomId", geoPoint.elevationUomId).queryList();
+    elevationUom = delegator.findOne("Uom", [uomId : geoPoint.elevationUomId], false)
     context.elevationUomAbbr = elevationUom.abbreviation
 }

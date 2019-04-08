@@ -1,0 +1,767 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.21" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 2.6.0.v20100531 Build &lt;2.6.0.v20100609-1613></property>
+    <list-property name="userProperties">
+        <structure>
+            <property name="name">Payment.Payments.x</property>
+            <property name="type">integer</property>
+            <property name="isVisible">false</property>
+        </structure>
+        <structure>
+            <property name="name">Payment.Payments.y</property>
+            <property name="type">integer</property>
+            <property name="isVisible">false</property>
+        </structure>
+    </list-property>
+    <property name="Payment.Payments.x">135</property>
+    <property name="Payment.Payments.y">80</property>
+    <property name="units">in</property>
+    <method name="initialize"><![CDATA[importPackage(Packages.org.apache.ofbiz.base.util)
+
+importPackage(Packages.org.apache.ofbiz.entity.util)
+module = "PaymentReport.rptdesign";]]></method>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <parameters>
+        <scalar-parameter name="paymentId" id="77">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="partyIdTo" id="78">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="partyIdFrom" id="79">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="noConditionFind" id="80">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="paymentTypeId" id="82">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="paymentTypeId_op" id="83">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="paymentRefNum_ic" id="84">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="paymentRefNum_op" id="85">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="amount" id="86">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="statusId" id="87">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="paymentId_ic" id="88">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="paymentRefNum" id="89">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="comments_ic" id="90">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="comments_op" id="91">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="comments" id="92">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <script-data-source name="OFBIZ" id="61"/>
+    </data-sources>
+    <data-sets>
+        <script-data-set name="Payments" id="62">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">paymentId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">paymentType</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">status</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">from</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">to</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">date</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">amount</property>
+                    <property name="dataType">float</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">paymentId</property>
+                </structure>
+                <structure>
+                    <property name="columnName">paymentType</property>
+                </structure>
+                <structure>
+                    <property name="columnName">status</property>
+                </structure>
+                <structure>
+                    <property name="columnName">from</property>
+                </structure>
+                <structure>
+                    <property name="columnName">to</property>
+                </structure>
+                <structure>
+                    <property name="columnName">date</property>
+                </structure>
+                <structure>
+                    <property name="columnName">amount</property>
+                </structure>
+            </list-property>
+            <list-property name="parameters">
+                <structure>
+                    <property name="name">parameters</property>
+                    <property name="dataType">javaObject</property>
+                    <property name="position">1</property>
+                    <expression name="defaultValue" type="javascript">null</expression>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">paymentId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">paymentType</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">status</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">from</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">to</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">date</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">amount</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">OFBIZ</property>
+            <method name="open"><![CDATA[payments = null;
+userLogin = null;
+parameters = null;
+try {
+    userLogin = delegator.findOne("UserLogin",UtilMisc.toMap("userLoginId","admin"), false);
+} catch(e) {
+        Debug.logError(e,"");
+}
+input =  new HashMap();
+inputFields =  new HashMap();
+if(params!=null){
+    inputFields.put("partyIdTo", params["partyIdTo"]);
+    inputFields.put("paymentId", params["paymentId"]);
+    inputFields.put("paymentTypeId", params["paymentTypeId"]);
+    inputFields.put("paymentId_op", params["paymentId_op"]);
+    inputFields.put("paymentRefNum_ic", params["paymentRefNum_ic"]);
+    inputFields.put("noConditionFind", params["noConditionFind"]);
+    inputFields.put("partyIdFrom", params["partyIdFrom"]);
+    inputFields.put("paymentRefNum_op", params["paymentRefNum_op"]);
+    inputFields.put("amount", params["amount"]);
+    inputFields.put("statusId", params["statusId"]);
+    inputFields.put("paymentGatewayResponseId", params["paymentGatewayResponseId"]);
+    inputFields.put("paymentId_ic", params["paymentId_ic"]);
+    inputFields.put("paymentRefNum", params["paymentRefNum"]);
+    inputFields.put("comments_ic", params["comments_ic"]);
+    inputFields.put("comments_op", params["comments_op"]);
+    inputFields.put("comments", params["comments"]);
+}
+input.put("userLogin",userLogin);
+input.put("inputFields",inputFields);
+input.put("entityName","PaymentAndType");
+input.put("orderBy","effectiveDate DESC");
+//input.put("viewIndex", 0);
+//input.put("viewSize", 20);
+try {
+    result = dispatcher.runSync("performFind", input);
+    payments = result.get("listIt");
+} catch (e) {
+    Debug.logError(e, module);
+}]]></method>
+            <method name="fetch"><![CDATA[if(payments==null)return false;
+if(payment=payments.next()){
+    row["paymentId"] = payment.getString("paymentId");
+    row["paymentType"] = payment.getString("paymentTypeId");
+    row["status"] = payment.getString("statusId");
+    row["from"] = payment.getString("partyIdFrom");
+    row["to"] = payment.getString("partyIdTo");
+    row["date"] = payment.getString("effectiveDate");
+    row["amount"] = payment.getString("amount");
+}else{
+    payments.close();
+    return false;
+}
+return true;]]></method>
+        </script-data-set>
+    </data-sets>
+    <cubes>
+        <tabular-cube name="Payment" id="93">
+            <property name="dimensions">
+                <tabular-dimension name="Group" id="94">
+                    <property name="defaultHierarchy">NewTabularHierarchy</property>
+                    <property name="hierarchies">
+                        <tabular-hierarchy name="NewTabularHierarchy" id="95">
+                            <property name="levels">
+                                <tabular-level name="paymentId" id="96">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">paymentId</property>
+                                </tabular-level>
+                                <tabular-level name="paymentType" id="111">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">paymentType</property>
+                                </tabular-level>
+                                <tabular-level name="status" id="112">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">status</property>
+                                </tabular-level>
+                                <tabular-level name="from" id="113">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">from</property>
+                                </tabular-level>
+                                <tabular-level name="to" id="114">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">to</property>
+                                </tabular-level>
+                                <tabular-level name="date" id="115">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">date</property>
+                                </tabular-level>
+                            </property>
+                        </tabular-hierarchy>
+                    </property>
+                </tabular-dimension>
+            </property>
+            <property name="measureGroups">
+                <tabular-measure-group name="Summary Field" id="219">
+                    <property name="measures">
+                        <tabular-measure name="amount" id="220">
+                            <property name="function">sum</property>
+                            <expression name="measureExpression" type="javascript">dataSetRow["amount"]</expression>
+                            <property name="dataType">float</property>
+                        </tabular-measure>
+                    </property>
+                </tabular-measure-group>
+            </property>
+            <property name="dataSet">Payments</property>
+        </tabular-cube>
+    </cubes>
+    <styles>
+        <style name="report" id="4">
+            <property name="fontFamily">sans-serif</property>
+            <property name="fontSize">10pt</property>
+        </style>
+        <style name="crosstab-cell" id="5">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+        <style name="crosstab" id="6">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+    </styles>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <page-footer>
+                <text id="3">
+                    <property name="contentType">html</property>
+                    <text-property name="content"><![CDATA[<value-of>new Date()</value-of>]]></text-property>
+                </text>
+            </page-footer>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <text id="71">
+            <property name="backgroundColor">silver</property>
+            <property name="fontSize">larger</property>
+            <property name="fontWeight">bolder</property>
+            <property name="textAlign">center</property>
+            <property name="textTransform">none</property>
+            <property name="contentType">auto</property>
+            <text-property name="content"><![CDATA[Payments Report
+]]></text-property>
+        </text>
+        <extended-item extensionName="Crosstab" extensionVersion="2.5.0" id="255">
+            <property name="cube">Payment</property>
+            <property name="measures">
+                <extended-item extensionName="MeasureView" id="277">
+                    <property name="measure">amount</property>
+                    <property name="detail">
+                        <extended-item extensionName="AggregationCell" id="278">
+                            <property name="aggregationOnRow">Group/date</property>
+                            <property name="content">
+                                <data id="279">
+                                    <structure name="numberFormat">
+                                        <property name="category">Currency</property>
+                                        <property name="pattern">###0.00{RoundingMode=HALF_UP}</property>
+                                    </structure>
+                                    <property name="textAlign">center</property>
+                                    <property name="resultSetColumn">amount_Group/date</property>
+                                </data>
+                            </property>
+                        </extended-item>
+                    </property>
+                    <property name="aggregations">
+                        <extended-item extensionName="AggregationCell" id="283">
+                            <property name="content">
+                                <data id="284">
+                                    <structure name="numberFormat">
+                                        <property name="category">Currency</property>
+                                        <property name="pattern">###0.00{RoundingMode=HALF_UP}</property>
+                                    </structure>
+                                    <property name="resultSetColumn">amount</property>
+                                </data>
+                            </property>
+                        </extended-item>
+                    </property>
+                    <property name="header">
+                        <extended-item extensionName="CrosstabCell" id="280">
+                            <property name="content">
+                                <label id="309">
+                                    <property name="backgroundColor">gray</property>
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textOverline">none</property>
+                                    <property name="textAlign">center</property>
+                                    <text-property name="text">Amount</text-property>
+                                </label>
+                            </property>
+                            <property name="height">0.3333333333333333in</property>
+                        </extended-item>
+                    </property>
+                </extended-item>
+            </property>
+            <property name="rows">
+                <extended-item extensionName="CrosstabView" id="257">
+                    <property name="grandTotal">
+                        <extended-item extensionName="CrosstabCell" id="282">
+                            <property name="content">
+                                <label id="285">
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">right</property>
+                                    <text-property name="text">Grand Total</text-property>
+                                </label>
+                            </property>
+                        </extended-item>
+                    </property>
+                    <property name="views">
+                        <extended-item extensionName="DimensionView" id="258">
+                            <property name="dimension">Group</property>
+                            <property name="levels">
+                                <extended-item extensionName="LevelView" name="NewLevel View" id="259">
+                                    <property name="level">Group/paymentId</property>
+                                    <property name="member">
+                                        <extended-item extensionName="CrosstabCell" id="260">
+                                            <property name="content">
+                                                <data name="paymentId" id="261">
+                                                    <property name="textAlign">center</property>
+                                                    <property name="resultSetColumn">paymentId</property>
+                                                </data>
+                                            </property>
+                                        </extended-item>
+                                    </property>
+                                </extended-item>
+                                <extended-item extensionName="LevelView" name="NewLevel View1" id="262">
+                                    <property name="level">Group/paymentType</property>
+                                    <property name="member">
+                                        <extended-item extensionName="CrosstabCell" id="263">
+                                            <property name="content">
+                                                <data name="paymentType" id="264">
+                                                    <property name="textAlign">center</property>
+                                                    <property name="resultSetColumn">paymentType</property>
+                                                </data>
+                                            </property>
+                                        </extended-item>
+                                    </property>
+                                </extended-item>
+                                <extended-item extensionName="LevelView" name="NewLevel View2" id="265">
+                                    <property name="level">Group/status</property>
+                                    <property name="member">
+                                        <extended-item extensionName="CrosstabCell" id="266">
+                                            <property name="content">
+                                                <data name="status" id="267">
+                                                    <property name="textAlign">center</property>
+                                                    <property name="resultSetColumn">status</property>
+                                                </data>
+                                            </property>
+                                        </extended-item>
+                                    </property>
+                                </extended-item>
+                                <extended-item extensionName="LevelView" name="NewLevel View3" id="268">
+                                    <property name="level">Group/from</property>
+                                    <property name="member">
+                                        <extended-item extensionName="CrosstabCell" id="269">
+                                            <property name="content">
+                                                <data name="from" id="270">
+                                                    <property name="textAlign">center</property>
+                                                    <property name="resultSetColumn">from</property>
+                                                </data>
+                                            </property>
+                                        </extended-item>
+                                    </property>
+                                </extended-item>
+                                <extended-item extensionName="LevelView" name="NewLevel View4" id="271">
+                                    <property name="level">Group/to</property>
+                                    <property name="member">
+                                        <extended-item extensionName="CrosstabCell" id="272">
+                                            <property name="content">
+                                                <data name="to" id="273">
+                                                    <property name="textAlign">center</property>
+                                                    <property name="resultSetColumn">to</property>
+                                                </data>
+                                            </property>
+                                        </extended-item>
+                                    </property>
+                                </extended-item>
+                                <extended-item extensionName="LevelView" name="NewLevel View5" id="274">
+                                    <property name="level">Group/date</property>
+                                    <property name="member">
+                                        <extended-item extensionName="CrosstabCell" id="275">
+                                            <property name="content">
+                                                <data name="date" id="276">
+                                                    <property name="textAlign">center</property>
+                                                    <property name="resultSetColumn">date</property>
+                                                </data>
+                                            </property>
+                                        </extended-item>
+                                    </property>
+                                </extended-item>
+                            </property>
+                        </extended-item>
+                    </property>
+                    <property name="grandTotalLocation">after</property>
+                </extended-item>
+            </property>
+            <property name="header">
+                <extended-item extensionName="CrosstabCell" id="256">
+                    <property name="content">
+                        <grid id="286">
+                            <column id="287"/>
+                            <column id="288"/>
+                            <column id="289"/>
+                            <column id="290"/>
+                            <column id="291"/>
+                            <column id="292"/>
+                            <row id="293">
+                                <cell id="294">
+                                    <label id="301">
+                                        <property name="backgroundColor">gray</property>
+                                        <property name="fontWeight">bold</property>
+                                        <property name="textOverline">none</property>
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">PaymentId</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="295">
+                                    <label id="308">
+                                        <property name="backgroundColor">gray</property>
+                                        <property name="fontWeight">bold</property>
+                                        <property name="textOverline">none</property>
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">PaymentType</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="296">
+                                    <label id="302">
+                                        <property name="backgroundColor">gray</property>
+                                        <property name="fontWeight">bold</property>
+                                        <property name="textOverline">none</property>
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">Status</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="297">
+                                    <label id="307">
+                                        <property name="backgroundColor">gray</property>
+                                        <property name="fontWeight">bold</property>
+                                        <property name="textOverline">none</property>
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">From</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="298">
+                                    <label id="305">
+                                        <property name="backgroundColor">gray</property>
+                                        <property name="fontWeight">bold</property>
+                                        <property name="textOverline">none</property>
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">To</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="299">
+                                    <label id="306">
+                                        <property name="backgroundColor">gray</property>
+                                        <property name="fontWeight">bold</property>
+                                        <property name="textOverline">none</property>
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">Date</text-property>
+                                    </label>
+                                </cell>
+                            </row>
+                        </grid>
+                    </property>
+                </extended-item>
+            </property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">paymentId</property>
+                    <expression name="expression">dimension["Group"]["paymentId"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">paymentType</property>
+                    <expression name="expression">dimension["Group"]["paymentType"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">status</property>
+                    <expression name="expression">dimension["Group"]["status"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">from</property>
+                    <expression name="expression">dimension["Group"]["from"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">to</property>
+                    <expression name="expression">dimension["Group"]["to"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">date</property>
+                    <expression name="expression">dimension["Group"]["date"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">amount_Group/date</property>
+                    <property name="dataType">float</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>Group/date</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                    <list-property name="arguments">
+                        <structure>
+                            <property name="name">Expression</property>
+                            <expression name="value" type="javascript">measure["amount"]</expression>
+                        </structure>
+                    </list-property>
+                </structure>
+                <structure>
+                    <property name="name">amount</property>
+                    <property name="dataType">float</property>
+                    <property name="aggregateFunction">SUM</property>
+                    <list-property name="arguments">
+                        <structure>
+                            <property name="name">Expression</property>
+                            <expression name="value" type="javascript">measure["amount"]</expression>
+                        </structure>
+                    </list-property>
+                </structure>
+            </list-property>
+        </extended-item>
+    </body>
+</report>

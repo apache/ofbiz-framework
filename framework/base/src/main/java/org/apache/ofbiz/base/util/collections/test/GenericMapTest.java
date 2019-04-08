@@ -25,15 +25,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ofbiz.base.test.GenericTestCaseBase;
-import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.collections.GenericMap;
 import org.apache.ofbiz.base.util.collections.GenericMapEntry;
 import org.apache.ofbiz.base.util.collections.IteratorWrapper;
 
 public class GenericMapTest extends GenericTestCaseBase {
-
-    public static final String module = GenericMapTest.class.getName();
-
     @SuppressWarnings("serial")
     public static class TestGenericMap<K, V> extends GenericMap<K, V> {
         private static final String[] countNames = {
@@ -151,24 +147,24 @@ public class GenericMapTest extends GenericTestCaseBase {
 
     public void testFoo() throws Exception {
         TestGenericMap<String, Integer> map = new TestGenericMap<String, Integer>();
-        map.put("a", 0); Debug.logInfo("put a\t\tcounts=" + map.getCounts() + ", modCount=" + map.getModCount(), module);
+        map.put("a", 0); System.err.println("put a\t\tcounts=" + map.getCounts() + ", modCount=" + map.getModCount());
         assertEquals("get a", Integer.valueOf(0), map.get("a"));
-        map.put("b", 1); Debug.logInfo("put b\t\tcounts=" + map.getCounts() + ", modCount=" + map.getModCount(), module);
+        map.put("b", 1); System.err.println("put b\t\tcounts=" + map.getCounts() + ", modCount=" + map.getModCount());
         assertEquals("get b", Integer.valueOf(1), map.get("b"));
-        map.put("c", 2); Debug.logInfo("put c\t\tcounts=" + map.getCounts() + ", modCount=" + map.getModCount(), module);
+        map.put("c", 2); System.err.println("put c\t\tcounts=" + map.getCounts() + ", modCount=" + map.getModCount());
         assertEquals("get c", Integer.valueOf(2), map.get("c"));
-        map.put("d", 3); Debug.logInfo("put d\t\tcounts=" + map.getCounts() + ", modCount=" + map.getModCount(), module);
+        map.put("d", 3); System.err.println("put d\t\tcounts=" + map.getCounts() + ", modCount=" + map.getModCount());
         assertEquals("get d", Integer.valueOf(3), map.get("d"));
-        map.put("c", 22); Debug.logInfo("put c-2\t\tcounts=" + map.getCounts() + ", modCount=" + map.getModCount(), module);
+        map.put("c", 22); System.err.println("put c-2\t\tcounts=" + map.getCounts() + ", modCount=" + map.getModCount());
         assertEquals("get c-2", Integer.valueOf(22), map.get("c"));
-        map.remove("b"); Debug.logInfo("remove b\tcounts=" + map.getCounts() + ", modCount=" + map.getModCount(), module);
+        map.remove("b"); System.err.println("remove b\tcounts=" + map.getCounts() + ", modCount=" + map.getModCount());
         assertNull("null b", map.get("b"));
-        map.remove("aaa"); Debug.logInfo("remove aaa\tcounts=" + map.getCounts() + ", modCount=" + map.getModCount(), module);
-        Debug.logInfo("map=" + map, module);
-        Debug.logInfo("counts=" + map.getCounts() + ", modCount=" + map.getModCount(), module);
+        map.remove("aaa"); System.err.println("remove aaa\tcounts=" + map.getCounts() + ", modCount=" + map.getModCount());
+        System.err.println("map=" + map);
+        System.err.println("counts=" + map.getCounts() + ", modCount=" + map.getModCount());
         // this seems to call size()
         new HashMap<String, Integer>(map);
-        Debug.logInfo("counts=" + map.getCounts() + ", modCount=" + map.getModCount(), module);
+        System.err.println("counts=" + map.getCounts() + ", modCount=" + map.getModCount());
     }
 
 }

@@ -57,7 +57,11 @@ if (orderId && shipment) {
             context.orderItemShipGroup = orderItemShipGroup
         }
 
-        orderItems = from("OrderItemAndShipGroupAssoc").where("shipGroupSeqId", shipGroupSeqId, "orderId", orderHeader.orderId).orderBy('shipGroupSeqId', 'orderItemSeqId').queryList();
+        oiasgaLimitMap = null
+        if (orderItemShipGroup) {
+            oiasgaLimitMap = [shipGroupSeqId : shipGroupSeqId]
+        }
+        orderItems = orderHeader.getRelated("OrderItemAndShipGroupAssoc", oiasgaLimitMap, ['shipGroupSeqId', 'orderItemSeqId'], false)
         orderItemDatas = [] as LinkedList
         orderItems.each { orderItemAndShipGroupAssoc ->
             orderItemData = [:]

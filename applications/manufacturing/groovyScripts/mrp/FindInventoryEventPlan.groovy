@@ -20,6 +20,7 @@
 import org.apache.ofbiz.base.util.ObjectType
 import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.condition.EntityCondition
+import org.apache.ofbiz.entity.util.EntityUtilProperties
 
 productId = parameters.productId
 
@@ -44,7 +45,7 @@ if (lookupFlag) {
     eventDate = eventDate.trim()
     if (eventDate.length() < 14) eventDate = eventDate + " " + "00:00:00.000"
     paramList = paramList + "&eventDate=" + eventDate
-        andExprs.add(EntityCondition.makeCondition("eventDate", EntityOperator.GREATER_THAN, ObjectType.simpleTypeOrObjectConvert(eventDate, "Timestamp", null, null)))
+        andExprs.add(EntityCondition.makeCondition("eventDate", EntityOperator.GREATER_THAN, ObjectType.simpleTypeConvert(eventDate, "Timestamp", null, null)))
     }
 
     if (productId) {
@@ -68,7 +69,7 @@ context.paramList = paramList
 
 // set the page parameters
 viewIndex = Integer.valueOf(parameters.VIEW_INDEX  ?: 0)
-viewSize = parameters.VIEW_SIZE ?Integer.valueOf(parameters.VIEW_SIZE): modelTheme.getDefaultViewSize()?:20
+viewSize = parameters.VIEW_SIZE ? Integer.valueOf(parameters.VIEW_SIZE): EntityUtilProperties.getPropertyAsInteger("widget", "widget.form.defaultViewSize", 20)
 listSize = 0
 if (inventoryList)
     listSize = inventoryList.size()

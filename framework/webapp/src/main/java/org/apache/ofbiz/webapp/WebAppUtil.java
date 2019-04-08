@@ -25,18 +25,10 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRequest;
 
-import org.apache.ofbiz.base.component.ComponentConfig;
-import org.apache.ofbiz.base.component.ComponentConfig.WebappInfo;
-import org.apache.ofbiz.base.util.Assert;
-import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.base.util.UtilXml.LocalErrorHandler;
-import org.apache.ofbiz.base.util.UtilXml.LocalResolver;
-import org.apache.ofbiz.base.util.cache.UtilCache;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.DelegatorFactory;
 import org.apache.ofbiz.security.Security;
@@ -45,11 +37,19 @@ import org.apache.ofbiz.security.SecurityFactory;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ServiceContainer;
 import org.apache.ofbiz.webapp.event.RequestBodyMapHandlerFactory;
+import org.apache.ofbiz.base.component.ComponentConfig;
+import org.apache.ofbiz.base.component.ComponentConfig.WebappInfo;
+import org.apache.ofbiz.base.util.Assert;
+import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.UtilXml.LocalErrorHandler;
+import org.apache.ofbiz.base.util.UtilXml.LocalResolver;
+import org.apache.ofbiz.base.util.cache.UtilCache;
+
+import org.apache.tomcat.util.digester.Digester;
 import org.apache.tomcat.util.descriptor.DigesterFactory;
 import org.apache.tomcat.util.descriptor.web.ServletDef;
 import org.apache.tomcat.util.descriptor.web.WebRuleSet;
 import org.apache.tomcat.util.descriptor.web.WebXml;
-import org.apache.tomcat.util.digester.Digester;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -249,6 +249,7 @@ public final class WebAppUtil {
                 throw new IllegalArgumentException(webXmlFileLocation + " does not exist.");
             }
             boolean namespaceAware = true;
+            InputStream is = new FileInputStream(file);
             result = new WebXml();
             LocalResolver lr = new LocalResolver(new DefaultHandler());
             ErrorHandler handler = new LocalErrorHandler(webXmlFileLocation, lr);
@@ -256,10 +257,17 @@ public final class WebAppUtil {
             digester.getParser();
             digester.push(result);
             digester.setErrorHandler(handler);
-            try (InputStream is = new FileInputStream(file)) {
+            try {
                 digester.parse(new InputSource(is));
             } finally {
                 digester.reset();
+                if (is != null) {
+                    try {
+                        is.close();
+                    } catch (Throwable t) {
+                        Debug.logError(t, "Exception thrown while parsing " + webXmlFileLocation + ": ", module);
+                    }
+                }
             }
             result = webXmlCache.putIfAbsentAndGet(webXmlFileLocation, result);
         }

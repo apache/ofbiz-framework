@@ -75,7 +75,7 @@ public class RoutingServices {
         // FIXME: the ProductionRun.getEstimatedTaskTime(...) method will be removed and
         // its logic will be implemented inside this method.
         long estimatedTaskTime = ProductionRun.getEstimatedTaskTime(task, quantity, productId, routingId, dispatcher);
-        result.put("estimatedTaskTime", estimatedTaskTime);
+        result.put("estimatedTaskTime", Long.valueOf(estimatedTaskTime));
         if (task != null && task.get("estimatedSetupMillis") != null) {
             result.put("setupTime", task.getBigDecimal("estimatedSetupMillis"));
         }

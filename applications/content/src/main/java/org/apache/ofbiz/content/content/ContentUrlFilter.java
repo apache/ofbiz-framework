@@ -59,7 +59,7 @@ public class ContentUrlFilter implements Filter {
         String urlContentId = null;
         String pathInfo = UtilHttp.getFullRequestUrl(httpRequest);
         if (UtilValidate.isNotEmpty(pathInfo)) {
-            String alternativeUrl = pathInfo.substring(pathInfo.lastIndexOf('/'));
+            String alternativeUrl = pathInfo.substring(pathInfo.lastIndexOf("/"));
             if (alternativeUrl.endsWith("-content")) {
                 try {
                     GenericValue contentDataResourceView = EntityQuery.use(delegator).from("ContentDataResourceView")

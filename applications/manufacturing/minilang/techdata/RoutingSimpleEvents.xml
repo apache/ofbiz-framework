@@ -23,7 +23,7 @@ under the License.
     <simple-method method-name="addRoutingTaskAssoc"
             short-description="If copyTask field = Y create a copy of the routingTask,  in all the case add a RoutingTaskAssociation">
         <if-compare field="parameters.copyTask" operator="equals" value="Y">
-            <make-value entity-name="WorkEffort" value-field="lookupPKMap"/>
+            <make-value value-field="lookupPKMap" entity-name="WorkEffort"/>
             <set field="lookupPKMap.workEffortId" from-field="parameters.workEffortIdTo"/>
             <find-by-primary-key entity-name="WorkEffort" map="lookupPKMap" value-field="lookedUpValue"/>
             <call-map-processor xml-resource="component://manufacturing/minilang/techdata/RoutingMapProcs.xml"

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
+    <form name="FindResource" type="single" target="FindResource"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="resourceName" parameter-name="partyId" title="${uiLabelMap.ProjectMgrResourceName}"><text/></field>
+        <field name="find" title="${uiLabelMap.CommonFind}"><submit/></field>
+    </form>
+    <form name="ListResources" type="list" list-name="resources" paginate-target="FindResource"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <row-actions>
+            <service service-name="getPartyEmail" result-map="emailResult"/>
+            <service service-name="getPartyTelephone" result-map="telResult"/>
+        </row-actions>
+        <field name="resourceName" parameter-name="partyId" title="${uiLabelMap.ProjectMgrResourceName}" widget-style="buttontext">
+            <hyperlink description="${lastName}, ${firstName} ${middleName} ${groupName}" target="viewprofile" also-hidden="false">
+                <parameter param-name="partyId"/>
+            </hyperlink>
+        </field>
+        <field name="roleTypeId"><hidden/></field>
+        <field name="emailAddress" title="${uiLabelMap.PartyEmailAddress}">
+            <hyperlink description="${emailResult.emailAddress}" target="/partymgr/control/EditCommunicationEvent" target-type="inter-app">
+                <parameter param-name="partyIdFrom" from-field="userLogin.partyId"/>
+                <parameter param-name="partyIdTo" from-field="partyId"/>
+                <parameter param-name="communicationEventTypeId" value="EMAIL_COMMUNICATION"/>
+                <parameter param-name="contactMechIdTo" from-field="contactMechId"/>
+                <parameter param-name="contactMechTypeId" value="EMAIL_ADDRESS"/>
+            </hyperlink>
+        </field>
+        <field name="telephone" title="${uiLabelMap.PartyPhoneNumber}"><display description="${telResult.countryCode} ${telResult.areaCode} ${telResult.contactNumber}${groovy:telResult.get(&quot;extension&quot;)!=null?&quot; Ext:&quot;:&quot; &quot;}${telResult.extension}"/></field>
+        <field name="contactMechPurposeTypeId" entry-name="telResult.contactMechPurposeTypeId" title="${uiLabelMap.CommonPurpose}"><display-entity entity-name="ContactMechPurposeType"/></field>
+        <field name="remove" title="${uiLabelMap.CommonRemove}">
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="removeResource">
+                <parameter param-name="partyId"/>
+                <parameter param-name="roleTypeId"/>
+            </hyperlink>
+        </field>
+    </form>
+    <form name="ListBillingHours" type="list" list-name="billingList" paginate-target="ListResourcesBillingHours"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="projectName">
+            <hyperlink description="${projectName} [${projectId}]" target="projectView">
+                <parameter param-name="projectId"/>
+            </hyperlink>
+        </field>
+        <field name="originalActualHours"><display/></field>
+        <field name="actualHours"><display/></field>
+        <field name="actualNonBilledHours"><display/></field>
+    </form>
+    <form name="AddResource" type="single" target="addResource"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="PartyId" parameter-name="partyId" title="${uiLabelMap.PartyPartyId}"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="roleTypeId">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="RoleType">
+                    <entity-constraint name="parentTypeId" operator="equals" value="PROJECT_TEAM"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="addButton" ><submit/></field>
+    </form>
+    <form name="AddPartyRole" extends="AddPartyRole" extends-resource="component://party/widget/partymgr/PartyForms.xml">
+        <field name="roleTypeId">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="RoleType">
+                    <entity-constraint name="parentTypeId" operator="equals" value="PROJECT_TEAM"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+    </form>
+</forms>

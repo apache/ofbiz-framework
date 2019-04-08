@@ -60,7 +60,7 @@ public class ProductFeatureServices {
      * The optional productFeatureApplTypeId causes results to be filtered by this parameter--only used in conjunction with productId.
      */
     public static Map<String, Object> getProductFeaturesByType(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map<String, Object> results;
+        Map<String, Object> results = new HashMap<String, Object>();
         Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
 
@@ -94,7 +94,7 @@ public class ProductFeatureServices {
             // get all product features in this feature category
             List<GenericValue> allFeatures = EntityQuery.use(delegator).from(entityToSearch).where(fieldToSearch, valueToSearch).orderBy(orderBy).queryList();
 
-            if ("ProductFeatureAndAppl".equals(entityToSearch) && productFeatureApplTypeId != null)
+            if (entityToSearch.equals("ProductFeatureAndAppl") && productFeatureApplTypeId != null)
                 allFeatures = EntityUtil.filterByAnd(allFeatures, UtilMisc.toMap("productFeatureApplTypeId", productFeatureApplTypeId));
 
             List<String> featureTypes = new LinkedList<String>();
@@ -127,7 +127,7 @@ public class ProductFeatureServices {
      * Result: variantProductIds: a List of productIds of variants with those features
      */
     public static Map<String, Object> getAllExistingVariants(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map<String, Object> results;
+        Map<String, Object> results = new HashMap<String, Object>();
         Delegator delegator = dctx.getDelegator();
 
         String productId = (String) context.get("productId");
@@ -179,7 +179,7 @@ public class ProductFeatureServices {
      * {defaultVariantProductId: id of this variant; curProductFeatureAndAppls: features applied to this variant; existingVariantProductIds: List of productIds which are already variants with these features }
      */
     public static Map<String, Object> getVariantCombinations(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map<String, Object> results;
+        Map<String, Object> results = new HashMap<String, Object>();
         LocalDispatcher dispatcher = dctx.getDispatcher();
 
         String productId = (String) context.get("productId");
@@ -218,7 +218,7 @@ public class ProductFeatureServices {
                 // existing list of features and id code or from scratch.
                 if (combinations.size()==0) {
                     for (GenericValue currentFeature: currentFeatures) {
-                        if ("SELECTABLE_FEATURE".equals(currentFeature.getString("productFeatureApplTypeId"))) {
+                        if (currentFeature.getString("productFeatureApplTypeId").equals("SELECTABLE_FEATURE")) {
                             Map<String, Object> newCombination = new HashMap<String, Object>();
                             List<GenericValue> newFeatures = new LinkedList<GenericValue>();
                             List<String> newFeatureIds = new LinkedList<String>();
@@ -237,7 +237,7 @@ public class ProductFeatureServices {
                 } else {
                     for (Map<String, Object> combination: combinations) {
                         for (GenericValue currentFeature: currentFeatures) {
-                            if ("SELECTABLE_FEATURE".equals(currentFeature.getString("productFeatureApplTypeId"))) {
+                            if (currentFeature.getString("productFeatureApplTypeId").equals("SELECTABLE_FEATURE")) {
                                 Map<String, Object> newCombination = new HashMap<String, Object>();
                                 // .clone() is important, or you'll keep adding to the same List for all the variants
                                 // have to cast twice: once from get() and once from clone()

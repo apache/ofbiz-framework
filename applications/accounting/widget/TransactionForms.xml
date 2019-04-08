@@ -62,7 +62,7 @@ under the License.
     </form>
     
     <!-- Brings up a list of gateway responses. TODO: should cut down data displayd -->
-    <grid name="ListGatewayResponses" use-row-submit="true" target="" title="" list-name="listIt" paginate-target="FindGatewayResponses"
+    <form name="ListGatewayResponses" type="list" use-row-submit="true" target="" title="" list-name="listIt" paginate-target="FindGatewayResponses"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <set field="entityName" value="PaymentGatewayResponse"/>
@@ -91,7 +91,7 @@ under the License.
         <field name="transCodeEnumId">
             <display-entity entity-name="Enumeration" key-field-name="enumId"/>
         </field>
-    </grid>
+    </form>
     
     <!-- presents the orderId and orderPaymentPreferenceId for a gateway response with links to the order -->
     <form name="ViewGatewayResponseRelations" type="single" target="" title=""
@@ -103,8 +103,7 @@ under the License.
         </field>
         <field name="orderPaymentPreferenceId"><display/></field>
     </form>
-    
-    <grid name="ViewGatewayResponsePayments" list-name="payments" title="" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+    <form name="ViewGatewayResponsePayments" type="list" list-name="payments" title="" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="paymentId" widget-style="buttontext">
             <hyperlink description="${paymentId}" target="paymentOverview">
                 <parameter param-name="paymentId"/>
@@ -130,7 +129,7 @@ under the License.
         <field name="effectiveDate"><display/></field>
         <field name="currencyUomId"><hidden/></field>
         <field name="amount"><display also-hidden="false" type="currency" currency="${currencyUomId}"/></field>
-    </grid>
+    </form>
     
     <!-- displays the gateway response in detail -->
     <form name="ViewGatewayResponse" type="single" target="processCaptureTransaction" title="" default-map-name="paymentGatewayResponse"

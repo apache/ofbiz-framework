@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
+    <!-- ========================================================= -->
+    <!-- ======================== Defaults ======================= -->
+    <!-- ========================================================= -->
+    <title>Entity of an Apache OFBiz Component</title>
+    <description>None</description>
+    <version>1.0</version>
+    <!-- ========================================================= -->
+    <!-- ======================== Data Model ===================== -->
+    <!-- The modules in this file are as follows:          -->
+    <!--  org.apache.ofbiz.accounting.payment -->
+    <!-- ========================================================= -->
+
+
+    <!-- ========================================================= -->
+    <!-- org.apache.ofbiz.accounting.payment -->
+    <!-- ========================================================= -->
+    <entity entity-name="OldValueLinkFulfillment" table-name="VALUE_LINK_FULFILLMENT"
+            package-name="org.apache.ofbiz.accounting.payment"
+            title="Value Link Fulfillment History">
+      <field name="fulfillmentId" type="id-ne"></field>
+      <field name="typeEnumId" type="id-ne"></field>
+      <field name="merchantId" type="id-vlong-ne"></field>
+      <field name="partyId" type="id-ne"></field>
+      <field name="orderId" type="id-ne"></field>
+      <field name="orderItemSeqId" type="id-ne"></field>
+      <field name="surveyResponseId" type="id-ne"></field>
+      <field name="cardNumber" type="short-varchar"></field>
+      <field name="pinNumber" type="short-varchar"></field>
+      <field name="amount" type="currency-amount"></field>
+      <field name="responseCode" type="short-varchar"></field>
+      <field name="referenceNum" type="short-varchar"></field>
+      <field name="authCode" type="short-varchar"></field>
+      <field name="fulfillmentDate" type="date-time"></field>
+      <prim-key field="fulfillmentId"/>
+      <relation type="one" fk-name="VL_FILL_ENUM" rel-entity-name="Enumeration">
+          <key-map field-name="typeEnumId" rel-field-name="enumId"/>
+      </relation>
+      <relation type="one" fk-name="VL_FILL_PARTY" rel-entity-name="Party">
+          <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="VL_FILL_ODRH" rel-entity-name="OrderHeader">
+          <key-map field-name="orderId"/>
+      </relation>
+      <relation type="one" fk-name="VL_FILL_ODRI" rel-entity-name="OrderItem">
+          <key-map field-name="orderId"/>
+          <key-map field-name="orderItemSeqId"/>
+      </relation>
+      <relation type="one" fk-name="VL_FILL_SURVY" rel-entity-name="SurveyResponse">
+          <key-map field-name="surveyResponseId"/>
+      </relation>
+    </entity>
+    <entity entity-name="OldPartyRate" table-name="PARTY_RATE"
+            package-name="org.apache.ofbiz.workeffort.timesheet"
+            title="Party Rate Entity">
+      <field name="partyId" type="id-ne"></field>
+      <field name="rateTypeId" type="id-ne"></field>
+      <field name="currencyUomId" type="id-ne"/>
+      <field name="defaultRate" type="indicator"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
+      <field name="rate" type="currency-amount"></field>
+      <prim-key field="partyId"/>
+      <prim-key field="rateTypeId"/>
+      <prim-key field="currencyUomId"/>
+      <prim-key field="fromDate"/>
+      <relation type="one" fk-name="OPRTY_RTE_PRTY" rel-entity-name="Party">
+            <key-map field-name="partyId"/>
+          </relation>
+      <relation type="one" fk-name="OPRTY_RTE_RTTP" rel-entity-name="RateType">
+            <key-map field-name="rateTypeId"/>
+          </relation>
+      <relation type="one" fk-name="OPARTY_RATE_CUOM" title="Currency" rel-entity-name="Uom">
+            <key-map field-name="currencyUomId" rel-field-name="uomId"/>
+          </relation>
+    </entity>
+</entitymodel>

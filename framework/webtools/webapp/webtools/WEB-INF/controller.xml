@@ -179,12 +179,6 @@ under the License.
         <response name="success" type="view" value="FindUtilCache"/>
         <response name="error" type="view" value="FindUtilCache"/>
     </request-map>
-    <request-map uri="ClearSelectedCaches">
-        <security https="true" auth="true"/>
-        <event type="java" path="org.apache.ofbiz.webtools.UtilCacheEvents" invoke="clearSelectedCachesEvent"/>
-        <response name="success" type="view" value="FindUtilCache"/>
-        <response name="error" type="view" value="FindUtilCache"/>
-    </request-map>
     <request-map uri="ForceGarbageCollection">
         <security https="true" auth="true"/>
         <event type="service" invoke="forceGarbageCollection"/>
@@ -568,6 +562,7 @@ under the License.
     <request-map uri="WebtoolsLayoutDemoFop"><security https="true" auth="true"/><response name="success" type="view" value="WebtoolsLayoutDemoFop"/></request-map>
     <request-map uri="WebtoolsLayoutDemoText"><security https="true" auth="true"/><response name="success" type="view" value="WebtoolsLayoutDemoText"/></request-map>
     <request-map uri="WebtoolsLayoutDemoXml"><security https="true" auth="true"/><response name="success" type="view" value="WebtoolsLayoutDemoXml"/></request-map>
+    <request-map uri="WebtoolsLayoutDemoXls"><security https="true" auth="true"/><response name="success" type="view" value="WebtoolsLayoutDemoXls"/></request-map>
     <request-map uri="WebtoolsLayoutDemoCsv"><security https="true" auth="true"/><response name="success" type="view" value="WebtoolsLayoutDemoCsv"/></request-map>
     <request-map uri="WebtoolsLayoutDemoXls"><security https="true" auth="true"/><response name="success" type="view" value="WebtoolsLayoutDemoXls"/></request-map>
 
@@ -635,21 +630,21 @@ under the License.
     <view-map name="printStart" type="screen" page="component://webtools/widget/CommonScreens.xml#printStart"/>
     <view-map name="printDone" type="screen" page="component://webtools/widget/CommonScreens.xml#printDone"/>
 
-    <view-map name="EntitySyncStatus" type="screen" page="component://webtools/widget/EntitySyncScreens.xml#EntitySyncStatus"/>
-    <view-map name="EntitySQLProcessor" type="screen" page="component://webtools/widget/EntityScreens.xml#EntitySQLProcessor"/>
-    <view-map name="ConnectionPoolStatus" type="screen" page="component://webtools/widget/EntityScreens.xml#ConnectionPoolStatus"/>
-    <view-map name="EntityExportAll" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityExportAll"/>
-    <view-map name="ProgramExport" type="screen" page="component://webtools/widget/EntityScreens.xml#ProgramExport"/>
-    <view-map name="EntityImportDir" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityImportDir"/>
-    <view-map name="EntityImport" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityImport"/>
-    <view-map name="EntityImportReaders" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityImportReaders"/>
+    <view-map name="EntitySyncStatus" page="component://webtools/widget/EntitySyncScreens.xml#EntitySyncStatus" type="screen"/>
+    <view-map name="EntitySQLProcessor" page="component://webtools/widget/EntityScreens.xml#EntitySQLProcessor" type="screen"/>
+    <view-map name="ConnectionPoolStatus" page="component://webtools/widget/EntityScreens.xml#ConnectionPoolStatus" type="screen"/>
+    <view-map name="EntityExportAll" page="component://webtools/widget/EntityScreens.xml#EntityExportAll" type="screen"/>
+    <view-map name="ProgramExport" page="component://webtools/widget/EntityScreens.xml#ProgramExport" type="screen"/>
+    <view-map name="EntityImportDir" page="component://webtools/widget/EntityScreens.xml#EntityImportDir" type="screen"/>
+    <view-map name="EntityImport" page="component://webtools/widget/EntityScreens.xml#EntityImport" type="screen"/>
+    <view-map name="EntityImportReaders" page="component://webtools/widget/EntityScreens.xml#EntityImportReaders" type="screen"/>
 
     <!-- cert views -->
     <view-map name="viewbrowsercerts" type="screen" page="component://webtools/widget/CommonScreens.xml#browsercerts"/>
 
     <!-- Artifact Info Views -->
-    <view-map name="ViewComponents" type="screen" page="component://webtools/widget/ArtifactInfoScreens.xml#ViewComponents"/>
-    <view-map name="TestSuiteInfo" type="screen" page="component://webtools/widget/ArtifactInfoScreens.xml#TestSuiteInfo"/>
+    <view-map name="ViewComponents" page="component://webtools/widget/ArtifactInfoScreens.xml#ViewComponents" type="screen"/>
+    <view-map name="TestSuiteInfo" page="component://webtools/widget/ArtifactInfoScreens.xml#TestSuiteInfo" type="screen"/>
     <view-map name="ArtifactInfo" type="screen" page="component://webtools/widget/ArtifactInfoScreens.xml#ArtifactInfo"/>
 
     <!-- Label Manager Views -->
@@ -671,12 +666,12 @@ under the License.
     <view-map name="LookupGeo" type="screen" page="component://webtools/widget/GeoManagementScreens.xml#LookupGeo"/>
 
     <!-- Layout Demo -->
-    <view-map name="WebtoolsLayoutDemo" type="screen" page="component://webtools/widget/MiscScreens.xml#WebtoolsLayoutDemo"/>
-    <view-map name="WebtoolsLayoutDemoFop" type="screenfop" page="component://webtools/widget/MiscScreens.xml#WebtoolsLayoutDemoFop" content-type="application/pdf" encoding="none"/>
-    <view-map name="WebtoolsLayoutDemoText" type="screentext" page="component://webtools/widget/MiscScreens.xml#WebtoolsLayoutDemoText"/>
-    <view-map name="WebtoolsLayoutDemoXml" type="screenxml" page="component://webtools/widget/MiscScreens.xml#WebtoolsLayoutDemoText" content-type="text/xml"/>
-    <view-map name="WebtoolsLayoutDemoCsv" type="screencsv" page="component://webtools/widget/MiscScreens.xml#WebtoolsLayoutDemoText" content-type="text/csv"/>
-    <view-map name="WebtoolsLayoutDemoXls" type="screenxls" page="component://webtools/widget/MiscScreens.xml#WebtoolsLayoutDemoText" content-type="application/vnd.ms-excel"/>
+    <view-map name="WebtoolsLayoutDemo" page="component://webtools/widget/MiscScreens.xml#WebtoolsLayoutDemo" type="screen"/>
+    <view-map name="WebtoolsLayoutDemoFop" page="component://webtools/widget/MiscScreens.xml#WebtoolsLayoutDemoFop" type="screenfop" content-type="application/pdf" encoding="none"/>
+    <view-map name="WebtoolsLayoutDemoText" page="component://webtools/widget/MiscScreens.xml#WebtoolsLayoutDemoText" type="screentext"/>
+    <view-map name="WebtoolsLayoutDemoXml" page="component://webtools/widget/MiscScreens.xml#WebtoolsLayoutDemoText" content-type="text/xml" type="screenxml"/>
+    <view-map name="WebtoolsLayoutDemoCsv" page="component://webtools/widget/MiscScreens.xml#WebtoolsLayoutDemoText" content-type="text/csv" type="screencsv"/>
+    <view-map name="WebtoolsLayoutDemoXls" page="component://webtools/widget/MiscScreens.xml#WebtoolsLayoutDemoText" content-type="application/vnd.ms-excel" type="screenxls"/>
 
     <!-- end of view mappings -->
 </site-conf>

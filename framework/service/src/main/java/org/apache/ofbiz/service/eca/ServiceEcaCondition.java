@@ -75,6 +75,12 @@ public class ServiceEcaCondition implements java.io.Serializable {
             this.compareType = condition.getAttribute("type");
             this.format = condition.getAttribute("format");
 
+            if (lhsValueName == null) {
+                lhsValueName = "";
+            }
+            if (rhsValueName == null) {
+                rhsValueName = "";
+            }
         }
     }
 
@@ -127,7 +133,7 @@ public class ServiceEcaCondition implements java.io.Serializable {
             } else {
                 conditionReply = (Boolean) conditionServiceResult.get("conditionReply");
             }
-            return conditionReply;
+            return conditionReply.booleanValue();
         }
 
         Object lhsValue = null;
@@ -184,10 +190,12 @@ public class ServiceEcaCondition implements java.io.Serializable {
                 Debug.logWarning(message.toString(), module);
             }
         }
-        if (!cond) {
+        if (cond != null) {
+            return cond.booleanValue();
+        } else {
             Debug.logWarning("doRealCompare returned null, returning false", module);
+            return false;
         }
-        return cond;
     }
 
     @Override
@@ -204,23 +212,6 @@ public class ServiceEcaCondition implements java.io.Serializable {
         if (UtilValidate.isNotEmpty(compareType)) buf.append("[").append(compareType).append("]");
         if (UtilValidate.isNotEmpty(format)) buf.append("[").append(format).append("]");
         return buf.toString();
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((compareType == null) ? 0 : compareType.hashCode());
-        result = prime * result + ((conditionService == null) ? 0 : conditionService.hashCode());
-        result = prime * result + ((format == null) ? 0 : format.hashCode());
-        result = prime * result + (isConstant ? 1231 : 1237);
-        result = prime * result + (isService ? 1231 : 1237);
-        result = prime * result + ((lhsMapName == null) ? 0 : lhsMapName.hashCode());
-        result = prime * result + ((lhsValueName == null) ? 0 : lhsValueName.hashCode());
-        result = prime * result + ((operator == null) ? 0 : operator.hashCode());
-        result = prime * result + ((rhsMapName == null) ? 0 : rhsMapName.hashCode());
-        result = prime * result + ((rhsValueName == null) ? 0 : rhsValueName.hashCode());
-        return result;
     }
 
     @Override

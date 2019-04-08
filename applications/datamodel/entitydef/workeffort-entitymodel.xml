@@ -41,8 +41,8 @@ under the License.
 
     <entity entity-name="TimeEntry"
             package-name="org.apache.ofbiz.workeffort.timesheet"
-            title="Time Entry">
-      <field name="timeEntryId" type="id"></field>
+            title="Time Entry Entity">
+      <field name="timeEntryId" type="id-ne"></field>
       <field name="partyId" type="id"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
@@ -76,8 +76,8 @@ under the License.
     </entity>
     <entity entity-name="Timesheet"
             package-name="org.apache.ofbiz.workeffort.timesheet"
-            title="Timesheet">
-      <field name="timesheetId" type="id"></field>
+            title="Timesheet Entity">
+      <field name="timesheetId" type="id-ne"></field>
       <field name="partyId" type="id"></field>
       <field name="clientPartyId" type="id"></field>
       <field name="fromDate" type="date-time"></field>
@@ -101,10 +101,10 @@ under the License.
     </entity>
     <entity entity-name="TimesheetRole"
             package-name="org.apache.ofbiz.workeffort.timesheet"
-            title="Timesheet Role">
-      <field name="timesheetId" type="id"></field>
-      <field name="partyId" type="id"></field>
-      <field name="roleTypeId" type="id"></field>
+            title="Timesheet Role Entity">
+      <field name="timesheetId" type="id-ne"></field>
+      <field name="partyId" type="id-ne"></field>
+      <field name="roleTypeId" type="id-ne"></field>
       <prim-key field="timesheetId"/>
       <prim-key field="partyId"/>
       <prim-key field="roleTypeId"/>
@@ -129,11 +129,11 @@ under the License.
 
     <entity entity-name="ApplicationSandbox"
             package-name="org.apache.ofbiz.workeffort.workeffort"
-            title="WorkEffort Application Sandbox">
-      <field name="applicationId" type="id"></field>
-      <field name="workEffortId" type="id"></field>
-      <field name="partyId" type="id"></field>
-      <field name="roleTypeId" type="id"></field>
+            title="WorkEffort Application Sandbox Entity">
+      <field name="applicationId" type="id-ne"></field>
+      <field name="workEffortId" type="id-ne"></field>
+      <field name="partyId" type="id-ne"></field>
+      <field name="roleTypeId" type="id-ne"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="runtimeDataId" type="id"></field>
       <prim-key field="applicationId"/>
@@ -149,9 +149,9 @@ under the License.
     </entity>
     <entity entity-name="CommunicationEventWorkEff"
             package-name="org.apache.ofbiz.workeffort.workeffort"
-            title="Communication Event Work Effort">
-      <field name="workEffortId" type="id"></field>
-      <field name="communicationEventId" type="id"></field>
+            title="Communication Event Work Effort Entity">
+      <field name="workEffortId" type="id-ne"></field>
+      <field name="communicationEventId" type="id-ne"></field>
       <field name="description" type="description"></field>
       <prim-key field="workEffortId"/>
       <prim-key field="communicationEventId"/>
@@ -164,8 +164,8 @@ under the License.
     </entity>
     <entity entity-name="Deliverable"
             package-name="org.apache.ofbiz.workeffort.workeffort"
-            title="Deliverable">
-      <field name="deliverableId" type="id"></field>
+            title="Deliverable Entity">
+      <field name="deliverableId" type="id-ne"></field>
       <field name="deliverableTypeId" type="id"></field>
       <field name="deliverableName" type="name"></field>
       <field name="description" type="description"></field>
@@ -176,15 +176,15 @@ under the License.
     </entity>
     <entity entity-name="DeliverableType"
             package-name="org.apache.ofbiz.workeffort.workeffort"
-            title="Deliverable Type">
-      <field name="deliverableTypeId" type="id"></field>
+            title="Deliverable Type Entity">
+      <field name="deliverableTypeId" type="id-ne"></field>
       <field name="description" type="description"></field>
       <prim-key field="deliverableTypeId"/>
     </entity>
     <entity entity-name="WorkEffort"
             package-name="org.apache.ofbiz.workeffort.workeffort"
-            title="Work Effort">
-      <field name="workEffortId" type="id"></field>
+            title="Work Effort Entity">
+      <field name="workEffortId" type="id-ne"></field>
       <field name="workEffortTypeId" type="id"></field>
       <field name="currentStatusId" type="id"></field>
       <field name="lastStatusUpdate" type="date-time"></field>
@@ -287,10 +287,10 @@ under the License.
     </entity>
     <entity entity-name="WorkEffortAssoc"
             package-name="org.apache.ofbiz.workeffort.workeffort"
-            title="Work Effort Association">
-      <field name="workEffortIdFrom" type="id"></field>
-      <field name="workEffortIdTo" type="id"></field>
-      <field name="workEffortAssocTypeId" type="id"></field>
+            title="Work Effort Association Entity">
+      <field name="workEffortIdFrom" type="id-ne"></field>
+      <field name="workEffortIdTo" type="id-ne"></field>
+      <field name="workEffortAssocTypeId" type="id-ne"></field>
       <field name="sequenceNum" type="numeric"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
@@ -313,12 +313,12 @@ under the License.
     </entity>
     <entity entity-name="WorkEffortAssocAttribute"
             package-name="org.apache.ofbiz.workeffort.workeffort"
-            title="Work Effort Association Attribute">
-      <field name="workEffortIdFrom" type="id"></field>
-      <field name="workEffortIdTo" type="id"></field>
-      <field name="workEffortAssocTypeId" type="id"></field>
+            title="Work Effort Association Attribute Entity">
+      <field name="workEffortIdFrom" type="id-ne"></field>
+      <field name="workEffortIdTo" type="id-ne"></field>
+      <field name="workEffortAssocTypeId" type="id-ne"></field>
       <field name="fromDate" type="date-time"></field>
-      <field name="attrName" type="id-long"></field>
+      <field name="attrName" type="id-long-ne"></field>
       <field name="attrValue" type="value"></field>
       <field name="attrDescription" type="description"></field>
       <prim-key field="workEffortIdFrom"/>
@@ -338,9 +338,9 @@ under the License.
     <entity entity-name="WorkEffortAssocType"
             package-name="org.apache.ofbiz.workeffort.workeffort"
             default-resource-name="WorkEffortEntityLabels"
-            title="Work Effort Association Type">
-      <field name="workEffortAssocTypeId" type="id"></field>
-      <field name="parentTypeId" type="id"></field>
+            title="Work Effort Association Type Entity">
+      <field name="workEffortAssocTypeId" type="id-ne"></field>
+      <field name="parentTypeId" type="id-ne"></field>
       <field name="hasTable" type="indicator"></field>
       <field name="description" type="description"></field>
       <prim-key field="workEffortAssocTypeId"/>
@@ -351,9 +351,9 @@ under the License.
     <entity entity-name="WorkEffortAssocTypeAttr"
             package-name="org.apache.ofbiz.workeffort.workeffort"
             default-resource-name="WorkEffortEntityLabels"
-            title="Work Effort Association Type Attribute">
-      <field name="workEffortAssocTypeId" type="id"></field>
-      <field name="attrName" type="id-long"></field>
+            title="Work Effort Association Type Attribute Entity">
+      <field name="workEffortAssocTypeId" type="id-ne"></field>
+      <field name="attrName" type="id-long-ne"></field>
       <field name="description" type="description"></field>
       <prim-key field="workEffortAssocTypeId"/>
       <prim-key field="attrName"/>
@@ -369,9 +369,9 @@ under the License.
     </entity>
     <entity entity-name="WorkEffortAttribute"
             package-name="org.apache.ofbiz.workeffort.workeffort"
-            title="Work Effort Attribute">
-      <field name="workEffortId" type="id"></field>
-      <field name="attrName" type="id-long"></field>
+            title="Work Effort Attribute Entity">
+      <field name="workEffortId" type="id-ne"></field>
+      <field name="attrName" type="id-long-ne"></field>
       <field name="attrValue" type="value"></field>
       <field name="attrDescription" type="description"></field>
       <prim-key field="workEffortId"/>
@@ -385,10 +385,10 @@ under the License.
     </entity>
     <entity entity-name="WorkEffortBilling"
             package-name="org.apache.ofbiz.workeffort.workeffort"
-            title="Work Effort Billing">
-      <field name="workEffortId" type="id"></field>
-      <field name="invoiceId" type="id"></field>
-      <field name="invoiceItemSeqId" type="id"></field>
+            title="Work Effort Billing Entity">
+      <field name="workEffortId" type="id-ne"></field>
+      <field name="invoiceId" type="id-ne"></field>
+      <field name="invoiceItemSeqId" type="id-ne"></field>
       <field name="percentage" type="floating-point"></field>
       <prim-key field="workEffortId"/>
       <prim-key field="invoiceId"/>
@@ -406,9 +406,9 @@ under the License.
     </entity>
     <entity entity-name="WorkEffortContactMech" table-name="WORK_EFFORT_CONTACT_MECH_NEW"
             package-name="org.apache.ofbiz.workeffort.workeffort"
-            title="WorkEffort Contact Mechanism">
-      <field name="workEffortId" type="id"></field>
-      <field name="contactMechId" type="id"></field>
+            title="WorkEffort Contact Mechanism Entity">
+      <field name="workEffortId" type="id-ne"></field>
+      <field name="contactMechId" type="id-ne"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
       <field name="comments" type="comment"></field>
@@ -425,10 +425,10 @@ under the License.
         <key-map field-name="contactMechId"/>
       </relation>
     </entity>
-    <entity entity-name="WorkEffortContent" package-name="org.apache.ofbiz.workeffort.workeffort" title="WorkEffort Content">
-        <field name="workEffortId" type="id"></field>
-        <field name="contentId" type="id"></field>
-        <field name="workEffortContentTypeId" type="id"></field>
+    <entity entity-name="WorkEffortContent" package-name="org.apache.ofbiz.workeffort.workeffort" title="WorkEffort Content Entity">
+        <field name="workEffortId" type="id-ne"></field>
+        <field name="contentId" type="id-ne"></field>
+        <field name="workEffortContentTypeId" type="id-ne"></field>
         <field name="fromDate" type="date-time"></field>
         <field name="thruDate" type="date-time"></field>
         <prim-key field="workEffortId"/>
@@ -445,8 +445,8 @@ under the License.
             <key-map field-name="workEffortContentTypeId"/>
         </relation>
     </entity>
-    <entity entity-name="WorkEffortContentType" package-name="org.apache.ofbiz.workeffort.workeffort" title="WorkEffort Content Type">
-        <field name="workEffortContentTypeId" type="id"></field>
+    <entity entity-name="WorkEffortContentType" package-name="org.apache.ofbiz.workeffort.workeffort" title="WorkEffort Content Type Entity">
+        <field name="workEffortContentTypeId" type="id-ne"></field>
         <field name="parentTypeId" type="id"></field>
         <field name="description" type="description"></field>
         <prim-key field="workEffortContentTypeId"/>
@@ -456,9 +456,9 @@ under the License.
     </entity>
     <entity entity-name="WorkEffortDeliverableProd"
             package-name="org.apache.ofbiz.workeffort.workeffort"
-            title="Work Effort Deliverable Produced">
-      <field name="workEffortId" type="id"></field>
-      <field name="deliverableId" type="id"></field>
+            title="Work Effort Deliverable Produced Entity">
+      <field name="workEffortId" type="id-ne"></field>
+      <field name="deliverableId" type="id-ne"></field>
       <prim-key field="workEffortId"/>
       <prim-key field="deliverableId"/>
       <relation type="one" fk-name="WKEFF_DELPRD_WEFF" rel-entity-name="WorkEffort">
@@ -470,9 +470,9 @@ under the License.
     </entity>
     <entity entity-name="WorkEffortEventReminder"
             package-name="org.apache.ofbiz.workeffort.workeffort"
-            title="Work Effort Event Reminder">
-      <field name="workEffortId" type="id"></field>
-      <field name="sequenceId" type="id"></field>
+            title="Work Effort Event Reminder Entity">
+      <field name="workEffortId" type="id-ne"></field>
+      <field name="sequenceId" type="id-ne"></field>
       <field name="contactMechId" type="id"></field>
       <field name="partyId" type="id">
           <description>The party this reminder is assigned to</description>
@@ -502,10 +502,10 @@ under the License.
     </entity>
     <entity entity-name="WorkEffortFixedAssetAssign"
             package-name="org.apache.ofbiz.workeffort.workeffort"
-            title="Work Effort Fixed Asset Assignment">
-      <field name="workEffortId" type="id"></field>
-      <field name="fixedAssetId" type="id"></field>
-      <field name="statusId" type="id"></field>
+            title="Work Effort Fixed Asset Assignment Entity">
+      <field name="workEffortId" type="id-ne"></field>
+      <field name="fixedAssetId" type="id-ne"></field>
+      <field name="statusId" type="id-ne"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
       <field name="availabilityStatusId" type="id"><description>Points to StatusItem value with statusTypeId="WEFA_AVAILABILITY"</description></field>
@@ -529,9 +529,9 @@ under the License.
     </entity>
     <entity entity-name="WorkEffortFixedAssetStd"
             package-name="org.apache.ofbiz.workeffort.workeffort"
-            title="Work Effort Fixed Asset Standard">
-      <field name="workEffortId" type="id"></field>
-      <field name="fixedAssetTypeId" type="id"></field>
+            title="Work Effort Fixed Asset Standard Entity">
+      <field name="workEffortId" type="id-ne"></field>
+      <field name="fixedAssetTypeId" type="id-ne"></field>
       <field name="estimatedQuantity" type="floating-point"></field>
       <field name="estimatedDuration" type="floating-point"></field>
       <field name="estimatedCost" type="currency-amount"></field>
@@ -544,13 +544,13 @@ under the License.
         <key-map field-name="fixedAssetTypeId"/>
       </relation>
     </entity>
-    <entity entity-name="WorkEffortGoodStandard" package-name="org.apache.ofbiz.workeffort.workeffort" title="Work Effort Good Standard">
-        <field name="workEffortId" type="id"></field>
-        <field name="productId" type="id"></field>
-        <field name="workEffortGoodStdTypeId" type="id"></field>
+    <entity entity-name="WorkEffortGoodStandard" package-name="org.apache.ofbiz.workeffort.workeffort" title="Work Effort Good Standard Entity">
+        <field name="workEffortId" type="id-ne"></field>
+        <field name="productId" type="id-ne"></field>
+        <field name="workEffortGoodStdTypeId" type="id-ne"></field>
         <field name="fromDate" type="date-time"></field>
         <field name="thruDate" type="date-time"></field>
-        <field name="statusId" type="id"></field>
+        <field name="statusId" type="id-ne"></field>
         <field name="estimatedQuantity" type="floating-point"></field>
         <field name="estimatedCost" type="currency-amount"></field>
         <prim-key field="workEffortId"/>
@@ -572,9 +572,9 @@ under the License.
     </entity>
     <entity entity-name="WorkEffortGoodStandardType"
             package-name="org.apache.ofbiz.workeffort.workeffort"
-            title="Work Effort Good Standard Type">
-      <field name="workEffortGoodStdTypeId" type="id"></field>
-      <field name="parentTypeId" type="id"></field>
+            title="Work Effort Good Standard Type Entity">
+      <field name="workEffortGoodStdTypeId" type="id-ne"></field>
+      <field name="parentTypeId" type="id-ne"></field>
       <field name="hasTable" type="indicator"></field>
       <field name="description" type="description"></field>
       <prim-key field="workEffortGoodStdTypeId"/>
@@ -585,7 +585,7 @@ under the License.
     <entity entity-name="WorkEffortIcalData"
             package-name="org.apache.ofbiz.workeffort.workeffort"
             title="Work Effort iCalendar Data">
-        <field name="workEffortId" type="id"></field>
+        <field name="workEffortId" type="id-ne"></field>
         <field name="icalData" type="very-long">
             <description>iCalender Data</description>
         </field>
@@ -596,10 +596,10 @@ under the License.
     </entity>
     <entity entity-name="WorkEffortInventoryAssign"
             package-name="org.apache.ofbiz.workeffort.workeffort"
-            title="Work Effort Inventory Assignment">
-      <field name="workEffortId" type="id"></field>
-      <field name="inventoryItemId" type="id"></field>
-      <field name="statusId" type="id"></field>
+            title="Work Effort Inventory Assignment Entity">
+      <field name="workEffortId" type="id-ne"></field>
+      <field name="inventoryItemId" type="id-ne"></field>
+      <field name="statusId" type="id-ne"></field>
       <field name="quantity" type="floating-point"></field>
       <prim-key field="workEffortId"/>
       <prim-key field="inventoryItemId"/>
@@ -615,9 +615,9 @@ under the License.
     </entity>
     <entity entity-name="WorkEffortInventoryProduced"
             package-name="org.apache.ofbiz.workeffort.workeffort"
-            title="Work Effort Inventory Produced">
-      <field name="workEffortId" type="id"></field>
-      <field name="inventoryItemId" type="id"></field>
+            title="Work Effort Inventory Produced Entity">
+      <field name="workEffortId" type="id-ne"></field>
+      <field name="inventoryItemId" type="id-ne"></field>
       <prim-key field="workEffortId"/>
       <prim-key field="inventoryItemId"/>
       <relation type="one" fk-name="WKEFF_INVPD_WEFF" rel-entity-name="WorkEffort">
@@ -630,10 +630,10 @@ under the License.
     <!-- Work Effort Costing -->
     <entity entity-name="WorkEffortCostCalc"
             package-name="org.apache.ofbiz.workeffort.workeffort"
-            title="Work Effort Cost Calculation">
-        <field name="workEffortId" type="id"></field>
-        <field name="costComponentTypeId" type="id"></field>
-        <field name="costComponentCalcId" type="id"></field>
+            title="Work Effort Cost Calculation Entity">
+        <field name="workEffortId" type="id-ne"></field>
+        <field name="costComponentTypeId" type="id-ne"></field>
+        <field name="costComponentCalcId" type="id-ne"></field>
         <field name="fromDate" type="date-time"></field>
         <field name="thruDate" type="date-time"></field>
         <prim-key field="workEffortId"/>
@@ -650,8 +650,8 @@ under the License.
         </relation>
     </entity>
 
-    <entity entity-name="WorkEffortKeyword" package-name="org.apache.ofbiz.workeffort.workeffort" title="WorkEffort Keyword" never-cache="true">
-        <field name="workEffortId" type="id"></field>
+    <entity entity-name="WorkEffortKeyword" package-name="org.apache.ofbiz.workeffort.workeffort" title="WorkEffort Keyword Entity" never-cache="true">
+        <field name="workEffortId" type="id-ne"></field>
         <field name="keyword" type="short-varchar"></field>
         <field name="relevancyWeight" type="numeric"></field>
         <prim-key field="workEffortId"/>
@@ -665,9 +665,9 @@ under the License.
     </entity>
     <entity entity-name="WorkEffortNote"
             package-name="org.apache.ofbiz.workeffort.workeffort"
-            title="Work Effort Note">
-      <field name="workEffortId" type="id"></field>
-      <field name="noteId" type="id"></field>
+            title="Work Effort Note Entity">
+      <field name="workEffortId" type="id-ne"></field>
+      <field name="noteId" type="id-ne"></field>
       <field name="internalNote" type="indicator"></field>
       <prim-key field="workEffortId"/>
       <prim-key field="noteId"/>
@@ -678,10 +678,10 @@ under the License.
         <key-map field-name="noteId"/>
       </relation>
     </entity>
-    <entity entity-name="WorkEffortPartyAssignment" package-name="org.apache.ofbiz.workeffort.workeffort" title="Work Effort Party Assignment">
-      <field name="workEffortId" type="id"></field>
-      <field name="partyId" type="id"></field>
-      <field name="roleTypeId" type="id"></field>
+    <entity entity-name="WorkEffortPartyAssignment" package-name="org.apache.ofbiz.workeffort.workeffort" title="Work Effort Party Assignment Entity">
+      <field name="workEffortId" type="id-ne"></field>
+      <field name="partyId" type="id-ne"></field>
+      <field name="roleTypeId" type="id-ne"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
       <field name="assignedByUserLoginId" type="id-vlong"></field>
@@ -729,19 +729,19 @@ under the License.
             <key-map field-name="availabilityStatusId" rel-field-name="statusId"/>
         </relation>
     </entity>
-    <entity entity-name="WorkEffortPurposeType" package-name="org.apache.ofbiz.workeffort.workeffort" title="Work Effort Purpose Type"
+    <entity entity-name="WorkEffortPurposeType" package-name="org.apache.ofbiz.workeffort.workeffort" title="Work Effort Purpose Type Entity"
            default-resource-name="WorkEffortEntityLabels">
-      <field name="workEffortPurposeTypeId" type="id"></field>
-      <field name="parentTypeId" type="id"></field>
+      <field name="workEffortPurposeTypeId" type="id-ne"></field>
+      <field name="parentTypeId" type="id-ne"></field>           
       <field name="description" type="description"></field>
       <prim-key field="workEffortPurposeTypeId"/>
       <relation type="one" fk-name="WK_EFFRT_PTYPE_PAR" title="Parent" rel-entity-name="WorkEffortPurposeType">
         <key-map field-name="parentTypeId" rel-field-name="workEffortPurposeTypeId"/>
       </relation>
     </entity>
-    <entity entity-name="WorkEffortReview" package-name="org.apache.ofbiz.workeffort.workeffort" title="WorkEffort Review">
-        <field name="workEffortId" type="id"></field>
-        <field name="userLoginId" type="id-vlong"></field>
+    <entity entity-name="WorkEffortReview" package-name="org.apache.ofbiz.workeffort.workeffort" title="WorkEffort Review Entity">
+        <field name="workEffortId" type="id-ne"></field>
+        <field name="userLoginId" type="id-vlong-ne"></field>
         <field name="reviewDate" type="date-time"></field>
         <field name="statusId" type="id"></field>
         <field name="postedAnonymous" type="indicator"></field>
@@ -760,9 +760,9 @@ under the License.
             <key-map field-name="statusId"/>
         </relation>
     </entity>
-    <entity entity-name="WorkEffortSearchConstraint" package-name="org.apache.ofbiz.workeffort.workeffort" never-cache="true" title="WorkEffort Search Result Constraint">
-        <field name="workEffortSearchResultId" type="id"></field>
-        <field name="constraintSeqId" type="id"></field>
+    <entity entity-name="WorkEffortSearchConstraint" package-name="org.apache.ofbiz.workeffort.workeffort" never-cache="true" title="WorkEffort Search Result Constraint Entity">
+        <field name="workEffortSearchResultId" type="id-ne"></field>
+        <field name="constraintSeqId" type="id-ne"></field>
         <field name="constraintName" type="long-varchar"></field>
         <field name="infoString" type="long-varchar"></field>
         <field name="includeSubWorkEfforts" type="indicator"></field>
@@ -778,8 +778,8 @@ under the License.
             <key-map field-name="workEffortSearchResultId"/>
         </relation>
     </entity>
-    <entity entity-name="WorkEffortSearchResult" package-name="org.apache.ofbiz.workeffort.workeffort" never-cache="true" title="WorkEffort Search Result">
-        <field name="workEffortSearchResultId" type="id"></field>
+    <entity entity-name="WorkEffortSearchResult" package-name="org.apache.ofbiz.workeffort.workeffort" never-cache="true" title="WorkEffort Search Result Entity">
+        <field name="workEffortSearchResultId" type="id-ne"></field>
         <field name="visitId" type="id"></field>
         <field name="orderByName" type="long-varchar"></field>
         <field name="isAscending" type="indicator"></field>
@@ -790,9 +790,9 @@ under the License.
     </entity>
     <entity entity-name="WorkEffortSkillStandard"
             package-name="org.apache.ofbiz.workeffort.workeffort"
-            title="Work Effort Skill Standard">
-      <field name="workEffortId" type="id"></field>
-      <field name="skillTypeId" type="id"></field>
+            title="Work Effort Skill Standard Entity">
+      <field name="workEffortId" type="id-ne"></field>
+      <field name="skillTypeId" type="id-ne"></field>
       <field name="estimatedNumPeople" type="floating-point"></field>
       <field name="estimatedDuration" type="floating-point"></field>
       <field name="estimatedCost" type="currency-amount"></field>
@@ -807,9 +807,9 @@ under the License.
     </entity>
     <entity entity-name="WorkEffortStatus"
             package-name="org.apache.ofbiz.workeffort.workeffort"
-            title="Work Effort Status">
-      <field name="workEffortId" type="id"></field>
-      <field name="statusId" type="id"></field>
+            title="Work Effort Status Entity">
+      <field name="workEffortId" type="id-ne"></field>
+      <field name="statusId" type="id-ne"></field>
       <field name="statusDatetime" type="date-time"></field>
       <field name="setByUserLogin" type="id-vlong"></field>
       <field name="reason" type="description"></field>
@@ -828,10 +828,10 @@ under the License.
     </entity>
     <entity entity-name="WorkEffortTransBox"
             package-name="org.apache.ofbiz.workeffort.workeffort"
-            title="Work Effort Transition Box">
-      <field name="processWorkEffortId" type="id"></field>
-      <field name="toActivityId" type="id-long"></field>
-      <field name="transitionId" type="id-long"></field>
+            title="Work Effort Transition Box Entity">
+      <field name="processWorkEffortId" type="id-ne"></field>
+      <field name="toActivityId" type="id-long-ne"></field>
+      <field name="transitionId" type="id-long-ne"></field>
       <prim-key field="processWorkEffortId"/>
       <prim-key field="toActivityId"/>
       <prim-key field="transitionId"/>
@@ -842,9 +842,9 @@ under the License.
     <entity entity-name="WorkEffortType"
             package-name="org.apache.ofbiz.workeffort.workeffort"
             default-resource-name="WorkEffortEntityLabels"
-            title="Work Effort Type">
-      <field name="workEffortTypeId" type="id"></field>
-      <field name="parentTypeId" type="id"></field>
+            title="Work Effort Type Entity">
+      <field name="workEffortTypeId" type="id-ne"></field>
+      <field name="parentTypeId" type="id-ne"></field>
       <field name="hasTable" type="indicator"></field>
       <field name="description" type="description"></field>
       <prim-key field="workEffortTypeId"/>
@@ -854,9 +854,9 @@ under the License.
     </entity>
     <entity entity-name="WorkEffortTypeAttr"
             package-name="org.apache.ofbiz.workeffort.workeffort"
-            title="Work Effort Type Attribute">
-      <field name="workEffortTypeId" type="id"></field>
-      <field name="attrName" type="id-long"></field>
+            title="Work Effort Type Attribute Entity">
+      <field name="workEffortTypeId" type="id-ne"></field>
+      <field name="attrName" type="id-long-ne"></field>
       <field name="description" type="description"></field>
       <prim-key field="workEffortTypeId"/>
       <prim-key field="attrName"/>
@@ -872,9 +872,9 @@ under the License.
     </entity>
     <entity entity-name="WorkEffortSurveyAppl"
             package-name="org.apache.ofbiz.workeffort.workeffort"
-            title="Work Effort Survey Appl">
-      <field name="workEffortId" type="id"/>
-      <field name="surveyId" type="id"/>
+            title="Work Effort Survey Appl Entity">
+      <field name="workEffortId" type="id-ne"/>
+      <field name="surveyId" type="id-ne"/>
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
       <prim-key field="workEffortId"/>

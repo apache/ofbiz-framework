@@ -26,8 +26,8 @@ import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
-import org.apache.ofbiz.service.testtools.OFBizTestCase;
 import org.apache.ofbiz.shipment.packing.PackingSession;
+import org.apache.ofbiz.service.testtools.OFBizTestCase;
 
 /**
  * Item Issuance Tests

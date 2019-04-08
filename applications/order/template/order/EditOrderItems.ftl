@@ -70,7 +70,7 @@ under the License.
                       <tr>
                           <#assign orderItemType = orderItem.getRelatedOne("OrderItemType", false)!>
                           <#assign productId = orderItem.productId!>
-                          <#if productId?? && "shoppingcart.CommentLine" == productId>
+                          <#if productId?? && productId == "shoppingcart.CommentLine">
                               <td colspan="8" valign="top">
                                   <span class="label">&gt;&gt; ${orderItem.itemDescription}</span>
                               </td>
@@ -116,18 +116,6 @@ under the License.
                               <#-- now show status details per line item -->
                               <#assign currentItemStatus = orderItem.getRelatedOne("StatusItem", false)>
                               <td>
-                                  <#if "SALES_ORDER" == orderHeader.orderTypeId>
-                                      <table>
-                                          <tr>
-                                              <td class="label">
-                                                  <span class="label">${uiLabelMap.OrderReserveAfterDate}</span>
-                                              </td>
-                                              <td>
-                                                  <@htmlTemplate.renderDateTimeField name="iradm_${orderItem.orderItemSeqId!}" event="" action="" value="${orderItem.reserveAfterDate!}" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="25" maxlength="30" id="reserveAfterDate_${orderItem.orderItemSeqId!}" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
-                                              </td>
-                                          </tr>
-                                      </table>
-                                   </#if>
                                   ${uiLabelMap.CommonCurrent}&nbsp;${currentItemStatus.get("description",locale)?default(currentItemStatus.statusId)}<br />
                                   <#assign orderItemStatuses = orderReadHelper.getOrderItemStatuses(orderItem)>
                                   <#list orderItemStatuses as orderItemStatus>
@@ -149,7 +137,7 @@ under the License.
                               </td>
                               <td class="align-text" valign="top" nowrap="nowrap">
                                 <#assign shippedQuantity = orderReadHelper.getItemShippedQuantity(orderItem)>
-                                <#assign shipmentReceipts = EntityQuery.use(delegator).from("ShipmentReceipt").where("orderId", orderHeader.getString("orderId")!, "orderItemSeqId", orderItem.orderItemSeqId!).queryList()!/>
+                                <#assign shipmentReceipts = delegator.findByAnd("ShipmentReceipt", {"orderId" : orderHeader.getString("orderId"), "orderItemSeqId" : orderItem.orderItemSeqId}, null, false)/>
                                 <#assign totalReceived = 0.0>
                                 <#if shipmentReceipts?? && shipmentReceipts?has_content>
                                   <#list shipmentReceipts as shipmentReceipt>
@@ -163,7 +151,7 @@ under the License.
                                     </#if>
                                   </#list>
                                 </#if>
-                                <#if "PURCHASE_ORDER" == orderHeader.orderTypeId>
+                                <#if orderHeader.orderTypeId == "PURCHASE_ORDER">
                                   <#assign remainingQuantity = ((orderItem.quantity?default(0) - orderItem.cancelQuantity?default(0)) - totalReceived?double)>
                                 <#else>
                                   <#assign remainingQuantity = ((orderItem.quantity?default(0) - orderItem.cancelQuantity?default(0)) - shippedQuantity?double)>
@@ -174,7 +162,7 @@ under the License.
                               </td>
                               <td class="align-text" valign="top" nowrap="nowrap">
                                   <#-- check for permission to modify price -->
-                                  <#if (allowPriceChange) && !("ITEM_CANCELLED" == orderItem.statusId || "ITEM_COMPLETED" == orderItem.statusId)>
+                                  <#if (allowPriceChange) && !(orderItem.statusId == "ITEM_CANCELLED" || orderItem.statusId == "ITEM_COMPLETED")>
                                       <input type="text" size="8" name="ipm_${orderItem.orderItemSeqId}" value="<@ofbizAmount amount=orderItem.unitPrice/>"/>
                                       &nbsp;<input type="checkbox" name="opm_${orderItem.orderItemSeqId}" value="Y"/>
                                   <#else>
@@ -225,7 +213,7 @@ under the License.
                                       <span class="label">${uiLabelMap.OrderAdjustment}</span>&nbsp;${adjustmentType.get("description",locale)}&nbsp;
                                       ${orderItemAdjustment.get("description",locale)!} (${orderItemAdjustment.comments?default("")})
 
-                                      <#if "SALES_TAX" == orderItemAdjustment.orderAdjustmentTypeId>
+                                      <#if orderItemAdjustment.orderAdjustmentTypeId == "SALES_TAX">
                                       <#if orderItemAdjustment.primaryGeoId?has_content>
                                       <#assign primaryGeo = orderItemAdjustment.getRelatedOne("PrimaryGeo", true)/>
                                       <span class="label">${uiLabelMap.OrderJurisdiction}</span>&nbsp;${primaryGeo.geoName} [${primaryGeo.abbreviation!}]
@@ -316,9 +304,9 @@ under the License.
             <#assign adjustmentAmount = Static["org.apache.ofbiz.order.order.OrderReadHelper"].calcOrderAdjustment(orderHeaderAdjustment, orderSubTotal)>
             <#assign orderAdjustmentId = orderHeaderAdjustment.get("orderAdjustmentId")>
             <#assign productPromoCodeId = ''>
-            <#if "PROMOTION_ADJUSTMENT" == adjustmentType.get("orderAdjustmentTypeId") && orderHeaderAdjustment.get("productPromoId")?has_content>
+            <#if adjustmentType.get("orderAdjustmentTypeId") == "PROMOTION_ADJUSTMENT" && orderHeaderAdjustment.get("productPromoId")?has_content>
                 <#assign productPromo = orderHeaderAdjustment.getRelatedOne("ProductPromo", false)>
-                <#assign productPromoCodes = EntityQuery.use(delegator).from("ProductPromoCode").where("productPromoId", productPromo.productPromoId!).queryList()!>
+                <#assign productPromoCodes = delegator.findByAnd("ProductPromoCode", {"productPromoId":productPromo.productPromoId}, null, false)>
                 <#assign orderProductPromoCode = ''>
                 <#list productPromoCodes as productPromoCode>
                     <#if !(orderProductPromoCode?has_content)>
@@ -360,7 +348,7 @@ under the License.
                 <form name="deleteOrderAdjustment${orderAdjustmentId}" method="post" action="<@ofbizUrl>deleteOrderAdjustment</@ofbizUrl>">
                     <input type="hidden" name="orderAdjustmentId" value="${orderAdjustmentId!}"/>
                     <input type="hidden" name="orderId" value="${orderId!}"/>
-                    <#if "PROMOTION_ADJUSTMENT" == adjustmentType.get("orderAdjustmentTypeId")>
+                    <#if adjustmentType.get("orderAdjustmentTypeId") == "PROMOTION_ADJUSTMENT">
                         <input type="hidden" name="productPromoCodeId" value="${productPromoCodeId!}"/>
                     </#if>
                 </form>

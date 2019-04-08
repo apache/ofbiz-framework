@@ -27,7 +27,7 @@ under the License.
                 <set field="headerItem" value="DataResourceSetupMenu"/>
                 <set field="tabButtonItem" to-scope="user" value="EditDataResourceType"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
             </actions>
             <widgets>
@@ -36,9 +36,7 @@ under the License.
                         <screenlet id="DataResourceTypePanel" title="${uiLabelMap.PageTitleEditDataResourceType}" collapsible="true">
                             <include-form name="AddDataResourceType" location="component://content/widget/datasetup/DataSetupForms.xml"/>
                         </screenlet>
-                        <screenlet>
-                          <include-form name="UpdateDataResourceType" location="component://content/widget/datasetup/DataSetupForms.xml"/>
-                        </screenlet>
+                        <include-form name="UpdateDataResourceType" location="component://content/widget/datasetup/DataSetupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -51,7 +49,7 @@ under the License.
                 <set field="headerItem" value="DataResourceSetupMenu"/>
                 <set field="tabButtonItem" to-scope="user" value="EditCharacterSet"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
             </actions>
             <widgets>
@@ -60,9 +58,7 @@ under the License.
                         <screenlet id="DataResourceCharacterSetPanel" title="${uiLabelMap.PageTitleEditDataResourceCharacterSet}" collapsible="true">
                             <include-form name="AddCharacterSet" location="component://content/widget/datasetup/DataSetupForms.xml"/>
                         </screenlet>
-                        <screenlet>
-                          <include-form name="UpdateCharacterSet" location="component://content/widget/datasetup/DataSetupForms.xml"/>
-                        </screenlet>
+                        <include-form name="UpdateCharacterSet" location="component://content/widget/datasetup/DataSetupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -75,7 +71,7 @@ under the License.
                 <set field="headerItem" value="DataResourceSetupMenu"/>
                 <set field="tabButtonItem" to-scope="user" value="EditDataResourceTypeAttr"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
             </actions>
             <widgets>
@@ -84,9 +80,7 @@ under the License.
                         <screenlet id="DataResourceTypeAttrPanel" title="${uiLabelMap.PageTitleEditDataResourceTypeAttr}" collapsible="true">
                             <include-form name="AddDataResourceTypeAttr" location="component://content/widget/datasetup/DataSetupForms.xml"/>
                         </screenlet>
-                        <screenlet>
-                          <include-form name="UpdateDataResourceTypeAttr" location="component://content/widget/datasetup/DataSetupForms.xml"/>
-                        </screenlet>
+                        <include-form name="UpdateDataResourceTypeAttr" location="component://content/widget/datasetup/DataSetupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -99,7 +93,7 @@ under the License.
                 <set field="headerItem" value="DataResourceSetupMenu"/>
                 <set field="tabButtonItem" to-scope="user" value="EditFileExtension"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
             </actions>
             <widgets>
@@ -108,9 +102,7 @@ under the License.
                         <screenlet id="FileExtensionPanel" title="${uiLabelMap.PageTitleEditDataResourceFileExtension}" collapsible="true">
                             <include-form name="AddFileExtension" location="component://content/widget/datasetup/DataSetupForms.xml"/>
                         </screenlet>
-                        <screenlet>
-                          <include-form name="UpdateFileExtension" location="component://content/widget/datasetup/DataSetupForms.xml"/>
-                        </screenlet>
+                        <include-form name="UpdateFileExtension" location="component://content/widget/datasetup/DataSetupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -123,7 +115,7 @@ under the License.
                 <set field="headerItem" value="DataResourceSetupMenu"/>
                 <set field="tabButtonItem" to-scope="user" value="EditMetaDataPredicate"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
             </actions>
             <widgets>
@@ -132,9 +124,7 @@ under the License.
                         <screenlet id="MetaDataPredicatePanel" title="${uiLabelMap.PageTitleEditDataResourceMetaDataPredicate}" collapsible="true">
                             <include-form name="AddMetaDataPredicate" location="component://content/widget/datasetup/DataSetupForms.xml"/>
                         </screenlet>
-                        <screenlet>
-                          <include-form name="UpdateMetaDataPredicate" location="component://content/widget/datasetup/DataSetupForms.xml"/>
-                        </screenlet>
+                        <include-form name="UpdateMetaDataPredicate" location="component://content/widget/datasetup/DataSetupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -147,7 +137,7 @@ under the License.
                 <set field="headerItem" value="DataResourceSetupMenu"/>
                 <set field="tabButtonItem" to-scope="user" value="EditMimeType"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
             </actions>
             <widgets>
@@ -156,9 +146,7 @@ under the License.
                         <screenlet id="DataResourceMimeTypePanel" title="${uiLabelMap.PageTitleEditDataResourceMimeType}" collapsible="true">
                             <include-form name="AddMimeType" location="component://content/widget/datasetup/DataSetupForms.xml"/>
                         </screenlet>
-                        <screenlet>
-                          <include-form name="UpdateMimeType" location="component://content/widget/datasetup/DataSetupForms.xml"/>
-                        </screenlet>
+                        <include-form name="UpdateMimeType" location="component://content/widget/datasetup/DataSetupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -171,7 +159,7 @@ under the License.
                 <set field="headerItem" value="DataResourceSetupMenu"/>
                 <set field="tabButtonItem" to-scope="user" value="EditMimeTypeHtmlTemplate"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
             </actions>
             <widgets>
@@ -180,9 +168,7 @@ under the License.
                         <screenlet id="MimeTypeHtmlTemplatePanel" title="${uiLabelMap.PageTitleEditDataResourceMimeTypeHtmlTemplate}" collapsible="true">
                             <include-form name="CreateMimeTypeHtmlTemplate" location="component://content/widget/datasetup/DataSetupForms.xml"/>
                         </screenlet>
-                        <screenlet>
-                          <include-form name="UpdateMimeTypeHtmlTemplate" location="component://content/widget/datasetup/DataSetupForms.xml"/>
-                        </screenlet>
+                        <include-form name="UpdateMimeTypeHtmlTemplate" location="component://content/widget/datasetup/DataSetupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -196,7 +182,7 @@ under the License.
                 <set field="tabButtonItem" to-scope="user" value="EditDataCategory"/>
                 <script location="component://content/groovyScripts/datasetup/DataCategoryPrep.groovy"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
             </actions>
             <widgets>
@@ -205,9 +191,7 @@ under the License.
                         <screenlet id="DataResourceCategoryPanel" title="${uiLabelMap.PageTitleEditDataResourceCategory}" collapsible="true">
                             <include-form name="AddDataCategory" location="component://content/widget/datasetup/DataSetupForms.xml"/>
                         </screenlet>
-                        <screenlet>
-                          <include-form name="UpdateDataCategory" location="component://content/widget/datasetup/DataSetupForms.xml"/>
-                        </screenlet>
+                        <include-form name="UpdateDataCategory" location="component://content/widget/datasetup/DataSetupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

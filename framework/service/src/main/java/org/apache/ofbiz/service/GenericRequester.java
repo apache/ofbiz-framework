@@ -18,8 +18,8 @@
  *******************************************************************************/
 package org.apache.ofbiz.service;
 
-import java.io.Serializable;
 import java.util.Map;
+import java.io.Serializable;
 
 /**
  * Generic Requester Interface

@@ -17,7 +17,7 @@
   under the License.
   -->
 
-<script type="application/javascript">
+<script type="text/javascript">
     // save new content id to JS scope so it can be used by the jstree in
     // the WebSiteCmsNav view where the newContentId is not available
     var newContentId = "${contentId?default("'a'")}";
@@ -35,7 +35,7 @@
         var isUpload = form.elements['isUploadObject'];
         if (isUpload && isUpload.value == 'Y') {
             var uploadValue = form.elements['uploadedFile'].value;
-            if (uploadValue == null || "" == uploadValue) {
+            if (uploadValue == null || uploadValue == "") {
                 form.action = simpleFormAction;
             }
 
@@ -123,7 +123,7 @@
 <#-- form action -->
 <#if (dataResourceTypeId?has_content)>
     <#assign actionSuffix = "ContentCms"/>
-    <#if ("NONE" == dataResourceTypeId || (content?has_content && !content.dataResourceId?has_content))>
+    <#if (dataResourceTypeId == "NONE" || (content?has_content && !content.dataResourceId?has_content))>
         <#assign actionMiddle = ""/>
     <#else>
         <#if (dataResourceTypeId?ends_with("_OBJECT"))>
@@ -154,14 +154,11 @@
     <form name="cmsform" enctype="multipart/form-data" method="post" action="<@ofbizUrl>${formAction}</@ofbizUrl>" style="margin: 0;">
         <#if (content?has_content)>
             <input type="hidden" name="dataResourceId" value="${(dataResource.dataResourceId)!}"/>
-            <input type="hidden" name="contentIdTo" value="${content.contentId}"/>
+            <input type="hidden" name="contentId" value="${content.contentId}"/>
 
             <#list requestParameters.keySet() as paramName>
-                <#if paramName == 'contentIdFrom'>
-                  <input type="hidden" name="contentId" value="${requestParameters.get(paramName)}"/>
-                </#if>
-                <#if (paramName == 'contentAssocTypeId' || paramName == 'fromDate')>
-                  <input type="hidden" name="${paramName}" value="${requestParameters.get(paramName)}"/>
+                <#if (paramName == 'contentIdFrom' || paramName == 'contentAssocTypeId' || paramName == 'fromDate')>
+                    <input type="hidden" name="${paramName}" value="${requestParameters.get(paramName)}"/>
                 </#if>
             </#list>
         <#else>

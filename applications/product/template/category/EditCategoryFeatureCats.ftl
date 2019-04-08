@@ -40,7 +40,7 @@ under the License.
                 <#list productFeatureCatGrpAppls as productFeatureCatGrpAppl>
                 <#assign line = line + 1>
                 <#assign productFeatureGroup = (productFeatureCatGrpAppl.getRelatedOne("ProductFeatureGroup", false))?default(null)>
-                <tr valign="middle"<#if "1" == rowClass> class="alternate-row"</#if>>
+                <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
                     <td><a href="<@ofbizUrl>EditFeatureGroupAppls?productFeatureGroupId=${(productFeatureCatGrpAppl.productFeatureGroupId)!}</@ofbizUrl>" class="buttontext"><#if productFeatureGroup??>${(productFeatureGroup.description)!}</#if> [${(productFeatureCatGrpAppl.productFeatureGroupId)!}]</a></td>
                     <#assign hasntStarted = false>
                     <#if (productFeatureCatGrpAppl.getTimestamp("fromDate"))?? && nowTimestamp.before(productFeatureCatGrpAppl.getTimestamp("fromDate"))> <#assign hasntStarted = true></#if>
@@ -58,16 +58,16 @@ under the License.
                         </form>
                     </td>
                     <td align="center">
+                        <a href="javascript:document.removeProductFeatureCatGrpApplForm_${productFeatureCatGrpAppl_index}.submit()" class="buttontext">${uiLabelMap.CommonDelete}</a>
                         <form method="post" action="<@ofbizUrl>removeProductFeatureCatGrpAppl</@ofbizUrl>" name="removeProductFeatureCatGrpApplForm_${productFeatureCatGrpAppl_index}">
                             <input type="hidden" name="productFeatureGroupId" value="${(productFeatureCatGrpAppl.productFeatureGroupId)!}" />
                             <input type="hidden" name="productCategoryId" value="${(productFeatureCatGrpAppl.productCategoryId)!}" />
                             <input type="hidden" name="fromDate" value="${(productFeatureCatGrpAppl.fromDate)!}" />
-                            <input type="submit" value="${uiLabelMap.CommonDelete}"/>
                         </form>
                     </td>
                 </tr>
                 <#-- toggle the row color -->
-                <#if "2" == rowClass>
+                <#if rowClass == "2">
                     <#assign rowClass = "1">
                 <#else>
                     <#assign rowClass = "2">
@@ -119,7 +119,7 @@ under the License.
                 <#list productFeatureCategoryAppls as productFeatureCategoryAppl>
                 <#assign line = line + 1>
                 <#assign productFeatureCategory = (productFeatureCategoryAppl.getRelatedOne("ProductFeatureCategory", false))?default(null)>
-                <tr valign="middle"<#if "1" == rowClass> class="alternate-row"</#if>>
+                <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
                     <td><a href="<@ofbizUrl>EditFeatureCategoryFeatures?productFeatureCategoryId=${(productFeatureCategoryAppl.productFeatureCategoryId)!}</@ofbizUrl>" class="buttontext"><#if productFeatureCategory??>${(productFeatureCategory.description)!}</#if> [${(productFeatureCategoryAppl.productFeatureCategoryId)!}]</a></td>
                     <#assign hasntStarted = false>
                     <#if (productFeatureCategoryAppl.getTimestamp("fromDate"))?? && nowTimestamp.before(productFeatureCategoryAppl.getTimestamp("fromDate"))> <#assign hasntStarted = true></#if>
@@ -137,16 +137,16 @@ under the License.
                         </form>
                     </td>
                     <td align="center">
+                    <a href="javascript:document.removeProductFeatureCategoryApplForm_${productFeatureCategoryAppl_index}.submit()" class="buttontext">${uiLabelMap.CommonDelete}</a>
                     <form method="post" action="<@ofbizUrl>removeProductFeatureCategoryAppl</@ofbizUrl>" name="removeProductFeatureCategoryApplForm_${productFeatureCategoryAppl_index}">
                         <input type="hidden" name="productFeatureCategoryId" value="${(productFeatureCategoryAppl.productFeatureCategoryId)!}" />
                         <input type="hidden" name="productCategoryId" value="${(productFeatureCategoryAppl.productCategoryId)!}" />
                         <input type="hidden" name="fromDate" value="${(productFeatureCategoryAppl.fromDate)!}" />
-                        <input type="submit" value="${uiLabelMap.CommonDelete}"/>
                     </form>
                     </td>
                 </tr>
                 <#-- toggle the row color -->
-                <#if "2" == rowClass>
+                <#if rowClass == "2">
                     <#assign rowClass = "1">
                 <#else>
                     <#assign rowClass = "2">

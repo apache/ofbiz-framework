@@ -19,7 +19,6 @@
 package org.apache.ofbiz.product.price;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.HashMap;
@@ -62,7 +61,7 @@ public class PriceServices {
 
     public static final int taxCalcScale = UtilNumber.getBigDecimalScale("salestax.calc.decimals");
     public static final int taxFinalScale = UtilNumber.getBigDecimalScale("salestax.final.decimals");
-    public static final RoundingMode taxRounding = UtilNumber.getRoundingMode("salestax.rounding");
+    public static final int taxRounding = UtilNumber.getBigDecimalRoundingMode("salestax.rounding");
 
     /**
      * <p>Calculates the price of a product from pricing rules given the following input, and of course access to the database:</p>
@@ -292,6 +291,9 @@ public class PriceServices {
                         if (listPriceValue == null) {
                             listPriceValue = getPriceValueForType("LIST_PRICE", variantProductPrices, null);
                         }
+                        if (defaultPriceValue == null) {
+                            defaultPriceValue = getPriceValueForType("DEFAULT_PRICE", variantProductPrices, null);
+                        }
                         if (competitivePriceValue == null) {
                             competitivePriceValue = getPriceValueForType("COMPETITIVE_PRICE", variantProductPrices, null);
                         }
@@ -313,7 +315,6 @@ public class PriceServices {
                         if (specialPromoPriceValue == null) {
                             specialPromoPriceValue = getPriceValueForType("SPECIAL_PROMO_PRICE", variantProductPrices, null);
                         }
-                        defaultPriceValue = getPriceValueForType("DEFAULT_PRICE", variantProductPrices, null);
                     }
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "An error occurred while getting the product prices", module);
@@ -357,7 +358,7 @@ public class PriceServices {
                     }
                     try {
                         Map<String, Object> outMap = dispatcher.runSync(customMethod.getString("customMethodName"), inMap);
-                        if (ServiceUtil.isSuccess(outMap)) {
+                        if (!ServiceUtil.isError(outMap)) {
                             BigDecimal calculatedDefaultPrice = (BigDecimal)outMap.get("price");
                             orderItemPriceInfos = UtilGenerics.checkList(outMap.get("orderItemPriceInfos"));
                             if (UtilValidate.isNotEmpty(calculatedDefaultPrice)) {
@@ -401,7 +402,7 @@ public class PriceServices {
             result.put("averageCost", averageCostValue != null ? averageCostValue.getBigDecimal("price") : null);
             result.put("promoPrice", promoPriceValue != null ? promoPriceValue.getBigDecimal("price") : null);
             result.put("specialPromoPrice", specialPromoPriceValue != null ? specialPromoPriceValue.getBigDecimal("price") : null);
-            result.put("validPriceFound", validPriceFound);
+            result.put("validPriceFound", Boolean.valueOf(validPriceFound));
             result.put("isSale", Boolean.FALSE);
             result.put("orderItemPriceInfos", orderItemPriceInfos);
 
@@ -518,27 +519,29 @@ public class PriceServices {
                 if (UtilValidate.isNotEmpty(result)) {
                     Map<String, Object> convertPriceMap = new HashMap<String, Object>();
                     for (Map.Entry<String, Object> entry : result.entrySet()) {
-                        BigDecimal tempPrice;
-                        switch (entry.getKey()) {
-                        case "basePrice":
-                        case "price":
-                        case "defaultPrice":
-                        case "competitivePrice":
-                        case "averageCost":
-                        case "promoPrice":
-                        case "specialPromoPrice":
-                        case "listPrice":
+                        BigDecimal tempPrice = BigDecimal.ZERO;
+                        if(entry.getKey() == "basePrice")
                             tempPrice = (BigDecimal) entry.getValue();
-                            break;
-                        default:
-                            tempPrice = BigDecimal.ZERO;
-                        }
+                        else if (entry.getKey() == "price")
+                            tempPrice = (BigDecimal) entry.getValue();
+                        else if (entry.getKey() == "defaultPrice")
+                            tempPrice = (BigDecimal) entry.getValue();
+                        else if (entry.getKey() == "competitivePrice")
+                            tempPrice = (BigDecimal) entry.getValue();
+                        else if (entry.getKey() == "averageCost")
+                            tempPrice = (BigDecimal) entry.getValue();
+                        else if (entry.getKey() == "promoPrice")
+                            tempPrice = (BigDecimal) entry.getValue();
+                        else if (entry.getKey() == "specialPromoPrice")
+                            tempPrice = (BigDecimal) entry.getValue();
+                        else if (entry.getKey() == "listPrice")
+                            tempPrice = (BigDecimal) entry.getValue();
                         
                         if (tempPrice != null && tempPrice != BigDecimal.ZERO) {
                             Map<String, Object> priceResults = new HashMap<String, Object>();
                             try {
                                 priceResults = dispatcher.runSync("convertUom", UtilMisc.<String, Object> toMap("uomId", currencyDefaultUomId, "uomIdTo", currencyUomIdTo,
-                                        "originalValue", tempPrice, "defaultDecimalScale", 2L, "defaultRoundingMode", "HalfUp"));
+                                        "originalValue", tempPrice, "defaultDecimalScale", Long.valueOf(2), "defaultRoundingMode", "HalfUp"));
                                 if (ServiceUtil.isError(priceResults) || (priceResults.get("convertedValue") == null)) {
                                     Debug.logWarning("Unable to convert " + entry.getKey() + " for product  " + productId, module);
                                 }
@@ -599,7 +602,7 @@ public class PriceServices {
 
                 // based on the taxPercentage calculate the other amounts, including: listPrice, defaultPrice, averageCost, promoPrice, competitivePrice
                 BigDecimal taxPercentage = (BigDecimal) calcTaxForDisplayResult.get("taxPercentage");
-                BigDecimal taxMultiplier = ONE_BASE.add(taxPercentage.divide(PERCENT_SCALE, taxCalcScale, taxRounding));
+                BigDecimal taxMultiplier = ONE_BASE.add(taxPercentage.divide(PERCENT_SCALE, taxCalcScale));
                 if (result.get("listPrice") != null) {
                     result.put("listPrice", ((BigDecimal) result.get("listPrice")).multiply(taxMultiplier).setScale(taxFinalScale, taxRounding));
                 }
@@ -981,7 +984,7 @@ public class PriceServices {
             Debug.logVerbose("Unchecked Calculated price: " + price, module);
             Debug.logVerbose("PriceInfo:", module);
             for (GenericValue orderItemPriceInfo: orderItemPriceInfos) {
-                if (Debug.verboseOn()) Debug.logVerbose(" --- " + orderItemPriceInfo, module);
+                Debug.logVerbose(" --- " + orderItemPriceInfo.toString(), module);
             }
         }
 
@@ -1015,8 +1018,8 @@ public class PriceServices {
         calcResults.put("defaultPrice", defaultPrice);
         calcResults.put("averageCost", averageCost);
         calcResults.put("orderItemPriceInfos", orderItemPriceInfos);
-        calcResults.put("isSale", isSale);
-        calcResults.put("validPriceFound", validPriceFound);
+        calcResults.put("isSale", Boolean.valueOf(isSale));
+        calcResults.put("validPriceFound", Boolean.valueOf(validPriceFound));
 
         return calcResults;
     }
@@ -1213,75 +1216,13 @@ public class PriceServices {
 
         GenericValue product = (GenericValue)context.get("product");
         String productId = product.getString("productId");
-        String agreementId = (String)context.get("agreementId");
         String currencyUomId = (String)context.get("currencyUomId");
         String partyId = (String)context.get("partyId");
         BigDecimal quantity = (BigDecimal)context.get("quantity");
         Locale locale = (Locale)context.get("locale");
 
         // a) Get the Price from the Agreement* data model
-        if (Debug.infoOn()) Debug.logInfo("Try to resolve purchase price from agreement " + agreementId, module);
-        if (UtilValidate.isNotEmpty(agreementId)) {
-            //TODO Search before if agreement is associate to SupplierProduct.
-            //confirm that agreement is price application on purchase type and contains a value for the product
-            EntityCondition cond = EntityCondition.makeConditionMap(
-                    "agreementId", agreementId,
-                    "agreementItemTypeId", "AGREEMENT_PRICING_PR",
-                    "agreementTypeId", "PURCHASE_AGREEMENT",
-                    "productId", productId);
-            try {
-                List<GenericValue> agreementPrices = delegator.findList("AgreementItemAndProductAppl", cond, UtilMisc.toSet("price", "currencyUomId"), null, null, true);
-                if (UtilValidate.isNotEmpty(agreementPrices)) {
-                    GenericValue priceFound = null;
-                    //resolve price on given currency. If not define, try to convert a present price
-                    priceFound = EntityUtil.getFirst(EntityUtil.filterByAnd(agreementPrices, UtilMisc.toMap("currencyUomId", currencyUomId)));
-                    if (Debug.infoOn()) {
-                        Debug.logInfo("             AgreementItem " + agreementPrices, module);
-                        Debug.logInfo("             currencyUomId " + currencyUomId, module);
-                        Debug.logInfo("             priceFound " + priceFound, module);
-                    }
-                    if (priceFound == null) {
-                        priceFound = EntityUtil.getFirst(agreementPrices);
-                        try {
-                            Map<String, Object> priceConvertMap = UtilMisc.toMap("uomId", priceFound.getString("currencyUomId"), "uomIdTo", currencyUomId,
-                                    "originalValue", priceFound.getBigDecimal("price"), "defaultDecimalScale" , 2L, "defaultRoundingMode" , "HalfUp");
-                            Map<String, Object> priceResults = dispatcher.runSync("convertUom", priceConvertMap);
-                            if (ServiceUtil.isError(priceResults) || (priceResults.get("convertedValue") == null)) {
-                                Debug.logWarning("Unable to convert " + priceFound + " for product  " + productId , module);
-                            } else {
-                                price = (BigDecimal) priceResults.get("convertedValue");
-                                validPriceFound = true;
-                            }
-                        } catch (GenericServiceException e) {
-                            Debug.logError(e, module);
-                        }
-                    } else {
-                        price = priceFound.getBigDecimal("price");
-                        validPriceFound = true;
-                    }
-                }
-                if (validPriceFound) {
-                    GenericValue agreement = delegator.findOne("Agreement", true, UtilMisc.toMap("agreementId", agreementId));
-                    StringBuilder priceInfoDescription = new StringBuilder();
-                    priceInfoDescription.append(UtilProperties.getMessage(resource, "ProductAgreementUse", locale));
-                    priceInfoDescription.append("[");
-                    priceInfoDescription.append(agreementId);
-                    priceInfoDescription.append("] ");
-                    priceInfoDescription.append(agreement.get("description"));
-                    GenericValue orderItemPriceInfo = delegator.makeValue("OrderItemPriceInfo");
-                    // make sure description is <= than 250 chars
-                    String priceInfoDescriptionString = priceInfoDescription.toString();
-                    if (priceInfoDescriptionString.length() > 250) {
-                        priceInfoDescriptionString = priceInfoDescriptionString.substring(0, 250);
-                    }
-                    orderItemPriceInfo.set("description", priceInfoDescriptionString);
-                    orderItemPriceInfos.add(orderItemPriceInfo);
-                }
-            } catch (GenericEntityException gee) {
-                Debug.logError(gee, module);
-                return ServiceUtil.returnError(gee.getMessage());
-            }
-        }
+        // TODO: Implement this
 
         // b) If no price can be found, get the lastPrice from the SupplierProduct entity
         if (!validPriceFound) {
@@ -1368,7 +1309,7 @@ public class PriceServices {
         }
 
         result.put("price", price);
-        result.put("validPriceFound", validPriceFound);
+        result.put("validPriceFound", Boolean.valueOf(validPriceFound));
         result.put("orderItemPriceInfos", orderItemPriceInfos);
         return result;
     }

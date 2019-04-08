@@ -43,7 +43,7 @@ import org.w3c.dom.Element;
 /**
  * Implements the &lt;iterate&gt; element.
  * 
- * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Referenc</a>
+ * @see <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/Mini-language+Reference#Mini-languageReference-{{%3Citerate%3E}}">Mini-language Reference</a>
  */
 public final class Iterate extends MethodOperation {
 
@@ -68,16 +68,16 @@ public final class Iterate extends MethodOperation {
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
         if (listFma.isEmpty()) {
-            if (Debug.verboseOn()) {
-                 Debug.logVerbose("Collection not found, doing nothing: " + this, module);
-            }
+            if (Debug.verboseOn())
+                Debug.logVerbose("Collection not found, doing nothing: " + this, module);
             return true;
         }
         Object oldEntryValue = entryFma.get(methodContext.getEnvMap());
         Object objList = listFma.get(methodContext.getEnvMap());
         if (objList instanceof EntityListIterator) {
-            try (EntityListIterator eli = (EntityListIterator) objList) {
-                GenericValue theEntry;
+            EntityListIterator eli = (EntityListIterator) objList;
+            GenericValue theEntry;
+            try {
                 while ((theEntry = eli.next()) != null) {
                     entryFma.put(methodContext.getEnvMap(), theEntry);
                     try {
@@ -96,15 +96,18 @@ public final class Iterate extends MethodOperation {
                         throw e;
                     }
                 }
-            } catch (GenericEntityException e) {
-                throw new MiniLangRuntimeException("Error with entityListIterator: " + e.getMessage(), this);
+            } finally {
+                try {
+                    eli.close();
+                } catch (GenericEntityException e) {
+                    throw new MiniLangRuntimeException("Error closing entityListIterator: " + e.getMessage(), this);
+                }
             }
         } else if (objList instanceof Collection<?>) {
             Collection<Object> theCollection = UtilGenerics.checkCollection(objList);
             if (theCollection.size() == 0) {
-                if (Debug.verboseOn()) {
-                     Debug.logVerbose("Collection has zero entries, doing nothing: " + this, module);
-                }
+                if (Debug.verboseOn())
+                    Debug.logVerbose("Collection has zero entries, doing nothing: " + this, module);
                 return true;
             }
             for (Object theEntry : theCollection) {
@@ -128,9 +131,8 @@ public final class Iterate extends MethodOperation {
         } else if (objList instanceof Iterator<?>) {
             Iterator<Object> theIterator = UtilGenerics.cast(objList);
             if (!theIterator.hasNext()) {
-                if (Debug.verboseOn()) {
-                     Debug.logVerbose("Iterator has zero entries, doing nothing: " + this, module);
-                }
+                if (Debug.verboseOn())
+                    Debug.logVerbose("Iterator has zero entries, doing nothing: " + this, module);
                 return true;
             }
             while (theIterator.hasNext()) {

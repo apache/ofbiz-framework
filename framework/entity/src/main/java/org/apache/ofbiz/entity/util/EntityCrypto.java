@@ -23,16 +23,21 @@ import java.security.Key;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Random;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.shiro.crypto.AesCipherService;
+import org.apache.shiro.crypto.OperationMode;
+import org.apache.shiro.crypto.hash.DefaultHashService;
+import org.apache.shiro.crypto.hash.HashRequest;
+import org.apache.shiro.crypto.hash.HashService;
 import org.apache.ofbiz.base.crypto.DesCrypt;
 import org.apache.ofbiz.base.crypto.HashCrypt;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.StringUtil;
-import org.apache.ofbiz.base.util.UtilIO;
 import org.apache.ofbiz.base.util.UtilObject;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
@@ -41,19 +46,14 @@ import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.model.ModelField.EncryptMethod;
 import org.apache.ofbiz.entity.transaction.TransactionUtil;
-import org.apache.shiro.crypto.AesCipherService;
-import org.apache.shiro.crypto.OperationMode;
-import org.apache.shiro.crypto.hash.DefaultHashService;
-import org.apache.shiro.crypto.hash.HashRequest;
-import org.apache.shiro.crypto.hash.HashService;
 
 public final class EntityCrypto {
 
     public static final String module = EntityCrypto.class.getName();
 
-    private final Delegator delegator;
-    private final ConcurrentMap<String, byte[]> keyMap = new ConcurrentHashMap<String, byte[]>();
-    private final StorageHandler[] handlers;
+    protected final Delegator delegator;
+    protected final ConcurrentMap<String, byte[]> keyMap = new ConcurrentHashMap<String, byte[]>();
+    protected final StorageHandler[] handlers;
 
     public EntityCrypto(Delegator delegator, String kekText) throws EntityCryptoException {
         this.delegator = delegator;
@@ -124,12 +124,7 @@ public final class EntityCrypto {
     public Object decrypt(String keyName, EncryptMethod encryptMethod, String encryptedString) throws EntityCryptoException {
         try {
             return doDecrypt(keyName, encryptMethod, encryptedString, handlers[0]);
-        } catch (Exception e) {
-            /*
-            When the field is encrypted with the old algorithm (3-DES), the new Shiro code will fail to decrypt it (using AES) and then it will
-            throw an org.apache.shiro.crypto.CryptoException that is a RuntimeException.
-            For backward compatibility we want instead to catch the exception and decrypt the code using the old algorithm.
-             */
+        } catch (GeneralException e) {
             Debug.logInfo("Decrypt with DES key from standard key name hash failed, trying old/funny variety of key name hash", module);
             for (int i = 1; i < handlers.length; i++) {
                 try {
@@ -205,9 +200,11 @@ public final class EntityCrypto {
         newValue.set("keyName", hashedKeyName);
 
         try {
-            TransactionUtil.doNewTransaction(() -> {
-                delegator.create(newValue);
-                return null;
+            TransactionUtil.doNewTransaction(new Callable<Void>() {
+                public Void call() throws Exception {
+                    delegator.create(newValue);
+                    return null;
+                }
             }, "storing encrypted key", 0, true);
         } catch (GenericEntityException e) {
             throw new EntityCryptoException(e);
@@ -377,7 +374,7 @@ public final class EntityCrypto {
 
         @Override
         protected String getHashedKeyName(String originalKeyName) {
-            return HashCrypt.digestHash64("SHA", originalKeyName.getBytes(UtilIO.getUtf8()));
+            return HashCrypt.digestHash64("SHA", originalKeyName.getBytes());
         }
 
         @Override

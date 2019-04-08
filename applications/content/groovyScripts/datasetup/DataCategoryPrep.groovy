@@ -17,6 +17,7 @@
  * under the License.
  */
 
+import org.apache.ofbiz.entity.*
 import org.apache.ofbiz.content.data.DataResourceWorker
 
 /**

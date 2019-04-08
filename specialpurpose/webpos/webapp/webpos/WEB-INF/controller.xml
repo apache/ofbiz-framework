@@ -1,0 +1,505 @@
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Site-Conf" xsi:schemaLocation="http://ofbiz.apache.org/Site-Conf http://ofbiz.apache.org/dtds/site-conf.xsd">
+    <description>Web Pos Component Site Configuration File</description>
+    <errorpage>/error/error.jsp</errorpage>
+    
+    <handler name="java" type="request" class="org.apache.ofbiz.webapp.event.JavaEventHandler"/>
+    <handler name="service" type="request" class="org.apache.ofbiz.webapp.event.ServiceEventHandler"/>
+    <handler name="service-multi" type="request" class="org.apache.ofbiz.webapp.event.ServiceMultiEventHandler"/>
+    <handler name="simple" type="request" class="org.apache.ofbiz.webapp.event.SimpleEventHandler"/>
+    <handler name="groovy" type="request" class="org.apache.ofbiz.webapp.event.GroovyEventHandler"/>    
+    <handler name="jsp" type="view" class="org.apache.ofbiz.webapp.view.JspViewHandler"/>
+    <handler name="screen" type="view" class="org.apache.ofbiz.widget.renderer.macro.MacroScreenViewHandler"/>
+    
+    <!-- Events run from here for the first hit in a visit -->
+    <firstvisit>
+        <event name="autoLoginCheck" type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="autoLoginCheck"/>
+        <event name="checkTrackingCodeCookies" type="java" path="org.apache.ofbiz.marketing.tracking.TrackingCodeEvents" invoke="checkTrackingCodeCookies"/>
+        <event name="setDefaultStoreSettings" type="java" path="org.apache.ofbiz.product.product.ProductEvents" invoke="setDefaultStoreSettings"/>
+    </firstvisit>
+    
+    <!-- Events to run on every request before security (chains exempt) -->
+    <preprocessor>
+        <!-- This event allows affilate/distributor entry on any page -->
+        <event name="checkExternalLoginKey" type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="checkExternalLoginKey"/>
+        <event name="setAssociationId" type="java" path="org.apache.ofbiz.ecommerce.misc.ThirdPartyEvents" invoke="setAssociationId"/>
+        <event name="checkTrackingCodeUrlParam" type="java" path="org.apache.ofbiz.marketing.tracking.TrackingCodeEvents" invoke="checkTrackingCodeUrlParam"/>
+        <event name="checkPartnerTrackingCodeUrlParam" type="java" path="org.apache.ofbiz.marketing.tracking.TrackingCodeEvents" invoke="checkPartnerTrackingCodeUrlParam"/>
+        <event name="keepCartUpdated" type="java" path="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="keepCartUpdated"/>
+    </preprocessor>
+    
+    <after-login>
+        <event name="updateAssociatedDistributor" type="java" path="org.apache.ofbiz.ecommerce.misc.ThirdPartyEvents" invoke="updateAssociatedDistributor"/>
+        <event name="keepCartUpdated" type="java" path="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="keepCartUpdated"/>
+        <!-- after login, get everything from the auto-save list -->
+        <event name="restoreAutoSaveList" type="java" path="org.apache.ofbiz.order.shoppinglist.ShoppingListEvents" invoke="restoreAutoSaveList"/>
+        <!-- after login and restoring from the auto-save list, save everything to the auto-save list to handle anything that may have already been in the cart before login -->
+        <event name="saveCartToAutoSaveList" type="java" path="org.apache.ofbiz.order.shoppinglist.ShoppingListEvents" invoke="saveCartToAutoSaveList"/>
+    </after-login>
+    
+    <!-- Security Mappings -->
+    <request-map uri="checkLogin" edit="false">
+        <description>Verify a user is logged in.</description>
+        <security https="true" auth="false"/>
+        <event type="java" path="org.apache.ofbiz.securityext.login.LoginEvents" invoke="storeCheckLogin"/>
+        <response name="success" type="view" value="main"/>
+        <response name="requirePasswordChange" type="view" value="requirePasswordChange"/>
+        <response name="error" type="view" value="login"/>
+    </request-map>
+    
+    <request-map uri="login">
+        <security https="true" auth="false"/>
+        <event type="java" path="org.apache.ofbiz.webpos.WebPosEvents" invoke="posLogin"/>
+        <response name="success" type="request" value="main"/>
+        <response name="requirePasswordChange" type="view" value="RequirePasswordChange"/>
+        <response name="error" type="view" value="Login"/>
+    </request-map>
+    
+    <request-map uri="logout">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="logout"/>
+        <response name="success" type="request-redirect-noparam" value="main"/>
+        <response name="error" type="request-redirect-noparam" value="main"/>
+    </request-map>
+    
+    <request-map uri="autoLogout">
+        <security https="true" auth="false"/>
+        <event type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="autoLoginRemove"/>
+        <response name="success" type="request-redirect-noparam" value="main"/>
+        <response name="error" type="request-redirect-noparam" value="main"/>
+    </request-map>
+    
+    <request-map uri="requirePasswordChange">
+        <security https="true" auth="false"/>
+        <response name="success" type="view" value="RequirePasswordChange"/>
+    </request-map>
+    <!-- End of Security Mappings -->
+    
+    <!-- Common json reponse events, chain these after events to send json reponses -->
+    <!-- Standard json response, For security reason (OFBIZ-5409) tries to keep only the initially called service attributes -->
+    <request-map uri="json">
+        <security direct-request="false"/>
+        <event type="java" path="org.apache.ofbiz.common.CommonEvents" invoke="jsonResponseFromRequestAttributes"/>
+        <response name="success" type="none"/>
+    </request-map>
+    
+    <request-map uri="getJSONuiLabelArray">
+        <security https="false" auth="false"/>
+        <event type="java" path="org.apache.ofbiz.common.CommonEvents" invoke="getJSONuiLabelArray"/>
+        <response name="success" type="none" />
+        <response name="error" type="none" />
+    </request-map>
+    
+    <!-- Request Mappings  -->
+    <request-map uri="view">
+        <security https="false" auth="false"/>
+        <response name="success" type="view" value="main"/>
+    </request-map>
+    
+    <request-map uri="authview">
+        <security https="false" auth="true"/>
+        <response name="success" type="view" value="main"/>
+    </request-map>
+    
+    <request-map uri="main">
+        <security https="false" auth="true"/>
+        <event type="java" path="org.apache.ofbiz.webpos.WebPosEvents" invoke="existsWebPosSession"/>
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="Login"/>
+    </request-map>
+    
+    <request-map uri="Login">
+        <security https="false" auth="false"/>
+        <event type="java" path="org.apache.ofbiz.webpos.WebPosEvents" invoke="posLogin"/>
+        <response name="success" type="request" value="main"/>
+        <response name="requirePasswordChange" type="view" value="RequirePasswordChange"/>
+        <response name="error" type="view" value="Login"/>
+    </request-map>
+    
+    <request-map uri="Logout">
+        <security https="false" auth="true"/>
+        <event type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="logout"/>
+        <response name="success" type="request-redirect-noparam" value="main"/>
+        <response name="error" type="request-redirect-noparam" value="main"/>
+    </request-map>
+    
+    <request-map uri="ListLocales">
+        <security https="true" auth="false"/>
+        <response name="success" type="view" value="ListLocales" save-last-view="true"/>
+    </request-map>
+    
+    <request-map uri="setSessionLocale">
+        <security https="false" auth="false"/>
+        <event type="java" path="org.apache.ofbiz.common.CommonEvents" invoke="setSessionLocale"/>
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="main"/>
+    </request-map>
+    
+    <request-map uri="ListTimezones">
+        <security https="true" auth="false"/>
+        <response name="success" type="view" value="ListTimezones" save-last-view="true"/>
+    </request-map>
+    
+    <request-map uri="setSessionTimeZone">
+        <security https="true" auth="false"/>
+        <event type="java" path="org.apache.ofbiz.common.CommonEvents" invoke="setSessionTimeZone"/>
+        <response name="success" type="view-last" value="main"/>
+        <response name="error" type="request" value="main"/>
+    </request-map>
+    
+    <request-map uri="showHelp">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="showHelp"/>
+    </request-map>
+    
+    <request-map uri="help">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="help"/>
+    </request-map>
+    
+    <!-- User preference mapping -->
+    <request-map uri="setUserPreference">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="setUserPreference"/>
+        <response name="success" type="view-last" value="main"/>
+        <response name="error" type="request" value="main"/>
+    </request-map>
+
+    <request-map uri="ajaxSetUserPreference">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="setUserPreference"/>
+        <response name="success" type="none"/>
+    </request-map>
+    
+    <request-map uri="help">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="help"/>
+    </request-map>
+
+    <request-map uri="ListVisualThemes">
+        <security https="false" auth="true"/>
+        <response name="success" type="view" value="ListVisualThemes"/>
+    </request-map>
+    
+    <request-map uri="Category">
+        <security https="false" auth="false"/>
+        <response name="success" type="view" value="Category"/>
+    </request-map>
+    
+    <request-map uri="Manager">
+        <security https="false" auth="true"/>
+        <response name="success" type="view" value="Manager"/>
+    </request-map>
+    
+    <request-map uri="Payment">
+        <security https="false" auth="true"/>
+        <response name="success" type="view" value="Payment"/>
+    </request-map>
+    
+    <request-map uri="CustomerAddress">
+        <security https="false" auth="true"/>
+        <response name="success" type="view" value="CustomerAddress"/>
+    </request-map>
+    
+    <request-map uri="ShowCart">
+        <security https="false" auth="true"/>
+        <response name="success" type="view" value="ShowCart"/>
+    </request-map>
+    
+    <request-map uri="ShowCartItemSelected">
+        <security https="false" auth="true"/>
+        <response name="success" type="view" value="ShowCartItemSelected"/>
+    </request-map>
+    
+    <request-map uri="SearchSalesRepsList">
+        <security https="false" auth="true"/>
+        <response name="success" type="view" value="SearchSalesRepsList"/>
+    </request-map>
+    
+    <request-map uri="SideDeepCategory">
+        <security https="false" auth="true"/>
+        <response name="success" type="view" value="SideDeepCategory"/>
+    </request-map>
+    
+    <request-map uri="CategoryDetail">
+        <security https="false" auth="true"/>
+        <response name="success" type="view" value="CategoryDetail"/>
+    </request-map>   
+    
+    <request-map uri="Shutdown">
+        <security https="false" auth="true"/>
+        <event type="simple" path="component://webpos/minilang/ManagerEvents.xml" invoke="shutdown"/>
+        <response name="success" type="request" value="Login"/>
+        <response name="error" type="request" value="main"/>
+    </request-map>
+    
+    <!-- Ajax requests -->
+    <request-map uri="Error">
+        <security https="false" auth="false"/>
+        <response name="success"  type="request" value="json"/>
+        <response name="error"  type="request" value="json"/>
+    </request-map>
+    
+    <request-map uri="EmptyCart">
+        <security https="false" auth="false"/>
+        <event type="java" path="org.apache.ofbiz.webpos.WebPosEvents" invoke="emptyCartAndClearAutoSaveList"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map>
+    
+    <request-map uri="GetProductType">
+        <security https="false" auth="true"/>
+        <event type="java" path="org.apache.ofbiz.webpos.WebPosEvents" invoke="getProductType"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map>
+    
+    <request-map uri="GetProductAndPrice">
+        <security https="false" auth="false"/>
+        <event type="simple" path="component://webpos/minilang/CartEvents.xml" invoke="getProductAndPrice"/>
+        <response name="success"  type="request" value="json"/>
+        <response name="error"  type="request" value="json"/>
+    </request-map>
+    
+    <request-map uri="GetFormattedAmount">
+        <security https="false" auth="false"/>
+        <event type="simple" path="component://webpos/minilang/CartEvents.xml" invoke="getFormattedAmount"/>
+        <response name="success"  type="request" value="json"/>
+        <response name="error"  type="request" value="json"/>
+    </request-map>
+    
+    <request-map uri="GetFormattedProductFeaturePrice">
+        <security https="false" auth="false"/>
+        <event type="simple" path="component://webpos/minilang/CartEvents.xml" invoke="getFormattedProductFeaturePrice"/>
+        <response name="success"  type="request" value="json"/>
+        <response name="error"  type="request" value="json"/>
+    </request-map>
+    
+    <request-map uri="AddToCart">
+        <security https="false" auth="false"/>
+        <event type="simple" path="component://webpos/minilang/CartEvents.xml" invoke="addCartItem"/>
+        <response name="success"  type="request" value="json"/>
+        <response name="error"  type="request" value="json"/>
+    </request-map>
+    
+    <request-map uri="SetPartyToCart">
+        <security https="false" auth="false"/>
+        <event type="simple" path="component://webpos/minilang/CartEvents.xml" invoke="setPartyToCart"/>
+        <response name="success"  type="request" value="json"/>
+        <response name="error"  type="request" value="json"/>
+    </request-map>
+    
+    <request-map uri="GetShipMethods">
+        <security https="false" auth="false"/>
+        <event type="simple" path="component://webpos/minilang/CartEvents.xml" invoke="getShipMethods"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map>
+    
+    <request-map uri="SetShipMethod">
+        <security https="false" auth="false"/>
+        <event type="simple" path="component://webpos/minilang/CartEvents.xml" invoke="setShipMethod"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map>
+    
+    <request-map uri="UpdateCartItem">
+        <security https="false" auth="false"/>
+        <event type="simple" path="component://webpos/minilang/CartEvents.xml" invoke="updateCartItem"/>
+        <response name="success"  type="request" value="json"/>
+        <response name="error"  type="request" value="json"/>
+    </request-map>
+    
+    <request-map uri="DeleteCartItem">
+        <security https="false" auth="false"/>
+        <event type="simple" path="component://webpos/minilang/CartEvents.xml" invoke="deleteCartItem"/>
+        <response name="success"  type="request" value="json"/>
+        <response name="error"  type="request" value="json"/>
+    </request-map>
+    
+    <request-map uri="FindProducts">
+        <security https="false" auth="true"/>
+        <event type="service" invoke="findProducts"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map>
+    
+    <request-map uri="FindParties">
+        <security https="false" auth="true"/>
+        <event type="service" invoke="findParties"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map>
+    
+    <request-map uri="RemoveSalesRep">
+        <security https="false" auth="true"/>
+        <event type="simple" path="component://webpos/minilang/CartEvents.xml" invoke="removeSalesRep"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map>
+    
+    <request-map uri="AddSalesRep">
+        <security https="false" auth="true"/>
+        <event type="simple" path="component://webpos/minilang/CartEvents.xml" invoke="addSalesRep"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map>
+   
+    <request-map uri="PayCash">
+        <security https="false" auth="true"/>
+        <event type="simple" path="component://webpos/minilang/PaymentEvents.xml" invoke="payCash"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map>
+    
+    <request-map uri="PayCheck">
+        <security https="false" auth="true"/>
+        <event type="simple" path="component://webpos/minilang/PaymentEvents.xml" invoke="payCheck"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map>
+    
+    <request-map uri="PayGiftCard">
+        <security https="false" auth="true"/>
+        <event type="simple" path="component://webpos/minilang/PaymentEvents.xml" invoke="payGiftCard"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map>
+    
+    <request-map uri="PayCreditCard">
+        <security https="false" auth="true"/>
+        <event type="simple" path="component://webpos/minilang/PaymentEvents.xml" invoke="payCreditCard"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map>
+    
+    <request-map uri="OpenTerminal">
+        <security https="false" auth="true"/>
+        <event type="simple" path="component://webpos/minilang/ManagerEvents.xml" invoke="openTerminal"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map>
+    
+    <request-map uri="CloseTerminal">
+        <security https="false" auth="true"/>
+        <event type="simple" path="component://webpos/minilang/ManagerEvents.xml" invoke="closeTerminal"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map>
+    
+    <request-map uri="PromoCode">
+        <security https="false" auth="true"/>
+        <event type="simple" path="component://webpos/minilang/PromoEvents.xml" invoke="addPromoCode"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map>
+    
+    <request-map uri="VoidOrder">
+        <security https="false" auth="true"/>
+        <event type="simple" path="component://webpos/minilang/ManagerEvents.xml" invoke="voidOrder"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map>
+    
+    <request-map uri="ModifyPrice">
+        <security https="false" auth="true"/>
+        <event type="simple" path="component://webpos/minilang/ManagerEvents.xml" invoke="modifyPrice"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map>
+    
+    <request-map uri="PaidOutAndIn">
+        <security https="false" auth="true"/>
+        <event type="simple" path="component://webpos/minilang/ManagerEvents.xml" invoke="paidOutAndIn"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map>
+    
+    <request-map uri="PayFinish">
+        <security https="false" auth="true"/>
+        <event type="simple" path="component://webpos/minilang/PaymentEvents.xml" invoke="payFinish"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map>
+    
+    <request-map uri="ClearPayment">
+        <security https="false" auth="true"/>
+        <event type="simple" path="component://webpos/minilang/PaymentEvents.xml" invoke="clearPayment"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map>
+    
+    <request-map uri="CreateUpdateAddress">
+        <security https="false" auth="true"/>
+        <event type="simple" path="component://webpos/minilang/CustomerEvents.xml" invoke="createUpdateAddress"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map>
+    
+    <request-map uri="EditAddress">
+        <security https="false" auth="true"/>
+        <event type="groovy" path="component://webpos/groovyScripts/customer/EditAddress.groovy"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map>
+    <request-map uri="ForgotPassword_step1">
+        <security https="true" auth="false"/>
+        <response name="success" type="view" value="ForgotPassword_step1"/>
+    </request-map>
+    <request-map uri="ForgotPassword_step2">
+        <security auth="false" https="true"></security>
+        <response name="success" type="view" value="ForgotPassword_step2" />
+    </request-map>
+    <request-map uri="ForgotPassword_step3">
+        <security https="true" auth="false"/>
+         <event type="java" path="org.apache.ofbiz.securityext.login.LoginEvents" invoke="forgotPassword"/>
+        <response name="success" type="view" value="Login"/>
+        <response name="error" type="view" value="ForgotPassword_step2"/>
+    </request-map>
+    <!-- end of Ajax requests -->
+    
+    <!-- View Mappings -->
+    <view-map name="error" page="/error/error.jsp"/>
+    <view-map name="Error" type="screen" page="component://webpos/widget/WebPosScreens.xml#Main"/>
+    <view-map name="main" type="screen" page="component://webpos/widget/WebPosScreens.xml#Main"/>
+    <view-map name="login" type="screen" page="component://webpos/widget/CommonScreens.xml#Login"/>
+    <view-map name="Login" type="screen" page="component://webpos/widget/CommonScreens.xml#Login"/>
+    <view-map name="RequirePasswordChange" type="screen" page="component://webpos/widget/CommonScreens.xml#RequirePasswordChange"/>
+    <view-map name="ListLocales" type="screen" page="component://common/widget/LookupScreens.xml#ListLocales"/>
+    <view-map name="ListTimezones" type="screen" page="component://common/widget/LookupScreens.xml#ListTimezones"/>
+    <view-map name="ListVisualThemes" type="screen" page="component://common/widget/LookupScreens.xml#ListVisualThemes"/>
+    <view-map name="help" type="screen" page="component://common/widget/CommonScreens.xml#help"/>
+    <view-map name="showHelp" type="screen" page="component://common/widget/HelpScreens.xml#ShowHelp"/>
+    
+    <view-map name="Manager" type="screen" page="component://webpos/widget/WebPosScreens.xml#Manager"/>
+    <view-map name="Payment" type="screen" page="component://webpos/widget/WebPosScreens.xml#Payment"/>
+    <view-map name="ShowCart" type="screen" page="component://webpos/widget/CartScreens.xml#ShowCart"/>
+    <view-map name="ShowCartItemSelected" type="screen" page="component://webpos/widget/CartScreens.xml#ShowCartItemSelected"/>
+    <view-map name="CustomerAddress" type="screen" page="component://webpos/widget/SearchScreens.xml#CustomerAddress"/>
+    <view-map name="EditAddress" type="screen" page="component://webpos/widget/CustomerScreens.xml#EditAddress"/>
+    <view-map name="SearchSalesRepsList" type="screen" page="component://webpos/widget/SearchScreens.xml#SearchSalesRepsList"/>
+    <view-map name="SideDeepCategory" type="screen" page="component://webpos/widget/CatalogScreens.xml#SideDeepCategory"/>
+    <view-map name="CategoryDetail" type="screen" page="component://webpos/widget/CatalogScreens.xml#CategoryDetail"/>
+    <view-map name="ForgotPassword_step1" type="screen" page="component://webpos/widget/CommonScreens.xml#ForgotPassword_step1"/>
+    <view-map name="ForgotPassword_step2" type="screen" page="component://webpos/widget/CommonScreens.xml#ForgotPassword_step2"/>
+    <!-- End of View Mappings -->
+</site-conf>

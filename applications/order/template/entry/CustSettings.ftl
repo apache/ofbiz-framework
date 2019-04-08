@@ -74,8 +74,8 @@ under the License.
                   &nbsp;ext&nbsp;<input type="text" name="homeExt" value="${requestParameters.homeExt!}" size="6" maxlength="10"/>
                   <br/>
                   <select name="homeSol">
-                    <#if ("Y" == ((requestParameters.homeSol)!""))><option value="Y">${uiLabelMap.CommonY}</option></#if>
-                    <#if ("N" == ((requestParameters.homeSol)!""))><option value="N">${uiLabelMap.CommonN}</option></#if>
+                    <#if (((requestParameters.homeSol)!"") == "Y")><option value="Y">${uiLabelMap.CommonY}</option></#if>
+                    <#if (((requestParameters.homeSol)!"") == "N")><option value="N">${uiLabelMap.CommonN}</option></#if>
                     <option></option>
                     <option value="Y">${uiLabelMap.CommonY}</option>
                     <option value="N">${uiLabelMap.CommonN}</option>
@@ -92,8 +92,8 @@ under the License.
                   &nbsp;ext&nbsp;<input type="text" name="workExt" value="${requestParameters.CUSTOMER_WORK_EXT!}" size="6" maxlength="10"/>
                   <br/>
                   <select name="workSol">
-                    <#if ("Y" == ((requestParameters.workSol)!""))><option value="Y">${uiLabelMap.CommonY}</option></#if>
-                    <#if ("N" == ((requestParameters.workSol)!""))><option value="N">${uiLabelMap.CommonN}</option></#if>
+                    <#if (((requestParameters.workSol)!"") == "Y")><option value="Y">${uiLabelMap.CommonY}</option></#if>
+                    <#if (((requestParameters.workSol)!"") == "N")><option value="N">${uiLabelMap.CommonN}</option></#if>
                     <option></option>
                     <option value="Y">${uiLabelMap.CommonY}</option>
                     <option value="N">${uiLabelMap.CommonN}</option>
@@ -110,8 +110,8 @@ under the License.
                   <input type="text" name="emailAddress" value="" size="60" maxlength="255" />
                   <br/>
                   <select name="emailSol">
-                    <#if ("Y" == ((requestParameters.emailSol)!""))><option value="Y">${uiLabelMap.CommonY}</option></#if>
-                    <#if ("N" == ((requestParameters.emailSol)!""))><option value="N">${uiLabelMap.CommonN}</option></#if>
+                    <#if (((requestParameters.emailSol)!"") == "Y")><option value="Y">${uiLabelMap.CommonY}</option></#if>
+                    <#if (((requestParameters.emailSol)!"") == "N")><option value="N">${uiLabelMap.CommonN}</option></#if>
                     <option></option>
                     <option value="Y">${uiLabelMap.CommonY}</option>
                     <option value="N">${uiLabelMap.CommonN}</option>

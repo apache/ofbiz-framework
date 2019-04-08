@@ -19,8 +19,8 @@ under the License.
 
 <#-- Continuation of showcart.ftl:  List of order items and forms to modify them. -->
 <#macro showAssoc productAssoc>
-  <#local productAssocType = (delegator.findOne("ProductAssocType", {"productAssocTypeId" : productAssoc.productAssocTypeId}, false))/>
-  <#local assocProduct = (delegator.findOne("Product", {"productId" : productAssoc.productIdTo}, false))/>
+  <#assign productAssocType = (delegator.findOne("ProductAssocType", {"productAssocTypeId" : productAssoc.productAssocTypeId}, false))/>
+  <#assign assocProduct = (delegator.findOne("Product", {"productId" : productAssoc.productIdTo}, false))/>
   <#if assocProduct?has_content>
     <td><a href="<@ofbizUrl>/product?product_id=${productAssoc.productIdTo}</@ofbizUrl>"class="buttontext">${productAssoc.productIdTo}</a></td>
     <td>- ${(assocProduct.productName)!}<i>(${(productAssocType.description)?default("Unknown")})</i></td>
@@ -34,7 +34,7 @@ under the License.
   <#if (shoppingCartSize > 0)>
     <form method="post" action="<@ofbizUrl>modifycart</@ofbizUrl>" name="cartform" style="margin: 0;">
       <input type="hidden" name="removeSelected" value="false"/>
-      <#if "PURCHASE_ORDER" == shoppingCart.getOrderType()>
+      <#if shoppingCart.getOrderType() == "PURCHASE_ORDER">
         <input type="hidden" name="finalizeReqShipInfo" value="false"/>
         <input type="hidden" name="finalizeReqOptions" value="false"/>
         <input type="hidden" name="finalizeReqPayInfo" value="false"/>
@@ -80,8 +80,8 @@ under the License.
                   <#if cartLine.getProductId()??>
                     <#-- product item -->
                     <a href="<@ofbizUrl>product?product_id=${cartLine.getProductId()}</@ofbizUrl>" class="buttontext">${cartLine.getProductId()}</a> -
-                    <input size="60" type="text" name="description_${cartLineIndex}" value="${cartLine.getName(dispatcher)?default("")}"/><br />
-                    <i>${cartLine.getDescription(dispatcher)!}</i>
+                    <input size="60" type="text" name="description_${cartLineIndex}" value="${cartLine.getName()?default("")}"/><br />
+                    <i>${cartLine.getDescription()!}</i>
                     <#if shoppingCart.getOrderType() != "PURCHASE_ORDER">
                       <#-- only applies to sales orders, not purchase orders -->
                       <#-- if inventory is not required check to see if it is out of stock and needs to have a message shown about that... -->
@@ -93,7 +93,7 @@ under the License.
                     </#if>
                   <#else>
                     <#-- this is a non-product item -->
-                    <b>${cartLine.getItemTypeDescription()!}</b> : ${cartLine.getName(dispatcher)!}
+                    <b>${cartLine.getItemTypeDescription()!}</b> : ${cartLine.getName()!}
                   </#if>
                     <#-- display the item's features -->
                    <#assign features = "">
@@ -169,7 +169,7 @@ under the License.
                 </td>
               </tr>
             </#if>
-            <#if "PURCHASE_ORDER" == shoppingCart.getOrderType()>
+            <#if shoppingCart.getOrderType() == "PURCHASE_ORDER">
               <#assign currentOrderItemType = cartLine.getItemTypeGenericValue()!/>
                 <tr>
                   <td>
@@ -280,7 +280,7 @@ under the License.
             </td>
             <td nowrap="nowrap" align="right">
               <div>
-                <#if cartLine.getIsPromo() || ("SALES_ORDER" == shoppingCart.getOrderType() && !security.hasEntityPermission("ORDERMGR", "_SALES_PRICEMOD", session))>
+                <#if cartLine.getIsPromo() || (shoppingCart.getOrderType() == "SALES_ORDER" && !security.hasEntityPermission("ORDERMGR", "_SALES_PRICEMOD", session))>
                   <@ofbizCurrency amount=cartLine.getDisplayPrice() isoCode=currencyUomId/>
                 <#else>
                     <#if (cartLine.getSelectedAmount() > 0) >

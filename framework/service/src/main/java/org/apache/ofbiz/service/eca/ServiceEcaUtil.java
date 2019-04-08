@@ -91,7 +91,11 @@ public final class ServiceEcaUtil {
     }
 
     private static Callable<List<ServiceEcaRule>> createEcaLoaderCallable(final ResourceHandler handler) {
-        return () -> getEcaDefinitions(handler);
+        return new Callable<List<ServiceEcaRule>>() {
+            public List<ServiceEcaRule> call() throws Exception {
+                return getEcaDefinitions(handler);
+            }
+        };
     }
 
     public static void addEcaDefinitions(ResourceHandler handler) {
@@ -142,11 +146,6 @@ public final class ServiceEcaUtil {
                     rules = new LinkedList<ServiceEcaRule>();
                     eventMap.put(eventName, rules);
                 }
-            }
-            //remove the old rule if found and keep the recent one
-            //This will prevent duplicate rule execution along with enabled/disabled seca workflow
-            if (rules.remove(rule)) {
-                Debug.logWarning("Duplicate Service ECA [" + serviceName + "] on [" + eventName + "] ", module);
             }
             rules.add(rule);
         }

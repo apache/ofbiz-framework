@@ -42,7 +42,7 @@ public class WidgetMacroLibraryTests extends OFBizTestCase {
     }
 
     /*
-     * Prepare the http client to call the demo layout screen
+     * Prepare the http client to call the demo layou screen
      */
     public HttpClient initHttpClient() throws HttpClientException {
         HttpClient http = new HttpClient();
@@ -120,7 +120,7 @@ public class WidgetMacroLibraryTests extends OFBizTestCase {
         HttpClient http = initHttpClient();
         http.setUrl(screentextUrl.concat(authentificationQuery));
         //FIXME need to check if the stream is an application-pdf that don't contains ftl stack trace
-        InputStream screenInputStream = http.postStream();
+        InputStream screenInputStream = (InputStream) http.postStream();
         assertNotNull("Response failed from ofbiz", screenInputStream);
         assertEquals("Response contentType isn't good : " + http.getResponseContentType(), "application/pdf;charset=UTF-8", http.getResponseContentType());
 

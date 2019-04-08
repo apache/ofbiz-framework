@@ -125,7 +125,7 @@ public final class ScriptHelperImpl implements ScriptHelper {
             Debug.logWarning(e, errMsg, module);
             throw new ScriptException(errMsg);
         }
-        toMap.putAll(modelService.makeValid(inputMap, ModelService.IN_PARAM, true, UtilGenerics.checkList(ctxHelper.getErrorMessages()), ctxHelper.getTimeZone(), ctxHelper.getLocale()));
+        toMap.putAll(modelService.makeValid(inputMap, "IN", true, UtilGenerics.checkList(ctxHelper.getErrorMessages()), ctxHelper.getTimeZone(), ctxHelper.getLocale()));
         return toMap;
     }
 

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<entity-engine-xml>
+    <DataResource dataResourceId="BLG10000" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" isPublic="Y" createdByUserLogin="admin" createdDate="2004-01-16 01:24:06.522" lastModifiedByUserLogin="admin" lastModifiedDate="2010-09-26 13:13:32.482" mimeTypeId="application/octet-stream" statusId="CTNT_PUBLISHED"/>
+    <DataResource dataResourceId="BLG10001" dataResourceTypeId="OFBIZ_FILE_BIN" dataTemplateTypeId="NONE" statusId="CTNT_PUBLISHED" mimeTypeId="image/jpeg" objectInfo="specialpurpose/ecommerce/data/cutekid.jpg" isPublic="Y" createdDate="2007-01-23 16:46:22.843" createdByUserLogin="bigal" lastModifiedDate="2007-01-23 16:46:22.843" lastModifiedByUserLogin="bigal"/>
+    <DataResource dataResourceId="BLG10002" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_PUBLISHED" createdDate="2007-01-23 16:46:22.984" createdByUserLogin="bigal" lastModifiedDate="2007-01-23 16:46:38.671" lastModifiedByUserLogin="bigal"/>
+    <DataResource dataResourceId="BLG10003" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_PUBLISHED" createdDate="2007-01-23 16:47:49.343" createdByUserLogin="bigal" lastModifiedDate="2007-01-23 16:47:49.343" lastModifiedByUserLogin="bigal"/>
+    <DataResource dataResourceId="BLG10004" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_PUBLISHED" createdDate="2007-01-23 16:50:38.171" createdByUserLogin="blog_guest" lastModifiedDate="2007-01-23 16:50:38.171" lastModifiedByUserLogin="blog_guest"/>
+    <DataResource dataResourceId="BLG10005" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_PUBLISHED" createdDate="2007-01-23 16:52:11.421" createdByUserLogin="blog_guest" lastModifiedDate="2007-01-23 16:52:11.421" lastModifiedByUserLogin="blog_guest"/>
+    <DataResource dataResourceId="BLG10006" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_PUBLISHED" mimeTypeId="text/html" createdDate="2007-01-23 16:58:31.093" createdByUserLogin="madmax" lastModifiedDate="2007-01-23 16:58:31.093" lastModifiedByUserLogin="madmax"/>
+    <DataResource dataResourceId="BLG10007" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_PUBLISHED" createdDate="2007-01-23 16:58:31.734" createdByUserLogin="madmax" lastModifiedDate="2007-01-23 16:58:31.734" lastModifiedByUserLogin="madmax"/>
+    <DataResource dataResourceId="BLG10008" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_PUBLISHED" createdDate="2007-01-23 17:00:46.234" createdByUserLogin="blog_guest" lastModifiedDate="2007-01-23 17:00:46.234" lastModifiedByUserLogin="blog_guest"/>
+    <DataResource dataResourceId="BLG10009" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_PUBLISHED" mimeTypeId="text/html" createdDate="2007-01-23 17:07:12.25" createdByUserLogin="madmax" lastModifiedDate="2007-01-23 17:07:12.25" lastModifiedByUserLogin="madmax"/>
+    <DataResource dataResourceId="BLG10010" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_PUBLISHED" createdDate="2007-01-23 17:07:12.625" createdByUserLogin="madmax" lastModifiedDate="2007-01-23 17:07:12.625" lastModifiedByUserLogin="madmax"/>
+    <Content contentId="BLG10000" contentTypeId="DOCUMENT" ownerContentId="BLOGROOTBIGAL" dataResourceId="BLOG_TPL_TOPLEFT" statusId="CTNT_PUBLISHED" contentName="Cute Kid " description="Cutest Kid in the World" childBranchCount="1" createdDate="2007-01-23 16:46:21.453" createdByUserLogin="bigal" lastModifiedDate="2007-01-23 16:46:37.453" lastModifiedByUserLogin="bigal"/>
+    <Content contentId="BLG10001" contentTypeId="DOCUMENT" ownerContentId="BLOGROOTBIGAL" dataResourceId="BLG10000" statusId="CTNT_PUBLISHED" contentName="Cute Kid " description="Cutest Kid in the World" createdDate="2007-01-23 16:46:21.453" createdByUserLogin="bigal" lastModifiedDate="2007-01-23 16:46:38.562" lastModifiedByUserLogin="bigal"/>
+    <Content contentId="BLG10002" contentTypeId="DOCUMENT" ownerContentId="BLOGROOTBIGAL" dataResourceId="BLG10001" statusId="CTNT_PUBLISHED" contentName="Cute Kid " description="Cutest Kid in the World" createdDate="2007-01-23 16:46:22.906" createdByUserLogin="bigal" lastModifiedDate="2007-01-23 16:46:22.906" lastModifiedByUserLogin="bigal"/>
+    <Content contentId="BLG10003" contentTypeId="DOCUMENT" ownerContentId="BLOGROOTBIGAL" dataResourceId="BLG10002" statusId="CTNT_PUBLISHED" contentName="Cute Kid " description="Cutest Kid in the World" createdDate="2007-01-23 16:46:23.031" createdByUserLogin="bigal" lastModifiedDate="2007-01-23 16:46:23.031" lastModifiedByUserLogin="bigal"/>
+    <Content contentId="BLG10004" contentTypeId="DOCUMENT" ownerContentId="BLG10000" dataResourceId="BLG10003" statusId="CTNT_PUBLISHED" contentName="RE:Cute Kid " description="You got that right." childBranchCount="1" createdDate="2007-01-23 16:47:49.375" createdByUserLogin="bigal" lastModifiedDate="2007-01-23 16:47:49.375" lastModifiedByUserLogin="bigal"/>
+    <Content contentId="BLG10005" contentTypeId="DOCUMENT" ownerContentId="BLG10000" dataResourceId="BLG10004" statusId="CTNT_PUBLISHED" contentName="Chopped liver?" description="What am I - chopped liver?" childBranchCount="1" createdDate="2007-01-23 16:50:38.296" createdByUserLogin="blog_guest" lastModifiedDate="2007-01-23 16:50:38.296" lastModifiedByUserLogin="blog_guest"/>
+    <Content contentId="BLG10006" contentTypeId="DOCUMENT" ownerContentId="BLG10000" dataResourceId="BLG10005" statusId="CTNT_PUBLISHED" contentName="Chopped liver?" description="Look like your father" childBranchCount="0" createdDate="2007-01-23 16:52:11.437" createdByUserLogin="blog_guest" lastModifiedDate="2007-01-23 16:52:11.437" lastModifiedByUserLogin="blog_guest"/>
+    <Content contentId="BLG10007" contentTypeId="DOCUMENT" ownerContentId="BLOGROOTMADMAX" dataResourceId="BLG10006" statusId="CTNT_PUBLISHED" contentName="2008 Elections " description="2008 Elections more like a reality show." childBranchCount="1" createdDate="2007-01-23 16:58:31.265" createdByUserLogin="madmax" lastModifiedDate="2007-01-23 16:58:31.265" lastModifiedByUserLogin="madmax"/>
+    <Content contentId="BLG10008" contentTypeId="DOCUMENT" ownerContentId="BLOGROOTMADMAX" dataResourceId="BLG10007" statusId="CTNT_PUBLISHED" createdDate="2007-01-23 16:58:31.75" createdByUserLogin="madmax" lastModifiedDate="2007-01-23 16:58:31.75" lastModifiedByUserLogin="madmax"/>
+    <Content contentId="BLG10009" contentTypeId="DOCUMENT" ownerContentId="BLG10007" dataResourceId="BLG10008" statusId="CTNT_PUBLISHED" contentName="RE:2008 Elections " description="I agree - lets go back to drafting candidates." childBranchCount="0" createdDate="2007-01-23 17:00:46.421" createdByUserLogin="blog_guest" lastModifiedDate="2007-01-23 17:00:46.421" lastModifiedByUserLogin="blog_guest"/>
+    <Content contentId="BLG10010" contentTypeId="DOCUMENT" ownerContentId="BLOGROOTMADMAX" dataResourceId="BLG10009" statusId="CTNT_PUBLISHED" contentName="Next Linus" description="David Jones - next Linux Torvalds" createdDate="2007-01-23 17:07:12.296" createdByUserLogin="madmax" lastModifiedDate="2007-01-23 17:07:12.296" lastModifiedByUserLogin="madmax"/>
+    <Content contentId="BLG10011" contentTypeId="DOCUMENT" ownerContentId="BLOGROOTMADMAX" dataResourceId="BLG10010" statusId="CTNT_PUBLISHED" createdDate="2007-01-23 17:07:12.687" createdByUserLogin="madmax" lastModifiedDate="2007-01-23 17:07:12.687" lastModifiedByUserLogin="madmax"/>
+    <ElectronicText dataResourceId="BLG10000">
+
+        <textData><![CDATA[Hey, if I write this stuff for free, I sure as heck am going to put my kid's picture up there if I want to.
+
+<p/>
+
+This is an example of a complex blog entry that uses the screen widgets to combine text and images.
+
+
+
+If you want to see what the editing environment look like, log in as "bigal/ofbiz".
+
+]]></textData>
+
+    </ElectronicText>
+
+    <ElectronicText dataResourceId="BLG10002" textData="Cutest kid in the whole world.  This section is the &quot;SUMMARY&quot; section. It is stored separately from the main content."/>
+
+    <ElectronicText dataResourceId="BLG10003">
+
+        <textData><![CDATA[This certainly is the cutest kid I have ever seen.
+
+
+
+- Maxwell's (Cutest Kid in the World) mother]]></textData>
+
+    </ElectronicText>
+
+    <ElectronicText dataResourceId="BLG10004">
+
+        <textData><![CDATA[So what am I - chopped liver? How come I can't upload my picture?
+
+
+
+- Joseph (Max's baby brother - age 7 months)]]></textData>
+
+    </ElectronicText>
+
+    <ElectronicText dataResourceId="BLG10005">
+
+        <textData><![CDATA[Sorry dear, but you look too much like your father. Hopefully, you get something from him that may lessen the handicap with which you have been saddled. :0(
+
+
+
+- Mom]]></textData>
+
+    </ElectronicText>
+
+    <ElectronicText dataResourceId="BLG10006" textData="Our leaders have long since stopped being leaders and become moral barometers instead, and believe me there is a storm a`comin. I can understand rich Americans voting for rich politicians because they share a common interest. What I can&apos;t understand is middle class Americans voting for rich politicians in the hopes that they can hold on to the little bit more money they have than the Democrats. What is even sadder is the less well-off who vote for some good-looking joe who has no more in common with them than the man-in-the-moon because it makes them feel like they are like him - reality TV."/>
+
+    <ElectronicText dataResourceId="BLG10007" textData="The 2008 Elections more like a reality show than anything meaningful."/>
+
+    <ElectronicText dataResourceId="BLG10008" textData="I think one requirement for attaining the office of President should be that you don&apos;t want it. That you are drafted by the will of the people and dragged kicking and screaming to the position should be the process."/>
+
+    <ElectronicText dataResourceId="BLG10009">
+
+        <textData><![CDATA[This is not any kind of hero worship; it is pragmatic marketing. You need a profile to attach to dynamic movements, if for no reason other than to pick fights with your competion - "our icon is more enigmatic than your icon". You need someone for publications to write articles about and "the next Linus Torvalds" is just the sort of catch phrase they would pick up on.
+
+<p/>
+
+David won't like it. He will probably delete this seed data from the DB, but it is not really about him. He gave up his right to privacy when he chose to pursue the glamorous life of an open source software developer. We could choose someone else, but no one else knows enough about OFBiz to do the interviews.]]></textData>
+
+    </ElectronicText>
+
+    <ElectronicText dataResourceId="BLG10010" textData="Considering how much more valuable ERP software is than operating system, lets crown David Jones OSS king of the hill and milk it for all it is worth."/>
+
+
+    <ContentAssoc contentId="BLG10000" contentIdTo="BLG10001" contentAssocTypeId="SUB_CONTENT" fromDate="2007-01-23 16:46:22.218" mapKey="MAIN" createdDate="2007-01-23 16:46:38.593" createdByUserLogin="bigal" lastModifiedDate="2007-01-23 16:46:38.593" lastModifiedByUserLogin="bigal"/>
+    <ContentAssoc contentId="BLG10000" contentIdTo="BLG10001" contentAssocTypeId="SUB_CONTENT" fromDate="2007-01-23 16:46:22.796" mapKey="MAIN" createdDate="2007-01-23 16:46:22.796" createdByUserLogin="bigal" lastModifiedDate="2007-01-23 16:46:22.796" lastModifiedByUserLogin="bigal"/>
+    <ContentAssoc contentId="BLG10000" contentIdTo="BLG10002" contentAssocTypeId="SUB_CONTENT" fromDate="2007-01-23 16:46:22.953" mapKey="IMAGE" createdDate="2007-01-23 16:46:22.953" createdByUserLogin="bigal" lastModifiedDate="2007-01-23 16:46:22.953" lastModifiedByUserLogin="bigal"/>
+    <ContentAssoc contentId="BLG10000" contentIdTo="BLG10003" contentAssocTypeId="SUB_CONTENT" fromDate="2007-01-23 16:46:23.109" mapKey="SUMMARY" createdDate="2007-01-23 16:46:23.109" createdByUserLogin="bigal" lastModifiedDate="2007-01-23 16:46:23.109" lastModifiedByUserLogin="bigal"/>
+    <ContentAssoc contentId="BLG10000" contentIdTo="BLG10004" contentAssocTypeId="RESPONSE" fromDate="2007-01-23 16:47:49.406" createdDate="2007-01-23 16:47:49.406" createdByUserLogin="bigal" lastModifiedDate="2007-01-23 16:47:49.406" lastModifiedByUserLogin="bigal"/>
+    <ContentAssoc contentId="BLG10004" contentIdTo="BLG10005" contentAssocTypeId="RESPONSE" fromDate="2007-01-23 16:50:38.515" createdDate="2007-01-23 16:50:38.515" createdByUserLogin="blog_guest" lastModifiedDate="2007-01-23 16:50:38.515" lastModifiedByUserLogin="blog_guest"/>
+    <ContentAssoc contentId="BLG10005" contentIdTo="BLG10006" contentAssocTypeId="RESPONSE" fromDate="2007-01-23 16:52:11.5" createdDate="2007-01-23 16:52:11.5" createdByUserLogin="blog_guest" lastModifiedDate="2007-01-23 16:52:11.5" lastModifiedByUserLogin="blog_guest"/>
+    <ContentAssoc contentId="BLG10007" contentIdTo="BLG10008" contentAssocTypeId="SUB_CONTENT" fromDate="2007-01-23 16:58:31.812" mapKey="SUMMARY" createdDate="2007-01-23 16:58:31.812" createdByUserLogin="madmax" lastModifiedDate="2007-01-23 16:58:31.812" lastModifiedByUserLogin="madmax"/>
+    <ContentAssoc contentId="BLG10007" contentIdTo="BLG10009" contentAssocTypeId="RESPONSE" fromDate="2007-01-23 17:00:46.515" createdDate="2007-01-23 17:00:46.515" createdByUserLogin="blog_guest" lastModifiedDate="2007-01-23 17:00:46.515" lastModifiedByUserLogin="blog_guest"/>
+    <ContentAssoc contentId="BLG10010" contentIdTo="BLG10011" contentAssocTypeId="SUB_CONTENT" fromDate="2007-01-23 17:07:12.734" mapKey="SUMMARY" createdDate="2007-01-23 17:07:12.734" createdByUserLogin="madmax" lastModifiedDate="2007-01-23 17:07:12.734" lastModifiedByUserLogin="madmax"/>
+    <ContentAssoc contentId="BLOGROOTBIGAL" contentIdTo="BLG10000" contentAssocTypeId="PUBLISH_LINK" fromDate="2007-01-23 16:46:22.218" createdDate="2007-01-23 16:46:22.218" createdByUserLogin="bigal" lastModifiedDate="2007-01-23 16:46:38.359" lastModifiedByUserLogin="bigal"/>
+    <ContentAssoc contentId="BLOGROOTMADMAX" contentIdTo="BLG10007" contentAssocTypeId="PUBLISH_LINK" fromDate="2007-01-23 16:58:31.656" createdDate="2007-01-23 16:58:31.656" createdByUserLogin="madmax" lastModifiedDate="2007-01-23 16:58:31.656" lastModifiedByUserLogin="madmax"/>
+    <ContentAssoc contentId="BLOGROOTMADMAX" contentIdTo="BLG10010" contentAssocTypeId="PUBLISH_LINK" fromDate="2007-01-23 17:07:12.578" createdDate="2007-01-23 17:07:12.578" createdByUserLogin="madmax" lastModifiedDate="2007-01-23 17:07:12.578" lastModifiedByUserLogin="madmax"/>
+
+
+    <ContentPurpose contentId="BLG10000" contentPurposeTypeId="ARTICLE"/>
+    <ContentPurpose contentId="BLG10001" contentPurposeTypeId="ARTICLE"/>
+    <ContentPurpose contentId="BLG10002" contentPurposeTypeId="ARTICLE"/>
+    <ContentPurpose contentId="BLG10003" contentPurposeTypeId="ARTICLE"/>
+    <ContentPurpose contentId="BLG10004" contentPurposeTypeId="RESPONSE"/>
+    <ContentPurpose contentId="BLG10005" contentPurposeTypeId="RESPONSE"/>
+    <ContentPurpose contentId="BLG10006" contentPurposeTypeId="RESPONSE"/>
+    <ContentPurpose contentId="BLG10007" contentPurposeTypeId="ARTICLE"/>
+    <ContentPurpose contentId="BLG10008" contentPurposeTypeId="ARTICLE"/>
+    <ContentPurpose contentId="BLG10009" contentPurposeTypeId="RESPONSE"/>
+    <ContentPurpose contentId="BLG10010" contentPurposeTypeId="ARTICLE"/>
+    <ContentPurpose contentId="BLG10011" contentPurposeTypeId="ARTICLE"/>
+</entity-engine-xml>

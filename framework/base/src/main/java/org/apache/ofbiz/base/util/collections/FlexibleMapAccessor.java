@@ -21,7 +21,6 @@ package org.apache.ofbiz.base.util.collections;
 import java.io.Serializable;
 import java.util.Locale;
 import java.util.Map;
-
 import javax.el.PropertyNotFoundException;
 
 import org.apache.ofbiz.base.lang.IsEmpty;
@@ -43,9 +42,8 @@ import org.apache.ofbiz.base.util.string.UelUtil;
 @SuppressWarnings("serial")
 public final class FlexibleMapAccessor<T> implements Serializable, IsEmpty {
     public static final String module = FlexibleMapAccessor.class.getName();
-    private static final UtilCache<String, FlexibleMapAccessor<Object>> fmaCache =
-            UtilCache.createUtilCache("flexibleMapAccessor.ExpressionCache");
-    private static final FlexibleMapAccessor<?> nullFma = new FlexibleMapAccessor<>("");
+    private static final UtilCache<String, FlexibleMapAccessor<?>> fmaCache = UtilCache.createUtilCache("flexibleMapAccessor.ExpressionCache");
+    private static final FlexibleMapAccessor nullFma = new FlexibleMapAccessor("");
 
     private final boolean isEmpty;
     private final String original;
@@ -85,14 +83,15 @@ public final class FlexibleMapAccessor<T> implements Serializable, IsEmpty {
      * @param original The original String expression
      * @return A FlexibleMapAccessor instance
      */
+    @SuppressWarnings("unchecked")
     public static <T> FlexibleMapAccessor<T> getInstance(String original) {
         if (UtilValidate.isEmpty(original) || "null".equals(original)) {
-            return UtilGenerics.cast(nullFma);
+            return nullFma;
         }
-        FlexibleMapAccessor<T> fma = UtilGenerics.cast(fmaCache.get(original));
+        FlexibleMapAccessor fma = fmaCache.get(original);
         if (fma == null) {
-            fmaCache.putIfAbsent(original, new FlexibleMapAccessor<>(original));
-            fma = UtilGenerics.cast(fmaCache.get(original));
+            fmaCache.putIfAbsent(original, new FlexibleMapAccessor(original));
+            fma = fmaCache.get(original);
         }
         return fma;
     }
@@ -221,10 +220,10 @@ public final class FlexibleMapAccessor<T> implements Serializable, IsEmpty {
         if (this == obj) {
             return true;
         }
-        if (obj instanceof FlexibleMapAccessor) {
-            FlexibleMapAccessor<?> that = (FlexibleMapAccessor<?>) obj;
+        try {
+            FlexibleMapAccessor that = (FlexibleMapAccessor) obj;
             return UtilObject.equalsHelper(this.original, that.original);
-        }
+        } catch (Exception e) {}
         return false;
     }
 

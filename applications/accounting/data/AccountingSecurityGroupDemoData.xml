@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<entity-engine-xml>
+    <!-- Payment Processors security -->
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PAYPROC_CREATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PAYPROC_DELETE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PAYPROC_VIEW"/>
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="PAYPROC_VIEW"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="PAYPROC_ADMIN"/>
+
+    <!-- Payment Information security -->
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PAY_INFO_CREATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PAY_INFO_DELETE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PAY_INFO_UPDATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PAY_INFO_VIEW"/>
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="PAY_INFO_VIEW"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="PAY_INFO_ADMIN"/>
+
+    <!-- Accounting Manager security -->
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="ACCOUNTING_ADMIN"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ACCOUNTING_CREATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ACCOUNTING_DELETE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ACCOUNTING_UPDATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ACCOUNTING_VIEW"/>
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="ACCOUNTING_VIEW"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCOUNTING_ADMIN"/>
+
+    <!-- Manual Payment security -->
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="MANUAL_PAYMENT"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="MANUAL_PAYMENT"/>
+
+    <!-- ACCOUNTING_COMMs security -->
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="ACCOUNTING_COMM_VIEW"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ACCOUNTING_COMM_VIEW"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCOUNTING_COMM_VIEW"/>
+
+    <!-- Ability to print checks -->
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="ACCOUNTING_PRINT_CHECKS"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ACCOUNTING_PRINT_CHECKS"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCOUNTING_PRINT_CHECKS"/>
+
+    <!-- Set up accounting organization preferences security -->
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="ACCTG_PREF_ADMIN"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCTG_PREF_CREATE"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCTG_PREF_UPDATE"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCTG_PREF_DELETE"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCTG_PREF_VIEW"/>
+
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="ACCTG_FX_UPDATE"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCTG_FX_UPDATE"/>
+
+    <!-- For general ledger accounting transactions. Note that any component that needs to post
+        accounting transactions should create a permission service SECA to grant
+        task-specific permissions to post transactions. The following permissions
+        should be given to accountants only, as that involves changing the books. -->
+
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="ACCTG_ATX_ADMIN"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ACCTG_ATX_VIEW"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ACCTG_ATX_CREATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ACCTG_ATX_UPDATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ACCTG_ATX_DELETE"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCTG_ATX_VIEW"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCTG_ATX_CREATE"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCTG_ATX_UPDATE"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCTG_ATX_DELETE"/>
+    
+    <!-- Security Group to manage all Accounting operations -->
+    <SecurityGroup description="Accounting permission for all accounting functions." groupId="ACCTG_FUNCTNL_ADMIN"/>
+    <SecurityGroupPermission groupId="ACCTG_FUNCTNL_ADMIN" permissionId="ACCOUNTING_ADMIN"/>
+    <SecurityGroupPermission groupId="ACCTG_FUNCTNL_ADMIN" permissionId="OFBTOOLS_VIEW"/>
+    <SecurityGroupPermission groupId="ACCTG_FUNCTNL_ADMIN" permissionId="ACCTG_ATX_ADMIN"/>
+    <SecurityGroupPermission groupId="ACCTG_FUNCTNL_ADMIN" permissionId="ACCTG_FX_UPDATE"/>
+    <SecurityGroupPermission groupId="ACCTG_FUNCTNL_ADMIN" permissionId="ACCTG_PREF_ADMIN"/>
+    <SecurityGroupPermission groupId="ACCTG_FUNCTNL_ADMIN" permissionId="ACCOUNTING_PRINT_CHECKS"/>
+    <SecurityGroupPermission groupId="ACCTG_FUNCTNL_ADMIN" permissionId="ACCOUNTING_COMM_VIEW"/>
+    <SecurityGroupPermission groupId="ACCTG_FUNCTNL_ADMIN" permissionId="MANUAL_PAYMENT"/>
+    <SecurityGroupPermission groupId="ACCTG_FUNCTNL_ADMIN" permissionId="PAY_INFO_ADMIN"/>
+    <SecurityGroupPermission groupId="ACCTG_FUNCTNL_ADMIN" permissionId="PAYPROC_ADMIN"/>
+    <SecurityGroupPermission groupId="ACCTG_FUNCTNL_ADMIN" permissionId="ASSETMAINT_VIEW"/>
+    <SecurityGroupPermission groupId="ACCTG_FUNCTNL_ADMIN" permissionId="ACCOUNTING_CREATE"/>
+    <SecurityGroupPermission groupId="ACCTG_FUNCTNL_ADMIN" permissionId="ACCOUNTING_DELETE"/>
+    <SecurityGroupPermission groupId="ACCTG_FUNCTNL_ADMIN" permissionId="ACCOUNTING_UPDATE"/>
+    <SecurityGroupPermission groupId="ACCTG_FUNCTNL_ADMIN" permissionId="ACCOUNTING_VIEW"/>
+
+</entity-engine-xml>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
+    <simple-method method-name="createAffiliate" short-description="Create Affiliate" login-required="false">
+
+       <!-- Create the UserLogin Record -->
+        <call-map-processor xml-resource="component://ecommerce/minilang/misc/AffiliateMapProcs.xml"
+                processor-name="newAffilParty" in-map-name="parameters" out-map-name="ul_context"/>
+        <call-map-processor xml-resource="component://ecommerce/minilang/misc/AffiliateMapProcs.xml"
+                processor-name="newAffilUser" in-map-name="parameters" out-map-name="ul_context"/>
+        <check-errors/>
+        <call-service service-name="createUserLogin" in-map-name="ul_context"/>
+        <set from-field="ul_context.userLoginId" field="newUserLoginMap.userLoginId"/>
+        <set from-field="ul_context.currentPassword" field="newUserLoginMap.currentPassword"/>
+        <set from-field="ul_context.passwordHint" field="newUserLoginMap.passwordHint"/>
+        <set from-field="ul_context.partyId" field="newUserLoginMap.partyId"/>
+        <make-value entity-name="UserLogin" map="newUserLoginMap" value-field="newUserLogin"/>
+        <set-current-user-login value-field="newUserLogin"/>
+
+        <!-- Create the Party/PartyGroup -->
+        <call-map-processor xml-resource="component://ecommerce/minilang/misc/AffiliateMapProcs.xml"
+                processor-name="newAffilParty" in-map-name="parameters" out-map-name="pg_context"/>
+        <call-map-processor xml-resource="component://ecommerce/minilang/misc/AffiliateMapProcs.xml"
+                processor-name="newAffilGroup" in-map-name="parameters" out-map-name="pg_context"/>
+        <check-errors/>
+        <call-service service-name="createPartyGroup" in-map-name="pg_context"/>
+
+        <!-- Create the Contact Person -->
+        <call-map-processor xml-resource="component://ecommerce/minilang/misc/AffiliateMapProcs.xml"
+                processor-name="newAffilContact" in-map-name="parameters" out-map-name="ct_context"/>
+        <check-errors/>
+        <call-service service-name="createPerson" in-map-name="ct_context"/>
+
+        <!-- Create the Postal Address -->
+        <call-map-processor xml-resource="component://ecommerce/minilang/misc/AffiliateMapProcs.xml"
+                processor-name="newAffilPostal" in-map-name="parameters" out-map-name="pa_context"/>
+        <check-errors/>
+        <call-service service-name="createPostalAddress" in-map-name="pa_context">
+            <result-to-field result-name="contactMechId" field="parameters.contactMechId"/>
+        </call-service>
+
+        <!-- Create the Postal Address Purpose -->
+        <call-map-processor xml-resource="component://ecommerce/minilang/misc/AffiliateMapProcs.xml"
+                processor-name="newAffilPostalPurpose" in-map-name="parameters" out-map-name="pr_context"/>
+        <check-errors/>
+        <call-service service-name="createPartyContactMechPurpose" in-map-name="pr_context"/>
+
+        <!-- Create the Phone ContactMech -->
+        <call-map-processor xml-resource="component://ecommerce/minilang/misc/AffiliateMapProcs.xml"
+                processor-name="newAffilPhone" in-map-name="parameters" out-map-name="ph_context"/>
+        <check-errors/>
+        <call-service service-name="createTelecomNumber" in-map-name="ph_context">
+            <result-to-field result-name="contactMechId" field="parameters.contactMechId"/>
+        </call-service>
+
+        <!-- Create the Phone ContactMech Purpose -->
+        <call-map-processor xml-resource="component://ecommerce/minilang/misc/AffiliateMapProcs.xml"
+                processor-name="newAffilPhonePurpose" in-map-name="parameters" out-map-name="phr_context"/>
+        <check-errors/>
+        <call-service service-name="createPartyContactMechPurpose" in-map-name="phr_context"/>
+
+        <!-- Create the Fax ContactMech -->
+        <call-map-processor xml-resource="component://ecommerce/minilang/misc/AffiliateMapProcs.xml"
+                processor-name="newAffilFax" in-map-name="parameters" out-map-name="fax_context"/>
+        <check-errors/>
+
+        <if-not-empty field="fax_context.contactNumber">
+          <call-service service-name="createTelecomNumber" in-map-name="fax_context">
+              <result-to-field result-name="contactMechId" field="parameters.contactMechId"/>
+          </call-service>
+        </if-not-empty>
+
+        <!-- Create the Fax ContactMech Purpose -->
+        <call-map-processor xml-resource="component://ecommerce/minilang/misc/AffiliateMapProcs.xml"
+                processor-name="newAffilFaxPurpose" in-map-name="parameters" out-map-name="faxp_context"/>
+        <check-errors/>
+        <if-not-empty field="faxp_context.contactNumber">
+            <call-service service-name="createPartyContactMechPurpose" in-map-name="faxp_context"/>
+        </if-not-empty>
+
+        <!-- Create the Email ContactMech -->
+        <call-map-processor xml-resource="component://ecommerce/minilang/misc/AffiliateMapProcs.xml"
+                processor-name="newAffilEmail" in-map-name="parameters" out-map-name="em_context"/>
+        <check-errors/>
+        <call-service service-name="createEmailAddress" in-map-name="em_context">
+            <result-to-field result-name="contactMechId" field="parameters.contactMechId"/>
+        </call-service>
+
+        <!-- Create the Email ContactMech Purpose -->
+        <call-map-processor xml-resource="component://ecommerce/minilang/misc/AffiliateMapProcs.xml"
+                processor-name="newAffilPhonePurpose" in-map-name="parameters" out-map-name="emp_context"/>
+        <check-errors/>
+        <call-service service-name="createPartyContactMechPurpose" in-map-name="emp_context"/>
+
+        <!-- Create the URL ContactMech -->
+        <call-map-processor xml-resource="component://ecommerce/minilang/misc/AffiliateMapProcs.xml"
+                processor-name="newAffilURL" in-map-name="parameters" out-map-name="url_context"/>
+        <check-errors/>
+        <call-service service-name="createContactMech" in-map-name="url_context"/>
+
+        <!-- Create the Affiliate Record -->
+        <call-map-processor xml-resource="component://ecommerce/minilang/misc/AffiliateMapProcs.xml"
+                processor-name="newAffilParty" in-map-name="parameters" out-map-name="af_context"/>
+        <call-map-processor xml-resource="component://ecommerce/minilang/misc/AffiliateMapProcs.xml"
+                processor-name="newAffil" in-map-name="parameters" out-map-name="af_context"/>
+        <check-errors/>
+        <call-service service-name="createAffiliate" in-map-name="af_context">
+            <default-message resource="EcommerceUiLabels" property="EcommerceAffiliateCreatedSuccessfully"/>
+        </call-service>
+    </simple-method>
+</simple-methods>

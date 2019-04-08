@@ -20,7 +20,6 @@ package org.apache.ofbiz.accounting.payment;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
-import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -50,7 +49,7 @@ public final class PaymentWorker {
 
     public static final String module = PaymentWorker.class.getName();
     private static final int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
-    private static final RoundingMode rounding = UtilNumber.getRoundingMode("invoice.rounding");
+    private static final int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
 
     private PaymentWorker() {}
 
@@ -60,49 +59,35 @@ public final class PaymentWorker {
     }
 
     public static List<Map<String, GenericValue>> getPartyPaymentMethodValueMaps(Delegator delegator, String partyId, Boolean showOld) {
-        List<Map<String, GenericValue>> paymentMethodValueMaps = new LinkedList<>();
+        List<Map<String, GenericValue>> paymentMethodValueMaps = new LinkedList<Map<String,GenericValue>>();
         try {
             List<GenericValue> paymentMethods = EntityQuery.use(delegator).from("PaymentMethod").where("partyId", partyId).queryList();
 
-            if (!showOld) {
-                paymentMethods = EntityUtil.filterByDate(paymentMethods, true);
-            }
+            if (!showOld) paymentMethods = EntityUtil.filterByDate(paymentMethods, true);
 
             for (GenericValue paymentMethod : paymentMethods) {
-                Map<String, GenericValue> valueMap = new HashMap<>();
+                Map<String, GenericValue> valueMap = new HashMap<String, GenericValue>();
 
                 paymentMethodValueMaps.add(valueMap);
                 valueMap.put("paymentMethod", paymentMethod);
                 if ("CREDIT_CARD".equals(paymentMethod.getString("paymentMethodTypeId"))) {
                     GenericValue creditCard = paymentMethod.getRelatedOne("CreditCard", false);
-                    if (creditCard != null) {
-                        valueMap.put("creditCard", creditCard);
-                    }
+                    if (creditCard != null) valueMap.put("creditCard", creditCard);
                 } else if ("GIFT_CARD".equals(paymentMethod.getString("paymentMethodTypeId"))) {
                     GenericValue giftCard = paymentMethod.getRelatedOne("GiftCard", false);
-                    if (giftCard != null) {
-                        valueMap.put("giftCard", giftCard);
-                    }
+                    if (giftCard != null) valueMap.put("giftCard", giftCard);
                 } else if ("EFT_ACCOUNT".equals(paymentMethod.getString("paymentMethodTypeId"))) {
                     GenericValue eftAccount = paymentMethod.getRelatedOne("EftAccount", false);
-                    if (eftAccount != null) {
-                        valueMap.put("eftAccount", eftAccount);
-                    }
+                    if (eftAccount != null) valueMap.put("eftAccount", eftAccount);
                 } else if ("COMPANY_CHECK".equals(paymentMethod.getString("paymentMethodTypeId"))) {
                     GenericValue companyCheckAccount = paymentMethod.getRelatedOne("CheckAccount", false);
-                    if (companyCheckAccount != null) {
-                        valueMap.put("companyCheckAccount", companyCheckAccount);
-                    }
+                    if (companyCheckAccount != null) valueMap.put("companyCheckAccount", companyCheckAccount);
                 } else if ("PERSONAL_CHECK".equals(paymentMethod.getString("paymentMethodTypeId"))) {
                     GenericValue personalCheckAccount = paymentMethod.getRelatedOne("CheckAccount", false);
-                    if (personalCheckAccount != null) {
-                        valueMap.put("personalCheckAccount", personalCheckAccount);
-                    }
+                    if (personalCheckAccount != null) valueMap.put("personalCheckAccount", personalCheckAccount);
                 } else if ("CERTIFIED_CHECK".equals(paymentMethod.getString("paymentMethodTypeId"))) {
                     GenericValue certifiedCheckAccount = paymentMethod.getRelatedOne("CheckAccount", false);
-                    if (certifiedCheckAccount != null) {
-                        valueMap.put("certifiedCheckAccount", certifiedCheckAccount);
-                    }
+                    if (certifiedCheckAccount != null) valueMap.put("certifiedCheckAccount", certifiedCheckAccount);
                 }
             }
         } catch (GenericEntityException e) {
@@ -113,17 +98,14 @@ public final class PaymentWorker {
 
     public static Map<String, Object> getPaymentMethodAndRelated(ServletRequest request, String partyId) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
-        Map<String, Object> results = new HashMap<>();
+        Map<String, Object> results = new HashMap<String, Object>();
 
         Boolean tryEntity = true;
-        if (request.getAttribute("_ERROR_MESSAGE_") != null) {
-            tryEntity = false;
-        }
+        if (request.getAttribute("_ERROR_MESSAGE_") != null) tryEntity = false;
 
         String donePage = request.getParameter("DONE_PAGE");
-        if (UtilValidate.isEmpty(donePage)) {
+        if (UtilValidate.isEmpty(donePage))
             donePage = "viewprofile";
-        }
         results.put("donePage", donePage);
 
         String paymentMethodId = request.getParameter("paymentMethodId");
@@ -343,7 +325,7 @@ public final class PaymentWorker {
         if (actual.equals(Boolean.TRUE) && UtilValidate.isNotEmpty(payment.getBigDecimal("actualCurrencyAmount"))) {
             return payment.getBigDecimal("actualCurrencyAmount").subtract(getPaymentApplied(payment, actual)).setScale(decimals,rounding);
         }
-        return payment.getBigDecimal("amount").subtract(getPaymentApplied(payment)).setScale(decimals,rounding);
+            return payment.getBigDecimal("amount").subtract(getPaymentApplied(payment)).setScale(decimals,rounding);
     }
 
     public static BigDecimal getPaymentNotApplied(Delegator delegator, String paymentId) {

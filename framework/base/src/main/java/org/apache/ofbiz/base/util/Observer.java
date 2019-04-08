@@ -25,7 +25,7 @@ package org.apache.ofbiz.base.util;
 public interface Observer {
     /**
      * Called when <code>Observable.notifyObservers</code> is invoked.
-     *
+     * 
      * @param observable
      * @param arg
      */

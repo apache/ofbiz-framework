@@ -19,29 +19,41 @@
 
 package org.apache.ofbiz.entity.condition;
 
+import groovy.util.BuilderSupport;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
+import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericModelException;
 import org.apache.ofbiz.entity.config.model.Datasource;
 import org.apache.ofbiz.entity.model.ModelEntity;
 
-import groovy.util.BuilderSupport;
-
 public class EntityConditionBuilder extends BuilderSupport {
     public static final String module = EntityConditionBuilder.class.getName();
 
     @SuppressWarnings("serial")
-    private static class ConditionHolder implements EntityCondition {
+    private static class ConditionHolder extends EntityCondition {
         protected EntityCondition condition;
 
         protected ConditionHolder(EntityCondition condition) {
             this.condition = condition;
+        }
+
+        public Object asType(Class clz) {
+            Debug.logInfo("asType(%s): %s", module, clz, condition);
+            if (clz == EntityCondition.class) {
+                return condition;
+            }
+            return this;
+        }
+
+        public EntityCondition build() {
+            return condition;
         }
 
         public boolean isEmpty() {
@@ -71,22 +83,13 @@ public class EntityConditionBuilder extends BuilderSupport {
             return condition.equals(obj);
         }
 
-        @Override
-        public void accept(EntityConditionVisitor visitor) {
-            throw new IllegalArgumentException(getClass().getName() + ".accept not implemented");
-        }
-
-        @Override
-        public String toString() {
-            return makeWhereString();
-        }
     }
 
     @Override
     protected Object createNode(Object methodName) {
-        String operatorName = ((String)methodName).toLowerCase(Locale.getDefault());
+        String operatorName = ((String)methodName).toLowerCase();
         EntityJoinOperator operator = EntityOperator.lookupJoin(operatorName);
-        List<EntityCondition> condList = new LinkedList<>();
+        List<EntityCondition> condList = new LinkedList<EntityCondition>();
         return new ConditionHolder(EntityCondition.makeCondition(condList, operator));
     }
 
@@ -98,22 +101,23 @@ public class EntityConditionBuilder extends BuilderSupport {
     }
 
     @Override
-    protected Object createNode(Object methodName, @SuppressWarnings("rawtypes") Map mapArg) {
+    protected Object createNode(Object methodName, Map mapArg) {
         Map<String, Object> fieldValueMap = UtilGenerics.checkMap(mapArg);
-        String operatorName = ((String)methodName).toLowerCase(Locale.getDefault());
+        String operatorName = ((String)methodName).toLowerCase();
         EntityComparisonOperator<String, Object> operator = EntityOperator.lookupComparison(operatorName);
-        List<EntityCondition> conditionList = new LinkedList<>();
+        List<EntityCondition> conditionList = new LinkedList<EntityCondition>();
         for (Map.Entry<String, Object> entry : fieldValueMap.entrySet()) {
             conditionList.add(EntityCondition.makeCondition(entry.getKey(), operator, entry.getValue()));
         }
         if (conditionList.size() == 1) {
             return new ConditionHolder(conditionList.get(0));
+        } else {
+            return new ConditionHolder(EntityCondition.makeCondition(conditionList));
         }
-        return new ConditionHolder(EntityCondition.makeCondition(conditionList));
     }
 
     @Override
-    protected Object createNode(Object methodName, @SuppressWarnings("rawtypes") Map mapArg, Object objArg) {
+    protected Object createNode(Object methodName, Map mapArg, Object objArg) {
         return null;
     }
 
@@ -122,7 +126,7 @@ public class EntityConditionBuilder extends BuilderSupport {
         ConditionHolder holder = (ConditionHolder) parent;
         EntityConditionList<EntityCondition> parentConList = UtilGenerics.cast(holder.condition);
         Iterator<EntityCondition> iterator = parentConList.getConditionIterator();
-        List<EntityCondition> tempList = new LinkedList<>();
+        List<EntityCondition> tempList = new LinkedList<EntityCondition>();
         while (iterator.hasNext()) {
             tempList.add(iterator.next());
         }

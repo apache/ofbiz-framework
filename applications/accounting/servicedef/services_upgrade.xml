@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+    <description>Accounting Services</description>
+    <vendor>OFBiz</vendor>
+
+    <service name="migrateStatusToGlReconciliation" engine="simple"
+            location="component://accounting/minilang/UpgradeServices.xml" invoke="migrateStatusToGlReconciliation">
+        <description>
+            Migrate statusId to GlReconciliation entity,
+            this service can be used to upgrade existing data i.e it sets the statusId(new field in entity) to "Created" if reconciledBalance found empty otherwise sets "Reconciled".
+            Before running this service, load the seed data for StatusType and StatusItem from the file :
+            accounting/data/AccountingTypeData.xml
+        </description>
+    </service>
+
+    <service name="migrateStatusToFinAccountTrans" engine="simple"
+            location="component://accounting/minilang/UpgradeServices.xml" invoke="migrateStatusToFinAccountTrans">
+        <description>
+            Migrate statusId to FinAccountTrans entity,
+            this service can be used to upgrade existing data i.e it sets the statusId(new field in entity) to "Approved" if found empty.
+            Before running this service, load the seed data for StatusType and StatusItem from the file :
+            accounting/data/AccountingTypeData.xml
+        </description>
+    </service>
+
+    <service name="migrateFixedAssetMaintMeter" engine="simple"
+                location="component://accounting/minilang/UpgradeServices.xml" invoke="migrateFixedAssetMaintMeter" auth="true">
+        <description>Copy the FixedAssetMaintMeter entity to FixedAssetMeter. FixedAssetMeter.readingDate will be replaced with FixedAssetMaintMeter.createdStamp.</description>
+        <permission-service service-name="fixedAssetPermissionCheck" main-action="CREATE"/>
+    </service>
+    
+    <service name="migrateAgreementWorkEffortAppl" engine="simple"
+                location="component://accounting/minilang/UpgradeServices.xml" invoke="migrateAgreementWorkEffortAppl" auth="true">
+        <description>Copy the AgreementWorkEffortAppl entity to AgreementWorkEffortApplic</description>
+        <permission-service service-name="acctgAgreementPermissionCheck" main-action="CREATE"/>
+    </service>    
+</services>

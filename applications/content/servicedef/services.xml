@@ -44,11 +44,7 @@
             location="component://content/minilang/content/ContentServices.xml" invoke="getSubContentWithPermCheck">
         <description>Get Content and resource information</description>
         <permission-service service-name="genericContentPermission" main-action="VIEW"/>
-        <attribute mode="IN" name="contentId" optional="false" type="String">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentId"/>
-            </type-validate>
-        </attribute>
+        <attribute mode="IN" name="contentId" optional="false" type="String"/>
         <attribute mode="IN" name="contentAssocTypeId" optional="true" type="String"/>
         <attribute mode="IN" name="mapKey" optional="true" type="String"/>
         <attribute mode="IN" name="mainAction" optional="true" type="String"/>
@@ -147,16 +143,8 @@
     <service name="createEmailContent" engine="simple" location="component://content/minilang/content/ContentServices.xml" invoke="createEmailContent">
         <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
         <auto-attributes mode="IN" entity-name="Content" optional="true"/>
-        <attribute name="subject" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingSubject"/>
-            </type-validate>
-        </attribute>
-        <attribute name="plainBody" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingPlainBody"/>
-            </type-validate>
-        </attribute>
+        <attribute name="subject" type="String" mode="IN" optional="false"/>
+        <attribute name="plainBody" type="String" mode="IN" optional="false"/>
         <attribute name="htmlBody" type="String" mode="IN" optional="true" allow-html="any"/>
         <override name="contentId" mode="INOUT"/>
     </service>
@@ -173,11 +161,7 @@
     <service name="createDownloadContent" engine="simple" location="component://content/minilang/content/ContentServices.xml" invoke="createDownloadContent">
         <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
         <auto-attributes mode="IN" entity-name="Content" optional="true"/>
-        <attribute name="file" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingFile"/>
-            </type-validate>
-        </attribute>
+        <attribute name="file" type="String" mode="IN" optional="false"/>
         <override name="contentId" mode="INOUT"/>
     </service>
     <service name="updateDownloadContent" engine="simple" location="component://content/minilang/content/ContentServices.xml" invoke="updateDownloadContent">
@@ -189,11 +173,7 @@
     <service name="createSimpleTextContent" engine="simple" location="component://content/minilang/content/ContentServices.xml" invoke="createSimpleTextContent">
         <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
         <auto-attributes mode="IN" entity-name="Content" optional="true"/>
-        <attribute name="text" type="String" mode="IN" optional="false" allow-html="any">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingText"/>
-            </type-validate>
-        </attribute>
+        <attribute name="text" type="String" mode="IN" optional="false" allow-html="any"/>
         <override name="contentId" mode="INOUT"/>
     </service>
     <service name="updateSimpleTextContent" engine="simple" location="component://content/minilang/content/ContentServices.xml" invoke="updateSimpleTextContent">
@@ -205,16 +185,8 @@
     <!-- Util -->
     <service name="findAssocContent" engine="simple"
             location="component://content/minilang/content/ContentServices.xml" invoke="findAssocContent" auth="true">
-        <attribute name="contentId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentId"/>
-            </type-validate>
-        </attribute>
-        <attribute name="mapKeys" type="List" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingMapKeys"/>
-            </type-validate>
-        </attribute>
+        <attribute name="contentId" type="String" mode="IN" optional="false"/>
+        <attribute name="mapKeys" type="List" mode="IN" optional="false"/>
         <attribute name="contentAssocs" type="List" mode="OUT" optional="true"/>
     </service>
 
@@ -287,11 +259,7 @@
     <service name="traverseContent" auth="false" engine="java" invoke="traverseContent"
         location="org.apache.ofbiz.content.content.ContentServices">
         <description>Follow a content and return descendants</description>
-        <attribute mode="IN" name="contentId" optional="false" type="String">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentId"/>
-            </type-validate>
-        </attribute>
+        <attribute mode="IN" name="contentId" optional="false" type="String"/>
         <attribute mode="IN" name="fromDateStr" optional="true" type="String"/>
         <attribute mode="IN" name="thruDateStr" optional="true" type="String"/>
         <attribute mode="IN" name="followWhen" optional="true" type="String"/>
@@ -421,26 +389,14 @@
         transaction-timeout="7200"
             location="org.apache.ofbiz.content.ContentManagementServices" invoke="persistContentWithRevision" auth="true">
         <implements service="persistContentAndAssoc"/>
-        <attribute mode="IN" name="masterRevisionContentId" optional="false" type="String">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingMasterRevisionContentId"/>
-            </type-validate>
-        </attribute>
+        <attribute mode="IN" name="masterRevisionContentId" optional="false" type="String"/>
     </service>
 
     <service name="findContentParents" engine="java"
         transaction-timeout="7200"
             location="org.apache.ofbiz.content.content.ContentServices" invoke="findContentParents" auth="true">
-        <attribute mode="IN" name="contentId" optional="false" type="String">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentId"/>
-            </type-validate>
-        </attribute>
-        <attribute mode="IN" name="contentAssocTypeId" optional="false" type="String">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentAssocTypeId"/>
-            </type-validate>
-        </attribute>
+        <attribute mode="IN" name="contentId" optional="false" type="String"/>
+        <attribute mode="IN" name="contentAssocTypeId" optional="false" type="String"/>
         <attribute mode="IN" name="direction" optional="true" type="String"/>
         <attribute mode="OUT" name="parentList" optional="true" type="List"/>
     </service>
@@ -448,19 +404,11 @@
     <service name="deactivateAssocs" engine="java"
             location="org.apache.ofbiz.content.content.ContentServices" invoke="deactivateAssocs" auth="true">
         <description>Supply thruDate to all ContentAssoc that come "before" current one</description>
-        <attribute mode="IN" name="contentIdTo" optional="false" type="String">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentIdTo"/>
-            </type-validate>
-        </attribute>
+        <attribute mode="IN" name="contentIdTo" optional="false" type="String"/>
         <attribute mode="IN" name="mapKey" optional="true" type="String"/>
         <attribute mode="IN" name="activeContentId" optional="true" type="String"/>
         <attribute mode="IN" name="contentId" optional="true" type="String"/>
-        <attribute mode="IN" name="contentAssocTypeId" optional="false" type="String">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentAssocTypeId"/>
-            </type-validate>
-        </attribute>
+        <attribute mode="IN" name="contentAssocTypeId" optional="false" type="String"/>
         <attribute mode="IN" name="fromDate" optional="true" type="Timestamp"/>
         <attribute mode="OUT" name="deactivatedList" optional="false" type="List"/>
     </service>
@@ -480,16 +428,8 @@
         <description>Creates content records for a blog entry</description>
         <implements service="createContentFromUploadedFile" optional="true"/>
         <implements service="createTextContent" optional="true"/>
-        <attribute name="contentIdFrom" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentIdFrom"/>
-            </type-validate>
-        </attribute>
-        <attribute name="pubPtContentId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingPubPtContentId"/>
-            </type-validate>
-        </attribute>
+        <attribute name="contentIdFrom" type="String" mode="IN" optional="false"/>
+        <attribute name="pubPtContentId" type="String" mode="IN" optional="false"/>
         <attribute name="threadContentId" type="String" mode="IN" optional="true"/>
         <attribute name="summaryData" type="String" mode="IN" optional="true"/>
     </service>
@@ -499,17 +439,9 @@
         <description>Get the subcontent and render</description>
         <attribute mode="IN" name="contentId" optional="true" type="String"/>
         <attribute mode="IN" name="mapKey" optional="true" type="String"/>
-        <attribute mode="IN" name="outWriter" optional="false" type="java.io.Writer">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingOutWriter"/>
-            </type-validate>
-        </attribute>
+        <attribute mode="IN" name="outWriter" optional="false" type="java.io.Writer"/>
         <attribute mode="IN" name="subContentId" optional="true" type="String"/>
-        <attribute mode="IN" name="templateContext" optional="false" type="Map">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingTemplateContext"/>
-            </type-validate>
-        </attribute>
+        <attribute mode="IN" name="templateContext" optional="false" type="Map"/>
         <attribute mode="IN" name="locale" optional="true" type="String"/>
         <attribute mode="IN" name="mimeTypeId" optional="true" type="String"/>
         <attribute mode="IN" name="fromDate" optional="true" type="Timestamp"/>
@@ -531,21 +463,9 @@
     <service name="renderDataResourceAsText" engine="java"
             location="org.apache.ofbiz.content.data.DataServices" invoke="renderDataResourceAsText" auth="false">
         <description>Get the dataResource and render</description>
-        <attribute mode="IN" name="dataResourceId" optional="false" type="String">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingDataResourceId"/>
-            </type-validate>
-        </attribute>
-        <attribute mode="IN" name="outWriter" optional="false" type="java.io.Writer">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingOutWriter"/>
-            </type-validate>
-        </attribute>
-        <attribute mode="IN" name="templateContext" optional="false" type="Map">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingTemplateContext"/>
-            </type-validate>
-        </attribute>
+        <attribute mode="IN" name="dataResourceId" optional="false" type="String"/>
+        <attribute mode="IN" name="outWriter" optional="false" type="java.io.Writer"/>
+        <attribute mode="IN" name="templateContext" optional="false" type="Map"/>
         <attribute mode="IN" name="locale" optional="true" type="String"/>
         <attribute mode="IN" name="mimeTypeId" optional="true" type="String"/>
         <attribute mode="IN" name="subContentDataResourceView" optional="true" type="org.apache.ofbiz.entity.GenericValue"/>
@@ -555,11 +475,7 @@
         auth="true" engine="simple" invoke="createTopic"
         location="component://content/minilang/content/ContentServices.xml" >
         <description>Create a TOPIC type Content </description>
-        <attribute mode="IN" name="newTopicId" optional="false" type="String">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingNewTopicId"/>
-            </type-validate>
-        </attribute>
+        <attribute mode="IN" name="newTopicId" optional="false" type="String"/>
         <attribute mode="IN" name="newTopicDescription" optional="true" type="String"/>
     </service>
 
@@ -583,16 +499,8 @@
     <service name="linkContentToPubPt" engine="java"
             location="org.apache.ofbiz.content.content.ContentServices" invoke="linkContentToPubPt" auth="true" >
     <description>Attach content to publish point</description>
-        <attribute mode="IN" name="contentId" optional="false" type="String">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentId"/>
-            </type-validate>
-        </attribute>
-        <attribute mode="IN" name="contentIdTo" optional="false" type="String">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentIdTo"/>
-            </type-validate>
-        </attribute>
+        <attribute mode="IN" name="contentId" optional="false" type="String"/>
+        <attribute mode="IN" name="contentIdTo" optional="false" type="String"/>
         <attribute mode="IN" name="publish" optional="true" type="String"/>
         <attribute mode="IN" name="statusId" optional="true" type="String"/>
         <attribute mode="IN" name="privilegeEnumId" optional="true" type="String"/>
@@ -610,17 +518,9 @@
     <service name="updateOrRemove" engine="java"
         location="org.apache.ofbiz.content.ContentManagementServices" invoke="updateOrRemove" auth="true" validate="false">
         <description>Update or remove a child entity based on value of "action"</description>
-        <attribute name="entityName" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingEntityName"/>
-            </type-validate>
-        </attribute>
+        <attribute name="entityName" type="String" mode="IN" optional="false"/>
         <attribute name="action" type="String" mode="IN" optional="true"/>
-        <attribute name="pkFieldCount" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingPkFieldCount"/>
-            </type-validate>
-        </attribute>
+        <attribute name="pkFieldCount" type="String" mode="IN" optional="false"/>
         <attribute name="fieldName0" type="String" mode="IN" optional="true"/>
         <attribute name="fieldValue1" type="String" mode="IN" optional="true"/>
         <attribute name="fieldName2" type="String" mode="IN" optional="true"/>
@@ -634,11 +534,7 @@
     <service name="resequence" auth="true" engine="java" validate="true" transaction-timeout="7200"
         location="org.apache.ofbiz.content.ContentManagementServices" invoke="resequence">
         <description>Reorder sequence numbers in ContentAssoc entities for a given parent id</description>
-        <attribute mode="IN" name="contentIdTo" optional="false" type="String">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentIdTo"/>
-            </type-validate>
-        </attribute>
+        <attribute mode="IN" name="contentIdTo" optional="false" type="String"/>
         <attribute mode="IN" name="seqInc" optional="true" type="Integer"/>
         <attribute mode="IN" name="typeList" optional="true" type="List"/>
         <attribute mode="IN" name="contentId" optional="true" type="String"/>
@@ -648,33 +544,21 @@
     <service name="changeLeafToNode" validate="true" auth="true" engine="java" transaction-timeout="7200"
         location="org.apache.ofbiz.content.ContentManagementServices" invoke="changeLeafToNode">
         <description>Moves dataResource to separate content associated with current content so that node can have only children, no content of its own</description>
-        <attribute mode="IN" name="contentId" optional="false" type="String">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentId"/>
-            </type-validate>
-        </attribute>
+        <attribute mode="IN" name="contentId" optional="false" type="String"/>
         <attribute mode="IN" name="userLogin" optional="true" type="org.apache.ofbiz.entity.GenericValue"/>
     </service>
 
     <service name="updatePageType" auth="true" engine="java" validate="true" transaction-timeout="7200"
             location="org.apache.ofbiz.content.ContentManagementServices" invoke="updatePageType">
         <description>Change contentTypeId to OUTLINE/PAGE/SUBPAGE_NODE</description>
-        <attribute mode="IN" name="contentId" optional="false" type="String">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentId"/>
-            </type-validate>
-        </attribute>
+        <attribute mode="IN" name="contentId" optional="false" type="String"/>
         <attribute mode="IN" name="pageMode" optional="true" type="String"/>
     </service>
 
     <service name="resetToOutlineMode" auth="true" engine="java" validate="true" transaction-timeout="7200"
             location="org.apache.ofbiz.content.ContentManagementServices" invoke="resetToOutlineMode">
         <description>Set content and kids to OUTLINE_NODE</description>
-        <attribute mode="IN" name="contentId" optional="false" type="String">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentId"/>
-            </type-validate>
-        </attribute>
+        <attribute mode="IN" name="contentId" optional="false" type="String"/>
         <attribute mode="IN" name="pageMode" optional="true" type="String"/>
     </service>
 
@@ -692,160 +576,84 @@
     <service name="findSubNodes" auth="false" engine="java" validate="true" transaction-timeout="7200"
             location="org.apache.ofbiz.content.ContentManagementServices" invoke="findSubNodes">
         <description>Get children of content</description>
-        <attribute mode="IN" name="contentId" optional="false" type="String">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentId"/>
-            </type-validate>
-        </attribute>
+        <attribute mode="IN" name="contentId" optional="false" type="String"/>
         <attribute mode="OUT" name="_LIST_" optional="true" type="List"/>
     </service>
 
     <service name="initContentChildCounts" engine="java"
             location="org.apache.ofbiz.content.ContentManagementServices" invoke="initContentChildCounts">
         <description>Set childLeafCount and childBranchCount to appropriate values</description>
-        <attribute name="content" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContent"/>
-            </type-validate>
-        </attribute>
+        <attribute name="content" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
     </service>
 
     <service name="incrementContentChildStats" engine="java"
             location="org.apache.ofbiz.content.ContentManagementServices" invoke="incrementContentChildStats">
         <description>Set childLeafCount and childBranchCount in parent Content entities</description>
-        <attribute name="contentId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentId"/>
-            </type-validate>
-        </attribute>
+        <attribute name="contentId" type="String" mode="IN" optional="false"/>
         <attribute name="contentAssocTypeId" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="decrementContentChildStats" engine="java"
             location="org.apache.ofbiz.content.ContentManagementServices" invoke="decrementContentChildStats">
         <description>Set childLeafCount and childBranchCount in parent Content entities</description>
-        <attribute name="contentId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentId"/>
-            </type-validate>
-        </attribute>
+        <attribute name="contentId" type="String" mode="IN" optional="false"/>
         <attribute name="contentAssocTypeId" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="updateContentChildStats" engine="java" transaction-timeout="7200"
             location="org.apache.ofbiz.content.ContentManagementServices" invoke="updateContentChildStats">
         <description>Set childLeafCount and childBranchCount in passed id and those below</description>
-        <attribute name="contentId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentIdTo"/>
-            </type-validate>
-        </attribute>
+        <attribute name="contentId" type="String" mode="IN" optional="false"/>
         <attribute name="contentAssocTypeId" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="updateImage" engine="java" transaction-timeout="7200"
             location="org.apache.ofbiz.content.data.DataServices" invoke="updateImage">
         <description>Update image</description>
-        <attribute name="dataResourceId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingDataResourceId"/>
-            </type-validate>
-        </attribute>
-        <attribute name="imageData" type="java.nio.ByteBuffer" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingImageData"/>
-            </type-validate>
-        </attribute>
+        <attribute name="dataResourceId" type="String" mode="IN" optional="false"/>
+        <attribute name="imageData" type="java.nio.ByteBuffer" mode="IN" optional="false"/>
     </service>
 
     <service name="createImage" engine="java" transaction-timeout="7200"
             location="org.apache.ofbiz.content.data.DataServices" invoke="createImage">
         <description>Create image</description>
-        <attribute name="dataResourceId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingDataResourceId"/>
-            </type-validate>
-        </attribute>
-        <attribute name="imageData" type="java.nio.ByteBuffer" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingImageData"/>
-            </type-validate>
-        </attribute>
+        <attribute name="dataResourceId" type="String" mode="IN" optional="false"/>
+        <attribute name="imageData" type="java.nio.ByteBuffer" mode="IN" optional="false"/>
     </service>
 
     <service name="updateContentSubscription" engine="java" transaction-timeout="7200" auth="true"
             location="org.apache.ofbiz.content.ContentManagementServices" invoke="updateContentSubscription">
         <description>Creates or updates ContentRole</description>
-        <attribute name="partyId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingPartyId"/>
-            </type-validate>
-        </attribute>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="contentId" type="String" mode="IN" optional="true"/>
         <attribute name="useRoleTypeId" type="String" mode="IN" optional="true"/>
-        <attribute name="useTimeUomId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingUseTimeUomId"/>
-            </type-validate>
-        </attribute>
-        <attribute name="useTime" type="Integer" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingUseTime"/>
-            </type-validate>
-        </attribute>
+        <attribute name="useTimeUomId" type="String" mode="IN" optional="false"/>
+        <attribute name="useTime" type="Integer" mode="IN" optional="false"/>
     </service>
     <service name="updateContentSubscriptionByProduct" engine="java" transaction-timeout="7200" auth="true"
             location="org.apache.ofbiz.content.ContentManagementServices" invoke="updateContentSubscriptionByProduct">
         <description>Creates or updates ContentRole</description>
-        <attribute name="partyId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingPartyId"/>
-            </type-validate>
-        </attribute>
-        <attribute name="productId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingProductId"/>
-            </type-validate>
-        </attribute>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="orderCreatedDate" type="Timestamp" mode="IN" optional="true"/>
-        <attribute name="quantity" type="Integer" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingQuantity"/>
-            </type-validate>
-        </attribute>
+        <attribute name="quantity" type="Integer" mode="IN" optional="false"/>
     </service>
     <service name="updateContentSubscriptionByOrder" engine="java" transaction-timeout="7200" auth="true"
             location="org.apache.ofbiz.content.ContentManagementServices" invoke="updateContentSubscriptionByOrder">
         <description>Creates or updates ContentRole</description>
-        <attribute name="orderId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingOrderId"/>
-            </type-validate>
-        </attribute>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="followNodeChildren" auth="true" engine="java" transaction-timeout="7200"
             location="org.apache.ofbiz.content.ContentManagementServices" invoke="followNodeChildren">
         <description>Descend thru content tree and execute service at each node</description>
-        <attribute name="contentId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentId"/>
-            </type-validate>
-        </attribute>
-        <attribute name="serviceName" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingServiceName"/>
-            </type-validate>
-        </attribute>
+        <attribute name="contentId" type="String" mode="IN" optional="false"/>
+        <attribute name="serviceName" type="String" mode="IN" optional="false"/>
         <attribute name="contentAssocTypeId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="publishContent" auth="true" engine="java" transaction-timeout="7200"
             location="org.apache.ofbiz.content.content.ContentServices" invoke="publishContent">
         <description>Change statusId to published (CTNT_PUBLISHED)</description>
-        <attribute mode="IN" name="content" optional="false" type="org.apache.ofbiz.entity.GenericValue">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContent"/>
-            </type-validate>
-        </attribute>
+        <attribute mode="IN" name="content" optional="false" type="org.apache.ofbiz.entity.GenericValue"/>
     </service>
 
     <!-- these three services are for use in screen widget files -->
@@ -853,11 +661,7 @@
             location="org.apache.ofbiz.content.content.ContentServices" invoke="getPrefixedMembers">
         <description>Gets all the members of the input map that start with the prefix</description>
         <attribute mode="IN" name="mapIn" optional="true" type="java.util.Map"/>
-        <attribute name="prefix" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingPrefix"/>
-            </type-validate>
-        </attribute>
+        <attribute name="prefix" type="String" mode="IN" optional="false"/>
         <attribute mode="OUT" name="mapOut" optional="true" type="java.util.Map"/>
     </service>
     <service name="splitString" auth="false" engine="java" transaction-timeout="7200"
@@ -870,22 +674,14 @@
     <service name="joinString" auth="false" engine="java" transaction-timeout="7200"
             location="org.apache.ofbiz.content.content.ContentServices" invoke="joinString">
         <description>Splits input string </description>
-        <attribute name="inputList" type="java.util.List" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingInputList"/>
-            </type-validate>
-        </attribute>
+        <attribute name="inputList" type="java.util.List" mode="IN" optional="false"/>
         <attribute name="delimiter" type="String" mode="IN" optional="true"/>
         <attribute mode="OUT" name="outputString" optional="true" type="String"/>
     </service>
     <service name="urlEncodeArgs" auth="false" engine="java" transaction-timeout="7200"
             location="org.apache.ofbiz.content.content.ContentServices" invoke="urlEncodeArgs">
         <description>URL encodes map</description>
-        <attribute name="mapIn" type="java.util.Map" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingMapIn"/>
-            </type-validate>
-        </attribute>
+        <attribute name="mapIn" type="java.util.Map" mode="IN" optional="false"/>
         <attribute mode="OUT" name="outputString" optional="true" type="String"/>
     </service>
 
@@ -900,11 +696,7 @@
         <auto-attributes entity-name="ContentRevisionItem" include="all" mode="IN" optional="true">
             <exclude field-name="contentRevisionSeqId"/>
         </auto-attributes>
-        <attribute name="contentRevisionSeqId" type="String" mode="OUT" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentRevisionSeqId"/>
-            </type-validate>
-        </attribute>
+        <attribute name="contentRevisionSeqId" type="String" mode="OUT" optional="false"/>
     </service>
 
     <service name="prepForApproval" engine="simple"
@@ -912,11 +704,7 @@
         invoke="prepForApproval" auth="true">
         <description>Set ContentApprovals for approval process</description>
         <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
-        <attribute name="rootContentId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingRootContentId"/>
-            </type-validate>
-        </attribute>
+        <attribute name="rootContentId" type="String" mode="IN" optional="false"/>
         <attribute name="rootContentRevisionSeqId" type="String" mode="OUT" optional="false"/>
     </service>
 
@@ -924,11 +712,7 @@
         location="component://content/minilang/compdoc/CompDocServices.xml"
         invoke="getFinalApprovalStatus" auth="true">
         <description>Set ContentApprovals for approval process</description>
-        <attribute name="contentId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentId"/>
-            </type-validate>
-        </attribute>
+        <attribute name="contentId" type="String" mode="IN" optional="false"/>
         <attribute name="contentRevisionSeqId" type="String" mode="INOUT" optional="true"/>
         <attribute name="approvalStatusId" type="String" mode="OUT" optional="true"/>
         <attribute name="contentApprovalList" type="List" mode="OUT" optional="true"/>
@@ -938,21 +722,9 @@
         location="component://content/minilang/compdoc/CompDocServices.xml"
         invoke="getApprovalsWithPermissions" auth="true" >
         <description>Get a list of ContentApprovals and permission indicators</description>
-        <attribute name="rootContentId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingRootContentId"/>
-            </type-validate>
-        </attribute>
-        <attribute name="contentRevisionSeqId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentRevisionSeqId"/>
-            </type-validate>
-        </attribute>
-        <attribute name="userLogin" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingUserLogin"/>
-            </type-validate>
-        </attribute>
+        <attribute name="rootContentId" type="String" mode="IN" optional="false"/>
+        <attribute name="contentRevisionSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="userLogin" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
         <attribute name="checkPermission" type="String" mode="IN" optional="true"/>
         <attribute name="contentApprovalList" type="List" mode="OUT" optional="true"/>
     </service>
@@ -961,16 +733,8 @@
         location="component://content/minilang/compdoc/CompDocServices.xml"
         invoke="hasApprovalPermission" auth="true">
         <description>Determine permission status for record</description>
-        <attribute name="contentApprovalId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentApprovalId"/>
-            </type-validate>
-        </attribute>
-        <attribute name="userLogin" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingUserLogin"/>
-            </type-validate>
-        </attribute>
+        <attribute name="contentApprovalId" type="String" mode="IN" optional="false"/>
+        <attribute name="userLogin" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
         <attribute name="approvalPermExists" type="String" mode="OUT" optional="true"/>
     </service>
 
@@ -998,16 +762,8 @@
         location="component://content/minilang/compdoc/CompDocServices.xml"
         invoke="cloneTemplateContentApprovals" auth="true">
         <description>Bump the previous ContentApproval approvals up to current CDT</description>
-        <attribute name="contentRevisionSeqId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentRevisionSeqId"/>
-            </type-validate>
-        </attribute>
-        <attribute name="contentId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentId"/>
-            </type-validate>
-        </attribute>
+        <attribute name="contentRevisionSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="contentId" type="String" mode="IN" optional="false"/>
     </service>
 
     <service name="cloneInstanceContentApprovals" engine="simple"
@@ -1015,11 +771,7 @@
         invoke="cloneInstanceContentApprovals" auth="true">
         <description>Bump the previous ContentApproval approvals up to current CDI</description>
         <attribute name="contentRevisionSeqId" type="String" mode="IN" optional="true"/>
-        <attribute name="contentId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentId"/>
-            </type-validate>
-        </attribute>
+        <attribute name="contentId" type="String" mode="IN" optional="false"/>
     </service>
 
     <service name="checkForWaitingApprovals" engine="simple"
@@ -1034,11 +786,7 @@
         location="component://content/minilang/compdoc/CompDocServices.xml"
         invoke="getMostRecentRevision" auth="true">
         <description>Look for most recent revision for contentId</description>
-        <attribute name="contentId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentId"/>
-            </type-validate>
-        </attribute>
+        <attribute name="contentId" type="String" mode="IN" optional="false"/>
         <attribute name="mostRecentRevisionSeqId" type="String" mode="OUT" optional="true"/>
     </service>
 
@@ -1047,11 +795,7 @@
         location="org.apache.ofbiz.content.compdoc.CompDocServices"
         invoke="renderCompDocPdf" auth="true">
         <description>Convert all the CompDoc parts into PDF and concatenate and put in CMS</description>
-        <attribute name="contentId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentId"/>
-            </type-validate>
-        </attribute>
+        <attribute name="contentId" type="String" mode="IN" optional="false"/>
         <attribute name="contentRevisionSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="webSiteId" type="String" mode="IN" optional="true"/>
         <attribute name="https" type="String" mode="IN" optional="true"/>
@@ -1063,11 +807,7 @@
         location="org.apache.ofbiz.content.compdoc.CompDocServices"
         invoke="renderContentPdf" auth="true">
         <description>Convert all the CompDoc parts into PDF and concatenate and put in CMS</description>
-        <attribute name="contentId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentId"/>
-            </type-validate>
-        </attribute>
+        <attribute name="contentId" type="String" mode="IN" optional="false"/>
         <attribute name="contentRevisionSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="webSiteId" type="String" mode="IN" optional="true"/>
         <attribute name="https" type="String" mode="IN" optional="true"/>
@@ -1081,11 +821,7 @@
         location="component://content/minilang/blog/BlogServices.xml" invoke="createBlogEntry">
         <description>Creates content records for a blog entry</description>
         <implements service="uploadFileInterface" optional="true"/>
-        <attribute name="blogContentId" type="String" mode="INOUT" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingBlogContentId"/>
-            </type-validate>
-        </attribute>
+        <attribute name="blogContentId" type="String" mode="INOUT" optional="false"/>
         <attribute name="contentId" type="String" mode="OUT" optional="false"/>
         <attribute name="contentName" type="String" mode="IN" optional="true"/>
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
@@ -1098,16 +834,8 @@
         location="component://content/minilang/blog/BlogServices.xml" invoke="updateBlogEntry">
         <description>Updates content records for a blog entry</description>
         <implements service="uploadFileInterface" optional="true"/>
-        <attribute name="blogContentId" type="String" mode="INOUT" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingBlogContentId"/>
-            </type-validate>
-        </attribute>
-        <attribute name="contentId" type="String" mode="INOUT" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentId"/>
-            </type-validate>
-        </attribute>
+        <attribute name="blogContentId" type="String" mode="INOUT" optional="false"/>
+        <attribute name="contentId" type="String" mode="INOUT" optional="false"/>
         <attribute name="contentName" type="String" mode="IN" optional="true"/>
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
         <attribute name="description" type="String" mode="IN" optional="true"/>
@@ -1118,11 +846,7 @@
     <service name="getBlogEntry" engine="simple" auth="true"
         location="component://content/minilang/blog/BlogServices.xml" invoke="getBlogEntry">
         <description>Retrieves content records for a blog entry</description>
-        <attribute name="blogContentId" type="String" mode="INOUT" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingBlogContentId"/>
-            </type-validate>
-        </attribute>
+        <attribute name="blogContentId" type="String" mode="INOUT" optional="false"/>
         <attribute name="contentId" type="String" mode="INOUT" optional="true"/><!-- also used for new entries, will return with no error with empty contentId -->
         <attribute name="contentName" type="String" mode="OUT" optional="true"/>
         <attribute name="statusId" type="String" mode="OUT" optional="true"/>
@@ -1136,16 +860,8 @@
     </service>
     <service name="getOwnedOrPublishedBlogEntries" engine="simple" location="component://content/minilang/blog/BlogServices.xml" invoke="getOwnedOrPublishedBlogEntries"
          auth="true"  transaction-timeout="7200">
-        <attribute type="String" mode="IN" name="contentId" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentId"/>
-            </type-validate>
-        </attribute>
-        <attribute mode="IN" name="userLogin" optional="false" type="org.apache.ofbiz.entity.GenericValue">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingUserLogin"/>
-            </type-validate>
-        </attribute>
+        <attribute type="String" mode="IN" name="contentId" optional="false"/>
+        <attribute mode="IN" name="userLogin" optional="false" type="org.apache.ofbiz.entity.GenericValue"/>
         <attribute mode="OUT" name="blogList" optional="true" type="List"/>
     </service>
 
@@ -1154,11 +870,16 @@
             location="org.apache.ofbiz.content.blog.BlogRssServices" invoke="generateBlogRssFeed">
         <description>Blog RSS Feed</description>
         <implements service="rssFeedInterface"/>
-        <attribute name="blogContentId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingBlogContentId"/>
-            </type-validate>
-        </attribute>
+        <attribute name="blogContentId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <!-- eca helper services -->
+    <service name="checkContentAssocIds" engine="simple"
+            location="component://content/minilang/content/ContentServices.xml" invoke="checkContentAssocIds">
+        <description>Fixes the ContentAssoc IDs based on passed parameters</description>
+        <attribute name="contentIdFrom" type="String" mode="INOUT" optional="true"/>
+        <attribute name="contentIdTo" type="String" mode="INOUT" optional="true"/>
+        <attribute name="contentId" type="String" mode="INOUT" optional="true"/>
     </service>
 
     <!-- content permission services -->

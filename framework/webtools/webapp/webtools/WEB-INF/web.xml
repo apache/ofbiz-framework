@@ -51,7 +51,7 @@ under the License.
         <filter-class>org.apache.ofbiz.webapp.control.ControlFilter</filter-class>
         <init-param>
             <param-name>allowedPaths</param-name>
-            <param-value>/ping.txt:/error:/control:/select:/index.html:/index.jsp:/default.html:/default.jsp</param-value>
+            <param-value>/ping.txt:/error:/control:/select:/index.html:/index.jsp:/default.html:/default.jsp:/applet</param-value>
         </init-param>
         <init-param>
             <param-name>redirectPath</param-name>
@@ -94,7 +94,13 @@ under the License.
     </servlet-mapping>
 
     <session-config>
-        <session-timeout>60</session-timeout><!-- in minutes -->
+        <session-timeout>60</session-timeout>
+        <!-- in minutes -->
+        <cookie-config>
+            <http-only>true</http-only>
+            <secure>true</secure>
+        </cookie-config>
+        <tracking-mode>COOKIE</tracking-mode>
     </session-config>
 
     <welcome-file-list>

@@ -38,10 +38,10 @@ under the License.
     <td width="74%">
       <select name="titleOnCard">
         <option value="">${uiLabelMap.CommonSelectOne}</option>
-        <option<#if ("${uiLabelMap.CommonTitleMr}" == (creditCard.titleOnCard)?default(""))> selected="selected"</#if>>${uiLabelMap.CommonTitleMr}</option>
-        <option<#if ("Mrs." == (creditCard.titleOnCard)?default(""))> selected="selected"</#if>>${uiLabelMap.CommonTitleMrs}</option>
-        <option<#if ("Ms." == (creditCard.titleOnCard)?default(""))> selected="selected"</#if>>${uiLabelMap.CommonTitleMs}</option>
-        <option<#if ("Dr." == (creditCard.titleOnCard)?default(""))> selected="selected"</#if>>${uiLabelMap.CommonTitleDr}</option>
+        <option<#if ((creditCard.titleOnCard)?default("") == "${uiLabelMap.CommonTitleMr}")> selected="selected"</#if>>${uiLabelMap.CommonTitleMr}</option>
+        <option<#if ((creditCard.titleOnCard)?default("") == "Mrs.")> selected="selected"</#if>>${uiLabelMap.CommonTitleMrs}</option>
+        <option<#if ((creditCard.titleOnCard)?default("") == "Ms.")> selected="selected"</#if>>${uiLabelMap.CommonTitleMs}</option>
+        <option<#if ((creditCard.titleOnCard)?default("") == "Dr.")> selected="selected"</#if>>${uiLabelMap.CommonTitleDr}</option>
       </select>
     </td>
   </tr>
@@ -72,13 +72,13 @@ under the License.
     <td width="74%">
       <select name="suffixOnCard">
         <option value="">${uiLabelMap.CommonSelectOne}</option>
-        <option<#if ("Jr." == (creditCard.suffixOnCard)?default(""))> selected="selected"</#if>>Jr.</option>
-        <option<#if ("Sr." == (creditCard.suffixOnCard)?default(""))> selected="selected"</#if>>Sr.</option>
-        <option<#if ("I" == (creditCard.suffixOnCard)?default(""))> selected="selected"</#if>>I</option>
-        <option<#if ("II" == (creditCard.suffixOnCard)?default(""))> selected="selected"</#if>>II</option>
-        <option<#if ("III" == (creditCard.suffixOnCard)?default(""))> selected="selected"</#if>>III</option>
-        <option<#if ("IV" == (creditCard.suffixOnCard)?default(""))> selected="selected"</#if>>IV</option>
-        <option<#if ("V" == (creditCard.suffixOnCard)?default(""))> selected="selected"</#if>>V</option>
+        <option<#if ((creditCard.suffixOnCard)?default("") == "Jr.")> selected="selected"</#if>>Jr.</option>
+        <option<#if ((creditCard.suffixOnCard)?default("") == "Sr.")> selected="selected"</#if>>Sr.</option>
+        <option<#if ((creditCard.suffixOnCard)?default("") == "I")> selected="selected"</#if>>I</option>
+        <option<#if ((creditCard.suffixOnCard)?default("") == "II")> selected="selected"</#if>>II</option>
+        <option<#if ((creditCard.suffixOnCard)?default("") == "III")> selected="selected"</#if>>III</option>
+        <option<#if ((creditCard.suffixOnCard)?default("") == "IV")> selected="selected"</#if>>IV</option>
+        <option<#if ((creditCard.suffixOnCard)?default("") == "V")> selected="selected"</#if>>V</option>
       </select>
     </td>
   </tr>

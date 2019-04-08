@@ -21,7 +21,6 @@ package org.apache.ofbiz.content.content;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import org.apache.ofbiz.base.util.UtilGenerics;
@@ -51,8 +50,8 @@ public class PermissionRecorder {
 
     public static final String module = PermissionRecorder.class.getName();
 
-    private static final String [] opFields = { "contentPurposeTypeId", "contentOperationId", "roleTypeId", "statusId", "privilegeEnumId"};
-    private static final String [] fieldTitles = { "Purpose", "Operation", "Role", "Status", "Privilege"};
+    public static final String [] opFields = { "contentPurposeTypeId", "contentOperationId", "roleTypeId", "statusId", "privilegeEnumId"};
+    public static final String [] fieldTitles = { "Purpose", "Operation", "Role", "Status", "Privilege"};
 
     public PermissionRecorder() {
         isOn = UtilProperties.propertyValueEqualsIgnoreCase("content", "permissionRecorderOn", "true");
@@ -91,7 +90,7 @@ public class PermissionRecorder {
     }
 
     public GenericValue [] getContentPurposeOperations() {
-       return contentPurposeOperations != null ? contentPurposeOperations.clone() : null;
+       return contentPurposeOperations;
     }
 
     public void setContentPurposeOperations(List<GenericValue> opList) {
@@ -107,7 +106,7 @@ public class PermissionRecorder {
     }
 
     public String [] getStatusTargets() {
-       return statusTargets != null ? statusTargets.clone() : null;
+       return statusTargets;
     }
 
     public void setStatusTargets(List<String> opList) {
@@ -115,7 +114,7 @@ public class PermissionRecorder {
     }
 
     public String [] getTargetOperations() {
-       return targetOperations != null ? targetOperations.clone() : null;
+       return targetOperations;
     }
 
     public void setTargetOperations(List<String> opList) {
@@ -127,7 +126,7 @@ public class PermissionRecorder {
             currentContentMap = new HashMap<String, Object>();
             permCheckResults.add(currentContentMap);
             currentContentMap.put("contentId", id);
-            currentContentMap.put("checkResults", new LinkedList<>());
+            currentContentMap.put("checkResults", new LinkedList());
         }
         currentContentId = id;
     }
@@ -184,11 +183,11 @@ public class PermissionRecorder {
 
     public void record(GenericValue purposeOp, boolean targetOpCond, boolean purposeCond, boolean statusCond, boolean privilegeCond, boolean roleCond) {
         Map<String, Object> map = UtilMisc.makeMapWritable(purposeOp);
-        map.put("contentOperationIdCond", targetOpCond);
-        map.put("contentPurposeTypeIdCond", purposeCond);
-        map.put("statusIdCond", statusCond);
-        map.put("privilegeEnumIdCond", privilegeCond);
-        map.put("roleTypeIdCond", roleCond);
+        map.put("contentOperationIdCond", Boolean.valueOf(targetOpCond));
+        map.put("contentPurposeTypeIdCond", Boolean.valueOf(purposeCond));
+        map.put("statusIdCond", Boolean.valueOf(statusCond));
+        map.put("privilegeEnumIdCond", Boolean.valueOf(privilegeCond));
+        map.put("roleTypeIdCond", Boolean.valueOf(roleCond));
         map.put("contentId", currentContentId);
         List<Map<String, Object>> checkResultList = UtilGenerics.checkList(currentContentMap.get("checkResultList"));
         checkResultList.add(map);
@@ -276,8 +275,8 @@ public class PermissionRecorder {
         for (int i=0; i < opFields.length; i++) {
             String opField = opFields[i];
             Boolean bool = (Boolean)rMap.get(opField + "Cond");
-            String cls = (bool) ? "pass" : "fail";
-            if (!bool)
+            String cls = (bool.booleanValue()) ? "pass" : "fail";
+            if (!bool.booleanValue())
                 isPass = false;
             sb.append("<td class=\"" + cls + "\">");
             s = (String)rMap.get(opField);
@@ -285,7 +284,7 @@ public class PermissionRecorder {
             sb.append("</td>");
         }
         String passFailCls = (isPass) ? "pass" : "fail";
-        sb.append("<td class=\"" + passFailCls +"\">" + passFailCls.toUpperCase(Locale.getDefault()) + "</td>");
+        sb.append("<td class=\"" + passFailCls +"\">" + passFailCls.toUpperCase() + "</td>");
         sb.append("</tr>");
 
         return sb.toString();

@@ -18,29 +18,15 @@
  */
 package org.apache.ofbiz.order.requirement;
 
+import java.util.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilDateTime;
-import org.apache.ofbiz.base.util.UtilGenerics;
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilProperties;
-import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.base.util.*;
+import org.apache.ofbiz.entity.condition.*;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.condition.EntityConditionList;
-import org.apache.ofbiz.entity.condition.EntityExpr;
-import org.apache.ofbiz.entity.condition.EntityOperator;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtil;
 import org.apache.ofbiz.order.order.OrderReadHelper;
@@ -153,7 +139,7 @@ public class RequirementServices {
                     if (inventory == null) {
                         inventory = dispatcher.runSync("getInventoryAvailableByFacility", UtilMisc.toMap("productId", productId, "facilityId", facilityId));
                         if (ServiceUtil.isError(inventory)) {
-                            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(inventory));
+                            return inventory;
                         }
                         inventories.put(inventoryKey, inventory);
                     }
@@ -195,7 +181,7 @@ public class RequirementServices {
 
             Map<String, Object> results = ServiceUtil.returnSuccess();
             results.put("requirementsForSupplier", requirements);
-            results.put("distinctProductCount", products.size());
+            results.put("distinctProductCount", Integer.valueOf(products.size()));
             results.put("quantityTotal", quantity);
             results.put("amountTotal", amountTotal);
             return results;
@@ -222,9 +208,9 @@ public class RequirementServices {
                 Debug.logInfo("ProductStore for order ID " + orderId + " not found, requirements not created", module);
                 return ServiceUtil.returnSuccess();
             }
-            List<GenericValue> orderItemAndShipGroups = EntityQuery.use(delegator).select("orderId", "shipGroupSeqId", "orderItemSeqId").from("OrderItemAndShipGroupAssoc").where("orderId", orderId).distinct().queryList();
-            for (GenericValue orderItemAndShipGroup : orderItemAndShipGroups) {
-                GenericValue item = EntityQuery.use(delegator).from("OrderItem").where("orderId", orderItemAndShipGroup.getString("orderId"), "orderItemSeqId", orderItemAndShipGroup.getString("orderItemSeqId")).queryOne();
+            String facilityId = productStore.getString("inventoryFacilityId");
+            List<GenericValue> orderItems = order.getRelated("OrderItem", null, null, false);
+            for (GenericValue item : orderItems) {
                 GenericValue product = item.getRelatedOne("Product", false);
                 if (product == null) continue;
                 if ((!"PRODRQM_AUTO".equals(product.get("requirementMethodEnumId")) &&
@@ -235,19 +221,15 @@ public class RequirementServices {
                 BigDecimal cancelQuantity = item.getBigDecimal("cancelQuantity");
                 BigDecimal required = quantity.subtract(cancelQuantity == null ? BigDecimal.ZERO : cancelQuantity);
                 if (required.compareTo(BigDecimal.ZERO) <= 0) continue;
-                GenericValue orderItemShipGroup = EntityQuery.use(delegator).from("OrderItemShipGroup").where("orderId", orderId, "shipGroupSeqId", orderItemAndShipGroup.getString("shipGroupSeqId")).cache().queryOne();
-                Map<String, Object> input = UtilMisc.toMap("userLogin", userLogin, "facilityId", orderItemShipGroup.getString("facilityId"), "productId", product.get("productId"), "quantity", required, "requirementTypeId", "PRODUCT_REQUIREMENT");
+
+                Map<String, Object> input = UtilMisc.toMap("userLogin", userLogin, "facilityId", facilityId, "productId", product.get("productId"), "quantity", required, "requirementTypeId", "PRODUCT_REQUIREMENT");
                 Map<String, Object> results = dispatcher.runSync("createRequirement", input);
-                if (ServiceUtil.isError(results)) {
-                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(results));
-                }
+                if (ServiceUtil.isError(results)) return results;
                 String requirementId = (String) results.get("requirementId");
 
                 input = UtilMisc.toMap("userLogin", userLogin, "orderId", order.get("orderId"), "orderItemSeqId", item.get("orderItemSeqId"), "requirementId", requirementId, "quantity", required);
                 results = dispatcher.runSync("createOrderRequirementCommitment", input);
-                if (ServiceUtil.isError(results)) {
-                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(results));
-                }
+                if (ServiceUtil.isError(results)) return results;
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
@@ -308,9 +290,7 @@ public class RequirementServices {
 
                 // get the facility ATP for product, which should be updated for this item's reservation
                 Map<String, Object> results = dispatcher.runSync("getInventoryAvailableByFacility", UtilMisc.toMap("userLogin", userLogin, "productId", product.get("productId"), "facilityId", facilityId));
-                if (ServiceUtil.isError(results)) {
-                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(results));
-                }
+                if (ServiceUtil.isError(results)) return results;
                 BigDecimal atp = ((BigDecimal) results.get("availableToPromiseTotal")); // safe since this is a required OUT param
 
                 // count all current requirements for this product
@@ -334,16 +314,12 @@ public class RequirementServices {
 
                 Map<String, Object> input = UtilMisc.toMap("userLogin", userLogin, "facilityId", facilityId, "productId", product.get("productId"), "quantity", required, "requirementTypeId", "PRODUCT_REQUIREMENT");
                 results = dispatcher.runSync("createRequirement", input);
-                if (ServiceUtil.isError(results)) {
-                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(results));
-                }
+                if (ServiceUtil.isError(results)) return results;
                 String requirementId = (String) results.get("requirementId");
 
                 input = UtilMisc.toMap("userLogin", userLogin, "orderId", order.get("orderId"), "orderItemSeqId", item.get("orderItemSeqId"), "requirementId", requirementId, "quantity", required);
                 results = dispatcher.runSync("createOrderRequirementCommitment", input);
-                if (ServiceUtil.isError(results)) {
-                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(results));
-                }
+                if (ServiceUtil.isError(results)) return results;
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
@@ -369,10 +345,7 @@ public class RequirementServices {
                     /* Change status of requirement to ordered */
                     Map<String, Object> inputMap = UtilMisc.<String, Object>toMap("userLogin", userLogin, "requirementId", requirementId, "statusId", "REQ_ORDERED", "quantity", orderItem.getBigDecimal("quantity"));
                     // TODO: check service result for an error return
-                    Map<String, Object> results = dispatcher.runSync("updateRequirement", inputMap);
-                    if (ServiceUtil.isError(results)) {
-                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(results));
-                    }
+                    dispatcher.runSync("updateRequirement", inputMap);
                 }
             }
         } catch(GenericEntityException e){

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <!-- Order Manager security -->
+    <SecurityGroup description="Admin group for restricted order processing." groupId="ORDERPROC"/>
+    <SecurityGroup description="Order Entry Admin group; permissions for creating orders." groupId="ORDERENTRY"/>
+    <SecurityGroup description="Order Admin group, has all order permissions." groupId="ORDERADMIN"/>
+    <SecurityGroup description="Limited Order Admin group, has all limited order permissions." groupId="ORDERADMIN_LTD"/>
+    <SecurityGroup description="Limited Order Admin group for Supplier Agents." groupId="ORDERSUPPLIER_LTD"/>
+    <SecurityGroup description="Order entry with purchasing permissions" groupId="ORDERPURCH"/>
+    <SecurityGroup description="Order entry permission for all stores.  No special role is needed." groupId="ORDERENTRY_ALL"/>
+
+    <SecurityGroupPermission groupId="ORDERADMIN_LTD" permissionId="ORDERMGR_VIEW"/>
+    <SecurityGroupPermission groupId="ORDERADMIN_LTD" permissionId="ORDERMGR_ROLE_VIEW"/>
+    <SecurityGroupPermission groupId="ORDERADMIN_LTD" permissionId="ORDERMGR_ROLE_CREATE"/>
+    <SecurityGroupPermission groupId="ORDERADMIN_LTD" permissionId="ORDERMGR_ROLE_UPDATE"/>
+    <SecurityGroupPermission groupId="ORDERADMIN_LTD" permissionId="ORDERMGR_ROLE_DELETE"/>
+    <SecurityGroupPermission groupId="ORDERADMIN_LTD" permissionId="ORDERMGR_VIEW"/>
+    <SecurityGroupPermission groupId="ORDERADMIN_LTD" permissionId="OFBTOOLS_VIEW"/>
+
+    <SecurityGroupPermission groupId="ORDERSUPPLIER_LTD" permissionId="ORDERMGR_VIEW"/>
+    <SecurityGroupPermission groupId="ORDERSUPPLIER_LTD" permissionId="ORDERMGR_ROLE_VIEW"/>
+    <SecurityGroupPermission groupId="ORDERSUPPLIER_LTD" permissionId="ORDERMGR_ROLE_CREATE"/>
+    <SecurityGroupPermission groupId="ORDERSUPPLIER_LTD" permissionId="ORDERMGR_ROLE_UPDATE"/>
+    <SecurityGroupPermission groupId="ORDERSUPPLIER_LTD" permissionId="OFBTOOLS_VIEW"/>
+
+    <SecurityGroupPermission groupId="ORDERADMIN" permissionId="ORDERMGR_ADMIN"/>
+    <SecurityGroupPermission groupId="ORDERADMIN" permissionId="OFBTOOLS_VIEW"/>
+
+    <SecurityGroupPermission groupId="ORDERPROC" permissionId="ORDERMGR_ROLE_VIEW"/>
+    <SecurityGroupPermission groupId="ORDERPROC" permissionId="ORDERMGR_NOTE"/>
+    <SecurityGroupPermission groupId="ORDERPROC" permissionId="PARTYMGR_VIEW"/>
+    <SecurityGroupPermission groupId="ORDERPROC" permissionId="PARTYMGR_NOTE"/>
+    <SecurityGroupPermission groupId="ORDERPROC" permissionId="OFBTOOLS_VIEW"/>
+
+    <SecurityGroupPermission groupId="ORDERENTRY" permissionId="ORDERMGR_SALES_ENTRY"/>
+    <SecurityGroupPermission groupId="ORDERENTRY" permissionId="ORDERMGR_ROLE_VIEW"/>
+    <SecurityGroupPermission groupId="ORDERENTRY" permissionId="ORDERMGR_VIEW"/>
+    <SecurityGroupPermission groupId="ORDERENTRY" permissionId="ORDERMGR_NOTE"/>
+    <SecurityGroupPermission groupId="ORDERENTRY" permissionId="ORDERMGR_UPDATE"/>
+    <SecurityGroupPermission groupId="ORDERENTRY" permissionId="ORDERMGR_CREATE"/>
+    <SecurityGroupPermission groupId="ORDERENTRY" permissionId="PARTYMGR_VIEW"/>
+    <SecurityGroupPermission groupId="ORDERENTRY" permissionId="PARTYMGR_CREATE"/>
+    <SecurityGroupPermission groupId="ORDERENTRY" permissionId="PARTYMGR_UPDATE"/>
+    <SecurityGroupPermission groupId="ORDERENTRY" permissionId="PARTYMGR_NOTE"/>
+    <SecurityGroupPermission groupId="ORDERENTRY" permissionId="PAY_INFO_VIEW"/>
+    <SecurityGroupPermission groupId="ORDERENTRY" permissionId="PAY_INFO_UPDATE"/>
+    <SecurityGroupPermission groupId="ORDERENTRY" permissionId="PAY_INFO_CREATE"/>
+    <SecurityGroupPermission groupId="ORDERENTRY" permissionId="CATALOG_VIEW"/>
+    <SecurityGroupPermission groupId="ORDERENTRY" permissionId="OFBTOOLS_VIEW"/>
+    <SecurityGroupPermission groupId="ORDERENTRY" permissionId="ORDERMGR_CRQ_CREATE"/>
+
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="ORDERMGR_ADMIN"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ORDERMGR_CREATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ORDERMGR_DELETE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ORDERMGR_UPDATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ORDERMGR_RETURN"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ORDERMGR_NOTE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ORDERMGR_VIEW"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ORDERMGR_PURCHASE_VIEW"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ORDERMGR_QUOTE_PRICE"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="ORDERMGR_CRQ_ADMIN"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ORDERMGR_CRQ_CREATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ORDERMGR_4C_CREATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ORDERMGR_4C_UPDATE"/>
+
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="ORDERMGR_VIEW"/>
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="ORDERMGR_NOTE"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="ORDERMGR_ADMIN"/>
+
+    <SecurityGroupPermission groupId="ORDERPURCH" permissionId="ORDERMGR_ROLE_VIEW"/>
+    <SecurityGroupPermission groupId="ORDERPURCH" permissionId="ORDERMGR_VIEW"/>
+    <SecurityGroupPermission groupId="ORDERPURCH" permissionId="ORDERMGR_NOTE"/>
+    <SecurityGroupPermission groupId="ORDERPURCH" permissionId="ORDERMGR_UPDATE"/>
+    <SecurityGroupPermission groupId="ORDERPURCH" permissionId="ORDERMGR_PURCHASE_CREATE"/>
+    <SecurityGroupPermission groupId="ORDERPURCH" permissionId="ORDERMGR_PURCHASE_VIEW"/>
+    <SecurityGroupPermission groupId="ORDERPURCH" permissionId="PARTYMGR_VIEW"/>
+    <SecurityGroupPermission groupId="ORDERPURCH" permissionId="PARTYMGR_CREATE"/>
+    <SecurityGroupPermission groupId="ORDERPURCH" permissionId="PARTYMGR_UPDATE"/>
+    <SecurityGroupPermission groupId="ORDERPURCH" permissionId="PARTYMGR_NOTE"/>
+    <SecurityGroupPermission groupId="ORDERPURCH" permissionId="PAY_INFO_VIEW"/>
+    <SecurityGroupPermission groupId="ORDERPURCH" permissionId="PAY_INFO_UPDATE"/>
+    <SecurityGroupPermission groupId="ORDERPURCH" permissionId="PAY_INFO_CREATE"/>
+    <SecurityGroupPermission groupId="ORDERPURCH" permissionId="CATALOG_VIEW"/>
+    <SecurityGroupPermission groupId="ORDERPURCH" permissionId="OFBTOOLS_VIEW"/>
+
+    <SecurityGroupPermission groupId="ORDERENTRY_ALL" permissionId="ORDERMGR_SALES_ENTRY"/>
+    <SecurityGroupPermission groupId="ORDERENTRY_ALL" permissionId="ORDERMGR_SALES_CREATE"/>
+    <SecurityGroupPermission groupId="ORDERENTRY_ALL" permissionId="ORDERMGR_SALES_UPDATE"/>
+    <SecurityGroupPermission groupId="ORDERENTRY_ALL" permissionId="ORDERMGR_ROLE_VIEW"/>
+    <SecurityGroupPermission groupId="ORDERENTRY_ALL" permissionId="ORDERMGR_VIEW"/>
+    <SecurityGroupPermission groupId="ORDERENTRY_ALL" permissionId="ORDERMGR_NOTE"/>
+    <SecurityGroupPermission groupId="ORDERENTRY_ALL" permissionId="ORDERMGR_UPDATE"/>
+    <SecurityGroupPermission groupId="ORDERENTRY_ALL" permissionId="ORDERMGR_CREATE"/>
+    <SecurityGroupPermission groupId="ORDERENTRY_ALL" permissionId="PARTYMGR_VIEW"/>
+    <SecurityGroupPermission groupId="ORDERENTRY_ALL" permissionId="PARTYMGR_CREATE"/>
+    <SecurityGroupPermission groupId="ORDERENTRY_ALL" permissionId="PARTYMGR_PCM_CREATE"/>
+    <SecurityGroupPermission groupId="ORDERENTRY_ALL" permissionId="PARTYMGR_UPDATE"/>
+    <SecurityGroupPermission groupId="ORDERENTRY_ALL" permissionId="PARTYMGR_NOTE"/>
+    <SecurityGroupPermission groupId="ORDERENTRY_ALL" permissionId="PAY_INFO_VIEW"/>
+    <SecurityGroupPermission groupId="ORDERENTRY_ALL" permissionId="PAY_INFO_UPDATE"/>
+    <SecurityGroupPermission groupId="ORDERENTRY_ALL" permissionId="PAY_INFO_CREATE"/>
+    <SecurityGroupPermission groupId="ORDERENTRY_ALL" permissionId="CATALOG_VIEW"/>
+    <SecurityGroupPermission groupId="ORDERENTRY_ALL" permissionId="ORDERMGR_SEND_CONFIRMATION"/>
+    <SecurityGroupPermission groupId="ORDERENTRY_ALL" permissionId="OFBTOOLS_VIEW"/>
+    <SecurityGroupPermission groupId="ORDERENTRY_ALL" permissionId="ORDERMGR_CRQ_CREATE"/>
+</entity-engine-xml>

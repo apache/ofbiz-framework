@@ -23,5 +23,5 @@ under the License.
     <SecurityPermission description="Create public system information messages." permissionId="COMMONEXT_PUBLMSG"/>
     
     <!-- add admin to SUPER permission group -->
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="COMMONEXT_PUBLMSG"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="COMMONEXT_PUBLMSG"/>
 </entity-engine-xml>

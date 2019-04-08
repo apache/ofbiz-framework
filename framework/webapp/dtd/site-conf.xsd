@@ -216,44 +216,56 @@ under the License.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute name="method" use="optional" default="all">
-            <xs:annotation>
-                <xs:documentation>
-                    The HTTP of this request. This will be the HTTP method used to access the request.
-                </xs:documentation>
-            </xs:annotation>
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="get"/>
-                    <xs:enumeration value="post"/>
-                    <xs:enumeration value="put"/>
-                    <xs:enumeration value="delete"/>
-                    <xs:enumeration value="patch"/>
-                    <xs:enumeration value="options"/>
-                    <xs:enumeration value="all"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute type="xs:boolean" name="edit" default="true">
+        <xs:attribute name="edit" default="true">
             <xs:annotation>
                 <xs:documentation>
                     Reserved for future use (not used yet).
                 </xs:documentation>
             </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:boolean" name="track-visit" default="true">
+        <xs:attribute name="track-visit" default="true">
             <xs:annotation>
                 <xs:documentation>
                     Allow or not to track first visit (related to firstvisit preprocessor).
                 </xs:documentation>
             </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Don't track as first visit (related to firstvisit preprocessor).
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:enumeration>
+                </xs:restriction>
+            </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:boolean" name="track-serverhit" default="true">
+        <xs:attribute name="track-serverhit" default="true">
             <xs:annotation>
                 <xs:documentation>
                     Allow or not to track statistics.
                 </xs:documentation>
             </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Don't track in the statistics.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:enumeration>
+                </xs:restriction>
+            </xs:simpleType>
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="security">
@@ -267,29 +279,48 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.security">
-        <xs:attribute type="xs:boolean" name="https" default="false">
-            <xs:annotation>
-                <xs:documentation>
-                    If https=true, redirect to/use/generate the secured HTTPS protocol if necessary and possible.
-                </xs:documentation>
-            </xs:annotation>
+        <xs:attribute name="https" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Redirects to/uses/generates the secured HTTPS protocol if necessary and possible
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:boolean" name="auth" default="false">
+        <xs:attribute name="auth" default="false">
             <xs:annotation>
                 <xs:documentation>
                     If auth=true, when you hit the request if you are not logged in you will be forwarded to the login page.
                 </xs:documentation>
             </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:boolean" name="cert" default="false">
+        <xs:attribute name="cert" default="false">
             <xs:annotation>
                 <xs:documentation>
                     It true, check for HTTPS client (x.509) security.
                     If the request is not secured throws an exception
                 </xs:documentation>
             </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:boolean" name="external-view" default="true">
+        <xs:attribute name="external-view" default="true">
             <xs:annotation>
                 <xs:documentation>
                     If false, prevent to pass a view through the url ("chaining" it after the request,
@@ -297,13 +328,25 @@ under the License.
                     Default to true.
                 </xs:documentation>
             </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:boolean" name="direct-request" default="true">
+        <xs:attribute name="direct-request" default="true">
             <xs:annotation>
                 <xs:documentation>
                     If false the request can only be accessed in a chained request, default to true.
                 </xs:documentation>
             </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="metric">
@@ -414,12 +457,18 @@ under the License.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:boolean" name="global-transaction" default="true">
+        <xs:attribute name="global-transaction" default="true">
             <xs:annotation>
                 <xs:documentation>
                     For service-multi, defines if the event should be wrapped in a transaction, default to true
                 </xs:documentation>
             </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="transaction-timeout" type="xs:int" default="0">
             <xs:annotation>
@@ -472,7 +521,6 @@ under the License.
                     request-redirect,
                     request-redirect-noparam,
                     url,
-                    url-redirect,
                     cross-redirect
                 </xs:documentation>
             </xs:annotation>
@@ -525,8 +573,7 @@ under the License.
                     <xs:enumeration value="request">
                         <xs:annotation>
                             <xs:documentation>
-                                Internally chains to another request.
-                                Automatically redirect all current request parameters to the new request 
+                                Internally chains to another request
                             </xs:documentation>
                         </xs:annotation>
                     </xs:enumeration>
@@ -534,7 +581,7 @@ under the License.
                         <xs:annotation>
                             <xs:documentation>
                                 Send a redirect down to the browser telling it to go to the new request.
-                                Redirect only mentioned request parameters in controller.xml, using redirect-param attribute
+                                Automatically redirect all current request parameters to the new request or only redirected parameters if specified.                                
                             </xs:documentation>
                         </xs:annotation>
                     </xs:enumeration>
@@ -553,17 +600,10 @@ under the License.
                             </xs:documentation>
                         </xs:annotation>
                     </xs:enumeration>
-                    <xs:enumeration value="url-redirect">
-                        <xs:annotation>
-                            <xs:documentation>
-                                Works like URL but you can also pass redirected parameters.
-                            </xs:documentation>
-                        </xs:annotation>
-                    </xs:enumeration>
                     <xs:enumeration value="cross-redirect">
                         <xs:annotation>
                             <xs:documentation>
-                                Works like request-redirect for cross applications calls.
+                                Works like URL but you can also pass redirected parameters.
                             </xs:documentation>
                         </xs:annotation>
                     </xs:enumeration>
@@ -580,29 +620,47 @@ under the License.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:boolean" name="save-last-view" default="false">
+        <xs:attribute name="save-last-view" default="false">
             <xs:annotation>
                 <xs:documentation>
                     Saves the last (previous) request's view for future use, generally
                     with the view-last type of response.
                 </xs:documentation>
             </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:boolean" name="save-current-view" default="false">
+        <xs:attribute name="save-current-view" default="false">
             <xs:annotation>
                 <xs:documentation>
                     Saves the current request's view for future use, generally with
                     the view-last type of response.
                 </xs:documentation>
             </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:boolean" name="save-home-view" default="false">
+        <xs:attribute name="save-home-view" default="false">
             <xs:annotation>
                 <xs:documentation>
                     Saves the current request's view for future use, generally with
                     the view-home type of response.
                 </xs:documentation>
             </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="status-code" type="xs:string">
             <xs:annotation>
@@ -711,14 +769,20 @@ under the License.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:boolean" name="no-cache" default="false">
+        <xs:attribute name="no-cache" default="false">
             <xs:annotation>
                 <xs:documentation>
                     Send no-cache headers if set to true.
                 </xs:documentation>
             </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
         </xs:attribute>
-        <xs:attribute name="x-frame-options" default="sameorigin">
+        <xs:attribute name="x-frame-option" default="sameorigin">
             <xs:annotation>
                 <xs:documentation>
                     Provides clickjacking protection by instructing browsers that this page should not be placed within a frame. 
@@ -735,7 +799,6 @@ under the License.
                     <xs:enumeration value="deny"/>
                     <xs:enumeration value="sameorigin"/>
                     <xs:enumeration value="allow-from"/>
-                    <xs:enumeration value="none"/>
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>

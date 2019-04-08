@@ -25,7 +25,7 @@ package org.apache.ofbiz.base.util;
 
 public class Base64 {
 
-    private static byte[] base64EncMap, base64DecMap;
+    private static byte[] Base64EncMap, Base64DecMap;
     static {
         // rfc-2045: Base64 Alphabet
         byte[] map =
@@ -94,10 +94,10 @@ public class Base64 {
                 (byte) '9',
                 (byte) '+',
                 (byte) '/' };
-        base64EncMap = map;
-        base64DecMap = new byte[128];
-        for (int idx = 0; idx < base64EncMap.length; idx++) {
-            base64DecMap[base64EncMap[idx]] = (byte) idx;
+        Base64EncMap = map;
+        Base64DecMap = new byte[128];
+        for (int idx = 0; idx < Base64EncMap.length; idx++) {
+            Base64DecMap[Base64EncMap[idx]] = (byte) idx;
         }
     }
 
@@ -110,7 +110,7 @@ public class Base64 {
      */
     public final static byte[] base64Decode(byte[] data) {
         if (data == null) {
-            return new byte[0];
+            return null;
         }
 
         int tail = data.length;
@@ -122,7 +122,7 @@ public class Base64 {
 
         // ascii printable to 0-63 conversion
         for (int idx = 0; idx < data.length; idx++) {
-            data[idx] = base64DecMap[data[idx]];
+            data[idx] = Base64DecMap[data[idx]];
         }
 
         // 4-byte to 3-byte conversion
@@ -150,11 +150,9 @@ public class Base64 {
      * @return the decoded str.
      */
     public final static String base64Decode(String str) {
-        if (str == null) {
-            return null;
-        }
-
-        return new String(base64Decode(str.getBytes(UtilIO.getUtf8())));
+        if (str == null) return null;
+        
+        return new String(base64Decode(str.getBytes()));
     }
 
     /**
@@ -166,7 +164,7 @@ public class Base64 {
      */
     public final static byte[] base64Encode(byte[] data) {
         if (data == null) {
-            return new byte[0];
+            return null;
         }
 
         int sidx, didx;
@@ -174,19 +172,18 @@ public class Base64 {
 
         // 3-byte to 4-byte conversion + 0-63 to ascii printable conversion
         for (sidx = 0, didx = 0; sidx < data.length - 2; sidx += 3) {
-            dest[didx++] = base64EncMap[(data[sidx] >>> 2) & 077];
-            dest[didx++] = base64EncMap[(data[sidx + 1] >>> 4) & 017 | (data[sidx] << 4) & 077];
-            dest[didx++] = base64EncMap[(data[sidx + 2] >>> 6) & 003 | (data[sidx + 1] << 2) & 077];
-            dest[didx++] = base64EncMap[data[sidx + 2] & 077];
+            dest[didx++] = Base64EncMap[(data[sidx] >>> 2) & 077];
+            dest[didx++] = Base64EncMap[(data[sidx + 1] >>> 4) & 017 | (data[sidx] << 4) & 077];
+            dest[didx++] = Base64EncMap[(data[sidx + 2] >>> 6) & 003 | (data[sidx + 1] << 2) & 077];
+            dest[didx++] = Base64EncMap[data[sidx + 2] & 077];
         }
         if (sidx < data.length) {
-            dest[didx++] = base64EncMap[(data[sidx] >>> 2) & 077];
+            dest[didx++] = Base64EncMap[(data[sidx] >>> 2) & 077];
             if (sidx < data.length - 1) {
-                dest[didx++] = base64EncMap[(data[sidx + 1] >>> 4) & 017 | (data[sidx] << 4) & 077];
-                dest[didx++] = base64EncMap[(data[sidx + 1] << 2) & 077];
-            } else {
-                dest[didx++] = base64EncMap[(data[sidx] << 4) & 077];
-            }
+                dest[didx++] = Base64EncMap[(data[sidx + 1] >>> 4) & 017 | (data[sidx] << 4) & 077];
+                dest[didx++] = Base64EncMap[(data[sidx + 1] << 2) & 077];
+            } else
+                dest[didx++] = Base64EncMap[(data[sidx] << 4) & 077];
         }
 
         // add padding
@@ -208,6 +205,6 @@ public class Base64 {
         if (str == null) {
             return null;
         }
-        return new String(base64Encode(str.getBytes(UtilIO.getUtf8())));
+        return new String(base64Encode(str.getBytes()));
     }
 }

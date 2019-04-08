@@ -19,11 +19,10 @@
 package org.apache.ofbiz.service.calendar;
 
 import java.io.Serializable;
+import com.ibm.icu.util.Calendar;
 import java.util.Date;
 import java.util.Set;
 import java.util.TreeSet;
-
-import com.ibm.icu.util.Calendar;
 
 /** Temporal expression abstract class. */
 @SuppressWarnings("serial")
@@ -45,44 +44,10 @@ public abstract class TemporalExpression implements Serializable, Comparable<Tem
     public abstract void accept(TemporalExpressionVisitor visitor);
 
     public int compareTo(TemporalExpression obj) {
-        if (this.equals(obj)) {
+        if (this.equals(obj) || obj.sequence == this.sequence) {
             return 0;
         }
-        return Integer.compare(this.sequence, obj.sequence);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        TemporalExpression other = (TemporalExpression) obj;
-        if (id == null) {
-            if (other.id != null) {
-                return false;
-            }
-        } else if (!id.equals(other.id)) {
-            return false;
-        }
-        if (sequence != other.sequence) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + sequence;
-        return result;
+         return obj.sequence < this.sequence ? 1 : -1;
     }
 
     protected boolean containsExpression(TemporalExpression expression) {
@@ -112,8 +77,8 @@ public abstract class TemporalExpression implements Serializable, Comparable<Tem
      * @return A Set of matching <code>Date</code> objects
      */
     public Set<Date> getRange(org.apache.ofbiz.base.util.DateRange range, Calendar cal) {
-        Set<Date> set = new TreeSet<>();
-        Date last;
+        Set<Date> set = new TreeSet<Date>();
+        Date last = range.start();
         Calendar next = first(cal);
         while (next != null && range.includesDate(next.getTime())) {
             last = next.getTime();

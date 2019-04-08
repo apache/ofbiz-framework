@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
+    <form name="FindResource" type="single" target="FindResource"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="resourceName" parameter-name="partyId" title="${uiLabelMap.ScrumResourceName}"><text/></field>
+        <field name="find" title="${uiLabelMap.CommonFind}"><submit/></field>
+    </form>
+    <form name="FindMemberResource" type="single" target="FindResource">
+        <actions>
+            <entity-condition entity-name="SecurityGroup" list="securityGroupList">
+                <condition-list combine="or">
+                    <condition-expr field-name="groupId" operator="equals" value="SCRUM_PRODUCT_OWNER"/>
+                    <condition-expr field-name="groupId" operator="equals" value="SCRUM_MASTER"/>
+                    <condition-expr field-name="groupId" operator="equals" value="SCRUM_TEAM"/>
+                    <condition-expr field-name="groupId" operator="equals" value="SCRUM_STAKEHOLDER"/>
+                </condition-list>
+                <order-by field-name="description"/>
+            </entity-condition>
+        </actions>
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
+        <!--<field name="partyId" title="${uiLabelMap.PartyPartyId}"><text-find/></field>-->
+        <field name="lastName" title="${uiLabelMap.ScrumLastName}"><text-find/></field>
+        <field name="firstName" title="${uiLabelMap.ScrumFirstName}"><text-find/></field>
+        <field name="middleName" title="${uiLabelMap.ScrumMiddleName}"><text-find/></field>
+        <field name="groupId">
+            <drop-down allow-empty="false">
+                <option key="" description=" "/>
+                <list-options list-name="securityGroupList" key-name="groupId"/>
+            </drop-down>
+        </field>
+        <field name="find" title="${uiLabelMap.CommonFind}"><submit/></field>
+    </form>
+    <form name="ListResources" type="list" list-name="listIt" paginate-target="FindResource"
+        odd-row-style="alternate-row" header-row-style="header-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <script location="component://scrum/groovyScripts/ListScrumResource.groovy"/>
+            <entity-one entity-name="UserLogin" value-field="systemUserLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        </actions>
+        <row-actions>
+            <entity-one entity-name="PartyNameView" value-field="partyNameView">
+                <field-map field-name="partyId" from-field="partyId"/>
+            </entity-one>
+            <entity-and entity-name="PartyRate" list="partyRateList">
+                <field-map field-name="partyId" from-field="partyId"/>
+                <field-map field-name="thruDate" value=""/>
+            </entity-and>
+            <set field="percentageUsed" from-field="partyRateList[0].percentageUsed"/>
+            <set field="rateTypeId" from-field="partyRateList[0].rateTypeId"/>
+            <set field="defaultRate" from-field="partyRateList[0].defaultRate"/>
+            <set field="fromDate" from-field="partyRateList[0].fromDate"/>
+            <set field="rateResult" value="${groovy: if (rateTypeId) rateResult = dispatcher.runSync(&quot;getRateAmount&quot;
+                        ,[&quot;partyId&quot; : partyId, &quot;rateTypeId&quot; : rateTypeId,&quot;userLogin&quot; : systemUserLogin])}" type="List"/>
+            <set field="rateAmount" from-field="rateResult[0].rateAmount"/>
+        </row-actions>
+        <field name="lastName" parameter-name="partyId" title="${uiLabelMap.ScrumMember}" sort-field="true">
+            <hyperlink description="${partyNameView.lastName}, ${partyNameView.firstName} ${partyNameView.middleName} - [${partyId}]" target="viewprofile" also-hidden="false" link-type="hidden-form">
+                <parameter param-name="partyId"/>
+            </hyperlink>
+        </field>
+        <field name="userLoginId"><display/></field>
+        <field name="groupId" sort-field="true">
+            <display-entity entity-name="SecurityGroup" key-field-name="groupId"/>
+        </field>
+        <field name="rateTypeId" use-when="rateTypeId!=null"><display-entity entity-name="RateType" key-field-name="rateTypeId"/></field>
+        <field name="rateAmount" use-when="rateTypeId!=null"><display/></field>
+        <field name="percentageUsed" use-when="rateTypeId!=null"><display/></field>
+        <field name="update" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext" use-when="rateTypeId!=null">
+            <hyperlink description="${uiLabelMap.CommonUpdate}" target="QuickAddPartyRate" link-type="hidden-form">
+                <parameter param-name="partyId"/>
+                <parameter param-name="rateTypeId"/>
+                <parameter param-name="fromDate"/>
+            </hyperlink>
+        </field>
+        <field name="remove" title="${uiLabelMap.CommonRemove}" widget-style="buttontext">
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="removeResource" link-type="hidden-form" confirmation-message="Are you sure to delete this person ?">
+                <parameter param-name="partyId"/>
+                <parameter param-name="groupId"/>
+                <parameter param-name="userLoginId"/>
+            </hyperlink>
+        </field>
+    </form>
+    
+    <form name="ListResourcesNoAction" extends="ListResources">
+        <field name="remove"><hidden/></field>
+    </form>
+    <form name="ListResourcesForStakeholder" extends="ListResources">
+        <field name="remove"><hidden/></field>
+        <field name="lastName" parameter-name="partyId" title="${uiLabelMap.ScrumMember}" sort-field="true">
+            <display description="${partyNameView.lastName}, ${partyNameView.firstName} ${partyNameView.middleName} - [${partyId}]"/>
+        </field>
+    </form>
+    <form name="AddResource" type="single" target="addResource"
+        header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <entity-condition entity-name="SecurityGroup" list="securityGroupList">
+                <condition-list combine="or">
+                    <condition-expr field-name="groupId" operator="equals" value="SCRUM_PRODUCT_OWNER"/>
+                    <condition-expr field-name="groupId" operator="equals" value="SCRUM_MASTER"/>
+                    <condition-expr field-name="groupId" operator="equals" value="SCRUM_TEAM"/>
+                    <condition-expr field-name="groupId" operator="equals" value="SCRUM_STAKEHOLDER"/>
+                </condition-list>
+                <order-by field-name="description"/>
+            </entity-condition>
+            <entity-condition entity-name="ScrumPersonAndCompany" distinct="true" list="listPerson">
+                <condition-list combine="and">
+                    <condition-expr field-name="groupName" operator="not-equals" from-field="${nullField}"/>
+                    <condition-expr field-name="statusId" value="PARTY_DISABLED" operator="not-equals"/>
+                </condition-list>
+                <select-field field-name="lastName"/>
+                <select-field field-name="firstName"/>
+                <select-field field-name="middleName"/>
+                <select-field field-name="userLoginId"/>
+                <select-field field-name="partyId"/>
+                <order-by field-name="lastName"/>
+            </entity-condition>
+        </actions>
+        <field name="userLoginIdDesc"><hidden/></field>
+        <field name="partyId" title="${uiLabelMap.Person}" tooltip="${uiLabelMap.CommonPerson} | User Login Id" event="onchange" action="javascript:document.AddResource.userLoginIdDesc.value=this.options[this.selectedIndex].text;" parameter-name="partyId">
+            <drop-down allow-empty="false">
+                <option key="" description="- ${uiLabelMap.CommonSelectOne} -"/>
+                <list-options key-name="partyId" list-name="listPerson" description="${lastName} ${firstName} ${middleName} |${userLoginId}"/>
+            </drop-down>
+        </field>
+        <field name="groupId">
+            <drop-down allow-empty="false">
+                <list-options list-name="securityGroupList" key-name="groupId"/>
+            </drop-down>
+        </field>
+        <field name="addButton" ><submit  confirmation-message="Are you sure to add this person ?"/></field>
+    </form>
+    <form name="AddPartyRole" extends="AddPartyRole" extends-resource="component://party/widget/partymgr/PartyForms.xml">
+        <field name="roleTypeId">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="RoleType">
+                    <entity-constraint name="parentTypeId" operator="equals" value="SCRUM_MEMBER"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+    </form>
+    <form name="ListPreference" type="multi" target="updatePreference?partyId=${parameters.partyId}" list-name="userPreferenceList"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true">
+        <row-actions>
+            <service service-name="getUserPreference" result-map="values">
+                <field-map field-name="userPrefTypeId" from-field="enumId"/>
+            </service>
+            <set field="userPrefValue" from-field="values.userPrefValue" default-value="Y"/>
+            <entity-and entity-name="UserLogin" list="userLogins">
+                <field-map field-name="partyId" from-field="parameters.partyId"/>
+                <field-map field-name="userLoginId" from-field="userLogin.userLoginId"/>
+            </entity-and>
+            <set field="userLoginId" from-field="userLogins[0].userLoginId"/>
+        </row-actions>
+        <field name="enumId" parameter-name="userPrefTypeId"><hidden value="${enumId}"/></field>
+        <field name="enumTypeId" parameter-name="userPrefGroupTypeId"><hidden value="${enumTypeId}"/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
+        <field name="partyId"><hidden value="${parameters.partyId}"/></field>
+        <field name="userLoginId"><hidden/></field>
+        <field name="userPrefValue" title="Enable">
+            <drop-down allow-empty="false" no-current-selected-key="Y">
+                <option key="N" description="No"/>
+                <option key="Y" description="Yes"/>
+            </drop-down>
+        </field>
+        <field name="submit" title="${uiLabelMap.CommonSubmit}"><submit/></field>
+    </form>
+    <form name="ListPreferenceNoAction" extends="ListPreference">
+        <field name="userPrefValue" title="Enable"><display/></field>
+        <field name="submit"><hidden/></field>
+    </form>
+    <form name="FindPartyRevision" type="single" target="findPartyRevision">
+        <field name="partyId"><hidden value="${parameters.partyId}"/></field>
+        <field name="contentName" title="${uiLabelMap.ScrumRevision}"><text/></field>
+        <field name="description" title="${uiLabelMap.CommonMessage}"><text/></field>
+        <field name="findButton" title="${uiLabelMap.CommonFind}"><submit/></field>
+    </form>
+    <form name="ListPartyRevisions" extends="ListTaskRevisions" extends-resource="component://scrum/widget/TaskForms.xml" paginate-target="findPartyRevision">
+        <actions>
+            <set field="parameters.workEffortTypeId" value="PROJECT"/>
+            <set field="fieldList[]" value="workEffortId"/>
+            <set field="fieldList[]" value="lastStatusUpdate"/>
+            <entity-condition entity-name="ContentRole" list="contents">
+                <condition-list>
+                    <condition-expr field-name="partyId" from-field="parameters.partyId"/>
+                    <condition-expr field-name="roleTypeId" value="OWNER"/>
+                </condition-list>
+            </entity-condition>
+            <set field="contentIds" value="${groovy:return org.apache.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(contents, &quot;contentId&quot;, true)}" type="List" />
+            <entity-condition entity-name="WorkEffortAndContentDataResource" list="listIt">
+                <condition-list>
+                    <condition-expr field-name="contentName" operator="like" value="%${parameters.contentName}%" ignore-if-empty="true" ignore-case="true"/>
+                    <condition-expr field-name="description" operator="like" value="%${parameters.description}%" ignore-if-empty="true" ignore-case="true"/>
+                    <condition-expr field-name="workEffortContentTypeId" value="TASK_SUB_INFO"/>
+                    <condition-expr field-name="contentId" operator="in" from-field="contentIds"/>
+                </condition-list>
+                <order-by field-name="fromDate"/>
+            </entity-condition>
+        </actions>
+        <field name="partyId"><hidden value="${parameters.partyId}"/></field>
+    </form>
+    <form name="AddPartyRate" extends="AddPartyRate" extends-resource="component://party/widget/partymgr/PartyForms.xml">
+    </form>
+    <form name="ListPartyRates" extends="ListPartyRates" extends-resource="component://party/widget/partymgr/PartyForms.xml">
+        <actions>
+            <entity-condition entity-name="PartyRate" filter-by-date="true">
+                <condition-expr field-name="partyId" from-field="partyId"/>
+                <order-by field-name="rateTypeId"/>
+            </entity-condition>
+            <entity-one entity-name="UserLogin" value-field="systemUserLogin">
+                <field-map field-name="userLoginId" value="system"/>
+            </entity-one>
+        </actions>
+        <row-actions>
+            <service service-name="getRateAmount" result-map="rateResult">
+                <field-map field-name="fromDate" from-field="fromDate"/>
+                <field-map field-name="partyId" from-field="partyId"/>
+                <field-map field-name="rateTypeId" from-field="rateTypeId"/>
+                <field-map field-name="userLogin" from-field="systemUserLogin"/>
+            </service>
+            <set field="rateDefaultAmount" from-field="rateResult.rateAmount"/>
+            <set field="periodTypeId" from-field="rateResult.periodTypeId"/>
+            <set field="rateCurrencyUomId" from-field="rateResult.rateCurrencyUomId"/>
+            <set field="rateLevel" from-field="rateResult.level"/>
+            <set field="rateAmountFromDate" from-field="rateResult.fromDate"/>
+        </row-actions>
+    </form>
+    
+    <form name="QuickAddParty" type="single" target="createQuickAddParty">
+        <field name="firstName" title="${uiLabelMap.PartyFirstName}" required-field="true">
+           <text/>
+        </field>
+        <field name="middleName" title="${uiLabelMap.PartyMiddleName}">
+           <text size="10"/>
+        </field>
+        <field name="lastName" title="${uiLabelMap.PartyLastName}" required-field="true">
+           <text/>
+        </field>
+        <field name="emailAddress" title="${uiLabelMap.PartyEmailAddress}" required-field="true">
+           <text size="50"/>
+        </field>
+        <field name="userLoginId" title="${uiLabelMap.CommonUsername}" required-field="true">
+           <text/>
+        </field>
+        <field name="password" title="${uiLabelMap.CommonPassword}" required-field="true">
+           <password/>
+        </field>
+        <field name="confirmPassword" title="${uiLabelMap.ScrumVerifyPassword}" required-field="true" tooltip="${uiLabelMap.PartyRepeatPassword}">
+           <password/>
+        </field>
+        <field name="roleTypeId">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="RoleType">
+                    <entity-constraint name="parentTypeId" value="SCRUM_MEMBER"/>
+                    <entity-order-by field-name="roleTypeId"/>
+                </entity-options>
+            </drop-down> 
+        </field>
+        <field name="company" title="${uiLabelMap.ScrumCompanyNameShow}" required-field="true">
+            <lookup target-form-name="LookupPartyGroup"></lookup>
+        </field>
+        <field name="createButton" title="${uiLabelMap.CommonCreate}"><submit/></field>
+    </form>
+    <form name="QuickAddPartyRelationship" type="single" target="createQuickAddPartyRelationship">
+        <field name="contactPartyId" title="${uiLabelMap.PartyPartyId}" required-field="true">
+           <lookup target-form-name="LookupPerson"></lookup>
+        </field>
+        <field name="accountPartyId" title="${uiLabelMap.ScrumCompanyPartyId}" required-field="true">
+            <lookup target-form-name="LookupPartyGroup"></lookup>
+        </field>
+        <field name="comments"><hidden/> </field>
+        <field name="createButton" title="${uiLabelMap.CommonCreate}"><submit/></field>
+    </form>
+    <form name="UpdateCompanyAndOwner" type="single" extends="EditProduct" extends-resource="component://scrum/widget/scrumForms.xml" 
+        header-row-style="header-row" default-table-style="basic-table">
+        <alt-target use-when="product!=null" target="UpdateCompanyAndOwner"/>
+        <field name="partyId" title="${uiLabelMap.ScrumCompanyAndPerson}" tooltip="${uiLabelMap.ScrumCompanyNameShow} - ${uiLabelMap.ScrumProductName}" event="onchange" action="javascript:document.UpdateCompanyAndOwner.partyCompany.value=this.options[this.selectedIndex].text;" parameter-name="partyId" use-when="companyCurrent!=null">
+            <drop-down allow-empty="false" current-description="${companyCurrentList[0].groupName}[${companyCurrentList[0].partyIdFrom}] - ${companyCurrentList[0].lastName} ${companyCurrentList[0].firstName} ${companyCurrentList[0].middleName}" >
+                <option key="${companyCurrentList[0].groupName}[${companyCurrentList[0].partyIdFrom}] - ${companyCurrentList[0].lastName} ${companyCurrentList[0].firstName} ${companyCurrentList[0].middleName}(${companyCurrentList[0].partyId})" description="${companyCurrentList[0].groupName}[${companyCurrentList[0].partyIdFrom}] - ${companyCurrentList[0].lastName} ${companyCurrentList[0].firstName} ${companyCurrentList[0].middleName}"/>
+                <option key="" description=""/>
+                <list-options list-name="scrumRolesPersonAndCompanyList" description="${groupName}[${partyIdFrom}] - ${lastName} ${firstName} ${middleName}" key-name="partyId"/>
+            </drop-down>
+        </field> 
+        <field name="statusId"><hidden/></field>
+        <field name="internalName"><hidden/></field>
+        <field name="longDescription"><hidden/></field>
+        <field name="submitButton" title="${uiLabelMap.ScrumAssign}"><submit button-type="button"/></field>
+    </form>
+    <form name="AddProductMember" type="single" target="addProductMember" 
+        header-row-style="header-row" default-table-style="basic-table">
+         <actions>
+            <entity-condition entity-name="ScrumMemberUserLoginAndSecurityGroup" distinct="true" list="listPerson">
+                <condition-list combine="and">
+                    <condition-expr field-name="thruDate" value="" operator="equals" ignore-if-empty="true"/>
+                    <condition-expr field-name="partyStatusId" value="PARTY_DISABLED" operator="not-equals"/>
+                    <condition-expr field-name="groupId" value="SCRUM_TEAM" operator="not-equals"/>
+                    <condition-expr field-name="groupId" value="SCRUM_PRODUCT_OWNER" operator="not-equals"/>
+                </condition-list>
+                <select-field field-name="lastName"/>
+                <select-field field-name="firstName"/>
+                <select-field field-name="middleName"/>
+                <select-field field-name="userLoginId"/>
+                <select-field field-name="partyId"/>
+                <order-by field-name="lastName"/>
+            </entity-condition>
+        </actions>
+        <field name="productId"><hidden value="${parameters.productId}"/></field>
+        <field name="memberId" parameter-name="partyId" title="${uiLabelMap.Person}" tooltip="${uiLabelMap.CommonPerson}">
+            <drop-down allow-empty="false">
+                <option key="" description="- ${uiLabelMap.CommonSelectOne} -"/>
+                <list-options key-name="partyId" list-name="listPerson" description="${lastName} ${firstName} ${middleName}"/>
+            </drop-down>
+        </field>
+        <field name="roleTypeId">
+            <drop-down current="first-in-list" allow-empty="false" >
+                <entity-options entity-name="RoleType">
+                    <entity-constraint name="parentTypeId" operator="equals" value="SCRUM_MEMBER"/>
+                    <entity-constraint name="roleTypeId" operator="not-equals" value="SCRUM_TEAM"/>
+                    <entity-constraint name="roleTypeId" operator="not-equals" value="PRODUCT_OWNER_COMP"/>
+                    <entity-constraint name="roleTypeId" operator="not-equals" value="PRODUCT_OWNER"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.ScrumAssign}"><submit button-type="button"/></field>
+    </form>
+    <form name="ProductMemberList" type="list" list-name="productAndRoleList" paginate-target="ProductMember"
+        odd-row-style="alternate-row" header-row-style="header-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="ProductAndRole" list="productAndRoleList">
+                <condition-list combine="and">
+                    <condition-expr field-name="thruDate" value="" operator="equals"/>
+                    <condition-expr field-name="productId" operator="equals" from-field="productId"/>
+                    <condition-expr field-name="supportDiscontinuationDate" operator="equals" value=""/>
+                    <condition-list combine="or">
+                        <condition-expr field-name="roleTypeId" value="SCRUM_TEAM" operator="not-equals"/>
+                        <condition-expr field-name="roleTypeId" value="SCRUM_MASTER" operator="not-equals"/>
+                    </condition-list>
+               </condition-list>
+               <order-by field-name="roleTypeId"/>
+            </entity-condition>
+        </actions>
+        <row-actions>
+            <entity-one entity-name="PartyNameView" value-field="partyNameView">
+                <field-map field-name="partyId" from-field="partyId"/>
+            </entity-one>
+            <set field="compCheck" value="${groovy: if (roleTypeId==&quot;PRODUCT_OWNER_COMP&quot; || roleTypeId==&quot;PRODUCT_OWNER&quot;) compCheck = true; else compCheck = false;}" type="Boolean"/>
+        </row-actions>
+        <field name="lastName" parameter-name="partyId" title="${uiLabelMap.ScrumMember}" sort-field="true">
+            <hyperlink description="${partyNameView.lastName} ${partyNameView.middleName} ${partyNameView.firstName} ${partyNameView.groupName} - [${partyId}]" target="viewprofile" also-hidden="false" link-type="hidden-form">
+                <parameter param-name="partyId"/>
+            </hyperlink>
+        </field>
+        <field name="roleTypeId">
+            <display-entity entity-name="RoleType" key-field-name="roleTypeId"/>
+        </field>
+        <field name="fromDate" sort-field="true">
+            <display type="date"/>
+        </field>
+        <field name="remove" title="${uiLabelMap.CommonRemove}" widget-style="buttontext" use-when="!compCheck">
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="removeProductMember" link-type="hidden-form">
+                <parameter param-name="productId" from-field="productId"/>
+                <parameter param-name="partyId"/>
+                <parameter param-name="roleTypeId"/>
+                <parameter param-name="fromDate"/>
+            </hyperlink>
+        </field>
+    </form>
+    <form name="ProductMemberInfo" extends="ProductMemberList">
+        <field name="remove" use-when="!compCheck"><ignored/></field>
+    </form>
+    <form name="QuickAddPartyRate" type="single" target="updateQuickAddPartyRate" default-map-name="partyRateMap"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="periodTypeId"><hidden value="${periodTypeId}"/> </field>
+        <field name="rateCurrencyUomId"><hidden value="${rateCurrencyUomId}"/></field>
+        <field name="partyId"><display/></field>
+        <field name="rateTypeId" title="${uiLabelMap.WorkEffortTimesheetRateType}"> 
+          <drop-down allow-empty="false">
+              <entity-options entity-name="RateType" key-field-name="rateTypeId"></entity-options>
+          </drop-down>
+        </field>
+        <field name="defaultRate">
+            <drop-down no-current-selected-key="N">
+                <option key="N"/>
+                <option key="Y"/>
+            </drop-down>
+        </field>
+        <field name="rateAmount"  tooltip="${uiLabelMap.PartyOverrideDefaultRateAmount}"><text size="10" default-value="${rateDefaultAmount}"/></field>
+        <field name="percentageUsed"><text size="10"/></field>
+        <field name="update" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext"><submit/></field>
+    </form>
+    <form name="PartyRevisions" extends="ListTaskRevisions" extends-resource="component://scrum/widget/TaskForms.xml" paginate-target="viewprofile" view-size="10">
+    </form>
+</forms>

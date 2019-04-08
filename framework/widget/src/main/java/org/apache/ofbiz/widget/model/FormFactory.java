@@ -99,7 +99,7 @@ public class FormFactory {
     }
 
     public static Map<String, ModelForm> readFormDocument(Document formFileDoc, ModelReader entityModelReader, DispatchContext dispatchContext, String formLocation) {
-        Map<String, ModelForm> modelFormMap = new HashMap<>();
+        Map<String, ModelForm> modelFormMap = new HashMap<String, ModelForm>();
         if (formFileDoc != null) {
             // read document and construct ModelForm for each form element
             Element rootElement = formFileDoc.getDocumentElement();
@@ -134,7 +134,8 @@ public class FormFactory {
         String formType = formElement.getAttribute("type");
         if (formType.isEmpty() || "single".equals(formType) || "upload".equals(formType)) {
             return new ModelSingleForm(formElement, formLocation, entityModelReader, dispatchContext);
+        } else {
+            return new ModelGrid(formElement, formLocation, entityModelReader, dispatchContext);
         }
-        return new ModelGrid(formElement, formLocation, entityModelReader, dispatchContext);
     }
 }

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
+    <simple-method method-name="testCreateBudget" short-description="Test case for service createBudget" login-required="false">
+        <set field="serviceCtx.budgetTypeId" value="CAPITAL_BUDGET"/>
+        <set field="serviceCtx.comments" value="Capital Budget"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="createBudget" in-map-name="serviceCtx">
+            <results-to-map map-name="budgetResult"/>
+        </call-service>
+ 
+        <entity-one entity-name="Budget" value-field="budget">
+            <field-map field-name="budgetId" from-field="budgetResult.budgetId"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="budget"/></not>
+            <if-compare operator="equals" value="CAPITAL_BUDGET" field="budget.budgetTypeId"></if-compare>
+            <if-compare operator="equals" value="Capital Budget" field="budget.comments"></if-compare>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testUpdateBudgetStatus" short-description="Test case for service updateBudgetStatus" login-required="false">
+        <set field="serviceCtx.budgetId" value="9999"/>
+        <set field="serviceCtx.statusId" value="BG_APPROVED"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <call-service service-name="updateBudgetStatus" in-map-name="serviceCtx"/>
+
+        <entity-and list="budgetStatuses" entity-name="BudgetStatus">
+            <field-map field-name="budgetId" value="9999"/>
+            <order-by field-name="-statusDate"/>
+        </entity-and>
+        <first-from-list entry="budgetStatus" list="budgetStatuses"/>
+        <assert>
+            <not><if-empty field="budgetStatus"/></not>
+            <if-compare operator="equals" value="BG_APPROVED" field="budgetStatus.statusId"></if-compare>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+</simple-methods>

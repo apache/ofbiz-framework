@@ -18,6 +18,9 @@
  */
 
 import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents
+import org.apache.ofbiz.order.shoppingcart.ShoppingCart
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.base.util.*
 
 cart = ShoppingCartEvents.getCartObject(request)
 additionalPartyRole = cart.getAdditionalPartyRoleMap()
@@ -32,7 +35,7 @@ additionalPartyRole.each { roleTypeId, partyList ->
         partyMap = [:]
         partyMap.partyId = partyId
         party = from("Party").where("partyId", partyId).cache(true).queryOne()
-        if ("PERSON".equals(party.partyTypeId)) {
+        if (party.partyTypeId.equals("PERSON")) {
             party = party.getRelatedOne("Person", true)
             partyMap.type = "person"
             partyMap.firstName = party.firstName

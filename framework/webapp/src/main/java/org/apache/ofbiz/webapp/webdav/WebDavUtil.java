@@ -55,8 +55,14 @@ public final class WebDavUtil {
 
     public static Document getDocumentFromRequest(HttpServletRequest request) throws IOException, SAXException, ParserConfigurationException {
         Document document = null;
-        try (InputStream is = request.getInputStream()) {
+        InputStream is = null;
+        try {
+            is = request.getInputStream();
             document = UtilXml.readXmlDocument(is, false, "WebDAV request");
+        } finally {
+            if (is != null) {
+                is.close();
+            }
         }
         return document;
     }
@@ -79,7 +85,7 @@ public final class WebDavUtil {
             String credentials = request.getHeader("Authorization");
             if (credentials != null && credentials.startsWith("Basic ")) {
                 credentials = Base64.base64Decode(credentials.replace("Basic ", ""));
-                if (Debug.verboseOn()) Debug.logVerbose("Found HTTP Basic credentials", module);
+                Debug.logVerbose("Found HTTP Basic credentials", module);
                 String[] parts = credentials.split(":");
                 if (parts.length < 2) {
                     return null;

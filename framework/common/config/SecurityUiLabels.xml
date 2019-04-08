@@ -340,12 +340,12 @@
     </property>
     <property key="FormFieldTitle_externalAuthId">
         <value xml:lang="de">Externe Authentifizierungs-ID</value>
-        <value xml:lang="en">External Auth ID</value>
+        <value xml:lang="en">External Auth Id</value>
         <value xml:lang="es">Código de autentificación externa</value>
         <value xml:lang="fr">Ident. Externe</value>
         <value xml:lang="it">Codice autenticazione esterna</value>
         <value xml:lang="ja">外部認証ID</value>
-        <value xml:lang="ru">Внешний Auth ID</value>
+        <value xml:lang="ru">Внешний Auth Id</value>
         <value xml:lang="zh">外部认证标识</value>
         <value xml:lang="zh-TW">外部授權識別</value>
     </property>

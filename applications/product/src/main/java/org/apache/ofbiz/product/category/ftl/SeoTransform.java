@@ -28,42 +28,41 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.oro.text.regex.Pattern;
+import org.apache.oro.text.regex.Perl5Matcher;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.product.category.SeoConfigUtil;
 import org.apache.ofbiz.webapp.control.RequestHandler;
-import org.apache.oro.text.regex.Pattern;
-import org.apache.oro.text.regex.Perl5Matcher;
 
 import freemarker.core.Environment;
 import freemarker.ext.beans.BeanModel;
 import freemarker.template.SimpleScalar;
-import freemarker.template.TemplateModelException;
 import freemarker.template.TemplateScalarModel;
 import freemarker.template.TemplateTransformModel;
 
 /**
  * SeoTransform - Freemarker Transform for URLs (links)
- *
+ * 
  */
 public class SeoTransform implements TemplateTransformModel {
 
     private static final String module = SeoTransform.class.getName();
 
-    public boolean checkArg(Map<?, ?> args, String key, boolean defaultValue) {
+    public boolean checkArg(Map args, String key, boolean defaultValue) {
         if (!args.containsKey(key)) {
             return defaultValue;
+        } else {
+            Object o = args.get(key);
+            if (o instanceof SimpleScalar) {
+                SimpleScalar s = (SimpleScalar) o;
+                return "true".equalsIgnoreCase(s.getAsString());
+            }
+            return defaultValue;
         }
-        Object o = args.get(key);
-        if (o instanceof SimpleScalar) {
-            SimpleScalar s = (SimpleScalar) o;
-            return "true".equalsIgnoreCase(s.getAsString());
-        }
-        return defaultValue;
     }
 
-    @Override
-    public Writer getWriter(Writer out, @SuppressWarnings("rawtypes") Map args) {
+    public Writer getWriter(final Writer out, Map args) {
         final StringBuffer buf = new StringBuffer();
         final boolean fullPath = checkArg(args, "fullPath", false);
         final boolean secure = checkArg(args, "secure", false);
@@ -119,7 +118,7 @@ public class SeoTransform implements TemplateTransformModel {
                     } else {
                         out.write(buf.toString());
                     }
-                } catch (IOException | TemplateModelException e) {
+                } catch (Exception e) {
                     throw new IOException(e.getMessage());
                 }
             }
@@ -128,10 +127,10 @@ public class SeoTransform implements TemplateTransformModel {
 
     /**
      * Transform a url according to seo pattern regular expressions.
-     *
+     * 
      * @param url , String to do the seo transform
      * @param isAnon , boolean to indicate whether it's an anonymous visit.
-     *
+     * 
      * @return String, the transformed url.
      */
     public static String seoUrl(String url, boolean isAnon) {
@@ -150,16 +149,17 @@ public class SeoTransform implements TemplateTransformModel {
                     } else {
                         if (SeoConfigUtil.isJSessionIdUserEnabled()) {
                             continue;
-                        }
-                        boolean foundException = false;
-                        for (int i = 0; i < SeoConfigUtil.getUserExceptionPatterns().size(); i++) {
-                            if (matcher.matches(url, SeoConfigUtil.getUserExceptionPatterns().get(i))) {
-                                foundException = true;
-                                break;
+                        } else {
+                            boolean foundException = false;
+                            for (int i = 0; i < SeoConfigUtil.getUserExceptionPatterns().size(); i++) {
+                                if (matcher.matches(url, SeoConfigUtil.getUserExceptionPatterns().get(i))) {
+                                    foundException = true;
+                                    break;
+                                }
                             }
-                        }
-                        if (foundException) {
-                            continue;
+                            if (foundException) {
+                                continue;
+                            }
                         }
                     }
                 }
@@ -175,9 +175,7 @@ public class SeoTransform implements TemplateTransformModel {
                 }
             }
             if (!foundMatch) {
-                if (Debug.verboseOn()) {
-                    Debug.logVerbose("Can NOT find a seo transform pattern for this url: " + url, module);
-                }
+                Debug.logVerbose("Can NOT find a seo transform pattern for this url: " + url, module);
             }
         }
         return url;

@@ -86,7 +86,7 @@ public class ContentServicesComplex {
             EntityExpr mapKeyExpr = EntityCondition.makeCondition("caMapKey", EntityOperator.EQUALS, mapKey);
             exprList.add(mapKeyExpr);
         }
-        if (direction != null && "From".equalsIgnoreCase(direction)) {
+        if (direction != null && direction.equalsIgnoreCase("From")) {
             joinExpr = EntityCondition.makeCondition("caContentIdTo", EntityOperator.EQUALS, contentId);
             viewName = "ContentAssocDataResourceViewFrom";
         } else {
@@ -140,7 +140,7 @@ public class ContentServicesComplex {
         }
         for (int i=0; i < relatedAssocs.size(); i++) {
             GenericValue a = relatedAssocs.get(i);
-            if (Debug.verboseOn()) Debug.logVerbose(" contentId:" + a.get("contentId") + " To:" + a.get("caContentIdTo") + " fromDate:" + a.get("caFromDate") + " thruDate:" + a.get("caThruDate") + " AssocTypeId:" + a.get("caContentAssocTypeId"), null);
+            Debug.logVerbose(" contentId:" + a.get("contentId") + " To:" + a.get("caContentIdTo") + " fromDate:" + a.get("caFromDate") + " thruDate:" + a.get("caThruDate") + " AssocTypeId:" + a.get("caContentAssocTypeId"), null);
         }
         Map<String, Object> results = new HashMap<String, Object>();
         results.put("entityList", relatedAssocs);
@@ -198,14 +198,14 @@ public class ContentServicesComplex {
         EntityExpr joinExpr = null;
         String viewName = null;
         String contentFieldName = null;
-        if (direction != null && "From".equalsIgnoreCase(direction)) {
+        if (direction != null && direction.equalsIgnoreCase("From")) {
             contentFieldName = "caContentIdTo";
             joinExpr = EntityCondition.makeCondition("caContentIdTo", EntityOperator.EQUALS, contentId);
         } else {
             contentFieldName = "caContentId";
             joinExpr = EntityCondition.makeCondition("contentId", EntityOperator.EQUALS, contentId);
         }
-        if (direction != null && "From".equalsIgnoreCase(direction)) {
+        if (direction != null && direction.equalsIgnoreCase("From")) {
             viewName = "ContentAssocDataResourceViewFrom";
         } else {
             viewName = "ContentAssocDataResourceViewTo";
@@ -228,11 +228,15 @@ public class ContentServicesComplex {
             conditionList.add(EntityCondition.makeCondition("caContentAssocTypeId", EntityOperator.IN, assocTypes));
         }
 
+        if (fromDate == null && fromDateStr != null) {
+            fromDate = UtilDateTime.toTimestamp(fromDateStr);
+        }
+
         List<GenericValue> contentAssocsTypeFiltered = EntityQuery.use(delegator).from(viewName)
                 .where(conditionList).orderBy("caSequenceNum", "-caFromDate").cache().queryList();
 
         String assocRelationName = null;
-        if (direction != null && "To".equalsIgnoreCase(direction)) {
+        if (direction != null && direction.equalsIgnoreCase("To")) {
             assocRelationName = "ToContent";
         } else {
             assocRelationName = "FromContent";

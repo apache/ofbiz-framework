@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <!-- PortalPortlet Seed Data: system pages -->
+    <PortalPage portalPageId="EXAMPLE" sequenceNum="0" portalPageName="Example Portal Page" description="The default example OFBiz portal page" ownerUserLoginId="_NA_"/>
+    <PortalPageColumn portalPageId="EXAMPLE" columnSeqId="00001" columnWidthPixels="400"/>
+    <PortalPageColumn portalPageId="EXAMPLE" columnSeqId="00002"/><!-- no width in pixels or percent, use the rest of the space available -->
+    <PortalPagePortlet portalPageId="EXAMPLE" portalPortletId="EXAMPLE_1" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
+    <PortalPagePortlet portalPageId="EXAMPLE" portalPortletId="EXAMPLE_3" portletSeqId="00001" columnSeqId="00002" sequenceNum="1"/>
+
+    <PortalPage portalPageId="EXAMPLE1" sequenceNum="100" parentPortalPageId="EXAMPLE" portalPageName="Example Portal Page 1" description="Portal page 1" ownerUserLoginId="_NA_"/>
+    <PortalPageColumn portalPageId="EXAMPLE1" columnSeqId="00001"/>
+    <PortalPagePortlet portalPageId="EXAMPLE1" portalPortletId="EXAMPLE_1" portletSeqId="00001" columnSeqId="00001" sequenceNum="1"/>
+
+    <PortalPage portalPageId="EXAMPLE2"  sequenceNum="200" parentPortalPageId="EXAMPLE" portalPageName="Example Portal Page 2" description="Portal page 2" ownerUserLoginId="_NA_"/>
+    <PortalPageColumn portalPageId="EXAMPLE2" columnSeqId="00001"/>
+    <PortalPagePortlet portalPageId="EXAMPLE2" portalPortletId="EXAMPLE_1" portletSeqId="00001" columnSeqId="00001" sequenceNum="1"/>
+</entity-engine-xml>

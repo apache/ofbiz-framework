@@ -118,12 +118,10 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <widgets>
-                            <screenlet>
                                 <container style="page-title">
                                     <label text="${uiLabelMap[titleProperty]}"/>
                                 </container>
                                 <include-grid name="ListMetrics" location="component://webtools/widget/StatsForms.xml" />
-                            </screenlet>
                             </widgets>
                         </section>
                     </decorator-section>

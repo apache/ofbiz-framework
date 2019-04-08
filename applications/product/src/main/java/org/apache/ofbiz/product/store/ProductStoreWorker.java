@@ -632,7 +632,7 @@ public final class ProductStoreWorker {
                     Debug.logError("Error calling isStoreInventoryRequired service, result is: " + invReqResult, module);
                     return false;
                 }
-                requiredOkay = wantRequired == "Y".equals(invReqResult.get("requireInventory"));
+                requiredOkay = Boolean.valueOf(wantRequired.booleanValue() == "Y".equals(invReqResult.get("requireInventory")));
             }
 
             Boolean availableOkay = null;
@@ -642,10 +642,14 @@ public final class ProductStoreWorker {
                     Debug.logError("Error calling isStoreInventoryAvailable service, result is: " + invAvailResult, module);
                     return false;
                 }
-                availableOkay = wantAvailable == "Y".equals(invAvailResult.get("available"));
+                availableOkay = Boolean.valueOf(wantAvailable.booleanValue() == "Y".equals(invAvailResult.get("available")));
             }
 
-            return (requiredOkay == null || requiredOkay) && (availableOkay == null || availableOkay);
+            if ((requiredOkay == null || requiredOkay.booleanValue()) && (availableOkay == null || availableOkay.booleanValue())) {
+                return true;
+            } else {
+                return false;
+            }
         } catch (GenericServiceException e) {
             String errMsg = "Fatal error calling inventory checking services: " + e.toString();
             Debug.logError(e, errMsg, module);

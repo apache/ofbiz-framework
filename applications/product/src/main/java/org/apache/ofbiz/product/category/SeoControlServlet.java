@@ -20,7 +20,6 @@ package org.apache.ofbiz.product.category;
 
 import java.io.IOException;
 import java.net.URLEncoder;
-import java.util.Locale;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -41,8 +40,8 @@ public class SeoControlServlet extends ControlServlet {
 
     public static final String module = SeoControlServlet.class.getName();
 
-    private static String defaultPage = null;
-    private static String controlServlet = null;
+    protected static String defaultPage = null;
+    protected static String controlServlet = null;
     
     public static final String REQUEST_IN_ALLOW_LIST = "_REQUEST_IN_ALLOW_LIST_";
 
@@ -57,16 +56,16 @@ public class SeoControlServlet extends ControlServlet {
         super.init(config);
 
         ServletContext context = this.getServletContext();
-        if (UtilValidate.isEmpty(SeoControlServlet.getDefaultPage())) {
-            setDefaultPage(context.getInitParameter("defaultPage"));
+        if (UtilValidate.isEmpty(defaultPage)) {
+            defaultPage = context.getInitParameter("defaultPage");
         }
-        if (UtilValidate.isEmpty(getDefaultPage())) {
-            setDefaultPage("/main");
+        if (UtilValidate.isEmpty(defaultPage)) {
+            defaultPage = "/main";
         }
 
-        if (getDefaultPage().startsWith("/") && getDefaultPage().lastIndexOf('/') > 0) {
-            setControlServlet(getDefaultPage().substring(1));
-            setControlServlet(getControlServlet().substring(0, getControlServlet().indexOf('/')));
+        if (defaultPage.startsWith("/") && defaultPage.lastIndexOf("/") > 0) {
+            controlServlet = defaultPage.substring(1);
+            controlServlet = controlServlet.substring(0, controlServlet.indexOf("/"));
         }
 
         SeoConfigUtil.init();
@@ -75,7 +74,7 @@ public class SeoControlServlet extends ControlServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String uri = URLEncoder.encode(request.getRequestURI(), "UTF-8");
         if (request.getAttribute(REQUEST_IN_ALLOW_LIST) != null || request.getAttribute("_jsp_" + uri) != null) {
-            if (request.getRequestURI().toLowerCase(Locale.getDefault()).endsWith(".jsp") || request.getRequestURI().toLowerCase(Locale.getDefault()).endsWith(".jspx") ) {
+            if (request.getRequestURI().toLowerCase().endsWith(".jsp") || request.getRequestURI().toLowerCase().endsWith(".jspx") ) {
                 JspServlet jspServlet = new JspServlet();
                 jspServlet.init(this.getServletConfig());
                 jspServlet.service(request, response);
@@ -88,21 +87,4 @@ public class SeoControlServlet extends ControlServlet {
         }
         super.doGet(request, response);
     }
-
-    public static String getDefaultPage() {
-        return defaultPage;
-    }
-
-    public static void setDefaultPage(String defaultPage) {
-        SeoControlServlet.defaultPage = defaultPage;
-    }
-
-    public static String getControlServlet() {
-        return controlServlet;
-    }
-
-    public static void setControlServlet(String controlServlet) {
-        SeoControlServlet.controlServlet = controlServlet;
-    }
-
 }

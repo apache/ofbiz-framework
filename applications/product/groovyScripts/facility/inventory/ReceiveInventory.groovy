@@ -42,7 +42,7 @@ if (facility) {
     owner = facility.getRelatedOne("OwnerParty", false)
     if (owner) {
         result = runService('getPartyAccountingPreferences', [organizationPartyId : owner.partyId, userLogin : request.getAttribute("userLogin")])
-        if (ServiceUtil.isSuccess(result) && result.partyAccountingPreference) {
+        if (!ServiceUtil.isError(result) && result.partyAccountingPreference) {
             ownerAcctgPref = result.partyAccountingPreference
         }
     }
@@ -92,7 +92,7 @@ if (purchaseOrder && !shipmentId) {
 }
 
 shipment = null
-if (shipmentId && !"_NA_".equals(shipmentId)) {
+if (shipmentId && !shipmentId.equals("_NA_")) {
     shipment = from("Shipment").where("shipmentId", shipmentId).queryOne()
 }
 
@@ -130,7 +130,7 @@ if (purchaseOrder) {
     } else {
         purchaseOrderItems = purchaseOrder.getRelated("OrderItem", null, null, false)
     }
-    purchaseOrderItems = EntityUtil.filterByAnd(purchaseOrderItems, [EntityCondition.makeCondition("statusId", EntityOperator.NOT_IN, ["ITEM_CANCELLED", "ITEM_COMPLETED"])])
+    purchaseOrderItems = EntityUtil.filterByAnd(purchaseOrderItems, [EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED")])
 }
 // convert the unit prices to that of the facility owner's currency
 orderCurrencyUnitPriceMap = [:]
@@ -228,7 +228,7 @@ if (ownerAcctgPref) {
             if (productId) {
                 result = runService('getProductCost', [productId : productId, currencyUomId : ownerAcctgPref.baseCurrencyUomId,
                                                                costComponentTypePrefix : 'EST_STD', userLogin : request.getAttribute("userLogin")])
-                if (ServiceUtil.isSuccess(result)) {
+                if (!ServiceUtil.isError(result)) {
                     standardCosts.put(productId, result.productCost)
                 }
             }
@@ -239,7 +239,7 @@ if (ownerAcctgPref) {
     if (productId) {
         result = runService('getProductCost', [productId : productId, currencyUomId : ownerAcctgPref.baseCurrencyUomId,
                                                        costComponentTypePrefix : 'EST_STD', userLogin : request.getAttribute("userLogin")])
-        if (ServiceUtil.isSuccess(result)) {
+        if (!ServiceUtil.isError(result)) {
             standardCosts.put(productId, result.productCost)
         }
     }

@@ -27,7 +27,7 @@ under the License.
             <result-to-field result-name="workEffortId"/>
         </call-service>
         <check-errors />
-        <make-value entity-name="WorkEffortPartyAssignment" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="WorkEffortPartyAssignment"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set field="newEntity.workEffortId" from-field="workEffortId"/>
@@ -40,7 +40,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createWorkEffort" short-description="Create Work Effort">
-        <make-value entity-name="WorkEffort" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="WorkEffort"/>
         <if-empty field="parameters.workEffortId">
             <sequenced-id sequence-name="WorkEffort" field="newEntity.workEffortId"/>
             <else>
@@ -62,7 +62,7 @@ under the License.
         <create-value value-field="newEntity"/>
 
         <!-- create new status entry, and set lastStatusUpdate date -->
-        <make-value entity-name="WorkEffortStatus" value-field="newWorkEffortStatus"/>
+        <make-value value-field="newWorkEffortStatus" entity-name="WorkEffortStatus"/>
         <set from-field="newEntity.workEffortId" field="newWorkEffortStatus.workEffortId"/>
         <set from-field="newEntity.currentStatusId" field="newWorkEffortStatus.statusId"/>
         <set from-field="nowTimestamp" field="newWorkEffortStatus.statusDatetime"/>
@@ -71,7 +71,7 @@ under the License.
 
         <!-- Attach the workeffort to a requirement if passed -->
         <if-not-empty field="parameters.requirementId">
-            <make-value entity-name="WorkRequirementFulfillment" value-field="workFullfillment"/>
+            <make-value value-field="workFullfillment" entity-name="WorkRequirementFulfillment"/>
             <set from-field="newEntity.workEffortId" field="workFullfillment.workEffortId"/>
             <set from-field="parameters.requirementId" field="workFullfillment.requirementId"/>
             <create-value value-field="workFullfillment"/>
@@ -90,7 +90,7 @@ under the License.
                 <check-errors/>
             </if-compare-field>
             <!-- create customer request / work effort relation -->
-            <make-value entity-name="CustRequestWorkEffort" value-field="custRequestWorkEffort"/>
+            <make-value value-field="custRequestWorkEffort" entity-name="CustRequestWorkEffort"/>
             <set field="custRequestWorkEffort.workEffortId" from-field="newEntity.workEffortId"/>
             <set field="custRequestWorkEffort.custRequestId" from-field="parameters.custRequestId"/>
             <create-value value-field="custRequestWorkEffort"/>
@@ -157,7 +157,7 @@ under the License.
                 </if-not-empty>
 
                 <set from-field="nowTimestamp" field="lookedUpValue.lastStatusUpdate"/>
-                <make-value entity-name="WorkEffortStatus" value-field="newWorkEffortStatus"/>
+                <make-value value-field="newWorkEffortStatus" entity-name="WorkEffortStatus"/>
                 <set from-field="lookedUpValue.workEffortId" field="newWorkEffortStatus.workEffortId"/>
                 <set from-field="parameters.currentStatusId" field="newWorkEffortStatus.statusId"/>
                 <set from-field="parameters.reason" field="newWorkEffortStatus.reason"/>
@@ -267,7 +267,7 @@ under the License.
                         <iterate list="relationValues" entry="relatedValue">
                             <clone-value value-field="relatedValue" new-value-field="newRelatedValue" />
                             <set field="newRelatedValue[relatedIdFieldName]" from-field="targetWorkEffortId" />
-                            <make-value entity-name="${relatedEntityName}" value-field="newRelatedPks" />
+                            <make-value value-field="newRelatedPks" entity-name="${relatedEntityName}" />
                             <set-pk-fields value-field="newRelatedPks" map="newRelatedValue" />
                             <find-by-primary-key entity-name="${relatedEntityName}" map="newRelatedPks" value-field="duplicateCheck" />
                             <if-empty field="duplicateCheck">
@@ -349,7 +349,7 @@ under the License.
         <set field="ensurePartyRoleCtx.partyId" from-field="parameters.partyId"/>
         <set field="ensurePartyRoleCtx.roleTypeId" from-field="parameters.roleTypeId"/>
         <call-service service-name="ensurePartyRole" in-map-name="ensurePartyRoleCtx"/>
-        <make-value entity-name="WorkEffortPartyAssignment" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="WorkEffortPartyAssignment"/>
 
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
@@ -399,7 +399,7 @@ under the License.
 
     <!-- Create a WorkEffortContactMech -->
     <simple-method method-name="createWorkEffortContactMech" short-description="Create a WorkEffortContactMech">
-        <make-value entity-name="WorkEffortContactMech" value-field="newValue"/>
+        <make-value value-field="newValue" entity-name="WorkEffortContactMech"/>
         <if-empty field="parameters.contactMechId">
             <if-empty field="parameters.contactMechTypeId">
                 <add-error>
@@ -453,8 +453,10 @@ under the License.
         <!-- If we already have a new contactMechId don't update ContactMech -->
         <if-empty field="parameters.newContactMechId">
             <log level="info" message="Calling map procs"/>
+            <call-map-processor xml-resource="component://party/minilang/contact/ContactMechMapProcs.xml"
+                processor-name="updateContactMech" in-map-name="parameters" out-map-name="context"/>
+            <to-string field="context.contactMechId"/>
             <log level="info" message="Calling generic updateContactMech method"/>
-            <set-service-fields service-name="updateContactMech" map="parameters" to-map="context"/>
             <call-service service-name="updateContactMech" in-map-name="context">
                 <default-message property="PartyContactMechanismSuccessfullyUpdated" resource="PartyUiLabels"/>
                 <result-to-field result-name="contactMechId" field="newWorkEffortContactMech.contactMechId"/>
@@ -479,7 +481,7 @@ under the License.
     <simple-method method-name="createWorkEffortPostalAddress" short-description="Create a PostalAddress for WorkEffort">
         <make-value entity-name="WorkEffortContactMech" value-field="newValue"/>
         <log level="info" message="Creating postal address"/>
-        <if-not-empty field="parameters.partyId">
+        <if-not-empty field="parameters.addToParty">
             <call-map-processor xml-resource="component://party/minilang/contact/PartyContactMechMapProcs.xml"
                 processor-name="postalAddress" in-map-name="parameters" out-map-name="context"/>
             <call-service service-name="createPartyPostalAddress" in-map-name="context">
@@ -488,7 +490,8 @@ under the License.
             </call-service>
             <log level="info" message="Party ContactMech created"/>
             <else>
-                <set-service-fields service-name="createPostalAddress" map="parameters" to-map="context"/>
+                <call-map-processor xml-resource="component://party/minilang/contact/ContactMechMapProcs.xml"
+                    processor-name="postalAddress" in-map-name="parameters" out-map-name="context"/>
                 <call-service in-map-name="context" service-name="createPostalAddress">
                     <default-message resource="PartyUiLabels" property="PartyPostalAddressSuccessfullyCreated"/>
                     <result-to-field result-name="contactMechId" field="newValue.contactMechId"/>
@@ -509,30 +512,28 @@ under the License.
 
     <simple-method method-name="updateWorkEffortPostalAddress" short-description="Update a PostalAddress for WorkEffort">
         <make-value entity-name="WorkEffortContactMech" value-field="newValue"/>
-        <set-service-fields service-name="updatePostalAddress" map="parameters" to-map="context"/>
+        <call-map-processor xml-resource="component://party/minilang/contact/ContactMechMapProcs.xml"
+                processor-name="postalAddress" in-map-name="parameters" out-map-name="context"/>
         <call-service in-map-name="context" service-name="updatePostalAddress">
             <default-message resource="PartyUiLabels" property="PartyPostalAddressSuccessfullyUpdated"/>
             <result-to-field result-name="contactMechId" field="newValue.contactMechId"/>
-            <result-to-field result-name="oldContactMechId" field="oldContactMechId"/>
         </call-service>
         <call-map-processor xml-resource="component://workeffort/minilang/workeffort/WorkflowMapProcessors.xml"
                 processor-name="workEffortContactMech" in-map-name="parameters" out-map-name="context2"/>
         <set from-field="newValue.contactMechId"  field="context2.newContactMechId"/>
         <set field="context2.contactMechTypeId" value="POSTAL_ADDRESS"/>
-        <set field="context2.fromDate" from-field="parameters.fromDate"/>
         <log level="info" message="Copied id to context2: ${context2.newContactMechId}"/>
         <call-service in-map-name="context2" service-name="updateWorkEffortContactMech">
             <default-message resource="PartyUiLabels" property="PartyContactMechanismSuccessfullyUpdated"/>
         </call-service>
         <field-to-request field="newValue.contactMechId" request-name="contactMechId"/>
         <field-to-result field="newValue.contactMechId" result-name="contactMechId"/>
-        <field-to-result field="oldContactMechId" result-name="oldContactMechId"/>
     </simple-method>
 
     <simple-method method-name="createWorkEffortTelecomNumber" short-description="Create a TelecomNumber for WorkEffort">
         <make-value entity-name="WorkEffortContactMech" value-field="newValue"/>
         <log level="info" message="Creating telecom number"/>
-        <if-not-empty field="parameters.partyId">
+        <if-not-empty field="parameters.addToParty">
             <call-map-processor xml-resource="component://party/minilang/contact/PartyContactMechMapProcs.xml"
                 processor-name="telecomNumber" in-map-name="parameters" out-map-name="context"/>
             <call-service service-name="createPartyTelecomNumber" in-map-name="context">
@@ -541,7 +542,8 @@ under the License.
             </call-service>
             <log level="info" message="Party ContactMech created"/>
             <else>
-                <set-service-fields service-name="createTelecomNumber" map="parameters" to-map="context"/>
+                <call-map-processor xml-resource="component://party/minilang/contact/ContactMechMapProcs.xml"
+                    processor-name="telecomNumber" in-map-name="parameters" out-map-name="context"/>
                 <call-service in-map-name="context" service-name="createTelecomNumber">
                     <default-message resource="PartyUiLabels" property="PartyTelecomNumberSuccessfullyCreated"/>
                     <result-to-field result-name="contactMechId" field="newValue.contactMechId"/>
@@ -561,18 +563,17 @@ under the License.
 
     <simple-method method-name="updateWorkEffortTelecomNumber" short-description="Update a TelecomNumber for WorkEffort">
         <make-value entity-name="WorkEffortContactMech" value-field="newValue"/>
-        <set-service-fields service-name="updateTelecomNumber" map="parameters" to-map="context"/>
+        <call-map-processor xml-resource="component://party/minilang/contact/ContactMechMapProcs.xml"
+                processor-name="telecomNumber" in-map-name="parameters" out-map-name="context"/>
         <call-service in-map-name="context" service-name="updateTelecomNumber">
             <default-message resource="PartyUiLabels" property="PartyTelecomNumberSuccessfullyUpdated"/>
             <result-to-field result-name="contactMechId" field="newValue.contactMechId"/>
-            <result-to-field result-name="oldContactMechId" field="oldContactMechId"/>
         </call-service>
 
         <call-map-processor xml-resource="component://workeffort/minilang/workeffort/WorkflowMapProcessors.xml"
                 processor-name="workEffortContactMech" in-map-name="parameters" out-map-name="context2"/>
         <set from-field="newValue.contactMechId"  field="context2.newContactMechId"/>
         <set field="context2.contactMechTypeId" value="TELECOM_NUMBER"/>
-        <set field="context2.fromDate" from-field="parameters.fromDate"/>
         <log level="info" message="Copied id to context2: ${context2.newContactMechId}"/>
         <call-service in-map-name="context2" service-name="updateWorkEffortContactMech">
             <default-message resource="PartyUiLabels" property="PartyContactMechanismSuccessfullyUpdated"/>
@@ -580,11 +581,12 @@ under the License.
         <log level="info" message="Setting result id: ${newValue.contactMechId}"/>
         <field-to-request field="newValue.contactMechId" request-name="contactMechId"/>
         <field-to-result field="newValue.contactMechId" result-name="contactMechId"/>
-        <field-to-result field="oldContactMechId" result-name="oldContactMechId"/>
     </simple-method>
 
     <simple-method method-name="createWorkEffortEmailAddress" short-description="Create an email address for WorkEffort">
-        <set-service-fields service-name="createWorkEffortContactMech" map="parameters" to-map="cwecmMap"/>
+        <call-map-processor xml-resource="component://workeffort/minilang/workeffort/WorkflowMapProcessors.xml"
+            processor-name="emailAddress" in-map-name="parameters" out-map-name="cwecmMap"/>
+        <check-errors/>
         <set field="cwecmMap.contactMechTypeId" value="EMAIL_ADDRESS"/>
         <call-service service-name="createWorkEffortContactMech" in-map-name="cwecmMap">
             <default-message resource="PartyUiLabels" property="PartyContactMechanismSuccessfullyCreated"/>
@@ -593,7 +595,9 @@ under the License.
         </call-service>
     </simple-method>
     <simple-method method-name="updateWorkEffortEmailAddress" short-description="Update an email address for WorkEffort">
-        <set-service-fields service-name="createWorkEffortContactMech" map="parameters" to-map="uwecmMap"/>
+        <call-map-processor xml-resource="component://workeffort/minilang/workeffort/WorkflowMapProcessors.xml"
+            processor-name="emailAddress" in-map-name="parameters" out-map-name="uwecmMap"/>
+        <check-errors/>
         <set field="uwecmMap.contactMechTypeId" value="EMAIL_ADDRESS"/>
         <call-service service-name="updateWorkEffortContactMech" in-map-name="uwecmMap">
             <default-message resource="PartyUiLabels" property="PartyTelecomNumberSuccessfullyUpdated"/>
@@ -606,13 +610,13 @@ under the License.
         <if-not-empty field="parameters.quickAssignPartyId">
             <now-timestamp field="nowTimestamp"/>
             <!-- add a party assignment for the creator of the event, use the list method and let the EE do the update or create... -->
-            <make-value entity-name="PartyRole" value-field="newPartyRole"/>
+            <make-value value-field="newPartyRole" entity-name="PartyRole"/>
             <set from-field="parameters.quickAssignPartyId" field="newPartyRole.partyId"/>
             <set value="CAL_OWNER" field="newPartyRole.roleTypeId"/>
             <field-to-list field="newPartyRole" list="newPartyRoleList"/>
             <store-list list="newPartyRoleList"/>
 
-            <make-value entity-name="WorkEffortPartyAssignment" value-field="newWorkEffortPartyAssignment"/>
+            <make-value value-field="newWorkEffortPartyAssignment" entity-name="WorkEffortPartyAssignment"/>
             <set from-field="parameters.workEffortId" field="newWorkEffortPartyAssignment.workEffortId"/>
             <set from-field="parameters.quickAssignPartyId" field="newWorkEffortPartyAssignment.partyId"/>
             <set value="CAL_OWNER" field="newWorkEffortPartyAssignment.roleTypeId"/>
@@ -624,13 +628,13 @@ under the License.
     <simple-method method-name="quickAssignPartyToWorkEffortWithRole" short-description="Quick Assign Party To WorkEffort">
         <if-not-empty field="parameters.quickAssignPartyId">
             <!-- add a party assignment for the creator of the event, use the list method and let the EE do the update or create... -->
-            <make-value entity-name="PartyRole" value-field="newPartyRole"/>
+            <make-value value-field="newPartyRole" entity-name="PartyRole"/>
             <set from-field="parameters.quickAssignPartyId" field="newPartyRole.partyId"/>
             <set from-field="parameters.roleTypeId" field="newPartyRole.roleTypeId"/>
             <set field="newPartyRoleList[]" from-field="newPartyRole"/>
             <store-list list="newPartyRoleList"/>
 
-            <make-value entity-name="WorkEffortPartyAssignment" value-field="newWorkEffortPartyAssignment"/>
+            <make-value value-field="newWorkEffortPartyAssignment" entity-name="WorkEffortPartyAssignment"/>
             <set from-field="parameters.workEffortId" field="newWorkEffortPartyAssignment.workEffortId"/>
             <set from-field="parameters.quickAssignPartyId" field="newWorkEffortPartyAssignment.partyId"/>
             <set from-field="parameters.roleTypeId" field="newWorkEffortPartyAssignment.roleTypeId"/>
@@ -640,7 +644,7 @@ under the License.
         </if-not-empty>
     </simple-method>
     <simple-method method-name="createWorkEffortNote" short-description="Create Work Effort Note">
-        <make-value entity-name="NoteData" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="NoteData"/>
         <sequenced-id sequence-name="NoteData" field="newEntity.noteId"/>
         <field-to-result field="newEntity.noteId" result-name="noteId"/>
         <set from-field="parameters.noteInfo" field="newEntity.noteInfo"/>
@@ -655,7 +659,7 @@ under the License.
         <create-value value-field="newEntity"/>
 
         <!-- create new status entry, and set lastStatusUpdate date -->
-        <make-value entity-name="WorkEffortNote" value-field="newWorkEffortNote"/>
+        <make-value value-field="newWorkEffortNote" entity-name="WorkEffortNote"/>
         <set from-field="newEntity.noteId" field="newWorkEffortNote.noteId"/>
         <set from-field="parameters.workEffortId" field="newWorkEffortNote.workEffortId"/>
         <set from-field="parameters.internalNote" field="newWorkEffortNote.internalNote"/>
@@ -692,8 +696,6 @@ under the License.
             </if-empty>
             <set-service-fields service-name="createWorkEffortAssoc"  map="parameters" to-map="createWorkEffortAssocParams"/>
             <call-service in-map-name="createWorkEffortAssocParams" service-name="createWorkEffortAssoc"/>
-            <field-to-result field="createWorkEffortAssocParams.workEffortIdFrom" result-name="workEffortIdFrom"/>
-            <field-to-result field="createWorkEffortAssocParams.workEffortAssocTypeId" result-name="workEffortAssocTypeId"/>
         </else>
         </if-not-empty>
     </simple-method>
@@ -712,7 +714,7 @@ under the License.
             </add-error>
             <check-errors/>
         <else>
-            <make-value entity-name="WorkEffortAssoc" value-field="newEntity"/>
+            <make-value value-field="newEntity" entity-name="WorkEffortAssoc"/>
             <set-pk-fields map="parameters" value-field="newEntity"/>
             <set-nonpk-fields map="parameters" value-field="newEntity"/>
             <if-empty field="newEntity.sequenceNum">
@@ -763,7 +765,7 @@ under the License.
             </calculate>
             <store-value value-field="foundEntity"/>
         <else>
-            <make-value entity-name="WorkEffortInventoryAssign" value-field="newEntity"/>
+            <make-value value-field="newEntity" entity-name="WorkEffortInventoryAssign"/>
             <set-pk-fields map="parameters" value-field="newEntity"/>
             <set-nonpk-fields map="parameters" value-field="newEntity"/>
             <create-value value-field="newEntity"/>
@@ -795,7 +797,7 @@ under the License.
         <iterate list="existingAssignments" entry="existingAssignment">
             <remove-value value-field="existingAssignment"/>
         </iterate>
-        <make-value entity-name="WorkEffortFixedAssetAssign" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="WorkEffortFixedAssetAssign"/>
         <set from-field="workEffort.workEffortId" field="newEntity.workEffortId"/>
         <set from-field="workEffort.fixedAssetId" field="newEntity.fixedAssetId"/>
         <set from-field="workEffort.currentStatusId" field="newEntity.statusId"/>
@@ -912,7 +914,7 @@ under the License.
                 <fail-property resource="WorkEffortUiLabels" property="WorkEffortKeywordAlreadyExist"/>
             </add-error>
         <else>
-        <make-value entity-name="WorkEffortKeyword" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="WorkEffortKeyword"/>
         <if-empty field="parameters.workEffortId">
             <add-error>
                 <fail-property resource="WorkEffortUiLabels" property="WorkEffortIdMissing"/>

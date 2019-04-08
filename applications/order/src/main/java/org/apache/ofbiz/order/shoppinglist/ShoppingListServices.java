@@ -82,15 +82,15 @@ public class ShoppingListServices {
         }
 
         if (startDate == null) {
-            switch (frequency) {
+            switch (frequency.intValue()) {
                 case 5:
-                    startDate = UtilDateTime.getWeekStart(UtilDateTime.nowTimestamp(), 0, interval);
+                    startDate = UtilDateTime.getWeekStart(UtilDateTime.nowTimestamp(), 0, interval.intValue());
                     break;
                 case 6:
-                    startDate = UtilDateTime.getMonthStart(UtilDateTime.nowTimestamp(), 0, interval);
+                    startDate = UtilDateTime.getMonthStart(UtilDateTime.nowTimestamp(), 0, interval.intValue());
                     break;
                 case 7:
-                    startDate = UtilDateTime.getYearStart(UtilDateTime.nowTimestamp(), 0, interval);
+                    startDate = UtilDateTime.getYearStart(UtilDateTime.nowTimestamp(), 0, interval.intValue());
                     break;
                 default:
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderInvalidFrequencyForShoppingListRecurrence",locale));
@@ -105,7 +105,7 @@ public class ShoppingListServices {
 
         RecurrenceInfo recInfo = null;
         try {
-            recInfo = RecurrenceInfo.makeInfo(delegator, startTime, frequency, interval, -1, endTime);
+            recInfo = RecurrenceInfo.makeInfo(delegator, startTime, frequency.intValue(), interval.intValue(), -1, endTime);
         } catch (RecurrenceInfoException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderUnableToCreateShoppingListRecurrenceInformation",locale));
@@ -126,32 +126,34 @@ public class ShoppingListServices {
         Locale locale = (Locale) context.get("locale");
 
         boolean beganTransaction = false;
-        EntityQuery eq = EntityQuery.use(delegator)
-                .from("ShoppingList")
-                .where("shoppingListTypeId", "SLT_AUTO_REODR", "isActive", "Y")
-                .orderBy("-lastOrderedDate");
         try {
             beganTransaction = TransactionUtil.begin();
         } catch (GenericTransactionException e1) {
             Debug.logError(e1, "[Delegator] Could not begin transaction: " + e1.toString(), module);
         }
+        
+        try (EntityListIterator eli = EntityQuery.use(delegator)
+                .from("ShoppingList")
+                .where("shoppingListTypeId", "SLT_AUTO_REODR", "isActive", "Y")
+                .orderBy("-lastOrderedDate")
+                .queryIterator()) {
 
-        try (EntityListIterator eli = eq.queryIterator()) {
             if (eli != null) {
                 GenericValue shoppingList;
                 while (((shoppingList = eli.next()) != null)) {
                     Timestamp lastOrder = shoppingList.getTimestamp("lastOrderedDate");
-                    RecurrenceInfo recurrence = null;
+                    GenericValue recurrenceInfo = null;
+                    recurrenceInfo = shoppingList.getRelatedOne("RecurrenceInfo", false);
 
-                    GenericValue recurrenceInfo = shoppingList.getRelatedOne("RecurrenceInfo", false);
                     Timestamp startDateTime = recurrenceInfo.getTimestamp("startDateTime");
-
-                    try {
-                        recurrence = new RecurrenceInfo(recurrenceInfo);
-                    } catch (RecurrenceInfoException e) {
-                        Debug.logError(e, module);
+                    RecurrenceInfo recurrence = null;
+                    if (recurrenceInfo != null) {
+                        try {
+                            recurrence = new RecurrenceInfo(recurrenceInfo);
+                        } catch (RecurrenceInfoException e) {
+                            Debug.logError(e, module);
+                        }
                     }
-
 
                     // check the next recurrence
                     if (recurrence != null) {
@@ -171,10 +173,9 @@ public class ShoppingListServices {
 
                     // store the order
                     Map<String, Object> createResp = helper.createOrder(userLogin);
-                    if (createResp == null || (createResp != null && ServiceUtil.isError(createResp))) {
+                    if (createResp != null && ServiceUtil.isError(createResp)) {
                         Debug.logError("Cannot create order for shopping list - " + shoppingList, module);
                     } else {
-
                         String orderId = (String) createResp.get("orderId");
 
                         // authorize the payments
@@ -358,7 +359,7 @@ public class ShoppingListServices {
                 GenericValue paymentPref = EntityUtil.getFirst(orh.getPaymentPreferences());
                 GenericValue shipGroup = EntityUtil.getFirst(orh.getOrderItemShipGroups());
 
-                Map<String, Object> slCtx = new HashMap<>();
+                Map<String, Object> slCtx = new HashMap<String, Object>();
                 slCtx.put("shipmentMethodTypeId", shipGroup.get("shipmentMethodTypeId"));
                 slCtx.put("carrierRoleTypeId", shipGroup.get("carrierRoleTypeId"));
                 slCtx.put("carrierPartyId", shipGroup.get("carrierPartyId"));
@@ -546,7 +547,7 @@ public class ShoppingListServices {
      * @return Map with the result of the service, the output parameters
      */
     public static Map<String, Object> updateShoppingListQuantitiesFromOrder(DispatchContext ctx, Map<String, ? extends Object> context) {
-        Map<String, Object> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<String, Object>();
         Delegator delegator = ctx.getDelegator();
         String orderId = (String) context.get("orderId");
         try {
@@ -581,7 +582,6 @@ public class ShoppingListServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         List<GenericValue> shoppingList = null;
-        Map<String, Object> result = new HashMap<String, Object>();
         try {
             shoppingList = EntityQuery.use(delegator).from("ShoppingList").where("partyId", null, "shoppingListTypeId", "SLT_SPEC_PURP").queryList();
         } catch (GenericEntityException e) {
@@ -614,21 +614,15 @@ public class ShoppingListServices {
                     }
                     for (GenericValue sli : shoppingListItems) {
                         try {
-                            result = dispatcher.runSync("removeShoppingListItem", UtilMisc.toMap("shoppingListId", sl.getString("shoppingListId"),
+                            dispatcher.runSync("removeShoppingListItem", UtilMisc.toMap("shoppingListId", sl.getString("shoppingListId"),
                                     "shoppingListItemSeqId", sli.getString("shoppingListItemSeqId"),
                                     "userLogin", userLogin));
-                            if (ServiceUtil.isError(result)) {
-                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
-                            }
                         } catch (GenericServiceException e) {
                             Debug.logError(e.getMessage(), module);
                         }
                     }
                     try {
-                        result = dispatcher.runSync("removeShoppingList", UtilMisc.toMap("shoppingListId", sl.getString("shoppingListId"), "userLogin", userLogin));
-                        if (ServiceUtil.isError(result)) {
-                            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
-                        }
+                        dispatcher.runSync("removeShoppingList", UtilMisc.toMap("shoppingListId", sl.getString("shoppingListId"), "userLogin", userLogin));
                     } catch (GenericServiceException e) {
                         Debug.logError(e.getMessage(), module);
                     }

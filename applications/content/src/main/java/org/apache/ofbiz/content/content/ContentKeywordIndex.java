@@ -21,7 +21,6 @@ package org.apache.ofbiz.content.content;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -57,6 +56,7 @@ public class ContentKeywordIndex {
         if (content == null) return;
         
         Delegator delegator = content.getDelegator();
+        if (delegator == null) return;
         String contentId = content.getString("contentId");
 
         // get these in advance just once since they will be used many times for the multiple strings to index
@@ -70,7 +70,7 @@ public class ContentKeywordIndex {
         List<String> strings = new LinkedList<String>();
 
         int pidWeight = 1;
-        keywords.put(content.getString("contentId").toLowerCase(Locale.getDefault()), (long) pidWeight);
+        keywords.put(content.getString("contentId").toLowerCase(), Long.valueOf(pidWeight));
 
         addWeightedKeywordSourceString(content, "dataResourceId", strings);
         addWeightedKeywordSourceString(content, "contentName", strings);
@@ -187,7 +187,7 @@ public class ContentKeywordIndex {
         }
 
         List<GenericValue> toBeStored = new LinkedList<GenericValue>();
-        int keywordMaxLength = EntityUtilProperties.getPropertyAsInteger("contentsearch", "content.keyword.max.length", 0);
+        int keywordMaxLength = EntityUtilProperties.getPropertyAsInteger("contentsearch", "content.keyword.max.length", 0).intValue();
         for (Map.Entry<String, Long> entry: keywords.entrySet()) {
             if (entry.getKey().length() <= keywordMaxLength) {
                 GenericValue contentKeyword = delegator.makeValue("ContentKeyword", UtilMisc.toMap("contentId", content.getString("contentId"), "keyword", entry.getKey(), "relevancyWeight", entry.getValue()));
@@ -209,7 +209,7 @@ public class ContentKeywordIndex {
     public static void addWeightedDataResourceString(GenericValue drView, int weight, List<String> strings, Delegator delegator, GenericValue content) {
         Map<String, Object> drContext = UtilMisc.<String, Object>toMap("content", content);
         try {
-            String contentText = DataResourceWorker.renderDataResourceAsText(null, delegator, drView.getString("dataResourceId"), drContext, null, null, false);
+            String contentText = DataResourceWorker.renderDataResourceAsText(delegator, drView.getString("dataResourceId"), drContext, null, null, false);
             for (int i = 0; i < weight; i++) {
                 strings.add(contentText);
             }

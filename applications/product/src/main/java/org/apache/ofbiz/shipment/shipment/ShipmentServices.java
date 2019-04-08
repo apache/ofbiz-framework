@@ -19,7 +19,6 @@
 package org.apache.ofbiz.shipment.shipment;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -61,7 +60,7 @@ public class ShipmentServices {
     public static final String resource = "ProductUiLabels";
     public static final String resource_error = "OrderErrorUiLabels";
     public static final int decimals = UtilNumber.getBigDecimalScale("order.decimals");
-    public static final RoundingMode rounding = UtilNumber.getRoundingMode("order.rounding");
+    public static final int rounding = UtilNumber.getBigDecimalRoundingMode("order.rounding");
     public static final BigDecimal ZERO = BigDecimal.ZERO.setScale(decimals, rounding);
 
     public static Map<String, Object> createShipmentEstimate(DispatchContext dctx, Map<String, ? extends Object> context) {
@@ -169,7 +168,7 @@ public class ShipmentServices {
                         String newSeqId = delegator.getNextSeqId("QuantityBreak");
                         GenericValue weightBreak = delegator.makeValue("QuantityBreak");
                         weightBreak.set("quantityBreakId", newSeqId);
-                        weightBreak.set("quantityBreakTypeId", "SHIP_" + breakType.toUpperCase(Locale.getDefault()));
+                        weightBreak.set("quantityBreakTypeId", "SHIP_" + breakType.toUpperCase());
                         weightBreak.set("fromQuantity", min);
                         weightBreak.set("thruQuantity", max);
                         estimate.set(breakType + "BreakId", newSeqId);
@@ -436,7 +435,7 @@ public class ShipmentServices {
                 }
 
                 // there will be only one of each priority; latest will replace
-                estimatePriority.put(prioritySum, currentEstimate);
+                estimatePriority.put(Integer.valueOf(prioritySum), currentEstimate);
             }
 
             // locate the highest priority estimate; or the latest entered
@@ -504,7 +503,7 @@ public class ShipmentServices {
             featurePrice = BigDecimal.ZERO;
         }
 
-        if (UtilValidate.isNotEmpty(featureGroupId)) {
+        if (UtilValidate.isNotEmpty(featureGroupId) && shippableFeatureMap != null) {
             for (Map.Entry<String, BigDecimal> entry: shippableFeatureMap.entrySet()) {
                 String featureId = entry.getKey();
                 BigDecimal quantity = entry.getValue();
@@ -531,9 +530,11 @@ public class ShipmentServices {
         BigDecimal sizeUnit = estimate.getBigDecimal("oversizeUnit");
         BigDecimal sizePrice = estimate.getBigDecimal("oversizePrice");
         if (sizeUnit != null && sizeUnit.compareTo(BigDecimal.ZERO) > 0) {
-            for (BigDecimal size : shippableItemSizes) {
-                if (size != null && size.compareTo(sizeUnit) >= 0) {
-                    sizeSurcharge = sizeSurcharge.add(sizePrice);
+            if (shippableItemSizes != null) {
+                for (BigDecimal size: shippableItemSizes) {
+                    if (size != null && size.compareTo(sizeUnit) >= 0) {
+                        sizeSurcharge = sizeSurcharge.add(sizePrice);
+                    }
                 }
             }
         }
@@ -633,7 +634,7 @@ public class ShipmentServices {
             stageShip.set("postalCodeExt", address.get("postalCodeExt"));
             stageShip.set("countryGeoId", address.get("countryGeoId"));
             stageShip.set("stateProvinceGeoId", address.get("stateProvinceGeoId"));
-            stageShip.set("numberOfPackages", (long) packages.size());
+            stageShip.set("numberOfPackages", Long.valueOf(packages.size()));
             stageShip.set("handlingInstructions", shipment.get("handlingInstructions"));
             toStore.add(stageShip);
 
@@ -669,11 +670,11 @@ public class ShipmentServices {
         Locale locale = (Locale) context.get("locale");
         Map<String, String> shipmentMap = new HashMap<String, String>();
 
-        EntityQuery eq = EntityQuery.use(delegator)
+        try (EntityListIterator eli = EntityQuery.use(delegator)
                 .from("OdbcPackageIn")
-                .orderBy("shipmentId", "shipmentPackageSeqId", "voidIndicator");
-        
-        try (EntityListIterator eli = eq.queryIterator()) {
+                .orderBy("shipmentId", "shipmentPackageSeqId", "voidIndicator")
+                .queryIterator()) {
+            
             GenericValue pkgInfo;
             while ((pkgInfo = eli.next()) != null) {
                 String packageSeqId = pkgInfo.getString("shipmentPackageSeqId");
@@ -681,11 +682,17 @@ public class ShipmentServices {
 
                 // locate the shipment package
                 GenericValue shipmentPackage = EntityQuery.use(delegator).from("ShipmentPackage").where("shipmentId", shipmentId, "shipmentPackageSeqId", packageSeqId).queryOne();
+
                 if (shipmentPackage != null) {
                     if ("00001".equals(packageSeqId)) {
                         // only need to do this for the first package
                         GenericValue rtSeg = null;
+                        try {
                             rtSeg = EntityQuery.use(delegator).from("ShipmentRouteSegment").where("shipmentId", shipmentId, "shipmentRouteSegmentId", "00001").queryOne();
+                        } catch (GenericEntityException e) {
+                            Debug.logError(e, module);
+                            return ServiceUtil.returnError(e.getMessage());
+                        }
 
                         if (rtSeg == null) {
                             rtSeg = delegator.makeValue("ShipmentRouteSegment", UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", "00001"));
@@ -701,7 +708,12 @@ public class ShipmentServices {
                         rtSeg.set("billingWeight", pkgInfo.get("billingWeight"));
                         rtSeg.set("actualCost", pkgInfo.get("shippingTotal"));
                         rtSeg.set("trackingIdNumber", pkgInfo.get("trackingNumber"));
+                        try {
                             delegator.store(rtSeg);
+                        } catch (GenericEntityException e) {
+                            Debug.logError(e, module);
+                            return ServiceUtil.returnError(e.getMessage());
+                        }
                     }
 
                     Map<String, Object> pkgCtx = new HashMap<String, Object>();
@@ -710,9 +722,14 @@ public class ShipmentServices {
 
                     // first update the weight of the package
                     GenericValue pkg = null;
+                    try {
                         pkg = EntityQuery.use(delegator).from("ShipmentPackage")
                                   .where(pkgCtx)
                                   .queryOne();
+                    } catch (GenericEntityException e) {
+                        Debug.logError(e, module);
+                        return ServiceUtil.returnError(e.getMessage());
+                    }
 
                     if (pkg == null) {
                         return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
@@ -722,12 +739,22 @@ public class ShipmentServices {
                     }
 
                     pkg.set("weight", pkgInfo.get("packageWeight"));
+                    try {
                         delegator.store(pkg);
+                    } catch (GenericEntityException e) {
+                        Debug.logError(e, module);
+                        return ServiceUtil.returnError(e.getMessage());
+                    }
 
                     // need if we are the first package (only) update the route seg info
                     pkgCtx.put("shipmentRouteSegmentId", "00001");
                     GenericValue pkgRtSeg = null;
+                    try {
                         pkgRtSeg = EntityQuery.use(delegator).from("ShipmentPackageRouteSeg").where(pkgCtx).queryOne();
+                    } catch (GenericEntityException e) {
+                        Debug.logError(e, module);
+                        return ServiceUtil.returnError(e.getMessage());
+                    }
 
                     if (pkgRtSeg == null) {
                         pkgRtSeg = delegator.makeValue("ShipmentPackageRouteSeg", pkgCtx);
@@ -742,7 +769,12 @@ public class ShipmentServices {
                     pkgRtSeg.set("trackingCode", pkgInfo.get("trackingNumber"));
                     pkgRtSeg.set("boxNumber", pkgInfo.get("shipmentPackageSeqId"));
                     pkgRtSeg.set("packageServiceCost", pkgInfo.get("packageTotal"));
+                    try {
                         delegator.store(pkgRtSeg);
+                    } catch (GenericEntityException e) {
+                        Debug.logError(e, module);
+                        return ServiceUtil.returnError(e.getMessage());
+                    }
                     shipmentMap.put(shipmentId, pkgInfo.getString("voidIndicator"));
                 }
             }
@@ -859,10 +891,7 @@ public class ShipmentServices {
             }
 
             // now update the shipment
-            Map<String, Object> serviceResult = dispatcher.runSync("updateShipment", UtilMisc.<String, Object>toMap("shipmentId", shipmentId, "statusId", "PURCH_SHIP_RECEIVED", "userLogin", userLogin));
-            if (ServiceUtil.isError(serviceResult)) {
-                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
-            }
+            dispatcher.runSync("updateShipment", UtilMisc.<String, Object>toMap("shipmentId", shipmentId, "statusId", "PURCH_SHIP_RECEIVED", "userLogin", userLogin));
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -904,7 +933,7 @@ public class ShipmentServices {
 
             Map<String, Object> tmpResult = dispatcher.runSync("createShipmentRouteSegment", params);
             if (ServiceUtil.isError(tmpResult)) {
-                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(tmpResult));
+                return tmpResult;
             } else {
                 results.put("newShipmentRouteSegmentId", tmpResult.get("shipmentRouteSegmentId"));
                 return results;
@@ -945,7 +974,7 @@ public class ShipmentServices {
         try {
             Map<String, Object> input = UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId, "userLogin", userLogin);
             // for DHL, we just need to confirm the shipment to get the label.  Other carriers may have more elaborate requirements.
-            if ("DHL".equals(carrierPartyId)) {
+            if (carrierPartyId.equals("DHL")) {
                 dispatcher.runAsync("dhlShipmentConfirm", input);
             } else {
                 Debug.logError(carrierPartyId + " is not supported at this time.  Sorry.", module);
@@ -1003,9 +1032,7 @@ public class ShipmentServices {
 
                 // Get the value of the orderItem by calling the getOrderItemInvoicedAmountAndQuantity service
                 Map<String, Object> getOrderItemValueResult = dispatcher.runSync("getOrderItemInvoicedAmountAndQuantity", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId, "userLogin", userLogin, "locale", locale));
-                if (ServiceUtil.isError(getOrderItemValueResult)){
-                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(getOrderItemValueResult));
-                }
+                if (ServiceUtil.isError(getOrderItemValueResult)) return getOrderItemValueResult;
                 BigDecimal invoicedAmount = (BigDecimal) getOrderItemValueResult.get("invoicedAmount");
                 BigDecimal invoicedQuantity = (BigDecimal) getOrderItemValueResult.get("invoicedQuantity");
 
@@ -1020,7 +1047,7 @@ public class ShipmentServices {
                 GenericValue orderHeader = packageContent.getRelatedOne("OrderHeader", false);
                 Map<String, Object> convertUomResult = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", orderHeader.getString("currencyUom"), "uomIdTo", currencyUomId, "originalValue", packageContentValue));
                 if (ServiceUtil.isError(convertUomResult)) {
-                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(convertUomResult));
+                    return convertUomResult;
                 }
                 if (convertUomResult.containsKey("convertedValue")) {
                     packageContentValue = ((BigDecimal) convertUomResult.get("convertedValue")).setScale(decimals, rounding);

@@ -1,0 +1,692 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
+    <property key="buildEbayConfig.exceptionInGetOrdersFromEbay">
+        <value xml:lang="en">Exception in getting orders from Ebay.</value>
+        <value xml:lang="it">Eccezione nel ricevere gli ordini da eBay.</value>
+        <value xml:lang="zh">从eBay获取订单时出错</value>
+        <value xml:lang="zh-TW">從eBay獲取訂單時出錯</value>
+    </property>
+    <property key="buildEbayConfig.unableToFindEbayConfig">
+        <value xml:lang="en">Unable to find eBay configurations.</value>
+        <value xml:lang="it">Non è possibile trovare configurazioni eBay.</value>
+        <value xml:lang="zh">无法找到eBay配置。</value>
+        <value xml:lang="zh-TW">無法找到eBay配置.</value>
+    </property>
+    <property key="EbayAddCatalogToStore">
+        <value xml:lang="en">Add Catalog To Store</value>
+        <value xml:lang="zh">向店铺添加目录</value>
+        <value xml:lang="zh-TW">向店鋪增加型錄</value>
+    </property>
+    <property key="EbayAddEbayConfiguration">
+        <value xml:lang="en">Add Ebay Configuration</value>
+        <value xml:lang="it">Aggiungi configurazione eBay</value>
+        <value xml:lang="zh">添加eBay配置</value>
+        <value xml:lang="zh-TW">增加eBay配置</value>
+    </property>
+    <property key="EbayAddEbayShippingMethod">
+        <value xml:lang="en">Add Ebay Shipping Method</value>
+        <value xml:lang="it">Aggiungi metodo di spedizione eBay</value>
+        <value xml:lang="zh">添加eBay送货方式</value>
+        <value xml:lang="zh-TW">增加eBay送貨方式</value>
+    </property>
+    <property key="EbayApplication">
+        <value xml:lang="en">Ebay Integration</value>
+        <value xml:lang="fr">Intégration Ebay</value>
+        <value xml:lang="it">Applicazione per esportare i prodotti su eBay</value>
+        <value xml:lang="th">อีเบย์ทั้งหมด</value>
+        <value xml:lang="zh">eBay集成</value>
+        <value xml:lang="zh-TW">eBay整合</value>
+    </property>
+    <property key="EbayCompanyName">
+        <value xml:lang="en">OFBiz</value>
+        <value xml:lang="fr">OFBiz</value>
+        <value xml:lang="it">OFBiz</value>
+        <value xml:lang="th">OFBiz</value>
+        <value xml:lang="zh">OFBiz</value>
+        <value xml:lang="zh-TW">OFBiz</value>
+    </property>
+    <property key="EbayConfigurations">
+        <value xml:lang="en">Ebay Configurations</value>
+        <value xml:lang="it">Configurazioni eBay</value>
+        <value xml:lang="zh">eBay配置</value>
+        <value xml:lang="zh-TW">eBay配置</value>
+    </property>
+    <property key="EbayConfigurationSettingsAreMissingForConnectingToEbayServer">
+        <value xml:lang="en">Configuration settings are missing for connecting to eBay server.</value>
+    </property>
+    <property key="EbayEbayOrderIdOrTransactionId">
+        <value xml:lang="en">OrderID / TransactionID</value>
+        <value xml:lang="it">Numero Ordine / Numero Transazione</value>
+        <value xml:lang="zh">订单编号/交易编号</value>
+        <value xml:lang="zh-TW">訂單識別/交易識別</value>
+    </property>
+    <property key="EbayEBayOrders">
+        <value xml:lang="en">eBay Orders Import</value>
+        <value xml:lang="it">Importa ordini da eBay</value>
+        <value xml:lang="zh">eBay订单导入</value>
+        <value xml:lang="zh-TW">eBay訂單匯入</value>
+    </property>
+    <property key="EbayEditEbayConfiguration">
+        <value xml:lang="en">Edit Ebay Configuration</value>
+        <value xml:lang="zh">编辑eBay配置</value>
+        <value xml:lang="zh-TW">編輯eBay配置</value>
+    </property>
+    <property key="EbayExportToEbay">
+        <value xml:lang="de">zu eBay exportieren</value>
+        <value xml:lang="en">Export To eBay</value>
+        <value xml:lang="fr">Exporter vers Ebay</value>
+        <value xml:lang="it">Esporta su eBay</value>
+        <value xml:lang="th">การส่งออกไปยังอีเบย์</value>
+        <value xml:lang="zh">导出到eBay</value>
+        <value xml:lang="zh-TW">匯出到eBay</value>
+    </property>
+    <property key="EbayImportEbayItem">
+        <value xml:lang="en">Item Id</value>
+        <value xml:lang="fr">Réf. d'article</value>
+        <value xml:lang="it">Numero oggetto</value>
+        <value xml:lang="th">รหัสรายการ</value>
+        <value xml:lang="zh">明细标识</value>
+        <value xml:lang="zh-TW">細項識別</value>
+    </property>
+    <property key="EbayImportOrdersFromEbay">
+        <value xml:lang="de">eBay-Aufträge importieren</value>
+        <value xml:lang="en">Import Orders From eBay</value>
+        <value xml:lang="fr">Importer des commandes depuis Ebay</value>
+        <value xml:lang="it">Importa ordini da eBay</value>
+        <value xml:lang="th">การนำเข้ารายการสั่งซื้อสินค้าจากอีเบย์</value>
+        <value xml:lang="zh">从eBay导入订单</value>
+        <value xml:lang="zh-TW">從eBay匯入訂單</value>
+    </property>
+    <property key="EbayImportOrdersSearchFromEbay">
+        <value xml:lang="en">Search Orders To Import From eBay</value>
+        <value xml:lang="fr">Rechercher des commandes à importer depuis Ebay</value>
+        <value xml:lang="it">Ricerca ordini da importare da eBay</value>
+        <value xml:lang="th">ค้นหารายการสั่งซื้อสินค้าไปยังการนำเข้าสินค้าจากอีเบย์</value>
+        <value xml:lang="zh">搜索从eBay导入的订单</value>
+        <value xml:lang="zh-TW">搜索從eBay匯入的訂單</value>
+    </property>
+    <property key="EbayImportSearchSingleTransactionFromEbay">
+        <value xml:lang="en">Search Single Transactions From eBay</value>
+        <value xml:lang="it">Ricerca singole transazioni da eBay</value>
+        <value xml:lang="zh">从eBay搜索单个交易</value>
+        <value xml:lang="zh-TW">從eBay搜尋單個交易</value>
+    </property>
+    <property key="EbayImportSingleTransactionFromEbay">
+        <value xml:lang="en">Import Single Transactions</value>
+        <value xml:lang="it">Importa singole transazioni</value>
+        <value xml:lang="zh">导入单个交易</value>
+        <value xml:lang="zh-TW">匯入單個交易</value>
+    </property>
+    <property key="EbayShippingMethodConfigurations">
+        <value xml:lang="en">Shipping Method Configurations</value>
+        <value xml:lang="it">Configurazioni metodi di spedizione</value>
+        <value xml:lang="zh">送货方式配置</value>
+        <value xml:lang="zh-TW">送貨方式配置</value>
+    </property>
+    <property key="EbayUnableToCreatePostalAddress">
+        <value xml:lang="en">Unable to create postalAddress with input map: </value>
+        <value xml:lang="it">Non è possibile create l'indirizzo postal con l'input: </value>
+        <value xml:lang="zh">用输入的数据（map），无法创建postalAddress（邮政地址）</value>
+        <value xml:lang="zh-TW">用輸入的資料(map),無法新建postalAddress(郵政位址)</value>
+    </property>
+    <property key="EbayViewPermissionError">
+        <value xml:lang="en">You do not have permission to view this page. ("EBAY_VIEW" needed)</value>
+        <value xml:lang="fr">Vous n'avez pas la permission de voir cette page. (Il faut l'autorisation "EBAY_VIEW")</value>
+        <value xml:lang="it">Tu non sei autorizzato per vedere questa pagina. (necessario permesso "EBAY_VIEW")</value>
+        <value xml:lang="th">คุณไม่มีการอนุญาตถึงการแสดงหน้านี้  ("EBAY_VIEW" ต้องการ)</value>
+        <value xml:lang="zh">你没有浏览这个页面的权限(需要EBAY_VIEW)。</value>
+        <value xml:lang="zh-TW">你沒有流覽這個頁面的許可權(需要EBAY_VIEW).</value>
+    </property>
+    <property key="FormFieldTitle_amountPaid">
+        <value xml:lang="en">Amount Paid</value>
+        <value xml:lang="fr">Montant payé</value>
+        <value xml:lang="it">Importo pagato</value>
+        <value xml:lang="th">จ่ายจำนวน</value>
+        <value xml:lang="zh">支付金额</value>
+        <value xml:lang="zh-TW">支付金額</value>
+    </property>
+    <property key="FormFieldTitle_buyerName">
+        <value xml:lang="en">Buyer Name</value>
+        <value xml:lang="fr">Nom de l'acheteur</value>
+        <value xml:lang="it">Nome compratore</value>
+        <value xml:lang="th">ชื่อผู้ซื้อ</value>
+        <value xml:lang="zh">买家姓名</value>
+        <value xml:lang="zh-TW">買家姓名</value>
+    </property>
+    <property key="FormFieldTitle_checkoutStatus">
+        <value xml:lang="en">Checkout Status</value>
+        <value xml:lang="fr">Statut du processus de paiement</value>
+        <value xml:lang="it">Stato completamento asta</value>
+        <value xml:lang="th">สถานะการตรวจสอบ</value>
+        <value xml:lang="zh">结账状态</value>
+        <value xml:lang="zh-TW">結帳狀態</value>
+    </property>
+    <property key="FormFieldTitle_completeStatus">
+        <value xml:lang="en">Payment Sent by Buyer</value>
+        <value xml:lang="fr">Paiement envoyé par l'acheteur</value>
+        <value xml:lang="it">Pagamento inviato dal compratore</value>
+        <value xml:lang="th">ส่งการชำระเงินโดยผู้ซื้อ</value>
+        <value xml:lang="zh">买家发送的支付</value>
+        <value xml:lang="zh-TW">買家發送的支付</value>
+    </property>
+    <property key="FormFieldTitle_customXml">
+        <value xml:lang="en">Custom XML</value>
+        <value xml:lang="it">XML personalizzato</value>
+        <value xml:lang="zh">定制XML</value>
+        <value xml:lang="zh-TW">客製XML</value>
+    </property>
+    <property key="FormFieldTitle_ebayCategory">
+        <value xml:lang="en">eBay Category</value>
+        <value xml:lang="fr">Catégorie Ebay</value>
+        <value xml:lang="it">Categoria eBay</value>
+        <value xml:lang="th">หมวดหมู่อีเบย์</value>
+        <value xml:lang="zh">eBay分类</value>
+        <value xml:lang="zh-TW">eBay分類</value>
+    </property>
+    <property key="FormFieldTitle_eBayPaymentStatus">
+        <value xml:lang="en">eBay Payment Status</value>
+        <value xml:lang="fr">Statut de paiement Ebay</value>
+        <value xml:lang="it">Stato pagamento su eBay</value>
+        <value xml:lang="th">สถานะการชำระเงินของอีเบย์</value>
+        <value xml:lang="zh">eBay支付状态</value>
+        <value xml:lang="zh-TW">eBay支付狀態</value>
+    </property>
+    <property key="FormFieldTitle_emailBuyer">
+        <value xml:lang="en">Buyer Email</value>
+        <value xml:lang="fr">Email de l'acheteur</value>
+        <value xml:lang="it">Email compratore</value>
+        <value xml:lang="th">อีเมลผู้ซื้อ</value>
+        <value xml:lang="zh">买家电子邮件</value>
+        <value xml:lang="zh-TW">買家電子郵件</value>
+    </property>
+    <property key="FormFieldTitle_errorMessage">
+        <value xml:lang="en">Error Message</value>
+        <value xml:lang="fr">Message d'erreur</value>
+        <value xml:lang="it">Messaggio di errore</value>
+        <value xml:lang="th">ข้อความผิดพลาด</value>
+        <value xml:lang="zh">错误信息</value>
+        <value xml:lang="zh-TW">錯誤資訊</value>
+    </property>
+    <property key="FormFieldTitle_listingDuration">
+        <value xml:lang="en">Listing Duration</value>
+        <value xml:lang="fr">Durée de listage</value>
+        <value xml:lang="it">Durata asta</value>
+        <value xml:lang="th">ช่วงเวลาการลงรายการ</value>
+        <value xml:lang="zh">列表用时</value>
+        <value xml:lang="zh-TW">清單用時</value>
+    </property>
+    <property key="FormFieldTitle_listingStatus">
+        <value xml:lang="en">Listing Status</value>
+        <value xml:lang="fr">Statut de listage</value>
+        <value xml:lang="it">Stato dell'asta</value>
+        <value xml:lang="th">สถานะการลงรายการ</value>
+        <value xml:lang="zh">列表状态</value>
+        <value xml:lang="zh-TW">清單狀態</value>
+    </property>
+    <property key="FormFieldTitle_location">
+        <value xml:lang="en">Location</value>
+        <value xml:lang="fr">Lieu</value>
+        <value xml:lang="it">Località</value>
+        <value xml:lang="th">ที่ตั้ง</value>
+        <value xml:lang="zh">地点</value>
+        <value xml:lang="zh-TW">地點</value>
+    </property>
+    <property key="FormFieldTitle_paidTime">
+        <value xml:lang="en">Date/Time Payment Received</value>
+        <value xml:lang="fr">Date/heure de paiement reçu</value>
+        <value xml:lang="it">Data/Ora ricezione pagamento</value>
+        <value xml:lang="th">วันที่/เวลาที่ได้รับการชำระเงิน</value>
+        <value xml:lang="zh">日期/时间收到的支付</value>
+        <value xml:lang="zh-TW">日期/時間收到的支付</value>
+    </property>
+    <property key="FormFieldTitle_paymentAmEx">
+        <value xml:lang="en">American Express</value>
+        <value xml:lang="fr">American Express</value>
+        <value xml:lang="it">American Express</value>
+        <value xml:lang="th">American Express</value>
+        <value xml:lang="zh">美国运通卡</value>
+        <value xml:lang="zh-TW">美國運通卡</value>
+    </property>
+    <property key="FormFieldTitle_paymentCashInPerson">
+        <value xml:lang="en">Cash-in-person </value>
+        <value xml:lang="fr">Paiement comptant en personne</value>
+        <value xml:lang="it">Contanti di persona</value>
+        <value xml:lang="th">เงินส่วนตัว</value>
+        <value xml:lang="zh">现金速贷</value>
+        <value xml:lang="zh-TW">現金速貸</value>
+    </property>
+    <property key="FormFieldTitle_paymentCashOnPickup">
+        <value xml:lang="en">Payment on delivery</value>
+        <value xml:lang="fr">Paiement à la livraison </value>
+        <value xml:lang="it">Pagamento alla consegna</value>
+        <value xml:lang="th">การชำระเงินด่วน</value>
+        <value xml:lang="zh">货到支付</value>
+        <value xml:lang="zh-TW">貨到支付</value>
+    </property>
+    <property key="FormFieldTitle_paymentCCAccepted">
+        <value xml:lang="en">Credit card</value>
+        <value xml:lang="fr">Carte de crédit</value>
+        <value xml:lang="it">Carta di credito</value>
+        <value xml:lang="th">บัตรเครดิต</value>
+        <value xml:lang="zh">信用卡</value>
+        <value xml:lang="zh-TW">信用卡</value>
+    </property>
+    <property key="FormFieldTitle_paymentCOD">
+        <value xml:lang="en">Cash on delivery</value>
+        <value xml:lang="fr">Paiement comptant à la livraison</value>
+        <value xml:lang="it">Contanti alla consegna</value>
+        <value xml:lang="th">เงินด่วน</value>
+        <value xml:lang="zh">货到付现金</value>
+        <value xml:lang="zh-TW">貨到付現金</value>
+    </property>
+    <property key="FormFieldTitle_paymentCODPrePayDelivery">
+        <value xml:lang="en">Cash On Delivery After Paid</value>
+        <value xml:lang="fr">Paiement comptant à la livraison après pré-paiement initial</value>
+        <value xml:lang="it">Contanti alla consegna dopo aver pagato</value>
+        <value xml:lang="th">เงินด่วนหลังการจ่าย</value>
+        <value xml:lang="zh">有预付费的货到付现金</value>
+        <value xml:lang="zh-TW">有預付費的貨到付現金</value>
+    </property>
+    <property key="FormFieldTitle_paymentDiscover">
+        <value xml:lang="en">Discover card</value>
+        <value xml:lang="fr">Carte Discover</value>
+        <value xml:lang="it">Discover</value>
+        <value xml:lang="th">ตรวจสอลบัตร</value>
+        <value xml:lang="zh">美国发现卡</value>
+        <value xml:lang="zh-TW">美國發現卡</value>
+    </property>
+    <property key="FormFieldTitle_paymentMethodUsed">
+        <value xml:lang="en">Payment Method Used</value>
+        <value xml:lang="fr">Méthode de paiement utilisée</value>
+        <value xml:lang="it">Metodo di pagamento scelto</value>
+        <value xml:lang="th">ใช้วิธีการชำระเงิน</value>
+        <value xml:lang="zh">已用的支付方法</value>
+        <value xml:lang="zh-TW">已用的支付方法</value>
+    </property>
+    <property key="FormFieldTitle_paymentMethodsAccepted">
+        <value xml:lang="en">Payment Methods Accepted</value>
+        <value xml:lang="fr">Méthodes de paiement acceptées</value>
+        <value xml:lang="it">Metodi di pagamento accettati</value>
+        <value xml:lang="th">ยอมรับวิธีการชำระเงิน</value>
+        <value xml:lang="zh">已接受的支付方法</value>
+        <value xml:lang="zh-TW">已接受的支付方法</value>
+    </property>
+    <property key="FormFieldTitle_paymentMOCC">
+        <value xml:lang="en">Money order/cashiers check</value>
+        <value xml:lang="fr">Mandat/Chèque de banque</value>
+        <value xml:lang="it">Ordini di soldi/Assegni al cassiere</value>
+        <value xml:lang="th">รายการเงิน/เช็คของขวัญ</value>
+        <value xml:lang="zh">汇票/本票</value>
+        <value xml:lang="zh-TW">匯票/本票</value>
+    </property>
+    <property key="FormFieldTitle_paymentMoneyXferAccepted">
+        <value xml:lang="en">Direct transfer of money</value>
+        <value xml:lang="fr">Transfert d'argent direct</value>
+        <value xml:lang="it">Trasferimento diretto di soldi</value>
+        <value xml:lang="th">ควบคุมการขนส่งของเงิน</value>
+        <value xml:lang="zh">资金直接汇兑</value>
+        <value xml:lang="zh-TW">資金直接匯兌</value>
+    </property>
+    <property key="FormFieldTitle_paymentPayPal">
+        <value xml:lang="en">PayPal</value>
+        <value xml:lang="fr">PayPal</value>
+        <value xml:lang="it">PayPal</value>
+        <value xml:lang="th">เพย์พาว</value>
+        <value xml:lang="zh">贝宝</value>
+        <value xml:lang="zh-TW">PayPal</value>
+    </property>
+    <property key="FormFieldTitle_paymentPersonalCheck">
+        <value xml:lang="en">Personal check</value>
+        <value xml:lang="fr">Chèque personnel</value>
+        <value xml:lang="it">Assegno personale</value>
+        <value xml:lang="th">การตรวจสอบส่วนบุคคล</value>
+        <value xml:lang="zh">个人支票</value>
+        <value xml:lang="zh-TW">個人支票</value>
+    </property>
+    <property key="FormFieldTitle_paymentVisaMC">
+        <value xml:lang="en">Visa/Mastercard</value>
+        <value xml:lang="fr">Visa/Mastercard</value>
+        <value xml:lang="it">Visa/Mastercard</value>
+        <value xml:lang="th">วีซ่า/มาสเตอร์การ์ด</value>
+        <value xml:lang="zh">维萨卡/万事达卡</value>
+        <value xml:lang="zh-TW">維薩卡/萬事達卡</value>
+    </property>
+    <property key="FormFieldTitle_payPalEmail">
+        <value xml:lang="en">PayPal email</value>
+        <value xml:lang="fr">Courriel PayPal</value>
+        <value xml:lang="it">Email PayPal</value>
+        <value xml:lang="th">อีเมลเพย์พาว</value>
+        <value xml:lang="zh">贝宝电子邮件</value>
+        <value xml:lang="zh-TW">PayPal電子郵件</value>
+    </property>
+    <property key="FormFieldTitle_productName">
+        <value xml:lang="en">Product Name</value>
+        <value xml:lang="fr">Nom de l'article</value>
+        <value xml:lang="it">Nome prodotto</value>
+        <value xml:lang="th">ชื่อสินค้า</value>
+        <value xml:lang="zh">产品名称</value>
+        <value xml:lang="zh-TW">產品名稱</value>
+    </property>
+    <property key="FormFieldTitle_quantityPurchased">
+        <value xml:lang="en">Quantity Purchased</value>
+        <value xml:lang="fr">Quantité achetée</value>
+        <value xml:lang="it">Quantità acquistata</value>
+        <value xml:lang="th">จำนวนการสั่งซื้อ</value>
+        <value xml:lang="zh">已采购的数量</value>
+        <value xml:lang="zh-TW">已採購的數量</value>
+    </property>
+    <property key="FormFieldTitle_shippedTime">
+        <value xml:lang="en">Date/Time Shipment</value>
+        <value xml:lang="fr">Date/Heure d'expédition</value>
+        <value xml:lang="it">Date/Ora spedizione</value>
+        <value xml:lang="th">วันที่/เวลาการขนส่ง</value>
+        <value xml:lang="zh">运输日期/时间</value>
+        <value xml:lang="zh-TW">運輸日期/時間</value>
+    </property>
+    <property key="FormFieldTitle_shippingService">
+        <value xml:lang="en">Shipping Service</value>
+        <value xml:lang="fr">Service d'expédition</value>
+        <value xml:lang="it">Metodo di spedizione scelto</value>
+        <value xml:lang="th">บริการการขนส่ง</value>
+        <value xml:lang="zh">运输服务</value>
+        <value xml:lang="zh-TW">運輸服務</value>
+    </property>
+    <property key="FormFieldTitle_shippingServiceCost">
+        <value xml:lang="en">Shipping Service Cost</value>
+        <value xml:lang="fr">Coût du service d'expédition</value>
+        <value xml:lang="it">Costo del servizio di spedizione</value>
+        <value xml:lang="th">ต้นทุนบริการการขนส่ง</value>
+        <value xml:lang="zh">运输服务费</value>
+        <value xml:lang="zh-TW">運輸服務費</value>
+    </property>
+    <property key="FormFieldTitle_shippingTotalAdditionalCost">
+        <value xml:lang="en">Shipping Additional Costs</value>
+        <value xml:lang="fr">Coûts additionnels d'expédition</value>
+        <value xml:lang="it">Costi aggiuntivi spedizione</value>
+        <value xml:lang="th">การเพิ่มต้นทุนการขนส่ง</value>
+        <value xml:lang="zh">运输附加费</value>
+        <value xml:lang="zh-TW">運輸附加費</value>
+    </property>
+    <property key="FormFieldTitle_startPrice">
+        <value xml:lang="en">Start Price</value>
+        <value xml:lang="fr">Prix de début</value>
+        <value xml:lang="it">Prezzo di partenza</value>
+        <value xml:lang="th">ราคาเริ่มต้น</value>
+        <value xml:lang="zh">开始价格</value>
+        <value xml:lang="zh-TW">開始價格</value>
+    </property>
+    <property key="FormFieldTitle_transactionPrice">
+        <value xml:lang="en">Transaction Price</value>
+        <value xml:lang="fr">Prix de transaction</value>
+        <value xml:lang="it">Prezzo transazione</value>
+        <value xml:lang="th">รายการราคา</value>
+        <value xml:lang="zh">交易价格</value>
+        <value xml:lang="zh-TW">交易價格</value>
+    </property>
+    <property key="FormFieldTitle_webSiteUrl">
+        <value xml:lang="en">Website Url</value>
+        <value xml:lang="zh">网站网址</value>
+        <value xml:lang="zh-TW">網站網址</value>
+    </property>
+    <property key="ordersImportFromEbay.cannotConvertFromDate">
+        <value xml:lang="en">Cannot convert from date, from yyyy-MM-dd HH:mm:ss.SSS date format to yyyy-MM-dd'T'HH:mm:ss.SSS'Z' date format</value>
+        <value xml:lang="fr">Ne peut convertir la date de début, depuis le format yyyy-MM-dd HH:mm:ss.SSS vers yyyy-MM-dd'T'HH:mm:ss.SSS'Z'</value>
+        <value xml:lang="it">Non è possibile convertire la data da, dal formato yyyy-MM-dd HH:mm:ss al formato yyyy-MM-dd'T'HH:mm:ss.SSS'Z'</value>
+        <value xml:lang="th">ไม่สามารถเปลี่ยนจากวันที่, จาก yyyy-MM-dd HH:mm:ss.SSS ถึงรูปแบบวันที่ yyyy-MM-dd'T'HH:mm:ss.SSS'Z' รูปแบบวันที่</value>
+        <value xml:lang="zh">不能转换开始日期，从yyyy-MM-dd HH:mm:ss.SSS日期格式变为yyyy-MM-dd'T'HH:mm:ss.SSS'Z'日期格式</value>
+        <value xml:lang="zh-TW">不能轉換開始日期,從yyyy-MM-dd HH:mm:ss.SSS日期格式變為yyyy-MM-dd'T'HH:mm:ss.SSS'Z'日期格式</value>
+    </property>
+    <property key="ordersImportFromEbay.cannotConvertThruDate">
+        <value xml:lang="en">Cannot convert Through date, from yyyy-MM-dd HH:mm:ss.SSS date format to yyyy-MM-dd'T'HH:mm:ss.SSS'Z' date format</value>
+        <value xml:lang="fr">Ne peut convertir la date de fin, depuis le format yyyy-MM-dd HH:mm:ss.SSS vers yyyy-MM-dd'T'HH:mm:ss.SSS'Z'</value>
+        <value xml:lang="it">Non è possibile convertire la data a, dal formato yyyy-MM-dd HH:mm:ss al formato yyyy-MM-dd'T'HH:mm:ss.SSS'Z'</value>
+        <value xml:lang="th">ไม่สามารถเปลี่ยนวันที่ถึง, จาก yyyy-MM-dd HH:mm:ss.SSS ถึงรูปแบบวันที่ yyyy-MM-dd'T'HH:mm:ss.SSS'Z' รูปแบบวันที่</value>
+        <value xml:lang="zh">不能转换结束日期，从yyyy-MM-dd HH:mm:ss.SSS日期格式变为yyyy-MM-dd'T'HH:mm:ss.SSS'Z'日期格式</value>
+        <value xml:lang="zh-TW">不能轉換結束日期,從yyyy-MM-dd HH:mm:ss.SSS日期格式變為yyyy-MM-dd'T'HH:mm:ss.SSS'Z'日期格式</value>
+    </property>
+    <property key="ordersImportFromEbay.errorDuringBuildItemAndTransactionIdFromExternalId">
+        <value xml:lang="en">Error during buildItemAndTransactionIdFromExternalId</value>
+        <value xml:lang="fr">Erreur durant buildItemAndTransactionIdFromExternalId</value>
+        <value xml:lang="it">Errore durante buildItemAndTransactionIdFromExternalId</value>
+        <value xml:lang="th">ผิดพลาดระหว่างการสร้างรายการและรหัสรายการจากรหัสภายนอก</value>
+        <value xml:lang="zh">运行buildItemAndTransactionIdFromExternalId时出错</value>
+        <value xml:lang="zh-TW">執行buildItemAndTransactionIdFromExternalId時出錯</value>
+    </property>
+    <property key="ordersImportFromEbay.errorDuringPostCompleteSaleRequest">
+        <value xml:lang="en">Error During Post Complete Sale Request</value>
+        <value xml:lang="fr">Erreur durant la confirmation de la demande de vente</value>
+        <value xml:lang="it">Errore durante il post della richiesta Complete Sale</value>
+        <value xml:lang="th">ผิดพลาดระหว่างบันทึกข้อมูลคำร้องของการขายสำเร็จ</value>
+        <value xml:lang="zh">在提交完成销售请求时出现错误</value>
+        <value xml:lang="zh-TW">在提交完成銷售請求時出現錯誤</value>
+    </property>
+    <property key="ordersImportFromEbay.errorRetrievingExternalIdFromOrderId">
+        <value xml:lang="en">Error Retrieving externalId from orderId</value>
+        <value xml:lang="fr">Erreur à l'extraction de la réf. de commande depuis la réf. externe</value>
+        <value xml:lang="it">Errore ricavando externalId da orderId</value>
+        <value xml:lang="th">ผิดพลาดการเรียกข้อมูลรหัสภายในคืนมาจากรหัสรายการสั่งซื้อ</value>
+        <value xml:lang="zh">从订单标识获取外部标识时出错</value>
+        <value xml:lang="zh-TW">從訂單識別獲取外部識別時出錯</value>
+    </property>
+    <property key="ordersImportFromEbay.errorRetrievingOrderFromOrderId">
+        <value xml:lang="en">Error Retrieving Order From Order Id</value>
+        <value xml:lang="it">Errore nella ricerca dell'ordine attraverso il numero ordine</value>
+        <value xml:lang="zh">从订单标识获取订单时出错</value>
+        <value xml:lang="zh-TW">從訂單識別獲取訂單時出錯</value>
+    </property>
+    <property key="ordersImportFromEbay.exceptionDuringBuildingCompleteSaleRequest">
+        <value xml:lang="en">Exception during building CompleteSaleRequest</value>
+        <value xml:lang="fr">Exception durant la construction de confirmation de la demande de vente</value>
+        <value xml:lang="it">Eccezione durante la costruzione di CompleteSaleRequest</value>
+        <value xml:lang="th">ข้อยกเว้นระหว่างการสร้างคำร้องการขายเสร็จสมบูรณ์</value>
+        <value xml:lang="zh">运行完成销售请求时出现意外</value>
+        <value xml:lang="zh-TW">執行完成銷售請求時出現異常</value>
+    </property>
+    <property key="ordersImportFromEbay.exceptionDuringBuildingGetEbayDetailsRequest">
+        <value xml:lang="en">Exception during building get eBay details request</value>
+        <value xml:lang="fr">Exception durant la construction de réception de demande de détails Ebay</value>
+        <value xml:lang="it">Eccezione durante la creazione della richiesta get eBay details</value>
+        <value xml:lang="th">ข้อยกเว้นระหว่างการสร้างคำร้องขอรายละเอียดอีเบย์</value>
+        <value xml:lang="zh">运行获得eBay详细信息请求时出现意外</value>
+        <value xml:lang="zh-TW">執行獲得eBay詳細資訊請求時出現異常</value>
+    </property>
+    <property key="ordersImportFromEbay.exceptionDuringBuildingGetSellerTransactionRequest">
+        <value xml:lang="en">Exception during building get seller transactions request</value>
+        <value xml:lang="fr">Exception durant la construction de réception de demande des transactions du vendeur</value>
+        <value xml:lang="it">Eccezione durante la creazione della richiesta get seller transactions</value>
+        <value xml:lang="th">ข้อยกเว้นระหว่างการสร้างคำร้องรายการของผู้ขาย</value>
+        <value xml:lang="zh">运行获得卖家交易请求时出现意外</value>
+        <value xml:lang="zh-TW">執行獲得賣家交易請求時出現異常</value>
+    </property>
+    <property key="ordersImportFromEbay.exceptionInCreateShoppingCart">
+        <value xml:lang="en">Exception in createShoppingCart</value>
+        <value xml:lang="fr">Exception à la création du panier</value>
+        <value xml:lang="it">Eccezione in createShoppingCart</value>
+        <value xml:lang="th">ข้อยกเว้นในการสร้างตระกร้าซื้อสินค้า</value>
+        <value xml:lang="zh">运行创建购物车时出现意外</value>
+        <value xml:lang="zh-TW">執行新建購物車時出現異常</value>
+    </property>
+    <property key="ordersImportFromEbay.exceptionInImportOrderFromEbay">
+        <value xml:lang="en">Exception in importOrderFromEbay</value>
+        <value xml:lang="fr">Exception dans l'import de commande depuis Ebay</value>
+        <value xml:lang="it">Eccezione in importOrderFromEbay</value>
+        <value xml:lang="th">ข้อยกเว้นในการนำเข้ารายการสั่งซื้อสินค้าจากอีเบย์</value>
+        <value xml:lang="zh">运行从eBay导入订单时出现意外</value>
+        <value xml:lang="zh-TW">執行從eBay匯入訂單時出現異常</value>
+    </property>
+    <property key="ordersImportFromEbay.exceptionInImportOrdersSearchFromEbay">
+        <value xml:lang="en">Exception in importOrdersSearchFromEbay</value>
+        <value xml:lang="fr">Exception dans l'import de recherche de commandes depuis Ebay</value>
+        <value xml:lang="it">Eccezione in importOrdersSearchFromEbay</value>
+        <value xml:lang="th">ข้อยกเว้นในการค้นหาการนำเข้ารายการสั่งซื้อสินค้าจากอีเบย์</value>
+        <value xml:lang="zh">运行从eBay搜索导入订单时出现意外</value>
+        <value xml:lang="zh-TW">執行從eBay搜尋匯入訂單時出現異常</value>
+    </property>
+    <property key="ordersImportFromEbay.exceptionInSetEbayOrderToComplete">
+        <value xml:lang="en">Exception in setEbayOrderToComplete</value>
+        <value xml:lang="fr">Exception dans la complétion de la comande Ebay</value>
+        <value xml:lang="it">Eccezione in setEbayOrderToComplete</value>
+        <value xml:lang="th">ข้อยกเว้นในการกำหนดรายการสั่งซื้อสินค้าอีเบย์ให้สำเร็จ</value>
+        <value xml:lang="zh">运行设置eBay订单为完成时出现意外</value>
+        <value xml:lang="zh-TW">回合設定eBay訂單為完成時出現異常</value>
+    </property>
+    <property key="ordersImportFromEbay.externalIdAlreadyExist">
+        <value xml:lang="en">ExternalId Already Exists</value>
+        <value xml:lang="fr">Réf. d'externe existe déjà</value>
+        <value xml:lang="it">Numero ordine esterno già esistente</value>
+        <value xml:lang="th">รหัสภายในยังคงมีอยู่แล้ว</value>
+        <value xml:lang="zh">外部标识已经存在了</value>
+        <value xml:lang="zh-TW">外部識別已經存在了</value>
+    </property>
+    <property key="ordersImportFromEbay.externalIdNotAvailable">
+        <value xml:lang="en">ExternalId Not Available</value>
+        <value xml:lang="fr">Réf. d'externe non disponible</value>
+        <value xml:lang="it">Numero ordine esterno non disponibile</value>
+        <value xml:lang="th">รหัสภายในไม่สามารถใช้งานได้</value>
+        <value xml:lang="zh">外部标识无效</value>
+        <value xml:lang="zh-TW">外部識別無效</value>
+    </property>
+    <property key="ordersImportFromEbay.noOrdersFound">
+        <value xml:lang="en">No Orders Found</value>
+        <value xml:lang="fr">Aucune commande trouvée</value>
+        <value xml:lang="it">Nessun ordine trovato</value>
+        <value xml:lang="th">ไม่พบรายการสั่งซื้อสินค้า</value>
+        <value xml:lang="zh">没有找到订单</value>
+        <value xml:lang="zh-TW">沒有找到訂單</value>
+    </property>
+    <property key="ordersImportFromEbay.orderIdOrExternalIdAreMandatory">
+        <value xml:lang="en">OrderId Or ExternalId Are Mandatory</value>
+        <value xml:lang="fr">Réf. de commande ou réf. externe sont obligatoires</value>
+        <value xml:lang="it">OrderId o ExternalId sono obbligatori</value>
+        <value xml:lang="th">รหัสรายการสั่งซื้อสินค้าหรือรหัสภายในเป็นผู้ได้รับคำสั่ง</value>
+        <value xml:lang="zh">订单标识或外部标识是必须的</value>
+        <value xml:lang="zh-TW">訂單識別或外部識別是必須的</value>
+    </property>
+    <property key="ordersImportFromEbay.paymentIsStillNotReceived">
+        <value xml:lang="en">Before Import the order from eBay you have to receive the payment from the buyer</value>
+        <value xml:lang="fr">Avant d'importer la commande depuis Ebay vous devez recevoir le paiement depuis l'acheteur</value>
+        <value xml:lang="it">Prima di importare l'ordine da eBay tu devi ricevere il pagamento dal compratore</value>
+        <value xml:lang="th">ก่อนการนำเข้ารายการสั่งซื้อสินค้าจากอีเบย์  คุณมีการได้รับการชำระเงินจากผู้ซื้อ</value>
+        <value xml:lang="zh">从eBay导入订单之前，你必须从买家接收支付</value>
+        <value xml:lang="zh-TW">從eBay匯入訂單之前,你必須從買家接收支付</value>
+    </property>
+    <property key="ordersImportFromEbay.productIdDoesNotExist">
+        <value xml:lang="en">ProductId Does Not Exist</value>
+        <value xml:lang="fr">Cette réf. d'article n'existe pas</value>
+        <value xml:lang="it">Codice prodotto inesistente</value>
+        <value xml:lang="th">รหัสสินค้าไม่มีอยู่</value>
+        <value xml:lang="zh">产品标识不存在</value>
+        <value xml:lang="zh-TW">產品識別不存在</value>
+    </property>
+    <property key="ordersImportFromEbay.productIdNotAvailable">
+        <value xml:lang="en">ProductId Not Available</value>
+        <value xml:lang="fr">Cette réf. d'article n'est pas disponible</value>
+        <value xml:lang="it">Codice prodotto non disponibile</value>
+        <value xml:lang="th">รหัสสินค้าไม่สามารถใช้ได้</value>
+        <value xml:lang="zh">产品标识无效</value>
+        <value xml:lang="zh-TW">產品識別無效</value>
+    </property>
+    <property key="ordersImportFromEbay.productStoreIdIsMandatory">
+        <value xml:lang="en">ProductStoreId Is Mandatory</value>
+        <value xml:lang="fr">La réf. de centre de profit est obligatoire</value>
+        <value xml:lang="it">Codice negozio è obbligatorio</value>
+        <value xml:lang="th">รหัสคลังสินค้าคือคำสั่ง</value>
+        <value xml:lang="zh">产品店铺标识是必须的</value>
+        <value xml:lang="zh-TW">產品商店識別是必須的</value>
+    </property>
+    <property key="PageTitleEbayProductsExportToEbay">
+        <value xml:lang="en">Export Products to eBay</value>
+        <value xml:lang="fr">Articles d'export vers Ebay</value>
+        <value xml:lang="it">Esportazioni prodotti su eBay</value>
+        <value xml:lang="th">ส่งออกสินค้าถึงอีเบย์</value>
+        <value xml:lang="zh">把产品导出到eBay</value>
+        <value xml:lang="zh-TW">把產品匯出到eBay</value>
+    </property>
+    <property key="productsExportToEbay.errorDuringAuthenticationToEbay">
+        <value xml:lang="en">Error during authentication to eBay</value>
+        <value xml:lang="fr">Erreur durant l'authentification vers Ebay</value>
+        <value xml:lang="it">Errore durante l'autenticazione su eBay</value>
+        <value xml:lang="th">ผิดพลาดระหว่างเครื่องหมายที่รับรองว่าเป็นของแท้ถึงอีเบย์</value>
+        <value xml:lang="zh">eBay认证时出错</value>
+        <value xml:lang="zh-TW">eBay認證時出錯</value>
+    </property>
+    <property key="productsExportToEbay.exceptionDuringBuildingAddTransactionConfirmationItemRequestToEbay">
+        <value xml:lang="en">Exception during building AddTransactionConfirmationItemRequestToEbay</value>
+        <value xml:lang="it">Eccezione durante la costruzione della richiesta AddTransactionConfirmationItemRequestToEbay ad eBay</value>
+        <value xml:lang="zh">把交易确认明细请求添加到eBay时出现意外</value>
+        <value xml:lang="zh-TW">把交易確認細項請求增加到eBay時出現異常</value>
+    </property>
+    <property key="productsExportToEbay.exceptionDuringBuildingDataItemsToEbay">
+        <value xml:lang="en">Exception occurred during building data items to eBay</value>
+        <value xml:lang="fr">Une exception s'est produite durant la construction des données d'articles vers Ebay</value>
+        <value xml:lang="it">Eccezione accaduta durante la creazione dei dati prodotti per eBay</value>
+        <value xml:lang="th">ข้อยกเว้นเกิดขึ้นระหว่างการสร้างรายการข้อมูลถึงอีเบย์</value>
+        <value xml:lang="zh">生成到eBay的数据明细时出现意外</value>
+        <value xml:lang="zh-TW">產生到eBay的資料細項時出現異常</value>
+    </property>
+    <property key="productsExportToEbay.exceptionDuringBuildingGetCategoriesRequest">
+        <value xml:lang="en">Exception occurred during building get categories request</value>
+        <value xml:lang="fr">Une exception s'est produite durant la construction de réception de demande des catégories</value>
+        <value xml:lang="it">Eccezione accaduta durante la creazione della richiesta di ottenimento delle categorie</value>
+        <value xml:lang="th">ข้อยกเว้นเกิดขึ้นระหว่างการสร้างคำร้องหมวดหมู่</value>
+        <value xml:lang="zh">运行获取分类请求时发生意外</value>
+        <value xml:lang="zh-TW">執行獲取分類請求時發生異常</value>
+    </property>
+    <property key="productsExportToEbay.exceptionDuringBuildingRequestSetTaxTableToEbay">
+        <value xml:lang="en">Exception during building request SetTaxTableToEbay</value>
+        <value xml:lang="it">Eccezione durante la costruzione della richiesta SetTaxTableToEbay ad eBay</value>
+        <value xml:lang="zh">生成设置到eBay的税表时出现意外</value>
+        <value xml:lang="zh-TW">產生設置到eBay的稅表時出現異常</value>
+    </property>
+    <property key="productsExportToEbay.exceptionInExportToEbay">
+        <value xml:lang="en">Exception in exportToEbay</value>
+        <value xml:lang="fr">Exception dans l'export vers Ebay</value>
+        <value xml:lang="it">Eccezione in exportToEbay</value>
+        <value xml:lang="th">ข้อยกเว้นในการส่งออกถึงอีเบย์</value>
+        <value xml:lang="zh">导出到eBay时出现意外</value>
+        <value xml:lang="zh-TW">匯出到eBay時出現異常</value>
+    </property>
+    <property key="productsExportToEbay.exceptionInGetEbayCategories">
+        <value xml:lang="en">Exception in getEbayCategories</value>
+        <value xml:lang="fr">Exception dans la réception des catégories Ebay</value>
+        <value xml:lang="it">Eccezione in getEbayCategories</value>
+        <value xml:lang="th">ข้อยกเว้นในหมวดหมู่อีเบย์</value>
+        <value xml:lang="zh">获得eBay分类时出现意外</value>
+        <value xml:lang="zh-TW">獲得eBay分類時出現異常</value>
+    </property>
+    <property key="productsExportToEbay.parametersNotCorrectInGetEbayCategories">
+        <value xml:lang="en">Parameters Not Correct in getEbayCategories</value>
+        <value xml:lang="fr">Paramètres non corrects dans la réception des catégories Ebay</value>
+        <value xml:lang="it">Parametri non corretti in getEbayCategories</value>
+        <value xml:lang="th">พารามิเตอร์ไม่ถูกต้องในการเรียกหมวดหมู่อีเบย์</value>
+        <value xml:lang="zh">获得eBay分类的参数不正确</value>
+        <value xml:lang="zh-TW">獲得eBay分類的參數不正確</value>
+    </property>
+    <property key="productsExportToEbay.productItemsSentToEbay">
+        <value xml:lang="en">Product items sent to eBay</value>
+        <value xml:lang="fr">Les lignes d'articles ont été envoyées corectement à Ebay</value>
+        <value xml:lang="it">Prodotti inviati correttamente su eBay</value>
+        <value xml:lang="th">รายการสินค้าส่งอย่างถูกต้องถึงอีเบย์</value>
+        <value xml:lang="zh">产品明细被正确发送到了eBay</value>
+        <value xml:lang="zh-TW">產品細項被正確發送到了eBay</value>
+    </property>
+</resource>

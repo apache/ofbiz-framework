@@ -26,10 +26,8 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.Set;
 
-import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
-import org.apache.ofbiz.service.calendar.TemporalExpressions.Frequency;
 
 /**
  * Generic ResourceBundle Map Wrapper, given ResourceBundle allows it to be used as a Map
@@ -38,7 +36,6 @@ import org.apache.ofbiz.service.calendar.TemporalExpressions.Frequency;
 @SuppressWarnings("serial")
 public class ResourceBundleMapWrapper implements Map<String, Object>, Serializable {
 
-    public static final String module = Frequency.class.getName();
     protected MapStack<String> rbmwStack;
     protected ResourceBundle initialResourceBundle;
     protected Map<String, Object> context;
@@ -125,8 +122,8 @@ public class ResourceBundleMapWrapper implements Map<String, Object>, Serializab
             try {
                 String str = (String) value;
                 return FlexibleStringExpander.expandString(str, context);
-            } catch (ClassCastException e) {
-                Debug.logInfo(e.getMessage(), module);
+            } catch (Exception e) {
+                // Potential ClassCastException - do nothing
             }
         }
         return value;
@@ -177,13 +174,13 @@ public class ResourceBundleMapWrapper implements Map<String, Object>, Serializab
             // when the main Map doesn't have a certain value
             if (resourceBundle != null) {
                 Set<String> set = resourceBundle.keySet();
-                topLevelMap = new HashMap<>(set.size());
+                topLevelMap = new HashMap<String, Object>(set.size());
                 for (String key : set) {
                     Object value = resourceBundle.getObject(key);
                     topLevelMap.put(key, value);
                 }
             } else {
-                topLevelMap = new HashMap<>(1);
+                topLevelMap = new HashMap<String, Object>(1);
             }
             topLevelMap.put("_RESOURCE_BUNDLE_", resourceBundle);
             isMapInitialized = true;
@@ -193,12 +190,13 @@ public class ResourceBundleMapWrapper implements Map<String, Object>, Serializab
         /* (non-Javadoc)
          * @see java.util.Map#size()
          */
-        public int size() {
+        public int size() {            
             if(isMapInitialized) {
                 // this is an approximate size, won't include elements from parent bundles
                 return topLevelMap.size() -1;
+            } else {
+                return resourceBundle.keySet().size();                        
             }
-            return resourceBundle.keySet().size();
         }
 
         /* (non-Javadoc)
@@ -207,8 +205,9 @@ public class ResourceBundleMapWrapper implements Map<String, Object>, Serializab
         public boolean isEmpty() {
             if (isMapInitialized) {
                 return topLevelMap.isEmpty();
+            } else {
+                return resourceBundle.keySet().size() == 0;
             }
-            return resourceBundle.keySet().size() == 0;
         }
 
         /* (non-Javadoc)
@@ -221,10 +220,9 @@ public class ResourceBundleMapWrapper implements Map<String, Object>, Serializab
                 }
             } else {
                 try {
-                    //the following will just be executed to check if arg0 is null,
-                    //if so the thrown exception will be caught, if not true will be returned
-                    this.resourceBundle.getObject((String) arg0);
-                    return true;
+                    if (this.resourceBundle.getObject((String) arg0) != null) {
+                        return true;
+                    }
                 } catch (NullPointerException e) {
                     // happens when arg0 is null
                 } catch (MissingResourceException e) {
@@ -257,7 +255,6 @@ public class ResourceBundleMapWrapper implements Map<String, Object>, Serializab
                         value = this.resourceBundle.getObject((String) arg0);
                     } catch (MissingResourceException mre) {
                         // do nothing, this will be handled by recognition that the value is still null
-                        Debug.logError(mre, module);
                     }
                 }
             }

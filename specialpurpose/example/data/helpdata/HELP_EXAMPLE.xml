@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to you under the Apache License, Version
+2.0 (the "License"); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the License for
+the specific language governing permissions and limitations under the
+License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../../applications/content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+  <title>The Example Main Help page.</title>
+  <para>
+    The Example application will allow you to discover the possibilities to create an application, with a lot of search boxes, lists and many more.</para>
+  <para>This application could be used to have an example of the bests practices in user interface development in Apache - OFBiz.</para>
+  <para>Look help for each example screen, help will explain which part of development is used in this case.</para>
+  <para>For example, if you want to see how you should do to add some help you can look to help files in data/helpdata directory in example 
+    component and data/ExempleHelpData.xml in content component.</para>
+
+  <section>
+    <title>Help file organization</title>
+    <para>Help is managed by using content component functionality.</para>
+    <para>Help can be for :
+      <itemizedlist>
+        <listitem><para>one component or sub-component, access is possible by navigation in help index tree and select it, contentId is associated to
+          HELP_ROOT with contentAssocTypeId="TREE_CHILD" ;</para></listitem>
+        <listitem><para>one screen, access is done by help icon in screen (most of time on top), contentId is search on ContentAssoc.mapKey with 
+          a value (helpTopic) build with component webSite and uri used to show this screen ;</para></listitem>
+        <listitem><para>one portlet, access is done by a link on the portalPages (which contain this portlet) help, link is a showHelp (like 
+          for a screen) with helpTopic build with "HELP_" and portletId</para></listitem>
+       <listitem><para>one portal page, access is done by help icon if parameters.portalPageId is not empty, contentId is read on PortalPage
+          (or originalPortalPage if exist) and is show on top of portlet list contain on it.</para></listitem>
+      </itemizedlist>
+    </para>
+  </section>
+
+  <section>
+    <title>Development help sub-subject</title>
+    <para>To have the complete list you should click on index button and look to example tree option, but here is a list of
+      main shortcut :
+      <itemizedlist>
+        <listitem><para>How is organize <link xl:href="showHelp?helpTopic=DOCUMENTATION_SYSTEM">The Apache OFBiz documentation system</link></para></listitem>
+        <listitem><para><link xl:href="showHelp?helpTopic=EXAMPLE_docbook">What it's possible to do in help file</link></para></listitem>
+      </itemizedlist>
+    </para>
+  </section>
+</section>

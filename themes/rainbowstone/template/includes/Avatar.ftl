@@ -1,22 +1,3 @@
-<#--
-Licensed to the Apache Software Foundation (ASF) under one
-or more contributor license agreements.  See the NOTICE file
-distributed with this work for additional information
-regarding copyright ownership.  The ASF licenses this file
-to you under the Apache License, Version 2.0 (the
-"License"); you may not use this file except in compliance
-with the License.  You may obtain a copy of the License at
-
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing,
-software distributed under the License is distributed on an
-"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, either express or implied.  See the License for the
-specific language governing permissions and limitations
-under the License.
--->
-
 <div id="user-avatar" onclick="showHideUserPref()">
 <#if avatarDetail??>
     <img src="/content/control/stream?contentId=${avatarDetail.contentId}" alt="user">
@@ -41,10 +22,10 @@ under the License.
             <a id="user-lang" href="<@ofbizUrl>ListLocales</@ofbizUrl>">
             <#assign userLang = locale.toString()>
             <#assign flagLang = locale.toString()?keep_after_last("_")>
-            <#if "en" == userLang><#assign flagLang = "GB"></#if>
-            <#if "fr" == userLang><#assign flagLang = "FR"></#if>
-            <#if "zh" == userLang><#assign flagLang = "SG"></#if>
-            <#if "th" == userLang><#assign flagLang = "TH"></#if>
+            <#if userLang == "en"><#assign flagLang = "GB"></#if>
+            <#if userLang == "fr"><#assign flagLang = "FR"></#if>
+            <#if userLang == "zh"><#assign flagLang = "SG"></#if>
+            <#if userLang == "th"><#assign flagLang = "TH"></#if>
                 <span class="flag-icon flag-icon-<#if userLang?size <= 2>${userLang}<#else>${flagLang?lower_case}</#if>"><#if userLang?size <= 2>${userLang}<#else>${flagLang}</#if></span>
             </a>
         </div>

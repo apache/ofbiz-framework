@@ -1,4 +1,4 @@
-/*
+/*******************************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,139 +15,40 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- */
+ *******************************************************************************/
+
 package org.apache.ofbiz.entity.condition;
 
-// Keep the tests from EntityConditionVisitorTests in sync with the code examples.
+import java.util.List;
+
 /**
- * A visitor of entity conditions in the style of the visitor design pattern.
- * <p>
- * Classes implementing this interface can extend the dynamically dispatched
- * behavior associated with {@link EntityCondition} without augmenting its
- * interface.  Those classes are meant be passed to the
- * {@link EntityCondition#accept(EntityConditionVisitor) accept} method which
- * calls the corresponding method in the visitor.
- * <p>
- * <b>Usage Examples:</b>
- * Here is a dummy example that should print <i>EntityExpr\n</i> to
- * the standard output.
- * <pre>{@code
- *     EntityExpr expr;
- *     expr.accept(new EntityConditionVisitor() {
- *         public void visit(EntityNotCondition cond) {
- *              system.out.println("EntityNotCondition");
- *         }
+ * Represents the conditions to be used to constrain a query
+ * <br/>An EntityCondition can represent various type of constraints, including:
+ * <ul>
+ *  <li>EntityConditionList: a list of EntityConditions, combined with the operator specified
+ *  <li>EntityExpr: for simple expressions or expressions that combine EntityConditions
+ *  <li>EntityFieldMap: a map of fields where the field (key) equals the value, combined with the operator specified
+ * </ul>
+ * These can be used in various combinations using the EntityConditionList and EntityExpr objects.
  *
- *         public <T extends EntityCondition> void visit(EntityConditionList<T> l) {
- *              system.out.println("EntityConditionList");
- *         }
- *
- *         public void visit(EntityFieldMap m) {
- *             system.out.println("EntityFieldMap");
- *         }
- *
- *         public void visit(EntityDateFilterCondition df) {
- *              system.out.println("EntityDateFilterCondition");
- *         }
- *
- *         public void visit(EntityExpr expr) {
- *              system.out.println("EntityExpr");
- *         }
- *
- *         public void visit(EntityWhereString ws) {
- *              system.out.println("EntityWhereString");
- *         }
- *     });
- * }</pre>
- * <p>
- * Here is a more complex example asserting the presence of a raw string condition
- * even when it is embedded inside another one.
- * <pre>{@code
- *     class ContainsRawCondition implements EntityConditionVisitor {
- *         public boolean hasRawCondition = false;
- *
- *         public void visit(EntityNotCondition cond) {}
- *         public void visit(EntityFieldMap m) {}
- *         public void visit(EntityDateFilterCondition df) {}
- *
- *         public <T extends EntityCondition> void visit(EntityConditionList<T> l) {
- *             Iterator<T> it = l.getConditionIterator();
- *             while (it.hasNext()) {
- *                 it.next().accept(this);
- *             }
- *         }
- *
- *         public void visit(EntityExpr expr) {
- *             Object lhs = expr.getLhs();
- *             Object rhs = expr.getRhs();
- *             if (lhs instanceof EntityCondition) {
- *                 ((EntityCondition) lhs).accept(this);
- *             }
- *             if (rhs instanceof EntityCondition) {
- *                 ((EntityCondition) rhs).accept(this);
- *             }
- *         }
- *
- *         public void visit(EntityWhereString ws) {
- *             hasRawCondition = true;
- *         }
- *     }
- *
- *     EntityCondition ec =
- *         EntityCondition.makeCondition(EntityCondition.makeConditionWhere("foo=bar"));
- *     EntityConditionVisitor visitor = new ContainsRawCondition();
- *     ec.accept(visitor);
- *     assert visitor.hasRawCondition;
- * }</pre>
- *
- * @see EntityCondition
  */
 public interface EntityConditionVisitor {
-    /**
-     * Visits an entity NOT expression.
-     *
-     * @param cond the visited class
-     * @see EntityNotCondition
-     */
-    void visit(EntityNotCondition cond);
+    <T> void visit(T obj);
+    <T> void accept(T obj);
+    void acceptObject(Object obj);
+    void acceptEntityCondition(EntityCondition condition);
+    <T extends EntityCondition> void acceptEntityJoinOperator(EntityJoinOperator op, List<T> conditions);
+    <L,R,T> void acceptEntityOperator(EntityOperator<L, R, T> op, L lhs, R rhs);
+    <L,R> void acceptEntityComparisonOperator(EntityComparisonOperator<L, R> op, L lhs, R rhs);
+    void acceptEntityConditionValue(EntityConditionValue value);
+    void acceptEntityFieldValue(EntityFieldValue value);
 
-    /**
-     * Visits a list of entity conditions.
-     *
-     * @param l the visited class
-     * @see EntityConditionList
-     */
-    <T extends EntityCondition> void visit(EntityConditionList<T> l);
+    void acceptEntityExpr(EntityExpr expr);
+    <T extends EntityCondition> void acceptEntityConditionList(EntityConditionList<T> list);
+    void acceptEntityFieldMap(EntityFieldMap fieldMap);
+    void acceptEntityConditionFunction(EntityConditionFunction func, EntityCondition nested);
+    <T extends Comparable<?>> void acceptEntityFunction(EntityFunction<T> func);
+    void acceptEntityWhereString(EntityWhereString condition);
 
-    /**
-     * Visits a map of entity fields.
-     *
-     * @param m the visited class
-     * @see EntityFieldMap
-     */
-    void visit(EntityFieldMap m);
-
-    /**
-     * Visits a date filter condition.
-     *
-     * @param df the visited class
-     * @see EntityDateFilterCondition
-     */
-    void visit(EntityDateFilterCondition df);
-
-    /**
-     * Visits an entity expression.
-     *
-     * @param expr the visited class
-     * @see EntityExpr
-     */
-    void visit(EntityExpr expr);
-
-    /**
-     * Visits a raw string condition.
-     *
-     * @param ws the visited class
-     * @see EntityWhereString
-     */
-    void visit(EntityWhereString ws);
+    void acceptEntityDateFilterCondition(EntityDateFilterCondition condition);
 }

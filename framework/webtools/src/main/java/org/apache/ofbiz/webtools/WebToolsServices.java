@@ -76,7 +76,6 @@ import org.apache.ofbiz.entity.model.ModelReader;
 import org.apache.ofbiz.entity.model.ModelRelation;
 import org.apache.ofbiz.entity.model.ModelUtil;
 import org.apache.ofbiz.entity.model.ModelViewEntity;
-import org.apache.ofbiz.entity.transaction.GenericTransactionException;
 import org.apache.ofbiz.entity.transaction.TransactionUtil;
 import org.apache.ofbiz.entity.util.EntityDataAssert;
 import org.apache.ofbiz.entity.util.EntityDataLoader;
@@ -86,8 +85,8 @@ import org.apache.ofbiz.entity.util.EntitySaxReader;
 import org.apache.ofbiz.entityext.EntityGroupUtil;
 import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.service.DispatchContext;
-import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
+import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.webtools.artifactinfo.ArtifactInfoFactory;
 import org.apache.ofbiz.webtools.artifactinfo.ServiceArtifactInfo;
@@ -122,7 +121,7 @@ public class WebToolsServices {
 
         Integer txTimeout = (Integer)context.get("txTimeout");
         if (txTimeout == null) {
-            txTimeout = 7200;
+            txTimeout = Integer.valueOf(7200);
         }
         URL url = null;
 
@@ -227,14 +226,14 @@ public class WebToolsServices {
         Long filePause = (Long)context.get("filePause");
 
         if (txTimeout == null) {
-            txTimeout = 7200;
+            txTimeout = Integer.valueOf(7200);
         }
         if (filePause == null) {
-            filePause = 0L;
+            filePause = Long.valueOf(0);
         }
 
         if (UtilValidate.isNotEmpty(path)) {
-            long pauseLong = filePause != null ? filePause : 0;
+            long pauseLong = filePause != null ? filePause.longValue() : 0;
             File baseDir = new File(path);
 
             if (baseDir.isDirectory() && baseDir.canRead()) {
@@ -322,7 +321,7 @@ public class WebToolsServices {
         boolean checkDataOnly = "true".equals(context.get("checkDataOnly"));
         Locale locale = (Locale) context.get("locale");
         Integer txTimeoutInt = (Integer) context.get("txTimeout");
-        int txTimeout = txTimeoutInt != null ? txTimeoutInt : -1;
+        int txTimeout = txTimeoutInt != null ? txTimeoutInt.intValue() : -1;
 
         List<Object> messages = new LinkedList<Object>();
 
@@ -440,7 +439,7 @@ public class WebToolsServices {
         Map<String, Object> placeholderValues = UtilGenerics.checkMap(context.get("placeholderValues"));
 
         if (txTimeout == null) {
-            txTimeout = 7200;
+            txTimeout = Integer.valueOf(7200);
         }
 
         long rowProcessed = 0;
@@ -448,7 +447,7 @@ public class WebToolsServices {
             EntitySaxReader reader = new EntitySaxReader(delegator);
             reader.setUseTryInsertMethod(onlyInserts);
             reader.setMaintainTxStamps(maintainTimeStamps);
-            reader.setTransactionTimeout(txTimeout);
+            reader.setTransactionTimeout(txTimeout.intValue());
             reader.setCreateDummyFks(createDummyFks);
             reader.setCheckDataOnly(checkDataOnly);
             reader.setPlaceholderValues(placeholderValues);
@@ -470,7 +469,7 @@ public class WebToolsServices {
         Timestamp fromDate = (Timestamp)context.get("fromDate");
         Integer txTimeout = (Integer)context.get("txTimeout");
         if (txTimeout == null) {
-            txTimeout = 7200;
+            txTimeout = Integer.valueOf(7200);
         }
 
         List<String> results = new LinkedList<String>();
@@ -493,53 +492,63 @@ public class WebToolsServices {
 
                 for (String curEntityName: passedEntityNames) {
                     long numberWritten = 0;
-                    ModelEntity me = delegator.getModelEntity(curEntityName);
-                    if (me instanceof ModelViewEntity) {
-                        results.add("["+fileNumber +"] [vvv] " + curEntityName + " skipping view entity");
-                        continue;
-                    }
-                    List<EntityCondition> conds = new LinkedList<EntityCondition>();
-                    if (UtilValidate.isNotEmpty(fromDate)) {
-                        conds.add(EntityCondition.makeCondition("createdStamp", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
-                    }
-                    EntityQuery eq = EntityQuery.use(delegator).from(curEntityName).where(conds).orderBy(me.getPkFieldNames());
+                    EntityListIterator values = null;
 
                     try {
+                        ModelEntity me = delegator.getModelEntity(curEntityName);
+                        if (me instanceof ModelViewEntity) {
+                            results.add("["+fileNumber +"] [vvv] " + curEntityName + " skipping view entity");
+                            continue;
+                        }
+
                         boolean beganTx = TransactionUtil.begin();
                         // some databases don't support cursors, or other problems may happen, so if there is an error here log it and move on to get as much as possible
-                        //Don't bother writing the file if there's nothing to put into it
-                        try (EntityListIterator values = eq.queryIterator()) {
-                            GenericValue value = values.next();
-                            if (value != null) {
-                                try (PrintWriter writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(outdir, curEntityName +".xml")), "UTF-8")))) {
-                                    writer.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-                                    writer.println("<entity-engine-xml>");
-                                    do {
-                                        value.writeXmlText(writer, "");
-                                        numberWritten++;
-                                        if (numberWritten % 500 == 0) {
-                                            TransactionUtil.commit(beganTx);
-                                            beganTx = TransactionUtil.begin();
-                                        }
-                                    } while ((value = values.next()) != null);
-                                    writer.println("</entity-engine-xml>");
-                                } catch (UnsupportedEncodingException | FileNotFoundException e) {
-                                    results.add("["+fileNumber +"] [xxx] Error when writing " + curEntityName + ": " + e);
-                                }
-                                results.add("["+fileNumber +"] [" + numberWritten + "] " + curEntityName + " wrote " + numberWritten + " records");
-                            } else {
-                                results.add("["+fileNumber +"] [---] " + curEntityName + " has no records, not writing file");
+                        try {
+                            List<EntityCondition> conds = new LinkedList<EntityCondition>();
+                            if (UtilValidate.isNotEmpty(fromDate)) {
+                                conds.add(EntityCondition.makeCondition("createdStamp", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
                             }
-                            TransactionUtil.commit(beganTx);
-                        } catch (GenericEntityException entityEx) {
+                            values = EntityQuery.use(delegator).from(curEntityName).where(conds).orderBy(me.getPkFieldNames()).queryIterator();
+                        } catch (Exception entityEx) {
                             results.add("["+fileNumber +"] [xxx] Error when writing " + curEntityName + ": " + entityEx);
                             continue;
                         }
-                        fileNumber++;
-                    } catch (GenericTransactionException e) {
-                        Debug.logError(e, module);
-                        results.add(e.getLocalizedMessage());
+
+                        //Don't bother writing the file if there's nothing
+                        //to put into it
+                        GenericValue value = values.next();
+                        if (value != null) {
+                            PrintWriter writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(outdir, curEntityName +".xml")), "UTF-8")));
+                            writer.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+                            writer.println("<entity-engine-xml>");
+
+                            do {
+                                value.writeXmlText(writer, "");
+                                numberWritten++;
+                                if (numberWritten % 500 == 0) {
+                                    TransactionUtil.commit(beganTx);
+                                    beganTx = TransactionUtil.begin();
+                                }
+                            } while ((value = values.next()) != null);
+                            writer.println("</entity-engine-xml>");
+                            writer.close();
+                            results.add("["+fileNumber +"] [" + numberWritten + "] " + curEntityName + " wrote " + numberWritten + " records");
+                        } else {
+                            results.add("["+fileNumber +"] [---] " + curEntityName + " has no records, not writing file");
+                        }
+                        values.close();
+                        TransactionUtil.commit(beganTx);
+                    } catch (Exception ex) {
+                        if (values != null) {
+                            try {
+                                values.close();
+                            } catch (Exception exc) {
+                                //Debug.warning();
+                            }
+                        }
+                        results.add("["+fileNumber +"] [xxx] Error when writing " + curEntityName + ": " + ex);
                     }
+                    fileNumber++;
                 }
             } else {
                 results.add("Path not found or no write access.");
@@ -554,8 +563,7 @@ public class WebToolsServices {
 
     /** Get entity reference data. Returns the number of entities in
      * <code>numberOfEntities</code> and a List of Maps -
-     * <code>packagesList</code>.
-     * Each Map contains:<br>
+     * <code>packagesList</code>.<br/> Each Map contains:<br/>
      * <ul><li><code>packageName</code> - the entity package name</li>
      * <li><code>entitiesList</code> - a list of Maps:
        <ul>
@@ -855,7 +863,7 @@ public class WebToolsServices {
                 ModelEntity modelEntity = reader.getModelEntity(curEntityName);
                 UtilPlist.writePlistFile(modelEntity.createEoModelMap(entityNamePrefix, datasourceName, entityNames, reader), eomodeldFullPath, curEntityName +".plist", true);
             }
-            Integer entityNamesSize = entityNames.size();
+            Integer entityNamesSize = new Integer(entityNames.size());
             return ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, "WebtoolsEomodelExported", UtilMisc.toMap("entityNamesSize", entityNamesSize.toString(), "eomodeldFullPath", eomodeldFullPath), locale));
         } catch (UnsupportedEncodingException e) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "WebtoolsEomodelSavingFileError", UtilMisc.toMap("errorString", e.toString()), locale));

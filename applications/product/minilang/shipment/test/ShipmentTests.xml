@@ -149,6 +149,15 @@ under the License.
         <if-compare-field field="shipment.statusId" to-field="updateShipmentInMap.statusId" operator="equals"/>
         </assert>
         <check-errors/>
+
+        <set field="sendShipmentCompleteNotificationInMap.shipmentId" from-field="updateShipmentOutMap.shipmentId"/>
+        <set field="sendShipmentCompleteNotificationInMap.userLogin" from-field="userLogin"/>
+
+        <call-service service-name="sendShipmentCompleteNotification" in-map-name="sendShipmentCompleteNotificationInMap">
+            <results-to-map map-name="sendShipmentCompleteNotificationOutMap"/>
+        </call-service>
+
+        <log level="info" message="=============Shipment Notification ===========${sendShipmentCompleteNotificationOutMap}========="/>
         <log level="info" message="=============Test case completed===================================="/>
     </simple-method>
 

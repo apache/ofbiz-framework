@@ -44,9 +44,9 @@ under the License.
     <screen name="WebtoolsLayoutDemo">
         <!-- Demonstrates UI layout best practices and serves as a visual theme test jig.
         For more information:
-        https://cwiki.apache.org/confluence/display/OFBIZ/User+Interface+Layout+Best+Practices
-        https://cwiki.apache.org/confluence/display/OFBIZ/HTML+and+CSS+Best+Practices
-        https://cwiki.apache.org/confluence/display/OFBIZ/OFBiz+maincss.css+HTML+Element+Collection+Styles?src=search
+        https://cwiki.apache.org/OFBADMIN/user-interface-layout-best-practices.html
+        https://cwiki.apache.org/OFBADMIN/html-and-css-best-practices.html
+        https://cwiki.apache.org/apache/ofbiz/ofbiz-maincsscss-html-element-collection-styles.html
         -->
         <section>
             <actions>
@@ -54,15 +54,15 @@ under the License.
                 <set field="titleProperty" value="WebtoolsLayoutDemo"/>
                 <set field="headerItem" value="LayoutDemo"/>
                 <set field="tabButtonItem" value="Selected"/>
-                <set field="demoText" from-field="uiLabelMap.WebtoolsLayoutDemoText" global="true"/>
+                <set field="demoText" value="${uiLabelMap.WebtoolsLayoutDemoText}" global="true"/>
                 <set field="errorMessage" from-field="demoText" global="true"/>
                 <set field="eventMessage" from-field="demoText" global="true"/>
                 <set field="demoTargetUrl" value="WebtoolsLayoutDemo"/>
                 <set field="demoParam1" value="one"/>
                 <set field="demoParam2" value="two"/>
                 <set field="demoParam3" value="three"/>
-                <set field="demoMap.name" from-field="uiLabelMap.WebtoolsLayoutDemo"/>
-                <set field="demoMap.description" from-field="uiLabelMap.WebtoolsLayoutDemoText"/>
+                <set field="demoMap.name" value="${uiLabelMap.WebtoolsLayoutDemo}"/>
+                <set field="demoMap.description" value="${uiLabelMap.WebtoolsLayoutDemoText}"/>
                 <set field="demoMap.dropDown" value="Y"/>
                 <set field="demoMap.checkBox" value="Y"/>
                 <set field="demoMap.radioButton" value="Y"/>

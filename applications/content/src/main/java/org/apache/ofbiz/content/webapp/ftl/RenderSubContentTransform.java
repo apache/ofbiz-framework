@@ -53,10 +53,11 @@ public class RenderSubContentTransform implements TemplateTransformModel {
 
     /**
      * @deprecated use FreeMarkerWorker.getArg()
-     * <p>Does a conditional search to return a value for a parameter with the passed name. Looks first to see if it was passed as an argument to the transform.
-     * Secondly, it looks to see if it is passed as a parameter in the template context object.</p>
-     * <p>Note that this is different from the getArg method of EditRenderDataResourceTransform, which checks the request object instead of the template context
-     * object.</p>
+     * Does a conditional search to return a value for a parameter with the passed name. Looks first to see if it was passed as an argument to the transform.
+     * Secondly, it looks to see if it is passed as a parameter in the template context object.
+     * <p/>
+     * Note that this is different from the getArg method of EditRenderDataResourceTransform, which checks the request object instead of the template context
+     * object.
      */
     @Deprecated
     public static String getArg(Map<String, Object> args, String key, Environment env) {
@@ -71,9 +72,8 @@ public class RenderSubContentTransform implements TemplateTransformModel {
         return FreeMarkerWorker.getArg(args, key, ctx);
     }
 
-    @Override
     @SuppressWarnings("unchecked")
-    public Writer getWriter(Writer out, @SuppressWarnings("rawtypes") Map args) {
+    public Writer getWriter(final Writer out, Map args) {
         final Environment env = Environment.getCurrentEnvironment();
         Map<String, Object> ctx = FreeMarkerWorker.getWrappedObject("context", env);
         if (ctx == null) {
@@ -143,9 +143,9 @@ public class RenderSubContentTransform implements TemplateTransformModel {
                 }
                 try {
                     if (subContentId != null) {
-                        ContentWorker.renderContentAsText(dispatcher, subContentId, out, templateRoot, locale, mimeTypeId, null, null, false);
+                        ContentWorker.renderContentAsText(dispatcher, delegator, subContentId, out, templateRoot, locale, mimeTypeId, null, null, false);
                     } else {
-                        ContentWorker.renderSubContentAsText(dispatcher, contentId, out, mapKey, templateRoot, locale, mimeTypeId, false);
+                        ContentWorker.renderSubContentAsText(dispatcher, delegator, contentId, out, mapKey, templateRoot, locale, mimeTypeId, false);
                     }
                 } catch (GeneralException e) {
                     Debug.logError(e, "Error rendering content", module);

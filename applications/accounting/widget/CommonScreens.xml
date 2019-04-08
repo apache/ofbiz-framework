@@ -35,11 +35,11 @@ under the License.
                 <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.AccountingCompanySubtitle" global="true"/>
                 <!-- layoutSettings.headerImageUrl can be used to specify an application specific logo; if not set,
                      then the global layoutSettings.commonHeaderImageUrl (specified in GlobalDecorator) will be used. -->
-                <!--<set field="layoutSettings.headerImageUrl" value="/images/ofbiz_logo.png" global="true"/>-->
+                <!--<set field="layoutSettings.headerImageUrl" value="/images/ofbiz_logo.gif" global="true"/>-->
                 <set field="activeApp" value="accounting" global="true"/>
                 <set field="applicationMenuName" value="AccountingAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://accounting/widget/AccountingMenus.xml" global="true"/>
-                <set field="applicationTitle" from-field="uiLabelMap.AccountingManagerApplication" global="true"/>
+                <set field="applicationTitle" value="${uiLabelMap.AccountingManagerApplication}" global="true"/>
             </actions>
             <widgets>
                 <include-screen name="ApplicationDecorator" location="component://commonext/widget/CommonScreens.xml"/>
@@ -113,14 +113,14 @@ under the License.
                                 <if-service-permission service-name="acctgBasePermissionCheck" main-action="VIEW"/>
                             </condition>
                             <widgets>
+                                <include-menu name="PaymentSubTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
                                 <container style="leftclear">
                                     <section>
                                         <condition>
                                             <not><if-empty field="paymentId"/></not>
                                         </condition>
                                         <widgets>
-                                            <include-menu name="PaymentSubTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
-                                            <label style="h1" text="${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonId}:[${paymentId}]  ${${extraFunctionName}}"/>
+                                        <label style="h1" text="${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonId}:[${paymentId}]  ${${extraFunctionName}}"/>
                                         </widgets>
                                     </section>
                                 </container>

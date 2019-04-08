@@ -98,11 +98,12 @@ under the License.
                   </td>
                   <td>&nbsp;</td>
                   <td width="80%">
+                    <input type="image" src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" onclick="javascript:document.routeForm.submit();" />
                   </td>
                 </tr>
               </table>
             </form>
-            <script type="application/javascript">
+            <script language="JavaScript" type="text/javascript">
               document.routeForm.carrierPartyId.focus();
             </script>
           <#else>
@@ -139,12 +140,13 @@ under the License.
               <tr>
                 <td colspan="2">&nbsp;</td>
                 <td width="80%">
+                  <input type="image" src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" onclick="javascript:document.weightForm.submit();"/>
                   <a href="javascript:document.weightForm.submit();" class="buttontext">${uiLabelMap.ProductSetWeight}</a>
                 </td>
               </tr>
             </table>
           </form>
-          <script type="application/javascript">
+          <script language="JavaScript" type="text/javascript">
             document.weightForm.weight.focus();
           </script>
         </#if>
@@ -155,7 +157,7 @@ under the License.
       ${pages.get("/shipment/ViewShipmentInfo.ftl")}
       <br />${pages.get("/shipment/ViewShipmentItemInfo.ftl")}
       <br />${pages.get("/shipment/ViewShipmentPackageInfo.ftl")}
-      <#if "yes" == allDone?default("no")>
+      <#if allDone?default("no") == "yes">
         <br />${pages.get("/shipment/ViewShipmentRouteInfo.ftl")}
       </#if>
     </#if>
@@ -176,12 +178,13 @@ under the License.
         <tr>
           <td colspan="2">&nbsp;</td>
           <td colspan="2">
+            <input type="image" src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" onclick="javascript:document.selectOrderForm.submit();" />
             <a href="javascript:document.selectOrderForm.submit();" class="buttontext">${uiLabelMap.ProductShipOrder}</a>
           </td>
         </tr>
       </table>
     </form>
-    <script type="application/javascript">
+    <script language="JavaScript" type="text/javascript">
         document.selectOrderForm.orderId.focus();
     </script>
   </#if>

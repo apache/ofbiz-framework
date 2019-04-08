@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
+    <title>Entity of Passport Component</title>
+    <description>Data Model Enhancements For Passport</description>
+    <version>1.0</version>
+
+    <entity entity-name="ThirdPartyLogin"
+            package-name="org.apache.ofbiz.passport"
+            title="Third party logins for a specific product store"
+            default-resource-name="PassportEntityLabels">
+        <field name="productStoreId" type="id-ne"></field>
+        <field name="loginMethTypeId" type="id-ne"></field><!-- i.e. OAuth2 -->
+        <field name="loginProviderId" type="id-ne"></field><!-- i.e. GitHub -->
+        <field name="fromDate" type="date-time"></field>
+        <field name="thruDate" type="date-time"></field>
+        <field name="sequenceNum" type="numeric"></field>
+        <prim-key field="productStoreId"/>
+        <prim-key field="loginMethTypeId"/>
+        <prim-key field="loginProviderId"/>
+        <prim-key field="fromDate"/>
+        <relation type="one" fk-name="PROD_STORE_LOGINS" rel-entity-name="ProductStore">
+            <key-map field-name="productStoreId"/>
+        </relation>
+        <relation type="many" rel-entity-name="EnumerationType">
+            <key-map field-name="loginMethTypeId" rel-field-name="enumTypeId"/>
+            <key-map field-name="loginProviderId" rel-field-name="enumTypeId"/>
+        </relation>
+    </entity>
+
+    <!-- GitHub OAuth -->
+    <entity entity-name="OAuth2GitHub"
+            package-name="org.apache.ofbiz.passport"
+            title="GitHub OAuth Login Config"
+            default-resource-name="PassportEntityLabels">
+        <field name="productStoreId" type="id-ne"></field>
+        <field name="clientId" type="short-varchar"></field>
+        <field name="clientSecret" type="short-varchar"></field>
+        <field name="returnUrl" type="value"></field>
+        <field name="localRedirectUri" type="short-varchar"></field>
+        <field name="iconUrl" type="url"></field>
+        <field name="fromDate" type="date-time"></field>
+        <field name="thruDate" type="date-time"></field>
+        <prim-key field="productStoreId"/>
+        <prim-key field="fromDate"/>
+        <relation type="one" fk-name="STORE_OAUTH_GITHUB" rel-entity-name="ProductStore">
+            <key-map field-name="productStoreId"/>
+        </relation>
+    </entity>
+
+    <entity entity-name="GitHubUser"
+            package-name="org.apache.ofbiz.passport"
+            title="Store GitHub access token for user"
+            default-resource-name="PassportEntityLabels">
+        <field name="gitHubUserId" type="id-vlong-ne"></field>
+        <field name="productStoreId" type="id-ne"></field>
+        <field name="envPrefix" type="short-varchar"></field>
+        <field name="tokenType" type="short-varchar"></field>
+        <field name="accessToken" type="value"></field>
+        <prim-key field="gitHubUserId"/>
+        <relation type="one" fk-name="GITHUB_USER_STORE" rel-entity-name="ProductStore">
+            <key-map field-name="productStoreId"/>
+        </relation>
+    </entity>
+
+    <!-- LinkedIn OAuth -->
+    <entity entity-name="OAuth2LinkedIn"
+            package-name="org.apache.ofbiz.passport"
+            title="LinkedIn OAuth Login Config"
+            default-resource-name="PassportEntityLabels">
+        <field name="productStoreId" type="id-ne"></field>
+        <field name="apiKey" type="short-varchar"></field>
+        <field name="secretKey" type="short-varchar"></field>
+        <field name="liveReturnUrl" type="value"></field>
+        <field name="testReturnUrl" type="value"></field>
+        <field name="localRedirectUri" type="short-varchar"></field>
+        <field name="iconUrl" type="url"></field>
+        <field name="fromDate" type="date-time"></field>
+        <field name="thruDate" type="date-time"></field>
+        <prim-key field="productStoreId"/>
+        <prim-key field="fromDate"/>
+        <relation type="one" fk-name="OAUTH2_LINKEDIN" rel-entity-name="ProductStore">
+            <key-map field-name="productStoreId"/>
+        </relation>
+    </entity>
+
+    <entity entity-name="LinkedInUser"
+            package-name="org.apache.ofbiz.passport"
+            title="Store LinkedIn access token for user"
+            default-resource-name="PassportEntityLabels">
+        <field name="linkedInUserId" type="id-vlong-ne"></field>
+        <field name="productStoreId" type="id-ne"></field>
+        <field name="envPrefix" type="short-varchar"></field>
+        <field name="accessToken" type="value"></field>
+        <prim-key field="linkedInUserId"/>
+        <relation type="one" fk-name="LINKEDIN_USER" rel-entity-name="ProductStore">
+            <key-map field-name="productStoreId"/>
+        </relation>
+    </entity>
+
+</entitymodel>

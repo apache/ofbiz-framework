@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
+    <screen name="FormWidgetExamples">
+        <section>
+            <actions>
+                <set field="headerItem" value="FormWidgetExamples"/>
+                <set field="layoutSettings.javaScripts[]" value="/images/combobox.js" global="true" />
+                <set field="formWidgetExampleFormsUrl" value="http://svn.apache.org/repos/asf/ofbiz/branches/release16.11/specialpurpose/example/widget/example/FormWidgetExampleForms.xml"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="EXAMPLE" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <container style="h1"><label>${uiLabelMap.PageTitleFormWidgetExamples}</label></container>
+                                <container style="screenlet-body">
+                                    <container style="button-bar"><label style="h2">${uiLabelMap.ExampleDateTimeFields}</label></container>
+                                    <container style="screenlet-body">
+                                        <label style="h3">${uiLabelMap.ExampleSourceCode}</label>
+                                        <label>${uiLabelMap.ExampleDefinitionName} &quot;DateTimeFieldsExampleForm&quot; ${uiLabelMap.ExampleDefinitionFile}</label>
+                                        <link target="${formWidgetExampleFormsUrl}" url-mode="plain" target-window="svnPage" text="${uiLabelMap.ExampleDefinitionFileTooltip}" style="buttontext"/>
+                                        <include-form name="DateTimeFieldsExampleForm" location="component://example/widget/example/FormWidgetExampleForms.xml"/>
+                                    </container>
+                                </container>
+                                <container style="screenlet-body">
+                                    <container style="button-bar"><label style="h2">${uiLabelMap.ExampleDropDownFields}</label></container>
+                                    <container style="screenlet-body">
+                                        <label style="h3">${uiLabelMap.ExampleSourceCode}</label>
+                                        <label>${uiLabelMap.ExampleDefinitionName} &quot;DropDownFieldsExampleForm&quot; ${uiLabelMap.ExampleDefinitionFile}</label>
+                                        <link target="${formWidgetExampleFormsUrl}" url-mode="plain" target-window="svnPage" text="${uiLabelMap.ExampleDefinitionFileTooltip}" style="buttontext"/>
+                                    </container>
+                                    <section>
+                                        <actions>
+                                            <!-- fields for SetDependentDropdownValuesJs.ftl, it's a try on generalization,
+                                                if you need an example with more than one dropdown in a form have a look at 
+                                                EditProductPriceRules screen in PriceScreens.xml-->
+                                            <set field="dependentForm" value="DropDownFieldsExampleForm"/>
+                                            <set field="paramKey" value="countryGeoId"/>
+                                            <set field="mainId" value="countryGeoId"/>
+                                            <set field="dependentId" value="stateProvinceGeoId"/>
+                                            <set field="requestName" value="getAssociatedStateList"/>
+                                            <set field="responseName" value="stateList"/>
+                                            <set field="dependentKeyName" value="geoId"/>
+                                            <set field="descName" value="geoName"/>
+                                            <set field="selectedDependentOption" from-field="postalAddress.stateProvinceGeoId" default-value="_none_"/><!-- postalAddress.stateProvinceGeoId does not make much sense here, only to get the idea -->
+                                            <set field="focusFieldName" value="DateTimeFieldsExampleForm_field1_i18n"/>
+                                            
+                                            <!-- asmselect parameters, must be prefixed by asm_ for SetMultipleSelectJs.ftl -->
+                                            <set field="asm_multipleSelectForm" value="DropDownMultipleFieldExampleForm"/>
+                                            <set field="asm_multipleSelect"  value="DropDownMultipleFieldExampleForm_countryGeoIdMultiple"/>
+                                            <set field="asm_formSize" value="600"/>
+                                            <set field="asm_asmListItemPercentOfForm" value="95"/>
+                                            <set field="asm_sortable" value="false"/>
+                                        </actions>
+                                        <widgets>
+                                            <platform-specific><html><html-template location="component://common/template/includes/SetDependentDropdownValuesJs.ftl"/></html></platform-specific>
+                                            <platform-specific><html><html-template location="component://common/template/includes/SetMultipleSelectJs.ftl"/></html></platform-specific>
+                                            <include-form name="DropDownFieldsExampleForm" location="component://example/widget/example/FormWidgetExampleForms.xml"/>
+                                            <include-form name="DropDownMultipleFieldExampleForm" location="component://example/widget/example/FormWidgetExampleForms.xml"/>
+                                        </widgets>
+                                    </section>
+                                </container>
+                                <container style="screenlet-body">
+                                    <container style="button-bar"><label style="h2">${uiLabelMap.ExampleLookupFieldsTitle}</label></container>
+                                        <container style="screenlet-body">
+                                            <label style="h3">${uiLabelMap.ExampleSourceCode}</label>
+                                            <label>${uiLabelMap.ExampleDefinitionName} &quot;ExampleLookupFields&quot; ${uiLabelMap.ExampleDefinitionFile}</label>
+                                            <link target="${formWidgetExampleFormsUrl}" url-mode="plain" target-window="svnPage" text="${uiLabelMap.ExampleDefinitionFileTooltip}" style="buttontext"/>
+                                            <include-form name="ExampleLookupFields" location="component://example/widget/example/FormWidgetExampleForms.xml"/>
+                                        </container>
+                                </container>
+                                <container style="screenlet-body">
+                                    <container style="button-bar"><label style="h2">${uiLabelMap.ExampleGroupFields}</label></container>
+                                    <container style="screenlet-body">
+                                        <label style="h3">${uiLabelMap.ExampleSourceCode}</label>
+                                        <label>${uiLabelMap.ExampleDefinitionName} &quot;FieldGroupExampleForm&quot; ${uiLabelMap.ExampleDefinitionFile}</label>
+                                        <link target="${formWidgetExampleFormsUrl}" url-mode="plain" target-window="svnPage" text="${uiLabelMap.ExampleDefinitionFileTooltip}" style="buttontext"/>
+                                        <container style="button-bar">
+                                            <link target="javascript:expandAll(true);"  text="${uiLabelMap.CommonExpandAll}" style="buttontext expand-all" url-mode="plain"/>
+                                            <link target="javascript:expandAll(false);" text="${uiLabelMap.CommonCollapseAll}" style="buttontext collapse-all" url-mode="plain"/>
+                                        </container>
+                                        <include-form name="FieldGroupExampleForm" location="component://example/widget/example/FormWidgetExampleForms.xml"/>
+                                    </container>
+                                </container>
+                                <container style="screenlet-body">
+                                    <container style="button-bar"><label style="h2">${uiLabelMap.ExampleSelectionBoxes}</label></container>
+                                    <container style="screenlet-body">
+                                        <label style="h3">${uiLabelMap.ExampleSourceCode}</label>
+                                        <label>${uiLabelMap.ExampleDefinitionName} &quot;SelectionBoxesExampleForm&quot; ${uiLabelMap.ExampleDefinitionFile}</label>
+                                        <link target="${formWidgetExampleFormsUrl}" url-mode="plain" target-window="svnPage" text="${uiLabelMap.ExampleDefinitionFileTooltip}" style="buttontext"/>
+                                        <include-form name="SelectionBoxesExampleForm" location="component://example/widget/example/FormWidgetExampleForms.xml"/>
+                                    </container>
+                                </container>
+                                <container style="screenlet-body">
+                                    <container style="button-bar"><label style="h2">${uiLabelMap.ExampleLinks}</label></container>
+                                    <container style="screenlet-body">
+                                        <label style="h3">${uiLabelMap.ExampleSourceCode}</label>
+                                        <label>${uiLabelMap.ExampleDefinitionName} &quot;LinksExampleForm&quot; ${uiLabelMap.ExampleDefinitionFile}</label>
+                                        <link target="${formWidgetExampleFormsUrl}" url-mode="plain" target-window="svnPage" text="${uiLabelMap.ExampleDefinitionFileTooltip}" style="buttontext"/>
+                                        <include-form name="LinksExampleForm" location="component://example/widget/example/FormWidgetExampleForms.xml"/>
+                                    </container>
+                                </container>
+                                <container style="screenlet-body">
+                                    <container style="button-bar"><label style="h2">${uiLabelMap.ExamplePrintButton}</label></container>
+                                    <container style="screenlet-body">
+                                        <label>${uiLabelMap.ExampleFopFonts}</label>
+                                    </container>
+                                    <include-form name="FOPFontsExampleForm" location="component://example/widget/example/FormWidgetExampleForms.xml"/>
+                                </container>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.ExampleViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="printExampleFOPFonts">
+        <section>
+            <widgets>
+                <platform-specific><xsl-fo><html-template location="component://example/template/reports/Fonts.fo.ftl"/></xsl-fo></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+</screens>

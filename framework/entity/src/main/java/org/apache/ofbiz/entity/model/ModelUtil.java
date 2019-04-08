@@ -21,8 +21,6 @@ package org.apache.ofbiz.entity.model;
 import java.io.File;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
-
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
@@ -46,7 +44,7 @@ public final class ModelUtil {
      */
     public static String upperFirstChar(String string) {
         if (string == null) return null;
-        if (string.length() <= 1) return string.toLowerCase(Locale.getDefault());
+        if (string.length() <= 1) return string.toLowerCase();
         StringBuilder sb = new StringBuilder(string);
 
         sb.setCharAt(0, Character.toUpperCase(sb.charAt(0)));
@@ -61,7 +59,7 @@ public final class ModelUtil {
      */
     public static String lowerFirstChar(String string) {
         if (string == null) return null;
-        if (string.length() <= 1) return string.toLowerCase(Locale.getDefault());
+        if (string.length() <= 1) return string.toLowerCase();
         StringBuilder sb = new StringBuilder(string);
 
         sb.setCharAt(0, Character.toLowerCase(sb.charAt(0)));
@@ -272,28 +270,29 @@ public final class ModelUtil {
     public static String induceFieldType(String sqlTypeName, int length, int precision, ModelFieldTypeReader fieldTypeReader) {
         if (sqlTypeName == null) return "invalid";
 
-        if ("VARCHAR".equalsIgnoreCase(sqlTypeName) || "VARCHAR2".equalsIgnoreCase(sqlTypeName) || ("CHAR".equalsIgnoreCase(sqlTypeName) && length > 1)) {
+        if (sqlTypeName.equalsIgnoreCase("VARCHAR") || sqlTypeName.equalsIgnoreCase("VARCHAR2") || (sqlTypeName.equalsIgnoreCase("CHAR") && length > 1)) {
             if (length <= 10) return "very-short";
             if (length <= 60) return "short-varchar";
             if (length <= 255) return "long-varchar";
             return "very-long";
-        } else if ("TEXT".equalsIgnoreCase(sqlTypeName)) {
+        } else if (sqlTypeName.equalsIgnoreCase("TEXT")) {
             return "very-long";
-        } else if ("INT".equalsIgnoreCase(sqlTypeName) || "SMALLINT".equalsIgnoreCase(sqlTypeName) ||
-                "DECIMAL".equalsIgnoreCase(sqlTypeName) || "NUMERIC".equalsIgnoreCase(sqlTypeName)) {
+        } else if (sqlTypeName.equalsIgnoreCase("INT") || sqlTypeName.equalsIgnoreCase("SMALLINT") ||
+                sqlTypeName.equalsIgnoreCase("DECIMAL") || sqlTypeName.equalsIgnoreCase("NUMERIC")) {
             if (length > 18 || precision > 6) return "invalid-" + sqlTypeName + ":" + length + ":" + precision;
             if (precision == 0) return "numeric";
             if (precision == 2) return "currency-amount";
-            return "floating-point";
-        } else if ("BLOB".equalsIgnoreCase(sqlTypeName) || "OID".equalsIgnoreCase(sqlTypeName)) {
+            if (precision <= 6) return "floating-point";
+            return "invalid-" + sqlTypeName + ":" + length + ":" + precision;
+        } else if (sqlTypeName.equalsIgnoreCase("BLOB") || sqlTypeName.equalsIgnoreCase("OID")) {
             return "blob";
-        } else if ("DATETIME".equalsIgnoreCase(sqlTypeName) || "TIMESTAMP".equalsIgnoreCase(sqlTypeName)) {
+        } else if (sqlTypeName.equalsIgnoreCase("DATETIME") || sqlTypeName.equalsIgnoreCase("TIMESTAMP")) {
             return "date-time";
-        } else if ("DATE".equalsIgnoreCase(sqlTypeName)) {
+        } else if (sqlTypeName.equalsIgnoreCase("DATE")) {
             return "date";
-        } else if ("TIME".equalsIgnoreCase(sqlTypeName)) {
+        } else if (sqlTypeName.equalsIgnoreCase("TIME")) {
             return "time";
-        } else if ("CHAR".equalsIgnoreCase(sqlTypeName) && length == 1) {
+        } else if (sqlTypeName.equalsIgnoreCase("CHAR") && length == 1) {
             return "indicator";
         } else {
             return "invalid-" + sqlTypeName + ":" + length + ":" + precision;
@@ -315,7 +314,7 @@ public final class ModelUtil {
      * Check is a ModelEntity have a default resource associate to resolve localized value
      * When the ModelEntity is a ModelViewEntity, check with the list fields to resolve these related entities
      * @param modelEntity
-     * @param fieldNames
+     * @param fieldName
      * @return
      */
     public static boolean isPotentialLocalizedFields(ModelEntity modelEntity, List<String> fieldNames) {

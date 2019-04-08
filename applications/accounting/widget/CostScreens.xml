@@ -28,7 +28,7 @@ under the License.
                 <set field="tabButtonItem" value="Costs"/>
                 <set field="titleProperty" value="PageTitleEditCostCalcs"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
 
                 <entity-condition entity-name="CostComponentCalc" list="allCostComponentCalcs"/>
@@ -40,7 +40,7 @@ under the License.
                         <screenlet id="AccountingCostComponentCalcPanel" title="${uiLabelMap.AccountingCreateCostComponentCalc}" collapsible="true">
                             <include-form name="AddCostComponentCalc" location="component://accounting/widget/CostForms.xml"/>
                         </screenlet>
-                        <include-grid name="ListCostComponentCalc" location="component://accounting/widget/CostForms.xml"/>
+                        <include-form name="ListCostComponentCalc" location="component://accounting/widget/CostForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

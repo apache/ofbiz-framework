@@ -48,7 +48,7 @@ public class ByAndFinder extends ListFinder {
     @Override
     public EntityCondition getWhereEntityCondition(Map<String, Object> context, ModelEntity modelEntity, ModelFieldTypeReader modelFieldTypeReader) {
         // create the by and map
-        Map<String, Object> entityContext = new HashMap<>();
+        Map<String, Object> entityContext = new HashMap<String, Object>();
         EntityFinderUtil.expandFieldMapToContext(this.fieldMap, context, entityContext);
         // then convert the types...
         modelEntity.convertFieldMapInPlace(entityContext, modelFieldTypeReader);

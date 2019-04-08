@@ -356,31 +356,6 @@ under the License.
             <redirect-parameter name="workEffortId"/>
         </response>
     </request-map>
-    <request-map uri="EditRoutingTaskSkills">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditRoutingTaskSkills"/>
-    </request-map>
-    <request-map uri="createRoutingTaskSkill">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="createWorkEffortSkillStandard"/>
-        <response name="success" type="request-redirect" value="EditRoutingTaskSkills">
-            <redirect-parameter name="workEffortId"/>
-        </response>
-    </request-map>
-    <request-map uri="updateRoutingTaskSkill">
-         <security https="true" auth="true"/>
-         <event type="service" invoke="updateWorkEffortSkillStandard"/>
-         <response name="success" type="request-redirect" value="EditRoutingTaskSkills">
-            <redirect-parameter name="workEffortId"/>
-        </response>
-    </request-map>
-    <request-map uri="deleteRoutingTaskSkill">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="deleteWorkEffortSkillStandard"/>
-        <response name="success" type="request-redirect" value="EditRoutingTaskSkills">
-            <redirect-parameter name="workEffortId"/>
-        </response>
-    </request-map>
     <!-- CostCalc mappings -->
     <request-map uri="EditCostCalcs">
         <security https="true" auth="true"/>
@@ -449,7 +424,7 @@ under the License.
     <request-map uri="DeleteProductManufacturingRule">
         <security https="true" auth="true"/>
         <event type="service" invoke="deleteProductManufacturingRule"/>
-        <response name="success" type="request-redirect-noparam" value="EditProductManufacturingRules"/>
+        <response name="success" type="request-redirect" value="EditProductManufacturingRules"/>
         <response name="error" type="request-redirect" value="EditProductManufacturingRules"/>
     </request-map>
 
@@ -825,71 +800,70 @@ under the License.
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
-    <view-map name="main" type="screen" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#FindProductionRun"/>
+    <view-map name="main" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#FindProductionRun" type="screen"/>
 
     <!-- Routing view mappings -->
-    <view-map name="FindCalendar" type="screen" page="component://manufacturing/widget/manufacturing/CalendarScreens.xml#FindCalendar"/>
-    <view-map name="EditCalendar" type="screen" page="component://manufacturing/widget/manufacturing/CalendarScreens.xml#EditCalendar"/>
-    <view-map name="EditCalendarWeek" type="screen" page="component://manufacturing/widget/manufacturing/CalendarScreens.xml#EditCalendarWeek"/>
-    <view-map name="ListCalendarWeek" type="screen" page="component://manufacturing/widget/manufacturing/CalendarScreens.xml#ListCalendarWeek"/>
-    <view-map name="EditCalendarExceptionDay" type="screen" page="component://manufacturing/widget/manufacturing/CalendarScreens.xml#EditCalendarExceptionDay"/>
-    <view-map name="EditCalendarExceptionWeek" type="screen" page="component://manufacturing/widget/manufacturing/CalendarScreens.xml#EditCalendarExceptionWeek"/>
+    <view-map name="FindCalendar" page="component://manufacturing/widget/manufacturing/CalendarScreens.xml#FindCalendar" type="screen"/>
+    <view-map name="EditCalendar" page="component://manufacturing/widget/manufacturing/CalendarScreens.xml#EditCalendar" type="screen"/>
+    <view-map name="EditCalendarWeek" page="component://manufacturing/widget/manufacturing/CalendarScreens.xml#EditCalendarWeek" type="screen"/>
+    <view-map name="ListCalendarWeek" page="component://manufacturing/widget/manufacturing/CalendarScreens.xml#ListCalendarWeek" type="screen"/>
+    <view-map name="EditCalendarExceptionDay" page="component://manufacturing/widget/manufacturing/CalendarScreens.xml#EditCalendarExceptionDay" type="screen"/>
+    <view-map name="EditCalendarExceptionWeek" page="component://manufacturing/widget/manufacturing/CalendarScreens.xml#EditCalendarExceptionWeek" type="screen"/>
 
-    <view-map name="FindRoutingTask" type="screen" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#FindRoutingTask"/>
-    <view-map name="EditRoutingTask" type="screen" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#EditRoutingTask"/>
-    <view-map name="EditRoutingTaskCosts" type="screen" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#EditRoutingTaskCosts"/>
-    <view-map name="ListRoutingTaskRoutings" type="screen" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#ListRoutingTaskRoutings"/>
-    <view-map name="ListRoutingTaskProducts" type="screen" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#ListRoutingTaskProducts"/>
-    <view-map name="EditRoutingTaskProduct" type="screen" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#EditRoutingTaskProduct"/>
-    <view-map name="FindRouting" type="screen" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#FindRouting"/>
-    <view-map name="EditRouting" type="screen" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#EditRouting"/>
-    <view-map name="EditRoutingTaskAssoc" type="screen" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#EditRoutingTaskAssoc"/>
-    <view-map name="EditRoutingProductLink" type="screen" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#EditRoutingProductLink"/>
-    <view-map name="EditRoutingTaskFixedAssets" type="screen" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#EditRoutingTaskFixedAssets"/>
-    <view-map name="EditRoutingTaskParties" type="screen" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#EditRoutingTaskParties"/>
-    <view-map name="EditRoutingTaskSkills" type="screen" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#EditRoutingTaskSkills"/>
+    <view-map name="FindRoutingTask" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#FindRoutingTask" type="screen"/>
+    <view-map name="EditRoutingTask" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#EditRoutingTask" type="screen"/>
+    <view-map name="EditRoutingTaskCosts" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#EditRoutingTaskCosts" type="screen"/>
+    <view-map name="ListRoutingTaskRoutings" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#ListRoutingTaskRoutings" type="screen"/>
+    <view-map name="ListRoutingTaskProducts" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#ListRoutingTaskProducts" type="screen"/>
+    <view-map name="EditRoutingTaskProduct" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#EditRoutingTaskProduct" type="screen"/>
+    <view-map name="FindRouting" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#FindRouting" type="screen"/>
+    <view-map name="EditRouting" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#EditRouting" type="screen"/>
+    <view-map name="EditRoutingTaskAssoc" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#EditRoutingTaskAssoc" type="screen"/>
+    <view-map name="EditRoutingProductLink" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#EditRoutingProductLink" type="screen"/>
+    <view-map name="EditRoutingTaskFixedAssets" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#EditRoutingTaskFixedAssets" type="screen"/>
+    <view-map name="EditRoutingTaskParties" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#EditRoutingTaskParties" type="screen"/>
     <!-- Lookup view mappings -->
     <view-map name="LookupPartyName" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyName"/>
     <view-map name="LookupCustomerName" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupCustomerName"/>
-    <view-map name="LookupProduct" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProduct"/>
-    <view-map name="LookupVariantProduct" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupVariantProduct"/>
-    <view-map name="LookupVirtualProduct" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupVirtualProduct"/>
-    <view-map name="LookupRouting" type="screen" page="component://manufacturing/widget/manufacturing/LookupScreens.xml#LookupRouting"/>
-    <view-map name="LookupRoutingTask" type="screen" page="component://manufacturing/widget/manufacturing/LookupScreens.xml#LookupRoutingTask"/>
-    <view-map name="LookupProductFeature" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProductFeature"/>
+    <view-map name="LookupProduct" page="component://product/widget/catalog/LookupScreens.xml#LookupProduct" type="screen"/>
+    <view-map name="LookupVariantProduct" page="component://product/widget/catalog/LookupScreens.xml#LookupVariantProduct" type="screen"/>
+    <view-map name="LookupVirtualProduct" page="component://product/widget/catalog/LookupScreens.xml#LookupVirtualProduct" type="screen"/>
+    <view-map name="LookupRouting" page="component://manufacturing/widget/manufacturing/LookupScreens.xml#LookupRouting" type="screen"/>
+    <view-map name="LookupRoutingTask" page="component://manufacturing/widget/manufacturing/LookupScreens.xml#LookupRoutingTask" type="screen"/>
+    <view-map name="LookupProductFeature" page="component://product/widget/catalog/LookupScreens.xml#LookupProductFeature" type="screen"/>
     <view-map name="LookupFacilityLocation" type="screen" page="component://product/widget/facility/LookupScreens.xml#LookupFacilityLocation"/>
 
     <!-- BOM view mappings -->
-    <view-map name="EditProductBom" type="screen" page="component://manufacturing/widget/manufacturing/BomScreens.xml#EditProductBom"/>
-    <view-map name="EditProductManufacturingRules" type="screen" page="component://manufacturing/widget/manufacturing/BomScreens.xml#EditProductManufacturingRules"/>
-    <view-map name="BomSimulation" type="screen" page="component://manufacturing/widget/manufacturing/BomScreens.xml#BomSimulation"/>
-    <view-map name="FindBom" type="screen" page="component://manufacturing/widget/manufacturing/BomScreens.xml#FindBom"/>
+    <view-map name="EditProductBom" page="component://manufacturing/widget/manufacturing/BomScreens.xml#EditProductBom" type="screen"/>
+    <view-map name="EditProductManufacturingRules" page="component://manufacturing/widget/manufacturing/BomScreens.xml#EditProductManufacturingRules" type="screen"/>
+    <view-map name="BomSimulation" page="component://manufacturing/widget/manufacturing/BomScreens.xml#BomSimulation" type="screen"/>
+    <view-map name="FindBom" page="component://manufacturing/widget/manufacturing/BomScreens.xml#FindBom" type="screen"/>
 
     <!-- Costs view mappings -->
-    <view-map name="EditCostCalcs" type="screen" page="component://manufacturing/widget/manufacturing/CostScreens.xml#EditCostCalcs"/>
+    <view-map name="EditCostCalcs" page="component://manufacturing/widget/manufacturing/CostScreens.xml#EditCostCalcs" type="screen"/>
 
     <!-- MRP view mappings -->
-    <view-map name="FindMrpPlannedEvents" type="screen" page="component://manufacturing/widget/manufacturing/MrpScreens.xml#FindMrpPlannedEvents"/>
-    <view-map name="MrpExecution" type="screen" page="component://manufacturing/widget/manufacturing/MrpScreens.xml#MrpExecution"/>
-    <view-map name="ManufacturingReports" type="screen" page="component://manufacturing/widget/manufacturing/ReportScreens.xml#ManufacturingReports"/>
+    <view-map name="FindMrpPlannedEvents" page="component://manufacturing/widget/manufacturing/MrpScreens.xml#FindMrpPlannedEvents" type="screen"/>
+    <view-map name="MrpExecution" page="component://manufacturing/widget/manufacturing/MrpScreens.xml#MrpExecution" type="screen"/>
+    <view-map name="ManufacturingReports" page="component://manufacturing/widget/manufacturing/ReportScreens.xml#ManufacturingReports" type="screen"/>
 
     <!-- JobShop Management view mappings -->
-    <view-map name="CreateProductionRun" type="screen" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#CreateProductionRun"/>
-    <view-map name="FindProductionRun" type="screen" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#FindProductionRun"/>
-    <view-map name="EditProductionRun" type="screen" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#EditProductionRun"/>
-    <view-map name="assocProdRunParty" type="screen" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#AssocProdRunParty"/>
-    <view-map name="ProductionRunParties" type="screen" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunParties"/>
-    <view-map name="LinkProductionRun" type="screen" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#LinkProductionRun"/>
+    <view-map name="CreateProductionRun" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#CreateProductionRun" type="screen"/>
+    <view-map name="FindProductionRun" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#FindProductionRun" type="screen"/>
+    <view-map name="EditProductionRun" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#EditProductionRun" type="screen"/>
+    <view-map name="assocProdRunParty" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#AssocProdRunParty" type="screen"/>
+    <view-map name="ProductionRunParties" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunParties" type="screen"/>
+    <view-map name="LinkProductionRun" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#LinkProductionRun" type="screen"/>
     <view-map name="PrintProductionRun" type="screenfop" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunPdf" content-type="application/pdf" encoding="none"/>
-    <view-map name="ProductionRunDeclaration" type="screen" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunDeclaration"/>
-    <view-map name="ProductionRunCosts" type="screen" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunCosts"/>
-    <view-map name="ProductionRunTasks" type="screen" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunTasks"/>
-    <view-map name="ProductionRunComponents" type="screen" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunComponents"/>
-    <view-map name="ProductionRunActualComponents" type="screen" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunActualComponents"/>
-    <view-map name="ProductionRunFixedAssets" type="screen" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunFixedAssets"/>
-    <view-map name="ProductionRunContent" type="screen" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunContent"/>
-    <view-map name="ProductionRunAssocs" type="screen" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunAssocs"/>
-    <view-map name="WorkWithShipmentPlans" type="screen" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#WorkWithShipmentPlans"/>
+    <view-map name="ProductionRunDeclaration" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunDeclaration" type="screen"/>
+    <view-map name="ProductionRunCosts" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunCosts" type="screen"/>
+    <view-map name="ProductionRunTasks" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunTasks" type="screen"/>
+    <view-map name="ProductionRunComponents" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunComponents" type="screen"/>
+    <view-map name="ProductionRunActualComponents" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunActualComponents" type="screen"/>
+    <view-map name="ProductionRunFixedAssets" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunFixedAssets" type="screen"/>
+    <view-map name="ProductionRunContent" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunContent" type="screen"/>
+    <view-map name="ProductionRunAssocs" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunAssocs" type="screen"/>
+    <view-map name="WorkWithShipmentPlans" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#WorkWithShipmentPlans" type="screen"/>
 
     <!-- Report view mappings -->
     <view-map name="ShipmentPlanStockReport" type="screenfop" page="component://manufacturing/widget/manufacturing/ReportScreens.xml#ShipmentPlanStockReport" content-type="application/pdf" encoding="none"/>

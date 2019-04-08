@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://ofbiz.apache.org/Widget-Menu" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Menu http://ofbiz.apache.org/dtds/widget-menu.xsd">
+
+    <menu name="AssetMaintAppBar" title="${uiLabelMap.AssetMaintManager}" extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="task" title="${uiLabelMap.WorkEffortTaskList}"><link target="mytasks"/></menu-item>
+        <menu-item name="ListFixedAssets" title="${uiLabelMap.AccountingFixedAssets}"><link target="ListFixedAssets"/></menu-item>
+        <menu-item name="fixedAssetMaints" title="${uiLabelMap.AccountingFixedAssetMaints}"><link target="findFixedAssetMaints"/></menu-item>
+        <menu-item name="facility" title="${uiLabelMap.ProductFacility}"><link target="FindFacility"/></menu-item>
+    </menu>
+
+    <menu name="FixedAssetTabBar" extends="FixedAssetTabBar" extends-resource="component://accounting/widget/AccountingMenus.xml">
+        <menu-item name="EditProductMaints" title="${uiLabelMap.AssetMaintProductMaint}">
+            <condition><not><if-empty field="fixedAsset.instanceOfProductId"/></not></condition>
+            <link target="EditProductMaints">
+                <parameter param-name="fixedAssetId" from-field="fixedAsset.fixedAssetId"/>
+                <parameter param-name="productId" from-field="fixedAsset.instanceOfProductId"/>
+            </link>
+        </menu-item>
+    </menu>
+
+    <menu name="FixedAssetMaintTabBar" extends="FixedAssetMaintTabBar" extends-resource="component://accounting/widget/AccountingMenus.xml">
+        <menu-item name="EditWorkEfforts" title="${uiLabelMap.WorkEffortAllTasks}">
+            <link target="EditWorkEfforts">
+                <parameter param-name="fixedAssetId" from-field="fixedAssetMaint.fixedAssetId"/>
+                <parameter param-name="maintHistSeqId" from-field="fixedAssetMaint.maintHistSeqId"/>
+                <parameter param-name="workEffortId" from-field="fixedAssetMaint.scheduleWorkEffortId"/>
+            </link>
+        </menu-item>
+        <menu-item name="EditWorkEffortTimeEntries" title="${uiLabelMap.WorkEffortTimesheetTimeEntries}">
+            <link target="EditWorkEffortTimeEntries">
+                <parameter param-name="fixedAssetId" from-field="fixedAssetMaint.fixedAssetId"/>
+                <parameter param-name="maintHistSeqId" from-field="fixedAssetMaint.maintHistSeqId"/>
+                <parameter param-name="workEffortId" from-field="fixedAssetMaint.scheduleWorkEffortId"/>
+            </link>
+        </menu-item>
+        <menu-item name="EditWorkEffortNotes" title="${uiLabelMap.WorkEffortNotes}">
+            <link target="EditWorkEffortNotes">
+                <parameter param-name="fixedAssetId" from-field="fixedAssetMaint.fixedAssetId"/>
+                <parameter param-name="maintHistSeqId" from-field="fixedAssetMaint.maintHistSeqId"/>
+                <parameter param-name="workEffortId" from-field="fixedAssetMaint.scheduleWorkEffortId"/>
+            </link>
+        </menu-item>
+        <menu-item name="EditItemIssuances" title="${uiLabelMap.AssetMaintItemIssuance}">
+            <link target="EditItemIssuances">
+                <parameter param-name="fixedAssetId" from-field="fixedAssetMaint.fixedAssetId"/>
+                <parameter param-name="maintHistSeqId" from-field="fixedAssetMaint.maintHistSeqId"/>
+            </link>
+        </menu-item>
+    </menu>
+
+    <menu name="FacilityTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          default-menu-item-name="ViewFacilityInventoryByProduct">
+        <menu-item name="EditFacility" title="${uiLabelMap.ProductFacility}">
+            <link target="EditFacility">
+                <parameter param-name="facilityId"/>
+            </link>
+        </menu-item>
+        <menu-item name="FacilityChildren" title="${uiLabelMap.CommonEntityChildren}">
+            <link target="FacilityChildren">
+                <parameter param-name="facilityId"/>
+            </link>
+        </menu-item>
+        <menu-item name="ViewContactMechs" title="${uiLabelMap.PartyContactMechs}">
+            <link target="ViewContactMechs">
+                <parameter param-name="facilityId"/>
+            </link>
+        </menu-item>
+        <menu-item name="FindFacilityLocation" title="${uiLabelMap.ProductLocations}">
+            <link target="FindFacilityLocation">
+                <parameter param-name="facilityId"/>
+            </link>
+        </menu-item>
+        <menu-item name="ViewFacilityInventoryByProduct" title="${uiLabelMap.ProductInventory}">
+            <link target="ViewFacilityInventoryByProduct">
+                <parameter param-name="facilityId"/>
+            </link>
+        </menu-item>
+        <menu-item name="EditFacilityInventoryItems" title="${uiLabelMap.ProductInventoryItems}">
+            <link target="EditFacilityInventoryItems">
+                <parameter param-name="facilityId"/>
+            </link>
+        </menu-item>
+        <menu-item name="ReceiveInventory" title="${uiLabelMap.ProductInventoryReceive}">
+            <link target="ReceiveInventory">
+                <parameter param-name="facilityId"/>
+            </link>
+        </menu-item>
+        <menu-item name="FindFacilityTransfers" title="${uiLabelMap.ProductInventoryXfers}">
+            <link target="FindFacilityTransfers">
+                <parameter param-name="facilityId"/>
+            </link>
+        </menu-item>
+    </menu>
+
+</menus>

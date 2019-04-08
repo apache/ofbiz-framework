@@ -31,8 +31,8 @@ under the License.
     <SecurityPermission permissionId="OFBTOOLS_VIEW" description="Permission to access the Stock OFBiz Manager Applications."/>
 
     <!-- normally only permissions in this file, however permission group SUPER is an exception -->
-    <SecurityGroup groupId="SUPER" description="Super admin group, has all *_ADMIN permission loaded as seed data" groupName="Super"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="OFBTOOLS_VIEW"/>
+    <SecurityGroup groupId="SUPER" description="Super admin group, has all *_ADMIN permission loaded as seed data"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="OFBTOOLS_VIEW"/>
 
     <!-- System UserLogin Account - see additional data in SecurityExtData -->
     <UserLogin userLoginId="system" enabled="N" isSystem="Y"/>
@@ -40,10 +40,10 @@ under the License.
     <!-- Anonymous UserLogin is referenced by services in various components -->
     <UserLogin userLoginId="anonymous" enabled="N"/>
     
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="access"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="create"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="read"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="update"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="delete"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="access"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="create"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="read"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="update"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="delete"/>
     
 </entity-engine-xml>

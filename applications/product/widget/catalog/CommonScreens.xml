@@ -34,15 +34,15 @@ under the License.
                 <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.ProductCompanySubtitle" global="true"/>
                 <!-- layoutSettings.headerImageUrl can be used to specify an application specific logo; if not set,
                      then the global layoutSettings.commonHeaderImageUrl (specified in GlobalDecorator) will be used. -->
-                <!--<set field="layoutSettings.headerImageUrl" value="/images/ofbiz_logo.png" global="true"/>-->
+                <!--<set field="layoutSettings.headerImageUrl" value="/images/ofbiz_logo.gif" global="true"/>-->
                 <!-- <set field="layoutSettings.headerMiddleBackgroundUrl" value="" global="true"/> -->
                 <!-- <set field="layoutSettings.headerRightBackgroundUrl" value="" global="true"/> -->
                 <set field="activeApp" value="catalogmgr" global="true"/>
                 <set field="applicationMenuName" value="CatalogAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://product/widget/catalog/CatalogMenus.xml" global="true"/>
-                <set field="applicationTitle" from-field="uiLabelMap.ProductCatalogManagerApplication" global="true"/>
-                <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/ui/js/jquery.cookie-1.4.0.js" global="true"/>
-                <set field="layoutSettings.javaScripts[+0]" value="/common/js/jquery/plugins/jsTree/jquery.jstree.js" global="true"/>
+                <set field="applicationTitle" value="${uiLabelMap.ProductCatalogManagerApplication}" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/ui/js/jquery.cookie-1.4.0.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/plugins/jsTree/jquery.jstree.js" global="true"/>
             </actions>
             <widgets>
                 <include-screen name="ApplicationDecorator" location="component://commonext/widget/CommonScreens.xml"/>

@@ -23,7 +23,7 @@ under the License.
 
     <!-- ProductPromoCond methods -->
     <simple-method method-name="createProductPromoCond" short-description="Create an ProductPromoCond">
-        <make-value entity-name="ProductPromoCond" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="ProductPromoCond"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-not-empty field="parameters.carrierShipmentMethod">
             <set field="newEntity.otherValue" from-field="parameters.carrierShipmentMethod"/>

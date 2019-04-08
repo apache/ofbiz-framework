@@ -503,12 +503,12 @@ under the License.
         </field>
         <field name="isPosted">
             <drop-down>
-                <option key="Y" description="${uiLabelMap.CommonYes}"/>
-                <option key="N" description="${uiLabelMap.CommonNo}"/>
-                <option key="ALL" description="${uiLabelMap.CommonAll}"/>
+                <option description="${uiLabelMap.CommonYes}" key="Y"/>
+                <option description="${uiLabelMap.CommonNo}" key="N"/>
+                <option description="${uiLabelMap.CommonAll}" key="ALL"/>
             </drop-down>
         </field>
-        <field name="submitButton" widget-style="buttontext"><submit button-type="text-link"/></field>
+        <field name="submitButton" widget-style="buttontext" action=""><submit button-type="text-link"/></field>
     </form>
 
     <form name="InventoryValuation" type="single" target="InventoryValuation" header-row-style="header-row" default-table-style="basic-table">

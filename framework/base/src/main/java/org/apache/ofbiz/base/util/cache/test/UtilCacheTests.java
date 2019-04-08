@@ -38,12 +38,12 @@ import org.apache.ofbiz.base.util.cache.UtilCache;
 public class UtilCacheTests extends GenericTestCaseBase implements Serializable {
     public static final String module = UtilCacheTests.class.getName();
 
-    protected static abstract class Change {
+    protected static abstract class Change<V> {
         protected int count = 1;
     }
 
-    protected static final class Removal<V> extends Change {
-        private final V oldValue;
+    protected static final class Removal<V> extends Change<V> {
+        protected final V oldValue;
 
         protected Removal(V oldValue) {
             this.oldValue = oldValue;
@@ -64,8 +64,8 @@ public class UtilCacheTests extends GenericTestCaseBase implements Serializable 
         }
     }
 
-    protected static final class Addition<V> extends Change {
-        private final V newValue;
+    protected static final class Addition<V> extends Change<V> {
+        protected final V newValue;
 
         protected Addition(V newValue) {
             this.newValue = newValue;
@@ -86,9 +86,9 @@ public class UtilCacheTests extends GenericTestCaseBase implements Serializable 
         }
     }
 
-    protected static final class Update<V> extends Change {
-        private final V newValue;
-        private final V oldValue;
+    protected static final class Update<V> extends Change<V> {
+        protected final V newValue;
+        protected final V oldValue;
 
         protected Update(V newValue, V oldValue) {
             this.newValue = newValue;
@@ -114,15 +114,15 @@ public class UtilCacheTests extends GenericTestCaseBase implements Serializable 
     }
 
     protected static class Listener<K, V> implements CacheListener<K, V> {
-        protected Map<K, Set<Change>> changeMap = new HashMap<>();
+        protected Map<K, Set<Change<V>>> changeMap = new HashMap<K, Set<Change<V>>>();
 
-        private void add(K key, Change change) {
-            Set<Change> changeSet = changeMap.get(key);
+        private void add(K key, Change<V> change) {
+            Set<Change<V>> changeSet = changeMap.get(key);
             if (changeSet == null) {
-                changeSet = new HashSet<>();
+                changeSet = new HashSet<Change<V>>();
                 changeMap.put(key, changeSet);
             }
-            for (Change checkChange: changeSet) {
+            for (Change<V> checkChange: changeSet) {
                 if (checkChange.equals(change)) {
                     checkChange.count++;
                     return;
@@ -132,34 +132,26 @@ public class UtilCacheTests extends GenericTestCaseBase implements Serializable 
         }
 
         public synchronized void noteKeyRemoval(UtilCache<K, V> cache, K key, V oldValue) {
-            add(key, new Removal<>(oldValue));
+            add(key, new Removal<V>(oldValue));
         }
 
         public synchronized void noteKeyAddition(UtilCache<K, V> cache, K key, V newValue) {
-            add(key, new Addition<>(newValue));
+            add(key, new Addition<V>(newValue));
         }
 
         public synchronized void noteKeyUpdate(UtilCache<K, V> cache, K key, V newValue, V oldValue) {
-            add(key, new Update<>(newValue, oldValue));
+            add(key, new Update<V>(newValue, oldValue));
         }
 
         @Override
         public boolean equals(Object o) {
-            if (!(o instanceof Listener)) {
-                return false;
-            }
             Listener<?, ?> other = (Listener<?, ?>) o;
             return changeMap.equals(other.changeMap);
-        }
-
-        @Override
-        public int hashCode() {
-            return super.hashCode();
         }
     }
 
     private static <K, V> Listener<K, V> createListener(UtilCache<K, V> cache) {
-        Listener<K, V> listener = new Listener<>();
+        Listener<K, V> listener = new Listener<K, V>();
         cache.addListener(listener);
         return listener;
     }
@@ -233,7 +225,7 @@ public class UtilCacheTests extends GenericTestCaseBase implements Serializable 
         assertTrue("validKey", UtilCache.validKey(cache.getName(), key));
         assertFalse("validKey", UtilCache.validKey(":::" + cache.getName(), key));
         assertEquals("get", value, cache.get(key));
-        assertEquals("keys", new HashSet<>(UtilMisc.toList(key)), cache.getCacheLineKeys());
+        assertEquals("keys", new HashSet<K>(UtilMisc.toList(key)), cache.getCacheLineKeys());
         assertEquals("values", UtilMisc.toList(value), cache.values());
     }
 
@@ -250,7 +242,7 @@ public class UtilCacheTests extends GenericTestCaseBase implements Serializable 
 
     private static void basicTest(UtilCache<String, String> cache) throws Exception {
         Listener<String, String> gotListener = createListener(cache);
-        Listener<String, String> wantedListener = new Listener<>();
+        Listener<String, String> wantedListener = new Listener<String, String>();
         for (int i = 0; i < 2; i++) {
             assertTrue("UtilCacheTable.keySet", UtilCache.getUtilCacheTableKeySet().contains(cache.getName()));
             assertSame("UtilCache.findCache", cache, UtilCache.findCache(cache.getName()));
@@ -329,7 +321,7 @@ public class UtilCacheTests extends GenericTestCaseBase implements Serializable 
     public void testPutIfAbsent() throws Exception {
         UtilCache<String, String> cache = createUtilCache(5, 5, 2000, false);
         Listener<String, String> gotListener = createListener(cache);
-        Listener<String, String> wantedListener = new Listener<>();
+        Listener<String, String> wantedListener = new Listener<String, String>();
         wantedListener.noteKeyAddition(cache, "two", "dos");
         assertNull("putIfAbsent", cache.putIfAbsent("two", "dos"));
         assertHasSingleKey(cache, "two", "dos");
@@ -342,7 +334,7 @@ public class UtilCacheTests extends GenericTestCaseBase implements Serializable 
     public void testPutIfAbsentAndGet() throws Exception {
         UtilCache<String, String> cache = createUtilCache(5, 5, 2000, false);
         Listener<String, String> gotListener = createListener(cache);
-        Listener<String, String> wantedListener = new Listener<>();
+        Listener<String, String> wantedListener = new Listener<String, String>();
         wantedListener.noteKeyAddition(cache, "key", "value");
         wantedListener.noteKeyAddition(cache, "anotherKey", "anotherValue");
         assertNull("no-get", cache.get("key"));
@@ -367,8 +359,11 @@ public class UtilCacheTests extends GenericTestCaseBase implements Serializable 
         int size = 5;
         long ttl = 2000;
         UtilCache<String, Serializable> cache = createUtilCache(size, size, ttl, false);
-        Map<String, Serializable> map = new HashMap<>();
-        assertKeyLoop(size, cache, map);
+        Map<String, Serializable> map = new HashMap<String, Serializable>();
+        for (int i = 0; i < size; i++) {
+            String s = Integer.toString(i);
+            assertKey(s, cache, s, new String(s), new String(":" + s), i + 1, map);
+        }
         cache.setMaxInMemory(2);
         assertEquals("cache.size", 2, cache.size());
         map.keySet().retainAll(cache.getCacheLineKeys());
@@ -395,8 +390,11 @@ public class UtilCacheTests extends GenericTestCaseBase implements Serializable 
     }
 
     private void expireTest(UtilCache<String, Serializable> cache, int size, long ttl) throws Exception {
-        Map<String, Serializable> map = new HashMap<>();
-        assertKeyLoop(size, cache, map);
+        Map<String, Serializable> map = new HashMap<String, Serializable>();
+        for (int i = 0; i < size; i++) {
+            String s = Integer.toString(i);
+            assertKey(s, cache, s, new String(s), new String(":" + s), i + 1, map);
+        }
         Thread.sleep(ttl + 500);
         map.clear();
         for (int i = 0; i < size; i++) {
@@ -405,16 +403,12 @@ public class UtilCacheTests extends GenericTestCaseBase implements Serializable 
         }
         assertEquals("map-keys", map.keySet(), cache.getCacheLineKeys());
         assertEquals("map-values", map.values(), cache.values());
-        assertKeyLoop(size, cache, map);
-        assertEquals("map-keys", map.keySet(), cache.getCacheLineKeys());
-        assertEquals("map-values", map.values(), cache.values());
-    }
-
-    private void assertKeyLoop(int size, UtilCache<String, Serializable> cache, Map<String, Serializable> map) {
         for (int i = 0; i < size; i++) {
             String s = Integer.toString(i);
             assertKey(s, cache, s, new String(s), new String(":" + s), i + 1, map);
         }
+        assertEquals("map-keys", map.keySet(), cache.getCacheLineKeys());
+        assertEquals("map-values", map.values(), cache.values());
     }
 
     public void testExpire() throws Exception {

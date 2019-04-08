@@ -248,6 +248,14 @@ under the License.
     <!-- ContentAssoc forms -->
     <form name="EditContentAssoc" target="updateContentAssoc" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <entity-one entity-name="ContentAssoc" use-cache="true">
+                <field-map field-name="contentId" from-field="contentId"/>
+                <field-map field-name="contentIdTo" from-field="contentIdTo"/>
+                <field-map field-name="contentAssocTypeId" from-field="contentAssocTypeId"/>
+                <field-map field-name="fromDate" from-field="fromDate"/>
+            </entity-one>
+        </actions>
         <auto-fields-entity entity-name="ContentAssoc"/>
         <field name="contentId"><display/></field>
         <field name="contentIdTo"><display/></field>
@@ -259,10 +267,10 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="ContentAssoc"/>
         <field name="contentId"><display description="${contentId}"/></field>
-        <field name="contentIdTo" map-name="currentValue" required-field="true">
+        <field name="contentIdTo" map-name="currentValue">
             <lookup target-form-name="LookupContent"/>
         </field>
-        <field name="contentAssocTypeId" required-field="true">
+        <field name="contentAssocTypeId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="ContentAssocType">
                     <entity-order-by field-name="description"/>
@@ -351,11 +359,11 @@ under the License.
     <form name="AddContentRole" target="addContentRole" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createContentRole"/>
-        <field name="contentId" widget-style="buttontext" required-field="true">
+        <field name="contentId" widget-style="buttontext" >
             <lookup target-form-name="LookupContent"/>
         </field>
-        <field name="partyId" widget-style="buttontext" required-field="true"><lookup target-form-name="LookupPerson"/></field>
-        <field name="roleTypeId" required-field="true">
+        <field name="partyId" widget-style="buttontext"><lookup target-form-name="LookupPerson"/></field>
+        <field name="roleTypeId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="RoleType" key-field-name="roleTypeId">
                     <entity-order-by field-name="description"/>

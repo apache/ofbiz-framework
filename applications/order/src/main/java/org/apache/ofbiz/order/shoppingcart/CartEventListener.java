@@ -40,12 +40,10 @@ public class CartEventListener implements HttpSessionListener {
 
     public CartEventListener() {}
 
-    @Override
     public void sessionCreated(HttpSessionEvent event) {
         //for this one do nothing when the session is created...
     }
 
-    @Override
     public void sessionDestroyed(HttpSessionEvent event) {
         HttpSession session = event.getSession();
         ShoppingCart cart = (ShoppingCart) session.getAttribute("shoppingCart");
@@ -80,7 +78,7 @@ public class CartEventListener implements HttpSessionListener {
                 GenericValue cartAbandonedLine = delegator.makeValue("CartAbandonedLine");
 
                 cartAbandonedLine.set("visitId", visit.get("visitId"));
-                cartAbandonedLine.set("cartAbandonedLineSeqId", Integer.toString(seqId));
+                cartAbandonedLine.set("cartAbandonedLineSeqId", (Integer.valueOf(seqId)).toString());
                 cartAbandonedLine.set("productId", cartItem.getProductId());
                 cartAbandonedLine.set("prodCatalogId", cartItem.getProdCatalogId());
                 cartAbandonedLine.set("quantity", cartItem.getQuantity());

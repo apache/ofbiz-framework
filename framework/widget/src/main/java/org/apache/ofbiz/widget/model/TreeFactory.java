@@ -62,7 +62,7 @@ public class TreeFactory {
     }
 
     public static Map<String, ModelTree> readTreeDocument(Document treeFileDoc, Delegator delegator, LocalDispatcher dispatcher, String treeLocation) {
-        Map<String, ModelTree> modelTreeMap = new HashMap<>();
+        Map<String, ModelTree> modelTreeMap = new HashMap<String, ModelTree>();
         if (treeFileDoc != null) {
             // read document and construct ModelTree for each tree element
             Element rootElement = treeFileDoc.getDocumentElement();

@@ -60,5 +60,8 @@ under the License.
     <field-type-def type="credit-card-date" sql-type="Char(7)" java-type="String"/>
     <field-type-def type="email" sql-type="Char(320)" java-type="String"/>
     <field-type-def type="url" sql-type="Char(2000)" java-type="String"/>
+    <field-type-def type="id-ne" sql-type="Char(20)" java-type="String"/>
+    <field-type-def type="id-long-ne" sql-type="Char(60)" java-type="String"/>
+    <field-type-def type="id-vlong-ne" sql-type="Char(255)" java-type="String"/>
     <field-type-def type="tel-number" sql-type="Char(60)" java-type="String"/>
 </fieldtypemodel>

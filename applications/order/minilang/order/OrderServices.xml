@@ -39,10 +39,10 @@ under the License.
             <now-timestamp field="nowTimestamp"/>
             <!-- TODO: Change this to use the <set-calendar> operation -->
             <script>groovy:
-                calendar = com.ibm.icu.util.Calendar.getInstance()
-                calendar.setTimeInMillis(nowTimestamp.getTime())
-                calendar.add(com.ibm.icu.util.Calendar.MONTH, -monthsToInclude.intValue())
-                parameters.put("fromDate", new Timestamp(calendar.getTimeInMillis()))
+                calendar = com.ibm.icu.util.Calendar.getInstance();
+                calendar.setTimeInMillis(nowTimestamp.getTime());
+                calendar.add(com.ibm.icu.util.Calendar.MONTH, -monthsToInclude.intValue());
+                parameters.put("fromDate", new Timestamp(calendar.getTimeInMillis()));
             </script>
             <set from-field="nowTimestamp" field="parameters.thruDate"/>
         </if-not-empty>
@@ -507,7 +507,7 @@ under the License.
         </check-permission>
         <check-errors/>
 
-        <make-value entity-name="OrderHeader" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="OrderHeader"/>
         
         <if-not-empty field="parameters.orderId">
             <set field="newEntity.orderId" from-field="parameters.orderId"/>
@@ -606,7 +606,7 @@ under the License.
             <if-empty field="orderItemSeqId">
                 <!-- this is a new (promo) item -->
                 <!-- a new order item is created -->
-                <make-value entity-name="OrderItem" value-field="newOrderItem"/>
+                <make-value value-field="newOrderItem" entity-name="OrderItem"/>
                 <set field="newOrderItem.orderId" from-field="parameters.orderId"/>
                 <call-object-method obj-field="item" method-name="getItemType" ret-field="newOrderItem.orderItemTypeId"/>
                 <call-object-method obj-field="item" method-name="getSelectedAmount" ret-field="newOrderItem.selectedAmount"/>
@@ -679,7 +679,7 @@ under the License.
            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunUpdateOrderContactMech"/>
         </check-permission>
         <check-errors/>
-        <make-value entity-name="OrderContactMech" value-field="orderContactMechMap"/>
+        <make-value value-field="orderContactMechMap" entity-name="OrderContactMech"/>
         <set-pk-fields map="parameters" value-field="orderContactMechMap"/>
         <set from-field="parameters.orderId" field="inputMap.orderId"/>
         <set from-field="parameters.contactMechPurposeTypeId" field="inputMap.contactMechPurposeTypeId"/>
@@ -724,19 +724,19 @@ under the License.
             <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunUpdateOrderItemShipGroup"/>
         </check-permission>
         <check-errors/>
-        <make-value entity-name="OrderItemShipGroup" value-field="lookupPKMap"/>
+        <make-value value-field="lookupPKMap" entity-name="OrderItemShipGroup"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="OrderItemShipGroup" map="lookupPKMap" value-field="lookedUpValue"/>
         <!-- splitting shipmentMethod request parameter value that contains "@" symbol
              into "shipmentMethodTypeId", "carrierPartyId" and "carrierRoleTypeId".
         -->
         <script>groovy:
-            shipmentMethod = parameters.get("shipmentMethod")
-            if (shipmentMethod != null) {
-               arr = shipmentMethod.split( "@" )
-               parameters.put("shipmentMethodTypeId", arr[0])
-               parameters.put("carrierPartyId", arr[1])
-               parameters.put("carrierRoleTypeId", arr[2])
+            shipmentMethod = parameters.get("shipmentMethod");
+            if(shipmentMethod != null){
+               arr = shipmentMethod.split( "@" );
+               parameters.put("shipmentMethodTypeId", arr[0]);
+               parameters.put("carrierPartyId", arr[1]);
+               parameters.put("carrierRoleTypeId", arr[2]);
             }
         </script>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
@@ -837,7 +837,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createOrderItemChange" short-description="Creates a new Order Item Change record">
-        <make-value entity-name="OrderItemChange" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="OrderItemChange"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="parameters.changeDatetime">
             <now-timestamp field="nowTimestamp"/>
@@ -877,25 +877,26 @@ under the License.
                     </call-service>
                 </if-compare-field>
                 <entity-and entity-name="PartyContactMechPurpose" list="pcmpShipList" filter-by-date="true">
-                    <field-map field-name="partyId" from-field="partyId"/>
+                    <field-map field-name="partyId" from-field="userLogin.partyId"/>
                     <field-map field-name="contactMechId" from-field="parameters.shipToContactMechId"/>
                     <field-map field-name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
                 </entity-and>
                 <!-- If purpose is not exists then create -->
                 <if-empty field="pcmpShipList">
                     <set-service-fields service-name="createPartyContactMechPurpose" map="parameters" to-map="serviceContext"/>
-                    <set field="serviceContext.partyId" from-field="partyId"/>
+                    <set field="serviceContext.partyId" from-field="userLogin.partyId"/>
 
                     <entity-and entity-name="PartyContactMechPurpose" list="pcmpList" filter-by-date="true">
-                        <field-map field-name="partyId" from-field="partyId"/>
+                        <field-map field-name="partyId" from-field="userLogin.partyId"/>
                         <field-map field-name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
                     </entity-and>
-                    <iterate list="pcmpList" entry="pcmp">
-                        <set-service-fields service-name="expirePartyContactMechPurpose" map="pcmp" to-map="serviceInMap"/>
-                        <call-service service-name="expirePartyContactMechPurpose" in-map-name="serviceInMap"/>
+                    <if-not-empty field="pcmpList">
+                        <first-from-list list="pcmpList" entry="pcmp"/>
+                        <set-service-fields service-name="deletePartyContactMechPurposeIfExists" map="pcmp" to-map="serviceInMap"/>
+                        <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="serviceInMap"/>
                         <clear-field field="serviceInMap"/>
-                    </iterate>
-                    <set field="serviceContext.partyId" from-field="partyId"/>
+                    </if-not-empty>
+                    <set field="serviceContext.partyId" from-field="userLogin.partyId"/>
                     <set field="serviceContext.contactMechId" from-field="parameters.shipToContactMechId"/>
                     <set field="serviceContext.contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
                     <call-service service-name="createPartyContactMechPurpose" in-map-name="serviceContext"/>
@@ -905,7 +906,7 @@ under the License.
                 <if-compare field="parameters.setDefaultShipping" operator="equals" value="Y">
                     <set-service-fields service-name="setPartyProfileDefaults" map="parameters" to-map="partyProfileDefaultsCtx"/>
                     <set field="partyProfileDefaultsCtx.defaultShipAddr" from-field="parameters.shipToContactMechId"/>
-                    <set field="partyProfileDefaultsCtx.partyId" from-field="partyId"/>
+                    <set field="partyProfileDefaultsCtx.partyId" from-field="userLogin.partyId"/>
                     <call-service service-name="setPartyProfileDefaults" in-map-name="partyProfileDefaultsCtx"/>
                 </if-compare>
             </if-compare>
@@ -919,13 +920,14 @@ under the License.
                     <if-compare-field field="oldValue" to-field="newValue" operator="not-equals" type="Object">
                         <entity-and entity-name="PartyContactMechPurpose" list="pcmpList" filter-by-date="true">
                             <field-map field-name="contactMechId" from-field="shipToAddressCtx.shipToContactMechId"/>
-                            <field-map field-name="partyId" from-field="partyId"/>
+                            <field-map field-name="partyId" from-field="userLogin.partyId"/>
                             <field-map field-name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
                         </entity-and>
-                        <iterate list="pcmpList" entry="pcmp">
-                            <set-service-fields service-name="expirePartyContactMechPurpose" map="pcmp" to-map="serviceInMap"/>
-                            <call-service service-name="expirePartyContactMechPurpose" in-map-name="serviceInMap"/>
-                        </iterate>
+                        <first-from-list list="pcmpList" entry="pcmp"/>
+                        <if-not-empty field="pcmp">
+                            <set-service-fields service-name="deletePartyContactMechPurposeIfExists" map="pcmp" to-map="serviceInMap"/>
+                            <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="serviceInMap"/>
+                        </if-not-empty>
                         <set field="shipToAddressCtx.contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
                         <set field="shipToAddressCtx.contactMechId" from-field="nullField"/>
                         <call-service service-name="createPartyPostalAddress" in-map-name="shipToAddressCtx">
@@ -971,11 +973,12 @@ under the License.
                         <field-map field-name="partyId" from-field="partyId"/>
                         <field-map field-name="contactMechPurposeTypeId" value="BILLING_LOCATION"/>
                     </entity-and>
-                    <iterate list="pcmpList" entry="pcmp">
-                        <set-service-fields service-name="expirePartyContactMechPurpose" map="pcmp" to-map="serviceInMap"/>
-                        <call-service service-name="expirePartyContactMechPurpose" in-map-name="serviceInMap"/>
+                    <first-from-list list="pcmpList" entry="pcmp"/>
+                    <if-not-empty field="pcmp">
+                        <set-service-fields service-name="deletePartyContactMechPurposeIfExists" map="pcmp" to-map="serviceInMap"/>
+                        <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="serviceInMap"/>
                         <clear-field field="serviceInMap"/>
-                    </iterate>
+                    </if-not-empty>
                     <if-compare field="keepAddressBook" operator="equals" value="N">
                         <set field="serviceInMap.contactMechId" from-field="parameters.billToContactMechId"/>
                         <call-service service-name="deletePartyContactMech" in-map-name="serviceInMap"/>
@@ -1013,18 +1016,19 @@ under the License.
                         <result-to-field result-name="contactMechId" field="parameters.billToContactMechId"/>
                     </call-service>
                     <set-service-fields service-name="createPartyContactMechPurpose" map="parameters" to-map="serviceContext"/>
-                    <set field="serviceContext.partyId" from-field="partyId"/>
+                    <set field="serviceContext.partyId" from-field="userLogin.partyId"/>
 
                     <entity-and entity-name="PartyContactMechPurpose" list="pcmpList" filter-by-date="true">
                         <field-map field-name="partyId" from-field="billToAddressCtx.partyId"/>
                         <field-map field-name="contactMechPurposeTypeId" value="BILLING_LOCATION"/>
                     </entity-and>
-                    <iterate list="pcmpList" entry="pcmp">
-                        <set-service-fields service-name="expirePartyContactMechPurpose" map="pcmp" to-map="serviceInMap"/>
-                        <call-service service-name="expirePartyContactMechPurpose" in-map-name="serviceInMap"/>
+                    <if-not-empty field="pcmpList">
+                        <first-from-list list="pcmpList" entry="pcmp"/>
+                        <set-service-fields service-name="deletePartyContactMechPurposeIfExists" map="pcmp" to-map="serviceInMap"/>
+                        <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="serviceInMap"/>
                         <clear-field field="serviceInMap"/>
-                    </iterate>
-                    <set field="serviceContext.partyId" from-field="partyId"/>
+                    </if-not-empty>
+                    <set field="serviceContext.partyId" from-field="userLogin.partyId"/>
                     <set field="serviceContext.contactMechId" from-field="parameters.billToContactMechId"/>
                     <set field="serviceContext.contactMechPurposeTypeId" value="BILLING_LOCATION"/>
                     <call-service service-name="createPartyContactMechPurpose" in-map-name="serviceContext"/>
@@ -1056,25 +1060,26 @@ under the License.
                 </if-compare-field>
 
                 <entity-and entity-name="PartyContactMechPurpose" list="pcmpBillList" filter-by-date="true">
-                    <field-map field-name="partyId" from-field="partyId"/>
+                    <field-map field-name="partyId" from-field="userLogin.partyId"/>
                     <field-map field-name="contactMechId" from-field="parameters.billToContactMechId"/>
                     <field-map field-name="contactMechPurposeTypeId" value="BILLING_LOCATION"/>
                 </entity-and>
                 <!-- If purpose is not exists then create -->
                 <if-empty field="pcmpBillList">
                     <set-service-fields service-name="createPartyContactMechPurpose" map="parameters" to-map="serviceContext"/>
-                    <set field="serviceContext.partyId" from-field="partyId"/>
+                    <set field="serviceContext.partyId" from-field="userLogin.partyId"/>
 
                     <entity-and entity-name="PartyContactMechPurpose" list="pcmpList" filter-by-date="true">
-                        <field-map field-name="partyId" from-field="partyId"/>
+                        <field-map field-name="partyId" from-field="userLogin.partyId"/>
                         <field-map field-name="contactMechPurposeTypeId" value="BILLING_LOCATION"/>
                     </entity-and>
-                    <iterate list="pcmpList" entry="pcmp">
-                        <set-service-fields service-name="expirePartyContactMechPurpose" map="pcmp" to-map="serviceInMap"/>
-                        <call-service service-name="expirePartyContactMechPurpose" in-map-name="serviceInMap"/>
+                    <if-not-empty field="pcmpList">
+                        <first-from-list list="pcmpList" entry="pcmp"/>
+                        <set-service-fields service-name="deletePartyContactMechPurposeIfExists" map="pcmp" to-map="serviceInMap"/>
+                        <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="serviceInMap"/>
                         <clear-field field="serviceInMap"/>
-                    </iterate>
-                    <set field="serviceContext.partyId" from-field="partyId"/>
+                    </if-not-empty>
+                    <set field="serviceContext.partyId" from-field="userLogin.partyId"/>
                     <set field="serviceContext.contactMechId" from-field="parameters.billToContactMechId"/>
                     <set field="serviceContext.contactMechPurposeTypeId" value="BILLING_LOCATION"/>
                     <call-service service-name="createPartyContactMechPurpose" in-map-name="serviceContext"/>
@@ -1084,7 +1089,7 @@ under the License.
                 <if-compare field="parameters.setDefaultBilling" operator="equals" value="Y">
                     <set-service-fields service-name="setPartyProfileDefaults" map="parameters" to-map="partyProfileDefaultsCtx"/>
                     <set field="partyProfileDefaultsCtx.defaultBillAddr" from-field="parameters.billToContactMechId"/>
-                    <set field="partyProfileDefaultsCtx.partyId" from-field="partyId"/>
+                    <set field="partyProfileDefaultsCtx.partyId" from-field="userLogin.partyId"/>
                     <call-service service-name="setPartyProfileDefaults" in-map-name="partyProfileDefaultsCtx"/>
                 </if-compare>
             </else>
@@ -1119,7 +1124,7 @@ under the License.
         <field-to-result field="parameters.paymentMethodId" result-name="paymentMethodId"/>
     </simple-method>
 
-    <simple-method method-name="setUnitPriceAsLastPrice" short-description="Set unitPrice as lastPrice on create purchase order, edit purchase order items and on receive inventory against a purchase order, but only if the order price didn't come from an agreement">
+    <simple-method method-name="setUnitPriceAsLastPrice" short-description="Set unitPrice as lastPrice on create purchase order, edit purchase order items and on receive inventory against a purchase order">
         <if>
             <condition>
                 <and>
@@ -1172,11 +1177,6 @@ under the License.
                         </and>
                     </condition>
                     <then>
-                        <entity-one entity-name="OrderHeader" value-field="order"/>
-                        <!--Do not update lastPrice if an agreement has been used on the order -->
-                        <if-not-empty field="order.agreementId"><!--TODO replace by orderPItemPriceInfo analyse when it will support agreement-->
-                            <return/>
-                        </if-not-empty>
                         <entity-and entity-name="OrderItem" list="orderItems">
                             <field-map field-name="orderId" from-field="parameters.orderId"/>
                         </entity-and>
@@ -1206,7 +1206,7 @@ under the License.
                                                                 <if-compare-field field="orderItem.unitPrice" to-field="supplierProduct.lastPrice" operator="not-equals" type="BigDecimal"/>
                                                             </condition>
                                                             <then>
-                                                                <make-value entity-name="SupplierProduct" value-field="newSupplierProduct"/>
+                                                                <make-value value-field="newSupplierProduct" entity-name="SupplierProduct"/>
                                                                 <clone-value value-field="supplierProduct" new-value-field="newSupplierProduct"/>
                                                                 <set from-field="nowTimestamp" field="newSupplierProduct.availableFromDate"/>
                                                                 <set from-field="orderItem.unitPrice" field="newSupplierProduct.lastPrice"/>
@@ -1238,7 +1238,7 @@ under the License.
                                         <if-compare-field field="orderItem.unitPrice" to-field="supplierProduct.lastPrice" operator="not-equals" type="BigDecimal"/>
                                     </condition>
                                     <then>
-                                        <make-value entity-name="SupplierProduct" value-field="newSupplierProduct"/>
+                                        <make-value value-field="newSupplierProduct" entity-name="SupplierProduct"/>
                                         <clone-value value-field="supplierProduct" new-value-field="newSupplierProduct"/>
                                         <set from-field="nowTimestamp" field="newSupplierProduct.availableFromDate"/>
                                         <set from-field="orderItem.unitPrice" field="newSupplierProduct.lastPrice" type="BigDecimal"/>
@@ -1296,11 +1296,11 @@ under the License.
         -->
 
         <script>groovy:
-            shipmentMethodAndAmount = parameters.get("shipmentMethodAndAmount")
+            shipmentMethodAndAmount = parameters.get("shipmentMethodAndAmount");
             if (shipmentMethodAndAmount != null) {
-               parameters.put("shipmentMethod", shipmentMethodAndAmount.substring(0, shipmentMethodAndAmount.indexOf("*")))
-               parameters.put("amount", shipmentMethodAndAmount.substring(shipmentMethodAndAmount.indexOf("*")+1))
-               parameters.put("shipmentMethodTypeId", shipmentMethodAndAmount.substring(0, shipmentMethodAndAmount.indexOf("@")))
+               parameters.put("shipmentMethod", shipmentMethodAndAmount.substring(0, shipmentMethodAndAmount.indexOf("*")));
+               parameters.put("amount", shipmentMethodAndAmount.substring(shipmentMethodAndAmount.indexOf("*")+1));
+               parameters.put("shipmentMethodTypeId", shipmentMethodAndAmount.substring(0, shipmentMethodAndAmount.indexOf("@")));
             }
         </script>
         <set field="newAmount" from-field="parameters.amount" type="BigDecimal"/>

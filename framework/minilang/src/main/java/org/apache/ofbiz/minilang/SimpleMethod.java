@@ -67,7 +67,7 @@ import org.w3c.dom.Element;
  * has a model class, and each model class has its own factory.
  * </p>
  * <p>
- * Mini-language can be extended by:</p>
+ * Mini-language can be extended by:<br />
  * <ul>
  * <li>Creating model classes that extend {@link org.apache.ofbiz.minilang.method.MethodOperation}</li>
  * <li>Creating factories for the model classes that implement {@link org.apache.ofbiz.minilang.method.MethodOperation.Factory}</li>
@@ -75,8 +75,8 @@ import org.w3c.dom.Element;
  * (see <a href="http://docs.oracle.com/javase/6/docs/api/java/util/ServiceLoader.html" target="_blank">ServiceLoader</a>)
  * </li>
  * </ul>
- * 
- * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
+ * </p>
+ * @see <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/Mini-language+Reference#Mini-languageReference-The{{%3Csimplemethod%3E}}element">Mini-language Reference</a>
  */
 public final class SimpleMethod extends MiniLangElement {
 
@@ -543,10 +543,10 @@ public final class SimpleMethod extends MiniLangElement {
             if (UtilValidate.isEmpty(response)) {
                 if (forceError) {
                     // override response code, always use error code
-                    if (Debug.verboseOn()) Debug.logVerbose("No response code string found, but error messages found so assuming error; returning code [" + defaultErrorCode + "]", module);
+                    Debug.logVerbose("No response code string found, but error messages found so assuming error; returning code [" + defaultErrorCode + "]", module);
                     response = defaultErrorCode;
                 } else {
-                    if (Debug.verboseOn()) Debug.logVerbose("No response code string or errors found, assuming success; returning code [" + defaultSuccessCode + "]", module);
+                    Debug.logVerbose("No response code string or errors found, assuming success; returning code [" + defaultSuccessCode + "]", module);
                     response = defaultSuccessCode;
                 }
             }

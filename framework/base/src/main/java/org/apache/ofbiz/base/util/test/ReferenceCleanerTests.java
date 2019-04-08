@@ -58,6 +58,7 @@ public class ReferenceCleanerTests extends GenericTestCaseBase {
         assertSame("still-soft", obj, soft.get());
         assertSame("still-weak", obj, weak.get());
         assertNull("no event", queue.poll(100, TimeUnit.MILLISECONDS));
+        obj = null;
         useAllMemory();
         foundEvents.add(queue.poll(100, TimeUnit.MILLISECONDS));
         foundEvents.add(queue.poll(100, TimeUnit.MILLISECONDS));

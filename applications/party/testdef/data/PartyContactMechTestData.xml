@@ -27,16 +27,4 @@ under the License.
     <ContactMech contactMechId="9126" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@foo.com"/>
     <PartyContactMech partyId="DemoCustomer" contactMechId="9126" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
     <PartyContactMechPurpose partyId="DemoCustomer" contactMechId="9126" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2001-05-13 00:00:00.000"/>
-    <PartyContactMechPurpose partyId="DemoCustomer" contactMechId="9126" contactMechPurposeTypeId="BILLING_EMAIL" fromDate="2001-05-13 00:00:00.000" thruDate="2001-05-14 00:00:00.000"/>
-
-    <ContactMech contactMechId="9127" contactMechTypeId="FTP_ADDRESS"/>
-    <FtpAddress contactMechId="9127" hostname="ftp://apacheofbiz.foo.com" port="" username="ofbiz" password="apache" binaryTransfer="Y" passiveMode="Y" path="public"/>
-    <PartyContactMech partyId="DemoCustomer" contactMechId="9127" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
-
-    <!--Data use by ContactMechWorkerTests.testWorkEffortContactMechResolution-->
-    <WorkEffort workEffortId="TEST_CM_WORKER" />
-    <WorkEffortContactMech workEffortId="TEST_CM_WORKER" contactMechId="9015" fromDate="2001-05-13 00:00:00.000"/>
-    <WorkEffortContactMech workEffortId="TEST_CM_WORKER" contactMechId="9127" fromDate="2001-05-13 00:00:00.000" thruDate="2001-05-14 00:00:00.000"/>
-    <WorkEffortContactMech workEffortId="TEST_CM_WORKER" contactMechId="9126" fromDate="2001-05-13 00:00:00.000"/>
-    <WorkEffortContactMech workEffortId="TEST_CM_WORKER" contactMechId="9125" fromDate="2001-05-13 00:00:00.000"/>
 </entity-engine-xml>

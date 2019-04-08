@@ -18,25 +18,17 @@
  *******************************************************************************/
 package org.apache.ofbiz.webapp.control;
 
-import java.net.MalformedURLException;
-import org.apache.ofbiz.base.location.FlexibleLocation;
 import static org.apache.ofbiz.base.util.UtilGenerics.checkMap;
 
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.URL;
 import java.security.cert.X509Certificate;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.function.Predicate;
-import java.util.stream.Stream;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -53,14 +45,12 @@ import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilObject;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.base.util.collections.MultivaluedMapContext;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.webapp.OfbizUrlBuilder;
-import org.apache.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
 import org.apache.ofbiz.webapp.event.EventFactory;
 import org.apache.ofbiz.webapp.event.EventHandler;
 import org.apache.ofbiz.webapp.event.EventHandlerException;
@@ -70,7 +60,6 @@ import org.apache.ofbiz.webapp.view.ViewHandler;
 import org.apache.ofbiz.webapp.view.ViewHandlerException;
 import org.apache.ofbiz.webapp.website.WebSiteProperties;
 import org.apache.ofbiz.webapp.website.WebSiteWorker;
-import org.apache.ofbiz.widget.model.ThemeFactory;
 
 /**
  * RequestHandler - Request Processor Object
@@ -78,74 +67,12 @@ import org.apache.ofbiz.widget.model.ThemeFactory;
 public class RequestHandler {
 
     public static final String module = RequestHandler.class.getName();
-    private final static String defaultStatusCodeString =
-            UtilProperties.getPropertyValue("requestHandler", "status-code", "302");
+    private final String defaultStatusCodeString = UtilProperties.getPropertyValue("requestHandler", "status-code", "302");
     private final ViewFactory viewFactory;
     private final EventFactory eventFactory;
     private final URL controllerConfigURL;
     private final boolean trackServerHit;
     private final boolean trackVisit;
-    private ControllerConfig ccfg;
-
-    static class ControllerConfig {
-        private final MultivaluedMapContext<String, RequestMap> requestMapMap;
-        private final Map<String, ConfigXMLReader.ViewMap> viewMapMap;
-        private String statusCodeString;
-        private final String defaultRequest;
-        private final Map<String, ConfigXMLReader.Event> firstVisitEventList;
-        private final Map<String, ConfigXMLReader.Event> preprocessorEventList;
-        private final Map<String, ConfigXMLReader.Event> postprocessorEventList;
-        private final String protectView;
-
-        ControllerConfig(ConfigXMLReader.ControllerConfig ccfg) throws WebAppConfigurationException {
-            preprocessorEventList = ccfg.getPreprocessorEventList();
-            postprocessorEventList = ccfg.getPostprocessorEventList();
-            requestMapMap = ccfg.getRequestMapMultiMap();
-            viewMapMap = ccfg.getViewMapMap();
-            defaultRequest = ccfg.getDefaultRequest();
-            firstVisitEventList = ccfg.getFirstVisitEventList();
-            protectView = ccfg.getProtectView();
-
-            String status = ccfg.getStatusCode();
-            statusCodeString = UtilValidate.isEmpty(status) ? defaultStatusCodeString : status;
-        }
-
-        public MultivaluedMapContext<String, RequestMap> getRequestMapMap() {
-            return requestMapMap;
-        }
-
-        public Map<String, ConfigXMLReader.ViewMap> getViewMapMap() {
-            return viewMapMap;
-        }
-
-        public String getStatusCodeString() {
-            return statusCodeString;
-        }
-
-        public String getDefaultRequest() {
-            return defaultRequest;
-        }
-
-        public void setStatusCodeString(String statusCodeString) {
-            this.statusCodeString = statusCodeString;
-        }
-
-        public Map<String, ConfigXMLReader.Event> getFirstVisitEventList() {
-            return firstVisitEventList;
-        }
-
-        public Map<String, ConfigXMLReader.Event> getPreprocessorEventList() {
-            return preprocessorEventList;
-        }
-
-        public Map<String, ConfigXMLReader.Event> getPostprocessorEventList() {
-            return postprocessorEventList;
-        }
-
-        public String getProtectView() {
-            return protectView;
-        }
-    }
 
     public static RequestHandler getRequestHandler(ServletContext servletContext) {
         RequestHandler rh = (RequestHandler) servletContext.getAttribute("_REQUEST_HANDLER_");
@@ -182,56 +109,11 @@ public class RequestHandler {
         return null;
     }
 
-    /**
-     * Find a collection of request maps in {@code ccfg} matching {@code req}.
-     * Otherwise fall back to matching the {@code defaultReq} field in {@code ccfg}.
-     *
-     * @param ccfg The controller containing the current configuration
-     * @param req The HTTP request to match
-     * @return a collection of request maps which might be empty
-     */
-    static Collection<RequestMap> resolveURI(ControllerConfig ccfg, HttpServletRequest req) {
-        Map<String, List<RequestMap>> requestMapMap = ccfg.getRequestMapMap();
-        Map<String, ConfigXMLReader.ViewMap> viewMapMap = ccfg.getViewMapMap();
-        String defaultRequest = ccfg.getDefaultRequest();
-        String path = req.getPathInfo();
-        String requestUri = getRequestUri(path);
-        String viewUri = getOverrideViewUri(path);
-        Collection<RequestMap> rmaps;
-        if (requestMapMap.containsKey(requestUri)
-                // Ensure that overridden view exists.
-                && (viewUri == null || viewMapMap.containsKey(viewUri))) {
-            rmaps = requestMapMap.get(requestUri);
-        } else if (defaultRequest != null) {
-            rmaps = requestMapMap.get(defaultRequest);
-        } else {
-            rmaps = null;
-        }
-        return rmaps != null ? rmaps : Collections.emptyList();
-    }
-
-    /**
-     * Find the request map matching {@code method}.
-     * Otherwise fall back to the one matching the "all" and "" special methods
-     * in that respective order.
-     *
-     * @param method the HTTP method to match
-     * @param rmaps the collection of request map candidates
-     * @return a request map {@code Optional}
-     */
-    static Optional<RequestMap> resolveMethod(String method, Collection<RequestMap> rmaps) {
-        for (RequestMap map : rmaps) {
-            if (map.method.equalsIgnoreCase(method)) {
-                return Optional.of(map);
-            }
-        }
-        if (method.isEmpty()) {
-            return Optional.empty();
-        } else if (method.equals("all")) {
-            return resolveMethod("", rmaps);
-        } else {
-            return resolveMethod("all", rmaps);
-        }
+    public void doRequest(HttpServletRequest request, HttpServletResponse response, String requestUri) throws RequestHandlerException, RequestHandlerExceptionAllowExternalRequests {
+        HttpSession session = request.getSession();
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
+        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
+        doRequest(request, response, requestUri, userLogin, delegator);
     }
 
     public void doRequest(HttpServletRequest request, HttpServletResponse response, String chain,
@@ -242,12 +124,19 @@ public class RequestHandler {
         long startTime = System.currentTimeMillis();
         HttpSession session = request.getSession();
 
-        // Parse controller config.
+        // get the controllerConfig once for this method so we don't have to get it over and over inside the method
+        ConfigXMLReader.ControllerConfig controllerConfig = this.getControllerConfig();
+        Map<String, ConfigXMLReader.RequestMap> requestMapMap = null;
+        String statusCodeString = null;
         try {
-            ccfg = new ControllerConfig(getControllerConfig());
+            requestMapMap = controllerConfig.getRequestMapMap();
+            statusCodeString = controllerConfig.getStatusCode();
         } catch (WebAppConfigurationException e) {
             Debug.logError(e, "Exception thrown while parsing controller.xml file: ", module);
             throw new RequestHandlerException(e);
+        }
+        if (UtilValidate.isEmpty(statusCodeString)) {
+            statusCodeString = defaultStatusCodeString;
         }
 
         // workaround if we are in the root webapp
@@ -263,29 +152,50 @@ public class RequestHandler {
             }
         }
 
-        String requestMissingErrorMessage = "Unknown request ["
-                + defaultRequestUri
-                + "]; this request does not exist or cannot be called directly.";
+        String overrideViewUri = RequestHandler.getOverrideViewUri(request.getPathInfo());
 
-        String path = request.getPathInfo();
-        String requestUri = getRequestUri(path);
-        String overrideViewUri = getOverrideViewUri(path);
-
-        Collection<RequestMap> rmaps = resolveURI(ccfg, request);
-        if (rmaps.isEmpty()) {
-            if (throwRequestHandlerExceptionOnMissingLocalRequest) {
-              throw new RequestHandlerException(requestMissingErrorMessage);
-            } else {
-              throw new RequestHandlerExceptionAllowExternalRequests();
+        String requestMissingErrorMessage = "Unknown request [" + defaultRequestUri + "]; this request does not exist or cannot be called directly.";
+        ConfigXMLReader.RequestMap requestMap = null;
+        if (defaultRequestUri != null) {
+            requestMap = requestMapMap.get(defaultRequestUri);
+        }
+        // check for default request
+        if (requestMap == null) {
+            String defaultRequest;
+            try {
+                defaultRequest = controllerConfig.getDefaultRequest();
+            } catch (WebAppConfigurationException e) {
+                Debug.logError(e, "Exception thrown while parsing controller.xml file: ", module);
+                throw new RequestHandlerException(e);
+            }
+            if (defaultRequest != null) { // required! to avoid a null pointer exception and generate a requesthandler exception if default request not found.
+                requestMap = requestMapMap.get(defaultRequest);
             }
         }
 
-        String method = request.getMethod();
-        RequestMap requestMap = resolveMethod(method, rmaps).orElseThrow(() -> {
-            String msg = UtilProperties.getMessage("WebappUiLabels", "RequestMethodNotMatchConfig",
-                    UtilMisc.toList(requestUri, method), UtilHttp.getLocale(request));
-            return new MethodNotAllowedException(msg);
-        });
+        // check for override view
+        if (overrideViewUri != null) {
+            ConfigXMLReader.ViewMap viewMap;
+            try {
+                viewMap = getControllerConfig().getViewMapMap().get(overrideViewUri);
+                if (viewMap == null) {
+                    String defaultRequest = controllerConfig.getDefaultRequest();
+                    if (defaultRequest != null) { // required! to avoid a null pointer exception and generate a requesthandler exception if default request not found.
+                        requestMap = requestMapMap.get(defaultRequest);
+                    }
+                }
+            } catch (WebAppConfigurationException e) {
+                Debug.logError(e, "Exception thrown while parsing controller.xml file: ", module);
+                throw new RequestHandlerException(e);
+            }
+        }
+
+        // if no matching request is found in the controller, depending on throwRequestHandlerExceptionOnMissingLocalRequest
+        //  we throw a RequestHandlerException or RequestHandlerExceptionAllowExternalRequests
+        if (requestMap == null) {
+            if (throwRequestHandlerExceptionOnMissingLocalRequest) throw new RequestHandlerException(requestMissingErrorMessage);
+            else throw new RequestHandlerExceptionAllowExternalRequests();
+         }
 
         String eventReturn = null;
         if (requestMap.metrics != null && requestMap.metrics.getThreshold() != 0.0 && requestMap.metrics.getTotalEvents() > 3 && requestMap.metrics.getThreshold() < requestMap.metrics.getServiceRate()) {
@@ -299,7 +209,7 @@ public class RequestHandler {
         // Check for chained request.
         if (chain != null) {
             String chainRequestUri = RequestHandler.getRequestUri(chain);
-            requestMap = ccfg.getRequestMapMap().getFirst(chainRequestUri);
+            requestMap = requestMapMap.get(chainRequestUri);
             if (requestMap == null) {
                 throw new RequestHandlerException("Unknown chained request [" + chainRequestUri + "]; this request does not exist");
             }
@@ -323,18 +233,26 @@ public class RequestHandler {
             // Check to make sure we are allowed to access this request directly. (Also checks if this request is defined.)
             // If the request cannot be called, or is not defined, check and see if there is a default-request we can process
             if (!requestMap.securityDirectRequest) {
-                if (ccfg.getDefaultRequest() == null || !ccfg.getRequestMapMap().getFirst(ccfg.getDefaultRequest()).securityDirectRequest) {
+                String defaultRequest;
+                try {
+                    defaultRequest = controllerConfig.getDefaultRequest();
+                } catch (WebAppConfigurationException e) {
+                    Debug.logError(e, "Exception thrown while parsing controller.xml file: ", module);
+                    throw new RequestHandlerException(e);
+                }
+                if (defaultRequest == null || !requestMapMap.get(defaultRequest).securityDirectRequest) {
                     // use the same message as if it was missing for security reasons, ie so can't tell if it is missing or direct request is not allowed
                     throw new RequestHandlerException(requestMissingErrorMessage);
                 } else {
-                    requestMap = ccfg.getRequestMapMap().getFirst(ccfg.getDefaultRequest());
+                    requestMap = requestMapMap.get(defaultRequest);
                 }
             }
             // Check if we SHOULD be secure and are not.
-            boolean forwardedHTTPS = "HTTPS".equalsIgnoreCase(request.getHeader("X-Forwarded-Proto"));
-            if (!request.isSecure() && !forwardedHTTPS && requestMap.securityHttps) {
+            String forwardedProto = request.getHeader("X-Forwarded-Proto");
+            boolean isForwardedSecure = UtilValidate.isNotEmpty(forwardedProto) && "HTTPS".equals(forwardedProto.toUpperCase());
+            if ((!request.isSecure() && !isForwardedSecure) && requestMap.securityHttps) {
                 // If the request method was POST then return an error to avoid problems with XSRF where the request may have come from another machine/program and had the same session ID but was not encrypted as it should have been (we used to let it pass to not lose data since it was too late to protect that data anyway)
-                if ("POST".equalsIgnoreCase(request.getMethod())) {
+                if (request.getMethod().equalsIgnoreCase("POST")) {
                     // we can't redirect with the body parameters, and for better security from XSRF, just return an error message
                     Locale locale = UtilHttp.getLocale(request);
                     String errMsg = UtilProperties.getMessage("WebappUiLabels", "requestHandler.InsecureFormPostToSecureRequest", locale);
@@ -369,7 +287,7 @@ public class RequestHandler {
                     String newUrl = RequestHandler.makeUrl(request, response, urlBuf.toString());
                     if (newUrl.toUpperCase().startsWith("HTTPS")) {
                         // if we are supposed to be secure, redirect secure.
-                        callRedirect(newUrl, response, request, ccfg.getStatusCodeString());
+                        callRedirect(newUrl, response, request, statusCodeString);
                         return;
                     }
                 }
@@ -377,7 +295,33 @@ public class RequestHandler {
 
             // Check for HTTPS client (x.509) security
             if (request.isSecure() && requestMap.securityCert) {
-                if (!checkCertificates(request, certs -> SSLUtil.isClientTrusted(certs, null))) {
+                X509Certificate[] clientCerts = (X509Certificate[]) request.getAttribute("javax.servlet.request.X509Certificate"); // 2.2 spec
+                if (clientCerts == null) {
+                    clientCerts = (X509Certificate[]) request.getAttribute("javax.net.ssl.peer_certificates"); // 2.1 spec
+                }
+                if (clientCerts == null) {
+                    Debug.logWarning("Received no client certificates from browser", module);
+                }
+
+                // check if the client has a valid certificate (in our db store)
+                boolean foundTrustedCert = false;
+
+                if (clientCerts == null) {
+                    throw new RequestHandlerException(requestMissingErrorMessage);
+                } else {
+                    if (Debug.infoOn()) {
+                        for (int i = 0; i < clientCerts.length; i++) {
+                            Debug.logInfo(clientCerts[i].getSubjectX500Principal().getName(), module);
+                        }
+                    }
+
+                    // check if this is a trusted cert
+                    if (SSLUtil.isClientTrusted(clientCerts, null)) {
+                        foundTrustedCert = true;
+                    }
+                }
+
+                if (!foundTrustedCert) {
                     Debug.logWarning(requestMissingErrorMessage, module);
                     throw new RequestHandlerException(requestMissingErrorMessage);
                 }
@@ -385,56 +329,66 @@ public class RequestHandler {
 
             // If its the first visit run the first visit events.
             if (this.trackVisit(request) && session.getAttribute("_FIRST_VISIT_EVENTS_") == null) {
-                if (Debug.infoOn()) {
+                if (Debug.infoOn())
                     Debug.logInfo("This is the first request in this visit." + showSessionId(request), module);
-                }
                 session.setAttribute("_FIRST_VISIT_EVENTS_", "complete");
-                for (ConfigXMLReader.Event event: ccfg.getFirstVisitEventList().values()) {
+                try {
+                    for (ConfigXMLReader.Event event: controllerConfig.getFirstVisitEventList().values()) {
+                        try {
+                            String returnString = this.runEvent(request, response, event, null, "firstvisit");
+                            if (returnString == null || "none".equalsIgnoreCase(returnString)) {
+                                interruptRequest = true;
+                            } else if (!returnString.equalsIgnoreCase("success")) {
+                                throw new EventHandlerException("First-Visit event did not return 'success'.");
+                            }
+                        } catch (EventHandlerException e) {
+                            Debug.logError(e, module);
+                        }
+                    }
+                } catch (WebAppConfigurationException e) {
+                    Debug.logError(e, "Exception thrown while parsing controller.xml file: ", module);
+                    throw new RequestHandlerException(e);
+                }
+            }
+
+            // Invoke the pre-processor (but NOT in a chain)
+            try {
+                for (ConfigXMLReader.Event event: controllerConfig.getPreprocessorEventList().values()) {
                     try {
-                        String returnString = this.runEvent(request, response, event, null, "firstvisit");
+                        String returnString = this.runEvent(request, response, event, null, "preprocessor");
                         if (returnString == null || "none".equalsIgnoreCase(returnString)) {
                             interruptRequest = true;
-                        } else if (!"success".equalsIgnoreCase(returnString)) {
-                            throw new EventHandlerException("First-Visit event did not return 'success'.");
+                        } else if (!returnString.equalsIgnoreCase("success")) {
+                            if (!returnString.contains(":_protect_:")) {
+                                throw new EventHandlerException("Pre-Processor event [" + event.invoke + "] did not return 'success'.");
+                            } else { // protect the view normally rendered and redirect to error response view
+                                returnString = returnString.replace(":_protect_:", "");
+                                if (returnString.length() > 0) {
+                                    request.setAttribute("_ERROR_MESSAGE_", returnString);
+                                }
+                                eventReturn = null;
+                                // check to see if there is a "protect" response, if so it's ok else show the default_error_response_view
+                                if (!requestMap.requestResponseMap.containsKey("protect")) {
+                                    String protectView = controllerConfig.getProtectView();
+                                    if (protectView != null) {
+                                        overrideViewUri = protectView;
+                                    } else {
+                                        overrideViewUri = EntityUtilProperties.getPropertyValue("security", "default.error.response.view", delegator);
+                                        overrideViewUri = overrideViewUri.replace("view:", "");
+                                        if ("none:".equals(overrideViewUri)) {
+                                            interruptRequest = true;
+                                        }
+                                    }
+                                }
+                            }
                         }
                     } catch (EventHandlerException e) {
                         Debug.logError(e, module);
                     }
                 }
-            }
-
-            // Invoke the pre-processor (but NOT in a chain)
-            for (ConfigXMLReader.Event event: ccfg.getPreprocessorEventList().values()) {
-                try {
-                    String returnString = this.runEvent(request, response, event, null, "preprocessor");
-                    if (returnString == null || "none".equalsIgnoreCase(returnString)) {
-                        interruptRequest = true;
-                    } else if (!"success".equalsIgnoreCase(returnString)) {
-                        if (!returnString.contains(":_protect_:")) {
-                            throw new EventHandlerException("Pre-Processor event [" + event.invoke + "] did not return 'success'.");
-                        } else { // protect the view normally rendered and redirect to error response view
-                            returnString = returnString.replace(":_protect_:", "");
-                            if (returnString.length() > 0) {
-                                request.setAttribute("_ERROR_MESSAGE_", returnString);
-                            }
-                            eventReturn = null;
-                            // check to see if there is a "protect" response, if so it's ok else show the default_error_response_view
-                            if (!requestMap.requestResponseMap.containsKey("protect")) {
-                                if (ccfg.getProtectView() != null) {
-                                    overrideViewUri = ccfg.getProtectView();
-                                } else {
-                                    overrideViewUri = EntityUtilProperties.getPropertyValue("security", "default.error.response.view", delegator);
-                                    overrideViewUri = overrideViewUri.replace("view:", "");
-                                    if ("none:".equals(overrideViewUri)) {
-                                        interruptRequest = true;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                } catch (EventHandlerException e) {
-                    Debug.logError(e, module);
-                }
+            } catch (WebAppConfigurationException e) {
+                Debug.logError(e, "Exception thrown while parsing controller.xml file: ", module);
+                throw new RequestHandlerException(e);
             }
         }
 
@@ -454,7 +408,7 @@ public class RequestHandler {
             // Invoke the security handler
             // catch exceptions and throw RequestHandlerException if failed.
             if (Debug.verboseOn()) Debug.logVerbose("[RequestHandler]: AuthRequired. Running security check. " + showSessionId(request), module);
-            ConfigXMLReader.Event checkLoginEvent = ccfg.getRequestMapMap().getFirst("checkLogin").event;
+            ConfigXMLReader.Event checkLoginEvent = requestMapMap.get("checkLogin").event;
             String checkLoginReturnString = null;
 
             try {
@@ -467,9 +421,9 @@ public class RequestHandler {
                 eventReturn = checkLoginReturnString;
                 // if the request is an ajax request we don't want to return the default login check
                 if (!"XMLHttpRequest".equals(request.getHeader("X-Requested-With"))) {
-                    requestMap = ccfg.getRequestMapMap().getFirst("checkLogin");
+                    requestMap = requestMapMap.get("checkLogin");
                 } else {
-                    requestMap = ccfg.getRequestMapMap().getFirst("ajaxCheckLogin");
+                    requestMap = requestMapMap.get("ajaxCheckLogin");
                 }
             }
         }
@@ -533,7 +487,7 @@ public class RequestHandler {
             eventReturnBasedRequestResponse = null;
         } else {
             eventReturnBasedRequestResponse = requestMap.requestResponseMap.get(eventReturn);
-            if (eventReturnBasedRequestResponse == null && "none".equals(eventReturn)) {
+            if (eventReturnBasedRequestResponse == null && eventReturn.equals("none")) {
                 eventReturnBasedRequestResponse = ConfigXMLReader.emptyNoneRequestResponse;
             }
         }
@@ -567,7 +521,9 @@ public class RequestHandler {
 
         // restore previous redirected request's attribute, so redirected page can display previous request's error msg etc.
         String preReqAttStr = (String) request.getSession().getAttribute("_REQ_ATTR_MAP_");
+        Map<String, Object> previousRequestAttrMap = null;
         if (preReqAttStr != null) {
+            previousRequestAttrMap = new HashMap<String, Object>();
             request.getSession().removeAttribute("_REQ_ATTR_MAP_");
             byte[] reqAttrMapBytes = StringUtil.fromHexString(preReqAttStr);
             Map<String, Object> preRequestMap = checkMap(UtilObject.getObject(reqAttrMapBytes), String.class, Object.class);
@@ -577,6 +533,7 @@ public class RequestHandler {
                     if ("_ERROR_MESSAGE_LIST_".equals(key) || "_ERROR_MESSAGE_MAP_".equals(key) || "_ERROR_MESSAGE_".equals(key) ||
                             "_EVENT_MESSAGE_LIST_".equals(key) || "_EVENT_MESSAGE_".equals(key)) {
                         request.setAttribute(key, entry.getValue());
+                        previousRequestAttrMap.put(key, entry.getValue());
                    }
                 }
             }
@@ -585,7 +542,7 @@ public class RequestHandler {
         if (Debug.verboseOn()) Debug.logVerbose("[RequestHandler]: previousRequest - " + previousRequest + " (" + loginPass + ")" + showSessionId(request), module);
 
         // if previous request exists, and a login just succeeded, do that now.
-        if (previousRequest != null && loginPass != null && "TRUE".equalsIgnoreCase(loginPass)) {
+        if (previousRequest != null && loginPass != null && loginPass.equalsIgnoreCase("TRUE")) {
             request.getSession().removeAttribute("_PREVIOUS_REQUEST_");
             // special case to avoid login/logout looping: if request was "logout" before the login, change to null for default success view; do the same for "login" to avoid going back to the same page
             if ("logout".equals(previousRequest) || "/logout".equals(previousRequest) || "login".equals(previousRequest) || "/login".equals(previousRequest) || "checkLogin".equals(previousRequest) || "/checkLogin".equals(previousRequest) || "/checkLogin/login".equals(previousRequest)) {
@@ -601,7 +558,7 @@ public class RequestHandler {
                     redirectTarget += "?" + queryString;
                 }
                 
-                callRedirect(makeLink(request, response, redirectTarget), response, request, ccfg.getStatusCodeString());
+                callRedirect(makeLink(request, response, redirectTarget), response, request, statusCodeString);
                 return;
             }
         }
@@ -648,42 +605,41 @@ public class RequestHandler {
             // ======== handle views ========
 
             // first invoke the post-processor events.
-            for (ConfigXMLReader.Event event: ccfg.getPostprocessorEventList().values()) {
-                try {
-                    String returnString = this.runEvent(request, response, event, requestMap, "postprocessor");
-                    if (returnString != null && !"success".equalsIgnoreCase(returnString)) {
-                        throw new EventHandlerException("Post-Processor event did not return 'success'.");
+            try {
+                for (ConfigXMLReader.Event event: controllerConfig.getPostprocessorEventList().values()) {
+                    try {
+                        String returnString = this.runEvent(request, response, event, requestMap, "postprocessor");
+                        if (returnString != null && !returnString.equalsIgnoreCase("success")) {
+                            throw new EventHandlerException("Post-Processor event did not return 'success'.");
+                        }
+                    } catch (EventHandlerException e) {
+                        Debug.logError(e, module);
                     }
-                } catch (EventHandlerException e) {
-                    Debug.logError(e, module);
                 }
+            } catch (WebAppConfigurationException e) {
+                Debug.logError(e, "Exception thrown while parsing controller.xml file: ", module);
+                throw new RequestHandlerException(e);
             }
 
             String responseStatusCode  = nextRequestResponse.statusCode;
             if(UtilValidate.isNotEmpty(responseStatusCode))
-                ccfg.setStatusCodeString(responseStatusCode);
+                statusCodeString = responseStatusCode;            
+            
             
             if ("url".equals(nextRequestResponse.type)) {
                 if (Debug.verboseOn()) Debug.logVerbose("[RequestHandler.doRequest]: Response is a URL redirect." + showSessionId(request), module);
-                callRedirect(nextRequestResponse.value, response, request, ccfg.getStatusCodeString());
-            } else if ("url-redirect".equals(nextRequestResponse.type)) {
-                // check for a cross-application redirect
-                if (Debug.verboseOn())
-                    Debug.logVerbose("[RequestHandler.doRequest]: Response is a URL redirect with redirect parameters."
-                            + showSessionId(request), module);
-                callRedirect(nextRequestResponse.value + this.makeQueryString(request, nextRequestResponse), response,
-                        request, ccfg.getStatusCodeString());
+                callRedirect(nextRequestResponse.value, response, request, statusCodeString);
             } else if ("cross-redirect".equals(nextRequestResponse.type)) {
                 // check for a cross-application redirect
                 if (Debug.verboseOn()) Debug.logVerbose("[RequestHandler.doRequest]: Response is a Cross-Application redirect." + showSessionId(request), module);
                 String url = nextRequestResponse.value.startsWith("/") ? nextRequestResponse.value : "/" + nextRequestResponse.value;
-                callRedirect(url + this.makeQueryString(request, nextRequestResponse), response, request, ccfg.getStatusCodeString());
+                callRedirect(url + this.makeQueryString(request, nextRequestResponse), response, request, statusCodeString);
             } else if ("request-redirect".equals(nextRequestResponse.type)) {
                 if (Debug.verboseOn()) Debug.logVerbose("[RequestHandler.doRequest]: Response is a Request redirect." + showSessionId(request), module);
-                callRedirect(makeLinkWithQueryString(request, response, "/" + nextRequestResponse.value, nextRequestResponse), response, request, ccfg.getStatusCodeString());
+                callRedirect(makeLinkWithQueryString(request, response, "/" + nextRequestResponse.value, nextRequestResponse), response, request, statusCodeString);
             } else if ("request-redirect-noparam".equals(nextRequestResponse.type)) {
                 if (Debug.verboseOn()) Debug.logVerbose("[RequestHandler.doRequest]: Response is a Request redirect with no parameters." + showSessionId(request), module);
-                callRedirect(makeLink(request, response, nextRequestResponse.value), response, request, ccfg.getStatusCodeString());
+                callRedirect(makeLink(request, response, nextRequestResponse.value), response, request, statusCodeString);
             } else if ("view".equals(nextRequestResponse.type)) {
                 if (Debug.verboseOn()) Debug.logVerbose("[RequestHandler.doRequest]: Response is a view." + showSessionId(request), module);
 
@@ -780,17 +736,14 @@ public class RequestHandler {
 
     /** Returns the default error page for this request. */
     public String getDefaultErrorPage(HttpServletRequest request) {
-        URL errorPage = null;
+        String errorpage = null;
         try {
-            String errorPageLocation = getControllerConfig().getErrorpage();
-            errorPage = FlexibleLocation.resolveLocation(errorPageLocation);
-        } catch (WebAppConfigurationException | MalformedURLException e) {
+            errorpage = getControllerConfig().getErrorpage();
+        } catch (WebAppConfigurationException e) {
             Debug.logError(e, "Exception thrown while parsing controller.xml file: ", module);
         }
-        if (errorPage == null) {
-            return "/error/error.jsp";
-        }
-        return errorPage.toString();
+        if (UtilValidate.isNotEmpty(errorpage)) return errorpage;
+        return "/error/error.jsp";
     }
 
     /** Returns the default status-code for this request. */
@@ -899,10 +852,7 @@ public class RequestHandler {
         if (UtilValidate.isNotEmpty(servletName) && servletName.length() > 1 || servletName.startsWith("/")) {
             servletName = servletName.substring(1);
         }
-
-        if (UtilHttp.getVisualTheme(req) == null) {
-            UtilHttp.setVisualTheme(req.getSession(), ThemeFactory.resolveVisualTheme(req));
-        }
+        
         if (Debug.infoOn()) Debug.logInfo("Rendering View [" + view + "]. " + showSessionId(req), module);
         if (view.startsWith(servletName + "/")) {
             view = view.substring(servletName.length() + 1);
@@ -990,22 +940,51 @@ public class RequestHandler {
 
         if (Debug.verboseOn()) Debug.logVerbose("The ContentType for the " + view + " view is: " + contentType, module);
 
-        //Cache Headers
         boolean viewNoCache = viewMap.noCache;
         if (viewNoCache) {
            UtilHttp.setResponseBrowserProxyNoCache(resp);
            if (Debug.verboseOn()) Debug.logVerbose("Sending no-cache headers for view [" + nextPage + "]", module);
         }
         
-        //Security Headers
-        UtilHttp.setResponseBrowserDefaultSecurityHeaders(resp, viewMap);
+        String xFrameOption = viewMap.xFrameOption;
+        // default to sameorigin
+        if (UtilValidate.isNotEmpty(xFrameOption)) {
+            resp.addHeader("x-frame-options", xFrameOption);
+        } else {
+            resp.addHeader("x-frame-options", "sameorigin");
+        }
+
+        String strictTransportSecurity = viewMap.strictTransportSecurity;
+        // default to "max-age=31536000; includeSubDomains" 31536000 secs = 1 year
+        if (UtilValidate.isNotEmpty(strictTransportSecurity)) {
+            if (!"none".equals(strictTransportSecurity)) {
+                resp.addHeader("strict-transport-security", strictTransportSecurity);
+            }
+        } else {
+            if (EntityUtilProperties.getPropertyAsBoolean("requestHandler", "strict-transport-security", true)) { // FIXME later pass req.getAttribute("delegator") as last argument
+                resp.addHeader("strict-transport-security", "max-age=31536000; includeSubDomains");
+            }
+        }
         
+        //The only x-content-type-options defined value, "nosniff", prevents Internet Explorer from MIME-sniffing a response away from the declared content-type. 
+        // This also applies to Google Chrome, when downloading extensions.
+        resp.addHeader("x-content-type-options", "nosniff");
+        
+        // This header enables the Cross-site scripting (XSS) filter built into most recent web browsers. 
+        // It's usually enabled by default anyway, so the role of this header is to re-enable the filter for this particular website if it was disabled by the user. 
+        // This header is supported in IE 8+, and in Chrome (not sure which versions). The anti-XSS filter was added in Chrome 4. Its unknown if that version honored this header.
+        // FireFox has still an open bug entry and "offers" only the noscript plugin
+        // https://wiki.mozilla.org/Security/Features/XSS_Filter 
+        // https://bugzilla.mozilla.org/show_bug.cgi?id=528661
+        resp.addHeader("X-XSS-Protection","1; mode=block"); 
+
         try {
             if (Debug.verboseOn()) Debug.logVerbose("Rendering view [" + nextPage + "] of type [" + viewMap.type + "]", module);
             ViewHandler vh = viewFactory.getViewHandler(viewMap.type);
             vh.render(view, nextPage, viewMap.info, contentType, charset, req, resp);
         } catch (ViewHandlerException e) {
             Throwable throwable = e.getNested() != null ? e.getNested() : e;
+
             throw new RequestHandlerException(e.getNonNestedMessage(), throwable);
         }
 
@@ -1146,20 +1125,6 @@ public class RequestHandler {
         }
         // create the path to the control servlet
         String controlPath = (String) request.getAttribute("_CONTROL_PATH_");
-
-        //If required by webSite parameter, surcharge control path
-        if (webSiteProps.getWebappPath() != null) {
-            String requestPath = request.getServletPath();
-            if (requestPath == null) requestPath = "";
-            if (requestPath.lastIndexOf("/") > 0) {
-                if (requestPath.indexOf("/") == 0) {
-                    requestPath = "/" + requestPath.substring(1, requestPath.indexOf("/", 1));
-                } else {
-                    requestPath = requestPath.substring(1, requestPath.indexOf("/"));
-                }
-            }
-            controlPath = webSiteProps.getWebappPath().concat(requestPath);
-        }
         newURL.append(controlPath);
 
         Delegator delegator = (Delegator) request.getAttribute("delegator");
@@ -1205,47 +1170,38 @@ public class RequestHandler {
         return rh.makeLink(request, response, url, fullPath, secure, encode);
     }
 
-    @FunctionalInterface
-    private interface EventCollectionProducer {
-        Collection<ConfigXMLReader.Event> get() throws WebAppConfigurationException;
-    }
-
-    private void runEvents(HttpServletRequest req, HttpServletResponse res, 
-            EventCollectionProducer prod, String trigger) {
+    public void runAfterLoginEvents(HttpServletRequest request, HttpServletResponse response) {
         try {
-            for (ConfigXMLReader.Event event: prod.get()) {
-                String ret = runEvent(req, res, event, null, trigger);
-                if (ret != null && !"success".equalsIgnoreCase(ret)) {
-                    throw new EventHandlerException("Pre-Processor event did not return 'success'.");
+            for (ConfigXMLReader.Event event: getControllerConfig().getAfterLoginEventList().values()) {
+                try {
+                    String returnString = this.runEvent(request, response, event, null, "after-login");
+                    if (returnString != null && !returnString.equalsIgnoreCase("success")) {
+                        throw new EventHandlerException("Pre-Processor event did not return 'success'.");
+                    }
+                } catch (EventHandlerException e) {
+                    Debug.logError(e, module);
                 }
             }
-        } catch (EventHandlerException e) {
-            Debug.logError(e, module);
         } catch (WebAppConfigurationException e) {
             Debug.logError(e, "Exception thrown while parsing controller.xml file: ", module);
         }
     }
 
-    /**
-     * Run all the "after-login" Web events defined in the controller configuration.
-     *
-     * @param req the request to run the events with
-     * @param resp the response to run the events with
-     */
-    public void runAfterLoginEvents(HttpServletRequest req, HttpServletResponse resp) {
-        EventCollectionProducer prod = () -> getControllerConfig().getAfterLoginEventList().values();
-        runEvents(req, resp, prod, "after-login");
-    }
-
-    /**
-     * Run all the "before-logout" Web events defined in the controller configuration.
-     *
-     * @param req the request to run the events with
-     * @param resp the response to run the events with
-     */
-    public void runBeforeLogoutEvents(HttpServletRequest req, HttpServletResponse resp) {
-        EventCollectionProducer prod = () -> getControllerConfig().getBeforeLogoutEventList().values();
-        runEvents(req, resp, prod, "before-logout");
+    public void runBeforeLogoutEvents(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            for (ConfigXMLReader.Event event: getControllerConfig().getBeforeLogoutEventList().values()) {
+                try {
+                    String returnString = this.runEvent(request, response, event, null, "before-logout");
+                    if (returnString != null && !returnString.equalsIgnoreCase("success")) {
+                        throw new EventHandlerException("Pre-Processor event did not return 'success'.");
+                    }
+                } catch (EventHandlerException e) {
+                    Debug.logError(e, module);
+                }
+            }
+        } catch (WebAppConfigurationException e) {
+            Debug.logError(e, "Exception thrown while parsing controller.xml file: ", module);
+        }
     }
 
     public boolean trackStats(HttpServletRequest request) {
@@ -1303,32 +1259,5 @@ public class RequestHandler {
             return " sessionId=" + UtilHttp.getSessionId(request); 
         }
         return " Hidden sessionId by default.";
-    }
-
-    /**
-     * Checks that the request contains some valid certificates.
-     *
-     * @param request the request to verify
-     * @param validator the predicate applied the certificates found
-     * @return true if the request contains some valid certificates, otherwise false.
-     */
-    static boolean checkCertificates(HttpServletRequest request, Predicate<X509Certificate[]> validator) {
-        return Stream.of("javax.servlet.request.X509Certificate", // 2.2 spec
-                         "javax.net.ssl.peer_certificates")       // 2.1 spec
-                .map(request::getAttribute)
-                .filter(Objects::nonNull)
-                .map(X509Certificate[].class::cast)
-                .peek(certs -> {
-                    if (Debug.infoOn()) {
-                        for (X509Certificate cert : certs) {
-                            Debug.logInfo(cert.getSubjectX500Principal().getName(), module);
-                        }
-                    }
-                })
-                .map(validator::test)
-                .findFirst().orElseGet(() -> {
-                    Debug.logWarning("Received no client certificates from browser", module);
-                    return false;
-                });
     }
 }

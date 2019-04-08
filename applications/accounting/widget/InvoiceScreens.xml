@@ -546,9 +546,6 @@ under the License.
                     <field-map field-name="invoiceId" from-field="invoiceId"/>
                     <order-by field-name="invoiceTermId"/>
                 </entity-and>
-                <entity-one entity-name="InvoiceTerm" value-field="invoiceTerm">
-                    <field-map field-name="invoiceTermId" from-field="parameters.invoiceTermId"/>
-                </entity-one>
             </actions>
             <widgets>
                 <decorator-screen name="CommonInvoiceDecorator" location="${parameters.invoiceDecoratorLocation}">

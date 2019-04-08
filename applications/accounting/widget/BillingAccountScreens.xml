@@ -86,7 +86,7 @@ under the License.
                                                 <include-form name="FindBillingAccounts" location="component://accounting/widget/BillingAccountForms.xml"/>
                                             </decorator-section>
                                             <decorator-section name="search-results">
-                                                <include-grid name="ListBillingAccounts" location="component://accounting/widget/BillingAccountForms.xml"/>
+                                                <include-form name="ListBillingAccounts" location="component://accounting/widget/BillingAccountForms.xml"/>
                                             </decorator-section>
                                         </decorator-screen>
                                     </widgets>
@@ -104,7 +104,7 @@ under the License.
                                                 <parameter param-name="partyId" from-field="parameters.partyId"/>
                                                 <parameter param-name="roleTypeId" value="BILL_TO_CUSTOMER"/>
                                             </link>
-                                            <include-grid name="ListBillingAccountsByParty" location="component://accounting/widget/BillingAccountForms.xml"/>
+                                            <include-form name="ListBillingAccountsByParty" location="component://accounting/widget/BillingAccountForms.xml"/>
                                         </screenlet>
                                     </widgets>
                                 </section>
@@ -158,7 +158,7 @@ under the License.
                         <screenlet id="BllingAccountRolePanel" title="${uiLabelMap.PageTitleAddBillingAccountRoles}" collapsible="true">
                             <include-form name="AddBillingAccountRole" location="component://accounting/widget/BillingAccountForms.xml"/>
                         </screenlet>
-                        <include-grid name="ListBillingAccountRoles" location="component://accounting/widget/BillingAccountForms.xml"/>
+                        <include-form name="ListBillingAccountRoles" location="component://accounting/widget/BillingAccountForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -179,7 +179,7 @@ under the License.
                 <decorator-screen name="CommonBillingAccountDecorator" location="${parameters.billingAccountDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditBillingAccountTerms} - ${uiLabelMap.AccountingAccountId} ${billingAccount.billingAccountId}">
-                            <include-grid name="ListBillingAccountTerms" location="component://accounting/widget/BillingAccountForms.xml"/>
+                            <include-form name="ListBillingAccountTerms" location="component://accounting/widget/BillingAccountForms.xml"/>
                         </screenlet>
                         <section>
                             <condition>
@@ -221,7 +221,7 @@ under the License.
                         <screenlet id="BillingAccountInvoicePanel" title="${uiLabelMap.AccountingFindInvoices}" collapsible="true">
                             <include-form name="LookupInvoicesStatus" location="component://accounting/widget/InvoiceForms.xml"/>
                         </screenlet>
-                        <include-grid name="ListBillingAccountInvoices" location="component://accounting/widget/BillingAccountForms.xml"/>
+                        <include-form name="ListBillingAccountInvoices" location="component://accounting/widget/BillingAccountForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -242,7 +242,7 @@ under the License.
                 <decorator-screen name="CommonBillingAccountDecorator" location="${parameters.billingAccountDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditBillingAccountOrders}">
-                            <include-grid name="ListBillingAccountOrders" location="component://accounting/widget/BillingAccountForms.xml"/>
+                            <include-form name="ListBillingAccountOrders" location="component://accounting/widget/BillingAccountForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -272,7 +272,7 @@ under the License.
                         <screenlet id="BillingAccountPaymentPanel" title="${uiLabelMap.AccountingCreatePayment}" collapsible="true">
                             <include-form name="CreateIncomingBillingAccountPayment" location="component://accounting/widget/BillingAccountForms.xml"/>
                         </screenlet>
-                        <include-grid name="ListBillingAccountPayments" location="component://accounting/widget/BillingAccountForms.xml"/>
+                        <include-form name="ListBillingAccountPayments" location="component://accounting/widget/BillingAccountForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

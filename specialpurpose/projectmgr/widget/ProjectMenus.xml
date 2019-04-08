@@ -1,0 +1,627 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns="http://ofbiz.apache.org/Widget-Menu" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Menu http://ofbiz.apache.org/dtds/widget-menu.xsd">
+    <menu name="ProjectMgrAppBar" title="${uiLabelMap.ProjectMgr}" extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+
+        <menu-item name="mytasks" title="${uiLabelMap.WorkEffortMyTasks}"><link target="MyTasks"/></menu-item>
+        <menu-item name="mytime" title="${uiLabelMap.WorkEffortTimesheetMyTime}"><link target="MyTimesheet"/></menu-item>
+        <menu-item name="projects" title="${uiLabelMap.WorkEffortProjects}"><link target="FindProject"/></menu-item>
+        <menu-item name="task" title="${uiLabelMap.ProjectMgrTasks}">
+            <condition>
+                <if-has-permission permission="PROJECTMGR_ADMIN"/>
+            </condition>
+            <link target="FindTask"/>
+        </menu-item>
+        <menu-item name="resources" title="${uiLabelMap.ProjectMgrResources}">
+            <condition>
+                <if-has-permission permission="PROJECTMGR_ADMIN"/>
+            </condition>
+            <link target="FindResource"/>
+        </menu-item>
+        <menu-item name="timesheet" title="${uiLabelMap.WorkEffortTimesheet}">
+            <condition>
+                <if-has-permission permission="PROJECTMGR_ADMIN"/>
+            </condition>
+            <link target="FindTimeSheet"/>
+        </menu-item>
+        <menu-item name="SkillType" title="${uiLabelMap.ProjectMgrSkillType}">
+            <condition>
+                <if-has-permission permission="PROJECTMGR_ADMIN"/>
+            </condition>
+            <link target="findSkillTypes"/>
+        </menu-item>
+        <!--menu-item name="calendar" title="${uiLabelMap.WorkEffortCalendar}"><link target="day"/></menu-item-->
+        <menu-item name="request" title="${uiLabelMap.WorkEffortRequestList}">
+            <condition>
+                <if-has-permission permission="PROJECTMGR_ADMIN"/>
+            </condition>
+            <link target="requestlist"/>
+        </menu-item>
+    </menu>
+    <menu name="ProjectTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <actions>
+            <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
+            <set field="hasUpdatePermission" value="${groovy:
+                result = dispatcher.runSync(&quot;projectMgrPermission&quot;,
+                org.apache.ofbiz.base.util.UtilMisc.toMap(&quot;userLogin&quot;, parameters.get(&quot;userLogin&quot;),
+                &quot;resourceDescription&quot;, &quot;Project&quot;,
+                &quot;mainAction&quot;, &quot;UPDATE&quot;,
+                &quot;projectId&quot;, projectId));
+                return result.get(&quot;hasPermission&quot;); }" type="Boolean"/>
+            <set field="hasViewPermission" value="${groovy:
+                result = dispatcher.runSync(&quot;projectMgrPermission&quot;,
+                org.apache.ofbiz.base.util.UtilMisc.toMap(&quot;userLogin&quot;, parameters.get(&quot;userLogin&quot;),
+                &quot;resourceDescription&quot;, &quot;Project&quot;,
+                &quot;mainAction&quot;, &quot;VIEW&quot;,
+                &quot;projectId&quot;, projectId));
+                return result.get(&quot;hasPermission&quot;); }" type="Boolean"/>
+        </actions>
+        <menu-item name="ganttchart" title="${uiLabelMap.ProjectMgrGanttChart}">
+            <condition>
+                <if-compare field="hasViewPermission" operator="equals" value="true"/>
+            </condition>
+            <link target="ganttChart">
+                <parameter param-name="projectId"/>
+            </link>
+        </menu-item>
+        <menu-item name="projectView" title="${uiLabelMap.ProjectMgrProjectSummary}">
+            <condition>
+                <if-compare field="hasViewPermission" operator="equals" value="true"/>
+            </condition>
+            <link target="projectView">
+                <parameter param-name="projectId"/>
+            </link>
+        </menu-item>
+        <menu-item name="editproject" title="${uiLabelMap.ProjectMgrEditProject}">
+            <condition>
+                <and>
+                    <if-compare field="hasUpdatePermission" operator="equals" value="true"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_CANCELED"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PRJ_CLOSED"/>
+                </and>
+            </condition>
+            <link target="EditProject">
+                <parameter param-name="projectId"/>
+            </link>
+        </menu-item>
+        <menu-item name="mailing" title="${uiLabelMap.ProjectMgrMailingList}">
+            <condition>
+                <if-compare field="hasViewPermission" operator="equals" value="true"/>
+            </condition>
+            <link target="FindMailingList">
+                <parameter param-name="projectId"/>
+            </link>
+        </menu-item>
+        <menu-item name="phases" title="${uiLabelMap.ProjectMgrPhases}">
+            <condition>
+                <and>
+                    <if-compare field="hasUpdatePermission" operator="equals" value="true"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_CANCELED"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PRJ_CLOSED"/>
+                </and>
+            </condition>
+            <link target="FindPhase">
+                <parameter param-name="projectId"/>
+            </link>
+        </menu-item>
+        <menu-item name="tasks" title="${uiLabelMap.ProjectMgrTasks}">
+            <condition>
+                <and>
+                    <if-compare field="hasUpdatePermission" operator="equals" value="true"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_CANCELED"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PRJ_CLOSED"/>
+                </and>
+            </condition>
+            <link target="EditProjectTasks">
+                <parameter param-name="projectId"/>
+            </link>
+        </menu-item>
+        <menu-item name="orders" title="${uiLabelMap.OrderOrders}">
+            <condition>
+                <and>
+                    <if-compare field="hasUpdatePermission" operator="equals" value="true"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_CANCELED"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PRJ_CLOSED"/>
+                </and>
+            </condition>
+            <link target="EditProjectOrders">
+                <parameter param-name="projectId"/>
+            </link>
+        </menu-item>
+        <menu-item name="parties" title="${uiLabelMap.ProjectMgrResources}">
+            <condition>
+                <and>
+                    <if-compare field="hasUpdatePermission" operator="equals" value="true"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_CANCELED"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PRJ_CLOSED"/>
+                </and>
+            </condition>
+            <link target="ListWorkEffortPartyAssigns">
+                <parameter param-name="projectId"/>
+            </link>
+        </menu-item>
+        <menu-item name="projectContent" title="${uiLabelMap.CommonContent}">
+            <condition>
+                <and>
+                    <if-compare field="hasUpdatePermission" operator="equals" value="true"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_CANCELED"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PRJ_CLOSED"/>
+                </and>
+            </condition>
+            <link target="EditProjectContents">
+                <parameter param-name="projectId"/>
+            </link>
+        </menu-item>
+        <menu-item name="notes" title="${uiLabelMap.CommonNotes}">
+            <condition>
+                <and>
+                    <if-compare field="hasUpdatePermission" operator="equals" value="true"/>
+                </and>
+            </condition>
+            <link target="EditWorkEffortNotes">
+                <parameter param-name="projectId"/>
+            </link>
+        </menu-item>
+        <menu-item name="subprojects" title="${uiLabelMap.ProjectMgrSubProjects}">
+            <condition>
+                <and>
+                    <if-compare field="hasUpdatePermission" operator="equals" value="true"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_CANCELED"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PRJ_CLOSED"/>
+                </and>
+            </condition>
+            <link target="ListSubProjects">
+                <parameter param-name="projectId"/>
+                <parameter param-name="subProjects" value="true"/>
+            </link>
+        </menu-item>
+        <menu-item name="billing" title="${uiLabelMap.ProjectMgrBilling}">
+            <condition>
+                <and>
+                    <if-compare field="hasUpdatePermission" operator="equals" value="true"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PTS_CANCELED"/>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PRJ_CLOSED"/>
+                </and>
+            </condition>
+            <link target="projectBilling">
+                <parameter param-name="projectId"/>
+            </link>
+        </menu-item>
+    </menu>
+    <menu name="ProjectButtonBar" extends="CommonButtonBarMenu" extends-resource="component://common/widget/CommonMenus.xml" menu-container-style="button-bar button-style-2">
+        <actions>
+            <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
+            <set field="hasUpdatePermission" value="${groovy:
+                result = dispatcher.runSync(&quot;projectMgrPermission&quot;,
+                org.apache.ofbiz.base.util.UtilMisc.toMap(&quot;userLogin&quot;, parameters.get(&quot;userLogin&quot;),
+                &quot;resourceDescription&quot;, &quot;Project&quot;,
+                &quot;mainAction&quot;, &quot;UPDATE&quot;,
+                &quot;projectId&quot;, projectId));
+                return result.get(&quot;hasPermission&quot;); }" type="Boolean"/>
+        </actions>
+        <menu-item name="newProject" title="${uiLabelMap.ProjectMgrNewProject}" widget-style="buttontext create">
+            <condition>
+                <and>
+                    <if-compare field="hasUpdatePermission" operator="equals" value="true"/>
+                    <if-has-permission permission="PROJECTMGR" action="_ADMIN"/>
+                </and>
+            </condition>
+            <link target="EditProject"/>
+        </menu-item>
+        <menu-item name="copyProject" title="${uiLabelMap.ProjectMgrCopyProject}">
+            <condition>
+                <and>
+                    <not>
+                        <if-empty field="project"/>
+                    </not>
+                    <if-compare field="hasUpdatePermission" operator="equals" value="true"/>
+                </and>
+            </condition>
+            <link target="copyProject">
+                <parameter param-name="projectId"/>
+            </link>
+        </menu-item>
+        <menu-item name="schedule" title="${uiLabelMap.ProjectMgrSchedule}">
+            <condition>
+                <and>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PRJ_CLOSED"/>
+                    <not>
+                        <if-empty field="project"/>
+                    </not>
+                    <if-compare field="hasUpdatePermission" operator="equals" value="true"/>
+                </and>
+            </condition>
+            <link target="scheduleProject" request-confirmation="true" confirmation-message="${uiLabelMap.ProjectMgrConfirmationSchedule}">
+                <parameter param-name="projectId"/>
+            </link>
+        </menu-item>
+        <menu-item name="copyProjectToTemplate" title="${uiLabelMap.ProjectMgrSaveAsTemplate}">
+            <condition>
+                <and>
+                    <not>
+                        <if-empty field="project"/>
+                    </not>
+                    <if-compare field="hasUpdatePermission" operator="equals" value="true"/>
+                </and>
+            </condition>
+            <link target="copyProjectToTemplate">
+                <parameter param-name="projectId"/>
+            </link>
+        </menu-item>
+        <menu-item name="close" title="${uiLabelMap.CommonClose}">
+            <condition>
+                <and>
+                    <if-compare field="project.currentStatusId" operator="not-equals" value="PRJ_CLOSED"/>
+                    <not>
+                        <if-empty field="project"/>
+                    </not>
+                    <if-compare field="hasUpdatePermission" operator="equals" value="true"/>
+                </and>
+            </condition>
+            <link target="updateProject" request-confirmation="true" confirmation-message="${uiLabelMap.ProjectMgrConfirmationClose}">
+                <parameter param-name="workEffortId" from-field="projectId"/>
+                <parameter param-name="currentStatusId" value="PRJ_CLOSED"/>
+            </link>
+        </menu-item>
+    </menu>
+    <menu name="TaskTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="taskView" title="${uiLabelMap.ProjectMgrTaskSummary}">
+            <condition>
+               <not><if-empty field="workEffort"/></not>
+            </condition>
+            <link target="taskView">
+                <parameter param-name="workEffortId"/>
+            </link>
+        </menu-item>
+        <menu-item name="edittask" title="${uiLabelMap.ProjectMgrEditTask}">
+            <condition>
+                <and>
+                    <not><if-empty field="workEffort"/></not>
+                    <if-compare field="workEffort.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
+                    <if-compare field="workEffort.currentStatusId" operator="not-equals" value="PTS_CANCELLED"/>
+                    <if-compare field="workEffort.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
+                </and>
+            </condition>
+            <link target="EditTask">
+                <parameter param-name="workEffortId" from-field="parameters.workEffortId"/>
+            </link>
+        </menu-item>
+        <menu-item name="dependencies" title="${uiLabelMap.ProjectMgrDependencies}">
+            <condition>
+                <and>
+                    <not><if-empty field="workEffort"/></not>
+                    <if-compare field="workEffort.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
+                    <if-compare field="workEffort.currentStatusId" operator="not-equals" value="PTS_CANCELLED"/>
+                    <if-compare field="workEffort.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
+                </and>
+            </condition>
+            <link target="Dependencies">
+                <parameter param-name="workEffortId" from-field="parameters.workEffortId"/>
+            </link>
+        </menu-item>
+        <menu-item name="parties" title="${uiLabelMap.ProjectMgrResources}">
+            <condition>
+                <and>
+                    <not><if-empty field="workEffort"/></not>
+                    <if-compare field="workEffort.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
+                    <if-compare field="workEffort.currentStatusId" operator="not-equals" value="PTS_CANCELLED"/>
+                    <if-compare field="workEffort.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
+                </and>
+            </condition>
+            <link target="EditTaskPartyAssigns">
+                <parameter param-name="workEffortId" from-field="parameters.workEffortId"/>
+            </link>
+        </menu-item>
+        <menu-item name="taskskills" title="${uiLabelMap.ProjectMgrSkillStandards}">
+            <condition>
+                <and>
+                    <not><if-empty field="workEffort"/></not>
+                    <if-compare field="workEffort.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
+                    <if-compare field="workEffort.currentStatusId" operator="not-equals" value="PTS_CANCELLED"/>
+                    <if-compare field="workEffort.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
+                </and>
+            </condition>
+            <link target="EditTaskSkills">
+                <parameter param-name="workEffortId" from-field="parameters.workEffortId"/>
+            </link>
+        </menu-item>
+        <menu-item name="timeEntries" title="${uiLabelMap.ProjectMgrTimeEntries}">
+            <condition>
+                <and>
+                    <not><if-empty field="workEffort"/></not>
+                    <if-compare field="workEffort.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
+                    <if-compare field="workEffort.currentStatusId" operator="not-equals" value="PTS_CANCELLED"/>
+                    <if-compare field="workEffort.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
+                </and>
+            </condition>
+            <link target="EditTimeEntries">
+                <parameter param-name="workEffortId" from-field="parameters.workEffortId"/>
+            </link>
+        </menu-item>
+        <menu-item name="taskContent" title="${uiLabelMap.CommonContent}">
+            <condition>
+                <and>
+                    <not><if-empty field="workEffort"/></not>
+                    <if-compare field="workEffort.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
+                    <if-compare field="workEffort.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
+                    <if-compare field="workEffort.currentStatusId" operator="not-equals" value="PTS_CANCELED"/>
+                </and>
+            </condition>
+            <link target="EditTaskContents">
+                <parameter param-name="workEffortId" from-field="parameters.workEffortId"/>
+            </link>
+        </menu-item>
+        <menu-item name="notes" title="${uiLabelMap.CommonNotes}">
+            <condition>
+                <not><if-empty field="workEffort"/></not>
+            </condition>
+            <link target="EditTaskNotes">
+                <parameter param-name="workEffortId" from-field="parameters.workEffortId"/>
+            </link>
+        </menu-item>
+        <menu-item name="EditWorkEffortSurveyAppls" title="${uiLabelMap.EcommerceSurveys}">
+            <condition>
+                <not><if-empty field="workEffortId"/></not>
+            </condition>
+            <link target="EditWorkEffortSurveyAppls">
+                <parameter param-name="workEffortId" from-field="parameters.workEffortId"/>
+            </link>
+        </menu-item>
+    </menu>
+    <menu name="TaskSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          menu-container-style="button-bar button-style-2">
+        <menu-item name="new" title="${uiLabelMap.CommonNew}">
+            <condition>
+                <or>
+                    <not><if-empty field="workEffort"/></not>
+                    <and>
+                        <if-empty field="workEffort"/>
+                        <if-compare field="tabButtonItem" operator="equals" value="find"/>
+                    </and>
+                </or>
+            </condition>
+            <link target="EditTask"/>
+        </menu-item>
+        <menu-item name="setonhold" title="${uiLabelMap.ProjectMgrSetOnHold}" >
+            <condition>
+                <and>
+                    <not><if-empty field="workEffort"/></not>
+                    <if-compare field="workEffort.currentStatusId" operator="equals" value="PTS_CREATED"/>
+                </and>
+            </condition>
+            <link target="setTaskStatus">
+                <parameter param-name="workEffortId" from-field="parameters.workEffortId"/>
+                <parameter param-name="currentStatusId" value="PTS_ON_HOLD"/>
+            </link>
+        </menu-item>
+        <menu-item name="setcomplete" title="${uiLabelMap.ProjectMgrSetComplete}" >
+            <condition>
+                <and>
+                    <not><if-empty field="workEffort"/></not>
+                    <if-compare field="workEffort.currentStatusId" operator="equals" value="PTS_CREATED"/>
+                </and>
+            </condition>
+            <link target="setTaskStatusToComplete">
+                <parameter param-name="workEffortId" from-field="parameters.workEffortId"/>
+            </link>
+        </menu-item>
+        <menu-item name="release" title="${uiLabelMap.ProjectMgrRelease}" >
+            <condition>
+                <and>
+                    <not><if-empty field="workEffort"/></not>
+                    <if-compare field="workEffort.currentStatusId" operator="equals" value="PTS_ON_HOLD"/>
+                </and>
+            </condition>
+            <link target="setTaskStatus">
+                <parameter param-name="workEffortId" from-field="parameters.workEffortId"/>
+                <parameter param-name="currentStatusId" value="PTS_CREATED"/>
+            </link>
+        </menu-item>
+        <menu-item name="cancel" title="${uiLabelMap.CommonCancel}" >
+            <condition>
+                <and>
+                    <not><if-empty field="workEffort"/></not>
+                    <if-compare field="workEffort.currentStatusId" operator="equals" value="PTS_CREATED"/>
+                </and>
+            </condition>
+            <link target="setTaskStatus">
+                <parameter param-name="workEffortId" from-field="parameters.workEffortId"/>
+                <parameter param-name="currentStatusId" value="PTS_CANCELLED"/>
+            </link>
+        </menu-item>
+    </menu>
+    <menu name="TimesheetTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="findtimesheet" title="${uiLabelMap.CommonFind}">
+            <link target="FindTimeSheet"/>
+        </menu-item>
+        <menu-item name="addTimesheet" title="${uiLabelMap.CommonAdd}">
+            <link target="addWeeklyTimesheet"/>
+        </menu-item>
+    </menu>
+    <menu name="TimesheetSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          menu-container-style="button-bar button-style-2" default-menu-item-name="StatustoProgress">
+        <menu-item name="addTimesheet" title="${uiLabelMap.CommonNew}">
+            <link target="addWeeklyTimesheet"/>
+        </menu-item>
+        <menu-item name="TimeSheetStatusToComplete" title="${uiLabelMap.CommonStatustoComplete}">
+            <condition>
+                <and>
+                    <not><if-empty field="timesheet"/></not>
+                    <if-compare field="timesheet.statusId" operator="equals" value="TIMESHEET_IN_PROCESS"/>
+                </and>
+            </condition>
+            <link target="TimeSheetStatusToComplete">
+                <parameter param-name="timesheetId" from-field="timesheet.timesheetId"/>
+                <parameter param-name="statusId" value="TIMESHEET_COMPLETED"/>
+            </link>
+        </menu-item>
+        <menu-item name="TimeSheetStatustoProgress" title="${uiLabelMap.ProjectMgrSetStatusInProgress}">
+            <condition>
+                <and>
+                    <not><if-empty field="timesheet"/></not>
+                    <if-compare field="timesheet.statusId" operator="equals" value="TIMESHEET_COMPLETED"/>
+                </and>
+            </condition>
+            <link target="TimeSheetStatustoProgress">
+                <parameter param-name="timesheetId" from-field="timesheet.timesheetId"/>
+                <parameter param-name="statusId" value="TIMESHEET_IN_PROCESS"/>
+            </link>
+        </menu-item>
+    </menu>
+    <menu name="MyTimeSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          menu-container-style="button-bar button-style-2">
+        <menu-item name="TimeSheetStatusToComplete" title="${uiLabelMap.CommonStatustoComplete}">
+            <condition>
+                <and>
+                    <not><if-empty field="timesheet"/></not>
+                    <if-compare field="timesheet.statusId" operator="equals" value="TIMESHEET_IN_PROCESS"/>
+                </and>
+            </condition>
+            <link target="myTimeSheetStatusToComplete">
+                <parameter param-name="timesheetId" from-field="timesheet.timesheetId"/>
+                <parameter param-name="statusId" value="TIMESHEET_COMPLETED"/>
+            </link>
+        </menu-item>
+    </menu>
+    <menu name="ResourceTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          default-menu-item-name="edittimesheet">
+        <menu-item name="ResourcesProfile" title="${uiLabelMap.PartyProfile}">
+            <link target="viewprofile">
+                <parameter param-name="partyId"/>
+            </link>
+        </menu-item>
+        <menu-item name="viewroles" title="${uiLabelMap.PartyRoles}">
+            <link target="viewroles">
+                <parameter param-name="partyId"/>
+            </link>
+        </menu-item>
+        <menu-item name="listResourcesProject" title="${uiLabelMap.ProjectMgrProjects}">
+            <link target="listResourcesProject">
+                <parameter param-name="partyId"/>
+            </link>
+        </menu-item>
+        <menu-item name="listResourcesTask"  title="${uiLabelMap.ProjectMgrTasks}">
+            <link target="listResourcesTask">
+                <parameter param-name="partyId"/>
+            </link>
+        </menu-item>
+        <menu-item name="EditPartyRates"  title="${uiLabelMap.ProjectMgrRates}">
+            <link target="EditPartyRates">
+                <parameter param-name="partyId"/>
+            </link>
+        </menu-item>
+        <menu-item name="ListBillingHours"  title="${uiLabelMap.ProjectMgrBilling}">
+            <link target="ListResourceBillingHours">
+                <parameter param-name="partyId"/>
+            </link>
+        </menu-item>
+    </menu>
+    <menu name="RequestTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="ViewRequest" title="${uiLabelMap.ProjectMgrView}">
+            <condition>
+                <not><if-empty field="custRequest"/></not>
+            </condition>
+            <link target="ViewRequest">
+                <parameter param-name="custRequestId" from-field="parameters.custRequestId"/>
+            </link>
+        </menu-item>
+        <menu-item name="editRequest" title="${uiLabelMap.ProjectMgrEdit}">
+            <condition>
+                <and>
+                    <not><if-empty field="custRequest"/></not>
+                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
+                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
+                </and>
+            </condition>
+            <link target="EditRequest">
+                <parameter param-name="custRequestId" from-field="parameters.custRequestId"/>
+            </link>
+        </menu-item>
+        <menu-item name="custRequestContent" title="${uiLabelMap.ContentContent}">
+            <condition>
+                <and>
+                    <not><if-empty field="custRequest"/></not>
+                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
+                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
+                </and>
+            </condition>
+            <link target="EditCustRequestContent">
+                <parameter param-name="custRequestId" from-field="custRequest.custRequestId"/>
+            </link>
+        </menu-item>
+    </menu>
+    <menu name="TimesheetBar">
+        <menu-item name="setToComplete" title="${uiLabelMap.CommonStatustoComplete}">
+            <condition>
+                <if-compare field="timesheet.statusId" operator="equals" value="TIMESHEET_IN_PROCESS"/>
+            </condition>
+            <link target="${my}StatusToComplete">
+                <parameter param-name="timesheetId" from-field="timesheet.timesheetId"/>
+                <parameter param-name="statusId" value="TIMESHEET_COMPLETED"/>
+            </link>
+        </menu-item>
+    </menu>
+    <menu name="RequestSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          menu-container-style="button-bar button-style-2">
+        <menu-item name="cancelledRequest" title="${uiLabelMap.CommonCancel} ${uiLabelMap.OrderRequest}" >
+            <condition>
+                <and>
+                    <not><if-empty field="custRequest"/></not>
+                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
+                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
+                </and>
+            </condition>
+            <link target="setCustRequestStatus">
+                <parameter param-name="custRequestId"/>
+                <parameter param-name="statusId" value="CRQ_CANCELLED"/>
+            </link>
+        </menu-item>
+        <menu-item name="addContent" title="${uiLabelMap.PageTitleAddContent}">
+            <condition>
+                <and>
+                    <not><if-empty field="custRequest"/></not>
+                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
+                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
+                </and>
+            </condition>
+            <link target="EditCustRequestContent">
+                <parameter param-name="custRequestId" from-field="custRequest.custRequestId"/>
+            </link>
+        </menu-item>
+    </menu>
+</menus>

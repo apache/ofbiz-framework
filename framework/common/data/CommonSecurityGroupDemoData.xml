@@ -20,29 +20,24 @@
 
 <entity-engine-xml>
     <!-- Common Services security -->
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="COMMON_CREATE"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="COMMON_DELETE"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="COMMON_UPDATE"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="COMMON_VIEW"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="VISUALTHEME_CREATE"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="VISUALTHEME_UPDATE"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="VISUALTHEME_DELETE"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="PORTALPAGE_ADMIN"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="COMMON_CREATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="COMMON_DELETE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="COMMON_UPDATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="COMMON_VIEW"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="VISUALTHEME_CREATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="VISUALTHEME_UPDATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="VISUALTHEME_DELETE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PORTALPAGE_ADMIN"/>
 
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="VISUALTHEME_ADMIN"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="COMMON_ADMIN"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="PORTALPAGE_ADMIN"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="VISUALTHEME_ADMIN"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="COMMON_ADMIN"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="PORTALPAGE_ADMIN"/>
 
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="VIEWADMIN" permissionId="COMMON_VIEW"/>
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="COMMON_VIEW"/>
 
     <!-- User preferences security -->
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="USERPREF_ADMIN"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="USERPREF_ADMIN"/>
 
     <!-- Temporal expression security -->
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="TEMPEXPR_ADMIN"/>
-
-    <!-- Impersonation security -->
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="IMPERSONATE_ADMIN"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="IMPERSONATION" permissionId="IMPERSONATE_ADMIN"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="IMPERSONATION" permissionId="SECURITY_VIEW"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="TEMPEXPR_ADMIN"/>
 </entity-engine-xml>

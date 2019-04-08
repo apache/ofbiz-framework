@@ -21,6 +21,24 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
+    <simple-method method-name="testSendOrderConfirmation" short-description="Sends order confirmation mail" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="serviceCtx.orderId" value="TEST_DEMO10090"/>
+        <set field="serviceCtx.note" value="Test Note"/>
+        <set field="serviceCtx.comments" value="Test comments"/>
+        <set field="serviceCtx.sendTo" value="newtest_email@email.com"/>
+        <call-service service-name="sendOrderConfirmation" in-map-name="serviceCtx">
+            <results-to-map map-name="serviceResult"/>
+        </call-service>
+        <assert>
+            <not><if-empty field="serviceResult"/></not>
+            <if-compare operator="equals" field="serviceResult.emailType" value="PRDS_ODR_CONFIRM" />
+        </assert>
+        <check-errors/>
+    </simple-method>
     <simple-method method-name="testCreateOrderDeliverySchedule" short-description="Create Order Delivery Schedule" login-required="false">
         <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>

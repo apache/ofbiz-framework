@@ -20,7 +20,6 @@
 package org.apache.ofbiz.manufacturing.jobshopmgt;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.sql.Timestamp;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -38,7 +37,7 @@ import org.apache.ofbiz.entity.util.EntityUtil;
 import org.apache.ofbiz.manufacturing.techdata.TechDataServices;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
-import org.apache.ofbiz.service.ServiceUtil;
+
 
 /**
  * ProductionRun Object used by the Jobshop management OFBiz components,
@@ -114,13 +113,11 @@ public class ProductionRun {
         return productionRun;
     }
     /**
-     * Store the modified ProductionRun object in the database.
-     * <ul>
-     *     <li>store the the productionRun header</li>
-     *     <li> the productProduced related data</li>
-     *     <li> the listRoutingTask related data</li>
-     *     <li> the productComponent list related data</li>
-     * </ul>
+     * store  the modified ProductionRun object in the database.
+     *     <li>store the the productionRun header
+     *     <li> the productProduced related data
+     *     <li> the listRoutingTask related data
+     *     <li> the productComponent list related data
      * @return true if success false otherwise
      **/
     public boolean store() {
@@ -134,7 +131,7 @@ public class ProductionRun {
             productionRun.set("description",this.description);
             try {
                 if (quantityIsUpdated) {
-                    productionRun.set("quantityToProduce", this.quantity);
+                    productionRun.set("quantityToProduce",(BigDecimal) this.quantity);
                     productionRunProduct.set("estimatedQuantity",this.quantity.doubleValue());
                     productionRunProduct.store();
                     quantityIsUpdated = false;
@@ -208,7 +205,7 @@ public class ProductionRun {
         for (Iterator<GenericValue> iter = productionRunComponents.iterator(); iter.hasNext();) {
             GenericValue component = iter.next();
             componentQuantity = component.getBigDecimal("estimatedQuantity");
-            component.set("estimatedQuantity", componentQuantity.divide(previousQuantity, 10, RoundingMode.HALF_UP).multiply(newQuantity).doubleValue());
+            component.set("estimatedQuantity", componentQuantity.divide(previousQuantity, 10, BigDecimal.ROUND_HALF_UP).multiply(newQuantity).doubleValue());
         }
     }
     /**
@@ -248,10 +245,10 @@ public class ProductionRun {
         this.estimatedCompletionDate = estimatedCompletionDate;
     }
     /**
-     * Recalculate the estimatedCompletionDate property.
-     * Use the quantity and the estimatedStartDate properties as entries parameters.
-     * Read the listRoutingTask and for each recalculated and update the estimatedStart and endDate in the object.
-     * No store in the database is done.
+     * recalculated  the estimatedCompletionDate property.
+     *     Use the quantity and the estimatedStartDate properties as entries parameters.
+     *     <br/>read the listRoutingTask and for each recalculated and update the estimatedStart and endDate in the object.
+     *     <br/> no store in the database is done.
      * @param priority give the routingTask start point to recalculated
      * @return the estimatedCompletionDate calculated
      **/
@@ -282,7 +279,7 @@ public class ProductionRun {
      */
     public Timestamp recalculateEstimatedCompletionDate() {
         this.updateCompletionDate = false;
-        return recalculateEstimatedCompletionDate(0L, estimatedStartDate);
+        return recalculateEstimatedCompletionDate(Long.valueOf(0), estimatedStartDate);
     }
     /**
      * get the productionRunName property.
@@ -408,10 +405,10 @@ public class ProductionRun {
         double taskTime = 1;
         double totalTaskTime = 0;
         if (task.get("estimatedSetupMillis") != null) {
-            setupTime = task.getDouble("estimatedSetupMillis");
+            setupTime = task.getDouble("estimatedSetupMillis").doubleValue();
         }
         if (task.get("estimatedMilliSeconds") != null) {
-            taskTime = task.getDouble("estimatedMilliSeconds");
+            taskTime = task.getDouble("estimatedMilliSeconds").doubleValue();
         }
         totalTaskTime = (setupTime + taskTime * quantity.doubleValue());
         
@@ -425,12 +422,8 @@ public class ProductionRun {
                     // and put the value in totalTaskTime
                     Map<String, Object> estimateCalcServiceMap = UtilMisc.<String, Object>toMap("workEffort", task, "quantity", quantity, "productId", productId, "routingId", routingId);
                     Map<String, Object> serviceContext = UtilMisc.<String, Object>toMap("arguments", estimateCalcServiceMap);
-                    Map<String, Object> serviceResult = dispatcher.runSync(serviceName, serviceContext);
-                    if (ServiceUtil.isError(serviceResult)) {
-                        String errorMessage = ServiceUtil.getErrorMessage(serviceResult);
-                        Debug.logError(errorMessage, module);
-                    }
-                    totalTaskTime = ((BigDecimal)serviceResult.get("totalTime")).doubleValue();
+                    Map<String, Object> resultService = dispatcher.runSync(serviceName, serviceContext);
+                    totalTaskTime = ((BigDecimal)resultService.get("totalTime")).doubleValue();
                 }
             } catch (GenericServiceException exc) {
                 Debug.logError(exc, "Problem calling the customMethod service " + serviceName);

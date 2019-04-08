@@ -1,0 +1,862 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.15" id="1">
+    <property name="comments">Copyright (c) 2007 &lt;&lt;Your Company Name here>></property>
+    <property name="createdBy">Eclipse BIRT Designer Version 3.7.1.v20110905 Build &lt;3.7.1.v20110913-1734></property>
+    <html-property name="description">Creates a blank report with no predefined content.</html-property>
+    <property name="units">in</property>
+    <text-property name="displayName">Blank Report</text-property>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="layoutPreference">auto layout</property>
+    <parameters>
+        <scalar-parameter name="productStoreId" id="680">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="Week" id="597">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">integer</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="Year" id="679">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">integer</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <script-data-source name="OFbiz" id="594"/>
+    </data-sources>
+    <data-sets>
+        <script-data-set name="PDR" id="595">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">Week</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">SKU</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">ProductName</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">CategoryName</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">QuantitySold</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">GS</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">GMS</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">GMP</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">GSP</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">10</property>
+                    <property name="name">GP</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">11</property>
+                    <property name="name">Rank</property>
+                    <property name="dataType">integer</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">Week</property>
+                    <text-property name="displayName">Week</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">SKU</property>
+                    <text-property name="displayName">SKU</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">ProductName</property>
+                    <text-property name="displayName">ProductName</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">QuantitySold</property>
+                    <text-property name="displayName">QuantitySold</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">GS</property>
+                    <text-property name="displayName">GS</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">GMS</property>
+                    <text-property name="displayName">GMS</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">GMP</property>
+                    <text-property name="displayName">GMP</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">GSP</property>
+                    <text-property name="displayName">GSP</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">GP</property>
+                    <text-property name="displayName">GP</text-property>
+                </structure>                
+                <structure>
+                    <property name="columnName">Rank</property>
+                    <text-property name="displayName">Rank</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">CategoryName</property>
+                    <text-property name="displayName">CategoryName</text-property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">Week</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">SKU</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">ProductName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">CategoryName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">QuantitySold</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">GS</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">GMS</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">GMP</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">GSP</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">GP</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">11</property>
+                        <property name="name">Rank</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">OFbiz</property>
+            <method name="open"><![CDATA[importPackage(Packages.org.apache.ofbiz.minilang)
+importPackage(Packages.org.apache.ofbiz.minilang.method)
+importPackage(Packages.org.apache.ofbiz.base.util)
+importPackage(Packages.org.eclipse.birt.report.engine.api)
+
+appContext = reportContext.getAppContext();
+classLoader = appContext.get(EngineConstants.APPCONTEXT_CLASSLOADER_KEY);
+starschemas = null;
+try 
+{
+    productStoreId = params["productStoreId"].value;
+    Week = params["Week"].value;
+    Year = params["Year"].value;
+    methodContext = new MethodContext(appContext, classLoader, MethodContext.SERVICE);
+    methodContext.putEnv("productStoreId", productStoreId);
+    methodContext.putEnv("Week", Week);
+    methodContext.putEnv("Year", Year);
+    SimpleMethod.runSimpleMethod("component://order/minilang/reports/ProductDemandReportEvent.xml", "getOrder", methodContext);
+    starschemas = methodContext.getEnv("starschemas");
+} 
+catch (e) 
+{
+    Debug.logError(e,"");
+}
+
+currentRow = 0;
+totalRows = 0;
+
+if (starschemas) 
+{
+    totalRows = starschemas.size();
+}]]></method>
+            <method name="fetch"><![CDATA[if (currentRow >= totalRows) return false;
+{
+    starschema = starschemas.get(currentRow);
+    orderDateDateValue = starschema.getString("orderDateDateValue");
+    orderDateDayName = starschema.getString("orderDateDayName");
+    orderDateDayOfMonth = starschema.getString("orderDateDayOfMonth");
+    orderDateMonthName = starschema.getString("orderDateMonthName");
+    orderDateYearName = starschema.getString("orderDateYearName");
+    orderDateYearMonthDay = starschema.getString("orderDateYearMonthDay");
+    orderDateMonthOfYear = starschema.getString("orderDateMonthOfYear");
+    orderDateDescription = starschema.getString("orderDateDescription");
+    
+    WeekOfYear = starschema.getString("orderDateWeekOfYear");
+    SKU = starschema.getString("productProductId");
+    ProductName = starschema.getString("productInternalName");
+    //CategoryName = starschema.getString("categoryName");
+    CategoryName = starschema.getString("productCategoryId");
+    QuantitySold = starschema.getString("quantity");
+    GS = starschema.getString("GS");
+    GMS = starschema.getString("GMS");
+    GMP = starschema.getString("GMP");
+    GSP = starschema.getString("GSP");
+    GP = starschema.getString("GP");
+    
+    salesChannelEnumId = starschema.getString("salesChannelEnumId");
+    
+    row["Week"] = WeekOfYear;
+    row["SKU"] = SKU;
+    row["ProductName"] = ProductName;
+    row["CategoryName"] = CategoryName;
+    row["QuantitySold"] = QuantitySold;
+    row["GS"] = GS;
+    row["GMS"] = GMS;
+    row["GMP"] = GMP;
+    row["GSP"] = GSP;
+    row["GP"] = GP;
+    
+    currentRow ++;
+}
+
+return true;]]></method>
+        </script-data-set>
+    </data-sets>
+    <cubes>
+        <tabular-cube name="PDR Data Cube" id="599">
+            <property name="dimensions">
+                <tabular-dimension name="Weeks" id="600">
+                    <property name="defaultHierarchy">NewTabularHierarchy</property>
+                    <property name="hierarchies">
+                        <tabular-hierarchy name="NewTabularHierarchy" id="601">
+                            <property name="levels">
+                                <tabular-level name="Week" id="602">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">Week</property>
+                                </tabular-level>
+                            </property>
+                        </tabular-hierarchy>
+                    </property>
+                </tabular-dimension>
+                <tabular-dimension name="Products" id="603">
+                    <property name="defaultHierarchy">NewTabularHierarchy1</property>
+                    <property name="hierarchies">
+                        <tabular-hierarchy name="NewTabularHierarchy1" id="604">
+                            <property name="levels">
+                                <tabular-level name="SKU" id="605">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">SKU</property>
+                                </tabular-level>
+                                <tabular-level name="ProductName" id="606">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">ProductName</property>
+                                </tabular-level>
+                                <tabular-level name="CategoryName" id="607">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">CategoryName</property>
+                                </tabular-level>
+                            </property>
+                        </tabular-hierarchy>
+                    </property>
+                </tabular-dimension>
+            </property>
+            <property name="measureGroups">
+                <tabular-measure-group name="PDR Summary Field" id="608">
+                    <property name="measures">
+                        <tabular-measure name="QuantitySold" id="609">
+                            <expression name="measureExpression">dataSetRow["QuantitySold"]</expression>
+                            <property name="dataType">integer</property>
+                        </tabular-measure>
+                        <tabular-measure name="GS" id="610">
+                            <expression name="measureExpression">dataSetRow["GS"]</expression>
+                            <property name="dataType">decimal</property>
+                        </tabular-measure>
+                        <tabular-measure name="GMP" id="612">
+                            <expression name="measureExpression">dataSetRow["GMP"]</expression>
+                            <property name="dataType">decimal</property>
+                        </tabular-measure>
+                        <tabular-measure name="GP" id="614">
+                            <expression name="measureExpression">dataSetRow["GP"]</expression>
+                            <property name="dataType">decimal</property>
+                        </tabular-measure>
+                        <tabular-measure name="AGP" id="616">
+                            <expression name="measureExpression">dataSetRow["GP"]/dataSetRow["QuantitySold"]</expression>
+                            <property name="dataType">decimal</property>
+                        </tabular-measure>
+                        <tabular-measure name="Rank" id="617">
+                            <expression name="measureExpression">dataSetRow["Rank"]</expression>
+                            <property name="dataType">integer</property>
+                        </tabular-measure>
+                    </property>
+                </tabular-measure-group>
+            </property>
+            <property name="dataSet">PDR</property>
+        </tabular-cube>
+    </cubes>
+    <styles>
+        <style name="crosstab-cell" id="4">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+        <style name="crosstab" id="5">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+    </styles>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <property name="orientation">landscape</property>
+            <property name="topMargin">0.25in</property>
+            <property name="leftMargin">0.25in</property>
+            <property name="bottomMargin">0.25in</property>
+            <property name="rightMargin">0.25in</property>
+            <page-footer>
+                <text id="3">
+                    <property name="contentType">html</property>
+                    <text-property name="content"><![CDATA[<value-of>new Date()</value-of>]]></text-property>
+                </text>
+            </page-footer>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <label id="6">
+            <property name="fontSize">xx-large</property>
+            <property name="marginTop">0pt</property>
+            <property name="paddingTop">1pt</property>
+            <property name="paddingBottom">20pt</property>
+            <property name="textAlign">center</property>
+            <text-property name="text">Product Demand Report</text-property>
+        </label>
+        <extended-item extensionName="Crosstab" extensionVersion="2.5.0" id="596">
+            <property name="cube">PDR Data Cube</property>
+            <property name="measures">
+                <extended-item extensionName="MeasureView" id="628">
+                    <property name="measure">QuantitySold</property>
+                    <property name="detail">
+                        <extended-item extensionName="AggregationCell" id="682">
+                            <property name="aggregationOnRow">Products/CategoryName</property>
+                            <property name="aggregationOnColumn">Weeks/Week</property>
+                            <property name="borderLeftStyle">solid</property>
+                            <property name="borderLeftWidth">1px</property>
+                            <property name="borderLeftColor">#000000</property>
+                            <property name="content">
+                                <data name="QuantitySold" id="631">
+                                    <property name="resultSetColumn">QuantitySold</property>
+                                </data>
+                            </property>
+                        </extended-item>
+                    </property>
+                    <property name="aggregations">
+                        <extended-item extensionName="AggregationCell" id="670">
+                            <property name="aggregationOnRow">Products/CategoryName</property>
+                            <property name="borderLeftStyle">solid</property>
+                            <property name="borderLeftWidth">1px</property>
+                            <property name="borderLeftColor">#000000</property>
+                            <property name="content">
+                                <data id="671">
+                                    <structure name="numberFormat">
+                                        <property name="category">Fixed</property>
+                                        <property name="pattern">Fixed</property>
+                                    </structure>
+                                    <property name="resultSetColumn">QuantitySold_Products/CategoryName</property>
+                                </data>
+                            </property>
+                        </extended-item>
+                    </property>
+                    <property name="header">
+                        <extended-item extensionName="CrosstabCell" id="630">
+                            <property name="content">
+                                <label id="632">
+                                    <property name="textAlign">center</property>
+                                    <text-property name="text">QuantitySold</text-property>
+                                </label>
+                            </property>
+                            <property name="borderLeftStyle">solid</property>
+                            <property name="borderLeftWidth">1px</property>
+                            <property name="borderLeftColor">#000000</property>
+                        </extended-item>
+                        <extended-item extensionName="CrosstabCell" id="683">
+                            <property name="content">
+                                <label id="684">
+                                    <property name="textAlign">center</property>
+                                    <text-property name="text">QuantitySold</text-property>
+                                </label>
+                            </property>
+                            <property name="borderLeftStyle">solid</property>
+                            <property name="borderLeftWidth">1px</property>
+                            <property name="borderLeftColor">#000000</property>
+                        </extended-item>
+                    </property>
+                </extended-item>
+                <extended-item extensionName="MeasureView" id="633">
+                    <property name="measure">GS</property>
+                    <property name="detail">
+                        <extended-item extensionName="AggregationCell" id="685">
+                            <property name="aggregationOnRow">Products/CategoryName</property>
+                            <property name="aggregationOnColumn">Weeks/Week</property>
+                            <property name="content">
+                                <data name="GS" id="636">
+                                    <property name="resultSetColumn">GS</property>
+                                </data>
+                            </property>
+                        </extended-item>
+                    </property>
+                    <property name="header">
+                        <extended-item extensionName="CrosstabCell" id="635">
+                            <property name="content">
+                                <label id="637">
+                                    <property name="textAlign">center</property>
+                                    <text-property name="text">GS</text-property>
+                                </label>
+                            </property>
+                        </extended-item>
+                    </property>
+                </extended-item>
+                <extended-item extensionName="MeasureView" id="638">
+                    <property name="measure">GMP</property>
+                    <property name="detail">
+                        <extended-item extensionName="AggregationCell" id="686">
+                            <property name="aggregationOnRow">Products/CategoryName</property>
+                            <property name="aggregationOnColumn">Weeks/Week</property>
+                            <property name="content">
+                                <data name="GMP" id="641">
+                                    <property name="resultSetColumn">GMP</property>
+                                </data>
+                            </property>
+                        </extended-item>
+                    </property>
+                    <property name="aggregations">
+                        <extended-item extensionName="AggregationCell" id="672">
+                            <property name="aggregationOnRow">Products/CategoryName</property>
+                            <property name="content">
+                                <data id="673">
+                                    <structure name="numberFormat">
+                                        <property name="category">Fixed</property>
+                                        <property name="pattern">Fixed</property>
+                                    </structure>
+                                    <property name="resultSetColumn">GMP_Products/CategoryName</property>
+                                </data>
+                            </property>
+                        </extended-item>
+                    </property>
+                    <property name="header">
+                        <extended-item extensionName="CrosstabCell" id="640">
+                            <property name="content">
+                                <label id="642">
+                                    <property name="textAlign">center</property>
+                                    <text-property name="text">GMP</text-property>
+                                </label>
+                            </property>
+                        </extended-item>
+                        <extended-item extensionName="CrosstabCell" id="687">
+                            <property name="content">
+                                <label id="688">
+                                    <property name="textAlign">center</property>
+                                    <text-property name="text">GMP</text-property>
+                                </label>
+                            </property>
+                        </extended-item>
+                    </property>
+                </extended-item>
+                <extended-item extensionName="MeasureView" id="643">
+                    <property name="measure">GP</property>
+                    <property name="detail">
+                        <extended-item extensionName="AggregationCell" id="689">
+                            <property name="aggregationOnRow">Products/CategoryName</property>
+                            <property name="aggregationOnColumn">Weeks/Week</property>
+                            <property name="content">
+                                <data name="GP" id="646">
+                                    <structure name="numberFormat">
+                                        <property name="category">Unformatted</property>
+                                    </structure>
+                                    <property name="resultSetColumn">GP</property>
+                                </data>
+                            </property>
+                        </extended-item>
+                    </property>
+                    <property name="aggregations">
+                        <extended-item extensionName="AggregationCell" id="674">
+                            <property name="aggregationOnRow">Products/CategoryName</property>
+                            <property name="content">
+                                <data id="675">
+                                    <structure name="numberFormat">
+                                        <property name="category">Fixed</property>
+                                        <property name="pattern">Fixed</property>
+                                    </structure>
+                                    <property name="resultSetColumn">GP_Products/CategoryName</property>
+                                </data>
+                            </property>
+                        </extended-item>
+                    </property>
+                    <property name="header">
+                        <extended-item extensionName="CrosstabCell" id="645">
+                            <property name="content">
+                                <label id="647">
+                                    <property name="textAlign">center</property>
+                                    <text-property name="text">GP</text-property>
+                                </label>
+                            </property>
+                        </extended-item>
+                        <extended-item extensionName="CrosstabCell" id="690">
+                            <property name="content">
+                                <label id="691">
+                                    <property name="textAlign">center</property>
+                                    <text-property name="text">GP</text-property>
+                                </label>
+                            </property>
+                        </extended-item>
+                    </property>
+                </extended-item>
+                <extended-item extensionName="MeasureView" id="653">
+                    <property name="measure">AGP</property>
+                    <property name="detail">
+                        <extended-item extensionName="AggregationCell" id="693">
+                            <property name="aggregationOnRow">Products/CategoryName</property>
+                            <property name="aggregationOnColumn">Weeks/Week</property>
+                            <property name="borderRightStyle">solid</property>
+                            <property name="borderRightWidth">1px</property>
+                            <property name="borderRightColor">#000000</property>
+                            <property name="content">
+                                <data name="AGP" id="656">
+                                    <structure name="numberFormat">
+                                        <property name="category">Fixed</property>
+                                        <property name="pattern">Fixed</property>
+                                    </structure>
+                                    <property name="resultSetColumn">AGP</property>
+                                </data>
+                            </property>
+                        </extended-item>
+                    </property>
+                    <property name="aggregations">
+                        <extended-item extensionName="AggregationCell" id="676">
+                            <property name="aggregationOnRow">Products/CategoryName</property>
+                            <property name="borderRightStyle">solid</property>
+                            <property name="borderRightWidth">1px</property>
+                            <property name="borderRightColor">#000000</property>
+                            <property name="content">
+                                <data id="677">
+                                    <structure name="numberFormat">
+                                        <property name="category">Fixed</property>
+                                        <property name="pattern">Fixed</property>
+                                    </structure>
+                                    <property name="resultSetColumn">AGP_Products/CategoryName</property>
+                                </data>
+                            </property>
+                        </extended-item>
+                    </property>
+                    <property name="header">
+                        <extended-item extensionName="CrosstabCell" id="655">
+                            <property name="content">
+                                <label id="657">
+                                    <property name="textAlign">center</property>
+                                    <text-property name="text">AGP</text-property>
+                                </label>
+                            </property>
+                            <property name="borderRightStyle">solid</property>
+                            <property name="borderRightWidth">1px</property>
+                            <property name="borderRightColor">#000000</property>
+                        </extended-item>
+                        <extended-item extensionName="CrosstabCell" id="694">
+                            <property name="content">
+                                <label id="695">
+                                    <property name="textAlign">center</property>
+                                    <text-property name="text">AGP</text-property>
+                                </label>
+                            </property>
+                            <property name="borderRightStyle">solid</property>
+                            <property name="borderRightWidth">1px</property>
+                            <property name="borderRightColor">#000000</property>
+                        </extended-item>
+                    </property>
+                </extended-item>
+            </property>
+            <property name="rows">
+                <extended-item extensionName="CrosstabView" id="623">
+                    <property name="views">
+                        <extended-item extensionName="DimensionView" id="624">
+                            <property name="dimension">Products</property>
+                            <property name="levels">
+                                <extended-item extensionName="LevelView" name="NewLevel View1" id="625">
+                                    <property name="level">Products/SKU</property>
+                                    <property name="member">
+                                        <extended-item extensionName="CrosstabCell" id="626">
+                                            <property name="content">
+                                                <data name="SKU" id="627">
+                                                    <property name="textAlign">center</property>
+                                                    <property name="resultSetColumn">SKU</property>
+                                                </data>
+                                            </property>
+                                        </extended-item>
+                                    </property>
+                                </extended-item>
+                                <extended-item extensionName="LevelView" name="NewLevel View2" id="663">
+                                    <property name="level">Products/ProductName</property>
+                                    <property name="member">
+                                        <extended-item extensionName="CrosstabCell" id="664">
+                                            <property name="content">
+                                                <data name="ProductName" id="665">
+                                                    <property name="textAlign">center</property>
+                                                    <property name="resultSetColumn">ProductName</property>
+                                                </data>
+                                            </property>
+                                        </extended-item>
+                                    </property>
+                                </extended-item>
+                                <extended-item extensionName="LevelView" name="NewLevel View3" id="666">
+                                    <property name="level">Products/CategoryName</property>
+                                    <property name="member">
+                                        <extended-item extensionName="CrosstabCell" id="667">
+                                            <property name="content">
+                                                <data name="CategoryName" id="668">
+                                                    <property name="textAlign">center</property>
+                                                    <property name="resultSetColumn">CategoryName</property>
+                                                </data>
+                                            </property>
+                                            <property name="borderRightStyle">solid</property>
+                                            <property name="borderRightWidth">1px</property>
+                                            <property name="borderRightColor">#000000</property>
+                                        </extended-item>
+                                    </property>
+                                </extended-item>
+                            </property>
+                        </extended-item>
+                    </property>
+                </extended-item>
+            </property>
+            <property name="columns">
+                <extended-item extensionName="CrosstabView" id="618">
+                    <property name="grandTotal">
+                        <extended-item extensionName="CrosstabCell" id="669">
+                            <property name="content">
+                                <label id="678">
+                                    <property name="textAlign">center</property>
+                                    <text-property name="text">Average last 4 weeks</text-property>
+                                </label>
+                            </property>
+                            <property name="borderLeftStyle">solid</property>
+                            <property name="borderLeftWidth">1px</property>
+                            <property name="borderLeftColor">#000000</property>
+                            <property name="borderRightStyle">solid</property>
+                            <property name="borderRightWidth">1px</property>
+                            <property name="borderRightColor">#000000</property>
+                        </extended-item>
+                    </property>
+                    <property name="views">
+                        <extended-item extensionName="DimensionView" id="619">
+                            <property name="dimension">Weeks</property>
+                            <property name="levels">
+                                <extended-item extensionName="LevelView" name="NewLevel View" id="620">
+                                    <property name="level">Weeks/Week</property>
+                                    <property name="member">
+                                        <extended-item extensionName="CrosstabCell" id="621">
+                                            <property name="content">
+                                                <data name="Week" id="622">
+                                                    <property name="marginTop">0pt</property>
+                                                    <property name="textAlign">center</property>
+                                                    <property name="resultSetColumn">Week</property>
+                                                </data>
+                                            </property>
+                                            <property name="borderLeftStyle">solid</property>
+                                            <property name="borderLeftWidth">1px</property>
+                                            <property name="borderLeftColor">#000000</property>
+                                            <property name="borderRightStyle">solid</property>
+                                            <property name="borderRightWidth">1px</property>
+                                            <property name="borderRightColor">#000000</property>
+                                        </extended-item>
+                                    </property>
+                                </extended-item>
+                            </property>
+                        </extended-item>
+                    </property>
+                </extended-item>
+            </property>
+            <property name="header">
+                <extended-item extensionName="CrosstabCell" id="681"/>
+            </property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">Week</property>
+                    <expression name="expression">"Week "+dimension["Weeks"]["Week"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">SKU</property>
+                    <expression name="expression">dimension["Products"]["SKU"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">QuantitySold</property>
+                    <expression name="expression">measure["QuantitySold"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">GS</property>
+                    <expression name="expression">measure["GS"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">GMP</property>
+                    <expression name="expression">measure["GMP"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">GP</property>
+                    <expression name="expression">measure["GP"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">AGP</property>
+                    <expression name="expression">measure["AGP"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">ProductName</property>
+                    <expression name="expression">dimension["Products"]["ProductName"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">CategoryName</property>
+                    <expression name="expression">dimension["Products"]["CategoryName"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">QuantitySold_Products/CategoryName</property>
+                    <expression name="expression">measure["QuantitySold"]</expression>
+                    <property name="dataType">integer</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>Products/CategoryName</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">AVE</property>
+                </structure>
+                <structure>
+                    <property name="name">GMP_Products/CategoryName</property>
+                    <expression name="expression">measure["GMP"]</expression>
+                    <property name="dataType">decimal</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>Products/CategoryName</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">AVE</property>
+                </structure>
+                <structure>
+                    <property name="name">GP_Products/CategoryName</property>
+                    <expression name="expression">measure["GP"]</expression>
+                    <property name="dataType">decimal</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>Products/CategoryName</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">AVE</property>
+                </structure>
+                <structure>
+                    <property name="name">AGP_Products/CategoryName</property>
+                    <expression name="expression">measure["AGP"]</expression>
+                    <property name="dataType">decimal</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>Products/CategoryName</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">AVE</property>
+                </structure>
+            </list-property>
+        </extended-item>
+    </body>
+</report>

@@ -17,7 +17,8 @@
  * under the License.
  */
 
-import org.apache.ofbiz.order.order.OrderContentWrapper
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.order.order.*
 
 orderId = request.getParameter("orderId")
 orderItemSeqId = request.getParameter("orderItemSeqId")

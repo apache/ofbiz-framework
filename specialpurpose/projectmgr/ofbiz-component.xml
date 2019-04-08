@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<ofbiz-component name="projectmgr" enabled="true"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-component.xsd">
+    <resource-loader name="main" type="component"/>
+    <classpath type="dir" location="config"/>
+
+
+    <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel.xml"/>
+
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/ProjectMgrTypeData.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/ProjectMgrHelpData.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/ProjectMgrSecurityPermissionSeedData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/ProjectMgrSecurityGroupDemoData.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/ProjectMgrPortletData.xml"/>
+    
+    <entity-resource type="data" reader-name="seed-initial" loader="main" location="data/ProjectMgrSystemPropertyData.xml"/>
+    
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/ProjectMgrDemoData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/ProjectMgrDemoPasswordData.xml"/>
+    <entity-resource type="eca" reader-name="main" loader="main" location="entitydef/eecas.xml"/>
+
+    <service-resource type="model" loader="main" location="servicedef/services.xml"/>
+
+    <webapp name="projectmgr"
+        title="Project"
+        server="default-server"
+        location="webapp/projectmgr"
+        base-permission="PROJECTMGR"
+        mount-point="/projectmgr"
+        app-bar-display="true"/>
+</ofbiz-component>

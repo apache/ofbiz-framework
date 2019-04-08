@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements. See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to you under the Apache License, Version
+    2.0 (the "License"); you may not use this file except in compliance
+    with the License. You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+    applicable law or agreed to in writing, software distributed under the
+    License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+    CONDITIONS OF ANY KIND, either express or implied. See the License for
+    the specific language governing permissions and limitations under the
+    License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>Time Sheet help</title>
+    <para>In the screen to show the backlog list for testing</para>
+    <section>
+        <title>Timesheet screen consists of.</title>
+        <orderedlist>
+            <listitem><para>Find TimeSheet</para></listitem>
+            <listitem><para>Timesheet List</para></listitem>
+        </orderedlist>
+    </section>
+    <section>
+        <title>Find TimeSheet</title>
+        <para>
+            To find the required timesheet.
+        </para>
+    </section>
+    <section>
+        <title>Timesheet List</title>
+        <para>
+            To show the timesheet. There is the To Complete button for setting the timesheet.
+        </para>
+    </section>
+</section>

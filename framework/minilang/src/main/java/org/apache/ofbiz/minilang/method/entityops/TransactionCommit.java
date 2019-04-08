@@ -32,7 +32,7 @@ import org.w3c.dom.Element;
 /**
  * Implements the &lt;transaction-commit&gt; element.
  * 
- * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
+ * @see <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/Mini-language+Reference#Mini-languageReference-{{%3Ctransactioncommit%3E}}">Mini-language Reference</a>
  */
 public final class TransactionCommit extends MethodOperation {
 
@@ -55,7 +55,7 @@ public final class TransactionCommit extends MethodOperation {
         boolean beganTransaction = false;
         Boolean beganTransactionBoolean = beganTransactionFma.get(methodContext.getEnvMap());
         if (beganTransactionBoolean != null) {
-            beganTransaction = beganTransactionBoolean;
+            beganTransaction = beganTransactionBoolean.booleanValue();
         }
         try {
             TransactionUtil.commit(beganTransaction);

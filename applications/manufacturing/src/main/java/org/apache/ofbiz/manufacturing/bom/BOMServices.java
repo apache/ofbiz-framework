@@ -20,7 +20,6 @@
 package org.apache.ofbiz.manufacturing.bom;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
@@ -106,7 +105,7 @@ public class BOMServices {
         } catch (GenericEntityException gee) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingBomErrorRunningMaxDethAlgorithm", UtilMisc.toMap("errorString", gee.getMessage()), locale));
         }
-        result.put("depth", (long) maxDepth);
+        result.put("depth", Long.valueOf(maxDepth));
 
         return result;
     }
@@ -139,9 +138,6 @@ public class BOMServices {
             GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
             Map<String, Object> depthResult = dispatcher.runSync("getMaxDepth", 
                     UtilMisc.toMap("productId", productId, "bomType", "MANUF_COMPONENT"));
-            if (ServiceUtil.isError(depthResult)) {
-                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(depthResult));
-            }
             llc = (Long)depthResult.get("depth");
             // If the product is a variant of a virtual, then the billOfMaterialLevel cannot be
             // lower than the billOfMaterialLevel of the virtual product.
@@ -163,15 +159,12 @@ public class BOMServices {
                 }
             }
             if (virtualMaxDepth > llc.intValue()) {
-                llc = (long) virtualMaxDepth;
+                llc = Long.valueOf(virtualMaxDepth);
             }
             product.set("billOfMaterialLevel", llc);
             product.store();
-            if (alsoComponents) {
+            if (alsoComponents.booleanValue()) {
                 Map<String, Object> treeResult = dispatcher.runSync("getBOMTree", UtilMisc.toMap("productId", productId, "bomType", "MANUF_COMPONENT"));
-                if (ServiceUtil.isError(treeResult)) {
-                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(treeResult));
-                }
                 BOMTree tree = (BOMTree)treeResult.get("tree");
                 List<BOMNode> products = new LinkedList<BOMNode>();
                 tree.print(products, llc.intValue());
@@ -183,12 +176,12 @@ public class BOMServices {
                         lev = oneProduct.getLong("billOfMaterialLevel").intValue();
                     }
                     if (lev < oneNode.getDepth()) {
-                        oneProduct.set("billOfMaterialLevel", (long) oneNode.getDepth());
+                        oneProduct.set("billOfMaterialLevel", Long.valueOf(oneNode.getDepth()));
                         oneProduct.store();
                     }
                 }
             }
-            if (alsoVariants) {
+            if (alsoVariants.booleanValue()) {
                 List<GenericValue> variantProducts = EntityQuery.use(delegator).from("ProductAssoc")
                         .where("productId", productId, 
                                 "productAssocTypeId", "PRODUCT_VARIANT")
@@ -222,7 +215,7 @@ public class BOMServices {
 
         try {
             List<GenericValue> products = EntityQuery.use(delegator).from("Product").orderBy("isVirtual DESC").queryList();
-            Long zero = 0L;
+            Long zero = Long.valueOf(0);
             List<GenericValue> allProducts = new LinkedList<GenericValue>();
             for (GenericValue product : products) {
                 product.set("billOfMaterialLevel", zero);
@@ -233,10 +226,7 @@ public class BOMServices {
 
             for (GenericValue product : products) {
                 try {
-                    Map<String, Object> depthResult = dispatcher.runSync("updateLowLevelCode", UtilMisc.<String, Object>toMap("productIdTo", product.getString("productId"), "alsoComponents", Boolean.FALSE, "alsoVariants", Boolean.FALSE));
-                    if (ServiceUtil.isError(depthResult)) {
-                        return ServiceUtil.returnError(ServiceUtil.getErrorMessage(depthResult));
-                    }
+                    Map<String, Object> depthResult = dispatcher.runSync("updateLowLevelCode", UtilMisc.<String, Object>toMap("productIdTo", product.getString("productId"), "alsoComponents", Boolean.valueOf(false), "alsoVariants", Boolean.valueOf(false)));
                     Debug.logInfo("Product [" + product.getString("productId") + "] Low Level Code [" + depthResult.get("lowLevelCode") + "]", module);
                 } catch (Exception exc) {
                     Debug.logWarning(exc.getMessage(), module);
@@ -305,7 +295,7 @@ public class BOMServices {
         BigDecimal amount = (BigDecimal) context.get("amount");
         Locale locale = (Locale) context.get("locale");
         if (type == null) {
-            type = 0;
+            type = Integer.valueOf(0);
         }
 
         Date fromDate = null;
@@ -321,7 +311,7 @@ public class BOMServices {
 
         BOMTree tree = null;
         try {
-            tree = new BOMTree(productId, bomType, fromDate, type, delegator, dispatcher, userLogin);
+            tree = new BOMTree(productId, bomType, fromDate, type.intValue(), delegator, dispatcher, userLogin);
         } catch (GenericEntityException gee) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingBomErrorCreatingBillOfMaterialsTree", UtilMisc.toMap("errorString", gee.getMessage()), locale));
         }
@@ -385,7 +375,7 @@ public class BOMServices {
             tree = new BOMTree(productId, "MANUF_COMPONENT", fromDate, BOMTree.EXPLOSION_SINGLE_LEVEL, delegator, dispatcher, userLogin);
             tree.setRootQuantity(quantity);
             tree.setRootAmount(amount);
-            tree.print(components, excludeWIPs);
+            tree.print(components, excludeWIPs.booleanValue());
             if (components.size() > 0) components.remove(0);
         } catch (GenericEntityException gee) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingBomErrorCreatingBillOfMaterialsTree", UtilMisc.toMap("errorString", gee.getMessage()), locale));
@@ -397,17 +387,11 @@ public class BOMServices {
         try {
             Map<String, Object> routingInMap = UtilMisc.toMap("productId", productId, "ignoreDefaultRouting", "Y", "userLogin", userLogin);
             Map<String, Object> routingOutMap = dispatcher.runSync("getProductRouting", routingInMap);
-            if (ServiceUtil.isError(routingOutMap)) {
-                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(routingOutMap));
-            }
             GenericValue routing = (GenericValue)routingOutMap.get("routing");
             if (routing == null) {
                 // try to find a routing linked to the virtual product
                 routingInMap = UtilMisc.toMap("productId", tree.getRoot().getProduct().getString("productId"), "userLogin", userLogin);
                 routingOutMap = dispatcher.runSync("getProductRouting", routingInMap);
-                if (ServiceUtil.isError(routingOutMap)) {
-                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(routingOutMap));
-                }
                 routing = (GenericValue)routingOutMap.get("routing");
             }
             if (routing != null) {
@@ -551,16 +535,13 @@ public class BOMServices {
                 Map<String, Object> serviceContext = new HashMap<String, Object>();
                 serviceContext.put("productId", orderItem.getString("productId"));
                 serviceContext.put("quantity", orderShipment.getBigDecimal("quantity"));
-                Map<String, Object> serviceResult = null;
+                Map<String, Object> resultService = null;
                 try {
-                    serviceResult = dispatcher.runSync("getProductsInPackages", serviceContext);
-                    if (ServiceUtil.isError(serviceResult)) {
-                        return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingPackageConfiguratorError", locale));
-                    }
+                    resultService = dispatcher.runSync("getProductsInPackages", serviceContext);
                 } catch (GenericServiceException e) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingPackageConfiguratorError", locale));
                 }
-                List<BOMNode> productsInPackages = UtilGenerics.checkList(serviceResult.get("productsInPackages"));
+                List<BOMNode> productsInPackages = UtilGenerics.checkList(resultService.get("productsInPackages"));
                 if (productsInPackages.size() == 1) {
                     BOMNode root = productsInPackages.get(0);
                     String rootProductId = (root.getSubstitutedNode() != null? root.getSubstitutedNode().getProduct().getString("productId"): root.getProduct().getString("productId"));
@@ -594,7 +575,7 @@ public class BOMServices {
                         BOMNode component = productsInPackages.get(j);
                         Map<String, Object> boxTypeContentMap = new HashMap<String, Object>();
                         boxTypeContentMap.put("content", orderShipmentReadMap);
-                        boxTypeContentMap.put("componentIndex", j);
+                        boxTypeContentMap.put("componentIndex", Integer.valueOf(j));
                         GenericValue product = component.getProduct();
                         String boxTypeId = product.getString("shipmentBoxTypeId");
                         if (boxTypeId != null) {
@@ -668,7 +649,7 @@ public class BOMServices {
                     if (subProduct) {
                         // multi package
                         Integer index = (Integer)contentMap.get("componentIndex");
-                        BOMNode component = productsInPackages.get(index);
+                        BOMNode component = productsInPackages.get(index.intValue());
                         product = component.getProduct();
                         quantity = component.getQuantity();
                     } else {
@@ -690,10 +671,10 @@ public class BOMServices {
                         productDepth = BigDecimal.ONE;
                     }
 
-                    BigDecimal firstMaxNumOfProducts = boxWidth.subtract(totalWidth).divide(productDepth, 0, RoundingMode.FLOOR);
+                    BigDecimal firstMaxNumOfProducts = boxWidth.subtract(totalWidth).divide(productDepth, 0, BigDecimal.ROUND_FLOOR);
                     if (firstMaxNumOfProducts.compareTo(BigDecimal.ZERO) == 0) firstMaxNumOfProducts = BigDecimal.ONE;
                     //
-                    BigDecimal maxNumOfProducts = boxWidth.divide(productDepth, 0, RoundingMode.FLOOR);
+                    BigDecimal maxNumOfProducts = boxWidth.divide(productDepth, 0, BigDecimal.ROUND_FLOOR);
                     if (maxNumOfProducts.compareTo(BigDecimal.ZERO) == 0) maxNumOfProducts = BigDecimal.ONE;
 
                     BigDecimal remQuantity = quantity;
@@ -710,11 +691,8 @@ public class BOMServices {
                         // If needed, create the package
                         if (shipmentPackageSeqId == null) {
                             try {
-                                Map<String, Object> serviceResult = dispatcher.runSync("createShipmentPackage", UtilMisc.<String, Object>toMap("shipmentId", orderShipment.getString("shipmentId"), "shipmentBoxTypeId", boxTypeId, "userLogin", userLogin));
-                                if (ServiceUtil.isError(serviceResult)) {
-                                    return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
-                                }
-                                shipmentPackageSeqId = (String)serviceResult.get("shipmentPackageSeqId");
+                                Map<String, Object> resultService = dispatcher.runSync("createShipmentPackage", UtilMisc.<String, Object>toMap("shipmentId", orderShipment.getString("shipmentId"), "shipmentBoxTypeId", boxTypeId, "userLogin", userLogin));
+                                shipmentPackageSeqId = (String)resultService.get("shipmentPackageSeqId");
                             } catch (GenericServiceException e) {
                                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingPackageConfiguratorError", locale));
                             }
@@ -736,10 +714,7 @@ public class BOMServices {
                                 "userLogin", userLogin,
                                 "quantity", qty);
                             }
-                            Map<String, Object> serviceResult = dispatcher.runSync("createShipmentPackageContent", inputMap);
-                            if (ServiceUtil.isError(serviceResult)) {
-                                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingPackageConfiguratorError", locale));
-                            }
+                            dispatcher.runSync("createShipmentPackageContent", inputMap);
                         } catch (GenericServiceException e) {
                             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingPackageConfiguratorError", locale));
                         }

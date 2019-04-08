@@ -194,7 +194,7 @@ under the License.
     <request-map uri="updateInvoiceItem">
         <security https="true" auth="true"/>
         <event type="service-multi" invoke="updateInvoiceItem"/>
-        <response name="success" type="request-redirect-noparam" value="listInvoiceItems"/>
+        <response name="success" type="request-redirect" value="listInvoiceItems"/>
         <response name="error" type="view" value="listInvoiceItems"/>
     </request-map>
     <request-map uri="removeInvoiceItem">
@@ -267,23 +267,6 @@ under the License.
     <request-map uri="createInvoiceTerm">
         <security https="true" auth="true"/>
         <event type="service" invoke="createInvoiceTerm"/>
-        <response name="success" type="view" value="invoiceTerms"/>
-        <response name="error" type="view" value="invoiceTerms"/>
-    </request-map>
-    <request-map uri="updateInvoiceTerm">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updateInvoiceTerm"/>
-        <response name="success" type="view" value="invoiceTerms"/>
-        <response name="error" type="view" value="invoiceTerms"/>
-    </request-map>
-    <request-map uri="deleteInvoiceTerm">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="deleteInvoiceTerm"/>
-        <response name="success" type="view" value="invoiceTerms"/>
-        <response name="error" type="view" value="invoiceTerms"/>
-    </request-map>
-    <request-map uri="editInvoiceTerm">
-        <security https="true" auth="true"/>
         <response name="success" type="view" value="invoiceTerms"/>
         <response name="error" type="view" value="invoiceTerms"/>
     </request-map>
@@ -385,6 +368,13 @@ under the License.
     <request-map uri="InvoiceAcctgTransEntriesPdf">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="InvoiceAcctgTransEntriesPdf"/>
+    </request-map>
+
+    <request-map uri="quickSendPayment">
+        <security https="true" auth="true"/>
+        <event type="service-multi" invoke="quickSendPayment"/>
+        <response name="success" type="view" value="ListChecksToSend"/>
+        <response name="error" type="view" value="ListChecksToSend"/>
     </request-map>
 
     <request-map uri="FindSalesInvoicesByDueDate">
@@ -599,6 +589,12 @@ under the License.
         <response name="success" type="view" value="EditPaymentGatewayConfig"/>
         <response name="error" type="view" value="EditPaymentGatewayConfig"/>
     </request-map>
+    <request-map uri="UpdatePaymentGatewayConfigiDEAL">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updatePaymentGatewayConfigiDEAL"/>
+        <response name="success" type="view" value="EditPaymentGatewayConfig"/>
+        <response name="error" type="view" value="EditPaymentGatewayConfig"/>
+    </request-map>
 
     <!-- transaction action requests -->
     <request-map uri="processAuthorizeTransaction">
@@ -780,7 +776,7 @@ under the License.
     </request-map>
     <request-map uri="ImportInvoice">
         <security auth="true" https="true"/>
-        <event type="service" invoke="importInvoice" path=""/>
+        <event invoke="importInvoice" path="" type="service"/>
         <response name="success" type="request" value="ImportExport"/>
         <response name="error" type="view" value="ImportExport"/>
     </request-map>
@@ -858,6 +854,12 @@ under the License.
     <request-map uri="EditCustomTimePeriod">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditCustomTimePeriod"/>
+    </request-map>
+    <request-map uri="createCustomTimePeriod">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createCustomTimePeriod"/>
+        <response name="success" type="view" value="EditCustomTimePeriod"/>
+        <response name="error" type="view" value="EditCustomTimePeriod"/>
     </request-map>
     <request-map uri="updateCustomTimePeriod">
         <security https="true" auth="true"/>
@@ -1104,7 +1106,7 @@ under the License.
     <request-map uri="updateBudgetItem">
         <security https="true" auth="true"/>
         <event type="service-multi" invoke="updateBudgetItem"/>
-        <response name="success" type="request-redirect-noparam" value="EditBudgetItems"/>
+        <response name="success" type="request-redirect" value="EditBudgetItems"/>
         <response name="error" type="view" value="EditBudgetItems"/>
     </request-map>
     <request-map uri="removeBudgetItem">
@@ -1142,7 +1144,7 @@ under the License.
     <request-map uri="FindAgreement"><security https="true" auth="true"/><response name="success" type="view" value="FindAgreement"/></request-map>
     <request-map uri="cancelAgreement">
         <security https="true" auth="true"/>
-        <event type="service" invoke="expireAgreement"/>
+        <event type="service" invoke="cancelAgreement"/>
         <response name="success" type="view" value="FindAgreement"/>
         <response name="error" type="view" value="FindAgreement"/>
     </request-map>
@@ -1552,24 +1554,12 @@ under the License.
         <response name="success" type="view" value="PartyAcctgPreference"/>
         <response name="error" type="view" value="PartyAcctgPreference"/>
     </request-map>
+
     <request-map uri="updatePartyAcctgPreference">
         <security https="true" auth="true"/>
         <event type="service" invoke="updatePartyAcctgPreference"/>
         <response name="success" type="view" value="PartyAcctgPreference"/>
         <response name="error" type="view" value="PartyAcctgPreference"/>
-    </request-map>
-    <request-map uri="ListPartyPrefDocTypeTpl"><security https="true" auth="true"/><response name="success" type="view" value="ListPartyPrefDocTypeTpl"/></request-map>
-    <request-map uri="createPartyPrefDocTypeTpl">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="createPartyPrefDocTypeTpl"/>
-        <response name="success" type="view" value="ListPartyPrefDocTypeTpl"/>
-        <response name="error" type="view" value="ListPartyPrefDocTypeTpl"/>
-    </request-map>
-    <request-map uri="expirePartyPrefDocTypeTpl">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="expirePartyPrefDocTypeTpl"/>
-        <response name="success" type="view" value="ListPartyPrefDocTypeTpl"/>
-        <response name="error" type="view" value="ListPartyPrefDocTypeTpl"/>
     </request-map>
 
     <request-map uri="GlAccountAssignment">
@@ -1690,9 +1680,9 @@ under the License.
         <response name="error" type="view" value="ViewRateAmounts"/>
     </request-map>
 
-    <request-map uri="expireRateAmount">
+    <request-map uri="deleteRateAmount">
         <security https="true" auth="true"/>
-        <event type="service" invoke="expireRateAmount"/>
+        <event type="service" invoke="deleteRateAmount"/>
         <response name="success" type="view" value="ViewRateAmounts"/>
         <response name="error" type="view" value="ViewRateAmounts"/>
     </request-map>
@@ -2766,7 +2756,6 @@ under the License.
     <view-map name="AddCompany" type="screen" page="component://accounting/widget/GlSetupScreens.xml#AddCompany"/>
     <view-map name="TimePeriods" type="screen" page="component://accounting/widget/GlSetupScreens.xml#TimePeriods"/>
     <view-map name="PartyAcctgPreference" type="screen" page="component://accounting/widget/GlSetupScreens.xml#PartyAcctgPreference"/>
-    <view-map name="ListPartyPrefDocTypeTpl" type="screen" page="component://accounting/widget/GlSetupScreens.xml#ListPartyPrefDocTypeTpl"/>
     <view-map name="ListGlAccountOrganization" type="screen" page="component://accounting/widget/GlSetupScreens.xml#ListGlAccountOrganization"/>
     <view-map name="SetupGlJournals" type="screen" page="component://accounting/widget/GlSetupScreens.xml#SetupGlJournals"/>
     <view-map name="ViewFXConversions" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#ViewFXConversions"/>
@@ -2790,16 +2779,16 @@ under the License.
     <view-map name="ExportInvoicesCsv" type="screencsv" page="component://accounting/widget/GlSetupScreens.xml#ExportInvoiceCsv" content-type="text/csv" encoding="none"/>
 
     <!-- Manual Credit Card Transaction -->
-    <view-map name="FindGatewayResponses" type="screen" page="component://accounting/widget/TransactionScreens.xml#FindGatewayResponses"/>
-    <view-map name="ViewGatewayResponse" type="screen" page="component://accounting/widget/TransactionScreens.xml#ViewGatewayResponse"/>
-    <view-map name="AuthorizeTransaction" type="screen" page="component://accounting/widget/TransactionScreens.xml#AuthorizeTransaction"/>
-    <view-map name="CaptureTransaction" type="screen" page="component://accounting/widget/TransactionScreens.xml#CaptureTransaction"/>
+    <view-map name="FindGatewayResponses" page="component://accounting/widget/TransactionScreens.xml#FindGatewayResponses" type="screen"/>
+    <view-map name="ViewGatewayResponse" page="component://accounting/widget/TransactionScreens.xml#ViewGatewayResponse" type="screen"/>
+    <view-map name="AuthorizeTransaction" page="component://accounting/widget/TransactionScreens.xml#AuthorizeTransaction" type="screen"/>
+    <view-map name="CaptureTransaction" page="component://accounting/widget/TransactionScreens.xml#CaptureTransaction" type="screen"/>
 
     <!-- Payment Gateway Config -->
-    <view-map name="FindPaymentGatewayConfig" type="screen" page="component://accounting/widget/PaymentGatewayConfigScreens.xml#FindPaymentGatewayConfig"/>
-    <view-map name="EditPaymentGatewayConfig" type="screen" page="component://accounting/widget/PaymentGatewayConfigScreens.xml#EditPaymentGatewayConfig"/>
-    <view-map name="FindPaymentGatewayConfigTypes" type="screen" page="component://accounting/widget/PaymentGatewayConfigScreens.xml#FindPaymentGatewayConfigTypes"/>
-    <view-map name="EditPaymentGatewayConfigType" type="screen" page="component://accounting/widget/PaymentGatewayConfigScreens.xml#EditPaymentGatewayConfigType"/>
+    <view-map name="FindPaymentGatewayConfig" page="component://accounting/widget/PaymentGatewayConfigScreens.xml#FindPaymentGatewayConfig" type="screen"/>
+    <view-map name="EditPaymentGatewayConfig" page="component://accounting/widget/PaymentGatewayConfigScreens.xml#EditPaymentGatewayConfig" type="screen"/>
+    <view-map name="FindPaymentGatewayConfigTypes" page="component://accounting/widget/PaymentGatewayConfigScreens.xml#FindPaymentGatewayConfigTypes" type="screen"/>
+    <view-map name="EditPaymentGatewayConfigType" page="component://accounting/widget/PaymentGatewayConfigScreens.xml#EditPaymentGatewayConfigType" type="screen"/>
 
     <!-- Lookup mappings -->
     <view-map name="viewprofile" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#viewprofile"/>
@@ -2816,9 +2805,9 @@ under the License.
 
     <view-map name="LookupFixedAsset" type="screen" page="component://accounting/widget/LookupScreens.xml#LookupFixedAsset"/>
     <view-map name="LookupGlAccount" type="screen" page="component://accounting/widget/LookupScreens.xml#LookupGlAccount"/>
-    <view-map name="LookupBillingAccount" type="screen" page="component://accounting/widget/LookupScreens.xml#LookupBillingAccount"/>
-    <view-map name="LookupPayment" type="screen" page="component://accounting/widget/LookupScreens.xml#LookupPayment"/>
-    <view-map name="LookupInvoice" type="screen" page="component://accounting/widget/LookupScreens.xml#LookupInvoice"/>
+    <view-map name="LookupBillingAccount" page="component://accounting/widget/LookupScreens.xml#LookupBillingAccount" type="screen"/>
+    <view-map name="LookupPayment" page="component://accounting/widget/LookupScreens.xml#LookupPayment" type="screen"/>
+    <view-map name="LookupInvoice" page="component://accounting/widget/LookupScreens.xml#LookupInvoice" type="screen"/>
     <view-map name="LookupCustomTimePeriod" type="screen" page="component://accounting/widget/LookupScreens.xml#LookupCustomTimePeriod"/>
 
     <view-map name="LookupWorkEffort" type="screen" page="component://workeffort/widget/LookupScreens.xml#LookupWorkEffort"/>

@@ -41,16 +41,6 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 import org.apache.ofbiz.base.util.collections.MapComparator;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.util.EntityQuery;
-import org.apache.ofbiz.entity.util.EntityUtilProperties;
-import org.apache.ofbiz.service.ModelService;
-
-import com.google.i18n.phonenumbers.NumberParseException;
-import com.google.i18n.phonenumbers.PhoneNumberUtil;
-import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
 
 /**
  * UtilMisc - Misc Utility Functions
@@ -72,10 +62,12 @@ public final class UtilMisc {
         if (obj1 == null) {
             if (obj2 == null) {
                 return 0;
+            } else {
+                return 1;
             }
-            return 1;
+        } else {
+            return obj1.compareTo(obj2);
         }
-        return obj1.compareTo(obj2);
     }
 
     public static <E> int compare(List<E> obj1, List<E> obj2) {
@@ -87,11 +79,7 @@ public final class UtilMisc {
                 return 0;
             }
 
-        } catch (RuntimeException e) {
-            throw e;
-        } catch (Exception e) {
-            Debug.log(e, module);
-        }
+        } catch (Exception e) {}
         return 1;
     }
 
@@ -101,10 +89,58 @@ public final class UtilMisc {
      * @return The resulting Iterator
      */
     public static <T> Iterator<T> toIterator(Collection<T> col) {
-        if (col == null) {
+        if (col == null)
             return null;
-        }
-        return col.iterator();
+        else
+            return col.iterator();
+    }
+
+    /**
+     * Create a map from passed nameX, valueX parameters
+     * @return The resulting Map
+     */
+    public static <V, V1 extends V> Map<String, V> toMap(String name1, V1 value1) {
+        return populateMap(new HashMap<String, V>(), name1, value1);
+    }
+
+    /**
+     * Create a map from passed nameX, valueX parameters
+     * @return The resulting Map
+     */
+    public static <V, V1 extends V, V2 extends V> Map<String, V> toMap(String name1, V1 value1, String name2, V2 value2) {
+        return populateMap(new HashMap<String, V>(), name1, value1, name2, value2);
+    }
+
+    /**
+     * Create a map from passed nameX, valueX parameters
+     * @return The resulting Map
+     */
+    public static <V, V1 extends V, V2 extends V, V3 extends V> Map<String, V> toMap(String name1, V1 value1, String name2, V2 value2, String name3, V3 value3) {
+        return populateMap(new HashMap<String, V>(), name1, value1, name2, value2, name3, value3);
+    }
+
+    /**
+     * Create a map from passed nameX, valueX parameters
+     * @return The resulting Map
+     */
+    public static <V, V1 extends V, V2 extends V, V3 extends V, V4 extends V> Map<String, V> toMap(String name1, V1 value1, String name2, V2 value2, String name3, V3 value3, String name4, V4 value4) {
+        return populateMap(new HashMap<String, V>(), name1, value1, name2, value2, name3, value3, name4, value4);
+    }
+
+    /**
+     * Create a map from passed nameX, valueX parameters
+     * @return The resulting Map
+     */
+    public static <V, V1 extends V, V2 extends V, V3 extends V, V4 extends V, V5 extends V> Map<String, V> toMap(String name1, V1 value1, String name2, V2 value2, String name3, V3 value3, String name4, V4 value4, String name5, V5 value5) {
+        return populateMap(new HashMap<String, V>(), name1, value1, name2, value2, name3, value3, name4, value4, name5, value5);
+    }
+
+    /**
+     * Create a map from passed nameX, valueX parameters
+     * @return The resulting Map
+     */
+    public static <V, V1 extends V, V2 extends V, V3 extends V, V4 extends V, V5 extends V, V6 extends V> Map<String, V> toMap(String name1, V1 value1, String name2, V2 value2, String name3, V3 value3, String name4, V4 value4, String name5, V5 value5, String name6, V6 value6) {
+        return populateMap(new HashMap<String, V>(), name1, value1, name2, value2, name3, value3, name4, value4, name5, value5, name6, value6);
     }
 
     /**
@@ -112,18 +148,26 @@ public final class UtilMisc {
      * @return The resulting Map
      */
     @SuppressWarnings("unchecked")
-    public static <K, V> Map<K, V> toMap(Object... data) {
+    public static <K, V> Map<String, V> toMap(Object... data) {
         if (data.length == 1 && data[0] instanceof Map) {
-            return UtilGenerics.<K, V>checkMap(data[0]);
+            return UtilGenerics.<String, V>checkMap(data[0]);
         }
         if (data.length % 2 == 1) {
             IllegalArgumentException e = new IllegalArgumentException("You must pass an even sized array to the toMap method (size = " + data.length + ")");
             Debug.logInfo(e, module);
             throw e;
         }
-        Map<K, V> map = new HashMap<>();
+        Map<String, V> map = new HashMap<String, V>();
         for (int i = 0; i < data.length;) {
-            map.put((K) data[i++], (V) data[i++]);
+            map.put((String) data[i++], (V) data[i++]);
+        }
+        return map;
+    }
+
+    @SuppressWarnings("unchecked")
+    private static <K, V> Map<String, V> populateMap(Map<String, V> map, Object... data) {
+        for (int i = 0; i < data.length;) {
+            map.put((String) data[i++], (V) data[i++]);
         }
         return map;
     }
@@ -140,27 +184,23 @@ public final class UtilMisc {
     }
 
     public static <T> List<T> makeListWritable(Collection<? extends T> col) {
-        List<T> result = new LinkedList<>();
-        if (col != null) {
-            result.addAll(col);
-        }
+        List<T> result = new LinkedList<T>();
+        if (col != null) result.addAll(col);
         return result;
     }
 
     public static <K, V> Map<K, V> makeMapWritable(Map<K, ? extends V> map) {
         if (map == null) {
-            return new HashMap<>();
+            return new HashMap<K, V>();
         }
-        Map<K, V> result = new HashMap<>(map.size());
+        Map<K, V> result = new HashMap<K, V>(map.size());
         result.putAll(map);
         return result;
     }
 
     public static <T> Set<T> makeSetWritable(Collection<? extends T> col) {
-        Set<T> result = new LinkedHashSet<>();
-        if (col != null) {
-            result.addAll(col);
-        }
+        Set<T> result = new LinkedHashSet<T>();
+        if (col != null) result.addAll(col);
         return result;
     }
 
@@ -172,15 +212,12 @@ public final class UtilMisc {
      */
     public static <V> void makeMapSerializable(Map<String, V> map) {
         // now filter out all non-serializable values
-        Set<String> keysToRemove = new LinkedHashSet<>();
+        Set<String> keysToRemove = new LinkedHashSet<String>();
         for (Map.Entry<String, V> mapEntry: map.entrySet()) {
             Object entryValue = mapEntry.getValue();
             if (entryValue != null && !(entryValue instanceof Serializable)) {
                 keysToRemove.add(mapEntry.getKey());
-                if (Debug.verboseOn()) {
-                    Debug.logVerbose("Found Map value that is not Serializable: " + mapEntry.getKey() + "=" + mapEntry.getValue(), module);
-                }
-                
+                //Debug.logInfo("Found Map value that is not Serializable: " + mapEntry.getKey() + "=" + mapEntry.getValue(), module);
             }
         }
         for (String keyToRemove: keysToRemove) { map.remove(keyToRemove); }
@@ -193,10 +230,9 @@ public final class UtilMisc {
      * @return a new List of sorted Maps.
      */
     public static List<Map<Object, Object>> sortMaps(List<Map<Object, Object>> listOfMaps, List<? extends String> sortKeys) {
-        if (listOfMaps == null || sortKeys == null) {
+        if (listOfMaps == null || sortKeys == null)
             return null;
-        }
-        List<Map<Object, Object>> toSort = new ArrayList<>(listOfMaps.size());
+        List<Map<Object, Object>> toSort = new ArrayList<Map<Object, Object>>(listOfMaps.size());
         toSort.addAll(listOfMaps);
         try {
             MapComparator mc = new MapComparator(sortKeys);
@@ -214,7 +250,7 @@ public final class UtilMisc {
     public static <K, IK, V> Map<IK, V> getMapFromMap(Map<K, Object> outerMap, K key) {
         Map<IK, V> innerMap = UtilGenerics.<IK, V>checkMap(outerMap.get(key));
         if (innerMap == null) {
-            innerMap = new HashMap<>();
+            innerMap = new HashMap<IK, V>();
             outerMap.put(key, innerMap);
         }
         return innerMap;
@@ -226,7 +262,7 @@ public final class UtilMisc {
     public static <K, V> List<V> getListFromMap(Map<K, Object> outerMap, K key) {
         List<V> innerList = UtilGenerics.<V>checkList(outerMap.get(key));
         if (innerList == null) {
-            innerList = new LinkedList<>();
+            innerList = new LinkedList<V>();
             outerMap.put(key, innerList);
         }
         return innerList;
@@ -243,9 +279,9 @@ public final class UtilMisc {
         } else if (currentNumberObj instanceof BigDecimal) {
             currentNumber = (BigDecimal) currentNumberObj;
         } else if (currentNumberObj instanceof Double) {
-            currentNumber = new BigDecimal((Double) currentNumberObj);
+            currentNumber = new BigDecimal(((Double) currentNumberObj).doubleValue());
         } else if (currentNumberObj instanceof Long) {
-            currentNumber = new BigDecimal((Long) currentNumberObj);
+            currentNumber = new BigDecimal(((Long) currentNumberObj).longValue());
         } else {
             throw new IllegalArgumentException("In addToBigDecimalInMap found a Map value of a type not supported: " + currentNumberObj.getClass().getName());
         }
@@ -263,14 +299,12 @@ public final class UtilMisc {
     }
 
     public static <T> Set<T> collectionToSet(Collection<T> c) {
-        if (c == null) {
-            return null;
-        }
+        if (c == null) return null;
         Set<T> theSet = null;
         if (c instanceof Set<?>) {
             theSet = (Set<T>) c;
         } else {
-            theSet = new LinkedHashSet<>();
+            theSet = new LinkedHashSet<T>();
             c.remove(null);
             theSet.addAll(c);
         }
@@ -278,61 +312,109 @@ public final class UtilMisc {
     }
 
     /**
-     * Generates a String from given values delimited by delimiter.
-     *
-     * @param values
-     * @param delimiter
-     * @return String
+     * Create a Set from passed objX parameters
+     * @return The resulting Set
      */
-    public static String collectionToString(Collection<? extends Object> values, String delimiter) {
-        if (UtilValidate.isEmpty(values)) {
-            return null;
-        }
-        if (delimiter == null) {
-            delimiter = "";
-        }
-        StringBuilder out = new StringBuilder();
-
-        for (Object val : values) {
-            out.append(UtilFormatOut.safeToString(val)).append(delimiter);
-        }
-        return out.toString();
+    public static <T> Set<T> toSet(T obj1) {
+        Set<T> theSet = new LinkedHashSet<T>();
+        theSet.add(obj1);
+        return theSet;
     }
 
     /**
-     * Create a set from the passed objects.
-     * @param data
-     * @return theSet
+     * Create a Set from passed objX parameters
+     * @return The resulting Set
      */
-    @SafeVarargs
-    public static <T> Set<T> toSet(T... data) {
-        if (data == null) {
-            return null;
-        }
-        Set<T> theSet = new LinkedHashSet<>();
-        for (T elem : data) {
-            theSet.add(elem);
-        }
+    public static <T> Set<T> toSet(T obj1, T obj2) {
+        Set<T> theSet = new LinkedHashSet<T>();
+        theSet.add(obj1);
+        theSet.add(obj2);
+        return theSet;
+    }
+
+    /**
+     * Create a Set from passed objX parameters
+     * @return The resulting Set
+     */
+    public static <T> Set<T> toSet(T obj1, T obj2, T obj3) {
+        Set<T> theSet = new LinkedHashSet<T>();
+        theSet.add(obj1);
+        theSet.add(obj2);
+        theSet.add(obj3);
+        return theSet;
+    }
+
+    /**
+     * Create a Set from passed objX parameters
+     * @return The resulting Set
+     */
+    public static <T> Set<T> toSet(T obj1, T obj2, T obj3, T obj4) {
+        Set<T> theSet = new LinkedHashSet<T>();
+        theSet.add(obj1);
+        theSet.add(obj2);
+        theSet.add(obj3);
+        theSet.add(obj4);
+        return theSet;
+    }
+
+    /**
+     * Create a Set from passed objX parameters
+     * @return The resulting Set
+     */
+    public static <T> Set<T> toSet(T obj1, T obj2, T obj3, T obj4, T obj5) {
+        Set<T> theSet = new LinkedHashSet<T>();
+        theSet.add(obj1);
+        theSet.add(obj2);
+        theSet.add(obj3);
+        theSet.add(obj4);
+        theSet.add(obj5);
+        return theSet;
+    }
+
+    /**
+     * Create a Set from passed objX parameters
+     * @return The resulting Set
+     */
+    public static <T> Set<T> toSet(T obj1, T obj2, T obj3, T obj4, T obj5, T obj6) {
+        Set<T> theSet = new LinkedHashSet<T>();
+        theSet.add(obj1);
+        theSet.add(obj2);
+        theSet.add(obj3);
+        theSet.add(obj4);
+        theSet.add(obj5);
+        theSet.add(obj6);
+        return theSet;
+    }
+    
+    public static <T> Set<T> toSet(T obj1, T obj2, T obj3, T obj4, T obj5, T obj6, T obj7, T obj8) {
+        Set<T> theSet = new LinkedHashSet<T>();
+        theSet.add(obj1);
+        theSet.add(obj2);
+        theSet.add(obj3);
+        theSet.add(obj4);
+        theSet.add(obj5);
+        theSet.add(obj6);
+        theSet.add(obj7);
+        theSet.add(obj8);
         return theSet;
     }
 
     public static <T> Set<T> toSet(Collection<T> collection) {
-        if (collection == null) {
-            return null;
-        }
+        if (collection == null) return null;
         if (collection instanceof Set<?>) {
             return (Set<T>) collection;
+        } else {
+            Set<T> theSet = new LinkedHashSet<T>();
+            theSet.addAll(collection);
+            return theSet;
         }
-        Set<T> theSet = new LinkedHashSet<>();
-        theSet.addAll(collection);
-        return theSet;
     }
 
     public static <T> Set<T> toSetArray(T[] data) {
         if (data == null) {
             return null;
         }
-        Set<T> set = new LinkedHashSet<>();
+        Set<T> set = new LinkedHashSet<T>();
         for (T value: data) {
             set.add(value);
         }
@@ -340,42 +422,117 @@ public final class UtilMisc {
     }
 
     /**
-     * Creates a list from passed objects.
-     * @param data
-     * @return list
+     * Create a list from passed objX parameters
+     * @return The resulting List
      */
-    @SafeVarargs
-    public static <T> List<T> toList(T... data) {
-        if(data == null){
-            return null;
-        }
+    public static <T> List<T> toList(T obj1) {
+        List<T> list = new LinkedList<T>();
 
-        List<T> list = new LinkedList<>();
+        list.add(obj1);
+        return list;
+    }
 
-        for(T t : data){
-            list.add(t);
-        }
+    /**
+     * Create a list from passed objX parameters
+     * @return The resulting List
+     */
+    public static <T> List<T> toList(T obj1, T obj2) {
+        List<T> list = new LinkedList<T>();
 
+        list.add(obj1);
+        list.add(obj2);
+        return list;
+    }
+
+    /**
+     * Create a list from passed objX parameters
+     * @return The resulting List
+     */
+    public static <T> List<T> toList(T obj1, T obj2, T obj3) {
+        List<T> list = new LinkedList<T>();
+
+        list.add(obj1);
+        list.add(obj2);
+        list.add(obj3);
+        return list;
+    }
+
+    /**
+     * Create a list from passed objX parameters
+     * @return The resulting List
+     */
+    public static <T> List<T> toList(T obj1, T obj2, T obj3, T obj4) {
+        List<T> list = new LinkedList<T>();
+
+        list.add(obj1);
+        list.add(obj2);
+        list.add(obj3);
+        list.add(obj4);
+        return list;
+    }
+
+    /**
+     * Create a list from passed objX parameters
+     * @return The resulting List
+     */
+    public static <T> List<T> toList(T obj1, T obj2, T obj3, T obj4, T obj5) {
+        List<T> list = new LinkedList<T>();
+
+        list.add(obj1);
+        list.add(obj2);
+        list.add(obj3);
+        list.add(obj4);
+        list.add(obj5);
+        return list;
+    }
+
+    /**
+     * Create a list from passed objX parameters
+     * @return The resulting List
+     */
+    public static <T> List<T> toList(T obj1, T obj2, T obj3, T obj4, T obj5, T obj6) {
+        List<T> list = new LinkedList<T>();
+
+        list.add(obj1);
+        list.add(obj2);
+        list.add(obj3);
+        list.add(obj4);
+        list.add(obj5);
+        list.add(obj6);
+        return list;
+    }
+    
+    public static <T> List<T> toList(T obj1, T obj2, T obj3, T obj4, T obj5, T obj6, T obj7, T obj8, T obj9) {
+        List<T> list = new LinkedList<T>();
+
+        list.add(obj1);
+        list.add(obj2);
+        list.add(obj3);
+        list.add(obj4);
+        list.add(obj5);
+        list.add(obj6);
+        list.add(obj7);
+        list.add(obj8);
+        list.add(obj9);
         return list;
     }
 
     public static <T> List<T> toList(Collection<T> collection) {
-        if (collection == null) {
-            return null;
-        }
+        if (collection == null) return null;
         if (collection instanceof List<?>) {
             return (List<T>) collection;
+        } else {
+            List<T> list = new LinkedList<T>();
+            list.addAll(collection);
+            return list;
         }
-        List<T> list = new LinkedList<>();
-        list.addAll(collection);
-        return list;
     }
 
     public static <T> List<T> toListArray(T[] data) {
         if (data == null) {
             return null;
         }
-        List<T> list = new LinkedList<>();
+        List<T> list = new LinkedList<T>();
         for (T value: data) {
             list.add(value);
         }
@@ -385,7 +542,7 @@ public final class UtilMisc {
     public static <K, V> void addToListInMap(V element, Map<K, Object> theMap, K listKey) {
         List<V> theList = UtilGenerics.checkList(theMap.get(listKey));
         if (theList == null) {
-            theList = new LinkedList<>();
+            theList = new LinkedList<V>();
             theMap.put(listKey, theList);
         }
         theList.add(element);
@@ -394,7 +551,7 @@ public final class UtilMisc {
     public static <K, V> void addToSetInMap(V element, Map<K, Set<V>> theMap, K setKey) {
         Set<V> theSet = UtilGenerics.checkSet(theMap.get(setKey));
         if (theSet == null) {
-            theSet = new LinkedHashSet<>();
+            theSet = new LinkedHashSet<V>();
             theMap.put(setKey, theSet);
         }
         theSet.add(element);
@@ -403,7 +560,7 @@ public final class UtilMisc {
     public static <K, V> void addToSortedSetInMap(V element, Map<K, Set<V>> theMap, K setKey) {
         Set<V> theSet = UtilGenerics.checkSet(theMap.get(setKey));
         if (theSet == null) {
-            theSet = new TreeSet<>();
+            theSet = new TreeSet<V>();
             theMap.put(setKey, theSet);
         }
         theSet.add(element);
@@ -416,7 +573,7 @@ public final class UtilMisc {
      */
     public static double toDouble(Object obj) {
         Double result = toDoubleObject(obj);
-        return result == null ? 0.0 : result;
+        return result == null ? 0.0 : result.doubleValue();
     }
 
     /** Converts an <code>Object</code> to a <code>Double</code>. Returns
@@ -432,7 +589,7 @@ public final class UtilMisc {
             return (Double) obj;
         }
         if (obj instanceof Number) {
-            return ((Number) obj).doubleValue();
+            return new Double(((Number)obj).doubleValue());
         }
         Double result = null;
         try {
@@ -448,7 +605,7 @@ public final class UtilMisc {
      */
     public static int toInteger(Object obj) {
         Integer result = toIntegerObject(obj);
-        return result == null ? 0 : result;
+        return result == null ? 0 : result.intValue();
     }
 
     /** Converts an <code>Object</code> to an <code>Integer</code>. Returns
@@ -480,7 +637,7 @@ public final class UtilMisc {
      */
     public static long toLong(Object obj) {
         Long result = toLongObject(obj);
-        return result == null ? 0 : result;
+        return result == null ? 0 : result.longValue();
     }
 
     /** Converts an <code>Object</code> to a <code>Long</code>. Returns
@@ -496,7 +653,7 @@ public final class UtilMisc {
             return (Long) obj;
         }
         if (obj instanceof Number) {
-            return ((Number) obj).longValue();
+            return new Long(((Number)obj).longValue());
         }
         Long result = null;
         try {
@@ -533,12 +690,12 @@ public final class UtilMisc {
         Locale locale = null;
         if (localeString.length() == 2) {
             // two letter language code
-            locale = new Locale.Builder().setLanguage(localeString).build();
+            locale = new Locale(localeString);
         } else if (localeString.length() == 5) {
             // positions 0-1 language, 3-4 are country
             String language = localeString.substring(0, 2);
             String country = localeString.substring(3, 5);
-            locale = new Locale.Builder().setLanguage(language).setRegion(country).build();
+            locale = new Locale(language, country);
         } else if (localeString.length() > 6) {
             // positions 0-1 language, 3-4 are country, 6 and on are special extensions
             String language = localeString.substring(0, 2);
@@ -572,7 +729,7 @@ public final class UtilMisc {
         private static final List<Locale> availableLocaleList = getAvailableLocaleList();
 
         private static List<Locale> getAvailableLocaleList() {
-            TreeMap<String, Locale> localeMap = new TreeMap<>();
+            TreeMap<String, Locale> localeMap = new TreeMap<String, Locale>();
             String localesString = UtilProperties.getPropertyValue("general", "locales.available");
             if (UtilValidate.isNotEmpty(localesString)) {
                 List<String> idList = StringUtil.split(localesString, ",");
@@ -589,7 +746,7 @@ public final class UtilMisc {
                     }
                 }
             }
-            return Collections.unmodifiableList(new ArrayList<>(localeMap.values()));
+            return Collections.unmodifiableList(new ArrayList<Locale>(localeMap.values()));
         }
     }
 
@@ -607,52 +764,24 @@ public final class UtilMisc {
     public static void copyFile(File sourceLocation , File targetLocation) throws IOException {
         if (sourceLocation.isDirectory()) {
             throw new IOException("File is a directory, not a file, cannot copy") ;
-        }
-        try (
-                InputStream in = new FileInputStream(sourceLocation);
-                OutputStream out = new FileOutputStream(targetLocation);
-        ) {
+        } else {
+
+            InputStream in = new FileInputStream(sourceLocation);
+            OutputStream out = new FileOutputStream(targetLocation);
+
             // Copy the bits from instream to outstream
             byte[] buf = new byte[1024];
             int len;
             while ((len = in.read(buf)) > 0) {
                 out.write(buf, 0, len);
             }
+            in.close();
+            out.close();
         }
     }
 
     public static int getViewLastIndex(int listSize, int viewSize) {
         return (int)Math.ceil(listSize / (float) viewSize) - 1;
     }
-
-    public static Map<String, String> splitPhoneNumber(String phoneNumber, Delegator delegator) {
-        Map<String, String> result = new HashMap<>();
-        try {
-            PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
-            String defaultCountry = EntityUtilProperties.getPropertyValue("general", "country.geo.id.default", delegator);
-            GenericValue defaultGeo = EntityQuery.use(delegator).from("Geo").where("geoId", defaultCountry).cache().queryOne();
-            String defaultGeoCode = defaultGeo != null ? defaultGeo.getString("geoCode") : "US";
-            PhoneNumber phNumber = phoneUtil.parse(phoneNumber, defaultGeoCode);
-            if (phoneUtil.isValidNumber(phNumber) || phoneUtil.isPossibleNumber(phNumber)) {
-                String nationalSignificantNumber = phoneUtil.getNationalSignificantNumber(phNumber);
-                int areaCodeLength = phoneUtil.getLengthOfGeographicalAreaCode(phNumber);
-                result.put("countryCode", Integer.toString(phNumber.getCountryCode()));
-                if (areaCodeLength > 0) {
-                    result.put("areaCode", nationalSignificantNumber.substring(0, areaCodeLength));
-                    result.put("contactNumber", nationalSignificantNumber.substring(areaCodeLength));
-                } else {
-                    result.put("areaCode", "");
-                    result.put("contactNumber", nationalSignificantNumber);
-                }
-            } else {
-                Debug.logError("Invalid phone number " + phoneNumber, module);
-                result.put(ModelService.ERROR_MESSAGE, "Invalid phone number");
-            }
-        } catch (GenericEntityException | NumberParseException ex) {
-            Debug.logError(ex, module);
-            result.put(ModelService.ERROR_MESSAGE, ex.getMessage());
-        }
-        return result;
-    }
-
+    
 }

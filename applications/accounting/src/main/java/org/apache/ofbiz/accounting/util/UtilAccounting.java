@@ -36,7 +36,7 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 
 
 public final class UtilAccounting {
-    
+	
     public static final String module = UtilAccounting.class.getName();
 
     private UtilAccounting() {}
@@ -117,10 +117,15 @@ public final class UtilAccounting {
 
         // first check the parentTypeId against inputTypeId
         String parentTypeId = paymentType.getString("parentTypeId");
+        if (parentTypeId == null) {
+            return false;
+        }
+        if (parentTypeId.equals(inputTypeId)) {
+            return true;
+        }
 
-        // isPaymentTypeRecurse => otherwise, we have to go to the grandparent (recurse)
-        return !(parentTypeId == null) &&
-                (parentTypeId.equals(inputTypeId) || isPaymentTypeRecurse(paymentType.getRelatedOne("ParentPaymentType", false), inputTypeId));
+        // otherwise, we have to go to the grandparent (recurse)
+        return isPaymentTypeRecurse(paymentType.getRelatedOne("ParentPaymentType", false), inputTypeId);
     }
 
 
@@ -139,9 +144,12 @@ public final class UtilAccounting {
         }
 
         String paymentTypeId = paymentType.getString("paymentTypeId");
+        if (inputTypeId.equals(paymentTypeId)) {
+            return true;
+        }
 
         // recurse up tree
-        return inputTypeId.equals(paymentTypeId) || isPaymentTypeRecurse(paymentType, inputTypeId);
+        return isPaymentTypeRecurse(paymentType, inputTypeId);
     }
 
 
@@ -171,10 +179,15 @@ public final class UtilAccounting {
 
         // check parentClassId against inputClassId
         String parentClassId = glAccountClass.getString("parentClassId");
+        if (parentClassId == null) {
+            return false;
+        }
+        if (parentClassId.equals(parentGlAccountClassId)) {
+            return true;
+        }
 
         // otherwise, we have to go to the grandparent (recurse)
-        return !(parentClassId == null) &&
-                (parentClassId.equals(parentGlAccountClassId) || isAccountClassClass(glAccountClass.getRelatedOne("ParentGlAccountClass", true), parentGlAccountClassId));
+        return isAccountClassClass(glAccountClass.getRelatedOne("ParentGlAccountClass", true), parentGlAccountClassId);
     }
 
     /**
@@ -235,10 +248,15 @@ public final class UtilAccounting {
         // first check the invoiceTypeId and parentTypeId against inputTypeId
         String invoiceTypeId = invoiceType.getString("invoiceTypeId");
         String parentTypeId = invoiceType.getString("parentTypeId");
+        if (parentTypeId == null || invoiceTypeId.equals(parentTypeId)) {
+            return false;
+        }
+        if (parentTypeId.equals(inputTypeId)) {
+            return true;
+        }
 
         // otherwise, we have to go to the grandparent (recurse)
-        return !(parentTypeId == null || invoiceTypeId.equals(parentTypeId)) &&
-                (parentTypeId.equals(inputTypeId) || isInvoiceTypeRecurse(invoiceType.getRelatedOne("ParentInvoiceType", false), inputTypeId));
+        return isInvoiceTypeRecurse(invoiceType.getRelatedOne("ParentInvoiceType", false), inputTypeId);
     }
 
     /**
@@ -256,10 +274,12 @@ public final class UtilAccounting {
         }
 
         String invoiceTypeId = invoiceType.getString("invoiceTypeId");
+        if (inputTypeId.equals(invoiceTypeId)) {
+            return true;
+        }
 
         // recurse up tree
-        return inputTypeId.equals(invoiceTypeId)
-                || isInvoiceTypeRecurse(invoiceType, inputTypeId);
+        return isInvoiceTypeRecurse(invoiceType, inputTypeId);
     }
 
 
@@ -291,7 +311,7 @@ public final class UtilAccounting {
         BigDecimal origAmount = amounts.getBigDecimal("origAmount");
         BigDecimal amount = amounts.getBigDecimal("amount");
         if (origAmount != null && amount != null && BigDecimal.ZERO.compareTo(origAmount) != 0 && BigDecimal.ZERO.compareTo(amount) != 0 && amount.compareTo(origAmount) != 0) {
-            exchangeRate = amount.divide(origAmount, UtilNumber.getBigDecimalScale("ledger.decimals"), UtilNumber.getRoundingMode("invoice.rounding"));
+            exchangeRate = amount.divide(origAmount, UtilNumber.getBigDecimalScale("ledger.decimals"), UtilNumber.getBigDecimalRoundingMode("invoice.rounding"));
         }
         return exchangeRate;
     }
@@ -312,7 +332,7 @@ public final class UtilAccounting {
         BigDecimal origAmount = amounts.getBigDecimal("origAmount");
         BigDecimal amount = amounts.getBigDecimal("amount");
         if (origAmount != null && amount != null && BigDecimal.ZERO.compareTo(origAmount) != 0 && BigDecimal.ZERO.compareTo(amount) != 0 && amount.compareTo(origAmount) != 0) {
-            exchangeRate = amount.divide(origAmount, UtilNumber.getBigDecimalScale("ledger.decimals"), UtilNumber.getRoundingMode("invoice.rounding"));
+            exchangeRate = amount.divide(origAmount, UtilNumber.getBigDecimalScale("ledger.decimals"), UtilNumber.getBigDecimalRoundingMode("invoice.rounding"));
         }
         return exchangeRate;
     }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
+
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -185,7 +186,7 @@
     </property>
     <property key="FormFieldTitle_entityGroupId">
         <value xml:lang="de">Entität Gruppen ID</value>
-        <value xml:lang="en">Entity Group ID</value>
+        <value xml:lang="en">Entity Group Id</value>
         <value xml:lang="fr">Réf du groupe d'entité</value>
         <value xml:lang="it">Gruppo entità</value>
         <value xml:lang="ja">エンティテイグループID</value>
@@ -196,7 +197,7 @@
     </property>
     <property key="FormFieldTitle_entitySyncId">
         <value xml:lang="de">Entität Synch. ID</value>
-        <value xml:lang="en">Entity Sync ID</value>
+        <value xml:lang="en">Entity Sync Id</value>
         <value xml:lang="fr">Réf. de synchro. d'entités</value>
         <value xml:lang="it">Codice entità Sincr.</value>
         <value xml:lang="ja">エンティテイ同期ID</value>
@@ -354,7 +355,7 @@
     </property>
     <property key="FormFieldTitle_runStatusId">
         <value xml:lang="de">Laufzeitstatus ID</value>
-        <value xml:lang="en">Run Status ID</value>
+        <value xml:lang="en">Run Status Id</value>
         <value xml:lang="fr">Réf. de statut en cours</value>
         <value xml:lang="it">Stato Esecuzione</value>
         <value xml:lang="ja">実行ステータスID</value>
@@ -1150,9 +1151,6 @@
         <value xml:lang="zh">清除这个缓存</value>
         <value xml:lang="zh-TW">清除這個快取</value>
     </property>
-    <property key="WebtoolsClearSelectedCaches">
-        <value xml:lang="en">Clear Selected Caches</value>
-    </property>
     <property key="WebtoolsCompanyName">
         <value xml:lang="de">OFBiz: Web Tools</value>
         <value xml:lang="en">OFBiz: Web Tools</value>
@@ -1625,14 +1623,6 @@
         <value xml:lang="vi">Xóa giá trị này</value>
         <value xml:lang="zh">删除这个值</value>
         <value xml:lang="zh-TW">刪除這個值</value>
-    </property>
-    <property key="WebtoolsDeprecated">
-        <value xml:lang="en">Deprecated</value>
-        <value xml:lang="fr">Périmé</value>
-    </property>
-    <property key="WebtoolsDeprecatedUseInstead">
-        <value xml:lang="en">Use instead</value>
-        <value xml:lang="fr">Utilisez en remplacement</value>
     </property>
     <property key="WebtoolsDispatcherName">
         <value xml:lang="de">Dispatcher-Name</value>
@@ -3839,17 +3829,17 @@
         <value xml:lang="zh-TW">沒有出現</value>
     </property>
     <property key="WebtoolsNoteAntRunInstall">
-        <value xml:lang="de">HINWEIS: Sofern Sie das Installationsskript zum Daten lagen noch nicht haben laufen lassen, geben Sie bitte im OFBIZ_HOME Verzeichnis "gradlew loadAll" oder "java -jar build/libs/ofbiz.jar -l" ein.</value>
-        <value xml:lang="en">NOTE: If you have not already run the installation data loading script, from the ofbiz home directory run "gradlew loadAll" or "java -jar build/libs/ofbiz.jar -l"</value>
-        <value xml:lang="fr">NOTE: Si vous n'avez pas déjà exécuté le script de chargement des données d'installation : à partir du répertoire racine d'ofbiz, exécutez "gradlew loadAll" ou "java -jar build/libs/ofbiz.jar -l"</value>
-        <value xml:lang="it">NOTA: Se non hai ancora eseguito lo script di installazione di caricamento dei dati, esegui dalla home directory di ofbiz "gradlew loadAll" o "java -jar build/libs/ofbiz.jar -l"</value>
-        <value xml:lang="ja">注意: データをロードするインストールスクリプトをまだ実行していない場合、ofbizホームディレクトリで"gradlew loadAll"または"java -jar build/libs/ofbiz.jar -l"を実行してください</value>
-        <value xml:lang="pt">NOTA: Se vocÃª ainda nÃ£o executou o script de carregamento e instalaÃ§Ã£o de dados, a partir do diretÃ³rio home do OFBiz executar "gradlew loadAll" ou "ofbiz.jar java-jar-install"</value>
-        <value xml:lang="ro">NOTA: Daca inca nu ai executat script_ul de instalare incarcare date, executa de la home directory ofbiz "gradlew loadAll" sau "java -jar build/libs/ofbiz.jar -l"</value>
-        <value xml:lang="th">หมายเหตุ: ถ้าคุณไม่ได้ทำการดำเนินงานติดตั้ง data loading script จาก ofbiz home directory ให้ใช้คำสั่ง "gradlew loadAll" หรือ "java -jar build/libs/ofbiz.jar -l"</value>
-        <value xml:lang="vi">Ghi chú: nếu bạn đã chạy quá trình tải dữ liệu, từ thư mục gốc của Ofbiz bạn hãy chạy "gradlew loadAll" hoặc "java -jar build/libs/ofbiz.jar -l"</value>
-        <value xml:lang="zh">注意：如果你还没有运行安装数据载入脚本，那么你可以在OFBiz目录下运行"gradlew loadAll"或"java -jar build/libs/ofbiz.jar -l"</value>
-        <value xml:lang="zh-TW">注意:如果你還沒有執行安裝資料載入腳本,那麼你可以在OFBiz目錄下執行"gradlew loadAll"或"java -jar build/libs/ofbiz.jar -l"</value>
+        <value xml:lang="de">HINWEIS: Sofern Sie das Installationsskript zum Daten lagen noch nicht haben laufen lassen, geben Sie bitte im OFBIZ_HOME Verzeichnis "gradlew loadDefault" oder "java -jar build/libs/ofbiz.jar -l" ein.</value>
+        <value xml:lang="en">NOTE: If you have not already run the installation data loading script, from the ofbiz home directory run "gradlew loadDefault" or "java -jar build/libs/ofbiz.jar -l"</value>
+        <value xml:lang="fr">NOTE: Si vous n'avez pas déjà exécuté le script de chargement des données d'installation : à partir du répertoire racine d'ofbiz, exécutez "gradlew loadDefault" ou "java -jar build/libs/ofbiz.jar -l"</value>
+        <value xml:lang="it">NOTA: Se non hai ancora eseguito lo script di installazione di caricamento dei dati, esegui dalla home directory di ofbiz "gradlew loadDefault" o "java -jar build/libs/ofbiz.jar -l"</value>
+        <value xml:lang="ja">注意: データをロードするインストールスクリプトをまだ実行していない場合、ofbizホームディレクトリで"gradlew loadDefault"または"java -jar build/libs/ofbiz.jar -l"を実行してください</value>
+        <value xml:lang="pt">NOTA: Se vocÃª ainda nÃ£o executou o script de carregamento e instalaÃ§Ã£o de dados, a partir do diretÃ³rio home do OFBiz executar "gradlew loadDefault" ou "ofbiz.jar java-jar-install"</value>
+        <value xml:lang="ro">NOTA: Daca inca nu ai executat script_ul de instalare incarcare date, executa de la home directory ofbiz "gradlew loadDefault" sau "java -jar build/libs/ofbiz.jar -l"</value>
+        <value xml:lang="th">หมายเหตุ: ถ้าคุณไม่ได้ทำการดำเนินงานติดตั้ง data loading script จาก ofbiz home directory ให้ใช้คำสั่ง "gradlew loadDefault" หรือ "java -jar build/libs/ofbiz.jar -l"</value>
+        <value xml:lang="vi">Ghi chú: nếu bạn đã chạy quá trình tải dữ liệu, từ thư mục gốc của Ofbiz bạn hãy chạy "gradlew loadDefault" hoặc "java -jar build/libs/ofbiz.jar -l"</value>
+        <value xml:lang="zh">注意：如果你还没有运行安装数据载入脚本，那么你可以在OFBiz目录下运行"gradlew loadDefault"或"java -jar build/libs/ofbiz.jar -l"</value>
+        <value xml:lang="zh-TW">注意:如果你還沒有執行安裝資料載入腳本,那麼你可以在OFBiz目錄下執行"gradlew loadDefault"或"java -jar build/libs/ofbiz.jar -l"</value>
     </property>
     <property key="WebtoolsNoteForeighKeysMayAlsoBeCreated">
         <value xml:lang="de">HINWEIS: Fremdschlüssel können mit der Datenbank-Check/-Update Funktion ebenfalls generiert werden, sofern die check-fks-on-start und andere Optionen auf der Datensource entsprechend gesetzt sind.</value>
@@ -4015,7 +4005,7 @@
     </property>
     <property key="WebtoolsParent">
         <value xml:lang="de">Elternreferenz</value>
-        <value xml:lang="en">Parent ID</value>
+        <value xml:lang="en">Parent Id</value>
         <value xml:lang="fr">Réf. du parent</value>
         <value xml:lang="it">Padre</value>
         <value xml:lang="ja">上位(親)ID</value>
@@ -4534,9 +4524,6 @@
         <value xml:lang="vi">Kết quả</value>
         <value xml:lang="zh">结果</value>
         <value xml:lang="zh-TW">結果</value>
-    </property>
-    <property key="WebtoolsRunAsSystem">
-        <value xml:lang="en">Run As System</value>
     </property>
     <property key="WebtoolsRunGC">
         <value xml:lang="de">GC starten</value>
@@ -5976,17 +5963,5 @@
         <value xml:lang="vi">Bạn có thể tạo Thực thể ${entityName} sau khi nhập các giá trị mong muốn và bấm vào Tạo mới.</value>
         <value xml:lang="zh">创建一个实体 ${entityName} ：输入值，然后点击新建.</value>
         <value xml:lang="zh-TW">新建一個資料實體 ${entityName} :輸入值,然後點擊新建.</value>
-    </property>
-    <property key="WebtoolsReaderImportNotice">
-        <value xml:lang="de">Eingabe Readers (Komma getrennt,keine Leerzeichen; aus entityengine.xml und ofbiz-component.xml Dateien; common ones include seed,ext,demo)</value>
-        <value xml:lang="en">Enter Readers (comma separated, no spaces; from entityengine.xml and ofbiz-component.xml files; common ones include seed,ext,demo)</value>
-    </property>
-    <property key="WebtoolsSearchLocName">
-        <value xml:lang="de">Ort/Namen Suchen</value>
-        <value xml:lang="en">Search Names/Locations</value>
-    </property>
-    <property key="WebtoolsType">
-        <value xml:lang="de">Typ</value>
-        <value xml:lang="en">Type</value>
     </property>
 </resource>

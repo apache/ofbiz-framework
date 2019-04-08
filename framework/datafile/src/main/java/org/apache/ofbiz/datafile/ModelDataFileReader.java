@@ -46,15 +46,13 @@ public final class ModelDataFileReader {
     public static ModelDataFileReader getModelDataFileReader(URL readerURL) throws DataFileException {
         ModelDataFileReader reader = readers.get(readerURL);
         if (reader == null) {
-            if (Debug.infoOn()) {
+            if (Debug.infoOn())
                 Debug.logInfo("[ModelDataFileReader.getModelDataFileReader] : creating reader for " + readerURL, module);
-            }
             reader = new ModelDataFileReader(readerURL);
             readers.putIfAbsent(readerURL, reader);
         }
-        if (Debug.infoOn()) {
+        if (Debug.infoOn())
             Debug.logInfo("[ModelDataFileReader.getModelDataFileReader] : returning reader for " + readerURL, module);
-        }
         return reader;
     }
 
@@ -83,19 +81,10 @@ public final class ModelDataFileReader {
         if (tempStr != null && tempStr.length() == 1) {
             dataFile.delimiter = tempStr.charAt(0);
         }
-        tempStr = dataFileElement.getAttribute("start-line");
-        if (tempStr != null) {
-            dataFile.startLine = Integer.valueOf(tempStr);
-        }
 
         tempStr = UtilXml.checkEmpty(dataFileElement.getAttribute("text-delimiter"));
         if (UtilValidate.isNotEmpty(tempStr)) {
             dataFile.textDelimiter = tempStr;
-        }
-
-        tempStr = UtilXml.checkEmpty(dataFileElement.getAttribute("eol-type"));
-        if (UtilValidate.isNotEmpty(tempStr)) {
-            dataFile.setEOLType(tempStr);
         }
 
         dataFile.separatorStyle = UtilXml.checkEmpty(dataFileElement.getAttribute("separator-style"));
@@ -106,7 +95,12 @@ public final class ModelDataFileReader {
         for (int i = 0; i < rList.getLength(); i++) {
             Element recordElement = (Element) rList.item(i);
             ModelRecord modelRecord = createModelRecord(recordElement);
-            dataFile.records.add(modelRecord);
+
+            if (modelRecord != null) {
+                dataFile.records.add(modelRecord);
+            } else {
+                Debug.logWarning("[ModelDataFileReader.createModelDataFile] Weird, modelRecord was null", module);
+            }
         }
 
         for (ModelRecord modelRecord : dataFile.records) {
@@ -148,16 +142,21 @@ public final class ModelDataFileReader {
             Debug.logWarning("No <data-file> elements found in " + this.readerURL, module);
             throw new DataFileException("No <data-file> elements found in " + this.readerURL);
         }
-        Map<String, ModelDataFile> result = new HashMap<>();
+        Map<String, ModelDataFile> result = new HashMap<String, ModelDataFile>();
         for (Element curDataFile : dataFileElements) {
             String dataFileName = UtilXml.checkEmpty(curDataFile.getAttribute("name"));
             if (result.containsKey(dataFileName)) {
                 Debug.logWarning("DataFile " + dataFileName + " is defined more than once, most recent will over-write previous definition(s)", module);
             }
             ModelDataFile dataFile = createModelDataFile(curDataFile);
-            result.put(dataFileName, dataFile);
-            if (Debug.verboseOn()) {
-                Debug.logVerbose("Loaded dataFile: " + dataFileName, module);
+            if (dataFile != null) {
+                result.put(dataFileName, dataFile);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("Loaded dataFile: " + dataFileName, module);
+                }
+            } else {
+                Debug.logWarning("Could not create dataFile for dataFileName " + dataFileName, module);
+                throw new DataFileException("Could not create dataFile for " + dataFileName + " defined in " + this.readerURL);
             }
         }
         return result;
@@ -211,13 +210,11 @@ public final class ModelDataFileReader {
         record.typeCode = UtilXml.checkEmpty(recordElement.getAttribute("type-code"));
 
         record.tcMin = UtilXml.checkEmpty(recordElement.getAttribute("tc-min"));
-        if (record.tcMin.length() > 0) {
+        if (record.tcMin.length() > 0)
             record.tcMinNum = Long.parseLong(record.tcMin);
-        }
         record.tcMax = UtilXml.checkEmpty(recordElement.getAttribute("tc-max"));
-        if (record.tcMax.length() > 0) {
+        if (record.tcMax.length() > 0)
             record.tcMaxNum = Long.parseLong(record.tcMax);
-        }
 
         tempStr = UtilXml.checkEmpty(recordElement.getAttribute("tc-isnum"));
         if (UtilValidate.isNotEmpty(tempStr)) {
@@ -258,7 +255,7 @@ public final class ModelDataFileReader {
     /**
      * Creates a Collection with the dataFileName of each DataFile defined in the
      * specified XML DataFile Descriptor file.
-     *
+     * 
      * @return A Collection of dataFileName Strings
      */
     public Collection<String> getDataFileNames() {
@@ -268,7 +265,7 @@ public final class ModelDataFileReader {
     /**
      * Creates a Iterator with the dataFileName of each DataFile defined in the specified
      * XML DataFile Descriptor file.
-     *
+     * 
      * @return A Iterator of dataFileName Strings
      */
     public Iterator<String> getDataFileNamesIterator() {
@@ -278,7 +275,7 @@ public final class ModelDataFileReader {
     /**
      * Gets an DataFile object based on a definition from the specified XML DataFile
      * descriptor file.
-     *
+     * 
      * @param dataFileName
      *            The dataFileName of the DataFile definition to use.
      * @return An DataFile object describing the specified dataFile of the specified

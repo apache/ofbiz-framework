@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
+
+    <!-- ================================================================ -->
+    <!-- Agreement Services -->
+    <!-- ================================================================ -->
+
+    <!-- cancel an existing Agreement -->
+    <simple-method method-name="cancelAgreement" short-description="Cancel an existing Agreement">
+        <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
+        <check-errors/>
+        <now-timestamp field="nowTimestamp"/>
+        <set from-field="nowTimestamp" field="agreement.thruDate"/>
+        <store-value value-field="agreement"/>
+        <check-errors/>
+    </simple-method>
+
+    <!-- copy an existing Agreement -->
+    <simple-method method-name="copyAgreement" short-description="Copy an existing Agreement">
+        <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
+        <check-errors/>
+        <set-service-fields service-name="createAgreement" map="agreement" to-map="createAgreementInMap"/>
+        <call-service service-name="createAgreement" in-map-name="createAgreementInMap">
+            <result-to-field result-name="agreementId" field="agreementIdTo"/>
+        </call-service>
+
+        <get-related value-field="agreement" relation-name="AgreementItem" list="agreementItems"/>
+        <iterate list="agreementItems" entry="agreementItem">
+            <clear-field field="createAgreementItemInMap"/>
+            <set-service-fields service-name="createAgreementItem" map="agreementItem" to-map="createAgreementItemInMap"/>
+            <set from-field="agreementIdTo" field="createAgreementItemInMap.agreementId"/>
+            <call-service service-name="createAgreementItem" in-map-name="createAgreementItemInMap"/>
+        </iterate>
+        <if-compare field="parameters.copyAgreementTerms" value="Y" operator="equals">
+            <get-related value-field="agreement" relation-name="AgreementTerm" list="agreementTerms"/>
+            <iterate list="agreementTerms" entry="agreementTerm">
+                <clear-field field="createAgreementTermInMap"/>
+                <set-service-fields service-name="createAgreementTerm" map="agreementTerm" to-map="createAgreementTermInMap"/>
+                <set from-field="agreementIdTo" field="createAgreementTermInMap.agreementId"/>
+                <set field="createAgreementTermInMap.agreementTermId" from-field="nullField"/>
+                <call-service service-name="createAgreementTerm" in-map-name="createAgreementTermInMap"/>
+            </iterate>
+        </if-compare>
+        <if-compare field="parameters.copyAgreementProducts" value="Y" operator="equals">
+            <get-related value-field="agreement" relation-name="AgreementProductAppl" list="agreementProductAppls"/>
+            <iterate list="agreementProductAppls" entry="agreementProductAppl">
+                <clear-field field="createAgreementProductApplInMap"/>
+                <set-service-fields service-name="createAgreementProductAppl" map="agreementProductAppl" to-map="createAgreementProductApplInMap"/>
+                <set from-field="agreementIdTo" field="createAgreementProductApplInMap.agreementId"/>
+                <call-service service-name="createAgreementProductAppl" in-map-name="createAgreementProductApplInMap"/>
+            </iterate>
+        </if-compare>
+        <if-compare field="parameters.copyAgreementFacilities" value="Y" operator="equals">
+            <get-related value-field="agreement" relation-name="AgreementFacilityAppl" list="agreementFacilityAppls"/>
+            <iterate list="agreementFacilityAppls" entry="agreementFacilityAppl">
+                <clear-field field="createAgreementFacilityApplInMap"/>
+                <set-service-fields service-name="createAgreementFacilityAppl" map="agreementFacilityAppl" to-map="createAgreementFacilityApplInMap"/>
+                <set from-field="agreementIdTo" field="createAgreementFacilityApplInMap.agreementId"/>
+                <call-service service-name="createAgreementFacilityAppl" in-map-name="createAgreementFacilityApplInMap"/>
+            </iterate>
+        </if-compare>
+        <if-compare field="parameters.copyAgreementParties" value="Y" operator="equals">
+            <get-related value-field="agreement" relation-name="AgreementPartyApplic" list="agreementPartyApplic"/>
+            <iterate list="agreementPartyApplics" entry="agreementPartyApplic">
+                <clear-field field="createAgreementPartyApplicInMap"/>
+                <set-service-fields service-name="createAgreementPartyApplic" map="agreementPartyApplic" to-map="createAgreementPartyApplicInMap"/>
+                <set from-field="agreementIdTo" field="createAgreementPartyApplicInMap.agreementId"/>
+                <call-service service-name="createAgreementPartyApplic" in-map-name="createAgreementPartyApplicInMap"/>
+            </iterate>
+        </if-compare>
+        <field-to-result field="agreementIdTo" result-name="agreementId"/>
+    </simple-method>
+
+</simple-methods>

@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.entity.condition;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -28,90 +29,87 @@ import org.apache.ofbiz.entity.config.model.Datasource;
 import org.apache.ofbiz.entity.model.ModelEntity;
 
 /**
- * Represents a combination of multiple condition expressions.
+ * Encapsulates a list of EntityConditions to be used as a single EntityCondition combined as specified
+ *
  */
 @SuppressWarnings("serial")
-abstract class EntityConditionListBase<T extends EntityCondition> implements EntityCondition {
+public abstract class EntityConditionListBase<T extends EntityCondition> extends EntityCondition {
     public static final String module = EntityConditionListBase.class.getName();
-    /** The list of condition expressions to combine.  */
-    protected final List<? extends T> conditions;
-    /** The infix operator used to combine every elements in the list of conditions.  */
+
+    protected final List<T> conditionList;
     protected final EntityJoinOperator operator;
 
-    /**
-     * Constructs a combination of multiple condition expressions.
-     *
-     * @param conditions the list of condition expressions to combine
-     * @param operator the infix operator used to combine every elements in the list of conditions
-     */
-    protected EntityConditionListBase(List<? extends T> conditions, EntityJoinOperator operator) {
-        this.conditions = conditions;
+    protected EntityConditionListBase(List<T> conditionList, EntityJoinOperator operator) {
+        this.conditionList = conditionList;
         this.operator = operator;
     }
 
-    /**
-     * Gets the infix operator used to combine every elements in the list of conditions.
-     *
-     * @return the infix operator used to combine every elements in the list of conditions.
-     */
     public EntityJoinOperator getOperator() {
-        return operator;
+        return this.operator;
     }
 
-    /**
-     * Gets the condition expression stored at a particular of the internal list of conditions.
-     *
-     * @param index the index of the condition expression to find
-     * @return the corresponding condition expression
-     */
     public T getCondition(int index) {
-        return conditions.get(index);
+        return this.conditionList.get(index);
+    }
+
+    protected int getConditionListSize() {
+        return this.conditionList.size();
+    }
+
+    protected Iterator<T> getConditionIterator() {
+        return this.conditionList.iterator();
+    }
+
+    @Override
+    public void visit(EntityConditionVisitor visitor) {
+        visitor.acceptEntityJoinOperator(operator, conditionList);
     }
 
     @Override
     public boolean isEmpty() {
-        return operator.isEmpty(conditions);
+        return operator.isEmpty(conditionList);
     }
 
     @Override
     public String makeWhereString(ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, Datasource datasourceInfo) {
+        // if (Debug.verboseOn()) Debug.logVerbose("makeWhereString for entity " + modelEntity.getEntityName(), module);
         StringBuilder sql = new StringBuilder();
-        operator.addSqlValue(sql, modelEntity, entityConditionParams, conditions, datasourceInfo);
+        operator.addSqlValue(sql, modelEntity, entityConditionParams, conditionList, datasourceInfo);
         return sql.toString();
     }
 
     @Override
     public void checkCondition(ModelEntity modelEntity) throws GenericModelException {
-        operator.validateSql(modelEntity, conditions);
+        // if (Debug.verboseOn()) Debug.logVerbose("checkCondition for entity " + modelEntity.getEntityName(), module);
+        operator.validateSql(modelEntity, conditionList);
     }
 
     @Override
     public boolean mapMatches(Delegator delegator, Map<String, ? extends Object> map) {
-        return operator.mapMatches(delegator, map, conditions);
+        return operator.mapMatches(delegator, map, conditionList);
     }
 
     @Override
     public EntityCondition freeze() {
-        return operator.freeze(conditions);
+        return operator.freeze(conditionList);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof EntityConditionListBase<?>)) {
-            return false;
-        }
+        if (!(obj instanceof EntityConditionListBase<?>)) return false;
         EntityConditionListBase<?> other = UtilGenerics.cast(obj);
 
-        return conditions.equals(other.conditions) && operator.equals(other.operator);
+        boolean isEqual = conditionList.equals(other.conditionList) && operator.equals(other.operator);
+        //if (!isEqual) {
+        //    Debug.logWarning("EntityConditionListBase.equals is false:\n this.operator=" + this.operator + "; other.operator=" + other.operator +
+        //            "\nthis.conditionList=" + this.conditionList +
+        //            "\nother.conditionList=" + other.conditionList, module);
+        //}
+        return isEqual;
     }
 
     @Override
     public int hashCode() {
-        return conditions.hashCode() + operator.hashCode();
-    }
-
-    @Override
-    public String toString() {
-        return makeWhereString();
+        return conditionList.hashCode() + operator.hashCode();
     }
 }

@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
+    <screen name="main-decorator">
+        <section>
+            <actions>
+                <property-map resource="scrumUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="SecurityUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="layoutSettings.companyName" from-field="uiLabelMap.ScrumCompanyName" global="true"/>
+                <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.ScrumCompanySubtitle" global="true"/>
+
+                <set field="activeApp" value="scrum" global="true"/>
+                <set field="applicationMenuName" value="ScrumAppBar" global="true"/>
+                <set field="applicationMenuLocation" value="component://scrum/widget/scrumMenus.xml" global="true"/>
+                <set field="applicationTitle" value="${uiLabelMap.ScrumApplication}" global="true"/>
+            </actions>
+            <widgets>
+                <include-screen name="ApplicationDecorator" location="component://commonext/widget/CommonScreens.xml"/>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="scrumCommonDecorator">
+        <section>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-service-permission service-name="scrumPermissionCheck" main-action="VIEW" resource-description="SCRUM"/>
+                            </condition>
+                            <widgets>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.ScrumViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="CommonProjectDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="Sprints"/>
+                <set field="workEffortId" from-field="parameters.projectId"/>
+                <entity-one entity-name="WorkEffort" value-field="project"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <and>
+                                    <if-service-permission service-name="scrumPermissionCheck" main-action="VIEW" resource-description="SCRUM"/>
+                                    <not><if-empty field="project"/></not>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <include-menu name="ProjectMenu" location="component://scrum/widget/scrumMenus.xml"/>
+                                <container style="clear"/>
+                                <label style="h1" text="${uiLabelMap.ScrumProjectCurrent}: ${project.workEffortName}[${project.workEffortId}]"/>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">You do not have permission to view this page. ("SCRUM_VIEW" or "SCRUM_ADMIN" needed)</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="CommonTaskDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="Tasks"/>
+                <set field="workEffortId" from-field="parameters.taskId"/>
+                <entity-one entity-name="WorkEffort" value-field="task"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-service-permission service-name="scrumPermissionCheck" main-action="VIEW" resource-description="SCRUM"/>
+                            </condition>
+                            <widgets>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field="task"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <include-menu name="TaskTabBar" location="component://scrum/widget/scrumMenus.xml"/>
+                                        <section>
+                                            <condition>
+                                                <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="TASK"/>
+                                            </condition>
+                                            <widgets>
+                                                 <include-menu name="TaskSubTabBar" location="component://scrum/widget/scrumMenus.xml"/>
+                                            </widgets>
+                                        </section>
+                                        <container style="clear"/>
+                                        <label style="h1" text="${uiLabelMap.ScrumTaskCurrent}: ${task.workEffortName}[${task.workEffortId}]"/>
+                                    </widgets>
+                                </section>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.ScrumViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="CommonScrumProductDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="products"/>
+                <entity-one entity-name="Product" value-field="product">
+                    <field-map field-name="productId" from-field="parameters.productId"/>
+                </entity-one>
+                <entity-and entity-name="ProductRole" list="productRoles" filter-by-date="true">
+                    <field-map field-name="productId" from-field="parameters.productId"/>
+                    <field-map field-name="roleTypeId" value="PRODUCT_OWNER"/>
+                </entity-and>
+                <set field="productOwnerId" from-field="productRoles[0].partyId"/>
+                <entity-and entity-name="ProductRole" list="productRoles" filter-by-date="true">
+                    <field-map field-name="productId" from-field="parameters.productId"/>
+                    <field-map field-name="roleTypeId" value="PRODUCT_OWNER_COMP"/>
+                </entity-and>
+                <set field="companyId" from-field="productRoles[0].partyId"/>
+                <entity-condition entity-name="UnPlannedBacklogsAndTasks" list="unPlannedBacklogList">
+                    <condition-list combine="and">
+                        <condition-expr field-name="productId" from-field="parameters.productId"/>
+                        <condition-expr field-name="custRequestTypeId" value="RF_UNPLAN_BACKLOG"/>
+                        <condition-list combine="or">
+                            <condition-expr field-name="statusId" operator="equals" value="CRQ_REVIEWED"/>
+                            <condition-expr field-name="statusId" operator="equals" value="CRQ_REOPENED"/>
+                        </condition-list>
+                    </condition-list>
+                    <order-by field-name="custSequenceNum"/>
+                    <order-by field-name="custRequestId"/>
+                    <order-by field-name="workEffortTypeId"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-service-permission service-name="scrumPermissionCheck" main-action="VIEW" resource-description="SCRUM"/>
+                            </condition>
+                            <widgets>
+                                <include-menu name="ProductTabBar" location="component://scrum/widget/scrumMenus.xml"/>
+                                <section>
+                                    <condition>
+                                        <and>
+                                           <not><if-empty field="product"/></not>
+                                            <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="BACKLOG"/>
+                                        </and>
+                                    </condition>
+                                    <widgets>
+                                        <include-menu name="ProductSubTabBar" location="component://scrum/widget/scrumMenus.xml" />
+                                        <label style="h1" text="Product: ${product.internalName}[${product.productId}]"/>
+                                    </widgets>
+                                </section>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">No access! need either SCUM_ADMIN/_VIEW or SCUM_PRODUCT_ADMIN/VIEW</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="CommonScrumProductBacklogItemDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="main"/>
+                <entity-one entity-name="Product" value-field="product">
+                    <field-map field-name="productId" from-field="parameters.productId"/>
+                </entity-one>
+                <entity-one entity-name="CustRequest" value-field="custRequestMap">
+                    <field-map field-name="custRequestId" from-field="parameters.custRequestId"/>
+                </entity-one>
+                <script location="component://scrum/groovyScripts/SprintBacklogOptions.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <or>
+                                    <if-service-permission service-name="scrumPermissionCheck" main-action="VIEW" resource-description="SCRUM"/>
+                                    <if-service-permission service-name="scrumPermissionCheck" main-action="VIEW" resource-description="PRODUCT"/>
+                                </or>
+                            </condition>
+                            <widgets>
+                                <include-menu name="ProductBackLogItemTabBar" location="component://scrum/widget/scrumMenus.xml"/>
+                                <include-menu name="ProductBackLogItemStatusTabBar" location="component://scrum/widget/scrumMenus.xml"/>
+                                <section>
+                                    <condition>
+                                        <and>
+                                            <and>
+                                            <if-empty field="product"/>
+                                            <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="PROJECT"/>
+                                        </and>
+                                        </and>
+                                    </condition>
+                                    <widgets>
+                                        <include-menu name="ProductSubTabBar" location="component://scrum/widget/scrumMenus.xml"/>
+                                    </widgets>
+                                </section>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field="product"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <section>
+                                            <condition>
+                                                <if-compare operator="equals" value="defaultTasks" field="tabButtonItem"/>
+                                            </condition>
+                                            <widgets>
+                                                <container style="button-bar">
+                                                   <link  text="Create A Default Task" target="editDefaultTask" style="buttontext create">
+                                                        <parameter param-name="productId" from-field="product.productId"/>
+                                                   </link>
+                                                </container>
+                                            </widgets>
+                                        </section>
+                                        <label style="h1" text="Product Backlog Item: ${custRequestMap.description}[${custRequestMap.custRequestId}]"/>
+                                    </widgets>
+                                </section>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">No access! need either SCUM_ADMIN/_VIEW or SCUM_PRODUCT_ADMIN/VIEW</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="CommonScrumBacklogItemCommDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="main"/>
+                <entity-one entity-name="Product" value-field="product">
+                    <field-map field-name="productId" from-field="parameters.productId"/>
+                </entity-one>
+                <entity-one entity-name="CustRequest" value-field="custRequestMap">
+                    <field-map field-name="custRequestId" from-field="parameters.custRequestId"/>
+                </entity-one>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <or>
+                                    <if-service-permission service-name="scrumPermissionCheck" main-action="VIEW" resource-description="SCRUM"/>
+                                    <if-service-permission service-name="scrumPermissionCheck" main-action="VIEW" resource-description="PRODUCT"/>
+                                </or>
+                            </condition>
+                            <widgets>
+                                <include-menu name="ProductBackLogItemTabBar" location="component://scrum/widget/scrumMenus.xml"/>
+                                <include-menu name="ProductBacklogEmailTabBar" location="component://scrum/widget/scrumMenus.xml"/>
+                                <section>
+                                    <condition>
+                                        <and>
+                                            <and>
+                                            <if-empty field="product"/>
+                                            <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="PROJECT"/>
+                                        </and>
+                                        </and>
+                                    </condition>
+                                    <widgets>
+                                        <include-menu name="ProductSubTabBar" location="component://scrum/widget/scrumMenus.xml"/>
+                                    </widgets>
+                                </section>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field="product"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <section>
+                                            <condition>
+                                                <if-compare operator="equals" value="defaultTasks" field="tabButtonItem"/>
+                                            </condition>
+                                            <widgets>
+                                                <container style="button-bar">
+                                                   <link  text="Create A Default Task" target="editDefaultTask" style="buttontext create">
+                                                        <parameter param-name="productId" from-field="product.productId"/>
+                                                   </link>
+                                                </container>
+                                            </widgets>
+                                        </section>
+                                        <label style="h1" text="Product Backlog Item: ${custRequestMap.description}[${custRequestMap.custRequestId}]"/>
+                                    </widgets>
+                                </section>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">No access! need either SCUM_ADMIN/_VIEW or SCUM_PRODUCT_ADMIN/VIEW</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="CommonPartyDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="myProfile"/>
+                <set field="partyId" from-field="parameters.partyId"/>
+                <entity-one entity-name="Party" value-field="party"/>
+                <entity-one entity-name="Person" value-field="lookupPerson"/>
+                <entity-one entity-name="PartyGroup" value-field="lookupGroup"/>
+                <set field="communicationEventId" from-field="parameters.communicationEventId"/>
+                <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
+                <set field="okayToUpdate" value="true" type="Boolean" global="true"/>
+            </actions>
+            <widgets>
+                <section>
+                    <condition>
+                        <and>
+                            <not><if-empty field="communicationEvent.statusId"/></not>
+                            <or>
+                                <if-compare field="communicationEvent.statusId" operator="equals" type="String" value="COM_COMPLETE"/>
+                                <if-compare field="communicationEvent.statusId" operator="equals" type="String" value="COM_RESOLVED"/>
+                                <if-compare field="communicationEvent.statusId" operator="equals" type="String" value="COM_REFERRED"/>
+                            </or>
+                        </and>
+                    </condition>
+                    <actions>
+                        <set field="okayToUpdate" value="false" type="Boolean" global="true"/>
+                    </actions>
+                    <widgets/>
+                </section>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <!-- do check for PROJECTMGR, _VIEW permission -->
+                            <condition>
+                                <or>
+                                    <if-has-permission permission="PARTYMGR" action="_ADMIN"/>
+                                    <if-service-permission service-name="scrumPermissionCheck" main-action="VIEW" resource-description="SCRUM"/>
+                                </or>
+                            </condition>
+                            <widgets>
+                                <section>
+                                    <condition><not><if-empty field="partyId"/></not></condition>
+                                    <widgets>
+                                        <include-menu location="component://scrum/widget/scrumMenus.xml" name="ResourceTabBar"/>
+                                        <container>
+                                            <section>
+                                                <widgets>
+                                                    <label style="h1" text="${uiLabelMap.PartyTheProfileOf} ${lookupPerson.personalTitle} ${lookupPerson.firstName} ${lookupPerson.middleName} ${lookupPerson.lastName} ${lookupPerson.suffix} ${lookupGroup.groupName}"/>
+                                                </widgets>
+                                                <fail-widgets>
+                                                    <label style="h1" text="${uiLabelMap.PartyNewUser}"/>
+                                                </fail-widgets>
+                                            </section>
+
+                                            <label style="h1" text="[${partyId}]"/>
+                                        </container>
+                                    </widgets>
+                                </section>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.PartyMgrViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="CommonProjectScreenDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="Sprints"/>
+                <set field="workEffortId" from-field="parameters.projectId"/>
+                <entity-one entity-name="WorkEffort" value-field="workEffort"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-service-permission service-name="scrumPermissionCheck" main-action="VIEW" resource-description="SCRUM"/>
+                            </condition>
+                            <widgets>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field="workEffort"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <include-menu name="ProjectMenu" location="component://scrum/widget/scrumMenus.xml"/>
+                                        <section>
+                                            <widgets>
+                                                 <include-menu name="ProjectSubTabBar" location="component://scrum/widget/scrumMenus.xml"/>
+                                            </widgets>
+                                        </section>
+                                        <container style="clear"/>
+                                        <label style="h1" text="${uiLabelMap.ScrumProjectCurrent}: ${workEffort.workEffortName}[${workEffort.workEffortId}]"/>
+                                    </widgets>
+                                </section>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.ScrumViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="CommonMyWorkScreenDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="MyWork"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-service-permission service-name="scrumPermissionCheck" main-action="VIEW" resource-description="SCRUM"/>
+                            </condition>
+                            <widgets>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.ScrumViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="CommonOpenTestScreenDecorator">
+        <section>
+            <condition>
+                <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="TEST"/>
+            </condition>
+            <actions>
+                <set field="headerItem" value="openTest"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-service-permission service-name="scrumPermissionCheck" main-action="VIEW" resource-description="SCRUM"/>
+                            </condition>
+                            <widgets>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.ScrumViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+            <fail-widgets>
+                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                       <decorator-section name="body">
+                       <label style="h3">You do not have permission to view this screen.</label>
+                       </decorator-section>
+                </decorator-screen>
+            </fail-widgets>
+        </section>
+    </screen>
+    <screen name="CommonSprintScreenDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="Sprints"/>
+                <entity-one entity-name="WorkEffort" value-field="sprint">
+                    <field-map field-name="workEffortId" from-field="parameters.sprintId"/>
+                </entity-one>
+                <set field="parameters.projectId" from-field="sprint.workEffortParentId"/>
+                <entity-and entity-name="WorkEffort" list="sprintList">
+                    <field-map field-name="workEffortParentId" from-field="parameters.projectId"/>
+                    <order-by field-name="createdDate"/>
+                </entity-and>
+                <set field="primeSprintId" from-field="sprintList[0].workEffortId"/>
+                <set field="size" value="${groovy:sprintList.size();}"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-menu name="SprintMenu" location="component://scrum/widget/scrumMenus.xml"/>
+                        <include-menu name="SprintSubMenu" location="component://scrum/widget/scrumMenus.xml"/>
+                        <label text="Current Sprint: ${sprint.workEffortName} [${sprint.workEffortId}]" style="h1"/>
+                        <decorator-section-include name="body"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="CommonAdminDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="admin"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-service-permission service-name="scrumPermissionCheck" main-action="CREATE" resource-description="MEMBER"/>
+                            </condition>
+                            <widgets>
+                                <include-menu name="ScrumAdminSubMenu" location="component://scrum/widget/scrumMenus.xml"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.ScrumViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                        <decorator-section-include name="body"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens>

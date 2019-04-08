@@ -49,8 +49,6 @@ if (invoice) {
     context.billToParty = billToParty
     sendingParty = InvoiceWorker.getSendFromParty(invoice)
     context.sendingParty = sendingParty
-    shippingAddress = InvoiceWorker.getShippingAddress(invoice)
-    context.shippingAddress = shippingAddress
 
     if (currency && !invoice.getString("currencyUomId").equals(currency)) {
         conversionRate = InvoiceWorker.getInvoiceCurrencyConversionRate(invoice)

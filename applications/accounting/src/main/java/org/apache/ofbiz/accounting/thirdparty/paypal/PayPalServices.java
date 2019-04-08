@@ -256,10 +256,10 @@ public class PayPalServices {
             }
             String estimateLabel = shipMethod.getString("partyId") + " - " + shipMethod.getString("description");
             encoder.add("L_SHIPINGPOPTIONLABEL" + line, estimateLabel);
-            encoder.add("L_SHIPPINGOPTIONAMOUNT" + line, estimate.setScale(2, RoundingMode.HALF_UP).toPlainString());
+            encoder.add("L_SHIPPINGOPTIONAMOUNT" + line, estimate.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString());
             // Just make this first one default for now
             encoder.add("L_SHIPPINGOPTIONISDEFAULT" + line, line == 0 ? "true" : "false");
-            encoder.add("L_TAXAMT" + line, cart.getTotalSalesTax().setScale(2, RoundingMode.HALF_UP).toPlainString());
+            encoder.add("L_TAXAMT" + line, cart.getTotalSalesTax().setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString());
             line++;
         }
         String responseMsg = null;
@@ -275,8 +275,10 @@ public class PayPalServices {
                 Debug.logError(e, module);
             }
 
-            try (Writer writer = response.getWriter()) {
+            try {
+                Writer writer = response.getWriter();
                 writer.write(responseMsg);
+                writer.close();
             } catch (IOException e) {
                 Debug.logError(e, module);
             }
@@ -317,14 +319,14 @@ public class PayPalServices {
         for (ShoppingCartItem item : cart.items()) {
             encoder.add("L_NUMBER" + line, item.getProductId());
             encoder.add("L_NAME" + line, item.getName());
-            encoder.add("L_AMT" + line, item.getBasePrice().setScale(2, RoundingMode.HALF_UP).toPlainString());
+            encoder.add("L_AMT" + line, item.getBasePrice().setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString());
             encoder.add("L_QTY" + line, item.getQuantity().toBigInteger().toString());
             line++;
             BigDecimal otherAdjustments = item.getOtherAdjustments();
             if (otherAdjustments.compareTo(BigDecimal.ZERO) != 0) {
                 encoder.add("L_NUMBER" + line, item.getProductId());
                 encoder.add("L_NAME" + line, item.getName() + " Adjustments");
-                encoder.add("L_AMT" + line, otherAdjustments.setScale(2, RoundingMode.HALF_UP).toPlainString());
+                encoder.add("L_AMT" + line, otherAdjustments.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString());
                 encoder.add("L_QTY" + line, "1");
                 line++;
             }
@@ -333,7 +335,7 @@ public class PayPalServices {
         if (otherAdjustments.compareTo(BigDecimal.ZERO) != 0) {
             encoder.add("L_NUMBER" + line, "N/A");
             encoder.add("L_NAME" + line, "Order Adjustments");
-            encoder.add("L_AMT" + line, otherAdjustments.setScale(2, RoundingMode.HALF_UP).toPlainString());
+            encoder.add("L_AMT" + line, otherAdjustments.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString());
             encoder.add("L_QTY" + line, "1");
             line++;
         }
@@ -657,7 +659,7 @@ public class PayPalServices {
         String paymentMethodId = (String) outMap.get("paymentMethodId");
 
         cart.clearPayments();
-        BigDecimal maxAmount = cart.getGrandTotal().setScale(2, RoundingMode.HALF_UP);
+        BigDecimal maxAmount = cart.getGrandTotal().setScale(2, BigDecimal.ROUND_HALF_UP);
         cart.addPaymentAmount(paymentMethodId, maxAmount, true);
 
         return ServiceUtil.returnSuccess();
@@ -695,9 +697,9 @@ public class PayPalServices {
         encoder.add("AMT", processAmount.setScale(2).toPlainString());
         encoder.add("CURRENCYCODE", orh.getCurrency());
         BigDecimal grandTotal = orh.getOrderGrandTotal();
-        BigDecimal shippingTotal = orh.getShippingTotal().setScale(2, RoundingMode.HALF_UP);
-        BigDecimal taxTotal = orh.getTaxTotal().setScale(2, RoundingMode.HALF_UP);
-        BigDecimal subTotal = grandTotal.subtract(shippingTotal).subtract(taxTotal).setScale(2, RoundingMode.HALF_UP);
+        BigDecimal shippingTotal = orh.getShippingTotal().setScale(2, BigDecimal.ROUND_HALF_UP);
+        BigDecimal taxTotal = orh.getTaxTotal().setScale(2, BigDecimal.ROUND_HALF_UP);
+        BigDecimal subTotal = grandTotal.subtract(shippingTotal).subtract(taxTotal).setScale(2, BigDecimal.ROUND_HALF_UP);
         encoder.add("ITEMAMT", subTotal.toPlainString());
         encoder.add("SHIPPINGAMT", shippingTotal.toPlainString());
         encoder.add("TAXAMT", taxTotal.toPlainString());
@@ -759,7 +761,7 @@ public class PayPalServices {
         NVPEncoder encoder = new NVPEncoder();
         encoder.add("METHOD", "DoAuthorization");
         encoder.add("TRANSACTIONID", payPalPaymentMethod.getString("transactionId"));
-        encoder.add("AMT", processAmount.setScale(2, RoundingMode.HALF_UP).toPlainString());
+        encoder.add("AMT", processAmount.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString());
         encoder.add("TRANSACTIONENTITY", "Order");
         String currency = (String) context.get("currency");
         if (currency == null) {
@@ -816,7 +818,7 @@ public class PayPalServices {
         NVPEncoder encoder = new NVPEncoder();
         encoder.add("METHOD", "DoCapture");
         encoder.add("AUTHORIZATIONID", authTrans.getString("referenceNum"));
-        encoder.add("AMT", captureAmount.setScale(2, RoundingMode.HALF_UP).toPlainString());
+        encoder.add("AMT", captureAmount.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString());
         encoder.add("CURRENCYCODE", authTrans.getString("currencyUomId"));
         encoder.add("COMPLETETYPE", "NotComplete");
 
@@ -920,7 +922,7 @@ public class PayPalServices {
         encoder.add("TRANSACTIONID", captureTrans.getString("referenceNum"));
         encoder.add("REFUNDTYPE", "Partial");
         encoder.add("CURRENCYCODE", captureTrans.getString("currencyUomId"));
-        encoder.add("AMT", refundAmount.setScale(2, RoundingMode.HALF_UP).toPlainString());
+        encoder.add("AMT", refundAmount.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString());
         encoder.add("NOTE", "Order #" + orderPaymentPreference.getString("orderId"));
         NVPDecoder decoder = null;
         try {

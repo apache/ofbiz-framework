@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+    <description>eBay Component Services</description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
+
+    <service name="createEbayProductListingAttribute" engine="entity-auto" invoke="create" default-entity-name="EbayProductListingAttribute" auth="true">
+        <description>Create a EbayProductListingAttribute record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateEbayProductListingAttribute" engine="entity-auto" invoke="update" default-entity-name="EbayProductListingAttribute" auth="true">
+        <description>Update a EbayProductListingAttribute record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteEbayProductListingAttribute" engine="entity-auto" invoke="delete" default-entity-name="EbayProductListingAttribute" auth="true">
+       <description>Delete a EbayProductListingAttribute record</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
+</services>

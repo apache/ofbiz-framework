@@ -100,7 +100,7 @@ public class GridFactory {
     }
 
     public static Map<String, ModelGrid> readGridDocument(Document gridFileDoc, ModelReader entityModelReader, DispatchContext dispatchContext, String gridLocation) {
-        Map<String, ModelGrid> modelGridMap = new HashMap<>();
+        Map<String, ModelGrid> modelGridMap = new HashMap<String, ModelGrid>();
         if (gridFileDoc != null) {
             // read document and construct ModelGrid for each grid element
             Element rootElement = gridFileDoc.getDocumentElement();

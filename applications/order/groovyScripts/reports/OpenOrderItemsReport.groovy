@@ -23,16 +23,15 @@
  */
 
 
-import org.apache.ofbiz.entity.condition.EntityCondition
-import org.apache.ofbiz.entity.condition.EntityOperator
-import org.apache.ofbiz.entity.GenericEntityException
-import org.apache.ofbiz.base.util.Debug
-import org.apache.ofbiz.base.util.ObjectType
+import org.apache.ofbiz.base.util.UtilMisc
+import org.apache.ofbiz.entity.condition.*
+import org.apache.ofbiz.entity.util.*
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.base.util.*
 
-module = "OpenOrderItemsReport.groovy" 
-productStoreId = ObjectType.simpleTypeOrObjectConvert(parameters.productStoreId, "List", null, null)
-orderTypeId = ObjectType.simpleTypeOrObjectConvert(parameters.orderTypeId, "List", null, null)
-orderStatusId = ObjectType.simpleTypeOrObjectConvert(parameters.orderStatusId, "List", null, null)
+productStoreId = ObjectType.simpleTypeConvert(parameters.productStoreId, "List", null, null)
+orderTypeId = ObjectType.simpleTypeConvert(parameters.orderTypeId, "List", null, null)
+orderStatusId = ObjectType.simpleTypeConvert(parameters.orderStatusId, "List", null, null)
 
 
 // search by orderTypeId is mandatory
@@ -72,83 +71,78 @@ conditions.add(EntityCondition.makeCondition("orderItemStatusId", EntityOperator
 conditions.add(EntityCondition.makeCondition("orderItemStatusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"))
 
 // get the results as an entity list iterator
-try {
-    listIt = select("orderId", "orderDate", "productId", "quantityOrdered", "quantityIssued", "quantityOpen", "shipBeforeDate", "shipAfterDate", "itemDescription")
-                .from("OrderItemQuantityReportGroupByItem")
-                .where(conditions)
-                .orderBy("orderDate DESC")
-                .cursorScrollInsensitive()
-                .distinct()
-                .queryIterator()
-    orderItemList = []
-    totalCostPrice = 0.0
-    totalListPrice = 0.0
-    totalMarkup = 0.0
-    totalDiscount = 0.0
-    totalRetailPrice = 0.0
-    totalquantityOrdered = 0.0
-    totalquantityOpen = 0.0
+listIt = select("orderId", "orderDate", "productId", "quantityOrdered", "quantityIssued", "quantityOpen", "shipBeforeDate", "shipAfterDate", "itemDescription")
+            .from("OrderItemQuantityReportGroupByItem")
+            .where(conditions)
+            .orderBy("orderDate DESC")
+            .cursorScrollInsensitive()
+            .distinct()
+            .queryIterator()
+orderItemList = []
+totalCostPrice = 0.0
+totalListPrice = 0.0
+totalMarkup = 0.0
+totalDiscount = 0.0
+totalRetailPrice = 0.0
+totalquantityOrdered = 0.0
+totalquantityOpen = 0.0
 
-    listIt.each { listValue ->
-        orderId = listValue.orderId
-        productId = listValue.productId
-        orderDate = listValue.orderDate
-        quantityOrdered = listValue.quantityOrdered
-        quantityOpen = listValue.quantityOpen
-        quantityIssued = listValue.quantityIssued
-        itemDescription = listValue.itemDescription
-        shipAfterDate = listValue.shipAfterDate
-        shipBeforeDate = listValue.shipBeforeDate
-        productIdCondExpr =  [EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId)]
-        productPrices = select("price","productPriceTypeId").from("ProductPrice").where(productIdCondExpr).queryList()
-        costPrice = 0.0
-        retailPrice = 0.0
-        listPrice = 0.0
-    
-        productPrices.each { productPriceMap ->
-            if ("AVERAGE_COST".equals(productPriceMap.productPriceTypeId)) {
-                costPrice = productPriceMap.price
-            } else if ("DEFAULT_PRICE".equals(productPriceMap.productPriceTypeId)) {
-                retailPrice = productPriceMap.price
-            } else if ("LIST_PRICE".equals(productPriceMap.productPriceTypeId)) {
-                listPrice = productPriceMap.price
-            }
+listIt.each { listValue ->
+    orderId = listValue.orderId
+    productId = listValue.productId
+    orderDate = listValue.orderDate
+    quantityOrdered = listValue.quantityOrdered
+    quantityOpen = listValue.quantityOpen
+    quantityIssued = listValue.quantityIssued
+    itemDescription = listValue.itemDescription
+    shipAfterDate = listValue.shipAfterDate
+    shipBeforeDate = listValue.shipBeforeDate
+    productIdCondExpr =  [EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId)]
+    productPrices = select("price","productPriceTypeId").from("ProductPrice").where(productIdCondExpr).queryList()
+    costPrice = 0.0
+    retailPrice = 0.0
+    listPrice = 0.0
+
+    productPrices.each { productPriceMap ->
+        if (productPriceMap.productPriceTypeId.equals("AVERAGE_COST")) {
+            costPrice = productPriceMap.price
+        } else if (productPriceMap.productPriceTypeId.equals("DEFAULT_PRICE")) {
+            retailPrice = productPriceMap.price
+        } else if (productPriceMap.productPriceTypeId.equals("LIST_PRICE")) {
+            listPrice = productPriceMap.price
         }
-    
-        totalListPrice += listPrice
-        totalRetailPrice += retailPrice
-        totalCostPrice += costPrice
-        totalquantityOrdered += quantityOrdered
-        totalquantityOpen += quantityOpen
-        costPriceDividendValue = costPrice
-        if (costPriceDividendValue) {
-            percentMarkup = ((retailPrice - costPrice)/costPrice)*100
-        } else{
-            percentMarkup = ""
-        }
-        orderItemMap = [orderDate : orderDate,
-                        orderId : orderId,
-                        productId : productId,
-                        itemDescription : itemDescription,
-                        quantityOrdered : quantityOrdered,
-                        quantityIssued : quantityIssued,
-                        quantityOpen : quantityOpen,
-                        shipAfterDate : shipAfterDate,
-                        shipBeforeDate : shipBeforeDate,
-                        costPrice : costPrice,
-                        retailPrice : retailPrice,
-                        listPrice : listPrice,
-                        discount : listPrice - retailPrice,
-                        calculatedMarkup : retailPrice - costPrice,
-                        percentMarkup : percentMarkup]
-        orderItemList.add(orderItemMap)
     }
-} catch (GenericEntityException e) {
-    Debug.logError(e, "Failure in " + module)
-} finally {
-    listIt.close()
+
+    totalListPrice += listPrice
+    totalRetailPrice += retailPrice
+    totalCostPrice += costPrice
+    totalquantityOrdered += quantityOrdered
+    totalquantityOpen += quantityOpen
+    costPriceDividendValue = costPrice
+    if (costPriceDividendValue) {
+        percentMarkup = ((retailPrice - costPrice)/costPrice)*100
+    } else{
+        percentMarkup = ""
+    }
+    orderItemMap = [orderDate : orderDate,
+                    orderId : orderId,
+                    productId : productId,
+                    itemDescription : itemDescription,
+                    quantityOrdered : quantityOrdered,
+                    quantityIssued : quantityIssued,
+                    quantityOpen : quantityOpen,
+                    shipAfterDate : shipAfterDate,
+                    shipBeforeDate : shipBeforeDate,
+                    costPrice : costPrice,
+                    retailPrice : retailPrice,
+                    listPrice : listPrice,
+                    discount : listPrice - retailPrice,
+                    calculatedMarkup : retailPrice - costPrice,
+                    percentMarkup : percentMarkup]
+    orderItemList.add(orderItemMap)
 }
 
+listIt.close()
 totalAmountList = []
 if (orderItemList) {
     totalCostPriceDividendValue = totalCostPrice

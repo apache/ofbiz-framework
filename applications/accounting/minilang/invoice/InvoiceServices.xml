@@ -21,10 +21,131 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
+    <simple-method method-name="getNextInvoiceId" short-description="Get Next invoiceId">
+        <!-- try to find PartyAcctgPreference for parameters.partyId, see if we need any special invoice number sequencing -->
+        <entity-one entity-name="PartyAcctgPreference" value-field="partyAcctgPreference" auto-field-map="false">
+            <field-map field-name="partyId" from-field="parameters.partyId"/>
+        </entity-one>
+        <log level="info" message="In getNextInvoiceId partyId is [${parameters.partyId}], partyAcctgPreference: ${partyAcctgPreference}"/>
+
+        <if-not-empty field="partyAcctgPreference">
+           <!-- see OFBIZ-3765 beware of OFBIZ-3557 -->
+           <get-related-one relation-name="InvoiceCustomMethod" value-field="partyAcctgPreference" to-value-field="customMethod"/>
+           <else>
+               <log level="warning" message="Acctg preference not defined for partyId [${parameters.partyId}]"/>
+           </else>
+        </if-not-empty>
+
+        <if-not-empty field="customMethod">
+            <set field="customMethodName" from-field="customMethod.customMethodName"/>
+        <else><!-- retrieve service from deprecated enumeration see OFBIZ-3765 beware of OFBIZ-3557 -->
+            <if-compare operator="equals" value="INVSQ_ENF_SEQ" field="partyAcctgPreference.oldInvoiceSequenceEnumId">
+                <set field="customMethodName" value="invoiceSequenceEnforced"/>
+            </if-compare>
+            <if-compare operator="equals" value="INVSQ_RESTARTYR" field="partyAcctgPreference.oldInvoiceSequenceEnumId">
+                <set field="customMethodName" value="invoiceSequenceRestart"/>
+            </if-compare>
+        </else>
+        </if-not-empty>
+
+        <if-not-empty field="customMethodName">
+            <set-service-fields service-name="${customMethodName}" map="parameters" to-map="customMethodMap"/>
+            <set field="customMethodMap.partyAcctgPreference" from-field="partyAcctgPreference"/>
+            <call-service service-name="${customMethodName}" in-map-name="customMethodMap">
+               <result-to-field result-name="invoiceId" field="invoiceIdTemp"/>
+            </call-service>
+            <else>
+                <log level="info" message="In createInvoice sequence enum Standard"/>
+                <!-- default to the default sequencing: INVSQ_STANDARD -->
+                <set from-field="parameters.invoiceId" field="invoiceIdTemp"/>
+                <if-empty field="invoiceIdTemp">
+                    <sequenced-id sequence-name="Invoice" field="invoiceIdTemp"/>
+                    <else>
+                        <!-- check the provided ID -->
+                        <check-id field="invoiceIdTemp"/>
+                        <check-errors/>
+                    </else>
+                </if-empty>
+            </else>
+        </if-not-empty>
+
+        <!-- use invoiceIdTemp along with the invoiceIdPrefix to create the real ID -->
+        <set field="invoiceId" value="${partyAcctgPreference.invoiceIdPrefix}${str:toString(invoiceIdTemp)}"/>
+        <field-to-result field="invoiceId" result-name="invoiceId"/>
+    </simple-method>
+
+    <simple-method method-name="invoiceSequenceEnforced" short-description="Enforced Sequence (no gaps, per organization)">
+        <log level="info" message="In createInvoice sequence enum Enforced"/>
+        <set field="partyAcctgPreference" from-field="parameters.partyAcctgPreference"/>
+        <!-- this is sequential sequencing, we can't skip a number, also it must be a unique sequence per partyIdFrom -->
+
+        <if-not-empty field="partyAcctgPreference.lastInvoiceNumber">
+            <calculate field="partyAcctgPreference.lastInvoiceNumber" type="Long">
+                <calcop operator="add" field="partyAcctgPreference.lastInvoiceNumber"/>
+                <number value="1"/>
+            </calculate>
+            <else>
+                <calculate field="partyAcctgPreference.lastInvoiceNumber" type="Long"><number value="1"/></calculate>
+            </else>
+        </if-not-empty>
+        <store-value value-field="partyAcctgPreference"/>
+        <set from-field="partyAcctgPreference.lastInvoiceNumber" field="invoiceId"/>
+        <field-to-result field="invoiceId" result-name="invoiceId"/>
+   </simple-method>
+
+    <simple-method method-name="invoiceSequenceRestart" short-description="Restart on Fiscal Year (no gaps, per org, reset to 1 each year)">
+        <log level="info" message="In createInvoice sequence enum Restart"/>
+        <set field="partyAcctgPreference" from-field="parameters.partyAcctgPreference"/>
+        <!-- this is sequential sequencing, we can't skip a number; except that it is restarted each fiscal year -->
+
+        <now-timestamp field="nowTimestamp"/>
+        <if-empty field="partyAcctgPreference.lastInvoiceRestartDate">
+            <!-- if no lastInvoiceRestartDate then it's easy, just start now with 1 -->
+            <calculate field="partyAcctgPreference.lastInvoiceNumber" type="Long"><number value="1"/></calculate>
+            <set from-field="nowTimestamp" field="partyAcctgPreference.lastInvoiceRestartDate"/>
+            <else>
+                <!-- first figure out if we need to reset the lastInvoiceNumber; is the lastInvoiceRestartDate after the fiscalYearStartMonth/Day for this year? -->
+                <calculate field="zeroLong" type="Long"><number value="0"/></calculate>
+                <call-class-method class-name="org.apache.ofbiz.base.util.UtilDateTime" method-name="getYearStart" ret-field="curYearFiscalStartDate">
+                    <field field="nowTimestamp" type="java.sql.Timestamp"/>
+                    <field field="partyAcctgPreference.fiscalYearStartDay" type="java.lang.Number"/>
+                    <field field="partyAcctgPreference.fiscalYearStartMonth" type="java.lang.Number"/>
+                    <field field="zeroLong" type="java.lang.Number"/>
+                </call-class-method>
+                <if>
+                    <condition>
+                        <and>
+                            <if-compare-field field="partyAcctgPreference.lastInvoiceRestartDate" to-field="curYearFiscalStartDate" operator="less" type="Timestamp"/>
+                            <if-compare-field field="nowTimestamp" to-field="curYearFiscalStartDate" operator="greater-equals" type="Timestamp"/>
+                        </and>
+                    </condition>
+                    <then>
+                        <!-- less than fiscal year start, we need to reset it -->
+                        <calculate field="partyAcctgPreference.lastInvoiceNumber" type="Long"><number value="1"/></calculate>
+                        <set from-field="nowTimestamp" field="partyAcctgPreference.lastInvoiceRestartDate"/>
+                    </then>
+                    <else>
+                        <!-- greater than or equal to fiscal year start or nowTimestamp hasn't yet hit the current year fiscal start date, we're okay, just increment -->
+                        <calculate field="partyAcctgPreference.lastInvoiceNumber" type="Long">
+                            <calcop operator="add" field="partyAcctgPreference.lastInvoiceNumber"/>
+                            <number value="1"/>
+                        </calculate>
+                    </else>
+                </if>
+            </else>
+        </if-empty>
+        <store-value value-field="partyAcctgPreference"/>
+
+        <!-- get the current year string for prefix, etc; simple 4 digit year date string (using system defaults) -->
+        <set field="curYearString" value="${str:toString(date:year(partyAcctgPreference.lastInvoiceRestartDate, util:defaultTimeZone(), util:defaultLocale()))}"/>
+        <set field="invoiceId" value="${curYearString}-${str:toString(partyAcctgPreference.lastInvoiceNumber)}"/>
+        <field-to-result field="invoiceId" result-name="invoiceId"/>
+   </simple-method>
+
     <simple-method method-name="createInvoice" short-description="Create a new Invoice">
         <now-timestamp field="nowTimestamp"/>
 
-        <make-value entity-name="Invoice" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="Invoice"/>
 
         <!-- call getNextInvoiceId service with the parameters.partyIdFrom when invoice Id is not suplied
                             else use it from the input -->
@@ -92,7 +213,7 @@ under the License.
 
     <simple-method method-name="getInvoice" short-description="Retrieve an invoice and the items">
         <!-- find the invoice record -->
-        <make-value entity-name="Invoice" value-field="lookupPKMap"/>
+        <make-value value-field="lookupPKMap" entity-name="Invoice"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="Invoice" map="lookupPKMap" value-field="invoiceValue"/>
         <field-to-result field="invoiceValue" result-name="invoice"/>
@@ -104,7 +225,7 @@ under the License.
     <simple-method method-name="updateInvoice" short-description="Update the header of an existing Invoice">
         <call-simple-method method-name="InvoiceStatusInProgress"/>
         <!-- find the current record -->
-        <make-value entity-name="Invoice" value-field="lookupPKMap"/>
+        <make-value value-field="lookupPKMap" entity-name="Invoice"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="Invoice" map="lookupPKMap" value-field="lookedUpValue"/>
 
@@ -151,7 +272,7 @@ under the License.
     <simple-method method-name="createInvoiceItem" short-description="Create a new Invoice Item">
         <set field="invoiceId" from-field="parameters.invoiceId"/>
         <call-simple-method method-name="InvoiceStatusInProgress"/>
-        <make-value entity-name="InvoiceItem" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="InvoiceItem"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.invoiceItemSeqId">
@@ -185,7 +306,7 @@ under the License.
     <simple-method method-name="updateInvoiceItem"
         short-description="Update an existing Invoice Item">
         <call-simple-method method-name="InvoiceStatusInProgress"/>
-        <make-value entity-name="InvoiceItem" value-field="lookupPKMap"/>
+        <make-value value-field="lookupPKMap" entity-name="InvoiceItem"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
 
         <find-by-primary-key entity-name="InvoiceItem" map="lookupPKMap" value-field="lookedUpValue"/>
@@ -329,7 +450,7 @@ under the License.
 
     <simple-method method-name="createInvoiceRole" short-description="Create a Invoice Role">
         <call-simple-method method-name="InvoiceStatusInProgress"/>
-        <make-value entity-name="InvoiceRole" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="InvoiceRole"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.datetimePerformed"><now-timestamp field="newEntity.datetimePerformed"/></if-empty>
@@ -435,7 +556,7 @@ under the License.
     <simple-method method-name="createInvoiceTerm" short-description="Create a Invoice Term">
         <call-simple-method method-name="InvoiceStatusInProgress"/>
 
-        <make-value entity-name="InvoiceTerm" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="InvoiceTerm"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <sequenced-id sequence-name="InvoiceTerm" field="newEntity.invoiceTermId"/>
@@ -821,7 +942,7 @@ under the License.
     
     <!-- InvoiceContent -->
     <simple-method method-name="createInvoiceContent" short-description="Create Content For Invoice">
-        <make-value entity-name="InvoiceContent" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="InvoiceContent"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
@@ -840,7 +961,7 @@ under the License.
         <field-to-result field="newEntity.invoiceContentTypeId" result-name="invoiceContentTypeId"/>
     </simple-method>
     <simple-method method-name="updateInvoiceContent" short-description="Update Content For Invoice">
-        <make-value entity-name="InvoiceContent" value-field="lookupPKMap"/>
+        <make-value value-field="lookupPKMap" entity-name="InvoiceContent"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>

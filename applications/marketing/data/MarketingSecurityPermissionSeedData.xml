@@ -38,7 +38,7 @@ under the License.
     <SecurityPermission description="Limited update operations in the SFA Manager." permissionId="SFA_ROLE_UPDATE"/>
     
     <!-- add admin to SUPER permission group -->
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="MARKETING_ADMIN"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="SFA_ADMIN"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="MARKETING_ADMIN"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="SFA_ADMIN"/>
     
 </entity-engine-xml>

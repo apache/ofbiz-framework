@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
+    <property key="SolrAddedDocumentsToSolrIndex">
+        <value xml:lang="en">Added ${fieldList} documents to solr index</value>
+    </property>
+    <property key="SolrApplication">
+        <value xml:lang="en">Apache Solr Integration</value>
+    </property>
+    <property key="SolrClearedSolrIndexAndReindexedDocuments">
+        <value xml:lang="en">Cleared solr index and reindexed ${numDocs} documents</value>
+    </property>
+    <property key="SolrCompanyName">
+        <value xml:lang="en">OFBIz - Solr Integration</value>
+    </property>
+    <property key="SolrDocumentForProductIdAddedToSolrIndex">
+        <value xml:lang="en">Document for productId ${productId} added to solr index</value>
+    </property>
+    <property key="SolrFailureConnectingToSolrServerToCommitProductId">
+        <value xml:lang="en">Failure connecting to solr server to commit productId ${productId"). product not updated</value>
+    </property>
+    <property key="SolrFailureConnectingToSolrServerToCommitProductList">
+        <value xml:lang="en">Failure connecting to solr server to commit product list; products not updated</value>
+    </property>
+    <property key="SolrFailureConnectingToSolrServerToRebuildIndex">
+        <value xml:lang="en">Failure connecting to solr server to rebuild index; index not updated.</value>
+    </property>
+    <property key="SolrMissingProductCategoryId">
+        <value xml:lang="en">Missing product category id.</value>
+    </property>
+    
+    <property key="SolrErrorManageLoginFirst">
+        <value xml:lang="en">To manage Solr in OFBiz, you have to login first and have the permission to do so.</value>
+    </property>
+    <property key="SolrErrorNoManagePermission">
+        <value xml:lang="en">To manage Solr in OFBiz, you should have the permission to do so.</value>
+    </property>
+    <property key="SolrErrorUpdateLoginFirst">
+        <value xml:lang="en">To update a Solr index in OFBiz, you have to login first and have the permission to do so.</value>
+    </property>
+    <property key="SolrErrorNoUpdatePermission">
+        <value xml:lang="en">To update Solr in OFBiz, you should have the permission to do so.</value>
+    </property>
+    <property key="SolrErrorReplicateLoginFirst">
+        <value xml:lang="en">To enable/disable replication of a Solr index in OFBiz, you have to login first and have the permission to do so.</value>
+    </property>
+    <property key="SolrErrorNoReplicatePermission">
+        <value xml:lang="en">To enable/disable replication of a Solr index in OFBiz, you should have the permission to do so.</value>
+    </property>
+    <property key="SolrErrorViewFileLoginFirst">
+        <value xml:lang="en">To view files of a Solr index in OFBiz, you have to login first and have the permission to do so.</value>
+    </property>
+    <property key="SolrErrorNoViewFilePermission">
+        <value xml:lang="en">To view files of a Solr index in OFBiz, you should have the permission to do so.</value>
+    </property>
+</resource>

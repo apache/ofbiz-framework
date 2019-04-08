@@ -1,0 +1,1118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<entity-engine-xml>
+    <AcctgTransType acctgTransTypeId="_NA_" description="Not Applicable" hasTable="N" parentTypeId=""/>
+    <AcctgTransType acctgTransTypeId="INTERNAL_ACCTG_TRANS" description="Internal" hasTable="Y" parentTypeId=""/>
+    <AcctgTransType acctgTransTypeId="AMORTIZATION" description="Amortization" hasTable="N" parentTypeId="INTERNAL_ACCTG_TRANS"/>
+    <AcctgTransType acctgTransTypeId="DEPRECIATION" description="Depreciation" hasTable="Y" parentTypeId="INTERNAL_ACCTG_TRANS"/>
+    <AcctgTransType acctgTransTypeId="CAPITALIZATION" description="Capitalization" hasTable="N" parentTypeId="INTERNAL_ACCTG_TRANS"/>
+    <AcctgTransType acctgTransTypeId="INVENTORY" description="Inventory" hasTable="N" parentTypeId="INTERNAL_ACCTG_TRANS"/>
+    <AcctgTransType acctgTransTypeId="ITEM_VARIANCE" description="Inventory Item Variance" hasTable="Y" parentTypeId="INTERNAL_ACCTG_TRANS"/>
+    <AcctgTransType acctgTransTypeId="OTHER_INTERNAL" description="Other Internal" hasTable="N" parentTypeId="INTERNAL_ACCTG_TRANS"/>
+    <AcctgTransType acctgTransTypeId="PERIOD_CLOSING" description="Period Closing" hasTable="N" parentTypeId="INTERNAL_ACCTG_TRANS"/>
+
+    <AcctgTransType acctgTransTypeId="EXTERNAL_ACCTG_TRANS" description="External" hasTable="Y" parentTypeId=""/>
+
+    <AcctgTransType acctgTransTypeId="OBLIGATION_ACCTG_TRA" description="Obligation" hasTable="N" parentTypeId="EXTERNAL_ACCTG_TRANS"/>
+    <AcctgTransType acctgTransTypeId="CREDIT_LINE" description="Credit Line" hasTable="N" parentTypeId="OBLIGATION_ACCTG_TRA"/>
+    <AcctgTransType acctgTransTypeId="CREDIT_MEMO" description="Credit Memo" hasTable="N" parentTypeId="OBLIGATION_ACCTG_TRA"/>
+    <AcctgTransType acctgTransTypeId="NOTE" description="Note" hasTable="N" parentTypeId="OBLIGATION_ACCTG_TRA"/>
+    <AcctgTransType acctgTransTypeId="OTHER_OBLIGATION" description="Other Obligation" hasTable="N" parentTypeId="OBLIGATION_ACCTG_TRA"/>
+    <AcctgTransType acctgTransTypeId="SALES" description="Sales" hasTable="Y" parentTypeId="OBLIGATION_ACCTG_TRA"/>
+    <AcctgTransType acctgTransTypeId="TAX_DUE" description="Tax Due" hasTable="N" parentTypeId="OBLIGATION_ACCTG_TRA"/>
+
+    <AcctgTransType acctgTransTypeId="PAYMENT_ACCTG_TRANS" description="Payment" hasTable="Y" parentTypeId="EXTERNAL_ACCTG_TRANS"/>
+    <AcctgTransType acctgTransTypeId="DISBURSEMENT" description="Disbursement" hasTable="N" parentTypeId="PAYMENT_ACCTG_TRANS"/>
+    <AcctgTransType acctgTransTypeId="RECEIPT" description="Receipt" hasTable="N" parentTypeId="PAYMENT_ACCTG_TRANS"/>
+
+    <AcctgTransType acctgTransTypeId="INVENTORY_RETURN" description="Inventory from Return" hasTable="N" parentTypeId="EXTERNAL_ACCTG_TRANS"/>
+
+    <AcctgTransType acctgTransTypeId="SALES_INVOICE" description="Sales Invoice" hasTable="N" parentTypeId="OBLIGATION_ACCTG_TRA"/><!-- FIXME: replace with "SALES" -->
+    <AcctgTransType acctgTransTypeId="PURCHASE_INVOICE" description="Purchase Invoice" hasTable="N" parentTypeId="OBLIGATION_ACCTG_TRA"/><!-- FIXME: replace with "SALES" -->
+    <AcctgTransType acctgTransTypeId="CUST_RTN_INVOICE" description="Customer Return" hasTable="N" parentTypeId="OBLIGATION_ACCTG_TRA"/><!-- FIXME: replace with "SALES" -->
+    <AcctgTransType acctgTransTypeId="SALES_SHIPMENT" description="Sales Shipment" hasTable="N" parentTypeId="EXTERNAL_ACCTG_TRANS"/>
+    <AcctgTransType acctgTransTypeId="SHIPMENT_RECEIPT" description="Shipment Receipt" hasTable="N" parentTypeId="EXTERNAL_ACCTG_TRANS"/>
+    <AcctgTransType acctgTransTypeId="MANUFACTURING" description="Manufacturing" hasTable="N" parentTypeId=""/>
+
+    <AcctgTransType acctgTransTypeId="INCOMING_PAYMENT" description="Incoming Payment" hasTable="N" parentTypeId=""/><!-- FIXME: replace with "RECEIPT" -->
+    <AcctgTransType acctgTransTypeId="OUTGOING_PAYMENT" description="Outgoing Payment" hasTable="N" parentTypeId=""/><!-- FIXME: replace with "DISBURSEMENT" -->
+
+    <AcctgTransType acctgTransTypeId="PAYMENT_APPL" description="Payment Applied" hasTable="N" parentTypeId=""/>
+
+    <AcctgTransEntryType acctgTransEntryTypeId="_NA_" description="Not Applicable" hasTable="N" parentTypeId=""/>
+
+    <StatusType description="Acctg Entry Reconcile" hasTable="N" parentTypeId="" statusTypeId="ACCTG_ENREC_STATUS"/>
+    <StatusItem description="Not Reconciled" sequenceId="01" statusCode="NOT_RECONCILED" statusId="AES_NOT_RECONCILED" statusTypeId="ACCTG_ENREC_STATUS"/>
+    <StatusItem description="Partly Reconciled" sequenceId="02" statusCode="PARTLY_RECONCILED" statusId="AES_PARTLY_RECON" statusTypeId="ACCTG_ENREC_STATUS"/>
+    <StatusItem description="Reconciled" sequenceId="03" statusCode="RECONCILED" statusId="AES_RECONCILED" statusTypeId="ACCTG_ENREC_STATUS"/>
+
+    <BudgetItemType budgetItemTypeId="REQUIREMENT_BUDGET_A" description="Requirement" hasTable="Y" parentTypeId=""/>
+
+    <BudgetType budgetTypeId="CAPITAL_BUDGET" description="Capital" hasTable="N" parentTypeId=""/>
+    <BudgetType budgetTypeId="OPERATING_BUDGET" description="Operating" hasTable="N" parentTypeId=""/>
+
+    <EnumerationType description="Gift Card Fulfillment" enumTypeId="GC_FULFILL" hasTable="N" parentTypeId=""/>
+    <Enumeration description="Activate" enumCode="ACTIVATE" enumId="GC_ACTIVATE" sequenceId="01" enumTypeId="GC_FULFILL"/>
+    <Enumeration description="Reload" enumCode="RELOAD" enumId="GC_RELOAD" sequenceId="02" enumTypeId="GC_FULFILL"/>
+
+    <EnumerationType description="Payment Gateway Transaction Code" enumTypeId="PGT_CODE" hasTable="N" parentTypeId=""/>
+    <Enumeration description="Authorize" enumCode="AUTHORIZE" enumId="PGT_AUTHORIZE" sequenceId="01" enumTypeId="PGT_CODE"/>
+    <Enumeration description="Capture" enumCode="CAPTURE" enumId="PGT_CAPTURE" sequenceId="02" enumTypeId="PGT_CODE"/>
+    <Enumeration description="Release" enumCode="RELEASE" enumId="PGT_RELEASE" sequenceId="03" enumTypeId="PGT_CODE"/>
+    <Enumeration description="Refund" enumCode="REFUND" enumId="PGT_REFUND" sequenceId="04" enumTypeId="PGT_CODE"/>
+    <Enumeration description="Credit" enumCode="CREDIT" enumId="PGT_CREDIT" sequenceId="05" enumTypeId="PGT_CODE"/>
+
+    <EnumerationType description="Financial Account Replenish Type" enumTypeId="FARP_TYPE" hasTable="N" parentTypeId=""/>
+    <Enumeration description="Automatic Replenish" enumCode="AUTOMATIC" enumId="FARP_AUTOMATIC" sequenceId="01" enumTypeId="FARP_TYPE"/>
+    <Enumeration description="Manual Replenish" enumCode="MANUAL" enumId="FARP_MANUAL" sequenceId="02" enumTypeId="FARP_TYPE"/>
+    <Enumeration description="No Replenish" enumCode="NONE" enumId="FARP_NONE" sequenceId="03" enumTypeId="FARP_TYPE"/>
+
+    <EnumerationType description="Financial Account Replenish Method" enumTypeId="FARP_METHOD" hasTable="N" parentTypeId=""/>
+    <Enumeration description="Top-off" enumCode="TOP_OFF" enumId="FARP_TOP_OFF" sequenceId="01" enumTypeId="FARP_METHOD"/>
+    <Enumeration description="Replenish-level" enumCode="REPLENISH_LEVEL" enumId="FARP_REPLENISH_LEVEL" sequenceId="02" enumTypeId="FARP_METHOD"/>
+
+    <FinAccountTransType description="Deposit" finAccountTransTypeId="DEPOSIT" hasTable="N" parentTypeId=""/>
+    <FinAccountTransType description="Withdraw" finAccountTransTypeId="WITHDRAWAL" hasTable="N" parentTypeId=""/>
+    <FinAccountTransType description="Adjustment" finAccountTransTypeId="ADJUSTMENT" hasTable="N" parentTypeId=""/>
+
+    <FinAccountType description="Gift Certificate" finAccountTypeId="GIFTCERT_ACCOUNT" hasTable="N" replenishEnumId="FARP_MANUAL" isRefundable="N" parentTypeId=""/>
+    <FinAccountType description="Deposit Account" finAccountTypeId="DEPOSIT_ACCOUNT" replenishEnumId="FARP_MANUAL" hasTable="N" isRefundable="Y" parentTypeId=""/>
+    <FinAccountType description="Bank Account" finAccountTypeId="BANK_ACCOUNT" hasTable="N" replenishEnumId="FARP_MANUAL" isRefundable="Y" parentTypeId="DEPOSIT_ACCOUNT"/>
+    <FinAccountType description="Store Credit Account" finAccountTypeId="STORE_CREDIT_ACCT" hasTable="N" replenishEnumId="FARP_MANUAL" isRefundable="Y" parentTypeId="DEPOSIT_ACCOUNT"/>
+    <FinAccountType description="Investment Account" finAccountTypeId="INVESTMENT_ACCOUNT" hasTable="N" replenishEnumId="FARP_MANUAL" isRefundable="Y" parentTypeId="DEPOSIT_ACCOUNT"/>
+    <FinAccountType description="Replenish Account" finAccountTypeId="REPLENISH_ACCOUNT" hasTable="N" replenishEnumId="FARP_AUTOMATIC" isRefundable="Y" parentTypeId="DEPOSIT_ACCOUNT"/>
+    <FinAccountType description="Service Credit Account" finAccountTypeId="SVCCRED_ACCOUNT" hasTable="N" replenishEnumId="FARP_MANUAL" isRefundable="N" parentTypeId=""/>
+    <FinAccountType description="Loan Account" finAccountTypeId="LOAN_ACCOUNT" hasTable="N" replenishEnumId="FARP_MANUAL" isRefundable="Y" parentTypeId=""/>
+    <FinAccountType description="Credit Card Account" finAccountTypeId="CREDIT_CARD_ACCOUNT" hasTable="N" replenishEnumId="FARP_MANUAL" isRefundable="Y" parentTypeId="LOAN_ACCOUNT"/>
+    <FinAccountType description="Equity Line Account" finAccountTypeId="EQUITY_LINE_ACCOUNT" hasTable="N" replenishEnumId="FARP_MANUAL" isRefundable="Y" parentTypeId="LOAN_ACCOUNT"/>
+
+    <StatusType description="Financial Account Status" hasTable="N" parentTypeId="" statusTypeId="FINACCT_STATUS"/>
+    <StatusItem description="Active" sequenceId="01" statusCode="ACTIVE" statusId="FNACT_ACTIVE" statusTypeId="FINACCT_STATUS"/>
+    <!-- This is set automatically by the auto-replenishment code to allow one transaction to bring the balance below zero and then if any other transactions are attempted during replenishment they will be rejected. Was inGoodStanding -->
+    <StatusItem description="Negative Pending Replenishment" sequenceId="02" statusCode="NEGPENDREPL" statusId="FNACT_NEGPENDREPL" statusTypeId="FINACCT_STATUS"/>
+    <!-- This is meant to be set manually by a company representative to freeze an account so further transactions are not allowed. Was isFrozen -->
+    <StatusItem description="Manually Frozen" sequenceId="03" statusCode="MANFROZEN" statusId="FNACT_MANFROZEN" statusTypeId="FINACCT_STATUS"/>
+    <StatusItem description="Cancelled" sequenceId="09" statusCode="CANCELLED" statusId="FNACT_CANCELLED" statusTypeId="FINACCT_STATUS"/>
+    <StatusValidChange statusId="FNACT_ACTIVE" statusIdTo="FNACT_NEGPENDREPL" transitionName="Set Negative Pending Replenishment"/>
+    <StatusValidChange statusId="FNACT_ACTIVE" statusIdTo="FNACT_MANFROZEN" transitionName="Set Manually Frozen"/>
+    <StatusValidChange statusId="FNACT_ACTIVE" statusIdTo="FNACT_CANCELLED" transitionName="Cancel"/>
+    <StatusValidChange statusId="FNACT_NEGPENDREPL" statusIdTo="FNACT_ACTIVE" transitionName="Re-activate"/>
+    <StatusValidChange statusId="FNACT_NEGPENDREPL" statusIdTo="FNACT_MANFROZEN" transitionName="Manually Freeze"/>
+    <StatusValidChange statusId="FNACT_NEGPENDREPL" statusIdTo="FNACT_CANCELLED" transitionName="Cancel"/>
+    <StatusValidChange statusId="FNACT_MANFROZEN" statusIdTo="FNACT_ACTIVE" transitionName="Re-activate"/>
+    <StatusValidChange statusId="FNACT_MANFROZEN" statusIdTo="FNACT_CANCELLED" transitionName="Cancel"/>
+    <StatusType statusTypeId="FINACT_TRNS_STATUS" description="Financial Account Trans Status" hasTable="N" parentTypeId=""/>
+    <StatusItem statusId="FINACT_TRNS_APPROVED" statusTypeId="FINACT_TRNS_STATUS" statusCode="APPROVED" sequenceId="11" description="Approved"/>
+    <StatusItem statusId="FINACT_TRNS_CREATED" statusTypeId="FINACT_TRNS_STATUS" statusCode="CREATED" sequenceId="12" description="Created"/>
+    <StatusItem statusId="FINACT_TRNS_CANCELED" statusTypeId="FINACT_TRNS_STATUS" statusCode="CANCELED" sequenceId="13" description="Canceled"/>
+    <StatusValidChange statusId="FINACT_TRNS_CREATED" statusIdTo="FINACT_TRNS_APPROVED" transitionName="Set Created to Approved"/>
+    <StatusValidChange statusId="FINACT_TRNS_CREATED" statusIdTo="FINACT_TRNS_CANCELED" transitionName="Set Created to Canceled"/>
+    <StatusValidChange statusId="FINACT_TRNS_APPROVED" statusIdTo="FINACT_TRNS_CANCELED" transitionName="Set Approved to Canceled"/>
+
+    <!-- FinAccount Reasons for Purchase & Replenish -->
+    <EnumerationType description="Service Debit Reasons" enumTypeId="FINACCT_TRANS_REASON" parentTypeId="" hasTable="N"/>
+    <Enumeration description="Purchase" enumId="FATR_PURCHASE" enumCode="PURCHASE" enumTypeId="FINACCT_TRANS_REASON" sequenceId="01"/>
+    <Enumeration description="Initial Deposit" enumId="FATR_IDEPOSIT" enumCode="IDEPOSIT" enumTypeId="FINACCT_TRANS_REASON" sequenceId="02"/>
+    <Enumeration description="Replenishment" enumId="FATR_REPLENISH" enumCode="REPLENISH" enumTypeId="FINACCT_TRANS_REASON" sequenceId="03"/>
+    <Enumeration description="Refund" enumId="FATR_REFUND" enumCode="REFUND" enumTypeId="FINACCT_TRANS_REASON" sequenceId="04"/>
+
+    <FixedAssetType description="Equipment" fixedAssetTypeId="EQUIPMENT" hasTable="N" parentTypeId=""/>
+    <FixedAssetType description="The fixed asset used in the operation-routing definition" fixedAssetTypeId="PRODUCTION_EQUIPMENT" hasTable="N" parentTypeId=""/>
+    <FixedAssetType description="Group of machines, used for task and routing definition" fixedAssetTypeId="GROUP_EQUIPMENT" hasTable="N" parentTypeId=""/>
+    <FixedAssetType description="Other Fixed Asset" fixedAssetTypeId="OTHER_FIXED_ASSET" hasTable="N" parentTypeId=""/>
+    <FixedAssetType description="Property" fixedAssetTypeId="PROPERTY" hasTable="N" parentTypeId=""/>
+    <FixedAssetType description="Vehicle" fixedAssetTypeId="VEHICLE" hasTable="N" parentTypeId=""/>
+    <FixedAssetType description="Real Estate" fixedAssetTypeId="REAL_ESTATE" hasTable="N" parentTypeId=""/>
+    <FixedAssetType description="Computer Software" fixedAssetTypeId="COMPUTER_SOFTWARE" hasTable="N" parentTypeId=""/>
+    <FixedAssetType description="Computer Hardware" fixedAssetTypeId="COMPUTER_HARDWARE" hasTable="N" parentTypeId=""/>
+
+    <EnumerationType description="Fixed Asset Class" enumTypeId="FXAST_CLASS" hasTable="N" parentTypeId=""/>
+    <Enumeration description="Boat" enumCode="BOAT" enumId="FAC_BOAT" sequenceId="01" enumTypeId="FXAST_CLASS"/>
+    <Enumeration description="Forklift" enumCode="FORKLIFT" enumId="FAC_FORKLIFT" sequenceId="01" enumTypeId="FXAST_CLASS"/>
+    <Enumeration description="Digger" enumCode="DIGGER" enumId="FAC_DIGGER" sequenceId="01" enumTypeId="FXAST_CLASS"/>
+    <Enumeration description="Manlift" enumCode="MANLIFT" enumId="FAC_MANLIFT" sequenceId="01" enumTypeId="FXAST_CLASS"/>
+    <Enumeration description="Service Body" enumCode="SERVICE_BODY" enumId="FAC_SERVICE_BODY" sequenceId="01" enumTypeId="FXAST_CLASS"/>
+    <Enumeration description="Tractor" enumCode="TRACTOR" enumId="FAC_TRACTOR" sequenceId="01" enumTypeId="FXAST_CLASS"/>
+    <Enumeration description="Passenger Vehicle" enumCode="PASSENGER" enumId="FAC_PASSENGER" sequenceId="01" enumTypeId="FXAST_CLASS"/>
+    <Enumeration description="Compressor" enumCode="COMPRESSOR" enumId="FAC_COMPRESSOR" sequenceId="01" enumTypeId="FXAST_CLASS"/>
+    <Enumeration description="Trencher" enumCode="TRENCHER" enumId="FAC_TRENCHER" sequenceId="01" enumTypeId="FXAST_CLASS"/>
+    <Enumeration description="Puller" enumCode="PULLER" enumId="FAC_PULLER" sequenceId="01" enumTypeId="FXAST_CLASS"/>
+    <Enumeration description="Mobile" enumCode="MOBILE" enumId="FAC_MOBILE" sequenceId="01" enumTypeId="FXAST_CLASS"/><!-- perhaps a more descriptive name? not sure what this refers to though... -->
+    <Enumeration description="Tanker" enumCode="TANKER" enumId="FAC_TANKER" sequenceId="01" enumTypeId="FXAST_CLASS"/>
+    <Enumeration description="Reel Stand" enumCode="REEL_STAND" enumId="FAC_REEL_STAND" sequenceId="01" enumTypeId="FXAST_CLASS"/>
+
+    <EnumerationType description="Computer Hardware" enumTypeId="FXAST_COMPU_HARDWARE" hasTable="N" parentTypeId="FXAST_CLASS"/>
+    <Enumeration description="Desktop" enumCode="DESKTOP" enumId="FAC_DESKTOP" sequenceId="01" enumTypeId="FXAST_COMPU_HARDWARE"/>
+    <Enumeration description="Laptop" enumCode="LAPTOP" enumId="FAC_LAPTOP" sequenceId="01" enumTypeId="FXAST_COMPU_HARDWARE"/>
+    <Enumeration description="Monitor" enumCode="MONITOR" enumId="FAC_MONITOR" sequenceId="01" enumTypeId="FXAST_COMPU_HARDWARE"/>
+
+    <EnumerationType description="Computer Software" enumTypeId="FXAST_COMPU_SOFTWARE" hasTable="N" parentTypeId="FXAST_CLASS"/>
+    <Enumeration description="Programming Software" enumCode="PRG_SOFTWARE" enumId="FAC_PRG_SOFTWARE" sequenceId="01" enumTypeId="FXAST_COMPU_SOFTWARE"/>
+    <Enumeration description="System Software" enumCode="SYS_SOFTWARE" enumId="FAC_SYS_SOFTWARE" sequenceId="01" enumTypeId="FXAST_COMPU_SOFTWARE"/>
+    <Enumeration description="Application Software" enumCode="APP_SOFTWARE" enumId="FAC_APP_SOFTWARE" sequenceId="01" enumTypeId="FXAST_COMPU_SOFTWARE"/>
+    <Enumeration description="Utility Software" enumCode="UTIL_SOFTWARE" enumId="FAC_UTIL_SOFTWARE" sequenceId="01" enumTypeId="FXAST_COMPU_SOFTWARE"/>
+
+    <FixedAssetIdentType description="Mfg Serial Number" fixedAssetIdentTypeId="MFG_SERIAL"/>
+    <FixedAssetIdentType description="Vendor Tracking/Inventory Number" fixedAssetIdentTypeId="TRACKING_VENDOR"/>
+    <FixedAssetIdentType description="Internal Tracking Label Number" fixedAssetIdentTypeId="TRACKING_LABEL"/>
+    <FixedAssetIdentType description="Vehicle Identification Number (VIN)" fixedAssetIdentTypeId="VIN"/>
+    <FixedAssetIdentType description="Gas Card Number 1" fixedAssetIdentTypeId="GAS_CARD1"/>
+    <FixedAssetIdentType description="Gas Card Number 2" fixedAssetIdentTypeId="GAS_CARD2"/>
+    <FixedAssetIdentType description="Gas Card Number 3" fixedAssetIdentTypeId="GAS_CARD3"/>
+
+    <StatusType description="Fixed Asset Maintenance" hasTable="N" parentTypeId="" statusTypeId="FIXEDAST_MNT_STATUS"/>
+    <StatusItem description="Created" sequenceId="01" statusCode="CREATED" statusId="FAM_CREATED" statusTypeId="FIXEDAST_MNT_STATUS"/>
+    <StatusItem description="Scheduled" sequenceId="03" statusCode="SCHEDULED" statusId="FAM_SCHEDULED" statusTypeId="FIXEDAST_MNT_STATUS"/>
+    <StatusItem description="In Process" sequenceId="05" statusCode="IN_PROCESS" statusId="FAM_IN_PROCESS" statusTypeId="FIXEDAST_MNT_STATUS"/>
+    <StatusItem description="Completed" sequenceId="10" statusCode="COMPLETED" statusId="FAM_COMPLETED" statusTypeId="FIXEDAST_MNT_STATUS"/>
+    <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="FAM_CANCELLED" statusTypeId="FIXEDAST_MNT_STATUS"/>
+    <StatusValidChange statusId="FAM_CREATED" statusIdTo="FAM_SCHEDULED" transitionName="Created Maintenance Scheduled"/>
+    <StatusValidChange statusId="FAM_CREATED" statusIdTo="FAM_IN_PROCESS" transitionName="Created Maintenance In-Process"/>
+    <StatusValidChange statusId="FAM_CREATED" statusIdTo="FAM_CANCELLED" transitionName="Created Maintenace Cancelled"/>
+    <StatusValidChange statusId="FAM_SCHEDULED" statusIdTo="FAM_IN_PROCESS" transitionName="Scheduled Maintenace In-Process"/>
+    <StatusValidChange statusId="FAM_SCHEDULED" statusIdTo="FAM_CANCELLED" transitionName="Scheduled Maintenace Cancelled"/>
+    <StatusValidChange statusId="FAM_IN_PROCESS" statusIdTo="FAM_COMPLETED" transitionName="In-Process Maintenance Completed"/>
+    
+    <!-- Fixed Asset Maintenance party roles -->
+    <RoleType description="Fixed Asset Maint Assignee" hasTable="N" roleTypeId="FAM_ASSIGNEE"/>
+    <RoleType description="Maintenance Supplier or Service" hasTable="N" parentTypeId="FAM_ASSIGNEE" roleTypeId="FAM_SUPPLIER"/>
+    <RoleType description="Maintenance Manager or Supervisor" hasTable="N" parentTypeId="FAM_ASSIGNEE" roleTypeId="FAM_MANAGER"/>
+    <RoleType description="Maintenance Worker" hasTable="N" parentTypeId="FAM_ASSIGNEE" roleTypeId="FAM_WORKER"/>
+
+    <FixedAssetProductType description="Use of Asset" fixedAssetProductTypeId="FAPT_USE"/>
+    <FixedAssetProductType description="Sale of Asset" fixedAssetProductTypeId="FAPT_SALE"/>
+
+    <!-- These classes are used to classify gl accounts for financial statement purposes: balance sheet, income statement, cash flow statement,
+        statement of shareholders' equity.  We could get fancier with different types of accounts: Investments vs PP&E, classes of equity,
+        classes of debt, etc. over time -->
+    <!--
+
+        DEBIT
+            |___> NON_POSTING
+            |
+            |___> CONTRA_REVENUE
+            |
+            |___> ASSET
+            |         |_________> LONGTERM_ASSET
+            |         |
+            |         |_________> CURRENT_ASSET
+            |                                 |____> CASH_EQUIVALENT
+            |                                 |
+            |                                 |____> INVENTORY_ASSET
+            |
+            |___> DISTRIBUTION
+            |               |___> RETURN_OF_CAPITAL
+            |               |
+            |               |___> DIVIDEND
+            |
+            |___> EXPENSE
+                      |_________> CASH_EXPENSE
+                      |                       |____> INTEREST_EXPENSE
+                      |                       |
+                      |                       |____> COGS_EXPENSE
+                      |                       |
+                      |                       |____> SGA_EXPENSE
+                      |
+                      |_________> NON_CASH_EXPENSE
+                                              |____> DEPRECIATION
+                                              |
+                                              |____> AMORTIZATION
+                                              |
+                                              |____> INVENTORY_ADJUST
+
+        CREDIT
+            |___> CONTRA_ASSET
+            |              |___> ACCUM_DEPRECIATION
+            |              |
+            |              |___> ACCUM_AMORTIZATION
+            |
+            |___> LIABILITY
+            |         |_________> CURRENT_LIABILITY
+            |         |
+            |         |_________> LONGTERM_LIABILITY
+            |
+            |___> EQUITY
+            |         |_________> OWNERS_EQUITY
+            |         |
+            |         |_________> RETAINED_EARNINGS
+            |
+            |___> REVENUE
+            |
+            |___> INCOME
+                       |________> CASH_INCOME
+                       |
+                       |________> NON_CASH_INCOME
+
+        RESOURCE
+
+    -->
+    <GlAccountClass description="Debit" glAccountClassId="DEBIT" parentClassId=""/>
+    <GlAccountClass description="Credit" glAccountClassId="CREDIT" parentClassId=""/>
+    <GlAccountClass description="Resource" glAccountClassId="RESOURCE" parentClassId=""/>
+    <GlAccountClass description="Asset" glAccountClassId="ASSET" parentClassId="DEBIT"/>
+    <GlAccountClass description="Current Asset" glAccountClassId="CURRENT_ASSET" parentClassId="ASSET"/>
+    <GlAccountClass description="Cash and Equivalent" glAccountClassId="CASH_EQUIVALENT" parentClassId="CURRENT_ASSET"/>
+    <GlAccountClass description="Inventory Asset" glAccountClassId="INVENTORY_ASSET" parentClassId="CURRENT_ASSET"/>
+    <GlAccountClass description="Long Term Asset" glAccountClassId="LONGTERM_ASSET" parentClassId="ASSET"/>
+    <GlAccountClass description="Liability" glAccountClassId="LIABILITY" parentClassId="CREDIT"/>
+    <GlAccountClass description="Current Liability" glAccountClassId="CURRENT_LIABILITY" parentClassId="LIABILITY"/>
+    <GlAccountClass description="Long Term Liability" glAccountClassId="LONGTERM_LIABILITY" parentClassId="LIABILITY"/>
+    <GlAccountClass description="Equity" glAccountClassId="EQUITY" parentClassId="CREDIT"/>
+    <GlAccountClass description="Owners Equity" glAccountClassId="OWNERS_EQUITY" parentClassId="EQUITY"/>
+    <GlAccountClass description="Retained Earnings" glAccountClassId="RETAINED_EARNINGS" parentClassId="EQUITY"/>
+    <GlAccountClass description="Equity Distribution" glAccountClassId="DISTRIBUTION" parentClassId="DEBIT"/>
+    <GlAccountClass description="Return of Capital" glAccountClassId="RETURN_OF_CAPITAL" parentClassId="DISTRIBUTION"/>
+    <GlAccountClass description="Dividends" glAccountClassId="DIVIDEND" parentClassId="DISTRIBUTION"/>
+    <GlAccountClass description="Revenue" glAccountClassId="REVENUE" parentClassId="CREDIT"/>
+    <GlAccountClass description="Contra Revenue" glAccountClassId="CONTRA_REVENUE" parentClassId="DEBIT"/>     
+    <GlAccountClass description="Income" glAccountClassId="INCOME" parentClassId="CREDIT"/>
+    <GlAccountClass description="Cash Income" glAccountClassId="CASH_INCOME" parentClassId="INCOME"/>
+    <GlAccountClass description="Non-Cash Income" glAccountClassId="NON_CASH_INCOME" parentClassId="INCOME"/>
+    <GlAccountClass description="Expense" glAccountClassId="EXPENSE" parentClassId="DEBIT"/>
+    <GlAccountClass description="Cash Expense" glAccountClassId="CASH_EXPENSE" parentClassId="EXPENSE"/>
+    <GlAccountClass description="Interest Expense" glAccountClassId="INTEREST_EXPENSE" parentClassId="CASH_EXPENSE"/> <!-- useful for EBITDA, coverage ratios, etc. -->
+    <GlAccountClass description="Cost of Goods Sold Expense" glAccountClassId="COGS_EXPENSE" parentClassId="CASH_EXPENSE"/> <!-- used for Gross Profit -->
+    <GlAccountClass description="Selling, General, and Administrative Expense" glAccountClassId="SGA_EXPENSE" parentClassId="CASH_EXPENSE"/>
+    <GlAccountClass description="Non-Cash Expense" glAccountClassId="NON_CASH_EXPENSE" parentClassId="EXPENSE"/>
+    <GlAccountClass description="Depreciation" glAccountClassId="DEPRECIATION" parentClassId="NON_CASH_EXPENSE"/>
+    <GlAccountClass description="Amortization" glAccountClassId="AMORTIZATION" parentClassId="NON_CASH_EXPENSE"/>
+    <!-- a special class for non-cash inventory adjustment expenses to avoid duplicating operating cash flow adjustments for inventory
+         account transactions, which adjust operating cash flows -->
+    <GlAccountClass description="Inventory Adjustment" glAccountClassId="INVENTORY_ADJUST" parentClassId="NON_CASH_EXPENSE"/>
+    <!-- same idea: these avoid double counting of depreciation & amortization -->
+    <GlAccountClass description="Contra Asset" glAccountClassId="CONTRA_ASSET" parentClassId="CREDIT"/>
+    <GlAccountClass description="Accumulated Depreciation" glAccountClassId="ACCUM_DEPRECIATION" parentClassId="CONTRA_ASSET"/>
+    <GlAccountClass description="Accumulated Amortization" glAccountClassId="ACCUM_AMORTIZATION" parentClassId="CONTRA_ASSET"/>
+    <GlAccountClass description="Non-Posting" glAccountClassId="NON_POSTING" parentClassId="DEBIT"/>
+
+    <GlAccountType description="Not Applicable" glAccountTypeId="_NA_" hasTable="N" parentTypeId=""/>
+    <GlAccountType description="Accounts Receivable" glAccountTypeId="ACCOUNTS_RECEIVABLE" hasTable="N" parentTypeId=""/>
+    <GlAccountType description="Accounts Payable" glAccountTypeId="ACCOUNTS_PAYABLE" hasTable="N" parentTypeId=""/>
+    <GlAccountType description="Balance" glAccountTypeId="BALANCE_ACCOUNT" hasTable="N" parentTypeId=""/>
+    <GlAccountType description="Bank Settlement" glAccountTypeId="BANK_STLMNT_ACCOUNT" hasTable="N" parentTypeId=""/>
+    <GlAccountType description="Undeposited Receipts" glAccountTypeId="UNDEPOSITED_RECEIPTS" hasTable="N" parentTypeId=""/>
+    <GlAccountType description="Merchant Account Settlement" glAccountTypeId="MRCH_STLMNT_ACCOUNT" hasTable="N" parentTypeId="ACCOUNTS_RECEIVABLE"/>
+    <GlAccountType description="Current Asset" glAccountTypeId="CURRENT_ASSET" hasTable="N" parentTypeId=""/>
+    <GlAccountType description="Fixed Asset" glAccountTypeId="FIXED_ASSET" hasTable="N" parentTypeId=""/>
+    <GlAccountType description="Fixed Asset Maintenance" glAccountTypeId="FIXED_ASSET_MAINT" hasTable="N" parentTypeId=""/>
+    <GlAccountType description="Other Asset" glAccountTypeId="OTHER_ASSET" hasTable="N" parentTypeId=""/>
+    <GlAccountType description="Credit Card" glAccountTypeId="CREDIT_CARD" hasTable="N" parentTypeId=""/>
+    <GlAccountType description="Current Liability" glAccountTypeId="CURRENT_LIABILITY" hasTable="N" parentTypeId=""/>
+    <GlAccountType description="Long Term Liability" glAccountTypeId="LONG_TERM_LIABILITY" hasTable="N" parentTypeId=""/>
+    <GlAccountType description="Customer" glAccountTypeId="CUSTOMER_ACCOUNT" hasTable="N" parentTypeId=""/>
+    <GlAccountType description="Supplier" glAccountTypeId="SUPPLIER_ACCOUNT" hasTable="N" parentTypeId=""/>
+    <GlAccountType description="Product" glAccountTypeId="PRODUCT_ACCOUNT" hasTable="N" parentTypeId=""/>
+    <GlAccountType description="Inventory" glAccountTypeId="INVENTORY_ACCOUNT" hasTable="N" parentTypeId=""/>
+    <GlAccountType description="Inventory Adjustment from Average Cost" glAccountTypeId="INV_ADJ_AVG_COST" hasTable="N" parentTypeId="INVENTORY_ACCOUNT"/>
+    <GlAccountType description="Inventory Item Value Adjustment" glAccountTypeId="INV_ADJ_VAL" hasTable="N" parentTypeId=""/>
+    <GlAccountType description="Raw Materials Inventory" glAccountTypeId="RAWMAT_INVENTORY" hasTable="N" parentTypeId=""/>
+    <GlAccountType description="Work In Progress Inventory" glAccountTypeId="WIP_INVENTORY" hasTable="N" parentTypeId=""/>
+
+    <GlAccountType description="Tax" glAccountTypeId="TAX_ACCOUNT" hasTable="N" parentTypeId=""/>
+    <GlAccountType description="Profit Loss" glAccountTypeId="PROFIT_LOSS_ACCOUNT" hasTable="N" parentTypeId=""/>
+    <GlAccountType description="Sales" glAccountTypeId="SALES_ACCOUNT" hasTable="N" parentTypeId=""/>
+    <GlAccountType description="Customer Returns" glAccountTypeId="SALES_RETURNS" hasTable="N" parentTypeId=""/>
+    <GlAccountType description="Discounts" glAccountTypeId="DISCOUNTS_ACCOUNT" hasTable="N" parentTypeId=""/>
+    <GlAccountType description="Cost of Goods Sold" glAccountTypeId="COGS_ACCOUNT" hasTable="N" parentTypeId=""/>
+    <GlAccountType description="COGS - Average Cost Adjustment" glAccountTypeId="COGS_ADJ_AVG_COST" hasTable="N" parentTypeId="COGS_ACCOUNT"/>
+    <GlAccountType description="Purchase" glAccountTypeId="PURCHASE_ACCOUNT" hasTable="N" parentTypeId=""/>
+    <GlAccountType description="Inventory Change" glAccountTypeId="INV_CHANGE_ACCOUNT" hasTable="N" parentTypeId=""/>
+    <GlAccountType description="Expense" glAccountTypeId="EXPENSE" hasTable="N" parentTypeId=""/>
+    <GlAccountType description="Operating Expense" glAccountTypeId="OPERATING_EXPENSE" hasTable="N" parentTypeId="EXPENSE"/>
+    <GlAccountType description="Other Expense" glAccountTypeId="OTHER_EXPENSE" hasTable="N" parentTypeId="EXPENSE"/>
+    <GlAccountType description="Owner's Equity" glAccountTypeId="OWNERS_EQUITY" hasTable="N" parentTypeId=""/>
+    <GlAccountType description="Retained Earnings" glAccountTypeId="RETAINED_EARNINGS" hasTable="N" parentTypeId=""/>
+
+    <GlAccountType description="Customer Deposits" glAccountTypeId="CUSTOMER_DEPOSIT" hasTable="N" parentTypeId="CURRENT_LIABILITY"/>
+    <GlAccountType description="Customer Credits" glAccountTypeId="CUSTOMER_CREDIT" hasTable="N" parentTypeId="CURRENT_LIABILITY"/>
+    <GlAccountType description="Customer Gift Certificate Balances" glAccountTypeId="CUSTOMER_GC_DEPOSIT" hasTable="N" parentTypeId="CURRENT_LIABILITY"/>
+    <GlAccountType description="Uninvoiced Shipment Receipts" glAccountTypeId="UNINVOICED_SHIP_RCPT" hasTable="N" parentTypeId="CURRENT_LIABILITY"/>
+    <GlAccountType description="Purchase Price Variance" glAccountTypeId="PURCHASE_PRICE_VAR" hasTable="N" parentTypeId="OTHER_EXPENSE"/>
+
+    <GlAccountType description="Income" glAccountTypeId="INCOME" hasTable="N" parentTypeId=""/>
+    <GlAccountType description="Other Income" glAccountTypeId="OTHER_INCOME" hasTable="N" parentTypeId="INCOME"/>
+    <GlAccountType description="Interest Income" glAccountTypeId="INTEREST_INCOME" hasTable="N" parentTypeId="INCOME"/>
+
+    <GlAccountType description="Interest Income Receivables" glAccountTypeId="INTRSTINC_RECEIVABLE" hasTable="N" parentTypeId="ACCOUNTS_RECEIVABLE"/>
+    <GlAccountType description="Prepaid Expenses" glAccountTypeId="PREPAID_EXPENSES" hasTable="N" parentTypeId="CURRENT_ASSET"/>
+
+    <GlAccountType description="Receivable from Inventory Transferred Out" glAccountTypeId="INVENTORY_XFER_OUT" hasTable="N" parentTypeId="CURRENT_ASSET"/>
+    <GlAccountType description="Payable from Inventory Transferred In" glAccountTypeId="INVENTORY_XFER_IN" hasTable="N" parentTypeId="CURRENT_LIABILITY"/>
+    <GlAccountType description="Accounts Payable - Unapplied Payments" glAccountTypeId="ACCPAYABLE_UNAPPLIED" hasTable="N" parentTypeId="ACCOUNTS_PAYABLE"/>
+    <GlAccountType description="Accounts Receivable - Unapplied Payments" glAccountTypeId="ACCREC_UNAPPLIED" hasTable="N" parentTypeId="ACCOUNTS_RECEIVABLE"/>
+
+    <GlAccountType description="Commission Expense" glAccountTypeId="COMMISSION_EXPENSE" hasTable="N" parentTypeId="OPERATING_EXPENSE"/>
+    <GlAccountType description="Commissions Payables" glAccountTypeId="COMMISSIONS_PAYABLE" hasTable="N" parentTypeId="CURRENT_LIABILITY"/>
+    <GlAccountType description="Write Off" glAccountTypeId="WRITEOFF" hasTable="N" parentTypeId="OTHER_EXPENSE"/>
+    <GlAccountType description="Accounts Receivables Write Off" glAccountTypeId="ACCTRECV_WRITEOFF" hasTable="N" parentTypeId="WRITEOFF"/>
+    <GlAccountType description="Accounts Payables Write Off" glAccountTypeId="ACCTPAY_WRITEOFF" hasTable="N" parentTypeId="WRITEOFF"/>
+    <GlAccountType description="Commissions Payables Write Off" glAccountTypeId="COMMISSIONS_WRITEOFF" hasTable="N" parentTypeId="WRITEOFF"/>
+    <GlAccountType description="Interest Income Write Off" glAccountTypeId="INTRSTINC_WRITEOFF" hasTable="N" parentTypeId="WRITEOFF"/>
+
+    <GlAccountType description="Foreign Exchange Gain/Loss" glAccountTypeId="FX_GAIN_LOSS_ACCT" hasTable="N" parentTypeId="OTHER_EXPENSE"/>
+    <GlAccountType description="Foreign Exchange Gain" glAccountTypeId="FX_GAIN_ACCOUNT" hasTable="N" parentTypeId="FX_GAIN_LOSS_ACCT"/>
+    <GlAccountType description="Foreign Exchange Loss" glAccountTypeId="FX_LOSS_ACCOUNT" hasTable="N" parentTypeId="FX_GAIN_LOSS_ACCT"/>
+
+    <GlResourceType description="Not Applicable" glResourceTypeId="_NA_"/>
+    <GlResourceType description="Money" glResourceTypeId="MONEY"/>
+    <GlResourceType description="Raw Materials" glResourceTypeId="RAW_MATERIALS"/>
+    <GlResourceType description="Labor" glResourceTypeId="LABOR"/>
+    <GlResourceType description="Services" glResourceTypeId="SERVICES"/>
+    <GlResourceType description="Finished Goods" glResourceTypeId="FINISHED_GOODS"/>
+    <GlResourceType description="Delivered Goods" glResourceTypeId="DELIVERED_GOODS"/>
+
+    <GlXbrlClass description="US GAAP" glXbrlClassId="US_GAAP"/>
+    <GlXbrlClass description="IAS" glXbrlClassId="IAS"/>
+
+    <GlFiscalType description="Actual" glFiscalTypeId="ACTUAL"/>
+    <GlFiscalType description="Budget" glFiscalTypeId="BUDGET"/>
+    <GlFiscalType description="Forecast" glFiscalTypeId="FORECAST"/>
+    <GlFiscalType description="Plan" glFiscalTypeId="PLAN"/>
+    <GlFiscalType description="Scenario" glFiscalTypeId="SCENARIO"/>
+
+    <GlAccountCategoryType glAccountCategoryTypeId="COST_CENTER" description="Cost Center Category"/>
+
+    <!-- Invoice content type-->
+    <InvoiceContentType invoiceContentTypeId="COMMENTS" description="comments" hasTable="N" parentTypeId=""/>
+    
+    <!-- invoice item types tree for adjustments -->
+    <InvoiceItemType description="Invoice Adjustment" hasTable="N" invoiceItemTypeId="INVOICE_ADJ" parentTypeId=""/>
+    <InvoiceItemType description="Invoice Header Adjustment" hasTable="N" invoiceItemTypeId="INVOICE_HEAD_ADJ" parentTypeId="INVOICE_ADJ"/>
+    <InvoiceItemType description="Invoice Item Adjustment" hasTable="N" invoiceItemTypeId="INVOICE_ITM_ADJ" parentTypeId="INVOICE_ADJ"/>
+    <InvoiceItemType description="Sales Invoice Header Adjustment" hasTable="N" invoiceItemTypeId="SINVOICE_HEAD_ADJ" parentTypeId="INVOICE_HEAD_ADJ"/>
+    <InvoiceItemType description="Sales Invoice Item Adjustment" hasTable="N" invoiceItemTypeId="SINVOICE_ITM_ADJ" parentTypeId="INVOICE_ITM_ADJ"/>
+    <InvoiceItemType description="Purchase Invoice Header Adjustment" hasTable="N" invoiceItemTypeId="PINVOICE_ADJ" parentTypeId="INVOICE_HEAD_ADJ"/>
+    <InvoiceItemType description="Purchase Invoice Item Adjustment" hasTable="N" invoiceItemTypeId="PINVOICE_ITM_ADJ" parentTypeId="INVOICE_ITM_ADJ"/>
+    <InvoiceItemType description="Customer Return Adjustment" hasTable="N" invoiceItemTypeId="CRETURN_ADJ" parentTypeId="INVOICE_ADJ"/>
+    <InvoiceItemType description="Supplier Return Adjustment" hasTable="N" invoiceItemTypeId="SRETURN_ADJ" parentTypeId="INVOICE_ADJ"/>
+
+    <!-- invoice item types for sales (AR) invoices -->
+    <InvoiceItemType description="Invoice Promotion(Sales)" hasTable="N" invoiceItemTypeId="INV_PROMOTION_ADJ" parentTypeId="SINVOICE_HEAD_ADJ"/>
+    <InvoiceItemType description="Invoice Discount(Sales)" hasTable="N" invoiceItemTypeId="INV_DISCOUNT_ADJ" parentTypeId="SINVOICE_HEAD_ADJ"/>
+    <InvoiceItemType description="Invoice Fee(Sales)" hasTable="N" invoiceItemTypeId="FEE" parentTypeId="SINVOICE_HEAD_ADJ"/>
+    <InvoiceItemType description="Invoice Miscellaneous Charges(Sales)" hasTable="N" invoiceItemTypeId="INV_MISC_CHARGE" parentTypeId="SINVOICE_HEAD_ADJ"/>
+    <InvoiceItemType description="Invoice Sales Tax(Sales)" hasTable="N" invoiceItemTypeId="INV_SALES_TAX" parentTypeId="SINVOICE_HEAD_ADJ"/>
+    <InvoiceItemType description="Invoice Shipping and Handling(Sales)" hasTable="N" invoiceItemTypeId="INV_SHIPPING_CHARGES" parentTypeId="SINVOICE_HEAD_ADJ"/>
+    <InvoiceItemType description="Invoice Surcharge(Sales)" hasTable="N" invoiceItemTypeId="INV_SURCHARGE_ADJ" parentTypeId="SINVOICE_HEAD_ADJ"/>
+    <InvoiceItemType description="Invoice Additional Feature(Sales)" hasTable="N" invoiceItemTypeId="INV_ADD_FEATURE" parentTypeId="SINVOICE_HEAD_ADJ"/>
+    <InvoiceItemType description="Invoice Warranty(Sales)" hasTable="N" invoiceItemTypeId="INV_WARRANTY_ADJ" parentTypeId="SINVOICE_HEAD_ADJ"/>
+    <InvoiceItemType description="Invoice Interest Charge" hasTable="N" invoiceItemTypeId="INV_INTRST_CHRG" parentTypeId="SINVOICE_HEAD_ADJ"/>
+
+    <InvoiceItemType description="Invoice Item Promotion(Sales)" hasTable="N" invoiceItemTypeId="ITM_PROMOTION_ADJ" parentTypeId="SINVOICE_ITM_ADJ"/>
+    <InvoiceItemType description="Invoice Item Replacement(Sales)" hasTable="N" invoiceItemTypeId="ITM_REPLACE_ADJ" parentTypeId="SINVOICE_ITM_ADJ"/>
+    <InvoiceItemType description="Invoice Item Discount(Sales)" hasTable="N" invoiceItemTypeId="ITM_DISCOUNT_ADJ" parentTypeId="SINVOICE_ITM_ADJ"/>
+    <InvoiceItemType description="Invoice Item Fee(Sales)" hasTable="N" invoiceItemTypeId="ITM_FEE" parentTypeId="SINVOICE_ITM_ADJ"/>
+    <InvoiceItemType description="Invoice Item Miscellaneous Charges(Sales)" hasTable="N" invoiceItemTypeId="ITM_MISC_CHARGE" parentTypeId="SINVOICE_ITM_ADJ"/>
+    <InvoiceItemType description="Invoice Item Sales Tax(Sales)" hasTable="N" invoiceItemTypeId="ITM_SALES_TAX" parentTypeId="SINVOICE_ITM_ADJ"/>
+    <InvoiceItemType description="Invoice Item Shipping and Handling(Sales)" hasTable="N" invoiceItemTypeId="ITM_SHIPPING_CHARGES" parentTypeId="SINVOICE_ITM_ADJ"/>
+    <InvoiceItemType description="Invoice Item Surcharge(Sales)" hasTable="N" invoiceItemTypeId="ITM_SURCHARGE_ADJ" parentTypeId="SINVOICE_ITM_ADJ"/>
+    <InvoiceItemType description="Invoice Item Additional Feature(Sales)" hasTable="N" invoiceItemTypeId="ITM_ADD_FEATURE" parentTypeId="SINVOICE_ITM_ADJ"/>
+    <InvoiceItemType description="Invoice Item Warranty(Sales)" hasTable="N" invoiceItemTypeId="ITM_WARRANTY_ADJ" parentTypeId="SINVOICE_ITM_ADJ"/>
+    <InvoiceItemType description="Invoice Item VAT Tax(Sales)" hasTable="N" invoiceItemTypeId="ITM_VAT_TAX" parentTypeId="SINVOICE_ITM_ADJ"/>
+
+    <InvoiceItemType description="Invoice Product Item(Sales)" hasTable="N" invoiceItemTypeId="INV_PROD_ITEM" parentTypeId=""/>
+    <InvoiceItemType description="Invoice Finished Good Item(Sales)" hasTable="N" invoiceItemTypeId="INV_FPROD_ITEM" parentTypeId="INV_PROD_ITEM"/>
+    <InvoiceItemType description="Invoice Digital Good Item(Sales)" hasTable="N" invoiceItemTypeId="INV_DPROD_ITEM" parentTypeId="INV_PROD_ITEM"/>
+    <InvoiceItemType description="Invoice Finished/Digital Good Item(Sales)" hasTable="N" invoiceItemTypeId="INV_FDPROD_ITEM" parentTypeId="INV_PROD_ITEM"/>
+    <InvoiceItemType description="Invoice Product-Feature Item(Sales)" hasTable="N" invoiceItemTypeId="INV_PROD_FEATR_ITEM" parentTypeId="INV_PROD_ITEM"/>
+    <InvoiceItemType description="Invoice Service Product Item(Sales)" hasTable="N" invoiceItemTypeId="INV_SPROD_ITEM" parentTypeId="INV_PROD_ITEM"/>
+
+    <InvoiceItemType description="Invoice Work-Effort Item(Sales)" hasTable="N" invoiceItemTypeId="INV_WE_ITEM" parentTypeId=""/>
+    <InvoiceItemType description="Invoice Time-Entry Item(Sales)" hasTable="N" invoiceItemTypeId="INV_TE_ITEM" parentTypeId=""/>
+
+    <!-- invoice item types for purchase (AP) invoices -->
+    <InvoiceItemType description="Invoice Promotion(Purchase)" hasTable="N" invoiceItemTypeId="PINV_PROMOTION_ADJ" parentTypeId="PINVOICE_ADJ"/>
+    <InvoiceItemType description="Invoice Discount(Purchase)" hasTable="N" invoiceItemTypeId="PINV_DISCOUNT_ADJ" parentTypeId="PINVOICE_ADJ"/>
+    <InvoiceItemType description="Invoice Fee(Purchase)" hasTable="N" invoiceItemTypeId="P_FEE" parentTypeId="PINVOICE_ADJ"/>
+    <InvoiceItemType description="Invoice Miscellaneous Charges(Purchase)" hasTable="N" invoiceItemTypeId="PINV_MISC_CHARGE" parentTypeId="PINVOICE_ADJ"/>
+    <InvoiceItemType description="Invoice Sales Tax(Purchase)" hasTable="N" invoiceItemTypeId="PINV_SALES_TAX" parentTypeId="PINVOICE_ADJ"/>
+    <InvoiceItemType description="Invoice Shipping and Handling(Purchase)" hasTable="N" invoiceItemTypeId="PINV_SHIP_CHARGES" parentTypeId="PINVOICE_ADJ"/>
+    <InvoiceItemType description="Invoice Surcharge(Purchase)" hasTable="N" invoiceItemTypeId="PINV_SURCHARGE_ADJ" parentTypeId="PINVOICE_ADJ"/>
+    <InvoiceItemType description="Invoice Additional Feature(Purchase)" hasTable="N" invoiceItemTypeId="PINV_ADD_FEATURE" parentTypeId="PINVOICE_ADJ"/>
+    <InvoiceItemType description="Invoice Warranty(Purchase)" hasTable="N" invoiceItemTypeId="PINV_WARRANTY_ADJ" parentTypeId="PINVOICE_ADJ"/>
+
+    <InvoiceItemType description="Invoice Item Promotion(Purchase)" hasTable="N" invoiceItemTypeId="PITM_PROMOTION_ADJ" parentTypeId="PINVOICE_ITM_ADJ"/>
+    <InvoiceItemType description="Invoice Item Replacement(Purchase)" hasTable="N" invoiceItemTypeId="PITM_REPLACE_ADJ" parentTypeId="PINVOICE_ITM_ADJ"/>
+    <InvoiceItemType description="Invoice Item Discount(Purchase)" hasTable="N" invoiceItemTypeId="PITM_DISCOUNT_ADJ" parentTypeId="PINVOICE_ITM_ADJ"/>
+    <InvoiceItemType description="Invoice Item Fee(Purchase)" hasTable="N" invoiceItemTypeId="PITM_FEE" parentTypeId="PINVOICE_ITM_ADJ"/>
+    <InvoiceItemType description="Invoice Item Miscellaneous Charges(Purchase)" hasTable="N" invoiceItemTypeId="PITM_MISC_CHARGE" parentTypeId="PINVOICE_ITM_ADJ"/>
+    <InvoiceItemType description="Invoice Item Sales Tax(Purchase)" hasTable="N" invoiceItemTypeId="PITM_SALES_TAX" parentTypeId="PINVOICE_ITM_ADJ"/>
+    <InvoiceItemType description="Invoice Item Shipping and Handling(Purchase)" hasTable="N" invoiceItemTypeId="PITM_SHIP_CHARGES" parentTypeId="PINVOICE_ITM_ADJ"/>
+    <InvoiceItemType description="Invoice Item Surcharge(Purchase)" hasTable="N" invoiceItemTypeId="PITM_SURCHARGE_ADJ" parentTypeId="PINVOICE_ITM_ADJ"/>
+    <InvoiceItemType description="Invoice Item Additional Feature(Purchase)" hasTable="N" invoiceItemTypeId="PITM_ADD_FEATURE" parentTypeId="PINVOICE_ITM_ADJ"/>
+    <InvoiceItemType description="Invoice Item Warranty(Purchase)" hasTable="N" invoiceItemTypeId="PITM_WARRANTY_ADJ" parentTypeId="PINVOICE_ITM_ADJ"/>
+
+    <InvoiceItemType description="Invoice Product Item(Purchase)" hasTable="N" invoiceItemTypeId="PINV_PROD_ITEM" parentTypeId=""/>
+    <InvoiceItemType description="Invoice Finished Good Item(Purchase)" hasTable="N" invoiceItemTypeId="PINV_FPROD_ITEM" parentTypeId="PINV_PROD_ITEM"/>
+    <InvoiceItemType description="Invoice Digital Good Item(Purchase)" hasTable="N" invoiceItemTypeId="PINV_DPROD_ITEM" parentTypeId="PINV_PROD_ITEM"/>
+    <InvoiceItemType description="Invoice Finished/Digital Good Item(Purchase)" hasTable="N" invoiceItemTypeId="PINV_FDPROD_ITEM" parentTypeId="PINV_PROD_ITEM"/>
+    <InvoiceItemType description="Invoice Product-Feature Item(Purchase)" hasTable="N" invoiceItemTypeId="PINV_PROD_FEATR_ITEM" parentTypeId="PINV_PROD_ITEM"/>
+    <InvoiceItemType description="Invoice Raw Material(Purchase)" hasTable="N" invoiceItemTypeId="PINV_RPROD_ITEM" parentTypeId="PINV_PROD_ITEM"/>
+    <InvoiceItemType description="Invoice Service Product Item(Purchase)" hasTable="N" invoiceItemTypeId="PINV_SPROD_ITEM" parentTypeId="PINV_PROD_ITEM"/>
+
+    <InvoiceItemType description="Invoice Inventory Product Item" hasTable="N" invoiceItemTypeId="PINV_INVPRD_ITEM" parentTypeId="PINV_PROD_ITEM"/>
+    <InvoiceItemType description="Invoice Supplies (to Expense) Product Item" hasTable="N" invoiceItemTypeId="PINV_SUPLPRD_ITEM" parentTypeId="PINV_PROD_ITEM"/>
+    <InvoiceItemType description="Invoice Fixed Asset Product Item" hasTable="N" invoiceItemTypeId="PINV_FXASTPRD_ITEM" parentTypeId="PINV_PROD_ITEM"/>
+
+    <InvoiceItemType description="Invoice Work-Effort Item(Purchase)" hasTable="N" invoiceItemTypeId="PINV_WE_ITEM" parentTypeId=""/>
+    <InvoiceItemType description="Invoice Time-Entry Item(Purchase)" hasTable="N" invoiceItemTypeId="PINV_TE_ITEM" parentTypeId=""/>
+
+    <!-- invoice items for customer returns -->
+    <InvoiceItemType description="Return Product Item" hasTable="N" invoiceItemTypeId="CRT_PROD_ITEM" parentTypeId=""/>
+    <InvoiceItemType description="Return Finished Good Item" hasTable="N" invoiceItemTypeId="CRT_FPROD_ITEM" parentTypeId="CRT_PROD_ITEM"/>
+    <InvoiceItemType description="Return Digital Good Item" hasTable="N" invoiceItemTypeId="CRT_DPROD_ITEM" parentTypeId="CRT_PROD_ITEM"/>
+    <InvoiceItemType description="Return Finished/Digital Good Item" hasTable="N" invoiceItemTypeId="CRT_FDPROD_ITEM" parentTypeId="CRT_PROD_ITEM"/>
+    <InvoiceItemType description="Return Raw Material Good Item" hasTable="N" invoiceItemTypeId="CRT_RPROD_ITEM" parentTypeId="CRT_PROD_ITEM"/>
+    <InvoiceItemType description="Return Product-Feature Item" hasTable="N" invoiceItemTypeId="CRT_PROD_FEATR_ITEM" parentTypeId="CRT_PROD_ITEM"/>
+    <InvoiceItemType description="Return Service Product Item" hasTable="N" invoiceItemTypeId="CRT_SPROD_ITEM" parentTypeId="CRT_PROD_ITEM"/>
+
+    <InvoiceItemType description="Return Work-Effort Item" hasTable="N" invoiceItemTypeId="CRT_WE_ITEM" parentTypeId=""/>
+    <InvoiceItemType description="Return Time-Entry Item" hasTable="N" invoiceItemTypeId="CRT_TE_ITEM" parentTypeId=""/>
+
+    <InvoiceItemType description="Return Promotion" hasTable="N" invoiceItemTypeId="CRT_PROMOTION_ADJ" parentTypeId="CRETURN_ADJ"/>
+    <InvoiceItemType description="Return Replacement" hasTable="N" invoiceItemTypeId="CRT_REPLACE_ADJ" parentTypeId="CRETURN_ADJ"/>
+    <InvoiceItemType description="Return Discount" hasTable="N" invoiceItemTypeId="CRT_DISCOUNT_ADJ" parentTypeId="CRETURN_ADJ"/>
+    <InvoiceItemType description="Return Fee" hasTable="N" invoiceItemTypeId="CRT_FEE_ADJ" parentTypeId="CRETURN_ADJ"/>
+    <InvoiceItemType description="Return Miscellaneous Charges" hasTable="N" invoiceItemTypeId="CRT_MISC_ADJ" parentTypeId="CRETURN_ADJ"/>
+    <InvoiceItemType description="Return Sales Tax" hasTable="N" invoiceItemTypeId="CRT_SALES_TAX_ADJ" parentTypeId="CRETURN_ADJ"/>
+    <InvoiceItemType description="Return VAT Tax" hasTable="N" invoiceItemTypeId="CRT_VAT_TAX_ADJ" parentTypeId="CRETURN_ADJ"/>
+    <InvoiceItemType description="Return VAT Price Correct" hasTable="N" invoiceItemTypeId="CRT_VAT_PC_ADJ" parentTypeId="CRETURN_ADJ"/>
+    <InvoiceItemType description="Return Shipping and Handling" hasTable="N" invoiceItemTypeId="CRT_SHIPPING_ADJ" parentTypeId="CRETURN_ADJ"/>
+    <InvoiceItemType description="Return Surcharge" hasTable="N" invoiceItemTypeId="CRT_SURCHARGE_ADJ" parentTypeId="CRETURN_ADJ"/>
+    <InvoiceItemType description="Return Additional Feature" hasTable="N" invoiceItemTypeId="CRT_ADD_FEATURE_ADJ" parentTypeId="CRETURN_ADJ"/>
+    <InvoiceItemType description="Return Warranty" hasTable="N" invoiceItemTypeId="CRT_WARRANTY_ADJ" parentTypeId="CRETURN_ADJ"/>
+    <InvoiceItemType description="Return Marketing Package Adjustment" hasTable="N" invoiceItemTypeId="CRT_MKTG_PKG_ADJ" parentTypeId="CRETURN_ADJ"/>
+    <InvoiceItemType description="Return Manual Adjustment" hasTable="N" invoiceItemTypeId="CRT_MAN_ADJ" parentTypeId="CRETURN_ADJ"/>
+
+    <!-- invoice items for returns to suppliers -->
+    <InvoiceItemType description="Return Product Item" hasTable="N" invoiceItemTypeId="SRT_PROD_ITEM" parentTypeId=""/>
+    <InvoiceItemType description="Return Finished Good Item" hasTable="N" invoiceItemTypeId="SRT_FPROD_ITEM" parentTypeId="SRT_PROD_ITEM"/>
+    <InvoiceItemType description="Return Digital Good Item" hasTable="N" invoiceItemTypeId="SRT_DPROD_ITEM" parentTypeId="SRT_PROD_ITEM"/>
+    <InvoiceItemType description="Return Finished/Digital Good Item" hasTable="N" invoiceItemTypeId="SRT_FDPROD_ITEM" parentTypeId="SRT_PROD_ITEM"/>
+    <InvoiceItemType description="Return Raw Material Good Item" hasTable="N" invoiceItemTypeId="SRT_RPROD_ITEM" parentTypeId="SRT_PROD_ITEM"/>
+    <InvoiceItemType description="Return Product-Feature Item" hasTable="N" invoiceItemTypeId="SRT_PROD_FEATR_ITEM" parentTypeId="SRT_PROD_ITEM"/>
+    <InvoiceItemType description="Return Service Product Item" hasTable="N" invoiceItemTypeId="SRT_SPROD_ITEM" parentTypeId="SRT_PROD_ITEM"/>
+
+    <InvoiceItemType description="Return Work-Effort Item" hasTable="N" invoiceItemTypeId="SRT_WE_ITEM" parentTypeId=""/>
+    <InvoiceItemType description="Return Time-Entry Item" hasTable="N" invoiceItemTypeId="SRT_TE_ITEM" parentTypeId=""/>
+
+    <InvoiceItemType description="Return Promotion" hasTable="N" invoiceItemTypeId="SRT_PROMOTION_ADJ" parentTypeId="SRETURN_ADJ"/>
+    <InvoiceItemType description="Return Replacement" hasTable="N" invoiceItemTypeId="SRT_REPLACE_ADJ" parentTypeId="SRETURN_ADJ"/>
+    <InvoiceItemType description="Return Discount" hasTable="N" invoiceItemTypeId="SRT_DISCOUNT_ADJ" parentTypeId="SRETURN_ADJ"/>
+    <InvoiceItemType description="Return Fee" hasTable="N" invoiceItemTypeId="SRT_FEE_ADJ" parentTypeId="SRETURN_ADJ"/>
+    <InvoiceItemType description="Return Miscellaneous Charges" hasTable="N" invoiceItemTypeId="SRT_MISC_ADJ" parentTypeId="SRETURN_ADJ"/>
+    <InvoiceItemType description="Return Sales Tax" hasTable="N" invoiceItemTypeId="SRT_SALES_TAX_ADJ" parentTypeId="SRETURN_ADJ"/>
+    <InvoiceItemType description="Return VAT Tax" hasTable="N" invoiceItemTypeId="SRT_VAT_TAX_ADJ" parentTypeId="SRETURN_ADJ"/>
+    <InvoiceItemType description="Return VAT Price Correct" hasTable="N" invoiceItemTypeId="SRT_VAT_PC_ADJ" parentTypeId="SRETURN_ADJ"/>
+    <InvoiceItemType description="Return Shipping and Handling" hasTable="N" invoiceItemTypeId="SRT_SHIPPING_ADJ" parentTypeId="SRETURN_ADJ"/>
+    <InvoiceItemType description="Return Surcharge" hasTable="N" invoiceItemTypeId="SRT_SURCHARGE_ADJ" parentTypeId="SRETURN_ADJ"/>
+    <InvoiceItemType description="Return Additional Feature" hasTable="N" invoiceItemTypeId="SRT_ADD_FEATURE_ADJ" parentTypeId="SRETURN_ADJ"/>
+    <InvoiceItemType description="Return Warranty" hasTable="N" invoiceItemTypeId="SRT_WARRANTY_ADJ" parentTypeId="SRETURN_ADJ"/>
+    <InvoiceItemType description="Return Marketing Package Adjustment" hasTable="N" invoiceItemTypeId="SRT_MKTG_PKG_ADJ" parentTypeId="SRETURN_ADJ"/>
+    <InvoiceItemType description="Return Manual Adjustment" hasTable="N" invoiceItemTypeId="SRT_MAN_ADJ" parentTypeId="SRETURN_ADJ"/>
+
+    <!-- invoice item types for commission invoices -->
+    <InvoiceItemType description="Commission Invoice Line Item" hasTable="N" invoiceItemTypeId="COMM_INV_ITEM" parentTypeId=""/>
+    <InvoiceItemType description="Commission Invoice Adjustment" hasTable="N" invoiceItemTypeId="COMM_INV_ADJ" parentTypeId="INVOICE_ADJ"/>
+
+    <InvoiceType description="Invoice" hasTable="N" invoiceTypeId="INVOICE"/>
+    <InvoiceType description="Purchase Invoice" hasTable="N" invoiceTypeId="PURCHASE_INVOICE" parentTypeId="INVOICE"/>
+    <InvoiceType description="Sales Invoice" hasTable="N" invoiceTypeId="SALES_INVOICE" parentTypeId="INVOICE"/>
+    <InvoiceType description="Customer Return" hasTable="N" invoiceTypeId="CUST_RTN_INVOICE" parentTypeId="PURCHASE_INVOICE"/>
+    <InvoiceType description="Purchase Return" hasTable="N" invoiceTypeId="PURC_RTN_INVOICE" parentTypeId="SALES_INVOICE"/>
+    <InvoiceType description="Commission" hasTable="N" invoiceTypeId="COMMISSION_INVOICE" parentTypeId="PURCHASE_INVOICE"/>
+    <InvoiceType description="Interest" hasTable="N" invoiceTypeId="INTEREST_INVOICE" parentTypeId="SALES_INVOICE"/>
+    <InvoiceType description="Invoice Template" hasTable="N" invoiceTypeId="TEMPLATE" parentTypeId="INVOICE"/>
+    <InvoiceType description="Sales Invoice Template" hasTable="N" invoiceTypeId="SALES_INV_TEMPLATE" parentTypeId="TEMPLATE"/>
+    <InvoiceType description="Purchase Invoice Template" hasTable="N" invoiceTypeId="PUR_INV_TEMPLATE" parentTypeId="TEMPLATE"/>
+
+    <!-- InvoiceItemAssocType records can be used in InvoiceItemAssoc entity. This will help to distinguish the record in searching for the commission invoice or withdraw invoice. More assoc types can be added later on.  -->
+    <InvoiceItemAssocType description="Commission" hasTable="N" invoiceItemAssocTypeId="COMMISSION_INVOICE" parentTypeId=""/>
+    <InvoiceItemAssocType description="Withdraw" hasTable="N" invoiceItemAssocTypeId="WITHDRAW_INVOICE" parentTypeId=""/>
+
+    <!-- maps line items such as order items to invoice item types.  separate mapping for sales and purchase invoices -->
+    <InvoiceItemTypeMap invoiceTypeId="SALES_INVOICE" invoiceItemMapKey="FINISHED_GOOD" invoiceItemTypeId="INV_FPROD_ITEM"/>
+    <InvoiceItemTypeMap invoiceTypeId="SALES_INVOICE" invoiceItemMapKey="SERVICE_PRODUCT" invoiceItemTypeId="INV_SPROD_ITEM"/>
+    <InvoiceItemTypeMap invoiceTypeId="SALES_INVOICE" invoiceItemMapKey="SERVICE" invoiceItemTypeId="INV_SPROD_ITEM"/>
+    <InvoiceItemTypeMap invoiceTypeId="SALES_INVOICE" invoiceItemMapKey="DIGITAL_GOOD" invoiceItemTypeId="INV_DPROD_ITEM"/>
+    <InvoiceItemTypeMap invoiceTypeId="SALES_INVOICE" invoiceItemMapKey="FINDIG_GOOD" invoiceItemTypeId="INV_FDPROD_ITEM"/>
+    <InvoiceItemTypeMap invoiceTypeId="SALES_INVOICE" invoiceItemMapKey="PROMOTION_ADJUSTMENT" invoiceItemTypeId="ITM_PROMOTION_ADJ"/>
+    <InvoiceItemTypeMap invoiceTypeId="SALES_INVOICE" invoiceItemMapKey="REPLACE_ADJUSTMENT" invoiceItemTypeId="ITM_REPLACE_ADJ"/>
+    <InvoiceItemTypeMap invoiceTypeId="SALES_INVOICE" invoiceItemMapKey="DISCOUNT_ADJUSTMENT" invoiceItemTypeId="ITM_DISCOUNT_ADJ"/>
+    <InvoiceItemTypeMap invoiceTypeId="SALES_INVOICE" invoiceItemMapKey="FEE" invoiceItemTypeId="ITM_FEE"/>
+    <InvoiceItemTypeMap invoiceTypeId="SALES_INVOICE" invoiceItemMapKey="MISCELLANEOUS_CHARGE" invoiceItemTypeId="ITM_MISC_CHARGE"/>
+    <InvoiceItemTypeMap invoiceTypeId="SALES_INVOICE" invoiceItemMapKey="SALES_TAX" invoiceItemTypeId="ITM_SALES_TAX"/>
+    <InvoiceItemTypeMap invoiceTypeId="SALES_INVOICE" invoiceItemMapKey="SHIPPING_CHARGES" invoiceItemTypeId="ITM_SHIPPING_CHARGES"/>
+    <InvoiceItemTypeMap invoiceTypeId="SALES_INVOICE" invoiceItemMapKey="SURCHARGE_ADJUSTMENT" invoiceItemTypeId="ITM_SURCHARGE_ADJ"/>
+    <InvoiceItemTypeMap invoiceTypeId="SALES_INVOICE" invoiceItemMapKey="ADDITIONAL_FEATURE" invoiceItemTypeId="ITM_ADD_FEATURE"/>
+    <InvoiceItemTypeMap invoiceTypeId="SALES_INVOICE" invoiceItemMapKey="WARRANTY_ADJUSTMENT" invoiceItemTypeId="ITM_WARRANTY_ADJ"/>
+    <InvoiceItemTypeMap invoiceTypeId="SALES_INVOICE" invoiceItemMapKey="VAT_TAX" invoiceItemTypeId="ITM_VAT_TAX"/>
+    <!-- orderItemTypeId -->
+    <InvoiceItemTypeMap invoiceTypeId="PURCHASE_INVOICE" invoiceItemMapKey="INVENTORY_ORDER_ITEM" invoiceItemTypeId="PINV_INVPRD_ITEM"/>
+    <InvoiceItemTypeMap invoiceTypeId="PURCHASE_INVOICE" invoiceItemMapKey="SUPPLIES_ORDER_ITEM" invoiceItemTypeId="PINV_SUPLPRD_ITEM"/>
+    <InvoiceItemTypeMap invoiceTypeId="PURCHASE_INVOICE" invoiceItemMapKey="ASSET_ORDER_ITEM" invoiceItemTypeId="PINV_FXASTPRD_ITEM"/>
+
+    <!-- productTypeId -->
+    <InvoiceItemTypeMap invoiceTypeId="PURCHASE_INVOICE" invoiceItemMapKey="FINISHED_GOOD" invoiceItemTypeId="PINV_FPROD_ITEM"/>
+    <InvoiceItemTypeMap invoiceTypeId="PURCHASE_INVOICE" invoiceItemMapKey="DIGITAL_GOOD" invoiceItemTypeId="PINV_DPROD_ITEM"/>
+    <InvoiceItemTypeMap invoiceTypeId="PURCHASE_INVOICE" invoiceItemMapKey="FINDIG_GOOD" invoiceItemTypeId="PINV_FDPROD_ITEM"/>
+    <InvoiceItemTypeMap invoiceTypeId="PURCHASE_INVOICE" invoiceItemMapKey="SERVICE" invoiceItemTypeId="PINV_SPROD_ITEM"/>
+    <InvoiceItemTypeMap invoiceTypeId="PURCHASE_INVOICE" invoiceItemMapKey="RAW_MATERIAL" invoiceItemTypeId="PINV_RPROD_ITEM"/>
+    
+    <!-- orderAdjustmentTypeId -->
+    <InvoiceItemTypeMap invoiceTypeId="PURCHASE_INVOICE" invoiceItemMapKey="PROMOTION_ADJUSTMENT" invoiceItemTypeId="PITM_PROMOTION_ADJ"/>
+    <InvoiceItemTypeMap invoiceTypeId="PURCHASE_INVOICE" invoiceItemMapKey="REPLACE_ADJUSTMENT" invoiceItemTypeId="PITM_REPLACE_ADJ"/>
+    <InvoiceItemTypeMap invoiceTypeId="PURCHASE_INVOICE" invoiceItemMapKey="DISCOUNT_ADJUSTMENT" invoiceItemTypeId="PITM_DISCOUNT_ADJ"/>
+    <InvoiceItemTypeMap invoiceTypeId="PURCHASE_INVOICE" invoiceItemMapKey="FEE" invoiceItemTypeId="PITM_FEE"/>
+    <InvoiceItemTypeMap invoiceTypeId="PURCHASE_INVOICE" invoiceItemMapKey="MISCELLANEOUS_CHARGE" invoiceItemTypeId="PITM_MISC_CHARGE"/>
+    <InvoiceItemTypeMap invoiceTypeId="PURCHASE_INVOICE" invoiceItemMapKey="SALES_TAX" invoiceItemTypeId="PITM_SALES_TAX"/>
+    <InvoiceItemTypeMap invoiceTypeId="PURCHASE_INVOICE" invoiceItemMapKey="SHIPPING_CHARGES" invoiceItemTypeId="PITM_SHIP_CHARGES"/>
+    <InvoiceItemTypeMap invoiceTypeId="PURCHASE_INVOICE" invoiceItemMapKey="SURCHARGE_ADJUSTMENT" invoiceItemTypeId="PITM_SURCHARGE_ADJ"/>
+    <InvoiceItemTypeMap invoiceTypeId="PURCHASE_INVOICE" invoiceItemMapKey="ADDITIONAL_FEATURE" invoiceItemTypeId="PITM_ADD_FEATURE"/>
+    <InvoiceItemTypeMap invoiceTypeId="PURCHASE_INVOICE" invoiceItemMapKey="WARRANTY_ADJUSTMENT" invoiceItemTypeId="PITM_WARRANTY_ADJ"/>
+
+    <!-- map return items to invoice items -->
+    <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_FPROD_ITEM" invoiceItemTypeId="CRT_FPROD_ITEM"/>
+    <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_DPROD_ITEM" invoiceItemTypeId="CRT_DPROD_ITEM"/>
+    <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_FDPROD_ITEM" invoiceItemTypeId="CRT_FDPROD_ITEM"/>
+    <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_RPROD_ITEM" invoiceItemTypeId="CRT_RPROD_ITEM"/>
+    <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_PROMOTION_ADJ" invoiceItemTypeId="CRT_PROMOTION_ADJ"/>
+    <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_REPLACE_ADJ" invoiceItemTypeId="CRT_REPLACE_ADJ"/>
+    <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_DISCOUNT_ADJ" invoiceItemTypeId="CRT_DISCOUNT_ADJ"/>
+    <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_FEE_ADJ" invoiceItemTypeId="CRT_FEE_ADJ"/>
+    <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_MISC_CHARGE_ADJ" invoiceItemTypeId="CRT_MISC_ADJ"/>
+    <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_SALES_TAX_ADJ" invoiceItemTypeId="CRT_SALES_TAX_ADJ"/>
+    <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_VAT_TAX_ADJ" invoiceItemTypeId="CRT_VAT_TAX_ADJ"/>
+    <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_VAT_PC_ADJ" invoiceItemTypeId="CRT_VAT_PC_ADJ"/>
+    <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_SHIPPING_ADJ" invoiceItemTypeId="CRT_SHIPPING_ADJ"/>
+    <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_SURCHARGE_ADJ" invoiceItemTypeId="CRT_SURCHARGE_ADJ"/>
+    <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_ADD_FEATURE_ADJ" invoiceItemTypeId="CRT_ADD_FEATURE_ADJ"/>
+    <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_WARRANTY_ADJ" invoiceItemTypeId="CRT_WARRANTY_ADJ"/>
+    <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_MAN_ADJ" invoiceItemTypeId="CRT_MAN_ADJ"/>
+    <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_MKTG_PKG_ADJ" invoiceItemTypeId="CRT_MKTG_PKG_ADJ"/>
+    <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_SPROD_ITEM" invoiceItemTypeId="CRT_SPROD_ITEM"/>
+
+    <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_FPROD_ITEM" invoiceItemTypeId="SRT_FPROD_ITEM"/>
+    <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_DPROD_ITEM" invoiceItemTypeId="SRT_DPROD_ITEM"/>
+    <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_FDPROD_ITEM" invoiceItemTypeId="SRT_FDPROD_ITEM"/>
+    <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_RPROD_ITEM" invoiceItemTypeId="SRT_RPROD_ITEM"/>
+    <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_PROMOTION_ADJ" invoiceItemTypeId="SRT_PROMOTION_ADJ"/>
+    <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_REPLACE_ADJ" invoiceItemTypeId="SRT_REPLACE_ADJ"/>
+    <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_DISCOUNT_ADJ" invoiceItemTypeId="SRT_DISCOUNT_ADJ"/>
+    <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_FEE_ADJ" invoiceItemTypeId="SRT_FEE_ADJ"/>
+    <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_MISC_CHARGE_ADJ" invoiceItemTypeId="SRT_MISC_ADJ"/>
+    <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_SALES_TAX_ADJ" invoiceItemTypeId="SRT_SALES_TAX_ADJ"/>
+    <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_VAT_TAX_ADJ" invoiceItemTypeId="SRT_VAT_TAX_ADJ"/>
+    <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_VAT_PC_ADJ" invoiceItemTypeId="SRT_VAT_PC_ADJ"/>
+    <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_SHIPPING_ADJ" invoiceItemTypeId="SRT_SHIPPING_ADJ"/>
+    <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_SURCHARGE_ADJ" invoiceItemTypeId="SRT_SURCHARGE_ADJ"/>
+    <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_ADD_FEATURE_ADJ" invoiceItemTypeId="SRT_ADD_FEATURE_ADJ"/>
+    <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_WARRANTY_ADJ" invoiceItemTypeId="SRT_WARRANTY_ADJ"/>
+    <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_MAN_ADJ" invoiceItemTypeId="SRT_MAN_ADJ"/>
+    <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_MKTG_PKG_ADJ" invoiceItemTypeId="SRT_MKTG_PKG_ADJ"/>
+
+    <!-- items for commission invoices -->
+    <InvoiceItemTypeMap invoiceTypeId="COMMISSION_INVOICE" invoiceItemMapKey="COM_COMM_ITEM" invoiceItemTypeId="COMM_INV_ITEM"/>
+    <InvoiceItemTypeMap invoiceTypeId="COMMISSION_INVOICE" invoiceItemMapKey="COM_COMM_ADJ" invoiceItemTypeId="COMM_INV_ADJ"/>
+
+    <InvoiceItemTypeMap invoiceTypeId="INTEREST_INVOICE" invoiceItemMapKey="INT_INV_CHRG" invoiceItemTypeId="INV_INTRST_CHRG"/>
+
+<!--New invoiceType: "Payrol"-->
+    <InvoiceType description="Payrol" hasTable="N" invoiceTypeId="PAYROL_INVOICE" parentTypeId="PURCHASE_INVOICE"/>
+<!--    invoiceItem Types:-->
+    <InvoiceItemType description="Payrol" hasTable="N" invoiceItemTypeId="PAYROL" parentTypeId=""/><!-- to group the itemType parentId's -->
+    <!-- earnings and Hours -->
+    <InvoiceItemType description="Earnings and Hours" hasTable="N" invoiceItemTypeId="PAYROL_EARN_HOURS" parentTypeId="PAYROL"/>
+    <InvoiceItemType description="Hourly Rate" hasTable="N" invoiceItemTypeId="PAYROL_HRLY_RATE" parentTypeId="PAYROL_EARN_HOURS"/>
+    <InvoiceItemType description="Sick Hourly Rate" hasTable="N" invoiceItemTypeId="PAYROL_HRLY_RATE_SIC" parentTypeId="PAYROL_EARN_HOURS"/>
+    <InvoiceItemType description="Salary" hasTable="N" invoiceItemTypeId="PAYROL_SALARY" parentTypeId="PAYROL_EARN_HOURS"/>
+    <InvoiceItemType description="Vacation Salary" hasTable="N" invoiceItemTypeId="PAYROL_SALARY_VAC" parentTypeId="PAYROL_EARN_HOURS"/>
+    <InvoiceItemType description="Sick Salary" hasTable="N" invoiceItemTypeId="PAYROL_SALARY_SICK" parentTypeId="PAYROL_EARN_HOURS"/>
+    <InvoiceItemType description="Bonus" hasTable="N" invoiceItemTypeId="PAYROL_BONUS" parentTypeId="PAYROL_EARN_HOURS"/>
+    <InvoiceItemType description="Commission" hasTable="N" invoiceItemTypeId="PAYROL_COMMISSION" parentTypeId="PAYROL_EARN_HOURS"/>
+    <InvoiceItemType description="Advance Pay" hasTable="N" invoiceItemTypeId="PAYROL_ADV_PAY" parentTypeId="PAYROL_EARN_HOURS"/>
+    <InvoiceItemType description="Mileage Reimboursement" hasTable="N" invoiceItemTypeId="PAYROL_MIL_REIMB" parentTypeId="PAYROL_EARN_HOURS"/>
+    <InvoiceItemType description="Office Exp. reimboursement" hasTable="N" invoiceItemTypeId="PAYROL_OFF_EXP_REIMB" parentTypeId="PAYROL_EARN_HOURS"/>
+    <InvoiceItemType description="Pay Period adj(over pay)" hasTable="N" invoiceItemTypeId="PAYROL_PAYPER_OVRPAY" parentTypeId="PAYROL_EARN_HOURS"/>
+    <InvoiceItemType description="Pay Period adj pay" hasTable="N" invoiceItemTypeId="PAYROL_PAYPER_PAY" parentTypeId="PAYROL_EARN_HOURS"/>
+    <!-- Deductions -->
+    <InvoiceItemType description="Deductions from Gross" hasTable="N" invoiceItemTypeId="PAYROL_DD_FROM_GROSS" parentTypeId="PAYROL"/>
+    <InvoiceItemType description="125*Compy. Contr Other Prem." hasTable="N" invoiceItemTypeId="PAYROL_DD_125COMPY" parentTypeId="PAYROL_DD_FROM_GROSS" defaultGlAccountId=""/>
+    <InvoiceItemType description="125*PPO (pre tax)" hasTable="N" invoiceItemTypeId="PAYROL_DD_125PPO" parentTypeId="PAYROL_DD_FROM_GROSS" defaultGlAccountId=""/>
+    <InvoiceItemType description="125*HSA Contribution (pre tax)" hasTable="N" invoiceItemTypeId="PAYROL_DD_125HSA" parentTypeId="PAYROL_DD_FROM_GROSS" defaultGlAccountId=""/>
+    <InvoiceItemType description="401K Emp." hasTable="N" invoiceItemTypeId="PAYROL_DD_401K" parentTypeId="PAYROL_DD_FROM_GROSS" defaultGlAccountId=""/>
+    <InvoiceItemType description="Advance Repayment" hasTable="N" invoiceItemTypeId="PAYROL_DD_REPAY" parentTypeId="PAYROL_DD_FROM_GROSS" defaultGlAccountId=""/>
+    <InvoiceItemType description="Charity Donation" hasTable="N" invoiceItemTypeId="PAYROL_DD_CHAR_DONAT" parentTypeId="PAYROL_DD_FROM_GROSS" defaultGlAccountId=""/>
+    <InvoiceItemType description="Child Support Garnishment" hasTable="N" invoiceItemTypeId="PAYROL_DD_CHILD_SUPP" parentTypeId="PAYROL_DD_FROM_GROSS" defaultGlAccountId=""/>
+    <InvoiceItemType description="Miscellaneous Deduction" hasTable="N" invoiceItemTypeId="PAYROL_DD_MISC" parentTypeId="PAYROL_DD_FROM_GROSS" defaultGlAccountId=""/>
+    <InvoiceItemType description="Roth 401k Emp." hasTable="N" invoiceItemTypeId="PAYROL_DD_ROTH_401K" parentTypeId="PAYROL_DD_FROM_GROSS" defaultGlAccountId=""/>
+    <InvoiceItemType description="Simple IRA emp." hasTable="N" invoiceItemTypeId="PAYROL_DD_SIMP_IRA" parentTypeId="PAYROL_DD_FROM_GROSS" defaultGlAccountId=""/>
+    <InvoiceItemType description="Union Dues" hasTable="N" invoiceItemTypeId="PAYROL_DD_UNION" parentTypeId="PAYROL_DD_FROM_GROSS" defaultGlAccountId=""/>
+    <InvoiceItemType description="Unpaid Salary Time off." hasTable="N" invoiceItemTypeId="PAYROL_DD_SAL_TIMOFF" parentTypeId="PAYROL_DD_FROM_GROSS" defaultGlAccountId=""/>
+    <InvoiceItemType description="Wage Garnishment" hasTable="N" invoiceItemTypeId="PAYROL_DD_WAG_GARN" parentTypeId="PAYROL_DD_FROM_GROSS" defaultGlAccountId=""/>
+    <!-- taxes -->
+    <InvoiceItemType description="Taxes" hasTable="N" invoiceItemTypeId="PAYROL_TAXES" parentTypeId="PAYROL"/>
+    <InvoiceItemType description="Federal Witholding" hasTable="N" invoiceItemTypeId="PAYROL_TAX_FEDERAL" parentTypeId="PAYROL_TAXES" defaultGlAccountId=""/>
+    <InvoiceItemType description="Social Security Employee" hasTable="N" invoiceItemTypeId="PAYROL_SOC_SEC_EMPL" parentTypeId="PAYROL_TAXES" defaultGlAccountId=""/>
+    <InvoiceItemType description="Medicare Employee" hasTable="N" invoiceItemTypeId="PAYROL_TAX_MED_EMPL" parentTypeId="PAYROL_TAXES" defaultGlAccountId=""/>
+    <InvoiceItemType description="MD Withholding" hasTable="N" invoiceItemTypeId="PAYROL_TAX_MD_WITHOL" parentTypeId="PAYROL_TAXES" defaultGlAccountId=""/>
+
+    <!-- An Enumeration to identify the taxable invoice item types.  For these, the only important fields are enumId and enumTypeId. -->
+    <EnumerationType description="Taxable Invoice Item Types" enumTypeId="TAXABLE_INV_ITM_TY" hasTable="N" parentTypeId=""/>
+    <Enumeration description="Sales Invoice Sales Tax" enumCode="INV_SALES_TAX" enumId="INV_SALES_TAX" sequenceId="01" enumTypeId="TAXABLE_INV_ITM_TY"/>
+    <Enumeration description="Sales Invoice Line Item Sales Tax" enumCode="ITM_SALES_TAX" enumId="ITM_SALES_TAX" sequenceId="02" enumTypeId="TAXABLE_INV_ITM_TY"/>
+    <Enumeration description="Purchase Invoice Sales Tax" enumCode="PINV_SALES_TAX" enumId="PINV_SALES_TAX" sequenceId="03" enumTypeId="TAXABLE_INV_ITM_TY"/>
+    <Enumeration description="Purchase Invoice Line Item Sales Tax" enumCode="PITM_SALES_TAX" enumId="PITM_SALES_TAX" sequenceId="04" enumTypeId="TAXABLE_INV_ITM_TY"/>
+    <Enumeration description="Customer Return Sales Tax Adjustment" enumCode="CRT_SALES_TAX_ADJ" enumId="CRT_SALES_TAX_ADJ" sequenceId="05" enumTypeId="TAXABLE_INV_ITM_TY"/>
+
+    <PaymentMethodType description="Credit Card" paymentMethodTypeId="CREDIT_CARD"/>
+    <PaymentMethodType description="Gift Card" paymentMethodTypeId="GIFT_CARD"/>
+    <PaymentMethodType description="Gift Certificate" paymentMethodTypeId="GIFT_CERTIFICATE"/>
+    <PaymentMethodType description="Cash" paymentMethodTypeId="CASH"/>
+    <PaymentMethodType description="Electronic Funds Transfer" paymentMethodTypeId="EFT_ACCOUNT"/>
+    <PaymentMethodType description="Financial Account" paymentMethodTypeId="FIN_ACCOUNT"/>
+    <PaymentMethodType description="Personal Check" paymentMethodTypeId="PERSONAL_CHECK"/>
+    <PaymentMethodType description="Company Check" paymentMethodTypeId="COMPANY_CHECK"/>
+    <PaymentMethodType description="Certified Check" paymentMethodTypeId="CERTIFIED_CHECK"/>
+    <PaymentMethodType description="Money Order" paymentMethodTypeId="MONEY_ORDER"/>
+    <PaymentMethodType description="Company Account" paymentMethodTypeId="COMPANY_ACCOUNT"/>
+    <PaymentMethodType description="Billing Account" paymentMethodTypeId="EXT_BILLACT"/>
+    <PaymentMethodType description="Cash On Delivery" paymentMethodTypeId="EXT_COD"/>
+    <PaymentMethodType description="eBay" paymentMethodTypeId="EXT_EBAY"/>
+    <PaymentMethodType description="Offline Payment" paymentMethodTypeId="EXT_OFFLINE"/>
+    <PaymentMethodType description="PayPal" paymentMethodTypeId="EXT_PAYPAL"/>
+    <PaymentMethodType description="RBS WorldPay" paymentMethodTypeId="EXT_WORLDPAY"/>
+    <PaymentMethodType description="iDEAL" paymentMethodTypeId="EXT_IDEAL"/>
+
+    <PaymentType description="Disbursement" hasTable="N" parentTypeId="" paymentTypeId="DISBURSEMENT"/>
+    <PaymentType description="Customer Refund" hasTable="N" parentTypeId="DISBURSEMENT" paymentTypeId="CUSTOMER_REFUND"/> <!-- a refund TO the customer -->
+    <PaymentType description="Vendor Payment" hasTable="N" parentTypeId="DISBURSEMENT" paymentTypeId="VENDOR_PAYMENT"/>
+    <PaymentType description="Vendor Prepayment" hasTable="N" parentTypeId="DISBURSEMENT" paymentTypeId="VENDOR_PREPAY"/>
+    <PaymentType description="Commission Payment" hasTable="N" parentTypeId="DISBURSEMENT" paymentTypeId="COMMISSION_PAYMENT"/>
+    <PaymentType description="Payrol Payment" hasTable="N" parentTypeId="DISBURSEMENT" paymentTypeId="PAYROL_PAYMENT"/>
+    <PaymentType description="Pay Check" hasTable="N" parentTypeId="DISBURSEMENT" paymentTypeId="PAY_CHECK"/>
+    <PaymentType description="Tax Payment" hasTable="N" parentTypeId="DISBURSEMENT" paymentTypeId="TAX_PAYMENT"/>
+    <PaymentType description="Sales Tax Payment" hasTable="N" parentTypeId="TAX_PAYMENT" paymentTypeId="SALES_TAX_PAYMENT"/>
+    <PaymentType description="Payroll Tax Payment" hasTable="N" parentTypeId="TAX_PAYMENT" paymentTypeId="PAYROLL_TAX_PAYMENT"/>
+    <PaymentType description="Income Tax Payment" hasTable="N" parentTypeId="TAX_PAYMENT" paymentTypeId="INCOME_TAX_PAYMENT"/>
+    <PaymentType description="Gift Certificate Withdrawal" hasTable="N"  parentTypeId="DISBURSEMENT" paymentTypeId="GC_WITHDRAWAL"/>
+
+    <PaymentType description="Receipt" hasTable="N" parentTypeId="" paymentTypeId="RECEIPT"/>
+    <PaymentType description="Customer Payment" hasTable="N" parentTypeId="RECEIPT" paymentTypeId="CUSTOMER_PAYMENT"/> <!-- a payment FROM the customer -->
+    <PaymentType description="Customer Deposit" hasTable="N" parentTypeId="RECEIPT" paymentTypeId="CUSTOMER_DEPOSIT"/>
+    <PaymentType description="Interest Receipt" hasTable="N" parentTypeId="RECEIPT" paymentTypeId="INTEREST_RECEIPT"/>
+    <PaymentType description="Gift Certificate Deposit" hasTable="N"  parentTypeId="RECEIPT" paymentTypeId="GC_DEPOSIT"/>
+
+    <!-- Payment Group Type -->
+    <PaymentGroupType paymentGroupTypeId="CHECK_RUN" parentTypeId="" hasTable="N" description="Check Run"/>
+    <PaymentGroupType paymentGroupTypeId="BATCH_PAYMENT" parentTypeId="" hasTable="N" description="Batch of Payments"/>
+    
+    <!--  Credit Card methods by type -->
+    <CustomMethodType customMethodTypeId="CC_AUTH" parentTypeId="" hasTable="N" description="Credit Card authorize methods"/>
+    <CustomMethodType customMethodTypeId="CC_CAPTURE" parentTypeId="" hasTable="N" description="Credit Card capture methods"/>
+    <CustomMethodType customMethodTypeId="CC_REFUND" parentTypeId="" hasTable="N" description="Credit Card refund methods"/>
+    <CustomMethodType customMethodTypeId="CC_RELEASE" parentTypeId="" hasTable="N" description="Credit Card release methods"/>
+    <CustomMethodType customMethodTypeId="CC_CREDIT" parentTypeId="" hasTable="N" description="Credit Card credit methods"/>
+
+    <CustomMethodType customMethodTypeId="EFT_AUTH" parentTypeId="" hasTable="N" description="EFT authorize methods"/>
+    <CustomMethodType customMethodTypeId="EFT_RELEASE" parentTypeId="" hasTable="N" description="EFT release methods"/>
+
+    <CustomMethodType customMethodTypeId="FIN_AUTH" parentTypeId="" hasTable="N" description="FIN account authorize methods"/>
+    <CustomMethodType customMethodTypeId="FIN_CAPTURE" parentTypeId="" hasTable="N" description="FIN account capture methods"/>
+    <CustomMethodType customMethodTypeId="FIN_REFUND" parentTypeId="" hasTable="N" description="FIN account refund methods"/>
+    <CustomMethodType customMethodTypeId="FIN_RELEASE" parentTypeId="" hasTable="N" description="FIN account release methods"/>
+    <CustomMethodType customMethodTypeId="FIN_PURCHASE" parentTypeId="" hasTable="N" description="FIN account purchase methods"/>
+
+    <CustomMethodType customMethodTypeId="GIFT_AUTH" parentTypeId="" hasTable="N" description="GIFT card authorize methods"/>
+    <CustomMethodType customMethodTypeId="GIFT_CAPTURE" parentTypeId="" hasTable="N" description="GIFT card capture methods"/>
+    <CustomMethodType customMethodTypeId="GIFT_REFUND" parentTypeId="" hasTable="N" description="GIFT card refund methods"/>
+    <CustomMethodType customMethodTypeId="GIFT_RELEASE" parentTypeId="" hasTable="N" description="GIFT card release methods"/>
+    <CustomMethodType customMethodTypeId="GIFT_PURCHASE" parentTypeId="" hasTable="N" description="GIFT card purchase methods"/>
+
+    <CustomMethodType customMethodTypeId="PAYPAL_AUTH" parentTypeId="" hasTable="N" description="PayPal authorize methods"/>
+    <CustomMethodType customMethodTypeId="PAYPAL_CAPTURE" parentTypeId="" hasTable="N" description="PayPal capture methods"/>
+    <CustomMethodType customMethodTypeId="PAYPAL_REFUND" parentTypeId="" hasTable="N" description="PayPal refund methods"/>
+    <CustomMethodType customMethodTypeId="PAYPAL_RELEASE" parentTypeId="" hasTable="N" description="PayPal release methods"/>
+
+    <CustomMethod customMethodId="CC_AUTH_TEST" customMethodTypeId="CC_AUTH" customMethodName="testCCProcessor" description="CC Test authorize"/>
+    <CustomMethod customMethodId="CC_AUTH_CAPTURE_TST" customMethodTypeId="CC_AUTH" customMethodName="testCCProcessorWithCapture" description="CC Test authorize and capture"/>
+    <CustomMethod customMethodId="CC_AUTH_RANDOM_TEST" customMethodTypeId="CC_AUTH" customMethodName="testRandomAuthorize" description="CC Test random authorize"/>
+    <CustomMethod customMethodId="CC_AUTH_AIM" customMethodTypeId="CC_AUTH" customMethodName="aimCCAuth" description="CC Authorize dot net authorize"/>
+    <CustomMethod customMethodId="CC_AUTH_CAPTURE_AIM" customMethodTypeId="CC_AUTH" customMethodName="aimCCAuthCapture" description="CC Authorize dot net authorize and capture"/>
+    <CustomMethod customMethodId="CC_AUTH_CLEARCOMMERC" customMethodTypeId="CC_AUTH" customMethodName="clearCommerceCCAuth" description="CC Clear Commerce authorize"/>
+    <CustomMethod customMethodId="CC_AUTH_CLEARCOM_REP" customMethodTypeId="CC_AUTH" customMethodName="clearCommerceCCReport" description="CC Clear Commerce authorize reporting facility"/>
+    <CustomMethod customMethodId="CC_AUTH_CYBERSOURCE" customMethodTypeId="CC_AUTH" customMethodName="cyberSourceCCAuth" description="CC CyberSource authorize"/>
+    <CustomMethod customMethodId="CC_AUTH_PAYFLOW" customMethodTypeId="CC_AUTH" customMethodName="payflowCCProcessor" description="CC Payflow Pro authorize"/>
+    <CustomMethod customMethodId="CC_AUTH_PCCHARGE" customMethodTypeId="CC_AUTH" customMethodName="pcChargeCCAuth" description="CC PCCharge authorize"/>
+    <CustomMethod customMethodId="CC_AUTH_RITA" customMethodTypeId="CC_AUTH" customMethodName="ritaCCAuth" description="CC RiTA authorize"/>
+    <CustomMethod customMethodId="CC_AUTH_RITA_REMOTE" customMethodTypeId="CC_AUTH" customMethodName="ritaCCAuthRemote" description="CC RiTA remote authorize"/>
+    <CustomMethod customMethodId="CC_AUTH_ALWAYSAPPROV" customMethodTypeId="CC_AUTH" customMethodName="alwaysApproveCCProcessor" description="CC Always authorize"/>
+    <CustomMethod customMethodId="CC_AUTH_ALWAYSDECLIN" customMethodTypeId="CC_AUTH" customMethodName="alwaysDeclineCCProcessor" description="CC Always decline"/>
+    <CustomMethod customMethodId="CC_AUTH_ALWAYSNSF" customMethodTypeId="CC_AUTH" customMethodName="alwaysNsfCCProcessor" description="CC Always decline for not sufficient funds"/>
+    <CustomMethod customMethodId="CC_AUTH_ALWAYSBAD" customMethodTypeId="CC_AUTH" customMethodName="alwaysBadExpireCCProcessor" description="CC Always decline for fail/bad expire date"/>
+    <CustomMethod customMethodId="CC_AUTH_ALWAYSEVEN" customMethodTypeId="CC_AUTH" customMethodName="badExpireEvenCCProcessor" description="CC Always decline for fail/bad expire date when year is even"/>
+    <CustomMethod customMethodId="CC_AUTH_ALWAYSBADNUM" customMethodTypeId="CC_AUTH" customMethodName="alwaysBadCardNumberCCProcessor" description="CC Always decline for bad card number"/>
+    <CustomMethod customMethodId="CC_AUTH_ALWAYSFAIL" customMethodTypeId="CC_AUTH" customMethodName="alwaysBadCardNumberCCProcessor" description="CC Always fail"/>
+    <CustomMethod customMethodId="CC_AUTH_CAPTURE_ALWA" customMethodTypeId="CC_AUTH" customMethodName="alwaysApproveWithCaptureCCProcessor" description="CC Always authorize and capture"/>
+    <CustomMethod customMethodId="CC_AUTH_ORBITAL" customMethodTypeId="CC_AUTH" customMethodName="orbitalCCAuth" description="CC Orbital authorize"/>
+    <CustomMethod customMethodId="CC_AUTH_CAPTR_ORBTL" customMethodTypeId="CC_AUTH" customMethodName="orbitalCCAuthCapture" description="CC Orbital authorize and capture"/>
+
+    <CustomMethod customMethodId="CC_CAPTURE_TEST" customMethodTypeId="CC_CAPTURE" customMethodName="testCCCapture" description="CC Test capture"/>
+    <CustomMethod customMethodId="CC_CAPTURE_REAUTH" customMethodTypeId="CC_CAPTURE" customMethodName="testCCCaptureWithReAuth" description="CC Test reauth capture"/>
+    <CustomMethod customMethodId="CC_CAPTURE_ALWAYSDEC" customMethodTypeId="CC_CAPTURE" customMethodName="testCCProcessorCaptureAlwaysDecline" description="CC Always decline capture"/>
+    <CustomMethod customMethodId="CC_CAPTURE_AIM" customMethodTypeId="CC_CAPTURE" customMethodName="aimCCCapture" description="CC Authorize dot net capture"/>
+    <CustomMethod customMethodId="CC_CAPTURE_CLEARCOMM" customMethodTypeId="CC_CAPTURE" customMethodName="clearCommerceCCCapture" description="CC Clear Commerce capture"/>
+    <CustomMethod customMethodId="CC_CAPTURE_CYBERSOUR" customMethodTypeId="CC_CAPTURE" customMethodName="cyberSourceCCCapture" description="CC CyberSource capture"/>
+    <CustomMethod customMethodId="CC_CAPTURE_PAYFLOW" customMethodTypeId="CC_CAPTURE" customMethodName="payflowCCCapture" description="CC Payflow Pro capture"/>
+    <CustomMethod customMethodId="CC_CAPTURE_PCCHARGE" customMethodTypeId="CC_CAPTURE" customMethodName="pcChargeCCCapture" description="CC PCCharge capture"/>
+    <CustomMethod customMethodId="CC_CAPTURE_RITA" customMethodTypeId="CC_CAPTURE" customMethodName="ritaCCCapture" description="CC RiTA capture"/>
+    <CustomMethod customMethodId="CC_CAPTURE_RITA_REMO" customMethodTypeId="CC_CAPTURE" customMethodName="ritaCCCaptureRemote" description="CC RiTA remote capture"/>
+    <CustomMethod customMethodId="CC_CAPTURE_ORBITAL" customMethodTypeId="CC_CAPTURE" customMethodName="orbitalCCCapture" description="CC Orbital capture"/>
+
+    <CustomMethod customMethodId="CC_REFUND_TEST" customMethodTypeId="CC_REFUND" customMethodName="testCCRefund" description="CC Test refund"/>
+    <CustomMethod customMethodId="CC_REFUND_TEST_FAIL" customMethodTypeId="CC_REFUND" customMethodName="testCCRefundFailure" description="CC Test refund failure"/>
+    <CustomMethod customMethodId="CC_REFUND_AIM" customMethodTypeId="CC_REFUND" customMethodName="aimCCRefund" description="CC Authorize dot net refund"/>
+    <CustomMethod customMethodId="CC_REFUND_CLEARCOMME" customMethodTypeId="CC_REFUND" customMethodName="clearCommerceCCRefund" description="CC Clear Commerce refund"/>
+    <CustomMethod customMethodId="CC_REFUND_CYBERSOURC" customMethodTypeId="CC_REFUND" customMethodName="cyberSourceCCRefund" description="CC CyberSource refund"/>
+    <CustomMethod customMethodId="CC_REFUND_PAYFLOW" customMethodTypeId="CC_REFUND" customMethodName="payflowCCRefund" description="CC Payflow Pro refund"/>
+    <CustomMethod customMethodId="CC_REFUND_PCCHARGE" customMethodTypeId="CC_REFUND" customMethodName="pcChargeCCRefund" description="CC PCCharge refund"/>
+    <CustomMethod customMethodId="CC_REFUND_RITA" customMethodTypeId="CC_REFUND" customMethodName="ritaCCRefund" description="CC RiTA refund"/>
+    <CustomMethod customMethodId="CC_REFUND_RITA_REMOT" customMethodTypeId="CC_REFUND" customMethodName="ritaCCRefundRemote" description="CC RiTA remote refund"/>
+    <CustomMethod customMethodId="CC_REFUND_ORBITAL" customMethodTypeId="CC_REFUND" customMethodName="orbitalCCRefund" description="CC Orbital refund"/>
+
+    <CustomMethod customMethodId="CC_RELEASE_TEST" customMethodTypeId="CC_RELEASE" customMethodName="testCCRelease" description="CC Test release"/>
+    <CustomMethod customMethodId="CC_RELEASE_AIM" customMethodTypeId="CC_RELEASE" customMethodName="aimCCRelease" description="CC Authorize dot net release"/>
+    <CustomMethod customMethodId="CC_RELEASE_CLEARCOMM" customMethodTypeId="CC_RELEASE" customMethodName="clearCommerceCCRelease" description="CC Clear Commerce release"/>
+    <CustomMethod customMethodId="CC_RELEASE_CYBERSOUR" customMethodTypeId="CC_RELEASE" customMethodName="cyberSourceCCRelease" description="CC CyberSource release"/>
+    <CustomMethod customMethodId="CC_RELEASE_PAYFLOW" customMethodTypeId="CC_RELEASE" customMethodName="payflowCCVoid" description="CC Payflow Pro release"/>
+    <CustomMethod customMethodId="CC_RELEASE_PCCHARGE" customMethodTypeId="CC_RELEASE" customMethodName="pcChargeCCRelease" description="CC PCCharge release"/>
+    <CustomMethod customMethodId="CC_RELEASE_RITA" customMethodTypeId="CC_RELEASE" customMethodName="ritaCCRelease" description="CC RiTA release"/>
+    <CustomMethod customMethodId="CC_RELEASE_RITA_REMO" customMethodTypeId="CC_RELEASE" customMethodName="ritaCCReleaseRemote" description="CC RiTA remote release"/>
+    <CustomMethod customMethodId="CC_RELEASE_ORBITAL" customMethodTypeId="CC_RELEASE" customMethodName="orbitalCCRelease" description="CC Orbital release"/>
+
+    <CustomMethod customMethodId="CC_CREDIT_AIM" customMethodTypeId="CC_CREDIT" customMethodName="aimCCCredit" description="CC Authorize dot net credit"/>
+    <CustomMethod customMethodId="CC_CREDIT_CLEARCOMME" customMethodTypeId="CC_CREDIT" customMethodName="clearCommerceCCCredit" description="CC Clear Commerce credit"/>
+    <CustomMethod customMethodId="CC_CREDIT_CYBERSOURC" customMethodTypeId="CC_CREDIT" customMethodName="cyberSourceCCCredit" description="CC CyberSource credit"/>
+    <CustomMethod customMethodId="CC_CREDIT_RITA" customMethodTypeId="CC_CREDIT" customMethodName="ritaCCCreditRefund" description="CC RiTA credit"/>
+
+    <CustomMethod customMethodId="EFT_AUTH_TEST" customMethodTypeId="EFT_AUTH" customMethodName="testEFTProcessor" description="EFT test authorize"/>
+    <CustomMethod customMethodId="EFT_AUTH_ALWAYSAPPRO" customMethodTypeId="EFT_AUTH" customMethodName="alwaysApproveEFTProcessor" description="EFT always authorize"/>
+    <CustomMethod customMethodId="EFT_AUTH_ALWAYSDECLI" customMethodTypeId="EFT_AUTH" customMethodName="alwaysDeclineEFTProcessor" description="EFT always decline"/>
+    <CustomMethod customMethodId="EFT_RELEASE_TEST" customMethodTypeId="EFT_RELEASE" customMethodName="testEFTRelease" description="EFT test release"/>
+
+    <CustomMethod customMethodId="FIN_AUTH_OFBIZ" customMethodTypeId="FIN_AUTH" customMethodName="ofbFaAuthorize" description="FIN account authorize"/>
+    <CustomMethod customMethodId="FIN_CAPTURE_OFBIZ" customMethodTypeId="FIN_CAPTURE" customMethodName="ofbFaCapture" description="FIN account capture"/>
+    <CustomMethod customMethodId="FIN_REFUND_OFBIZ" customMethodTypeId="FIN_REFUND" customMethodName="ofbFaRefund" description="FIN account refund"/>
+    <CustomMethod customMethodId="FIN_RELEASE_OFBIZ" customMethodTypeId="FIN_RELEASE" customMethodName="ofbFaRelease" description="FIN account release"/>
+    <CustomMethod customMethodId="FIN_PURCH_OFBIZ" customMethodTypeId="FIN_PURCHASE" customMethodName="createPartyFinAccountFromPurchase" description="FIN account purchase"/>
+
+    <CustomMethod customMethodId="GIFT_AUTH_OFBIZ" customMethodTypeId="GIFT_AUTH" customMethodName="ofbGcAuthorize" description="GIFT card authorize"/>
+    <CustomMethod customMethodId="GIFT_AUTH_ALWAYSAPPR" customMethodTypeId="GIFT_AUTH" customMethodName="alwaysApproveGCProcessor" description="GIFT card always authorize"/>
+    <CustomMethod customMethodId="GIFT_AUTH_ALWAYSDECL" customMethodTypeId="GIFT_AUTH" customMethodName="alwaysDeclineGCProcessor" description="GIFT card always decline"/>
+    <CustomMethod customMethodId="GIFT_AUTH_VALUELINK" customMethodTypeId="GIFT_AUTH" customMethodName="valueLinkProcessor" description="GIFT card ValueLink authorize"/>
+    <CustomMethod customMethodId="GIFT_CAPTURE_OFBIZ" customMethodTypeId="GIFT_CAPTURE" customMethodName="ofbGcProcessor" description="GIFT card capture"/>
+    <CustomMethod customMethodId="GIFT_REFUND_OFBIZ" customMethodTypeId="GIFT_REFUND" customMethodName="ofbGcRefund" description="GIFT card refund"/>
+    <CustomMethod customMethodId="GIFT_REFUND_VALUELI" customMethodTypeId="GIFT_REFUND" customMethodName="valueLinkRefund" description="GIFT card ValueLink refund"/>
+    <CustomMethod customMethodId="GIFT_RELEASE_OFBIZ" customMethodTypeId="GIFT_RELEASE" customMethodName="ofbGcRelease" description="GIFT card release"/>
+    <CustomMethod customMethodId="GIFT_RELEASE_TEST" customMethodTypeId="GIFT_RELEASE" customMethodName="testGCRelease" description="GIFT card test release"/>
+    <CustomMethod customMethodId="GIFT_RELEASE_VALUEL" customMethodTypeId="GIFT_RELEASE" customMethodName="valueLinkRelease" description="GIFT card ValueLink release"/>
+    <CustomMethod customMethodId="GIFT_PURCH_OFBIZ" customMethodTypeId="GIFT_PURCHASE" customMethodName="ofbGcPurchase" description="GIFT card Purchase Fulfillment Service"/>
+
+    <CustomMethod customMethodId="PAYPAL_AUTH_PFP" customMethodTypeId="PAYPAL_AUTH" customMethodName="payflowPayPalProcessor" description="Payflow PayPal payment authorize"/>
+    <CustomMethod customMethodId="PAYPAL_AUTH" customMethodTypeId="PAYPAL_AUTH" customMethodName="payPalProcessor" description="PayPal payment authorize"/>
+
+    <CustomMethod customMethodId="PAYPAL_CAPTURE_PFP" customMethodTypeId="PAYPAL_CAPTURE" customMethodName="payflowPayPalCapture" description="Payflow PayPal payment capture"/>
+    <CustomMethod customMethodId="PAYPAL_CAPTURE" customMethodTypeId="PAYPAL_CAPTURE" customMethodName="payPalCapture" description="PayPal payment capture"/>
+
+    <CustomMethod customMethodId="PAYPAL_REFUND_PFP" customMethodTypeId="PAYPAL_REFUND" customMethodName="payflowPayPalRefund" description="Payflow PayPal payment refund"/>
+    <CustomMethod customMethodId="PAYPAL_REFUND" customMethodTypeId="PAYPAL_REFUND" customMethodName="payPalRefund" description="PayPal payment refund"/>
+
+    <CustomMethod customMethodId="PAYPAL_RELEASE_PFP" customMethodTypeId="PAYPAL_RELEASE" customMethodName="payflowPayPalVoid" description="Payflow PayPal Order release"/>
+    <CustomMethod customMethodId="PAYPAL_RELEASE" customMethodTypeId="PAYPAL_RELEASE" customMethodName="payPalVoid" description="PayPal Order Release"/>
+
+    <CustomMethod customMethodId="CC_CHARGE_EWAY" customMethodTypeId="CC_AUTH" customMethodName="ewayCharge" description="eWay CC Charge"/>
+    <CustomMethod customMethodId="CC_REFUND_EWAY" customMethodTypeId="CC_REFUND" customMethodName="ewayRefund" description="eWay CC Refund"/>
+    <CustomMethod customMethodId="CC_RELEASE_EWAY" customMethodTypeId="CC_RELEASE" customMethodName="ewayRelease" description="eWay CC Release"/>
+
+    <CustomMethod customMethodId="SECURE_AUTH_OFBIZ" customMethodTypeId="CC_AUTH" customMethodName="ofbScAuthorize" description="SecurePay payment authorize"/>
+    <CustomMethod customMethodId="SECURE_CAPTURE_OFBIZ" customMethodTypeId="CC_CAPTURE" customMethodName="ofbScCapture" description="SecurePay payment capture"/>
+    <CustomMethod customMethodId="SECURE_REFUND_OFBIZ" customMethodTypeId="CC_REFUND" customMethodName="ofbScRefund" description="SecurePay payment refund"/>
+    <CustomMethod customMethodId="SECURE_RELEASE_OFBIZ" customMethodTypeId="CC_RELEASE" customMethodName="ofbScRelease" description="SecurePay payment release"/>
+    <CustomMethod customMethodId="SECURE_CREDIT_OFBIZ" customMethodTypeId="CC_CREDIT" customMethodName="ofbScCCCredit" description="SecurePay Credit Card"/>
+
+    <!-- Credit Cart Types -->
+    <EnumerationType description="Credit Card Type" enumTypeId="CREDIT_CARD_TYPE" hasTable="N" parentTypeId=""/>
+    <Enumeration description="Visa" enumCode="Visa" enumId="CCT_VISA" sequenceId="01" enumTypeId="CREDIT_CARD_TYPE"/>
+    <Enumeration description="Master Card" enumCode="MasterCard" enumId="CCT_MASTERCARD" sequenceId="02" enumTypeId="CREDIT_CARD_TYPE"/>
+    <Enumeration description="American Express" enumCode="AmericanExpress" enumId="CCT_AMERICANEXPRESS" sequenceId="03" enumTypeId="CREDIT_CARD_TYPE"/>
+    <Enumeration description="Diners Club" enumCode="DinersClub" enumId="CCT_DINERSCLUB" sequenceId="04" enumTypeId="CREDIT_CARD_TYPE"/>
+    <Enumeration description="Discover" enumCode="Discover" enumId="CCT_DISCOVER" sequenceId="05" enumTypeId="CREDIT_CARD_TYPE"/>
+    <Enumeration description="EnRoute" enumCode="EnRoute" enumId="CCT_ENROUTE" sequenceId="06" enumTypeId="CREDIT_CARD_TYPE"/>
+    <Enumeration description="Carte Blanche" enumCode="CarteBlanche" enumId="CCT_CARTEBLANCHE" sequenceId="07" enumTypeId="CREDIT_CARD_TYPE"/>
+    <Enumeration description="JCB" enumCode="JCB" enumId="CCT_JCB" sequenceId="08" enumTypeId="CREDIT_CARD_TYPE"/>
+    <Enumeration description="Solo" enumCode="Solo" enumId="CCT_SOLO" sequenceId="09" enumTypeId="CREDIT_CARD_TYPE"/>
+    <Enumeration description="Switch" enumCode="Switch" enumId="CCT_SWITCH" sequenceId="10" enumTypeId="CREDIT_CARD_TYPE"/>
+    <Enumeration description="Visa Electron" enumCode="VisaElectron" enumId="CCT_VISAELECTRON" sequenceId="11" enumTypeId="CREDIT_CARD_TYPE"/>
+    <Enumeration description="Universal Air Travel Plan" enumCode="UATP" enumId="CCT_UATP" sequenceId="12" enumTypeId="CREDIT_CARD_TYPE"/>
+
+    <StatusType description="Budget" hasTable="N" parentTypeId="" statusTypeId="BUDGET_STATUS"/>
+    <StatusType description="Party Asset" hasTable="N" parentTypeId="" statusTypeId="PARTY_ASSET_STATUS"/>
+
+    <!-- invoice status -->
+    <StatusType description="Invoice Status" hasTable="N" parentTypeId="" statusTypeId="INVOICE_STATUS"/>
+    <StatusItem description="In-Process" sequenceId="01" statusCode="IN_PROCESS" statusId="INVOICE_IN_PROCESS" statusTypeId="INVOICE_STATUS"/>
+    <StatusItem description="Approved" sequenceId="02" statusCode="APPROVED" statusId="INVOICE_APPROVED" statusTypeId="INVOICE_STATUS"/>
+    <StatusItem description="Sent" sequenceId="10" statusCode="SENT" statusId="INVOICE_SENT" statusTypeId="INVOICE_STATUS"/>
+    <StatusItem description="Received" sequenceId="11" statusCode="RECEIVED" statusId="INVOICE_RECEIVED" statusTypeId="INVOICE_STATUS"/>
+    <!-- READY is a very important state - it triggers general ledger postings.  Make sure your invoices go through this state -->
+    <StatusItem description="Ready for Posting" sequenceId="20" statusCode="READY" statusId="INVOICE_READY" statusTypeId="INVOICE_STATUS"/>
+    <StatusItem description="Paid" sequenceId="30" statusCode="PAID" statusId="INVOICE_PAID" statusTypeId="INVOICE_STATUS"/>
+    <StatusItem description="Write Off" sequenceId="31" statusCode="WRITE OFF" statusId="INVOICE_WRITEOFF" statusTypeId="INVOICE_STATUS"/>
+    <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="INVOICE_CANCELLED" statusTypeId="INVOICE_STATUS"/>
+    <!-- this is the simplest process: IN_PROCESS -> READY or CANCELLED -->
+    <StatusValidChange statusId="INVOICE_IN_PROCESS" statusIdTo="INVOICE_READY" transitionName="Mark Ready"/>
+    <StatusValidChange statusId="INVOICE_IN_PROCESS" statusIdTo="INVOICE_CANCELLED" transitionName="Cancel"/>
+    <!-- this is a more complicated process: IN_PROCESS -> SENT -> (optionally RECEIVED) -> READY or CANCELLED -->
+    <StatusValidChange statusId="INVOICE_IN_PROCESS" statusIdTo="INVOICE_SENT" transitionName="Send"/>
+    <StatusValidChange statusId="INVOICE_IN_PROCESS" statusIdTo="INVOICE_RECEIVED" transitionName="Receive"/>
+    <StatusValidChange statusId="INVOICE_SENT" statusIdTo="INVOICE_APPROVED" transitionName="Mark Approved"/>
+    <StatusValidChange statusId="INVOICE_SENT" statusIdTo="INVOICE_READY" transitionName="Mark Ready"/>
+    <StatusValidChange statusId="INVOICE_SENT" statusIdTo="INVOICE_RECEIVED" transitionName="Receive"/>
+    <StatusValidChange statusId="INVOICE_RECEIVED" statusIdTo="INVOICE_READY" transitionName="Mark Receive"/>
+    <StatusValidChange statusId="INVOICE_SENT" statusIdTo="INVOICE_CANCELLED" transitionName="Cancel"/>
+    <StatusValidChange statusId="INVOICE_RECEIVED" statusIdTo="INVOICE_CANCELLED" transitionName="Cancel"/>
+    <!-- this is a process to enable modification via the Status IN_PROCESS when the receiver/sender wants an invoice change or to cancel it -->
+    <StatusValidChange statusId="INVOICE_SENT" statusIdTo="INVOICE_IN_PROCESS" transitionName="Enable sales invoice update"/>
+    <StatusValidChange statusId="INVOICE_RECEIVED" statusIdTo="INVOICE_IN_PROCESS" transitionName="Enable purch.invoice update"/>
+    <!-- an optional approval state is put in before invoice is sent or after it is received -->
+    <StatusValidChange statusId="INVOICE_IN_PROCESS" statusIdTo="INVOICE_APPROVED" transitionName="Approve"/>
+    <StatusValidChange statusId="INVOICE_APPROVED" statusIdTo="INVOICE_SENT" transitionName="Send"/>
+    <StatusValidChange statusId="INVOICE_IN_PROCESS" statusIdTo="INVOICE_RECEIVED" transitionName="Receive"/>
+    <StatusValidChange statusId="INVOICE_RECEIVED" statusIdTo="INVOICE_APPROVED" transitionName="Approve"/>
+    <StatusValidChange statusId="INVOICE_APPROVED" statusIdTo="INVOICE_READY" transitionName="Mark Ready"/>
+    <!-- finally the invoice can be paid or written off.   -->
+    <StatusValidChange statusId="INVOICE_READY" statusIdTo="INVOICE_PAID" transitionName="Pay"/>
+    <StatusValidChange statusId="INVOICE_READY" statusIdTo="INVOICE_WRITEOFF" transitionName="Write Off"/>
+    <StatusValidChange statusId="INVOICE_PAID" statusIdTo="INVOICE_READY" transitionName="Unpay"/>
+    <StatusValidChange statusId="INVOICE_READY" statusIdTo="INVOICE_CANCELLED" transitionName="Cancel"/>
+    <StatusValidChange statusId="INVOICE_PAID" statusIdTo="INVOICE_CANCELLED" transitionName="Cancel"/>
+
+    <!-- payment status -->
+    <StatusType description="Payment Status" hasTable="N" parentTypeId="" statusTypeId="PMNT_STATUS"/>
+    <StatusItem description="Not Paid" sequenceId="01" statusCode="NOT_PAID" statusId="PMNT_NOT_PAID" statusTypeId="PMNT_STATUS"/>
+    <StatusItem description="Sent" sequenceId="03" statusCode="SENT" statusId="PMNT_SENT" statusTypeId="PMNT_STATUS"/>
+    <StatusItem description="Received" sequenceId="04" statusCode="RECEIVED" statusId="PMNT_RECEIVED" statusTypeId="PMNT_STATUS"/>
+    <StatusItem description="Confirmed" sequenceId="05" statusCode="CONFIRMED" statusId="PMNT_CONFIRMED" statusTypeId="PMNT_STATUS"/>
+    <StatusItem description="Cancelled" sequenceId="10" statusCode="CANCELLED" statusId="PMNT_CANCELLED" statusTypeId="PMNT_STATUS"/>
+    <StatusItem description="Voided" sequenceId="11" statusCode="VOID" statusId="PMNT_VOID" statusTypeId="PMNT_STATUS"/>
+    <StatusValidChange statusId="PMNT_NOT_PAID" statusIdTo="PMNT_SENT" transitionName="Payment Send"/>
+    <StatusValidChange statusId="PMNT_NOT_PAID" statusIdTo="PMNT_RECEIVED" transitionName="Payment Received"/>
+    <StatusValidChange statusId="PMNT_NOT_PAID" statusIdTo="PMNT_CANCELLED" transitionName="Payment Cancelled"/>
+    <StatusValidChange statusId="PMNT_SENT" statusIdTo="PMNT_CONFIRMED" transitionName="Payment Confirmed"/>
+    <StatusValidChange statusId="PMNT_RECEIVED" statusIdTo="PMNT_CONFIRMED" transitionName="Payment Confirmed"/>
+    <StatusValidChange statusId="PMNT_SENT" statusIdTo="PMNT_VOID" transitionName="Payment Voided"/>
+    <StatusValidChange statusId="PMNT_RECEIVED" statusIdTo="PMNT_VOID" transitionName="Payment Voided"/>
+    <StatusValidChange statusId="PMNT_NOT_PAID" statusIdTo="PMNT_VOID" transitionName="Payment Voided"/>
+    <StatusValidChange statusId="PMNT_SENT" statusIdTo="PMNT_NOT_PAID" transitionName="Payment Not Paid"/>
+    <StatusValidChange statusId="PMNT_RECEIVED" statusIdTo="PMNT_NOT_PAID" transitionName="Payment Not Paid"/>
+    <StatusValidChange statusId="PMNT_CONFIRMED" statusIdTo="PMNT_SENT" transitionName="Payment Confirmed to Sent"/>
+    <StatusValidChange statusId="PMNT_CONFIRMED" statusIdTo="PMNT_RECEIVED" transitionName="Payment Confirmed to Received"/>
+
+    <SettlementTerm settlementTermId="COD" termName="Cash Due on Delivery" termValue="0" uomId="TF_day"/>
+    <SettlementTerm settlementTermId="NET_15" termName="Net Due in 15 Days" termValue="15" uomId="TF_day"/>
+    <SettlementTerm settlementTermId="NET_30" termName="Net Due in 30 Days" termValue="30" uomId="TF_day"/>
+    <SettlementTerm settlementTermId="NET_60" termName="Net Due in 60 Days" termValue="60" uomId="TF_day"/>
+    <SettlementTerm settlementTermId="NET_90" termName="Net Due in 90 Days" termValue="90" uomId="TF_day"/>
+
+    <!-- tax forms for accounting preferences -->
+    <EnumerationType description="Tax Forms" enumTypeId="TAX_FORMS" hasTable="N" parentTypeId=""/>
+    <Enumeration description="Form 1120 (US IRS)" enumCode="1120" enumId="US_IRS_1120" sequenceId="01" enumTypeId="TAX_FORMS"/>
+    <Enumeration description="Form 1120S (US IRS)" enumCode="1120S" enumId="US_IRS_1120S" sequenceId="02" enumTypeId="TAX_FORMS"/>
+    <Enumeration description="Form 1065 (US IRS)" enumCode="1065" enumId="US_IRS_1065" sequenceId="03" enumTypeId="TAX_FORMS"/>
+    <Enumeration description="Form 990 (US IRS)" enumCode="990" enumId="US_IRS_990" sequenceId="04" enumTypeId="TAX_FORMS"/>
+    <Enumeration description="Form 990-PF (US IRS)" enumCode="990PF" enumId="US_IRS_990PF" sequenceId="05" enumTypeId="TAX_FORMS"/>
+    <Enumeration description="Form 990-T (US IRS)" enumCode="990T" enumId="US_IRS_990T" sequenceId="06" enumTypeId="TAX_FORMS"/>
+    <Enumeration description="Form 1040 (US IRS)" enumCode="1040" enumId="US_IRS_1040" sequenceId="07" enumTypeId="TAX_FORMS"/>
+
+    <!-- cost of goods sold methods for accounting preferences -->
+    <EnumerationType description="COGS Methods" enumTypeId="COGS_METHODS" hasTable="N" parentTypeId=""/>
+    <Enumeration description="LIFO" enumCode="LIFO" enumId="COGS_LIFO" sequenceId="01" enumTypeId="COGS_METHODS"/>
+    <Enumeration description="FIFO" enumCode="FIFO" enumId="COGS_FIFO" sequenceId="02" enumTypeId="COGS_METHODS"/>
+    <Enumeration description="Average Cost" enumCode="AVG_COST" enumId="COGS_AVG_COST" sequenceId="03" enumTypeId="COGS_METHODS"/>
+    <Enumeration description="Inventory Item Cost" enumCode="INV_COST" enumId="COGS_INV_COST" sequenceId="04" enumTypeId="COGS_METHODS"/>
+
+    <!-- inventory sequencing mode for accounting preferences -->
+    <CustomMethodType customMethodTypeId="HOOK" parentTypeId="HOOK" hasTable="N" description="Custom Methode Type define HOOK method to resolve specific sequence"/>
+    <CustomMethodType customMethodTypeId="INVOICE_HOOK" parentTypeId="HOOK" hasTable="N" description="Invoice Sequence methods"/>
+    <CustomMethod customMethodId="INV_HOOK_ENF_SEQ" customMethodTypeId="INVOICE_HOOK" customMethodName="invoiceSequenceEnforced" description="Enforced Sequence (no gaps, per organization)"/>
+    <CustomMethod customMethodId="INV_HOOK_RES_YR" customMethodTypeId="INVOICE_HOOK" customMethodName="invoiceSequenceRestart" description="Restart on Fiscal Year (no gaps, per org, reset to 1 each year)"/>
+    <!-- quote sequencing mode for accounting preferences -->
+    <CustomMethodType customMethodTypeId="QUOTE_HOOK" parentTypeId="HOOK" hasTable="N" description="Quote Sequence methods"/>
+    <CustomMethod customMethodId="QUOTE_HOOK_ENF_SEQ" customMethodTypeId="QUOTE_HOOK" customMethodName="quoteSequenceEnforced" description="Enforced Sequence (no gaps, per organization)"/>
+    <!-- order sequencing mode for accounting preferences -->
+    <CustomMethodType customMethodTypeId="ORDER_HOOK" parentTypeId="HOOK" hasTable="N" description="Order Sequence methods"/>
+    <CustomMethod customMethodId="ORDER_HOOK_ENF_SEQ" customMethodTypeId="ORDER_HOOK" customMethodName="orderSequence_enforced" description="Enforced Sequence (no gaps, per organization)"/>
+    <!-- Deprecated sequencing mode by enumeration -->
+    <EnumerationType description="Invoice Sequence Mode" enumTypeId="INVOICE_SEQMD" hasTable="N" parentTypeId=""/>
+    <Enumeration description="Standard (faster, may have gaps, per system)" enumCode="STANDARD" enumId="INVSQ_STANDARD" sequenceId="01" enumTypeId="INVOICE_SEQMD"/>
+    <Enumeration description="Enforced Sequence (no gaps, per organization)" enumCode="ENF_SEQ" enumId="INVSQ_ENF_SEQ" sequenceId="02" enumTypeId="INVOICE_SEQMD"/>
+    <Enumeration description="Restart on Fiscal Year (no gaps, per org, reset to 1 each year)" enumCode="RESTARTYR" enumId="INVSQ_RESTARTYR" sequenceId="03" enumTypeId="INVOICE_SEQMD"/>
+    <EnumerationType description="Quote Sequence Mode" enumTypeId="QUOTE_SEQMD" hasTable="N" parentTypeId=""/>
+    <Enumeration description="Standard (faster, may have gaps, per system)" enumCode="STANDARD" enumId="QTESQ_STANDARD" sequenceId="01" enumTypeId="QUOTE_SEQMD"/>
+    <Enumeration description="Enforced Sequence (no gaps, per organization)" enumCode="ENF_SEQ" enumId="QTESQ_ENF_SEQ" sequenceId="02" enumTypeId="QUOTE_SEQMD"/>
+    <EnumerationType description="Order Sequence Mode" enumTypeId="ORDER_SEQMD" hasTable="N" parentTypeId=""/>
+    <Enumeration description="Standard (faster, may have gaps, per system)" enumCode="STANDARD" enumId="ODRSQ_STANDARD" sequenceId="01" enumTypeId="ORDER_SEQMD"/>
+    <Enumeration description="Enforced Sequence (no gaps, per organization)" enumCode="ENF_SEQ" enumId="ODRSQ_ENF_SEQ" sequenceId="02" enumTypeId="ORDER_SEQMD"/>
+
+    <!-- Standard Industrial Cost Types -->
+    <FixedAssetStdCostType description="Standard Setup Cost" hasTable="N" parentTypeId="" fixedAssetStdCostTypeId="SETUP_COST"/>
+    <FixedAssetStdCostType description="Standard Usage Cost" hasTable="N" parentTypeId="" fixedAssetStdCostTypeId="USAGE_COST"/>
+
+    <!-- Example: California is a tax exemption inheritor of the USA, there is a tax exemption inheritance from USA to CA, taxAuthGeoId=USA toTaxAuthGeoId=CA -->
+    <TaxAuthorityAssocType taxAuthorityAssocTypeId="EXEMPT_INHER" description="Exemption Inheritance"/>
+    <TaxAuthorityAssocType taxAuthorityAssocTypeId="COLLECT_AGENT" description="Collection Agent"/>
+
+    <TaxAuthorityRateType taxAuthorityRateTypeId="SALES_TAX" description="Sales Tax"/>
+    <TaxAuthorityRateType taxAuthorityRateTypeId="USE_TAX" description="Use Tax"/>
+    <TaxAuthorityRateType taxAuthorityRateTypeId="INCOME_TAX" description="Income Tax"/>
+    <TaxAuthorityRateType taxAuthorityRateTypeId="EXPORT_TAX" description="Export Tax"/>
+    <TaxAuthorityRateType taxAuthorityRateTypeId="IMPORT_TAX" description="Import Tax"/>
+    <TaxAuthorityRateType taxAuthorityRateTypeId="VAT_TAX" description="Value Added Tax"/>
+
+    <!-- Rate Types -->
+    <RateType rateTypeId="STANDARD" description="Standard Rate"/>
+    <RateType rateTypeId="DISCOUNTED" description="Discounted Rate"/>
+    <RateType rateTypeId="OVERTIME" description="Overtime Rate"/>
+    <RateType rateTypeId="AVERAGE_PAY_RATE" description="Average Pay Rate"/>
+    <RateType rateTypeId="HIGH_PAY_RATE" description="Highest Pay Rate"/>
+    <RateType rateTypeId="LOW_PAY_RATE" description="Lowest Pay Rate"/>
+    <!-- rate periods -->
+    <PeriodType description="Rate amount per Hour" periodTypeId="RATE_HOUR" periodLength="1" uomId="TF_hr"/>
+    <PeriodType description="Rate amount per Week" periodTypeId="RATE_WEEK" periodLength="1" uomId="TF_wk"/>
+    <PeriodType description="Rate amount per month" periodTypeId="RATE_MONTH" periodLength="1" uomId="TF_mon"/>
+    <PeriodType description="Rate amount per Quarter" periodTypeId="RATE_QUARTER" periodLength="3" uomId="TF_mon"/>
+
+    <!-- create 'Not Applicable'  records-->
+    <WorkEffort workEffortId="_NA_"/>
+    <EmplPositionType emplPositionTypeId="_NA_"/>
+
+    <!-- Points of Title Transfer -->
+    <EnumerationType description="Points of Title Transfer" enumTypeId="PTSOFTTFR" hasTable="N" parentTypeId=""/>
+    <Enumeration description="Desination" enumCode="DEST" enumId="POTT_DEST" sequenceId="01" enumTypeId="PTSOFTTFR"/>
+    <Enumeration description="Origin" enumCode="ORIG" enumId="POTT_ORIG" sequenceId="02" enumTypeId="PTSOFTTFR"/>
+    <Enumeration description="In Transit" enumCode="INTR" enumId="POTT_INTR" sequenceId="03" enumTypeId="PTSOFTTFR"/>
+    <!-- INCOTERM options -->
+    <Enumeration description="EX-Works" enumCode="EXW" enumId="POTT_EXW" sequenceId="11" enumTypeId="PTSOFTTFR"/>
+    <Enumeration description="Free On Board" enumCode="FOB" enumId="POTT_FOB" sequenceId="12" enumTypeId="PTSOFTTFR"/>
+    <Enumeration description="Free Carrier" enumCode="FCA" enumId="POTT_FCA" sequenceId="13" enumTypeId="PTSOFTTFR"/>
+    <Enumeration description="Free Alongside Ship" enumCode="FAS" enumId="POTT_FAS" sequenceId="14" enumTypeId="PTSOFTTFR"/>
+    <Enumeration description="Cost and Freight" enumCode="CFR" enumId="POTT_CFR" sequenceId="15" enumTypeId="PTSOFTTFR"/>
+    <Enumeration description="Cost, Insurance and Freight" enumCode="CIF" enumId="POTT_CIF" sequenceId="16" enumTypeId="PTSOFTTFR"/>
+    <Enumeration description="Carriage Paid To" enumCode="CPT" enumId="POTT_CPT" sequenceId="17" enumTypeId="PTSOFTTFR"/>
+    <Enumeration description="Carriage and Insurance Paid To" enumCode="CIP" enumId="POTT_CIP" sequenceId="18" enumTypeId="PTSOFTTFR"/>
+    <Enumeration description="Delivered At Frontier" enumCode="DAF" enumId="POTT_DAF" sequenceId="19" enumTypeId="PTSOFTTFR"/>
+    <Enumeration description="Delivered Ex Ship" enumCode="DES" enumId="POTT_DES" sequenceId="20" enumTypeId="PTSOFTTFR"/>
+    <Enumeration description="Delivered Ex Quay" enumCode="DEQ" enumId="POTT_DEQ" sequenceId="21" enumTypeId="PTSOFTTFR"/>
+    <Enumeration description="Delivered Duty Paid" enumCode="DDP" enumId="POTT_DDP" sequenceId="22" enumTypeId="PTSOFTTFR"/>
+    <Enumeration description="Delivered Duty Unpaid" enumCode="DDQ" enumId="POTT_DDQ" sequenceId="23" enumTypeId="PTSOFTTFR"/>
+
+    <ProductAverageCostType productAverageCostTypeId="SIMPLE_AVG_COST" hasTable="N" description="Simple Average Cost"/>
+    <ProductAverageCostType productAverageCostTypeId="WEIGHTED_AVG_COST" hasTable="N" description="Weighted Average Cost"/>
+    <ProductAverageCostType productAverageCostTypeId="MOVING_AVG_COST" hasTable="N" description="Moving Average Cost"/>
+
+    <!--
+        INCOTERM options found here: http://www.foreign-trade.com/reference/incoterms.cfm
+
+        EX-Works
+        One of the simplest and most basic shipment arrangements places the minimum responsibility on the seller with greater responsibility on the buyer. In an EX-Works transaction, goods are basically made available for pickup at the shipper/seller's factory or warehouse and "delivery" is accomplished when the merchandise is released to the consignee's freight forwarder. The buyer is responsible for making arrangements with their forwarder for insurance, export clearance and handling all other paperwork.
+
+        FOB (Free On Board)
+        One of the most commonly used-and misused-terms, FOB means that the shipper/seller uses his freight forwarder to move the merchandise to the port or designated point of origin. Though frequently used to describe inland movement of cargo, FOB specifically refers to ocean or inland waterway transportation of goods. "Delivery" is accomplished when the shipper/seller releases the goods to the buyer's forwarder. The buyer's responsibility for insurance and transportation begins at the same moment.
+
+        FCA (Free Carrier)
+        In this type of transaction, the seller is responsible for arranging transportation, but he is acting at the risk and the expense of the buyer. Where in FOB the freight forwarder or carrier is the choice of the buyer, in FCA the seller chooses and works with the freight forwarder or the carrier. "Delivery" is accomplished at a predetermined port or destination point and the buyer is responsible for Insurance.
+
+        FAS (Free Alongside Ship)*
+        In these transactions, the buyer bears all the transportation costs and the risk of loss of goods. FAS requires the shipper/seller to clear goods for export, which is a reversal from past practices. Companies selling on these terms will ordinarily use their freight forwarder to clear the goods for export. "Delivery" is accomplished when the goods are turned over to the Buyers Forwarder for insurance and transportation.
+
+        CFR (Cost and Freight)
+        This term formerly known as CNF (C&F) defines two distinct and separate responsibilities-one is dealing with the actual cost of merchandise "C" and the other "F" refers to the freight charges to a predetermined destination point. It is the shipper/seller's responsibility to get goods from their door to the port of destination. "Delivery" is accomplished at this time. It is the buyer's responsibility to cover insurance from the port of origin or port of shipment to buyer's door. Given that the shipper is responsible for transportation, the shipper also chooses the forwarder.
+
+        CIF (Cost, Insurance and Freight)
+        This arrangement similar to CFR, but instead of the buyer insuring the goods for the maritime phase of the voyage, the shipper/seller will insure the merchandise. In this arrangement, the seller usually chooses the forwarder. "Delivery" as above, is accomplished at the port of destination.
+
+        CPT (Carriage Paid To)
+        In CPT transactions the shipper/seller has the same obligations found with CIF, with the addition that the seller has to buy cargo insurance, naming the buyer as the insured while the goods are in transit.
+
+        CIP (Carriage and Insurance Paid To)
+        This term is primarily used for multimodal transport. Because it relies on the carrier's insurance, the shipper/seller is only required to purchase minimum coverage. When this particular agreement is in force, Freight Forwarders often act in effect, as carriers. The buyer's insurance is effective when the goods are turned over to the Forwarder.
+
+        DAF (Delivered At Frontier)
+        Here the seller's responsibility is to hire a forwarder to take goods to a named frontier, which usually a border crossing point, and clear them for export. "Delivery" occurs at this time. The buyer's responsibility is to arrange with their forwarder for the pick up of the goods after they are cleared for export, carry them across the border, clear them for importation and effect delivery. In most cases, the buyer's forwarder handles the task of accepting the goods at the border across the foreign soil.
+
+        DES (Delivered Ex Ship)
+        In this type of transaction, it is the seller's responsibility to get the goods to the port of destination or to engage the forwarder to the move cargo to the port of destination uncleared. "Delivery" occurs at this time. Any destination charges that occur after the ship is docked are the buyer's responsibility.
+
+        DEQ (Delivered Ex Quay)*
+        In this arrangement, the buyer/consignee is responsible for duties and charges and the seller is responsible for delivering the goods to the quay, wharf or port of destination. In a reversal of previous practice, the buyer must also arrange for customs clearance.
+
+        DDP (Delivered Duty Paid)
+        DDP terms tend to be used in intermodal or courier-type shipments. Whereby, the shipper/seller is responsible for dealing with all the tasks involved in moving goods from the manufacturing plant to the buyer/consignee's door. It is the shipper/seller's responsibility to insure the goods and absorb all costs and risks including the payment of duty and fees.
+
+        DDQ (Delivered Duty Unpaid)
+        This arrangement is basically the same as with DDP, except for the fact that the buyer is responsible for the duty, fees and taxes.
+    -->
+
+    <!-- Store Credit Account Type Data, to be set in Product Store -->
+    <EnumerationType description="Store Credit Account" enumTypeId="STR_CRDT_ACT" hasTable="N" parentTypeId=""/>
+    <Enumeration description="Financial Account" enumCode="FINACCOUNT" enumId="FIN_ACCOUNT" sequenceId="01" enumTypeId="STR_CRDT_ACT"/>
+    <Enumeration description="Billing Account" enumCode="BILLACCOUNT" enumId="BILLING_ACCOUNT" sequenceId="02" enumTypeId="STR_CRDT_ACT"/>
+
+    <!--GlReconciliation Status-->
+    <StatusType statusTypeId="GLREC_STATUS" description="Gl Reconciliation Status" hasTable="N" parentTypeId=""/>
+    <StatusItem statusId="GLREC_CREATED" statusTypeId="GLREC_STATUS" statusCode="CREATED" sequenceId="11" description="Created"/>
+    <StatusItem statusId="GLREC_RECONCILED" statusTypeId="GLREC_STATUS" statusCode="RECONCILED" sequenceId="12" description="Reconciled"/>
+    <StatusValidChange statusId="GLREC_CREATED" statusIdTo="GLREC_RECONCILED" transitionName="Set Created to Reconciled"/>
+
+    <!--Depreciation Formulae-->
+    <CustomMethodType customMethodTypeId="DEPRECIATION_FORMULA" description="Formula for calculating depreciation for fixed asset"/>
+    <CustomMethod customMethodId="STR_LINE_DEP_FORMULA" customMethodTypeId="DEPRECIATION_FORMULA" customMethodName="straightLineDepreciation" description="Straight Line depreciatiion algorithm for fixed asset((purchaseCost - salvageCost)/expectedLifeInYears)"/>
+    <CustomMethod customMethodId="DBL_DECL_DEP_FORMULA" customMethodTypeId="DEPRECIATION_FORMULA" customMethodName="doubleDecliningBalanceDepreciation" description="Double decline depreciatiion algorithm for fixed asset((NetBookValue - salvageCost)*2/remainingLifeInYears)"/>
+
+    <!-- invoice export replacement Id types -->
+    <GoodIdentificationType description="replacement value for partyId in the invoice export function in accounting" goodIdentificationTypeId="INVOICE_EXPORT"/>
+    <PartyIdentificationType description="replacement value for partyId in the invoice export function in accounting" partyIdentificationTypeId="INVOICE_EXPORT"/>
+
+    <!-- Budget Type Data -->
+    <StatusItem description="Created" sequenceId="00" statusCode="CREATED" statusId="BG_CREATED" statusTypeId="BUDGET_STATUS"/>
+    <StatusItem description="Reviewed" sequenceId="01" statusCode="REVIEWED" statusId="BG_REVIEWED" statusTypeId="BUDGET_STATUS"/>
+    <StatusItem description="Approved" sequenceId="02" statusCode="APPROVED" statusId="BG_APPROVED" statusTypeId="BUDGET_STATUS"/>
+    <StatusItem description="Rejected" sequenceId="03" statusCode="REJECTED" statusId="BG_REJECTED" statusTypeId="BUDGET_STATUS"/>
+    <StatusValidChange statusId="BG_CREATED" statusIdTo="BG_REVIEWED" transitionName="Review Budget"/>
+    <StatusValidChange statusId="BG_CREATED" statusIdTo="BG_APPROVED" transitionName="Submit Budget"/>
+    <StatusValidChange statusId="BG_CREATED" statusIdTo="BG_REJECTED" transitionName="Reject Budget"/>
+    <StatusValidChange statusId="BG_REVIEWED" statusIdTo="BG_APPROVED" transitionName="Approved Budget"/>
+    <StatusValidChange statusId="BG_REVIEWED" statusIdTo="BG_REJECTED" transitionName="Reject Budget"/>
+    <StatusValidChange statusId="BG_APPROVED" statusIdTo="BG_CREATED" transitionName="Accept Budget"/>
+    <StatusValidChange statusId="BG_APPROVED" statusIdTo="BG_REJECTED" transitionName="Reject Budget"/>
+    
+    <BudgetReviewResultType description="Accepted" budgetReviewResultTypeId="BGR_ACCEPTED"/>
+    <BudgetReviewResultType description="Rejected" budgetReviewResultTypeId="BGR_REJECTED"/>
+</entity-engine-xml>

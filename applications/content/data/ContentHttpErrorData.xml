@@ -18,8 +18,6 @@ specific language governing permissions and limitations
 under the License.
 -->
 <entity-engine-xml>
-
-    <!-- content http error data -->
     <Content contentId="CONTENT_ERROR" contentTypeId="DOCUMENT" contentName="Generic CMS Error Pages"/>
     <ContentAssoc contentId="TREE_ROOT" contentIdTo="CONTENT_ERROR" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01"/>
     <DataResource dataResourceId="CONTENT_ERROR_403" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>

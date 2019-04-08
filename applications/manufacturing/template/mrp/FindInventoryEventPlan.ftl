@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<script type="application/javascript">
+<script language="JavaScript" type="text/javascript">
 <!-- //
 function lookupInventory() {
     document.lookupinventory.submit();
@@ -43,7 +43,7 @@ function lookupInventory() {
               <td></td>
               <td align='right'>
                 <p>
-                  <#if "Y" == requestParameters.hideFields?default("N")>
+                  <#if requestParameters.hideFields?default("N") == "Y">
                     <a href="<@ofbizUrl>FindInventoryEventPlan?hideFields=N${paramList}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonShowLookupFields}</a>
                   <#else>
                     <#if inventoryList??>
@@ -93,13 +93,13 @@ function lookupInventory() {
 </div>
 
 <#if requestParameters.hideFields?default("N") != "Y">
-<script type="application/javascript">
+<script language="JavaScript" type="text/javascript">
 <!--//
 document.lookupinventory.productId.focus();
 //-->
 </script>
 </#if>
-<#if "Y" == requestParameters.lookupFlag?default("N")>
+<#if requestParameters.lookupFlag?default("N") == "Y">
 <table class="basic-table" cellspacing="0">
   <tr>
     <td width='100%'>
@@ -150,10 +150,10 @@ document.lookupinventory.productId.focus();
             <#assign product = inven.getRelatedOne("Product", false)>
             <#if facilityId?has_content>
             </#if>
-            <#if !(product == productTmp)>
+            <#if ! product.equals( productTmp )>
                 <#assign quantityAvailableAtDate = 0>
-                <#assign errorEvents = EntityQuery.use(delegator).from("MrpEvent").where("mrpEventTypeId", "ERROR", "productId", inven.productId!).queryList()!>
-                <#assign qohEvents = EntityQuery.use(delegator).from("MrpEvent").where("mrpEventTypeId", "INITIAL_QOH", "productId", inven.productId!).queryList()!>
+                <#assign errorEvents = delegator.findByAnd("MrpEvent", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("mrpEventTypeId", "ERROR", "productId", inven.productId), null, false)>
+                <#assign qohEvents = delegator.findByAnd("MrpEvent", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("mrpEventTypeId", "INITIAL_QOH", "productId", inven.productId), null, false)>
                 <#assign additionalErrorMessage = "">
                 <#assign initialQohEvent = "">
                 <#assign productFacility = "">
@@ -212,7 +212,7 @@ document.lookupinventory.productId.focus();
               <td>${MrpEventType.get("description",locale)}</td>
               <td>&nbsp;</td>
               <td>${inven.eventName!}</td>
-              <td><font <#if "Y" == inven.isLate?default("N")>color='red'</#if>>${inven.getString("eventDate")}</font></td>
+              <td><font <#if inven.isLate?default("N") == "Y">color='red'</#if>>${inven.getString("eventDate")}</font></td>
               <td>&nbsp;</td>
               <td align="right">${inven.getString("quantity")}</td>
               <td align="right">${quantityAvailableAtDate!}</td>

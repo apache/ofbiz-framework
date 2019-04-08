@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<script type="application/javascript">
+<script language="JavaScript" type="text/javascript">
 function insertNowTimestamp(field) {
   eval('document.productForm.' + field + '.value="${nowTimestamp?string}";');
 }
@@ -54,7 +54,7 @@ function insertImageName(size,nameValue) {
         <#list productContentList as entry>
         <#assign productContent=entry.productContent/>
         <#assign productContentType=productContent.getRelatedOne("ProdConfItemContentType", true)/>
-        <tr valign="middle"<#if "1" == rowClass> class="alternate-row"</#if>>
+        <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
             <td><a href="<@ofbizUrl>EditProductConfigItemContentContent?configItemId=${productContent.configItemId}&amp;contentId=${productContent.contentId}&amp;confItemContentTypeId=${productContent.confItemContentTypeId}&amp;fromDate=${productContent.fromDate}</@ofbizUrl>" class="buttontext">${entry.content.description?default("[${uiLabelMap.ProductNoDescription}]")} [${entry.content.contentId}]</td>
             <td>${productContentType.description?default(productContent.confItemContentTypeId)}</td>
             <td>${productContent.fromDate?default("N/A")}</td>
@@ -70,7 +70,7 @@ function insertImageName(size,nameValue) {
             <td><a href="/content/control/EditContent?contentId=${productContent.contentId}&amp;externalLoginKey=${requestAttributes.externalLoginKey!}" class="buttontext">${uiLabelMap.ProductEditContent} ${entry.content.contentId}</td>
          </tr>
          <#-- toggle the row color -->
-         <#if "2" == rowClass>
+         <#if rowClass == "2">
              <#assign rowClass = "1">
          <#else>
              <#assign rowClass = "2">

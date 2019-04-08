@@ -21,7 +21,7 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
 
-    <grid name="ListBillingAccounts" list-name="listIt" paginate-target="FindBillingAccount" default-entity-name="BillingAccount"
+    <form name="ListBillingAccounts" type="list" list-name="listIt" paginate-target="FindBillingAccount" default-entity-name="BillingAccount"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
@@ -41,9 +41,9 @@ under the License.
         <field name="description"><display/></field>
         <field name="fromDate"><display/></field>
         <field name="thruDate"><display/></field>
-    </grid>
+    </form>
 
-    <grid name="ListBillingAccountsByParty" list-name="billingAccounts" paginate-target="FindBillingAccount"
+    <form name="ListBillingAccountsByParty" type="list" list-name="billingAccounts" paginate-target="FindBillingAccount"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="billingAccountId" widget-style="buttontext">
             <hyperlink description="${billingAccountId}" target="EditBillingAccount">
@@ -59,9 +59,9 @@ under the License.
         <field name="thruDate"><display/></field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><display description="${parameters.partyId}"/></field>
         <field name="roleTypeId" title="${uiLabelMap.AccountingRoleType}"><display-entity entity-name="RoleType"/></field>
-    </grid>
+    </form>
 
-    <grid name="ListBillingAccountInvoices" list-name="billingAccountInvoices" paginate-target="BillingAccountInvoices" default-entity-name="Invoice"
+    <form name="ListBillingAccountInvoices" type="list" list-name="billingAccountInvoices" paginate-target="BillingAccountInvoices" default-entity-name="Invoice"
         odd-row-style="alternate-row"  header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="Invoice" list="billingAccountInvoices">
@@ -112,7 +112,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="capture" use-when="${groovy:paidInvoice}"><display/></field>
-    </grid>
+    </form>
 
     <form name="EditBillingAccount" type="single" target="updateBillingAccount" title=""
         header-row-style="header-row" default-table-style="basic-table">
@@ -126,8 +126,7 @@ under the License.
         <field use-when="billingAccount!=null" name="billingAccountId"><display/></field>
         <field name="partyId" use-when="billingAccount != null" ><display/></field>
         <field name="partyId" use-when="billingAccount == null" title="${uiLabelMap.AccountingPartyBilledTo}" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="roleTypeId" use-when="billingAccount == null"><hidden value="BILL_TO_CUSTOMER"/></field>
-        <field name="roleTypeId" use-when="billingAccount != null"><hidden/></field>
+        <field name="roleTypeId"><hidden/></field>
         <field name="accountCurrencyUomId">
             <drop-down allow-empty="false" no-current-selected-key="${defaultOrganizationPartyCurrencyUomId}">
                 <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
@@ -137,7 +136,7 @@ under the License.
             </drop-down>
         </field>
         <field name="contactMechId" tooltip="${uiLabelMap.AccountingBillingContactMechIdMessage}" use-when="billingAccount != null">
-            <drop-down no-current-selected-key="${billingAccount.contactMechId}">
+            <drop-down>
                 <entity-options entity-name="BillingAccountRoleAndAddress" key-field-name="contactMechId" description="[${partyId}][${contactMechId}] ${toName}, ${attnName}, ${address1}, ${stateProvinceGeoId} ${postalCode}" filter-by-date="true">
                     <entity-constraint name="billingAccountId" env-name="billingAccountId"/>
                     <entity-order-by field-name="partyId"/>
@@ -158,7 +157,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" use-when="billingAccount!=null" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <grid name="ListBillingAccountRoles" list-name="billingAccountRoleList" target="updateBillingAccountRole"
+    <form name="ListBillingAccountRoles" type="list"  list-name="billingAccountRoleList" target="updateBillingAccountRole"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar"
         paginate-target="EditBillingAccountRoles" separate-columns="true">
         <actions>
@@ -192,8 +191,7 @@ under the License.
                 <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
-    </grid>
-    
+    </form>
     <form name="AddBillingAccountRole" type="single" target="createBillingAccountRole" title="" default-map-name="billingAccountRole"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createBillingAccountRole"/>
@@ -206,11 +204,11 @@ under the License.
             </drop-down>
         </field>
         <field name="fromDate"><date-time default-value="${nowTimestamp}"/></field>
-        <field name="partyId" title="${uiLabelMap.PartyPartyId}" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <grid name="ListBillingAccountTerms" list-name="billingAccountTermsList" default-entity-name="BillingAccountTerm" paginate-target="EditBillingAccountTerms"
+    <form name="ListBillingAccountTerms" type="list" list-name="billingAccountTermsList" default-entity-name="BillingAccountTerm" paginate-target="EditBillingAccountTerms"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="BillingAccountTerm" list="billingAccountTermsList">
@@ -237,8 +235,7 @@ under the License.
                 <parameter param-name="billingAccountTermId"/>
             </hyperlink>
         </field>
-    </grid>
-    
+    </form>
     <form name="EditBillingAccountTerms" type="single" target="updateBillingAccountTerm" title="" default-map-name="billingAccountTerm"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="billingAccountTermId==null" target="createBillingAccountTerm"/>
@@ -262,7 +259,7 @@ under the License.
         <field name="termValue" title="${uiLabelMap.PartyTermValue}"><text size="10"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <grid name="ListBillingAccountPayments" list-name="payments" paginate-target="BillingAccountPayments"
+    <form name="ListBillingAccountPayments" type="list" list-name="payments" paginate-target="BillingAccountPayments"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="PaymentAndApplication" list="payments">
@@ -286,8 +283,7 @@ under the License.
         <field name="amount">
             <display type="currency" currency="${currencyUomId}"/>
         </field>
-    </grid>
-    
+    </form>
     <form name="CreateIncomingBillingAccountPayment" type="single" target="createPaymentAndAssociateToBillingAccount" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
@@ -324,8 +320,7 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    
-    <grid name="ListBillingAccountOrders" list-name="orderPaymentPreferencesList" paginate-target="BillingAccountOrders"
+    <form name="ListBillingAccountOrders" type="list" list-name="orderPaymentPreferencesList" paginate-target="BillingAccountOrders"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="billingAccountId"><hidden/></field>
         <field name="orderId" widget-style="buttontext">
@@ -343,8 +338,7 @@ under the License.
         <field name="maxAmount">
             <display type="currency" currency="${currencyUomId}"/>
         </field>
-    </grid>
-    
+    </form>
     <form name="FindBillingAccounts" type="single" target="FindBillingAccount" header-row-style="header-row" default-table-style="basic-table">
         <field name="billingAccountId"><text-find ignore-case="true"/></field>
         <field name="description"><text-find ignore-case="true"/></field>

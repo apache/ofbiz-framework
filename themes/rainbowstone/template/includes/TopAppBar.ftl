@@ -20,17 +20,16 @@ under the License.
 <#if (externalLoginKey)?exists><#assign externalKeyParam = "?externalLoginKey=" + requestAttributes.externalLoginKey?if_exists></#if>
 <#assign ofbizServerName = application.getAttribute("_serverId")?default("default-server")>
 <#assign contextPath = request.getContextPath()>
-<#assign displayApps = Static["org.apache.ofbiz.webapp.WebAppCache"].getShared().getAppBarWebInfos(ofbizServerName, "main")>
-<#assign displaySecondaryApps = Static["org.apache.ofbiz.webapp.WebAppCache"].getShared().getAppBarWebInfos(ofbizServerName, "secondary")>
+<#assign displayApps = Static["org.apache.ofbiz.base.component.ComponentConfig"].getAppBarWebInfos(ofbizServerName, "main")>
+<#assign displaySecondaryApps = Static["org.apache.ofbiz.base.component.ComponentConfig"].getAppBarWebInfos(ofbizServerName, "secondary")>
 <#if person?has_content>
-    <#assign avatarList = EntityQuery.use(delegator).from("PartyContent").where("partyId",  person.partyId!, "partyContentTypeId", "LGOIMGURL").queryList()!>
+    <#assign avatarList = delegator.findByAnd("PartyContent", {"partyId" : person.partyId, "partyContentTypeId" : "LGOIMGURL"}, null, false)>
     <#if avatarList?has_content>
         <#assign avatar = Static["org.apache.ofbiz.entity.util.EntityUtil"].getFirst(avatarList)>
-        <#assign avatarDetail = EntityQuery.use(delegator).from("PartyContentDetail").where("partyId", person.partyId!, "contentId", avatar.contentId!).queryFirst()!>
+        <#assign avatarDetail = Static["org.apache.ofbiz.entity.util.EntityUtil"].getFirst(delegator.findByAnd("PartyContentDetail", {"partyId" : person.partyId, "contentId" : avatar.contentId}, null, false))>
     </#if>
 </#if>
 <body>
-<#include "component://common-theme/template/ImpersonateBanner.ftl"/>
 <div id="wait-spinner" style="display:none">
     <div id="wait-spinner-image"></div>
 </div>
@@ -41,7 +40,7 @@ under the License.
         </a>
     </div>
 <#if userLogin?has_content>
-    <#assign appMax = Static["org.apache.ofbiz.base.util.UtilProperties"].getPropertyAsInteger("rainbowstone", "appMax", 8)/>
+    <#assign appMax = 8>
     <#assign alreadySelected = false>
 <div id="main-navigation-bar">
     <div id="main-nav-bar-left">
@@ -130,9 +129,9 @@ under the License.
                 </#if>
             </#list>
         </ul>
-        <!-- If the number of applications is greater than the maximum number of applications that can be displayed, the rest is put
-        in a drop-down menu. The code is deliberately doubled because otherwise, reading the code during maintenance
-        could be complicated. Correct if ever the performance is affected -->
+        <!-- Si le nombre d'application est supérieur au nombre d'application max affichable, je met le restant
+        dans un menu déroulant. J'ai volontairement doublé le code car sinon, la lecture du code lors d'une maintenance
+        risquait d'être compliquée. A corriger si jamais les performances s'en font ressentir -->
         <#assign appCount = 0>
         <#assign moreApp = false>
         <#list displayApps as display>
@@ -167,9 +166,6 @@ under the License.
                         </#if>
                         <li class="app-btn-sup<#if selected> selected</#if>">
                             <a class="more-app-a" href="${thisURL}${StringUtil.wrapString(externalKeyParam)}"<#if uiLabelMap?exists> title="${uiLabelMap[display.description]}">${uiLabelMap[display.title]}<#else> title="${display.description}">${display.title}</#if></a>
-                            <#if selected>
-                                <#assign currentMoreApp = display>
-                            </#if>
                         </li>
                     </#if>
                     <#assign appCount = appCount + 1>
@@ -205,9 +201,6 @@ under the License.
                     </#if>
                     <li class="app-btn-sup<#if selected> selected</#if>">
                         <a class="more-app-a" href="${thisURL}${StringUtil.wrapString(externalKeyParam)}"<#if uiLabelMap?exists> title="${uiLabelMap[display.description]}">${uiLabelMap[display.title]}<#else> title="${display.description}">${display.title}</#if></a>
-                        <#if selected>
-                            <#assign currentMoreApp = display>
-                        </#if>
                     </li>
                 </#if>
                 <#assign appCount = appCount + 1>
@@ -217,28 +210,11 @@ under the License.
         </ul> <!-- more-app-list -->
         </div> <!-- more-app -->
         </#if>
-
-        <#if currentMoreApp?exists>
-        <ul class="app-bar-list more-current-app">
-            <#assign thisApp = currentMoreApp.getContextRoot()>
-            <#assign thisApp = StringUtil.wrapString(thisApp)>
-            <#assign thisURL = thisApp>
-            <#if thisApp != "/">
-                <#assign thisURL = thisURL + "/control/main">
-            </#if>
-            <li class="app-btn selected">
-                <div id="app-selected">
-                    <a class="more-app-a" href="${thisURL}${StringUtil.wrapString(externalKeyParam)}"<#if uiLabelMap??> title="${uiLabelMap[currentMoreApp.description]}">${uiLabelMap[currentMoreApp.title]}<#else> title="${currentMoreApp.description}">${currentMoreApp.title}</#if></a>
-                    <div id="color-add"></div>
-                </div>
-            </li>
-        </ul>
-        </#if>
     </div>
         <div id="main-nav-bar-right">
             <div id="company-logo"></div>
             <#if parameters.componentName?exists && requestAttributes._CURRENT_VIEW_?exists && helpTopic?exists>
-                <a class="dark-color" title="${uiLabelMap.CommonHelp}" href="javascript:lookup_popup1('showHelp?helpTopic=${helpTopic}&amp;portalPageId=${(parameters.portalPageId!)?html}','help' ,500,500);"><img class="appbar-btn-img" id="help-btn" src="/rainbowstone/images/help.svg" alt="Help"></a>
+                <a class="dark-color" title="${uiLabelMap.CommonHelp}" href="javascript:lookup_popup1('showHelp?helpTopic=${helpTopic}&amp;portalPageId=${parameters.portalPageId!}','help' ,500,500);"><img class="appbar-btn-img" id="help-btn" src="/rainbowstone/images/help.svg" alt="Help"></a>
             </#if>
 
             <#include "component://rainbowstone/template/includes/Avatar.ftl"/>

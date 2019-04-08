@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<script type="application/javascript">
+<script language="JavaScript" type="text/javascript">
 function insertImageName(type,nameValue) {
   eval('document.productCategoryForm.' + type + 'ImageUrl.value=nameValue;');
 };
@@ -202,7 +202,7 @@ function insertImageName(type,nameValue) {
     </div>
 </div>
 <#if productCategoryId?has_content>
-    <script type="application/javascript">
+    <script language="JavaScript" type="text/javascript">
         function setUploadUrl(newUrl) {
         var toExec = 'document.imageUploadForm.action="' + newUrl + '";';
         eval(toExec);

@@ -31,7 +31,6 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 import javax.sql.rowset.serial.SerialBlob;
@@ -182,8 +181,8 @@ public abstract class JdbcValueHandler<T> {
     }
 
     protected static String parseSqlType(String sqlType) {
-        String result = sqlType.toUpperCase(Locale.getDefault());
-        int pos = result.indexOf('(');
+        String result = sqlType.toUpperCase();
+        int pos = result.indexOf("(");
         if (pos != -1) {
             result = result.substring(0, pos);
         }
@@ -381,7 +380,7 @@ public abstract class JdbcValueHandler<T> {
         @Override
         public Boolean getValue(ResultSet rs, int columnIndex) throws SQLException {
             boolean value = rs.getBoolean(columnIndex);
-            return rs.wasNull() ? null : value;
+            return rs.wasNull() ? null : Boolean.valueOf(value);
         }
         @Override
         protected JdbcValueHandler<Boolean> newInstance(int sqlType) {
@@ -436,9 +435,7 @@ public abstract class JdbcValueHandler<T> {
                 Debug.logWarning("Clob java-type used for java.lang.String. Use java.lang.String java-type instead.", module);
                 ps.setString(parameterIndex, str);
                 return;
-            } catch (ClassCastException e) {
-                Debug.logInfo(e.getMessage(), module);
-            }
+            } catch (ClassCastException e) {}
             ps.setClob(parameterIndex, (java.sql.Clob) obj);
             return;
         }
@@ -523,7 +520,7 @@ public abstract class JdbcValueHandler<T> {
         @Override
         public Double getValue(ResultSet rs, int columnIndex) throws SQLException {
             double value = rs.getDouble(columnIndex);
-            return rs.wasNull() ? null : value;
+            return rs.wasNull() ? null : Double.valueOf(value);
         }
         @Override
         protected JdbcValueHandler<Double> newInstance(int sqlType) {
@@ -549,7 +546,7 @@ public abstract class JdbcValueHandler<T> {
         @Override
         public Float getValue(ResultSet rs, int columnIndex) throws SQLException {
             float value = rs.getFloat(columnIndex);
-            return rs.wasNull() ? null : value;
+            return rs.wasNull() ? null : Float.valueOf(value);
         }
         @Override
         protected JdbcValueHandler<Float> newInstance(int sqlType) {
@@ -575,7 +572,7 @@ public abstract class JdbcValueHandler<T> {
         @Override
         public Integer getValue(ResultSet rs, int columnIndex) throws SQLException {
             int value = rs.getInt(columnIndex);
-            return rs.wasNull() ? null : value;
+            return rs.wasNull() ? null : Integer.valueOf(value);
         }
         @Override
         protected JdbcValueHandler<Integer> newInstance(int sqlType) {
@@ -601,7 +598,7 @@ public abstract class JdbcValueHandler<T> {
         @Override
         public Long getValue(ResultSet rs, int columnIndex) throws SQLException {
             long value = rs.getLong(columnIndex);
-            return rs.wasNull() ? null : value;
+            return rs.wasNull() ? null : Long.valueOf(value);
         }
         @Override
         protected JdbcValueHandler<Long> newInstance(int sqlType) {
@@ -699,7 +696,7 @@ public abstract class JdbcValueHandler<T> {
         @Override
         public Short getValue(ResultSet rs, int columnIndex) throws SQLException {
             short value = rs.getShort(columnIndex);
-            return rs.wasNull() ? null : value;
+            return rs.wasNull() ? null : Short.valueOf(value);
         }
         @Override
         protected JdbcValueHandler<Short> newInstance(int sqlType) {

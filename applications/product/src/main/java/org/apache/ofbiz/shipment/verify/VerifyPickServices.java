@@ -32,6 +32,8 @@ import org.apache.ofbiz.service.ServiceUtil;
 
 public class VerifyPickServices {
 
+    private static BigDecimal ZERO = BigDecimal.ZERO;
+
     public static Map<String, Object> verifySingleItem(DispatchContext dctx, Map<String, ? extends Object> context) {
         Locale locale = (Locale) context.get("locale");
         VerifyPickSession pickSession = (VerifyPickSession) context.get("verifyPickSession");
@@ -68,7 +70,7 @@ public class VerifyPickServices {
                 String quantityStr = quantityMap.get(rowKey);
                 if (UtilValidate.isNotEmpty(quantityStr)) {
                     BigDecimal quantity = new BigDecimal(quantityStr);
-                    if (quantity.compareTo(BigDecimal.ZERO) > 0) {
+                    if (quantity.compareTo(ZERO) > 0) {
                         try {
                             pickSession.createRow(orderId, orderItemSeqId, shipGroupSeqId, productId, originGeoId, quantity, locale);
                         } catch (Exception ex) {

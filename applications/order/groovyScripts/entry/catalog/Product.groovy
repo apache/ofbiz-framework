@@ -19,12 +19,11 @@
 
 import java.lang.*
 import java.util.*
-import org.apache.ofbiz.base.util.StringUtil
-import org.apache.ofbiz.base.util.UtilHttp
-import org.apache.ofbiz.entity.util.EntityUtil
-import org.apache.ofbiz.product.catalog.CatalogWorker
-import org.apache.ofbiz.product.category.CategoryWorker
-import org.apache.ofbiz.product.category.CategoryContentWrapper
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.service.*
+import org.apache.ofbiz.product.catalog.*
+import org.apache.ofbiz.product.category.*
 import org.apache.ofbiz.product.product.ProductWorker
 import org.apache.ofbiz.product.product.ProductContentWrapper
 import org.apache.ofbiz.entity.util.EntityUtil

@@ -35,7 +35,7 @@ under the License.
                         -->
                         <platform-specific>
                             <html>
-                                <html-template location="component://common-theme/template/portal/ShowPortlet.ftl" />
+                                <html-template location="component://common/template/portal/ShowPortlet.ftl" />
                             </html>
                         </platform-specific>
                     </widgets>
@@ -70,8 +70,8 @@ under the License.
     <screen name="showPortalPage">
         <section>
             <actions>
-                <set field="layoutSettings.javaScripts[]" value="/common/js/plugins/myportal.js" global="true"/>
-                <set field="layoutSettings.styleSheets[+0]" value="/common/js/plugins/myportal.css" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/images/myportal.js" global="true"/>
+                <set field="layoutSettings.styleSheets[+0]" value="/images/myportal.css" global="true"/>
                 <entity-one entity-name="PortalPage" value-field="portalPage"/>
                 <set field="title" from-field="portalPage.portalPageName"/>
             </actions>
@@ -91,8 +91,8 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="Dashboard"/>
-                <set field="layoutSettings.javaScripts[]" value="/common/js/plugins/myportal.js" global="true"/>
-                <set field="layoutSettings.styleSheets[+0]" value="/common/js/plugins/myportal.css" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/images/myportal.js" global="true"/>
+                <set field="layoutSettings.styleSheets[+0]" value="/images/myportal.css" global="true"/>
                 <entity-one entity-name="PortalPage" value-field="portalPage"/>
                 <set field="portalPages" value="${groovy:org.apache.ofbiz.widget.portal.PortalPageWorker.getPortalPages(parameters.parentPortalPageId,context)}"/>
             </actions>
@@ -137,7 +137,7 @@ under the License.
                         <screenlet title="${uiLabelMap.CommonPortalCategoryPage}: ${parameters.parentPortalPageId}">
                             <include-form name="PortletCategoryAndPortlet" location="component://common/widget/PortalPageForms.xml"/>
                         </screenlet>
-                        <platform-specific><html><html-template location="component://common-theme/template/portal/ListPortalPortlets.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://common/template/portal/ListPortalPortlets.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

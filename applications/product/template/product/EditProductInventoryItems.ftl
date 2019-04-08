@@ -52,15 +52,15 @@ under the License.
             <#assign rowClass = "2">
             <#list productInventoryItems as inventoryItem>
                <#-- NOTE: Delivered for serialized inventory means shipped to customer so they should not be displayed here any more -->
-               <#if showEmpty || ("SERIALIZED_INV_ITEM" == inventoryItem.inventoryItemTypeId! && "INV_DELIVERED" != inventoryItem.statusId!)
-                              || ("NON_SERIAL_INV_ITEM" == inventoryItem.inventoryItemTypeId! && ((inventoryItem.availableToPromiseTotal?? && inventoryItem.availableToPromiseTotal != 0) || (inventoryItem.quantityOnHandTotal?? && inventoryItem.quantityOnHandTotal != 0)))>
+               <#if showEmpty || (inventoryItem.inventoryItemTypeId! == "SERIALIZED_INV_ITEM" && inventoryItem.statusId! != "INV_DELIVERED")
+                              || (inventoryItem.inventoryItemTypeId! == "NON_SERIAL_INV_ITEM" && ((inventoryItem.availableToPromiseTotal?? && inventoryItem.availableToPromiseTotal != 0) || (inventoryItem.quantityOnHandTotal?? && inventoryItem.quantityOnHandTotal != 0)))>
                     <#assign curInventoryItemType = inventoryItem.getRelatedOne("InventoryItemType", false)>
                     <#assign curStatusItem = inventoryItem.getRelatedOne("StatusItem", true)!>
                     <#assign facilityLocation = inventoryItem.getRelatedOne("FacilityLocation", false)!>
                     <#assign facilityLocationTypeEnum = (facilityLocation.getRelatedOne("TypeEnumeration", true))!>
                     <#assign inventoryItemDetailFirst = Static["org.apache.ofbiz.entity.util.EntityUtil"].getFirst(inventoryItem.getRelated("InventoryItemDetail", null, Static["org.apache.ofbiz.base.util.UtilMisc"].toList("effectiveDate"), false))!>
                     <#if curInventoryItemType??>
-                        <tr valign="middle"<#if "1" == rowClass> class="alternate-row"</#if>>
+                        <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
                             <td><a href="/facility/control/EditInventoryItem?inventoryItemId=${(inventoryItem.inventoryItemId)!}${StringUtil.wrapString(externalKeyParam)}" class="buttontext">${(inventoryItem.inventoryItemId)!}</a></td>
                             <td>&nbsp;${(curInventoryItemType.get("description",locale))!}</td>
                             <td>
@@ -98,12 +98,12 @@ under the License.
                                 </#if>
                             </td>
                             <td align="right">${(inventoryItemDetailFirst.quantityOnHandDiff)!}</td>
-                            <#if "NON_SERIAL_INV_ITEM" == inventoryItem.inventoryItemTypeId!>
+                            <#if inventoryItem.inventoryItemTypeId! == "NON_SERIAL_INV_ITEM">
                                 <td align="right">
                                     <div>${(inventoryItem.availableToPromiseTotal)?default("NA")}
                                     / ${(inventoryItem.quantityOnHandTotal)?default("NA")}</div>
                                 </td>
-                            <#elseif "SERIALIZED_INV_ITEM" == inventoryItem.inventoryItemTypeId!>
+                            <#elseif inventoryItem.inventoryItemTypeId! == "SERIALIZED_INV_ITEM">
                                 <td align="right">&nbsp;${(inventoryItem.serialNumber)!}</td>
                             <#else>
                                 <td align="right" style="color: red;">${uiLabelMap.ProductErrorType} ${(inventoryItem.inventoryItemTypeId)!} ${uiLabelMap.ProductUnknownSerialNumber} (${(inventoryItem.serialNumber)!})
@@ -113,7 +113,7 @@ under the License.
                     </#if>
                 </#if>
                 <#-- toggle the row color -->
-                <#if "2" == rowClass>
+                <#if rowClass == "2">
                     <#assign rowClass = "1">
                 <#else>
                     <#assign rowClass = "2">

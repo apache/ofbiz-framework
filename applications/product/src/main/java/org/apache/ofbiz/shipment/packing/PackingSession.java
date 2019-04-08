@@ -19,7 +19,6 @@
 package org.apache.ofbiz.shipment.packing;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -144,13 +143,8 @@ public class PackingSession implements java.io.Serializable {
         // find the inventoryItemId to use
         if (reservations.size() == 1) {
             GenericValue res = EntityUtil.getFirst(reservations);
-            BigDecimal resQty = numAvailableItems(res);
-
-            // If reservation has enough for the quantity required
-            if (resQty.compareTo(quantity) >= 0) {
-                int checkCode = this.checkLineForAdd(res, orderId, orderItemSeqId, shipGroupSeqId, productId, quantity, packageSeqId, update);
-                this.createPackLineItem(checkCode, res, orderId, orderItemSeqId, shipGroupSeqId, productId, quantity, weight, packageSeqId);
-            }
+            int checkCode = this.checkLineForAdd(res, orderId, orderItemSeqId, shipGroupSeqId, productId, quantity, packageSeqId, update);
+            this.createPackLineItem(checkCode, res, orderId, orderItemSeqId, shipGroupSeqId, productId, quantity, weight, packageSeqId);
         } else {
             // more than one reservation found
             Map<GenericValue, BigDecimal> toCreateMap = new HashMap<GenericValue, BigDecimal>();
@@ -165,36 +159,30 @@ public class PackingSession implements java.io.Serializable {
                     continue;
                 }
 
-                BigDecimal resQty = numAvailableItems(res);
+                BigDecimal resQty = res.getBigDecimal("quantity");
+                BigDecimal resPackedQty = this.getPackedQuantity(orderId, orderItemSeqId, shipGroupSeqId, productId, res.getString("inventoryItemId"), -1);
+                if (resPackedQty.compareTo(resQty) >= 0) {
+                    continue;
+                } else if (!update) {
+                    resQty = resQty.subtract(resPackedQty);
+                }
 
-                if (resQty.compareTo(BigDecimal.ZERO) > 0) {
-                    BigDecimal resPackedQty = this.getPackedQuantity(orderId, orderItemSeqId, shipGroupSeqId, productId, res.getString("inventoryItemId"), -1);
-                    if (resPackedQty.compareTo(resQty) >= 0) {
-                        continue;
-                    } else if (!update) {
-                        resQty = resQty.subtract(resPackedQty);
-                    }
+                BigDecimal thisQty = resQty.compareTo(qtyRemain) > 0 ? qtyRemain : resQty;
 
-                    BigDecimal thisQty = resQty.compareTo(qtyRemain) > 0 ? qtyRemain : resQty;
-
-                    int thisCheck = this.checkLineForAdd(res, orderId, orderItemSeqId, shipGroupSeqId, productId, thisQty, packageSeqId, update);
-                    switch (thisCheck) {
-                        case 2:
-                            Debug.logInfo("Packing check returned '2' - new pack line will be created!", module);
-                            toCreateMap.put(res, thisQty);
-                            qtyRemain = qtyRemain.subtract(thisQty);
-                            break;
-                        case 1:
-                            Debug.logInfo("Packing check returned '1' - existing pack line has been updated!", module);
-                            qtyRemain = qtyRemain.subtract(thisQty);
-                            break;
-                        case 0:
-                            Debug.logInfo("Packing check returned '0' - doing nothing.", module);
-                            break;
-                        default:
-                            Debug.logInfo("Packing check returned '> 2' or '< 0'", module);
-                            break;
-                    }
+                int thisCheck = this.checkLineForAdd(res, orderId, orderItemSeqId, shipGroupSeqId, productId, thisQty, packageSeqId, update);
+                switch (thisCheck) {
+                    case 2:
+                        Debug.logInfo("Packing check returned '2' - new pack line will be created!", module);
+                        toCreateMap.put(res, thisQty);
+                        qtyRemain = qtyRemain.subtract(thisQty);
+                        break;
+                    case 1:
+                        Debug.logInfo("Packing check returned '1' - existing pack line has been updated!", module);
+                        qtyRemain = qtyRemain.subtract(thisQty);
+                        break;
+                    case 0:
+                        Debug.logInfo("Packing check returned '0' - doing nothing.", module);
+                        break;
                 }
             }
 
@@ -211,20 +199,6 @@ public class PackingSession implements java.io.Serializable {
 
         // run the add events
         this.runEvents(PackingEvent.EVENT_CODE_ADD);
-    }
-
-    private BigDecimal numAvailableItems(GenericValue res) {
-        // In simple situations, the reserved quantity will match the quantity from the order item.
-        // If there is a back order, quantity from order may exceed quantity currently reserved and on hand.
-        // resQty should never exceed the quantity from the order item, because that quantity was the quantity reserved in the first place.
-        BigDecimal notAvailable = res.getBigDecimal("quantityNotAvailable");
-        BigDecimal resQty = res.getBigDecimal("quantity");
-
-        if (notAvailable != null) {
-            resQty = resQty.subtract(notAvailable);
-        }
-
-        return resQty;
     }
 
     public void addOrIncreaseLine(String orderId, String orderItemSeqId, String shipGroupSeqId, BigDecimal quantity, int packageSeqId) throws GeneralException {
@@ -263,9 +237,6 @@ public class PackingSession implements java.io.Serializable {
                 String invItemId = res.getString("inventoryItemId");
                 packLines.add(new PackingSessionLine(orderId, orderItemSeqId, shipGroupSeqId, productId, invItemId, quantity, weight, packageSeqId));
                 break;
-        default:
-            throw new GeneralException("value of checkCode different than expected");
-
         }
 
         // Add the line weight to the package weight
@@ -361,14 +332,13 @@ public class PackingSession implements java.io.Serializable {
 
     /**
      * <p>Delivers all the packing lines grouped by package.</p>
-     * Output map:
+     * <p>Output map:
      * <ul>
-     * <li>packageMap - a Map of type {@code Map<Integer, List<PackingSessionLine>>}
+     * <li>packageMap - a Map of type Map<Integer, List<PackingSessionLine>>
      * that maps package sequence ids to the lines that belong in
      * that package</li>
-     * <li>sortedKeys - a List of type List&lt;Integer&gt; with the sorted package
+     * <li>sortedKeys - a List of type List<Integer> with the sorted package
      * sequence numbers to index the packageMap</li>
-     * </ul>
      * @return result Map with packageMap and sortedKeys
      */
     public Map<Object, Object> getPackingSessionLinesByPackage() {
@@ -959,12 +929,6 @@ public class PackingSession implements java.io.Serializable {
             serviceContext.put("shippableTotal", shippableTotal);
 
             serviceResult = getDispatcher().runSync("calcShipmentCostEstimate", serviceContext);
-
-            if (ServiceUtil.isError(serviceResult)) {
-                Debug.logError(ServiceUtil.getErrorMessage(serviceResult), module);
-                return shipmentCostEstimate;
-            }
-
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         } catch (GenericServiceException e) {
@@ -995,7 +959,7 @@ public class PackingSession implements java.io.Serializable {
         Set<Integer> packageSeqIds = new TreeSet<Integer>();
         if (! UtilValidate.isEmpty(this.getLines())) {
             for (PackingSessionLine line: this.getLines()) {
-                packageSeqIds.add(line.getPackageSeq());
+                packageSeqIds.add(Integer.valueOf(line.getPackageSeq()));
             }
         }
         return UtilMisc.makeListWritable(packageSeqIds);
@@ -1003,9 +967,9 @@ public class PackingSession implements java.io.Serializable {
 
     public void setPackageWeight(int packageSeqId, BigDecimal packageWeight) {
         if (UtilValidate.isEmpty(packageWeight)) {
-            packageWeights.remove(packageSeqId);
+            packageWeights.remove(Integer.valueOf(packageSeqId));
         } else {
-            packageWeights.put(packageSeqId, packageWeight);
+            packageWeights.put(Integer.valueOf(packageSeqId), packageWeight);
         }
     }
 
@@ -1029,9 +993,9 @@ public class PackingSession implements java.io.Serializable {
     // These methods (setShipmentBoxType and getShipmentBoxType) are added so that each package will have different box type.
     public void setShipmentBoxType(int packageSeqId, String shipmentBoxType) {
         if (UtilValidate.isEmpty(shipmentBoxType)) {
-            shipmentBoxTypes.remove(packageSeqId);
+            shipmentBoxTypes.remove(Integer.valueOf(packageSeqId));
         } else {
-            shipmentBoxTypes.put(packageSeqId, shipmentBoxType);
+            shipmentBoxTypes.put(Integer.valueOf(packageSeqId), shipmentBoxType);
         }
     }
 
@@ -1053,7 +1017,7 @@ public class PackingSession implements java.io.Serializable {
 
         public ItemDisplay(GenericValue v) {
             if ("PicklistItem".equals(v.getEntityName())) {
-                quantity = v.getBigDecimal("quantity").setScale(2, RoundingMode.HALF_UP);
+                quantity = v.getBigDecimal("quantity").setScale(2, BigDecimal.ROUND_HALF_UP);
                 try {
                     orderItem = v.getRelatedOne("OrderItem", false);
                     productId = v.getRelatedOne("InventoryItem", false).getString("productId");
@@ -1064,7 +1028,7 @@ public class PackingSession implements java.io.Serializable {
                 // this is an OrderItemAndShipGrpInvResAndItemSum
                 orderItem = v;
                 productId = v.getString("inventoryProductId");
-                quantity = v.getBigDecimal("totQuantityReserved").setScale(2, RoundingMode.HALF_UP);
+                quantity = v.getBigDecimal("totQuantityReserved").setScale(2, BigDecimal.ROUND_HALF_UP);
             }
             Debug.logInfo("created item display object quantity: " + quantity + " (" + productId + ")", module);
         }

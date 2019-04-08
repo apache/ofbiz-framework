@@ -28,7 +28,7 @@ if (rowCount > 1) {
         if(paramMap.get("checkStatusId" +thisSuffix)){
             def temp = paramMap.get("checkStatusId" +thisSuffix)
             def splitTemp = temp.split("/")
-            if("IM_REJECTED".equals(splitTemp[0])){
+            if(splitTemp[0].equals("IM_REJECTED")){
                 rejected = true
             }
         }
@@ -37,7 +37,7 @@ if (rowCount > 1) {
 else {
     def temp = paramMap.get("checkStatusId_o_0")
     def splitTemp = temp.split("/")
-    if("IM_REJECTED".equals(splitTemp[0])){
+    if(splitTemp[0].equals("IM_REJECTED")){
         rejected = true
     }
 }

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+    <description>Example Services</description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
+
+    <!-- Example & Related Services -->
+    <service name="createExample" default-entity-name="Example" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a Example</description>
+        <permission-service service-name="exampleGenericPermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="OUT" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="exampleTypeId" optional="false"/>
+        <override name="statusId" optional="false"/>
+        <override name="exampleName" optional="false"/>
+    </service>
+    <service name="updateExample" default-entity-name="Example" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a Example</description>
+        <permission-service service-name="exampleGenericPermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="oldStatusId" type="String" mode="OUT" optional="false"/>
+    </service>
+    <service name="deleteExample" default-entity-name="Example" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a Example</description>
+        <permission-service service-name="exampleGenericPermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="createExampleStatus" default-entity-name="ExampleStatus" engine="simple"
+            location="component://example/minilang/example/ExampleServices.xml" invoke="createExampleStatus" auth="true">
+        <description>Create a ExampleStatus</description>
+        <permission-service service-name="exampleGenericPermission" main-action="CREATE"/>
+        <auto-attributes include="all" mode="IN" optional="false">
+            <exclude field-name="statusDate"/>
+            <exclude field-name="statusEndDate"/>
+            <exclude field-name="changeByUserLoginId"/>
+        </auto-attributes>
+    </service>
+
+    <service name="createExampleItem" default-entity-name="ExampleItem" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ExampleItem</description>
+        <permission-service service-name="exampleGenericPermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="exampleItemSeqId" mode="OUT"/> <!-- make this OUT rather than IN, we will automatically generate the next sub-sequence ID -->
+        <override name="description" optional="false"/>
+    </service>
+    <service name="updateExampleItem" default-entity-name="ExampleItem" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a ExampleItem</description>
+        <permission-service service-name="exampleGenericPermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteExampleItem" default-entity-name="ExampleItem" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ExampleItem</description>
+        <permission-service service-name="exampleGenericPermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- ExampleFeature Services -->
+    <service name="createExampleFeature" default-entity-name="ExampleFeature" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ExampleFeature</description>
+        <permission-service service-name="exampleGenericPermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="OUT" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="description" optional="false"/>
+    </service>
+    <service name="updateExampleFeature" default-entity-name="ExampleFeature" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a ExampleFeature</description>
+        <permission-service service-name="exampleGenericPermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteExampleFeature" default-entity-name="ExampleFeature" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ExampleFeature</description>
+        <permission-service service-name="exampleGenericPermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <service name="createExampleFeatureAppl" default-entity-name="ExampleFeatureAppl" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ExampleFeatureAppl</description>
+        <permission-service service-name="exampleGenericPermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="fromDate" optional="true"/>
+    </service>
+    <service name="updateExampleFeatureAppl" default-entity-name="ExampleFeatureAppl" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a ExampleFeatureAppl</description>
+        <permission-service service-name="exampleGenericPermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteExampleFeatureAppl" default-entity-name="ExampleFeatureAppl" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ExampleFeatureAppl</description>
+        <permission-service service-name="exampleGenericPermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- Permission Services -->
+    <service name="exampleGenericPermission" engine="simple"
+             location="component://example/minilang/ExamplePermissionServices.xml" invoke="exampleGenericPermission">
+        <implements service="permissionInterface"/>
+    </service>
+
+    <!-- Example ServiceTest Service -->
+    <service name="testCreateExampleService" engine="simple"
+             location="component://example/minilang/example/ExampleServices.xml" invoke="testCreateExampleService">
+        <implements service="testServiceInterface"/>
+    </service>
+    <!-- Send push notification service -->
+    <service name="sendExamplePushNotifications" engine="java"
+                location="org.apache.ofbiz.example.ExampleServices" invoke="sendExamplePushNotifications" auth="true">
+        <attribute name="exampleId" mode="IN" type="String" optional="true"></attribute>
+        <attribute name="message" mode="IN" type="String" optional="true"></attribute>
+        <attribute name="successMessage" mode="IN" type="String" optional="true"></attribute>
+    </service>
+
+    <!-- ExampleType services -->
+    <service name="createExampleType" default-entity-name="ExampleType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a record of ExampleType</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateExampleType" default-entity-name="ExampleType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a record of ExampleType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteExampleType" default-entity-name="ExampleType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a record of ExampleType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- ExampleFeatureApplType services -->
+    <service name="createExampleFeatureApplType" default-entity-name="ExampleFeatureApplType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ExampleFeatureApplType</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateExampleFeatureApplType" default-entity-name="ExampleFeatureApplType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a ExampleFeatureApplType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteExampleFeatureApplType" default-entity-name="ExampleFeatureApplType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ExampleFeatureApplType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+</services>

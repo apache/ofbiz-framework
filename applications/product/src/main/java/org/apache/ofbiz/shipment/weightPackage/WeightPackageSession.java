@@ -20,7 +20,6 @@ package org.apache.ofbiz.shipment.weightPackage;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -67,7 +66,8 @@ public class WeightPackageSession implements Serializable {
 
     private transient Delegator _delegator = null;
     private transient LocalDispatcher _dispatcher = null;
-    private static RoundingMode rounding = UtilNumber.getRoundingMode("invoice.rounding");
+    private static BigDecimal ZERO = BigDecimal.ZERO;
+    private static int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
 
     public WeightPackageSession() {
     }
@@ -203,7 +203,7 @@ public class WeightPackageSession implements Serializable {
     }
 
     public BigDecimal getShippableWeight(String orderId) {
-        BigDecimal shippableWeight = BigDecimal.ZERO;
+        BigDecimal shippableWeight = ZERO;
         for (WeightPackageSessionLine packedLine : this.getPackedLines(orderId)) {
             shippableWeight = shippableWeight.add(packedLine.getPackageWeight());
         }
@@ -303,7 +303,7 @@ public class WeightPackageSession implements Serializable {
         //create the package(s)
         this.createPackages(orderId);
         // calculate the actual shipping charges according to package(s) weight and dimensions
-        BigDecimal actualShippingCost;
+        BigDecimal actualShippingCost = ZERO;
         // Check if UPS integration is done
         if ("UPS".equals(this.carrierPartyId) && "Y".equals(calculateOnlineShippingRateFromUps)) {
             // call upsShipmentConfirm service, it will calculate the online shipping rate from UPS and save in ShipmentRouteSegment entity in actualCost field
@@ -351,7 +351,7 @@ public class WeightPackageSession implements Serializable {
 
     protected BigDecimal upsShipmentConfirm() throws GeneralException {
         Delegator delegator = this.getDelegator();
-        BigDecimal actualCost = BigDecimal.ZERO;
+        BigDecimal actualCost = ZERO;
         List<GenericValue> shipmentRouteSegments = EntityQuery.use(delegator).from("ShipmentRouteSegment").where("shipmentId", shipmentId).queryList();
         if (UtilValidate.isNotEmpty(shipmentRouteSegments)) {
             for (GenericValue shipmentRouteSegment : shipmentRouteSegments) {
@@ -389,13 +389,16 @@ public class WeightPackageSession implements Serializable {
     protected boolean diffInShipCost(BigDecimal actualShippingCost) throws GeneralException {
         BigDecimal estimatedShipCost = this.getEstimatedShipCost();
         BigDecimal doEstimates = new BigDecimal(UtilProperties.getPropertyValue("shipment", "shipment.default.cost_actual_over_estimated_percent_allowed", "10"));
-        BigDecimal diffInShipCostInPerc;
-        if (estimatedShipCost.compareTo(BigDecimal.ZERO) == 0) {
+        BigDecimal diffInShipCostInPerc = ZERO;
+        if (estimatedShipCost.compareTo(ZERO) == 0) {
             diffInShipCostInPerc = actualShippingCost;
         } else {
             diffInShipCostInPerc = (((actualShippingCost.subtract(estimatedShipCost)).divide(estimatedShipCost, 2, rounding)).multiply(new BigDecimal(100))).abs();
         }
-        return doEstimates.compareTo(diffInShipCostInPerc) == -1;
+        if (doEstimates.compareTo(diffInShipCostInPerc) == -1) {
+            return true;
+        }
+        return false;
     }
 
     protected void createPackages(String orderId) throws GeneralException {
@@ -415,7 +418,7 @@ public class WeightPackageSession implements Serializable {
             shipmentPackageMap.put("weightUomId", getWeightUomId());
             shipmentPackageMap.put("userLogin", userLogin);
 
-            Map<String, Object> shipmentPackageResult;
+            Map<String, Object> shipmentPackageResult = new HashMap<String, Object>();
             GenericValue shipmentPackage = this.getDelegator().findOne("ShipmentPackage", UtilMisc.toMap("shipmentId", shipmentId, "shipmentPackageSeqId", shipmentPackageSeqId), false);
             if (UtilValidate.isEmpty(shipmentPackage)) {
                 shipmentPackageResult = this.getDispatcher().runSync("createShipmentPackage", shipmentPackageMap);
@@ -494,7 +497,7 @@ public class WeightPackageSession implements Serializable {
     }
 
     public BigDecimal getShipmentCostEstimate(String shippingContactMechId, String shipmentMethodTypeId, String carrierPartyId, String carrierRoleTypeId, String orderId, String productStoreId, List<GenericValue> shippableItemInfo, BigDecimal shippableTotal, BigDecimal shippableWeight, BigDecimal shippableQuantity) {
-        BigDecimal shipmentCostEstimate = BigDecimal.ZERO;
+        BigDecimal shipmentCostEstimate = ZERO;
         Map<String, Object> shipCostEstimateResult = null;
         try {
             Map<String, Object> shipCostEstimateMap = new HashMap<String, Object>();
@@ -514,9 +517,6 @@ public class WeightPackageSession implements Serializable {
             }
             shipCostEstimateMap.put("shippableTotal", shippableTotal);
             shipCostEstimateResult = getDispatcher().runSync("calcShipmentCostEstimate", shipCostEstimateMap);
-            if (ServiceUtil.isError(shipCostEstimateResult)) {
-                Debug.logError(ServiceUtil.getErrorMessage(shipCostEstimateResult), module);
-            }
         } catch (GeneralException e) {
             Debug.logError(e, module);
         }
@@ -537,7 +537,7 @@ public class WeightPackageSession implements Serializable {
     }
 
     protected Integer getOrderedQuantity(String orderId) {
-        BigDecimal orderedQuantity = BigDecimal.ZERO;
+        BigDecimal orderedQuantity = ZERO;
         try {
             List<GenericValue> orderItems = getDelegator().findByAnd("OrderItem", UtilMisc.toMap("orderId", orderId, "statusId", "ITEM_APPROVED"), null, false);
             for (GenericValue orderItem : orderItems) {

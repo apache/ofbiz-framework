@@ -20,6 +20,7 @@ package org.apache.ofbiz.content.survey;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -105,9 +106,6 @@ public class PdfSurveyServices {
 
             // create a SurveyQuestionCategory to put the questions in
             Map<String, Object> createCategoryResultMap = dispatcher.runSync("createSurveyQuestionCategory", UtilMisc.<String, Object>toMap("description", "From AcroForm in Content [" + contentId + "] for Survey [" + surveyId + "]", "userLogin", userLogin));
-            if (ServiceUtil.isError(createCategoryResultMap)) {
-                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(createCategoryResultMap));
-            }
             String surveyQuestionCategoryId = (String) createCategoryResultMap.get("surveyQuestionCategoryId");
 
             pdfStamper.setFormFlattening(true);
@@ -151,10 +149,10 @@ public class PdfSurveyServices {
 
                 Long sequenceNum = null;
                 if (tabPage != null && tabOrder != null) {
-                    sequenceNum = (long) (tabPage * 1000 + tabOrder);
+                    sequenceNum = Long.valueOf(tabPage.intValue() * 1000 + tabOrder.intValue());
                     Debug.logInfo("tabPage=" + tabPage + ", tabOrder=" + tabOrder + ", sequenceNum=" + sequenceNum, module);
                 } else if (fieldPositions.length > 0) {
-                    sequenceNum = (long) fieldPage * 10000 + (long) fieldLly * 1000 + (long) fieldLlx;
+                    sequenceNum = Long.valueOf((long) fieldPage * 10000 + (long) fieldLly * 1000 + (long) fieldLlx);
                     Debug.logInfo("fieldPage=" + fieldPage + ", fieldLlx=" + fieldLlx + ", fieldLly=" + fieldLly + ", fieldUrx=" + fieldUrx + ", fieldUry=" + fieldUry + ", sequenceNum=" + sequenceNum, module);
                 }
 
@@ -207,7 +205,13 @@ public class PdfSurveyServices {
                 survey.set("acroFormContentId", contentId);
                 survey.store();
             }
-        } catch (GeneralException | DocumentException | IOException e) {
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Error generating PDF: " + e.toString(), module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentPDFGeneratingError", UtilMisc.toMap("errorString", e.toString()), locale));
+        } catch (GeneralException e) {
+            Debug.logError(e, "Error generating PDF: " + e.getMessage(), module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentPDFGeneratingError", UtilMisc.toMap("errorString", e.getMessage()), locale));
+        } catch (Exception e) {
             Debug.logError(e, "Error generating PDF: " + e.toString(), module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentPDFGeneratingError", UtilMisc.toMap("errorString", e.toString()), locale));
         }
@@ -263,14 +267,20 @@ public class PdfSurveyServices {
                 String surveyQuestionId = (String)surveyQuestionAndAppl.get("surveyQuestionId");
                 String surveyQuestionTypeId = (String)surveyQuestionAndAppl.get("surveyQuestionTypeId");
                 GenericValue surveyResponseAnswer = delegator.makeValue("SurveyResponseAnswer", UtilMisc.toMap("surveyResponseId", surveyResponseId, "surveyQuestionId", surveyQuestionId));
-                if (surveyQuestionTypeId ==null || "TEXT_SHORT".equals(surveyQuestionTypeId)) {
+                if (surveyQuestionTypeId ==null || surveyQuestionTypeId.equals("TEXT_SHORT")) {
                     surveyResponseAnswer.set("textResponse", value);
                 }
 
                 delegator.create(surveyResponseAnswer);
             }
             s.close();
-        } catch (GeneralException | DocumentException | IOException e) {
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Error generating PDF: " + e.toString(), module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentPDFGeneratingError", UtilMisc.toMap("errorString", e.toString()), locale));
+        } catch (GeneralException e) {
+            Debug.logError(e, "Error generating PDF: " + e.toString(), module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentPDFGeneratingError", UtilMisc.toMap("errorString", e.getMessage()), locale));
+        } catch (Exception e) {
             Debug.logError(e, "Error generating PDF: " + e.toString(), module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentPDFGeneratingError", UtilMisc.toMap("errorString", e.toString()), locale));
         }
@@ -283,7 +293,7 @@ public class PdfSurveyServices {
     /**
      */
     public static Map<String, Object> getAcroFieldsFromPdf(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map<String, Object> acroFieldMap = new HashMap<>();
+        Map<String, Object> acroFieldMap = new HashMap<String, Object>();
         try {
             ByteArrayOutputStream os = new ByteArrayOutputStream();
             Delegator delegator = dctx.getDelegator();
@@ -299,9 +309,15 @@ public class PdfSurveyServices {
                 acroFieldMap.put(fieldName, parmValue);
             }
 
-        } catch (DocumentException | GeneralException | IOException e) {
-            Debug.logError(e, module);
+        } catch (DocumentException e) {
+            System.err.println(e.getMessage());
             return ServiceUtil.returnError(e.getMessage());
+        } catch (GeneralException e) {
+            System.err.println(e.getMessage());
+            return ServiceUtil.returnError(e.getMessage());
+        } catch (IOException ioe) {
+            System.err.println(ioe.getMessage());
+            return ServiceUtil.returnError(ioe.getMessage());
         }
 
     Map<String, Object> results = ServiceUtil.returnSuccess();
@@ -349,9 +365,21 @@ public class PdfSurveyServices {
             baos.close();
             ByteBuffer outByteBuffer = ByteBuffer.wrap(baos.toByteArray());
             results.put("outByteBuffer", outByteBuffer);
-        } catch (DocumentException | IOException | GeneralException e) {
-            Debug.logError(e, module);
+        } catch (DocumentException e) {
+            System.err.println(e.getMessage());
             results = ServiceUtil.returnError(e.getMessage());
+        } catch (GeneralException e) {
+            System.err.println(e.getMessage());
+            results = ServiceUtil.returnError(e.getMessage());
+        } catch (FileNotFoundException e) {
+            System.err.println(e.getMessage());
+            results = ServiceUtil.returnError(e.getMessage());
+        } catch (IOException ioe) {
+            System.err.println(ioe.getMessage());
+            results = ServiceUtil.returnError(ioe.getMessage());
+        } catch (Exception ioe) {
+            System.err.println(ioe.getMessage());
+            results = ServiceUtil.returnError(ioe.getMessage());
         }
         return results;
     }
@@ -415,8 +443,11 @@ public class PdfSurveyServices {
             }
             ByteBuffer outByteBuffer = ByteBuffer.wrap(baos.toByteArray());
             results.put("outByteBuffer", outByteBuffer);
-        } catch (GenericEntityException | DocumentException e) {
-            Debug.logError(e, module);
+        } catch (GenericEntityException e) {
+            System.err.println(e.getMessage());
+            results = ServiceUtil.returnError(e.getMessage());
+        } catch (DocumentException e) {
+            System.err.println(e.getMessage());
             results = ServiceUtil.returnError(e.getMessage());
         }
 
@@ -424,13 +455,13 @@ public class PdfSurveyServices {
     }
 
     /**
-     * Returns list of maps with "question" -&gt; SurveyQuestion and "response" -&gt; SurveyResponseAnswer
+     * Returns list of maps with "question"->SurveyQuestion and "response"->SurveyResponseAnswer
      */
     public static Map<String, Object> buildSurveyQuestionsAndAnswers(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         Map<String, Object> results = ServiceUtil.returnSuccess();
         String surveyResponseId = (String)context.get("surveyResponseId");
-        List<Object> qAndA = new LinkedList<>();
+        List<Object> qAndA = new LinkedList<Object>();
 
         try {
             List<GenericValue> responses = EntityQuery.use(delegator).from("SurveyResponseAnswer").where("surveyResponseId", surveyResponseId).queryList();
@@ -441,7 +472,7 @@ public class PdfSurveyServices {
             }
             results.put("questionsAndAnswers", qAndA);
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            System.err.println(e.getMessage());
             results = ServiceUtil.returnError(e.getMessage());
         }
 
@@ -453,9 +484,8 @@ public class PdfSurveyServices {
     public static Map<String, Object> setAcroFieldsFromSurveyResponse(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        Locale locale = (Locale) context.get("locale");
         Map<String, Object> results = ServiceUtil.returnSuccess();
-        Map<String, Object> acroFieldMap = new HashMap<>();
+        Map<String, Object> acroFieldMap = new HashMap<String, Object>();
         String surveyResponseId = (String)context.get("surveyResponseId");
         String acroFormContentId = null;
 
@@ -483,7 +513,7 @@ public class PdfSurveyServices {
                 GenericValue surveyQuestion = EntityQuery.use(delegator).from("SurveyQuestion").where("surveyQuestionId", surveyQuestionId).cache().queryOne();
 
                 GenericValue surveyQuestionAppl = EntityQuery.use(delegator).from("SurveyQuestionAppl")
-                        .where("surveyId", surveyId,
+                        .where("surveyId", surveyId, 
                                 "surveyQuestionId", surveyQuestionId)
                         .orderBy("-fromDate")
                         .filterByDate().cache().queryFirst();
@@ -500,25 +530,25 @@ public class PdfSurveyServices {
                         value = num.toString();
                     }
                 } else if ("SEPERATOR_LINE".equals(questionType) || "SEPERATOR_TEXT".equals(questionType)) {
-                    // not really a question; ignore completely
+                    // not really a question; ingore completely
                 } else {
                     value = surveyResponseAnswer.getString("textResponse");
                 }
                 acroFieldMap.put(fieldName, value);
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            System.err.println(e.getMessage());
             return ServiceUtil.returnError(e.getMessage());
         }
 
         try {
             ModelService modelService = dispatcher.getDispatchContext().getModelService("setAcroFields");
-            Map<String, Object> ctx = modelService.makeValid(context, ModelService.IN_PARAM);
+            Map<String, Object> ctx = modelService.makeValid(context, "IN");
             ctx.put("acroFieldMap", acroFieldMap);
             ctx.put("contentId", acroFormContentId);
             Map<String, Object> map = dispatcher.runSync("setAcroFields", ctx);
             if (ServiceUtil.isError(map)) {
-                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(map));
+                return ServiceUtil.returnError(ServiceUtil.makeErrorMessage(map, null, null, null, null));
             }
             String pdfFileNameOut = (String) context.get("pdfFileNameOut");
             ByteBuffer outByteBuffer = (ByteBuffer) map.get("outByteBuffer");
@@ -528,9 +558,15 @@ public class PdfSurveyServices {
                 fos.write(outByteBuffer.array());
                 fos.close();
             }
-        } catch (IOException | GenericServiceException e) {
-            Debug.logError(e, "Error generating PDF: " + e.toString(), module);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentPDFGeneratingError", UtilMisc.toMap("errorString", e.toString()), locale));
+        } catch (FileNotFoundException e) {
+            System.err.println(e.getMessage());
+            results = ServiceUtil.returnError(e.getMessage());
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+            results = ServiceUtil.returnError(e.getMessage());
+        } catch (GenericServiceException e) {
+            System.err.println(e.getMessage());
+            results = ServiceUtil.returnError(e.getMessage());
         }
 
     return results;
@@ -546,10 +582,10 @@ public class PdfSurveyServices {
                 try (FileInputStream fis = new FileInputStream(pdfFileNameIn)) {
                     int c;
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    while ((c = fis.read()) != -1) {
-                        baos.write(c);
-                    }
+                    while ((c = fis.read()) != -1) baos.write(c);
                     inputByteBuffer = ByteBuffer.wrap(baos.toByteArray());
+                } catch (FileNotFoundException e) {
+                    throw(new GeneralException(e.getMessage()));
                 } catch (IOException e) {
                     throw(new GeneralException(e.getMessage()));
                 }
@@ -562,7 +598,9 @@ public class PdfSurveyServices {
                     GenericValue content = EntityQuery.use(delegator).from("Content").where("contentId", contentId).cache().queryOne();
                     String dataResourceId = content.getString("dataResourceId");
                     inputByteBuffer = DataResourceWorker.getContentAsByteBuffer(delegator, dataResourceId, https, webSiteId, locale, rootDir);
-                } catch (GenericEntityException | IOException e) {
+                } catch (GenericEntityException e) {
+                    throw(new GeneralException(e.getMessage()));
+                } catch (IOException e) {
                     throw(new GeneralException(e.getMessage()));
                 }
             }

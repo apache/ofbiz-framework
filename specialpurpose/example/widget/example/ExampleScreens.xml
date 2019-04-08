@@ -1,0 +1,558 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
+    <!-- list all examples in a tabular format -->
+    <screen name="FindExample">
+        <section>
+            <actions>
+                <set field="headerItem" value="ExampleMenuItem"/>
+                <set field="titleProperty" value="PageTitleFindExample"/>
+                <set field="exampleCtx" from-field="parameters"/>
+                <set field="formExampleListName" value="${groovy: 
+                    if (parameters.listOtherElements == 'items') return 'ListExamplesWithItems';
+                    else if (parameters.listOtherElements == 'features') return 'ListExamplesWithFeatures';
+                    else if (parameters.listOtherElements == 'status') return 'ListExamplesWithStatus';
+                    else return 'ListExamples'}"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="EXAMPLE" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                                    <decorator-section name="menu-bar">
+                                        <container style="button-bar"><link target="EditExampleLayer" link-type="layered-modal" text="${uiLabelMap.ExampleNewExample}" style="buttontext create"/></container>
+                                    </decorator-section>
+                                    <decorator-section name="search-options">
+                                        <include-form name="FindExamples" location="component://example/widget/example/ExampleForms.xml"/>
+                                    </decorator-section>
+                                    <decorator-section name="search-results">
+                                        <include-form name="${formExampleListName}" location="component://example/widget/example/ExampleForms.xml"/>
+                                    </decorator-section>
+                                </decorator-screen>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.ExampleViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="ListExampleExport">
+        <section>
+            <widgets>
+                <decorator-screen name="SimpleDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="EXAMPLE" action="_VIEW"/>
+                            </condition>
+                            <actions>
+                                <set field="exampleCtx" from-field="parameters"/>
+                            </actions>
+                            <widgets>
+                                <include-form name="ListExampleExport" location="component://example/widget/example/ExampleForms.xml"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.ExampleViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="EditExampleLayer">
+        <section>
+            <actions>
+                <property-map resource="ExampleUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="PageTitleEditExample"/>
+                <set field="tabButtonItem" value="EditExample"/>
+                <set field="exampleId" from-field="parameters.exampleId"/>
+                <entity-one entity-name="Example" value-field="example"/>
+            </actions>
+            <widgets>
+                <include-form name="EditExample" location="component://example/widget/example/ExampleForms.xml"/>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="EditExample">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditExample"/>
+                <set field="tabButtonItem" value="EditExample"/>
+                <set field="exampleId" from-field="parameters.exampleId"/>
+                <entity-one entity-name="Example" value-field="example"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonExampleDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="EditExample" location="component://example/widget/example/ExampleForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="ExampleReport">
+        <section>
+            <actions>
+                <property-map resource="ExampleUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="PageTitleEditExample"/>
+                <set field="tabButtonItem" value="EditExample"/>
+                <set field="exampleId" from-field="parameters.exampleId"/>
+                <entity-one entity-name="Example" value-field="example"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <include-form name="EditExample" location="component://example/widget/example/ExampleForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="EditExampleItems">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditExampleItems"/>
+                <set field="tabButtonItem" value="EditExampleItems"/>
+                <set field="exampleId" from-field="parameters.exampleId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonExampleDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="ListExampleItems" location="component://example/widget/example/ExampleForms.xml"/>
+                        <include-form name="AddExampleItem" location="component://example/widget/example/ExampleForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="ExampleItemsInLine">
+        <section>
+            <widgets>
+                 <link text="${uiLabelMap.CommonEdit}" target="EditExampleItems">
+                     <parameter param-name="exampleId" from-field="exampleId"/>
+                 </link>
+                 <include-form name="ListExampleItemsInLine" location="component://example/widget/example/ExampleForms.xml"/>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="EditExampleFeatureAppls">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditExampleFeatureAppls"/>
+                <set field="tabButtonItem" value="EditExampleFeatureAppls"/>
+                <set field="exampleId" from-field="parameters.exampleId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonExampleDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="ListExampleFeatureAppls" location="component://example/widget/example/ExampleForms.xml"/>
+                        <include-form name="AddExampleFeatureAppl" location="component://example/widget/example/ExampleForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="help">
+        <section>
+            <actions>
+                <property-map resource="ExampleHelpUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ExampleUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="layoutSettings.companyName" from-field="uiLabelMap.ExampleCompanyName" global="true"/>
+            </actions>
+            <widgets>
+                <include-screen name="help" location="component://common/widget/CommonScreens.xml"/>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="ExampleGeoLocationPointSet1">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="ExampleGeoLocationPointSet1"/>
+                <set field="geoPoints[+0].lat" value="37.4419"/>
+                <set field="geoPoints[0].lon" value="-122.1419"/>
+                <set field="geoPoints[+1].lat" value="37.4819"/>
+                <set field="geoPoints[1].lon" value="-122.1519"/>
+                <set field="geoPoints[+2].lat" value="37.4719"/>
+                <set field="geoPoints[2].lon" value="-122.1319"/>
+                <set field="geoCenter.lat" value="37.4419"/>
+                <set field="geoCenter.lon" value="-122.1419"/>
+                <set field="geoCenter.zoom" value="13"/>
+            </actions>
+            <widgets>
+                <include-screen name="CommonExampleGeoLocationDecorator" location="${parameters.mainDecoratorLocation}"/>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ExampleGeoLocationPointSet2">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="ExampleGeoLocationPointSet2"/>
+                <set field="geoPoints[+0].lat" value="37.4459"/>
+                <set field="geoPoints[0].lon" value="-122.1489"/>
+                <set field="geoPoints[+1].lat" value="37.4829"/>
+                <set field="geoPoints[1].lon" value="-122.1599"/>
+                <set field="geoPoints[+2].lat" value="37.4769"/>
+                <set field="geoPoints[2].lon" value="-122.1219"/>
+                <set field="geoCenter.lat" value="37.4419"/>
+                <set field="geoCenter.lon" value="-122.1419"/>
+                <set field="geoCenter.zoom" value="12"/>
+            </actions>
+            <widgets>
+                <include-screen name="CommonExampleGeoLocationDecorator" location="${parameters.mainDecoratorLocation}"/>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ExampleGeoLocationPointSet3">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="ExampleGeoLocationPointSet3"/>
+                <set field="geoPoints[+0].lat" value="37.4379"/>
+                <set field="geoPoints[0].lon" value="-122.1119"/>
+                <set field="geoPoints[+1].lat" value="37.4819"/>
+                <set field="geoPoints[1].lon" value="-122.1519"/>
+                <set field="geoPoints[+2].lat" value="37.4229"/>
+                <set field="geoPoints[2].lon" value="-122.1369"/>
+                <set field="geoCenter.lat" value="37.4419"/>
+                <set field="geoCenter.lon" value="-122.1419"/>
+                <set field="geoCenter.zoom" value="11"/>
+            </actions>
+            <widgets>
+                <include-screen name="CommonExampleGeoLocationDecorator" location="${parameters.mainDecoratorLocation}"/>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ExampleGeoLocationPointSet4">
+        <section>
+            <actions>
+                <set field="headerItem" value="ExampleGeoLocation"/>
+                <set field="tabButtonItem" value="ExampleGeoLocationPointSet4"/>
+                <set field="geoChart.dataSourceId" value="GEOPT_GOOGLE"/>
+                <set field="geoChart.width" value="600px"/>
+                <set field="geoChart.height" value="500px"/>
+                <set field="geoChart.points" from-field="geoPoints"/>
+                <set field="geoChart.center" from-field="geoCenter"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu name="ExampleGeoLocation" location="component://example/widget/example/ExampleMenus.xml"/>
+                    </decorator-section>
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <section>
+                                    <actions>
+                                        <set field="geoPoints[+0].lat" value="37.4459"/>
+                                        <set field="geoPoints[0].lon" value="-122.1489"/>
+                                        <set field="geoPoints[+1].lat" value="37.4829"/>
+                                        <set field="geoPoints[1].lon" value="-122.1599"/>
+                                        <set field="geoPoints[+2].lat" value="37.4769"/>
+                                        <set field="geoPoints[2].lon" value="-122.1219"/>
+                                        <set field="geoCenter.lat" value="37.4419"/>
+                                        <set field="geoCenter.lon" value="-122.1419"/>
+                                        <set field="geoCenter.zoom" value="12"/>
+                                        <set field="geoChart.id" value="chart1"/>
+                                        <set field="geoChart.dataSourceId" value="GEOPT_GOOGLE"/>
+                                        <set field="geoChart.width" value="600px"/>
+                                        <set field="geoChart.height" value="500px"/>
+                                        <set field="geoChart.points" from-field="geoPoints"/>
+                                        <set field="geoChart.center" from-field="geoCenter"/>
+                                    </actions>
+                                    <widgets>
+                                        <container style="clear" />
+                                        <include-screen name="geoChart" location="component://common/widget/CommonScreens.xml"/>
+                                    </widgets>
+                                </section>
+                                <section>
+                                    <actions>
+                                        <set field="geoPoints" value=""/>
+                                        <set field="geoPoints[+0].lat" value="37.4379"/>
+                                        <set field="geoPoints[0].lon" value="-122.1119"/>
+                                        <set field="geoPoints[+1].lat" value="37.4819"/>
+                                        <set field="geoPoints[1].lon" value="-122.1519"/>
+                                        <set field="geoPoints[+2].lat" value="37.4229"/>
+                                        <set field="geoPoints[2].lon" value="-122.1369"/>
+                                        <set field="geoCenter.lat" value="37.4419"/>
+                                        <set field="geoCenter.lon" value="-122.1419"/>
+                                        <set field="geoCenter.zoom" value="11"/>
+                                        <set field="geoChart.id" value="chart2"/>
+                                        <set field="geoChart.dataSourceId" value="GEOPT_GOOGLE"/>
+                                        <set field="geoChart.width" value="800px"/>
+                                        <set field="geoChart.height" value="500px"/>
+                                        <set field="geoChart.points" from-field="geoPoints"/>
+                                        <set field="geoChart.center" from-field="geoCenter"/>
+                                    </actions>
+                                    <widgets>
+                                        <include-screen name="geoChart" location="component://common/widget/CommonScreens.xml"/>
+                                    </widgets>
+                                </section>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ExampleGeoLocationAddress">
+        <section>
+            <actions>
+                <set field="headerItem" value="ExampleGeoLocation"/>
+                <set field="tabButtonItem" value="ExampleGeoLocationAddress"/>
+                <set field="geoChart.dataSourceId" value="GEOPT_ADDRESS_GOOGLE"/>
+                <set field="geoChart.width" value="800px"/>
+                <set field="geoChart.height" value="500px"/>
+
+                <set field="contactMechId" value="9015"/>
+                <entity-one entity-name="PostalAddress" value-field="address"/>
+                <set field="pointAddress" value="${address.address1} ${address.address2} ${address.postalCode} ${address.city} ${address.stateProvinceGeoId} ${address.countryGeoId}"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu name="ExampleGeoLocation" location="component://example/widget/example/ExampleMenus.xml"/>
+                    </decorator-section>
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <container style="clear" />
+                                <label>Using Google geocoding services may need to register for an individual key. Please visit this website to have more details :</label>
+                                <link target="http://code.google.com/intl/fr/apis/maps/signup.html" url-mode="plain" text="Google Maps API"/>
+                                <label style="h3">Geolocation of DemoCustomer, living at ${pointAddress}</label>
+                                <include-screen name="geoChart" location="component://common/widget/CommonScreens.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="ExamplePieChart">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="ExamplePieChart"/>
+                <set field="chartType" value="Pie"/>
+                <set field="chartId" value="pieChartDiv"/>
+            </actions>
+            <widgets>
+                <include-screen name="CommonExampleChartsDecorator" location="${parameters.mainDecoratorLocation}"/>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ExampleBarChart">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="ExampleBarChart"/>
+                <set field="chartType" value="Bars"/>
+                <set field="chartId" value="barChartDiv"/>
+            </actions>
+            <widgets>
+                <include-screen name="CommonExampleChartsDecorator" location="${parameters.mainDecoratorLocation}"/>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="ExampleOsmGeoLocationPointSet1">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="ExampleOsmGeoLocationPointSet1"/>
+                <set field="geoPoints[+0].lat" value="37.4419"/>
+                <set field="geoPoints[0].lon" value="-122.1419"/>
+                <set field="geoPoints[+1].lat" value="37.4819"/>
+                <set field="geoPoints[1].lon" value="-122.1519"/>
+                <set field="geoPoints[+2].lat" value="37.4719"/>
+                <set field="geoPoints[2].lon" value="-122.1319"/>
+                <set field="geoCenter.lat" value="37.4419"/>
+                <set field="geoCenter.lon" value="-122.1419"/>
+                <set field="geoCenter.zoom" value="13"/>
+            </actions>
+            <widgets>
+                <include-screen name="CommonExampleOsmGeoLocationDecorator" location="${parameters.mainDecoratorLocation}"/>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ExampleOsmGeoLocationPointSet2">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="ExampleOsmGeoLocationPointSet2"/>
+                <set field="geoPoints[+0].lat" value="37.4459"/>
+                <set field="geoPoints[0].lon" value="-122.1489"/>
+                <set field="geoPoints[+1].lat" value="37.4829"/>
+                <set field="geoPoints[1].lon" value="-122.1599"/>
+                <set field="geoPoints[+2].lat" value="37.4769"/>
+                <set field="geoPoints[2].lon" value="-122.1219"/>
+                <set field="geoCenter.lat" value="37.4419"/>
+                <set field="geoCenter.lon" value="-122.1419"/>
+                <set field="geoCenter.zoom" value="12"/>
+            </actions>
+            <widgets>
+                <include-screen name="CommonExampleOsmGeoLocationDecorator" location="${parameters.mainDecoratorLocation}"/>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ExampleOsmGeoLocationPointSet3">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="ExampleOsmGeoLocationPointSet3"/>
+                <set field="geoPoints[+0].lat" value="37.4379"/>
+                <set field="geoPoints[0].lon" value="-122.1119"/>
+                <set field="geoPoints[+1].lat" value="37.4819"/>
+                <set field="geoPoints[1].lon" value="-122.1519"/>
+                <set field="geoPoints[+2].lat" value="37.4229"/>
+                <set field="geoPoints[2].lon" value="-122.1369"/>
+                <set field="geoCenter.lat" value="37.4419"/>
+                <set field="geoCenter.lon" value="-122.1419"/>
+                <set field="geoCenter.zoom" value="11"/>
+            </actions>
+            <widgets>
+                <include-screen name="CommonExampleOsmGeoLocationDecorator" location="${parameters.mainDecoratorLocation}"/>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ExampleOsmGeoLocationPointSet4">
+        <section>
+            <actions>
+                <set field="headerItem" value="ExampleGeoLocation"/>
+                <set field="tabButtonItem" value="ExampleOsmGeoLocationPointSet4"/>
+                <set field="geoChart.dataSourceId" value="GEOPT_GOOGLE"/>
+                <set field="geoChart.width" value="600px"/>
+                <set field="geoChart.height" value="500px"/>
+                <set field="geoChart.points" from-field="geoPoints"/>
+                <set field="geoChart.center" from-field="geoCenter"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu name="ExampleGeoLocation" location="component://example/widget/example/ExampleMenus.xml"/>
+                    </decorator-section>
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <section>
+                                    <actions>
+                                        <set field="geoPoints[+0].lat" value="37.4459"/>
+                                        <set field="geoPoints[0].lon" value="-122.1489"/>
+                                        <set field="geoPoints[+1].lat" value="37.4829"/>
+                                        <set field="geoPoints[1].lon" value="-122.1599"/>
+                                        <set field="geoPoints[+2].lat" value="37.4769"/>
+                                        <set field="geoPoints[2].lon" value="-122.1219"/>
+                                        <set field="geoCenter.lat" value="37.4419"/>
+                                        <set field="geoCenter.lon" value="-122.1419"/>
+                                        <set field="geoCenter.zoom" value="12"/>
+                                        <set field="geoChart.id" value="chart1"/>
+                                        <set field="geoChart.dataSourceId" value="GEOPT_OSM"/>
+                                        <set field="geoChart.width" value="600px"/>
+                                        <set field="geoChart.height" value="500px"/>
+                                        <set field="geoChart.points" from-field="geoPoints"/>
+                                        <set field="geoChart.center" from-field="geoCenter"/>
+                                    </actions>
+                                    <widgets>
+                                        <container style="clear" />
+                                        <include-screen name="geoChart" location="component://common/widget/CommonScreens.xml"/>
+                                    </widgets>
+                                </section>
+                                <section>
+                                    <actions>
+                                        <set field="geoPoints" value=""/>
+                                        <set field="geoPoints[+0].lat" value="37.4379"/>
+                                        <set field="geoPoints[0].lon" value="-122.1119"/>
+                                        <set field="geoPoints[+1].lat" value="37.4819"/>
+                                        <set field="geoPoints[1].lon" value="-122.1519"/>
+                                        <set field="geoPoints[+2].lat" value="37.4229"/>
+                                        <set field="geoPoints[2].lon" value="-122.1369"/>
+                                        <set field="geoCenter.lat" value="37.4419"/>
+                                        <set field="geoCenter.lon" value="-122.1419"/>
+                                        <set field="geoCenter.zoom" value="11"/>
+                                        <set field="geoChart.id" value="chart2"/>
+                                        <set field="geoChart.dataSourceId" value="GEOPT_OSM"/>
+                                        <set field="geoChart.width" value="800px"/>
+                                        <set field="geoChart.height" value="500px"/>
+                                        <set field="geoChart.points" from-field="geoPoints"/>
+                                        <set field="geoChart.center" from-field="geoCenter"/>
+                                    </actions>
+                                    <widgets>
+                                        <include-screen name="geoChart" location="component://common/widget/CommonScreens.xml"/>
+                                    </widgets>
+                                </section>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="ExampleReportPdfOptions">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleSetExamplePdfPassword"/>
+                <set field="tabButtonItem" value="EditExample"/>
+                <set field="exampleId" from-field="parameters.exampleId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonExampleDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="SetExamplePdfPassword" location="component://example/widget/example/ExampleForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="ExampleReportPdfBarcode">
+        <section>
+            <actions>
+                <!-- base/top/specific map first, then more common map added for shared labels -->
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+
+                <set field="exampleId" from-field="parameters.exampleId"/>
+                <entity-one entity-name="Example" value-field="example"/>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <xsl-fo><html-template location="component://example/template/reports/BarCode.fo.ftl"/></xsl-fo>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+</screens>

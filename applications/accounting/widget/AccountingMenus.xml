@@ -326,7 +326,6 @@ under the License.
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_SENT"/>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_READY"/>
-                        <if-compare field="invoice.statusId" operator="equals" value="INVOICE_APPROVED"/>
                     </or>
                 </and>
             </condition>
@@ -1012,11 +1011,6 @@ under the License.
         <menu-item name="ListGlAccountOrganization" title="${uiLabelMap.AccountingChartOfAcctsMenu}">
             <link target="ListGlAccountOrganization">
                 <parameter param-name="organizationPartyId"/>
-            </link>
-        </menu-item>
-        <menu-item name="PartyPrefDocTypeTpl" title="${uiLabelMap.AccountingDocumentTypeTemplate}">
-            <link target="ListPartyPrefDocTypeTpl">
-                <parameter param-name="partyId" from-field="organizationPartyId"/>
             </link>
         </menu-item>
         <menu-item name="SetupGlJournals" title="${uiLabelMap.AccountingGlJournals}">

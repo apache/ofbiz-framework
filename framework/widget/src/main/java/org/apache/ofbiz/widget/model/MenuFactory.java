@@ -32,7 +32,6 @@ import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.base.util.cache.UtilCache;
-import org.apache.ofbiz.widget.renderer.VisualTheme;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
@@ -51,13 +50,7 @@ public class MenuFactory {
     public static ModelMenu getMenuFromWebappContext(String resourceName, String menuName, HttpServletRequest request)
             throws IOException, SAXException, ParserConfigurationException {
         String webappName = UtilHttp.getApplicationName(request);
-        VisualTheme visualTheme = ThemeFactory.resolveVisualTheme(request);
-        String location = webappName + "::" + resourceName;
-        String cacheKey = location;
-
-        if (UtilValidate.isNotEmpty(visualTheme)) {
-            cacheKey += "::" + visualTheme.getVisualThemeId();
-        }
+        String cacheKey = webappName + "::" + resourceName;
 
         Map<String, ModelMenu> modelMenuMap = menuWebappCache.get(cacheKey);
         if (modelMenuMap == null) {
@@ -65,7 +58,7 @@ public class MenuFactory {
 
             URL menuFileUrl = servletContext.getResource(resourceName);
             Document menuFileDoc = UtilXml.readXmlDocument(menuFileUrl, true, true);
-            modelMenuMap = readMenuDocument(menuFileDoc, location, visualTheme);
+            modelMenuMap = readMenuDocument(menuFileDoc, cacheKey);
             menuWebappCache.putIfAbsent(cacheKey, modelMenuMap);
             modelMenuMap = menuWebappCache.get(cacheKey);
         }
@@ -81,8 +74,8 @@ public class MenuFactory {
         return modelMenu;
     }
 
-    public static Map<String, ModelMenu> readMenuDocument(Document menuFileDoc, String menuLocation, VisualTheme visualTheme) {
-        Map<String, ModelMenu> modelMenuMap = new HashMap<>();
+    public static Map<String, ModelMenu> readMenuDocument(Document menuFileDoc, String menuLocation) {
+        Map<String, ModelMenu> modelMenuMap = new HashMap<String, ModelMenu>();
         if (menuFileDoc != null) {
             // read document and construct ModelMenu for each menu element
             Element rootElement = menuFileDoc.getDocumentElement();
@@ -90,22 +83,21 @@ public class MenuFactory {
                 rootElement = UtilXml.firstChildElement(rootElement, "menus");
             }
             for (Element menuElement: UtilXml.childElementList(rootElement, "menu")){
-                ModelMenu modelMenu = new ModelMenu(menuElement, menuLocation, visualTheme);
+                ModelMenu modelMenu = new ModelMenu(menuElement, menuLocation);
                 modelMenuMap.put(modelMenu.getName(), modelMenu);
             }
          }
         return modelMenuMap;
     }
 
-    public static ModelMenu getMenuFromLocation(String resourceName, String menuName, VisualTheme visualTheme) throws IOException, SAXException, ParserConfigurationException {
-        String keyName = resourceName + "::" + visualTheme.getVisualThemeId();
-        Map<String, ModelMenu> modelMenuMap = menuLocationCache.get(keyName);
+    public static ModelMenu getMenuFromLocation(String resourceName, String menuName) throws IOException, SAXException, ParserConfigurationException {
+        Map<String, ModelMenu> modelMenuMap = menuLocationCache.get(resourceName);
         if (modelMenuMap == null) {
             URL menuFileUrl = FlexibleLocation.resolveLocation(resourceName);
             Document menuFileDoc = UtilXml.readXmlDocument(menuFileUrl, true, true);
-            modelMenuMap = readMenuDocument(menuFileDoc, resourceName, visualTheme);
-            menuLocationCache.putIfAbsent(keyName, modelMenuMap);
-            modelMenuMap = menuLocationCache.get(keyName);
+            modelMenuMap = readMenuDocument(menuFileDoc, resourceName);
+            menuLocationCache.putIfAbsent(resourceName, modelMenuMap);
+            modelMenuMap = menuLocationCache.get(resourceName);
         }
 
         if (UtilValidate.isEmpty(modelMenuMap)) {

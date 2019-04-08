@@ -29,26 +29,25 @@ import org.apache.ofbiz.base.util.Debug;
 
 /**
  * Handles connections to the eWay servers.
- *
+ * 
  * Based on public domain sample code provided by eWay.com.au
  */
 public class GatewayConnector {
-
+    
     private static final String module = GatewayConnector.class.getName();
-
+    
     private int timeout = 0;
 
     public GatewayConnector(int timeout) {
         this.timeout = timeout;
     }
-
+    
     public GatewayConnector() {
         this(60);
     }
-
+    
     /**
      * Get the timeout value set in the corresponding setter.
-     *
      * @return timeout value in seconds, 0 for infinite
      */
     public int getTimeout() {
@@ -59,7 +58,6 @@ public class GatewayConnector {
      * Set the timout value. Note that setting the timeout for an HttpURLConnection
      * is possible only since Java 1.5. This method has no effect on earlier
      * versions.
-     *
      * @param time timeout value in seconds, 0 for infinite
      */
     public void setTimeout(int time) {
@@ -80,7 +78,7 @@ public class GatewayConnector {
     public GatewayResponse sendRequest(GatewayRequest request) throws Exception {
         
         // determine the gateway url to be used, based on the request type
-        String serverurl = request.getUrl();
+        String serverurl = request.getUrl();        
         
         GatewayResponse response = null;
         InputStream in = null;
@@ -91,32 +89,28 @@ public class GatewayConnector {
             connection = (HttpURLConnection)(u.openConnection());
             connection.setDoOutput(true);
             connection.setDoInput(true);
-            connection.setRequestMethod("POST");
-            connection.setConnectTimeout(timeout*1000);
+            connection.setRequestMethod("POST");            
+            connection.setConnectTimeout(timeout*1000);            
             
-            try (OutputStream out = connection.getOutputStream();
-                 Writer wout = new OutputStreamWriter(out, "UTF-8")) {
-                
-                wout.write(request.toXml());
-                wout.flush();
+            OutputStream out = connection.getOutputStream();
+            Writer wout = new OutputStreamWriter(out);
+            wout.write(request.toXml());
+            wout.flush();
+            wout.close();
 
-                in = connection.getInputStream();
-                response = new GatewayResponse(in, request);
-                return response;
-            }
+            in = connection.getInputStream();
+            response = new GatewayResponse(in, request);
+            return response;
         } 
         catch (Exception e) {
-            // re-throws exception so that the caller knows what went wrong
+            // rethrow exception so that the caller learns what went wrong
             Debug.logError(e, e.getMessage(), module);
             throw e;
-        } finally {
+        }
+        finally {
             // close resources
-            if (in != null) {
-                in.close();
-            }
-            if (connection != null) {
-                connection.disconnect();
-            }
+            if (in != null) in.close();
+            if (connection != null) connection.disconnect();
         }
     }
 }

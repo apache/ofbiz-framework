@@ -54,7 +54,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="AccountingAvailableInternalOrganizations"/>
                 <set field="headerItem" value="companies"/>
-                <set field="labelTitleProperty" from-field="uiLabelMap.AccountingAvailableInternalOrganizations"/>
+                <set field="labelTitleProperty" value="${uiLabelMap.AccountingAvailableInternalOrganizations}"/>
                 <entity-condition entity-name="PartyAcctgPreference" list="parties"/>
                 <service service-name="acctgPrefPermissionCheck" result-map="permResult">
                     <field-map field-name="mainAction" value="UPDATE"/>
@@ -69,7 +69,7 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.AccountingAvailableInternalOrganizations}" navigation-menu-name="NewAccountOrganization">
-                            <include-menu name="NewAccountOrganization" location="component://accounting/widget/AccountingMenus.xml"/>
+                            <include-menu location="component://accounting/widget/AccountingMenus.xml" name="NewAccountOrganization"/>
                             <include-form name="ListCompanies" location="component://accounting/widget/GlSetupForms.xml"/>
                         </screenlet>
                     </decorator-section>
@@ -137,7 +137,7 @@ under the License.
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="AccountingChartOfAcctsMenu"/>
                 <set field="tabButtonItem" value="ListGlAccountOrganization"/>
-                <set field="labelTitleProperty" from-field="uiLabelMap.AccountingChartOfAcctsMenu"/>
+                <set field="labelTitleProperty" value="${uiLabelMap.AccountingChartOfAcctsMenu}"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonGlSetupDecorator" location="${parameters.commonGlSetupDecoratorLocation}">
@@ -162,7 +162,7 @@ under the License.
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="AccountingTimePeriod"/>
-                <set field="labelTitleProperty" from-field="uiLabelMap.AccountingTimePeriod"/>
+                <set field="labelTitleProperty" value="${uiLabelMap.AccountingTimePeriod}"/>
                 <set field="tabButtonItem" value="TimePeriods"/>
                 <entity-condition entity-name="CustomTimePeriod" list="openTimePeriods">
                     <condition-list>
@@ -203,7 +203,7 @@ under the License.
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="AccountingPreference"/>
-                <set field="labelTitleProperty" from-field="uiLabelMap.AccountingPreference"/>
+                <set field="labelTitleProperty" value="${uiLabelMap.AccountingPreference}"/>
                 <set field="tabButtonItem" value="PartyAcctgPreference"/>
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
                 <set field="organizationPartyId" value="${groovy:if(parameters.organizationPartyId!=null) return parameters.organizationPartyId else return parameters.get('ApplicationDecorator|organizationPartyId')}"/>
@@ -221,39 +221,12 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="ListPartyPrefDocTypeTpl">
-        <section>
-            <actions>
-                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="titleProperty" value="AccountingPreference"/>
-                <set field="labelTitleProperty" from-field="uiLabelMap.AccountingPreference"/>
-                <set field="tabButtonItem" value="PartyPrefDocTypeTpl"/>
-                <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
-                <set field="organizationPartyId" value="${groovy:if(parameters.organizationPartyId!=null) return parameters.organizationPartyId else return parameters.get('ApplicationDecorator|organizationPartyId')}"/>
-                <set field="partyId" from-field="organizationPartyId"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="CommonGlSetupDecorator" location="${parameters.commonGlSetupDecoratorLocation}">
-                    <decorator-section name="body">
-                        <include-form name="ListPartyPrefDocTypeTpl" location="component://accounting/widget/GlSetupForms.xml"/>
-                        <screenlet title="${uiLabelMap.AccountingAddPartyPrefDocTypeTpl}">
-                            <section>
-                                <condition><if-empty field="parameters.documentType"/></condition>
-                                <widgets><include-form name="SelectPartyPrefDocTypeTpl" location="component://accounting/widget/GlSetupForms.xml"/></widgets>
-                                <fail-widgets><include-form name="AddPartyPref${parameters.documentType}Tpl" location="component://accounting/widget/GlSetupForms.xml"/></fail-widgets>
-                            </section>
-                        </screenlet>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
     <screen name="SetupGlJournals">
         <section>
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="AccountingGlJournals"/>
-                <set field="labelTitleProperty" from-field="uiLabelMap.AccountingGlJournals"/>
+                <set field="labelTitleProperty" value="${uiLabelMap.AccountingGlJournals}"/>
                 <set field="tabButtonItem" value="SetupGlJournals"/>
                 <entity-one entity-name="GlJournal" value-field="glJournal"/>
             </actions>
@@ -274,7 +247,7 @@ under the License.
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="AccountingGlAccountTypeDefaults"/>
-                <set field="labelTitleProperty" from-field="uiLabelMap.AccountingGlAccountTypeDefaults"/>
+                <set field="labelTitleProperty" value="${uiLabelMap.AccountingGlAccountTypeDefaults}"/>
                 <set field="tabButtonItem" value="GlAccountAssignment"/>
                 <set field="tabButtonItem2" value="GlAccountTypeDefaults"/>
             </actions>
@@ -295,7 +268,7 @@ under the License.
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="AccountingInvoiceSales"/>
-                <set field="labelTitleProperty" from-field="uiLabelMap.AccountingInvoiceSales"/>
+                <set field="labelTitleProperty" value="${uiLabelMap.AccountingInvoiceSales}"/>
                 <set field="tabButtonItem" value="GlAccountAssignment"/>
                 <set field="tabButtonItem2" value="GlAccountSalInvoice"/>
             </actions>
@@ -376,7 +349,7 @@ under the License.
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="AccountingProductGlAccount"/>
-                <set field="labelTitleProperty" from-field="uiLabelMap.AccountingProductGlAccount"/>
+                <set field="labelTitleProperty" value="${uiLabelMap.AccountingProductGlAccount}"/>
                 <set field="tabButtonItem" value="GlAccountAssignment"/>
                 <set field="tabButtonItem2" value="ProductGlAccounts"/>
 
@@ -402,7 +375,7 @@ under the License.
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="AccountingFinAccountTypeGlAccount"/>
-                <set field="labelTitleProperty" from-field="uiLabelMap.AccountingFinAccountTypeGlAccount"/>
+                <set field="labelTitleProperty" value="${uiLabelMap.AccountingFinAccountTypeGlAccount}"/>
                 <set field="tabButtonItem" value="GlAccountAssignment"/>
                 <set field="tabButtonItem2" value="FinAccountTypeGlAccounts"/>
 
@@ -432,7 +405,7 @@ under the License.
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="AccountingProductCategoryGlAccount"/>
-                <set field="labelTitleProperty" from-field="uiLabelMap.AccountingProductCategoryGlAccount"/>
+                <set field="labelTitleProperty" value="${uiLabelMap.AccountingProductCategoryGlAccount}"/>
                 <set field="tabButtonItem" value="GlAccountAssignment"/>
                 <set field="tabButtonItem2" value="ProductCategoryGlAccounts"/>
 
@@ -460,7 +433,7 @@ under the License.
                 <set field="titleProperty" value="AccountingVarianceReasonGlAccounts"/>
                 <set field="tabButtonItem" value="GlAccountAssignment"/>
                 <set field="tabButtonItem2" value="VarianceReasonGlAccounts"/>
-                <set field="labelTitleProperty" from-field="uiLabelMap.AccountingVarianceReasonGlAccounts"/>
+                <set field="labelTitleProperty" value="${uiLabelMap.AccountingVarianceReasonGlAccounts}"/>
 
                 <entity-condition entity-name="VarianceReasonGlAccount" list="varianceReasonGlAccounts">
                     <condition-expr field-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
@@ -486,7 +459,7 @@ under the License.
                 <set field="titleProperty" value="AccountingCreditCardTypeGlAccount"/>
                 <set field="tabButtonItem" value="GlAccountAssignment"/>
                 <set field="tabButtonItem2" value="CreditCardTypeGlAccount"/>
-                <set field="labelTitleProperty" from-field="uiLabelMap.AccountingCreditCardTypeGlAccount"/>
+                <set field="labelTitleProperty" value="${uiLabelMap.AccountingCreditCardTypeGlAccount}"/>
                 <entity-condition entity-name="CreditCardTypeGlAccount" list="creditCardTypeGlAccounts">
                     <condition-expr field-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                 </entity-condition>
@@ -510,7 +483,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditTaxAuthorityGlAccounts"/>
                 <set field="tabButtonItem" value="GlAccountAssignment"/>
                 <set field="tabButtonItem2" value="TaxAuthorityGlAccounts"/>
-                <set field="labelTitleProperty" from-field="uiLabelMap.PageTitleEditTaxAuthorityGlAccounts"/>
+                <set field="labelTitleProperty" value="${uiLabelMap.PageTitleEditTaxAuthorityGlAccounts}"/>
                 <entity-condition entity-name="TaxAuthorityGlAccount" list="taxAuthorityGlAccounts">
                     <condition-expr field-name="organizationPartyId" value="${groovy:parameters.get('ApplicationDecorator|organizationPartyId')}"/>
                     <order-by field-name="taxAuthGeoId"/>
@@ -535,7 +508,7 @@ under the License.
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="PageTitleEditPartyGlAccounts"/>
-                <set field="labelTitleProperty" from-field="uiLabelMap.PageTitleEditPartyGlAccounts"/>
+                <set field="labelTitleProperty" value="${uiLabelMap.PageTitleEditPartyGlAccounts}"/>
                 <set field="tabButtonItem" value="GlAccountAssignment"/>
                 <set field="tabButtonItem2" value="PartyGlAccounts"/>
                 <entity-condition entity-name="PartyGlAccount" list="partyGlAccounts">
@@ -560,7 +533,7 @@ under the License.
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="FixedAssetTypeGlAccounts"/>
-                <set field="labelTitleProperty" from-field="uiLabelMap.FixedAssetTypeGlAccounts"/>
+                <set field="labelTitleProperty" value="${uiLabelMap.FixedAssetTypeGlAccounts}"/>
                 <set field="tabButtonItem" value="GlAccountAssignment"/>
                 <set field="tabButtonItem2" value="FixedAssetTypeGlAccounts"/>
             </actions>

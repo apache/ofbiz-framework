@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://ofbiz.apache.org/Site-Conf"
+	xsi:schemaLocation="http://ofbiz.apache.org/Site-Conf http://ofbiz.apache.org/dtds/site-conf.xsd">
+	<!-- The controller elements that are common to all OFBiz components can 
+		be found in the following xml file. A component can override the elements 
+		found in the common-controller.xml file. -->
+	<description>First Hello World Site Configuration File</description>
+	<owner>Open For Business Project (c) 2005 </owner>
+	<errorpage>/error/error.jsp</errorpage>
+
+	<handler name="java" type="request"
+		class="org.apache.ofbiz.webapp.event.JavaEventHandler" />
+	<handler name="soap" type="request"
+		class="org.apache.ofbiz.webapp.event.SOAPEventHandler" />
+	<handler name="json" type="request"
+		class="org.apache.ofbiz.webapp.event.JsonHandler" />
+	<handler name="service" type="request"
+		class="org.apache.ofbiz.webapp.event.ServiceEventHandler" />
+	<handler name="service-multi" type="request"
+		class="org.apache.ofbiz.webapp.event.ServiceMultiEventHandler" />
+	<handler name="simple" type="request"
+		class="org.apache.ofbiz.webapp.event.SimpleEventHandler" />
+
+	<handler name="ftl" type="view"
+		class="org.apache.ofbiz.webapp.ftl.FreeMarkerViewHandler" />
+	<handler name="jsp" type="view"
+		class="org.apache.ofbiz.webapp.view.JspViewHandler" />
+	<!--<handler name="screen" type="view" class="org.apache.ofbiz.widget.screen.ScreenWidgetViewHandler"/> -->
+
+	<handler name="http" type="view"
+		class="org.apache.ofbiz.webapp.view.HttpViewHandler" />
+	<!-- <preprocessor> &lt;!&ndash; Events to run on every request before security 
+		(chains exempt) &ndash;&gt; &lt;!&ndash; <event type="java" path="org.apache.ofbiz.webapp.event.TestEvent" 
+		invoke="test"/> &ndash;&gt; <event type="java" path="org.apache.ofbiz.securityext.login.LoginEvents" 
+		invoke="checkExternalLoginKey"/> </preprocessor> <postprocessor> &lt;!&ndash; 
+		Events to run on every request after all other processing (chains exempt) 
+		&ndash;&gt; &lt;!&ndash; <event type="java" path="org.apache.ofbiz.webapp.event.TestEvent" 
+		invoke="test"/> &ndash;&gt; </postprocessor> -->
+
+	<!-- Request Mappings -->
+	<request-map uri="main">
+		<response name="success" type="view" value="main" />
+
+	</request-map>
+	<request-map uri="first">
+		<security https="false" auth="false" />
+		<event type="java" invoke="restService" path="org.apache.ofbiz.custom.TestService" />
+		<response name="error" type="none" value="error" />
+		<response name="success" type="none" value="main" />
+	</request-map>
+
+	<!-- end of request mappings -->
+
+	<!-- View Mappings -->
+	<view-map name="error" page="/error/error.jsp" />
+	<view-map name="main" type="ftl" page="first.jsp" />
+	<!-- end of view mappings -->
+
+</site-conf>

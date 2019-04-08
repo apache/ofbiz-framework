@@ -33,14 +33,14 @@ import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.webapp.stats.VisitHandler;
+import org.apache.ofbiz.webapp.website.WebSiteWorker;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.product.category.CategoryWorker;
-import org.apache.ofbiz.webapp.stats.VisitHandler;
-import org.apache.ofbiz.webapp.website.WebSiteWorker;
 
 /**
  * Events used for maintaining TrackingCode related information
@@ -69,8 +69,9 @@ public class TrackingCodeEvents {
             }
 
             if (trackingCode == null) {
-                Debug.logInfo("TrackingCode not found for trackingCodeId [" + trackingCodeId + "], ignoring this trackingCodeId.", module);
-                return "success";
+                Debug.logError("TrackingCode not found for trackingCodeId [" + trackingCodeId + "], ignoring this trackingCodeId.", module);
+                //this return value will be ignored, but we'll designate this as an error anyway
+                return "error";
             }
 
             return processTrackingCode(trackingCode, request, response, "TKCDSRC_URL_PARAM");
@@ -148,9 +149,9 @@ public class TrackingCodeEvents {
                     trackingCode.set("lastModifiedDate", UtilDateTime.nowTimestamp());
 
                     //use nearly unlimited trackable lifetime: 10 billion seconds, 310 years
-                    trackingCode.set("trackableLifetime", 10000000000L);
+                    trackingCode.set("trackableLifetime", Long.valueOf(10000000000L));
                     //use 2592000 seconds as billable lifetime: equals 1 month
-                    trackingCode.set("billableLifetime", 2592000L);
+                    trackingCode.set("billableLifetime", Long.valueOf(2592000));
 
                     trackingCode.set("comments", "This TrackingCode has default values because no default TrackingCode could be found.");
 
@@ -224,25 +225,21 @@ public class TrackingCodeEvents {
 
         // if trackingCode.trackableLifetime not null and is > 0 write a trackable cookie with name in the form: TKCDT_{trackingCode.trackingCodeTypeId} and timeout will be trackingCode.trackableLifetime
         Long trackableLifetime = trackingCode.getLong("trackableLifetime");
-        if (trackableLifetime != null && (trackableLifetime > 0 || trackableLifetime == -1)) {
+        if (trackableLifetime != null && (trackableLifetime.longValue() > 0 || trackableLifetime.longValue() == -1)) {
             Cookie trackableCookie = new Cookie("TKCDT_" + trackingCode.getString("trackingCodeTypeId"), trackingCode.getString("trackingCodeId"));
-            if (trackableLifetime > 0) trackableCookie.setMaxAge(trackableLifetime.intValue());
+            if (trackableLifetime.longValue() > 0) trackableCookie.setMaxAge(trackableLifetime.intValue());
             trackableCookie.setPath("/");
             if (cookieDomain.length() > 0) trackableCookie.setDomain(cookieDomain);
-            trackableCookie.setSecure(true);
-            trackableCookie.setHttpOnly(true);
             response.addCookie(trackableCookie);
         }
 
         // if trackingCode.billableLifetime not null and is > 0 write a billable cookie with name in the form: TKCDB_{trackingCode.trackingCodeTypeId} and timeout will be trackingCode.billableLifetime
         Long billableLifetime = trackingCode.getLong("billableLifetime");
-        if (billableLifetime != null && (billableLifetime > 0 || billableLifetime == -1)) {
+        if (billableLifetime != null && (billableLifetime.longValue() > 0 || billableLifetime.longValue() == -1)) {
             Cookie billableCookie = new Cookie("TKCDB_" + trackingCode.getString("trackingCodeTypeId"), trackingCode.getString("trackingCodeId"));
-            if (billableLifetime > 0) billableCookie.setMaxAge(billableLifetime.intValue());
+            if (billableLifetime.longValue() > 0) billableCookie.setMaxAge(billableLifetime.intValue());
             billableCookie.setPath("/");
             if (cookieDomain.length() > 0) billableCookie.setDomain(cookieDomain);
-            billableCookie.setSecure(true);
-            billableCookie.setHttpOnly(true);
             response.addCookie(billableCookie);
         }
 
@@ -268,31 +265,19 @@ public class TrackingCodeEvents {
                 }
             }
 
-            if (visitorSiteId == null || (siteId != null && !visitorSiteId.equals(siteId))) {
+            if (visitorSiteId == null || (visitorSiteId != null && !visitorSiteId.equals(siteId))) {
                 // if trackingCode.siteId is  not null  write a trackable cookie with name in the form: Ofbiz.TKCSiteId and timeout will be 60 * 60 * 24 * 365
-                String siteIdEnc;
-                try {
-                    siteIdEnc = URLEncoder.encode(siteId, "UTF-8");
-                }
-                catch (UnsupportedEncodingException e) {
-                    Debug.logWarning("There went something wrong while encoding for the cookie creation in TrackingCodeEvents.processTrackingCode", module);
-                    return "error";
-                }
-                Cookie siteIdCookie = new Cookie("Ofbiz.TKCD.SiteId", siteIdEnc);
+                Cookie siteIdCookie = new Cookie("Ofbiz.TKCD.SiteId", siteId);
                 siteIdCookie.setMaxAge(siteIdCookieAge);
                 siteIdCookie.setPath("/");
                 if (cookieDomain.length() > 0) siteIdCookie.setDomain(cookieDomain);
-                siteIdCookie.setSecure(true);
-                siteIdCookie.setHttpOnly(true);
-                response.addCookie(siteIdCookie);
+                    response.addCookie(siteIdCookie);
                 // if trackingCode.siteId is  not null  write a trackable cookie with name in the form: Ofbiz.TKCSiteId and timeout will be 60 * 60 * 24 * 365
                 Cookie updatedTimeStampCookie = new Cookie("Ofbiz.TKCD.UpdatedTimeStamp", UtilDateTime.nowTimestamp().toString());
                 updatedTimeStampCookie.setMaxAge(siteIdCookieAge);
                 updatedTimeStampCookie.setPath("/");
                 if (cookieDomain.length() > 0) updatedTimeStampCookie.setDomain(cookieDomain);
-                updatedTimeStampCookie.setSecure(true);
-                updatedTimeStampCookie.setHttpOnly(true);
-                response.addCookie(updatedTimeStampCookie);
+                    response.addCookie(updatedTimeStampCookie);
             }
         }
 

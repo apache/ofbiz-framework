@@ -29,7 +29,7 @@ import org.w3c.dom.Element;
 /**
  * Implements the &lt;clear-field&gt; element.
  * 
- * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Referenc</a>
+ * @see <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/Mini-language+Reference#Mini-languageReference-{{<clearfield>}}">Mini-language Reference</a>
  */
 public final class ClearField extends MethodOperation {
 

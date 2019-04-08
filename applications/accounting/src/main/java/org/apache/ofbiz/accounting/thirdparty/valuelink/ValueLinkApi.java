@@ -20,7 +20,6 @@ package org.apache.ofbiz.accounting.thirdparty.valuelink;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.KeyFactory;
@@ -37,7 +36,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
@@ -70,14 +68,14 @@ import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
 
 /**
- * ValueLinkApi - Implementation of ValueLink Encryption and Transport
+ * ValueLinkApi - Implementation of ValueLink Encryption & Transport
  */
 public class ValueLinkApi {
 
     public static final String module = ValueLinkApi.class.getName();
 
     // static object cache
-    private static Map<String, Object> objectCache = new HashMap<>();
+    private static Map<String, Object> objectCache = new HashMap<String, Object>();
 
     // instance variables
     protected Delegator delegator = null;
@@ -158,7 +156,7 @@ public class ValueLinkApi {
         Cipher mwkCipher = this.getCipher(this.getMwkKey(), Cipher.ENCRYPT_MODE);
 
         // pin to bytes
-        byte[] pinBytes = pin.getBytes(StandardCharsets.UTF_8);
+        byte[] pinBytes = pin.getBytes();
 
         // 7 bytes of random data
         byte[] random = this.getRandomBytes(7);
@@ -211,7 +209,7 @@ public class ValueLinkApi {
         try {
             byte[] decryptedEan = mwkCipher.doFinal(StringUtil.fromHexString(pin));
             byte[] decryptedPin = getByteRange(decryptedEan, 8, 8);
-            decryptedPinString = new String(decryptedPin, StandardCharsets.UTF_8);
+            decryptedPinString = new String(decryptedPin);
         } catch (IllegalStateException e) {
             Debug.logError(e, module);
         } catch (IllegalBlockSizeException e) {
@@ -526,9 +524,10 @@ public class ValueLinkApi {
 
             byte[] des3 = copyBytes(desByte1, copyBytes(desByte2, desByte3, 0), 0);
             return generateMwk(des3);
+        } else {
+            Debug.logInfo("Null DES keys returned", module);
         }
 
-        Debug.logInfo("Null DES keys returned", module);
         return null;
     }
 
@@ -563,8 +562,9 @@ public class ValueLinkApi {
         }
         if (mwk != null) {
             return generateMwk(mwk);
+        } else {
+            return null;
         }
-        return null;
     }
 
     /**
@@ -694,7 +694,7 @@ public class ValueLinkApi {
      * @return Map containing the inital request values
      */
     public Map<String, Object> getInitialRequestMap(Map<String, Object> context) {
-        Map<String, Object> request = new HashMap<>();
+        Map<String, Object> request = new HashMap<String, Object>();
 
         // merchant information
         request.put("MerchID", merchantId + terminalId);
@@ -907,7 +907,7 @@ public class ValueLinkApi {
         }
 
         // covert to all lowercase and trim off the html header
-        String subResponse = response.toLowerCase(Locale.getDefault());
+        String subResponse = response.toLowerCase();
         int firstIndex = subResponse.indexOf("<tr>");
         int lastIndex = subResponse.lastIndexOf("</tr>");
         subResponse = subResponse.substring(firstIndex, lastIndex);
@@ -939,7 +939,7 @@ public class ValueLinkApi {
         subResponse = StringUtil.replaceString(subResponse, "</td>", "");
 
         // make the map
-        Map<String, Object> responseMap = new HashMap<>();
+        Map<String, Object> responseMap = new HashMap<String, Object>();
         responseMap.putAll(StringUtil.strToMap(subResponse, true));
 
         // add the raw html back in just in case we need it later
@@ -964,7 +964,7 @@ public class ValueLinkApi {
         }
 
         // covert to all lowercase and trim off the html header
-        String subResponse = response.toLowerCase(Locale.getDefault());
+        String subResponse = response.toLowerCase();
         int firstIndex = subResponse.indexOf("<tr>");
         int lastIndex = subResponse.lastIndexOf("</tr>");
         subResponse = subResponse.substring(firstIndex, lastIndex);
@@ -995,7 +995,7 @@ public class ValueLinkApi {
         List<String> valueList = StringUtil.split(values, "&");
 
         // create a List of Maps for each set of values
-        List<Map<String, String>> valueMap = new LinkedList<>();
+        List<Map<String, String>> valueMap = new LinkedList<Map<String,String>>();
         for (int i = 0; i < valueList.size(); i++) {
             valueMap.add(StringUtil.createMap(StringUtil.split(keys, "|"), StringUtil.split(valueList.get(i), "|")));
         }

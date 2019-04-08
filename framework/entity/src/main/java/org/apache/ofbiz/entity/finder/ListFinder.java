@@ -89,7 +89,7 @@ public abstract class ListFinder extends Finder {
         // process order-by
         List<? extends Element> orderByElementList = UtilXml.childElementList(element, "order-by");
         if (orderByElementList.size() > 0) {
-            orderByExpanderList = new ArrayList<>(orderByElementList.size());
+            orderByExpanderList = new ArrayList<FlexibleStringExpander>(orderByElementList.size());
             for (Element orderByElement: orderByElementList) {
                 orderByExpanderList.add(FlexibleStringExpander.getInstance(orderByElement.getAttribute("field-name")));
             }
@@ -132,9 +132,8 @@ public abstract class ListFinder extends Finder {
         boolean filterByDate = "true".equals(filterByDateStr);
         boolean distinct = "true".equals(distinctStr);
         int resultSetType = ResultSet.TYPE_SCROLL_INSENSITIVE;
-        if ("forward".equals(resultSetTypeString)) {
+        if ("forward".equals(resultSetTypeString))
             resultSetType = ResultSet.TYPE_FORWARD_ONLY;
-        }
 
         if (UtilValidate.isNotEmpty(delegatorName)) {
             delegator = DelegatorFactory.getDelegator(delegatorName);
@@ -212,9 +211,9 @@ public abstract class ListFinder extends Finder {
                     if (useTransaction) {
                         beganTransaction = TransactionUtil.begin();
                     }
+
                     EntityListIterator eli = delegator.find(entityName, whereEntityCondition, havingEntityCondition, fieldsToSelect, orderByFields, options);
                     this.outputHandler.handleOutput(eli, context, listAcsr);
-                    // NOTE: the eli EntityListIterator is not closed here. It SHOULD be closed later after the returned list will be used (eg see EntityAnd.getChildren() in ModelTree.java)
                 } catch (GenericEntityException e) {
                     String errMsg = "Failure in by " + label + " find operation, rolling back transaction";
                     Debug.logError(e, errMsg, module);

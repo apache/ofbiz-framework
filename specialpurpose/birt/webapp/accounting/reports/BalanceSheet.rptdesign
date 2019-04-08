@@ -1,0 +1,1290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.21" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 2.6.0.v20100531 Build &lt;2.6.0.v20100609-1613></property>
+    <property name="units">in</property>
+    <method name="initialize"><![CDATA[
+importPackage(Packages.org.apache.ofbiz.base.util)
+importPackage(Packages.org.apache.ofbiz.entity.util)
+importPackage(Packages.java.util)
+
+module = "BalanceSheet.rptdesign";
+dateFormatter = new java.text.SimpleDateFormat("dd MMMMM yyyy");
+
+// prepare uiLabelMap
+uiLabelMap = new HashMap();
+uiLabelMap.putAll(UtilProperties.getResourceBundleMap("CommonUiLabels", reportContext.getLocale()));
+uiLabelMap.putAll(UtilProperties.getResourceBundleMap("AccountingUiLabels", reportContext.getLocale()));
+
+fromDate = null;
+thruDate = null;
+glFiscalTypeId = null;
+
+// prepare parameters
+
+organizationPartyId = params["organizationPartyId"].value;
+organizationPartyGroup = delegator.findOne("PartyGroup", UtilMisc.toMap("partyId", organizationPartyId), false);
+userLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", params["userLoginId"].value), false);
+partyNameView = delegator.findOne("PartyNameView", UtilMisc.toMap("partyId", userLogin.getString("partyId")), false);
+
+// set logo image url
+logoImageUrl = organizationPartyGroup.getString("logoImageUrl");
+if (!logoImageUrl) {
+    logoImageUrl = FileUtil.getFile("component://images/webapp/images/ofbiz_logo.gif").getPath();
+}
+
+fromDate = null;
+if (params["fromDate"].value) {
+    fromDate = params["fromDate"].value;
+}
+
+if (params["thruDate"].value) {
+    thruDate = params["thruDate"].value;
+} else {
+    thruDate = UtilDateTime.nowTimestamp();
+}
+
+if (params["glFiscalTypeId"].value) {
+    glFiscalTypeId = params["glFiscalTypeId"].value;
+} else {
+    glFiscalTypeId = "ACTUAL";
+}
+
+if (params["locale"].value) {
+    locale = params["glFiscalTypeId"].value;
+} else {
+    locale = "ACTUAL";
+}
+
+// call BalanceSheet.groovy script
+context = new HashMap();
+context.put("parameters", new HashMap());
+context.put("organizationPartyId", organizationPartyId);
+context.put("fromDate", fromDate);
+context.put("thruDate", thruDate);
+context.put("glFiscalTypeId", glFiscalTypeId);
+context.put("delegator", delegator);
+context.put("dispatcher", dispatcher);
+context.put("userLogin", userLogin);
+context.put("locale", params["locale"].value);
+GroovyUtil.runScriptAtLocation("component://accounting/groovyScripts/reports/BalanceSheet.groovy", null, context);
+
+// prepare data source lists
+assetAccountBalanceList = context.get("assetAccountBalanceList");
+liabilityAccountBalanceList = context.get("liabilityAccountBalanceList");
+equityAccountBalanceList = context.get("equityAccountBalanceList");
+balanceTotalList = context.get("balanceTotalList");]]></method>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <parameters>
+        <scalar-parameter name="fromDate" id="154">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">dateTime</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="thruDate" id="155">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">dateTime</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="glFiscalTypeId" id="156">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="userLoginId" id="158">
+            <property name="valueType">static</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <script-data-source name="OFBiz" id="7"/>
+    </data-sources>
+    <data-sets>
+        <script-data-set name="Asset" id="39">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">glAccountId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">accountCode</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">accountName</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">balance</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">glAccountId</property>
+                    <text-property name="displayName">Account ID</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">accountCode</property>
+                    <text-property name="displayName">Account Code</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">accountName</property>
+                    <text-property name="displayName">Account Name</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">balance</property>
+                    <text-property name="displayName">Balance</text-property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">glAccountId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">accountCode</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">accountName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">balance</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">OFBiz</property>
+            <method name="open"><![CDATA[totalRow = 0;
+countOfRow = 0;
+
+if (assetAccountBalanceList.size) {
+    totalRow = assetAccountBalanceList.size();
+}
+]]></method>
+            <method name="fetch"><![CDATA[if (countOfRow >= totalRow) return false;
+
+var assetAccountBalance = assetAccountBalanceList.get(countOfRow);
+row["glAccountId"] = assetAccountBalance.get("glAccountId");
+row["accountCode"] = assetAccountBalance.get("accountCode");
+row["accountName"] = assetAccountBalance.get("accountName");
+row["balance"] = assetAccountBalance.get("balance");
+
+countOfRow ++;
+return true;]]></method>
+        </script-data-set>
+        <script-data-set name="Liability" id="71">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">glAccountId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">accountCode</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">accountName</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">balance</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">glAccountId</property>
+                    <text-property name="displayName">Account ID</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">accountCode</property>
+                    <text-property name="displayName">accountCode</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">accountName</property>
+                    <text-property name="displayName">Account Name</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">balance</property>
+                    <text-property name="displayName">Balance</text-property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">glAccountId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">accountCode</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">accountName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">balance</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">OFBiz</property>
+            <method name="open"><![CDATA[totalRow = 0;
+countOfRow = 0;
+
+if (liabilityAccountBalanceList.size) {
+    totalRow = liabilityAccountBalanceList.size();
+}
+]]></method>
+            <method name="fetch"><![CDATA[if (countOfRow >= totalRow) return false;
+
+var liabilityAccountBalance = liabilityAccountBalanceList.get(countOfRow);
+row["glAccountId"] = liabilityAccountBalance.get("glAccountId");
+row["accountCode"] = liabilityAccountBalance.get("accountCode");
+row["accountName"] = liabilityAccountBalance.get("accountName");
+row["balance"] = liabilityAccountBalance.get("balance");
+
+countOfRow ++;
+return true;]]></method>
+        </script-data-set>
+        <script-data-set name="Equity" id="102">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">0</property>
+                    <property name="name">glAccountId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">accountCode</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">accountName</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">balance</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">glAccountId</property>
+                    <text-property name="displayName">Account ID</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">accountCode</property>
+                    <text-property name="displayName">Account Code</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">accountName</property>
+                    <text-property name="displayName">Account Name</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">balance</property>
+                    <text-property name="displayName">Balance</text-property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">glAccountId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">accountCode</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">accountName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">balance</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">OFBiz</property>
+            <method name="open"><![CDATA[totalRow = 0;
+countOfRow = 0;
+
+if (equityAccountBalanceList.size) {
+    totalRow = equityAccountBalanceList.size();
+}
+]]></method>
+            <method name="fetch"><![CDATA[if (countOfRow >= totalRow) return false;
+
+var equityAccountBalance = equityAccountBalanceList.get(countOfRow);
+row["glAccountId"] = equityAccountBalance.get("glAccountId");
+row["accountCode"] = equityAccountBalance.get("accountCode");
+row["accountName"] = equityAccountBalance.get("accountName");
+row["balance"] = equityAccountBalance.get("balance");
+
+countOfRow ++;
+return true;]]></method>
+        </script-data-set>
+        <script-data-set name="BalanceTotal" id="260">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">totalName</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">balance</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">totalName</property>
+                    <text-property name="displayName">Total Name</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">balance</property>
+                    <text-property name="displayName">Balance</text-property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">totalName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">balance</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">OFBiz</property>
+            <method name="open"><![CDATA[totalRow = 0;
+countOfRow = 0;
+
+if (balanceTotalList.size) {
+    totalRow = balanceTotalList.size();
+}]]></method>
+            <method name="fetch"><![CDATA[if (countOfRow >= totalRow) return false;
+
+var balanceTotal = balanceTotalList.get(countOfRow);
+row["totalName"] = balanceTotal.get("totalName");
+row["balance"] = balanceTotal.get("balance");
+
+countOfRow ++;
+return true;]]></method>
+        </script-data-set>
+    </data-sets>
+    <styles>
+        <style name="report" id="4">
+            <property name="fontFamily">sans-serif</property>
+            <property name="fontSize">10pt</property>
+        </style>
+        <style name="crosstab-cell" id="5">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+        <style name="crosstab" id="6">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+    </styles>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <property name="headerHeight">2.5in</property>
+            <page-header>
+                <grid id="8">
+                    <property name="backgroundColor">#FFFFFF</property>
+                    <property name="height">2.3434343434343434in</property>
+                    <property name="width">7.875in</property>
+                    <column id="9">
+                        <property name="width">1.28125in</property>
+                        <property name="fontWeight">bold</property>
+                        <property name="textAlign">left</property>
+                    </column>
+                    <column id="10">
+                        <property name="width">2.6770833333333335in</property>
+                    </column>
+                    <column id="11">
+                        <property name="width">1.2395833333333333in</property>
+                        <property name="fontWeight">bold</property>
+                        <property name="textAlign">left</property>
+                    </column>
+                    <column id="27">
+                        <property name="width">2.6770833333333335in</property>
+                    </column>
+                    <row id="12">
+                        <cell id="13">
+                            <property name="colSpan">2</property>
+                            <property name="rowSpan">1</property>
+                            <property name="textAlign">left</property>
+                            <image id="28">
+                                <method name="onCreate"><![CDATA[if (logoImageUrl) {
+    if (logoImageUrl.startsWith("http")) {
+        this.URL = logoImageUrl;
+    } else {
+        this.file = logoImageUrl;
+    }
+}]]></method>
+                                <property name="source">url</property>
+                                <property name="fitToContainer">false</property>
+                            </image>
+                        </cell>
+                        <cell id="15">
+                            <property name="textAlign">right</property>
+                            <label id="29">
+                                <property name="fontWeight">bold</property>
+                                <property name="textUnderline">none</property>
+                                <method name="onCreate"><![CDATA[this.text = uiLabelMap.get("CommonUsername") + ":";]]></method>
+                                <text-property name="text">Username: </text-property>
+                            </label>
+                        </cell>
+                        <cell id="24">
+                            <text-data id="151">
+                                <expression name="valueExpr">if (userLogin != null ) {partyNameView.getString("firstName") + "&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;" + partyNameView.getString("lastName")}</expression>
+                                <property name="contentType">html</property>
+                            </text-data>
+                        </cell>
+                    </row>
+                    <row id="16">
+                        <property name="height">0.2604166666666667in</property>
+                        <cell id="17"/>
+                        <cell id="18"/>
+                        <cell id="19">
+                            <property name="textAlign">right</property>
+                            <label id="30">
+                                <property name="fontWeight">bold</property>
+                                <property name="textUnderline">none</property>
+                                <method name="onCreate"><![CDATA[this.text = uiLabelMap.get("CommonDate") + ":";]]></method>
+                                <text-property name="text">Date: </text-property>
+                            </label>
+                        </cell>
+                        <cell id="25">
+                            <text-data id="152">
+                                <expression name="valueExpr">dateFormatter.format(UtilDateTime.nowTimestamp())</expression>
+                                <property name="contentType">html</property>
+                            </text-data>
+                        </cell>
+                    </row>
+                    <row id="132">
+                        <property name="height">0.22916666666666666in</property>
+                        <cell id="133">
+                            <property name="textAlign">right</property>
+                            <label id="31">
+                                <property name="fontWeight">bold</property>
+                                <property name="textUnderline">none</property>
+                                <method name="onCreate"><![CDATA[this.text = uiLabelMap.get("FormFieldTitle_thruDate") + ":";]]></method>
+                                <text-property name="text">Thru Date: </text-property>
+                            </label>
+                        </cell>
+                        <cell id="134">
+                            <text-data id="153">
+                                <expression name="valueExpr">dateFormatter.format(thruDate)</expression>
+                                <property name="contentType">html</property>
+                            </text-data>
+                        </cell>
+                        <cell id="135">
+                            <label id="278">
+                                <property name="fontWeight">bold</property>
+                                <property name="textUnderline">none</property>
+                                <property name="textAlign">right</property>
+                                <method name="onCreate"><![CDATA[this.text = uiLabelMap.get("AccountingCurrency") + ":";]]></method>
+                                <text-property name="text">Currency: </text-property>
+                            </label>
+                        </cell>
+                        <cell id="136">
+                            <text-data id="279">
+                                <expression name="valueExpr">delegator.findOne("PartyAcctgPreference", UtilMisc.toMap("partyId", organizationPartyId), false).getRelatedOne("Uom", false).getString("description")</expression>
+                                <property name="contentType">html</property>
+                            </text-data>
+                        </cell>
+                    </row>
+                    <row id="20">
+                        <property name="height">0.21875in</property>
+                        <cell id="21">
+                            <property name="textAlign">right</property>
+                            <label id="37">
+                                <property name="fontWeight">bold</property>
+                                <method name="onCreate"><![CDATA[this.text = uiLabelMap.get("FormFieldTitle_glFiscalTypeId") + ":";]]></method>
+                                <text-property name="text">Fiscal Gl Type: </text-property>
+                            </label>
+                        </cell>
+                        <cell id="22">
+                            <text-data id="165">
+                                <expression name="valueExpr">delegator.findOne("GlFiscalType", UtilMisc.toMap("glFiscalTypeId", glFiscalTypeId), false).getString("description")</expression>
+                                <property name="contentType">html</property>
+                            </text-data>
+                        </cell>
+                        <cell id="23"/>
+                        <cell id="26"/>
+                    </row>
+                    <row id="171">
+                        <property name="height">0.4479166666666667in</property>
+                        <cell id="172">
+                            <property name="colSpan">4</property>
+                            <property name="rowSpan">1</property>
+                            <property name="textAlign">right</property>
+                            <text id="177">
+                                <method name="onPrepare"><![CDATA[this.content = "<CENTER><H3>" + uiLabelMap.get("AccountingBalanceSheet") + "</H3></CENTER>";]]></method>
+                                <property name="contentType">html</property>
+                            </text>
+                        </cell>
+                    </row>
+                </grid>
+            </page-header>
+            <page-footer>
+                <grid id="138">
+                    <property name="width">7.9375in</property>
+                    <column id="170">
+                        <property name="width">2.8229166666666665in</property>
+                    </column>
+                    <column id="139">
+                        <property name="width">0.8333333333333334in</property>
+                    </column>
+                    <column id="140">
+                        <property name="width">0.3645833333333333in</property>
+                    </column>
+                    <column id="141">
+                        <property name="width">0.7395833333333334in</property>
+                    </column>
+                    <column id="168">
+                        <property name="width">3.1770833333333335in</property>
+                    </column>
+                    <row id="142">
+                        <cell id="169"/>
+                        <cell id="143">
+                            <auto-text id="144">
+                                <property name="textAlign">right</property>
+                                <property name="type">page-number</property>
+                            </auto-text>
+                        </cell>
+                        <cell id="145">
+                            <text id="146">
+                                <property name="textAlign">center</property>
+                                <property name="contentType">plain</property>
+                                <text-property name="content"><![CDATA[of]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="147">
+                            <property name="textAlign">right</property>
+                            <auto-text id="148">
+                                <property name="textAlign">left</property>
+                                <property name="type">total-page</property>
+                            </auto-text>
+                        </cell>
+                        <cell id="167">
+                            <property name="textAlign">right</property>
+                        </cell>
+                    </row>
+                </grid>
+            </page-footer>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <label id="38">
+            <property name="fontWeight">bold</property>
+            <property name="fontStyle">italic</property>
+            <property name="paddingTop">10pt</property>
+            <method name="onCreate"><![CDATA[this.text = uiLabelMap.get("AccountingAssets");]]></method>
+            <text-property name="text">Assets</text-property>
+        </label>
+        <table id="40">
+            <property name="borderBottomColor">#000000</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">thin</property>
+            <property name="borderLeftColor">#000000</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">thin</property>
+            <property name="borderRightColor">#000000</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">thin</property>
+            <property name="borderTopColor">#000000</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">thin</property>
+            <property name="width">7.9393939393939394in</property>
+            <property name="dataSet">Asset</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">accountId</property>
+                    <text-property name="displayName">Account ID</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["glAccountId"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">accountCode</property>
+                    <text-property name="displayName">Account Code</text-property>
+                    <expression name="expression">dataSetRow["accountCode"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">accountName</property>
+                    <text-property name="displayName">Account Name</text-property>
+                    <expression name="expression">dataSetRow["accountName"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">balance</property>
+                    <text-property name="displayName">Balance</text-property>
+                    <expression name="expression">dataSetRow["balance"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">AssetAblanceTotal</property>
+                    <property name="dataType">float</property>
+                    <property name="aggregateFunction">SUM</property>
+                    <list-property name="arguments">
+                        <structure>
+                            <property name="name">Expression</property>
+                            <expression name="value" type="javascript">row["balance"]</expression>
+                        </structure>
+                    </list-property>
+                </structure>
+            </list-property>
+            <column id="65">
+                <property name="width">1.0520833333333333in</property>
+            </column>
+            <column id="66">
+                <property name="width">4.888888888888889in</property>
+            </column>
+            <column id="67">
+                <property name="width">1.6767676767676767in</property>
+            </column>
+            <header>
+                <row id="41">
+                    <property name="backgroundColor">#BFBFBF</property>
+                    <property name="fontWeight">bold</property>
+                    <property name="textAlign">center</property>
+                    <cell id="44">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <label id="45">
+                            <method name="onCreate"><![CDATA[this.text = uiLabelMap.get("FormFieldTitle_accountCode");]]></method>
+                            <text-property name="text">Account Code</text-property>
+                        </label>
+                    </cell>
+                    <cell id="46">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <label id="47">
+                            <method name="onCreate"><![CDATA[this.text = uiLabelMap.get("FormFieldTitle_accountName");]]></method>
+                            <text-property name="text">Account Name</text-property>
+                        </label>
+                    </cell>
+                    <cell id="48">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <label id="49">
+                            <method name="onCreate"><![CDATA[this.text = uiLabelMap.get("FormFieldTitle_balance");]]></method>
+                            <text-property name="text">Balance</text-property>
+                        </label>
+                    </cell>
+                </row>
+            </header>
+            <detail>
+                <row id="50">
+                    <cell id="53">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="54">
+                            <property name="resultSetColumn">accountCode</property>
+                        </data>
+                    </cell>
+                    <cell id="55">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="56">
+                            <property name="resultSetColumn">accountName</property>
+                        </data>
+                    </cell>
+                    <cell id="57">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="58">
+                            <property name="textAlign">right</property>
+                            <property name="resultSetColumn">balance</property>
+                        </data>
+                    </cell>
+                </row>
+            </detail>
+        </table>
+        <label id="70">
+            <property name="fontWeight">bold</property>
+            <property name="fontStyle">italic</property>
+            <property name="paddingTop">10pt</property>
+            <method name="onCreate"><![CDATA[this.text = uiLabelMap.get("AccountingLiabilities");]]></method>
+            <text-property name="text">Liabiliities</text-property>
+        </label>
+        <table id="72">
+            <property name="borderBottomColor">#000000</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">thin</property>
+            <property name="borderLeftColor">#000000</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">thin</property>
+            <property name="borderRightColor">#000000</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">thin</property>
+            <property name="borderTopColor">#000000</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">thin</property>
+            <property name="width">7.9393939393939394in</property>
+            <property name="dataSet">Liability</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">glAccountId</property>
+                    <text-property name="displayName">Account ID</text-property>
+                    <expression name="expression">dataSetRow["glAccountId"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">accountCode</property>
+                    <text-property name="displayName">accountCode</text-property>
+                    <expression name="expression">dataSetRow["accountCode"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">accountName</property>
+                    <text-property name="displayName">Account Name</text-property>
+                    <expression name="expression">dataSetRow["accountName"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">balance</property>
+                    <text-property name="displayName">Balance</text-property>
+                    <expression name="expression">dataSetRow["balance"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">LiabilityBalanceTotal</property>
+                    <property name="dataType">float</property>
+                    <property name="aggregateFunction">SUM</property>
+                    <list-property name="arguments">
+                        <structure>
+                            <property name="name">Expression</property>
+                            <expression name="value" type="javascript">row["balance"]</expression>
+                        </structure>
+                    </list-property>
+                </structure>
+            </list-property>
+            <column id="97">
+                <property name="width">1.1515151515151516in</property>
+            </column>
+            <column id="98">
+                <property name="width">5.03030303030303in</property>
+            </column>
+            <column id="99">
+                <property name="width">1.7575757575757576in</property>
+            </column>
+            <header>
+                <row id="73">
+                    <property name="backgroundColor">#BFBFBF</property>
+                    <property name="fontWeight">bold</property>
+                    <property name="borderBottomColor">#000000</property>
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftColor">#000000</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightColor">#000000</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopColor">#000000</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <cell id="76">
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <label id="77">
+                            <method name="onCreate"><![CDATA[this.text = uiLabelMap.get("FormFieldTitle_accountCode");]]></method>
+                            <text-property name="text">Account Code</text-property>
+                        </label>
+                    </cell>
+                    <cell id="78">
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <label id="79">
+                            <method name="onCreate"><![CDATA[this.text = uiLabelMap.get("FormFieldTitle_accountName");]]></method>
+                            <text-property name="text">Account Name</text-property>
+                        </label>
+                    </cell>
+                    <cell id="80">
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <label id="81">
+                            <method name="onCreate"><![CDATA[this.text = uiLabelMap.get("FormFieldTitle_balance");]]></method>
+                            <text-property name="text">Balance</text-property>
+                        </label>
+                    </cell>
+                </row>
+            </header>
+            <detail>
+                <row id="82">
+                    <cell id="85">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="86">
+                            <property name="resultSetColumn">accountCode</property>
+                        </data>
+                    </cell>
+                    <cell id="87">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="88">
+                            <property name="resultSetColumn">accountName</property>
+                        </data>
+                    </cell>
+                    <cell id="89">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="90">
+                            <structure name="numberFormat">
+                                <property name="category">Currency</property>
+                                <property name="pattern">#,##0.00</property>
+                            </structure>
+                            <property name="textAlign">right</property>
+                            <property name="resultSetColumn">balance</property>
+                        </data>
+                    </cell>
+                </row>
+            </detail>
+        </table>
+        <label id="101">
+            <property name="fontWeight">bold</property>
+            <property name="fontStyle">italic</property>
+            <property name="paddingTop">10pt</property>
+            <method name="onCreate"><![CDATA[this.text = uiLabelMap.get("AccountingEquities");]]></method>
+            <text-property name="text">Equities</text-property>
+        </label>
+        <table id="103">
+            <property name="borderBottomColor">#000000</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">thin</property>
+            <property name="borderLeftColor">#000000</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">thin</property>
+            <property name="borderRightColor">#000000</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">thin</property>
+            <property name="borderTopColor">#000000</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">thin</property>
+            <property name="width">7.9393939393939394in</property>
+            <property name="dataSet">Equity</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">glAccountId</property>
+                    <text-property name="displayName">Account ID</text-property>
+                    <expression name="expression">dataSetRow["glAccountId"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">accountCode</property>
+                    <text-property name="displayName">Account Code</text-property>
+                    <expression name="expression">dataSetRow["accountCode"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">accountName</property>
+                    <text-property name="displayName">Account Name</text-property>
+                    <expression name="expression">dataSetRow["accountName"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">balance</property>
+                    <text-property name="displayName">Balance</text-property>
+                    <expression name="expression">dataSetRow["balance"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">EquityBalanceTotal</property>
+                    <property name="dataType">float</property>
+                    <property name="aggregateFunction">SUM</property>
+                    <list-property name="arguments">
+                        <structure>
+                            <property name="name">Expression</property>
+                            <expression name="value" type="javascript">row["balance"]</expression>
+                        </structure>
+                    </list-property>
+                </structure>
+            </list-property>
+            <column id="128">
+                <property name="width">1.1414141414141414in</property>
+            </column>
+            <column id="129">
+                <property name="width">5.02020202020202in</property>
+            </column>
+            <column id="130">
+                <property name="width">1.7777777777777777in</property>
+            </column>
+            <header>
+                <row id="104">
+                    <property name="backgroundColor">#BFBFBF</property>
+                    <property name="fontWeight">bold</property>
+                    <property name="borderBottomColor">#000000</property>
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftColor">#000000</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightColor">#000000</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopColor">#000000</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <cell id="107">
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <label id="108">
+                            <method name="onCreate"><![CDATA[this.text = uiLabelMap.get("FormFieldTitle_accountCode");]]></method>
+                            <text-property name="text">Account Code</text-property>
+                        </label>
+                    </cell>
+                    <cell id="109">
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <label id="110">
+                            <method name="onCreate"><![CDATA[this.text = uiLabelMap.get("FormFieldTitle_accountName");]]></method>
+                            <text-property name="text">Account Name</text-property>
+                        </label>
+                    </cell>
+                    <cell id="111">
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <label id="112">
+                            <method name="onCreate"><![CDATA[this.text = uiLabelMap.get("FormFieldTitle_balance");]]></method>
+                            <text-property name="text">Balance</text-property>
+                        </label>
+                    </cell>
+                </row>
+            </header>
+            <detail>
+                <row id="113">
+                    <cell id="116">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="117">
+                            <property name="resultSetColumn">accountCode</property>
+                        </data>
+                    </cell>
+                    <cell id="118">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="119">
+                            <property name="resultSetColumn">accountName</property>
+                        </data>
+                    </cell>
+                    <cell id="120">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="121">
+                            <structure name="numberFormat">
+                                <property name="category">Currency</property>
+                                <property name="pattern">#,##0.00</property>
+                            </structure>
+                            <property name="textAlign">right</property>
+                            <property name="resultSetColumn">balance</property>
+                        </data>
+                    </cell>
+                </row>
+            </detail>
+        </table>
+        <label id="261">
+            <property name="fontSize">10pt</property>
+            <property name="fontWeight">bold</property>
+            <property name="fontStyle">italic</property>
+            <property name="paddingTop">10pt</property>
+            <method name="onCreate"><![CDATA[this.text = uiLabelMap.get("CommonTotal");]]></method>
+            <text-property name="text">Total</text-property>
+        </label>
+        <table id="262">
+            <property name="width">7.959595959595959in</property>
+            <property name="dataSet">BalanceTotal</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">totalName</property>
+                    <text-property name="displayName">Total Name</text-property>
+                    <expression name="expression">dataSetRow["totalName"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">balance</property>
+                    <text-property name="displayName">Balance</text-property>
+                    <expression name="expression">dataSetRow["balance"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+            </list-property>
+            <column id="276">
+                <property name="width">2.9494949494949494in</property>
+            </column>
+            <column id="277">
+                <property name="width">5.01010101010101in</property>
+            </column>
+            <detail>
+                <row id="268">
+                    <cell id="269">
+                        <data id="270">
+                            <method name="onRender"><![CDATA[var text = uiLabelMap.get(this.getValue());
+this.setDisplayValue(text);]]></method>
+                            <property name="resultSetColumn">totalName</property>
+                        </data>
+                    </cell>
+                    <cell id="271">
+                        <data id="272">
+                            <structure name="numberFormat">
+                                <property name="category">Currency</property>
+                                <property name="pattern">#,##0.00</property>
+                            </structure>
+                            <property name="resultSetColumn">balance</property>
+                        </data>
+                    </cell>
+                </row>
+            </detail>
+            <footer>
+                <row id="273">
+                    <cell id="274"/>
+                    <cell id="275"/>
+                </row>
+            </footer>
+        </table>
+    </body>
+</report>

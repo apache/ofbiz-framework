@@ -16,8 +16,8 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<script type="application/javascript" src="<@ofbizContentUrl>/common/js/plugins/imagemanagement/sizzle.min.js</@ofbizContentUrl>"></script>
-<script type="application/javascript">
+<script language="javascript" type="text/javascript" src="<@ofbizContentUrl>/images/imagemanagement/sizzle.min.js</@ofbizContentUrl>"></script>
+<script type="text/javascript">
 jQuery.noConflict();
 jQuery(document).ready(function(){
     jQuery('input:radio').click(function(){
@@ -38,11 +38,11 @@ jQuery(document).ready(function(){
         <#list partyRoles as partyRole>
             <td>
                 <table>
-                    <#assign userLoginApprovers  = EntityQuery.use(delegator).from("UserLogin").where("partyId", partyRole.partyId!).queryList()!/>
+                    <#assign userLoginApprovers  = delegator.findByAnd("UserLogin",Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("partyId", partyRole.partyId), null, false)/>
                     <#assign userLoginApprover = userLoginApprovers[0]>
                     <#assign userLoginAndPartyDetails = delegator.findOne("UserLoginAndPartyDetails", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("partyId", userLoginApprover.partyId, "userLoginId", userLoginApprover.userLoginId), false)!>
                     <#if userLoginAndPartyDetails?has_content>
-                        <#assign partyContentDetail  = EntityQuery.use(delegator).from("ContentApproval").where("roleTypeId", "IMAGEAPPROVER", "approvalStatusId", "IM_PENDING", "partyId", userLoginAndPartyDetails.partyId!).queryList()!/>
+                        <#assign partyContentDetail  = delegator.findByAnd("ContentApproval",Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("roleTypeId", "IMAGEAPPROVER", "approvalStatusId", "IM_PENDING", "partyId", userLoginAndPartyDetails.partyId), null, false)/>
                         <#assign imageApproveSize = partyContentDetail.size()>
                         <#if userLoginAndPartyDetails.userLoginId == userLogin.userLoginId>
                             <#if userMap.checkUser == userLoginAndPartyDetails.userLoginId>
@@ -77,7 +77,7 @@ jQuery(document).ready(function(){
                 </table>
             </td>
         </#list>
-        <#if "REJECTED" == userMap.checkUser>
+        <#if userMap.checkUser == "REJECTED">
             <td>
                 <div><b>Rejected</b></div>
             </td>

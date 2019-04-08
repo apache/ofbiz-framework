@@ -72,7 +72,7 @@ under the License.
 <#if (listSize > 0)>
 <#list productFeatures as productFeature>
   <#assign curProductFeatureType = productFeature.getRelatedOne("ProductFeatureType", true)>
-    <tr id="productFeatureId_tableRow_${rowCount}"  valign="middle"<#if "1" == rowClass> class="alternate-row"</#if>>
+    <tr id="productFeatureId_tableRow_${rowCount}"  valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
         <input type="hidden" name="productFeatureId_o_${rowCount}" value="${productFeature.productFeatureId}" />
         <td><a href="<@ofbizUrl>EditFeature?productFeatureId=${productFeature.productFeatureId}</@ofbizUrl>" class="buttontext">${productFeature.productFeatureId}</a></td>
         <td>${productFeature.description!}</td>
@@ -98,7 +98,7 @@ under the License.
     </tr>
     <#assign rowCount = rowCount + 1>
     <#-- toggle the row color -->
-    <#if "2" == rowClass>
+    <#if rowClass == "2">
         <#assign rowClass = "1">
     <#else>
         <#assign rowClass = "2">

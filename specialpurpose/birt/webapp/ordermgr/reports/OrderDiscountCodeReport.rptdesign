@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.20" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 2.2.2.r222_v20071226 Build &lt;2.2.2.v20080226-1155></property>
+    <property name="units">in</property>
+    <property name="comments">Copyright (c) 2007 &lt;&lt;Your Company Name here>></property>
+    <html-property name="description">Creates a blank report with no predefined content.</html-property>
+    <method name="initialize"><![CDATA[importPackage(Packages.org.apache.ofbiz.base.util)
+    importPackage(Packages.java.util)
+
+
+module = "OrderDiscountCodeReport.rptdesign";]]></method>
+    <text-property name="displayName">Blank Report</text-property>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <data-sources>
+        <script-data-source name="Data Source" id="6"/>
+    </data-sources>
+    <data-sets>
+        <script-data-set name="OrderAdjustment" id="7">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">orderId</property>
+                    <property name="dataType">any</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">productId</property>
+                    <property name="dataType">any</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">discount</property>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">promoCode</property>
+                    <property name="dataType">any</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">productName</property>
+                    <property name="dataType">any</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">orderId</property>
+                </structure>
+                <structure>
+                    <property name="columnName">productId</property>
+                </structure>
+                <structure>
+                    <property name="columnName">discount</property>
+                </structure>
+                <structure>
+                    <property name="columnName">promoCode</property>
+                </structure>
+                <structure>
+                    <property name="columnName">productName</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">orderId</property>
+                        <property name="dataType">any</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">productId</property>
+                        <property name="dataType">any</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">discount</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">promoCode</property>
+                        <property name="dataType">any</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">productName</property>
+                        <property name="dataType">any</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <method name="open"><![CDATA[orders = null;
+userLogin = null;
+try {
+    userLogin = delegator.findOne("UserLogin",UtilMisc.toMap("userLoginId","admin"), false);
+} catch(e) {
+        Debug.logError(e,"");
+}
+
+input =  new HashMap();
+inputFields =  new HashMap();
+if(params!=null){
+    inputFields.put("noConditionFind", "Y");
+}
+
+input.put("userLogin",userLogin);
+input.put("inputFields",inputFields);
+input.put("entityName","SalesOrderItemStarSchema");
+input.put("orderBy","orderDateDateValue DESC");
+
+try {
+    result = dispatcher.runSync("performFind", input);
+    orders = result.get("listIt");
+} catch (e) {
+    Debug.logError(e, module);
+}]]></method>
+            <method name="fetch"><![CDATA[if(orders == null)return false;
+if(order = orders.next()){
+    row["orderId"] = order.getString("orderId");
+    row["productId"] = order.getString("productProductId");
+    row["productName"] = order.getString("productInternalName");
+    row["discount"] = order.getString("extDiscountAmount");
+    row["promoCode"] = order.getString("productPromoCode");
+    Debug.logInfo("-----------order---------"+order.getString("orderId"),module);
+    return true;
+}else{
+    orders.close();
+    return false;
+}]]></method>
+        </script-data-set>
+    </data-sets>
+    <styles>
+        <style name="crosstab-cell" id="4">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+        <style name="crosstab" id="5">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+    </styles>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <page-footer>
+                <text id="3">
+                    <property name="contentType">html</property>
+                    <text-property name="content"><![CDATA[<value-of>new Date()</value-of>]]></text-property>
+                </text>
+            </page-footer>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <table id="8">
+            <property name="borderBottomColor">#000000</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">thin</property>
+            <property name="borderLeftColor">#000000</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">thin</property>
+            <property name="borderRightColor">#000000</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">thin</property>
+            <property name="borderTopColor">#000000</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">thin</property>
+            <property name="width">100%</property>
+            <property name="dataSet">OrderAdjustment</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">orderId</property>
+                    <expression name="expression">dataSetRow["orderId"]</expression>
+                    <property name="dataType">any</property>
+                </structure>
+                <structure>
+                    <property name="name">productId</property>
+                    <expression name="expression">dataSetRow["productId"]</expression>
+                    <property name="dataType">any</property>
+                </structure>
+                <structure>
+                    <property name="name">productName</property>
+                    <expression name="expression">dataSetRow["productName"]</expression>
+                    <property name="dataType">any</property>
+                </structure>
+                <structure>
+                    <property name="name">promoCode</property>
+                    <expression name="expression">dataSetRow["promoCode"]</expression>
+                    <property name="dataType">any</property>
+                </structure>
+                <structure>
+                    <property name="name">discount</property>
+                    <expression name="expression">dataSetRow["discount"]</expression>
+                    <property name="dataType">float</property>
+                </structure>
+            </list-property>
+            <column id="27"/>
+            <column id="28"/>
+            <column id="29"/>
+            <column id="30"/>
+            <column id="31"/>
+            <header>
+                <row id="9">
+                    <property name="fontWeight">bold</property>
+                    <property name="textAlign">center</property>
+                    <cell id="10">
+                        <label id="37">
+                            <text-property name="text">orderId</text-property>
+                        </label>
+                    </cell>
+                    <cell id="11">
+                        <label id="39">
+                            <text-property name="text">productId</text-property>
+                        </label>
+                    </cell>
+                    <cell id="12">
+                        <label id="41">
+                            <text-property name="text">productName</text-property>
+                        </label>
+                    </cell>
+                    <cell id="13">
+                        <label id="43">
+                            <text-property name="text">promoCode</text-property>
+                        </label>
+                    </cell>
+                    <cell id="14">
+                        <label id="45">
+                            <text-property name="text">discount</text-property>
+                        </label>
+                    </cell>
+                </row>
+            </header>
+            <detail>
+                <row id="15">
+                    <property name="borderTopColor">#000000</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <cell id="16">
+                        <data id="38">
+                            <property name="resultSetColumn">orderId</property>
+                        </data>
+                    </cell>
+                    <cell id="17">
+                        <data id="40">
+                            <property name="resultSetColumn">productId</property>
+                        </data>
+                    </cell>
+                    <cell id="18">
+                        <data id="42">
+                            <property name="resultSetColumn">productName</property>
+                        </data>
+                    </cell>
+                    <cell id="19">
+                        <data id="44">
+                            <property name="resultSetColumn">promoCode</property>
+                        </data>
+                    </cell>
+                    <cell id="20">
+                        <data id="46">
+                            <property name="resultSetColumn">discount</property>
+                        </data>
+                    </cell>
+                </row>
+            </detail>
+            <footer>
+                <row id="21">
+                    <property name="borderTopColor">#000000</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <cell id="22"/>
+                    <cell id="23"/>
+                    <cell id="24"/>
+                    <cell id="25"/>
+                    <cell id="26"/>
+                </row>
+            </footer>
+        </table>
+    </body>
+</report>

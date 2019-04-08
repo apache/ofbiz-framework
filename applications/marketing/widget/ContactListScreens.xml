@@ -75,6 +75,11 @@ under the License.
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.PageTitleEditContactList}">
+                                    <container style="button-bar">
+                                        <link  text="${uiLabelMap.MarketingContactListCreate}" target="EditContactList" style="buttontext create">
+                                            <parameter param-name="DONE_PAGE" from-field="donePage"/>
+                                        </link>
+                                    </container>
                                     <include-form name="EditContactList" location="component://marketing/widget/ContactListForms.xml"/>
                                 </screenlet>
                             </widgets>
@@ -99,7 +104,7 @@ under the License.
 
                 <!-- parameters for pagination -->
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
 
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListContactList"/>
@@ -179,7 +184,7 @@ under the License.
 
                 <!-- parameters for pagination -->
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 
                 <set field="contactListId" from-field="parameters.contactListId"/>
@@ -257,14 +262,14 @@ under the License.
 
                 <!-- get the contact list owner's marketing email -->
                 <script location="component://marketing/groovyScripts/marketing/contact/GetContactListMarketingEmail.groovy"/>
-                <set field="contactMechIdFrom" from-field="marketingEmail.contactMechId"/>
-                <set field="partyIdFrom" from-field="contactList.ownerPartyId"/>
+                <set field="contactMechIdFrom" value="${marketingEmail.contactMechId}"/>
+                <set field="partyIdFrom" value="${contactList.ownerPartyId}"/>               
             </actions>
             <widgets>
                 <decorator-screen name="CommonContactListDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditContactList}">
-                            <include-menu name="ContactListCommBar" location="component://marketing/widget/ContactListMenus.xml"/>
+                            <include-menu location="component://marketing/widget/ContactListMenus.xml" name="ContactListCommBar"/>
                             <container style="button-bar">
                                 <link  text="${uiLabelMap.MarketingContactListCommEventCreate}" target="EditContactListCommEvent" style="buttontext create">
                                     <parameter param-name="contactListId"/>
@@ -287,7 +292,7 @@ under the License.
 
                 <!-- parameters for pagination -->
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
 
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="FindContactListCommEvents?contactListId=${parameters.contactListId}"/>
@@ -373,7 +378,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleLookupContactList"/>
                 <set field="contactListTabButtonItem" value="ContactListCommEvent"/>
                 <set field="labelTitleProperty" value="PageTitleLookupContactList"/>
-                <set field="title" from-field="uiLabelMap.PageTitleLookupContactList"/>
+                <set field="title" value="${uiLabelMap.PageTitleLookupContactList}"/>
                 <set field="entityName" value="ContactList"/>
                 <set field="searchFields" value="[contactListId, contactListName, description]"/>
             </actions>
@@ -397,7 +402,7 @@ under the License.
                 <set field="titleProperty" value="PageTitlePreferredContactMech"/>
                 <set field="contactListTabButtonItem" value="ContactListCommEvent"/>
                 <set field="labelTitleProperty" value="PageTitlePreferredContactMech"/>
-                <set field="title" from-field="uiLabelMap.PageTitlePreferredContactMech"/>
+                <set field="title" value="${uiLabelMap.PageTitlePreferredContactMech}"/>
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListContactLists"/>
                 <set field="partyId" from-field="parameters.parm0"/>
                 <set field="entityName" value="PartyAndContactMech"/>

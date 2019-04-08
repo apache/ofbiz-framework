@@ -85,7 +85,6 @@ entities.each { entityName ->
 
     entityMap = [:]
     entityMap.entityName = entity.getEntityName()
-    entityMap.title = entity.getTitle()
     entityMap.entityPermissionView = entityPermissionView
     entityMap.entityPermissionCreate = entityPermissionCreate
     entityMap.viewEntity = viewEntity

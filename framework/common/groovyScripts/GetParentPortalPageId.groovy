@@ -43,7 +43,7 @@ if (userLogin && parameters.parentPortalPageId && !parameters.portalPageId) {
     if (portalMainPages) {
         portalPageId = portalMainPages.get(0).portalPageId
         // check if overridden with a privat page
-        privatMainPages = from("PortalPage").where("originalPortalPageId", portalPageId, "ownerUserLoginId", userLogin.userLoginId).queryList();
+        privatMainPages = delegator.findByAnd("PortalPage", [originalPortalPageId : portalPageId, ownerUserLoginId : userLogin.userLoginId], null, false)
         if (privatMainPages) {
             context.parameters.portalPageId = privatMainPages.get(0).portalPageId
         } else {
@@ -53,7 +53,7 @@ if (userLogin && parameters.parentPortalPageId && !parameters.portalPageId) {
 }
 // Debug.log('======portalPageId: ' + parameters.portalPageId)
 if (userLogin && parameters.portalPageId) {
-    portalPage = from("PortalPage").where("portalPageId", parameters.portalPageId).queryOne();
+    portalPage = delegator.findOne("PortalPage", [portalPageId : parameters.portalPageId], false)
     if (portalPage) {
         if (portalPage.parentPortalPageId) {
             context.parameters.parentPortalPageId = portalPage.parentPortalPageId

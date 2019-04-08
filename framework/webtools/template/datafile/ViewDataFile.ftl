@@ -19,12 +19,12 @@ under the License.
     <p>${uiLabelMap.WebtoolsDataFileMessage1}.</p>
     <br />
     <#if security.hasPermission("DATAFILE_MAINT", session)>
-      <form class="basic-form" method="post" action="<@ofbizUrl>viewdatafile</@ofbizUrl>">
+      <form method="post" action="<@ofbizUrl>viewdatafile</@ofbizUrl>">
         <table class="basic-table" cellspacing="0">
           <tr>
             <td class="label">${uiLabelMap.WebtoolsDataDefinitionFileName}</td>
-            <td><input name="DEFINITION_LOCATION" type="text" size="60" value="${parameters.DEFINITION_LOCATION!}" />
-            <input type="checkbox" name="DEFINITION_IS_URL"<#if parameters.DEFINITION_IS_URL?has_content> checked="checked"</#if> /><span class="label">${uiLabelMap.WebtoolsDataIsUrl}</span></td>
+            <td><input name="DEFINITION_LOCATION" type="text" size="60" value="${parameters.DEFINITION_LOCATION!}" /></td>
+            <td><label><span class="label">${uiLabelMap.WebtoolsDataIsUrl}</span><input type="checkbox" name="DEFINITION_IS_URL"<#if parameters.DEFINITION_IS_URL?has_content> checked="checked"</#if> /></label></td>
           </tr>
           <tr>
             <td class="label">${uiLabelMap.WebtoolsDataDefinitionName}</td>
@@ -41,23 +41,27 @@ under the License.
                 <input name="DEFINITION_NAME" type="text" size="30" value="${definitionName!}" />
               </#if>
             </td>
+            <td>&nbsp;</td>
           </tr>
           <tr>
             <td class="label">${uiLabelMap.WebtoolsDataFileName}</td>
-            <td><input name="DATAFILE_LOCATION" type="text" size="60" value="${parameters.DATAFILE_LOCATION!}" />
-            <input type="checkbox" id="datafile_is_url" name="DATAFILE_IS_URL"<#if parameters.DATAFILE_IS_URL?has_content> checked="checked"</#if> /><span class="label">${uiLabelMap.WebtoolsDataIsUrl}</span></td>
+            <td><input name="DATAFILE_LOCATION" type="text" size="60" value="${parameters.DATAFILE_LOCATION!}" /></td>
+            <td><label><span class="label">${uiLabelMap.WebtoolsDataIsUrl}</span><input type="checkbox" id="datafile_is_url" name="DATAFILE_IS_URL"<#if parameters.DATAFILE_IS_URL?has_content> checked="checked"</#if> /></label></td>
           </tr>
           <tr>
             <td class="label">${uiLabelMap.WebtoolsDataSaveToFile}</td>
             <td><input name="DATAFILE_SAVE" type="text" size="60" value="${parameters.DATAFILE_SAVE!}"/></td>
+            <td>&nbsp;</td>
           </tr>
           <tr>
             <td class="label">${uiLabelMap.WebtoolsDataSaveToXml}</td>
             <td><input name="ENTITYXML_FILE_SAVE" type="text" size="60" value="${parameters.ENTITYXML_FILE_SAVE!}" /></td>
+            <td>&nbsp;</td>
           </tr>
           <tr>
-            <td class="label"></td>
-            <td colspan="4"><input type="submit" value="${uiLabelMap.CommonRun}" /></td>
+            <td>&nbsp;</td>
+            <td><input type="submit" value="${uiLabelMap.CommonRun}" /></td>
+            <td>&nbsp;</td>
           </tr>
         </table>
       </form>
@@ -73,11 +77,11 @@ under the License.
       </#if>
 
     <#macro displayrecords records>
-        <#local lastRecordName = null>
+        <#assign lastRecordName = null>
         <#list records as record>
-          <#local modelRecord = record.getModelRecord()>
+          <#assign modelRecord = record.getModelRecord()>
           <#-- if record is different than the last displayed, make a new table and header row -->
-          <#if !(modelRecord.name == lastRecordName)>
+          <#if !modelRecord.name.equals(lastRecordName)>
             <#if lastRecordName??>
               </table><br />
             </#if>
@@ -101,7 +105,7 @@ under the License.
 
           <tr>
             <#list modelRecord.fields as modelField>
-              <#local value = record.get(modelField.name)>
+              <#assign value = record.get(modelField.name)>
               <#if value?has_content>
                 <td>${value}</td>
               <#else>

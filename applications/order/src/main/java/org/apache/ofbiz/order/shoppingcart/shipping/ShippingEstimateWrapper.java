@@ -20,7 +20,6 @@ package org.apache.ofbiz.order.shoppingcart.shipping;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -44,11 +43,9 @@ public class ShippingEstimateWrapper {
     protected LocalDispatcher dispatcher = null;
 
     protected Map<GenericValue, BigDecimal> shippingEstimates = null;
-    protected List<GenericValue> shippingTimeEstimates = null;
     protected List<GenericValue> shippingMethods = null;
 
     protected GenericValue shippingAddress = null;
-    protected GenericValue originAddress = null;
     protected Map<String, BigDecimal> shippableItemFeatures = null;
     protected List<BigDecimal> shippableItemSizes = null;
     protected List<Map<String, Object>> shippableItemInfo = null;
@@ -74,7 +71,6 @@ public class ShippingEstimateWrapper {
         this.shippableWeight = cart.getShippableWeight(shipGroup);
         this.shippableTotal = cart.getShippableTotal(shipGroup);
         this.shippingAddress = cart.getShippingAddress(shipGroup);
-        this.originAddress = cart.getOriginAddress(shipGroup);
         this.productStoreId = cart.getProductStoreId();
         this.partyId = cart.getPartyId();
         this.supplierPartyId = cart.getSupplierPartyId(shipGroup);
@@ -94,7 +90,6 @@ public class ShippingEstimateWrapper {
         }
         this.loadShippingMethods();
         this.loadEstimates(totalAllowance);
-        this.loadShipmentTimeEstimates();
     }
 
     protected void loadShippingMethods() {
@@ -120,24 +115,10 @@ public class ShippingEstimateWrapper {
                         shippingMethodTypeId, carrierPartyId, carrierRoleTypeId, shippingCmId, productStoreId,
                         supplierPartyId, shippableItemInfo, shippableWeight, shippableQuantity, shippableTotal, partyId, productStoreShipMethId, totalAllowance);
 
-                if (ServiceUtil.isSuccess(estimateMap)) {
+                if (!ServiceUtil.isError(estimateMap)) {
                     BigDecimal shippingTotal = (BigDecimal) estimateMap.get("shippingTotal");
                     shippingEstimates.put(shipMethod, shippingTotal);
                 }
-            }
-        }
-    }
-
-    protected void loadShipmentTimeEstimates() {
-        this.shippingTimeEstimates = new LinkedList<>();
-
-        if (shippingMethods != null) {
-            for (GenericValue shipMethod : shippingMethods) {
-                String shipmentMethodTypeId = shipMethod.getString("shipmentMethodTypeId");
-                String carrierRoleTypeId = shipMethod.getString("roleTypeId");
-                String carrierPartyId = shipMethod.getString("partyId");
-
-                shippingTimeEstimates.addAll(ShippingEvents.getShipmentTimeEstimates(delegator, shipmentMethodTypeId, carrierPartyId, carrierRoleTypeId, shippingAddress, originAddress));
             }
         }
     }
@@ -154,11 +135,4 @@ public class ShippingEstimateWrapper {
         return shippingEstimates.get(storeCarrierShipMethod);
     }
 
-    public List<GenericValue> getShippingTimeEstimates() {
-        return shippingTimeEstimates;
-    }
-
-    public Double getShippingTimeEstimateInDay(GenericValue storeCarrierShipMethod) {
-        return ShippingEvents.getShippingTimeEstimateInDay(dispatcher, storeCarrierShipMethod, shippingTimeEstimates);
-    }
 }

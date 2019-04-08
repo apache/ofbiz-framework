@@ -104,17 +104,23 @@ public final class SSLUtil {
         TrustManager[] mgrs = new TrustManager[0];
         try {
             mgrs = SSLUtil.getTrustManagers();
-        } catch (IOException | GeneralSecurityException | GenericConfigException e) {
+        } catch (IOException e) {
+            Debug.logError(e, module);
+        } catch (GeneralSecurityException e) {
+            Debug.logError(e, module);
+        } catch (GenericConfigException e) {
             Debug.logError(e, module);
         }
 
-        for (TrustManager mgr : mgrs) {
-            if (mgr instanceof X509TrustManager) {
-                try {
-                    ((X509TrustManager) mgr).checkClientTrusted(chain, authType);
-                    return true;
-                } catch (CertificateException e) {
-                    Debug.logError(e, module);
+        if (mgrs != null) {
+            for (TrustManager mgr: mgrs) {
+                if (mgr instanceof X509TrustManager) {
+                    try {
+                        ((X509TrustManager) mgr).checkClientTrusted(chain, authType);
+                        return true;
+                    } catch (CertificateException e) {
+                        // do nothing; just loop
+                    }
                 }
             }
         }
@@ -122,18 +128,14 @@ public final class SSLUtil {
     }
 
     public static KeyManager[] getKeyManagers(String alias) throws IOException, GeneralSecurityException, GenericConfigException {
-        List<KeyManager> keyMgrs = new LinkedList<>();
+        List<KeyManager> keyMgrs = new LinkedList<KeyManager>();
         for (ComponentConfig.KeystoreInfo ksi: ComponentConfig.getAllKeystoreInfos()) {
             if (ksi.isCertStore()) {
                 KeyStore ks = ksi.getKeyStore();
                 if (ks != null) {
                     List<KeyManager> newKeyManagers = Arrays.asList(getKeyManagers(ks, ksi.getPassword(), alias));
                     keyMgrs.addAll(newKeyManagers);
-                    if (Debug.verboseOn()) {
-                        Debug.logVerbose("Loaded another cert store, adding [" + newKeyManagers.size()
-                                + "] KeyManagers for alias [" + alias + "] and keystore: " + ksi.createResourceHandler()
-                                        .getFullLocation(), module);
-                    }
+                    if (Debug.verboseOn()) Debug.logVerbose("Loaded another cert store, adding [" + (newKeyManagers == null ? "0" : newKeyManagers.size()) + "] KeyManagers for alias [" + alias + "] and keystore: " + ksi.createResourceHandler().getFullLocation(), module);
                 } else {
                     throw new IOException("Unable to load keystore: " + ksi.createResourceHandler().getFullLocation());
                 }
@@ -186,7 +188,7 @@ public final class SSLUtil {
         return keyManagers;
     }
 
-    public static TrustManager[] getTrustManagers(KeyStore ks) {
+    public static TrustManager[] getTrustManagers(KeyStore ks) throws GeneralSecurityException {
         return new TrustManager[] { new MultiTrustManager(ks) };
     }
 
@@ -259,14 +261,11 @@ public final class SSLUtil {
                             Principal x500s = peerCert.getSubjectDN();
                             Map<String, String> subjectMap = KeyStoreUtil.getX500Map(x500s);
 
-                            if (Debug.infoOn()) {
+                            if (Debug.infoOn())
                                 Debug.logInfo(peerCert.getSerialNumber().toString(16) + " :: " + subjectMap.get("CN"), module);
-                            }
 
                             try {
                                 peerCert.checkValidity();
-                            } catch (RuntimeException e) {
-                                throw e;
                             } catch (Exception e) {
                                 // certificate not valid
                                 Debug.logWarning("Certificate is not valid!", module);
@@ -297,16 +296,16 @@ public final class SSLUtil {
             String proxyHost = UtilProperties.getPropertyValue("jsse", "https.proxyHost", "NONE");
             String proxyPort = UtilProperties.getPropertyValue("jsse", "https.proxyPort", "NONE");
             String cypher = UtilProperties.getPropertyValue("jsse", "https.cipherSuites", "NONE");
-            if (protocol != null && !"NONE".equals(protocol)) {
+            if (protocol != null && !protocol.equals("NONE")) {
                 System.setProperty("java.protocol.handler.pkgs", protocol);
             }
-            if (proxyHost != null && !"NONE".equals(proxyHost)) {
+            if (proxyHost != null && !proxyHost.equals("NONE")) {
                 System.setProperty("https.proxyHost", proxyHost);
             }
-            if (proxyPort != null && !"NONE".equals(proxyPort)) {
+            if (proxyPort != null && !proxyPort.equals("NONE")) {
                 System.setProperty("https.proxyPort", proxyPort);
             }
-            if (cypher != null && !"NONE".equals(cypher)) {
+            if (cypher != null && !cypher.equals("NONE")) {
                 System.setProperty("https.cipherSuites", cypher);
             }
 

@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
+    <simple-method method-name="createEbayAccount" short-description="Create Ebay Account">
+
+        <set-service-fields service-name="createPersonAndUserLogin" map="parameters" to-map="newPerson"/>
+        <call-service service-name="createPersonAndUserLogin" in-map-name="newPerson">
+            <result-to-field result-name="partyId" field="parameters.partyId"/>
+        </call-service>
+
+        <set field="parameters.roleTypeId" value="VENDOR" />
+        <set-service-fields service-name="createPartyRole" map="parameters" to-map="newPartyRole"/>
+        <call-service service-name="createPartyRole" in-map-name="newPartyRole"/>
+
+        <set field="parameters.storeName" value="${parameters.userLoginId}_store"/>
+        <set-service-fields service-name="createProductStore" map="parameters" to-map="newProductStore"/>
+        <call-service service-name="createProductStore" in-map-name="newProductStore">
+            <result-to-field result-name="productStoreId" field="parameters.productStoreId"/>
+        </call-service>
+
+        <set field="parameters.roleTypeId" value="EBAY_ACCOUNT"/>
+        <set-service-fields service-name="createPartyRole" map="parameters" to-map="newPartyRole"/>
+        <call-service service-name="createPartyRole" in-map-name="newPartyRole"/>
+
+        <set-service-fields service-name="createProductStoreRole" map="parameters" to-map="newProductStoreRole"/>
+        <call-service service-name="createProductStoreRole" in-map-name="newProductStoreRole"/>
+        <field-to-result field="parameters.productStoreId" result-name="productStoreId"/>
+
+    </simple-method>
+    <!-- ebay Store Inventory Services -->
+    <simple-method method-name="reserveEbayProductInventory" short-description="Reserve product from ofbiz Store Inventory">
+        <entity-one entity-name="Product" value-field="product" use-cache="true"/>
+        <entity-one entity-name="ProductStore" value-field="productStore" >
+            <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+        </entity-one>
+        <if-empty field="productStore">
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="ProductProductStoreNotFound"/>
+            </add-error>
+            <check-errors/>
+        </if-empty>
+
+        <!-- if prodCatalog is set to not reserve inventory, break here -->
+        <if-compare value="N" operator="equals" field="productStore.reserveInventory">
+            <!-- note: if not set, defaults to yes, reserve inventory -->
+            <log level="verbose" message="ProductStore with id ${productStore.productStoreId}, is set to NOT reserve inventory, not reserving inventory"/>
+            <field-to-result field="parameters.quantity" result-name="quantityNotReserved"/>
+            <return response-code="success"/>
+        </if-compare>
+
+        <set from-field="product.requireInventory" field="requireInventory"/>
+        <if-empty field="requireInventory">
+            <set from-field="productStore.requireInventory" field="requireInventory"/>
+        </if-empty>
+        <if-empty field="requireInventory">
+            <set value="Y" field="requireInventory"/>
+        </if-empty>
+
+        <set from-field="parameters.facilityId" field="facilityId"/>
+        <if-not-empty field="facilityId">
+            <entity-and entity-name="ProductStoreFacility" list="productStoreFacilities" use-cache="true">
+                <field-map field-name="productStoreId" from-field="productStore.productStoreId"/>
+                <field-map field-name="facilityId" from-field="facilityId"/>
+                <order-by field-name="sequenceNum"/>
+            </entity-and>
+            <iterate list="productStoreFacilities" entry="productStoreFacility">
+                <!-- Search Product Store Facilities to insure the facility passed in is associated to the Product Store passed in -->
+                <set field="facilityFound" from-field="productStoreFacility"/>
+                <log level="info" message="ProductStoreService:Facility Found : [${facilityFound}]"/>
+            </iterate>
+            <if-empty field="facilityFound">
+                <add-error>
+                    <fail-property resource="ProductUiLabels" property="FacilityNoAssociatedWithProcuctStore"/>
+                </add-error>
+                <check-errors/>
+            </if-empty>
+            <!-- verifly that product was store in facility -->
+            <entity-and entity-name="ProductFacility" list="productFacilityList">
+                <field-map field-name="facilityId" from-field="facilityId"/>
+                <field-map field-name="productId" from-field="parameters.productId"/>
+            </entity-and>
+            <if-empty field="productFacilityList">
+                <add-error>
+                    <fail-property resource="ProductUiLabels" property="FacilityNoAssociatedWithProcuctStore"/>
+                </add-error>
+                <check-errors/>
+            </if-empty>
+
+            <set-service-fields service-name="reserveEbayProductInventoryByStoreFacility" map="parameters" to-map="callServiceMap"/>
+            <set from-field="facilityId" field="callServiceMap.facilityId"/>
+            <set from-field="requireInventory" field="callServiceMap.requireInventory"/>
+            <set from-field="productStore.reserveOrderEnumId" field="callServiceMap.reserveOrderEnumId"/>
+            <set value="EBAY_INV_RES" field="callServiceMap.reserveReasonEnumId"/>
+            <call-service service-name="reserveEbayProductInventoryByStoreFacility" in-map-name="callServiceMap">
+                <results-to-map map-name="resultMap"/>
+                <result-to-field result-name="quantityNotReserved" field="qtyNotReserve"/>
+                <result-to-field result-name="successMessage" field="returnSuccessMessage"/>
+            </call-service>
+
+            <set field="defaultReserve" default-value="0"/>
+            <!-- if quantityNotReserved greater than 0 then ATP in ofbiz stock not have, it should be return message or log warring-->
+            <if-compare-field field="qtyNotReserve" operator="equals"  type="BigDecimal" to-field="defaultReserve">
+                <call-simple-method method-name="editEbayProductStoreInventory"/>
+                <set field="successMessage" value="${returnSuccessMessage} quantity Reserved:${parameters.quantity} quantityNotReserved:${qtyNotReserve} "/>
+                <field-to-result  field="successMessage"/>
+                <set field="quantityNotReserved"  default-value="0" type="BigDecimal"/>
+                <field-to-result field="quantityNotReserved"/>
+                <else>
+                    <!-- find qty which can reserved -->
+                    <set field="requiredQty" from-field="parameters.quantity"/>
+                    <calculate field="reservedQty" type="BigDecimal" >
+                        <calcop operator="get">
+                            <calcop operator="get" field="requiredQty"/>
+                            <calcop operator="negative" field="qtyNotReserve"/>
+                        </calcop>
+                    </calculate>
+                    <set field="parameters.quantity" from-field="reservedQty"/>
+                    <if-compare-field field="reservedQty" operator="greater" to-field="defaultReserve">
+                        <call-simple-method method-name="editEbayProductStoreInventory"/>
+                    </if-compare-field>
+
+                    <!-- then show only qty was already reserved and show  difference value that can not reserve -->
+                    <set field="successMessage" value="${returnSuccessMessage} Quantity Reserved : ${reservedQty} Quantity Not Reserved : ${qtyNotReserve} "/>
+                    <field-to-result  field="successMessage"/>
+                    <set field="quantityNotReserved" value="${qtyNotReserve}" default-value="0" type="BigDecimal"/>
+                    <field-to-result field="quantityNotReserved"/>
+                </else>
+            </if-compare-field>
+        </if-not-empty>
+    </simple-method>
+    <simple-method method-name="editEbayProductStoreInventory" short-description="add qty reserve from ofbiz Store product Inventory and combine with ebay store inventory">
+        <entity-one entity-name="EbayProductStoreInventory" value-field="ebayProductStoreInventory" >
+            <field-map field-name="productStoreId"  from-field="parameters.productStoreId"/>
+            <field-map field-name="facilityId"  from-field="parameters.facilityId"/>
+            <field-map field-name="productId"  from-field="parameters.productId"/>
+        </entity-one>
+        <if-empty field="ebayProductStoreInventory">
+            <!-- add new reserved product  -->
+            <make-value value-field="newEbayProductStoreInven" entity-name="EbayProductStoreInventory"/>
+            <set field="newEbayProductStoreInven.productStoreId" from-field="parameters.productStoreId"/>
+            <set field="newEbayProductStoreInven.facilityId" from-field="parameters.facilityId"/>
+            <set field="newEbayProductStoreInven.productId" from-field="parameters.productId"/>
+            <set field="newEbayProductStoreInven.quantityReserved" default-value="0" from-field="parameters.quantity"/>
+            <set field="newEbayProductStoreInven.availableToPromiseListing" default-value="0" from-field="parameters.quantity"/>
+            <set field="newEbayProductStoreInven.scheduled" default-value="0" type="BigDecimal"/>
+            <set field="newEbayProductStoreInven.activeListing" default-value="0" type="BigDecimal"/>
+            <set field="newEbayProductStoreInven.sold" default-value="0" type="BigDecimal"/>
+            <set field="newEbayProductStoreInven.unSold" default-value="0" type="BigDecimal"/>
+            <now-timestamp field="newEbayProductStoreInven.reservedDate" />
+            <create-value value-field="newEbayProductStoreInven"/>
+            <else><!-- update reserved qty   -->
+                <set field="qtyNow" default-value="0" from-field="ebayProductStoreInventory.quantityReserved"/>
+                <set field="atpListingNow" default-value="0" from-field="ebayProductStoreInventory.availableToPromiseListing"/>
+                <set field="reserveQty" default-value="0" from-field="parameters.quantity"/>
+                <calculate field="sumQtyReserved" type="BigDecimal" >
+                    <calcop operator="add">
+                        <calcop operator="get" field="qtyNow"/>
+                        <calcop operator="get" field="reserveQty"/>
+                    </calcop>
+                </calculate>
+                <calculate field="sumQtyATPListing" type="BigDecimal" >
+                    <calcop operator="add">
+                        <calcop operator="get" field="atpListingNow"/>
+                        <calcop operator="get" field="reserveQty"/>
+                    </calcop>
+                </calculate>
+                <now-timestamp field="ebayProductStoreInventory.reservedDate" />
+                <set field="ebayProductStoreInventory.quantityReserved" from-field="sumQtyReserved"/>
+                <set field="ebayProductStoreInventory.availableToPromiseListing" from-field="sumQtyATPListing"/>
+                <store-value value-field="ebayProductStoreInventory"/>
+            </else>
+        </if-empty>
+    </simple-method>
+    <simple-method method-name="updateEbayProductQtyReserved" short-description="Update or cancel an Product which are reserved quantity from inventory">
+        <entity-one entity-name="EbayProductStoreInventory" value-field="ebayProductStoreInventory">
+            <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+            <field-map field-name="facilityId" from-field="parameters.facilityId"/>
+            <field-map field-name="productId" from-field="parameters.productId"/>
+        </entity-one>
+        <if-empty field="ebayProductStoreInventory">
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="ProductNotFindProductId"/>
+            </add-error>
+            <check-errors/>
+        </if-empty>
+        <set field="actionType" from-field="parameters.actionType"/>
+        <set field="qtyInp"  default-value="0" from-field="parameters.quantity"/>
+        <set field="atpListing"  default-value="0" from-field="ebayProductStoreInventory.availableToPromiseListing"/>
+        <set field="qohReserved"  default-value="0" from-field="ebayProductStoreInventory.quantityReserved"/>
+        <!--check qty input for increase or decrease -->
+        <!--field-to-result field="parameters.productStoreId" result-name="productStoreId"/>
+            <field-to-result field="parameters.facilityId" result-name="facilityId"/>
+            <field-to-result field="parameters.productId" result-name="productId"/-->
+        <if-compare field="actionType" value="ADD" operator="equals">
+            <set-service-fields service-name="reserveEbayProductInventory" map="parameters" to-map="reservedEbayProduct"/> 
+            <call-service service-name="reserveEbayProductInventory" in-map-name="reservedEbayProduct"></call-service>
+            <return/>
+            <else>
+                <!-- calculate for qty is used to create listing already, can not remove that qty until list is end or cancel listing-->
+                <calculate field="qtyToUsed" type="BigDecimal" >
+                    <calcop operator="add">
+                        <calcop operator="get" field="qohReserved"/>
+                        <calcop operator="negative" field="atpListing"/>
+                    </calcop>
+                </calculate>
+                <calculate field="qtyCanRemv" type="BigDecimal" >
+                    <calcop operator="add">
+                        <calcop operator="get" field="qohReserved"/>
+                        <calcop operator="negative" field="qtyToUsed"/>
+                    </calcop>
+                </calculate>
+                <if-compare field="qtyCanRemv" operator="greater" value="0">
+                    <!-- auto remove only real qtys that we can remove then return quantity are remove to stock follow productStore, facility and productId -->
+                    <set field="qtyToRemove" type="BigDecimal" default-value="0" value="${qtyInp}"/>
+                    <if-compare field="qtyCanRemv" value="${qtyToRemove}" operator="greater-equals">
+                        <call-simple-method method-name="removeEbayProductQtyReserved"/>
+                        <log level="info" message="(${qtyToRemove}) product quantity was cancel from inventory with this transaction"></log>
+                        <else>
+                            <!-- calculate for over qty want to remove  -->
+                            <calculate field="qtyOverRemv" type="BigDecimal" >
+                                <calcop operator="add">
+                                    <calcop operator="get" field="qtyToRemove"/>
+                                    <calcop operator="negative" field="qtyCanRemv"/>
+                                </calcop>
+                            </calculate>
+                            <set field="qtyToRemove" type="BigDecimal" default-value="0"  from-field="qtyCanRemv"/>
+                            <call-simple-method method-name="removeEbayProductQtyReserved"/>
+                            <set field="successMessage" value="${returnSuccessMessage} (${qtyToRemove}) product qty was canceled from this transaction  and (${qtyOverRemv})  was fail because you reserved in inventory only ${qtyToRemove}. "/>
+                            <field-to-result  field="successMessage"/>
+                        </else>
+                    </if-compare>
+                    <!-- update values in EbayProductStoreInventory -->
+                    <calculate field="ebayProductStoreInventory.quantityReserved" type="BigDecimal" >
+                        <calcop operator="add">
+                            <calcop operator="get" field="qohReserved"/>
+                            <calcop operator="negative" field="qtyToRemove"/>
+                        </calcop>
+                    </calculate>
+                    <calculate field="ebayProductStoreInventory.availableToPromiseListing" type="BigDecimal" >
+                        <calcop operator="add">
+                            <calcop operator="get" field="atpListing"/>
+                            <calcop operator="negative" field="qtyToRemove"/>
+                        </calcop>
+                    </calculate>
+                    <store-value value-field="ebayProductStoreInventory"/>
+                    <else>
+                        <add-error>                        
+                            <fail-property resource="ProductUiLabels" property="EbayStoreCannotDecreaseQuantity"/>
+                        </add-error>
+                        <return/>
+                    </else>
+                </if-compare>
+            </else>
+        </if-compare>
+    </simple-method>
+    <simple-method method-name="removeEbayProductQtyReserved" short-description="remove reserved product qty and return quantity to inventory">
+        <!--for InventoryItems that have no locationSeqId -->
+        <set value="+datetimeReceived" field="orderByString"/>
+        <entity-condition entity-name="InventoryItem" list="inventoryItems">
+            <condition-list combine="and">
+                <condition-expr field-name="productId" from-field="parameters.productId"/>
+                <condition-expr field-name="facilityId" from-field="parameters.facilityId"/>
+                <condition-expr field-name="containerId" from-field="parameters.containerId" ignore-if-empty="true" ignore-if-null="true"/>
+                <condition-expr field-name="quantityOnHandTotal" operator="greater" value="0.0"/>
+                <condition-expr field-name="locationSeqId" operator="equals" from-field="nullField"/>
+            </condition-list>
+            <order-by field-name="${orderByString}"/>
+        </entity-condition>
+        <set field="qtyless" type="BigDecimal" default-value="0"  from-field="qtyToRemove"/>
+        <iterate list="inventoryItems" entry="inventoryItem">
+            <if>
+                <condition>
+                    <and>
+                        <if-empty field="inventoryItem.locationSeqId"/>
+                    </and>
+                </condition>
+                <then>
+                    <get-related value-field="inventoryItem" relation-name="InventoryItemDetail" list="inventoryItemDetails"/>
+                    <if-not-empty field="inventoryItemDetails">
+                        <iterate list="inventoryItemDetails" entry="inventoryItemDetail">
+                            <if>
+                                <condition>
+                                    <and>
+                                        <if-compare field="inventoryItemDetail.reasonEnumId" value="EBAY_INV_RES" operator="equals"></if-compare>
+                                        <if-empty field="inventoryItemDetail.orderId"></if-empty>
+                                        <if-empty field="inventoryItemDetail.orderItemSeqId"></if-empty>
+                                        <if-compare field="inventoryItemDetail.availableToPromiseDiff" value="0"  operator="not-equals"></if-compare>
+                                    </and>
+                                </condition>
+                                <then>
+                                    <if-compare field="qtyless" value="0" operator="greater">
+                                        <calculate field="qtyResult" type="BigDecimal" >
+                                            <calcop operator="add">
+                                                <calcop operator="get" field="inventoryItemDetail.availableToPromiseDiff"/>
+                                                <calcop operator="get" field="${qtyless}"/>
+                                            </calcop>
+                                        </calculate>
+                                        <if-compare field="qtyResult" value="0" operator="greater-equals">
+                                            <remove-value value-field="inventoryItemDetail"/>
+                                            <else>
+                                                <set field="inventoryItemDetail.availableToPromiseDiff" type="BigDecimal"  from-field="qtyResult"/>
+                                                <store-value value-field="inventoryItemDetail"/>
+                                            </else>
+                                        </if-compare>
+                                        <set field="qtyless" type="BigDecimal"  value="${qtyResult}"/>
+                                        <else>
+                                            <return/>
+                                        </else>
+                                    </if-compare>
+                                </then>
+                            </if>
+                        </iterate>
+                    </if-not-empty>
+                </then>
+            </if>
+        </iterate>
+    </simple-method>
+</simple-methods>

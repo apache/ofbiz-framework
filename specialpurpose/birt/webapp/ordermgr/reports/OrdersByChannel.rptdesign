@@ -1,0 +1,718 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.20" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 2.5.1.v20090903 Build &lt;2.5.1.v20090917-1447></property>
+    <property name="units">in</property>
+    <list-property name="userProperties">
+        <structure>
+            <property name="name">SaleOrder.OrderHeader.x</property>
+            <property name="type">integer</property>
+            <property name="isVisible">false</property>
+        </structure>
+        <structure>
+            <property name="name">SaleOrder.OrderHeader.y</property>
+            <property name="type">integer</property>
+            <property name="isVisible">false</property>
+        </structure>
+        <structure>
+            <property name="name">SaleOrder.Enum.NewTabularHierarchy1.x</property>
+            <property name="type">integer</property>
+            <property name="isVisible">false</property>
+        </structure>
+        <structure>
+            <property name="name">SaleOrder.Enum.NewTabularHierarchy1.y</property>
+            <property name="type">integer</property>
+            <property name="isVisible">false</property>
+        </structure>
+        <structure>
+            <property name="name">SaleOrder.OrderHeader.width</property>
+            <property name="type">integer</property>
+            <property name="isVisible">false</property>
+        </structure>
+        <structure>
+            <property name="name">SaleOrder.OrderHeader.height</property>
+            <property name="type">integer</property>
+            <property name="isVisible">false</property>
+        </structure>
+        <structure>
+            <property name="name">SaleOrder.Enum.NewTabularHierarchy1.width</property>
+            <property name="type">integer</property>
+            <property name="isVisible">false</property>
+        </structure>
+        <structure>
+            <property name="name">SaleOrder.Enum.NewTabularHierarchy1.height</property>
+            <property name="type">integer</property>
+            <property name="isVisible">false</property>
+        </structure>
+        <structure>
+            <property name="name">DataCube.OrderHeader.x</property>
+            <property name="type">integer</property>
+            <property name="isVisible">false</property>
+        </structure>
+        <structure>
+            <property name="name">DataCube.OrderHeader.y</property>
+            <property name="type">integer</property>
+            <property name="isVisible">false</property>
+        </structure>
+        <structure>
+            <property name="name">DataCube.OrderHeader.width</property>
+            <property name="type">integer</property>
+            <property name="isVisible">false</property>
+        </structure>
+        <structure>
+            <property name="name">DataCube.OrderHeader.height</property>
+            <property name="type">integer</property>
+            <property name="isVisible">false</property>
+        </structure>
+        <structure>
+            <property name="name">DataCube.Enumeration.x</property>
+            <property name="type">integer</property>
+            <property name="isVisible">false</property>
+        </structure>
+        <structure>
+            <property name="name">DataCube.Enumeration.y</property>
+            <property name="type">integer</property>
+            <property name="isVisible">false</property>
+        </structure>
+        <structure>
+            <property name="name">DataCube.Group1.NewTabularHierarchy1.x</property>
+            <property name="type">integer</property>
+            <property name="isVisible">false</property>
+        </structure>
+        <structure>
+            <property name="name">DataCube.Group1.NewTabularHierarchy1.y</property>
+            <property name="type">integer</property>
+            <property name="isVisible">false</property>
+        </structure>
+        <structure>
+            <property name="name">DataCube.Enumeration.width</property>
+            <property name="type">integer</property>
+            <property name="isVisible">false</property>
+        </structure>
+        <structure>
+            <property name="name">DataCube.Enumeration.height</property>
+            <property name="type">integer</property>
+            <property name="isVisible">false</property>
+        </structure>
+        <structure>
+            <property name="name">DataCube.Group1.NewTabularHierarchy1.width</property>
+            <property name="type">integer</property>
+            <property name="isVisible">false</property>
+        </structure>
+        <structure>
+            <property name="name">DataCube.Group1.NewTabularHierarchy1.height</property>
+            <property name="type">integer</property>
+            <property name="isVisible">false</property>
+        </structure>
+        <structure>
+            <property name="name">Channel.SalesOrderItemFact.x</property>
+            <property name="type">integer</property>
+            <property name="isVisible">false</property>
+        </structure>
+        <structure>
+            <property name="name">Channel.SalesOrderItemFact.y</property>
+            <property name="type">integer</property>
+            <property name="isVisible">false</property>
+        </structure>
+    </list-property>
+    <property name="SaleOrder.OrderHeader.x">314</property>
+    <property name="SaleOrder.OrderHeader.y">51</property>
+    <property name="SaleOrder.Enum.NewTabularHierarchy1.x">85</property>
+    <property name="SaleOrder.Enum.NewTabularHierarchy1.y">54</property>
+    <property name="SaleOrder.OrderHeader.width">150</property>
+    <property name="SaleOrder.OrderHeader.height">200</property>
+    <property name="SaleOrder.Enum.NewTabularHierarchy1.width">150</property>
+    <property name="SaleOrder.Enum.NewTabularHierarchy1.height">200</property>
+    <property name="DataCube.OrderHeader.x">16</property>
+    <property name="DataCube.OrderHeader.y">34</property>
+    <property name="DataCube.OrderHeader.width">178</property>
+    <property name="DataCube.OrderHeader.height">212</property>
+    <property name="DataCube.Enumeration.x">376</property>
+    <property name="DataCube.Enumeration.y">78</property>
+    <property name="DataCube.Group1.NewTabularHierarchy1.x">32</property>
+    <property name="DataCube.Group1.NewTabularHierarchy1.y">75</property>
+    <property name="DataCube.Enumeration.width">150</property>
+    <property name="DataCube.Enumeration.height">200</property>
+    <property name="DataCube.Group1.NewTabularHierarchy1.width">150</property>
+    <property name="DataCube.Group1.NewTabularHierarchy1.height">200</property>
+    <property name="Channel.SalesOrderItemFact.x">135</property>
+    <property name="Channel.SalesOrderItemFact.y">80</property>
+    <method name="initialize"><![CDATA[
+importPackage(Packages.org.apache.ofbiz.base.util);
+importPackage(Packages.org.apache.ofbiz.entity.util);
+module = "OrdersByChannel.rptdesign";]]></method>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <data-sources>
+        <script-data-source name="OFBIZ" id="28"/>
+    </data-sources>
+    <data-sets>
+        <script-data-set name="SalesOrderItemFact" id="298">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">orderId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">orderItemSeqId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">quantity</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">orderStatus</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">saleChannel</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">extNetAmount</property>
+                    <property name="dataType">float</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">orderId</property>
+                </structure>
+                <structure>
+                    <property name="columnName">orderItemSeqId</property>
+                </structure>
+                <structure>
+                    <property name="columnName">quantity</property>
+                </structure>
+                <structure>
+                    <property name="columnName">orderStatus</property>
+                </structure>
+                <structure>
+                    <property name="columnName">saleChannel</property>
+                </structure>
+                <structure>
+                    <property name="columnName">extNetAmount</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">orderId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">orderItemSeqId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">quantity</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">orderStatus</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">saleChannel</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">extNetAmount</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">OFBIZ</property>
+            <method name="open"><![CDATA[salesOrderItemFacts = null;
+try {
+    if(params["saleChannel"] != "null"){
+        salesOrderItemFacts = delegator.findByAnd("SalesOrderItemFact", UtilMisc.toMap("salesChannelEnumId", params["saleChannel"]), null, false);
+    }else{
+        salesOrderItemFacts = delegator.findList("SalesOrderItemFact", null, null, null, null, false);
+    }
+} catch (e) {
+    Debug.logError(e, module);
+}
+totalRow = 0;
+countOfRow = 0;
+if (salesOrderItemFacts) {
+    totalRow = salesOrderItemFacts.size();
+}]]></method>
+            <method name="fetch"><![CDATA[if (countOfRow > (totalRow - 1)) return false;
+salesOrderItemFact = salesOrderItemFacts.get(countOfRow);
+row["orderId"] = salesOrderItemFact.getString("orderId");
+row["orderItemSeqId"] = salesOrderItemFact.getString("orderItemSeqId");
+row["quantity"] = salesOrderItemFact.getString("quantity");
+row["saleChannel"] = salesOrderItemFact.getString("brand");
+row["extNetAmount"] = salesOrderItemFact.getString("extNetAmount");
+countOfRow ++;
+return true;]]></method>
+        </script-data-set>
+    </data-sets>
+    <cubes>
+        <tabular-cube name="Order" id="299">
+            <property name="dimensions">
+                <tabular-dimension name="order" id="300">
+                    <property name="defaultHierarchy">NewTabularHierarchy</property>
+                    <property name="hierarchies">
+                        <tabular-hierarchy name="NewTabularHierarchy" id="301">
+                            <property name="levels">
+                                <tabular-level name="orderId" id="302">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">orderId</property>
+                                </tabular-level>
+                            </property>
+                        </tabular-hierarchy>
+                    </property>
+                </tabular-dimension>
+            </property>
+            <property name="measureGroups">
+                <tabular-measure-group name="Summary Field" id="303">
+                    <property name="measures">
+                        <tabular-measure name="quantity" id="305">
+                            <expression name="measureExpression">dataSetRow["quantity"]</expression>
+                            <property name="dataType">integer</property>
+                        </tabular-measure>
+                    </property>
+                </tabular-measure-group>
+                <tabular-measure-group name="Summary Field2" id="312">
+                    <property name="measures">
+                        <tabular-measure name="extNetAmount" id="313">
+                            <expression name="measureExpression">dataSetRow["extNetAmount"]</expression>
+                            <property name="dataType">float</property>
+                        </tabular-measure>
+                    </property>
+                </tabular-measure-group>
+                <tabular-measure-group name="Summary Field1" id="314">
+                    <property name="measures">
+                        <tabular-measure name="orderItemSeqId" id="315">
+                            <property name="function">count</property>
+                            <expression name="measureExpression">dataSetRow["orderItemSeqId"]</expression>
+                            <property name="dataType">integer</property>
+                        </tabular-measure>
+                    </property>
+                </tabular-measure-group>
+            </property>
+            <property name="dataSet">SalesOrderItemFact</property>
+        </tabular-cube>
+        <tabular-cube name="Channel" id="465">
+            <property name="dimensions">
+                <tabular-dimension name="Group" id="466">
+                    <property name="defaultHierarchy">NewTabularHierarchy1</property>
+                    <property name="hierarchies">
+                        <tabular-hierarchy name="NewTabularHierarchy1" id="467">
+                            <property name="levels">
+                                <tabular-level name="saleChannel" id="468">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">saleChannel</property>
+                                </tabular-level>
+                            </property>
+                        </tabular-hierarchy>
+                    </property>
+                </tabular-dimension>
+            </property>
+            <property name="measureGroups">
+                <tabular-measure-group name="Summary Field3" id="469">
+                    <property name="measures">
+                        <tabular-measure name="orderId" id="470">
+                            <property name="function">count</property>
+                            <expression name="measureExpression">dataSetRow["orderId"]</expression>
+                            <property name="dataType">integer</property>
+                        </tabular-measure>
+                        <tabular-measure name="quantity1" id="471">
+                            <expression name="measureExpression">dataSetRow["quantity"]</expression>
+                            <property name="dataType">integer</property>
+                        </tabular-measure>
+                        <tabular-measure name="orderItemSeqId1" id="472">
+                            <property name="function">count</property>
+                            <expression name="measureExpression">dataSetRow["orderItemSeqId"]</expression>
+                            <property name="dataType">integer</property>
+                        </tabular-measure>
+                        <tabular-measure name="extNetAmount1" id="495">
+                            <expression name="measureExpression">dataSetRow["extNetAmount"]</expression>
+                            <property name="dataType">float</property>
+                        </tabular-measure>
+                    </property>
+                </tabular-measure-group>
+            </property>
+            <property name="dataSet">SalesOrderItemFact</property>
+        </tabular-cube>
+        <tabular-cube name="OrderAndChannel" id="621">
+            <property name="dimensions">
+                <tabular-dimension name="orderChannel" id="624">
+                    <property name="isTimeType">false</property>
+                    <property name="defaultHierarchy">NewTabularHierarchy2</property>
+                    <property name="hierarchies">
+                        <tabular-hierarchy name="NewTabularHierarchy2" id="625">
+                            <property name="levels">
+                                <tabular-level name="saleChannel" id="628">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">saleChannel</property>
+                                </tabular-level>
+                                <tabular-level name="orderId" id="629">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">orderId</property>
+                                </tabular-level>
+                            </property>
+                        </tabular-hierarchy>
+                    </property>
+                </tabular-dimension>
+            </property>
+            <property name="measureGroups">
+                <tabular-measure-group name="Summary Field4" id="630">
+                    <property name="measures">
+                        <tabular-measure name="orderItemSeqId2" id="631">
+                            <property name="function">count</property>
+                            <expression name="measureExpression">dataSetRow["orderItemSeqId"]</expression>
+                            <property name="dataType">integer</property>
+                        </tabular-measure>
+                        <tabular-measure name="quantity2" id="632">
+                            <expression name="measureExpression">dataSetRow["quantity"]</expression>
+                            <property name="dataType">integer</property>
+                        </tabular-measure>
+                        <tabular-measure name="extNetAmount2" id="633">
+                            <expression name="measureExpression">dataSetRow["extNetAmount"]</expression>
+                            <property name="dataType">float</property>
+                        </tabular-measure>
+                    </property>
+                </tabular-measure-group>
+            </property>
+            <property name="dataSet">SalesOrderItemFact</property>
+        </tabular-cube>
+    </cubes>
+    <styles>
+        <style name="report" id="4">
+            <property name="fontFamily">sans-serif</property>
+            <property name="fontSize">10pt</property>
+        </style>
+        <style name="crosstab-cell" id="5">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+        <style name="crosstab" id="6">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+    </styles>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <page-footer>
+                <text id="3">
+                    <property name="contentType">html</property>
+                    <text-property name="content"><![CDATA[<value-of>new Date()</value-of>]]></text-property>
+                </text>
+            </page-footer>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <text id="297">
+            <property name="fontFamily">sans-serif</property>
+            <property name="fontSize">larger</property>
+            <property name="fontWeight">bolder</property>
+            <property name="textAlign">center</property>
+            <property name="contentType">auto</property>
+            <text-property name="content"><![CDATA[Orders By Sales Channel]]></text-property>
+        </text>
+        <text id="577"/>
+        <extended-item extensionName="Crosstab" extensionVersion="2.5.0" id="634">
+            <property name="measures">
+                <extended-item extensionName="MeasureView" id="644">
+                    <property name="measure">orderItemSeqId2</property>
+                    <property name="detail">
+                        <extended-item extensionName="AggregationCell" id="645">
+                            <property name="aggregationOnRow">orderChannel/orderId</property>
+                            <property name="content">
+                                <data id="646">
+                                    <property name="textAlign">center</property>
+                                    <property name="resultSetColumn">orderItemSeqId2_orderChannel/orderId</property>
+                                </data>
+                            </property>
+                        </extended-item>
+                    </property>
+                    <property name="aggregations">
+                        <extended-item extensionName="AggregationCell" id="660">
+                            <property name="content">
+                                <data id="661">
+                                    <property name="backgroundColor">gray</property>
+                                    <property name="textAlign">center</property>
+                                    <property name="resultSetColumn">orderItemSeqId2</property>
+                                </data>
+                            </property>
+                        </extended-item>
+                    </property>
+                    <property name="header">
+                        <extended-item extensionName="CrosstabCell" id="647">
+                            <property name="content">
+                                <label id="570">
+                                    <property name="backgroundColor">gray</property>
+                                    <property name="fontWeight">bolder</property>
+                                    <property name="textAlign">center</property>
+                                    <text-property name="text">Items</text-property>
+                                </label>
+                            </property>
+                        </extended-item>
+                    </property>
+                </extended-item>
+                <extended-item extensionName="MeasureView" id="649">
+                    <property name="measure">quantity2</property>
+                    <property name="detail">
+                        <extended-item extensionName="AggregationCell" id="650">
+                            <property name="aggregationOnRow">orderChannel/orderId</property>
+                            <property name="content">
+                                <data id="651">
+                                    <property name="textAlign">center</property>
+                                    <property name="resultSetColumn">quantity2_orderChannel/orderId</property>
+                                </data>
+                            </property>
+                        </extended-item>
+                    </property>
+                    <property name="aggregations">
+                        <extended-item extensionName="AggregationCell" id="662">
+                            <property name="content">
+                                <data id="663">
+                                    <property name="backgroundColor">gray</property>
+                                    <property name="textAlign">center</property>
+                                    <property name="resultSetColumn">quantity2</property>
+                                </data>
+                            </property>
+                        </extended-item>
+                    </property>
+                    <property name="header">
+                        <extended-item extensionName="CrosstabCell" id="652">
+                            <property name="content">
+                                <label id="565">
+                                    <property name="backgroundColor">gray</property>
+                                    <property name="fontWeight">bolder</property>
+                                    <property name="textAlign">center</property>
+                                    <text-property name="text">Quantity</text-property>
+                                </label>
+                            </property>
+                        </extended-item>
+                    </property>
+                </extended-item>
+                <extended-item extensionName="MeasureView" id="654">
+                    <property name="measure">extNetAmount2</property>
+                    <property name="detail">
+                        <extended-item extensionName="AggregationCell" id="655">
+                            <property name="aggregationOnRow">orderChannel/orderId</property>
+                            <property name="content">
+                                <data id="656">
+                                    <property name="textAlign">center</property>
+                                    <property name="resultSetColumn">extNetAmount2_orderChannel/orderId</property>
+                                </data>
+                            </property>
+                        </extended-item>
+                    </property>
+                    <property name="aggregations">
+                        <extended-item extensionName="AggregationCell" id="664">
+                            <property name="content">
+                                <data id="665">
+                                    <property name="backgroundColor">gray</property>
+                                    <property name="textAlign">center</property>
+                                    <property name="resultSetColumn">extNetAmount2</property>
+                                </data>
+                            </property>
+                        </extended-item>
+                    </property>
+                    <property name="header">
+                        <extended-item extensionName="CrosstabCell" id="657">
+                            <property name="content">
+                                <label id="575">
+                                    <property name="backgroundColor">gray</property>
+                                    <property name="fontWeight">bolder</property>
+                                    <property name="textAlign">center</property>
+                                    <text-property name="text">Amount</text-property>
+                                </label>
+                            </property>
+                        </extended-item>
+                    </property>
+                </extended-item>
+            </property>
+            <property name="rows">
+                <extended-item extensionName="CrosstabView" id="636">
+                    <property name="grandTotal">
+                        <extended-item extensionName="CrosstabCell" id="659">
+                            <property name="content">
+                                <label id="620">
+                                    <property name="fontWeight">bolder</property>
+                                    <property name="textAlign">right</property>
+                                    <text-property name="text">Grand Total</text-property>
+                                </label>
+                            </property>
+                        </extended-item>
+                    </property>
+                    <property name="views">
+                        <extended-item extensionName="DimensionView" id="637">
+                            <property name="dimension">orderChannel</property>
+                            <property name="levels">
+                                <extended-item extensionName="LevelView" name="NewLevel View1" id="638">
+                                    <property name="level">orderChannel/saleChannel</property>
+                                    <property name="member">
+                                        <extended-item extensionName="CrosstabCell" id="639">
+                                            <property name="content">
+                                                <data name="saleChannel1" id="640">
+                                                    <property name="textAlign">center</property>
+                                                    <property name="resultSetColumn">saleChannel</property>
+                                                </data>
+                                            </property>
+                                        </extended-item>
+                                    </property>
+                                </extended-item>
+                                <extended-item extensionName="LevelView" name="NewLevel View2" id="641">
+                                    <property name="level">orderChannel/orderId</property>
+                                    <property name="member">
+                                        <extended-item extensionName="CrosstabCell" id="642">
+                                            <property name="content">
+                                                <data name="orderId" id="643">
+                                                    <property name="textAlign">center</property>
+                                                    <property name="resultSetColumn">orderId</property>
+                                                </data>
+                                            </property>
+                                        </extended-item>
+                                    </property>
+                                </extended-item>
+                            </property>
+                        </extended-item>
+                    </property>
+                    <property name="grandTotalLocation">after</property>
+                </extended-item>
+            </property>
+            <property name="header">
+                <extended-item extensionName="CrosstabCell" id="635">
+                    <property name="content">
+                        <grid id="668">
+                            <column id="669"/>
+                            <column id="670"/>
+                            <row id="671">
+                                <cell id="672">
+                                    <label id="674">
+                                        <property name="backgroundColor">gray</property>
+                                        <property name="fontWeight">bolder</property>
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">Channel</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="673">
+                                    <label id="576">
+                                        <property name="backgroundColor">gray</property>
+                                        <property name="fontWeight">bolder</property>
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">OrderId</text-property>
+                                    </label>
+                                </cell>
+                            </row>
+                        </grid>
+                    </property>
+                </extended-item>
+            </property>
+            <property name="cube">OrderAndChannel</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">saleChannel</property>
+                    <expression name="expression">dimension["orderChannel"]["saleChannel"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">orderId</property>
+                    <text-property name="displayName">orderId</text-property>
+                    <expression name="expression" type="javascript">dimension["orderChannel"]["orderId"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">orderItemSeqId2_orderChannel/orderId</property>
+                    <expression name="expression">measure["orderItemSeqId2"]</expression>
+                    <property name="dataType">integer</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>orderChannel/orderId</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">quantity2_orderChannel/orderId</property>
+                    <expression name="expression">measure["quantity2"]</expression>
+                    <property name="dataType">integer</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>orderChannel/orderId</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">extNetAmount2_orderChannel/orderId</property>
+                    <expression name="expression">measure["extNetAmount2"]</expression>
+                    <property name="dataType">float</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>orderChannel/orderId</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">orderItemSeqId2</property>
+                    <expression name="expression">measure["orderItemSeqId2"]</expression>
+                    <property name="dataType">integer</property>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">quantity2</property>
+                    <expression name="expression">measure["quantity2"]</expression>
+                    <property name="dataType">integer</property>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">extNetAmount2</property>
+                    <expression name="expression">measure["extNetAmount2"]</expression>
+                    <property name="dataType">float</property>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+            </list-property>
+        </extended-item>
+    </body>
+</report>

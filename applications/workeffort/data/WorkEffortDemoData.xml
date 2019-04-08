@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<entity-engine-xml>
+    <!-- Recurring calendar event demo - set up a staff meeting on the first Monday of each month -->
+    <TemporalExpression tempExprId="STAFF_MTG" tempExprTypeId="INTERSECTION" description="First Monday of Each Month"/>
+    <TemporalExpressionAssoc fromTempExprId="STAFF_MTG" toTempExprId="1ST_MONDAY_IN_MONTH"/>
+    <TemporalExpressionAssoc fromTempExprId="STAFF_MTG" toTempExprId="MINUTE_00"/>
+    <TemporalExpressionAssoc fromTempExprId="STAFF_MTG" toTempExprId="HOUR_10"/>
+    <WorkEffort workEffortId="STAFF_MTG" workEffortTypeId="MEETING" currentStatusId="CAL_TENTATIVE" lastStatusUpdate="2008-01-01 00:00:00.0" scopeEnumId="WES_PUBLIC" workEffortName="Staff Meeting" description="Staff Meeting" tempExprId="STAFF_MTG" estimatedStartDate="2008-01-01 00:00:00.0" estimatedMilliSeconds="3600000"/>
+    <FixedAsset fixedAssetId="DEMO_PROJECTOR" fixedAssetName="Overhead Projector" fixedAssetTypeId="EQUIPMENT" purchaseCost="2000" purchaseCostUomId="USD"/>
+    <WorkEffortFixedAssetAssign workEffortId="STAFF_MTG" fixedAssetId="DEMO_PROJECTOR" statusId="FA_ASGN_REQUESTED" availabilityStatusId="WEFA_IN_USE" fromDate="2008-01-01 00:00:00.0"/>
+
+    <Party partyId="WorkEffortUser" partyTypeId="PERSON" statusId="PARTY_ENABLED" />
+    <Person partyId="WorkEffortUser" firstName="WorkEffort" lastName="User" />
+    <PartyStatus partyId="WorkEffortUser" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <UserLogin userLoginId="WorkEffortUser" partyId="WorkEffortUser" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" />
+    <UserLoginSecurityGroup groupId="WORKEFFORT_USER" userLoginId="WorkEffortUser" fromDate="2011-01-01 00:00:00.0" />
+
+    <PartyRole partyId="admin" roleTypeId="CAL_OWNER"/>
+    <PartyRole partyId="admin" roleTypeId="CAL_ATTENDEE"/>
+
+    <!-- Publish the staff meeting calendar event in iCalendar format -->
+    <WorkEffort workEffortId="CALENDAR_PUB_DEMO" workEffortTypeId="PUBLISH_PROPS" currentStatusId="CAL_CANCELLED" scopeEnumId="WES_PUBLIC" description="Demo Project 1 Customer 1" workEffortName="iCalendar Publish Demonstration"/>
+    <WorkEffortPartyAssignment workEffortId="CALENDAR_PUB_DEMO" partyId="admin" statusId="PRTYASGN_ASSIGNED" roleTypeId="CAL_OWNER" fromDate="2008-01-01 00:00:00.0"/>
+    <WorkEffortAssoc workEffortIdFrom="CALENDAR_PUB_DEMO" workEffortIdTo="STAFF_MTG" workEffortAssocTypeId="WORK_EFF_DEPENDENCY" fromDate="2008-01-01 00:00:00.0"/>
+
+    <!--  Project Manager demo data -->
+    <Party partyId="DemoEmployee1" statusId="PARTY_ENABLED"/><!-- further defined in the projectmanager -->
+    <Party partyId="DemoEmployee2" statusId="PARTY_ENABLED"/>
+    <Party partyId="DemoEmployee3" statusId="PARTY_ENABLED"/>
+
+    <PartyRole partyId="DemoEmployee1" roleTypeId="CAL_OWNER"/>
+    <PartyRole partyId="DemoEmployee2" roleTypeId="CAL_ATTENDEE"/>
+    <PartyRole partyId="DemoEmployee3" roleTypeId="CAL_ATTENDEE"/>
+
+    <WorkEffort workEffortId="PROJECT_PUB_DEMO" workEffortTypeId="PUBLISH_PROPS" currentStatusId="CAL_CANCELLED" scopeEnumId="WES_PRIVATE" description="Demo Project 1 Customer 1" workEffortName="Project iCalendar Publish Demonstration"/>
+    <WorkEffortPartyAssignment workEffortId="PROJECT_PUB_DEMO" partyId="DemoEmployee1" statusId="PRTYASGN_ASSIGNED" roleTypeId="CAL_OWNER" fromDate="2008-01-01 00:00:00.0"/>
+    <WorkEffortPartyAssignment workEffortId="STAFF_MTG" partyId="DemoEmployee1" statusId="PRTYASGN_ASSIGNED" roleTypeId="CAL_OWNER" availabilityStatusId="WEPA_AV_BUSY" fromDate="2008-01-01 00:00:00.0"/>
+    <WorkEffortPartyAssignment workEffortId="STAFF_MTG" partyId="DemoEmployee2" statusId="PRTYASGN_ASSIGNED" roleTypeId="CAL_ATTENDEE" availabilityStatusId="WEPA_AV_BUSY" fromDate="2008-01-01 00:00:00.0"/>
+    <WorkEffortPartyAssignment workEffortId="STAFF_MTG" partyId="DemoEmployee3" statusId="PRTYASGN_ASSIGNED" roleTypeId="CAL_ATTENDEE" availabilityStatusId="WEPA_AV_BUSY" fromDate="2008-01-01 00:00:00.0"/>
+    <WorkEffortPartyAssignment workEffortId="STAFF_MTG" partyId="admin" statusId="PRTYASGN_ASSIGNED" roleTypeId="CAL_ATTENDEE" availabilityStatusId="WEPA_AV_BUSY" fromDate="2008-01-01 00:00:00.0"/>
+    <!-- one off event -->
+    <WorkEffort workEffortId="OneOffMeeting" workEffortTypeId="MEETING" currentStatusId="CAL_TENTATIVE" lastStatusUpdate="2008-01-01 00:00:00.0" scopeEnumId="WES_PRIVATE" workEffortName="One off Meeting june 12" description="Staff Meeting" estimatedStartDate="2009-06-12 09:00:00.0" estimatedCompletionDate="2009-06-12 10:00:00.0"/>
+    <WorkEffortAssoc workEffortIdFrom="PROJECT_PUB_DEMO" workEffortIdTo="OneOffMeeting" workEffortAssocTypeId="WORK_EFF_DEPENDENCY" fromDate="2008-01-01 00:00:00.0"/>
+    <WorkEffortPartyAssignment workEffortId="OneOffMeeting" partyId="DemoEmployee1" statusId="PRTYASGN_ASSIGNED" roleTypeId="CAL_OWNER" availabilityStatusId="WEPA_AV_BUSY" fromDate="2008-01-01 00:00:00.0"/>
+    <WorkEffortPartyAssignment workEffortId="OneOffMeeting" partyId="DemoEmployee2" statusId="PRTYASGN_ASSIGNED" roleTypeId="CAL_ATTENDEE" availabilityStatusId="WEPA_AV_BUSY" fromDate="2008-01-01 00:00:00.0"/>
+    <WorkEffortPartyAssignment workEffortId="OneOffMeeting" partyId="admin" statusId="PRTYASGN_ASSIGNED" roleTypeId="CAL_ATTENDEE" availabilityStatusId="WEPA_AV_BUSY" fromDate="2008-01-01 00:00:00.0"/>
+    <!-- private one off event for employee1 should not show with admin-->
+    <WorkEffort workEffortId="PrivateDemoEmployee1" workEffortTypeId="MEETING" currentStatusId="CAL_TENTATIVE" lastStatusUpdate="2008-01-01 00:00:00.0" scopeEnumId="WES_PRIVATE" workEffortName="My Wifes birthday june 29" description="The birthday i should never forget" estimatedStartDate="2009-06-29 00:00:00.0" estimatedCompletionDate="2009-06-29 23:00:00.0"/>
+    <WorkEffortAssoc workEffortIdFrom="PROJECT_PUB_DEMO" workEffortIdTo="PrivateDemoEmployee1" workEffortAssocTypeId="WORK_EFF_DEPENDENCY" fromDate="2008-01-01 00:00:00.0"/>
+    <WorkEffortPartyAssignment workEffortId="PrivateDemoEmployee1" partyId="DemoEmployee1" statusId="PRTYASGN_ASSIGNED" roleTypeId="CAL_OWNER" availabilityStatusId="WEPA_AV_BUSY" fromDate="2008-01-01 00:00:00.0"/>
+    <!-- public event -->
+    <WorkEffort workEffortId="PublicEvent" workEffortTypeId="MEETING" currentStatusId="CAL_TENTATIVE" lastStatusUpdate="2008-01-01 00:00:00.0" scopeEnumId="WES_PUBLIC" workEffortName="The general company party june 17" description="General Party" locationDesc="Tom's Banquet Hall" estimatedStartDate="2009-06-17 19:00:00.0" estimatedCompletionDate="2009-06-17 23:00:00.0"/>
+    <WorkEffortAssoc workEffortIdFrom="PROJECT_PUB_DEMO" workEffortIdTo="PublicEvent" workEffortAssocTypeId="WORK_EFF_DEPENDENCY" fromDate="2008-01-01 00:00:00.0"/>
+    
+</entity-engine-xml>

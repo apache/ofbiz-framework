@@ -23,7 +23,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.MathContext;
-import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -44,7 +43,6 @@ import org.apache.ofbiz.base.util.HttpClient;
 import org.apache.ofbiz.base.util.HttpClientException;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilGenerics;
-import org.apache.ofbiz.base.util.UtilIO;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilNumber;
 import org.apache.ofbiz.base.util.UtilProperties;
@@ -79,8 +77,8 @@ public class UpsServices {
 
     public final static String module = UpsServices.class.getName();
 
-    private static final Map<String, String> unitsUpsToOfbiz = new HashMap<String, String>();
-    private static final Map<String, String> unitsOfbizToUps = new HashMap<String, String>();
+    public static Map<String, String> unitsUpsToOfbiz = new HashMap<String, String>();
+    public static Map<String, String> unitsOfbizToUps = new HashMap<String, String>();
     static {
         unitsUpsToOfbiz.put("LBS", "WT_lb");
         unitsUpsToOfbiz.put("KGS", "WT_kg");
@@ -90,7 +88,7 @@ public class UpsServices {
         }
     }
     public static final int decimals = UtilNumber.getBigDecimalScale("order.decimals");
-    public static final RoundingMode rounding = UtilNumber.getRoundingMode("order.rounding");
+    public static final int rounding = UtilNumber.getBigDecimalRoundingMode("order.rounding");
     public static final MathContext generalRounding = new MathContext(10);
     public static final int returnServiceCode = 8;
     public static final String dateFormatString = "yyyyMMdd";
@@ -506,10 +504,10 @@ public class UpsServices {
                     Element unitOfMeasurementElement = UtilXml.addChildElement(dimensionsElement, "UnitOfMeasurement", shipmentConfirmRequestDoc);
                     GenericValue dimensionUom = shipmentBoxType.getRelatedOne("DimensionUom", false);
                     if (dimensionUom != null) {
-                        UtilXml.addChildElementValue(unitOfMeasurementElement, "Code", dimensionUom.getString("abbreviation").toUpperCase(Locale.getDefault()), shipmentConfirmRequestDoc);
+                        UtilXml.addChildElementValue(unitOfMeasurementElement, "Code", dimensionUom.getString("abbreviation").toUpperCase(), shipmentConfirmRequestDoc);
                     } else {
                         // I guess we'll default to inches...
-                        UtilXml.addChildElementValue(unitOfMeasurementElement, "Code", ModelService.IN_PARAM, shipmentConfirmRequestDoc);
+                        UtilXml.addChildElementValue(unitOfMeasurementElement, "Code", "IN", shipmentConfirmRequestDoc);
                     }
                     BigDecimal boxLength = shipmentBoxType.getBigDecimal("boxLength");
                     BigDecimal boxWidth = shipmentBoxType.getBigDecimal("boxWidth");
@@ -524,9 +522,9 @@ public class UpsServices {
                     Element unitOfMeasurementElement = UtilXml.addChildElement(dimensionsElement, "UnitOfMeasurement", shipmentConfirmRequestDoc);
                     GenericValue dimensionUom = shipmentPackage.getRelatedOne("DimensionUom", false);
                     if (dimensionUom != null) {
-                        UtilXml.addChildElementValue(unitOfMeasurementElement, "Code", dimensionUom.getString("abbreviation").toUpperCase(Locale.getDefault()), shipmentConfirmRequestDoc);
+                        UtilXml.addChildElementValue(unitOfMeasurementElement, "Code", dimensionUom.getString("abbreviation").toUpperCase(), shipmentConfirmRequestDoc);
                     } else {
-                        UtilXml.addChildElementValue(unitOfMeasurementElement, "Code", ModelService.IN_PARAM, shipmentConfirmRequestDoc);
+                        UtilXml.addChildElementValue(unitOfMeasurementElement, "Code", "IN", shipmentConfirmRequestDoc);
                     }
                     UtilXml.addChildElementValue(dimensionsElement, "Length", ""+shipmentPackage.getBigDecimal("boxLength").intValue(), shipmentConfirmRequestDoc);
                     UtilXml.addChildElementValue(dimensionsElement, "Width", ""+shipmentPackage.getBigDecimal("boxWidth").intValue(), shipmentConfirmRequestDoc);
@@ -551,7 +549,7 @@ public class UpsServices {
                             UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId, "shipmentPackageSeqId", shipmentPackage.getString("shipmentPackageSeqId")), locale));
                 }
                 BigDecimal boxWeight = shipmentPackage.getBigDecimal("weight");
-                UtilXml.addChildElementValue(packageWeightElement, "Weight", UtilValidate.isNotEmpty(boxWeight) ? ""+ boxWeight.setScale(0, RoundingMode.CEILING) : "", shipmentConfirmRequestDoc);
+                UtilXml.addChildElementValue(packageWeightElement, "Weight", UtilValidate.isNotEmpty(boxWeight) ? ""+ boxWeight.setScale(0, BigDecimal.ROUND_CEILING) : "", shipmentConfirmRequestDoc);
                 // Adding only when order is not an international order
                 if (!internationalServiceCodes.contains(carrierServiceCode)) {
                     Element referenceNumberElement = UtilXml.addChildElement(packageElement, "ReferenceNumber", shipmentConfirmRequestDoc);
@@ -569,7 +567,7 @@ public class UpsServices {
                 if (! UtilValidate.isEmpty(insuredValue)) {
 
                     Element insuredValueElement = UtilXml.addChildElement(packageServiceOptionsElement, "InsuredValue", shipmentConfirmRequestDoc);
-                    UtilXml.addChildElementValue(insuredValueElement, "MonetaryValue", insuredValue.setScale(2, RoundingMode.HALF_UP).toString(), shipmentConfirmRequestDoc);
+                    UtilXml.addChildElementValue(insuredValueElement, "MonetaryValue", insuredValue.setScale(2, BigDecimal.ROUND_HALF_UP).toString(), shipmentConfirmRequestDoc);
                     UtilXml.addChildElementValue(insuredValueElement, "CurrencyCode", currencyCode, shipmentConfirmRequestDoc);
                 }
 
@@ -632,9 +630,11 @@ public class UpsServices {
 
             if (shipmentUpsSaveCertificationInfo) {
                 String outFileName = shipmentUpsSaveCertificationPath + "/UpsShipmentConfirmRequest" + shipmentId + "_" + shipmentRouteSegment.getString("shipmentRouteSegmentId") + ".xml";
-                try (FileOutputStream fileOut = new FileOutputStream(outFileName)) {
-                    fileOut.write(xmlString.toString().getBytes(UtilIO.getUtf8()));
+                try {
+                    FileOutputStream fileOut = new FileOutputStream(outFileName);
+                    fileOut.write(xmlString.toString().getBytes());
                     fileOut.flush();
+                    fileOut.close();
                 } catch (IOException e) {
                     Debug.logInfo(e, "Could not save UPS XML file: [[[" + xmlString.toString() + "]]] to file: " + outFileName, module);
                 }
@@ -651,9 +651,11 @@ public class UpsServices {
 
             if (shipmentUpsSaveCertificationInfo) {
                 String outFileName = shipmentUpsSaveCertificationPath + "/UpsShipmentConfirmResponse" + shipmentId + "_" + shipmentRouteSegment.getString("shipmentRouteSegmentId") + ".xml";
-                try (FileOutputStream fileOut = new FileOutputStream(outFileName)) {
-                    fileOut.write(shipmentConfirmResponseString.getBytes(UtilIO.getUtf8()));
+                try {
+                    FileOutputStream fileOut = new FileOutputStream(outFileName);
+                    fileOut.write(shipmentConfirmResponseString.getBytes());
                     fileOut.flush();
+                    fileOut.close();
                 } catch (IOException e) {
                     Debug.logInfo(e, "Could not save UPS XML file: [[[" + xmlString.toString() + "]]] to file: " + outFileName, module);
                 }
@@ -905,9 +907,11 @@ public class UpsServices {
 
             if (shipmentUpsSaveCertificationInfo) {
                 String outFileName = shipmentUpsSaveCertificationPath + "/UpsShipmentAcceptRequest" + shipmentId + "_" + shipmentRouteSegment.getString("shipmentRouteSegmentId") + ".xml";
-                try (FileOutputStream fileOut = new FileOutputStream(outFileName)) {
-                    fileOut.write(xmlString.toString().getBytes(UtilIO.getUtf8()));
+                try {
+                    FileOutputStream fileOut = new FileOutputStream(outFileName);
+                    fileOut.write(xmlString.toString().getBytes());
                     fileOut.flush();
+                    fileOut.close();
                 } catch (IOException e) {
                     Debug.logInfo(e, "Could not save UPS XML file: [[[" + xmlString.toString() + "]]] to file: " + outFileName, module);
                 }
@@ -924,9 +928,11 @@ public class UpsServices {
 
             if (shipmentUpsSaveCertificationInfo) {
                 String outFileName = shipmentUpsSaveCertificationPath + "/UpsShipmentAcceptResponse" + shipmentId + "_" + shipmentRouteSegment.getString("shipmentRouteSegmentId") + ".xml";
-                try (FileOutputStream fileOut = new FileOutputStream(outFileName)) {
-                    fileOut.write(shipmentAcceptResponseString.getBytes(UtilIO.getUtf8()));
+                try {
+                    FileOutputStream fileOut = new FileOutputStream(outFileName);
+                    fileOut.write(shipmentAcceptResponseString.getBytes());
                     fileOut.flush();
+                    fileOut.close();
                 } catch (IOException e) {
                     Debug.logInfo(e, "Could not save UPS XML file: [[[" + xmlString.toString() + "]]] to file: " + outFileName, module);
                 }
@@ -1103,12 +1109,12 @@ public class UpsServices {
                 }
                 byte[] labelImageBytes = null;
                 if (packageLabelGraphicImageString != null) {
-                    labelImageBytes = Base64.base64Decode(packageLabelGraphicImageString.getBytes(UtilIO.getUtf8()));
+                    labelImageBytes = Base64.base64Decode(packageLabelGraphicImageString.getBytes());
                     shipmentPackageRouteSeg.setBytes("labelImage", labelImageBytes);
                 }
                 byte[] labelInternationalSignatureGraphicImageBytes = null;
                 if (packageLabelInternationalSignatureGraphicImageString != null) {
-                    labelInternationalSignatureGraphicImageBytes = Base64.base64Decode(packageLabelInternationalSignatureGraphicImageString.getBytes(UtilIO.getUtf8()));
+                    labelInternationalSignatureGraphicImageBytes = Base64.base64Decode(packageLabelInternationalSignatureGraphicImageString.getBytes());
                     shipmentPackageRouteSeg.set("labelIntlSignImage", labelInternationalSignatureGraphicImageBytes);
                 }
                 String packageLabelHTMLImageStringDecoded = Base64.base64Decode(packageLabelHTMLImageString);
@@ -1117,27 +1123,33 @@ public class UpsServices {
                 if (shipmentUpsSaveCertificationInfo) {
                     if (labelImageBytes != null) {
                         String outFileName = shipmentUpsSaveCertificationPath + "/label" + trackingNumber + ".gif";
-                        try (FileOutputStream fileOut = new FileOutputStream(outFileName)) {
+                        try {
+                            FileOutputStream fileOut = new FileOutputStream(outFileName);
                             fileOut.write(labelImageBytes);
                             fileOut.flush();
+                            fileOut.close();
                         } catch (IOException e) {
                             Debug.logInfo(e, "Could not save UPS LabelImage GIF file: [[[" + packageLabelGraphicImageString + "]]] to file: " + outFileName, module);
                         }
                     }
                     if (labelInternationalSignatureGraphicImageBytes != null) {
                         String outFileName = shipmentUpsSaveCertificationPath + "/UpsShipmentLabelIntlSignImage" + "label" + trackingNumber + ".gif";
-                        try (FileOutputStream fileOut = new FileOutputStream(outFileName)) {
+                        try {
+                            FileOutputStream fileOut = new FileOutputStream(outFileName);
                             fileOut.write(labelInternationalSignatureGraphicImageBytes);
                             fileOut.flush();
+                            fileOut.close();
                         } catch (IOException e) {
                             Debug.logInfo(e, "Could not save UPS IntlSign LabelImage GIF file: [[[" + packageLabelInternationalSignatureGraphicImageString + "]]] to file: " + outFileName, module);
                         }
                     }
                     if (packageLabelHTMLImageStringDecoded != null) {
                         String outFileName = shipmentUpsSaveCertificationPath + "/UpsShipmentLabelHTMLImage" + shipmentRouteSegment.getString("shipmentId") + "_" + shipmentRouteSegment.getString("shipmentRouteSegmentId") + "_" + shipmentPackageRouteSeg.getString("shipmentPackageSeqId") + ".html";
-                        try (FileOutputStream fileOut = new FileOutputStream(outFileName)) {
-                            fileOut.write(packageLabelHTMLImageStringDecoded.getBytes(UtilIO.getUtf8()));
+                        try {
+                            FileOutputStream fileOut = new FileOutputStream(outFileName);
+                            fileOut.write(packageLabelHTMLImageStringDecoded.getBytes());
                             fileOut.flush();
+                            fileOut.close();
                         } catch (IOException e) {
                             Debug.logInfo(e, "Could not save UPS LabelImage HTML file: [[[" + packageLabelHTMLImageStringDecoded + "]]] to file: " + outFileName, module);
                         }
@@ -1166,9 +1178,11 @@ public class UpsServices {
                     shipmentRouteSegment.set("upsHighValueReport", fileStringDecoded);
                     shipmentRouteSegment.store();
                     String outFileName = shipmentUpsSaveCertificationPath + "/HighValueReport" + shipmentRouteSegment.getString("shipmentId") + "_" + shipmentRouteSegment.getString("shipmentRouteSegmentId") + ".html";
-                    try (FileOutputStream fileOut = new FileOutputStream(outFileName)) {
-                        fileOut.write(fileStringDecoded.getBytes(UtilIO.getUtf8()));
+                    try {
+                        FileOutputStream fileOut = new FileOutputStream(outFileName);
+                        fileOut.write(fileStringDecoded.getBytes());
                         fileOut.flush();
+                        fileOut.close();
                     } catch (IOException e) {
                         Debug.logInfo(e, "Could not save UPS High Value Report data: [[[" + fileStringDecoded + "]]] to file: " + outFileName, module);
                     }
@@ -1287,9 +1301,11 @@ public class UpsServices {
 
             if (shipmentUpsSaveCertificationInfo) {
                 String outFileName = shipmentUpsSaveCertificationPath + "/UpsVoidShipmentRequest" + shipmentId + "_" + shipmentRouteSegment.getString("shipmentRouteSegmentId") + ".xml";
-                try (FileOutputStream fileOut = new FileOutputStream(outFileName)) {
-                    fileOut.write(xmlString.toString().getBytes(UtilIO.getUtf8()));
+                try {
+                    FileOutputStream fileOut = new FileOutputStream(outFileName);
+                    fileOut.write(xmlString.toString().getBytes());
                     fileOut.flush();
+                    fileOut.close();
                 } catch (IOException e) {
                     Debug.logInfo(e, "Could not save UPS XML file: [[[" + xmlString.toString() + "]]] to file: " + outFileName, module);
                 }
@@ -1306,9 +1322,11 @@ public class UpsServices {
 
             if (shipmentUpsSaveCertificationInfo) {
                 String outFileName = shipmentUpsSaveCertificationPath + "/UpsVoidShipmentResponse" + shipmentId + "_" + shipmentRouteSegment.getString("shipmentRouteSegmentId") + ".xml";
-                try (FileOutputStream fileOut = new FileOutputStream(outFileName)) {
-                    fileOut.write(voidShipmentResponseString.getBytes(UtilIO.getUtf8()));
+                try {
+                    FileOutputStream fileOut = new FileOutputStream(outFileName);
+                    fileOut.write(voidShipmentResponseString.getBytes());
                     fileOut.flush();
+                    fileOut.close();
                 } catch (IOException e) {
                     Debug.logInfo(e, "Could not save UPS XML file: [[[" + xmlString.toString() + "]]] to file: " + outFileName, module);
                 }
@@ -1483,9 +1501,11 @@ public class UpsServices {
 
             if (shipmentUpsSaveCertificationInfo) {
                 String outFileName = shipmentUpsSaveCertificationPath + "/UpsTrackRequest" + shipmentId + "_" + shipmentRouteSegment.getString("shipmentRouteSegmentId") + ".xml";
-                try (FileOutputStream fileOut = new FileOutputStream(outFileName)) {
-                    fileOut.write(xmlString.toString().getBytes(UtilIO.getUtf8()));
+                try {
+                    FileOutputStream fileOut = new FileOutputStream(outFileName);
+                    fileOut.write(xmlString.toString().getBytes());
                     fileOut.flush();
+                    fileOut.close();
                 } catch (IOException e) {
                     Debug.logInfo(e, "Could not save UPS XML file: [[[" + xmlString.toString() + "]]] to file: " + outFileName, module);
                 }
@@ -1502,9 +1522,11 @@ public class UpsServices {
 
             if (shipmentUpsSaveCertificationInfo) {
                 String outFileName = shipmentUpsSaveCertificationPath + "/UpsTrackResponseString" + shipmentId + "_" + shipmentRouteSegment.getString("shipmentRouteSegmentId") + ".xml";
-                try (FileOutputStream fileOut = new FileOutputStream(outFileName)) {
-                    fileOut.write(trackResponseString.getBytes(UtilIO.getUtf8()));
+                try {
+                    FileOutputStream fileOut = new FileOutputStream(outFileName);
+                    fileOut.write(trackResponseString.getBytes());
                     fileOut.flush();
+                    fileOut.close();
                 } catch (IOException e) {
                     Debug.logInfo(e, "Could not save UPS XML file: [[[" + xmlString.toString() + "]]] to file: " + outFileName, module);
                 }
@@ -1664,11 +1686,8 @@ public class UpsServices {
         cxt.put("shipFromAddress", shipFromAddress);
         cxt.put("shipmentGatewayConfigId", context.get("shipmentGatewayConfigId"));
         try {
-            Map<String, Object> serviceResult = dctx.getDispatcher().runSync("upsRateEstimateByPostalCode", cxt);
-            if (ServiceUtil.isError(serviceResult)) {
-                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
-            }
-            return serviceResult;
+            return dctx.getDispatcher().runSync("upsRateEstimateByPostalCode", cxt);
+
         } catch (GenericServiceException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "FacilityShipmentUpsRateEstimateError", 
@@ -1713,7 +1732,7 @@ public class UpsServices {
             Iterator<String> i = packageMap.keySet().iterator();
             String productId = i.next();
             Map<String, Object> productInfo = ShipmentWorker.getProductItemInfo(shippableItemInfo, productId);
-            if (productInfo.get("inShippingBox") != null && "Y".equalsIgnoreCase((String) productInfo.get("inShippingBox"))
+            if (productInfo.get("inShippingBox") != null &&  ((String) productInfo.get("inShippingBox")).equalsIgnoreCase("Y")
                     && productInfo.get("shippingDepth") !=null && productInfo.get("shippingWidth") !=null && productInfo.get("shippingHeight") !=null) {
                 Element dimensionsElement = UtilXml.addChildElement(packageElement, "Dimensions", requestDoc);
                 UtilXml.addChildElementValue(dimensionsElement, "Length", productInfo.get("shippingDepth").toString(), requestDoc);
@@ -1850,6 +1869,10 @@ public class UpsServices {
      */
     public static String sendUpsRequest(String upsService, String xmlString, String shipmentGatewayConfigId, 
             String resource, Delegator delegator, Locale locale) throws UpsConnectException {
+        String conStr = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "connectUrl", resource, "shipment.ups.connect.url");
+        if (conStr == null) {
+            throw new UpsConnectException(UtilProperties.getMessage(resourceError, "FacilityShipmentUpsIncompleteConnectionURL", locale));
+        }
 
         // need a ups service to call
         if (upsService == null) {
@@ -1860,11 +1883,6 @@ public class UpsServices {
         // all documents require an <?xml version="1.0"?> header
         if (xmlString == null) {
             throw new UpsConnectException(UtilProperties.getMessage(resourceError, "FacilityShipmentUpsXmlMessageCannotBeNull", locale));
-        }
-
-        String conStr = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "connectUrl", resource, "shipment.ups.connect.url");
-        if (UtilValidate.isEmpty(conStr)) {
-            throw new UpsConnectException(UtilProperties.getMessage(resourceError, "FacilityShipmentUpsIncompleteConnectionURL", locale));
         }
 
         // prepare the connect string
@@ -1917,6 +1935,9 @@ public class UpsServices {
         String shippingCountryCode = (String) context.get("shippingCountryCode");
         List<BigDecimal> packageWeights = UtilGenerics.checkList(context.get("packageWeights"));
         List<Map<String, Object>> shippableItemInfo = UtilGenerics.checkList(context.get("shippableItemInfo"));
+        BigDecimal shippableTotal = (BigDecimal) context.get("shippableTotal");
+        BigDecimal shippableQuantity = (BigDecimal) context.get("shippableQuantity");
+        BigDecimal shippableWeight = (BigDecimal) context.get("shippableWeight");
         String isResidentialAddress = (String)context.get("isResidentialAddress");
 
         // Important: DO NOT returnError here or you could trigger a transaction rollback and break other services.
@@ -1924,6 +1945,15 @@ public class UpsServices {
             return ServiceUtil.returnFailure(UtilProperties.getMessage(resourceError, "FacilityShipmentUpsCannotRateEstimatePostalCodeMissing", locale));
         }
 
+        if (shippableTotal == null) {
+            shippableTotal = BigDecimal.ZERO;
+        }
+        if (shippableQuantity == null) {
+            shippableQuantity = BigDecimal.ZERO;
+        }
+        if (shippableWeight == null) {
+            shippableWeight = BigDecimal.ZERO;
+        }
         if (serviceConfigProps == null) {
             serviceConfigProps = "shipment.properties";
         }
@@ -2019,7 +2049,7 @@ public class UpsServices {
             UtilXml.addChildElementValue(shiptoAddrElement, "CountryCode", shippingCountryCode, rateRequestDoc);
         }
 
-        if (isResidentialAddress != null && "Y".equals(isResidentialAddress)) {
+        if (isResidentialAddress != null && isResidentialAddress.equals("Y")) {
             UtilXml.addChildElement(shiptoAddrElement, "ResidentialAddress", rateRequestDoc);
         }
         // requested service (code) - not used when in Shop mode
@@ -2030,14 +2060,14 @@ public class UpsServices {
 
         // package info
         String maxWeightStr = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "maxEstimateWeight", serviceConfigProps, "shipment.ups.max.estimate.weight", "99");
-        BigDecimal maxWeight;
+        BigDecimal maxWeight = new BigDecimal("99");
         try {
             maxWeight = new BigDecimal(maxWeightStr);
         } catch (NumberFormatException e) {
             maxWeight = new BigDecimal("99");
         }
         String minWeightStr = getShipmentGatewayConfigValue(delegator, shipmentGatewayConfigId, "minEstimateWeight", serviceConfigProps, "shipment.ups.min.estimate.weight", ".1");
-        BigDecimal minWeight;
+        BigDecimal minWeight = new BigDecimal("0.1");
         try {
             minWeight = new BigDecimal(minWeightStr);
         } catch (NumberFormatException e) {
@@ -2376,18 +2406,12 @@ public class UpsServices {
             }
 
             Map<String, Object> destEmail = dispatcher.runSync("getPartyEmail", UtilMisc.toMap("partyId", shipment.get("partyIdTo"), "userLogin", userLogin));
-            if (ServiceUtil.isError(destEmail)) {
-                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(destEmail));
-            }
             String recipientEmail = null;
             if (UtilValidate.isNotEmpty(destEmail.get("emailAddress"))) {
                 recipientEmail = (String) destEmail.get("emailAddress");
             }
             String senderEmail = null;
             Map<String, Object> originEmail = dispatcher.runSync("getPartyEmail", UtilMisc.toMap("partyId", shipment.get("partyIdFrom"), "userLogin", userLogin));
-            if (ServiceUtil.isError(originEmail)) {
-                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(originEmail));
-            }
             if (UtilValidate.isNotEmpty(originEmail.get("emailAddress"))) {
                 senderEmail = (String) originEmail.get("emailAddress");
             }
@@ -2641,9 +2665,11 @@ public class UpsServices {
 
             if (shipmentUpsSaveCertificationInfo) {
                 String outFileName = shipmentUpsSaveCertificationPath + "/UpsShipmentAcceptRequest" + shipmentId + "_" + shipmentRouteSegment.getString("shipmentRouteSegmentId") + ".xml";
-                try (FileOutputStream fileOut = new FileOutputStream(outFileName)) {
-                    fileOut.write(xmlString.toString().getBytes(UtilIO.getUtf8()));
+                try {
+                    FileOutputStream fileOut = new FileOutputStream(outFileName);
+                    fileOut.write(xmlString.toString().getBytes());
                     fileOut.flush();
+                    fileOut.close();
                 } catch (IOException e) {
                     Debug.logInfo(e, "Could not save UPS XML file: [[[" + xmlString.toString() + "]]] to file: " + outFileName, module);
                 }
@@ -2672,7 +2698,7 @@ public class UpsServices {
         Delegator delegator = dctx.getDelegator();
 
         // prepare the data
-        String upsRateInquireMode;
+        String upsRateInquireMode = (String) context.get("upsRateInquireMode");
         String shipmentId = (String) context.get("shipmentId");
         String shipmentRouteSegmentId = (String) context.get("shipmentRouteSegmentId");
         Locale locale = (Locale) context.get("locale");
@@ -2874,9 +2900,9 @@ public class UpsServices {
                     Element unitOfMeasurementElement = UtilXml.addChildElement(dimensionsElement, "UnitOfMeasurement", rateRequestDoc);
                     GenericValue dimensionUom = shipmentBoxType.getRelatedOne("DimensionUom", false);
                     if (dimensionUom != null) {
-                        UtilXml.addChildElementValue(unitOfMeasurementElement, "Code", dimensionUom.getString("abbreviation").toUpperCase(Locale.getDefault()), rateRequestDoc);
+                        UtilXml.addChildElementValue(unitOfMeasurementElement, "Code", dimensionUom.getString("abbreviation").toUpperCase(), rateRequestDoc);
                     } else {
-                        UtilXml.addChildElementValue(unitOfMeasurementElement, "Code", ModelService.IN_PARAM, rateRequestDoc);
+                        UtilXml.addChildElementValue(unitOfMeasurementElement, "Code", "IN", rateRequestDoc);
                     }
                     BigDecimal boxLength = shipmentBoxType.getBigDecimal("boxLength");
                     BigDecimal boxWidth = shipmentBoxType.getBigDecimal("boxWidth");
@@ -2890,7 +2916,7 @@ public class UpsServices {
                             UtilValidate.isNotEmpty(shipmentPackage.get("boxHeight"))) {
                         Element dimensionsElement = UtilXml.addChildElement(packageElement, "Dimensions", rateRequestDoc);
                         Element unitOfMeasurementElement = UtilXml.addChildElement(dimensionsElement, "UnitOfMeasurement", rateRequestDoc);
-                        UtilXml.addChildElementValue(unitOfMeasurementElement, "Code", ModelService.IN_PARAM, rateRequestDoc);
+                        UtilXml.addChildElementValue(unitOfMeasurementElement, "Code", "IN", rateRequestDoc);
                         BigDecimal length = (BigDecimal) shipmentPackage.get("boxLength");
                         BigDecimal width = (BigDecimal) shipmentPackage.get("boxWidth");
                         BigDecimal height = (BigDecimal) shipmentPackage.get("boxHeight");

@@ -1,0 +1,679 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
+    <screen name="survey">
+        <section>
+            <actions>
+                <set field="leftbarScreenName" value="leftbar"/>
+                <set field="rightbarScreenName" value="rightbar"/>
+                <set field="MainColumnStyle" value="center"/>
+
+                <set field="titleProperty" value="PageTitleAdditionalInfo"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://order/template/entry/Survey.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="editcontactmech">
+        <section>
+            <actions>
+                <script location="component://ecommerce/groovyScripts/customer/EditContactMech.groovy"/>
+                <set field="reqName" from-field="requestName" />
+                
+                <set field="dependentForm" value="editcontactmechform"/>
+                <set field="paramKey" value="countryGeoId"/>
+                <set field="mainId" value="countryGeoId"/>
+                <set field="dependentId" value="stateProvinceGeoId"/>
+                <set field="requestName" value="getAssociatedStateList"/>
+                <set field="responseName" value="stateList"/>
+                <set field="dependentKeyName" value="geoId"/>
+                <set field="descName" value="geoName"/>
+                <set field="selectedDependentOption" from-field="selectedStateName" default-value="_none_"/>
+                
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html>
+                                <html-template location="component://common/template/includes/SetDependentDropdownValuesJs.ftl"/>
+                                <html-template location="component://ecommerce/template/customer/EditContactMech.ftl"/>
+                            </html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="editcreditcard">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditCreditCard"/>
+                <set field="cardNumberMinDisplay" value="min"/>
+                <script location="component://ecommerce/groovyScripts/customer/EditPaymentMethod.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/template/customer/EditCreditCard.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="editeftaccount">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditEFTAccount"/>
+                <script location="component://ecommerce/groovyScripts/customer/EditPaymentMethod.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/template/customer/EditEftAccount.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="editgiftcard">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditGiftCard"/>
+                <script location="component://ecommerce/groovyScripts/customer/EditPaymentMethod.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/template/customer/EditGiftCard.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="changepassword">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleChangePassword"/>
+                <script location="component://ecommerce/groovyScripts/customer/ChangePassword.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/template/customer/ChangePassword.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="editperson">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditPerson"/>
+                <get-related-one value-field="userLogin" relation-name="Person" to-value-field="person"/>
+                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="viewprofile"/>
+                <script location="component://ecommerce/groovyScripts/customer/EditPerson.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/template/customer/EditPerson.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="giftcardbalance">
+        <section>
+            <actions>
+                <set field="leftbarScreenName" value="leftbar"/>
+                <set field="rightbarScreenName" value="rightbar"/>
+                <set field="MainColumnStyle" value="center"/>
+
+                <set field="titleProperty" value="PageTitleGiftCardBalance"/>
+                <script location="component://ecommerce/groovyScripts/customer/GiftCardBalance.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/template/customer/GiftCardBalance.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="giftcardlink">
+        <section>
+            <actions>
+                <set field="leftbarScreenName" value="leftbar"/>
+                <set field="rightbarScreenName" value="rightbar"/>
+                <set field="MainColumnStyle" value="center"/>
+
+                <set field="titleProperty" value="PageTitleGiftCardLink"/>
+                <script location="component://ecommerce/groovyScripts/customer/GiftCardLink.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/template/customer/GiftCardLink.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="customersurvey">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleProfileSurvey"/>
+                <script location="component://ecommerce/groovyScripts/customer/CustomerSurvey.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/template/customer/CustomerSurvey.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="contactus">
+        <section>
+            <actions>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="rightbarScreenName" value="rightbar"/>
+                <set field="MainColumnStyle" value="rightonly"/>
+
+                <set field="titleProperty" value="PageTitleLogin"/>
+                <set field="pageHeader" value="${uiLabelMap.CommonContactUs}"/>
+                <set field="headerItem" value="contactus"/>
+                <set field="submitRequest" value="contactsubmit"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/template/customer/NewMsg.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="messagelist">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleMessageList"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-screen name="messagelist-include"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="messagelist-include">
+        <section>
+            <actions>
+                <entity-condition entity-name="CommunicationEvent" list="receivedCommunicationEvents">
+                    <condition-expr field-name="partyIdTo" operator="equals" from-field="userLogin.partyId"/>
+                    <order-by field-name="-entryDate"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <section>
+                    <condition><if-compare field="parameters.showSent" operator="equals" value="true"/></condition>
+                    <actions>
+                        <entity-condition entity-name="CommunicationEvent" list="sentCommunicationEvents">
+                            <condition-expr field-name="partyIdFrom" operator="equals" from-field="userLogin.partyId"/>
+                            <order-by field-name="-entryDate"/>
+                        </entity-condition>
+                    </actions>
+                    <widgets></widgets>
+                </section>
+                <platform-specific><html><html-template location="component://ecommerce/template/customer/MessageList.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="messagedetail">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleMessageDetail"/>
+                <entity-one entity-name="CommunicationEvent" value-field="communicationEvent" auto-field-map="true"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/template/customer/MessageDetail.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="messagecreate">
+        <section>
+            <actions>
+                <property-map resource="EcommerceUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="PageTitleNewMessage"/>
+                <set field="pageHeader" value="${uiLabelMap.PageTitleNewMessage}"/>
+                <set field="showMessageLinks" value="true"/>
+
+                <set field="submitRequest" value="sendmessage"/>
+                <entity-one entity-name="CommunicationEvent" value-field="communicationEvent" auto-field-map="true"/>
+                <set field="partyIdTo" from-field="communicationEvent.partyIdFrom"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/template/customer/NewMsg.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="digitalproductlist">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleDigitalProductList"/>
+
+                <entity-and entity-name="SupplierProduct" list="supplierProductList">
+                    <field-map field-name="partyId" from-field="userLogin.partyId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition><if-compare field="productStore.enableDigProdUpload" operator="equals" value="Y"/></condition>
+                            <widgets>
+                                <platform-specific><html><html-template location="component://ecommerce/template/customer/DigitalProductList.ftl"/></html></platform-specific>
+                            </widgets>
+                            <fail-widgets>
+                                <container><label style="head2" text="${uiLabelMap.EcommerceSorryDigitalProductUploadNotEnabled}"></label></container>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="digitalproductedit">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleDigitalProductEdit"/>
+
+                <set field="parameters.minimumOrderQuantity" value="1" type="BigDecimal"/>
+                <entity-one entity-name="SupplierProduct" value-field="supplierProduct" auto-field-map="false">
+                    <field-map field-name="partyId" from-field="userLogin.partyId"/><!-- get from userLogin for security reasons -->
+                    <field-map field-name="productId" from-field="parameters.productId"/>
+                    <field-map field-name="currencyUomId" from-field="parameters.currencyUomId"/>
+                    <field-map field-name="minimumOrderQuantity" from-field="parameters.minimumOrderQuantity"/>
+                    <field-map field-name="availableFromDate" from-field="parameters.availableFromDate"/>
+                </entity-one>
+                <entity-one entity-name="Product" value-field="product"/>
+
+                <!-- should just be one, but don't have all pk fields so will just get first from list -->
+                <entity-and entity-name="ProductPrice" list="productPriceList">
+                    <field-map field-name="productId" from-field="parameters.productId"/>
+                    <field-map field-name="productPriceTypeId" value="DEFAULT_PRICE"/>
+                    <field-map field-name="productPricePurposeId" value="PURCHASE"/>
+                    <field-map field-name="productStoreGroupId" value="_NA_"/>
+                </entity-and>
+
+                <entity-condition entity-name="ProductContentAndInfo" list="productContentAndInfoList" filter-by-date="true">
+                    <condition-list combine="and">
+                        <condition-expr field-name="productId" from-field="parameters.productId"/>
+                        <condition-expr field-name="productContentTypeId" value="DIGITAL_DOWNLOAD"/>
+                    </condition-list>
+                    <order-by field-name="contentId"/>
+                </entity-condition>
+                <entity-and entity-name="ContentAndRole" list="ownerContentAndRoleList">
+                    <field-map field-name="partyId" from-field="userLogin.partyId"/>
+                    <field-map field-name="roleTypeId" value="OWNER"/>
+                    <order-by field-name="contentId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition><if-compare field="productStore.enableDigProdUpload" operator="equals" value="Y"/></condition>
+                            <widgets>
+                                <platform-specific><html><html-template location="component://ecommerce/template/customer/DigitalProductEdit.ftl"/></html></platform-specific>
+                            </widgets>
+                            <fail-widgets>
+                                <container><label style="head2" text="${uiLabelMap.EcommerceSorryDigitalProductUploadNotEnabled}"></label></container>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- simple screens for FinAccount summary -->
+    <screen name="FinAccountList-include">
+        <section>
+            <actions>
+                <entity-condition entity-name="FinAccount" list="ownedFinAccountList" filter-by-date="true">
+                    <condition-list combine="and">
+                        <condition-expr field-name="ownerPartyId" operator="equals" from-field="userLogin.partyId"/>
+                        <condition-expr field-name="organizationPartyId" operator="equals" from-field="productStore.payToPartyId"/>
+                    </condition-list>
+                    <order-by field-name="-fromDate"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <section>
+                    <condition><not><if-empty field="ownedFinAccountList"/></not></condition>
+                    <widgets>
+                        <screenlet id="fin-account-list" title="${uiLabelMap.EcommerceMyAccount}">
+                            <iterate-section entry="ownedFinAccount" list="ownedFinAccountList">
+                                <section>
+                                    <actions>
+                                        <entity-condition entity-name="FinAccountTrans" list="ownedFinAccountTransList">
+                                            <condition-expr field-name="finAccountId" from-field="ownedFinAccount.finAccountId"/>
+                                            <order-by field-name="transactionDate"/>
+                                        </entity-condition>
+                                        <entity-condition entity-name="FinAccountAuth" list="ownedFinAccountAuthList" filter-by-date="true">
+                                            <condition-expr field-name="finAccountId" from-field="ownedFinAccount.finAccountId"/>
+                                            <order-by field-name="authorizationDate"/>
+                                        </entity-condition>
+                                        <entity-one entity-name="StatusItem" value-field="finAccountStatusItem">
+                                            <field-map field-name="statusId" from-field="ownedFinAccount.statusId"/>
+                                        </entity-one>
+                                        <entity-one entity-name="Uom" value-field="accountCurrencyUom" auto-field-map="false" use-cache="true">
+                                            <field-map field-name="uomId" from-field="ownedFinAccount.currencyUomId"/>
+                                        </entity-one>
+                                    </actions>
+                                    <widgets>
+                                        <platform-specific><html><html-template location="component://ecommerce/template/customer/FinAccountDetail.ftl"/></html></platform-specific>
+                                    </widgets>
+                                </section>
+                            </iterate-section>
+                        </screenlet>
+                    </widgets>
+                </section>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="SerializedInventorySummary">
+        <section>
+            <actions>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+
+                <entity-condition entity-name="InventoryItem" list="inventoryItemList">
+                    <condition-list>
+                        <condition-expr field-name="inventoryItemTypeId" operator="equals" value="SERIALIZED_INV_ITEM"/>
+                        <condition-expr field-name="ownerPartyId" operator="equals" from-field="userLogin.partyId"/>
+                    </condition-list>
+                    <order-by field-name="-createdStamp"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <section>
+                    <condition>
+                        <not>
+                            <if-empty field="inventoryItemList"/>
+                        </not>
+                    </condition>
+                    <widgets>
+                        <platform-specific>
+                            <html>
+                                <html-template location="component://ecommerce/template/customer/SerializedInventorySummary.ftl"/>
+                            </html>
+                        </platform-specific>
+                    </widgets>
+                </section>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="SubscriptionSummary">
+        <section>
+            <actions>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+
+                <entity-condition entity-name="Subscription" list="subscriptionList" filter-by-date="true">
+                    <condition-list>
+                        <condition-expr field-name="partyId" operator="equals" from-field="userLogin.partyId"/>
+                    </condition-list>
+                    <order-by field-name="-fromDate"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <section>
+                    <condition>
+                        <not>
+                            <if-empty field="subscriptionList"/>
+                        </not>
+                    </condition>
+                    <widgets>
+                        <platform-specific>
+                            <html>
+                                <html-template location="component://ecommerce/template/customer/SubscriptionSummary.ftl"/>
+                            </html>
+                        </platform-specific>
+                    </widgets>
+                </section>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="newcustomer">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleNewCustomer"/>
+                <script location="component://ecommerce/groovyScripts/customer/NewCustomer.groovy"/>
+
+                <set field="dependentForm" value="newuserform"/>
+                <set field="paramKey" value="countryGeoId"/>
+                <set field="mainId" value="countryGeoId"/>
+                <set field="dependentId" value="stateProvinceGeoId"/>
+                <set field="requestName" value="getAssociatedStateList"/>
+                <set field="responseName" value="stateList"/>
+                <set field="dependentKeyName" value="geoId"/>
+                <set field="descName" value="geoName"/>
+                <set field="selectedDependentOption" default-value="_none_"/>
+                
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html>
+                                <html-template location="component://common/template/includes/SetDependentDropdownValuesJs.ftl"/>
+                                <html-template location="component://ecommerce/template/customer/NewCustomer.ftl"/>
+                            </html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="viewprofile">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleViewProfile"/>
+
+                <set field="partyId" from-field="userLogin.partyId"/>
+                <entity-one entity-name="Party" value-field="party"/>
+                <entity-one entity-name="Person" value-field="person"/>
+                <entity-one entity-name="PartyGroup" value-field="partyGroup"/>
+
+                <script location="component://ecommerce/groovyScripts/customer/ViewProfile.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/template/customer/ViewProfile.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <!-- To use new pages uncomment following screens i.e. newcustomer and viewprofile and comment existing newcustomer and viewprofile screens above -->
+
+    <!--screen name="newcustomer">
+        <section>
+            <actions>
+                <property-map resource="MarketingUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="SecurityextUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="PageTitleNewCustomer"/>
+                <set field="layoutSettings.javaScripts[]" value="/ecommerce/images/profile.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/ordermgr-js/geoAutoCompleter.js" global="true"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/template/customer/profile/NewCustomer.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="viewprofile">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleViewProfile"/>
+                <set field="partyId" from-field="userLogin.partyId"/>
+                <entity-one entity-name="Party" value-field="party"/>
+                <entity-one entity-name="Person" value-field="person"/>
+                <entity-one entity-name="PartyGroup" value-field="partyGroup"/>
+
+                <set field="layoutSettings.javaScripts[]" value="/ecommerce/images/profile.js" global="true"/>
+                <script location="component://ecommerce/groovyScripts/customer/EditShippingAddress.groovy"/>
+                <script location="component://ecommerce/groovyScripts/customer/EditBillingAddress.groovy"/>
+                <script location="component://ecommerce/groovyScripts/customer/EditEmailAndTelecomNumber.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/template/customer/profile/ViewProfile.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen-->
+
+
+    <screen name="EditProfile">
+        <section>
+            <actions>
+                <property-map resource="MarketingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="EcommerceEditProfile"/>
+                <set field="layoutSettings.javaScripts[]" value="/ecommerce/images/profile.js" global="true"/>
+                <script location="component://ecommerce/groovyScripts/customer/EditShippingAddress.groovy"/>
+                <script location="component://ecommerce/groovyScripts/customer/EditEmailAndTelecomNumber.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/template/customer/profile/EditProfile.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="ManageAddress">
+        <section>
+            <actions>
+                <set field="titleProperty" value="EcommerceManageAddresses"/>
+                <set field="partyId" from-field="userLogin.partyId"/>
+
+                <set field="layoutSettings.javaScripts[]" value="/ecommerce/images/profile.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/ordermgr-js/geoAutoCompleter.js" global="true"/>
+                <script location="component://ecommerce/groovyScripts/customer/EditShippingAddress.groovy"/>
+                <script location="component://ecommerce/groovyScripts/customer/EditBillingAddress.groovy"/>
+                <script location="component://ecommerce/groovyScripts/customer/ViewProfile.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/template/customer/profile/ManageAddress.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="AnonContactus">
+        <section>
+            <actions>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="rightbarScreenName" value="rightbar"/>
+                <set field="MainColumnStyle" value="rightonly"/>
+
+                <set field="titleProperty" value="PageTitleLogin"/>
+                <set field="pageHeader" value="${uiLabelMap.CommonContactUs}"/>
+                <set field="headerItem" value="contactus"/>
+                <set field="submitRequest" value="contactsubmit"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/template/customer/AnonContactus.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="showProductReviews">
+        <section>
+            <actions>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+
+                <script location="component://ecommerce/groovyScripts/customer/CustomerReviews.groovy"/>
+            </actions>
+            <widgets>
+                <section>
+                    <condition>
+                      <not>
+                        <if-empty field="reviews"/>
+                      </not>
+                    </condition>
+                    <widgets>
+                        <platform-specific><html><html-template location="component://ecommerce/template/customer/ViewReviews.ftl"/></html></platform-specific>
+                    </widgets>
+              </section>
+            </widgets>
+        </section>
+    </screen>
+
+
+</screens>

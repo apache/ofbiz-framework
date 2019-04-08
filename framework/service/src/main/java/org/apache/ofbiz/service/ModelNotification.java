@@ -81,8 +81,8 @@ public class ModelNotification {
         }
 
         // template context
-        Map<String, Object> notifyContext = new HashMap<>();
-        Map<String, Object> bodyParams = new HashMap<>();
+        Map<String, Object> notifyContext = new HashMap<String, Object>();
+        Map<String, Object> bodyParams = new HashMap<String, Object>();
         bodyParams.put("serviceContext", context);
         bodyParams.put("serviceResult", result);
         bodyParams.put("service", model);
@@ -139,7 +139,7 @@ public class ModelNotification {
     }
 
     private List<String> getAddressesByType(NotificationGroup group, String type) {
-        List<String> l = new ArrayList<>();
+        List<String> l = new ArrayList<String>();
         for (Notify n : group.getNotifyList()) {
             if (n.getType().equals(type)) {
                 l.add(n.getContent());

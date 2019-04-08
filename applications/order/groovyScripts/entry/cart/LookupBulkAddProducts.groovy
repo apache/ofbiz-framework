@@ -17,9 +17,11 @@
  * under the License.
  */
 
+import org.apache.ofbiz.entity.condition.EntityExpr
 import org.apache.ofbiz.entity.condition.EntityFunction
 import org.apache.ofbiz.entity.condition.EntityOperator
 import org.apache.ofbiz.entity.condition.EntityFieldValue
+import org.apache.ofbiz.entity.condition.EntityConditionList
 import org.apache.ofbiz.entity.condition.EntityCondition
 
 productId = request.getParameter("productId") ?: ""

@@ -22,12 +22,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -63,7 +60,7 @@ public class HumanResEvents {
         try {
             categoryList.addAll(getCurrentEmployeeDetails(paramMap));
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            e.printStackTrace();
             return "error";
         }
 
@@ -78,7 +75,7 @@ public class HumanResEvents {
                 categoryList.addAll(getEmployeeInComp(paramMap));
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            e.printStackTrace();
             return "error";
         }
         request.setAttribute("hrTree", categoryList);
@@ -153,7 +150,7 @@ public class HumanResEvents {
                 }
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            e.printStackTrace();
             throw new GenericEntityException(e);
         }
 
@@ -168,7 +165,7 @@ public class HumanResEvents {
         String hrefString = (String) params.get("hrefString");
         String hrefString2 = (String) params.get("hrefString2");
 
-        Map<String , Object> partyGroup = UtilGenerics.checkMap(params.get("partyGroup"));
+        Map<String , Object> partyGroup = (Map<String, Object>) params.get("partyGroup");
         List<Map<String, Object>> resultList = new ArrayList<Map<String,Object>>();
         List<GenericValue> childOfComs = null;
 
@@ -246,7 +243,7 @@ public class HumanResEvents {
                 }  
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+            e.printStackTrace();
             throw new GenericEntityException(e);
         }
 

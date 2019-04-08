@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
+    <title>Entity of an Apache OFBiz Component</title>
+    <description>old depreciated entities</description>
+    <version>1.0</version>
+
+  <entity entity-name="OldWorkEffortAssignmentRate" table-name="WORK_EFFORT_ASSIGNMENT_RATE"
+    package-name="org.apache.ofbiz.workeffort.timesheet"
+    title="Work Effort Assignment Rate Entity, now depreciated and replaced by the RateAmount entity">
+    <field name="workEffortId" type="id-ne"></field>
+    <field name="rateTypeId" type="id-ne"></field>
+    <field name="partyId" type="id-ne"></field>
+    <field name="fromDate" type="date-time"></field>
+    <field name="thruDate" type="date-time"></field>
+    <field name="rate" type="currency-amount"></field>
+    <prim-key field="workEffortId"/>
+    <prim-key field="rateTypeId"/>
+    <prim-key field="partyId"/>
+    <prim-key field="fromDate"/>
+    <relation type="one" fk-name="WEFF_ASRT_WEFF" rel-entity-name="WorkEffort">
+      <key-map field-name="workEffortId"/>
+    </relation>
+    <relation type="one" fk-name="WEFF_ASRT_RATETP" rel-entity-name="RateType">
+      <key-map field-name="rateTypeId"/>
+    </relation>
+    <relation type="one" fk-name="WEFF_ASRT_PRTY" rel-entity-name="Party">
+      <key-map field-name="partyId"/>
+    </relation>
+  </entity>
+  <entity entity-name="OldWorkEffortContactMech" table-name="WORK_EFFORT_CONTACT_MECH"
+          package-name="org.apache.ofbiz.workeffort.workeffort"
+          title="Old WorkEffort Contact Mechanism Entity, now depreciated and replaced by the WorkEffortContactMech entity">
+    <field name="workEffortId" type="id-ne"></field>
+    <field name="contactMechId" type="id-ne"></field>
+    <field name="comments" type="comment"></field>
+    <prim-key field="workEffortId"/>
+    <prim-key field="contactMechId"/>
+    <relation type="one" fk-name="OLWKEF_CMECH_WKEFF" rel-entity-name="WorkEffort">
+      <key-map field-name="workEffortId"/>
+    </relation>
+    <relation type="one" fk-name="OLWKEF_CMECH_CMECH" rel-entity-name="ContactMech">
+      <key-map field-name="contactMechId"/>
+    </relation>
+    <relation type="one-nofk" rel-entity-name="TelecomNumber">
+      <key-map field-name="contactMechId"/>
+    </relation>
+  </entity>
+
+</entitymodel>

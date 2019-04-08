@@ -57,7 +57,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleFindGatewayResponses"/> <!-- shows up in browser title bar -->
                 <set field="tabButtonItem" value="gatewayresponsestab"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
             </actions>
             <widgets>
@@ -70,7 +70,7 @@ under the License.
                                         <include-form name="FindGatewayResponses" location="component://accounting/widget/TransactionForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-grid name="ListGatewayResponses" location="component://accounting/widget/TransactionForms.xml"/>
+                                        <include-form name="ListGatewayResponses" location="component://accounting/widget/TransactionForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
@@ -102,7 +102,7 @@ under the License.
                             <include-form name="ViewGatewayResponseRelations" location="component://accounting/widget/TransactionForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.AccountingPaymentsMenu}">
-                            <include-grid name="ViewGatewayResponsePayments" location="component://accounting/widget/TransactionForms.xml"/>
+                            <include-form name="ViewGatewayResponsePayments" location="component://accounting/widget/TransactionForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PageTitleViewGatewayResponse}">
                             <include-form name="ViewGatewayResponse" location="component://accounting/widget/TransactionForms.xml"/>

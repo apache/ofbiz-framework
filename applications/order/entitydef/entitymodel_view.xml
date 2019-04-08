@@ -1651,19 +1651,7 @@ under the License.
         <key-map field-name="communicationEventId"/>
       </view-link>
     </view-entity>
-    
-    <view-entity entity-name="CommunicationEventAndReturn"
-                 package-name="org.apache.ofbiz.return.communication"
-                 title="Communication Event And Return View Entity">
-      <member-entity entity-alias="CR" entity-name="CommunicationEventReturn"/>
-      <member-entity entity-alias="CE" entity-name="CommunicationEvent"/>
-      <alias-all entity-alias="CR"/>
-      <alias-all entity-alias="CE"/>
-      <view-link entity-alias="CR" rel-entity-alias="CE">
-        <key-map field-name="communicationEventId"/>
-      </view-link>
-    </view-entity>
-    
+
     <view-entity entity-name="OrderItemAndShipGrpInvResAndItemSum"
             package-name="org.apache.ofbiz.order.order"
             never-cache="true"
@@ -1774,27 +1762,5 @@ under the License.
       <view-link rel-entity-alias="WE" entity-alias="WOIF">
         <key-map field-name="workEffortId"/>
       </view-link>
-  </view-entity>
-  <view-entity entity-name="OrderAndPartyContactMech"
-           package-name="org.apache.ofbiz.party.party"
-           title="Order contact mech and purpose view">
-    <member-entity entity-alias="OCM" entity-name="OrderContactMech"/>
-    <member-entity entity-alias="CM" entity-name="ContactMech"/>
-    <member-entity entity-alias="PCM" entity-name="PartyContactMech"/>
-    <alias-all entity-alias="OCM"/>
-    <alias entity-alias="PCM" name="partyId"/>
-    <alias entity-alias="PCM" name="contactFromDate" field="fromDate"/>
-    <alias entity-alias="PCM" name="contactThruDate" field="thruDate"/>
-    <alias entity-alias="CM" name="contactMechTypeId"/>
-    <alias entity-alias="CM" name="infoString"/>
-    <alias entity-alias="PCM" name="comments"/>
-    <alias entity-alias="PCM" name="extension"/>
-    <alias entity-alias="PCM" name="allowSolicitation"/>
-    <view-link entity-alias="OCM" rel-entity-alias="CM">
-      <key-map field-name="contactMechId"/>
-    </view-link>
-    <view-link entity-alias="CM" rel-entity-alias="PCM">
-      <key-map field-name="contactMechId"/>
-    </view-link>
   </view-entity>
 </entitymodel>

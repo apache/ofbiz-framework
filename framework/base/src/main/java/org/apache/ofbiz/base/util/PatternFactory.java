@@ -18,10 +18,10 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.util;
 
-import org.apache.ofbiz.base.util.cache.UtilCache;
 import org.apache.oro.text.regex.MalformedPatternException;
 import org.apache.oro.text.regex.Pattern;
 import org.apache.oro.text.regex.Perl5Compiler;
+import org.apache.ofbiz.base.util.cache.UtilCache;
 
 /**
  * A RegEx compiled pattern factory.

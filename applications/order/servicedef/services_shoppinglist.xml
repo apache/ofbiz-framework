@@ -33,7 +33,6 @@ under the License.
     <service name="createShoppingList" engine="simple" auth="false"
             location="component://order/minilang/shoppinglist/ShoppingListServices.xml" invoke="createShoppingList">
         <description>Create a shopping list entity</description>
-        <permission-service service-name="checkShoppingListSecurity" main-action="CREATE"/>
         <implements service="createShoppingListRecurrence"/>
         <implements service="shoppingListInterface"/>
         <attribute name="shoppingListId" type="String" mode="OUT" optional="false"/>
@@ -41,7 +40,6 @@ under the License.
     <service name="updateShoppingList" engine="simple" auth="true"
             location="component://order/minilang/shoppinglist/ShoppingListServices.xml" invoke="updateShoppingList">
         <description>Update a shopping list entity</description>
-        <permission-service service-name="checkShoppingListSecurity" main-action="UPDATE"/>
         <implements service="createShoppingListRecurrence"/>
         <implements service="shoppingListInterface"/>
         <attribute name="shoppingListId" type="String" mode="IN" optional="false"/>
@@ -49,14 +47,7 @@ under the License.
     <service name="removeShoppingList" engine="simple" auth="true"
             location="component://order/minilang/shoppinglist/ShoppingListServices.xml" invoke="removeShoppingList">
         <description>Remove a shopping list entity</description>
-        <permission-service service-name="checkShoppingListSecurity" main-action="DELETE"/>
         <attribute name="shoppingListId" type="String" mode="IN" optional="false"/>
-    </service>
-    <service name="checkShoppingListSecurity" engine="simple" auth="false"
-            location="component://order/minilang/shoppinglist/ShoppingListServices.xml" invoke="checkShoppingListSecurity">
-        <description>Checks security on a ShoppingList</description>
-        <implements service="permissionInterface"/>
-        <attribute name="partyId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="calculateShoppingListDeepTotalPrice" engine="simple" auth="true"
             location="component://order/minilang/shoppinglist/ShoppingListServices.xml" invoke="calculateShoppingListDeepTotalPrice">
@@ -120,7 +111,6 @@ under the License.
     <service name="createShoppingListItem" engine="simple" auth="false"
             location="component://order/minilang/shoppinglist/ShoppingListServices.xml" invoke="createShoppingListItem">
         <description>Create a shopping list item</description>
-        <permission-service service-name="checkShoppingListItemSecurity" main-action="CREATE"/>
         <implements service="shoppingListItemInterface"/>
         <attribute name="shoppingListId" type="String" mode="IN" optional="true"/>
         <attribute name="productStoreId" type="String" mode="INOUT" optional="true"/>
@@ -130,23 +120,14 @@ under the License.
     <service name="updateShoppingListItem" engine="simple" auth="true"
             location="component://order/minilang/shoppinglist/ShoppingListServices.xml" invoke="updateShoppingListItem">
         <description>Update a shopping list item</description>
-        <permission-service service-name="checkShoppingListItemSecurity" main-action="UPDATE"/>
         <implements service="shoppingListItemInterface"/>
         <attribute name="shoppingListItemSeqId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="removeShoppingListItem" engine="simple" auth="true"
             location="component://order/minilang/shoppinglist/ShoppingListServices.xml" invoke="removeShoppingListItem">
         <description>Remove a shopping list item</description>
-        <permission-service service-name="checkShoppingListItemSecurity" main-action="DELETE"/>
         <attribute name="shoppingListId" type="String" mode="IN" optional="false"/>
         <attribute name="shoppingListItemSeqId" type="String" mode="IN" optional="false"/>
-    </service>
-    <service name="checkShoppingListItemSecurity" engine="simple" auth="false"
-            location="component://order/minilang/shoppinglist/ShoppingListServices.xml" invoke="checkShoppingListItemSecurity">
-        <description>Checks security on a ShoppingListItem</description>
-        <implements service="permissionInterface"/>
-        <attribute name="partyId" type="String" mode="IN" optional="true"/>
-        <attribute name="shoppingListId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="addSuggestionsToShoppingList" engine="simple" auth="true"
             location="component://order/minilang/shoppinglist/ShoppingListServices.xml" invoke="addSuggestionsToShoppingList">

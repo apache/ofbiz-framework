@@ -22,8 +22,6 @@ import org.apache.ofbiz.base.util.string.*
 import org.apache.ofbiz.entity.*
 import org.apache.ofbiz.entity.util.EntityUtilProperties
 
-module = "EditProductConfigItemContent.groovy"
-
 // make the image file formats
 context.tenantId = delegator.getDelegatorTenantId()
 imageFilenameFormat = "configitems/${configItemId}"
@@ -116,11 +114,11 @@ if (fileType) {
             try {
                 file1.delete()
             } catch (Exception e) {
-                Debug.logError(e, "error deleting existing file (not neccessarily a problem)", module)
+                System.out.println("error deleting existing file (not neccessarily a problem)")
             }
             file.renameTo(file1)
         } catch (Exception e) {
-            Debug.logError(e, module)
+            e.printStackTrace()
         }
 
         if (imageUrl) {

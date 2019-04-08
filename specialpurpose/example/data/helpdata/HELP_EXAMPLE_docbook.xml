@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0"
+    xmlns:xl="http://www.w3.org/1999/xlink"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../../applications/content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+
+    <title>Help on writing docBook documents</title>
+    <section>
+        <title>Example of an ordered list</title>
+        <para>The orderedlist will put numbers in front of each item.</para>
+        <orderedlist>
+            <listitem><para>First item of my list</para></listitem>
+            <listitem><para>Second item</para></listitem>
+            <listitem><para>Third...</para></listitem>
+            <listitem><para>4th...</para></listitem>
+            <listitem><para>and this can go longer...</para></listitem>
+        </orderedlist>
+    </section>
+    <section>
+        <title>Example of an itemized list</title>
+        <para>The itemizedlist will put a bullet in front of each item.</para>
+        <itemizedlist>
+            <listitem><para>First item of my list</para></listitem>
+            <listitem><para>Second item</para></listitem>
+            <listitem><para>Third...</para></listitem>
+            <listitem><para>4th...</para></listitem>
+            <listitem><para>and this can go longer...</para></listitem>
+        </itemizedlist>
+    </section>
+
+    <section>
+        <title>Examples of text formatting</title>
+        <caution>
+            <title>Caution title</title>
+            <para>Here is a caution text</para>
+        </caution>
+        <important>
+            <title>Important title</title>
+            <para>Here is an important text</para>
+        </important>
+        <note>
+            <title>Note title</title>
+            <para>Here is a note</para>
+        </note>
+        <tip>
+            <title>Tip title</title>
+            <para>Here is a tip</para>
+        </tip>
+        <warning>
+            <para>Here is a warning</para>
+        </warning>
+    </section>
+</section>

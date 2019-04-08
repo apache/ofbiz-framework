@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0" 
+    xmlns:xl="http://www.w3.org/1999/xlink" 
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>Daily Scrum Meeting Minute Help</title>
+    <para>
+        Daily Scrum, brief, daily meetings (about 15 min) between
+        the Scrum Master and the Scrum Team. The purpose is to keep
+        work flowing smoothly and eliminate any impediments.
+        There are 3 perspectives to talk in meetings :
+    </para>
+    <section>
+        <orderedlist>
+            <listitem><para>What have you accomplish since the last meeting?</para></listitem>
+            <listitem><para>What are you going to do before the next meeting?</para></listitem>
+            <listitem><para>What problem are you having with to task?</para></listitem>
+        </orderedlist>
+    </section>
+</section>

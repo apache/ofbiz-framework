@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
+    <!-- create and/or update a Computer Hardware fixed asset -->
+    <screen name="EditComputerHardware">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditComputerHardware"/>
+                <set field="tabButtonItem" value="EditComputerHardware"/>
+                <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
+                <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.fixedAssetDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="EditComputerHardware" location="component://assetmaint/widget/ismgr/FixedAssetForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- list all assets in a tabular format -->
+    <screen name="ListComputerHardware">
+        <section>
+            <actions>
+                <set field="titleProperty" value="IsMgrFindComputerHardware"/>
+                <set field="headerItem" value="ComputerHardware"/>
+                <set field="tabButtonItem" value="EditComputerHardware"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                            <decorator-section name="menu-bar">
+                                <section>
+                                    <widgets>
+                                        <include-menu name="FixedAssetSubTabBar" location="component://assetmaint/widget/ismgr/Menus.xml"/>
+                                     </widgets>
+                                </section>
+                            </decorator-section>
+                            <decorator-section name="search-options">
+                                <include-form name="FindComputerHardwareOptions" location="component://assetmaint/widget/ismgr/FixedAssetForms.xml"/>
+                            </decorator-section>
+                            <decorator-section name="search-results">
+                                <include-screen name="ComputerHardwareSearchResults"/>
+                            </decorator-section>
+                        </decorator-screen>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+         </section>
+    </screen>
+
+    <screen name="EditComputerSoftware">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditComputerSoftware"/>
+                <set field="headerItem" value="ComputerSoftware"/>
+                <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
+                <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonComputerSoftwareDecorator" location="${parameters.fixedAssetDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="EditComputerSoftware" location="component://assetmaint/widget/ismgr/FixedAssetForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- list all computer Software in a tabular format -->
+    <screen name="ListComputerSoftware">
+        <section>
+            <actions>
+                <set field="titleProperty" value="IsMgrFindComputerSoftware"/>
+                <set field="headerItem" value="ComputerSoftware"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                            <decorator-section name="menu-bar">
+                                <section>
+                                    <widgets>
+                                        <include-menu name="FixedAssetSubTabBar" location="component://assetmaint/widget/ismgr/Menus.xml"/>
+                                     </widgets>
+                                </section>
+                            </decorator-section>
+                            <decorator-section name="search-options">
+                                <include-form name="FindComputerSoftwareOptions" location="component://assetmaint/widget/ismgr/FixedAssetForms.xml"/>
+                            </decorator-section>
+                            <decorator-section name="search-results">
+                                <include-screen name="ComputerSoftwareSearchResults"/>
+                            </decorator-section>
+                        </decorator-screen>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+         </section>
+    </screen>
+    <screen name="ComputerHardwareSearchResults">
+        <section>
+            <condition>
+                <if-service-permission service-name="fixedAssetPermissionCheck" main-action="VIEW"/>
+            </condition>
+            <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+            </actions>
+            <widgets>
+                <include-form name="ListComputerHardware" location="component://assetmaint/widget/ismgr/FixedAssetForms.xml"/>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="ComputerSoftwareSearchResults">
+        <section>
+            <condition>
+                <if-service-permission service-name="fixedAssetPermissionCheck" main-action="VIEW"/>
+            </condition>
+            <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+            </actions>
+            <widgets>
+                <include-form name="ListComputerSoftware" location="component://assetmaint/widget/ismgr/FixedAssetForms.xml"/>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="ListHardwareAccessories">
+        <section>
+            <actions>
+                <set field="titleProperty" value="IsMgrHardwareAccessories"/>
+                <set field="headerItem" value="ComputerHardware"/>
+                <set field="tabButtonItem" value="ListHardwareAccessories"/>
+                <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
+                <set field="fixedAssetTypeId" value="COMPUTER_HARDWARE"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.fixedAssetDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="ChildrenFixedAssets" location="component://assetmaint/widget/ismgr/FixedAssetForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+         </section>
+    </screen>
+
+    <screen name="ListInstalledSoftware">
+        <section>
+            <actions>
+                <set field="titleProperty" value="IsMgrInstalledSoftware"/>
+                <set field="headerItem" value="ComputerHardware"/>
+                <set field="tabButtonItem" value="ListInstalledSoftware"/>
+                <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
+                <set field="fixedAssetTypeId" value="COMPUTER_SOFTWARE"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.fixedAssetDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="ChildrenFixedAssets" location="component://assetmaint/widget/ismgr/FixedAssetForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+         </section>
+    </screen>
+</screens>

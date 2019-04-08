@@ -191,7 +191,7 @@
         </if-compare>
 
         <if-empty field="surveyResponse">
-            <make-value entity-name="SurveyResponse" value-field="surveyResponse"/>
+            <make-value value-field="surveyResponse" entity-name="SurveyResponse"/>
             <sequenced-id sequence-name="SurveyResponse" field="surveyResponse.surveyResponseId"/>
             <set-nonpk-fields map="parameters" value-field="surveyResponse"/>
             <create-value value-field="surveyResponse"/>

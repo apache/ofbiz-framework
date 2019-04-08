@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Site-Conf" xsi:schemaLocation="http://ofbiz.apache.org/Site-Conf http://ofbiz.apache.org/dtds/site-conf.xsd">
+    <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
+    <description>Facility Handheld Demo</description>
+
+    <!-- Request Mappings -->
+    <request-map uri="main">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="menu"/>
+    </request-map>
+
+    <request-map uri="receipt">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="receipt"/>
+    </request-map>
+    <request-map uri="poreceipt">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="poreceipt"/>
+    </request-map>
+    <request-map uri="productreceipt">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="productreceipt"/>
+    </request-map>
+    <request-map uri="movement">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="movement"/>
+    </request-map>
+    <request-map uri="picking">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="picking"/>
+    </request-map>
+    <request-map uri="packing">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="packing"/>
+    </request-map>
+
+    <request-map uri="stocktake">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="stocktake"/>
+    </request-map>
+    <request-map uri="findstocktake">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.apache.ofbiz.hhfacility.FacilitySession" invoke="findProductsById"/>
+        <response name="success" type="view" value="stocktake"/>
+    </request-map>
+
+    <request-map uri="menu">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="menu"/>
+    </request-map>
+    <request-map uri="facilities">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="facilities"/>
+    </request-map>
+
+    <!-- these requests correspond to POSTs of forms and call services to do their work.
+        OFBiz automatically parses form fields to service inputs.
+        User can be re-directed to other requests or views after the service is called.
+        The re-direct can depend on if the service succeeded or failed. -->
+    <request-map uri="polinereceipt">
+        <security https="true" auth="true"/>
+        <!-- <event type="service" invoke="tc_POExists"/> -->
+        <response name="success" type="view" value="linereceipt"/>
+        <!-- <response name="error" type="view" value="poreceipt"/> -->
+    </request-map>
+
+
+    <request-map uri="productqtyreceipt">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="tc_ProductExists"/>
+        <response name="success" type="view" value="qtyreceipt"/>
+        <response name="error" type="view" value="productreceipt"/>
+    </request-map>
+
+    <request-map uri="receiveproductqty">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="tc_ReceiveProductQty"/>
+        <response name="success" type="view" value="productreceipt"/>
+        <response name="error" type="view" value="qtyreceipt"/>
+    </request-map>
+
+    <request-map uri="productstocktake">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="productstocktake"/>
+    </request-map>
+
+    <request-map uri="updateproductstocktake">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateProductStocktake"/>
+        <response name="success" type="view" value="productstocktake"/>
+        <response name="error" type="view" value="productstocktake"/>
+    </request-map>
+
+    <request-map uri="fixproductnegativeqoh">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="fixProductNegativeQOH"/>
+        <response name="success" type="view" value="productstocktake"/>
+        <response name="error" type="view" value="productstocktake"/>
+    </request-map>
+
+    <!-- end of request mappings -->
+
+    <!-- View Mappings -->
+    <view-map name="main" type="screen" page="component://hhfacility/widget/hhfacility/FacilityScreens.xml#menu"/>
+    <view-map name="login" type="screen" page="component://hhfacility/widget/hhfacility/FacilityScreens.xml#login"/>
+    <view-map name="ajaxLogin" type="screen" page="component://hhfacility/widget/hhfacility/FacilityScreens.xml#login"/>
+
+    <view-map name="receipt" type="screen" page="component://hhfacility/widget/hhfacility/FacilityScreens.xml#receipt"/>
+    <view-map name="poreceipt" type="screen" page="component://hhfacility/widget/hhfacility/FacilityScreens.xml#poreceipt"/>
+    <view-map name="linereceipt" type="screen" page="component://hhfacility/widget/hhfacility/FacilityScreens.xml#linereceipt"/>
+    <view-map name="productreceipt" type="screen" page="component://hhfacility/widget/hhfacility/FacilityScreens.xml#productreceipt"/>
+    <view-map name="qtyreceipt" type="screen" page="component://hhfacility/widget/hhfacility/FacilityScreens.xml#qtyreceipt"/>
+    <view-map name="movement" type="screen" page="component://hhfacility/widget/hhfacility/FacilityScreens.xml#movement"/>
+    <view-map name="picking" type="screen" page="component://hhfacility/widget/hhfacility/FacilityScreens.xml#picking"/>
+    <view-map name="stocktake" type="screen" page="component://hhfacility/widget/hhfacility/FacilityScreens.xml#stocktake"/>
+    <view-map name="packing" type="screen" page="component://hhfacility/widget/hhfacility/FacilityScreens.xml#packing"/>
+    <view-map name="facilities" type="screen" page="component://hhfacility/widget/hhfacility/FacilityScreens.xml#facilities"/>
+    <view-map name="menu" type="screen" page="component://hhfacility/widget/hhfacility/FacilityScreens.xml#menu"/>
+
+    <view-map name="productstocktake" type="screen" page="component://hhfacility/widget/hhfacility/FacilityScreens.xml#productstocktake"/>
+    <!-- end of view mappings -->
+</site-conf>

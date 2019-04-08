@@ -59,7 +59,7 @@ under the License.
       <#assign rowCount = 0>
       <#assign alt_row = false>
       <#list returnableItems.keySet() as orderItem>
-        <#if "OrderAdjustment" == orderItem.getEntityName()>
+        <#if orderItem.getEntityName() == "OrderAdjustment">
             <#-- this is an order item adjustment -->
             <#assign returnAdjustmentType = returnItemTypeMap.get(orderItem.get("orderAdjustmentTypeId"))/>
             <#assign adjustmentType = orderItem.getRelatedOne("OrderAdjustmentType", false)/>
@@ -79,7 +79,7 @@ under the License.
               <td>
                 <select name="returnTypeId_o_${rowCount}">
                   <#list returnTypes as type>
-                  <option value="${type.returnTypeId}" <#if "RTN_REFUND" == type.returnTypeId>selected="selected"</#if>>${type.get("description",locale)?default(type.returnTypeId)}</option>
+                  <option value="${type.returnTypeId}" <#if type.returnTypeId == "RTN_REFUND">selected="selected"</#if>>${type.get("description",locale)?default(type.returnTypeId)}</option>
                   </#list>
                 </select>
               </td>
@@ -124,7 +124,7 @@ under the License.
               <td>
                 <#if orderItem.productId??>
                   <#assign product = orderItem.getRelatedOne("Product", false)/>
-                  <#if "ASSET_USAGE_OUT_IN" == product.productTypeId>
+                  <#if product.productTypeId == "ASSET_USAGE_OUT_IN">
                     <input type="text" size="8" name="returnPrice_o_${rowCount}" value="0.00"/>
                   <#else>
                     <input type="text" size="8" name="returnPrice_o_${rowCount}" value="<@ofbizAmount amount=returnableItems.get(orderItem).get("returnablePrice")/>"/>
@@ -196,7 +196,7 @@ under the License.
           <td>
             <select name="returnTypeId_o_${rowCount}">
               <#list returnTypes as type>
-              <option value="${type.returnTypeId}" <#if "RTN_REFUND" == type.returnTypeId>selected="selected"</#if>>${type.get("description",locale)?default(type.returnTypeId)}</option>
+              <option value="${type.returnTypeId}" <#if type.returnTypeId == "RTN_REFUND">selected="selected"</#if>>${type.get("description",locale)?default(type.returnTypeId)}</option>
               </#list>
             </select>
           </td>
@@ -233,7 +233,7 @@ under the License.
       <td>
         <select name="returnTypeId_o_${rowCount}">
           <#list returnTypes as type>
-          <option value="${type.returnTypeId}" <#if "RTN_REFUND" == type.returnTypeId>selected="selected"</#if>>${type.get("description",locale)?default(type.returnTypeId)}</option>
+          <option value="${type.returnTypeId}" <#if type.returnTypeId == "RTN_REFUND">selected="selected"</#if>>${type.get("description",locale)?default(type.returnTypeId)}</option>
           </#list>
         </select>
       </td>

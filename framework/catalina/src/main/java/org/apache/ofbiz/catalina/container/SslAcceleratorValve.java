@@ -27,11 +27,8 @@ import org.apache.catalina.connector.Response;
 import org.apache.catalina.valves.ValveBase;
 
 /**
- * To use add (or uncomment) the following line to the Tomcat/Catalina configuarion
- * (ie in ofbiz-containers.xml under the &lt;property name="default-server" value="engine"&gt; element):
- * <p>
- *    &lt;property name="ssl-accelerator-port" value="8443"/&gt;
- * <p>
+ * To use add (or uncomment) the following line to the Tomcat/Catalina configuarion (ie in ofbiz-containers.xml under the <property name="default-server" value="engine"> element)
+ *    <property name="ssl-accelerator-port" value="8443"/>
  *
  * Once that is done just setup a connector just like the example http-connector and have it listen on the port you set in the ssl-accelerator-port value.
  */

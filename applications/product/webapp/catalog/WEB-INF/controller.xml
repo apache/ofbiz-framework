@@ -779,6 +779,12 @@ under the License.
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="main"/>
     </request-map>
+    <request-map uri="updateProductKeyword">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateProductKeyword"/>
+        <response name="success" type="view" value="EditProductKeyword"/>
+        <response name="error" type="view" value="EditProductKeyword"/>
+    </request-map>
     <request-map uri="createProductKeyword">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="createProductKeyword"/>
@@ -2092,7 +2098,6 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditProductStoreShipmentCostEstimates"/>
     </request-map>
-    <request-map uri="EditProductStoreShipmentTimeEstimates"><security https="true" auth="true"/><response name="success" type="view" value="EditProductStoreShipmentCostEstimates"/></request-map>
     <request-map uri="storeCreateShipRate">
         <security https="true" auth="true"/>
         <event type="service" invoke="createShipmentEstimate"/>
@@ -2200,33 +2205,6 @@ under the License.
         <event type="service" invoke="deleteCarrierShipmentMethod"/>
         <response name="success" type="view" value="ListCarrierShipmentMethods"/>
         <response name="error" type="view" value="ListCarrierShipmentMethods"/>
-    </request-map>
-
-    <!-- ================ ShipmentTimeEstimate Requests ================= -->
-    <request-map uri="ListShipmentTimeEstimates"><security https="true" auth="true"/><response name="success" type="view" value="ListShipmentTimeEstimates"/></request-map>
-    <request-map uri="prepareCreateShipmentTimeEstimate">
-        <security https="true" auth="true"/>
-        <event type="groovy" path="component://product/groovyScripts/catalog/PrepareCreateShipmentTimeEstimate.groovy"/>
-        <response name="success" type="view" value="ListShipmentTimeEstimates"/>
-        <response name="error" type="view" value="ListShipmentTimeEstimates"/>
-    </request-map>
-    <request-map uri="createShipmentTimeEstimate">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="createShipmentTimeEstimate"/>
-        <response name="success" type="view" value="ListShipmentTimeEstimates"/>
-        <response name="error" type="view" value="ListShipmentTimeEstimates"/>
-    </request-map>
-    <request-map uri="updateShipmentTimeEstimate">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updateShipmentTimeEstimate"/>
-        <response name="success" type="view" value="ListShipmentTimeEstimates"/>
-        <response name="error" type="view" value="ListShipmentTimeEstimates"/>
-    </request-map>
-    <request-map uri="expireShipmentTimeEstimate">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="expireShipmentTimeEstimate"/>
-        <response name="success" type="view" value="ListShipmentTimeEstimates"/>
-        <response name="error" type="view" value="ListShipmentTimeEstimates"/>
     </request-map>
 
     <!-- ================ ProductStore Survey Requests ================= -->
@@ -2549,19 +2527,19 @@ under the License.
     </request-map>
     <request-map uri="createProductConfigItem">
         <security auth="true" https="true"/>
-        <event type="service" invoke="createProductConfigItem" path=""/>
+        <event invoke="createProductConfigItem" path="" type="service"/>
         <response name="success" type="view" value="EditProductConfigItem"/>
         <response name="error" type="view" value="EditProductConfigItem"/>
     </request-map>
     <request-map uri="updateProductConfigItem">
         <security auth="true" https="true"/>
-        <event type="service" invoke="updateProductConfigItem" path=""/>
+        <event invoke="updateProductConfigItem" path="" type="service"/>
         <response name="success" type="view" value="EditProductConfigItem"/>
         <response name="error" type="view" value="EditProductConfigItem"/>
     </request-map>
     <request-map uri="deleteProductConfigItem">
         <security auth="true" https="true"/>
-        <event type="service" invoke="deleteProductConfigItem" path=""/>
+        <event invoke="deleteProductConfigItem" path="" type="service"/>
         <response name="success" type="view" value="EditProductConfigItem"/>
         <response name="error" type="view" value="EditProductConfigItem"/>
     </request-map>
@@ -2573,19 +2551,19 @@ under the License.
     </request-map>
     <request-map uri="createProductConfigOption">
         <security auth="true" https="true"/>
-        <event type="service" invoke="createProductConfigOption"/>
+        <event invoke="createProductConfigOption" type="service"/>
         <response name="success" type="view" value="EditProductConfigOptions"/>
         <response name="error" type="view" value="EditProductConfigOptions"/>
     </request-map>
     <request-map uri="updateProductConfigOption">
         <security auth="true" https="true"/>
-        <event type="service" invoke="updateProductConfigOption"/>
+        <event invoke="updateProductConfigOption" type="service"/>
         <response name="success" type="view" value="EditProductConfigOptions"/>
         <response name="error" type="view" value="EditProductConfigOptions"/>
     </request-map>
     <request-map uri="deleteProductConfigOption">
         <security auth="true" https="true"/>
-        <event type="service" invoke="deleteProductConfigOption"/>
+        <event invoke="deleteProductConfigOption" type="service"/>
         <response name="success" type="view" value="EditProductConfigOptions"/>
         <response name="error" type="view" value="EditProductConfigOptions"/>
     </request-map>
@@ -2593,19 +2571,19 @@ under the License.
     <!-- Product Config Product Requests -->
     <request-map uri="createProductConfigProduct">
         <security auth="true" https="true"/>
-        <event type="service" invoke="createProductConfigProduct"/>
+        <event invoke="createProductConfigProduct" type="service"/>
         <response name="success" type="view" value="EditProductConfigOptions"/>
         <response name="error" type="view" value="EditProductConfigOptions"/>
     </request-map>
     <request-map uri="updateProductConfigProduct">
         <security auth="true" https="true"/>
-        <event type="service" invoke="updateProductConfigProduct"/>
+        <event invoke="updateProductConfigProduct" type="service"/>
         <response name="success" type="view" value="EditProductConfigOptions"/>
         <response name="error" type="view" value="EditProductConfigOptions"/>
     </request-map>
     <request-map uri="deleteProductConfigProduct">
         <security auth="true" https="true"/>
-        <event type="service" invoke="deleteProductConfigProduct"/>
+        <event invoke="deleteProductConfigProduct" type="service"/>
         <response name="success" type="view" value="EditProductConfigOptions"/>
         <response name="error" type="view" value="EditProductConfigOptions"/>
     </request-map>
@@ -3076,7 +3054,7 @@ under the License.
     <request-map uri="updateProductTag">
         <security https="true" auth="true"/>
         <event type="service-multi" path="" invoke="updateProductKeyword"/>
-        <response name="success" type="request-redirect-noparam" value="EditProductTag"/>
+        <response name="success" type="request-redirect" value="EditProductTag"/>
         <response name="error" type="view" value="EditProductTag"/>
     </request-map>
     <!-- end of request mappings -->
@@ -3094,6 +3072,10 @@ under the License.
     <view-map name="FindProductById" type="screen" page="component://product/widget/catalog/FindScreens.xml#FindProductById"/>
 
     <view-map name="FindCatalog" type="screen" page="component://product/widget/catalog/CatalogScreens.xml#FindCatalog"/>
+    <view-map name="EditProdCatalog" type="screen" page="component://product/widget/catalog/CatalogScreens.xml#EditProdCatalog"/>
+    <view-map name="EditProdCatalogCategories" type="screen" page="component://product/widget/catalog/CatalogScreens.xml#EditProdCatalogCategories"/>
+    <view-map name="EditProdCatalogStores" type="screen" page="component://product/widget/catalog/CatalogScreens.xml#EditProdCatalogStores"/>
+    <view-map name="EditProdCatalogParties" type="screen" page="component://product/widget/catalog/CatalogScreens.xml#EditProdCatalogParties"/>
 
     <view-map name="FindCategory" type="screen" page="component://product/widget/catalog/CategoryScreens.xml#FindCategory"/>
     <view-map name="EditCategory" type="screen" page="component://product/widget/catalog/CategoryScreens.xml#EditCategory"/>
@@ -3209,9 +3191,9 @@ under the License.
     <view-map name="EditProductStoreFinAccountSettings" type="screen" page="component://product/widget/catalog/StoreScreens.xml#EditProductStoreFinAccountSettings"/>
     <view-map name="EditProductStoreVendorPayments" type="screen" page="component://product/widget/catalog/StoreScreens.xml#EditProductStoreVendorPayments"/>
     <view-map name="EditProductStoreVendorShipments" type="screen" page="component://product/widget/catalog/StoreScreens.xml#EditProductStoreVendorShipments"/>
-    <view-map name="ProductStoreFacilities" type="screen" page="component://product/widget/catalog/CommonScreens.xml#ProductStoreFacilities"/>
-    <view-map name="ListProductStoreFacility" type="screen" page="component://product/widget/catalog/StoreScreens.xml#ListProductStoreFacility"/>
-    <view-map name="EditProductStoreFacility" type="screen" page="component://product/widget/catalog/StoreScreens.xml#EditProductStoreFacility"/>
+    <view-map name="ProductStoreFacilities" page="component://product/widget/catalog/CommonScreens.xml#ProductStoreFacilities" type="screen"/>
+    <view-map name="ListProductStoreFacility" page="component://product/widget/catalog/StoreScreens.xml#ListProductStoreFacility" type="screen"/>
+    <view-map name="EditProductStoreFacility" page="component://product/widget/catalog/StoreScreens.xml#EditProductStoreFacility" type="screen"/>
     <view-map name="EditVendorProduct" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditVendorProduct"/>
     <view-map name="EditKeywordThesaurus" type="screen" page="component://product/widget/catalog/ThesaurusScreens.xml#EditKeywordThesaurus"/>
     <view-map name="ListParentProductStoreGroup" type="screen" page="component://product/widget/catalog/StoreScreens.xml#ListParentProductStoreGroup"/>
@@ -3239,46 +3221,46 @@ under the License.
     <view-map name="ListQuantityBreaks" type="screen" page="component://product/widget/catalog/ShippingScreens.xml#ListQuantityBreaks"/>
     <view-map name="ListShipmentMethodTypes" type="screen" page="component://product/widget/catalog/ShippingScreens.xml#ListShipmentMethodTypes"/>
     <view-map name="ListCarrierShipmentMethods" type="screen" page="component://product/widget/catalog/ShippingScreens.xml#ListCarrierShipmentMethods"/>
-    <view-map name="ListShipmentTimeEstimates" type="screen" page="component://product/widget/catalog/ShippingScreens.xml#ListShipmentTimeEstimates"/>
 
     <view-map name="EditProductTag" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditProductTag"/>
 
     <!-- Lookup request mappings -->
     <view-map name="LookupUserLoginAndPartyDetails" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupUserLoginAndPartyDetails"/>
-    <view-map name="LookupContent" type="screen" page="component://content/widget/content/ContentScreens.xml#LookupContent"/>
+    <view-map name="LookupContent" page="component://content/widget/content/ContentScreens.xml#LookupContent" type="screen"/>
     <view-map name="LookupFixedAsset" type="screen" page="component://accounting/widget/LookupScreens.xml#LookupFixedAsset"/>
     <view-map name="LookupPartyName" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyName"/>
     <view-map name="LookupOrderHeader" type="screen" page="component://order/widget/ordermgr/LookupScreens.xml#LookupOrderHeader"/>
     <view-map name="LookupCommEvent" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupCommEvent"/>
 
+    <view-map name="LookupProduct" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProduct"/>
     <view-map name="LookupSupplierProduct" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupSupplierProduct"/>
     <view-map name="LookupVariantProduct" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupVariantProduct"/>
     <view-map name="LookupVirtualProduct" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupVirtualProduct"/>
     <view-map name="LookupProductCategory" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProductCategory"/>
     <view-map name="LookupProductFeature" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProductFeature"/>
     <view-map name="LookupProductStore" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProductStore"/>
-    <view-map name="LookupFacilityLocation" type="screen" page="component://product/widget/facility/LookupScreens.xml#LookupFacilityLocation"/>
+    <view-map name="LookupFacilityLocation" page="component://product/widget/facility/LookupScreens.xml#LookupFacilityLocation" type="screen"/>
     <view-map name="LookupWorkEffort" type="screen" page="component://workeffort/widget/LookupScreens.xml#LookupWorkEffort"/>
     <view-map name="LookupCostComponentCalc" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupCostComponentCalc"/>
-    <view-map name="LookupDataResource" type="screen" page="component://content/widget/content/DataResourceScreens.xml#LookupDataResource"/>
-    <view-map name="LookupPerson" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPerson"/>
+    <view-map name="LookupDataResource" page="component://content/widget/content/DataResourceScreens.xml#LookupDataResource" type="screen"/>
+    <view-map name="LookupPerson" page="component://party/widget/partymgr/LookupScreens.xml#LookupPerson" type="screen"/>
     <view-map name="LookupPreferredContactMech" type="screen" page="component://marketing/widget/ContactListScreens.xml#LookupPreferredContactMech"/>
     <view-map name="LookupContactList" type="screen" page="component://marketing/widget/ContactListScreens.xml#LookupContactList"/>
 
     <!-- Image Management request mappings -->
     <view-map name="Imagemanagement" type="screen" page="component://product/widget/catalog/ImageManagementScreens.xml#Imagemanagement"/>
-    <view-map name="ImageGallery" type="screen" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageGallery"/>
-    <view-map name="ImageUpload" type="screen" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageUpload"/>
-    <view-map name="ImageApprove" type="screen" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageApprove"/>
-    <view-map name="ImageRejected" type="screen" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageRejected"/>
-    <view-map name="ImageFrames" type="screen" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageFrames"/>
-    <view-map name="ImageCropping" type="screen" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageCropping"/>
-    <view-map name="ImageRotating" type="screen" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageRotating"/>
-    <view-map name="ImageShare" type="screen" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageShare"/>
-    <view-map name="ImageReplace" type="screen" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageReplace"/>
-    <view-map name="viewImage" type="screen" page="component://product/widget/catalog/ImageManagementScreens.xml#ViewImage"/>
-    <view-map name="viewPreviewImage" type="screen" page="component://product/widget/catalog/ImageManagementScreens.xml#ViewPreviewImage"/>
-    <view-map name="LookupImage" type="screen" page="component://product/widget/catalog/ImageManagementScreens.xml#LookupImage"/>
+    <view-map name="ImageGallery" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageGallery" type="screen"/>
+    <view-map name="ImageUpload" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageUpload" type="screen"/>
+    <view-map name="ImageApprove" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageApprove" type="screen"/>
+    <view-map name="ImageRejected" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageRejected" type="screen"/>
+    <view-map name="ImageFrames" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageFrames" type="screen"/>
+    <view-map name="ImageCropping" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageCropping" type="screen"/>
+    <view-map name="ImageRotating" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageRotating" type="screen"/>
+    <view-map name="ImageShare" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageShare" type="screen"/>
+    <view-map name="ImageReplace" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageReplace" type="screen"/>
+    <view-map name="viewImage" page="component://product/widget/catalog/ImageManagementScreens.xml#ViewImage" type="screen"/>
+    <view-map name="viewPreviewImage" page="component://product/widget/catalog/ImageManagementScreens.xml#ViewPreviewImage" type="screen"/>
+    <view-map name="LookupImage" page="component://product/widget/catalog/ImageManagementScreens.xml#LookupImage" type="screen"/>
     <view-map name="LookupProduct" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProduct"/>
     <view-map name="ListImageGallery" type="screen" page="component://product/widget/catalog/ImageManagementScreens.xml#ListImageGallery"/>
     <view-map name="ImageManage" type="screen" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageManage"/>

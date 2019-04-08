@@ -18,7 +18,6 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<!--  Does not include: dependency  FR-CP   Clipperton -->
 <entity-engine-xml>
     <Geo abbreviation="AIN" geoCode="01" geoId="FR-01" geoName="Ain" geoTypeId="COUNTY"/>
     <Geo abbreviation="AIS" geoCode="02" geoId="FR-02" geoName="Aisne" geoTypeId="COUNTY"/>
@@ -118,18 +117,15 @@ under the License.
     <Geo abbreviation="VDM" geoCode="94" geoId="FR-94" geoName="Val-de-Marne" geoTypeId="COUNTY"/>
     <Geo abbreviation="VDO" geoCode="95" geoId="FR-95" geoName="Val-d'Oise" geoTypeId="COUNTY"/>
     <Geo abbreviation="MON" geoCode="98" geoId="FR-98" geoName="Monaco" geoTypeId="COUNTY"/>
-    <Geo abbreviation="GUA" geoCode="GP" geoId="FR-GP" geoName="Guadeloupe" geoTypeId="COUNTY"/><!-- Is also a country with code GP, not put in since it anyway still depends on France -->
-    <Geo abbreviation="GUY" geoCode="GF" geoId="FR-GF" geoName="Guyane" geoTypeId="COUNTY"/><!-- Is also a country with code GF, not put in since it anyway still depends on France -->
-    <Geo abbreviation="MAR" geoCode="MQ" geoId="FR-MQ" geoName="Martinique" geoTypeId="COUNTY"/><!-- Is also a country with code MQ, not put in since it anyway still depends on France -->
-    <Geo abbreviation="REU" geoCode="RE" geoId="FR-RE" geoName="La Réunion" geoTypeId="COUNTY"/><!-- Is also a country with code LR, not put in since it anyway still depends on France -->
-    <Geo abbreviation="SPM" geoCode="PM" geoId="FR-PM" geoName="St Pierre et Miquelon" geoTypeId="COUNTY"/><!-- Is also a country with code PM, not put in since it anyway still depends on France -->
-    <Geo abbreviation="MAY" geoCode="YT" geoId="FR-YT" geoName="Mayotte" geoTypeId="COUNTY"/><!-- Is also a country with code YT, not put in since it anyway still depends on France -->
-    <Geo abbreviation="NOC" geoCode="NC" geoId="FR-NC" geoName="Nouvelle-Calédonie" geoTypeId="COUNTY"/><!-- Is also a country with code NC, not put in since it anyway still depends on France -->
-    <Geo abbreviation="POF" geoCode="PF" geoId="FR-PF" geoName="Polynésie française" geoTypeId="COUNTY"/><!-- Is also a country with code PF, not put in since it anyway still depends on France -->
-    <Geo abbreviation="SBL" geoCode="PF" geoId="FR-BL" geoName="Saint-Barthélemy" geoTypeId="COUNTY"/><!-- Is also a country with code BL, not put in since it anyway still depends on France -->
-    <Geo abbreviation="SMT" geoCode="MT" geoId="FR-MT" geoName="Saint-Martin" geoTypeId="COUNTY"/><!-- Is also a country with code MT, not put in since it anyway still depends on France -->
-    <Geo abbreviation="TAF" geoCode="TF" geoId="FR-TF" geoName="Terres australes françaises" geoTypeId="COUNTY"/><!-- Is also a country with code TF, not put in since it anyway still depends on France -->
-    <Geo abbreviation="WEF" geoCode="WF" geoId="FR-WF" geoName="Wallis et Futuna" geoTypeId="COUNTY"/><!-- Is also a country with code WF, not put in since it anyway still depends on France -->
+    <Geo abbreviation="GUA" geoCode="971" geoId="FR-971" geoName="Guadeloupe" geoTypeId="COUNTY"/>
+    <Geo abbreviation="GUY" geoCode="972" geoId="FR-972" geoName="Guyane" geoTypeId="COUNTY"/>
+    <Geo abbreviation="MAR" geoCode="973" geoId="FR-973" geoName="Martinique" geoTypeId="COUNTY"/>
+    <Geo abbreviation="REU" geoCode="974" geoId="FR-974" geoName="La Réunion" geoTypeId="COUNTY"/>
+    <Geo abbreviation="SPM" geoCode="975" geoId="FR-975" geoName="St Pierre et Miquelon" geoTypeId="COUNTY"/>
+    <Geo abbreviation="MAY" geoCode="976" geoId="FR-976" geoName="Mayotte" geoTypeId="COUNTY"/>
+    <Geo abbreviation="WeF" geoCode="986" geoId="FR-986" geoName="Wallis et Futuna" geoTypeId="COUNTY"/>
+    <Geo abbreviation="POF" geoCode="987" geoId="FR-987" geoName="Polynésie française" geoTypeId="COUNTY"/>
+    <Geo abbreviation="NOC" geoCode="988" geoId="FR-988" geoName="Nouvelle Calédonie" geoTypeId="COUNTY"/>
 
     <Geo abbreviation="BEB" geoCode="BEB" geoId="FR-BEB01" geoName="Bourg-en-Bresse" geoTypeId="COUNTY_CITY"/>
     <Geo abbreviation="LAO" geoCode="LAO" geoId="FR-LAO02" geoName="Laon" geoTypeId="COUNTY_CITY"/>
@@ -228,134 +224,137 @@ under the License.
     <Geo abbreviation="CTL" geoCode="CTL" geoId="FR-CTL94" geoName="Créteil" geoTypeId="COUNTY_CITY"/>
     <Geo abbreviation="PTO" geoCode="PTO" geoId="FR-PTO95" geoName="Pontoise" geoTypeId="COUNTY_CITY"/>
 
-    <Geo abbreviation="ARA" geoCode="ARA" geoId="FR-ARA" geoName="Auvergne-Rhône-Alpes" geoTypeId="REGION"/>
-    <Geo abbreviation="HDF" geoCode="HDF" geoId="FR-HDF" geoName="Hauts-de-France" geoTypeId="REGION"/>
+    <Geo abbreviation="RAL" geoCode="RAL" geoId="FR-RAL" geoName="Rhône-Alpes" geoTypeId="REGION"/>
+    <Geo abbreviation="PIC" geoCode="PIC" geoId="FR-PIC" geoName="Picardie" geoTypeId="REGION"/>
+    <Geo abbreviation="AUV" geoCode="AUV" geoId="FR-AUV" geoName="Auvergne" geoTypeId="REGION"/>
     <Geo abbreviation="PAC" geoCode="PAC" geoId="FR-PAC" geoName="Provence-Alpes-Côte d'Azur" geoTypeId="REGION"/>
-    <Geo abbreviation="OCC" geoCode="OCC" geoId="FR-OCC" geoName="Occitanie" geoTypeId="REGION"/>
-    <Geo abbreviation="NOR" geoCode="NOR" geoId="FR-NOR" geoName="Normandie" geoTypeId="REGION"/>
-    <Geo abbreviation="CVL" geoCode="CVL" geoId="FR-CVL" geoName="Centre-Val de Loire" geoTypeId="REGION"/>
+    <Geo abbreviation="CHA" geoCode="CHA" geoId="FR-CHA" geoName="Champagne-Ardenne" geoTypeId="REGION"/>
+    <Geo abbreviation="MIP" geoCode="MIP" geoId="FR-MIP" geoName="Midi-Pyrénées" geoTypeId="REGION"/>
+    <Geo abbreviation="LAR" geoCode="LAR" geoId="FR-LAR" geoName="Languedoc-Roussillon" geoTypeId="REGION"/>
+    <Geo abbreviation="BAN" geoCode="BAN" geoId="FR-BAN" geoName="Basse-Normandie" geoTypeId="REGION"/>
+    <Geo abbreviation="POC" geoCode="POC" geoId="FR-POC" geoName="Poitou-Charentes" geoTypeId="REGION"/>
+    <Geo abbreviation="CEN" geoCode="CEN" geoId="FR-CEN" geoName="Centre" geoTypeId="REGION"/>
     <Geo abbreviation="BRE" geoCode="BRE" geoId="FR-BRE" geoName="Bretagne" geoTypeId="REGION"/>
-    <Geo abbreviation="NAQ" geoCode="NAQ" geoId="FR-NAQ" geoName="Nouvelle-Aquitaine" geoTypeId="REGION"/>
+    <Geo abbreviation="LIM" geoCode="LIM" geoId="FR-LIM" geoName="Limousin" geoTypeId="REGION"/>
+    <Geo abbreviation="AQU" geoCode="AQU" geoId="FR-AQU" geoName="Aquitaine" geoTypeId="REGION"/>
     <Geo abbreviation="COR" geoCode="COR" geoId="FR-COR" geoName="Corse" geoTypeId="REGION"/>
-    <Geo abbreviation="BFC" geoCode="BFC" geoId="FR-BFC" geoName="Bourgogne-Franche-Comté" geoTypeId="REGION"/>
+    <Geo abbreviation="BOU" geoCode="BOU" geoId="FR-BOU" geoName="Bourgogne" geoTypeId="REGION"/>
+    <Geo abbreviation="FCO" geoCode="FCO" geoId="FR-FCO" geoName="Franche-Comté" geoTypeId="REGION"/>
+    <Geo abbreviation="HNO" geoCode="HNO" geoId="FR-HNO" geoName="Haute-Normandie" geoTypeId="REGION"/>
     <Geo abbreviation="PDL" geoCode="PDL" geoId="FR-PDL" geoName="Pays de la Loire" geoTypeId="REGION"/>
-    <Geo abbreviation="GES" geoCode="GES" geoId="FR-GES" geoName="Grand-Est" geoTypeId="REGION"/>
+    <Geo abbreviation="LOR" geoCode="LOR" geoId="FR-LOR" geoName="Lorraine" geoTypeId="REGION"/>
+    <Geo abbreviation="ALS" geoCode="ALS" geoId="FR-ALS" geoName="Alsace" geoTypeId="REGION"/>
+    <Geo abbreviation="NPC" geoCode="NPC" geoId="FR-NPC" geoName="Nord-Pas-de-Calais" geoTypeId="REGION"/>
     <Geo abbreviation="IDF" geoCode="IDF" geoId="FR-IDF" geoName="Ile-de-France" geoTypeId="REGION"/>
-    <Geo abbreviation="GUA" geoCode="GUA" geoId="FR-GUA" geoName="Guadeloupe" geoTypeId="REGION"/>
-    <Geo abbreviation="LRE" geoCode="LRE" geoId="FR-LRE" geoName="La Réunion" geoTypeId="REGION"/>
-    <Geo abbreviation="MAY" geoCode="MAY" geoId="FR-MAY" geoName="Mayotte" geoTypeId="REGION"/>
-    
+    <Geo abbreviation="DOM" geoCode="DOM" geoId="FR-DOM" geoName="Departement d'outre Mer" geoTypeId="REGION"/>
+    <Geo abbreviation="TOM" geoCode="TOM" geoId="FR-TOM" geoName="Territoire d'outre Mer" geoTypeId="REGION"/>
 
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-01" geoId="FR-ARA"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-02" geoId="FR-HDF"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-03" geoId="FR-ARA"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-01" geoId="FR-RAL"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-02" geoId="FR-PIC"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-03" geoId="FR-AUV"/>
     <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-04" geoId="FR-PAC"/>
     <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-05" geoId="FR-PAC"/>
     <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-06" geoId="FR-PAC"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-07" geoId="FR-ARA"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-08" geoId="FR-GES"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-09" geoId="FR-OCC"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-10" geoId="FR-GES"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-11" geoId="FR-OCC"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-12" geoId="FR-OCC"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-07" geoId="FR-RAL"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-08" geoId="FR-CHA"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-09" geoId="FR-MIP"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-10" geoId="FR-CHA"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-11" geoId="FR-LAR"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-12" geoId="FR-MIP"/>
     <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-13" geoId="FR-PAC"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-14" geoId="FR-NOR"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-15" geoId="FR-ARA"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-16" geoId="FR-NAQ"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-17" geoId="FR-NAQ"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-18" geoId="FR-CVL"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-19" geoId="FR-NAQ"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-14" geoId="FR-BAN"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-15" geoId="FR-AUV"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-16" geoId="FR-POC"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-17" geoId="FR-POC"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-18" geoId="FR-CEN"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-19" geoId="FR-LIM"/>
     <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-20" geoId="FR-COR"/>
     <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-2A" geoId="FR-COR"/>
     <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-2B" geoId="FR-COR"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-21" geoId="FR-BFC"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-21" geoId="FR-BOU"/>
     <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-22" geoId="FR-BRE"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-23" geoId="FR-NAQ"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-24" geoId="FR-NAQ"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-25" geoId="FR-GES"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-26" geoId="FR-ARA"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-27" geoId="FR-NOR"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-28" geoId="FR-CVL"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-23" geoId="FR-LIM"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-24" geoId="FR-AQU"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-25" geoId="FR-FCO"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-26" geoId="FR-RAL"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-27" geoId="FR-HNO"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-28" geoId="FR-CEN"/>
     <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-29" geoId="FR-BRE"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-30" geoId="FR-OCC"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-31" geoId="FR-OCC"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-32" geoId="FR-OCC"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-33" geoId="FR-NAQ"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-34" geoId="FR-OCC"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-30" geoId="FR-LAR"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-31" geoId="FR-MIP"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-32" geoId="FR-MIP"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-33" geoId="FR-AQU"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-34" geoId="FR-LAR"/>
     <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-35" geoId="FR-BRE"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-36" geoId="FR-CVL"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-37" geoId="FR-CVL"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-38" geoId="FR-ARA"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-39" geoId="FR-GES"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-40" geoId="FR-NAQ"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-41" geoId="FR-CVL"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-42" geoId="FR-ARA"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-43" geoId="FR-ARA"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-36" geoId="FR-CEN"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-37" geoId="FR-CEN"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-38" geoId="FR-RAL"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-39" geoId="FR-FCO"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-40" geoId="FR-AQU"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-41" geoId="FR-CEN"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-42" geoId="FR-RAL"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-43" geoId="FR-AUV"/>
     <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-44" geoId="FR-PDL"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-45" geoId="FR-CVL"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-46" geoId="FR-OCC"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-47" geoId="FR-NAQ"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-48" geoId="FR-OCC"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-45" geoId="FR-CEN"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-46" geoId="FR-MIP"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-47" geoId="FR-AQU"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-48" geoId="FR-LAR"/>
     <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-49" geoId="FR-PDL"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-50" geoId="FR-NOR"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-51" geoId="FR-GES"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-52" geoId="FR-GES"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-50" geoId="FR-BAN"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-51" geoId="FR-CHA"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-52" geoId="FR-CHA"/>
     <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-53" geoId="FR-PDL"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-54" geoId="FR-GES"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-55" geoId="FR-GES"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-54" geoId="FR-LOR"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-55" geoId="FR-LOR"/>
     <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-56" geoId="FR-BRE"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-57" geoId="FR-GES"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-58" geoId="FR-BFC"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-59" geoId="FR-HDF"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-60" geoId="FR-HDF"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-61" geoId="FR-NOR"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-62" geoId="FR-HDF"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-63" geoId="FR-ARA"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-64" geoId="FR-NAQ"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-65" geoId="FR-OCC"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-66" geoId="FR-OCC"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-67" geoId="FR-GES"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-68" geoId="FR-GES"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-69" geoId="FR-ARA"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-70" geoId="FR-GES"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-71" geoId="FR-BFC"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-57" geoId="FR-LOR"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-58" geoId="FR-BOU"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-59" geoId="FR-NPC"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-60" geoId="FR-PIC"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-61" geoId="FR-BAN"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-62" geoId="FR-NPC"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-63" geoId="FR-AUV"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-64" geoId="FR-AQU"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-65" geoId="FR-MIP"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-66" geoId="FR-LAR"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-67" geoId="FR-ALS"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-68" geoId="FR-ALS"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-69" geoId="FR-RAL"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-70" geoId="FR-FCO"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-71" geoId="FR-BOU"/>
     <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-72" geoId="FR-PDL"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-73" geoId="FR-ARA"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-74" geoId="FR-ARA"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-73" geoId="FR-RAL"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-74" geoId="FR-RAL"/>
     <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-75" geoId="FR-IDF"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-76" geoId="FR-NOR"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-76" geoId="FR-HNO"/>
     <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-77" geoId="FR-IDF"/>
     <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-78" geoId="FR-IDF"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-79" geoId="FR-NAQ"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-80" geoId="FR-HDF"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-81" geoId="FR-OCC"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-82" geoId="FR-OCC"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-79" geoId="FR-POC"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-80" geoId="FR-PIC"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-81" geoId="FR-MIP"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-82" geoId="FR-MIP"/>
     <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-83" geoId="FR-PAC"/>
     <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-84" geoId="FR-PAC"/>
     <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-85" geoId="FR-PDL"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-86" geoId="FR-NAQ"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-87" geoId="FR-NAQ"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-88" geoId="FR-GES"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-89" geoId="FR-BFC"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-90" geoId="FR-GES"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-86" geoId="FR-POC"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-87" geoId="FR-LIM"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-88" geoId="FR-LOR"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-89" geoId="FR-BOU"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-90" geoId="FR-FCO"/>
     <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-91" geoId="FR-IDF"/>
     <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-92" geoId="FR-IDF"/>
     <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-93" geoId="FR-IDF"/>
     <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-94" geoId="FR-IDF"/>
     <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-95" geoId="FR-IDF"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-GP" geoId="FR-GUA"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-GF" geoId="FR-GF"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-RE" geoId="FR-LRE"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-YT" geoId="FR-MAY"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-MQ" geoId="FR-MQ"/> <!-- no better solution here so far -->
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-PM" geoId="FR-PM"/> <!-- no better solution here so far -->
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-YT" geoId="FR-YT"/> <!-- no better solution here so far -->
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-NC" geoId="FR-NC"/> <!-- no better solution here so far -->
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-PF" geoId="FR-PF"/> <!-- no better solution here so far -->
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-BL" geoId="FR-BL"/> <!-- no better solution here so far -->
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-MT" geoId="FR-MT"/> <!-- no better solution here so far -->
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-TF" geoId="FR-TF"/> <!-- no better solution here so far -->
-    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-WF" geoId="FR-WF"/> <!-- no better solution here so far -->
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-971" geoId="FR-DOM"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-972" geoId="FR-DOM"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-973" geoId="FR-DOM"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-974" geoId="FR-DOM"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-988" geoId="FR-TOM"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-987" geoId="FR-TOM"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-986" geoId="FR-TOM"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-976" geoId="FR-TOM"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-975" geoId="FR-TOM"/>
 
     <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-BEB01" geoIdTo="FR-01"/>
     <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-LAO02" geoIdTo="FR-02"/>
@@ -454,20 +453,26 @@ under the License.
     <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-CTL94" geoIdTo="FR-94"/>
     <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-PTO95" geoIdTo="FR-95"/>
 
-    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-ARA"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-HDF"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-RAL"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-PIC"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-AUV"/>
     <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-PAC"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-OCC"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-NOR"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-CVL"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-CHA"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-MIP"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-LAR"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-BAN"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-POC"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-CEN"/>
     <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-BRE"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-NAQ"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-LIM"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-AQU"/>
     <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-COR"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-BFC"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-BOU"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-FCO"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-HNO"/>
     <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-PDL"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-GES"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-LOR"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-ALS"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-NPC"/>
     <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-IDF"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-GUA"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-LRE"/>
-    <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-MAY"/>
 </entity-engine-xml>

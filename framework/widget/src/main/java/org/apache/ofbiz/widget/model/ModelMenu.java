@@ -31,12 +31,11 @@ import org.apache.ofbiz.base.util.UtilXml;
 import org.apache.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.widget.renderer.MenuStringRenderer;
-import org.apache.ofbiz.widget.renderer.VisualTheme;
 import org.w3c.dom.Element;
 
 /**
  * Models the &lt;menu&gt; element.
- *
+ * 
  * @see <code>widget-menu.xsd</code>
  */
 @SuppressWarnings("serial")
@@ -46,14 +45,14 @@ public class ModelMenu extends ModelWidget {
      * ----------------------------------------------------------------------- *
      *                     DEVELOPERS PLEASE READ
      * ----------------------------------------------------------------------- *
-     *
+     * 
      * This model is intended to be a read-only data structure that represents
      * an XML element. Outside of object construction, the class should not
      * have any behaviors.
-     *
+     * 
      * Instances of this class will be shared by multiple threads - therefore
      * it is immutable. DO NOT CHANGE THE OBJECT'S STATE AT RUN TIME!
-     *
+     * 
      */
 
     public static final String module = ModelMenu.class.getName();
@@ -103,9 +102,9 @@ public class ModelMenu extends ModelWidget {
     private final String type;
 
     /** XML Constructor */
-    public ModelMenu(Element menuElement, String menuLocation, VisualTheme visualTheme) {
+    public ModelMenu(Element menuElement, String menuLocation) {
         super(menuElement);
-        ArrayList<ModelAction> actions = new ArrayList<>();
+        ArrayList<ModelAction> actions = new ArrayList<ModelAction>();
         String defaultAlign = "";
         String defaultAlignStyle = "";
         FlexibleStringExpander defaultAssociatedContentId = FlexibleStringExpander.getInstance("");
@@ -124,8 +123,8 @@ public class ModelMenu extends ModelWidget {
         String fillStyle = "";
         String id = "";
         FlexibleStringExpander menuContainerStyleExdr = FlexibleStringExpander.getInstance("");
-        ArrayList<ModelMenuItem> menuItemList = new ArrayList<>();
-        Map<String, ModelMenuItem> menuItemMap = new HashMap<>();
+        ArrayList<ModelMenuItem> menuItemList = new ArrayList<ModelMenuItem>();
+        Map<String, ModelMenuItem> menuItemMap = new HashMap<String, ModelMenuItem>();
         String menuWidth = "";
         String orientation = "horizontal";
         FlexibleMapAccessor<String> selectedMenuItemContextFieldName = FlexibleMapAccessor.getInstance("");
@@ -140,26 +139,22 @@ public class ModelMenu extends ModelWidget {
         if (!parentMenu.isEmpty()) {
             if (!parentResource.isEmpty()) {
                 try {
-                    FlexibleStringExpander parentResourceExp = FlexibleStringExpander.getInstance(parentResource);
-                    Map<String, String> visualRessources = visualTheme.getModelTheme().getModelCommonMenus();
-                    parentResource = parentResourceExp.expandString(visualRessources);
-                    parent = MenuFactory.getMenuFromLocation(parentResource, parentMenu, visualTheme);
+                    parent = MenuFactory.getMenuFromLocation(parentResource, parentMenu);
                 } catch (Exception e) {
-                    Debug.logError(e, "Failed to load parent menu definition '" + parentMenu + "' at resource '" + parentResource, module);
+                    Debug.logError(e, "Failed to load parent menu definition '" + parentMenu + "' at resource '" + parentResource
+                            + "'", module);
                 }
             } else {
                 parentResource = menuLocation;
                 // try to find a menu definition in the same file
                 Element rootElement = menuElement.getOwnerDocument().getDocumentElement();
                 List<? extends Element> menuElements = UtilXml.childElementList(rootElement, "menu");
-                Element parentEntry = menuElements.stream()
-                        .filter(elem -> elem.getAttribute("name").equals(parentMenu))
-                        .findFirst()
-                        .orElse(null);
-                if (parentEntry != null) {
-                    parent = new ModelMenu(parentEntry, parentResource, visualTheme);
+                for (Element menuElementEntry : menuElements) {
+                    if (menuElementEntry.getAttribute("name").equals(parentMenu)) {
+                        parent = new ModelMenu(menuElementEntry, parentResource);
+                        break;
+                    }
                 }
-
                 if (parent == null) {
                     Debug.logError("Failed to find parent menu definition '" + parentMenu + "' in same document.", module);
                 }
@@ -197,83 +192,58 @@ public class ModelMenu extends ModelWidget {
                 }
             }
         }
-        if (!menuElement.getAttribute("type").isEmpty()) {
+        if (!menuElement.getAttribute("type").isEmpty())
             type = menuElement.getAttribute("type");
-        }
-        if (!menuElement.getAttribute("target").isEmpty()) {
+        if (!menuElement.getAttribute("target").isEmpty())
             target = menuElement.getAttribute("target");
-        }
-        if (!menuElement.getAttribute("id").isEmpty()) {
+        if (!menuElement.getAttribute("id").isEmpty())
             id = menuElement.getAttribute("id");
-        }
-        if (!menuElement.getAttribute("title").isEmpty()) {
+        if (!menuElement.getAttribute("title").isEmpty())
             title = FlexibleStringExpander.getInstance(menuElement.getAttribute("title"));
-        }
-        if (!menuElement.getAttribute("tooltip").isEmpty()) {
+        if (!menuElement.getAttribute("tooltip").isEmpty())
             tooltip = menuElement.getAttribute("tooltip");
-        }
-        if (!menuElement.getAttribute("default-entity-name").isEmpty()) {
+        if (!menuElement.getAttribute("default-entity-name").isEmpty())
             defaultEntityName = menuElement.getAttribute("default-entity-name");
-        }
-        if (!menuElement.getAttribute("default-title-style").isEmpty()) {
+        if (!menuElement.getAttribute("default-title-style").isEmpty())
             defaultTitleStyle = menuElement.getAttribute("default-title-style");
-        }
-        if (!menuElement.getAttribute("default-selected-style").isEmpty()) {
+        if (!menuElement.getAttribute("default-selected-style").isEmpty())
             defaultSelectedStyle = menuElement.getAttribute("default-selected-style");
-        }
-        if (!menuElement.getAttribute("default-widget-style").isEmpty()) {
+        if (!menuElement.getAttribute("default-widget-style").isEmpty())
             defaultWidgetStyle = menuElement.getAttribute("default-widget-style");
-        }
-        if (!menuElement.getAttribute("default-tooltip-style").isEmpty()) {
+        if (!menuElement.getAttribute("default-tooltip-style").isEmpty())
             defaultTooltipStyle = menuElement.getAttribute("default-tooltip-style");
-        }
-        if (!menuElement.getAttribute("default-menu-item-name").isEmpty()) {
+        if (!menuElement.getAttribute("default-menu-item-name").isEmpty())
             defaultMenuItemName = menuElement.getAttribute("default-menu-item-name");
-        }
-        if (!menuElement.getAttribute("default-permission-operation").isEmpty()) {
+        if (!menuElement.getAttribute("default-permission-operation").isEmpty())
             defaultPermissionOperation = menuElement.getAttribute("default-permission-operation");
-        }
-        if (!menuElement.getAttribute("default-permission-entity-action").isEmpty()) {
+        if (!menuElement.getAttribute("default-permission-entity-action").isEmpty())
             defaultPermissionEntityAction = menuElement.getAttribute("default-permission-entity-action");
-        }
-        if (!menuElement.getAttribute("default-associated-content-id").isEmpty()) {
+        if (!menuElement.getAttribute("default-associated-content-id").isEmpty())
             defaultAssociatedContentId = FlexibleStringExpander.getInstance(menuElement
                     .getAttribute("default-associated-content-id"));
-        }
-        if (!menuElement.getAttribute("orientation").isEmpty()) {
+        if (!menuElement.getAttribute("orientation").isEmpty())
             orientation = menuElement.getAttribute("orientation");
-        }
-        if (!menuElement.getAttribute("menu-width").isEmpty()) {
+        if (!menuElement.getAttribute("menu-width").isEmpty())
             menuWidth = menuElement.getAttribute("menu-width");
-        }
-        if (!menuElement.getAttribute("default-cell-width").isEmpty()) {
+        if (!menuElement.getAttribute("default-cell-width").isEmpty())
             defaultCellWidth = menuElement.getAttribute("default-cell-width");
-        }
-        if (!menuElement.getAttribute("default-hide-if-selected").isEmpty()) {
-            defaultHideIfSelected = "true".equals(menuElement.getAttribute("default-hide-if-selected"));
-        }
-        if (!menuElement.getAttribute("default-disabled-title-style").isEmpty()) {
+        if (!menuElement.getAttribute("default-hide-if-selected").isEmpty())
+            defaultHideIfSelected = "true".equals(menuElement.getAttribute("default-hide-if-selected").isEmpty());
+        if (!menuElement.getAttribute("default-disabled-title-style").isEmpty())
             defaultDisabledTitleStyle = menuElement.getAttribute("default-disabled-title-style");
-        }
-        if (!menuElement.getAttribute("selected-menuitem-context-field-name").isEmpty()) {
+        if (!menuElement.getAttribute("selected-menuitem-context-field-name").isEmpty())
             selectedMenuItemContextFieldName = FlexibleMapAccessor.getInstance(menuElement
                     .getAttribute("selected-menuitem-context-field-name"));
-        }
-        if (!menuElement.getAttribute("menu-container-style").isEmpty()) {
+        if (!menuElement.getAttribute("menu-container-style").isEmpty())
             menuContainerStyleExdr = FlexibleStringExpander.getInstance(menuElement.getAttribute("menu-container-style"));
-        }
-        if (!menuElement.getAttribute("default-align").isEmpty()) {
+        if (!menuElement.getAttribute("default-align").isEmpty())
             defaultAlign = menuElement.getAttribute("default-align");
-        }
-        if (!menuElement.getAttribute("default-align-style").isEmpty()) {
+        if (!menuElement.getAttribute("default-align-style").isEmpty())
             defaultAlignStyle = menuElement.getAttribute("default-align-style");
-        }
-        if (!menuElement.getAttribute("fill-style").isEmpty()) {
+        if (!menuElement.getAttribute("fill-style").isEmpty())
             fillStyle = menuElement.getAttribute("fill-style");
-        }
-        if (!menuElement.getAttribute("extra-index").isEmpty()) {
+        if (!menuElement.getAttribute("extra-index").isEmpty())
             extraIndex = FlexibleStringExpander.getInstance(menuElement.getAttribute("extra-index"));
-        }
         // read all actions under the "actions" element
         Element actionsElement = UtilXml.firstChildElement(menuElement, "actions");
         if (actionsElement != null) {
@@ -507,9 +477,8 @@ public class ModelMenu extends ModelWidget {
     public int renderedMenuItemCount(Map<String, Object> context) {
         int count = 0;
         for (ModelMenuItem item : this.menuItemList) {
-            if (item.shouldBeRendered(context)) {
+            if (item.shouldBeRendered(context))
                 count++;
-            }
         }
         return count;
     }

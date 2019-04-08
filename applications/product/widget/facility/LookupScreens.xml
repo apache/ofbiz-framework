@@ -27,10 +27,10 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.PageTitleLookupFacility"/>
+                <set field="title" value="${uiLabelMap.PageTitleLookupFacility}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="entityName" value="Facility"/>
                 <set field="searchFields" value="[facilityId, facilityName, description]"/>                 
@@ -54,11 +54,11 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.PageTitleLookupFacility"/>
+                <set field="title" value="${uiLabelMap.PageTitleLookupFacility}"/>
                 <set field="facilityId" from-field="parameters.facilityId" default-value="${parameters.parm0}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="entityName" value="FacilityLocation"/>
                 <set field="searchFields" value="[locationSeqId, facilityId, locationTypeEnumId]"/>                 
@@ -80,10 +80,10 @@ under the License.
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.ProductLookupShipment"/>
+                <set field="title" value="${uiLabelMap.ProductLookupShipment}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="entityName" value="Shipment"/>
                 <set field="searchFields" value="[shipmentId, shipmentTypeId]"/>
@@ -106,12 +106,12 @@ under the License.
             <actions>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.ProductLookupInventory"/>
+                <set field="title" value="${uiLabelMap.ProductLookupInventory}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="entityName" value="InventoryItem"/>
                 <set field="searchFields" value="[inventoryItemId]"/>
                 <script location="component://product/groovyScripts/catalog/GetSupplierInventories.groovy"/>
-                <set field="andCondition" from-field="context.andCondition"/>
+                <set field="andCondition" value="${context.andCondition}"/>
                 <script location="component://product/groovyScripts/facility/inventory/LookupInventoryItems.groovy"/>
             </actions>
             <widgets>
@@ -131,7 +131,7 @@ under the License.
             <actions>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ProductErrorUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.ProductListFacilityLocation"/>
+                <set field="title" value="${uiLabelMap.ProductListFacilityLocation}"/>
                 <set field="facilityId" from-field="parameters.facilityId"/>
                 <set field="productId" from-field="parameters.productId"/>
                 <service service-name="findProductInventorylocations">

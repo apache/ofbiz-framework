@@ -43,10 +43,10 @@ public class CollectionConverters implements ConverterLoader {
             if (targetClass != List.class) {
                return null;
             }
-            if (sourceClass.getComponentType() == null) {
+            if (!(sourceClass.getComponentType() instanceof Object)) {
                 return null;
             }
-            return UtilGenerics.cast(new ArrayClassToList<>(sourceClass, targetClass));
+            return UtilGenerics.cast(new ArrayClassToList<S, T>(sourceClass, targetClass));
         }
     }
 
@@ -61,7 +61,7 @@ public class CollectionConverters implements ConverterLoader {
         }
 
         public T convert(S obj) throws ConversionException {
-            List<Object> list = new LinkedList<>();
+            List<Object> list = new LinkedList<Object>();
             int len = Array.getLength(obj);
             for (int i = 0; i < len; i++) {
                 list.add(Array.get(obj, i));
@@ -110,7 +110,7 @@ public class CollectionConverters implements ConverterLoader {
         }
 
         public List<Map<K, V>> convert(Map<K, V> obj) throws ConversionException {
-            List<Map<K, V>> tempList = new LinkedList<>();
+            List<Map<K, V>> tempList = new LinkedList<Map<K, V>>();
             tempList.add(obj);
             return tempList;
         }
@@ -122,7 +122,7 @@ public class CollectionConverters implements ConverterLoader {
         }
 
         public Set<Map<K, V>> convert(Map<K, V> obj) throws ConversionException {
-            Set<Map<K, V>> tempSet = new HashSet<>();
+            Set<Map<K, V>> tempSet = new HashSet<Map<K, V>>();
             tempSet.add(obj);
             return tempSet;
         }
@@ -147,8 +147,9 @@ public class CollectionConverters implements ConverterLoader {
         public List<String> convert(String obj) throws ConversionException {
             if (obj.startsWith("[") && obj.endsWith("]")) {
                 return StringUtil.toList(obj);
+            } else {
+                return super.convert(obj);
             }
-            return super.convert(obj);
         }
     }
 
@@ -174,8 +175,9 @@ public class CollectionConverters implements ConverterLoader {
         public Set<String> convert(String obj) throws ConversionException {
             if (obj.startsWith("[") && obj.endsWith("]")) {
                 return StringUtil.toSet(obj);
+            } else {
+                return super.convert(obj);
             }
-            return super.convert(obj);
         }
     }
 

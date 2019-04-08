@@ -31,9 +31,9 @@ under the License.
         <field use-when="webSite!=null" name="webSiteId"><display/></field>
         <field use-when="webSite==null&amp;&amp;webSiteId!=null" name="webSiteId" tooltip="${uiLabelMap.CommonCannotBeFound}: [${webSiteId}]"><text size="20" maxlength="20"/></field>
         <!-- this to be taken care of with auto-fields-service as soon as it uses entity field info too -->
-        <field use-when="webSite==null&amp;&amp;webSiteId==null" name="webSiteId" required-field="true"><text size="20" maxlength="20"/></field>
+        <field use-when="webSite==null&amp;&amp;webSiteId==null" name="webSiteId"><text size="20" maxlength="20"/></field>
 
-        <field name="siteName" required-field="true"><text size="30" maxlength="60"/></field>
+        <field name="siteName"><text size="30" maxlength="60"/></field>
         <field name="enableHttps">
             <drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
@@ -123,10 +123,9 @@ under the License.
 
         <auto-fields-service service-name="updateWebSitePathAlias" map-name=""/>
         
-        <field name="webSiteId"><display/></field>
-        <field name="contentId"><lookup target-form-name="LookupContent"/></field>
+        <field name="webSiteId"><display/></field>      
         <field name="pathAlias" use-when="webSitePathAlias!=null"><display/></field>
-        <field name="pathAlias" use-when="webSitePathAlias==null" required-field="true"><text/></field>
+        <field name="pathAlias" use-when="webSitePathAlias==null"><text/></field>
         <field name="fromDate" required-field="true"><date-time default-value="${nowTimestamp}"/></field>
         <field name="submitButton" use-when="webSitePathAlias!=null" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="submitButton" use-when="webSitePathAlias==null" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
@@ -184,7 +183,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createWebSiteContent"/>
         <field name="webSiteId" map-name="webSite"><display also-hidden="true"/></field>
-        <field name="contentId" required-field="true"><lookup target-form-name="LookupContent"/></field>
+        <field name="contentId"><lookup target-form-name="LookupContent"/></field>
         <field name="webSiteContentTypeId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="WebSiteContentType">
@@ -200,7 +199,7 @@ under the License.
     <form name="CreateWebSiteRole" type="single" target="createWebSiteRole" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createWebSiteRole"/>
-        <field name="partyId" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="webSiteId" map-name="webSite"><hidden/></field>
         <field name="roleTypeId">
             <drop-down no-current-selected-key="_NA_">
@@ -278,7 +277,7 @@ under the License.
         <field name="webSiteId"><display/></field>
         <field name="siteName"><display/></field>
         <field name="fromDate"><hidden value="${fromDate}"/></field>
-        <field name="contactListId" required-field="true">
+        <field name="contactListId">
             <drop-down allow-empty="true">
                 <entity-options description="${contactListName} [${contactListId}]" entity-name="ContactList" key-field-name="contactListId"></entity-options>
             </drop-down>

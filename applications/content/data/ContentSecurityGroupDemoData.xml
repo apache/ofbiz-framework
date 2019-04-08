@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<entity-engine-xml>
+    <!-- Content Manager security -->
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="CONTENTMGR_ADMIN"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="CONTENTMGR_CREATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="CONTENTMGR_DELETE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="CONTENTMGR_UPDATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="CONTENTMGR_VIEW"/>
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="CONTENTMGR_VIEW"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="CONTENTMGR_ADMIN"/>
+
+    <!-- Content ROLE security -->
+    <SecurityGroup groupId="CONTENT_USER" description="Content user group; all limited content permissions."/>
+    <SecurityGroupPermission groupId="CONTENT_USER" permissionId="CONTENTMGR_ROLE_VIEW"/>
+    <SecurityGroupPermission groupId="CONTENT_USER" permissionId="CONTENTMGR_ROLE_CREATE"/>
+    <SecurityGroupPermission groupId="CONTENT_USER" permissionId="CONTENTMGR_ROLE_UPDATE"/>
+    <SecurityGroupPermission groupId="CONTENT_USER" permissionId="CONTENTMGR_ROLE_DELETE"/>
+    <SecurityGroupPermission groupId="CONTENT_USER" permissionId="CONTENTMGR_VIEW"/>
+    <SecurityGroupPermission groupId="CONTENT_USER" permissionId="OFBTOOLS_VIEW"/>
+
+    <!-- Control Applet security -->
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="SEND_CONTROL_APPLET"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="SEND_CONTROL_APPLET"/>
+</entity-engine-xml>

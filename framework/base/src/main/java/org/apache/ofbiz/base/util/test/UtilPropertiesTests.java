@@ -30,8 +30,8 @@ import org.apache.ofbiz.base.util.UtilProperties;
 
 public class UtilPropertiesTests extends GenericTestCaseBase {
 
-    private static final String country = "AU";
-    private static final String language = "en";
+    private final String country = "AU";
+    private final String language = "en";
     private final Locale locale = new Locale(language, country);
 
     public UtilPropertiesTests(String name) {
@@ -75,8 +75,7 @@ public class UtilPropertiesTests extends GenericTestCaseBase {
                 "\">Key Value</value>\n" +
                 "    </property>\n" +
                 "</resource>";
-        try (InputStream in = new ByteArrayInputStream(new String(xmlData.getBytes(), Charset.forName("UTF-8")).getBytes())) {
+        InputStream in = new ByteArrayInputStream(new String(xmlData.getBytes(), Charset.forName("UTF-8")).getBytes());
         return UtilProperties.xmlToProperties(in, locale, null);
-        }
     }
 }

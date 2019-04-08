@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <Party partyId="BLOGUSER_ADMIN" partyTypeId="PERSON" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
+    <Person partyId="BLOGUSER_ADMIN" lastName="Blog" firstName="Admin"/>
+    <UserLogin userLoginId="blog_admin" partyId="BLOGUSER_ADMIN" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
+    <PartyRole partyId="BLOGUSER_ADMIN" roleTypeId="CONTENT_ADMIN"/>
+    <PartyStatus partyId="BLOGUSER_ADMIN" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <ContentRole partyId="BLOGUSER_ADMIN" roleTypeId="CONTENT_ADMIN" contentId="BLOGROOT" fromDate="2004-03-27 09:37:40.989"/>
+    <UserLoginSecurityGroup userLoginId="blog_admin" groupId="FULLADMIN" fromDate="2004-09-15 00:00:00.000"/>
+
+    <Party partyId="BLOGUSER_EDITOR" partyTypeId="PERSON" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
+    <Person partyId="BLOGUSER_EDITOR" lastName="Blog" firstName="Editor"/>
+    <UserLogin userLoginId="blog_editor" partyId="BLOGUSER_EDITOR" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
+    <PartyRole partyId="BLOGUSER_EDITOR" roleTypeId="CONTENT_ADMIN"/>
+    <PartyStatus partyId="BLOGUSER_EDITOR" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <ContentRole partyId="BLOGUSER_EDITOR" roleTypeId="CONTENT_ADMIN" contentId="BLOGROOT" fromDate="2004-03-27 09:37:40.989"/>
+    <UserLoginSecurityGroup userLoginId="blog_editor" groupId="FULLADMIN"  fromDate="2004-09-15 00:00:00.000"/>
+
+    <Party partyId="BLOGUSER_USER" partyTypeId="PERSON" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
+    <Person partyId="BLOGUSER_USER" lastName="Blog" firstName="User"/>
+    <UserLogin userLoginId="blog_user" partyId="BLOGUSER_USER" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
+    <PartyRole partyId="BLOGUSER_USER" roleTypeId="CONTENT_ADMIN"/>
+    <PartyRole partyId="BLOGUSER_USER" roleTypeId="CONTENT_AUTHOR"/>
+    <PartyStatus partyId="BLOGUSER_USER" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+
+    <Party partyId="BLOGUSER_GUEST" partyTypeId="PERSON" statusId="PARTY_ENABLED" createdDate="2004-10-20 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-10-20 09:37:40.989" lastModifiedByUserLogin="admin"/>
+    <Person partyId="BLOGUSER_GUEST" lastName="Blog" firstName="Guest"/>
+    <PartyStatus partyId="BLOGUSER_GUEST" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <UserLogin userLoginId="blog_guest" partyId="BLOGUSER_GUEST" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
+
+    <Party partyId="AUTHOR_BIGAL" partyTypeId="PERSON" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
+    <Person partyId="AUTHOR_BIGAL" lastName="Al" firstName="Big"/>
+    <UserLogin userLoginId="bigal" partyId="AUTHOR_BIGAL" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
+    <PartyRole partyId="AUTHOR_BIGAL" roleTypeId="CONTENT_AUTHOR"/>
+    <PartyStatus partyId="AUTHOR_BIGAL" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <ContentRole partyId="AUTHOR_BIGAL" roleTypeId="CONTENT_AUTHOR" contentId="BLOGROOTBIGAL" fromDate="2004-03-27 09:37:40.989"/>
+    <ContentPurpose contentId="BLOGROOTBIGAL" contentPurposeTypeId="ARTICLE"/>
+    <UserLoginSecurityGroup userLoginId="bigal" groupId="CONTENT_USER"  fromDate="2004-09-15 00:00:00.000"/>
+    <!-- Updating BLOGROOTBIGAL with bigal as creator so that he will be found as "owner" for subrecords.
+         This is used in a screen permission test.
+         -->
+    <Party partyId="BLOG_USERS" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
+    <Party partyId="BLOG_EDITORS" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
+    <Party partyId="BLOG_ADMINS" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
+    <Party partyId="BLOG_AUTHORS" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
+    <Party partyId="BLOG_PUBLISHERS" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
+
+    <DataSource dataSourceId="BLOG_SITE" dataSourceTypeId="WEBSITE_ENTRY" description="Blog Site"/>
+
+    <PartyRole partyId="BLOG_USERS" roleTypeId="CONTENT_USER"/>
+    <PartyRole partyId="BLOG_EDITORS" roleTypeId="CONTENT_EDITOR"/>
+    <PartyRole partyId="BLOG_AUTHORS" roleTypeId="CONTENT_AUTHOR"/>
+    <PartyRole partyId="BLOG_ADMINS" roleTypeId="CONTENT_ADMIN"/>
+    <PartyRole partyId="BLOG_PUBLISHERS" roleTypeId="CONTENT_ADMIN"/>
+
+    <PartyStatus partyId="BLOG_USERS" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyStatus partyId="BLOG_EDITORS" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyStatus partyId="BLOG_ADMINS" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyStatus partyId="BLOG_AUTHORS" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyStatus partyId="BLOG_PUBLISHERS" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+
+    <UserLogin userLoginId="blog_guest" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" passwordHint=""/>
+    <UserLogin userLoginId="blog_admin" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" passwordHint=""/>
+    <UserLogin userLoginId="blog_author" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" passwordHint=""/>
+    <UserLogin userLoginId="blog_editor" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" passwordHint=""/>
+
+    <Content contentId="BLOGROOTBIGAL"
+     createdByUserLogin="bigal"
+     lastModifiedByUserLogin="bigal"
+     createdDate="2004-10-16 17:32:31.285"
+     lastModifiedDate="2004-10-16 17:32:31.291"/>
+
+    <Party partyId="AUTHOR_MADMAX" partyTypeId="PERSON" statusId="PARTY_ENABLED" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
+    <Person partyId="AUTHOR_MADMAX" lastName="Max" firstName="Mad"/>
+    <UserLogin userLoginId="madmax" partyId="AUTHOR_MADMAX" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
+    <PartyRole partyId="AUTHOR_MADMAX" roleTypeId="CONTENT_AUTHOR"/>
+    <PartyStatus partyId="AUTHOR_MADMAX" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <ContentRole partyId="AUTHOR_MADMAX" roleTypeId="CONTENT_AUTHOR" contentId="BLOGROOTMADMAX" fromDate="2004-03-27 09:37:40.989"/>
+    <ContentPurpose contentId="BLOGROOTMADMAX" contentPurposeTypeId="ARTICLE"/>
+    <UserLoginSecurityGroup userLoginId="madmax" groupId="CONTENT_USER"  fromDate="2004-09-15 00:00:00.000"/>
+    <!-- Updating biBLOGROOTMADMAXgal with madmax as creator so that he will be found as "owner" for subrecords.
+         This is used in a screen permission test.
+         -->
+    <Content contentId="BLOGROOTMADMAX"
+     createdByUserLogin="madmax"
+     lastModifiedByUserLogin="madmax"
+     createdDate="2004-10-16 17:32:31.285"
+     lastModifiedDate="2004-10-16 17:32:31.291"/>
+
+</entity-engine-xml>

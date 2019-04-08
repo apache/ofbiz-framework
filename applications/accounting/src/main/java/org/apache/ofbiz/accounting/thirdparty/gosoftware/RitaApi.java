@@ -28,6 +28,7 @@ import org.apache.ofbiz.base.util.HttpClient;
 import org.apache.ofbiz.base.util.HttpClientException;
 import org.apache.ofbiz.base.util.ObjectType;
 
+
 public class RitaApi {
 
     public static final String module = RitaApi.class.getName();
@@ -76,14 +77,14 @@ public class RitaApi {
     public static final String ORIG_TRANS_AMOUNT = "ORIG_TRANS_AMOUNT";
 
     // IN/OUT validation array
-    private static final String[] validOut = { TERMINATION_STATUS, INTRN_SEQ_NUM, RESULT, RESULT_CODE, RESPONSE_TEXT,
-            AUTH_CODE, AVS_CODE, CVV2_CODE, REFERENCE, TRANS_DATE, TRANS_TIME,
-            ORIG_TRANS_AMOUNT };
+    protected static final String[] validOut = { TERMINATION_STATUS, INTRN_SEQ_NUM, RESULT, RESULT_CODE, RESPONSE_TEXT,
+                                                 AUTH_CODE, AVS_CODE, CVV2_CODE, REFERENCE, TRANS_DATE, TRANS_TIME,
+                                                 ORIG_TRANS_AMOUNT };
 
-    private static final String[] validIn = { FUNCTION_TYPE, PAYMENT_TYPE, USER_ID, USER_PW, COMMAND, CLIENT_ID,
-            ACCT_NUM, EXP_MONTH, EXP_YEAR, TRANS_AMOUNT, CARDHOLDER, TRACK_DATA,
-            INVOICE, PRESENT_FLAG, CUSTOMER_STREET, CUSTOMER_ZIP, CVV2, TAX_AMOUNT,
-            PURCHASE_ID, FORCE_FLAG, ORIG_TRANS_AMOUNT, ORIG_SEQ_NUM };
+    protected static final String[] validIn = { FUNCTION_TYPE, PAYMENT_TYPE, USER_ID, USER_PW, COMMAND, CLIENT_ID,
+                                                ACCT_NUM, EXP_MONTH, EXP_YEAR, TRANS_AMOUNT, CARDHOLDER, TRACK_DATA,
+                                                INVOICE, PRESENT_FLAG, CUSTOMER_STREET, CUSTOMER_ZIP, CVV2, TAX_AMOUNT,
+                                                PURCHASE_ID, FORCE_FLAG, ORIG_TRANS_AMOUNT, ORIG_SEQ_NUM };
 
     // mode definition
     protected static final int MODE_OUT = 20;
@@ -97,13 +98,13 @@ public class RitaApi {
     protected int mode = 0;
 
     public RitaApi(Map<String, String> document) {
-        this.document = new HashMap<>();
+        this.document = new HashMap<String, String>();
         this.document.putAll(document);
         this.mode = MODE_OUT;
     }
 
     public RitaApi() {
-        this.document = new HashMap<>();
+        this.document = new HashMap<String, String>();
         this.mode = MODE_IN;
     }
 
@@ -121,8 +122,11 @@ public class RitaApi {
 
         String objString = null;
         try {
-            objString = (String) ObjectType.simpleTypeOrObjectConvert(value, "java.lang.String", null, null);
-        } catch (GeneralException | ClassCastException e) {
+            objString = (String) ObjectType.simpleTypeConvert(value, "java.lang.String", null, null);
+        } catch (GeneralException e) {
+            Debug.logError(e, module);
+            throw new IllegalArgumentException("Unable to convert value to String");
+        } catch (ClassCastException e) {
             Debug.logError(e, module);
             throw new IllegalArgumentException("Unable to convert value to String");
         }
@@ -175,7 +179,7 @@ public class RitaApi {
             HttpClient http = new HttpClient(urlString);
             http.setDebug(true);
 
-            Map<String, String> docMap = new HashMap<>();
+            Map<String, String> docMap = new HashMap<String, String>();
             String resp = null;
             try {
                 resp = http.post(stream);
@@ -187,7 +191,7 @@ public class RitaApi {
             String[] lines = resp.split("\n");
             for (int i = 0; i < lines.length; i++) {
                 Debug.logInfo(lines[i], module);
-                if (!".".equals(lines[i].trim())) {
+                if (!lines[i].trim().equals(".")) {
                     String[] lineSplit = lines[i].trim().split(" ", 2);
                     if (lineSplit != null && lineSplit.length == 2) {
                         docMap.put(lineSplit[0], lineSplit[1]);
@@ -200,13 +204,14 @@ public class RitaApi {
             }
             RitaApi out = new RitaApi(docMap);
             return out;
+        } else {
+            throw new IllegalStateException("Cannot send output object");
         }
-        throw new IllegalStateException("Cannot send output object");
     }
 
     private boolean checkIn(String name) {
-        for (String element : validOut) {
-            if (name.equals(element)) {
+        for (int i = 0; i < validOut.length; i++) {
+            if (name.equals(validOut[i])) {
                 return false;
             }
         }
@@ -214,8 +219,8 @@ public class RitaApi {
     }
 
     private boolean checkOut(String name) {
-        for (String element : validIn) {
-            if (name.equals(element)) {
+        for (int i = 0; i < validIn.length; i++) {
+            if (name.equals(validIn[i])) {
                 return false;
             }
         }

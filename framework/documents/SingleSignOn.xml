@@ -123,12 +123,12 @@
     <section>
         <title>LDAP Component</title>
         <para>
-            OFBiz uses the LDAP component in the plugins to check the security in a web application. OFBiz disabled LDAP component as default, you can enable this component by take the comment out from plugins/component-load.xml file.
+            OFBiz uses the LDAP component in the specialpurpose to check the security in a web application. OFBiz disabled LDAP component as default, you can enable this component by take the comment out from specialpurpose/component-load.xml file.
         </para>
         <section>
             <title>LDAP Properties</title>
             <para>
-                LDAP properties file is plugins/ldap/config/ldap.xml. You can change a filter condition you want.
+                LDAP properties file is specialpurpose/ldap/config/ldap.xml. You can change a filter condition you want.
             </para>
             <section>
                 <title>Attributes</title>

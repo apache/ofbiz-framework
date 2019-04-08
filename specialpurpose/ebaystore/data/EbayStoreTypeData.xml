@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <RoleType roleTypeId="EBAY_ACCOUNT" hasTable="N" description="eBay Account"/>
+    <RoleType roleTypeId="COMMENTATOR" hasTable="N" description="Commentator"/>
+
+    <EnumerationType description="Inventory Reservation For Ebay Store" enumTypeId="EBAY_INV_RESERVE" hasTable="N" parentTypeId=""/>
+    <Enumeration description="ebay inventory reserve" enumCode="EBAY_INV" enumId="EBAY_INV_RES" sequenceId="01" enumTypeId="EBAY_INV_RESERVE"/>
+
+    <EnumerationType description="Ebay setting auto preferences" enumTypeId="EBAY_AUTO_PREF" hasTable="N" parentTypeId=""/>
+    
+    <!-- Automation Preference -->
+    <Enumeration enumId="EBAY_AUTO_DISPUTE1" description="Automatic Dispute not complete" enumTypeId="EBAY_AUTO_PREF"/>
+    <Enumeration enumId="EBAY_AUTO_DISPUTE2" description="Automatic Dispute not pay" enumTypeId="EBAY_AUTO_PREF"/>
+    <Enumeration enumId="EBAY_AUTO_RELISTING" description="Automatic Relisting" enumTypeId="EBAY_AUTO_PREF"/>
+    <Enumeration enumId="EBAY_AUTO_PIT_FB" description="Automatic leave positive feedback when buyer has paid for item" enumTypeId="EBAY_AUTO_PREF"/>
+    <Enumeration enumId="EBAY_AUTO_FB_RMD" description="Automatic send reminder email if feedback has not been received after day? shipping" enumTypeId="EBAY_AUTO_PREF"/>
+    <Enumeration enumId="EBAY_AUTO_COMB_ORD" description="Automatic combine order" enumTypeId="EBAY_AUTO_PREF"/>
+    <Enumeration enumId="EBAY_AUTO_PR_EMAIL" description="Automatic send payment received email when has not been received" enumTypeId="EBAY_AUTO_PREF"/>
+    <Enumeration enumId="EBAY_AUTO_ITEM_DISP" description="Automatic send item dispatched email" enumTypeId="EBAY_AUTO_PREF"/>
+    <Enumeration enumId="EBAY_AUTO_BLK_ITEM" description="Automatic block item that out of stock" enumTypeId="EBAY_AUTO_PREF"/>
+    <Enumeration enumId="EBAY_AUTO_BEST_OFFER" description="Automatic best offer enable" enumTypeId="EBAY_AUTO_PREF"/>
+    <!-- Ebay Automation Price -->
+    <EnumerationType description="Ebay setting auto price" enumTypeId="EBAY_AUTO_PRICE" hasTable="N" parentTypeId=""/>
+    <Enumeration enumId="REFAIL_PRICE" description="Refail Price" enumTypeId="EBAY_AUTO_PRICE"/>
+    <Enumeration enumId="START_PRICE" description="Start Price" enumTypeId="EBAY_AUTO_PRICE"/>
+    <Enumeration enumId="RESERVE_PRICE" description="Reserve Price" enumTypeId="EBAY_AUTO_PRICE"/>
+    <Enumeration enumId="BUY_IT_NOW_PRICE" description="Buy-It-Now Price" enumTypeId="EBAY_AUTO_PRICE"/>
+    <Enumeration enumId="SELLER_COST" description="Seller Cost" enumTypeId="EBAY_AUTO_PRICE"/>
+    <Enumeration enumId="SECOND_CHANCE_PRICE" description="Second Chance Price" enumTypeId="EBAY_AUTO_PRICE"/>
+    <Enumeration enumId="STORE_PRICE" description="Store Price" enumTypeId="EBAY_AUTO_PRICE"/>
+    <!-- Automation email -->
+    <Enumeration enumId="EBAY_WIN_BUYER_NOTI" description="Automatically send a Winning Buyer Notification email to your winning buyer(s) after item has sold." enumTypeId="PRDS_EMAIL"/>
+    <Enumeration enumId="EBAY_PAY_RECIEVED" description="Automatically send Payment Received email when payment has been received." enumTypeId="PRDS_EMAIL"/>
+    <Enumeration enumId="EBAY_FEEBACK_REMIN" description="Automatically send a Feedback Reminder email if feedback has not been received. Please choose how many days after shipping you want this email sent." enumTypeId="PRDS_EMAIL"/>
+    <Enumeration enumId="EBAY_ITEM_DISPATCH" description="Automatic send item dispatched notification email when user mark sold listing as dispatched" enumTypeId="PRDS_EMAIL"/>
+    <!-- Content main for specify Enumeration -->
+    <Content contentId="EBAY_WIN_BUYER_NOTI" contentTypeId="TEMPLATE" description="Automatically send a Winning Buyer Notification email to your winning buyer(s) after item has sold."/>
+    <Content contentId="EBAY_PAY_RECIEVED" contentTypeId="TEMPLATE" description="Automatically send Payment Received email when payment has been received."/>
+    <Content contentId="EBAY_FEEBACK_REMIN" contentTypeId="TEMPLATE" description="Automatically send a Feedback Reminder email if feedback has not been received. Please choose how many days after shipping you want this email sent"/>
+    <Content contentId="EBAY_ITEM_DISPATCH" contentTypeId="TEMPLATE" description="Automatic send item dispatched notification email when user mark sold listing as dispatched"/>
+
+    <ProductType productTypeId="EBAY_ITEM" description="Product From eBay"/>
+</entity-engine-xml>

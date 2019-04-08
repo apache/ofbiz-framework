@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
+
+    <form name="FindFacilityInventoryByProduct" type="single" target="${facilityInventoryByProductScreen}" title=""
+          header-row-style="header-row" default-table-style="basic-table">
+        <field name="facilityId"><hidden/></field>
+        <field name="action"><hidden value="SEARCH"/></field>
+        <field name="productId" title="${uiLabelMap.ProductProductId}">
+            <text/>
+        </field>
+        <field name="internalName" title="${uiLabelMap.ProductInternalName}">
+            <text/>
+        </field>
+        <field name="productTypeId" title="${uiLabelMap.ProductProductType}">
+            <drop-down allow-empty="true" no-current-selected-key="FINISHED_GOOD">
+                <entity-options entity-name="ProductType"> <!-- [${productTypeId}] -->
+                    <entity-constraint name="isPhysical"  value="Y" operator="equals"/>
+                    <entity-constraint name="parentTypeId"  value="GOOD" operator="equals"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="searchInProductCategoryId" title="${uiLabelMap.ProductCategory}"><lookup target-form-name="LookupProductCategory"></lookup></field>
+        <field name="productSupplierId" title="${uiLabelMap.ProductSupplier}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="PartyRoleAndPartyDetail" key-field-name="partyId" description="${groupName} [${partyId}]">
+                    <entity-constraint name="roleTypeId" operator="equals"  value="SUPPLIER"/>
+                    <entity-order-by field-name="partyId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="statusId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
+                    <entity-constraint name="statusTypeId" operator="equals" value="INV_NON_SER_STTS"/>
+                </entity-options>
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
+                    <entity-constraint name="statusTypeId" operator="equals" value="INV_SERIALIZED_STTS"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="offsetQOHQty" title="${uiLabelMap.ProductQtyOffsetQOHBelow}"><text/></field>
+        <field name="offsetATPQty" title="${uiLabelMap.ProductQtyOffsetATPBelow}"><text/></field>
+        <field name="productsSoldThruTimestamp" title="${uiLabelMap.ProductShowProductsSoldThruTimestamp}">
+            <date-time default-value="${groovy: org.apache.ofbiz.base.util.UtilDateTime.nowTimestamp()}"/>
+        </field>
+        <field name="VIEW_SIZE" entry-name="viewSize" title="${uiLabelMap.ProductShowProductsPerPage}"><text/></field>
+        <field name="monthsInPastLimit" entry-name="monthsInPastLimit"><text/></field>
+        <field name="fromDateSellThrough"><date-time/></field>
+        <field name="thruDateSellThrough"><date-time/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    <form name="ViewFacilityInventoryHistoryReportForm" extends="FindFacilityInventoryByProduct" target="RenderInventoryReportHtml" target-window="_BLANK">
+        <field name="facilityId"><hidden/></field>
+        <field name="productId"><hidden/></field>
+        <field name="internalName"><hidden/></field>
+        <field name="productTypeId"><hidden/></field>
+        <field name="searchInProductCategoryId"><hidden/></field>
+        <field name="productSupplierId"><hidden/></field>
+        <field name="statusId"><hidden/></field>
+        <field name="productsSoldThruTimestamp"><hidden/></field>
+        <field name="VIEW_SIZE"><hidden/></field>
+        <field name="monthsInPastLimit"><hidden/></field>
+        <field name="fromDateSellThrough"><hidden/></field>
+        <field name="thruDateSellThrough"><hidden/></field>
+        <field name="offsetQOHQty"><hidden/></field>
+        <field name="offsetATPQty"><hidden/></field>
+        <field name="lastIntMonth" title="${uiLabelMap.BirtFacilityReportLastIntMonth}"><text size="15" default-value="0"></text></field>
+        <field name="contentType" action="document.ViewFacilityInventoryHistoryReportForm.action=this.value" event="onchange">
+            <drop-down allow-empty="false" >
+                <option key="RenderInventoryReportHtml" description="HTML"/>
+                <option key="RenderInventoryReportPDF" description="PDF"/>
+                <!--option key="RenderInventoryReportExcel" description="MS-Excel"/>
+              <option key="RenderInventoryReportMSWord" description="MS-Word"/>
+              <option key="RenderInventoryReportPPT" description="MS-Powerpoint"/-->
+            </drop-down>
+        </field>
+        <field name="submitButton"><hidden/></field>
+        <field name="report" title="Export Report" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+</forms>

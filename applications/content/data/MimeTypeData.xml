@@ -1,0 +1,1265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<entity-engine-xml>
+    <CharacterSet characterSetId="ISO-8859-1" description="ISO-8859-1 English"/>
+    <CharacterSet characterSetId="ISO-8859-2" description="ISO-8859-2 ?"/>
+    <CharacterSet characterSetId="ISO-8859-3" description="ISO-8859-3 ?"/>
+    <CharacterSet characterSetId="ISO-8859-4" description="ISO-8859-4 ?"/>
+    <CharacterSet characterSetId="ISO-8859-5" description="ISO-8859-5 ?"/>
+    <CharacterSet characterSetId="ISO-8859-6" description="ISO-8859-6 Latin/Arabic"/>
+    <CharacterSet characterSetId="ISO-8859-7" description="ISO-8859-7 ?"/>
+    <CharacterSet characterSetId="ISO-8859-8" description="ISO-8859-8 Latin/Hebrew"/>
+    <CharacterSet characterSetId="ISO-8859-9" description="ISO-8859-9 ?"/>
+    <CharacterSet characterSetId="ISO-8859-10" description="ISO-8859-10 ?"/>
+    <CharacterSet characterSetId="US-ASCII" description="US-ASCII as defined in ANSI X3.4-1986"/>
+    <CharacterSet characterSetId="UTF-8" description="Unicode 8 bit"/>
+    <CharacterSet characterSetId="UTF-16" description="Unicode 16 bit"/>
+
+    <!-- application mime types -->
+    <MimeType mimeTypeId="application/octet-stream" description="Arbitrary Binary Data"/>
+    <MimeType mimeTypeId="application/pkcs7-signature" description="PKCS7 Signature"/>
+    <MimeType mimeTypeId="application/postscript" description="Postsctipt Application/Script"/>
+    <MimeType mimeTypeId="application/zip" description="ZIP Data"/>
+    <MimeType mimeTypeId="application/pdf" description="Adobe Portable Document Format (PDF)"/>
+    <MimeType mimeTypeId="application/msword" description="Microsoft Word"/>
+    <MimeType mimeTypeId="application/x-shockwave-flash" description="Shockwave Flash Movie"/>
+    <MimeType mimeTypeId="application/x-zip-compressed" description="ZIP compressed file"/>
+    <MimeType mimeTypeId="application/x-tgz" description="Gzipped Tar archive file"/>
+    <MimeType mimeTypeId="application/vnd.oasis.opendocument.text" description="OpenOffice OpenDocument Text"/>
+    <MimeType mimeTypeId="application/vnd.oasis.opendocument.spreadsheet" description="OpenOffice OpenDocument Spreadsheet"/>
+    <MimeType mimeTypeId="application/vnd.ofbiz.survey" description="Survey"/>
+    <MimeType mimeTypeId="application/vnd.ofbiz.survey.response" description="Survey Response"/>
+    <MimeType mimeTypeId="application/vnd.ms-powerpoint" description="Microsoft PowerPoint"/>
+    <MimeType mimeTypeId="application/vnd.ms-excel" description="Microsoft Excel"/>
+
+    <!-- audio mime types -->
+    <MimeType mimeTypeId="audio/basic" description="Basic Audio"/>
+    <MimeType mimeTypeId="audio/mpeg" description="MPEG Audio"/>
+    <MimeType mimeTypeId="audio/x-ms-wax" description="WAX Audio"/>
+    <MimeType mimeTypeId="audio/x-ms-wma" description="WMA Audio"/>
+
+    <!-- image mime types -->
+    <MimeType mimeTypeId="image/jpeg" description="JPEG/JPG Image"/>
+    <MimeType mimeTypeId="image/pjpeg" description="Progressive JPEG/JPG Image"/>
+    <MimeType mimeTypeId="image/gif" description="GIF Image"/>
+    <MimeType mimeTypeId="image/tiff" description="TIFF Image"/>
+    <MimeType mimeTypeId="image/png" description="PNG Image"/>
+
+    <!-- message mime types -->
+    <MimeType mimeTypeId="message/external-body" description="External Body Message"/>
+    <MimeType mimeTypeId="message/http" description="HTTP Message"/>
+    <MimeType mimeTypeId="message/s-http" description="HTTPS/S-HTTP Message"/>
+    <MimeType mimeTypeId="message/news" description="News Message"/>
+    <MimeType mimeTypeId="message/partial" description="Partial Message"/>
+    <MimeType mimeTypeId="message/rfc822" description="RFC 822 Headered Message"/>
+
+    <!-- model mime types -->
+    <MimeType mimeTypeId="model/mesh" description="Mesh Model"/>
+    <MimeType mimeTypeId="model/vrml" description="VRML Model"/>
+
+    <!-- multipart mime types -->
+    <MimeType mimeTypeId="multipart/alternative" description="Mutliple Alternative Multipart"/>
+    <MimeType mimeTypeId="multipart/digest" description="Digest of Messages Multipart"/>
+    <MimeType mimeTypeId="multipart/encrypted" description="Encrypted Multipart"/>
+    <MimeType mimeTypeId="multipart/form-data" description="Form Data Multipart"/>
+    <MimeType mimeTypeId="multipart/mixed" description="Mixed Type Multipart"/>
+    <MimeType mimeTypeId="multipart/related" description="Related Multipart"/>
+    <MimeType mimeTypeId="multipart/signed" description="Signed Multipart"/>
+
+    <!-- text mime types -->
+    <MimeType mimeTypeId="text/css" description="CSS Text"/>
+    <MimeType mimeTypeId="text/csv" description="Comma Separated Value Text"/>
+    <MimeType mimeTypeId="text/enriched" description="Enriched Text"/>
+    <MimeType mimeTypeId="text/html" description="HTML Text"/>
+    <MimeType mimeTypeId="text/plain" description="Plain Text"/>
+    <MimeType mimeTypeId="text/rtf" description="RTF Rich Text"/>
+    <MimeType mimeTypeId="text/richtext" description="Rich Text"/>
+    <MimeType mimeTypeId="text/sgml" description="SGML Text"/>
+    <MimeType mimeTypeId="text/tab-separated-values" description="Tab Separated Value Text"/>
+    <MimeType mimeTypeId="text/x-diff" description="diff for patching files"/>
+    <MimeType mimeTypeId="text/xml" description="XML Text"/>
+    <MimeType mimeTypeId="text/x-vcard" description="electronic business card"/>
+
+    <!-- video mime types -->
+    <MimeType mimeTypeId="video/avi" description="AVI Video"/>
+    <MimeType mimeTypeId="video/mpeg" description="MPEG/MPG Video"/>
+    <MimeType mimeTypeId="video/mp4" description="MPEG-4 (H.264) Video"/>
+    <MimeType mimeTypeId="video/quicktime" description="Quicktime Video"/>
+    <MimeType mimeTypeId="video/x-ms-asf" description="ASF Video"/>
+    <MimeType mimeTypeId="video/x-flv" description="Flash Streaming Video"/>
+    <MimeType mimeTypeId="video/x-ms-wvx" description="WVX Video"/>
+    <MimeType mimeTypeId="video/x-ms-wm" description="WM Video"/>
+    <MimeType mimeTypeId="video/x-ms-wmv" description="WMV Video"/>
+    <MimeType mimeTypeId="video/x-ms-wmx" description="WMX Video"/>
+
+    <FileExtension fileExtensionId="asf" mimeTypeId="video/x-ms-asf"/>
+    <FileExtension fileExtensionId="asx" mimeTypeId="video/x-ms-asf"/>
+    <FileExtension fileExtensionId="avi" mimeTypeId="video/avi"/>
+    <FileExtension fileExtensionId="css" mimeTypeId="text/css"/>
+    <FileExtension fileExtensionId="flv" mimeTypeId="video/x-flv"/>
+    <FileExtension fileExtensionId="jpg" mimeTypeId="image/jpeg"/>
+    <FileExtension fileExtensionId="jpeg" mimeTypeId="image/jpeg"/>
+    <FileExtension fileExtensionId="tif" mimeTypeId="image/tiff"/>
+    <FileExtension fileExtensionId="tiff" mimeTypeId="image/tiff"/>
+    <FileExtension fileExtensionId="gif" mimeTypeId="image/gif"/>
+    <FileExtension fileExtensionId="png" mimeTypeId="image/png"/>
+    <FileExtension fileExtensionId="mp4" mimeTypeId="video/mp4"/>
+    <FileExtension fileExtensionId="m4v" mimeTypeId="video/mp4"/>
+    <FileExtension fileExtensionId="mpg" mimeTypeId="video/mpeg"/>
+    <FileExtension fileExtensionId="mpeg" mimeTypeId="video/mpeg"/>
+    <FileExtension fileExtensionId="mov" mimeTypeId="video/quicktime"/>
+    <FileExtension fileExtensionId="pdf" mimeTypeId="application/pdf"/>
+    <FileExtension fileExtensionId="ps" mimeTypeId="application/postscript"/>
+    <FileExtension fileExtensionId="qt" mimeTypeId="video/quicktime"/>
+    <FileExtension fileExtensionId="rtf" mimeTypeId="text/rtf"/>
+    <FileExtension fileExtensionId="swf" mimeTypeId="application/x-shockwave-flash"/>
+    <FileExtension fileExtensionId="txt" mimeTypeId="text/plain"/>
+    <FileExtension fileExtensionId="htm" mimeTypeId="text/html"/>
+    <FileExtension fileExtensionId="html" mimeTypeId="text/html"/>
+    <FileExtension fileExtensionId="xml" mimeTypeId="text/xml"/>
+    <FileExtension fileExtensionId="vrml" mimeTypeId="model/vrml"/>
+    <FileExtension fileExtensionId="doc" mimeTypeId="application/msword"/>
+    <FileExtension fileExtensionId="odt" mimeTypeId="application/vnd.oasis.opendocument.text"/>
+    <FileExtension fileExtensionId="wvx" mimeTypeId="video/x-ms-wvx"/>
+    <FileExtension fileExtensionId="wm" mimeTypeId="video/x-ms-wm"/>
+    <FileExtension fileExtensionId="wmv" mimeTypeId="video/x-ms-wmv"/>
+    <FileExtension fileExtensionId="wmx" mimeTypeId="video/x-ms-wmx"/>
+    <FileExtension fileExtensionId="zip" mimeTypeId="application/zip"/>
+    <FileExtension fileExtensionId="vcf" mimeTypeId="text/x-vcard"/>
+
+    <!-- Registered MIME Types:
+    MEDIA TYPES
+
+    (last updated 2001 October 16)
+
+    [RFC2045,RFC2046] specifies that Content Types, Content Subtypes, Character
+    Sets, Access Types, and conversion values for MIME mail will be
+    assigned and listed by the IANA.
+
+
+    Content Types and Subtypes
+    -=-=-=-=-=-=-=-=-=-=-=-=-=
+
+    Type            Subtype         Description                 Reference
+    -=-=            -=-=-=-         -=-=-=-=-=-                 -=-=-=-=-
+    text            plain                               [RFC2646,RFC2046]
+                    richtext                            [RFC2045,RFC2046]
+                    enriched                                    [RFC1896]
+                    tab-separated-values                   [Paul Lindner]
+                    html                                        [RFC2854]
+                    sgml                                        [RFC1874]
+                    vnd.latex-z                                   [Lubos]
+                    vnd.fmi.flexstor                             [Hurtta]
+                    uri-list                    [RFC2483]
+                    vnd.abc                          [Allen]
+                    rfc822-headers                              [RFC1892]
+                    vnd.in3d.3dml                     [Powers]
+                    prs.lines.tag                      [Lines]
+                    vnd.in3d.spot                                [Powers]
+                    css                                         [RFC2318]
+                    xml                                         [RFC3023]
+                    xml-external-parsed-entity                  [RFC3023]
+                    rtf                        [Lindner]
+                    directory                                   [RFC2425]
+                    calendar                                    [RFC2445]
+                    vnd.wap.wml                      [Stark]
+                    vnd.wap.wmlscript                  [Stark]
+                    vnd.motorola.reflex                       [Patton]
+                    vnd.fly                         [Gurney]
+                    vnd.wap.sl                                [WAP-Forum]
+                    vnd.wap.si                                [WAP-Forum]
+                    t140                                        [RFC2793]
+                    vnd.ms-mediapackage                          [Nelson]
+                    vnd.IPTC.NewsML                       [IPTC]
+                    vnd.IPTC.NITF                                  [IPTC]
+                    vnd.curl                      [Hodge]
+                    vnd.DMClientScript                          [Bradley]
+                    parityfec                                   [RFC3009]
+
+
+    multipart       mixed                               [RFC2045,RFC2046]
+                    alternative                         [RFC2045,RFC2046]
+                    digest                              [RFC2045,RFC2046]
+                    parallel                            [RFC2045,RFC2046]
+                    appledouble                [MacMime,Patrik Faltstrom]
+                    header-set                             [Dave Crocker]
+                    form-data                                   [RFC2388]
+                    related                        [RFC2387]
+                    report                                      [RFC1892]
+                    voice-message                       [RFC2421,RFC2423]
+                    signed                                      [RFC1847]
+                    encrypted                                   [RFC1847]
+                    byteranges                                  [RFC2068]
+
+    message         rfc822                              [RFC2045,RFC2046]
+                    partial                             [RFC2045,RFC2046]
+                    external-body                       [RFC2045,RFC2046]
+                    news                        [RFC 1036, Henry Spencer]
+                    http                                        [RFC2616]
+                    delivery-status                             [RFC1894]
+                    disposition-notification                    [RFC2298]
+                    s-http                                      [RFC2660]
+
+    application     octet-stream                        [RFC2045,RFC2046]
+                    postscript                          [RFC2045,RFC2046]
+                    oda                                 [RFC2045,RFC2046]
+                    atomicmail                    [atomicmail,Borenstein]
+                    andrew-inset                [andrew-inset,Borenstein]
+                    slate                           [slate,terry crowley]
+                    wita              [Wang Info Transfer,Larry Campbell]
+                    dec-dx            [Digital Doc Trans, Larry Campbell]
+                    dca-rft        [IBM Doc Content Arch, Larry Campbell]
+                    activemessage                          [Ehud Shapiro]
+                    rtf                                    [Paul Lindner]
+                    applefile                  [MacMime,Patrik Faltstrom]
+                    mac-binhex40               [MacMime,Patrik Faltstrom]
+                    news-message-id              [RFC1036, Henry Spencer]
+                    news-transmission            [RFC1036, Henry Spencer]
+                    wordperfect5.1                         [Paul Lindner]
+                    pdf                                    [Paul Lindner]
+                    zip                                    [Paul Lindner]
+                    macwriteii                             [Paul Lindner]
+                    msword                                 [Paul Lindner]
+                    remote-printing                        [RFC1486,Rose]
+                    mathematica                             [Van Nostern]
+                    cybercash                                  [Eastlake]
+                    commonground                                 [Glazer]
+                    iges                                          [Parks]
+                    riscos                                        [Smith]
+                    eshop                                          [Katz]
+                    x400-bp                                     [RFC1494]
+                    sgml                                        [RFC1874]
+                    cals-1840                                   [RFC1895]
+                    pgp-encrypted                               [RFC3156]
+                    pgp-signature                               [RFC3156]
+                    pgp-keys                                    [RFC3156]
+                    vnd.framemaker                               [Wexler]
+                    vnd.mif                                      [Wexler]
+                    vnd.ms-excel                                   [Gill]
+                    vnd.ms-powerpoint                              [Gill]
+                    vnd.ms-project                                 [Gill]
+                    vnd.ms-works                                   [Gill]
+                    vnd.ms-tnef                                    [Gill]
+                    vnd.svd                                      [Becker]
+                    vnd.music-niff                               [Butler]
+                    vnd.ms-artgalry                             [Slawson]
+                    vnd.truedoc                                   [Chase]
+                    vnd.koan                                       [Cole]
+                    vnd.street-stream                            [Levitt]
+                    vnd.fdf                                      [Zilles]
+                    set-payment-initiation                       [Korver]
+                    set-payment                                  [Korver]
+                    set-registration-initiation                  [Korver]
+                    set-registration                             [Korver]
+                    vnd.seemail                                    [Webb]
+                    vnd.businessobjects                         [Imoucha]
+                    vnd.meridian-slingshot                        [Wedel]
+                    vnd.xara                                 [Matthewman]
+                    sgml-open-catalog                            [Grosso]
+                    vnd.rapid                                   [Szekely]
+                    vnd.enliven                              [Santinelli]
+                    vnd.japannet-registration-wakeup              [Fujii]
+                    vnd.japannet-verification-wakeup              [Fujii]
+                    vnd.japannet-payment-wakeup                   [Fujii]
+                    vnd.japannet-directory-service                [Fujii]
+                    vnd.intertrust.digibox                    [Tomasello]
+                    vnd.intertrust.nncp                       [Tomasello]
+                    prs.alvestrand.titrax-sheet              [Alvestrand]
+                    vnd.noblenet-web                [Solomon]
+                    vnd.noblenet-sealer                         [Solomon]
+                    vnd.noblenet-directory                [Solomon]
+                    prs.nprend                    [Doggett]
+                     vnd.webturbo                      [Rehem]
+                    hyperstudio                     [Domino]
+                    vnd.shana.informed.formtemplate            [Selzler]
+                    vnd.shana.informed.formdata            [Selzler]
+                    vnd.shana.informed.package            [Selzler]
+                    vnd.shana.informed.interchange             [Selzler]
+                    vnd.$commerce_battelle              [Applebaum]
+                    vnd.osa.netdeploy                   [Klos]
+                    vnd.ibm.MiniPay                   [Herzberg]
+                    vnd.japannet-jpnstore-wakeup          [Yoshitake]
+                    vnd.japannet-setstore-wakeup              [Yoshitake]
+                    vnd.japannet-verification          [Yoshitake]
+                    vnd.japannet-registration          [Yoshitake]
+                    vnd.hp-HPGL                  [Pentecost]
+                    vnd.hp-PCL                  [Pentecost]
+                    vnd.hp-PCLXL                  [Pentecost]
+                    vnd.musician                      [Adams]
+                    vnd.FloGraphIt                   [Floersch]
+                    vnd.intercon.formnet                          [Gurak]
+                    vemmi                                       [RFC2122]
+                    vnd.ms-asf                 [Fleischman]
+                    vnd.ecdis-update               [Buettgenbach]
+                    vnd.powerbuilder6                    [Guy]
+                    vnd.powerbuilder6-s                [Guy]
+                    vnd.lotus-wordpro                      [Wattenberger]
+                    vnd.lotus-approach                     [Wattenberger]
+                    vnd.lotus-1-2-3                        [Wattenberger]
+                    vnd.lotus-organizer                    [Wattenberger]
+                    vnd.lotus-screencam                    [Wattenberger]
+                    vnd.lotus-freelance               [Wattenberger]
+                    vnd.fujitsu.oasys                [Togashi]
+                    vnd.fujitsu.oasys2                [Togashi]
+                    vnd.swiftview-ics                [Widener]
+                    vnd.dna                         [Searcy]
+                    prs.cww                     [Rungchavalnont]
+                    vnd.wt.stf                                   [Wohler]
+                    vnd.dxr                              [Duffy]
+                    vnd.mitsubishi.misty-guard.trustweb          [Tanaka]
+                    vnd.ibm.modcap                   [Hohensee]
+                    vnd.acucobol                                  [Lubin]
+                      vnd.fujitsu.oasys3                         [Okudaira]
+                    marc                                        [RFC2220]
+                    vnd.fujitsu.oasysprs                          [Ogita]
+                     vnd.fujitsu.oasysgp               [Sugimoto]
+                    vnd.visio                                    [Sandal]
+                    vnd.netfpx                                     [Mutz]
+                    vnd.audiograph                        [Slusanschi]
+                    vnd.epson.salt                   [Nagatomo]
+                    vnd.3M.Post-it-Notes                [O'Brien]
+                    vnd.novadigm.EDX                            [Swenson]
+                    vnd.novadigm.EXT                            [Swenson]
+                    vnd.novadigm.EDM                [Swenson]
+                    vnd.claymore                    [Simpson]
+                    vnd.comsocaller                   [Dellutri]
+                    pkcs7-mime                                  [RFC2311]
+                    pkcs7-signature                             [RFC2311]
+                    pkcs10                                      [RFC2311]
+                    vnd.yellowriver-custom-menu             [Yellow]
+                    vnd.ecowin.chart                 [Olsson]
+                    vnd.ecowin.series                 [Olsson]
+                    vnd.ecowin.filerequest                       [Olsson]
+                    vnd.ecowin.fileupdate                        [Olsson]
+                    vnd.ecowin.seriesrequest                     [Olsson]
+                    vnd.ecowin.seriesupdate                      [Olsson]
+                    EDIFACT                        [RFC1767]
+                    EDI-X12                        [RFC1767]
+                    EDI-Consent                    [RFC1767]
+                    vnd.wrq-hp3000-labelled                [Bartram]
+                    vnd.minisoft-hp3000-save            [Bartram]
+                    vnd.ffsns                   [Holstage]
+                    vnd.hp-hps                                   [Aubrey]
+                    vnd.fujixerox.docuworks                     [Taguchi]
+                    xml                                         [RFC3023]
+                    xml-external-parsed-entity                  [RFC3023]
+                    xml-dtd                                     [RFC3023]
+                    vnd.anser-web-funds-transfer-initiation        [Mori]
+                    vnd.anser-web-certificate-issue-initiation     [Mori]
+                    vnd.is-xpr                  [Natarajan]
+                    vnd.intu.qbo                     [Scratchley]
+                    vnd.publishare-delta-tree           [Ben-Kiki]
+                    vnd.cybank                     [Helmee]
+                    batch-SMTP                                  [RFC2442]
+                    vnd.uplanet.alert                 [Martin]
+                    vnd.uplanet.cacheop                 [Martin]
+                    vnd.uplanet.list                 [Martin]
+                    vnd.uplanet.listcmd                 [Martin]
+                    vnd.uplanet.channel                 [Martin]
+                    vnd.uplanet.bearer-choice             [Martin]
+                    vnd.uplanet.signal                 [Martin]
+                    vnd.uplanet.alert-wbxml                 [Martin]
+                    vnd.uplanet.cacheop-wbxml             [Martin]
+                    vnd.uplanet.list-wbxml                 [Martin]
+                    vnd.uplanet.listcmd-wbxml             [Martin]
+                    vnd.uplanet.channel-wbxml             [Martin]
+                    vnd.uplanet.bearer-choice-wbxml             [Martin]
+                    vnd.epson.quickanime                             [Gu]
+                    vnd.commonspace                   [Chandhok]
+                    vnd.fut-misnet                  [Pruulmann]
+                    vnd.xfdl                    [Manning]
+                    vnd.intu.qfx                             [Scratchley]
+                    vnd.epson.ssf                    [Hoshina]
+                    vnd.epson.msf                    [Hoshina]
+                    vnd.powerbuilder7                 [Shilts]
+                     vnd.powerbuilder7-s                 [Shilts]
+                    vnd.lotus-notes                    [Laramie]
+                    pkixcmp                                     [RFC2510]
+                    vnd.wap.wmlc                      [Stark]
+                    vnd.wap.wmlscriptc                  [Stark]
+                    vnd.motorola.flexsuite                 [Patton]
+                    vnd.wap.wbxml                      [Stark]
+                    vnd.motorola.flexsuite.wem                [Patton]
+                    vnd.motorola.flexsuite.kmr                [Patton]
+                    vnd.motorola.flexsuite.adsi                [Patton]
+                    vnd.motorola.flexsuite.fis                [Patton]
+                    vnd.motorola.flexsuite.gotap              [Patton]
+                    vnd.motorola.flexsuite.ttc                [Patton]
+                    vnd.ufdl                    [Manning]
+                    vnd.accpac.simply.imp                   [Leow]
+                    vnd.accpac.simply.aso                   [Leow]
+                    vnd.vcx                     [T.Sugimoto]
+                    ipp                                         [RFC2910]
+                    ocsp-request                                [RFC2560]
+                    ocsp-response                               [RFC2560]
+                    vnd.previewsystems.box             [Smolgovsky]
+                    vnd.mediastation.cdkey                 [Flurry]
+                    vnd.pg.format                    [Gandert]
+                    vnd.pg.osasli                    [Gandert]
+                    vnd.hp-hpid                      [Gupta]
+                    pkix-cert                                   [RFC2585]
+                    pkix-crl                                    [RFC2585]
+                    vnd.Mobius.TXF                   [Kabayama]
+                    vnd.Mobius.PLC                   [Kabayama]
+                    vnd.Mobius.DIS                   [Kabayama]
+                    vnd.Mobius.DAF                   [Kabayama]
+                    vnd.Mobius.MSL                   [Kabayama]
+                    vnd.cups-raster                      [Sweet]
+                    vnd.cups-postscript                  [Sweet]
+                    vnd.cups-raw                         [Sweet]
+                    index                                       [RFC2652]
+                    index.cmd                                   [RFC2652]
+                    index.response                              [RFC2652]
+                    index.obj                                   [RFC2652]
+                    index.vnd                                   [RFC2652]
+                    vnd.triscape.mxs               [Simonoff]
+                    vnd.powerbuilder75                 [Shilts]
+                    vnd.powerbuilder75-s                 [Shilts]
+                    vnd.dpgraph                     [Parker]
+                    http                        [RFC2616]
+                    sdp                        [RFC2327]
+                    vnd.eudora.data                             [Resnick]
+                    vnd.fujixerox.docuworks.binder            [Matsumoto]
+                    vnd.vectorworks                               [Pharr]
+                    vnd.grafeq                                   [Tupper]
+                    vnd.bmi                                       [Gotoh]
+                    vnd.ericsson.quickcall                      [Tidwell]
+                    vnd.hzn-3d-crossword                         [Minnis]
+                    vnd.wap.slc                               [WAP-Forum]
+                    vnd.wap.sic                               [WAP-Forum]
+                    vnd.groove-injector                          [Joseph]
+                    vnd.fujixerox.ddd                              [Onda]
+                    vnd.groove-account                           [Joseph]
+                    vnd.groove-identity-message                  [Joseph]
+                    vnd.groove-tool-message                      [Joseph]
+                    vnd.groove-tool-template                     [Joseph]
+                    vnd.groove-vcard                             [Joseph]
+                    vnd.ctc-posml                              [Kohlhepp]
+                    vnd.canon-lips                                 [Muto]
+                    vnd.canon-cpdl                                 [Muto]
+                    vnd.trueapp                                  [Hepler]
+                    vnd.s3sms                                  [Tarkkala]
+                    iotp                                        [RFC2935]
+                    vnd.mcd                                          [Gotoh]
+                    vnd.httphone                    [Lefevre]
+                    vnd.informix-visionary                        [Gales]
+                    vnd.msign                               [Borcherding]
+                    vnd.ms-lrm                                   [Ledoux]
+                    vnd.contact.cmsg                               [Patz]
+                    vnd.epson.esf                                [Hoshina]
+                    whoispp-query                               [RFC2957]
+                    whoispp-response                            [RFC2958]
+                    vnd.mozilla.xul+xml                        [McDaniel]
+                    parityfec                                   [RFC3009]
+                    vnd.palm                                    [Peacock]
+                    vnd.fsc.weblaunch                           [D.Smith]
+                    vnd.tve-trigger                               [Welsh]
+                    dvcs                                [RFC3029]
+                    sieve                                       [RFC3028]
+                    vnd.vividence.scriptfile                     [Risher]
+                    vnd.hhe.lesson-player                         [Jones]
+                    beep+xml                    [RFC3080]
+                    font-tdpfr                                  [RFC3073]
+                    vnd.mseq                                   [Le Bodic]
+                    vnd.aether.imp                            [Moskowitz]
+                    vnd.Mobius.MQY                            [Devasia]
+                    vnd.Mobius.MBK                    [Devasia]
+                    vnd.vidsoft.vidconference                      [Hess]
+                    vnd.ibm.afplinedata                            [Buis]
+                    vnd.irepository.package+xml                 [Knowles]
+                    vnd.sss-ntf                                   [Bruno]
+                    vnd.sss-dtf                                   [Bruno]
+                    vnd.sss-cod                                    [Dani]
+                    vnd.pvi.ptid1                                  [Lamb]
+                    isup                                        [RFCISUP]
+                    qsig                                        [RFCISUP]
+                    timestamp-query                                [RFC3161]
+                    timestamp-reply                                [RFC3161]
+                    vnd.pwg-xhtml-print+xml                      [Wright]
+
+    image           jpeg                                [RFC2045,RFC2046]
+                    gif                                 [RFC2045,RFC2046]
+                    ief             Image Exchange Format       [RFC1314]
+                    g3fax                                       [RFC1494]
+                    tiff            Tag Image File Format       [RFC2302]
+                    cgm        Computer Graphics Metafile            [Francis]
+                    naplps                                       [Ferber]
+                    vnd.dwg                                      [Moline]
+                    vnd.svf                                      [Moline]
+                    vnd.dxf                                      [Moline]
+                    png                                 [Randers-Pehrson]
+                    vnd.fpx                                     [Spencer]
+                    vnd.net-fpx                                 [Spencer]
+                    vnd.xiff                                    [SMartin]
+                    prs.btif                                      [Simon]
+                    vnd.fastbidsheet                             [Becker]
+                    vnd.wap.wbmp                                  [Stark]
+                    prs.pti                                           [Laun]
+                    vnd.cns.inf2                             [McLaughlin]
+                    vnd.mix                                          [Reddy]
+                    vnd.fujixerox.edmics-rlc                       [Onda]
+                    vnd.fujixerox.edmics-mmr                       [Onda]
+                    vnd.fst                                    [Fuldseth]
+
+    audio           basic                               [RFC2045,RFC2046]
+                    32kadpcm                            [RFC2421,RFC2422]
+                    vnd.qcelp                                 [Lundblade]
+                    vnd.digital-winds                            [Strazds]
+                    vnd.lucent.voice                          [Vaudreuil]
+                    vnd.octel.sbc                             [Vaudreuil]
+                    vnd.rhetorex.32kadpcm                     [Vaudreuil]
+                    vnd.vmx.cvsd                              [Vaudreuil]
+                    vnd.nortel.vbk                                [Parsons]
+                    vnd.cns.anp1                             [McLaughlin]
+                    vnd.cns.inf1                             [McLaughlin]
+                    L16                                         [RFC2586]
+                    vnd.everad.plj                             [Cicelsky]
+                    telephone-event                             [RFC2833]
+                    tone                                        [RFC2833]
+                    prs.sid                                        [Walleij]
+                    vnd.nuera.ecelp4800                                [Fox]
+                    vnd.nuera.ecelp7470                                [Fox]
+                    mpeg                                        [RFC3003]
+                    parityfec                                   [RFC3009]
+                    MP4A-LATM                                   [RFC3016]
+                    vnd.nuera.ecelp9600                             [Fox]
+                    G.722.1                                        [RFC3047]
+                    mpa-robust                                  [RFC3119]
+                    vnd.cisco.nse                                 [Kumar]
+                    DAT12                                        [RFCAVTD]
+                    L20                                         [RFCAVTD]
+                    L24                                         [RFCAVTD]
+
+    video           mpeg                                [RFC2045,RFC2046]
+                    quicktime                              [Paul Lindner]
+                    vnd.vivo                                      [Wolfe]
+                    vnd.motorola.video                          [McGinty]
+                    vnd.motorola.videop                         [McGinty]
+                    vnd.fvt                                    [Fuldseth]
+                    pointer                                     [RFC2862]
+                    parityfec                                   [RFC3009]
+                    vnd.mpegurl                                [Recktenwald]
+                    MP4V-ES                                     [RFC3016]
+                    vnd.nokia.interleaved-multimedia        [Kangaslampi]
+
+    model                                                       [RFC2077]
+                    iges                                          [Parks]
+                    vrml                                        [RFC2077]
+                    mesh                                        [RFC2077]
+                    vnd.dwf                                          [Pratt]
+                    vnd.gtw                                          [Ozaki]
+                    vnd.flatland.3dml                             [Powers]
+                    vnd.vtu                                 [Rabinovitch]
+                    vnd.mts                                 [Rabinovitch]
+                    vnd.gdl                                      [Babits]
+                    vnd.gs-gdl                                   [Babits]
+                    vnd.parasolid.transmit.text        [Dearnaley,Juckes]
+                    vnd.parasolid.transmit.binary      [Dearnaley,Juckes]
+
+
+    The "media-types" directory contains a subdirectory for each content
+    type and each of those directories contains a file for each content
+    subtype.
+
+                                   |-application-
+                                   |-audio-=-=-=-
+                                   |-image-=-=-=-
+                     |-media-types-|-message-=-=-
+                                   |-model-=-=-=-
+                                   |-multipart-=-
+                                   |-text-=-=-=-=
+                                   |-video-=-=-=-
+
+       URL = ftp://ftp.isi.edu/in-notes/iana/assignments/media-types
+
+
+    Character Sets
+    -=-=-=-=-=-=-=
+
+    All of the character sets listed the section on Character Sets are
+    registered for use with MIME as MIME Character Sets.  The
+    correspondance between the few character sets listed in the MIME
+    specifications [RFC2045,RFC2046] and the list in that section are:
+
+    Type           Description                    Reference
+    -=-=           -=-=-=-=-=-                                  -=-=-=-=-
+    US-ASCII       see ANSI_X3.4-1968 below             [RFC2045,RFC2046]
+    ISO-8859-1     see ISO_8859-1:1987 below            [RFC2045,RFC2046]
+    ISO-8859-2     see ISO_8859-2:1987 below            [RFC2045,RFC2046]
+    ISO-8859-3     see ISO_8859-3:1988 below            [RFC2045,RFC2046]
+    ISO-8859-4     see ISO_8859-4:1988 below            [RFC2045,RFC2046]
+    ISO-8859-5     see ISO_8859-5:1988 below            [RFC2045,RFC2046]
+    ISO-8859-6     see ISO_8859-6:1987 below            [RFC2045,RFC2046]
+    ISO-8859-7     see ISO_8859-7:1987 below            [RFC2045,RFC2046]
+    ISO-8859-8     see ISO_8859-8:1988 below            [RFC2045,RFC2046]
+    ISO-8859-9     see ISO_8859-9:1989 below            [RFC2045,RFC2046]
+
+    Access Types
+    -=-=-=-=-=-=
+
+    Type           Description                    Reference
+    -=-=           -=-=-=-=-=-                    -=-=-=-=-
+    FTP                                        [RFC2045,RFC2046]
+    ANON-FTP                                        [RFC2045,RFC2046]
+    TFTP                                            [RFC2045,RFC2046]
+    AFS                                            [RFC2045,RFC2046]
+    LOCAL-FILE                                        [RFC2045,RFC2046]
+    MAIL-SERVER                                        [RFC2045,RFC2046]
+    content-id                                                  [RFC1873]
+
+
+    Conversion Values
+    -=-=-=-=-=-=-=-=-
+
+    Conversion values or Content Transfer Encodings.
+
+    Type           Description                    Reference
+    -=-=           -=-=-=-=-=-                    -=-=-=-=-
+    7BIT                                                [RFC2045,RFC2046]
+    8BIT                                                [RFC2045,RFC2046]
+    BASE64                                     [RFC2045,RFC2046]
+    BINARY                                              [RFC2045,RFC2046]
+    QUOTED-PRINTABLE                                    [RFC2045,RFC2046]
+
+
+    MIME / X.400 MAPPING TABLES
+
+    MIME to X.400 Table
+
+        MIME content-type          X.400 Body Part             Reference
+        -=-=-=-=-=-=-=-=-          -=-=-=-=-=-=-=-=-=          -=-=-=-=-
+        text/plain
+          charset=us-ascii         ia5-text                     [RFC1494]
+          charset=iso-8859-x       EBP - GeneralText            [RFC1494]
+        text/richtext              no mapping defined           [RFC1494]
+        application/oda            EBP - ODA                    [RFC1494]
+        application/octet-stream   bilaterally-defined          [RFC1494]
+        application/postscript     EBP - mime-postscript-body   [RFC1494]
+        image/g3fax                g3-facsimile                 [RFC1494]
+        image/jpeg                 EBP - mime-jpeg-body         [RFC1494]
+        image/gif                  EBP - mime-gif-body          [RFC1494]
+        audio/basic                no mapping defined           [RFC1494]
+        video/mpeg                 no mapping defined           [RFC1494]
+
+        Abbreviation: EBP - Extended Body Part
+
+
+    X.400 to MIME Table
+
+
+                                 Basic Body Parts
+
+        X.400 Basic Body Part      MIME content-type           Reference
+        -=-=-=-=-=-=-=-=-=-=-      -=-=-=-=-=-=-=-=-=-=        -=-=-=-=-
+        ia5-text                   text/plain;charset=us-ascii [RFC1494]
+        voice                      No Mapping Defined          [RFC1494]
+        g3-facsimile               image/g3fax                 [RFC1494]
+        g4-class1                  no mapping defined          [RFC1494]
+        teletex                    no mapping defined          [RFC1494]
+        videotex                   no mapping defined          [RFC1494]
+        encrypted                  no mapping defined          [RFC1494]
+        bilaterally-defined        application/octet-stream    [RFC1494]
+        nationally-defined         no mapping defined          [RFC1494]
+        externally-defined         See Extended Body Parts     [RFC1494]
+
+        X.400 Extended Body Part  MIME content-type            Reference
+        -=-=-=-=-=-=-=-=-=-=-=-=- -=-=-=-=-=-=-=-=-=-=         -=-=-=-=-
+        GeneralText               text/plain;charset=iso-8859-x[RFC1494]
+        ODA                       application/oda              [RFC1494]
+        mime-postscript-body      application/postscript       [RFC1494]
+        mime-jpeg-body            image/jpeg                   [RFC1494]
+        mime-gif-body             image/gif                    [RFC1494]
+
+    REFERENCES
+
+    [MacMime] Work in Progress.
+
+    [RFC1036] Horton, M., and R. Adams, "Standard for Interchange of
+              USENET Messages", RFC 1036, AT&T Bell Laboratories,
+              Center for Seismic Studies, December 1987.
+
+    [RFC1494] Alvestrand, H., and S. Thompson, "Equivalences between 1988
+              X.400 and RFC-822 Message Bodies", RFC 1494, SINTEF DELAB,
+              Soft*Switch, Inc., August 1993.
+
+    [RFC1563] Borenstien, N., "The text/enriched MIME content-type". RFC
+              1563, Bellcore, January 1994.
+
+    [RFC1767] Crocker, D., "MIME Encapsulation of EDI Objects". RFC 1767,
+          Brandenburg Consulting, March 1995.
+
+    [RFC1866] Berners-Lee, T., and D. Connolly, "Hypertext Markup Language
+              - 2.0", RFC 1866, MIT/W3C, November 1995.
+
+    [RFC1873] Levinson, E., "Message/External-Body Content-ID Access
+              Type", RFC 1873, Accurate Information Systems, Inc. December
+              1995.
+
+    [RFC1874] Levinson, E., "SGML Media Types", RFC 1874, Accurate
+              Information Systems, Inc. December 1995.
+
+    [RFC1892] Vaudreuil, G., "The Multipart/Report Content Type for the
+          Reporting of Mail System Administrative Messages", RFC 1892,
+          Octel Network Services, January 1996.
+
+    [RFC1894] Moore, K. and G. Vaudreuil, "An Extensible Message Format
+          for Delivery Status Notifications", RFC 1894, University of
+          Tennessee, Octel Network Services, January 1996.
+
+    [RFC1895] Levinson, E., "The Application/CALS-1840 Content Type", RFC
+              1895, Accurate Information Systems, February 1996.
+
+    [RFC1896] Resnick, P., and A. Walker, "The Text/Enriched MIME Content
+              Type", RFC 1896, Qualcomm, Intercon, February 1996.
+
+    [RFC1945] Berners-Lee, Y., R. Feilding, and H.Frystyk, "Hypertext
+              Transfer Protocol -= HTTP/1.0", RFC 1945. MIT/LCS, UC
+              Irvine, MIT/LCS, May 1996.
+
+    [RFC2045] Freed, N., and N. Borenstein, "Multipurpose Internet Mail
+              Extensions (MIME) Part One: Format of Internet Message
+              Bodies", RFC 2045, November 1996.
+
+    [RFC2046] Freed, N., and N. Borenstein, "Multipurpose Internet Mail
+              Extensions (MIME) Part Two: Media Types", RFC 2046, November
+              1996.
+
+    [RFC2077] Nelson, S., C. Parks, and Mitra, "The Model Primary Content
+              Type for Multipurpose Internet Mail Extensions", RFC 2077,
+              LLNL, NIST, WorldMaker, January 1997.
+
+    [RFC2122] Mavrakis, D., Layec, H., and K. Kartmann, "VEMMI URL
+              Specification", RFC 2122, Monaco Telematique MC-TEL,
+              ETSI, Telecommunication+Multimedia, March 1997.
+
+    [RFC2220] Guenther, R., "The Application/MARC Content-type", RFC 2220,
+              Library of Congress, Network Devt. & MARC Standards Office,
+              October 1997.
+
+    [RFC2298] Fajman, R., "An Extensible Message Format for Message
+              Disposition Notifications", RFC 2298, March 1998.
+
+    [RFC2302] Parsons, G., et. al., "Tag Image File Format (TIFF) -
+          image/tiff", RFC 2302, March 1998.
+
+    [RFC2311] Dusse, S., et. al., "S/MIME Version 2 Message Specification,
+              RFC 2311, March 1998.
+
+    [RFC2318] Lie, H., Bos, B., and C. Lilley, "The text/css Media Type",
+              RFC 2318, March 1998.
+
+    [RFC2327] Handley, M., and V. Jacobson, "SDP: Session Description
+          Protocol", RFC 2327, April 1999.
+
+    [RFC2387] Levinson, E., "The MIME Multipart/Related Content-type", RFC
+              2387, XIson Inc, August 1998.
+
+    [RFC2388] Masinter, L., "Form-based File Upload in HTML",
+              RFC 2388, Xerox Corporation, August 1998.
+
+    [RFC2421] Vaudreuil, G., and G. Parsons, "Voice Profile for Internet
+              Mail - version 2", RFC 2421, September 1998.
+
+    [RFC2422] Vaudreuil, G., and G. Parsons, "Toll Quality Voice - 32
+              kbit/s ADPCM MIME Sub-type Registration", RFC 2422,
+              September 1998.
+
+    [RFC2423] Vaudreuil, G., and G. Parsons, "VPIM Voice Message MIME
+              Sub-type Registration", RFC 2423, September 1998.
+
+    [RFC2425] Howes, T., Smith, M., and F. Dawson, "A MIME Content-Type
+              for Directory Information", RFC 2425, September 1998.
+
+    [RFC2442] Freed, N., Newman, D., Belissent, J. and M. Hoy, "The
+              Batch SMTP Media Type", RFC 2442, November 1998.
+
+    [RFC2445] Dawson, F., and D. Stenerson, "Internet Calendaring and
+              Scheduling Core Object Specification (iCalendar)", RFC 2445,
+              November 1998.
+
+    [RFC2483] M. Mealling and R. Daniel, "URI resolution services
+              necessary for URN resolution", RFC 2483, January 1999.
+
+    [RFC2510] Adams, C., and S. Farrell, "Internet X.509 Public Key
+              Infrastructure Certificate Management Protocols", RFC 2510,
+              March 1999.
+
+    [RFC2560] Myers, M., Ankney, R., Malpani, A., Galperin, S., and C.
+              Adams, "X.509 Internet Public Key Infrastructure Online
+              Certificate Status Protocol - OCSP", RFC 2560, June 1999.
+
+    [RFC2585] Housley, R. and P. Hoffman, "Internet X.509 Public Key
+              Infrastructure Operational Protocols: FTP and HTTP",
+              RFC 2585, May 1999.
+
+    [RFC2586] Salsman, J and H. Alvestrand, "The Audio/L16 MIME content
+              type", RFC 2586, May 1999.
+
+    [RFC2616] Fielding, R., et. al., "Hypertext Transfer Protocol -=
+          HTTP/1.1", RFC 2616, June 1999.
+
+    [RFC2652] Allen, J., and M. Mealling, "MIME Object Definitions for the
+              Common Indexing Protocol (CIP)", RFC 2652, August 1999.
+
+    [RFC2793] Hellstrom, G., "RTP Payload for Text Conversation", RFC
+              2793, May 2000.
+
+    [RFC2833] Schulzrinne, H., "RTP Payload for DTMF Digits, Telephony
+              Tones and Telephony Signals", RFC 2833, May 2000.
+
+    [RFC2854] Connolly, D., and L. Masinter, "The 'text/html' Media Type",
+              RFC 2854, June 2000.
+
+    [RFC2862] Civanlar, M., and G. Cash, "RTP Payload Format for Real-Time
+              Pointers", RFC 2862, June 2000.
+
+    [RFC2910] Herriot, R., Editor, Butler, S., Moore, P., Turner, R. and
+              J. Wenn, "Internet Printing Protocol/1.0: Encoding and
+              Transport", RFC 2910, September 2000.
+
+    [RFC2935] Eastlake, D. and C. Smith, "Internet Open Trading Protocol
+              (IOTP) HTTP Supplement", RFC 2935, September 2000.
+
+    [RFC3003] M. Nilsson, "The audio/mpeg Media Type", RFC 3003,
+              November 2000.
+
+    [RFC3009] J.Rosenberg and H.Schulzrinne, "Registration of parityfec
+              MIME types", RFC 3009, November 2000.
+
+    [RFC3016] Kikuchi, Y., T. Nomura, S. Fukunaga, Y. Matsui, and
+              H. Kimata, "RTP payload format for MPEG-4 Audio/Visual
+              streams", RFC 3016, November 2000.
+
+    [RFC3023] M. Murata, S. St.Laurent, and  D. Kohn, "XML Media Types",
+              RFC 3023, January 2001.
+
+    [RFC3028] T. Showalter, "Sieve: A Mail Filtering Language",
+              RFC 3028, January 2001.
+
+    [RFC3029] Adams,C.  , P. Sylvester, M. Zolotarev, and R. Zuccherato,
+              "Internet X.509 Public Key Infrastructure Data Validation and
+              Certification Server Protocols", RFC 3029, January 2001.
+
+    [RFC3047]  Luthi, P. "RTP Payload Format for ITU-T Recommendation
+               G.772.1", RFC 3047, January 2001.
+
+    [RFC3073]  Collins, J., "Portable Font Resource (PFR) -
+               application/font-tdpfr MIME Sub-type Registration",
+               RFC 3073, February 2001.
+
+    [RFC3080]  Rose, M., "The Blocks Extensible Exchange Protocol Core",
+               RFC 3080, February 2001.
+
+    [RFC3119]  R. Finlayson, "A More Loss-Tolerant RTP Payload Format
+               for MP3 Audio", RFC 3119, June 2001.
+
+    [RFCISUP]  E. Zimmerer, J. Peterson, A. Vemuri, L. Ong, F. Audet,
+               M. Watson, and M. Zonoun, "MIME media types for ISUP and
+               QSIG Objects", RFC XXXX, Month Year.
+
+    [RFC3156]  M. Elkins, D. Del Torto, R. Levien, and T. Roessler,
+               "MIME Security with OpenPGP", RFC 3156, August 2001.
+
+    [RFC3161]  C. Adams, P. Cain, D. Pinkas, and R. Zuccherato,
+               "Internet X.509 Public Key Infrastructure Time Stamp
+               Protocol (TSP)", RFC 3161, August 2001.
+
+    [RFCAVTD]  K. Kobayashi, A. Ogawa, S. Casner, and C. Bormann,
+               "RTP Payload Format for DV Format Video", RFC XXXX,
+               Month Year.
+
+    PEOPLE
+    -=-=-=
+
+    [Adams] Greg Adams <gadams@waynesworld.ucsd.edu>, March 1997.
+
+    [Allen] Steve Allen <sla@ucolick.org>, September 1997.
+
+    [Alvestrand] Harald T. Alvestrand <Harald.T.Alvestrand@uninett.no>,
+                                      January 1997.
+
+    [Applebaum] David Applebaum, <applebau@battelle.org>, February 1997.
+
+    [Aubrey] Steve Aubrey, <steve_aubrey@hp.com>, July 1998.
+
+    [Babits] Attila Babits, <ababits@graphisoft.hu>, April 2000, May 2000.
+
+    [Bartram] Chris Bartram, <RCB@3k.com>, May 1998.
+
+    [Becker] Scott Becker, <scottb@bxwa.com>, April 1996, October 1998.
+
+    [Ben-Kiki] Oren Ben-Kiki, <oren@capella.co.il>, October 1998.
+
+    [Berners-Lee] Tim Berners-Lee, <timbl@w3.org>, May 1996.
+
+    [Borcherding] Malte Borcherding, <Malte.Borcherding@brokat.com>,
+                  August 2000.
+
+    [Borenstein] Nathaniel Borenstein, <NSB@bellcore.com>, April 1994.
+
+    [Bradley] Dan Bradley, <dan@dantom.com>, October 2000.
+
+    [Bruno] Eric Bruno, <ebruno@solution-soft.com>, June 2001.
+
+    [Buettgenbach] Gert Buettgenbach, <bue@sevencs.com>, May 1997.
+
+    [Buis] Roger Buis, <buis@us.ibm.com>, March 2001.
+
+    [Butler] Tim Butler, <tim@its.bldrdoc.gov>, April 1996.
+
+    [Larry Campbell]
+
+    [Chandhok] Ravinder Chandhok, <chandhok@within.com>, December 1998.
+
+    [Chase] Brad Chase, <brad_chase@bitstream.com>, May 1996.
+
+    [Cicelsky] Shay Cicelsky, <shayc@everad.com>, May 2000.
+
+    [Cole] Pete Cole, <pcole@sseyod.demon.co.uk>, June 1996.
+
+    [Dave Crocker]  Dave Crocker <dcrocker@mordor.stanford.edu>
+
+    [Terry Crowley]
+
+    [Dani] Asang Dani, <adani@solution-soft.com>, June 2001.
+
+    [Daniel] Ron Daniel, Jr. <rdaniel@lanl.gov>, June 1997.
+
+    [Dearnaley] Roger Dearnaley, <x_dearna@ugsolutions.com>, October 2000.
+
+    [Dellutri] Steve Dellutri, <sdellutri@cosmocom.com>, March 1998.
+
+    [Devasia] Alex Devasia, <adevasia@mobius.com>, March 2001.
+
+    [Doggett] Jay Doggett, <jdoggett@tiac.net>, February 1997.
+
+    [Domino] Michael Domino, <michaeldomino@mediaone.net>, February 1997.
+
+    [Duffy] Michael Duffy, <miked@psiaustin.com>, September 1997.
+
+    [Eastlake] Donald E. Eastlake 3rd, <Donald.Eastlake@motorola.com>, April 1995,
+               May 2000.
+
+    [Faltstrom] Patrik Faltstrom <paf@nada.kth.se>
+
+    [Fleischman] Eric Fleischman <ericfl@MICROSOFT.com>, April 1997.
+
+[Floersch] Dick Floersch <floersch@echo.sound.net>, March 1997.
+
+[Flurry] Henry Flurry <henryf@mediastation.com>, April 1999.
+
+[Fox] Michael Fox, <mfox@nuera.com>, August 2000, January 2001.
+
+[Francis] Alan Francis, A.H.Francis@open.ac.uk, December 1995.
+
+[Fujii] Kiyofusa Fujii <kfujii@japannet.or.jp>, February 1997.
+
+[Fuldseth] Arild Fuldseth, <Arild.Fuldseth@fast.no>, June 2000.
+
+[Gales] Christopher Gales, <christopher.gales@informix.com>,
+    August 2000.
+
+[Gandert] April Gandert <gandert.am@pg.com>, April 1999.
+
+[Gill] Sukvinder S. Gill, <sukvg@microsoft.com>, April 1996.
+
+[Glazer] David Glazer, <dglazer@best.com>, April 1995.
+
+[Gotoh] Tadashi Gotoh, <tgotoh@cadamsystems.co.jp>, February 2000,
+        June 2000.
+
+[Gu] Yu Gu, <guyu@rd.oda.epson.co.jp>, December 1998.
+
+[Gupta] Aloke Gupta <Aloke_Gupta@ex.cv.hp.com>, April 1999.
+
+[Gurak] Tom Gurak, <assoc@intercon.roc.servtech.com>, March 1997.
+
+[Gurney] John-Mark Gurney <jmg@flyidea.com>, August 1999.
+
+[Guy] David Guy, <dguy@powersoft.com>, June 1997.
+
+[Helmee] Nor Helmee, <helmee@my.cybank.net>, November 1998.
+
+[Hepler] J. Scott Hepler, <scott@truebasic.com>, May 2000.
+
+[Herzberg] Amir Herzberg, <amirh@haifa.vnet.ibm.com>, February 1997.
+
+[Hess] Robert Hess, <hess@vidsoft.de>, March 2001.
+
+[Hodge] Tim Hodge, <thodge@curl.com>, August 2000.
+
+[Hohensee] Reinhard Hohensee <rhohensee@VNET.IBM.COM>, September 1997.
+
+[Holstage] Mary Holstage <holstege@firstfloor.com>, May 1998.
+
+[Hoshina] Shoji Hoshina <Hoshina.Shoji@exc.epson.co.jp>, January 1999,
+          September 2000.
+
+[Hurtta] Kari E. Hurtta <flexstor@ozone.FMI.FI>
+
+[Imoucha] Philippe Imoucha <pimoucha@businessobjects.com>, October 1996.
+
+[IPTC] International Press Telecommunications Council (David Allen),
+       <m_director_iptc@dial.pipex.com>, July 2000.
+
+[Jones] Randy Jones, <randy_jones@archipelago.com>, January 2001.
+
+[Joseph] Todd Joseph <todd_joseph@groove.net>, February 2000, March 2000,
+         April 2000.
+
+[Juckes] John Juckes, <johnj@ugsolutions.com>, October 2000.
+
+[Kangaslampi] Petteri Kangaslampi, <petteri.kangaslampi@nokia.com>,
+              March 2001.
+
+[Katz] Steve Katz, <skatz@eshop.com>, June 1995.
+
+[Klos] Steven Klos, <stevek@osa.com>, February 1997.
+
+[Knowles] Martin Knowles, <mjk@irepository.net>, June 2001.
+
+[Kohlhepp] Bayard Kohlhepp, <bayard@ctcexchange.com>, April 2000.
+
+[Korver] Brian Korver <briank@terisa.com>, October 1996.
+
+[Kumar] Rajesh Kumar, <rkumar@cisco.com>, August 2001.
+
+[Lamb] Charles P. Lamb, <CLamb@pvimage.com>, June 2001.
+
+[Laramie] Michael Laramie <laramiem@btv.ibm.com>, February 1999.
+
+[Laun] Juern Laun <juern.laun@gmx.de>, April 1999.
+
+[Le Bodic] Gwenael Le Bodic <Gwenael.Le_Bodic@alcatel.fr>, March 2001.
+
+[Ledoux] Eric Ledoux, <ericle@microsoft.com>, August 2000.
+
+[Lefevre] Franck Lefevre, <franck@k1info.com>, August 2000.
+
+[Leow] Steve Leow <Leost01@accpac.com>, April 1999.
+
+[Levitt] Glenn Levitt <streetd1@ix.netcom.com>, October 1996.
+
+[Lines] John Lines <john@paladin.demon.co.uk>, January 1998.
+
+[Lubin] Dovid Lubin <dovid@acucobol.com>, October 1997.
+
+[Lubos] Mikusiak Lubos <lmikusia@blava-s.bratisla.ingr.com>, October 1996.
+
+[Lundblade] Laurence Lundblade <lgl@qualcomm.com>, October 1996.
+
+[Manning] Dave Manning <dmanning@uwi.com>, January, March 1999.
+
+[Martin] Bruce Martin <iana-registrar@uplanet.com>, November 1998.
+
+[Martin] Steven Martin <smartin@xis.xerox.com>, October 1997.
+
+[Matsumoto] Takashi Matsumoto <takashi.matsumoto@fujixerox.co.jp>,
+            February 2000
+
+[Matthewman] David Matthewman <david@xara.com>, October 1996.
+
+[McDaniel] Braden N. McDaniel, <braden@endoframe.com>, October 2000.
+
+[McGinty] Tom McGinty <tmcginty@dma.isg.mot.com>
+
+[McLaughlin] Ann McLaughlin <amclaughlin@comversens.com>, April 1999.
+
+[Minnis] James Minnis <james-minnis@glimpse-of-tomorrow.com>,
+         February 2000
+
+[Moline] Jodi Moline, <jodim@softsource.com>, April 1996.
+
+[Mori] Hiroyoshi Mori, <mori@mm.rd.nttdata.co.jp>, August 1998.
+
+[Moskowitz] Jay Moskowitz, <jay@aethersystems.com>, March 2001.
+
+[Muto] Shin Muto, <shinmuto@pure.cpdc.canon.co.jp>, May 2000.
+
+[Mutz] Andy Mutz, <andy_mutz@hp.com>, December 1997.
+
+[Nagatomo] Yasuhito Nagatomo <naga@rd.oda.epson.co.jp>, January 1998.
+
+[Natarajan] Satish Natarajan, <satish@infoseek.com>, August 1998.
+
+[Nelson] Jan Nelson, <jann@microsoft.com>, May 2000.
+
+[Nilsson] Martin Nilsson, <nilsson@id3.org>, October 2000.
+
+[O'Brien] Michael O'Brien <meobrien1@mmm.com>, January 1998.
+
+[Ogita] Masumi Ogita, <ogita@oa.tfl.fujitsu.co.jp>, October 1997.
+
+[Okudaira] Seiji Okudaira <okudaira@candy.paso.fujitsu.co.jp>, October 1997.
+
+[Olsson] Thomas Olsson <thomas@vinga.se>, April 1998.
+
+[Onda] Masanori Onda <Masanori.Onda@fujixerox.co.jp>, February 2000.
+
+
+[Ozaki] Yutaka Ozaki <yutaka_ozaki@gen.co.jp>, January 1999.
+
+[Paul Lindner]
+
+[Parker] David Parker <davidparker@davidparker.com>, August 1999.
+
+[Parks] Curtis Parks, <parks@eeel.nist.gov>, April 1995.
+
+[Parsons] Glenn Parsons <gparsons@nortelnetworks.com>, February 1999.
+
+[Patton] Mark Patton <fmp014@email.mot.com>, March 1999.
+
+[Patz] Frank Patz, <fp@contact.de>, September 2000.
+
+[Peacock] Gavin Peacock, <gpeacock@palm.com>, November 2000.
+
+[Pentecost] Bob Pentecost, <bpenteco@boi.hp.com>, March 1997.
+
+[Pharr] Paul C. Pharr <pharr@diehlgraphsoft.com>, February 2000.
+
+[Powers] Michael Powers, <powers@insideout.net>, January 1998.
+    <pow@flatland.com>, January 1999.
+
+[Pratt] Jason Pratt, <jason.pratt@autodesk.com>, August 1997.
+
+[Pruulmann] Jann Pruulmann, <jaan@fut.ee>, December 1998.
+
+[Rabinovitch] Boris Rabinovitch <boris@virtue3d.com>, February 2000.
+
+[Randers-Pehrson] Glenn Randers-Pehrson <glennrp@ARL.MIL>, October 1996.
+
+[Recktenwald] Heiko Recktenwald, <uzs106@uni-bonn.de>, November 2000.
+
+[Reddy] Saveen Reddy <saveenr@miscrosoft.com>, July 1999.
+
+[Rehem] Yaser Rehem, <yrehem@sapient.com>, February 1997.
+
+[Resnick] Pete Resnick, <presnick@qualcomm.com>, February 2000.
+
+[Risher] Mark Risher, <markr@vividence.com>, December 2000.
+
+[Rose] Marshall Rose, <mrose@dbc.mtview.ca.us>, April 1995.
+
+[Rosenberg] Jonathan Rosenberg, <jdrosen@dynamicsoft.com>, October 2000.
+
+[Rungchavalnont] Khemchart Rungchavalnont,
+    <khemcr@cpu.cp.eng.chula.ac.th>, July 1997.
+
+[Sandal] Troy Sandal <troys@visio.com>, November 1997.
+
+[Santinelli] Paul Santinelli, Jr. <psantinelli@narrative.com>, October 1996.
+
+[Scrathcley] Greg Scratchley <greg_scratchley@intuit.com>, October 1998.
+
+[Searcy] Meredith Searcy, <msearcy@newmoon.com>, June 1997.
+
+[Shapiro] Ehud Shapiro
+
+[Shilts] Reed Shilts <reed.shilts@sybase.com>, February 1999, August 1999.
+
+[Simon] Ben Simon, <BenS@crt.com>, September 1998.
+
+[Simonoff] Steven Simonoff <scs@triscape.com>, August 1999.
+
+[Simpson] Ray Simpson <ray@cnation.com>, January 1998.
+
+[Slawson] Dean Slawson, <deansl@microsoft.com>, May 1996.
+
+[Slusanschi] Horia Cristian Slusanschi <H.C.Slusanschi@massey.ac.nz>,
+             January 1998.
+
+[D.Smith] Derek Smith, <derek@friendlysoftware.com>, November 2000.
+
+[Smith] Nick Smith, <nas@ant.co.uk>, June 1995.
+
+[Smolgovsky] Roman Smolgovsky <romans@previewsystems.com>, April 1999.
+
+[Solomon] Monty Solomon, <monty@noblenet.com>, February 1997.
+
+[Spencer] Marc Douglas Spencer <marcs@itc.kodak.com>, October 1996.
+
+[Henry Spencer]
+
+[Stark] Peter Stark <stark@uplanet.com>, March 1999.
+
+[Strazds] Armands Strazds <armands.strazds@medienhaus-bremen.de>,
+          January 1999.
+
+[Sugimoto] Masahiko Sugimoto <sugimoto@sz.sel.fujitsu.co.jp>, October 1997.
+
+[T.Sugimoto] Taisuke Sugimoto <sugimototi@noanet.nttdata.co.jp> April 1999.
+
+[Sweet] Michael Sweet <mike@easysw.com>, July 1999.
+
+[Swenson] Janine Swenson <janine@novadigm.com>, January 1998.
+
+[Szekely] Etay Szekely <etay@emultek.co.il>, October 1996.
+
+[Taguchi] Yasuo Taguchi <yasuo.taguchi@fujixerox.co.jp>, July 1998.
+
+[Tanaka] Manabu Tanaka <mtana@iss.isl.melco.co.jp>, September 1997.
+
+[Tarkkala] Lauri Tarkkala, <Lauri.Tarkkala@sonera.com>, May 2000.
+
+[Tidwell] Paul Tidwell <paul.tidwell@ericsson.com>, February 2000.
+
+[Togashi] Nobukazu Togashi <togashi@ai.cs.fujitsu.co.jp>, June 1997.
+
+[Tomasello] Luke Tomasello <luket@intertrust.com>
+
+[Tupper] Jeff Tupper <tupper@peda.com>, February 2000.
+
+[Vaudreuil] Greg Vaudreuil <gregv@lucent.com>, January 1999.
+
+[Walleij] Linus Walleij, <triad@df.lth.se>, July 2000.
+
+[WAP-Forum] WAP Forum Ltd. <wap-feedback@mail.wapforum.org>, February 2000.
+
+[Wattenberger] Paul Wattenberger <Paul_Wattenberger@lotus.com>, June 1997.
+
+[Webb] Steve Webb <steve@wynde.com>, October 1996.
+
+[Wedel] Eric Wedel <ewedel@meridian-data.com>, October 1996.
+
+[Welsh] Linda Welsh, <linda@intel.com>, November 2000.
+
+[Wexler] Mike Wexler, <mwexler@frame.com>, April 1996.
+
+[Widener] Glenn Widener <glennw@ndg.com>, June 1997.
+
+[Wohler] Bill Wohler, <wohler@newt.com>, July 1997.
+
+[Wolfe] John Wolfe, <John_Wolfe.VIVO@vivo.com>, April 1996.
+
+[Wright] Don Wright, <don@lexmark.com>, August 2001.
+
+[Van Nostern] Gene C. Van Nostern <gene@wri.com>, February 1995.
+
+[Yellow] Mr. Yellow <yellowriversw@example.com>, March 1998.
+
+[Yoshitake] Jun Yoshitake, <yositake@iss.isl.melco.co.jp>, February 1997.
+
+[Zilles] Steve Zilles <szilles@adobe.com>, October 1996.
+
+[]
+
+-->
+
+</entity-engine-xml>

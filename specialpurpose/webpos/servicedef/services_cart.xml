@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+    <description>Web Pos Cart Services</description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
+    
+    <service name="setPartyToCart" engine="simple" auth="false"
+             location="component://webpos/minilang/CartEvents.xml" invoke="setPartyToCart">
+        <description>Set party to cart</description>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
+        <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="false"/>
+    </service>
+    
+    <service name="updateCartItem" engine="simple" auth="false"
+             location="component://webpos/minilang/CartEvents.xml" invoke="updateCartItem">
+        <description>Update Cart Item</description>
+        <attribute name="cartLineIndex" type="String" mode="IN" optional="false"/>
+        <attribute name="quantity" type="String" mode="IN" optional="false"/>
+    </service>
+    
+    <service name="deleteCartItem" engine="simple" auth="false"
+             location="component://webpos/minilang/CartEvents.xml" invoke="deleteCartItem">
+        <description>Delete Cart Item</description>
+        <attribute name="cartLineIndex" type="String" mode="IN" optional="false"/>
+    </service>
+    
+    <service name="getProductAndPrice" engine="simple" auth="false"
+             location="component://webpos/minilang/CartEvents.xml" invoke="getProductAndPrice">
+        <description>Get Product And Price</description>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="product" type="GenericValue" mode="OUT" optional="true"/>
+        <attribute name="price" type="BigDecimal" mode="OUT" optional="true"/>
+        <attribute name="currencyUomId" type="String" mode="OUT" optional="true"/>
+    </service>
+    
+    <service name="getFormattedAmount" engine="simple" auth="false"
+             location="component://webpos/minilang/CartEvents.xml" invoke="getFormattedAmount">
+        <description>Get Formatted Amount</description>
+        <attribute name="amount" type="String" mode="IN" optional="true"/>
+        <attribute name="currencyId" type="String" mode="IN" optional="true"/>
+        <attribute name="formattedAmount" type="String" mode="OUT" optional="true"/>
+    </service>
+    
+    <service name="getFormattedProductFeaturePrice" engine="simple" auth="false"
+             location="component://webpos/minilang/CartEvents.xml" invoke="getFormattedProductFeaturePrice">
+        <description>Get Formatted Feature Price</description>
+        <attribute name="productFeatureId" type="String" mode="IN" optional="false"/>
+        <attribute name="productPriceTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="currencyUomId" type="String" mode="IN" optional="false"/>
+        <attribute name="formattedFeaturePrice" type="String" mode="OUT" optional="true"/>
+    </service>
+    
+    <service name="removeSalesRep" engine="simple"
+             location="component://webpos/minilang/CartEvents.xml" invoke="removeSalesRep">
+        <description>Remove Sales Rep from cart</description>
+        <attribute type="String" mode="IN" name="partyId" optional="false"/>
+    </service>
+    
+    <service name="addSalesRep" engine="simple"
+             location="component://webpos/minilang/CartEvents.xml" invoke="addSalesRep">
+        <description>Add Sales Rep to cart</description>
+        <attribute type="String" mode="IN" name="partyId" optional="false"/>
+    </service>
+    
+    <service name="getShipMethods" engine="simple"
+             location="component://webpos/minilang/CartEvents.xml" invoke="getShipMethods">
+        <description>Get ship methods</description>
+    </service>
+    
+    <service name="setShipMethod" engine="simple"
+             location="component://webpos/minilang/CartEvents.xml" invoke="setShipMethod">
+        <description>Set ship method</description>
+    </service>
+</services>

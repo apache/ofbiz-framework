@@ -1,0 +1,751 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
+
+    <simple-method method-name="loadSalesInvoiceFact" short-description="">
+        <entity-one entity-name="Invoice" value-field="invoice"/>
+        <if-empty field="invoice">
+            <add-error>
+                <fail-property resource="AccountingUiLabels" property="AccountingInvoiceDoesNotExists"/>
+            </add-error>
+        </if-empty>
+        <check-errors/>
+        <if-compare field="invoice.invoiceTypeId" operator="equals" value="SALES_INVOICE">
+            <set field="andConditions.invoiceItemTypeId" value="INV_FPROD_ITEM"/>
+            <get-related relation-name="InvoiceItem" value-field="invoice" list="invoiceItems" map="andConditions"/>
+            <iterate list="invoiceItems" entry="invoiceItem">
+                <clear-field field="inMap"/>
+                <set field="inMap.invoice" from-field="invoice"/>
+                <set field="inMap.invoiceItem" from-field="invoiceItem"/>
+                <call-service service-name="loadSalesInvoiceItemFact" in-map-name="inMap"/>
+            </iterate>
+        </if-compare>
+    </simple-method>
+    <simple-method method-name="loadSalesInvoiceItemFact" short-description="">
+        <set field="invoice" from-field="parameters.invoice"/>
+        <set field="invoiceItem" from-field="parameters.invoiceItem"/>
+        <if-empty field="invoice">
+            <entity-one entity-name="Invoice" value-field="invoice"/>
+        </if-empty>
+        <if-empty field="invoiceItem">
+            <entity-one entity-name="InvoiceItem" value-field="invoiceItem"/>
+        </if-empty>
+        <if-empty field="invoice">
+            <add-error>
+                <fail-property resource="AccountingUiLabels" property="AccountingInvoiceDoesNotExists"/>
+            </add-error>
+        </if-empty>
+        <if-empty field="invoiceItem">
+            <add-error>
+                <fail-property resource="AccountingUiLabels" property="AccountingInvoiceItemDoesNotExists"/>
+            </add-error>
+        </if-empty>
+        <check-errors/>
+
+        <if-compare field="invoice.invoiceTypeId" operator="equals" value="SALES_INVOICE">
+            <entity-one entity-name="SalesInvoiceItemFact" value-field="fact" auto-field-map="false">
+                <field-map field-name="invoiceId" from-field="invoiceItem.invoiceId"/>
+                <field-map field-name="invoiceItemSeqId" from-field="invoiceItem.invoiceItemSeqId"/>
+            </entity-one>
+            <!-- key handling -->
+            <if-empty field="fact">
+                <make-value entity-name="SalesInvoiceItemFact" value-field="fact"/>
+                <set field="fact.invoiceId" from-field="invoice.invoiceId"/>
+                <set field="fact.invoiceItemSeqId" from-field="invoiceItem.invoiceItemSeqId"/>
+                <!-- conversion of the invoice date -->
+                <if-not-empty field="invoice.invoiceDate">
+                    <clear-field field="inMap"/>
+                    <set field="inMap.dimensionEntityName" value="DateDimension"/>
+                    <set field="inMap.naturalKeyFields.dateValue" from-field="invoice.invoiceDate" type="Date"/>
+                    <call-service service-name="getDimensionIdFromNaturalKey" in-map-name="inMap">
+                        <result-to-field result-name="dimensionId" field="fact.invoiceDateDimId"/>
+                    </call-service>
+                    <if-empty field="fact.invoiceDateDimId">
+                        <set field="fact.invoiceDateDimId" value="_NF_"/>
+                    </if-empty>
+                <else>
+                    <set field="fact.invoiceDateDimId" value="_NA_"/>
+                </else>
+                </if-not-empty>
+                <!-- conversion of the product id -->
+                <if-not-empty field="invoiceItem.productId">
+                    <clear-field field="inMap"/>
+                    <set field="inMap.dimensionEntityName" value="ProductDimension"/>
+                    <set field="inMap.naturalKeyFields.productId" from-field="invoiceItem.productId"/>
+                    <call-service service-name="getDimensionIdFromNaturalKey" in-map-name="inMap">
+                        <result-to-field result-name="dimensionId" field="fact.productDimId"/>
+                    </call-service>
+                    <if-empty field="fact.productDimId">
+                        <set field="fact.productDimId" value="_NF_"/>
+                    </if-empty>
+                <else>
+                    <set field="fact.productDimId" value="_NA_"/>
+                </else>
+                </if-not-empty>
+                <!-- conversion of the invoice currency -->
+                <if-not-empty field="invoice.currencyUomId">
+                    <clear-field field="inMap"/>
+                    <set field="inMap.dimensionEntityName" value="CurrencyDimension"/>
+                    <set field="inMap.naturalKeyFields.currencyId" from-field="invoice.currencyUomId"/>
+                    <call-service service-name="getDimensionIdFromNaturalKey" in-map-name="inMap">
+                        <result-to-field result-name="dimensionId" field="fact.origCurrencyDimId"/>
+                    </call-service>
+                    <if-empty field="fact.origCurrencyDimId">
+                        <set field="fact.origCurrencyDimId" value="_NF_"/>
+                    </if-empty>
+                <else>
+                    <set field="fact.origCurrencyDimId" value="_NA_"/>
+                </else>
+                </if-not-empty>
+                <!-- TODO -->
+                <set field="fact.orderId" value="_NA_"/>
+                <set field="fact.billToCustomerDimId" value="_NA_"/>
+                <create-value value-field="fact"/>
+            </if-empty>
+            <!-- =============== -->
+            <!-- facts handling  -->
+            <!-- =============== -->
+            <set field="fact.quantity" from-field="invoiceItem.quantity" type="BigDecimal"/>
+            <set field="fact.extGrossAmount" value="0.0" type="BigDecimal"/>
+            <set field="fact.extDiscountAmount" value="0.0" type="BigDecimal"/>
+            <set field="fact.extTaxAmount" value="0.0" type="BigDecimal"/>
+            <set field="fact.extNetAmount" value="0.0" type="BigDecimal"/>
+            <calculate field="fact.extGrossAmount">
+                <calcop field="invoiceItem.quantity" operator="multiply">
+                    <calcop field="invoiceItem.amount" operator="get"/>
+                </calcop>
+            </calculate>
+            <!-- taxes -->
+            <clear-field field="andConditions"/>
+            <set field="andConditions.invoiceItemTypeId" value="ITM_SALES_TAX"/>
+            <get-related relation-name="ChildrenInvoiceItem" value-field="invoiceItem" list="taxes" map="andConditions"/>
+            <iterate list="taxes" entry="tax">
+                <calculate field="fact.extTaxAmount">
+                    <calcop field="fact.extTaxAmount" operator="add">
+                        <calcop field="tax.amount" operator="get"/>
+                    </calcop>
+                </calculate>
+            </iterate>
+            <!-- discounts -->
+            <clear-field field="andConditions"/>
+            <set field="andConditions.invoiceItemTypeId" value="ITM_PROMOTION_ADJ"/>
+            <get-related relation-name="ChildrenInvoiceItem" value-field="invoiceItem" list="discounts" map="andConditions"/>
+            <iterate list="discounts" entry="discount">
+                <calculate field="fact.extDiscountAmount" type="BigDecimal">
+                    <calcop field="fact.extDiscountAmount" operator="add">
+                        <calcop field="discount.amount" operator="negative"/>
+                    </calcop>
+                </calculate>
+            </iterate>
+
+            <calculate field="fact.extNetAmount">
+                <calcop field="fact.extGrossAmount" operator="subtract">
+                    <calcop field="fact.extDiscountAmount" operator="get"/>
+                </calcop>
+            </calculate>
+            <!-- TODO: prorate invoice header discounts and shipping charges -->
+            <!-- TODO: costs -->
+            <set field="fact.extManFixedCost" value="0.0" type="BigDecimal"/>
+            <set field="fact.extManVarCost" value="0.0" type="BigDecimal"/>
+            <set field="fact.extStorageCost" value="0.0" type="BigDecimal"/>
+            <set field="fact.extDistributionCost" value="0.0" type="BigDecimal"/>
+
+            <calculate field="fact.contributionAmount">
+                <calcop field="fact.extNetAmount" operator="subtract">
+                    <calcop field="fact.extManFixedCost" operator="get"/>
+                    <calcop field="fact.extManVarCost" operator="get"/>
+                    <calcop field="fact.extStorageCost" operator="get"/>
+                    <calcop field="fact.extDistributionCost" operator="get"/>
+                </calcop>
+            </calculate>
+
+            <store-value value-field="fact"/>
+        </if-compare>
+    </simple-method>
+
+    <simple-method method-name="loadSalesOrderFact" short-description="">
+        <entity-one entity-name="OrderHeader" value-field="orderHeader"/>
+        <if-empty field="orderHeader">
+            <add-error>
+                <fail-property resource="OrderErrorUiLabels" property="OrderOrderIdDoesNotExists"/>
+            </add-error>
+        </if-empty>
+        <check-errors/>
+        <if-compare field="orderHeader.orderTypeId" operator="equals" value="SALES_ORDER">
+            <if-compare field="orderHeader.statusId" operator="equals" value="ORDER_APPROVED">
+                <entity-condition entity-name="OrderItem" list="orderItems">
+                    <condition-list combine="and">
+                        <condition-expr field-name="orderId" operator="equals" from-field="orderHeader.orderId"/>
+                        <!--<condition-expr field-name="productId" operator="not-like" value="M00%"/>-->
+                        <condition-expr field-name="orderItemTypeId" operator="equals" value="PRODUCT_ORDER_ITEM"/>
+                        <!--<condition-expr field-name="statusId" operator="equals" value="ITEM_APPROVED"/>-->
+                    </condition-list>
+                </entity-condition>
+
+                <!--<set field="andConditions.orderItemTypeId" value="PRODUCT_ORDER_ITEM"/>
+                <get-related relation-name="OrderItem" value-field="orderHeader" list="orderItems" map="andConditions"/>-->
+
+                <iterate list="orderItems" entry="orderItem">
+                    <clear-field field="inMap"/>
+                    <set field="inMap.orderHeader" from-field="orderHeader"/>
+                    <set field="inMap.orderItem" from-field="orderItem"/>
+                    <set field="inMap.orderAdjustment" from-field="orderAdjustment"/>
+                    <call-service service-name="loadSalesOrderItemFact" in-map-name="inMap"/>
+                </iterate>
+            </if-compare>
+        </if-compare>
+    </simple-method>
+
+    <simple-method method-name="loadSalesOrderItemFact" short-description="">
+        <set field="orderHeader" from-field="parameters.orderHeader"/>
+        <set field="orderItem" from-field="parameters.orderItem"/>
+        <set field="orderAdjustment" from-field="parameters.orderAdjustment"/>
+        <if-empty field="orderHeader">
+            <entity-one entity-name="OrderHeader" value-field="orderHeader"/>
+        </if-empty>
+        <if-empty field="orderItem">
+            <entity-one entity-name="OrderItem" value-field="orderItem"/>
+        </if-empty>
+        <if-empty field="orderAdjustment">
+            <entity-and entity-name="OrderAdjustment" list="orderAdjustments">
+                <field-map field-name="orderId" from-field="orderItem.orderId"/>
+            </entity-and>
+        </if-empty>
+        <if-empty field="orderHeader">
+            <add-error>
+                <fail-property resource="OrderErrorUiLabels" property="OrderOrderIdDoesNotExists"/>
+            </add-error>
+        </if-empty>
+        <if-empty field="orderItem">
+            <add-error>
+                <fail-property resource="OrderErrorUiLabels" property="OrderOrderItemIdDoesNotExists"/>
+            </add-error>
+        </if-empty>
+        <check-errors/>
+
+        <if-compare field="orderHeader.statusId" operator="equals" value="ORDER_APPROVED">
+            <entity-one entity-name="SalesOrderItemFact" value-field="fact" auto-field-map="false">
+                <field-map field-name="orderId" from-field="orderItem.orderId"/>
+                <field-map field-name="orderItemSeqId" from-field="orderItem.orderItemSeqId"/>
+            </entity-one>
+            <!-- key handling -->
+            <if-empty field="fact">
+                <make-value entity-name="SalesOrderItemFact" value-field="fact"/>
+                <set field="fact.orderId" from-field="orderHeader.orderId"/>
+                <set field="fact.orderItemSeqId" from-field="orderItem.orderItemSeqId"/>
+                <set field="fact.productStoreId" from-field="orderHeader.productStoreId"/>
+                <set field="fact.salesChannelEnumId" from-field="orderHeader.salesChannelEnumId"/>
+                <set field="fact.statusId" from-field="orderItem.statusId"/>
+
+                <!-- account -->
+                <if-not-empty field="orderHeader.productStoreId">
+                    <entity-one entity-name="ProductStore" value-field="account">
+                        <field-map field-name="productStoreId" from-field="orderHeader.productStoreId"/>
+                    </entity-one>
+                    <set field="fact.account" from-field="account.storeName"/>
+                </if-not-empty>
+
+                <!-- pod -->
+                <if-compare field="orderHeader.currencyUom" operator="equals" value="EUR">
+                    <set field="fact.pod" value="Latin"/>
+                <else>
+                    <set field="fact.pod" value="English"/>
+                </else>
+                </if-compare>
+
+                <!-- brand -->
+                <if-not-empty field="orderHeader.salesChannelEnumId">
+                    <entity-one entity-name="Enumeration" value-field="brand">
+                        <field-map field-name="enumId" from-field="orderHeader.salesChannelEnumId"/>
+                    </entity-one>
+                    <set field="fact.brand" from-field="brand.description"/>
+                </if-not-empty>
+
+                <!-- conversion of the order date -->
+                <entity-condition entity-name="OrderStatus" list="orderStatusList">
+                    <condition-list combine="and">
+                        <condition-expr field-name="orderId" from-field="orderHeader.orderId"/>
+                        <condition-expr field-name="statusId" value="ORDER_APPROVED"/>
+                    </condition-list>
+                    <order-by field-name="-statusDatetime"/>
+                </entity-condition>
+                <first-from-list list="orderStatusList" entry="orderStatus"/>
+                <if-not-empty field="orderStatus.statusDatetime">
+                    <clear-field field="inMap"/>
+                    <set field="inMap.dimensionEntityName" value="DateDimension"/>
+                    <set field="inMap.naturalKeyFields.dateValue" from-field="orderStatus.statusDatetime" type="Date"/>
+                    <call-service service-name="getDimensionIdFromNaturalKey" in-map-name="inMap">
+                        <result-to-field result-name="dimensionId" field="fact.orderDateDimId"/>
+                    </call-service>
+                    <if-empty field="fact.orderDateDimId">
+                        <set field="fact.orderDateDimId" value="_NF_"/>
+                    </if-empty>
+                <else>
+                    <set field="fact.orderDateDimId" value="_NA_"/>
+                </else>
+                </if-not-empty>
+
+                <!-- conversion of the product id -->
+                <if-not-empty field="orderItem.productId">
+                    <clear-field field="inMap"/>
+                    <set field="inMap.dimensionEntityName" value="ProductDimension"/>
+                    <set field="inMap.naturalKeyFields.productId" from-field="orderItem.productId"/>
+                    <call-service service-name="getDimensionIdFromNaturalKey" in-map-name="inMap">
+                        <result-to-field result-name="dimensionId" field="fact.productDimId"/>
+                    </call-service>
+                    <if-empty field="fact.productDimId">
+                        <set field="fact.productDimId" value="_NF_"/>
+                    </if-empty>
+                <else>
+                    <set field="fact.productDimId" value="_NA_"/>
+                </else>
+                </if-not-empty>
+
+                <!-- conversion of the order currency -->
+                <if-not-empty field="orderHeader.currencyUom">
+                    <clear-field field="inMap"/>
+                    <set field="inMap.dimensionEntityName" value="CurrencyDimension"/>
+                    <set field="inMap.naturalKeyFields.currencyId" from-field="orderHeader.currencyUom"/>
+                    <call-service service-name="getDimensionIdFromNaturalKey" in-map-name="inMap">
+                        <result-to-field result-name="dimensionId" field="fact.origCurrencyDimId"/>
+                    </call-service>
+                    <if-empty field="fact.origCurrencyDimId">
+                        <set field="fact.origCurrencyDimId" value="_NF_"/>
+                    </if-empty>
+                <else>
+                    <set field="fact.origCurrencyDimId" value="_NA_"/>
+                </else>
+                </if-not-empty>
+
+                <!-- productCategoryId -->
+                <entity-and entity-name="ProductCategoryMember" list="productCategoryMembers">
+                    <field-map field-name="productId" from-field="orderItem.productId"/>
+                    <field-map field-name="thruDate" from-field="nullField"/>
+                </entity-and>
+                <if-not-empty field="productCategoryMembers">
+                    <first-from-list list="productCategoryMembers" entry="productCategoryMember"/>
+                    <set field="fact.productCategoryId" from-field="productCategoryMember.productCategoryId"/>
+                </if-not-empty>
+
+                <!-- TODO -->
+                <set field="fact.billToCustomerDimId" value="_NA_"/>
+
+                <create-value value-field="fact"/>
+            </if-empty>
+            <!-- =============== -->
+            <!-- facts handling  -->
+            <!-- =============== -->
+            <set field="fact.quantity" from-field="orderItem.quantity" type="BigDecimal"/>
+            <set field="fact.extGrossAmount" value="0" type="BigDecimal"/>
+            <set field="fact.extGrossCost" value="0" type="BigDecimal"/>
+            <set field="fact.extDiscountAmount" value="0" type="BigDecimal"/>
+            <set field="fact.extNetAmount" value="0" type="BigDecimal"/>
+            <set field="fact.extShippingAmount" value="0" type="BigDecimal"/>
+            <set field="fact.extTaxAmount" value="0" type="BigDecimal"/>
+
+            <set field="fact.GS" value="0" type="BigDecimal"/>
+            <set field="fact.GMS" value="0" type="BigDecimal"/>
+            <set field="fact.GMP" value="0" type="BigDecimal"/>
+            <set field="fact.GSS" value="0" type="BigDecimal"/>
+            <set field="fact.GSC" value="0" type="BigDecimal"/>
+            <set field="fact.GSP" value="0" type="BigDecimal"/>
+            <set field="fact.GP" value="0" type="BigDecimal"/>
+
+            <set field="fact.countOrder" value="0" type="BigDecimal"/>
+
+            <!-- extGrossAmount -->
+            <set field="convertUomCurrencyMap.uomId" from-field="orderHeader.currencyUom"/>
+            <set field="convertUomCurrencyMap.uomIdTo" value="USD"/>
+            <set field="convertUomCurrencyMap.nowDate" from-field="orderStatus.statusDatetime"/>
+            <call-service service-name="convertUomCurrency" in-map-name="convertUomCurrencyMap">
+                <result-to-field result-name="conversionFactor" field="exchangeRate"/>
+            </call-service>
+
+            <if-not-empty field="exchangeRate">
+                <calculate field="unitPrice">
+                    <calcop field="orderItem.unitPrice" operator="multiply">
+                        <calcop field="exchangeRate" operator="get"/>
+                    </calcop>
+                </calculate>
+
+                <calculate field="fact.extGrossAmount">
+                    <calcop field="fact.quantity" operator="multiply">
+                        <calcop field="unitPrice" operator="get"/>
+                    </calcop>
+                </calculate>
+            </if-not-empty>
+
+            <!-- extGrossCost -->
+            <entity-condition entity-name="SupplierProduct" list="costs">
+                <condition-list combine="and">
+                    <condition-expr field-name="productId" operator="equals" from-field="orderItem.productId"/>
+                    <condition-expr field-name="availableThruDate" operator="equals" from-field="nullField"/>
+                    <condition-expr field-name="minimumOrderQuantity" operator="equals" value="0"/>
+                </condition-list>
+            </entity-condition>
+            <if-not-empty field="costs">
+                <first-from-list list="costs" entry="cost"/>
+
+                <set field="convertUomCurrencyMap.uomId" from-field="cost.currencyUomId"/>
+                <set field="convertUomCurrencyMap.uomIdTo" value="USD"/>
+                <set field="convertUomCurrencyMap.nowDate" from-field="orderStatus.statusDatetime"/>
+                <call-service service-name="convertUomCurrency" in-map-name="convertUomCurrencyMap">
+                    <result-to-field result-name="conversionFactor" field="exchangeRate"/>
+                </call-service>
+
+                <if-not-empty field="exchangeRate">
+                    <calculate field="costPrice">
+                        <calcop field="cost.lastPrice" operator="multiply">
+                            <calcop field="exchangeRate" operator="get"/>
+                        </calcop>
+                    </calculate>
+
+                    <calculate field="fact.extGrossCost">
+                        <calcop field="fact.quantity" operator="multiply">
+                            <calcop field="costPrice" operator="get"/>
+                        </calcop>
+                    </calculate>
+                </if-not-empty>
+            </if-not-empty>
+
+            <!-- extShippingAmount -->
+            <iterate list="orderAdjustments" entry="shipping">
+                <if-compare field="shipping.orderAdjustmentTypeId" operator="equals" value="SHIPPING_CHARGES">
+                    <calculate field="fact.extShippingAmount">
+                        <calcop field="fact.extShippingAmount" operator="add">
+                            <calcop field="shipping.amount" operator="get"/>
+                        </calcop>
+                    </calculate>
+                </if-compare>
+            </iterate>
+
+            <!-- extTaxAmount -->
+            <iterate list="orderAdjustments" entry="tax">
+                <if-compare field="tax.orderAdjustmentTypeId" operator="equals" value="SALES_TAX">
+                    <calculate field="fact.extTaxAmount">
+                        <calcop field="fact.extTaxAmount" operator="add">
+                            <calcop field="tax.amount" operator="get"/>
+                        </calcop>
+                    </calculate>
+                </if-compare>
+            </iterate>
+
+            <!-- extDiscountAmount -->
+            <iterate list="orderAdjustments" entry="discount">
+                <if-compare field="discount.orderAdjustmentTypeId" operator="equals" value="PROMOTION_ADJUSTMENT">
+                    <calculate field="fact.extDiscountAmount">
+                        <calcop field="fact.extDiscountAmount" operator="add">
+                            <calcop field="discount.amount" operator="get"/>
+                        </calcop>
+                    </calculate>
+                    <!-- product promo code -->
+                    <entity-and entity-name="ProductPromoCode" list="productPromo">
+                        <field-map field-name="productPromoId" from-field="discount.productPromoId"/>
+                    </entity-and>
+                    <first-from-list list="productPromo" entry="productPromoCode"/>
+                    <if-not-empty field="productPromoCode">
+                        <set field="fact.productPromoCode" from-field="productPromoCode.productPromoCodeId"/>
+                        <else>
+                            <set field="fact.productPromoCode" value="Not require code"/>
+                        </else>
+                    </if-not-empty>
+                </if-compare>
+            </iterate>
+
+            <!-- extNetAmount -->
+            <calculate field="fact.extNetAmount">
+                <calcop field="fact.extGrossAmount" operator="subtract">
+                    <calcop field="fact.extDiscountAmount" operator="get"/>
+                </calcop>
+            </calculate>
+
+            <!-- GS -->
+            <set field="countGS" value="0"/>
+            <entity-and entity-name="SalesOrderItemFact" list="checkGSList">
+                <field-map field-name="orderId" from-field="orderHeader.orderId"/>
+            </entity-and>
+            <iterate list="checkGSList" entry="checkGS">
+                <if-not-empty field="checkGS.GS">
+                    <if-compare field="checkGS.GS" operator="not-equals" value="0">
+                        <set field="countGS" value="1"/>
+                    </if-compare>
+                </if-not-empty>
+            </iterate>
+            <if-compare field="countGS" operator="equals" value="0">
+                <set field="convertUomCurrencyMap.uomId" from-field="orderHeader.currencyUom"/>
+                <set field="convertUomCurrencyMap.uomIdTo" value="USD"/>
+                <set field="convertUomCurrencyMap.nowDate" from-field="orderStatus.statusDatetime"/>
+                <call-service service-name="convertUomCurrency" in-map-name="convertUomCurrencyMap">
+                    <result-to-field result-name="conversionFactor" field="exchangeRate"/>
+                </call-service>
+
+                <if-not-empty field="exchangeRate">
+                    <calculate field="fact.GS">
+                        <calcop field="orderHeader.grandTotal" operator="multiply">
+                            <calcop field="exchangeRate" operator="get"/>
+                        </calcop>
+                    </calculate>
+                </if-not-empty>
+            </if-compare>
+
+            <!-- GMS -->
+            <calculate field="fact.GMS">
+                <calcop field="fact.GMS" operator="add">
+                    <calcop field="fact.extGrossAmount" operator="get"/>
+                </calcop>
+            </calculate>
+
+            <!-- GMP -->
+            <calculate field="fact.GMP">
+                <calcop field="fact.GMS" operator="subtract">
+                    <calcop field="fact.extGrossCost" operator="get"/>
+                </calcop>
+            </calculate>
+
+            <!-- GSP -->
+            <set field="countGSP" value="0"/>
+            <entity-and entity-name="SalesOrderItemFact" list="checkGSPList">
+                <field-map field-name="orderId" from-field="orderHeader.orderId"/>
+            </entity-and>
+            <iterate list="checkGSPList" entry="checkGSP">
+                <if-not-empty field="checkGSP.GSP">
+                    <if-compare field="checkGSP.GSP" operator="not-equals" value="0">
+                        <set field="countGSP" value="1"/>
+                    </if-compare>
+                </if-not-empty>
+            </iterate>
+            <if-compare field="countGSP" operator="equals" value="0">
+                <entity-and entity-name="OrderItem" list="orderItemList">
+                    <field-map field-name="orderId" from-field="orderHeader.orderId"/>
+                </entity-and>
+
+                <set field="warrantyPrice" value="0" type="BigDecimal"/>
+                <iterate list="orderAdjustments" entry="warranty">
+                    <if-compare field="warranty.orderAdjustmentTypeId" operator="equals" value="WARRANTY_ADJUSTMENT">
+                        <calculate field="warrantyPrice">
+                            <calcop field="warrantyPrice" operator="add">
+                                <calcop field="warranty.amount" operator="get"/>
+                            </calcop>
+                        </calculate>
+                    </if-compare>
+                </iterate>
+                <calculate field="GSS">
+                    <calcop field="fact.extShippingAmount" operator="add">
+                        <calcop field="warrantyPrice" operator="get"/>
+                    </calcop>
+                </calculate>
+
+                <set field="convertUomCurrencyMap.uomId" from-field="orderHeader.currencyUom"/>
+                <set field="convertUomCurrencyMap.uomIdTo" value="USD"/>
+                <set field="convertUomCurrencyMap.nowDate" from-field="orderStatus.statusDatetime"/>
+                <call-service service-name="convertUomCurrency" in-map-name="convertUomCurrencyMap">
+                    <result-to-field result-name="conversionFactor" field="exchangeRate"/>
+                </call-service>
+
+                <if-not-empty field="exchangeRate">
+                    <calculate field="GSS">
+                        <calcop field="GSS" operator="multiply">
+                            <calcop field="exchangeRate" operator="get"/>
+                        </calcop>
+                    </calculate>
+                </if-not-empty>
+                <set field="fact.GSS" from-field="GSS"/>
+
+                <set field="fact.GSP" from-field="GSS" type="BigDecimal"/>
+            </if-compare>
+
+            <!-- GP -->
+            <calculate field="fact.GP">
+                <calcop field="fact.GMP" operator="add">
+                    <calcop field="fact.GSP" operator="get"/>
+                </calcop>
+            </calculate>
+
+            <!-- countOrder -->
+            <set field="countOrder" value="0"/>
+            <entity-and entity-name="SalesOrderItemFact" list="checkCountOrderList">
+                <field-map field-name="orderId" from-field="orderHeader.orderId"/>
+            </entity-and>
+            <iterate list="checkCountOrderList" entry="checkCountOrder">
+                <if-not-empty field="checkCountOrder.countOrder">
+                    <if-compare field="checkCountOrder.countOrder" operator="not-equals" value="0">
+                        <set field="countOrder" value="1"/>
+                    </if-compare>
+                </if-not-empty>
+            </iterate>
+            <if-compare field="countOrder" operator="equals" value="0">
+                <set field="fact.countOrder" value="1" type="BigDecimal"/>
+            </if-compare>
+
+            <store-value value-field="fact"/>
+        </if-compare>
+    </simple-method>
+
+    <simple-method method-name="loadSalesOrderDataDaily" short-description="Load Sales Order Data Daily">
+        <now-date-to-env field="nowDate"/>
+        <set field="yesterday" value="${groovy:
+            import java.text.SimpleDateFormat;
+            def sdf = new SimpleDateFormat(&quot;yyyy-MM-dd 07:00:00.000&quot;);
+            def yesterday = sdf.format(nowDate-1);
+            return yesterday;
+        }" type="Timestamp"/>
+        <set field="today" value="${groovy:
+            import java.text.SimpleDateFormat;
+            def sdf = new SimpleDateFormat(&quot;yyyy-MM-dd 07:00:00.000&quot;);
+            def today = sdf.format(nowDate);
+            return today;
+        }" type="Timestamp"/>
+
+         <set field="inMap.fromDate" from-field="yesterday"/>
+         <set field="inMap.thruDate" from-field="today"/>
+         <call-service service-name="importSalesOrderData" in-map-name="inMap"></call-service>
+    </simple-method>
+
+    <simple-method method-name="importSalesOrderData" short-description="Import Sales Order Data">
+        <set-service-fields service-name="loadDateDimension" map="parameters" to-map="inMap"/>
+        <set field="inMap.fromDate" from-field="parameters.fromDate"/>
+        <set field="inMap.thruDate" from-field="parameters.thruDate"/>
+        <call-service service-name="loadDateDimension" in-map-name="inMap"/>
+        <check-errors/>
+
+        <entity-condition entity-name="OrderStatus" list="orderStatusList">
+            <condition-list combine="and">
+                <condition-expr field-name="statusId" value="ORDER_APPROVED"/>
+                <condition-expr field-name="statusDatetime" operator="greater-equals" from-field="parameters.fromDate"/>
+                <condition-expr field-name="statusDatetime" operator="less" from-field="parameters.thruDate"/>
+            </condition-list>
+        </entity-condition>
+        <iterate list="orderStatusList" entry="orderHeader">
+            <clear-field field="inMap"/>
+            <set field="inMap.orderId" from-field="orderHeader.orderId"/>
+            <call-service service-name="loadSalesOrderFact" in-map-name="inMap"></call-service>
+            <check-errors/>
+        </iterate>
+    </simple-method>
+
+    <simple-method method-name="convertUomCurrency" short-description="Convert Uom Currency from UomConversionDated entity">
+        <if-empty field="parameters.nowDate">
+            <now field="now"/>
+            <set field="parameters.nowDate" from-field="now"/>
+        </if-empty>
+        <entity-condition entity-name="UomConversionDated" list="UomConversionDatedList">
+            <condition-list combine="and">
+                <condition-expr field-name="uomId" operator="equals" from-field="parameters.uomId"/>
+                <condition-expr field-name="uomIdTo" operator="equals" from-field="parameters.uomIdTo"/>
+                <condition-expr field-name="fromDate" operator="less-equals" from-field="parameters.nowDate"/>
+                <condition-expr field-name="thruDate" operator="greater" from-field="parameters.nowDate"/>
+            </condition-list>
+            <order-by field-name="-fromDate"/>
+        </entity-condition>
+        <if-not-empty field="UomConversionDatedList">
+            <first-from-list list="UomConversionDatedList" entry="UomConversion"/>
+            <field-to-result field="UomConversion.conversionFactor" result-name="conversionFactor"/>
+        <else>
+            <entity-condition entity-name="UomConversionDated" list="UomConversionDatedLastestList">
+                <condition-list combine="and">
+                    <condition-expr field-name="uomId" operator="equals" from-field="parameters.uomId"/>
+                    <condition-expr field-name="uomIdTo" operator="equals" from-field="parameters.uomIdTo"/>
+                    <condition-expr field-name="thruDate" operator="equals" from-field="nullField"/>
+                </condition-list>
+            </entity-condition>
+            <if-not-empty field="UomConversionDatedLastestList">
+                <first-from-list list="UomConversionDatedLastestList" entry="UomConversionLastest"/>
+                <field-to-result field="UomConversionLastest.conversionFactor" result-name="conversionFactor"/>
+            </if-not-empty>
+        </else>
+        </if-not-empty>
+    </simple-method>
+
+    <simple-method method-name="loadInventoryFact" short-description="">
+        <entity-one entity-name="InventoryItem" value-field="inventory">
+            <field-map field-name="inventoryItemId" from-field="parameters.inventoryItemId"/>
+        </entity-one>
+        <entity-one entity-name="InventoryItemFact" value-field="fact">
+            <field-map field-name="inventoryItemId" from-field="parameters.inventoryItemId"/>
+        </entity-one>
+        <if-empty field="fact">
+            <make-value value-field="fact" entity-name="InventoryItemFact"/>
+            <set field="fact.inventoryItemId" from-field="inventory.inventoryItemId"/>
+            <!-- conversion of the inventory date -->
+            <if-not-empty field="inventory.createdStamp">
+                <clear-field field="inMap"/>
+                <set field="inMap.dimensionEntityName" value="DateDimension"/>
+                <set field="inMap.naturalKeyFields.dateValue" from-field="inventory.createdStamp" type="Date"/>
+                <call-service service-name="getDimensionIdFromNaturalKey" in-map-name="inMap">
+                    <result-to-field result-name="dimensionId" field="fact.inventoryDateDimId"/>
+                </call-service>
+                <if-empty field="fact.inventoryDateDimId">
+                    <set field="fact.inventoryDateDimId" value="_NF_"/>
+                </if-empty>
+                <else>
+                    <set field="fact.inventoryDateDimId" value="_NA_"/>
+                </else>
+            </if-not-empty>
+            <!-- conversion of the product id -->
+            <if-not-empty field="inventory.productId">
+                <clear-field field="inMap"/>
+                <set field="inMap.dimensionEntityName" value="ProductDimension"/>
+                <set field="inMap.naturalKeyFields.productId" from-field="inventory.productId"/>
+                <call-service service-name="getDimensionIdFromNaturalKey" in-map-name="inMap">
+                    <result-to-field result-name="dimensionId" field="fact.productDimId"/>
+                </call-service>
+                <if-empty field="fact.productDimId">
+                    <set field="fact.productDimId" value="_NF_"/>
+                </if-empty>
+                <else>
+                    <set field="fact.productDimId" value="_NA_"/>
+                </else>
+            </if-not-empty>
+            <!-- conversion of the order currency -->
+            <if-not-empty field="inventory.currencyUomId">
+                <clear-field field="inMap"/>
+                <set field="inMap.dimensionEntityName" value="CurrencyDimension"/>
+                <set field="inMap.naturalKeyFields.currencyId" from-field="inventory.currencyUomId"/>
+                <call-service service-name="getDimensionIdFromNaturalKey" in-map-name="inMap">
+                    <result-to-field result-name="dimensionId" field="fact.origCurrencyDimId"/>
+                </call-service>
+                <if-empty field="fact.origCurrencyDimId">
+                    <set field="fact.origCurrencyDimId" value="_NF_"/>
+                </if-empty>
+                <else>
+                    <set field="fact.origCurrencyDimId" value="_NA_"/>
+                </else>
+            </if-not-empty>
+            <create-value value-field="fact"/>
+        </if-empty>
+
+        <set field="fact.facilityId" from-field="inventory.facilityId"/>
+        <set field="fact.inventoryItemId" from-field="inventory.inventoryItemId"/>
+        <set field="fact.quantityOnHandTotal" from-field="inventory.quantityOnHandTotal"/>
+        <set field="fact.availableToPromiseTotal" from-field="inventory.availableToPromiseTotal"/>
+        <set field="fact.unitCost" from-field="inventory.unitCost"/>
+
+        <!-- calculate sold out amount -->
+        <calculate field="fact.soldoutAmount">
+            <calcop operator="get" field="inventory.quantityOnHandTotal">
+                <calcop operator="negative" field="inventory.availableToPromiseTotal"/>
+            </calcop>
+        </calculate>
+        <store-value value-field="fact"/>
+    </simple-method>
+
+</simple-methods>

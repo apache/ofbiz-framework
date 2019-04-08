@@ -21,8 +21,10 @@ package org.apache.ofbiz.shipment.thirdparty.usps;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
@@ -47,6 +49,11 @@ public class UspsMockApiServlet extends HttpServlet {
 
     public UspsMockApiServlet() {
         super();
+    }
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
     }
 
     @Override
@@ -108,7 +115,7 @@ public class UspsMockApiServlet extends HttpServlet {
                 UtilXml.addChildElementValue(responsePackageElement, "Postage", "3.00", responseDocument);
             }
 
-            ByteArrayOutputStream os = new ByteArrayOutputStream();
+            OutputStream os = new ByteArrayOutputStream();
 
             try {
                 UtilXml.writeXmlDocument(responseDocument, os, "UTF-8", true, false, 0);
@@ -119,8 +126,13 @@ public class UspsMockApiServlet extends HttpServlet {
 
             response.setContentType("text/xml");
             ServletOutputStream sos = response.getOutputStream();
-            sos.print(os.toString("UTF-8"));
+            sos.print(os.toString());
             sos.flush();
         }
+    }
+
+    @Override
+    public void destroy() {
+        super.destroy();
     }
 }

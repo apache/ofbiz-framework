@@ -137,7 +137,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="partyIdTo" position="2" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="partyIdTo" position="2"><lookup target-form-name="LookupPartyName"/></field>
         <field name="paymentTypeId" title="${uiLabelMap.AccountingPaymentType}" position="1">
             <drop-down allow-empty="false">
                 <list-options list-name="paymentTypes" key-name="paymentTypeId"/>
@@ -153,7 +153,7 @@ under the License.
         </field>
         <field name="paymentRefNum" position="1"><text/></field>
         <field name="overrideGlAccountId" position="2"><lookup target-form-name="LookupGlAccount"/></field>
-        <field name="amount" position="1" required-field="true"><text/></field>
+        <field name="amount" position="1"><text/></field>
         <field name="comments" position="2"><text size="70"/></field>
         <field name="isDepositWithDrawPayment"><hidden value="Y"/></field>
         <field name="finAccountTransTypeId"><hidden value="WITHDRAWAL"/></field>
@@ -172,7 +172,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="partyIdFrom" position="2" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="partyIdFrom" position="2"><lookup target-form-name="LookupPartyName"/></field>
         <field name="paymentTypeId" title="${uiLabelMap.AccountingPaymentType}" position="1">
             <drop-down allow-empty="false">
                 <entity-options entity-name="PaymentType">
@@ -191,7 +191,7 @@ under the License.
         </field>
         <field name="paymentRefNum" position="1"><text/></field>
         <field name="overrideGlAccountId" position="2"><lookup target-form-name="LookupGlAccount"/></field>
-        <field name="amount" position="1" required-field="true"><text/></field>
+        <field name="amount" position="1"><text/></field>
         <field name="comments" position="2"><text size="70"/></field>
         <field name="finAccountId">
             <drop-down allow-empty="true">

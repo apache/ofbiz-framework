@@ -28,8 +28,8 @@ import org.apache.ofbiz.base.container.Container;
 import org.apache.ofbiz.base.container.ContainerConfig;
 import org.apache.ofbiz.base.container.ContainerException;
 import org.apache.ofbiz.base.start.StartupCommand;
-import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.base.util.StringUtil;
 
 public class DelegatorContainer implements Container {
     private String name;
@@ -49,7 +49,7 @@ public class DelegatorContainer implements Container {
         if (UtilValidate.isEmpty(preloadedDelegatorNames)) {
             return true;
         }
-        List<Future<Delegator>> futures = new ArrayList<>();
+        List<Future<Delegator>> futures = new ArrayList<Future<Delegator>>();
         for (String preloadedDelegatorName: preloadedDelegatorNames) {
             futures.add(DelegatorFactory.getDelegatorFuture(preloadedDelegatorName));
         }

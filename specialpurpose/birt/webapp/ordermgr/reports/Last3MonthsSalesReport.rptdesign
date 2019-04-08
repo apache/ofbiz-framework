@@ -1,0 +1,835 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.20" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 3.7.2.v20120213 Build &lt;3.7.2.v20120214-1408></property>
+    <property name="units">in</property>
+    <method name="initialize"><![CDATA[importPackage(Packages.org.apache.ofbiz.base.util)
+
+importPackage(Packages.org.apache.ofbiz.entity.util)
+importPackage(Packages.java.util)
+importPackage(Packages.java.lang)
+importPackage(Packages.org.apache.ofbiz.entity.condition)
+module = "Last3MonthsSalesReport.rptdesign";]]></method>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <data-sources>
+        <script-data-source name="OFBIZ" id="7"/>
+    </data-sources>
+    <data-sets>
+        <script-data-set name="SalesOrderItemStarSchema" id="8">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">orderId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">orderItemSeqId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">orderStatus</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">saleChannel</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">quantity</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">extGrossAmount</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">orderDateDayOfMonth</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">orderDateMonthOfYear</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">orderDateYearName</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">10</property>
+                    <property name="name">price</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">11</property>
+                    <property name="name">stock</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">12</property>
+                    <property name="name">productId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">13</property>
+                    <property name="name">internalName</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">orderId</property>
+                </structure>
+                <structure>
+                    <property name="columnName">orderItemSeqId</property>
+                </structure>
+                <structure>
+                    <property name="columnName">orderStatus</property>
+                </structure>
+                <structure>
+                    <property name="columnName">saleChannel</property>
+                </structure>
+                <structure>
+                    <property name="columnName">quantity</property>
+                </structure>
+                <structure>
+                    <property name="columnName">extGrossAmount</property>
+                </structure>
+                <structure>
+                    <property name="columnName">orderDateDayOfMonth</property>
+                </structure>
+                <structure>
+                    <property name="columnName">orderDateMonthOfYear</property>
+                </structure>
+                <structure>
+                    <property name="columnName">orderDateYearName</property>
+                </structure>
+                <structure>
+                    <property name="columnName">price</property>
+                </structure>
+                <structure>
+                    <property name="columnName">stock</property>
+                </structure>
+                <structure>
+                    <property name="columnName">productId</property>
+                </structure>
+                <structure>
+                    <property name="columnName">internalName</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">orderId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">orderItemSeqId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">orderStatus</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">saleChannel</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">quantity</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">extGrossAmount</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">orderDateDayOfMonth</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">orderDateMonthOfYear</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">orderDateYearName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">price</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">11</property>
+                        <property name="name">stock</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">12</property>
+                        <property name="name">productId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">13</property>
+                        <property name="name">internalName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">OFBIZ</property>
+            <method name="open"><![CDATA[salesOrderItemStarSchemas = null;
+userLogin = null;
+try {
+    userLogin = delegator.findOne("UserLogin",UtilMisc.toMap("userLoginId","admin"), false);
+    months = new LinkedList();
+    thisMonth = 0;
+    thisMonth = UtilDateTime.getMonth(UtilDateTime.nowTimestamp(), TimeZone.getDefault(), Locale.getDefault())+1;
+    thisYear = UtilDateTime.getYear(UtilDateTime.nowTimestamp(), TimeZone.getDefault(), Locale.getDefault())
+    i = 0;
+    month = thisMonth;
+    while(i<3){
+    i = i + 1;
+    switch(month)
+    {
+    case 1:
+      months.add(UtilMisc.toLongObject(1));
+      break;
+    case 2:
+      months.add(UtilMisc.toLongObject(2));
+      break;
+    case 3:
+      months.add(UtilMisc.toLongObject(3));
+      break;
+    case 4:
+      months.add(UtilMisc.toLongObject(4));
+      break;
+    case 5:
+      months.add(UtilMisc.toLongObject(5));
+      break;
+    case 6:
+      months.add(UtilMisc.toLongObject(6));
+      break;
+    case 7:
+      months.add(UtilMisc.toLongObject(7));
+      break;
+    case 8:
+      months.add(UtilMisc.toLongObject(8));
+      break;
+    case 9:
+      months.add(UtilMisc.toLongObject(9));
+      break;
+    case 10:
+      months.add(UtilMisc.toLongObject(10));
+      break;
+    case 11:
+      months.add(UtilMisc.toLongObject(11));
+      break;
+    case 12:
+      months.add(UtilMisc.toLongObject(12));
+      break;
+    }
+    month = month - 1
+    }
+    cond = new LinkedList();
+    cond.add(EntityCondition.makeCondition("orderDateMonthOfYear", EntityOperator.IN, months));
+    cond.add(EntityCondition.makeCondition("orderDateYearName", EntityOperator.EQUALS, UtilMisc.toLongObject(thisYear)));
+    salesOrderItemStarSchemas  = delegator.findList("SalesOrderItemStarSchema", EntityCondition.makeCondition(cond, EntityOperator.AND), null, null, null, false);
+} catch(e) {
+        Debug.logError(e,"");
+}
+totalRow = 0;
+countOfRow = 0;
+if (salesOrderItemStarSchemas) {
+    totalRow = salesOrderItemStarSchemas.size();
+}
+]]></method>
+            <method name="fetch"><![CDATA[if (countOfRow >= totalRow) return false;
+salesOrderItemStarSchema = salesOrderItemStarSchemas.get(countOfRow);
+input =  new HashMap();
+input.put("productId", salesOrderItemStarSchema.getString("productProductId"));
+input.put("userLogin", userLogin);
+QOH = 0;
+
+try {
+    result = dispatcher.runSync("getInventoryValuationList", input);
+    inventorys = result.get("inventoryValuationList");
+    QOH = inventorys.get(0).get("totalQuantityOnHand");
+} catch (e) {
+    Debug.logError(e, module);
+}
+
+price = 0;
+internalName = "None";
+input =  new HashMap();
+try {
+    product = delegator.findOne("Product",UtilMisc.toMap("productId", salesOrderItemStarSchema.getString("productProductId")), false);
+    if(product!=null){
+        input.put("product", product);
+        input.put("userLogin", userLogin);
+        result = dispatcher.runSync("calculateProductPrice", input);
+        price = result.get("price");
+        if(product.get("internalName")){
+            internalName = product.get("internalName");
+        }
+    }
+} catch (e) {
+    Debug.logError(e, module);
+}
+
+row["orderId"] = salesOrderItemStarSchema.getString("orderId");
+row["orderItemSeqId"] = salesOrderItemStarSchema.getString("orderItemSeqId");
+row["orderStatus"] = salesOrderItemStarSchema.getString("statusId");
+row["saleChannel"] = salesOrderItemStarSchema.getString("salesChannelEnumId");
+row["quantity"] = salesOrderItemStarSchema.getString("quantity");
+row["extGrossAmount"] = salesOrderItemStarSchema.getString("extGrossAmount");
+row["orderDateDayOfMonth"] = salesOrderItemStarSchema.getString("orderDateDayOfMonth");
+row["orderDateMonthOfYear"] = salesOrderItemStarSchema.getString("orderDateMonthOfYear");
+row["orderDateYearName"] = salesOrderItemStarSchema.getString("orderDateYearName");
+row["price"] = price;
+row["stock"] = QOH;
+row["productId"]= salesOrderItemStarSchema.getString("productProductId");
+row["internalName"] = internalName;
+countOfRow ++;
+return true;]]></method>
+        </script-data-set>
+    </data-sets>
+    <cubes>
+        <tabular-cube name="DataCube" id="9">
+            <property name="dimensions">
+                <tabular-dimension name="Group" id="86">
+                    <property name="defaultHierarchy">NewTabularHierarchy</property>
+                    <property name="hierarchies">
+                        <tabular-hierarchy name="NewTabularHierarchy" id="87">
+                            <property name="levels">
+                                <tabular-level name="productId" id="88">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">productId</property>
+                                </tabular-level>
+                                <tabular-level name="internalName" id="281">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">internalName</property>
+                                </tabular-level>
+                                <tabular-level name="price" id="223">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">price</property>
+                                </tabular-level>
+                                <tabular-level name="stock" id="224">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">stock</property>
+                                </tabular-level>
+                                <tabular-level name="orderDateMonthOfYear" id="222">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">orderDateMonthOfYear</property>
+                                </tabular-level>
+                            </property>
+                        </tabular-hierarchy>
+                    </property>
+                </tabular-dimension>
+            </property>
+            <property name="measureGroups">
+                <tabular-measure-group name="Summary Field" id="89">
+                    <property name="measures">
+                        <tabular-measure name="orderItemSeqId" id="90">
+                            <property name="function">count</property>
+                            <expression name="measureExpression">dataSetRow["orderItemSeqId"]</expression>
+                            <property name="dataType">integer</property>
+                        </tabular-measure>
+                        <tabular-measure name="quantity" id="91">
+                            <property name="function">sum</property>
+                            <expression name="measureExpression" type="javascript">dataSetRow["quantity"]</expression>
+                            <property name="dataType">float</property>
+                        </tabular-measure>
+                        <tabular-measure name="extGrossAmount" id="92">
+                            <property name="function">sum</property>
+                            <expression name="measureExpression" type="javascript">dataSetRow["extGrossAmount"]</expression>
+                            <property name="dataType">float</property>
+                        </tabular-measure>
+                    </property>
+                </tabular-measure-group>
+            </property>
+            <property name="dataSet">SalesOrderItemStarSchema</property>
+        </tabular-cube>
+    </cubes>
+    <styles>
+        <style name="report" id="4">
+            <property name="fontFamily">sans-serif</property>
+            <property name="fontSize">10pt</property>
+        </style>
+        <style name="crosstab-cell" id="5">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+        <style name="crosstab" id="6">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+    </styles>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <page-footer>
+                <text id="3">
+                    <property name="contentType">html</property>
+                    <text-property name="content"><![CDATA[<value-of>new Date()</value-of>]]></text-property>
+                </text>
+            </page-footer>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <text id="366">
+            <property name="fontSize">larger</property>
+            <property name="fontWeight">bold</property>
+            <property name="textAlign">center</property>
+            <property name="contentType">auto</property>
+            <text-property name="content"><![CDATA[Last 3 Months Sales Report]]></text-property>
+        </text>
+        <text id="367"/>
+        <extended-item extensionName="Crosstab" extensionVersion="2.5.0" id="282">
+            <property name="cube">DataCube</property>
+            <property name="measures">
+                <extended-item extensionName="MeasureView" id="301">
+                    <property name="measure">orderItemSeqId</property>
+                    <property name="detail">
+                        <extended-item extensionName="AggregationCell" id="302">
+                            <property name="aggregationOnRow">Group/orderDateMonthOfYear</property>
+                            <property name="content">
+                                <data id="303">
+                                    <property name="resultSetColumn">orderItemSeqId_Group/orderDateMonthOfYear</property>
+                                </data>
+                            </property>
+                            <property name="width">0.9888888888888889in</property>
+                        </extended-item>
+                    </property>
+                    <property name="aggregations">
+                        <extended-item extensionName="AggregationCell" id="317">
+                            <property name="aggregationOnRow">Group/productId</property>
+                            <property name="content">
+                                <data id="318">
+                                    <property name="resultSetColumn">orderItemSeqId_Group/productId</property>
+                                </data>
+                            </property>
+                        </extended-item>
+                        <extended-item extensionName="AggregationCell" id="325">
+                            <property name="content">
+                                <data id="326">
+                                    <property name="resultSetColumn">orderItemSeqId</property>
+                                </data>
+                            </property>
+                        </extended-item>
+                    </property>
+                    <property name="header">
+                        <extended-item extensionName="CrosstabCell" id="304">
+                            <property name="content">
+                                <label id="305">
+                                    <property name="fontWeight">bold</property>
+                                    <text-property name="text">Items</text-property>
+                                </label>
+                            </property>
+                            <property name="height">0.32222222222222224in</property>
+                        </extended-item>
+                    </property>
+                </extended-item>
+                <extended-item extensionName="MeasureView" id="306">
+                    <property name="measure">quantity</property>
+                    <property name="detail">
+                        <extended-item extensionName="AggregationCell" id="307">
+                            <property name="aggregationOnRow">Group/orderDateMonthOfYear</property>
+                            <property name="content">
+                                <data id="308">
+                                    <property name="resultSetColumn">quantity_Group/orderDateMonthOfYear</property>
+                                </data>
+                            </property>
+                            <property name="width">0.9888888888888889in</property>
+                        </extended-item>
+                    </property>
+                    <property name="aggregations">
+                        <extended-item extensionName="AggregationCell" id="319">
+                            <property name="aggregationOnRow">Group/productId</property>
+                            <property name="content">
+                                <data id="320">
+                                    <property name="resultSetColumn">quantity_Group/productId</property>
+                                </data>
+                            </property>
+                        </extended-item>
+                        <extended-item extensionName="AggregationCell" id="327">
+                            <property name="content">
+                                <data id="328">
+                                    <property name="resultSetColumn">quantity</property>
+                                </data>
+                            </property>
+                        </extended-item>
+                    </property>
+                    <property name="header">
+                        <extended-item extensionName="CrosstabCell" id="309">
+                            <property name="content">
+                                <label id="310">
+                                    <property name="fontWeight">bold</property>
+                                    <text-property name="text">QTY</text-property>
+                                </label>
+                            </property>
+                        </extended-item>
+                    </property>
+                </extended-item>
+                <extended-item extensionName="MeasureView" id="311">
+                    <property name="measure">extGrossAmount</property>
+                    <property name="detail">
+                        <extended-item extensionName="AggregationCell" id="312">
+                            <property name="aggregationOnRow">Group/orderDateMonthOfYear</property>
+                            <property name="content">
+                                <data id="313">
+                                    <property name="resultSetColumn">extGrossAmount_Group/orderDateMonthOfYear</property>
+                                </data>
+                            </property>
+                            <property name="width">0.9888888888888889in</property>
+                        </extended-item>
+                    </property>
+                    <property name="aggregations">
+                        <extended-item extensionName="AggregationCell" id="321">
+                            <property name="aggregationOnRow">Group/productId</property>
+                            <property name="content">
+                                <data id="322">
+                                    <property name="resultSetColumn">extGrossAmount_Group/productId</property>
+                                </data>
+                            </property>
+                        </extended-item>
+                        <extended-item extensionName="AggregationCell" id="329">
+                            <property name="content">
+                                <data id="330">
+                                    <property name="resultSetColumn">extGrossAmount</property>
+                                </data>
+                            </property>
+                        </extended-item>
+                    </property>
+                    <property name="header">
+                        <extended-item extensionName="CrosstabCell" id="314">
+                            <property name="content">
+                                <label id="315">
+                                    <property name="fontWeight">bold</property>
+                                    <text-property name="text">ToTal</text-property>
+                                </label>
+                            </property>
+                        </extended-item>
+                    </property>
+                </extended-item>
+            </property>
+            <property name="rows">
+                <extended-item extensionName="CrosstabView" id="284">
+                    <property name="grandTotal">
+                        <extended-item extensionName="CrosstabCell" id="324">
+                            <property name="content">
+                                <label id="331">
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">right</property>
+                                    <text-property name="text">Grand Total</text-property>
+                                </label>
+                            </property>
+                        </extended-item>
+                    </property>
+                    <property name="views">
+                        <extended-item extensionName="DimensionView" id="285">
+                            <property name="dimension">Group</property>
+                            <property name="levels">
+                                <extended-item extensionName="LevelView" name="NewLevel View" id="286">
+                                    <property name="level">Group/productId</property>
+                                    <property name="member">
+                                        <extended-item extensionName="CrosstabCell" id="287">
+                                            <property name="content">
+                                                <data name="productId" id="288">
+                                                    <property name="resultSetColumn">productId</property>
+                                                </data>
+                                            </property>
+                                            <property name="width">0.8777777777777778in</property>
+                                        </extended-item>
+                                    </property>
+                                    <property name="aggregationHeader">
+                                        <extended-item extensionName="CrosstabCell" id="316">
+                                            <property name="content">
+                                                <data name="productId_TOTAL" id="323">
+                                                    <property name="fontWeight">bold</property>
+                                                    <property name="textAlign">right</property>
+                                                    <property name="resultSetColumn">productId_TOTAL</property>
+                                                </data>
+                                            </property>
+                                        </extended-item>
+                                    </property>
+                                </extended-item>
+                                <extended-item extensionName="LevelView" name="NewLevel View1" id="289">
+                                    <property name="level">Group/internalName</property>
+                                    <property name="member">
+                                        <extended-item extensionName="CrosstabCell" id="290">
+                                            <property name="content">
+                                                <data name="internalName" id="291">
+                                                    <property name="resultSetColumn">internalName</property>
+                                                </data>
+                                            </property>
+                                            <property name="width">2.3222222222222224in</property>
+                                        </extended-item>
+                                    </property>
+                                </extended-item>
+                                <extended-item extensionName="LevelView" name="NewLevel View2" id="292">
+                                    <property name="level">Group/price</property>
+                                    <property name="member">
+                                        <extended-item extensionName="CrosstabCell" id="293">
+                                            <property name="content">
+                                                <data name="price" id="294">
+                                                    <property name="resultSetColumn">price</property>
+                                                </data>
+                                            </property>
+                                            <property name="width">0.5666666666666667in</property>
+                                        </extended-item>
+                                    </property>
+                                </extended-item>
+                                <extended-item extensionName="LevelView" name="NewLevel View3" id="295">
+                                    <property name="level">Group/stock</property>
+                                    <property name="member">
+                                        <extended-item extensionName="CrosstabCell" id="296">
+                                            <property name="content">
+                                                <data name="stock" id="297">
+                                                    <property name="resultSetColumn">stock</property>
+                                                </data>
+                                            </property>
+                                            <property name="width">0.6in</property>
+                                        </extended-item>
+                                    </property>
+                                </extended-item>
+                                <extended-item extensionName="LevelView" name="NewLevel View4" id="298">
+                                    <property name="level">Group/orderDateMonthOfYear</property>
+                                    <property name="member">
+                                        <extended-item extensionName="CrosstabCell" id="299">
+                                            <property name="content">
+                                                <data name="orderDateMonthOfYear" id="300">
+                                                    <property name="resultSetColumn">orderDateMonthOfYear</property>
+                                                </data>
+                                            </property>
+                                            <property name="width">0.5666666666666667in</property>
+                                        </extended-item>
+                                    </property>
+                                </extended-item>
+                            </property>
+                        </extended-item>
+                    </property>
+                    <property name="grandTotalLocation">after</property>
+                </extended-item>
+            </property>
+            <property name="header">
+                <extended-item extensionName="CrosstabCell" id="283">
+                    <property name="content">
+                        <grid id="345">
+                            <property name="width">4.844444444444444in</property>
+                            <column id="346">
+                                <property name="width">0.8333333333333334in</property>
+                            </column>
+                            <column id="347">
+                                <property name="width">2.2888888888888888in</property>
+                            </column>
+                            <column id="348">
+                                <property name="width">0.6in</property>
+                            </column>
+                            <column id="349">
+                                <property name="width">0.5888888888888889in</property>
+                            </column>
+                            <column id="350">
+                                <property name="width">0.5444444444444444in</property>
+                            </column>
+                            <row id="351">
+                                <cell id="352">
+                                    <text id="357">
+                                        <property name="fontWeight">bold</property>
+                                        <property name="contentType">auto</property>
+                                        <text-property name="content"><![CDATA[ProductID]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="353">
+                                    <text id="358">
+                                        <property name="fontWeight">bold</property>
+                                        <property name="contentType">auto</property>
+                                        <text-property name="content"><![CDATA[Product Name]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="354">
+                                    <text id="363">
+                                        <property name="fontWeight">bold</property>
+                                        <property name="contentType">auto</property>
+                                        <text-property name="content"><![CDATA[Price]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="355">
+                                    <text id="364">
+                                        <property name="fontWeight">bold</property>
+                                        <property name="contentType">auto</property>
+                                        <text-property name="content"><![CDATA[Stock]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="356">
+                                    <text id="365">
+                                        <property name="fontWeight">bold</property>
+                                        <property name="contentType">auto</property>
+                                        <text-property name="content"><![CDATA[Month]]></text-property>
+                                    </text>
+                                </cell>
+                            </row>
+                        </grid>
+                    </property>
+                </extended-item>
+            </property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">productId</property>
+                    <expression name="expression">dimension["Group"]["productId"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">internalName</property>
+                    <expression name="expression">dimension["Group"]["internalName"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">price</property>
+                    <expression name="expression">dimension["Group"]["price"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">stock</property>
+                    <expression name="expression">dimension["Group"]["stock"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">orderDateMonthOfYear</property>
+                    <expression name="expression">dimension["Group"]["orderDateMonthOfYear"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">orderItemSeqId_Group/orderDateMonthOfYear</property>
+                    <expression name="expression">measure["orderItemSeqId"]</expression>
+                    <property name="dataType">integer</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>Group/orderDateMonthOfYear</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">quantity_Group/orderDateMonthOfYear</property>
+                    <expression name="expression">measure["quantity"]</expression>
+                    <property name="dataType">float</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>Group/orderDateMonthOfYear</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">extGrossAmount_Group/orderDateMonthOfYear</property>
+                    <expression name="expression">measure["extGrossAmount"]</expression>
+                    <property name="dataType">float</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>Group/orderDateMonthOfYear</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">orderItemSeqId_Group/productId</property>
+                    <expression name="expression">measure["orderItemSeqId"]</expression>
+                    <property name="dataType">integer</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>Group/productId</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">quantity_Group/productId</property>
+                    <expression name="expression">measure["quantity"]</expression>
+                    <property name="dataType">float</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>Group/productId</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">extGrossAmount_Group/productId</property>
+                    <expression name="expression">measure["extGrossAmount"]</expression>
+                    <property name="dataType">float</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>Group/productId</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">productId_TOTAL</property>
+                    <expression name="expression">dimension["Group"]["productId"]+" TOTAL"</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">orderItemSeqId</property>
+                    <expression name="expression">measure["orderItemSeqId"]</expression>
+                    <property name="dataType">integer</property>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">quantity</property>
+                    <expression name="expression">measure["quantity"]</expression>
+                    <property name="dataType">float</property>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">extGrossAmount</property>
+                    <expression name="expression">measure["extGrossAmount"]</expression>
+                    <property name="dataType">float</property>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+            </list-property>
+        </extended-item>
+    </body>
+</report>

@@ -104,7 +104,6 @@ under the License.
         <attribute name="partyRelationshipTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="ownerPartyIds" type="List" mode="IN" optional="true"/><!-- Lead Owners Parties -->
         <attribute name="sortField" type="String" mode="IN" optional="true"/>
-        <attribute name="partyClassificationGroupId" type="String" mode="IN" optional="true"/>
 
         <attribute name="listIt" type="org.apache.ofbiz.entity.util.EntityListIterator" mode="OUT" optional="true"/>
     </service>
@@ -124,6 +123,69 @@ under the License.
         <description>Gets a person entity from the cache/database</description>
         <attribute name="partyId" type="String" mode="IN"/>
         <attribute name="lookupPerson" type="org.apache.ofbiz.entity.GenericValue" mode="OUT"/>
+    </service>
+
+    <service name="getPartyFromEmail" engine="java"
+            location="org.apache.ofbiz.party.party.PartyServices" invoke="getPartyFromEmail">
+        <description>Gets a collection of parties from an email address</description>
+        <attribute name="email" type="String" mode="IN"/>
+        <attribute name="parties" type="java.util.Collection" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="getPartyFromUserLogin" engine="java"
+            location="org.apache.ofbiz.party.party.PartyServices" invoke="getPartyFromUserLogin">
+        <description>Gets a collection of parties from an email address</description>
+        <attribute name="userLoginId" type="String" mode="IN"/>
+        <attribute name="parties" type="java.util.Collection" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="getPartyFromName" engine="java"
+            location="org.apache.ofbiz.party.party.PartyServices" invoke="getPartyFromPerson">
+        <description>Gets a collection of parties from a first/last name</description>
+        <attribute name="firstName" type="String" mode="IN" optional="true"/>
+        <attribute name="lastName" type="String" mode="IN" optional="true"/>
+        <attribute name="parties" type="java.util.Collection" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="getPartyFromGroupName" engine="java"
+            location="org.apache.ofbiz.party.party.PartyServices" invoke="getPartyFromPartyGroup">
+        <description>Gets a collection of parties from a party group namee</description>
+        <attribute name="groupName" type="String" mode="IN" optional="false"/>
+        <attribute name="parties" type="java.util.Collection" mode="OUT" optional="true"/>
+    </service>
+
+	<service name="getPartyFromExternalId" engine="java"
+            location="org.apache.ofbiz.party.party.PartyServices" invoke="getPartyFromExternalId">
+        <description>Gets a list of parties from a party externalId </description>
+        <attribute name="externalId" type="String" mode="IN" optional="false"/>
+        <attribute name="parties" type="java.util.List" mode="OUT" optional="true"/>
+    </service>
+    
+    <service name="getPartiesByRelationship" engine="simple"
+        location="component://party/minilang/party/PartyServices.xml" invoke="getPartiesByRelationship">
+        <description>Gets all parties related to partyIdFrom through the PartyRelationship entity</description>
+        <auto-attributes mode="IN" include="all" optional="true" entity-name="PartyRelationship"/>
+        <attribute name="parties" type="java.util.Collection" mode="OUT" optional="true"/>
+        <override name="partyIdFrom" optional="false"/>
+    </service>
+    <service name="getRelatedParties" engine="simple"
+            location="component://party/minilang/party/PartyServices.xml" invoke="getRelatedParties">
+        <description>
+            Get Parties Related to a Party
+            - The relatedPartyIdList coming out will include the original partyIdFrom
+            - The includeFromToSwitched and recurse attributes should by "Y" or "N" and default to N.
+            - The useCache attribute should be "true" or "false", defaults to "false"
+        </description>
+        <attribute name="partyIdFrom" type="String" mode="IN" optional="false"/>
+        <attribute name="partyRelationshipTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="roleTypeIdFrom" type="String" mode="IN" optional="true"/>
+        <attribute name="roleTypeIdFromInclueAllChildTypes" type="String" mode="IN" optional="true"/>
+        <attribute name="roleTypeIdTo" type="String" mode="IN" optional="true"/>
+        <attribute name="roleTypeIdToIncludeAllChildTypes" type="String" mode="IN" optional="true"/>
+        <attribute name="includeFromToSwitched" type="String" mode="IN" optional="true"/>
+        <attribute name="recurse" type="String" mode="IN" optional="true"/>
+        <attribute name="useCache" type="String" mode="IN" optional="true"/>
+        <attribute name="relatedPartyIdList" type="List" mode="OUT" optional="false"/>
     </service>
 
     <service name="getParentOrganizations" engine="simple"
@@ -158,25 +220,5 @@ under the License.
         <permission-service service-name="partyBasePermissionCheck" main-action="VIEW"/>
         <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
         <attribute name="geos" type="java.util.List" mode="OUT" optional="true"/>
-    </service>
-    
-    <service name="getRelatedParties" engine="simple"
-        location="component://party/minilang/party/PartyServices.xml" invoke="getRelatedParties">
-        <description>
-            Get Parties Related to a Party
-            - The relatedPartyIdList coming out will include the original partyIdFrom
-            - The includeFromToSwitched and recurse attributes should by "Y" or "N" and default to N.
-            - The useCache attribute should be "true" or "false", defaults to "false"
-        </description>
-        <attribute name="partyIdFrom" type="String" mode="IN" optional="false"/>
-        <attribute name="partyRelationshipTypeId" type="String" mode="IN" optional="true"/>
-        <attribute name="roleTypeIdFrom" type="String" mode="IN" optional="true"/>
-        <attribute name="roleTypeIdFromInclueAllChildTypes" type="String" mode="IN" optional="true"/>
-        <attribute name="roleTypeIdTo" type="String" mode="IN" optional="true"/>
-        <attribute name="roleTypeIdToIncludeAllChildTypes" type="String" mode="IN" optional="true"/>
-        <attribute name="includeFromToSwitched" type="String" mode="IN" optional="true"/>
-        <attribute name="recurse" type="String" mode="IN" optional="true"/>
-        <attribute name="useCache" type="String" mode="IN" optional="true"/>
-        <attribute name="relatedPartyIdList" type="List" mode="OUT" optional="false"/>
     </service>
 </services>

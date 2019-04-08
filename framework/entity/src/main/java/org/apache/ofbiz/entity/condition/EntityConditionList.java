@@ -22,46 +22,27 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * A condition expression corresponding to an ordered collection of conditions
- * that are joined by an operator.
- * <p>
- * The main objective it to express the conjunction or disjunction of a set of
- * conditions which in the case of conjunction corresponds to SQL expression
- * of the form {@code foo=bar AND bar=baz AND ...}.
+ * Encapsulates a list of EntityConditions to be used as a single EntityCondition combined as specified
+ *
  */
 @SuppressWarnings("serial")
-public final class EntityConditionList<T extends EntityCondition> extends EntityConditionListBase<T> {
-    /**
-     * Constructs an entity condition list.
-     *
-     * @param conditionList the list of conditions
-     * @param operator the operator used to join the list of conditions
-     */
-    public EntityConditionList(List<? extends T> conditionList, EntityJoinOperator operator) {
+public class EntityConditionList<T extends EntityCondition> extends EntityConditionListBase<T> {
+    public EntityConditionList(List<T> conditionList, EntityJoinOperator operator) {
         super(conditionList, operator);
     }
 
-    /**
-     * Provides the size of the internal list of condition expressions.
-     *
-     * @return the size of the internal list of condition expressions
-     */
+    @Override
     public int getConditionListSize() {
-        return conditions.size();
+        return super.getConditionListSize();
     }
 
-    /**
-     * Provides an iterator to iterate on the internal list of condition expressions.
-     *
-     * @return an iterator iterating on the internal list of condition expressions
-     */
-    @SuppressWarnings("unchecked")
+    @Override
     public Iterator<T> getConditionIterator() {
-        return (Iterator<T>)conditions.iterator();
+        return super.getConditionIterator();
     }
 
     @Override
     public void accept(EntityConditionVisitor visitor) {
-        visitor.visit(this);
+        visitor.acceptEntityConditionList(this);
     }
 }

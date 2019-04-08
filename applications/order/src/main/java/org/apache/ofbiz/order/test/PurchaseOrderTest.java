@@ -24,15 +24,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.service.testtools.OFBizTestCase;
-import org.apache.ofbiz.service.ServiceUtil;
 
 public class PurchaseOrderTest extends OFBizTestCase {
-    public static final String module = OFBizTestCase.class.getName();
 
     protected GenericValue userLogin = null;
     protected String orderId = null;
@@ -52,7 +49,7 @@ public class PurchaseOrderTest extends OFBizTestCase {
     }
 
     public void testCreatePurchaseOrder() throws Exception {
-        Map <String, Object> ctx = new HashMap<>();
+        Map <String, Object> ctx = new HashMap<String, Object>();
         ctx.put("partyId", "Company");
         ctx.put("orderTypeId", "PURCHASE_ORDER");
         ctx.put("currencyUom", "USD");
@@ -63,30 +60,30 @@ public class PurchaseOrderTest extends OFBizTestCase {
         orderItem.set("unitListPrice", BigDecimal.ZERO);
         orderItem.set("isModifiedPrice", "N");
         orderItem.set("statusId", "ITEM_CREATED");
-        List <GenericValue> orderItems = new LinkedList<>();
+        List <GenericValue> orderItems = new LinkedList<GenericValue>();
         orderItems.add(orderItem);
         ctx.put("orderItems", orderItems);
 
         GenericValue orderContactMech = delegator.makeValue("OrderContactMech", UtilMisc.toMap("contactMechPurposeTypeId", "SHIPPING_LOCATION", "contactMechId", "9000"));
-        List <GenericValue> orderContactMechs = new LinkedList<>();
+        List <GenericValue> orderContactMechs = new LinkedList<GenericValue>();
         orderContactMechs.add(orderContactMech);
         ctx.put("orderContactMechs", orderContactMechs);
 
         GenericValue orderItemContactMech = delegator.makeValue("OrderItemContactMech", UtilMisc.toMap("contactMechPurposeTypeId", "SHIPPING_LOCATION", "contactMechId", "9000", "orderItemSeqId", "00001"));
-        List <GenericValue> orderItemContactMechs = new LinkedList<>();
+        List <GenericValue> orderItemContactMechs = new LinkedList<GenericValue>();
         orderItemContactMechs.add(orderItemContactMech);
         ctx.put("orderItemContactMechs", orderItemContactMechs);
 
         GenericValue orderItemShipGroup = delegator.makeValue("OrderItemShipGroup", UtilMisc.toMap("carrierPartyId", "UPS", "contactMechId", "9000", "isGift", "N", "maySplit", "N", "shipGroupSeqId", "00001", "shipmentMethodTypeId", "NEXT_DAY"));
         orderItemShipGroup.set("carrierRoleTypeId","CARRIER");
-        List <GenericValue> orderItemShipGroupInfo = new LinkedList<>();
+        List <GenericValue> orderItemShipGroupInfo = new LinkedList<GenericValue>();
         orderItemShipGroupInfo.add(orderItemShipGroup);
         ctx.put("orderItemShipGroupInfo", orderItemShipGroupInfo);
 
-        List <GenericValue> orderTerms = new LinkedList<>();
+        List <GenericValue> orderTerms = new LinkedList<GenericValue>();
         ctx.put("orderTerms", orderTerms);
 
-        List <GenericValue> orderAdjustments = new LinkedList<>();
+        List <GenericValue> orderAdjustments = new LinkedList<GenericValue>();
         ctx.put("orderAdjustments", orderAdjustments);
 
         ctx.put("billToCustomerPartyId", "Company");
@@ -96,10 +93,6 @@ public class PurchaseOrderTest extends OFBizTestCase {
         ctx.put("userLogin", userLogin);
 
         Map <String, Object> resp = dispatcher.runSync("storeOrder", ctx);
-        if (ServiceUtil.isError(resp)) {
-            Debug.logError(ServiceUtil.getErrorMessage(resp), module);
-            return;
-        }
         orderId = (String) resp.get("orderId");
         statusId = (String) resp.get("statusId");
         assertNotNull(orderId);

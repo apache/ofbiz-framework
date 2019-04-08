@@ -31,7 +31,7 @@ under the License.
           </tr>
           <#assign rowClass = "2">
           <#list productFeatureGroups as productFeatureGroup>
-            <tr valign="middle"<#if "1" == rowClass> class="alternate-row"</#if>>
+            <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
                 <td><a href='<@ofbizUrl>EditFeatureGroupAppls?productFeatureGroupId=${productFeatureGroup.productFeatureGroupId}</@ofbizUrl>' class="buttontext">${productFeatureGroup.productFeatureGroupId}</a></td>
                 <td>
                     <form method='post' action='<@ofbizUrl>UpdateProductFeatureGroup</@ofbizUrl>'>
@@ -43,7 +43,7 @@ under the License.
                 <td><a href='<@ofbizUrl>EditFeatureGroupAppls?productFeatureGroupId=${productFeatureGroup.productFeatureGroupId}</@ofbizUrl>' class="buttontext">${uiLabelMap.ProductFeatureGroupAppls}</a></td>
             </tr>
             <#-- toggle the row color -->
-            <#if "2" == rowClass>
+            <#if rowClass == "2">
               <#assign rowClass = "1">
             <#else>
               <#assign rowClass = "2">

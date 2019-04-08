@@ -34,7 +34,7 @@ under the License.
                 <#list productStorePromoAppls as productStorePromoAppl>
                 <#assign line = line + 1>
                 <#assign productStore = productStorePromoAppl.getRelatedOne("ProductStore", false)>
-                <tr valign="middle"<#if "1" == rowClass> class="alternate-row"</#if>>
+                <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
                     <td><a href="<@ofbizUrl>EditProductStore?productStoreId=${productStorePromoAppl.productStoreId}</@ofbizUrl>" class="buttontext"><#if productStore??>${(productStore.storeName)!}</#if>[${productStorePromoAppl.productStoreId}]</a></td>
                     <#assign hasntStarted = false>
                     <#if (productStorePromoAppl.getTimestamp("fromDate"))?? && nowTimestamp.before(productStorePromoAppl.getTimestamp("fromDate"))> <#assign hasntStarted = true></#if>
@@ -62,7 +62,7 @@ under the License.
                     </td>
                 </tr>
                 <#-- toggle the row color -->
-                <#if "2" == rowClass>
+                <#if rowClass == "2">
                     <#assign rowClass = "1">
                 <#else>
                     <#assign rowClass = "2">

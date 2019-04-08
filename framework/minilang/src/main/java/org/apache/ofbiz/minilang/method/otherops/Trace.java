@@ -32,7 +32,7 @@ import org.w3c.dom.Element;
 /**
  * Implements the &lt;trace&gt; element.
  * 
- * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
+ * @see <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/Mini-language+Reference#Mini-languageReference-{{%3Ctrace%3E}}">Mini-language Reference</a>
  */
 public final class Trace extends MethodOperation {
 
@@ -53,7 +53,7 @@ public final class Trace extends MethodOperation {
             MiniLangValidate.handleError("Invalid level attribute", simpleMethod, element);
             this.level = Debug.INFO;
         } else {
-            this.level = levelInt;
+            this.level = levelInt.intValue();
         }
         methodOperations = Collections.unmodifiableList(SimpleMethod.readOperations(element, simpleMethod));
     }

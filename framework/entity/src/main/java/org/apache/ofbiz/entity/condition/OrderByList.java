@@ -30,7 +30,7 @@ import org.apache.ofbiz.entity.config.model.Datasource;
 import org.apache.ofbiz.entity.model.ModelEntity;
 
 public class OrderByList implements Comparator<GenericEntity> {
-    protected List<OrderByItem> orderByList = new ArrayList<>();
+    protected List<OrderByItem> orderByList = new ArrayList<OrderByItem>();
 
     public OrderByList() {
     }
@@ -88,9 +88,7 @@ public class OrderByList implements Comparator<GenericEntity> {
             sb.append(" ORDER BY ");
         }
         for (int i = 0; i < orderByList.size(); i++) {
-            if (i != 0) {
-                sb.append(", ");
-            }
+            if (i != 0) sb.append(", ");
             OrderByItem orderByItem = orderByList.get(i);
             orderByItem.makeOrderByString(sb, modelEntity, includeTablenamePrefix, datasourceInfo);
         }
@@ -100,26 +98,14 @@ public class OrderByList implements Comparator<GenericEntity> {
         int result = 0;
         for (OrderByItem orderByItem: orderByList) {
             result = orderByItem.compare(entity1, entity2);
-            if (result != 0) {
-                break;
-            }
+            if (result != 0) break;
         }
-        return result;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((orderByList == null) ? 0 : orderByList.hashCode());
         return result;
     }
 
     @Override
     public boolean equals(java.lang.Object obj) {
-        if (!(obj instanceof OrderByList)) {
-            return false;
-        }
+        if (!(obj instanceof OrderByList)) return false;
         OrderByList that = (OrderByList) obj;
         return orderByList.equals(that.orderByList);
     }

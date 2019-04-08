@@ -70,7 +70,7 @@ under the License.
                         </#if>
                         <#if payment.paymentMethodTypeId?has_content>
                             <#assign paymentMethodType = delegator.findOne("PaymentMethodType", {"paymentMethodTypeId" : payment.paymentMethodTypeId}, false)/>
-                            <#if "CREDIT_CARD" == payment.paymentMethodTypeId!>
+                            <#if payment.paymentMethodTypeId! == "CREDIT_CARD">
                                 <#assign creditCard = delegator.findOne("CreditCard", {"paymentMethodId" : payment.paymentMethodId}, false)/>
                             </#if>
                         </#if>
@@ -89,9 +89,9 @@ under the License.
                             <fo:table-cell padding="2pt" border="1pt solid" border-width=".1mm">
                                 <fo:block text-align="right">
                                     <#if partyName?has_content>
-                                        <#if "PERSON" == partyName.partyTypeId>
+                                        <#if partyName.partyTypeId == "PERSON">
                                             ${(partyName.firstName)!} ${(partyName.lastName)!}
-                                        <#elseif "PARTY_GROUP" == (partyName.partyTypeId)!>
+                                        <#elseif (partyName.partyTypeId)! == "PARTY_GROUP">
                                             ${(partyName.groupName)!}
                                         </#if>
                                     </#if>

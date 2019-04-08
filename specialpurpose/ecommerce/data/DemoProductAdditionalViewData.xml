@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <DataResource dataResourceId="GZ-2644-Add1" dataResourceTypeId="IMAGE_OBJECT" dataTemplateTypeId="NONE" dataResourceName="web_browser2.png" objectInfo="/images/products/GZ-2644/web_browser2.png" isPublic="Y"/>
+    <Content contentId="GZ-2644-Add1-CTNT" contentTypeId="DOCUMENT" contentName="web_browser2.png" dataResourceId="GZ-2644-Add1" statusId="IM_APPROVED"/>
+    <ProductContent productId="GZ-2644" contentId="GZ-2644-Add1-CTNT" productContentTypeId="IMAGE" fromDate="2001-05-13 12:00:00.0"/>
+    <DataResource dataResourceId="GZ-2644-Add1-T" dataResourceTypeId="IMAGE_OBJECT" dataTemplateTypeId="NONE" dataResourceName="web_browser2.png" objectInfo="/images/products/GZ-2644/web_browser2.png" isPublic="Y"/>
+    <Content contentId="GZ-2644-Add1-CTNT-T" contentTypeId="DOCUMENT" contentName="web_browser2.png" dataResourceId="GZ-2644-Add1-T" statusId="CTNT_IN_PROGRESS"/>
+    <ContentAssoc contentId="GZ-2644-Add1-CTNT" contentIdTo="GZ-2644-Add1-CTNT-T" contentAssocTypeId="IMAGE_THUMBNAIL" fromDate="2001-05-13 12:00:00.0"/>
+
+    <DataResource dataResourceId="GZ-2644-Add2" dataResourceTypeId="IMAGE_OBJECT" dataTemplateTypeId="NONE" dataResourceName="web_browser3.png" objectInfo="/images/products/GZ-2644/web_browser3.png" isPublic="Y"/>
+    <Content contentId="GZ-2644-Add2-CTNT" contentTypeId="DOCUMENT" contentName="web_browser3.png" dataResourceId="GZ-2644-Add2" statusId="IM_APPROVED"/>
+    <ProductContent productId="GZ-2644" contentId="GZ-2644-Add2-CTNT" productContentTypeId="IMAGE" fromDate="2001-05-13 12:00:00.0"/>
+    <DataResource dataResourceId="GZ-2644-Add2-T" dataResourceTypeId="IMAGE_OBJECT" dataTemplateTypeId="NONE" dataResourceName="web_browser3.png" objectInfo="/images/products/GZ-2644/web_browser3.png" isPublic="Y"/>
+    <Content contentId="GZ-2644-Add2-CTNT-T" contentTypeId="DOCUMENT" contentName="web_browser3.png" dataResourceId="GZ-2644-Add2-T" statusId="CTNT_IN_PROGRESS"/>
+    <ContentAssoc contentId="GZ-2644-Add2-CTNT" contentIdTo="GZ-2644-Add2-CTNT-T" contentAssocTypeId="IMAGE_THUMBNAIL" fromDate="2001-05-13 12:00:00.0"/>
+    
+    <DataResource dataResourceId="GZ-2644-Add3" dataResourceTypeId="IMAGE_OBJECT" dataTemplateTypeId="NONE" dataResourceName="web_browser4.png" objectInfo="/images/products/GZ-2644/web_browser4.png" isPublic="Y"/>
+    <Content contentId="GZ-2644-Add3-CTNT" contentTypeId="DOCUMENT" contentName="web_browser4.png" dataResourceId="GZ-2644-Add3" statusId="IM_APPROVED"/>
+    <ProductContent productId="GZ-2644" contentId="GZ-2644-Add3-CTNT" productContentTypeId="IMAGE" fromDate="2001-05-13 12:00:00.0"/>
+    <DataResource dataResourceId="GZ-2644-Add3-T" dataResourceTypeId="IMAGE_OBJECT" dataTemplateTypeId="NONE" dataResourceName="web_browser4.png" objectInfo="/images/products/GZ-2644/web_browser4.png" isPublic="Y"/>
+    <Content contentId="GZ-2644-Add3-CTNT-T" contentTypeId="DOCUMENT" contentName="web_browser4.png" dataResourceId="GZ-2644-Add3-T" statusId="CTNT_IN_PROGRESS"/>
+    <ContentAssoc contentId="GZ-2644-Add3-CTNT" contentIdTo="GZ-2644-Add3-CTNT-T" contentAssocTypeId="IMAGE_THUMBNAIL" fromDate="2001-05-13 12:00:00.0"/>
+
+    <DataResource dataResourceId="GZ-2644-Add4" dataResourceTypeId="IMAGE_OBJECT" dataTemplateTypeId="NONE" dataResourceName="web_browser5.png" objectInfo="/images/products/GZ-2644/web_browser5.png" isPublic="N"/>
+    <Content contentId="GZ-2644-Add4-CTNT" contentTypeId="DOCUMENT" contentName="web_browser5.png" dataResourceId="GZ-2644-Add4" statusId="IM_APPROVED"/>
+    <ProductContent productId="GZ-2644" contentId="GZ-2644-Add4-CTNT" productContentTypeId="IMAGE" fromDate="2001-05-13 12:00:00.0"/>
+    <DataResource dataResourceId="GZ-2644-Add1-T" dataResourceTypeId="IMAGE_OBJECT" dataTemplateTypeId="NONE" dataResourceName="web_browser5.png" objectInfo="/images/products/GZ-2644/web_browser5.png" isPublic="Y"/>
+    <Content contentId="GZ-2644-Add4-CTNT-T" contentTypeId="DOCUMENT" contentName="web_browser5.png" dataResourceId="GZ-2644-Add1-T" statusId="CTNT_IN_PROGRESS"/>
+    <ContentAssoc contentId="GZ-2644-Add4-CTNT" contentIdTo="GZ-2644-Add4-CTNT-T" contentAssocTypeId="IMAGE_THUMBNAIL" fromDate="2001-05-13 12:00:00.0"/>
+
+    <DataResource dataResourceId="WG-5569-Add1" dataResourceTypeId="IMAGE_OBJECT" dataTemplateTypeId="NONE" dataResourceName="additional2.png"  objectInfo="/images/products/WG-5569/additional2.png" isPublic="Y"/>
+    <Content contentId="WG-5569-Add1-CTNT" contentTypeId="DOCUMENT" contentName="additional2.png" dataResourceId="WG-5569-Add1" statusId="IM_APPROVED"/>
+    <ProductContent productId="WG-5569" contentId="WG-5569-Add1-CTNT" productContentTypeId="IMAGE" fromDate="2001-05-13 12:00:00.0"/>
+    <DataResource dataResourceId="GZ-2644-Add1-T" dataResourceTypeId="IMAGE_OBJECT" dataTemplateTypeId="NONE" dataResourceName="additional2.png" objectInfo="/images/products/GZ-2644/additional2.png" isPublic="Y"/>
+    <Content contentId="WG-5569-Add1-CTNT-T" contentTypeId="DOCUMENT" contentName="additional2.png" dataResourceId="GZ-2644-Add1-T" statusId="CTNT_IN_PROGRESS"/>
+    <ContentAssoc contentId="WG-5569-Add1-CTNT" contentIdTo="WG-5569-Add1-CTNT-T" contentAssocTypeId="IMAGE_THUMBNAIL" fromDate="2001-05-13 12:00:00.0"/>
+    
+    <DataResource dataResourceId="WG-5569-Add2" dataResourceTypeId="IMAGE_OBJECT" dataTemplateTypeId="NONE" dataResourceName="additional3.png" objectInfo="/images/products/WG-5569/additional3.png" isPublic="Y"/>
+    <Content contentId="WG-5569-Add2-CTNT" contentTypeId="DOCUMENT" contentName="additional3.png" dataResourceId="WG-5569-Add2" statusId="IM_APPROVED"/>
+    <ProductContent productId="WG-5569" contentId="WG-5569-Add2-CTNT" productContentTypeId="IMAGE" fromDate="2001-05-13 12:00:00.0"/>
+    <DataResource dataResourceId="WG-5569-Add2-T" dataResourceTypeId="IMAGE_OBJECT" dataTemplateTypeId="NONE" dataResourceName="additional3.png" objectInfo="/images/products/WG-5569/additional3.png" isPublic="Y"/>
+    <Content contentId="WG-5569-Add2-CTNT-T" contentTypeId="DOCUMENT" contentName="additional3.png" dataResourceId="WG-5569-Add2-T" statusId="CTNT_IN_PROGRESS"/>
+    <ContentAssoc contentId="WG-5569-Add2-CTNT" contentIdTo="WG-5569-Add2-CTNT-T" contentAssocTypeId="IMAGE_THUMBNAIL" fromDate="2001-05-13 12:00:00.0"/>
+    
+    <DataResource dataResourceId="WG-5569-Add3" dataResourceTypeId="IMAGE_OBJECT" dataTemplateTypeId="NONE" dataResourceName="additional4.png" objectInfo="/images/products/WG-5569/additional4.png" isPublic="Y"/>
+    <Content contentId="WG-5569-Add3-CTNT" contentTypeId="DOCUMENT" contentName="additional4.png" dataResourceId="WG-5569-Add3" statusId="IM_APPROVED"/>
+    <ProductContent productId="WG-5569" contentId="WG-5569-Add3-CTNT" productContentTypeId="IMAGE" fromDate="2001-05-13 12:00:00.0"/>
+    <DataResource dataResourceId="WG-5569-Add3-T" dataResourceTypeId="IMAGE_OBJECT" dataTemplateTypeId="NONE" dataResourceName="additional4.png" objectInfo="/images/products/WG-5569/additional4.png" isPublic="Y"/>
+    <Content contentId="WG-5569-Add3-CTNT-T" contentTypeId="DOCUMENT" contentName="additional4.png" dataResourceId="WG-5569-Add3-T" statusId="CTNT_IN_PROGRESS"/>
+    <ContentAssoc contentId="WG-5569-Add3-CTNT" contentIdTo="WG-5569-Add3-CTNT-T" contentAssocTypeId="IMAGE_THUMBNAIL" fromDate="2001-05-13 12:00:00.0"/>
+
+    <DataResource dataResourceId="WG-5569-Add4" dataResourceTypeId="IMAGE_OBJECT" dataTemplateTypeId="NONE" dataResourceName="additional5.png"  objectInfo="/images/products/WG-5569/additional5.png" isPublic="Y"/>
+    <Content contentId="WG-5569-Add4-CTNT" contentTypeId="DOCUMENT" contentName="additional5.png" dataResourceId="WG-5569-Add4" statusId="IM_APPROVED"/>
+    <ProductContent productId="WG-5569" contentId="WG-5569-Add4-CTNT" productContentTypeId="IMAGE" fromDate="2001-05-13 12:00:00.0"/>
+    <DataResource dataResourceId="WG-5569-Add4-T" dataResourceTypeId="IMAGE_OBJECT" dataTemplateTypeId="NONE" dataResourceName="additional5.png" objectInfo="/images/products/WG-5569/additional5.png" isPublic="Y"/>
+    <Content contentId="WG-5569-Add4-CTNT-T" contentTypeId="DOCUMENT" contentName="additional5.png" dataResourceId="WG-5569-Add4-T" statusId="CTNT_IN_PROGRESS"/>
+    <ContentAssoc contentId="WG-5569-Add4-CTNT" contentIdTo="WG-5569-Add4-CTNT-T" contentAssocTypeId="IMAGE_THUMBNAIL" fromDate="2001-05-13 12:00:00.0"/>
+    
+    <DataResource dataResourceId="DEMO_FRAME" dataResourceTypeId="IMAGE_OBJECT" dataTemplateTypeId="NONE" dataResourceName="demo_frame.png"  objectInfo="/images/products/management/frame/demo_frame.png" isPublic="Y"/>
+    <Content contentId="DEMO_FRAME" contentTypeId="IMAGE_FRAME" contentName="demo_frame.png" dataResourceId="DEMO_FRAME" statusId="CTNT_IN_PROGRESS"/>
+</entity-engine-xml>

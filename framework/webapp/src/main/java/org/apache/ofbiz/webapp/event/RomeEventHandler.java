@@ -26,9 +26,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.ofbiz.webapp.control.ConfigXMLReader;
+import org.apache.ofbiz.webapp.control.RequestHandler;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader.Event;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
-import org.apache.ofbiz.webapp.control.RequestHandler;
 
 import com.sun.syndication.feed.WireFeed;
 import com.sun.syndication.io.FeedException;

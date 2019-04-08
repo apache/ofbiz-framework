@@ -27,7 +27,7 @@ under the License.
         </check-permission>
         <check-errors/>
 
-        <make-value entity-name="Product" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="Product"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <set from-field="parameters.productId" field="newEntity.productId"/>
@@ -83,7 +83,7 @@ under the License.
 
             <iterate list="productCategoryRoles" entry="productCategoryRole">
                 <!-- add this new product to the category -->
-                <make-value entity-name="ProductCategoryMember" value-field="newLimitMember"/>
+                <make-value value-field="newLimitMember" entity-name="ProductCategoryMember"/>
                 <set from-field="newEntity.productId" field="newLimitMember.productId"/>
                 <set from-field="productCategoryRole.productCategoryId" field="newLimitMember.productCategoryId"/>
                 <set from-field="nowTimestamp" field="newLimitMember.fromDate"/>
@@ -167,12 +167,6 @@ under the License.
         <call-simple-method method-name="checkProductRelatedPermission"/>
         <set value="DELETE" field="checkAction"/>
         <call-simple-method method-name="checkProductRelatedPermission"/>
-        <entity-one entity-name="Product" value-field="dummyProduct">
-            <field-map field-name="productId" from-field="parameters.productId"/>
-        </entity-one>
-        <if-not-empty field="dummyProduct">
-            <add-error ><fail-property resource="CommonErrorUiLabels" property="CommonErrorDuplicateKey" /></add-error>
-        </if-not-empty>
         <check-errors/>
 
         <!-- look up the old product and clone it -->
@@ -426,7 +420,7 @@ under the License.
         <entity-one entity-name="ProductCalculatedInfo" value-field="productCalculatedInfo"/>
         <if-empty field="productCalculatedInfo">
             <!-- go ahead and create it -->
-            <make-value entity-name="ProductCalculatedInfo" value-field="productCalculatedInfo"/>
+            <make-value value-field="productCalculatedInfo" entity-name="ProductCalculatedInfo"/>
             <set from-field="parameters.productId" field="productCalculatedInfo.productId"/>
             <set from-field="parameters.weight" field="productCalculatedInfo.totalTimesViewed"/>
             <create-value value-field="productCalculatedInfo"/>
@@ -453,7 +447,7 @@ under the License.
     </simple-method>
     
     <simple-method method-name="createProductReview" short-description="Create a ProductReview" login-required="false">
-        <make-value entity-name="ProductReview" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="ProductReview"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set from-field="userLogin.userLoginId" field="newEntity.userLoginId"/>
         <set value="PRR_PENDING" field="newEntity.statusId"/>
@@ -492,7 +486,7 @@ under the License.
         <call-simple-method method-name="checkProductRelatedPermission"/>
         <check-errors/>
 
-        <make-value entity-name="ProductReview" value-field="lookupPKMap"/>
+        <make-value value-field="lookupPKMap" entity-name="ProductReview"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
@@ -515,7 +509,7 @@ under the License.
         <entity-one entity-name="ProductCalculatedInfo" value-field="productCalculatedInfo"/>
         <if-empty field="productCalculatedInfo">
             <!-- go ahead and create it -->
-            <make-value entity-name="ProductCalculatedInfo" value-field="productCalculatedInfo"/>
+            <make-value value-field="productCalculatedInfo" entity-name="ProductCalculatedInfo"/>
             <set from-field="productId" field="productCalculatedInfo.productId"/>
             <set from-field="averageCustomerRating" field="productCalculatedInfo.averageCustomerRating"/>
             <create-value value-field="productCalculatedInfo"/>
@@ -752,7 +746,7 @@ under the License.
         <call-simple-method method-name="checkProductRelatedPermission"/>
         <check-errors/>
 
-        <make-value entity-name="ProductRole" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="ProductRole"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
@@ -768,7 +762,7 @@ under the License.
         <call-simple-method method-name="checkProductRelatedPermission"/>
         <check-errors/>
 
-        <make-value entity-name="ProductRole" value-field="lookupPKMap"/>
+        <make-value value-field="lookupPKMap" entity-name="ProductRole"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductRole" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
@@ -780,7 +774,7 @@ under the License.
         <call-simple-method method-name="checkProductRelatedPermission"/>
         <check-errors/>
 
-        <make-value entity-name="ProductRole" value-field="lookupPKMap"/>
+        <make-value value-field="lookupPKMap" entity-name="ProductRole"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductRole" map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
@@ -793,7 +787,7 @@ under the License.
         <call-simple-method method-name="checkProductRelatedPermission"/>
         <check-errors/>
 
-        <make-value entity-name="ProductCategoryGlAccount" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="ProductCategoryGlAccount"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
@@ -889,7 +883,6 @@ under the License.
             <create-value value-field="runtimeData"/>
 
              <!-- Create Job For ProductGroupOrder -->
-             <!-- FIXME: Jobs should not be manually created -->
             <make-value entity-name="JobSandbox" value-field="jobSandbox"/>
             <sequenced-id sequence-name="JobSandbox" field="jobSandbox.jobId"/>
             <set field="jobId" from-field="jobSandbox.jobId"/>
@@ -901,7 +894,6 @@ under the License.
             <set field="jobSandbox.runAsUser" value="system"/>
             <set field="jobSandbox.runtimeDataId" from-field="runtimeDataId"/>
             <set field="jobSandbox.maxRecurrenceCount" value="1" type="Long"/>
-            <set field="jobSandbox.priority" value="50" type="Long"/>
             <create-value value-field="jobSandbox"/>
 
             <set field="productGroupOrder.jobId" from-field="jobId"/>

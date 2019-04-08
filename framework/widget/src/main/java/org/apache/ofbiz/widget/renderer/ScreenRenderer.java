@@ -21,6 +21,7 @@ package org.apache.ofbiz.widget.renderer;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -46,12 +47,10 @@ import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntity;
 import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.security.Security;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
-import org.apache.ofbiz.webapp.control.ExternalLoginKeysManager;
 import org.apache.ofbiz.webapp.control.LoginWorker;
 import org.apache.ofbiz.webapp.website.WebSiteWorker;
 import org.apache.ofbiz.widget.cache.GenericWidgetOutput;
@@ -59,7 +58,6 @@ import org.apache.ofbiz.widget.cache.ScreenCache;
 import org.apache.ofbiz.widget.cache.WidgetContextCacheKey;
 import org.apache.ofbiz.widget.model.ModelScreen;
 import org.apache.ofbiz.widget.model.ScreenFactory;
-import org.apache.ofbiz.widget.model.ThemeFactory;
 import org.xml.sax.SAXException;
 
 import freemarker.ext.jsp.TaglibFactory;
@@ -82,9 +80,7 @@ public class ScreenRenderer {
     public ScreenRenderer(Appendable writer, MapStack<String> context, ScreenStringRenderer screenStringRenderer) {
         this.writer = writer;
         this.context = context;
-        if (this.context == null) {
-            this.context = MapStack.create();
-        }
+        if (this.context == null) this.context = MapStack.create();
         this.screenStringRenderer = screenStringRenderer;
     }
 
@@ -192,6 +188,7 @@ public class ScreenRenderer {
         populateContextForRequest(context, this, request, response, servletContext);
     }
 
+    @SuppressWarnings("rawtypes")
     public static void populateContextForRequest(MapStack<String> context, ScreenRenderer screens, HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) {
         HttpSession session = request.getSession();
 
@@ -217,19 +214,14 @@ public class ScreenRenderer {
         context.put("timeZone", UtilHttp.getTimeZone(request));
 
         // ========== setup values that are specific to OFBiz webapps
-        VisualTheme visualTheme = UtilHttp.getVisualTheme(request);
-        if (visualTheme == null) {
-            String defaultVisualThemeId = EntityUtilProperties.getPropertyValue("general", "VISUAL_THEME", (Delegator) request.getAttribute("delegator"));
-            visualTheme = ThemeFactory.getVisualThemeFromId(defaultVisualThemeId);  
-        }
-        context.put("visualTheme", visualTheme);
-        context.put("modelTheme", visualTheme.getModelTheme());
+
         context.put("request", request);
         context.put("response", response);
         context.put("session", session);
         context.put("application", servletContext);
-        context.put("webappName", session.getAttribute("_WEBAPP_NAME_"));
-
+        if (session != null) {
+            context.put("webappName", session.getAttribute("_WEBAPP_NAME_"));
+        }
         if (servletContext != null) {
             String rootDir = (String) context.get("rootDir");
             String webSiteId = (String) context.get("webSiteId");
@@ -247,7 +239,7 @@ public class ScreenRenderer {
                 context.put("https", https);
             }
         }
-        context.put("javaScriptEnabled", UtilHttp.isJavaScriptEnabled(request));
+        context.put("javaScriptEnabled", Boolean.valueOf(UtilHttp.isJavaScriptEnabled(request)));
 
         // these ones are FreeMarker specific and will only work in FTL templates, mainly here for backward compatibility
         context.put("sessionAttributes", new HttpSessionHashModel(session, FreeMarkerWorker.getDefaultOfbizWrapper()));
@@ -255,34 +247,26 @@ public class ScreenRenderer {
         TaglibFactory JspTaglibs = new TaglibFactory(servletContext);
         context.put("JspTaglibs", JspTaglibs);
         context.put("requestParameters",  UtilHttp.getParameterMap(request));
-
+       
         ServletContextHashModel ftlServletContext = (ServletContextHashModel) request.getAttribute("ftlServletContext");
         context.put("Application", ftlServletContext);
         context.put("Request", context.get("requestAttributes"));
-
+ 
         // some information from/about the ControlServlet environment
         context.put("controlPath", request.getAttribute("_CONTROL_PATH_"));
         context.put("contextRoot", request.getAttribute("_CONTEXT_ROOT_"));
         context.put("serverRoot", request.getAttribute("_SERVER_ROOT_URL_"));
         context.put("checkLoginUrl", LoginWorker.makeLoginUrl(request));
-        String externalLoginKey = null;
-        boolean externalLoginKeyEnabled = "true".equals(EntityUtilProperties.getPropertyValue("security", "security.login.externalLoginKey.enabled", "true", (Delegator) request.getAttribute("delegator")));
-        if (externalLoginKeyEnabled) {
-            externalLoginKey = ExternalLoginKeysManager.getExternalLoginKey(request);
-        }
+        String externalLoginKey = LoginWorker.getExternalLoginKey(request);
         String externalKeyParam = externalLoginKey == null ? "" : "&amp;externalLoginKey=" + externalLoginKey;
         context.put("externalLoginKey", externalLoginKey);
         context.put("externalKeyParam", externalKeyParam);
 
         // setup message lists
         List<String> eventMessageList = UtilGenerics.toList(request.getAttribute("eventMessageList"));
-        if (eventMessageList == null) {
-            eventMessageList = new LinkedList<>();
-        }
+        if (eventMessageList == null) eventMessageList = new LinkedList<String>();
         List<String> errorMessageList = UtilGenerics.toList(request.getAttribute("errorMessageList"));
-        if (errorMessageList == null) {
-            errorMessageList = new LinkedList<>();
-        }
+        if (errorMessageList == null) errorMessageList = new LinkedList<String>();
 
         if (request.getAttribute("_EVENT_MESSAGE_") != null) {
             eventMessageList.add(UtilFormatOut.replaceString((String) request.getAttribute("_EVENT_MESSAGE_"), "\n", "<br/>"));

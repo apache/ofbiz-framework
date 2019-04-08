@@ -17,13 +17,18 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.UtilHttp
+import org.apache.ofbiz.base.util.*
 import org.apache.ofbiz.base.util.template.FreeMarkerWorker
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.entity.model.*
 import org.apache.ofbiz.content.data.DataResourceWorker
 import org.apache.ofbiz.webapp.ftl.FreeMarkerViewHandler
 
+import java.io.StringWriter
 import freemarker.template.WrappingTemplateModel
 
+import javax.servlet.*
+import javax.servlet.http.*
 
 Locale locale = UtilHttp.getLocale(request)
 if (currentValue) {
@@ -40,8 +45,10 @@ if (currentValue) {
         ctx.rootDir = rootDir
         // webSiteId and https need to go here, too
         templateRoot.context = ctx
+        out = new StringWriter()
         currentValue.drDataTemplateTypeId = "NONE"
-        textData = DataResourceWorker.renderDataResourceAsText(dispatcher, delegator, dataResourceId, templateRoot, locale, mimeTypeId, false)
+        DataResourceWorker.renderDataResourceAsText(delegator, dataResourceId, out, templateRoot, locale, null, false)
+        textData = out.toString()
         context.textData = textData
     }
 }

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
+
+    <simple-method method-name="createRegister"
+        short-description="Create person when new register" login-required="false">
+        <if-empty field="parameters.firstName"><property-to-field field="errorMessage" resource="MyPortalUiLabels" property="MyPortalFirstNameMissing"/><field-to-list field="errorMessage" list="error_list"/></if-empty>
+        <if-empty field="parameters.lastName"><property-to-field field="errorMessage" resource="MyPortalUiLabels" property="MyPortalLastNameMissing"/><field-to-list field="errorMessage" list="error_list"/></if-empty>
+        <if-empty field="parameters.USERNAME"><property-to-field field="errorMessage" resource="PartyUiLabels" property="PartyUserNameMissing"/><field-to-list field="errorMessage" list="error_list"/></if-empty>
+        <if-empty field="parameters.PASSWORD"><property-to-field field="errorMessage" resource="PartyUiLabels" property="PartyPasswordMissing"/><field-to-list field="errorMessage" list="error_list"/></if-empty>
+        <if-empty field="parameters.USER_EMAIL"><property-to-field field="errorMessage" resource="PartyUiLabels" property="PartyEmailAddressMissing"/><field-to-list field="errorMessage" list="error_list"/></if-empty>
+        <check-errors error-list-name="error_list" error-code="resultPage"/>
+
+        <!-- set parameter of person to personContext Map -->
+        <set field="personContext.salutation" from-field="parameters.salutation"/>
+        <set field="personContext.firstName" from-field="parameters.firstName"/>
+        <set field="personContext.middleName" from-field="parameters.middleName"/>
+        <set field="personContext.lastName" from-field="parameters.lastName"/>
+        <set field="personContext.comments" from-field="parameters.comments"/>
+
+        <!-- set parameter of userLogin to userLoginContext Map -->
+        <set field="userLoginContext.userLoginId" from-field="parameters.USERNAME"/>
+        
+        <now-timestamp field="nowStamp"/>
+        <call-object-method obj-field="parameters.PASSWORD" method-name="toLowerCase" ret-field="parameters.PASSWORD"/>
+        <call-object-method obj-field="parameters.CONFIRM_PASSWORD" method-name="toLowerCase" ret-field="parameters.CONFIRM_PASSWORD"/>
+        <call-object-method obj-field="parameters.captcha" method-name="toLowerCase" ret-field="submittedCaptcha"/>
+        <script>groovy: context.actualCaptcha = request.getSession().getAttribute("_CAPTCHA_CODE_")?.get("captchaImage")?.toLowerCase()</script>
+        <if-compare field="parameters.PASSWORD" value="${parameters.CONFIRM_PASSWORD}" operator="equals">
+            <if-compare-field field="submittedCaptcha" operator="equals" to-field="actualCaptcha">
+
+                <!-- Create user login and Person -->
+                <find-by-primary-key entity-name="UserLogin" map="userLoginContext" value-field="existingUserLogin"/>
+                <if-empty field="existingUserLogin">
+                    <set field="userLoginContext.currentPassword" from-field="parameters.PASSWORD"/>
+                    <set field="userLoginContext.currentPasswordVerify" from-field="parameters.CONFIRM_PASSWORD"/>
+                    <set-service-fields map="personContext" service-name="createPersonAndUserLogin" to-map="personUserLoginContext"/>
+                    <set-service-fields map="userLoginContext" service-name="createPersonAndUserLogin" to-map="personUserLoginContext"/>
+                    <call-service service-name="createPersonAndUserLogin" in-map-name="personUserLoginContext">
+                        <result-to-field result-name="partyId" field="partyId"/>
+                        <result-to-field result-name="newUserLogin" field="createdUserLogin"/>
+                    </call-service>
+                    <set-current-user-login value-field="createdUserLogin"/>
+                    <else>
+                        <set field="errorMessage" value="${uiLabelMap.PartyUserNameInUse}"/>
+                        <field-to-list field="errorMessage" list="error_list"/>
+                        <check-errors error-list-name="error_list" error-code="resultPage"/>
+                    </else>
+                </if-empty>
+
+                <!-- create the PartyDataSource entry to track where this info came from... -->
+                <make-value entity-name="PartyDataSource" value-field="partyDataSource"/>
+                <set value="MY_PORTAL" field="partyDataSource.dataSourceId"/>
+                <set from-field="nowStamp" field="partyDataSource.fromDate"/>
+                <set value="Y" field="partyDataSource.isCreate"/>
+                <set from-field="partyId" field="partyDataSource.partyId"/>
+                <session-to-field field="visit"/>
+                <set from-field="visit.visitId" field="partyDataSource.visitId"/>
+                <create-value value-field="partyDataSource"/>
+
+                <!-- Create E-mail address -->
+                <set field="emailContext.emailAddress" from-field="parameters.USER_EMAIL"/>
+                <call-service service-name="createPartyEmailAddress" in-map-name="emailContext">
+                    <result-to-field result-name="contactMechId" field="emailPurposeContext.contactMechId"/>
+                </call-service>
+                <set from-field="partyId" field="emailPurposeContext.partyId"/>
+                <set value="PRIMARY_EMAIL" field="emailPurposeContext.contactMechPurposeTypeId"/>
+                <call-service service-name="createPartyContactMechPurpose" in-map-name="emailPurposeContext"/>
+
+                <!-- Send e-mail to new create user -->
+                <entity-one entity-name="WebSite" value-field="webSite"/>
+                <set field="storeEmailLookup.emailTemplateSettingId" value="PARTY_REGISTER"/>
+                <find-by-primary-key map="storeEmailLookup" entity-name="EmailTemplateSetting"  value-field="storeEmail"/>
+                <if-not-empty field="storeEmail">
+                    <get-related-one value-field="createdUserLogin" relation-name="Person" to-value-field="person"/>
+                    <set field="bodyParameters.person" from-field="person"/>
+                    <set field="emailParams.bodyParameters" from-field="bodyParameters"/>
+                    <set field="emailParams.sendTo" from-field="emailContext.emailAddress"/>
+                    <set field="emailParams.subject" from-field="storeEmail.subject"/>
+                    <set field="emailParams.sendFrom" from-field="storeEmail.fromAddress"/>
+                    <set field="emailParams.sendCc" from-field="storeEmail.ccAddress"/>
+                    <set field="emailParams.sendBcc" from-field="storeEmail.bccAddress"/>
+                    <set field="emailParams.contentType" from-field="storeEmail.contentType"/>
+                    <set field="emailParams.bodyScreenUri" from-field="storeEmail.bodyScreenLocation"/>
+                    <set field="emailParams.webSiteId" from-field="webSite.webSiteId"/>
+                    <set field="emailParams.emailType" from-field="storeEmail.emailType"/>
+                    <call-service service-name="sendMailFromScreen" in-map-name="emailParams"/>
+                    <else>
+                        <log level="error" message="Email template ${storeEmailLookup.emailTemplateSettingId} not found in entity EmailTemplateSetting, no confirmation email sent"></log>
+                    </else>
+                </if-not-empty>
+                
+                <!-- Create Customer Request to show new registration-->
+                <set field="custRequest.custRequestTypeId" value="RF_SUPPORT"/>
+                <set field="custRequest.fromPartyId" from-field="partyId"/>
+                <set field="custRequest.custRequestName" value="New user account created by registration"/>
+                <set field="custRequest.productStoreId" from-field="webSite.productStoreId"/>
+                <set field="custRequest.statusId" value="CRQ_SUBMITTED"/>
+                <call-service service-name="createCustRequest" in-map-name="custRequest">
+                    <result-to-field result-name="custRequestId"/>
+                </call-service>
+                <set field="custRequestItem.custRequestId" from-field="custRequestId"/>
+                <set field="custRequestItem.story" from-field="parameters.whyWouldYouLikeToRegister"/>
+                <call-service service-name="createCustRequestItem" in-map-name="custRequestItem"/>    
+                <!-- set field to request -->
+                <field-to-request field="partyId" request-name="partyId"/>
+                <field-to-request field="emailPurposeContext.contactMechId" request-name="contactMechId"/>
+                <return response-code="resultPage"/>
+                <else>
+                    <property-to-field field="errorMessage" resource="MyPortalUiLabels" property="MyPortalCaptchaMissingError"/><field-to-list field="errorMessage" list="error_list"/>
+                </else>
+            </if-compare-field>
+            <else>
+                <property-to-field field="errorMessage" resource="PartyUiLabels" property="PartyPasswordMatchError"/><field-to-list field="errorMessage" list="error_list"/>
+            </else>
+        </if-compare>
+        <check-errors error-list-name="error_list" error-code="resultPage"/>
+    </simple-method>
+</simple-methods>

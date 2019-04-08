@@ -37,15 +37,12 @@ public final class RecurrenceUtil {
     public static Date parseDate(String dateStr) {
         String formatString = "";
 
-        if (dateStr.length() == 16) {
+        if (dateStr.length() == 16)
             dateStr = dateStr.substring(0, 14);
-        }
-        if (dateStr.length() == 15) {
+        if (dateStr.length() == 15)
             formatString = "yyyyMMdd'T'hhmmss";
-        }
-        if (dateStr.length() == 8) {
+        if (dateStr.length() == 8)
             formatString = "yyyyMMdd";
-        }
 
         SimpleDateFormat formatter = new SimpleDateFormat(formatString);
         ParsePosition pos = new ParsePosition(0);
@@ -55,14 +52,12 @@ public final class RecurrenceUtil {
 
     /** Returns a List of parsed date strings. */
     public static List<Date> parseDateList(List<String> dateList) {
-        List<Date> newList = new ArrayList<>();
+        List<Date> newList = new ArrayList<Date>();
 
-        if (dateList == null) {
+        if (dateList == null)
             return newList;
-        }
-        for (String value: dateList) {
+        for (String value: dateList)
             newList.add(parseDate(value));
-        }
         return newList;
     }
 
@@ -72,11 +67,10 @@ public final class RecurrenceUtil {
         Calendar cal = Calendar.getInstance();
 
         cal.setTime(date);
-        if (cal.isSet(Calendar.MINUTE)) {
+        if (cal.isSet(Calendar.MINUTE))
             formatString = "yyyyMMdd'T'hhmmss";
-        } else {
+        else
             formatString = "yyyyMMdd";
-        }
         SimpleDateFormat formatter = new SimpleDateFormat(formatString);
 
         return formatter.format(date);
@@ -84,10 +78,9 @@ public final class RecurrenceUtil {
 
     /** Returns a Llist of date strings from a List of Date objects */
     public static List<String> formatDateList(List<Date> dateList) {
-        List<String> newList = new ArrayList<>();
-        for (Date date: dateList) {
+        List<String> newList = new ArrayList<String>();
+        for (Date date: dateList)
             newList.add(formatDate(date));
-        }
         return newList;
     }
 

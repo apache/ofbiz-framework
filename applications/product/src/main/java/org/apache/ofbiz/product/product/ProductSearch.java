@@ -38,7 +38,6 @@ import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.common.KeywordSearchUtil;
 import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.GenericDelegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.condition.EntityComparisonOperator;
@@ -59,7 +58,6 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtil;
 import org.apache.ofbiz.party.party.PartyHelper;
 import org.apache.ofbiz.product.category.CategoryContentWrapper;
-import org.apache.ofbiz.service.LocalDispatcher;
 
 
 /**
@@ -72,7 +70,7 @@ public class ProductSearch {
     public static final String resourceCommon = "CommonUiLabels";
 
     public static ArrayList<String> parametricKeywordSearch(Map<?, String> featureIdByType, String keywordsString, Delegator delegator, String productCategoryId, String visitId, boolean anyPrefix, boolean anySuffix, boolean isAnd) {
-        Set<String> featureIdSet = new HashSet<>();
+        Set<String> featureIdSet = new HashSet<String>();
         if (featureIdByType != null) {
             featureIdSet.addAll(featureIdByType.values());
         }
@@ -81,7 +79,7 @@ public class ProductSearch {
     }
 
     public static ArrayList<String> parametricKeywordSearch(Set<String> featureIdSet, String keywordsString, Delegator delegator, String productCategoryId, boolean includeSubCategories, String visitId, boolean anyPrefix, boolean anySuffix, boolean isAnd) {
-        List<ProductSearchConstraint> productSearchConstraintList = new LinkedList<>();
+        List<ProductSearchConstraint> productSearchConstraintList = new LinkedList<ProductSearch.ProductSearchConstraint>();
 
         if (UtilValidate.isNotEmpty(productCategoryId)) {
             productSearchConstraintList.add(new CategoryConstraint(productCategoryId, includeSubCategories, null));
@@ -142,17 +140,17 @@ public class ProductSearch {
 
     public static class ProductSearchContext {
         public int index = 1;
-        public List<EntityCondition> entityConditionList = new LinkedList<>();
-        public List<String> orderByList = new LinkedList<>();
+        public List<EntityCondition> entityConditionList = new LinkedList<EntityCondition>();
+        public List<String> orderByList = new LinkedList<String>();
         public List<String> fieldsToSelect = UtilMisc.toList("mainProductId");
         public DynamicViewEntity dynamicViewEntity = new DynamicViewEntity();
         public boolean productIdGroupBy = false;
         public boolean includedKeywordSearch = false;
         public Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
-        public List<Set<String>> keywordFixedOrSetAndList = new LinkedList<>();
-        public Set<String> orKeywordFixedSet = new HashSet<>();
-        public Set<String> andKeywordFixedSet = new HashSet<>();
-        public List<GenericValue> productSearchConstraintList = new LinkedList<>();
+        public List<Set<String>> keywordFixedOrSetAndList = new LinkedList<Set<String>>();
+        public Set<String> orKeywordFixedSet = new HashSet<String>();
+        public Set<String> andKeywordFixedSet = new HashSet<String>();
+        public List<GenericValue> productSearchConstraintList = new LinkedList<GenericValue>();
         public ResultSortOrder resultSortOrder = null;
         public Integer resultOffset = null;
         public Integer maxResults = null;
@@ -160,29 +158,29 @@ public class ProductSearch {
         protected String visitId = null;
         protected Integer totalResults = null;
 
-        public Set<String> includeCategoryIds = new HashSet<>();
-        public Set<String> excludeCategoryIds = new HashSet<>();
-        public Set<String> alwaysIncludeCategoryIds = new HashSet<>();
+        public Set<String> includeCategoryIds = new HashSet<String>();
+        public Set<String> excludeCategoryIds = new HashSet<String>();
+        public Set<String> alwaysIncludeCategoryIds = new HashSet<String>();
 
-        public List<Set<String>> includeCategoryIdOrSetAndList = new LinkedList<>();
-        public List<Set<String>> alwaysIncludeCategoryIdOrSetAndList = new LinkedList<>();
+        public List<Set<String>> includeCategoryIdOrSetAndList = new LinkedList<Set<String>>();
+        public List<Set<String>> alwaysIncludeCategoryIdOrSetAndList = new LinkedList<Set<String>>();
 
-        public Set<String> includeFeatureIds = new HashSet<>();
-        public Set<String> excludeFeatureIds = new HashSet<>();
-        public Set<String> alwaysIncludeFeatureIds = new HashSet<>();
+        public Set<String> includeFeatureIds = new HashSet<String>();
+        public Set<String> excludeFeatureIds = new HashSet<String>();
+        public Set<String> alwaysIncludeFeatureIds = new HashSet<String>();
 
-        public List<Set<String>> includeFeatureIdOrSetAndList = new LinkedList<>();
-        public List<Set<String>> alwaysIncludeFeatureIdOrSetAndList = new LinkedList<>();
+        public List<Set<String>> includeFeatureIdOrSetAndList = new LinkedList<Set<String>>();
+        public List<Set<String>> alwaysIncludeFeatureIdOrSetAndList = new LinkedList<Set<String>>();
 
-        public Set<String> includeFeatureCategoryIds = new HashSet<>();
-        public Set<String> excludeFeatureCategoryIds = new HashSet<>();
-        public Set<String> alwaysIncludeFeatureCategoryIds = new HashSet<>();
+        public Set<String> includeFeatureCategoryIds = new HashSet<String>();
+        public Set<String> excludeFeatureCategoryIds = new HashSet<String>();
+        public Set<String> alwaysIncludeFeatureCategoryIds = new HashSet<String>();
 
-        public Set<String> includeFeatureGroupIds = new HashSet<>();
-        public Set<String> excludeFeatureGroupIds = new HashSet<>();
-        public Set<String> alwaysIncludeFeatureGroupIds = new HashSet<>();
+        public Set<String> includeFeatureGroupIds = new HashSet<String>();
+        public Set<String> excludeFeatureGroupIds = new HashSet<String>();
+        public Set<String> alwaysIncludeFeatureGroupIds = new HashSet<String>();
 
-        public List<String> keywordTypeIds = new LinkedList<>();
+        public List<String> keywordTypeIds = new LinkedList<String>();
         public String statusId = null;
 
         public ProductSearchContext(Delegator delegator, String visitId) {
@@ -224,19 +222,21 @@ public class ProductSearch {
             long startMillis = System.currentTimeMillis();
 
             // do the query
-            ArrayList<String> productIds = null;
-            try (EntityListIterator eli = this.doQuery(delegator)) {
-                productIds = this.makeProductIdList(eli);
-            } catch (GenericEntityException e) {
-                Debug.logError(e, module);
-                return null;
+            EntityListIterator eli = this.doQuery(delegator);
+            ArrayList<String> productIds = this.makeProductIdList(eli);
+            if (eli != null) {
+                try {
+                    eli.close();
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, "Error closing ProductSearch EntityListIterator");
+                }
             }
 
             long endMillis = System.currentTimeMillis();
             double totalSeconds = ((double)endMillis - (double)startMillis)/1000.0;
 
             // store info about results in the database, attached to the user's visitId, if specified
-            this.saveSearchResultInfo((long) productIds.size(), totalSeconds);
+            this.saveSearchResultInfo(Long.valueOf(productIds.size()), Double.valueOf(totalSeconds));
 
             return productIds;
         }
@@ -284,34 +284,34 @@ public class ProductSearch {
 
                     dynamicViewEntity.addMemberEntity(entityAlias, "ProductKeyword");
                     dynamicViewEntity.addAlias(entityAlias, prefix + "Keyword", "keyword", null, null, null, null);
-
+                    
                     // keyword type filter
                     if (UtilValidate.isNotEmpty(keywordTypeIds)) {
                         dynamicViewEntity.addAlias(entityAlias, "keywordTypeId");
                     }
-
+                    
                     // keyword status filter
                     if (UtilValidate.isNotEmpty(statusId)) {
                         dynamicViewEntity.addAlias(entityAlias, "statusId");
                     }
-
+                    
                     dynamicViewEntity.addViewLink("PROD", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
                     entityConditionList.add(EntityCondition.makeCondition(prefix + "Keyword", EntityOperator.LIKE, keyword));
-
+                    
                     // keyword type filter
                     if (UtilValidate.isNotEmpty(keywordTypeIds)) {
-                        List<EntityCondition> keywordTypeCons = new LinkedList<>();
+                        List<EntityCondition> keywordTypeCons = new LinkedList<EntityCondition>();
                         for (String keywordTypeId : keywordTypeIds) {
                             keywordTypeCons.add(EntityCondition.makeCondition("keywordTypeId", EntityOperator.EQUALS, keywordTypeId));
                         }
                         entityConditionList.add(EntityCondition.makeCondition(keywordTypeCons, EntityOperator.OR));
                     }
-
+                    
                     // keyword status filter
                     if (UtilValidate.isNotEmpty(statusId)) {
                         entityConditionList.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, statusId));
                     }
-
+                    
                     //don't add an alias for this, will be part of a complex alias: dynamicViewEntity.addAlias(entityAlias, prefix + "RelevancyWeight", "relevancyWeight", null, null, null, null);
                     //needed when doingBothAndOr or will get an SQL error
                     if (doingBothAndOr) {
@@ -336,7 +336,7 @@ public class ProductSearch {
                     dynamicViewEntity.addMemberEntity(entityAlias, "ProductKeyword");
                     dynamicViewEntity.addAlias(entityAlias, prefix + "Keyword", "keyword", null, null, null, null);
                     dynamicViewEntity.addViewLink("PROD", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
-                    List<EntityCondition> keywordOrList = new LinkedList<>();
+                    List<EntityCondition> keywordOrList = new LinkedList<EntityCondition>();
                     for (String keyword: keywordFixedOrSet) {
                         keywordOrList.add(EntityCondition.makeCondition(prefix + "Keyword", EntityOperator.LIKE, keyword));
                     }
@@ -368,10 +368,10 @@ public class ProductSearch {
             // create new view members with logic:
             // ((each Id = category includes AND Id IN feature includes) AND (Id NOT IN category excludes AND Id NOT IN feature excludes))
             // OR (each Id = category alwaysIncludes AND each Id = feature alwaysIncludes)
-            List<EntityCondition> incExcCondList = new LinkedList<>();
+            List<EntityCondition> incExcCondList = new LinkedList<EntityCondition>();
             EntityCondition incExcCond = null;
 
-            List<EntityCondition> alwIncCondList = new LinkedList<>();
+            List<EntityCondition> alwIncCondList = new LinkedList<EntityCondition>();
             EntityCondition alwIncCond = null;
 
             EntityCondition topCond = null;
@@ -454,7 +454,7 @@ public class ProductSearch {
             }
 
             if (excludeCategoryIds.size() > 0) {
-                List<EntityCondition> idExcludeCondList = new LinkedList<>();
+                List<EntityCondition> idExcludeCondList = new LinkedList<EntityCondition>();
                 idExcludeCondList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN, this.nowTimestamp)));
                 idExcludeCondList.add(EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN, this.nowTimestamp));
                 idExcludeCondList.add(EntityCondition.makeCondition("productCategoryId", EntityOperator.IN, excludeCategoryIds));
@@ -462,7 +462,7 @@ public class ProductSearch {
                 incExcCondList.add(EntityCondition.makeCondition("mainProductId", EntityOperator.NOT_EQUAL, subSelCond));
             }
             if (excludeFeatureIds.size() > 0) {
-                List<EntityCondition> idExcludeCondList = new LinkedList<>();
+                List<EntityCondition> idExcludeCondList = new LinkedList<EntityCondition>();
                 idExcludeCondList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN, this.nowTimestamp)));
                 idExcludeCondList.add(EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN, this.nowTimestamp));
                 idExcludeCondList.add(EntityCondition.makeCondition("productFeatureId", EntityOperator.IN, excludeFeatureIds));
@@ -470,7 +470,7 @@ public class ProductSearch {
                 incExcCondList.add(EntityCondition.makeCondition("mainProductId", EntityOperator.NOT_EQUAL, subSelCond));
             }
             if (excludeFeatureCategoryIds.size() > 0) {
-                List<EntityCondition> idExcludeCondList = new LinkedList<>();
+                List<EntityCondition> idExcludeCondList = new LinkedList<EntityCondition>();
                 idExcludeCondList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN, this.nowTimestamp)));
                 idExcludeCondList.add(EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN, this.nowTimestamp));
                 idExcludeCondList.add(EntityCondition.makeCondition("productFeatureCategoryId", EntityOperator.IN, excludeFeatureCategoryIds));
@@ -478,7 +478,7 @@ public class ProductSearch {
                 incExcCondList.add(EntityCondition.makeCondition("mainProductId", EntityOperator.NOT_EQUAL, subSelCond));
             }
             if (excludeFeatureGroupIds.size() > 0) {
-                List<EntityCondition> idExcludeCondList = new LinkedList<>();
+                List<EntityCondition> idExcludeCondList = new LinkedList<EntityCondition>();
                 idExcludeCondList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN, this.nowTimestamp)));
                 idExcludeCondList.add(EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN, this.nowTimestamp));
                 idExcludeCondList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("groupThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("groupThruDate", EntityOperator.GREATER_THAN, this.nowTimestamp)));
@@ -646,17 +646,9 @@ public class ProductSearch {
 
             this.entityConditionList.add(topCond);
 
-            if (Debug.infoOn()) {
-                Debug.logInfo("topCond=" + topCond.makeWhereString(null, new LinkedList<EntityConditionParam>(), EntityConfig.getDatasource(delegator.getEntityHelperName("Product"))), module);
-            }
+            if (Debug.infoOn()) Debug.logInfo("topCond=" + topCond.makeWhereString(null, new LinkedList<EntityConditionParam>(), EntityConfig.getDatasource(delegator.getEntityHelperName("Product"))), module);
         }
 
-        /**
-         * @param delegator the delegator
-         * @return EntityListIterator representing the result of the query: NOTE THAT THIS MUST BE CLOSED WHEN YOU ARE
-         *      DONE WITH IT (preferably in a finally block),
-         *      AND DON'T LEAVE IT OPEN TOO LONG BECAUSE IT WILL MAINTAIN A DATABASE CONNECTION.
-         */
         public EntityListIterator doQuery(Delegator delegator) {
             // handle the now assembled or and and keyword fixed lists
             this.finishKeywordConstraints();
@@ -667,7 +659,7 @@ public class ProductSearch {
                 resultSortOrder.setSortOrder(this);
             }
 
-            dynamicViewEntity.addAlias("PROD", "mainProductId", "productId", null, null, productIdGroupBy, null);
+            dynamicViewEntity.addAlias("PROD", "mainProductId", "productId", null, null, Boolean.valueOf(productIdGroupBy), null);
 
             EntityListIterator eli = null;
             try {
@@ -694,7 +686,7 @@ public class ProductSearch {
         }
 
         public ArrayList<String> makeProductIdList(EntityListIterator eli) {
-            ArrayList<String> productIds = new ArrayList<>(maxResults == null ? 100 : maxResults);
+            ArrayList<String> productIds = new ArrayList<String>(maxResults == null ? 100 : maxResults.intValue());
             if (eli == null) {
                 Debug.logWarning("The eli is null, returning zero results", module);
                 return productIds;
@@ -707,11 +699,9 @@ public class ProductSearch {
                 if (initialResult != null) {
                     hasResults = true;
                 }
-                if (resultOffset != null && resultOffset > 1) {
-                    if (Debug.infoOn()) {
-                        Debug.logInfo("Before relative, current index=" + eli.currentIndex(), module);
-                    }
-                    hasResults = eli.relative(resultOffset - 1);
+                if (resultOffset != null && resultOffset.intValue() > 1) {
+                    if (Debug.infoOn()) Debug.logInfo("Before relative, current index=" + eli.currentIndex(), module);
+                    hasResults = eli.relative(resultOffset.intValue() - 1);
                     initialResult = null;
                 }
 
@@ -729,9 +719,9 @@ public class ProductSearch {
                     // nothing to get...
                     int failTotal = 0;
                     if (this.resultOffset != null) {
-                        failTotal = this.resultOffset - 1;
+                        failTotal = this.resultOffset.intValue() - 1;
                     }
-                    this.totalResults = failTotal;
+                    this.totalResults = Integer.valueOf(failTotal);
                     return productIds;
                 }
 
@@ -740,12 +730,12 @@ public class ProductSearch {
                 int numRetreived = 1;
                 int duplicatesFound = 0;
 
-                Set<String> productIdSet = new HashSet<>();
+                Set<String> productIdSet = new HashSet<String>();
 
                 productIds.add(searchResult.getString("mainProductId"));
                 productIdSet.add(searchResult.getString("mainProductId"));
 
-                while ((maxResults == null || numRetreived < maxResults) && ((searchResult = eli.next()) != null)) {
+                while ((maxResults == null || numRetreived < maxResults.intValue()) && ((searchResult = eli.next()) != null)) {
                     String productId = searchResult.getString("mainProductId");
                     if (!productIdSet.contains(productId)) {
                         productIds.add(productId);
@@ -759,12 +749,12 @@ public class ProductSearch {
                 if (searchResult != null) {
                     this.totalResults = eli.getResultsSizeAfterPartialList();
                 }
-                if (this.totalResults == null || this.totalResults == 0) {
+                if (this.totalResults == null || this.totalResults.intValue() == 0) {
                     int total = numRetreived;
                     if (this.resultOffset != null) {
-                        total += (this.resultOffset - 1);
+                        total += (this.resultOffset.intValue() - 1);
                     }
-                    this.totalResults = total;
+                    this.totalResults = Integer.valueOf(total);
                 }
 
                 Debug.logInfo("Got search values, numRetreived=" + numRetreived + ", totalResults=" + totalResults + ", maxResults=" + maxResults + ", resultOffset=" + resultOffset + ", duplicatesFound(in the current results)=" + duplicatesFound, module);
@@ -829,7 +819,6 @@ public class ProductSearch {
         public abstract void addConstraint(ProductSearchContext productSearchContext);
         /** pretty print for log messages and even UI stuff */
         public abstract String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale);
-        public abstract String prettyPrintConstraint(LocalDispatcher dispatcher, boolean detailed, Locale locale);
     }
 
 
@@ -846,7 +835,7 @@ public class ProductSearch {
 
         @Override
         public void addConstraint(ProductSearchContext productSearchContext) {
-            List<String> productCategoryIds = new LinkedList<>();
+            List<String> productCategoryIds = new LinkedList<String>();
             for (GenericValue category: productCategories) {
                 productCategoryIds.add(category.getString("productCategoryId"));
             }
@@ -887,51 +876,24 @@ public class ProductSearch {
         }
 
         @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + ((prodCatalogId == null) ? 0 : prodCatalogId.hashCode());
-            result = prime * result + ((productCategories == null) ? 0 : productCategories.hashCode());
-            return result;
-        }
-
-        @Override
         public boolean equals(Object obj) {
-            if (this == obj) {
+            ProductSearchConstraint psc = (ProductSearchConstraint) obj;
+            if (psc instanceof CatalogConstraint) {
+                CatalogConstraint that = (CatalogConstraint) psc;
+                if (this.prodCatalogId == null) {
+                    if (that.prodCatalogId != null) {
+                        return false;
+                    }
+                } else {
+                    if (!this.prodCatalogId.equals(that.prodCatalogId)) {
+                        return false;
+                    }
+                }
                 return true;
-            }
-            if (obj == null) {
+            } else {
                 return false;
             }
-            if (!(obj instanceof CatalogConstraint)) {
-                return false;
-            }
-            CatalogConstraint other = (CatalogConstraint) obj;
-            if (prodCatalogId == null) {
-                if (other.prodCatalogId != null) {
-                    return false;
-                }
-            } else if (!prodCatalogId.equals(other.prodCatalogId)) {
-                return false;
-            }
-            if (productCategories == null) {
-                if (other.productCategories != null) {
-                    return false;
-                }
-            } else if (!productCategories.equals(other.productCategories)) {
-                return false;
-            }
-            return true;
         }
-
-        /* (non-Javadoc)
-         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
-         */
-        @Override
-        public String prettyPrintConstraint(LocalDispatcher dispatcher, boolean detailed, Locale locale) {
-            return null;
-        }
-
     }
 
     @SuppressWarnings("serial")
@@ -956,7 +918,7 @@ public class ProductSearch {
 
         @Override
         public void addConstraint(ProductSearchContext productSearchContext) {
-            Set<String> productCategoryIdSet = new HashSet<>();
+            Set<String> productCategoryIdSet = new HashSet<String>();
             if (includeSubCategories) {
                 // find all sub-categories recursively, make a Set of productCategoryId
                 ProductSearch.getAllSubCategoryIds(productCategoryId, productCategoryIdSet, productSearchContext.getDelegator(), productSearchContext.nowTimestamp);
@@ -978,7 +940,6 @@ public class ProductSearch {
         }
 
         /** pretty print for log messages and even UI stuff */
-        // TODO This is not used OOTB since OFBIZ-9164 and could simply return null, kept for custom projects
         @Override
         public String prettyPrintConstraint(Delegator delegator, boolean detailed, Locale locale) {
             GenericValue productCategory = null;
@@ -1007,78 +968,28 @@ public class ProductSearch {
             return ppBuf.toString();
         }
 
-        /** pretty print for log messages and even UI stuff */
-        @Override
-        public String prettyPrintConstraint(LocalDispatcher dispatcher, boolean detailed, Locale locale) {
-            GenericValue productCategory = null;
-            GenericDelegator delegator = (GenericDelegator) dispatcher.getDelegator();
-            try {
-                productCategory = EntityQuery.use(delegator).from("ProductCategory").where("productCategoryId", productCategoryId).cache().queryOne();
-            } catch (GenericEntityException e) {
-                Debug.logError(e, "Error finding ProductCategory information for constraint pretty print", module);
-            }
-            StringBuilder ppBuf = new StringBuilder();
-            ppBuf.append(UtilProperties.getMessage(resource, "ProductCategory", locale)).append(": ");
-            if (productCategory != null) {
-                String catInfo = CategoryContentWrapper.getProductCategoryContentAsText(productCategory, "CATEGORY_NAME", locale, dispatcher, "html");
-                if (UtilValidate.isEmpty(catInfo)) {
-                    catInfo = CategoryContentWrapper.getProductCategoryContentAsText(productCategory, "DESCRIPTION", locale, dispatcher, "html");
-                }
-                ppBuf.append(catInfo);
-            }
-            if (productCategory == null || detailed) {
-                ppBuf.append(" [");
-                ppBuf.append(productCategoryId);
-                ppBuf.append("]");
-            }
-            if (includeSubCategories) {
-                ppBuf.append(" (").append(UtilProperties.getMessage(resource, "ProductIncludeAllSubCategories", locale)).append(")");
-            }
-            return ppBuf.toString();
-        }
-
-        @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + ((exclude == null) ? 0 : exclude.hashCode());
-            result = prime * result + (includeSubCategories ? 1231 : 1237);
-            result = prime * result + ((productCategoryId == null) ? 0 : productCategoryId.hashCode());
-            return result;
-        }
-
         @Override
         public boolean equals(Object obj) {
-            if (this == obj) {
+            ProductSearchConstraint psc = (ProductSearchConstraint) obj;
+            if (psc instanceof CategoryConstraint) {
+                CategoryConstraint that = (CategoryConstraint) psc;
+                if (this.includeSubCategories != that.includeSubCategories) {
+                    return false;
+                }
+                if (this.productCategoryId == null) {
+                    if (that.productCategoryId != null) {
+                        return false;
+                    }
+                } else {
+                    if (!this.productCategoryId.equals(that.productCategoryId)) {
+                        return false;
+                    }
+                }
                 return true;
-            }
-            if (obj == null) {
+            } else {
                 return false;
             }
-            if (!(obj instanceof CategoryConstraint)) {
-                return false;
-            }
-            CategoryConstraint other = (CategoryConstraint) obj;
-            if (exclude == null) {
-                if (other.exclude != null) {
-                    return false;
-                }
-            } else if (!exclude.equals(other.exclude)) {
-                return false;
-            }
-            if (includeSubCategories != other.includeSubCategories) {
-                return false;
-            }
-            if (productCategoryId == null) {
-                if (other.productCategoryId != null) {
-                    return false;
-                }
-            } else if (!productCategoryId.equals(other.productCategoryId)) {
-                return false;
-            }
-            return true;
         }
-
     }
 
     @SuppressWarnings("serial")
@@ -1143,51 +1054,24 @@ public class ProductSearch {
         }
 
         @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + ((exclude == null) ? 0 : exclude.hashCode());
-            result = prime * result + ((productFeatureId == null) ? 0 : productFeatureId.hashCode());
-            return result;
-        }
-
-        @Override
         public boolean equals(Object obj) {
-            if (this == obj) {
+            ProductSearchConstraint psc = (ProductSearchConstraint) obj;
+            if (psc instanceof FeatureConstraint) {
+                FeatureConstraint that = (FeatureConstraint) psc;
+                if (this.productFeatureId == null) {
+                    if (that.productFeatureId != null) {
+                        return false;
+                    }
+                } else {
+                    if (!this.productFeatureId.equals(that.productFeatureId)) {
+                        return false;
+                    }
+                }
                 return true;
-            }
-            if (obj == null) {
+            } else {
                 return false;
             }
-            if (!(obj instanceof FeatureConstraint)) {
-                return false;
-            }
-            FeatureConstraint other = (FeatureConstraint) obj;
-            if (exclude == null) {
-                if (other.exclude != null) {
-                    return false;
-                }
-            } else if (!exclude.equals(other.exclude)) {
-                return false;
-            }
-            if (productFeatureId == null) {
-                if (other.productFeatureId != null) {
-                    return false;
-                }
-            } else if (!productFeatureId.equals(other.productFeatureId)) {
-                return false;
-            }
-            return true;
         }
-
-        /* (non-Javadoc)
-         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
-         */
-        @Override
-        public String prettyPrintConstraint(LocalDispatcher dispatcher, boolean detailed, Locale locale) {
-            return null;
-        }
-
     }
 
 
@@ -1252,51 +1136,24 @@ public class ProductSearch {
         }
 
         @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + ((exclude == null) ? 0 : exclude.hashCode());
-            result = prime * result + ((productFeatureCategoryId == null) ? 0 : productFeatureCategoryId.hashCode());
-            return result;
-        }
-
-        @Override
         public boolean equals(Object obj) {
-            if (this == obj) {
+            ProductSearchConstraint psc = (ProductSearchConstraint) obj;
+            if (psc instanceof FeatureCategoryConstraint) {
+                FeatureCategoryConstraint that = (FeatureCategoryConstraint) psc;
+                if (this.productFeatureCategoryId == null) {
+                    if (that.productFeatureCategoryId != null) {
+                        return false;
+                    }
+                } else {
+                    if (!this.productFeatureCategoryId.equals(that.productFeatureCategoryId)) {
+                        return false;
+                    }
+                }
                 return true;
-            }
-            if (obj == null) {
+            } else {
                 return false;
             }
-            if (!(obj instanceof FeatureCategoryConstraint)) {
-                return false;
-            }
-            FeatureCategoryConstraint other = (FeatureCategoryConstraint) obj;
-            if (exclude == null) {
-                if (other.exclude != null) {
-                    return false;
-                }
-            } else if (!exclude.equals(other.exclude)) {
-                return false;
-            }
-            if (productFeatureCategoryId == null) {
-                if (other.productFeatureCategoryId != null) {
-                    return false;
-                }
-            } else if (!productFeatureCategoryId.equals(other.productFeatureCategoryId)) {
-                return false;
-            }
-            return true;
         }
-
-        /* (non-Javadoc)
-         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
-         */
-        @Override
-        public String prettyPrintConstraint(LocalDispatcher dispatcher, boolean detailed, Locale locale) {
-            return null;
-        }
-
     }
 
     @SuppressWarnings("serial")
@@ -1359,51 +1216,24 @@ public class ProductSearch {
         }
 
         @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + ((exclude == null) ? 0 : exclude.hashCode());
-            result = prime * result + ((productFeatureGroupId == null) ? 0 : productFeatureGroupId.hashCode());
-            return result;
-        }
-
-        @Override
         public boolean equals(Object obj) {
-            if (this == obj) {
+            ProductSearchConstraint psc = (ProductSearchConstraint) obj;
+            if (psc instanceof FeatureGroupConstraint) {
+                FeatureGroupConstraint that = (FeatureGroupConstraint) psc;
+                if (this.productFeatureGroupId == null) {
+                    if (that.productFeatureGroupId != null) {
+                        return false;
+                    }
+                } else {
+                    if (!this.productFeatureGroupId.equals(that.productFeatureGroupId)) {
+                        return false;
+                    }
+                }
                 return true;
-            }
-            if (obj == null) {
+            } else {
                 return false;
             }
-            if (!(obj instanceof FeatureGroupConstraint)) {
-                return false;
-            }
-            FeatureGroupConstraint other = (FeatureGroupConstraint) obj;
-            if (exclude == null) {
-                if (other.exclude != null) {
-                    return false;
-                }
-            } else if (!exclude.equals(other.exclude)) {
-                return false;
-            }
-            if (productFeatureGroupId == null) {
-                if (other.productFeatureGroupId != null) {
-                    return false;
-                }
-            } else if (!productFeatureGroupId.equals(other.productFeatureGroupId)) {
-                return false;
-            }
-            return true;
         }
-
-        /* (non-Javadoc)
-         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
-         */
-        @Override
-        public String prettyPrintConstraint(LocalDispatcher dispatcher, boolean detailed, Locale locale) {
-            return null;
-        }
-
     }
 
 
@@ -1420,7 +1250,7 @@ public class ProductSearch {
          * @param exclude This is a tri-state variable: null = Include, true = Exclude, false = AlwaysInclude
          */
         public FeatureSetConstraint(Collection<String> productFeatureIdSet, Boolean exclude) {
-            this.productFeatureIdSet = new HashSet<>();
+            this.productFeatureIdSet = new HashSet<String>();
             this.productFeatureIdSet.addAll(productFeatureIdSet);
             this.exclude = exclude;
         }
@@ -1481,51 +1311,24 @@ public class ProductSearch {
         }
 
         @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + ((exclude == null) ? 0 : exclude.hashCode());
-            result = prime * result + ((productFeatureIdSet == null) ? 0 : productFeatureIdSet.hashCode());
-            return result;
-        }
-
-        @Override
         public boolean equals(Object obj) {
-            if (this == obj) {
+            ProductSearchConstraint psc = (ProductSearchConstraint) obj;
+            if (psc instanceof FeatureSetConstraint) {
+                FeatureSetConstraint that = (FeatureSetConstraint) psc;
+                if (this.productFeatureIdSet == null) {
+                    if (that.productFeatureIdSet != null) {
+                        return false;
+                    }
+                } else {
+                    if (!this.productFeatureIdSet.equals(that.productFeatureIdSet)) {
+                        return false;
+                    }
+                }
                 return true;
-            }
-            if (obj == null) {
+            } else {
                 return false;
             }
-            if (!(obj instanceof FeatureSetConstraint)) {
-                return false;
-            }
-            FeatureSetConstraint other = (FeatureSetConstraint) obj;
-            if (exclude == null) {
-                if (other.exclude != null) {
-                    return false;
-                }
-            } else if (!exclude.equals(other.exclude)) {
-                return false;
-            }
-            if (productFeatureIdSet == null) {
-                if (other.productFeatureIdSet != null) {
-                    return false;
-                }
-            } else if (!productFeatureIdSet.equals(other.productFeatureIdSet)) {
-                return false;
-            }
-            return true;
         }
-
-        /* (non-Javadoc)
-         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
-         */
-        @Override
-        public String prettyPrintConstraint(LocalDispatcher dispatcher, boolean detailed, Locale locale) {
-            return null;
-        }
-
     }
 
     @SuppressWarnings("serial")
@@ -1543,7 +1346,7 @@ public class ProductSearch {
             this.anySuffix = anySuffix;
             this.isAnd = isAnd;
             if (removeStems != null) {
-                this.removeStems = removeStems;
+                this.removeStems = removeStems.booleanValue();
             } else {
                 this.removeStems = UtilProperties.propertyValueEquals("keywordsearch", "remove.stems", "true");
             }
@@ -1551,11 +1354,11 @@ public class ProductSearch {
 
         public Set<String> makeFullKeywordSet(Delegator delegator) {
             Set<String> keywordSet = KeywordSearchUtil.makeKeywordSet(this.keywordsString, null, true);
-            Set<String> fullKeywordSet = new TreeSet<>();
+            Set<String> fullKeywordSet = new TreeSet<String>();
 
             // expand the keyword list according to the thesaurus and create a new set of keywords
             for (String keyword: keywordSet) {
-                Set<String> expandedSet = new TreeSet<>();
+                Set<String> expandedSet = new TreeSet<String>();
                 boolean replaceEntered = KeywordSearchUtil.expandKeywordForSearch(keyword, expandedSet, delegator);
                 fullKeywordSet.addAll(expandedSet);
                 if (!replaceEntered) {
@@ -1580,13 +1383,13 @@ public class ProductSearch {
 
                 // expand the keyword list according to the thesaurus and create a new set of keywords
                 for (String keyword: keywordSet) {
-                    Set<String> expandedSet = new TreeSet<>();
+                    Set<String> expandedSet = new TreeSet<String>();
                     boolean replaceEntered = KeywordSearchUtil.expandKeywordForSearch(keyword, expandedSet, productSearchContext.getDelegator());
                     if (!replaceEntered) {
                         expandedSet.add(keyword);
                     }
                     Set<String> fixedSet = KeywordSearchUtil.fixKeywordsForSearch(expandedSet, anyPrefix, anySuffix, removeStems, isAnd);
-                    Set<String> fixedKeywordSet = new HashSet<>();
+                    Set<String> fixedKeywordSet = new HashSet<String>();
                     fixedKeywordSet.addAll(fixedSet);
                     productSearchContext.keywordFixedOrSetAndList.add(fixedKeywordSet);
                 }
@@ -1617,59 +1420,36 @@ public class ProductSearch {
         }
 
         @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + (anyPrefix ? 1231 : 1237);
-            result = prime * result + (anySuffix ? 1231 : 1237);
-            result = prime * result + (isAnd ? 1231 : 1237);
-            result = prime * result + ((keywordsString == null) ? 0 : keywordsString.hashCode());
-            result = prime * result + (removeStems ? 1231 : 1237);
-            return result;
-        }
-
-        @Override
         public boolean equals(Object obj) {
-            if (this == obj) {
-                return true;
-            }
-            if (obj == null) {
-                return false;
-            }
-            if (!(obj instanceof KeywordConstraint)) {
-                return false;
-            }
-            KeywordConstraint other = (KeywordConstraint) obj;
-            if (anyPrefix != other.anyPrefix) {
-                return false;
-            }
-            if (anySuffix != other.anySuffix) {
-                return false;
-            }
-            if (isAnd != other.isAnd) {
-                return false;
-            }
-            if (keywordsString == null) {
-                if (other.keywordsString != null) {
+            ProductSearchConstraint psc = (ProductSearchConstraint) obj;
+            if (psc instanceof KeywordConstraint) {
+                KeywordConstraint that = (KeywordConstraint) psc;
+                if (this.anyPrefix != that.anyPrefix) {
                     return false;
                 }
-            } else if (!keywordsString.equals(other.keywordsString)) {
+                if (this.anySuffix != that.anySuffix) {
+                    return false;
+                }
+                if (this.isAnd != that.isAnd) {
+                    return false;
+                }
+                if (this.removeStems != that.removeStems) {
+                    return false;
+                }
+                if (this.keywordsString == null) {
+                    if (that.keywordsString != null) {
+                        return false;
+                    }
+                } else {
+                    if (!this.keywordsString.equals(that.keywordsString)) {
+                        return false;
+                    }
+                }
+                return true;
+            } else {
                 return false;
             }
-            if (removeStems != other.removeStems) {
-                return false;
-            }
-            return true;
         }
-
-        /* (non-Javadoc)
-         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
-         */
-        @Override
-        public String prettyPrintConstraint(LocalDispatcher dispatcher, boolean detailed, Locale locale) {
-            return null;
-        }
-
     }
 
     @SuppressWarnings("serial")
@@ -1696,51 +1476,33 @@ public class ProductSearch {
         }
 
         @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + ((fromDate == null) ? 0 : fromDate.hashCode());
-            result = prime * result + ((thruDate == null) ? 0 : thruDate.hashCode());
-            return result;
-        }
-
-        @Override
         public boolean equals(Object obj) {
-            if (this == obj) {
+            ProductSearchConstraint psc = (ProductSearchConstraint) obj;
+            if (psc instanceof LastUpdatedRangeConstraint) {
+                LastUpdatedRangeConstraint that = (LastUpdatedRangeConstraint) psc;
+                if (this.fromDate == null) {
+                    if (that.fromDate != null) {
+                        return false;
+                    }
+                } else {
+                    if (!this.fromDate.equals(that.fromDate)) {
+                        return false;
+                    }
+                }
+                if (this.thruDate == null) {
+                    if (that.thruDate != null) {
+                        return false;
+                    }
+                } else {
+                    if (!this.thruDate.equals(that.thruDate)) {
+                        return false;
+                    }
+                }
                 return true;
-            }
-            if (obj == null) {
+            } else {
                 return false;
             }
-            if (!(obj instanceof LastUpdatedRangeConstraint)) {
-                return false;
-            }
-            LastUpdatedRangeConstraint other = (LastUpdatedRangeConstraint) obj;
-            if (fromDate == null) {
-                if (other.fromDate != null) {
-                    return false;
-                }
-            } else if (!fromDate.equals(other.fromDate)) {
-                return false;
-            }
-            if (thruDate == null) {
-                if (other.thruDate != null) {
-                    return false;
-                }
-            } else if (!thruDate.equals(other.thruDate)) {
-                return false;
-            }
-            return true;
         }
-
-        /* (non-Javadoc)
-         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
-         */
-        @Override
-        public String prettyPrintConstraint(LocalDispatcher dispatcher, boolean detailed, Locale locale) {
-            return null;
-        }
-
     }
 
     @SuppressWarnings("serial")
@@ -1790,59 +1552,17 @@ public class ProductSearch {
         }
 
         @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + ((currencyUomId == null) ? 0 : currencyUomId.hashCode());
-            result = prime * result + ((productPriceTypeId == null) ? 0 : productPriceTypeId.hashCode());
-            result = prime * result + ((productStoreGroupId == null) ? 0 : productStoreGroupId.hashCode());
-            return result;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj) {
-                return true;
-            }
-            if (obj == null) {
-                return false;
-            }
-            if (!(obj instanceof StoreGroupPriceConstraint)) {
-                return false;
-            }
-            StoreGroupPriceConstraint other = (StoreGroupPriceConstraint) obj;
-            if (currencyUomId == null) {
-                if (other.currencyUomId != null) {
-                    return false;
+        public boolean equals(Object o) {
+            if (o instanceof StoreGroupPriceConstraint) {
+                StoreGroupPriceConstraint other = (StoreGroupPriceConstraint) o;
+                if (other.productStoreGroupId.equals(productStoreGroupId) &&
+                       other.productPriceTypeId.equals(productPriceTypeId) &&
+                       other.currencyUomId.equals(currencyUomId)) {
+                    return true;
                 }
-            } else if (!currencyUomId.equals(other.currencyUomId)) {
-                return false;
             }
-            if (productPriceTypeId == null) {
-                if (other.productPriceTypeId != null) {
-                    return false;
-                }
-            } else if (!productPriceTypeId.equals(other.productPriceTypeId)) {
-                return false;
-            }
-            if (productStoreGroupId == null) {
-                if (other.productStoreGroupId != null) {
-                    return false;
-                }
-            } else if (!productStoreGroupId.equals(other.productStoreGroupId)) {
-                return false;
-            }
-            return true;
+            return false;
         }
-
-        /* (non-Javadoc)
-         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
-         */
-        @Override
-        public String prettyPrintConstraint(LocalDispatcher dispatcher, boolean detailed, Locale locale) {
-            return null;
-        }
-
     }
 
     @SuppressWarnings("serial")
@@ -1923,59 +1643,33 @@ public class ProductSearch {
         }
 
         @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + ((currencyUomId == null) ? 0 : currencyUomId.hashCode());
-            result = prime * result + ((highPrice == null) ? 0 : highPrice.hashCode());
-            result = prime * result + ((lowPrice == null) ? 0 : lowPrice.hashCode());
-            return result;
-        }
-
-        @Override
         public boolean equals(Object obj) {
-            if (this == obj) {
+            ProductSearchConstraint psc = (ProductSearchConstraint) obj;
+            if (psc instanceof ListPriceRangeConstraint) {
+                ListPriceRangeConstraint that = (ListPriceRangeConstraint) psc;
+                if (this.lowPrice == null) {
+                    if (that.lowPrice != null) {
+                        return false;
+                    }
+                } else {
+                    if (this.lowPrice.compareTo(that.lowPrice) != 0) {
+                        return false;
+                    }
+                }
+                if (this.highPrice == null) {
+                    if (that.highPrice != null) {
+                        return false;
+                    }
+                } else {
+                    if (this.highPrice.compareTo(that.highPrice) != 0) {
+                        return false;
+                    }
+                }
                 return true;
-            }
-            if (obj == null) {
+            } else {
                 return false;
             }
-            if (!(obj instanceof ListPriceRangeConstraint)) {
-                return false;
-            }
-            ListPriceRangeConstraint other = (ListPriceRangeConstraint) obj;
-            if (currencyUomId == null) {
-                if (other.currencyUomId != null) {
-                    return false;
-                }
-            } else if (!currencyUomId.equals(other.currencyUomId)) {
-                return false;
-            }
-            if (highPrice == null) {
-                if (other.highPrice != null) {
-                    return false;
-                }
-            } else if (!highPrice.equals(other.highPrice)) {
-                return false;
-            }
-            if (lowPrice == null) {
-                if (other.lowPrice != null) {
-                    return false;
-                }
-            } else if (!lowPrice.equals(other.lowPrice)) {
-                return false;
-            }
-            return true;
         }
-
-        /* (non-Javadoc)
-         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
-         */
-        @Override
-        public String prettyPrintConstraint(LocalDispatcher dispatcher, boolean detailed, Locale locale) {
-            return null;
-        }
-
     }
 
     @SuppressWarnings("serial")
@@ -2009,43 +1703,24 @@ public class ProductSearch {
         }
 
         @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + ((supplierPartyId == null) ? 0 : supplierPartyId.hashCode());
-            return result;
-        }
-
-        @Override
         public boolean equals(Object obj) {
-            if (this == obj) {
-                return true;
-            }
-            if (obj == null) {
-                return false;
-            }
-            if (!(obj instanceof SupplierConstraint)) {
-                return false;
-            }
-            SupplierConstraint other = (SupplierConstraint) obj;
-            if (supplierPartyId == null) {
-                if (other.supplierPartyId != null) {
-                    return false;
+            ProductSearchConstraint psc = (ProductSearchConstraint) obj;
+            if (psc instanceof SupplierConstraint) {
+                SupplierConstraint that = (SupplierConstraint) psc;
+                if (this.supplierPartyId == null) {
+                    if (that.supplierPartyId != null) {
+                        return false;
+                    }
+                } else {
+                    if (!this.supplierPartyId.equals(that.supplierPartyId)) {
+                        return false;
+                    }
                 }
-            } else if (!supplierPartyId.equals(other.supplierPartyId)) {
+                return true;
+            } else {
                 return false;
             }
-            return true;
         }
-
-        /* (non-Javadoc)
-         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
-         */
-        @Override
-        public String prettyPrintConstraint(LocalDispatcher dispatcher, boolean detailed, Locale locale) {
-            return null;
-        }
-
     }
 
     @SuppressWarnings("serial")
@@ -2070,33 +1745,13 @@ public class ProductSearch {
         }
 
         @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result;
-            return result;
-        }
-
-        @Override
         public boolean equals(Object obj) {
-            if (this == obj) {
+            ProductSearchConstraint psc = (ProductSearchConstraint) obj;
+            if (psc instanceof ExcludeVariantsConstraint) {
                 return true;
-            }
-            if (obj == null) {
+            } else {
                 return false;
             }
-            if (!(obj instanceof ExcludeVariantsConstraint)) {
-                return false;
-            }
-            return true;
-        }
-
-        /* (non-Javadoc)
-         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
-         */
-        @Override
-        public String prettyPrintConstraint(LocalDispatcher dispatcher, boolean detailed, Locale locale) {
-            return null;
         }
     }
 
@@ -2122,33 +1777,13 @@ public class ProductSearch {
         }
 
         @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result;
-            return result;
-        }
-
-        @Override
         public boolean equals(Object obj) {
-            if (this == obj) {
+            ProductSearchConstraint psc = (ProductSearchConstraint) obj;
+            if (psc instanceof AvailabilityDateConstraint) {
                 return true;
-            }
-            if (obj == null) {
+            } else {
                 return false;
             }
-            if (!(obj instanceof AvailabilityDateConstraint)) {
-                return false;
-            }
-            return true;
-        }
-
-        /* (non-Javadoc)
-         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
-         */
-        @Override
-        public String prettyPrintConstraint(LocalDispatcher dispatcher, boolean detailed, Locale locale) {
-            return null;
         }
     }
 
@@ -2179,7 +1814,7 @@ public class ProductSearch {
 
                 EntityComparisonOperator<?,?> operator = EntityOperator.EQUALS;
 
-                if (UtilValidate.isNotEmpty(include) && !include) {
+                if (UtilValidate.isNotEmpty(include) && include == Boolean.FALSE) {
                     operator = EntityOperator.NOT_EQUAL;
                 }
 
@@ -2212,7 +1847,7 @@ public class ProductSearch {
 
             StringBuilder msgBuf = new StringBuilder();
 
-            if (UtilValidate.isNotEmpty(include) && !include) {
+            if (UtilValidate.isNotEmpty(include) && include == Boolean.FALSE) {
                 msgBuf.append(UtilProperties.getMessage(resourceCommon, "CommonExclude", locale));
                 msgBuf.append(" ");
             } else {
@@ -2236,33 +1871,13 @@ public class ProductSearch {
         }
 
         @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result;
-            return result;
-        }
-
-        @Override
         public boolean equals(Object obj) {
-            if (this == obj) {
+            ProductSearchConstraint psc = (ProductSearchConstraint) obj;
+            if (psc instanceof GoodIdentificationConstraint) {
                 return true;
-            }
-            if(obj == null) {
+            } else {
                 return false;
             }
-            if (!(obj instanceof GoodIdentificationConstraint)) {
-                return false;
-            }
-            return true;
-        }
-
-        /* (non-Javadoc)
-         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
-         */
-        @Override
-        public String prettyPrintConstraint(LocalDispatcher dispatcher, boolean detailed, Locale locale) {
-            return null;
         }
     }
 
@@ -2290,51 +1905,24 @@ public class ProductSearch {
         }
 
         @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + ((keyword == null) ? 0 : keyword.hashCode());
-            result = prime * result + ((productFieldName == null) ? 0 : productFieldName.hashCode());
-            return result;
-        }
-
-        @Override
         public boolean equals(Object obj) {
-            if (this == obj) {
+            ProductSearchConstraint psc = (ProductSearchConstraint) obj;
+            if (psc instanceof ProductFieldConstraint) {
+                ProductFieldConstraint that = (ProductFieldConstraint) psc;
+                if (this.keyword == null) {
+                    if (that.keyword != null) {
+                        return false;
+                    }
+                } else {
+                    if (!this.keyword.equals(that.keyword)) {
+                        return false;
+                    }
+                }
                 return true;
-            }
-            if (obj == null) {
+            } else {
                 return false;
             }
-            if (!(obj instanceof ProductFieldConstraint)) {
-                return false;
-            }
-            ProductFieldConstraint other = (ProductFieldConstraint) obj;
-            if (keyword == null) {
-                if (other.keyword != null) {
-                    return false;
-                }
-            } else if (!keyword.equals(other.keyword)) {
-                return false;
-            }
-            if (productFieldName == null) {
-                if (other.productFieldName != null) {
-                    return false;
-                }
-            } else if (!productFieldName.equals(other.productFieldName)) {
-                return false;
-            }
-            return true;
         }
-
-        /* (non-Javadoc)
-         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.LocalDispatcher, boolean, java.util.Locale)
-         */
-        @Override
-        public String prettyPrintConstraint(LocalDispatcher dispatcher, boolean detailed, Locale locale) {
-            return null;
-        }
-
     }
 
     // ======================================================================
@@ -2365,9 +1953,8 @@ public class ProductSearch {
                     productSearchContext.orderByList.add("-totalRelevancy");
                     productSearchContext.fieldsToSelect.add("totalRelevancy");
                 }
-                if (productSearchContext.keywordFixedOrSetAndList.size() > 0) {
+                if (productSearchContext.keywordFixedOrSetAndList.size() > 0)
                     productSearchContext.productIdGroupBy = true;
-                }
             }
         }
 

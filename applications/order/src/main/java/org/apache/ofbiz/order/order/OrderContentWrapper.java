@@ -96,7 +96,7 @@ public class OrderContentWrapper implements ContentWrapper {
          */
         UtilCodec.SimpleEncoder encoder = UtilCodec.getEncoder(encoderType);
 
-        String orderItemSeqId = ("OrderItem".equals(order.getEntityName())? order.getString("orderItemSeqId"): "_NA_");
+        String orderItemSeqId = (order.getEntityName().equals("OrderItem")? order.getString("orderItemSeqId"): "_NA_");
 
         String cacheKey = orderContentTypeId + SEPARATOR + locale + SEPARATOR + mimeTypeId + SEPARATOR + order.get("orderId") + SEPARATOR + orderItemSeqId + SEPARATOR + encoderType + SEPARATOR + delegator;
         try {
@@ -108,11 +108,19 @@ public class OrderContentWrapper implements ContentWrapper {
             Writer outWriter = new StringWriter();
             getOrderContentAsText(null, null, order, orderContentTypeId, locale, mimeTypeId, delegator, dispatcher, outWriter, false);
             String outString = outWriter.toString();
-            outString = encoder.sanitize(outString, null);
-            orderContentCache.put(cacheKey, outString);
+            if (UtilValidate.isEmpty(outString)) {
+                outString = outString == null? "" : outString;
+            }
+            outString = encoder.sanitize(outString);
+            if (orderContentCache != null) {
+                orderContentCache.put(cacheKey, outString);
+            }
             return outString;
 
-        } catch (GeneralException | IOException e) {
+        } catch (GeneralException e) {
+            Debug.logError(e, "Error rendering OrderContent, inserting empty String", module);
+            return "";
+        } catch (IOException e) {
             Debug.logError(e, "Error rendering OrderContent, inserting empty String", module);
             return "";
         }
@@ -127,7 +135,7 @@ public class OrderContentWrapper implements ContentWrapper {
             orderId = order.getString("orderId");
         }
         if (orderItemSeqId == null && order != null) {
-            orderItemSeqId = ("OrderItem".equals(order.getEntityName())? order.getString("orderItemSeqId"): "_NA_");
+            orderItemSeqId = (order.getEntityName().equals("OrderItem")? order.getString("orderItemSeqId"): "_NA_");
         }
 
         if (delegator == null && order != null) {
@@ -146,10 +154,10 @@ public class OrderContentWrapper implements ContentWrapper {
                 .cache(cache).filterByDate().queryFirst();
         if (orderContent != null) {
             // when rendering the order content, always include the OrderHeader/OrderItem and OrderContent records that this comes from
-            Map<String, Object> inContext = new HashMap<>();
+            Map<String, Object> inContext = new HashMap<String, Object>();
             inContext.put("order", order);
             inContext.put("orderContent", orderContent);
-            ContentWorker.renderContentAsText(dispatcher, orderContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, null, null, cache);
+            ContentWorker.renderContentAsText(dispatcher, delegator, orderContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, null, null, cache);
         }
     }
 }

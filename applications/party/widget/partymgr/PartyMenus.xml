@@ -272,7 +272,7 @@
         </menu-item>
     </menu>
 
-    <menu name="PersonUpdate" menu-container-style="basic-nav">
+    <menu name="PersonUpdate">
         <menu-item name="update" title="${uiLabelMap.CommonUpdate}">
             <link target="editperson">
                 <parameter param-name="partyId" from-field="parameters.partyId"/>
@@ -317,7 +317,7 @@
         </menu-item>
     </menu>
 
-    <menu name="GroupUpdate" menu-container-style="basic-nav">
+    <menu name="GroupUpdate">
         <menu-item name="update" title="${uiLabelMap.CommonUpdate}">
             <link target="editpartygroup">
                 <parameter param-name="partyId" from-field="party.partyId"/>
@@ -326,7 +326,7 @@
         </menu-item>
     </menu>
 
-    <menu name="AddShipper" menu-container-style="basic-nav">
+    <menu name="AddShipper">
         <menu-item name="new" title="${uiLabelMap.CommonCreateNew}">
             <condition>
                 <if-has-permission permission="PARTYMGR" action="_CREATE"/>
@@ -339,7 +339,7 @@
     <menu name="CommunicationsMenu">
         <menu-item name="newEmail" title="${uiLabelMap.PartyNewEmail}">
             <condition>
-                <if-has-permission permission="PARTYMGR_CME-EMAIL" action="_CREATE"/>
+                <if-has-permission permission="PARTYMGR_CME-EMAIL_CREATE"/>
             </condition>
             <link target="${parameters._LAST_VIEW_NAME_}">
                 <parameter param-name="communicationEventTypeId" value="EMAIL_COMMUNICATION"/>
@@ -352,7 +352,7 @@
         </menu-item>
         <menu-item name="newNote" title="${uiLabelMap.PartyNewInternalNote}">
             <condition>
-                <if-has-permission permission="PARTYMGR_CME-NOTE" action="_CREATE"/>
+                <if-has-permission permission="PARTYMGR_CME-NOTE_CREATE"/>
             </condition>
             <link target="${parameters._LAST_VIEW_NAME_}">
                 <parameter param-name="communicationEventTypeId" value="COMMENT_NOTE"/>
@@ -392,7 +392,7 @@
         <menu-item name="newEmail" title="${uiLabelMap.PartyNewEmail}">
             <condition>
                 <and>
-                    <if-has-permission permission="PARTYMGR_CME-EMAIL" action="_CREATE"/>
+                    <if-has-permission permission="PARTYMGR_CME-EMAIL_CREATE"/>
                     <if-empty field="communicationEvent"/>
                 </and>
             </condition>
@@ -408,7 +408,7 @@
         <menu-item name="newInternalNote" title="${uiLabelMap.PartyNewInternalNote}">
             <condition>
                 <and>
-                    <if-has-permission permission="PARTYMGR_CME-NOTE" action="_CREATE"/>
+                    <if-has-permission permission="PARTYMGR_CME-NOTE_CREATE"/>
                     <if-empty field="communicationEvent"/>
                 </and>
             </condition>
@@ -429,8 +429,8 @@
                     <if-compare field="communicationEvent.statusId" operator="not-equals" value="COM_PENDING"/>
                     <if-compare field="communicationEvent.statusId" operator="not-equals" value="COM_UNKNOWN_PARTY"/>
                     <if-compare field="communicationEvent.partyIdFrom" operator="not-equals" value="${partyId}"/>
-                    <if-has-permission permission="PARTYMGR_CME-EMAIL" action="_UPDATE"/>
-                    <if-has-permission permission="PARTYMGR_CME-NOTE" action="_CREATE"/>
+                    <if-has-permission permission="PARTYMGR_CME-EMAIL_UPDATE"/>
+                    <if-has-permission permission="PARTYMGR_CME-NOTE_CREATE"/>
                 </and>
             </condition>
             <link target="${parameters._LAST_VIEW_NAME_}">
@@ -451,8 +451,8 @@
                     <if-compare field="communicationEvent.statusId" operator="not-equals" value="COM_PENDING"/>
                     <if-compare field="communicationEvent.statusId" operator="not-equals" value="COM_UNKNOWN_PARTY"/>
                     <if-compare field="communicationEvent.partyIdFrom" operator="not-equals" value="${partyId}"/>
-                    <if-has-permission permission="PARTYMGR_CME-EMAIL" action="_UPDATE"/>
-                    <if-has-permission permission="PARTYMGR_CME-NOTE" action="_CREATE"/>
+                    <if-has-permission permission="PARTYMGR_CME-EMAIL_UPDATE"/>
+                    <if-has-permission permission="PARTYMGR_CME-NOTE_CREATE"/>
                 </and>
             </condition>
             <link target="${parameters._LAST_VIEW_NAME_}">
@@ -470,8 +470,8 @@
                 <and>
                     <not><if-empty field="communicationEvent"/></not>
                     <if-compare field="communicationEvent.statusId" operator="not-equals" value="COM_PENDING"/>
-                    <if-has-permission permission="PARTYMGR_CME-EMAIL" action="_UPDATE"/>
-                    <if-has-permission permission="PARTYMGR_CME-NOTE" action="_CREATE"/>
+                    <if-has-permission permission="PARTYMGR_CME-EMAIL_UPDATE"/>
+                    <if-has-permission permission="PARTYMGR_CME-NOTE_CREATE"/>
                 </and>
             </condition>
             <link target="${parameters._LAST_VIEW_NAME_}">
@@ -491,7 +491,7 @@
                     <not><if-empty field="communicationEvent"/></not>
                     <not><if-empty field="communicationEvent.partyIdFrom"/></not>
                     <if-compare field="communicationEvent.statusId" operator="not-equals" value="COM_PENDING"/>
-                    <if-has-permission permission="ORDERMGR_CRQ" action="_CREATE"/>
+                    <if-has-permission permission="ORDERMGR_CRQ_CREATE"/>
                     <if-compare field="projectMgrExists" operator="equals" value="false"/> 
                     <if-compare field="communicationEvent.statusId" operator="equals" value="COM_ENTERED"/>
                 </and>
@@ -507,7 +507,7 @@
                     <not><if-empty field="communicationEvent"/></not>
                     <not><if-empty field="communicationEvent.partyIdFrom"/></not>
                     <if-compare field="communicationEvent.statusId" operator="not-equals" value="COM_PENDING"/>
-                    <if-has-permission permission="ORDERMGR_CRQ" action="_CREATE"/>
+                    <if-has-permission permission="ORDERMGR_CRQ_CREATE"/>
                     <if-compare field="projectMgrExists" operator="equals" value="true"/> 
                     <if-compare field="communicationEvent.statusId" operator="equals" value="COM_ENTERED"/>
                 </and>
@@ -536,7 +536,7 @@
                 <and>
                     <not><if-empty field="communicationEvent"/></not>
                     <if-compare field="communicationEventRole.statusId" operator="equals" value="COM_ROLE_READ"/>
-                    <if-has-permission permission="PARTYMGR_CME-EMAIL" action="_UPDATE"/>
+                    <if-has-permission permission="PARTYMGR_CME-EMAIL_UPDATE"/>
                     <if-compare field="communicationEvent.statusId" operator="not-equals" value="COM_UNKNOWN_PARTY"/>
                 </and>
             </condition>
@@ -552,7 +552,10 @@
             <condition>
                 <and>
                     <not><if-empty field="communicationEvent"/></not>
-                    <if-has-permission permission="PARTYMGR_CME-EMAIL" action="_DELETE"/>
+                    <or>
+                        <if-has-permission permission="PARTYMGR_CME-EMAIL_DELETE"/>
+                        <if-has-permission permission="PARTYMGR_ADMIN"/>
+                    </or>
                 </and>
             </condition>
             <link target="deleteCommunicationEvent">
@@ -616,9 +619,6 @@
         <menu-item name="FindCommunicationByOrder" title="${uiLabelMap.PartyFindCommunicationsByOrder}">
             <link target="FindCommunicationByOrder"/>
         </menu-item>
-        <menu-item name="FindCommunicationByReturn" title="${uiLabelMap.PartyFindCommunicationsByReturn}">
-            <link target="FindCommunicationByReturn"/>
-        </menu-item>
         <menu-item name="UpdateCommOrders" title="${uiLabelMap.OrderOrders}">
             <condition><not><if-empty field="communicationEvent"/></not></condition>
             <link target="UpdateCommOrders">
@@ -628,12 +628,6 @@
         <menu-item name="UpdateCommProducts" title="${uiLabelMap.ProductProducts}">
             <condition><not><if-empty field="communicationEvent"/></not></condition>
             <link target="UpdateCommProducts">
-                <parameter param-name="communicationEventId" from-field="parameters.communicationEventId"/>
-            </link>
-        </menu-item>
-        <menu-item name="UpdateCommReturns" title="${uiLabelMap.Return}">
-            <condition><not><if-empty field="communicationEvent"/></not></condition>
-            <link target="UpdateCommReturns">
                 <parameter param-name="communicationEventId" from-field="parameters.communicationEventId"/>
             </link>
         </menu-item>
@@ -696,7 +690,7 @@
                 <and>
                     <not><if-empty field="parameters.communicationEventId"/></not>
                     <not><if-empty field="communicationEvent.partyIdFrom"/></not>
-                    <if-has-permission permission="ORDERMGR_CRQ" action="_CREATE"/>
+                    <if-has-permission permission="ORDERMGR_CRQ_CREATE"/>
                     <if-compare field="communicationEvent.statusId" operator="equals" value="COM_ENTERED"/>
                 </and>
             </condition>
@@ -720,7 +714,10 @@
             <condition>
                 <and>
                     <not><if-empty field="communicationEventRole"/></not>
-                    <if-has-permission permission="PARTYMGR_CME-EMAIL" action="_DELETE"/>
+                    <or>
+                        <if-has-permission permission="PARTYMGR_CME-EMAIL_DELETE"/>
+                        <if-has-permission permission="PARTYMGR_ADMIN"/>
+                    </or>
                 </and>
             </condition>
             <link target="RemoveCommunicationEventRole">
@@ -732,7 +729,7 @@
         </menu-item>
     </menu>
 
-    <menu name="AddRelContactAccounts" menu-container-style="basic-nav">
+    <menu name="AddRelContactAccounts">
         <menu-item name="add" title="${uiLabelMap.CommonCreateNew}">
             <link target="AddPartyRelatedAccount">
                 <parameter param-name="partyId"/>
@@ -742,7 +739,7 @@
         </menu-item>
     </menu>
 
-    <menu name="AddRelAccountContacts" menu-container-style="basic-nav">
+    <menu name="AddRelAccountContacts">
         <menu-item name="add" title="${uiLabelMap.CommonCreateNew}">
             <link target="AddAccountRelatedContact">
                 <parameter param-name="partyId"/>
@@ -752,7 +749,7 @@
         </menu-item>
     </menu>
 
-    <menu name="NewPartyIdentification" menu-container-style="basic-nav">
+    <menu name="NewPartyIdentification">
         <menu-item name="new" title="${uiLabelMap.CommonNew}">
             <link target="viewidentifications">
                 <parameter param-name="partyId" from-field="parameters.partyId"/>
@@ -772,11 +769,5 @@
             </link>
         </menu-item>
     </menu>
-    <menu name="listAllVisits">
-        <menu-item name="listAll" title="${uiLabelMap.CommonListAll}">
-            <link target="findVisits">
-                <parameter param-name="partyId" from-field="parameters.partyId"/>
-            </link>
-        </menu-item>
-    </menu>
+    
 </menus>

@@ -30,8 +30,8 @@ under the License.
         <implements service="permissionInterface"/>
     </service>
 
-    <service name="commonGetAllCrudPermissions" engine="groovy"
-        location="component://common/groovyScripts/permission/CommonPermissionServices.groovy" invoke="getAllCrudPermissions" auth="false">
+    <service name="commonGetAllCrudPermissions" engine="simple"
+        location="component://common/minilang/permission/CommonPermissionServices.xml" invoke="getAllCrudPermissions" auth="false">
         <description>Returns all CRUD and View Permissions</description>
         <attribute name="primaryPermission" type="String" mode="IN" optional="false"/>
         <attribute name="altPermission" type="String" mode="IN" optional="true"/>
@@ -308,7 +308,7 @@ under the License.
     </service>
     <service name="convertUom" default-entity-name="UomConversion" engine="simple"
             location="component://common/minilang/CommonServices.xml" invoke="convertUom" auth="false">
-        <description>Make a unit of measure conversion, first using UomConversionDated, then with UomConversion</description>
+        <description>Make a unit of measure conversion, first using UomConversion, then with UomConversionDated</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="asOfDate" mode="IN" type="Timestamp" optional="true"/>
         <attribute name="originalValue" mode="IN" type="BigDecimal" optional="false"/>
@@ -379,19 +379,6 @@ under the License.
     <service name="userLogin" engine="java" location="org.apache.ofbiz.common.login.LoginServices" invoke="userLogin">
         <description>Used to Automatically Authenticate a username/password; create a UserLogin object</description>
         <implements service="authenticationInterface"/>
-        <attribute name="request" mode="IN" type="javax.servlet.http.HttpServletRequest" optional="true"/>
-    </service>
-    <service name="userImpersonate" engine="java" location="org.apache.ofbiz.common.login.LoginServices" invoke="userImpersonate" auth="true">
-        <description>Used to Automatically Authenticate a username/password; create a UserLogin object</description>
-        <required-permissions join-type="AND">
-            <check-permission permission="IMPERSONATE" action="ADMIN"/>
-        </required-permissions>
-        <implements service="authenticationInterface"/>
-        <attribute name="userLoginIdToImpersonate" type="String" mode="IN"/>
-        <attribute name="visitId" type="String" mode="IN" optional="true"/>
-        <attribute name="userLogin" type="org.apache.ofbiz.entity.GenericValue" mode="OUT"/>
-        <attribute name="userLoginSession" type="java.util.Map" mode="OUT" optional="true"/>
-        <attribute name="originUserLogin" type="org.apache.ofbiz.entity.GenericValue" mode="OUT"/>
     </service>
     <service name="createUserLogin" engine="java" auth="false"
         location="org.apache.ofbiz.common.login.LoginServices" invoke="createUserLogin">
@@ -420,7 +407,6 @@ under the License.
         <attribute name="newPassword" type="String" mode="IN" optional="true"/>
         <attribute name="newPasswordVerify" type="String" mode="IN" optional="true"/>
         <attribute name="passwordHint" type="String" mode="IN" optional="true"/>
-        <attribute name="requirePasswordChange" type="String" mode="IN" optional="true"/>
         <attribute name="updatedUserLogin" type="org.apache.ofbiz.entity.GenericValue" mode="OUT" optional="false"/>
     </service>
     <service name="updateUserLoginSecurity" engine="java" default-entity-name="UserLogin"
@@ -437,8 +423,8 @@ under the License.
     </service>
 
     <!-- common permission services -->
-    <service name="genericBasePermissionCheck" engine="groovy"
-             location="component://common/groovyScripts/permission/CommonPermissionServices.groovy" invoke="genericBasePermissionCheck">
+    <service name="genericBasePermissionCheck" engine="simple"
+             location="component://common/minilang/permission/CommonPermissionServices.xml" invoke="genericBasePermissionCheck">
         <implements service="permissionInterface"/>
         <attribute name="primaryPermission" type="String" mode="IN" optional="false"/>
         <attribute name="altPermission" type="String" mode="IN" optional="true"/>
@@ -582,8 +568,8 @@ under the License.
     </service>
 
     <!-- ==============Permission Checking Service============= -->
-    <service name="visualThemePermissionCheck" engine="groovy"
-        location="component://common/groovyScripts/permission/CommonPermissionServices.groovy" invoke="visualThemePermissionCheck">
+    <service name="visualThemePermissionCheck" engine="simple"
+        location="component://common/minilang/permission/CommonPermissionServices.xml" invoke="visualThemePermissionCheck">
         <description>Visual Theme Permission Checking Logic</description>
         <implements service="permissionInterface"/>
     </service>
@@ -953,10 +939,5 @@ under the License.
     <service name="deleteUom" engine="entity-auto" invoke="delete" default-entity-name="Uom" auth="true">
         <description>Delete Uom Record</description>
         <auto-attributes include="pk" mode="IN"/>
-    </service>
-
-    <service name="SetTimeZoneFromBrowser" engine="groovy" location="component://common/groovyScripts/SetTimeZoneFromBrowser.groovy" invoke="SetTimeZoneFromBrowser" auth="true">
-        <description>Set locale from browser.</description>
-        <attribute name="localeName" type="String" mode="IN" optional="true"/>
     </service>
 </services>

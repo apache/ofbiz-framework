@@ -23,7 +23,7 @@ under the License.
 
     <simple-method method-name="createSystemInfoNote" short-description="Create a system to to a specific party">
         <set field="parameters.partyId" from-field="parameters.partyId" default-value="userLogin.partyId"/>
-        <make-value entity-name="NoteData" value-field="noteData"/>
+        <make-value value-field="noteData" entity-name="NoteData"/>
         <set-nonpk-fields map="parameters" value-field="noteData"/>
         <now-timestamp field="noteData.noteDateTime"/>
         <sequenced-id sequence-name="NoteData" field="noteData.noteId"/>

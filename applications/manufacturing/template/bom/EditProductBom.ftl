@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<script type="application/javascript">
+<script language="JavaScript" type="text/javascript">
 <!-- //
 function lookupBom() {
     document.searchbom.productId.value=document.editProductAssocForm.productId.value;
@@ -64,7 +64,7 @@ function lookupBom() {
             <td>&nbsp;</td>
             <td>
                 <@htmlTemplate.lookupField value="${productId!}" formName="searchform" name="productId" id="productId" fieldFormName="LookupProduct"/>
-                <span><input type="submit" value="${uiLabelMap.ManufacturingShowBOMAssocs}"/></span>
+                <span><a href="javascript:document.searchform.submit();" class="buttontext">${uiLabelMap.ManufacturingShowBOMAssocs}</a></span>
             </td>
         </tr>
         <tr>

@@ -50,9 +50,7 @@ public class NetConverters implements ConverterLoader {
 
         public String convert(InetAddress obj) throws ConversionException {
             String hostName = obj.getHostName();
-            if (hostName != null) {
-                return hostName;
-            }
+            if (hostName != null) return hostName;
             return obj.getHostAddress();
         }
     }

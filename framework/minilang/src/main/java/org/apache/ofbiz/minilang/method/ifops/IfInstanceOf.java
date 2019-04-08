@@ -36,7 +36,7 @@ import org.w3c.dom.Element;
 /**
  * Implements the &lt;if-instance-of&gt; element.
  * 
- * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Referenc</a>
+ * @see <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/Mini-language+Reference#Mini-languageReference-{{%3Cifinstanceof%3E}}">Mini-language Reference</a>
  */
 public final class IfInstanceOf extends MethodOperation {
 
@@ -82,7 +82,7 @@ public final class IfInstanceOf extends MethodOperation {
         boolean runSubOps = false;
         Object fieldVal = fieldFma.get(methodContext.getEnvMap());
         if (fieldVal != null) {
-            runSubOps = compareClass.isAssignableFrom(fieldVal.getClass());
+            runSubOps = ObjectType.instanceOf(fieldVal.getClass(), compareClass);
         }
         if (runSubOps) {
             return SimpleMethod.runSubOps(subOps, methodContext);

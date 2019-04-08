@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>Welcome to the SCRUM Component help system</title>
+    <section>
+        <title>Introduction</title>
+        <para>
+            The purpose of this component is to have a web based and ERP integrated access and recording for all information
+            related to your Scrum project development. The Scrum development methodology itself is described in any of the following documents:
+            <orderedlist>
+                <listitem><para><link xl:href="http://www.scrum.org/scrumguides/">Scrum guide</link> (various languages)</para></listitem>
+                <listitem><para><link xl:href="http://www.scrumalliance.org/pages/what_is_scrum">Scrum in 30 seconds.</link></para></listitem>
+                <listitem><para><link xl:href="http://www.softhouse.se/Uploades/Scrum_eng_webb.pdf">Scrum in 5 minutes</link></para></listitem>
+            </orderedlist>
+        </para>
+        <para>
+            Below follows a list how the system should be used and at what time you have to update the information within the Scrum component.
+        </para>
+    </section>
+    <section>
+        <title>Create the available Scrum members</title>
+        <para>
+            Any activity in any of the Scrum actions need people who are members of the project. So create the people which will be involved in the "Members Tab".
+            You need to enter an existing person and company (partyGroup). Persons and companies (PartyGroup) need to be added in the party component first before they can be used in the Scrum component.
+        </para>
+    </section>
+    <section>
+        <title>Create the product Backlog.</title>
+        <para>
+            Before anything can start a product backlog is required which will need a product to be created first.
+            So create a product assign the it to a product owner which was created in the Scrum member section.
+            Then go to the backlog and create the backlog items.
+        </para>
+    </section>
+    <section>
+        <title>Create the project</title>
+        <para>
+            Now that we have a project backlog it is time to hold a project meeting. In this project meeting discuss the goals of the project,
+            the organization and the product backlog items and the estimated hours to complete each item.
+        </para>
+        <para>
+            Now create the project in the system and assign the members to the project with their roles. Attach the minutes of the meeting to the project.
+        </para>
+    </section>
+    <section>
+        <title>Create the first sprint</title>
+        <para>
+            Now that there is a project we can look at creating the (first) sprint.
+            Have a Sprint meeting, define what should be implemented in the (first) sprint and how it should be implemented
+        </para>
+        <para>
+            Create now the (first) sprint in the system and enter also the number of backlog items which will be included in this sprint. Attach the minutes of the meeting to the project.
+        </para>
+    </section>
+    <section>
+        <title>Create tasks on the sprint backlog items</title>
+        <para>
+            In order to be able to enter actual hours it is required to create at least a single task on every sprint backlog item.
+        </para>
+    </section>
+    <section>
+        <title>Update daily the actual and planned hours</title>
+        <para>
+            Before going to the daily sprint meeting make sure the planned (backlog item) and actuals (tasks) are updated.
+        </para>
+    </section>
+    <section>
+        <title>Daily sprint meeting</title>
+        <para>
+            Have a daily sprint meeting where the three famous questions are answered and enter the answers in the system related to this sprint.
+        </para>
+    </section>
+    <section>
+        <title>Sprint burndown chart</title>
+        <para>
+            Keep an eye on the burndown chart if you are still on track. If not discuss with the product owner if backlog items have to be added or removed.
+        </para>
+    </section>
+    <section>
+        <title>Sprint Demonstration and Evaluation meeting</title>
+        <para>
+            At the end of a sprint demonstrate the system to the product owner and interested parties. The product owner will incorporate comments into the current backlog list.
+            The team and Scrum master will evaluate the sprint so lessons can be learned for the next sprint.
+        </para>
+        <para>
+            Determine also which tasks were not completed and return them to the product backlog to be included in a next sprint.
+        </para>
+    </section>
+    <para>
+        The sprint will be repeated until the project is complete.
+    </para>
+    <section>
+        <title>Security</title>
+        <para>
+            In the Scrum component there are security roles to access in the Scrum component.
+        </para>
+        <para>1. Product Owner can create product, project, and assign member in project.</para>
+        <para>2. Scrum Master can do anything on the project.</para>
+        <para>3. Scrum admin can do anything on Scrum component</para>
+        <para>4. Scrum team can assign task to yourself and view project.</para>
+    </section>
+
+</section>

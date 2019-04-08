@@ -23,11 +23,11 @@
     <vendor>OFBiz</vendor>
 
     <!-- create content services -->
-    <service name="createContent" default-entity-name="Content" engine="entity-auto" invoke="create" auth="true">
+    <service name="createContent" engine="simple" auth="true"
+            location="component://content/minilang/content/ContentServices.xml" invoke="createContent">
         <description>Create a Content</description>
         <permission-service service-name="genericContentPermission" main-action="CREATE"/>
-        <auto-attributes include="pk" mode="INOUT" optional="true"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes entity-name="Content" include="nonpk" mode="IN" optional="true"/>
         <!-- TODO: the following fields are deprecated; but will not be removed until all services and callers are updated -->
         <attribute mode="IN" name="targetOperationList" optional="true" type="List"/>
         <attribute mode="IN" name="targetOperationString" optional="true" type="String"/>
@@ -37,8 +37,17 @@
         <attribute mode="IN" name="displayFailCond" optional="true" type="Boolean"/>
         <attribute mode="INOUT" name="roleTypeList" optional="true" type="List"/>
         <!-- end of deprecated fields -->
+        <attribute name="contentPurposeTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="contentAssocTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="contentIdFrom" type="String" mode="IN" optional="true"/>
+        <attribute name="contentIdTo" type="String" mode="IN" optional="true"/>
+        <attribute name="roleTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="mapKey" type="String" mode="IN" optional="true"/>
+        <attribute name="contentId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="fromDate" type="Timestamp" mode="INOUT" optional="true"/>
+        <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
         <override name="contentTypeId" default-value="DOCUMENT"/>
-        <override name="statusId" default-value="CTNT_IN_PROGRESS"/>
         <override name="contentName" allow-html="any"/>
         <override name="description" allow-html="any"/>
     </service>
@@ -65,11 +74,7 @@
         <description>Creates content record from data resource and allows all content fields to be set</description>
         <!-- uses createContent internally; additonal permission(s) not necessary -->
         <implements service="createContent" optional="true"/>
-        <attribute name="dataResourceId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingDataResourceId"/>
-            </type-validate>
-        </attribute>
+        <attribute name="dataResourceId" type="String" mode="IN" optional="false"/>
         <attribute name="contentId" type="String" mode="OUT" optional="false"/>
         <attribute name="uploadedFile" type="java.nio.ByteBuffer" mode="IN" optional="true"/>
     </service>
@@ -79,11 +84,7 @@
         <description>Accepts uploaded content and attaches to an existing data resource</description>
         <!-- uses createContent internally; additonal permission(s) not necessary -->
         <implements service="uploadFileInterface"/>
-        <attribute name="dataResourceId" type="String" mode="INOUT" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingDataResourceId"/>
-            </type-validate>
-        </attribute>
+        <attribute name="dataResourceId" type="String" mode="INOUT" optional="false"/>
         <attribute name="dataResourceTypeId" type="String" mode="IN" optional="true"/>
         <!-- mimetype is set from the uploaded file (contentType) when empty -->
         <attribute name="mimeTypeId" type="String" mode="INOUT" optional="true"/>
@@ -118,14 +119,14 @@
     </service>
 
     <!-- update content services -->
-    <service name="updateContent" default-entity-name="Content" engine="entity-auto" auth="true" invoke="update">
+    <service name="updateContent" engine="simple" auth="true"
+            location="component://content/minilang/content/ContentServices.xml" invoke="updateContent">
         <description>Update a Content</description>
         <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
         <implements service="updateContentAssoc" optional="true"/>
         <auto-attributes entity-name="Content" include="pk" mode="INOUT" optional="false"/>
         <auto-attributes entity-name="Content" include="nonpk" mode="IN" optional="true"/>
         <attribute name="contentPurposeTypeId" type="String" mode="IN" optional="true"/>
-        <attribute name="contentIdFrom" type="String" mode="IN" optional="true" />
         <!-- TODO: the following fields are depricated; but will not be removed until all services and callers are updated -->
         <attribute mode="IN" name="targetOperationList" optional="true" type="List"/>
         <attribute mode="IN" name="skipPermissionCheck" optional="true" type="String"/>
@@ -145,7 +146,8 @@
         </group>
     </service>
 
-    <service name="removeContent" default-entity-name="Content" engine="entity-auto" invoke="delete" auth="true">
+    <service name="removeContent" default-entity-name="Content" engine="simple"
+            location="component://content/minilang/content/ContentServices.xml" invoke="removeContent" auth="true">
         <description>Remove Content</description>
         <permission-service service-name="genericContentPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -199,11 +201,7 @@
     <service name="findRelatedContent" default-entity-name="Content" engine="java"
             location="org.apache.ofbiz.content.content.ContentServices" invoke="findRelatedContent" auth="true">
         <description>Create a Content</description>
-        <attribute mode="IN" name="currentContent" optional="false" type="org.apache.ofbiz.entity.GenericValue">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingCurrentContent"/>
-            </type-validate>
-        </attribute>
+        <attribute mode="IN" name="currentContent" optional="false" type="org.apache.ofbiz.entity.GenericValue"/>
         <attribute mode="IN" name="toFrom" optional="true" type="String"/>
         <attribute mode="IN" name="fromDate" optional="true" type="String"/>
         <attribute mode="IN" name="thruDate" optional="true" type="String"/>
@@ -252,31 +250,43 @@
         <attribute mode="IN" name="fromDate" optional="true" type="String"/>
         <attribute mode="IN" name="thruDate" optional="true" type="String"/>
         <attribute mode="IN" name="entityOperation" optional="true" type="String"/>
-        <attribute mode="IN" name="contentAssocTypeId" optional="false" type="String">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentAssocTypeId"/>
-            </type-validate>
-        </attribute>
+        <attribute mode="IN" name="contentAssocTypeId" optional="false" type="String"/>
     </service>
 
-    <!-- content assoc services -->
-    <service name="createContentAssoc" default-entity-name="ContentAssoc" engine="entity-auto" auth="true" invoke="create">
+    <service name="createContentAssoc" default-entity-name="ContentAssoc" engine="simple" auth="true"
+            location="component://content/minilang/content/ContentServices.xml" invoke="createContentAssoc">
         <description>Create a ContentAssoc</description>
         <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <!-- deprecated fields to be removed -->
+        <attribute mode="IN" name="targetOperationList" optional="true" type="List"/>
+        <attribute mode="IN" name="targetOperationString" optional="true" type="String"/>
+        <attribute mode="IN" name="contentPurposeList" optional="true" type="List"/>
+        <attribute mode="IN" name="contentPurposeString" optional="true" type="String"/>
+        <attribute mode="IN" name="deactivateExisting" optional="true" type="String"/>
+        <attribute mode="IN" name="skipPermissionCheck" optional="true" type="String"/>
+        <attribute mode="IN" name="displayFailCond" optional="true" type="Boolean"/>
+        <attribute mode="INOUT" name="roleTypeList" optional="true" type="List"/>
+        <attribute mode="INOUT" name="contentIdFrom" optional="true" type="String"/>
         <override name="fromDate" mode="INOUT" optional="true"/>
+        <!-- end of deprecated fields -->
     </service>
-    <service name="updateContentAssoc" default-entity-name="ContentAssoc" engine="entity-auto" auth="true" invoke="update">
+    <service name="updateContentAssoc" default-entity-name="ContentAssoc" engine="simple" auth="true"
+            location="component://content/minilang/content/ContentServices.xml" invoke="updateContentAssoc">
         <description>Update a ContentAssoc</description>
         <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-    </service>
-    <service name="expireContentAssoc" default-entity-name="ContentAssoc" engine="entity-auto" auth="true" invoke="expire">
-        <description>Expire a ContentAssoc</description>
-        <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <!-- deprecated fields to be removed -->
+        <attribute mode="IN" name="targetOperationList" optional="true" type="List"/>
+        <attribute mode="IN" name="contentPurposeList" optional="true" type="List"/>
+        <attribute mode="IN" name="skipPermissionCheck" optional="true" type="String"/>
+        <attribute mode="IN" name="deactivateExisting" optional="true" type="String"/>
+        <attribute mode="IN" name="displayFailCond" optional="true" type="Boolean"/>
+        <attribute mode="INOUT" name="roleTypeList" optional="true" type="List"/>
+        <attribute mode="INOUT" name="contentIdFrom" optional="true" type="String"/>
+        <!-- end of deprecated fields -->
     </service>
     <service name="removeContentAssoc" default-entity-name="ContentAssoc" engine="entity-auto" auth="true" invoke="delete">
         <description>Remove ContentAssoc</description>
@@ -289,16 +299,8 @@
             location="component://content/minilang/content/ContentServices.xml" invoke="setContentStatus">
         <description>Set the Content Status</description>
         <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
-        <attribute name="contentId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentId"/>
-            </type-validate>
-        </attribute>
-        <attribute name="statusId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingStatusId"/>
-            </type-validate>
-        </attribute>
+        <attribute name="contentId" type="String" mode="IN" optional="false"/>
+        <attribute name="statusId" type="String" mode="IN" optional="false"/>
         <attribute name="oldStatusId" type="String" mode="OUT" optional="true"/>
     </service>
 
@@ -320,21 +322,9 @@
             location="component://content/minilang/content/ContentServices.xml" invoke="deactivateAllContentRoles">
         <description>Deactivate all ContentRoles</description>
         <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
-        <attribute mode="IN" name="contentId" optional="false" type="String">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentId"/>
-            </type-validate>
-        </attribute>
-        <attribute mode="IN" name="roleTypeId" optional="false" type="String">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingRoleTypeId"/>
-            </type-validate>
-        </attribute>
-        <attribute mode="IN" name="partyId" optional="false" type="String">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingPartyId"/>
-            </type-validate>
-        </attribute>
+        <attribute mode="IN" name="contentId" optional="false" type="String"/>
+        <attribute mode="IN" name="roleTypeId" optional="false" type="String"/>
+        <attribute mode="IN" name="partyId" optional="false" type="String"/>
     </service>
     <service name="removeContentRole" engine="entity-auto" default-entity-name="ContentRole" auth="true" invoke="delete">
         <description>Remove ContentRole</description>
@@ -478,31 +468,19 @@
             location="component://content/minilang/content/ContentServices.xml" invoke="deleteContentKeywords" auth="true">
         <description>Delete all the keywords of a content</description>
         <permission-service service-name="genericContentPermission" main-action="DELETE"/>
-        <attribute name="contentId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentId"/>
-            </type-validate>
-        </attribute>
+        <attribute name="contentId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="indexContentKeywords" engine="simple"
                 location="component://content/minilang/content/ContentServices.xml" invoke="indexContentKeywords" auth="false">
         <description>Index the Keywords for a Content</description>
-        <attribute name="contentId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentId"/>
-            </type-validate>
-        </attribute>
+        <attribute name="contentId" type="String" mode="IN" optional="false"/>
         <attribute name="contentInstance" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
     </service>
     <service name="forceIndexContentKeywords" engine="simple"
             location="component://content/minilang/content/ContentServices.xml" invoke="forceIndexContentKeywords" auth="true">
         <description>Induce all the keywords of a content, ignoring the flag in the Content.</description>
         <permission-service service-name="genericContentPermission" main-action="CREATE"/>
-        <attribute name="contentId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentId"/>
-            </type-validate>
-        </attribute>
+        <attribute name="contentId" type="String" mode="IN" optional="false"/>
     </service>
 
     <!-- Content Revision services -->

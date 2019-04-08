@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
+
+    <form name="FindPortalPages" type="single" target="FindPortalPage" default-entity-name="PortalPage">
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
+        <field name="portalPageId" position="1" title="${uiLabelMap.CommonId}"><text-find/></field>
+        <field name="originalPortalPageId" position="2"><text-find/></field>
+        <field name="portalPageName" title="${uiLabelMap.CommonName}"><text-find/></field>
+        <field name="parentPortalPageId" position="2"><text-find/></field>
+        <field name="description"><text-find/></field>
+        <field name="securityGroupId" position="2" title="${uiLabelMap.CommonSecurityGroupId}"><text-find/></field>
+        <field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <form name="ListPortalPages" type="list" list-name="listIt" paginate-target="FindPortalPage" separate-columns="true"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <service service-name="performFind" result-map-list="listIt" >
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" value="PortalPage"/>
+                <field-map field-name="orderBy" from-field="parameters.sortField"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
+            </service>
+        </actions>
+        <field name="portalPageId" title="${uiLabelMap.CommonId}" sort-field="true">
+            <hyperlink description="${portalPageId}" target="EditPortalPage">
+                <parameter param-name="portalPageId"/>
+            </hyperlink>
+        </field>
+        <field name="portalPageName" use-when="ownerUserLoginId.equals(&quot;_NA_&quot;)" title="${uiLabelMap.CommonName}" sort-field="true"><display/></field>
+        <field name="portalPageName" use-when="!ownerUserLoginId.equals(&quot;_NA_&quot;)" title="${uiLabelMap.CommonName}" id-name="portalPageName" sort-field="true">
+            <display>
+                <in-place-editor url="updatePortalPage" cancel-control="button" saving-text="Updating..." text-between-controls=" ">
+                    <simple-editor/>
+                    <field-map field-name="portalPageId" from-field="portalPageId"/>
+                </in-place-editor>
+            </display>
+        </field>
+        <field name="description" use-when="ownerUserLoginId.equals(&quot;_NA_&quot;)" title="${uiLabelMap.CommonDescription}" sort-field="true"><display/></field>
+        <field name="description" use-when="!ownerUserLoginId.equals(&quot;_NA_&quot;)" title="${uiLabelMap.CommonDescription}" id-name="portalDescription" sort-field="true">
+            <display>
+                <in-place-editor url="updatePortalPage" cancel-control="button" saving-text="Updating..." text-between-controls=" ">
+                    <simple-editor/>
+                    <field-map field-name="portalPageId" from-field="portalPageId"/>
+                </in-place-editor>
+            </display>
+        </field>
+        <field name="parentPortalPageId" sort-field="true"><display/></field>
+        <field name="sequenceNum" sort-field="true"><display/></field>
+        <field name="originalPortalPageId" sort-field="true"><display/></field>
+        <field name="ownerUserLoginId" sort-field="true"><display/></field>
+        <field name="securityGroupId" title="${uiLabelMap.CommonSecurityGroupId}" sort-field="true"><display/></field>
+        <field name="deleteLink" use-when="originalPortalPageId!=null" title=" " widget-style="buttontext" >
+            <hyperlink description="${uiLabelMap.CommonRevertPortalPage}" target="deletePortalPage">
+                <parameter param-name="portalPageId"/>
+                <parameter param-name="parentPortalPageId" from-field="parameters.parentPortalPageId"/>
+            </hyperlink>
+        </field>
+    </form>
+
+    <form name="EditPortalPage" type="single" target="${targetPortalPage}" default-map-name="portalPage">
+        <field name="portalPageId" use-when="!&quot;${portalPage.portalPageId}&quot;.equals(&quot;&quot;)" position="1"><display/></field>
+        <field name="portalPageId" use-when="&quot;${portalPage.portalPageId}&quot;.equals(&quot;&quot;)" position="1"><text/></field>
+        <field name="originalPortalPageId" position="2"><text/></field>
+        <field name="ownerUserLoginId">
+            <!-- <lookup target-form-name="LookupUserLoginAndPartyDetails"/> -->
+            <text/>
+        </field>
+        <field name="parentPortalPageId" position="2"><text/></field>
+        <field name="portalPageName"><text/></field>
+        <field name="description" position="2"><text size="60"/></field>
+        <field name="sequenceNum"><text/></field>
+        <field name="securityGroupId" >
+            <drop-down allow-empty="true">
+                <entity-options description="${groupId} -- ${description}" entity-name="SecurityGroup" key-field-name="groupId"></entity-options>
+            </drop-down>
+        </field>
+        <field name="saveButton" position="2"><submit button-type="button"/></field>
+    </form>
+
+</forms>

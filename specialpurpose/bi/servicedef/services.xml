@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+
+    <service name="storeGenericDimension" engine="java"
+        location="org.apache.ofbiz.bi.util.DimensionServices" invoke="storeGenericDimension" auth="true">
+        <description>Generic service to load data into a dimension entity (olap entity).</description>
+        <attribute name="dimensionValue" type="GenericEntity" mode="IN" optional="false"/>
+        <attribute name="naturalKeyFields" type="List" mode="IN" optional="false"/> <!-- the names of the fields that compose the natural key of the dimension -->
+        <attribute name="updateMode" type="String" mode="IN" optional="false"/> <!-- TYPE1, TYPE2, TYPE3 -->
+    </service>
+    <service name="getDimensionIdFromNaturalKey" engine="java"
+        location="org.apache.ofbiz.bi.util.DimensionServices" invoke="getDimensionIdFromNaturalKey" auth="true">
+        <description>Generic service to get the dimensionId for a natural key.</description>
+        <attribute name="dimensionEntityName" type="String" mode="IN" optional="false"/>
+        <attribute name="naturalKeyFields" type="Map" mode="IN" optional="false"/> <!-- the names/values pairs of the fields that compose the natural key of the dimension -->
+        <attribute name="dimensionId" type="String" mode="OUT" optional="true"/>
+    </service>
+    <service name="quickInitDataWarehouse" auth="true" engine="simple"
+        location="component://bi/minilang/DimensionServices.xml" invoke="quickInitDataWarehouse">
+        <description>Quickly initialize the dimensions (Currency, Date, Product) and facts (SalesInvoiceItem): useful to quickly initialize the datawarehouse.</description>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
+        <attribute name="thruDate" type="Timestamp" mode="IN" optional="false"/>
+    </service>
+
+    <!-- Common Dimensions -->
+    <service name="loadDateDimension" engine="java" transaction-timeout="300"
+        location="org.apache.ofbiz.bi.util.DimensionServices" invoke="loadDateDimension" auth="true">
+        <description>Loads data in the DateDimension entity (olap entity) using the update strategy of 'type 1': overwrite the values of the attributes</description>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
+        <attribute name="thruDate" type="Timestamp" mode="IN" optional="false"/>
+    </service>
+    <service name="loadCurrencyDimension" auth="true" engine="simple"
+        location="component://bi/minilang/DimensionServices.xml" invoke="loadCurrencyDimension">
+        <description>Loads data in the CurrencyDimension entity (olap entity) using the update strategy of 'type 1': overwrite the values of the attributes</description>
+    </service>
+    <!-- Product Dimension -->
+    <service name="prepareProductDimensionData" auth="true" engine="simple"
+        location="component://bi/minilang/DimensionServices.xml" invoke="prepareProductDimensionData">
+        <description>Pulls information from the Product* entities (oltp entities) and prepares data for the ProductDimension entity (olap entity)</description>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="productDimension" type="GenericEntity" mode="OUT" optional="false"/>
+    </service>
+    <service name="loadProductInProductDimension" auth="true" engine="simple"
+        location="component://bi/minilang/DimensionServices.xml" invoke="loadProductInProductDimension">
+        <description>Pulls information from the Product* entities and stores them in the ProductDimension entity (olap entity)</description>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="updateMode" type="String" mode="IN" optional="false"/> <!-- TYPE1, TYPE2, TYPE3 -->
+    </service>
+    <service name="loadType1ProductInProductDimension" auth="true" engine="simple"
+        location="component://bi/minilang/DimensionServices.xml" invoke="loadProductInProductDimension">
+        <description>Same as loadProductInProductDimension; the update strategy is 'type 1': overwrite the values of the attributes</description>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="updateMode" type="String" mode="IN" optional="true" default-value="TYPE1"/>
+    </service>
+    <service name="loadType2ProductInProductDimension" auth="true" engine="simple"
+        location="component://bi/minilang/DimensionServices.xml" invoke="loadProductInProductDimension">
+        <description>Same as loadProductInProductDimension; the update strategy is 'type 2': add a dimension row</description>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="updateMode" type="String" mode="IN" optional="true" default-value="TYPE2"/>
+    </service>
+    <service name="loadAllProductsInProductDimension" auth="true" engine="simple"
+        location="component://bi/minilang/DimensionServices.xml" invoke="loadAllProductsInProductDimension">
+        <description>Calls the loadProductInProductDimension service for all the products.</description>
+        <attribute name="updateMode" type="String" mode="IN" optional="true" default-value="TYPE1"/>
+    </service>
+
+    <!-- Accounting Facts -->
+    <service name="loadSalesInvoiceItemFact" auth="true" engine="simple"
+        location="component://bi/minilang/FactServices.xml" invoke="loadSalesInvoiceItemFact">
+        <description>
+            Pulls information from the Invoice* entities and stores them in the SalesInvoiceItem entity (olap entity).
+            One of invoiceId/invoiceItemSeqId or invoice/invoiceItem must be passed or an error is returned.
+        </description>
+        <attribute name="invoiceId" type="String" mode="IN" optional="true"/>
+        <attribute name="invoiceItemSeqId" type="String" mode="IN" optional="true"/>
+        <attribute name="invoice" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="invoiceItem" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+    </service>
+    <service name="loadSalesInvoiceFact" auth="true" engine="simple"
+        location="component://bi/minilang/FactServices.xml" invoke="loadSalesInvoiceFact">
+        <description>Calls the loadSalesInvoiceItemFact service for all the invoice items.</description>
+        <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <!-- Order Facts -->
+    <service name="loadSalesOrderItemFact" auth="true" engine="simple"
+        location="component://bi/minilang/FactServices.xml" invoke="loadSalesOrderItemFact">
+        <description>
+            Pulls information from the OrderItem* entities and stores them in the SalesOrderItem entity (olap entity).
+            One of orderId/orderItemSeqId or order/orderItem must be passed or an error is returned.
+        </description>
+        <attribute name="orderId" type="String" mode="IN" optional="true"/>
+        <attribute name="orderItemSeqId" type="String" mode="IN" optional="true"/>
+        <attribute name="orderHeader" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="orderItem" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="orderAdjustment " type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+    </service>
+    <service name="loadSalesOrderFact" auth="true" engine="simple"
+        location="component://bi/minilang/FactServices.xml" invoke="loadSalesOrderFact">
+        <description>Calls the loadSalesOrderItemFact service for all the order items.</description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="loadSalesOrderDataDaily" auth="true" engine="simple"
+        location="component://bi/minilang/FactServices.xml" invoke="loadSalesOrderDataDaily" transaction-timeout="10000000">
+        <description>Load Sales Order Data Daily.</description>
+    </service>
+    <service name="importSalesOrderData" auth="true" engine="simple"
+        location="component://bi/minilang/FactServices.xml" invoke="importSalesOrderData" transaction-timeout="10000000">
+        <description>Import Sales Order Data.</description>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
+        <attribute name="thruDate" type="Timestamp" mode="IN" optional="false"/>
+    </service>
+    <service name="convertUomCurrency" auth="true" engine="simple"
+        location="component://bi/minilang/FactServices.xml" invoke="convertUomCurrency">
+        <description>Import Sales Order Data.</description>
+        <attribute name="uomId" type="String" mode="IN"/>
+        <attribute name="uomIdTo" type="String" mode="IN"/>
+        <attribute name="nowDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="conversionFactor" type="Double" mode="OUT" optional="true"/>
+    </service>
+
+    <!-- Inventory Facts -->
+    <service name="loadInventoryFact" auth="true" engine="simple"
+        location="component://bi/minilang/FactServices.xml" invoke="loadInventoryFact">
+        <attribute name="inventoryItemId" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <!-- SalesInvoiceItem Facts -->
+    <service name="createSalesInvoiceItemFact" engine="entity-auto" invoke="create" default-entity-name="SalesInvoiceItemFact" auth="true">
+        <description>Create a SalesInvoiceItemFact record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateSalesInvoiceItemFact" engine="entity-auto" invoke="update" default-entity-name="SalesInvoiceItemFact" auth="true">
+        <description>Update a SalesInvoiceItemFact record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteSalesInvoiceItemFact" engine="entity-auto" invoke="delete" default-entity-name="SalesInvoiceItemFact" auth="true">
+        <description>Delete a SalesInvoiceItemFact record</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
+
+</services>

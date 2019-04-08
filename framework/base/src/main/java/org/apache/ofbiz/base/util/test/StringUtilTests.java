@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.util.test;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -26,9 +25,10 @@ import java.util.Map;
 
 import org.apache.ofbiz.base.lang.Appender;
 import org.apache.ofbiz.base.lang.SourceMonitored;
-import org.apache.ofbiz.base.test.GenericTestCaseBase;
 import org.apache.ofbiz.base.util.GeneralRuntimeException;
 import org.apache.ofbiz.base.util.StringUtil;
+import org.apache.ofbiz.base.util.UtilGenerics;
+import org.apache.ofbiz.base.test.GenericTestCaseBase;
 
 @SourceMonitored
 public class StringUtilTests extends GenericTestCaseBase {
@@ -48,11 +48,12 @@ public class StringUtilTests extends GenericTestCaseBase {
 
     public void testStringUtil() throws Exception {
         assertStaticHelperClass(StringUtil.class);
+        assertTrue("correct INSTANCE", StringUtil.INSTANCE instanceof StringUtil);
     }
 
     public void testInternString() {
         assertSame("intern-constant", StringUtil.internString("foo"), StringUtil.internString("foo"));
-        assertSame("intern-new", StringUtil.internString("foo"), StringUtil.internString("foo"));
+        assertSame("intern-new", StringUtil.internString("foo"), StringUtil.internString(new String("foo")));
         assertSame("intern-char", StringUtil.internString("foo"), StringUtil.internString(new String(new char[] {'f', 'o', 'o'})));
         assertSame("intern-null", StringUtil.internString(null), StringUtil.internString(null));
     }
@@ -150,12 +151,12 @@ public class StringUtilTests extends GenericTestCaseBase {
     }
 
     public void testCreateMap() {
-        List<List<String>> badKeys = Arrays.asList(null, list("1"), list("2"));
-        List<List<String>> badValues = Arrays.asList(list("one"), null, list("two", "extra"));
-        for (int i = 0; i < badKeys.size(); i++) {
+        List<String>[] badKeys = UtilGenerics.cast(new List[] {null, list("1"), list("2")});
+        List<String>[] badValues = UtilGenerics.cast(new List[] {list("one"), null, list("two", "extra")});
+        for (int i = 0; i < badKeys.length; i++) {
             IllegalArgumentException caught = null;
             try {
-                StringUtil.createMap(badKeys.get(i), badValues.get(i));
+                StringUtil.createMap(badKeys[i], badValues[i]);
             } catch (IllegalArgumentException e) {
                 caught = e;
             } finally {

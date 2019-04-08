@@ -35,7 +35,7 @@ under the License.
           <table cellspacing="0" class="basic-table">
             <#assign rowClass = "1">
             <#if idProduct?has_content>
-            <tr valign="middle"<#if "1" == rowClass> class="alternate-row"</#if>>
+            <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
                 <td>
                     ${idProduct.productId}
                 </td>
@@ -48,14 +48,14 @@ under the License.
             </#if>
             <#list goodIdentifications as goodIdentification>
                 <#-- toggle the row color -->
-                <#if "2" == rowClass>
+                <#if rowClass == "2">
                   <#assign rowClass = "1">
                 <#else>
                   <#assign rowClass = "2">
                 </#if>
                 <#assign product = goodIdentification.getRelatedOne("Product", true)/>
                 <#assign goodIdentificationType = goodIdentification.getRelatedOne("GoodIdentificationType", true)/>
-                <tr valign="middle"<#if "1" == rowClass> class="alternate-row"</#if>>
+                <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
                     <td>
                         ${product.productId}
                     </td>

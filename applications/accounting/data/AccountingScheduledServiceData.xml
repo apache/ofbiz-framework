@@ -19,7 +19,7 @@ under the License.
 -->
 
 <entity-engine-xml>
-    <RecurrenceRule recurrenceRuleId="400" frequency="MONTHLY" intervalNumber="1" countNumber="-1"/>
+    <RecurrenceRule recurrenceRuleId="400" untilDateTime="" frequency="MONTHLY" intervalNumber="1" countNumber="-1"/>
     <RecurrenceInfo recurrenceInfoId="400" startDateTime="2008-05-14 22:00:00.000" recurrenceRuleId="400" recurrenceCount="0"/>
     <RuntimeData runtimeDataId="8501">
         <runtimeInfo><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
@@ -39,7 +39,7 @@ under the License.
     </RuntimeData>
     <JobSandbox jobId="8500" jobName="Generate Invoice template" runTime="2008-05-14 00:00:00.000" serviceName="autoGenerateInvoiceFromExistingInvoice" runtimeDataId="8501" poolId="pool" runAsUser="system" recurrenceInfoId="400"/>
     
-    <RecurrenceRule recurrenceRuleId="9000" frequency="DAILY" intervalNumber="5" countNumber="-1"/>
+    <RecurrenceRule recurrenceRuleId="9000" untilDateTime="" frequency="DAILY" intervalNumber="5" countNumber="-1"/>
     <RecurrenceInfo recurrenceInfoId="9000" startDateTime="2000-01-01 00:00:00.000" recurrenceRuleId="9000" recurrenceCount="0"/>
     <JobSandbox jobId="9000" jobName="Auto Reconcile Financial Account" runTime="2000-01-01 00:00:00.000" serviceName="autoFinAccountReconciliation" poolId="pool" runAsUser="system" recurrenceInfoId="9000"/>
     

@@ -133,17 +133,17 @@ public class WorkEffortSearch {
 
     public static class WorkEffortSearchContext {
         public int index = 1;
-        public List<EntityCondition> entityConditionList = new LinkedList<>();
-        public List<String> orderByList = new LinkedList<>();
+        public List<EntityCondition> entityConditionList = new LinkedList<EntityCondition>();
+        public List<String> orderByList = new LinkedList<String>();
         public List<String> fieldsToSelect = UtilMisc.toList("workEffortId");
         public DynamicViewEntity dynamicViewEntity = new DynamicViewEntity();
         public boolean workEffortIdGroupBy = false;
         public boolean includedKeywordSearch = false;
         public Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
-        public List<Set<String>> keywordFixedOrSetAndList = new LinkedList<>();
-        public Set<String> orKeywordFixedSet = new HashSet<>();
-        public Set<String> andKeywordFixedSet = new HashSet<>();
-        public List<GenericValue> workEffortSearchConstraintList = new LinkedList<>();
+        public List<Set<String>> keywordFixedOrSetAndList = new LinkedList<Set<String>>();
+        public Set<String> orKeywordFixedSet = new HashSet<String>();
+        public Set<String> andKeywordFixedSet = new HashSet<String>();
+        public List<GenericValue> workEffortSearchConstraintList = new LinkedList<GenericValue>();
         public ResultSortOrder resultSortOrder = null;
         public Integer resultOffset = null;
         public Integer maxResults = null;
@@ -188,18 +188,23 @@ public class WorkEffortSearch {
             long startMillis = System.currentTimeMillis();
 
             // do the query
-            try (EntityListIterator eli = this.doQuery(delegator)) {
-                ArrayList<String> workEffortIds = this.makeWorkEffortIdList(eli);
-                long endMillis = System.currentTimeMillis();
-                double totalSeconds = ((double)endMillis - (double)startMillis)/1000.0;
-
-                // store info about results in the database, attached to the user's visitId, if specified
-                this.saveSearchResultInfo((long) workEffortIds.size(), totalSeconds);
-                return workEffortIds;
-            } catch (GenericEntityException e) {
-                Debug.logError(e, module);
-                return null;
+            EntityListIterator eli = this.doQuery(delegator);
+            ArrayList<String> workEffortIds = this.makeWorkEffortIdList(eli);
+            if (eli != null) {
+                try {
+                    eli.close();
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, "Error closing WorkEffortSearch EntityListIterator");
+                }
             }
+
+            long endMillis = System.currentTimeMillis();
+            double totalSeconds = ((double)endMillis - (double)startMillis)/1000.0;
+
+            // store info about results in the database, attached to the user's visitId, if specified
+            this.saveSearchResultInfo(Long.valueOf(workEffortIds.size()), Double.valueOf(totalSeconds));
+
+            return workEffortIds;
         }
 
         public void finishKeywordConstraints() {
@@ -268,7 +273,7 @@ public class WorkEffortSearch {
                     dynamicViewEntity.addMemberEntity(entityAlias, "WorkEffortKeyword");
                     dynamicViewEntity.addAlias(entityAlias, prefix + "Keyword", "keyword", null, null, null, null);
                     dynamicViewEntity.addViewLink("WEFF", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("workEffortId"));
-                    List<EntityExpr> keywordOrList = new LinkedList<>();
+                    List<EntityExpr> keywordOrList = new LinkedList<EntityExpr>();
                     for (String keyword: keywordFixedOrSet) {
                         keywordOrList.add(EntityCondition.makeCondition(prefix + "Keyword", EntityOperator.LIKE, keyword));
                     }
@@ -289,12 +294,6 @@ public class WorkEffortSearch {
             }
         }
 
-        /**
-         * @param delegator the delegator
-         * @return EntityListIterator representing the result of the query: NOTE THAT THIS MUST BE CLOSED WHEN YOU ARE
-         *      DONE WITH IT (preferably in a finally block),
-         *      AND DON'T LEAVE IT OPEN TOO LONG BECAUSE IT WILL MAINTAIN A DATABASE CONNECTION.
-         */
         public EntityListIterator doQuery(Delegator delegator) {
             // handle the now assembled or and and keyword fixed lists
             this.finishKeywordConstraints();
@@ -302,7 +301,7 @@ public class WorkEffortSearch {
             if (resultSortOrder != null) {
                 resultSortOrder.setSortOrder(this);
             }
-            dynamicViewEntity.addAlias("WEFF", "workEffortId", null, null, null, workEffortIdGroupBy, null);
+            dynamicViewEntity.addAlias("WEFF", "workEffortId", null, null, null, Boolean.valueOf(workEffortIdGroupBy), null);
 
             EntityListIterator eli = null;
             try {
@@ -327,7 +326,7 @@ public class WorkEffortSearch {
         }
 
         public ArrayList<String> makeWorkEffortIdList(EntityListIterator eli) {
-            ArrayList<String> workEffortIds = new ArrayList<>(maxResults == null ? 100 : maxResults);
+            ArrayList<String> workEffortIds = new ArrayList<String>(maxResults == null ? 100 : maxResults.intValue());
             if (eli == null) {
                 Debug.logWarning("The eli is null, returning zero results", module);
                 return workEffortIds;
@@ -341,11 +340,9 @@ public class WorkEffortSearch {
                 if (initialResult != null) {
                     hasResults = true;
                 }
-                if (resultOffset != null && resultOffset > 1) {
-                    if (Debug.infoOn()) {
-                        Debug.logInfo("Before relative, current index=" + eli.currentIndex(), module);
-                    }
-                    hasResults = eli.relative(resultOffset - 1);
+                if (resultOffset != null && resultOffset.intValue() > 1) {
+                    if (Debug.infoOn()) Debug.logInfo("Before relative, current index=" + eli.currentIndex(), module);
+                    hasResults = eli.relative(resultOffset.intValue() - 1);
                     initialResult = null;
                 }
 
@@ -363,9 +360,9 @@ public class WorkEffortSearch {
                     // nothing to get...
                     int failTotal = 0;
                     if (this.resultOffset != null) {
-                        failTotal = this.resultOffset - 1;
+                        failTotal = this.resultOffset.intValue() - 1;
                     }
-                    this.totalResults = failTotal;
+                    this.totalResults = Integer.valueOf(failTotal);
                     return workEffortIds;
                 }
 
@@ -374,12 +371,12 @@ public class WorkEffortSearch {
                 int numRetreived = 1;
                 int duplicatesFound = 0;
 
-                Set<String> workEffortIdSet = new HashSet<>();
+                Set<String> workEffortIdSet = new HashSet<String>();
 
                 workEffortIds.add(searchResult.getString("workEffortId"));
                 workEffortIdSet.add(searchResult.getString("workEffortId"));
 
-                while (((searchResult = eli.next()) != null) && (maxResults == null || numRetreived < maxResults)) {
+                while (((searchResult = eli.next()) != null) && (maxResults == null || numRetreived < maxResults.intValue())) {
                     String workEffortId = searchResult.getString("workEffortId");
                     if (!workEffortIdSet.contains(workEffortId)) {
                         workEffortIds.add(workEffortId);
@@ -393,12 +390,12 @@ public class WorkEffortSearch {
                 if (searchResult != null) {
                     this.totalResults = eli.getResultsSizeAfterPartialList();
                 }
-                if (this.totalResults == null || this.totalResults == 0) {
+                if (this.totalResults == null || this.totalResults.intValue() == 0) {
                     int total = numRetreived;
                     if (this.resultOffset != null) {
-                        total += (this.resultOffset - 1);
+                        total += (this.resultOffset.intValue() - 1);
                     }
-                    this.totalResults = total;
+                    this.totalResults = Integer.valueOf(total);
                 }
 
                 Debug.logInfo("Got search values, numRetreived=" + numRetreived + ", totalResults=" + totalResults + ", maxResults=" + maxResults + ", resultOffset=" + resultOffset + ", duplicatesFound(in the current results)=" + duplicatesFound, module);
@@ -481,7 +478,7 @@ public class WorkEffortSearch {
 
         @Override
         public void addConstraint(WorkEffortSearchContext workEffortSearchContext) {
-            Set<String> workEffortIdSet = new HashSet<>();
+            Set<String> workEffortIdSet = new HashSet<String>();
             if (includeSubWorkEfforts) {
                 // find all sub-categories recursively, make a Set of workEffortId
                 WorkEffortSearch.getAllSubWorkEffortIds(workEffortId, workEffortIdSet, workEffortSearchContext.getDelegator(), workEffortSearchContext.nowTimestamp);
@@ -508,7 +505,7 @@ public class WorkEffortSearch {
             workEffortSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ThruDate", "thruDate", null, null, null, null);
             workEffortSearchContext.dynamicViewEntity.addViewLink("WEFF", entityAlias, Boolean.TRUE, ModelKeyMap.makeKeyMapList("workEffortId","workEffortIdFrom"));
 
-            List<EntityExpr> assocConditionFromTo = new LinkedList<>();
+            List<EntityExpr> assocConditionFromTo = new LinkedList<EntityExpr>();
             assocConditionFromTo.add(EntityCondition.makeCondition(prefix + "WorkEffortIdTo", EntityOperator.IN, workEffortIdSet));
             if (UtilValidate.isNotEmpty(workEffortAssocTypeId)) {
                 assocConditionFromTo.add(EntityCondition.makeCondition(prefix + "WorkEffortAssocTypeId", EntityOperator.EQUALS, workEffortAssocTypeId));
@@ -529,7 +526,7 @@ public class WorkEffortSearch {
             workEffortSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ThruDate", "thruDate", null, null, null, null);
             workEffortSearchContext.dynamicViewEntity.addViewLink("WEFF", entityAlias, Boolean.TRUE, ModelKeyMap.makeKeyMapList("workEffortId","workEffortIdTo"));
 
-            List<EntityExpr> assocConditionToFrom = new LinkedList<>();
+            List<EntityExpr> assocConditionToFrom = new LinkedList<EntityExpr>();
             assocConditionToFrom.add(EntityCondition.makeCondition(prefix + "WorkEffortIdFrom", EntityOperator.IN, workEffortIdSet));
             if (UtilValidate.isNotEmpty(workEffortAssocTypeId)) {
                 assocConditionToFrom.add(EntityCondition.makeCondition(prefix + "WorkEffortAssocTypeId", EntityOperator.EQUALS, workEffortAssocTypeId));
@@ -585,48 +582,38 @@ public class WorkEffortSearch {
         }
 
         @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + (includeSubWorkEfforts ? 1231 : 1237);
-            result = prime * result + ((workEffortAssocTypeId == null) ? 0 : workEffortAssocTypeId.hashCode());
-            result = prime * result + ((workEffortId == null) ? 0 : workEffortId.hashCode());
-            return result;
-        }
-
-        @Override
         public boolean equals(Object obj) {
-            if (this == obj) {
+            WorkEffortSearchConstraint psc = (WorkEffortSearchConstraint) obj;
+            if (psc instanceof WorkEffortAssocConstraint) {
+                WorkEffortAssocConstraint that = (WorkEffortAssocConstraint) psc;
+                if (this.includeSubWorkEfforts != that.includeSubWorkEfforts) {
+                    return false;
+                }
+                if (this.workEffortId == null) {
+                    if (that.workEffortId != null) {
+                        return false;
+                    }
+                } else {
+                    if (!this.workEffortId.equals(that.workEffortId)) {
+                        return false;
+                    }
+                }
+                if (this.workEffortAssocTypeId == null) {
+                    if (that.workEffortAssocTypeId != null) {
+                        return false;
+                    }
+                } else {
+                    if (!this.workEffortAssocTypeId.equals(that.workEffortAssocTypeId)) {
+                        return false;
+                    }
+                }
                 return true;
-            }
-            if (obj == null) {
+            } else {
                 return false;
             }
-            if (!(obj instanceof WorkEffortAssocConstraint)) {
-                return false;
-            }
-            WorkEffortAssocConstraint other = (WorkEffortAssocConstraint) obj;
-            if (includeSubWorkEfforts != other.includeSubWorkEfforts) {
-                return false;
-            }
-            if (workEffortAssocTypeId == null) {
-                if (other.workEffortAssocTypeId != null) {
-                    return false;
-                }
-            } else if (!workEffortAssocTypeId.equals(other.workEffortAssocTypeId)) {
-                return false;
-            }
-            if (workEffortId == null) {
-                if (other.workEffortId != null) {
-                    return false;
-                }
-            } else if (!workEffortId.equals(other.workEffortId)) {
-                return false;
-            }
-            return true;
         }
     }
-
+    
     @SuppressWarnings("serial")
     public static class WorkEffortReviewConstraint extends WorkEffortSearchConstraint {
         public static final String constraintName = "WorkEffortReview";
@@ -661,33 +648,23 @@ public class WorkEffortSearch {
         }
 
         @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + ((reviewTextString == null) ? 0 : reviewTextString.hashCode());
-            return result;
-        }
-
-        @Override
         public boolean equals(Object obj) {
-            if (this == obj) {
-                return true;
-            }
-            if (obj == null) {
-                return false;
-            }
-            if (!(obj instanceof WorkEffortReviewConstraint)) {
-                return false;
-            }
-            WorkEffortReviewConstraint other = (WorkEffortReviewConstraint) obj;
-            if (reviewTextString == null) {
-                if (other.reviewTextString != null) {
-                    return false;
+            WorkEffortSearchConstraint psc = (WorkEffortSearchConstraint) obj;
+            if (psc instanceof WorkEffortReviewConstraint) {
+                WorkEffortReviewConstraint that = (WorkEffortReviewConstraint) psc;
+                if (this.reviewTextString == null) {
+                    if (that.reviewTextString != null) {
+                        return false;
+                    }
+                } else {
+                    if (!this.reviewTextString.equals(that.reviewTextString)) {
+                        return false;
+                    }
                 }
-            } else if (!reviewTextString.equals(other.reviewTextString)) {
+                return true;
+            } else {
                 return false;
             }
-            return true;
         }
     }
 
@@ -773,41 +750,32 @@ public class WorkEffortSearch {
         }
 
         @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + ((partyId == null) ? 0 : partyId.hashCode());
-            result = prime * result + ((roleTypeId == null) ? 0 : roleTypeId.hashCode());
-            return result;
-        }
-
-        @Override
         public boolean equals(Object obj) {
-            if (this == obj) {
+            WorkEffortSearchConstraint psc = (WorkEffortSearchConstraint) obj;
+            if (psc instanceof PartyAssignmentConstraint) {
+                PartyAssignmentConstraint that = (PartyAssignmentConstraint) psc;
+                if (this.partyId == null) {
+                    if (that.partyId != null) {
+                        return false;
+                    }
+                } else {
+                    if (!this.partyId.equals(that.partyId)) {
+                        return false;
+                    }
+                }
+                if (this.roleTypeId == null) {
+                    if (that.roleTypeId != null) {
+                        return false;
+                    }
+                } else {
+                    if (!this.roleTypeId.equals(that.roleTypeId)) {
+                        return false;
+                    }
+                }
                 return true;
-            }
-            if (obj == null) {
+            } else {
                 return false;
             }
-            if (!(obj instanceof PartyAssignmentConstraint)) {
-                return false;
-            }
-            PartyAssignmentConstraint other = (PartyAssignmentConstraint) obj;
-            if (partyId == null) {
-                if (other.partyId != null) {
-                    return false;
-                }
-            } else if (!partyId.equals(other.partyId)) {
-                return false;
-            }
-            if (roleTypeId == null) {
-                if (other.roleTypeId != null) {
-                    return false;
-                }
-            } else if (!roleTypeId.equals(other.roleTypeId)) {
-                return false;
-            }
-            return true;
         }
     }
 
@@ -879,33 +847,23 @@ public class WorkEffortSearch {
         }
 
         @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + ((productIdSet == null) ? 0 : productIdSet.hashCode());
-            return result;
-        }
-
-        @Override
         public boolean equals(Object obj) {
-            if (this == obj) {
-                return true;
-            }
-            if (obj == null) {
-                return false;
-            }
-            if (!(obj instanceof ProductSetConstraint)) {
-                return false;
-            }
-            ProductSetConstraint other = (ProductSetConstraint) obj;
-            if (productIdSet == null) {
-                if (other.productIdSet != null) {
-                    return false;
+            WorkEffortSearchConstraint psc = (WorkEffortSearchConstraint) obj;
+            if (psc instanceof ProductSetConstraint) {
+                ProductSetConstraint that = (ProductSetConstraint) psc;
+                if (this.productIdSet == null) {
+                    if (that.productIdSet != null) {
+                        return false;
+                    }
+                } else {
+                    if (!this.productIdSet.equals(that.productIdSet)) {
+                        return false;
+                    }
                 }
-            } else if (!productIdSet.equals(other.productIdSet)) {
+                return true;
+            } else {
                 return false;
             }
-            return true;
         }
     }
 
@@ -924,7 +882,7 @@ public class WorkEffortSearch {
             this.anySuffix = anySuffix;
             this.isAnd = isAnd;
             if (removeStems != null) {
-                this.removeStems = removeStems;
+                this.removeStems = removeStems.booleanValue();
             } else {
                 this.removeStems = UtilProperties.propertyValueEquals("keywordsearch", "remove.stems", "true");
             }
@@ -932,11 +890,11 @@ public class WorkEffortSearch {
 
         public Set<String> makeFullKeywordSet(Delegator delegator) {
             Set<String> keywordSet = KeywordSearchUtil.makeKeywordSet(this.keywordsString, null, true);
-            Set<String> fullKeywordSet = new TreeSet<>();
+            Set<String> fullKeywordSet = new TreeSet<String>();
 
             // expand the keyword list according to the thesaurus and create a new set of keywords
             for (String keyword: keywordSet) {
-                Set<String> expandedSet = new TreeSet<>();
+                Set<String> expandedSet = new TreeSet<String>();
                 boolean replaceEntered = KeywordSearchUtil.expandKeywordForSearch(keyword, expandedSet, delegator);
                 fullKeywordSet.addAll(expandedSet);
                 if (!replaceEntered) {
@@ -961,13 +919,13 @@ public class WorkEffortSearch {
 
                 // expand the keyword list according to the thesaurus and create a new set of keywords
                 for (String keyword: keywordSet) {
-                    Set<String> expandedSet = new TreeSet<>();
+                    Set<String> expandedSet = new TreeSet<String>();
                     boolean replaceEntered = KeywordSearchUtil.expandKeywordForSearch(keyword, expandedSet, workEffortSearchContext.getDelegator());
                     if (!replaceEntered) {
                         expandedSet.add(keyword);
                     }
                     Set<String> fixedSet = KeywordSearchUtil.fixKeywordsForSearch(expandedSet, anyPrefix, anySuffix, removeStems, isAnd);
-                    Set<String> fixedKeywordSet = new HashSet<>();
+                    Set<String> fixedKeywordSet = new HashSet<String>();
                     fixedKeywordSet.addAll(fixedSet);
                     workEffortSearchContext.keywordFixedOrSetAndList.add(fixedKeywordSet);
                 }
@@ -998,49 +956,35 @@ public class WorkEffortSearch {
         }
 
         @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + (anyPrefix ? 1231 : 1237);
-            result = prime * result + (anySuffix ? 1231 : 1237);
-            result = prime * result + (isAnd ? 1231 : 1237);
-            result = prime * result + ((keywordsString == null) ? 0 : keywordsString.hashCode());
-            result = prime * result + (removeStems ? 1231 : 1237);
-            return result;
-        }
-
-        @Override
         public boolean equals(Object obj) {
-            if (this == obj) {
-                return true;
-            }
-            if (obj == null) {
-                return false;
-            }
-            if (!(obj instanceof KeywordConstraint)) {
-                return false;
-            }
-            KeywordConstraint other = (KeywordConstraint) obj;
-            if (anyPrefix != other.anyPrefix) {
-                return false;
-            }
-            if (anySuffix != other.anySuffix) {
-                return false;
-            }
-            if (isAnd != other.isAnd) {
-                return false;
-            }
-            if (keywordsString == null) {
-                if (other.keywordsString != null) {
+            WorkEffortSearchConstraint psc = (WorkEffortSearchConstraint) obj;
+            if (psc instanceof KeywordConstraint) {
+                KeywordConstraint that = (KeywordConstraint) psc;
+                if (this.anyPrefix != that.anyPrefix) {
                     return false;
                 }
-            } else if (!keywordsString.equals(other.keywordsString)) {
+                if (this.anySuffix != that.anySuffix) {
+                    return false;
+                }
+                if (this.isAnd != that.isAnd) {
+                    return false;
+                }
+                if (this.removeStems != that.removeStems) {
+                    return false;
+                }
+                if (this.keywordsString == null) {
+                    if (that.keywordsString != null) {
+                        return false;
+                    }
+                } else {
+                    if (!this.keywordsString.equals(that.keywordsString)) {
+                        return false;
+                    }
+                }
+                return true;
+            } else {
                 return false;
             }
-            if (removeStems != other.removeStems) {
-                return false;
-            }
-            return true;
         }
     }
 
@@ -1100,41 +1044,32 @@ public class WorkEffortSearch {
 
 
         @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + ((fromDate == null) ? 0 : fromDate.hashCode());
-            result = prime * result + ((thruDate == null) ? 0 : thruDate.hashCode());
-            return result;
-        }
-
-        @Override
         public boolean equals(Object obj) {
-            if (this == obj) {
+            WorkEffortSearchConstraint psc = (WorkEffortSearchConstraint) obj;
+            if (psc instanceof LastUpdatedRangeConstraint) {
+                LastUpdatedRangeConstraint that = (LastUpdatedRangeConstraint) psc;
+                if (this.fromDate == null) {
+                    if (that.fromDate != null) {
+                        return false;
+                    }
+                } else {
+                    if (!this.fromDate.equals(that.fromDate)) {
+                        return false;
+                    }
+                }
+                if (this.thruDate == null) {
+                    if (that.thruDate != null) {
+                        return false;
+                    }
+                } else {
+                    if (!this.thruDate.equals(that.thruDate)) {
+                        return false;
+                    }
+                }
                 return true;
-            }
-            if (obj == null) {
+            } else {
                 return false;
             }
-            if (!(obj instanceof LastUpdatedRangeConstraint)) {
-                return false;
-            }
-            LastUpdatedRangeConstraint other = (LastUpdatedRangeConstraint) obj;
-            if (fromDate == null) {
-                if (other.fromDate != null) {
-                    return false;
-                }
-            } else if (!fromDate.equals(other.fromDate)) {
-                return false;
-            }
-            if (thruDate == null) {
-                if (other.thruDate != null) {
-                    return false;
-                }
-            } else if (!thruDate.equals(other.thruDate)) {
-                return false;
-            }
-            return true;
         }
     }
 

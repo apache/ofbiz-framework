@@ -186,11 +186,14 @@ under the License.
         <field name="inventoryItemId"><text-find/></field>
         <field name="serialNumber"><text-find/></field>
         <field name="softIdentifier"><text/></field>
+        <field name="manufacturerPartyId">
+            <lookup target-form-name="LookupPartyName"/>
+        </field>
         <field name="orderId">
             <lookup target-form-name="LookupOrderHeader"/>
         </field>
         <field name="shipmentId"><lookup target-form-name="LookupShipment"/></field>
-        <field name="returnId"><lookup target-form-name="LookupReturnHeader"/></field>
+        <field name="returnId"><text/></field>
         <field name="workEffortId"><lookup target-form-name="LookupWorkEffort"/></field>
         <field name="reasonEnumId">
             <drop-down allow-empty="true">
@@ -632,7 +635,7 @@ under the License.
     </form>
 
     <!-- FacilityParty -->
-    <form name="EditFacilityParties" type="list" paginate-target="EditFacilityParties" title="" list-name="facilityParties" target="updateFacilityParty"
+    <form name="EditFacilityParties" type="list" paginate-target="EditFacilityParties" title="" list-name="facilityParties"
         header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true">
         <field name="facilityId"><hidden/></field>
         <field name="partyId">
@@ -641,12 +644,9 @@ under the License.
         <field name="roleTypeId">
             <display-entity entity-name="RoleType"/>
         </field>
-        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
-        <field name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext">
-            <submit button-type="button"/>
-        </field>
-        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonDelete}" target="removePartyFromFacility" also-hidden="false">
                 <parameter param-name="facilityId"/>
                 <parameter param-name="partyId"/>

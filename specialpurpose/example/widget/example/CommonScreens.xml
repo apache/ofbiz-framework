@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
+    <screen name="main-decorator">
+        <section>
+            <actions>
+                <!-- base/top/specific map first, then more common map added for shared labels -->
+                <property-map resource="ExampleUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+
+                <set field="layoutSettings.companyName" from-field="uiLabelMap.ExampleCompanyName" global="true"/>
+                <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.ExampleCompanySubtitle" global="true"/>
+                <!-- layoutSettings.headerImageUrl can be used to specify an application specific logo; if not set,
+                    then the global layoutSettings.commonHeaderImageUrl (specified in GlobalDecorator) will be used. -->
+                <!--<set field="layoutSettings.headerImageUrl" value="/images/ofbiz_logo.gif" global="true"/>-->
+
+                <!-- <set field="layoutSettings.headerMiddleBackgroundUrl" value="" global="true"/> -->
+                <!-- <set field="layoutSettings.headerRightBackgroundUrl" value="" global="true"/> -->
+                <!-- TODO: Use transform to specify component URI -->
+                <set field="layoutSettings.companyName" from-field="uiLabelMap.ExampleCompanyName" global="true"/>
+                <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.ExampleCompanySubtitle" global="true"/>
+                <set field="activeApp" value="example" global="true"/>
+                <set field="applicationMenuName" value="ExampleAppBar" global="true"/>
+                <set field="applicationMenuLocation" value="component://example/widget/example/ExampleMenus.xml" global="true"/>
+                <set field="applicationTitle" value="${uiLabelMap.ExampleApplication}" global="true"/>
+            </actions>
+            <widgets>
+                <section>
+                    <condition>
+                        <if-has-permission permission="EXAMPLE" action="_VIEW"/>
+                    </condition>
+                    <actions>
+                        <set field="layoutSettings.javaScripts[]" value="/example/js/ExamplePushNotifications.js" global="true"/>
+                    </actions>
+                </section>
+                <include-screen name="ApplicationDecorator" location="component://commonext/widget/CommonScreens.xml"/>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="CommonExampleDecorator">
+        <!-- The CommonExampleDecorator screen decorates a small group of screens that all have
+            something in common. It is decorated by the main-decorator screen. To see how the
+            various decorators are combined to build a screen, view the page source of any
+            Example component screen. HTML comments indicate the start and end points of each
+            screen and decorator. -->
+        <section>
+            <actions>
+                <set field="headerItem" value="ExampleMenuItem"/>
+                <set field="exampleId" from-field="parameters.exampleId"/>
+                <entity-one entity-name="Example" value-field="example"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator">
+                    <decorator-section name="pre-body">
+                        <section>
+                            <condition>
+                                <and>
+                                    <if-has-permission permission="EXAMPLE" action="_VIEW"/>
+                                    <not><if-empty field="example"/></not><!-- This is a check useful when only seed data are loaded -->
+                                </and>
+                            </condition>
+                            <widgets>
+                                <include-menu name="EditExample" location="component://example/widget/example/ExampleMenus.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                    <decorator-section name="body">
+                        <section>
+                            <!-- do check for EXAMPLE, _VIEW permission -->
+                            <condition>
+                                <if-has-permission permission="EXAMPLE" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field="example"/></not><!-- This is a check useful when only seed data are loaded -->
+                                    </condition>
+                                    <widgets>
+                                        <container style="h1"><label>${uiLabelMap[titleProperty]} ${uiLabelMap.CommonFor} ${example.exampleName} [${exampleId}]</label></container>
+                                        <container style="button-bar">
+                                            <link target="EditExample" text="${uiLabelMap.ExampleNewExample}" style="buttontext create">
+                                                <image url-mode="raw" src="${iconsLocation}/add.png"/>
+                                            </link>
+                                            <link target="ExampleReportHtml" text="${uiLabelMap.CommonPrinterFriendly}" style="buttontext">
+                                                <parameter param-name="exampleId"/>
+                                                <image url-mode="raw" src="${iconsLocation}/printer.png"/>
+                                            </link>
+                                            <link target="ExampleReportXls" text="${uiLabelMap.CommonViewAsXls}" style="buttontext">
+                                                <parameter param-name="exampleId"/>
+                                            </link>
+                                            <link target="ExampleReportPdf" text="${uiLabelMap.CommonPdf}" style="buttontext" target-window="_blank">
+                                                <parameter param-name="exampleId"/>
+                                                <image url-mode="raw" src="${iconsLocation}/page_white_acrobat.png"/>
+                                            </link>
+                                            <link target="ExampleReportPdfOptions" text="${uiLabelMap.ExamplePdfPassword}" style="buttontext">
+                                                <parameter param-name="exampleId"/>
+                                                <image url-mode="raw" src="${iconsLocation}/page_white_acrobat.png"/>
+                                            </link>
+                                            <link target="ExampleReportPdfBarcode" text="${uiLabelMap.ExamplePdfBarcode}" style="buttontext" target-window="_blank">
+                                                <parameter param-name="exampleId"/>
+                                                <image url-mode="raw" src="${iconsLocation}/ofbiz_barcode.png"/>
+                                            </link>
+                                            <link target="help" text="${uiLabelMap.CommonHelp}" style="buttontext" target-window="_blank">
+                                                <parameter param-name="topic" value="ExampleEditHelp"/>
+                                                <image url-mode="raw" src="${iconsLocation}/help.png"/>
+                                            </link>
+                                        </container>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <container style="h1"><label>${uiLabelMap.ExampleNewExample}</label></container>
+                                    </fail-widgets>
+                                </section>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.ExampleViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="CommonExampleFeatureDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="ExampleFeature"/>
+                <set field="exampleFeatureId" from-field="parameters.exampleFeatureId"/>
+                <entity-one entity-name="ExampleFeature" value-field="exampleFeature"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <section>
+                            <condition>
+                                <and>
+                                    <if-has-permission permission="EXAMPLE" action="_VIEW"/>
+                                    <not><if-empty field="exampleFeature"/></not><!-- This is a check useful when only seed data are loaded -->
+                                </and>
+                            </condition>
+                            <widgets>
+                                <include-menu name="EditExampleFeature" location="component://example/widget/example/ExampleMenus.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                    <decorator-section name="body">
+                        <section>
+                            <!-- do check for EXAMPLE, _VIEW permission -->
+                            <condition>
+                                <if-has-permission permission="EXAMPLE" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field="exampleFeature"/></not><!-- This is a check useful when only seed data are loaded -->
+                                    </condition>
+                                    <widgets>
+                                        <container style="h1">
+                                            <label>${uiLabelMap[titleProperty]} ${uiLabelMap.CommonFor} ${exampleFeature.description} [${exampleFeatureId}]</label>
+                                        </container>
+                                        <container style="button-bar">
+                                            <link target="EditExampleFeature" text="${uiLabelMap.ExampleNewExampleFeature}" style="buttontext">
+                                                <image url-mode="raw" src="${iconsLocation}/add.png"/>
+                                            </link>
+                                        </container>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <container style="h1"><label>${uiLabelMap.ExampleNewExampleFeature}</label></container>
+                                    </fail-widgets>
+                                </section>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.ExampleViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="CommonExampleGeoLocationDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="ExampleGeoLocation"/>
+                <set field="geoChart.dataSourceId" value="GEOPT_GOOGLE"/>
+                <set field="geoChart.width" value="600px"/>
+                <set field="geoChart.height" value="500px"/>
+                <set field="geoChart.points" from-field="geoPoints"/>
+                <set field="geoChart.center" from-field="geoCenter"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu name="ExampleGeoLocation" location="component://example/widget/example/ExampleMenus.xml"/>
+                    </decorator-section>
+                    <decorator-section name="body">
+                        <container style="clear" />
+                        <include-screen name="geoChart" location="component://common/widget/CommonScreens.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="CommonExampleOsmGeoLocationDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="ExampleGeoLocation"/>
+                <set field="geoChart.dataSourceId" value="GEOPT_OSM"/>
+                <set field="geoChart.width" value="600px"/>
+                <set field="geoChart.height" value="500px"/>
+                <set field="geoChart.points" from-field="geoPoints"/>
+                <set field="geoChart.center" from-field="geoCenter"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu name="ExampleGeoLocation" location="component://example/widget/example/ExampleMenus.xml"/>
+                    </decorator-section>
+                    <decorator-section name="body">
+                        <container style="clear" />
+                        <include-screen name="geoChart" location="component://common/widget/CommonScreens.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="CommonExampleChartsDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="ExampleCharts"/>
+                <entity-condition entity-name="ExampleCountByType" list="chartData">
+                    <order-by field-name="exampleTypeId"/>
+                </entity-condition>
+                <set field="labelFieldName" value="exampleTypeId"/>
+                <set field="dataFieldName" value="total"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu name="ExampleCharts" location="component://example/widget/example/ExampleMenus.xml"/>
+                    </decorator-section>
+                    <decorator-section name="body">
+                        <container style="clear" />
+                        <include-screen name="FlotChart" location="component://common/widget/flotScreens.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="SimpleDecorator">
+        <section>
+            <actions>
+                <property-map resource="ExampleUiLabels" map-name="uiLabelMap" global="true"/>
+            </actions>
+            <widgets>
+                 <include-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml"/>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="main">
+        <!-- This is the screen for the Main page in the Example component. A common pattern
+            in OFBiz is to have each component include a Main page as a starting point for
+            the user. -->
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="main"/>
+            </actions>
+            <widgets>
+                 <include-screen name="FindExample" location="component://example/widget/example/ExampleScreens.xml"/>
+            </widgets>
+        </section>
+    </screen>
+
+</screens>

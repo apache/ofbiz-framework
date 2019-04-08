@@ -17,9 +17,9 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.UtilHttp
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.entity.condition.*
 import org.apache.ofbiz.content.ContentManagementWorker
-import org.apache.ofbiz.entity.model.ModelUtil
 
 paramMap = UtilHttp.getParameterMap(request)
 forumId = ContentManagementWorker.getFromSomewhere("permRoleSiteId", paramMap, request, context)

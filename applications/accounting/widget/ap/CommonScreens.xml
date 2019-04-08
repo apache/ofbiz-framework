@@ -29,7 +29,7 @@ under the License.
                 <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.AccountingCompanySubtitle" global="true"/>
                 <set field="applicationMenuName" value="ApAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://accounting/widget/ap/ApMenus.xml" global="true"/>
-                <set field="applicationTitle" from-field="uiLabelMap.AccountingApManagerApplication" global="true"/>
+                <set field="applicationTitle" value="${uiLabelMap.AccountingApManagerApplication}" global="true"/>
                 <set field="invoiceMenuLocation" value="component://accounting/widget/ap/ApInvoiceMenus.xml" global="true"/>
             </actions>
             <widgets>
@@ -53,8 +53,7 @@ under the License.
                                 <script location="component://accounting/groovyScripts/invoice/InvoiceReport.groovy"/>
                             </actions>
                             <widgets>
-                                <include-screen name="ApPastDueInvoices"/>
-                                <include-screen name="ApInvoicesDueSoon"/>
+                                <include-portal-page id="ApPortalPage"/>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -115,7 +114,7 @@ under the License.
                 <set field="headerItem" value="findVendors"/>
                 <set field="titleProperty" value="AccountingApPageTitleFindVendors"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
             </actions>
             <widgets>
@@ -152,7 +151,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                        <include-menu name="ApInvoiceTabBar" location="component://accounting/widget/ap/ApMenus.xml"/>
+                        <include-menu location="component://accounting/widget/ap/ApMenus.xml" name="ApInvoiceTabBar"/>
                     </decorator-section>
                     <decorator-section name="body">
                         <decorator-section-include name="body"/>

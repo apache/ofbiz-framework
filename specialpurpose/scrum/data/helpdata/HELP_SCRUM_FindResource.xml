@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>The Members menu in Scrum component</title>
+    <section>
+        <title>Add members into scrum component</title>
+        <para>
+            The purpose of this is to add member into the scrum component. There are 3 screenlets to perform on the screen include with: 
+            <orderedlist>
+                <listitem><para>Find Scrum Member</para></listitem>
+                <listitem><para>Add Scrum Member</para></listitem>
+                <listitem><para>Scrum Members List</para></listitem>
+            </orderedlist>
+        </para>
+
+    </section>
+    <section>
+        <title>Find Scrum Member</title>
+        <para>
+            To find member who is in the Scrum Component.There 5 criterias to identify - Company,Last Name,First Name,Middle Name and Group Id. 
+            Then, click the button "Find" the solution will display on the Scrum Members List screenlet.
+        </para>
+    </section>
+    <section>
+        <title>Add Scrum Member</title>
+        <para>
+            To add the member the Scrum Component by selecting at Company and Person and Group Id.
+            Then, click the button "Add" the solution will display on the Scrum Members List screenlet.
+        </para>
+    </section>
+    <section>
+        <title>Scrum Members List</title>
+        <para>
+            This screenlet will show all of member who are in the Scrum Component by default. 
+            There is the remove button for each list to remove member out form the Scrum Component.
+        </para>
+    </section> 
+</section>

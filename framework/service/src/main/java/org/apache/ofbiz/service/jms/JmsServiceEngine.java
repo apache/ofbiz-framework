@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.apache.ofbiz.service.jms;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -51,7 +50,6 @@ import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.JNDIContextFactory;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
-import org.apache.ofbiz.entity.serialize.SerializeException;
 import org.apache.ofbiz.entity.transaction.GenericTransactionException;
 import org.apache.ofbiz.entity.transaction.TransactionUtil;
 import org.apache.ofbiz.service.GenericRequester;
@@ -96,7 +94,7 @@ public class JmsServiceEngine extends AbstractEngine {
         try {
             if (Debug.verboseOn()) Debug.logVerbose("Serializing Context --> " + context, module);
             xmlContext = JmsSerializer.serialize(context);
-        } catch (SerializeException | IOException e) {
+        } catch (Exception e) {
             throw new GenericServiceException("Cannot serialize context.", e);
         }
         MapMessage message = session.createMapMessage();
@@ -110,9 +108,9 @@ public class JmsServiceEngine extends AbstractEngine {
         String sendMode = serviceElement.getAttribute("send-mode");
         List<? extends Element> serverList = UtilXml.childElementList(serviceElement, "server");
 
-        if ("none".equals(sendMode)) {
+        if (sendMode.equals("none")) {
             return new ArrayList<Element>();
-        } else if ("all".equals(sendMode)) {
+        } else if (sendMode.equals("all")) {
             return serverList;
         } else {
             throw new GenericServiceException("Requested send mode not supported.");
@@ -268,7 +266,7 @@ public class JmsServiceEngine extends AbstractEngine {
         try {
             con = factory.createXAQueueConnection(userName, password);
 
-            if (clientId.length() > 1)
+            if (clientId != null && clientId.length() > 1)
                 con.setClientID(userName);
             con.start();
 
@@ -314,9 +312,9 @@ public class JmsServiceEngine extends AbstractEngine {
         Map<String, Object> result = new HashMap<String, Object>();
         for (Server server: serverList) {
             String serverType = server.getType();
-            if ("topic".equals(serverType))
+            if (serverType.equals("topic"))
                 result.putAll(runTopic(modelService, context, server));
-            else if ("queue".equals(serverType))
+            else if (serverType.equals("queue"))
                 result.putAll(runQueue(modelService, context, server));
             else
                 throw new GenericServiceException("Illegal server messaging type.");

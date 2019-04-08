@@ -86,8 +86,8 @@ public class ModelFormFieldBuilder {
     private FlexibleMapAccessor<Map<String, ? extends Object>> mapAcsr = null;
     private ModelForm modelForm = null;
     private String name = "";
-    private List<UpdateArea> onChangeUpdateAreas = new ArrayList<>();
-    private List<UpdateArea> onClickUpdateAreas = new ArrayList<>();
+    private List<UpdateArea> onChangeUpdateAreas = new ArrayList<UpdateArea>();
+    private List<UpdateArea> onClickUpdateAreas = new ArrayList<UpdateArea>();
     private String parameterName = "";
     private Integer position = null;
     private String redWhen = "";
@@ -111,7 +111,6 @@ public class ModelFormFieldBuilder {
     private String widgetStyle = "";
     private String parentFormName = "";
     private String tabindex = "";
-    private String conditionGroup = "";
 
     public ModelFormFieldBuilder() {
     }
@@ -163,18 +162,16 @@ public class ModelFormFieldBuilder {
         this.widgetStyle = fieldElement.getAttribute("widget-style");
         this.parentFormName = fieldElement.getAttribute("form-name");
         this.tabindex = fieldElement.getAttribute("tabindex");
-        this.conditionGroup = fieldElement.getAttribute("condition-group");
         Element childElement = null;
         List<? extends Element> subElements = UtilXml.childElementList(fieldElement);
         for (Element subElement : subElements) {
             String subElementName = UtilXml.getTagNameIgnorePrefix(subElement);
             if ("on-field-event-update-area".equals(subElementName)) {
                 UpdateArea updateArea = new UpdateArea(subElement);
-                if ("change".equals(updateArea.getEventType())) {
+                if ("change".equals(updateArea.getEventType()))
                     onChangeUpdateAreas.add(updateArea);
-                } else if ("click".equals(updateArea.getEventType())) {
+                else if ("click".equals(updateArea.getEventType()))
                     onClickUpdateAreas.add(updateArea);
-                }
             } else {
                 if (this.fieldType != null) {
                     throw new IllegalArgumentException("Multiple field types found: " + this.fieldType + ", " + subElementName);
@@ -185,59 +182,58 @@ public class ModelFormFieldBuilder {
         }
         if (UtilValidate.isEmpty(this.fieldType)) {
             this.induceFieldInfo(modelForm, null, entityModelReader, dispatchContext);
-        } else if ("display".equals(this.fieldType)) {
+        } else if ("display".equals(this.fieldType))
             this.fieldInfo = new DisplayField(childElement, null);
-        } else if ("display-entity".equals(this.fieldType)) {
+        else if ("display-entity".equals(this.fieldType))
             this.fieldInfo = new DisplayEntityField(childElement, null);
-        } else if ("hyperlink".equals(this.fieldType)) {
+        else if ("hyperlink".equals(this.fieldType))
             this.fieldInfo = new HyperlinkField(childElement, null);
-        } else if ("text".equals(this.fieldType)) {
+        else if ("text".equals(this.fieldType))
             this.fieldInfo = new TextField(childElement, null);
-        } else if ("textarea".equals(this.fieldType)) {
+        else if ("textarea".equals(this.fieldType))
             this.fieldInfo = new TextareaField(childElement, null);
-        } else if ("date-time".equals(this.fieldType)) {
+        else if ("date-time".equals(this.fieldType))
             this.fieldInfo = new DateTimeField(childElement, null);
-        } else if ("drop-down".equals(this.fieldType)) {
+        else if ("drop-down".equals(this.fieldType))
             this.fieldInfo = new DropDownField(childElement, null);
-        } else if ("check".equals(this.fieldType)) {
+        else if ("check".equals(this.fieldType))
             this.fieldInfo = new CheckField(childElement, null);
-        } else if ("radio".equals(this.fieldType)) {
+        else if ("radio".equals(this.fieldType))
             this.fieldInfo = new RadioField(childElement, null);
-        } else if ("submit".equals(this.fieldType)) {
+        else if ("submit".equals(this.fieldType))
             this.fieldInfo = new SubmitField(childElement, null);
-        } else if ("reset".equals(this.fieldType)) {
+        else if ("reset".equals(this.fieldType))
             this.fieldInfo = new ResetField(childElement, null);
-        } else if ("hidden".equals(this.fieldType)) {
+        else if ("hidden".equals(this.fieldType))
             this.fieldInfo = new HiddenField(childElement, null);
-        } else if ("ignored".equals(this.fieldType)) {
+        else if ("ignored".equals(this.fieldType))
             this.fieldInfo = new IgnoredField(childElement, null);
-        } else if ("text-find".equals(this.fieldType)) {
+        else if ("text-find".equals(this.fieldType))
             this.fieldInfo = new TextFindField(childElement, null);
-        } else if ("date-find".equals(this.fieldType)) {
+        else if ("date-find".equals(this.fieldType))
             this.fieldInfo = new DateFindField(childElement, null);
-        } else if ("range-find".equals(this.fieldType)) {
+        else if ("range-find".equals(this.fieldType))
             this.fieldInfo = new RangeFindField(childElement, null);
-        } else if ("lookup".equals(this.fieldType)) {
+        else if ("lookup".equals(this.fieldType))
             this.fieldInfo = new LookupField(childElement, null);
-        } else if ("include-menu".equals(this.fieldType)) {
+        else if ("include-menu".equals(this.fieldType))
             this.fieldInfo = new MenuField(childElement, null);
-        } else if ("include-form".equals(this.fieldType)) {
+        else if ("include-form".equals(this.fieldType))
             this.fieldInfo = new FormField(childElement, null);
-        } else if ("include-grid".equals(this.fieldType)) {
+        else if ("include-grid".equals(this.fieldType))
             this.fieldInfo = new GridField(childElement, null);
-        } else if ("include-screen".equals(this.fieldType)) {
+        else if ("include-screen".equals(this.fieldType))
             this.fieldInfo = new ScreenField(childElement, null);
-        } else if ("file".equals(this.fieldType)) {
+        else if ("file".equals(this.fieldType))
             this.fieldInfo = new FileField(childElement, null);
-        } else if ("password".equals(this.fieldType)) {
+        else if ("password".equals(this.fieldType))
             this.fieldInfo = new PasswordField(childElement, null);
-        } else if ("image".equals(this.fieldType)) {
+        else if ("image".equals(this.fieldType))
             this.fieldInfo = new ImageField(childElement, null);
-        } else if ("container".equals(this.fieldType)) {
+        else if ("container".equals(this.fieldType))
             this.fieldInfo = new ContainerField(childElement, null);
-        } else {
+        else
             throw new IllegalArgumentException("The field sub-element with name " + this.fieldType + " is not supported");
-        }
     }
 
     public ModelFormFieldBuilder(ModelFormField modelFormField) {
@@ -279,7 +275,6 @@ public class ModelFormFieldBuilder {
         this.widgetStyle = modelFormField.getWidgetStyle();
         this.parentFormName = modelFormField.getParentFormName();
         this.tabindex = modelFormField.getTabindex();
-        this.conditionGroup = modelFormField.getConditionGroup();
     }
 
     public ModelFormFieldBuilder(ModelFormFieldBuilder builder) {
@@ -321,7 +316,6 @@ public class ModelFormFieldBuilder {
         this.widgetStyle = builder.getWidgetStyle();
         this.parentFormName = builder.getParentFormName();
         this.tabindex = builder.getTabindex();
-        this.conditionGroup = builder.getConditionGroup();
     }
 
     public ModelFormFieldBuilder addOnChangeUpdateArea(UpdateArea onChangeUpdateArea) {
@@ -498,52 +492,45 @@ public class ModelFormFieldBuilder {
         return tabindex;
     }
 
-    public String getConditionGroup() {
-        return conditionGroup;
-    }
-
     private boolean induceFieldInfo(ModelForm modelForm, String defaultFieldType, ModelReader entityModelReader, DispatchContext dispatchContext) {
-        if (induceFieldInfoFromEntityField(defaultFieldType, entityModelReader)) {
+        if (induceFieldInfoFromEntityField(defaultFieldType, entityModelReader))
             return true;
-        }
-        if (induceFieldInfoFromServiceParam(defaultFieldType, entityModelReader, dispatchContext)) {
+        if (induceFieldInfoFromServiceParam(defaultFieldType, entityModelReader, dispatchContext))
             return true;
-        }
         return false;
     }
 
     public boolean induceFieldInfoFromEntityField(ModelEntity modelEntity, ModelField modelField, String defaultFieldType) {
-        if (modelEntity == null || modelField == null) {
+        if (modelEntity == null || modelField == null)
             return false;
-        }
         this.entityName = modelEntity.getEntityName();
         this.fieldName = modelField.getName();
         if ("find".equals(defaultFieldType)) {
-            if ("id".equals(modelField.getType())) {
+            if ("id".equals(modelField.getType()) || "id-ne".equals(modelField.getType())) {
                 ModelFormField.TextFindField textField = new ModelFormField.TextFindField(FieldInfo.SOURCE_AUTO_ENTITY, 20,
-                        20, null);
+                        Integer.valueOf(20), null);
                 this.setFieldInfo(textField);
-            } else if ("id-long".equals(modelField.getType())) {
+            } else if ("id-long".equals(modelField.getType()) || "id-long-ne".equals(modelField.getType())) {
                 ModelFormField.TextFindField textField = new ModelFormField.TextFindField(FieldInfo.SOURCE_AUTO_ENTITY, 40,
-                        60, null);
+                        Integer.valueOf(60), null);
                 this.setFieldInfo(textField);
-            } else if ("id-vlong".equals(modelField.getType())) {
+            } else if ("id-vlong".equals(modelField.getType()) || "id-vlong-ne".equals(modelField.getType())) {
                 ModelFormField.TextFindField textField = new ModelFormField.TextFindField(FieldInfo.SOURCE_AUTO_ENTITY, 60,
-                        250, null);
+                        Integer.valueOf(250), null);
                 this.setFieldInfo(textField);
             } else if ("very-short".equals(modelField.getType())) {
                 ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_ENTITY, 6,
-                        10, null);
+                        Integer.valueOf(10), null);
                 this.setFieldInfo(textField);
             } else if ("name".equals(modelField.getType()) || "short-varchar".equals(modelField.getType())) {
                 ModelFormField.TextFindField textField = new ModelFormField.TextFindField(FieldInfo.SOURCE_AUTO_ENTITY, 40,
-                        60, null);
+                        Integer.valueOf(60), null);
                 this.setFieldInfo(textField);
             } else if ("value".equals(modelField.getType()) || "comment".equals(modelField.getType())
                     || "description".equals(modelField.getType()) || "long-varchar".equals(modelField.getType())
                     || "url".equals(modelField.getType()) || "email".equals(modelField.getType())) {
                 ModelFormField.TextFindField textField = new ModelFormField.TextFindField(FieldInfo.SOURCE_AUTO_ENTITY, 60,
-                        250, null);
+                        Integer.valueOf(250), null);
                 this.setFieldInfo(textField);
             } else if ("floating-point".equals(modelField.getType()) || "currency-amount".equals(modelField.getType())
                     || "numeric".equals(modelField.getType()) || "fixed-point".equals(modelField.getType()) || "currency-precise".equals(modelField.getType())) {
@@ -568,20 +555,20 @@ public class ModelFormFieldBuilder {
             ModelFormField.HiddenField hiddenField = new ModelFormField.HiddenField(FieldInfo.SOURCE_AUTO_SERVICE, null);
             this.setFieldInfo(hiddenField);
         } else {
-            if ("id".equals(modelField.getType())) {
+            if ("id".equals(modelField.getType()) || "id-ne".equals(modelField.getType())) {
                 ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_ENTITY, 20,
-                        20, null);
+                        Integer.valueOf(20), null);
                 this.setFieldInfo(textField);
-            } else if ("id-long".equals(modelField.getType())) {
+            } else if ("id-long".equals(modelField.getType()) || "id-long-ne".equals(modelField.getType())) {
                 ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_ENTITY, 40,
-                        60, null);
+                        Integer.valueOf(60), null);
                 this.setFieldInfo(textField);
-            } else if ("id-vlong".equals(modelField.getType())) {
+            } else if ("id-vlong".equals(modelField.getType()) || "id-vlong-ne".equals(modelField.getType())) {
                 ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_ENTITY, 60,
-                        250, null);
+                        Integer.valueOf(250), null);
                 this.setFieldInfo(textField);
             } else if ("indicator".equals(modelField.getType())) {
-                List<OptionSource> optionSources = new ArrayList<>();
+                List<OptionSource> optionSources = new ArrayList<OptionSource>();
                 optionSources.add(new ModelFormField.SingleOption("Y", null, null));
                 optionSources.add(new ModelFormField.SingleOption("N", null, null));
                 ModelFormField.DropDownField dropDownField = new ModelFormField.DropDownField(FieldInfo.SOURCE_AUTO_ENTITY,
@@ -589,20 +576,20 @@ public class ModelFormFieldBuilder {
                 this.setFieldInfo(dropDownField);
             } else if ("very-short".equals(modelField.getType())) {
                 ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_ENTITY, 6,
-                        10, null);
+                        Integer.valueOf(10), null);
                 this.setFieldInfo(textField);
             } else if ("very-long".equals(modelField.getType())) {
                 ModelFormField.TextareaField textareaField = new ModelFormField.TextareaField(FieldInfo.SOURCE_AUTO_ENTITY, null);
                 this.setFieldInfo(textareaField);
             } else if ("name".equals(modelField.getType()) || "short-varchar".equals(modelField.getType())) {
                 ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_ENTITY, 40,
-                        60, null);
+                        Integer.valueOf(60), null);
                 this.setFieldInfo(textField);
             } else if ("value".equals(modelField.getType()) || "comment".equals(modelField.getType())
                     || "description".equals(modelField.getType()) || "long-varchar".equals(modelField.getType())
                     || "url".equals(modelField.getType()) || "email".equals(modelField.getType())) {
                 ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_ENTITY, 60,
-                        250, null);
+                        Integer.valueOf(250), null);
                 this.setFieldInfo(textField);
             } else if ("floating-point".equals(modelField.getType()) || "currency-amount".equals(modelField.getType())
                     || "numeric".equals(modelField.getType())) {
@@ -625,16 +612,17 @@ public class ModelFormFieldBuilder {
     }
 
     private boolean induceFieldInfoFromEntityField(String defaultFieldType, ModelReader entityModelReader) {
-        if (UtilValidate.isEmpty(this.getEntityName()) || UtilValidate.isEmpty(this.getFieldName())) {
+        if (UtilValidate.isEmpty(this.getEntityName()) || UtilValidate.isEmpty(this.getFieldName()))
             return false;
-        }
         try {
             ModelEntity modelEntity = entityModelReader.getModelEntity(this.getEntityName());
-            ModelField modelField = modelEntity.getField(this.getFieldName());
-            if (modelField != null) {
-                // okay, populate using the entity field info...
-                this.induceFieldInfoFromEntityField(modelEntity, modelField, defaultFieldType);
-                return true;
+            if (modelEntity != null) {
+                ModelField modelField = modelEntity.getField(this.getFieldName());
+                if (modelField != null) {
+                    // okay, populate using the entity field info...
+                    this.induceFieldInfoFromEntityField(modelEntity, modelField, defaultFieldType);
+                    return true;
+                }
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
@@ -643,9 +631,8 @@ public class ModelFormFieldBuilder {
     }
 
     public boolean induceFieldInfoFromServiceParam(ModelService modelService, ModelParam modelParam, String defaultFieldType) {
-        if (modelService == null || modelParam == null) {
+        if (modelService == null || modelParam == null)
             return false;
-        }
         this.serviceName = modelService.name;
         this.attributeName = modelParam.name;
         if ("find".equals(defaultFieldType)) {
@@ -701,23 +688,24 @@ public class ModelFormFieldBuilder {
 
     private boolean induceFieldInfoFromServiceParam(String defaultFieldType, ModelReader entityModelReader,
             DispatchContext dispatchContext) {
-        if (UtilValidate.isEmpty(this.getServiceName()) || UtilValidate.isEmpty(this.getAttributeName())) {
+        if (UtilValidate.isEmpty(this.getServiceName()) || UtilValidate.isEmpty(this.getAttributeName()))
             return false;
-        }
         try {
             ModelService modelService = dispatchContext.getModelService(this.getServiceName());
-            ModelParam modelParam = modelService.getParam(this.getAttributeName());
-            if (modelParam != null) {
-                if (UtilValidate.isNotEmpty(modelParam.entityName) && UtilValidate.isNotEmpty(modelParam.fieldName)) {
-                    this.entityName = modelParam.entityName;
-                    this.fieldName = modelParam.fieldName;
-                    if (this.induceFieldInfoFromEntityField(defaultFieldType, entityModelReader)) {
-                        return true;
+            if (modelService != null) {
+                ModelParam modelParam = modelService.getParam(this.getAttributeName());
+                if (modelParam != null) {
+                    if (UtilValidate.isNotEmpty(modelParam.entityName) && UtilValidate.isNotEmpty(modelParam.fieldName)) {
+                        this.entityName = modelParam.entityName;
+                        this.fieldName = modelParam.fieldName;
+                        if (this.induceFieldInfoFromEntityField(defaultFieldType, entityModelReader)) {
+                            return true;
+                        }
                     }
-                }
 
-                this.induceFieldInfoFromServiceParam(modelService, modelParam, defaultFieldType);
-                return true;
+                    this.induceFieldInfoFromServiceParam(modelService, modelParam, defaultFieldType);
+                    return true;
+                }
             }
         } catch (GenericServiceException e) {
             Debug.logError(e,
@@ -728,99 +716,66 @@ public class ModelFormFieldBuilder {
     }
 
     public void mergeOverrideModelFormField(ModelFormFieldBuilder builder) {
-        if (builder == null) {
+        if (builder == null)
             return;
-        }
-        if (UtilValidate.isNotEmpty(builder.getName())) {
+        if (UtilValidate.isNotEmpty(builder.getName()))
             this.name = builder.getName();
-        }
-        if (UtilValidate.isNotEmpty(builder.getMapAcsr())) {
+        if (UtilValidate.isNotEmpty(builder.getMapAcsr()))
             this.mapAcsr = builder.getMapAcsr();
-        }
-        if (UtilValidate.isNotEmpty(builder.getEntityName())) {
+        if (UtilValidate.isNotEmpty(builder.getEntityName()))
             this.entityName = builder.getEntityName();
-        }
-        if (UtilValidate.isNotEmpty(builder.getServiceName())) {
+        if (UtilValidate.isNotEmpty(builder.getServiceName()))
             this.serviceName = builder.getServiceName();
-        }
-        if (UtilValidate.isNotEmpty(builder.getEntryAcsr())) {
+        if (UtilValidate.isNotEmpty(builder.getEntryAcsr()))
             this.entryAcsr = builder.getEntryAcsr();
-        }
-        if (UtilValidate.isNotEmpty(builder.getParameterName())) {
+        if (UtilValidate.isNotEmpty(builder.getParameterName()))
             this.parameterName = builder.getParameterName();
-        }
-        if (UtilValidate.isNotEmpty(builder.getFieldName())) {
+        if (UtilValidate.isNotEmpty(builder.getFieldName()))
             this.fieldName = builder.getFieldName();
-        }
-        if (!builder.getAttributeName().isEmpty()) {
+        if (!builder.getAttributeName().isEmpty())
             this.attributeName = builder.getAttributeName();
-        }
-        if (UtilValidate.isNotEmpty(builder.getTitle())) {
+        if (UtilValidate.isNotEmpty(builder.getTitle()))
             this.title = builder.getTitle();
-        }
-        if (UtilValidate.isNotEmpty(builder.getTooltip())) {
+        if (UtilValidate.isNotEmpty(builder.getTooltip()))
             this.tooltip = builder.getTooltip();
-        }
-        if (builder.getSortField() != null) {
+        if (builder.getSortField() != null)
             this.sortField = builder.getSortField();
-        }
-        if (UtilValidate.isNotEmpty(builder.getSortFieldHelpText())) {
+        if (UtilValidate.isNotEmpty(builder.getSortFieldHelpText()))
             this.sortFieldHelpText = builder.getSortFieldHelpText();
-        }
-        if (UtilValidate.isNotEmpty(builder.getTitleAreaStyle())) {
+        if (UtilValidate.isNotEmpty(builder.getTitleAreaStyle()))
             this.titleAreaStyle = builder.getTitleAreaStyle();
-        }
-        if (UtilValidate.isNotEmpty(builder.getWidgetAreaStyle())) {
+        if (UtilValidate.isNotEmpty(builder.getWidgetAreaStyle()))
             this.widgetAreaStyle = builder.getWidgetAreaStyle();
-        }
-        if (UtilValidate.isNotEmpty(builder.getTitleStyle())) {
+        if (UtilValidate.isNotEmpty(builder.getTitleStyle()))
             this.titleStyle = builder.getTitleStyle();
-        }
-        if (UtilValidate.isNotEmpty(builder.getWidgetStyle())) {
+        if (UtilValidate.isNotEmpty(builder.getWidgetStyle()))
             this.widgetStyle = builder.getWidgetStyle();
-        }
-        if (UtilValidate.isNotEmpty(builder.getRedWhen())) {
+        if (UtilValidate.isNotEmpty(builder.getRedWhen()))
             this.redWhen = builder.getRedWhen();
-        }
-        if (UtilValidate.isNotEmpty(builder.getEvent())) {
+        if (UtilValidate.isNotEmpty(builder.getEvent()))
             this.event = builder.getEvent();
-        }
-        if (!builder.getAction().isEmpty()) {
+        if (!builder.getAction().isEmpty())
             this.action = builder.getAction();
-        }
-        if (UtilValidate.isNotEmpty(builder.getUseWhen())) {
+        if (UtilValidate.isNotEmpty(builder.getUseWhen()))
             this.useWhen = builder.getUseWhen();
-        }
-        if (UtilValidate.isNotEmpty(builder.getIgnoreWhen())) {
+        if (UtilValidate.isNotEmpty(builder.getIgnoreWhen()))
             this.ignoreWhen = builder.getIgnoreWhen();
-        }
-        if (builder.getFieldInfo() != null) {
+        if (builder.getFieldInfo() != null)
             this.setFieldInfo(builder.getFieldInfo());
-        }
-        if (UtilValidate.isNotEmpty(builder.getHeaderLink())) {
+        if (UtilValidate.isNotEmpty(builder.getHeaderLink()))
             this.headerLink = builder.getHeaderLink();
-        }
-        if (UtilValidate.isNotEmpty(builder.getHeaderLinkStyle())) {
+        if (UtilValidate.isNotEmpty(builder.getHeaderLinkStyle()))
             this.headerLinkStyle = builder.getHeaderLinkStyle();
-        }
-        if (UtilValidate.isNotEmpty(builder.getIdName())) {
+        if (UtilValidate.isNotEmpty(builder.getIdName()))
             this.idName = builder.getIdName();
-        }
-        if (UtilValidate.isNotEmpty(builder.getOnChangeUpdateAreas())) {
+        if (UtilValidate.isNotEmpty(builder.getOnChangeUpdateAreas()))
             this.onChangeUpdateAreas.addAll(builder.getOnChangeUpdateAreas());
-        }
-        if (UtilValidate.isNotEmpty(builder.getOnClickUpdateAreas())) {
+        if (UtilValidate.isNotEmpty(builder.getOnClickUpdateAreas()))
             this.onClickUpdateAreas.addAll(builder.getOnClickUpdateAreas());
-        }
-        if (UtilValidate.isNotEmpty(builder.getParentFormName())) {
+        if (UtilValidate.isNotEmpty(builder.getParentFormName()))
             this.parentFormName = builder.getParentFormName();
-        }
-        if (UtilValidate.isNotEmpty(builder.getTabindex())) {
+        if (UtilValidate.isNotEmpty(builder.getTabindex()))
             this.tabindex = builder.getTabindex();
-        }
-        if (UtilValidate.isNotEmpty(builder.getConditionGroup())) {
-            this.conditionGroup = builder.getConditionGroup();
-        }
         this.encodeOutput = builder.getEncodeOutput();
         this.position = builder.getPosition();
         this.requiredField = builder.getRequiredField();
@@ -1009,10 +964,6 @@ public class ModelFormFieldBuilder {
     }
     public ModelFormFieldBuilder setTabindex(String tabindex) {
         this.tabindex = tabindex;
-        return this;
-    }
-    public ModelFormFieldBuilder setConditionGroup(String conditionGroup) {
-        this.conditionGroup = conditionGroup;
         return this;
     }
 }

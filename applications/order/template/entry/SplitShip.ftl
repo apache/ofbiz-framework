@@ -17,26 +17,26 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<script type="application/javascript">
+<script language="javascript" type="text/javascript">
 //<![CDATA[
 function submitForm(form, mode, value) {
-    if ("DN" == mode) {
+    if (mode == "DN") {
         // done action; payment info
         form.action="<@ofbizUrl>updateShippingOptions/checkoutpayment</@ofbizUrl>";
         form.submit();
-    } else if ("CS" == mode) {
+    } else if (mode == "CS") {
         // continue shopping
         form.action="<@ofbizUrl>updateShippingOptions/showcart</@ofbizUrl>";
         form.submit();
-    } else if ("NA" == mode) {
+    } else if (mode == "NA") {
         // new address
         form.action="<@ofbizUrl>updateCheckoutOptions/editcontactmech?DONE_PAGE=splitship&partyId=${cart.getPartyId()}&preContactMechTypeId=POSTAL_ADDRESS&contactMechPurposeTypeId=SHIPPING_LOCATION</@ofbizUrl>";
         form.submit();
-    } else if ("SV" == mode) {
+    } else if (mode == "SV") {
         // save option; return to current screen
         form.action="<@ofbizUrl>updateShippingOptions/splitship</@ofbizUrl>";
         form.submit();
-    } else if ("SA" == mode) {
+    } else if (mode == "SA") {
         // selected shipping address
         form.action="<@ofbizUrl>updateShippingAddress/splitship</@ofbizUrl>";
         form.submit();
@@ -118,16 +118,16 @@ function submitForm(form, mode, value) {
                       <select name="maySplit" class="selectBox">
                         <#assign maySplitStr = cart.getMaySplit(groupIdx)?default("")>
                         <option value="">${uiLabelMap.OrderSplittingPreference}</option>
-                        <option value="false" <#if "N" == maySplitStr>selected="selected"</#if>>${uiLabelMap.OrderShipAllItemsTogether}</option>
-                        <option value="true" <#if "Y" == maySplitStr>selected="selected"</#if>>${uiLabelMap.OrderShipItemsWhenAvailable}</option>
+                        <option value="false" <#if maySplitStr == "N">selected="selected"</#if>>${uiLabelMap.OrderShipAllItemsTogether}</option>
+                        <option value="true" <#if maySplitStr == "Y">selected="selected"</#if>>${uiLabelMap.OrderShipItemsWhenAvailable}</option>
                       </select>
                     </div>
                     <div>
                       <select name="isGift" class="selectBox">
                         <#assign isGiftStr = cart.getIsGift(groupIdx)?default("")>
                         <option value="">${uiLabelMap.OrderIsGift} ?</option>
-                        <option value="false" <#if "N" == isGiftStr>selected="selected"</#if>>${uiLabelMap.OrderNotAGift}</option>
-                        <option value="true" <#if "Y" == isGiftStr>selected="selected"</#if>>${uiLabelMap.OrderYesIsAGift}</option>
+                        <option value="false" <#if isGiftStr == "N">selected="selected"</#if>>${uiLabelMap.OrderNotAGift}</option>
+                        <option value="true" <#if isGiftStr == "Y">selected="selected"</#if>>${uiLabelMap.OrderYesIsAGift}</option>
                       </select>
                     </div>
 
@@ -185,7 +185,7 @@ function submitForm(form, mode, value) {
                       </#if>
                       <#-- end code to display a small image of the product -->
                       <a href="<@ofbizUrl>product?product_id=${cartLine.getProductId()}</@ofbizUrl>" class="buttontext">${cartLine.getProductId()} -
-                      ${cartLine.getName(dispatcher)!}</a> : ${cartLine.getDescription(dispatcher)!}
+                      ${cartLine.getName()!}</a> : ${cartLine.getDescription()!}
 
                       <#-- display the registered ship groups and quantity -->
                       <#assign itemShipGroups = cart.getShipGroups(cartLine)>
@@ -205,7 +205,7 @@ function submitForm(form, mode, value) {
 
                     <#else>
                       <#-- this is a non-product item -->
-                      <b>${cartLine.getItemTypeDescription()!}</b> : ${cartLine.getName(dispatcher)!}
+                      <b>${cartLine.getItemTypeDescription()!}</b> : ${cartLine.getName()!}
                     </#if>
                   </div>
 

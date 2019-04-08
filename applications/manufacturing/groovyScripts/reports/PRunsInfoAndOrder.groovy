@@ -20,6 +20,7 @@
 // PRunsInfoAndOrder
 // ReportG
 
+import org.apache.ofbiz.entity.util.EntityUtil
 import org.apache.ofbiz.manufacturing.jobshopmgt.ProductionRunHelper
 import org.apache.ofbiz.order.order.OrderReadHelper
 

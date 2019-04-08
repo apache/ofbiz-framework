@@ -111,7 +111,7 @@ under the License.
                             </fo:table-row>
                         </#list>
 
-                        <#if "white" == rowColor>
+                        <#if rowColor == "white">
                             <#assign rowColor = "#D4D0C8">
                         <#else>
                             <#assign rowColor = "white">

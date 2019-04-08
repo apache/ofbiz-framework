@@ -39,7 +39,7 @@ public class TransactionFactoryLoader {
             }
             ClassLoader loader = Thread.currentThread().getContextClassLoader();
             Class<?> tfClass = loader.loadClass(className);
-            instance = (TransactionFactory) tfClass.getDeclaredConstructor().newInstance();
+            instance = (TransactionFactory) tfClass.newInstance();
         } catch (GenericEntityConfException gece) {
             Debug.logError(gece, "Could not find transaction factory class name definition", module);
         } catch (ClassNotFoundException cnfe) {

@@ -20,6 +20,19 @@ under the License.
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
+    <!-- Party events -->
+    <simple-method method-name="deleteParty" short-description="Delete Person">
+        <call-map-processor in-map-name="parameters" out-map-name="context">
+            <simple-map-processor name="deleteParty">
+                <process field="partyId"><copy/></process>
+            </simple-map-processor>
+        </call-map-processor>
+        <check-errors/>
+        <call-service service-name="deleteParty" in-map-name="context">
+            <default-message resource="PartyUiLabels" property="PartyPartySuccessfullyDeleted"/>
+        </call-service>
+    </simple-method>
+
     <!-- Person events -->
     <simple-method method-name="createPerson" short-description="Create Person">
         <call-map-processor xml-resource="component://party/minilang/party/PartyMapProcs.xml"
@@ -124,7 +137,7 @@ under the License.
             </call-service>
 
             <now field="nowTimestamp"/>
-            <make-value entity-name="PartyGeoPoint" value-field="partyGeoPoint"/>
+            <make-value value-field="partyGeoPoint" entity-name="PartyGeoPoint"/>
             <set field="partyGeoPoint.partyId" from-field="parameters.partyId"/>
             <set field="partyGeoPoint.geoPointId" from-field="geoPointId"/>
             <set field="partyGeoPoint.fromDate" from-field="nowTimestamp"/>

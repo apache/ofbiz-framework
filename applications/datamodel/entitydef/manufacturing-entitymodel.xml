@@ -42,11 +42,11 @@ under the License.
 
     <entity entity-name="ProductManufacturingRule"
             package-name="org.apache.ofbiz.manufacturing.bom"
-            title="Product To Part Rule">
-      <field name="ruleId" type="id"></field>
+            title="Product To Part Rule Entity">
+      <field name="ruleId" type="id-ne"></field>
       <field name="productId" type="id"></field>
       <field name="productIdFor" type="id"></field>
-      <field name="productIdIn" type="id"></field>
+      <field name="productIdIn" type="id-ne"></field>
       <field name="ruleSeqId" type="id"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="productIdInSubst" type="id"></field>
@@ -80,13 +80,13 @@ under the License.
     <entity entity-name="TechDataCalendar"
             package-name="org.apache.ofbiz.manufacturing.techdata"
             default-resource-name="ManufacturingEntityLabels"
-            title="Calendar">
+            title="Calendar entity">
       <description>Used to defined the availability of the machines, this entity define the Id and the week definition.
       The Id is used in the exception calendar table as reference
       </description>
-      <field name="calendarId" type="id"></field>
+      <field name="calendarId" type="id-ne"></field>
       <field name="description" type="description"></field>
-      <field name="calendarWeekId" type="id"></field>
+      <field name="calendarWeekId" type="id-ne"></field>
       <prim-key field="calendarId"/>
       <relation type="one" fk-name="CALENDAR_WEEK" rel-entity-name="TechDataCalendarWeek">
         <key-map field-name="calendarWeekId"/>
@@ -94,10 +94,10 @@ under the License.
     </entity>
     <entity entity-name="TechDataCalendarExcDay"
             package-name="org.apache.ofbiz.manufacturing.techdata"
-            title="Calendar Exception Day">
+            title="Calendar Exception Day entity">
       <description>Used to defined some days which differ from the normal day definition in the weekId associated in the calendar.
       </description>
-      <field name="calendarId" type="id"></field>
+      <field name="calendarId" type="id-ne"></field>
       <field name="exceptionDateStartTime" type="date-time"></field>
       <field name="exceptionCapacity" type="fixed-point"></field>
       <field name="usedCapacity" type="fixed-point"></field>
@@ -110,11 +110,11 @@ under the License.
     </entity>
     <entity entity-name="TechDataCalendarExcWeek"
             package-name="org.apache.ofbiz.manufacturing.techdata"
-            title="Calendar Exception Week">
+            title="Calendar Exception Week entity">
       <description>Used to defined some weeks which differ from the normal week defined in the calendar.</description>
-      <field name="calendarId" type="id"></field>
+      <field name="calendarId" type="id-ne"></field>
       <field name="exceptionDateStart" type="date"></field>
-      <field name="calendarWeekId" type="id"></field>
+      <field name="calendarWeekId" type="id-ne"></field>
       <field name="description" type="description"></field>
       <prim-key field="calendarId"/>
       <prim-key field="exceptionDateStart"/>
@@ -128,9 +128,9 @@ under the License.
     <entity entity-name="TechDataCalendarWeek"
             package-name="org.apache.ofbiz.manufacturing.techdata"
             default-resource-name="ManufacturingEntityLabels"
-            title="Week definition">
+            title="Week definition entity">
       <description>Used to defined the week definition disponibility for machine</description>
-      <field name="calendarWeekId" type="id"></field>
+      <field name="calendarWeekId" type="id-ne"></field>
       <field name="description" type="description"></field>
       <field name="mondayStartTime" type="time"></field>
       <field name="mondayCapacity" type="floating-point"></field>
@@ -158,7 +158,7 @@ under the License.
             default-resource-name="ManufacturingEntityLabels"
             title="MRP Event Type">
       <description></description>
-      <field name="mrpEventTypeId" type="id"></field>
+      <field name="mrpEventTypeId" type="id-ne"></field>
       <field name="description" type="description"></field>
       <prim-key field="mrpEventTypeId"/>
     </entity>
@@ -167,15 +167,14 @@ under the License.
             package-name="org.apache.ofbiz.manufacturing.mrp"
             title="MRP Event">
       <description></description>
-      <field name="mrpId" type="id"></field>
-      <field name="productId" type="id"></field>
+      <field name="mrpId" type="id-ne"></field>
+      <field name="productId" type="id-ne"></field>
       <field name="eventDate" type="date-time"></field>
-      <field name="mrpEventTypeId" type="id"></field>
+      <field name="mrpEventTypeId" type="id-ne"></field>
       <field name="facilityId" type="id"></field>
       <field name="quantity" type="floating-point"></field>
       <field name="eventName" type="very-long"></field>
       <field name="isLate" type="indicator"></field>
-      <field name="facilityIdTo" type="id"></field>
       <prim-key field="mrpId"/>
       <prim-key field="productId"/>
       <prim-key field="eventDate"/>

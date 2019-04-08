@@ -22,10 +22,8 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Method;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -36,27 +34,22 @@ import java.util.Map;
 import java.util.TimeZone;
 
 import javax.el.FunctionMapper;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamSource;
 
+import org.cyberneko.html.parsers.DOMParser;
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.FileUtil;
 import org.apache.ofbiz.base.util.UtilDateTime;
-import org.apache.ofbiz.base.util.UtilIO;
-import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilXml;
-import org.cyberneko.html.parsers.DOMParser;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
-import org.xml.sax.SAXException;
 
 /** Implements Unified Expression Language functions.
  * <p>Built-in functions are divided into a number of
  * namespace prefixes:</p>
- * <table border="1" summary="">
+ * <table border="1">
  * <tr><td colspan="2"><b><code>date:</code> contains miscellaneous date/time functions</b></td></tr>
  * <tr><td><code>date:second(Timestamp, TimeZone, Locale)</code></td><td>Returns the second value of <code>Timestamp</code> (0 - 59).</td></tr>
  * <tr><td><code>date:minute(Timestamp, TimeZone, Locale)</code></td><td>Returns the minute value of <code>Timestamp</code> (0 - 59).</td></tr>
@@ -147,7 +140,6 @@ import org.xml.sax.SAXException;
  * <tr><td colspan="2"><b><code>util:</code> contains miscellaneous utility functions</b></td></tr>
  * <tr><td><code>util:defaultLocale()</code></td><td>Returns the default <code>Locale</code>.</td></tr>
  * <tr><td><code>util:defaultTimeZone()</code></td><td>Returns the default <code>TimeZone</code>.</td></tr>
- * <tr><td><code>util:label(String, String, Locale)</code></td><td>Return the label present in ressource on the given locale.</td></tr>
  * <tr><td><code>util:size(Object)</code></td><td>Returns the size of <code>Maps</code>,
  * <code>Collections</code>, and <code>Strings</code>. Invalid <code>Object</code> types return -1.</td></tr>
  * <tr><td><code>util:urlExists(String)</code></td><td>Returns <code>true</code> if the specified URL exists.</td></tr>
@@ -172,7 +164,7 @@ public class UelFunctions {
     }
 
     protected static class Functions extends FunctionMapper {
-        protected final Map<String, Method> functionMap = new HashMap<>();
+        protected final Map<String, Method> functionMap = new HashMap<String, Method>();
         public Functions() {
             try {
                 this.functionMap.put("date:second", UtilDateTime.class.getMethod("getSecond", Timestamp.class, TimeZone.class, Locale.class));
@@ -260,16 +252,16 @@ public class UelFunctions {
                 this.functionMap.put("util:size", UelFunctions.class.getMethod("getSize", Object.class));
                 this.functionMap.put("util:defaultLocale", Locale.class.getMethod("getDefault"));
                 this.functionMap.put("util:defaultTimeZone", TimeZone.class.getMethod("getDefault"));
-                this.functionMap.put("util:label", UelFunctions.class.getMethod("label", String.class, String.class, Locale.class));
+                this.functionMap.put("util:urlExists", UelFunctions.class.getMethod("urlExists", String.class));
                 this.functionMap.put("dom:readHtmlDocument", UelFunctions.class.getMethod("readHtmlDocument", String.class));
                 this.functionMap.put("dom:readXmlDocument", UelFunctions.class.getMethod("readXmlDocument", String.class));
                 this.functionMap.put("dom:toHtmlString", UelFunctions.class.getMethod("toHtmlString", Node.class, String.class, boolean.class, int.class));
                 this.functionMap.put("dom:toXmlString", UelFunctions.class.getMethod("toXmlString", Node.class, String.class, boolean.class, boolean.class, int.class));
                 this.functionMap.put("dom:writeXmlDocument", UelFunctions.class.getMethod("writeXmlDocument", String.class, Node.class, String.class, boolean.class, boolean.class, int.class));
-            } catch (NoSuchMethodException | NullPointerException | SecurityException e) {
+            } catch (Exception e) {
                 Debug.logError(e, "Error while initializing UelFunctions.Functions instance", module);
             }
-            if (Debug.verboseOn()) Debug.logVerbose("UelFunctions.Functions loaded " + this.functionMap.size() + " functions", module);
+            Debug.logVerbose("UelFunctions.Functions loaded " + this.functionMap.size() + " functions", module);
         }
         @Override
         public Method resolveFunction(String prefix, String localName) {
@@ -408,14 +400,14 @@ public class UelFunctions {
 
     public static String toLowerCase(String str) {
         try {
-            return str.toLowerCase(Locale.getDefault());
+            return str.toLowerCase();
         } catch (Exception e) {}
         return null;
     }
 
     public static String toUpperCase(String str) {
         try {
-            return str.toUpperCase(Locale.getDefault());
+            return str.toUpperCase();
         } catch (Exception e) {}
         return null;
     }
@@ -438,17 +430,17 @@ public class UelFunctions {
         return null;
     }
 
-    public static String label(String ressource, String label, Locale locale) {
-        if (locale == null) {
-            locale = Locale.getDefault();
-        }
+    public static boolean urlExists(String str) {
+        boolean result = false;
         try {
-            String resolveLabel = UtilProperties.getMessage(ressource, label, locale);
-            if (resolveLabel != null) {
-                return resolveLabel;
+            URL url = FlexibleLocation.resolveLocation(str);
+            if (url != null) {
+                InputStream is = url.openStream();
+                result = true;
+                is.close();
             }
         } catch (Exception e) {}
-        return label;
+        return result;
     }
 
     public static Document readHtmlDocument(String str) {
@@ -463,7 +455,7 @@ public class UelFunctions {
             } else {
                 Debug.logError("Unable to locate HTML document " + str, module);
             }
-        } catch (IOException | SAXException e) {
+        } catch (Exception e) {
             Debug.logError(e, "Error while reading HTML document " + str, module);
         }
         return document;
@@ -474,17 +466,13 @@ public class UelFunctions {
         try {
             URL url = FlexibleLocation.resolveLocation(str);
             if (url != null) {
-                try (InputStream is = url.openStream();) {
-                    document = UtilXml.readXmlDocument(is, str);
-                }
-                catch (SAXException | ParserConfigurationException e) {
-                    Debug.logError(e, "Error while reading XML document " + str, module);
-                }
+                InputStream is = url.openStream();
+                document = UtilXml.readXmlDocument(is, str);
+                is.close();
             } else {
                 Debug.logError("Unable to locate XML document " + str, module);
             }
-        }
-        catch (IOException e) {
+        } catch (Exception e) {
             Debug.logError(e, "Error while reading XML document " + str, module);
         }
         return document;
@@ -494,14 +482,14 @@ public class UelFunctions {
         try {
             File file = FileUtil.getFile(str);
             if (file != null) {
-                try (FileOutputStream os = new FileOutputStream(file);) {
-                    UtilXml.writeXmlDocument(node, os, encoding, omitXmlDeclaration, indent, indentAmount);
-                    return true;
-                }
+                FileOutputStream os = new FileOutputStream(file);
+                UtilXml.writeXmlDocument(node, os, encoding, omitXmlDeclaration, indent, indentAmount);
+                os.close();
+                return true;
             } else {
                 Debug.logError("Unable to create XML document " + str, module);
             }
-        } catch (IOException | TransformerException | SecurityException e) {
+        } catch (Exception e) {
             Debug.logError(e, "Error while writing XML document " + str, module);
         }
         return false;
@@ -526,23 +514,25 @@ public class UelFunctions {
             sb.append("/>\n<xsl:template match=\"@*|node()\">\n");
             sb.append("<xsl:copy><xsl:apply-templates select=\"@*|node()\"/></xsl:copy>\n");
             sb.append("</xsl:template>\n</xsl:stylesheet>\n");
-            ByteArrayInputStream bis = new ByteArrayInputStream(sb.toString().getBytes(UtilIO.getUtf8()));
+            ByteArrayInputStream bis = new ByteArrayInputStream(sb.toString().getBytes());
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            try (ByteArrayOutputStream os = new ByteArrayOutputStream();) {
-                UtilXml.transformDomDocument(transformerFactory.newTransformer(new StreamSource(bis)), node, os);
-                return os.toString();
-            }
-        } catch (IOException | TransformerException e) {
+            ByteArrayOutputStream os = new ByteArrayOutputStream();
+            UtilXml.transformDomDocument(transformerFactory.newTransformer(new StreamSource(bis)), node, os);
+            os.close();
+            return os.toString();
+        } catch (Exception e) {
             Debug.logError(e, "Error while creating HTML String ", module);
         }
         return null;
     }
 
     public static String toXmlString(Node node, String encoding, boolean omitXmlDeclaration, boolean indent, int indentAmount) {
-        try (ByteArrayOutputStream os = new ByteArrayOutputStream();) {
+        try {
+            ByteArrayOutputStream os = new ByteArrayOutputStream();
             UtilXml.writeXmlDocument(node, os, encoding, omitXmlDeclaration, indent, indentAmount);
+            os.close();
             return os.toString();
-        } catch (IOException | TransformerException e) {
+        } catch (Exception e) {
             Debug.logError(e, "Error while creating XML String ", module);
         }
         return null;

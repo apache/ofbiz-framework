@@ -27,8 +27,8 @@ under the License.
       <tr>
         <td class="label">${serviceParameter.name} (${serviceParameter.type})</td>
         <td>
-          <input type="text" size="20" name="${serviceParameter.name}" value="${serviceParameter.value!}" <#if "N" == serviceParameter.optional>class="required"</#if>/>
-          <#if "N" == serviceParameter.optional><span class="tooltip">${uiLabelMap.CommonRequired}</span></#if>
+          <input type="text" size="20" name="${serviceParameter.name}" value="${serviceParameter.value!}" <#if serviceParameter.optional == "N">class="required"</#if>/>
+          <#if serviceParameter.optional == "N"><span class="tooltip">${uiLabelMap.CommonRequired}</span></#if>
           <#if serviceParameter.defaultValue?has_content>${uiLabelMap.WebtoolsServiceDefault} ${serviceParameter.defaultValue}</#if>
         </td>
       </tr>

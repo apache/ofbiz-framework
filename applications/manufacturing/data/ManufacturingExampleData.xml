@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+
+    <!-- Task Formulae -->
+    <CustomMethod customMethodId="6000" customMethodTypeId="TASK_FORMULA" customMethodName="exampleTaskFormula" description="Example task formula (qty * estimatedMilliSeconds * 10)"/>
+    <!-- Bom Formulae -->
+    <CustomMethod customMethodId="6001" customMethodTypeId="BOM_FORMULA" customMethodName="exampleComponentFormula" description="Example bom formula (qty * k)"/>
+    <CustomMethod customMethodId="6002" customMethodTypeId="BOM_FORMULA" customMethodName="linearComponentFormula" description="Bom formula for linear components"/>
+
+    <TechDataCalendarWeek calendarWeekId="DEMO_WEEK" description="Demo calendar week of 8hours/days 5days/week starting at 8h30 from monday to friday" mondayStartTime="08:30:00" mondayCapacity="2.88E7" tuesdayStartTime="08:30:00" tuesdayCapacity="2.88E7" wednesdayStartTime="08:30:00" wednesdayCapacity="2.88E7" thursdayStartTime="08:30:00" thursdayCapacity="2.88E7" fridayStartTime="08:30:00" fridayCapacity="2.88E7"/>
+    <TechDataCalendar calendarId="DEMO_CALENDAR" description="Demo Workcenter Calendar" calendarWeekId="DEMO_WEEK"/>
+    <TechDataCalendarExcDay calendarId="DEMO_CALENDAR" exceptionDateStartTime="2004-12-24 00:01:00.0" exceptionCapacity="0" description="Christmas Day"/>
+
+    <FixedAsset fixedAssetId="DEMO_MACHINE_GROUP" fixedAssetTypeId="GROUP_EQUIPMENT" fixedAssetName="Demo Machine Group"/>
+    <FixedAssetGeoPoint fixedAssetId="DEMO_MACHINE_GROUP" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
+    <FixedAsset fixedAssetId="DEMO_MACHINE" fixedAssetName="Demo Machine" fixedAssetTypeId="PRODUCTION_EQUIPMENT" parentFixedAssetId="DEMO_MACHINE_GROUP" calendarId="DEMO_CALENDAR" purchaseCost="50000" purchaseCostUomId="USD"/>
+    <FixedAssetGeoPoint fixedAssetId="DEMO_MACHINE" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
+
+    <FixedAsset fixedAssetId="DEMO_FOOD_GROUP" fixedAssetTypeId="GROUP_EQUIPMENT" fixedAssetName="Demo Food Group"/>
+    <FixedAssetGeoPoint fixedAssetId="DEMO_FOOD_GROUP" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
+    <FixedAsset fixedAssetId="DEMO_FOOD" fixedAssetName="Demo Food" fixedAssetTypeId="PRODUCTION_EQUIPMENT" parentFixedAssetId="DEMO_FOOD_GROUP" calendarId="DEMO_CALENDAR" purchaseCost="7000" purchaseCostUomId="USD"/>
+    <FixedAssetGeoPoint fixedAssetId="DEMO_FOOD" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
+
+    <FixedAsset fixedAssetId="DEMO_PROD_EQUIPMT_1" fixedAssetName="Demo Production Equipment One" fixedAssetTypeId="PRODUCTION_EQUIPMENT" dateAcquired="2005-01-01 00:01:00.0" expectedEndOfLife="2010-01-01" calendarId="DEMO_CALENDAR" salvageValue="50" purchaseCost="1000" purchaseCostUomId="USD"/>
+    <FixedAssetGeoPoint fixedAssetId="DEMO_PROD_EQUIPMT_1" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
+    <FixedAsset fixedAssetId="DEMO_PROD_EQUIPMT_2" fixedAssetName="Demo Production Equipment Two" fixedAssetTypeId="PRODUCTION_EQUIPMENT" dateAcquired="2005-01-01 00:01:00.0" expectedEndOfLife="2010-01-01" calendarId="DEMO_CALENDAR" salvageValue="50" purchaseCost="1000" purchaseCostUomId="USD"/>
+    <FixedAssetGeoPoint fixedAssetId="DEMO_PROD_EQUIPMT_2" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
+
+    <FixedAsset fixedAssetId="DEMO_BOOK_GROUP" fixedAssetTypeId="GROUP_EQUIPMENT" fixedAssetName="Demo Book Group"/>
+    <FixedAssetGeoPoint fixedAssetId="DEMO_BOOK_GROUP" geoPointId="9000" fromDate="2011-08-02 00:00:00.000"/>
+    <FixedAsset fixedAssetId="DEMO_BOOK" fixedAssetName="Demo Book" fixedAssetTypeId="PRODUCTION_EQUIPMENT" parentFixedAssetId="DEMO_BOOK_GROUP" calendarId="DEMO_CALENDAR" purchaseCost="200" purchaseCostUomId="USD"/>
+    <FixedAssetGeoPoint fixedAssetId="DEMO_BOOK" geoPointId="9000" fromDate="2011-08-02 00:00:00.000"/>
+
+    <FixedAssetDepMethod depreciationCustomMethodId="STR_LINE_DEP_FORMULA" fixedAssetId="DEMO_PROD_EQUIPMT_1"/>
+    <FixedAssetDepMethod depreciationCustomMethodId="DBL_DECL_DEP_FORMULA" fixedAssetId="DEMO_PROD_EQUIPMT_2"/>
+</entity-engine-xml>

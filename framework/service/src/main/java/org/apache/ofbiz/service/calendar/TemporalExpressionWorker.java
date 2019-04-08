@@ -150,7 +150,7 @@ public final class TemporalExpressionWorker {
         if (UtilValidate.isEmpty(valueList)) {
             throw new IllegalArgumentException("tempExprId argument invalid - no child expressions found");
         }
-        Set<TemporalExpression> exprList = new TreeSet<>();
+        Set<TemporalExpression> exprList = new TreeSet<TemporalExpression>();
         for (GenericValue value : valueList) {
             exprList.add(makeTemporalExpression(delegator, value.getRelatedOne("ToTemporalExpression", false)));
         }
@@ -163,6 +163,6 @@ public final class TemporalExpressionWorker {
     }
 
     public static String[] getExpressionTypeList() {
-        return ExpressionTypeList.clone();
+        return ExpressionTypeList;
     }
 }

@@ -262,8 +262,6 @@ public class ServiceXaWrapper extends GenericXaResource {
             case TYPE_COMMIT:
                 msgPrefix = "[Commit] ";
                 break;
-            default:
-                Debug.logWarning("There was another type instead of [Commit] or [Rollback] in runService: " + type, module);
         }
 
         // if a service exists; run it
@@ -297,7 +295,7 @@ public class ServiceXaWrapper extends GenericXaResource {
                     if (model.validate) {
                         thisContext = model.makeValid(context, ModelService.IN_PARAM);
                     } else {
-                        thisContext = new HashMap<>();
+                        thisContext = new HashMap<String, Object>();
                         thisContext.putAll(context);
                     }
 
@@ -307,12 +305,12 @@ public class ServiceXaWrapper extends GenericXaResource {
                     // invoke based on mode
                     switch (mode) {
                         case MODE_ASYNC:
-                            Debug.logInfo(msgPrefix + "Invoking [" + service + "] via runAsync", module);
+                            if (Debug.infoOn()) Debug.logInfo(msgPrefix + "Invoking [" + service + "] via runAsync", module);
                             dctx.getDispatcher().runAsync(service, thisContext, persist);
                             break;
 
                         case MODE_SYNC:
-                            Debug.logInfo(msgPrefix + "Invoking [" + service + "] via runSyncIgnore", module);
+                            if (Debug.infoOn()) Debug.logInfo(msgPrefix + "Invoking [" + service + "] via runSyncIgnore", module);
                             dctx.getDispatcher().runSyncIgnore(service, thisContext);
                             break;
                     }

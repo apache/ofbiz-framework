@@ -26,8 +26,6 @@ under the License.
         <authorization service-name="userLogin"/>
 
         <!-- Job poller configuration. Many of these attributes are set to the job poller defaults, but they are included here for convenience. -->
-        <!-- About max-threads: 5 has been chosen when most processors had 4 cores
-             see https://stackoverflow.com/questions/13834692/threads-configuration-based-on-no-of-cpu-cores for more -->
         <thread-pool send-to-pool="pool"
                      purge-job-days="4"
                      failed-retry-min="3"

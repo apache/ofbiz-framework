@@ -87,7 +87,7 @@ under the License.
                         <condition-expr field-name="facilityId" from-field="parameters.facilityId" ignore-if-empty="true" ignore-if-null="true"/>
                         <condition-expr field-name="containerId" from-field="parameters.containerId" ignore-if-empty="true" ignore-if-null="true"/>
                         <condition-expr field-name="lotId" from-field="parameters.lotId" ignore-if-empty="true" ignore-if-null="true"/>
-                        <condition-expr field-name="availableToPromiseTotal" operator="greater" value="0.0"/>
+                        <condition-expr field-name="quantityOnHandTotal" operator="greater" value="0.0"/>
                         <condition-expr field-name="locationTypeEnumId" operator="equals" value="FLT_PICKLOC"/>
                         <condition-expr field-name="statusId" operator="not-equals" value="INV_NS_DEFECTIVE"/>
                         <condition-expr field-name="statusId" operator="not-equals" value="INV_DEFECTIVE"/>
@@ -110,7 +110,7 @@ under the License.
                             <condition-expr field-name="facilityId" from-field="parameters.facilityId" ignore-if-empty="true" ignore-if-null="true"/>
                             <condition-expr field-name="containerId" from-field="parameters.containerId" ignore-if-empty="true" ignore-if-null="true"/>
                             <condition-expr field-name="lotId" from-field="parameters.lotId" ignore-if-empty="true" ignore-if-null="true"/>
-                            <condition-expr field-name="availableToPromiseTotal" operator="greater" value="0.0"/>
+                            <condition-expr field-name="quantityOnHandTotal" operator="greater" value="0.0"/>
                             <condition-expr field-name="locationTypeEnumId" operator="equals" value="FLT_BULK"/>
                             <condition-expr field-name="statusId" operator="not-equals" value="INV_NS_DEFECTIVE"/>
                             <condition-expr field-name="statusId" operator="not-equals" value="INV_DEFECTIVE"/>
@@ -134,7 +134,7 @@ under the License.
                             <condition-expr field-name="facilityId" from-field="parameters.facilityId" ignore-if-empty="true" ignore-if-null="true"/>
                             <condition-expr field-name="containerId" from-field="parameters.containerId" ignore-if-empty="true" ignore-if-null="true"/>
                             <condition-expr field-name="lotId" from-field="parameters.lotId" ignore-if-empty="true" ignore-if-null="true"/>
-                            <condition-expr field-name="availableToPromiseTotal" operator="greater" value="0.0"/>
+                            <condition-expr field-name="quantityOnHandTotal" operator="greater" value="0.0"/>
                             <condition-expr field-name="locationSeqId" operator="equals" from-field="nullField"/>
                             <condition-expr field-name="statusId" operator="not-equals" value="INV_NS_DEFECTIVE"/>
                             <condition-expr field-name="statusId" operator="not-equals" value="INV_DEFECTIVE"/>
@@ -195,11 +195,11 @@ under the License.
                             </if-empty>
                             <!-- TODO: Convert this to a <set-calendar> operation -->
                             <script>groovy:
-                            java.sql.Timestamp orderDate = orderHeader.getTimestamp("orderDate")
-                            com.ibm.icu.util.Calendar cal = com.ibm.icu.util.Calendar.getInstance()
-                            cal.setTimeInMillis(orderDate.getTime())
-                            cal.add(com.ibm.icu.util.Calendar.DAY_OF_YEAR, daysToShip.intValue())
-                            return org.apache.ofbiz.base.util.UtilMisc.toMap("promisedDatetime", new java.sql.Timestamp(cal.getTimeInMillis()))
+                            java.sql.Timestamp orderDate = orderHeader.getTimestamp("orderDate");
+                            com.ibm.icu.util.Calendar cal = com.ibm.icu.util.Calendar.getInstance();
+                            cal.setTimeInMillis(orderDate.getTime());
+                            cal.add(com.ibm.icu.util.Calendar.DAY_OF_YEAR, daysToShip.intValue());
+                            return org.apache.ofbiz.base.util.UtilMisc.toMap("promisedDatetime", new java.sql.Timestamp(cal.getTimeInMillis()));
                             </script>
 
                             <!-- create or update OrderItemShipGrpInvRes record -->
@@ -263,11 +263,11 @@ under the License.
                             </if-empty>
                             <!-- TODO: Convert this to a <set-calendar> operation -->
                             <script>groovy:
-                            java.sql.Timestamp orderDate = orderHeader.getTimestamp("orderDate")
-                            com.ibm.icu.util.Calendar cal = com.ibm.icu.util.Calendar.getInstance()
-                            cal.setTimeInMillis(orderDate.getTime())
-                            cal.add(com.ibm.icu.util.Calendar.DAY_OF_YEAR, daysToShip.intValue())
-                            return org.apache.ofbiz.base.util.UtilMisc.toMap("promisedDatetime", new java.sql.Timestamp(cal.getTimeInMillis()))
+                            java.sql.Timestamp orderDate = orderHeader.getTimestamp("orderDate");
+                            com.ibm.icu.util.Calendar cal = com.ibm.icu.util.Calendar.getInstance();
+                            cal.setTimeInMillis(orderDate.getTime());
+                            cal.add(com.ibm.icu.util.Calendar.DAY_OF_YEAR, daysToShip.intValue());
+                            return org.apache.ofbiz.base.util.UtilMisc.toMap("promisedDatetime", new java.sql.Timestamp(cal.getTimeInMillis()));
                             </script>
 
                             <!-- create OrderItemShipGrpInvRes record -->
@@ -505,11 +505,11 @@ under the License.
         </if-empty>
         <!-- TODO: Convert this to a <set-calendar> operation -->
         <script>groovy:
-        java.sql.Timestamp orderDate = orderHeader.getTimestamp("orderDate")
-        com.ibm.icu.util.Calendar cal = com.ibm.icu.util.Calendar.getInstance()
-        cal.setTimeInMillis(orderDate.getTime())
-        cal.add(com.ibm.icu.util.Calendar.DAY_OF_YEAR, daysToShip.intValue())
-        return org.apache.ofbiz.base.util.UtilMisc.toMap("promisedDatetime", new java.sql.Timestamp(cal.getTimeInMillis()))
+        java.sql.Timestamp orderDate = orderHeader.getTimestamp("orderDate");
+        com.ibm.icu.util.Calendar cal = com.ibm.icu.util.Calendar.getInstance();
+        cal.setTimeInMillis(orderDate.getTime());
+        cal.add(com.ibm.icu.util.Calendar.DAY_OF_YEAR, daysToShip.intValue());
+        return org.apache.ofbiz.base.util.UtilMisc.toMap("promisedDatetime", new java.sql.Timestamp(cal.getTimeInMillis()));
         </script>
     </simple-method>
 

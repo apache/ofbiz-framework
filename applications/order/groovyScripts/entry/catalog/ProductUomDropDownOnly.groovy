@@ -17,6 +17,8 @@
  * under the License.
  */
 
+import org.apache.ofbiz.base.util.*
+
 product = from("Product").where("productId", parameters.productId).queryOne()
 if (product) {
     productVirtualVariants = from("ProductAssoc").where("productIdTo", product.productId , "productAssocTypeId", "ALTERNATIVE_PACKAGE").cache(true).queryList()

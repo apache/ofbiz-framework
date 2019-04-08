@@ -21,11 +21,6 @@ under the License.
 <service-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/service-eca.xsd">
 
-    <eca service="createBudget" event="commit">
-        <set field-name="statusId" value="BG_CREATED"/>
-        <action service="createBudgetStatus" mode="sync" run-as-user="system"/>
-    </eca>
-
     <eca service="createPaymentApplication" event="commit">
         <condition field-name="invoiceId" operator="is-not-empty"/>
         <action service="checkInvoicePaymentApplications" mode="sync"/>
@@ -47,6 +42,11 @@ under the License.
         <action service="updatePaymentMethodAddress" mode="sync"/>
     </eca>
 
+    <eca service="createBillingAccount" event="return">
+        <condition field-name="roleTypeId" operator="is-not-empty"/>
+        <condition field-name="partyId" operator="is-not-empty"/>
+        <action service="createBillingAccountRole" mode="sync"/>
+    </eca>
     <eca service="createBillingAccountRole" event="invoke">
         <condition field-name="roleTypeId" operator="is-not-empty"/>
         <condition field-name="partyId" operator="is-not-empty"/>

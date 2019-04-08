@@ -20,7 +20,6 @@ package org.apache.ofbiz.shipment.shipment;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
-import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -37,7 +36,6 @@ import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
-import org.apache.ofbiz.service.ServiceUtil;
 
 /**
  * ShipmentWorker - Worker methods for Shipment and related entities
@@ -58,7 +56,7 @@ public final class ShipmentWorker {
     public static BigDecimal getShipmentPackageContentValue(GenericValue shipmentPackageContent) {
         BigDecimal quantity = shipmentPackageContent.getBigDecimal("quantity");
 
-        BigDecimal value;
+        BigDecimal value = new BigDecimal("0");
 
         // lookup the issuance to find the order
         List<GenericValue> issuances = null;
@@ -104,7 +102,7 @@ public final class ShipmentWorker {
             }
         }
         // take the average value of the issuances and multiply it by the shipment package content quantity
-        value = totalValue.divide(totalIssued, 10, RoundingMode.HALF_EVEN).multiply(quantity);
+        value = totalValue.divide(totalIssued, 10, BigDecimal.ROUND_HALF_EVEN).multiply(quantity);
         return value;
     }
 
@@ -114,7 +112,7 @@ public final class ShipmentWorker {
 
         if (UtilValidate.isNotEmpty(shippableItemInfo)) {
             for (Map<String, Object> itemInfo: shippableItemInfo) {
-                long pieces = (Long) itemInfo.get("piecesIncluded");
+                long pieces = ((Long) itemInfo.get("piecesIncluded")).longValue();
                 BigDecimal totalQuantity = (BigDecimal) itemInfo.get("quantity");
                 BigDecimal totalWeight = (BigDecimal) itemInfo.get("weight");
                 String productId = (String) itemInfo.get("productId");
@@ -174,12 +172,11 @@ public final class ShipmentWorker {
             String productId = entry.getKey();
             Map<String, Object> productInfo = getProductItemInfo(shippableItemInfo, productId);
             BigDecimal productWeight = (BigDecimal) productInfo.get("productWeight");
-            if (productWeight == null) productWeight = BigDecimal.ZERO;
             BigDecimal quantity = packageMap.get(productId);
 
             String weightUomId = (String) productInfo.get("weightUomId");
 
-            Debug.logInfo("Product Id : " + productId + " Product Weight : " + String.valueOf(productWeight) + " Product UomId : " + weightUomId + " assuming " + defaultWeightUomId + " if null. Quantity : " + String.valueOf(quantity), module);
+            Debug.logInfo("Product Id : " + productId.toString() + " Product Weight : " + String.valueOf(productWeight) + " Product UomId : " + weightUomId + " assuming " + defaultWeightUomId + " if null. Quantity : " + String.valueOf(quantity), module);
 
             if (UtilValidate.isEmpty(weightUomId)) {
                 weightUomId = defaultWeightUomId;
@@ -189,10 +186,6 @@ public final class ShipmentWorker {
                 Map<String, Object> result = new HashMap<String, Object>();
                 try {
                     result = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", weightUomId, "uomIdTo", "WT_lb", "originalValue", productWeight));
-                    if (ServiceUtil.isError(result)) {
-                        Debug.logError(ServiceUtil.getErrorMessage(result), module);
-                        return totalWeight;
-                    }
                 } catch (GenericServiceException ex) {
                     Debug.logError(ex, module);
                 }

@@ -18,16 +18,16 @@
  *******************************************************************************/
 package org.apache.ofbiz.entity.transaction;
 
+import org.apache.ofbiz.base.util.Debug;
+
 import javax.transaction.RollbackException;
 import javax.transaction.Status;
 import javax.transaction.SystemException;
 import javax.transaction.Transaction;
 import javax.transaction.TransactionManager;
-import javax.transaction.xa.XAException;
 import javax.transaction.xa.XAResource;
 import javax.transaction.xa.Xid;
-
-import org.apache.ofbiz.base.util.Debug;
+import javax.transaction.xa.XAException;
 
 /**
  * GenericXaResource - Abstract XA Resource implementation supporting a single transaction
@@ -86,8 +86,9 @@ public abstract class GenericXaResource extends Thread implements XAResource {
         if (this.active) {
             if (this.xid != null && this.xid.equals(xid)) {
                 throw new XAException(XAException.XAER_DUPID);
+            } else {
+                throw new XAException(XAException.XAER_PROTO);
             }
-            throw new XAException(XAException.XAER_PROTO);
         }
         if (this.xid != null && !this.xid.equals(xid)) {
             throw new XAException(XAException.XAER_NOTA);
@@ -144,8 +145,9 @@ public abstract class GenericXaResource extends Thread implements XAResource {
     public Xid[] recover(int flag) throws XAException {
         if (this.xid == null) {
             return new Xid[0];
+        } else {
+            return new Xid[] {this.xid};
         }
-        return new Xid[] {this.xid};
     }
 
     /**
@@ -159,7 +161,7 @@ public abstract class GenericXaResource extends Thread implements XAResource {
      * @see javax.transaction.xa.XAResource#getTransactionTimeout()
      */
     public int getTransactionTimeout() throws XAException {
-        return this.timeout == null ? 0 : this.timeout;
+        return this.timeout == null ? 0 : this.timeout.intValue();
     }
 
     /**
@@ -167,7 +169,7 @@ public abstract class GenericXaResource extends Thread implements XAResource {
      * Note: the valus is saved but in the current implementation this is not used.
      */
     public boolean setTransactionTimeout(int seconds) throws XAException {
-        this.timeout = (seconds == 0 ? null : seconds);
+        this.timeout = (seconds == 0 ? null : Integer.valueOf(seconds));
         return true;
     }
 
@@ -205,7 +207,7 @@ public abstract class GenericXaResource extends Thread implements XAResource {
         try {
             if (timeout != null) {
                 // sleep until the transaction times out
-                sleep(timeout * 1000L);
+                sleep(timeout.intValue() * 1000);
 
                 if (active) {
                     // get the current status

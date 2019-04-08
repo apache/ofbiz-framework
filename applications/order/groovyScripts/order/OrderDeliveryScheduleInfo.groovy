@@ -17,6 +17,9 @@
  * under the License.
  */
 
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.entity.*
+
 orderId = request.getParameter("orderId")
 orderTypeId = null
 orderHeader = from("OrderHeader").where("orderId", orderId).queryOne()

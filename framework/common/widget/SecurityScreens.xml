@@ -33,9 +33,7 @@ under the License.
                         <container style="page-title">
                             <label text="${uiLabelMap.NewSecurityGroup}"/>
                         </container>
-                        <screenlet>
-                            <include-form name="CreateSecurityGroup" location="component://common/widget/SecurityForms.xml"/>
-                        </screenlet>
+                        <include-form name="CreateSecurityGroup" location="component://common/widget/SecurityForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -56,9 +54,7 @@ under the License.
                         <container style="page-title">
                             <label text="${uiLabelMap.CreateUserLogin}"/>
                         </container>
-                        <screenlet>
-                            <include-form name="AddUserLogin" location="component://common/widget/SecurityForms.xml"/>
-                        </screenlet>
+                        <include-form name="AddUserLogin" location="component://common/widget/SecurityForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -79,9 +75,7 @@ under the License.
                         <container style="page-title">
                             <label text="${uiLabelMap.PageTitleEditSecurityGroup} - ${groupId}"/>
                         </container>
-                          <screenlet>
-                            <include-form name="EditSecurityGroup" location="component://common/widget/SecurityForms.xml"/>
-                          </screenlet>
+                        <include-form name="EditSecurityGroup" location="component://common/widget/SecurityForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -94,7 +88,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditSecurityGroupPermissions"/>
                 <set field="tabButtonItem" value="EditSecurityGroupPermissions"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="groupId" from-field="parameters.groupId"/>
                 <entity-one entity-name="SecurityGroup" value-field="securityGroup"/>
@@ -137,9 +131,7 @@ under the License.
                         <screenlet id="AddSecurityGroupProtectedViewsPanel" title="${uiLabelMap.AddProtectedViewToSecurityGroup}" collapsible="true">
                             <include-form name="AddSecurityGroupProtectedView" location="component://common/widget/SecurityForms.xml"/>
                         </screenlet>
-                        <screenlet>
-                          <include-form name="ListSecurityGroupProtectedViews" location="component://common/widget/SecurityForms.xml"/>
-                        </screenlet>
+                        <include-form name="ListSecurityGroupProtectedViews" location="component://common/widget/SecurityForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -163,9 +155,7 @@ under the License.
                         <screenlet id="AddSecurityGroupUserLoginsPanel" title="${uiLabelMap.AddUserLoginToSecurityGroup}" collapsible="true">
                             <include-form name="AddSecurityGroupUserLogin" location="component://common/widget/SecurityForms.xml"/>
                         </screenlet>
-                        <screenlet>
-                            <include-form name="ListSecurityGroupUserLogins" location="component://common/widget/SecurityForms.xml"/>
-                        </screenlet>
+                        <include-form name="ListSecurityGroupUserLogins" location="component://common/widget/SecurityForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -205,7 +195,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditUserLoginSecurityGroups"/>
                 <set field="tabButtonItem" value="EditUserLoginSecurityGroups"/>
                 <set field="addUserLoginSecurityGroupURI" value="userLogin_addUserLoginToSecurityGroup"/>
-                <set field="expireUserLoginSecurityGroupURI" value="userLogin_expireUserLoginFromSecurityGroup"/>
+                <set field="removeUserLoginSecurityGroupURI" value="userLogin_removeUserLoginFromSecurityGroup"/>
                 <set field="updateUserLoginSecurityGroupURI" value="userLogin_updateUserLoginToSecurityGroup"/>
                 <set field="userLoginId" from-field="parameters.userLoginId"/>
                 <entity-one entity-name="UserLogin" value-field="editUserLogin"/>
@@ -219,9 +209,7 @@ under the License.
                         <screenlet id="AddUserLoginSecurityGroupsPanel" title="${uiLabelMap.AddUserLoginToSecurityGroup}" collapsible="true">
                             <include-form name="AddUserLoginSecurityGroup" location="component://common/widget/SecurityForms.xml"/>
                         </screenlet>
-                        <screenlet>
-                          <include-form name="ListUserLoginSecurityGroups" location="component://common/widget/SecurityForms.xml"/>
-                        </screenlet>
+                        <include-form name="ListUserLoginSecurityGroups" location="component://common/widget/SecurityForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -234,7 +222,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditIssuerProvisions"/>
                 <set field="tabButtonItem" value="EditCertIssuerProvisions"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
             </actions>
             <widgets>
@@ -261,7 +249,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleFindSecurityGroup"/>
                 <set field="tabButtonItem" value="FindSecurityGroup"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
             </actions>
             <widgets>
@@ -273,9 +261,7 @@ under the License.
                         <container style="button-bar">
                             <link target="CreateNewSecurityGroup" style="buttontext create" text="${uiLabelMap.CommonCreateNew}"/>
                         </container>
-                        <screenlet>
-                            <include-form name="ListSecurityGroups" location="component://common/widget/SecurityForms.xml"/>
-                        </screenlet>
+                        <include-form name="ListSecurityGroups" location="component://common/widget/SecurityForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -288,7 +274,7 @@ under the License.
                 <set field="titleProperty" value="FindUserLogin"/>
                 <set field="tabButtonItem" value="FindUserLogin"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
             </actions>
             <widgets>
@@ -300,9 +286,7 @@ under the License.
                         <container style="button-bar">
                             <link target="createnewlogin" style="buttontext create" text="${uiLabelMap.CommonCreateNew}"/>
                         </container>
-                        <screenlet>
-                            <include-form name="ListUserLogins" location="component://common/widget/SecurityForms.xml"/>
-                        </screenlet>
+                        <include-form name="ListUserLogins" location="component://common/widget/SecurityForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

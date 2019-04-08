@@ -21,5 +21,5 @@ under the License.
     <SecurityPermission description="ALL OFBiz Setup operations." permissionId="SETUP_ADMIN"/>
     <SecurityPermission description="OFBiz Setup View permission." permissionId="SETUP_VIEW"/>
 
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="SETUP_ADMIN"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="SETUP_ADMIN"/>
 </entity-engine-xml>

@@ -49,7 +49,7 @@ public class StringUtil {
     private static final Map<String, Pattern> substitutionPatternMap = createSubstitutionPatternMap();
 
     private static Map<String, Pattern> createSubstitutionPatternMap() {
-        Map<String, Pattern> substitutionPatternMap = new LinkedHashMap<>();  // Preserve insertion order
+        Map<String, Pattern> substitutionPatternMap = new LinkedHashMap<String, Pattern>();  // Preserve insertion order
         substitutionPatternMap.put("&&", Pattern.compile("@and", Pattern.LITERAL));
         substitutionPatternMap.put("||", Pattern.compile("@or", Pattern.LITERAL));
         substitutionPatternMap.put("<=", Pattern.compile("@lteq", Pattern.LITERAL));
@@ -86,9 +86,7 @@ public class StringUtil {
 
         int i = mainString.lastIndexOf(oldString);
 
-        if (i < 0) {
-            return mainString;
-        }
+        if (i < 0) return mainString;
 
         StringBuilder mainSb = new StringBuilder(mainString);
 
@@ -116,17 +114,15 @@ public class StringUtil {
      * @return a String of all values in the collection seperated by the delimiter
      */
     public static String join(Collection<?> col, String delim) {
-        if (UtilValidate.isEmpty(col)) {
+        if (UtilValidate.isEmpty(col))
             return null;
-        }
         StringBuilder buf = new StringBuilder();
         Iterator<?> i = col.iterator();
 
         while (i.hasNext()) {
             buf.append(i.next());
-            if (i.hasNext()) {
+            if (i.hasNext())
                 buf.append(delim);
-            }
         }
         return buf.toString();
     }
@@ -141,18 +137,15 @@ public class StringUtil {
         List<String> splitList = null;
         StringTokenizer st;
 
-        if (str == null) {
-            return null;
-        }
+        if (str == null) return null;
 
         st = (delim != null? new StringTokenizer(str, delim): new StringTokenizer(str));
 
         if (st.hasMoreTokens()) {
             splitList = new LinkedList<>();
 
-            while (st.hasMoreTokens()) {
+            while (st.hasMoreTokens())
                 splitList.add(st.nextToken());
-            }
         }
         return splitList;
     }
@@ -168,22 +161,15 @@ public class StringUtil {
         List<String> splitList = null;
         String[] st = null;
 
-        if (str == null) {
-            return splitList;
-        }
+        if (str == null) return splitList;
 
-        if (delim != null) {
-            st = Pattern.compile(delim).split(str, limit);
-        } else {
-            st = str.split("\\s");
-        }
+        if (delim != null) st = Pattern.compile(delim).split(str, limit);
+        else               st = str.split("\\s");
 
 
         if (st != null && st.length > 0) {
-            splitList = new LinkedList<>();
-            for (String element : st) {
-                splitList.add(element);
-            }
+            splitList = new LinkedList<String>();
+            for (int i=0; i < st.length; i++) splitList.add(st[i]);
         }
 
         return splitList;
@@ -196,7 +182,7 @@ public class StringUtil {
     public static List<String> quoteStrList(List<String> list) {
         List<String> tmpList = list;
 
-        list = new LinkedList<>();
+        list = new LinkedList<String>();
         for (String str: tmpList) {
             str = "'" + str + "'";
             list.add(str);
@@ -226,10 +212,8 @@ public class StringUtil {
      * @return a Map of name/value pairs
      */
     public static Map<String, String> strToMap(String str, String delim, boolean trim, String pairsSeparator) {
-        if (str == null) {
-            return null;
-        }
-        Map<String, String> decodedMap = new HashMap<>();
+        if (str == null) return null;
+        Map<String, String> decodedMap = new HashMap<String, String>();
         List<String> elements = split(str, delim);
         pairsSeparator = pairsSeparator == null ? "=" : pairsSeparator;
 
@@ -251,9 +235,7 @@ public class StringUtil {
             }
 
             try {
-                if (value != null && name != null) {
-                    decodedMap.put(URLDecoder.decode(name, "UTF-8"), URLDecoder.decode(value, "UTF-8"));
-                }
+                decodedMap.put(URLDecoder.decode(name, "UTF-8"), URLDecoder.decode(value, "UTF-8"));
             } catch (UnsupportedEncodingException e1) {
                 Debug.logError(e1, module);
             }
@@ -297,9 +279,7 @@ public class StringUtil {
      * @return String The encoded String
      */
     public static String mapToStr(Map<? extends Object, ? extends Object> map) {
-        if (map == null) {
-            return null;
-        }
+        if (map == null) return null;
         StringBuilder buf = new StringBuilder();
         boolean first = true;
 
@@ -307,9 +287,8 @@ public class StringUtil {
             Object key = entry.getKey();
             Object value = entry.getValue();
 
-            if (!(key instanceof String) || !(value instanceof String)) {
+            if (!(key instanceof String) || !(value instanceof String))
                 continue;
-            }
             String encodedName = null;
             try {
                 encodedName = URLEncoder.encode((String) key, "UTF-8");
@@ -323,11 +302,10 @@ public class StringUtil {
                 Debug.logError(e, module);
             }
 
-            if (first) {
+            if (first)
                 first = false;
-            } else {
+            else
                 buf.append("|");
-            }
 
             buf.append(encodedName);
             buf.append("=");
@@ -345,7 +323,7 @@ public class StringUtil {
      * @return new Map
      */
     public static Map<String, String> toMap(String s) {
-        Map<String, String> newMap = new HashMap<>();
+        Map<String, String> newMap = new HashMap<String, String>();
         if (s.startsWith("{") && s.endsWith("}")) {
             s = s.substring(1, s.length() - 1);
             String[] entries = s.split("\\,\\s");
@@ -369,7 +347,7 @@ public class StringUtil {
      * @return new List
      */
     public static List<String> toList(String s) {
-        List<String> newList = new LinkedList<>();
+        List<String> newList = new LinkedList<String>();
         if (s.startsWith("[") && s.endsWith("]")) {
             s = s.substring(1, s.length() - 1);
             String[] entries = s.split("\\,\\s");
@@ -390,7 +368,7 @@ public class StringUtil {
      * @return new List
      */
     public static Set<String> toSet(String s) {
-        Set<String> newSet = new LinkedHashSet<>();
+        Set<String> newSet = new LinkedHashSet<String>();
         if (s.startsWith("[") && s.endsWith("]")) {
             s = s.substring(1, s.length() - 1);
             String[] entries = s.split("\\,\\s");
@@ -415,7 +393,7 @@ public class StringUtil {
         if (keys == null || values == null || keys.size() != values.size()) {
             throw new IllegalArgumentException("Keys and Values cannot be null and must be the same size");
         }
-        Map<K, V> newMap = new HashMap<>();
+        Map<K, V> newMap = new HashMap<K, V>();
         for (int i = 0; i < keys.size(); i++) {
             newMap.put(keys.get(i), values.get(i));
         }
@@ -424,9 +402,7 @@ public class StringUtil {
 
     /** Make sure the string starts with a forward slash but does not end with one; converts back-slashes to forward-slashes; if in String is null or empty, returns zero length string. */
     public static String cleanUpPathPrefix(String prefix) {
-        if (UtilValidate.isEmpty(prefix)) {
-            return "";
-        }
+        if (UtilValidate.isEmpty(prefix)) return "";
 
         StringBuilder cppBuff = new StringBuilder(prefix.replace('\\', '/'));
 
@@ -517,9 +493,7 @@ public class StringUtil {
      * @return the new value
      */
     public static String addToNumberString(String numberString, long addAmount) {
-        if (numberString == null) {
-            return null;
-        }
+        if (numberString == null) return null;
         int origLength = numberString.length();
         long number = Long.parseLong(numberString);
         return padNumberString(Long.toString(number + addAmount), origLength);
@@ -535,17 +509,15 @@ public class StringUtil {
 
     /** Converts operator substitutions (@and, @or, etc) back to their original form.
      * <p>OFBiz script syntax provides special forms of common operators to make
-     * it easier to embed logical expressions in XML</p>
+     * it easier to embed logical expressions in XML:
      * <table border="1" cellpadding="2">
-     *   <caption>OFBiz XML operators</caption>
-     *   <tr><th>OFBiz operator</th><th>Substitution</th></tr>
-     *   <tr><td><strong>@and</strong></td><td>&amp;&amp;</td></tr>
-     *   <tr><td><strong>@or</strong></td><td>||</td></tr>
-     *   <tr><td><strong>@gt</strong></td><td>&gt;</td></tr>
-     *   <tr><td><strong>@gteq</strong></td><td>&gt;=</td></tr>
-     *   <tr><td><strong>@lt</strong></td><td>&lt;</td></tr>
-     *   <tr><td><strong>@lteq</strong></td><td>&lt;=</td></tr>
-     * </table>
+     * <tr><td><strong>@and</strong></td><td>&amp;&amp;</td></tr>
+     * <tr><td><strong>@or</strong></td><td>||</td></tr>
+     * <tr><td><strong>@gt</strong></td><td>&gt;</td></tr>
+     * <tr><td><strong>@gteq</strong></td><td>&gt;=</td></tr>
+     * <tr><td><strong>@lt</strong></td><td>&lt;</td></tr>
+     * <tr><td><strong>@lteq</strong></td><td>&lt;=</td></tr>
+     * </table></p>
      * @param expression The <code>String</code> to convert
      * @return The converted <code>String</code>
      */
@@ -609,12 +581,8 @@ public class StringUtil {
         return makeStringWrapper(theString);
     }
     public static StringWrapper makeStringWrapper(String theString) {
-        if (theString == null) {
-            return null;
-        }
-        if (theString.length() == 0) {
-            return StringWrapper.EMPTY_STRING_WRAPPER;
-        }
+        if (theString == null) return null;
+        if (theString.length() == 0) return StringWrapper.EMPTY_STRING_WRAPPER;
         return new StringWrapper(theString);
     }
 
@@ -625,21 +593,13 @@ public class StringUtil {
     public static StringBuilder appendTo(StringBuilder sb, Iterable<? extends Appender<StringBuilder>> iterable, String prefix, String suffix, String sepPrefix, String sep, String sepSuffix) {
         Iterator<? extends Appender<StringBuilder>> it = iterable.iterator();
         while (it.hasNext()) {
-            if (prefix != null) {
-                sb.append(prefix);
-            }
+            if (prefix != null) sb.append(prefix);
             it.next().appendTo(sb);
-            if (suffix != null) {
-                sb.append(suffix);
-            }
+            if (suffix != null) sb.append(suffix);
             if (it.hasNext() && sep != null) {
-                if (sepPrefix != null) {
-                    sb.append(sepPrefix);
-                }
+                if (sepPrefix != null) sb.append(sepPrefix);
                 sb.append(sep);
-                if (sepSuffix != null) {
-                    sb.append(sepSuffix);
-                }
+                if (sepSuffix != null) sb.append(sepSuffix);
             }
         }
         return sb;
@@ -652,21 +612,13 @@ public class StringUtil {
     public static StringBuilder append(StringBuilder sb, Iterable<? extends Object> iterable, String prefix, String suffix, String sepPrefix, String sep, String sepSuffix) {
         Iterator<? extends Object> it = iterable.iterator();
         while (it.hasNext()) {
-            if (prefix != null) {
-                sb.append(prefix);
-            }
+            if (prefix != null) sb.append(prefix);
             sb.append(it.next());
-            if (suffix != null) {
-                sb.append(suffix);
-            }
+            if (suffix != null) sb.append(suffix);
             if (it.hasNext() && sep != null) {
-                if (sepPrefix != null) {
-                    sb.append(sepPrefix);
-                }
+                if (sepPrefix != null) sb.append(sepPrefix);
                 sb.append(sep);
-                if (sepSuffix != null) {
-                    sb.append(sepSuffix);
-                }
+                if (sepSuffix != null) sb.append(sepSuffix);
             }
         }
         return sb;

@@ -96,11 +96,16 @@ under the License.
         <servlet-name>ImageUrlServlet</servlet-name>
         <url-pattern>/images/*</url-pattern>
     </servlet-mapping>
-
-    <session-config>
-        <session-timeout>60</session-timeout><!-- in minutes -->
-    </session-config>
     
+    <session-config>
+        <session-timeout>60</session-timeout> <!-- in minutes -->
+        <cookie-config>
+          <http-only>true</http-only>
+          <secure>true</secure>
+        </cookie-config>
+        <tracking-mode>COOKIE</tracking-mode>
+    </session-config>
+
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
         <welcome-file>index.html</welcome-file>

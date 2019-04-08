@@ -21,9 +21,13 @@
  * NOTE: This script is also referenced by the webpos and ecommerce's screens and
  * should not contain order component's specific code.
  */
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.product.catalog.CatalogWorker
+
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.entity.condition.*
+import org.apache.ofbiz.entity.util.*
+import org.apache.ofbiz.service.*
+import org.apache.ofbiz.product.catalog.*
 import org.apache.ofbiz.product.category.CategoryContentWrapper
 import org.apache.ofbiz.product.store.ProductStoreWorker
 
@@ -35,7 +39,7 @@ viewIndex = parameters.VIEW_INDEX
 currentCatalogId = CatalogWorker.getCurrentCatalogId(request)
 
 // set the default view size
-defaultViewSize = request.getAttribute("defaultViewSize") ?: modelTheme.getDefaultViewSize()?:20
+defaultViewSize = request.getAttribute("defaultViewSize") ?: EntityUtilProperties.getPropertyValue("widget", "widget.form.defaultViewSize", "20", delegator)
 context.defaultViewSize = defaultViewSize
 
 // set the limit view

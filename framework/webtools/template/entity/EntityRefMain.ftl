@@ -22,7 +22,7 @@ under the License.
     <#assign langDir = "rtl">
 </#if>
 <#assign forstatic = false/>
-<#if "true" == (parameters.forstatic)?default("false")>
+<#if (parameters.forstatic)?default("false") == "true">
   <#assign forstatic = true/>
 </#if>
 <html lang="${docLangAttr}" dir="${langDir}" xmlns="http://www.w3.org/1999/xhtml">
@@ -63,7 +63,7 @@ under the License.
                             </div>
                             <div>${entity.title}&nbsp;
                                 <#if !forstatic>
-                                    <a target='main' href="<@ofbizUrl>FindGeneric?entityName=${entity.entityName}&amp;noConditionFind=Y</@ofbizUrl>">[${uiLabelMap.WebtoolsViewData}]</a>
+                                    <a target='main' href="<@ofbizUrl>FindGeneric?entityName=${entity.entityName}&amp;find=true&amp;VIEW_SIZE=50&amp;VIEW_INDEX=0</@ofbizUrl>">[${uiLabelMap.WebtoolsViewData}]</a>
                                 </#if>
                                 <#if !forstatic>
                                     <a target='main' href="<@ofbizUrl>ArtifactInfo?name=${entity.entityName}&amp;type=entity</@ofbizUrl>">[${uiLabelMap.WebtoolsArtifactInfo}]</a>

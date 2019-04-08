@@ -16,7 +16,7 @@
   specific language governing permissions and limitations
   under the License.
   -->
-<script type="application/javascript" src="<@ofbizContentUrl>/common/js/jquery/plugins/jsTree/jquery.jstree.js</@ofbizContentUrl>"></script>
+<script language="javascript" type="text/javascript" src="<@ofbizContentUrl>/images/jquery/plugins/jsTree/jquery.jstree.js</@ofbizContentUrl>"></script>
 
 <script type="application/javascript">
 <#-- some labels are not unescaped in the JSON object so we have to do this manuely -->

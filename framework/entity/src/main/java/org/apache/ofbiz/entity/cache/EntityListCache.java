@@ -44,17 +44,13 @@ public class EntityListCache extends AbstractEntityConditionCache<Object, List<G
 
     public List<GenericValue> get(String entityName, EntityCondition condition, List<String> orderBy) {
         ConcurrentMap<Object, List<GenericValue>> conditionCache = getConditionCache(entityName, condition);
-        if (conditionCache == null) {
-            return null;
-        }
+        if (conditionCache == null) return null;
         Object orderByKey = getOrderByKey(orderBy);
         List<GenericValue> valueList = conditionCache.get(orderByKey);
         if (valueList == null) {
             // the valueList was not found for the given ordering, so grab the first one and order it in memory
             Iterator<List<GenericValue>> it = conditionCache.values().iterator();
-            if (it.hasNext()) {
-                valueList = it.next();
-            }
+            if (it.hasNext()) valueList = it.next();
 
             if (valueList != null) {
                 // Does not need to be synchronized; if 2 threads do the same ordering,

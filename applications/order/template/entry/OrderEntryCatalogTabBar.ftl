@@ -27,7 +27,7 @@ under the License.
     <#else>
     <li class="h3">
         ${uiLabelMap.CommonCreate}&nbsp;
-        <#if "PURCHASE_ORDER" == shoppingCart.getOrderType()>
+        <#if shoppingCart.getOrderType() == "PURCHASE_ORDER">
             ${uiLabelMap.OrderPurchaseOrder}
         <#else>
             ${uiLabelMap.OrderSalesOrder}

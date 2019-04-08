@@ -23,9 +23,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -55,7 +55,6 @@ import org.apache.ofbiz.product.store.ProductStoreWorker;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
-import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.webapp.control.LoginWorker;
 
 /**
@@ -86,19 +85,15 @@ public class LoginEvents {
             String password = request.getParameter("PASSWORD");
 
             if ((username != null) && ("true".equalsIgnoreCase(EntityUtilProperties.getPropertyValue("security", "username.lowercase", delegator)))) {
-                username = username.toLowerCase(Locale.getDefault());
+                username = username.toLowerCase();
             }
             if ((password != null) && ("true".equalsIgnoreCase(EntityUtilProperties.getPropertyValue("security", "password.lowercase", delegator)))) {
-                password = password.toLowerCase(Locale.getDefault());
+                password = password.toLowerCase();
             }
 
             // save parameters into the session - so they can be used later, if needed
-            if (username != null) {
-                session.setAttribute("USERNAME", username);
-            }
-            if (password != null) {
-                session.setAttribute("PASSWORD", password);
-            }
+            if (username != null) session.setAttribute("USERNAME", username);
+            if (password != null) session.setAttribute("PASSWORD", password);
 
         } else {
             // if the login object is valid, remove attributes
@@ -125,7 +120,7 @@ public class LoginEvents {
         String errMsg = null;
 
         try {
-            GenericValue userLoginSecurityQuestion = EntityQuery.use(delegator).from("UserLoginSecurityQuestion").where("questionEnumId", questionEnumId, "userLoginId", userLoginId).cache().queryOne();
+            GenericValue userLoginSecurityQuestion = delegator.findOne("UserLoginSecurityQuestion", UtilMisc.toMap("questionEnumId", questionEnumId, "userLoginId", userLoginId), true);
             if (userLoginSecurityQuestion != null) {
                 if (UtilValidate.isEmpty(securityAnswer)) {
                     errMsg = UtilProperties.getMessage(resource, "loginservices.security_answer_empty", UtilHttp.getLocale(request));
@@ -164,7 +159,7 @@ public class LoginEvents {
         String errMsg = null;
 
         if ((userLoginId != null) && ("true".equals(EntityUtilProperties.getPropertyValue("security", "username.lowercase", delegator)))) {
-            userLoginId = userLoginId.toLowerCase(Locale.getDefault());
+            userLoginId = userLoginId.toLowerCase();
         }
 
         if (UtilValidate.isEmpty(userLoginId)) {
@@ -224,7 +219,7 @@ public class LoginEvents {
         String userLoginId = request.getParameter("USERNAME");
 
         if ((userLoginId != null) && ("true".equals(EntityUtilProperties.getPropertyValue("security", "username.lowercase", delegator)))) {
-            userLoginId = userLoginId.toLowerCase(Locale.getDefault());
+            userLoginId = userLoginId.toLowerCase();
         }
 
         if (UtilValidate.isEmpty(userLoginId)) {
@@ -247,12 +242,12 @@ public class LoginEvents {
             }
             if (useEncryption) {
                 // password encrypted, can't send, generate new password and email to user
-                passwordToSend = RandomStringUtils.randomAlphanumeric(EntityUtilProperties.getPropertyAsInteger("security", "password.length.min", 5));
+                passwordToSend = RandomStringUtils.randomAlphanumeric(EntityUtilProperties.getPropertyAsInteger("security", "password.length.min", 5).intValue());
                 if ("true".equals(EntityUtilProperties.getPropertyValue("security", "password.lowercase", delegator))){
-                    passwordToSend=passwordToSend.toLowerCase(Locale.getDefault());
+                    passwordToSend=passwordToSend.toLowerCase();
                 }
-                autoPassword = RandomStringUtils.randomAlphanumeric(EntityUtilProperties.getPropertyAsInteger("security", "password.length.min", 5));
-                EntityCrypto entityCrypto = new EntityCrypto(delegator,null);
+                autoPassword = RandomStringUtils.randomAlphanumeric(EntityUtilProperties.getPropertyAsInteger("security", "password.length.min", 5).intValue());
+                EntityCrypto entityCrypto = new EntityCrypto(delegator,null); 
                 try {
                     passwordToSend = entityCrypto.encrypt(keyValue, EncryptMethod.TRUE, autoPassword);
                 } catch (GeneralException e) {
@@ -286,6 +281,7 @@ public class LoginEvents {
             party = supposedUserLogin.getRelatedOne("Party", false);
         } catch (GenericEntityException e) {
             Debug.logWarning(e, "", module);
+            party = null;
         }
         if (party != null) {
             Iterator<GenericValue> emailIter = UtilMisc.toIterator(ContactHelper.getContactMechByPurpose(party, "PRIMARY_EMAIL", false));
@@ -319,14 +315,14 @@ public class LoginEvents {
         }
 
         // set the needed variables in new context
-        Map<String, Object> bodyParameters = new HashMap<>();
-        bodyParameters.put("useEncryption", useEncryption);
+        Map<String, Object> bodyParameters = new HashMap<String, Object>();
+        bodyParameters.put("useEncryption", Boolean.valueOf(useEncryption));
         bodyParameters.put("password", UtilFormatOut.checkNull(passwordToSend));
         bodyParameters.put("locale", UtilHttp.getLocale(request));
         bodyParameters.put("userLogin", supposedUserLogin);
         bodyParameters.put("productStoreId", productStoreId);
 
-        Map<String, Object> serviceContext = new HashMap<>();
+        Map<String, Object> serviceContext = new HashMap<String, Object>();
         serviceContext.put("bodyScreenUri", bodyScreenLocation);
         serviceContext.put("bodyParameters", bodyParameters);
         if (productStoreEmail != null) {
@@ -350,19 +346,13 @@ public class LoginEvents {
             } else {
                 serviceContext.put("subject", UtilProperties.getMessage(resource, "loginservices.password_reminder_subject", UtilMisc.toMap("userLoginId", userLoginId), UtilHttp.getLocale(request)));
                 serviceContext.put("sendFrom", EntityUtilProperties.getPropertyValue("general", "defaultFromEmailAddress", delegator));
-            }
+            }            
         }
         serviceContext.put("sendTo", emails.toString());
         serviceContext.put("partyId", party.getString("partyId"));
 
         try {
             Map<String, Object> result = dispatcher.runSync("sendMailHiddenInLogFromScreen", serviceContext);
-            if (ServiceUtil.isError(result)) {
-                String errorMessage = ServiceUtil.getErrorMessage(result);
-                request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                Debug.logError(errorMessage, module);
-                return "error";
-            }
 
             if (ModelService.RESPOND_ERROR.equals(result.get(ModelService.RESPONSE_MESSAGE))) {
                 Map<String, Object> messageMap = UtilMisc.toMap("errorMessage", result.get(ModelService.ERROR_MESSAGE));
@@ -409,12 +399,47 @@ public class LoginEvents {
         return ProductEvents.checkStoreCustomerRole(request, response);
     }
 
-    public static String storeLogin(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+    public static String storeLogin(HttpServletRequest request, HttpServletResponse response) {
         String responseString = LoginWorker.login(request, response);
         if (!"success".equals(responseString)) {
             return responseString;
         }
+        if ("Y".equals(request.getParameter("rememberMe"))) {
+            setUsername(request, response);
+        }
         // if we logged in okay, do the check store customer role
         return ProductEvents.checkStoreCustomerRole(request, response);
+    }
+
+    public static String getUsername(HttpServletRequest request) {
+        String cookieUsername = null;
+        Cookie[] cookies = request.getCookies();
+        if (Debug.verboseOn()) Debug.logVerbose("Cookies:" + cookies, module);
+        if (cookies != null) {
+            for (Cookie cookie: cookies) {
+                if (cookie.getName().equals(usernameCookieName)) {
+                    cookieUsername = cookie.getValue();
+                    break;
+                }
+            }
+        }
+        return cookieUsername;
+    }
+
+    public static void setUsername(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
+        String domain = EntityUtilProperties.getPropertyValue("url", "cookie.domain", delegator);
+        // first try to get the username from the cookie
+        synchronized (session) {
+            if (UtilValidate.isEmpty(getUsername(request))) {
+                // create the cookie and send it back
+                Cookie cookie = new Cookie(usernameCookieName, request.getParameter("USERNAME"));
+                cookie.setMaxAge(60 * 60 * 24 * 365);
+                cookie.setPath("/");
+                cookie.setDomain(domain);
+                response.addCookie(cookie);
+            }
+        }
     }
 }

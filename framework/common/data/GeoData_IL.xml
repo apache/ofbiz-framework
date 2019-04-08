@@ -19,12 +19,12 @@ under the License.
 -->
 
 <entity-engine-xml>
-    <Geo geoCode="D" geoId="IL-D" geoName="HaDarom" geoTypeId="PROVINCE"/>
-    <Geo geoCode="M" geoId="IL-M" geoName="HaMerkaz" geoTypeId="PROVINCE"/>
-    <Geo geoCode="Z" geoId="IL-Z" geoName="HaZafon" geoTypeId="PROVINCE"/>
-    <Geo geoCode="HA" geoId="IL-HA" geoName="Haifa" geoTypeId="PROVINCE"/>
-    <Geo geoCode="TA" geoId="IL-TA" geoName="Tel Aviv" geoTypeId="PROVINCE"/>
-    <Geo geoCode="JM" geoId="IL-JM" geoName="Jerusalem" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="" geoCode="D" geoId="IL-D" geoName="HaDarom" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="" geoCode="M" geoId="IL-M" geoName="HaMerkaz" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="" geoCode="Z" geoId="IL-Z" geoName="HaZafon" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="" geoCode="HA" geoId="IL-HA" geoName="Haifa" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="" geoCode="TA" geoId="IL-TA" geoName="Tel Aviv" geoTypeId="PROVINCE"/>
+    <Geo abbreviation="" geoCode="JM" geoId="IL-JM" geoName="Jerusalem" geoTypeId="PROVINCE"/>
 
     <GeoAssoc geoId="ISR" geoIdTo="IL-D" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="ISR" geoIdTo="IL-M" geoAssocTypeId="REGIONS"/>

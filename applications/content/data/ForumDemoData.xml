@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<entity-engine-xml>
+    <!-- ForumGroups -->
+    <Content contentId="WebStoreFORUM" contentTypeId="FORUM_ROOT" contentName="WebStore Forum Root" description="Ecommerce Forums" childBranchCount="3"/>
+    <ContentPurpose contentId="WebStoreFORUM" contentPurposeTypeId="ARTICLE"/><!-- do we need this? -->
+    <ContentPurpose contentId="WebStoreFORUM" contentPurposeTypeId="RESPONSE"/>
+    <ContentRole contentId="WebStoreFORUM" partyId="BLOG_EDITOR" roleTypeId="CONTENT_EDITOR" fromDate="2004-04-01 12:00:00.000"/>
+    <ContentRole contentId="WebStoreFORUM" partyId="BLOG_ADMIN" roleTypeId="CONTENT_PUBLISHER" fromDate="2004-04-01 12:00:00.000"/>
+    <ContentRole contentId="WebStoreFORUM" partyId="BLOG_ADMIN" roleTypeId="CONTENT_EDITOR" fromDate="2004-04-01 12:00:00.000"/>
+    <ContentRole contentId="WebStoreFORUM" partyId="BLOG_ADMIN" roleTypeId="CONTENT_AUTHOR" fromDate="2004-04-01 12:00:00.000"/>
+    <ContentRole contentId="WebStoreFORUM" partyId="BLOG_ADMIN" roleTypeId="CONTENT_ADMIN" fromDate="2004-04-01 12:00:00.000"/>
+
+    <!-- forums -->
+    <Content contentId="ASK" contentTypeId="WEB_SITE_PUB_PT" ownerContentId="WebStoreFORUM" contentName="Ask the Experts" description="Ask the Experts" childBranchCount="0"/>
+    <ContentAssoc contentIdTo="ASK" contentId="WebStoreFORUM" contentAssocTypeId="SUBSITE" fromDate="2004-03-01 12:00:00.0" createdDate="2004-03-01 12:00:00.0" createdByUserLogin="admin"/>
+    <ContentAttribute contentId="ASK" attrName="publishOperation" attrValue="HAS_USER_ROLE"/><!-- do we need this? -->
+
+    <Content contentId="GIZMOS" contentTypeId="WEB_SITE_PUB_PT" ownerContentId="WebStoreFORUM" statusId="CTNT_PUBLISHED" contentName="Gizmos" description="Gizmos" childBranchCount="3" createdDate="2004-03-01 12:00:00.0" createdByUserLogin="admin"/>
+    <ContentAssoc contentIdTo="GIZMOS" contentId="WebStoreFORUM" contentAssocTypeId="SUBSITE" fromDate="2004-03-01 12:00:00.0" createdDate="2004-03-01 12:00:00.0" createdByUserLogin="admin"/>
+    <ContentAttribute contentId="GIZMOS" attrName="publishOperation" attrValue="HAS_USER_ROLE"/>
+
+    <Content contentId="WIDGETS" contentTypeId="WEB_SITE_PUB_PT" ownerContentId="WebStoreFORUM" statusId="CTNT_IN_PROGRESS" contentName="Widgets" description="Widgets" childBranchCount="0" createdDate="2004-03-01 12:00:00.0" createdByUserLogin="admin"/>
+    <ContentAssoc contentIdTo="WIDGETS" contentId="WebStoreFORUM" contentAssocTypeId="SUBSITE" fromDate="2004-03-01 12:00:00.0" createdDate="2004-03-01 12:00:00.0" createdByUserLogin="admin"/>
+    <ContentAttribute contentId="WIDGETS" attrName="publishOperation" attrValue="HAS_USER_ROLE"/>
+
+    <!-- Threads -->
+    <Content contentId="thread10021" contentTypeId="DOCUMENT" ownerContentId="GIZMOS" dataResourceId="TEMPLATE_TEXT_ONLY" statusId="CTNT_PUBLISHED" contentName="This is a Thread" description="Gizmo useless?" childBranchCount="2" createdDate="2006-05-02 13:36:31.937" createdByUserLogin="admin"/>
+    <ContentAssoc contentIdTo="thread10021" contentId="GIZMOS" contentAssocTypeId="PUBLISH_LINK" fromDate="2006-05-02 13:36:32.036" createdDate="2006-05-02 13:36:32.055" createdByUserLogin="admin" lastModifiedDate="2006-05-02 13:36:32.055" lastModifiedByUserLogin="admin"/>
+    <ContentPurpose contentId="thread10021" contentPurposeTypeId="ARTICLE"/>
+    <!-- Messages -->
+    <DataResource dataResourceId="msg10002" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_PUBLISHED" createdDate="2006-05-02 13:36:32.264" createdByUserLogin="admin" lastModifiedDate="2006-05-02 13:36:32.264" lastModifiedByUserLogin="admin"/>
+    <Content contentId="msg10002" contentTypeId="DOCUMENT" ownerContentId="GIZMOS" dataResourceId="msg10002" statusId="CTNT_PUBLISHED" contentName="This is a message" description="Gizmo useless?" childBranchCount="1" createdDate="2006-05-02 13:36:32.417" createdByUserLogin="admin" lastModifiedDate="2006-05-02 13:36:32.417" lastModifiedByUserLogin="admin"/>
+    <ContentPurpose contentId="msg10002" contentPurposeTypeId="MAIN_ARTICLE"/>
+    <ContentAssoc contentIdTo="msg10002" contentId="thread10021" contentAssocTypeId="RESPONSE" fromDate="2006-05-02 13:36:32.495" mapKey="ARTICLE" createdDate="2006-05-02 13:36:32.495" createdByUserLogin="admin" lastModifiedDate="2006-05-02 13:36:32.495" lastModifiedByUserLogin="admin"/>
+    <ElectronicText dataResourceId="msg10002">
+        <textData><![CDATA[
+        It is well known that a Gizmo is of no use to anybody. However everybody wants it, why is that?
+        Does anyone have any sensible thoughts on this? As usual I do not know.
+            ]]></textData>
+    </ElectronicText>
+    <!-- Responses -->
+    <DataResource dataResourceId="msg10002a" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_PUBLISHED" createdDate="2006-05-02 14:36:32.264" createdByUserLogin="admin" lastModifiedDate="2006-05-02 14:36:32.264" lastModifiedByUserLogin="admin"/>
+    <Content contentId="msg10002a" contentTypeId="DOCUMENT" ownerContentId="GIZMOS" dataResourceId="msg10002a" statusId="CTNT_PUBLISHED" contentName="This is a reponse" description="re1:Gizmo useless?" childBranchCount="0" createdDate="2006-05-02 14:36:32.417" createdByUserLogin="admin" lastModifiedDate="2006-05-02 14:36:32.417" lastModifiedByUserLogin="admin"/>
+    <ContentAssoc contentIdTo="msg10002a" contentId="msg10002" contentAssocTypeId="RESPONSE" fromDate="2006-05-02 14:36:32.495" mapKey="ARTICLE" createdDate="2006-05-02 14:36:32.495" createdByUserLogin="admin" lastModifiedDate="2006-05-02 14:36:32.495" lastModifiedByUserLogin="admin"/>
+    <ContentPurpose contentId="msg10002a" contentPurposeTypeId="RESPONSE"/>
+    <ElectronicText dataResourceId="msg10002a">
+        <textData><![CDATA[
+        A very good question and i am really surprised that you ask the question. Do you live? It is well known that
+        people love gizmos and want to have every day a new one! They show off with them to prove they are better in life
+        than other people who have less beautiful gizmos.
+            ]]></textData>
+    </ElectronicText>
+
+    <DataResource dataResourceId="msg10002b" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_PUBLISHED" createdDate="2006-05-02 15:36:32.264" createdByUserLogin="admin" lastModifiedDate="2006-05-02 15:36:32.264" lastModifiedByUserLogin="admin"/>
+    <Content contentId="msg10002b" contentTypeId="DOCUMENT" ownerContentId="GIZMOS" dataResourceId="msg10002b" statusId="CTNT_PUBLISHED" contentName="This is a reponse" description="re2:Gizmo useless?" childBranchCount="0" createdDate="2006-05-02 15:36:32.417" createdByUserLogin="admin" lastModifiedDate="2006-05-02 15:36:32.417" lastModifiedByUserLogin="admin"/>
+    <ContentAssoc contentIdTo="msg10002b" contentId="thread10021" contentAssocTypeId="RESPONSE" fromDate="2006-05-02 15:36:32.495" mapKey="ARTICLE" createdDate="2006-05-02 15:36:32.495" createdByUserLogin="admin" lastModifiedDate="2006-05-02 15:36:32.495" lastModifiedByUserLogin="admin"/>
+    <ContentPurpose contentId="msg10002b" contentPurposeTypeId="RESPONSE"/>
+    <ElectronicText dataResourceId="msg10002b">
+        <textData><![CDATA[
+        Why so many people do not know that people love gizmo's? Probably because they do not have one and do not know how
+        much pleasure it gives?
+            ]]></textData>
+    </ElectronicText>
+
+</entity-engine-xml>

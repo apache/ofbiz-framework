@@ -105,7 +105,7 @@ under the License.
                     <#assign rowCount = 0 />
                     <#list featureList as feature>
                        <#assign checked=""/>
-                       <#if feature.action?has_content && "Y" == feature.action>
+                       <#if feature.action?has_content && feature.action == "Y">
                            <#assign checked="checked='checked'"/>
                        </#if>
                        <tr>
@@ -151,7 +151,7 @@ under the License.
 </table>
 
 <#macro renderTextData content textData >
-    <#local contentId=content.contentId!/>
+    <#assign contentId=content.contentId!/>
 <table border="0" width='100%' cellspacing='0' cellpadding='0' class='boxoutside'>
   <tr>
     <td width='100%'>

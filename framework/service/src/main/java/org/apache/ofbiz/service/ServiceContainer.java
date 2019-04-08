@@ -33,11 +33,11 @@ import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.service.job.JobManager;
 
 /**
- * A container for the service engine.
+ * A container for the service engine. 
  */
 public class ServiceContainer implements Container {
     private static final String module = ServiceContainer.class.getName();
-    private static final ConcurrentHashMap<String, LocalDispatcher> dispatcherCache = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<String, LocalDispatcher> dispatcherCache = new ConcurrentHashMap<String, LocalDispatcher>();
     private static LocalDispatcherFactory dispatcherFactory;
 
     private String name;
@@ -54,7 +54,7 @@ public class ServiceContainer implements Container {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         try {
             Class<?> c = loader.loadClass(dispatcherFactoryProperty.value);
-            dispatcherFactory = (LocalDispatcherFactory) c.getDeclaredConstructor().newInstance();
+            dispatcherFactory = (LocalDispatcherFactory) c.newInstance();
         } catch (Exception e) {
             throw new ContainerException(e);
         }
@@ -92,7 +92,7 @@ public class ServiceContainer implements Container {
             dispatcher = dispatcherFactory.createLocalDispatcher(dispatcherName, delegator);
             dispatcherCache.putIfAbsent(dispatcherName, dispatcher);
             dispatcher = dispatcherCache.get(dispatcherName);
-            Debug.logInfo("Created new dispatcher: " + dispatcherName, module);
+            if (Debug.infoOn()) Debug.logInfo("Created new dispatcher: " + dispatcherName, module);
         }
         return dispatcher;
     }
@@ -105,7 +105,7 @@ public class ServiceContainer implements Container {
     }
 
     public static LocalDispatcher removeFromCache(String dispatcherName) {
-        Debug.logInfo("Removing from cache dispatcher: " + dispatcherName, module);
+        if (Debug.infoOn()) Debug.logInfo("Removing from cache dispatcher: " + dispatcherName, module);
         return dispatcherCache.remove(dispatcherName);
     }
 

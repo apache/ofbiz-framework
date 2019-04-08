@@ -58,32 +58,25 @@ public abstract class ResourceLoader {
         String cacheKey = xmlFilename.concat("#").concat(loaderName);
         ResourceLoader loader = loaderCache.get(cacheKey);
         if (loader == null) {
-            loader = getLoader(xmlFilename, loaderName, cacheKey);
+            Element rootElement = null;
+            URL xmlUrl = UtilURL.fromResource(xmlFilename);
+            if (xmlUrl == null) {
+                throw new GenericConfigException("Could not find the " + xmlFilename + " file");
+            }
+            try {
+                rootElement = UtilXml.readXmlDocument(xmlUrl, true, true).getDocumentElement();
+            } catch (Exception e) {
+                throw new GenericConfigException("Exception thrown while reading " + xmlFilename + ": ", e);
+            }
+            Element loaderElement = UtilXml.firstChildElement(rootElement, "resource-loader", "name", loaderName);
+            if (loaderElement == null) {
+                throw new GenericConfigException("The " + xmlFilename + " file is missing the <resource-loader> element with the name " + loaderName);
+            }
+            if (loaderElement.getAttribute("class").isEmpty()) {
+                throw new GenericConfigException("The " + xmlFilename + " file <resource-loader> element with the name " + loaderName + " is missing the class attribute");
+            }
+            loader = loaderCache.putIfAbsentAndGet(cacheKey, makeLoader(loaderElement));
         }
-        return loader;
-    }
-
-    private static ResourceLoader getLoader(String xmlFilename, String loaderName, String cacheKey)
-            throws GenericConfigException {
-        ResourceLoader loader;
-        Element rootElement;
-        URL xmlUrl = UtilURL.fromResource(xmlFilename);
-        if (xmlUrl == null) {
-            throw new GenericConfigException("Could not find the " + xmlFilename + " file");
-        }
-        try {
-            rootElement = UtilXml.readXmlDocument(xmlUrl, true, true).getDocumentElement();
-        } catch (Exception e) {
-            throw new GenericConfigException("Exception thrown while reading " + xmlFilename + ": ", e);
-        }
-        Element loaderElement = UtilXml.firstChildElement(rootElement, "resource-loader", "name", loaderName);
-        if (loaderElement == null) {
-            throw new GenericConfigException("The " + xmlFilename + " file is missing the <resource-loader> element with the name " + loaderName);
-        }
-        if (loaderElement.getAttribute("class").isEmpty()) {
-            throw new GenericConfigException("The " + xmlFilename + " file <resource-loader> element with the name " + loaderName + " is missing the class attribute");
-        }
-        loader = loaderCache.putIfAbsentAndGet(cacheKey, makeLoader(loaderElement));
         return loader;
     }
 
@@ -95,22 +88,24 @@ public abstract class ResourceLoader {
     public static Element getXmlRootElement(String xmlFilename) throws GenericConfigException {
         Document document = ResourceLoader.getXmlDocument(xmlFilename);
 
-        if (document == null) {
+        if (document != null) {
+            return document.getDocumentElement();
+        } else {
             return null;
         }
-        return document.getDocumentElement();
     }
 
     public static Element readXmlRootElement(String xmlFilename) throws GenericConfigException {
         Document document = ResourceLoader.readXmlDocument(xmlFilename);
 
-        if (document == null) {
+        if (document != null) {
+            return document.getDocumentElement();
+        } else {
             return null;
         }
-        return document.getDocumentElement();
     }
 
-    public static void invalidateDocument(String xmlFilename) {
+    public static void invalidateDocument(String xmlFilename) throws GenericConfigException {
         UtilCache.clearCachesThatStartWith(xmlFilename);
     }
 
@@ -126,7 +121,7 @@ public abstract class ResourceLoader {
             document = readXmlDocument(xmlFilename);
 
             if (document != null) {
-                document = domCache.putIfAbsentAndGet(xmlFilename, document);
+                document = (Document) domCache.putIfAbsentAndGet(xmlFilename, document);
             }
         }
         return document;
@@ -141,7 +136,11 @@ public abstract class ResourceLoader {
 
         try {
             return UtilXml.readXmlDocument(confUrl, true, true);
-        } catch (org.xml.sax.SAXException | javax.xml.parsers.ParserConfigurationException | java.io.IOException e) {
+        } catch (org.xml.sax.SAXException e) {
+            throw new GenericConfigException("Error reading " + xmlFilename + "", e);
+        } catch (javax.xml.parsers.ParserConfigurationException e) {
+            throw new GenericConfigException("Error reading " + xmlFilename + "", e);
+        } catch (java.io.IOException e) {
             throw new GenericConfigException("Error reading " + xmlFilename + "", e);
         }
     }
@@ -149,17 +148,16 @@ public abstract class ResourceLoader {
     private static ResourceLoader makeLoader(Element loaderElement) throws GenericConfigException {
         String loaderName = loaderElement.getAttribute("name");
         String className = loaderElement.getAttribute("class");
-        ResourceLoader loader;
+        ResourceLoader loader = null;
         try {
             Class<?> lClass = null;
             ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
             lClass = classLoader.loadClass(className);
-            loader = (ResourceLoader) lClass.getDeclaredConstructor().newInstance();
+            loader = (ResourceLoader) lClass.newInstance();
             loader.init(loaderName, loaderElement.getAttribute("prefix"), loaderElement.getAttribute("prepend-env"));
             return loader;
-        } catch (ReflectiveOperationException e) {
-            throw new GenericConfigException("Exception thrown while loading ResourceLoader class \"" + className
-                    + "\" ", e);
+        } catch (Exception e) {
+            throw new GenericConfigException("Exception thrown while loading ResourceLoader class \"" + className + "\" ", e);
         }
     }
 

@@ -28,11 +28,11 @@ import javax.jms.Session;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.JNDIContextFactory;
 import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.service.GenericServiceException;
 
 /**
  * JmsQueueListener - Queue (P2P) Message Listener.

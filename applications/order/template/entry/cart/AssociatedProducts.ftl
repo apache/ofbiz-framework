@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#if ("SALES_ORDER" == shoppingCart.getOrderType())>
+<#if (shoppingCart.getOrderType() == "SALES_ORDER")>
     <#assign associatedProducts = Static["org.apache.ofbiz.order.shoppingcart.product.ProductDisplayWorker"].getRandomCartProductAssoc(request, true)!>
 </#if>
 

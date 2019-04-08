@@ -36,6 +36,14 @@
         <call-service service-name="createPayHistory" in-map-name="createPayHistoryMap"/>
     </simple-method>
 
+    <simple-method method-name="deletePayHistory" short-description="Delete Pay History">
+        <now-timestamp field="nowTimeStamp"/>
+        <entity-one entity-name="PayHistory" value-field="lookedUpValue"/>
+        <set field="lookedUpValue.thruDate" from-field="nowTimeStamp"/>
+        <store-value value-field="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
+    </simple-method>
+
     <simple-method method-name="createEmplPositionReportingStruct" short-description="Create a Employee Position Reporting Structure">
         <make-value entity-name="EmplPositionReportingStruct" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
@@ -93,7 +101,7 @@
             <store-value value-field="emplPositionTypeRate"/>
         </if-not-empty>
 
-        <make-value entity-name="EmplPositionTypeRate" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="EmplPositionTypeRate"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate"><now-timestamp field="newEntity.fromDate"/></if-empty>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>

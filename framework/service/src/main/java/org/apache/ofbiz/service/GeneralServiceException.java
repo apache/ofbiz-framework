@@ -68,7 +68,7 @@ public class GeneralServiceException extends org.apache.ofbiz.base.util.GeneralE
 
     public void addErrorMessages(List<? extends Object> errMsgs) {
         if (this.errorMsgList == null) {
-            this.errorMsgList = new LinkedList<>();
+            this.errorMsgList = new LinkedList<Object>();
         }
         this.errorMsgList.addAll(errMsgs);
     }

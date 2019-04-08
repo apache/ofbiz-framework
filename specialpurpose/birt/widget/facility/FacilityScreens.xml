@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
+    <screen name="InventoryReports">
+        <section>
+            <actions>
+                <property-map resource="BirtUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="CommonReports"/>
+                <set field="headerItem" value="reports"/>
+                <set field="tabButtonItem" value="EditFacilityInventoryItems"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
+
+                <!-- This is the target of the search form-->
+                <set field="facilityInventoryByProductScreen" value="InventoryReports"/>
+
+                <set field="facilityId" from-field="parameters.facilityId"/>
+                <set field="productTypeId" from-field="parameters.productTypeId"/>
+                <set field="searchInProductCategoryId" from-field="parameters.searchInProductCategoryId"/>
+                <set field="productSupplierId" from-field="parameters.productSupplierId"/>
+                <set field="offsetQOHQty" from-field="parameters.offsetQOHQty"/>
+                <set field="offsetATPQty" from-field="parameters.offsetATPQty"/>
+                <set field="productsSoldThruTimestamp" from-field="parameters.productsSoldThruTimestamp" type="Timestamp"/>
+                <set field="internalName" from-field="parameters.internalName"/>
+                <set field="productId" from-field="parameters.productId"/>
+
+                <script location="component://product/groovyScripts/facility/facility/ViewFacilityInventoryByProduct.groovy"/>
+                <entity-one entity-name="Facility" value-field="facility" use-cache="true"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container>
+                            <label style="h1" text="${uiLabelMap.ProductInventoryByProduct} ${uiLabelMap.CommonFor} ${facility.facilityName}"/>
+                        </container>
+                        <container>
+                            <link target="ViewFacilityInventoryByProductReport?${searchParameterString}" text="${uiLabelMap.CommonPrint}" style="buttontext"/>
+                            <link target="ViewFacilityInventoryByProductExport?${searchParameterString}" text="${uiLabelMap.CommonExport}" style="buttontext"/>
+                            <link target="ViewFacilityInventoryHistoryReport?${searchParameterString}" text="${uiLabelMap.BirtFacilityReportInventoryHistoryReport}" style="buttontext"/>
+                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleFindFacilityInventoryItemsByProduct}">
+                            <include-form name="FindFacilityInventoryByProduct" location="component://product/widget/facility/FacilityForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.PageTitleFindFacilityInventoryItemsByProduct}">
+                            <include-form name="ListFacilityInventoryByProduct" location="component://product/widget/facility/FacilityForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="ViewFacilityInventoryHistoryReport">
+        <section>
+            <actions>
+                <property-map resource="BirtUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="headerItem" value="reports"/>
+                <set field="facilityId" from-field="parameters.facilityId"/>
+                <entity-one entity-name="Facility" value-field="facility" use-cache="true"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container>
+                            <label style="h1" text="${uiLabelMap.ProductInventoryByProduct} ${uiLabelMap.CommonFor} ${facility.facilityName}"/>
+                        </container>
+                        <container>
+                            <link target="ViewFacilityInventoryByProductReport?facilityId=${parameters.facilityId}" text="${uiLabelMap.CommonPrint}" style="buttontext"/>
+                            <link target="ViewFacilityInventoryByProductExport?facilityId=${parameters.facilityId}" text="${uiLabelMap.CommonExport}" style="buttontext"/>
+                            <link target="ViewFacilityInventoryHistoryReport?facilityId=${parameters.facilityId}" text="${uiLabelMap.BirtFacilityReportInventoryHistoryReport}" style="buttontext"/>
+                        </container>
+                        <screenlet title="${uiLabelMap.BirtFacilityReportInventoryHistoryReport}">
+                            <include-form name="ViewFacilityInventoryHistoryReportForm" location="component://birt/widget/facility/FacilityForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens>

@@ -19,7 +19,8 @@
 package org.apache.ofbiz.base.util;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -27,8 +28,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.ServiceLoader;
 import java.util.Set;
 
 import javax.script.Bindings;
@@ -45,8 +48,6 @@ import javax.script.SimpleScriptContext;
 
 import org.apache.ofbiz.base.location.FlexibleLocation;
 import org.apache.ofbiz.base.util.cache.UtilCache;
-import org.apache.ofbiz.base.util.ScriptHelper;
-import org.apache.ofbiz.common.scripting.ScriptHelperImpl;
 import org.codehaus.groovy.runtime.InvokerHelper;
 
 /**
@@ -70,11 +71,12 @@ public final class ScriptUtil {
     public static final String SCRIPT_HELPER_KEY = "ofbiz";
     private static final UtilCache<String, CompiledScript> parsedScripts = UtilCache.createUtilCache("script.ParsedScripts", 0, 0, false);
     private static final Object[] EMPTY_ARGS = {};
+    private static ScriptHelperFactory helperFactory = null;
     /** A set of script names - derived from the JSR-223 scripting engines. */
     public static final Set<String> SCRIPT_NAMES;
 
     static {
-        Set<String> writableScriptNames = new HashSet<>();
+        Set<String> writableScriptNames = new HashSet<String>();
         ScriptEngineManager manager = new ScriptEngineManager();
         List<ScriptEngineFactory> engines = manager.getEngineFactories();
         if (engines.isEmpty()) {
@@ -103,11 +105,20 @@ public final class ScriptUtil {
             }
         }
         SCRIPT_NAMES = Collections.unmodifiableSet(writableScriptNames);
+        Iterator<ScriptHelperFactory> iter = ServiceLoader.load(ScriptHelperFactory.class).iterator();
+        if (iter.hasNext()) {
+            helperFactory = iter.next();
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("ScriptHelper factory set to " + helperFactory.getClass().getName(), module);
+            }
+        } else {
+            Debug.logWarning("ScriptHelper factory not found", module);
+        }
     }
 
     /**
      * Returns a compiled script.
-     *
+     * 
      * @param filePath Script path and file name.
      * @return The compiled script, or <code>null</code> if the script engine does not support compilation.
      * @throws IllegalArgumentException
@@ -126,8 +137,7 @@ public final class ScriptUtil {
             try {
                 Compilable compilableEngine = (Compilable) engine;
                 URL scriptUrl = FlexibleLocation.resolveLocation(filePath);
-                BufferedReader reader = new BufferedReader(new InputStreamReader(scriptUrl.openStream(), UtilIO
-                        .getUtf8()));
+                BufferedReader reader = new BufferedReader(new InputStreamReader(scriptUrl.openStream()));
                 script = compilableEngine.compile(reader);
                 if (Debug.verboseOn()) {
                     Debug.logVerbose("Compiled script " + filePath + " using engine " + engine.getClass().getName(), module);
@@ -146,7 +156,7 @@ public final class ScriptUtil {
 
     /**
      * Returns a compiled script.
-     *
+     * 
      * @param language
      * @param script
      * @return The compiled script, or <code>null</code> if the script engine does not support compilation.
@@ -186,17 +196,17 @@ public final class ScriptUtil {
      * <p>If a <code>CompiledScript</code> instance is to be shared by multiple threads, then
      * each thread must create its own <code>ScriptContext</code> and pass it to the
      * <code>CompiledScript</code> eval method.</p>
-     *
+     * 
      * @param context
      * @return
      */
     public static ScriptContext createScriptContext(Map<String, Object> context) {
         Assert.notNull("context", context);
-        Map<String, Object> localContext = new HashMap<>(context);
+        Map<String, Object> localContext = new HashMap<String, Object>(context);
         localContext.put(WIDGET_CONTEXT_KEY, context);
         localContext.put("context", context);
         ScriptContext scriptContext = new SimpleScriptContext();
-        ScriptHelper helper = new ScriptHelperImpl(scriptContext);
+        ScriptHelper helper = createScriptHelper(scriptContext);
         if (helper != null) {
             localContext.put(SCRIPT_HELPER_KEY, helper);
         }
@@ -210,26 +220,36 @@ public final class ScriptUtil {
      * <p>If a <code>CompiledScript</code> instance is to be shared by multiple threads, then
      * each thread must create its own <code>ScriptContext</code> and pass it to the
      * <code>CompiledScript</code> eval method.</p>
-     *
+     * 
      * @param context
      * @param protectedKeys
      * @return
      */
     public static ScriptContext createScriptContext(Map<String, Object> context, Set<String> protectedKeys) {
         Assert.notNull("context", context, "protectedKeys", protectedKeys);
-        Map<String, Object> localContext = new HashMap<>(context);
+        Map<String, Object> localContext = new HashMap<String, Object>(context);
         localContext.put(WIDGET_CONTEXT_KEY, context);
         localContext.put("context", context);
         ScriptContext scriptContext = new SimpleScriptContext();
         Bindings bindings = new ProtectedBindings(localContext, Collections.unmodifiableSet(protectedKeys));
         scriptContext.setBindings(bindings, ScriptContext.ENGINE_SCOPE);
-        localContext.put(SCRIPT_HELPER_KEY, new ScriptHelperImpl(scriptContext));
+        ScriptHelper helper = createScriptHelper(scriptContext);
+        if (helper != null) {
+            localContext.put(SCRIPT_HELPER_KEY, helper);
+        }
         return scriptContext;
     }
 
-    /**
+    public static ScriptHelper createScriptHelper(ScriptContext context) {
+        if (helperFactory != null) {
+            return helperFactory.getInstance(context);
+        }
+        return null;
+    }
+
+     /**
      * Executes a script <code>String</code> and returns the result.
-     *
+     * 
      * @param language
      * @param script
      * @param scriptClass
@@ -266,7 +286,7 @@ public final class ScriptUtil {
 
     /**
      * Executes a compiled script and returns the result.
-     *
+     * 
      * @param script Compiled script.
      * @param functionName Optional function or method to invoke.
      * @param scriptContext Script execution context.
@@ -293,7 +313,7 @@ public final class ScriptUtil {
 
     /**
      * Executes the script at the specified location and returns the result.
-     *
+     * 
      * @param filePath Script path and file name.
      * @param functionName Optional function or method to invoke.
      * @param context Script execution context.
@@ -306,7 +326,7 @@ public final class ScriptUtil {
 
     /**
      * Executes the script at the specified location and returns the result.
-     *
+     * 
      * @param filePath Script path and file name.
      * @param functionName Optional function or method to invoke.
      * @param context Script execution context.
@@ -331,7 +351,7 @@ public final class ScriptUtil {
 
     /**
      * Executes the script at the specified location and returns the result.
-     *
+     * 
      * @param filePath Script path and file name.
      * @param functionName Optional function or method to invoke.
      * @param scriptContext Script execution context.
@@ -350,7 +370,7 @@ public final class ScriptUtil {
             // The test for null can be removed when the engine is fixed.
             CompiledScript script = compileScriptFile(filePath);
             if (script != null) {
-                return executeScript(script, null, scriptContext, args);
+                return executeScript(script, functionName, scriptContext, args);
             }
         }
         String fileExtension = getFileExtension(filePath);
@@ -364,21 +384,17 @@ public final class ScriptUtil {
         }
         engine.setContext(scriptContext);
         URL scriptUrl = FlexibleLocation.resolveLocation(filePath);
-        try (
-                InputStreamReader reader = new InputStreamReader(new FileInputStream(scriptUrl.getFile()), UtilIO
-                        .getUtf8());) {
-            Object result = engine.eval(reader);
-            if (UtilValidate.isNotEmpty(functionName)) {
-                try {
-                    Invocable invocableEngine = (Invocable) engine;
-                    result = invocableEngine.invokeFunction(functionName, args == null ? EMPTY_ARGS : args);
-                } catch (ClassCastException e) {
-                    throw new ScriptException("Script engine " + engine.getClass().getName()
-                            + " does not support function/method invocations");
-                }
+        FileReader reader = new FileReader(new File(scriptUrl.getFile()));
+        Object result = engine.eval(reader);
+        if (UtilValidate.isNotEmpty(functionName)) {
+            try {
+                Invocable invocableEngine = (Invocable) engine;
+                result = invocableEngine.invokeFunction(functionName, args == null ? EMPTY_ARGS : args);
+            } catch (ClassCastException e) {
+                throw new ScriptException("Script engine " + engine.getClass().getName() + " does not support function/method invocations");
             }
-            return result;
         }
+        return result;
     }
 
     private static String getFileExtension(String filePath) {

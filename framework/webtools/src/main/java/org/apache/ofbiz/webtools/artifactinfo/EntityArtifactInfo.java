@@ -84,7 +84,7 @@ public class EntityArtifactInfo extends ArtifactInfoBase {
 
     @Override
     public URL getLocationURL() throws MalformedURLException {
-        return FlexibleLocation.resolveLocation(modelEntity.getLocation());
+        return FlexibleLocation.resolveLocation(this.modelEntity.getLocation(), null);
     }
 
     @Override

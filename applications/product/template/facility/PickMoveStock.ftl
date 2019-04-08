@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<script type="application/javascript">
+<script language="JavaScript" type="text/javascript">
     function quicklookup(func, locationelement, facilityelement, productelement) {
         
         var productId = productelement.value;

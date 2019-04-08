@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
+    <simple-method method-name="checkEbayAction" short-description="Check eBay Action">
+        <set field="resultResponse" from-field="parameters.action"/>
+        <return response-code="${resultResponse}"/>
+    </simple-method>
+
+    <!-- start automatically service send a Feedback Reminder email if feedback has not been received. and check how many days after shipping you want this email sent? -->
+    <simple-method method-name="autoSendFeedbackReminder" login-required="false" short-description="Automatically send a Feedback Reminder email if feedback has not been received">
+        <entity-one entity-name="ProductStore" value-field="productStore" >
+            <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+        </entity-one>
+        <if-empty field="productStore">
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="ProductProductStoreNotFound"/>
+            </add-error>
+            <check-errors/>
+        </if-empty>
+        <entity-one entity-name="EbayProductStorePref" value-field="ebayProdStorePref">
+            <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+            <field-map field-name="autoPrefEnumId" value="EBAY_AUTO_FB_RMD"/>
+        </entity-one>
+        <!-- map field from screen -->
+        <if-not-empty field="ebayProdStorePref">
+            <set field="parameters.productStoreId"  type="String" default-value="parameters.productStoreId" from-field="ebayProdStorePref.productStoreId"/>
+            <else>
+                <set field="parameters.productStoreId"  type="String" from-field="parameters.productStoreId"/>
+            </else>
+        </if-not-empty>
+        <set field="parameters.autoPrefEnumId"  type="String" value="EBAY_AUTO_FB_RMD"/>
+        <if-not-empty field="ebayProdStorePref">
+            <if-not-empty field="ebayProdStorePref.autoPrefJobId">
+                <set field="parameters.autoPrefJobId"  type="String" from-field="ebayProdStorePref.autoPrefJobId"/>
+            </if-not-empty>
+        </if-not-empty>
+        <set field="parameters.enabled" default-value="N" type="String" from-field="parameters.isAutoFeedbackReminder"/>
+        <set field="parameters.condition1" type="Integer" default-value="5" from-field="parameters.afterDays"/>
+        <set field="parameters.condition2" default-value="N" type="String" from-field="parameters.isSendCopyEmailToSeller"/>
+        <if-compare field="parameters.enabled" value="N" type="String" operator="equals">
+            <set field="parameters.condition2"  value="N" type="String" />
+        </if-compare>
+        <set field="parameters.serviceName" default-value="autoSendFeedbackReminderEmail" type="String"/>
+        <session-to-field field="context.userLogin" session-name="userLogin"/>
+        <!-- create new automatically store preferences -->
+        <if-empty field="ebayProdStorePref">
+            <set-service-fields service-name="createEbayProductStorePref" map="parameters" to-map="ebayProductStorePref"/>
+            <call-service service-name="createEbayProductStorePref" in-map-name="ebayProductStorePref" ></call-service>
+            <else>
+                <set-service-fields service-name="updateEbayProductStorePref" map="parameters" to-map="ebayProductStorePref"/>
+                <call-service service-name="updateEbayProductStorePref" in-map-name="ebayProductStorePref"></call-service>
+            </else>
+        </if-empty>
+    </simple-method>
+
+    <!-- start automatically service  email when payment has been received.-->
+    <simple-method method-name="autoSendPaymentReceivedEmail" login-required="false" short-description="set start service Automatically send an email when payment has been received">
+        <entity-one entity-name="ProductStore" value-field="productStore" >
+            <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+        </entity-one>
+        <if-empty field="productStore">
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="ProductProductStoreNotFound"/>
+            </add-error>
+            <check-errors/>
+        </if-empty>
+        <entity-one entity-name="EbayProductStorePref" value-field="ebayProdStorePref">
+            <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+            <field-map field-name="autoPrefEnumId" value="EBAY_AUTO_PR_EMAIL"/>
+        </entity-one>
+        <!-- map field from screen -->
+        <if-not-empty field="ebayProdStorePref">
+            <set field="parameters.productStoreId"  type="String" default-value="parameters.productStoreId" from-field="ebayProdStorePref.productStoreId"/>
+            <else>
+                <set field="parameters.productStoreId"  type="String" from-field="parameters.productStoreId"/>
+            </else>
+        </if-not-empty>
+        <set field="parameters.autoPrefEnumId"  type="String" value="EBAY_AUTO_PR_EMAIL"/>
+        <if-not-empty field="ebayProdStorePref">
+            <if-not-empty field="ebayProdStorePref.autoPrefJobId">
+                <set field="parameters.autoPrefJobId"  type="String" from-field="ebayProdStorePref.autoPrefJobId"/>
+            </if-not-empty>
+        </if-not-empty>
+        <set field="parameters.enabled" default-value="N" type="String" from-field="parameters.isAutoSendPayReceivedEmail"/>
+        <set field="parameters.condition1" default-value="N" type="String" from-field="parameters.isSendCopyEmailToSeller"/>
+        <if-compare field="parameters.enabled" value="N" type="String" operator="equals">
+            <set field="parameters.condition1"  value="N" type="String" />
+        </if-compare>
+        <set field="parameters.serviceName" default-value="autoSendPaymentReceivedEmail" type="String"/>
+        <session-to-field field="context.userLogin" session-name="userLogin"/>
+        <!-- create new automatically store preferences and do  start job run service -->
+        <if-empty field="ebayProdStorePref">
+            <set-service-fields service-name="createEbayProductStorePref" map="parameters" to-map="ebayProductStorePref"/>
+            <call-service service-name="createEbayProductStorePref" in-map-name="ebayProductStorePref" ></call-service>
+            <else>
+                <set-service-fields service-name="updateEbayProductStorePref" map="parameters" to-map="ebayProductStorePref"/>
+                <call-service service-name="updateEbayProductStorePref" in-map-name="ebayProductStorePref"></call-service>
+            </else>
+        </if-empty>
+    </simple-method>
+
+    <simple-method method-name="settingCombineOrders" login-required="false" short-description="Setting Automatic Combine Orders">
+        <entity-one entity-name="ProductStore" value-field="productStore" >
+            <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+        </entity-one>
+        <if-empty field="productStore">
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="ProductProductStoreNotFound"/>
+            </add-error>
+            <check-errors/>
+        </if-empty>
+        <entity-one entity-name="EbayProductStorePref" value-field="ebayProdStorePref">
+            <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+            <field-map field-name="autoPrefEnumId" value="EBAY_AUTO_COMB_ORD"/>
+        </entity-one>
+        <!-- map field from screen -->
+        <if-not-empty field="ebayProdStorePref">
+            <set field="parameters.productStoreId"  type="String" default-value="parameters.productStoreId" from-field="ebayProdStorePref.productStoreId"/>
+            <else>
+                <set field="parameters.productStoreId"  type="String" from-field="parameters.productStoreId"/>
+            </else>
+        </if-not-empty>
+        <set field="parameters.autoPrefEnumId"  type="String" value="EBAY_AUTO_COMB_ORD"/>
+        <if-not-empty field="ebayProdStorePref">
+            <if-not-empty field="ebayProdStorePref.autoPrefJobId">
+                <set field="parameters.autoPrefJobId"  type="String" from-field="ebayProdStorePref.autoPrefJobId"/>
+            </if-not-empty>
+        </if-not-empty>
+        <set field="parameters.enabled" default-value="N" type="String" from-field="parameters.isRunCombineOrdersJob"/>
+        <set field="parameters.condition1" type="String" from-field="parameters.condition1"/>
+        <set field="parameters.condition2" type="String" from-field="parameters.condition2"/>
+        <set field="parameters.serviceName" default-value="runCombineOrders" type="String"/>
+        <session-to-field field="context.userLogin" session-name="userLogin"/>
+        <!-- create new automatically store preferences -->
+        <if-empty field="ebayProdStorePref">
+            <set-service-fields service-name="createEbayProductStorePref" map="parameters" to-map="ebayProductStorePref"/>
+            <call-service service-name="createEbayProductStorePref" in-map-name="ebayProductStorePref" ></call-service>
+            <else>
+                <set-service-fields service-name="updateEbayProductStorePref" map="parameters" to-map="ebayProductStorePref"/>
+                <call-service service-name="updateEbayProductStorePref" in-map-name="ebayProductStorePref"></call-service>
+            </else>
+        </if-empty>
+        <field-to-request field="parameters.productStoreId" request-name="productStoreId"/>
+    </simple-method>
+
+    <simple-method method-name="settingWinningBuyerNotification" login-required="false" short-description="Set Automatic send winning buyer notification">
+        <entity-one entity-name="ProductStore" value-field="productStore" >
+            <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+        </entity-one>
+        <if-empty field="productStore">
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="ProductProductStoreNotFound"/>
+            </add-error>
+            <check-errors/>
+        </if-empty>
+
+        <entity-one entity-name="EbayProductStorePref" value-field="ebayProdStorePref">
+            <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+            <field-map field-name="autoPrefEnumId" value="EBAY_AUTO_WIN_EMAIL"/>
+        </entity-one>
+
+        <if-not-empty field="ebayProdStorePref">
+            <set field="parameters.productStoreId"  type="String" default-value="parameters.productStoreId" from-field="ebayProdStorePref.productStoreId"/>
+            <else>
+                <set field="parameters.productStoreId"  type="String" from-field="parameters.productStoreId"/>
+            </else>
+        </if-not-empty>
+        <set field="parameters.autoPrefEnumId"  type="String" value="EBAY_AUTO_WIN_EMAIL"/>
+        <if-not-empty field="ebayProdStorePref">
+            <if-not-empty field="ebayProdStorePref.autoPrefJobId">
+                <set field="parameters.autoPrefJobId"  type="String" from-field="ebayProdStorePref.autoPrefJobId"/>
+            </if-not-empty>
+        </if-not-empty>
+        <set field="parameters.enabled" default-value="N" type="String" from-field="parameters.isRunWinnerNotify"/>
+        <set field="parameters.serviceName" default-value="autoSendWinningBuyerNotification" type="String"/>
+        <session-to-field field="context.userLogin" session-name="userLogin"/>
+
+        <if-empty field="ebayProdStorePref">
+            <set-service-fields service-name="createEbayProductStorePref" map="parameters" to-map="ebayProductStorePref"/>
+            <call-service service-name="createEbayProductStorePref" in-map-name="ebayProductStorePref" ></call-service>
+            <else>
+                <set-service-fields service-name="updateEbayProductStorePref" map="parameters" to-map="ebayProductStorePref"/>
+                <call-service service-name="updateEbayProductStorePref" in-map-name="ebayProductStorePref"></call-service>
+            </else>
+        </if-empty>
+        <field-to-request field="parameters.productStoreId" request-name="productStoreId"/>
+    </simple-method>
+
+    <simple-method method-name="settingSendItemDispatchedNotification" login-required="false" short-description="Set Automatic send item dispatched email">
+        <entity-one entity-name="ProductStore" value-field="productStore" >
+            <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+        </entity-one>
+        <if-empty field="productStore">
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="ProductProductStoreNotFound"/>
+            </add-error>
+            <check-errors/>
+        </if-empty>
+
+        <entity-one entity-name="EbayProductStorePref" value-field="ebayProdStorePref">
+            <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+            <field-map field-name="autoPrefEnumId" value="EBAY_AUTO_ITEM_DISP"/>
+        </entity-one>
+
+        <if-not-empty field="ebayProdStorePref">
+            <set field="parameters.productStoreId"  type="String" default-value="parameters.productStoreId" from-field="ebayProdStorePref.productStoreId"/>
+            <else>
+                <set field="parameters.productStoreId"  type="String" from-field="parameters.productStoreId"/>
+            </else>
+        </if-not-empty>
+        <set field="parameters.autoPrefEnumId"  type="String" value="EBAY_AUTO_ITEM_DISP"/>
+        <if-not-empty field="ebayProdStorePref">
+            <if-not-empty field="ebayProdStorePref.autoPrefJobId">
+                <set field="parameters.autoPrefJobId"  type="String" from-field="ebayProdStorePref.autoPrefJobId"/>
+            </if-not-empty>
+        </if-not-empty>
+        <set field="parameters.enabled" default-value="N" type="String" from-field="parameters.isRunItemDispatchNotify"/>
+        <set field="parameters.serviceName" default-value="autoSendItemDispatchedNotification" type="String"/>
+        <session-to-field field="context.userLogin" session-name="userLogin"/>
+
+        <if-empty field="ebayProdStorePref">
+            <set-service-fields service-name="createEbayProductStorePref" map="parameters" to-map="ebayProductStorePref"/>
+            <call-service service-name="createEbayProductStorePref" in-map-name="ebayProductStorePref" ></call-service>
+            <else>
+                <set-service-fields service-name="updateEbayProductStorePref" map="parameters" to-map="ebayProductStorePref"/>
+                <call-service service-name="updateEbayProductStorePref" in-map-name="ebayProductStorePref"></call-service>
+            </else>
+        </if-empty>
+        <field-to-request field="parameters.productStoreId" request-name="productStoreId"/>
+    </simple-method>
+
+    <simple-method method-name="createEmailTemplate" short-description="Create Email Template">
+        <!-- create content -->
+        <set field="parameters.dataTemplateTypeId" value="FTL"/>
+        <set-service-fields service-name="createElectronicText" map="parameters" to-map="newElectronicText"/>
+        <call-service service-name="createElectronicText" in-map-name="newElectronicText">
+            <result-to-field result-name="dataResourceId" field="parameters.dataResourceId"/>
+        </call-service>
+                
+        <set field="parameters.roleTypeId" value="OWNER"/>
+        <set field="parameters.contentTypeId" value="DOCUMENT"/>
+        <set field="parameters.ownerContentId" from-field="parameters.emailType"/>
+        <set-service-fields service-name="createContent" map="parameters" to-map="newContent"/>
+        <call-service service-name="createContent" in-map-name="newContent" >
+            <result-to-field result-name="contentId"/>
+        </call-service>
+        
+        <!-- create ProductStoreEmailSetting -->
+        <if-not-empty field="parameters.includePayment">
+            <set field="parameters.subject" value="${parameters.subject} INCLUDE_PAYMENT"/>
+        </if-not-empty>
+        <if-not-empty field="parameters.includeCrossPromotions">
+            <set field="parameters.subject" value="${parameters.includeCrossPromotions} INCLUDE_CROSS_PROMOTIONS"/>
+        </if-not-empty>
+        <set-service-fields service-name="createProductStoreEmailSetting" map="parameters" to-map="newEmailSetting"/>
+        <call-service service-name="createProductStoreEmailSetting" in-map-name="newEmailSetting" >
+            <result-to-field result-name="contentId"/>
+        </call-service>
+    </simple-method>
+
+    <simple-method method-name="updateEmailTemplate" short-description="Create Email Template">
+        <!-- update content -->
+        <set-service-fields service-name="updateElectronicText" map="parameters" to-map="updateElectronicText"/>
+        <call-service service-name="updateElectronicText" in-map-name="updateElectronicText">
+            <result-to-field result-name="dataResourceId" field="parameters.dataResourceId"/>
+        </call-service>
+
+        <!-- update ProductStoreEmailSetting -->
+        <!--if-not-empty field="parameters.includePayment">
+            <set field="parameters.subject" value="${parameters.subject} INCLUDE_PAYMENT"/>
+        </if-not-empty>
+        <if-not-empty field="parameters.includeCrossPromotions">
+            <set field="parameters.subject" value="${parameters.subject} INCLUDE_CROSS_PROMOTIONS"/>
+        </if-not-empty-->
+        <set-service-fields service-name="updateProductStoreEmailSetting" map="parameters" to-map="updateEmailSetting"/>
+        <call-service service-name="updateProductStoreEmailSetting" in-map-name="updateEmailSetting" >
+            <result-to-field result-name="contentId"/>
+        </call-service>
+    </simple-method>
+
+    <simple-method method-name="settingAutoBlockItemOutOfStock" login-required="false" short-description="Set automatic block item that out of stock">
+        <entity-one entity-name="ProductStore" value-field="productStore" >
+            <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+        </entity-one>
+        <if-empty field="productStore">
+            <add-error>
+                <fail-property resource="ProductUiLabels" property="ProductProductStoreNotFound"/>
+            </add-error>
+            <check-errors/>
+        </if-empty>
+
+        <entity-one entity-name="EbayProductStorePref" value-field="ebayProdStorePref">
+            <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+            <field-map field-name="autoPrefEnumId" value="EBAY_AUTO_BLK_ITEM"/>
+        </entity-one>
+
+        <if-not-empty field="ebayProdStorePref">
+            <set field="parameters.productStoreId"  type="String" default-value="parameters.productStoreId" from-field="ebayProdStorePref.productStoreId"/>
+            <else>
+                <set field="parameters.productStoreId"  type="String" from-field="parameters.productStoreId"/>
+            </else>
+        </if-not-empty>
+        <set field="parameters.autoPrefEnumId"  type="String" value="EBAY_AUTO_BLK_ITEM"/>
+        <if-not-empty field="ebayProdStorePref">
+            <if-not-empty field="ebayProdStorePref.autoPrefJobId">
+                <set field="parameters.autoPrefJobId"  type="String" from-field="ebayProdStorePref.autoPrefJobId"/>
+            </if-not-empty>
+        </if-not-empty>
+        <set field="parameters.enabled" default-value="N" type="String" from-field="parameters.isRunBlockItem"/>
+        <set field="parameters.serviceName" default-value="autoBlockItemsOutOfStock" type="String"/>
+        <session-to-field field="context.userLogin" session-name="userLogin"/>
+
+        <if-empty field="ebayProdStorePref">
+            <set-service-fields service-name="createEbayProductStorePref" map="parameters" to-map="ebayProductStorePref"/>
+            <call-service service-name="createEbayProductStorePref" in-map-name="ebayProductStorePref" ></call-service>
+            <else>
+                <set-service-fields service-name="updateEbayProductStorePref" map="parameters" to-map="ebayProductStorePref"/>
+                <call-service service-name="updateEbayProductStorePref" in-map-name="ebayProductStorePref"></call-service>
+            </else>
+        </if-empty>
+        <field-to-request field="parameters.productStoreId" request-name="productStoreId"/>
+    </simple-method>
+</simple-methods>

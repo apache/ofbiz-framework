@@ -107,7 +107,10 @@ public class DateRange extends ComparableRange<Date> implements Serializable {
      * @return <code>true</code> if <code>range</code> intersects this range
      */
     public boolean intersectsRange(DateRange range) {
-        return (isPoint() && range.isPoint() && this.start.equals(range.start)) || (!before(range) && !after(range));
+        if (isPoint() && range.isPoint() && this.start.equals(range.start)) {
+            return true;
+        }
+        return !before(range) && !after(range);
     }
 
     @Override

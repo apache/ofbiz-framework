@@ -78,7 +78,7 @@ under the License.
             <set field="parameters.needsInventoryReceive" value="N"/>
         </if-empty>
 
-        <make-value entity-name="ReturnHeader" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="ReturnHeader"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <!-- If PartyAcctgPreference.useInvoiceIdForReturns is Y, get the ID from the getNextInvoiceId service -->
@@ -314,7 +314,7 @@ under the License.
 
         <!-- if an orderItemSeqId is provided, then find the corresponding orderItem  -->
         <if-not-empty field="parameters.orderItemSeqId">
-            <make-value entity-name="OrderItem" value-field="itemLookup"/>
+            <make-value value-field="itemLookup" entity-name="OrderItem"/>
             <set-pk-fields map="parameters" value-field="itemLookup"/>
             <if-not-empty field="parameters.orderItemSeqId">
                 <find-by-primary-key entity-name="OrderItem" value-field="orderItem" map="itemLookup"/>
@@ -377,7 +377,7 @@ under the License.
             </else>
         </if-compare>
 
-        <make-value entity-name="ReturnItem" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="ReturnItem"/>
         <set from-field="parameters.returnId" field="newEntity.returnId"/>
         <make-next-seq-id seq-field-name="returnItemSeqId" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
@@ -491,7 +491,7 @@ under the License.
         </if>
         <check-errors/>
 
-        <make-value entity-name="ReturnAdjustment" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="ReturnAdjustment"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <sequenced-id sequence-name="ReturnAdjustment" field="newEntity.returnAdjustmentId"/>
         <field-to-result field="newEntity.returnAdjustmentId" result-name="returnAdjustmentId"/>
@@ -907,7 +907,7 @@ under the License.
     </simple-method> 
 
     <simple-method method-name="createReturnItemShipment" short-description="Create a ReturnItemShipment">
-        <make-value entity-name="ReturnItemShipment" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="ReturnItemShipment"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
@@ -1090,7 +1090,7 @@ under the License.
     </simple-method>
     
     <simple-method method-name="updateReturnContactMech" short-description="Update ReturnContactMech">
-        <make-value entity-name="ReturnContactMech" value-field="returnContactMechMap"/>
+        <make-value value-field="returnContactMechMap" entity-name="ReturnContactMech"/>
 
         <set-pk-fields map="parameters" value-field="returnContactMechMap"/>
         <entity-one entity-name="ReturnHeader" value-field="returnHeader"/>

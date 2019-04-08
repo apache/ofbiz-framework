@@ -23,12 +23,12 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Map;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.GenericServiceException;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceDispatcher;
+import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.UtilGenerics;
 
 /**
  * Standard Java Static Method Service Engine
@@ -99,7 +99,7 @@ public final class StandardJavaEngine extends GenericAsyncEngine {
             if (Modifier.isStatic(m.getModifiers())) {
                 result = m.invoke(null, dctx, context);
             } else {
-                result = m.invoke(c.getDeclaredConstructor().newInstance(), dctx, context);
+                result = m.invoke(c.newInstance(), dctx, context);
             }
         } catch (ClassNotFoundException cnfe) {
             throw new GenericServiceException("Cannot find service [" + modelService.name + "] location class", cnfe);

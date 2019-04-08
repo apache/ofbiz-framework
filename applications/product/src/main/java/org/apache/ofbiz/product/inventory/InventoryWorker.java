@@ -81,17 +81,18 @@ public final class InventoryWorker {
         List<GenericValue> purchaseOrders = getOutstandingPurchaseOrders(productId, delegator);
         if (UtilValidate.isEmpty(purchaseOrders)) {
             return qty;
-        }
-        for (GenericValue nextOrder : purchaseOrders) {
-            if (nextOrder.get("quantity") != null) {
-                BigDecimal itemQuantity = nextOrder.getBigDecimal("quantity");
-                BigDecimal cancelQuantity = BigDecimal.ZERO;
-                if (nextOrder.get("cancelQuantity") != null) {
-                    cancelQuantity = nextOrder.getBigDecimal("cancelQuantity");
-                }
-                itemQuantity = itemQuantity.subtract(cancelQuantity);
-                if (itemQuantity.compareTo(BigDecimal.ZERO) >= 0) {
-                    qty = qty.add(itemQuantity);
+        } else {
+            for (GenericValue nextOrder: purchaseOrders) {
+                if (nextOrder.get("quantity") != null) {
+                    BigDecimal itemQuantity = nextOrder.getBigDecimal("quantity");
+                    BigDecimal cancelQuantity = BigDecimal.ZERO;
+                    if (nextOrder.get("cancelQuantity") != null) {
+                        cancelQuantity = nextOrder.getBigDecimal("cancelQuantity");
+                    }
+                    itemQuantity = itemQuantity.subtract(cancelQuantity);
+                    if (itemQuantity.compareTo(BigDecimal.ZERO) >= 0) {
+                        qty = qty.add(itemQuantity);
+                    }
                 }
             }
         }
@@ -124,7 +125,7 @@ public final class InventoryWorker {
         condList.add(EntityCondition.makeCondition("orderItemStatusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"));
         EntityConditionList<EntityCondition> conditions = EntityCondition.makeCondition(condList, EntityOperator.AND);
 
-        Map<String, BigDecimal> results = new HashMap<>();
+        Map<String, BigDecimal> results = new HashMap<String, BigDecimal>();
         try {
             List<GenericValue> orderedProducts = EntityQuery.use(delegator).select(fieldsToSelect).from("OrderItemQuantityReportGroupByProduct").where(conditions).queryList();
             for (GenericValue value: orderedProducts) {

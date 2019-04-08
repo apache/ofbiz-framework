@@ -118,7 +118,7 @@ under the License.
         <menu-item name="newInternalNote" title="${uiLabelMap.PartyNewInternalNote}">
             <condition>
                 <and>
-                    <if-has-permission permission="PARTYMGR_CME-NOTE" action="_CREATE"/>
+                    <if-has-permission permission="PARTYMGR_CME-NOTE_CREATE"/>
                     <if-empty field="communicationEvent"/>
                 </and>
             </condition>

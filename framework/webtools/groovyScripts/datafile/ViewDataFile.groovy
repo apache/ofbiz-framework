@@ -83,7 +83,7 @@ if (dataFile) {
 if (dataFile && dataFileSave) {
     try {
         dataFile.writeDataFile(dataFileSave)
-        messages.add(uiLabelMap.WebtoolsDataFileSavedTo + dataFileSave)
+        messages.add(uiLabelMap.get("WebtoolsDataFileSavedTo") + dataFileSave)
     }
     catch (Exception e) {
         messages.add(e.getMessage())
@@ -94,7 +94,7 @@ if (dataFile && entityXmlFileSave) {
     try {
         //dataFile.writeDataFile(entityXmlFileSave)
         DataFile2EntityXml.writeToEntityXml(entityXmlFileSave, dataFile)
-        messages.add(uiLabelMap.WebtoolsDataEntityFileSavedTo + entityXmlFileSave)
+        messages.add(uiLabelMap.get("WebtoolsDataEntityFileSavedTo") + entityXmlFileSave)
     }
     catch (Exception e) {
         messages.add(e.getMessage())

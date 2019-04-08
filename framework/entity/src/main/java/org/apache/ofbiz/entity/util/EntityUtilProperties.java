@@ -48,7 +48,7 @@ import org.apache.ofbiz.entity.GenericValue;
 public final class EntityUtilProperties implements Serializable {
 
     public final static String module = EntityUtilProperties.class.getName();
-
+    
     private EntityUtilProperties () {}
 
     private static Map<String, String> getSystemPropertyValue(String resource, String name, Delegator delegator) {
@@ -57,6 +57,8 @@ public final class EntityUtilProperties implements Serializable {
         results.put("value", "");
 
         if (UtilValidate.isEmpty(resource) || UtilValidate.isEmpty(name)) {
+            results.put("isExistInDb", "N");
+            results.put("value", "");
             return results;
         }
         resource = resource.replace(".properties", "");
@@ -70,9 +72,15 @@ public final class EntityUtilProperties implements Serializable {
                 //property exists in database
                 results.put("isExistInDb", "Y");
                 results.put("value", (systemProperty.getString("systemPropertyValue") != null) ? systemProperty.getString("systemPropertyValue") : "");
+                return results;
+            } else {
+                //property does not exists in database
+                results.put("isExistInDb", "N");
+                results.put("value", "");
+                return results;
             }
         } catch (GenericEntityException e) {
-            Debug.logError("Could not get a system property for " + name + " : " + e.getMessage(), module);
+            Debug.logInfo("Could not get a system property for " + name + " : " + e.getMessage(), module);
         }
         return results;
     }
@@ -202,7 +210,6 @@ public final class EntityUtilProperties implements Serializable {
             gvList = EntityQuery.use(delegator)
                     .from("SystemProperty")
                     .where("systemResourceId", resourceName)
-                    .cache()
                     .queryList();
             if (UtilValidate.isNotEmpty(gvList)) {
                 for (Iterator<GenericValue> i = gvList.iterator(); i.hasNext();) {

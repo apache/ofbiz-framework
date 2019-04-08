@@ -115,8 +115,8 @@ under the License.
                 <td width="5">&nbsp;</td>
                 <td valign="top" width="80%">
                     <div>
-                        <#if "N" == maySplit?default("N")>${uiLabelMap.FacilityWaitEntireOrderReady}</#if>
-                        <#if "Y" == maySplit?default("Y")>${uiLabelMap.FacilityShipAvailable}</#if>
+                        <#if maySplit?default("N") == "N">${uiLabelMap.FacilityWaitEntireOrderReady}</#if>
+                        <#if maySplit?default("Y") == "Y">${uiLabelMap.FacilityShipAvailable}</#if>
                     </div>
                 </td>
             </tr>
@@ -143,8 +143,8 @@ under the License.
                 <td width="5">&nbsp;</td>
                 <td valign="top" width="80%">
                     <div>
-                        <#if "N" == isGift?default("N")>${uiLabelMap.OrderThisOrderNotGift}</#if>
-                        <#if "Y" == isGift?default("N")>${uiLabelMap.OrderThisOrderGift}</#if>
+                        <#if isGift?default("N") == "N">${uiLabelMap.OrderThisOrderNotGift}</#if>
+                        <#if isGift?default("N") == "Y">${uiLabelMap.OrderThisOrderGift}</#if>
                     </div>
                 </td>
             </tr>
@@ -181,17 +181,6 @@ under the License.
                 <td width="5">&nbsp;</td>
                 <td valign="top" width="80%">
                   <div>${shipBeforeDate}</div>
-                </td>
-            </tr>
-        </#if>
-        <#if defaultReserveAfterDate?has_content>
-            <tr>
-                <td align="right" valign="top" width="15%">
-                    <div>&nbsp;<b>${uiLabelMap.OrderReserveAfterDate}</b></div>
-                </td>
-                <td width="5">&nbsp;</td>
-                <td valign="top" width="80%">
-                  <div>${defaultReserveAfterDate}</div>
                 </td>
             </tr>
         </#if>

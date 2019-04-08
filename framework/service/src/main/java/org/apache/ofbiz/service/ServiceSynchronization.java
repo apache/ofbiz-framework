@@ -36,7 +36,7 @@ import org.apache.ofbiz.entity.transaction.TransactionFactoryLoader;
 import org.apache.ofbiz.entity.transaction.TransactionUtil;
 
 /**
- * This class is used to execute services when a transaction is either
+ * This class is used to execute services when a transaction is either 
  * committed or rolled back.  It should generally be accessed via
  * LocalDispatcher's addCommitService and addRollbackService methods
  * or by using the service ECA event attribute values global-commit,
@@ -47,17 +47,21 @@ public class ServiceSynchronization implements Synchronization {
 
     public static final String MODULE = ServiceSynchronization.class.getName();
 
-    private static Map<Transaction, ServiceSynchronization> syncingleton = new WeakHashMap<>();
-    private List<ServiceExecution> services = new ArrayList<>();
+    private static Map<Transaction, ServiceSynchronization> syncingleton = new WeakHashMap<Transaction, ServiceSynchronization>();
+    private List<ServiceExecution> services = new ArrayList<ServiceExecution>();
 
     public static void registerCommitService(DispatchContext dctx, String serviceName, String runAsUser, Map<String, ? extends Object> context, boolean async, boolean persist) throws GenericServiceException {
         ServiceSynchronization sync = ServiceSynchronization.getInstance();
-        sync.services.add(new ServiceExecution(dctx, serviceName, runAsUser, context, async, persist, false));
+        if (sync != null) {
+            sync.services.add(new ServiceExecution(dctx, serviceName, runAsUser, context, async, persist, false));
+        }
     }
 
     public static void registerRollbackService(DispatchContext dctx, String serviceName, String runAsUser, Map<String, ? extends Object> context, boolean async, boolean persist) throws GenericServiceException {
         ServiceSynchronization sync = ServiceSynchronization.getInstance();
-        sync.services.add(new ServiceExecution(dctx, serviceName, runAsUser, context, async, persist, true));
+        if (sync != null) {
+            sync.services.add(new ServiceExecution(dctx, serviceName, runAsUser, context, async, persist, true));
+        }
     }
 
     protected static ServiceSynchronization getInstance() throws GenericServiceException {
@@ -72,7 +76,11 @@ public class ServiceSynchronization implements Synchronization {
                     syncingleton.put(transaction, sync);
                 }
             }
-        } catch (SystemException | IllegalStateException | RollbackException e) {
+        } catch (SystemException e) {
+            throw new GenericServiceException(e.getMessage(), e);
+        } catch (IllegalStateException e) {
+            throw new GenericServiceException(e.getMessage(), e);
+        } catch (RollbackException e) {
             throw new GenericServiceException(e.getMessage(), e);
         }
         return sync;
@@ -133,17 +141,17 @@ public class ServiceSynchronization implements Synchronization {
                                 if (model.validate) {
                                     thisContext = model.makeValid(context, ModelService.IN_PARAM);
                                 } else {
-                                    thisContext = new HashMap<>();
+                                    thisContext = new HashMap<String, Object>();
                                     thisContext.putAll(context);
                                 }
 
                                 // set the userLogin object
                                 thisContext.put("userLogin", ServiceUtil.getUserLogin(dctx, thisContext, runAsUser));
                                 if (async) {
-                                    Debug.logInfo(msgPrefix + "Invoking [" + serviceName + "] via runAsync", MODULE);
+                                    if (Debug.infoOn()) Debug.logInfo(msgPrefix + "Invoking [" + serviceName + "] via runAsync", MODULE);
                                     dctx.getDispatcher().runAsync(serviceName, thisContext, persist);
                                 } else {
-                                    Debug.logInfo(msgPrefix + "Invoking [" + serviceName + "] via runSyncIgnore", MODULE);
+                                    if (Debug.infoOn()) Debug.logInfo(msgPrefix + "Invoking [" + serviceName + "] via runSyncIgnore", MODULE);
                                     dctx.getDispatcher().runSyncIgnore(serviceName, thisContext);
                                 }
                             } catch (Throwable t) {

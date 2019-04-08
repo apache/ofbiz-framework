@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <#assign contentURL = Static["org.apache.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("url", "content.url.prefix.standard", delegator)>
-<script type="application/javascript">
+<script type="text/javascript">
 $(document).ready(function(){
     var form = document.ImageShare;
     var protocol = document.location.protocol;
@@ -36,9 +36,9 @@ $(document).ready(function(){
         var pathImageThumbnailUrl = contentURL + imageThumbUrl;
     }
     else {
-        var pathImageUrlEcommerce = "https://localhost:8443" + imageUrl;
-        var pathImageUrl = "https://" + host + imageUrl;
-        var pathImageThumbnailUrl = "https://"+ host + imageThumbUrl;
+        var pathImageUrlEcommerce = "http://localhost:8080" + imageUrl;
+        var pathImageUrl = "http://" + host + imageUrl;
+        var pathImageThumbnailUrl = "http://"+ host + imageThumbUrl;
     }
     
     if (form.contentId.value != "") {

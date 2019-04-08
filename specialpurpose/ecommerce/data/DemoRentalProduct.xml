@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <ProductStore productStoreId="RentalStore" storeName="Open Travel system Demo Site" companyName="Open Travel Ltd" title="Ready for your reservation"
+        subtitle="Part of the Apache OFBiz Family of Open Source Software" payToPartyId="Company" daysToCancelNonPay="30" prorateShipping="Y" prorateTaxes="Y" isImmediatelyFulfilled="Y"
+        inventoryFacilityId="WebStoreWarehouse" oneInventoryFacility="N" checkInventory="N" reserveInventory="N" reserveOrderEnumId="INVRO_FIFO_REC" requireInventory="N"
+        defaultLocaleString="en_US" defaultCurrencyUomId="EUR" allowPassword="Y" explodeOrderItems="N" retryFailedAuths="Y"
+        headerApprovedStatus="ORDER_APPROVED" itemApprovedStatus="ITEM_APPROVED" digitalItemApprovedStatus="ITEM_APPROVED" headerDeclinedStatus="ORDER_REJECTED"
+        itemDeclinedStatus="ITEM_REJECTED" headerCancelStatus="ORDER_CANCELLED" itemCancelStatus="ITEM_CANCELLED" orderNumberPrefix="WS"
+        authDeclinedMessage="There has been a problem with your method of payment. Please try a different method or call customer service."
+        authFraudMessage="Your order has been rejected and your account has been disabled due to fraud."
+        authErrorMessage="Problem connecting to payment processor; we will continue to retry and notify you by email."
+        visualThemeId="EC_DEFAULT" autoApproveInvoice="Y" shipIfCaptureFails="Y" autoApproveOrder="Y"/>
+
+<!-- Note: 20092102 BB - Introducing the visualThemeId we have actually missed this headerLogo setting
+headerLogo="/images/opentravelsystem_logo.jpg"
+-->
+
+    <ProductStorePaymentSetting productStoreId="RentalStore" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_AUTH" paymentService="alwaysApproveCCProcessor" paymentCustomMethodId="CC_AUTH_ALWAYSAPPROV"/>
+    <ProductStorePaymentSetting productStoreId="RentalStore" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_RELEASE" paymentService="testCCRelease" paymentCustomMethodId="CC_RELEASE_TEST"/>
+    <ProductStorePaymentSetting productStoreId="RentalStore" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_CAPTURE" paymentService="testCCCapture" paymentCustomMethodId="CC_CAPTURE_TEST"/>
+    <ProductStorePaymentSetting productStoreId="RentalStore" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_REAUTH" paymentService="alwaysApproveCCProcessor" paymentCustomMethodId="CC_AUTH_ALWAYSAPPROV"/>
+    <ProductStorePaymentSetting productStoreId="RentalStore" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_REFUND" paymentService="testCCRefund" paymentCustomMethodId="CC_REFUND_TEST"/>
+    <ProductStorePaymentSetting productStoreId="RentalStore" paymentMethodTypeId="EFT_ACCOUNT" paymentServiceTypeEnumId="PRDS_PAY_AUTH" paymentService="alwaysApproveEFTProcessor" paymentCustomMethodId="EFT_AUTH_ALWAYSAPPRO"/>
+    <ProductStorePaymentSetting productStoreId="RentalStore" paymentMethodTypeId="GIFT_CARD" paymentServiceTypeEnumId="PRDS_PAY_AUTH" paymentService="alwaysApproveGCProcessor" paymentCustomMethodId="GIFT_AUTH_ALWAYSAPPR"/>
+    <ProductStorePaymentSetting productStoreId="RentalStore" paymentMethodTypeId="GIFT_CARD" paymentServiceTypeEnumId="PRDS_PAY_RELEASE" paymentService="testGCRelease" paymentCustomMethodId="GIFT_RELEASE_TEST"/>
+    <ProductStorePaymentSetting productStoreId="RentalStore" paymentMethodTypeId="EXT_PAYPAL" paymentServiceTypeEnumId="PRDS_PAY_EXTERNAL" paymentService="" paymentCustomMethodId="" paymentGatewayConfigId="PAYPAL_CONFIG"/>
+    <ProductStorePaymentSetting productStoreId="RentalStore" paymentMethodTypeId="EXT_WORLDPAY" paymentServiceTypeEnumId="PRDS_PAY_EXTERNAL" paymentService="" paymentCustomMethodId="" paymentGatewayConfigId="WORLDPAY_CONFIG"/>
+
+    <ProductStoreEmailSetting productStoreId="RentalStore" emailType="PRDS_ODR_CONFIRM" bodyScreenLocation="component://ecommerce/widget/EmailOrderScreens.xml#OrderConfirmNotice" xslfoAttachScreenLocation="component://ecommerce/widget/EmailOrderScreens.xml#OrderConfirmNoticePdf" subject="OFBiz Demo - Order Confirmation #${orderId}" bccAddress="ofbiztest@example.com" fromAddress="ofbiztest@example.com"/>
+    <ProductStoreEmailSetting productStoreId="RentalStore" emailType="PRDS_ODR_COMPLETE" bodyScreenLocation="component://ecommerce/widget/EmailOrderScreens.xml#OrderCompleteNotice" subject="OFBiz Demo - Your Order Is Complete #${orderId}" fromAddress="ofbiztest@example.com"/>
+    <ProductStoreEmailSetting productStoreId="RentalStore" emailType="PRDS_ODR_BACKORDER" bodyScreenLocation="component://ecommerce/widget/EmailOrderScreens.xml#BackorderNotice" subject="OFBiz Demo - Backorder Notification #${orderId}" fromAddress="ofbiztest@example.com"/>
+    <ProductStoreEmailSetting productStoreId="RentalStore" emailType="PRDS_ODR_CHANGE" bodyScreenLocation="component://ecommerce/widget/EmailOrderScreens.xml#OrderChangeNotice" subject="OFBiz Demo - Order Change Notification #${orderId}" fromAddress="ofbiztest@example.com"/>
+    <ProductStoreEmailSetting productStoreId="RentalStore" emailType="PRDS_ODR_PAYRETRY" bodyScreenLocation="component://ecommerce/widget/EmailOrderScreens.xml#PaymentRetryNotice" subject="OFBiz Demo - Order Payment Notification #${orderId}" fromAddress="ofbiztest@example.com"/>
+
+    <ProductStoreEmailSetting productStoreId="RentalStore" emailType="PRDS_RTN_ACCEPT" bodyScreenLocation="component://ecommerce/widget/EmailReturnScreens.xml#ReturnAccept" subject="OFBiz Demo - Return Accepted #${returnHeader.returnId}" fromAddress="ofbiztest@example.com"/>
+    <ProductStoreEmailSetting productStoreId="RentalStore" emailType="PRDS_RTN_COMPLETE" bodyScreenLocation="component://ecommerce/widget/EmailReturnScreens.xml#ReturnComplete" subject="OFBiz Demo - Return Completed #${returnHeader.returnId}" fromAddress="ofbiztest@example.com"/>
+    <ProductStoreEmailSetting productStoreId="RentalStore" emailType="PRDS_RTN_CANCEL" bodyScreenLocation="component://ecommerce/widget/EmailReturnScreens.xml#ReturnCancel" subject="OFBiz Demo - Return Cancelled #${returnHeader.returnId}" fromAddress="ofbiztest@example.com"/>
+
+    <ProductStoreEmailSetting productStoreId="RentalStore" emailType="PRDS_GC_PURCHASE" bodyScreenLocation="component://ecommerce/widget/EmailGiftCardScreens.xml#GiftCardPurchase" fromAddress="ofbiztest@example.com" subject="A Gift From ${senderName}!"/>
+    <ProductStoreEmailSetting productStoreId="RentalStore" emailType="PRDS_GC_RELOAD" bodyScreenLocation="component://ecommerce/widget/EmailGiftCardScreens.xml#GiftCardReload" fromAddress="ofbiztest@example.com" subject="Gift Card Reload Results"/>
+
+    <ProductStoreEmailSetting productStoreId="RentalStore" emailType="PRDS_TELL_FRIEND" bodyScreenLocation="component://ecommerce/widget/EmailProductScreens.xml#TellFriend" subject="${sendFrom} has sent you a link!" fromAddress="ofbiztest@example.com"/>
+
+    <ProductStoreEmailSetting productStoreId="RentalStore" emailType="PRDS_PWD_RETRIEVE" bodyScreenLocation="component://securityext/widget/EmailSecurityScreens.xml#PasswordEmail" subject="OFBiz Demo - Password Reminder (${userLoginId})" fromAddress="ofbiztest@example.com"/>
+
+    <ProductStoreFacility productStoreId="RentalStore" facilityId="WebStoreWarehouse" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductStoreRole partyId="admin" roleTypeId="SALES_REP" productStoreId="RentalStore" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductStoreKeywordOvrd productStoreId="RentalStore" keyword="gizmo" fromDate="2001-05-13 12:00:00.0" target="100" targetTypeEnumId="KOTT_PRODCAT"/>
+
+    <WebSite webSiteId="OpenTravelSystem" siteName="The Open source Travel System" productStoreId="RentalStore"/>
+
+    <!-- product catalog -->
+    <ProdCatalog prodCatalogId="RentalCatalog" catalogName="Rental Catalog" useQuickAdd="N"/>
+    <ProductStoreCatalog productStoreId="RentalStore" prodCatalogId="RentalCatalog" fromDate="2001-05-13 12:00:00.0" sequenceNum="1"/>
+
+    <!-- categories -->
+    <ProductCategory productCategoryId="RentBrowseRoot" description="Rental Browse Root"
+        longDescription="Rental Catalog Primary Browse Root Category" productCategoryTypeId="CATALOG_CATEGORY"/>
+    <ProductCategory productCategoryId="RentBrowseRoot_SRCH" description="Rental Browse Root to search"
+        longDescription="Rental Catalog Primary Browse Root Category" productCategoryTypeId="CATALOG_CATEGORY"/>
+    <ProductCategory productCategoryId="RentalPromo" description="Rental Promotions"
+        longDescription="Rental Catalog Primary Browse Root Category" productCategoryTypeId="CATALOG_CATEGORY"/>
+
+    <ProductCategory productCategoryId="HotelFac" description="Hotel Facilities" longDescription="long description of Hotel facilities"
+        primaryParentCategoryId="RentBrowseRoot" productCategoryTypeId="CATALOG_CATEGORY"/>
+    <ProductCategory productCategoryId="Rooms" description="Rooms" longDescription="long description of Hotel rooms"
+        primaryParentCategoryId="HotelFac" productCategoryTypeId="CATALOG_CATEGORY"/>
+    <ProductCategory productCategoryId="Suites" description="Suites" longDescription="long description of Hotel suites"
+        primaryParentCategoryId="HotelFac" productCategoryTypeId="CATALOG_CATEGORY"/>
+    <ProductCategory productCategoryId="ConfRooms" description="Conference Rooms" longDescription="long description of Hotel conference rooms"
+        primaryParentCategoryId="HotelFac" productCategoryTypeId="CATALOG_CATEGORY"/>
+
+    <ProductCategory description="Boat Rental" longDescription="long description of Boat rentals"
+        primaryParentCategoryId="RentBrowseRoot" productCategoryId="BoatRental" productCategoryTypeId="CATALOG_CATEGORY"/>
+    <ProductCategory description="Row Boats" longDescription="long description of Row Boats"
+        primaryParentCategoryId="BoatRental" productCategoryId="RowBoats" productCategoryTypeId="CATALOG_CATEGORY"/>
+    <ProductCategory description="Sailing Boats" longDescription="long description of Sailing Boats"
+        primaryParentCategoryId="BoatRental" productCategoryId="SailBoats" productCategoryTypeId="CATALOG_CATEGORY"/>
+    <ProductCategory description="Motor Boats" longDescription="long description of Motor Boats"
+        primaryParentCategoryId="BoatRental" productCategoryId="MotorBoats" productCategoryTypeId="CATALOG_CATEGORY"/>
+    <ProductCategory description="Speed Boats" longDescription="long description of Speed Boats"
+        primaryParentCategoryId="BoatRental" productCategoryId="SpeedBoats" productCategoryTypeId="CATALOG_CATEGORY"/>
+
+    <ProductCategoryRollup productCategoryId="ConfRooms" parentProductCategoryId="HotelFac" fromDate="2004-10-18 15:21:07.613"/>
+    <ProductCategoryRollup productCategoryId="Rooms" parentProductCategoryId="HotelFac" fromDate="2004-10-18 15:22:29.139"/>
+    <ProductCategoryRollup productCategoryId="Suites" parentProductCategoryId="HotelFac" fromDate="2004-10-18 15:23:05.706"/>
+    <ProductCategoryRollup productCategoryId="SpeedBoats" parentProductCategoryId="BoatRental" fromDate="2004-10-18 15:23:54.452"/>
+    <ProductCategoryRollup productCategoryId="MotorBoats" parentProductCategoryId="BoatRental" fromDate="2004-10-18 15:30:56.77"/>
+    <ProductCategoryRollup productCategoryId="RowBoats" parentProductCategoryId="BoatRental" fromDate="2004-10-18 15:32:27.359"/>
+    <ProductCategoryRollup productCategoryId="SailBoats" parentProductCategoryId="BoatRental" fromDate="2004-10-18 15:32:48.86"/>
+
+    <!-- categories for e-commerce -->
+    <ProdCatalogCategory prodCatalogId="RentalCatalog" productCategoryId="RentBrowseRoot" fromDate="2001-05-13 12:00:00.0"
+        sequenceNum="1" prodCatalogCategoryTypeId="PCCT_BROWSE_ROOT"/>
+    <ProdCatalogCategory prodCatalogId="RentalCatalog" productCategoryId="RentBrowseRoot_SRCH" fromDate="2001-05-13 12:00:00.0"
+        sequenceNum="1" prodCatalogCategoryTypeId="PCCT_SEARCH"/>
+    <ProdCatalogCategory prodCatalogId="RentalCatalog" productCategoryId="RentalPromo" fromDate="2001-05-13 12:00:00.0"
+        sequenceNum="1" prodCatalogCategoryTypeId="PCCT_PROMOTIONS"/>
+
+    <!-- products and relation to fixed asset -->
+    <Product productId="RoomStd" productTypeId="ASSET_USAGE" primaryProductCategoryId="Rooms" productName="Standard Room" internalName="StdRoom" description="The standard business room" longDescription="This is the standard room mostly for business" reservMaxPersons="3" reserv2ndPPPerc="20" reservNthPPPerc="5" taxable="Y" chargeShipping="N" autoCreateKeywords="Y" isVirtual="N" isVariant="N" createdDate="2004-03-04 18:48:34.612" createdByUserLogin="admin" lastModifiedDate="2004-03-04 18:48:34.612" lastModifiedByUserLogin="admin"/>
+    <FixedAsset fixedAssetId="RoomStd" fixedAssetTypeId="PROPERTY" productionCapacity="10"/>
+    <FixedAssetProduct productId="RoomStd" fixedAssetId="RoomStd" fixedAssetProductTypeId="FAPT_USE" fromDate="2001-05-13 12:00:00.0"/>
+
+    <Product productId="RoomLux" productTypeId="ASSET_USAGE" primaryProductCategoryId="Rooms" productName="Luxury Room" internalName="LuxRoom" description="The luxery business room" longDescription="This is the luxery room mostly for business"  reservMaxPersons="4" reserv2ndPPPerc="20" reservNthPPPerc="" taxable="Y" chargeShipping="N" autoCreateKeywords="Y" isVirtual="N" isVariant="N" createdDate="2004-03-04 18:48:34.612" createdByUserLogin="admin" lastModifiedDate="2004-03-04 18:48:34.612" lastModifiedByUserLogin="admin"/>
+    <FixedAsset fixedAssetId="RoomLux" fixedAssetTypeId="PROPERTY" productionCapacity="10"/>
+    <FixedAssetProduct productId="RoomLux" fixedAssetId="RoomLux" fixedAssetProductTypeId="FAPT_USE" fromDate="2001-05-13 12:00:00.0"/>
+
+    <Product productId="RoomLarge" productTypeId="ASSET_USAGE" primaryProductCategoryId="Rooms" productName="Large Room" internalName="LargeRoom" description="The large room for families" longDescription="This is the large room mostly for large families"  reservMaxPersons="8" reserv2ndPPPerc="20" reservNthPPPerc="3" taxable="Y" chargeShipping="N" autoCreateKeywords="Y" isVirtual="N" isVariant="N" createdDate="2004-03-04 18:48:34.612" createdByUserLogin="admin" lastModifiedDate="2004-03-04 18:48:34.612" lastModifiedByUserLogin="admin"/>
+
+    <Product productId="BoatRowSimple" productTypeId="ASSET_USAGE" primaryProductCategoryId="RowBoats" productName="Simple row boat" internalName="SmpRwBoat" description="A simple row boat to rent short time" longDescription="This is the most simplest row boat we have for short term rental only"  reservMaxPersons="12" reserv2ndPPPerc="" reservNthPPPerc="" taxable="Y" chargeShipping="N" autoCreateKeywords="Y" isVirtual="N" isVariant="N" createdDate="2004-03-04 18:48:34.612" createdByUserLogin="admin" lastModifiedDate="2004-03-04 18:48:34.612" lastModifiedByUserLogin="admin"/>
+
+    <Product productId="Cap" productTypeId="FINISHED_GOOD" productName="Cap with hotel Logo" internalName="Cap" description="A cap with the hotel logo" longDescription="This is the nicest cap you have ever seen with the hotel logo in gold!"  taxable="Y" chargeShipping="Y" autoCreateKeywords="Y" isVirtual="N" isVariant="N" createdDate="2004-03-04 18:48:34.612" createdByUserLogin="admin" lastModifiedDate="2004-03-04 18:48:34.612" lastModifiedByUserLogin="admin"/>
+
+    <!-- product prices -->
+    <ProductPrice productId="RoomStd" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="EUR" productStoreGroupId="_NA_" fromDate="2003-03-04 18:49:03.163" price="15.99" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+    <ProductPrice productId="RoomStd" productPricePurposeId="PURCHASE" productPriceTypeId="LIST_PRICE" currencyUomId="EUR" productStoreGroupId="_NA_" fromDate="2003-03-04 18:48:49.113" price="15.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+    <ProductPrice productId="RoomLux" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="EUR" productStoreGroupId="_NA_" fromDate="2003-03-04 18:57:38.033" price="25.99" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+    <ProductPrice productId="RoomLux" productPricePurposeId="PURCHASE" productPriceTypeId="LIST_PRICE" currencyUomId="EUR" productStoreGroupId="_NA_" fromDate="2003-03-04 18:57:29.421" price="25.99" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+    <ProductPrice productId="RoomLarge" productPricePurposeId="PURCHASE" productPriceTypeId="AVERAGE_COST" currencyUomId="EUR" productStoreGroupId="_NA_" fromDate="2003-03-04 18:50:35.866" price="29.99" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+    <ProductPrice productId="RoomLarge" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="EUR" productStoreGroupId="_NA_" fromDate="2003-03-04 18:50:45.25" price="25.99" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+    <ProductPrice productId="BoatRowSimple" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="EUR" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="549.99" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+    <ProductPrice productId="BoatRowSimple" productPricePurposeId="PURCHASE" productPriceTypeId="LIST_PRICE" currencyUomId="EUR" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="550.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+    <ProductPrice productId="BoatRowSimple" productPricePurposeId="PURCHASE" productPriceTypeId="COMPETITIVE_PRICE" currencyUomId="EUR" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="922.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+    <ProductPrice productId="Cap" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="EUR" productStoreGroupId="_NA_" fromDate="2003-03-04 18:50:45.25" price="5.99" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+
+    <!-- allocate products to categories -->
+    <ProductCategoryMember productCategoryId="RentalPromo" productId="RoomLux" fromDate="2004-10-18 20:39:58.563"/>
+    <ProductCategoryMember productCategoryId="RentalPromo" productId="RoomStd" fromDate="2004-10-18 20:40:12.749"/>
+    <ProductCategoryMember productCategoryId="RentalPromo" productId="Cap" fromDate="2004-10-18 20:40:12.749"/>
+</entity-engine-xml>

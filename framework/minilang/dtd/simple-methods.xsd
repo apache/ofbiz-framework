@@ -70,6 +70,13 @@ under the License.
 
     <!-- Reusable types -->
 
+    <xs:simpleType name="booleanConst">
+        <xs:restriction base="xs:token">
+            <xs:enumeration value="true" />
+            <xs:enumeration value="false" />
+        </xs:restriction>
+    </xs:simpleType>
+
     <xs:simpleType name="booleanExpr">
         <xs:restriction base="xs:string">
             <xs:pattern value="\$\{.+\}|true|false" />
@@ -262,7 +269,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="login-required" type="xs:boolean">
+            <xs:attribute name="login-required" type="booleanConst">
                 <xs:annotation>
                     <xs:documentation>
                         Require a user login to run this method. Defaults to "true".
@@ -271,7 +278,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="use-transaction" type="xs:boolean">
+            <xs:attribute name="use-transaction" type="booleanConst">
                 <xs:annotation>
                     <xs:documentation>
                         Create a transaction if none exists for this thread. Defaults to "true".
@@ -1024,7 +1031,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute type="xs:boolean" name="no-locale">
+            <xs:attribute type="booleanConst" name="no-locale">
                 <xs:annotation>
                     <xs:documentation>
                         Suppress property value localization. The user's/system locale will be ignored
@@ -1225,7 +1232,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="set-if-null" type="xs:boolean">
+            <xs:attribute name="set-if-null" type="booleanConst">
                 <xs:annotation>
                     <xs:documentation>
                         Controls if the target field can be set to null when the from attribute evaluates to null.
@@ -1235,7 +1242,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="set-if-empty" type="xs:boolean">
+            <xs:attribute name="set-if-empty" type="booleanConst">
                 <xs:annotation>
                     <xs:documentation>
                         Controls if the target field can be set to an empty value. The meaning of "empty" depends on the Java data type.
@@ -1300,7 +1307,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="set-if-null" type="xs:boolean">
+            <xs:attribute name="set-if-null" type="booleanConst">
                 <xs:annotation>
                     <xs:documentation>
                         Controls if the target field can be set to null when the from attribute evaluates to null.
@@ -2627,7 +2634,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="include-user-login" type="xs:boolean">
+            <xs:attribute name="include-user-login" type="booleanConst">
                 <xs:annotation>
                     <xs:documentation>
                         Include the current UserLogin entity value in the called service's IN parameters.
@@ -2637,7 +2644,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="break-on-error" type="xs:boolean">
+            <xs:attribute name="break-on-error" type="booleanConst">
                 <xs:annotation>
                     <xs:documentation>
                         Halt script execution if the called service returns an error.
@@ -2667,7 +2674,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="require-new-transaction" type="xs:boolean">
+            <xs:attribute name="require-new-transaction" type="booleanConst">
                 <xs:annotation>
                     <xs:documentation>
                         Require a new transaction for the called service.
@@ -2717,7 +2724,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="include-user-login" type="xs:boolean">
+            <xs:attribute name="include-user-login" type="booleanConst">
                 <xs:annotation>
                     <xs:documentation>
                         Include the current UserLogin entity value in the called service's IN parameters.
@@ -3138,7 +3145,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="ignore-if-null" type="xs:boolean">
+            <xs:attribute name="ignore-if-null" type="booleanConst">
                 <xs:annotation>
                     <xs:documentation>
                         Ignore the condition if the r-value is null.
@@ -3148,7 +3155,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="ignore-if-empty" type="xs:boolean">
+            <xs:attribute name="ignore-if-empty" type="booleanConst">
                 <xs:annotation>
                     <xs:documentation>
                         Ignore the condition if the r-value is empty.
@@ -3158,7 +3165,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="ignore-case" type="xs:boolean">
+            <xs:attribute name="ignore-case" type="booleanConst">
                 <xs:annotation>
                     <xs:documentation>
                         Perform a case-insensitive comparison.
@@ -3249,7 +3256,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="do-cache-clear" type="xs:boolean">
+            <xs:attribute name="do-cache-clear" type="booleanConst">
                 <xs:annotation>
                     <xs:documentation>
                         Clear the cache. Defaults to "true".
@@ -3258,7 +3265,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="or-store" type="xs:boolean">
+            <xs:attribute name="or-store" type="booleanConst">
                 <xs:annotation>
                     <xs:documentation>
                         Store the entity value if it already exists. Defaults to "false".
@@ -4302,7 +4309,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="get-long-only" type="xs:boolean">
+            <xs:attribute name="get-long-only" type="booleanConst">
                 <xs:annotation>
                     <xs:documentation>
                         Preserve the sequence type - a numeric long. If set to "false" the sequence
@@ -4929,7 +4936,7 @@ under the License.
                 This is done so that all failures will be reported immediately rather than having to fix one failure before another can be discovered.
 
                 All process operations automatically convert the field value and other values from their current type to the type specified for the operation, where applicable.
-                The ObjectType.simpleTypeOrObjectConvert method is used to do the conversion.
+                The ObjectType.simpleTypeConvert method is used to do the conversion.
                 It supports the following types: String, Double, Float, Long, Integer, Date, Time, and Timestamp.
                 If the type is not specified String is the default.
             </xs:documentation>

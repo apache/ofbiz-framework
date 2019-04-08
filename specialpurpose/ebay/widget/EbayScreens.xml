@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
+    <screen name="advancedsearch">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleAdvancedSearch"/>
+                <set field="headerItem" value="export"/>
+                <entity-condition entity-name="ProductCategory" list="productCategories">
+                    <condition-expr field-name="showInSelect" operator="not-equals" value="N"/>
+                    <order-by field-name="description"/>
+                </entity-condition>
+                <script location="component://product/groovyScripts/catalog/find/AdvancedSearchOptions.groovy"/>
+                <script location="component://ebay/groovyScripts/EbayAdvancedSearch.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://ebay/template/find/EbayAdvancedSearch.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="keywordsearch">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleSearchResults"/>
+                <set field="headerItem" value="export"/>
+                <script location="component://product/groovyScripts/catalog/find/KeywordSearch.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://ebay/template/find/EbayKeywordSearch.ftl"/></html>
+                        </platform-specific>
+                        <platform-specific>
+                            <html><html-template location="component://ebay/template/find/EbayExportLink.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="ProductsExportToEbay">
+        <section>
+            <actions>
+                <set field="headerItem" value="export"/>
+                <set field="titleProperty" value="PageTitleEbayProductsExportToEbay"/>
+                <set field="selectResult" from-field="parameters.selectResult"/>
+                <entity-condition entity-name="Geo" list="countries">
+                    <condition-expr field-name="geoTypeId" value="COUNTRY"/>
+                    <order-by field-name="geoName"/>
+                </entity-condition>
+                <script location="component://ebay/groovyScripts/ProductsExportToEbay.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.PageTitleEbayProductsExportToEbay}">
+                            <platform-specific>
+                                <html><html-template location="component://ebay/template/find/ProductsExportToEbay.ftl"/></html>
+                            </platform-specific>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="ManageOrdersFromEbay">
+        <section>
+            <actions>
+                <set field="titleProperty" value="EbayImportOrdersFromEbay"/>
+                <set field="headerItem" value="importOrders"/>
+                <set field="orderList" from-field="parameters.orderList"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.EbayImportSearchSingleTransactionFromEbay}">
+                            <include-form name="ManageOrdersFromEbay" location="component://ebay/widget/EbayForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.EbayImportOrdersFromEbay}">
+                            <include-form name="ListOrdersFromEbay" location="component://ebay/widget/EbayForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="EditProduct">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditProduct"/>
+                <set field="tabButtonItem" value="EditProduct"/>
+                <set field="labelTitleProperty" value="ProductProduct"/>
+
+                <set field="productId" from-field="parameters.productId"/>
+                <entity-one entity-name="Product" value-field="product"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.PageTitleEditProduct}">
+                            <include-form name="EditProduct" location="component://product/widget/catalog/ProductForms.xml"/>
+                        </screenlet>
+                        <!-- include the duplicate product form template -->
+                        <screenlet title="${uiLabelMap.ProductDuplicateProduct}">
+                            <include-form name="EditProductDup" location="component://product/widget/catalog/ProductForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="EbayOrders">
+        <section>
+            <actions>
+                <set field="titleProperty" value="EbayEBayOrders"/>
+                <set field="headerItem" value="eBayOrders"/>
+                <set field="orderList" from-field="parameters.orderList"/>
+                <script location="component://ebay/groovyScripts/EbayOrders.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="EBAY" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                                    <decorator-section name="search-options">
+                                        <include-form name="FindEbayOrders" location="component://ebay/widget/EbayForms.xml"/>
+                                    </decorator-section>
+                                    <decorator-section name="search-results">
+                                        <include-form name="ListEbayOrders" location="component://ebay/widget/EbayForms.xml"/>
+                                    </decorator-section>
+                                </decorator-screen>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.EbayViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="FindEbayConfigurations">
+        <section>
+            <actions>
+                <set field="titleProperty" value="EbayConfigurations"/>
+                <set field="tabButtonItem" value="find"/>
+                <!--set field="webSiteId" from-field="parameters.webSiteId"/-->
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonEbayConfigDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                                    <decorator-section name="search-options">
+                                        <include-form name="FindEbayConfig" location="component://ebay/widget/EbayForms.xml"/>
+                                    </decorator-section> 
+                                    <decorator-section name="search-results">
+                                        <include-form name="ListEbayConfigurations" location="component://ebay/widget/EbayForms.xml"/>
+                                    </decorator-section>
+                                </decorator-screen>  
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="EbayShippingMethods">
+        <section>
+            <actions>
+                <set field="titleProperty" value="EbayShippingMethodConfigurations"/>
+                <set field="headerItem" value="eBayShippingMethods"/>
+                <set field="productStoreId" from-field="parameters.productStoreId"/>
+                <set field="shipmentMethodName" from-field="parameters.shipmentMethodName"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="ListEbayShippingMethods" location="component://ebay/widget/EbayForms.xml"/>
+                        <screenlet id="add-ebay-shipping-method" title="${uiLabelMap.EbayAddEbayShippingMethod}" collapsible="true">
+                            <include-form name="AddEbayShippingMethod" location="component://ebay/widget/EbayForms.xml"/>
+                        </screenlet>    
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="EditEbayConfiguration">
+        <section>
+            <actions>
+                <set field="titleProperty" value="EbayConfigurations"/>
+                <set field="productStoreId" from-field="parameters.productStoreId"/>
+                <entity-one entity-name="EbayConfig" value-field="ebayConfig"/>
+                <set field="tabButtonItem" value="${groovy:ebayConfig == null?'newEbayConfig' : 'editEbayConfig'}"/>
+                <set field="xmlGatewayUri" value="${groovy:ebayConfig == null?'' : org.apache.ofbiz.base.util.StringUtil.wrapString(ebayConfig.xmlGatewayUri)}"/>
+                <set field="apiServerUrl" value="${groovy:ebayConfig == null?'' : org.apache.ofbiz.base.util.StringUtil.wrapString(ebayConfig.apiServerUrl)}"/>
+                <set field="token" value="${groovy:ebayConfig == null?'' : org.apache.ofbiz.base.util.StringUtil.wrapString(ebayConfig.token)}"/>
+                <set field="customXml" value="${groovy:ebayConfig == null?'' : org.apache.ofbiz.base.util.StringUtil.wrapString(ebayConfig.customXml)}"/>
+                <!--set field="webSiteId" value="${groovy:ebayConfig == null?parameters.webSiteId : ebayConfig.webSiteId}"/-->
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonEbayConfigDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <screenlet id="addEbayConfigurationId" title="${groovy:ebayConfig == null?uiLabelMap.EbayAddEbayConfiguration : uiLabelMap.EbayEditEbayConfiguration}">
+                                    <include-form name="AddEbayConfiguration" location="component://ebay/widget/EbayForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="FindEbayOrders">
+        <section>
+            <actions>
+                <set field="titleProperty" value="EbayEBayOrders"/>
+                <set field="headerItem" value="eBayOrders"/>
+                <script location="component://ebay/groovyScripts/UpdatedEbayOrders.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="EBAY" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                                    <decorator-section name="search-options">
+                                        <include-form name="FindEbayOrders" location="component://ebay/widget/EbayForms.xml"/>
+                                    </decorator-section>
+                                    <decorator-section name="search-results">
+                                        <include-form name="ListEbayOrders" location="component://ebay/widget/EbayForms.xml"/>
+                                    </decorator-section>
+                                </decorator-screen>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.EbayViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+</screens>

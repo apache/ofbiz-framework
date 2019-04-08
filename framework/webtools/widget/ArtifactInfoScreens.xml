@@ -23,7 +23,7 @@ under the License.
     <screen name="ArtifactInfo" transaction-timeout="180">
         <section>
             <condition>
-                <if-has-permission permission="ARTIFACT_INFO" action="_VIEW"/>
+                <if-has-permission permission="ARTIFACT_INFO_VIEW"/>
             </condition>
             <actions>
                 <set field="titleProperty" value="WebtoolsArtifactInfo"/>
@@ -33,9 +33,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonArtifactDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet>
-                            <platform-specific><html><html-template location="component://webtools/template/artifactinfo/ArtifactInfo.ftl"/></html></platform-specific>
-                        </screenlet>
+                        <platform-specific><html><html-template location="component://webtools/template/artifactinfo/ArtifactInfo.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

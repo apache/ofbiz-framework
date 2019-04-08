@@ -24,6 +24,21 @@ under the License.
     <vendor>OFBiz</vendor>
     <version>1.0</version>
 
+    <service name="interfaceProductPromoCond" engine="interface" location="" invoke="">
+        <attribute name="productPromoCond" type="org.apache.ofbiz.entity.GenericValue" mode="IN"/>
+        <attribute name="shoppingCart" type="org.apache.ofbiz.order.shoppingcart.ShoppingCart" mode="IN"/>
+        <attribute name="nowTimestamp" type="Timestamp" mode="IN"/>
+        <attribute name="directResult" type="Boolean" mode="OUT" optional="true"/>
+        <attribute name="compareBase" type="Integer" mode="OUT" optional="true"/>
+        <attribute name="operatorEnumId" type="String" mode="OUT" optional="true"/>
+    </service>
+    <service name="interfaceProductPromoAction" engine="interface" location="" invoke="">
+        <attribute name="productPromoAction" type="org.apache.ofbiz.entity.GenericValue" mode="IN"/>
+        <attribute name="shoppingCart" type="org.apache.ofbiz.order.shoppingcart.ShoppingCart" mode="IN"/>
+        <attribute name="nowTimestamp" type="Timestamp" mode="IN"/>
+        <attribute name="actionResultInfo" type="org.apache.ofbiz.order.shoppingcart.product.ProductPromoWorker$ActionResultInfo" mode="IN"/>
+        <attribute name="cartItemModifyException" type="org.apache.ofbiz.order.shoppingcart.CartItemModifyException" mode="OUT" optional="true"/>
+    </service>
     <service name="assignItemShipGroup" engine="java" auth="false"
             location="org.apache.ofbiz.order.shoppingcart.ShoppingCartServices" invoke="assignItemShipGroup">
         <description>Assign a ShoppingCartItem -> Quantity to a ship group</description>

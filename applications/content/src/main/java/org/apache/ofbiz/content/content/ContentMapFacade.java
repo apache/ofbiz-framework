@@ -51,7 +51,7 @@ public class ContentMapFacade implements Map<Object, Object> {
 
     public static final String module = ContentMapFacade.class.getName();
 
-    private static final Set<String> mapKeySet = new HashSet<String>();
+    protected static final Set<String> mapKeySet = new HashSet<String>();
     static {
         mapKeySet.add("fields");
         mapKeySet.add("link");
@@ -99,9 +99,9 @@ public class ContentMapFacade implements Map<Object, Object> {
         init();
     }
 
-    private ContentMapFacade(LocalDispatcher dispatcher, String contentId, Map<String, Object> context, Locale locale, String mimeTypeId, boolean cache) {
+    private ContentMapFacade(LocalDispatcher dispatcher, Delegator delegator, String contentId, Map<String, Object> context, Locale locale, String mimeTypeId, boolean cache) {
         this.dispatcher = dispatcher;
-        this.delegator = dispatcher.getDelegator();
+        this.delegator = delegator;
         this.contentId = contentId;
         this.context = context;
         this.locale = locale;
@@ -109,9 +109,9 @@ public class ContentMapFacade implements Map<Object, Object> {
         this.cache = cache;
         try {
             if (cache) {
-                this.value = EntityQuery.use(this.delegator).from("Content").where("contentId", contentId).cache().queryOne();
+                this.value = EntityQuery.use(delegator).from("Content").where("contentId", contentId).cache().queryOne();
             } else {
-                this.value = EntityQuery.use(this.delegator).from("Content").where("contentId", contentId).queryOne();
+                this.value = EntityQuery.use(delegator).from("Content").where("contentId", contentId).queryOne();
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
@@ -254,12 +254,13 @@ public class ContentMapFacade implements Map<Object, Object> {
                 // so we're only looking for a direct alias using contentId
                 if (webSiteId != null && delegator != null) {
                     try {
+                    	
                         GenericValue webSitePathAlias = EntityQuery.use(delegator).from("WebSitePathAlias")
-                                .where("mapKey", null, "webSiteId", webSiteId,"contentId", this.contentId)
+                                .where("mapKey", null,
+                                        "webSiteId", webSiteId,
+                                        "contentId", this.contentId)
                                 .orderBy("-fromDate")
-                                .cache()
-                                .filterByDate()
-                                .queryFirst();
+                                .cache().filterByDate().queryFirst();
                         if (webSitePathAlias != null) {
                             contentUri = webSitePathAlias.getString("pathAlias");
                         }
@@ -299,7 +300,7 @@ public class ContentMapFacade implements Map<Object, Object> {
             }
             if (subs != null) {
                 for (GenericValue v: subs) {
-                    subContent.add(new ContentMapFacade(dispatcher, v.getString("contentId"), context, locale, mimeType, cache));
+                    subContent.add(new ContentMapFacade(dispatcher, delegator, v.getString("contentId"), context, locale, mimeType, cache));
                 }
             }
             return subContent;
@@ -338,7 +339,7 @@ public class ContentMapFacade implements Map<Object, Object> {
         }
 
         try {
-            return ContentWorker.renderContentAsText(dispatcher, contentId, renderCtx, locale, mimeType, cache);
+            return ContentWorker.renderContentAsText(dispatcher, delegator, contentId, renderCtx, locale, mimeType, cache);
         } catch (GeneralException e) {
             Debug.logError(e, module);
             return e.toString();
@@ -369,6 +370,9 @@ public class ContentMapFacade implements Map<Object, Object> {
         public boolean containsValue(Object object) {
             return false;
         }
+
+        public abstract Object get(Object object);
+
 
         public Object put(Object name, Object value) {
             Debug.logWarning("This [put()] method is not implemented in ContentMapFacade.AbstractInfo", module);
@@ -412,7 +416,7 @@ public class ContentMapFacade implements Map<Object, Object> {
                 return null;
             }
             String name = (String) key;
-            if (name.toLowerCase(Locale.getDefault()).startsWith("id_")) {
+            if (name.toLowerCase().startsWith("id_")) {
                 name = name.substring(3);
             }
 
@@ -428,7 +432,7 @@ public class ContentMapFacade implements Map<Object, Object> {
                 Debug.logError(e, module);
             }
             if (content != null) {
-                return new ContentMapFacade(dispatcher, content.getString("contentId"), context, locale, mimeType, cache);
+                return new ContentMapFacade(dispatcher, delegator, content.getString("contentId"), context, locale, mimeType, cache);
             }
 
             return null;
@@ -445,7 +449,7 @@ public class ContentMapFacade implements Map<Object, Object> {
                 return null;
             }
             String name = (String) key;
-            if (name.toLowerCase(Locale.getDefault()).startsWith("id_")) {
+            if (name.toLowerCase().startsWith("id_")) {
                 name = name.substring(3);
             }
 
@@ -467,7 +471,7 @@ public class ContentMapFacade implements Map<Object, Object> {
                 Debug.logError(e, module);
             }
             if (sub != null) {
-                return new ContentMapFacade(dispatcher, sub.getString("contentId"), context, locale, mimeType, cache);
+                return new ContentMapFacade(dispatcher, delegator, sub.getString("contentId"), context, locale, mimeType, cache);
             }
 
             return null;
@@ -529,7 +533,7 @@ public class ContentMapFacade implements Map<Object, Object> {
             } else if ("render".equalsIgnoreCase(name)) {
                 // render just the dataresource
                 try {
-                    return DataResourceWorker.renderDataResourceAsText(dispatcher, delegator, value.getString("dataResourceId"), context, locale, mimeType, cache);
+                    return DataResourceWorker.renderDataResourceAsText(delegator, value.getString("dataResourceId"), context, locale, mimeType, cache);
                 } catch (GeneralException e) {
                     Debug.logError(e, module);
                     return e.toString();

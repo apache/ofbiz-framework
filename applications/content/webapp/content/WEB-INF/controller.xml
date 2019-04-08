@@ -169,13 +169,13 @@ under the License.
     </request-map>
     <request-map uri="createForumGroup">
         <security https="true" auth="true"/>
-        <event type="service" invoke="createContent"/>
+        <event invoke="createContent" type="service"/>
         <response name="success" type="view" value="FindForumGroups"/>
         <response name="error" type="view" value="FindForumGroups"/>
     </request-map>
     <request-map uri="updateForumGroup">
         <security https="true" auth="true"/>
-        <event type="service" invoke="updateContent"/>
+        <event invoke="updateContent" type="service"/>
         <response name="success" type="view" value="FindForumGroups"/>
         <response name="error" type="view" value="FindForumGroups"/>
     </request-map>
@@ -186,19 +186,19 @@ under the License.
     </request-map>
     <request-map uri="createForumGroupRole">
         <security https="true" auth="true"/>
-        <event type="service" invoke="createContentRole"/>
+        <event invoke="createContentRole" type="service"/>
         <response name="success" type="view" value="ForumGroupRoles"/>
         <response name="error" type="view" value="ForumGroupRoles"/>
     </request-map>
     <request-map uri="updateForumGroupRole">
         <security https="true" auth="true"/>
-        <event type="service" invoke="updateContentRole"/>
+        <event invoke="updateContentRole" type="service"/>
         <response name="success" type="view" value="ForumGroupRoles"/>
         <response name="error" type="view" value="ForumGroupRoles"/>
     </request-map>
     <request-map uri="deleteForumGroupRole">
         <security https="true" auth="true"/>
-        <event type="service" invoke="removeContentRole"/>
+        <event invoke="removeContentRole" type="service"/>
         <response name="success" type="view" value="ForumGroupRoles"/>
         <response name="error" type="view" value="ForumGroupRoles"/>
     </request-map>
@@ -209,13 +209,13 @@ under the License.
     </request-map>
     <request-map uri="createForumGroupPurpose">
         <security https="true" auth="true"/>
-        <event type="service" invoke="createContentPurpose"/>
+        <event invoke="createContentPurpose" type="service"/>
         <response name="success" type="view" value="ForumGroupPurposes"/>
         <response name="error" type="view" value="ForumGroupPurposes"/>
     </request-map>
     <request-map uri="deleteForumGroupPurpose">
         <security https="true" auth="true"/>
-        <event type="service" invoke="removeContentPurpose"/>
+        <event invoke="removeContentPurpose" type="service"/>
         <response name="success" type="view" value="ForumGroupPurposes"/>
         <response name="error" type="view" value="ForumGroupPurposes"/>
     </request-map>
@@ -226,13 +226,13 @@ under the License.
     </request-map>
     <request-map uri="createForum">
         <security https="true" auth="true"/>
-        <event type="service" invoke="persistContentAndAssoc"/>
+        <event invoke="persistContentAndAssoc" type="service"/>
         <response name="success" type="view" value="FindForums"/>
         <response name="error" type="view" value="FindForums"/>
     </request-map>
     <request-map uri="updateForum">
         <security https="true" auth="true"/>
-        <event type="service" invoke="persistContentAndAssoc"/>
+        <event invoke="persistContentAndAssoc" type="service"/>
         <response name="success" type="view" value="FindForums"/>
         <response name="error" type="view" value="FindForums"/>
     </request-map>
@@ -259,13 +259,13 @@ under the License.
     </request-map>
     <request-map uri="updateForumMessage">
         <security https="true" auth="true"/>
-        <event type="service" invoke="persistContentAndAssoc"/>
+        <event invoke="persistContentAndAssoc" type="service"/>
         <response name="success" type="view" value="FindForumMessages"/>
         <response name="error" type="view" value="FindForumMessages"/>
     </request-map>
     <request-map uri="updateForumThreadMessage">
         <security https="true" auth="true"/>
-        <event type="service" invoke="persistContentAndAssoc"/>
+        <event invoke="persistContentAndAssoc" type="service"/>
         <response name="success" type="view" value="FindForumThreads"/>
         <response name="error" type="view" value="FindForumThreads"/>
     </request-map>
@@ -464,19 +464,19 @@ under the License.
     </request-map>
     <request-map uri="addContentType">
         <security auth="true" https="true"/>
-        <event type="service" invoke="createContentType" path=""/>
+        <event invoke="createContentType" path="" type="service"/>
         <response name="success" type="view" value="EditContentType"/>
         <response name="error" type="view" value="EditContentType"/>
     </request-map>
     <request-map uri="updateContentType">
         <security auth="true" https="true"/>
-        <event type="service" invoke="updateContentType" path=""/>
+        <event invoke="updateContentType" path="" type="service"/>
         <response name="success" type="view" value="EditContentType"/>
         <response name="error" type="view" value="EditContentType"/>
     </request-map>
     <request-map uri="removeContentType">
         <security auth="true" https="true"/>
-        <event type="service" invoke="removeContentType" path=""/>
+        <event invoke="removeContentType" path="" type="service"/>
         <response name="success" type="view" value="EditContentType"/>
         <response name="error" type="view" value="EditContentType"/>
     </request-map>
@@ -488,19 +488,19 @@ under the License.
     </request-map>
     <request-map uri="addContentRole">
         <security auth="true" https="true"/>
-        <event type="service" invoke="createContentRole" path=""/>
+        <event invoke="createContentRole" path="" type="service"/>
         <response name="success" type="view" value="EditContentRole"/>
         <response name="error" type="view" value="EditContentRole"/>
     </request-map>
     <request-map uri="updateContentRole">
         <security auth="true" https="true"/>
-        <event type="service" invoke="updateContentRole" path=""/>
+        <event invoke="updateContentRole" path="" type="service"/>
         <response name="success" type="view" value="EditContentRole"/>
         <response name="error" type="view" value="EditContentRole"/>
     </request-map>
     <request-map uri="removeContentRole">
         <security auth="true" https="true"/>
-        <event type="service" invoke="removeContentRole" path=""/>
+        <event invoke="removeContentRole" path="" type="service"/>
         <response name="success" type="view" value="EditContentRole"/>
         <response name="error" type="view" value="EditContentRole"/>
     </request-map>
@@ -512,19 +512,19 @@ under the License.
     </request-map>
     <request-map uri="addContentAssocType">
         <security auth="true" https="true"/>
-        <event type="service" invoke="createContentAssocType" path=""/>
+        <event invoke="createContentAssocType" path="" type="service"/>
         <response name="success" type="view" value="EditContentAssocType"/>
         <response name="error" type="view" value="EditContentAssocType"/>
     </request-map>
     <request-map uri="updateContentAssocType">
         <security auth="true" https="true"/>
-        <event type="service" invoke="updateContentAssocType" path=""/>
+        <event invoke="updateContentAssocType" path="" type="service"/>
         <response name="success" type="view" value="EditContentAssocType"/>
         <response name="error" type="view" value="EditContentAssocType"/>
     </request-map>
     <request-map uri="removeContentAssocType">
         <security auth="true" https="true"/>
-        <event type="service" invoke="removeContentAssocType" path=""/>
+        <event invoke="removeContentAssocType" path="" type="service"/>
         <response name="success" type="view" value="EditContentAssocType"/>
         <response name="error" type="view" value="EditContentAssocType"/>
     </request-map>
@@ -536,19 +536,19 @@ under the License.
     </request-map>
     <request-map uri="addContentPurposeType">
         <security auth="true" https="true"/>
-        <event type="service" invoke="createContentPurposeType" path=""/>
+        <event invoke="createContentPurposeType" path="" type="service"/>
         <response name="success" type="view" value="EditContentPurposeType"/>
         <response name="error" type="view" value="EditContentPurposeType"/>
     </request-map>
     <request-map uri="updateContentPurposeType">
         <security auth="true" https="true"/>
-        <event type="service" invoke="updateContentPurposeType" path=""/>
+        <event invoke="updateContentPurposeType" path="" type="service"/>
         <response name="success" type="view" value="EditContentPurposeType"/>
         <response name="error" type="view" value="EditContentPurposeType"/>
     </request-map>
     <request-map uri="removeContentPurposeType">
         <security auth="true" https="true"/>
-        <event type="service" invoke="removeContentPurposeType" path=""/>
+        <event invoke="removeContentPurposeType" path="" type="service"/>
         <response name="success" type="view" value="EditContentPurposeType"/>
         <response name="error" type="view" value="EditContentPurposeType"/>
     </request-map>
@@ -560,13 +560,13 @@ under the License.
     </request-map>
     <request-map uri="addContentTypeAttr">
         <security auth="true" https="true"/>
-        <event type="service" invoke="createContentTypeAttr" path=""/>
+        <event invoke="createContentTypeAttr" path="" type="service"/>
         <response name="success" type="view" value="EditContentTypeAttr"/>
         <response name="error" type="view" value="EditContentTypeAttr"/>
     </request-map>
     <request-map uri="removeContentTypeAttr">
         <security auth="true" https="true"/>
-        <event type="service" invoke="removeContentTypeAttr" path=""/>
+        <event invoke="removeContentTypeAttr" path="" type="service"/>
         <response name="success" type="view" value="EditContentTypeAttr"/>
         <response name="error" type="view" value="EditContentTypeAttr"/>
     </request-map>
@@ -578,19 +578,19 @@ under the License.
     </request-map>
     <request-map uri="addContentAssocPredicate">
         <security auth="true" https="true"/>
-        <event type="service" invoke="createContentAssocPredicate" path=""/>
+        <event invoke="createContentAssocPredicate" path="" type="service"/>
         <response name="success" type="view" value="EditContentAssocPredicate"/>
         <response name="error" type="view" value="EditContentAssocPredicate"/>
     </request-map>
     <request-map uri="updateContentAssocPredicate">
         <security auth="true" https="true"/>
-        <event type="service" invoke="updateContentAssocPredicate" path=""/>
+        <event invoke="updateContentAssocPredicate" path="" type="service"/>
         <response name="success" type="view" value="EditContentAssocPredicate"/>
         <response name="error" type="view" value="EditContentAssocPredicate"/>
     </request-map>
     <request-map uri="removeContentAssocPredicate">
         <security auth="true" https="true"/>
-        <event type="service" invoke="removeContentAssocPredicate" path=""/>
+        <event invoke="removeContentAssocPredicate" path="" type="service"/>
         <response name="success" type="view" value="EditContentAssocPredicate"/>
         <response name="error" type="view" value="EditContentAssocPredicate"/>
     </request-map>
@@ -602,19 +602,19 @@ under the License.
     </request-map>
     <request-map uri="addCharacterSet">
         <security auth="true" https="true"/>
-        <event type="service" invoke="createCharacterSet" path=""/>
+        <event invoke="createCharacterSet" path="" type="service"/>
         <response name="success" type="view" value="EditCharacterSet"/>
         <response name="error" type="view" value="EditCharacterSet"/>
     </request-map>
     <request-map uri="updateCharacterSet">
         <security auth="true" https="true"/>
-        <event type="service" invoke="updateCharacterSet" path=""/>
+        <event invoke="updateCharacterSet" path="" type="service"/>
         <response name="success" type="view" value="EditCharacterSet"/>
         <response name="error" type="view" value="EditCharacterSet"/>
     </request-map>
     <request-map uri="removeCharacterSet">
         <security auth="true" https="true"/>
-        <event type="service" invoke="removeCharacterSet" path=""/>
+        <event invoke="removeCharacterSet" path="" type="service"/>
         <response name="success" type="view" value="EditCharacterSet"/>
         <response name="error" type="view" value="EditCharacterSet"/>
     </request-map>
@@ -626,19 +626,19 @@ under the License.
     </request-map>
     <request-map uri="addDataCategory">
         <security auth="true" https="true"/>
-        <event type="service" invoke="createDataCategory" path=""/>
+        <event invoke="createDataCategory" path="" type="service"/>
         <response name="success" type="view" value="EditDataCategory"/>
         <response name="error" type="view" value="EditDataCategory"/>
     </request-map>
     <request-map uri="updateDataCategory">
         <security auth="true" https="true"/>
-        <event type="service" invoke="updateDataCategory" path=""/>
+        <event invoke="updateDataCategory" path="" type="service"/>
         <response name="success" type="view" value="EditDataCategory"/>
         <response name="error" type="view" value="EditDataCategory"/>
     </request-map>
     <request-map uri="removeDataCategory">
         <security auth="true" https="true"/>
-        <event type="service" invoke="removeDataCategory" path=""/>
+        <event invoke="removeDataCategory" path="" type="service"/>
         <response name="success" type="view" value="EditDataCategory"/>
         <response name="error" type="view" value="EditDataCategory"/>
     </request-map>
@@ -669,19 +669,19 @@ under the License.
     </request-map>
     <request-map uri="addDataResourceType">
         <security auth="true" https="true"/>
-        <event type="service" invoke="createDataResourceType" path=""/>
+        <event invoke="createDataResourceType" path="" type="service"/>
         <response name="success" type="view" value="EditDataResourceType"/>
         <response name="error" type="view" value="EditDataResourceType"/>
     </request-map>
     <request-map uri="updateDataResourceType">
         <security auth="true" https="true"/>
-        <event type="service" invoke="updateDataResourceType" path=""/>
+        <event invoke="updateDataResourceType" path="" type="service"/>
         <response name="success" type="view" value="EditDataResourceType"/>
         <response name="error" type="view" value="EditDataResourceType"/>
     </request-map>
     <request-map uri="removeDataResourceType">
         <security auth="true" https="true"/>
-        <event type="service" invoke="removeDataResourceType" path=""/>
+        <event invoke="removeDataResourceType" path="" type="service"/>
         <response name="success" type="view" value="EditDataResourceType"/>
         <response name="error" type="view" value="EditDataResourceType"/>
     </request-map>
@@ -693,19 +693,19 @@ under the License.
     </request-map>
     <request-map uri="addDataResourceAttribute">
         <security auth="true" https="true"/>
-        <event type="service" invoke="createDataResourceAttribute" path=""/>
+        <event invoke="createDataResourceAttribute" path="" type="service"/>
         <response name="success" type="view" value="EditDataResourceAttribute"/>
         <response name="error" type="view" value="EditDataResourceAttribute"/>
     </request-map>
     <request-map uri="updateDataResourceAttribute">
         <security auth="true" https="true"/>
-        <event type="service" invoke="updateDataResourceAttribute" path=""/>
+        <event invoke="updateDataResourceAttribute" path="" type="service"/>
         <response name="success" type="view" value="EditDataResourceAttribute"/>
         <response name="error" type="view" value="EditDataResourceAttribute"/>
     </request-map>
     <request-map uri="removeDataResourceAttribute">
         <security auth="true" https="true"/>
-        <event type="service" invoke="removeDataResourceAttribute" path=""/>
+        <event invoke="removeDataResourceAttribute" path="" type="service"/>
         <response name="success" type="view" value="EditDataResourceAttribute"/>
         <response name="error" type="view" value="EditDataResourceAttribute"/>
     </request-map>
@@ -721,31 +721,31 @@ under the License.
     </request-map>
     <request-map uri="addElectronicText">
         <security auth="true" https="true"/>
-        <event type="service" invoke="createElectronicText" path=""/>
+        <event invoke="createElectronicText" path="" type="service"/>
         <response name="success" type="view" value="EditElectronicText"/>
         <response name="error" type="view" value="EditElectronicText"/>
     </request-map>
     <request-map uri="updateElectronicText">
         <security auth="true" https="true"/>
-        <event type="service" invoke="updateElectronicText" path=""/>
+        <event invoke="updateElectronicText" path="" type="service"/>
         <response name="success" type="view" value="EditElectronicText"/>
         <response name="error" type="view" value="EditElectronicText"/>
     </request-map>
     <request-map uri="addHtmlText">
         <security auth="true" https="true"/>
-        <event type="service" invoke="createElectronicText" path=""/>
+        <event invoke="createElectronicText" path="" type="service"/>
         <response name="success" type="view" value="EditHtmlText"/>
         <response name="error" type="view" value="EditHtmlText"/>
     </request-map>
     <request-map uri="updateHtmlText">
         <security auth="true" https="true"/>
-        <event type="service" invoke="updateElectronicText" path=""/>
+        <event invoke="updateElectronicText" path="" type="service"/>
         <response name="success" type="view" value="EditHtmlText"/>
         <response name="error" type="view" value="EditHtmlText"/>
     </request-map>
     <request-map uri="removeElectronicText">
         <security auth="true" https="true"/>
-        <event type="service" invoke="removeElectronicText" path=""/>
+        <event invoke="removeElectronicText" path="" type="service"/>
         <response name="success" type="view" value="EditElectronicText"/>
         <response name="error" type="view" value="EditElectronicText"/>
     </request-map>
@@ -757,19 +757,19 @@ under the License.
     </request-map>
     <request-map uri="addDataResourceRole">
         <security auth="true" https="true"/>
-        <event type="service" invoke="createDataResourceRole" path=""/>
+        <event invoke="createDataResourceRole" path="" type="service"/>
         <response name="success" type="view" value="EditDataResourceRole"/>
         <response name="error" type="view" value="EditDataResourceRole"/>
     </request-map>
     <request-map uri="updateDataResourceRole">
         <security auth="true" https="true"/>
-        <event type="service" invoke="updateDataResourceRole" path=""/>
+        <event invoke="updateDataResourceRole" path="" type="service"/>
         <response name="success" type="view" value="EditDataResourceRole"/>
         <response name="error" type="view" value="EditDataResourceRole"/>
     </request-map>
     <request-map uri="removeDataResourceRole">
         <security auth="true" https="true"/>
-        <event type="service" invoke="removeDataResourceRole" path=""/>
+        <event invoke="removeDataResourceRole" path="" type="service"/>
         <response name="success" type="view" value="EditDataResourceRole"/>
         <response name="error" type="view" value="EditDataResourceRole"/>
     </request-map>
@@ -781,13 +781,13 @@ under the License.
     </request-map>
     <request-map uri="createDataResourceProductFeature">
         <security auth="true" https="true"/>
-        <event type="service" invoke="createProductFeatureDataResource" path=""/>
+        <event invoke="createProductFeatureDataResource" path="" type="service"/>
         <response name="success" type="view" value="EditDataResourceProductFeatures"/>
         <response name="error" type="view" value="EditDataResourceProductFeatures"/>
     </request-map>
     <request-map uri="removeDataResourceProductFeature">
         <security auth="true" https="true"/>
-        <event type="service" invoke="removeProductFeatureDataResource" path=""/>
+        <event invoke="removeProductFeatureDataResource" path="" type="service"/>
         <response name="success" type="view" value="EditDataResourceProductFeatures"/>
         <response name="error" type="view" value="EditDataResourceProductFeatures"/>
     </request-map>
@@ -799,13 +799,13 @@ under the License.
     </request-map>
     <request-map uri="addDataResourceTypeAttr">
         <security auth="true" https="true"/>
-        <event type="service" invoke="createDataResourceTypeAttr" path=""/>
+        <event invoke="createDataResourceTypeAttr" path="" type="service"/>
         <response name="success" type="view" value="EditDataResourceTypeAttr"/>
         <response name="error" type="view" value="EditDataResourceTypeAttr"/>
     </request-map>
     <request-map uri="removeDataResourceTypeAttr">
         <security auth="true" https="true"/>
-        <event type="service" invoke="removeDataResourceTypeAttr" path=""/>
+        <event invoke="removeDataResourceTypeAttr" path="" type="service"/>
         <response name="success" type="view" value="EditDataResourceTypeAttr"/>
         <response name="error" type="view" value="EditDataResourceTypeAttr"/>
     </request-map>
@@ -817,19 +817,19 @@ under the License.
     </request-map>
     <request-map uri="addFileExtension">
         <security auth="true" https="true"/>
-        <event type="service" invoke="createFileExtension" path=""/>
+        <event invoke="createFileExtension" path="" type="service"/>
         <response name="success" type="view" value="EditFileExtension"/>
         <response name="error" type="view" value="EditFileExtension"/>
     </request-map>
     <request-map uri="updateFileExtension">
         <security auth="true" https="true"/>
-        <event type="service" invoke="updateFileExtension" path=""/>
+        <event invoke="updateFileExtension" path="" type="service"/>
         <response name="success" type="view" value="EditFileExtension"/>
         <response name="error" type="view" value="EditFileExtension"/>
     </request-map>
     <request-map uri="removeFileExtension">
         <security auth="true" https="true"/>
-        <event type="service" invoke="removeFileExtension" path=""/>
+        <event invoke="removeFileExtension" path="" type="service"/>
         <response name="success" type="view" value="EditFileExtension"/>
         <response name="error" type="view" value="EditFileExtension"/>
     </request-map>
@@ -841,19 +841,19 @@ under the License.
     </request-map>
     <request-map uri="addMetaDataPredicate">
         <security auth="true" https="true"/>
-        <event type="service" invoke="createMetaDataPredicate" path=""/>
+        <event invoke="createMetaDataPredicate" path="" type="service"/>
         <response name="success" type="view" value="EditMetaDataPredicate"/>
         <response name="error" type="view" value="EditMetaDataPredicate"/>
     </request-map>
     <request-map uri="updateMetaDataPredicate">
         <security auth="true" https="true"/>
-        <event type="service" invoke="updateMetaDataPredicate" path=""/>
+        <event invoke="updateMetaDataPredicate" path="" type="service"/>
         <response name="success" type="view" value="EditMetaDataPredicate"/>
         <response name="error" type="view" value="EditMetaDataPredicate"/>
     </request-map>
     <request-map uri="removeMetaDataPredicate">
         <security auth="true" https="true"/>
-        <event type="service" invoke="removeMetaDataPredicate" path=""/>
+        <event invoke="removeMetaDataPredicate" path="" type="service"/>
         <response name="success" type="view" value="EditMetaDataPredicate"/>
         <response name="error" type="view" value="EditMetaDataPredicate"/>
     </request-map>
@@ -865,19 +865,19 @@ under the License.
     </request-map>
     <request-map uri="addMimeType">
         <security auth="true" https="true"/>
-        <event type="service" invoke="createMimeType" path=""/>
+        <event invoke="createMimeType" path="" type="service"/>
         <response name="success" type="view" value="EditMimeType"/>
         <response name="error" type="view" value="EditMimeType"/>
     </request-map>
     <request-map uri="updateMimeType">
         <security auth="true" https="true"/>
-        <event type="service" invoke="updateMimeType" path=""/>
+        <event invoke="updateMimeType" path="" type="service"/>
         <response name="success" type="view" value="EditMimeType"/>
         <response name="error" type="view" value="EditMimeType"/>
     </request-map>
     <request-map uri="removeMimeType">
         <security auth="true" https="true"/>
-        <event type="service" invoke="removeMimeType" path=""/>
+        <event invoke="removeMimeType" path="" type="service"/>
         <response name="success" type="view" value="EditMimeType"/>
         <response name="error" type="view" value="EditMimeType"/>
     </request-map>
@@ -889,19 +889,19 @@ under the License.
     </request-map>
     <request-map uri="createMimeTypeHtmlTemplate">
         <security auth="true" https="true"/>
-        <event type="service" invoke="createMimeTypeHtmlTemplate" path=""/>
+        <event invoke="createMimeTypeHtmlTemplate" path="" type="service"/>
         <response name="success" type="view" value="EditMimeTypeHtmlTemplate"/>
         <response name="error" type="view" value="EditMimeTypeHtmlTemplate"/>
     </request-map>
     <request-map uri="updateMimeTypeHtmlTemplate">
         <security auth="true" https="true"/>
-        <event type="service" invoke="updateMimeTypeHtmlTemplate" path=""/>
+        <event invoke="updateMimeTypeHtmlTemplate" path="" type="service"/>
         <response name="success" type="view" value="EditMimeTypeHtmlTemplate"/>
         <response name="error" type="view" value="EditMimeTypeHtmlTemplate"/>
     </request-map>
     <request-map uri="removeMimeTypeHtmlTemplate">
         <security auth="true" https="true"/>
-        <event type="service" invoke="removeMimeTypeHtmlTemplate" path=""/>
+        <event invoke="removeMimeTypeHtmlTemplate" path="" type="service"/>
         <response name="success" type="view" value="EditMimeTypeHtmlTemplate"/>
         <response name="error" type="view" value="EditMimeTypeHtmlTemplate"/>
     </request-map>
@@ -926,13 +926,13 @@ under the License.
     </request-map>
     <request-map uri="updateContent">
         <security auth="true" https="true"/>
-        <event type="service" invoke="updateContent"/>
+        <event invoke="updateContent" type="service"/>
         <response name="success" type="view" value="EditContent"/>
         <response name="error" type="view" value="EditContent"/>
     </request-map>
     <request-map uri="createContent">
         <security auth="true" https="true"/>
-        <event type="service" invoke="createContent"/>
+        <event invoke="createContent" type="service"/>
         <response name="success" type="view" value="EditContent"/>
         <response name="error" type="view" value="EditContent"/>
     </request-map>
@@ -948,19 +948,19 @@ under the License.
     </request-map>
     <request-map uri="updateContentAssoc">
         <security auth="true" https="true"/>
-        <event type="service" invoke="updateContentAssoc" path=""/>
+        <event invoke="updateContentAssoc" path="" type="service"/>
         <response name="success" type="view" value="EditContentAssoc"/>
         <response name="error" type="view" value="EditContentAssoc"/>
     </request-map>
     <request-map uri="createContentAssoc">
         <security auth="true" https="true"/>
-        <event type="service" invoke="createContentAssoc" path=""/>
+        <event invoke="createContentAssoc" path="" type="service"/>
         <response name="success" type="view" value="EditContentAssoc"/>
         <response name="error" type="view" value="EditContentAssoc"/>
     </request-map>
     <request-map uri="removeContentAssoc">
         <security auth="true" https="true"/>
-        <event type="service" invoke="removeContentAssoc" path=""/>
+        <event invoke="removeContentAssoc" path="" type="service"/>
         <response name="success" type="view" value="EditContentAssoc"/>
         <response name="error" type="view" value="EditContentAssoc"/>
     </request-map>
@@ -977,13 +977,13 @@ under the License.
     <request-map uri="AddDataResourceFromContent"><security auth="true" https="true"/><response name="success" type="view" value="AddDataResourceFromContent"/></request-map>
     <request-map uri="updateDataResourceText">
         <security auth="true" https="true"/>
-        <event type="service" invoke="updateDataResource" path=""/>
+        <event invoke="updateDataResource" path="" type="service"/>
         <response name="success" type="request" value="EditDataResource"/>
         <response name="error" type="view" value="EditDataResource"/>
     </request-map>
     <request-map uri="updateDataResource">
         <security auth="true" https="true"/>
-        <event type="service" invoke="updateDataResource" path=""/>
+        <event invoke="updateDataResource" path="" type="service"/>
         <response name="success" type="view" value="EditDataResource"/>
         <response name="error" type="view" value="EditDataResource"/>
     </request-map>
@@ -997,7 +997,7 @@ under the License.
     </request-map>
     <request-map uri="createDataResourceAndAssocToContent">
         <security auth="true" https="true"/>
-        <event type="service" invoke="createDataResourceAndAssocToContent" path=""/>
+        <event invoke="createDataResourceAndAssocToContent" path="" type="service"/>
         <response name="success" type="view" value="EditContent"/>
         <response name="ELECTRONIC_TEXT" type="view" value="EditElectronicText"/>
         <response name="IMAGE_OBJECT" type="view" value="UploadImage"/>
@@ -1005,13 +1005,13 @@ under the License.
     </request-map>
     <request-map uri="createDataResourceUpload">
         <security auth="true" https="true"/>
-        <event type="service" invoke="createDataResource" path=""/>
+        <event invoke="createDataResource" path="" type="service"/>
         <response name="success" type="request" value="EditDataResourceUpload"/>
         <response name="error" type="view" value="AddDataResourceUpload"/>
     </request-map>
     <request-map uri="createDataResourceAndText">
         <security auth="true" https="true"/>
-        <event type="service" invoke="createDataResourceAndText" path=""/>
+        <event invoke="createDataResourceAndText" path="" type="service"/>
         <response name="success" type="view" value="EditDataResourceText"/>
         <response name="error" type="view" value="AddDataResourceText"/>
     </request-map>
@@ -1023,7 +1023,7 @@ under the License.
         <!--
         <event type="java" path="org.apache.ofbiz.content.data.DataEvents" invoke="uploadImage"/>
             -->
-        <event type="service" invoke="persistContentAndAssoc" path=""/>
+        <event invoke="persistContentAndAssoc" path="" type="service"/>
         <response name="success" type="request" value="UploadImage"/>
         <response name="error" type="view" value="UploadImage"/>
     </request-map>
@@ -1038,19 +1038,19 @@ under the License.
     <request-map uri="EditContentOperation"><security auth="true" https="true"/><response name="success" type="view" value="EditContentOperation"/></request-map>
     <request-map uri="addContentOperation">
         <security auth="true" https="true"/>
-        <event type="service" invoke="createContentOperation" path=""/>
+        <event invoke="createContentOperation" path="" type="service"/>
         <response name="success" type="view" value="EditContentOperation"/>
         <response name="error" type="view" value="EditContentOperation"/>
     </request-map>
     <request-map uri="updateContentOperation">
         <security auth="true" https="true"/>
-        <event type="service" invoke="updateContentOperation" path=""/>
+        <event invoke="updateContentOperation" path="" type="service"/>
         <response name="success" type="view" value="EditContentOperation"/>
         <response name="error" type="view" value="EditContentOperation"/>
     </request-map>
     <request-map uri="removeContentOperation">
         <security auth="true" https="true"/>
-        <event type="service" invoke="removeContentOperation" path=""/>
+        <event invoke="removeContentOperation" path="" type="service"/>
         <response name="success" type="view" value="EditContentOperation"/>
         <response name="error" type="view" value="EditContentOperation"/>
     </request-map>
@@ -1059,19 +1059,19 @@ under the License.
     <request-map uri="EditContentAttribute"><security auth="true" https="true"/><response name="success" type="view" value="EditContentAttribute"/></request-map>
     <request-map uri="addContentAttribute">
         <security auth="true" https="true"/>
-        <event type="service" invoke="createContentAttribute" path=""/>
+        <event invoke="createContentAttribute" path="" type="service"/>
         <response name="success" type="view" value="EditContentAttribute"/>
         <response name="error" type="view" value="EditContentAttribute"/>
     </request-map>
     <request-map uri="updateContentAttribute">
         <security auth="true" https="true"/>
-        <event type="service" invoke="updateContentAttribute" path=""/>
+        <event invoke="updateContentAttribute" path="" type="service"/>
         <response name="success" type="view" value="EditContentAttribute"/>
         <response name="error" type="view" value="EditContentAttribute"/>
     </request-map>
     <request-map uri="removeContentAttribute">
         <security auth="true" https="true"/>
-        <event type="service" invoke="removeContentAttribute" path=""/>
+        <event invoke="removeContentAttribute" path="" type="service"/>
         <response name="success" type="view" value="EditContentAttribute"/>
         <response name="error" type="view" value="EditContentAttribute"/>
     </request-map>
@@ -1081,19 +1081,19 @@ under the License.
     <request-map uri="EditContentMetaData"><security auth="true" https="true"/><response name="success" type="view" value="EditContentMetaData"/></request-map>
     <request-map uri="addContentMetaData">
         <security auth="true" https="true"/>
-        <event type="service" invoke="createContentMetaData" path=""/>
+        <event invoke="createContentMetaData" path="" type="service"/>
         <response name="success" type="view" value="EditContentMetaData"/>
         <response name="error" type="view" value="EditContentMetaData"/>
     </request-map>
     <request-map uri="updateContentMetaData">
         <security auth="true" https="true"/>
-        <event type="service" invoke="updateContentMetaData" path=""/>
+        <event invoke="updateContentMetaData" path="" type="service"/>
         <response name="success" type="view" value="EditContentMetaData"/>
         <response name="error" type="view" value="EditContentMetaData"/>
     </request-map>
     <request-map uri="removeContentMetaData">
         <security auth="true" https="true"/>
-        <event type="service" invoke="removeContentMetaData" path=""/>
+        <event invoke="removeContentMetaData" path="" type="service"/>
         <response name="success" type="view" value="EditContentMetaData"/>
         <response name="error" type="view" value="EditContentMetaData"/>
     </request-map>
@@ -1103,19 +1103,19 @@ under the License.
     <request-map uri="EditContentPurpose"><security auth="true" https="true"/><response name="success" type="view" value="EditContentPurpose"/></request-map>
     <request-map uri="addContentPurpose">
         <security auth="true" https="true"/>
-        <event type="service" invoke="createContentPurpose" path=""/>
+        <event invoke="createContentPurpose" path="" type="service"/>
         <response name="success" type="view" value="EditContentPurpose"/>
         <response name="error" type="view" value="EditContentPurpose"/>
     </request-map>
     <request-map uri="updateContentPurpose">
         <security auth="true" https="true"/>
-        <event type="service" invoke="updateContentPurpose" path=""/>
+        <event invoke="updateContentPurpose" path="" type="service"/>
         <response name="success" type="view" value="EditContentPurpose"/>
         <response name="error" type="view" value="EditContentPurpose"/>
     </request-map>
     <request-map uri="removeContentPurpose">
         <security auth="true" https="true"/>
-        <event type="service" invoke="removeContentPurpose" path=""/>
+        <event invoke="removeContentPurpose" path="" type="service"/>
         <response name="success" type="view" value="EditContentPurpose"/>
         <response name="error" type="view" value="EditContentPurpose"/>
     </request-map>
@@ -1125,19 +1125,19 @@ under the License.
     <request-map uri="EditContentPurposeOperation"><security auth="true" https="true"/><response name="success" type="view" value="EditContentPurposeOperation"/></request-map>
     <request-map uri="addContentPurposeOperation">
         <security auth="true" https="true"/>
-        <event type="service" invoke="createContentPurposeOperation" path=""/>
+        <event invoke="createContentPurposeOperation" path="" type="service"/>
         <response name="success" type="view" value="EditContentPurposeOperation"/>
         <response name="error" type="view" value="EditContentPurposeOperation"/>
     </request-map>
     <request-map uri="updateContentPurposeOperation">
         <security auth="true" https="true"/>
-        <event type="service" invoke="updateContentPurposeOperation" path=""/>
+        <event invoke="updateContentPurposeOperation" path="" type="service"/>
         <response name="success" type="view" value="EditContentPurposeOperation"/>
         <response name="error" type="view" value="EditContentPurposeOperation"/>
     </request-map>
     <request-map uri="removeContentPurposeOperation">
         <security auth="true" https="true"/>
-        <event type="service" invoke="removeContentPurposeOperation" path=""/>
+        <event invoke="removeContentPurposeOperation" path="" type="service"/>
         <response name="success" type="view" value="EditContentPurposeOperation"/>
         <response name="error" type="view" value="EditContentPurposeOperation"/>
     </request-map>
@@ -1149,21 +1149,21 @@ under the License.
     </request-map>
     <request-map uri="createWorkEffortContent">
         <security auth="true" https="true"/>
-        <event type="service" invoke="createWorkEffortContent" path=""/>
+        <event invoke="createWorkEffortContent" path="" type="service"/>
         <response name="success" type="view" value="EditContentWorkEfforts"/>
         <response name="error" type="view" value="EditContentWorkEfforts"/>
     </request-map>
 
     <request-map uri="updateWorkEffortContent">
         <security auth="true" https="true"/>
-        <event type="service" invoke="updateWorkEffortContent" path=""/>
+        <event invoke="updateWorkEffortContent" path="" type="service"/>
         <response name="success" type="view" value="EditContentWorkEfforts"/>
         <response name="error" type="view" value="EditContentWorkEfforts"/>
     </request-map>
 
     <request-map uri="deleteWorkEffortContent">
         <security auth="true" https="true"/>
-        <event type="service" invoke="deleteWorkEffortContent" path=""/>
+        <event invoke="deleteWorkEffortContent" path="" type="service"/>
         <response name="success" type="view" value="EditContentWorkEfforts"/>
         <response name="error" type="view" value="EditContentWorkEfforts"/>
     </request-map>
@@ -1186,61 +1186,61 @@ under the License.
 
     <request-map uri="createCompDocTemplate">
         <security auth="true" https="true"/>
-        <event type="service" invoke="persistContentAndAssoc" path=""/>
+        <event invoke="persistContentAndAssoc" path="" type="service"/>
         <response name="success" type="view" value="EditRootCompDoc"/>
         <response name="error" type="view" value="EditRootCompDoc"/>
     </request-map>
     <request-map uri="updateCompDoc">
         <security auth="true" https="true"/>
-        <event type="service" invoke="persistContentAndAssoc" path=""/>
+        <event invoke="persistContentAndAssoc" path="" type="service"/>
         <response name="success" type="view" value="EditChildCompDoc"/>
         <response name="error" type="view" value="EditChildCompDoc"/>
     </request-map>
     <request-map uri="persistCompDocPdf2Survey">
         <security auth="true" https="true"/>
-        <event type="service" invoke="persistCompDocPdf2Survey" path=""/>
+        <event invoke="persistCompDocPdf2Survey" path="" type="service"/>
         <response name="success" type="view" value="EditChildCompDoc"/>
         <response name="error" type="view" value="EditChildCompDoc"/>
     </request-map>
     <request-map uri="createCompDoc">
         <security auth="true" https="true"/>
-        <event type="service" invoke="persistContentAndAssoc"  path=""/>
+        <event invoke="persistContentAndAssoc"  path="" type="service"/>
         <response name="success" type="view" value="EditChildCompDoc"/>
         <response name="error" type="view" value="EditChildCompDoc"/>
     </request-map>
     <request-map uri="updateRootCompDocTemplate">
         <security auth="true" https="true"/>
-        <event type="service" invoke="persistCompDoc"  path=""/>
+        <event invoke="persistCompDoc"  path="" type="service"/>
         <response name="success" type="view" value="EditRootCompDoc"/>
         <response name="error" type="view" value="EditRootCompDoc"/>
     </request-map>
     <request-map uri="createRootCompDocTemplate">
         <security auth="true" https="true"/>
-        <event type="service" invoke="persistCompDoc"  path=""/>
+        <event invoke="persistCompDoc"  path="" type="service"/>
         <response name="success" type="view" value="EditRootCompDoc"/>
         <response name="error" type="view" value="AddRootCompDocTemplate"/>
     </request-map>
     <request-map uri="createChildCompDocTemplate">
         <security auth="true" https="true"/>
-        <event type="service" invoke="persistCompDoc"  path=""/>
+        <event invoke="persistCompDoc"  path="" type="service"/>
         <response name="success" type="view" value="EditChildCompDoc"/>
         <response name="error" type="view" value="AddChildCompDocTemplate"/>
     </request-map>
     <request-map uri="createChildCompDocInstance">
         <security auth="true" https="true"/>
-        <event type="service" invoke="persistCompDoc"  path=""/>
+        <event invoke="persistCompDoc"  path="" type="service"/>
         <response name="success" type="view" value="EditChildCompDoc"/>
         <response name="error" type="view" value="AddChildCompDocInstance"/>
     </request-map>
     <request-map uri="updateChildCompDocTemplate">
         <security auth="true" https="true"/>
-        <event type="service" invoke="persistCompDoc"  path=""/>
+        <event invoke="persistCompDoc"  path="" type="service"/>
         <response name="success" type="view" value="EditChildCompDoc"/>
         <response name="error" type="view" value="EditChildCompDoc"/>
     </request-map>
     <request-map uri="uploadCompDocContent">
         <security auth="true" https="true"/>
-        <event type="service" invoke="persistCompDocContent"  path=""/>
+        <event invoke="persistCompDocContent"  path="" type="service"/>
         <response name="success" type="view" value="EditChildCompDoc"/>
         <response name="error" type="view" value="EditChildCompDoc"/>
     </request-map>
@@ -1250,33 +1250,33 @@ under the License.
     </request-map>
     <request-map uri="updateChildCompDocInstance">
         <security auth="true" https="true"/>
-        <event type="service" invoke="persistCompDoc"  path=""/>
+        <event invoke="persistCompDoc"  path="" type="service"/>
         <response name="success" type="view" value="EditChildCompDoc"/>
         <response name="error" type="view" value="EditChildCompDoc"/>
     </request-map>
     <request-map uri="genCompDocInstance">
         <security auth="true" https="true"/>
-        <event type="service" invoke="genCompDocInstance"  path=""/>
+        <event invoke="genCompDocInstance"  path="" type="service"/>
         <response name="success" type="view" value="EditRootCompDoc"/>
         <response name="error" type="view" value="AddRootCompDocInstance"/>
     </request-map>
 
     <request-map uri="resequenceCompDocPart">
         <security auth="true" https="true"/>
-        <event type="service" invoke="resequence"  path=""/>
+        <event invoke="resequence"  path="" type="service"/>
         <response name="success" type="view" value="ViewCompDocTemplateTree"/>
         <response name="error" type="view" value="ViewCompDocTemplateTree"/>
     </request-map>
 
     <request-map uri="GenCompDocPdf">
         <security auth="true" https="true"/>
-        <event type="java" invoke="genCompDocPdf"  path="org.apache.ofbiz.content.compdoc.CompDocEvents"/>
+        <event invoke="genCompDocPdf"  path="org.apache.ofbiz.content.compdoc.CompDocEvents" type="java"/>
         <response name="success" type="none" value=""/>
         <response name="error" type="view" value="error"/>
     </request-map>
     <request-map uri="GenContentPdf">
         <security auth="true" https="true"/>
-        <event type="java" invoke="genContentPdf"  path="org.apache.ofbiz.content.compdoc.CompDocEvents"/>
+        <event invoke="genContentPdf"  path="org.apache.ofbiz.content.compdoc.CompDocEvents" type="java"/>
         <response name="success" type="none" value=""/>
         <response name="error" type="view" value="error"/>
     </request-map>
@@ -1284,19 +1284,19 @@ under the License.
     <request-map uri="EditCompDocContentRole"><security auth="true" https="true"/><response name="success" type="view" value="EditCompDocContentRole"/></request-map>
     <request-map uri="addCompDocContentRole">
         <security auth="true" https="true"/>
-        <event type="service" invoke="createContentRole" path=""/>
+        <event invoke="createContentRole" path="" type="service"/>
         <response name="success" type="view" value="EditCompDocContentRole"/>
         <response name="error" type="view" value="EditCompDocContentRole"/>
     </request-map>
     <request-map uri="updateCompDocContentRole">
         <security auth="true" https="true"/>
-        <event type="service" invoke="updateContentRole" path=""/>
+        <event invoke="updateContentRole" path="" type="service"/>
         <response name="success" type="view" value="EditCompDocContentRole"/>
         <response name="error" type="view" value="EditCompDocContentRole"/>
     </request-map>
     <request-map uri="removeCompDocContentRole">
         <security auth="true" https="true"/>
-        <event type="service" invoke="removeContentRole" path=""/>
+        <event invoke="removeContentRole" path="" type="service"/>
         <response name="success" type="view" value="EditCompDocContentRole"/>
         <response name="error" type="view" value="EditCompDocContentRole"/>
     </request-map>
@@ -1308,38 +1308,38 @@ under the License.
     <request-map uri="EditContentApproval"><security auth="true" https="true"/><response name="success" type="view" value="EditContentApproval"/></request-map>
     <request-map uri="createContentApproval">
         <security auth="true" https="true"/>
-        <event type="service" invoke="createContentApproval" path=""/>
+        <event invoke="createContentApproval" path="" type="service"/>
         <response name="success" type="view" value="ListContentApproval"/>
         <response name="error" type="view" value="ListContentApproval"/>
     </request-map>
     <request-map uri="updateContentApproval">
         <security auth="true" https="true"/>
-        <event type="service" invoke="updateContentApproval" path=""/>
+        <event invoke="updateContentApproval" path="" type="service"/>
         <response name="success" type="view" value="ListContentApproval"/>
         <response name="error" type="view" value="ListContentApproval"/>
     </request-map>
     <request-map uri="updateContentApprovalStatus">
         <security auth="true" https="true"/>
-        <event type="service" invoke="updateContentApproval" path=""/>
+        <event invoke="updateContentApproval" path="" type="service"/>
         <response name="success" type="view" value="ListContentApproval"/>
         <response name="error" type="view" value="ListContentApproval"/>
     </request-map>
     <request-map uri="updateWaitingContentApproval">
         <security auth="true" https="true"/>
-        <event type="service" invoke="updateContentApproval" path=""/>
+        <event invoke="updateContentApproval" path="" type="service"/>
         <response name="success" type="view" value="ListWaitingContentApproval"/>
         <response name="error" type="view" value="ListWaitingContentApproval"/>
     </request-map>
     <request-map uri="removeContentApproval">
         <security auth="true" https="true"/>
-        <event type="service" invoke="removeContentApproval" path=""/>
+        <event invoke="removeContentApproval" path="" type="service"/>
         <response name="success" type="view" value="ListContentApproval"/>
         <response name="error" type="view" value="ListContentApproval"/>
     </request-map>
 
     <request-map uri="prepForApproval">
         <security auth="true" https="true"/>
-        <event type="service" invoke="prepForApproval" path=""/>
+        <event invoke="prepForApproval" path="" type="service"/>
         <response name="success" type="view" value="ViewCompDocInstanceTree"/>
         <response name="error" type="view" value="ViewCompDocInstanceTree"/>
     </request-map>
@@ -1349,19 +1349,19 @@ under the License.
     <request-map uri="EditContentRevision"><security auth="true" https="true"/><response name="success" type="view" value="EditContentRevision"/></request-map>
     <request-map uri="createContentRevision">
         <security auth="true" https="true"/>
-        <event type="service" invoke="createContentRevision" path=""/>
+        <event invoke="createContentRevision" path="" type="service"/>
         <response name="success" type="view" value="EditContentRevision"/>
         <response name="error" type="view" value="EditContentRevision"/>
     </request-map>
     <request-map uri="updateContentRevision">
         <security auth="true" https="true"/>
-        <event type="service" invoke="updateContentRevision" path=""/>
+        <event invoke="updateContentRevision" path="" type="service"/>
         <response name="success" type="view" value="EditContentRevision"/>
         <response name="error" type="view" value="EditContentRevision"/>
     </request-map>
     <request-map uri="removeContentRevision">
         <security auth="true" https="true"/>
-        <event type="service" invoke="removeContentRevision" path=""/>
+        <event invoke="removeContentRevision" path="" type="service"/>
         <response name="success" type="view" value="EditContentRevision"/>
         <response name="error" type="view" value="EditContentRevision"/>
     </request-map>
@@ -1371,19 +1371,19 @@ under the License.
     <request-map uri="EditContentRevisionItem"><security auth="true" https="true"/><response name="success" type="view" value="EditContentRevisionItem"/></request-map>
     <request-map uri="createContentRevisionItem">
         <security auth="true" https="true"/>
-        <event type="service" invoke="createContentRevisionItem" path=""/>
+        <event invoke="createContentRevisionItem" path="" type="service"/>
         <response name="success" type="view" value="EditContentRevisionItem"/>
         <response name="error" type="view" value="EditContentRevisionItem"/>
     </request-map>
     <request-map uri="updateContentRevisionItem">
         <security auth="true" https="true"/>
-        <event type="service" invoke="updateContentRevisionItem" path=""/>
+        <event invoke="updateContentRevisionItem" path="" type="service"/>
         <response name="success" type="view" value="EditContentRevisionItem"/>
         <response name="error" type="view" value="EditContentRevisionItem"/>
     </request-map>
     <request-map uri="removeContentRevisionItem">
         <security auth="true" https="true"/>
-        <event type="service" invoke="removeContentRevisionItem" path=""/>
+        <event invoke="removeContentRevisionItem" path="" type="service"/>
         <response name="success" type="view" value="EditContentRevisionItem"/>
         <response name="error" type="view" value="EditContentRevisionItem"/>
     </request-map>
@@ -1397,31 +1397,31 @@ under the License.
     <request-map uri="EditSurvey"><security auth="true" https="true"/><response name="success" type="view" value="EditSurvey"/></request-map>
     <request-map uri="createSurvey">
         <security auth="true" https="true"/>
-        <event type="service" invoke="createSurvey" path=""/>
+        <event invoke="createSurvey" path="" type="service"/>
         <response name="success" type="view" value="EditSurvey"/>
         <response name="error" type="view" value="EditSurvey"/>
     </request-map>
     <request-map uri="updateSurvey">
         <security auth="true" https="true"/>
-        <event type="service" invoke="updateSurvey" path=""/>
+        <event invoke="updateSurvey" path="" type="service"/>
         <response name="success" type="view" value="EditSurvey"/>
         <response name="error" type="view" value="EditSurvey"/>
     </request-map>
     <request-map uri="buildSurveyFromPdf">
         <security auth="true" https="true"/>
-        <event type="service" invoke="buildSurveyFromPdf" path=""/>
+        <event invoke="buildSurveyFromPdf" path="" type="service"/>
         <response name="success" type="view" value="EditSurvey"/>
         <response name="error" type="view" value="EditSurvey"/>
     </request-map>
     <request-map uri="buildSurveyResponseFromPdf">
         <security auth="true" https="true"/>
-        <event type="service" invoke="buildSurveyResponseFromPdf" path=""/>
+        <event invoke="buildSurveyResponseFromPdf" path="" type="service"/>
         <response name="success" type="view" value="EditSurveyResponse"/>
         <response name="error" type="view" value="EditSurveyResponse"/>
     </request-map>
     <request-map uri="deleteSurvey">
         <security auth="true" https="true"/>
-        <event type="service" invoke="deleteSurvey" path=""/>
+        <event invoke="deleteSurvey" path="" type="service"/>
         <response name="success" type="view" value="EditSurvey"/>
         <response name="error" type="view" value="EditSurvey"/>
     </request-map>
@@ -1430,37 +1430,37 @@ under the License.
     <request-map uri="EditSurveyMultiResps"><security auth="true" https="true"/><response name="success" type="view" value="EditSurveyMultiResps"/></request-map>
     <request-map uri="createSurveyMultiResp">
         <security auth="true" https="true"/>
-        <event type="service" invoke="createSurveyMultiResp" path=""/>
+        <event invoke="createSurveyMultiResp" path="" type="service"/>
         <response name="success" type="view" value="EditSurveyMultiResps"/>
         <response name="error" type="view" value="EditSurveyMultiResps"/>
     </request-map>
     <request-map uri="updateSurveyMultiResp">
         <security auth="true" https="true"/>
-        <event type="service" invoke="updateSurveyMultiResp" path=""/>
+        <event invoke="updateSurveyMultiResp" path="" type="service"/>
         <response name="success" type="view" value="EditSurveyMultiResps"/>
         <response name="error" type="view" value="EditSurveyMultiResps"/>
     </request-map>
     <request-map uri="deleteSurveyMultiResp">
         <security auth="true" https="true"/>
-        <event type="service" invoke="deleteSurveyMultiResp" path=""/>
+        <event invoke="deleteSurveyMultiResp" path="" type="service"/>
         <response name="success" type="view" value="EditSurveyMultiResps"/>
         <response name="error" type="view" value="EditSurveyMultiResps"/>
     </request-map>
     <request-map uri="createSurveyMultiRespColumn">
         <security auth="true" https="true"/>
-        <event type="service" invoke="createSurveyMultiRespColumn" path=""/>
+        <event invoke="createSurveyMultiRespColumn" path="" type="service"/>
         <response name="success" type="view" value="EditSurveyMultiResps"/>
         <response name="error" type="view" value="EditSurveyMultiResps"/>
     </request-map>
     <request-map uri="updateSurveyMultiRespColumn">
         <security auth="true" https="true"/>
-        <event type="service" invoke="updateSurveyMultiRespColumn" path=""/>
+        <event invoke="updateSurveyMultiRespColumn" path="" type="service"/>
         <response name="success" type="view" value="EditSurveyMultiResps"/>
         <response name="error" type="view" value="EditSurveyMultiResps"/>
     </request-map>
     <request-map uri="deleteSurveyMultiRespColumn">
         <security auth="true" https="true"/>
-        <event type="service" invoke="deleteSurveyMultiRespColumn" path=""/>
+        <event invoke="deleteSurveyMultiRespColumn" path="" type="service"/>
         <response name="success" type="view" value="EditSurveyMultiResps"/>
         <response name="error" type="view" value="EditSurveyMultiResps"/>
     </request-map>
@@ -1469,19 +1469,19 @@ under the License.
     <request-map uri="EditSurveyQuestions"><security auth="true" https="true"/><response name="success" type="view" value="EditSurveyQuestions"/></request-map>
     <request-map uri="createSurveyQuestion">
         <security auth="true" https="true"/>
-        <event type="service" invoke="createSurveyQuestion"/>
+        <event invoke="createSurveyQuestion" type="service"/>
         <response name="success" type="view" value="EditSurveyQuestions"/>
         <response name="error" type="view" value="EditSurveyQuestions"/>
     </request-map>
     <request-map uri="updateSurveyQuestion">
         <security auth="true" https="true"/>
-        <event type="service" invoke="updateSurveyQuestion"/>
+        <event invoke="updateSurveyQuestion" type="service"/>
         <response name="success" type="view" value="EditSurveyQuestions"/>
         <response name="error" type="view" value="EditSurveyQuestions"/>
     </request-map>
     <request-map uri="deleteSurveyQuestion">
         <security auth="true" https="true"/>
-        <event type="service" invoke="deleteSurveyQuestion"/>
+        <event invoke="deleteSurveyQuestion" type="service"/>
         <response name="success" type="view" value="EditSurveyQuestions"/>
         <response name="error" type="view" value="EditSurveyQuestions"/>
     </request-map>
@@ -1489,19 +1489,19 @@ under the License.
     <!-- SurveyQuestionOption Requests -->
     <request-map uri="createSurveyQuestionOption">
         <security auth="true" https="true"/>
-        <event type="service" invoke="createSurveyQuestionOption"/>
+        <event invoke="createSurveyQuestionOption" type="service"/>
         <response name="success" type="view" value="EditSurveyQuestions"/>
         <response name="error" type="view" value="EditSurveyQuestions"/>
     </request-map>
     <request-map uri="updateSurveyQuestionOption">
         <security auth="true" https="true"/>
-        <event type="service" invoke="updateSurveyQuestionOption"/>
+        <event invoke="updateSurveyQuestionOption" type="service"/>
         <response name="success" type="view" value="EditSurveyQuestions"/>
         <response name="error" type="view" value="EditSurveyQuestions"/>
     </request-map>
     <request-map uri="deleteSurveyQuestionOption">
         <security auth="true" https="true"/>
-        <event type="service" invoke="deleteSurveyQuestionOption"/>
+        <event invoke="deleteSurveyQuestionOption" type="service"/>
         <response name="success" type="view" value="EditSurveyQuestions"/>
         <response name="error" type="view" value="EditSurveyQuestions"/>
     </request-map>
@@ -1509,44 +1509,44 @@ under the License.
     <!-- SurveyQuestionCategory Requests -->
     <request-map uri="createSurveyQuestionCategory">
         <security auth="true" https="true"/>
-        <event type="service" invoke="createSurveyQuestionCategory"/>
+        <event invoke="createSurveyQuestionCategory" type="service"/>
         <response name="success" type="view" value="EditSurveyQuestions"/>
         <response name="error" type="view" value="EditSurveyQuestions"/>
     </request-map>
     <request-map uri="createSurveyQuestionAppl">
         <security auth="true" https="true"/>
-        <event type="service" invoke="createSurveyQuestionAppl"/>
+        <event invoke="createSurveyQuestionAppl" type="service"/>
         <response name="success" type="view" value="EditSurveyQuestions"/>
         <response name="error" type="view" value="EditSurveyQuestions"/>
     </request-map>
     <request-map uri="updateSurveyQuestionAppl">
         <security auth="true" https="true"/>
-        <event type="service" invoke="updateSurveyQuestionAppl"/>
+        <event invoke="updateSurveyQuestionAppl" type="service"/>
         <response name="success" type="view" value="EditSurveyQuestions"/>
         <response name="error" type="view" value="EditSurveyQuestions"/>
     </request-map>
     <request-map uri="removeSurveyQuestionAppl">
         <security auth="true" https="true"/>
-        <event type="service" invoke="deleteSurveyQuestionAppl"/>
+        <event invoke="deleteSurveyQuestionAppl" type="service"/>
         <response name="success" type="view" value="EditSurveyQuestions"/>
         <response name="error" type="view" value="EditSurveyQuestions"/>
     </request-map>
 
     <request-map uri="createSurveyPage">
         <security auth="true" https="true"/>
-        <event type="service" invoke="createSurveyPage"/>
+        <event invoke="createSurveyPage" type="service"/>
         <response name="success" type="view" value="EditSurveyQuestions"/>
         <response name="error" type="view" value="EditSurveyQuestions"/>
     </request-map>
     <request-map uri="updateSurveyPage">
         <security auth="true" https="true"/>
-        <event type="service" invoke="updateSurveyPage"/>
+        <event invoke="updateSurveyPage" type="service"/>
         <response name="success" type="view" value="EditSurveyQuestions"/>
         <response name="error" type="view" value="EditSurveyQuestions"/>
     </request-map>
     <request-map uri="removeSurveyPage">
         <security auth="true" https="true"/>
-        <event type="service" invoke="deleteSurveyPage"/>
+        <event invoke="deleteSurveyPage" type="service"/>
         <response name="success" type="view" value="EditSurveyQuestions"/>
         <response name="error" type="view" value="EditSurveyQuestions"/>
     </request-map>
@@ -1566,7 +1566,7 @@ under the License.
     <request-map uri="ListLayout"><security auth="true" https="true"/><response name="success" type="view" value="ListLayout"/></request-map>
     <request-map uri="clipFindLayout">
         <security auth="true" https="true"/>
-        <event type="java" invoke="copyToClip" path="org.apache.ofbiz.content.layout.LayoutEvents"/>
+        <event invoke="copyToClip" path="org.apache.ofbiz.content.layout.LayoutEvents" type="java"/>
         <response name="success" type="view" value="FindLayout"/>
         <response name="error" type="view" value="FindLayout"/>
     </request-map>
@@ -1575,43 +1575,43 @@ under the License.
     <request-map uri="AddLayout"><security auth="true" https="true"/><response name="success" type="view" value="AddLayout"/></request-map>
     <request-map uri="createLayout">
         <security auth="true" https="true"/>
-        <event type="simple" invoke="createLayout" path="component://content/minilang/layout/LayoutEvents.xml"/>
+        <event invoke="createLayout" path="component://content/minilang/layout/LayoutEvents.xml" type="simple"/>
         <response name="success" type="view" value="EditLayout"/>
         <response name="error" type="view" value="AddLayout"/>
     </request-map>
     <request-map uri="updateLayout">
         <security auth="true" https="true"/>
-        <event type="simple" invoke="updateLayout" path="component://content/minilang/layout/LayoutEvents.xml"/>
+        <event invoke="updateLayout" path="component://content/minilang/layout/LayoutEvents.xml" type="simple"/>
         <response name="success" type="view" value="EditLayout"/>
         <response name="error" type="view" value="EditLayout"/>
     </request-map>
     <request-map uri="createLayoutSubContent">
         <security auth="true" https="true"/>
-        <event type="java" invoke="createLayoutSubContent" path="org.apache.ofbiz.content.layout.LayoutEvents"/>
+        <event invoke="createLayoutSubContent" path="org.apache.ofbiz.content.layout.LayoutEvents" type="java"/>
         <response name="success" type="view" value="EditLayoutSubContent"/>
         <response name="error" type="view" value="EditLayoutSubContent"/>
     </request-map>
     <request-map uri="updateLayoutSubContent">
         <security auth="true" https="true"/>
-        <event type="java" invoke="updateLayoutSubContent" path="org.apache.ofbiz.content.layout.LayoutEvents"/>
+        <event invoke="updateLayoutSubContent" path="org.apache.ofbiz.content.layout.LayoutEvents" type="java"/>
         <response name="success" type="view" value="EditLayoutSubContent"/>
         <response name="error" type="view" value="EditLayoutSubContent"/>
     </request-map>
     <request-map uri="replaceSubContent">
         <security auth="true" https="true"/>
-        <event type="java" invoke="replaceSubContent" path="org.apache.ofbiz.content.layout.LayoutEvents"/>
+        <event invoke="replaceSubContent" path="org.apache.ofbiz.content.layout.LayoutEvents" type="java"/>
         <response name="success" type="view" value="EditLayout"/>
         <response name="error" type="view" value="EditLayout"/>
     </request-map>
     <request-map uri="pasteSubContent">
         <security auth="true" https="true"/>
-        <event type="simple" invoke="pasteSubContent" path="component://content/minilang/layout/LayoutEvents.xml"/>
+        <event invoke="pasteSubContent" path="component://content/minilang/layout/LayoutEvents.xml" type="simple"/>
         <response name="success" type="view" value="EditLayout"/>
         <response name="error" type="view" value="EditLayout"/>
     </request-map>
     <request-map uri="removeLayout">
         <security auth="true" https="true"/>
-        <event type="service" invoke="removeContentAssoc" path=""/>
+        <event invoke="removeContentAssoc" path="" type="service"/>
         <response name="success" type="view" value="ListLayout"/>
         <response name="error" type="view" value="main"/>
     </request-map>
@@ -1621,62 +1621,62 @@ under the License.
     <request-map uri="EditLayoutUrl"><security auth="true" https="true"/><response name="success" type="view" value="EditLayoutUrl"/></request-map>
     <request-map uri="createLayoutText">
         <security auth="true" https="true"/>
-        <event type="simple" invoke="createLayoutText" path="component://content/minilang/layout/LayoutEvents.xml"/>
+        <event invoke="createLayoutText" path="component://content/minilang/layout/LayoutEvents.xml" type="simple"/>
         <response name="success" type="view" value="EditLayoutText"/>
         <response name="error" type="view" value="EditLayoutText"/>
     </request-map>
     <request-map uri="EditLayoutSubContent"><security auth="true" https="true"/><response name="success" type="view" value="EditLayoutSubContent"/></request-map>
     <request-map uri="updateLayoutText">
         <security auth="true" https="true"/>
-        <event type="simple" invoke="updateLayoutText" path="component://content/minilang/layout/LayoutEvents.xml"/>
+        <event invoke="updateLayoutText" path="component://content/minilang/layout/LayoutEvents.xml" type="simple"/>
         <response name="success" type="view" value="EditLayoutText"/>
         <response name="error" type="view" value="EditLayoutText"/>
     </request-map>
     <request-map uri="createLayoutHtml">
         <security auth="true" https="true"/>
-        <event type="simple" invoke="createLayoutText" path="component://content/minilang/layout/LayoutEvents.xml"/>
+        <event invoke="createLayoutText" path="component://content/minilang/layout/LayoutEvents.xml" type="simple"/>
         <response name="success" type="view" value="EditLayoutHtml"/>
         <response name="error" type="view" value="EditLayoutHtml"/>
     </request-map>
     <request-map uri="updateLayoutHtml">
         <security auth="true" https="true"/>
-        <event type="simple" invoke="updateLayoutText" path="component://content/minilang/layout/LayoutEvents.xml"/>
+        <event invoke="updateLayoutText" path="component://content/minilang/layout/LayoutEvents.xml" type="simple"/>
         <response name="success" type="view" value="EditLayoutHtml"/>
         <response name="error" type="view" value="EditLayoutHtml"/>
     </request-map>
     <request-map uri="createLayoutUrl">
         <security auth="true" https="true"/>
-        <event type="simple" invoke="createLayoutUrl" path="component://content/minilang/layout/LayoutEvents.xml"/>
+        <event invoke="createLayoutUrl" path="component://content/minilang/layout/LayoutEvents.xml" type="simple"/>
         <response name="success" type="view" value="EditLayoutUrl"/>
         <response name="error" type="view" value="EditLayoutUrl"/>
     </request-map>
     <request-map uri="updateLayoutUrl">
         <security auth="true" https="true"/>
-        <event type="simple" invoke="updateLayoutUrl" path="component://content/minilang/layout/LayoutEvents.xml"/>
+        <event invoke="updateLayoutUrl" path="component://content/minilang/layout/LayoutEvents.xml" type="simple"/>
         <response name="success" type="view" value="EditLayoutUrl"/>
         <response name="error" type="view" value="EditLayoutUrl"/>
     </request-map>
     <request-map uri="createLayoutImage">
         <security auth="true" https="true"/>
-        <event type="java" invoke="createLayoutImage" path="org.apache.ofbiz.content.layout.LayoutEvents"/>
+        <event invoke="createLayoutImage" path="org.apache.ofbiz.content.layout.LayoutEvents" type="java"/>
         <response name="success" type="view" value="EditLayoutImage"/>
         <response name="error" type="view" value="EditLayoutImage"/>
     </request-map>
     <request-map uri="updateLayoutImage">
         <security auth="true" https="true"/>
-        <event type="java" invoke="updateLayoutImage" path="org.apache.ofbiz.content.layout.LayoutEvents"/>
+        <event invoke="updateLayoutImage" path="org.apache.ofbiz.content.layout.LayoutEvents" type="java"/>
         <response name="success" type="view" value="EditLayoutImage"/>
         <response name="error" type="view" value="EditLayoutImage"/>
     </request-map>
     <request-map uri="updateLayoutImageOnly">
         <security auth="true" https="true"/>
-        <event type="java" invoke="updateLayoutImageOnly" path="org.apache.ofbiz.content.layout.LayoutEvents"/>
+        <event invoke="updateLayoutImageOnly" path="org.apache.ofbiz.content.layout.LayoutEvents" type="java"/>
         <response name="success" type="view" value="EditLayoutImage"/>
         <response name="error" type="view" value="EditLayoutImage"/>
     </request-map>
     <request-map uri="cloneLayout">
         <security auth="true" https="true"/>
-        <event type="java" invoke="cloneLayout" path="org.apache.ofbiz.content.layout.LayoutEvents"/>
+        <event invoke="cloneLayout" path="org.apache.ofbiz.content.layout.LayoutEvents" type="java"/>
         <response name="success" type="view" value="EditLayout"/>
         <response name="error" type="view" value="EditLayout"/>
     </request-map>
@@ -1728,20 +1728,20 @@ under the License.
     <request-map uri="EditAddContent"><security https="true" auth="true"/><response name="success" type="view" value="EditAddContent"/></request-map>
     <request-map uri="persistContentStuff">
         <security auth="true" https="true"/>
-        <event type="service" invoke="persistContentAndAssoc" path=""/>
+        <event invoke="persistContentAndAssoc" path="" type="service"/>
         <response name="success" type="view" value="EditAddContent"/>
         <response name="error" type="view" value="EditAddContent"/>
     </request-map>
     <request-map uri="EditAddSubContent"><security https="true" auth="true"/><response name="success" type="view" value="EditAddSubContent"/></request-map>
     <request-map uri="persistSubContentStuff">
         <security auth="true" https="true"/>
-        <event type="service" invoke="persistContentAndAssoc" path=""/>
+        <event invoke="persistContentAndAssoc" path="" type="service"/>
         <response name="success" type="view" value="EditAddContent"/>
         <response name="error" type="view" value="EditAddSubContent"/>
     </request-map>
     <request-map uri="persistContent">
         <security auth="true" https="true"/>
-        <event type="service" invoke="persistContentAndAssoc" path=""/>
+        <event invoke="persistContentAndAssoc" path="" type="service"/>
         <response name="success" type="view" value="CMSContentEdit"/>
         <response name="error" type="view" value="EditAddContent"/>
     </request-map>
@@ -1809,20 +1809,20 @@ under the License.
     </request-map>
     <request-map uri="updateDocumentTree">
         <security auth="true" https="true"/>
-        <event type="service" invoke="updateContent" />
-        <response name="success" type="request-redirect-noparam" value="navigateContent"/>
+        <event invoke="updateContent" type="service"/>
+        <response name="success" type="request-redirect" value="navigateContent"/>
         <response name="error" type="view" value="navigateContent"/>
     </request-map>
     <request-map uri="removeDocumentFromTree">
         <security auth="true" https="true"/>
-        <event type="service" invoke="removeContentAssoc" path=""/>
-        <response name="success" type="request-redirect-noparam" value="navigateContent"/>
+        <event invoke="removeContentAssoc" path="" type="service"/>
+        <response name="success" type="request-redirect" value="navigateContent"/>
         <response name="error" type="view" value="navigateContent"/>
     </request-map>
     <request-map uri="addDocumentToTree">
         <security auth="true" https="true"/>
-        <event type="simple" invoke="createDocument" path="component://content/minilang/content/ContentEvents.xml" />
-        <response name="success" type="request-redirect-noparam" value="navigateContent"/>
+        <event invoke="createDocument" path="component://content/minilang/content/ContentEvents.xml" type="simple"/>
+        <response name="success" type="request-redirect" value="navigateContent"/>
         <response name="error" type="request" value="navigateContent"/>
     </request-map>
     <request-map uri="showContent">
@@ -1836,7 +1836,7 @@ under the License.
     
     <request-map uri="WebSiteCmsPreview">
         <security auth="true" https="true"/>
-        <event type="java" invoke="execute" path="org.apache.ofbiz.content.content.WebSiteCmsPreviewEvent"/>
+        <event invoke="execute" path="org.apache.ofbiz.content.content.WebSiteCmsPreviewEvent" type="java"/>
         <response name="success" type="none"/>
     </request-map>
     
@@ -1964,164 +1964,164 @@ under the License.
     <view-map name="main" type="screen" page="component://content/widget/CommonScreens.xml#main"/>
     <view-map name="fonts.fo" type="screenfop" page="component://content/widget/CommonScreens.xml#fonts.fo" content-type="application/pdf" encoding="none"/>
 
-    <view-map name="blogMain" type="screen" page="component://content/widget/forum/BlogScreens.xml#BlogMain"/>
-    <view-map name="blogContent" type="screen" page="component://content/widget/forum/BlogScreens.xml#BlogContent"/>
-    <view-map name="ViewBlogArticle" type="screen" page="component://content/widget/forum/BlogScreens.xml#ViewArticle"/>
+    <view-map name="blogMain" page="component://content/widget/forum/BlogScreens.xml#BlogMain" type="screen"/>
+    <view-map name="blogContent" page="component://content/widget/forum/BlogScreens.xml#BlogContent" type="screen"/>
+    <view-map name="ViewBlogArticle" page="component://content/widget/forum/BlogScreens.xml#ViewArticle" type="screen"/>
     <view-map name="EditBlog" type="screen" page="component://content/widget/forum/BlogScreens.xml#EditBlog"/>
-    <view-map name="EditBlogArticle" type="screen" page="component://content/widget/forum/BlogScreens.xml#EditArticle"/>
-    <view-map name="ViewResponse" type="screen" page="component://content/widget/forum/BlogScreens.xml#BlogMain"/>
+    <view-map name="EditBlogArticle" page="component://content/widget/forum/BlogScreens.xml#EditArticle" type="screen"/>
+    <view-map name="ViewResponse" page="component://content/widget/forum/BlogScreens.xml#BlogMain" type="screen"/>
     <view-map name="RespondBlog" type="screen" page="component://ecommerce/widget/blog/BlogScreens.xml#AddBlogResponse"/>
     <view-map name="EditBlogText" type="screen" page="component://ecommerce/widget/blog/BlogScreens.xml#EditBlogResponse"/>
     <view-map name="EditBlogImage" type="screen" page="component://ecommerce/widget/blog/BlogScreens.xml#EditBlogResponse"/>
     <view-map name="EditBlogResponse" type="screen" page="component://ecommerce/widget/blog/BlogScreens.xml#EditBlogResponse"/>
     <view-map name="LatestResponses" type="screen" page="component://ecommerce/widget/blog/BlogScreens.xml#LatestResponses"/>
 
-    <view-map name="FindForumGroups" type="screen" page="component://content/widget/forum/ForumScreens.xml#FindForumGroups"/>
-    <view-map name="ForumGroupRoles" type="screen" page="component://content/widget/forum/ForumScreens.xml#ForumGroupRoles"/>
-    <view-map name="ForumGroupPurposes" type="screen" page="component://content/widget/forum/ForumScreens.xml#ForumGroupPurposes"/>
-    <view-map name="FindForums" type="screen" page="component://content/widget/forum/ForumScreens.xml#FindForums"/>
-    <view-map name="FindForumMessages" type="screen" page="component://content/widget/forum/ForumScreens.xml#FindForumMessages"/>
-    <view-map name="FindForumThreads" type="screen" page="component://content/widget/forum/ForumScreens.xml#FindForumThreads"/>
-    <view-map name="AddForumMessage" type="screen" page="component://content/widget/forum/ForumScreens.xml#AddForumMessage"/>
-    <view-map name="AddForumThreadMessage" type="screen" page="component://content/widget/forum/ForumScreens.xml#AddForumThreadMessage"/>
-    <view-map name="EditForumMessage" type="screen" page="component://content/widget/forum/ForumScreens.xml#EditForumMessage"/>
+    <view-map name="FindForumGroups" page="component://content/widget/forum/ForumScreens.xml#FindForumGroups" type="screen"/>
+    <view-map name="ForumGroupRoles" page="component://content/widget/forum/ForumScreens.xml#ForumGroupRoles" type="screen"/>
+    <view-map name="ForumGroupPurposes" page="component://content/widget/forum/ForumScreens.xml#ForumGroupPurposes" type="screen"/>
+    <view-map name="FindForums" page="component://content/widget/forum/ForumScreens.xml#FindForums" type="screen"/>
+    <view-map name="FindForumMessages" page="component://content/widget/forum/ForumScreens.xml#FindForumMessages" type="screen"/>
+    <view-map name="FindForumThreads" page="component://content/widget/forum/ForumScreens.xml#FindForumThreads" type="screen"/>
+    <view-map name="AddForumMessage" page="component://content/widget/forum/ForumScreens.xml#AddForumMessage" type="screen"/>
+    <view-map name="AddForumThreadMessage" page="component://content/widget/forum/ForumScreens.xml#AddForumThreadMessage" type="screen"/>
+    <view-map name="EditForumMessage" page="component://content/widget/forum/ForumScreens.xml#EditForumMessage" type="screen"/>
 
-    <view-map name="FindWebSite" type="screen" page="component://content/widget/WebSiteScreens.xml#FindWebSite"/>
-    <view-map name="EditWebSite" type="screen" page="component://content/widget/WebSiteScreens.xml#EditWebSite"/>
-    <view-map name="WebSiteAliases" type="screen" page="component://content/widget/WebSiteScreens.xml#WebSiteAliases"/>
-    <view-map name="WebSiteAliasesSearchResults" type="screen" page="component://content/widget/WebSiteScreens.xml#WebSiteAliasesSearchResults"/>
+    <view-map name="FindWebSite" page="component://content/widget/WebSiteScreens.xml#FindWebSite" type="screen"/>
+    <view-map name="EditWebSite" page="component://content/widget/WebSiteScreens.xml#EditWebSite" type="screen"/>
+    <view-map name="WebSiteAliases" page="component://content/widget/WebSiteScreens.xml#WebSiteAliases" type="screen"/>
+    <view-map name="WebSiteAliasesSearchResults" page="component://content/widget/WebSiteScreens.xml#WebSiteAliasesSearchResults" type="screen"/>
     <view-map name="EditWebSitePathAlias" type="screen" page="component://content/widget/WebSiteScreens.xml#EditWebSitePathAlias"/>
-    <view-map name="WebSiteContent" type="screen" page="component://content/widget/WebSiteScreens.xml#WebSiteContent"/>
-    <view-map name="WebSiteCMS" type="screen" page="component://content/widget/WebSiteScreens.xml#WebSiteCMS"/>
-    <view-map name="WebSiteCMSContent" type="screen" page="component://content/widget/WebSiteScreens.xml#WebSiteCMSContent"/>
-    <view-map name="WebSiteCMSEditor" type="screen" page="component://content/widget/WebSiteScreens.xml#WebSiteCMSEditor"/>
-    <view-map name="WebSiteCMSMetaInfo" type="screen" page="component://content/widget/WebSiteScreens.xml#WebSiteCMSMetaInfo"/>
-    <view-map name="WebSiteCMSPathAlias" type="screen" page="component://content/widget/WebSiteScreens.xml#WebSiteCMSPathAlias"/>
-    <view-map name="WebSiteCMSNav" type="screen" page="component://content/widget/WebSiteScreens.xml#WebSiteCMSNav"/>
-    <view-map name="EditWebSiteParties" type="screen" page="component://content/widget/WebSiteScreens.xml#EditWebSiteParties"/>
-    <view-map name="WebSiteSEO" type="screen" page="component://content/widget/WebSiteScreens.xml#WebSiteSEO"/>
-    <view-map name="WebSiteContactList" type="screen" page="component://content/widget/WebSiteScreens.xml#WebSiteContactList"/>
+    <view-map name="WebSiteContent" page="component://content/widget/WebSiteScreens.xml#WebSiteContent" type="screen"/>
+    <view-map name="WebSiteCMS" page="component://content/widget/WebSiteScreens.xml#WebSiteCMS" type="screen"/>
+    <view-map name="WebSiteCMSContent" page="component://content/widget/WebSiteScreens.xml#WebSiteCMSContent" type="screen"/>
+    <view-map name="WebSiteCMSEditor" page="component://content/widget/WebSiteScreens.xml#WebSiteCMSEditor" type="screen"/>
+    <view-map name="WebSiteCMSMetaInfo" page="component://content/widget/WebSiteScreens.xml#WebSiteCMSMetaInfo" type="screen"/>
+    <view-map name="WebSiteCMSPathAlias" page="component://content/widget/WebSiteScreens.xml#WebSiteCMSPathAlias" type="screen"/>
+    <view-map name="WebSiteCMSNav" page="component://content/widget/WebSiteScreens.xml#WebSiteCMSNav" type="screen"/>
+    <view-map name="EditWebSiteParties" page="component://content/widget/WebSiteScreens.xml#EditWebSiteParties" type="screen"/>
+    <view-map name="WebSiteSEO" page="component://content/widget/WebSiteScreens.xml#WebSiteSEO" type="screen"/>
+    <view-map name="WebSiteContactList" page="component://content/widget/WebSiteScreens.xml#WebSiteContactList" type="screen"/>
 
-    <view-map name="EditContentPurpose" type="screen" page="component://content/widget/content/ContentScreens.xml#EditContentPurpose"/>
-    <view-map name="EditContentRole" type="screen" page="component://content/widget/content/ContentScreens.xml#EditContentRole"/>
-    <view-map name="FindContent" type="screen" page="component://content/widget/content/ContentScreens.xml#FindContent"/>
+    <view-map name="EditContentPurpose" page="component://content/widget/content/ContentScreens.xml#EditContentPurpose" type="screen"/>
+    <view-map name="EditContentRole" page="component://content/widget/content/ContentScreens.xml#EditContentRole" type="screen"/>
+    <view-map name="FindContent" page="component://content/widget/content/ContentScreens.xml#FindContent" type="screen"/>
     <view-map name="findContentSearchResults" type="screen" page="component://content/widget/content/ContentScreens.xml#findContentSearchResults"/>
-    <view-map name="EditContent" type="screen" page="component://content/widget/content/ContentScreens.xml#EditContent"/>
-    <view-map name="EditContentAssoc" type="screen" page="component://content/widget/content/ContentScreens.xml#EditContentAssoc"/>
-    <view-map name="ListWebSite" type="screen" page="component://content/widget/content/ContentScreens.xml#ListWebSite"/>
+    <view-map name="EditContent" page="component://content/widget/content/ContentScreens.xml#EditContent" type="screen"/>
+    <view-map name="EditContentAssoc" page="component://content/widget/content/ContentScreens.xml#EditContentAssoc" type="screen"/>
+    <view-map name="ListWebSite" page="component://content/widget/content/ContentScreens.xml#ListWebSite" type="screen"/>
 
-    <view-map name="EditContentAttribute" type="screen" page="component://content/widget/content/ContentScreens.xml#EditContentAttribute"/>
-    <view-map name="EditContentMetaData" type="screen" page="component://content/widget/content/ContentScreens.xml#EditContentMetaData"/>
-    <view-map name="EditContentType" type="screen" page="component://content/widget/contentsetup/ContentSetupScreens.xml#EditContentType"/>
-    <view-map name="EditContentAssocType" type="screen" page="component://content/widget/contentsetup/ContentSetupScreens.xml#EditContentAssocType"/>
-    <view-map name="EditContentPurposeType" type="screen" page="component://content/widget/contentsetup/ContentSetupScreens.xml#EditContentPurposeType"/>
-    <view-map name="EditContentTypeAttr" type="screen" page="component://content/widget/contentsetup/ContentSetupScreens.xml#EditContentTypeAttr"/>
-    <view-map name="EditContentAssocPredicate" type="screen" page="component://content/widget/contentsetup/ContentSetupScreens.xml#EditContentAssocPredicate"/>
-    <view-map name="EditContentOperation" type="screen" page="component://content/widget/contentsetup/ContentSetupScreens.xml#EditContentOperation"/>
-    <view-map name="EditContentPurposeOperation" type="screen"  page="component://content/widget/contentsetup/ContentSetupScreens.xml#EditContentPurposeOperation"/>
-    <view-map name="EditContentWorkEfforts" type="screen" page="component://content/widget/content/ContentScreens.xml#EditContentWorkEfforts"/>
+    <view-map name="EditContentAttribute" page="component://content/widget/content/ContentScreens.xml#EditContentAttribute" type="screen"/>
+    <view-map name="EditContentMetaData" page="component://content/widget/content/ContentScreens.xml#EditContentMetaData" type="screen"/>
+    <view-map name="EditContentType" page="component://content/widget/contentsetup/ContentSetupScreens.xml#EditContentType" type="screen"/>
+    <view-map name="EditContentAssocType" page="component://content/widget/contentsetup/ContentSetupScreens.xml#EditContentAssocType" type="screen"/>
+    <view-map name="EditContentPurposeType" page="component://content/widget/contentsetup/ContentSetupScreens.xml#EditContentPurposeType" type="screen"/>
+    <view-map name="EditContentTypeAttr" page="component://content/widget/contentsetup/ContentSetupScreens.xml#EditContentTypeAttr" type="screen"/>
+    <view-map name="EditContentAssocPredicate" page="component://content/widget/contentsetup/ContentSetupScreens.xml#EditContentAssocPredicate" type="screen"/>
+    <view-map name="EditContentOperation" page="component://content/widget/contentsetup/ContentSetupScreens.xml#EditContentOperation" type="screen"/>
+    <view-map name="EditContentPurposeOperation"  page="component://content/widget/contentsetup/ContentSetupScreens.xml#EditContentPurposeOperation" type="screen"/>
+    <view-map name="EditContentWorkEfforts" page="component://content/widget/content/ContentScreens.xml#EditContentWorkEfforts" type="screen"/>
     <view-map name="EditContentKeywords" type="screen" page="component://content/widget/content/ContentScreens.xml#EditContentKeywords"/>
 
-    <view-map name="FindDataResource" type="screen" page="component://content/widget/content/DataResourceScreens.xml#FindDataResource"/>
-    <view-map name="findDataResourceSearchResults" type="screen"  page="component://content/widget/content/DataResourceScreens.xml#findDataResourceSearchResults"/>
+    <view-map name="FindDataResource"  page="component://content/widget/content/DataResourceScreens.xml#FindDataResource" type="screen"/>
+    <view-map name="findDataResourceSearchResults"  page="component://content/widget/content/DataResourceScreens.xml#findDataResourceSearchResults" type="screen"/>
     <view-map name="navigateDataResource" type="screen" page="component://content/widget/content/DataResourceScreens.xml#navigateDataResource"/>
     <view-map name="listDataResources" type="screen" page="component://content/widget/content/DataResourceScreens.xml#listDataResources"/>
-    <view-map name="UploadImage" type="screen" page="component://content/widget/content/DataResourceScreens.xml#UploadImage"/>
-    <view-map name="EditDataResource" type="screen" page="component://content/widget/content/DataResourceScreens.xml#EditDataResource"/>
-    <view-map name="AddDataResource" type="screen" page="component://content/widget/content/DataResourceScreens.xml#AddDataResource"/>
-    <view-map name="AddDataResourceText" type="screen" page="component://content/widget/content/DataResourceScreens.xml#AddDataResourceText"/>
-    <view-map name="AddDataResourceUrl" type="screen" page="component://content/widget/content/DataResourceScreens.xml#AddDataResourceUrl"/>
-    <view-map name="AddDataResourceUpload" type="screen" page="component://content/widget/content/DataResourceScreens.xml#AddDataResourceUpload"/>
-    <view-map name="AddDataResourceFromContent" type="screen" page="component://content/widget/content/DataResourceScreens.xml#AddDataResourceFromContent"/>
-    <view-map name="EditDataResourceText" type="screen" page="component://content/widget/content/DataResourceScreens.xml#EditDataResourceText"/>
-    <view-map name="EditDataResourceUrl" type="screen" page="component://content/widget/content/DataResourceScreens.xml#EditDataResourceUrl"/>
-    <view-map name="EditDataResourceUpload" type="screen" page="component://content/widget/content/DataResourceScreens.xml#EditDataResourceUpload"/>
-    <view-map name="EditElectronicText" type="screen" page="component://content/widget/content/DataResourceScreens.xml#EditElectronicText"/>
-    <view-map name="EditDataResourceAttribute" type="screen" page="component://content/widget/content/DataResourceScreens.xml#EditDataResourceAttribute"/>
-    <view-map name="EditDataResourceRole" type="screen" page="component://content/widget/content/DataResourceScreens.xml#EditDataResourceRole"/>
-    <view-map name="EditDataResourceProductFeatures" type="screen" page="component://content/widget/content/DataResourceScreens.xml#EditDataResourceProductFeatures"/>
-    <view-map name="EditHtmlText" type="screen" page="component://content/widget/content/DataResourceScreens.xml#EditHtmlText"/>
+    <view-map name="UploadImage"  page="component://content/widget/content/DataResourceScreens.xml#UploadImage" type="screen"/>
+    <view-map name="EditDataResource"  page="component://content/widget/content/DataResourceScreens.xml#EditDataResource" type="screen"/>
+    <view-map name="AddDataResource"  page="component://content/widget/content/DataResourceScreens.xml#AddDataResource" type="screen"/>
+    <view-map name="AddDataResourceText"  page="component://content/widget/content/DataResourceScreens.xml#AddDataResourceText" type="screen"/>
+    <view-map name="AddDataResourceUrl"  page="component://content/widget/content/DataResourceScreens.xml#AddDataResourceUrl" type="screen"/>
+    <view-map name="AddDataResourceUpload"  page="component://content/widget/content/DataResourceScreens.xml#AddDataResourceUpload" type="screen"/>
+    <view-map name="AddDataResourceFromContent"  page="component://content/widget/content/DataResourceScreens.xml#AddDataResourceFromContent" type="screen"/>
+    <view-map name="EditDataResourceText"  page="component://content/widget/content/DataResourceScreens.xml#EditDataResourceText" type="screen"/>
+    <view-map name="EditDataResourceUrl"  page="component://content/widget/content/DataResourceScreens.xml#EditDataResourceUrl" type="screen"/>
+    <view-map name="EditDataResourceUpload"  page="component://content/widget/content/DataResourceScreens.xml#EditDataResourceUpload" type="screen"/>
+    <view-map name="EditElectronicText"  page="component://content/widget/content/DataResourceScreens.xml#EditElectronicText" type="screen"/>
+    <view-map name="EditDataResourceAttribute"  page="component://content/widget/content/DataResourceScreens.xml#EditDataResourceAttribute" type="screen"/>
+    <view-map name="EditDataResourceRole"  page="component://content/widget/content/DataResourceScreens.xml#EditDataResourceRole" type="screen"/>
+    <view-map name="EditDataResourceProductFeatures"  page="component://content/widget/content/DataResourceScreens.xml#EditDataResourceProductFeatures" type="screen"/>
+    <view-map name="EditHtmlText"  page="component://content/widget/content/DataResourceScreens.xml#EditHtmlText" type="screen"/>
 
-    <view-map name="EditDataResourceType" type="screen" page="component://content/widget/datasetup/DataResourceSetupScreens.xml#EditDataResourceType"/>
-    <view-map name="EditDataResourceTypeAttr" type="screen" page="component://content/widget/datasetup/DataResourceSetupScreens.xml#EditDataResourceTypeAttr"/>
-    <view-map name="EditDataCategory" type="screen" page="component://content/widget/datasetup/DataResourceSetupScreens.xml#EditDataCategory"/>
-    <view-map name="EditMetaDataPredicate" type="screen" page="component://content/widget/datasetup/DataResourceSetupScreens.xml#EditMetaDataPredicate"/>
-    <view-map name="EditCharacterSet" type="screen" page="component://content/widget/datasetup/DataResourceSetupScreens.xml#EditCharacterSet"/>
-    <view-map name="EditFileExtension" type="screen" page="component://content/widget/datasetup/DataResourceSetupScreens.xml#EditFileExtension"/>
-    <view-map name="EditMimeType" type="screen" page="component://content/widget/datasetup/DataResourceSetupScreens.xml#EditMimeType"/>
-    <view-map name="EditMimeTypeHtmlTemplate" type="screen" page="component://content/widget/datasetup/DataResourceSetupScreens.xml#EditMimeTypeHtmlTemplate"/>
+    <view-map name="EditDataResourceType" page="component://content/widget/datasetup/DataResourceSetupScreens.xml#EditDataResourceType" type="screen"/>
+    <view-map name="EditDataResourceTypeAttr" page="component://content/widget/datasetup/DataResourceSetupScreens.xml#EditDataResourceTypeAttr" type="screen"/>
+    <view-map name="EditDataCategory" page="component://content/widget/datasetup/DataResourceSetupScreens.xml#EditDataCategory" type="screen"/>
+    <view-map name="EditMetaDataPredicate" page="component://content/widget/datasetup/DataResourceSetupScreens.xml#EditMetaDataPredicate" type="screen"/>
+    <view-map name="EditCharacterSet" page="component://content/widget/datasetup/DataResourceSetupScreens.xml#EditCharacterSet" type="screen"/>
+    <view-map name="EditFileExtension" page="component://content/widget/datasetup/DataResourceSetupScreens.xml#EditFileExtension" type="screen"/>
+    <view-map name="EditMimeType" page="component://content/widget/datasetup/DataResourceSetupScreens.xml#EditMimeType" type="screen"/>
+    <view-map name="EditMimeTypeHtmlTemplate" page="component://content/widget/datasetup/DataResourceSetupScreens.xml#EditMimeTypeHtmlTemplate" type="screen"/>
 
-    <view-map name="ListLayout" type="screen" page="component://content/widget/layout/LayoutScreens.xml#ListLayout"/>
-    <view-map name="FindLayout" type="screen" page="component://content/widget/layout/LayoutScreens.xml#FindLayout"/>
-    <view-map name="EditLayout" type="screen" page="component://content/widget/layout/LayoutScreens.xml#EditLayout"/>
-    <view-map name="AddLayout" type="screen" page="component://content/widget/layout/LayoutScreens.xml#AddLayout"/>
-    <view-map name="EditLayoutSubContent" type="screen" page="component://content/widget/layout/LayoutScreens.xml#EditLayoutSubContent"/>
-    <view-map name="EditLayoutText" type="screen" page="component://content/widget/layout/LayoutScreens.xml#EditLayoutText"/>
-    <view-map name="EditLayoutHtml" type="screen" page="component://content/widget/layout/LayoutScreens.xml#EditLayoutHtml"/>
-    <view-map name="EditLayoutImage" type="screen" page="component://content/widget/layout/LayoutScreens.xml#EditLayoutImage"/>
-    <view-map name="EditLayoutUrl" type="screen" page="component://content/widget/layout/LayoutScreens.xml#EditLayoutUrl"/>
+    <view-map name="ListLayout" page="component://content/widget/layout/LayoutScreens.xml#ListLayout" type="screen"/>
+    <view-map name="FindLayout" page="component://content/widget/layout/LayoutScreens.xml#FindLayout" type="screen"/>
+    <view-map name="EditLayout" page="component://content/widget/layout/LayoutScreens.xml#EditLayout" type="screen"/>
+    <view-map name="AddLayout" page="component://content/widget/layout/LayoutScreens.xml#AddLayout" type="screen"/>
+    <view-map name="EditLayoutSubContent" page="component://content/widget/layout/LayoutScreens.xml#EditLayoutSubContent" type="screen"/>
+    <view-map name="EditLayoutText" page="component://content/widget/layout/LayoutScreens.xml#EditLayoutText" type="screen"/>
+    <view-map name="EditLayoutHtml" page="component://content/widget/layout/LayoutScreens.xml#EditLayoutHtml" type="screen"/>
+    <view-map name="EditLayoutImage" page="component://content/widget/layout/LayoutScreens.xml#EditLayoutImage" type="screen"/>
+    <view-map name="EditLayoutUrl" page="component://content/widget/layout/LayoutScreens.xml#EditLayoutUrl" type="screen"/>
 
-    <view-map name="FindSurvey" type="screen" page="component://content/widget/SurveyScreens.xml#FindSurvey"/>
+    <view-map name="FindSurvey" page="component://content/widget/SurveyScreens.xml#FindSurvey" type="screen"/>
     <view-map name="ListFindSurveySearchResults" type="screen" page="component://content/widget/SurveyScreens.xml#ListFindSurveySearchResults"/>
 
-    <view-map name="EditSurvey" type="screen" page="component://content/widget/SurveyScreens.xml#EditSurvey"/>
-    <view-map name="EditSurveyMultiResps" type="screen" page="component://content/widget/SurveyScreens.xml#EditSurveyMultiResps"/>
-    <view-map name="EditSurveyQuestions" type="screen" page="component://content/widget/SurveyScreens.xml#EditSurveyQuestions"/>
-    <view-map name="FindSurveyResponse" type="screen" page="component://content/widget/SurveyScreens.xml#FindSurveyResponse"/>
-    <view-map name="ViewSurveyResponses" type="screen" page="component://content/widget/SurveyScreens.xml#ViewSurveyResponses"/>
-    <view-map name="EditSurveyResponse" type="screen" page="component://content/widget/SurveyScreens.xml#EditSurveyResponse"/>
+    <view-map name="EditSurvey" page="component://content/widget/SurveyScreens.xml#EditSurvey" type="screen"/>
+    <view-map name="EditSurveyMultiResps" page="component://content/widget/SurveyScreens.xml#EditSurveyMultiResps" type="screen"/>
+    <view-map name="EditSurveyQuestions" page="component://content/widget/SurveyScreens.xml#EditSurveyQuestions" type="screen"/>
+    <view-map name="FindSurveyResponse" page="component://content/widget/SurveyScreens.xml#FindSurveyResponse" type="screen"/>
+    <view-map name="ViewSurveyResponses" page="component://content/widget/SurveyScreens.xml#ViewSurveyResponses" type="screen"/>
+    <view-map name="EditSurveyResponse" page="component://content/widget/SurveyScreens.xml#EditSurveyResponse" type="screen"/>
 
-    <view-map name="CMSContentFind" type="screen" page="component://content/widget/cms/CMSScreens.xml#CMSContentFind"/>
-    <view-map name="CMSContentEdit" type="screen" page="component://content/widget/cms/CMSScreens.xml#CMSContentEdit"/>
-    <view-map name="UserPermissions" type="screen" page="component://content/widget/contentsetup/ContentSetupScreens.xml#UserPermissions"/>
-    <view-map name="CMSSites" type="screen" page="component://content/widget/cms/CMSScreens.xml#CMSSites"/>
-    <view-map name="addSubSite" type="screen" page="component://content/widget/cms/CMSScreens.xml#addSubSite"/>
-    <view-map name="EditAddContent" type="screen" page="component://content/widget/cms/CMSScreens.xml#EditAddContent"/>
-    <view-map name="EditAddSubContent" type="screen" page="component://content/widget/cms/CMSScreens.xml#EditAddSubContent"/>
+    <view-map name="CMSContentFind" page="component://content/widget/cms/CMSScreens.xml#CMSContentFind" type="screen"/>
+    <view-map name="CMSContentEdit" page="component://content/widget/cms/CMSScreens.xml#CMSContentEdit" type="screen"/>
+    <view-map name="UserPermissions" page="component://content/widget/contentsetup/ContentSetupScreens.xml#UserPermissions" type="screen"/>
+    <view-map name="CMSSites" page="component://content/widget/cms/CMSScreens.xml#CMSSites" type="screen"/>
+    <view-map name="addSubSite" page="component://content/widget/cms/CMSScreens.xml#addSubSite" type="screen"/>
+    <view-map name="EditAddContent" page="component://content/widget/cms/CMSScreens.xml#EditAddContent" type="screen"/>
+    <view-map name="EditAddSubContent" page="component://content/widget/cms/CMSScreens.xml#EditAddSubContent" type="screen"/>
 
-    <view-map name="ListContentRevisions" type="screen" page="component://content/widget/compdoc/CompDocScreens.xml#ListContentRevisions"/>
-    <view-map name="EditContentRevision" type="screen" page="component://content/widget/compdoc/CompDocScreens.xml#EditContentRevision"/>
-    <view-map name="ListContentRevisionItem" type="screen" page="component://content/widget/compdoc/CompDocScreens.xml#ListContentRevisionItem"/>
-    <view-map name="EditContentRevisionItem" type="screen" page="component://content/widget/compdoc/CompDocScreens.xml#EditContentRevisionItem"/>
-    <view-map name="ListContentApproval" type="screen" page="component://content/widget/compdoc/CompDocScreens.xml#ListContentApproval"/>
-    <view-map name="ListWaitingContentApproval" type="screen" page="component://content/widget/compdoc/CompDocScreens.xml#ListWaitingContentApproval"/>
-    <view-map name="EditContentApproval" type="screen" page="component://content/widget/compdoc/CompDocScreens.xml#EditContentApproval"/>
+    <view-map name="ListContentRevisions" page="component://content/widget/compdoc/CompDocScreens.xml#ListContentRevisions" type="screen"/>
+    <view-map name="EditContentRevision" page="component://content/widget/compdoc/CompDocScreens.xml#EditContentRevision" type="screen"/>
+    <view-map name="ListContentRevisionItem" page="component://content/widget/compdoc/CompDocScreens.xml#ListContentRevisionItem" type="screen"/>
+    <view-map name="EditContentRevisionItem" page="component://content/widget/compdoc/CompDocScreens.xml#EditContentRevisionItem" type="screen"/>
+    <view-map name="ListContentApproval" page="component://content/widget/compdoc/CompDocScreens.xml#ListContentApproval" type="screen"/>
+    <view-map name="ListWaitingContentApproval" page="component://content/widget/compdoc/CompDocScreens.xml#ListWaitingContentApproval" type="screen"/>
+    <view-map name="EditContentApproval" page="component://content/widget/compdoc/CompDocScreens.xml#EditContentApproval" type="screen"/>
 
-    <view-map name="FindCompDoc" type="screen" page="component://content/widget/compdoc/CompDocScreens.xml#FindCompDoc"/>
-    <!-- combined with FindCompDoc: <view-map name="ListCompDoc" type="screen" page="component://content/widget/compdoc/CompDocScreens.xml#ListCompDoc"/> -->
-    <view-map name="EditRootCompDoc" type="screen" page="component://content/widget/compdoc/CompDocScreens.xml#EditRootCompDoc"/>
-    <view-map name="EditChildCompDoc" type="screen" page="component://content/widget/compdoc/CompDocScreens.xml#EditChildCompDoc"/>
+    <view-map name="FindCompDoc" page="component://content/widget/compdoc/CompDocScreens.xml#FindCompDoc" type="screen"/>
+    <!-- combined with FindCompDoc: <view-map name="ListCompDoc" page="component://content/widget/compdoc/CompDocScreens.xml#ListCompDoc" type="screen"/> -->
+    <view-map name="EditRootCompDoc" page="component://content/widget/compdoc/CompDocScreens.xml#EditRootCompDoc" type="screen"/>
+    <view-map name="EditChildCompDoc" page="component://content/widget/compdoc/CompDocScreens.xml#EditChildCompDoc" type="screen"/>
 
-    <view-map name="AddChildCompDocInstance" type="screen" page="component://content/widget/compdoc/CompDocScreens.xml#AddChildCompDocInstance"/>
-    <view-map name="AddChildCompDocTemplate" type="screen" page="component://content/widget/compdoc/CompDocScreens.xml#AddChildCompDocTemplate"/>
+    <view-map name="AddChildCompDocInstance" page="component://content/widget/compdoc/CompDocScreens.xml#AddChildCompDocInstance" type="screen"/>
+    <view-map name="AddChildCompDocTemplate" page="component://content/widget/compdoc/CompDocScreens.xml#AddChildCompDocTemplate" type="screen"/>
 
-    <view-map name="AddRootCompDocInstance" type="screen" page="component://content/widget/compdoc/CompDocScreens.xml#AddRootCompDocInstance"/>
-    <view-map name="AddRootCompDocTemplate" type="screen" page="component://content/widget/compdoc/CompDocScreens.xml#AddRootCompDocTemplate"/>
+    <view-map name="AddRootCompDocInstance" page="component://content/widget/compdoc/CompDocScreens.xml#AddRootCompDocInstance" type="screen"/>
+    <view-map name="AddRootCompDocTemplate" page="component://content/widget/compdoc/CompDocScreens.xml#AddRootCompDocTemplate" type="screen"/>
 
-    <view-map name="ViewCompDocTemplateTree" type="screen" page="component://content/widget/compdoc/CompDocScreens.xml#ViewCompDocTemplateTree"/>
-    <view-map name="ViewCompDocInstanceTree" type="screen" page="component://content/widget/compdoc/CompDocScreens.xml#ViewCompDocInstanceTree"/>
-    <view-map name="EditCompDocContentRole" type="screen" page="component://content/widget/compdoc/CompDocScreens.xml#EditCompDocContentRole"/>
-    <view-map name="ViewInstances" type="screen" page="component://content/widget/compdoc/CompDocScreens.xml#ViewInstances"/>
+    <view-map name="ViewCompDocTemplateTree" page="component://content/widget/compdoc/CompDocScreens.xml#ViewCompDocTemplateTree" type="screen"/>
+    <view-map name="ViewCompDocInstanceTree" page="component://content/widget/compdoc/CompDocScreens.xml#ViewCompDocInstanceTree" type="screen"/>
+    <view-map name="EditCompDocContentRole" page="component://content/widget/compdoc/CompDocScreens.xml#EditCompDocContentRole" type="screen"/>
+    <view-map name="ViewInstances" page="component://content/widget/compdoc/CompDocScreens.xml#ViewInstances" type="screen"/>
     <view-map name="ViewCompDocContentBinary" page="" type="simplecontent"/>
     <view-map name="ViewBinaryDataResource" page="" type="simplecontent"/>
-    <view-map name="ViewCompDocContent" type="screen" page="component://content/widget/compdoc/CompDocScreens.xml#ViewCompDocContent"/>
+    <view-map name="ViewCompDocContent" page="component://content/widget/compdoc/CompDocScreens.xml#ViewCompDocContent" type="screen"/>
 
     <view-map name="ViewSimpleContent" page="" type="simplecontent"/>
 
     <!-- lookup content component -->
-    <view-map name="LookupContent" type="screen" page="component://content/widget/content/ContentScreens.xml#LookupContent"/>
-    <view-map name="LookupTreeContent" type="screen" page="component://content/widget/content/ContentScreens.xml#LookupContentTree"/>
-    <view-map name="LookupDetailContentTree" type="screen" page="component://content/widget/content/ContentScreens.xml#LookupDetailContentTree"/>
-    <view-map name="LookupDataResource" type="screen" page="component://content/widget/content/DataResourceScreens.xml#LookupDataResource"/>
-    <view-map name="LookupSurvey" type="screen" page="component://content/widget/SurveyScreens.xml#LookupSurvey"/>
-    <view-map name="LookupSurveyResponse" type="screen" page="component://content/widget/SurveyScreens.xml#LookupSurveyResponse"/>
-    <view-map name="LookupListLayout" type="screen" page="component://content/widget/LookupScreens.xml#LookupListLayout"/>
-    <view-map name="LookupSubContent" type="screen" page="component://content/widget/LookupScreens.xml#LookupSubContent"/>
+    <view-map name="LookupContent" page="component://content/widget/content/ContentScreens.xml#LookupContent" type="screen"/>
+    <view-map name="LookupTreeContent" page="component://content/widget/content/ContentScreens.xml#LookupContentTree" type="screen"/>
+    <view-map name="LookupDetailContentTree" page="component://content/widget/content/ContentScreens.xml#LookupDetailContentTree" type="screen"/>
+    <view-map name="LookupDataResource" page="component://content/widget/content/DataResourceScreens.xml#LookupDataResource" type="screen"/>
+    <view-map name="LookupSurvey" page="component://content/widget/SurveyScreens.xml#LookupSurvey" type="screen"/>
+    <view-map name="LookupSurveyResponse" page="component://content/widget/SurveyScreens.xml#LookupSurveyResponse" type="screen"/>
+    <view-map name="LookupListLayout" page="component://content/widget/LookupScreens.xml#LookupListLayout" type="screen"/>
+    <view-map name="LookupSubContent" page="component://content/widget/LookupScreens.xml#LookupSubContent" type="screen"/>
     <!-- lookup other components -->
     <view-map name="LookupUserLoginAndPartyDetails" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupUserLoginAndPartyDetails"/>
-    <view-map name="LookupPerson" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPerson"/>
-    <view-map name="LookupPartyAndUserLoginAndPerson" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyAndUserLoginAndPerson"/>
-    <view-map name="LookupProductFeature" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProductFeature"/>
+    <view-map name="LookupPerson" page="component://party/widget/partymgr/LookupScreens.xml#LookupPerson" type="screen"/>
+    <view-map name="LookupPartyAndUserLoginAndPerson" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyAndUserLoginAndPerson" type="screen"/>
+    <view-map name="LookupProductFeature" page="component://product/widget/catalog/LookupScreens.xml#LookupProductFeature" type="screen"/>
     <view-map name="LookupPartyName" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyName"/>
     <view-map name="LookupWorkEffort" type="screen" page="component://workeffort/widget/LookupScreens.xml#LookupWorkEffort"/>
 

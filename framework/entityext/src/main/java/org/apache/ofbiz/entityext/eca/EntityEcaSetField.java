@@ -19,13 +19,13 @@
 
 package org.apache.ofbiz.entityext.eca;
 
-import java.util.Map;
-
-import org.apache.ofbiz.base.util.Debug;
+import org.w3c.dom.Element;
 import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
 import org.apache.ofbiz.entity.model.ModelUtil;
-import org.w3c.dom.Element;
+
+import java.util.Map;
 
 /**
  * ServiceEcaSetField
@@ -78,7 +78,7 @@ public final class EntityEcaSetField {
             return s.toLowerCase();
         }
         if ("hash-code".equalsIgnoreCase(format)) {
-            return s.hashCode();
+            return Integer.valueOf(s.hashCode());
         }
         if ("long".equalsIgnoreCase(format)) {
             return Long.valueOf(s);

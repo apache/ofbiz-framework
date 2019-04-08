@@ -71,10 +71,16 @@ public class SSLServerSocketFactory implements RMIServerSocketFactory, Serializa
 
         KeyStore ks = null;
         if (keystore != null) {
-            try (FileInputStream fis = new FileInputStream(keystore)) {
+            try {
                 ks = KeyStore.getInstance(ksType);
-                ks.load(fis, passphrase);
-            } catch (NoSuchAlgorithmException | IOException | KeyStoreException | CertificateException e) {
+                ks.load(new FileInputStream(keystore), passphrase);
+            } catch (NoSuchAlgorithmException e) {
+                Debug.logError(e, module);
+                throw new IOException(e.getMessage());
+            } catch (CertificateException e) {
+                Debug.logError(e, module);
+                throw new IOException(e.getMessage());
+            } catch (KeyStoreException e) {
                 Debug.logError(e, module);
                 throw new IOException(e.getMessage());
             }
@@ -91,9 +97,11 @@ public class SSLServerSocketFactory implements RMIServerSocketFactory, Serializa
             } else {
                 factory = SSLUtil.getSSLServerSocketFactory(alias);
             }
-        } catch (GeneralSecurityException | GenericConfigException e) {
+        } catch (GeneralSecurityException e) {
             Debug.logError(e, "Error getting javax.net.ssl.SSLServerSocketFactory instance for Service Engine RMI calls: " + e.toString(), module);
             throw new IOException(e.toString());
+        } catch (GenericConfigException e) {
+            Debug.logError(e, "Error getting javax.net.ssl.SSLServerSocketFactory instance for Service Engine RMI calls: " + e.toString(), module);
         }
 
         if (factory == null) {

@@ -69,7 +69,7 @@ public class SimpleEventHandler implements EventHandler {
             throw new EventHandlerException("Event Name (eventMethod) cannot be null");
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose("[Processing]: SIMPLE Event", module);
+        Debug.logVerbose("[Processing]: SIMPLE Event", module);
         try {
             beganTransaction = TransactionUtil.begin();
             String eventReturn = SimpleMethod.runSimpleEvent(xmlResource, eventName, request, response);

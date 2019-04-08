@@ -25,7 +25,7 @@ under the License.
   <div class="screenlet-title-bar">
     <ul>
       <li class="h3">${title}&nbsp;${uiLabelMap.PartyVisitListing}</li>
-      <#if !partyId?? && "true" == showAll?lower_case>
+      <#if !partyId?? && showAll?lower_case == "true">
         <li><a href="<@ofbizUrl>showvisits?showAll=false</@ofbizUrl>">${uiLabelMap.PartyShowActive}</a></li>
       <#elseif !partyId??>
         <li><a href="<@ofbizUrl>showvisits?showAll=true</@ofbizUrl>">${uiLabelMap.PartyShowAll}</a></li>

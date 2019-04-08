@@ -24,7 +24,10 @@
 
 import java.lang.*
 import java.util.*
-import org.apache.ofbiz.product.catalog.CatalogWorker
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.service.*
+import org.apache.ofbiz.product.catalog.*
 
 currentCatalogId = CatalogWorker.getCurrentCatalogId(request)
 categoryId = parameters.category_id ?: CatalogWorker.getCatalogQuickaddCategoryPrimary(request)

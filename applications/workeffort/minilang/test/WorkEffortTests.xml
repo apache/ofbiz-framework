@@ -23,12 +23,12 @@ under the License.
     <simple-method method-name="testCreateWorkEffortAndPartyAssign" short-description="Test the service createWorkEffortAndPartyAssign" login-required="false">
         <set field="serviceCtx.partyId" value="TestParty-1"/>
         <set field="serviceCtx.roleTypeId" value="CONTACT"/>
-        <set field="serviceCtx.statusId" value="PRTYASGN_ASSIGNED"/>
+        <set field="serviceCtx.statusId" value="PAS_ASSIGNED"/>
         <set field="serviceCtx.workEffortId" value="TestWorkEffort-1"/>
         <set field="serviceCtx.partyTypeId" value="PARTY_GROUP"/>
         <set field="serviceCtx.workEffortName" value="Test WorkEffort Event"/>
         <set field="serviceCtx.workEffortTypeId" value="TASK"/>
-        <set field="serviceCtx.currentStatusId" value="CAL_ACCEPTED"/>
+        <set field="serviceCtx.currentStatusId" value="PTS_CREATED"/>
         <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
@@ -46,8 +46,8 @@ under the License.
             <not><if-empty field="workEffort"/></not>
             <not><if-empty field="workEffortPartyAssignment"/></not>
             <if-compare field="workEffort.workEffortTypeId" operator="equals" value="TASK"/>
-            <if-compare field="workEffort.currentStatusId" operator="equals" value="CAL_ACCEPTED"/>
-            <if-compare field="workEffortPartyAssignment.statusId" operator="equals" value="PRTYASGN_ASSIGNED"/>
+            <if-compare field="workEffort.currentStatusId" operator="equals" value="PTS_CREATED"/>
+            <if-compare field="workEffortPartyAssignment.statusId" operator="equals" value="PAS_ASSIGNED"/>
         </assert>
         <check-errors/>
     </simple-method>
@@ -118,7 +118,7 @@ under the License.
     <simple-method method-name="testAssignPartyToWorkEffort" short-description="Test the service assignPartyToWorkEffort" login-required="false">
         <set field="serviceCtx.partyId" value="TestParty"/>
         <set field="serviceCtx.roleTypeId" value="CONTENT_AUTHOR"/>
-        <set field="serviceCtx.statusId" value="PRTYASGN_ASSIGNED"/>
+        <set field="serviceCtx.statusId" value="PAS_ASSIGNED"/>
         <set field="serviceCtx.workEffortId" value="TestWorkeffort-3"/>
         <set field="serviceCtx.fromDate" value="2009-09-09 01:01:01" type="Timestamp"/>
         <entity-one entity-name="UserLogin" value-field="userLogin">
@@ -492,6 +492,7 @@ under the License.
     </simple-method>
     <simple-method method-name="testCreateTimeEntry" short-description="Test the service createTimeEntry" login-required="false">
         <set field="serviceCtx.workEffortId" value="TestWorkeffort-2"/>
+        <set field="serviceCtx.planHours" value="8" type="Double"/>
         <set field="serviceCtx.comments" value="Test Time Entry"/>
         <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
@@ -504,7 +505,7 @@ under the License.
         <assert>
             <not><if-empty field="timeEntry"/></not>
             <if-compare operator="equals" field="timeEntry.workEffortId" value="TestWorkeffort-2"/>
-            <if-compare operator="equals" field="timeEntry.comments" value="Test Time Entry"/>
+            <if-compare operator="equals" field="timeEntry.planHours" value="8"/>
         </assert>
         <check-errors/>
     </simple-method>

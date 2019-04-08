@@ -81,7 +81,7 @@ public class VisitHandler {
             if (modelUserLogin.isField("partyId")) {
                 visit.set("partyId", userLogin.get("partyId"));
             }
-            visit.set("userCreated", userCreated);
+            visit.set("userCreated", Boolean.valueOf(userCreated));
 
             // make sure the visitorId is still in place
             if (visitor != null) {
@@ -147,8 +147,8 @@ public class VisitHandler {
                             visit.set("fromDate", new Timestamp(session.getCreationTime()));
 
                             visit.set("initialLocale", initialLocale);
-                            visit.set("initialRequest", initialRequest);
-                            visit.set("initialReferrer", initialReferrer);
+                            if (initialRequest != null) visit.set("initialRequest", initialRequest.length() > 250 ? initialRequest.substring(0, 250) : initialRequest);
+                            if (initialReferrer != null) visit.set("initialReferrer", initialReferrer.length() > 250 ? initialReferrer.substring(0, 250) : initialReferrer);
                             if (initialUserAgent != null) visit.set("initialUserAgent", initialUserAgent.length() > 250 ? initialUserAgent.substring(0, 250) : initialUserAgent);
                             visit.set("webappName", webappName);
                             if (UtilProperties.propertyValueEquals("serverstats", "stats.proxy.enabled", "true")) {
@@ -254,10 +254,7 @@ public class VisitHandler {
                                         // looks like we have an ID that doesn't exist in our database, so we'll create a new one
                                         visitor = delegator.makeValue("Visitor");
                                         visitor = delegator.createSetNextSeqId(visitor);
-                                        if (Debug.infoOn()) {
-                                            String visitorId = visitor != null ? visitor.getString("visitorId") : "empty visitor";
-                                            Debug.logInfo("The visitorId [" + cookieVisitorId + "] found in cookie was invalid, creating new Visitor with ID [" + visitorId + "]", module);
-                                        }
+                                        if (Debug.infoOn()) Debug.logInfo("The visitorId [" + cookieVisitorId + "] found in cookie was invalid, creating new Visitor with ID [" + visitor.getString("visitorId") + "]", module);
                                     }
                                 } catch (GenericEntityException e) {
                                     Debug.logError(e, "Error finding visitor with ID from cookie: " + cookieVisitorId, module);
@@ -274,8 +271,6 @@ public class VisitHandler {
                             Cookie visitorCookie = new Cookie(visitorCookieName, visitor.getString("visitorId"));
                             visitorCookie.setMaxAge(60 * 60 * 24 * 365);
                             visitorCookie.setPath("/");
-                            visitorCookie.setSecure(true);
-                            visitorCookie.setHttpOnly(true);
                             response.addCookie(visitorCookie);
                         }
                     }

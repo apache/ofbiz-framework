@@ -67,7 +67,7 @@ under the License.
         <!-- this to be taken care of with auto-fields-service as soon as it uses entity field info too -->
         <field use-when="prodCatalog==null&amp;&amp;prodCatalogId==null" name="prodCatalogId" title="${uiLabelMap.ProductCatalogId}"><text size="20" maxlength="20"/></field>
 
-        <field name="catalogName" required-field="true"><text size="30" maxlength="60"/></field>
+        <field name="catalogName"><text size="30" maxlength="60"/></field>
 
         <field name="useQuickAdd" title="${uiLabelMap.ProductUseQuickAdd}">
             <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
@@ -166,7 +166,7 @@ under the License.
         <auto-fields-service service-name="updateProductCategoryToProdCatalog"/>
         <field name="prodCatalogId"><hidden/></field>
         <field name="productCategoryId" title="${uiLabelMap.ProductCategoryId}">
-            <display-entity entity-name="ProductCategory" description="${categoryName}" also-hidden="true" cache="true">
+            <display-entity entity-name="ProductCategory" also-hidden="true" cache="true">
                 <sub-hyperlink link-style="buttontext" target="EditCategory" description="${productCategoryId}">
                     <parameter param-name="productCategoryId"/>
                 </sub-hyperlink>

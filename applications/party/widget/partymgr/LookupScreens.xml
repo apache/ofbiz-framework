@@ -27,10 +27,10 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.PartyLookupPartyByName"/>
+                <set field="title" value="${uiLabelMap.PartyLookupPartyByName}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 
                 <!-- entries needed for lookup ajax auto completer -->
@@ -67,10 +67,10 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.PartyLookupPartyByName"/>
+                <set field="title" value="${uiLabelMap.PartyLookupPartyByName}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="entityName" value="PartyNameContactMechView"/>
                 <set field="searchFields" value="[contactMechId, partyId, firstName, middleName, lastName, groupName]"/>
@@ -94,10 +94,10 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.PartyLookupPartyByName"/>
+                <set field="title" value="${uiLabelMap.PartyLookupPartyByName}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="entityName" value="PartyRoleNameDetail"/>
                 <set field="searchFields" value="[partyId, firstName, middleName, lastName, groupName]"/>
@@ -123,10 +123,10 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.PartyLookupPartyByName"/>
+                <set field="title" value="${uiLabelMap.PartyLookupPartyByName}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
             </actions>
             <widgets>
@@ -149,7 +149,7 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.PartyLookupPartyPerson"/>
+                <set field="title" value="${uiLabelMap.PartyLookupPartyPerson}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="entityName" value="PartyAndPerson"/>
                 <set field="searchFields" value="[partyId, firstName, middleName, lastName]"/>
@@ -175,7 +175,7 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.PartyLookupContact"/>
+                <set field="title" value="${uiLabelMap.PartyLookupContact}"/>
                 <set field="entityName" value="PartyRoleAndPartyDetail"/>
                 <set field="parameters.roleTypeId" value="CONTACT"/>
                 <set field="searchFields" value="[partyId, firstName, middleName, lastName]"/>
@@ -201,7 +201,7 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.PartyLookupLead"/>
+                <set field="title" value="${uiLabelMap.PartyLookupLead}"/>
                 <set field="entityName" value="PartyRoleAndPartyDetail"/>
                 <set field="parameters.roleTypeId" value="LEAD"/>
                 <set field="searchFields" value="[partyId, firstName, lastName, middleName, groupName]"/>
@@ -228,11 +228,11 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.PartyLookupPartyAndUserLoginAndPerson"/>
+                <set field="title" value="${uiLabelMap.PartyLookupPartyAndUserLoginAndPerson}"/>
                 <set field="entityName" value="PartyAndUserLoginAndPerson"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="searchFields" value="[userLoginId, partyId, firstName, lastName]"/>
                 <script location="component://party/groovyScripts/party/StatusCondition.groovy"/>
@@ -257,11 +257,11 @@ under the License.
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
 
-                <set field="title" from-field="uiLabelMap.PartyLookupUserLoginAndPartyDetails"/>
+                <set field="title" value="${uiLabelMap.PartyLookupUserLoginAndPartyDetails}"/>
                 <set field="entityName" value="UserLoginAndPartyDetails"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <set field="searchFields" value="[userLoginId, partyId, firstName, lastName, groupName]"/>
                 <script location="component://party/groovyScripts/party/StatusCondition.groovy"/>
@@ -285,7 +285,7 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.PartyLookupPartyGroup"/>
+                <set field="title" value="${uiLabelMap.PartyLookupPartyGroup}"/>
                 <set field="entityName" value="PartyAndGroup"/>
                 <set field="searchFields" value="[partyId, groupName, comments]"/>
                 <script location="component://party/groovyScripts/party/StatusCondition.groovy"/>
@@ -309,7 +309,7 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.PartyLookupAccount"/>
+                <set field="title" value="${uiLabelMap.PartyLookupAccount}"/>
                 <set field="entityName" value="PartyRoleAndPartyDetail"/>
                 <set field="searchFields" value="[partyId, groupName, firstName, lastName]"/>
                 <set field="conditionFields.roleTypeId" value="ACCOUNT"/>
@@ -336,12 +336,12 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.PartyLookupPartyClassificationGroup"/>
+                <set field="title" value="${uiLabelMap.PartyLookupPartyClassificationGroup}"/>
                 <set field="entityName" value="PartyClassificationGroup"/>
                 <set field="searchFields" value="[partyClassificationGroupId, parentGroupId, description]"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
             </actions>
             <widgets>
@@ -364,7 +364,7 @@ under the License.
                 <property-map resource="MarketingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="entityName" value="CommunicationEvent"/>
                 <set field="searchFields" value="[communicationEventId, subject]"/>
-                <set field="title" from-field="uiLabelMap.PartyLookupPartyCommEvent"/>
+                <set field="title" value="${uiLabelMap.PartyLookupPartyCommEvent}"/>
                 <set field="tabButtonItem" value="ContactList"/>
             </actions>
             <widgets>
@@ -385,12 +385,12 @@ under the License.
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
 
-                <set field="title" from-field="uiLabelMap.PartyLookupContactMech"/>
+                <set field="title" value="${uiLabelMap.PartyLookupContactMech}"/>
                 <set field="entityName" value="PartyAndContactMech"/>
                 <set field="searchFields" value="[contactMechId, partyId, contactMechTypeId, infoString, paToName]"/>
                 <script location="component://party/groovyScripts/party/StatusCondition.groovy"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
             </actions>
             <widgets>
@@ -413,7 +413,7 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.PartyLookupInternalOrganization"/>
+                <set field="title" value="${uiLabelMap.PartyLookupInternalOrganization}"/>
                 <set field="entityName" value="PartyRoleAndPartyDetail"/>
                 <set field="roleTypeId" value="INTERNAL_ORGANIZATIO"/>
                 <set field="searchFields" value="[partyId, groupName, partyGroupComments]"/>

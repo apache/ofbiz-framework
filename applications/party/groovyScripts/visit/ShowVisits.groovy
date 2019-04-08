@@ -41,7 +41,7 @@ try {
     beganTransaction = TransactionUtil.begin()
 
     viewIndex = Integer.valueOf(parameters.VIEW_INDEX  ?: 1)
-    viewSize = parameters.VIEW_SIZE ?Integer.valueOf(parameters.VIEW_SIZE): modelTheme.getDefaultViewSize()?:20
+    viewSize = parameters.VIEW_SIZE ? Integer.valueOf(parameters.VIEW_SIZE): EntityUtilProperties.getPropertyAsInteger("widget", "widget.form.defaultViewSize", 20)
     context.viewIndex = viewIndex
     context.viewSize = viewSize
 
@@ -70,6 +70,7 @@ try {
     }
     context.visitSize = visitListSize
 
+    visitListIt.close()
 } catch (Exception e) {
     String errMsg = "Failure in operation, rolling back transaction"
     Debug.logError(e, errMsg, module)
@@ -83,9 +84,7 @@ try {
     throw e
 } finally {
     // only commit the transaction if we started one... this will throw an exception if it fails
-    visitListIt.close()
     TransactionUtil.commit(beganTransaction)
-    }
 }
 
 context.visitList = visitList

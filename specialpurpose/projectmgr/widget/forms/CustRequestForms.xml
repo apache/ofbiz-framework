@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
+    <form name="ListRequests" type="list" extends="ListRequestList" extends-resource="component://order/widget/ordermgr/CustRequestForms.xml"
+            paginate-target="requestlist" >
+        <field name="createTaskFromRequest" title="${uiLabelMap.ProjectMgrCreateTaskFromRequest}" widget-style="buttontext">
+            <hyperlink description="${uiLabelMap.ProjectMgrCreateTaskFromRequest}" target="/projectmgr/control/EditTaskFromRequest" target-type="inter-app">
+                <parameter param-name="custRequestId"/>
+            </hyperlink>
+        </field>
+    </form>
+    <form name="EditCustRequest" type="single" target="createrequest" title="Request" default-map-name="custRequest"
+        extends="EditSmallCustRequest" extends-resource="component://order/widget/ordermgr/CustRequestForms.xml">
+        <alt-target use-when="custRequest!=null" target="updaterequest"/>
+        <!--field name="custRequestName"><text default-value="${communicationEvent.subject}"/></field-->
+        <field name="shortDescription" parameter-name="description" use-when="custRequest==null" encode-output="false"><text/></field>
+        <!--field name="description" parameter-name="story" use-when="custRequest==null" encode-output="false"><textarea cols="60" rows="12" default-value="${communicationEvent.content}"/></field-->
+        <field name="workEffortName"><hidden value="${custRequestName}"/></field>
+        <field name="workEffortTypeId"><hidden value="TASK"/></field>
+        <field name="currentStatusId"><hidden value="PTS_CREATED"/></field>
+        <!--field name="communicationEventId"><hidden value="${communicationEvent.communicationEventId}"/></field-->
+        <field name="childWorkEffortId" parameter-name="workEffortParentId" title="${uiLabelMap.ProjectMgrProjectAndPhaseName}" required-field="true">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="WorkEffortAndChild" description="${workEffortName} -- ${childWorkEffortName}">
+                    <entity-constraint name="workEffortTypeId" value="PROJECT"/>
+                    <entity-constraint name="childWorkEffortTypeId" value="PHASE"/>
+                    <entity-constraint name="currentStatusId" operator="not-equals" value="PRJ_CLOSED"/>
+                    <entity-order-by field-name="workEffortName"/>
+                    <entity-order-by field-name="childWorkEffortName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="partyId" title="${uiLabelMap.PartyParty}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="PartyRoleAndPartyDetail" description="${firstName} ${lastName}">
+                    <entity-constraint name="roleTypeId" value="PROJECT_TEAM"/>
+                    <entity-order-by field-name="lastName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="roleTypeId"><hidden value="PROJECT_TEAM"/></field>
+        <field name="custRequestDate" title="${uiLabelMap.OrderRequestDate}"><date-time type="timestamp"/></field>
+        <field name="responseRequiredDate"><date-time type="timestamp"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <sort-order>
+            <sort-field name="custRequestId"/>
+            <sort-field name="fromPartyId"/>
+            <sort-field name="custRequestName"/>
+            <sort-field name="custRequestTypeId"/>
+            <sort-field name="shortDescription"/>
+            <sort-field name="description"/>
+            <sort-field name="statusId"/>
+            <sort-field name="priority"/>
+            <sort-field name="childWorkEffortId"/>
+            <sort-field name="partyId"/>
+            <sort-field name="custRequestDate"/>
+            <sort-field name="responseRequiredDate"/>
+            <sort-field name="submitButton"/>
+        </sort-order>
+    </form>
+    <form name="RequestInfo" type="single" default-entity-name="CustRequest" default-map-name="custRequest"
+        header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <entity-one entity-name="WorkEffort" value-field="workEffort">
+                <field-map field-name="workEffortId" from-field="workEffortId"/>
+            </entity-one>
+            <service service-name="getProjectIdAndNameFromTask" result-map="result">
+                <field-map field-name="taskId" from-field="workEffortId"/>
+            </service>
+            <set field="projectId" from-field="result.projectId"/>
+            <set field="projectName" from-field="result.projectName"/>
+        </actions>
+        <field name="custRequestTypeId"><display-entity entity-name="CustRequestType"/></field>
+        <field name="statusId"><display-entity entity-name="StatusItem"/></field>
+        <field name="fromPartyId">
+            <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}" key-field-name="partyId">
+                <sub-hyperlink target="viewprofile" description="[${fromPartyId}]">
+                    <parameter param-name="partyId" from-field="fromPartyId"/>
+                </sub-hyperlink>
+            </display-entity>
+        </field>
+        <field name="custRequestName"><display/></field>
+        <field name="description"><display/></field>
+        <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}">
+            <hyperlink description="${projectName}" target="projectView" also-hidden="false">
+                <parameter param-name="projectId"/>
+            </hyperlink>
+        </field>
+        <field name="phaseName"><display description="${result.phaseName}"/></field>
+        <field name="taskName">
+            <hyperlink description="${workEffort.workEffortName}" target="taskView">
+                <parameter param-name="workEffortId"/>
+            </hyperlink>
+        </field>
+        <field name="custRequestDate" title="${uiLabelMap.OrderRequestDate}"><display type="date"/></field>
+        <field name="createdDate"><display type="date"/></field>
+        <field name="lastModifiedDate"><display type="date"/></field>
+    </form>
+    <form name="ListRequestsWorkEffortForm" type="list" use-row-submit="true" list-name="listIt" paginate-target="requestlist"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <set field="parameters.sortField" from-field="parameters.sortField" default-value="createdDate"/>
+            <set field="parameters.statusId" value="CRQ_REVIEWED"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" value="WorkEffortCustRequestView"/>
+                <field-map field-name="orderBy" from-field="parameters.sortField"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
+            </service>
+        </actions>
+        <row-actions>
+            <service service-name="getProjectIdAndNameFromTask" result-map="sResult">
+                <field-map field-name="taskId" from-field="workEffortId"/>
+            </service>
+        </row-actions>
+        <field name="custRequestId">
+            <hyperlink description="${custRequestName} [${custRequestId}]" target="ViewRequest">
+                <parameter param-name="custRequestId"/>
+            </hyperlink>
+         </field>
+        <field name="workEffortParentId" title="${uiLabelMap.ProjectMgrProjectId}" map-name="sResult" sort-field="true">
+            <hyperlink description="${sResult.projectName} [${sResult.projectId}]" target="projectView">
+                <parameter param-name="projectId" from-field="sResult.projectId"/>
+            </hyperlink>
+        </field>
+        <field name="phaseId" map-name="sResult">
+            <display description="${sResult.phaseName} [${sResult.phaseId}]"/>
+        </field>
+        <field name="workEffortId">
+            <hyperlink description="${workEffortName} [${workEffortId}]" target="taskView">
+                <parameter param-name="workEffortId"/>
+            </hyperlink>
+        </field>
+        <field name="priority" sort-field="true"><display/></field>
+        <field name="createdDate" sort-field="true"><display type="date"/></field>
+        <field name="fromPartyId" sort-field="true">
+            <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}" key-field-name="partyId">
+                <sub-hyperlink target="viewprofile" description="[${fromPartyId}]">
+                    <parameter param-name="partyId" from-field="fromPartyId"/>
+                </sub-hyperlink>
+            </display-entity>
+        </field>
+        <field name="statusId">
+            <display-entity also-hidden="false" entity-name="StatusItem"/>
+        </field>
+    </form>
+    <form name="ViewRequestWorkEfforts" extends="ViewRequestWorkEfforts" extends-resource="component://order/widget/ordermgr/CustRequestForms.xml">
+        <field name="workEffortId">
+            <hyperlink description="${workEffortName} [${workEffortId}]" target="taskView">
+                <parameter param-name="workEffortId"/>
+            </hyperlink>
+        </field>
+    </form>
+    <form name="OverviewRequestItems" extends="OverviewRequestItems" extends-resource="component://order/widget/ordermgr/CustRequestForms.xml">
+        <field name="custRequestItemSeqId" title="${uiLabelMap.CommonNbr}"><display/></field>
+        <field name="story" title="${uiLabelMap.CommonText}"><display/></field>
+        <field name="productId"><ignored/></field>
+        <field name="statusId"><ignored/></field>
+        <field name="quantity"><ignored/></field>
+        <field name="description"><ignored/></field>
+    </form>
+</forms>

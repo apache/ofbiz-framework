@@ -40,7 +40,7 @@
                 <set field="activeApp" value="ofbizsetup" global="true"/>
                 <set field="applicationMenuName" value="SetupAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://commonext/widget/ofbizsetup/Menus.xml" global="true"/>
-                <set field="applicationTitle" from-field="uiLabelMap.SetupApp" global="true"/>
+                <set field="applicationTitle" value="${uiLabelMap.SetupApp}" global="true"/>
             </actions>
             <widgets>
                 <include-screen name="ApplicationDecorator" location="component://commonext/widget/CommonScreens.xml"/>
@@ -77,7 +77,7 @@
                                 </and>
                             </condition>
                             <widgets>
-                                <include-menu name="SetupSubTabBar" location="component://commonext/widget/ofbizsetup/Menus.xml"/>
+                                <include-menu location="component://commonext/widget/ofbizsetup/Menus.xml" name="SetupSubTabBar"/>
                             </widgets>
                         </section>
                         <section>

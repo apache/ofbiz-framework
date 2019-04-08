@@ -18,14 +18,15 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.util;
 
+import java.lang.reflect.Array;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectOutputStream;
-import java.lang.reflect.Array;
+import java.io.InputStream;
 import java.util.Iterator;
 import java.util.ServiceLoader;
+import java.lang.Class;
 
 import org.apache.ofbiz.base.lang.Factory;
 import org.apache.ofbiz.base.lang.SourceMonitored;
@@ -131,7 +132,9 @@ public final class UtilObject {
         Object obj = null;
         try {
             obj = getObjectException(bytes);
-        } catch (ClassNotFoundException | IOException e) {
+        } catch (ClassNotFoundException e) {
+            Debug.logError(e, module);
+        } catch (IOException e) {
             Debug.logError(e, module);
         }
         return obj;
@@ -139,18 +142,16 @@ public final class UtilObject {
 
     /** Deserialize a byte array back to an object */
     public static Object getObjectException(byte[] bytes) throws ClassNotFoundException, IOException {
-        try (ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-                SafeObjectInputStream wois = new SafeObjectInputStream(bis,
-                        Thread.currentThread().getContextClassLoader(),
-                        java.util.Arrays.asList("byte\\[\\]", "Number", "Long", "foo", "SerializationInjector",
-                                "java.util.HashMap", "Boolean", "Number", "Integer", "FlexibleStringExpander",
-                                "sun.util.calendar.ZoneInfo", "java.sql.Timestamp", "java.util.Date",
-                                "java.math.BigDecimal", "\\[Z","\\[B","\\[S","\\[I","\\[J","\\[F","\\[D","\\[C",
-                                "org.apache.ofbiz.widget.renderer.VisualTheme",
-                                "org.apache.ofbiz.widget.model.ModelTheme",
-                                "java.util.Collections", "java.util.LinkedList", "java.util.ArrayList",
-                                "java.util.TimeZone"));) {
-            return wois.readObject();
+        ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+        try {
+            ObjectInputStream ois = new ObjectInputStream(bis, Thread.currentThread().getContextClassLoader());
+            try {
+                return ois.readObject();
+            } finally {
+                ois.close();
+            }
+        } finally {
+            bis.close();
         }
     }
 
@@ -181,9 +182,7 @@ public final class UtilObject {
     }
 
     public static int doHashCode(Object o1) {
-        if (o1 == null) {
-            return 0;
-        }
+        if (o1 == null) return 0;
         if (o1.getClass().isArray()) {
             int length = Array.getLength(o1);
             int result = 0;

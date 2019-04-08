@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
+    <!-- Column Included Screens -->
+    <screen name="microcart">
+        <section>
+            <actions>
+                <set field="initialLocaleComplete" type="String" value="${groovy:parameters?.userLogin?.lastLocale}" default-value="${groovy:locale.toString()}"/>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://ecommerce/template/cart/MicroCart.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="minicart">
+        <section>
+          <actions>
+              <set field="hidetoplinks" value="Y"/>
+              <set field="hidebottomlinks" value="N"/>
+          </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://order/template/entry/cart/MiniCart.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="minipromotext">
+        <section>
+            <actions>
+                <script location="component://ecommerce/groovyScripts/cart/ShowPromoText.groovy"/>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://ecommerce/template/cart/MiniPromoText.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="promoUseDetailsInline">
+        <section>
+            <widgets>
+                <platform-specific><html><html-template location="component://order/template/entry/cart/PromoUseDetailsInline.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <!-- =========== Top-Level and Stand-Alone Screens =========== -->
+
+    <screen name="showcart">
+        <section>
+            <actions>
+                <set field="leftbarScreenName" value="leftbar"/>
+                <set field="MainColumnStyle" value="center"/>
+                <!--set field="MainColumnStyle" value="leftonly"/-->
+
+                <set field="titleProperty" value="PageTitleShoppingCart"/>
+                <set field="headerItem" value="Shopping Cart"/>
+                <property-to-field resource="order" property="orderPreference.giftEnable" field="giftEnable" default="Y"/>
+                <script location="component://ecommerce/groovyScripts/cart/ShowCart.groovy"/>
+                <script location="component://ecommerce/groovyScripts/cart/ShowPromoText.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/template/cart/ShowCart.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="showAllPromotions">
+        <section>
+            <actions>
+                <set field="leftbarScreenName" value="leftbar"/>
+                <set field="MainColumnStyle" value="leftonly"/>
+
+                <set field="promoUseDetailsInlineScreen" value="component://ecommerce/widget/CartScreens.xml#promoUseDetailsInline"/>
+
+                <set field="titleProperty" value="PageTitleShowAllPromotions"/>
+                <script location="component://ecommerce/groovyScripts/cart/ShowCart.groovy"/>
+                <script location="component://ecommerce/groovyScripts/cart/ShowPromoText.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://order/template/entry/cart/ShowAllPromotions.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="showPromotionDetails">
+        <section>
+            <actions>
+                <set field="leftbarScreenName" value="leftbar"/>
+                <set field="rightbarScreenName" value="rightbar"/>
+                <set field="MainColumnStyle" value="center"/>
+                <set field="productsummaryScreen" value="component://ecommerce/widget/CatalogScreens.xml#productsummary"/>
+                <set field="titleProperty" value="PageTitleShowPromotionDetails"/>
+                <script location="component://order/groovyScripts/entry/cart/ShowPromotionDetails.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-screen name="promotion" location="component://order/widget/ordermgr/OrderEntryCartScreens.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="UpdateCart">
+        <section>
+            <actions>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="EcommerceUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <script location="component://ecommerce/groovyScripts/cart/ShowCart.groovy"/>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://ecommerce/template/cart/UpdateCart.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+</screens>

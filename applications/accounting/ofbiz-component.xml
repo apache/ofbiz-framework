@@ -25,11 +25,26 @@ under the License.
     <classpath type="dir" location="config"/>
 
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel_reports.xml"/>
+    <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel_old.xml"/>
     <entity-resource type="eca" reader-name="main" loader="main" location="entitydef/eecas.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/AccountingTypeData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/AccountingHelpData.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/UsTaxAccountGroups.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/AccountingSecurityPermissionSeedData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/AccountingSecurityGroupDemoData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/AccountingPortletData.xml"/>
+    <entity-resource type="data" reader-name="seed-initial" loader="main" location="data/PaymentGatewayConfData.xml"/>
     <entity-resource type="data" reader-name="seed-initial" loader="main" location="data/AccountingScheduledServiceData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoGeneralChartOfAccounts.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoOrganizationData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoGlSetupData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoFinAccountData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoTaxAuthority.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoAcctgTransactionData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoPaymentsInvoices.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoAccountingUserData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoAssetMaintData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoBudgetData.xml"/>
 
     <!-- General Payment Service Definitions -->
     <service-resource type="model" loader="main" location="servicedef/services_agreement.xml"/>
@@ -62,6 +77,9 @@ under the License.
 
     <!-- Accounting Permission Services -->
     <service-resource type="model" loader="main" location="servicedef/services_perm.xml"/>
+
+    <!-- Accounting Migration Service Definition -->
+    <service-resource type="model" loader="main" location="servicedef/services_upgrade.xml"/>
 
     <service-resource type="group" loader="main" location="servicedef/groups.xml"/>
     <service-resource type="eca" loader="main" location="servicedef/secas.xml"/>

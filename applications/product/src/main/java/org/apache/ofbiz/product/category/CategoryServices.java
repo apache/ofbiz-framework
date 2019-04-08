@@ -85,7 +85,7 @@ public class CategoryServices {
         Delegator delegator = dctx.getDelegator();
         String categoryId = (String) context.get("categoryId");
         String productId = (String) context.get("productId");
-        boolean activeOnly = (context.get("activeOnly") != null ? (Boolean) context.get("activeOnly") : true);
+        boolean activeOnly = (context.get("activeOnly") != null ? ((Boolean) context.get("activeOnly")).booleanValue() : true);
         Integer index = (Integer) context.get("index");
         Timestamp introductionDateLimit = (Timestamp) context.get("introductionDateLimit");
         Timestamp releaseDateLimit = (Timestamp) context.get("releaseDateLimit");
@@ -127,7 +127,7 @@ public class CategoryServices {
         if (productId != null && index == null) {
             for (GenericValue v: productCategoryMembers) {
                 if (v.getString("productId").equals(productId)) {
-                    index = productCategoryMembers.indexOf(v);
+                    index = Integer.valueOf(productCategoryMembers.indexOf(v));
                 }
             }
         }
@@ -143,16 +143,16 @@ public class CategoryServices {
         String previous = null;
         String next = null;
 
-        if (index - 1 >= 0 && index - 1 < productCategoryMembers.size()) {
-            previous = productCategoryMembers.get(index - 1).getString("productId");
+        if (index.intValue() - 1 >= 0 && index.intValue() - 1 < productCategoryMembers.size()) {
+            previous = productCategoryMembers.get(index.intValue() - 1).getString("productId");
             result.put("previousProductId", previous);
         } else {
             previous = productCategoryMembers.get(productCategoryMembers.size() - 1).getString("productId");
             result.put("previousProductId", previous);
         }
 
-        if (index + 1 < productCategoryMembers.size()) {
-            next = productCategoryMembers.get(index + 1).getString("productId");
+        if (index.intValue() + 1 < productCategoryMembers.size()) {
+            next = productCategoryMembers.get(index.intValue() + 1).getString("productId");
             result.put("nextProductId", next);
         } else {
             next = productCategoryMembers.get(0).getString("productId");
@@ -211,8 +211,8 @@ public class CategoryServices {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         String productCategoryId = (String) context.get("productCategoryId");
-        boolean limitView = (Boolean) context.get("limitView");
-        int defaultViewSize = (Integer) context.get("defaultViewSize");
+        boolean limitView = ((Boolean) context.get("limitView")).booleanValue();
+        int defaultViewSize = ((Integer) context.get("defaultViewSize")).intValue();
         Timestamp introductionDateLimit = (Timestamp) context.get("introductionDateLimit");
         Timestamp releaseDateLimit = (Timestamp) context.get("releaseDateLimit");
 
@@ -222,12 +222,12 @@ public class CategoryServices {
 
         String prodCatalogId = (String) context.get("prodCatalogId");
 
-        boolean useCacheForMembers = (context.get("useCacheForMembers") == null || (Boolean) context.get("useCacheForMembers"));
-        boolean activeOnly = (context.get("activeOnly") == null || (Boolean) context.get("activeOnly"));
+        boolean useCacheForMembers = (context.get("useCacheForMembers") == null || ((Boolean) context.get("useCacheForMembers")).booleanValue());
+        boolean activeOnly = (context.get("activeOnly") == null || ((Boolean) context.get("activeOnly")).booleanValue());
 
         // checkViewAllow defaults to false, must be set to true and pass the prodCatalogId to enable
         boolean checkViewAllow = (prodCatalogId != null && context.get("checkViewAllow") != null &&
-                (Boolean) context.get("checkViewAllow"));
+                ((Boolean) context.get("checkViewAllow")).booleanValue());
 
         String viewProductCategoryId = null;
         if (checkViewAllow) {
@@ -237,16 +237,16 @@ public class CategoryServices {
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
         int viewIndex = 0;
         try {
-            viewIndex = Integer.parseInt((String) context.get("viewIndexString"));
+            viewIndex = Integer.valueOf((String) context.get("viewIndexString")).intValue();
         } catch (Exception e) {
             viewIndex = 0;
         }
 
         int viewSize = defaultViewSize;
         try {
-            viewSize = Integer.parseInt((String) context.get("viewSizeString"));
-        } catch (NumberFormatException e) {
-            Debug.logError(e.getMessage(), module);
+            viewSize = Integer.valueOf((String) context.get("viewSizeString")).intValue();
+        } catch (Exception e) {
+            viewSize = defaultViewSize;
         }
 
         GenericValue productCategory = null;
@@ -285,6 +285,7 @@ public class CategoryServices {
 
         List<GenericValue> productCategoryMembers = null;
         if (productCategory != null) {
+            EntityListIterator pli = null;
             try {
                 if (useCacheForMembers) {
                     productCategoryMembers = EntityQuery.use(delegator).from(entityName).where("productCategoryId", productCategoryId).orderBy(orderByFields).cache(true).queryList();
@@ -353,50 +354,45 @@ public class CategoryServices {
                     }
                     EntityCondition mainCond = EntityCondition.makeCondition(mainCondList, EntityOperator.AND);
 
-                    // set distinct on using list iterator
-                    EntityQuery eq = EntityQuery.use(delegator)
-                            .from(entityName)
-                            .where(mainCond)
-                            .orderBy(orderByFields)
-                            .cursorScrollInsensitive()
-                            .maxRows(highIndex);
-                    
-                    try (EntityListIterator pli = eq.queryIterator()) {
-                        // get the partial list for this page
-                        if (limitView) {
-                            if (viewProductCategoryId != null) {
-                                // do manual checking to filter view allow
-                                productCategoryMembers = new LinkedList<GenericValue>();
-                                GenericValue nextValue;
-                                int chunkSize = 0;
-                                listSize = 0;
-    
-                                while ((nextValue = pli.next()) != null) {
-                                    String productId = nextValue.getString("productId");
-                                    if (CategoryWorker.isProductInCategory(delegator, productId, viewProductCategoryId)) {
-                                        if (listSize + 1 >= lowIndex && chunkSize < viewSize) {
-                                            productCategoryMembers.add(nextValue);
-                                            chunkSize++;
-                                        }
-                                        listSize++;
+                    // set distinct on
+                    // using list iterator
+                    pli = EntityQuery.use(delegator).from(entityName).where(mainCond).orderBy(orderByFields).cursorScrollInsensitive().maxRows(highIndex).queryIterator();
+
+                    // get the partial list for this page
+                    if (limitView) {
+                        if (viewProductCategoryId != null) {
+                            // do manual checking to filter view allow
+                            productCategoryMembers = new LinkedList<GenericValue>();
+                            GenericValue nextValue;
+                            int chunkSize = 0;
+                            listSize = 0;
+
+                            while ((nextValue = pli.next()) != null) {
+                                String productId = nextValue.getString("productId");
+                                if (CategoryWorker.isProductInCategory(delegator, productId, viewProductCategoryId)) {
+                                    if (listSize + 1 >= lowIndex && chunkSize < viewSize) {
+                                        productCategoryMembers.add(nextValue);
+                                        chunkSize++;
                                     }
+                                    listSize++;
                                 }
-                            } else {
-                                productCategoryMembers = pli.getPartialList(lowIndex, viewSize);
-                                listSize = pli.getResultsSizeAfterPartialList();
                             }
                         } else {
-                            productCategoryMembers = pli.getCompleteList();
-                            if (UtilValidate.isNotEmpty(viewProductCategoryId)) {
-                                // filter out the view allow
-                                productCategoryMembers = CategoryWorker.filterProductsInCategory(delegator, productCategoryMembers, viewProductCategoryId);
-                            }
-    
-                            listSize = productCategoryMembers.size();
-                            lowIndex = 1;
-                            highIndex = listSize;
+                            productCategoryMembers = pli.getPartialList(lowIndex, viewSize);
+                            listSize = pli.getResultsSizeAfterPartialList();
                         }
+                    } else {
+                        productCategoryMembers = pli.getCompleteList();
+                        if (UtilValidate.isNotEmpty(viewProductCategoryId)) {
+                            // filter out the view allow
+                            productCategoryMembers = CategoryWorker.filterProductsInCategory(delegator, productCategoryMembers, viewProductCategoryId);
+                        }
+
+                        listSize = productCategoryMembers.size();
+                        lowIndex = 1;
+                        highIndex = listSize;
                     }
+
                     // filter out of stock products
                     if (filterOutOfStock) {
                         try {
@@ -419,14 +415,24 @@ public class CategoryServices {
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
+            finally {
+                // close the list iterator, if used
+                if (pli != null) {
+                    try {
+                        pli.close();
+                    } catch (GenericEntityException e) {
+                        Debug.logError(e, module);
+                    }
+                }
+            }
         }
 
         Map<String, Object> result = new HashMap<String, Object>();
-        result.put("viewIndex", viewIndex);
-        result.put("viewSize", viewSize);
-        result.put("lowIndex", lowIndex);
-        result.put("highIndex", highIndex);
-        result.put("listSize", listSize);
+        result.put("viewIndex", Integer.valueOf(viewIndex));
+        result.put("viewSize", Integer.valueOf(viewSize));
+        result.put("lowIndex", Integer.valueOf(lowIndex));
+        result.put("highIndex", Integer.valueOf(highIndex));
+        result.put("listSize", Integer.valueOf(listSize));
         if (productCategory != null) result.put("productCategory", productCategory);
         if (productCategoryMembers != null) result.put("productCategoryMembers", productCategoryMembers);
         return result;
@@ -446,7 +452,7 @@ public class CategoryServices {
         String entityName = null;
         String primaryKeyName = null;
 
-        if ("true".equals(isCatalog)) {
+        if (isCatalog.equals("true")) {
             entityName = "ProdCatalog";
             primaryKeyName = "prodCatalogId";
         } else {
@@ -454,18 +460,18 @@ public class CategoryServices {
             primaryKeyName = "productCategoryId";
         }
 
-        List<Map<Object, Object>> categoryList = new LinkedList<>();
+        List categoryList = new LinkedList();
         List<GenericValue> childOfCats;
         List<String> sortList = org.apache.ofbiz.base.util.UtilMisc.toList("sequenceNum", "title");
 
         try {
             GenericValue category = EntityQuery.use(delegator).from(entityName).where(primaryKeyName, productCategoryId).queryOne();
             if (category != null) {
-                if ("true".equals(isCatalog) && "false".equals(isCategoryType)) {
+                if (isCatalog.equals("true") && isCategoryType.equals("false")) {
                     CategoryWorker.getRelatedCategories(request, "ChildCatalogList", CatalogWorker.getCatalogTopCategoryId(request, productCategoryId), true);
                     childOfCats = EntityUtil.filterByDate((List<GenericValue>) request.getAttribute("ChildCatalogList"));
                     
-                } else if("false".equals(isCatalog) && "false".equals(isCategoryType)){
+                } else if(isCatalog.equals("false") && isCategoryType.equals("false")){
                     childOfCats = EntityQuery.use(delegator).from("ProductCategoryRollupAndChild").where("parentProductCategoryId", productCategoryId).filterByDate().queryList();
                 } else {
                     childOfCats = EntityQuery.use(delegator).from("ProdCatalogCategory").where("prodCatalogId", productCategoryId).filterByDate().queryList();
@@ -480,7 +486,7 @@ public class CategoryServices {
                         catId = childOfCat.get("productCategoryId");
                         catNameField = "CATEGORY_NAME";
 
-                        Map<Object, Object> josonMap = new HashMap<>();
+                        Map josonMap = new HashMap();
                         List<GenericValue> childList = null;
 
                         // Get the child list of chosen category
@@ -493,8 +499,8 @@ public class CategoryServices {
                         if (UtilValidate.isNotEmpty(childList)) {
                             josonMap.put("state", "closed");
                         }
-                        Map<String, Object> dataMap = new HashMap<>();
-                        Map<String, String> dataAttrMap = new HashMap<>();
+                        Map dataMap = new HashMap();
+                        Map dataAttrMap = new HashMap();
                         CategoryContentWrapper categoryContentWrapper = new CategoryContentWrapper(cate, request);
                         String title = null;
                         if (UtilValidate.isNotEmpty(categoryContentWrapper.get(catNameField, "html"))) {
@@ -513,7 +519,7 @@ public class CategoryServices {
                         dataAttrMap.put("href", hrefStr);
                         dataMap.put("attr", dataAttrMap);
                         josonMap.put("data", dataMap);
-                        Map<String, Object> attrMap = new HashMap<>();
+                        Map attrMap = new HashMap();
                         attrMap.put("id", catId);
                         attrMap.put("isCatalog", false);
                         attrMap.put("rel", "CATEGORY");

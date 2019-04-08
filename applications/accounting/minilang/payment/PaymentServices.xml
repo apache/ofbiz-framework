@@ -107,8 +107,8 @@ under the License.
 
         <if-compare field="payment.statusId" value="PMNT_NOT_PAID" operator="not-equals">
             <!-- check if only status change -->
-            <make-value entity-name="Payment" value-field="newPayment"/>
-            <make-value entity-name="Payment" value-field="oldPayment"/>
+            <make-value value-field="newPayment" entity-name="Payment"/>
+            <make-value value-field="oldPayment" entity-name="Payment"/>
             <set-nonpk-fields map="payment" value-field="newPayment"/>
             <set-nonpk-fields map="payment" value-field="oldPayment"/>
             <set-nonpk-fields map="parameters" value-field="newPayment"/>
@@ -988,7 +988,7 @@ under the License.
                 <set field="convertUomInMap.originalValue" from-field="orderHeader.grandTotal" />
                 <set field="convertUomInMap.uomId" from-field="orderHeader.currencyUom" />
                 <set field="convertUomInMap.uomIdTo" from-field="partyAcctgPreference.baseCurrencyUomId" />
-                <log level="info" message="convertUomInMap = ${convertUomInMap}"/>
+                <log message="convertUomInMap = ${convertUomInMap}" level="info" />
                 <call-service service-name="convertUom" in-map-name="convertUomInMap">
                     <result-to-field result-name="convertedValue" field="parameters.amount" />
                 </call-service>
@@ -1161,7 +1161,7 @@ under the License.
 
     <!-- PaymentContent -->
     <simple-method method-name="createPaymentContent" short-description="Create Content For Payment">
-        <make-value entity-name="PaymentContent" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="PaymentContent"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
@@ -1180,7 +1180,7 @@ under the License.
         <field-to-result field="newEntity.paymentContentTypeId" result-name="paymentContentTypeId"/>
     </simple-method>
     <simple-method method-name="updatePaymentContent" short-description="Update Content For Payment">
-        <make-value entity-name="PaymentContent" value-field="lookupPKMap"/>
+        <make-value value-field="lookupPKMap" entity-name="PaymentContent"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>

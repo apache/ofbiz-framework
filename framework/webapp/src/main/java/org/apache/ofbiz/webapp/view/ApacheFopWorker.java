@@ -105,16 +105,14 @@ public final class ApacheFopWorker {
                 }
 
                 try {
-                    URL configFilePath = FlexibleLocation.resolveLocation(fopPath + "/fop.xconf");
-                    File userConfigFile = FileUtil.getFile(configFilePath.getFile());
+                    String ofbizHome = System.getProperty("ofbiz.home");
+                    File userConfigFile = FileUtil.getFile(ofbizHome + fopPath + "/fop.xconf");
                     if (userConfigFile.exists()) {
                         fopFactory = FopFactory.newInstance(userConfigFile);
                     } else {
                         Debug.logWarning("FOP configuration file not found: " + userConfigFile, module);
                     }
-                    URL fontBaseFileUrl = FlexibleLocation.resolveLocation(fopFontBaseProperty);
-                    File fontBaseFile = FileUtil.getFile(fontBaseFileUrl.getFile());
-
+                    File fontBaseFile = FileUtil.getFile(ofbizHome + fopFontBaseProperty);
                     if (fontBaseFile.isDirectory()) {
                         fopFactory.getFontManager().setResourceResolver(ResourceResolverFactory.createDefaultInternalResourceResolver(fontBaseFile.toURI()));
                     } else {
@@ -138,10 +136,10 @@ public final class ApacheFopWorker {
     public static void transform(File srcFile, File destFile, File stylesheetFile, String outputFormat) throws IOException, FOPException {
         StreamSource src = new StreamSource(srcFile);
         StreamSource stylesheet = stylesheetFile == null ? null : new StreamSource(stylesheetFile);
-        try (BufferedOutputStream dest = new BufferedOutputStream(new FileOutputStream(destFile))) {
+        BufferedOutputStream dest = new BufferedOutputStream(new FileOutputStream(destFile));
         Fop fop = createFopInstance(dest, outputFormat);
         transform(src, stylesheet, fop);
-        }
+        dest.close();
     }
 
     /** Transform an xsl-fo InputStream to the specified OutputStream format.

@@ -45,22 +45,14 @@
         <description>Create a DataResource and link this data to the content present</description>
         <permission-service service-name="genericDataResourcePermission" main-action="CREATE"/>
         <implements service="createDataResource" optional="true"/>
-        <attribute name="contentId" type="String" mode="INOUT" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentId"/>
-            </type-validate>
-        </attribute>
+        <attribute name="contentId" type="String" mode="INOUT" optional="false"/>
         <attribute name="templateDataResource" type="String" mode="IN" optional="true"/>
     </service>
     <service name="updateDataResource" engine="entity-auto" default-entity-name="DataResource" auth="true" invoke="update">
         <description>Update a DataResource</description>
         <permission-service service-name="genericDataResourcePermission" main-action="UPDATE"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <attribute name="dataResourceId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingDataResourceId"/>
-            </type-validate>
-        </attribute>
+        <attribute name="dataResourceId" type="String" mode="IN" optional="false"/>
         <override name="objectInfo" allow-html="any"/>
         <override name="dataResourceName" allow-html="any"/>
     </service>
@@ -119,25 +111,6 @@
     </service>
     <service name="updateElectronicText" default-entity-name="ElectronicText" engine="entity-auto" invoke="update" auth="true">
         <description>Update a ElectronicText</description>
-        <permission-service service-name="genericDataResourcePermission" main-action="UPDATE"/>
-        <auto-attributes include="pk" mode="INOUT" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <attribute name="contentId" mode="INOUT" optional="true" type="String"/><!-- to optionaly know where this text is belonging to -->
-        <override name="textData" allow-html="any"/>
-    </service>
-    <service name="createElectronicTextForm" default-entity-name="ElectronicText" engine="simple"
-            location="component://content/minilang/data/DataServices.xml" invoke="createElectronicTextForm" auth="true">
-        <description>Create a ElectronicText with Form code</description>
-        <permission-service service-name="genericDataResourcePermission" main-action="CREATE"/>
-        <implements service="createDataResource"/>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <override name="dataResourceTypeId" default-value="ELECTRONIC_TEXT"/>
-        <override name="textData" allow-html="any"/>
-    </service>
-    <service name="updateElectronicTextForm" default-entity-name="ElectronicText" engine="simple"
-            location="component://content/minilang/data/DataServices.xml" invoke="updateElectronicTextForm" auth="true">
-        <description>Update a ElectronicText with Form code</description>
         <permission-service service-name="genericDataResourcePermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>

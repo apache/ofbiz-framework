@@ -30,7 +30,7 @@ under the License.
             <fail-property resource="CommonUiLabels" property="CommonGenericPermissionError"/>
         </check-permission>
         <check-errors/>
-        <make-value entity-name="KeywordThesaurus" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="KeywordThesaurus"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <call-object-method obj-field="newEntity.enteredKeyword" method-name="toLowerCase" ret-field="newEntity.enteredKeyword"/>
@@ -42,7 +42,7 @@ under the License.
             <fail-property resource="CommonUiLabels" property="CommonGenericPermissionError"/>
         </check-permission>
         <check-errors/>
-        <make-value entity-name="KeywordThesaurus" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="KeywordThesaurus"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <store-value value-field="newEntity"/>
@@ -52,14 +52,14 @@ under the License.
             <fail-property resource="CommonUiLabels" property="CommonGenericPermissionError"/>
         </check-permission>
         <check-errors/>
-        <make-value entity-name="KeywordThesaurus" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="KeywordThesaurus"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <remove-by-and entity-name="KeywordThesaurus" map="newEntity"/>
     </simple-method>
 
     <!-- Uom Conversion service -->
     <simple-method method-name="createUomConversionDated" short-description="Create a new dated UOM conversion entity">
-        <make-value entity-name="UomConversionDated" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="UomConversionDated"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
@@ -80,44 +80,45 @@ under the License.
             </else>
         </if-empty>
 
-        <!-- first try the UomConversionDated entity -->
-        <entity-condition entity-name="UomConversionDated" list="uomConversions" use-cache="true">
-            <condition-list combine="and">
-                <condition-expr field-name="uomId" from-field="parameters.uomId"/>
-                <condition-expr field-name="uomIdTo" from-field="parameters.uomIdTo"/>
-                <condition-expr field-name="purposeEnumId" operator="equals" from-field="parameters.purposeEnumId" ignore-if-empty="true"/>
-                <condition-expr field-name="fromDate" operator="less-equals" from-field="asOfDate"/>
-                <condition-list combine="or">
-                    <condition-expr field-name="thruDate" operator="greater-equals" from-field="asOfDate"/>
-                    <condition-expr field-name="thruDate" operator="equals" from-field="nullField"/>
-                </condition-list>
-            </condition-list>
-            <!-- sort by descending fromDate to get newest (biggest) first -->
-            <order-by field-name="-fromDate"/>
-        </entity-condition>
-        <first-from-list list="uomConversions" entry="uomConversion"/>
+        <!-- first try the regular UomConversion entity (no dates) -->
+        <entity-one entity-name="UomConversion" value-field="uomConversion" auto-field-map="true" use-cache="true"/>
 
-        <!-- if no conversion found with specified purpose, try w/o purpose -->
+        <!-- if not found, try the dated uom conversion entity -->
         <if-empty field="uomConversion">
-            <if-not-empty field="parameters.purposeEnumId">
-                <entity-condition entity-name="UomConversionDated" list="uomConversions" use-cache="true">
-                    <condition-list combine="and">
-                        <condition-expr field-name="uomId" from-field="parameters.uomId"/>
-                        <condition-expr field-name="uomIdTo" from-field="parameters.uomIdTo"/>
-                        <condition-expr field-name="fromDate" operator="less-equals" from-field="asOfDate"/>
-                        <condition-list combine="or">
-                            <condition-expr field-name="thruDate" operator="greater-equals" from-field="asOfDate"/>
-                            <condition-expr field-name="thruDate" operator="equals" from-field="nullField"/>
-                        </condition-list>
+            <entity-condition entity-name="UomConversionDated" list="uomConversions" use-cache="true">
+                <condition-list combine="and">
+                    <condition-expr field-name="uomId" from-field="parameters.uomId"/>
+                    <condition-expr field-name="uomIdTo" from-field="parameters.uomIdTo"/>
+                    <condition-expr field-name="purposeEnumId" operator="equals" from-field="parameters.purposeEnumId" ignore-if-empty="true"/>
+                    <condition-expr field-name="fromDate" operator="less-equals" from-field="asOfDate"/>
+                    <condition-list combine="or">
+                        <condition-expr field-name="thruDate" operator="greater-equals" from-field="asOfDate"/>
+                        <condition-expr field-name="thruDate" operator="equals" from-field="nullField"/>
                     </condition-list>
-                    <order-by field-name="-fromDate"/>
-                </entity-condition>
-                <first-from-list list="uomConversions" entry="uomConversion"/>
-            </if-not-empty>
-        </if-empty>
-        <!-- if not found, try the uom conversion entity -->
-        <if-empty field="uomConversion">
-            <entity-one entity-name="UomConversion" value-field="uomConversion" auto-field-map="true" use-cache="true"/>
+                </condition-list>
+                    <!-- sort by descending fromDate to get newest (biggest) first -->
+                <order-by field-name="-fromDate"/>
+            </entity-condition>
+            <first-from-list list="uomConversions" entry="uomConversion"/>
+
+            <!-- if no conversion found with specified purpose, try w/o purpose -->
+            <if-empty field="uomConversion">
+                <if-not-empty field="parameters.purposeEnumId">
+                    <entity-condition entity-name="UomConversionDated" list="uomConversions" use-cache="true">
+                        <condition-list combine="and">
+                            <condition-expr field-name="uomId" from-field="parameters.uomId"/>
+                            <condition-expr field-name="uomIdTo" from-field="parameters.uomIdTo"/>
+                            <condition-expr field-name="fromDate" operator="less-equals" from-field="asOfDate"/>
+                            <condition-list combine="or">
+                                <condition-expr field-name="thruDate" operator="greater-equals" from-field="asOfDate"/>
+                                <condition-expr field-name="thruDate" operator="equals" from-field="nullField"/>
+                            </condition-list>
+                        </condition-list>
+                        <order-by field-name="-fromDate"/>
+                    </entity-condition>
+                    <first-from-list list="uomConversions" entry="uomConversion"/>
+                </if-not-empty>
+            </if-empty>
         </if-empty>
         <log level="verbose" message="using conversion factor=${uomConversion.conversionFactor}"/>
 
@@ -192,10 +193,10 @@ under the License.
             <call-object-method obj-field="uploadProgressListener" method-name="hasStarted" ret-field="parameters.hasStarted"/>
             <field-to-result field="parameters.hasStarted" result-name="hasStarted"/>
             <script>groovy:
-                contentLength = parameters.get("contentLength")
-                bytesRead = parameters.get("bytesRead")
-                int readPercent = (bytesRead* 100)/contentLength
-                parameters.put("readPercent", readPercent)
+                contentLength = parameters.get("contentLength");
+                bytesRead = parameters.get("bytesRead");
+                int readPercent = (bytesRead* 100)/contentLength;
+                parameters.put("readPercent", readPercent);
             </script>
             <field-to-result field="parameters.readPercent" result-name="readPercent"/>
             <field-to-result field="parameters.hasStarted" result-name="hasStarted"/>
@@ -284,7 +285,7 @@ under the License.
                     </entity-one>
                     <if-empty field="oldGeoAssoc">
                         <!-- Add as it does not exist -->
-                        <make-value entity-name="GeoAssoc" value-field="newGeoAssoc"/>
+                        <make-value value-field="newGeoAssoc" entity-name="GeoAssoc"/>
                         <set field="newGeoAssoc.geoId" from-field="parameters.geoId"/>
                         <set field="newGeoAssoc.geoIdTo" from-field="geoIdTo"/>
                         <set field="newGeoAssoc.geoAssocTypeId" from-field="parameters.geoAssocTypeId"/>

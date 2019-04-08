@@ -17,7 +17,8 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.UtilHttp
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.base.util.*
 
 paymentSetup = from("WebSitePaymentSettingView").orderBy("webSiteId", "paymentMethodTypeId").queryList()
 context.paymentSetups = paymentSetup

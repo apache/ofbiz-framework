@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
+    <form name="FindFixedAssets" type="single" target="findFixedAssets" title="${uiLabelMap.AccountingFindFixedAssets}"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="fixedAssetId"  title="${uiLabelMap.AccountingFixedAssetId}"><text-find ignore-case="true"/></field>
+        <field name="instanceOfProductId" title="${uiLabelMap.AccountingInstanceOfProductId}"><text-find ignore-case="true"/></field>
+        <field name="classEnumId" title="${uiLabelMap.AccountingFixedAssetClassEnumId}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
+                    <entity-constraint name="enumTypeId" operator="equals" value="FXAST_CLASS"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
+    </form>
+
+    <!-- Maintences Search Options form -->
+    <form name="FindFixedAssetMaint" default-map-name="timesheet" target="findFixedAssetMaints" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="fixedAssetId"><text-find ignore-case="true"/></field>
+        <field name="maintHistSeqId"><text-find ignore-case="true"/></field>
+        <field name="productMaintTypeId" title="${uiLabelMap.AccountingFixedAssetMaintType}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="ProductMaintType">
+                    <entity-order-by field-name="productMaintTypeId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="StatusItem">
+                    <entity-constraint name="statusTypeId" operator="equals" value="FIXEDAST_MNT_STATUS"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="actualStartDate"><date-find/></field>
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
+    </form>
+
+    <!-- Special version of the same form in Accounting. This one lists all maintenances, not just
+        maintenances for a specific fixed asset. -->
+    <form name="ListFixedAssetMaints" target="" title="" type="list" list-name="listIt" paginate-target="findFixedAssetMaints" paginate="true"
+        header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <service  service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" value="FixedAssetMaintWorkEffort"/>
+                <field-map field-name="orderBy" value="-actualStartDate"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
+            </service>
+        </actions>
+        <field name="maintHistSeqId" widget-style="linktext">
+            <hyperlink description="${maintHistSeqId}" target="EditFixedAssetMaint" also-hidden="false">
+                <parameter param-name="fixedAssetId"/>
+                <parameter param-name="maintHistSeqId"/>
+            </hyperlink>
+        </field>
+        <field name="fixedAssetName" title="${uiLabelMap.AccountingFixedAssetName}"><display/></field>
+        <field name="productMaintTypeId" title="${uiLabelMap.AccountingFixedAssetMaintType}"><display-entity entity-name="ProductMaintType"/></field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>
+        <field name="intervalMeterTypeId" title="${uiLabelMap.AccountingFixedAssetMaintIntervalMeterType}"><display/></field>
+        <field name="intervalQuantity" title="${uiLabelMap.AccountingFixedAssetMaintIntervalQuantity}"><display/></field>
+        <field name="intervalUomId" title="${uiLabelMap.AccountingFixedAssetMaintIntervalUom}"><display/></field>
+        <field name="actualStartDate"><display/></field>
+        <field name="actualCompletionDate"><display/></field>
+    </form>
+
+    <form name="EditFixedAssetMaint" extends="EditFixedAssetMaint" extends-resource="component://accounting/widget/FixedAssetForms.xml" target="updateFixedAssetMaintAndWorkEffort">
+        <alt-target use-when="fixedAssetMaint==null" target="createFixedAssetMaintUpdateWorkEffort"/>
+        <field name="fixedAssetId" use-when="fixedAssetMaint==null" title="${uiLabelMap.AccountingFixedAssetId}" required-field="true"><lookup target-form-name="LookupFixedAsset"/></field>
+        <field name="scheduleWorkEffortId"><hidden/></field>
+        <field name="submitButton" ><ignored/></field>
+        <field map-name="workEffort" position="1"  name="estimatedStartDate"><date-time/></field>
+        <field map-name="workEffort" position="2"  name="estimatedCompletionDate"><date-time/></field>
+        <field map-name="workEffort" position="1" name="actualStartDate"><date-time/></field>
+        <field map-name="workEffort" position="2" name="actualCompletionDate"><date-time/></field>
+        <field name="quickAssignPartyId" title="${uiLabelMap.PartyPartyId}" use-when="fixedAssetMaint == null" field-name="partyId">
+            <lookup target-form-name="LookupPerson"/>
+        </field>
+        <field name="submitButton2" use-when="fixedAssetMaint!=null" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+        <field name="submitButton2" use-when="fixedAssetMaint==null" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
+    </form>
+
+    <form name="AddItemIssuance" target="issueInventoryItemToFixedAssetMaint" title="PageTitleFixedAssetMaintItemIssuance" default-map-name="newIssuanceItem" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="facilityId">
+            <drop-down>
+                <entity-options entity-name="Facility">
+                    <entity-constraint name="facilityTypeId" value="WAREHOUSE"/>
+                    <entity-order-by field-name="facilityId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="productId" title="${uiLabelMap.AssetMaintPartId}" required-field="true"><lookup  target-form-name="LookupPartsProduct"/></field>
+        <field name="quantity" position="1" title="${uiLabelMap.CommonQuantity}" required-field="true"><text size="10"/></field>
+        <field name="maintHistSeqId"><hidden/></field>
+        <field name="fixedAssetId"><hidden/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
+    </form>
+
+    <form name="ListItemIssuance"  title="PageTitleFixedAssetMaintItemIssuance" type="list"  list-name="itemIssuanceList"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <field name="productId" title="${uiLabelMap.AssetMaintPartId}"><display/></field>
+        <field name="quantity" position="1" title="${uiLabelMap.CommonQuantity}"><display/></field>
+        <field name="productName" position="1" title="${uiLabelMap.CommonName}"><display/></field>
+        <field name="comments" position="1" title="${uiLabelMap.CommonComments}"><display/></field>
+        <field name="description" position="1" title="${uiLabelMap.CommonDescription}"><display/></field>
+        <field name="returnPart" title=" " widget-style="linktext">
+            <hyperlink description="${uiLabelMap.CommonReturn}" target="returnPartIssuedToFixedAssetMaint">
+                <parameter param-name="itemIssuanceId"/>
+                <parameter param-name="fixedAssetId"/>
+                <parameter param-name="maintHistSeqId"/>
+            </hyperlink>
+        </field>
+    </form>
+</forms>

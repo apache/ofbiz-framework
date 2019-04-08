@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.conversion;
 
+import org.apache.ofbiz.base.util.ObjectType;
+
 /** Abstract Converter class. This class handles converter registration
  * and it implements the <code>canConvert</code>, <code>getSourceClass</code>,
  * and <code>getTargetClass</code> methods.
@@ -40,7 +42,7 @@ public abstract class AbstractConverter<S, T> implements Converter<S, T>, Conver
     }
 
     public boolean canConvert(Class<?> sourceClass, Class<?> targetClass) {
-        return getSourceClass().isAssignableFrom(sourceClass) && getTargetClass().isAssignableFrom(targetClass);
+        return ObjectType.instanceOf(sourceClass, this.getSourceClass()) && ObjectType.instanceOf(targetClass, this.getTargetClass());
     }
 
     public Class<? super S> getSourceClass() {

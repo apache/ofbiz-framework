@@ -18,9 +18,9 @@
  *******************************************************************************/
 package org.apache.ofbiz.service.rmi;
 
+import java.util.Map;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.util.Map;
 
 import org.apache.ofbiz.service.GenericRequester;
 import org.apache.ofbiz.service.GenericResultWaiter;

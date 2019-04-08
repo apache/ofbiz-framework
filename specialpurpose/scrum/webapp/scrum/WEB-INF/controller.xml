@@ -1,0 +1,1356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Site-Conf" xsi:schemaLocation="http://ofbiz.apache.org/Site-Conf http://ofbiz.apache.org/dtds/site-conf.xsd">
+    <!-- The controller elements that are common to all OFBiz components
+         can be found in the following xml file. A component can override the
+         elements found in the common-controller.xml file. -->
+    <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
+    <include location="component://humanres/webapp/humanres/WEB-INF/controller.xml"/>
+    <include location="component://workeffort/webapp/workeffort/WEB-INF/controller.xml"/>
+    <description>scrum Component Site Configuration File</description>
+    <handler name="service-multi" type="request" class="org.apache.ofbiz.webapp.event.ServiceMultiEventHandler"/>
+
+    <!-- Events to run on every request before security (chains exempt) -->
+    <!--
+    <preprocessor>
+    </preprocessor>
+    -->
+    <!-- Events to run on every request after all other processing (chains exempt) -->
+    <!--
+    <postprocessor>
+        <event name="test" type="java" path="org.apache.ofbiz.webapp.event.TestEvent" invoke="test"/>
+    </postprocessor>
+    -->
+    <after-login>
+        <event name="timeSheetChecker" type="java" path="org.apache.ofbiz.scrum.ScrumEvents" invoke="timeSheetChecker"/>
+    </after-login>
+    
+    <!-- Request Mappings -->
+    <request-map uri="main">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="Products"/>
+    </request-map>
+    <request-map uri="products">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="Products"/>
+    </request-map>
+    <request-map uri="Sprints">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="Sprints"/>
+    </request-map>
+    <request-map uri="editScrumProject">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="editScrumProject"/>
+        <response name="error" type="view" value="editScrumProject"/>
+    </request-map>
+    <request-map uri="newScrumProject">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="newScrumProject"/>
+        <response name="error" type="view" value="newScrumProject"/>
+    </request-map>
+    <request-map uri="createScrumProject">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="createScrumProject" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="request" value="viewScrumProject"><redirect-parameter name="projectId"/></response>
+        <response name="error" type="view" value="editScrumProject"/>
+    </request-map>
+    <request-map uri="updateScrumProject">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="updateScrumProject" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="view" value="viewScrumProject"/>
+        <response name="error" type="view" value="editScrumProject"/>
+    </request-map>
+    <request-map uri="viewScrumProject">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="viewScrumProject"/>
+    </request-map>
+
+    <!-- Sprint -->
+    <request-map uri="AddSprint">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="AddSprint"><redirect-parameter name="projectId"/></response>
+    </request-map>
+    <request-map uri="SprintList">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="SprintList"></response>
+    </request-map>
+    <request-map uri="createSprint">
+        <security auth="true" https="true"/>
+        <event type="simple" invoke="createSprint" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="request" value="ViewSprint"><redirect-parameter name="sprintId"/></response>
+        <response name="error" type="view" value="AddSprint"></response>
+    </request-map>
+    <request-map uri="ViewSprint">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="ViewSprint"></response>
+    </request-map>
+    <request-map uri="DeleteSprint">
+        <security auth="true" https="true"/>
+        <event type="simple" invoke="DeleteSprint" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="view" value="SprintList"></response>
+    </request-map>
+    <request-map uri="EditSprint">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="EditSprint"></response>
+    </request-map>
+    <request-map uri="UpdateSprint">
+        <security auth="true" https="true"/>
+        <event type="simple" invoke="updateSprintInfo" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="view" value="ViewSprint"></response>
+    </request-map>
+    <request-map uri="addSprintMember">
+        <security auth="true" https="true"/>
+        <event type="simple" invoke="assignPartyToWorkEffort" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="view" value="SprintMember"/>
+    </request-map>
+    <request-map uri="delSprintMember">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="unassignPartyFromWorkEffort"/>
+        <response name="success" type="view" value="SprintMember"></response>
+    </request-map>
+    <request-map uri="DeleteSprintBackLogs">
+        <security auth="true" https="true"/>
+        <event type="simple" invoke="deleteSprintBacklog" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="view" value="ViewSprint"></response>
+    </request-map>
+    <request-map uri="sprintBacklogListTarget">
+        <security auth="true" https="true"/>
+        <response name="success" type="view-last"></response>
+    </request-map>
+    <request-map uri="UpdateHours">
+        <security auth="true" https="true"></security>
+        <event type="simple" invoke="updateTask" path="component://scrum/minilang/ScrumEvents.xml"></event>
+        <response name="error" type="view" value="ViewSprint"></response>
+        <response name="success" type="view" value="ViewSprint"></response>
+    </request-map>
+    <request-map uri="DeleteTaskFromSprintOverview">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="deleteWorkEffortRequest"/>
+        <response name="success" type="view" value="ViewSprint"><redirect-parameter name="workEffortId"/></response>
+    </request-map>
+    <request-map uri="setCompleteTask">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="setTaskStatusToComplete" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="view" value="ViewSprint"/>
+    </request-map>
+    <request-map uri="DeleteTask">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="deleteWorkEffort"/>
+        <response name="success" type="view" value="ViewSprint"></response>
+    </request-map>
+    <request-map uri="SprintMember">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="SprintMember"/>
+    </request-map>
+    <request-map uri="setAccept">
+        <security auth="true" https="true"/>
+        <event type="simple" invoke="setAccept" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="error" type="view" value="ViewProdBacklogItem"/>
+        <response name="success" type="view" value="ViewProdBacklogItem"/>
+    </request-map>
+
+    <request-map uri="EditProdBacklog"><security https="true" auth="true"/><response name="success" type="view" value="EditProdBacklog"/></request-map>
+    <request-map uri="AddProdBacklog"><security https="true" auth="true"/><response name="success" type="view" value="AddProdBacklog"/></request-map>
+    <!--<request-map uri="createCustRequest">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createCustRequest"/>
+        <response name="success" type="request-redirect-noparam" value="AddProdBacklog"/>
+        <response name="error" type="request-redirect-noparam" value="AddProdBacklog"/>
+    </request-map>-->
+    <request-map uri="updateProductBacklog">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="updateProductBacklog" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="request-redirect" value="ViewProdBacklogItem">
+            <redirect-parameter name="productId"/>
+            <redirect-parameter name="custRequestId"/>
+            
+        </response>
+        <response name="error" type="request-redirect" value="EditProdBacklog">
+            <redirect-parameter name="productId"/>
+            <redirect-parameter name="sequence"/>
+            <redirect-parameter name="custRequestId"/>
+        </response>
+    </request-map>
+    <request-map uri="deleteCustRequest">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="deleteCustRequest" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="request-redirect" value="AddProdBacklog"><redirect-parameter name="productId"/></response>
+        <response name="error" type="view" value="AddProdBacklog"/>
+    </request-map>
+    <request-map uri="deleteBacklogItem">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="deleteCustRequest" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="request-redirect" value="ViewProdBacklogItem">
+            <redirect-parameter name="productId"/>
+            <redirect-parameter name="custRequestId"/>
+        </response>
+        <response name="error" type="view" value="EditDeleteBacklogItem"/>
+    </request-map>
+    <request-map uri="deleteProductBacklogItem">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="deleteCustRequest" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="request-redirect" value="AddProdBacklog">
+            <redirect-parameter name="productId"/>
+        </response>
+        <response name="error" type="view" value="DeleteProductBacklogItem"/>
+    </request-map>
+    <request-map uri="updateProductBacklogItemRow">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="updateProductBacklogItemRows" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="request-redirect" value="AddProdBacklog">
+            <redirect-parameter name="productId"/>
+            <redirect-parameter name="sequence"/>
+            <redirect-parameter name="UnplannedSequence"/>
+            <redirect-parameter name="VIEW_SIZE_1"/>
+            <redirect-parameter name="VIEW_INDEX_1"/>
+            <redirect-parameter name="statusId" from="backStatusId"/>
+        </response>
+        <response name="error" type="view" value="AddProdBacklog"/>
+    </request-map>
+     <request-map uri="EditDeleteBacklogItem">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditDeleteBacklogItem"/>
+        <response name="error" type="view" value="EditDeleteBacklogItem"/>
+    </request-map>
+     <request-map uri="DeleteProductBacklogItem">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="DeleteProductBacklogItem"/>
+        <response name="error" type="view" value="DeleteProductBacklogItem"/>
+    </request-map>
+    <request-map uri="createCustRequestItem">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createCustRequestItem"/>
+        <response name="success" type="view" value="EditProdBacklog"/>
+        <response name="error" type="view" value="EditProdBacklog"/>
+    </request-map>
+    <request-map uri="updateCustRequest">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateCustRequest"/>
+        <response name="success" type="view" value="AddProdBacklog"/>
+        <response name="error" type="view" value="AddProdBacklog"/>
+    </request-map>
+    <request-map uri="updateCustRequestItem">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateCustRequestItem"/>
+        <response name="success" type="view" value="EditProdBacklog"/>
+        <response name="error" type="view" value="EditProdBacklog"/>
+    </request-map>
+    <request-map uri="deleteCustRequestItem">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="deleteCustRequestItem" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="request-redirect" value="EditProdBacklog"><redirect-parameter name="custRequestId"/></response>
+        <response name="error" type="view" value="EditProdBacklog"/>
+    </request-map>
+    <request-map uri="DailyScrumMeetingMinute">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="DailyScrumMeetingMinute"/>
+    </request-map>
+    <request-map uri="createDailyNote">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="createDailyNote" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="request-redirect" value="DailyScrumMeetingMinute">
+            <redirect-parameter name="sprintId"/>
+        </response>
+        <response name="error" type="view" value="DailyScrumMeetingMinute"/>
+    </request-map>
+    <request-map uri="updateDailyNote">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="updateDailyNote" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="request-redirect-noparam" value="DailyScrumMeetingMinute"/>
+        <response name="error" type="view" value="DailyScrumMeetingMinute"/>
+    </request-map>
+    <request-map uri="ViewDailyMeetingMinutes">
+        <security https="false" auth="true"/>
+        <response name="success" type="view" value="ViewDailyMeetingMinutes"/>
+        <response name="error" type="view" value="ViewDailyMeetingMinutes"/>
+    </request-map>
+    <request-map uri="createProductBacklog">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="createProductBacklog" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="request-redirect" value="AddProdBacklog">
+            <redirect-parameter name="productId"/>
+            <redirect-parameter name="sequence"/>
+            <redirect-parameter name="statusId" from="backStatusId"/>
+        </response>
+        <response name="error" type="view" value="AddProdBacklog"/>
+    </request-map>
+    <request-map uri="editSprintBacklog">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditSprintBacklog"/>
+    </request-map>
+    <request-map uri="updateSprintBacklog">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="updateSprintBacklog" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="error" type="view" value="EditSprintBacklog"/>
+        <response name="success" type="view" value="ViewSprint"/>
+    </request-map>
+    <request-map uri="newBacklogTask">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="NewBacklogTask"/>
+    </request-map>
+    <!-- Lookup request mappings -->
+    <request-map uri="LookupPartyName"><security https="true" auth="true"/><response name="success" type="view" value="LookupPartyName"/></request-map>
+    <request-map uri="LookupProductBacklog"><security https="true" auth="true"/><response name="success" type="view" value="LookupProductBacklog"/></request-map>
+    <request-map uri="LookupPerson"><security https="true" auth="true"/><response name="success" type="view" value="LookupPerson"/></request-map>
+    
+    <!-- add sprint backlog -->
+    <request-map uri="AddSprintBacklog"><security https="true" auth="true"/><response name="success" type="view" value="AddSprintBacklog"/></request-map>
+    <request-map uri="createSprintBacklog">
+    <security https="true" auth="true"/>
+    <event type="simple" invoke="createSprintBacklog" path="component://scrum/minilang/ScrumEvents.xml"/>
+    <response name="success" type="view" value="ViewSprint"/>
+    <response name="error" type="view" value="AddSprintBacklog"/>
+    </request-map>
+    <request-map uri="updateSprintBacklogseq">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateSprintBacklogseq"/>
+        <response name="success" type="request-redirect" value="AddProdBacklog">
+            <redirect-parameter name="productId" from="productId"/>
+        </response>
+        <response name="error" type="view" value="AddProdBacklog"/>
+    </request-map>
+    <!-- Task -->
+    <request-map uri="SprintTask">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="SprintTask"/>
+    </request-map>
+    <request-map uri="createSprintBacklogTask">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="createSprintBacklogTask" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="error" type="request-redirect" value="EditSprintTask">
+            <redirect-parameter name="sprintId"/>
+        </response>
+        <response name="success" type="request-redirect" value="SprintTask">
+            <redirect-parameter name="sprintId"/>
+        </response>
+    </request-map>
+    <request-map uri="updateSprintTask">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="updateTask" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="error" type="view" value="SprintTask"/>
+        <response name="success" type="request-redirect" value="SprintTask">
+            <redirect-parameter name="sprintId"/>
+        </response>
+    </request-map>
+    <request-map uri="deleteSprintTask">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteWorkEffortRequest"/>
+        <response name="error" type="view" value="EditSprintTask"/>
+        <response name="success" type="request-redirect" value="SprintTask">
+            <redirect-parameter name="sprintId"/>
+        </response>
+    </request-map>
+    <request-map uri="SprintTaskView">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="SprintTaskView"/>
+    </request-map>
+    <request-map uri="EditSprintTask">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditSprintTask"/>
+    </request-map>
+    <request-map uri="addTaskMember">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="assignPartyToWorkEffort"/>
+        <response name="error" type="request" value="SprintTaskView"/>
+        <response name="success" type="request" value="SprintTaskView"/>
+    </request-map>
+    <request-map uri="removeTaskMember">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deletePartyToWorkEffortAssignment"/>
+        <response name="error" type="request" value="SprintTaskView"/>
+        <response name="success" type="request" value="SprintTaskView"/>
+    </request-map>
+    <request-map uri="taskMember">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="taskMember"/>
+        <response name="error" type="view" value="taskMember"/>
+    </request-map>
+    <request-map uri="addMemberTask">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="addMemberTask" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="request" value="taskMember"/>
+        <response name="error" type="request" value="taskMember"/>
+    </request-map>
+    <request-map uri="removeMemberTask">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="unassignPartyFromWorkEffort"/>
+        <response name="success" type="request" value="taskMember"/>
+        <response name="error" type="request" value="taskMember"/>
+    </request-map>
+    
+    <request-map uri="FindTask">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindTask"/>
+    </request-map>
+    <request-map uri="taskView">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="taskView"/>
+    </request-map>
+    <request-map uri="backlogView">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="backlogView"/>
+    </request-map>
+    <request-map uri="EditTaskPartyAssigns">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditTaskPartyAssigns"/>
+    </request-map>
+    <request-map uri="EditTask">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditTask"/>
+    </request-map>
+    <request-map uri="updateTask">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="updateTask" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="request" value="taskView">
+            <redirect-parameter name="taskId" from="parameters.taskId"/>
+        </response>
+        <response name="error" type="view" value="EditTask"/>
+    </request-map>
+    <request-map uri="updateTaskList">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="updateTask" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="request-redirect-noparam" value="FindTask" />
+        <response name="error" type="request-redirect-noparam" value="FindTask"/>
+    </request-map>
+    <!-- Task Note -->
+    <request-map uri="TaskNote">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="TaskNote"/>
+    </request-map>
+    <request-map uri="createTaskNote">
+        <security auth="true" https="true"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml"  invoke="createTaskNote"/>
+        <response name="success" type="request-redirect" value="TaskNote">
+            <redirect-parameter name="taskId"/>
+        </response>
+        <response name="error" type="view" value="TaskNote"/>
+    </request-map>
+    <request-map uri="deleteTaskNote">
+        <security auth="true" https="true"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml"  invoke="deleteTaskNote"/>
+        <response name="success" type="request-redirect" value="TaskNote">
+            <redirect-parameter name="taskId"/>
+        </response>
+        <response name="error" type="view" value="TaskNote"/>
+    </request-map>
+    <request-map uri="FindTaskRevision">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindTaskRevision"/>
+    </request-map>
+    <request-map uri="RevisionInfo">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="RevisionInfo"/>
+    </request-map>
+    <request-map uri="EditTaskPartyAssigns">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditTaskPartyAssigns"/>
+    </request-map>
+    <request-map uri="setTaskStatusToComplete">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="setTaskStatusToComplete" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="view" value="taskView"/>
+    </request-map>
+    <request-map uri="setTaskStatus">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateWorkEffort"/>
+        <response name="success" type="view" value="taskView"/>
+    </request-map>
+    <request-map uri="setTaskStatusReOpen">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="setTaskStatusReOpen" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="view" value="taskView"/>
+    </request-map>
+    <request-map uri="updateTaskAssigment">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateScrumTaskAssigment"/>
+        <response name="success" type="view" value="MyTasks"/>
+        <response name="error" type="view" value="MyTasks"/>
+    </request-map>
+    <request-map uri="addScrumTaskAssignment">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="assignPartyToWorkEffort"/>
+        <response name="success" type="view" value="EditTaskPartyAssigns"/>
+        <response name="error" type="view" value="EditTaskPartyAssigns"/>
+    </request-map>
+    <request-map uri="createTaskPartyAssign">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateScrumTaskAssigment"/>
+        <response name="success" type="view" value="EditTaskPartyAssigns"/>
+        <response name="error" type="view" value="EditTaskPartyAssigns"/>
+    </request-map>
+    <request-map uri="updateTaskPartyAssign">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateScrumTaskAssigment"/>
+        <response name="success" type="view" value="EditTaskPartyAssigns"/>
+        <response name="error" type="view" value="EditTaskPartyAssigns"/>
+    </request-map>
+    <request-map uri="deleteTaskPartyAssign">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deletePartyToWorkEffortAssignment"/>
+        <response name="success" type="view" value="EditTaskPartyAssigns"/>
+        <response name="error" type="view" value="EditTaskPartyAssigns"/>
+    </request-map>
+    <request-map uri="removeTaskPartyAssign">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="unassignPartyFromWorkEffort"/>
+        <response name="success" type="view" value="EditTaskPartyAssigns"/>
+        <response name="error" type="view" value="EditTaskPartyAssigns"/>
+    </request-map>
+    <request-map uri="createTask">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="createSprintBacklogTask" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="view" value="FindTask"/>
+        <response name="error" type="view" value="EditTask"/>
+    </request-map>
+    <request-map uri="deleteTask">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteWorkEffort"/>
+        <response name="success" type="view" value="FindTask"/>
+        <response name="error" type="view" value="FindTask"/>
+    </request-map>
+    <!-- Resource -->
+    <request-map uri="FindResource">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindResource"/>
+    </request-map>
+   <request-map uri="addResource">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="addScrumResource" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="error" type="view" value="FindResource"/>
+        <response name="success" type="request-redirect-noparam" value="FindResource"/>
+    </request-map>
+    <request-map uri="removeResource">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="deleteScrumResource" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="request-redirect-noparam" value="FindResource"/>
+        <response name="error" type="view" value="FindResource"/>
+    </request-map>
+    <request-map uri="listResourcesProject">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="listResourcesProject"/>
+    </request-map>
+    <request-map uri="listResourcesTask">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="listResourcesTask"/>
+    </request-map>
+    <request-map uri="addWorkEffortPartyAssign">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="addProjectMember" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="request-redirect" value="listResourcesProject">
+            <redirect-parameter name="partyId"/>
+        </response>
+        <response name="error" type="view" value="listResourcesProject"/>
+    </request-map>
+    <request-map uri="addTaskPartyAssign">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="addTaskAssignment" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="view" value="listResourcesTask"/>
+        <response name="error" type="view" value="listResourcesTask"/>
+    </request-map>
+    <!-- View Profile -->
+    <request-map uri="viewprofile">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="viewprofile" save-home-view="true"/>
+    </request-map>
+    <request-map uri="viewroles">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="viewroles"/>
+    </request-map>
+    <request-map uri="EditPartyRates">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditPartyRates"/>
+    </request-map>
+    <request-map uri="createPartyRate">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="scrumUpdatePartyRate" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="view" value="EditPartyRates"/>
+        <response name="error" type="view" value="EditPartyRates"/>
+    </request-map>
+    <request-map uri="updatePartyRate">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="scrumUpdatePartyRate" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="view" value="EditPartyRates"/>
+        <response name="error" type="view" value="EditPartyRates"/>
+    </request-map>
+    <request-map uri="deletePartyRate">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="scrumDeletePartyRate" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="view" value="EditPartyRates"/>
+        <response name="error" type="view" value="EditPartyRates"/>
+    </request-map>
+    
+    <!-- Product -->
+    <request-map uri="EditProduct"><security https="true" auth="true"/><response name="success" type="view" value="EditProduct"/></request-map>
+    <request-map uri="ViewProduct"><security https="true" auth="true"/><response name="success" type="view" value="ViewProduct"/></request-map>
+    <request-map uri="ViewTotalBacklog"><security https="true" auth="true"/><response name="success" type="view" value="ViewTotalBacklog"/></request-map>
+    <request-map uri="ScrumProduct"><security https="true" auth="true"/><response name="success" type="view" value="ScrumProduct"/></request-map>
+    <request-map uri="ProductBilling"><security https="true" auth="true"/><response name="success" type="view" value="ProductBilling"/></request-map>
+    <request-map uri="addProductTimeToNewInvoice">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="addProductTimeToNewInvoice"/>
+        <response name="success" type="request-redirect" value="ProductBilling">
+            <redirect-parameter name="productId"/>
+        </response>
+        <response name="error" type="request-redirect" value="ProductBilling"/>
+    </request-map>
+    <request-map uri="totalBillingToNewInvoice">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="addProductTimeToNewInvoice"/>
+        <response name="success" type="request-redirect" value="TotalBilling">
+            <redirect-parameter name="productId"/>
+        </response>
+        <response name="error" type="request-redirect" value="TotalBilling"/>
+    </request-map>
+    <request-map uri="updateNotBilledBacklog">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="updateNotBilledBacklog" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="request-redirect" value="ProductBilling">
+            <redirect-parameter name="productId"/>
+            <redirect-parameter name="fromDate"/>
+            <redirect-parameter name="thruDate"/>
+            <redirect-parameter name="includeMeeting"/>
+            <redirect-parameter name="VIEW_SIZE_1"/>
+            <redirect-parameter name="VIEW_INDEX_1"/>
+        </response>
+        <response name="error" type="request-redirect" value="ProductBilling"/>
+    </request-map>
+    <request-map uri="updateTotalNotBilledBacklog">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="updateNotBilledBacklog" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="request-redirect" value="TotalBilling">
+            <redirect-parameter name="productId"/>
+            <redirect-parameter name="fromDate"/>
+            <redirect-parameter name="thruDate"/>
+            <redirect-parameter name="includeMeeting"/>
+            <redirect-parameter name="VIEW_SIZE_1"/>
+            <redirect-parameter name="VIEW_INDEX_1"/>
+        </response>
+        <response name="error" type="request-redirect" value="TotalBilling"/>
+    </request-map>
+    
+    <request-map uri="createProductAndRole">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="createProductAndRole" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="request-redirect" value="ViewProduct"/>
+        <response name="error" type="request-redirect" value="EditProduct"/>
+    </request-map>
+    <request-map uri="createProductRole">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="createProductRole" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="view" value="AddProduct"/>
+        <response name="error" type="view" value="AddProduct"/>
+    </request-map>
+    <request-map uri="updateProduct">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="updateProduct" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="view" value="ViewProduct"></response>
+        <response name="error" type="view" value="EditProduct"/>
+    </request-map>
+    <request-map uri="deleteProduct">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="deleteProduct" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="request-redirect-noparam" value="AddProduct"/>
+        <response name="error" type="view" value="AddProduct"/>
+    </request-map>
+    <request-map uri="deleteProjectPartyAssign">
+        <security https="true" auth="true"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml" invoke="removeProjectMember"/>
+        <response name="success" type="request-redirect" value="listResourcesProject">
+            <redirect-parameter name="partyId"/>
+        </response>
+        <response name="error" type="view" value="listResourcesProject"/>
+    </request-map>
+    <request-map uri="ProductMember">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ProductMember"/>
+   </request-map>
+   <request-map uri="addProductMember">
+        <security https="true" auth="true"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml" invoke="addProductMember"/>
+        <response name="success" type="view" value="ProductMember"/>
+        <response name="error" type="view" value="ProductMember"/>
+    </request-map>
+   <request-map uri="removeProductMember">
+        <security https="true" auth="true"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml" invoke="removeProductMember"/>
+        <response name="success" type="request-redirect" value="ProductMember">
+            <redirect-parameter name="productId"/>
+        </response>
+        <response name="error" type="view" value="ProductMember"/>
+    </request-map>
+    <request-map uri="UpdateCompanyAndOwner">
+        <security https="true" auth="true"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml" invoke="updateProduct"/>
+        <response name="success" type="view" value="ProductMember"/>
+        <response name="error" type="view" value="ProductMember"/>
+    </request-map>
+    
+    <!-- My Work -->
+    <request-map uri="MyWork">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="MyWork" save-home-view="true"/>
+    </request-map>
+    <request-map uri="addTaskAssignment">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="addTaskAssignment" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="view" value="MyWork"/>
+        <response name="error" type="view" value="MyWork"/>
+    </request-map>
+    <request-map uri="updateMyTask">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="updateTask" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="request-redirect" value="MyWork">
+            <redirect-parameter name="timesheetId"/>
+            <redirect-parameter name="MyTasks_size_1"/>
+            <redirect-parameter name="MyTasks_index_1"/>
+        </response>
+        <response name="error" type="view" value="MyWork"/>
+    </request-map>
+    <request-map uri="unassignPartyFromWorkEffort">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="unassignPartyFromWorkEffort"/>
+        <response name="success" type="view" value="MyWork"/>
+        <response name="error" type="view" value="MyWork"/>
+    </request-map>
+    <request-map uri="updateMyTimesheet">
+        <security https="true" auth="true"/>
+        <event type="service-multi" invoke="updateTimesheetEntryByWorkeffort"/>
+        <response name="success" type="request-redirect" value="MyWork">
+            <redirect-parameter name="timesheetId"/>
+            <redirect-parameter name="EditWeekTimeshee_size_1"/>
+            <redirect-parameter name="EditWeekTimeshee_index_1"/>
+        </response>
+        <response name="error" type="view" value="MyWork"/>
+    </request-map>
+    <request-map uri="MyTimeSheetStatusToComplete">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateTimesheet"/>
+        <response name="success" type="view" value="MyWork"/>
+        <response name="error" type="view" value="MyWork"/>
+    </request-map>
+    <request-map uri="createMyWeeklyTimesheet">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createTimesheetForThisWeek"/>
+        <response name="success" type="view" value="MyWork"/>
+        <response name="error" type="view" value="MyWork"/>
+    </request-map>
+    <!-- TimeSheet -->
+    <request-map uri="createWeeklyTimesheet">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createTimesheetForThisWeek"/>
+        <response name="success" type="view" value="ViewTimeSheet"/>
+        <response name="error" type="view" value="ViewTimeSheet"/>
+    </request-map>
+    <request-map uri="TimeSheetStatusToComplete">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateTimesheet"/>
+        <response name="success" type="view" value="ViewTimeSheet"/>
+        <response name="error" type="view" value="ViewTimeSheet"/>
+    </request-map>
+    <request-map uri="updateTimesheetToInProcess">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateTimesheetToInProcess"/>
+        <response name="success" type="view" value="ViewTimeSheet"/>
+        <response name="error" type="view" value="ViewTimeSheet"/>
+    </request-map>
+    <request-map uri="updateTimesheet">
+        <security https="true" auth="true"/>
+        <event type="service-multi" invoke="updateTimesheetEntryByWorkeffort"/>
+        <response name="success" type="view-home"/>
+        <response name="error" type="view-home"/>
+    </request-map>
+    
+    <request-map uri="testTaskBacklog">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="testTaskBacklog" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="error" type="request-redirect" value="backlogView">
+            <redirect-parameter name="custRequestId"/>
+        </response>
+        <response name="success" type="request-redirect" value="backlogView">
+            <redirect-parameter name="custRequestId"/>
+        </response>
+    </request-map>
+    
+    <request-map uri="NewSprintBacklogTask">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="NewSprintBacklogTask"/>
+    </request-map>
+    <request-map uri="createTaskForSprintBacklog">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="createSprintBacklogTask" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="error" type="view" value="NewSprintBacklogTask"/>
+        <response name="success" type="request-redirect" value="ViewSprint">
+            <redirect-parameter name="projectId"/>
+            <redirect-parameter name="sprintId"/>
+        </response>
+    </request-map>
+    <request-map uri="openTest">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="openTest"/>
+    </request-map>
+    <request-map uri="FindTotalBacklog">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindTotalBacklog"/>
+    </request-map>
+    <request-map uri="FindTimeSheet">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindTimeSheet"/>
+    </request-map>
+    <request-map uri="ViewTimeSheet">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ViewTimeSheet" save-home-view="true"/>
+    </request-map>
+    <request-map uri="TotalBilling">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="TotalBilling"/>
+    </request-map>
+    <request-map uri="defaultTasks">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="defaultTasks"/>
+    </request-map>
+    <request-map uri="editDefaultTask">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="editDefaultTask"/>
+    </request-map>
+    <request-map uri="createDefaultTask">
+        <security https="true" auth="true"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml" invoke="createDefaultTask"/>
+        <response name="success" type="view" value="defaultTasks"/>
+        <response name="error" type="view" value="editDefaultTask"/>
+    </request-map>
+    <request-map uri="updateDefaultTask">
+        <security https="true" auth="true"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml" invoke="updateDefaultTask"/>
+        <response name="success" type="view" value="defaultTasks"/>
+        <response name="error" type="view" value="editDefaultTask"/>
+    </request-map>
+    <request-map uri="deleteDefaultTask">
+        <security https="true" auth="true"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml" invoke="deleteDefaultTaskScrum"/>
+        <response name="success" type="view" value="defaultTasks"/>
+        <response name="error" type="view" value="defaultTasks"/>
+    </request-map>
+    <request-map uri="findBacklog">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="openTest"/>
+        <response name="error" type="view" value="openTest"/>
+    </request-map>
+    <request-map uri="editTask">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="editTask"/>
+        <response name="error" type="view" value="editTask"/>
+    </request-map>
+    <request-map uri="createTestTask">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="createTestTask" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="request-redirect" value="taskView">
+        <redirect-parameter name="taskId"  from="workEffortId"/>
+        </response>
+        <response name="error" type="request-redirect" value="editTask">
+                <redirect-parameter name="sprintId"/>
+                <redirect-parameter name="custRequestId"/> 
+        </response>
+    </request-map>
+    <request-map uri="ListProductBacklogCategories">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ListProductBacklogCategories"/>
+    </request-map>
+    <request-map uri="EditProductBacklogCategory">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditProductBacklogCategory"/>
+    </request-map>
+    <request-map uri="createProductBacklogCategory">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="createProductBacklogCategory" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="view" value="ListProductBacklogCategories"/>
+        <response name="error" type="view" value="EditProductBacklogCategory"/>
+    </request-map>
+    <request-map uri="updateProductBacklogCategory">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="updateProductBacklogCategory" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="view" value="ListProductBacklogCategories"/>
+        <response name="error" type="view" value="EditProductBacklogCategory"/>
+    </request-map>
+    <!-- Quick Add Backlog -->
+    <request-map uri="QuickAddBacklog">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="QuickAddBacklog"/>
+    </request-map>
+    <request-map uri="createQuickAddBacklog">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="createQuickAddBacklog" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="view" value="ViewSprint">
+        </response>
+        <response name="error" type="view" value="QuickAddBacklog"/>
+    </request-map>
+    <request-map uri="createQuickAddUnPlannedBacklog">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="createQuickAddBacklog" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="view" value="unplanBacklog">
+        </response>
+        <response name="error" type="view" value="QuickAddBacklog"/>
+    </request-map>
+    <!-- Unplan Backlog -->
+    <request-map uri="unplanBacklog">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="unplanBacklog"/>
+    </request-map>
+    <request-map uri="UpdateUnplanBacklogHours">
+        <security auth="true" https="true"></security>
+        <event type="simple" invoke="updateTask" path="component://scrum/minilang/ScrumEvents.xml"></event>
+        <response name="success" type="view" value="unplanBacklog"></response>
+        <response name="error" type="view" value="unplanBacklog"></response>
+    </request-map>
+    <request-map uri="DeleteUnplanBacklog">
+        <security auth="true" https="true"/>
+        <event type="simple" invoke="deleteSprintBacklog" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="view" value="unplanBacklog"></response>
+        <response name="error" type="view" value="unplanBacklog"></response>
+    </request-map>
+    <request-map uri="DeleteTaskFromUnplanBacklog">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="deleteWorkEffortRequest"/>
+        <response name="success" type="view" value="unplanBacklog">
+            <redirect-parameter name="productId"/>
+       </response>
+        <response name="error" type="view" value="unplanBacklog"></response>
+    </request-map>
+    <request-map uri="setCompleteFromUnplanBacklog">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="setTaskStatusToComplete" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="view" value="unplanBacklog"/>
+    </request-map>
+     <request-map uri="NewUnplanBacklogTask">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="NewUnplanBacklogTask"/>
+    </request-map>
+    <request-map uri="createTaskForUnplanBacklog">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="createSprintBacklogTask" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="request-redirect" value="unplanBacklog">
+            <redirect-parameter name="productId"/>
+        </response>
+        <response name="error" type="view" value="unplanBacklog"/>
+    </request-map>
+    <request-map uri="setUnplannedSprint">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="setUnplannedSprint" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="view" value="unplanBacklog"/>
+        <response name="error" type="view" value="AddProdBacklog"/>
+    </request-map>
+    
+    <!-- Product communication events -->
+    <request-map uri="ProductEmails">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ProductEmails"/>
+    </request-map>
+    <request-map uri="NewProductEmail">
+        <security https="true" auth="true"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml" invoke="createScrumCommunicationEvent"/>
+        <response name="success" type="view" value="NewProductEmail"/>
+    </request-map>
+    <request-map uri="updateEmailForProduct">
+        <security https="true" auth="true"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml" invoke="updateScrumCommunicationEvent"/>
+        <response name="success" type="view" value="ProductEmails"/>
+        <response name="error" type="view" value="NewProductEmail"/>
+    </request-map>
+    <request-map uri="EditEmailForProduct">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="NewProductEmail"/>
+    </request-map>
+    <request-map uri="replyEmailForProduct">
+        <security https="true" auth="true"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml" invoke="createScrumCommunicationEvent"/>
+        <response name="success" type="view" value="NewProductEmail"/>
+    </request-map>
+    <request-map uri="uploadAttachFiletoEmailForProduct">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="createScrumCommunicationEventContent" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="view" value="NewProductEmail"/>
+        <response name="error" type="view" value="NewProductEmail"/>
+    </request-map>
+    <request-map uri="removeAttachFileForProduct">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="removeCommEventContentAssoc"/>
+        <response name="success" type="view" value="NewProductEmail"/>
+        <response name="error" type="view" value="NewProductEmail"/>
+    </request-map>
+    <request-map uri="ViewProductEmail">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ViewProductEmail"/>
+    </request-map>
+    
+    <request-map uri="CloseSprint">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="closeSprint" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="request-redirect" value="ViewSprint">
+            <redirect-parameter name="sprintId"/>
+        </response>
+        <response name="error" type="request-redirect" value="ViewSprint">
+            <redirect-parameter name="sprintId"/>
+        </response>
+    </request-map>
+    
+     <!-- Upload Project Content -->
+    <request-map uri="EditProjectContents">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="EditProjectContents"/>
+    </request-map>
+    <request-map uri="createProjectContent">
+        <security auth="true" https="true"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml" invoke="createScrumProjectContent"/>
+        <response name="success" type="request-redirect" value="EditProjectContents">
+            <redirect-parameter name="projectId"/>
+        </response>
+    </request-map>
+    <request-map uri="deleteProjectContent">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="deleteWorkEffortContent"/>
+        <response name="success" type="request-redirect" value="EditProjectContents">
+            <redirect-parameter name="projectId"/>
+        </response>
+    </request-map>
+    
+     <!-- Upload Scrum Product Content -->
+    <request-map uri="EditProductContents">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="EditProductContents"/>
+    </request-map>
+    <request-map uri="createScrumProductContent">
+        <security auth="true" https="true"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml" invoke="createScrumProductContent"/>
+        <response name="success" type="request-redirect" value="EditProductContents">
+            <redirect-parameter name="productId"/>
+        </response>
+    </request-map>
+    <request-map uri="deleteScrumProductContent">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="removeProductContent"/>
+        <response name="success" type="request-redirect" value="EditProductContents">
+            <redirect-parameter name="productId"/>
+        </response>
+    </request-map>
+    
+    <!-- Product Backlog Item Note -->
+    <request-map uri="ProdBacklogNote">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ProdBacklogNote"/>
+    </request-map>
+    <request-map uri="createProdBacklogNote">
+        <security auth="true" https="true"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml"  invoke="createProdBacklogNote"/>
+        <response name="success" type="request-redirect" value="ProdBacklogNote">
+            <redirect-parameter name="custRequestId"/>
+            <redirect-parameter name="productId"/>
+        </response>
+        <response name="error" type="view" value="ProdBacklogNote"/>
+    </request-map>
+    <request-map uri="deleteProdBacklogNote">
+        <security auth="true" https="true"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml"  invoke="deleteProdBacklogNote"/>
+        <response name="success" type="request-redirect" value="ProdBacklogNote">
+            <redirect-parameter name="custRequestId"/>
+            <redirect-parameter name="productId"/>
+        </response>
+        <response name="error" type="view" value="ProdBacklogNote"/>
+    </request-map>
+    
+     <!-- CustRequest Content -->
+    <request-map uri="EditBacklogItemContent">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditBacklogItemContent"/>
+    </request-map>
+    <request-map uri="createBacklogItemContent">
+        <security auth="true" https="true"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml"  invoke="createBacklogItemContent"/>
+        <response name="success" type="request-redirect" value="EditBacklogItemContent">
+            <redirect-parameter name="custRequestId"/>
+            <redirect-parameter name="productId"/>
+        </response>
+        <response name="error" type="view" value="EditBacklogItemContent"/>
+    </request-map>
+    <request-map uri="deleteBacklogItemContent">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="deleteCustRequestContent" />
+        <response name="success" type="request-redirect" value="EditBacklogItemContent">
+            <redirect-parameter name="custRequestId"/>
+            <redirect-parameter name="productId"/>
+        </response>
+        <response name="error" type="view" value="EditBacklogItemContent"/>
+    </request-map>
+    
+    <!-- Product backlog communication events -->
+    <request-map uri="ProductBacklogEmails">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ProductBacklogEmails"/>
+    </request-map>
+    <request-map uri="NewProductBacklogEmail">
+        <security https="true" auth="true"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml" invoke="createScrumCommunicationEvent"/>
+        <response name="success" type="view" value="NewProductBacklogEmail"/>
+    </request-map>
+    <request-map uri="updateEmailForProductBacklog">
+        <security https="true" auth="true"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml" invoke="updateScrumCommunicationEvent"/>
+        <response name="success" type="view" value="ProductBacklogEmails"/>
+        <response name="error" type="view" value="NewProductBacklogEmail"/>
+    </request-map>
+    <request-map uri="replyEmailForProductBacklog">
+        <security https="true" auth="true"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml" invoke="createScrumCommunicationEvent"/>
+        <response name="success" type="view" value="NewProductBacklogEmail"/>
+    </request-map>
+    <request-map uri="uploadAttachFiletoEmail">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="createScrumCommunicationEventContent" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="view" value="NewProductBacklogEmail"/>
+        <response name="error" type="view" value="NewProductBacklogEmail"/>
+    </request-map>
+    <request-map uri="removeAttachFile">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="removeCommEventContentAssoc"/>
+        <response name="success" type="view" value="NewProductBacklogEmail"/>
+        <response name="error" type="view" value="NewProductBacklogEmail"/>
+    </request-map>
+    <request-map uri="ViewProductBacklogEmail">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ViewProductBacklogEmail"/>
+    </request-map>
+    <!-- Preference -->
+    <request-map uri="Preferences">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="Preferences"></response>
+    </request-map>
+    <request-map uri="updatePreference">
+        <security https="true" auth="true"/>
+        <event type="service-multi" invoke="setUserPreference"/>
+        <response name="success" type="request-redirect" value="Preferences">
+            <redirect-parameter name="partyId"/>
+        </response>
+        <response name="error" type="request-redirect" value="Preferences">
+            <redirect-parameter name="partyId"/>
+        </response>
+    </request-map>
+    
+    <request-map uri="ViewProdBacklogItem">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ViewProdBacklogItem"/>
+    </request-map>
+    <request-map uri="CopyMemberLastSprint">
+        <security https="true" auth="true"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml" invoke="CopyMemberLastSprint"/>
+        <response name="success" type="request-redirect" value="ViewSprint">
+            <redirect-parameter name="projectId" from="projectId"/>
+            <redirect-parameter name="sprintId" from="sprintId" />
+        </response>
+        <response name="error" type="request-redirect" value="ViewSprint">
+            <redirect-parameter name="projectId" from="projectId"/>
+            <redirect-parameter name="sprintId" from="sprintId" />
+        </response>
+    </request-map>
+    
+    <!-- admin level -->
+    <request-map uri="adminScrum">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindTotalBacklog"/>
+    </request-map>
+    <request-map uri="defaultTaskScrum">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="defaultTaskScrum"/>
+    </request-map>
+    <request-map uri="editDefaultTaskScrum">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="editDefaultTaskScrum"/>
+        <response name="error" type="view" value="editDefaultTaskScrum"/>
+    </request-map>
+    <request-map uri="createDefaultTaskScrum">
+        <security https="true" auth="true"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml" invoke="createDefaultTask"/>
+        <response name="success" type="view" value="defaultTaskScrum"/>
+        <response name="error" type="view" value="editDefaultTaskScrum"/>
+    </request-map>
+    <request-map uri="updateDefaultTaskScrum">
+        <security https="true" auth="true"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml" invoke="updateDefaultTask"/>
+        <response name="success" type="view" value="defaultTaskScrum"/>
+        <response name="error" type="view" value="editDefaultTaskScrum"/>
+    </request-map>
+    <request-map uri="deleteDefaultTaskScrum">
+        <security https="true" auth="true"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml" invoke="deleteDefaultTaskScrum"/>
+        <response name="success" type="view" value="defaultTaskScrum"/>
+        <response name="error" type="view" value="defaultTaskScrum"/>
+    </request-map>
+    <request-map uri="quickAddNewTask">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="quickAddNewTask"/>
+    </request-map>
+    <request-map uri="createTaskForBacklog">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="createSprintBacklogTask" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="request-redirect" value="taskView" >
+            <redirect-parameter name="taskId" from="taskId" />
+        </response>
+        <response name="error" type="view" value="quickAddNewTask"/>
+    </request-map>
+    <request-map uri="findPartyRevision">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindPartyRevision"/>
+    </request-map>
+    <request-map uri="quickAddParty">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="quickAddParty"/>
+    </request-map>
+    <request-map uri="createQuickAddParty">
+        <security https="true" auth="true"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml" invoke="createQuickAddParty"/>
+        <response name="success" type="request-redirect-noparam" value="FindResource"/>
+        <response name="error" type="view" value="quickAddParty"/>
+    </request-map>
+    <request-map uri="quickAddPartyRelationship">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="quickAddPartyRelationship"/>
+    </request-map>
+    <request-map uri="createQuickAddPartyRelationship">
+        <security https="true" auth="true"/>
+        <event type="simple" path="component://scrum/minilang/ScrumEvents.xml" invoke="createQuickAddPartyRelationship"/>
+        <response name="success" type="view" value="FindResource"/>
+        <response name="error" type="view" value="quickAddPartyRelationship"/>
+    </request-map>
+    <request-map uri="ProductStatistics">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ProductStatistics"/>
+        <response name="error" type="view" value="ProductStatistics"/>
+    </request-map>
+    <request-map uri="QuickAddPartyRate">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="QuickAddPartyRate"/>
+    </request-map>
+    <request-map uri="updateQuickAddPartyRate">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="scrumUpdatePartyRate" path="component://scrum/minilang/ScrumEvents.xml"/>
+        <response name="success" type="request-redirect-noparam" value="FindResource"/>
+        <response name="error" type="view" value="FindResource"/>
+    </request-map>
+    
+    <!-- View Mappings -->
+    <view-map name="main" type="screen" page="component://scrum/widget/scrumScreens.xml#ScrumProduct"/>
+    <view-map name="Sprints" type="screen" page="component://scrum/widget/scrumScreens.xml#Sprints"/>
+    <!-- Sprint -->
+    <view-map name="AddSprint" type="screen" page="component://scrum/widget/scrumScreens.xml#AddSprint"></view-map>
+    <view-map name="SprintList" type="screen" page="component://scrum/widget/scrumScreens.xml#SprintList"></view-map>
+    <view-map name="ViewSprint" type="screen" page="component://scrum/widget/scrumScreens.xml#ViewSprint"></view-map>
+    <view-map name="EditSprint" type="screen" page="component://scrum/widget/scrumScreens.xml#EditSprint"></view-map>
+    <view-map name="SprintMember" type="screen" page="component://scrum/widget/scrumScreens.xml#SprintMember"/>
+    
+    <view-map name="editScrumProject" type="screen" page="component://scrum/widget/scrumScreens.xml#editScrumProject"/>
+    <view-map name="viewScrumProject" type="screen" page="component://scrum/widget/scrumScreens.xml#viewScrumProject"/>
+    <view-map name="EditProjectContents" type="screen" page="component://scrum/widget/scrumScreens.xml#EditProjectContents"/>
+    <view-map name="EditProductContents" type="screen" page="component://scrum/widget/scrumScreens.xml#EditProductContents"/>
+    <view-map name="AddProdBacklog" type="screen" page="component://scrum/widget/scrumScreens.xml#AddProdBacklog"/>
+    <view-map name="EditProdBacklog" type="screen" page="component://scrum/widget/scrumScreens.xml#EditProdBacklog"/>
+    <view-map name="EditDeleteBacklogItem" type="screen" page="component://scrum/widget/scrumScreens.xml#EditDeleteBacklogItem"/>
+    <view-map name="DeleteProductBacklogItem" type="screen" page="component://scrum/widget/scrumScreens.xml#DeleteProductBacklogItem"/>
+    <view-map name="ProdBacklogNote" type="screen" page="component://scrum/widget/scrumScreens.xml#ProdBacklogNote"/>
+    <view-map name="EditBacklogItemContent" type="screen" page="component://scrum/widget/scrumScreens.xml#EditBacklogItemContent"/>
+    <view-map name="ViewProdBacklogItem" type="screen" page="component://scrum/widget/scrumScreens.xml#ViewProdBacklogItem"/>
+    <view-map name="DailyScrumMeetingMinute" type="screen" page="component://scrum/widget/scrumScreens.xml#DailyScrumMeetingMinute"/>
+    <view-map name="ViewDailyMeetingMinutes" type="screen" page="component://scrum/widget/scrumScreens.xml#ViewDailyMeetingMinutes"/>
+    <view-map name="EditSprintBacklog" type="screen" page="component://scrum/widget/scrumScreens.xml#EditSprintBacklog"/>
+    <view-map name="NewBacklogTask" type="screen" page="component://scrum/widget/scrumScreens.xml#NewBacklogTask"/>
+    <view-map name="NewSprintBacklogTask" type="screen" page="component://scrum/widget/scrumScreens.xml#NewSprintBacklogTask"/>
+    <view-map name="backlogView" type="screen" page="component://scrum/widget/scrumScreens.xml#backlogView"/>
+    <view-map name="newScrumProject" type="screen" page="component://scrum/widget/scrumScreens.xml#newScrumProject"/>
+    <view-map name="QuickAddBacklog" type="screen" page="component://scrum/widget/scrumScreens.xml#QuickAddBacklog"/>
+    
+    <!-- Lookup -->
+    <view-map name="LookupPartyName" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyName"/>
+    <view-map name="LookupPerson" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPerson"/>
+    <view-map name="LookupProductBacklog" type="screen" page="component://scrum/widget/LookupScreens.xml#LookupProductBacklog"/>
+    <!-- add sprint backlog -->
+    <view-map name="AddSprintBacklog" type="screen" page="component://scrum/widget/scrumScreens.xml#AddSprintBacklog"/>
+    <!-- Task -->
+    <view-map name="SprintTask" type="screen" page="component://scrum/widget/scrumScreens.xml#SprintTask"/>
+    <view-map name="EditSprintTask" type="screen" page="component://scrum/widget/scrumScreens.xml#EditSprintTask"/>
+    <view-map name="SprintTaskView" type="screen" page="component://scrum/widget/TaskScreens.xml#SprintTaskView"/>
+    <view-map name="taskMember" type="screen" page="component://scrum/widget/TaskScreens.xml#taskMember"/>
+    
+    <view-map name="FindTask" type="screen" page="component://scrum/widget/TaskScreens.xml#FindTask"/>
+    <view-map name="taskView" type="screen" page="component://scrum/widget/TaskScreens.xml#TaskView"/>
+    <view-map name="EditTaskPartyAssigns" type="screen" page="component://scrum/widget/TaskScreens.xml#EditTaskPartyAssigns"/>
+    <view-map name="EditTask" type="screen" page="component://scrum/widget/TaskScreens.xml#EditTask"/>
+    <view-map name="TaskNote" type="screen" page="component://scrum/widget/TaskScreens.xml#TaskNote"/>
+    <view-map name="FindTaskRevision" type="screen" page="component://scrum/widget/TaskScreens.xml#FindTaskRevision"/>
+    <view-map name="RevisionInfo" type="screen" page="component://scrum/widget/TaskScreens.xml#RevisionInfo"/>
+    <!-- Resource -->
+    <view-map name="FindResource" type="screen" page="component://scrum/widget/ResourceScreens.xml#FindResource"/>
+    <view-map name="listResourcesProject" type="screen" page="component://scrum/widget/scrumScreens.xml#listResourcesProject"/>
+    <view-map name="listResourcesTask" type="screen" page="component://scrum/widget/scrumScreens.xml#listResourcesTask"/>
+    <view-map name="viewprofile" type="screen" page="component://scrum/widget/ResourceScreens.xml#viewprofile"/>
+    <view-map name="viewroles" type="screen" page="component://scrum/widget/ResourceScreens.xml#viewroles"/>
+    <view-map name="EditPartyRates" type="screen" page="component://scrum/widget/ResourceScreens.xml#EditPartyRates"/>
+    
+    <!-- Product -->
+    <view-map name="EditProduct" type="screen" page="component://scrum/widget/scrumScreens.xml#EditProduct"/>
+    <view-map name="ViewProduct" type="screen" page="component://scrum/widget/scrumScreens.xml#ViewProduct"/>
+    <view-map name="ViewTotalBacklog" type="screen" page="component://scrum/widget/scrumScreens.xml#ViewTotalBacklog"/>
+    <view-map name="ListProductBacklogCategories" type="screen" page="component://scrum/widget/scrumScreens.xml#ListProductBacklogCategories"/>
+    <view-map name="EditProductBacklogCategory" type="screen" page="component://scrum/widget/scrumScreens.xml#EditProductBacklogCategory"/>
+    <view-map name="Products" type="screen" page="component://scrum/widget/scrumScreens.xml#ScrumProduct"/>
+    <view-map name="ProductBilling" type="screen" page="component://scrum/widget/scrumScreens.xml#ProductBilling"/>
+    <view-map name="ProductEmails" type="screen" page="component://scrum/widget/scrumScreens.xml#ProductEmails"/>
+    <view-map name="NewProductEmail" type="screen" page="component://scrum/widget/scrumScreens.xml#NewProductEmail"/>
+    <view-map name="ViewProductEmail" type="screen" page="component://scrum/widget/scrumScreens.xml#ViewProductEmail"/>
+    <view-map name="NewProductBacklogEmail" type="screen" page="component://scrum/widget/scrumScreens.xml#NewProductBacklogEmail"/>
+    <view-map name="ViewProductBacklogEmail" type="screen" page="component://scrum/widget/scrumScreens.xml#ViewProductBacklogEmail"/>
+    <view-map name="ProductBacklogEmails" type="screen" page="component://scrum/widget/scrumScreens.xml#ProductBacklogEmails"/>
+    <view-map name="ProductMember" type="screen" page="component://scrum/widget/ResourceScreens.xml#ProductMember"/>
+    
+    <!-- My Work -->
+    <view-map name="MyWork" type="screen" page="component://scrum/widget/MyWorkScreens.xml#MyWork"/>
+    <!-- Open Test -->
+    <view-map name="openTest" type="screen" page="component://scrum/widget/OpenTestScreens.xml#openTest"/>
+    <view-map name="defaultTasks" type="screen" page="component://scrum/widget/OpenTestScreens.xml#defaultTasks"/>
+    <view-map name="editDefaultTask" type="screen" page="component://scrum/widget/OpenTestScreens.xml#editDefaultTask"/>
+    <view-map name="editTask" type="screen" page="component://scrum/widget/OpenTestScreens.xml#editTask"/>
+    <!-- Timesheets -->
+    <view-map name="FindTimeSheet" type="screen" page="component://scrum/widget/TimeSheetScreens.xml#FindTimeSheet"/>
+    <view-map name="ViewTimeSheet" type="screen" page="component://scrum/widget/TimeSheetScreens.xml#ViewTimeSheet"/>
+    <!-- Preference -->
+    <view-map name="Preferences" type="screen" page="component://scrum/widget/ResourceScreens.xml#Preferences"/>
+    <!-- admin level -->
+    <view-map name="FindTotalBacklog" type="screen" page="component://scrum/widget/scrumScreens.xml#FindTotalBacklog"/>
+    <view-map name="TotalBilling" type="screen" page="component://scrum/widget/scrumScreens.xml#TotalBilling"/>
+    <view-map name="defaultTaskScrum" type="screen" page="component://scrum/widget/OpenTestScreens.xml#defaultTaskScrum"/>
+    <view-map name="editDefaultTaskScrum" type="screen" page="component://scrum/widget/OpenTestScreens.xml#editDefaultTaskScrum"/>
+    <view-map name="quickAddNewTask" type="screen" page="component://scrum/widget/scrumScreens.xml#quickAddNewTask"/>
+    <view-map name="quickAddParty" type="screen" page="component://scrum/widget/ResourceScreens.xml#QuickAddParty"/>
+    <view-map name="quickAddPartyRelationship" type="screen" page="component://scrum/widget/ResourceScreens.xml#QuickAddPartyRelationship"/>
+    <view-map name="QuickAddPartyRate" type="screen" page="component://scrum/widget/ResourceScreens.xml#QuickAddPartyRate"/>
+    <view-map name="ProductStatistics" type="screen" page="component://scrum/widget/scrumScreens.xml#ProductStatistics"/>
+    
+    <!-- Unplan Backlog -->
+    <view-map name="unplanBacklog" type="screen" page="component://scrum/widget/scrumScreens.xml#unplanBacklog"/>
+    <view-map name="NewUnplanBacklogTask" type="screen" page="component://scrum/widget/scrumScreens.xml#NewUnplanBacklogTask"/>
+    
+    <view-map name="FindPartyRevision" type="screen" page="component://scrum/widget/ResourceScreens.xml#FindPartyRevision"/>
+</site-conf>

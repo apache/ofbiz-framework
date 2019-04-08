@@ -47,7 +47,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="copyBOMAssocs" short-description="Copy BOM associations from one product to another">
-        <make-value entity-name="ProductAssoc" value-field="lookupMap"/>
+        <make-value value-field="lookupMap" entity-name="ProductAssoc"/>
         <set-pk-fields map="parameters" value-field="lookupMap"/>
         <find-by-and entity-name="ProductAssoc" map="lookupMap" list="assocs"/>
         <filter-list-by-date list="assocs"/>
@@ -105,7 +105,7 @@ under the License.
             <fail-property resource="ManufacturingUiLabels" property="ManufacturingMachineGroupPermissionError"/>
         </check-permission>
         <check-errors/>
-        <make-value entity-name="ProductManufacturingRule" value-field="lookupPKMap"/>
+        <make-value value-field="lookupPKMap" entity-name="ProductManufacturingRule"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductManufacturingRule" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
@@ -117,7 +117,7 @@ under the License.
             <fail-property resource="ManufacturingUiLabels" property="ManufacturingMachineGroupPermissionError"/>
         </check-permission>
         <check-errors/>
-        <make-value entity-name="ProductManufacturingRule" value-field="lookupPKMap"/>
+        <make-value value-field="lookupPKMap" entity-name="ProductManufacturingRule"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductManufacturingRule" map="lookupPKMap" value-field="newEntity"/>
         <if-not-empty field="newEntity.ruleId">
@@ -126,7 +126,7 @@ under the License.
             </add-error>
             <check-errors/>
         <else>
-            <make-value entity-name="ProductManufacturingRule" value-field="newEntity"/>
+            <make-value value-field="newEntity" entity-name="ProductManufacturingRule"/>
             <if-empty field="parameters.ruleId">
                 <sequenced-id sequence-name="ProductManufacturingRule" field="parameters.ruleId"/>
             </if-empty>
@@ -142,7 +142,7 @@ under the License.
             <fail-property resource="ManufacturingUiLabels" property="ManufacturingCalendarPermissionError"/>
         </check-permission>
         <check-errors/>
-        <make-value entity-name="ProductManufacturingRule" value-field="lookupPKMap"/>
+        <make-value value-field="lookupPKMap" entity-name="ProductManufacturingRule"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductManufacturingRule" map="lookupPKMap" value-field="lookedUpValue"/>
         <if-not-empty field="lookedUpValue.ruleId">

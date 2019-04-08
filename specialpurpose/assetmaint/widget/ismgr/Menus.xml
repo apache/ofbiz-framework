@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns="http://ofbiz.apache.org/Widget-Menu" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Menu http://ofbiz.apache.org/dtds/widget-menu.xsd">
+
+    <menu name="IsMgrAppBar" title="${uiLabelMap.IsMgrApplication}" extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="main" title="${uiLabelMap.CommonMain}"><link target="main"/></menu-item>
+        <menu-item name="ComputerHardware" title="${uiLabelMap.IsMgrComputerHardware}"><link target="ListComputerHardware"/></menu-item>
+        <menu-item name="ComputerSoftware" title="${uiLabelMap.IsMgrComputerSoftware}"><link target="ListComputerSoftware"/></menu-item>
+    </menu>
+
+
+    <menu name="FixedAssetSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          menu-container-style="button-bar button-style-2">
+        <menu-item name="createNewComputerHardware" title="${uiLabelMap.IsMgrNewComputerHardware}" >
+            <condition>
+                <and>
+                    <if-service-permission service-name="fixedAssetPermissionCheck" main-action="CREATE"/>
+                </and>
+            </condition>
+            <link target="EditComputerHardware"/>
+        </menu-item>
+        <menu-item name="createNewComputerSoftware" title="${uiLabelMap.IsMgrNewComputerSoftware}" >
+            <condition>
+                <and>
+                    <if-service-permission service-name="fixedAssetPermissionCheck" main-action="CREATE"/>
+                </and>
+            </condition>
+            <link target="EditComputerSoftware"/>
+        </menu-item>
+    </menu>
+
+    <menu name="ComputerHardwareTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          default-menu-item-name="EditComputerHardware">
+        <!-- Tab Bar customized for Fixed Assets of type Computer Hardware  -->
+        <menu-item name="EditComputerHardware" title="${uiLabelMap.IsMgrComputerHardware}">
+            <link target="EditComputerHardware">
+                <parameter param-name="fixedAssetId"/>
+            </link>
+        </menu-item>
+        <menu-item name="ListHardwareAccessories" title="${uiLabelMap.IsMgrHardwareAccessories}">
+            <link target="ListHardwareAccessories">
+                <parameter param-name="fixedAssetId"/>
+                <parameter param-name="trail" from-field="fixedAssetId"/>
+            </link>
+        </menu-item>
+        <menu-item name="ListInstalledSoftware" title="${uiLabelMap.IsMgrInstalledSoftware}">
+            <link target="ListInstalledSoftware">
+                <parameter param-name="fixedAssetId"/>
+            </link>
+        </menu-item>
+        <!-- Will add soon
+        <menu-item name="EditFaComputerHardwareStdCosts" title="${uiLabelMap.AccountingFixedAssetStdCosts}">
+            <link target="EditFaComputerHardwareStdCosts">
+                <parameter param-name="fixedAssetId"/>
+            </link>
+        </menu-item>
+        <menu-item name="EditFaComputerHardwareIdents" title="${uiLabelMap.AccountingFixedAssetIdents}">
+            <link target="EditFaComputerHardwareIdents">
+                <parameter param-name="fixedAssetId"/>
+            </link>
+        </menu-item>
+        <menu-item name="EditFaComputerHardwareRegistrations" title="${uiLabelMap.AccountingFixedAssetRegistrations}">
+            <link target="EditFaComputerHardwareRegistrations">
+                <parameter param-name="fixedAssetId"/>
+            </link>
+        </menu-item>
+        <menu-item name="ListFaComputerHardwareMaints" title="${uiLabelMap.AccountingFixedAssetMaints}">
+            <link target="ListFaComputerHardwareMaints">
+                <parameter param-name="fixedAssetId"/>
+            </link>
+        </menu-item>
+        <menu-item name="EditPartyFixedAssetAssignments" title="${uiLabelMap.AccountingPartyFixedAssetAssignments}">
+            <link target="EditPartyFixedAssetAssignments">
+                <parameter param-name="fixedAssetId"/>
+            </link>
+        </menu-item>
+         -->
+    </menu>
+
+</menus>

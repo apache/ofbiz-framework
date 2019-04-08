@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
+    <form name="EbayStoreList" type="single" list-name="ebayStoreList"  target="ebayAccount"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="productStoreId" title="${uiLabelMap.ProductProductStore}" >
+            <drop-down current="selected" >
+                <list-options list-name="ebayStoreList" description="${storeName} [${productStoreId}]" key-name="productStoreId"/>
+            </drop-down>
+        </field>
+        <field name="submitButton" ><submit button-type="button"/></field>
+    </form>
+    <form name="EbayAccountSelection" type="single" list-name="ebayAccountList"  target="ebayAccount"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <script location="component://ebaystore/groovyScripts/store/StoreAccount.groovy"/>
+        </actions>
+        <field name="productStoreId" title="Account" action="document.EbayAccountSelection.submit()" event="onchange">
+            <drop-down current="selected" allow-empty="true">
+                <list-options list-name="stores"  description="${firstName} ${lastName}" key-name="productStoreId"/>
+            </drop-down>
+        </field>
+    </form>
+    <form name="EbayAccountList" type="single" list-name="ebayAccountList"  target="ebayAccount"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <script location="component://ebaystore/groovyScripts/store/StoreAccount.groovy"/>
+        </actions>
+        <field name="productStoreId" title="Account" >
+            <drop-down current="selected">
+                <list-options list-name="stores"  description="${firstName} ${lastName}" key-name="productStoreId"/>
+            </drop-down>
+        </field>
+        <field name="submitButton" ><submit button-type="button"/></field>
+    </form>
+    <form name="ListCurrentStores" type="single" target="exportCategoryEbayStore"
+        header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <entity-and entity-name="ProductStoreCatalog" list="storeCatalog">
+                <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+            </entity-and>
+        </actions>
+        <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
+        <field name="prodCatalogId">
+            <drop-down>
+                <list-options list-name="storeCatalog" key-name="prodCatalogId" description="${prodCatalogId}"/>
+                <!--entity-options entity-name="ProdCatalog" description="${catalogName}" key-field-name="prodCatalogId">
+                    <entity-order-by field-name="catalogName"/>
+                    </entity-options-->
+            </drop-down>
+        </field>
+        <field name="submitButton" title="Find"><submit button-type="button"/></field>
+    </form>
+    <form name="ListCategories" type="multi" use-row-submit="true"  target="deleteCategoriesFromEbayStore" title="" list-name="categoriesList"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <row-actions>
+            <entity-one entity-name="ProductCategory" value-field="prodCategory">
+                <field-map field-name="productCategoryId" value="${productCategoryId}"/>
+            </entity-one>
+            <entity-and entity-name="ProductCategoryRole" list="prodCategoryRoles">
+                <field-map field-name="productCategoryId" value="${productCategoryId}"/>
+                <field-map field-name="partyId" value="${parameters.partyId}"/>
+                <field-map field-name="roleTypeId" value="EBAY_ACCOUNT"/>
+            </entity-and>
+            <set  field="ebayCategoryId"  value="${groovy: 
+                ebayCategoryId= &quot;&quot;;
+                if(prodCategoryRoles!=null &amp;&amp; prodCategoryRoles.size() == 1)  ebayCategoryId = prodCategoryRoles.get(0).getString(&quot;comments&quot;);
+                return ebayCategoryId;
+                }" type="String"/>
+            <entity-and entity-name="ProductCategoryRollup" list="prodCategoryRollup">
+                <field-map field-name="parentProductCategoryId" value="${productCategoryId}"/>
+            </entity-and>
+        </row-actions>
+        <field name="_rowSubmit"  position="1" title="${uiLabelMap.CommonSelect}"><check/></field>
+        <field name="productStoreId"><hidden/></field>
+        <field name="prodCatalogId"><hidden/></field>
+        <field name="productCategoryId"><display></display></field>
+        <field name="categoryName">
+            <hyperlink description="${prodCategory.categoryName}" target="getChildCategory">
+                <parameter param-name="productStoreId"/>
+                <parameter from-field="parameters.prodCatalogId" param-name="prodCatalogId"/>
+                <parameter param-name="productCategoryId"/>
+            </hyperlink>
+        </field>
+        <field name="comments" title="Ebay Category Id"><display description="${ebayCategoryId}"></display></field>
+        <field name="subCategory"><display description="${groovy:prodCategoryRollup.size()}"></display></field>
+        <field name="updateButton"  title="${uiLabelMap.CommonDelete}"><submit button-type="button"/></field>
+    </form>
+    <form name="NewEbayAccount" type="single"  target="createEbayAccount">
+        <auto-fields-service service-name="createEbayAccount"/>
+        <field name="statusId"><hidden value="PARTY_ENABLED"/></field>
+        <field name="gender">
+            <drop-down allow-empty="true">
+                <option key="M" description="${uiLabelMap.CommonMale}"/>
+                <option key="F" description="${uiLabelMap.CommonFemale}"/>
+            </drop-down>
+        </field>
+        <field name="currentPassword"><password/></field>
+        <field name="currentPasswordVerify"><password/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
+    </form>
+    <form name="AddCatalog" type="single" target="associateCatalogToStore">
+        <field name="productStoreId"><hidden /></field>
+        <field name="catalogName" parameter-name="prodCatalogId">
+            <drop-down>
+                <list-options list-name="prodCatalogList" key-name="prodCatalogId" description="${catalogName}"/>
+            </drop-down>
+        </field>
+        <field name="submit" title="${uiLabelMap.CommonAdd}"><submit/></field>
+    </form>
+    <grid name="CatalogList" list-name="prodStoreCatalogList" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="productStoreId"><display/></field>
+        <field name="prodCatalogId">
+            <display-entity entity-name="ProdCatalog" description="${catalogName}" key-field-name="prodCatalogId"/>
+        </field>
+        <field name="delete" widget-style="buttontext">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeCatalogFromStore">
+                <parameter param-name="productStoreId"/>
+                <parameter param-name="prodCatalogId"/>
+                <parameter param-name="fromDate"/>
+            </hyperlink>
+        </field>
+    </grid>
+    <grid name="errorMessageList" target="" list-name="errorMsgList" view-size="30"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="createDatetime"><display/></field>
+        <field name="logAck"><display/></field>
+        <field name="functionName"><display/></field>
+        <field name="logMessage"><display/></field>
+    </grid>
+</forms>

@@ -80,7 +80,6 @@ public class ProductContentWrapper implements ContentWrapper {
         this.mimeTypeId = EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8", (Delegator) request.getAttribute("delegator"));
     }
 
-    @Override
     public StringUtil.StringWrapper get(String productContentTypeId, String encoderType) {
         if (this.product == null) {
             Debug.logWarning("Tried to get ProductContent for type [" + productContentTypeId + "] but the product field in the ProductContentWrapper is null", module);
@@ -99,7 +98,7 @@ public class ProductContentWrapper implements ContentWrapper {
         return getProductContentAsText(product, productContentTypeId, locale, null, null, null, null, dispatcher, encoderType);
     }
 
-    public static String getProductContentAsText(GenericValue product, String productContentTypeId, Locale locale, String mimeTypeId, String partyId,
+    public static String getProductContentAsText(GenericValue product, String productContentTypeId, Locale locale, String mimeTypeId, String partyId, 
             String roleTypeId, Delegator delegator, LocalDispatcher dispatcher, String encoderType) {
         if (product == null) {
             return null;
@@ -124,13 +123,19 @@ public class ProductContentWrapper implements ContentWrapper {
                 outString = product.getModelEntity().isField(candidateFieldName) ? product.getString(candidateFieldName): "";
                 outString = outString == null? "" : outString;
             }
-            outString = encoder.sanitize(outString, null);
-            productContentCache.put(cacheKey, outString);
+            outString = encoder.sanitize(outString);
+            if (productContentCache != null) {
+                productContentCache.put(cacheKey, outString);
+            }
             return outString;
-        } catch (GeneralException | IOException e) {
+        } catch (GeneralException e) {
             Debug.logError(e, "Error rendering ProductContent, inserting empty String", module);
             String candidateOut = product.getModelEntity().isField(candidateFieldName) ? product.getString(candidateFieldName): "";
-            return candidateOut == null? "" : encoder.sanitize(candidateOut, null);
+            return candidateOut == null? "" : encoder.sanitize(candidateOut);
+        } catch (IOException e) {
+            Debug.logError(e, "Error rendering ProductContent, inserting empty String", module);
+            String candidateOut = product.getModelEntity().isField(candidateFieldName) ? product.getString(candidateFieldName): "";
+            return candidateOut == null? "" : encoder.sanitize(candidateOut);
         }
     }
 
@@ -165,10 +170,10 @@ public class ProductContentWrapper implements ContentWrapper {
         GenericValue productContent = EntityUtil.getFirst(productContentList);
         if (productContent != null) {
             // when rendering the product content, always include the Product and ProductContent records that this comes from
-            Map<String, Object> inContext = new HashMap<>();
+            Map<String, Object> inContext = new HashMap<String, Object>();
             inContext.put("product", product);
             inContext.put("productContent", productContent);
-            ContentWorker.renderContentAsText(dispatcher, productContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, partyId, roleTypeId, cache);
+            ContentWorker.renderContentAsText(dispatcher, delegator, productContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, partyId, roleTypeId, cache);
             return;
         }
 
@@ -181,7 +186,7 @@ public class ProductContentWrapper implements ContentWrapper {
             Debug.logWarning("No Product entity found for productId: " + productId, module);
             return;
         }
-
+        
         if (productModel.isField(candidateFieldName)) {
                 String candidateValue = product.getString(candidateFieldName);
                 if (UtilValidate.isNotEmpty(candidateValue)) {

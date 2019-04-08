@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
+
+    <!-- list all PortalPage in a tabular format -->
+    <screen name="FindPortalPage">
+        <section>
+            <actions>
+                <set field="headerItem" value="portalAdmin"/>
+                <set field="titleProperty" value="PageTitleFindPortalPage"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="AdminDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="PORTALPAGE" action="_MAINT"/>
+                            </condition>
+                            <widgets>
+                                <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                                    <decorator-section name="search-options">
+                                        <include-form name="FindPortalPages" location="component://myportal/widget/PortalAdmForms.xml"/>
+                                    </decorator-section>
+                                    <decorator-section name="search-results">
+                                        <include-form name="ListPortalPages" location="component://myportal/widget/PortalAdmForms.xml"/>
+                                    </decorator-section>
+                                </decorator-screen>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.PortalPageViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="CreatePortalPage">
+        <section>
+        <actions>
+          <set field="targetPortalPage" value="createPortalPageAdm"/>
+        </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <actions>
+                                <set field="portalPage.portalPageId" value=""/>
+                                <set field="editPortalPageId" value="Y"/>
+                            </actions>
+                            <widgets><include-form name="EditPortalPage" location="component://myportal/widget/PortalAdmForms.xml"/></widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="EditPortalPage">
+        <section>
+            <actions>
+                <set field="headerItem" value="PortalPageAdminItem"/>
+                <set field="layoutSettings.javaScripts[]" value="/images/myportal.js" global="true"/> 
+                <set field="layoutSettings.styleSheets[+0]" value="/images/myportal.css" global="true"/> 
+                <entity-one entity-name="PortalPage" value-field="portalPage"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <not><if-empty field="portalPage"/></not>
+                            </condition>
+                            <actions><set field="targetPortalPage" value="updatePortalPageAdm"/></actions>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.CommonPortalEditPage}" navigation-menu-name="PortalPageAdmin">
+                                    <include-menu name="PortalPageAdmin" location="component:/myportal/widget/MyPortalMenus.xml"/>
+                                    <include-form name="EditPortalPage" location="component://myportal/widget/PortalAdmForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                        </section>
+                        <section>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.CommonPortalEditPage}: ${portalPage.portalPageName} [${portalPage.portalPageId}]">
+                                    <include-portal-page id="${portalPage.portalPageId}" conf-mode="true" use-private="false" />
+                                </screenlet>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens>

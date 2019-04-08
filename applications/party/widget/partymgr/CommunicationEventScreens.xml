@@ -34,8 +34,8 @@ under the License.
                                 <if-has-permission permission="PARTYMGR" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <include-menu name="CommEventTabBar" location="component://party/widget/partymgr/PartyMenus.xml"/>
-                                <include-menu name="CommSubTabBar" location="component://party/widget/partymgr/PartyMenus.xml"/>
+                                <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="CommEventTabBar"/>
+                                <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="CommSubTabBar"/>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -65,8 +65,8 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
-                                <include-menu name="CommEventTabBar" location="component://party/widget/partymgr/PartyMenus.xml"/>
-                                <include-menu name="CommSubTabBar" location="component://party/widget/partymgr/PartyMenus.xml"/>
+                                <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="CommEventTabBar"/>
+                                <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="CommSubTabBar"/>
                     </decorator-section>
                     <decorator-section name="body">
                         <section>
@@ -92,9 +92,9 @@ under the License.
                 <set field="titleProperty" value="PageTitlePendingCommunications"/>
                 <set field="headerItem" value="comm"/>
                 <set field="tabButtonItem" value="pending"/>
-                <set field="partyId" from-field="parameters.partyId"/>
-                <set default-value="${userLogin.partyId}" field="partyIdFrom" from-field="parameters.partyIdFrom"/>
-                <set default-value="${userLogin.partyId}" field="partyIdTo" from-field="parameters.partyIdTo"/>
+                <set field="partyId" value="${parameters.partyId}"/>
+                <set default-value="${userLogin.partyId}" field="partyIdFrom" value="${parameters.partyIdFrom}"/>
+                <set default-value="${userLogin.partyId}" field="partyIdTo" value="${parameters.partyIdTo}"/>
                 <set field="entityName" value="CommunicationEvent"/>
             </actions>
             <widgets>
@@ -110,10 +110,10 @@ under the License.
                                         <not><if-empty field="partyId"/></not>
                                     </condition>
                                     <widgets>
-                                        <include-menu name="ProfileTabBar" location="component://party/widget/partymgr/PartyMenus.xml"/>
+                                        <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="ProfileTabBar"/>
                                     </widgets>
                                 </section>
-                                <include-menu name="CommFindTabBar" location="component://party/widget/partymgr/PartyMenus.xml"/>
+                                <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="CommFindTabBar"/>
                                 <container><label style="h1" text="${uiLabelMap.PartyPendingCommunicationEvents}"/></container>
                                 <container>
                                     <link style="smallSubmit" target="ViewCommunicationEvent" text="${uiLabelMap.PartyNewCommunication}">
@@ -339,39 +339,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
-    <screen name="FindCommunicationByReturn">
-        <section>
-            <actions>
-                <set field="tabButtonItem" value="FindCommunicationByReturn"/>
-                <set field="entityName" value="CommunicationEventAndReturn"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="CommonCommunicationEventDecorator" location="${parameters.communicationEventDecoratorLocation}">
-                    <decorator-section name="body">
-                        <section>
-                            <condition>
-                                <if-service-permission service-name="partyCommunicationEventPermissionCheck" main-action="VIEW"/>
-                            </condition>
-                            <widgets>
-                                <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
-                                    <decorator-section name="search-options">
-                                        <include-form name="FindCommunicationByReturn" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
-                                    </decorator-section>
-                                    <decorator-section name="search-results">
-                                        <include-form name="ListCommunicationByReturn" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
-                                    </decorator-section>
-                                </decorator-screen>
-                            </widgets>
-                            <fail-widgets>
-                                <label style="h3">${uiLabelMap.PartyMgrViewPermissionError}</label>
-                            </fail-widgets>
-                        </section>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
 
     <screen name="FindCommunicationEvents">
         <section>
@@ -576,14 +543,14 @@ under the License.
                 <set field="tabButtonItem" value="UpdateCommRoles"/>
                 <set field="communicationEventId" from-field="parameters.communicationEventId"/>
                 <set field="parentCommEventId" from-field="parameters.parentCommEventId"/>
-                <set field="partyId" from-field="parameters.partyId"/>
-                <set field="partyIdFrom" from-field="parameters.partyId"/>
-                <set field="partyIdTo" from-field="parameters.partyId"/>
+                <set field="partyId" value="${parameters.partyId}"/>
+                <set field="partyIdFrom" value="${parameters.partyId}"/>
+                <set field="partyIdTo" value="${parameters.partyId}"/>
                 <entity-one entity-name="Party" use-cache="true" value-field="party"/>
                 <entity-one entity-name="Person" use-cache="true" value-field="lookupPerson"/>
                 <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
             </actions>
             <widgets>
@@ -609,9 +576,9 @@ under the License.
 
                 <set field="communicationEventId" from-field="parameters.communicationEventId"/>
                 <set field="parentCommEventId" from-field="parameters.parentCommEventId"/>
-                <set field="partyId" from-field="parameters.partyId"/>
-                <set field="partyIdFrom" from-field="parameters.partyId"/>
-                <set field="partyIdTo" from-field="parameters.partyId"/>
+                <set field="partyId" value="${parameters.partyId}"/>
+                <set field="partyIdFrom" value="${parameters.partyId}"/>
+                <set field="partyIdTo" value="${parameters.partyId}"/>
                 <entity-one entity-name="Party" use-cache="true" value-field="party"/>
                 <entity-one entity-name="Person" use-cache="true" value-field="lookupPerson"/>
                 <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
@@ -634,9 +601,9 @@ under the License.
                 <set field="titleProperty" value="PageTitleListCommWorkEfforts"/>
                 <set field="tabButtonItem" value="UpdateCommWorkEfforts"/>
                 <set field="communicationEventId" from-field="parameters.communicationEventId"/>
-                <set field="partyId" from-field="parameters.partyId"/>
-                <set field="partyIdFrom" from-field="parameters.partyIdFrom"/>
-                <set field="partyIdTo" from-field="parameters.partyIdTo"/>
+                <set field="partyId" value="${parameters.partyId}"/>
+                <set field="partyIdFrom" value="${parameters.partyIdFrom}"/>
+                <set field="partyIdTo" value="${parameters.partyIdTo}"/>
                 <set field="entityName" value="CommunicationEvent"/>
                 <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
             </actions>
@@ -706,10 +673,10 @@ under the License.
                 <set field="titleProperty" value="PartyCommContent"/>
                 <set field="headerItem" value="comm"/>
                 <set field="tabButtonItem" value="CommContent"/>
-                <set field="parameters.partyId" from-field="parameters.partyId" default-value="${userLogin.partyId}"/>
-                <set default-value="${userLogin.partyId}" field="partyIdFrom" from-field="parameters.partyIdFrom"/>
-                <set default-value="${userLogin.partyId}" field="partyIdTo" from-field="parameters.partyIdTo"/>
-                <set field="communicationEventId" from-field="parameters.communicationEventId"/>
+                <set field="parameters.partyId" value="${parameters.partyId}" default-value="${userLogin.partyId}"/>
+                <set default-value="${userLogin.partyId}" field="partyIdFrom" value="${parameters.partyIdFrom}"/>
+                <set default-value="${userLogin.partyId}" field="partyIdTo" value="${parameters.partyIdTo}"/>
+                <set field="communicationEventId" value="${parameters.communicationEventId}"/>
                 <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
             </actions>
             <widgets>
@@ -746,9 +713,9 @@ under the License.
                 <set field="headerItem" value="comm"/>
                 <set field="tabButtonItem" value="CommContent"/>
                 <set field="partyId" from-field="parameters.partyId"/>
-                <set default-value="${userLogin.partyId}" field="partyIdFrom" from-field="parameters.partyIdFrom"/>
-                <set default-value="${userLogin.partyId}" field="partyIdTo" from-field="parameters.partyIdTo"/>
-                <set field="communicationEventId" from-field="parameters.communicationEventId"/>
+                <set default-value="${userLogin.partyId}" field="partyIdFrom" value="${parameters.partyIdFrom}"/>
+                <set default-value="${userLogin.partyId}" field="partyIdTo" value="${parameters.partyIdTo}"/>
+                <set field="communicationEventId" value="${parameters.communicationEventId}"/>
                 <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
             </actions>
             <widgets>
@@ -777,10 +744,10 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleCommEvents"/>
                 <set field="tabButtonItem" value="CommContent"/>
-                <set field="partyId" from-field="parameters.partyId"/>
-                <set default-value="${userLogin.partyId}" field="partyIdFrom" from-field="parameters.partyIdFrom"/>
-                <set default-value="${userLogin.partyId}" field="partyIdTo" from-field="parameters.partyIdTo"/>
-                <set field="communicationEventId" from-field="parameters.communicationEventId"/>
+                <set field="partyId" value="${parameters.partyId}"/>
+                <set default-value="${userLogin.partyId}" field="partyIdFrom" value="${parameters.partyIdFrom}"/>
+                <set default-value="${userLogin.partyId}" field="partyIdTo" value="${parameters.partyIdTo}"/>
+                <set field="communicationEventId" value="${parameters.communicationEventId}"/>
                 <entity-one entity-name="CommEventContentDataResource" value-field="commEventContentDataResource">
                     <field-map field-name="communicationEventId" from-field="parameters.communicationEventId"/>
                     <field-map field-name="contentId" from-field="parameters.contentId"/>
@@ -801,7 +768,7 @@ under the License.
                                         <not><if-empty field="partyId"/></not>
                                     </condition>
                                     <widgets>
-                                        <include-menu name="ProfileTabBar" location="component://party/widget/partymgr/PartyMenus.xml"/>
+                                        <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="ProfileTabBar"/>
                                     </widgets>
                                 </section>
                                 <container style="h1"><label text="${uiLabelMap.PageTitleEditCommContent}"/></container>
@@ -899,7 +866,7 @@ under the License.
                             <set field="partyIdFrom" from-field="parameters.partyId" default-value="${userLogin.partyId}"/>
                         </actions>
                         <widgets>
-                            <include-menu name="MyCommSubTabBar" location="component://party/widget/partymgr/PartyMenus.xml"/>
+                            <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="MyCommSubTabBar"/>
                             <include-screen name="commOverview"/>
                         </widgets>
                     </section>
@@ -1210,30 +1177,5 @@ under the License.
                 </section>
             </widgets>
         </section>
-    </screen>
-    <screen name="UpdateCommReturns">
-        <section>
-            <actions>
-                <set field="titleProperty" value="PartyViewCommReturns"/>
-                <set field="tabButtonItem" value="UpdateCommReturns"/>
-                <set field="communicationEventId" from-field="parameters.communicationEventId"/>
-                <set field="partyId" from-field="parameters.partyId"/>
-                <set field="partyIdFrom" from-field="parameters.partyIdFrom" default-value="${userLogin.partyId}"/>
-                <set field="partyIdTo" from-field="parameters.partyIdTo" default-value="${userLogin.partyId}"/>
-                <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="CommonCommunicationEventDecorator" location="${parameters.communicationEventDecoratorLocation}">
-                    <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.PartyCommEventReturns}">
-                            <include-form name="ListCommReturns" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
-                        </screenlet>
-                        <screenlet title="${uiLabelMap.PartyAddCommEventReturn}">
-                            <include-form name="AddCommReturn" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
-                        </screenlet>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-           </section>
     </screen>
 </screens>

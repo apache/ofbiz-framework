@@ -27,7 +27,7 @@ under the License.
                 <set field="headerItem" value="Layout"/>
                 <set field="tabButtonItem" to-scope="user" value="FindLayout"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
             </actions>
             <widgets>
@@ -57,7 +57,7 @@ under the License.
                 <set field="headerItem" value="Layout"/>
                 <set field="tabButtonItem" to-scope="user" value="ListLayout"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <entity-and entity-name="ContentAssocDataResourceViewFrom" list="layoutList">
                     <field-map field-name="caContentIdTo" value="TEMPLATE_MASTER"/>

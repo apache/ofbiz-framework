@@ -151,7 +151,7 @@ public class GenericWebEvent {
         }
 
         // if this is a delete, do that before getting all of the non-pk parameters and validating them
-        if ("DELETE".equals(updateMode)) {
+        if (updateMode.equals("DELETE")) {
             // Remove associated/dependent entries from other tables here
             // Delete actual main entity last, just in case database is set up to do a cascading delete, caches won't get cleared
             try {
@@ -203,7 +203,7 @@ public class GenericWebEvent {
 
 
         // if the updateMode is CREATE, check to see if an entity with the specified primary key already exists
-        if ("CREATE".equals(updateMode)) {
+        if (updateMode.equals("CREATE")) {
             GenericValue tempEntity = null;
 
             try {
@@ -229,7 +229,7 @@ public class GenericWebEvent {
             ModelField field = fieldIter.next();
 
             for (String curValidate : field.getValidators()) {
-                Class<?>[] paramTypes = { String.class };
+                Class<?>[] paramTypes = new Class[] {String.class};
                 Object[] params = new Object[] {findByEntity.get(field.getName()).toString()};
 
                 String className = "org.apache.ofbiz.base.util.UtilValidate";
@@ -266,7 +266,7 @@ public class GenericWebEvent {
                     resultBool = Boolean.TRUE;
                 }
 
-                if (!resultBool) {
+                if (!resultBool.booleanValue()) {
                     Field msgField;
                     String message;
 
@@ -291,7 +291,7 @@ public class GenericWebEvent {
             return "error";
         }
 
-        if ("CREATE".equals(updateMode)) {
+        if (updateMode.equals("CREATE")) {
             try {
                 delegator.create(findByEntity.getEntityName(), findByEntity.getAllFields());
             } catch (GenericEntityException e) {
@@ -301,7 +301,7 @@ public class GenericWebEvent {
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
                 return "error";
             }
-        } else if ("UPDATE".equals(updateMode)) {
+        } else if (updateMode.equals("UPDATE")) {
             GenericValue value = delegator.makeValue(findByEntity.getEntityName(), findByEntity.getAllFields());
 
             try {

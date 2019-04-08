@@ -381,7 +381,7 @@ if (selectedService) {
         curServiceMap.export = export
         curServiceMap.exportBool = exportBool
 
-        if (permissionGroups && !"NA".equals(permissionGroups)) {
+        if (permissionGroups && !permissionGroups.equals("NA")) {
             permList = new ArrayList(permissionGroups.size())
             permissionGroups.each { curPerm ->  //This is a ModelPermGroup
                 curPerm.permissions.each { curPermObj ->
@@ -408,9 +408,6 @@ if (selectedService) {
         curServiceMap.implServices = implServices
         curServiceMap.useTrans = useTrans
         curServiceMap.maxRetry = maxRetry
-        curServiceMap.deprecatedUseInstead = curServiceModel.deprecatedUseInstead
-        curServiceMap.deprecatedSince = curServiceModel.deprecatedSince
-        curServiceMap.deprecatedReason = curServiceModel.deprecatedReason
 
         allParamsList = new ArrayList(3)
 
@@ -450,7 +447,7 @@ if (selectedService) {
             outParamsList.add(curOutParam)
         }
         outParamMap = [:]
-        outParamMap.title = uiLabelMap.WebtoolsOutParameters
+        outParamMap.title = uiLabelMap.get("WebtoolsOutParameters")
         outParamMap.paramList = outParamsList
         allParamsList.add(outParamMap)
 
@@ -478,7 +475,7 @@ if (selectedService) {
 
     showWsdl = parameters.show_wsdl
 
-    if ("true".equals(showWsdl)) {
+    if (showWsdl?.equals("true")) {
         try {
             wsdl = curServiceModel.toWSDL("http://${request.getServerName()}:${EntityUtilProperties.getPropertyValue("url", "port.http", "80", delegator)}${parameters._CONTROL_PATH_}/SOAPService")
             curServiceMap.wsdl = UtilXml.writeXmlDocument(wsdl)
@@ -520,34 +517,34 @@ if (!selectedService) {
             constraintName = consArr[0]
             constraintVal = consArr[1]
 
-            if ("engine_name".equals(constraintName)) {
+            if (constraintName.equals("engine_name")) {
                 canIncludeService = curServiceModel.engineName.equals(constraintVal)
-                if ("NA".equals(constraintVal)) {
+                if (constraintVal.equals("NA")) {
                     canIncludeService = curServiceModel.engineName ? false : true
                 }
             }
 
-            if (canIncludeService && "default_entity_name".equals(constraintName)) {
+            if (canIncludeService && constraintName.equals("default_entity_name")) {
                 canIncludeService = curServiceModel.defaultEntityName.equals(constraintVal)
-                if ("NA".equals(constraintVal)) {
+                if (constraintVal.equals("NA")) {
                     canIncludeService = curServiceModel.defaultEntityName ? false : true
                 }
             }
 
-            if (canIncludeService && "location".equals(constraintName)) {
+            if (canIncludeService && constraintName.equals("location")) {
                 canIncludeService = curServiceModel.location.equals(constraintVal)
-                if ("NA".equals(constraintVal)) {
+                if (constraintVal.equals("NA")) {
                     canIncludeService = curServiceModel.location ? false : true
                 }
             }
 
-            if (canIncludeService && "definitionLocation".equals(constraintName)) {
+            if (canIncludeService && constraintName.equals("definitionLocation")) {
                 canIncludeService = curServiceModel.definitionLocation.equals(constraintVal)
             }
 
-            if (canIncludeService && "alpha".equals(constraintName)) {
+            if (canIncludeService && constraintName.equals("alpha")) {
                 canIncludeService = (serviceName[0]).equals(constraintVal)
-                if ("NA".equals(constraintVal)) {
+                if (constraintVal.equals("NA")) {
                     canIncludeService = true
                 }
             }
@@ -566,7 +563,6 @@ if (!selectedService) {
             curServiceMap.location = location
             curServiceMap.definitionLocation = curServiceModel.definitionLocation.replaceFirst("file:/" + System.getProperty("ofbiz.home") + "/", "")
             curServiceMap.requireNewTransaction = requireNewTransaction
-            curServiceMap.deprecated = curServiceModel.deprecatedUseInstead
 
             servicesList.add(curServiceMap)
             servicesFoundCount++

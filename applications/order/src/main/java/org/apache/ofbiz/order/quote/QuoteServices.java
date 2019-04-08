@@ -126,9 +126,6 @@ public class QuoteServices {
         Map<String, Object> sendResp = null;
         try {
             sendResp = dispatcher.runSync("sendMailFromScreen", sendMap);
-            if (ServiceUtil.isError(sendResp)) {
-                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(sendResp));
-            }
         } catch (GenericServiceException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error, "OrderServiceExceptionSeeLogs",locale));
@@ -138,7 +135,7 @@ public class QuoteServices {
         }
 
         // check for errors
-        if (sendResp != null && ServiceUtil.isSuccess(sendResp)) {
+        if (sendResp != null && !ServiceUtil.isError(sendResp)) {
             sendResp.put("emailType", emailType);
         }
         return sendResp;
@@ -165,7 +162,6 @@ public class QuoteServices {
         List<GenericValue> quoteWorkEfforts = UtilGenerics.checkList(context.get("quoteWorkEfforts"));
         List<GenericValue> quoteAdjustments = UtilGenerics.checkList(context.get("quoteAdjustments"));
         Locale locale = (Locale) context.get("locale");
-        Map<String, Object> serviceResult = new HashMap<String, Object>();
         
         //TODO create Quote Terms still to be implemented
         //TODO create Quote Term Attributes still to be implemented
@@ -187,9 +183,7 @@ public class QuoteServices {
 
             // create Quote
             Map<String, Object> quoteOut = dispatcher.runSync("createQuote", quoteIn);
-            if (ServiceUtil.isError(quoteOut)) {
-                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(quoteOut));
-            }
+
             if (UtilValidate.isNotEmpty(quoteOut) && UtilValidate.isNotEmpty(quoteOut.get("quoteId"))) {
                 String quoteId = (String)quoteOut.get("quoteId");
                 result.put("quoteId", quoteId);
@@ -201,10 +195,7 @@ public class QuoteServices {
                         Map<String, Object> quoteItemIn = quoteItem.getAllFields();
                         quoteItemIn.put("userLogin", userLogin);
 
-                        serviceResult = dispatcher.runSync("createQuoteItem", quoteItemIn);
-                        if (ServiceUtil.isError(serviceResult)) {
-                            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
-                        }
+                        dispatcher.runSync("createQuoteItem", quoteItemIn);
                     }
                 }
 
@@ -215,10 +206,7 @@ public class QuoteServices {
                         Map<String, Object> quoteAttrIn = quoteAttr.getAllFields();
                         quoteAttrIn.put("userLogin", userLogin);
 
-                        serviceResult = dispatcher.runSync("createQuoteAttribute", quoteAttrIn);
-                        if (ServiceUtil.isError(serviceResult)) {
-                            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
-                        }
+                        dispatcher.runSync("createQuoteAttribute", quoteAttrIn);
                     }
                 }
 
@@ -229,10 +217,7 @@ public class QuoteServices {
                         Map<String, Object> quoteCoefficientIn = quoteCoefficient.getAllFields();
                         quoteCoefficientIn.put("userLogin", userLogin);
 
-                        serviceResult = dispatcher.runSync("createQuoteCoefficient", quoteCoefficientIn);
-                        if (ServiceUtil.isError(serviceResult)) {
-                            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
-                        }
+                        dispatcher.runSync("createQuoteCoefficient", quoteCoefficientIn);
                     }
                 }
 
@@ -242,10 +227,8 @@ public class QuoteServices {
                         quoteRole.set("quoteId", quoteId);
                         Map<String, Object> quoteRoleIn = quoteRole.getAllFields();
                         quoteRoleIn.put("userLogin", userLogin);
-                        serviceResult = dispatcher.runSync("createQuoteRole", quoteRoleIn);
-                        if (ServiceUtil.isError(serviceResult)) {
-                            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
-                        }
+
+                        dispatcher.runSync("createQuoteRole", quoteRoleIn);
                     }
                 }
 
@@ -255,10 +238,8 @@ public class QuoteServices {
                         quoteWorkEffort.set("quoteId", quoteId);
                         Map<String, Object> quoteWorkEffortIn = quoteWorkEffort.getAllFields();
                         quoteWorkEffortIn.put("userLogin", userLogin);
-                        serviceResult = dispatcher.runSync("createQuoteWorkEffort", quoteWorkEffortIn);
-                        if (ServiceUtil.isError(serviceResult)) {
-                            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
-                        }
+
+                        dispatcher.runSync("createQuoteWorkEffort", quoteWorkEffortIn);
                     }
                 }
 
@@ -268,10 +249,8 @@ public class QuoteServices {
                         quoteAdjustment.set("quoteId", quoteId);
                         Map<String, Object> quoteAdjustmentIn = quoteAdjustment.getAllFields();
                         quoteAdjustmentIn.put("userLogin", userLogin);
-                        serviceResult = dispatcher.runSync("createQuoteAdjustment", quoteAdjustmentIn);
-                        if (ServiceUtil.isError(serviceResult)) {
-                            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
-                        }
+
+                        dispatcher.runSync("createQuoteAdjustment", quoteAdjustmentIn);
                     }
                 }
 

@@ -27,7 +27,7 @@ under the License.
     <style type="text/css">
     .label {
       font-weight: bold;
-    <#if "ltr" == langDir>
+    <#if langDir == "ltr">
       padding-right: 10px;
       text-align: right;
     <#else>

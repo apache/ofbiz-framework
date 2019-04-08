@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<entity-engine-xml>
+
+    <Party partyId="admin" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person firstName="THE" lastName="ADMINISTRATOR" middleName="PRIVILEGED" partyId="admin" personalTitle="Mr."/>
+    <PartyRole partyId="admin" roleTypeId="SHAREHOLDER"/>
+
+    <Party partyId="DemoCustomer-1" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Party partyId="SCRUMASTER" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Party partyId="SCRUMTEAM-1" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Party partyId="SCRUMTEAM-2" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Party partyId="SCRUMTEAM-3" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Party partyId="SCRUMTEAM-4" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Party partyId="SCRUMTESTADMIN" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Party partyId="DemoCustomer-2" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Party partyId="DemoStakeholder" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Party partyId="SCRUMADMIN" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+
+    <PartyStatus partyId="admin" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyStatus partyId="DemoCustomer-1" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyStatus partyId="SCRUMASTER" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyStatus partyId="SCRUMTEAM-1" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyStatus partyId="SCRUMTEAM-2" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyStatus partyId="SCRUMTEAM-3" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyStatus partyId="SCRUMTEAM-4" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyStatus partyId="SCRUMTESTADMIN" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyStatus partyId="DemoCustomer-2" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyStatus partyId="DemoStakeholder" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyStatus partyId="SCRUMADMIN" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+
+    <PartyRole partyId="DemoCustomer-1" roleTypeId="SCRUM_MEMBER"/>
+    <PartyRole partyId="SCRUMASTER" roleTypeId="SCRUM_MEMBER"/>
+    <PartyRole partyId="SCRUMTEAM-1" roleTypeId="SCRUM_MEMBER"/>
+    <PartyRole partyId="SCRUMTEAM-2" roleTypeId="SCRUM_MEMBER"/>
+    <PartyRole partyId="SCRUMTEAM-3" roleTypeId="SCRUM_MEMBER"/>
+    <PartyRole partyId="SCRUMTEAM-4" roleTypeId="SCRUM_MEMBER"/>
+    <PartyRole partyId="SCRUMTESTADMIN" roleTypeId="SCRUM_MEMBER"/>
+    <PartyRole partyId="DemoCustomer-2" roleTypeId="SCRUM_MEMBER"/>
+    <PartyRole partyId="DemoStakeholder" roleTypeId="SCRUM_MEMBER"/>
+    <PartyRole partyId="SCRUMADMIN" roleTypeId="SCRUM_MEMBER"/>
+
+    <PartyRole partyId="DemoCustomer-1" roleTypeId="PRODUCT_OWNER"/>
+    <PartyRole partyId="DemoCustomer-1" roleTypeId="SCRUM_TEAM"/>
+    <PartyRole partyId="SCRUMASTER" roleTypeId="SCRUM_MASTER"/>
+    <PartyRole partyId="SCRUMASTER" roleTypeId="CONTACT"/>
+    <PartyRole partyId="SCRUMTEAM-1" roleTypeId="SCRUM_TEAM"/>
+    <PartyRole partyId="SCRUMTEAM-1" roleTypeId="CONTACT"/>
+    <PartyRole partyId="SCRUMTEAM-2" roleTypeId="SCRUM_TEAM"/>
+    <PartyRole partyId="SCRUMTEAM-2" roleTypeId="CONTACT"/>
+    <PartyRole partyId="SCRUMTEAM-3" roleTypeId="SCRUM_TEAM"/>
+    <PartyRole partyId="SCRUMTEAM-3" roleTypeId="CONTACT"/>
+    <PartyRole partyId="SCRUMTEAM-4" roleTypeId="SCRUM_TEAM"/>
+    <PartyRole partyId="SCRUMTEAM-4" roleTypeId="CONTACT"/>
+    <PartyRole partyId="SCRUMTESTADMIN" roleTypeId="SCRUM_TEAM"/>
+    <PartyRole partyId="SCRUMTESTADMIN" roleTypeId="CONTACT"/>
+    <PartyRole partyId="DemoCustomer-2" roleTypeId="PRODUCT_OWNER"/>
+    <PartyRole partyId="DemoStakeholder" roleTypeId="STAKEHOLDER"/>
+    <PartyRole partyId="DemoStakeholder" roleTypeId="CONTACT"/>
+    <PartyRole partyId="SCRUMADMIN" roleTypeId="CONTACT"/>
+
+    <Person partyId="DemoCustomer-1" firstName="Product Owner" lastName="Scrum"/>
+    <Person partyId="SCRUMASTER" firstName="Scrum Master" lastName="Scrum"/>
+    <Person partyId="SCRUMTEAM-1" firstName="Scrum Team 1" lastName="Scrum"/>
+    <Person partyId="SCRUMTEAM-2" firstName="Scrum Team 2" lastName="Scrum"/>
+    <Person partyId="SCRUMTEAM-3" firstName="Scrum Team 3" lastName="Scrum"/>
+    <Person partyId="SCRUMTEAM-4" firstName="Scrum Team 4" lastName="Scrum"/>
+    <Person partyId="SCRUMTESTADMIN" firstName="Scrum Test" lastName="Administrator"/>
+    <Person partyId="DemoCustomer-2" firstName="Product Owner 2" lastName="Scrum"/>
+    <Person partyId="DemoStakeholder" firstName="Demo Stakeholder" lastName="Scrum"/>
+    <Person partyId="SCRUMADMIN" firstName="Scrum Admin" lastName="Scrum"/>
+
+    <UserLogin userLoginId="productowner" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N" partyId="DemoCustomer-1"/>
+    <UserLogin userLoginId="scrummaster" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N" partyId="SCRUMASTER"/>
+    <UserLogin userLoginId="scrumteam1" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N" partyId="SCRUMTEAM-1"/>
+    <UserLogin userLoginId="scrumteam2" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"  partyId="SCRUMTEAM-2"/>
+    <UserLogin userLoginId="scrumteam3" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"  partyId="SCRUMTEAM-3"/>
+    <UserLogin userLoginId="scrumteam4" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"  partyId="SCRUMTEAM-4"/>
+    <UserLogin userLoginId="testadmin" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N"  partyId="SCRUMTESTADMIN"/>
+    <UserLogin userLoginId="productowner2" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N" partyId="DemoCustomer-2"/>
+    <UserLogin userLoginId="DemoStakeholder" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N" partyId="DemoStakeholder"/>
+    <UserLogin userLoginId="scrumadmin" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" requirePasswordChange="N" partyId="SCRUMADMIN"/>
+    
+    <UserLoginSecurityGroup userLoginId="productowner" groupId="SCRUM_PRODUCT_OWNER" fromDate="2010-08-09 11:44:08.418"/>
+    <UserLoginSecurityGroup userLoginId="scrummaster" groupId="SCRUM_MASTER" fromDate="2010-08-09 11:44:08.418"/>
+    <UserLoginSecurityGroup userLoginId="scrumteam1" groupId="SCRUM_TEAM" fromDate="2010-08-09 11:44:08.418"/>
+    <UserLoginSecurityGroup userLoginId="scrumteam2" groupId="SCRUM_TEAM" fromDate="2010-08-09 11:44:08.418"/>
+    <UserLoginSecurityGroup userLoginId="scrumteam3" groupId="SCRUM_TEAM" fromDate="2010-08-09 11:44:08.418"/>
+    <UserLoginSecurityGroup userLoginId="scrumteam4" groupId="SCRUM_TEAM" fromDate="2010-08-09 11:44:08.418"/>
+    <UserLoginSecurityGroup userLoginId="testadmin" groupId="SCRUM_TEST_ADMIN" fromDate="2010-08-09 11:44:08.418"/>
+    <UserLoginSecurityGroup userLoginId="productowner2" groupId="SCRUM_PRODUCT_OWNER" fromDate="2010-08-09 11:44:08.418"/>
+    <UserLoginSecurityGroup userLoginId="DemoStakeholder" groupId="SCRUM_STAKEHOLDER" fromDate="2010-08-09 11:44:08.418"/>
+    <UserLoginSecurityGroup userLoginId="scrumadmin" groupId="SCRUM_ADMIN" fromDate="2010-08-09 11:44:08.418"/>
+    
+    <!-- ContactMech Password of all E-mails are "aws12345"-->
+    <ContactMech contactMechId="SCRUM_CONTACT01" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbizScrumProductOwner@example.com"/>
+    <ContactMech contactMechId="SCRUM_CONTACT02" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbizScrumMaster@example.com"/>
+    <ContactMech contactMechId="SCRUM_CONTACT03" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbizScrumTeam@example.com"/>
+    <ContactMech contactMechId="SCRUM_CONTACT04" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbizStakeholder@example.com"/>
+    <ContactMech contactMechId="SCRUM_CONTACT06" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbizScrumAdmin@example.com"/>
+    
+    <PartyContactMech contactMechId="SCRUM_CONTACT01" fromDate="2010-09-24 00:00:00.0" partyId="DemoCustomer-1"/>
+    <PartyContactMech contactMechId="SCRUM_CONTACT01" fromDate="2010-09-24 00:00:00.0" partyId="DemoCustomer-2"/>
+    <PartyContactMech contactMechId="SCRUM_CONTACT02" fromDate="2010-09-24 00:00:00.0" partyId="SCRUMASTER"/>
+    <PartyContactMech contactMechId="SCRUM_CONTACT03" fromDate="2010-09-24 00:00:00.0" partyId="SCRUMTEAM-1"/>
+    <PartyContactMech contactMechId="SCRUM_CONTACT03" fromDate="2010-09-24 00:00:00.0" partyId="SCRUMTEAM-2"/>
+    <PartyContactMech contactMechId="SCRUM_CONTACT03" fromDate="2010-09-24 00:00:00.0" partyId="SCRUMTEAM-3"/>
+    <PartyContactMech contactMechId="SCRUM_CONTACT03" fromDate="2010-09-24 00:00:00.0" partyId="SCRUMTEAM-4"/>
+    <PartyContactMech contactMechId="SCRUM_CONTACT04" fromDate="2010-09-24 00:00:00.0" partyId="DemoStakeholder"/>
+    <PartyContactMech contactMechId="SCRUM_CONTACT06" fromDate="2010-09-24 00:00:00.0" partyId="SCRUMADMIN"/>
+    
+    <!-- Company -->
+    <PartyRole partyId="Company" roleTypeId="ACCOUNT"/>
+    
+    <Party partyId="DemoScrumCompany" statusId="PARTY_ENABLED"/>
+    <PartyRole partyId="DemoScrumCompany" roleTypeId="ORGANIZATION_ROLE"/>
+    <PartyRole partyId="DemoScrumCompany" roleTypeId="ACCOUNT"/>
+    <PartyRole partyId="DemoCustomer-1" roleTypeId="CONTACT"/>
+    <PartyRole partyId="DemoScrumCompany" roleTypeId="PRODUCT_OWNER_COMP"/>
+    <PartyStatus partyId="DemoScrumCompany" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyGroup partyId="DemoScrumCompany" groupName="Demo Scrum Company"/>
+    
+    <ContactMech contactMechId="SCRUM_CONTACT07" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbizScrumCompany@example.com"/>
+    <PartyContactMech contactMechId="SCRUM_CONTACT07" fromDate="2010-09-24 00:00:00.0" partyId="DemoScrumCompany"/>
+    <PartyContactMechPurpose partyId="DemoScrumCompany" contactMechId="SCRUM_CONTACT07" contactMechPurposeTypeId="SUPPORT_EMAIL" fromDate="2010-07-23 00:00:00.000"/>
+    
+    <PartyRelationship partyIdFrom="DemoScrumCompany" roleTypeIdFrom="ACCOUNT" partyIdTo="DemoCustomer-1" roleTypeIdTo="CONTACT" fromDate="2010-07-23 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
+    <PartyRelationship partyIdFrom="DemoScrumCompany" roleTypeIdFrom="ACCOUNT" partyIdTo="DemoStakeholder" roleTypeIdTo="CONTACT" fromDate="2010-07-23 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
+    <PartyRelationship partyIdFrom="DemoScrumCompany" roleTypeIdFrom="ACCOUNT" partyIdTo="SCRUMTEAM-1" roleTypeIdTo="CONTACT" fromDate="2010-07-23 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
+    <PartyRelationship partyIdFrom="DemoScrumCompany" roleTypeIdFrom="ACCOUNT" partyIdTo="SCRUMTEAM-2" roleTypeIdTo="CONTACT" fromDate="2010-07-23 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
+    <PartyRelationship partyIdFrom="DemoScrumCompany" roleTypeIdFrom="ACCOUNT" partyIdTo="SCRUMTEAM-3" roleTypeIdTo="CONTACT" fromDate="2010-07-23 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
+    <PartyRelationship partyIdFrom="DemoScrumCompany" roleTypeIdFrom="ACCOUNT" partyIdTo="SCRUMTEAM-4" roleTypeIdTo="CONTACT" fromDate="2010-07-23 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
+    <PartyRelationship partyIdFrom="DemoScrumCompany" roleTypeIdFrom="ACCOUNT" partyIdTo="SCRUMASTER" roleTypeIdTo="CONTACT" fromDate="2010-07-23 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
+    <PartyRelationship partyIdFrom="DemoScrumCompany" roleTypeIdFrom="ACCOUNT" partyIdTo="SCRUMTESTADMIN" roleTypeIdTo="CONTACT" fromDate="2010-07-23 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
+    <PartyRelationship partyIdFrom="DemoScrumCompany" roleTypeIdFrom="ACCOUNT" partyIdTo="SCRUMADMIN" roleTypeIdTo="CONTACT" fromDate="2010-07-23 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
+    <PartyRelationship partyIdFrom="Company" roleTypeIdFrom="ACCOUNT" partyIdTo="SCRUMTEAM-1" roleTypeIdTo="CONTACT" fromDate="2010-07-23 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
+    
+    <!-- Company -->
+    <Party partyId="DemoScrumCompany2" statusId="PARTY_ENABLED"/>
+    <PartyRole partyId="DemoScrumCompany2" roleTypeId="ORGANIZATION_ROLE"/>
+    <PartyRole partyId="DemoScrumCompany2" roleTypeId="ACCOUNT"/>
+    <PartyRole partyId="DemoCustomer-2" roleTypeId="CONTACT"/>
+    <PartyRole partyId="DemoScrumCompany2" roleTypeId="PRODUCT_OWNER_COMP"/>
+    <PartyStatus partyId="DemoScrumCompany2" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyGroup partyId="DemoScrumCompany2" groupName="Demo Scrum Company 2"/>
+    <PartyRelationship partyIdFrom="DemoScrumCompany2" roleTypeIdFrom="ACCOUNT" partyIdTo="DemoCustomer-2" roleTypeIdTo="CONTACT" fromDate="2010-07-23 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
+    
+    <ContactMech contactMechId="SCRUM_CONTACT08" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbizScrumCompany2@example.com"/>
+    <PartyContactMech contactMechId="SCRUM_CONTACT08" fromDate="2010-09-24 00:00:00.0" partyId="DemoScrumCompany2"/>
+    <PartyContactMechPurpose partyId="DemoScrumCompany2" contactMechId="SCRUM_CONTACT08" contactMechPurposeTypeId="SUPPORT_EMAIL" fromDate="2010-07-23 00:00:00.000"/>
+    
+    <!-- Product -->
+    <Product productId="DEMO-PRODUCT-1" internalName="Demo Product 1" productTypeId="SCRUM_ITEM" createdDate="2010-07-23 11:44:08.418" introductionDate="2010-07-23 11:44:08.418" supportDiscontinuationDate=""/>
+    
+    <!-- Product Role -->
+    <ProductRole productId="DEMO-PRODUCT-1" partyId="DemoCustomer-1" roleTypeId="PRODUCT_OWNER" fromDate="2010-11-18 14:50:01.259"/>
+    <ProductRole productId="DEMO-PRODUCT-1" partyId="DemoScrumCompany" roleTypeId="PRODUCT_OWNER_COMP" fromDate="2010-11-18 14:50:01.22"/>
+    <ProductRole productId="DEMO-PRODUCT-1" partyId="SCRUMASTER" roleTypeId="SCRUM_MASTER" fromDate="2010-11-18 14:50:01.23"/>
+    <ProductRole productId="DEMO-PRODUCT-1" partyId="DemoStakeholder" roleTypeId="STAKEHOLDER" fromDate="2010-11-18 14:50:01.21"/>
+    
+    <!-- Demo Product Backlog Items --> 
+    <CustRequest custRequestId="TEST1" custRequestTypeId="RF_PROD_BACKLOG" statusId="CRQ_REVIEWED" custRequestName="Product Backlog" description="As a product owner I want to easily create and update a project." custRequestDate="2010-07-23 11:44:08.418" createdDate="2010-07-23 11:44:08.418" custSequenceNum="1" fromPartyId="DemoCustomer-1" billed="Y"/>
+    <CustRequest custRequestId="TEST2" custRequestTypeId="RF_PROD_BACKLOG" statusId="CRQ_REVIEWED" custRequestName="Product Backlog" description="As a product owner I want to easily create and update a product backlog." custRequestDate="2010-07-23 11:44:08.418" createdDate="2010-07-23 11:44:08.418" custSequenceNum="2" fromPartyId="DemoCustomer-1" billed="Y"/>
+    <CustRequest custRequestId="TEST3" custRequestTypeId="RF_PROD_BACKLOG" statusId="CRQ_REVIEWED" custRequestName="Product Backlog" description="As a product owner I can only update the product backlog for items which are not yet contained in a sprint." custRequestDate="2010-07-23 11:44:08.418" createdDate="2010-07-23 11:44:08.418" custSequenceNum="3" fromPartyId="DemoCustomer-1" billed="Y"/>
+    <CustRequest custRequestId="TEST4" custRequestTypeId="RF_PROD_BACKLOG" statusId="CRQ_COMPLETED" custRequestName="Product Backlog" description="As a product owner I should be able to easily change the order of the product backlog items." custRequestDate="2010-07-23 11:44:08.418" createdDate="2010-07-23 11:44:08.418" custSequenceNum="4" fromPartyId="DemoCustomer-1" billed="Y"/>
+    <CustRequest custRequestId="TEST5" custRequestTypeId="RF_PROD_BACKLOG" statusId="CRQ_ACCEPTED" custRequestName="Product Backlog" description="As a scrum team I want to easily create a sprint backlog from the product backlog." custRequestDate="2010-07-23 11:44:08.418" createdDate="2010-07-23 11:44:08.418" custSequenceNum="5" fromPartyId="DemoCustomer-1" billed="Y"/>
+    <CustRequest custRequestId="TEST6" custRequestTypeId="RF_PROD_BACKLOG" statusId="CRQ_ACCEPTED" custRequestName="Product Backlog" description="As a team member I should be able to easily update estimates to complete on a backlog item." custRequestDate="2010-07-23 11:44:08.418" createdDate="2010-07-23 11:44:08.418" custSequenceNum="6" fromPartyId="DemoCustomer-1" billed="Y"/>
+    <CustRequest custRequestId="TEST7" custRequestTypeId="RF_PROD_BACKLOG" statusId="CRQ_ACCEPTED" custRequestName="Product Backlog" description="As a scrum master I want to list and see all members available to any new project." custRequestDate="2010-07-23 11:44:08.418" createdDate="2010-07-23 11:44:08.418" custSequenceNum="7" fromPartyId="DemoCustomer-1" billed="Y"/>
+    <CustRequest custRequestId="TEST8" custRequestTypeId="RF_PROD_BACKLOG" statusId="CRQ_ACCEPTED" custRequestName="Product Backlog" description="As a product owner I want to easily add and update a member to a project/sprint/task." custRequestDate="2010-07-23 11:44:08.418" createdDate="2010-07-23 11:44:08.418" custSequenceNum="8" fromPartyId="DemoCustomer-1" billed="Y"/>
+    <CustRequest custRequestId="TEST9" custRequestTypeId="RF_PROD_BACKLOG" statusId="CRQ_ACCEPTED" custRequestName="Product Backlog" description="As a scrum master I need to add/update sprints related to a project." createdDate="2010-07-23 11:44:08.418" custRequestDate="2010-07-23 11:44:08.418" custSequenceNum="9" fromPartyId="DemoCustomer-1" billed="Y"/>
+    <CustRequest custRequestId="TEST10" custRequestTypeId="RF_PROD_BACKLOG" statusId="CRQ_ACCEPTED" custRequestName="Product Backlog" description="As a scrum master I would like to see the daily scrum meeting minutes entered with the sprint backlog." custRequestDate="2010-07-23 11:44:08.418" createdDate="2010-07-23 11:44:08.418" custSequenceNum="10" fromPartyId="DemoCustomer-1" billed="Y"/>
+    <CustRequest custRequestId="TEST11" custRequestTypeId="RF_PROD_BACKLOG" statusId="CRQ_ACCEPTED" custRequestName="Product Backlog" description="As a team member I should be able to easily update actual worked hours on a task." custRequestDate="2010-07-23 11:44:08.418" createdDate="2010-07-23 11:44:08.418" custSequenceNum="11" fromPartyId="DemoCustomer-1" billed="Y"/>
+    
+    <CustRequestItem custRequestId="TEST1" custRequestItemSeqId="TESTSEQ1" productId="DEMO-PRODUCT-1" sequenceNum="1" statusId="CRQ_ACCEPTED"/>
+    <CustRequestItem custRequestId="TEST2" custRequestItemSeqId="TESTSEQ2" productId="DEMO-PRODUCT-1" sequenceNum="2" statusId="CRQ_ACCEPTED"/>
+    <CustRequestItem custRequestId="TEST3" custRequestItemSeqId="TESTSEQ3" productId="DEMO-PRODUCT-1" sequenceNum="3" statusId="CRQ_ACCEPTED"/>
+    <CustRequestItem custRequestId="TEST4" custRequestItemSeqId="TESTSEQ4" productId="DEMO-PRODUCT-1" sequenceNum="4" statusId="CRQ_COMPLETED"/>
+    <CustRequestItem custRequestId="TEST5" custRequestItemSeqId="TESTSEQ5" productId="DEMO-PRODUCT-1" sequenceNum="5" statusId="CRQ_ACCEPTED"/>
+    <CustRequestItem custRequestId="TEST6" custRequestItemSeqId="TESTSEQ6" productId="DEMO-PRODUCT-1" sequenceNum="6" statusId="CRQ_ACCEPTED"/>
+    <CustRequestItem custRequestId="TEST7" custRequestItemSeqId="TESTSEQ7" productId="DEMO-PRODUCT-1" sequenceNum="7" statusId="CRQ_ACCEPTED"/>
+    <CustRequestItem custRequestId="TEST8" custRequestItemSeqId="TESTSEQ8" productId="DEMO-PRODUCT-1" sequenceNum="8" statusId="CRQ_ACCEPTED"/>
+    <CustRequestItem custRequestId="TEST9" custRequestItemSeqId="TESTSEQ9" productId="DEMO-PRODUCT-1" sequenceNum="9" statusId="CRQ_ACCEPTED"/>
+    <CustRequestItem custRequestId="TEST10" custRequestItemSeqId="TESTSEQ10" productId="DEMO-PRODUCT-1" sequenceNum="10" statusId="CRQ_ACCEPTED"/>
+    <CustRequestItem custRequestId="TEST11" custRequestItemSeqId="TESTSEQ11" productId="DEMO-PRODUCT-1" sequenceNum="11" statusId="CRQ_ACCEPTED"/>
+    
+    <!--Default Task -->
+    <WorkEffort workEffortId="DEFAULT-TASK-1" workEffortTypeId="SCRUM_TASK_IMPL" currentStatusId="STS_CREATED" workEffortPurposeTypeId="SCRUM_DEFAULT_TASK" workEffortName="Implementation" description="Implementation" estimatedMilliSeconds="0.0" revisionNumber="1"/>
+    <WorkEffort workEffortId="DEFAULT-TASK-2" workEffortTypeId="SCRUM_TASK_TEST" currentStatusId="STS_CREATED" workEffortPurposeTypeId="SCRUM_DEFAULT_TASK" workEffortName="Test" description="Test" estimatedMilliSeconds="0.0" revisionNumber="1"/>
+    
+    <!-- Demo Project -->
+    <WorkEffort workEffortId="DEMO-PROJECT-1" workEffortTypeId="SCRUM_PROJECT" workEffortName="Demo Project 1" description="Demo Project 1" currentStatusId="SPJ_ACTIVE" estimatedStartDate="2010-08-01 09:09:09.929" createdDate="2010-07-26 14:39:54.929"/>
+    
+    <!-- workeffort and product association -->
+    <WorkEffortGoodStandard workEffortId="DEMO-PROJECT-1" productId="DEMO-PRODUCT-1" workEffortGoodStdTypeId="SCRUM_PRO_WORKEFF" fromDate="2010-09-13 00:00:00.000" statusId="WEGS_CREATED"/>
+    <WorkEffortGoodStandard workEffortId="DEFAULT-TASK-1" productId="DEMO-PRODUCT-1" workEffortGoodStdTypeId="SCRUM_PRO_WORKEFF" fromDate="2010-09-13 00:00:00.000" statusId="WEGS_CREATED"/>
+    <WorkEffortGoodStandard workEffortId="DEFAULT-TASK-2" productId="DEMO-PRODUCT-1" workEffortGoodStdTypeId="SCRUM_PRO_WORKEFF" fromDate="2010-09-13 00:00:00.000" statusId="WEGS_CREATED"/>
+
+    <!-- Demo Sprint -->
+    <WorkEffort workEffortId="DEMO-SPRINT-1" workEffortTypeId="SCRUM_SPRINT"  workEffortName="Sprint Demo 1" description="Sprint Demo 1" workEffortParentId="DEMO-PROJECT-1" currentStatusId="SPRINT_ACTIVE" actualStartDate="2010-09-13 00:00:00.000" actualCompletionDate="2010-09-20 00:00:00.000" estimatedMilliSeconds="144000000"/>
+     <!-- Assign Team Members To a Sprint  -->
+    <WorkEffortPartyAssignment workEffortId="DEMO-SPRINT-1" partyId="SCRUMTEAM-1" statusId="PRTYASGN_ASSIGNED" roleTypeId="SCRUM_TEAM" fromDate="2010-09-13 00:00:00.000"/>
+    <WorkEffortPartyAssignment workEffortId="DEMO-SPRINT-1" partyId="SCRUMTEAM-2" statusId="PRTYASGN_ASSIGNED" roleTypeId="SCRUM_TEAM" fromDate="2010-09-13 00:00:00.000"/>
+    <WorkEffortPartyAssignment workEffortId="DEMO-SPRINT-1" partyId="SCRUMTEAM-3" statusId="PRTYASGN_ASSIGNED" roleTypeId="SCRUM_TEAM" fromDate="2010-09-13 00:00:00.000"/>
+    <WorkEffortPartyAssignment workEffortId="DEMO-SPRINT-1" partyId="SCRUMTEAM-4" statusId="PRTYASGN_ASSIGNED" roleTypeId="SCRUM_TEAM" fromDate="2010-09-13 00:00:00.000"/>
+    
+    <!-- Sprint Backlog Items-->
+    <CustRequest custRequestId="SCRUM-MEETINGS" custRequestTypeId="RF_SCRUM_MEETINGS" statusId="CRQ_REVIEWED" fromPartyId="admin" custRequestName="Scrum Meeting" description="Scrum Meeting"/>
+    <CustRequestItem custRequestId="SCRUM-MEETINGS" custRequestItemSeqId="MEETING-1" productId="DEMO-PRODUCT-1" statusId="CRQ_ACCEPTED"/>
+    
+    <CustRequestWorkEffort custRequestId="TEST1" workEffortId="DEMO-SPRINT-1"/>
+    <CustRequestWorkEffort custRequestId="TEST2" workEffortId="DEMO-SPRINT-1"/>
+    <CustRequestWorkEffort custRequestId="TEST3" workEffortId="DEMO-SPRINT-1"/>
+    <CustRequestWorkEffort custRequestId="TEST4" workEffortId="DEMO-SPRINT-1"/>
+    <CustRequestWorkEffort custRequestId="SCRUM-MEETINGS" workEffortId="DEMO-SPRINT-1"/>
+    <!-- Meeting Task -->
+    <WorkEffort workEffortId="MEETING-TASK-1" workEffortTypeId="SCRUM_TASK_IMPL" currentStatusId="STS_CREATED" workEffortPurposeTypeId="SCRUM_DEFAULT_TASK" workEffortParentId="DEMO-SPRINT-1" workEffortName="Scrum Planning" estimatedMilliSeconds="0.0" revisionNumber="1" createdDate="2010-09-13 00:00:00.000"/>
+    <WorkEffort workEffortId="MEETING-TASK-2" workEffortTypeId="SCRUM_TASK_IMPL" currentStatusId="STS_CREATED" workEffortPurposeTypeId="SCRUM_DEFAULT_TASK" workEffortParentId="DEMO-SPRINT-1" workEffortName="Sprint Evaluation and Sprint Retrospective" estimatedMilliSeconds="0.0" revisionNumber="1" createdDate="2010-09-13 00:00:00.000"/>
+    <WorkEffort workEffortId="MEETING-TASK-3" workEffortTypeId="SCRUM_TASK_IMPL" currentStatusId="STS_CREATED" workEffortPurposeTypeId="SCRUM_DEFAULT_TASK" workEffortParentId="DEMO-SPRINT-1" workEffortName="Daily Scrum" estimatedMilliSeconds="0.0" revisionNumber="1" createdDate="2010-09-13 00:00:00.000"/>
+    <CustRequestWorkEffort custRequestId="SCRUM-MEETINGS" workEffortId="MEETING-TASK-1"/>
+    <CustRequestWorkEffort custRequestId="SCRUM-MEETINGS" workEffortId="MEETING-TASK-2"/>
+    <CustRequestWorkEffort custRequestId="SCRUM-MEETINGS" workEffortId="MEETING-TASK-3"/>
+    
+    <!-- Task -->
+    <WorkEffort workEffortId="DEMO-TASK-1" workEffortTypeId="SCRUM_TASK_IMPL"  workEffortName="Demo Task 1" description="Demo Task 1" workEffortParentId="DEMO-SPRINT-1" currentStatusId="STS_CREATED"/>
+    <WorkEffort workEffortId="DEMO-TASK-2" workEffortTypeId="SCRUM_TASK_IMPL"  workEffortName="Demo Task 2" description="Demo Task 2" workEffortParentId="DEMO-SPRINT-1" currentStatusId="STS_CREATED"/>
+    <WorkEffort workEffortId="DEMO-TASK-3" workEffortTypeId="SCRUM_TASK_IMPL"  workEffortName="Demo Task 3" description="Demo Task 3" workEffortParentId="DEMO-SPRINT-1" currentStatusId="STS_COMPLETED"/>
+    <WorkEffort workEffortId="DEMO-TASK-4" workEffortTypeId="SCRUM_TASK_IMPL"  workEffortName="Demo Task 4" description="Demo Task 4" workEffortParentId="DEMO-SPRINT-1" currentStatusId="STS_COMPLETED"/>
+    <WorkEffortPartyAssignment workEffortId="DEMO-TASK-1" partyId="SCRUMTEAM-1" statusId="SCAS_ASSIGNED" roleTypeId="SCRUM_TEAM" fromDate="2010-09-13 00:00:00.000"/>
+    <WorkEffortPartyAssignment workEffortId="DEMO-TASK-2" partyId="SCRUMTEAM-2" statusId="SCAS_ASSIGNED" roleTypeId="SCRUM_TEAM" fromDate="2010-09-13 00:00:00.000"/>
+    <WorkEffortPartyAssignment workEffortId="DEMO-TASK-3" partyId="SCRUMTEAM-1" statusId="SCAS_ASSIGNED" roleTypeId="SCRUM_TEAM" fromDate="2010-09-13 00:00:00.000"/>
+    <WorkEffortPartyAssignment workEffortId="DEMO-TASK-4" partyId="SCRUMTEAM-1" statusId="SCAS_ASSIGNED" roleTypeId="SCRUM_TEAM" fromDate="2010-09-13 00:00:00.000"/>
+    <CustRequestWorkEffort custRequestId="TEST1" workEffortId="DEMO-TASK-1"/>
+    <CustRequestWorkEffort custRequestId="TEST1" workEffortId="DEMO-TASK-2"/>
+    <CustRequestWorkEffort custRequestId="TEST4" workEffortId="DEMO-TASK-3"/>
+    <CustRequestWorkEffort custRequestId="TEST4" workEffortId="DEMO-TASK-4"/>
+    
+    <!-- Demo CommunicationEvent -->
+    <CommunicationEvent communicationEventId="DEMO-COM-PRODUCT-1" communicationEventTypeId="EMAIL_COMMUNICATION" statusId="COM_IN_PROGRESS" contactMechIdFrom="admin" contactMechIdTo="SCRUM_CONTACT01" roleTypeIdFrom="ORIGINATOR" roleTypeIdTo="ADDRESSEE" partyIdFrom="DemoCustomer-1" partyIdTo="SCRUMASTER" entryDate="2010-10-27 15:04:17.895" subject="PD#DEMO-PRODUCT-1 - Demo Product 1" contentMimeTypeId="text/plain" />
+    <CommunicationEventProduct communicationEventId="DEMO-COM-PRODUCT-1" productId="DEMO-PRODUCT-1" />
+    <CommunicationEvent communicationEventId="DEMO-COM-PRODUCT-2" communicationEventTypeId="EMAIL_COMMUNICATION" statusId="COM_IN_PROGRESS" contactMechIdFrom="admin" contactMechIdTo="SCRUM_CONTACT01" roleTypeIdFrom="ORIGINATOR" roleTypeIdTo="ADDRESSEE" partyIdFrom="DemoCustomer-1" partyIdTo="SCRUMASTER" entryDate="2010-10-27 15:04:17.895" subject="PD#DEMO-PRODUCT-2 - Demo Product 2" contentMimeTypeId="text/plain" />
+    <CommunicationEventProduct communicationEventId="DEMO-COM-PRODUCT-2" productId="DEMO-PRODUCT-1" />
+    
+    <!-- Demo CommunicationEvent Backlog -->
+    <CommunicationEvent communicationEventId="DEMO-COM-BACKLOG-1" communicationEventTypeId="EMAIL_COMMUNICATION" statusId="COM_COMPLETE" contactMechIdFrom="admin" contactMechIdTo="SCRUM_CONTACT01" roleTypeIdFrom="ORIGINATOR" roleTypeIdTo="ADDRESSEE" partyIdFrom="admin" partyIdTo="DemoCustomer-1" entryDate="2010-11-10 15:31:08.394" subject="CR#TEST1 - Product Backlog" contentMimeTypeId="text/plain" content="Demo Communication Test1"/>
+    <CustRequestCommEvent custRequestId="TEST1" communicationEventId="DEMO-COM-BACKLOG-1"/>
+    
+    <!-- Time sheet -->
+    <Timesheet timesheetId="DEMO-TIMESHEET1" partyId="SCRUMTEAM-1" fromDate="2010-10-25 00:00:00.000" thruDate="2010-10-31 23:59:59.000" statusId="TIMESHEET_IN_PROCESS" />
+    <Timesheet timesheetId="DEMO-TIMESHEET2" partyId="SCRUMTEAM-1" fromDate="2010-10-25 00:00:00.000" thruDate="2010-10-31 23:59:59.000" statusId="TIMESHEET_IN_PROCESS" />
+    <Timesheet timesheetId="DEMO-TIMESHEET3" partyId="SCRUMTEAM-1" fromDate="2010-10-18 00:00:00.000" thruDate="2010-10-24 23:59:59.000" statusId="TIMESHEET_COMPLETED" />
+    
+    <!-- Time Entry -->
+    <TimeEntry timeEntryId="DEMO-TIMEENTRY1" partyId="SCRUMTEAM-1" fromDate="2010-10-19 00:00:00.000" rateTypeId="STANDARD" workEffortId="DEMO-TASK-3" timesheetId="DEMO-TIMESHEET3" hours="8" planHours="8"/>
+    <TimeEntry timeEntryId="DEMO-TIMEENTRY2" partyId="SCRUMTEAM-1" fromDate="2010-10-20 00:00:00.000" rateTypeId="STANDARD" workEffortId="DEMO-TASK-4" timesheetId="DEMO-TIMESHEET3" hours="8" planHours="8"/>
+    
+    <!-- Demo Product Content -->
+    <DataResource dataResourceId="DemoContentProduct" dataResourceTypeId="LOCAL_FILE" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="DEMO-CONTENT.xml" mimeTypeId="application/octet-stream" objectInfo="component://scrum/data/helpdata/DEMO-CONTENT.xml" createdDate="2010-11-01 13:35:33.211" createdByUserLogin="admin" lastModifiedDate="2010-11-01 13:35:33.211" lastModifiedByUserLogin="admin"/>
+    <Content contentId="DemoContentProduct" contentTypeId="DOCUMENT" dataResourceId="DemoContentProduct" statusId="CTNT_INITIAL_DRAFT" contentName="DEMO-CONTENT" mimeTypeId="application/octet-stream" createdDate="2010-11-01 13:35:34.357" createdByUserLogin="admin" lastModifiedDate="2010-11-01 13:35:35.486" lastModifiedByUserLogin="admin"/>
+    <ProductContent productId="DEMO-PRODUCT-1" contentId="DemoContentProduct" productContentTypeId="SPECIFICATION" fromDate="2010-11-01 13:35:34.751"/>
+    
+    <!-- Demo Backlog Content -->
+    <DataResource dataResourceId="DemoContentBacklog" dataResourceTypeId="LOCAL_FILE" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="DEMO-CONTENT.xml" mimeTypeId="application/octet-stream" objectInfo="component://scrum/data/helpdata/DEMO-CONTENT.xml" createdDate="2010-11-01 13:35:33.211" createdByUserLogin="admin" lastModifiedDate="2010-11-01 13:35:33.211" lastModifiedByUserLogin="admin"/>
+    <Content contentId="DemoContentBacklog" contentTypeId="DOCUMENT" dataResourceId="DemoContentBacklog" statusId="CTNT_INITIAL_DRAFT" contentName="DEMO-CONTENT" mimeTypeId="application/octet-stream" createdDate="2010-11-01 13:35:34.357" createdByUserLogin="admin" lastModifiedDate="2010-11-01 13:35:35.486" lastModifiedByUserLogin="admin"/>
+    <CustRequestContent custRequestId="TEST1" contentId="DemoContentBacklog" fromDate="2010-11-02 10:37:42.358"/>
+    
+    <!-- Demo Project Content -->
+    <DataResource dataResourceId="DemoContentProject" dataResourceTypeId="LOCAL_FILE" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="DEMO-CONTENT.xml" mimeTypeId="application/octet-stream" objectInfo="component://scrum/data/helpdata/DEMO-CONTENT.xml" createdDate="2010-11-01 13:35:33.211" createdByUserLogin="admin" lastModifiedDate="2010-11-01 13:35:33.211" lastModifiedByUserLogin="admin"/>
+    <Content contentId="DemoContentProject" contentTypeId="DOCUMENT" dataResourceId="DemoContentProject" statusId="CTNT_INITIAL_DRAFT" contentName="DEMO-CONTENT" mimeTypeId="application/octet-stream" createdDate="2010-11-01 13:35:34.357" createdByUserLogin="admin" lastModifiedDate="2010-11-01 13:35:35.486" lastModifiedByUserLogin="admin"/>
+    <WorkEffortContent workEffortId="DEMO-PROJECT-1" contentId="DemoContentProject" workEffortContentTypeId="PROJECT_SPEC" fromDate="2010-11-05 15:50:39.392"/>
+</entity-engine-xml>

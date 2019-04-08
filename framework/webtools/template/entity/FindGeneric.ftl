@@ -16,6 +16,27 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-    <#if entityName?has_content>
-        ${dynamicAutoEntitySearchForm?string}
-    </#if>
+        <form method="post" action="<@ofbizUrl>FindGeneric?entityName=${entityName}</@ofbizUrl>">
+          <input type="hidden" name="find" value="true"/>
+          <input type="hidden" name="searchOptions_collapsed" value="true"/>
+          <table class="basic-table" cellspacing="0">
+            <tr class="header-row-2">
+              <td>${uiLabelMap.WebtoolsFieldName}</td>
+              <td>${uiLabelMap.WebtoolsPk}</td>
+              <td>${uiLabelMap.WebtoolsFieldType}</td>
+              <td>&nbsp;</td>
+            </tr>
+            <#list fieldList as field>
+                <tr>
+                    <td>${field.name}</td>
+                    <td><#if field.isPk == 'Y'>*</#if></td>
+                    <td>${field.javaType},&nbsp;${field.sqlType}</td>
+                    <td><input type="text" name="${field.name}" value="${field.param}" size="40"/></td>
+                </tr>
+            </#list>
+                <tr>
+                    <td colspan="3"><h3>${uiLabelMap.WebtoolsToFindAll} ${entityName}, ${uiLabelMap.WebtoolsLeaveAllEntriesBlank}</h3></td>
+                    <td><input type="submit" value="${uiLabelMap.CommonFind}"/></td>
+                </tr>
+            </table>
+        </form>

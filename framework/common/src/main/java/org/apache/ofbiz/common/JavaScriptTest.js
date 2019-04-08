@@ -24,4 +24,4 @@ m = bsf.lookupBean("response");
 m.put("result", x);
 
 bsf.registerBean("response", m);
-console.log("BSF - JS: " + x);
+java.lang.System.out.println("BSF - JS: " + x);

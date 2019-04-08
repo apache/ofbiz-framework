@@ -18,27 +18,27 @@
  *******************************************************************************/
 package org.apache.ofbiz.webtools.print;
 
-import java.io.IOException;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.util.Locale;
 import java.util.Map;
-
+import java.util.Locale;
+import java.io.IOException;
+import java.io.Writer;
+import java.io.StringWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.codec.binary.Base64;
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.GeneralException;
-import org.apache.ofbiz.base.util.UtilHttp;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.service.DispatchContext;
+
 import org.apache.ofbiz.service.LocalDispatcher;
+import org.apache.ofbiz.service.DispatchContext;
+import org.apache.ofbiz.base.util.UtilHttp;
+import org.apache.ofbiz.base.util.GeneralException;
+import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.entity.GenericValue;
+import org.apache.ofbiz.entity.util.EntityUtilProperties;
+import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.widget.renderer.ScreenRenderer;
 import org.apache.ofbiz.widget.renderer.ScreenStringRenderer;
-import org.apache.ofbiz.widget.renderer.VisualTheme;
 import org.apache.ofbiz.widget.renderer.macro.MacroScreenRenderer;
 
 /**
@@ -87,7 +87,6 @@ public class FoPrintServerEvents {
 
     public static byte[] getXslFo(DispatchContext dctx, String screen, Map<String, Object> parameters) throws GeneralException {
         // run as the system user
-        VisualTheme visualTheme = (VisualTheme) parameters.get("visualTheme");
         GenericValue system = null;
         try {
             system = dctx.getDelegator().findOne("UserLogin", false, "userLoginId", "system");
@@ -102,8 +101,8 @@ public class FoPrintServerEvents {
         // render and obtain the XSL-FO
         Writer writer = new StringWriter();
         try {
-            ScreenStringRenderer screenStringRenderer = new MacroScreenRenderer(visualTheme.getModelTheme().getType("screen"),
-                    visualTheme.getModelTheme().getScreenRendererLocation("screen"));
+            ScreenStringRenderer screenStringRenderer = new MacroScreenRenderer(EntityUtilProperties.getPropertyValue("widget", "screen.name", dctx.getDelegator()),
+                    EntityUtilProperties.getPropertyValue("widget", "screen.screenrenderer", dctx.getDelegator()));
             ScreenRenderer screens = new ScreenRenderer(writer, null, screenStringRenderer);
             screens.populateContextForService(dctx, parameters);
             screens.render(screen);

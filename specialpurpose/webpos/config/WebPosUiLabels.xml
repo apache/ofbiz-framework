@@ -1,0 +1,1129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
+    <property key="WebPosAdjustments">
+        <value xml:lang="en">Adjustments</value>
+        <value xml:lang="fr">Ajustements</value>
+        <value xml:lang="it">Aggiustamenti</value>
+        <value xml:lang="ja">調整</value>
+        <value xml:lang="zh">调整</value>
+        <value xml:lang="zh-TW">調整</value>
+    </property>
+    <property key="WebPosCart">
+        <value xml:lang="en">Cart</value>
+        <value xml:lang="fr">Panier du Point de vente</value>
+        <value xml:lang="it">Carrello</value>
+        <value xml:lang="ja">POSかご</value>
+        <value xml:lang="zh">收银机购物车</value>
+        <value xml:lang="zh-TW">收銀機購物車</value>
+    </property>
+    <property key="WebPosCartItemSelected">
+        <value xml:lang="en">Cart Item Selected</value>
+        <value xml:lang="it">Riga carello selezionata</value>
+        <value xml:lang="ja">選択された買い物かごのアイテム</value>
+        <value xml:lang="zh">所选的购物车明细</value>
+        <value xml:lang="zh-TW">所選的購物車細項</value>
+    </property>
+    <property key="WebPosChooseTerminal">
+        <value xml:lang="en">Choose Terminal</value>
+        <value xml:lang="fr">Choisir la caisse</value>
+        <value xml:lang="it">Scegli terminale</value>
+        <value xml:lang="ja">端末の選択</value>
+        <value xml:lang="zh">选择终端</value>
+        <value xml:lang="zh-TW">選擇終端</value>
+    </property>
+    <property key="WebPosCompanyName">
+        <value xml:lang="en">OFBiz: Web Pos Manager</value>
+        <value xml:lang="it">OFBiz: Gestione Pos Web</value>
+        <value xml:lang="ja">OFBiz: Web POS 管理</value>
+        <value xml:lang="zh">OFBiz：网页POS管理程序</value>
+        <value xml:lang="zh-TW">OFBiz:網頁POS管理程式</value>
+    </property>
+    <property key="WebPosCompanySubtitle">
+        <value xml:lang="en">Part of the Apache OFBiz Family of Open Source Software</value>
+        <value xml:lang="it">Parte della famiglia Apache OFBiz di Open Source Software</value>
+        <value xml:lang="ja">Part of the Apache OFBiz Family of Open Source Software</value>
+        <value xml:lang="zh">开源软件OFBiz的组成部分</value>
+        <value xml:lang="zh-TW">開源軟體OFBiz的組成部分</value>
+    </property>
+    <property key="WebPosCompleteSale">
+        <value xml:lang="en">Press Finish To Complete Sale</value>
+        <value xml:lang="fr">Choisir Finaliser pour terminer la vente</value>
+        <value xml:lang="it">Premere TERMINA per completare la vendita</value>
+        <value xml:lang="ja">完了を押して販売を完了</value>
+        <value xml:lang="zh">按结束完成销售</value>
+        <value xml:lang="zh-TW">按結束完成銷售</value>
+    </property>
+    <property key="WebPosDrawer">
+        <value xml:lang="en">Till</value>
+        <value xml:lang="fr">Caisse</value>
+        <value xml:lang="it">Cassa</value>
+        <value xml:lang="ja">レジスタ</value>
+        <value xml:lang="zh">备用金</value>
+        <value xml:lang="zh-TW">備用金</value>
+    </property>
+    <property key="WebPosEditAddress">
+        <value xml:lang="en">Edit address</value>
+        <value xml:lang="it">Aggiorna indirizzo</value>
+        <value xml:lang="ja">住所の編集</value>
+        <value xml:lang="zh">编辑地址</value>
+        <value xml:lang="zh-TW">編輯位址</value>
+    </property>
+    <property key="WebPosEmployee">
+        <value xml:lang="en">Employee</value>
+        <value xml:lang="fr">Employé</value>
+        <value xml:lang="it">Impiegato</value>
+        <value xml:lang="ja">従業員</value>
+        <value xml:lang="zh">雇员</value>
+        <value xml:lang="zh-TW">員工</value>
+    </property>
+    <property key="WebPosItemTotal">
+        <value xml:lang="en">Item Total</value>
+        <value xml:lang="fr">Total ligne</value>
+        <value xml:lang="it">Totale riga</value>
+        <value xml:lang="ja">アイテム合計</value>
+        <value xml:lang="zh">明细合计</value>
+        <value xml:lang="zh-TW">細項合計</value>
+    </property>
+    <property key="WebPosManagerCloseTerminal">
+        <value xml:lang="en">Close Terminal</value>
+        <value xml:lang="fr">FERMER CAISSE</value>
+        <value xml:lang="it">Chiudi terminale</value>
+        <value xml:lang="ja">端末をクローズ</value>
+        <value xml:lang="zh">关闭终端</value>
+        <value xml:lang="zh-TW">關閉終端</value>
+    </property>
+    <property key="WebPosManagerCloseTerminalCashAmount">
+        <value xml:lang="en">Enter Cash Amount</value>
+        <value xml:lang="fr">Saisir le montant en espèces</value>
+        <value xml:lang="it">Inserire importo in contanti</value>
+        <value xml:lang="ja">現金金額を入力:</value>
+        <value xml:lang="zh">输入现金金额：</value>
+        <value xml:lang="zh-TW">輸入現金金額:</value>
+    </property>
+    <property key="WebPosManagerCloseTerminalCashAmountNotValid">
+        <value xml:lang="en">Enter a valid cash amount</value>
+        <value xml:lang="fr">Saisir un montant valide pour les espèces</value>
+        <value xml:lang="it">Inserire un'importo in contanti valido</value>
+        <value xml:lang="ja">有効な現金金額を入力:</value>
+        <value xml:lang="zh">输入一个有效的现金金额：</value>
+        <value xml:lang="zh-TW">輸入一個有效的現金金額:</value>
+    </property>
+    <property key="WebPosManagerCloseTerminalCcAmount">
+        <value xml:lang="en">Enter Credit Card Amount</value>
+        <value xml:lang="fr">Saisir le montant en carte bancaire</value>
+        <value xml:lang="it">Inserire importo con carte di credito</value>
+        <value xml:lang="ja">クレジットカード金額を入力:</value>
+        <value xml:lang="zh">输入信用卡金额：</value>
+        <value xml:lang="zh-TW">輸入信用卡金額:</value>
+    </property>
+    <property key="WebPosManagerCloseTerminalCcAmountNotValid">
+        <value xml:lang="en">Enter a valid credit card amount</value>
+        <value xml:lang="fr">Saisir un montant valide pour les cartes bancaires</value>
+        <value xml:lang="it">Inserire un'importo con carte di credito valido</value>
+        <value xml:lang="ja">有効なクレジットカード金額を入力:</value>
+        <value xml:lang="zh">输入一个有效的信用卡金额：</value>
+        <value xml:lang="zh-TW">輸入一個有效的信用卡金額:</value>
+    </property>
+    <property key="WebPosManagerCloseTerminalCheckAmount">
+        <value xml:lang="en">Enter Check Amount</value>
+        <value xml:lang="fr">Saisir le montant en chèque</value>
+        <value xml:lang="it">Inserire importo in assegni</value>
+        <value xml:lang="ja">小切手金額を入力:</value>
+        <value xml:lang="zh">输入支票金额：</value>
+        <value xml:lang="zh-TW">輸入支票金額:</value>
+    </property>
+    <property key="WebPosManagerCloseTerminalCheckAmountNotValid">
+        <value xml:lang="en">Enter a valid check amount</value>
+        <value xml:lang="fr">Saisir un montant valide pour les chèques</value>
+        <value xml:lang="it">Inserire un'importo in assegni valido</value>
+        <value xml:lang="ja">有効な小切手金額を入力:</value>
+        <value xml:lang="zh">输入一个有效的支票金额：</value>
+        <value xml:lang="zh-TW">輸入一個有效的支票金額:</value>
+    </property>
+    <property key="WebPosManagerCloseTerminalGcAmounNotValidt">
+        <value xml:lang="en">Enter a valid gift card amount</value>
+        <value xml:lang="fr">Saisir un montant valide pour les bons d'achat</value>
+        <value xml:lang="it">Inserire un'importo con carte regalo valido</value>
+        <value xml:lang="ja">有効なギフトカード金額を入力:</value>
+        <value xml:lang="zh">输入一个有效的礼品卡金额：</value>
+        <value xml:lang="zh-TW">輸入一個有效的禮物卡金額:</value>
+    </property>
+    <property key="WebPosManagerCloseTerminalGcAmount">
+        <value xml:lang="en">Enter Gift Card Amount</value>
+        <value xml:lang="fr">Saisir le montant en bon d'achat</value>
+        <value xml:lang="it">Inserire importo con carte regalo</value>
+        <value xml:lang="ja">ギフトカード金額を入力:</value>
+        <value xml:lang="zh">输入礼品卡金额：</value>
+        <value xml:lang="zh-TW">輸入禮物卡金額:</value>
+    </property>
+    <property key="WebPosManagerCloseTerminalOtherAmount">
+        <value xml:lang="en">Enter Other Payment Amount</value>
+        <value xml:lang="fr">Saisir le montant avec un autre moyen de paiement</value>
+        <value xml:lang="it">Inserire importo con altri pagamenti</value>
+        <value xml:lang="ja">その他支払金額を入力:</value>
+        <value xml:lang="zh">输入其它支付金额：</value>
+        <value xml:lang="zh-TW">輸入其它支付金額:</value>
+    </property>
+    <property key="WebPosManagerCloseTerminalOtherAmountNotValid">
+        <value xml:lang="en">Enter a valid other payment amount</value>
+        <value xml:lang="fr">Saisir un montant valide pour les autres moyens de paiements</value>
+        <value xml:lang="it">Inserire un'importo con altri pagamenti valido</value>
+        <value xml:lang="ja">有効なその他支払金額を入力:</value>
+        <value xml:lang="zh">输入一个有效的其它支付金额：</value>
+        <value xml:lang="zh-TW">輸入一個有效的其它支付金額:</value>
+    </property>
+    <property key="WebPosManagerModifyPriceNewPrice">
+        <value xml:lang="en">New price</value>
+        <value xml:lang="fr">Saisir le nouveau prix</value>
+        <value xml:lang="it">Nuovo prezzo</value>
+        <value xml:lang="ja">新しい価格を入力</value>
+        <value xml:lang="zh">输入新价格</value>
+        <value xml:lang="zh-TW">輸入新價格</value>
+    </property>
+    <property key="WebPosManagerModifyPriceNotValidPrice">
+        <value xml:lang="en">Enter a new valid price</value>
+        <value xml:lang="fr">Saisir un nouveau prix valide</value>
+        <value xml:lang="it">Inserire un nuovo prezzo valido</value>
+        <value xml:lang="ja">有効な新しい価格を入力</value>
+        <value xml:lang="zh">输入一个新的有效价格</value>
+        <value xml:lang="zh-TW">輸入一個新的有效價格</value>
+    </property>
+    <property key="WebPosManagerOpenTerminal">
+        <value xml:lang="en">Open Terminal</value>
+        <value xml:lang="fr">OUVRIR CAISSE</value>
+        <value xml:lang="it">Apri terminale</value>
+        <value xml:lang="ja">端末をオープンする</value>
+        <value xml:lang="zh">打开终端</value>
+        <value xml:lang="zh-TW">打開終端</value>
+    </property>
+    <property key="WebPosManagerOpenTerminalDrawingAmount">
+        <value xml:lang="en">Starting Drawer Amount</value>
+        <value xml:lang="fr">Apport dans la caisse</value>
+        <value xml:lang="it">Importo iniziale cassa</value>
+        <value xml:lang="ja">当初レジスタ金額を入力</value>
+        <value xml:lang="zh">起始钱箱金额：</value>
+        <value xml:lang="zh-TW">起始錢箱金額:</value>
+    </property>
+    <property key="WebPosManagerOpenTerminalDrawingAmountNotValid">
+        <value xml:lang="en">Insert a valid starting drawer amount</value>
+        <value xml:lang="fr">Saisir un montant d'apport valide</value>
+        <value xml:lang="it">Inserire un'importo iniziale cassa valido</value>
+        <value xml:lang="ja">有効な当初レジスタ金額を入力</value>
+        <value xml:lang="zh">插入一个有效的起始钱箱金额：</value>
+        <value xml:lang="zh-TW">插入一個有效的起始錢箱金額:</value>
+    </property>
+    <property key="WebPosManagerPaidInAmount">
+        <value xml:lang="en">Enter amount to paid in</value>
+        <value xml:lang="fr">Saisir un apport valide</value>
+        <value xml:lang="it">Inserire l'importo del pagamento in ingresso</value>
+        <value xml:lang="ja">入金金額を入力</value>
+        <value xml:lang="zh">输入收取的金额</value>
+        <value xml:lang="zh-TW">輸入收取的金額</value>
+    </property>
+    <property key="WebPosManagerPaidOut">
+        <value xml:lang="en">Paid Out</value>
+        <value xml:lang="fr">RETRAIT</value>
+        <value xml:lang="it">Pagamento in uscita</value>
+        <value xml:lang="ja">支払済</value>
+        <value xml:lang="zh">找零</value>
+        <value xml:lang="zh-TW">找零</value>
+    </property>
+    <property key="WebPosManagerPaidOutAmount">
+        <value xml:lang="en">Enter amount to withdraw</value>
+        <value xml:lang="fr">Saisir un montant à retirer</value>
+        <value xml:lang="it">Inserire l'importo del pagamento in uscita</value>
+        <value xml:lang="ja">レジスタに入れた金額を入力</value>
+        <value xml:lang="zh">输入撤销的金额</value>
+        <value xml:lang="zh-TW">輸入撤銷的金額</value>
+    </property>
+    <property key="WebPosManagerPaidOutAndInWithoutOpenedTransaction">
+        <value xml:lang="en">Cannot Paid Out and In without an opened transaction</value>
+        <value xml:lang="fr">Il n'est pas possible d'ajouter ou retirer sans une transaction ouverte</value>
+        <value xml:lang="it">Non è possibile pagare in ingresso o uscita senza una transazione aperta</value>
+        <value xml:lang="ja">実行中のトランザクションがないため支払および入金できません</value>
+        <value xml:lang="zh">没有一个开放的交易，不能收钱和找零</value>
+        <value xml:lang="zh-TW">沒有一個開放的交易,不能收錢和找零</value>
+    </property>
+    <property key="WebPosManagerPaidOutAndIndAmountNotValid">
+        <value xml:lang="en">Enter a valid amount</value>
+        <value xml:lang="fr">Saisir un montant valide</value>
+        <value xml:lang="it">Inserire un'importo valido</value>
+        <value xml:lang="ja">有効な金額を入力</value>
+        <value xml:lang="zh">输入一个有效的金额</value>
+        <value xml:lang="zh-TW">輸入一個有效的金額</value>
+    </property>
+    <property key="WebPosManagerPaidOutAndIndReason">
+        <value xml:lang="en">You have to choose a reason</value>
+        <value xml:lang="fr">Vous devez choisir une raison</value>
+        <value xml:lang="it">Tu devi scegliere la motivazione</value>
+        <value xml:lang="ja">理由を選択してください</value>
+        <value xml:lang="zh">你必须选择一个原因</value>
+        <value xml:lang="zh-TW">你必須選擇一個原因</value>
+    </property>
+    <property key="WebPosManagerPaidOutAndIndReasonComment">
+        <value xml:lang="en">You can insert a comment</value>
+        <value xml:lang="fr">Vous pouvez ajouter un commentaire</value>
+        <value xml:lang="it">Tu puoi inserire un commento</value>
+        <value xml:lang="ja">コメントを入力することができます</value>
+        <value xml:lang="zh">你能插入一个评论</value>
+        <value xml:lang="zh-TW">你能插入一個評論</value>
+    </property>
+    <property key="WebPosManagerPaidIn">
+        <value xml:lang="en">Paid In</value>
+        <value xml:lang="fr">APPORT</value>
+        <value xml:lang="it">Pagamento in entrata</value>
+        <value xml:lang="ja">入金済</value>
+        <value xml:lang="zh">收款</value>
+        <value xml:lang="zh-TW">收款</value>
+    </property>
+    <property key="WebPosManagerPromoCode">
+        <value xml:lang="en">Promo</value>
+        <value xml:lang="fr">PROMOTION</value>
+        <value xml:lang="it">Promozione</value>
+        <value xml:lang="ja">ﾌﾟﾛﾓｰｼｮﾝ</value>
+        <value xml:lang="zh">促销</value>
+        <value xml:lang="zh-TW">促銷</value>
+    </property>
+    <property key="WebPosManagerShutdown">
+        <value xml:lang="en">Shutdown</value>
+        <value xml:lang="fr">ETEINDRE</value>
+        <value xml:lang="it">Chiudi</value>
+        <value xml:lang="ja">ｼｬｯﾄﾀﾞｳﾝ</value>
+        <value xml:lang="zh">关机</value>
+        <value xml:lang="zh-TW">關機</value>
+    </property>
+    <property key="WebPosManagerTerminalAlreadyClosed">
+        <value xml:lang="en">Terminal already closed</value>
+        <value xml:lang="fr">Caisse déjà fermée</value>
+        <value xml:lang="it">Terminale già chiuso</value>
+        <value xml:lang="ja">端末はすでにクローズされています</value>
+        <value xml:lang="zh">终端已关闭</value>
+        <value xml:lang="zh-TW">終端已關閉</value>
+    </property>
+    <property key="WebPosManagerTerminalAlreadyOpened">
+        <value xml:lang="en">Terminal already opened</value>
+        <value xml:lang="fr">Caisse déjà ouverte</value>
+        <value xml:lang="it">Terminale già aperto</value>
+        <value xml:lang="ja">端末はすでにオープンされています</value>
+        <value xml:lang="zh">终端已打开</value>
+        <value xml:lang="zh-TW">終端已打開</value>
+    </property>
+    <property key="WebPosManagerVoidOrder">
+        <value xml:lang="en">Void Order</value>
+        <value xml:lang="fr">ANNULER COMMANDE</value>
+        <value xml:lang="it">Reso ordine</value>
+        <value xml:lang="ja">無効にする注文Noを入力:</value>
+        <value xml:lang="zh">空订单</value>
+        <value xml:lang="zh-TW">空訂單</value>
+    </property>
+    <property key="WebPosManagerVoidOrderNumber">
+        <value xml:lang="en">Enter Order Number To Void</value>
+        <value xml:lang="fr">Saisr le n° de commande à annuler</value>
+        <value xml:lang="it">Inserire numero ordine per reso</value>
+        <value xml:lang="ja">無効にする注文Noを入力</value>
+        <value xml:lang="zh">输入订单编号无效：</value>
+        <value xml:lang="zh-TW">輸入要作廢的訂單識別:</value>
+    </property>
+    <property key="WebPosManagerVoidOrderNotValidDate">
+        <value xml:lang="en">Order ${parameters.orderId} has a date ${orderDate} that is before ${openDate}</value>
+        <value xml:lang="fr">La commande ${parameters.orderId} a une date ${orderDate} inférieure à ${openDate}</value>
+        <value xml:lang="it">L'ordine ${parameters.orderId} ha una data ${orderDate} che è prima del ${openDate}</value>
+        <value xml:lang="ja">注文 ${parameters.orderId} の日付 ${orderDate} は ${openDate} より前です</value>
+        <value xml:lang="zh">订单${parameters.orderId}有一个日期${orderDate}早于${openDate}</value>
+        <value xml:lang="zh-TW">訂單${parameters.orderId}有一個日期${orderDate}早于${openDate}</value>
+    </property>
+    <property key="WebPosManagerVoidOrderNotValidOrderId">
+        <value xml:lang="en">Order ${parameters.orderId} not found</value>
+        <value xml:lang="fr">Commande ${parameters.orderId} non trouvée</value>
+        <value xml:lang="it">L'ordine ${parameters.orderId} non esiste</value>
+        <value xml:lang="ja">注文 ${parameters.orderId} が見つかりません</value>
+        <value xml:lang="zh">没有找到订单${parameters.orderId}</value>
+        <value xml:lang="zh-TW">沒有找到訂單${parameters.orderId}</value>
+    </property>
+    <property key="WebPosManagerVoidOrderTerminalNotOpened">
+        <value xml:lang="en">Terminal is not opened</value>
+        <value xml:lang="fr">La caisse est fermée</value>
+        <value xml:lang="it">Il terminale non è aperto</value>
+        <value xml:lang="ja">端末がオープンされていません</value>
+        <value xml:lang="zh">终端没有打开</value>
+        <value xml:lang="zh-TW">終端沒有打開</value>
+    </property>
+    <property key="WebPosMenuMain">
+        <value xml:lang="en">Main</value>
+        <value xml:lang="fr">VENTE</value>
+        <value xml:lang="it">Principale</value>
+        <value xml:lang="ja">メイン</value>
+        <value xml:lang="zh">首页</value>
+        <value xml:lang="zh-TW">首頁</value>
+    </property>
+    <property key="WebPosMenuManager">
+        <value xml:lang="en">Manager</value>
+        <value xml:lang="fr">RESP.</value>
+        <value xml:lang="it">Responsabile</value>
+        <value xml:lang="ja">管理者</value>
+        <value xml:lang="zh">经理</value>
+        <value xml:lang="zh-TW">經理</value>
+    </property>
+    <property key="WebPosNotEnoughFunds">
+        <value xml:lang="en">You did not provide enough funds to complete this sale</value>
+        <value xml:lang="it">Tu non hai fornito abbastanza fondi per completare questa vendita</value>
+        <value xml:lang="ja">この売上を完了する十分な資金がありません</value>
+        <value xml:lang="zh">你没有提供足够的金额来完成这个销售</value>
+        <value xml:lang="zh-TW">你沒有提供足夠的金額來完成這個銷售</value>
+    </property>
+    <property key="WebPosNotLoggedIn">
+        <value xml:lang="en">You must be logged in</value>
+        <value xml:lang="fr">Vous devez être connecté</value>
+        <value xml:lang="it">Tu devi essere autenticato</value>
+        <value xml:lang="ja">ログインする必要があります</value>
+        <value xml:lang="zh">你必须登录</value>
+        <value xml:lang="zh-TW">你必須登入</value>
+    </property>
+    <property key="WebPosNotManagerLoggedIn">
+        <value xml:lang="en">To open terminal is mandatory that a manager is logged in</value>
+        <value xml:lang="fr">Pour ouvrir la caisse, il est obligatoire qu'un reponsable se connecte</value>
+        <value xml:lang="it">Per aprire il terminale e' obbligatorio autenticarsi con un manager</value>
+        <value xml:lang="ja">管理者がログインして端末をオープンする必要があります</value>
+        <value xml:lang="zh">要打开终端，必须经理登录</value>
+        <value xml:lang="zh-TW">要打開終端,必須經理登入</value>
+    </property>
+    <property key="WebPosPageTitleCloseTerminal">
+        <value xml:lang="en">Close Terminal</value>
+        <value xml:lang="fr">Fermer la caisse</value>
+        <value xml:lang="it">Chiudi Terminale</value>
+        <value xml:lang="ja">端末をクローズする</value>
+        <value xml:lang="zh">关闭终端</value>
+        <value xml:lang="zh-TW">關閉終端</value>
+    </property>
+    <property key="WebPosPageTitleManager">
+        <value xml:lang="en">Manager</value>
+        <value xml:lang="it">Responsabile</value>
+        <value xml:lang="ja">管理者</value>
+        <value xml:lang="zh">管理程序</value>
+        <value xml:lang="zh-TW">管理程式</value>
+    </property>
+    <property key="WebPosPageTitlePayment">
+        <value xml:lang="en">Payment</value>
+        <value xml:lang="it">Pagamenti</value>
+        <value xml:lang="ja">支払</value>
+        <value xml:lang="zh">支付</value>
+        <value xml:lang="zh-TW">支付</value>
+    </property>
+    <property key="WebPosPageTitleModifyPrice">
+        <value xml:lang="en">Modify Price</value>
+        <value xml:lang="fr">Modifier un prix</value>
+        <value xml:lang="it">Modifica Prezzo</value>
+        <value xml:lang="ja">価格を変更</value>
+        <value xml:lang="zh">修改价格</value>
+        <value xml:lang="zh-TW">修改價格</value>
+    </property>
+    <property key="WebPosPageTitleOpenTerminal">
+        <value xml:lang="en">Open Terminal</value>
+        <value xml:lang="fr">Ouvrir la caisse</value>
+        <value xml:lang="it">Apri Terminale</value>
+        <value xml:lang="ja">端末をオープンする</value>
+        <value xml:lang="zh">打开终端</value>
+        <value xml:lang="zh-TW">打開終端</value>
+    </property>
+    <property key="WebPosPageTitlePaidOutAndIn">
+        <value xml:lang="en">Paid Out And In</value>
+        <value xml:lang="fr">Mouvements de caisse</value>
+        <value xml:lang="it">Pagamento in Uscita o in Entrata</value>
+        <value xml:lang="ja">支払および入金</value>
+        <value xml:lang="zh">收钱和找零</value>
+        <value xml:lang="zh-TW">收錢和找零</value>
+    </property>
+    <property key="WebPosPageTitlePayCash">
+        <value xml:lang="en">Pay Cash</value>
+        <value xml:lang="fr">Payer en espèces</value>
+        <value xml:lang="it">Pagamento in Contanti</value>
+        <value xml:lang="ja">現金支払</value>
+        <value xml:lang="zh">现金支付</value>
+        <value xml:lang="zh-TW">現金支付</value>
+    </property>
+    <property key="WebPosPageTitlePayCheck">
+        <value xml:lang="de">Lohnzahlung</value>
+        <value xml:lang="en">Pay Check</value>
+        <value xml:lang="fr">Payer en chèque</value>
+        <value xml:lang="it">Pagamento con Assegno</value>
+        <value xml:lang="ja">小切手支払</value>
+        <value xml:lang="zh">支票支付</value>
+        <value xml:lang="zh-TW">支票支付</value>
+    </property>
+    <property key="WebPosPageTitlePayCreditCard">
+        <value xml:lang="en">Pay Credit Card</value>
+        <value xml:lang="fr">Payer en carte bancaire</value>
+        <value xml:lang="it">Pagamento con Carta di Credito</value>
+        <value xml:lang="ja">クレジットカード支払</value>
+        <value xml:lang="zh">信用卡支付</value>
+        <value xml:lang="zh-TW">信用卡支付</value>
+    </property>
+    <property key="WebPosPageTitlePayGiftCard">
+        <value xml:lang="en">Pay Gift Card</value>
+        <value xml:lang="fr">Payer en bon d'achat</value>
+        <value xml:lang="it">Pagamento con Carta Regalo</value>
+        <value xml:lang="ja">ギフトカード支払</value>
+        <value xml:lang="zh">礼品卡支付</value>
+        <value xml:lang="zh-TW">禮物卡支付</value>
+    </property>
+    <property key="WebPosPageTitlePromoCode">
+        <value xml:lang="en">Promo Code</value>
+        <value xml:lang="fr">Code promotion</value>
+        <value xml:lang="it">Codice promozione</value>
+        <value xml:lang="ja">プロモーションコード</value>
+        <value xml:lang="zh">促销代码</value>
+        <value xml:lang="zh-TW">促銷代碼</value>
+    </property>
+    <property key="WebPosPageTitleVoidOrder">
+        <value xml:lang="en">Void Order</value>
+        <value xml:lang="fr">Annuler une commande</value>
+        <value xml:lang="it">Reso Ordine</value>
+        <value xml:lang="ja">無効注文</value>
+        <value xml:lang="zh">空订单</value>
+        <value xml:lang="zh-TW">空訂單</value>
+    </property>
+    <property key="WebPosPayCash">
+        <value xml:lang="en">Cash amount</value>
+        <value xml:lang="fr">Montant espèces</value>
+        <value xml:lang="it">Importo in contanti</value>
+        <value xml:lang="ja">現金金額</value>
+        <value xml:lang="zh">现金金额</value>
+        <value xml:lang="zh-TW">現金金額</value>
+    </property>
+    <property key="WebPosPayCashNotValidAmount">
+        <value xml:lang="en">Insert a valid cash amount</value>
+        <value xml:lang="fr">Saisir un montant en espèces valide</value>
+        <value xml:lang="it">Inserire un'importo in contanti valido</value>
+        <value xml:lang="ja">有効な現金金額を入力</value>
+        <value xml:lang="zh">插入一个有效的现金金额</value>
+        <value xml:lang="zh-TW">插入一個有效的現金金額</value>
+    </property>
+    <property key="WebPosPayCashGreaterThanTotalDue">
+        <value xml:lang="en">Amount in cash is greater than total due</value>
+        <value xml:lang="it">L'importo in contanti è maggiore dell'importo dovuto</value>
+        <value xml:lang="ja">現金金額が合計額より多い</value>
+        <value xml:lang="zh">现金金额大于应付合计</value>
+        <value xml:lang="zh-TW">現金金額大於應付合計</value>
+    </property>
+    <property key="WebPosPayCashTotal">
+        <value xml:lang="en">Total already in cash</value>
+        <value xml:lang="it">Importo già in contanti</value>
+        <value xml:lang="ja">全額現金で支払</value>
+        <value xml:lang="zh">合计已经付现金</value>
+        <value xml:lang="zh-TW">合計已經付現金</value>
+    </property>
+    <property key="WebPosPayCheck">
+        <value xml:lang="en">Check amount</value>
+        <value xml:lang="fr">Valeur chèque</value>
+        <value xml:lang="it">Importo con assegno</value>
+        <value xml:lang="ja">小切手金額</value>
+        <value xml:lang="zh">支票金额</value>
+        <value xml:lang="zh-TW">支票金額</value>
+    </property>
+    <property key="WebPosPayCheckGreaterThanTotalDue">
+        <value xml:lang="en">Amount with check is greater than total due</value>
+        <value xml:lang="it">L'importo con assegni è maggiore dell'importo dovuto</value>
+        <value xml:lang="ja">小切手金額が合計額より多い</value>
+        <value xml:lang="zh">支票金额大于应付合计</value>
+        <value xml:lang="zh-TW">支票金額大於應付合計</value>
+    </property>
+    <property key="WebPosPayCheckNotValidAmount">
+        <value xml:lang="en">Insert a valid check amount</value>
+        <value xml:lang="fr">Saisir une valeur de chèque valide</value>
+        <value xml:lang="it">Inserire un'importo con assegni valido</value>
+        <value xml:lang="ja">有効な小切手金額</value>
+        <value xml:lang="zh">插入一个有效的支票金额</value>
+        <value xml:lang="zh-TW">插入一個有效的支票金額</value>
+    </property>
+    <property key="WebPosPayCheckRefNum">
+        <value xml:lang="en">Check ref. num .</value>
+        <value xml:lang="fr">Réf. du chèque</value>
+        <value xml:lang="it">Rif. Num.</value>
+        <value xml:lang="ja">小切手照会番号</value>
+        <value xml:lang="zh">支票引用号</value>
+        <value xml:lang="zh-TW">支票參考號</value>
+    </property>
+    <property key="WebPosPayCheckTotal">
+        <value xml:lang="en">Already pay with check</value>
+        <value xml:lang="it">Già pagato con assegni</value>
+        <value xml:lang="ja">小切手で支払</value>
+        <value xml:lang="zh">已经用支票支付</value>
+        <value xml:lang="zh-TW">已經用支票支付</value>
+    </property>
+    <property key="WebPosPayCreditCard">
+        <value xml:lang="en">Credit card amount</value>
+        <value xml:lang="fr">Montant carte bancaire</value>
+        <value xml:lang="it">Importo con carta credito</value>
+        <value xml:lang="ja">クレジットカード金額</value>
+        <value xml:lang="zh">信用卡金额</value>
+        <value xml:lang="zh-TW">信用卡金額</value>
+    </property>
+    <property key="WebPosPayCreditCardExp">
+        <value xml:lang="en">Credit card expiring</value>
+        <value xml:lang="fr">Date d'expiration de la carte bancaire</value>
+        <value xml:lang="it">Scadenza carta di credito</value>
+        <value xml:lang="ja">クレジットカード有効期限</value>
+        <value xml:lang="zh">信用卡过期</value>
+        <value xml:lang="zh-TW">信用卡過期</value>
+    </property>
+    <property key="WebPosPayCreditCardFirstName">
+        <value xml:lang="en">First Name</value>
+        <value xml:lang="fr">Prénom</value>
+        <value xml:lang="it">Nome</value>
+        <value xml:lang="ja">名(FN)</value>
+        <value xml:lang="zh">名</value>
+        <value xml:lang="zh-TW">名</value>
+    </property>
+    <property key="WebPosPayCreditCardFirstNameEmpty">
+        <value xml:lang="en">First Name is empty</value>
+        <value xml:lang="it">Inserire il nome</value>
+        <value xml:lang="ja">名(FN)が空です</value>
+        <value xml:lang="zh">名是空的</value>
+        <value xml:lang="zh-TW">名是空的</value>
+    </property>
+    <property key="WebPosPayCreditCardGreaterThanTotalDue">
+        <value xml:lang="en">Amount with credit card is greater than total due</value>
+        <value xml:lang="it">L'importo con carte di credito è maggiore dell'importo dovuto</value>
+        <value xml:lang="ja">クレジットカード金額が合計額より多い</value>
+        <value xml:lang="zh">信用卡金额大于应付合计</value>
+        <value xml:lang="zh-TW">信用卡金額大於應付合計</value>
+    </property>
+    <property key="WebPosPayCreditCardLastName">
+        <value xml:lang="en">Last Name</value>
+        <value xml:lang="fr">Nom</value>
+        <value xml:lang="it">Cognome</value>
+        <value xml:lang="ja">姓(LN)</value>
+        <value xml:lang="zh">姓</value>
+        <value xml:lang="zh-TW">姓</value>
+    </property>
+    <property key="WebPosPayCreditCardLastNameEmpty">
+        <value xml:lang="en">Last Name is empty</value>
+        <value xml:lang="it">Inserire il cognome</value>
+        <value xml:lang="ja">姓(LN)が空です</value>
+        <value xml:lang="zh">姓是空的</value>
+        <value xml:lang="zh-TW">姓是空的</value>
+    </property>
+    <property key="WebPosPayCreditCardNotValidAmount">
+        <value xml:lang="en">Insert a valid credit card amount</value>
+        <value xml:lang="fr">Saisir un montant de carte bancaire valide</value>
+        <value xml:lang="it">Inserire un'importo con carta di credito valido</value>
+        <value xml:lang="ja">有効なクレジットカード金額を入力</value>
+        <value xml:lang="zh">插入一个有效的信用卡金额</value>
+        <value xml:lang="zh-TW">插入一個有效的信用卡金額</value>
+    </property>
+    <property key="WebPosPayCreditCardNum">
+        <value xml:lang="en">Credit card number</value>
+        <value xml:lang="fr">N° de carte bancaire</value>
+        <value xml:lang="it">Numero di carta di credito</value>
+        <value xml:lang="ja">クレジットカード番号</value>
+        <value xml:lang="zh">信用卡号</value>
+        <value xml:lang="zh-TW">信用卡號</value>
+    </property>
+    <property key="WebPosPayCreditCardPostalCode">
+        <value xml:lang="en">Postal Code</value>
+        <value xml:lang="it">CAP</value>
+        <value xml:lang="ja">郵便番号</value>
+        <value xml:lang="zh">邮政编码</value>
+        <value xml:lang="zh-TW">郵遞區號</value>
+    </property>
+    <property key="WebPosPayCreditCardRefNum">
+        <value xml:lang="en">Credit card ref. num .</value>
+        <value xml:lang="fr">Réf. carte bancaire</value>
+        <value xml:lang="it">Rif. Num.</value>
+        <value xml:lang="ja">クレジットカード照会番号</value>
+        <value xml:lang="zh">信用卡引用号</value>
+        <value xml:lang="zh-TW">信用卡參考號</value>
+    </property>
+    <property key="WebPosPayCreditCardSecurityCode">
+        <value xml:lang="en">Credit card security code</value>
+        <value xml:lang="fr">Code de sécurité de la carte bancaire</value>
+        <value xml:lang="it">Codice di sicurezza</value>
+        <value xml:lang="ja">クレジットカードセキュリティコード</value>
+        <value xml:lang="zh">信用卡安全码</value>
+        <value xml:lang="zh-TW">信用卡安全碼</value>
+    </property>
+    <property key="WebPosPayCreditCardSwipe">
+        <value xml:lang="en">Swipe Credit Card</value>
+        <value xml:lang="it">Strisciare carta di credito</value>
+        <value xml:lang="ja">磁気クレジットカード</value>
+        <value xml:lang="zh">刷信用卡</value>
+        <value xml:lang="zh-TW">刷信用卡</value>
+    </property>
+    <property key="WebPosPayCreditCardSwipeData">
+        <value xml:lang="en">Swipe Data</value>
+        <value xml:lang="it">Dati letti</value>
+        <value xml:lang="ja">磁気データ</value>
+        <value xml:lang="zh">刷卡数据</value>
+        <value xml:lang="zh-TW">刷卡資料</value>
+    </property>
+    <property key="WebPosPayCreditCardTotal">
+        <value xml:lang="en">Already pay with credit card</value>
+        <value xml:lang="it">Già pagato con carte di credito</value>
+        <value xml:lang="ja">クレジットカードで支払</value>
+        <value xml:lang="zh">已经用信用卡支付</value>
+        <value xml:lang="zh-TW">已經用信用卡支付</value>
+    </property>
+    <property key="WebPosPayCreditCardType">
+        <value xml:lang="en">Credit card type</value>
+        <value xml:lang="it">Tipo carta di credito</value>
+        <value xml:lang="ja">クレジットカード種類</value>
+        <value xml:lang="zh">信用卡类型</value>
+        <value xml:lang="zh-TW">信用卡類型</value>
+    </property>
+    <property key="WebPosPayGiftCard">
+        <value xml:lang="en">Gift card amount</value>
+        <value xml:lang="fr">Montant du bon d'achat</value>
+        <value xml:lang="it">Importo con carta regalo</value>
+        <value xml:lang="ja">ギフトカード金額</value>
+        <value xml:lang="zh">礼品卡金额</value>
+        <value xml:lang="zh-TW">禮物卡金額</value>
+    </property>
+    <property key="WebPosPayGiftCardGreaterThanTotalDue">
+        <value xml:lang="en">Amount with gift card is greater than total due</value>
+        <value xml:lang="it">L'importo con carte regali è maggiore dell'importo dovuto</value>
+        <value xml:lang="ja">ギフトカード金額が合計額より多い</value>
+        <value xml:lang="zh">礼品卡金额大于应付合计</value>
+        <value xml:lang="zh-TW">禮物卡金額大於應付合計</value>
+    </property>
+    <property key="WebPosPayGiftCardNotValidAmount">
+        <value xml:lang="en">Insert a valid gift card amount</value>
+        <value xml:lang="fr">Saisir une valeur de bon d'achat valide</value>
+        <value xml:lang="it">Inserire un'importo con carta regalo valido</value>
+        <value xml:lang="ja">有効なギフトカード金額を入力</value>
+        <value xml:lang="zh">插入一个有效的礼品卡金额</value>
+        <value xml:lang="zh-TW">插入一個有效的禮物卡金額</value>
+    </property>
+    <property key="WebPosPayGiftCardRefNum">
+        <value xml:lang="en">Gift card ref. num .</value>
+        <value xml:lang="fr">Réf. bon d'achat</value>
+        <value xml:lang="it">Rif. Num.</value>
+        <value xml:lang="ja">ギフトカード照会番号</value>
+        <value xml:lang="zh">礼品卡引用号</value>
+        <value xml:lang="zh-TW">禮物卡參考號</value>
+    </property>
+    <property key="WebPosPayGiftCardTotal">
+        <value xml:lang="en">Already pay with gift card</value>
+        <value xml:lang="it">Già pagato con carte regalo</value>
+        <value xml:lang="ja">ギフトカードで支払</value>
+        <value xml:lang="zh">已经用礼品卡支付</value>
+        <value xml:lang="zh-TW">已經用禮物卡支付</value>
+    </property>
+    <property key="WebPosPaymentCheckInternal">
+        <value xml:lang="en">Payment Check Internal not yet supported</value>
+        <value xml:lang="fr">Le paiement par chèques n'est pas pris en charge</value>
+        <value xml:lang="it">Pagemento Assegno Interno non ancora supportato</value>
+        <value xml:lang="ja">支払小切手内部はまだサポートされていません</value>
+        <value xml:lang="zh">还不支持内部支票支付</value>
+        <value xml:lang="zh-TW">還不支援內部支票支付</value>
+    </property>
+    <property key="WebPosPaymentCheckMissingRefNum">
+        <value xml:lang="en">You must specify the reference number of the payment check</value>
+        <value xml:lang="fr">Vous devez indiquer un n° de réf. pour une paiement par chèque</value>
+        <value xml:lang="it">Tu devi specificare il numero di riferimento del pagamento assegno</value>
+        <value xml:lang="ja">小切手支払照会番号を指定してください</value>
+        <value xml:lang="zh">你必须为支票支付指定一个引用号</value>
+        <value xml:lang="zh-TW">你必須為支票支付指定一個參考號</value>
+    </property>
+    <property key="WebPosPaymentCreditCardInvalid">
+        <value xml:lang="en">You must specify a valid credit card number</value>
+        <value xml:lang="fr">Vous devez indiquer un n° de carte bancaire valide</value>
+        <value xml:lang="it">Tu devi specificare un numero di carta di credito valida</value>
+        <value xml:lang="ja">有効なクレジットカード番号を指定する必要があります</value>
+        <value xml:lang="zh">你必须指定一个有效的信用卡号</value>
+        <value xml:lang="zh-TW">你必須指定一個有效的信用卡號</value>
+    </property>
+    <property key="WebPosPaymentCreditCardInvalidExpiringDate">
+        <value xml:lang="en">You must specify a not expired credit card</value>
+        <value xml:lang="fr">Vous devez indiquer une carte bancaire avec une date non expirée</value>
+        <value xml:lang="it">Tu devi specificare una carta di credito non scaduta</value>
+        <value xml:lang="ja">有効な期限のクレジットカードを指定する必要があります</value>
+        <value xml:lang="zh">你必须指定一个没有过期的信用卡</value>
+        <value xml:lang="zh-TW">你必須指定一個沒有過期的信用卡</value>
+    </property>
+    <property key="WebPosPaymentCreditCardInvalidSecurityCode">
+        <value xml:lang="en">You must specify a valid security code</value>
+        <value xml:lang="fr">Vous devez indiquer un code de sécurité valide</value>
+        <value xml:lang="it">Tu devi specificare un pin valido</value>
+        <value xml:lang="ja">有効なセキュリティコードを指定する必要があります</value>
+        <value xml:lang="zh">你必须指定一个有效的安全码</value>
+        <value xml:lang="zh-TW">你必須指定一個有效的安全碼</value>
+    </property>
+    <property key="WebPosPaymentCreditCardMissingRefNum">
+        <value xml:lang="en">You must specify the reference number of the payment credit card</value>
+        <value xml:lang="fr">Vous devez indiquer un n° de réf. pour le paiement par carte bancaire</value>
+        <value xml:lang="it">Tu devi specificare il numero di riferimento del pagamento carta di credito</value>
+        <value xml:lang="ja">支払クレジットカードの照会番号を指定する必要があります</value>
+        <value xml:lang="zh">你必须为信用卡支付指定引用号</value>
+        <value xml:lang="zh-TW">你必須為信用卡支付指定參考號</value>
+    </property>
+    <property key="WebPosPaymentGiftCardInternal">
+        <value xml:lang="en">Payment Gift Card Internal not yet supported</value>
+        <value xml:lang="fr">Le paiement par bons d'achat n'est pas pris en charge</value>
+        <value xml:lang="it">Pagemento Carta Regalo Interna non ancora supportato</value>
+        <value xml:lang="ja">支払ギフトカード内部はまだサポートされていません</value>
+        <value xml:lang="zh">还不支持内部礼品卡支付</value>
+        <value xml:lang="zh-TW">還不支援內部禮物卡支付</value>
+    </property>
+    <property key="WebPosPaymentGiftCardMissingRefNum">
+        <value xml:lang="en">You must specify the reference number of the payment gift card</value>
+        <value xml:lang="fr">Vous devez indiquer un n° de réf. valide pour le paiement par bon d'achat</value>
+        <value xml:lang="it">Tu devi specificare il numero di riferimento del pagamento carta regalo</value>
+        <value xml:lang="ja">支払ギフトカードの照会番号を指定してください</value>
+        <value xml:lang="zh">你必须为礼品卡支付指定引用号</value>
+        <value xml:lang="zh-TW">你必須為禮物卡支付指定參考號</value>
+    </property>
+    <property key="WebPosPaymentSetRef">
+        <value xml:lang="en">Set payment reference</value>
+        <value xml:lang="fr">Indiquer une réf. de paiement</value>
+        <value xml:lang="it">Imposta rif. pagamento</value>
+        <value xml:lang="ja">支払照会を設定</value>
+        <value xml:lang="zh">设置支付引用</value>
+        <value xml:lang="zh-TW">設置支付參考</value>
+    </property>
+    <property key="WebPosPaymentSwipeDataEmpty">
+        <value xml:lang="en">Please swipe again the credit card</value>
+        <value xml:lang="it">Prego strisciare la carta di credito</value>
+        <value xml:lang="ja">再度クレジットカードを読み取ってください</value>
+        <value xml:lang="zh">请重刷一下信用卡</value>
+        <value xml:lang="zh-TW">請重刷一下信用卡</value>
+    </property>
+    <property key="WebPosPleaseWait">
+        <value xml:lang="en">Please wait...</value>
+        <value xml:lang="it">Attendere prego...</value>
+        <value xml:lang="ja">しばらくお待ちください...</value>
+        <value xml:lang="zh">请稍候...</value>
+        <value xml:lang="zh-TW">請稍候...</value>
+    </property>
+    <property key="WebPosPromoCode">
+        <value xml:lang="en">Enter Promo Code</value>
+        <value xml:lang="fr">Saisir un code promotion</value>
+        <value xml:lang="it">Inserire codice promozione</value>
+        <value xml:lang="ja">プロモーションコードを入力:</value>
+        <value xml:lang="zh">输入促销代码：</value>
+        <value xml:lang="zh-TW">輸入促銷代碼:</value>
+    </property>
+    <property key="WebPosPromoCodeTerminalNotOpened">
+        <value xml:lang="en">Terminal must be opened for promo</value>
+        <value xml:lang="fr">La caisse doit être ouverte pour les promotions</value>
+        <value xml:lang="it">Terminale deve essere aperto per utilizzare le promozioni</value>
+        <value xml:lang="ja">プロモーションに対して端末がオープンされている必要があります</value>
+        <value xml:lang="zh">终端必须为促销打开</value>
+        <value xml:lang="zh-TW">終端必須為促銷打開</value>
+    </property>
+    <property key="WebPosRecalculateCart">
+        <value xml:lang="en">RECALCULATE CART</value>
+        <value xml:lang="fr">RECALCULER LE PANIER</value>
+        <value xml:lang="it">RICALCOLA CARRELLO</value>
+        <value xml:lang="ja">かごを再計算</value>
+        <value xml:lang="zh">购物车重计算</value>
+        <value xml:lang="zh-TW">購物車重計算</value>
+    </property>
+    <property key="WebPosRemoveSelected">
+        <value xml:lang="en">REMOVE SELECTED</value>
+        <value xml:lang="fr">SUPPRIMER LA SELECTION</value>
+        <value xml:lang="it">RIMUOVI SELEZIONI</value>
+        <value xml:lang="ja">選択を削除</value>
+        <value xml:lang="zh">删除选择的</value>
+        <value xml:lang="zh-TW">刪除選擇的</value>
+    </property>
+    <property key="WebPosSearchBy">
+        <value xml:lang="en">Search By</value>
+        <value xml:lang="fr">Rechercher par</value>
+        <value xml:lang="it">Ricerca per</value>
+        <value xml:lang="ja">検索</value>
+        <value xml:lang="zh">搜索</value>
+        <value xml:lang="zh-TW">搜尋</value>
+    </property>
+    <property key="WebPosSearchSalesReps">
+        <value xml:lang="en">Select Sales Reps</value>
+        <value xml:lang="it">Scegli i venditori</value>
+        <value xml:lang="ja">販売レポートを選択</value>
+        <value xml:lang="zh">选择销售代表</value>
+        <value xml:lang="zh-TW">選擇銷售代表</value>
+    </property>
+    <property key="WebPosSelectOneSalesRep">
+        <value xml:lang="en">Select al least one Sales Rep</value>
+        <value xml:lang="it">Scegliere almeno un venditore</value>
+        <value xml:lang="ja">少なくとも1つ販売レポートを選択</value>
+        <value xml:lang="zh">选择至少一个销售代表</value>
+        <value xml:lang="zh-TW">選擇至少一個銷售代表</value>
+    </property>
+    <property key="WebPosBillingAddress">
+        <value xml:lang="en">Billing Address</value>
+        <value xml:lang="it">Indirizzo di fatturazione</value>
+        <value xml:lang="ja">請求先住所</value>
+        <value xml:lang="zh">寄账单地址</value>
+        <value xml:lang="zh-TW">寄帳單位址</value>
+    </property>
+    <property key="WebPosShippingAddress">
+        <value xml:lang="en">Shipping Address</value>
+        <value xml:lang="it">Indirizzo di spedizione</value>
+        <value xml:lang="ja">発送先住所</value>
+        <value xml:lang="zh">送货地址</value>
+        <value xml:lang="zh-TW">送貨位址</value>
+    </property>
+    <property key="WebPosShippingMethod">
+        <value xml:lang="en">Shipping Method</value>
+        <value xml:lang="it">Metodo di spedizione</value>
+        <value xml:lang="ja">発送方法</value>
+        <value xml:lang="zh">送货方法</value>
+        <value xml:lang="zh-TW">送貨方法</value>
+    </property>
+    <property key="WebPosNoPartyInformation">
+        <value xml:lang="en">No Party Information</value>
+        <value xml:lang="it">Nessuna informazione soggetto</value>
+        <value xml:lang="ja">取引先情報がありません</value>
+        <value xml:lang="zh">没有会员信息</value>
+        <value xml:lang="zh-TW">沒有團體資訊</value>
+    </property>
+    <property key="WebPosBillingOrShippingLocationMissing">
+        <value xml:lang="en">Billing or Shipping Location Missing</value>
+        <value xml:lang="it">Indirizzo di fatturazione o spedizione mancante</value>
+        <value xml:lang="ja">請求先または発送先の場所が正しくありません</value>
+        <value xml:lang="zh">缺少寄账单或送货地址</value>
+        <value xml:lang="zh-TW">缺少寄帳單或送貨位址</value>
+    </property>
+    <property key="WebPosShortcuts">
+        <value xml:lang="en">Keyboard Shortcuts</value>
+        <value xml:lang="it">Tasti funzione</value>
+        <value xml:lang="ja">ｷｰﾎﾞｰﾄﾞｼｮｰﾄｶｯﾄ</value>
+        <value xml:lang="zh">键盘快捷键</value>
+        <value xml:lang="zh-TW">鍵盤快速鍵</value>
+    </property>
+    <property key="WebPosShortcutF1">
+        <value xml:lang="en">PRODUCT SEARCH</value>
+        <value xml:lang="it">RICERCA PRODOTTO</value>
+        <value xml:lang="ja">製品検索</value>
+        <value xml:lang="nl">PRODUCT Zoeken</value>
+        <value xml:lang="zh">产品搜索</value>
+        <value xml:lang="zh-TW">產品搜尋</value>
+    </property>
+    <property key="WebPosShortcutF2">
+        <value xml:lang="en">PARTY SEARCH</value>
+        <value xml:lang="it">RICERCA SOGGETTO</value>
+        <value xml:lang="ja">取引先検索</value>
+        <value xml:lang="nl">KLANT Zoeken</value>
+        <value xml:lang="zh">会员搜索</value>
+        <value xml:lang="zh-TW">團體搜尋</value>
+    </property>
+    <property key="WebPosShortcutF3">
+        <value xml:lang="en">PAY CASH</value>
+        <value xml:lang="it">PAGA IN CONTANTI</value>
+        <value xml:lang="ja">現金支払</value>
+        <value xml:lang="nl">CONTANT</value>
+        <value xml:lang="zh">付现金</value>
+        <value xml:lang="zh-TW">付現金</value>
+    </property>
+    <property key="WebPosShortcutF4">
+        <value xml:lang="en">PAY CHECK</value>
+        <value xml:lang="it">PAGA CON ASSEGNO</value>
+        <value xml:lang="ja">小切手支払</value>
+        <value xml:lang="nl">CHEQUE</value>
+        <value xml:lang="zh">付支票</value>
+        <value xml:lang="zh-TW">付支票</value>
+    </property>
+    <property key="WebPosShortcutF5">
+        <value xml:lang="en">Pay Pin</value>
+        <value xml:lang="nl">PIN / CHIP</value>
+        <value xml:lang="zh">付芯片卡</value>
+    </property>
+    <property key="WebPosShortcutF6">
+        <value xml:lang="en">PAY GIFT CARD</value>
+        <value xml:lang="it">PAGA C.REGALO</value>
+        <value xml:lang="ja">ｷﾞﾌﾄｶｰﾄﾞ支払</value>
+        <value xml:lang="nl">CADEAUBON</value>
+        <value xml:lang="zh">付礼品卡</value>
+        <value xml:lang="zh-TW">付禮物卡</value>
+    </property>
+    <property key="WebPosShortcutF7">
+        <value xml:lang="en">PAY BY CC</value>
+        <value xml:lang="it">PAGA C.CREDITO</value>
+        <value xml:lang="ja">ｶｰﾄﾞ支払</value>
+        <value xml:lang="nl">CREDIT CARD</value>
+        <value xml:lang="zh">付信用卡</value>
+        <value xml:lang="zh-TW">付信用卡</value>
+    </property>
+    <property key="WebPosShortcutF8">
+        <value xml:lang="en">CHECKOUT</value>
+        <value xml:lang="it">CHECKOUT</value>
+        <value xml:lang="ja">ﾁｪｯｸｱｳﾄ</value>
+        <value xml:lang="zh">结账</value>
+        <value xml:lang="zh-TW">結帳</value>
+    </property>
+    <property key="WebPosShortcutF9">
+        <value xml:lang="en">CHANGE QUANTITY</value>
+        <value xml:lang="it">CAMBIA QUANTITA'</value>
+        <value xml:lang="ja">数量変更</value>
+        <value xml:lang="zh">修改数量</value>
+        <value xml:lang="zh-TW">修改數量</value>
+    </property>
+    <property key="WebPosShortcutF10">
+        <value xml:lang="en">ADD QUANTITY</value>
+        <value xml:lang="it">AGGIUNGI QUANTITA'</value>
+        <value xml:lang="ja">数量加算</value>
+        <value xml:lang="zh">增加数量</value>
+        <value xml:lang="zh-TW">增加數量</value>
+    </property>
+    <property key="WebPosShortcutF11">
+        <value xml:lang="en">SUBTRACT QUANTITY</value>
+        <value xml:lang="it">SOTTRAI QUANTITA'</value>
+        <value xml:lang="ja">数量減算</value>
+        <value xml:lang="zh">减少数量</value>
+        <value xml:lang="zh-TW">減少數量</value>
+    </property>
+    <property key="WebPosShortcutF12">
+        <value xml:lang="en">EMPTY CART</value>
+        <value xml:lang="it">SVUOTA CARRELLO</value>
+        <value xml:lang="ja">空の買い物かご</value>
+        <value xml:lang="zh">清空购物车</value>
+        <value xml:lang="zh-TW">清空購物車</value>
+    </property>
+    <property key="WebPosShortcutKeyDown">
+        <value xml:lang="en">NEXT ROW</value>
+        <value xml:lang="it">RIGA SUCCESS.</value>
+        <value xml:lang="ja">次の行</value>
+        <value xml:lang="zh">下一行</value>
+        <value xml:lang="zh-TW">下一行</value>
+    </property>
+    <property key="WebPosShortcutKeyUp">
+        <value xml:lang="en">PREVIOUS ROW</value>
+        <value xml:lang="it">RIGA PRECED.</value>
+        <value xml:lang="ja">前の行</value>
+        <value xml:lang="zh">上一行</value>
+        <value xml:lang="zh-TW">上一行</value>
+    </property>
+    <property key="WebPosTerminal">
+        <value xml:lang="en">Terminal</value>
+        <value xml:lang="it">Terminale</value>
+        <value xml:lang="ja">端末</value>
+        <value xml:lang="zh">终端</value>
+        <value xml:lang="zh-TW">終端</value>
+    </property>
+    <property key="WebPosTerminalOpen">
+        <value xml:lang="en">open</value>
+        <value xml:lang="it">aperto</value>
+        <value xml:lang="ja">オープン</value>
+        <value xml:lang="zh">打开</value>
+        <value xml:lang="zh-TW">打開</value>
+    </property>
+    <property key="WebPosTerminalClose">
+        <value xml:lang="en">close</value>
+        <value xml:lang="it">chiuso</value>
+        <value xml:lang="ja">クローズ</value>
+        <value xml:lang="zh">关闭</value>
+        <value xml:lang="zh-TW">關閉</value>
+    </property>
+    <property key="WebPosTotal">
+        <value xml:lang="en">Total</value>
+        <value xml:lang="fr">Total</value>
+        <value xml:lang="it">Totale</value>
+        <value xml:lang="ja">合計</value>
+        <value xml:lang="nl">Totaal</value>
+        <value xml:lang="zh">购物车合计</value>
+        <value xml:lang="zh-TW">購物車合計</value>
+    </property>
+    <property key="WebPosTotalItemSubTotal">
+        <value xml:lang="en">Total Cart</value>
+        <value xml:lang="it">Totale carrello</value>
+        <value xml:lang="ja">買い物かご合計</value>
+        <value xml:lang="zh">购物车合计</value>
+        <value xml:lang="zh-TW">購物車合計</value>
+    </property>
+    <property key="WebPosTotalPromotions">
+        <value xml:lang="en">Total Promotions</value>
+        <value xml:lang="it">Totale promozioni</value>
+        <value xml:lang="ja">プロモーション合計</value>
+        <value xml:lang="nl">Totaal PROMO</value>
+        <value xml:lang="zh">促销合计</value>
+        <value xml:lang="zh-TW">促銷合計</value>
+    </property>
+    <property key="WebPosTotalSalesTax">
+        <value xml:lang="en">Total Sales Tax</value>
+        <value xml:lang="it">Totale tasse</value>
+        <value xml:lang="ja">消費税合計</value>
+        <value xml:lang="nl">Totaal BTW</value>
+        <value xml:lang="zh">营业税合计</value>
+        <value xml:lang="zh-TW">營業稅合計</value>
+    </property>
+    <property key="WebPosTotalShipping">
+        <value xml:lang="en">Total Shipping</value>
+        <value xml:lang="it">Totale spese di spedizione</value>
+        <value xml:lang="ja">発送合計</value>
+        <value xml:lang="zh">送货合计</value>
+        <value xml:lang="zh-TW">送貨合計</value>
+    </property>
+    <property key="WebPosTransactionId">
+        <value xml:lang="en">Transaction Id</value>
+        <value xml:lang="fr">N° de transaction</value>
+        <value xml:lang="it">Transazione</value>
+        <value xml:lang="ja">トランザクションID</value>
+        <value xml:lang="nl">Transactie #</value>
+        <value xml:lang="zh">交易标识</value>
+        <value xml:lang="zh-TW">交易識別</value>
+    </property>
+    <property key="WebPosTransactionTotalDue">
+        <value xml:lang="en">Total Due</value>
+        <value xml:lang="fr">Montant dû</value>
+        <value xml:lang="it">Totale dovuto</value>
+        <value xml:lang="ja">請求合計</value>
+        <value xml:lang="nl">VERSCHULDIGD</value>
+        <value xml:lang="zh">全部应付</value>
+        <value xml:lang="zh-TW">全部應付</value>
+    </property>
+    <property key="WebPosTransactionTotalDueZero">
+        <value xml:lang="en">Total due is already zero</value>
+        <value xml:lang="it">Importo dovuto è già a zero</value>
+        <value xml:lang="ja">請求残はありません</value>
+        <value xml:lang="zh">应付合计已经是0</value>
+        <value xml:lang="zh-TW">應付合計已經是0</value>
+    </property>
+    <property key="WebPosTransactionTotalPay">
+        <value xml:lang="en">Total Paid</value>
+        <value xml:lang="it">Totale pagato</value>
+        <value xml:lang="ja">全額支払済</value>
+        <value xml:lang="nl">Totaal BETAALD</value>
+        <value xml:lang="zh">已付合计</value>
+        <value xml:lang="zh-TW">已付合計</value>
+    </property>
+    <property key="WebPosUnableToLogIn">
+        <value xml:lang="en">Unable To Log In</value>
+        <value xml:lang="it">Non è stato possibile autenticarsi</value>
+        <value xml:lang="ja">ログインできません</value>
+        <value xml:lang="zh">不能登录</value>
+        <value xml:lang="zh-TW">不能登入</value>
+    </property>
+    <property key="WebPosUnitPrice">
+        <value xml:lang="en">Unit Price</value>
+        <value xml:lang="fr">Prix unitaire</value>
+        <value xml:lang="it">Prezzo unitario</value>
+        <value xml:lang="ja">単価</value>
+        <value xml:lang="zh">单价</value>
+        <value xml:lang="zh-TW">單價</value>
+    </property>
+    <property key="WebPosUserLoginNotValid">
+        <value xml:lang="en">User Login Not Valid</value>
+        <value xml:lang="it">Utente non valido</value>
+        <value xml:lang="ja">ログインが無効です</value>
+        <value xml:lang="zh">用户登录无效</value>
+        <value xml:lang="zh-TW">使用者登入無效</value>
+    </property>
+</resource>

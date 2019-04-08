@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+    <description>Assetmaint Services: Fixed Asset </description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
+
+    <service name="addPartFixedAssetMaint" engine="java"
+                location="org.apache.ofbiz.assetmaint.FixedAssetMaintServices" invoke="addPartFixedAssetMaint" auth="true">
+        <description>Add Part item to a FixedAssetMaint</description>
+        <attribute type="String" mode="IN" name="fixedAssetId" optional="false"/>
+        <attribute type="String" mode="IN" name="maintHistSeqId" optional="false"/>
+        <attribute type="Double" mode="IN" name="quantity" optional="false"/>
+        <attribute type="String" mode="IN" name="productId" optional="false"/>
+        <attribute type="String" mode="IN" name="facilityId" optional="false"/>
+    </service>
+
+    <service name="assetMaintPermissionCheck" engine="simple"
+            location="component://assetmaint/minilang/FixedAssetMaintServices.xml" invoke="assetMaintPermissionCheck">
+        <description>Asset Maintentance Permission Checking Logic</description>
+        <implements service="permissionInterface"/>
+    </service>
+    
+    <service name="createFixedAssetMaintUpdateWorkEffort" engine="simple" default-entity-name="FixedAssetMaint"
+            location="component://assetmaint/minilang/FixedAssetMaintServices.xml" invoke="createFixedAssetMaintUpdateWorkEffort">
+        <description>Create FixedAssetMaint and Update Schedule information in WorkEffort</description>
+        <auto-attributes include="all" mode="IN" optional="true"/>
+        <auto-attributes include="all" mode="IN" entity-name="WorkEffort" optional="true"/>
+        <override name="fixedAssetId" mode="IN" optional="false"/>
+        <override name="maintHistSeqId" mode="OUT" optional="false"/>
+    </service>
+    <service name="updateFixedAssetMaintAndWorkEffort" engine="simple" default-entity-name="FixedAssetMaint"
+            location="component://assetmaint/minilang/FixedAssetMaintServices.xml" invoke="updateFixedAssetMaintAndWorkEffort">
+        <description>Update FixedAssetMaint and Schedule information in WorkEffort</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="all" mode="IN" entity-name="WorkEffort" optional="true"/>
+    </service>
+    
+    <service name="createWorkEffortAndAssocWithParent" engine="simple" default-entity-name="WorkEffort"
+            location="component://assetmaint/minilang/FixedAssetMaintServices.xml" invoke="createWorkEffortAndAssocWithParent">
+        <description>Create WorkEffort and Associate it with Parent (identified by workEffortFromId)</description>
+        <implements service="createWorkEffortAndAssoc"/>
+    </service>
+</services>

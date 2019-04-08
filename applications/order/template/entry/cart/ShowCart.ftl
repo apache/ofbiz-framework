@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<script type="application/javascript">
+<script language="JavaScript" type="text/javascript">
     function showQohAtp() {
         document.qohAtpForm.productId.value = document.quickaddform.add_product_id.value;
         document.qohAtpForm.submit();
@@ -26,14 +26,14 @@ under the License.
         window.location='AddGiftCertificate';
     }
 </script>
-<#if "PURCHASE_ORDER" == shoppingCart.getOrderType()>
+<#if shoppingCart.getOrderType() == "PURCHASE_ORDER">
   <#assign target="productAvailabalityByFacility">
 <#else>
   <#assign target="getProductInventoryAvailable">
 </#if>
 <div class="screenlet">
     <div class="screenlet-body">
-      <#if "SALES_ORDER" == shoppingCart.getOrderType()>
+      <#if shoppingCart.getOrderType() == "SALES_ORDER">
         <div>
           <#if quantityOnHandTotal?? && availableToPromiseTotal?? && (productId)??>
             <ul>
@@ -135,17 +135,7 @@ under the License.
                     </div>
                   </td>
                 </tr>
-                <#if "SALES_ORDER" == shoppingCart.getOrderType()>
-                  <tr>
-                    <td align="right"><div>${uiLabelMap.OrderReserveAfterDate} :</div></td>
-                    <td>
-                      <div>
-                        <@htmlTemplate.renderDateTimeField name="reserveAfterDate" value="${shoppingCart.getDefaultReserveAfterDate()!''}" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="25" maxlength="30" id="item4" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
-                      </div>
-                    </td>
-                  </tr>
-                </#if>
-                <#if "PURCHASE_ORDER" == shoppingCart.getOrderType()>
+                <#if shoppingCart.getOrderType() == "PURCHASE_ORDER">
                 <tr>
                   <td align="right"><div>${uiLabelMap.OrderOrderItemType} :</div></td>
                   <td>
@@ -180,7 +170,7 @@ under the License.
             </form>
           </td>
         </tr>
-        <#if "PURCHASE_ORDER" == shoppingCart.getOrderType()>
+        <#if shoppingCart.getOrderType() == "PURCHASE_ORDER">
         <tr><td><hr /></td></tr>
         <tr>
           <td>
@@ -204,7 +194,7 @@ under the License.
     </div>
 </div>
 
-<script type="application/javascript">
+<script language="JavaScript" type="text/javascript">
   document.quickaddform.add_product_id.focus();
 </script>
 

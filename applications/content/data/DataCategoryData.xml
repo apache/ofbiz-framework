@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<entity-engine-xml>
+    <DataCategory dataCategoryId="ROOT" parentCategoryId="" categoryName=""/>
+    <DataCategory dataCategoryId="BUSINESS" parentCategoryId="ROOT" categoryName="Business"/>
+    <DataCategory dataCategoryId="TECHNOLOGY" parentCategoryId="ROOT" categoryName="Technology"/>
+    <DataCategory dataCategoryId="PERSONAL" parentCategoryId="ROOT" categoryName="Personal"/>
+    <DataCategory dataCategoryId="LEGAL" parentCategoryId="ROOT" categoryName="Legal"/>
+    <DataCategory dataCategoryId="POLITICAL" parentCategoryId="ROOT" categoryName="Political"/>
+    <DataCategory dataCategoryId="FINANCIAL" parentCategoryId="ROOT" categoryName="Financial"/>
+    <DataCategory dataCategoryId="BUS_RETAIL" parentCategoryId="BUSINESS" categoryName="Retail"/>
+    <DataCategory dataCategoryId="BUS_SERVICE" parentCategoryId="BUSINESS" categoryName="Service"/>
+    <DataCategory dataCategoryId="BUS_MANU" parentCategoryId="BUSINESS" categoryName="Manufacturing"/>
+    <DataCategory dataCategoryId="TECH_SOFT" parentCategoryId="TECHNOLOGY" categoryName="Software"/>
+    <DataCategory dataCategoryId="TECH_SOFT_OFBIZ" parentCategoryId="TECH_SOFT" categoryName="Apache OFBiz"/>
+    <DataCategory dataCategoryId="TECH_SOFT_LINUX" parentCategoryId="TECH_SOFT" categoryName="Linux"/>
+    <DataCategory dataCategoryId="TECH_SOFT_JAVA" parentCategoryId="TECH_SOFT" categoryName="Java"/>
+    <DataCategory dataCategoryId="TECH_HARD" parentCategoryId="TECHNOLOGY" categoryName="Hardware"/>
+    <DataCategory dataCategoryId="TECH_SERV" parentCategoryId="TECHNOLOGY" categoryName="Service"/>
+    <DataCategory dataCategoryId="TEMPLATE" parentCategoryId="ROOT" categoryName="Template"/>
+</entity-engine-xml>

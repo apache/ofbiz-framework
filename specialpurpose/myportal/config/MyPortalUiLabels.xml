@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
+    <property key="MyPortalAppBar">
+        <value xml:lang="en">My Page App Bar</value>
+        <value xml:lang="fr">Menu des applications</value>
+        <value xml:lang="it">Mia pagina</value>
+        <value xml:lang="ja">私のページ・アプリバー</value>
+        <value xml:lang="th">แอปพริเคชันของฉัน</value>
+        <value xml:lang="vi">Trung tâm ứng dụng riêng</value>
+        <value xml:lang="zh">我的页面应用程序栏</value>
+        <value xml:lang="zh-TW">個人網頁應用程式列</value>
+    </property>
+    <property key="MyPortalBillToCustomer">
+        <value xml:lang="en">Bill To Customer</value>
+        <value xml:lang="ja">顧客に請求する</value>
+        <value xml:lang="vi">Hóa đơn tới Khách hàng</value>
+        <value xml:lang="zh">账单给客户</value>
+        <value xml:lang="zh-TW">發送帳單給客戶</value>
+    </property>
+    <property key="MyPortalCaptchaMissingError">
+        <value xml:lang="en">Verify code captcha is missing or wrong</value>
+        <value xml:lang="fr">Vérifier le code captcha, il est absent ou erroné</value>
+        <value xml:lang="it">Verifica il codice captcha, è mancante o errato</value>
+        <value xml:lang="ja">確認コードキャプチャが正しくありません</value>
+        <value xml:lang="th">รหัสตัวเลขที่ท่านกรอกมีข้อผิดพลาด</value>
+        <value xml:lang="vi">Mã ảnh xác nhận bị thiếu hoặc bị sai</value>
+        <value xml:lang="zh">缺少验证码或验证码错误</value>
+        <value xml:lang="zh-TW">沒有驗證碼或是錯誤</value>
+    </property>
+    <property key="MyPortalEndUserCustomer">
+        <value xml:lang="en">End User Customer</value>
+        <value xml:lang="ja">エンドユーザ顧客</value>
+        <value xml:lang="zh-TW">最終使用客戶</value>
+        <value xml:lang="vi">Khách hàng người dùng cuối</value>
+        <value xml:lang="zh">最终用户</value>
+    </property>
+    <property key="MyPortalFirstNameMissing">
+        <value xml:lang="en">Your firstName is missing</value>
+        <value xml:lang="fr">Votre prénom est absent</value>
+        <value xml:lang="it">Nome mancante</value>
+        <value xml:lang="ja">姓/firstNameが正しくありません</value>
+        <value xml:lang="th">กรุณากรอกชื่อของท่าน</value>
+        <value xml:lang="zh">缺少你的名</value>
+        <value xml:lang="zh-TW">缺少名字(Firstname)</value>
+    </property>
+    <property key="MyPortalInformation">
+        <value xml:lang="en">My Information</value>
+        <value xml:lang="fr">Mes informations </value>
+        <value xml:lang="it">Mie informazioni</value>
+        <value xml:lang="ja">私の情報</value>
+        <value xml:lang="th">ข้อมูลของฉัน</value>
+        <value xml:lang="vi">Thông tin riêng</value>
+        <value xml:lang="zh">我的信息</value>
+        <value xml:lang="zh-TW">入口網站</value>
+    </property>
+    <property key="MyPortalLastNameMissing">
+        <value xml:lang="en">Your lastname is missing</value>
+        <value xml:lang="fr">Votre nom est absent</value>
+        <value xml:lang="it">Cognome mancante</value>
+        <value xml:lang="ja">名/lastnameが正しくありません</value>
+        <value xml:lang="th">กรุณากรอกนามสกุลของท่าน</value>
+        <value xml:lang="vi">Thông tin Họ của bạn chưa có</value>
+        <value xml:lang="zh">缺少你的姓</value>
+        <value xml:lang="zh-TW">缺少姓氏(Lastname)</value>
+    </property>
+    <property key="MyPortalMyOrders">
+        <value xml:lang="en">My Orders</value>
+        <value xml:lang="ja">私の注文</value>
+        <value xml:lang="zh-TW">我的訂單</value>
+        <value xml:lang="vi">Các đặt hàng của tôi</value>
+        <value xml:lang="zh">我的订单</value>
+    </property>
+    <property key="MyPortalNewRegistration">
+        <value xml:lang="en">New Registration </value>
+        <value xml:lang="fr">Nouvel enregistrement</value>
+        <value xml:lang="it">Nuovo utente</value>
+        <value xml:lang="ja">新規登録</value>
+        <value xml:lang="th">ลงทะเบียน </value>
+        <value xml:lang="vi">Đăng ký mới</value>
+        <value xml:lang="zh">新注册</value>
+        <value xml:lang="zh-TW">新的註冊</value>
+    </property>
+    <property key="MyPortalPicCaptcha">
+        <value xml:lang="en">Code Captcha</value>
+        <value xml:lang="fr">Code captcha</value>
+        <value xml:lang="it">Codice captcha</value>
+        <value xml:lang="ja">コードキャプチャ</value>
+        <value xml:lang="th">รหัสตรวจสอบ</value>
+        <value xml:lang="vi">Mã ảnh xác nhận</value>
+        <value xml:lang="zh">验证码</value>
+        <value xml:lang="zh-TW">驗證碼</value>
+    </property>
+    <property key="MyPortalPlacingCustomer">
+        <value xml:lang="en">Placing Customer</value>
+        <value xml:lang="ja">顧客の位置づけ</value>
+        <value xml:lang="vi">Khách hàng đặt chỗ</value>
+        <value xml:lang="zh">意向客户</value>
+        <value xml:lang="zh-TW">安排客戶</value>
+    </property>
+    <property key="MyPortalRegisterComplete">
+        <value xml:lang="en">Register of new person is complete...Please </value>
+        <value xml:lang="fr">L'enregistrement de la nouvelle personne est complet...SVP</value>
+        <value xml:lang="it">Creazione nuovo utente completata...prego </value>
+        <value xml:lang="ja">新規取引先の登録が完了しました...</value>
+        <value xml:lang="th">การลงทะเบียนใหม่สำหรับบุคคลได้ทำการเสร็จสิ้นสมบูรณ์แล้ว...สามารถเข้าสู่ระบบได้ </value>
+        <value xml:lang="vi">Người dùng mới đă đăng ký thành công...Làm ơn</value>
+        <value xml:lang="zh">完成新人员注册...请</value>
+        <value xml:lang="zh-TW">註冊新的消費者完成...請</value>
+    </property>
+    <property key="MyPortalReloadImage">
+        <value xml:lang="en">reload image</value>
+        <value xml:lang="it">Ricarica immagine</value>
+        <value xml:lang="ja">画像再ロード</value>
+        <value xml:lang="vi">Tải lại ảnh</value>
+        <value xml:lang="zh">刷新图片</value>
+        <value xml:lang="zh-TW">重載圖片</value>
+    </property>
+    <property key="MyPortalShipToCustomer">
+        <value xml:lang="en">Ship To Customer</value>
+        <value xml:lang="ja">顧客に発送する</value>
+        <value xml:lang="vi">Chuyển tới khách hàng</value>
+        <value xml:lang="zh">给客户送货</value>
+        <value xml:lang="zh-TW">寄送給客戶</value>
+    </property>
+    <property key="MyPortalTaskActEndDate">
+        <value xml:lang="en">Task Act End</value>
+        <value xml:lang="fr">Fin réelle de de la tâche</value>
+        <value xml:lang="it">Fine compito effettiva</value>
+        <value xml:lang="ja">タスク操作終了</value>
+        <value xml:lang="th">เสร็จสิ้นการทำ</value>
+        <value xml:lang="vi">Ngày kết thúc thực hiện</value>
+        <value xml:lang="zh">任务操作结束</value>
+        <value xml:lang="zh-TW">任務作業結束</value>
+    </property>
+    <property key="MyPortalTaskActStartDate">
+        <value xml:lang="en">Task Act Start</value>
+        <value xml:lang="fr">Début réel de de la tâche</value>
+        <value xml:lang="it">Inizio compito effettivo</value>
+        <value xml:lang="ja">タスク操作開始</value>
+        <value xml:lang="th">เรื่มต้นการทำ</value>
+        <value xml:lang="vi">Ngày bắt đầu thực hiện</value>
+        <value xml:lang="zh">任务操作开始</value>
+        <value xml:lang="zh-TW">任務作業開始</value>
+    </property>
+    <property key="MyPortalTaskPlanEndDate">
+        <value xml:lang="en">Task Plan End</value>
+        <value xml:lang="fr">Fin estimée de la tâche</value>
+        <value xml:lang="it">Fine compito pianificata</value>
+        <value xml:lang="ja">タスク計画終了</value>
+        <value xml:lang="th">สิ้นสุดชิ้นงาน</value>
+        <value xml:lang="vi">Ngày kết thúc theo kế hoạch</value>
+        <value xml:lang="zh">任务计划结束</value>
+        <value xml:lang="zh-TW">任務計畫結束</value>
+    </property>
+    <property key="MyPortalTaskPlanStartDate">
+        <value xml:lang="en">Task Plan Start</value>
+        <value xml:lang="fr">Début estimé de la tâche</value>
+        <value xml:lang="it">Inizio compito pianificato</value>
+        <value xml:lang="ja">タスク計画開始</value>
+        <value xml:lang="th">เริ่มต้นชิ้นงาน</value>
+        <value xml:lang="vi">Ngày bắt đầu theo kế hoạch</value>
+        <value xml:lang="zh">任务计划开始</value>
+        <value xml:lang="zh-TW">任務計畫開始</value>
+    </property>
+    <property key="MyPortalTaskStatus">
+        <value xml:lang="en">Task Status</value>
+        <value xml:lang="fr">Status de la tâche</value>
+        <value xml:lang="it">Stato compito</value>
+        <value xml:lang="ja">タスクステータス</value>
+        <value xml:lang="th">สถานะของงาน</value>
+        <value xml:lang="vi">Trạng thái</value>
+        <value xml:lang="zh">任务状态</value>
+        <value xml:lang="zh-TW">任務狀態</value>
+    </property>
+    <property key="MyPortalTasks">
+        <value xml:lang="en">My Tasks</value>
+        <value xml:lang="fr">Mes Tâches</value>
+        <value xml:lang="it">Miei compiti</value>
+        <value xml:lang="ja">私のタスク</value>
+        <value xml:lang="th">งานของฉัน</value>
+        <value xml:lang="zh">我的任务</value>
+        <value xml:lang="zh-TW">我的任務</value>
+    </property>
+    <property key="MyPortalUserLogin">
+        <value xml:lang="en">User Login</value>
+        <value xml:lang="fr">Identifiant de connexion</value>
+        <value xml:lang="it">Login utente</value>
+        <value xml:lang="ja">ユーザログイン</value>
+        <value xml:lang="th">ข้อมูลการลงทะเบียน</value>
+        <value xml:lang="vi">Tác vụ - Đầu việc của tôi</value>
+        <value xml:lang="zh">用户登录</value>
+        <value xml:lang="zh-TW">使用者登入</value>
+    </property>
+    <property key="MyPortalVerifyCaptcha">
+        <value xml:lang="en">Verify captcha code</value>
+        <value xml:lang="fr">Vérifier le code captcha</value>
+        <value xml:lang="it">Verifica codice captcha</value>
+        <value xml:lang="ja">キャプチャコードを確認してください</value>
+        <value xml:lang="th">ใส่รหัสตามรูป</value>
+        <value xml:lang="vi">Mã xác nhận</value>
+        <value xml:lang="zh">验证验证码</value>
+        <value xml:lang="zh-TW">驗證碼</value>
+    </property>
+    <property key="PageTitleMyPortal">
+        <value xml:lang="en">My Portal for : </value>
+        <value xml:lang="fr">Mon portail pour : </value>
+        <value xml:lang="it">Mio portale per : </value>
+        <value xml:lang="ja">私のポータル :</value>
+        <value xml:lang="th">ส่วนตัวสำหรับ </value>
+        <value xml:lang="vi">Cổng riêng của :</value>
+        <value xml:lang="zh">我的门户用于：</value>
+        <value xml:lang="zh-TW">入口網站使用者:</value>
+    </property>
+    <property key="PageTitleMyPortalForNoLogin">
+        <value xml:lang="en">My Portal Page</value>
+        <value xml:lang="fr">Ma page de portail</value>
+        <value xml:lang="it">Pagina mio portale</value>
+        <value xml:lang="ja">私のポータルページ</value>
+        <value xml:lang="th">หน้าส่วนตัวของฉัน</value>
+        <value xml:lang="vi">Cổng thông tin Riêng</value>
+        <value xml:lang="zh">我的门户页面</value>
+        <value xml:lang="zh-TW">入口網頁</value>
+    </property>
+    <property key="PageTitleFindPortalPage">
+        <value xml:lang="en">Find Portal page</value>
+        <value xml:lang="fr">Rech. page portail</value>
+        <value xml:lang="it">Ricerca pagine portale</value>
+        <value xml:lang="ja">ポータルページを検索</value>
+        <!--value xml:lang="ja">ポータルページの検索</value-->
+        <value xml:lang="pt">Encontrar a pÃ¡gina do Portal</value>
+        <value xml:lang="vi">Tìm trang Cổng thông tin</value>
+        <!--value xml:lang="vi">Tìm trang trên Cổng thông tin</value-->
+        <value xml:lang="zh">查找门户页面</value>
+        <value xml:lang="zh-TW">查詢入口網頁</value>
+        <!--value xml:lang="zh-TW">尋找入口網頁</value-->
+    </property>
+    <property key="MyPortalAdminPortalPage">
+        <value xml:lang="en">Portal page Admin.</value>
+        <value xml:lang="fr">Admin. Page portail</value>
+        <value xml:lang="ja">ポータルページの管理</value>
+        <value xml:lang="vi">Quản trị Cổng thông tin</value>
+        <value xml:lang="zh">门户页面管理</value>
+        <value xml:lang="zh-TW">入口網頁面管理</value>
+    </property>
+    <property key="PortalPageViewPermissionError">
+        <value xml:lang="en">Security Error : To view this page you must have PORTALPAGE permission.</value>
+    </property>
+    <property key="AdminPortalPage">
+        <value xml:lang="en">Portal page Admin.</value>
+        <value xml:lang="fr">Admin. Page portail</value>
+        <value xml:lang="ja">ポータルページの管理</value>
+        <value xml:lang="vi">Quản trị Cổng thông tin</value>
+        <value xml:lang="zh">门户页面管理</value>
+        <value xml:lang="zh-TW">入口網頁面管理</value>
+    </property>
+</resource>

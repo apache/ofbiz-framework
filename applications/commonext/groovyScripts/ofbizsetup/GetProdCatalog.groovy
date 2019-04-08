@@ -25,7 +25,7 @@
  showScreen = "origin"
  List errMsgList = []
  
- productStore = from("ProductStore").where("payToPartyId", partyId).queryFirst();
+ productStore = EntityUtil.getFirst(delegator.findByAnd("ProductStore", [payToPartyId: partyId], null, false))
  if(productStore){
      context.productStoreId = productStore.productStoreId
  }
@@ -33,8 +33,8 @@
      errMsgList.add("Product Store not set!")
      showScreen = "message"
  } else {
-     facility =from("Facility").where("facilityId", productStore.inventoryFacilityId).queryOne();
-     webSite = from("WebSite").where("productStoreId", productStore.productStoreId).queryFirst();
+     facility = delegator.findOne("Facility", [facilityId : productStore.inventoryFacilityId], false)
+     webSite = EntityUtil.getFirst(delegator.findByAnd("WebSite", [productStoreId: productStore.productStoreId], null, false))
      
      if(UtilValidate.isEmpty(facility)){
          errMsgList.add("Facility not set!")
@@ -50,7 +50,7 @@
     return
  }
  
- productStoreCatalog = from("ProductStoreCatalog").where("productStoreId", productStore.productStoreId).queryFirst();
+ productStoreCatalog = EntityUtil.getFirst(delegator.findByAnd("ProductStoreCatalog", [productStoreId: productStore.productStoreId], null, false))
  if(productStoreCatalog){
      prodCatalog = productStoreCatalog.getRelatedOne("ProdCatalog", false)
      prodCatalogId = prodCatalog.prodCatalogId
@@ -69,9 +69,9 @@
          showErrorMsg = "Y"
      }
      
-     prodCatalogCategory  = from("ProdCatalogCategory").where("prodCatalogId", prodCatalogId, "sequenceNum", new Long(1)).queryFirst();
+     prodCatalogCategory  = EntityUtil.getFirst(delegator.findByAnd("ProdCatalogCategory", [prodCatalogId: prodCatalogId, sequenceNum: new Long(1)], null, false))
      if(prodCatalogCategory){
-         productCategory = from("ProductCategory").where("primaryParentCategoryId", prodCatalogCategory.productCategoryId).queryFirst();
+         productCategory = EntityUtil.getFirst(delegator.findByAnd("ProductCategory", [primaryParentCategoryId : prodCatalogCategory.productCategoryId], null, false))
          if(productCategory){
              productCategoryId = productCategory.productCategoryId
          }
@@ -88,12 +88,12 @@
              showErrorMsg = "Y"
          }
          /**************** get product from ProductCategory ******************/
-         productCategoryMember  = from("ProductCategoryMember").where("productCategoryId", productCategoryId).queryFirst();
+         productCategoryMember  = EntityUtil.getFirst(delegator.findByAnd("ProductCategoryMember", [productCategoryId: productCategoryId], null, false))
          if(productCategoryMember){
              product = productCategoryMember.getRelatedOne("Product", false)
              productId = product.productId
              // Average cost
-             averageCostValues = from("ProductPrice").where("productId", productId, "productPricePurposeId", "PURCHASE", "productPriceTypeId", "AVERAGE_COST").queryList()
+             averageCostValues = delegator.findByAnd("ProductPrice", [productId : productId, productPricePurposeId : "PURCHASE", productPriceTypeId : "AVERAGE_COST"], null, false)
              if(averageCostValues){
                  averageCostValue = EntityUtil.getFirst(EntityUtil.filterByDate(averageCostValues))
                  if (averageCostValue?.price != null) {
@@ -101,7 +101,7 @@
                  }
              }
              //    Default cost
-             defaultPriceValues = from("ProductPrice").where("productId", productId, "productPricePurposeId", "PURCHASE", "productPriceTypeId", "DEFAULT_PRICE").queryList();
+             defaultPriceValues = delegator.findByAnd("ProductPrice", [productId : productId, productPricePurposeId : "PURCHASE", productPriceTypeId : "DEFAULT_PRICE"], null, false)
              if(defaultPriceValues){
                  defaultPrice = EntityUtil.getFirst(EntityUtil.filterByDate(defaultPriceValues))
                  if (defaultPrice?.price != null) {

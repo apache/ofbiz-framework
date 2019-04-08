@@ -23,8 +23,6 @@ import org.apache.ofbiz.base.util.string.*
 import org.apache.ofbiz.entity.util.EntityUtilProperties
 import org.apache.ofbiz.product.image.ScaleImage
 
-module = "EditProductContent.groovy"
-
 context.nowTimestampString = UtilDateTime.nowTimestamp().toString()
 
 // make the image file formats
@@ -122,9 +120,9 @@ if (fileType) {
                 if (!filenameToUse.startsWith(productId + ".")) {
                     File[] files = targetDir.listFiles()
                     for(File file : files) {
-                        if (file.isFile() && file.getName().contains(filenameToUse.substring(0, filenameToUse.indexOf(".")+1)) && !"original".equals(fileType)) {
+                        if (file.isFile() && file.getName().contains(filenameToUse.substring(0, filenameToUse.indexOf(".")+1)) && !fileType.equals("original")) {
                             file.delete()
-                        } else if(file.isFile() && "original".equals(fileType) && !file.getName().equals(defaultFileName)) {
+                        } else if(file.isFile() && fileType.equals("original") && !file.getName().equals(defaultFileName)) {
                             file.delete()
                         }
                     } 
@@ -136,11 +134,11 @@ if (fileType) {
                     }
                 }
             } catch (Exception e) {
-                Debug.logError(e, "error deleting existing file (not neccessarily a problem)", module)
+                System.out.println("error deleting existing file (not neccessarily a problem)")
             }
             file.renameTo(file1)
         } catch (Exception e) {
-            Debug.logError(e, module)
+            e.printStackTrace()
         }
 
         if (imageUrl && imageUrl.length() > 0) {
@@ -148,11 +146,11 @@ if (fileType) {
             product.set(fileType + "ImageUrl", imageUrl)
 
             // call scaleImageInAllSize
-            if ("original".equals(fileType)) {
+            if (fileType.equals("original")) {
                 context.delegator = delegator
                 result = ScaleImage.scaleImageInAllSize(context, filenameToUse, "main", "0")
 
-                if (result.containsKey("responseMessage") && "success".equals(result.get("responseMessage"))) {
+                if (result.containsKey("responseMessage") && result.get("responseMessage").equals("success")) {
                     imgMap = result.get("imageUrlMap")
                     imgMap.each() { key, value ->
                         product.set(key + "ImageUrl", value)

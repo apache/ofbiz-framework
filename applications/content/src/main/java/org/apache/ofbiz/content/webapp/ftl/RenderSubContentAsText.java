@@ -37,6 +37,7 @@ import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
 import org.apache.ofbiz.content.content.ContentWorker;
+import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.service.LocalDispatcher;
 
 import freemarker.core.Environment;
@@ -51,11 +52,11 @@ public class RenderSubContentAsText implements TemplateTransformModel {
     public static final String [] upSaveKeyNames = {"globalNodeTrail"};
     public static final String [] saveKeyNames = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale",  "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly", "globalNodeTrail"};
 
-    @Override
     @SuppressWarnings("unchecked")
-    public Writer getWriter(Writer out, @SuppressWarnings("rawtypes") Map args) {
+    public Writer getWriter(final Writer out, Map args) {
         final Environment env = Environment.getCurrentEnvironment();
         final LocalDispatcher dispatcher = FreeMarkerWorker.getWrappedObject("dispatcher", env);
+        final Delegator delegator = FreeMarkerWorker.getWrappedObject("delegator", env);
         final HttpServletRequest request = FreeMarkerWorker.getWrappedObject("request", env);
         final Map<String, Object> templateRoot = FreeMarkerWorker.createEnvironmentMap(env);
         if (Debug.infoOn()) {
@@ -121,7 +122,7 @@ public class RenderSubContentAsText implements TemplateTransformModel {
 
                 FreeMarkerWorker.saveContextValues(templateRoot, saveKeyNames, savedValues);
                 try {
-                    String txt = ContentWorker.renderSubContentAsText(dispatcher, thisContentId, thisMapKey, templateRoot, locale, mimeTypeId, true);
+                    String txt = ContentWorker.renderSubContentAsText(dispatcher, delegator, thisContentId, thisMapKey, templateRoot, locale, mimeTypeId, true);
                     if ("true".equals(xmlEscape)) {
                         txt = UtilFormatOut.encodeXmlValue(txt);
                     }

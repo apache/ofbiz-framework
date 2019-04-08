@@ -23,8 +23,8 @@ import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Iterator;
 import java.util.ServiceLoader;
 
 import org.apache.ofbiz.base.util.Debug;
@@ -38,18 +38,13 @@ import org.apache.ofbiz.service.LocalDispatcher;
 public final class AuthHelper {
 
     private static final String module = AuthHelper.class.getName();
-    private static List<Authenticator> authenticators = new ArrayList<>();
+    private static List<Authenticator> authenticators = new ArrayList<Authenticator>();
     private static boolean authenticatorsLoaded = false;
 
-    private AuthHelper() {
-    }
+    private AuthHelper() {}
 
-    public static boolean authenticate(String username, String password, boolean isServiceAuth)
-            throws AuthenticatorException {
-        if (!authenticatorsLoaded) {
-            throw new AuthenticatorException(
-                    "Authenticators never loaded; be sure to call AuthHelper.loadAuthenticators()");
-        }
+    public static boolean authenticate(String username, String password, boolean isServiceAuth) throws AuthenticatorException {
+        if (!authenticatorsLoaded) throw new AuthenticatorException("Authenticators never loaded; be sure to call AuthHelper.loadAuthenticators()");
         for (Authenticator auth : authenticators) {
             boolean pass = auth.authenticate(username, password, isServiceAuth);
             if (pass) {
@@ -62,20 +57,14 @@ public final class AuthHelper {
     }
 
     public static void logout(String username) throws AuthenticatorException {
-        if (!authenticatorsLoaded) {
-            throw new AuthenticatorException(
-                    "Authenticators never loaded; be sure to call AuthHelper.loadAuthenticators()");
-        }
+        if (!authenticatorsLoaded) throw new AuthenticatorException("Authenticators never loaded; be sure to call AuthHelper.loadAuthenticators()");
         for (Authenticator auth : authenticators) {
             auth.logout(username);
         }
     }
 
     public static void syncUser(String username) throws AuthenticatorException {
-        if (!authenticatorsLoaded) {
-            throw new AuthenticatorException(
-                    "Authenticators never loaded; be sure to call AuthHelper.loadAuthenticators()");
-        }
+        if (!authenticatorsLoaded) throw new AuthenticatorException("Authenticators never loaded; be sure to call AuthHelper.loadAuthenticators()");
         for (Authenticator auth : authenticators) {
             if (auth.isUserSynchronized()) {
                 auth.syncUser(username);
@@ -83,12 +72,8 @@ public final class AuthHelper {
         }
     }
 
-    public static void updatePassword(String username, String password, String newPassword)
-            throws AuthenticatorException {
-        if (!authenticatorsLoaded) {
-            throw new AuthenticatorException(
-                    "Authenticators never loaded; be sure to call AuthHelper.loadAuthenticators()");
-        }
+    public static void updatePassword(String username, String password, String newPassword) throws AuthenticatorException {
+        if (!authenticatorsLoaded) throw new AuthenticatorException("Authenticators never loaded; be sure to call AuthHelper.loadAuthenticators()");
         for (Authenticator auth : authenticators) {
             auth.updatePassword(username, password, newPassword);
         }
@@ -124,10 +109,9 @@ public final class AuthHelper {
         }
     }
 
-    /*
-     * Do not move this into a shared global util class; doing so would mean the
-     * method would have to be public, and then it could be called by any other
-     * non-secure source.
+    /* Do not move this into a shared global util class; doing so
+     * would mean the method would have to be public, and then it
+     * could be called by any other non-secure source.
      */
     private static ClassLoader getContextClassLoader() {
         return AccessController.doPrivileged(

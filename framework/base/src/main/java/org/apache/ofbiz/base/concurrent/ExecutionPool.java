@@ -41,7 +41,7 @@ import org.apache.ofbiz.base.util.Debug;
 @SourceMonitored
 public final class ExecutionPool {
     public static final String module = ExecutionPool.class.getName();
-    public static final ExecutorService GLOBAL_BATCH = new ThreadPoolExecutor(0, Integer.MAX_VALUE, 5, TimeUnit.SECONDS, new SynchronousQueue<>(), new ExecutionPoolThreadFactory(null, "OFBiz-batch"));
+    public static final ExecutorService GLOBAL_BATCH = new ThreadPoolExecutor(0, Integer.MAX_VALUE, 5, TimeUnit.SECONDS, new SynchronousQueue<Runnable>(), new ExecutionPoolThreadFactory(null, "OFBiz-batch"));
     public static final ForkJoinPool GLOBAL_FORK_JOIN = new ForkJoinPool();
     private static final ExecutorService pulseExecutionPool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors(), new ExecutionPoolThreadFactory(null, "OFBiz-ExecutionPoolPulseWorker"));
 
@@ -77,11 +77,13 @@ public final class ExecutionPool {
     }
 
     public static <F> List<F> getAllFutures(Collection<Future<F>> futureList) {
-        List<F> result = new LinkedList<>();
+        List<F> result = new LinkedList<F>();
         for (Future<F> future: futureList) {
             try {
                 result.add(future.get());
-            } catch (ExecutionException | InterruptedException e) {
+            } catch (ExecutionException e) {
+                Debug.logError(e, module);
+            } catch (InterruptedException e) {
                 Debug.logError(e, module);
             }
         }
@@ -103,7 +105,7 @@ public final class ExecutionPool {
         }
     }
 
-    private static final DelayQueue<Pulse> delayQueue = new DelayQueue<>();
+    private static final DelayQueue<Pulse> delayQueue = new DelayQueue<Pulse>();
 
     public static class ExecutionPoolPulseWorker implements Runnable {
         public void run() {
@@ -112,7 +114,7 @@ public final class ExecutionPool {
                     delayQueue.take().run();
                 }
             } catch (InterruptedException e) {
-                Debug.logError(e, module);
+                e.printStackTrace();
             }
         }
     }
@@ -143,34 +145,10 @@ public final class ExecutionPool {
         }
 
         public final int compareTo(Delayed other) {
-            if (this.equals(other)) {
-                return 0;
-            }
-            long r = timeDiff((Pulse) other);
-            if (r < 0) {
-                return -1;
-            }
-            return 1;
-        }
-
-        public final boolean equals(Object other) {
-            if(other instanceof Pulse) {
-                return timeDiff((Pulse) other) == 0;
-            }
-            return false;
-        }
-
-        public int hashCode() {
-            return super.hashCode();
-        }
-
-        /**
-         * Calculates the difference between this.expireTimeNanos and other.expireTimeNanos
-         * @param other used to calculate the difference
-         * @return the time difference of the two instance's expireTimeNanos
-         */
-        public long timeDiff(Pulse other) {
-            return expireTimeNanos - other.expireTimeNanos;
+            long r = (expireTimeNanos - ((Pulse) other).expireTimeNanos);
+            if (r < 0) return -1;
+            if (r > 0) return 1;
+            return 0;
         }
     }
 

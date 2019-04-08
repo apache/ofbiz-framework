@@ -1,0 +1,106 @@
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations
+  under the License.
+  -->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
+    <screen name="EbayEmailTemplate">
+        <section>
+            <actions>
+                <service service-name="getEbayStoreUser" result-map="result">
+                    <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                </service>
+                <service service-name="getEbayUser" result-map="ebayUser">
+                    <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                </service>
+                <set field="userLoginId" from-field="result.userLoginId"/>
+                <set field="emailType" from-field="parameters.emailType"/>
+                <entity-one entity-name="ProductStoreEmailSetting" value-field="emailSetting">
+                    <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                    <field-map field-name="emailType" from-field="emailType"/>
+                </entity-one>
+                <set field="subject" from-field="emailSetting.subject"/>
+                <set field="bodyScreenLocation" value="component://ebaystore/widget/EbayEmailScreens.xml#EbayEmailTemplate"/>
+                   <set field="fromAddress" from-field="ebayUser.email"/>
+                   <entity-one entity-name="UserLogin" value-field="userLoginCheck">
+                       <field-map field-name="userLoginId" from-field="userLoginId"/>
+                   </entity-one>
+                   <set field="partyId" from-field="userLoginCheck.partyId"/>
+                   <script location="component://ebaystore/groovyScripts/email/GetProductStoreEmailTemplate.groovy"/>
+                   <entity-one entity-name="Content" value-field="templateContent"/>
+                   <get-related-one value-field="templateContent" relation-name="DataResource" to-value-field="templateDataResource"/>
+                   <get-related-one value-field="templateDataResource" relation-name="ElectronicText" to-value-field="templateData"/>
+                   <set field="textData" from-field="templateData.textData"/>
+                   <set field="dataResourceId" from-field="templateData.dataResourceId"/>
+                <script location="component://ebaystore/groovyScripts/email/GetEmailOptions.groovy"/>
+                <!-- set all parameters -->
+                <set field="emailType" from-field="parameters.emailType"/>
+                <set field="buyerUserId" from-field="parameters.buyerUserId" default-value="None"/>
+                <set field="buyerName" from-field="parameters.buyerName" default-value="None"/>
+                <set field="buyerFirstName" from-field="parameters.buyerFirstName" default-value="None"/>
+                <set field="buyerLastName" from-field="parameters.buyerLastName" default-value="None"/>
+                <set field="buyerStreet1" from-field="parameters.buyerStreet1" default-value="None"/>
+                <set field="buyerStreet2" from-field="parameters.itemId" default-value="None"/>
+                <set field="buyerCity" from-field="parameters.buyerCity" default-value="None"/>
+                <set field="buyerState" from-field="parameters.buyerState" default-value="None"/>
+                <set field="buyerZipCode" from-field="parameters.buyerZipCode" default-value="None"/>
+                <set field="buyerCountry" from-field="parameters.buyerCountry" default-value="None"/>
+                <set field="itemTitle" from-field="parameters.itemTitle" default-value="None"/>
+                <set field="linkToListing" from-field="parameters.Quantity" default-value="None"/>
+                <set field="favoriteslist" from-field="parameters.favoriteslist" default-value="None"/>
+                <set field="feedbackLink" from-field="parameters.feedbackLink" default-value="None"/>
+                <set field="closingDateTime" from-field="parameters.closingDateTime" default-value="None"/>
+                <set field="totalPrice" from-field="parameters.totalPrice" default-value="None"/>
+                <set field="closingPrice" from-field="parameters.closingPrice" default-value="None"/>
+                <set field="SHFee" from-field="parameters.SHFee" default-value="None"/>
+                <set field="insuranceCost" from-field="parameters.insuranceCost" default-value="None"/>
+                <set field="insuranceOption" from-field="parameters.insuranceOption" default-value="None"/>
+                <set field="tax" from-field="parameters.tax" default-value="None"/>
+                <set field="taxState" from-field="parameters.taxState" default-value="None"/>
+                <set field="paymentAcceped" from-field="parameters.paymentAcceped" default-value="None"/>
+                <set field="paymentInstructions" from-field="parameters.paymentInstructions" default-value="None"/>
+                <set field="sellerUserId" from-field="parameters.sellerUserId" default-value="None"/>
+                <set field="sellerName" from-field="parameters.sellerName" default-value="None"/>
+                <set field="sellerFirstName" from-field="parameters.sellerFirstName" default-value="None"/>
+                <set field="sellerLastName" from-field="parameters.sellerLastName" default-value="None"/>
+                <set field="sellerStreet1" from-field="parameters.sellerStreet1" default-value="None"/>
+                <set field="sellerStreet2" from-field="parameters.sellerStreet2" default-value="None"/>
+                <set field="sellerCity" from-field="parameters.sellerCity" default-value="None"/>
+                <set field="sellerState" from-field="parameters.sellerState" default-value="None"/>
+                <set field="sellerZipCode" from-field="parameters.sellerZipCode" default-value="None"/>
+                <set field="sellerCountry" from-field="parameters.sellerCountry" default-value="None"/>
+                <set field="sellerEmail" from-field="parameters.sellerEmail" default-value="None"/>
+                <set field="sellerPhone" from-field="parameters.sellerPhone" default-value="None"/>
+                <set field="salesRecordNumber" from-field="parameters.salesRecordNumber" default-value="None"/>
+                <set field="shippedDate" from-field="parameters.shippedDate" default-value="None"/>
+                <set field="transactionTable" from-field="parameters.transactionTable" default-value="None"/>
+                <set field="checkoutLink" from-field="parameters.checkoutLink" default-value="None"/>
+                <set field="shippingCalculator" from-field="parameters.shippingCalculator" default-value="None"/>
+                <set field="trackShipmentLink" from-field="parameters.trackShipmentLink" default-value="None"/>
+                <set field="shippingOptions" from-field="parameters.shippingOptions" default-value="None"/>
+                <set field="notesToBuyer" from-field="parameters.notesToBuyer" default-value="None"/>
+                <set field="DiscountsOrCharges" from-field="parameters.DiscountsOrCharges" default-value="None"/>
+                <set field="refundAmount" from-field="parameters.refundAmount" default-value="None"/>
+                <set field="variationDetails" from-field="parameters.variationDetails" default-value="None"/>
+            </actions>
+            <widgets>
+                <content content-id="${contentId}"/>
+            </widgets>
+        </section>
+    </screen>
+</screens>

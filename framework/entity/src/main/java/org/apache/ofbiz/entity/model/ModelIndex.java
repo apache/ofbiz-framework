@@ -21,7 +21,6 @@ package org.apache.ofbiz.entity.model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 
 import org.apache.ofbiz.base.lang.ThreadSafe;
 import org.apache.ofbiz.base.util.UtilValidate;
@@ -74,12 +73,11 @@ public final class ModelIndex extends ModelChild {
         List<Field>fields = Collections.emptyList();
         List<? extends Element> elementList = UtilXml.childElementList(indexElement, "index-field");
         if (!elementList.isEmpty()) {
-            fields = new ArrayList<>(elementList.size());
+            fields = new ArrayList<Field>(elementList.size());
             for (Element indexFieldElement : elementList) {
                 String fieldName = indexFieldElement.getAttribute("name").intern();
                 String function = indexFieldElement.getAttribute("function").intern();
-                fields.add(new Field(fieldName, UtilValidate.isNotEmpty(function) ? Function.valueOf(function
-                        .toUpperCase(Locale.getDefault())) : null));
+                fields.add(new Field(fieldName, UtilValidate.isNotEmpty(function) ? Function.valueOf(function.toUpperCase()) : null));
             }
             fields = Collections.unmodifiableList(fields);
         }

@@ -17,7 +17,8 @@
  * under the License.
  */
 
-import org.apache.ofbiz.base.util.Debug
+import org.apache.ofbiz.base.util.UtilMisc
+import org.apache.ofbiz.entity.util.EntityUtil
 
 costMult = 0.0
 quoteCoefficients.each { quoteCoefficient ->

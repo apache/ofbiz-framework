@@ -23,16 +23,7 @@ import java.io.Writer;
 import java.math.BigDecimal;
 import java.util.Locale;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
-
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilFormatOut;
-import org.apache.ofbiz.base.util.UtilGenerics;
-import org.apache.ofbiz.base.util.UtilHttp;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.util.EntityUtilProperties;
 
 import freemarker.core.Environment;
 import freemarker.ext.beans.BeanModel;
@@ -43,6 +34,13 @@ import freemarker.template.TemplateModelException;
 import freemarker.template.TemplateScalarModel;
 import freemarker.template.TemplateTransformModel;
 
+import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.UtilFormatOut;
+import org.apache.ofbiz.base.util.UtilHttp;
+import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.entity.util.EntityUtilProperties;
+
 /**
  * OfbizCurrencyTransform - Freemarker Transform for content links
  */
@@ -50,7 +48,7 @@ public class OfbizCurrencyTransform implements TemplateTransformModel {
 
     public static final String module = OfbizCurrencyTransform.class.getName();
 
-    private static String getArg(Map<String, Object> args, String key) {
+    private static String getArg(Map args, String key) {
         String  result = "";
         Object o = args.get(key);
         if (o != null) {
@@ -69,7 +67,7 @@ public class OfbizCurrencyTransform implements TemplateTransformModel {
         return result;
     }
 
-    private static BigDecimal getAmount(Map<String, Object> args, String key) {
+    private static BigDecimal getAmount(Map args, String key) {
         if (args.containsKey(key)) {
             Object o = args.get(key);
 
@@ -88,7 +86,7 @@ public class OfbizCurrencyTransform implements TemplateTransformModel {
         return BigDecimal.ZERO;
     }
 
-    private static Integer getInteger(Map<String, Object> args, String key) {
+    private static Integer getInteger(Map args, String key) {
         if (args.containsKey(key)) {
             Object o = args.get(key);
             if (Debug.verboseOn()) Debug.logVerbose("Amount Object : " + o.getClass().getName(), module);
@@ -115,19 +113,17 @@ public class OfbizCurrencyTransform implements TemplateTransformModel {
         return null;
     }
 
-    @Override
-    public Writer getWriter(Writer out, @SuppressWarnings("rawtypes") Map args) {
+    public Writer getWriter(final Writer out, Map args) {
         final StringBuilder buf = new StringBuilder();
 
-        Map<String, Object> arguments = UtilGenerics.cast(args);
-        final BigDecimal amount = OfbizCurrencyTransform.getAmount(arguments, "amount");
-        final String isoCode = OfbizCurrencyTransform.getArg(arguments, "isoCode");
-        final String locale = OfbizCurrencyTransform.getArg(arguments, "locale");
+        final BigDecimal amount = OfbizCurrencyTransform.getAmount(args, "amount");
+        final String isoCode = OfbizCurrencyTransform.getArg(args, "isoCode");
+        final String locale = OfbizCurrencyTransform.getArg(args, "locale");
 
         // check the rounding -- DEFAULT is 10 to not round for display, only use this when necessary
         // rounding should be handled by the code, however some times the numbers are coming from
         // someplace else (i.e. an integration)
-        Integer roundingNumber = getInteger(arguments, "rounding");
+        Integer roundingNumber = getInteger(args, "rounding");
         String scaleEnabled = "N";
         Environment env = Environment.getCurrentEnvironment();
         BeanModel req = null;

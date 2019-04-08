@@ -20,7 +20,6 @@ package org.apache.ofbiz.entity.condition;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
@@ -30,27 +29,21 @@ import org.apache.ofbiz.entity.config.model.Datasource;
 import org.apache.ofbiz.entity.model.ModelEntity;
 
 /**
- * Represents a raw SQL string condition expression.
- * <p>
- * Encapsulates SQL expressions used for where clause snippets.
+ * <p>Encapsulates SQL expressions used for where clause snippets.
  *  NOTE: This is UNSAFE and BREAKS the idea behind the Entity Engine where
  *  you avoid directly specifying SQL. So, KEEP IT MINIMAL and preferably replace
- *  it when the feature you are getting at is implemented in a more automatic way for you.
- * <p>
- * By minimal I mean use this in conjunction with other EntityConditions like the
- * EntityExpr, EntityConditionList and EntityFieldMap objects which more cleanly
- * encapsulate where conditions and don't require you to directly write SQL.
+ *  it when the feature you are getting at is implemented in a more automatic way for you.</p>
+ *
+ * <p>By minimal I mean use this in conjunction with other EntityConditions like the
+ *  EntityExpr, EntityConditionList and EntityFieldMap objects which more cleanly
+ *  encapsulate where conditions and don't require you to directly write SQL.</p>
+ *
  */
 @SuppressWarnings("serial")
-public final class EntityWhereString implements EntityCondition {
-    /** The raw SQL string that is embedded.  */
-    private final String sqlString;
+public final class EntityWhereString extends EntityCondition {
 
-    /**
-     * Constructs a raw SQL string condition expression.
-     *
-     * @param sqlString the raw SQL to embed in a condition expression
-     */
+    protected final String sqlString;
+
     public EntityWhereString(String sqlString) {
         this.sqlString = sqlString;
     }
@@ -79,11 +72,6 @@ public final class EntityWhereString implements EntityCondition {
         throw new UnsupportedOperationException("Cannot do mapMatches on a WhereString, ie no SQL evaluation in EE; Where String is: " + sqlString);
     }
 
-    /**
-     * Provides access to the embedded raw SQL string.
-     *
-     * @return the corresponding SQL string
-     */
     public String getWhereString() {
         return sqlString;
     }
@@ -94,23 +82,19 @@ public final class EntityWhereString implements EntityCondition {
     }
 
     @Override
-    public void accept(EntityConditionVisitor visitor) {
-        visitor.visit(this);
+    public void visit(EntityConditionVisitor visitor) {
+        visitor.acceptEntityWhereString(this);
     }
 
     @Override
     public boolean equals(Object obj) {
-        return (obj instanceof EntityWhereString)
-                && Objects.equals(sqlString, ((EntityWhereString) obj).sqlString);
+        if (!(obj instanceof EntityWhereString)) return false;
+        EntityWhereString other = (EntityWhereString) obj;
+        return equals(sqlString, other.sqlString);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(sqlString);
-    }
-
-    @Override
-    public String toString() {
-        return makeWhereString();
+        return hashCode(sqlString);
     }
 }

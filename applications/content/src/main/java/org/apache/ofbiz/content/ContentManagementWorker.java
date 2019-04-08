@@ -27,7 +27,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -285,7 +284,6 @@ public final class ContentManagementWorker {
             String contentId = (String)webSitePP.get("contentId");
             String templateTitle = (String)webSitePP.get("templateTitle");
             GenericValue content = delegator.makeValue("Content", UtilMisc.toMap("contentId", contentId));
-            // TODO check if we want statusId to be filled/used, else this should be removed
             String statusId = null;
             String entityAction = permittedAction;
             if (entityAction == null) {
@@ -302,7 +300,7 @@ public final class ContentManagementWorker {
             Map<String, Object> results = null;
             results = EntityPermissionChecker.checkPermission(content, statusId, userLogin, passedPurposes, targetOperationList, roles, delegator, security, entityAction);
             String permissionStatus = (String)results.get("permissionStatus");
-            if (permissionStatus != null && "granted".equalsIgnoreCase(permissionStatus)) {
+            if (permissionStatus != null && permissionStatus.equalsIgnoreCase("granted")) {
                 String [] arr = {contentId,templateTitle};
                 permittedPublishPointList.add(arr);
             }
@@ -373,6 +371,7 @@ public final class ContentManagementWorker {
         }
 
         List<Map<String, Object>> staticValueList = new LinkedList<Map<String,Object>>();
+        int counter = 0;
         for (GenericValue content : assocValueList) {
             String contentId = (String)content.get("contentId");
             String contentName = (String)content.get("contentName");
@@ -395,6 +394,7 @@ public final class ContentManagementWorker {
                 }
             }
             staticValueList.add(map);
+            counter++;
         }
         return staticValueList;
     }
@@ -479,7 +479,8 @@ public final class ContentManagementWorker {
             String contentId = arr[0];
             String description = arr[1];
             List<Object []> subPointList = new LinkedList<Object[]>();
-            Object [] subArr = {contentId, subPointList, description, null};
+            Object nullObj = null;
+            Object [] subArr = {contentId, subPointList, description, nullObj};
             publishPointMap.put(contentId, subArr);
             publishPointMapAll.put(contentId, contentId);
             List<GenericValue> subPublishPointList = getAllPublishPoints(delegator, contentId);
@@ -487,7 +488,8 @@ public final class ContentManagementWorker {
                 String contentId2 = (String)webSitePublishPoint2.get("contentId");
                 String description2 = (String)webSitePublishPoint2.get("templateTitle");
                 publishPointMapAll.put(contentId2, contentId);
-                Object [] subArr2 = {contentId2, description2, null};
+                Timestamp obj = null;
+                Object [] subArr2 = {contentId2, description2, obj};
                 subPointList.add(subArr2);
             }
         }
@@ -522,8 +524,7 @@ public final class ContentManagementWorker {
         }
 
         List<Object []> publishedLinkList = new LinkedList<Object[]>();
-        for (Entry<String, Object> entry : publishPointMap.entrySet()) {
-            String contentId = entry.getKey();
+        for (String contentId : publishPointMap.keySet()) {
             Object [] subPointArr = (Object [])publishPointMap.get(contentId);
             publishedLinkList.add(subPointArr);
         }
@@ -534,7 +535,6 @@ public final class ContentManagementWorker {
         GenericValue authorContent = null;
         try {
             List<String> assocTypes = UtilMisc.toList("AUTHOR");
-            // TODO check if we want contentTypes to be filled/used, else this should be removed
             List<String> contentTypes = null;
             Map<String, Object> results =  ContentServicesComplex.getAssocAndContentAndDataResourceCacheMethod(delegator, contentId, null, "To", null, null, assocTypes, contentTypes, Boolean.TRUE, null, null);
             List<GenericValue> valueList = UtilGenerics.checkList(results.get("entityList"));
@@ -558,7 +558,6 @@ public final class ContentManagementWorker {
         for (GenericValue content : allDepartmentPoints) {
             String contentId = (String)content.get("contentId");
             String contentName = (String)content.get("contentName");
-            // TODO check if we want statusId to be filled/used, else this should be removed
             String statusId = null;
             String entityAction = permittedAction;
             if (entityAction == null)
@@ -574,7 +573,7 @@ public final class ContentManagementWorker {
             Map<String, Object> results = null;
             results = EntityPermissionChecker.checkPermission(content, statusId, userLogin, passedPurposes, targetOperationList, roles, delegator, security, entityAction);
             String permissionStatus = (String)results.get("permissionStatus");
-            if (permissionStatus != null && "granted".equalsIgnoreCase(permissionStatus)) {
+            if (permissionStatus != null && permissionStatus.equalsIgnoreCase("granted")) {
                 String [] arr = {contentId,contentName};
                 permittedDepartmentPointList.add(arr);
             }
@@ -638,8 +637,8 @@ public final class ContentManagementWorker {
         // If no children, count this as a leaf
         if (subLeafCount == 0)
             subLeafCount = 1;
-        thisContent.put("childBranchCount", (long) contentAssocs.size());
-        thisContent.put("childLeafCount", (long) subLeafCount);
+        thisContent.put("childBranchCount", Long.valueOf(contentAssocs.size()));
+        thisContent.put("childLeafCount", Long.valueOf(subLeafCount));
         thisContent.store();
 
         return subLeafCount;
@@ -662,7 +661,7 @@ public final class ContentManagementWorker {
             if (leafCount != null) {
                 intLeafCount = leafCount.intValue();
             }
-            contentTo.set("childLeafCount", (long) (intLeafCount + leafChangeAmount));
+            contentTo.set("childLeafCount", Long.valueOf(intLeafCount + leafChangeAmount));
 
             if (branchChangeAmount != 0) {
                 int intBranchCount = 0;
@@ -670,7 +669,7 @@ public final class ContentManagementWorker {
                 if (branchCount != null) {
                     intBranchCount = branchCount.intValue();
                 }
-                contentTo.set("childBranchCount", (long) (intBranchCount + branchChangeAmount));
+                contentTo.set("childBranchCount", Long.valueOf(intBranchCount + branchChangeAmount));
             }
             contentTo.store();
             updateStatsBottomUp(delegator, contentIdTo, typeList, 0, leafChangeAmount);

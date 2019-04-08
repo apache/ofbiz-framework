@@ -24,7 +24,7 @@ under the License.
         <section>
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.PartyNotificationMailCreate"/>
+                <set field="title" value="${uiLabelMap.PartyNotificationMailCreate}"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://party/template/email/CreatePartyNotification.ftl"/></html></platform-specific>
@@ -35,7 +35,7 @@ under the License.
         <section>
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.PartyNotificationMailChange"/>
+                <set field="title" value="${uiLabelMap.PartyNotificationMailChange}"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://party/template/email/ChangePersonalInfoNotification.ftl"/></html></platform-specific>
@@ -46,7 +46,7 @@ under the License.
         <section>
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.PartyNotificationMailVerification"/>
+                <set field="title" value="${uiLabelMap.PartyNotificationMailVerification}"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://party/template/email/VerifyEmailAddressNotification.ftl"/></html></platform-specific>
@@ -57,7 +57,7 @@ under the License.
         <section>
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" from-field="uiLabelMap.PartyNotificationMailActivated"/>
+                <set field="title" value="${uiLabelMap.PartyNotificationMailActivated}"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://party/template/email/AccountActivatedNotification.ftl"/></html></platform-specific>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
+
+    <simple-method method-name="migrateOrderItemAssociation" short-description="Migrate data from OldOrderItemAssociation to OrderItemAssoc">
+        <entity-condition entity-name="OldOrderItemAssociation" list="oldOrderItemAssociations"/>
+        <iterate list="oldOrderItemAssociations" entry="oldOrderItemAssociation">
+            <make-value entity-name="OrderItemAssoc" value-field="orderItemAssoc"/>
+            <set field="orderItemAssoc.orderId" from-field="oldOrderItemAssociation.salesOrderId"/>
+            <set field="orderItemAssoc.orderItemSeqId" from-field="oldOrderItemAssociation.soItemSeqId"/>
+            <set field="orderItemAssoc.toOrderId" from-field="oldOrderItemAssociation.purchaseOrderId"/>
+            <set field="orderItemAssoc.toOrderItemSeqId" from-field="oldOrderItemAssociation.poItemSeqId"/>
+            <set field="orderItemAssoc.shipGroupSeqId" value="_NA_"/>
+            <set field="orderItemAssoc.toShipGroupSeqId" value="_NA_"/>
+            <set field="orderItemAssoc.orderItemAssocTypeId" value="PURCHASE_ORDER"/>
+            <create-value value-field="orderItemAssoc"/>
+        </iterate>
+    </simple-method>
+
+    <simple-method method-name="migrateCustRequestRole" short-description="Migrate data from OldCustRequestRole to CustRequestParty">
+        <entity-condition entity-name="OldCustRequestRole" list="oldCustRequestRoles"/>
+        <now-timestamp field="fromDate"/>
+        <iterate list="oldCustRequestRoles" entry="oldCustRequestRole">
+            <make-value entity-name="CustRequestParty" value-field="custRequestParty"/>
+            <set field="custRequestParty.custRequestId" from-field="oldCustRequestRole.custRequestId"/>
+            <set field="custRequestParty.partyId" from-field="oldCustRequestRole.partyId"/>
+            <set field="custRequestParty.roleTypeId" from-field="oldCustRequestRole.roleTypeId"/>
+            <set field="custRequestParty.fromDate" from-field="fromDate"/>
+            <create-value value-field="custRequestParty"/>
+        </iterate>
+    </simple-method>
+
+    <simple-method method-name="migrateOrderShipment" short-description="Migrate data from ItemIssuances to OrderShipments when the records are not used to record item issuances but only an order to shipment association.">
+        <entity-condition entity-name="ItemIssuance" list="itemIssuances">
+            <condition-list combine="and">
+                <condition-expr field-name="inventoryItemId" operator="equals" from-field="nullField"/>
+                <condition-expr field-name="shipmentId" operator="not-equals" from-field="nullField"/>
+                <condition-expr field-name="shipmentItemSeqId" operator="not-equals" from-field="nullField"/>
+            </condition-list>
+        </entity-condition>
+        <iterate list="itemIssuances" entry="itemIssuance">
+            <entity-one entity-name="OrderShipment" value-field="orderShipment">
+                <field-map field-name="orderId" from-field="itemIssuance.orderId"/>
+                <field-map field-name="orderItemSeqId" from-field="itemIssuance.orderItemSeqId"/>
+                <field-map field-name="shipGroupSeqId" from-field="itemIssuance.shipGroupSeqId"/>
+                <field-map field-name="shipmentId" from-field="itemIssuance.shipmentId"/>
+                <field-map field-name="shipmentItemSeqId" from-field="itemIssuance.shipmentItemSeqId"/>
+            </entity-one>
+            <if-empty field="orderShipment">
+                <make-value entity-name="OrderShipment" value-field="orderShipment"/>
+                <set field="orderShipment.orderId" from-field="itemIssuance.orderId"/>
+                <set field="orderShipment.orderItemSeqId" from-field="itemIssuance.orderItemSeqId"/>
+                <set field="orderShipment.shipGroupSeqId" from-field="itemIssuance.shipGroupSeqId"/>
+                <set field="orderShipment.shipmentId" from-field="itemIssuance.shipmentId"/>
+                <set field="orderShipment.shipmentItemSeqId" from-field="itemIssuance.shipmentItemSeqId"/>
+                <set field="orderShipment.quantity" value="0.0" type="BigDecimal"/>
+                <create-value value-field="orderShipment"/>
+            </if-empty>
+            <calculate field="orderShipment.quantity">
+                <calcop operator="add">
+                    <calcop operator="get" field="orderShipment.quantity"/>
+                    <calcop operator="get" field="itemIssuance.quantity"/>
+                </calcop>
+            </calculate>
+            <store-value value-field="orderShipment"/>
+            <get-related value-field="itemIssuance" relation-name="ItemIssuanceRole" list="itemIssuanceRoles"/>
+            <iterate list="itemIssuanceRoles" entry="itemIssuanceRole">
+                <remove-value value-field="itemIssuanceRole"/>
+            </iterate>
+            <entity-condition entity-name="InventoryItemDetail" list="inventoryItemDetails">
+                <condition-expr field-name="itemIssuanceId" operator="equals" from-field="itemIssuance.itemIssuanceId"/>
+            </entity-condition>
+            <iterate list="inventoryItemDetails" entry="inventoryItemDetail">
+                <set field="inventoryItemDetail.itemIssuanceId" from-field="nullField"/>
+                <store-value value-field="inventoryItemDetail"/>
+            </iterate>
+            <remove-value value-field="itemIssuance"/>
+        </iterate>
+    </simple-method>
+</simple-methods>

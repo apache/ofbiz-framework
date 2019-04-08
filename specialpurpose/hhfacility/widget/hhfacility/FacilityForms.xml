@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
+
+    <form name="ListFacilities" type="list" list-name="facilities" paginate-target="main"
+             default-title-style="tableheadtext">
+        <field name="facilityId" widget-style="buttontext">
+            <hyperlink description="${facilityId}" target="menu" also-hidden="false">
+                <parameter param-name="facilityId"/>
+            </hyperlink>
+        </field>
+        <field name="facilityName"><display/></field>
+        <field name="description" title="${uiLabelMap.ProductProductDescription}"><display/></field>
+    </form>
+
+    <!-- this form posts to "polinereceipt" (see controller.xml) -->
+    <form name="POEnter" type="single" target="polinereceipt"
+            default-title-style="tableheadtext">
+        <field name="facilityId"><hidden/></field>
+        <field name="OrderId" title="${uiLabelMap.OrderPONumber}"><text size="10"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonNext}" widget-style="standardSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <!-- this form posts to "productqtyreceipt" (see controller.xml) -->
+    <form name="ProductEnter" type="single" target="productqtyreceipt"
+            default-title-style="tableheadtext">
+        <field name="facilityId"><hidden/></field>
+        <field name="productId"><text size="10" default-value=""/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonNext}" widget-style="standardSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <!-- this form posts to "receiveproductqty" (see controller.xml) -->
+    <form name="ProductQtyEnter" type="single" target="receiveproductqty"
+            default-title-style="tableheadtext">
+        <field name="facilityId"><hidden/></field>
+        <field name="productId"><hidden/></field>
+        <field name="productId" entry-name="product.productId" ><display/></field>
+        <field name="productName" title=" " entry-name="product.productName" ><display/></field>
+        <field name="productLocation" title="${uiLabelMap.FormFieldTitle_locationSeqId}" event="onkeypress" action="return enter(event,document.forms[0].productQty)"><text size="10"/></field>
+        <field name="productQty" required-field="true" title="${uiLabelMap.CommonQty}" ><text default-value="1" size="5"/></field>
+        <field name="submitButton" title="${uiLabelMap.ProductReceiveProduct}" widget-style="standardSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <!-- this form posts to "findstocktake" (see controller.xml) -->
+    <form name="FindProductStock" type="single" target="findstocktake"
+            default-title-style="tableheadtext">
+        <field name="facilityId"><hidden/></field>
+        <field name="idValue"><text size="10" default-value=""/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonNext}" widget-style="standardSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <form name="ProductStocktake" type="single" target="updateproductstocktake"
+            default-title-style="tableheadtext">
+        <field name="facilityId"><hidden/></field>
+        <field name="productId"><display/></field>
+        <field name="productName" entry-name="product.productName"><display/></field>
+        <field name="atp_qoh" title="${uiLabelMap.ProductAtpQoh}" entry-name="quantitySummary.atp_qoh"><display/></field>
+        <field name="locationSeqId" entry-name="locationSeqId"><display/></field>
+        <!--<field name="submitButton" title="Submit" widget-style="standardSubmit"><submit button-type="button"/></field>-->
+    </form>
+    <form name="UpdateProductStocktake" type="list"
+            target="updateproductstocktake" title="" list-name="productQtyByLocations"
+            default-title-style="tableheadtext" default-widget-style="inputBox">
+    <!--    <auto-fields-service service-name="updateproductstocktake"/>  -->
+        <field name="productId"><hidden/></field>
+        <field name="facilityId"><hidden/></field>
+        <field name="atp_qoh" title="${uiLabelMap.ProductAtpQoh}" entry-name="atp_qoh"><display/></field>
+        <field name="locationSeqId"><hidden/></field>
+        <field name="locationSeqIdNew" title="${uiLabelMap.FormFieldTitle_locationSeqId}" entry-name="locationSeqId"><text size="10" default-value=""/></field>
+        <field name="quantity" required-field="true" entry-name="totalQuantityOnHand"><text size="6" default-value=""/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="deleteLink" title=" " widget-style="buttontext">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeProductFromCategory" also-hidden="false">
+                <parameter param-name="productId"/>
+                <parameter param-name="productCategoryId"/>
+                <parameter param-name="fromDate"/>
+            </hyperlink>
+        </field>
+    </form>
+
+    <form name="MainMenu" type="single" target="menu">
+        <field name="facilityId"><hidden/></field>
+        <field name="m1" title="${uiLabelMap.FacilityFacility} : ${facilityId}" position="1"><display/></field>
+        <field name="receipt" title="1. ${uiLabelMap.ProductGoodsReceipt}">
+            <submit button-type="text-link"/>
+        </field>
+        <field name="picking" title="2. ${uiLabelMap.ProductPicking}" position="1">
+            <submit button-type="text-link"/>
+        </field>
+    </form>
+
+</forms>

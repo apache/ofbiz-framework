@@ -18,7 +18,9 @@
  */
 
 
-import org.apache.ofbiz.base.util.ObjectType
+import java.util.*
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.entity.*
 
 if (security.hasEntityPermission("MANUFACTURING", "_VIEW", session)) {
     context.hasPermission = Boolean.TRUE
@@ -26,6 +28,7 @@ if (security.hasEntityPermission("MANUFACTURING", "_VIEW", session)) {
     context.hasPermission = Boolean.FALSE
 }
 techDataCalendar = [:]
+calendarExceptionDays = []
 
 calendarId = parameters.calendarId ?: request.getAttribute("calendarId")
 if (calendarId) {
@@ -38,7 +41,7 @@ if (techDataCalendar) {
 }
 
 exceptionDateStartTime = parameters.exceptionDateStartTime ?: request.getAttribute("exceptionDateStartTime")
-exceptionDateStartTime = ObjectType.simpleTypeOrObjectConvert(exceptionDateStartTime, "Timestamp", null, null)
+exceptionDateStartTime = ObjectType.simpleTypeConvert(exceptionDateStartTime, "Timestamp", null, null)
 
 if (exceptionDateStartTime) {
     calendarExceptionDay = from("TechDataCalendarExcDay").where("calendarId", calendarId , "exceptionDateStartTime", exceptionDateStartTime).queryOne()

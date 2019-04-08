@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
+    <property key="BirtApplication">
+        <value xml:lang="en">Eclipse BIRT Application</value>
+        <value xml:lang="ja">Eclipse BIRT 業務</value>
+        <value xml:lang="th">Eclipse BIRT Application</value>
+        <value xml:lang="zh">Eclipse BIRT应用程序</value>
+        <value xml:lang="zh-TW">Eclipse BIRT應用程式</value>
+    </property>
+    <property key="BirtCompanyName">
+        <value xml:lang="en">OFBiz: Eclipse BIRT</value>
+        <value xml:lang="ja">OFBiz: Eclipse BIRT</value>
+        <value xml:lang="th">OFBiz : Eclipse BIRT</value>
+        <value xml:lang="zh">OFBiz: Eclipse BIRT</value>
+        <value xml:lang="zh-TW">OFBiz: Eclipse BIRT</value>
+    </property>
+    <property key="BirtCompanySubtitle">
+        <value xml:lang="en">Part of the Apache OFBiz Family of Open Source Software</value>
+        <value xml:lang="it">Un modulo della famiglia di software open source Apache OFBiz</value>
+        <value xml:lang="ja">Part of the Apache OFBiz Family of Open Source Software</value>
+        <value xml:lang="th">เป็นส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value>
+        <value xml:lang="zh">开源软件OFBiz的组成部分</value>
+        <value xml:lang="zh-TW">開源軟體OFBiz的組成部分</value>
+    </property>
+    <property key="BirtErrorFOPRenderingAttachmentForEmail">
+        <value xml:lang="en">Error FOP rendering ${birtContentType} attachment for email: ${errorString}</value>
+    </property>
+    <property key="BirtErrorInSendingEmail">
+        <value xml:lang="en">Error in sending email: ${errorString}</value>
+    </property>
+    <property key="BirtErrorIORenderingAttachmentForEmail">
+        <value xml:lang="en">Error I/O rendering ${birtContentType} attachment for email: ${errorString}</value>
+    </property>
+    <property key="BirtErrorIORenderingScreenForEmail">
+        <value xml:lang="en">Error I/O rendering screen for email: ${errorString}</value>
+    </property>
+    <property key="BirtErrorParserConfigRenderingScreenForEmail">
+        <value xml:lang="en">Error parser config rendering screen for email: ${errorString}</value>
+    </property>
+    <property key="BirtErrorParserRenderingAttachmentForEmail">
+        <value xml:lang="en">Error parser rendering ${birtContentType} attachment for email: ${errorString}</value>
+    </property>
+    <property key="BirtErrorRenderingAttachmentForEmail">
+        <value xml:lang="en">Error rendering ${birtContentType} attachment for email: ${errorString}</value>
+    </property>
+    <property key="BirtErrorRenderingScreenForEmail">
+        <value xml:lang="en">Error rendering screen for email: ${errorString}</value>
+    </property>
+    <property key="BirtErrorSAXRenderingAttachmentForEmail">
+        <value xml:lang="en">Error SAX rendering ${birtContentType} attachment for email: ${errorString}</value>
+    </property>
+    <property key="BirtErrorSAXRenderingScreenForEmail">
+        <value xml:lang="en">Error SAX rendering screen for email: ${errorString}</value>
+    </property>
+    <property key="BirtErrorSQLRenderingAttachmentForEmail">
+        <value xml:lang="en">Error SQL rendering ${birtContentType} attachment for email: ${errorString}</value>
+    </property>
+    <property key="BirtFacilityReportInventoryHistoryReport">
+        <value xml:lang="en">Inventory History Report</value>
+        <value xml:lang="fr">Historique du stock</value>
+        <value xml:lang="it">Report storia inventario</value>
+        <value xml:lang="ja">在庫履歴レポート</value>
+        <value xml:lang="vi">Báo cáo lịch sử kho (Inventory)</value>
+        <value xml:lang="zh">库存历史记录报告</value>
+        <value xml:lang="zh-TW">庫存歷史記錄報告</value>
+    </property>
+    <property key="BirtFacilityReportLastIntMonth">
+        <value xml:lang="en">Number of last month to sold out</value>
+        <value xml:lang="fr">Ruptures de stock, pour le nombre de derniers mois : </value>
+        <value xml:lang="zh">上月脱销的数量</value>
+    </property>
+    <property key="BirtOrderReportAllOrderItemsWithDiscountCode">
+        <value xml:lang="en">All order items with discount code</value>
+        <value xml:lang="fr">Tous les lignes de commandes ayant des codes promotionels</value>
+        <value xml:lang="zh">所有带有折扣优惠码的订单明细</value>
+    </property>
+    <property key="BirtOrderReportCouponSalesReport">
+        <value xml:lang="en">Coupon Sales Report</value>
+        <value xml:lang="fr">Ventes promotionelles</value>
+        <value xml:lang="zh">优惠券销售报告</value>
+    </property>
+    <property key="BirtOrderReportFormatType">
+        <value xml:lang="en">Format Type</value>
+        <value xml:lang="fr">Format : </value>
+        <value xml:lang="zh">格式类型</value>
+    </property>
+    <property key="BirtOrderReportLast3MonthsSalesReport">
+        <value xml:lang="en">Last 3 Months Sales Report</value>
+        <value xml:lang="fr">Ventes des 3 derniers mois</value>
+        <value xml:lang="zh">最近3个月的销售报告</value>
+    </property>
+    <property key="BirtOrderReportProductDemandReport">
+        <value xml:lang="en">Product Demand Report</value>
+        <value xml:lang="fr">Demandes par produit</value>
+        <value xml:lang="zh">产品需求报告</value>
+    </property>
+    <property key="BirtOrderReportReportBy">
+        <value xml:lang="en">Report By</value>
+        <value xml:lang="fr">Par : </value>
+        <value xml:lang="zh">制表人</value>
+    </property>
+    <property key="BirtOrderReportSaleOrderDiscountCode">
+        <value xml:lang="en">Sales Order Discount Code</value>
+        <value xml:lang="fr">Ventes par codes promotionels</value>
+        <value xml:lang="zh">销售订单折扣优惠码</value>
+    </property>
+    <property key="BirtOrderReportSaleOrdersByChannel">
+        <value xml:lang="en">Sale Orders By Channel</value>
+        <value xml:lang="fr">Ventes par canaux</value>
+        <value xml:lang="zh">按渠道的销售订单</value>
+    </property>
+    <property key="BirtOrderReportSalesReport">
+        <value xml:lang="en">Sales Report</value>
+        <value xml:lang="fr">Ventes depuis :</value>
+        <value xml:lang="zh">销售报表</value>
+    </property>
+    <property key="BirtOrderReportsWarning">
+        <value xml:lang="en">Four Birt reports (Last 3 Months Sales, Sales, Sales Order Discount Code, Product Demand) require to feed the BI data base (note that the bi.properties file will need to be updated after September 2023). Then only new approved orders will be taken into account.</value>
+        <value xml:lang="fr">Quatre tableau créés par Birt (Ventes des 3 derniers mois, Ventes, Ventes par codes promotionels, Demandes par produit) nécessitent d'alimenter la base de données d'Inform. décis. (notez aussi la nécessaire màj du fichier bi.properties après septembre 2023). Ensuite seules les commandes nouvellement approuvées seront prises en compte.</value>
+        <value xml:lang="zh">4个Birt报告（最近3个月销售、销售、销售订单折扣优惠码、产品需求）要求提供BI数据库（注意：bi.properites文件需要在2023年9月后进行更新）。只会统计新批准的那些订单。</value>
+    </property>
+    <property key="ExampleBirtChartReport">
+        <value xml:lang="en">HTML chart report</value>
+        <value xml:lang="fr">Graphiques HTML</value>
+        <value xml:lang="ja">HTML 表レポート</value>
+        <value xml:lang="zh">HTML图形报表</value>
+        <value xml:lang="zh-TW">HTML圖形報表</value>
+    </property>
+    <property key="ExampleBirtChartViewHandler">
+        <value xml:lang="en">PDF chart report</value>
+        <value xml:lang="fr">Graphiques PDF</value>
+        <value xml:lang="ja">PDF 表レポート</value>
+        <value xml:lang="zh">PDF图形报表</value>
+        <value xml:lang="zh-TW">PDF圖形報表</value>
+    </property>
+    <property key="ExampleBirtExamples">
+        <value xml:lang="en">BIRT Examples</value>
+        <value xml:lang="ja">BIRT サンプル</value>
+        <value xml:lang="th">ตัวอย่าง BIRT</value>
+        <value xml:lang="zh">BIRT样例</value>
+        <value xml:lang="zh-TW">BIRT範例</value>
+    </property>
+    <property key="ExampleBirtMail">
+        <value xml:lang="en">Send any format through Mail</value>
+        <value xml:lang="ja">任意の書式をメールで送信する</value>
+        <value xml:lang="zh">通过邮件发送任一格式</value>
+        <value xml:lang="zh-TW">通過郵件發送任一格式</value>
+    </property>
+    <property key="ExampleBirtReport">
+        <value xml:lang="en">HTML</value>
+        <value xml:lang="zh">HTML</value>
+        <value xml:lang="zh-TW">HTML</value>
+    </property>
+    <property key="ExampleBirtViewHandler">
+        <value xml:lang="en">PDF</value>
+        <value xml:lang="zh">PDF</value>
+        <value xml:lang="zh-TW">PDF</value>
+    </property>
+</resource>

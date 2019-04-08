@@ -1,0 +1,125 @@
+#!/bin/sh 
+#####################################################################
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+#####################################################################
+#
+# ofbiz        This shell script takes care of starting and stopping
+#              the OFBiz subsystem. This version is for Ubuntu systems
+#
+# chkconfig: - 80 10
+# description: OFBiz server
+
+# the userlogin the script should run under and is the home dirname, in this case /home/ofbiz/ofbiz
+OFBIZUSER="ofbiz"
+OFBIZDIR="ofbiz"
+
+#============== no need to change anything below this line =======================
+
+# Start OFBiz
+start() {
+    if [ "$USER" = "" ]; then
+        echo "Mounting data disk at boottime here"
+#        mount /dev/sdg /data
+    fi
+    running
+    if [ "$OFBIZ_PROCS" = "" ]; then
+        echo "Ofbiz is already running..."
+        return 0
+    fi
+    if [ "$USER" = "$OFBIZUSER" ]; then
+        echo "starting standard /home/$OFBIZUSER/$OFBIZDIR/startofbiz.sh"
+        cd /home/$OFBIZUSER/$OFBIZDIR
+        ./startofbiz.sh
+        if [ $? = 0 ]; then 
+            echo "start success"
+        else
+            echo "starting ofbiz user: $OFBIZUSER in dir: $OFBIZDIR failed return code: $?"
+        fi
+        return 0
+    fi
+}
+
+stop() {
+    if [ "$USER" = "$OFBIZUSER" ]; then
+        echo "stopping standard /home/$OFBIZUSER/$OFBIZDIR/stopofbiz.sh"
+        cd /home/$OFBIZUSER/$OFBIZDIR
+        MAXCOUNT=10
+        COUNTER=0
+        until [ $COUNTER -gt $MAXCOUNT ]; do
+             COUNTER=$((COUNTER+1))
+             echo "Attempt number: $COUNTER"
+
+            ./stopofbiz.sh
+            if [ $? = 1 ]; then
+                echo "stop success" 
+                return 0
+            fi
+            sleep 3
+        done
+        echo "stopping ofbiz from user: $OFBIZUSER failed after $MAXCOUNT attemps"
+        return 1
+    fi
+}
+
+#check for user, if wrong try to change to 'OFBIZUSER' and re-execute.
+checkUser() {
+    if [ "$USER" != "$OFBIZUSER" ]; then
+        if [ "$USER" = "" ]; then
+            exec su - $OFBIZUSER -c "$0 $1 "
+        else
+            exec sudo -u $OFBIZUSER $0 $1 
+        fi
+        exit $?
+    fi
+}
+
+# OFBiz processes running
+running() {
+    OFBIZ_PROCS=`/bin/ps h -o pid,args -C java -u $OFBIZUSER | /bin/grep -e "-jar build/libs/ofbiz.jar" | /bin/egrep -o "^[[:space:]]*[[:digit:]]*"`
+}
+
+#========= main program ===============
+checkUser $1
+case "$1" in
+    "start")
+        start
+    ;;
+    "stop")
+        stop
+    ;;
+    "restart")
+        stop
+        start
+    ;;
+    "status")
+        running
+        if [ "$OFBIZ_PROCS" = "" ]; then
+            echo "OFBiz for user: $OFBIZUSER in dir: $OFBIZDIR is stopped"
+            exit 1
+        else
+            echo "OFBiz for user: $OFBIZUSER in dir: $OFBIZDIR is running"
+            exit 0
+        fi
+    ;;
+    *)
+        echo "Usage: $0 {start|stop|restart|status|help} not: $1"
+        exit 1
+    ;;
+esac
+exit $?
+

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<entity-engine-xml>
+    <ExampleType exampleTypeId="REAL_WORLD" description="Real World" parentTypeId=""/>
+    <ExampleType exampleTypeId="MADE_UP" description="Made Up" parentTypeId=""/>
+    <ExampleType exampleTypeId="CONTRIVED" description="Contrived" parentTypeId="MADE_UP"/>
+    <ExampleType exampleTypeId="INSPIRED" description="Inspired" parentTypeId="MADE_UP"/>
+
+    <ExampleFeatureApplType exampleFeatureApplTypeId="REQUIRED" description="Required" parentTypeId=""/>
+    <ExampleFeatureApplType exampleFeatureApplTypeId="DESIRED" description="Desired" parentTypeId=""/>
+    <ExampleFeatureApplType exampleFeatureApplTypeId="NOT_ALLOWED" description="Not Allowed" parentTypeId=""/>
+
+    <StatusType description="Example" statusTypeId="EXAMPLE_STATUS" hasTable="N" parentTypeId=""/>
+    <StatusItem description="In Design" sequenceId="01" statusCode="IN_DESIGN" statusId="EXST_IN_DESIGN" statusTypeId="EXAMPLE_STATUS"/>
+    <StatusItem description="Defined" sequenceId="02" statusCode="DEFINED" statusId="EXST_DEFINED" statusTypeId="EXAMPLE_STATUS"/>
+    <StatusItem description="Approved" sequenceId="03" statusCode="APPROVED" statusId="EXST_APPROVED" statusTypeId="EXAMPLE_STATUS"/>
+    <StatusItem description="Implemented" sequenceId="04" statusCode="IMPLEMENTED" statusId="EXST_IMPLEMENTED" statusTypeId="EXAMPLE_STATUS"/>
+    <StatusItem description="Tested" sequenceId="05" statusCode="TESTED" statusId="EXST_TESTED" statusTypeId="EXAMPLE_STATUS"/>
+    <StatusItem description="Complete" sequenceId="06" statusCode="COMPLETE" statusId="EXST_COMPLETE" statusTypeId="EXAMPLE_STATUS"/>
+    <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="EXST_CANCELLED" statusTypeId="EXAMPLE_STATUS"/>
+    <StatusValidChange statusId="EXST_IN_DESIGN" statusIdTo="EXST_DEFINED" transitionName="Definition Complete"/>
+    <StatusValidChange statusId="EXST_DEFINED" statusIdTo="EXST_APPROVED" transitionName="Approve"/>
+    <StatusValidChange statusId="EXST_APPROVED" statusIdTo="EXST_IMPLEMENTED" transitionName="Implementation Complete"/>
+    <StatusValidChange statusId="EXST_IMPLEMENTED" statusIdTo="EXST_TESTED" transitionName="Testing Complete"/>
+    <StatusValidChange statusId="EXST_TESTED" statusIdTo="EXST_COMPLETE" transitionName="Example Completed"/>
+    <StatusValidChange statusId="EXST_IN_DESIGN" statusIdTo="EXST_CANCELLED" transitionName="Cancel Example"/>
+    <StatusValidChange statusId="EXST_DEFINED" statusIdTo="EXST_CANCELLED" transitionName="Cancel Example"/>
+    <StatusValidChange statusId="EXST_APPROVED" statusIdTo="EXST_CANCELLED" transitionName="Cancel Example"/>
+    <StatusValidChange statusId="EXST_IMPLEMENTED" statusIdTo="EXST_CANCELLED" transitionName="Cancel Example"/>
+    <StatusValidChange statusId="EXST_TESTED" statusIdTo="EXST_CANCELLED" transitionName="Cancel Example"/>
+
+    <EnumerationType description="Example Feature Source" enumTypeId="EXMPL_FEAT_SOURCE" hasTable="N" parentTypeId=""/>
+    <Enumeration description="Customer" enumCode="CUSTOMER" enumId="EXFTSRC_CUSTOMER" sequenceId="01" enumTypeId="EXMPL_FEAT_SOURCE"/>
+    <Enumeration description="Partner" enumCode="PARTNER" enumId="EXFTSRC_PARTNER" sequenceId="02" enumTypeId="EXMPL_FEAT_SOURCE"/>
+    <Enumeration description="Employee" enumCode="EMPLOYEE" enumId="EXFTSRC_EMPLOYEE" sequenceId="03" enumTypeId="EXMPL_FEAT_SOURCE"/>
+
+    <Example exampleId="EX01" exampleName="Example 1" exampleTypeId="CONTRIVED" statusId="EXST_IN_DESIGN"/>
+    <Example exampleId="EX02" exampleName="Example 2" exampleTypeId="CONTRIVED" statusId="EXST_IN_DESIGN"/>
+    <Example exampleId="EX03" exampleName="Example 3" exampleTypeId="CONTRIVED" statusId="EXST_IN_DESIGN"/>
+    <Example exampleId="EX04" exampleName="Example 4" exampleTypeId="REAL_WORLD" statusId="EXST_IN_DESIGN"/>
+    <Example exampleId="EX05" exampleName="Example 5" exampleTypeId="REAL_WORLD" statusId="EXST_IN_DESIGN"/>
+    <Example exampleId="EX06" exampleName="Example 6" exampleTypeId="MADE_UP" statusId="EXST_IN_DESIGN"/>
+    <Example exampleId="EX07" exampleName="Example 7" exampleTypeId="MADE_UP" statusId="EXST_IN_DESIGN"/>
+    <Example exampleId="EX08" exampleName="Example 8" exampleTypeId="MADE_UP" statusId="EXST_IN_DESIGN"/>
+    <Example exampleId="EX09" exampleName="Example 9" exampleTypeId="MADE_UP" statusId="EXST_IN_DESIGN"/>
+    <Example exampleId="EX10" exampleName="Example 10" exampleTypeId="MADE_UP" statusId="EXST_IN_DESIGN"/>
+    <Example exampleId="EX11" exampleName="Example 11" exampleTypeId="INSPIRED" statusId="EXST_IN_DESIGN" description="mMy inspired example 11 description"/>
+    <Example exampleId="EX12" exampleName="Example 12" exampleTypeId="INSPIRED" statusId="EXST_IN_DESIGN" description="mMy inspired example 12 description"/>
+    <create>
+        <Example exampleId="EX13" exampleName="Example 13" exampleTypeId="INSPIRED" statusId="EXST_IN_DESIGN"/>
+        <Example exampleId="EX14" exampleName="Example 14" exampleTypeId="INSPIRED" statusId="EXST_IN_DESIGN"/>
+    </create>
+    <create-replace>
+        <Example exampleId="EX12" exampleName="Example 12 after replace" exampleTypeId="INSPIRED" statusId="EXST_IN_DESIGN"/>
+    </create-replace>
+    <create-update>
+        <Example exampleId="EX12" exampleName="Example 11 after update" exampleTypeId="INSPIRED" statusId="EXST_IN_DESIGN"/>
+    </create-update>
+    <delete>
+        <Example exampleId="EX09"/>
+    </delete>
+    <Example exampleId="EX10" exampleName="Example 10 after update"/>
+
+    <ExampleItem exampleId="EX01" exampleItemSeqId="00001" description="EX1-001" amount="10"/>
+    <ExampleItem exampleId="EX01" exampleItemSeqId="00002" description="EX1-002" amount="20"/>
+    <ExampleItem exampleId="EX02" exampleItemSeqId="00001" description="EX2-001" amount="10"/>
+    <ExampleItem exampleId="EX02" exampleItemSeqId="00002" description="EX2-002" amount="20"/>
+    <ExampleItem exampleId="EX02" exampleItemSeqId="00003" description="EX2-003" amount="30"/>
+
+    <ExampleStatus exampleId="EX01" statusDate="2010-01-02 00:00:00" statusEndDate="2011-01-02 00:00:00" statusId="EXST_IN_DESIGN"/>
+    <ExampleStatus exampleId="EX01" statusDate="2011-01-02 00:00:01" statusEndDate="2012-01-02 00:00:00" statusId="EXST_DEFINED"/>
+    <ExampleStatus exampleId="EX01" statusDate="2012-01-02 00:00:00" statusEndDate="2013-01-02 00:00:00" statusId="EXST_APPROVED"/>
+    <ExampleStatus exampleId="EX02" statusDate="2010-01-02 00:00:00" statusEndDate="2011-01-02 00:00:00" statusId="EXST_IN_DESIGN"/>
+    <ExampleStatus exampleId="EX02" statusDate="2011-01-02 00:00:01" statusEndDate="2012-01-02 00:00:00" statusId="EXST_DEFINED"/>
+    <ExampleStatus exampleId="EX02" statusDate="2012-01-02 00:00:00" statusEndDate="2013-01-02 00:00:00" statusId="EXST_APPROVED"/>
+</entity-engine-xml>

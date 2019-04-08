@@ -55,7 +55,7 @@ under the License.
                                 </container>
                             </decorator-section>
                             <decorator-section name="search-options">
-                                <platform-specific><html><html-template location="component://common-theme/template/includes/SetMultipleSelectJsList.ftl"/></html></platform-specific>
+                                <platform-specific><html><html-template location="component://common/template/includes/SetMultipleSelectJsList.ftl"/></html></platform-specific>
                                 <include-form name="FindRequests" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
                             </decorator-section>
                             <decorator-section name="search-results">
@@ -248,7 +248,7 @@ under the License.
                 <set field="headerItem" value="request"/>
                 <set field="custRequestId" from-field="parameters.custRequestId"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <entity-one entity-name="CustRequest" value-field="custRequest"/>
                 <entity-and entity-name="CustRequestItem" list="custRequestItems">

@@ -92,9 +92,7 @@ public class ProductionRunEvents {
             inputMap.put("userLogin", userLogin);
             Map<String, Object> result = dispatcher.runSync("productionRunDeclareAndProduce", inputMap);
             if (ServiceUtil.isError(result)) {
-                String errorMessage = ServiceUtil.getErrorMessage(result);
-                request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                Debug.logError(errorMessage, module);
+                request.setAttribute("_ERROR_MESSAGE_", ServiceUtil.getErrorMessage(result));
                 return "error";
             }
         } catch (GenericServiceException e) {

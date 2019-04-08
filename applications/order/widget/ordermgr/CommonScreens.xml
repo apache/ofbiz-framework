@@ -38,13 +38,13 @@ under the License.
                 <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.OrderCompanySubtitle" global="true"/>
                 <!-- layoutSettings.headerImageUrl can be used to specify an application specific logo; if not set,
                      then the global layoutSettings.commonHeaderImageUrl (specified in GlobalDecorator) will be used. -->
-                <!--<set field="layoutSettings.headerImageUrl" value="/images/ofbiz_logo.png" global="true"/>-->
+                <!--<set field="layoutSettings.headerImageUrl" value="/images/ofbiz_logo.gif" global="true"/>-->
                 <!-- <set field="layoutSettings.headerMiddleBackgroundUrl" value="" global="true"/> -->
                 <!-- <set field="layoutSettings.headerRightBackgroundUrl" value="" global="true"/> -->
                 <set field="activeApp" value="ordermgr" global="true"/>
                 <set field="applicationMenuName" value="OrderAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://order/widget/ordermgr/OrderMenus.xml" global="true"/>
-                <set field="applicationTitle" from-field="uiLabelMap.OrderManagerApplication" global="true"/>
+                <set field="applicationTitle" value="${uiLabelMap.OrderManagerApplication}" global="true"/>
                 <!-- globally parameterize the link to a customer's detail information, to help with cases when such details are accessed via external application. -->
                 <set field="customerDetailLink" value="/partymgr/control/viewprofile?partyId=" global="true"/>
             </actions>

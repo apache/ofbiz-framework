@@ -32,11 +32,12 @@ under the License.
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="layoutSettings.companyName" from-field="uiLabelMap.ContentCompanyName" global="true"/>
                 <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.ContentCompanySubtitle" global="true"/>
-                <set field="layoutSettings.styleSheets[]" value="/contentimages/css/contentForum.css" global="true"/>
+                <set field="layoutSettings.styleSheets[]" value="/content/contentForum.css" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/images/OfbizUtil.js" global="true"/>
                 <set field="activeApp" value="contentmgr" global="true"/>
                 <set field="applicationMenuName" value="ContentAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://content/widget/content/ContentMenus.xml" global="true"/>
-                <set field="applicationTitle" from-field="uiLabelMap.ContentContentManagerApplication"/>
+                <set field="applicationTitle" value="${uiLabelMap.ContentContentManagerApplication}"/>
             </actions>
             <widgets>
                 <include-screen name="ApplicationDecorator" location="component://commonext/widget/CommonScreens.xml"/>

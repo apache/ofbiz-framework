@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#if "PROD_ORDER_HEADER" == workEffort.workEffortTypeId>
+<#if workEffort.workEffortTypeId == "PROD_ORDER_HEADER">
   <a href="/manufacturing/control/ShowProductionRun?productionRunId=${workEffort.workEffortId}" class="event">
     ${workEffort.workEffortId}
   </a>
@@ -25,7 +25,7 @@ under the License.
   <#if workOrderItemFulfillments?has_content>
     <#list workOrderItemFulfillments as workOrderItemFulfillment>
       <br/>${uiLabelMap.OrderOrderId}: <a href="/ordermgr/control/orderview?orderId=${workOrderItemFulfillment.orderId}" class="event">${workOrderItemFulfillment.orderId} / ${workOrderItemFulfillment.orderItemSeqId}</a>
-      <#assign orderItemAndShipGroupAssocs = EntityQuery.use(delegator).from("OrderHeaderItemAndShipGroup").where("orderId", workOrderItemFulfillment.orderId!, "orderItemSeqId", workOrderItemFulfillment.orderItemSeqId!).queryList()!/>
+      <#assign orderItemAndShipGroupAssocs = delegator.findByAnd("OrderHeaderItemAndShipGroup", {"orderId", workOrderItemFulfillment.orderId, "orderItemSeqId", workOrderItemFulfillment.orderItemSeqId}, null, false)!/>
       <#list orderItemAndShipGroupAssocs as orderItemAndShipGroupAssoc>
         <#if orderItemAndShipGroupAssoc.shipByDate?has_content>
           ${uiLabelMap.OrderShipBeforeDate}: ${orderItemAndShipGroupAssoc.shipByDate}
@@ -33,7 +33,7 @@ under the License.
       </#list>
     </#list>
   </#if>
-<#elseif "PROD_ORDER_TASK" == workEffort.workEffortTypeId>
+<#elseif workEffort.workEffortTypeId == "PROD_ORDER_TASK">
   <a href="/manufacturing/control/ShowProductionRun?productionRunId=${workEffort.workEffortParentId}" class="event">
     ${workEffort.workEffortParentId} / ${workEffort.workEffortId}
   </a>
@@ -41,7 +41,7 @@ under the License.
   <#if parentWorkOrderItemFulfillments?has_content>
     <#list parentWorkOrderItemFulfillments as parentWorkOrderItemFulfillment>
       <br/>${uiLabelMap.OrderOrderId}: <a href="/ordermgr/control/orderview?orderId=${parentWorkOrderItemFulfillment.orderId}" class="event">${parentWorkOrderItemFulfillment.orderId} / ${parentWorkOrderItemFulfillment.orderItemSeqId}</a>
-      <#assign orderItemAndShipGroupAssocs = EntityQuery.use(delegator).from("OrderHeaderItemAndShipGroup").where("orderId", parentWorkOrderItemFulfillment.orderId!, "orderItemSeqId", parentWorkOrderItemFulfillment.orderItemSeqId!).queryList()!/>
+      <#assign orderItemAndShipGroupAssocs = delegator.findByAnd("OrderHeaderItemAndShipGroup", {"orderId", parentWorkOrderItemFulfillment.orderId, "orderItemSeqId", parentWorkOrderItemFulfillment.orderItemSeqId}, null, false)!/>
       <#list orderItemAndShipGroupAssocs as orderItemAndShipGroupAssoc>
         <#if orderItemAndShipGroupAssoc.shipByDate?has_content>
           ${uiLabelMap.OrderShipBeforeDate}: ${orderItemAndShipGroupAssoc.shipByDate}

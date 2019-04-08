@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor 
+	license agreements. See the NOTICE file distributed with this work for additional 
+	information regarding copyright ownership. The ASF licenses this file to 
+	you under the Apache License, Version 2.0 (the "License"); you may not use 
+	this file except in compliance with the License. You may obtain a copy of 
+	the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required 
+	by applicable law or agreed to in writing, software distributed under the 
+	License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
+	OF ANY KIND, either express or implied. See the License for the specific 
+	language governing permissions and limitations under the License. -->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+	<description>RestService : Exporing Service to backend</description>
+	<vendor>OFBiz</vendor>
+	<version>1.0</version>
+
+	<service name="ping" engine="java" export="true"
+		require-new-transaction="true" location="org.apache.ofbiz.common.CommonServices"
+		invoke="ping" auth="true" />
+	
+	<service name="restcreateCustomer" engine="simple" require-new-transaction="true"
+            location="component://party/minilang/user/UserEvents.xml" invoke="createCustomer" auth="true">
+        <description>Create a Person</description>
+        <attribute name="USER_FIRST_NAME" type="String" mode="INOUT" optional="true" />
+		<attribute name="USER_LAST_NAME" type="String" mode="INOUT" optional="true" />
+		<attribute name="USER_ADDRESS1" type="String" mode="INOUT" optional="true" />
+		<attribute name="USER_CITY" type="String" mode="INOUT" optional="true" />
+		<attribute name="USER_POSTAL_CODE" type="String" mode="INOUT" optional="true" />
+		<attribute name="USER_COUNTRY" type="String" mode="INOUT" optional="true" />
+		<attribute name="USER_STATE" type="String" mode="INOUT" optional="true" />
+		<attribute name="USER_EMAIL" type="String" mode="INOUT" optional="true" />
+		<attribute name="USERNAME" type="String" mode="INOUT" optional="true" />
+		<attribute name="PASSWORD" type="String" mode="INOUT" optional="true" />
+		<attribute name="CONFIRM_PASSWORD" type="String" mode="INOUT" optional="true" />
+		<attribute name="PRODUCT_STORE_ID" type="String" mode="INOUT" optional="true" />
+		
+		<attribute name="error" type="String" mode="OUT" optional="true" />
+		<attribute name="errorList" type="List" mode="OUT" optional="true" />
+	</service>
+
+	<service name="restcreateProspect" engine="simple" require-new-transaction="true"
+            location="component://party/minilang/user/UserEvents.xml" invoke="createProspect" auth="true">
+        <description>Create a Person</description>
+        <attribute name="USER_FIRST_NAME" type="String" mode="INOUT" optional="true" />
+		<attribute name="USER_LAST_NAME" type="String" mode="INOUT" optional="true" />
+		<attribute name="USER_ADDRESS1" type="String" mode="INOUT" optional="true" />
+		<attribute name="USER_CITY" type="String" mode="INOUT" optional="true" />
+		<attribute name="USER_POSTAL_CODE" type="String" mode="INOUT" optional="true" />
+		<attribute name="USER_COUNTRY" type="String" mode="INOUT" optional="true" />
+		<attribute name="USER_STATE" type="String" mode="INOUT" optional="true" />
+		<attribute name="USER_EMAIL" type="String" mode="INOUT" optional="true" />
+		<attribute name="USERNAME" type="String" mode="INOUT" optional="true" />
+		<attribute name="PASSWORD" type="String" mode="INOUT" optional="true" />
+		<attribute name="CONFIRM_PASSWORD" type="String" mode="INOUT" optional="true" />
+		<attribute name="PRODUCT_STORE_ID" type="String" mode="INOUT" optional="true" />
+		
+		<attribute name="error" type="String" mode="OUT" optional="true" />
+		<attribute name="errorList" type="List" mode="OUT" optional="true" />
+	</service>
+	
+	
+	<!--
+	<service name="restcreateCustomer" engine="simple" export="true"
+		location="component://party/minilang/user/UserEvents.xml" invoke="createCustomer"
+		auth="true">
+		<description>Service to Create Customer</description>
+		<attribute name="require_email" type="String" mode="IN" optional="false" />
+		<attribute name="require_phone" type="Map" mode="OUT" optional="true" />
+		<attribute name="require_login" type="String" mode="OUT" optional="true" />
+		<attribute name="create_allow_password" type="String" mode="OUT" optional="true" />
+		<attribute name="parameters.roleTypeId" type="String" mode="OUT" optional="true" />
+		<attribute name="error" type="String" mode="OUT" optional="true" />
+		<attribute name="errorList" type="List" mode="OUT" optional="true" />
+
+	</service>
+	<service name="createPersonAndUserLogin" engine="simple" require-new-transaction="true"
+            location="component://party/minilang/party/PartySimpleMethods.xml" invoke="createPersonAndUserLogin" auth="false">
+        <description>Create a Person and UserLogin</description>
+        <implements service="createUserLogin"/>
+        <auto-attributes entity-name="Person" mode="IN" include="nonpk" optional="true"/>
+        <auto-attributes entity-name="Party" mode="IN" include="nonpk" optional="true"/>
+        <attribute name="partyId" type="String" mode="INOUT" optional="true" entity-name="Person"/>
+        <attribute name="newUserLogin" type="Map" mode="OUT" optional="false"/>
+    </service>
+	-->
+</services>

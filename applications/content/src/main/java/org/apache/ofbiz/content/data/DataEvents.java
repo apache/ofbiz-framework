@@ -57,10 +57,7 @@ public class DataEvents {
         return DataResourceWorker.uploadAndStoreImage(request, "dataResourceId", "imageData");
     }
 
-    /**
-     * Streams any binary content data to the browser.
-     * <p>Supersedes {@link org.apache.ofbiz.content.data.DataEvents#serveImage(HttpServletRequest, HttpServletResponse) DataEvents#serveImage()}</p>
-     */
+    /** Streams any binary content data to the browser */
     public static String serveObjectData(HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
@@ -154,7 +151,7 @@ public class DataEvents {
 
             // no service errors; now check the actual response
             Boolean hasPermission = (Boolean) permSvcResp.get("hasPermission");
-            if (!hasPermission) {
+            if (!hasPermission.booleanValue()) {
                 String errorMsg = (String) permSvcResp.get("failMessage");
                 Debug.logError(errorMsg, module);
                 request.setAttribute("_ERROR_MESSAGE_", errorMsg);
@@ -187,7 +184,11 @@ public class DataEvents {
         Map<String, Object> resourceData;
         try {
             resourceData = DataResourceWorker.getDataResourceStream(dataResource, https, webSiteId, locale, contextRoot, false);
-        } catch (IOException | GeneralException e) {
+        } catch (IOException e) {
+            Debug.logError(e, "Error getting DataResource stream", module);
+            request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
+            return "error";
+        } catch (GeneralException e) {
             Debug.logError(e, "Error getting DataResource stream", module);
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             return "error";
@@ -224,11 +225,8 @@ public class DataEvents {
         return "success";
     }
 
-    /**
-     * Streams ImageDataResource data to the output.
-     * <p>Superseded by {@link org.apache.ofbiz.content.data.DataEvents#serveObjectData(HttpServletRequest, HttpServletResponse) DataEvents#serveObjectData}</p>
-     */
-    @Deprecated
+    /** Streams ImageDataResource data to the output. */
+    // TODO: remove this method in favor of serveObjectData
     public static String serveImage(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         ServletContext application = session.getServletContext();
@@ -288,7 +286,17 @@ public class DataEvents {
             Map<String, Object> resourceData = DataResourceWorker.getDataResourceStream(dataResource, "", application.getInitParameter("webSiteId"), UtilHttp.getLocale(request), application.getRealPath("/"), false);
             os.write(IOUtils.toByteArray((InputStream)resourceData.get("stream")));
             os.flush();
-        } catch (GeneralException | IOException e) {
+        } catch (GenericEntityException e) {
+            String errMsg = "Error downloading digital product content: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            request.setAttribute("_ERROR_MESSAGE_", errMsg);
+            return "error";
+        } catch (GeneralException e) {
+            String errMsg = "Error downloading digital product content: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            request.setAttribute("_ERROR_MESSAGE_", errMsg);
+            return "error";
+        } catch (IOException e) {
             String errMsg = "Error downloading digital product content: " + e.toString();
             Debug.logError(e, errMsg, module);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -308,7 +316,7 @@ public class DataEvents {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
         Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
-        String dataResourceId;
+        String dataResourceId = (String)paramMap.get("dataResourceId");
         GenericValue dataResource = delegator.makeValue("DataResource");
         dataResource.setPKFields(paramMap);
         dataResource.setNonPKFields(paramMap);
@@ -317,43 +325,39 @@ public class DataEvents {
         String mode = (String)paramMap.get("mode");
         Locale locale = UtilHttp.getLocale(request);
 
-        try {
-            if (mode != null && "UPDATE".equals(mode)) {
+        if (mode != null && mode.equals("UPDATE")) {
+            try {
                 result = dispatcher.runSync("updateDataResource", serviceInMap);
-                if (ServiceUtil.isError(result)) {
-                    String errMsg = UtilProperties.getMessage(DataEvents.err_resource, "dataEvents.error_call_update_service", locale);
-                    String errorMsg = ServiceUtil.getErrorMessage(result);
-                    Debug.logError(errorMsg, module);
-                    request.setAttribute("_ERROR_MESSAGE_", errMsg);
-                    return "error";
-                }
-            } else {
-                mode = "CREATE";
-                result = dispatcher.runSync("createDataResource", serviceInMap);
-                if (ServiceUtil.isError(result)) {
-                    String errMsg = UtilProperties.getMessage(DataEvents.err_resource, "dataEvents.error_call_create_service", locale);
-                    String errorMsg = ServiceUtil.getErrorMessage(result);
-                    Debug.logError(errorMsg, module);
-                    request.setAttribute("_ERROR_MESSAGE_", errMsg);
-                    return "error";
-                }
-                dataResourceId = (String)result.get("dataResourceId");
-                dataResource.set("dataResourceId", dataResourceId);
+            } catch (GenericServiceException e) {
+                String errMsg = UtilProperties.getMessage(DataEvents.err_resource, "dataEvents.error_call_update_service", locale);
+                String errorMsg = "Error calling the updateDataResource service." + e.toString();
+                Debug.logError(e, errorMsg, module);
+                request.setAttribute("_ERROR_MESSAGE_", errMsg + e.toString());
+                return "error";
             }
-        } catch (GenericServiceException e) {
-            Debug.logError(e, module);
-            request.setAttribute("_ERROR_MESSAGE_", e.toString());
-            return "error";
+        } else {
+            mode = "CREATE";
+            try {
+                result = dispatcher.runSync("createDataResource", serviceInMap);
+            } catch (GenericServiceException e) {
+                String errMsg = UtilProperties.getMessage(DataEvents.err_resource, "dataEvents.error_call_create_service", locale);
+                String errorMsg = "Error calling the createDataResource service." + e.toString();
+                Debug.logError(e, errorMsg, module);
+                request.setAttribute("_ERROR_MESSAGE_", errMsg + e.toString());
+                return "error";
+            }
+            dataResourceId = (String)result.get("dataResourceId");
+            dataResource.set("dataResourceId", dataResourceId);
         }
 
         String returnStr = "success";
-        if ("CREATE".equals(mode)) {
+        if (mode.equals("CREATE")) {
             // Set up return message to guide selection of follow on view
             request.setAttribute("dataResourceId", result.get("dataResourceId"));
             String dataResourceTypeId = (String)serviceInMap.get("dataResourceTypeId");
             if (dataResourceTypeId != null) {
-                 if ("ELECTRONIC_TEXT".equals(dataResourceTypeId)
-                     || "IMAGE_OBJECT".equals(dataResourceTypeId)) {
+                 if (dataResourceTypeId.equals("ELECTRONIC_TEXT")
+                     || dataResourceTypeId.equals("IMAGE_OBJECT")) {
                     returnStr = dataResourceTypeId;
                  }
             }

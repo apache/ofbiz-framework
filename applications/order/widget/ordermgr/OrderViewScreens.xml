@@ -255,12 +255,12 @@ under the License.
                 <set field="asm_asmListItemPercentOfForm" value="95"/>
                 <set field="asm_sortable" value="false"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="asm_title" from-field="uiLabelMap.OrderPartySelectRoleForParty"/>
+                <set field="asm_title" value="${uiLabelMap.OrderPartySelectRoleForParty}"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderViewDecorator">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://common-theme/template/includes/SetMultipleSelectJs.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="component://common/template/includes/SetMultipleSelectJs.ftl"/></html></platform-specific>
                         <platform-specific>
                             <html><html-template location="component://order/template/order/FindOrders.ftl"/></html>
                         </platform-specific>
@@ -368,7 +368,7 @@ under the License.
                 <set field="headerItem" value="findorders"/>
                 <script location="component://order/groovyScripts/order/ReceivePayment.groovy"/>
                 <entity-and entity-name="OrderRole" list="orderRoles">
-                  <field-map field-name="orderId" from-field="parameters.orderId"/>
+                  <field-map field-name="orderId" value="${parameters.orderId}"/>
                   <field-map field-name="roleTypeId" value="BILL_FROM_VENDOR"/>
                 </entity-and>
                 <entity-and entity-name="PaymentMethod" list="paymentMethods">
@@ -563,7 +563,7 @@ under the License.
         <section>
             <actions>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="filterDate" type="Timestamp" from-field="nowTimestamp"/>
+                <set field="filterDate" type="Timestamp" value="${nowTimestamp}"/>
                 <script location="component://order/groovyScripts/order/OrderList.groovy"/>
             </actions>
             <widgets>

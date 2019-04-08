@@ -25,34 +25,15 @@ import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 
+import net.fortuna.ical4j.model.*;
+import net.fortuna.ical4j.model.property.*;
+
 import org.apache.ofbiz.service.calendar.TemporalExpression;
 import org.apache.ofbiz.service.calendar.TemporalExpressionVisitor;
 import org.apache.ofbiz.service.calendar.TemporalExpressions;
-import org.apache.ofbiz.service.calendar.TemporalExpressions.Difference;
-import org.apache.ofbiz.service.calendar.TemporalExpressions.HourRange;
-import org.apache.ofbiz.service.calendar.TemporalExpressions.Intersection;
-import org.apache.ofbiz.service.calendar.TemporalExpressions.MinuteRange;
-import org.apache.ofbiz.service.calendar.TemporalExpressions.Null;
-import org.apache.ofbiz.service.calendar.TemporalExpressions.Substitution;
-import org.apache.ofbiz.service.calendar.TemporalExpressions.Union;
+import org.apache.ofbiz.service.calendar.TemporalExpressions.*;
 
 import com.ibm.icu.util.Calendar;
-
-import net.fortuna.ical4j.model.DateTime;
-import net.fortuna.ical4j.model.NumberList;
-import net.fortuna.ical4j.model.Period;
-import net.fortuna.ical4j.model.PeriodList;
-import net.fortuna.ical4j.model.Property;
-import net.fortuna.ical4j.model.PropertyList;
-import net.fortuna.ical4j.model.Recur;
-import net.fortuna.ical4j.model.WeekDay;
-import net.fortuna.ical4j.model.WeekDayList;
-import net.fortuna.ical4j.model.property.DateListProperty;
-import net.fortuna.ical4j.model.property.DtStart;
-import net.fortuna.ical4j.model.property.ExDate;
-import net.fortuna.ical4j.model.property.ExRule;
-import net.fortuna.ical4j.model.property.RDate;
-import net.fortuna.ical4j.model.property.RRule;
 
 /** Temporal Expression to iCalendar recurrence converter. The conversion results
  * (or conversion success) are unpredictable since the OFBiz Temporal Expressions
@@ -88,23 +69,23 @@ public class ICalRecurConverter implements TemporalExpressionVisitor {
     }
 
     protected DtStart dateStart = null;
-    protected List<DateListProperty> incDateList = new LinkedList<>();
-    protected List<DateListProperty> exDateList = new LinkedList<>();
-    protected List<RRule> incRuleList = new LinkedList<>();
-    protected List<ExRule> exRuleList = new LinkedList<>();
+    protected List<DateListProperty> incDateList = new LinkedList<DateListProperty>();
+    protected List<DateListProperty> exDateList = new LinkedList<DateListProperty>();
+    protected List<RRule> incRuleList = new LinkedList<RRule>();
+    protected List<ExRule> exRuleList = new LinkedList<ExRule>();
     protected VisitorState state = new VisitorState();
-    protected Stack<VisitorState> stateStack = new Stack<>();
+    protected Stack<VisitorState> stateStack = new Stack<VisitorState>();
 
     protected ICalRecurConverter() {}
 
     @SuppressWarnings("unchecked")
     protected Recur consolidateRecurs(List<Recur> recurList) {
         // Try to consolidate a list of Recur instances into one instance
-        Set<Integer> monthList = new HashSet<>();
-        Set<Integer> monthDayList = new HashSet<>();
-        Set<WeekDay> weekDayList = new HashSet<>();
-        Set<Integer> hourList = new HashSet<>();
-        Set<Integer> minuteList = new HashSet<>();
+        Set<Integer> monthList = new HashSet<Integer>();
+        Set<Integer> monthDayList = new HashSet<Integer>();
+        Set<WeekDay> weekDayList = new HashSet<WeekDay>();
+        Set<Integer> hourList = new HashSet<Integer>();
+        Set<Integer> minuteList = new HashSet<Integer>();
         String freq = null;
         int freqCount = 0;
         for (Recur recur : recurList) {
@@ -286,8 +267,6 @@ public class ICalRecurConverter implements TemporalExpressionVisitor {
         case Calendar.YEAR:
             this.state.addRecur((new Recur(Recur.YEARLY, freqCount)));
             break;
-        default:
-            break;
         }
     }
 
@@ -322,8 +301,8 @@ public class ICalRecurConverter implements TemporalExpressionVisitor {
     protected class VisitorState {
         public boolean isExcluded = false;
         public boolean isIntersection = false;
-        public List<Recur> inclRecurList = new LinkedList<>();
-        public List<Recur> exRecurList = new LinkedList<>();
+        public List<Recur> inclRecurList = new LinkedList<Recur>();
+        public List<Recur> exRecurList = new LinkedList<Recur>();
         public void addRecur(Recur recur) {
             if (this.isIntersection) {
                 if (this.isExcluded) {

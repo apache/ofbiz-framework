@@ -17,14 +17,14 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<script type="application/javascript">
+<script language="JavaScript" type="text/javascript">
 <!--
 function toggleInvoiceId(master) {
     var form = document.listSalesInvoices;
     var invoices = form.elements.length;
     for (var i = 0; i < invoices; i++) {
         var element = form.elements[i];
-        if ("invoiceIds" == element.name) {
+        if (element.name == "invoiceIds") {
             element.checked = master.checked;
         }
     }
@@ -39,7 +39,7 @@ function runAction() {
     var invoices = form.elements.length;
     for (var i = 0; i < invoices; i++) {
         var element = form.elements[i];
-        if ("invoiceIds" == element.name) {
+        if (element.name == "invoiceIds") {
             element.disabled = false;
         }
     }
@@ -52,7 +52,7 @@ function enableSubmitButton() {
     var isAllSelected = true;
     for (var i = 0; i < invoices; i++) {
         var element = form.elements[i];
-        if ("invoiceIds" == element.name) {
+        if (element.name == "invoiceIds") {
             if (element.checked) {
                 isSingle = false;
             } else {
@@ -82,7 +82,7 @@ function enableSubmitButton() {
     </#if>
     <div align="right">
       <select name="serviceName" id="serviceName" onchange="javascript:setServiceName(this);">
-        <option value="">${uiLabelMap.AccountingSelectAction}</option>
+        <option value="">${uiLabelMap.AccountingSelectAction}</options>
         <option value="processCommissionRun">${uiLabelMap.AccountingCommissionRun}</option>
       </select>
       <input id="submitButton" type="button" onclick="javascript:runAction();" value="${uiLabelMap.CommonRun}" disabled="disabled" />

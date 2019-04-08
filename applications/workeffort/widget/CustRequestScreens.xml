@@ -27,7 +27,7 @@ under the License.
                 <set field="tabButtonItem" value="requestlist"/>
                 <set field="headerItem" value="request"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
 
                 <set field="custRequestId" from-field="parameters.custRequestId"/>
@@ -38,7 +38,7 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.WorkEffortMyRequestList}">
-                            <include-grid name="ListRequests" location="component://workeffort/widget/CustRequestForms.xml"/>
+                            <include-form name="ListRequests" location="component://workeffort/widget/CustRequestForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>

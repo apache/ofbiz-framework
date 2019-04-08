@@ -1,0 +1,803 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
+    <!-- Automation Preference -->
+    <form name="EditAutomationRelistSoldItems" target="createEbayProductStorePref" type="single" default-map-name="ebayPrefRelisting" >
+        <alt-target use-when="ebayPrefRelisting!=null" target="updateEbayProductStorePref"/>
+        <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
+        <field name="enabled" title ="${uiLabelMap.EbayAutoRelistingItems}" tooltip="${uiLabelMap.EbayAutoRelistingItemsDescription}"><check/></field>
+        <field name="serviceName"><hidden value="${serviceName}"/></field>
+        <field name="autoPrefEnumId"><hidden value="${autoPrefEnumId}"/></field>
+        <field name="submit" title="${uiLabelMap.CommonApply}"><submit/></field>
+    </form>
+    <form name="AutomationDisputeNotComplete" target="createEbayProductStorePref" type="single" default-map-name="ebayPrefDispute1">
+        <alt-target use-when="ebayPrefDispute1!=null" target="updateEbayProductStorePref"/>
+        <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
+        <field name="enabled" tooltip="${uiLabelMap.EbayDisputeCheckoutNotComplete}" tooltip-style="h3"><check/></field>
+        <field name="condition1" title="${uiLabelMap.EbayAfter}" tooltip-style="text" tooltip="${uiLabelMap.CommonDays}" ><text default-value="" size="5"/></field>
+        <field name="condition2" title="${uiLabelMap.EbayReason}">
+            <drop-down >
+                <list-options key-name="reasonCode" list-name="reasons" description="${value}"/>
+            </drop-down>
+        </field>
+        <field name="condition3" title="${uiLabelMap.EbayExplanation}">
+            <drop-down >
+                <list-options key-name="explanationCode" list-name="explanations" description="${value}"/>
+            </drop-down>
+        </field>
+        <field name="serviceName"><hidden value="${serviceName1}"/></field>
+        <field name="autoPrefEnumId"><hidden value="${autoPrefEnumId1}"/></field>
+        <field name="submit" title="${uiLabelMap.CommonApply}"><submit/></field>
+    </form>
+    <form name="AutomationDisputeNotPay" target="createEbayProductStorePref" type="single" default-map-name="ebayPrefDispute2">
+        <alt-target use-when="ebayPrefDispute2!=null" target="updateEbayProductStorePref"/>
+        <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
+        <field name="enabled" tooltip="${uiLabelMap.EbayDisputeNotPay}" tooltip-style="h3"><check/></field>
+        <field name="condition1" title="${uiLabelMap.EbayAfter}" tooltip-style="text" tooltip="${uiLabelMap.CommonDays}" ><text default-value="" size="5"/></field>
+        <field name="condition2" title="${uiLabelMap.EbayReason}">
+            <drop-down >
+                <list-options key-name="reasonCode" list-name="reasons" description="${value}"/>
+            </drop-down>
+        </field>
+        <field name="condition3" title="${uiLabelMap.EbayExplanation}">
+            <drop-down >
+                <list-options key-name="explanationCode" list-name="explanations" description="${value}"/>
+            </drop-down>
+        </field>
+        <field name="serviceName"><hidden value="${serviceName2}"/></field>
+        <field name="autoPrefEnumId"><hidden value="${autoPrefEnumId2}"/></field>
+        <field name="submit" title="${uiLabelMap.CommonApply}"><submit/></field>
+    </form>
+    <!-- Sold Listing -->
+    <grid name="SoldItemList"  target="doAction" list-name="soldItemList"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" use-row-submit="true" separate-columns="true">
+        <row-actions>
+            <script location="component://ebaystore/groovyScripts/store/SoldAction.groovy"/>
+        </row-actions>
+        <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
+        <field name="itemId"><display description="${itemId}"/></field>
+        <field name="SKU" title="Product ID"><display/></field>
+        <field name="title"><display description="${title}"/></field>
+        <field name="buyer"><display description="${buyer}"/></field>
+        <field name="listingType"><display description="${listingType}"/></field>
+        <field name="hitCount"><display/></field>
+        <field name="reservePrice"><display/></field>
+        <field name="quantity"><display description="${quantity}"/></field>
+        <field name="transactionId"><display description="${transactionId}"/></field>
+        <field name="totalAmount"><display description="${totalAmount}"/></field>
+        <field name="creationTime"><display description="${creationTime}" type="date"/></field>
+        <field name="paidTime"><display description="${paidTime}" type="date"/></field>
+        <field name="checkoutStatus"><display description="${checkoutStatus}"/></field>
+        <field name="unpaidItemStatus"><display description="${unpaidItemStatus}"/></field>
+        <field name="action" use-when="&quot;${hasAction}&quot;==&quot;true&quot;">
+            <drop-down>
+                <list-options key-name="action" list-name="actionList" description="${actionName}"/>
+            </drop-down>
+        </field>
+        <field name="submitButton"  use-when="&quot;${hasAction}&quot;==&quot;true&quot;" title="${uiLabelMap.CommonSubmit}"><submit/></field>
+    </grid>
+    <form name="OpenUnpaid" type="single" target="addDispute">
+        <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
+        <field name="itemId"><hidden value="${parameters.itemId}"/></field>
+        <field name="item"><text disabled="true" default-value="${parameters.itemId} - ${parameters.title}"/></field>
+        <field name="listingType"><text disabled="true" default-value="${parameters.listingType}"/></field>
+        <field name="quantity"><text disabled="true" default-value="${parameters.quantity}"/></field>
+        <field name="salePrice"><text disabled="true" default-value="${parameters.salePrice}"/></field>
+        <field name="transactionId"><hidden value="${parameters.transactionId}"/></field>
+        <field name="transaction"><text disabled="true" default-value="${parameters.transactionId}"/></field>
+        <field name="disputeReasonCodeType">
+            <radio no-current-selected-key="TransactionMutuallyCanceled">
+                <option key="BUYER_HAS_NOT_PAID" description="The buyer has not paid for the item"/>
+                <option key="TRANSACTION_MUTUALLY_CANCELED" description="We have both agreed not to complete the transaction"/>
+            </radio>
+        </field>
+           <field name="disputeExplanationCodeType">
+            <drop-down>
+                <option key="" description="- - Select One - -"/>
+                <option key="BUYER_PURCHASING_MISTAKE" description="Buyer purchased item by mistake or changed mind"/>
+                <option key="BUYER_RETURNED_ITEM_FOR_REFUND" description="Buyer is returning item for a refund"/>
+                <option key="UNABLE_TO_RESOLVE_TERMS" description="Buyer and I disagreed over terms"/>
+                <option key="BUYER_HAS_NOT_RESPONDED" description="Buyer is unresponsive"/>
+                <option key="PAYMENT_METHOD_NOT_SUPPORTED" description="Buyer's payment hasn't been received or hasn't cleared"/>
+                <option key="SHIPPING_ADDRESS_NOT_CONFIRMED" description="Buyer requested shipment to an unconfirmed address"/>
+                <option key="SHIP_COUNTRY_NOT_SUPPORTED" description="Seller doesn't ship to the country requested by buyer"/>
+                   <option key="OTHER_EXPLANATION" description="Other reason"/>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" position="1"><submit/></field>
+        <field name="cancelButton" title=" " widget-style="smallSubmit" position="2">
+            <hyperlink description="${uiLabelMap.CommonCancel}" target="soldListing">
+                <parameter param-name="productStoreId" from-field="parameters.productStoreId"/>
+            </hyperlink>
+        </field>
+    </form>
+    <form name="MakeSecondChanceOffer" type="single" target="addEbaySecondChanceOffer">
+        <auto-fields-service service-name="addEbaySecondChanceOffer"/>
+        <field name="duration">
+            <drop-down>
+                <option key="DAYS_1" description="a day"/>
+                <option key="DAYS_3" description="3 days"/>
+                <option key="DAYS_5" description="5 days"/>
+                <option key="DAYS_7" description="7 days"/>
+            </drop-down>
+        </field>
+        <field name="recipientBidderUserId">
+            <drop-down>
+                <list-options key-name="userId" list-name="allBidders" description="${userId}"/>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit/></field>
+    </form>
+    <!-- Inventory -->
+    <form name="EbayStoreFacilityList" type="single" list-name="productStoreFacilityList"  target="ebayStoreInventory"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
+        <field name="isFacilityId"><hidden value="Y"/></field>
+        <field name="facilityId" >
+            <drop-down current="selected" >
+                <list-options list-name="productStoreFacilityList" description="${facilityId}" key-name="facilityId"/>
+            </drop-down>
+        </field>
+        <field name="submitButton" ><submit button-type="button"/></field>
+    </form>
+    <form name="ReserveEbayProductInventory" type="single" list-name=""  target="reserveProductInventory"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="productStoreId"><display description="${parameters.productStoreId}"></display></field>
+        <field name="facilityId"><display description="${parameters.facilityId}"></display></field>
+        <field name="productId"><lookup target-form-name="LookupProduct"></lookup></field>
+        <field name="quantity"><text></text></field>
+        <field name="submitButton" ><submit button-type="button"/></field>
+    </form>
+    <form name="ListEbayProductInventoryDetail" type="multi" use-row-submit="true"  target="updateEbayStoreInventory" title=""  list-name="ebayProductStoreInventoryList"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="_rowSubmit"  position="1" title="${uiLabelMap.CommonSelect}"><check/></field>
+        <field name="productStoreId"><hidden/></field>
+        <field name="facilityId"><hidden/></field>
+        <field name="folderId" use-when="ebayfolderId != null"><hidden value="${ebayfolderId}"/></field>
+        <field name="folderId" use-when="ebayfolderId == null"><hidden value="${folderId}"/></field>
+        <field name="productId"><display></display></field>
+        <field name="productName" entry-name="productId">
+            <display-entity entity-name="Product" key-field-name="productId" description="${productName}"></display-entity>
+        </field>
+        <field name="quantityReserved" >
+            <hyperlink  target="updateQuantityReserved" description="${quantityReserved}">
+                <parameter param-name="productStoreId"/>
+                <parameter param-name="facilityId"/>
+                <parameter param-name="productId"/>
+            </hyperlink>
+        </field>
+        <field name="availableToPromiseListing"><display></display></field>
+        <field name="scheduled"><display></display></field>
+        <field name="ebayProductId"><display></display></field>
+        <field name="activeListing"><display></display></field>
+        <field name="sold"><display></display></field>
+        <field name="unSold"><display></display></field>
+        <field name="reservedDate"><display></display></field>
+        <field name="updateButton" title="${uiLabelMap.EbayUpdateInventory}"><submit button-type="button"/></field>
+    </form>
+    <form name="UpdateQuantityReserved" type="single"  target="updateProductQuantityReserved" default-entity-name="EbayProductStoreInventory" default-map-name="ebayProductStoreInventory"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="productStoreId"><display></display></field>
+        <field name="facilityId"><display></display></field>
+        <field name="productId"><display></display></field>
+        <field name="productName" entry-name="productId">
+            <display-entity entity-name="Product" key-field-name="productId" description="${productName}"></display-entity>
+        </field>
+        <field name="quantity" required-field="true"><text default-value="${ebayProductStoreInventory.quantityReserved}"></text></field>
+        <field name="actionType">
+            <drop-down allow-empty="false">
+                <option key="ADD" description="Add"/>
+                <option key="REMOVE" description="Remove"/>
+            </drop-down>
+        </field>
+        <field name="submitButton"><submit button-type="button"/></field>
+    </form>
+    <!-- Automatically leave the following positive feedback  -->
+    <form name="AutoPositiveFeedbackForBuyers" type="single"  target="autoPrefLeaveFeedbackOptions"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-one entity-name="EbayProductStorePref"  value-field="ebayProductStorePref">
+                <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                <field-map field-name="autoPrefEnumId" value="EBAY_AUTO_PIT_FB"/>
+            </entity-one>
+            <set field="isAutoPositiveFeedback"  type="String" from-field="ebayProductStorePref.enabled"/>
+            <set field="feedbackEventCode" type="String" from-field="ebayProductStorePref.condition1"/>
+            <set field="ebayProductStorePref.condition2"  type="String" default-value="none" from-field="ebayProductStorePref.condition2"/>
+            <set field="comment_1"  value="${groovy: 
+                comment_1 = &quot;&quot;;
+                if(ebayProductStorePref.condition2!=null) comment_1 = ebayProductStorePref.condition2;
+                if(comment_1!=null &amp;&amp; comment_1.indexOf(&quot;[,]&quot;)!= -1)  comment_1 = comment_1.substring(0,comment_1.indexOf(&quot;[,]&quot;));
+                if(ebayProductStorePref.condition2.indexOf(&quot;[,]&quot;)!=-1) comment_1 = comment_1+&quot;[,]&quot;;
+                if(comment_1!=null &amp;&amp; comment_1.length()>0) ebayProductStorePref.condition2 = ebayProductStorePref.condition2.replace(comment_1,&quot;&quot;);
+                if(comment_1!=null &amp;&amp; comment_1.indexOf(&quot;[,]&quot;)!= -1) comment_1 =comment_1.replace(&quot;[,]&quot;,&quot;&quot;);
+                return comment_1;
+                }" type="String"/>
+            <set field="comment_2" value="${groovy: 
+                comment_2 = &quot;&quot;;
+                if( ebayProductStorePref.condition2!=null) comment_2 = ebayProductStorePref.condition2;
+                if(comment_2!=null &amp;&amp; comment_2.indexOf(&quot;[,]&quot;)!= -1)  comment_2 = comment_2.substring(0,comment_2.indexOf(&quot;[,]&quot;));
+                if(ebayProductStorePref.condition2.indexOf(&quot;[,]&quot;)!=-1) comment_2 = comment_2+&quot;[,]&quot;;
+                if(comment_2!=null &amp;&amp; comment_2.length()>0) ebayProductStorePref.condition2 = ebayProductStorePref.condition2.replace(comment_2,&quot;&quot;);
+                if(comment_2!=null &amp;&amp; comment_2.indexOf(&quot;[,]&quot;)!= -1) comment_2 =comment_2.replace(&quot;[,]&quot;,&quot;&quot;);
+                return comment_2;
+                }" type="String"/>
+            <set field="comment_3" value="${groovy: 
+                comment_3 = &quot;&quot;;
+                if( ebayProductStorePref.condition2!=null) comment_3 = ebayProductStorePref.condition2;
+                if(comment_3!=null &amp;&amp; comment_3.indexOf(&quot;[,]&quot;)!= -1)  comment_3 = comment_3.substring(0,comment_3.indexOf(&quot;[,]&quot;));
+                if(ebayProductStorePref.condition2.indexOf(&quot;[,]&quot;)!=-1) comment_3 = comment_3+&quot;[,]&quot;;
+                if(comment_3!=null &amp;&amp; comment_3.length()>0) ebayProductStorePref.condition2 = ebayProductStorePref.condition2.replace(comment_3,&quot;&quot;);
+                if(comment_3!=null &amp;&amp; comment_3.indexOf(&quot;[,]&quot;)!= -1) comment_3 = comment_3.replace(&quot;[,]&quot;,&quot;&quot;);
+                return comment_3;
+                }" type="String"/>
+            <set field="comment_4" value="${groovy: 
+                comment_4 = &quot;&quot;;
+                if( ebayProductStorePref.condition2!=null) comment_4 = ebayProductStorePref.condition2;
+                if(comment_4!=null &amp;&amp; comment_4.indexOf(&quot;[,]&quot;)!= -1)  comment_4 = comment_4.substring(0,comment_4.indexOf(&quot;[,]&quot;));
+                if(ebayProductStorePref.condition2.indexOf(&quot;[,]&quot;)!=-1) comment_4 = comment_4+&quot;[,]&quot;;
+                if(comment_4!=null &amp;&amp; comment_4.length()>0) ebayProductStorePref.condition2 = ebayProductStorePref.condition2.replace(comment_4,&quot;&quot;);
+                if(comment_4!=null &amp;&amp; comment_4.indexOf(&quot;[,]&quot;)!= -1) comment_4 = comment_4.replace(&quot;[,]&quot;,&quot;&quot;);
+                return comment_4;
+                }" type="String"/>
+            <set field="comment_5" value="${groovy: 
+                comment_5 = &quot;&quot;;System.out.println(parameters.comments);
+                if( ebayProductStorePref.condition2!=null) comment_5 = ebayProductStorePref.condition2;
+                if(comment_5!=null &amp;&amp; comment_5.indexOf(&quot;[,]&quot;)!= -1)  comment_5 = comment_5.substring(0,comment_5.indexOf(&quot;[,]&quot;));
+                if(ebayProductStorePref.condition2.indexOf(&quot;[,]&quot;)!=-1) comment_5 = comment_5+&quot;[,]&quot;;
+                if(comment_5!=null &amp;&amp; comment_5.length()>0) ebayProductStorePref.condition2 = ebayProductStorePref.condition2.replace(comment_5,&quot;&quot;);
+                if(comment_5!=null &amp;&amp; comment_5.indexOf(&quot;[,]&quot;)!= -1) comment_5 = comment_5.replace(&quot;[,]&quot;,&quot;&quot;);
+                return comment_5;
+                }" type="String"/>
+        </actions>
+        <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
+        <field name="isAutoPositiveFeedback" position="1" title="${uiLabelMap.EbayIsAutoPositiveFeedback}"><check></check></field>
+        <field name="feedbackEventCode"  position="2" title="${uiLabelMap.EbaySituations}">
+            <radio>
+                <option key="PAYMENT_RECEIVED" description="${uiLabelMap.EbayTxtPaymentReceive}"/>
+                <option key="POSITIVE_FEEDBACK_RECEIVED" description="${uiLabelMap.EbayTxtPaymentReceiveAndPositive}"/>
+            </radio>
+        </field>
+        <field name="headerLabel" title=" " encode-output="false"><display type="text" description="&lt;br/&gt;&lt;b&gt;Your stored positive feedback comments.&lt;/b&gt;"></display></field>
+        <field name="comment_1" title="comments" position="1"><text size="60"></text></field>
+        <field name="comment_3" title=" " position="2"><text size="40"></text></field>
+        <field name="comment_2" title=" " position="1"><text size="60"></text></field>
+        <field name="comment_5" title=" " position="2"><text size="40"></text></field>
+        <field name="comment_4" title=" " position="1"><text size="60"></text></field>
+        <field name="submitButton" title="${uiLabelMap.CommonApply}"><submit button-type="button"/></field>
+    </form>
+    <!-- Automatically send a Feedback Reminder email if feedback has not been received. Please choose how many days after shipping you want this email sent? -->
+    <form name="AutoSendFeedbackReminder" type="single"  target="autoSendFeedbackReminder"
+        header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <entity-one entity-name="EbayProductStorePref"  value-field="ebayProductStorePref">
+                <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                <field-map field-name="autoPrefEnumId" value="EBAY_AUTO_FB_RMD"/>
+            </entity-one>
+            <set field="isAutoFeedbackReminder"  type="String" from-field="ebayProductStorePref.enabled"/>
+            <set field="afterDays" type="String" from-field="ebayProductStorePref.condition1"/>
+            <set field="isSendCopyEmailToSeller" type="String" from-field="ebayProductStorePref.condition2"/>
+        </actions>
+        <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
+        <field name="isAutoFeedbackReminder" tooltip="${uiLabelMap.EbayIsAutoFeedbackReminderTooltip}" position="1" title="${uiLabelMap.EbayIsAutoFeedbackReminder}"><check></check></field>
+        <field name="afterDays" title="${uiLabelMap.EbayAfter}"  position="1"  tooltip="${uiLabelMap.CommonDays} ${uiLabelMap.EbayIsSendCopyEmailTooltip}" ><text default-value="5" size="5" maxlength="2"></text></field>
+        <field name="isSendCopyEmailToSeller" position="1" title="${uiLabelMap.EbayIsSendCopyEmailToSeller}"><check></check></field>
+        <field name="emailTemplate" title="Email" tooltip="Edit Feedback Reminder email template">
+            <hyperlink description="Edit Email Template" target="editEmailTemplate">
+                <parameter param-name="productStoreId" from-field="parameters.productStoreId"/>
+                <parameter param-name="emailType" value="EBAY_WIN_BUYER_NOTI"/>
+            </hyperlink>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonApply}"><submit button-type="button"/></field>
+    </form>
+    <!-- Automatically send Payment Received email when payment has been received -->
+    <form name="AutoSendPaymentReceivedEmail" type="single"  target="autoSendPaymentReceivedEmail"
+        header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <entity-one entity-name="EbayProductStorePref"  value-field="ebayProductStorePref">
+                <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                <field-map field-name="autoPrefEnumId" value="EBAY_AUTO_PR_EMAIL"/>
+            </entity-one>
+            <set field="isAutoSendPayReceivedEmail"  type="String" from-field="ebayProductStorePref.enabled"/>
+            <set field="isSendCopyEmailToSeller" type="String" from-field="ebayProductStorePref.condition1"/>
+        </actions>
+        <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
+        <field name="isAutoSendPayReceivedEmail" tooltip="${uiLabelMap.EbayAutoPaymentReceviedEmail}" position="1" title="${uiLabelMap.EbayIsAutoSendEmail}"><check></check></field>
+        <field name="isSendCopyEmailToSeller" position="1" title="${uiLabelMap.EbayIsSendCopyEmailToSeller}"><check></check></field>
+        <field name="emailTemplate" title="Email" tooltip="Edit Payment received email template">
+            <hyperlink description="${uiLabelMap.EbayEditEmailTemplate}" target="editEmailTemplate">
+                <parameter param-name="productStoreId" from-field="parameters.productStoreId"/>
+                <parameter param-name="emailType" value="EBAY_PAY_RECIEVED"/>
+            </hyperlink>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonApply}"><submit button-type="button"/></field>
+    </form>
+    <!-- Combine Orders Setting -->
+    <form name="CombineOrdersSetting" type="single" target="settingCombineOrders" header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <entity-one entity-name="EbayProductStorePref" value-field="ebayPrefCombine">
+                <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                <field-map field-name="autoPrefEnumId" value="EBAY_AUTO_COMB_ORD"/>
+            </entity-one>
+            <set field="isRunCombineOrdersJob"  type="String" from-field="ebayPrefCombine.enabled"/>
+        </actions>
+        <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
+        <field name="isRunCombineOrdersJob" position="1" title="Enable combine orders in eBay"><check></check></field>
+        <field name="condition1" title="Allow no more than" tooltip-style="h3" tooltip="days between the first and last transactions to add in order"><text size="3" default-value="${ebayPrefCombine.condition1}" maxlength="2"></text></field>
+        <field name="condition2" title="Allow no more than" tooltip-style="h3" tooltip="items per order"><text size="3" default-value="${ebayPrefCombine.condition2}" maxlength="2"></text></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit button-type="button"/></field>
+    </form>
+    <form name="WinningBuyerNotification" type="single" target="settingWinningBuyerNotification" header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <entity-one entity-name="EbayProductStorePref" value-field="ebayPrefCombine">
+                <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                <field-map field-name="autoPrefEnumId" value="EBAY_AUTO_WIN_EMAIL"/>
+            </entity-one>
+            <set field="isRunWinnerNotify"  type="String" from-field="ebayPrefCombine.enabled"/>
+        </actions>
+        <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
+        <field name="isRunWinnerNotify" position="1" title="Enable send winner buyer notification automatically"><check></check></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit button-type="button"/></field>
+    </form>
+    <form name="ItemDispatchedNotification" type="single" target="settingSendItemDispatchedNotification" header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <entity-one entity-name="EbayProductStorePref" value-field="ebayPrefCombine">
+                <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                <field-map field-name="autoPrefEnumId" value="EBAY_AUTO_ITEM_DISP"/>
+            </entity-one>
+            <set field="isRunItemDispatchNotify"  type="String" from-field="ebayPrefCombine.enabled"/>
+        </actions>
+        <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
+        <field name="isRunItemDispatchNotify" position="1" title="Enable send item dispatched email"><check></check></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit button-type="button"/></field>
+    </form>
+    <form name="EditEmailTemplate" type="single"  target="createEmailTemplate"
+        header-row-style="header-row" default-table-style="basic-table">
+         <actions>
+            <set field="includePayment" value="${groovy:
+                includePayment = &quot;N&quot;;
+                if (subject != null &amp;&amp; subject.contains(&quot;INCLUDE_PAYMENT&quot;)) includePayment = &quot;Y&quot;;
+                   if (subject != null &amp;&amp; subject.contains(&quot;INCLUDE_PAYMENT&quot;)) subject = subject.replace(&quot;INCLUDE_PAYMENT&quot;, &quot;&quot;);
+                   return includePayment;
+                }" type="String"/>
+            <set field="includeCrossPromotions" value="${groovy:
+                includeCrossPromotions = &quot;N&quot;;
+                if (subject != null &amp;&amp; subject.contains(&quot;INCLUDE_CROSS_PROMOTIONS&quot;)) includeCrossPromotions = &quot;Y&quot;;
+                   if (subject != null &amp;&amp; subject.contains(&quot;INCLUDE_CROSS_PROMOTIONS&quot;)) subject = subject.replace(&quot;INCLUDE_CROSS_PROMOTIONS&quot;, &quot;&quot;);
+                   return includeCrossPromotions;
+                }" type="String"/>
+        </actions>
+        <alt-target use-when="emailSetting!=null" target="updateEmailTemplate"/>
+        <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
+        <field name="partyId"><hidden value="${partyId}"/></field>
+        <field name="bodyScreenLocation"><hidden value="${bodyScreenLocation}"/></field>
+        <field name="emailType"><hidden value="${emailType}"/></field>
+        <field name="fromAddress"><hidden value="${fromAddress}"/></field>
+        <field name="dataResourceId"><hidden value="${dataResourceId}"/></field>
+        <field name="emailDetail" title=" " widget-area-style="h2"><display description="${uiLabelMap.EbayEmailDetail}"/></field>
+        <field name="autoText" action="doSelect(this.id)" event="onchange" >
+            <drop-down allow-empty="true">
+                <option key="$\{buyerUserId}" description="Buyer User ID"/>
+                <option key="$\{buyerName}" description="Buyer name"/>
+                <option key="$\{buyerFirstName}" description="Buyer First name"/>
+                <option key="$\{buyerLastName}" description="Buyer Last name"/>
+                <option key="$\{buyerStreet1}" description="Buyer street 1"/>
+                <option key="$\{buyerStreet2}" description="Buyer street 2"/>
+                <option key="$\{buyerCity}" description="Buyer City"/>
+                <option key="$\{buyerState}" description="Buyer State"/>
+                <option key="$\{buyerZipCode}" description="Buyer zip code"/>
+                <option key="$\{buyerCountry}" description="Buyer Country"/>
+                <option key="$\{itemId}" description="Item Number"/>
+                <option key="$\{itemTitle}" description="Item Title"/>
+                <option key="$\{linkToListing}" description="Link to listing"/>
+                <option key="$\{Quantity}" description="Quantity"/>
+                <option key="$\{favoriteslist}" description="Favorites list"/>
+                <option key="$\{feedbackLink}" description="Feedback link"/>
+                <option key="$\{closingDateTime}" description="Closing Date/Time"/>
+                <option key="$\{totalPrice}" description="Total price"/>
+                <option key="$\{closingPrice}" description="Closing price"/>
+                <option key="$\{SHFee}" description="S&amp;H fee"/>
+                <option key="$\{insuranceCost}" description="Insurance cost"/>
+                <option key="$\{insuranceOption}" description="Insurance option"/>
+                <option key="$\{tax}" description="Tax"/>
+                <option key="$\{taxState}" description="Tax State"/>
+                <option key="$\{paymentAcceped}" description="Payment accepted"/>
+                <option key="$\{paymentInstructions}" description="Payment instructions"/>
+                <option key="$\{sellerUserId}" description="Seller User ID"/>
+                <option key="$\{sellerName}" description="Seller name"/>
+                <option key="$\{sellerFirstName}" description="Seller First name"/>
+                <option key="$\{sellerLastName}" description="Seller Last name"/>
+                <option key="$\{sellerStreet1}" description="Seller street 1"/>
+                <option key="$\{sellerStreet2}" description="Seller street 2"/>
+                <option key="$\{sellerCity}" description="Seller city"/>
+                <option key="$\{sellerState}" description="Seller state"/>
+                <option key="$\{sellerZipCode}" description="Seller zip code"/>
+                <option key="$\{sellerCountry}" description="Seller country"/>
+                <option key="$\{sellerEmail}" description="Seller email"/>
+                <option key="$\{sellerPhone}" description="Seller phone"/>
+                <option key="$\{salesRecordNumber}" description="Sales record number"/>
+                <option key="$\{shippedDate}" description="Shipped date"/>
+                <option key="$\{transactionTable}" description="Transaction table"/>
+                <option key="$\{checkoutLink}" description="Checkout link"/>
+                <option key="$\{shippingCalculator}" description="Shipping Calculator"/>
+                <option key="$\{trackShipmentLink}" description="Track shipment link"/>
+                <option key="$\{shippingOptions}" description="Shipping Options"/>
+                <option key="$\{notesToBuyer}" description="Notes to buyer"/>
+                <option key="$\{DiscountsOrCharges}" description="Discounts or Charges"/>
+                <option key="$\{refundAmount}" description="Refund Amount"/>
+                <option key="$\{variationDetails}" description="Variation details"/>
+            </drop-down>
+        </field>
+        <field name="subject"><text/></field>
+        <field name="textData" title="${uiLabelMap.CommonMessage}"><textarea visual-editor-enable="true" rows="20" cols="120" default-value="${textData}"/></field>
+        <!--field name="paymentInfo" title=" " widget-area-style="h2"><display description="${uiLabelMap.EbayPaymentInformation}"/></field>
+        <field name="includePayment" title=" " tooltip="${uiLabelMap.EbayIncludePayNowButtonAndAcceptPaymentMethods}" tooltip-style="h3"><check/></field>
+        <field name="crossPromotions" title=" " widget-area-style="h2"><display description="${uiLabelMap.EbayCrossPromotions}"/></field>
+        <field name="includeCrossPromotions" title=" " tooltip="${uiLabelMap.EbayIncludeMyDefaultCrossPromotionInThisEmail}" tooltip-style="h3"><check/></field-->
+        <field name="submitButton"><submit/></field>
+    </form>
+    <form name="BlockItemsOutOfStock" type="single" target="runBlockItemOutOfStock" header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <entity-one entity-name="EbayProductStorePref" value-field="ebayPrefCombine">
+                <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                <field-map field-name="autoPrefEnumId" value="EBAY_AUTO_BLK_ITEM"/>
+            </entity-one>
+            <set field="isRunBlockItem"  type="String" from-field="ebayPrefCombine.enabled"/>
+        </actions>
+        <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
+        <field name="isRunBlockItem" position="1" title="Enable to automatic block item that out of stock"><check></check></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit button-type="button"/></field>
+    </form>
+    <!-- Active Listing -->
+    <grid name="ActiveItemList"  target="doAction" list-name="activeItemList"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" use-row-submit="true" separate-columns="true">
+        <field name="itemId"><display/></field>
+        <field name="SKU" title="Product ID"><display/></field>
+        <field name="title">
+            <hyperlink description="${title}" target="${viewItemURL}" target-type="plain" target-window="_BLANK"/>
+        </field>
+        <field name="buyItNowPrice"><display/></field>
+        <field name="reservePrice"><display/></field>
+        <field name="bidCount"><display/></field>
+        <field name="hitCount"><display/></field>
+        <field name="startTime"><display/></field>
+        <field name="quantity"><display/></field>
+        <field name="listingType"><display/></field>
+        <field name="EditItem">
+            <hyperlink description="Edit" target="getItemProduct?productStoreId=${parameters.productStoreId}&amp;itemId=${itemId}" target-type="plain" target-window="_BLANK"/>
+        </field>
+    </grid>
+    <!-- Unsold Listing -->
+    <grid name="UnsoldItemList"  target="doAction" list-name="unsoldItemList"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" use-row-submit="true" separate-columns="true">
+        <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
+        <field name="itemId"><display/></field>
+        <field name="SKU" title="Product ID"><display/></field>
+        <field name="title"><display/></field>
+        <field name="price"><display/></field>
+        <field name="hitCount"><display/></field>
+        <field name="reservePrice"><display/></field>
+        <field name="startTime"><display/></field>
+        <field name="endTime"><display/></field>
+        <field name="quantity"><display/></field>
+        <field name="listingType"><display/></field>
+    </grid>
+    <!-- item list options -->
+    <form name="ItemOption" type="single" target="${target}">
+        <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
+        <field name="listingType" action="document.ItemOption.submit()" event="onchange">
+            <drop-down>
+                <option key="" description="All"/>
+                <option key="AUCTION" description="Auction Only"/>
+                <option key="FIXED_PRICE_ITEM" description="Fixed Price Item Only"/>
+                <option key="STORES_FIXED_PRICE" description="Stores Inventory Only"/>
+            </drop-down>
+        </field>
+        <field name="submitButton"><submit/></field>
+    </form>
+    <form name="WaitingToShippingOption" type="single" target="${target}">
+        <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
+        <field name="itemId"><text/></field>
+        <field name="buyerId"><text/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSearch}"><submit/></field>
+    </form>
+    <form name="FindOrdersImported" type="single" target="searchOrdersImported">
+        <actions>
+            <entity-and entity-name="ProductStoreRole" list="storeList">
+                <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                <field-map field-name="roleTypeId" value="EBAY_ACCOUNT"/>
+            </entity-and>
+            <set field="partyId" value="${groovy:
+                import org.apache.ofbiz.entity.util.EntityUtil;
+                GenericValue partyStore = EntityUtil.getFirst(storeList);
+                if(partyStore!=null) partyId = partyStore.getString(&quot;partyId&quot;);
+                return partyId;
+                }"/>
+        </actions>
+        <field name="productStoreId"><hidden value="10000"/></field>
+        <field name="viewSize"><hidden value="20"/></field>
+        <field name="viewIndex"><hidden value="1"/></field>
+        <!--field name="partyId"><hidden value="${partyId}"/></field-->
+        <field name="salesChannelEnumId"><hidden value="EBAY_SALES_CHANNEL"/></field>
+        <field name="countryGeoId"><hidden value="USA"/></field>
+        <field name="includeCountry"><hidden value="N"/></field>
+        <field name="orderId" title="Order Id"><text size="25"></text></field>
+        <field name="productId" title="Product Id"><text size="25"></text></field>
+        <field name="orderTypeId" title="Order Type">
+            <drop-down>
+                <option key="" description="Any Order Type"/>
+                <option key="PURCHASE_ORDER" description="Purchase Order"/>
+                <option key="SALES_ORDER" description="Sales Order"/>
+            </drop-down>
+        </field>
+        <field name="statusId" title="Status">
+            <drop-down>
+                <option key="" description="All Status"/>
+                <entity-options entity-name="StatusItem">
+                    <entity-constraint name="statusTypeId" operator="equals" value="ORDER_STATUS"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit/></field>
+    </form>
+    <form name="BestOffer" type="single" target="ebayAutoPrefCond">
+        <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
+        <field name="automateEnable" title="Enable" tooltip="${uiLabelMap.EbayEvaluateOn}" tooltip-style="h3"><check/></field>
+        <field name="kindOfPrice" title="Based Price" tooltip="${uiLabelMap.EbayBasedOn}" tooltip-style="h3">
+            <drop-down>
+                <option key="" description="None Price"/>
+                <entity-options key-field-name="enumId" description="${enumId}" entity-name="Enumeration">
+                    <entity-constraint name="enumTypeId" operator="equals" value="EBAY_AUTO_PRICE"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="acceptBestOfferValue" title="Percent value to accept" tooltip="${uiLabelMap.EbayAcceptTheBestOffer1}" tooltip-style="h3"><text/></field>
+        <field name="rejectOffer" title="Reject the offer" tooltip="${uiLabelMap.EbayRejectTheOffer}" tooltip-style="h3"><check/></field>
+        <field name="ignoreOfferMessage" title="Ignore offer message" tooltip="${uiLabelMap.EbayIgnoreTheOffer}" tooltip-style="h3"><check/></field>
+        <field name="rejectGreaterEnable" title="Enable rejection"><check/></field>
+        <field name="greaterValue" title="Greater price percent" tooltip="${uiLabelMap.EbayRejectGreaterRate1}" tooltip-style="h3"><text/></field>
+        <field name="lessValue" title="Less price percent" tooltip="${uiLabelMap.EbayRejectGreaterRate2}" tooltip-style="h3"><text/></field>
+        <field name="rejectGreaterMsg" title="${uiLabelMap.EbayRejectGreaterRate3}"><textarea cols="100" rows="2"/></field>
+        <field name="dummy" title=" "><display/></field>
+        <field name="rejectLessEnable" title="Enable rejection"><check/></field>
+        <field name="lessThanValue" title="Less price percent" tooltip="${uiLabelMap.EbayRejectLessRate1}" tooltip-style="h3"><text/></field>
+        <field name="rejectLessMsg" title="${uiLabelMap.EbayRejectGreaterRate3}"><textarea cols="100" rows="2"/></field>
+        <field name="save"><submit/>
+        </field>
+        <sort-order>
+            <field-group title="Enable Best Offer" collapsible="true">
+                <sort-field name="automateEnable"/>
+                <sort-field name="kindOfPrice"/>
+                <sort-field name="acceptBestOfferValue"/>
+                <sort-field name="rejectOffer"/>
+                <sort-field name="ignoreOfferMessage"/>
+            </field-group>
+            <field-group title="Rejection Notifications" collapsible="true">
+                <sort-field name="rejectGreaterEnable"/>
+                <sort-field name="greaterValue"/>
+                <sort-field name="lessValue"/>
+                <sort-field name="rejectGreaterMsg"/>
+                <sort-field name="dummy"/>
+                <sort-field name="rejectLessEnable"/>
+                <sort-field name="lessThanValue"/>
+                <sort-field name="rejectLessMsg"/>
+            </field-group>
+        </sort-order>
+    </form>
+    <form name="EditItemProduct"  target="editItemProduct" type="upload" >
+        <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
+        <field name="itemId"><hidden value="${parameters.itemId}"/></field>
+        <field name="listingType"><hidden/></field>
+        <field name="pictureURL" title="Picture" use-when="pictureURL==null"><image value="/images/defaultImage.jpg" style="cssImgLarge"/></field>
+        <field name="pictureURL" title="Picture" use-when="pictureURL!=null"><image style="cssImgLarge"/></field>
+        <field name="imageData" title="${uiLabelMap.CommonUpload}"><file/></field>
+        <field name="title"><text size="50"/></field>
+        <field name="description" encode-output="true"><textarea/></field>
+        <field name="price"><text/></field>
+        <field name="currencyId" title="Currency Code"><display/></field>
+        <field name="submit" title="${uiLabelMap.CommonUpdate}"><submit/></field>
+    </form>
+    <grid name="bestOfferIncludeMessage" title="" list-name="listIt"
+        odd-row-style="alternate-row" default-table-style="basic-table">
+        <actions>
+            <set field="productStoreId" from-field="parameters.productStoreId"/>
+            <entity-and entity-name="EbayUserBestOffer" list="listIt">
+                <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+            </entity-and>
+        </actions>
+        <row-actions>
+            
+            <set field="userId" value="${userId}"/>
+            <set field="itemId" value="${itemId}"/>
+            <set field="bestOfferId" value="${bestOfferId}"/>
+            <set field="contactStatus" value="${contactStatus}"/>
+            <service service-name="listBestOfferIncludeMessage" result-map="inMap">
+                <field-map field-name="userId" from-field="userId"/>
+                <field-map field-name="itemId" from-field="itemId"/>
+                <field-map field-name="bestOfferId" from-field="bestOfferId"/>
+                <field-map field-name="productStoreId" from-field="productStoreId"/>
+            </service>
+        </row-actions>
+        
+        <field name="itemId" title="Item ID"><display description="${itemId}"/></field>
+        <field name="itemName" title="Item Name"><display description="${inMap.itemName}"/></field>
+        <field name="userId" title="User ID"><display description="${userId}"/></field>
+        <field name="message" title="Message"><hidden value="${inMap.message}"/></field>
+        <field name="userEmail" title="Email"><hidden value="${inMap.email}"/></field>
+        <field name="offerStatus" title="Offer Status"><display description="${inMap.offerStatus}"/></field>
+        <field name="contactStatus" title="Contact Status"><display description="${contactStatus}"/></field>
+        <field name="viewCustomerDataButton" widget-style="buttontext" title="View Customer Offer Data">
+            <hyperlink description="View Data" target="customerOfferData" also-hidden="false">
+                <parameter param-name="productStoreId" from-field="productStoreId"/>
+                <parameter param-name="itemId" from-field="itemId"/>
+                <parameter param-name="userId" from-field="userId"/>
+                <parameter param-name="offerId" from-field="bestOfferId"/>
+                <parameter param-name="itemName" value="${inMap.itemName}"/>
+                <parameter param-name="email" value="${inMap.email}"/>
+                <parameter param-name="message" value="${inMap.message}"/>
+                <parameter param-name="quantity" value="${inMap.quantity}"/>
+                <parameter param-name="price" value="${inMap.price}"/>
+                <parameter param-name="contactStatus" from-field="contactStatus"/>
+            </hyperlink>
+        </field>
+        <field name="deleteOfferButton" title="Delete Offer Alert Data" widget-style="buttontext">
+            <hyperlink description="Delete Data" target="deleteContactAlert" also-hidden="false">
+                <parameter param-name="itemId" from-field="itemId"/>
+                <parameter param-name="userId" from-field="userId"/>
+                <parameter param-name="productStoreId" from-field="productStoreId"/>
+            </hyperlink>
+        </field>
+    </grid>
+    <form name="ViewCustomerOfferData" type="single" target="updateContactStatus">
+        <field name="customerUserId" title="Customer User ID"><display description="${userId}"/></field>
+        <field name="productId" title="Item Id"><display description="${itemId}"/></field>
+        <field name="productName" title="Item Name"><display description="${itemName}"/></field>
+        <field name="orderQuantity"><display description="${quantity}"/></field>
+        <field name="offerPrice"><display description="${price}"/></field>
+        <field name="customerEmail"><display description="${email}"/></field>
+        <field name="customerMessage"><display description="${message}"/></field>
+        <field name="currentContact"><display description="${contactStatus}"/></field>
+        
+        <field name="userId"><hidden value="${userId}"/></field>
+        <field name="itemId"><hidden value="${itemId}"/></field>
+        <field name="itemName"><hidden value="${itemName}"/></field>
+        <field name="productStoreId"><hidden value="${productStoreId}"/></field>
+        <field name="offerId"><hidden value="${offerId}"/></field>
+        <field name="price"><hidden value="${price}"/></field>
+        <field name="message"><hidden value="${message}"/></field>
+        <field name="email"><hidden value="${email}"/></field>
+        <field name="quantity"><hidden value="${quantity}"/></field>
+        <field name="contactStatus"><hidden value="${contactStatus}"/></field>
+        <field name="contactSetting" title="Contact Status Setting">
+            <drop-down >
+                <option key="_NA_" description="_Select_"/>
+                <option key="NOT_CONTACT" description="Not Contact"/>
+                <option key="CONTACTING" description="Contacting"/>
+                <option key="ACCEPT" description="Accept Offer"/>
+                <option key="DECLINE" description="Decline Offer"/>
+            </drop-down>
+        </field>
+        <field name="updateContactStatus"><submit button-type="button"/></field>
+    </form>
+    <grid name="ClosedItemList"  target="doAction" list-name="closedList"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" use-row-submit="true" separate-columns="true" view-size="100">
+        <field name="itemId" title="Item ID" sort-field="true"><display description="${itemId}"/></field>
+        <field name="SKU" title="Product ID"><display description="${SKU}"/></field>
+        <field name="title">
+            <hyperlink description="${title}" target="${viewItemURL}" target-type="plain" target-window="_BLANK"/>
+        </field>
+        <field name="sellingStatus" title="Status"><display description="${sellingStatus}"/></field>
+        <field name="endTime" title="Closing Time"><display description="${endTime}"/></field>
+        <field name="reservePrice" title="Reserve Price"><display description="${reservePrice}"/></field>
+        <field name="bidCount" title="Bids"><display description="${bidCount}"/></field>
+        <field name="hitCount" title="Hits"><display description="${hitCount}"/></field>
+        <field name="listingType" title="Listing Type"><display description="${listingType}"/></field>
+    </grid>
+    <form name="TransactionList" type="multi" target="EbayStoreImportTransaction" list-name="transactionsList"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" use-row-submit="true" separate-columns="true" view-size="100">
+        <row-actions>
+            <script location="component://ebaystore/groovyScripts/store/CheckOrderStatus.groovy"></script>
+        </row-actions>
+        <field name="_rowSubmit"  position="1" title="${uiLabelMap.CommonSelect}"><check/></field>
+        <field name="productStoreId"><hidden value="${productStoreId}"/></field>
+        <field name="orderId" title="Order ID">
+            <hyperlink description="${orderId}" target="https://localhost:8443/ordermgr/control/orderview?orderId=${orderId}" target-type="plain" target-window="_BLANK"/>
+        </field>
+        <field name="externalId" title="Transaction ID"><display description="${externalId}"/></field>
+        <field name="ebayUserIdBuyer" title="Winner Bidder"><display description="${ebayUserIdBuyer}"/></field>
+        <field name="productId" title="Product ID"><display description="${productId}"/></field>
+        <field name="title" title="Product Name"><display description="${title}"/></field>
+        <field name="createdDate" title="Listing Close Date"><display description="${createdDate}"/></field>
+        <field name="paymentType"><display description="${paymentMethod}"></display></field>
+        <field name="quantityPurchased" title="Quntity"><display description="${quantityPurchased}"/></field>
+        <field name="transactionPrice" title="Price Order Total"><display description="${transactionPrice}"/></field>
+        <field name="checkoutStatus" title="Checkout Status"><display description="${checkoutStatus}"></display></field>
+        <field name="importStatus" title="Import Status"><display description="${importStatus}"></display></field>
+        <field name="amountPaid"><hidden value="${amountPaid}"/></field>
+        <field name="paidTime"><hidden value="${paidTime}"/></field>
+        <field name="currency"><hidden value="${currency}"></hidden></field>
+        <field name="buyerName"><hidden value="${buyerName}"></hidden></field>
+        <field name="eiasTokenBuyer"><hidden value="${eiasTokenBuyer}"></hidden></field>
+        <field name="emailBuyer"><hidden value="${emailBuyer}"></hidden></field>
+        <field name="shippingService"><hidden value="${shippingService}"></hidden></field>
+        <field name="shippingServiceCost"><hidden value="${shippingServiceCost}"></hidden></field>
+        <field name="shippingTotalAdditionalCost"><hidden value="${shippingTotalAdditionalCost}"></hidden></field>
+        <field name="salesTaxAmount"><hidden value="${salesTaxAmount}"></hidden></field>
+        <field name="salesTaxPercent"><hidden value="${salesTaxPercent}"></hidden></field>
+        <field name="shippingAddressCityName"><hidden value="${shippingAddressCityName}"></hidden></field>
+        <field name="shippingAddressCountry"><hidden value="${shippingAddressCountry}"></hidden></field>
+        <field name="shippingAddressPhone"><hidden value="${shippingAddressPhone}"></hidden></field>
+        <field name="shippingAddressPostalCode"><hidden value="${shippingAddressPostalCode}"></hidden></field>
+        <field name="shippingAddressStateOrProvince"><hidden value="${shippingAddressStateOrProvince}"></hidden></field>
+        <field name="shippingAddressStreet"><hidden value="${shippingAddressStreet}"></hidden></field>
+        <field name="shippingAddressStreet1"><hidden value="${shippingAddressStreet1}"></hidden></field>
+        <field name="shippingAddressStreet2"><hidden value="${shippingAddressStreet2}"></hidden></field>
+        <field name="import" title="Import Orders"><submit button-type="button"/></field>
+    </form>
+    <form name="OrderList" type="multi" target="EbayStoreImportOrder" list-name="orderLists"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" use-row-submit="true" separate-columns="true" view-size="100">
+        <row-actions>
+            <script location="component://ebaystore/groovyScripts/store/OrderListParameters.groovy"/>
+        </row-actions>
+        <field name="productStoreId"><hidden value="${productStoreId}"/></field>
+        <field name="_rowSubmit" position="1" title="${uiLabelMap.CommonSelect}" use-when="${groovy:String prev=(String)previousItem.get(&quot;externalId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(externalId)));}"><check/></field>
+        <field name="orderId" position="1" title="Order ID" use-when="${groovy:String prev=(String)previousItem.get(&quot;externalId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(externalId)));}">
+            <hyperlink description="${orderId}" target="https://localhost:8443/ordermgr/control/orderview?orderId=${orderId}" target-type="plain" target-window="_BLANK"/>
+        </field>
+        <field name="externalId" title="External ID" position="1" use-when="${groovy:String prev=(String)previousItem.get(&quot;externalId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(externalId)));}"><display description="${externalId}"></display></field>
+        <field name="ebayUserIdBuyer" title="Winning Bidder" position="1" use-when="${groovy:String prev=(String)previousItem.get(&quot;externalId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(externalId)));}"><display description="${ebayUserIdBuyer}"></display></field>
+        <field name="dummy4" title=" " position="1"><display></display></field>
+        <field name="dummy5" title=" " position="1"><display></display></field>
+        <field name="createdDate" title="Invoice Date" position="1" use-when="${groovy:String prev=(String)previousItem.get(&quot;externalId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(externalId)));}"><display description="${createdDate}"></display></field>
+        <field name="paymentMethodUsed" title="Payment Type" position="1" use-when="${groovy:String prev=(String)previousItem.get(&quot;externalId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(externalId)));}"><display description="${paymentMethodUsed}"></display></field>
+        <field name="dummy7" title=" " position="1"><display></display></field>
+        <field name="amountPaid" title="Order Total Price" position="1" use-when="${groovy:String prev=(String)previousItem.get(&quot;externalId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(externalId)));}"><display description="${amountPaid}"></display></field>
+
+        <field name="dummy1" title=" " position="2"><display></display></field>
+        <field name="dummy2" title=" " position="2"><display></display></field>
+        <field name="dummy3" title=" " position="2"><display></display></field>
+        <field name="dummy8" title=" " position="2"><display></display></field>
+        <field name="dummy10" title=" " position="2"><display></display></field>
+        <field name="productId" title="SKU" position="2"><display description="${productId}"></display></field>
+        <field name="title" title="Title" position="2"><display description="${title}"></display></field>
+        <field name="dummy9" title=" " position="2"><display></display></field>
+        <field name="dummy6" title=" " position="2"><display></display></field>
+        <field name="quantity" title="Quantity" position="2"><display description="${quantity}"></display></field>
+        <field name="amount" title="Amount price per item" position="2"><display description="${transactionPrice}"></display></field>
+        
+        <field name="paidTime" use-when="${groovy:String prev=(String)previousItem.get(&quot;externalId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(externalId)));}"><hidden value="${paidTime}"></hidden></field>
+        <field name="shippedTime" use-when="${groovy:String prev=(String)previousItem.get(&quot;externalId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(externalId)));}"><hidden value="${shippedTime}"></hidden></field>
+        <field name="emailBuyer" use-when="${groovy:String prev=(String)previousItem.get(&quot;externalId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(externalId)));}"><hidden value="${emailBuyer}"></hidden></field>
+
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
+    </form>
+    <form name="FindEbayStoreOrders" type="single" target="OrderListing"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="productStoreId"><hidden value="${productStoreId}"></hidden></field>
+        <field name="formSelect"><hidden value="${formSelect}"></hidden></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}"><date-time type="date"/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDateTime}"><date-time type="date"/></field>
+        <field name="selectedDate"><hidden value="true"></hidden></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
+    </form>
+</forms>

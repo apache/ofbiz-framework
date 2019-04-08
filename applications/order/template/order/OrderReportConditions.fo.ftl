@@ -50,12 +50,12 @@ under the License.
 
 
 <fo:block space-after="40pt"/>
-<#if "SALES_ORDER" == orderHeader.getString("orderTypeId")>
+<#if orderHeader.getString("orderTypeId") == "SALES_ORDER">
   <fo:block font-size="14pt" font-weight="bold" text-align="center">THANK YOU FOR YOUR PATRONAGE!</fo:block>
   <fo:block font-size="8pt">
     <#--    Here is a good place to put policies and return information. -->
   </fo:block>
-<#elseif "PURCHASE_ORDER" == orderHeader.getString("orderTypeId")>
+<#elseif orderHeader.getString("orderTypeId") == "PURCHASE_ORDER">
   <fo:block font-size="8pt">
     <#-- Here is a good place to put boilerplate terms and conditions for a purchase order. -->
   </fo:block>

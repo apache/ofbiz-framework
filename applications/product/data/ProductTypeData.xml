@@ -1,0 +1,661 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <CostComponentType costComponentTypeId="MAT_COST" description="Materials Cost" hasTable="N" parentTypeId=""/>
+    <CostComponentType costComponentTypeId="ROUTE_COST" description="Route (fixed asset usage) Cost" hasTable="N" parentTypeId=""/>
+    <CostComponentType costComponentTypeId="LABOR_COST" description="Labor Cost" hasTable="N" parentTypeId=""/>
+    <CostComponentType costComponentTypeId="GEN_COST" description="General Cost" hasTable="N" parentTypeId=""/>
+    <CostComponentType costComponentTypeId="IND_COST" description="Indirect Cost" hasTable="N" parentTypeId=""/>
+    <CostComponentType costComponentTypeId="OTHER_COST" description="Other Cost" hasTable="N" parentTypeId=""/>
+    <CostComponentType costComponentTypeId="EST_STD_MAT_COST" description="Estimated Standard Materials Cost" hasTable="N" parentTypeId="MAT_COST"/>
+    <CostComponentType costComponentTypeId="EST_STD_ROUTE_COST" description="Estimated Standard Route (fixed asset usage) Cost" hasTable="N" parentTypeId="ROUTE_COST"/>
+    <CostComponentType costComponentTypeId="EST_STD_LABOR_COST" description="Estimated Standard Labor Cost" hasTable="N" parentTypeId="LABOR_COST"/>
+    <CostComponentType costComponentTypeId="EST_STD_GEN_COST" description="Estimated Standard General Cost" hasTable="N" parentTypeId="GEN_COST"/>
+    <CostComponentType costComponentTypeId="EST_STD_IND_COST" description="Estimated Standard Indirect Cost" hasTable="N" parentTypeId="IND_COST"/>
+    <CostComponentType costComponentTypeId="EST_STD_OTHER_COST" description="Estimated Standard Other Cost" hasTable="N" parentTypeId="OTHER_COST"/>
+    <CostComponentType costComponentTypeId="ACTUAL_MAT_COST" description="Actual Materials Cost" hasTable="N" parentTypeId="MAT_COST"/>
+    <CostComponentType costComponentTypeId="ACTUAL_ROUTE_COST" description="Actual Route (fixed asset usage) Cost" hasTable="N" parentTypeId="ROUTE_COST"/>
+    <CostComponentType costComponentTypeId="ACTUAL_LABOR_COST" description="Actual Labor Cost" hasTable="N" parentTypeId="LABOR_COST"/>
+    <CostComponentType costComponentTypeId="ACTUAL_OTHER_COST" description="Actual Other Cost" hasTable="N" parentTypeId="OTHER_COST"/>
+    <CostComponentType costComponentTypeId="ACTUAL_GEN_COST" description="Actual General Cost" hasTable="N" parentTypeId="GEN_COST"/>
+    <CostComponentType costComponentTypeId="ACTUAL_IND_COST" description="Actual Indirect Cost" hasTable="N" parentTypeId="IND_COST"/>
+    <CostComponentType costComponentTypeId="ACTUAL_OTHER_COST" description="Actual Other Cost" hasTable="N" parentTypeId="OTHER_COST"/>
+
+    <!-- Cost Formulae -->
+    <CustomMethodType customMethodTypeId="COST_FORMULA" description="Formula for calculating costs for tasks and products"/>
+    <CustomMethod customMethodId="PROD_PERC_FORMULA" customMethodTypeId="COST_FORMULA" customMethodName="productCostPercentageFormula" description="Formula that creates a cost component equal to a percentage of total product cost"/>
+
+    <EnumerationType description="Product Price Parent Enum Type" enumTypeId="PROD_PRICE" hasTable="N" parentTypeId=""/>
+    <EnumerationType description="Product Price Input Parameter" enumTypeId="PROD_PRICE_IN_PARAM" hasTable="N" parentTypeId="PROD_PRICE"/>
+    <Enumeration description="Product" enumCode="PRODUCT_ID" enumId="PRIP_PRODUCT_ID" sequenceId="01" enumTypeId="PROD_PRICE_IN_PARAM"/>
+    <Enumeration description="Product Category" enumCode="PRODUCT_CATEGORY_ID" enumId="PRIP_PROD_CAT_ID" sequenceId="02" enumTypeId="PROD_PRICE_IN_PARAM"/>
+    <Enumeration description="Product Catalog" enumCode="PROD_CATALOG_ID" enumId="PRIP_PROD_CLG_ID" sequenceId="03" enumTypeId="PROD_PRICE_IN_PARAM"/>
+    <Enumeration description="Product Feature" enumCode="PRODUCT_FEATURE_ID" enumId="PRIP_PROD_FEAT_ID" sequenceId="04" enumTypeId="PROD_PRICE_IN_PARAM"/>
+    <Enumeration description="Product Store Group" enumCode="PROD_STORE_GRP_ID" enumId="PRIP_PROD_SGRP_ID" sequenceId="05" enumTypeId="PROD_PRICE_IN_PARAM"/>
+    <Enumeration description="Website" enumCode="WEBSITE_ID" enumId="PRIP_WEBSITE_ID" sequenceId="06" enumTypeId="PROD_PRICE_IN_PARAM"/>
+    <Enumeration description="Quantity" enumCode="QUANTITY" enumId="PRIP_QUANTITY" sequenceId="07" enumTypeId="PROD_PRICE_IN_PARAM"/>
+    <Enumeration description="Party" enumCode="PARTY_ID" enumId="PRIP_PARTY_ID" sequenceId="08" enumTypeId="PROD_PRICE_IN_PARAM"/>
+    <Enumeration description="Party Group Member" enumCode="PARTY_GROUP_MEMBER" enumId="PRIP_PARTY_GRP_MEM" sequenceId="09" enumTypeId="PROD_PRICE_IN_PARAM"/>
+    <Enumeration description="Party Classification" enumCode="PARTY_CLASS" enumId="PRIP_PARTY_CLASS" sequenceId="10" enumTypeId="PROD_PRICE_IN_PARAM"/>
+    <Enumeration description="Role Type" enumCode="ROLE_TYPE" enumId="PRIP_ROLE_TYPE" sequenceId="11" enumTypeId="PROD_PRICE_IN_PARAM"/>
+    <Enumeration description="List Price" enumCode="LIST_PRICE" enumId="PRIP_LIST_PRICE" sequenceId="12" enumTypeId="PROD_PRICE_IN_PARAM"/>
+    <Enumeration description="Currency UomId" enumCode="CURRENCY_UOMID" enumId="PRIP_CURRENCY_UOMID" sequenceId="13" enumTypeId="PROD_PRICE_IN_PARAM"/>
+
+    <!-- old style; very technical ...
+    <Enumeration description="==" enumCode="EQ" enumId="PRC_EQ" sequenceId="01" enumTypeId="PROD_PRICE_COND"/>
+    <Enumeration description="!=" enumCode="NEQ" enumId="PRC_NEQ" sequenceId="02" enumTypeId="PROD_PRICE_COND"/>
+    <Enumeration description="&lt;" enumCode="LT" enumId="PRC_LT" sequenceId="03" enumTypeId="PROD_PRICE_COND"/>
+    <Enumeration description="&lt;=" enumCode="LTE" enumId="PRC_LTE" sequenceId="04" enumTypeId="PROD_PRICE_COND"/>
+    <Enumeration description="&gt;" enumCode="GT" enumId="PRC_GT" sequenceId="05" enumTypeId="PROD_PRICE_COND"/>
+    <Enumeration description="&gt;=" enumCode="GTE" enumId="PRC_GTE" sequenceId="06" enumTypeId="PROD_PRICE_COND"/>
+    ... new style below less technical -->
+
+    <EnumerationType description="Product Price Condition" enumTypeId="PROD_PRICE_COND" hasTable="N" parentTypeId="PROD_PRICE"/>
+    <Enumeration description="Is" enumCode="EQ" enumId="PRC_EQ" sequenceId="01" enumTypeId="PROD_PRICE_COND"/>
+    <Enumeration description="Is Not" enumCode="NEQ" enumId="PRC_NEQ" sequenceId="02" enumTypeId="PROD_PRICE_COND"/>
+    <Enumeration description="Is Less Than" enumCode="LT" enumId="PRC_LT" sequenceId="03" enumTypeId="PROD_PRICE_COND"/>
+    <Enumeration description="Is Less Than or Equal To" enumCode="LTE" enumId="PRC_LTE" sequenceId="04" enumTypeId="PROD_PRICE_COND"/>
+    <Enumeration description="Is Greater Than" enumCode="GT" enumId="PRC_GT" sequenceId="05" enumTypeId="PROD_PRICE_COND"/>
+    <Enumeration description="Is Greater Than or Equal To" enumCode="GTE" enumId="PRC_GTE" sequenceId="06" enumTypeId="PROD_PRICE_COND"/>
+
+    <EnumerationType description="Inventory Reservation Order" enumTypeId="INV_RES_ORDER" hasTable="N" parentTypeId=""/>
+    <Enumeration description="FIFO Received" enumCode="FIFO_REC" enumId="INVRO_FIFO_REC" sequenceId="01" enumTypeId="INV_RES_ORDER"/> <!-- this is the default -->
+    <Enumeration description="LIFO Received" enumCode="LIFO_REC" enumId="INVRO_LIFO_REC" sequenceId="02" enumTypeId="INV_RES_ORDER"/>
+    <Enumeration description="FIFO Expire" enumCode="FIFO_EXP" enumId="INVRO_FIFO_EXP" sequenceId="03" enumTypeId="INV_RES_ORDER"/>
+    <Enumeration description="LIFO Expire" enumCode="LIFO_EXP" enumId="INVRO_LIFO_EXP" sequenceId="04" enumTypeId="INV_RES_ORDER"/>
+    <Enumeration description="Greater Unit Cost" enumCode="GUNIT_COST" enumId="INVRO_GUNIT_COST" sequenceId="05" enumTypeId="INV_RES_ORDER"/>
+    <Enumeration description="Less Unit Cost" enumCode="LUNIT_COST" enumId="INVRO_LUNIT_COST" sequenceId="06" enumTypeId="INV_RES_ORDER"/>
+
+    <EnumerationType description="Inventory Item Detail Reason" enumTypeId="IID_REASON" hasTable="N" parentTypeId=""/>
+    <Enumeration description="Lost" enumCode="VAR_LOST" enumId="VAR_LOST" sequenceId="01" enumTypeId="IID_REASON"/>
+    <Enumeration description="Stolen" enumCode="VAR_STOLEN" enumId="VAR_STOLEN" sequenceId="02" enumTypeId="IID_REASON"/>
+    <Enumeration description="Found" enumCode="VAR_FOUND" enumId="VAR_FOUND" sequenceId="03" enumTypeId="IID_REASON"/>
+    <Enumeration description="Damaged" enumCode="VAR_DAMAGED" enumId="VAR_DAMAGED" sequenceId="04" enumTypeId="IID_REASON"/>
+    <Enumeration description="Sample (Giveaway)" enumCode="VAR_SAMPLE" enumId="VAR_SAMPLE" sequenceId="05" enumTypeId="IID_REASON"/>
+    <Enumeration description="Integration" enumCode="VAR_INTEGR" enumId="VAR_INTEGR" sequenceId="06" enumTypeId="IID_REASON"/>
+    <Enumeration description="Mis-shipped Item Ordered (+)" enumCode="VAR_MISSHIP_ORDERED" enumId="VAR_MISSHIP_ORDERED" sequenceId="07" enumTypeId="IID_REASON"/>
+    <Enumeration description="Mis-shipped Item Shipped (-)" enumCode="VAR_MISSHIP_SHIPPED" enumId="VAR_MISSHIP_SHIPPED" sequenceId="08" enumTypeId="IID_REASON"/>
+
+    <EnumerationType description="Product Store Payment Service Type" enumTypeId="PRDS_PAYSVC" hasTable="N" parentTypeId=""/>
+    <Enumeration description="Payment Authorization Service" enumCode="PAY_AUTH" enumId="PRDS_PAY_AUTH" sequenceId="01" enumTypeId="PRDS_PAYSVC"/>
+    <Enumeration description="Payment Auth Verification Service" enumCode="PAY_AUTH_VERIFY" enumId="PRDS_PAY_AUTH_VERIFY" sequenceId="06" enumTypeId="PRDS_PAYSVC"/>
+    <Enumeration description="Payment Re-Authorization Service" enumCode="PAY_REAUTH" enumId="PRDS_PAY_REAUTH" sequenceId="02" enumTypeId="PRDS_PAYSVC"/>
+    <Enumeration description="Payment Release Authorization Service" enumCode="PAY_RELEASE" enumId="PRDS_PAY_RELEASE" sequenceId="03" enumTypeId="PRDS_PAYSVC"/>
+    <Enumeration description="Payment Capture Service" enumCode="PAY_CAPTURE" enumId="PRDS_PAY_CAPTURE" sequenceId="04" enumTypeId="PRDS_PAYSVC"/>
+    <Enumeration description="Payment Refund Service" enumCode="PAY_REFUND" enumId="PRDS_PAY_REFUND" sequenceId="05" enumTypeId="PRDS_PAYSVC"/>
+    <Enumeration description="Payment Credit Service" enumCode="PAY_CREDIT" enumId="PRDS_PAY_CREDIT" sequenceId="06" enumTypeId="PRDS_PAYSVC"/>
+    <Enumeration description="External Payment (No Service)" enumCode="PAY_EXTERNAL" enumId="PRDS_PAY_EXTERNAL" sequenceId="07" enumTypeId="PRDS_PAYSVC"/>
+
+    <EnumerationType description="Product Store Email Notification" enumTypeId="PRDS_EMAIL" hasTable="N" parentTypeId=""/>
+    <Enumeration description="Registration" enumCode="CUST_REGISTER" enumId="PRDS_CUST_REGISTER" enumTypeId="PRDS_EMAIL" sequenceId="01"/>
+    <Enumeration description="Confirmation" enumCode="ODR_CONFIRM" enumId="PRDS_ODR_CONFIRM" enumTypeId="PRDS_EMAIL" sequenceId="02"/>
+    <Enumeration description="Complete" enumCode="ODR_COMPLETE" enumId="PRDS_ODR_COMPLETE" enumTypeId="PRDS_EMAIL" sequenceId="03"/>
+    <Enumeration description="Back-Order" enumCode="ODR_BACKORDER" enumId="PRDS_ODR_BACKORDER" enumTypeId="PRDS_EMAIL" sequenceId="04"/>
+    <Enumeration description="Order Change" enumCode="ODR_CHANGE" enumId="PRDS_ODR_CHANGE" enumTypeId="PRDS_EMAIL" sequenceId="05"/>
+    <Enumeration description="Payment Retry" enumCode="ODR_PAYRETRY" enumId="PRDS_ODR_PAYRETRY" enumTypeId="PRDS_EMAIL" sequenceId="06"/>
+    <Enumeration description="Return Accepted" enumCode="RTN_ACCEPT" enumId="PRDS_RTN_ACCEPT" enumTypeId="PRDS_EMAIL" sequenceId="07"/>
+    <Enumeration description="Return Completed" enumCode="RTN_COMPLETE" enumId="PRDS_RTN_COMPLETE" enumTypeId="PRDS_EMAIL" sequenceId="08"/>
+    <Enumeration description="Return Cancelled" enumCode="RTN_CANCEL" enumId="PRDS_RTN_CANCEL" enumTypeId="PRDS_EMAIL" sequenceId="09"/>
+    <Enumeration description="Retrieve Password" enumCode="PWD_RETRIEVE" enumId="PRDS_PWD_RETRIEVE" enumTypeId="PRDS_EMAIL" sequenceId="10"/>
+    <Enumeration description="Tell-A-Friend" enumCode="TELL_FRIEND" enumId="PRDS_TELL_FRIEND" enumTypeId="PRDS_EMAIL" sequenceId="11"/>
+    <Enumeration description="Gift-Card Purchase" enumCode="GC_PURCHASE" enumId="PRDS_GC_PURCHASE" enumTypeId="PRDS_EMAIL" sequenceId="12"/>
+    <Enumeration description="Gift-Card Reload" enumCode="GC_RELOAD" enumId="PRDS_GC_RELOAD" enumTypeId="PRDS_EMAIL" sequenceId="13"/>
+    <Enumeration description="Quote Created" enumCode="QUO_CREATED" enumId="PRDS_QUO_CREATED" enumTypeId="PRDS_EMAIL" sequenceId="14"/>
+    <Enumeration description="Quote Confirmation" enumCode="QUO_CONFIRM" enumId="PRDS_QUO_CONFIRM" enumTypeId="PRDS_EMAIL" sequenceId="15"/>
+    <Enumeration description="Shipment Complete" enumCode="SHP_COMPLETE" enumId="PRDS_ODR_SHIP_COMPLT" enumTypeId="PRDS_EMAIL" sequenceId="16"/>
+
+    <EnumerationType description="Facility Location Type" enumTypeId="FACLOC_TYPE" hasTable="N" parentTypeId=""/>
+    <Enumeration description="Pick/Primary" enumCode="PICKLOC" enumId="FLT_PICKLOC" enumTypeId="FACLOC_TYPE" sequenceId="01"/>
+    <Enumeration description="Bulk" enumCode="BULK" enumId="FLT_BULK" enumTypeId="FACLOC_TYPE" sequenceId="02"/>
+
+    <EnumerationType description="Keyword Override Target Type" enumTypeId="KWOVRD_TRGT_TYPE" hasTable="N" parentTypeId=""/>
+    <Enumeration description="Product Category" enumCode="PRODCAT" enumId="KOTT_PRODCAT" enumTypeId="KWOVRD_TRGT_TYPE" sequenceId="01"/>
+    <Enumeration description="Product" enumCode="PRODUCT" enumId="KOTT_PRODUCT" enumTypeId="KWOVRD_TRGT_TYPE" sequenceId="02"/>
+    <Enumeration description="OFBiz URL" enumCode="OFBURL" enumId="KOTT_OFBURL" enumTypeId="KWOVRD_TRGT_TYPE" sequenceId="03"/>
+    <Enumeration description="Absolute URL" enumCode="AURL" enumId="KOTT_AURL" enumTypeId="KWOVRD_TRGT_TYPE" sequenceId="04"/>
+
+    <EnumerationType description="Product Category Link Type" enumTypeId="PCAT_LINK_TYPE" hasTable="N" parentTypeId=""/>
+    <Enumeration description="Search Parameters" enumCode="SEARCH_PARAM" enumId="PCLT_SEARCH_PARAM" sequenceId="01" enumTypeId="PCAT_LINK_TYPE"/>
+    <Enumeration description="Absolute URL" enumCode="ABS_URL" enumId="PCLT_ABS_URL" sequenceId="02" enumTypeId="PCAT_LINK_TYPE"/>
+    <Enumeration description="Category ID" enumCode="CAT_ID" enumId="PCLT_CAT_ID" sequenceId="03" enumTypeId="PCAT_LINK_TYPE"/>
+
+    <FacilityType description="Building" facilityTypeId="BUILDING" hasTable="N" parentTypeId=""/>
+    <FacilityType description="Floor" facilityTypeId="FLOOR" hasTable="N" parentTypeId=""/>
+    <FacilityType description="Office" facilityTypeId="OFFICE" hasTable="N" parentTypeId=""/>
+    <FacilityType description="Call Center" facilityTypeId="CALL_CENTER" hasTable="N" parentTypeId=""/>
+    <FacilityType description="Plant" facilityTypeId="PLANT" hasTable="N" parentTypeId=""/>
+    <FacilityType description="Room" facilityTypeId="ROOM" hasTable="N" parentTypeId=""/>
+    <FacilityType description="Retail Store" facilityTypeId="RETAIL_STORE" hasTable="N" parentTypeId=""/>
+    <FacilityType description="Warehouse" facilityTypeId="WAREHOUSE" hasTable="N" parentTypeId=""/>
+
+    <FacilityGroupType description="Management Structure" facilityGroupTypeId="MGMT_STRUCTURE"/>
+    <FacilityGroupType description="Pricing Group" facilityGroupTypeId="PRICING_GROUP"/>
+
+    <FacilityGroup facilityGroupName="Not Applicable" description="Not Applicable" facilityGroupId="_NA_" facilityGroupTypeId="" primaryParentGroupId=""/>
+
+    <GoodIdentificationType description="ISBN" goodIdentificationTypeId="ISBN" hasTable="N" parentTypeId=""/>
+    <GoodIdentificationType description="Manufacturer (Model) Number" goodIdentificationTypeId="MANUFACTURER_ID_NO" hasTable="N" parentTypeId=""/>
+    <GoodIdentificationType description="Model Year" goodIdentificationTypeId="MODEL_YEAR" hasTable="N" parentTypeId=""/>
+    <GoodIdentificationType description="Other" goodIdentificationTypeId="OTHER_ID" hasTable="N" parentTypeId=""/>
+    <GoodIdentificationType description="SKU" goodIdentificationTypeId="SKU" hasTable="N" parentTypeId=""/>
+    <GoodIdentificationType description="UPCA" goodIdentificationTypeId="UPCA" hasTable="N" parentTypeId=""/>
+    <GoodIdentificationType description="UPCE" goodIdentificationTypeId="UPCE" hasTable="N" parentTypeId=""/>
+    <GoodIdentificationType description="EAN" goodIdentificationTypeId="EAN" hasTable="N" parentTypeId=""/>
+    <GoodIdentificationType description="Library of Congress" goodIdentificationTypeId="LOC" hasTable="N" parentTypeId=""/>
+    <GoodIdentificationType description="Harmonized System Codes (HS Code)" goodIdentificationTypeId="HS_CODE" hasTable="N" parentTypeId=""/>
+
+    <InventoryItemType description="Serialized" hasTable="N" inventoryItemTypeId="SERIALIZED_INV_ITEM" parentTypeId=""/>
+    <InventoryItemType description="Non-Serialized" hasTable="N" inventoryItemTypeId="NON_SERIAL_INV_ITEM" parentTypeId=""/>
+
+    <ProdCatalogCategoryType description="Browse Root (One)" prodCatalogCategoryTypeId="PCCT_BROWSE_ROOT"/>
+    <ProdCatalogCategoryType description="Default Search (One)" prodCatalogCategoryTypeId="PCCT_SEARCH"/>
+    <ProdCatalogCategoryType description="Other Search (Many)" prodCatalogCategoryTypeId="PCCT_OTHER_SEARCH"/>
+    <ProdCatalogCategoryType description="Quick Add (Many)" prodCatalogCategoryTypeId="PCCT_QUICK_ADD"/>
+    <ProdCatalogCategoryType description="Promotions (One)" prodCatalogCategoryTypeId="PCCT_PROMOTIONS"/>
+    <ProdCatalogCategoryType description="Most Popular (One)" prodCatalogCategoryTypeId="PCCT_MOST_POPULAR"/>
+    <ProdCatalogCategoryType description="What's New (One)" prodCatalogCategoryTypeId="PCCT_WHATS_NEW"/>
+    <ProdCatalogCategoryType description="View Allow (One)" prodCatalogCategoryTypeId="PCCT_VIEW_ALLW"/>
+    <ProdCatalogCategoryType description="Purchase Allow (One)" prodCatalogCategoryTypeId="PCCT_PURCH_ALLW"/>
+    <ProdCatalogCategoryType description="Admin Allow (One)" prodCatalogCategoryTypeId="PCCT_ADMIN_ALLW"/>
+    <ProdCatalogCategoryType description="Ebay Root (One)" prodCatalogCategoryTypeId="PCCT_EBAY_ROOT"/>
+    <ProdCatalogCategoryType description="Best Selling (One)" prodCatalogCategoryTypeId="PCCT_BEST_SELL"/>
+
+    <ProductAssocType description="Also Bought" hasTable="N" parentTypeId="" productAssocTypeId="ALSO_BOUGHT"/>
+    <ProductAssocType description="Upgrade or Up-Sell" hasTable="N" parentTypeId="" productAssocTypeId="PRODUCT_UPGRADE"/>
+    <ProductAssocType description="Complementary or Cross-Sell" hasTable="N" parentTypeId="" productAssocTypeId="PRODUCT_COMPLEMENT"/>
+    <ProductAssocType description="Incompatible" hasTable="N" parentTypeId="" productAssocTypeId="PRODUCT_INCOMPATABLE"/>
+    <ProductAssocType description="New Version, Replacement" hasTable="N" parentTypeId="" productAssocTypeId="PRODUCT_OBSOLESCENCE"/>
+    <ProductAssocType description="Actual Product Component" hasTable="N" parentTypeId="" productAssocTypeId="PRODUCT_COMPONENT"/>
+    <ProductAssocType description="Equivalent or Substitute" hasTable="N" parentTypeId="" productAssocTypeId="PRODUCT_SUBSTITUTE"/>
+    <ProductAssocType description="Product Variant" hasTable="N" parentTypeId="" productAssocTypeId="PRODUCT_VARIANT"/>
+    <ProductAssocType description="Unique Item" hasTable="N" parentTypeId="" productAssocTypeId="UNIQUE_ITEM"/>
+    <ProductAssocType description="Accessory" hasTable="N" parentTypeId="" productAssocTypeId="PRODUCT_ACCESSORY"/>
+    <ProductAssocType description="Refurbished Equivalent" hasTable="N" parentTypeId="" productAssocTypeId="PRODUCT_REFURB"/>
+    <ProductAssocType description="Repair Service" hasTable="N" parentTypeId="" productAssocTypeId="PRODUCT_REPAIR_SRV"/>
+    <ProductAssocType description="Auto Reorder (needs recurrenceInfoId)" hasTable="N" parentTypeId="" productAssocTypeId="PRODUCT_AUTORO"/>
+
+    <ProductAssocType description="Revision" hasTable="N" parentTypeId="" productAssocTypeId="PRODUCT_REVISION"/>
+    <ProductAssocType description="Manufacturing Bill of Materials" hasTable="N" parentTypeId="PRODUCT_COMPONENT" productAssocTypeId="MANUF_COMPONENT"/>
+    <ProductAssocType description="Engineering Bill of Materials" hasTable="N" parentTypeId="PRODUCT_COMPONENT" productAssocTypeId="ENGINEER_COMPONENT"/>
+    <ProductAssocType description="Product Manufactured As" hasTable="N" parentTypeId="" productAssocTypeId="PRODUCT_MANUFACTURED"/>
+    <ProductAssocType description="Configurable product instance" hasTable="N" parentTypeId="" productAssocTypeId="PRODUCT_CONF"/>
+    <ProductAssocType description="Alternative Packaging" hasTable="N" parentTypeId="" productAssocTypeId="ALTERNATIVE_PACKAGE"/>
+
+    <ProductCategoryType description="Catalog" hasTable="N" parentTypeId="" productCategoryTypeId="CATALOG_CATEGORY"/>
+    <ProductCategoryType description="Industry" hasTable="N" parentTypeId="" productCategoryTypeId="INDUSTRY_CATEGORY"/>
+    <ProductCategoryType description="Internal" hasTable="N" parentTypeId="" productCategoryTypeId="INTERNAL_CATEGORY"/>
+    <ProductCategoryType description="Materials" hasTable="N" parentTypeId="" productCategoryTypeId="MATERIALS_CATEGORY"/>
+    <ProductCategoryType description="Quick Add" hasTable="N" parentTypeId="" productCategoryTypeId="QUICKADD_CATEGORY"/>
+    <ProductCategoryType description="Search" hasTable="N" parentTypeId="" productCategoryTypeId="SEARCH_CATEGORY"/>
+    <ProductCategoryType description="Usage" hasTable="N" parentTypeId="" productCategoryTypeId="USAGE_CATEGORY"/>
+    <ProductCategoryType description="Mix and Match" hasTable="N" parentTypeId="" productCategoryTypeId="MIXMATCH_CATEGORY"/>
+    <ProductCategoryType description="Cross Sell" hasTable="N" parentTypeId="" productCategoryTypeId="CROSS_SELL_CATEGORY"/>
+    <ProductCategoryType description="Tax" hasTable="N" parentTypeId="" productCategoryTypeId="TAX_CATEGORY"/>
+    <ProductCategoryType description="Google Base" hasTable="N" parentTypeId="" productCategoryTypeId="GOOGLE_BASE_CATEGORY"/>
+    <ProductCategoryType description="Gift Cards" hasTable="N" parentTypeId="" productCategoryTypeId="GIFT_CARD_CATEGORY"/>
+    <ProductCategoryType description="Best Selling" hasTable="N" parentTypeId="" productCategoryTypeId="BEST_SELL_CATEGORY"/>
+
+    <!-- product geo data -->
+    <EnumerationType description="Product Geo Data" enumTypeId="PROD_GEO" hasTable="N" parentTypeId=""/>
+    <Enumeration description="Purchase Include Geo" enumCode="PURCHASE_INCLUDE" enumId="PG_PURCH_INCLUDE" sequenceId="01" enumTypeId="PROD_GEO"/>
+    <Enumeration description="Purchase Exclude Geo" enumCode="PURCHASE_EXCLUDE" enumId="PG_PURCH_EXCLUDE" sequenceId="02" enumTypeId="PROD_GEO"/>
+    <Enumeration description="Shipment Include Geo" enumCode="SHIPMENT_INCLUDE" enumId="PG_SHIP_INCLUDE" sequenceId="03" enumTypeId="PROD_GEO"/>
+    <Enumeration description="Shipment Exclude Geo" enumCode="SHIPMENT_EXCLUDE" enumId="PG_SHIP_EXCLUDE" sequenceId="04" enumTypeId="PROD_GEO"/>
+
+    <ProductCategoryContentType description="Category Name" hasTable="N" parentTypeId="" prodCatContentTypeId="CATEGORY_NAME"/>
+    <ProductCategoryContentType description="Description" hasTable="N" parentTypeId="" prodCatContentTypeId="DESCRIPTION"/>
+    <ProductCategoryContentType description="Description - Long" hasTable="N" parentTypeId="" prodCatContentTypeId="LONG_DESCRIPTION"/>
+    <ProductCategoryContentType description="Alternative URL" hasTable="N" parentTypeId="" prodCatContentTypeId="ALTERNATIVE_URL"/>
+    <ProductCategoryContentType description="Category Image" hasTable="N" parentTypeId="" prodCatContentTypeId="CATEGORY_IMAGE"/>
+    <ProductCategoryContentType description="Category Image URL" hasTable="N" parentTypeId="" prodCatContentTypeId="CATEGORY_IMAGE_URL"/>
+    <ProductCategoryContentType description="Category Image Alt Text" hasTable="N" parentTypeId="" prodCatContentTypeId="CATEGORY_IMAGE_ALT"/>
+    <ProductCategoryContentType description="Link 1 Alt Text" hasTable="N" parentTypeId="" prodCatContentTypeId="LINK1_ALT_TEXT"/>
+    <ProductCategoryContentType description="Link 2 Alt Text" hasTable="N" parentTypeId="" prodCatContentTypeId="LINK2_ALT_TEXT"/>
+    <ProductCategoryContentType description="Footer" hasTable="N" parentTypeId="" prodCatContentTypeId="FOOTER"/>
+    <ProductCategoryContentType description="Page Title" hasTable="N" parentTypeId="" prodCatContentTypeId="PAGE_TITLE"/>
+    <ProductCategoryContentType description="Meta Keyword" hasTable="N" parentTypeId="" prodCatContentTypeId="META_KEYWORD"/>
+    <ProductCategoryContentType description="Meta Description" hasTable="N" parentTypeId="" prodCatContentTypeId="META_DESCRIPTION"/>
+    <ProductCategoryContentType description="Related URL" hasTable="N" parentTypeId="" prodCatContentTypeId="RELATED_URL"/>
+    <ProductCategoryContentType description="Video" hasTable="N" parentTypeId="" prodCatContentTypeId="VIDEO"/>
+    <ProductCategoryContentType description="Video URL" hasTable="N" parentTypeId="" prodCatContentTypeId="VIDEO_URL"/>
+
+    <ProductContentType description="Online Access" hasTable="N" parentTypeId="" productContentTypeId="ONLINE_ACCESS"/>
+    <ProductContentType description="Digital Download" hasTable="N" parentTypeId="" productContentTypeId="DIGITAL_DOWNLOAD"/>
+    <ProductContentType description="Fulfillment Email" hasTable="N" parentTypeId="" productContentTypeId="FULFILLMENT_EMAIL"/>
+    <ProductContentType description="Fulfillment External (Async)" hasTable="N" parentTypeId="" productContentTypeId="FULFILLMENT_EXTASYNC"/>
+    <ProductContentType description="Fulfillment External (Sync)" hasTable="N" parentTypeId="" productContentTypeId="FULFILLMENT_EXTSYNC"/>
+    <ProductContentType description="Product Name" hasTable="N" parentTypeId="" productContentTypeId="PRODUCT_NAME"/>
+    <ProductContentType description="Description" hasTable="N" parentTypeId="" productContentTypeId="DESCRIPTION"/>
+    <ProductContentType description="Description - Long" hasTable="N" parentTypeId="" productContentTypeId="LONG_DESCRIPTION"/>
+    <ProductContentType description="Alternative URL" hasTable="N" parentTypeId="" productContentTypeId="ALTERNATIVE_URL"/>
+    <ProductContentType description="Price Detail Text" hasTable="N" parentTypeId="" productContentTypeId="PRICE_DETAIL_TEXT"/>
+    <ProductContentType description="Ingredients" hasTable="N" parentTypeId="" productContentTypeId="INGREDIENTS"/>
+    <ProductContentType description="Unique Ingredients" hasTable="N" parentTypeId="" productContentTypeId="UNIQUE_INGREDIENTS"/>
+    <ProductContentType description="Special Instructions" hasTable="N" parentTypeId="" productContentTypeId="SPECIALINSTRUCTIONS"/>
+    <ProductContentType description="Warnings" hasTable="N" parentTypeId="" productContentTypeId="WARNINGS"/>
+    <ProductContentType description="Directions" hasTable="N" parentTypeId="" productContentTypeId="DIRECTIONS"/>
+    <ProductContentType description="Terms and Conditions" hasTable="N" parentTypeId="" productContentTypeId="TERMS_AND_CONDS"/>
+    <ProductContentType description="Delivery Info" hasTable="N" parentTypeId="" productContentTypeId="DELIVERY_INFO"/>
+    <ProductContentType description="Image - Small" hasTable="N" parentTypeId="" productContentTypeId="SMALL_IMAGE_URL"/>
+    <ProductContentType description="Image - Medium" hasTable="N" parentTypeId="" productContentTypeId="MEDIUM_IMAGE_URL"/>
+    <ProductContentType description="Image - Large" hasTable="N" parentTypeId="" productContentTypeId="LARGE_IMAGE_URL"/>
+    <ProductContentType description="Image - Detail" hasTable="N" parentTypeId="" productContentTypeId="DETAIL_IMAGE_URL"/>
+    <ProductContentType description="Image - Original" hasTable="N" parentTypeId="" productContentTypeId="ORIGINAL_IMAGE_URL"/>
+    <ProductContentType description="Image Alt Text - Small" hasTable="N" parentTypeId="" productContentTypeId="SMALL_IMAGE_ALT"/>
+    <ProductContentType description="Image Alt Text - Medium" hasTable="N" parentTypeId="" productContentTypeId="MEDIUM_IMAGE_ALT"/>
+    <ProductContentType description="Image Alt Text - Large" hasTable="N" parentTypeId="" productContentTypeId="LARGE_IMAGE_ALT"/>
+    <ProductContentType description="Image Alt Text - Detail" hasTable="N" parentTypeId="" productContentTypeId="DETAIL_IMAGE_ALT"/>
+    <ProductContentType description="Image - Additional View 1" hasTable="N" parentTypeId="" productContentTypeId="ADDITIONAL_IMAGE_1"/>
+    <ProductContentType description="Image - Additional View 2" hasTable="N" parentTypeId="" productContentTypeId="ADDITIONAL_IMAGE_2"/>
+    <ProductContentType description="Image - Additional View 3" hasTable="N" parentTypeId="" productContentTypeId="ADDITIONAL_IMAGE_3"/>
+    <ProductContentType description="Image - Additional View 4" hasTable="N" parentTypeId="" productContentTypeId="ADDITIONAL_IMAGE_4"/>
+    <ProductContentType description="Image - Additional View 1 Small" hasTable="N" parentTypeId="" productContentTypeId="XTRA_IMG_1_SMALL"/>
+    <ProductContentType description="Image - Additional View 1 Medium" hasTable="N" parentTypeId="" productContentTypeId="XTRA_IMG_1_MEDIUM"/>
+    <ProductContentType description="Image - Additional View 1 Large" hasTable="N" parentTypeId="" productContentTypeId="XTRA_IMG_1_LARGE"/>
+    <ProductContentType description="Image - Additional View 1 Detail" hasTable="N" parentTypeId="" productContentTypeId="XTRA_IMG_1_DETAIL"/>
+    <ProductContentType description="Image - Additional View 2 Small" hasTable="N" parentTypeId="" productContentTypeId="XTRA_IMG_2_SMALL"/>
+    <ProductContentType description="Image - Additional View 2 Medium" hasTable="N" parentTypeId="" productContentTypeId="XTRA_IMG_2_MEDIUM"/>
+    <ProductContentType description="Image - Additional View 2 Large" hasTable="N" parentTypeId="" productContentTypeId="XTRA_IMG_2_LARGE"/>
+    <ProductContentType description="Image - Additional View 2 Detail" hasTable="N" parentTypeId="" productContentTypeId="XTRA_IMG_2_DETAIL"/>
+    <ProductContentType description="Image - Additional View 3 Small" hasTable="N" parentTypeId="" productContentTypeId="XTRA_IMG_3_SMALL"/>
+    <ProductContentType description="Image - Additional View 3 Medium" hasTable="N" parentTypeId="" productContentTypeId="XTRA_IMG_3_MEDIUM"/>
+    <ProductContentType description="Image - Additional View 3 Large" hasTable="N" parentTypeId="" productContentTypeId="XTRA_IMG_3_LARGE"/>
+    <ProductContentType description="Image - Additional View 3 Detail" hasTable="N" parentTypeId="" productContentTypeId="XTRA_IMG_3_DETAIL"/>
+    <ProductContentType description="Image - Additional View 4 Small" hasTable="N" parentTypeId="" productContentTypeId="XTRA_IMG_4_SMALL"/>
+    <ProductContentType description="Image - Additional View 4 Medium" hasTable="N" parentTypeId="" productContentTypeId="XTRA_IMG_4_MEDIUM"/>
+    <ProductContentType description="Image - Additional View 4 Large" hasTable="N" parentTypeId="" productContentTypeId="XTRA_IMG_4_LARGE"/>
+    <ProductContentType description="Image - Additional View 4 Detail" hasTable="N" parentTypeId="" productContentTypeId="XTRA_IMG_4_DETAIL"/>
+    <ProductContentType description="Image - Additional View Small" hasTable="N" parentTypeId="" productContentTypeId="XTRA_IMG_L_SMALL"/>
+    <ProductContentType description="Image - Additional View Medium" hasTable="N" parentTypeId="" productContentTypeId="XTRA_IMG_L_MEDIUM"/>
+    <ProductContentType description="Image - Additional View Large" hasTable="N" parentTypeId="" productContentTypeId="XTRA_IMG_L_LARGE"/>
+    <ProductContentType description="Image - Additional View Detail" hasTable="N" parentTypeId="" productContentTypeId="XTRA_IMG_L_DETAIL"/>
+    <ProductContentType description="Add To Cart Label" hasTable="N" parentTypeId="" productContentTypeId="ADDTOCART_LABEL"/>
+    <ProductContentType description="Add To Cart Image" hasTable="N" parentTypeId="" productContentTypeId="ADDTOCART_IMAGE"/>
+    <ProductContentType description="Short Sales Pitch" hasTable="N" parentTypeId="" productContentTypeId="SHORT_SALES_PITCH"/>
+    <ProductContentType description="Installation" hasTable="N" parentTypeId="DIGITAL_DOWNLOAD" productContentTypeId="INSTALLATION"/>
+    <ProductContentType description="Specification" hasTable="N" parentTypeId="DIGITAL_DOWNLOAD" productContentTypeId="SPECIFICATION"/>
+    <ProductContentType description="Warranty" hasTable="N" parentTypeId="DIGITAL_DOWNLOAD" productContentTypeId="WARRANTY"/>
+    <ProductContentType description="Page Title" hasTable="N" parentTypeId="" productContentTypeId="PAGE_TITLE"/>
+    <ProductContentType description="Meta Keyword" hasTable="N" parentTypeId="" productContentTypeId="META_KEYWORD"/>
+    <ProductContentType description="Meta Description" hasTable="N" parentTypeId="" productContentTypeId="META_DESCRIPTION"/>
+
+    <ProdConfItemContentType description="Image" hasTable="N" parentTypeId="" confItemContentTypeId="IMAGE_URL"/>
+    <ProdConfItemContentType description="Description" hasTable="N" parentTypeId="" confItemContentTypeId="DESCRIPTION"/>
+    <ProdConfItemContentType description="Description - Long" hasTable="N" parentTypeId="" confItemContentTypeId="LONG_DESCRIPTION"/>
+    <ProdConfItemContentType description="Instructions" hasTable="N" parentTypeId="" confItemContentTypeId="INSTRUCTIONS"/>
+
+    <ProductFeatureApplType description="Optional" hasTable="N" parentTypeId="" productFeatureApplTypeId="OPTIONAL_FEATURE">
+        <!-- Used for add-on features to a product that often add an additional cost. There are alternatives to accessorize products that are generally more flexible, but this is a simple option for optional add-ons. -->
+    </ProductFeatureApplType>
+    <ProductFeatureApplType description="Required" hasTable="N" parentTypeId="" productFeatureApplTypeId="REQUIRED_FEATURE">
+        <!-- A variation of the Optional feature application type where it represents some sort of an add-on, but is not optional. There is only limited support for this currently in OFBiz. -->
+    </ProductFeatureApplType>
+    <ProductFeatureApplType description="Selectable" hasTable="N" parentTypeId="" productFeatureApplTypeId="SELECTABLE_FEATURE">
+        <!-- 
+            Use this to associate selectable features with a virtual product. These features are organized by the feature type and there may be a variant of the virtual product for each combination of features, one feature for each feature type.
+            Each variant of the virtual product should have one feature (selected from the set of selectable features on the virtual product) for each feature type, associated with it as a standard or distinguishing feature. 
+        -->
+    </ProductFeatureApplType>
+    <ProductFeatureApplType description="Standard" hasTable="N" parentTypeId="" productFeatureApplTypeId="STANDARD_FEATURE">
+        <!-- 
+            Standard features are inherent features that describe the nature of a product. These can be used for product comparison, parametric searching, and to describe variants of virtual products. 
+            For more information about the virtual/variant pattern please see the descriptions of the Selectable and Distinguishing Feature Application Types. 
+            Note that in OFBiz parametric searching by default considers all applications types and not just standard features, but that may be an option more desirable for certain organizations. 
+        -->
+    </ProductFeatureApplType>
+    <ProductFeatureApplType description="Distinguishing" hasTable="N" parentTypeId="" productFeatureApplTypeId="DISTINGUISHING_FEAT">
+        <!--
+            Used only for variant products. Features applied to products this way distinguish one variant from another. 
+            For the virtual/variant structure the features attached to variants can be applied as Standard or Distinguishing features. 
+            Use distinguishing instead of standard feature application when you want the feature to be used ONLY for virtual/variant distinction and not for other things standard features are used for like product comparisons and such.
+        --> 
+    </ProductFeatureApplType>
+
+    <ProductFeatureIactnType description="Dependencies" hasTable="N" parentTypeId="" productFeatureIactnTypeId="FEATURE_IACTN_DEPEND"/>
+    <ProductFeatureIactnType description="Incompatibility" hasTable="N" parentTypeId="" productFeatureIactnTypeId="FEATURE_IACTN_INCOMP"/>
+
+    <ProductFeatureType description="Accessory" hasTable="N" parentTypeId="" productFeatureTypeId="ACCESSORY"/>
+    <ProductFeatureType description="Amount" hasTable="N" parentTypeId="" productFeatureTypeId="AMOUNT"/>
+    <ProductFeatureType description="Net Weight" hasTable="N" parentTypeId="AMOUNT" productFeatureTypeId="NET_WEIGHT"/>
+    <ProductFeatureType description="Artist" hasTable="N" parentTypeId="" productFeatureTypeId="ARTIST"/>
+    <ProductFeatureType description="Billing Feature" hasTable="N" parentTypeId="" productFeatureTypeId="BILLING_FEATURE"/>
+    <ProductFeatureType description="Brand" hasTable="N" parentTypeId="" productFeatureTypeId="BRAND"/>
+    <ProductFeatureType description="Care" hasTable="N" parentTypeId="" productFeatureTypeId="CARE"/>
+    <ProductFeatureType description="Color" hasTable="N" parentTypeId="" productFeatureTypeId="COLOR"/>
+    <ProductFeatureType description="Dimension" hasTable="N" parentTypeId="" productFeatureTypeId="DIMENSION"/>
+    <ProductFeatureType description="Equipment Class" hasTable="N" parentTypeId="" productFeatureTypeId="EQUIP_CLASS"/>
+    <ProductFeatureType description="Fabric" hasTable="N" parentTypeId="" productFeatureTypeId="FABRIC"/>
+    <ProductFeatureType description="Genre" hasTable="N" parentTypeId="" productFeatureTypeId="GENRE"/>
+    <ProductFeatureType description="Gift Wrap" hasTable="N" parentTypeId="" productFeatureTypeId="GIFT_WRAP"/>
+    <ProductFeatureType description="Hardware Feature" hasTable="N" parentTypeId="" productFeatureTypeId="HARDWARE_FEATURE"/>
+    <ProductFeatureType description="Hazmat" hasTable="N" parentTypeId="" productFeatureTypeId="HAZMAT"/>
+    <ProductFeatureType description="License" hasTable="N" parentTypeId="" productFeatureTypeId="LICENSE"/>
+    <ProductFeatureType description="Origin" hasTable="N" parentTypeId="" productFeatureTypeId="ORIGIN"/>
+    <ProductFeatureType description="Other Feature" hasTable="N" parentTypeId="" productFeatureTypeId="OTHER_FEATURE"/>
+    <ProductFeatureType description="Product Quality" hasTable="N" parentTypeId="" productFeatureTypeId="PRODUCT_QUALITY"/>
+    <ProductFeatureType description="Size" hasTable="N" parentTypeId="" productFeatureTypeId="SIZE"/>
+    <ProductFeatureType description="Software Feature" hasTable="N" parentTypeId="" productFeatureTypeId="SOFTWARE_FEATURE"/>
+    <ProductFeatureType description="Style" hasTable="N" parentTypeId="" productFeatureTypeId="STYLE"/>
+    <ProductFeatureType description="Symptom" hasTable="N" parentTypeId="" productFeatureTypeId="SYMPTOM"/>
+    <ProductFeatureType description="Topic" hasTable="N" parentTypeId="" productFeatureTypeId="TOPIC"/>
+    <ProductFeatureType description="Type" hasTable="N" parentTypeId="" productFeatureTypeId="TYPE"/>
+    <ProductFeatureType description="Warranty" hasTable="N" parentTypeId="" productFeatureTypeId="WARRANTY"/>
+    <ProductFeatureType description="Model Year" hasTable="N" parentTypeId="" productFeatureTypeId="MODEL_YEAR"/>
+    <ProductFeatureType description="Year Made" hasTable="N" parentTypeId="" productFeatureTypeId="YEAR_MADE"/>
+
+    <ProductMeterType description="Speedometer" productMeterTypeId="SPEEDOMETER"/>
+    <ProductMeterType description="Tachometer" productMeterTypeId="TACHOMETER"/>
+    <ProductMeterType description="Distance Meter" productMeterTypeId="DISTANCE"/>
+    <ProductMeterType description="Motor Time Meter" productMeterTypeId="MOTOR_TIME"/>
+    <ProductMeterType description="Use Count Meter" productMeterTypeId="USE_COUNT"/>
+    <ProductMeterType description="Copy Count Meter" productMeterTypeId="COPY_COUNT"/>
+    <ProductMeterType description="Trip meter" productMeterTypeId="TRIP_METER"/>
+    <ProductMeterType description="Tachograph" productMeterTypeId="TACHOGRAPH"/>
+    <ProductMeterType description="Taximeter" productMeterTypeId="TAXIMETER"/>
+    <ProductMeterType description="Event Data Recorder" productMeterTypeId="EVENT_DATA_RECORDER"/>
+    <ProductMeterType description="Pedometer" productMeterTypeId="PEDOMETER"/>
+    <ProductMeterType description="Odometer" productMeterTypeId="ODOMETER"/>
+    
+    <ProductMaintType description="Vehicle Maintenance" productMaintTypeId="VEHICLE_MAINT" parentTypeId=""/>
+    <ProductMaintType description="Oil Change" productMaintTypeId="OIL_CHANGE" parentTypeId="VEHICLE_MAINT"/>
+    <ProductMaintType description="Serpentine Belt Replacement" productMaintTypeId="SERP_BELT" parentTypeId="VEHICLE_MAINT"/>
+    <ProductMaintType description="Re-Fuel" productMaintTypeId="REFUEL" parentTypeId="VEHICLE_MAINT"/>
+    <ProductMaintType description="Replace Battery" productMaintTypeId="REPLACE_BATTERY" parentTypeId="VEHICLE_MAINT"/>
+    <ProductMaintType description="Tune Up" productMaintTypeId="TUNE_UP" parentTypeId="VEHICLE_MAINT"/>
+    <ProductMaintType description="Check Battery" productMaintTypeId="CHECK_BATTERY" parentTypeId="VEHICLE_MAINT"/>
+    <ProductMaintType description="Chassis Lubrication" productMaintTypeId="CHASSIS_LUBE" parentTypeId="VEHICLE_MAINT"/>
+    <ProductMaintType description="Rotate Tires" productMaintTypeId="ROTATE_TIRES" parentTypeId="VEHICLE_MAINT"/>
+    
+    <ProductMaintType description="HVAC Maintenance" productMaintTypeId="HVAC_MAINT"/>
+    <ProductMaintType description="Replace Air Filter" productMaintTypeId="HVAC_REPLACE_FILTER" parentTypeId="HVAC_MAINT"/>
+    <ProductMaintType description="Check/Recharge Refrigerant" productMaintTypeId="HVAC_CHECK_REFR" parentTypeId="HVAC_MAINT"/>
+
+    <ProductMaintType description="Wash" productMaintTypeId="WASH" parentTypeId=""/>
+
+    <EnumerationType description="Product Promotion Parent Enum Type" enumTypeId="PROD_PROMO" hasTable="N" parentTypeId=""/>
+
+    <EnumerationType description="Product Promotion Input Parameter" enumTypeId="PROD_PROMO_IN_PARAM" hasTable="N" parentTypeId="PROD_PROMO"/>
+    <Enumeration description="Cart Sub-total" enumCode="ORDER_TOTAL" enumId="PPIP_ORDER_TOTAL" sequenceId="01" enumTypeId="PROD_PROMO_IN_PARAM"/>
+    <Enumeration description="Total Amount of Product" enumCode="PRODUCT_TOTAL" enumId="PPIP_PRODUCT_TOTAL" sequenceId="02" enumTypeId="PROD_PROMO_IN_PARAM"/>
+    <Enumeration description="X Amount of Product" enumCode="PRODUCT_AMOUNT" enumId="PPIP_PRODUCT_AMOUNT" sequenceId="03" enumTypeId="PROD_PROMO_IN_PARAM"/>
+    <Enumeration description="X Quantity of Product" enumCode="PRODUCT_QUANT" enumId="PPIP_PRODUCT_QUANT" sequenceId="04" enumTypeId="PROD_PROMO_IN_PARAM"/>
+    <Enumeration description="Account Days Since Created" enumCode="NEW_ACCT" enumId="PPIP_NEW_ACCT" sequenceId="05" enumTypeId="PROD_PROMO_IN_PARAM"/>
+    <Enumeration description="Party" enumCode="PARTY_ID" enumId="PPIP_PARTY_ID" sequenceId="06" enumTypeId="PROD_PROMO_IN_PARAM"/>
+    <Enumeration description="Party Group Member" enumCode="PARTY_GROUP_MEMBER" enumId="PPIP_PARTY_GRP_MEM" sequenceId="07" enumTypeId="PROD_PROMO_IN_PARAM"/>
+    <Enumeration description="Party Classification" enumCode="PARTY_CLASS" enumId="PPIP_PARTY_CLASS" sequenceId="08" enumTypeId="PROD_PROMO_IN_PARAM"/>
+    <Enumeration description="Role Type" enumCode="ROLE_TYPE" enumId="PPIP_ROLE_TYPE" sequenceId="09" enumTypeId="PROD_PROMO_IN_PARAM"/>
+    <Enumeration description="Order sub-total X in last Y Months" enumCode="ORST_HIST" enumId="PPIP_ORST_HIST" sequenceId="10" enumTypeId="PROD_PROMO_IN_PARAM"/>
+    <Enumeration description="Promotion Recurrence" enumCode="PROMO_RECURRENCE" enumId="PPIP_RECURRENCE" sequenceId="11" enumTypeId="PROD_PROMO_IN_PARAM"/>
+    <Enumeration description="Order sub-total X since beginning of current year" enumCode="ORST_YEAR" enumId="PPIP_ORST_YEAR" sequenceId="12" enumTypeId="PROD_PROMO_IN_PARAM"/>
+    <Enumeration description="Order sub-total X last year" enumCode="ORST_LAST_YEAR" enumId="PPIP_ORST_LAST_YEAR" sequenceId="13" enumTypeId="PROD_PROMO_IN_PARAM"/>
+    <Enumeration description="List Price minus Unit Price (Amount)" enumCode="LPMUP_AMT" enumId="PPIP_LPMUP_AMT" sequenceId="14" enumTypeId="PROD_PROMO_IN_PARAM"/>
+    <Enumeration description="List Price minus Unit Price (Percent)" enumCode="LPMUP_PER" enumId="PPIP_LPMUP_PER" sequenceId="15" enumTypeId="PROD_PROMO_IN_PARAM"/>
+    <Enumeration description="Shipping Total" enumCode="ORDER_SHIP_TOTAL" enumId="PPIP_ORDER_SHIPTOTAL" sequenceId="16" enumTypeId="PROD_PROMO_IN_PARAM"/>
+    <Enumeration description="Call Service" enumCode="SERVICE" enumId="PPIP_SERVICE" sequenceId="17" enumTypeId="PROD_PROMO_IN_PARAM"/>
+    <Enumeration description="Shipping Destination" enumCode="GEO_ID" enumId="PPIP_GEO_ID" sequenceId="18" enumTypeId="PROD_PROMO_IN_PARAM"/>
+
+    <EnumerationType description="Product Promotion Condition" enumTypeId="PROD_PROMO_COND" hasTable="N" parentTypeId="PROD_PROMO"/>
+    <!-- old style very technical ...
+    <Enumeration description="==" enumCode="EQ" enumId="PPC_EQ" sequenceId="01" enumTypeId="PROD_PROMO_COND"/>
+    <Enumeration description="!=" enumCode="NEQ" enumId="PPC_NEQ" sequenceId="02" enumTypeId="PROD_PROMO_COND"/>
+    <Enumeration description="&lt;" enumCode="LT" enumId="PPC_LT" sequenceId="03" enumTypeId="PROD_PROMO_COND"/>
+    <Enumeration description="&lt;=" enumCode="LTE" enumId="PPC_LTE" sequenceId="04" enumTypeId="PROD_PROMO_COND"/>
+    <Enumeration description="&gt;" enumCode="GT" enumId="PPC_GT" sequenceId="05" enumTypeId="PROD_PROMO_COND"/>
+    <Enumeration description="&gt;=" enumCode="GTE" enumId="PPC_GTE" sequenceId="06" enumTypeId="PROD_PROMO_COND"/>
+    ... new style below; less technical -->
+    <Enumeration description="Is" enumCode="EQ" enumId="PPC_EQ" sequenceId="01" enumTypeId="PROD_PROMO_COND"/>
+    <Enumeration description="Is Not" enumCode="NEQ" enumId="PPC_NEQ" sequenceId="02" enumTypeId="PROD_PROMO_COND"/>
+    <Enumeration description="Is Less Than" enumCode="LT" enumId="PPC_LT" sequenceId="03" enumTypeId="PROD_PROMO_COND"/>
+    <Enumeration description="Is Less Than or Equal To" enumCode="LTE" enumId="PPC_LTE" sequenceId="04" enumTypeId="PROD_PROMO_COND"/>
+    <Enumeration description="Is Greater Than" enumCode="GT" enumId="PPC_GT" sequenceId="05" enumTypeId="PROD_PROMO_COND"/>
+    <Enumeration description="Is Greater Than or Equal To" enumCode="GTE" enumId="PPC_GTE" sequenceId="06" enumTypeId="PROD_PROMO_COND"/>
+
+    <EnumerationType description="Product Promotion Product/Category Application Type" enumTypeId="PROD_PROMO_PCAPPL" hasTable="N" parentTypeId="PROD_PROMO"/>
+    <Enumeration description="Include" enumCode="INCLUDE" enumId="PPPA_INCLUDE" sequenceId="01" enumTypeId="PROD_PROMO_PCAPPL"/>
+    <Enumeration description="Exclude" enumCode="EXCLUDE" enumId="PPPA_EXCLUDE" sequenceId="02" enumTypeId="PROD_PROMO_PCAPPL"/>
+    <Enumeration description="Always Include" enumCode="ALWAYS" enumId="PPPA_ALWAYS" sequenceId="03" enumTypeId="PROD_PROMO_PCAPPL"/>
+
+    <EnumerationType description="Product Promotion Action" enumTypeId="PROD_PROMO_ACTION" hasTable="N" parentTypeId="PROD_PROMO"/>
+    <Enumeration description="Gift With Purchase" enumCode="GWP" enumId="PROMO_GWP" sequenceId="01" enumTypeId="PROD_PROMO_ACTION"/>
+    <!--Enumeration description="Free Shipping" enumCode="FREE_SHIPPING" enumId="PROMO_FREE_SHIPPING" sequenceId="02" enumTypeId="PROD_PROMO_ACTION"/--> <!-- free shipping promo is commented out in java code for now... -->
+    <Enumeration description="X Product for Y% Discount" enumCode="PROD_DISC" enumId="PROMO_PROD_DISC" sequenceId="03" enumTypeId="PROD_PROMO_ACTION"/>
+    <Enumeration description="X Product for Y Discount" enumCode="PROD_AMDISC" enumId="PROMO_PROD_AMDISC" sequenceId="04" enumTypeId="PROD_PROMO_ACTION"/>
+    <Enumeration description="X Product for Y Price" enumCode="PROD_PRICE" enumId="PROMO_PROD_PRICE" sequenceId="05" enumTypeId="PROD_PROMO_ACTION"/>
+    <Enumeration description="Order Percent Discount" enumCode="ORDER_PERCENT" enumId="PROMO_ORDER_PERCENT" sequenceId="06" enumTypeId="PROD_PROMO_ACTION"/>
+    <Enumeration description="Order Amount Flat" enumCode="ORDER_AMOUNT" enumId="PROMO_ORDER_AMOUNT" sequenceId="07" enumTypeId="PROD_PROMO_ACTION"/>
+    <Enumeration description="Product for [Special Promo] Price" enumCode="PROD_SPPRC" enumId="PROMO_PROD_SPPRC" sequenceId="08" enumTypeId="PROD_PROMO_ACTION"/>
+    <Enumeration description="Shipping X% discount" enumCode="SHIP_CHARGE" enumId="PROMO_SHIP_CHARGE" sequenceId="09" enumTypeId="PROD_PROMO_ACTION"/>
+    <Enumeration description="Call Service" enumCode="SERVICE" enumId="PROMO_SERVICE" sequenceId="10" enumTypeId="PROD_PROMO_ACTION"/>
+    <Enumeration description="Tax % Discount" enumCode="TAX_PERCENT" enumId="PROMO_TAX_PERCENT" sequenceId="11" enumTypeId="PROD_PROMO_ACTION"/>
+
+    <EnumerationType description="Product Rating Field Type" enumTypeId="PROD_RATING_TYPE" hasTable="N" parentTypeId=""/>
+    <Enumeration description="Min Rating" enumCode="MIN" enumId="PRDR_MIN" sequenceId="01" enumTypeId="PROD_RATING_TYPE"/>
+    <Enumeration description="Max Rating" enumCode="MAX" enumId="PRDR_MAX" sequenceId="02" enumTypeId="PROD_RATING_TYPE"/>
+    <Enumeration description="Rating Override" enumCode="FLAT" enumId="PRDR_FLAT" sequenceId="03" enumTypeId="PROD_RATING_TYPE"/>
+
+    <EnumerationType description="Virtual Variant Method" enumTypeId="PROD_VVMETHOD" hasTable="N" parentTypeId=""/>
+    <Enumeration description="Feature tree Generation" enumCode="FEATURETREE" enumId="VV_FEATURETREE" sequenceId="01" enumTypeId="PROD_VVMETHOD"/>
+    <Enumeration description="Variant Tree generation" enumCode="VARIANTTREE" enumId="VV_VARIANTTREE" sequenceId="02" enumTypeId="PROD_VVMETHOD"/>
+
+    <ProductPriceType description="List Price" productPriceTypeId="LIST_PRICE"/>
+    <ProductPriceType description="Default Price" productPriceTypeId="DEFAULT_PRICE"/>
+    <ProductPriceType description="Average Cost" productPriceTypeId="AVERAGE_COST"/>
+    <ProductPriceType description="Minimum Price" productPriceTypeId="MINIMUM_PRICE"/>
+    <ProductPriceType description="Maximum Price" productPriceTypeId="MAXIMUM_PRICE"/>
+    <ProductPriceType description="Promotional Price" productPriceTypeId="PROMO_PRICE"/>
+    <ProductPriceType description="Competitive Price" productPriceTypeId="COMPETITIVE_PRICE"/>
+    <ProductPriceType description="Wholesale Price" productPriceTypeId="WHOLESALE_PRICE"/>
+    <ProductPriceType description="Special Promo Price" productPriceTypeId="SPECIAL_PROMO_PRICE"/>
+    <ProductPriceType description="Box Price" productPriceTypeId="BOX_PRICE"/>
+    <ProductPriceType description="Minimum Order Price" productPriceTypeId="MINIMUM_ORDER_PRICE"/>
+    <ProductPriceType description="Shipping Allowance Price" productPriceTypeId="SHIPPING_ALLOWANCE"/>
+
+    <ProductPricePurpose description="Purchase/Initial" productPricePurposeId="PURCHASE"/>
+    <ProductPricePurpose description="Recurring Charge" productPricePurposeId="RECURRING_CHARGE"/>
+    <ProductPricePurpose description="Usage Charge" productPricePurposeId="USAGE_CHARGE"/>
+    <ProductPricePurpose description="Component Price" productPricePurposeId="COMPONENT_PRICE"/>
+
+    <ProductPriceActionType description="Percent Of List Price" productPriceActionTypeId="PRICE_POL"/>
+    <ProductPriceActionType description="Percent Of Default Price" productPriceActionTypeId="PRICE_POD"/>
+    <ProductPriceActionType description="Percent Of Average Cost" productPriceActionTypeId="PRICE_POAC"/>
+    <ProductPriceActionType description="Percent Of Margin" productPriceActionTypeId="PRICE_POM"/>
+    <ProductPriceActionType description="Percent Of Wholesale" productPriceActionTypeId="PRICE_POWHS"/>
+    <ProductPriceActionType description="Flat Amount Modify" productPriceActionTypeId="PRICE_FOL"/>
+    <ProductPriceActionType description="Flat Amount Override" productPriceActionTypeId="PRICE_FLAT"/>
+    <ProductPriceActionType description="Promo Amount Override" productPriceActionTypeId="PRICE_PFLAT"/>
+    <ProductPriceActionType description="Wholesale Amount Override" productPriceActionTypeId="PRICE_WFLAT"/>
+
+    <CustomMethodType customMethodTypeId="PRICE_FORMULA" description="Service with formula for calculating the unit price of a product"/>
+
+    <ProductStoreGroup productStoreGroupName="Not Applicable" description="Not Applicable" productStoreGroupId="_NA_" productStoreGroupTypeId="" primaryParentGroupId=""/>
+
+    <ProductType description="Fixed Asset Usage" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="" productTypeId="ASSET_USAGE"/>
+    <ProductType description="Service" isPhysical="N" isDigital="N" hasTable="N" parentTypeId="" productTypeId="SERVICE"/>
+    <ProductType description="Good" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="" productTypeId="GOOD"/>
+    <ProductType description="Raw Material" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="GOOD" productTypeId="RAW_MATERIAL"/>
+    <ProductType description="Subassembly" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="GOOD" productTypeId="SUBASSEMBLY"/>
+    <ProductType description="Finished Good" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="GOOD" productTypeId="FINISHED_GOOD"/>
+    <ProductType description="Digital Good" isPhysical="N" isDigital="Y" hasTable="N" parentTypeId="GOOD" productTypeId="DIGITAL_GOOD"/>
+    <ProductType description="Finished/Digital Good" isPhysical="Y" isDigital="Y" hasTable="N" parentTypeId="GOOD" productTypeId="FINDIG_GOOD"/>
+    <ProductType description="Configurable Good" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="GOOD" productTypeId="AGGREGATED"/>
+    <ProductType description="Marketing Package" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="GOOD" productTypeId="MARKETING_PKG"/>
+    <ProductType description="Marketing Package: Auto Manufactured" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="MARKETING_PKG" productTypeId="MARKETING_PKG_AUTO"/>
+    <ProductType description="Marketing Package: Pick Assembly" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="MARKETING_PKG" productTypeId="MARKETING_PKG_PICK"/>
+    <ProductType description="Work In Process" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="GOOD" productTypeId="WIP"/>
+    <ProductType description="Configurable Good Configuration" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="AGGREGATED" productTypeId="AGGREGATED_CONF"/>
+    <ProductType description="Fixed Asset Usage For Rental of an asset which is shipped from and returned to inventory" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="" productTypeId="ASSET_USAGE_OUT_IN"/>
+    <ProductType description="Service a product using inventory" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="" productTypeId="SERVICE_PRODUCT"/>
+    <ProductType description="Configurable Service using inventory" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="SERVICE_PRODUCT" productTypeId="AGGREGATED_SERVICE"/>
+    <ProductType description="Configurable Service Configuration" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="AGGREGATED" productTypeId="AGGREGATEDSERV_CONF"/>
+    
+    <EnumerationType description="Product Requirement Method" enumTypeId="PROD_REQ_METHOD" hasTable="N" parentTypeId=""/>
+    <!-- NONE: no requirement is created (default) -->
+    <Enumeration description="No Requirement Created" enumCode="NONE" enumId="PRODRQM_NONE" sequenceId="01" enumTypeId="PROD_REQ_METHOD"/>
+    <!-- AUTO: a requirement is created every time a sales order is entered; the requirement is then associated to the order item -->
+    <!--       This is useful to implement cross-dock shipping processes -->
+    <Enumeration description="Automatic For Every Sales Order" enumCode="AUTO" enumId="PRODRQM_AUTO" sequenceId="02" enumTypeId="PROD_REQ_METHOD"/>
+    <!-- STOCK: a requirement is created when qoh reaches the minimum stock quantity (from ProductFacility) -->
+    <Enumeration description="When QOH Reaches Minimum Stock for Product-Facility" enumCode="STOCK_QOH" enumId="PRODRQM_STOCK" sequenceId="03" enumTypeId="PROD_REQ_METHOD"/>
+    <!-- STOCK_ATP: a requirement is created when atp reaches the minimum stock quantity (from ProductFacility) -->
+    <Enumeration description="When ATP Reaches Minimum Stock for Product-Facility" enumCode="STOCK_ATP" enumId="PRODRQM_STOCK_ATP" sequenceId="04" enumTypeId="PROD_REQ_METHOD"/>
+    <!-- ATP: a requirement is created when atp reaches the minimum stock quantity (from ProductFacility); the requirement is then associated to the order item -->
+    <Enumeration description="Requirement for order when ATP Reaches Minimum Stock for Product-Facility" enumCode="ATP" enumId="PRODRQM_ATP" sequenceId="05" enumTypeId="PROD_REQ_METHOD"/>
+    <!-- PRODRQM_DS: a drop ship group is created to trigger automatic creation of a purchase order (drop shipment) every time a sales order is created-->
+    <Enumeration description="Drop-ship only" enumCode="DROPS" enumId="PRODRQM_DS" sequenceId="06" enumTypeId="PROD_REQ_METHOD"/>
+    <!-- PRODRQM_DSQOH: auto drop ship on low quantity on hand -->
+    <Enumeration description="Auto drop-ship on low quantity" enumCode="DROPS_ATP" enumId="PRODRQM_DSATP" sequenceId="07" enumTypeId="PROD_REQ_METHOD"/>
+
+    <!-- inventory item status -->
+    <StatusType description="Inventory Item" hasTable="N" parentTypeId="" statusTypeId="INVENTORY_ITEM_STTS"/>
+    <StatusType description="Serialized Inventory Item" hasTable="N" parentTypeId="INVENTORY_ITEM_STTS" statusTypeId="INV_SERIALIZED_STTS"/>
+    <StatusType description="Non-Serialized Inventory Item" hasTable="N" parentTypeId="INVENTORY_ITEM_STTS" statusTypeId="INV_NON_SER_STTS"/>
+    <StatusItem description="On Order" sequenceId="01" statusCode="ON_ORDER" statusId="INV_ON_ORDER" statusTypeId="INV_SERIALIZED_STTS"/>
+    <StatusItem description="Available" sequenceId="02" statusCode="AVAILABLE" statusId="INV_AVAILABLE" statusTypeId="INV_SERIALIZED_STTS"/>
+    <StatusItem description="Promised" sequenceId="03" statusCode="PROMISED" statusId="INV_PROMISED" statusTypeId="INV_SERIALIZED_STTS"/>
+    <StatusItem description="Delivered" sequenceId="04" statusCode="DELIVERED" statusId="INV_DELIVERED" statusTypeId="INV_SERIALIZED_STTS"/>
+    <StatusItem description="Activated" sequenceId="05" statusCode="ACTIVATED" statusId="INV_ACTIVATED" statusTypeId="INV_SERIALIZED_STTS"/>
+    <StatusItem description="Deactivated" sequenceId="06" statusCode="DEACTIVATED" statusId="INV_DEACTIVATED" statusTypeId="INV_SERIALIZED_STTS"/>
+    <StatusItem description="On Hold" sequenceId="07" statusCode="ON_HOLD" statusId="INV_ON_HOLD" statusTypeId="INV_SERIALIZED_STTS"/>
+    <StatusItem description="Being Transfered" sequenceId="10" statusCode="BEING_TRANSFERED" statusId="INV_BEING_TRANSFERED" statusTypeId="INV_SERIALIZED_STTS"/>
+    <StatusItem description="Being Transfered (Promised)" sequenceId="11" statusCode="BEING_TRANS_PRM" statusId="INV_BEING_TRANS_PRM" statusTypeId="INV_SERIALIZED_STTS"/>
+    <StatusItem description="Returned" sequenceId="20" statusCode="RETURNED" statusId="INV_RETURNED" statusTypeId="INV_SERIALIZED_STTS"/>
+    <StatusItem description="Defective" sequenceId="21" statusCode="DEFECTIVE" statusId="INV_DEFECTIVE" statusTypeId="INV_SERIALIZED_STTS"/>
+    <StatusItem description="On Hold (Non-Serialized)" sequenceId="01" statusCode="ON_HOLD_NS" statusId="INV_NS_ON_HOLD" statusTypeId="INV_NON_SER_STTS"/>
+    <StatusItem description="Defective (Non-Serialized)" sequenceId="02" statusCode="DEFECTIVE_NS" statusId="INV_NS_DEFECTIVE" statusTypeId="INV_NON_SER_STTS"/>
+    <StatusItem description="Returned (Non-Serialized)" sequenceId="02" statusCode="RETURNED_NS" statusId="INV_NS_RETURNED" statusTypeId="INV_NON_SER_STTS"/>
+    <StatusValidChange statusId="INV_ON_ORDER" statusIdTo="INV_AVAILABLE" transitionName="Order Arrived"/>
+    <StatusValidChange statusId="INV_AVAILABLE" statusIdTo="INV_PROMISED" transitionName="Promise"/>
+    <StatusValidChange statusId="INV_AVAILABLE" statusIdTo="INV_ON_HOLD" transitionName="Hold"/>
+    <StatusValidChange statusId="INV_AVAILABLE" statusIdTo="INV_DEFECTIVE" transitionName="Mark As Defective"/>
+    <StatusValidChange statusId="INV_AVAILABLE" statusIdTo="INV_BEING_TRANSFERED" transitionName="Being Transfered"/>
+    <StatusValidChange statusId="INV_ON_HOLD" statusIdTo="INV_AVAILABLE" transitionName="Release Hold"/>
+    <StatusValidChange statusId="INV_ON_HOLD" statusIdTo="INV_DEFECTIVE" transitionName="Mark Held Defective"/>
+    <StatusValidChange statusId="INV_BEING_TRANSFERED" statusIdTo="INV_AVAILABLE" transitionName="Transfer Complete"/>
+    <StatusValidChange statusId="INV_PROMISED" statusIdTo="INV_AVAILABLE" transitionName="Cancel Promise"/>
+    <StatusValidChange statusId="INV_PROMISED" statusIdTo="INV_DELIVERED" transitionName="Deliver"/>
+    <StatusValidChange statusId="INV_PROMISED" statusIdTo="INV_DEFECTIVE" transitionName="Mark As Defective"/>
+    <StatusValidChange statusId="INV_PROMISED" statusIdTo="INV_BEING_TRANS_PRM" transitionName="Being Transfered (Promised)"/>
+    <StatusValidChange statusId="INV_BEING_TRANS_PRM" statusIdTo="INV_PROMISED" transitionName="Transfer Complete (Promised)"/>
+    <StatusValidChange statusId="INV_DELIVERED" statusIdTo="INV_RETURNED" transitionName="Return Status Pending"/>
+    <StatusValidChange statusId="INV_RETURNED" statusIdTo="INV_AVAILABLE" transitionName="Make Return Available"/>
+    <StatusValidChange statusId="INV_RETURNED" statusIdTo="INV_ON_HOLD" transitionName="Make Return Held"/>
+    <StatusValidChange statusId="INV_RETURNED" statusIdTo="INV_DEFECTIVE" transitionName="Mark Return Defective"/>
+    <StatusValidChange statusId="INV_DELIVERED" statusIdTo="INV_ACTIVATED" transitionName="Activate"/>
+    <StatusValidChange statusId="INV_ACTIVATED" statusIdTo="INV_DEACTIVATED" transitionName="Deactivate"/>
+    <StatusValidChange statusId="INV_ACTIVATED" statusIdTo="INV_RETURNED" transitionName="Return Status Pending"/>
+    <StatusValidChange statusId="INV_DEACTIVATED" statusIdTo="INV_ON_HOLD" transitionName="Hold Inactive"/>
+    <StatusValidChange statusId="INV_DEACTIVATED" statusIdTo="INV_RETURNED" transitionName="Return Inactive"/>
+    <StatusValidChange statusId="INV_NS_RETURNED" statusIdTo="INV_NS_ON_HOLD" transitionName="Make Return Held"/>
+    <StatusValidChange statusId="INV_NS_RETURNED" statusIdTo="INV_NS_DEFECTIVE" transitionName="Mark Return Defective"/>
+
+    <!-- inventory transfer status -->
+    <StatusType description="Inventory Transfer" hasTable="N" parentTypeId="" statusTypeId="INVENTORY_XFER_STTS"/>
+    <StatusItem description="Requested" sequenceId="01" statusCode="REQUESTED" statusId="IXF_REQUESTED" statusTypeId="INVENTORY_XFER_STTS"/>
+    <StatusItem description="Scheduled" sequenceId="02" statusCode="SCHEDULED" statusId="IXF_SCHEDULED" statusTypeId="INVENTORY_XFER_STTS"/>
+    <StatusItem description="En-Route" sequenceId="03" statusCode="EN_ROUTE" statusId="IXF_EN_ROUTE" statusTypeId="INVENTORY_XFER_STTS"/>
+    <StatusItem description="Complete" sequenceId="04" statusCode="COMPLETE" statusId="IXF_COMPLETE" statusTypeId="INVENTORY_XFER_STTS"/>
+    <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="IXF_CANCELLED" statusTypeId="INVENTORY_XFER_STTS"/>
+    <StatusValidChange statusId="IXF_REQUESTED" statusIdTo="IXF_SCHEDULED" transitionName="Inventory Request Scheduled"/>
+    <StatusValidChange statusId="IXF_REQUESTED" statusIdTo="IXF_EN_ROUTE" transitionName="Inventory Request In Route"/>
+    <StatusValidChange statusId="IXF_REQUESTED" statusIdTo="IXF_COMPLETE" transitionName="Inventory Request Completed"/>
+    <StatusValidChange statusId="IXF_REQUESTED" statusIdTo="IXF_CANCELLED" transitionName="Inventory Request Cancelled"/>
+    <StatusValidChange statusId="IXF_SCHEDULED" statusIdTo="IXF_EN_ROUTE" transitionName="Scheduled Inventory In Route"/>
+    <StatusValidChange statusId="IXF_SCHEDULED" statusIdTo="IXF_COMPLETE" transitionName="Scheduled Inventory Completed"/>
+    <StatusValidChange statusId="IXF_SCHEDULED" statusIdTo="IXF_CANCELLED" transitionName="Scheduled Inventory Cancelled"/>
+    <StatusValidChange statusId="IXF_EN_ROUTE" statusIdTo="IXF_COMPLETE" transitionName="In Route Transfer Completed"/>
+
+    <!-- product review status -->
+    <StatusType description="Product Review" hasTable="N" parentTypeId="" statusTypeId="PRODUCT_REVIEW_STTS"/>
+    <StatusItem description="Pending" sequenceId="01" statusCode="PENDING" statusId="PRR_PENDING" statusTypeId="PRODUCT_REVIEW_STTS"/>
+    <StatusItem description="Approved" sequenceId="02" statusCode="APPROVED" statusId="PRR_APPROVED" statusTypeId="PRODUCT_REVIEW_STTS"/>
+    <StatusItem description="Deleted" sequenceId="99" statusCode="DELETED" statusId="PRR_DELETED" statusTypeId="PRODUCT_REVIEW_STTS"/>
+    <StatusValidChange statusId="PRR_PENDING" statusIdTo="PRR_APPROVED" transitionName="Review Approved"/>
+    <StatusValidChange statusId="PRR_PENDING" statusIdTo="PRR_DELETED" transitionName="Review Deleted"/>
+    <StatusValidChange statusId="PRR_APPROVED" statusIdTo="PRR_DELETED" transitionName="Review Deleted"/>
+
+    <VarianceReason varianceReasonId="VAR_LOST" description="Lost"/>
+    <VarianceReason varianceReasonId="VAR_STOLEN" description="Stolen"/>
+    <VarianceReason varianceReasonId="VAR_FOUND" description="Found"/>
+    <VarianceReason varianceReasonId="VAR_DAMAGED" description="Damaged"/>
+    <VarianceReason varianceReasonId="VAR_INTEGR" description="Integration"/>
+    <VarianceReason varianceReasonId="VAR_SAMPLE" description="Sample (Giveaway)"/>
+    <VarianceReason varianceReasonId="VAR_MISSHIP_ORDERED" description="Mis-shipped Item Ordered (+)"/>
+    <VarianceReason varianceReasonId="VAR_MISSHIP_SHIPPED" description="Mis-shipped Item Shipped (-)"/>
+
+    <!-- Supplier preference order for SupplierProduct entries -->
+    <SupplierPrefOrder supplierPrefOrderId="10_MAIN_SUPPL" description="Main Supplier"/>
+    <SupplierPrefOrder supplierPrefOrderId="90_ALT_SUPPL" description="Alternative Supplier"/>
+
+    <!-- product subscription type -->
+    <SubscriptionType description="Product" hasTable="N" parentTypeId="" subscriptionTypeId="PRODUCT_SUBSCR"/>
+
+    <!-- Image Management -->
+    <RoleType roleTypeId="IMAGEAPPROVER" hasTable="N" description="Image Approver"/>
+    
+    <ProductContentType description="Image" hasTable="N" parentTypeId="" productContentTypeId="IMAGE"/>
+    <ProductContentType description="Default Image" hasTable="N" parentTypeId="" productContentTypeId="DEFAULT_IMAGE"/>
+    
+    <ContentType contentTypeId="IMAGE_FRAME" description="Frame Image"/>
+    
+    <ContentAssocType contentAssocTypeId="IMAGE_THUMBNAIL" description="Image Thumbnail"/>
+    
+    <StatusType description="Image Management" hasTable="N" parentTypeId="" statusTypeId="IMAGE_MANAGEMENT_ST"/>
+    <StatusItem description="Pending" sequenceId="01" statusCode="PENDING" statusId="IM_PENDING" statusTypeId="IMAGE_MANAGEMENT_ST"/>
+    <StatusItem description="Approved" sequenceId="02" statusCode="APPROVED" statusId="IM_APPROVED" statusTypeId="IMAGE_MANAGEMENT_ST"/>
+    <StatusItem description="Rejected" sequenceId="03" statusCode="REJECTED" statusId="IM_REJECTED" statusTypeId="IMAGE_MANAGEMENT_ST"/>
+    
+    <ProductFeatureCategory productFeatureCategoryId="IMAGE" description="Image"/>
+    <ProductFeatureCategory productFeatureCategoryId="TEXT" description="Text"/>
+    
+    <ProductFeature productFeatureId="IMAGE_AVATAR" productFeatureTypeId="SIZE" productFeatureCategoryId="IMAGE" description="100 X 75 (avatar)" abbrev="100x75" defaultSequenceNum="1"/>
+    <ProductFeature productFeatureId="IMAGE_THUMBNAIL" productFeatureTypeId="SIZE" productFeatureCategoryId="IMAGE" description="150 X 112 (thumbnail)" abbrev="150x112" defaultSequenceNum="2"/>
+    <ProductFeature productFeatureId="IMAGE_WEBSITE" productFeatureTypeId="SIZE" productFeatureCategoryId="IMAGE" description="320 X 240 (for websites and email)" abbrev="320x240" defaultSequenceNum="3"/>
+    <ProductFeature productFeatureId="IMAGE_BOARD" productFeatureTypeId="SIZE" productFeatureCategoryId="IMAGE" description="640 X 480 (for message boards)" abbrev="640x480" defaultSequenceNum="4"/>
+    <ProductFeature productFeatureId="IMAGE_MONITOR15" productFeatureTypeId="SIZE" productFeatureCategoryId="IMAGE" description="800 X 600 (15-inch monitor)" abbrev="800x600" defaultSequenceNum="5"/>
+    <ProductFeature productFeatureId="IMAGE_MONITOR17" productFeatureTypeId="SIZE" productFeatureCategoryId="IMAGE" description="1024 X 768 (17-inch monitor)" abbrev="1024x768" defaultSequenceNum="6"/>
+    <ProductFeature productFeatureId="IMAGE_MONITOR19" productFeatureTypeId="SIZE" productFeatureCategoryId="IMAGE" description="1280 X 1024 (19-inch monitor)" abbrev="1280x1024" defaultSequenceNum="7"/>
+    <ProductFeature productFeatureId="IMAGE_MONITOR21" productFeatureTypeId="SIZE" productFeatureCategoryId="IMAGE" description="1600 X 1200 (21-inch monitor)" abbrev="1600x1200" defaultSequenceNum="8"/>
+    
+    <ProductFeature productFeatureId="TEXT_SMALL" productFeatureTypeId="SIZE" productFeatureCategoryId="TEXT" description="Small" defaultSequenceNum="1"/>
+    <ProductFeature productFeatureId="TEXT_MIDDLE" productFeatureTypeId="SIZE" productFeatureCategoryId="TEXT" description="Middle" defaultSequenceNum="2"/>
+    <ProductFeature productFeatureId="TEXT_LARGE" productFeatureTypeId="SIZE" productFeatureCategoryId="TEXT" description="Large" defaultSequenceNum="3"/>
+    <ProductFeature productFeatureId="TEXT_VERYLARGE" productFeatureTypeId="SIZE" productFeatureCategoryId="TEXT" description="Very Large" defaultSequenceNum="4"/>
+    
+    <ProductFeature productFeatureId="TEXT_WHITE" productFeatureTypeId="COLOR" productFeatureCategoryId="TEXT" description="White" defaultSequenceNum="1"/>
+    <ProductFeature productFeatureId="TEXT_GRAY" productFeatureTypeId="COLOR" productFeatureCategoryId="TEXT" description="Gray" defaultSequenceNum="2"/>
+    <ProductFeature productFeatureId="TEXT_BLACK" productFeatureTypeId="COLOR" productFeatureCategoryId="TEXT" description="Black" defaultSequenceNum="3"/>
+    <ProductFeature productFeatureId="TEXT_RED" productFeatureTypeId="COLOR" productFeatureCategoryId="TEXT" description="Red" defaultSequenceNum="4"/>
+    <ProductFeature productFeatureId="TEXT_GREEN" productFeatureTypeId="COLOR" productFeatureCategoryId="TEXT" description="Green" defaultSequenceNum="5"/>
+    <ProductFeature productFeatureId="TEXT_BLUE" productFeatureTypeId="COLOR" productFeatureCategoryId="TEXT" description="Blue" defaultSequenceNum="6"/>
+    <ProductFeature productFeatureId="TEXT_YELLOW" productFeatureTypeId="COLOR" productFeatureCategoryId="TEXT" description="Yellow" defaultSequenceNum="7"/>
+    
+    <EnumerationType description="Image Reject Reason" enumTypeId="IMAGE_REJECT_REASON" hasTable="N" parentTypeId=""/>
+    <Enumeration description="Re-take Photo" enumCode="RETAKE_PHOTO" enumId="RETAKE_PHOTO" sequenceId="01" enumTypeId="IMAGE_REJECT_REASON"/>
+    <Enumeration description="Remove Logo" enumCode="REMOVE_LOGO" enumId="REMOVE_LOGO" sequenceId="02" enumTypeId="IMAGE_REJECT_REASON"/>
+    <Enumeration description="Other" enumCode="OTHER" enumId="OTHER" sequenceId="03" enumTypeId="IMAGE_REJECT_REASON"/>
+    
+    <!-- Group Order -->
+    <StatusType description="Group Order Status" hasTable="N" parentTypeId="" statusTypeId="GROUP_ORDER_STATUS"/>
+    <StatusItem description="Created" sequenceId="01" statusCode="CREATED" statusId="GO_CREATED" statusTypeId="GROUP_ORDER_STATUS"/>
+    <StatusItem description="Success" sequenceId="02" statusCode="SUCCESS" statusId="GO_SUCCESS" statusTypeId="GROUP_ORDER_STATUS"/>
+    <StatusItem description="Cancelled" sequenceId="03" statusCode="CANCELLED" statusId="GO_CANCELLED" statusTypeId="GROUP_ORDER_STATUS"/>
+    
+</entity-engine-xml>

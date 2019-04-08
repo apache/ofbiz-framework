@@ -26,7 +26,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditCostCalcs"/>
                 <set field="headerItem" value="costs"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
 
@@ -42,7 +42,7 @@ under the License.
                         <screenlet id="ManufacturingCostComponentCalcPanel" title="${uiLabelMap.ManufacturingEditCostComponentCalc}" collapsible="true">
                             <include-form name="EditCostComponentCalc" location="component://manufacturing/widget/manufacturing/CostForms.xml"/>
                         </screenlet>
-                        <include-grid name="ListCostComponentCalc" location="component://manufacturing/widget/manufacturing/CostForms.xml"/>
+                        <include-form name="ListCostComponentCalc" location="component://manufacturing/widget/manufacturing/CostForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

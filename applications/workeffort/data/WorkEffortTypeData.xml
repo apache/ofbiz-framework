@@ -18,6 +18,79 @@ specific language governing permissions and limitations
 under the License.
 -->
 <entity-engine-xml>
+    <EnumerationType description="Parent Type for all Work Effort enum types" enumTypeId="WORK_EFFORT" hasTable="N" parentTypeId=""/>
+    <EnumerationType description="Parent Type for all Workflow enum types" enumTypeId="WORKFLOW" hasTable="N" parentTypeId=""/>
+
+    <EnumerationType description="Work Effort Expectation" enumTypeId="WORK_EFF_EXPECT" hasTable="N" parentTypeId="WORK_EFFORT"/>
+    <Enumeration description="For Your Information" enumCode="FYI" enumId="WEE_FYI" sequenceId="01" enumTypeId="WORK_EFF_EXPECT"/>
+    <Enumeration description="Involvement Required" enumCode="REQUIRE" enumId="WEE_REQUIRE" sequenceId="02" enumTypeId="WORK_EFF_EXPECT"/>
+    <Enumeration description="Involvement Requested" enumCode="REQUEST" enumId="WEE_REQUEST" sequenceId="03" enumTypeId="WORK_EFF_EXPECT"/>
+    <Enumeration description="Immediate Response Requested" enumCode="IMMEDIATE" enumId="WEE_IMMEDIATE" sequenceId="04" enumTypeId="WORK_EFF_EXPECT"/>
+
+    <EnumerationType description="Work Effort Delegate Reason" enumTypeId="WORK_EFF_DEL_REAS" hasTable="N" parentTypeId="WORK_EFFORT"/>
+    <Enumeration description="Need Support or Help" enumCode="NEED_HELP" enumId="WEDR_NEED_HELP" sequenceId="01" enumTypeId="WORK_EFF_DEL_REAS"/>
+    <Enumeration description="My Part Finished" enumCode="PART_FINISHED" enumId="WEDR_PART_FINISHED" sequenceId="02" enumTypeId="WORK_EFF_DEL_REAS"/>
+    <Enumeration description="Completely Finished" enumCode="WHOLE_FINISHED" enumId="WEDR_WHOLE_FINISHED" sequenceId="03" enumTypeId="WORK_EFF_DEL_REAS"/>
+
+    <EnumerationType description="Work Effort Scope Classification" enumTypeId="WORK_EFF_SCOPE" hasTable="N" parentTypeId="WORK_EFFORT"/>
+    <Enumeration description="General, public access" enumCode="PUBLIC" enumId="WES_PUBLIC" sequenceId="01" enumTypeId="WORK_EFF_SCOPE"/>
+    <Enumeration description="Restricted, private access" enumCode="PRIVATE" enumId="WES_PRIVATE" sequenceId="02" enumTypeId="WORK_EFF_SCOPE"/>
+    <Enumeration description="Very restricted, confidential access" enumCode="CONFIDENTIAL" enumId="WES_CONFIDENTIAL" sequenceId="03" enumTypeId="WORK_EFF_SCOPE"/>
+
+    <EnumerationType description="Calendar Type" enumTypeId="CALENDAR_TYPE" hasTable="N" parentTypeId=""/>
+    <Enumeration description="Personal Calendar" enumCode="PERSONAL" enumId="CAL_PERSONAL" sequenceId="01" enumTypeId="CALENDAR_TYPE"/>
+    <Enumeration description="Manufacturing Calendar" enumCode="MANUFACTURING" enumId="CAL_MANUFACTURING" sequenceId="02" enumTypeId="CALENDAR_TYPE"/>
+    <Enumeration description="None" enumId="CAL_NONE" sequenceId="03" enumTypeId="CALENDAR_TYPE"/>
+
+    <!-- workeffort status -->
+    <StatusType description="WorkEffort Asset" hasTable="N" parentTypeId="" statusTypeId="WORK_EFF_ASSET_STTS"/>
+    <StatusType description="WorkEffort Assignment" hasTable="N" parentTypeId="" statusTypeId="WORK_EFFORT_ASSIGN"/>
+    <StatusType description="Workeffort" hasTable="N" parentTypeId="" statusTypeId="WORK_EFFORT_STATUS"/>
+
+    <StatusType description="Calendar" hasTable="N" parentTypeId="WORK_EFFORT_STATUS" statusTypeId="CALENDAR_STATUS"/>
+    <StatusItem description="In Planning" sequenceId="01" statusCode="IN_PLANNING" statusId="CAL_IN_PLANNING" statusTypeId="CALENDAR_STATUS"/>
+    <StatusItem description="Planned" sequenceId="02" statusCode="PLANNED" statusId="CAL_PLANNED" statusTypeId="CALENDAR_STATUS"/>
+    <StatusItem description="Needs Action (Approved)" sequenceId="03" statusCode="NEEDS_ACTION" statusId="CAL_NEEDS_ACTION" statusTypeId="CALENDAR_STATUS"/>
+    <StatusItem description="Sent" sequenceId="04" statusCode="SENT" statusId="CAL_SENT" statusTypeId="CALENDAR_STATUS"/>
+    <StatusItem description="Declined" sequenceId="10" statusCode="DECLINED" statusId="CAL_DECLINED" statusTypeId="CALENDAR_STATUS"/>
+    <StatusItem description="Delegated" sequenceId="11" statusCode="DELEGATED" statusId="CAL_DELEGATED" statusTypeId="CALENDAR_STATUS"/>
+    <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="CAL_CANCELLED" statusTypeId="CALENDAR_STATUS"/>
+    <StatusValidChange statusId="CAL_IN_PLANNING" statusIdTo="CAL_PLANNED" transitionName="Send"/>
+    <StatusValidChange statusId="CAL_IN_PLANNING" statusIdTo="CAL_NEEDS_ACTION" transitionName="Send"/>
+    <StatusValidChange statusId="CAL_PLANNED" statusIdTo="CAL_NEEDS_ACTION" transitionName="Send"/>
+    <StatusValidChange statusId="CAL_NEEDS_ACTION" statusIdTo="CAL_SENT" transitionName="Send"/>
+    <StatusValidChange statusId="CAL_NEEDS_ACTION" statusIdTo="CAL_CANCELLED" transitionName="Cancel"/>
+    <StatusValidChange statusId="CAL_SENT" statusIdTo="CAL_DECLINED" transitionName="Decline"/>
+    <StatusValidChange statusId="CAL_SENT" statusIdTo="CAL_DELEGATED" transitionName="Delegate"/>
+    <StatusValidChange statusId="CAL_SENT" statusIdTo="CAL_CANCELLED" transitionName="Cancel"/>
+
+    <StatusType description="Task" hasTable="N" parentTypeId="CALENDAR_STATUS" statusTypeId="TASK_STATUS"/>
+    <StatusItem description="Accepted" sequenceId="01" statusCode="ACCEPTED" statusId="CAL_ACCEPTED" statusTypeId="TASK_STATUS"/>
+    <StatusItem description="Completed" sequenceId="02" statusCode="COMPLETED" statusId="CAL_COMPLETED" statusTypeId="TASK_STATUS"/>
+    <StatusValidChange statusId="CAL_NEEDS_ACTION" statusIdTo="CAL_COMPLETED" transitionName="Complete"/>
+    <StatusValidChange statusId="CAL_SENT" statusIdTo="CAL_ACCEPTED" transitionName="Accept"/>
+    <StatusValidChange statusId="CAL_ACCEPTED" statusIdTo="CAL_COMPLETED" transitionName="Complete"/>
+    <StatusValidChange statusId="CAL_ACCEPTED" statusIdTo="CAL_CANCELLED" transitionName="Cancel"/>
+    <StatusValidChange statusId="CAL_ACCEPTED" statusIdTo="CAL_DELEGATED" transitionName="Delegate"/>
+
+    <StatusType description="Event" hasTable="N" parentTypeId="CALENDAR_STATUS" statusTypeId="EVENT_STATUS"/>
+    <StatusItem description="Tentative" sequenceId="01" statusCode="TENTATIVE" statusId="CAL_TENTATIVE" statusTypeId="EVENT_STATUS"/>
+    <StatusItem description="Confirmed" sequenceId="02" statusCode="CONFIRMED" statusId="CAL_CONFIRMED" statusTypeId="EVENT_STATUS"/>
+    <StatusValidChange statusId="CAL_NEEDS_ACTION" statusIdTo="CAL_TENTATIVE" transitionName="Tentatively Plan"/>
+    <StatusValidChange statusId="CAL_NEEDS_ACTION" statusIdTo="CAL_CONFIRMED" transitionName="Confirm"/>
+    <StatusValidChange statusId="CAL_TENTATIVE" statusIdTo="CAL_ACCEPTED" transitionName="Accept"/>
+    <StatusValidChange statusId="CAL_TENTATIVE" statusIdTo="CAL_DECLINED" transitionName="Decline"/>
+    <StatusValidChange statusId="CAL_TENTATIVE" statusIdTo="CAL_DELEGATED" transitionName="Delegate"/>
+    <StatusValidChange statusId="CAL_TENTATIVE" statusIdTo="CAL_CANCELLED" transitionName="Cancel"/>
+    <StatusValidChange statusId="CAL_TENTATIVE" statusIdTo="CAL_CONFIRMED" transitionName="Confirm"/>
+    <StatusValidChange statusId="CAL_CONFIRMED" statusIdTo="CAL_COMPLETED" transitionName="Complete"/>
+
+    <StatusType description="Timesheet" hasTable="N" parentTypeId="" statusTypeId="TIMESHEET_STATUS"/>
+    <StatusItem description="In-Process" sequenceId="01" statusCode="IN_PROCESS" statusId="TIMESHEET_IN_PROCESS" statusTypeId="TIMESHEET_STATUS"/>
+    <StatusItem description="Completed" sequenceId="02" statusCode="COMPLETED" statusId="TIMESHEET_COMPLETED" statusTypeId="TIMESHEET_STATUS"/>
+    <StatusItem description="Approved" sequenceId="03" statusCode="APPROVED" statusId="TIMESHEET_APPROVED" statusTypeId="TIMESHEET_STATUS"/>
+    <StatusValidChange statusId="TIMESHEET_IN_PROCESS" statusIdTo="TIMESHEET_COMPLETED" transitionName="Confirm complete"/>
+    <StatusValidChange statusId="TIMESHEET_COMPLETED" statusIdTo="TIMESHEET_APPROVED" transitionName="Approve"/>
 
     <!-- Project Statuses -->
     <StatusType description="Project" hasTable="N" parentTypeId="WORK_EFFORT_STATUS" statusTypeId="WE_PROJECT_STATUS"/>
@@ -39,7 +112,7 @@ under the License.
     <StatusItem description="Unassigned" sequenceId="03" statusCode="UNASSIGNED" statusId="PRTYASGN_UNASSIGNED" statusTypeId="PRTYASGN_STATUS"/>
 
     <!-- Status items for WorkEffortPartyAssignment.availabilityStatusId -->
-    <StatusType description="Work Effort Party Availability" hasTable="N" statusTypeId="WEPA_AVAILABILITY"/>
+    <StatusType description="Work Effort Party Availability" hasTable="N" parentTypeId="" statusTypeId="WEPA_AVAILABILITY"/>
     <StatusItem description="Available" sequenceId="01" statusCode="AVAILABLE" statusId="WEPA_AV_AVAILABLE" statusTypeId="WEPA_AVAILABILITY"/>
     <StatusItem description="Busy" sequenceId="02" statusCode="BUSY" statusId="WEPA_AV_BUSY" statusTypeId="WEPA_AVAILABILITY"/>
     <StatusItem description="Away" sequenceId="03" statusCode="AWAY" statusId="WEPA_AV_AWAY" statusTypeId="WEPA_AVAILABILITY"/>
@@ -55,23 +128,127 @@ under the License.
     <StatusItem description="Available" sequenceId="01" statusCode="AVAILABLE" statusId="WEFA_AVAILABLE" statusTypeId="WEFA_AVAILABILITY"/>
     <StatusItem description="In Use" sequenceId="02" statusCode="BUSY" statusId="WEFA_IN_USE" statusTypeId="WEFA_AVAILABILITY"/>
 
-    <WorkEffortContentType workEffortContentTypeId="PROJECT_DISCUSSION" description="Project Discussion"/>
-    <WorkEffortContentType workEffortContentTypeId="PROJECT_UPDATE" description="Project Update"/>
-    <WorkEffortContentType workEffortContentTypeId="PROJECT_SPEC" description="Project Specification"/>
+    <WorkEffortAssocType description="Breakdown/Detail" hasTable="N" parentTypeId="" workEffortAssocTypeId="WORK_EFF_BREAKDOWN"/>
+    <WorkEffortAssocType description="Dependency" hasTable="N" parentTypeId="" workEffortAssocTypeId="WORK_EFF_DEPENDENCY"/>
+    <WorkEffortAssocType description="Concurrency" hasTable="N" parentTypeId="WORK_EFF_DEPENDENCY" workEffortAssocTypeId="WORK_EFF_CONCURRENCY"/>
+    <WorkEffortAssocType description="Precedency" hasTable="N" parentTypeId="WORK_EFF_DEPENDENCY" workEffortAssocTypeId="WORK_EFF_PRECEDENCY"/>
+    <WorkEffortAssocType description="Template of" hasTable="N" parentTypeId="" workEffortAssocTypeId="WORK_EFF_TEMPLATE"/>
+    <!-- For Routing definition, (workEffort Template) -->
+    <WorkEffortAssocType description="Routing and Routing Task Association" hasTable="N" parentTypeId="" workEffortAssocTypeId="ROUTING_COMPONENT"/>
+
+    <WorkEffortContentType workEffortContentTypeId="PROJECT_DISCUSSION" description="Project Discussion" parentTypeId=""/>
+    <WorkEffortContentType workEffortContentTypeId="PROJECT_UPDATE" description="Project Update" parentTypeId=""/>
+    <WorkEffortContentType workEffortContentTypeId="PROJECT_SPEC" description="Project Specification" parentTypeId=""/>
+    <WorkEffortContentType workEffortContentTypeId="PROPOSAL_MEDIA" description="Proposal Media" parentTypeId=""/>
+    <WorkEffortContentType workEffortContentTypeId="SUPPORTING_MEDIA" description="Supporting Media" parentTypeId=""/>
+    <WorkEffortContentType workEffortContentTypeId="CREATED_MEDIA" description="Created Media" parentTypeId=""/>
 
     <WorkEffortPurposeType description="Project" workEffortPurposeTypeId="WEPT_PROJECT"/>
     <WorkEffortPurposeType description="Phase" workEffortPurposeTypeId="WEPT_PHASE"/>
+    <WorkEffortPurposeType description="Production Run" workEffortPurposeTypeId="WEPT_PRODUCTION_RUN"/>
+    <WorkEffortPurposeType description="Maintenance" workEffortPurposeTypeId="WEPT_MAINTENANCE"/>
+    <WorkEffortPurposeType description="Research" workEffortPurposeTypeId="WEPT_RESEARCH"/>
+    <WorkEffortPurposeType description="Meeting" workEffortPurposeTypeId="WEPT_MEETING"/>
+    <WorkEffortPurposeType description="Development" workEffortPurposeTypeId="WEPT_DEVELOPMENT"/>
+    <WorkEffortPurposeType description="Support" workEffortPurposeTypeId="WEPT_SUPPORT"/>
+    <WorkEffortPurposeType description="Deployment" workEffortPurposeTypeId="WEPT_DEPLOYMENT"/>
+    
+    <WorkEffortPurposeType description="Warehousing" workEffortPurposeTypeId="WEPT_WAREHOUSING"/>
+    
+    <WorkEffortPurposeType description="Manufacturing" workEffortPurposeTypeId="ROU_MANUFACTURING"/>
+    <WorkEffortPurposeType description="Assembling" workEffortPurposeTypeId="ROU_ASSEMBLING"/>
+    <WorkEffortPurposeType description="Sub-contracting" workEffortPurposeTypeId="ROU_SUBCONTRACTING"/>
 
-    <WorkEffortType description="Workflow Process" hasTable="N" workEffortTypeId="WORK_FLOW"/>
-    <WorkEffortType description="Workflow Activity" hasTable="N" workEffortTypeId="ACTIVITY"/>
-    <WorkEffortType description="Task" hasTable="N" workEffortTypeId="TASK"/>
-    <WorkEffortType description="Milestone" hasTable="N" workEffortTypeId="MILESTONE"/>
-    <WorkEffortType description="Available" hasTable="N" workEffortTypeId="AVAILABLE"/>
-    <WorkEffortType description="Program" hasTable="N" workEffortTypeId="PROGRAM"/>
-    <WorkEffortType description="Project" hasTable="N" workEffortTypeId="PROJECT"/>
-    <WorkEffortType description="Project Phase" hasTable="N" workEffortTypeId="PHASE"/>
+    <WorkEffortPurposeType description="Phone Call" workEffortPurposeTypeId="WEPT_TASK_PHONE_CALL"/>
+    <WorkEffortPurposeType description="Email" workEffortPurposeTypeId="WEPT_TASK_EMAIL"/>
+
+    <WorkEffortType description="Workflow Process" hasTable="N" parentTypeId="" workEffortTypeId="WORK_FLOW"/>
+    <WorkEffortType description="Workflow Activity" hasTable="N" parentTypeId="" workEffortTypeId="ACTIVITY"/>
+    <WorkEffortType description="Task" hasTable="N" parentTypeId="" workEffortTypeId="TASK"/>
+    <WorkEffortType description="Milestone" hasTable="N" parentTypeId="" workEffortTypeId="MILESTONE"/>
+    <WorkEffortType description="Event" hasTable="N" parentTypeId="" workEffortTypeId="EVENT"/>
+    <WorkEffortType description="Available" hasTable="N" parentTypeId="" workEffortTypeId="AVAILABLE"/>
+    <WorkEffortType description="Program" hasTable="N" parentTypeId="" workEffortTypeId="PROGRAM"/>
+    <WorkEffortType description="Project" hasTable="N" parentTypeId="" workEffortTypeId="PROJECT"/>
+    <WorkEffortType description="Project Phase" hasTable="N" parentTypeId="" workEffortTypeId="PHASE"/>
+
+    <WorkEffortType description="Routing" hasTable="N" parentTypeId="" workEffortTypeId="ROUTING"/>
+    <WorkEffortType description="Routing Task" hasTable="N" parentTypeId="" workEffortTypeId="ROU_TASK"/>
+    <WorkEffortType description="Production Run Header" hasTable="N" parentTypeId="" workEffortTypeId="PROD_ORDER_HEADER"/>
+    <WorkEffortType description="Production Run Task" hasTable="N" parentTypeId="" workEffortTypeId="PROD_ORDER_TASK"/>
+    <WorkEffortType description="Fixed Asset Usage (rental)" hasTable="N" parentTypeId="" workEffortTypeId="ASSET_USAGE"/>
+
+    <WorkEffortType description="Business Travel" hasTable="N" parentTypeId="EVENT" workEffortTypeId="BUSINESS_TRAVEL"/>
+    <WorkEffortType description="Meeting" hasTable="N" parentTypeId="EVENT" workEffortTypeId="MEETING"/>
+    <WorkEffortType description="Training" hasTable="N" parentTypeId="EVENT" workEffortTypeId="TRAINING"/>
+    <WorkEffortType description="Personal Time Off" hasTable="N" parentTypeId="EVENT" workEffortTypeId="PERSONAL_TIMEOFF"/>
+    <WorkEffortType description="Publish Properties" hasTable="N" workEffortTypeId="PUBLISH_PROPS"/>
+    
+    <WorkEffortType description="Inbound Shipment" hasTable="N" parentTypeId="EVENT" workEffortTypeId="SHIPMENT_INBOUND"/>
+    <WorkEffortType description="Outbound Shipment" hasTable="N" parentTypeId="EVENT" workEffortTypeId="SHIPMENT_OUTBOUND"/>
+    
+    <!-- Routing status, (workEffort Template) -->
+    <StatusType description="Manufacturing Task and Routing status" hasTable="N" parentTypeId="WORK_EFFORT_STATUS" statusTypeId="ROUTING_STATUS"/>
+
+    <StatusItem description="Well defined and usable" sequenceId="01" statusCode="ACTIVE" statusId="ROU_ACTIVE" statusTypeId="ROUTING_STATUS"/>
+    <StatusItem description="Not well defined and unusable" sequenceId="02" statusCode="INACTIVE" statusId="ROU_INACTIVE" statusTypeId="ROUTING_STATUS"/>
+
+    <!-- Production Run status -->
+    <StatusType description="Production Run Status" hasTable="N" parentTypeId="WORK_EFFORT_STATUS" statusTypeId="PRODUCTION_RUN"/>
+
+    <StatusItem description="Created" sequenceId="01" statusCode="CREATED" statusId="PRUN_CREATED" statusTypeId="PRODUCTION_RUN"/>
+    <StatusItem description="Scheduled" sequenceId="02" statusCode="SCHEDULED" statusId="PRUN_SCHEDULED" statusTypeId="PRODUCTION_RUN"/>
+    <StatusItem description="Confirmed" sequenceId="03" statusCode="DOC_PRINTED" statusId="PRUN_DOC_PRINTED" statusTypeId="PRODUCTION_RUN"/>
+    <StatusItem description="Running" sequenceId="04" statusCode="RUNNING" statusId="PRUN_RUNNING" statusTypeId="PRODUCTION_RUN"/>
+    <StatusItem description="Completed" sequenceId="05" statusCode="COMPLETED" statusId="PRUN_COMPLETED" statusTypeId="PRODUCTION_RUN"/>
+    <StatusItem description="Closed" sequenceId="06" statusCode="CLOSED" statusId="PRUN_CLOSED" statusTypeId="PRODUCTION_RUN"/>
+    <StatusItem description="Cancelled" sequenceId="10" statusCode="CANCELLED" statusId="PRUN_CANCELLED" statusTypeId="PRODUCTION_RUN"/>
+
+    <StatusValidChange statusId="PRUN_CREATED" statusIdTo="PRUN_DOC_PRINTED" transitionName="Confirm"/>
+    <StatusValidChange statusId="PRUN_CREATED" statusIdTo="PRUN_SCHEDULED" transitionName="Schedule"/>
+    <StatusValidChange statusId="PRUN_CREATED" statusIdTo="PRUN_RUNNING" transitionName="Start"/>
+    <StatusValidChange statusId="PRUN_SCHEDULED" statusIdTo="PRUN_DOC_PRINTED" transitionName="Confirm"/>
+    <StatusValidChange statusId="PRUN_SCHEDULED" statusIdTo="PRUN_RUNNING" transitionName="Start"/>
+    <StatusValidChange statusId="PRUN_SCHEDULED" statusIdTo="PRUN_CANCELLED" transitionName="Cancel"/>
+    <StatusValidChange statusId="PRUN_DOC_PRINTED" statusIdTo="PRUN_RUNNING" transitionName="Start"/>
+    <StatusValidChange statusId="PRUN_RUNNING" statusIdTo="PRUN_COMPLETED" transitionName="Complete"/>
+    <StatusValidChange statusId="PRUN_COMPLETED" statusIdTo="PRUN_CLOSED" transitionName="Close"/>
+    <StatusValidChange statusId="PRUN_CREATED" statusIdTo="PRUN_CANCELLED" transitionName="Cancel"/>
+    
+    <StatusValidChange statusId="ROU_ACTIVE" statusIdTo="ROU_INACTIVE" transitionName="Inactive"/>
+    <StatusValidChange statusId="ROU_INACTIVE" statusIdTo="ROU_ACTIVE" transitionName="Active"/>
+
+    <!-- ProductionRun Inventory assignement status -->
+    <WorkEffortGoodStandardType workEffortGoodStdTypeId="ROU_PROD_TEMPLATE" description="Product and Routing Association" hasTable="N" parentTypeId=""/>
+    <WorkEffortGoodStandardType workEffortGoodStdTypeId="PRUN_PROD_DELIV" description="Production Run and Product to Deliver Association" hasTable="N" parentTypeId=""/>
+    <WorkEffortGoodStandardType workEffortGoodStdTypeId="PRUNT_PROD_NEEDED" description="Production Run Task and Needed Product Association" hasTable="N" parentTypeId=""/>
+    <WorkEffortGoodStandardType workEffortGoodStdTypeId="PRUNT_PROD_DELIV" description="Production Run Task and Deliverable Product Association" hasTable="N" parentTypeId=""/>
+    <WorkEffortGoodStandardType workEffortGoodStdTypeId="GENERAL_SALES" description="Product to Represent General Sales of the WorkEffort" hasTable="N" parentTypeId=""/>
+
+    <!--  <StatusType description="WorkEffort Assignment" hasTable="N" parentTypeId="" statusTypeId="WORK_EFFORT_ASSIGN"/> -->
+    <StatusType description="Work Effort Good Standard Status" hasTable="N" parentTypeId="" statusTypeId="WEFG_STATUS"/>
+    <StatusItem description="Created" sequenceId="01" statusCode="CREATED" statusId="WEGS_CREATED" statusTypeId="WEFG_STATUS"/>
+    <StatusItem description="Completed" sequenceId="02" statusCode="COMPLETED" statusId="WEGS_COMPLETED" statusTypeId="WEFG_STATUS"/>
+    <StatusItem description="Cancelled" sequenceId="03" statusCode="CANCELLED" statusId="WEGS_CANCELLED" statusTypeId="WEFG_STATUS"/>
+
+    <!-- WorkEffort Review Status -->
+    <StatusType description="WorkEffort Review" hasTable="N" parentTypeId="" statusTypeId="WEFF_REVIEW_STTS"/>
+    <StatusItem description="Pending" sequenceId="01" statusCode="PENDING" statusId="WERV_PENDING" statusTypeId="WEFF_REVIEW_STTS"/>
+    <StatusItem description="Approved" sequenceId="02" statusCode="APPROVED" statusId="WERV_APPROVED" statusTypeId="WEFF_REVIEW_STTS"/>
+    <StatusItem description="Deleted" sequenceId="99" statusCode="DELETED" statusId="WERV_DELETED" statusTypeId="WEFF_REVIEW_STTS"/>
+    <StatusValidChange statusId="WERV_PENDING" statusIdTo="WERV_APPROVED" transitionName="Review Approved"/>
+    <StatusValidChange statusId="WERV_PENDING" statusIdTo="WERV_DELETED" transitionName="Review Deleted"/>
+    <StatusValidChange statusId="WERV_APPROVED" statusIdTo="WERV_DELETED" transitionName="Review Deleted"/>
+
+    <!-- iCalendar Data -->
+    <RoleType description="Calendar Member" hasTable="N" parentTypeId="CALENDAR_ROLE" roleTypeId="ICAL_MEMBER"/>
+    <ContactMechType contactMechTypeId="LDAP_ADDRESS" parentTypeId="ELECTRONIC_ADDRESS" hasTable="N" description="LDAP URL"/>
+    <ContactMechPurposeType contactMechPurposeTypeId="ICAL_URL" description="iCalendar URL"/>
+    <ContactMechTypePurpose contactMechPurposeTypeId="ICAL_URL" contactMechTypeId="EMAIL_ADDRESS"/>
+    <ContactMechTypePurpose contactMechPurposeTypeId="ICAL_URL" contactMechTypeId="LDAP_ADDRESS"/>
+    <ContactMechTypePurpose contactMechPurposeTypeId="ICAL_URL" contactMechTypeId="WEB_ADDRESS"/>
 
     <!-- WorkEffort Email Template Settings -->
-    <EmailTemplateSetting emailTemplateSettingId="WEFF_EVENT_REMINDER" fromAddress="ofbiztest@example.com" subject="Event Reminder"
+    <EmailTemplateSetting emailTemplateSettingId="WEFF_EVENT_REMINDER" description="" fromAddress="ofbiztest@example.com" subject="Event Reminder"
             bodyScreenLocation="component://workeffort/widget/WorkEffortScreens.xml#WorkEffortEventReminderEmail"/>
 </entity-engine-xml>

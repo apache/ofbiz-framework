@@ -40,7 +40,7 @@ under the License.
             <#assign itemType = orderItem.getRelatedOne("OrderItemType", false)!>
             <tr><td colspan="6"><hr /></td></tr>
             <tr>
-              <#if orderItem.productId?? && "_?_" == orderItem.productId>
+              <#if orderItem.productId?? && orderItem.productId == "_?_">
                 <td colspan="1" valign="top">
                   <b><div> &gt;&gt; ${orderItem.itemDescription}</div></b>
                 </td>
@@ -75,7 +75,7 @@ under the License.
               </#if>
             </tr>
             <#-- show info from workeffort if it was a rental item -->
-            <#if orderItem.orderItemTypeId?? && "RENTAL_ORDER_ITEM" == orderItem.orderItemTypeId>
+            <#if orderItem.orderItemTypeId?? && orderItem.orderItemTypeId == "RENTAL_ORDER_ITEM">
                 <#assign WorkOrderItemFulfillments = orderItem.getRelated("WorkOrderItemFulfillment", null, null, false)!>
                 <#if WorkOrderItemFulfillments?has_content>
                     <#list WorkOrderItemFulfillments as WorkOrderItemFulfillment>
@@ -95,7 +95,7 @@ under the License.
                     <b><i>${uiLabelMap.OrderAdjustment}</i>:</b> <b>${localOrderReadHelper.getAdjustmentType(orderItemAdjustment)}</b>&nbsp;
                     <#if orderItemAdjustment.description?has_content>: ${StringUtil.wrapString(orderItemAdjustment.get("description",locale))}</#if>
 
-                    <#if "SALES_TAX" == orderItemAdjustment.orderAdjustmentTypeId>
+                    <#if orderItemAdjustment.orderAdjustmentTypeId == "SALES_TAX">
                       <#if orderItemAdjustment.primaryGeoId?has_content>
                         <#assign primaryGeo = orderItemAdjustment.getRelatedOne("PrimaryGeo", true)/>
                         <#if primaryGeo.geoName?has_content>

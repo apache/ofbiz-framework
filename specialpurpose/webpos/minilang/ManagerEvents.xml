@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
+    <simple-method method-name="openTerminal" short-description="Open Terminal" login-required="true">
+        <clear-field field="posTerminalId"/>
+        <call-class-method class-name="org.apache.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="posTerminalId" type="String"/>
+        </call-class-method>
+        <if-not-empty field="webPosSession">
+            <call-object-method obj-field="webPosSession" method-name="isManagerLoggedIn" ret-field="mgrLoggedIn"/>
+            <if-compare field="mgrLoggedIn" operator="equals" value="true" type="String">
+                <call-object-method obj-field="webPosSession" method-name="getCurrentTransaction" ret-field="webPosTransaction"/>
+                <check-errors/>
+                <call-object-method obj-field="webPosTransaction" method-name="isOpen" ret-field="isOpen"/>
+                <if-compare field="isOpen" operator="equals" value="false">
+                    <call-map-processor in-map-name="parameters" out-map-name="context">
+                        <simple-map-processor name="inputValidate">
+                            <process field="startingDrawerAmount">
+                                <convert type="BigDecimal" to-field="startingDrawerAmount" replace="true" set-if-null="false">
+                                    <fail-property resource="WebPosUiLabels" property="WebPosManagerOpenTerminalDrawingAmountNotValid"/>
+                                </convert>
+                            </process>
+                        </simple-map-processor>
+                    </call-map-processor>
+                    <check-errors/>
+                    <if-empty field="context.startingDrawerAmount">
+                        <add-error><fail-property resource="WebPosUiLabels" property="WebPosManagerOpenTerminalDrawingAmountNotValid"/></add-error>
+                        <check-errors/>
+                    <else>
+                        <make-value value-field="terminalState" entity-name="PosTerminalState"/>
+                        <call-object-method obj-field="webPosSession" method-name="getId" ret-field="terminalState.posTerminalId"/>
+                        <call-class-method class-name="org.apache.ofbiz.base.util.UtilDateTime" method-name="nowTimestamp" ret-field="terminalState.openedDate"/>
+                        <call-object-method obj-field="webPosSession" method-name="getUserLoginId" ret-field="terminalState.openedByUserLoginId"/>
+                        <call-object-method obj-field="webPosTransaction" method-name="getTransactionId" ret-field="terminalState.startingTxId"/>
+                        <set from-field="context.startingDrawerAmount" field="terminalState.startingDrawerAmount" type="BigDecimal"/>
+                        <create-value value-field="terminalState"/>
+                        <check-errors/>
+                        <log level="info" message="Created PosTerminalState ${terminalState.startingTxId}"/>
+                    </else>
+                    </if-empty>
+                <else>
+                    <add-error><fail-property resource="WebPosUiLabels" property="WebPosManagerTerminalAlreadyOpened"/></add-error>
+                    <check-errors/>
+                </else>
+                </if-compare>
+            <else>
+                <add-error><fail-property resource="WebPosUiLabels" property="WebPosNotManagerLoggedIn"/></add-error>
+                <check-errors/>
+            </else>
+            </if-compare>
+        <else>
+            <add-error><fail-property resource="WebPosUiLabels" property="WebPosNotLoggedIn"/></add-error>
+            <check-errors/>
+        </else>
+        </if-not-empty>
+    </simple-method>
+    
+    <simple-method method-name="closeTerminal" short-description="Close Terminal" login-required="true">
+        <clear-field field="posTerminalId"/>
+        <call-class-method class-name="org.apache.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="posTerminalId" type="String"/>
+        </call-class-method>
+        <if-not-empty field="webPosSession">
+            <call-object-method obj-field="webPosSession" method-name="isManagerLoggedIn" ret-field="mgrLoggedIn"/>
+            <if-compare field="mgrLoggedIn" operator="equals" value="true">
+                <call-object-method obj-field="webPosSession" method-name="getCurrentTransaction" ret-field="webPosTransaction"/>
+                <check-errors/>
+                <call-object-method obj-field="webPosTransaction" method-name="getTerminalState" ret-field="terminalState"/>
+                <if-not-empty field="terminalState">
+                    <if-not-empty field="parameters.endingDrawerCashAmount">
+                        <call-map-processor in-map-name="parameters" out-map-name="context">
+                            <simple-map-processor name="inputValidate">
+                                <process field="endingDrawerCashAmount">
+                                    <convert type="BigDecimal" to-field="endingDrawerCashAmount" replace="true" set-if-null="false">
+                                        <fail-property resource="WebPosUiLabels" property="WebPosManagerOpenTerminalDrawingAmountNotValid"/>
+                                    </convert>
+                                </process>
+                            </simple-map-processor>
+                        </call-map-processor>
+                        <check-errors/>
+                        <if-empty field="context.endingDrawerCashAmount">
+                            <add-error><fail-property resource="WebPosUiLabels" property="WebPosManagerCloseTerminalCashAmountNotValid"/></add-error>
+                            <check-errors/>
+                        </if-empty>
+                    </if-not-empty>
+                    <if-not-empty field="parameters.endingDrawerCheckAmount">
+                        <call-map-processor in-map-name="parameters" out-map-name="context">
+                            <simple-map-processor name="inputValidate">
+                                <process field="endingDrawerCheckAmount">
+                                    <convert type="BigDecimal" to-field="endingDrawerCheckAmount" replace="true" set-if-null="false">
+                                        <fail-property resource="WebPosUiLabels" property="WebPosManagerCloseTerminalCheckAmountNotValid"/>
+                                    </convert>
+                                </process>
+                            </simple-map-processor>
+                        </call-map-processor>
+                        <check-errors/>
+                        <if-empty field="context.endingDrawerCheckAmount">
+                            <add-error><fail-property resource="WebPosUiLabels" property="WebPosManagerCloseTerminalCheckAmountNotValid"/></add-error>
+                            <check-errors/>
+                        </if-empty>
+                    </if-not-empty>
+                    <if-not-empty field="parameters.endingDrawerCcAmount">
+                        <call-map-processor in-map-name="parameters" out-map-name="context">
+                            <simple-map-processor name="inputValidate">
+                                <process field="endingDrawerCcAmount">
+                                    <convert type="BigDecimal" to-field="endingDrawerCcAmount" replace="true" set-if-null="false">
+                                        <fail-property resource="WebPosUiLabels" property="WebPosManagerCloseTerminalCcAmountNotValid"/>
+                                    </convert>
+                                </process>
+                            </simple-map-processor>
+                        </call-map-processor>
+                        <check-errors/>
+                        <if-empty field="context.endingDrawerCcAmount">
+                            <add-error><fail-property resource="WebPosUiLabels" property="WebPosManagerCloseTerminalCcAmountNotValid"/></add-error>
+                            <check-errors/>
+                        </if-empty>
+                    </if-not-empty>
+                    <if-not-empty field="parameters.endingDrawerGcAmount">
+                        <call-map-processor in-map-name="parameters" out-map-name="context">
+                            <simple-map-processor name="inputValidate">
+                                <process field="endingDrawerGcAmount">
+                                    <convert type="BigDecimal" to-field="endingDrawerGcAmount" replace="true" set-if-null="false">
+                                        <fail-property resource="WebPosUiLabels" property="WebPosManagerCloseTerminalGcAmounNotValidt"/>
+                                    </convert>
+                                </process>
+                            </simple-map-processor>
+                        </call-map-processor>
+                        <check-errors/>
+                        <if-empty field="context.endingDrawerGcAmount">
+                            <add-error><fail-property resource="WebPosUiLabels" property="WebPosManagerCloseTerminalGcAmounNotValidt"/></add-error>
+                            <check-errors/>
+                        </if-empty>
+                    </if-not-empty>
+                    <if-not-empty field="parameters.endingDrawerOtherAmount">
+                        <call-map-processor in-map-name="parameters" out-map-name="context">
+                            <simple-map-processor name="inputValidate">
+                                <process field="endingDrawerOtherAmount">
+                                    <convert type="BigDecimal" to-field="endingDrawerOtherAmount" replace="true" set-if-null="false">
+                                        <fail-property resource="WebPosUiLabels" property="WebPosManagerCloseTerminalOtherAmountNotValid"/>
+                                    </convert>
+                                </process>
+                            </simple-map-processor>
+                        </call-map-processor>
+                        <check-errors/>
+                        <if-empty field="context.endingDrawerOtherAmount">
+                            <add-error><fail-property resource="WebPosUiLabels" property="WebPosManagerCloseTerminalOtherAmountNotValid"/></add-error>
+                            <check-errors/>
+                        </if-empty>
+                    </if-not-empty>
+                    <call-object-method obj-field="webPosSession" method-name="getUserLoginId" ret-field="terminalState.closedByUserLoginId"/>
+                    <set field="terminalState.actualEndingCash" from-field="context.endingDrawerCashAmount" type="BigDecimal"/>
+                    <set field="terminalState.actualEndingCheck" from-field="context.endingDrawerCheckAmount" type="BigDecimal"/>
+                    <set field="terminalState.actualEndingCc" from-field="context.endingDrawerCcAmount" type="BigDecimal"/>
+                    <set field="terminalState.actualEndingGc" from-field="context.endingDrawerGcAmount" type="BigDecimal"/>
+                    <set field="terminalState.actualEndingOther" from-field="context.endingDrawerOtherAmount" type="BigDecimal"/>
+                    <call-class-method class-name="org.apache.ofbiz.base.util.UtilDateTime" method-name="nowTimestamp" ret-field="terminalState.closedDate"/>
+                    <call-object-method obj-field="webPosTransaction" method-name="getTransactionId" ret-field="terminalState.endingTxId"/>
+                    <store-value value-field="terminalState"/>
+                    <check-errors/>
+                    <log level="info" message="Close PosTerminalState ${terminalState.endingTxId}"/>
+                <else>
+                    <add-error><fail-property resource="WebPosUiLabels" property="WebPosManagerTerminalAlreadyClosed"/></add-error>
+                    <check-errors/>
+                </else>
+                </if-not-empty>
+            <else>
+                <add-error><fail-property resource="WebPosUiLabels" property="WebPosNotManagerLoggedIn"/></add-error>
+                <check-errors/>
+            </else>
+            </if-compare>
+        <else>
+            <add-error><fail-property resource="WebPosUiLabels" property="WebPosNotLoggedIn"/></add-error>
+            <check-errors/>
+        </else>
+        </if-not-empty>
+        <!-- // TODO: missing to call the printTotals and SyncCallbackAdaptor and SecurityEvents.logout(pos) -->
+    </simple-method>
+    
+    <simple-method method-name="voidOrder" short-description="Void Order" login-required="true">
+        <clear-field field="posTerminalId"/>
+        <call-class-method class-name="org.apache.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="posTerminalId" type="String"/>
+        </call-class-method>
+        <if-not-empty field="webPosSession">
+            <call-object-method obj-field="webPosSession" method-name="isManagerLoggedIn" ret-field="mgrLoggedIn"/>
+            <if-compare field="mgrLoggedIn" operator="equals" value="true">
+                <call-object-method obj-field="webPosSession" method-name="getCurrentTransaction" ret-field="webPosTransaction"/>
+                <check-errors/>
+                <call-object-method obj-field="webPosTransaction" method-name="getTerminalState" ret-field="terminalState"/>
+                <if-not-empty field="terminalState">
+                    <set field="fieldName" value="openedDate" type="String"/>
+                    <call-object-method obj-field="terminalState" method-name="getTimestamp" ret-field="openDate">
+                        <field field="fieldName" type="String"/>
+                    </call-object-method>
+                    <entity-one entity-name="OrderHeader" value-field="orderHeader">
+                        <field-map field-name="orderId" from-field="parameters.orderId"/>
+                    </entity-one>
+                    <if-not-empty field="orderHeader">
+                        <set field="fieldName" value="orderDate" type="String"/>
+                        <call-object-method obj-field="orderHeader" method-name="getTimestamp" ret-field="orderDate">
+                            <field field="fieldName" type="String"/>
+                        </call-object-method>
+                        <call-object-method obj-field="orderDate" method-name="after" ret-field="isAfter">
+                            <field field="openDate" type="Timestamp"/>
+                        </call-object-method>
+                        <if-compare field="isAfter" operator="equals" value="true">
+                            <call-object-method obj-field="webPosSession" method-name="getDispatcher" ret-field="dispatcher"/>
+                            <set field="returnOrder.orderId" from-field="parameters.orderId"/>
+                            <set field="returnOrder.returnHeaderTypeId" value="CUSTOMER_RETURN"/>
+                            <call-object-method obj-field="webPosSession" method-name="getUserLogin" ret-field="returnOrder.userLogin"/>
+                            <set field="serviceName" value="quickReturnOrder"/>
+                            <call-object-method obj-field="dispatcher" method-name="runSync" ret-field="returnResp">
+                                <field field="serviceName" type="String"/>
+                                <field field="returnOrder" type="java.util.Map"/>
+                            </call-object-method>
+                            <check-errors/>
+                            <log level="info" message="Void order ${returnResp}"/>
+                        <else>
+                            <add-error><fail-property resource="WebPosUiLabels" property="WebPosManagerVoidOrderNotValidDate"/></add-error>
+                            <check-errors/>
+                        </else>
+                        </if-compare>
+                    <else>
+                        <add-error><fail-property resource="WebPosUiLabels" property="WebPosManagerVoidOrderNotValidOrderId"/></add-error>
+                        <check-errors/>
+                    </else>
+                    </if-not-empty>
+                <else>
+                    <add-error><fail-property resource="WebPosUiLabels" property="WebPosManagerVoidOrderTerminalNotOpened"/></add-error>
+                    <check-errors/>
+                </else>
+                </if-not-empty>
+            <else>
+                <add-error><fail-property resource="WebPosUiLabels" property="WebPosNotManagerLoggedIn"/></add-error>
+                <check-errors/>
+            </else>
+            </if-compare>
+        <else>
+            <add-error><fail-property resource="WebPosUiLabels" property="WebPosNotLoggedIn"/></add-error>
+            <check-errors/>
+        </else>
+        </if-not-empty>
+        <!-- // TODO: print void receipt -->
+    </simple-method>
+    
+    <simple-method method-name="shutdown" short-description="Shutdown" login-required="true">
+        <clear-field field="posTerminalId"/>
+        <call-class-method class-name="org.apache.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="posTerminalId" type="String"/>
+        </call-class-method>
+        <if-not-empty field="webPosSession">
+            <call-object-method obj-field="webPosSession" method-name="isManagerLoggedIn" ret-field="mgrLoggedIn"/>
+            <if-compare field="mgrLoggedIn" operator="equals" value="true" type="String">
+                <call-object-method obj-field="webPosSession" method-name="logout"/>
+                <check-errors/>
+            <else>
+                <add-error><fail-property resource="WebPosUiLabels" property="WebPosNotManagerLoggedIn"/></add-error>
+                <check-errors/>
+            </else>
+            </if-compare>
+        <else>
+            <add-error><fail-property resource="WebPosUiLabels" property="WebPosNotLoggedIn"/></add-error>
+            <check-errors/>
+        </else>
+        </if-not-empty>
+    </simple-method>
+    
+    <simple-method method-name="paidOutAndIn" short-description="Paid Out and In" login-required="true">
+        <clear-field field="posTerminalId"/>
+        <call-class-method class-name="org.apache.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="posTerminalId" type="String"/>
+        </call-class-method>
+        <if-not-empty field="webPosSession">
+            <call-object-method obj-field="webPosSession" method-name="isManagerLoggedIn" ret-field="mgrLoggedIn"/>
+            <if-compare field="mgrLoggedIn" operator="equals" value="true">
+                <call-object-method obj-field="webPosSession" method-name="getCurrentTransaction" ret-field="webPosTransaction"/>
+                <check-errors/>
+                <call-object-method obj-field="webPosTransaction" method-name="isOpen" ret-field="isOpen"/>
+                <check-errors/>
+                <if-compare field="isOpen" operator="equals" value="true">
+                    <call-map-processor in-map-name="parameters" out-map-name="context">
+                        <simple-map-processor name="inputValidate">
+                            <process field="amountInOut">
+                                <convert type="BigDecimal" to-field="amountInOut" replace="true" set-if-null="false">
+                                    <fail-property resource="WebPosUiLabels" property="WebPosManagerPaidOutAndIndAmountNotValid"/>
+                                </convert>
+                            </process>
+                        </simple-map-processor>
+                    </call-map-processor>
+                    <if-not-empty field="context.amountInOut">
+                        <make-value value-field="internTx" entity-name="PosTerminalInternTx"/>
+                        <call-object-method obj-field="webPosTransaction" method-name="getTerminalLogId" ret-field="internTx.posTerminalLogId"/>
+                        <set field="internTx.paidAmount" from-field="context.amountInOut" type="BigDecimal"/>
+                        <set field="internTx.reasonComment" from-field="parameters.reasonCommentInOut"/>
+                        <if-compare field="parameters.type" operator="equals" value="IN">
+                            <set field="internTx.reasonEnumId" from-field="parameters.reasonIn"/>
+                        <else>
+                            <set field="internTx.reasonEnumId" from-field="parameters.reasonOut"/>
+                        </else>
+                        </if-compare>
+                        <create-value value-field="internTx"/>
+                        <set from-field="parameters.type" field="paidInOut"/>
+                        <call-object-method obj-field="webPosTransaction" method-name="paidInOut">
+                            <field field="paidInOut" type="String"/>
+                        </call-object-method>
+                    <else>
+                        <add-error><fail-property resource="WebPosUiLabels" property="WebPosManagerPaidOutAndIndAmountNotValid"/></add-error>
+                        <check-errors/>
+                    </else>
+                    </if-not-empty>
+                <else>
+                    <add-error><fail-property resource="WebPosUiLabels" property="WebPosManagerPaidOutAndInWithoutOpenedTransaction"/></add-error>
+                    <check-errors/>
+                </else>
+                </if-compare>
+            <else>
+                <add-error><fail-property resource="WebPosUiLabels" property="WebPosNotManagerLoggedIn"/></add-error>
+                <check-errors/>
+            </else>
+            </if-compare>
+        <else>
+            <add-error><fail-property resource="WebPosUiLabels" property="WebPosNotLoggedIn"/></add-error>
+            <check-errors/>
+        </else>
+        </if-not-empty>
+    </simple-method>
+    
+    <simple-method method-name="modifyPrice" short-description="Modify Price" login-required="true">
+        <clear-field field="posTerminalId"/>
+        <call-class-method class-name="org.apache.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="posTerminalId" type="String"/>
+        </call-class-method>
+        <if-not-empty field="webPosSession">
+            <call-object-method obj-field="webPosSession" method-name="getCurrentTransaction" ret-field="webPosTransaction"/>
+            <check-errors/>
+            <call-map-processor in-map-name="parameters" out-map-name="context">
+                <simple-map-processor name="inputValidate">
+                    <process field="price">
+                        <convert type="BigDecimal" to-field="price" replace="true" set-if-null="false">
+                            <fail-property resource="WebPosUiLabels" property="WebPosManagerModifyPriceNotValidPrice"/>
+                        </convert>
+                    </process>
+                </simple-map-processor>
+            </call-map-processor>
+            <if-not-empty field="context.price">
+                <set field="cartLineIdx" from-field="parameters.cartLineIdx" type="Integer"/>
+                <call-object-method obj-field="webPosTransaction" method-name="modifyPrice">
+                    <field field="cartLineIdx" type="int"/>
+                    <field field="context.price" type="BigDecimal"/>
+                </call-object-method>
+                <check-errors/>
+                <call-object-method obj-field="webPosTransaction" method-name="calcTax"/>
+                <check-errors/>
+            <else>
+                <add-error><fail-property resource="WebPosUiLabels" property="WebPosManagerModifyPriceNotValidPrice"/></add-error>
+                <check-errors/>
+            </else>
+            </if-not-empty>
+        <else>
+            <add-error><fail-property resource="WebPosUiLabels" property="WebPosNotLoggedIn"/></add-error>
+            <check-errors/>
+        </else>
+        </if-not-empty>
+    </simple-method>
+</simple-methods>

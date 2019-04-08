@@ -146,4 +146,9 @@ public class EntityConditionSubSelect extends EntityConditionValue {
     public void validateSql(ModelEntity modelEntity) throws GenericModelException {
         // do nothing for now
     }
+
+    @Override
+    public void visit(EntityConditionVisitor visitor) {
+        if (whereCond != null) whereCond.visit(visitor);
+    }
 }

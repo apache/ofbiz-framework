@@ -27,6 +27,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.ofbiz.base.lang.SourceMonitored;
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.ObjectType;
 import org.apache.ofbiz.base.util.UtilGenerics;
 
 /** A <code>Converter</code> factory and repository. */
@@ -34,9 +35,9 @@ import org.apache.ofbiz.base.util.UtilGenerics;
 public class Converters {
     protected static final String module = Converters.class.getName();
     protected static final String DELIMITER = "->";
-    protected static final ConcurrentHashMap<String, Converter<?, ?>> converterMap = new ConcurrentHashMap<>();
-    private static final Set<ConverterCreator> creators = new HashSet<>();
-    private static final Set<String> noConversions = new HashSet<>();
+    protected static final ConcurrentHashMap<String, Converter<?, ?>> converterMap = new ConcurrentHashMap<String, Converter<?, ?>>();
+    protected static final Set<ConverterCreator> creators = new HashSet<ConverterCreator>();
+    protected static final Set<String> noConversions = new HashSet<String>();
 
     static {
         registerCreator(new PassThruConverterCreator());
@@ -193,7 +194,7 @@ OUTER:
         sb.append(targetClass.getName());
         String key = sb.toString();
         if (converterMap.putIfAbsent(key, converter) == null) {
-            if (Debug.verboseOn()) Debug.logVerbose("Registered converter " + converter.getClass().getName(), module);
+            Debug.logVerbose("Registered converter " + converter.getClass().getName(), module);
         }
     }
 
@@ -202,10 +203,11 @@ OUTER:
         }
 
         public <S, T> Converter<S, T> createConverter(Class<S> sourceClass, Class<T> targetClass) {
-            if (targetClass.isAssignableFrom(sourceClass)) {
-                return new PassThruConverter<>(sourceClass, targetClass);
+            if (ObjectType.instanceOf(sourceClass, targetClass)) {
+                return new PassThruConverter<S, T>(sourceClass, targetClass);
+            } else {
+                return null;
             }
-            return null;
         }
     }
 

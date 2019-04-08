@@ -26,6 +26,7 @@ import java.util.concurrent.FutureTask;
 import java.util.concurrent.ScheduledExecutorService;
 
 import org.apache.ofbiz.base.concurrent.ExecutionPool;
+
 import org.apache.ofbiz.base.lang.Factory;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilObject;
@@ -33,7 +34,7 @@ import org.apache.ofbiz.base.util.UtilObject;
 /** <code>Delegator</code> factory abstract class. */
 public abstract class DelegatorFactory implements Factory<Delegator, String> {
     public static final String module = DelegatorFactory.class.getName();
-    private static final ConcurrentHashMap<String, Future<Delegator>> delegators = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<String, Future<Delegator>> delegators = new ConcurrentHashMap<String, Future<Delegator>>();
     private static final ThreadGroup DELEGATOR_THREAD_GROUP = new ThreadGroup("DelegatorFactory");
     private static final ScheduledExecutorService executor = ExecutionPool.getScheduledExecutor(DELEGATOR_THREAD_GROUP, "delegator-startup", Runtime.getRuntime().availableProcessors(), 10, true);
 
@@ -41,7 +42,10 @@ public abstract class DelegatorFactory implements Factory<Delegator, String> {
         Future<Delegator> future = getDelegatorFuture(delegatorName);
         try {
             return future.get();
-        } catch (ExecutionException | InterruptedException e) {
+        } catch (ExecutionException e) {
+            Debug.logError(e, module);
+            return null;
+        } catch (InterruptedException e) {
             Debug.logError(e, module);
             return null;
         }
@@ -50,13 +54,16 @@ public abstract class DelegatorFactory implements Factory<Delegator, String> {
     public static Future<Delegator> getDelegatorFuture(String delegatorName) {
         if (delegatorName == null) {
             delegatorName = "default";
+            //Debug.logWarning(new Exception("Location where getting delegator with null name"), "Got a getGenericDelegator call with a null delegatorName, assuming default for the name.", module);
         }
         do {
             Future<Delegator> future = delegators.get(delegatorName);
             if (future != null) {
+                //Debug.logInfo("got delegator(future(" + delegatorName + ")) from cache", module);
                 return future;
             }
-            FutureTask<Delegator> futureTask = new FutureTask<>(new DelegatorConfigurable(delegatorName));
+            FutureTask<Delegator> futureTask = new FutureTask<Delegator>(new DelegatorConfigurable(delegatorName));
+            //Debug.logInfo("putting delegator(future(" + delegatorName + ")) into cache", module);
             if (delegators.putIfAbsent(delegatorName, futureTask) != null) {
                 continue;
             }

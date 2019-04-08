@@ -57,7 +57,7 @@ under the License.
                         <section>
                             <widgets>
                                 <screenlet title="${uiLabelMap.AccountingPartyAccountsSummary}">
-                                <include-menu name="PartyGlShortCuts" location="component://accounting/widget/AccountingMenus.xml"/>
+                                <include-menu location="component://accounting/widget/AccountingMenus.xml" name="PartyGlShortCuts"/>
                                 </screenlet>
                             </widgets>
                         </section>
@@ -311,7 +311,7 @@ under the License.
                                 <not><if-empty field="acctgTransId"/></not>
                             </condition>
                             <widgets>
-                                <include-menu name="EditGlAcctgTransSubTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
+                                <include-menu location="component://accounting/widget/AccountingMenus.xml" name="EditGlAcctgTransSubTabBar"/>
                                 <section>
                                     <condition>
                                         <if-compare field="acctgTrans.isPosted" operator="equals"  value="Y"/>
@@ -350,7 +350,7 @@ under the License.
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="PageTitleUnpostedTransactions"/>
                 <set field="tabButtonItem" value="FindAcctgTrans"/>
-                <set field="labelTitleProperty" from-field="uiLabelMap.PageTitleUnpostedTransactions"/>
+                <set field="labelTitleProperty" value="${uiLabelMap.PageTitleUnpostedTransactions}"/>
                 <entity-condition entity-name="AcctgTrans" list="transactions">
                     <condition-expr field-name="isPosted" operator="not-equals" value="Y"/>
                     <order-by field-name="transactionDate"/>
@@ -375,7 +375,7 @@ under the License.
                 <set field="titleProperty" value="AccountingPrintChecks"/>
                 <set field="tabButtonItem" value="ChecksTabButton"/>
                 <set field="tabButtonItem2" value="PrintChecksTabButton"/>
-                <set field="labelTitleProperty" from-field="uiLabelMap.AccountingPrintChecks"/>
+                <set field="labelTitleProperty" value="${uiLabelMap.AccountingPrintChecks}"/>
 
                 <!-- find payments of paymentMethodType PERSONAL_CHECK or COMPANY_CHECK with statusId NOT_PAID -->
                 <entity-condition entity-name="Payment" list="payments">

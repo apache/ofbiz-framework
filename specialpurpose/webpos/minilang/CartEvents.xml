@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
+    <simple-method method-name="setPartyToCart" short-description="Set party to cart" login-required="true">
+        <clear-field field="posTerminalId"/>
+        <call-class-method class-name="org.apache.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="posTerminalId" type="String"/>
+        </call-class-method>
+        <if-not-empty field="webPosSession">
+            <call-object-method obj-field="webPosSession" method-name="getCurrentTransaction" ret-field="webPosTransaction"/>
+            <check-errors/>
+            <call-object-method obj-field="webPosSession" method-name="getCart" ret-field="cart"/>
+            <check-errors/>
+            <clear-field field="contactMechId"/>
+            <if-not-empty field="cart">
+                <set field="delegator" from-field="parameters.delegator"/>
+                <set field="partyId" from-field="parameters.partyId"/>
+                <set field="showOld" value="false" type="Boolean"/>
+                <call-class-method class-name="org.apache.ofbiz.party.contact.ContactMechWorker" method-name="getPartyContactMechValueMaps" ret-field="partyContactMechValueMaps">
+                    <field field="delegator" type="org.apache.ofbiz.entity.Delegator"/>
+                    <field field="partyId" type="String"/>
+                    <field field="showOld" type="boolean"/>
+                </call-class-method>
+                <if-not-empty field="partyContactMechValueMaps">
+                    <iterate list="partyContactMechValueMaps" entry="partyContactMechValueMap">
+                        <set field="contactMech" from-field="partyContactMechValueMap.contactMech"/>
+                        <set field="partyContactMechPurposes" from-field="partyContactMechValueMap.partyContactMechPurposes"/>
+                        <if-not-empty field="partyContactMechPurposes">
+                            <iterate list="partyContactMechPurposes" entry="partyContactMechPurpose">
+                                <if-compare-field field="partyContactMechPurpose.contactMechPurposeTypeId" operator="equals" to-field="parameters.contactMechPurposeTypeId" type="String">
+                                    <if-compare-field field="partyContactMechPurpose.contactMechId" operator="equals" to-field="parameters.contactMechId" type="String">
+                                        <set field="contactMechId" from-field="partyContactMechPurpose.contactMechId"/>
+                                    </if-compare-field>
+                                </if-compare-field>
+                            </iterate>
+                        </if-not-empty>
+                    </iterate>
+                </if-not-empty>
+                <if-empty field="contactMechId">
+                    <add-error><fail-property resource="WebPosUiLabels" property="WebPosBillingOrShippingLocationMissing"/></add-error>
+                    <check-errors/>
+                <else>
+                    <call-object-method obj-field="webPosSession" method-name="getUserLogin" ret-field="userLogin"/>
+                    <call-object-method obj-field="webPosSession" method-name="getDispatcher" ret-field="dispatcher"/>
+                    <call-object-method obj-field="cart" method-name="setUserLogin">
+                        <field field="userLogin" type="org.apache.ofbiz.entity.GenericValue"/>
+                        <field field="dispatcher" type="org.apache.ofbiz.service.LocalDispatcher"/>
+                    </call-object-method>
+                    <set field="contactMechPurposeTypeId" from-field="parameters.contactMechPurposeTypeId"/>
+                    <call-object-method obj-field="cart" method-name="addContactMech">
+                        <field field="contactMechPurposeTypeId" type="String"/>
+                        <field field="contactMechId" type="String"/>
+                    </call-object-method>
+                    <if-compare field="contactMechPurposeTypeId" operator="equals" value="SHIPPING_LOCATION">
+                        <call-object-method obj-field="cart" method-name="setShipToCustomerPartyId">
+                            <field field="partyId" type="String"/>
+                        </call-object-method>
+                    <else>
+                        <call-object-method obj-field="cart" method-name="setBillToCustomerPartyId">
+                            <field field="partyId" type="String"/>
+                        </call-object-method>
+                        <call-object-method obj-field="cart" method-name="setPlacingCustomerPartyId">
+                            <field field="partyId" type="String"/>
+                        </call-object-method>
+                    </else>
+                    </if-compare>
+                    <call-object-method obj-field="webPosTransaction" method-name="calcTax"/>
+                    <check-errors/>
+                </else>
+                </if-empty>
+            </if-not-empty>
+        <else>
+            <add-error><fail-property resource="WebPosUiLabels" property="WebPosNotLoggedIn"/></add-error>
+            <check-errors/>
+        </else>
+        </if-not-empty>
+    </simple-method>
+    
+    <simple-method method-name="addCartItem" short-description="Add Cart Item" login-required="true">
+        <clear-field field="posTerminalId"/>
+        <call-class-method class-name="org.apache.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="posTerminalId" type="String"/>
+        </call-class-method>
+        <if-not-empty field="webPosSession">
+            <call-object-method obj-field="webPosSession" method-name="getCurrentTransaction" ret-field="webPosTransaction"/>
+            <check-errors/>
+            <call-class-method class-name="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" method-name="addToCart">
+                <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+                <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+            </call-class-method>
+            <call-object-method obj-field="webPosTransaction" method-name="calcTax"/>
+            <check-errors/>
+        </if-not-empty>
+    </simple-method>
+    
+    <simple-method method-name="updateCartItem" short-description="Update Cart Item" login-required="true">
+        <clear-field field="posTerminalId"/>
+        <call-class-method class-name="org.apache.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="posTerminalId" type="String"/>
+        </call-class-method>
+        <if-not-empty field="webPosSession">
+            <call-object-method obj-field="webPosSession" method-name="getCurrentTransaction" ret-field="webPosTransaction"/>
+            <check-errors/>
+            <call-object-method obj-field="webPosSession" method-name="getCart" ret-field="cart"/>
+            <check-errors/>
+            <if-not-empty field="cart">
+                <set field="cartLineIndex" from-field="parameters.cartLineIndex" type="Integer"/>
+                <call-object-method obj-field="cart" method-name="findCartItem" ret-field="cartItem">
+                    <field field="cartLineIndex" type="int"/>
+                </call-object-method>
+                <if-not-empty field="cartItem">
+                    <set field="quantity" from-field="parameters.quantity" type="BigDecimal"/>
+                    <set field="dispatcher" from-field="parameters.dispatcher"/>
+                    <set field="triggerExternalOps" value="true" type="Boolean"/>
+                    <set field="resetShipGroup" value="true" type="Boolean"/>
+                    <set field="updateProductPrice" value="false" type="Boolean"/>
+                    <call-object-method obj-field="cartItem" method-name="setQuantity">
+                        <field field="quantity" type="BigDecimal"/>
+                        <field field="dispatcher" type="org.apache.ofbiz.service.LocalDispatcher"/>
+                        <field field="cart" type="org.apache.ofbiz.order.shoppingcart.ShoppingCart"/>
+                        <field field="triggerExternalOps" type="boolean"/>
+                        <field field="resetShipGroup" type="boolean"/>
+                        <field field="updateProductPrice" type="boolean"/>
+                    </call-object-method>
+                    <call-object-method obj-field="webPosTransaction" method-name="calcTax"/>
+                    <check-errors/>
+                </if-not-empty>
+            </if-not-empty>
+        <else>
+            <add-error><fail-property resource="WebPosUiLabels" property="WebPosNotLoggedIn"/></add-error>
+            <check-errors/>
+        </else>
+        </if-not-empty>
+    </simple-method>
+    
+    <simple-method method-name="deleteCartItem" short-description="Delete Cart Item" login-required="true">
+        <clear-field field="posTerminalId"/>
+        <call-class-method class-name="org.apache.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="posTerminalId" type="String"/>
+        </call-class-method>
+        <if-not-empty field="webPosSession">
+            <call-object-method obj-field="webPosSession" method-name="getCurrentTransaction" ret-field="webPosTransaction"/>
+            <check-errors/>
+            <call-object-method obj-field="webPosSession" method-name="getCart" ret-field="cart"/>
+            <check-errors/>
+            <if-not-empty field="cart">
+                <set field="cartLineIndex" from-field="parameters.cartLineIndex" type="Integer"/>
+                <set field="dispatcher" from-field="parameters.dispatcher"/>
+                <call-object-method obj-field="cart" method-name="removeCartItem">
+                    <field field="cartLineIndex" type="int"/>
+                    <field field="dispatcher" type="org.apache.ofbiz.service.LocalDispatcher"/>
+                </call-object-method>
+                <call-object-method obj-field="webPosTransaction" method-name="calcTax"/>
+                <check-errors/>
+            </if-not-empty>
+        <else>
+            <add-error><fail-property resource="WebPosUiLabels" property="WebPosNotLoggedIn"/></add-error>
+            <check-errors/>
+        </else>
+        </if-not-empty>
+    </simple-method>
+    
+    <simple-method method-name="getProductAndPrice" short-description="Get Product And Price" login-required="true">
+        <entity-one entity-name="Product" value-field="product">
+            <field-map field-name="productId" from-field="parameters.productId"/>
+        </entity-one>
+        <if-empty field="product">
+            <add-error><fail-property resource="WebPosUiLabels" property="WebPosCannotFindProduct"/></add-error>
+            <check-errors/>
+        <else>
+            <script>groovy:
+                    webPosSession = org.apache.ofbiz.webpos.WebPosEvents.getWebPosSession(request, null);
+                    if (webPosSession != null) {
+                        parameters.put("webPosSession", webPosSession);
+                        parameters.put("productStoreId", org.apache.ofbiz.product.store.ProductStoreWorker.getProductStoreId(request));
+                        parameters.put("catalogId", org.apache.ofbiz.product.catalog.CatalogWorker.getCurrentCatalogId(request));
+                        parameters.put("webSiteId", org.apache.ofbiz.webapp.website.WebSiteWorker.getWebSiteId(request));
+                        session = request.getSession();
+                        parameters.put("autoUserLogin", session.getAttribute("autoUserLogin"));
+                        cart = webPosSession.getCart();
+                        if (cart != null) {
+                            parameters.put("cart", cart);
+                            parameters.put("currencyId", cart.getCurrency());
+                            parameters.put("agreementId", cart.getAgreementId());
+                            parameters.put("partyId", cart.getPartyId());
+                        }
+                    }
+                </script>
+            <if-not-empty field="parameters.webPosSession">
+                <if-not-empty field="parameters.cart">
+                    <set field="priceContext.product" from-field="product"/>
+                    <set field="priceContext.prodCatalogId" from-field="parameters.catalogId"/>
+                    <set field="priceContext.currencyUomId" from-field="parameters.currencyId"/>
+                    <set field="priceContext.autoUserLogin" from-field="parameters.autoUserLogin"/>
+                    <set field="priceContext.webSiteId" from-field="parameters.webSiteId"/>
+                    <set field="priceContext.productStoreId" from-field="parameters.productStoreId"/>
+                    <set field="priceContext.checkIncludeVat" value="Y"/>
+                    <set field="priceContext.agreementId" from-field="parameters.agreementId"/>
+                    <set field="priceContext.partyId" from-field="parameters.partyId"/>
+                    <call-service service-name="calculateProductPrice" in-map-name="priceContext">
+                        <result-to-field result-name="price" field="price"/>
+                    </call-service>
+                    <field-to-request field="price" request-name="price"/>
+                    <field-to-request field="parameters.currencyId" request-name="currencyUomId"/>
+                    <field-to-request field="product" request-name="product"/>
+                </if-not-empty>
+            </if-not-empty>
+        </else>
+        </if-empty>
+    </simple-method>
+    
+    <simple-method method-name="getFormattedAmount" short-description="Get Formatted Amount" login-required="true">
+        <set field="amount" from-field="parameters.amount" type="BigDecimal" default-value="0"/>
+        <set field="isoCode" from-field="parameters.currencyId" type="String"/>
+        <set field="maximumFractionDigits" value="2" type="Integer"/>
+        <call-class-method class-name="org.apache.ofbiz.base.util.UtilFormatOut" method-name="formatCurrency" ret-field="formattedAmount">
+            <field field="amount" type="BigDecimal"/>
+            <field field="isoCode" type="String"/>
+            <field field="locale" type="Locale"/>
+            <field field="maximumFractionDigits" type="int"/>
+        </call-class-method>
+        <field-to-request field="formattedAmount" request-name="formattedAmount"/>
+    </simple-method>
+    
+    <simple-method method-name="getFormattedProductFeaturePrice" short-description="Get Formatted Product Feature Price" login-required="true">
+        <entity-and entity-name="ProductFeaturePrice" list="productFeaturePrices" filter-by-date="true">
+            <field-map field-name="productFeatureId" from-field="parameters.productFeatureId"/>
+            <field-map field-name="productPriceTypeId" from-field="parameters.productPriceTypeId"/>
+            <field-map field-name="currencyUomId" from-field="parameters.currencyUomId"/>
+        </entity-and>
+        <if-not-empty field="productFeaturePrices">
+            <first-from-list list="productFeaturePrices" entry="productFeaturePrice"/>
+            <set field="amount" from-field="productFeaturePrice.price" type="BigDecimal" default-value="0"/>
+            <set field="isoCode" from-field="productFeaturePrice.currencyUomId" type="String"/>
+            <set field="maximumFractionDigits" value="2" type="Integer"/>
+            <call-class-method class-name="org.apache.ofbiz.base.util.UtilFormatOut" method-name="formatCurrency" ret-field="formattedFeaturePrice">
+                <field field="amount" type="BigDecimal"/>
+                <field field="isoCode" type="String"/>
+                <field field="locale" type="Locale"/>
+                <field field="maximumFractionDigits" type="int"/>
+            </call-class-method>
+            <field-to-request field="formattedFeaturePrice" request-name="formattedFeaturePrice"/>
+        </if-not-empty>
+    </simple-method>
+    
+    <simple-method method-name="removeSalesRep" short-description="Remove Sales Rep from cart" login-required="true">
+        <clear-field field="posTerminalId"/>
+        <call-class-method class-name="org.apache.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="posTerminalId" type="String"/>
+        </call-class-method>
+        <if-not-empty field="webPosSession">
+            <call-object-method obj-field="webPosSession" method-name="getCart" ret-field="cart"/>
+            <check-errors/>
+            <if-not-empty field="cart">
+                <call-object-method obj-field="cart" method-name="getAdditionalPartyRoleMap" ret-field="partyRoles"/>
+                <check-errors/>
+                <set field="roleTypeId" value="SALES_REP"/>
+                <call-object-method obj-field="partyRoles" method-name="get" ret-field="partyRole">
+                    <field field="roleTypeId" type="Object"/>
+                </call-object-method>
+                <check-errors/>
+                <call-object-method obj-field="partyRole" method-name="size" ret-field="partyRoleSize"/>
+                <check-errors/>
+                <if-compare field="partyRoleSize" operator="less-equals" value="1" type="Integer">
+                    <add-error><fail-property resource="WebPosUiLabels" property="WebPosSelectOneSalesRep"/></add-error>
+                    <check-errors/>
+                <else>
+                    <set field="partyId" from-field="parameters.partyId"/>
+                    <set field="roleTypeId" value="SALES_REP"/>
+                    <call-object-method obj-field="cart" method-name="removeAdditionalPartyRole">
+                        <field field="partyId" type="String"/>
+                        <field field="roleTypeId" type="String"/>
+                    </call-object-method>
+                </else>
+                </if-compare>
+            </if-not-empty>
+        <else>
+            <add-error><fail-property resource="WebPosUiLabels" property="WebPosNotLoggedIn"/></add-error>
+            <check-errors/>
+        </else>
+        </if-not-empty>
+    </simple-method>
+    
+    <simple-method method-name="addSalesRep" short-description="Add Sales Rep to cart" login-required="true">
+        <clear-field field="posTerminalId"/>
+        <call-class-method class-name="org.apache.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="posTerminalId" type="String"/>
+        </call-class-method>
+        <if-not-empty field="webPosSession">
+            <call-object-method obj-field="webPosSession" method-name="getCart" ret-field="cart"/>
+            <check-errors/>
+            <if-not-empty field="cart">
+                <set field="partyId" from-field="parameters.partyId"/>
+                <set field="roleTypeId" value="SALES_REP"/>
+                <call-object-method obj-field="cart" method-name="addAdditionalPartyRole">
+                    <field field="partyId" type="String"/>
+                    <field field="roleTypeId" type="String"/>
+                </call-object-method>
+            </if-not-empty>
+        <else>
+            <add-error><fail-property resource="WebPosUiLabels" property="WebPosNotLoggedIn"/></add-error>
+            <check-errors/>
+        </else>
+        </if-not-empty>
+    </simple-method>
+    
+    <simple-method method-name="getShipMethods" short-description="Get shipping methods" login-required="false">
+        <clear-field field="posTerminalId"/>
+        <call-class-method class-name="org.apache.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="posTerminalId" type="String"/>
+        </call-class-method>
+        <if-not-empty field="webPosSession">
+            <call-object-method obj-field="webPosSession" method-name="getCart" ret-field="shoppingCart"/>
+            <check-errors/>
+            <set field="dispatcher" from-field="parameters.dispatcher" type="Object"/>
+            <script>groovy:
+                    import org.apache.ofbiz.order.shoppingcart.shipping.ShippingEstimateWrapper;
+                    shippingEstWpr = ShippingEstimateWrapper.getWrapper(dispatcher, shoppingCart, 0);
+                    parameters.put("shippingEstWpr", shippingEstWpr);
+            </script>
+            <set field="shippingEstWpr" from-field="parameters.shippingEstWpr"/>
+            <call-object-method obj-field="shippingEstWpr" method-name="getShippingMethods" ret-field="carrierShipmentMethodList"/>
+            <call-object-method obj-field="shoppingCart" method-name="getShipmentMethodTypeId" ret-field="shipmentMethodTypeId"/>
+            <call-object-method obj-field="shoppingCart" method-name="getCarrierPartyId" ret-field="carrierPartyId"/>
+            <call-object-method obj-field="shoppingCart" method-name="getCurrency" ret-field="currency"/>
+            <if-not-empty field="shipmentMethodTypeId">
+                <if-not-empty field="carrierPartyId">
+                     <set field="chosenShippingMethod" value="${shipmentMethodTypeId}@${carrierPartyId}"/>
+                </if-not-empty>
+            </if-not-empty>
+            <iterate list="carrierShipmentMethodList"  entry="carrierShipmentMethod">
+                <call-object-method obj-field="shippingEstWpr" method-name="getShippingEstimate" ret-field="shippingEst">
+                    <field field="carrierShipmentMethod" type="org.apache.ofbiz.entity.GenericValue"/>
+                </call-object-method>
+                <if-empty field="shippingEst">
+                    <set field="shippingEst" value="-1" type="Integer"/>
+                </if-empty>
+                <set field="negValue" value="-1" type="Integer"/>
+                <set field="shippingMethod" value="${carrierShipmentMethod.shipmentMethodTypeId}@${carrierShipmentMethod.partyId}"/>
+                <if-compare-field field="shippingEst" operator="greater" to-field="negValue">
+                    <set field="shippingDesc" value="${carrierShipmentMethod.partyId} ${carrierShipmentMethod.description} - ${shippingEst?currency(${currency})}"/>
+                <else>
+                    <set field="shippingDesc" value="${carrierShipmentMethod.partyId} ${carrierShipmentMethod.description} - ${uiLabelMap.OrderCalculatedOffline}"/>
+                </else>
+                </if-compare-field>
+                <set field="shippingOptionMap.shippingMethod" from-field="shippingMethod"/>
+                <set field="shippingOptionMap.shippingDesc" from-field="shippingDesc"/>
+                <if-not-empty field="carrierShipmentMethod.productStoreShipMethId">
+                    <set field="shippingOptionMap.productStoreShipMethId" from-field="carrierShipmentMethod.productStoreShipMethId"/>
+                </if-not-empty>
+                <field-to-list field="shippingOptionMap" list="shippingOptions"/>
+                <clear-field field="shippingOptionMap"/>
+            </iterate>
+            <set field="parameters.shippingOptions" from-field="shippingOptions"/>
+            <field-to-request field="parameters.shippingOptions" request-name="shippingOptions"/>
+        </if-not-empty>
+    </simple-method>
+
+    <simple-method method-name="setShipMethod" short-description="Set ship method" login-required="false">
+        <clear-field field="posTerminalId"/>
+        <call-class-method class-name="org.apache.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="posTerminalId" type="String"/>
+        </call-class-method>
+        <if-not-empty field="webPosSession">
+            <call-object-method obj-field="webPosSession" method-name="getCart" ret-field="shoppingCart"/>
+            <check-errors/>
+            <call-object-method obj-field="webPosSession" method-name="getCurrentTransaction" ret-field="webPosTransaction"/>
+            <check-errors/>
+            <script>groovy:
+                shippingMethod = parameters.get("shipMethod");
+                if(shippingMethod != null) {
+                    shipmentMethodTypeId = shippingMethod.substring(0, shippingMethod.indexOf("@"));
+                    if (shippingMethod.indexOf(":") != -1) {
+                        carrierPartyId = shippingMethod.substring(shippingMethod.indexOf("@")+1, shippingMethod.indexOf(":"));
+                        productStoreShipMethId =  shippingMethod.substring(shippingMethod.indexOf(":")+1);
+                        parameters.put("productStoreShipMethId", productStoreShipMethId);
+                    } else {
+                        carrierPartyId = shippingMethod.substring(shippingMethod.indexOf("@")+1);
+                    }
+                    parameters.put("shipmentMethodTypeId", shipmentMethodTypeId);
+                    parameters.put("carrierPartyId", carrierPartyId);
+                }
+            </script>
+            <set field="shipmentMethodTypeId" from-field="parameters.shipmentMethodTypeId"/>
+            <set field="carrierPartyId" from-field="parameters.carrierPartyId"/>
+            <set field="productStoreShipMethId" from-field="parameters.productStoreShipMethId"/>
+            <entity-one entity-name="CarrierAndShipmentMethod" value-field="shipmentMethod">
+                <field-map field-name="shipmentMethodTypeId" from-field="shipmentMethodTypeId"/>
+                <field-map field-name="partyId" from-field="carrierPartyId"/>
+                <field-map field-name="roleTypeId" value="CARRIER"/>
+            </entity-one>
+            <field-to-request field="shipmentMethod.description" request-name="shippingDescription"/>
+            <call-object-method obj-field="shoppingCart" method-name="setAllShipmentMethodTypeId">
+                <field field="shipmentMethodTypeId"/>
+            </call-object-method>
+            <call-object-method obj-field="shoppingCart" method-name="setAllCarrierPartyId">
+                <field field="carrierPartyId"/>
+            </call-object-method>
+            <call-object-method obj-field="shoppingCart" method-name="setAllProductStoreShipMethId">
+                <field field="productStoreShipMethId"/>
+            </call-object-method>
+            <call-object-method  obj-field="shoppingCart" method-name="getCurrency" ret-field="isoCode"/>
+            <set field="dispatcher" from-field="parameters.dispatcher" type="Object"/>
+            <set field="delegator" from-field="parameters.delegator" type="Object"/>
+            <set field="locale" from-field="parameters.locale" type="Object"/>
+            <script>groovy:
+                Map shipCost = org.apache.ofbiz.order.shoppingcart.shipping.ShippingEvents.getShipGroupEstimate(dispatcher, delegator, shoppingCart, 0);
+                shippingTotal = shipCost.get("shippingTotal");
+                if (shippingTotal == null) {
+                    shippingTotal = BigDecimal.ZERO;
+                }
+                shoppingCart.setItemShipGroupEstimate(shippingTotal, 0);
+                parameters.put("shippingTotal", org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(shippingTotal, isoCode, locale));
+
+                // Calculate and add the tax adjustments
+                webPosTransaction.calcTax();
+
+                salesTax = shoppingCart.getTotalSalesTax();
+                totalSalesTax = org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(salesTax, isoCode, locale);
+                parameters.put("totalSalesTax", totalSalesTax);
+
+                cartGrandTotal = org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(shoppingCart.getGrandTotal(), isoCode, locale);
+                parameters.put("cartGrandTotal", cartGrandTotal);
+            </script>
+            <call-class-method method-name="doPromotions" class-name="org.apache.ofbiz.order.shoppingcart.product.ProductPromoWorker">
+                <field field="shoppingCart" type="org.apache.ofbiz.order.shoppingcart.ShoppingCart"/>
+                <field field="dispatcher" type="org.apache.ofbiz.service.LocalDispatcher"/>
+            </call-class-method>
+            <field-to-request field="parameters.shippingTotal" request-name="shippingTotal"/>
+            <field-to-request field="parameters.cartGrandTotal" request-name="cartGrandTotal"/>
+            <field-to-request field="parameters.totalSalesTax" request-name="totalSalesTax"/>
+        </if-not-empty>
+    </simple-method>
+</simple-methods>

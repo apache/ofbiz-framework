@@ -67,11 +67,11 @@ under the License.
     <SecurityPermission description="View general ledger accounting transaction and entries." permissionId="ACCTG_ATX_VIEW"/>
     
     <!-- add admin to SUPER permission group -->
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="ACCOUNTING_ADMIN"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="ACCOUNTING_COMM_VIEW"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="ACCOUNTING_PRINT_CHECKS"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="ACCTG_PREF_ADMIN"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="ACCTG_FX_UPDATE"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="ACCTG_ATX_ADMIN"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="ACCOUNTING_ADMIN"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="ACCOUNTING_COMM_VIEW"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="ACCOUNTING_PRINT_CHECKS"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="ACCTG_PREF_ADMIN"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="ACCTG_FX_UPDATE"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="ACCTG_ATX_ADMIN"/>
     
 </entity-engine-xml>

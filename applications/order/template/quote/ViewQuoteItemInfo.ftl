@@ -19,7 +19,7 @@ under the License.
 <div class="screenlet">
     <div class="screenlet-title-bar">
         <div class="boxlink">
-            <#if "Y" == maySelectItems?default("N")>
+            <#if maySelectItems?default("N") == "Y">
                 <a href="javascript:document.addCommonToCartForm.add_all.value='true';document.addCommonToCartForm.submit()" class="buttontext">${uiLabelMap.OrderAddAllToCart}</a>
             </#if>
         </div>
@@ -68,13 +68,13 @@ under the License.
                 <tr <#if alt_row>class="alternate-row" </#if>>
                     <td >
                         <div>
-                        <#if showQuoteManagementLinks?? && "N" == quoteItem.isPromo?default("N") && "QUO_CREATED" == quote.statusId>
+                        <#if showQuoteManagementLinks?? && quoteItem.isPromo?default("N") == "N" && quote.statusId=="QUO_CREATED">
                             <a href="<@ofbizUrl>EditQuoteItem?quoteId=${quoteItem.quoteId}&amp;quoteItemSeqId=${quoteItem.quoteItemSeqId}</@ofbizUrl>" class="buttontext">${quoteItem.quoteItemSeqId}</a>
                         <#else>
                             ${quoteItem.quoteItemSeqId}
                         </#if>
                         </div>
-                        <#assign quoteTerms = EntityQuery.use(delegator).from("QuoteTerm").where("quoteId", quoteItem.quoteId!, "quoteItemSeqId", quoteItem.quoteItemSeqId!).queryList()!>
+                        <#assign quoteTerms = delegator.findByAnd("QuoteTerm", {"quoteId" : quoteItem.quoteId, "quoteItemSeqId" : quoteItem.quoteItemSeqId}, null, false)>
                     </td>
                     <td valign="top">
                         <div>

@@ -18,8 +18,8 @@ under the License.
 -->
 <#escape x as x?xml>
 <#macro displayReturnAdjustment returnAdjustment>
-    <#local returnHeader = returnAdjustment.getRelatedOne("ReturnHeader", false)>
-    <#local adjReturnType = returnAdjustment.getRelatedOne("ReturnType", false)!>
+    <#assign returnHeader = returnAdjustment.getRelatedOne("ReturnHeader", false)>
+    <#assign adjReturnType = returnAdjustment.getRelatedOne("ReturnType", false)!>
     <fo:table-row>
     <fo:table-cell><fo:block></fo:block></fo:table-cell>
     <fo:table-cell><fo:block></fo:block></fo:table-cell>
@@ -32,7 +32,7 @@ under the License.
     <fo:table-cell padding="1mm" text-align="right"><fo:block><@ofbizCurrency amount=returnAdjustment.amount isoCode=returnHeader.currencyUomId/></fo:block></fo:table-cell>
     </fo:table-row>
     <#if returnAdjustment.amount?has_content>
-         <#local total = total + returnAdjustment.get("amount")>
+         <#assign total = total + returnAdjustment.get("amount")>
     </#if>
 </#macro>
 

@@ -33,6 +33,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
+
 public class PcChargeApi {
 
     public static final String module = PcChargeApi.class.getName();
@@ -77,8 +78,8 @@ public class PcChargeApi {
     public static final String CARD_ID_CODE = "CARD_ID_CODE";
     public static final String CVV2_CODE = "CVV2_CODE";
 
-    private static final String[] validOut = { RESULT, TRANS_DATE, AVS_CODE, CVV2_CODE, CARD_ID_CODE, TICKET };
-    private static final String[] validIn = { PROCESSOR_ID, MERCH_NUM, ACCT_NUM, EXP_DATE, TRANS_AMOUNT, TRACK_DATA,
+    protected static final String[] validOut = { RESULT, TRANS_DATE, AVS_CODE, CVV2_CODE, CARD_ID_CODE, TICKET };
+    protected static final String[] validIn = { PROCESSOR_ID, MERCH_NUM, ACCT_NUM, EXP_DATE, TRANS_AMOUNT, TRACK_DATA,
             CUSTOMER_CODE, TAX_AMOUNT, PRINT_RECEIPTS_FLAG, PERIODIC_PAYMENT_FLAG, OFFLINE_FLAG, VOID_FLAG, ZIP_CODE,
             STREET, TICKET_NUM, CARDHOLDER, TRANS_STORE, TOTAL_AUTH, MULTI_FLAG, PRESENT_FLAG, CVV2 };
 
@@ -137,8 +138,11 @@ public class PcChargeApi {
 
         String objString = null;
         try {
-            objString = (String) ObjectType.simpleTypeOrObjectConvert(value, "java.lang.String", null, null);
-        } catch (GeneralException | ClassCastException e) {
+            objString = (String) ObjectType.simpleTypeConvert(value, "java.lang.String", null, null);
+        } catch (GeneralException e) {
+            Debug.logError(e, module);
+            throw new IllegalArgumentException("Unable to convert value to String");
+        } catch (ClassCastException e) {
             Debug.logError(e, module);
             throw new IllegalArgumentException("Unable to convert value to String");
         }
@@ -182,34 +186,37 @@ public class PcChargeApi {
         byte readBuffer[] = new byte[2250];
         if (mode == MODE_IN) {
             try (Socket sock = new Socket(host, port);
-                    PrintStream ps = new PrintStream(sock.getOutputStream(), false, "UTF-8");
+                    PrintStream ps =  new PrintStream(sock.getOutputStream());
                     DataInputStream dis = new DataInputStream(sock.getInputStream())) {
-
+             
                 ps.print(this.toString());
                 ps.flush();
 
                 StringBuilder buf = new StringBuilder();
                 int size;
                 while ((size = dis.read(readBuffer)) > -1) {
-                    buf.append(new String(readBuffer, 0, size, "UTF-8"));
+                    buf.append(new String(readBuffer, 0, size));
                 }
                 Document outDoc = null;
                 try {
                     outDoc = UtilXml.readXmlDocument(buf.toString(), false);
-                } catch (ParserConfigurationException | SAXException e) {
+                } catch (ParserConfigurationException e) {
+                    throw new GeneralException(e);
+                } catch (SAXException e) {
                     throw new GeneralException(e);
                 }
                 PcChargeApi out = new PcChargeApi(outDoc);
                 return out;
             }
+        } else {
+            throw new IllegalStateException("Cannot send output object");
         }
-        throw new IllegalStateException("Cannot send output object");
-
+        
     }
 
     private boolean checkIn(String name) {
-        for (String element : validOut) {
-            if (name.equals(element)) {
+        for (int i = 0; i < validOut.length; i++) {
+            if (name.equals(validOut[i])) {
                 return false;
             }
         }
@@ -217,8 +224,8 @@ public class PcChargeApi {
     }
 
     private boolean checkOut(String name) {
-        for (String element : validIn) {
-            if (name.equals(element)) {
+        for (int i = 0; i < validIn.length; i++) {
+            if (name.equals(validIn[i])) {
                 return false;
             }
         }

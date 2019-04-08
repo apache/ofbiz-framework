@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
+
+        <simple-method method-name="testCreateProductByAdmin" short-description="" login-required="false">
+            <entity-one entity-name="UserLogin" value-field="userLogin">
+                <field-map field-name="userLoginId" value="admin"/>
+            </entity-one>
+            <set-current-user-login value-field="userLogin"/>
+            <set field="parameters.userLogin" from-field="userLogin"/>
+            <set field="parameters.internalName" value="Demo Product 1"/>
+            <set field="parameters.longDescription" value="Demo-Create-Description"/>
+            <set field="parameters.productTypeId" value="SCRUM_ITEM"/>
+            <set field="parameters.statusId" value="PRODUCT_ACTIVE"/>
+            <set field="parameters.partyId" value="DemoCustomer-1"/>
+            <set field="parameters.partyCompany" value="Demo Scrum Company[DemoScrumCompany] - Scrum Product Owner (DemoCustomer-1)"/>
+            <call-simple-method method-name="createProductAndRole" xml-resource="component://scrum/minilang/ScrumEvents.xml"/>
+        </simple-method>
+        
+        <simple-method method-name="testUpdateProductByAdmin" short-description="" login-required="false">
+            <entity-one entity-name="UserLogin" value-field="userLogin">
+                <field-map field-name="userLoginId" value="admin"/>
+            </entity-one>
+            <set-current-user-login value-field="userLogin"/>
+            <set field="parameters.userLogin" from-field="userLogin"/>
+            <set field="parameters.internalName" value="Demo Product 1"/>
+            <set field="parameters.longDescription" value="Demo-Create-Description"/>
+            <set field="parameters.productTypeId" value="SCRUM_ITEM"/>
+            <set field="parameters.statusId" value="PRODUCT_ACTIVE"/>
+            <set field="parameters.partyId" value="DemoCustomer-1"/>
+            <set field="parameters.partyCompany" value="Demo Scrum Company[DemoScrumCompany] - Scrum Product Owner (DemoCustomer-1)"/>
+            <set field="parameters.productId" value="DEMO-PRODUCT-1"/>
+            <call-simple-method method-name="updateProduct" xml-resource="component://scrum/minilang/ScrumEvents.xml"/>
+        </simple-method>
+        
+        <!-- Billing -->
+        <simple-method method-name="testAddProductTimeToNewInvoice" short-description="Test Add Product Time To New Invoice" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+                </entity-one>
+            <set field="serviceCtx.productId" value="DEMO-PRODUCT-1"/>
+            <set field="serviceCtx.partyIdFrom" value="Company"/>
+            <set field="serviceCtx.partyId" value="DemoScrumCompany"/>
+            <set field="serviceCtx.fromDate" value="2010-10-01 00:00:00.000" type="Timestamp"/>
+            <set field="serviceCtx.thruDate" value="2010-11-01 00:00:00.000" type="Timestamp"/>
+            <set field="serviceCtx.reCreate" value="N"/>
+            <set field="serviceCtx.userLogin" from-field="userLogin"/>
+            <call-service service-name="addProductTimeToNewInvoice" in-map-name="serviceCtx">
+                <result-to-field result-name="invoiceId"/>
+            </call-service>
+            
+            <entity-one entity-name="Invoice" value-field="invoiceMap">
+                <field-map field-name="invoiceId" from-field="invoiceId"/>
+            </entity-one>
+            <log level="info" message="invoiceId    ============= >>> ${invoiceMap.invoiceId}"></log>
+            <log level="info" message="partyIdFrom  ============= >>> ${invoiceMap.partyIdFrom}"></log>
+            <log level="info" message="partyId      ============= >>> ${invoiceMap.partyId}"></log>
+            <assert>
+                <not><if-empty field="invoiceId"/></not>
+                <not><if-empty field="invoiceMap"/></not>
+                <if-compare field="invoiceMap.invoiceTypeId" operator="equals" value="SALES_INVOICE" />
+                <if-compare-field field="invoiceMap.partyIdFrom" operator="equals" to-field="serviceCtx.partyIdFrom" />
+                <if-compare-field field="invoiceMap.partyId" operator="equals" to-field="serviceCtx.partyId" />
+            </assert>
+            <check-errors/>
+       </simple-method>
+</simple-methods>

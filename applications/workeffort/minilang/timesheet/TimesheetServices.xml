@@ -23,7 +23,7 @@ under the License.
 
     <!-- Timesheet Services -->
     <simple-method method-name="createTimesheet" short-description="Create Timesheet">
-        <make-value entity-name="Timesheet" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="Timesheet"/>
         <sequenced-id sequence-name="Timesheet" field="newEntity.timesheetId"/>
         <field-to-result field="newEntity.timesheetId" result-name="timesheetId"/>
 
@@ -300,7 +300,7 @@ under the License.
         <set field="ensurePartyRoleCtx.partyId" from-field="parameters.partyId"/>
         <set field="ensurePartyRoleCtx.roleTypeId" from-field="parameters.roleTypeId"/>
         <call-service service-name="ensurePartyRole" in-map-name="ensurePartyRoleCtx"/>
-        <make-value entity-name="TimesheetRole" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="TimesheetRole"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
     </simple-method>
@@ -314,7 +314,7 @@ under the License.
         <call-simple-method method-name="checkTimesheetStatus"/>
         <now-timestamp field="nowTimestamp"/>
 
-        <make-value entity-name="TimeEntry" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="TimeEntry"/>
         <sequenced-id sequence-name="TimeEntry" field="newEntity.timeEntryId"/>
         <field-to-result field="newEntity.timeEntryId" result-name="timeEntryId"/>
 

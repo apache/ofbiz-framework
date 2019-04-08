@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+    <description>Handheld Facility Demo Services</description>
+
+    <service name="tc_ProductExists" engine="simple"
+        location="component://hhfacility/minilang/FacilityServices.xml" invoke="tc_ProductExists">
+        <description>Check Product exists</description>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="tc_ReceiveProductQty" engine="simple"
+        location="component://hhfacility/minilang/FacilityServices.xml" invoke="tc_ReceiveProductQty">
+        <description>Receive Product Qty to Facility</description>
+        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="productQty" type="BigDecimal" mode="IN" optional="false"/>
+        <attribute name="productLocation" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <service name="findProductsById" engine="java"
+                location="org.apache.ofbiz.hhfacility.FacilityServices" invoke="findProductsById" auth="false">
+        <description>
+            Returns a map of products based on either productId or SKU.
+        </description>
+        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+        <attribute name="idValue" type="String" mode="IN" optional="false"/>
+        <attribute name="productList" type="List" mode="OUT" optional="true"/>
+    </service>
+
+    <service name="updateProductStocktake" engine="java"
+                location="org.apache.ofbiz.hhfacility.FacilityServices" invoke="updateProductStocktake" auth="true">
+        <description>
+            Pass this a productId, facilityId, locationSeqId and a desired QOH and it will adjust stock levels to match.
+            QOH is expected to be what you can see on the shelf.
+            Pass in locationSeqIdNew and all inventoryItems found with the above criteria will be moved to the new location.
+        </description>
+        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+        <attribute name="locationSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"/>
+        <attribute name="locationSeqIdNew" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <service name="fixProductNegativeQOH" engine="java"
+                location="org.apache.ofbiz.hhfacility.FacilityServices" invoke="fixProductNegativeQOH" auth="true">
+        <description>
+            Pass this a productId, facilityId and it will check for negative QOH values and correct them to zero.
+            ATP will be adjusted the same amount but they may still leave it below zero which can realistically happen.
+        </description>
+        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+    </service>
+
+</services>

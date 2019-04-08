@@ -45,7 +45,7 @@ under the License.
                 <input type="hidden" name="inventoryTransferId" value="${inventoryTransferId!}" />
             </#if>
 
-            <script type="application/javascript">
+            <script language="JavaScript" type="text/javascript">
                 function setNow(field) { eval('document.transferform.' + field + '.value="${nowTimestamp}"'); }
             </script>
 
@@ -97,12 +97,12 @@ under the License.
                 <td width="14%">&nbsp;</td>
                 <td width="6%" align="right" nowrap="nowrap"><span class="label">${uiLabelMap.ProductSerialAtpQoh}</span></td>
                 <td width="6%">&nbsp;</td>
-                <#if inventoryItem?? && "NON_SERIAL_INV_ITEM" == inventoryItem.inventoryItemTypeId>
+                <#if inventoryItem?? && inventoryItem.inventoryItemTypeId.equals("NON_SERIAL_INV_ITEM")>
                     <td width="74%">
                         ${(inventoryItem.availableToPromiseTotal)!}&nbsp;
                         /&nbsp;${(inventoryItem.quantityOnHandTotal)!}
                     </td>
-                <#elseif inventoryItem?? && "SERIALIZED_INV_ITEM" == inventoryItem.inventoryItemTypeId>
+                <#elseif inventoryItem?? && inventoryItem.inventoryItemTypeId.equals("SERIALIZED_INV_ITEM")>
                     <td width="74%">${(inventoryItem.serialNumber)!}</td>
                 <#elseif inventoryItem??>
                     <td class="alert" width="74%">${uiLabelMap.ProductErrorType} ${(inventoryItem.inventoryItemTypeId)!} ${uiLabelMap.ProductUnknownSpecifyType}.</td>
@@ -177,9 +177,9 @@ under the License.
                 <td width="6%" align="right" nowrap="nowrap"><span class="label">${uiLabelMap.ProductQuantityToTransfer}</span></td>
                 <td width="6%">&nbsp;</td>
                 <td width="74%">
-                <#if inventoryItem?? && "NON_SERIAL_INV_ITEM" == inventoryItem.inventoryItemTypeId>
+                <#if inventoryItem?? && inventoryItem.inventoryItemTypeId.equals("NON_SERIAL_INV_ITEM")>
                     <input type="text" size="5" name="xferQty" value="${(inventoryItem.availableToPromiseTotal)!}" />
-                <#elseif inventoryItem?? && "SERIALIZED_INV_ITEM" == inventoryItem.inventoryItemTypeId>
+                <#elseif inventoryItem?? && inventoryItem.inventoryItemTypeId.equals("SERIALIZED_INV_ITEM")>
                     <input type="hidden" name="xferQty" value="1" />
                     1
                 <#elseif inventoryItem??>

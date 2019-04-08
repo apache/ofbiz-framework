@@ -1079,7 +1079,7 @@
     <property key="OrderErrorCreateReturnHeaderWithoutId">
         <value xml:lang="ar">خلق الإسترجاع لم يرد دليل مسترجع صحيح</value>
         <value xml:lang="de">Bei der Erstellung der Retoure wurde keine gültige Retouren-Id zurückgegeben</value>
-        <value xml:lang="en">Create return did not return a valid return ID</value>
+        <value xml:lang="en">Create return did not return a valid return id</value>
         <value xml:lang="fr">La création du retour n'a pas retourné une référence valide</value>
         <value xml:lang="it">Creazione testata reso non ha ristituito in numero di reso</value>
         <value xml:lang="ja">返品作成が有効な返品IDを戻しませんでした</value>
@@ -1089,7 +1089,7 @@
     <property key="OrderErrorCreateReturnItemWithoutId">
         <value xml:lang="ar">خلق الإسترجاع لم يرد دليل تسلسلي صحيح</value>
         <value xml:lang="de">Bei der Erstellung der Retourenposition wurde keine gültige Sequenz-Id zurückgegeben</value>
-        <value xml:lang="en">Create return item did not return a valid sequence ID</value>
+        <value xml:lang="en">Create return item did not return a valid sequence id</value>
         <value xml:lang="fr">La création d'une ligne de retour n'a pas retourné une référence valide</value>
         <value xml:lang="it">Creazione riga reso non ha ristituito un numero di riga reso</value>
         <value xml:lang="ja">返品アイテム作成が有効な連番IDを戻しませんでした</value>
@@ -1838,7 +1838,7 @@
     <property key="OrderIdAlreadyExistsPleaseChooseAnother">
         <value xml:lang="ar">دليل أمر البيع\الشراء متواجد مسبقا, يرجى اختيار دليل آخر</value>
         <value xml:lang="de">Auftragsnummer schon vorhanden, bitte eine andere angeben </value>
-        <value xml:lang="en">Order ID already exists please choose another </value>
+        <value xml:lang="en">Order Id already exists please choose another </value>
         <value xml:lang="fr">Cette réf. de commande existe déjà, SVP chjoisissez en une autre </value>
         <value xml:lang="ja">注文IDはすでに存在します。別のIDを選択してください </value>
         <value xml:lang="pt-BR">ID de pedido já existe por favor escolha outro </value>
@@ -2097,9 +2097,6 @@
         <value xml:lang="zh">没有订单头，无法创建支付</value>
         <value xml:lang="zh-TW">沒有訂單頭，無法創建支付</value>
     </property>
-    <property key="OrderNoPaymentMethodTypeSelected">
-        <value xml:lang="en">No Payment Method Type selected</value>
-    </property>
     <property key="OrderNoPayToPartyIdSetOnProductStore">
         <value xml:lang="ar">لم يوضع دليل طرف الدفع على محل السلعة : ${productStoreId}</value>
         <value xml:lang="de">Kein 'Zahlung An'-Akteur bei Laden ${productStoreId} eingestellt</value>
@@ -2180,9 +2177,6 @@
         <value xml:lang="vi">Không thiết lập nào được tìm thấy</value>
         <value xml:lang="zh">没有找到设置</value>
         <value xml:lang="zh-TW">沒有找到設置</value>
-    </property>
-    <property key="OrderNoShipmentMethodSelected">
-        <value xml:lang="en">No Shipment Method selected</value>
     </property>
     <property key="OrderNoShoppingListAvailable">
         <value xml:lang="ar">قائمة التسوق غير متوفرة</value>
@@ -3180,14 +3174,6 @@
         <value xml:lang="vi">Thêm nhanh hạng mục hàng hóa đơn hàng</value>
         <value xml:lang="zh">快速添加订单明细</value>
         <value xml:lang="zh-TW">快速添加訂單明細</value>
-    </property>
-    <property key="OrderQuoteGetNextIdError">
-        <value xml:lang="en">Error during id creation</value>
-        <value xml:lang="fr">Erreur durant la création de l'ID.</value>
-    </property>
-    <property key="OrderQuoteIdAlreadyExists">
-        <value xml:lang="en">ERROR: Quote with ID ${quoteId} already exists</value>
-        <value xml:lang="fr">ERREUR : Un devis avec la référence ${quoteId} existe déjà.</value>
     </property>
     <property key="OrderQuotePercent">
         <value xml:lang="ar">نسبة عرض السعر</value>

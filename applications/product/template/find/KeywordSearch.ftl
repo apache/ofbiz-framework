@@ -32,7 +32,7 @@ under the License.
     </#if>
 
     <#if productIds?has_content>
-    <script type="application/javascript">
+    <script language="JavaScript" type="text/javascript">
         function checkProductToBagTextArea(field, idValue) {
             fullValue = idValue + "\n";
             tempStr = document.forms["quickCreateVirtualWithVariants"].elements["variantProductIdsBag"].value;
@@ -74,7 +74,7 @@ under the License.
                     <a href="<@ofbizUrl>keywordsearch/~VIEW_INDEX=${viewIndex+1}/~VIEW_SIZE=${viewSize}/~clearSearch=N/~PAGING=${paging}/~noConditionFind=${noConditionFind}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonNext}</a>
                 </#if>
             </#if>
-            <#if "Y" == paging>
+            <#if paging == "Y">
               <#if parameters.ACTIVE_PRODUCT?has_content && parameters.GOOGLE_SYNCED?has_content && parameters.DISCONTINUED_PRODUCT?has_content>
                 <a href="<@ofbizUrl>keywordsearch/~VIEW_INDEX=0/~VIEW_SIZE=99999/~clearSearch=N/~PAGING=N/~noConditionFind=${noConditionFind}/~ACTIVE_PRODUCT=${parameters.ACTIVE_PRODUCT}/~GOOGLE_SYNCED=${parameters.GOOGLE_SYNCED}/~DISCONTINUED_PRODUCT=${parameters.DISCONTINUED_PRODUCT}/~productStoreId=${parameters.productStoreId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPagingOff}</a>
               <#else>
@@ -100,14 +100,14 @@ under the License.
         <#assign rowClass = "2">
         <#list productIds as productId><#-- note that there is no boundary range because that is being done before the list is put in the content -->
           <#assign product = delegator.findOne("Product", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("productId", productId), false)>
-          <tr valign="middle"<#if "1" == rowClass> class="alternate-row"</#if>>
+          <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
             <td>
               <input type="checkbox" name="selectResult" value="${productId}" onchange="checkProductToBagTextArea(this, '${productId}');"/>
               <a href="<@ofbizUrl>EditProduct?productId=${productId}</@ofbizUrl>" class="buttontext">[${productId}] ${(product.internalName)!}</a>
             </td>
           </tr>
           <#-- toggle the row color -->
-          <#if "2" == rowClass>
+          <#if rowClass == "2">
             <#assign rowClass = "1">
           <#else>
             <#assign rowClass = "2">
@@ -138,7 +138,7 @@ under the License.
                     <a href="<@ofbizUrl>keywordsearch/~VIEW_INDEX=${viewIndex+1}/~VIEW_SIZE=${viewSize}/~clearSearch=N/~PAGING=${paging}/~noConditionFind=${noConditionFind}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonNext}</a>
                 </#if>
             </#if>
-            <#if "Y" == paging>
+            <#if paging == "Y">
               <#if parameters.ACTIVE_PRODUCT?has_content && parameters.GOOGLE_SYNCED?has_content && parameters.DISCONTINUED_PRODUCT?has_content>
                 <a href="<@ofbizUrl>keywordsearch/~VIEW_INDEX=0/~VIEW_SIZE=99999/~clearSearch=N/~PAGING=N/~noConditionFind=${noConditionFind}/~ACTIVE_PRODUCT=${parameters.ACTIVE_PRODUCT}/~GOOGLE_SYNCED=${parameters.GOOGLE_SYNCED}/~DISCONTINUED_PRODUCT=${parameters.DISCONTINUED_PRODUCT}/~productStoreId=${parameters.productStoreId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPagingOff}</a>
               <#else>

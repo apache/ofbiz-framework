@@ -17,9 +17,11 @@
  * under the License.
  */
 
-import org.apache.ofbiz.entity.util.EntityUtil
-import org.apache.ofbiz.entity.condition.EntityCondition
-import org.apache.ofbiz.entity.condition.EntityOperator
+import org.apache.ofbiz.entity.*
+import org.apache.ofbiz.entity.util.*
+import org.apache.ofbiz.entity.condition.*
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.order.task.*
 
 context.userLogin = userLogin
 
@@ -27,10 +29,10 @@ context.userLogin = userLogin
 sort = parameters.sort
 sortOrder = ["currentStatusId", "-priority", "orderDate"]
 if (sort) {
-    if ("name".equals(sort)) {
+    if (sort.equals("name")) {
         sortOrder.add(0, "firstName")
         sortOrder.add(0, "lastName")
-    } else if ("grandTotal".equals(sort)) {
+    } else if (sort.equals("grandTotal")) {
         sortOrder.add(0, "-grandTotal")
     } else {
         sortOrder.add(0, sort)
@@ -58,7 +60,7 @@ partyRoles = from("PartyRole").where("partyId", userLogin.partyId).queryList()
 // build the role list
 pRolesList = []
 partyRoles.each { partyRole ->
-    if (!"_NA_".equals(partyRole.roleTypeId))
+    if (!partyRole.roleTypeId.equals("_NA_"))
         pRolesList.add(EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, partyRole.roleTypeId))
 }
 

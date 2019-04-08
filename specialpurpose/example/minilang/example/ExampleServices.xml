@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
+    <!-- ExampleStatus methods -->
+    <simple-method method-name="createExampleStatus" short-description="create a ExampleItem">
+        <now-timestamp field="nowTimestamp"/>
+
+        <!-- find the most recent status record and set the statusEndDate -->
+        <entity-and entity-name="ExampleStatus" list="oldExampleStatusList">
+            <field-map field-name="exampleId" from-field="parameters.exampleId"/>
+            <order-by field-name="-statusDate"/>
+        </entity-and>
+        <first-from-list list="oldExampleStatusList" entry="oldExampleStatus"/>
+        <if-not-empty field="oldExampleStatus">
+            <set field="oldExampleStatus.statusEndDate" from-field="nowTimestamp"/>
+            <store-value value-field="oldExampleStatus"/>
+        </if-not-empty>
+
+        <make-value entity-name="ExampleStatus" value-field="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        <set field="newEntity.statusDate" from-field="nowTimestamp"/>
+        <set field="newEntity.changeByUserLoginId" from-field="userLogin.userLoginId"/>
+        <create-value value-field="newEntity"/>
+    </simple-method>
+
+    <!-- Example ServiceTest Service -->
+    <simple-method method-name="testCreateExampleService" short-description="test the create example service" login-required="false">
+        <set field="createExampleMap.exampleTypeId" value="CONTRIVED"/>
+        <set field="createExampleMap.exampleName" value="Test Example"/>
+        <set field="createExampleMap.statusId" value="EXST_IN_DESIGN"/>
+
+        <entity-one entity-name="UserLogin" value-field="createExampleMap.userLogin" auto-field-map="false">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+
+        <call-service service-name="createExample" in-map-name="createExampleMap">
+            <result-to-field result-name="exampleId" field="exampleId"/>
+        </call-service>
+
+        <entity-one entity-name="Example" value-field="example"/>
+
+        <assert>
+            <not><if-empty field="example"/></not>
+            <if-compare-field field="example.exampleTypeId" to-field="createExampleMap.exampleTypeId" operator="equals"/>
+            <if-compare-field field="example.exampleName" to-field="createExampleMap.exampleName" operator="equals"/>
+            <if-compare-field field="example.statusId" to-field="createExampleMap.statusId" operator="equals"/>
+        </assert>
+
+        <check-errors/>
+    </simple-method>
+</simple-methods>

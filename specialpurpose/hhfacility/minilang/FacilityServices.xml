@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
+
+    <simple-method method-name="tc_ProductExists" short-description="Check Product Exists" login-required="false">
+        <set from-field="parameters.productId" field="productIdMap.productId"/>
+        <find-by-primary-key entity-name="Product" map="productIdMap" value-field="product"/>
+        <if-not-empty field="product.productId">
+            <log level="info" message="Found product ID ${parameters.productId}, "/>
+            <!-- <log level="info"><string value="Product Details are: "/><field field="product"/></log> -->
+            <return response-code="success"/>  <!-- all done -->
+        </if-not-empty>
+        <if-empty field="product.productId">
+            <log level="info" message="No product found for ID ${parameters.productId}, "/>
+            <add-error error-list-name="errorMessageList">
+                <fail-property resource="ProductUiLabels" property="ProductErrorProductNotFound"/>
+            </add-error>
+            <return response-code="error"/>  <!-- all done -->
+        </if-empty>
+    </simple-method>
+
+    <simple-method method-name="tc_ReceiveProductQty" short-description="Receive Product to Facility" login-required="false">
+        <log level="info" message="Receive product ${parameters.productId} qty ${parameters.qty} to location ${parameters.location} in facility ${parameters.facilityId} "/>
+        <now-timestamp field="nowTimestamp"/>
+        <clear-field field="receiveCtx"/>
+        <set from-field="parameters.facilityId" field="receiveCtx.facilityId"/>
+        <set from-field="parameters.productId" field="receiveCtx.productId"/>
+        <set from-field="parameters.productQty" field="receiveCtx.quantityAccepted"/>
+        <set from-field="parameters.productLocation" field="receiveCtx.locationSeqId"/>
+        <set value="hhFacility Receipt" field="receiveCtx.comments"/>
+        <set from-field="nowTimestamp" field="receiveCtx.datetimeReceived"/>
+        <set value="NON_SERIAL_INV_ITEM" field="receiveCtx.inventoryItemTypeId"/>
+        <calculate field="receiveCtx.quantityRejected" type="BigDecimal">
+            <number value="0"/>
+        </calculate>
+        <call-service service-name="receiveInventoryProduct" in-map-name="receiveCtx"/>
+    </simple-method>
+
+</simple-methods>

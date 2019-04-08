@@ -24,7 +24,7 @@ under the License.
     <screen name="SearchLabels" transaction-timeout="600">
         <section>
             <condition>
-                <if-has-permission permission="LABEL_MANAGER" action="_VIEW"/>
+                <if-has-permission permission="LABEL_MANAGER_VIEW"/>
             </condition>
             <actions>
                 <set field="titleProperty" value="WebtoolsLabelManagerFindLabels"/>
@@ -59,7 +59,7 @@ under the License.
     <screen name="UpdateLabel">
         <section>
             <condition>
-                <if-has-permission permission="LABEL_MANAGER" action="_VIEW"/>
+                <if-has-permission permission="LABEL_MANAGER_VIEW"/>
             </condition>
             <actions>
                 <set field="titleProperty" value="WebtoolsLabelManagerAddNew"/>
@@ -84,7 +84,7 @@ under the License.
     <screen name="ViewReferences">
         <section>
             <condition>
-                <if-has-permission permission="LABEL_MANAGER" action="_VIEW"/>
+                <if-has-permission permission="LABEL_MANAGER_VIEW"/>
             </condition>
             <actions>
                 <set field="titleProperty" value="WebtoolsLabelManagerViewReferences"/>
@@ -106,7 +106,7 @@ under the License.
     <screen name="ViewFile">
         <section>
             <condition>
-                <if-has-permission permission="LABEL_MANAGER" action="_VIEW"/>
+                <if-has-permission permission="LABEL_MANAGER_VIEW"/>
             </condition>
             <actions>
                 <set field="titleProperty" value="WebtoolsLabelManagerViewFile"/>

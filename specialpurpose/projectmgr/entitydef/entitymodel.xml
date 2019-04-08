@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
+  <!-- ========================================================= -->
+  <!-- ======================== Defaults ======================= -->
+  <!-- ========================================================= -->
+    <title>Entity of an Apache OFBiz Component</title>
+    <description>None</description>
+    <version>1.0</version>
+
+  <extend-entity entity-name="WorkEffort">
+      <field name="sequenceNum" type="numeric">
+          <description>To order the workefforts under a workeffort parent</description>
+      </field>
+  </extend-entity>
+
+  <view-entity entity-name="ProjectPartyAndPhase"
+    package-name="org.apache.ofbiz.specialpurpose.project"
+    title="To list all the phases of project the logged user is part off">
+    <member-entity entity-alias="WEPA" entity-name="WorkEffortPartyAssignment"/>
+    <member-entity entity-alias="WEP" entity-name="WorkEffort"/>
+    <member-entity entity-alias="WEPH" entity-name="WorkEffort"/>
+    <alias-all entity-alias="WEPA">
+      <exclude field="facilityId"/>
+      <exclude field="workEffortId"/>
+    </alias-all>
+    <alias entity-alias="WEP" field="workEffortId" name="projectId"/>
+    <alias entity-alias="WEP" field="workEffortName" name="projectName"/>
+    <alias entity-alias="WEPH" field="workEffortId" name="phaseId"/>
+    <alias entity-alias="WEPH" field="workEffortName" name="phaseName"/>
+    <alias entity-alias="WEPH" field="sequenceNum" name="phaseSeqNum"/>
+    <view-link entity-alias="WEPA" rel-entity-alias="WEP">
+      <key-map field-name="workEffortId"/>
+    </view-link>
+    <view-link entity-alias="WEP" rel-entity-alias="WEPH">
+      <key-map field-name="workEffortId" rel-field-name="workEffortParentId"/>
+    </view-link>
+  </view-entity>
+  <view-entity entity-name="ProjectPartyAndPhaseAndTask"
+    package-name="org.apache.ofbiz.specialpurpose.project"
+    title="WorkEffort for use in party -> project -> phase -> task">
+    <member-entity entity-alias="WEPA" entity-name="WorkEffortPartyAssignment"/>
+    <member-entity entity-alias="WEP" entity-name="WorkEffort"/>
+    <member-entity entity-alias="WEPH" entity-name="WorkEffort"/>
+    <member-entity entity-alias="WET" entity-name="WorkEffort"/>
+    <alias-all entity-alias="WEPA">
+      <exclude field="facilityId"/>
+      <exclude field="workEffortId"/>
+    </alias-all>
+    <alias-all entity-alias="WET"/>
+    <alias entity-alias="WEP" field="workEffortId" name="projectId"/>
+    <alias entity-alias="WEP" field="currentStatusId" name="projectStatusId"/>
+    <alias entity-alias="WEP" field="workEffortName" name="projectName"/>
+    <alias entity-alias="WEPH" field="workEffortId" name="phaseId"/>
+    <alias entity-alias="WEPH" field="sequenceNum" name="phaseSeqNum"/>
+    <alias entity-alias="WEPH" field="workEffortName" name="phaseName"/>
+    <view-link entity-alias="WEPA" rel-entity-alias="WEP">
+      <key-map field-name="workEffortId"/>
+    </view-link>
+    <view-link entity-alias="WEP" rel-entity-alias="WEPH">
+      <key-map field-name="workEffortId" rel-field-name="workEffortParentId"/>
+    </view-link>
+    <view-link entity-alias="WEPH" rel-entity-alias="WET">
+      <key-map field-name="workEffortId" rel-field-name="workEffortParentId"/>
+    </view-link>
+    <relation type="one-nofk" rel-entity-name="PartyNameView">
+      <key-map field-name="partyId"/>
+    </relation>
+    <relation type="many" rel-entity-name="TimeEntry">
+      <key-map field-name="workEffortId"/>
+    </relation>
+    <relation type="many" rel-entity-name="WorkEffortPartyAssignment">
+      <key-map field-name="workEffortId"/>
+    </relation>
+    <relation type="many" rel-entity-name="WorkEffortSkillStandard">
+      <key-map field-name="workEffortId"/>
+    </relation>
+  </view-entity>
+
+  <view-entity entity-name="ProjectIdPartyRoleAndTask"
+    package-name="org.apache.ofbiz.specialpurpose.project"
+    title="WorkEffort for use in party -> project -> phase -> task">
+    <member-entity entity-alias="WEPA" entity-name="WorkEffortPartyAssignment"/>
+    <member-entity entity-alias="RT" entity-name="RoleType"/>
+    <member-entity entity-alias="WEPH" entity-name="WorkEffort"/>
+    <member-entity entity-alias="WET" entity-name="WorkEffort"/>
+    <alias entity-alias="WEPH" field="workEffortParentId" name="projectId"/>
+    <alias entity-alias="WEPH" field="workEffortId" name="phaseId"/>
+    <alias entity-alias="WEPH" field="sequenceNum" name="phaseSeqNum"/>
+    <alias entity-alias="WET" field="workEffortId" name="taskId"/>
+    <alias entity-alias="WEPA" name="partyId"/>
+    <alias entity-alias="WEPA" name="roleTypeId"/>
+    <alias entity-alias="RT" name="description"/>
+    <view-link entity-alias="WEPH" rel-entity-alias="WET">
+      <key-map field-name="workEffortId" rel-field-name="workEffortParentId"/>
+    </view-link>
+    <view-link entity-alias="WEPH" rel-entity-alias="WEPA">
+      <key-map field-name="workEffortParentId" rel-field-name="workEffortId"/>
+    </view-link>
+    <view-link entity-alias="WEPA" rel-entity-alias="RT">
+      <key-map field-name="roleTypeId"/>
+    </view-link>
+  </view-entity>
+
+  <view-entity entity-name="ProjectIdPartyRoleAndPhase"
+    package-name="org.apache.ofbiz.specialpurpose.project"
+    title="WorkEffort for use in party -> project -> phase -> task">
+    <member-entity entity-alias="WEPA" entity-name="WorkEffortPartyAssignment"/>
+    <member-entity entity-alias="RT" entity-name="RoleType"/>
+    <member-entity entity-alias="WEPH" entity-name="WorkEffort"/>
+    <alias entity-alias="WEPH" field="workEffortParentId" name="projectId"/>
+    <alias entity-alias="WEPH" field="workEffortId" name="phaseId"/>
+    <alias entity-alias="WEPH" field="sequenceNum" name="phaseSeqNum"/>
+    <alias entity-alias="WEPA" name="partyId"/>
+    <alias entity-alias="WEPA" name="roleTypeId"/>
+    <alias entity-alias="RT" name="description"/>
+    <view-link entity-alias="WEPH" rel-entity-alias="WEPA">
+      <key-map field-name="workEffortParentId" rel-field-name="workEffortId"/>
+    </view-link>
+    <view-link entity-alias="WEPA" rel-entity-alias="RT">
+      <key-map field-name="roleTypeId"/>
+    </view-link>
+  </view-entity>
+
+  <view-entity entity-name="ProjectAndPhaseAndTaskParty"
+    package-name="org.apache.ofbiz.specialpurpose.project"
+    title="WorkEffort for use in party -> project -> phase -> task">
+    <member-entity entity-alias="WEP" entity-name="WorkEffort"/>
+    <member-entity entity-alias="WEPH" entity-name="WorkEffort"/>
+    <member-entity entity-alias="WET" entity-name="WorkEffort"/>
+    <member-entity entity-alias="WEPA" entity-name="WorkEffortPartyAssignment"/>
+    <alias-all entity-alias="WEPA">
+      <exclude field="facilityId"/>
+      <exclude field="workEffortId"/>
+    </alias-all>
+    <alias-all entity-alias="WET"/>
+    <alias entity-alias="WEP" field="workEffortId" name="projectId"/>
+    <alias entity-alias="WEP" field="workEffortName" name="projectName"/>
+    <alias entity-alias="WEPH" field="workEffortId" name="phaseId"/>
+    <alias entity-alias="WEPH" field="sequenceNum" name="phaseSeqNum"/>
+    <alias entity-alias="WEPH" field="workEffortName" name="phaseName"/>
+    <view-link entity-alias="WEP" rel-entity-alias="WEPH">
+      <key-map field-name="workEffortId" rel-field-name="workEffortParentId"/>
+    </view-link>
+    <view-link entity-alias="WEPH" rel-entity-alias="WET">
+      <key-map field-name="workEffortId" rel-field-name="workEffortParentId"/>
+    </view-link>
+    <view-link entity-alias="WET" rel-entity-alias="WEPA" rel-optional="true"><!-- has to be true because all tasks should be should shown in the task findlist screen even when not connected to a party -->
+      <key-map field-name="workEffortId"/>
+    </view-link>
+    <relation type="one-nofk" rel-entity-name="PartyNameView">
+      <key-map field-name="partyId"/>
+    </relation>
+    <relation type="many" rel-entity-name="TimeEntry">
+      <key-map field-name="workEffortId"/>
+    </relation>
+    <relation type="many" rel-entity-name="WorkEffortPartyAssignment">
+      <key-map field-name="workEffortId"/>
+    </relation>
+    <relation type="many" rel-entity-name="WorkEffortSkillStandard">
+      <key-map field-name="workEffortId"/>
+    </relation>
+  </view-entity>
+
+  <view-entity entity-name="ProjectAndPhaseAndTask"
+    package-name="org.apache.ofbiz.specialpurpose.project"
+    title="WorkEffort for use in project -> phase -> task">
+    <member-entity entity-alias="WEP" entity-name="WorkEffort"/><!--project -->
+    <member-entity entity-alias="WEPH" entity-name="WorkEffort"/><!-- phase -->
+    <member-entity entity-alias="WET" entity-name="WorkEffort"/><!-- task -->
+    <alias-all entity-alias="WET"/>
+    <alias entity-alias="WEP" field="workEffortId" name="projectId"/>
+    <alias entity-alias="WEP" field="workEffortName" name="projectName"/>
+    <alias entity-alias="WEPH" field="workEffortId" name="phaseId"/>
+    <alias entity-alias="WEPH" field="workEffortTypeId" name="phaseTypeId"/>
+    <alias entity-alias="WEPH" field="sequenceNum" name="phaseSeqNum"/>
+    <alias entity-alias="WEPH" field="workEffortName" name="phaseName"/>
+    <view-link entity-alias="WEP" rel-entity-alias="WEPH">
+      <key-map field-name="workEffortId" rel-field-name="workEffortParentId"/>
+    </view-link>
+    <view-link entity-alias="WEPH" rel-entity-alias="WET">
+      <key-map field-name="workEffortId" rel-field-name="workEffortParentId"/>
+    </view-link>
+    <relation type="many" rel-entity-name="TimeEntry">
+      <key-map field-name="workEffortId"/>
+    </relation>
+    <relation type="many" rel-entity-name="WorkEffortSkillStandard">
+      <key-map field-name="workEffortId"/>
+    </relation>
+    <relation type="many" rel-entity-name="WorkEffortPartyAssignment">
+      <key-map field-name="workEffortId"/>
+    </relation>
+    <entity-condition>
+      <condition-expr field-name="workEffortTypeId" entity-alias="WEPH" value="PHASE"/>
+    </entity-condition>
+  </view-entity>
+
+  <view-entity entity-name="ProjectPhaseTaskAndTimeEntryTimeSheet"
+    package-name="org.apache.ofbiz.specialpurpose.project"
+    title="WorkEffort for use in project -> phase -> task">
+    <member-entity entity-alias="WEP" entity-name="WorkEffort"/><!--project -->
+    <member-entity entity-alias="WEPH" entity-name="WorkEffort"/><!-- phase -->
+    <member-entity entity-alias="WET" entity-name="WorkEffort"/><!-- task -->
+    <member-entity entity-alias="TE" entity-name="TimeEntry"/>
+    <member-entity entity-alias="TS" entity-name="Timesheet"/>
+    <alias-all entity-alias="WET"/>
+    <alias-all entity-alias="TE">
+        <exclude field="workEffortId"/>
+    </alias-all>
+    <alias entity-alias="WEP" field="workEffortId" name="projectId"/>
+    <alias entity-alias="WEP" field="workEffortName" name="projectName"/>
+    <alias entity-alias="WEPH" field="workEffortId" name="phaseId"/>
+    <alias entity-alias="WEPH" field="sequenceNum" name="phaseSeqNum"/>
+    <alias entity-alias="WEPH" field="workEffortName" name="phaseName"/>
+    <alias entity-alias="TS" field="statusId" name="timesheetStatusId"/>
+    <alias entity-alias="TS" field="partyId" name="timesheetPartyId"/>
+    <view-link entity-alias="WEP" rel-entity-alias="WEPH">
+      <key-map field-name="workEffortId" rel-field-name="workEffortParentId"/>
+    </view-link>
+    <view-link entity-alias="WEPH" rel-entity-alias="WET">
+      <key-map field-name="workEffortId" rel-field-name="workEffortParentId"/>
+    </view-link>
+    <view-link entity-alias="WET" rel-entity-alias="TE">
+      <key-map field-name="workEffortId"/>
+    </view-link>
+    <view-link entity-alias="TE" rel-entity-alias="TS">
+      <key-map field-name="timesheetId"/>
+    </view-link>
+    <relation type="many" rel-entity-name="WorkEffortSkillStandard">
+      <key-map field-name="workEffortId"/>
+    </relation>
+    <relation type="many" rel-entity-name="WorkEffortPartyAssignment">
+      <key-map field-name="workEffortId"/>
+    </relation>
+    <relation type="one" rel-entity-name="Invoice">
+      <key-map field-name="invoiceId"/>
+    </relation>
+  </view-entity>
+
+  <view-entity entity-name="ProjectPhaseTaskAssignmentView"
+    package-name="org.apache.ofbiz.specialpurpose.project">
+    <description>This view is used to deduct project's status from its children tasks status and
+        to deduct the status of a task depending on its assigned resources and time entries</description>
+    <member-entity entity-alias="WEP" entity-name="WorkEffort"/><!--project -->
+    <member-entity entity-alias="WEPH" entity-name="WorkEffort"/><!-- phase -->
+    <member-entity entity-alias="WET" entity-name="WorkEffort"/><!-- task -->
+    <member-entity entity-alias="PAS" entity-name="WorkEffortPartyAssignment"/> <!-- Party assigned -->
+    <member-entity entity-alias="TE" entity-name="TimeEntry"/>
+
+    <alias entity-alias="WEP" field="workEffortId" name="projectId" group-by="true"/>
+    <alias entity-alias="WEPH" field="workEffortId" name="phaseId" group-by="true"/>
+    <alias entity-alias="WET" field="workEffortId" name="taskId" group-by="true"/>
+    <alias entity-alias="WET" field="currentStatusId" name="taskStatusId" group-by="true"/>
+    <alias entity-alias="PAS" field="partyId" name="resourceCount" function="count-distinct"/>
+    <alias entity-alias="TE" field="timeEntryId" name="entriesCount" function="count-distinct"/>
+    
+    <view-link entity-alias="WEP" rel-entity-alias="WEPH" rel-optional="true">
+      <key-map field-name="workEffortId" rel-field-name="workEffortParentId"/>
+    </view-link>
+    <view-link entity-alias="WEPH" rel-entity-alias="WET" rel-optional="true">
+      <key-map field-name="workEffortId" rel-field-name="workEffortParentId"/>
+    </view-link>
+    <view-link entity-alias="WET" rel-entity-alias="PAS" rel-optional="true">
+      <key-map field-name="workEffortId" />
+    </view-link>
+        <view-link entity-alias="WET" rel-entity-alias="TE" rel-optional="true">
+      <key-map field-name="workEffortId" />
+    </view-link>
+  </view-entity>
+
+  <view-entity entity-name="ProjectPhaseTaskSklSumView"
+    package-name="org.apache.ofbiz.specialpurpose.project">
+    <description>Retrieve actual, estimated start and end dates, priority, planned hours</description>
+
+    <member-entity entity-alias="WEP" entity-name="WorkEffort"/><!--project -->
+    <member-entity entity-alias="WEPH" entity-name="WorkEffort"/><!-- phase -->
+    <member-entity entity-alias="WET" entity-name="WorkEffort"/><!-- task -->
+    <member-entity entity-alias="SKL" entity-name="WorkEffortSkillStandard"/> <!-- for planned hours -->
+
+    <alias entity-alias="WEP" field="workEffortId" name="projectId" group-by="true"/>
+    <alias entity-alias="WEPH" field="workEffortId" name="phaseId" group-by="true"/>
+    <alias entity-alias="WET" field="workEffortId" name="taskId" group-by="true"/>
+
+    <!-- get minimum for start dates -->
+    <alias entity-alias="WET" name="estimatedStartDate" function="min"/>
+    <alias entity-alias="WET" name="actualStartDate" function="min"/>
+
+    <!-- and maximum for completion dates -->
+    <alias entity-alias="WET" name="estimatedCompletionDate" function="max"/>
+    <alias entity-alias="WET" name="actualCompletionDate" function="max"/>
+
+    <!-- get the sum of planned and actual hours -->
+    <alias entity-alias="SKL" field="estimatedDuration" name="plannedHours" function="sum"/>
+    <!-- get the minimum priority -->
+    <alias entity-alias="WET" field="priority" name="priority" function="min"/>
+
+    <view-link entity-alias="WEP" rel-entity-alias="WEPH">
+      <key-map field-name="workEffortId" rel-field-name="workEffortParentId"/>
+    </view-link>
+    <view-link entity-alias="WEPH" rel-entity-alias="WET">
+      <key-map field-name="workEffortId" rel-field-name="workEffortParentId"/>
+    </view-link>
+    <view-link entity-alias="WET" rel-entity-alias="SKL" rel-optional="true">
+      <key-map field-name="workEffortId" />
+    </view-link>
+  </view-entity>
+
+  <view-entity entity-name="ProjectPhaseTaskActualEntrySumView"
+    package-name="org.apache.ofbiz.specialpurpose.project">
+    <description>Retrieve actual, start and end dates from TimeEntries associated</description>
+
+    <member-entity entity-alias="WEP" entity-name="WorkEffort"/><!--project -->
+    <member-entity entity-alias="WEPH" entity-name="WorkEffort"/><!-- phase -->
+    <member-entity entity-alias="WET" entity-name="WorkEffort"/><!-- task -->
+    <member-entity entity-alias="TE" entity-name="TimeEntry"/><!-- to get actualStartDate from declared times-->
+
+    <alias entity-alias="WEP" field="workEffortId" name="projectId" group-by="true"/>
+    <alias entity-alias="WEPH" field="workEffortId" name="phaseId" group-by="true"/>
+    <alias entity-alias="WET" field="workEffortId" name="taskId" group-by="true"/>
+
+    <alias entity-alias="TE" field="fromDate" name="actualEntryStartDate" function="min"/>
+
+    <view-link entity-alias="WEP" rel-entity-alias="WEPH">
+      <key-map field-name="workEffortId" rel-field-name="workEffortParentId"/>
+    </view-link>
+    <view-link entity-alias="WEPH" rel-entity-alias="WET">
+      <key-map field-name="workEffortId" rel-field-name="workEffortParentId"/>
+    </view-link>
+    <view-link entity-alias="WET" rel-entity-alias="TE">
+      <key-map field-name="workEffortId" />
+    </view-link>
+  </view-entity>
+
+  <view-entity entity-name="ProjectPhaseTaskActualHoursView"
+    package-name="org.apache.ofbiz.specialpurpose.project">
+    <description>prepare actual hours total per project, phase or task,
+        this view is used by another view that do sums</description>
+    <member-entity entity-alias="WEP" entity-name="WorkEffort"/><!--project -->
+    <member-entity entity-alias="WEPH" entity-name="WorkEffort"/><!-- phase -->
+    <member-entity entity-alias="WET" entity-name="WorkEffort"/><!-- task -->
+    <member-entity entity-alias="TE" entity-name="TimeEntry"/>
+    <member-entity entity-alias="TS" entity-name="Timesheet"/>
+    <member-entity entity-alias="PR" entity-name="PartyRate"/>
+
+    <alias entity-alias="WEP" field="workEffortId" name="projectId" group-by="true"/>
+    <alias entity-alias="WEPH" field="workEffortId" name="phaseId" group-by="true"/>
+    <alias entity-alias="WET" field="workEffortId" name="taskId" group-by="true"/>
+    <alias entity-alias="TE" name="timeEntryId" group-by="true"/>
+    <alias entity-alias="TE" name="hours" group-by="true"/>
+    <alias entity-alias="TE" name="hoursPartyId" field="partyId" group-by="true"/>
+    <alias entity-alias="TE" name="invoiceId" group-by="true"/>
+    <alias entity-alias="PR" name="partyId" group-by="true"/>
+    <alias entity-alias="PR" name="percentageUsed" function="max"/>
+
+    <view-link entity-alias="WEP" rel-entity-alias="WEPH">
+      <key-map field-name="workEffortId" rel-field-name="workEffortParentId"/>
+    </view-link>
+    <view-link entity-alias="WEPH" rel-entity-alias="WET">
+      <key-map field-name="workEffortId" rel-field-name="workEffortParentId"/>
+    </view-link>
+    <view-link entity-alias="WET" rel-entity-alias="TE">
+      <key-map field-name="workEffortId" />
+    </view-link>
+    <view-link entity-alias="TE" rel-entity-alias="TS" rel-optional="true">
+      <key-map field-name="timesheetId" />
+    </view-link>
+    <view-link entity-alias="TE" rel-entity-alias="PR" rel-optional="true">
+      <key-map field-name="rateTypeId"/>
+      <key-map field-name="partyId"/>
+      <entity-condition>
+        <condition-list>
+            <condition-expr entity-alias="PR" field-name="fromDate" operator="less-equals" rel-entity-alias="TE" rel-field-name="fromDate"/>
+            <condition-list combine="or">
+                <condition-expr entity-alias="PR" field-name="thruDate" operator="equals" value=""/>
+                <condition-expr entity-alias="PR" field-name="thruDate" operator="greater-equals" rel-entity-alias="TE" rel-field-name="fromDate"/>
+            </condition-list>
+        </condition-list>
+    </entity-condition>
+    </view-link>
+  </view-entity>
+
+  <view-entity entity-name="ProjectPhaseTaskActualRatedHoursView"
+    package-name="org.apache.ofbiz.specialpurpose.project">
+    <description>get total actual hour for which there is a valid partyRate that can be applicable</description>
+    <member-entity entity-alias="PPAH" entity-name="ProjectPhaseTaskActualHoursView"/>
+
+    <alias entity-alias="PPAH" name="projectId" group-by="true"/>
+    <alias entity-alias="PPAH" name="phaseId" group-by="true"/>
+    <alias entity-alias="PPAH" name="taskId" group-by="true"/>
+    <alias entity-alias="PPAH" name="hoursPartyId" group-by="true"/>
+    <alias entity-alias="PPAH" name="invoiceId" group-by="true"/>
+    <alias entity-alias="PPAH" name="totalOriginalHours" field="hours" function="sum"/>
+    <alias name="totalRatedHours" function="sum">
+        <complex-alias operator="/">
+            <complex-alias operator="*">
+                <complex-alias-field entity-alias="PPAH" field="hours"/>
+                <complex-alias-field entity-alias="PPAH" field="percentageUsed"/>
+            </complex-alias>
+            <complex-alias-field entity-alias="" field="" value="100"/>
+        </complex-alias>
+    </alias>
+
+    <entity-condition>
+        <condition-expr entity-alias="PPAH" field-name="percentageUsed" operator="not-equals" value=""/>
+    </entity-condition>
+  </view-entity>
+
+  <view-entity entity-name="ProjectPhaseTaskActualNotRatedHoursView"
+    package-name="org.apache.ofbiz.specialpurpose.project">
+    <description>get total actual hour for which there is NO valid partyRate applicable</description>
+    <member-entity entity-alias="PPAH" entity-name="ProjectPhaseTaskActualHoursView"/>
+
+    <alias entity-alias="PPAH" name="projectId" group-by="true"/>
+    <alias entity-alias="PPAH" name="phaseId" group-by="true"/>
+    <alias entity-alias="PPAH" name="taskId" group-by="true"/>
+    <alias entity-alias="PPAH" name="hoursPartyId" group-by="true"/>
+    <alias entity-alias="PPAH" name="invoiceId" group-by="true"/>
+    <alias entity-alias="PPAH" name="totalOriginalHours" field="hours" function="sum"/>
+
+    <entity-condition>
+        <condition-expr entity-alias="PPAH" field-name="percentageUsed" operator="equals" value=""/>
+    </entity-condition>
+  </view-entity>
+
+  <view-entity entity-name="TimesheetAndTimeEntry"
+    package-name="org.apache.ofbiz.specialpurpose.project"
+    title="Time entry for Timesheets, time entries always have a timesheet and are always for one day only and recording the hours for one person which is defined on the timesheet. A timesheet will always have at least one time entry.">
+    <member-entity entity-alias="TS" entity-name="Timesheet"/>
+    <member-entity entity-alias="TE" entity-name="TimeEntry"/>
+    <alias-all entity-alias="TS">
+      <exclude field="clientPartyId"/>
+      <exclude field="comments"/>
+    </alias-all>
+    <alias-all entity-alias="TE">
+      <exclude field="partyId"/>
+      <exclude field="thruDate"/>
+      <exclude field="fromDate"/>
+      <exclude field="comments"/>
+    </alias-all>
+    <alias entity-alias="TE" field="fromDate" name="activityDate"/>
+    <alias entity-alias="TE" field="comments" name="entryComments"/>
+    <alias entity-alias="TS" field="comments" name="sheetComments"/>
+    <view-link entity-alias="TS" rel-entity-alias="TE" rel-optional="true">
+      <key-map field-name="timesheetId"/>
+    </view-link>
+    <relation type="one" rel-entity-name="WorkEffort">
+      <key-map field-name="workEffortId"/>
+    </relation>
+    <relation type="one" rel-entity-name="Invoice">
+      <key-map field-name="invoiceId"/>
+    </relation>
+    <relation type="one" rel-entity-name="InvoiceItem">
+      <key-map field-name="invoiceId"/>
+      <key-map field-name="invoiceItemSeqId"/>
+    </relation>
+    <relation type="one" rel-entity-name="RateType">
+      <key-map field-name="rateTypeId"/>
+    </relation>
+  </view-entity>
+  
+  </entitymodel>

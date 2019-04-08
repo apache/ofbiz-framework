@@ -187,7 +187,7 @@ under the License.
                             <select name="statusId_o_${rowCount}" size='1' id = "statusId_o_${rowCount}">
                               <option value="INV_RETURNED">${uiLabelMap.ProductReturned}</option>
                               <option value="INV_AVAILABLE">${uiLabelMap.ProductAvailable}</option>
-                              <option value="INV_NS_DEFECTIVE" <#if "RTN_DEFECTIVE_ITEM" == returnItem.returnReasonId?default("")>Selected</#if>>${uiLabelMap.ProductDefective}</option>
+                              <option value="INV_NS_DEFECTIVE" <#if returnItem.returnReasonId?default("") == "RTN_DEFECTIVE_ITEM">Selected</#if>>${uiLabelMap.ProductDefective}</option>
                             </select>
                           </td>
                           <#if serializedInv?has_content>
@@ -268,7 +268,7 @@ under the License.
         </#if>
     </div>
 </div>
-<script type="application/javascript">
+<script language="JavaScript" type="text/javascript">
     function setInventoryItemStatus(selection,index) {
         var statusId = "statusId_o_" + index;
         jObjectStatusId = jQuery("#" + statusId);

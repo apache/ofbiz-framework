@@ -19,7 +19,7 @@ under the License.
 -->
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <grid name="ListWorkEffortCommEvents" separate-columns="false" target="updateCommunicationEventWorkEff" title=""
+    <form name="ListWorkEffortCommEvents" separate-columns="false" target="updateCommunicationEventWorkEff" title="" type="list"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="WorkEffortCommunicationEventView">
@@ -45,8 +45,7 @@ under the License.
                 <parameter param-name="communicationEventId"/>
             </hyperlink>
         </field>
-    </grid>
-    
+    </form>
     <form name="AddWorkEffortCommEvent" default-map-name="communicationEvent" target="createWorkEffortCommEvent" title="" type="single" extends="EditCommEvent"
         extends-resource="component://party/widget/partymgr/CommunicationEventForms.xml" header-row-style="header-row" default-table-style="basic-table">
         <actions>

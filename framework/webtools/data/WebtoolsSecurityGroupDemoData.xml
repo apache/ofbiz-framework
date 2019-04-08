@@ -19,64 +19,63 @@ under the License.
 -->
 <entity-engine-xml>
     <!-- Webtools security -->
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="WEBTOOLS_VIEW"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="WEBTOOLS_VIEW"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="VIEWADMIN" permissionId="WEBTOOLS_VIEW"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="WEBTOOLS_VIEW"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="WEBTOOLS_VIEW"/>
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="WEBTOOLS_VIEW"/>
 
     <!-- Server Stats security -->
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="SERVER_STATS_VIEW"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="SERVER_STATS_VIEW"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="VIEWADMIN" permissionId="SERVER_STATS_VIEW"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="SERVER_STATS_VIEW"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="SERVER_STATS_VIEW"/>
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="SERVER_STATS_VIEW"/>
 
     <!-- Artifact Info security -->
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="ARTIFACT_INFO_VIEW"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="ARTIFACT_INFO_VIEW"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="VIEWADMIN" permissionId="ARTIFACT_INFO_VIEW"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="ARTIFACT_INFO_VIEW"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ARTIFACT_INFO_VIEW"/>
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="ARTIFACT_INFO_VIEW"/>
 
     <!-- Labels Info security -->
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="LABEL_MANAGER_VIEW"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="LABEL_MANAGER_VIEW"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="VIEWADMIN" permissionId="LABEL_MANAGER_VIEW"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="LABEL_MANAGER_VIEW"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="LABEL_MANAGER_VIEW"/>
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="LABEL_MANAGER_VIEW"/>
 
     <!-- Data File Maintenance security -->
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="DATAFILE_MAINT"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="DATAFILE_MAINT"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="DATAFILE_MAINT"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="DATAFILE_MAINT"/>
 
     <!-- Service Maintenance security -->
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="SERVICE_MAINT"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="SERVICE_JM_LOCK"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="SERVICE_RSAS_VIEW"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="SERVICE_MAINT"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="SERVICE_JM_LOCK"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="SERVICE_MAINT"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="SERVICE_JM_LOCK"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="SERVICE_MAINT"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="SERVICE_JM_LOCK"/>
 
     <!-- Period Maintenance security -->
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="PERIOD_MAINT"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="PERIOD_MAINT"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="BIZADMIN" permissionId="PERIOD_MAINT"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="PERIOD_MAINT"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PERIOD_MAINT"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="PERIOD_MAINT"/>
 
     <!-- Enum & Status Maintenance security -->
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="ENUM_STATUS_MAINT"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="ENUM_STATUS_MAINT"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="ENUM_STATUS_MAINT"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ENUM_STATUS_MAINT"/>
 
     <!-- Entity Maintenance security -->
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="ENTITY_MAINT"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="ENTITY_DATA_ADMIN"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="ENTITY_MAINT"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="ENTITY_DATA_CREATE"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="ENTITY_DATA_DELETE"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="ENTITY_DATA_UPDATE"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="ENTITY_DATA_VIEW"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="VIEWADMIN" permissionId="ENTITY_DATA_VIEW"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="ENTITY_MAINT"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="ENTITY_DATA_ADMIN"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ENTITY_MAINT"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ENTITY_DATA_CREATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ENTITY_DATA_DELETE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ENTITY_DATA_UPDATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ENTITY_DATA_VIEW"/>
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="ENTITY_DATA_VIEW"/>
 
     <!-- UtilCache security -->
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="UTIL_CACHE_EDIT"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="UTIL_CACHE_VIEW"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="UTIL_DEBUG_EDIT"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="UTIL_DEBUG_VIEW"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="UTIL_CACHE_EDIT"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="UTIL_CACHE_VIEW"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="UTIL_DEBUG_EDIT"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FLEXADMIN" permissionId="UTIL_DEBUG_VIEW"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="VIEWADMIN" permissionId="UTIL_CACHE_VIEW"/>
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="VIEWADMIN" permissionId="UTIL_DEBUG_VIEW"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="UTIL_CACHE_EDIT"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="UTIL_CACHE_VIEW"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="UTIL_DEBUG_EDIT"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="UTIL_DEBUG_VIEW"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="UTIL_CACHE_EDIT"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="UTIL_CACHE_VIEW"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="UTIL_DEBUG_EDIT"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="UTIL_DEBUG_VIEW"/>
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="UTIL_CACHE_VIEW"/>
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="UTIL_DEBUG_VIEW"/>
 </entity-engine-xml>

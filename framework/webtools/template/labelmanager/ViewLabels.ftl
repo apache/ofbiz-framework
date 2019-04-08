@@ -16,11 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-  <table class="basic-table hover-bar" cellspacing="3">
-      <tr class="header-row">
-        <td>${uiLabelMap.WebtoolsLabelStatsTotal}: ${totalLabelsCount!}</td>
-      </tr>
-  </table>
+<div class="screenlet-body">
   <table class="basic-table hover-bar" cellspacing="3">
     <tr class="header-row">
       <td>${uiLabelMap.WebtoolsLabelManagerRow}</td>
@@ -52,12 +48,14 @@ under the License.
     <#if parameters.searchLabels??>
       <#assign rowNum = "2">
       <#assign rowNumber = 1>
+      <#assign totalLabels = 0>
       <#assign missingLabels = 0>
       <#assign existingLabels = 0>
       <#assign previousKey = "">
       <#list labelsList as labelList>
         <#assign label = labels.get(labelList)>
         <#assign labelKey = label.labelKey>
+        <#assign totalLabels = totalLabels + 1>
         <#if references??>
           <#assign referenceNum = 0>
           <#assign reference = references.get(labelKey)!>
@@ -66,8 +64,8 @@ under the License.
           </#if>
         </#if>
         <#assign showLabel = true>
-        <#if parameters.onlyMissingTranslations?? && "Y" == parameters.onlyMissingTranslations
-            && parameters.labelLocaleName?? && "" != parameters.labelLocaleName>
+        <#if parameters.onlyMissingTranslations?? && parameters.onlyMissingTranslations == "Y" 
+            && parameters.labelLocaleName?? && parameters.labelLocaleName != "">
           <#assign labelValue = label.getLabelValue(parameters.labelLocaleName)!>
           <#if labelValue?? && labelValue?has_content>
             <#assign value = labelValue.getLabelValue()!>
@@ -76,17 +74,17 @@ under the License.
             </#if>
           </#if>
         </#if>
-        <#if showLabel && parameters.onlyNotUsedLabels?? && "Y" == parameters.onlyNotUsedLabels && (referenceNum > 0)>
+        <#if showLabel && parameters.onlyNotUsedLabels?? && parameters.onlyNotUsedLabels == "Y" && (referenceNum > 0)>
             <#assign showLabel = false>
         </#if>
-        <#if showLabel && parameters.labelKey?? && "" != parameters.labelKey && parameters.labelKey != label.labelKey>
+        <#if showLabel && parameters.labelKey?? && parameters.labelKey != "" && parameters.labelKey != label.labelKey>
           <#assign showLabel = false>
         </#if>
-        <#if showLabel && parameters.labelFileName?? && "" != parameters.labelFileName && parameters.labelFileName != label.fileName>
+        <#if showLabel && parameters.labelFileName?? && parameters.labelFileName != "" && parameters.labelFileName != label.fileName>
           <#assign showLabel = false>
         </#if>
         <#if showLabel == true>
-          <tr <#if "1" == rowNum>class="alternate-row"</#if>>
+          <tr <#if rowNum == "1">class="alternate-row"</#if>>
             <td>${rowNumber}</td>
             <td><a href="<@ofbizUrl>UpdateLabel?sourceKey=${labelKey}&amp;sourceFileName=${label.fileName}&amp;sourceKeyComment=${label.labelKeyComment!}</@ofbizUrl>" <#if previousKey == labelKey>class="submenutext"</#if>>${label.labelKey}</a></td>
             <td>${label.fileName}</td>
@@ -108,7 +106,7 @@ under the License.
               </#if>
             </#list>
           </tr>
-          <#if "2" == rowNum>
+          <#if rowNum == "2">
             <#assign rowNum = "1">
           <#else>
             <#assign rowNum = "2">
@@ -119,7 +117,7 @@ under the License.
       </#list>
       <tr class="header-row">
         <td/>
-        <td>${uiLabelMap.WebtoolsLabelStatsTotal}: ${totalLabelsCount!}</td>
+        <td>${uiLabelMap.WebtoolsLabelStatsTotal}: ${totalLabels}</td>
         <td colspan="2">
           ${uiLabelMap.WebtoolsLabelStatsExist}:<br />
           ${uiLabelMap.WebtoolsLabelStatsMissing}:
@@ -131,3 +129,4 @@ under the License.
       </tr>
     </#if>
   </table>
+</div>

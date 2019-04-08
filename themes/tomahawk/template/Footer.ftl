@@ -23,8 +23,7 @@ under the License.
   <ul>
     <li>
       ${uiLabelMap.CommonCopyright} (c) 2001-${nowTimestamp?string("yyyy")} The Apache Software Foundation - <a href="http://www.apache.org" target="_blank">www.apache.org</a><br/>
-      ${uiLabelMap.CommonPoweredBy} <a href="http://ofbiz.apache.org" target="_blank">Apache OFBiz</a>  ${uiLabelMap.CommonRelease}
-       <#include "ofbizhome://VERSION" ignore_missing=true/>
+      ${uiLabelMap.CommonPoweredBy} <a href="http://ofbiz.apache.org" target="_blank">Apache OFBiz</a> 
        <#include "ofbizhome://runtime/SvnInfo.ftl" ignore_missing=true/>
        <#include "ofbizhome://runtime/GitInfo.ftl" ignore_missing=true/>
     </li>
@@ -36,7 +35,7 @@ under the License.
 
 <#if layoutSettings.VT_FTR_JAVASCRIPT?has_content>
   <#list layoutSettings.VT_FTR_JAVASCRIPT as javaScript>
-    <script src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>" type="application/javascript"></script>
+    <script src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>" type="text/javascript"></script>
   </#list>
 </#if>
 

@@ -93,9 +93,7 @@ under the License.
                                 </container>
                             </widgets>
                         </section>
-                        <screenlet>
-                            <include-form name="EditMarketingCampaign" location="component://marketing/widget/MarketingCampaignForms.xml" />
-                        </screenlet>
+                        <include-form name="EditMarketingCampaign" location="component://marketing/widget/MarketingCampaignForms.xml" />
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -122,9 +120,7 @@ under the License.
                                 <parameter param-name="DONE_PAGE" from-field="donePage" />
                             </link>
                         </container>
-                        <screenlet>
-                            <include-form name="ListMarketingCampaign" location="component://marketing/widget/MarketingCampaignForms.xml" />
-                        </screenlet>
+                        <include-form name="ListMarketingCampaign" location="component://marketing/widget/MarketingCampaignForms.xml" />
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -150,10 +146,8 @@ under the License.
                         <container style="page-title">
                             <label text="${uiLabelMap[titleProperty]}" />
                         </container>
-                        <screenlet>
-                            <include-form name="EditMarketingCampaignRoles" location="component://marketing/widget/MarketingCampaignForms.xml" />
-                        </screenlet>
-                        <!--
+                        <include-form name="EditMarketingCampaignRoles" location="component://marketing/widget/MarketingCampaignForms.xml" />
+                        <!-- 
                         <container>
                             <label style="h2" text="${uiLabelMap.CommonStatusHistory}" />
                         </container>
@@ -185,9 +179,7 @@ under the License.
                                 <parameter param-name="DONE_PAGE" from-field="donePage" />
                             </link>
                         </container>
-                        <screenlet>
-                            <include-form name="ListMarketingCampaignRoles" location="component://marketing/widget/MarketingCampaignForms.xml" />
-                        </screenlet>
+                        <include-form name="ListMarketingCampaignRoles" location="component://marketing/widget/MarketingCampaignForms.xml" />
                     </decorator-section>
                 </decorator-screen>
             </widgets>

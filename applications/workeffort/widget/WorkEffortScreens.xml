@@ -385,7 +385,7 @@ under the License.
                         <screenlet id="AddWorkEffortCommEventsPanel" title="${uiLabelMap.PageTitleAddWorkEffortCommEvent}" collapsible="true">
                             <include-form name="AddWorkEffortCommEvent" location="component://workeffort/widget/WorkEffortCommEventForms.xml"/>
                         </screenlet>
-                        <include-grid name="ListWorkEffortCommEvents" location="component://workeffort/widget/WorkEffortCommEventForms.xml"/>
+                        <include-form name="ListWorkEffortCommEvents" location="component://workeffort/widget/WorkEffortCommEventForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -878,7 +878,7 @@ under the License.
                         <if-empty field="workEffort"/>
                     </condition>
                     <actions>
-                        <set field="title" from-field="uiLabelMap.WorkEffortICalendarAdd"/>
+                        <set field="title" value="${uiLabelMap.WorkEffortICalendarAdd}"/>
                     </actions>
                     <widgets/>
                 </section>
@@ -1012,7 +1012,7 @@ under the License.
                 <set field="tabButtonItem" value="ICalendarHelp"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <entity-one entity-name="WorkEffort" value-field="workEffort"/>
-                <set field="title" from-field="uiLabelMap.WorkEffortICalendarHelp"/>
+                <set field="title" value="${uiLabelMap.WorkEffortICalendarHelp}"/>
                 <set field="document" from-field="dom:readHtmlDocument(uiLabelMap.WorkEffortICalendarHelpUrl)"/>
                 <set field="wikiDivList" from-field="document[&quot;//DIV[@class='wiki-content']&quot;]"/>
                 <set field="wikiContent" from-field="dom:toHtmlString(wikiDivList[0], 'UTF-8', true, 2)"/>

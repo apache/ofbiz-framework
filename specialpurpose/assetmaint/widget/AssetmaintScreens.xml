@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
+    <screen name="CommonFixedAssetMaintDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="ListFixedAssetMaints"/>
+                <set field="tabButtonItem" value="ListFixedAssetMaints"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.fixedAssetDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <section>
+                            <condition><not><if-empty field="maintHistSeqId"/></not></condition>
+                            <widgets>
+                                <include-menu name="FixedAssetMaintTabBar" location="component://assetmaint/widget/AssetmaintMenus.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                    <decorator-section name="body">
+                        <container style="button-bar"><link target="EditFixedAssetMaint" text="${uiLabelMap.AccountingNewFixedAssetMaint}" style="buttontext create"/></container>
+                        <decorator-section-include name="body"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="FindFixedAssetMaints">
+        <section>
+            <actions>
+                <set field="headerItem" value="fixedAssetMaints"/>
+                <set field="titleProperty" value="PageTitleFindFixedAssetMaints"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-service-permission service-name="fixedAssetPermissionCheck" main-action="VIEW"/>
+                            </condition>
+                            <widgets>
+                                <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                                    <decorator-section name="menu-bar">
+                                        <section>
+                                            <condition>
+                                                <if-service-permission service-name="fixedAssetPermissionCheck" main-action="CREATE"/>
+                                            </condition>
+                                            <widgets>
+                                                <container style="button-bar">
+                                                    <link target="EditFixedAssetMaint" text="${uiLabelMap.AccountingNewFixedAssetMaint}" style="buttontext create"/>
+                                                </container>
+                                            </widgets>
+                                        </section>
+                                    </decorator-section>
+                                    <decorator-section name="search-options">
+                                        <include-form name="FindFixedAssetMaint" location="component://assetmaint/widget/forms/FixedAssetForms.xml"/>
+                                    </decorator-section>
+                                    <decorator-section name="search-results">
+                                        <include-form name="ListFixedAssetMaints" location="component://assetmaint/widget/forms/FixedAssetForms.xml"/>
+                                    </decorator-section>
+                                </decorator-screen>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.AssetMaintViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="EditFixedAssetMaint">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditFixedAssetMaintenance"/>
+                <script location="component://assetmaint/groovyScripts/assetmaint/EditMaint.groovy"/>
+                <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
+                <set field="maintHistSeqId" from-field="parameters.maintHistSeqId"/>
+                <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
+                <entity-one entity-name="FixedAssetMaint" value-field="fixedAssetMaint"/>
+                <set field="workEffortId" from-field="fixedAssetMaint.scheduleWorkEffortId"/>
+                <entity-one entity-name="WorkEffort" value-field="workEffort"/>
+                <get-related-one value-field="workEffort" relation-name="WorkEffortType" to-value-field="workEffortType"/>
+                <get-related-one value-field="workEffort" relation-name="CurrentStatusItem" to-value-field="currentStatusItem"/>
+                <get-related-one value-field="workEffort" relation-name="WorkEffortPurposeType" to-value-field="workEffortPurposeType"/>
+                <get-related-one value-field="fixedAsset" relation-name="LocatedAtFacility" to-value-field="facility"/>
+                <entity-and entity-name="WorkEffortPartyAssignView" list="relatedPartyAssigns">
+                    <field-map field-name="workEffortId"/>
+                </entity-and>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap"/>
+                <set field="title" value="${uiLabelMap.AccountingFixedAssetMaint}: ${fixedAsset.fixedAssetName}"/>
+            </actions>
+            <widgets>
+                <section>
+                    <condition><if-empty field="maintHistSeqId"/></condition>
+                    <actions><set field="titleProperty" value="AccountingAddFixedAssetMaintenance"/></actions>
+                    <widgets/>
+                </section>
+                <decorator-screen name="CommonFixedAssetMaintDecorator">
+                    <decorator-section name="body">
+                        <section>
+                            <condition><not><if-empty field="maintHistSeqId"/></not></condition>
+                            <widgets>
+                                <container style="button-bar">
+                                    <link target="printFixedAssetMaint.pdf" target-window="_blank" text="${uiLabelMap.CommonPrint}" style="buttontext">
+                                        <parameter param-name="fixedAssetId"/>
+                                        <parameter param-name="maintHistSeqId"/>
+                                    </link>
+                                </container>
+                            </widgets>
+                        </section>
+                        <include-form name="EditFixedAssetMaint" location="component://assetmaint/widget/forms/FixedAssetForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="EditWorkEfforts">
+        <section>
+            <actions>
+                <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap"/>
+                <set field="titleProperty" value="PageTitleEditWorkEffort"/>
+                <set field="tabButtonItemFixedAssetMaint" value="EditWorkEfforts"/>
+                <script location="component://assetmaint/groovyScripts/workeffort/EditWorkEfforts.groovy"/>
+                <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFixedAssetMaintDecorator">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <not><if-empty field="parameters.workEffortIdFrom"/></not>
+                            </condition>
+                            <widgets>
+                                <container style="button-bar">
+                                    <link target="EditWorkEfforts" text="${uiLabelMap.AssetMaintParentWorkEffort}" style="buttontext">
+                                        <parameter param-name="workEffortId" from-field="parameters.workEffortIdFrom"/>
+                                    </link>
+                                </container>
+                            </widgets>
+                        </section>
+                        <section>
+                            <condition>
+                                <if-empty field="workEffort"/>
+                            </condition>
+                            <widgets>
+                                <include-form name="EditWorkEffort" location="component://assetmaint/widget/forms/WorkEffortForms.xml"/>
+                            </widgets>
+                            <fail-widgets>
+                                <include-form name="EditWorkEffort" location="component://assetmaint/widget/forms/WorkEffortForms.xml"/>
+                                <container style="h2">
+                                    <label text="${uiLabelMap.PageTitleListWorkEffortPartyAssigns}"/>
+                                </container>
+                                <section>
+                                    <condition>
+                                        <if-compare field="parameters.mode" operator="equals" value="addAssignment"/>
+                                    </condition>
+                                    <widgets>
+                                        <screenlet id="add-party-assignment" title="${uiLabelMap.PageTitleAddWorkEffortPartyAssign}" collapsible="true">
+                                            <include-form name="EditWorkEffortPartyAssign" location="component://assetmaint/widget/forms/WorkEffortForms.xml"/>
+                                        </screenlet>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <container style="button-bar">
+                                            <link target="EditWorkEfforts" style="buttontext create"  text="${uiLabelMap.CommonNew}">
+                                                <parameter param-name="fixedAssetId" from-field="fixedAssetMaint.fixedAssetId"/>
+                                                <parameter param-name="maintHistSeqId" from-field="fixedAssetMaint.maintHistSeqId"/>
+                                                <parameter param-name="workEffortId"/>
+                                                <parameter param-name="mode" value="addAssignment"/>
+                                            </link>
+                                        </container>
+                                    </fail-widgets>
+                                </section>
+                                <include-form name="ListWorkEffortPartyAssigns" location="component://assetmaint/widget/forms/WorkEffortForms.xml"/>
+                                <container style="h2">
+                                    <label text="${uiLabelMap.PageTitleTreeWorkEfforts}"/>
+                                </container>
+                                <section>
+                                    <condition>
+                                        <if-compare field="parameters.mode" operator="equals" value="addChildTask"/>
+                                    </condition>
+                                    <widgets>
+                                        <screenlet id="add-workeffort-task" title="${uiLabelMap.WorkEffortAddTask}" collapsible="true">
+                                            <include-form name="AddWorkEffortChild" location="component://assetmaint/widget/forms/WorkEffortForms.xml"/>
+                                        </screenlet>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <container style="button-bar">
+                                            <link target="EditWorkEfforts" style="buttontext create" text="${uiLabelMap.CommonNew}">
+                                            <parameter param-name="fixedAssetId" from-field="fixedAssetMaint.fixedAssetId"/>
+                                            <parameter param-name="maintHistSeqId" from-field="fixedAssetMaint.maintHistSeqId"/>
+                                              <parameter param-name="workEffortId"/>
+                                               <parameter param-name="mode" value="addChildTask"/>
+                                        </link>
+                                        </container>
+                                    </fail-widgets>
+                                </section>
+                                 <include-form name="ListWorkEffortChildren" location="component://assetmaint/widget/forms/WorkEffortForms.xml"/>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="EditWorkEffortTimeEntries">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleListWorkEffortTimeEntries"/>
+                <set field="tabButtonItemFixedAssetMaint" value="EditWorkEffortTimeEntries"/>
+                <set field="workEffortId" from-field="parameters.workEffortId"/>
+                <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
+                <set field="maintHistSeqId" from-field="parameters.maintHistSeqId"/>
+                <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
+                <entity-one entity-name="FixedAssetMaint" value-field="fixedAssetMaint"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFixedAssetMaintDecorator">
+                    <decorator-section name="body">
+                        <screenlet id="add-time-entry" title="${uiLabelMap.PageTitleAddWorkEffortTimeEntry}" collapsible="true">
+                            <include-form name="AddWorkEffortTimeEntry" location="component://assetmaint/widget/forms/WorkEffortForms.xml"/>
+                        </screenlet>
+                        <include-form name="ListWorkEffortTimeEntries" location="component://assetmaint/widget/forms/WorkEffortForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="EditWorkEffortNotes">
+        <section>
+            <actions>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="PageTitleListWorkEffortNotes"/>
+                <set field="tabButtonItemFixedAssetMaint" value="EditWorkEffortNotes"/>
+                <set field="workEffortId" from-field="parameters.workEffortId"/>
+                <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
+                <set field="maintHistSeqId" from-field="parameters.maintHistSeqId"/>
+                <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
+                <entity-one entity-name="FixedAssetMaint" value-field="fixedAssetMaint"/>
+                <set field="noteId" from-field="parameters.noteId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFixedAssetMaintDecorator">
+                    <decorator-section name="body">
+                        <screenlet id="add-workeffort-note" title="${uiLabelMap.PageTitleAddWorkEffortNotes}" collapsible="true">
+                            <include-form name="AddWorkEffortNote" location="component://assetmaint/widget/forms/WorkEffortForms.xml"/>
+                        </screenlet>
+                        <include-form name="ListWorkEffortNotes" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="EditItemIssuances">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleListItemIssuance"/>
+                <set field="tabButtonItemFixedAssetMaint" value="EditItemIssuances"/>
+                <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
+                <set field="maintHistSeqId" from-field="parameters.maintHistSeqId"/>
+                <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
+                <entity-one entity-name="FixedAssetMaint" value-field="fixedAssetMaint"/>
+                <entity-condition entity-name="ProductInventoryItemAndItemIssuance" list="itemIssuanceList">
+                    <condition-expr field-name="quantity" operator="greater" value="0"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFixedAssetMaintDecorator">
+                    <decorator-section name="body">
+                        <screenlet id="add-item-issuance" title="${uiLabelMap.PageTitleAddItemIssuance}" collapsible="true">
+                            <include-form name="AddItemIssuance" location="component://assetmaint/widget/forms/FixedAssetForms.xml"/>
+                        </screenlet>
+                        <include-form name="ListItemIssuance" location="component://assetmaint/widget/forms/FixedAssetForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="PrintFixedAssetMaint">
+        <section>
+            <actions>
+                <set field="title" value="Order"/>
+                <property-map resource="AssetMaintUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
+
+                <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
+                <set field="maintHistSeqId" from-field="parameters.maintHistSeqId"/>
+                <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
+                <set field="layoutSettings.documentTitle" from-field="uiLabelMap.AccountingFixedAssetMaintWorkEffortName"/>
+                <entity-one entity-name="FixedAssetMaint" value-field="fixedAssetMaint"/>
+                <entity-condition entity-name="ProductInventoryItemAndItemIssuance" list="itemIssuanceList">
+                    <condition-expr field-name="quantity" operator="greater" value="0"/>
+                </entity-condition>
+                <set field="workEffortId" from-field="fixedAssetMaint.scheduleWorkEffortId"/>
+                <entity-condition entity-name="WorkEffortNoteAndData" list="notes">
+                    <condition-expr field-name="workEffortId" from-field="workEffortId"/>
+                    <order-by field-name="noteId"/>
+                </entity-condition>
+                <script location="component://assetmaint/groovyScripts/assetmaint/PrintFixedAssetMaint.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="GlobalFoDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <xsl-fo><html-template location="component://assetmaint/template/PrintFixedAssetMaint.fo.ftl"/></xsl-fo>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens>

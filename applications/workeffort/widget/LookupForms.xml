@@ -132,8 +132,7 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
-    
-    <grid name="ListLookupWorkEffort" list-name="listIt" target="" title="" paginate-target="LookupWorkEffort"
+    <form name="ListLookupWorkEffort" list-name="listIt" target="" title="" type="list" paginate-target="LookupWorkEffort"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
@@ -151,7 +150,7 @@ under the License.
         <field name="workEffortTypeId"><display-entity entity-name="WorkEffortType"/></field>
         <field name="contactMechTypeId"><display-entity entity-name="ContactMechType"/></field>
         <field name="marketingCampaignId"><display-entity description="${campaignName}" entity-name="MarketingCampaign"/></field>
-    </grid>
+    </form>
 
     <!-- Timesheet Lookup forms -->
     <form name="LookupTimesheet" target="LookupTimesheet" title="" type="single"
@@ -164,8 +163,7 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="buttontext"><submit button-type="button"/></field>
     </form>
-    
-    <grid name="ListLookupTimesheet" list-name="listIt" target="" title="" paginate-target="LookupPerson"
+    <form name="ListLookupTimesheet" list-name="listIt" target="" title="" type="list" paginate-target="LookupPerson"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
@@ -181,5 +179,5 @@ under the License.
         </field>
         <field name="partyId"><display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName} [${partyId}]"/></field>
         <field name="clientPartyId"><display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName} [${partyId}]"/></field>
-    </grid>
+    </form>
 </forms>

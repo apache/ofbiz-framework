@@ -36,7 +36,7 @@ public class ModelPermGroup implements Serializable {
     public static final String PERM_JOIN_AND = "AND";
     public static final String PERM_JOIN_OR = "OR";
 
-    public List<ModelPermission> permissions = new LinkedList<>();
+    public List<ModelPermission> permissions = new LinkedList<ModelPermission>();
     public String joinType;
 
     public boolean evalPermissions(DispatchContext dctx, Map<String, ? extends Object> context) {
@@ -52,7 +52,8 @@ public class ModelPermGroup implements Serializable {
                 }
             }
             return foundOne;
+        } else {
+            return true;
         }
-        return true;
     }
 }

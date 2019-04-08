@@ -28,5 +28,5 @@ under the License.
     <SecurityPermission description="Approver can update the IJP approval status with this permission." permissionId="HUMANRES_APPROVE"/>
     
     <!-- add admin to SUPER permission group -->
-    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="HUMANRES_ADMIN"/>
+    <SecurityGroupPermission groupId="SUPER" permissionId="HUMANRES_ADMIN"/>
 </entity-engine-xml>

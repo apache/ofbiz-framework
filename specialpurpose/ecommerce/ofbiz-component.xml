@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<ofbiz-component name="ecommerce" enabled="true"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-component.xsd">
+    <resource-loader name="main" type="component"/>
+
+    <classpath type="dir" location="config"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/EcommerceTypeData.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/EcommerceSecurityData.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/EcommerceSystemPropertyData.xml"/>
+    
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoProduct.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoSurvey.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoRentalShipping.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoShipping.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoWebSitePublishPointData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoTemplateData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoContent.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoTopic.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoTree.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoFactoids.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoRelatedData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoConfigurator.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoRentalProduct.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoProductImages.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoTaxAuthority.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoOrderPeopleData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoOrderTestData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoMarketing.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoPurchasing.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoStandardCosting.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoStoreGiftCertificateSettings.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoFinAccount.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoProductI18nData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoProductCategoriesI18nData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoTreeContent.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoTestSurveyData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoProductAdditionalViewData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoPopularCategoriesData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoContentAltUrl.xml"/>
+    
+    <webapp name="ecommerce"
+        title="eCommerce"
+        server="default-server"
+        location="webapp/ecommerce"
+        mount-point="/ecommerce"
+        app-bar-display="false"/>
+    <webapp name="ecomseo"
+        title="SEO enhanced eCommerce"
+        server="default-server"
+        location="webapp/ecomseo"
+        mount-point="/ecomseo"
+        app-bar-display="false"/>
+</ofbiz-component>
+

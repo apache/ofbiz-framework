@@ -1,0 +1,1 @@
+pandoc readme.md -s -o tools/documentation/README.md.html

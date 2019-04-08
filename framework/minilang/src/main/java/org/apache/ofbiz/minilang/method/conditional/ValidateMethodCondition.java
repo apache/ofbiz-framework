@@ -37,7 +37,7 @@ import org.w3c.dom.Element;
 /**
  * Implements the &lt;if-validate-method&gt; element.
  * 
- * @see <a href="https://cwiki.apache.org/confluence/display/OFBIZ/Mini+Language+-+minilang+-+simple-method+-+Reference">Mini-language Reference</a>
+ * @see <a href="https://cwiki.apache.org/confluence/display/OFBADMIN/Mini-language+Reference#Mini-languageReference-{{%3Cifvalidatemethod%3E}}">Mini-language Reference</a>
  */
 public final class ValidateMethodCondition extends MethodOperation implements Conditional {
 
@@ -93,7 +93,7 @@ public final class ValidateMethodCondition extends MethodOperation implements Co
             Class<?> valClass = methodContext.getLoader().loadClass(className);
             Method valMethod = valClass.getMethod(methodName, paramTypes);
             Boolean resultBool = (Boolean) valMethod.invoke(null, params);
-            return resultBool;
+            return resultBool.booleanValue();
         } catch (Exception e) {
             throw new MiniLangRuntimeException(e, this);
         }

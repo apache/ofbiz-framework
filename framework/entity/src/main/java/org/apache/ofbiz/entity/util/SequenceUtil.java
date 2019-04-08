@@ -250,12 +250,12 @@ public class SequenceUtil {
                             Debug.logWarning(sqle, "Error closing statement in sequence util", module);
                         }
                         try {
-                            connection.close();
+                            if (connection != null) connection.close();
                         } catch (SQLException sqle) {
                             Debug.logWarning(sqle, "Error closing connection in sequence util", module);
                         }
                     }
-                } catch (SQLException | GenericEntityException  e) {
+                } catch (Exception e) {
                     // reset the sequence fields and return (note: it would be better to throw an exception)
                     curSeqId = 0;
                     maxSeqId = 0;

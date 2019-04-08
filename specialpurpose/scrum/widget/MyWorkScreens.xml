@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
+    
+    <screen name="MyWork">
+        <section>
+            <actions>
+                <set field="titleProperty" value="ScrumMyWork"/>
+                <set field="labelTitleProperty" value="ScrumMyTasks"/>
+                <entity-and entity-name="WorkEffortAndPartyAssign" list="projects" filter-by-date="true">
+                    <field-map field-name="partyId" from-field="userLogin.partyId"/>
+                    <field-map field-name="workEffortTypeId" value="SCRUM_SPRINT"/>
+                </entity-and>
+                <entity-one entity-name="WorkEffort" value-field="task">
+                    <field-map field-name="workEffortId" value="dummy"/>
+                </entity-one>
+                <set field="myTask" value="notNull"/>
+                <set field="my" value="My"/>
+                <set field="EditWeekTimeshee_size_1" value="${parameters.EditWeekTimeshee_size_1}"/>
+                <set field="EditWeekTimeshee_index_1" value="${parameters.EditWeekTimeshee_index_1}" default-value="0"/>
+                <set field="url" value="timesheetId=${parameters.timesheetId}&amp;EditWeekTimeshee_size_1=${EditWeekTimeshee_size_1}&amp;EditWeekTimeshee_index_1=${EditWeekTimeshee_index_1}#"/>
+                <set field="MyTasks_size_1" value="${parameters.MyTasks_size_1}"/>
+                <set field="MyTasks_index_1" value="${parameters.MyTasks_index_1}" default-value="0"/>
+                <set field="MyTasks_url" value="timesheetId=${parameters.timesheetId}&amp;MyTasks_size_1=${MyTasks_size_1}&amp;MyTasks_index_1=${MyTasks_index_1}#"/>
+                <set field="timesheetId" from-field="parameters.timesheetId"/>
+                <script location="component://scrum/groovyScripts/EditDailyHourReport.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonMyWorkScreenDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <include-screen name="CurrentTimesheet"/>
+                                <include-screen name="MyTaskList"/>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field="projects"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <container>
+                                            <screenlet title="${uiLabelMap.ScrumAssignATaskToMe}" id="titleMyWorkOpenTask" collapsible="true" initially-collapsed="false">
+                                                <include-form name="AssignTaskToMe" location="component://scrum/widget/TaskForms.xml"/>
+                                            </screenlet>
+                                        </container>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <screenlet title="${uiLabelMap.ScrumAssignATaskToMe}" id="titleMyWorkOpenError" collapsible="true" initially-collapsed="false">
+                                            <label style="h3" text="${uiLabelMap.ScrumTaskMember}"/>
+                                        </screenlet>
+                                    </fail-widgets>
+                                </section>
+                                <include-screen name="AddTimesheet"/>
+                                <include-screen name="ListTimesheets"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="MyTaskList">
+        <section>
+            <actions>
+                <script location="component://scrum/groovyScripts/TaskList.groovy"/>
+            </actions>
+            <widgets>
+                <section>
+                    <condition>
+                        <not><if-empty field="taskPartyList"/></not>
+                    </condition>
+                    <widgets>
+                        <screenlet title="${uiLabelMap.PageTitleTaskAssignedToMe}" navigation-form-name="MyTasks" collapsible="true" initially-collapsed="false" id="titleMyTaskList" >
+                            <include-form name="MyTasks" location="component://scrum/widget/TaskForms.xml"/>
+                        </screenlet>
+                    </widgets>
+                    <fail-widgets>
+                        <screenlet title="${uiLabelMap.PageTitleTaskAssignedToMe}" collapsible="true" initially-collapsed="false" id="titleMyTaskListFail">
+                            <container>
+                                <label style="h3" text="${uiLabelMap.ScrumTaskNoOpen1}"/>
+                            </container>
+                            <container>
+                                <label style="h3" text="${uiLabelMap.ScrumTaskNoOpen2}"/>
+                            </container>
+                        </screenlet>
+                    </fail-widgets>
+                </section>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="CurrentTimesheet">
+        <section>
+            <actions>
+                <script location="component://scrum/groovyScripts/EditDailyHourReport.groovy"/>
+                <script location="component://scrum/groovyScripts/TaskList.groovy"/>
+            </actions>
+            <widgets>
+                    <section>
+                        <condition>
+                            <if-compare field="timesheet.statusId" operator="equals" value="TIMESHEET_COMPLETED"/>
+                        </condition>
+                        <widgets>
+                            <screenlet title="${uiLabelMap.PageTitleCurrentTimesheet} ${uiLabelMap.CommonNbr} ${timesheet.timesheetId} ${uiLabelMap.CommonFrom} ${groovy:timesheet.get(&quot;fromDate&quot;).toString().substring(0,10)} ${uiLabelMap.CommonTo} ${groovy:timesheet.get(&quot;thruDate&quot;).toString().substring(0,10)}"
+                                navigation-form-name="WeekTimesheet">
+                                <include-form name="WeekTimesheet" location="component://scrum/widget/MyWorkForms.xml"/>
+                            </screenlet>
+                        </widgets>
+                        <fail-widgets>
+                            <screenlet title="${uiLabelMap.PageTitleCurrentTimesheet} ${uiLabelMap.CommonNbr} ${timesheet.timesheetId} ${uiLabelMap.CommonFrom} ${groovy:timesheet.get(&quot;fromDate&quot;).toString().substring(0,10)} ${uiLabelMap.CommonTo} ${groovy:timesheet.get(&quot;thruDate&quot;).toString().substring(0,10)}"
+                                navigation-menu-name="TimesheetBar">
+                                <include-menu name="TimesheetBar" location="component://scrum/widget/scrumMenus.xml"/>
+                                <include-form name="EditWeekTimesheet" location="component://scrum/widget/MyWorkForms.xml"/>
+                            </screenlet>
+                        </fail-widgets>
+                    </section>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="ListTimesheets">
+        <section>
+            <actions>
+                <entity-one entity-name="PartyNameView" value-field="partyNameView">
+                    <field-map field-name="partyId" from-field="userLogin.partyId"/>
+                </entity-one>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.PageTitleTimesheets} ${uiLabelMap.CommonOf} ${partyNameView.firstName} ${partyNameView.middleName} ${partyNameView.lastName}" id="lstTSheets" collapsible="true" initially-collapsed="true">
+                    <include-form name="ListTimesheets" location="component://scrum/widget/MyWorkForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="AddTimesheet">
+        <section>
+            <widgets>
+                <screenlet title="${uiLabelMap.PageTitleAddATimesheet}" id="titleAddTimesheet" collapsible="true" initially-collapsed="false">
+                    <include-form name="AddMyWeeklyTimesheet" location="component://scrum/widget/TimeSheetForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+</screens>

@@ -107,11 +107,8 @@ under the License.
     <request-map uri="createLead">
         <security https="true" auth="true"/>
         <event type="service" invoke="createLead"/>
-        <response name="success" type="request-redirect" value="viewprofile">
-            <redirect-parameter name="partyId"/>
-            <redirect-parameter name="roleTypeId"/>
-        </response>
-        <response name="error" type="request-redirect" value="NewLead"/>
+        <response name="success" type="request" value="viewprofile"/>
+        <response name="error" type="view" value="NewLead"/>
     </request-map>
     <request-map uri="ConvertLead">
         <security https="true" auth="true"/>

@@ -17,9 +17,8 @@
  * under the License.
  */
 
-import org.apache.ofbiz.content.content.ContentSearchSession
-import org.apache.ofbiz.content.content.ContentSearchEvents
-
+import org.apache.ofbiz.base.util.*
+import org.apache.ofbiz.content.content.*
 
 // note: this can be run multiple times in the same request without causing problems, will check to see on its own if it has run again
 ContentSearchSession.processSearchParameters(parameters, request)

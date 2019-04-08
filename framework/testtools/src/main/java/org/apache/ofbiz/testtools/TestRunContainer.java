@@ -27,15 +27,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ofbiz.base.container.Container;
-import org.apache.ofbiz.base.container.ContainerException;
-import org.apache.ofbiz.base.start.StartupCommand;
-import org.apache.ofbiz.base.start.StartupCommandUtil;
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.tools.ant.BuildException;
-import org.apache.tools.ant.taskdefs.optional.junit.JUnitTest;
-import org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter;
-
 import junit.framework.AssertionFailedError;
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -43,6 +34,16 @@ import junit.framework.TestFailure;
 import junit.framework.TestListener;
 import junit.framework.TestResult;
 import junit.framework.TestSuite;
+
+import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.taskdefs.optional.junit.JUnitTest;
+import org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter;
+import org.apache.ofbiz.base.container.Container;
+import org.apache.ofbiz.base.container.ContainerException;
+import org.apache.ofbiz.base.container.StartupCommandToArgsAdapter;
+import org.apache.ofbiz.base.start.StartupCommand;
+import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.entity.Delegator;
 
 /**
  * A Container implementation to run the tests configured through this testtools stuff.
@@ -52,48 +53,146 @@ public class TestRunContainer implements Container {
     public static final String module = TestRunContainer.class.getName();
     public static final String logDir = "runtime/logs/test-results/";
 
+    protected String configFile = null;
+    protected String component = null;
+    protected String suiteName = null;
+    protected String testCase = null;
+    protected String logLevel = null;
+
     private String name;
-    private JunitSuiteWrapper jsWrapper;
 
     @Override
-    public void init(List<StartupCommand> ofbizCommands, String name, String configFile) throws ContainerException {
+    public void init(List<StartupCommand> ofbizCommands, String name, String configFile) {
+        // TODO: remove this hack and provide clean implementation
+        String[] args = StartupCommandToArgsAdapter.adaptStartupCommandsToLoaderArgs(ofbizCommands);
+
         this.name = name;
-        new File(logDir).mkdir();
+        this.configFile = configFile;
+        if (args != null) {
+            for (String argument : args) {
+                // arguments can prefix w/ a '-'. Just strip them off
+                if (argument.startsWith("-")) {
+                    int subIdx = 1;
+                    if (argument.startsWith("--")) {
+                        subIdx = 2;
+                    }
+                    argument = argument.substring(subIdx);
+                }
 
-        // get the test properties passed by the user in the command line
-        Map<String, String> testProps = ofbizCommands.stream()
-                .filter(command -> command.getName().equals(StartupCommandUtil.StartupOption.TEST.getName()))
-                .map(command -> command.getProperties())
-                .findFirst().get();
+                // parse the arguments
+                if (argument.indexOf("=") != -1) {
+                    String argumentName = argument.substring(0, argument.indexOf("="));
+                    String argumentVal = argument.substring(argument.indexOf("=") + 1);
 
-        // set selected log level if passed by user
-        setLoggerLevel(testProps.get("loglevel"));
+                    if ("component".equalsIgnoreCase(argumentName)) {
+                        this.component = argumentVal;
+                    }
+                    if ("suitename".equalsIgnoreCase(argumentName)) {
+                        this.suiteName = argumentVal;
+                    }
+                    if ("case".equalsIgnoreCase(argumentName)) {
+                        this.testCase = argumentVal;
+                    }
+                    if ("loglevel".equalsIgnoreCase(argumentName)) {
+                        this.logLevel = argumentVal;
+                    }
+                }
+            }
+        }
 
-        this.jsWrapper = prepareJunitSuiteWrapper(testProps);
+        // make sure the log dir exists
+        File dir = new File(logDir);
+        if (!dir.exists())
+            dir.mkdir();
     }
 
     public boolean start() throws ContainerException {
+        // configure log4j output logging
+        if (logLevel != null) {
+            int llevel = Debug.getLevelFromString(logLevel);
+
+            for (int v = 0; v < 9; v++) {
+                if (v < llevel) {
+                    Debug.set(v, false);
+                } else {
+                    Debug.set(v, true);
+                }
+            }
+        }
+
+        // get the tests to run
+        JunitSuiteWrapper jsWrapper = new JunitSuiteWrapper(component, suiteName, testCase);
+        if (jsWrapper.getAllTestList().size() == 0) {
+            throw new ContainerException("No tests found (" + component + " / " + suiteName + " / " + testCase + ")");
+        }
+
         boolean failedRun = false;
         for (ModelTestSuite modelSuite: jsWrapper.getModelTestSuites()) {
-
-            // prepare
+            Delegator testDelegator = modelSuite.getDelegator();
             TestSuite suite = modelSuite.makeTestSuite();
-            JUnitTest test = new JUnitTest(suite.getName());
-            JunitXmlListener xml = createJunitXmlListener(suite, logDir);
+            JUnitTest test = new JUnitTest();
+            test.setName(suite.getName());
+
+            // create the XML logger
+            JunitXmlListener xml;
+            try {
+                xml = new JunitXmlListener(new FileOutputStream(logDir + suite.getName() + ".xml"));
+            } catch (FileNotFoundException e) {
+                throw new ContainerException(e);
+            }
+
+            // per-suite results
             TestResult results = new TestResult();
             results.addListener(new JunitListener());
             results.addListener(xml);
 
-            // test
+            // add the suite to the xml listener
             xml.startTestSuite(test);
+            // run the tests
             suite.run(results);
             test.setCounts(results.runCount(), results.failureCount(), results.errorCount());
-            modelSuite.getDelegator().rollback(); // rollback all entity operations
+            // rollback all entity operations performed by the delegator
+            testDelegator.rollback();
             xml.endTestSuite(test);
 
-            logTestSuiteResults(suite, results);
+            if (!results.wasSuccessful()) {
+                failedRun = true;
+            }
 
-            failedRun = !results.wasSuccessful() ? true : failedRun;
+            // display the results
+            Debug.logInfo("[JUNIT] Results for test suite: " + suite.getName(), module);
+            Debug.logInfo("[JUNIT] Pass: " + results.wasSuccessful() + " | # Tests: " + results.runCount() + " | # Failed: " +
+                    results.failureCount() + " # Errors: " + results.errorCount(), module);
+            if (Debug.importantOn() && !results.wasSuccessful()) {
+                Debug.logInfo("[JUNIT] ----------------------------- ERRORS ----------------------------- [JUNIT]", module);
+                Enumeration<?> err = results.errors();
+                if (!err.hasMoreElements()) {
+                    Debug.logInfo("None", module);
+                } else {
+                    while (err.hasMoreElements()) {
+                        Object error = err.nextElement();
+                        Debug.logInfo("--> " + error, module);
+                        if (error instanceof TestFailure) {
+                            Debug.logInfo(((TestFailure) error).trace(), module);
+                        }
+                    }
+                }
+                Debug.logInfo("[JUNIT] ------------------------------------------------------------------ [JUNIT]", module);
+                Debug.logInfo("[JUNIT] ---------------------------- FAILURES ---------------------------- [JUNIT]", module);
+                Enumeration<?> fail = results.failures();
+                if (!fail.hasMoreElements()) {
+                    Debug.logInfo("None", module);
+                } else {
+                    while (fail.hasMoreElements()) {
+                        Object failure = fail.nextElement();
+                        Debug.logInfo("--> " + failure, module);
+                        if (failure instanceof TestFailure) {
+                            Debug.logInfo(((TestFailure) failure).trace(), module);
+                        }
+                    }
+                }
+                Debug.logInfo("[JUNIT] ------------------------------------------------------------------ [JUNIT]", module);
+            }
         }
 
         if (failedRun) {
@@ -107,65 +206,6 @@ public class TestRunContainer implements Container {
 
     public String getName() {
         return name;
-    }
-
-    private void setLoggerLevel(String logLevel) {
-        if (logLevel != null) {
-            int selectedLogLevel = Debug.getLevelFromString(logLevel);
-
-            for(int level = Debug.ALWAYS; level <= Debug.FATAL; level++) {
-                boolean isOn = level >= selectedLogLevel;
-                Debug.set(level, isOn);
-            }
-        }
-    }
-
-    private JunitSuiteWrapper prepareJunitSuiteWrapper(Map<String,String> testProps) throws ContainerException {
-        String component = testProps.get("component");
-        String suiteName = testProps.get("suitename");
-        String testCase = testProps.get("case");
-
-        JunitSuiteWrapper jsWrapper = new JunitSuiteWrapper(component, suiteName, testCase);
-        if (jsWrapper.getAllTestList().size() == 0) {
-            throw new ContainerException("No tests found (" + component + " / " + suiteName + " / " + testCase + ")");
-        }
-
-        return jsWrapper;
-    }
-
-    private JunitXmlListener createJunitXmlListener(TestSuite suite, String logDir) throws ContainerException {
-        try {
-            return new JunitXmlListener(new FileOutputStream(logDir + suite.getName() + ".xml"));
-        } catch (FileNotFoundException e) {
-            throw new ContainerException(e);
-        }
-    }
-
-    private void logTestSuiteResults(TestSuite suite, TestResult results) {
-        Debug.logInfo("[JUNIT] Results for test suite: " + suite.getName(), module);
-        Debug.logInfo("[JUNIT] Pass: " + results.wasSuccessful() + " | # Tests: " + results.runCount() + " | # Failed: " +
-                results.failureCount() + " # Errors: " + results.errorCount(), module);
-        if (Debug.importantOn() && !results.wasSuccessful()) {
-            Debug.logInfo("[JUNIT] ----------------------------- ERRORS ----------------------------- [JUNIT]", module);
-            logErrorsOrFailures(results.errors());
-            Debug.logInfo("[JUNIT] ------------------------------------------------------------------ [JUNIT]", module);
-
-            Debug.logInfo("[JUNIT] ---------------------------- FAILURES ---------------------------- [JUNIT]", module);
-            logErrorsOrFailures(results.failures());
-            Debug.logInfo("[JUNIT] ------------------------------------------------------------------ [JUNIT]", module);
-        }
-    }
-
-    private void logErrorsOrFailures(Enumeration<TestFailure> errorsOrFailures) {
-        if (!errorsOrFailures.hasMoreElements()) {
-            Debug.logInfo("None", module);
-        } else {
-            while (errorsOrFailures.hasMoreElements()) {
-                TestFailure testFailure = errorsOrFailures.nextElement();
-                Debug.logInfo("--> " + testFailure, module);
-                Debug.logInfo(testFailure.trace(), module);
-            }
-        }
     }
 
     class JunitXmlListener extends XMLJUnitResultFormatter {

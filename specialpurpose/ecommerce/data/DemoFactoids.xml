@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <DataResource dataResourceId="FACT_1" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_PUBLISHED" createdDate="2004-03-30 07:57:39.734" createdByUserLogin="admin" lastModifiedDate="2004-03-30 07:57:39.734" lastModifiedByUserLogin="admin"/>
+    <ElectronicText dataResourceId="FACT_1">
+        <textData><![CDATA[
+Did you know that widget users live twice as long as their non-widget counterparts?
+        ]]></textData>
+    </ElectronicText>
+    <Content contentId="FACT_1" contentTypeId="DOCUMENT" ownerContentId="WebStoreFACTOID" dataResourceId="FACT_1" statusId="CTNT_PUBLISHED" privilegeEnumId="CNT_PRV_BRONZE" contentName="Widget Users Live Longer" description="Studies show that users of Widgets live longer" createdDate="2004-03-30 07:57:39.671" createdByUserLogin="admin" lastModifiedDate="2004-03-30 07:57:39.671" lastModifiedByUserLogin="admin"/>
+    <ContentAssoc contentId="FACT_1" contentIdTo="WebStoreFACTOID" contentAssocTypeId="PUBLISH_LINK" fromDate="2004-03-30 07:57:53.141" createdDate="2004-03-30 07:57:53.145" createdByUserLogin="admin" lastModifiedDate="2004-03-30 07:57:53.145" lastModifiedByUserLogin="admin"/>
+
+    <DataResource dataResourceId="FACT_2" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_PUBLISHED" createdDate="2004-03-30 07:57:39.734" createdByUserLogin="admin" lastModifiedDate="2004-03-30 07:57:39.734" lastModifiedByUserLogin="admin"/>
+    <ElectronicText dataResourceId="FACT_2">
+        <textData><![CDATA[
+Widgets outsell gizmos 2:1
+        ]]></textData>
+    </ElectronicText>
+    <Content contentId="FACT_2" contentTypeId="DOCUMENT" ownerContentId="WebStoreFACTOID" dataResourceId="FACT_2" statusId="CTNT_PUBLISHED" privilegeEnumId="CNT_PRV_BRONZE" contentName="Widgets outselling Gizmos" description="Widgets outsell Gizmos 2:1" createdDate="2004-03-30 07:57:39.671" createdByUserLogin="admin" lastModifiedDate="2004-03-30 07:57:39.671" lastModifiedByUserLogin="admin"/>
+    <ContentAssoc contentId="FACT_2" contentIdTo="WebStoreFACTOID" contentAssocTypeId="PUBLISH_LINK" fromDate="2004-03-30 07:57:53.141" createdDate="2004-03-30 07:57:53.145" createdByUserLogin="admin" lastModifiedDate="2004-03-30 07:57:53.145" lastModifiedByUserLogin="admin"/>
+
+    <DataResource dataResourceId="FACT_3" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_PUBLISHED" createdDate="2004-03-30 07:57:39.734" createdByUserLogin="admin" lastModifiedDate="2004-03-30 07:57:39.734" lastModifiedByUserLogin="admin"/>
+    <ElectronicText dataResourceId="FACT_3">
+        <textData><![CDATA[
+Gizmos are our most popular item.
+        ]]></textData>
+    </ElectronicText>
+    <Content contentId="FACT_3" contentTypeId="DOCUMENT" ownerContentId="WebStoreFACTOID" dataResourceId="FACT_3" statusId="CTNT_PUBLISHED" privilegeEnumId="CNT_PRV_BRONZE" contentName="Gizmos most popular" description="Gizmos most popular" createdDate="2004-03-30 07:57:39.671" createdByUserLogin="admin" lastModifiedDate="2004-03-30 07:57:39.671" lastModifiedByUserLogin="admin"/>
+    <ContentAssoc contentId="FACT_3" contentIdTo="WebStoreFACTOID" contentAssocTypeId="PUBLISH_LINK" fromDate="2004-03-30 07:57:53.141" createdDate="2004-03-30 07:57:53.145" createdByUserLogin="admin" lastModifiedDate="2004-03-30 07:57:53.145" lastModifiedByUserLogin="admin"/>
+
+    <DataResource dataResourceId="FACT_4" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_PUBLISHED" createdDate="2004-03-30 07:57:39.734" createdByUserLogin="admin" lastModifiedDate="2004-03-30 07:57:39.734" lastModifiedByUserLogin="admin"/>
+    <ElectronicText dataResourceId="FACT_4">
+        <textData><![CDATA[
+The resale value of widgets after five years is 46% higher than that of competitors.
+        ]]></textData>
+    </ElectronicText>
+    <Content contentId="FACT_4" contentTypeId="DOCUMENT" ownerContentId="WebStoreFACTOID" dataResourceId="FACT_4" statusId="CTNT_PUBLISHED" privilegeEnumId="CNT_PRV_BRONZE" contentName="Widgets hold value" description="Widgets hold value" createdDate="2004-03-30 07:57:39.671" createdByUserLogin="admin" lastModifiedDate="2004-03-30 07:57:39.671" lastModifiedByUserLogin="admin"/>
+    <ContentAssoc contentId="FACT_4" contentIdTo="WebStoreFACTOID" contentAssocTypeId="PUBLISH_LINK" fromDate="2004-03-30 07:57:53.141" createdDate="2004-03-30 07:57:53.145" createdByUserLogin="admin" lastModifiedDate="2004-03-30 07:57:53.145" lastModifiedByUserLogin="admin"/>
+
+    <DataResource dataResourceId="FACT_5" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_PUBLISHED" createdDate="2004-03-30 07:57:39.734" createdByUserLogin="admin" lastModifiedDate="2004-03-30 07:57:39.734" lastModifiedByUserLogin="admin"/>
+    <ElectronicText dataResourceId="FACT_5">
+        <textData><![CDATA[
+The use of gizmos has been shown to have no negative effect on personal longetivity.
+        ]]></textData>
+    </ElectronicText>
+    <Content contentId="FACT_5" contentTypeId="DOCUMENT" ownerContentId="WebStoreFACTOID" dataResourceId="FACT_5" statusId="CTNT_PUBLISHED" privilegeEnumId="CNT_PRV_BRONZE" contentName="Gizmos are safe" description="Gizmos are safe" createdDate="2004-03-30 07:57:39.671" createdByUserLogin="admin" lastModifiedDate="2004-03-30 07:57:39.671" lastModifiedByUserLogin="admin"/>
+    <ContentAssoc contentId="FACT_5" contentIdTo="WebStoreFACTOID" contentAssocTypeId="PUBLISH_LINK" fromDate="2004-03-30 07:57:53.141" createdDate="2004-03-30 07:57:53.145" createdByUserLogin="admin" lastModifiedDate="2004-03-30 07:57:53.145" lastModifiedByUserLogin="admin"/>
+
+    <ContentAssoc contentId="FACT_1" contentIdTo="WebStoreFACTOID" contentAssocTypeId="SUB_CONTENT" fromDate="2004-03-01 12:00:00.000" createdDate="2004-03-01 12:00:00.000" createdByUserLogin="admin"/>
+    <ContentAssoc contentId="FACT_2" contentIdTo="WebStoreFACTOID" contentAssocTypeId="SUB_CONTENT" fromDate="2004-03-01 12:00:00.000" createdDate="2004-03-01 12:00:00.000" createdByUserLogin="admin"/>
+    <ContentAssoc contentId="FACT_3" contentIdTo="WebStoreFACTOID" contentAssocTypeId="SUB_CONTENT" fromDate="2004-03-01 12:00:00.000" createdDate="2004-03-01 12:00:00.000" createdByUserLogin="admin"/>
+    <ContentAssoc contentId="FACT_4" contentIdTo="WebStoreFACTOID" contentAssocTypeId="SUB_CONTENT" fromDate="2004-03-01 12:00:00.000" createdDate="2004-03-01 12:00:00.000" createdByUserLogin="admin"/>
+    <ContentAssoc contentId="FACT_5" contentIdTo="WebStoreFACTOID" contentAssocTypeId="SUB_CONTENT" fromDate="2004-03-01 12:00:00.000" createdDate="2004-03-01 12:00:00.000" createdByUserLogin="admin"/>
+</entity-engine-xml>
+

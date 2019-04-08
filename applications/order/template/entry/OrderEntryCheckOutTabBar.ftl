@@ -24,7 +24,7 @@ under the License.
   <div class="screenlet-title-bar">
     <ul>
       <li class="h3">
-        <#if "PURCHASE_ORDER" == shoppingCart.getOrderType()>
+        <#if shoppingCart.getOrderType() == "PURCHASE_ORDER">
             ${uiLabelMap.OrderPurchaseOrder}
         <#else>
             ${uiLabelMap.OrderSalesOrder}
@@ -32,7 +32,7 @@ under the License.
         :&nbsp;${stepTitle!}
       </li>
 
-      <#if "N" == isLastStep>
+      <#if isLastStep == "N">
         <li><a href="javascript:document.checkoutsetupform.submit();">${uiLabelMap.CommonContinue}</a></li>
       <#else>
         <li><a href="<@ofbizUrl>processorder</@ofbizUrl>">${uiLabelMap.OrderCreateOrder}</a></li>
@@ -40,7 +40,7 @@ under the License.
 
       <#list checkoutSteps?reverse as checkoutStep>
         <#assign stepUiLabel = uiLabelMap.get(checkoutStep.label)>
-        <#if "N" == checkoutStep.enabled>
+        <#if checkoutStep.enabled == "N">
             <li><span class="disabled">${stepUiLabel}</span></li>
         <#else>
             <li><a href="<@ofbizUrl>${checkoutStep.uri}</@ofbizUrl>">${stepUiLabel}</a></li>

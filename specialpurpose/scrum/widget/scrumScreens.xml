@@ -1,0 +1,2970 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
+    <screen name="Sprints">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleProjectAndSprintList"/>
+                <set field="headerItem" value="Sprints"/><!--this highlights the selected menu-item with name "Sprints" -->
+                <set field="partyId" from-field="userLogin.partyId"/>
+                <set field="permissionMap.projectId" from-field="parameters.projectId"/>
+                <set field="workEffortId" from-field="parameters.projectId"/>
+                <entity-one entity-name="WorkEffort" value-field="project"/>
+                <script location="component://scrum/groovyScripts/ListCurrentSprints.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="scrumCommonDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                 <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="SPRINT"/>
+                            </condition>
+                            <widgets>
+                                <container style="button-bar">
+                                    <link  text="${uiLabelMap.ScrumCreateProject}" target="editScrumProject" style="buttontext create"/>
+                                </container>
+                            </widgets>
+                        </section>
+                        <section>
+                            <widgets>
+                                <section>
+                                    <condition>
+                                        <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="TASK"/>
+                                    </condition>
+                                    <widgets>
+                                        <screenlet title="${uiLabelMap.ScrumSprintList}">
+                                            <include-form name="ProjectList" location="component://scrum/widget/scrumForms.xml"/>
+                                        </screenlet>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <screenlet title="${uiLabelMap.ScrumSprintList}">
+                                            <include-form name="ProjectListWithNoLinkProfile" location="component://scrum/widget/scrumForms.xml"/>
+                                        </screenlet>
+                                    </fail-widgets>
+                                </section>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="AddSprint">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleAddSprint"/>
+                <set field="tabButtonItem" value="editProject"/>
+                <set field="sprintId" from-field="parameters.sprintId"/>
+                <entity-one entity-name="WorkEffort" value-field="projectWorkEffort">
+                    <field-map field-name="workEffortId" from-field="parameters.projectId"/>
+                </entity-one>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProjectScreenDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                    <section>
+                        <condition>
+                            <if-service-permission service-name="scrumPermissionCheck" main-action="CREATE" resource-description="SPRINT"/>
+                        </condition>
+                        <widgets>
+                            <screenlet title="${uiLabelMap.ScrumCreateSprint}">
+                                <include-form name="AddSprint" location="component://scrum/widget/scrumForms.xml"/>
+                                <include-form name="AddSprintBacklog" location="component://scrum/widget/scrumForms.xml"/>
+                            </screenlet>
+                            <screenlet title="${uiLabelMap.ScrumListOfSprintBacklog}">
+                                <include-form name="SprintBacklogList" location="component://scrum/widget/scrumForms.xml"/>
+                            </screenlet>
+                        </widgets>
+                        <fail-widgets>
+                                <screenlet>
+                                    <label style="h3">You[${userLogin.partyId}] are have not permission to perform this action</label>
+                                </screenlet>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="ViewSprint">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleSprintOverview"/>
+                <set field="tabButtonItem" value="SprintSummary"/>
+                <set field="permissionMap.sprintId" from-field="parameters.sprintId"/>
+                <entity-one entity-name="WorkEffort" value-field="sprintStatus">
+                    <field-map field-name="workEffortId" from-field="parameters.sprintId"/>
+                </entity-one>
+                <script location="component://scrum/groovyScripts/SprintBacklogListItems.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonSprintScreenDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                    <section>
+                        <condition>
+                            <or>
+                                <if-service-permission service-name="scrumPermissionCheck" main-action="VIEW" resource-description="SPRINT"/>
+                                <if-service-permission service-name="scrumPermissionCheck" main-action="VIEW" resource-description="SCRUM"/>
+                            </or>
+                        </condition>
+                        <widgets>
+                        <section>
+                            <actions>
+                                <entity-one entity-name="WorkEffort" value-field="project">
+                                    <field-map field-name="workEffortId" from-field="parameters.projectId"/>
+                                </entity-one>
+                            </actions>
+                            <widgets>
+                                <container style="lefthalf">
+                                    <screenlet title="${uiLabelMap.ScrumSprintInformation}">
+                                        <include-form name="ShowSprintInfo" location="component://scrum/widget/scrumForms.xml"/>
+                                    </screenlet>
+                                </container>
+                                <container style="righthalf">
+                                    <include-screen name="sprintMemberList"/>
+                                </container>
+                                <container style="clear"/>
+                                <container style="body">
+                                <screenlet title="${uiLabelMap.ScrumBurnDownChart}" id="BDChart" collapsible="true" initially-collapsed="false">
+                                    <platform-specific>
+                                        <html><html-template location="component://scrum/template/includes/BurnDown.ftl"/></html>
+                                    </platform-specific>
+                                </screenlet>
+                                </container>
+                                <container style="clear"/>
+                                <section>
+                                    <condition>
+                                        <if-compare operator="equals" value="SPJ_CLOSED" field="project.currentStatusId"/>
+                                    </condition>
+                                    <widgets>
+                                        <section>
+                                            <condition>
+                                                <and>
+                                                    <if-compare operator="not-equals" value="SPRINT_CLOSED" field="sprintStatus.currentStatusId"/>
+                                                    <or>
+                                                        <if-compare operator="not-equals" value="Any" field="parameters.backlogStatusId"/>
+                                                    </or>
+                                                </and>
+                                            </condition>
+                                            <widgets>
+                                                <screenlet id="sprintBacklogListItems" title="${uiLabelMap.ScrumSprintBacklogList}" navigation-menu-name="AllBacklogItem" collapsible="true">
+                                                    <include-menu location="component://scrum/widget/scrumMenus.xml" name="AllBacklogItem"/>
+                                                    <include-form name="ViewSprintBacklogListItemsNoAction" location="component://scrum/widget/scrumForms.xml"/>
+                                                </screenlet>
+                                            </widgets>
+                                            <fail-widgets>
+                                                <screenlet id="sprintBacklogListItemsOnFail" title="${uiLabelMap.ScrumSprintBacklogList}" navigation-menu-name="NotCompleteBacklogItem" collapsible="true">
+                                                    <include-menu location="component://scrum/widget/scrumMenus.xml" name="NotCompleteBacklogItem"/>
+                                                    <include-form name="ViewSprintBacklogListItemsNoAction" location="component://scrum/widget/scrumForms.xml"/>
+                                                </screenlet>
+                                            </fail-widgets>
+                                        </section>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <section>
+                                            <condition>
+                                                <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="SPRINT"/>
+                                            </condition>
+                                            <widgets>
+                                                <section>
+                                                    <condition>
+                                                        <and>
+                                                        <if-compare operator="not-equals" value="SPRINT_CLOSED" field="sprintStatus.currentStatusId"/>
+                                                            <or>
+                                                                <if-compare operator="not-equals" value="Any" field="parameters.backlogStatusId"/>
+                                                            </or>
+                                                        </and>
+                                                    </condition>
+                                                    <widgets>
+                                                        <screenlet id="sprintBacklogListItems" title="${uiLabelMap.ScrumSprintBacklogList}" navigation-menu-name="AllBacklogItem" collapsible="true">
+                                                            <include-menu location="component://scrum/widget/scrumMenus.xml" name="AllBacklogItem"/>
+                                                            <include-form name="SprintBacklogListItems" location="component://scrum/widget/scrumForms.xml"/>
+                                                        </screenlet>
+                                                    </widgets>
+                                                    <fail-widgets>
+                                                        <screenlet id="sprintBacklogListItemsOnFail" title="${uiLabelMap.ScrumSprintBacklogList}" navigation-menu-name="NotCompleteBacklogItem" collapsible="true">
+                                                            <include-menu location="component://scrum/widget/scrumMenus.xml" name="NotCompleteBacklogItem"/>
+                                                            <include-form name="SprintBacklogListItems" location="component://scrum/widget/scrumForms.xml"/>
+                                                        </screenlet>
+                                                    </fail-widgets>
+                                                </section>
+                                                
+                                            </widgets>
+                                            <fail-widgets>
+                                                <screenlet>
+                                                    <section>
+                                                        <condition>
+                                                            <if-has-permission permission="SCRUM_TASK" action="_CREATE"/>
+                                                        </condition>
+                                                        <widgets>
+                                                            <section>
+                                                                <actions>
+                                                                    <set field="isScrumTeam" value="true" type="Boolean"/>
+                                                                </actions>
+                                                                <widgets>
+                                                                    <section>
+                                                                        <condition>
+                                                                            <and>
+                                                                                <if-compare operator="not-equals" value="SPRINT_CLOSED" field="sprintStatus.currentStatusId"/>
+                                                                                <or>
+                                                                                    <if-compare operator="not-equals" value="Any" field="parameters.backlogStatusId"/>
+                                                                                </or>
+                                                                            </and>
+                                                                        </condition>
+                                                                        <widgets>
+                                                                            <screenlet title="${uiLabelMap.ScrumSprintBacklogList}" navigation-menu-name="AllBacklogItem">
+                                                                                <include-menu location="component://scrum/widget/scrumMenus.xml" name="AllBacklogItem"/>
+                                                                                <include-form name="SprintBacklogListItemsHideDelete" location="component://scrum/widget/scrumForms.xml"/>
+                                                                            </screenlet>
+                                                                        </widgets>
+                                                                        <fail-widgets>
+                                                                            <screenlet title="${uiLabelMap.ScrumSprintBacklogList}" navigation-menu-name="NotCompleteBacklogItem">
+                                                                                <include-menu location="component://scrum/widget/scrumMenus.xml" name="NotCompleteBacklogItem"/>
+                                                                                <include-form name="SprintBacklogListItemsHideDelete" location="component://scrum/widget/scrumForms.xml"/>
+                                                                            </screenlet>
+                                                                        </fail-widgets>
+                                                                    </section>
+                                                                </widgets>
+                                                            </section>
+                                                        </widgets>
+                                                        <fail-widgets>
+                                                            <section>
+                                                                <actions>
+                                                                    <set field="isScrumTeam" value="false" type="Boolean"/>
+                                                                </actions>
+                                                                <widgets>
+                                                                    <section>
+                                                                        <condition>
+                                                                            <and>
+                                                                                <if-compare operator="not-equals" value="SPRINT_CLOSED" field="sprintStatus.currentStatusId"/>
+                                                                                <or>
+                                                                                    <if-compare operator="not-equals" value="Any" field="parameters.backlogStatusId"/>
+                                                                                </or>
+                                                                            </and>
+                                                                        </condition>
+                                                                        <widgets>
+                                                                            <screenlet title="${uiLabelMap.ScrumSprintBacklogList}" navigation-menu-name="AllBacklogItem">
+                                                                                <include-menu location="component://scrum/widget/scrumMenus.xml" name="AllBacklogItem"/>
+                                                                                <include-form name="ViewSprintBacklogListItemsNoAction" location="component://scrum/widget/scrumForms.xml"/>
+                                                                            </screenlet>
+                                                                        </widgets>
+                                                                        <fail-widgets>
+                                                                            <screenlet title="${uiLabelMap.ScrumSprintBacklogList}" navigation-menu-name="NotCompleteBacklogItem">
+                                                                                <include-menu location="component://scrum/widget/scrumMenus.xml" name="NotCompleteBacklogItem"/>
+                                                                                <include-form name="ViewSprintBacklogListItemsNoAction" location="component://scrum/widget/scrumForms.xml"/>
+                                                                            </screenlet>
+                                                                        </fail-widgets>
+                                                                    </section>
+                                                                </widgets>
+                                                            </section>
+                                                        </fail-widgets>
+                                                    </section>
+                                                </screenlet>
+                                            </fail-widgets>
+                                        </section>
+                                    </fail-widgets>
+                                </section>
+                            </widgets>
+                        </section>
+                        </widgets>
+                        <fail-widgets>
+                            <container style="button-bar">
+                                <link target="SprintList" text="Back" style="buttontext">
+                                    <parameter param-name="projectId" from-field="parameters.projectId"/>
+                                </link>
+                            </container>
+                            <screenlet>
+                                <label style="h3">You[${userLogin.partyId}] are have not permission to perform this action</label>
+                            </screenlet>
+                        </fail-widgets>
+                    </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="EditSprint">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditSprint"/>
+                <set field="tabButtonItem" value="EditSprint"/>
+                <set field="sprintId" from-field="parameters.sprintId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonSprintScreenDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                    <section>
+                        <condition>
+                            <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="SPRINT"/>
+                        </condition>
+                        <widgets>
+                        <section>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.ScrumEditSprintInformation}">
+                                    <include-form name="EditSprint" location="component://scrum/widget/scrumForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                        </section>
+                        </widgets>
+                    </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="AddSprintBacklog">
+        <section>
+        <actions>
+            <set field="titleProperty" value="PageTitleAddSprintBacklog"/>
+            <entity-one entity-name="WorkEffort" value-field="sprintInfo">
+                <field-map field-name="workEffortId" from-field="parameters.sprintId"></field-map>
+            </entity-one>
+        </actions>
+            <widgets>
+                <decorator-screen name="CommonSprintScreenDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                        <condition>
+                        <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="SPRINT"/>
+                        </condition>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.ScrumAddSprintBacklog}">
+                                    <include-form name="AddSprintBacklog" location="component://scrum/widget/scrumForms.xml"/>
+                                    <include-form name="SprintBacklogList" location="component://scrum/widget/scrumForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="editScrumProject">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditScrumProject"/>
+                <set field="headerItem" value="main"/>
+                <set field="tabButtonItem" value="editProject"/>
+                <set field="workEffortId" from-field="parameters.projectId"/>
+                <entity-and entity-name="WorkEffortAndProduct" list="workEffortList">
+                    <field-map field-name="workEffortId" from-field="workEffortId"/>
+                </entity-and>
+                <set field="workEffort" from-field="workEffortList[0]"/>
+                <entity-one entity-name="StatusItem" value-field="currentStatus">
+                    <field-map field-name="statusId" from-field="workEffort.currentStatusId"/>
+                </entity-one>
+                <entity-condition entity-name="ProductAndRole" list="productAndRoleList">
+                    <condition-list>
+                        <condition-expr field-name="productId" operator="equals" from-field="workEffort.productId"/>
+                        <condition-expr field-name="supportDiscontinuationDate" operator="equals" value=""/>
+                        <condition-expr field-name="roleTypeId" operator="equals" value="PRODUCT_OWNER_COMP"/>
+                    </condition-list>
+                </entity-condition>
+                <set field="productAndRoleMap" from-field="productAndRoleList[0]"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProjectScreenDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <section>
+                                    <condition>
+                                        <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="PROJECT"/>
+                                    </condition>
+                                    <widgets>
+                                        <screenlet title="${uiLabelMap.ScrumEditProject}">
+                                            <include-form name="EditScrumProject" location="component://scrum/widget/scrumForms.xml"/>
+                                        </screenlet>
+                                    </widgets>
+                                </section>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="viewScrumProject">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleScrumProjectOverview"/>
+                <set field="tabButtonItem" value="projectSummary"/>
+                <set field="workEffortId" from-field="parameters.projectId"/>
+                <set field="permissionMap.projectId" from-field="parameters.projectId"/>
+                <entity-and entity-name="WorkEffortAndProduct" list="projectList">
+                    <field-map field-name="workEffortId" from-field="workEffortId"/>
+                </entity-and>
+                <set field="project" from-field="projectList[0]"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProjectScreenDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="lefthalf">
+                            <screenlet name="ScrumProject" title="${uiLabelMap.ScrumProject} : ${project.workEffortName}">
+                                <include-form name="ScrumProject" location="component://scrum/widget/scrumForms.xml"/>
+                            </screenlet>
+                            <include-screen name="sprintListInfo"/>
+                        </container>
+                        <container style="righthalf">
+                            <include-screen name="ListProjectContent"/>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="sprintListInfo">
+        <section>
+            <widgets>
+                <screenlet title="${uiLabelMap.ScrumSprintList}">
+                    <include-form name="SprintListInfo" location="component://scrum/widget/scrumForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="productInfoList">
+        <section>
+            <widgets>
+                <screenlet name="projectMemberList" title="Product Information">
+                    <include-form name="ProductListInfo" location="component://scrum/widget/scrumForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="tasksInfoList">
+        <section>
+            <actions>
+                <entity-and entity-name="ScrumProjectSprintBacklogAndTask" list="tasksList">
+                    <field-map field-name="projectId" from-field="parameters.projectId"/>
+                    <field-map field-name="workEffortTypeId" value="TASK"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <screenlet name="tasksListInfo" title="Tasks">
+                    <screenlet name="taskListErrot" title="Error Tasks List">
+                        <include-form name="TasksListInfoError" location="component://scrum/widget/scrumForms.xml"/>
+                    </screenlet>
+                    <screenlet name="taskListTest" title="Test Tasks List">
+                        <include-form name="TasksListInfoTest" location="component://scrum/widget/scrumForms.xml"/>
+                    </screenlet>
+                    <screenlet name="taskListCoding" title="Coding Tasks List">
+                        <include-form name="TasksListInfoCoding" location="component://scrum/widget/scrumForms.xml"/>
+                    </screenlet>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="AddProdBacklog">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleProductBacklog"/>
+                <set field="tabButtonItem" value="editProductBacklog"/>
+                <set field="productId" from-field="parameters.productId"/>
+                <entity-one entity-name="Product" value-field="product">
+                    <field-map field-name="productId"/>
+                </entity-one>
+                <entity-one entity-name="CustRequest" value-field="custRequest"/>
+                <set field="custRequestId" from-field="parameters.custRequestId"/>
+                <set field="parameters.statusId" value="CRQ_ACCEPTED"/>
+                <set field="description" from-field="parameters.description"/>
+                <set field="sequence" from-field="parameters.sequence" default-value="Y"/>
+                <set field="UnplannedSequence" from-field="parameters.UnplannedSequence" default-value="Y"/>
+                <set field="backlogListTarget" value="AddProdBacklog"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX_1" type="Integer"/>
+                <script location="component://scrum/groovyScripts/AddProductBacklogItem.groovy"/>
+                <entity-and entity-name="ProductAndRole" list="checkOwnerList">
+                    <field-map field-name="roleTypeId" value="PRODUCT_OWNER"/>
+                    <field-map field-name="productId" from-field="productId"/>
+                    <field-map field-name="partyId" from-field="userLogin.partyId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonScrumProductDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="BACKLOG"/>
+                            </condition>
+                            <widgets>
+                            <screenlet title="${uiLabelMap.ScrumAddNewProductBacklogItem}" collapsible="true" id="NewBack" initially-collapsed="true">
+                                    <include-form name="EditProdBacklog" location="component://scrum/widget/scrumForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                        </section>
+                        <section>
+                            <condition>
+                                    <if-service-permission service-name="scrumPermissionCheck" main-action="DELETE" resource-description="BACKLOG"/>
+                            </condition>
+                            <widgets>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field="unplanBacklogItems"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <container>
+                                             <section>
+                                                 <condition>
+                                                     <if-compare field="UnplannedSequence" operator="equals" value="Y"/>
+                                                 </condition>
+                                                 <widgets>
+                                                     <screenlet title="${uiLabelMap.ScrumUnplannedBacklogItemList}" navigation-menu-name="UnplannedBacklogListOption" id="productBacklogItemList" collapsible="true" initially-collapsed="true">
+                                                         <include-menu name="UnplannedBacklogListOption" location="component://scrum/widget/scrumMenus.xml"/>
+                                                         <section>
+                                                             <condition>
+                                                                 <not><if-empty field="checkOwnerList"/></not>
+                                                             </condition>
+                                                             <widgets>
+                                                                 <include-form location="component://scrum/widget/scrumForms.xml" name="UnplannedBacklogListForOwner" />
+                                                             </widgets>
+                                                             <fail-widgets>
+                                                                 <include-form location="component://scrum/widget/scrumForms.xml" name="UnplannedBacklogList" />
+                                                             </fail-widgets>
+                                                         </section>
+                                                    </screenlet>
+                                                 </widgets>
+                                                 <fail-widgets>
+                                                     <screenlet title="${uiLabelMap.ScrumUnplannedBacklogItemList}" navigation-menu-name="UnplannedBacklogListOption" id="productBacklogItemList" collapsible="true" initially-collapsed="true">
+                                                         <include-menu name="UnplannedBacklogListOption" location="component://scrum/widget/scrumMenus.xml"/>
+                                                         <section>
+                                                             <condition>
+                                                                 <not><if-empty field="checkOwnerList"/></not>
+                                                             </condition>
+                                                             <widgets>
+                                                                 <include-form name="UnplannedBacklogListByCategoriesForOwner" location="component://scrum/widget/scrumForms.xml"/>
+                                                             </widgets>
+                                                             <fail-widgets>
+                                                                 <include-form name="UnplannedBacklogListByCategories" location="component://scrum/widget/scrumForms.xml"/>
+                                                             </fail-widgets>
+                                                         </section>
+                                                     </screenlet>
+                                                 </fail-widgets>
+                                             </section>
+                                         </container>
+                                    </widgets>
+                                </section>
+                                <container>
+                                    <section>
+                                         <condition>
+                                            <if-compare field="sequence" operator="equals" value="Y"/>
+                                         </condition>
+                                         <widgets>
+                                            <screenlet title="${uiLabelMap.ScrumProductBacklogItemList}" navigation-menu-name="BacklogListOption" id="productBacklogItemList">
+                                                <include-menu name="BacklogListOption" location="component://scrum/widget/scrumMenus.xml"/>
+                                                <section>
+                                                    <condition>
+                                                        <not><if-empty field="checkOwnerList"/></not>
+                                                    </condition>
+                                                    <widgets>
+                                                        <include-form name="ListProdBacklogBySeqForOwner" location="component://scrum/widget/scrumForms.xml"/>
+                                                    </widgets>
+                                                    <fail-widgets>
+                                                        <include-form name="ListProdBacklogBySeq" location="component://scrum/widget/scrumForms.xml"/>
+                                                    </fail-widgets>
+                                                </section>
+                                            </screenlet>
+                                         </widgets>
+                                         <fail-widgets>
+                                            <screenlet title="${uiLabelMap.ScrumProductBacklogItemList}" navigation-menu-name="BacklogListOption" id="productBacklogItemList">
+                                                <include-menu name="BacklogListOption" location="component://scrum/widget/scrumMenus.xml"/>
+                                                <section>
+                                                    <condition>
+                                                        <not><if-empty field="checkOwnerList"/></not>
+                                                    </condition>
+                                                    <widgets>
+                                                        <include-form name="ListProdBacklogForOwner" location="component://scrum/widget/scrumForms.xml"/>
+                                                    </widgets>
+                                                    <fail-widgets>
+                                                        <include-form name="ListProdBacklog" location="component://scrum/widget/scrumForms.xml"/>
+                                                    </fail-widgets>
+                                                </section>
+                                            </screenlet>
+                                         </fail-widgets>
+                                    </section>
+                                </container>
+                            </widgets>
+                            <fail-widgets>
+                                <section>
+                                    <condition>
+                                        <if-service-permission service-name="scrumPermissionCheck" main-action="DELETE" resource-description="BACKLOG"/>
+                                    </condition>
+                                    <widgets>
+                                        <screenlet title="${uiLabelMap.ScrumProductBacklogItemList}" navigation-menu-name="BacklogListOption" id="productBacklogItemList">
+                                            <include-menu name="BacklogListOption" location="component://scrum/widget/scrumMenus.xml"/>
+                                            <section>
+                                                <condition>
+                                                    <if-compare field="sequence" operator="equals" value="Y"/>
+                                                </condition>
+                                                <widgets>
+                                                    <include-form name="ListProdBacklogBySeq" location="component://scrum/widget/scrumForms.xml"/>
+                                                </widgets>
+                                                <fail-widgets>
+                                                    <include-form name="ListProdBacklog" location="component://scrum/widget/scrumForms.xml"/>
+                                                </fail-widgets>
+                                            </section>
+                                        </screenlet>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <screenlet title="${uiLabelMap.ScrumProductBacklogItemList}">
+                                            <include-form name="ViewListProdBacklog" location="component://scrum/widget/scrumForms.xml"/>
+                                        </screenlet>
+                                    </fail-widgets>
+                                </section>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="DeleteProductBacklogItem">
+         <section>
+            <actions>
+                <set field="tabButtonItem" value="editProductBacklog"/>
+                <set field="custRequestId" from-field="parameters.custRequestId"/>
+                <entity-one entity-name="CustRequest" value-field="custRequestMap"/>
+                <entity-and entity-name="CustRequestAndCustRequestItem" list="categoryList">
+                    <field-map field-name="productId" from-field="parameters.productId"/>
+                    <field-map field-name="custRequestTypeId" value="RF_PARENT_BACKLOG"/>
+                    <field-map field-name="custRequestId" from-field="custRequestMap.parentCustRequestId"/>
+                </entity-and>
+                <set field="productId" from-field="parameters.productId"/>
+                <entity-one entity-name="Product" value-field="productMap"/>
+                <entity-condition entity-name="ProductBacklog" list="productBacklogs">
+                    <condition-list combine="and">
+                        <condition-expr field-name="custRequestId" from-field="parameters.custRequestId"/>
+                        <condition-expr field-name="workEffortTypeId" operator="equals" value="SCRUM_SPRINT"/>
+                    </condition-list>
+                </entity-condition>
+                <set field="sprintId" from-field="productBacklogs[0].workEffortId"/>
+                <entity-one entity-name="WorkEffort" value-field="workEffort">
+                    <field-map field-name="workEffortId" from-field="sprintId"/>
+                </entity-one>
+                <set field="sprintName" from-field="workEffort.workEffortName"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonScrumProductDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.ScrumDeleteBacklogItem}">
+                           <include-form name="DeleteProductBacklogItem" location="component://scrum/widget/scrumForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.ScrumProductBacklogItemInfo}">
+                            <include-form name="ViewEditProdBacklog" location="component://scrum/widget/scrumForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ViewProdBacklogItem">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleProductBacklogItemsOverview"/>
+                <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="tabButtonItem" value="view"/>
+                <set field="custRequestId" from-field="parameters.custRequestId"/>
+                <entity-and entity-name="CustRequestItem" list="custRequestItemList">
+                    <field-map field-name="custRequestId" from-field="parameters.custRequestId"/>
+                </entity-and>
+                <entity-one entity-name="CustRequest" value-field="custRequest"/>
+                <set field="parameters.productId" from-field="custRequestItemList[0].productId"/>
+                <entity-one entity-name="Product" value-field="productMap">
+                    <field-map field-name="productId" from-field="parameters.productId"/>
+                </entity-one>
+                <entity-condition entity-name="CustRequestAndContent" list="custRequestAndContents">
+                    <condition-list combine="and">
+                        <condition-expr field-name="custRequestId" from-field="custRequestId"/>
+                        <condition-expr field-name="fromDate" operator="less-equals" from-field="nowTimestamp"/>                        
+                        <condition-list combine="or">
+                            <condition-expr field-name="thruDate" operator="greater-equals" from-field="nowTimestamp"/>
+                            <condition-expr field-name="thruDate" from-field="null"/>
+                        </condition-list>
+                    </condition-list>
+                    <order-by field-name="fromDate"/>
+                </entity-condition>
+                <entity-and entity-name="CustRequestAndCustRequestItem" list="categoryList">
+                    <field-map field-name="productId" from-field="parameters.productId"/>
+                    <field-map field-name="custRequestTypeId" value="RF_PARENT_BACKLOG"/>
+                    <field-map field-name="custRequestId" from-field="custRequest.parentCustRequestId"/>
+                </entity-and>
+                <set field="update.productId" from-field="custRequestItemList[0].productId"/>
+                <set field="update.custRequestId" from-field="parameters.custRequestId"/>
+                <entity-condition entity-name="CommunicationEventAndCustRequest" list="commEvents">
+                    <condition-list combine="and">
+                        <condition-expr field-name="custRequestId" operator="equals" from-field="parameters.custRequestId"/>
+                        <condition-expr field-name="statusId" operator="not-equals" value="COM_CANCELLED"/>
+                        <condition-expr field-name="statusId" operator="not-equals" value="COM_DRAFT"/>
+                        <condition-expr field-name="statusId" operator="not-equals" value="COM_ENTERED"/>
+                        <condition-list combine="or">
+                            <condition-expr field-name="communicationEventTypeId" operator="equals" value="EMAIL_COMMUNICATION"/>
+                            <condition-expr field-name="communicationEventTypeId" operator="equals" value="AUTO_EMAIL_COMM"/>
+                        </condition-list>
+                    </condition-list>
+                    <order-by field-name="-entryDate"/>
+                </entity-condition>
+                <entity-and entity-name="ProductRole" list="productRole">
+                    <field-map field-name="productId" from-field="parameters.productId"/>
+                    <field-map field-name="roleTypeId" value="PRODUCT_OWNER"/>
+                </entity-and>
+                <set field="productOwnerId" value="${productRole[0].partyId}"/>
+                <entity-one entity-name="CommunicationEvent" value-field="parentCom">
+                    <field-map field-name="communicationEventId" from-field="parameters.parentCommEventId"/>
+                </entity-one>
+                <entity-one entity-name="CustRequest" value-field="custStatus">
+                    <field-map field-name="custRequestId" from-field="parameters.custRequestId"/>
+                </entity-one>
+                <entity-condition entity-name="ProductBacklog" list="productBacklogs">
+                    <condition-list combine="and">
+                        <condition-expr field-name="custRequestId" from-field="parameters.custRequestId"/>
+                        <condition-expr field-name="workEffortTypeId" operator="equals" value="SCRUM_SPRINT"/>
+                    </condition-list>
+                </entity-condition>
+                <set field="sprintId" from-field="productBacklogs[0].workEffortId" default-value="${parameters.sprintId}"/>
+                <set field="statusId" from-field="productBacklogs[0].statusId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonScrumProductBacklogItemDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <actions>
+                                
+                                <entity-one entity-name="WorkEffort" value-field="workEffort">
+                                    <field-map field-name="workEffortId" from-field="sprintId"/>
+                                </entity-one>
+                                <set field="sprintName" from-field="workEffort.workEffortName"/>
+                                <entity-condition entity-name="WorkEffortPartyAssignment" list="sprintMembers">
+                                    <condition-list combine="and">
+                                        <condition-expr field-name="workEffortId" from-field="sprintId"/>
+                                        <condition-expr field-name="partyId" from-field="userLogin.partyId"/>
+                                        <condition-expr field-name="roleTypeId" operator="equals" value="SCRUM_TEAM"/>
+                                    </condition-list>
+                                </entity-condition>
+                                <set field="sprintMember" from-field="sprintMembers[0]"/>
+                                <set field="isTeamMember" value="false" type="Boolean"/>
+                            </actions>
+                            <widgets>
+                                <container style="lefthalf">
+                                    <screenlet title="${uiLabelMap.ScrumProductBacklogItemInfo}">
+                                        <include-form name="ViewEditProdBacklog" location="component://scrum/widget/scrumForms.xml"/>
+                                    </screenlet>
+                                    <screenlet title="${uiLabelMap.ScrumRevisions}" name="RevisionsList">
+                                        <section>
+                                            <actions>
+                                                <entity-condition entity-name="ProjectSprintBacklogAndTask" list="plannedTasks">
+                                                    <condition-list combine="and">
+                                                        <condition-expr field-name="custRequestId" from-field="parameters.custRequestId"/>
+                                                        <condition-expr field-name="sprintTypeId" value="SCRUM_SPRINT"/>
+                                                        <condition-list combine="or">
+                                                            <condition-expr field-name="taskTypeId" value="SCRUM_TASK_ERROR"/>
+                                                            <condition-expr field-name="taskTypeId" value="SCRUM_TASK_TEST"/>
+                                                            <condition-expr field-name="taskTypeId" value="SCRUM_TASK_IMPL"/>
+                                                            <condition-expr field-name="taskTypeId" value="SCRUM_TASK_INST"/>
+                                                        </condition-list>
+                                                    </condition-list>
+                                                    <select-field field-name="taskId"/>
+                                                </entity-condition>
+                                                <set field="taskIds" type="List" value="${groovy:return org.apache.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(plannedTasks, &quot;taskId&quot;, true)}"/>
+                                                <entity-condition entity-name="UnPlannedBacklogsAndTasks" list="unplannedTasks">
+                                                    <condition-list combine="and">
+                                                        <condition-expr field-name="custRequestId" from-field="parameters.custRequestId"/>
+                                                        <condition-list combine="or">
+                                                            <condition-expr field-name="workEffortTypeId" value="SCRUM_TASK_ERROR"/>
+                                                            <condition-expr field-name="workEffortTypeId" value="SCRUM_TASK_TEST"/>
+                                                            <condition-expr field-name="workEffortTypeId" value="SCRUM_TASK_IMPL"/>
+                                                            <condition-expr field-name="workEffortTypeId" value="SCRUM_TASK_INST"/>
+                                                        </condition-list>
+                                                    </condition-list>
+                                                    <select-field field-name="workEffortId"/>
+                                                </entity-condition>
+                                                <set field="workEffortIds" type="List" value="${groovy:return org.apache.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(unplannedTasks, &quot;workEffortId&quot;, true)}"/>
+                                                <entity-condition entity-name="WorkEffortAndContentDataResource" list="listIt">
+                                                    <condition-list combine="and">
+                                                        <condition-expr field-name="workEffortContentTypeId" value="TASK_SUB_INFO"/>
+                                                        <condition-list combine="or">
+                                                            <condition-expr field-name="workEffortId" operator="in" from-field="taskIds" ignore-if-null="true"/>
+                                                            <condition-expr field-name="workEffortId" operator="in" from-field="workEffortIds" ignore-if-null="true"/>
+                                                        </condition-list>
+                                                    </condition-list>
+                                                    <order-by field-name="fromDate"/>
+                                                </entity-condition>
+                                            </actions>
+                                            <widgets>
+                                                <include-form name="ListBacklogRevisions" location="component://scrum/widget/scrumForms.xml"/>
+                                            </widgets>
+                                        </section>
+                                    </screenlet>
+                                </container>
+                                <container style="righthalf">
+                                    <screenlet title="${uiLabelMap.ScrumBacklogItemStatusList}" navigation-form-name="ViewRequest">
+                                        <include-form name="ViewBacklogStatus" location="component://scrum/widget/scrumForms.xml"/>
+                                    </screenlet>
+                                    <section>
+                                        <condition>
+                                            <if-empty field="sprintId"/>
+                                        </condition>
+                                        <widgets>
+                                            <screenlet title="${uiLabelMap.ScrumTasks}">
+                                                <include-form name="TaskRelateBacklog" location="component://scrum/widget/scrumForms.xml"/>
+                                            </screenlet>
+                                        </widgets>
+                                        <fail-widgets>
+                                            <screenlet title="${uiLabelMap.ScrumTasks}" navigation-menu-name="NewTask" >
+                                                <include-form name="TaskRelateBacklog" location="component://scrum/widget/scrumForms.xml"/>
+                                            </screenlet>
+                                        </fail-widgets>
+                                    </section>
+                                    <screenlet title="${uiLabelMap.CommonEmail}" name="Emails">
+                                        <include-form name="ViewRequestCommunicationEvents" location="component://scrum/widget/CommunicationEventForms.xml" />
+                                    </screenlet>
+                                    <screenlet title="${uiLabelMap.ScrumBacklogItemContentList}">
+                                       <include-form name="ViewListCustRequestContent" location="component://scrum/widget/scrumForms.xml"/>
+                                    </screenlet>
+                                    <include-screen name="BacklogNoteInfo"/>
+                                </container>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditProdBacklog">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditProductBacklogItems"/>
+                <set field="tabButtonItem" value="editProductBacklogItem"/>
+                <set field="custRequestId" from-field="parameters.custRequestId"/>
+                <entity-and entity-name="CustRequestItem" list="custRequestItem">
+                    <field-map field-name="custRequestId" from-field="parameters.custRequestId"/>
+                </entity-and>
+                <entity-one entity-name="CustRequest" value-field="custRequest"/>
+                <set field="custRequestItemSeqId" from-field="parameters.custRequestItemSeqId"/>
+                <set field="productId" from-field="custRequestItem[0].productId"/>
+                <set field="update.productId" from-field="custRequestItem[0].productId"/>
+                <set field="update.custRequestId" from-field="parameters.custRequestId"/>
+                <entity-condition entity-name="CommunicationEventAndCustRequest" list="commEvents">
+                    <condition-list combine="and">
+                        <condition-expr field-name="custRequestId" operator="equals" from-field="parameters.custRequestId"/>
+                        <condition-expr field-name="statusId" operator="not-equals" value="COM_CANCELLED"/>
+                        <condition-expr field-name="statusId" operator="not-equals" value="COM_DRAFT"/>
+                        <condition-expr field-name="statusId" operator="not-equals" value="COM_ENTERED"/>
+                    </condition-list>
+                    <order-by field-name="-entryDate"/>
+                </entity-condition>
+                <entity-and entity-name="ProductRole" list="productRole">
+                    <field-map field-name="productId" from-field="parameters.productId"/>
+                    <field-map field-name="roleTypeId" value="PRODUCT_OWNER"/>
+                </entity-and>
+                <set field="productOwnerId" value="${productRole[0].partyId}"/>
+                <entity-one entity-name="CommunicationEvent" value-field="parentCom">
+                    <field-map field-name="communicationEventId" from-field="parameters.parentCommEventId"/>
+                </entity-one>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonScrumProductBacklogItemDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <and>
+                                    <if-compare operator="equals" value="CRQ_ACCEPTED" field="custRequest.statusId"/>
+                                    <if-service-permission service-name="scrumPermissionCheck" main-action="VIEW" resource-description="BACKLOG"/>
+                                </and>
+                            </condition>
+                            <actions>
+                                <entity-condition entity-name="ProductBacklog" list="productBacklogs">
+                                    <condition-list combine="and">
+                                        <condition-expr field-name="custRequestId" from-field="parameters.custRequestId"/>
+                                        <condition-expr field-name="workEffortTypeId" operator="equals" value="SCRUM_SPRINT"/>
+                                    </condition-list>
+                                </entity-condition>
+                                <set field="sprintId" from-field="productBacklogs[0].workEffortId"/>
+                                <entity-condition entity-name="WorkEffortPartyAssignment" list="sprintMembers">
+                                    <condition-list combine="and">
+                                        <condition-expr field-name="workEffortId" from-field="sprintId"/>
+                                        <condition-expr field-name="partyId" from-field="userLogin.partyId"/>
+                                        <condition-expr field-name="roleTypeId" operator="equals" value="SCRUM_TEAM"/>
+                                    </condition-list>
+                                </entity-condition>
+                                <set field="sprintMember" from-field="sprintMembers[0]"/>
+                                <set field="isTeamMember" value="false" type="Boolean"/>
+                            </actions>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.ScrumUpdateProductBacklog}">
+                                    <include-form name="EditProdBacklog" location="component://scrum/widget/scrumForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                            <!-- Member section-->
+                                <section>
+                                    <condition>
+                                        <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="BACKLOG"/>
+                                    </condition>
+                                    <widgets>
+                                        <section>
+                                            <condition>
+                                                <if-has-permission permission="SCRUM" action="_ADMIN"/>
+                                            </condition>
+                                            <actions>
+                                                <set field="isTeamMember" type="Boolean" value="false"/>
+                                            </actions>
+                                            <widgets>
+                                                <screenlet title="${uiLabelMap.ScrumUpdateProductBacklog}">
+                                                    <include-form name="EditProdBacklog" location="component://scrum/widget/scrumForms.xml"/>
+                                                </screenlet>
+                                            </widgets>
+                                            <fail-widgets>
+                                                <section>
+                                                    <actions>
+                                                         <set field="isTeamMember" type="Boolean" value="true"/>
+                                                    </actions>
+                                                    <widgets>
+                                                        <screenlet title="${uiLabelMap.ScrumUpdateProductBacklog}">
+                                                            <include-form name="EditProdBacklog" location="component://scrum/widget/scrumForms.xml"/>
+                                                        </screenlet>
+                                                    </widgets>
+                                                </section>
+                                            </fail-widgets>
+                                        </section>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <include-screen name="ViewEditProdBacklog"/>
+                                    </fail-widgets>
+                                </section>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ProdBacklogNote">
+        <section>
+            <actions>
+                <set field="titleProperty" value="CommonNotes"/>
+                <set field="tabButtonItem" value="productBacklogItemNote"/>
+                <set field="custRequestId" from-field="parameters.custRequestId"/>
+                <set field="productId" from-field="parameters.productId"/>
+                <entity-and entity-name="CustRequestNote" list="custNoteList">
+                    <field-map field-name="custRequestId" from-field="custRequestId"/>
+                    <order-by field-name="-noteId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonScrumProductBacklogItemDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet id="addProdBacklogNote" title="${uiLabelMap.PageTitleNewBacklogItemNote}" collapsible="true">
+                            <include-form name="AddProdBacklogNote" location="component://scrum/widget/scrumForms.xml"/>
+                        </screenlet>
+                        <screenlet id="listProdBacklogNote" title="${uiLabelMap.PageTitleBacklogItemNoteList}" collapsible="true">
+                            <include-form name="ListProdBacklogNote" location="component://scrum/widget/scrumForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="BacklogNoteInfo">
+        <section>
+        <actions>
+            <set field="custRequestId" from-field="parameters.custRequestId"/>
+            <set field="productId" from-field="parameters.productId"/>
+            <entity-and entity-name="NoteData" list="noteDataList">
+                <field-map field-name="noteName" value="How to test"/>
+            </entity-and>
+            <set field="noteIds" value="${groovy:org.apache.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(noteDataList, 'noteId', true);}" type="List"/>
+            <entity-condition entity-name="CustRequestNote" list="custNoteList" >
+                <condition-list combine="and">
+                    <condition-expr field-name="custRequestId" from-field="custRequestId"/>
+                    <condition-expr field-name="noteId" operator="not-in" from-field="noteIds" ignore-if-empty="true"/>
+                </condition-list>
+                <order-by field-name="-noteId"/>
+                <limit-range start="0" size="5"/>
+            </entity-condition>
+        </actions>
+            <widgets>
+                <screenlet id="listProdBacklogNote" title="${uiLabelMap.PageTitleBacklogItemNoteList}">
+                    <include-form name="ListProdBacklogNoteInfo" location="component://scrum/widget/scrumForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditBacklogItemContent">
+        <section>
+            <actions>
+                <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="PageTitleProductBacklogItemsContents"/>
+                <set field="tabButtonItem" value="productBacklogItemContent"/>
+                <set field="headerItem" value="request"/>
+                <set field="contentId" from-field="parameters.contentId"/>
+                <set field="custRequestId" from-field="parameters.custRequestId"/>
+                <set field="productId" from-field="parameters.productId"/>
+                <entity-condition entity-name="CustRequestAndContent" list="custRequestAndContents">
+                    <condition-list combine="and">
+                        <condition-expr field-name="custRequestId" from-field="custRequestId"/>
+                        <condition-expr field-name="fromDate" operator="less-equals" from-field="nowTimestamp"/>                        
+                        <condition-list combine="or">
+                            <condition-expr field-name="thruDate" operator="greater-equals" from-field="nowTimestamp"/>
+                            <condition-expr field-name="thruDate" from-field="null"/>
+                        </condition-list>
+                    </condition-list>
+                    <order-by field-name="fromDate"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonScrumProductBacklogItemDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                             <condition>
+                                   <or>
+                                       <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="PROJECT"/>
+                                       <if-service-permission service-name="projectUpdateMemberPermission" context-map="permissionMap"/>
+                                   </or>
+                               </condition>
+                               <widgets>
+                                   <screenlet id="listCustRequestContent" title="${uiLabelMap.ScrumBacklogItemContentList}" collapsible="true">
+                                       <include-form name="ListCustRequestContent" location="component://scrum/widget/scrumForms.xml"/>
+                                   </screenlet>
+                                   <screenlet id="addCustRequestContent" title="${uiLabelMap.ScrumBacklogItemAddProductContent}" collapsible="true">
+                                       <include-form name="AddCustRequestContent" location="component://scrum/widget/scrumForms.xml"/>
+                                   </screenlet>
+                               </widgets>
+                                <fail-widgets>
+                                    <screenlet title="${uiLabelMap.ScrumBacklogItemContentList}">
+                                       <include-form name="ViewListCustRequestContent" location="component://scrum/widget/scrumForms.xml"/>
+                                    </screenlet>
+                                </fail-widgets>
+                                
+                      </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="ProductBacklogEmails">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleProductBacklogItemsCommunication"/>
+                <set field="tabButtonItem" value="productBacklogItemComm"/>
+                <entity-and entity-name="CustRequestItem" list="custRequestItem">
+                    <field-map field-name="custRequestId" from-field="parameters.custRequestId"/>
+                </entity-and>
+                <entity-one entity-name="CustRequest" value-field="custRequest"/>
+                <entity-condition list="commEvents" entity-name="CommunicationEventAndCustRequest">
+                    <condition-list combine="and">
+                        <condition-expr field-name="custRequestId" operator="equals" from-field="parameters.custRequestId"/>
+                        <condition-expr field-name="statusId" operator="not-equals" value="COM_CANCELLED"/>
+                        <condition-expr field-name="statusId" operator="not-equals" value="COM_DRAFT"/>
+                        <condition-expr field-name="statusId" operator="not-equals" value="COM_ENTERED"/>
+                        <condition-list combine="or">
+                            <condition-expr field-name="communicationEventTypeId" operator="equals" value="EMAIL_COMMUNICATION"/>
+                            <condition-expr field-name="communicationEventTypeId" operator="equals" value="AUTO_EMAIL_COMM"/>
+                        </condition-list>
+                    </condition-list>
+                    <order-by field-name="-entryDate"/>
+                </entity-condition>
+                <entity-and entity-name="ProductRole" list="productRole">
+                    <field-map field-name="productId" from-field="parameters.productId"/>
+                    <field-map field-name="roleTypeId" value="PRODUCT_OWNER"/>
+                </entity-and>
+                <set field="productOwnerId" value="${productRole[0].partyId}"/>
+                <entity-one entity-name="CommunicationEvent" value-field="parentCom">
+                    <field-map field-name="communicationEventId" from-field="parameters.parentCommEventId"/>
+                </entity-one>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonScrumBacklogItemCommDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="BACKLOG"/>
+                            </condition>
+                            <actions>
+                                <entity-condition entity-name="ProductBacklog" list="productBacklogs">
+                                    <condition-list combine="and">
+                                        <condition-expr field-name="custRequestId" from-field="parameters.custRequestId"/>
+                                        <condition-expr field-name="workEffortTypeId" operator="equals" value="SCRUM_SPRINT"/>
+                                    </condition-list>
+                                </entity-condition>
+                                <set field="sprintId" from-field="productBacklogs[0].workEffortId"/>
+                                <entity-condition entity-name="WorkEffortPartyAssignment" list="sprintMembers">
+                                    <condition-list combine="and">
+                                        <condition-expr field-name="workEffortId" from-field="sprintId"/>
+                                        <condition-expr field-name="partyId" from-field="userLogin.partyId"/>
+                                        <condition-expr field-name="roleTypeId" operator="equals" value="SCRUM_TEAM"/>
+                                    </condition-list>
+                                </entity-condition>
+                                <set field="sprintMember" from-field="sprintMembers[0]"/>
+                                <set field="isTeamMember" value="false" type="Boolean"/>
+                            </actions>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.ScrumProductBacklogEmail}">
+                                    <include-form name="ViewRequestCommunicationEvents" location="component://scrum/widget/CommunicationEventForms.xml" />
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                            <!-- Member section -->
+                                <section>
+                                    <condition>
+                                        <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="BACKLOG"/>
+                                    </condition>
+                                    <actions>
+                                         <set field="isTeamMember" type="Boolean" value="true"/>
+                                    </actions>
+                                    <widgets>
+                                        <screenlet title="${uiLabelMap.CommonEmails}">
+                                            <include-form name="ViewRequestCommunicationEvents" location="component://scrum/widget/CommunicationEventForms.xml" />
+                                       </screenlet>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <include-screen name="ViewEditProdBacklog"/>
+                                    </fail-widgets>
+                                </section>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="NewBacklogTask">
+        <section>
+            <actions>
+                <set field="custRequestId" from-field="parameters.custRequestId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonScrumProductBacklogItemDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.ScrumCreateTaskforProductBacklog}">
+                            <include-form name="NewBacklogTask" location="component://scrum/widget/scrumForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="EditDeleteBacklogItem">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="view"/>
+                <set field="custRequestId" from-field="parameters.custRequestId"/>
+                <entity-one entity-name="CustRequest" value-field="custRequestMap"/>
+                <entity-and entity-name="CustRequestAndCustRequestItem" list="categoryList">
+                    <field-map field-name="productId" from-field="parameters.productId"/>
+                    <field-map field-name="custRequestTypeId" value="RF_PARENT_BACKLOG"/>
+                    <field-map field-name="custRequestId" from-field="custRequestMap.parentCustRequestId"/>
+                </entity-and>
+                <set field="productId" from-field="parameters.productId"/>
+                <entity-one entity-name="Product" value-field="productMap"/>
+                <entity-condition entity-name="ProductBacklog" list="productBacklogs">
+                    <condition-list combine="and">
+                        <condition-expr field-name="custRequestId" from-field="parameters.custRequestId"/>
+                        <condition-expr field-name="workEffortTypeId" operator="equals" value="SCRUM_SPRINT"/>
+                    </condition-list>
+                </entity-condition>
+                <set field="sprintId" from-field="productBacklogs[0].workEffortId"/>
+                <entity-one entity-name="WorkEffort" value-field="workEffort">
+                    <field-map field-name="workEffortId" from-field="sprintId"/>
+                </entity-one>
+                <set field="sprintName" from-field="workEffort.workEffortName"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonScrumProductBacklogItemDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.ScrumDeleteBacklogItem}">
+                           <include-form name="EditDeleteBacklogItem" location="component://scrum/widget/scrumForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.ScrumProductBacklogItemInfo}">
+                            <include-form name="ViewEditProdBacklog" location="component://scrum/widget/scrumForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditProjectContents">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleScrumProjectContents"/>
+                <set field="tabButtonItem" value="projectContent"/>
+                <set field="headerItem" value="EditProjectContents"/>
+                <set field="contentId" from-field="parameters.contentId"/>
+                <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
+                <set field="workEffortId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
+                <entity-and entity-name="WorkEffortAndContentDataResource" list="workEffortAndContentDataResources">
+                    <field-map field-name="workEffortId" from-field="projectId"/>
+                </entity-and>
+                <set field="permissionMap.projectId" from-field="projectId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProjectScreenDecorator"  location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                            <section>
+                                  <condition>
+                                      <or>
+                                        <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="PROJECT"/>
+                                          <if-service-permission service-name="projectUpdateMemberPermission" context-map="permissionMap"/>
+                                      </or>
+                                  </condition>
+                                <widgets>
+                                    <screenlet id="listContents" title="${uiLabelMap.ScrumContentList}" collapsible="true">
+                                        <include-form name="ListContents" location="component://scrum/widget/scrumForms.xml"/>
+                                    </screenlet>
+                                    <screenlet id="uploadWorkEffortContent" title="${uiLabelMap.PageTitleAddProjectContent}" collapsible="true">
+                                        <include-form name="UploadWorkEffortContent" location="component://scrum/widget/scrumForms.xml"/>
+                                    </screenlet>
+                                </widgets>
+                                <fail-widgets>
+                                    <include-screen name="ListProjectContent"/>
+                                </fail-widgets>
+                            </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+     <screen name="ListProjectContent">
+        <section>
+            <actions>
+                <property-map resource="ContentUiLabels" map-name="uiLabelMap"/>
+                <set field="workEffortId" from-field="parameters.projectId"/>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.ScrumContentList}">
+                    <include-form name="ListProjectContent" location="component://scrum/widget/scrumForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="DailyScrumMeetingMinute">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleDailyMeetingMinutes"/>
+                <set field="tabButtonItem" value="DailySprintMeetingMinute"/>
+                <set field="workEffortId" from-field="parameters.projectId"/>
+                <set field="sprintId" from-field="parameters.sprintId"/>
+                <entity-one entity-name="WorkEffort" value-field="project"/>
+                <entity-one entity-name="CustRequest" value-field="custRequest"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonSprintScreenDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <or>
+                                    <if-has-permission permission="SCRUM_DAILY" action="_UPDATE"/>
+                                    <if-has-permission permission="SCRUM" action="_ADMIN"/>
+                                </or>
+                            </condition>
+                            <widgets>
+                                <screenlet name="DailyScrumMeetingMinute" title="${uiLabelMap.ScrumAddDailyMeetingMinutes} : ${parameters.projectId}" collapsible="true">
+                                    <include-form name="DailyMeetingMinute" location="component://scrum/widget/scrumForms.xml"/>
+                                </screenlet>
+                                <screenlet title="${uiLabelMap.ScrumListUpdateDailyMeetingMinutes}">
+                                    <include-screen name="ListDailyMeetingMinutes"/>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <section>
+                                    <widgets>
+                                        <screenlet title="${uiLabelMap.ScrumListUpdateDailyMeetingMinutes}">
+                                            <include-screen name="ListDailyMeetingMinutes"/>
+                                        </screenlet>
+                                    </widgets>
+                                </section>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="ListDailyMeetingMinutes">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="SprintList"/>
+                <set field="workEffortId" from-field="parameters.projectId"/>
+                <entity-one entity-name="WorkEffort" value-field="project"/>
+                <entity-one entity-name="CustRequest" value-field="custRequest"/>
+            </actions>
+            <widgets>
+                    <include-form name="ListDailyMeetingMinute" location="component://scrum/widget/scrumForms.xml"/>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="ViewDailyMeetingMinutes">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="SprintList"/>
+                <set field="workEffortId" from-field="parameters.projectId"/>
+                <entity-one entity-name="WorkEffort" value-field="project"/>
+                <entity-one entity-name="CustRequest" value-field="custRequest"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <link target="DailyScrumMeetingMinute" text="${uiLabelMap.CommonBack}" style="buttontext">
+                                    <parameter param-name="projectId" from-field="parameters.projectId"/>
+                                    <parameter param-name="custRequestId" from-field="parameters.custRequestId"/>
+                                </link>
+                                <screenlet name="DailyScrumMeetingMinute" title="${uiLabelMap.ScrumViewDailyMeetingMinutes} : ${custRequest.custRequestName}">
+                                    <include-form name="ViewDailyMeeting" location="component://scrum/widget/scrumForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="ViewDailyScrumMeetingMinute">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="SprintList"/>
+                <set field="workEffortId" from-field="parameters.projectId"/>
+                <entity-one entity-name="WorkEffort" value-field="project"/>
+                <entity-one entity-name="CustRequest" value-field="custRequest"/>
+                <set field="permissionMap.projectId" from-field="parameters.projectId"/>
+                <set field="permissionMap.sprintId" from-field="parameters.sprintId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="scrumCommonDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="SCRUM_DAILY" action="_UPDATE"/>
+                            </condition>
+                            <widgets>
+                                <container style="button-bar">
+                                    <link target="DailyScrumMeetingMinute" text="${uiLabelMap.CommonBack}" style="buttontext">
+                                        <parameter param-name="projectId" from-field="parameters.projectId"/>
+                                        <parameter param-name="custRequestId" from-field="parameters.custRequestId"/>
+                                    </link>
+                                </container>
+                                <screenlet name="DailyScrumMeetingMinute" title="${uiLabelMap.ScrumAddDailyMeetingMinutes} : ${project.workEffortName}">
+                                    <include-form name="DailyMeetingMinute" location="component://scrum/widget/scrumForms.xml"/>
+                                </screenlet>
+                                <screenlet title="${uiLabelMap.ScrumListUpdateDailyMeetingMinutes}">
+                                    <include-screen name="ListDailyMeetingMinutes"/>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <screenlet title="${uiLabelMap.ScrumListUpdateDailyMeetingMinutes}">
+                                    <include-screen name="ListDailyMeetingMinutes"/>
+                                </screenlet>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="EditSprintBacklog">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="SprintList"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <container style="button-bar">
+                                    <link target="ViewSprint" text="${uiLabelMap.CommonBack}" style="buttontext" link-type="hidden-form">
+                                        <parameter param-name="projectId" from-field="parameters.projectId"/>
+                                        <parameter param-name="sprintId" from-field="parameters.sprintId"/>
+                                    </link>
+                                </container>
+                                <screenlet name="EditSprintBacklog" title="${uiLabelMap.ScrumEditSprintBacklog}">
+                                    <include-form name="EditSprintBacklog" location="component://scrum/widget/scrumForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="listResourcesProject">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="listResourcesProject"/>
+                <set field="titleProperty" value="PageTitleListProjectByParty"/>
+                <set field="workEffortId" from-field="parameters.projectId"/>
+                <entity-and entity-name="WorkEffortAndPartyAssign" list="parties" filter-by-date="true">
+                    <field-map field-name="workEffortTypeId" value="SCRUM_PROJECT"/>
+                    <field-map field-name="partyId" from-field="parameters.partyId"/>
+                    <order-by field-name="workEffortName"/>
+                </entity-and>
+                <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
+                <service service-name="getProject" result-map="result">
+                    <field-map field-name="projectId" from-field="projectId"/>
+                </service>
+                <set field="project" from-field="result.projectInfo"/>
+                <set field="workEffortId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
+                <set field="projectId" from-field="workEffortId"/>
+                <entity-one entity-name="WorkEffortPartyAssignment" value-field="workEffortPartyAssignment"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet id="AddRes" title="${uiLabelMap.PageTitleAddProject}" collapsible="true">
+                            <include-form name="AddResourceProjectParty" location="component://scrum/widget/ProjectForms.xml"/>
+                        </screenlet>
+                        <include-form name="ListResourcesProjects" location="component://scrum/widget/ProjectForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="listResourcesTask">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="listResourcesTask"/>
+                <set field="titleProperty" value="PageTitleListTaskByParty"/>
+                <set field="workEffortId" from-field="parameters.projectId"/>
+                <entity-condition entity-name="ProjectSprintBacklogTaskAndParty" list="tasks">
+                    <condition-list combine="and">
+                        <condition-expr field-name="memberThruDate" value=""/>
+                        <condition-list combine="or">
+                            <condition-expr field-name="taskTypeId" value="SCRUM_TASK_ERROR"/>
+                            <condition-expr field-name="taskTypeId" value="SCRUM_TASK_IMPL"/>
+                            <condition-expr field-name="taskTypeId" value="SCRUM_TASK_INST"/>
+                            <condition-expr field-name="taskTypeId" value="SCRUM_TASK_TEST"/>
+                        </condition-list>
+                        <condition-expr field-name="partyId" from-field="parameters.partyId"/>
+                        <condition-expr field-name="taskCurrentStatusId" value="STS_CREATED"/>
+                    </condition-list>
+                    <order-by field-name="custRequestTypeId DESC"/>
+                    <order-by field-name="taskTypeId"/>
+                </entity-condition>
+                <script location="component://scrum/groovyScripts/AddResourceTaskParty.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet id="AddResTsk" title="${uiLabelMap.PageTitleAddTask}" collapsible="true">
+                            <include-form name="AddResourceTaskParty" location="component://scrum/widget/ProjectForms.xml"/>
+                        </screenlet>
+                        <include-form name="ListResourcesTasks" location="component://scrum/widget/ProjectForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="EditSprintTask">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="SprintTask"/>
+                <set field="workEffortId" from-field="parameters.taskId"/>
+                <entity-one entity-name="WorkEffort" value-field="task"/>
+                <set field="isAdmin" value="false" type="Boolean"/>
+                <entity-one entity-name="WorkEffort" value-field="workEffortMap">
+                    <field-map field-name="workEffortId" from-field="task.workEffortParentId"/>
+                </entity-one>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonSprintScreenDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="TASK"/>
+                            </condition>
+                            <widgets>
+                                <section>
+                                    <condition>
+                                        <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="SPRINT"/>
+                                    </condition>
+                                    <widgets>
+                                        <section>
+                                            <actions>
+                                                <set field="isAdmin" value="true" type="Boolean"/>
+                                            </actions>
+                                            <widgets>
+                                                <screenlet name="EditSprintTask" title="${uiLabelMap.PageTitleEditTask}">
+                                                    <include-form name="EditSprintTask" location="component://scrum/widget/TaskForms.xml"/>
+                                                </screenlet>
+                                            </widgets>
+                                        </section>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <screenlet name="EditSprintTask" title="${uiLabelMap.PageTitleEditTask}">
+                                            <include-form name="EditSprintTask" location="component://scrum/widget/TaskForms.xml"/>
+                                        </screenlet>
+                                    </fail-widgets>
+                                </section>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ScrumProduct">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleProduct"/>
+                <set field="noConditionFind" value="Y"/>
+                <set field="parameters.statusId" default-value="PRODUCT_ACTIVE" from-field="parameters.statusId"/>
+                <script location="component://scrum/groovyScripts/ListCurrentProducts.groovy"/>
+                <script location="component://scrum/groovyScripts/ListScrumRolesPersonAndCompany.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <section>
+                                    <condition>
+                                            <if-has-permission permission="SCRUM" action="_ADMIN"/>
+                                    </condition>
+                                    <widgets>
+                                        <include-menu name="ProductSubTabBar" location="component://scrum/widget/scrumMenus.xml"/>
+                                    </widgets>
+                                </section>
+                                <screenlet id="findProduct" title="${uiLabelMap.ScrumFindProduct}" collapsible="true">
+                                    <include-form name="FindProductByProdOwner" location="component://scrum/widget/scrumForms.xml"/>
+                                </screenlet>
+                                <section>
+                                    <condition>
+                                        <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="TASK"/>
+                                    </condition>
+                                    <widgets>
+                                         <screenlet title="${uiLabelMap.ScrumProductList}">
+                                             <include-form name="ListProduct" location="component://scrum/widget/scrumForms.xml"/>
+                                         </screenlet>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <screenlet title="${uiLabelMap.ScrumProductList}">
+                                             <include-form name="ListProductWithNoLinkProfile" location="component://scrum/widget/scrumForms.xml"/>
+                                         </screenlet>
+                                    </fail-widgets>
+                                </section>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditProduct">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditProduct"/>
+                <set field="tabButtonItem" value="edit"/>
+                <entity-one entity-name="Product" value-field="product"/>
+                <set field="permissionMap.productId" from-field="parameters.productId"/>
+                <script location="component://scrum/groovyScripts/ListScrumRolesPersonAndCompany.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonScrumProductDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                        <condition>
+                            <or>
+                               <if-has-permission permission="SCRUM" action="_ADMIN"/>
+                            </or>
+                        </condition>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.ScrumEditProduct}">
+                                    <include-form name="EditProduct" location="component://scrum/widget/scrumForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <section>
+                                    <condition>
+                                        <if-service-permission service-name="scrumPermissionCheck" main-action="VIEW" resource-description="PRODUCT" context-map="permissionMap"/>
+                                    </condition>
+                                    <widgets>
+                                        <screenlet title="${uiLabelMap.ScrumEditProduct}">
+                                            <include-form name="EditProductByProductOwner" location="component://scrum/widget/scrumForms.xml"/>
+                                        </screenlet>
+                                    </widgets>
+                                </section>
+                            </fail-widgets>
+                         </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ViewProduct">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleProductOverview"/>
+                <set field="tabButtonItem" value="view"/>
+                <set field="productId" from-field="parameters.productId"/>
+                <set field="custRequestId" from-field="parameters.custRequestId"/>
+                <set field="statusId" from-field="parameters.statusId"/>
+                <set field="description" from-field="parameters.description"/>
+                <set field="workEffortId" from-field="parameters.taskId"/>
+                <entity-and entity-name="CustRequestWorkEffort" list="custRequestWorkEffort">
+                    <field-map field-name="workEffortId" from-field="workEffortId"/>
+                </entity-and>
+                <set field="custRequestId" from-field="custRequestWorkEffort[0].custRequestId"/>
+                <entity-one entity-name="Product" value-field="product"/>
+                <entity-condition entity-name="CommunicationEventAndProduct" list="commEvents">
+                    <condition-list combine="and">
+                        <condition-list combine="or">
+                            <condition-expr field-name="statusId" operator="equals" value="COM_PENDING"/>
+                            <condition-expr field-name="statusId" operator="equals" value="COM_IN_PROGRESS"/>
+                            <condition-expr field-name="statusId" operator="equals" value="COM_RESOLVED"/>
+                        </condition-list>
+                        <condition-expr field-name="productId" operator="equals" from-field="productId"/>
+                        <condition-expr field-name="parentCommEventId" from-field="parameters.parentCommEventId" />
+                        <condition-list combine="or">
+                            <condition-expr field-name="communicationEventTypeId" operator="equals" value="EMAIL_COMMUNICATION"/>
+                            <condition-expr field-name="communicationEventTypeId" operator="equals" value="AUTO_EMAIL_COMM"/>
+                        </condition-list>
+                    </condition-list>
+                    <order-by field-name="entryDate"/>
+                </entity-condition>
+                <entity-and entity-name="ProductContent" list="productContent">
+                    <field-map field-name="productId" from-field="productId"/>
+                    <field-map field-name="thruDate" value=""/>
+                </entity-and>
+                <set field="workEffortId" from-field="parameters.projectId"/>
+                <entity-condition entity-name="ProjectSprint" list="sprints">
+                    <condition-list combine="and">
+                        <condition-expr field-name="productId" from-field="parameters.productId"/>
+                    </condition-list>
+                    <order-by field-name="projectId DESC"/>
+                    <order-by field-name="sprintActualStartDate DESC"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonScrumProductDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <container style="clear"/>
+                                <container style="lefthalf">
+                                    <screenlet title="${uiLabelMap.ScrumProductInformation}">
+                                        <include-form name="ViewProduct" location="component://scrum/widget/scrumForms.xml"/>
+                                    </screenlet>
+                                    <screenlet title="${uiLabelMap.ScrumBacklogsStatusChart}">
+                                        <platform-specific>
+                                            <html><html-template location="component://scrum/template/includes/PieChart.ftl"/></html>
+                                        </platform-specific>
+                                    </screenlet>
+                                    <screenlet title="${uiLabelMap.ScrumRevisions}">
+                                        <section>
+                                            <actions>
+                                                <entity-condition entity-name="CustRequestAndCustRequestItem" list="backlogList">
+                                                    <condition-list combine="and">
+                                                        <condition-expr field-name="productId" from-field="productId"/>
+                                                        <condition-list combine="or">
+                                                            <condition-expr field-name="custRequestTypeId" value="RF_PROD_BACKLOG"/>
+                                                            <condition-expr field-name="custRequestTypeId" value="RF_UNPLAN_BACKLOG"/>
+                                                        </condition-list>
+                                                    </condition-list>
+                                                </entity-condition>
+                                                <set field="custRequestIds" value="${groovy:org.apache.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(backlogList, 'custRequestId', true);}" type="List"/>
+                                                <entity-condition entity-name="ProjectSprintBacklogAndTask" list="plannedTasks">
+                                                    <condition-list combine="and">
+                                                        <condition-expr field-name="custRequestId" operator="in" from-field="custRequestIds"/>
+                                                        <condition-expr field-name="sprintTypeId" value="SCRUM_SPRINT"/>
+                                                        <condition-list combine="or">
+                                                            <condition-expr field-name="taskTypeId" value="SCRUM_TASK_ERROR"/>
+                                                            <condition-expr field-name="taskTypeId" value="SCRUM_TASK_TEST"/>
+                                                            <condition-expr field-name="taskTypeId" value="SCRUM_TASK_IMPL"/>
+                                                            <condition-expr field-name="taskTypeId" value="SCRUM_TASK_INST"/>
+                                                        </condition-list>
+                                                    </condition-list>
+                                                    <select-field field-name="taskId"/>
+                                                </entity-condition>
+                                                <set field="taskIds" type="List" value="${groovy:return org.apache.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(plannedTasks, &quot;taskId&quot;, true)}"/>
+                                                <entity-condition entity-name="UnPlannedBacklogsAndTasks" list="unplannedTasks">
+                                                    <condition-list combine="and">
+                                                        <condition-expr field-name="custRequestId" operator="in" from-field="custRequestIds"/>
+                                                        <condition-list combine="or">
+                                                            <condition-expr field-name="workEffortTypeId" value="SCRUM_TASK_ERROR"/>
+                                                            <condition-expr field-name="workEffortTypeId" value="SCRUM_TASK_TEST"/>
+                                                            <condition-expr field-name="workEffortTypeId" value="SCRUM_TASK_IMPL"/>
+                                                            <condition-expr field-name="workEffortTypeId" value="SCRUM_TASK_INST"/>
+                                                        </condition-list>
+                                                    </condition-list>
+                                                    <select-field field-name="workEffortId"/>
+                                                </entity-condition>
+                                                <set field="workEffortIds" type="List" value="${groovy:return org.apache.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(unplannedTasks, &quot;workEffortId&quot;, true)}"/>
+                                                <set field="parameters.custRequestId" from-field="custRequestWorkEffort[0].custRequestId"/>
+                                                <set field="parameters.noConditionFind" value="Y"/>
+                                                <entity-condition entity-name="WorkEffortAndContentDataResource" list="listIt">
+                                                    <condition-list combine="and">
+                                                        <condition-expr field-name="workEffortContentTypeId" value="TASK_SUB_INFO"/>
+                                                        <condition-list combine="or">
+                                                            <condition-expr field-name="workEffortId" operator="in" from-field="taskIds" ignore-if-null="true"/>
+                                                            <condition-expr field-name="workEffortId" operator="in" from-field="workEffortIds" ignore-if-null="true"/>
+                                                        </condition-list>
+                                                    </condition-list>
+                                                    <order-by field-name="-fromDate"/>
+                                                </entity-condition>
+                                            </actions>
+                                            <widgets>
+                                                <include-form name="ListProductRevisions" location="component://scrum/widget/scrumForms.xml"/>
+                                            </widgets>
+                                        </section>
+                                    </screenlet>
+                                </container>
+                                <container style="righthalf">
+                                    <screenlet id="listResources" title="${uiLabelMap.ScrumProductMembersList}" collapsible="true">
+                                        <include-form name="ProductMemberInfo" location="component://scrum/widget/ResourceForms.xml"/>
+                                    </screenlet>
+                                    <screenlet title="${uiLabelMap.CommonEmails}">
+                                        <include-form name="ViewProductCommunicationEvents" location="component://scrum/widget/CommunicationEventForms.xml" />
+                                    </screenlet>
+                                    <include-screen name="ListProductContent"/>
+                                    <screenlet title="${uiLabelMap.ScrumProjectAndSprintList}">
+                                        <include-form name="ProjectAndSprintListInfo" location="component://scrum/widget/scrumForms.xml"/>
+                                    </screenlet>
+                                </container>
+                                <container style="clear"/>
+                            </widgets>
+                         </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="ViewTotalBacklog">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleTotalBacklog"/>
+                <set field="tabButtonItem" value="totalProductBacklog"/>
+                <set field="sequence" from-field="parameters.sequence" default-value="Y"/>
+                <set field="backlogListTarget" value="ViewTotalBacklog"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX_1" type="Integer"/>
+                <script location="component://scrum/groovyScripts/FindProductBacklogItem.groovy"/>
+            </actions>
+            <widgets>
+            <decorator-screen name="CommonScrumProductDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-section name="body">
+                    <screenlet id="FindBack" title="${uiLabelMap.ScrumFindProductBacklogItem}" collapsible="true" initially-collapsed="false">
+                        <include-form name="FindProdBacklog" location="component://scrum/widget/scrumForms.xml"/>
+                    </screenlet>
+                    <include-screen name="ListProdBacklog"/>
+                </decorator-section>
+            </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="ListProdBacklog">
+        <section>
+            <actions>
+                <set field="parameters.statusId" from-field="parameters.statusId" default-value="CRQ_ACCEPTED"/>
+            </actions>
+            <widgets>
+                <screenlet id="Backlogs" title="${uiLabelMap.ScrumProductBacklogItemList}" navigation-menu-name="BacklogListOption" collapsible="true">
+                    <include-menu name="BacklogListOption" location="component://scrum/widget/scrumMenus.xml"/>
+                    <include-form name="ViewTotalProdBacklog" location="component://scrum/widget/scrumForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+   <screen name="ProductBilling">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleBilling"/>
+                <set field="tabButtonItem" value="billing"/>
+                <set field="productId" from-field="parameters.productId"/>
+                <entity-one entity-name="Product" value-field="product"/>
+                <set field="includeMeeting" from-field="parameters.includeMeeting" default-value="N"/>
+                <set field="organizationPartyId" from-field="userPreferences.ORGANIZATION_PARTY" default-value="${defaultOrganizationPartyId}"/>
+                <script location="component://scrum/groovyScripts/ProductBilling.groovy"/>
+                <set field="fromDate" from-field="parameters.fromDate" default-value="${resultDate}" type="Date"/>
+                <set field="thruDate" from-field="parameters.thruDate" default-value="${thruDate}" type="Date"/>
+                <set field="nullField" type="Timestamp"/>
+                <entity-and entity-name="ProductRole" list="productRole">
+                   <field-map field-name="productId" from-field="productId"/>
+                   <field-map field-name="roleTypeId" value="PRODUCT_OWNER_COMP"/>
+                   <field-map field-name="thruDate" from-field="nullField"/>
+                </entity-and>
+                <set field="partyId" from-field="productRole[0].partyId"/>
+                <set field="partyIdFrom" from-field="organizationPartyId"/>
+                <entity-one entity-name="PartyNameView" value-field="partyMap">
+                    <field-map field-name="partyId" from-field="partyId"/>
+                </entity-one>
+                <entity-one entity-name="PartyNameView" value-field="companyMap">
+                    <field-map field-name="partyId" from-field="partyIdFrom"/>
+                </entity-one>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonScrumProductDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <or>
+                                    <if-has-permission permission="SCRUM_BILLING" action="_VIEW"/>
+                                    <if-has-permission permission="SCRUM" action="_ADMIN"/>
+                                </or>
+                            </condition>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.PageTitleFindTimeEntryNotBilled}">
+                                    <include-form name="FindProductBilling" location="component://scrum/widget/scrumForms.xml"/>
+                                </screenlet>
+                                <screenlet id="hoursNotYetBilled" title="${uiLabelMap.PageTitleHoursNotYetBilled} ${uiLabelMap.CommonInformation}
+                                     : ${uiLabelMap.WorkEffortTimeBillFromParty} ${companyMap.groupName} [${companyMap.partyId}] ${uiLabelMap.WorkEffortTimeBillToParty} 
+                                     ${partyMap.groupName} ${partyMap.lastName} ${partyMap.firstName} [${partyMap.partyId}] : ${uiLabelMap.CommonFromDate} 
+                                     ${groovy: if(fromDate) (fromDate).toString().substring(0,10)} ${uiLabelMap.CommonThruDate} 
+                                     ${groovy: if(thruDate) (thruDate).toString().substring(0,10)}" collapsible="true">
+                                    <include-form name="HoursNotYetBilled" location="component://scrum/widget/scrumForms.xml"/>
+                                </screenlet>
+                                <screenlet title="${uiLabelMap.PageTitleAddProjectTimeToNewInvoice}">
+                                    <include-form name="AddProductTimeToNewInvoice" location="component://scrum/widget/scrumForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.ScrumBillingViewPermissionError}</label>
+                            </fail-widgets>
+                         </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+   </screen>
+   <!-- view Scrum common screen -->
+   <screen name="ViewEditProdBacklog">
+        <section>
+            <actions>
+                <set field="headerItem" value="EditProdBacklogItem"/><!-- this highlights the selected menu-item with name "main" -->
+                <entity-and entity-name="CustRequestItem" list="custRequestItem">
+                    <field-map field-name="custRequestId" from-field="parameters.custRequestId"/>
+                </entity-and>
+                <set field="custRequestItemSeqId" from-field="parameters.custRequestItemSeqId"/>
+                <set field="productId" from-field="custRequestItem[0].productId"/>
+                <set field="custRequestId" from-field="parameters.custRequestId"/>
+                <set field="update.productId" from-field="custRequestItem[0].productId"/>
+                <set field="update.custRequestId" from-field="parameters.custRequestId"/>
+            </actions>
+            <widgets>
+                <section>
+                    <widgets>
+                        <screenlet title="${uiLabelMap.ScrumUpdateProductBacklog}">
+                            <include-form name="EditProdBacklog" location="component://scrum/widget/scrumForms.xml"/>
+                        </screenlet>
+                    </widgets>
+                </section>
+            </widgets>
+        </section>
+    </screen>
+   <screen name="viewEditScrumProject">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="editProject"/>
+                <set field="workEffortId" from-field="parameters.projectId"/>
+                <entity-one entity-name="WorkEffort" value-field="workEffort"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="scrumCommonDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <section>
+                                    <condition>
+                                        <if-empty field="workEffort"/>
+                                    </condition>
+                                    <widgets>
+                                        <screenlet title="${uiLabelMap.ScrumCreateProject}">
+                                            <include-form name="EditScrumProject" location="component://scrum/widget/scrumForms.xml"/>
+                                        </screenlet>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <screenlet title="${uiLabelMap.ScrumUpdateProject}">
+                                            <include-menu name="ProjectMenu" location="component://scrum/widget/scrumMenus.xml"/>
+                                            <include-form name="EditScrumProject" location="component://scrum/widget/scrumForms.xml"/>
+                                        </screenlet>
+                                    </fail-widgets>
+                                </section>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+   </screen>
+   <screen name="ListProductBacklogCategories">
+       <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleProductBacklogCategories"/>
+                <set field="tabButtonItem" value="categories"/>
+                <entity-one entity-name="Product" value-field="product"/>
+                <set field="productId" from-field="product.productId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonScrumProductDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-service-permission service-name="scrumPermissionCheck" main-action="VIEW" resource-description="BACKLOG"/>
+                            </condition>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.ScrumProductBacklogCategories}">
+                                    <include-form name="ListProductBacklogCategories" location="component://scrum/widget/scrumForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <screenlet title="${uiLabelMap.ScrumProductBacklogCategories}">
+                                    <include-form name="ListProductBacklogCategoriesNoAction" location="component://scrum/widget/scrumForms.xml"/>
+                                </screenlet>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+   </screen>
+   <screen name="EditProductBacklogCategory">
+       <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditProductBacklogCategories"/>
+                <set field="tabButtonItem" value="categories"/>
+                <entity-one entity-name="Product" value-field="product"/>
+                <set field="productId" from-field="product.productId"/>
+                <entity-one entity-name="CustRequest" value-field="custRequest"/>
+                <set field="custRequestId" from-field="custRequest.custRequestId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonScrumProductDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                    <section>
+                        <widgets>
+                            <screenlet title="${uiLabelMap.ScrumEditProductBacklogCategory}">
+                                <include-form name="EditProductBacklogCategory" location="component://scrum/widget/scrumForms.xml"/>
+                            </screenlet>
+                        </widgets>
+                    </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+   </screen>
+   <screen name="EditProductContents">
+        <section>
+            <actions>
+                <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="PageTitleProductBacklogContents"/>
+                <set field="tabButtonItem" value="productContent"/>
+                <set field="headerItem" value="EditProductContent"/>
+                <set field="contentId" from-field="parameters.contentId"/>
+                <set field="productId" from-field="parameters.productId"/>
+                <entity-and entity-name="ProductContent" list="productContent">
+                    <field-map field-name="productId" from-field="productId"/>
+                    <field-map field-name="thruDate" value=""/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonScrumProductDecorator"  location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                            <section>
+                                <condition>
+                                    <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="SPRINT"/>
+                                </condition>
+                                <widgets>
+                                    <screenlet id="listProductContentInfos" title="${uiLabelMap.ScrumProductContentList}" collapsible="true">
+                                        <include-form name="ListProductContentInfos" location="component://scrum/widget/scrumForms.xml"/>
+                                    </screenlet>
+                                    <screenlet id="UploadProductContent" title="${uiLabelMap.ScrumProductAddProductContent}" collapsible="true">
+                                        <include-form name="UploadProductContent" location="component://scrum/widget/scrumForms.xml"/>
+                                    </screenlet>
+                                </widgets>
+                                <fail-widgets>
+                                    <include-screen name="ListProductContent"/>
+                                </fail-widgets>
+                            </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+     <screen name="ListProductContent">
+        <section>
+            <actions>
+                <property-map resource="ContentUiLabels" map-name="uiLabelMap"/>
+                <set field="projectId" from-field="parameters.projectId"/>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.ScrumProductContentList}">
+                    <include-form name="ListProductContent" location="component://scrum/widget/scrumForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="ProductEmails">
+        <section>
+            <actions>
+                <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="PageTitleProductBacklogCommunications"/>
+                <set field="tabButtonItem" value="productComm"/>
+                <set field="productId" from-field="parameters.productId"/>
+                <entity-one entity-name="Product" value-field="product"/>
+                <entity-condition entity-name="CommunicationEventAndProduct" list="commEvents">
+                    <condition-list combine="and">
+                        <condition-list combine="or">
+                            <condition-expr field-name="statusId" operator="equals" value="COM_PENDING"/>
+                            <condition-expr field-name="statusId" operator="equals" value="COM_IN_PROGRESS"/>
+                            <condition-expr field-name="statusId" operator="equals" value="COM_RESOLVED"/>
+                            <condition-expr field-name="statusId" operator="equals" value="COM_COMPLETE"/>
+                        </condition-list>
+                        <condition-expr field-name="productId" operator="equals" from-field="productId"/>
+                        <condition-list combine="or">
+                            <condition-expr field-name="communicationEventTypeId" operator="equals" value="EMAIL_COMMUNICATION"/>
+                            <condition-expr field-name="communicationEventTypeId" operator="equals" value="AUTO_EMAIL_COMM"/>
+                        </condition-list>
+                    </condition-list>
+                    <order-by field-name="-entryDate"/>
+                </entity-condition>
+                <entity-and entity-name="ProductRole" list="productRole">
+                    <field-map field-name="productId" from-field="parameters.productId"/>
+                    <field-map field-name="roleTypeId" value="PRODUCT_OWNER"/>
+                </entity-and>
+                <set field="productOwnerId" value="${productRole[0].partyId}"/>
+                <entity-one entity-name="CommunicationEvent" value-field="parentCom">
+                    <field-map field-name="communicationEventId" from-field="parameters.parentCommEventId"/>
+                </entity-one>
+                <set field="permissionMap.productId" from-field="productId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonScrumProductDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="BACKLOG"/>
+                            </condition>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.CommonEmails}">
+                                    <include-form name="ViewProductCommunicationEvents" location="component://scrum/widget/CommunicationEventForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                            <!-- Member section -->
+                                <section>
+                                    <condition>
+                                        <if-has-permission permission="SCRUM_PRODUCT_BACKLOG" action="_UPDATE"/>
+                                    </condition>
+                                    <widgets>
+                                        <screenlet title="${uiLabelMap.CommonEmails}">
+                                            <include-form name="ViewProductCommunicationEvents" location="component://scrum/widget/CommunicationEventForms.xml" />
+                                        </screenlet>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <include-form name="ViewProductCommunicationEvents" location="component://scrum/widget/CommunicationEventForms.xml" />
+                                    </fail-widgets>
+                                </section>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="NewProductEmail">
+        <section>
+            <actions>
+                <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="tabButtonItem" value="productComm"/>
+                <set field="productId" from-field="parameters.productId"/>
+                <set field="titleProperty" value="PageTitleEditCommunication" />
+                <set field="target" from-field="parameters.target" default-value="updateEmailForProduct"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonScrumProductDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <or>
+                                    <if-compare field="communicationEvent.statusId" operator="not-equals" value="COM_COMPLETE"/>
+                                    <if-compare field="communicationEvent.statusId" operator="not-equals" value="COM_IN_PROGRESS"/>
+                                </or>
+                            </condition>
+                            <actions>
+                                <set field="organizationPartyId" from-field="defaultOrganizationPartyId"/>
+                                <script location="component://scrum/groovyScripts/ProductEmail.groovy"/>
+                                <set field="communicationEvent.partyIdFrom" value="${partyIdFrom}" />
+                                <set field="communicationEvent.partyIdTo" value="${partyIdTo}" />
+                            </actions>
+                            <widgets/> 
+                        </section>
+                        <container style="lefthalf">
+                            <screenlet title="${uiLabelMap.ScrumNewEmail}">
+                                <include-form name="EditEmailForProduct" location="component://scrum/widget/CommunicationEventForms.xml" />
+                            </screenlet>
+                        </container>
+                        <container style="righthalf">
+                            <screenlet title="${uiLabelMap.ScrumEmailContents}">
+                                <include-form name="ListCommContentForProduct" location="component://scrum/widget/CommunicationEventForms.xml" />
+                                <section>
+                                    <condition>
+                                        <or>
+                                            <if-compare field="communicationEvent.statusId" operator="equals" value="COM_ENTERED"/>
+                                            <if-compare field="communicationEvent.statusId" operator="equals" value="COM_PENDING"/>
+                                        </or>
+                                    </condition>
+                                    <widgets>
+                                        <include-form name="UploadContentForProduct" location="component://scrum/widget/CommunicationEventForms.xml" />
+                                    </widgets>
+                                </section>
+                            </screenlet>
+                            <section>
+                                <condition>
+                                    <or>
+                                        <if-compare field="communicationEvent.statusId" operator="equals" value="COM_COMPLETE"/>
+                                    </or>
+                                </condition>
+                                <actions>
+                                    <entity-and entity-name="CommunicationEvent" list="commEvents">
+                                        <field-map field-name="parentCommEventId"
+                                            from-field="parameters.communicationEventId"/>
+                                    </entity-and>
+                                </actions>
+                                <widgets>
+                                    <screenlet title="${uiLabelMap.ScrumChildEmails}">
+                                        <include-form name="ListCommEventsForProduct"
+                                            location="component://scrum/widget/CommunicationEventForms.xml"/>
+                                    </screenlet>
+                                </widgets>
+                            </section>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ViewProductEmail">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="productComm"/>
+                <set field="productId" from-field="parameters.productId"/>
+                <set field="titleProperty" value="PageTitleEditCommunication" />
+                <set field="target" from-field="parameters.target" default-value="updateEmailForProduct"/>
+                <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
+            </actions>
+        <widgets>
+            <decorator-screen name="CommonScrumProductDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-section name="body">
+                    <include-screen name="commOverview" />
+                </decorator-section>
+            </decorator-screen>
+        </widgets>
+        </section>
+    </screen>
+    <!-- view common party -->
+    <screen name="ViewlistResourcesProject">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="listResourcesProject"/>
+                <set field="titleProperty" value="PageTitleListProjectByParty"/>
+                <set field="workEffortId" from-field="parameters.projectId"/>
+                <entity-and entity-name="WorkEffortAndPartyAssign" list="parties">
+                    <field-map field-name="workEffortTypeId" value="SCRUM_PROJECT"/>
+                    <field-map field-name="partyId" from-field="parameters.partyId"/>
+                    <order-by field-name="workEffortName"/>
+                </entity-and>
+                <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
+                <service service-name="getProject" result-map="result">
+                    <field-map field-name="projectId" from-field="projectId"/>
+                </service>
+                <set field="project" from-field="result.projectInfo"/>
+                <set field="workEffortId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
+                <set field="projectId" from-field="workEffortId"/>
+                <entity-one entity-name="WorkEffortPartyAssignment" value-field="workEffortPartyAssignment"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet id="AddResPr" title="${uiLabelMap.PageTitleAddProject}" collapsible="true">
+                            <include-form name="AddResourceProjectParty" location="component://scrum/widget/ProjectForms.xml"/>
+                        </screenlet>
+                        <include-form name="ListResourcesProjects" location="component://scrum/widget/ProjectForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="NewSprintBacklogTask">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="SprintTask"/>
+                <set field="isAdmin" value="false" type="Boolean"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonSprintScreenDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                    <section>
+                        <condition>
+                             <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="TASK"/>
+                        </condition>
+                        <actions>
+                            <set field="custRequestId" from-field="parameters.custRequestId"/>
+                        </actions>
+                        <widgets>
+                            <section>
+                                <condition>
+                                    <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="SPRINT"/>
+                                </condition>
+                                <actions>
+                                    <set field="isAdmin" value="true" type="Boolean"/>
+                                </actions>
+                                <widgets>
+                                    <section>
+                                        <widgets>
+                                            <screenlet title="${uiLabelMap.ScrumCreateTaskforSprintBacklogItem}">
+                                                <include-form name="NewTaskForSprintBacklog" location="component://scrum/widget/scrumForms.xml"/>
+                                            </screenlet>
+                                        </widgets>
+                                    </section>
+                                </widgets>
+                                <fail-widgets>
+                                    <screenlet title="${uiLabelMap.ScrumCreateTaskforSprintBacklogItem}">
+                                        <include-form name="NewTaskForSprintBacklog" location="component://scrum/widget/scrumForms.xml"/>
+                                    </screenlet>
+                                </fail-widgets>
+                            </section>
+                        </widgets>
+                        <fail-widgets>
+                                <screenlet>
+                                    <label style="h3">You[${userLogin.partyId}] are have not permission to perform this action</label>
+                                </screenlet>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="NewProductBacklogEmail">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="productBacklogItemComm"/>
+                <entity-one entity-name="CustRequest" value-field="custRequest">
+                    <field-map field-name="custRequestId" from-field="parameters.custRequestId"/>
+                </entity-one>
+                <set field="target" from-field="parameters.target" default-value="updateEmailForProductBacklog"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonScrumBacklogItemCommDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <actions>
+                                <set field="organizationPartyId" from-field="defaultOrganizationPartyId"/>
+                                <script location="component://scrum/groovyScripts/ProductEmail.groovy"/>
+                                <set field="communicationEvent.partyIdFrom" value="${partyIdFrom}" />
+                                <set field="communicationEvent.partyIdTo" value="${partyIdTo}" />
+                            </actions>
+                           <widgets>
+                                <container style="lefthalf">
+                                    <screenlet title="${uiLabelMap.ScrumNewProductBacklogEmail}">
+                                        <include-form name="EditEmail" location="component://scrum/widget/CommunicationEventForms.xml" />
+                                    </screenlet>
+                                </container>
+                                <container style="righthalf">
+                                    <screenlet title="${uiLabelMap.ScrumEmailContents}">
+                                        <include-form name="ListCommContent" location="component://scrum/widget/CommunicationEventForms.xml" />
+                                        <include-form name="UploadContent" location="component://scrum/widget/CommunicationEventForms.xml" />
+                                    </screenlet>
+                                </container>
+                           </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="SprintMember">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleSprintMembers"/>
+                <set field="tabButtonItem" value="SprintMember"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonSprintScreenDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                    <or>
+                                        <if-has-permission permission="SCRUM" action="_ADMIN"/>
+                                        <if-has-permission permission="SCRUM_PROJECT_ROLE" action="_ADMIN"/>
+                                    </or>
+                            </condition>
+                            <widgets>
+                                <screenlet id="addSprintMember" title="${uiLabelMap.ScrumAddSprintMember}" collapsible="true">
+                                    <include-form name="AddSprintMember" location="component://scrum/widget/scrumForms.xml"/>
+                                </screenlet>
+                                <screenlet title="${uiLabelMap.ScrumSprintMemberList}">
+                                    <include-form name="ListSprintMember" location="component://scrum/widget/scrumForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <screenlet title="${uiLabelMap.ScrumSprintMemberList}">
+                                    <include-form name="ListSprintMemberNoAction" location="component://scrum/widget/scrumForms.xml"/>
+                                </screenlet>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="SprintTask">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="SprintTask"/>
+                <set field="workEffortId" from-field="parameters.projectId"/>
+                <entity-one entity-name="WorkEffort" value-field="project"/>
+                <entity-and entity-name="ScrumProjectSprintBacklogAndTask" list="tasksList">
+                    <field-map field-name="projectId" from-field="parameters.projectId"/>
+                    <field-map field-name="workEffortTypeId" value="TASK"/>
+                </entity-and>
+                <entity-one entity-name="WorkEffort" value-field="WorkEffortMap">
+                    <field-map field-name="workEffortId" from-field="parameters.sprintId"/>
+                    <select-field field-name="workEffortParentId"/>
+                </entity-one>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonSprintScreenDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                    <section>
+                            <condition>
+                                <if-service-permission service-name="scrumPermissionCheck" main-action="VIEW" resource-description="SCRUM"/>
+                            </condition>
+                            <widgets>
+                                <section>
+                                    <condition>
+                                        <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="TASK"/>
+                                    </condition>
+                                    <widgets>
+                                        <container style="button-bar">
+                                            <link target="EditSprintTask" text="${uiLabelMap.ScrumNewTask}" style="buttontext create" link-type="hidden-form">
+                                                <parameter param-name="sprintId" from-field="parameters.sprintId"/>
+                                            </link>
+                                        </container>
+                                    </widgets>
+                                </section>
+                                <screenlet name="FindSprintTask" title="${uiLabelMap.ScrumFindTask}" collapsible="true" initially-collapsed="false">
+                                    <include-form name="FindSprintTask" location="component://scrum/widget/scrumForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                        </section>
+                        <section>
+                            <condition>
+                                <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="SPRINT"/>
+                            </condition>
+                            <widgets>
+                                <screenlet name="SprintTasksListError" title="${uiLabelMap.ScrumErrorTasksList}" collapsible="true" initially-collapsed="false">
+                                    <include-form name="SprintTasksListError" location="component://scrum/widget/scrumForms.xml"/>
+                                </screenlet>
+                                <screenlet name="SprintTasksListInstall" title="${uiLabelMap.ScrumInstallationTasksList}" collapsible="true" initially-collapsed="false">
+                                    <include-form name="SprintTasksListInstall" location="component://scrum/widget/scrumForms.xml"/>
+                                </screenlet>
+                                <screenlet name="SprintTasksListTest" title="${uiLabelMap.ScrumTestTasksList}" collapsible="true" initially-collapsed="false">
+                                    <include-form name="SprintTasksListTest" location="component://scrum/widget/scrumForms.xml"/>
+                                </screenlet>
+                                <screenlet name="SprintTasksListCoding" title="${uiLabelMap.ScrumCodingTasksList}" collapsible="true" initially-collapsed="false">
+                                    <include-form name="SprintTasksListCoding" location="component://scrum/widget/scrumForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <screenlet name="SprintTasksListError" title="${uiLabelMap.ScrumErrorTasksList}" collapsible="true" initially-collapsed="false">
+                                    <include-form name="SprintTasksListErrorNoAction" location="component://scrum/widget/scrumForms.xml"/>
+                                </screenlet>
+                                <screenlet name="SprintTasksListInstall" title="${uiLabelMap.ScrumInstallationTasksList}" collapsible="true" initially-collapsed="false">
+                                    <include-form name="SprintTasksListInstallNoAction" location="component://scrum/widget/scrumForms.xml"/>
+                                </screenlet>
+                                <screenlet name="SprintTasksListTest" title="${uiLabelMap.ScrumTestTasksList}" collapsible="true" initially-collapsed="false">
+                                    <include-form name="SprintTasksListTestNoAction" location="component://scrum/widget/scrumForms.xml"/>
+                                </screenlet>
+                                <screenlet name="SprintTasksListCoding" title="${uiLabelMap.ScrumCodingTasksList}" collapsible="true" initially-collapsed="false">
+                                    <include-form name="SprintTasksListCodingNoAction" location="component://scrum/widget/scrumForms.xml"/>
+                                </screenlet>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ViewProductBacklogEmail">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="productBacklogItemComm"/>
+                <entity-one entity-name="CustRequest" value-field="custRequest">
+                    <field-map field-name="custRequestId" from-field="parameters.custRequestId"/>
+                </entity-one>
+                <get-related relation-name="CustRequestItem" list="CustRequestItemList" value-field="custRequest"/>
+                <set field="custRequestItemMap" from-field="CustRequestItemList[0]"/>
+                <entity-and entity-name="ProductRole" list="productRoles" filter-by-date="true">
+                    <field-map field-name="productId" from-field="custRequestItemMap.productId"/>
+                    <field-map field-name="roleTypeId" value="PRODUCT_OWNER"/>
+                </entity-and>
+                <set field="productOwnerId" from-field="productRoles[0].partyId"/>
+                <entity-one entity-name="Product" value-field="product">
+                    <field-map field-name="productId" from-field="parameters.productId"/>
+                </entity-one>
+                <set field="target" from-field="parameters.target" default-value="updateEmailForProductBacklog"/>
+                <set field="backlogItemName" from-field="custRequest.description"/>
+                <set field="titleProperty" value="PageTitleEditCommunication" />
+                <entity-one entity-name="CommunicationEvent" value-field="communicationEvent" />
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonScrumBacklogItemCommDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-screen name="commOverview" />
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+   <screen name="commOverview">
+        <section>
+            <widgets>
+                <container style="lefthalf">
+                    <section>
+                        <widgets>
+                            <label style="h1" text="${uiLabelMap.FormFieldTitle_communicationEventId} ${parameters.communicationEventId}"/>
+                            <include-screen name="commEvent"/>
+                        </widgets>
+                    </section>
+                </container>
+                <container style="righthalf">
+                    <label style="h1" text="${uiLabelMap.CommonRelatedInformation}"/>
+                    <section>
+                        <condition>
+                            <if-empty field="communicationEvent.contactListId"/>
+                        </condition>
+                        <widgets>
+                            <screenlet title="${uiLabelMap.PartyCommEventRoles}">
+                                <include-form name="ViewCommRoles" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
+                            </screenlet>
+                        </widgets>
+                        <fail-widgets>
+                            <screenlet title="${uiLabelMap.MarketingContactListCommStatus}">
+                                <include-form name="ListContactListCommStatuses" location="component://marketing/widget/ContactListForms.xml"/>
+                            </screenlet>                        
+                        </fail-widgets>
+                    </section>
+                    <screenlet title="${uiLabelMap.PartyCommContent}">
+                        <include-form name="ListCommContent" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
+                    </screenlet>
+                    <section>
+                        <actions>
+                            <entity-and entity-name="CommunicationEvent" list="commEvents">
+                                <field-map field-name="parentCommEventId"
+                                    from-field="parameters.communicationEventId"/>
+                            </entity-and>
+                        </actions>
+                        <widgets>
+                            <screenlet title="${uiLabelMap.PartyChildCommunicationEvents}">
+                                <include-form name="ListCommEvents"
+                                    location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
+                            </screenlet>
+                        </widgets>
+                    </section>
+                </container>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="commEvent">
+        <section>
+            <widgets>
+                <screenlet title="${parent} ${uiLabelMap.PartyCommunicationEvent}">
+                    <section>
+                        <condition>
+                            <and>
+                                <or><!-- have for e-mails a special form -->
+                                    <if-compare field="communicationEvent.communicationEventTypeId" operator="equals" value="EMAIL_COMMUNICATION"/>
+                                    <if-compare field="communicationEvent.communicationEventTypeId" operator="equals" value="AUTO_EMAIL_COMM"/>
+                                </or>
+                                <if-empty field="communicationEvent.contactListId"/>
+                            </and>
+                        </condition>
+                        <widgets>
+                            <section>
+                                <condition>
+                                    <or>
+                                        <if-compare field="communicationEvent.statusId" operator="equals" value="COM_UNKNOWN_PARTY"/>
+                                        <if-empty field="communicationEvent.partyIdFrom"/>
+                                    </or>
+                                </condition>
+                                <widgets>
+                                    <screenlet>
+                                        <container>
+                                            <label style="h1" text="${uiLabelMap.PartyOriginEmailNotKnown}"/>
+                                        </container>
+                                        <container>
+                                            <label style="h2" text="${uiLabelMap.PartyEmailMessage}"/>
+                                        </container>
+                                        <include-form name="AllocateMsgToPartyForm" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
+                                    </screenlet>
+                                </widgets>
+                            </section>
+                            <include-form  name="ViewEmail" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
+                        </widgets>
+                        <fail-widgets>
+                            <include-form name="ViewCommEvent" location="component://party/widget/partymgr/CommunicationEventForms.xml"/>
+                        </fail-widgets>
+                    </section>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="sprintMemberList">
+        <section>
+            <condition>
+                <and>
+                    <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="TASK"/>
+                </and>
+            </condition>
+            <actions>
+                <entity-condition entity-name="PartyRoleAndPartyDetail" list="scrumMembers">
+                    <condition-list combine="and">
+                        <condition-expr field-name="roleTypeId" value="SCRUM_MEMBER"/>
+                    </condition-list>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <screenlet name="sprintMemberList" title="${uiLabelMap.ScrumMembersList}">
+                    <include-form name="ListSprintMemberNoAction" location="component://scrum/widget/scrumForms.xml"/>
+                </screenlet>
+            </widgets>
+            <fail-widgets>
+                <screenlet name="sprintMemberListForStakeholder" title="${uiLabelMap.ScrumMembersList}">
+                    <include-form name="ListSprintMemberForStakeholder" location="component://scrum/widget/scrumForms.xml"/>
+                </screenlet>
+            </fail-widgets>
+        </section>
+    </screen>
+    <screen name="newScrumProject">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditScrumProject"/>
+                <set field="headerItem" value="main"/>
+                <set field="tabButtonItem" value="view"/>
+                <set field="workEffortId" from-field="parameters.projectId"/>
+                <entity-one entity-name="WorkEffort" value-field="workEffort"/>
+                <set field="permissionMap.projectId" from-field="parameters.projectId"/>
+                <set field="isAdminPermission" value="false" type="Boolean"/>
+                <entity-one entity-name="StatusItem" value-field="currentStatus">
+                    <field-map field-name="statusId" from-field="workEffort.currentStatusId"/>
+                </entity-one>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonScrumProductDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <section>
+                                    <condition>
+                                        <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="PROJECT"/>
+                                    </condition>
+                                    <widgets>
+                                        <section>
+                                            <actions>
+                                                <set field="isAdminPermission" value="true"/>
+                                            </actions>
+                                            <widgets>
+                                                <screenlet title="${uiLabelMap.ScrumEditProject}">
+                                                    <include-form name="NewScrumProject" location="component://scrum/widget/scrumForms.xml"/>
+                                                </screenlet>
+                                            </widgets>
+                                        </section>
+                                    </widgets>
+                                </section>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="FindTotalBacklog">
+        <section>
+            <condition>
+                <if-has-permission permission="SCRUM" action="_ADMIN"/>
+            </condition>
+            <actions>
+                <set field="titleProperty" value="PageTitleAllBacklog"/>
+                <set field="headerItem" value="admin"/>
+                <set field="tabButtonItem" value="totalBacklog"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX_1" type="Integer"/>
+                <script location="component://scrum/groovyScripts/FindProductBacklogItem.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet id="FindBack" title="${uiLabelMap.ScrumFindProductBacklogItem}" collapsible="true" initially-collapsed="false">
+                            <include-form name="FindTotalBacklog" location="component://scrum/widget/scrumForms.xml"/>
+                        </screenlet>
+                        <screenlet id="Backlogs" title="${uiLabelMap.ScrumProductBacklogItemList}" collapsible="true">
+                            <include-form name="TotalProdBacklog" location="component://scrum/widget/scrumForms.xml"/>
+                         </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="TotalBilling">
+        <section>
+            <condition>
+                <or>
+                    <if-has-permission permission="SCRUM" action="_ADMIN"/>
+                    <if-has-permission permission="SCRUM_BILLING" action="_ADMIN"/>
+                    <if-has-permission permission="SCRUM_BILLING" action="_CREATE"/>
+                </or>
+            </condition>
+            <actions>
+                <set field="titleProperty" value="PageTitleBilling"/>
+                <set field="headerItem" value="admin"/>
+                <set field="tabButtonItem" value="totalBilling"/>
+                <set field="productId" from-field="parameters.productId"/>
+                <entity-one entity-name="Product" value-field="product"/>
+                <set field="includeMeeting" from-field="parameters.includeMeeting" default-value="N"/>
+                <set field="organizationPartyId" from-field="userPreferences.ORGANIZATION_PARTY" default-value="${defaultOrganizationPartyId}"/>
+                <script location="component://scrum/groovyScripts/ProductBilling.groovy"/>
+                <set field="fromDate" from-field="parameters.fromDate" default-value="${resultDate}" type="Date"/>
+                <set field="thruDate" from-field="parameters.thruDate" default-value="${thruDate}" type="Date"/>
+                <set field="nullField" type="Timestamp"/>
+                <entity-and entity-name="ProductRole" list="productRole">
+                   <field-map field-name="productId" from-field="productId"/>
+                   <field-map field-name="roleTypeId" value="PRODUCT_OWNER_COMP"/>
+                   <field-map field-name="thruDate" from-field="nullField"/>
+                </entity-and>
+                <set field="partyId" from-field="productRole[0].partyId"/>
+                <set field="partyIdFrom" from-field="organizationPartyId"/>
+                <entity-one entity-name="PartyNameView" value-field="partyMap">
+                    <field-map field-name="partyId" from-field="partyId"/>
+                </entity-one>
+                <entity-one entity-name="PartyNameView" value-field="companyMap">
+                    <field-map field-name="partyId" from-field="partyIdFrom"/>
+                </entity-one>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                       <screenlet title="${uiLabelMap.PageTitleFindTimeEntryNotBilled}">
+                           <include-form name="FindProductTotalBilling" location="component://scrum/widget/scrumForms.xml"/>
+                       </screenlet>
+                       <section>
+                           <condition>
+                               <not><if-empty field="productId"/></not>
+                           </condition>
+                           <widgets>
+                               <screenlet id="totalHoursNotYetBilled" title="${uiLabelMap.PageTitleHoursNotYetBilled} ${uiLabelMap.CommonInformation}
+                                    : ${uiLabelMap.WorkEffortTimeBillFromParty} ${companyMap.groupName} [${companyMap.partyId}] ${uiLabelMap.WorkEffortTimeBillToParty} 
+                                    ${partyMap.groupName} ${partyMap.lastName} ${partyMap.firstName} [${partyMap.partyId}] : ${uiLabelMap.CommonFromDate} 
+                                    ${groovy: if(fromDate) (fromDate).toString().substring(0,10)} ${uiLabelMap.CommonThruDate} 
+                                    ${groovy: if(thruDate) (thruDate).toString().substring(0,10)}" collapsible="true">
+                                   <include-form name="TotalHoursNotYetBilled" location="component://scrum/widget/scrumForms.xml"/>
+                               </screenlet>
+                               <screenlet title="${uiLabelMap.PageTitleAddProjectTimeToNewInvoice}">
+                                   <include-form name="TotalBillingToNewInvoice" location="component://scrum/widget/scrumForms.xml"/>
+                               </screenlet>
+                           </widgets>
+                       </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+            <fail-widgets>
+                <label style="h3">${uiLabelMap.ScrumBillingViewPermissionError}</label>
+            </fail-widgets>
+        </section>
+    </screen>
+    <screen name="ProductStatistics">
+        <section>
+            <condition>
+                <if-has-permission permission="SCRUM" action="_ADMIN"/>
+            </condition>
+            <actions>
+                <set field="titleProperty" value="ScrumFindProductStatistics"/>
+                <set field="headerItem" value="admin"/>
+                <set field="tabButtonItem" value="productStatistics"/>
+                <set field="productId" from-field="parameters.productId"/>
+                <entity-one entity-name="Product" value-field="product"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <screenlet id="productStatistics" title="${uiLabelMap.ScrumFindProductStatistics}" collapsible="true">
+                                    <include-form name="FindProductStatistics" location="component://scrum/widget/scrumForms.xml"/>
+                                </screenlet>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field="product"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <!-- project and sprint -->
+                                        <screenlet id="projectAndSprintStatistics" title="${uiLabelMap.ScrumProjectAndSprintInformationChart}" collapsible="true">
+                                            <container style="lefthalf">
+                                                <platform-specific>
+                                                    <html><html-template location="component://scrum/template/includes/ProjectByStatusChart.ftl"/></html>
+                                                </platform-specific>
+                                            </container>
+                                            <container style="righthalf">
+                                                <platform-specific>
+                                                    <html><html-template location="component://scrum/template/includes/ProjectAndSprintChart.ftl"/></html>
+                                                </platform-specific>
+                                            </container>
+                                        </screenlet>
+                                        <!-- backlog -->
+                                        <screenlet id="backlogStatistics" title="${uiLabelMap.ScrumBacklogInformationChart}" collapsible="true">
+                                            <container style="lefthalf">
+                                                <platform-specific>
+                                                    <html><html-template location="component://scrum/template/includes/BacklogByTypeChart.ftl"/></html>
+                                                </platform-specific>
+                                            </container>
+                                            <container style="righthalf">
+                                                <platform-specific>
+                                                    <html><html-template location="component://scrum/template/includes/BacklogByStatusChart.ftl"/></html>
+                                                </platform-specific>
+                                            </container>
+                                        </screenlet>
+                                        <!-- tasks -->
+                                        <screenlet id="taskStatistics" title="${uiLabelMap.ScrumTaskInformationChart}" collapsible="true">
+                                            <container style="lefthalf">
+                                                <platform-specific>
+                                                    <html><html-template location="component://scrum/template/includes/TaskByTypeChart.ftl"/></html>
+                                                </platform-specific>
+                                           </container>
+                                           <container style="righthalf">
+                                                <platform-specific>
+                                                    <html><html-template location="component://scrum/template/includes/TaskByStatusChart.ftl"/></html>
+                                                </platform-specific>
+                                           </container>
+                                       </screenlet>
+                                    </widgets>
+                                </section>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="QuickAddBacklog">
+        <section>
+            <condition>
+                <if-has-permission permission="SCRUM" action="_ADMIN"/>
+            </condition>
+            <actions>
+                <set field="titleProperty" value="ScrumQuickAddBacklog"/>
+                <set field="headerItem" value="admin"/>
+                <set field="tabButtonItem" value="quickAddBacklog"/>
+                <set field="formTarget" value="${groovy: 
+                    if (parameters.unplanned.equals(&quot;Y&quot;)) 
+                        formTarget=&quot;createQuickAddUnPlannedBacklog&quot;
+                    else 
+                        formTarget=&quot;createQuickAddBacklog&quot;
+                    }"/>
+                <script location="component://scrum/groovyScripts/QuickAddBacklog.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.ScrumAddNewProductBacklogItem}">
+                                    <include-form name="QuickAddBacklog" location="component://scrum/widget/scrumForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="quickAddNewTask">
+        <section>
+            <condition>
+                <if-has-permission permission="SCRUM" action="_ADMIN"/>
+            </condition>
+            <actions>
+                <set field="titleProperty" value="ScrumQuickAddNewTask"/>
+                <set field="headerItem" value="admin"/>
+                <set field="tabButtonItem" value="quickAddNewTask"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.ScrumCreateTaskforProductBacklog}">
+                                    <include-form name="QuickAddNewTask" location="component://scrum/widget/scrumForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="unplanBacklog">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleUnplanBacklogItem"/>
+                <set field="tabButtonItem" value="unplanBacklog"/>
+                <set field="backlogStatusId" from-field ="parameters.backlogStatusId" default-value="CRQ_REVIEWED"/>
+                <script location="component://scrum/groovyScripts/ListUnplanBacklog.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonScrumProductDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <section>
+                                <condition>
+                                    <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="SPRINT"/>
+                                </condition>
+                                <widgets>
+                                    <section>
+                                        <condition>
+                                            <if-compare operator="not-equals" value="Any" field="parameters.backlogStatusId"/>
+                                        </condition>
+                                        <widgets>
+                                            <screenlet id="unplanBacklogListItems" title="${uiLabelMap.ScrumUnplanBacklogList}" navigation-menu-name="AllUnplanBacklogItem" collapsible="true">
+                                                <include-menu location="component://scrum/widget/scrumMenus.xml" name="AllUnplanBacklogItem"/>
+                                                <include-form name="UnplanBacklogListItems" location="component://scrum/widget/scrumForms.xml"/>
+                                            </screenlet>
+                                        </widgets>
+                                        <fail-widgets>
+                                            <screenlet id="unplanBacklogListItemsOnFail" title="${uiLabelMap.ScrumUnplanBacklogList}" navigation-menu-name="notCompleteUnplanBacklogItem" collapsible="true">
+                                                <include-menu location="component://scrum/widget/scrumMenus.xml" name="notCompleteUnplanBacklogItem"/>
+                                                <include-form name="UnplanBacklogListItems" location="component://scrum/widget/scrumForms.xml"/>
+                                            </screenlet>
+                                        </fail-widgets>
+                                    </section>
+                                </widgets>
+                                <fail-widgets>
+                                    <screenlet>
+                                        <section>
+                                            <widgets>
+                                                <section>
+                                                    <condition>
+                                                        <if-has-permission permission="SCRUM_PRODUCT_ROLE_VIEW"/>
+                                                    </condition>
+                                                    <widgets>
+                                                        <section>
+                                                            <condition>
+                                                                <if-compare operator="not-equals" value="Any" field="parameters.backlogStatusId"/>
+                                                            </condition>
+                                                            <widgets>
+                                                                <screenlet id="unplanBacklogListItemsHideDelete" title="${uiLabelMap.ScrumUnplanBacklogList}" navigation-menu-name="AllUnplanBacklogItem">
+                                                                    <include-menu location="component://scrum/widget/scrumMenus.xml" name="AllUnplanBacklogItem"/>
+                                                                    <include-form name="UnplanBacklogListItemsForOwner" location="component://scrum/widget/scrumForms.xml"/>
+                                                                </screenlet>
+                                                            </widgets>
+                                                            <fail-widgets>
+                                                                <screenlet id="unplanBacklogListItemsHideDeleteOnFail" title="${uiLabelMap.ScrumUnplanBacklogList}" navigation-menu-name="notCompleteUnplanBacklogItem">
+                                                                    <include-menu location="component://scrum/widget/scrumMenus.xml" name="notCompleteUnplanBacklogItem"/>
+                                                                    <include-form name="UnplanBacklogListItemsForOwner" location="component://scrum/widget/scrumForms.xml"/>
+                                                                </screenlet>
+                                                            </fail-widgets>
+                                                        </section>
+                                                    </widgets>
+                                                    <fail-widgets>
+                                                        <section>
+                                                            <condition>
+                                                                <if-compare operator="not-equals" value="Any" field="parameters.backlogStatusId"/>
+                                                            </condition>
+                                                            <widgets>
+                                                                <screenlet id="unplanBacklogListItemsHideDelete" title="${uiLabelMap.ScrumUnplanBacklogList}" navigation-menu-name="AllUnplanBacklogItem">
+                                                                    <include-menu location="component://scrum/widget/scrumMenus.xml" name="AllUnplanBacklogItem"/>
+                                                                    <include-form name="UnplanBacklogListItemsHideDelete" location="component://scrum/widget/scrumForms.xml"/>
+                                                                </screenlet>
+                                                            </widgets>
+                                                            <fail-widgets>
+                                                                <screenlet id="unplanBacklogListItemsHideDeleteOnFail" title="${uiLabelMap.ScrumUnplanBacklogList}" navigation-menu-name="notCompleteUnplanBacklogItem">
+                                                                    <include-menu location="component://scrum/widget/scrumMenus.xml" name="notCompleteUnplanBacklogItem"/>
+                                                                    <include-form name="UnplanBacklogListItemsHideDelete" location="component://scrum/widget/scrumForms.xml"/>
+                                                                </screenlet>
+                                                            </fail-widgets>
+                                                        </section>
+                                                    </fail-widgets>
+                                                </section>
+                                            </widgets>
+                                        </section>
+                                    </screenlet>
+                                </fail-widgets>
+                             </section>
+                        </widgets>
+                    </section>
+                </decorator-section>
+            </decorator-screen>
+        </widgets>
+        </section>
+    </screen>
+    <screen name="NewUnplanBacklogTask">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="unplanBacklog"/>
+                <set field="isAdmin" value="false" type="Boolean"/>
+                <set field="custRequestId" from-field="parameters.custRequestId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonScrumProductDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                    <section>
+                        <condition>
+                             <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="TASK"/>
+                        </condition>
+                        <widgets>
+                            <screenlet title="${uiLabelMap.ScrumCreateTaskforUnplanBacklogItem}">
+                                <include-form name="NewTaskForUnplanBacklog" location="component://scrum/widget/scrumForms.xml"/>
+                            </screenlet>
+                        </widgets>
+                        <fail-widgets>
+                                <screenlet>
+                                    <label style="h3">You[${userLogin.partyId}] are have not permission to perform this action</label>
+                                </screenlet>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens>

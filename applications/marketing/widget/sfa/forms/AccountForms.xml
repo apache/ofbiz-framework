@@ -203,7 +203,6 @@ under the License.
             <set field="parameters.partyStatusId_op" value="notEqual"/>
             <set field="parameters.partyRelationshipTypeId" value="ACCOUNT"/>
             <set field="fieldList" value="${groovy:['partyIdFrom','partyId']}" type="List"/>
-            <set field="parameters.filterByDate" value="Y"/>
             <service service-name="performFind">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="PartyRelationshipAndContactMechDetail"/>

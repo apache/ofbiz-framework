@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#if "Y" == requestParameters.lookupFlag?default("N")>
+<#if requestParameters.lookupFlag?default("N") == "Y">
     <#if selectedFeatures?has_content>
 <div class="screenlet">
   <div class="screenlet-title-bar">
@@ -76,7 +76,7 @@ under the License.
               </table>
               </td>
               <td>
-                <#if "Y" == node.product.isVirtual?default("N")>
+                <#if node.product.isVirtual?default("N") == "Y">
                     ${node.product.isVirtual}
                 </#if>
                 ${(node.ruleApplied.ruleId)!}

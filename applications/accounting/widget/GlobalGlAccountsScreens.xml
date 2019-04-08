@@ -224,7 +224,7 @@ under the License.
                     <limit-range start="0" size="20"/>
                 </entity-and -->
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
             </actions>
             <widgets>
@@ -298,7 +298,7 @@ under the License.
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="AccountingRateAmounts"/>
-                <set field="labelTitleProperty" from-field="uiLabelMap.AccountingRateAmounts"/>
+                <set field="labelTitleProperty" value="${uiLabelMap.AccountingRateAmounts}"/>
                 <set field="tabButtonItem" value="ViewRateAmounts"/>
             </actions>
             <widgets>
@@ -319,7 +319,7 @@ under the License.
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="AccountingFX"/>
-                <set field="labelTitleProperty" from-field="uiLabelMap.AccountingFX"/>
+                <set field="labelTitleProperty" value="${uiLabelMap.AccountingFX}"/>
                 <set field="tabButtonItem" value="ViewFXConversions"/>
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
                 <!-- TODO: If UomConversionDated is ever used for another type of conversion besides currencies or if some currencies are

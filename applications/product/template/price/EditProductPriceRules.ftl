@@ -41,7 +41,7 @@ under the License.
                     <@htmlTemplate.renderDateTimeField name="fromDate" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${productPriceRule.fromDate!}" size="25" maxlength="30" id="fromDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                     <@htmlTemplate.renderDateTimeField name="thruDate" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${productPriceRule.thruDate!}" size="25" maxlength="30" id="thruDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                     &nbsp;&nbsp;
-                    <#assign saleRule = productPriceRule.isSale?? && "Y" == productPriceRule.isSale>
+                    <#assign saleRule = productPriceRule.isSale?? && productPriceRule.isSale == "Y">
                     <div>
                     <span class="label"><b>${uiLabelMap.ProductNotifySale}</b></span>&nbsp;
                     <label><input type="radio" name="isSale" value="Y" <#if saleRule>checked="checked"</#if> />${uiLabelMap.CommonYes}</label>&nbsp;
@@ -72,7 +72,7 @@ under the License.
                   <#assign maxCondSeqId = 1>
                   <#assign rowClass = "2">
                   <#list productPriceConds as productPriceCond>
-                      <tr valign="middle"<#if "1" == rowClass> class="alternate-row"</#if>>
+                      <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
                         <#-- if cur seq id is a number and is greater than max, set new max for input box prefill below -->
                         <#assign curCondSeqId = productPriceCond.productPriceCondSeqId?number>
                         <#if (curCondSeqId >= maxCondSeqId)><#assign maxCondSeqId = curCondSeqId + 1></#if>
@@ -113,12 +113,12 @@ under the License.
                          <form name="deleteProductPriceCond_${productPriceCond_index}" method= "post" action= "<@ofbizUrl>deleteProductPriceCond</@ofbizUrl>">
                            <input type="hidden" name="productPriceRuleId" value="${productPriceCond.productPriceRuleId}" />
                            <input type="hidden" name="productPriceCondSeqId" value="${productPriceCond.productPriceCondSeqId}" />
-                           <input type="submit" value="${uiLabelMap.CommonDelete}"/>
+                           <a href="javascript:document.deleteProductPriceCond_${productPriceCond_index}.submit()" class="buttontext">${uiLabelMap.CommonDelete}</a>
                          </form>
                         </td>
                       </tr>
                       <#-- toggle the row color -->
-                      <#if "2" == rowClass>
+                      <#if rowClass == "2">
                         <#assign rowClass = "1">
                       <#else>
                         <#assign rowClass = "2">
@@ -158,7 +158,7 @@ under the License.
                   </tr>
                   <#assign rowClass = "2">
                   <#list productPriceActions as productPriceAction>
-                      <tr valign="middle"<#if "1" == rowClass> class="alternate-row"</#if>>
+                      <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
                         <td class="label"><b>${productPriceAction.productPriceActionSeqId}</b></td>
                         <td>
                             <form method="post" action="<@ofbizUrl>updateProductPriceAction</@ofbizUrl>">
@@ -184,12 +184,12 @@ under the License.
                           <form name="deleteProductPriceAction_${productPriceAction_index}" method="post" action="<@ofbizUrl>deleteProductPriceAction</@ofbizUrl>">
                             <input type="hidden" name="productPriceRuleId" value="${productPriceAction.productPriceRuleId}" />
                             <input type="hidden" name="productPriceActionSeqId" value="${productPriceAction.productPriceActionSeqId}" />
-                            <input type="submit" value="${uiLabelMap.CommonDelete}" />
+                            <a href="javascript:document.deleteProductPriceAction_${productPriceAction_index}.submit()" class="buttontext">${uiLabelMap.CommonDelete}</a>
                           </form>
                         </td>
                       </tr>
                       <#-- toggle the row color -->
-                      <#if "2" == rowClass>
+                      <#if rowClass == "2">
                         <#assign rowClass = "1">
                       <#else>
                         <#assign rowClass = "2">

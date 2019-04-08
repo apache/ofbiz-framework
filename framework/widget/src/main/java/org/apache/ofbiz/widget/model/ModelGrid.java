@@ -28,7 +28,7 @@ import org.w3c.dom.Element;
 
 /**
  * Models the &lt;grid&gt; element.
- *
+ * 
  * @see <code>widget-form.xsd</code>
  */
 @SuppressWarnings("serial")
@@ -38,14 +38,14 @@ public class ModelGrid extends ModelForm {
      * ----------------------------------------------------------------------- *
      *                     DEVELOPERS PLEASE READ
      * ----------------------------------------------------------------------- *
-     *
+     * 
      * This model is intended to be a read-only data structure that represents
      * an XML element. Outside of object construction, the class should not
      * have any behaviors. All behavior should be contained in model visitors.
-     *
+     * 
      * Instances of this class will be shared by multiple threads - therefore
      * it is immutable. DO NOT CHANGE THE OBJECT'S STATE AT RUN TIME!
-     *
+     * 
      */
 
     public static final String module = ModelGrid.class.getName();

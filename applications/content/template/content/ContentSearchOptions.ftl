@@ -21,7 +21,7 @@ under the License.
     <h3>${uiLabelMap.CommonAdvancedSearch}</h3>
   </div>
   <div class="screenlet-body">
-    <form class="basic-form" name="advToKeyWordSearchForm" method="post" action="<@ofbizUrl>ContentSearchResults</@ofbizUrl>" style="margin: 0;">
+    <form name="advToKeyWordSearchForm" method="post" action="<@ofbizUrl>ContentSearchResults</@ofbizUrl>" style="margin: 0;">
       <input type="hidden" name="VIEW_SIZE" value="25"/>
       <table class="basic-table" cellspacing="0">
         <tr>
@@ -29,8 +29,8 @@ under the License.
           <td valign="middle">
             <div>
               <input type="text" name="SEARCH_STRING" size="40" value="${requestParameters.SEARCH_STRING!}"/>&nbsp;
-              <label>${uiLabelMap.CommonAny}<input type="radio" name="SEARCH_OPERATOR" value="OR" <#if "OR" == searchOperator>checked="checked"</#if>/></label>
-              <label>${uiLabelMap.CommonAll}<input type="radio" name="SEARCH_OPERATOR" value="AND" <#if "AND" == searchOperator>checked="checked"</#if>/></label>
+              <label>${uiLabelMap.CommonAny}<input type="radio" name="SEARCH_OPERATOR" value="OR" <#if searchOperator == "OR">checked="checked"</#if>/></label>
+              <label>${uiLabelMap.CommonAll}<input type="radio" name="SEARCH_OPERATOR" value="AND" <#if searchOperator == "AND">checked="checked"</#if>/></label>
             </div>
           </td>
         </tr>
@@ -129,11 +129,12 @@ under the License.
         <tr>
           <td colspan="2" align="center">
             <div>
-              <input type="submit" value="${uiLabelMap.CommonFind}"/>
+              <a href="javascript:document.advToKeyWordSearchForm.submit()" class="buttontext">${uiLabelMap.CommonFind}</a>
             </div>
           </td>
         </tr>
       </table>
+        <input type="image" src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" onclick="javascript:document.advToKeyWordSearchForm.submit();"/>
     </form>
   </div>
 </div>

@@ -64,16 +64,17 @@ public class CheckOutEvents {
     public static String cartNotEmpty(HttpServletRequest request, HttpServletResponse response) {
         ShoppingCart cart = ShoppingCartEvents.getCartObject(request);
 
-        if (UtilValidate.isNotEmpty(cart.items())) {
+        if (cart != null && UtilValidate.isNotEmpty(cart.items())) {
             return "success";
+        } else {
+            String errMsg = UtilProperties.getMessage(resource_error, "checkevents.cart_empty", (cart != null ? cart.getLocale() : UtilHttp.getLocale(request)));
+            request.setAttribute("_ERROR_MESSAGE_", errMsg);
+            return "error";
         }
-        String errMsg = UtilProperties.getMessage(resource_error, "checkevents.cart_empty", cart.getLocale());
-        request.setAttribute("_ERROR_MESSAGE_", errMsg);
-        return "error";
     }
 
     public static String setCheckOutPages(HttpServletRequest request, HttpServletResponse response) {
-        if ("error".equals(CheckOutEvents.cartNotEmpty(request, response))) {
+        if ("error".equals(CheckOutEvents.cartNotEmpty(request, response)) == true) {
             return "error";
         }
 
@@ -87,22 +88,20 @@ public class CheckOutEvents {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
 
         GenericValue userLogin = cart.getUserLogin();
-        if (userLogin == null) {
-            userLogin = (GenericValue) session.getAttribute("userLogin");
-        }
+        if (userLogin == null) userLogin = (GenericValue) session.getAttribute("userLogin");
         if (curPage == null) {
             try {
                 cart.createDropShipGroups(dispatcher);
             } catch (CartItemModifyException e) {
                 Debug.logError(e, module);
             }
-        } else if ("shippingoptions".equals(curPage)) {
+        } else if ("shippingoptions".equals(curPage) == true) {
             //remove empty ship group
             cart.cleanUpShipGroups();
         }
         CheckOutHelper checkOutHelper = new CheckOutHelper(dispatcher, delegator, cart);
 
-        if ("shippingaddress".equals(curPage)) {
+        if ("shippingaddress".equals(curPage) == true) {
             // Set the shipping address options
             String shippingContactMechId = request.getParameter("shipping_contact_mech_id");
 
@@ -110,16 +109,15 @@ public class CheckOutEvents {
             String partyTaxId = request.getParameter("partyTaxId");
             String isExempt = request.getParameter("isExempt");
 
-            List<String> errorMessages = new ArrayList<>();
-            Map<String, Object> errorMaps = new HashMap<>();
+            List<String> errorMessages = new ArrayList<String>();
+            Map<String, Object> errorMaps = new HashMap<String, Object>();
             for (int shipGroupIndex = 0; shipGroupIndex < cart.getShipGroupSize(); shipGroupIndex++) {
                 // set the shipping method
                 if (shippingContactMechId == null) {
                     shippingContactMechId = (String) request.getAttribute("contactMechId"); // FIXME
                 }
                 String supplierPartyId = (String) request.getAttribute(shipGroupIndex + "_supplierPartyId");
-                String supplierAgreementId = (String) request.getAttribute(shipGroupIndex + "_supplierAgreementId");
-                Map<String, ? extends Object> callResult = checkOutHelper.finalizeOrderEntryShip(shipGroupIndex, shippingContactMechId, supplierPartyId, supplierAgreementId);
+                Map<String, ? extends Object> callResult = checkOutHelper.finalizeOrderEntryShip(shipGroupIndex, shippingContactMechId, supplierPartyId);
                 ServiceUtil.addErrors(errorMessages, errorMaps, callResult);
             }
 
@@ -130,9 +128,6 @@ public class CheckOutEvents {
                             UtilMisc.<String, Object>toMap("partyId", cart.getPartyId(), "taxAuthPartyGeoIds", taxAuthPartyGeoIds, "partyTaxId", partyTaxId, "isExempt", isExempt, "userLogin", userLogin));
                     ServiceUtil.getMessages(request, createCustomerTaxAuthInfoResult, null);
                     if (ServiceUtil.isError(createCustomerTaxAuthInfoResult)) {
-                        String errorMessage = ServiceUtil.getErrorMessage(createCustomerTaxAuthInfoResult);
-                        request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                        Debug.logError(errorMessage, module);
                         return "error";
                     }
                 } catch (GenericServiceException e) {
@@ -149,7 +144,7 @@ public class CheckOutEvents {
                 // No errors so push the user onto the next page
                 curPage = "shippingoptions";
             }
-        } else if ("shippingoptions".equals(curPage)) {
+        } else if ("shippingoptions".equals(curPage) == true) {
             // Set the general shipping options
             String shippingMethod = request.getParameter("shipping_method");
             String shippingInstructions = request.getParameter("shipping_instructions");
@@ -170,7 +165,7 @@ public class CheckOutEvents {
                 // No errors so push the user onto the next page
                 curPage = "payment";
             }
-        } else if ("payment".equals(curPage)) {
+        } else if ("payment".equals(curPage) == true) {
             // Set the payment options
             Map<String, Map<String, Object>> selectedPaymentMethods = getSelectedPaymentMethods(request);
 
@@ -189,7 +184,7 @@ public class CheckOutEvents {
                 return "error";
             }
 
-            List<String> singleUsePayments = new ArrayList<>();
+            List<String> singleUsePayments = new ArrayList<String>();
 
             // check for gift card not on file
             Map<String, Object> params = UtilHttp.getParameterMap(request);
@@ -197,14 +192,14 @@ public class CheckOutEvents {
             ServiceUtil.getMessages(request, gcResult, null);
             if (gcResult.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR)) {
                 return "error";
-            }
-            String gcPaymentMethodId = (String) gcResult.get("paymentMethodId");
-            BigDecimal gcAmount = (BigDecimal) gcResult.get("amount");
-            if (gcPaymentMethodId != null) {
-                selectedPaymentMethods.put(gcPaymentMethodId, UtilMisc.<String, Object>toMap("amount", gcAmount,
-                        "securityCode", null));
-                if ("Y".equalsIgnoreCase(request.getParameter("singleUseGiftCard"))) {
-                    singleUsePayments.add(gcPaymentMethodId);
+            } else {
+                String gcPaymentMethodId = (String) gcResult.get("paymentMethodId");
+                BigDecimal gcAmount = (BigDecimal) gcResult.get("amount");
+                if (gcPaymentMethodId != null) {
+                    selectedPaymentMethods.put(gcPaymentMethodId, UtilMisc.<String, Object>toMap("amount", gcAmount, "securityCode", null));
+                    if ("Y".equalsIgnoreCase(request.getParameter("singleUseGiftCard"))) {
+                        singleUsePayments.add(gcPaymentMethodId);
+                    }
                 }
             }
 
@@ -231,9 +226,7 @@ public class CheckOutEvents {
      */
     public static String determineInitialCheckOutPage(ShoppingCart cart) {
         String page = DEFAULT_INIT_CHECKOUT_PAGE;
-        if (cart == null) {
-            return page;
-        }
+        if (cart == null) return page;
 
         // if no shipping applies, set the no shipment method and skip to payment
         if (!cart.shippingApplies()) {
@@ -249,8 +242,9 @@ public class CheckOutEvents {
         String currentPage = request.getParameter("checkoutpage");
         if (UtilValidate.isEmpty(currentPage)) {
             return "error";
+        } else {
+            return currentPage;
         }
-        return currentPage;
     }
 
     /**
@@ -259,9 +253,7 @@ public class CheckOutEvents {
      */
     public static String setQuickCheckOutOptions(HttpServletRequest request, HttpServletResponse response) {
         String result = calcTax(request, response);
-        if ("error".equals(result)) {
-            return "error";
-        }
+        if ("error".equals(result)) return "error";
         return setCheckOutOptions(request, response);
     }
 
@@ -295,9 +287,9 @@ public class CheckOutEvents {
 
     public static Map<String, Map<String, Object>> getSelectedPaymentMethods(HttpServletRequest request) {
         ShoppingCart cart = (ShoppingCart) request.getSession().getAttribute("shoppingCart");
-        Map<String, Map<String, Object>> selectedPaymentMethods = new HashMap<>();
+        Map<String, Map<String, Object>> selectedPaymentMethods = new HashMap<String, Map<String, Object>>();
         String[] paymentMethods = request.getParameterValues("checkOutPaymentId");
-
+        
         String checkOutPaymentId = (String) request.getAttribute("checkOutPaymentId");
         if ((paymentMethods == null || paymentMethods.length <= 0) && UtilValidate.isNotEmpty(checkOutPaymentId)) {
             paymentMethods = new String[] {checkOutPaymentId};
@@ -310,14 +302,14 @@ public class CheckOutEvents {
         String errMsg = null;
 
         if (paymentMethods != null) {
-            for (String paymentMethod : paymentMethods) {
-                Map<String, Object> paymentMethodInfo = new HashMap<>();
+            for (int i = 0; i < paymentMethods.length; i++) {
+                Map<String, Object> paymentMethodInfo = new HashMap<String, Object>();
 
-                String securityCode = request.getParameter("securityCode_" + paymentMethod);
+                String securityCode = request.getParameter("securityCode_" + paymentMethods[i]);
                 if (UtilValidate.isNotEmpty(securityCode)) {
                     paymentMethodInfo.put("securityCode", securityCode);
                 }
-                String amountStr = request.getParameter("amount_" + paymentMethod);
+                String amountStr = request.getParameter("amount_" + paymentMethods[i]);
                 BigDecimal amount = null;
                 if (UtilValidate.isNotEmpty(amountStr) && !"REMAINING".equals(amountStr)) {
                     try {
@@ -330,7 +322,7 @@ public class CheckOutEvents {
                     }
                 }
                 paymentMethodInfo.put("amount", amount);
-                selectedPaymentMethods.put(paymentMethod, paymentMethodInfo);
+                selectedPaymentMethods.put(paymentMethods[i], paymentMethodInfo);
             }
         }
         Debug.logInfo("Selected Payment Methods : " + selectedPaymentMethods, module);
@@ -380,7 +372,7 @@ public class CheckOutEvents {
         String shipBeforeDate = request.getParameter("shipBeforeDate");
         String shipAfterDate = request.getParameter("shipAfterDate");
 
-        List<String> singleUsePayments = new ArrayList<>();
+        List<String> singleUsePayments = new ArrayList<String>();
 
         // get a request map of parameters
         Map<String, Object> params = UtilHttp.getParameterMap(request);
@@ -392,9 +384,6 @@ public class CheckOutEvents {
                         UtilMisc.toMap("partyId", cart.getPartyId(), "taxAuthPartyGeoIds", taxAuthPartyGeoIds, "partyTaxId", partyTaxId, "isExempt", isExempt));
                 ServiceUtil.getMessages(request, createCustomerTaxAuthInfoResult, null);
                 if (ServiceUtil.isError(createCustomerTaxAuthInfoResult)) {
-                    String errorMessage = ServiceUtil.getErrorMessage(createCustomerTaxAuthInfoResult);
-                    request.setAttribute("_ERROR_MESSAGE_", errorMessage);
-                    Debug.logError(errorMessage, module);
                     return "error";
                 }
             } catch (GenericServiceException e) {
@@ -431,25 +420,7 @@ public class CheckOutEvents {
 
         return "success";
     }
-    // Check for payment method and shipping method exist for checkout process of anonymous user
-    public static String checkoutValidation(HttpServletRequest request, HttpServletResponse response) {
-        ShoppingCart cart = (ShoppingCart) request.getSession().getAttribute("shoppingCart");
-        if (cart.isSalesOrder()) {
-        List<GenericValue> paymentMethodTypes = cart.getPaymentMethodTypes();
-        if (UtilValidate.isEmpty(paymentMethodTypes)) {
-            String errMsg = UtilProperties.getMessage(resource_error, "OrderNoPaymentMethodTypeSelected", (cart != null ? cart.getLocale() : UtilHttp.getLocale(request)));
-            request.setAttribute("_ERROR_MESSAGE_",errMsg);
-            return "error";
-        }
-        String shipmentMethod = cart.getShipmentMethodTypeId();
-        if (UtilValidate.isEmpty(shipmentMethod)) {
-            String errMsg = UtilProperties.getMessage(resource_error, "OrderNoShipmentMethodSelected", (cart != null ? cart.getLocale() : UtilHttp.getLocale(request)));
-            request.setAttribute("_ERROR_MESSAGE_",errMsg);
-            return "error";
-        }
-        }
-        return "success";
-    }
+
     // Create order event - uses createOrder service for processing
     public static String createOrder(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
@@ -459,10 +430,6 @@ public class CheckOutEvents {
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         CheckOutHelper checkOutHelper = new CheckOutHelper(dispatcher, delegator, cart);
         Map<String, Object> callResult;
-        String result = checkoutValidation(request,response);
-        if ("error".equals(result)) {
-            return "error";
-        }
 
         if (UtilValidate.isEmpty(userLogin)) {
             userLogin = cart.getUserLogin();
@@ -494,14 +461,14 @@ public class CheckOutEvents {
                 request.setAttribute("orderAdditionalEmails", cart.getOrderAdditionalEmails());
             }
         }
-
+        
         String issuerId = request.getParameter("issuerId");
         if (UtilValidate.isNotEmpty(issuerId)) {
             request.setAttribute("issuerId", issuerId);
         }
+        
 
-
-        return cart.getOrderType().toLowerCase(Locale.getDefault());
+        return cart.getOrderType().toLowerCase();
     }
 
     // Event wrapper for the tax calc.
@@ -527,12 +494,12 @@ public class CheckOutEvents {
     }
 
     public static boolean explodeOrderItems(Delegator delegator, ShoppingCart cart) {
-        if (cart == null) {
+        if (cart == null) return false;
+        GenericValue productStore = ProductStoreWorker.getProductStore(cart.getProductStoreId(), delegator);
+        if (productStore == null || productStore.get("explodeOrderItems") == null) {
             return false;
         }
-        GenericValue productStore = ProductStoreWorker.getProductStore(cart.getProductStoreId(), delegator);
-        return !(productStore == null || productStore.get("explodeOrderItems") == null)
-                && productStore.getBoolean("explodeOrderItems");
+        return productStore.getBoolean("explodeOrderItems").booleanValue();
     }
 
     public static String checkShipmentNeeded(HttpServletRequest request, HttpServletResponse response) {
@@ -686,7 +653,7 @@ public class CheckOutEvents {
                 GenericValue payPalProdStorePaySetting = EntityQuery.use(delegator).from("ProductStorePaymentSetting").where("productStoreId", productStore.getString("productStoreId"), "paymentMethodTypeId", "EXT_PAYPAL").queryFirst();
                 if (payPalProdStorePaySetting != null) {
                     GenericValue gatewayConfig = payPalProdStorePaySetting.getRelatedOne("PaymentGatewayConfig", false);
-                    if (gatewayConfig != null && "PAY_GATWY_PAYFLOWPRO".equals(gatewayConfig.getString("paymentGatewayConfigTypeId"))) {
+                    if (gatewayConfig != null && "PAYFLOWPRO".equals(gatewayConfig.getString("paymentGatewayConfigTypeId"))) {
                         return "paypal";
                     }
                 }
@@ -723,7 +690,7 @@ public class CheckOutEvents {
         Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
         String shippingContactMechId = null;
         String shippingMethod = null;
-        BigDecimal shipEstimate = null;
+        BigDecimal shipEstimate = null; 
         String shippingInstructions = null;
         String maySplit = null;
         String giftMessage = null;
@@ -769,17 +736,17 @@ public class CheckOutEvents {
         }
 
         // set the customer info
-        if ("default".equals(mode)) {
+        if (mode.equals("default")) {
             cart.setDefaultCheckoutOptions(dispatcher);
         }
 
         // remove the empty ship groups
-        if ("removeEmptyShipGroups".equals(mode)) {
+        if (mode.equals("removeEmptyShipGroups")) {
             cart.cleanUpShipGroups();
         }
 
         // set the customer info
-        if ("cust".equals(mode)) {
+        if (mode.equals("cust")) {
             String partyId = (String) request.getAttribute("partyId");
             if (partyId != null) {
                 cart.setOrderPartyId(partyId);
@@ -804,37 +771,36 @@ public class CheckOutEvents {
             }
         }
 
-        if ("addpty".equals(mode)) {
+        if (mode.equals("addpty")) {
             cart.setAttribute("addpty", "Y");
         }
 
-        if ("term".equals(mode)) {
+        if (mode.equals("term")) {
            cart.setOrderTermSet(true);
         }
 
         CheckOutHelper checkOutHelper = new CheckOutHelper(dispatcher, delegator, cart);
 
         // ====================================================================================
-        if ("ship".equals(mode) || "options".equals(mode)) {
+        if (mode.equals("ship") || mode.equals("options")) {
             Map<String, Object> callResult = ServiceUtil.returnSuccess();
-            List<String> errorMessages = new ArrayList<>();
-            Map<String, Object> errorMaps = new HashMap<>();
+            List<String> errorMessages = new ArrayList<String>();
+            Map<String, Object> errorMaps = new HashMap<String, Object>();
             for (int shipGroupIndex = 0; shipGroupIndex < cart.getShipGroupSize(); shipGroupIndex++) {
                 // set the shipping method
-                if ("ship".equals(mode)) {
+                if (mode.equals("ship")) {
                     shippingContactMechId = request.getParameter(shipGroupIndex + "_shipping_contact_mech_id");
                     String facilityId = request.getParameter(shipGroupIndex + "_shipGroupFacilityId");
                     if (shippingContactMechId == null) {
                         shippingContactMechId = (String) request.getAttribute("contactMechId");
-                    } else if("PURCHASE_ORDER".equals(cart.getOrderType())){
+                    } else if(cart.getOrderType().equals("PURCHASE_ORDER")){
                         String[] shipInfo = shippingContactMechId.split("_@_");
                         if(shipInfo.length > 1){
                             shippingContactMechId = shipInfo[0];
-                            facilityId = shipInfo[1];
+                            facilityId = shipInfo[1];   
                         }
                     }
                     String supplierPartyId = request.getParameter(shipGroupIndex + "_supplierPartyId");
-                    String supplierAgreementId = request.getParameter(shipGroupIndex + "_supplierAgreementId");
                     if (UtilValidate.isNotEmpty(facilityId)) {
                         cart.setShipGroupFacilityId(shipGroupIndex, facilityId);
                     }
@@ -845,23 +811,21 @@ public class CheckOutEvents {
                     } else {
                         cart.setShipToCustomerPartyId(request.getParameter("orderPartyId"));
                     }
-                    callResult = checkOutHelper.finalizeOrderEntryShip(shipGroupIndex, shippingContactMechId, supplierPartyId, supplierAgreementId);
+                    callResult = checkOutHelper.finalizeOrderEntryShip(shipGroupIndex, shippingContactMechId, supplierPartyId);
                     ServiceUtil.addErrors(errorMessages, errorMaps, callResult);
                 }
                 // set the options
-                if ("options".equals(mode)) {
+                if (mode.equals("options")) {
                     shippingMethod = request.getParameter(shipGroupIndex + "_shipping_method");
                     if (UtilValidate.isEmpty(shippingMethod)) {
                         shippingMethod = request.getParameter("shipping_method");
                     }
                     shippingInstructions = request.getParameter(shipGroupIndex + "_shipping_instructions");
-                    if (UtilValidate.isEmpty(shippingInstructions)) {
+                    if (UtilValidate.isEmpty(shippingInstructions))
                         shippingInstructions = request.getParameter("shipping_instructions");
-                    }
                     maySplit = request.getParameter(shipGroupIndex + "_may_split");
-                    if (UtilValidate.isEmpty(maySplit)) {
+                    if (UtilValidate.isEmpty(maySplit))
                         maySplit = request.getParameter("may_split");
-                    }
                     giftMessage = request.getParameter(shipGroupIndex + "_gift_message");
                     isGift = request.getParameter(shipGroupIndex + "_is_gift");
                     internalCode = request.getParameter("internalCode"); // FIXME
@@ -896,12 +860,8 @@ public class CheckOutEvents {
             ServiceUtil.getMessages(request, callResult, null);
             // determine whether it was a success or not
             if (callResult.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR)) {
-                if ("ship".equals(mode)) {
-                    return "shipping";
-                }
-                if ("options".equals(mode)) {
-                    return "options";
-                }
+                if (mode.equals("ship")) return "shipping";
+                if (mode.equals("options")) return "options";
                 return "error";
             }
         }
@@ -915,10 +875,10 @@ public class CheckOutEvents {
             mode = "payment";
         }
 
-        if ("payment".equals(mode)) {
+        if (mode.equals("payment")) {
             Map<String, Object> callResult = ServiceUtil.returnSuccess();
-            List<String> errorMessages = new ArrayList<>();
-            Map<String, Object> errorMaps = new HashMap<>();
+            List<String> errorMessages = new ArrayList<String>();
+            Map<String, Object> errorMaps = new HashMap<String, Object>();
 
             // Set the payment options
             Map<String, Map<String, Object>> selectedPaymentMethods = getSelectedPaymentMethods(request);
@@ -994,7 +954,7 @@ public class CheckOutEvents {
         boolean requireShipping = true;
         boolean requireOptions = true;
         boolean requireShipGroups = false;
-        boolean requirePayment = !"PURCHASE_ORDER".equals(cart.getOrderType());
+        boolean requirePayment = !cart.getOrderType().equals("PURCHASE_ORDER");
         boolean requireTerm = true;
         boolean requireAdditionalParty = isAnonymousCheckout;
         boolean isSingleUsePayment = true;
@@ -1009,18 +969,18 @@ public class CheckOutEvents {
             String requireAdditionalPartyStr = request.getParameter("finalizeReqAdditionalParty");
             String requireShipGroupsStr = request.getParameter("finalizeReqShipGroups");
             String singleUsePaymentStr = request.getParameter("singleUsePayment");
-            requireCustomer = requireCustomerStr == null || "true".equalsIgnoreCase(requireCustomerStr);
-            requireNewShippingAddress = requireNewShippingAddressStr != null && "true".equalsIgnoreCase(requireNewShippingAddressStr);
-            requireShipping = requireShippingStr == null || "true".equalsIgnoreCase(requireShippingStr);
-            requireOptions = requireOptionsStr == null || "true".equalsIgnoreCase(requireOptionsStr);
-            requireShipGroups = requireShipGroupsStr != null && "true".equalsIgnoreCase(requireShipGroupsStr);
+            requireCustomer = requireCustomerStr == null || requireCustomerStr.equalsIgnoreCase("true");
+            requireNewShippingAddress = requireNewShippingAddressStr != null && requireNewShippingAddressStr.equalsIgnoreCase("true");
+            requireShipping = requireShippingStr == null || requireShippingStr.equalsIgnoreCase("true");
+            requireOptions = requireOptionsStr == null || requireOptionsStr.equalsIgnoreCase("true");
+            requireShipGroups = requireShipGroupsStr != null && requireShipGroupsStr.equalsIgnoreCase("true");
             if (requirePayment) {
-                requirePayment = requirePaymentStr == null || "true".equalsIgnoreCase(requirePaymentStr);
+                requirePayment = requirePaymentStr == null || requirePaymentStr.equalsIgnoreCase("true");
             }
             if (requireTerm) {
-                requireTerm = requireTermStr == null || "true".equalsIgnoreCase(requireTermStr);
+                requireTerm = requireTermStr == null || requireTermStr.equalsIgnoreCase("true");
             }
-            requireAdditionalParty = requireAdditionalPartyStr == null || "true".equalsIgnoreCase(requireAdditionalPartyStr);
+            requireAdditionalParty = requireAdditionalPartyStr == null || requireAdditionalPartyStr.equalsIgnoreCase("true");
             isSingleUsePayment = singleUsePaymentStr != null && "Y".equalsIgnoreCase(singleUsePaymentStr) ? true : false;
         }
 
@@ -1042,19 +1002,20 @@ public class CheckOutEvents {
         String[] processOrder = {"customer", "shipping", "shipGroups", "options", "term", "payment",
                                  "addparty", "paysplit"};
 
-        if ("PURCHASE_ORDER".equals(cart.getOrderType())) {
+        if (cart.getOrderType().equals("PURCHASE_ORDER")) {
             // Force checks for the following
             requireCustomer = true; requireShipping = true; requireOptions = true;
             processOrder = new String[] {"customer", "term", "shipping", "shipGroups", "options", "payment",
                                          "addparty", "paysplit"};
         }
 
-        for (String currProcess : processOrder) {
-            if ("customer".equals(currProcess)) {
-                if (requireCustomer && (customerPartyId == null || "_NA_".equals(customerPartyId))) {
+        for (int i = 0; i < processOrder.length; i++) {
+            String currProcess = processOrder[i];
+            if (currProcess.equals("customer")) {
+                if (requireCustomer && (customerPartyId == null || customerPartyId.equals("_NA_"))) {
                     return "customer";
                 }
-            } else if ("shipping".equals(currProcess)) {
+            } else if (currProcess.equals("shipping")) {
                 if (requireShipping) {
                     if (requireNewShippingAddress) {
                         return "shippingAddress";
@@ -1062,29 +1023,29 @@ public class CheckOutEvents {
                         return "shipping";
                     }
                 }
-            } else if ("shipGroups".equals(currProcess)) {
+            } else if (currProcess.equals("shipGroups")) {
                 if (requireShipGroups) {
                     return "shipGroups";
                 }
-            } else if ("options".equals(currProcess)) {
+            } else if (currProcess.equals("options")) {
                 if (requireOptions && !shippingOptionsSet) {
                     return "options";
                 }
-            } else if ("term".equals(currProcess)) {
+            } else if (currProcess.equals("term")) {
                 if (requireTerm && !cart.isOrderTermSet()) {
                     return "term";
                 }
-            } else if ("payment".equals(currProcess)) {
+            } else if (currProcess.equals("payment")) {
                 List<String> paymentMethodIds = cart.getPaymentMethodIds();
                 List<String> paymentMethodTypeIds = cart.getPaymentMethodTypeIds();
                 if (requirePayment && UtilValidate.isEmpty(paymentMethodIds) && UtilValidate.isEmpty(paymentMethodTypeIds)) {
                     return "payment";
                 }
-            } else if ("addparty".equals(currProcess)) {
+            } else if (currProcess.equals("addparty")) {
                 if (requireAdditionalParty && cart.getAttribute("addpty") == null) {
                     return "addparty";
                 }
-            } else if ("paysplit".equals(currProcess)) {
+            } else if (currProcess.equals("paysplit")) {
                 if (isSingleUsePayment) {
                     return "paysplit";
                 }
@@ -1101,16 +1062,18 @@ public class CheckOutEvents {
 
         if ("SALES_ORDER".equals(cart.getOrderType())) {
             return "sales";
+        } else {
+            return "po";
         }
-        return "po";
     }
 
     public static String finalizeOrderEntryError(HttpServletRequest request, HttpServletResponse response) {
         String finalizePage = request.getParameter("finalizeMode");
         if (UtilValidate.isEmpty(finalizePage)) {
             return "error";
+        } else {
+            return finalizePage;
         }
-        return finalizePage;
     }
 
     /**
@@ -1154,8 +1117,9 @@ public class CheckOutEvents {
             }
 
             return chargeAmount;
+        } else {
+            return null;
         }
-        return null;
     }
 
     /** Create a replacement order from an existing order against a lost shipment etc. **/
@@ -1198,7 +1162,9 @@ public class CheckOutEvents {
                     sci.setOrderItemAssocTypeId("REPLACEMENT");
                     cart.addItem(index, sci);
                 }
-            } catch (CartItemModifyException | GenericEntityException e) {
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+            } catch (CartItemModifyException e) {
                 Debug.logError(e.getMessage(), module);
             }
         }
@@ -1206,7 +1172,8 @@ public class CheckOutEvents {
         String result = createOrder(request, response);
         if ("error".equals(result)) {
             return "error";
+        } else {
+            return "success";
         }
-        return "success";
     }
 }

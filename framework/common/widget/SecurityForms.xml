@@ -32,8 +32,6 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="fromDate" title="${uiLabelMap.CommonFromDate}" required-field="true"><date-time default-value="${groovy: org.apache.ofbiz.base.util.UtilDateTime.nowTimestamp()}"/></field>
-        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
 
@@ -41,9 +39,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="addSecurityPermissionToSecurityGroup"/>
         <field name="groupId"><hidden/></field>
-        <field name="permissionId" title="${uiLabelMap.PermissionId}" required-field="true"/>
-        <field name="fromDate" title="${uiLabelMap.CommonFromDate}" required-field="true"><date-time default-value="${groovy: org.apache.ofbiz.base.util.UtilDateTime.nowTimestamp()}"/></field>
-        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
+        <field name="permissionId" title="${uiLabelMap.PermissionId}"/>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
 
@@ -71,8 +67,8 @@ under the License.
         <auto-fields-service service-name="createUserLogin"/>
         <field name="partyId"><hidden/></field>
         <field name="enabled"><hidden/></field>
-        <field name="currentPassword" required-field="true"><password/></field>
-        <field name="currentPasswordVerify" required-field="true"><password/></field>
+        <field name="currentPassword"><password/></field>
+        <field name="currentPasswordVerify"><password/></field>
         <field name="requirePasswordChange">
             <drop-down allow-empty="false" no-current-selected-key="N">
                 <option key="Y" description="${uiLabelMap.CommonY}"/>
@@ -102,7 +98,7 @@ under the License.
         <field name="userLoginId"><hidden/></field>
         <field name="groupId" title="${uiLabelMap.CommonGroup}">
             <drop-down allow-empty="false">
-                <entity-options entity-name="SecurityGroup" description="${groupId} ${groupName}">
+                <entity-options entity-name="SecurityGroup" description="${groupId} ${description}">
                     <entity-order-by field-name="groupId"/>
                 </entity-options>
             </drop-down>
@@ -122,7 +118,6 @@ under the License.
 
     <form name="CreateSecurityGroup" type="single" target="createSecurityGroup" default-map-name="securityGroup">
         <field name="groupId" title="${uiLabelMap.CommonSecurityGroupId}" required-field="true"><text size="20" maxlength="20"/></field>
-        <field name="groupName" title="${uiLabelMap.CommonName}"><text/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text size="60" maxlength="250"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit button-type="button"/></field>
         <field name="cancelLink" title=" " widget-style="smallSubmit">
@@ -135,7 +130,6 @@ under the License.
     <form name="EditSecurityGroup" type="single" target="updateSecurityGroup" default-map-name="securityGroup">
         <field name="groupId" title="${uiLabelMap.CommonSecurityGroupId}"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text size="60" maxlength="250"/></field>
-        <field name="groupName" title="${uiLabelMap.CommonName}"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
 
@@ -149,13 +143,10 @@ under the License.
         </actions>
         <field name="groupId"><hidden/></field>
         <field name="permissionId" title="${uiLabelMap.PermissionId}"><display-entity entity-name="SecurityPermission" description="${permissionId} ${description}"/></field>
-        <field name="fromDate" title="${uiLabelMap.CommonFromDate}" sort-field="true"><display/></field>
-        <field name="thruDate" title="${uiLabelMap.CommonThruDate}" sort-field="true"><date-time/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonRemove}" target="removeSecurityPermissionFromSecurityGroup">
                 <parameter param-name="permissionId"/>
                 <parameter param-name="groupId"/>
-                <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
     </form>
@@ -207,8 +198,8 @@ under the License.
             </entity-condition>
         </actions>
         <field name="groupId"><hidden/></field>
-        <field name="userLoginId" sort-field="true" widget-style="buttontext">
-            <hyperlink description="${userLoginId}" target="editlogin">
+        <field name="userLoginId" sort-field="true">
+            <hyperlink description="${userLoginId}" target="editlogin" also-hidden="false">
                 <parameter param-name="userLoginId"/>
             </hyperlink>
         </field>
@@ -216,10 +207,11 @@ under the License.
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}" sort-field="true"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.CommonExpire}" target="expireUserLoginFromSecurityGroup" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="removeUserLoginFromSecurityGroup" also-hidden="false">
                 <parameter param-name="userLoginId"/>
                 <parameter param-name="groupId"/>
                 <parameter param-name="fromDate"/>
+                <parameter param-name="thruDate" from-field="date:nowTimestamp()"/>
             </hyperlink>
         </field>
     </form>
@@ -265,11 +257,12 @@ under the License.
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}" red-when="before-now"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.CommonExpire}" target="${expireUserLoginSecurityGroupURI}" also-hidden="false">
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="${removeUserLoginSecurityGroupURI}" also-hidden="false">
                 <parameter param-name="partyId"/>
                 <parameter param-name="userLoginId"/>
                 <parameter param-name="groupId"/>
                 <parameter param-name="fromDate"/>
+                <parameter param-name="thruDate" from-field="date:nowTimestamp()"/>
             </hyperlink>
         </field>
     </form>

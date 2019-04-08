@@ -27,8 +27,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.GeneralException;
@@ -84,8 +82,8 @@ public class ShoppingCartServices {
             return ServiceUtil.returnSuccess();
         }
 
-        cart.positionItemToGroup(itemIndex, quantity,
-                fromGroupIndex, toGroupIndex, clearEmptyGroups);
+        cart.positionItemToGroup(itemIndex.intValue(), quantity,
+                fromGroupIndex.intValue(), toGroupIndex.intValue(), clearEmptyGroups.booleanValue());
         Debug.logInfo("Called cart.positionItemToGroup()", module);
 
         return ServiceUtil.returnSuccess();
@@ -102,9 +100,9 @@ public class ShoppingCartServices {
         Boolean isGift = (Boolean) context.get("isGift");
         Locale locale = (Locale) context.get("locale");
 
-        ShoppingCart.CartShipInfo csi = cart.getShipInfo(groupIndex);
+        ShoppingCart.CartShipInfo csi = cart.getShipInfo(groupIndex.intValue());
         if (csi != null) {
-            int idx = groupIndex;
+            int idx = groupIndex.intValue();
 
             if (UtilValidate.isNotEmpty(shipmentMethodString)) {
                 int delimiterPos = shipmentMethodString.indexOf('@');
@@ -169,8 +167,7 @@ public class ShoppingCartServices {
         Locale locale = (Locale) context.get("locale");
         //FIXME: deepak:Personally I don't like the idea of passing flag but for orderItem quantity calculation we need this flag.
         String createAsNewOrder = (String) context.get("createAsNewOrder");
-        List<GenericValue> orderTerms = null;
-        List<GenericValue> orderContactMechs = null;
+        List<GenericValue>orderTerms = null;
 
         if (UtilValidate.isEmpty(skipInventoryChecks)) {
             skipInventoryChecks = Boolean.FALSE;
@@ -184,7 +181,6 @@ public class ShoppingCartServices {
         try {
             orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
             orderTerms = orderHeader.getRelated("OrderTerm", null, null, false);
-            orderContactMechs = EntityQuery.use(delegator).select("orderId", "contactMechId", "contactMechPurposeTypeId").from("OrderAndPartyContactMech").where("orderId", orderId).filterByDate("contactFromDate", "contactThruDate").distinct().queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -214,7 +210,6 @@ public class ShoppingCartServices {
         cart.setOrderStatusId(orderHeader.getString("statusId"));
         cart.setOrderStatusString(currentStatusString);
         cart.setFacilityId(orderHeader.getString("originFacilityId"));
-        cart.setAgreementId(orderHeader.getString("agreementId"));
 
         try {
             cart.setUserLogin(userLogin, dispatcher);
@@ -324,19 +319,12 @@ public class ShoppingCartServices {
                 cart.addOrderTerm(orderTerm.getString("termTypeId"), orderItemSeqId, termValue, termDays, orderTerm.getString("textValue"), orderTerm.getString("description"));
             }
         }
-        if (UtilValidate.isNotEmpty(orderContactMechs)) {
-            for (GenericValue orderContactMech : orderContactMechs) {
-                cart.addContactMech(orderContactMech.getString("contactMechPurposeTypeId"), orderContactMech.getString("contactMechId"));
-            }
-        }
+
         List<GenericValue> orderItemShipGroupList = orh.getOrderItemShipGroups();
         for (GenericValue orderItemShipGroup: orderItemShipGroupList) {
             // should be sorted by shipGroupSeqId
-            int groupIdx = Integer.parseInt(orderItemShipGroup.getString("shipGroupSeqId"));
-            CartShipInfo cartShipInfo = cart.getShipInfo(groupIdx-1);
-            if (cartShipInfo == null) {
-                cartShipInfo = cart.getShipInfo(cart.addShipInfo());
-            }
+            int newShipInfoIndex = cart.addShipInfo();
+            CartShipInfo cartShipInfo = cart.getShipInfo(newShipInfoIndex);
             cartShipInfo.shipAfterDate = orderItemShipGroup.getTimestamp("shipAfterDate");
             cartShipInfo.shipBeforeDate = orderItemShipGroup.getTimestamp("shipByDate");
             cartShipInfo.shipmentMethodTypeId = orderItemShipGroup.getString("shipmentMethodTypeId");
@@ -355,12 +343,10 @@ public class ShoppingCartServices {
         List<GenericValue> orderItems = orh.getOrderItems();
         long nextItemSeq = 0;
         if (UtilValidate.isNotEmpty(orderItems)) {
-            Pattern pattern = Pattern.compile("\\P{Digit}");
             for (GenericValue item : orderItems) {
                 // get the next item sequence id
                 String orderItemSeqId = item.getString("orderItemSeqId");
-                Matcher pmatcher = pattern.matcher(orderItemSeqId);
-                orderItemSeqId = pmatcher.replaceAll("");
+                orderItemSeqId = orderItemSeqId.replaceAll("\\P{Digit}", "");
                 // get product Id
                 String productId = item.getString("productId");
                 GenericValue product = null;
@@ -375,14 +361,12 @@ public class ShoppingCartServices {
                     Debug.logError(e, module);
                     return ServiceUtil.returnError(e.getMessage());
                 }
-                if ("ITEM_REJECTED".equals(item.getString("statusId")) || "ITEM_CANCELLED".equals(item.getString("statusId"))) {
-                    continue;
-                }
+                if ("ITEM_REJECTED".equals(item.getString("statusId")) || "ITEM_CANCELLED".equals(item.getString("statusId"))) continue;
                 try {
                     product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
                     if ("DIGITAL_GOOD".equals(product.getString("productTypeId"))) {
-                        Map<String, Object> surveyResponseMap = new HashMap<>();
-                        Map<String, Object> answers = new HashMap<>();
+                        Map<String, Object> surveyResponseMap = new HashMap<String, Object>();
+                        Map<String, Object> answers = new HashMap<String, Object>();
                         List<GenericValue> surveyResponseAndAnswers = EntityQuery.use(delegator).from("SurveyResponseAndAnswer").where("orderId", orderId, "orderItemSeqId", orderItemSeqId).queryList();
                         if (UtilValidate.isNotEmpty(surveyResponseAndAnswers)) {
                             String surveyId = EntityUtil.getFirst(surveyResponseAndAnswers).getString("surveyId");
@@ -392,14 +376,14 @@ public class ShoppingCartServices {
                             surveyResponseMap.put("answers", answers);
                             surveyResponseMap.put("surveyId", surveyId);
                             surveyResponseResult = dispatcher.runSync("createSurveyResponse", surveyResponseMap);
-                            if (ServiceUtil.isError(surveyResponseResult)) {
-                                return ServiceUtil.returnError(ServiceUtil.getErrorMessage(surveyResponseResult));
-                            }
                         }
                     }
-                } catch (GenericEntityException | GenericServiceException e) {
+                } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                     return ServiceUtil.returnError(e.getMessage());
+                } catch (GenericServiceException e) {
+                    Debug.logError(e.toString(), module);
+                    return ServiceUtil.returnError(e.toString());
                 }
 
                 // do not include PROMO items
@@ -493,7 +477,10 @@ public class ShoppingCartServices {
                     }
                     try {
                         itemIndex = cart.addItemToEnd(productId, amount, quantity, unitPrice, reservStart, reservLength, reservPersons,accommodationMapId,accommodationSpotId, null, null, prodCatalogId, configWrapper, item.getString("orderItemTypeId"), dispatcher, null, unitPrice == null ? null : false, skipInventoryChecks, skipProductChecks);
-                    } catch (ItemNotFoundException | CartItemModifyException e) {
+                    } catch (ItemNotFoundException e) {
+                        Debug.logError(e, module);
+                        return ServiceUtil.returnError(e.getMessage());
+                    } catch (CartItemModifyException e) {
                         Debug.logError(e, module);
                         return ServiceUtil.returnError(e.getMessage());
                     }
@@ -524,7 +511,6 @@ public class ShoppingCartServices {
                 cartItem.setDesiredDeliveryDate(item.getTimestamp("estimatedDeliveryDate"));
                 cartItem.setShipBeforeDate(item.getTimestamp("shipBeforeDate"));
                 cartItem.setShipAfterDate(item.getTimestamp("shipAfterDate"));
-                cartItem.setReserveAfterDate(item.getTimestamp("reserveAfterDate"));
                 cartItem.setShoppingList(item.getString("shoppingListId"), item.getString("shoppingListItemSeqId"));
                 cartItem.setIsModifiedPrice("Y".equals(item.getString("isModifiedPrice")));
                 cartItem.setName(item.getString("itemDescription"));
@@ -566,13 +552,11 @@ public class ShoppingCartServices {
                 // set the PO number on the cart
                 cart.setPoNumber(item.getString("correspondingPoId"));
 
-                // get all item adjustments EXCEPT tax and promo adjustments that will be recalculate
+                // get all item adjustments EXCEPT tax adjustments
                 List<GenericValue> itemAdjustments = orh.getOrderItemAdjustments(item);
                 if (itemAdjustments != null) {
                     for (GenericValue itemAdjustment : itemAdjustments) {
-                        if (!isTaxAdjustment(itemAdjustment) && !isPromoAdjustment(itemAdjustment)) {
-                            cartItem.addAdjustment(itemAdjustment);
-                        }
+                        if (!isTaxAdjustment(itemAdjustment)) cartItem.addAdjustment(itemAdjustment);
                     }
                 }
             }
@@ -582,9 +566,7 @@ public class ShoppingCartServices {
                 int itemIndex = 0;
                 for (GenericValue item : orderItems) {
                     // if rejected or cancelled ignore, just like above otherwise all indexes will be off by one!
-                    if ("ITEM_REJECTED".equals(item.getString("statusId")) || "ITEM_CANCELLED".equals(item.getString("statusId"))) {
-                        continue;
-                    }
+                    if ("ITEM_REJECTED".equals(item.getString("statusId")) || "ITEM_CANCELLED".equals(item.getString("statusId"))) continue;
 
                     List<GenericValue> orderItemAdjustments = orh.getOrderItemAdjustments(item);
                     // set the item's ship group info
@@ -634,9 +616,7 @@ public class ShoppingCartServices {
                             } else {
                                 List<GenericValue> itemTaxAdj = cartShipItemInfo.itemTaxAdj;
                                 for (GenericValue shipGroupItemAdjustment : shipGroupItemAdjustments) {
-                                    if (isTaxAdjustment(shipGroupItemAdjustment)) {
-                                        itemTaxAdj.add(shipGroupItemAdjustment);
-                                    }
+                                    if (isTaxAdjustment(shipGroupItemAdjustment)) itemTaxAdj.add(shipGroupItemAdjustment);
                                 }
                             }
                         }
@@ -782,11 +762,11 @@ public class ShoppingCartServices {
 
         // Convert the quote adjustment to order header adjustments and
         // put them in a map: the key/values pairs are quoteItemSeqId/List of adjs
-        Map<String, List<GenericValue>> orderAdjsMap = new HashMap<>() ;
+        Map<String, List<GenericValue>> orderAdjsMap = new HashMap<String, List<GenericValue>>() ;
         for (GenericValue quoteAdj : quoteAdjs) {
             List<GenericValue> orderAdjs = orderAdjsMap.get(UtilValidate.isNotEmpty(quoteAdj.getString("quoteItemSeqId")) ? quoteAdj.getString("quoteItemSeqId") : quoteId);
             if (orderAdjs == null) {
-                orderAdjs = new LinkedList<>();
+                orderAdjs = new LinkedList<GenericValue>();
                 orderAdjsMap.put(UtilValidate.isNotEmpty(quoteAdj.getString("quoteItemSeqId")) ? quoteAdj.getString("quoteItemSeqId") : quoteId, orderAdjs);
             }
             // convert quote adjustments to order adjustments
@@ -820,12 +800,10 @@ public class ShoppingCartServices {
 
         long nextItemSeq = 0;
         if (UtilValidate.isNotEmpty(quoteItems)) {
-            Pattern pattern = Pattern.compile("\\P{Digit}");
             for (GenericValue quoteItem : quoteItems) {
                 // get the next item sequence id
                 String orderItemSeqId = quoteItem.getString("quoteItemSeqId");
-                Matcher pmatcher = pattern.matcher(orderItemSeqId);
-                orderItemSeqId = pmatcher.replaceAll("");
+                orderItemSeqId = orderItemSeqId.replaceAll("\\P{Digit}", "");
                 try {
                     long seq = Long.parseLong(orderItemSeqId);
                     if (seq > nextItemSeq) {
@@ -884,9 +862,12 @@ public class ShoppingCartServices {
                         configWrapper = ProductConfigWorker.loadProductConfigWrapper(delegator, dispatcher, quoteItem.getString("configId"), productId, productStoreId, null, null, currency, locale, userLogin);
                     }
                     try {
-                            itemIndex = cart.addItemToEnd(productId, amount, quantity, quoteUnitPrice, reservStart, reservLength, reservPersons,null,null, null, null, null, configWrapper, null, dispatcher, !applyQuoteAdjustments, quoteUnitPrice.compareTo(BigDecimal.ZERO) == 0, Boolean.FALSE, Boolean.FALSE);
+                            itemIndex = cart.addItemToEnd(productId, amount, quantity, quoteUnitPrice, reservStart, reservLength, reservPersons,null,null, null, null, null, configWrapper, null, dispatcher, new Boolean(!applyQuoteAdjustments), new Boolean(quoteUnitPrice.compareTo(BigDecimal.ZERO) == 0), Boolean.FALSE, Boolean.FALSE);
 
-                    } catch (ItemNotFoundException | CartItemModifyException e) {
+                    } catch (ItemNotFoundException e) {
+                        Debug.logError(e, module);
+                        return ServiceUtil.returnError(e.getMessage());
+                    } catch (CartItemModifyException e) {
                         Debug.logError(e, module);
                         return ServiceUtil.returnError(e.getMessage());
                     }
@@ -920,11 +901,8 @@ public class ShoppingCartServices {
 
             if (adjs != null) {
                 for (GenericValue adj : adjs) {
-                    if (isTaxAdjustment( adj )) {
-                        shipInfo.shipTaxAdj.add(adj);
-                    } else {
-                        cartAdjs.add(adj);
-                    }
+                    if (isTaxAdjustment( adj )) shipInfo.shipTaxAdj.add(adj);
+                    else cartAdjs.add(adj);
                 }
             }
 
@@ -942,14 +920,10 @@ public class ShoppingCartServices {
                             if (isTaxAdjustment( adj )) {
                                 CartShipItemInfo csii = shipInfo.getShipItemInfo(item);
 
-                                if (csii.itemTaxAdj == null) {
-                                    shipInfo.setItemInfo(item, UtilMisc.toList(adj));
-                                } else {
-                                    csii.itemTaxAdj.add(adj);
-                                }
-                            } else {
-                                item.addAdjustment(adj);
+                                if (csii.itemTaxAdj == null) shipInfo.setItemInfo(item, UtilMisc.toList(adj));
+                                else csii.itemTaxAdj.add(adj);
                             }
+                            else item.addAdjustment(adj);
                         }
                     }
                 }
@@ -973,11 +947,8 @@ public class ShoppingCartServices {
 
     private static boolean isTaxAdjustment(GenericValue cartAdj) {
         String adjType = cartAdj.getString("orderAdjustmentTypeId");
+
         return "SALES_TAX".equals(adjType) || "VAT_TAX".equals(adjType) || "VAT_PRICE_CORRECT".equals(adjType);
-    }
-    private static boolean isPromoAdjustment(GenericValue cartAdj) {
-        String adjType = cartAdj.getString("orderAdjustmentTypeId");
-        return "PROMOTION_ADJUSTMENT".equals(adjType);
     }
 
     public static Map<String, Object>loadCartFromShoppingList(DispatchContext dctx, Map<String, Object> context) {
@@ -1045,12 +1016,10 @@ public class ShoppingCartServices {
 
         long nextItemSeq = 0;
         if (UtilValidate.isNotEmpty(shoppingListItems)) {
-            Pattern pattern = Pattern.compile("\\P{Digit}");
             for (GenericValue shoppingListItem : shoppingListItems) {
                 // get the next item sequence id
                 String orderItemSeqId = shoppingListItem.getString("shoppingListItemSeqId");
-                Matcher pmatcher = pattern.matcher(orderItemSeqId);
-                orderItemSeqId = pmatcher.replaceAll("");
+                orderItemSeqId = orderItemSeqId.replaceAll("\\P{Digit}", "");
                 try {
                     long seq = Long.parseLong(orderItemSeqId);
                     if (seq > nextItemSeq) {
@@ -1075,7 +1044,10 @@ public class ShoppingCartServices {
                     }
                     try {
                         itemIndex = cart.addItemToEnd(productId, null, quantity, null, null, null, null, null, configWrapper, dispatcher, Boolean.TRUE, Boolean.TRUE);
-                    } catch (ItemNotFoundException | CartItemModifyException e) {
+                    } catch (ItemNotFoundException e) {
+                        Debug.logError(e, module);
+                        return ServiceUtil.returnError(e.getMessage());
+                    } catch (CartItemModifyException e) {
                         Debug.logError(e, module);
                         return ServiceUtil.returnError(e.getMessage());
                     }
@@ -1132,7 +1104,7 @@ public class ShoppingCartServices {
             result.put("displayGrandTotalCurrencyFormatted",org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(shoppingCart.getDisplayGrandTotal(), isoCode, locale));
             BigDecimal orderAdjustmentsTotal = OrderReadHelper.calcOrderAdjustments(OrderReadHelper.getOrderHeaderAdjustments(shoppingCart.getAdjustments(), null), shoppingCart.getSubTotal(), true, true, true);
             result.put("displayOrderAdjustmentsTotalCurrencyFormatted", org.apache.ofbiz.base.util.UtilFormatOut.formatCurrency(orderAdjustmentsTotal, isoCode, locale));
-            Map<String, Object> cartItemData = new HashMap<>();
+            Map<String, Object> cartItemData = new HashMap<String, Object>();
             for (ShoppingCartItem cartLine : shoppingCart) {
                 int cartLineIndex = shoppingCart.getItemIndex(cartLine);
                 cartItemData.put("displayItemQty_" + cartLineIndex, cartLine.getQuantity());
@@ -1185,7 +1157,7 @@ public class ShoppingCartServices {
             Debug.logError(e.toString(), module);
             return ServiceUtil.returnError(e.toString());
         }
-        Map<String, Object> vendorMap = new HashMap<>();
+        Map<String, Object> vendorMap = new HashMap<String, Object>();
         for (ShoppingCartItem item : cart) {
             GenericValue vendorProduct = null;
             String productId = item.getParentProductId();
@@ -1201,7 +1173,7 @@ public class ShoppingCartServices {
 
             if (UtilValidate.isEmpty(vendorProduct)) {
                 if (vendorMap.containsKey("_NA_")) {
-                    index = (Integer) vendorMap.get("_NA_");
+                    index = ((Integer) vendorMap.get("_NA_")).intValue();
                     cart.positionItemToGroup(item, item.getQuantity(), 0, index, true);
                 } else {
                     index = cart.addShipInfo();
@@ -1216,7 +1188,7 @@ public class ShoppingCartServices {
             if (vendorProduct != null) {
                 String vendorPartyId = vendorProduct.getString("vendorPartyId");
                 if (vendorMap.containsKey(vendorPartyId)) {
-                    index = (Integer) vendorMap.get(vendorPartyId);
+                    index = ((Integer) vendorMap.get(vendorPartyId)).intValue();
                     cart.positionItemToGroup(item, item.getQuantity(), 0, index, true);
                 } else {
                     index = cart.addShipInfo();

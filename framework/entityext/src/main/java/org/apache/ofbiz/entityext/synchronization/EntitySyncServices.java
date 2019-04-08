@@ -240,14 +240,14 @@ public class EntitySyncServices {
             }
 
             Map<String, Object> result = ServiceUtil.returnSuccess();
-            result.put("toCreateInserted", toCreateInserted);
-            result.put("toCreateUpdated", toCreateUpdated);
-            result.put("toCreateNotUpdated", toCreateNotUpdated);
-            result.put("toStoreInserted", toStoreInserted);
-            result.put("toStoreUpdated", toStoreUpdated);
-            result.put("toStoreNotUpdated", toStoreNotUpdated);
-            result.put("toRemoveDeleted", toRemoveDeleted);
-            result.put("toRemoveAlreadyDeleted", toRemoveAlreadyDeleted);
+            result.put("toCreateInserted", Long.valueOf(toCreateInserted));
+            result.put("toCreateUpdated", Long.valueOf(toCreateUpdated));
+            result.put("toCreateNotUpdated", Long.valueOf(toCreateNotUpdated));
+            result.put("toStoreInserted", Long.valueOf(toStoreInserted));
+            result.put("toStoreUpdated", Long.valueOf(toStoreUpdated));
+            result.put("toStoreNotUpdated", Long.valueOf(toStoreNotUpdated));
+            result.put("toRemoveDeleted", Long.valueOf(toRemoveDeleted));
+            result.put("toRemoveAlreadyDeleted", Long.valueOf(toRemoveAlreadyDeleted));
             if (Debug.infoOn()) Debug.logInfo("Finisching storeEntitySyncData (" + entitySyncId + ") - [" + keysToRemove.size() + "] to remove. Actually removed: " + toRemoveDeleted  + " already removed: " + toRemoveAlreadyDeleted, module);
             return result;
         } catch (GenericEntityException e) {
@@ -609,7 +609,7 @@ public class EntitySyncServices {
             for (GenericValue entitySyncRemove: entitySyncRemoveList) {
                 Double curKrih = entitySyncRemove.getDouble("keepRemoveInfoHours");
                 if (curKrih != null) {
-                    double curKrihVal = curKrih;
+                    double curKrihVal = curKrih.doubleValue();
                     if (curKrihVal > keepRemoveInfoHours) {
                         keepRemoveInfoHours = curKrihVal;
                     }

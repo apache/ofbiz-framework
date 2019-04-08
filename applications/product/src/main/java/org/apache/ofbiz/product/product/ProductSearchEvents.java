@@ -35,6 +35,7 @@ import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.webapp.stats.VisitHandler;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
@@ -44,7 +45,6 @@ import org.apache.ofbiz.entity.util.EntityListIterator;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.product.product.ProductSearch.ProductSearchContext;
 import org.apache.ofbiz.product.product.ProductSearch.ResultSortOrder;
-import org.apache.ofbiz.webapp.stats.VisitHandler;
 
 /**
  * Product Search Related Events
@@ -67,7 +67,8 @@ public class ProductSearchEvents {
 
         try {
             boolean beganTransaction = TransactionUtil.begin(DEFAULT_TX_TIMEOUT);
-            try (EntityListIterator eli = getProductSearchResults(request)) {
+            try {
+                EntityListIterator eli = getProductSearchResults(request);
                 if (eli == null) {
                     errMsg = UtilProperties.getMessage(resource,"productsearchevents.no_results_found_probably_error_constraints", UtilHttp.getLocale(request));
                     request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -80,6 +81,7 @@ public class ProductSearchEvents {
                     String productId = searchResultView.getString("mainProductId");
                     numRemoved += delegator.removeByAnd("ProductCategoryMember", UtilMisc.toMap("productCategoryId", productCategoryId, "productId", productId)) ;
                 }
+                eli.close();
                 Map<String, String> messageMap = UtilMisc.toMap("numRemoved", Integer.toString(numRemoved));
                 errMsg = UtilProperties.getMessage(resource,"productsearchevents.removed_x_items", messageMap, UtilHttp.getLocale(request));
                 request.setAttribute("_EVENT_MESSAGE_", errMsg);
@@ -127,7 +129,8 @@ public class ProductSearchEvents {
 
        try {
            boolean beganTransaction = TransactionUtil.begin(DEFAULT_TX_TIMEOUT);
-           try (EntityListIterator eli = getProductSearchResults(request)) {
+           try {
+               EntityListIterator eli = getProductSearchResults(request);
                if (eli == null) {
                    errMsg = UtilProperties.getMessage(resource,"productsearchevents.no_results_found_probably_error_constraints", UtilHttp.getLocale(request));
                    request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -153,6 +156,7 @@ public class ProductSearchEvents {
                Map<String, String> messageMap = UtilMisc.toMap("numExpired", Integer.toString(numExpired));
                errMsg = UtilProperties.getMessage(resource,"productsearchevents.expired_x_items", messageMap, UtilHttp.getLocale(request));
                request.setAttribute("_EVENT_MESSAGE_", errMsg);
+               eli.close();
            } catch (GenericEntityException e) {
                Map<String, String> messageMap = UtilMisc.toMap("errSearchResult", e.toString());
                errMsg = UtilProperties.getMessage(resource,"productsearchevents.error_getting_search_results", messageMap, UtilHttp.getLocale(request));
@@ -197,7 +201,8 @@ public class ProductSearchEvents {
 
        try {
            boolean beganTransaction = TransactionUtil.begin(DEFAULT_TX_TIMEOUT);
-           try (EntityListIterator eli = getProductSearchResults(request)) {
+           try {
+               EntityListIterator eli = getProductSearchResults(request);
                if (eli == null) {
                    errMsg = UtilProperties.getMessage(resource,"productsearchevents.no_results_found_probably_error_constraints", UtilHttp.getLocale(request));
                    request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -220,6 +225,7 @@ public class ProductSearchEvents {
                Map<String, String> messageMap = UtilMisc.toMap("numAdded", Integer.toString(numAdded));
                errMsg = UtilProperties.getMessage(resource,"productsearchevents.added_x_product_category_members", messageMap, UtilHttp.getLocale(request));
                request.setAttribute("_EVENT_MESSAGE_", errMsg);
+               eli.close();
            } catch (GenericEntityException e) {
                Map<String, String> messageMap = UtilMisc.toMap("errSearchResult", e.toString());
                errMsg = UtilProperties.getMessage(resource,"productsearchevents.error_getting_search_results", messageMap, UtilHttp.getLocale(request));
@@ -284,7 +290,8 @@ public class ProductSearchEvents {
 
         try {
             boolean beganTransaction = TransactionUtil.begin(DEFAULT_TX_TIMEOUT);
-            try (EntityListIterator eli = getProductSearchResults(request)) {
+            try {
+                EntityListIterator eli = getProductSearchResults(request);
                 if (eli == null) {
                     String errMsg = UtilProperties.getMessage(resource,"productsearchevents.no_results_found_probably_error_constraints", UtilHttp.getLocale(request));
                     request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -306,9 +313,10 @@ public class ProductSearchEvents {
                     pfa.create();
                     numAdded++;
                 }
-                Map<String, Object> messageMap = UtilMisc.toMap("numAdded", numAdded, "productFeatureId", productFeatureId);
+                Map<String, Object> messageMap = UtilMisc.toMap("numAdded", Integer.valueOf(numAdded), "productFeatureId", productFeatureId);
                 String eventMsg = UtilProperties.getMessage(resource, "productSearchEvents.added_param_features", messageMap, locale) + ".";
                 request.setAttribute("_EVENT_MESSAGE_", eventMsg);
+                eli.close();
             } catch (GenericEntityException e) {
                 String errorMsg = UtilProperties.getMessage(resource, "productSearchEvents.error_getting_results", locale) + " : " + e.toString();
                 request.setAttribute("_ERROR_MESSAGE_", errorMsg);
@@ -341,7 +349,8 @@ public class ProductSearchEvents {
 
         try {
             boolean beganTransaction = TransactionUtil.begin(DEFAULT_TX_TIMEOUT);
-            try (EntityListIterator eli = getProductSearchResults(request)) {
+            try {
+                EntityListIterator eli = getProductSearchResults(request);
                 if (eli == null) {
                     String errMsg = UtilProperties.getMessage(resource,"productsearchevents.no_results_found_probably_error_constraints", UtilHttp.getLocale(request));
                     request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -354,9 +363,10 @@ public class ProductSearchEvents {
                     String productId = searchResultView.getString("mainProductId");
                     numRemoved += delegator.removeByAnd("ProductFeatureAppl", UtilMisc.toMap("productId", productId, "productFeatureId", productFeatureId));
                 }
-                Map<String, Object> messageMap = UtilMisc.toMap("numRemoved", numRemoved, "productFeatureId", productFeatureId);
+                Map<String, Object> messageMap = UtilMisc.toMap("numRemoved", Integer.valueOf(numRemoved), "productFeatureId", productFeatureId);
                 String eventMsg = UtilProperties.getMessage(resource, "productSearchEvents.removed_param_features", messageMap, locale) + ".";
                 request.setAttribute("_EVENT_MESSAGE_", eventMsg);
+                eli.close();
             } catch (GenericEntityException e) {
                 String errorMsg = UtilProperties.getMessage(resource, "productSearchEvents.error_getting_results", locale) + " : " + e.toString();
                 request.setAttribute("_ERROR_MESSAGE_", errorMsg);
@@ -384,11 +394,12 @@ public class ProductSearchEvents {
     public static String searchExportProductList(HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         String errMsg = null;
-        List<Map<String, Object>> productExportList = new LinkedList<>();
+        List<Map<String, Object>> productExportList = new LinkedList<Map<String,Object>>();
 
         try {
             boolean beganTransaction = TransactionUtil.begin(DEFAULT_TX_TIMEOUT);
-            try (EntityListIterator eli = getProductSearchResults(request)) {
+            try {
+                EntityListIterator eli = getProductSearchResults(request);
                 if (eli == null) {
                     errMsg = UtilProperties.getMessage(resource,"productsearchevents.no_results_found_probably_error_constraints", UtilHttp.getLocale(request));
                     request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -397,7 +408,7 @@ public class ProductSearchEvents {
 
                 GenericValue searchResultView = null;
                 while ((searchResultView = eli.next()) != null) {
-                    Map<String, Object> productMap = new HashMap<>();
+                    Map<String, Object> productMap = new HashMap<String, Object>();
                     String productId = searchResultView.getString("mainProductId");
                     productMap.put("productId", productId);
 
@@ -409,6 +420,7 @@ public class ProductSearchEvents {
                     productMap.put("productFeatures", productFeatures);
                     productExportList.add(productMap);
                 }
+                eli.close();
             } catch (GenericEntityException e) {
                 Map<String, String> messageMap = UtilMisc.toMap("errSearchResult", e.toString());
                 errMsg = UtilProperties.getMessage(resource,"productsearchevents.error_getting_search_results", messageMap, UtilHttp.getLocale(request));
@@ -431,7 +443,7 @@ public class ProductSearchEvents {
         return "success";
     }
 
-    private static EntityListIterator getProductSearchResults(HttpServletRequest request) {
+    public static EntityListIterator getProductSearchResults(HttpServletRequest request) {
         HttpSession session = request.getSession();
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         String visitId = VisitHandler.getVisitId(session);
@@ -447,7 +459,8 @@ public class ProductSearchEvents {
             productSearchContext.setResultSortOrder(resultSortOrder);
 
             return productSearchContext.doQuery(delegator);
+        } else {
+            return null;
         }
-        return null;
     }
 }

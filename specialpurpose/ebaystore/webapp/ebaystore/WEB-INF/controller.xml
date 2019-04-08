@@ -1,0 +1,613 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://ofbiz.apache.org/Site-Conf" xsi:schemaLocation="http://ofbiz.apache.org/Site-Conf http://ofbiz.apache.org/dtds/site-conf.xsd">
+    <include location="component://product/webapp/catalog/WEB-INF/controller.xml"/>
+    <include location="component://ebay/webapp/ebay/WEB-INF/controller.xml"/>
+
+    <description>eBay Component Site Configuration File</description>
+    <!-- request mappings -->
+    <request-map uri="main">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="main"/>
+    </request-map>
+    <!-- Export categories selected to Ebay store -->
+    <request-map uri="exportCategoryEbayStore">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="exportCategoryEbayStore"/>
+        <response name="error" type="view" value="exportCategoryEbayStore"/>
+    </request-map>
+    <request-map uri="getChildCategory">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="exportCategoryEbayStore"/>
+        <response name="error" type="view" value="exportCategoryEbayStore"/>
+    </request-map>
+    <request-map uri="exportCategoriesSelectedToEbayStore">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="exportCategoriesSelectedToEbayStore"/>
+        <response name="success" type="view" value="exportCategoryEbayStore"/>
+        <response name="error" type="view" value="exportCategoryEbayStore"/>
+    </request-map>
+    <!-- New eBay account in OFBiz -->
+    <request-map uri="newEbayAccount">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="NewEbayAccount"/>
+    </request-map>
+    <request-map uri="createEbayAccount">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createEbayAccount"/>
+        <response name="error" type="view" value="NewEbayAccount"/>
+        <response name="success" type="view" value="EditEbayConfiguration"/>
+    </request-map>
+    <request-map uri="ebayAccount">
+        <security https="true" auth="true"/>
+        <response name="error" type="view" value="EbayAccount"/>
+        <response name="success" type="view" value="EbayAccount"/>
+    </request-map>
+    <request-map uri="personalInformation">
+        <security https="true" auth="true"/>
+        <response name="error" type="view" value="EbayAccount"/>
+        <response name="success" type="view" value="EbayAccount"/>
+    </request-map>
+    <!-- Store output -->
+    <request-map uri="loadEbayStores">
+        <security https="true" auth="true"/>
+        <response name="success" type="request" value="exportProductListing"/>
+    </request-map>
+    <request-map uri="ebayStores">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ebayStores"/>
+        <response name="error" type="view" value="ebayStores"/>
+    </request-map>
+    <request-map uri="getStoreDetail">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="getEbayStoreOutput"/>
+        <response name="success" type="view" value="ebayStoreDetail"/>
+        <response name="error" type="view" value="ebayStoreDetail"/>
+    </request-map>
+    <request-map uri="editEbayStoreDetail">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="setEbayStoreInput"/>
+        <response name="success" type="view" value="ebayStoreDetail"/>
+        <response name="error" type="view" value="ebayStoreDetail"/>
+    </request-map>
+    <request-map uri="retrieveThemeColorSchemeByThemeId">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.apache.ofbiz.ebaystore.EbayStoreOptions" invoke="retrieveThemeColorSchemeByThemeId"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map>
+    <!-- Feedback -->
+    <request-map uri="Feedback">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="Feedback"/>
+    </request-map>
+    <request-map uri="LeaveFeedback">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="LeaveFeedback"/>
+    </request-map>
+    <request-map uri="sendLeaveFeedback">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.apache.ofbiz.ebaystore.EbayEvents" invoke="sendLeaveFeedback"/>
+        <response name="success" type="view" value="LeaveFeedback"/>
+        <response name="error" type="view" value="LeaveFeedback"/>
+    </request-map>
+    <!-- Associate catalog to Ebay Store -->
+    <request-map uri="AssociateCatalog">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="AssociateCatalog"/>
+    </request-map>
+    <request-map uri="associateCatalogToStore">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="createProductStoreCatalog"/>
+        <response name="success" type="view-last"/>
+        <response name="error" type="view-last"/>
+    </request-map>
+        <request-map uri="removeCatalogFromStore">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="deleteProductStoreCatalog"/>
+        <response name="success" type="view-last"/>
+        <response name="error" type="view-last"/>
+    </request-map>
+    <!-- Automation Preferences -->
+    <request-map uri="automationPreferences">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="AutomationPreferences"/>
+    </request-map>
+    <request-map uri="createEbayAutomaticRelistItems">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="createEbayAutomaticRelistItems"/>
+        <response name="success" type="view" value="AutomationPreferences"/>
+        <response name="error" type="view" value="AutomationPreferences"/>
+    </request-map>
+    <request-map uri="updateEbayAutomaticRelistItems">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="updateEbayAutomaticRelistItems"/>
+        <response name="success" type="view" value="AutomationPreferences"/>
+        <response name="error" type="view" value="AutomationPreferences"/>
+    </request-map>
+    <request-map uri="createEbayProductStorePref">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="createEbayProductStorePref"/>
+        <response name="success" type="view" value="AutomationPreferences"/>
+        <response name="error" type="view" value="AutomationPreferences"/>
+    </request-map>
+    <request-map uri="updateEbayProductStorePref">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="updateEbayProductStorePref"/>
+        <response name="success" type="view" value="AutomationPreferences"/>
+        <response name="error" type="view" value="AutomationPreferences"/>
+    </request-map>
+    <request-map uri="autoPrefLeaveFeedbackOptions">
+        <security auth="true" https="true"/>
+        <event type="java" path="org.apache.ofbiz.ebaystore.EbayStoreAutoPreferences" invoke="autoPrefLeaveFeedbackOptions"/>
+        <response name="success" type="view" value="AutomationPreferences"/>
+        <response name="error" type="view" value="AutomationPreferences"/>
+    </request-map>
+    <request-map uri="autoSendFeedbackReminder">
+        <security auth="true" https="true"/>
+        <event type="simple" path="component://ebaystore/minilang/EbayStoreEvents.xml" invoke="autoSendFeedbackReminder"/>
+        <response name="success" type="view" value="AutomationPreferences"/>
+        <response name="error" type="view" value="AutomationPreferences"/>
+    </request-map>
+    <request-map uri="editEmailTemplate">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="editEmailTemplate"/>
+    </request-map>
+    <request-map uri="createEmailTemplate">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="createEmailTemplate" path="component://ebaystore/minilang/EbayStoreEvents.xml"/>
+        <response name="success" type="view" value="AutomationPreferences"/>
+        <response name="error" type="view" value="editEmailTemplate"/>
+    </request-map>
+    <request-map uri="updateEmailTemplate">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="updateEmailTemplate" path="component://ebaystore/minilang/EbayStoreEvents.xml"/>
+        <response name="success" type="view" value="AutomationPreferences"/>
+        <response name="error" type="view" value="editEmailTemplate"/>
+    </request-map>
+    <request-map uri="updateEmailTemplate">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="updateEmailTemplate" path="component://ebaystore/minilang/EbayStoreEvents.xml"/>
+        <response name="success" type="view" value="AutomationPreferences"/>
+        <response name="error" type="view" value="editEmailTemplate"/>
+    </request-map>
+    <request-map uri="autoSendPaymentReceivedEmail">
+        <security auth="true" https="true"/>
+        <event type="simple" path="component://ebaystore/minilang/EbayStoreEvents.xml" invoke="autoSendPaymentReceivedEmail"/>
+        <response name="success" type="view" value="AutomationPreferences"/>
+        <response name="error" type="view" value="AutomationPreferences"/>
+    </request-map>
+    <request-map uri="settingCombineOrders">
+        <security https="true" auth="true"/>
+        <event type="simple" path="component://ebaystore/minilang/EbayStoreEvents.xml" invoke="settingCombineOrders"/>
+        <response name="success" type="request-redirect" value="automationPreferences"/>
+        <response name="error" type="view" value="AutomationPreferences"/>
+    </request-map>
+    <request-map uri="settingWinningBuyerNotification">
+        <security https="true" auth="true"/>
+        <event type="simple" path="component://ebaystore/minilang/EbayStoreEvents.xml" invoke="settingWinningBuyerNotification"/>
+        <response name="success" type="request-redirect" value="automationPreferences"/>
+        <response name="error" type="view" value="AutomationPreferences"/>
+    </request-map>
+    <request-map uri="settingSendItemDispatchedNotification">
+        <security https="true" auth="true"/>
+        <event type="simple" path="component://ebaystore/minilang/EbayStoreEvents.xml" invoke="settingSendItemDispatchedNotification"/>
+        <response name="success" type="request-redirect" value="automationPreferences"/>
+        <response name="error" type="view" value="AutomationPreferences"/>
+    </request-map>
+    <request-map uri="runBlockItemOutOfStock">
+        <security https="true" auth="true"/>
+        <event type="simple" path="component://ebaystore/minilang/EbayStoreEvents.xml" invoke="settingAutoBlockItemOutOfStock"/>
+        <response name="success" type="request-redirect" value="automationPreferences"/>
+        <response name="error" type="view" value="AutomationPreferences"/>
+    </request-map>
+    <!-- Store inventory -->
+    <request-map uri="ebayStoreInventory">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ebayStoreInventory"/>
+    </request-map>
+    <request-map uri="reserveEbayProductInventory">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="reserveEbayProductInventory"/>
+    </request-map>
+    <request-map uri="reserveProductInventory">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="reserveEbayProductInventory"/>
+        <response name="success" type="view" value="reserveEbayProductInventory"/>
+    </request-map>
+    <request-map uri="updateEbayStoreInventory">
+        <security https="true" auth="true"/>
+        <event type="service-multi" invoke="updateEbayStoreInventory"/>
+        <response name="success" type="view" value="ebayLoadStoreInventory"/>
+    </request-map>
+    <request-map uri="updateEbayStoreInventory">
+        <security https="true" auth="true"/>
+        <event type="service-multi" invoke="updateEbayStoreInventory"/>
+        <response name="success" type="view" value="ebayLoadStoreInventory"/>
+    </request-map>
+    <request-map uri="updateEbayInventoryStatus">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateEbayInventoryStatus"/>
+        <response name="success" type="view" value="ebayLoadStoreInventory"/>
+    </request-map>
+    <request-map uri="updateQuantityReserved">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="updateQuantityReserved"/>
+    </request-map>
+    <request-map uri="updateProductQuantityReserved">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateEbayProductQtyReserved"/>
+        <response name="success" type="view" value="ebayLoadStoreInventory"/>
+    </request-map>
+    <!-- export productListing in ebay store -->
+    <request-map uri="exportProductListing">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.apache.ofbiz.ebaystore.EbayEvents" invoke="prepareEbaySiteFacadeObject"/>
+        <response name="success" type="view" value="exportProductListing"/>
+        <response name="prepare" type="view" value="prepareProductListing"/>
+        <response name="error" type="view" value="exportProductListing"/>
+    </request-map>
+    <request-map uri="productsearch">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="productSearchResults"/>
+    </request-map>
+    <request-map uri="testSetEbayCategory">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="loadEbayAdItemTemplate"/>
+    </request-map>
+    <request-map uri="prepareProductListing">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.apache.ofbiz.ebaystore.EbayEvents" invoke="addProductListing"/>
+        <response name="success" type="view" value="prepareProductListing"/>
+        <response name="error" type="view" value="exportProductListing"/>
+    </request-map>
+    <request-map uri="setSelectedCategory">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.apache.ofbiz.ebaystore.EbayEvents" invoke="setSelectedEbayCategory"/>
+        <response name="success" type="view" value="prepareProductListing"/>
+        <response name="error" type="view" value="prepareProductListing"/>
+    </request-map>
+    <request-map uri="retrieveEbayCategoryByParent">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.apache.ofbiz.ebaystore.EbayStoreOptions" invoke="retrieveEbayCategoryByParent"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map>
+    <request-map uri="retrieveEbayStoreCategoryByParent">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.apache.ofbiz.ebaystore.EbayStoreOptions" invoke="retrieveEbayStoreCategoryByParent"/>
+        <response name="success" type="request" value="json"/>
+    </request-map>
+    <request-map uri="clearExpListing">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.apache.ofbiz.ebaystore.EbayEvents" invoke="clearProductListing"/>
+        <response name="success" type="view" value="exportProductListing"/>
+    </request-map>
+    <!-- Ad item template -->
+    <request-map uri="ebayAdItemTemplate">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.apache.ofbiz.ebaystore.EbayStoreOptions" invoke="retrieveItemTemplateByTemplateGroupId"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
+    </request-map>
+    <request-map uri="updateProductExportDetail">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.apache.ofbiz.ebaystore.EbayEvents" invoke="updateProductExportDetail"/>
+        <response name="success" type="view" value="prepareProductListing"/>
+        <response name="error" type="view" value="exportProductListing"/>
+    </request-map>
+    <request-map uri="removeProductFromListing">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.apache.ofbiz.ebaystore.EbayEvents" invoke="removeProductFromListing"/>
+        <response name="success" type="view" value="prepareProductListing"/>
+        <response name="error" type="view" value="exportProductListing"/>
+    </request-map>
+    <request-map uri="verifyItemBeforeAddAndExportToEbay">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.apache.ofbiz.ebaystore.EbayEvents" invoke="verifyItemBeforeAddAndExportToEbay"/>
+        <response name="success" type="request" value="exportProductListing"/>
+        <response name="error" type="view" value="exportProductListing"/>
+    </request-map>
+    <request-map uri="exportListingToEbay">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.apache.ofbiz.ebaystore.EbayEvents" invoke="exportListingToEbay"/>
+        <response name="success" type="request" value="clearExpListing"/>
+        <response name="error" type="view" value="exportProductListing"/>
+    </request-map>
+    <!-- Selling Manager -->
+    <request-map uri="sellingManager">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ebayStoreInventory"/>
+        <response name="error" type="view" value="ebayStoreInventory"/>
+    </request-map>
+    <request-map uri="getItemProduct">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="GetItemProduct"/>
+    </request-map>
+    <request-map uri="editItemProduct">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="reviseEbayStoreProductItem"/>
+        <response name="success" type="view" value="GetItemProduct"/>
+        <response name="error" type="view" value="GetItemProduct"/>
+    </request-map>
+    <!-- Active -->
+    <request-map uri="activeListing">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="ActiveListing"/>
+    </request-map>
+    <request-map uri="assignAutomaticRule">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="AssignAutomaticRule"/>
+    </request-map>
+    <!-- Sold -->
+    <request-map uri="soldListing">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="SoldListing"/>
+    </request-map>
+    <request-map uri="openUnpaid">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="OpenUnpaid"/>
+    </request-map>
+    <request-map uri="addDispute">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="addEbayDispute"/>
+        <response name="success" type="request-redirect" value="soldListing">
+            <redirect-parameter name="productStoreId"/>
+        </response>
+        <response name="error" type="view" value="OpenUnpaid"/>
+    </request-map>
+    <request-map uri="doAction">
+        <security auth="true" https="true"/>
+        <event type="simple" path="component://ebaystore/minilang/EbayStoreEvents.xml" invoke="checkEbayAction"/>
+        <response name="makeSecondChanceOffer" type="request" value="makeSecondChanceOffer"/>
+        <response name="openUnpaid" type="request" value="openUnpaid"/>
+    </request-map>
+    <request-map uri="makeSecondChanceOffer">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="verifyEbayAddSecondChanceItem"/>
+        <response name="error" type="view" value="SoldListing"/>
+        <response name="success" type="view" value="MakeSecondChanceOffer"/>
+    </request-map>
+    <request-map uri="addEbaySecondChanceOffer">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="addEbaySecondChanceOffer"/>
+        <response name="error" type="view" value="MakeSecondChanceOffer"/>
+        <response name="success" type="view" value="SoldListing"/>
+    </request-map>
+    <!-- Unsold Listing -->
+    <request-map uri="unsoldListing">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="UnsoldListing"/>
+    </request-map>
+    <!-- waiting to shipping -->
+    <request-map uri="waitingToShipping">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="WaitingToShipping"/>
+    </request-map>
+    <request-map uri="ordersImported">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="ordersImported"/>
+        <response name="error" type="view" value="ordersImported"/>
+    </request-map>
+    <request-map uri="searchOrdersImported">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="findOrders"/>
+        <response name="success" type="view" value="ordersImported"/>
+        <response name="error" type="view" value="ordersImported"/>
+    </request-map>
+    <request-map uri="uploadTrackingCodeBack">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="uploadTrackingInfoBackToEbay"/>
+        <response name="success" type="view" value="ordersImported"/>
+        <response name="error" type="view" value="ordersImported"/>
+    </request-map>
+    <request-map uri="errorMessageList">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="errorMessageList"/>
+        <response name="error" type="view" value="errorMessageList"/>
+    </request-map>
+    <request-map uri="bestOffer">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="bestOffer"/>
+        <response name="error" type="view" value="bestOffer"/>
+    </request-map>
+    <request-map uri="setBestOffer">
+        <security https="true" auth="true"/>
+        <event type="service"  invoke="setBestOffer"/>
+        <response name="success" type="view" value="AutomationPreferences"/>
+        <response name="error" type="view" value="AutomationPreferences"/>
+    </request-map>
+    <request-map uri="ebayAutoPrefCond">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.apache.ofbiz.ebaystore.EbayStoreAutoPrefEvents" invoke="ebayAutoPrefCond"/>
+        <response name="success" type="view" value="AutomationPreferences"/>
+        <response name="error" type="view" value="AutomationPreferences"/>
+    </request-map>
+    <request-map uri="ebayBestOfferPrefCond">
+        <security https="true" auth="true"/>
+        <event type="service"  invoke="ebayBestOfferPrefCond"/>
+        <response name="success" type="view" value="AutomationPreferences"/>
+        <response name="error" type="view" value="AutomationPreferences"/>
+    </request-map>
+    <request-map uri="createEbayProductStorePrefCond">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="createEbayProductStorePrefCond"/>
+        <response name="success" type="view" value="AutomationPreferences"/>
+        <response name="error" type="view" value="AutomationPreferences"/>
+    </request-map>
+    <request-map uri="updateEbayProductStorePrefCond">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="updateEbayProductStorePrefCond"/>
+        <response name="success" type="view" value="AutomationPreferences"/>
+        <response name="error" type="view" value="AutomationPreferences"/>
+    </request-map>
+    <request-map uri="customerService">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="customerService"/>
+        <response name="error" type="view" value="customerService"/>
+    </request-map>
+    <request-map uri="customerOfferData">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="customerOfferData"/>
+        <response name="error" type="view" value="customerOfferData"/>
+    </request-map>
+    <request-map uri="listBestOfferIncludeMessage">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="listBestOfferIncludeMessage"/>
+        <response name="success" type="view" value="customerService"/>
+        <response name="error" type="view" value="customerService"/>
+    </request-map>
+    <request-map uri="updateContactStatus">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="updateContactStatus"/>
+        <response name="success" type="view" value="customerOfferData"/>
+        <response name="error" type="view" value="customerOfferData"/>
+    </request-map>
+    <request-map uri="deleteContactAlert">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="deleteContactAlert"/>
+        <response name="success" type="view" value="customerService"/>
+        <response name="error" type="view" value="customerService"/>
+    </request-map>
+    <request-map uri="ClosedListing">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ClosedListing"/>
+    </request-map>
+    <request-map uri="geteBayClosedItem">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="geteBayClosedItem"/>
+        <response name="success" type="view" value="ClosedListing"/>
+        <response name="error" type="view" value="ClosedListing"/>
+    </request-map>
+    <request-map uri="OrderListing">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="OrderListing"/>
+    </request-map>
+    <request-map uri="getEbayOrders">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="getEbayStoreOrders"/>
+        <response name="success" type="view" value="OrderListing"/>
+        <response name="error" type="view" value="OrderListing"/>
+    </request-map>
+    <request-map uri="getSellerTransaction">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="getSellerTransaction"/>
+        <response name="success" type="view" value="OrderListing"/>
+        <response name="error" type="view" value="OrderListing"/>
+    </request-map>
+    <request-map uri="getMyeBaySelling">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="getMyeBaySelling"/>
+        <response name="success" type="view" value="ActiveListing"/>
+        <response name="error" type="view" value="ActiveListing"/>
+    </request-map>
+    <request-map uri="getEbayStoreTransaction">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="getEbayStoreTransaction"/>
+        <response name="success" type="view" value="OrderListing"/>
+        <response name="error" type="view" value="OrderListing"/>
+    </request-map>
+    <request-map uri="getEbayStoreOrder">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="getEbayStoreOrder"/>
+        <response name="success" type="view" value="OrderListing"/>
+        <response name="error" type="view" value="OrderListing"/>
+    </request-map>
+    <request-map uri="EbayStoreImportTransaction">
+        <security https="true" auth="true"/>
+        <event type="service-multi" invoke="EbayStoreImportTransaction"/>
+        <response name="success" type="view" value="OrderListing"/>
+        <response name="error" type="view" value="OrderListing"/>
+    </request-map>
+    <request-map uri="EbayStoreImportOrder">
+        <security https="true" auth="true"/>
+        <event type="service-multi" invoke="EbayStoreImportOrder"/>
+        <response name="success" type="view" value="OrderListing"/>
+        <response name="error" type="view" value="OrderListing"/>
+    </request-map>
+    <request-map uri="EbayStoreCreateTransactionShoppingCart">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="EbayStoreCreateTransactionShoppingCart"/>
+        <response name="success" type="view" value="OrderListing"/>
+        <response name="error" type="view" value="OrderListing"/>
+    </request-map>
+    <request-map uri="EbayStoreCreateOrderShoppingCart">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="EbayStoreCreateOrderShoppingCart"/>
+        <response name="success" type="view" value="OrderListing"/>
+        <response name="error" type="view" value="OrderListing"/>
+    </request-map>
+    <!-- end of request mappings -->
+
+    <!-- View Mappings -->
+    <view-map name="main" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#ebayStores"/>
+    <view-map name="exportCategoryEbayStore" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#exportCategoryEbayStore"/>
+    <!-- store output -->
+    <view-map name="ebayStores" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#ebayStores"/>
+    <view-map name="ebayStoreDetail" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#ebayStoreDetail"/>
+    <!-- ebay account -->
+    <view-map name="NewEbayAccount" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#NewEbayAccount"/>
+    <view-map name="EbayAccount" type="screen" page="component://ebaystore/widget/EbayAccountScreens.xml#EbayPersonalInformation"/>
+    <!-- feedback -->
+    <view-map name="FeedbackStore" type="screen" page="component://ebaystore/widget/EbayAccountScreens.xml#FeedbackStore"/>
+    <view-map name="Feedback" type="screen" page="component://ebaystore/widget/EbayAccountScreens.xml#Feedback"/>
+    <view-map name="LeaveFeedback" type="screen" page="component://ebaystore/widget/EbayAccountScreens.xml#LeaveFeedback"/>
+    <!-- Associate Catalog to Ebay Store-->
+    <view-map name="AssociateCatalog" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#AssociateCatalog"/>
+    <!-- AutomationPreferences -->
+    <view-map name="AutomationPreferences" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#EbayAutomationPreferences"/>
+    <!-- Selling Manager -->
+    <view-map name="editEmailTemplate" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#EditEmailTemplate"/>
+    <view-map name="GetItemProduct" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#GetItemProduct"/>
+    <!-- store Inventory -->
+    <view-map name="ebayStoreInventory" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#ebayStoreInventory"/>
+    <view-map name="ebayLoadStoreInventory" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#ebayLoadStoreInventory"/>
+    <view-map name="reserveEbayProductInventory" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#reserveEbayProductInventory"/>
+    <view-map name="updateQuantityReserved" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#updateQuantityReserved"/>
+    <!-- export productListing in ebay store -->
+    <view-map name="exportProductListing" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#exportProductListing"/>
+    <view-map name="productSearchResults" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#productSearchResults"/>
+    <view-map name="selectEbayCategory" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#selectEbayCategory"/>
+    <view-map name="prepareProductListing" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#prepareProductListing"/>
+    <!-- Ad item template -->
+    <view-map name="loadEbayAdItemTemplate" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#loadEbayAdItemTemplate"/>
+    <!-- Active -->
+    <view-map name="ActiveListing" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#ActiveListing"/>
+    <view-map name="AssignAutomaticRule" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#AssignAutomaticRule"/>
+    <!-- Sold -->
+    <view-map name="SoldListing" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#SoldListing"/>
+    <view-map name="OpenUnpaid" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#OpenUnpaid"/>
+    <view-map name="MakeSecondChanceOffer" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#MakeSecondChanceOffer"/>
+    <!-- Unsold -->
+    <view-map name="UnsoldListing" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#UnsoldListing"/>
+    <!-- Waiting to shipping -->
+    <view-map name="WaitingToShipping" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#WaitingToShipping"/>
+    <view-map name="ordersImported" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#ordersImported"/>
+    <view-map name="errorMessageList" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#errorMessageList"/>
+    <!-- Customer Service-->
+    <view-map name="customerService" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#customerService"/>
+    <view-map name="customerOfferData" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#customerOfferData"/>
+    
+    <view-map name="ClosedListing" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#ClosedListing"/>
+    <view-map name="OrderListing" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#OrderListing"/>
+    <!-- end of view mappings -->
+</site-conf>

@@ -118,9 +118,9 @@ under the License.
         <response name="success" type="view" value="EditSecurityGroupPermissions"/>
         <response name="error" type="view" value="EditSecurityGroupPermissions"/>
     </request-map>
-    <request-map uri="expireUserLoginFromSecurityGroup">
+    <request-map uri="removeUserLoginFromSecurityGroup">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="expireUserLoginSecurityGroup"/>
+        <event type="service" path="" invoke="updateUserLoginToSecurityGroup"/>
         <response name="success" type="view" value="EditSecurityGroupUserLogins"/>
         <response name="error" type="view" value="EditSecurityGroupUserLogins"/>
     </request-map>
@@ -160,9 +160,9 @@ under the License.
         <response name="success" type="view" value="EditUserLoginSecurityGroups"/>
         <response name="error" type="view" value="EditUserLoginSecurityGroups"/>
     </request-map>
-    <request-map uri="userLogin_expireUserLoginFromSecurityGroup">
+    <request-map uri="userLogin_removeUserLoginFromSecurityGroup">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="expireUserLoginSecurityGroup"/>
+        <event type="service" path="" invoke="updateUserLoginToSecurityGroup"/>
         <response name="success" type="view" value="EditUserLoginSecurityGroups"/>
         <response name="error" type="view" value="EditUserLoginSecurityGroups"/>
     </request-map>

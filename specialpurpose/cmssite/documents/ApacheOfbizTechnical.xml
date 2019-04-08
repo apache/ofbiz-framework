@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<book xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0" 
+      xmlns:xl="http://www.w3.org/1999/xlink"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xsi:schemaLocation="http://docbook.org/ns/docbook ../../content/dtd/docbook.xsd"
+      xmlns="http://docbook.org/ns/docbook">
+
+    <info>
+        <title>Apache OFBiz Technical documentation.</title>
+            </info> 
+
+    <dedication>
+        <para>
+            I was reading the book in development from Norman Walsh called <link xl:href="http://www.docbook.org/tdg5/en/html/docbook.html">DocBook 5.0: The Definitive Guide
+            </link> and found that a book can have a dedication. My first thought was there is only one man to whom this book can be dedicated. Without him I would not have been writing it.
+            Sometimes i talk to other people about my dinners with David Jones in Pucket, Thailand which were very revealing to me. At a relative young age David designed and developed with Andy Zenesky 
+            the cornerstones of the OFBiz system called entity engine and recognized that in 2001 SOA (System Oriented Architecture) would be the future. 
+            So, David, thank you very much spending your efforts creating this excellent system. 
+        </para>
+    </dedication>
+
+    <chapter>
+        <title>Introduction.</title>
+        <para>
+            Welcome to Apache OFBiz, the ready to use open source ERP system. Let me first say if you downloaded 
+            the system for the first time it will be very overwhelming because the system is pretty big what is actually pretty normal for an ERP system
+            because of its size.
+        </para>
+        <para>
+            This document is describing the technical aspects of the system. How to install it, how to load the data and how to make the system available to the Internet.
+            This is described pretty well in the 'production setup guide' in the next section. If you looking how to setup the system from a user point of view then better
+            have a look at the Apache OFBiz user guide.
+        </para>
+    
+        <section>
+            <title>The production setup guide.</title>
+            <para>
+                   An excellent guide to configure the system in a production environment, read the document at the <link xl:href="http://cwiki.apache.org/confluence/display/OFBTECH/Apache+OFBiz+Technical+Production+Setup+Guide">OFBiz documentation site</link>
+            </para>
+        </section>
+        
+        <section>
+            <title>The quick setup of an Ubuntu/Debian Linux with Postgresql Apache OFBiz server</title>
+            <para>
+                Ubuntu/Debian is certainly not the only distribution which is suitable for OFBiz. In general all Linux distributions can be used.
+                The OFBiz system will also run on Windows, however this is not preferred and much less experience is available in the OFBiz communiy.
+                The preferred data base is Postgresql although most databases will do.
+            </para>
+            <orderedlist>
+            <listitem>
+                <para>Upgrade Linux to Ubuntu/Debian remotely using Grub menu</para>
+                <para>
+                    If you have a version of Linux running already on your server which using the GRUB menu, it is possible to upgrade to Debian/Ubuntu
+                    without even touching the server physically. With the method below the Debian installer is loaded into a Ram disk from where it can
+                    reformat and re-partition the harddisk and install the system.
+                    Practice this first on a local server, because if after the reboot the server is unreachable you have to ask somebody at the datacenter to manually reboot the system.
+                </para>
+                <para>
+                    If you have a proper Linux installed go to the Postgres installation.
+                </para>
+                <orderedlist>
+                    <listitem>
+                        <para>Get the OS kernel and the related initrd.gz</para>
+                        <para>
+                            Make sure you server can handle 64bit if you take that version, if not sure take the 32bit version.
+                            Example url for 64bit Ubuntu: http://us.archive.ubuntu.com/ubuntu/dists/hardy/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/linux for the kernel and 
+                            http://us.archive.ubuntu.com/ubuntu/dists/jaunty/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/initrd.gz for the initrd.gz file
+                        </para>
+                        <para>
+                            If not sure take the 32bit version:
+                            Example url for 32bit Ubuntu: http://us.archive.ubuntu.com/ubuntu/dists/hardy/main/installer-i386/current/images/netboot/ubuntu-installer/amd64/linux for the kernel and 
+                            http://us.archive.ubuntu.com/ubuntu/dists/jaunty/main/installer-i386/current/images/netboot/ubuntu-installer/i386/initrd.gz for the initrd.gz file
+                        </para>
+                    </listitem>
+                    <listitem>
+                        <para>Uncompress the initrd.gz: gzip -dc ../initrd.gz | cpio -id</para>
+                    </listitem>
+                    <listitem>
+                        <para>Edit the preseed.cfg file inside the initrd.gz file</para>
+                        <para>
+                            The file I used had the following content:
+                            <programlisting>
+ d-i debconf/priority                   select critical
+ d-i debian-installer/locale            string en_US
+ d-i console-setup/ask_detect           boolean false
+ d-i console-setup/layoutcode           string us
+ d-i auto-install/enabled               boolean true
+ d-i netcfg/choose_interface            select eth0
+ d-i netcfg/disable_dhcp                boolean true
+ d-i netcfg/get_nameservers             string x.x.x.x          &lt;--- EDIT! (max 3)
+ d-i netcfg/get_ipaddress               string x.x.x.x          &lt;--- EDIT!
+ d-i netcfg/get_netmask                 string 255.255.255.0    &lt;--- EDIT!
+ d-i netcfg/get_gateway                 string x.x.x.x          &lt;--- EDIT!
+ d-i netcfg/confirm_static              boolean true
+ d-i netcfg/get_hostname                string servername       &lt;--- EDIT!
+ d-i netcfg/get_domain                  string yourdomain.com   &lt;--- EDIT!
+ d-i network-console/password           password password       &lt;--- EDIT!
+ d-i network-console/password-again     password password       &lt;--- EDIT!
+ d-i preseed/early_command              string anna-install network-console
+                            </programlisting>
+                                You can find the ip addresses in the current Linux normally in the /etc/network/interfaces file.
+                        </para>
+                    </listitem>
+                    <listitem>
+                        <para>Create the new Archive:
+                            <programlisting>
+                            find ./ | cpio -H newc -o > initrd-preseed
+                            gzip initrd-preseed
+                            </programlisting> 
+                        </para>
+                    </listitem>
+                    <listitem>
+                        <para>Copy the Kernel and the new initrd.gz to the server</para>
+                        <para>
+                            Copy these to files to the /boot/ directory on the server.
+                        </para>
+                        <para>If using LiLo</para>
+                        <para>
+                            You have to download the vmlinuz image and put that in the /boot directory under the name vmlinuzNew
+                        </para>
+                    </listitem>
+                    <listitem>
+                        <para>If Grub is used: Edit the /boot/grub/menu.lst file on the server:
+                            <programlisting>
+# menu entry before the first:(for root, look at the other menu items)
+title Ubuntu Install
+root xxxxx
+kernel /linux 
+initrd /initrd-preseed.gz
+savedefault 1
+                            </programlisting>
+                        </para>
+                        <para>If Lilo is used edit the /etc/lilo.conf file on the server:
+                            <programlisting>
+image=/boot/vmlinuzNew
+    label="newUbuntu"
+    initrd=/boot/init-preseed.gz
+                            </programlisting>
+                        </para>
+                    </listitem>
+                    <listitem>
+                        <para>Reboot the server</para>
+                        <para>and hopfully after some time you can login with SSH and using the username &quot;installer&quot; and the password you specified in the preseed file</para>
+                        <para>From that point you can configure the server and repartition the harddisk</para>
+                    </listitem>
+                </orderedlist>
+            </listitem>            
+            <listitem>
+                <para>Install Subversion</para>
+                <para>use the command (as root) apt-get install subversion</para>
+            </listitem>            
+            <listitem>
+                <para>Install Apache using proxy AJP to talk to OFBiz</para>
+                <para>Use the command (as root): apt-get install apache2</para>
+                <para>Make symbolic links from mods-available to mods-enabled for ssl.config, ssl.load, proxy.load, proxy_ajp.load and proxy.config. Modify proxy.config and replace &quot;Deny from all&quot; with &quot;Allow from all&quot;</para>
+            </listitem>            
+            <listitem>
+                <para>Install Java SDK</para>
+                <para>Use the command (as root): apt-get install sun-java6-jdk</para>
+            </listitem>            
+            <listitem>
+                <para>Install PostGresql</para>
+                <para>Use the command (as root): apt-get install postgresql</para>
+                <para>
+                    Then logon as root, and su to the user &quot;postgres&quot; and issue the command: createuser &quot;ofbiz&quot;
+                </para>
+            </listitem>            
+            <listitem>
+                <para>Install Ofbiz</para>
+            </listitem>            
+            <listitem>
+                <para>Start ofbiz.....and look for he result in your browser.....</para>
+            </listitem>
+            </orderedlist>
+        </section>
+    </chapter>
+    <xi:include href="../../../framework/documents/Framework.xml"/>
+    <xi:include href="../../../framework/base/documents/FrameworkBase.xml" />
+    <xi:include href="../../../framework/common/documents/FrameworkCommon.xml" />
+    <xi:include href="../../../framework/entity/documents/EntityEngine.xml" />
+    <xi:include href="../../../framework/service/documents/ServiceEngine.xml" />
+    <xi:include href="../../../framework/webtools/documents/Webtools.xml" />
+    <xi:include href="../../../framework/documents/UnitTest.xml" />
+    <xi:include href="../../../framework/documents/SingleSignOn.xml" />
+    <xi:include href="../../../framework/documents/DataFiles.xml"/>
+
+    <appendix>
+        <xi:include href="../../../applications/commonext/data/helpdata/HELP_OFBizDocumentationSystem.xml"/>
+    </appendix>
+    
+    <appendix>
+        <section>
+            <title>Revisions Requiring Data Migration.</title>
+            <para>
+                   A List of migration actions you need to perform can be found at the <link xl:href="http://cwiki.apache.org/confluence/display/OFBTECH/Revisions+Requiring+Data+Migration">OFBiz documentation site</link>
+            </para>
+        </section>
+    </appendix>
+    
+    
+</book>

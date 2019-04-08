@@ -24,5 +24,7 @@ under the License.
     <resource-loader name="main" type="component"/>
     <classpath type="dir" location="config"/>
     
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/SecurityPermissionSeedData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/UserDemoData.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
 </ofbiz-component>

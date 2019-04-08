@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
+    <property key="BusinessIntelligenceApplication">
+        <value xml:lang="en">Business Intelligence Application</value>
+        <value xml:lang="fr">Application d'informatique décisionnelle</value>
+        <value xml:lang="it">Applicazione Business Intelligence</value>
+        <value xml:lang="ja">ビジネスインテリジェンス</value>
+        <value xml:lang="th">โปรแกรมประยุกต์การเรียนรู้ทางธุรกิจ</value>
+        <value xml:lang="zh">商业智能应用程序</value>
+        <value xml:lang="zh-TW">商業智慧應用程式</value>
+    </property>
+    <property key="BusinessIntelligenceCompanyName">
+        <value xml:lang="en">OFBiz: Business Intelligence</value>
+        <value xml:lang="fr">OFBiz: Informatique décisionnelle</value>
+        <value xml:lang="it">OFBiz: Business Intelligence</value>
+        <value xml:lang="ja">OFBiz: ビジネスインテリジェンス</value>
+        <value xml:lang="th">OFBiz:การเรียนรู้ทางธุรกิจ</value>
+        <value xml:lang="zh">OFBiz：商业智能</value>
+        <value xml:lang="zh-TW">OFBiz:商業智慧</value>
+    </property>
+    <property key="BusinessIntelligenceCompanySubtitle">
+        <value xml:lang="ar">جزء من عائلة أوفبيز للتطبيقات الحرة للتسيير</value>
+        <value xml:lang="de">Teil der Apache OFBiz Familie von Open Source Software</value>
+        <value xml:lang="en">Part of the Apache OFBiz Family of Open Source Software</value>
+        <value xml:lang="es">Parte de la familia de software Apache OFBiz de código abierto</value>
+        <value xml:lang="fr">Un module de la famille Apache OFBiz, logiciel libre de gestion d'entreprise.</value>
+        <value xml:lang="it">Un modulo della famiglia di software open source Apache OFBiz</value>
+        <value xml:lang="ja">Part of the Apache OFBiz Family of Open Source Software</value>
+        <value xml:lang="nl">Deel van de Apache OFBiz-suite van Open Source Software</value>
+        <value xml:lang="pt-BR">Parte da família OfBiz de software de fonte aberta</value>
+        <value xml:lang="pt-PT">Parte da família OfBiz de software de fonte aberta</value>
+        <value xml:lang="ro">Partea de Deschidere Pentru Afaceri Familiale din Open Source Software</value>
+        <value xml:lang="ru">Входит в состав семейства Apache OFBiz</value>
+        <value xml:lang="th">ส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value>
+        <value xml:lang="zh">开源软件OFBiz家族的一部分</value>
+        <value xml:lang="zh-CN">OFBiz的一部分</value>
+        <value xml:lang="zh-TW">OFBiz的一部分</value>
+    </property>
+    <property key="BusinessIntelligenceCurrentStatus">
+        <value xml:lang="en">Current Status</value>
+        <value xml:lang="fr">Statuts en cours</value>
+        <value xml:lang="it">Stato attuale</value>
+        <value xml:lang="ja">現在のステータス</value>
+        <value xml:lang="th">สถานะในปัจจุบัน</value>
+        <value xml:lang="zh">当前状态</value>
+        <value xml:lang="zh-TW">目前狀態</value>
+    </property>
+    <property key="BusinessIntelligenceFieldDescription">
+        <value xml:lang="en">Field Description</value>
+        <value xml:lang="fr">Description de champ</value>
+        <value xml:lang="it">Descrizione Campo</value>
+        <value xml:lang="ja">項目詳細</value>
+        <value xml:lang="th">รายละเอียดข้อมูล</value>
+        <value xml:lang="zh">数据项描述</value>
+        <value xml:lang="zh-TW">欄位描述</value>
+    </property>
+    <property key="BusinessIntelligenceFieldName">
+        <value xml:lang="en">Field Name</value>
+        <value xml:lang="fr">Nom de champ</value>
+        <value xml:lang="it">Nome Campo</value>
+        <value xml:lang="ja">項目名称</value>
+        <value xml:lang="th">ชื่อข้อมูล</value>
+        <value xml:lang="zh">数据项名称</value>
+        <value xml:lang="zh-TW">欄位名稱</value>
+    </property>
+    <property key="BusinessIntelligenceIntegratedFramework">
+        <value xml:lang="en">Business Intelligence Integrated Framework</value>
+        <value xml:lang="fr">Informatique décisionnelle intégrée au Framework</value>
+        <value xml:lang="it">Business Intelligence Framework Integrato</value>
+        <value xml:lang="ja">ビジネスインテリジェンス統合フレームワーク</value>
+        <value xml:lang="th">Framework ของการเรียนรู้ทางธุรกิจรวมกัน</value>
+        <value xml:lang="zh">商业智能集成框架</value>
+        <value xml:lang="zh-TW">商業智慧整合框架</value>
+    </property>
+    <property key="BusinessIntelligenceMainPage">
+        <value xml:lang="en">Main Page</value>
+        <value xml:lang="fr">Page D'accueil</value>
+        <value xml:lang="it">Pagina Principale</value>
+        <value xml:lang="ja">メインページ</value>
+        <value xml:lang="th">หน้าหลัก</value>
+        <value xml:lang="zh">首页</value>
+        <value xml:lang="zh-TW">首頁</value>
+    </property>
+    <property key="BusinessIntelligenceNaturalKeyWithourDimension">
+        <value xml:lang="en">The natural key: ${naturalKeyFields} is empty in value: ${dimensionValue}</value>
+        <value xml:lang="it">La chiave naturale: ${naturalKeyFields} è vuota nel valore: ${dimensionValue}</value>
+        <value xml:lang="ja">自然キー: ${naturalKeyFields} が値: ${dimensionValue} で空です</value>
+        <value xml:lang="zh">值：${dimensionValue} 中的自然键：${naturalKeyFields} 是空的</value>
+        <value xml:lang="zh-TW">值:${dimensionValue} 中的自然鍵:${naturalKeyFields} 是空的</value>
+    </property>
+    <property key="BusinessIntelligenceNote1">
+        <value xml:lang="en">This is a proof of concept for an OFBiz integrated framework for business intelligence analysis.</value>
+        <value xml:lang="fr">C'est une preuve de concept d'informatique décisionnelle intégrée au Framework</value>
+        <value xml:lang="it">Questo è un prototipo di un framework per analisi di dati (business intelligence) integrato in OFBiz.</value>
+        <value xml:lang="ja">OFBiz統合フレームワークにおけるビジネスインテリジェンス分析のコンセプト。</value>
+        <value xml:lang="th">การทดสอบความเข้าใจสำหรับ OFBiz framework เพื่อการวิเคราะห์ระบบการเรียนรู้ทางธุรกิจ</value>
+        <value xml:lang="zh">这是一个验证OFBiz集成框架能够用于商业智能的实现。</value>
+        <value xml:lang="zh-TW">這是一個驗證OFBiz整複合框架能夠用於商業智慧的實作.</value>
+    </property>
+    <property key="BusinessIntelligenceNote2">
+        <value xml:lang="en">The idea is to define a set entities for business intelligence analysis in a separate (olap) database,</value>
+        <value xml:lang="fr">L'idée est de définir un ensemble d'entités pour l'analyse de l'Informatique décisionnelle dans une base de données séparée (OLAP),</value>
+        <value xml:lang="it">L'idea è di definire un'insieme di entità per le analisi di business intelligence in un database (OLAP) separato,</value>
+        <value xml:lang="ja">ビジネスインテリジェンス分析のために別の(OLAP)データベースにエンティティ一式を定義するという考えは、</value>
+        <value xml:lang="th">แผนการในการตั้งค่าสิ่งที่มีอยู่เพื่อวิเคราะห์การเรียนรู้ทางธุรกิจในการแยก (olap) ฐานข้อมูล</value>
+        <value xml:lang="zh">思路是在一个独立的(OLAP)数据库中为商业智能分析定义一组实体，</value>
+        <value xml:lang="zh-TW">點子是在一個分離的(OLAP)資料庫為商業智慧分析定義一組資料實體,</value>
+    </property>
+    <property key="BusinessIntelligenceNote3">
+        <value xml:lang="en">accessible, in the same way as the main one (OLTP), via the delegator.</value>
+        <value xml:lang="fr">accessibles, de la même manière que pour la base de données principale (OLTP), par l'intermédiaire du délégateur.</value>
+        <value xml:lang="it">accessibile, nello stesso modo di quello principale (OLTP), attraverso un delegator.</value>
+        <value xml:lang="ja">理解しやすく、主流(OLAP)と同じ方法で、デリゲータによって実現します。</value>
+        <value xml:lang="th">สามารถเข้าถึงได้ในทางเดียวกันกับทางแรก (OLTP)</value>
+        <value xml:lang="zh">可访问，与主要的数据库同构，通过delegator实现。</value>
+        <value xml:lang="zh-TW">可存取的,和主要的(OLTP)資料庫相同結構,透過delegator.</value>
+    </property>
+    <property key="BusinessIntelligenceNote4">
+        <value xml:lang="en">The new olap database, will contain all the entities necessary to datawarehouse analysis:</value>
+        <value xml:lang="fr">La nouvelle base de données OLAP, contiendra toutes les entités nécessaires à l'analyse du datawarehouse :</value>
+        <value xml:lang="it">Il nuovo database olap, conterrà tutte le entità necessarie alle analisi di datawarehouse: </value>
+        <value xml:lang="ja">新しいOLAPデータベースはデータウェアハウス分析に必要なエンティティを全て含んでいます。</value>
+        <value xml:lang="th">ฐานข้อมูล olap ใหม่จะประกอบด้วยสิ่งที่มีอยู่ซึ่งจำเป็นในการวิเคราะห์ข้อมูลคลังสินค้า:</value>
+        <value xml:lang="zh">新的OLAP数据库，将包含全部数据仓库分析所需的实体：</value>
+        <value xml:lang="zh-TW">新的OLAP資料庫,將包含全部資料倉儲分析所需的資料實體:</value>
+    </property>
+    <property key="BusinessIntelligenceNote5">
+        <value xml:lang="en">dimensions, facts and star schemas (that are view-entities).</value>
+        <value xml:lang="fr">dimensions, faits et schémas en étoile (ce sont des vues sur la base de données : view-entities au sens d'OFBiz).</value>
+        <value xml:lang="it">dimensioni, fatti e star schemas (view-entities).</value>
+        <value xml:lang="ja">ディメンジョン、ファクト、そしてスタースキーマ (ビュー) です。</value>
+        <value xml:lang="th">ขอบเขต,ข้อเท็จจริงและแผนผัง (เป็นการแสดงสิ่งที่มีอยู่)</value>
+        <value xml:lang="zh">维度、事实和星型模型(浏览实体)。</value>
+        <value xml:lang="zh-TW">維度、事實和星型模型(檢視資料實體).</value>
+    </property>
+    <property key="BusinessIntelligenceNote6">
+        <value xml:lang="en">The dimensions, facts and star schemas are defined according to best practices for datawarehouses</value>
+        <value xml:lang="fr">Les dimensions, les faits et les schémas en étoile sont définis selon les bonnes pratiques pour les datawarehouses </value>
+        <value xml:lang="it">Le dimensioni, fatti e star schemas sono definiti in accordo alle migliori pratiche per i datawarehouses</value>
+        <value xml:lang="ja">ディメンジョン、ファクト、そしてスタースキーマはデータウェアハウスのベストプラックティス、</value>
+        <value xml:lang="th">ขอบเขต,ข้อเท็จจริงและแผนผังตามที่ระบุเป็นวิธีปฏิบัติที่ดีที่สุดสำหรับข้อมูลคลังสินค้า</value>
+        <value xml:lang="zh">维度、事实和星型模型定义参考了数据仓库最佳实践</value>
+        <value xml:lang="zh-TW">維度、事實和星型模型定義參考了資料倉儲最佳慣例</value>
+    </property>
+    <property key="BusinessIntelligenceNote7">
+        <value xml:lang="en">and best practices for OFBiz: they are defined as standard entities using the xml entity defs;</value>
+        <value xml:lang="fr">et pour OFBiz. Ils sont définis comme des entités standards à l'aide de définitions d'entités dans des fichiers XML.</value>
+        <value xml:lang="it">e le migliori pratiche per OFBiz: sono definite come entità standard usando le definizioni xml entity;</value>
+        <value xml:lang="ja">およびOFBizのベストプラックティスに従って定義されています: それらはxmlエンティティ定義を使用して標準エンティティとして定義されています。</value>
+        <value xml:lang="th">และวิธีปฏิบัติที่ดีที่สุดสำหรับ OFBiz คือ: ต้องกำหนดมาตรฐานสิ่งที่มีอยู่ให้เหมือนกับที่ใช้ใน xml </value>
+        <value xml:lang="zh">以及OFBiz最佳实践：把它们用XML实体定义定义为标准实体；</value>
+        <value xml:lang="zh-TW">以及OFBiz最佳慣例:把它們用XML資料實體定義定義為標準資料實體;</value>
+    </property>
+    <property key="BusinessIntelligenceNote8">
+        <value xml:lang="en">clear and consistent naming conventions are used and they are documented</value>
+        <value xml:lang="fr">Des conventions de nommages claires et cohérentes sont utilisées et documentées</value>
+        <value xml:lang="it">sono usate convenzioni nei nomi corrette e consistenti e sono documentate</value>
+        <value xml:lang="ja">明瞭で一貫した命名規則が使用され、またそれらを文書化するため、</value>
+        <value xml:lang="th">ยกเลิกและใช้ชื่อข้อตกลงที่สอดคล้องกันและเป็นไปตามเอกสาร</value>
+        <value xml:lang="zh">使用简明一致的命名规范，</value>
+        <value xml:lang="zh-TW">使用簡明一致的命名規範,</value>
+    </property>
+    <property key="BusinessIntelligenceNote9">
+        <value xml:lang="en">by meta data descriptions (in the entity def).</value>
+        <value xml:lang="fr">par des méta descriptions de données (dans les définitions d'entités)</value>
+        <value xml:lang="it">mediante le descrizioni dei meta dati (nella definizione entità).</value>
+        <value xml:lang="ja">メタデータ定義が使用されます (エンティティ定義の中で)。</value>
+        <value xml:lang="th">โดยรายละเอียดที่มาของข้อมูล(อยู่ในที่กำหนด)</value>
+        <value xml:lang="zh">(在实体定义中)通过元数据描述进行文档化。</value>
+        <value xml:lang="zh-TW">(在資料實體定義中)透過 Meta data 描述進行檔化.</value>
+    </property>
+    <property key="BusinessIntelligenceNote10">
+        <value xml:lang="en">The best practices for datawarehouses are mainly taken from the great book "The Data Warehouse Toolkit - Second Edition" by Ralph Kimball.</value>
+        <value xml:lang="fr">Les bonnes pratiques pour datawarehouses sont principalement tirées du fameux livre "The Data Warehouse Toolkit - Second Edition" by Ralph Kimball.</value>
+        <value xml:lang="it">Sono state ricavate le migliori pratiche per i datawarehouses dal grande libro "The Data Warehouse Toolkit - Second Edition" di Ralph Kimball.</value>
+        <value xml:lang="ja">データウェアハウスのベストプラックティスは偉大な書籍 "The Data Warehouse Toolkit - Second Edition" by Ralph Kimball の中で詳しく述べられています。</value>
+        <value xml:lang="th">วิธีปฏิบัติที่ดีที่สุดสำหรับข้อมูลคลังสินค้าส่วนใหญ่มาจากหนังสือดี ๆ ชื่อ "The Data Warehouse Toolkit - Second Edition" โดย Ralph Kimball</value>
+        <value xml:lang="zh">数据仓库的最佳实践来自Ralph Kimball撰写的伟大的书《数据仓库工具箱：维度建模的完全指南（第二版）》。</value>
+        <value xml:lang="zh-TW">資料倉儲的最佳慣例來自Ralph Kimball撰寫的偉大的書《資料倉儲工具箱:維度建模的完全指南(第二版)》.</value>
+    </property>
+    <property key="BusinessIntelligenceNote11">
+        <value xml:lang="en">The data for dimensions and facts are maintained and kept up to date using standard OFBiz services</value>
+        <value xml:lang="fr">Les données des dimensions et faits sont maintenues et tenues à jour à l'aide des services standard d'OFBiz</value>
+        <value xml:lang="it">I dati per dimensioni e fatti sono gestiti e mantenuti aggiornati usando servizi standard di OFBiz</value>
+        <value xml:lang="ja">ディメンジョンとファクトのデータを最新に保つために、標準OFBizサービス</value>
+        <value xml:lang="th">ข้อมูลสำหรับขอบเขตและข้อเท็จจริงคือการดูแลและรักษาวันที่ใช้บริการ OFBiz</value>
+        <value xml:lang="zh">数据维度和事实的维护和更新由标准的OFBiz服务负责</value>
+        <value xml:lang="zh-TW">資料維度和事實的維護和更新由標準的OFBiz服務負責</value>
+    </property>
+    <property key="BusinessIntelligenceNote12">
+        <value xml:lang="en">(most of them written in minilang to facilitate customizations) and eca rules (easily customizable).</value>
+        <value xml:lang="fr">(la plupart d'entre eux écrits en minilang pour faciliter la personnalisation) et des règles de ECA (facilement personnalisables).</value>
+        <value xml:lang="it">(molti dei quali sono scritti utizzando minilang per facilitare le personalizzazioni) e le regole eca (facilmente personalizzabili).</value>
+        <value xml:lang="ja">(大部分はミニ言語で記述されていて、カスタマイズが容易) および ECAルール (容易にカスタマイズ可能) が使われています。</value>
+        <value xml:lang="th">(สิ่งที่เขียนทั้งมหดใน minilang ถึง facilitate customizations) และเข้าแทนที่สถานะ (อย่างสะดวก)</value>
+        <value xml:lang="zh">(它们中的绝大多数使用minilang来实现定制)以及eca规则(容易定制)实现。</value>
+        <value xml:lang="zh-TW">(它們中的絶大多數使用minilang來實作客製化)以及ECA規則(容易客製化).</value>
+    </property>
+    <property key="BusinessIntelligenceNote13">
+        <value xml:lang="en">The main low level services to post data to the datawarehouse,</value>
+        <value xml:lang="fr">Les principaux services de bas niveau pour envoyer des données au datawarehouse,</value>
+        <value xml:lang="it">I servizi principali a basso livello per ricavare i dati del datawarehouse,</value>
+        <value xml:lang="ja">主に下位(子)のサービスでデータウェアハウスにデータが送信されます、</value>
+        <value xml:lang="th">หลักการบริการระดับล่างในการบันทึกข้อมูลลงในคลังข้อมูลสินค้า</value>
+        <value xml:lang="zh">主要的底层服务实现把数据提交到数据仓库，</value>
+        <value xml:lang="zh-TW">主要的底層服務實現把資料提交到資料倉儲,</value>
+    </property>
+    <property key="BusinessIntelligenceNote14">
+        <value xml:lang="en">to map the operational keys with the datawarehouse ones, and to manage</value>
+        <value xml:lang="fr">pour aligner les clefs opérationnelles avec celles du datawarehouse, et contrôler</value>
+        <value xml:lang="it">la mappa di chiavi operazionali con il datawarehouse, e la gestione</value>
+        <value xml:lang="ja">操作キーとデータウェアハウスをマップし、</value>
+        <value xml:lang="th">แผนที่สำคัญที่สามารถใช้งานได้ด้วยข้อมูลคลังสินค้าและการจัดการ</value>
+        <value xml:lang="zh">把操作键与数据仓库的建立映射，并管理</value>
+        <value xml:lang="zh-TW">把操作關鍵和資料倉儲的部份建立映對,並管理</value>
+    </property>
+    <property key="BusinessIntelligenceNote15">
+        <value xml:lang="en">history of data changes are already implemented; they will be improved as the datawarehouse will grow (e.g. performance enhancements).</value>
+        <value xml:lang="fr">l'historique des changements de données sont déjà implémentés. Ils seront améliorés quand le datawarehouse se développera (par exemple des perfectionnements en performance).</value>
+        <value xml:lang="it">storia di cambio di dati che sono già implementati; sarà aumentato di caratteristiche non appena crescerà il datawarehouse (e.g. aumento prestazioni).</value>
+        <value xml:lang="ja">履歴データの変更の管理を行うことがすでに実装されています: データウェアハウスの成長に合わせてそれらも見直されます (たとえばパフォーマンスの改善)</value>
+        <value xml:lang="th">ความเป็นมาของข้อมูลได้เปลี่ยนแปลงเรียบร้อยแล้ว; ได้มีการปรับปรุงข้อมูลคลังสินค้าให้ดีขึ้น (ตัวอย่างเช่น การทำให้ดีขึ้น)</value>
+        <value xml:lang="zh">已经实现数据的历史记录；它们会随数据仓库的增长而改进（如性能提升）。</value>
+        <value xml:lang="zh-TW">已經實作資料的歷史記錄;它們會隨資料倉儲的增長而改進(如性能提升).</value>
+    </property>
+    <property key="BusinessIntelligenceNote16">
+        <value xml:lang="en">The following dimensions (and data services) are defined: CurrencyDimension, DateDimension, ProductDimension;</value>
+        <value xml:lang="fr">Les dimensions suivantes (et les services de données) sont définis : dimension de devise, dimension de date, dimension d'article</value>
+        <value xml:lang="it">Le seguenti dimensioni (e servizi dei dati) sono definiti: CurrencyDimension, DateDimension, ProductDimension;</value>
+        <value xml:lang="ja">次のディメンジョン (およびデータサービス) が定義されています: 通貨ディメンジョン、日付ディメンジョン、製品ディメンジョン、</value>
+        <value xml:lang="th">การวัดขนาดตามที่กำหนด (และข้อมูลการบริการ) ระบุ : CurrencyDimension, DateDimension, ProductDimension;</value>
+        <value xml:lang="zh">已经定义了下列维度（以及数据服务）：货币维度、日期维度、产品维度；</value>
+        <value xml:lang="zh-TW">已經定義了下列維度(以及資料服務):貨幣維度、日期維度、產品維度;</value>
+    </property>
+    <property key="BusinessIntelligenceNote17">
+        <value xml:lang="en">we will have to complete them and design the other ones (the total number of dimension will be probably around 20).</value>
+        <value xml:lang="fr">Nous devrons les compléter et en concevoir d'autres (le nombre total de dimension sera probablement autour 20).</value>
+        <value xml:lang="it">verranno usati per completare questi e disegnare gli altri (il numero totale di dimensioni saranno probabilmente circa 20).</value>
+        <value xml:lang="ja">私たちはそれを完了させ、別のものを設計する必要があります (ディメンジョンの合計は約20になります)。</value>
+        <value xml:lang="th">เรากำลังทำสิ่งเหล่านั้นสำเร็จแล้วและวางแผนสิ่งต่อไป (จำนวนทั้งหมดประมาณ 20)</value>
+        <value xml:lang="zh">我们将完成它们，并设计其它的（全部维度数量大约将在20个左右）。</value>
+        <value xml:lang="zh-TW">我們將完成它們,並設計其它的(全部維度數量大約將在20個左右).</value>
+    </property>
+    <property key="BusinessIntelligenceNote18">
+        <value xml:lang="en">Just one fact and one star schema are defined: SalesInvoiceItemFact and SalesInvoiceItemStarSchema.</value>
+        <value xml:lang="fr">Seul un fait et un schéma d'étoile sont définis : SalesInvoiceItemFact et SalesInvoiceItemStarSchema.</value>
+        <value xml:lang="it">Solo un fatto e uno star schema sono definiti: SalesInvoiceItemFact e SalesInvoiceItemStarSchema.</value>
+        <value xml:lang="ja">ファクトが1つとスタースキーマが1つ定義されています: 販売請求書明細ファクト および 販売請求書明細スタースキーマ。</value>
+        <value xml:lang="th">จะต้องระบุ 1 ข้อเท็จจริงและ 1 โครงการ: SalesInvoiceItemFact and SalesInvoiceItemStarSchema</value>
+        <value xml:lang="zh">只定义了一个事实和一个星型模型：SalesInvoiceItemFact和SalesInvoiceItemStarSchema。</value>
+        <value xml:lang="zh-TW">只定義了一個事實和一個星型模型:SalesInvoiceItemFact和SalesInvoiceItemStarSchema.</value>
+    </property>
+    <property key="BusinessIntelligenceNote19">
+        <value xml:lang="en">You can quickly initialize the datawarehouse by clicking on the link below:</value>
+        <value xml:lang="fr">Vous pouvez rapidement initialiser le datawarehouse en cliquant sur le lien ci-dessous :</value>
+        <value xml:lang="it">Tu puoi velocemente inizializzare il datawarehouse facendo click sul link qui sotto:</value>
+        <value xml:lang="ja">次のリンクをクリックすると、データウェアハウスを簡単に初期化することができます:</value>
+        <value xml:lang="th">คุณสามารถเริ่มต้นเข้าสู่ข้อมูลคลังสินค้าได้อย่างรวดเร็วโดยการคลิกบนลิงค์ด้านล่างนี้</value>
+        <value xml:lang="zh">你能通过点击下面的链接来快速初始化数据仓库：</value>
+        <value xml:lang="zh-TW">你能透過點選下面的連結來快速初始化資料倉儲:</value>
+    </property>
+        <property key="BusinessIntelligenceNote20">
+        <value xml:lang="en">The CurrencyDimension, DateDimension, ProductDimension and the SalesInvoiceItemFact entities will be automatically populated.</value>
+        <value xml:lang="fr">La dimension de devise, la dimension de date, la dimension d'article et SalesInvoiceItemFact seront automatiquement alimentés.</value>
+        <value xml:lang="it">Le entità CurrencyDimension, DateDimension, ProductDimension e SalesInvoiceItemFact sono caricate automaticamente.</value>
+        <value xml:lang="ja">通貨ディメンジョン、日付ディメンジョン、製品ディメンジョン、および販売請求書明細ファクトのエンティティは自動的に生成されます。</value>
+        <value xml:lang="th">CurrencyDimension, DateDimension, ProductDimension และ SalesInvoiceItemFact จะคงอยู่โดยอัตโนมัติ</value>
+        <value xml:lang="zh">会自动把CurrencyDimension、DateDimension、ProductDimension以及SalesInvoiceItemFact实体填入。</value>
+        <value xml:lang="zh-TW">會自動把CurrencyDimension、DateDimension、ProductDimension以及SalesInvoiceItemFact資料實體增加資料.</value>
+    </property>
+    <property key="BusinessIntelligenceNote21">
+        <value xml:lang="en">Then you can run the analysis using the report builder menu.</value>
+        <value xml:lang="fr">Vous pouvez alors exécuter l'analyse en utilisant le menu "Générateur de rapport".</value>
+        <value xml:lang="it">Successivamente potrai eseguire l'analisi usando il menu costruzione report.</value>
+        <value xml:lang="ja">そしてレポートビルダメニューから分析を実行することができます。</value>
+        <value xml:lang="th">หลังจากที่คุณทำการวิเคราะห์แล้วสามารถใช้เมนูการสร้างรายงานได้</value>
+        <value xml:lang="zh">然后你能使用报告生成程序菜单运行分析。</value>
+        <value xml:lang="zh-TW">然後你能使用報表產生程式選單執行分析.</value>
+    </property>
+    <property key="BusinessIntelligenceNote22">
+        <value xml:lang="en">The report builder is a very simple tool that allows you to run</value>
+        <value xml:lang="fr">Le générateur de rapport est un outil très simple qui vous permet d'exécuter</value>
+        <value xml:lang="it">La costruzione report è uno strumento molto semplice che ti permette di eseguire</value>
+        <value xml:lang="ja">レポートビルダは、分析を実行するための、非常にシンプルなツールです。</value>
+        <value xml:lang="th">การสร้างรายงานเป็นเครื่องมือง่าย ๆ ที่ให้คุณใช้งานได้</value>
+        <value xml:lang="zh">报告生成程序是一个很简单的工具，允许你运行</value>
+        <value xml:lang="zh-TW">報表產生程式是一個很簡單的工具,允許你執行</value>
+    </property>
+    <property key="BusinessIntelligenceNote23">
+        <value xml:lang="en">the analysis on all the star schemas defined in the system.</value>
+        <value xml:lang="fr">l'analyse sur tous les schémas en étoile définis dans le système.</value>
+        <value xml:lang="it">le analisi su tutti gli star schemas definiti nel sistema.</value>
+        <value xml:lang="ja">すべてのスタースキーマ上での分析がシステムで定義されています。</value>
+        <value xml:lang="th">การวิเคราะห์บนแผนผังทั้งหมดที่ระบุในระบบ</value>
+        <value xml:lang="zh">系统中定义的所有星型模型的分析。</value>
+        <value xml:lang="zh-TW">系統中定義的所有星型模型的分析.</value>
+    </property>
+    <property key="BusinessIntelligenceNote24">
+        <value xml:lang="en">However, right now there is just one star schema defined:</value>
+        <value xml:lang="fr">Cependant, pour l'instant il y a qu'un schéma en étoile défini : </value>
+        <value xml:lang="it">Comunque, fino adesso c'è solo un star schema definito:</value>
+        <value xml:lang="ja">しかし、今現在1つのスタースキーマだけが定義されています:</value>
+        <value xml:lang="th">อย่างไรก็ตาม, ขณะนี้มีแผนผังที่กำหนด:</value>
+        <value xml:lang="zh">然而，目前只定义了一个星型模型：</value>
+        <value xml:lang="zh-TW">然而,目前只定義了一個星型模型:</value>
+    </property>
+    <property key="BusinessIntelligenceNote25">
+        <value xml:lang="en">SalesInvoiceItemStarSchema that is a simple "profit and loss" (P&amp;L) analysis.</value>
+        <value xml:lang="fr">SalesInvoiceItemStarSchema qui est une simple analyse "profits et pertes" (P&amp;L).</value>
+        <value xml:lang="it">SalesInvoiceItemStarSchema che è una semplice analisi di "profit and loss" (P&amp;L).</value>
+        <value xml:lang="ja">販売請求明細スタースキーマ は単純な "損益" (P&amp;L) 分析です。</value>
+        <value xml:lang="th">SalesInvoiceItemStarSchema เป็นการวิเคราะห์ขั้นพื้นฐานของ "กำไรและขาดทุน" (P&amp;L) </value>
+        <value xml:lang="zh">销售发票明细星型模型(SalesInvoiceItemStarSchema)是一个简单的盈亏分析。</value>
+        <value xml:lang="zh-TW">銷售發票細項星型模型(SalesInvoiceItemStarSchema)是一個簡單的盈虧分析.</value>
+    </property>
+    <property key="BusinessIntelligenceNote26">
+        <value xml:lang="en">Just select using the checkboxes the fields (columns) you want to see in the report</value>
+        <value xml:lang="fr">Sélectionnez simplement en utilisant les case à cocher des champs (colonnes) que vous voulez voir dans le rapport</value>
+        <value xml:lang="it">Seleziona i campi che vuoi vedere</value>
+        <value xml:lang="ja">チェックボックスの項目を選択するだけでレポートを参照することができます。</value>
+        <value xml:lang="th">จะต้องเลือกใช้เช็คบ็อก (คอลัมภ์) ตามที่คุณต้องการให้มีในรายงาน</value>
+        <value xml:lang="zh">使用选择框选择你想在报告中看到的那些数据项(列)，</value>
+        <value xml:lang="zh-TW">使用選擇框選擇你想在報表中看到的那些欄位,</value>
+    </property>
+    <property key="BusinessIntelligenceNote27">
+        <value xml:lang="en">and a simple report will be shown: according to the columns selected the data will be aggregated (drill up/down);</value>
+        <value xml:lang="fr">et un simple rapport sera généré : selon les colonnes choisies les données seront regroupées (tri haut/bas).</value>
+        <value xml:lang="it">e verrà mostrato un semplice report: i dati verranno aggregati (drill up/down) in base alle colonne selezionate;</value>
+        <value xml:lang="ja">そして、選択した項目のデータに従って簡単なレポートが集計され表示されます (ドリルアップ/ダウン)</value>
+        <value xml:lang="th">และพื้นฐานของรายงานจะต้องแสดง: ตามคอลัมภ์ที่เลือกข้อมูลจะต้องรวมกัน (drill up/down);</value>
+        <value xml:lang="zh">然后会显示一个简单的报告：按照选择的列，数据会被聚合(汇总分析/细化分析)；</value>
+        <value xml:lang="zh-TW">然後會顯示一個簡單的報表:按照選擇的欄位,資料會被聚合(匯總分析/細化分析);</value>
+    </property>
+    <property key="BusinessIntelligenceNote28">
+        <value xml:lang="en">all the descriptions you see in the report screens are pulled from the entity definitions.</value>
+        <value xml:lang="fr">Toutes les descriptions que vous voyez dans les écrans de rapport sont tirées des définitions d'entités.</value>
+        <value xml:lang="it">tutte le descrizioni che tu vedrai nelle scrermate del report sono prelevare dalla definizioni delle entità.</value>
+        <value xml:lang="ja">レポート画面のすべての定義がエンティティの定義から抽出されます。</value>
+        <value xml:lang="th">รายละเอียดทั้งหมดที่คุณเห็นในหน้ารายงานดึงมาจากสิ่งที่กำหด</value>
+        <value xml:lang="zh">你在报告屏幕中看到的全部描述都是从实体定义中抽取出来的。</value>
+        <value xml:lang="zh-TW">你在報表畫面中看到的全部描述都是從資料實體定義中抽取出來的.</value>
+    </property>
+    <property key="BusinessIntelligenceNote29">
+        <value xml:lang="en">The initialization is needed only once, because the product data and sales invoice data</value>
+        <value xml:lang="fr">L'initialisation n'est nécessaire qu'une fois, parce que les données d'articles et de factures de vente sont</value>
+        <value xml:lang="it">L'inizializzazione è necessaria solo una volta, perchè i dati dei prodotti e delle fatture di vendita</value>
+        <value xml:lang="ja">製品データおよび販売請求データのために、初期化は1回だけ必要です。</value>
+        <value xml:lang="th">การเริ่มต้นเป็นความต้องการอย่างแรกเพราะเป็นข้อมูลสินค้าและข้อมูลใบแจ้งการขาย</value>
+        <value xml:lang="zh">初始化只需要做一次，因为产品数据和销售发票数据</value>
+        <value xml:lang="zh-TW">初始化只需要做一次,因為產品資料和銷售發票資料</value>
+    </property>
+    <property key="BusinessIntelligenceNote30">
+        <value xml:lang="en">are kept updated by ecas: if you create/update a product or create a new invoice,</value>
+        <value xml:lang="fr">sont maintenues à jour par ECAS (Evènements/Conditions/Actions). Si vous créez/mettez à jour un article ou créez une nouvelle facture,</value>
+        <value xml:lang="it">sono mantenuti aggiornati dagli ecas: ogni volta che crei/aggiorni un prodotto o crei una nuova fattura,</value>
+        <value xml:lang="ja">製品の作成/更新または新規請求の作成時のECAS更新で保たれます。</value>
+        <value xml:lang="th">เป็นการเปลี่ยนแปลงโดยการแทนที่: ถ้าคุณสร้าง/เปลี่ยนแปลงสินค้าหรือสร้างใบส่งของใหม่</value>
+        <value xml:lang="zh">是由ECAS来保持和更新的：如果你创建/更新一个产品或新建一个发票，</value>
+        <value xml:lang="zh-TW">是由ECAS來保持和更新的:如果你新建/更新一個產品或新建一個發票,</value>
+    </property>
+    <property key="BusinessIntelligenceNote31">
+        <value xml:lang="en">the new information will be immediately included in the datawarehouse analysis.</value>
+        <value xml:lang="fr">la nouvelle information sera immédiatement incluse dans l'analyse du datawarehouse.</value>
+        <value xml:lang="it">la nuova informazione sarà immediatamente inclusa nelle analisi del datawarehouse.</value>
+        <value xml:lang="ja">新しい情報はデータウェアハウス分析の中に直接取り込まれます。</value>
+        <value xml:lang="th">ข้อมูลใหม่จะต้องรวมทันทีในการวิเคราะห์ข้อมูลคลังสินค้า</value>
+        <value xml:lang="zh">新信息会立即包含在数据仓库的分析中。</value>
+        <value xml:lang="zh-TW">新訊息會立即包含在資料倉儲的分析中.</value>
+    </property>
+    <property key="BusinessIntelligenceQuickInitDataWarehouse">
+        <value xml:lang="en">Quick Init DataWarehouse</value>
+        <value xml:lang="fr">Initialiser rapidement le dataWarehouse</value>
+        <value xml:lang="it">Inizializzazione veloce DataWarehouse</value>
+        <value xml:lang="ja">データウェアハウスをクイック初期化</value>
+        <value xml:lang="th">เริ่มต้นเข้าสู่ข้อมูลคลังสินค้าอย่างรวดเร็ว</value>
+        <value xml:lang="zh">快速初始化数据仓库</value>
+        <value xml:lang="zh-TW">快速初始化資料倉儲</value>
+    </property>
+    <property key="BusinessIntelligenceQuickStartGuide">
+        <value xml:lang="en">Quick Start Guide</value>
+        <value xml:lang="fr">Guide de démarrage rapide</value>
+        <value xml:lang="it">Guida Rapida</value>
+        <value xml:lang="ja">クイックスタートガイド</value>
+        <value xml:lang="th">เข้าสู่คำแนะนำอย่างรวดเร็ว</value>
+        <value xml:lang="zh">快速使用指南</value>
+        <value xml:lang="zh-TW">快速使用指南</value>
+    </property>
+    <property key="BusinessIntelligenceRenderTheReport">
+        <value xml:lang="en">Render the Report</value>
+        <value xml:lang="fr">Générer le rapport</value>
+        <value xml:lang="it">Visualizza il Report</value>
+        <value xml:lang="ja">レポートを作成</value>
+        <value xml:lang="th">เสนอรายงาน</value>
+        <value xml:lang="zh">修饰报告</value>
+        <value xml:lang="zh-TW">修飾報告</value>
+    </property>
+    <property key="BusinessIntelligenceReportBuilder">
+        <value xml:lang="en">Report Builder</value>
+        <value xml:lang="fr">Générateur de rapport</value>
+        <value xml:lang="it">Costruzione Report</value>
+        <value xml:lang="ja">レポートビルダ</value>
+        <value xml:lang="th">สร้างรายงาน</value>
+        <value xml:lang="zh">报告生成程序</value>
+        <value xml:lang="zh-TW">報告產生程式</value>
+    </property>
+    <property key="BusinessIntelligenceReportBuilderRenderStarSchemaReport">
+        <value xml:lang="en">Render Star Schema Report</value>
+        <value xml:lang="fr">Générateur de rapport de schéma en étoile</value>
+        <value xml:lang="it">Visualizza Report Star Schema</value>
+        <value xml:lang="ja">スタースキーマレポートを作成</value>
+        <value xml:lang="th">เสนอแผนผังรายงาน</value>
+        <value xml:lang="zh">修饰星型模型</value>
+        <value xml:lang="zh-TW">修飾星型模型</value>
+    </property>
+    <property key="BusinessIntelligenceReportBuilderSelectStarSchema">
+        <value xml:lang="en">Select Star Schema</value>
+        <value xml:lang="fr">Sélectionnez le schéma en étoile</value>
+        <value xml:lang="it">Seleziona Star Schema</value>
+        <value xml:lang="ja">スタースキーマを選択</value>
+        <value xml:lang="th">เลือกแผนผัง</value>
+        <value xml:lang="zh">选择星型模型</value>
+        <value xml:lang="zh-TW">選擇星型模型</value>
+    </property>
+    <property key="BusinessIntelligenceReportBuilderSelectStarSchemaFields">
+        <value xml:lang="en">Select Star Schema Fields</value>
+        <value xml:lang="fr">Sélectionnez les champs du schéma en étoile</value>
+        <value xml:lang="it">Seleziona Campi Star Schema</value>
+        <value xml:lang="ja">スタースキーマフィールドを選択</value>
+        <value xml:lang="th">เลือกช่องแผนผัง</value>
+        <value xml:lang="zh">选择星型模型数据项</value>
+        <value xml:lang="zh-TW">選擇星型模型欄位</value>
+    </property>
+    <property key="BusinessIntelligenceReportBuilderSelectTheStarSchemaReport">
+        <value xml:lang="en">Select the start schema (report)</value>
+        <value xml:lang="fr">Sélectionnez le schéma en étoile (rapport)</value>
+        <value xml:lang="it">Seleziona lo start schema (report)</value>
+        <value xml:lang="ja">スタースキーマを選択(レポート)</value>
+        <value xml:lang="th">เลือกแผนผัง (รายงาน)</value>
+        <value xml:lang="zh">选择星型模型(报告)</value>
+        <value xml:lang="zh-TW">選擇星型模型(報告)</value>
+    </property>
+    <property key="BusinessIntelligenceUpdateModeStillNotSupported">
+        <value xml:lang="en">The update mode: ${updateMode} is still not supported.</value>
+        <value xml:lang="it">Il metodo di aggiornamento: ${updateMode} non è ancora supportato.</value>
+        <value xml:lang="ja">更新モード: ${updateMode} はまだサポートされていません。</value>
+        <value xml:lang="zh">还不支持更新状态：${updateMode}。</value>
+        <value xml:lang="zh-TW">還不支援更新狀態:${updateMode}.</value>
+    </property>
+</resource>

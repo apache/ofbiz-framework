@@ -27,7 +27,7 @@ under the License.
         </check-permission>
         <check-errors/>
 
-        <make-value entity-name="CustomTimePeriod" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="CustomTimePeriod"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <sequenced-id sequence-name="CustomTimePeriod" field="customTimePeriodId"/>
@@ -42,7 +42,7 @@ under the License.
         </check-permission>
         <check-errors/>
 
-        <make-value entity-name="CustomTimePeriod" value-field="lookupPKMap"/>
+        <make-value value-field="lookupPKMap" entity-name="CustomTimePeriod"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
@@ -54,7 +54,7 @@ under the License.
         </check-permission>
         <check-errors/>
 
-        <make-value entity-name="CustomTimePeriod" value-field="lookupPKMap"/>
+        <make-value value-field="lookupPKMap" entity-name="CustomTimePeriod"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>

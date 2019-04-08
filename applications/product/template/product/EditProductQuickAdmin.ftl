@@ -32,7 +32,7 @@ under the License.
     <input type="hidden" name="productId" value="${product.productId!}"/>
     <input type="hidden" name="productFeatureTypeId" value=""/>
 </form>
-<script type="application/javascript">
+<script language="JavaScript" type="text/javascript">
 
 function removeAssoc(productIdTo, fromDate) {
     if (confirm("Are you sure you want to remove the association of " + productIdTo + "?")) {
@@ -64,7 +64,7 @@ function doPublish() {
         <!-- Name update section -->
         <form action="<@ofbizUrl>updateProductQuickAdminName</@ofbizUrl>" method="post" style="margin: 0;" name="editProduct">
             <input type="hidden" name="productId" value="${productId!}"/>
-            <#if "Y" == (product.isVirtual)!>
+            <#if (product.isVirtual)! == "Y">
                 <input type="hidden" name="isVirtual" value="Y"/>
             </#if>
             <table cellspacing="0" class="basic-table">
@@ -77,7 +77,7 @@ function doPublish() {
         </form>
     </div>
 </div>
-<#if "Y" == (product.isVirtual)!>
+<#if (product.isVirtual)! == "Y">
 <div class="screenlet">
     <div class="screenlet-title-bar">
         <h3>${uiLabelMap.ProductSelectableFeatures}</h3>
@@ -121,7 +121,7 @@ function doPublish() {
         <#assign rowClass = "2">
         <#list productAssocs as productAssoc>
             <#assign assocProduct = productAssoc.getRelatedOne("AssocProduct", false)/>
-            <tr valign="middle"<#if "1" == rowClass> class="alternate-row"</#if>>
+            <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
                 <td nowrap="nowrap">
                 <input type="hidden" name="productId${idx}" value="${assocProduct.productId!}"/>
                 <a class="buttontext" href="<@ofbizUrl>EditProduct?productId=${assocProduct.productId}</@ofbizUrl>">${assocProduct.productId!}</a></td>
@@ -140,7 +140,7 @@ function doPublish() {
             </tr>
             <#assign idx = idx + 1/>
             <#-- toggle the row color -->
-            <#if "2" == rowClass>
+            <#if rowClass == "2">
                 <#assign rowClass = "1">
             <#else>
                 <#assign rowClass = "2">
@@ -167,7 +167,7 @@ function doPublish() {
     </div>
 </div>
 </#if>
-<#if "Y" == (product.isVariant)!>
+<#if (product.isVariant)! == "Y">
 <div class="screenlet">
     <div class="screenlet-title-bar">
         <h3>${uiLabelMap.ProductDistinguishingFeatures}</h3>
@@ -182,14 +182,14 @@ function doPublish() {
                 <#assign idx=0/>
                 <#assign rowClass = "2">
                 <#list distinguishingFeatures as distinguishingFeature>
-                <tr valign="middle"<#if "1" == rowClass> class="alternate-row"</#if>>
+                <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
                     <td><a href="<@ofbizUrl>quickAdminRemoveProductFeature?productId=${productId}&amp;productFeatureId=${distinguishingFeature.productFeatureId}</@ofbizUrl>" class="buttontext">x</a>&nbsp;
                     ${distinguishingFeature.productFeatureId} ${productFeatureTypeLookup.get(distinguishingFeature.productFeatureId).get("description",locale)}: ${distinguishingFeature.get("description",locale)}
                     &nbsp;
                     </td>
                 </tr>
                 <#-- toggle the row color -->
-                <#if "2" == rowClass>
+                <#if rowClass == "2">
                     <#assign rowClass = "1">
                 <#else>
                     <#assign rowClass = "2">
@@ -227,11 +227,11 @@ function doPublish() {
                     <td><b>${uiLabelMap.ProductST}</b></td>
                     <td><b>${uiLabelMap.ProductTD}</b></td>
                 </tr>
-        <#if "Y" == (product.isVirtual)!>
+        <#if (product.isVirtual)! == "Y">
             <#assign idx=0/>
             <#assign rowClass = "2">
             <#list assocProducts as assocProduct>
-                <tr valign="middle"<#if "1" == rowClass> class="alternate-row"</#if>>
+                <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
                     <td><input type="text" name="productHeight${idx}" size="6" maxlength="20" value="${assocProduct.productHeight!}"/></td>
                     <td><input type="text" name="productWidth${idx}" size="6" maxlength="20" value="${assocProduct.productWidth!}"/></td>
                     <td><input type="text" name="productDepth${idx}" size="6" maxlength="20" value="${assocProduct.productDepth!}"/></td>
@@ -246,7 +246,7 @@ function doPublish() {
                 </tr>
                 <#assign idx = idx + 1/>
                 <#-- toggle the row color -->
-                <#if "2" == rowClass>
+                <#if rowClass == "2">
                     <#assign rowClass = "1">
                 <#else>
                     <#assign rowClass = "2">
@@ -298,7 +298,7 @@ function doPublish() {
             <table cellspacing="0" class="basic-table">
                 <#assign rowClass = "2">
                 <#list addedFeatureTypeIds as addedFeatureTypeId>
-                    <tr valign="middle"<#if "1" == rowClass> class="alternate-row"</#if>>
+                    <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
                         <td align="right">${addedFeatureTypes.get(addedFeatureTypeId).description}</td>
                         <td>
                             <select name="productFeatureId">
@@ -310,7 +310,7 @@ function doPublish() {
                         </td>
                     </tr>
                     <#-- toggle the row color -->
-                    <#if "2" == rowClass>
+                    <#if rowClass == "2">
                         <#assign rowClass = "1">
                     <#else>
                         <#assign rowClass = "2">
@@ -328,7 +328,7 @@ function doPublish() {
                 <#assign rowClass = "2">
                 <#list standardFeatureAppls as standardFeatureAppl>
                     <#assign featureId = standardFeatureAppl.productFeatureId/>
-                    <tr valign="middle"<#if "1" == rowClass> class="alternate-row"</#if>>
+                    <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
                         <td colspan="2">
                           <form name="quickAdminRemoveFeature_${standardFeatureAppl_index}" action="<@ofbizUrl>quickAdminRemoveFeatureFromProduct</@ofbizUrl>" method="post">
                             <input type="hidden" name="productId" value="${standardFeatureAppl.productId!}" />
@@ -340,7 +340,7 @@ function doPublish() {
                         </td>
                     </tr>
                     <#-- toggle the row color -->
-                    <#if "2" == rowClass>
+                    <#if rowClass == "2">
                         <#assign rowClass = "1">
                     <#else>
                         <#assign rowClass = "2">
@@ -410,7 +410,7 @@ function doPublish() {
                     <#assign rowClass = "2">
                     <#list productCategoryMembers as prodCatMemb>
                         <#assign prodCat = prodCatMemb.getRelatedOne("ProductCategory", false)/>
-                        <tr valign="middle"<#if "1" == rowClass> class="alternate-row"</#if>>
+                        <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
                             <td colspan="2">
                               <form name="quickAdminRemoveProductFromCategory_${prodCatMemb_index}" action="<@ofbizUrl>quickAdminRemoveProductFromCategory</@ofbizUrl>" method="post">
                                 <input type="hidden" name="productId" value="${prodCatMemb.productId!}" />
@@ -422,7 +422,7 @@ function doPublish() {
                             </td>
                         </tr>
                         <#-- toggle the row color -->
-                        <#if "2" == rowClass>
+                        <#if rowClass == "2">
                             <#assign rowClass = "1">
                         <#else>
                             <#assign rowClass = "2">
@@ -441,7 +441,7 @@ function doPublish() {
     </div>
     <div class="screenlet-body">
     <!--  **************************************************** publish section -->
-    <#if ("true" == showPublish)>
+    <#if (showPublish == "true")>
         <form action="<@ofbizUrl>quickAdminAddCategories</@ofbizUrl>" name="publish">
         <input type="hidden" name="productId" value="${product.productId!}"/>
         <input type="hidden" name="categoryId" value="${allCategoryId!}"/>

@@ -45,9 +45,7 @@ public abstract class GenericMapCollection<K, V, M extends Map<K, V>, I> impleme
 
     public boolean containsAll(Collection<?> collection) {
         for (Object item: collection) {
-            if (!contains(item)) {
-                return false;
-            }
+            if (!contains(item)) return false;
         }
         return true;
     }
@@ -65,9 +63,7 @@ public abstract class GenericMapCollection<K, V, M extends Map<K, V>, I> impleme
     public boolean removeAll(Collection<?> collection) {
         int count = 0;
         for (Object item: collection) {
-            if (remove(item)) {
-                count++;
-            }
+            if (remove(item)) count++;
         }
         return count > 0;
     }
@@ -90,7 +86,7 @@ public abstract class GenericMapCollection<K, V, M extends Map<K, V>, I> impleme
     }
 
     public Object[] toArray() {
-        List<I> list = new LinkedList<>();
+        List<I> list = new LinkedList<I>();
         Iterator<I> it = iterator(false);
         while (it.hasNext()) {
             list.add(it.next());
@@ -99,7 +95,7 @@ public abstract class GenericMapCollection<K, V, M extends Map<K, V>, I> impleme
     }
 
     public <T> T[] toArray(T[] array) {
-        List<Object> list = new LinkedList<>();
+        List<Object> list = new LinkedList<Object>();
         Iterator<I> it = iterator(false);
         while (it.hasNext()) {
             list.add(it.next());
@@ -117,9 +113,7 @@ public abstract class GenericMapCollection<K, V, M extends Map<K, V>, I> impleme
         Iterator<I> it = iterator(false);
         while (it.hasNext()) {
             sb.append(it.next());
-            if (it.hasNext()) {
-                sb.append(", ");
-            }
+            if (it.hasNext()) sb.append(", ");
         }
         return sb.append("]");
     }

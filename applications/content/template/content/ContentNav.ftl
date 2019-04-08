@@ -16,7 +16,7 @@
   specific language governing permissions and limitations
   under the License.
   -->
-<script type="application/javascript" src="<@ofbizContentUrl>/common/js/jquery/plugins/jsTree/jquery.jstree.js</@ofbizContentUrl>"></script>
+<script language="javascript" type="text/javascript" src="<@ofbizContentUrl>/images/jquery/plugins/jsTree/jquery.jstree.js</@ofbizContentUrl>"></script>
 
 <script type="application/javascript">
 <#-- some labels are not unescaped in the JSON object so we have to do this manuely -->
@@ -37,7 +37,7 @@ var rawdata = [
                 <#assign content  = delegator.findOne("Content",Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("contentId",assoc.contentIdTo), false)/>
                 {
                 "data": {"title" : unescapeHtmlText("${content.contentName!assoc.contentIdTo}"), "attr": {"href": "javascript:void(0);", "onClick" : "callDocument('${assoc.contentIdTo}');"}},
-                <#assign assocChilds  = EntityQuery.use(delegator).from("ContentAssoc").where("contentId", assoc.contentIdTo!, "contentAssocTypeId", "TREE_CHILD").queryList()!/>
+                <#assign assocChilds  = delegator.findByAnd("ContentAssoc",Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("contentId",assoc.contentIdTo,"contentAssocTypeId", "TREE_CHILD"), null, false)/>
                     "attr": {"id" : "${assoc.contentIdTo}", "contentId" : "${assoc.contentId}", "AssocType" : "${assoc.contentAssocTypeId}", "fromDate" : "${assoc.fromDate}"}
                 <#if assocChilds?has_content>
                     ,"children": [

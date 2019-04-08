@@ -260,14 +260,8 @@ under the License.
                 <call-service service-name="getPartyAccountingPreferences" in-map-name="partyAccountingPreferencesCallMap">
                      <result-to-field result-name="partyAccountingPreference" field="partyAcctgPreference"/>
                 </call-service>
-                <if>
-                    <condition>
-                        <if-compare field="partyAcctgPreference.enableAccounting" value="N" operator="equals"/>
-                    </condition>
-                    <then>
-                        <log level="warning" message="The internal organization with id [${acctgTransEntry.organizationPartyId}] has no PartyAcctgPreference setting; the following accounting transaction will be ignored: ${acctgTransEntry}"/>
-                        <return/>
-                    </then>
+                <if-empty field="partyAcctgPreference">
+                    <log level="warning" message="The internal organization with id [${acctgTransEntry.organizationPartyId}] has no PartyAcctgPreference setting; the following accounting transaction will be ignored: ${acctgTransEntry}"/>
                 <else>
                     <!-- if the amount field is empty, then determine it from the origAmount and origCurrencyUomId fields:
                          if origCurrencyUomId is different from the base currency of the organization, then the amount value will be converted -->
@@ -323,7 +317,7 @@ under the License.
                     </if-empty>
                     <set field="normalizedAcctgTransEntries[]" from-field="acctgTransEntry"/>
                 </else>
-                </if>
+                </if-empty>
             </else>
             </if-empty>
         </iterate>
@@ -1057,15 +1051,6 @@ under the License.
         <call-service service-name="getPartyAccountingPreferences" in-map-name="partyAccountingPreferencesCallMap">
              <result-to-field result-name="partyAccountingPreference" field="partyAcctgPreference"/>
         </call-service>
-        <if>
-            <condition>
-                <if-compare field="partyAcctgPreference.enableAccounting" value="N" operator="equals"/>
-            </condition>
-            <then>
-                <log level="warning" message="The internal organization with id [${partyAccountingPreferencesCallMap.organizationPartyId}] has no PartyAcctgPreference setting; the following accounting transaction will be ignored."/>
-                <return/>
-            </then>
-        </if>
         <set field="totalAmount" value="0.0" type="BigDecimal"/>
         <if>
             <condition>
@@ -1282,15 +1267,6 @@ under the License.
         <call-service service-name="getPartyAccountingPreferences" in-map-name="partyAccountingPreferencesCallMap">
              <result-to-field result-name="partyAccountingPreference" field="partyAcctgPreference"/>
         </call-service>
-        <if>
-            <condition>
-                <if-compare field="partyAcctgPreference.enableAccounting" value="N" operator="equals"/>
-            </condition>
-            <then>
-                <log level="warning" message="The internal organization with id [${partyAccountingPreferencesCallMap.organizationPartyId}] has no PartyAcctgPreference setting; the following accounting transaction will be ignored."/>
-                <return/>
-            </then>
-        </if>
         <if-not-empty field="shipmentReceipt.returnId">
             <if>
                 <condition>
@@ -2065,9 +2041,6 @@ under the License.
                 <set field="debitEntry.productId" from-field="invoiceItem.productId"/>
                 <!-- glAccountTypeId is overloaded. For sales and purchase invoices, it has the invoiceItemTypeId,
                 and the getGlAccountFromAccountType service knows that -->
-                <!-- TODO: the system will use the information if the field glAccountTypeId to decode an actual
-                account id but will not be able to persist it because the values in GlAccountType are different
-                from the ones in InvoiceItemType; we will have to find a way to persist this information -->
                 <set field="debitEntry.glAccountTypeId" from-field="invoiceItem.invoiceItemTypeId"/>
                 <set field="debitEntry.glAccountId" from-field="invoiceItem.overrideGlAccountId"/>
                 <if-compare field="amountFromOrder" operator="greater" value="0" type="BigDecimal">
@@ -2239,9 +2212,6 @@ under the License.
                 <set field="creditEntry.debitCreditFlag" value="C"/>
                 <!-- glAccountTypeId is overloaded. For sales and purchase invoices, it has the invoiceItemTypeId,
                 and the getGlAccountFromAccountType service knows that -->
-                <!-- TODO: the system will use the information if the field glAccountTypeId to decode an actual
-                account id but will not be able to persist it because the values in GlAccountType are different
-                from the ones in InvoiceItemType; we will have to find a way to persist this information -->
                 <set field="creditEntry.glAccountTypeId" from-field="invoiceItem.invoiceItemTypeId"/>
                 <set field="creditEntry.organizationPartyId" from-field="invoice.partyIdFrom"/>
                 <set field="creditEntry.productId" from-field="invoiceItem.productId"/>

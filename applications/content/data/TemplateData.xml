@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<entity-engine-xml>
+
+    <DataResource dataResourceId="WRAP_STD_LOOP" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Loop Wrap" mimeTypeId="text/html"/>
+    <DataResource dataResourceId="AFIBC_LOGO" dataResourceTypeId="IMAGE_OBJECT" dataTemplateTypeId="NONE" dataResourceName="SFIBC Logo" objectInfo="sfibc_logo.png"/>
+    <DataResource dataResourceId="AGEP_LOGO" dataResourceTypeId="IMAGE_OBJECT" dataTemplateTypeId="NONE" dataResourceName="AGEP Logo" objectInfo="agep_logo.png"/>
+    <DataResource dataResourceId="AGINC_LOGO" dataResourceTypeId="IMAGE_OBJECT" dataTemplateTypeId="NONE" dataResourceName="AGINC Logo" objectInfo="aginc_logo.png"/>
+    <!--DataResource dataResourceId="ARTICLE_WRAP" dataResourceTypeId="OFBIZ_FILE" dataTemplateTypeId="FTL" objectInfo="/hot-deploy/blog/webapp/blog/ArticleWrap.ftl"/-->
+    <DataResource dataResourceId="ARTICLE_WRAP" dataResourceTypeId="OFBIZ_FILE" dataTemplateTypeId="FTL" />
+    <DataResource dataResourceId="LEFTBAR" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Left Bar" objectInfo="LEFT BAR"/>
+    <DataResource dataResourceId="RP_MEDAL" dataResourceTypeId="IMAGE_OBJECT" dataTemplateTypeId="NONE" dataResourceName="Project Reliance Medallion Logo" objectInfo="pr_medal.png"/>
+    <DataResource dataResourceId="TMPLT_IMG_CENTER" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Image Centered" mimeTypeId="text/html"/>
+    <DataResource dataResourceId="TEMPLATE_IMAGE_LEFT" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Image Left" mimeTypeId="text/html"/>
+    <DataResource dataResourceId="TEMPLATE_TEXT_ONLY" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Template Text" mimeTypeId="text/html"/>
+    <!--DataResource dataResourceId="VIEW_WRAP" dataResourceTypeId="OFBIZ_FILE" dataTemplateTypeId="FTL" objectInfo="/hot-deploy/blog/webapp/blog/ViewWrap.ftl"/-->
+    <DataResource dataResourceId="VIEW_WRAP" dataResourceTypeId="OFBIZ_FILE" dataTemplateTypeId="FTL"/>
+    <DataResource dataResourceId="WRAP_ARTICLE" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
+    <DataResource dataResourceId="WRAP_ARTICLE_TABLE" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Article wrap with table elements"/>
+    <DataResource dataResourceId="WRAP_NEXT_PREV" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Next/Prev wrapper"/>
+    <DataResource dataResourceId="WRAP_STD_001" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Standard SubContent Wrapper" mimeTypeId="text/html"/>
+    <DataResource dataResourceId="WRAP_VIEW" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
+    <DataResource dataResourceId="IMAGE_CENTERED" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Image Centered" mimeTypeId="text/html"/>
+    <DataResource dataResourceId="IMAGE_LEFT" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Image Left" mimeTypeId="text/html"/>
+    <DataResource dataResourceId="TEMPLATE_TEXT" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Template Text" mimeTypeId="text/html"/>
+
+    <DataResource dataResourceId="TMPLT_IMG_CENTER_FL" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Image Centered" mimeTypeId="text/html"/>
+    <DataResource dataResourceId="TEMPLATE_COMPOSITE" dataResourceTypeId="CONTEXT_FILE" dataTemplateTypeId="FTL" objectInfo="/content/TemplateComposite.ftl"/>
+
+    <Content contentId="LEFTBAR" contentTypeId="DOCUMENT" ownerContentId="" dataResourceId="LEFTBAR" contentName="Left Bar" description="Left Bar"/>
+    <Content contentId="OWNER_BLOG_CONTENT" contentTypeId="PLACEHOLDER" contentName="Blog Content Owner"/>
+    <Content contentId="TMPLT_IMG_CENTER" contentTypeId="DOCUMENT" dataResourceId="IMAGE_CENTERED" contentName="Image Centered" description="Image centered above text" mimeTypeId="text/html"/>
+    <Content contentId="TEMPLATE_IMAGE_LEFT" contentTypeId="DOCUMENT" dataResourceId="IMAGE_LEFT" contentName="Image Left" description="Image with text flowing around" mimeTypeId="text/html"/>
+    <Content contentId="TEMPLATE_MASTER" contentTypeId="TREE_ROOT" description="Template Master"/>
+    <Content contentId="TEMPLATE_TEXT_ONLY" contentTypeId="DOCUMENT" dataResourceId="TEMPLATE_TEXT" contentName="Template Text" description="Template Text Only" mimeTypeId="text/html"/>
+
+    <Content contentId="VIEW_WRAP" contentTypeId="DOCUMENT" dataResourceId="VIEW_WRAP" contentName="View Wrap"/>
+    <Content contentId="WRAP_ARTICLE" contentTypeId="DOCUMENT" dataResourceId="WRAP_ARTICLE"/>
+    <Content contentId="WRAP_NEXT_PREV" contentTypeId="ANNOTATION" dataResourceId="WRAP_NEXT_PREV" contentName="Next-Prev wrapper" description="Next and Previous wrapper"/>
+    <Content contentId="WRAP_STD_LOOP" contentTypeId="DOCUMENT" dataResourceId="WRAP_STD_LOOP" contentName="Loop Wrap" mimeTypeId="text/html"/>
+    <Content contentId="WRAP_VIEW" contentTypeId="DOCUMENT" dataResourceId="WRAP_VIEW"/>
+    <Content contentId="ARTICLE_WRAP" contentTypeId="DOCUMENT" dataResourceId="ARTICLE_WRAP"/>
+    <Content contentId="BLOG_MASTER" contentTypeId="DOCUMENT" contentName="Blog Master"/>
+
+    <ElectronicText dataResourceId="LEFTBAR">
+        <textData><![CDATA[<#--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<table width='100%' border='0' cellpadding='0' cellspacing='0'>
+  <tr>
+    <td width='100%' valign='top'>
+      <table border='0' width='100%' cellspacing='0' cellpadding='0' >
+  <#if requestAttributes.userLogin?has_content>
+    <tr>
+     <td>
+    <div><a href="<@ofbizUrl>/logout</@ofbizUrl>">Logout</a></div>
+     <br/>
+    <div><a href="<@ofbizUrl>/viewprofile</@ofbizUrl>">Profile</a></div>
+     </td>
+      </tr>
+  <#else>
+
+       <tr>
+          <td width='100%'>
+            <table width='100%' border='0' cellspacing='0' cellpadding='0' '>
+              <tr>
+                <td>
+                  <form method="POST" action="<@ofbizUrl>/login${previousParams?if_exists}</@ofbizUrl>" name="loginform" style='margin: 0;'>
+                    <table width='100%' border='0' cellpadding='0' cellspacing='2'>
+                      <tr align="center">
+                        <td align='left'><span>Username: </span></td>
+                      </tr>
+                       <tr>
+                         <td align=left>
+                          <input type="text" class='inputBox' name="USERNAME" value='<#if requestParameters.USERNAME?has_content>${requestParameters.USERNAME?if_exists}<#elseif autoUserLogin?has_content><${autoUserLogin.userLoginId?if_exists}</#if>' size="20">
+                        </td>
+                      </tr>
+                       <tr align="center">
+                        <td align='left'><span>Password: </span></td>
+                       </tr>
+                       <tr>
+                         <td align='left'><input type="password" class='inputBox' name="PASSWORD" value="" size="20"></td>
+                      </tr>
+                      <tr>
+                        <td colspan="2" align="center"><input type="submit" value="Login"></td>
+                      </tr>
+                    </table>
+                  </form>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+       </#if>
+             <tr>
+                <td valign='middle' align='center'>
+                  <div><a href="<@ofbizUrl>/forgotpasswd</@ofbizUrl>">Forgot Password?</a></div>
+                </td>
+              </tr>
+              <tr>
+                <td valign='middle' align='center'>
+                  <div><a   href="<@ofbizUrl>/newblogger</@ofbizUrl>">New User</a></div>
+                </td>
+              </tr>
+      </table>
+      <br>
+   </td>
+
+  </tr>
+</table>
+
+<script language="JavaScript">
+  <#if autoUserLogin?has_content>document.loginform.PASSWORD.focus();</#if>
+  <#if !autoUserLogin?has_content>document.loginform.USERNAME.focus();</#if>
+   function requery() {
+       showErrorAlert("${uiLabelMap.CommonErrorMessage2}", "${uiLabelMap.CommonRequery}: " + document.sectionform.sectionId.value));
+   }
+</script>
+            ]]></textData>
+    </ElectronicText>
+    <ElectronicText dataResourceId="TMPLT_IMG_CENTER">
+        <textData><![CDATA[<table>
+  <tr>
+    <td>
+            <#assign thisContentId=contentId?if_exists/>
+        <@traverseSubContentCache subContentId=thisContentId
+            pickWhen="mapKey != null && mapKey.equals(\"IMAGE\")"
+            returnFromPickWhen="mapKey != null && mapKey.equals(\"IMAGE\")"
+        >
+            <#assign drDataResourceId=content.dataResourceId?if_exists/>
+        </@traverseSubContentCache>
+        <img src="<@ofbizUrl>/img?imgId=${drDataResourceId?if_exists}</@ofbizUrl>" alt=""/>
+    </td>
+  </tr>
+</table>
+
+<hr />
+
+<table>
+  <tr>
+    <td>
+<@renderSubContentCache mapKey="ARTICLE" contentId=thisContentId subContentId=""/>
+    </td>
+  </tr>
+</table>]]></textData>
+    </ElectronicText>
+    <ElectronicText dataResourceId="TEMPLATE_IMAGE_LEFT">
+        <textData><![CDATA[<@editRenderSubContentCache mapKey="IMAGE">
+  <@renderSubContentCache/>
+</@editRenderSubContentCache>
+<@editRenderSubContentCache mapKey="SUMMARY">
+  <@renderSubContentCache/>
+</@editRenderSubContentCache>
+ ]]></textData>
+    </ElectronicText>
+    <ElectronicText dataResourceId="TEMPLATE_TEXT_ONLY">
+        <textData><![CDATA[<@renderSubContentCache mapKey="ARTICLE" wrapTemplateId=""/>
+            ]]></textData>
+    </ElectronicText>
+    <ElectronicText dataResourceId="WRAP_ARTICLE">
+        <textData><![CDATA[<#assign thisContentId = ""/>
+<#if nodeTrailCsv?exists>
+    <#assign idList = nodeTrailCsv?split(",")/>
+    <#if 0 < idList?size >
+        <#assign thisContentId = idList?last>
+    </#if>
+</#if>
+
+<a class="tabButton" href="<@ofbizUrl>/ViewArticle?contentId=${thisContentId}&nodeTrailCsv=${nodeTrailCsv?if_exists}</@ofbizUrl>" >View</a>
+
+            ]]></textData>
+    </ElectronicText>
+    <ElectronicText dataResourceId="WRAP_ARTICLE_TABLE">
+        <textData><![CDATA[<#assign thisContentId = ""/>
+<#if nodeTrailCsv?exists>
+    <#assign idList = nodeTrailCsv?split(",")/>
+    <#if 0 < idList?size >
+        <#assign thisContentId = idList?last>
+    </#if>
+</#if>
+<tr>
+<td>
+${wrappedContent?if_exists}
+</td>
+</tr>
+<tr>
+<td align="right">
+
+<a class="tabButton" href="<@ofbizUrl>/ViewArticle?contentId=${thisContentId}&nodeTrailCsv=${nodeTrailCsv?if_exists}</@ofbizUrl>" >View</a>
+</td>
+</tr>
+            ]]></textData>
+    </ElectronicText>
+    <ElectronicText dataResourceId="WRAP_NEXT_PREV">
+        <textData><![CDATA[<tr><td>${wrappedContent}</td></tr>
+
+<#assign listSize=listSize?number/>
+<#assign viewIndex=viewIndex?number/>
+<#assign highIndex=highIndex?number/>
+<#assign lowIndex=lowIndex?number/>
+<#assign requestURL=requestURL?if_exists/>
+<#assign queryString=queryString?if_exists/>
+<#assign lowIndexShow=lowIndex + 1 />
+
+<#if highIndex < lowIndexShow >
+    <#assign lowIndexShow=highIndex/>
+</#if>
+
+<tr><td>
+             <#if 0 < listSize>
+                <#if 0 < viewIndex>
+                  <a href="${requestURL}?${queryString}&VIEW_SIZE=${viewSize}&VIEW_INDEX=${viewIndex-1}${paramList?if_exists}" class="submenutext">Previous</a>
+                <#else>
+                  <span class="submenutextdisabled">Previous</span>
+                </#if>
+                <#if 0 < listSize>
+                  <span class="submenutextinfo">${lowIndexShow} - ${highIndex?if_exists} of ${listSize?if_exists}</span>
+                </#if>
+                <#if highIndex?if_exists < listSize?if_exists>
+                  <a href="${requestURL}?${queryString?if_exists}&VIEW_SIZE=${viewSize?if_exists}&VIEW_INDEX=${viewIndex?if_exists+1}${paramList?if_exists}" class="submenutextright">Next</a>
+                <#else>
+                  <span class="submenutextrightdisabled">Next</span>
+                </#if>
+              </#if>
+</td></tr>
+            ]]></textData>
+    </ElectronicText>
+    <ElectronicText dataResourceId="WRAP_STD_001">
+        <textData><![CDATA[<#assign mapKey=wrapMapKey?if_exists/>
+<#assign subDataResourceId=wrapDataResourceId?if_exists/>
+<#assign subDataResourceTypeId=wrapDataResourceTypeId?if_exists/>
+<#assign contentIdTo=wrapContentIdTo?if_exists/>
+<#assign mimeTypeId=wrapMimeTypeId?if_exists/>
+<#assign subContentId=wrapSubContentId?if_exists/>
+<div id="divTwo" class="wrapOuter">
+    <div>
+    ${mapKey?if_exists}
+    <a class="buttontext" href="javascript:lookupSubContent('<@ofbizUrl>/LookupSubContent</@ofbizUrl>', '${contentIdTo?if_exists}','${mapKey?if_exists}',  '${subDataResourceTypeId?if_exists}', '${mimeTypeId?if_exists}')"
+>[Find]</a>
+    <#assign ofbizRequest=""/>
+    <#assign httpParams="contentIdTo=" + contentIdTo?if_exists + "&mapKey=" + mapKey?if_exists />
+    <#if subDataResourceTypeId == "IMAGE_OBJECT">
+        <#assign ofbizRequest="EditLayoutImage"/>
+    <#else>
+        <#if subDataResourceTypeId == "URL_RESOURCE">
+            <#assign ofbizRequest="EditLayoutUrl"/>
+        <#else>
+            <#assign ofbizRequest="EditLayoutSubContent"/>
+        </#if>
+    </#if>
+    <a class="buttontext" href="<@ofbizUrl>/${ofbizRequest}?${httpParams}&mode=add</@ofbizUrl>">[New]</a>
+    <#if subContentId?exists && (0 < subContentId?length)>
+        <a class="buttontext" href="<@ofbizUrl>/${ofbizRequest}?${httpParams}&contentId=${subContentId}&drData
+ResourceId=${subDataResourceId?if_exists}</@ofbizUrl>">[Edit]</a>
+    </#if>
+    </div>
+<div id="divOne" class="wrapInner">
+<@renderWrappedText/>
+</div>
+</div>]]></textData>
+    </ElectronicText>
+    <ElectronicText dataResourceId="WRAP_STD_LOOP">
+        <textData><![CDATA[<#assign contentIdTo=contentIdTo?if_exists/>
+
+<tr><td>
+<@checkPermission entityOperation="_CREATE" targetPurpose="${targetPurpose?if_exists}">
+<a class="tabButton" style="height:14pt;" href="<@ofbizUrl>/EditCombo?contentIdTo=${contentIdTo?if_exists}&mode=add</@ofbizUrl>" >New</a>
+<br/>
+</@checkPermission>
+</td></tr>
+
+<#assign outputIndex = 0/>
+<#if outputIndex?exists >
+<#assign outputIndex = outputIndex?number/>
+<#else>
+<#assign outputIndex = 0/>
+</#if>
+<#if listSize?exists >
+<#assign listSize = listSize?number/>
+<#else>
+<#assign listSize = 0/>
+</#if>
+<#if viewIndex?exists >
+<#assign viewIndex = viewIndex?number/>
+<#else>
+<#assign viewIndex = 0/>
+</#if>
+<#if lowIndex?exists >
+<#assign lowIndex = lowIndex?number/>
+<#else>
+<#assign lowIndex = 0/>
+</#if>
+<#assign lowPlusOne = lowIndex + 1/>
+<#assign prevStr = ""/>
+<#if highIndex?exists >
+<#assign highIndex = highIndex?number/>
+<#else>
+<#assign highIndex = 0/>
+</#if>
+<#assign hiIndex = highIndex -1 />
+<#assign nextStr = ""/>
+<tr><td>
+<table border="0" width="100%">
+    <tr><td>
+<span>
+<#if 0 < lowIndex?if_exists >
+    <#assign prevArg=(viewIndex - 1)?string />
+<a href="<@ofbizUrl>/main</@ofbizUrl>?viewIndex=${prevArg?if_exists}">Prev</a>
+</#if>
+<#if 0 < outputIndex >
+ ${lowIndex?if_exists}-${outputIndex?if_exists}
+<#else>
+ No records found
+</#if>
+<#if highIndex < listSize >
+    <#assign nextArg=(viewIndex + 1)?string />
+<a href="<@ofbizUrl>/main</@ofbizUrl>?viewIndex=${nextArg?if_exists}">Next</a>
+</#if>
+</span>
+    </td></tr>
+</table>
+</td></tr>
+            ]]></textData>
+    </ElectronicText>
+    <ElectronicText dataResourceId="WRAP_VIEW">
+        <textData><![CDATA[<#assign txt=wrappedContent?default("")/>
+${txt}
+<br/>
+<@checkPermission targetOperation="CONTENT_CREATE|CONTENT_RESPOND">
+<a class="tabButton" href="<@ofbizUrl>/AddResponse?contentIdTo=${subContentId?if_exists}&nodeTrailCsv=${nodeTrailCsv?if_exists}</@ofbizUrl>" >Respond</a>
+</@checkPermission>
+<br/>
+            ]]></textData>
+    </ElectronicText>
+    <ElectronicText dataResourceId="IMAGE_CENTERED">
+        <textData><![CDATA[<table>
+  <tr>
+    <td>
+<@editRenderSubContent mapKey="IMAGE">
+  <@renderSubContent/>
+</@editRenderSubContent>
+    </td>
+  </tr>
+</table>
+
+<hr/>
+
+<table>
+  <tr>
+    <td>
+<@editRenderSubContent mapKey="ARTICLE">
+  <@renderSubContent/>
+</@editRenderSubContent>
+    </td>
+  </tr>
+</table>]]></textData>
+    </ElectronicText>
+    <ElectronicText dataResourceId="IMAGE_LEFT">
+        <textData><![CDATA[<@editRenderSubContent mapKey="IMAGE">
+  <@renderSubContent/>
+</@editRenderSubContent>
+<@editRenderSubContent mapKey="SUMMARY">
+  <@renderSubContent/>
+</@editRenderSubContent>
+ ]]></textData>
+    </ElectronicText>
+    <ElectronicText dataResourceId="TEMPLATE_TEXT">
+        <textData><![CDATA[<@editRenderSubContent mapKey="ARTICLE">
+  <@renderSubContent/>
+</@editRenderSubContent>
+            ]]></textData>
+    </ElectronicText>
+    <ElectronicText dataResourceId="TMPLT_IMG_CENTER_FL">
+        <textData><![CDATA[<table>
+  <tr>
+    <td>
+        <img src="<@ofbizContentUrl><@renderSubContentCache mapKey="IMAGE" wrapTemplateId=""/></@ofbizContentUrl>" alt="" />
+    </td>
+  </tr>
+</table>
+
+<hr />
+
+<table>
+  <tr>
+    <td>
+<@renderSubContentCache mapKey="ARTICLE"/>
+    </td>
+  </tr>
+</table>]]></textData>
+    </ElectronicText>
+    
+    
+<!-- help template -->
+<DataResource dataResourceId="HELP_TEMPL" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/content/template/HelpTemplate.ftl" dataTemplateTypeId="FTL" statusId="CTNT_IN_PROGRESS" dataResourceName="Help template file" mimeTypeId="text/html" isPublic="Y"/>
+</entity-engine-xml>

@@ -32,7 +32,6 @@ import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntity;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.service.DispatchContext;
 import org.w3c.dom.Element;
 
@@ -58,21 +57,17 @@ public final class EntityEcaRule implements java.io.Serializable {
         this.operationName = eca.getAttribute("operation");
         this.eventName = eca.getAttribute("event");
         this.runOnError = "true".equals(eca.getAttribute("run-on-error"));
-        this.enabled = !"false".equals(eca.getAttribute("enabled"));
         ArrayList<EntityEcaCondition> conditions = new ArrayList<EntityEcaCondition>();
         ArrayList<Object> actionsAndSets = new ArrayList<Object>();
         for (Element element: UtilXml.childElementList(eca)) {
             if ("condition".equals(element.getNodeName())) {
-                EntityEcaCondition ecaCond = new EntityEcaCondition(element, true, false);
+                EntityEcaCondition ecaCond = new EntityEcaCondition(element, true);
                 conditions.add(ecaCond);
                 conditionFieldNames.addAll(ecaCond.getFieldNames());
             } else if ("condition-field".equals(element.getNodeName())) {
-                EntityEcaCondition ecaCond = new EntityEcaCondition(element, false, false);
+                EntityEcaCondition ecaCond = new EntityEcaCondition(element, false);
                 conditions.add(ecaCond);
                 conditionFieldNames.addAll(ecaCond.getFieldNames());
-            } else if ("condition-service".equals(element.getNodeName())) {
-                EntityEcaCondition ecaCond = new EntityEcaCondition(element, false, true);
-                conditions.add(ecaCond);
             } else if ("action".equals(element.getNodeName())) {
                 actionsAndSets.add(new EntityEcaAction(element));
             } else if ("set".equals(element.getNodeName())) {
@@ -137,9 +132,9 @@ public final class EntityEcaRule implements java.io.Serializable {
             }
         }
 
-        if(!fieldsToLoad.isEmpty()) {
+        if( !fieldsToLoad.isEmpty()) {
             Delegator delegator = dctx.getDelegator();
-            GenericValue oldValue =  EntityQuery.use(delegator).from(entityName).where(value.getPrimaryKey()).queryOne();
+            GenericValue oldValue =  delegator.findOne(entityName, value.getPrimaryKey(), false);
             if(UtilValidate.isNotEmpty(oldValue)) {
                 for (String fieldName : fieldsToLoad) {
                     value.put(fieldName, oldValue.get(fieldName));
@@ -147,12 +142,13 @@ public final class EntityEcaRule implements java.io.Serializable {
             }
         }
 
+
         Map<String, Object> context = new HashMap<String, Object>();
         context.putAll(value);
 
         boolean allCondTrue = true;
         for (EntityEcaCondition ec: conditions) {
-            if (!ec.eval(dctx, value, context)) {
+            if (!ec.eval(dctx, value)) {
                 allCondTrue = false;
                 break;
             }
@@ -182,65 +178,11 @@ public final class EntityEcaRule implements java.io.Serializable {
      * @deprecated Not thread-safe, no replacement.
      * @param enabled
      */
-    @Deprecated
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
 
     public boolean isEnabled() {
         return this.enabled;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((entityName == null) ? 0 : entityName.hashCode());
-        result = prime * result + ((operationName == null) ? 0 : operationName.hashCode());
-        result = prime * result + ((eventName == null) ? 0 : eventName.hashCode());
-        result = prime * result + ((actionsAndSets == null) ? 0 : actionsAndSets.hashCode());
-        result = prime * result + ((conditions == null) ? 0 : conditions.hashCode());
-        result = prime * result + ((conditionFieldNames == null) ? 0 : conditionFieldNames.hashCode());
-        result = prime * result + (enabled ? 1231 : 1237);
-        result = prime * result + (runOnError ? 1231 : 1237);
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-    if (obj instanceof EntityEcaRule) {
-            EntityEcaRule other = (EntityEcaRule) obj;
-            if (!UtilValidate.areEqual(this.entityName, other.entityName)) {
-                return false;
-            }
-            if (!UtilValidate.areEqual(this.operationName, other.operationName)) {
-                return false;
-            }
-            if (!UtilValidate.areEqual(this.eventName, other.eventName)) {
-                return false;
-            }
-            if (!this.conditions.equals(other.conditions)) {
-                return false;
-            }
-            if (!this.actionsAndSets.equals(other.actionsAndSets)) {
-                return false;
-            }
-            if (!this.conditionFieldNames.equals(other.conditionFieldNames)) {
-                return false;
-            }
-
-            if (this.runOnError != other.runOnError) {
-                return false;
-            }
-
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    @Override
-    public String toString() {
-        return "EntityEcaRule:" + this.entityName + ":" + this.operationName + ":" + this.eventName +  ":runOnError=" + this.runOnError + ":enabled=" + this.enabled + ":conditions=" + this.conditions + ":actionsAndSets=" + this.actionsAndSets + ":conditionFieldNames" + this.conditionFieldNames;
     }
 }

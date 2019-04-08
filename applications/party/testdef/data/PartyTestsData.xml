@@ -74,7 +74,7 @@ under the License.
 
     <CommunicationEvent communicationEventId="TestEvent-5" communicationEventTypeId="EMAIL_COMMUNICATION" statusId="COM_IN_PROGRESS" contactMechIdFrom="TestContactMech" contactMechIdTo="TestContactMech2" roleTypeIdFrom="BILL_TO_CUSTOMER" roleTypeIdTo="CUSTOMER" partyIdFrom="TestCompany" partyIdTo="TestCustomer" entryDate="2010-10-27 15:04:17.895" subject="Test Subject 1" contentMimeTypeId="text/plain" />
     <CommunicationEventRole communicationEventId="TestEvent-5" partyId="TestCompany" roleTypeId="ADDRESSEE" statusId="COM_ROLE_CREATED"/>
-    <WorkEffort workEffortId="TestWorkeffort" currentStatusId="CAL_ACCEPTED" workEffortName="Test Workeffort" workEffortTypeId="TASK"/>
+    <WorkEffort workEffortId="TestWorkeffort" currentStatusId="PTS_CREATED" workEffortName="Test Workeffort" workEffortTypeId="TASK"/>
     <CommunicationEventWorkEff communicationEventId="TestEvent-5" workEffortId="TestWorkeffort"/>
     <CommunicationEvent communicationEventId="TestEvent-6" communicationEventTypeId="EMAIL_COMMUNICATION" statusId="COM_IN_PROGRESS" contactMechIdFrom="TestContactMech" contactMechIdTo="TestContactMech2" roleTypeIdFrom="BILL_TO_CUSTOMER" roleTypeIdTo="CUSTOMER" partyIdFrom="TestCompany" partyIdTo="TestCustomer" entryDate="2010-10-27 15:04:17.895" subject="Test Subject 1" contentMimeTypeId="text/plain" />
     <CommunicationEvent communicationEventId="TestEvent-7" communicationEventTypeId="EMAIL_COMMUNICATION" statusId="COM_IN_PROGRESS" contactMechIdFrom="TestContactMech" contactMechIdTo="TestContactMech2" roleTypeIdFrom="BILL_TO_CUSTOMER" roleTypeIdTo="CUSTOMER" partyIdFrom="TestCompany" partyIdTo="TestCustomer" entryDate="2010-10-27 15:04:17.895" subject="Test Subject 1" contentMimeTypeId="text/plain" />

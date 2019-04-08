@@ -1,0 +1,845 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.20" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 2.5.1.v20090903 Build &lt;2.5.1.v20090917-1447></property>
+    <property name="units">in</property>
+    <method name="initialize"><![CDATA[importPackage(Packages.org.apache.ofbiz.base.util)
+
+importPackage(Packages.org.apache.ofbiz.entity.util)
+importPackage(Packages.java.util)
+importPackage(Packages.java.lang)
+importPackage(Packages.org.apache.ofbiz.entity.condition)
+importPackage(Packages.java.math)
+module = "CouponSalesReport.rptdesign";]]></method>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="layoutPreference">fixed layout</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <data-sources>
+        <script-data-source name="OFBIZ" id="7"/>
+    </data-sources>
+    <data-sets>
+        <script-data-set name="CouponSalesReport" id="8">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">productPromoId</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">promoName</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">totalOrders</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">totalOrdersAmount</property>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">totalShippingAmount</property>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">totalShippingCharge</property>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">totalShippingBalance</property>
+                    <property name="dataType">float</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">productPromoId</property>
+                </structure>
+                <structure>
+                    <property name="columnName">promoName</property>
+                </structure>
+                <structure>
+                    <property name="columnName">totalOrders</property>
+                </structure>
+                <structure>
+                    <property name="columnName">totalOrdersAmount</property>
+                </structure>
+                <structure>
+                    <property name="columnName">totalShippingAmount</property>
+                </structure>
+                <structure>
+                    <property name="columnName">totalShippingCharge</property>
+                </structure>
+                <structure>
+                    <property name="columnName">totalShippingBalance</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">productPromoId</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">promoName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">totalOrders</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">totalOrdersAmount</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">totalShippingAmount</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">totalShippingCharge</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">totalShippingBalance</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">OFBIZ</property>
+            <method name="open"><![CDATA[couponSalesOrders = null
+try {
+    couponSalesOrders = delegator.findList("ProductPromo", null, null, null, null, false);
+} catch (e) {
+    Debug.logError(e, module);
+}
+totalRow = 0;
+countOfRow = 0;
+if (couponSalesOrders) {
+    totalRow = couponSalesOrders.size();
+}]]></method>
+            <method name="fetch"><![CDATA[if (countOfRow >= totalRow) return false;
+userLogin = null;
+input =  new HashMap();
+try {
+    userLogin = delegator.findOne("UserLogin",UtilMisc.toMap("userLoginId","admin"), false);
+} catch(e) {
+        Debug.logError(e,"");
+}
+couponSalesOrder = couponSalesOrders.get(countOfRow);
+productPromoId = couponSalesOrder.getString("productPromoId");
+promoName = couponSalesOrder.getString("promoName");
+//Total Orders, Amount amd Shipping
+amount = 0
+totalOrders = 0;
+totalOrdersAmount = 0;
+totalShippingAmount = 0;
+totalShippingCharge = 0;
+totalShippingBalance = 0;
+productPromoCodes = delegator.findList("ProductPromoCode", EntityCondition.makeCondition("productPromoId", EntityOperator.EQUALS, productPromoId), null, null, null, false);
+if(productPromoCodes.size()>0){
+    productPromoCodeId = productPromoCodes.get(0).getString("productPromoCodeId");
+    orderProductPromoCodes = delegator.findList("OrderProductPromoCode", EntityCondition.makeCondition("productPromoCodeId", EntityOperator.EQUALS, productPromoCodeId), null, null, null, false);
+    totalOrders = orderProductPromoCodes.size();
+    for(i = 0; i < totalOrders; i++){
+        orderId = orderProductPromoCodes.get(i).getString("orderId");
+        input.put("userLogin",userLogin);
+        input.put("orderId",orderId);
+        //Order Total
+        orderInfo = dispatcher.runSync("getOrderHeaderInformation", input);
+        amount = orderInfo.get("grandTotal");
+        totalOrdersAmount = totalOrdersAmount + amount;
+        //Shipping Total
+        cond =  new LinkedList();
+        cond.add(EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId));
+        cond.add(EntityCondition.makeCondition("orderAdjustmentTypeId", EntityOperator.EQUALS, "SHIPPING_CHARGES"));
+        orderAdjustments = delegator.findList("OrderAdjustment", EntityCondition.makeCondition(cond, EntityOperator.AND), null, null, null, false);
+        orderAdjustmentSize = orderAdjustments.size();
+        for(j = 0; j < orderAdjustmentSize; j++){
+            shippingCharge = 0;
+            shippingCharge = orderAdjustments.get(j).get("amount");
+            if(shippingCharge){
+                shippingCharge = shippingCharge.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+            }
+            totalShippingCharge = totalShippingCharge + shippingCharge;
+        }
+        shippingAmount = dispatcher.runSync("getOrderShippingAmount", input);
+        amount = shippingAmount.get("shippingAmount");
+        if(amount){
+            amount = amount.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        }
+        totalShippingAmount = totalShippingAmount + amount;
+    }
+}
+row["productPromoId"] = productPromoId;
+row["promoName"] = promoName;
+row["totalOrders"] = totalOrders;
+row["totalOrdersAmount"] = totalOrdersAmount;
+row["totalShippingCharge"] = totalShippingCharge;
+row["totalShippingAmount"] = totalShippingAmount;
+row["totalShippingBalance"] = totalShippingAmount - totalShippingCharge;
+countOfRow ++;
+return true;]]></method>
+        </script-data-set>
+    </data-sets>
+    <cubes>
+        <tabular-cube name="CouponSalesReport" id="9">
+            <property name="dimensions">
+                <tabular-dimension name="Group" id="10">
+                    <property name="defaultHierarchy">NewTabularHierarchy</property>
+                    <property name="hierarchies">
+                        <tabular-hierarchy name="NewTabularHierarchy" id="11">
+                            <property name="levels">
+                                <tabular-level name="productPromoId" id="12">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">productPromoId</property>
+                                </tabular-level>
+                                <tabular-level name="promoName" id="13">
+                                    <property name="dataType">string</property>
+                                    <property name="columnName">promoName</property>
+                                </tabular-level>
+                            </property>
+                        </tabular-hierarchy>
+                    </property>
+                </tabular-dimension>
+            </property>
+            <property name="measureGroups">
+                <tabular-measure-group name="Summary Field" id="14">
+                    <property name="measures">
+                        <tabular-measure name="totalOrders" id="15">
+                            <expression name="measureExpression">dataSetRow["totalOrders"]</expression>
+                            <property name="dataType">integer</property>
+                        </tabular-measure>
+                    </property>
+                </tabular-measure-group>
+                <tabular-measure-group name="Summary Field1" id="62">
+                    <property name="measures">
+                        <tabular-measure name="totalOrdersAmount" id="63">
+                            <expression name="measureExpression">dataSetRow["totalOrdersAmount"]</expression>
+                            <property name="dataType">float</property>
+                        </tabular-measure>
+                    </property>
+                </tabular-measure-group>
+                <tabular-measure-group name="Summary Field2" id="201">
+                    <property name="measures">
+                        <tabular-measure name="totalShippingCharge" id="202">
+                            <expression name="measureExpression">dataSetRow["totalShippingCharge"]</expression>
+                            <property name="dataType">float</property>
+                        </tabular-measure>
+                    </property>
+                </tabular-measure-group>
+                <tabular-measure-group name="Summary Field3" id="203">
+                    <property name="measures">
+                        <tabular-measure name="totalShippingAmount" id="204">
+                            <expression name="measureExpression">dataSetRow["totalShippingAmount"]</expression>
+                            <property name="dataType">float</property>
+                        </tabular-measure>
+                    </property>
+                </tabular-measure-group>
+                <tabular-measure-group name="Summary Field4" id="206">
+                    <property name="measures">
+                        <tabular-measure name="totalShippingBalance" id="207">
+                            <expression name="measureExpression">dataSetRow["totalShippingBalance"]</expression>
+                            <property name="dataType">float</property>
+                        </tabular-measure>
+                    </property>
+                </tabular-measure-group>
+            </property>
+            <property name="dataSet">CouponSalesReport</property>
+        </tabular-cube>
+    </cubes>
+    <styles>
+        <style name="report" id="4">
+            <property name="fontFamily">sans-serif</property>
+            <property name="fontSize">10pt</property>
+        </style>
+        <style name="crosstab-cell" id="5">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+        <style name="crosstab" id="6">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+    </styles>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <property name="orientation">landscape</property>
+            <property name="leftMargin">0.25in</property>
+            <page-footer>
+                <grid id="365">
+                    <property name="height">0.4777777777777778in</property>
+                    <column id="366"/>
+                    <column id="367"/>
+                    <row id="368">
+                        <property name="height">0.4777777777777778in</property>
+                        <cell id="369">
+                            <text id="382">
+                                <property name="contentType">html</property>
+                                <text-property name="content"><![CDATA[<value-of>new Date()</value-of>]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="370">
+                            <property name="textAlign">right</property>
+                            <grid id="371">
+                                <property name="height">0.2777777777777778in</property>
+                                <property name="width">2.3777777777777778in</property>
+                                <column id="372">
+                                    <property name="width">1.788888888888889in</property>
+                                </column>
+                                <column id="373">
+                                    <property name="width">0.14444444444444443in</property>
+                                </column>
+                                <column id="374">
+                                    <property name="width">0.4444444444444444in</property>
+                                </column>
+                                <row id="375">
+                                    <property name="height">0.2777777777777778in</property>
+                                    <cell id="376">
+                                        <auto-text id="377">
+                                            <property name="type">page-number</property>
+                                        </auto-text>
+                                    </cell>
+                                    <cell id="378">
+                                        <text id="379">
+                                            <property name="contentType">plain</property>
+                                            <text-property name="content"><![CDATA[/]]></text-property>
+                                        </text>
+                                    </cell>
+                                    <cell id="380">
+                                        <auto-text id="381">
+                                            <property name="textAlign">left</property>
+                                            <property name="type">total-page</property>
+                                        </auto-text>
+                                    </cell>
+                                </row>
+                            </grid>
+                        </cell>
+                    </row>
+                </grid>
+            </page-footer>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <text id="60">
+            <property name="fontSize">16pt</property>
+            <property name="fontWeight">bold</property>
+            <property name="textAlign">center</property>
+            <property name="contentType">auto</property>
+            <text-property name="content"><![CDATA[Coupon Sales Report
+]]></text-property>
+        </text>
+        <text id="61"/>
+        <extended-item extensionName="Crosstab" extensionVersion="2.5.0" id="301">
+            <property name="measures">
+                <extended-item extensionName="MeasureView" id="311">
+                    <property name="measure">totalOrders</property>
+                    <property name="detail">
+                        <extended-item extensionName="AggregationCell" id="312">
+                            <property name="aggregationOnRow">Group/promoName</property>
+                            <property name="content">
+                                <data id="313">
+                                    <property name="textAlign">center</property>
+                                    <property name="resultSetColumn">totalOrders_Group/promoName</property>
+                                </data>
+                            </property>
+                            <property name="height">0.3333333333333333in</property>
+                            <property name="width">0.5555555555555556in</property>
+                        </extended-item>
+                    </property>
+                    <property name="aggregations">
+                        <extended-item extensionName="AggregationCell" id="337">
+                            <property name="backgroundColor">#BFBFBF</property>
+                            <property name="content">
+                                <data id="338">
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">center</property>
+                                    <property name="resultSetColumn">totalOrders</property>
+                                </data>
+                            </property>
+                            <property name="height">0.23333333333333334in</property>
+                        </extended-item>
+                    </property>
+                    <property name="header">
+                        <extended-item extensionName="CrosstabCell" id="314">
+                            <property name="content">
+                                <label id="315">
+                                    <property name="backgroundColor">#BFBFBF</property>
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">center</property>
+                                    <text-property name="text">Orders</text-property>
+                                </label>
+                            </property>
+                            <property name="backgroundColor">#BFBFBF</property>
+                            <property name="height">0.3in</property>
+                        </extended-item>
+                    </property>
+                </extended-item>
+                <extended-item extensionName="ComputedMeasureView" name="totalOrdersPercent" id="348">
+                    <property name="detail">
+                        <extended-item extensionName="AggregationCell" id="349">
+                            <property name="aggregationOnRow">Group/promoName</property>
+                            <property name="content">
+                                <data name="totalOrdersPercent1" id="353">
+                                    <structure name="numberFormat">
+                                        <property name="category">Fixed</property>
+                                        <property name="pattern">Fixed</property>
+                                    </structure>
+                                    <property name="textAlign">center</property>
+                                    <property name="resultSetColumn">totalOrdersPercent</property>
+                                </data>
+                            </property>
+                            <property name="width">0.45555555555555555in</property>
+                        </extended-item>
+                    </property>
+                    <property name="aggregations">
+                        <extended-item extensionName="AggregationCell" id="350">
+                            <property name="backgroundColor">#BFBFBF</property>
+                            <property name="content">
+                                <label id="362">
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">center</property>
+                                    <text-property name="text">100</text-property>
+                                </label>
+                            </property>
+                        </extended-item>
+                    </property>
+                    <property name="header">
+                        <extended-item extensionName="CrosstabCell" id="351">
+                            <property name="content">
+                                <label id="352">
+                                    <property name="backgroundColor">#BFBFBF</property>
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">center</property>
+                                    <text-property name="text">%</text-property>
+                                </label>
+                            </property>
+                            <property name="backgroundColor">#BFBFBF</property>
+                        </extended-item>
+                    </property>
+                </extended-item>
+                <extended-item extensionName="MeasureView" id="316">
+                    <property name="measure">totalOrdersAmount</property>
+                    <property name="detail">
+                        <extended-item extensionName="AggregationCell" id="317">
+                            <property name="aggregationOnRow">Group/promoName</property>
+                            <property name="content">
+                                <data id="318">
+                                    <structure name="numberFormat">
+                                        <property name="category">Fixed</property>
+                                        <property name="pattern">#,##0.00</property>
+                                    </structure>
+                                    <property name="textAlign">right</property>
+                                    <property name="resultSetColumn">totalOrdersAmount_Group/promoName</property>
+                                </data>
+                            </property>
+                            <property name="width">0.7555555555555555in</property>
+                        </extended-item>
+                    </property>
+                    <property name="aggregations">
+                        <extended-item extensionName="AggregationCell" id="339">
+                            <property name="backgroundColor">#BFBFBF</property>
+                            <property name="content">
+                                <data id="340">
+                                    <property name="fontWeight">bold</property>
+                                    <structure name="numberFormat">
+                                        <property name="category">Fixed</property>
+                                        <property name="pattern">#,##0.00</property>
+                                    </structure>
+                                    <property name="textAlign">right</property>
+                                    <property name="resultSetColumn">totalOrdersAmount</property>
+                                </data>
+                            </property>
+                        </extended-item>
+                    </property>
+                    <property name="header">
+                        <extended-item extensionName="CrosstabCell" id="319">
+                            <property name="content">
+                                <label id="320">
+                                    <property name="backgroundColor">#BFBFBF</property>
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">center</property>
+                                    <text-property name="text">Orders $</text-property>
+                                </label>
+                            </property>
+                            <property name="backgroundColor">#BFBFBF</property>
+                        </extended-item>
+                    </property>
+                </extended-item>
+                <extended-item extensionName="ComputedMeasureView" name="totalOrdersAmountPercent" id="354">
+                    <property name="detail">
+                        <extended-item extensionName="AggregationCell" id="355">
+                            <property name="aggregationOnRow">Group/promoName</property>
+                            <property name="content">
+                                <data name="totalOrdersAmountPercent1" id="359">
+                                    <structure name="numberFormat">
+                                        <property name="category">Fixed</property>
+                                        <property name="pattern">Fixed</property>
+                                    </structure>
+                                    <property name="textAlign">center</property>
+                                    <property name="resultSetColumn">totalOrdersAmountPercent</property>
+                                </data>
+                            </property>
+                            <property name="width">0.4222222222222222in</property>
+                        </extended-item>
+                    </property>
+                    <property name="aggregations">
+                        <extended-item extensionName="AggregationCell" id="356">
+                            <property name="backgroundColor">#BFBFBF</property>
+                            <property name="content">
+                                <label id="363">
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">center</property>
+                                    <text-property name="text">100</text-property>
+                                </label>
+                            </property>
+                        </extended-item>
+                    </property>
+                    <property name="header">
+                        <extended-item extensionName="CrosstabCell" id="357">
+                            <property name="content">
+                                <label id="358">
+                                    <property name="backgroundColor">#BFBFBF</property>
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">center</property>
+                                    <text-property name="text">%</text-property>
+                                </label>
+                            </property>
+                            <property name="backgroundColor">#BFBFBF</property>
+                        </extended-item>
+                    </property>
+                </extended-item>
+                <extended-item extensionName="MeasureView" id="321">
+                    <property name="measure">totalShippingCharge</property>
+                    <property name="detail">
+                        <extended-item extensionName="AggregationCell" id="322">
+                            <property name="aggregationOnRow">Group/promoName</property>
+                            <property name="content">
+                                <data id="323">
+                                    <property name="textAlign">right</property>
+                                    <property name="resultSetColumn">totalShippingCharge_Group/promoName</property>
+                                </data>
+                            </property>
+                            <property name="width">1.6in</property>
+                        </extended-item>
+                    </property>
+                    <property name="aggregations">
+                        <extended-item extensionName="AggregationCell" id="341">
+                            <property name="backgroundColor">#BFBFBF</property>
+                            <property name="content">
+                                <data id="342">
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">right</property>
+                                    <property name="resultSetColumn">totalShippingCharge</property>
+                                </data>
+                            </property>
+                        </extended-item>
+                    </property>
+                    <property name="header">
+                        <extended-item extensionName="CrosstabCell" id="324">
+                            <property name="content">
+                                <label id="325">
+                                    <property name="backgroundColor">#BFBFBF</property>
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">center</property>
+                                    <text-property name="text">Ship from Customer $</text-property>
+                                </label>
+                            </property>
+                            <property name="backgroundColor">#BFBFBF</property>
+                        </extended-item>
+                    </property>
+                </extended-item>
+                <extended-item extensionName="MeasureView" id="326">
+                    <property name="measure">totalShippingAmount</property>
+                    <property name="detail">
+                        <extended-item extensionName="AggregationCell" id="327">
+                            <property name="aggregationOnRow">Group/promoName</property>
+                            <property name="content">
+                                <data id="328">
+                                    <property name="textAlign">right</property>
+                                    <property name="resultSetColumn">totalShippingAmount_Group/promoName</property>
+                                </data>
+                            </property>
+                            <property name="width">1.6555555555555554in</property>
+                        </extended-item>
+                    </property>
+                    <property name="aggregations">
+                        <extended-item extensionName="AggregationCell" id="343">
+                            <property name="backgroundColor">#BFBFBF</property>
+                            <property name="content">
+                                <data id="344">
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">right</property>
+                                    <property name="resultSetColumn">totalShippingAmount</property>
+                                </data>
+                            </property>
+                        </extended-item>
+                    </property>
+                    <property name="header">
+                        <extended-item extensionName="CrosstabCell" id="329">
+                            <property name="content">
+                                <label id="330">
+                                    <property name="backgroundColor">#BFBFBF</property>
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">center</property>
+                                    <text-property name="text">Ship to Wherehouse $</text-property>
+                                </label>
+                            </property>
+                            <property name="backgroundColor">#BFBFBF</property>
+                        </extended-item>
+                    </property>
+                </extended-item>
+                <extended-item extensionName="MeasureView" id="331">
+                    <property name="measure">totalShippingBalance</property>
+                    <property name="detail">
+                        <extended-item extensionName="AggregationCell" id="332">
+                            <property name="aggregationOnRow">Group/promoName</property>
+                            <property name="content">
+                                <data id="333">
+                                    <property name="textAlign">right</property>
+                                    <property name="resultSetColumn">totalShippingBalance_Group/promoName</property>
+                                </data>
+                            </property>
+                            <property name="width">1.1777777777777778in</property>
+                        </extended-item>
+                    </property>
+                    <property name="aggregations">
+                        <extended-item extensionName="AggregationCell" id="345">
+                            <property name="backgroundColor">#BFBFBF</property>
+                            <property name="content">
+                                <data id="346">
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">right</property>
+                                    <property name="resultSetColumn">totalShippingBalance</property>
+                                </data>
+                            </property>
+                        </extended-item>
+                    </property>
+                    <property name="header">
+                        <extended-item extensionName="CrosstabCell" id="334">
+                            <property name="content">
+                                <label id="335">
+                                    <property name="backgroundColor">#BFBFBF</property>
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">center</property>
+                                    <text-property name="text">Ship Balance $</text-property>
+                                </label>
+                            </property>
+                            <property name="backgroundColor">#BFBFBF</property>
+                        </extended-item>
+                    </property>
+                </extended-item>
+            </property>
+            <property name="rows">
+                <extended-item extensionName="CrosstabView" id="303">
+                    <property name="grandTotal">
+                        <extended-item extensionName="CrosstabCell" id="336">
+                            <property name="content">
+                                <label id="347">
+                                    <property name="fontWeight">bold</property>
+                                    <property name="textAlign">right</property>
+                                    <text-property name="text">Grand Total</text-property>
+                                </label>
+                            </property>
+                        </extended-item>
+                    </property>
+                    <property name="views">
+                        <extended-item extensionName="DimensionView" id="304">
+                            <property name="dimension">Group</property>
+                            <property name="levels">
+                                <extended-item extensionName="LevelView" name="NewLevel View" id="305">
+                                    <property name="level">Group/productPromoId</property>
+                                    <property name="member">
+                                        <extended-item extensionName="CrosstabCell" id="306">
+                                            <property name="content">
+                                                <data name="productPromoId" id="307">
+                                                    <property name="textAlign">center</property>
+                                                    <property name="resultSetColumn">productPromoId</property>
+                                                </data>
+                                            </property>
+                                            <property name="width">1.3777777777777778in</property>
+                                        </extended-item>
+                                    </property>
+                                </extended-item>
+                                <extended-item extensionName="LevelView" name="NewLevel View1" id="308">
+                                    <property name="level">Group/promoName</property>
+                                    <property name="member">
+                                        <extended-item extensionName="CrosstabCell" id="309">
+                                            <property name="content">
+                                                <data name="promoName" id="310">
+                                                    <property name="resultSetColumn">promoName</property>
+                                                </data>
+                                            </property>
+                                            <property name="width">2.3666666666666667in</property>
+                                        </extended-item>
+                                    </property>
+                                </extended-item>
+                            </property>
+                        </extended-item>
+                    </property>
+                    <property name="grandTotalLocation">after</property>
+                </extended-item>
+            </property>
+            <property name="header">
+                <extended-item extensionName="CrosstabCell" id="302">
+                    <property name="content">
+                        <label id="364">
+                            <property name="backgroundColor">#BFBFBF</property>
+                            <property name="fontWeight">bold</property>
+                            <property name="textAlign">center</property>
+                            <text-property name="text">Coupon</text-property>
+                        </label>
+                    </property>
+                    <property name="backgroundColor">#BFBFBF</property>
+                </extended-item>
+            </property>
+            <property name="cube">CouponSalesReport</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">productPromoId</property>
+                    <expression name="expression">dimension["Group"]["productPromoId"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">promoName</property>
+                    <expression name="expression">dimension["Group"]["promoName"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">totalOrders_Group/promoName</property>
+                    <expression name="expression">measure["totalOrders"]</expression>
+                    <property name="dataType">integer</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>Group/promoName</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">totalOrdersAmount_Group/promoName</property>
+                    <expression name="expression">measure["totalOrdersAmount"]</expression>
+                    <property name="dataType">float</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>Group/promoName</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">totalShippingCharge_Group/promoName</property>
+                    <expression name="expression">measure["totalShippingCharge"]</expression>
+                    <property name="dataType">float</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>Group/promoName</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">totalShippingAmount_Group/promoName</property>
+                    <expression name="expression">measure["totalShippingAmount"]</expression>
+                    <property name="dataType">float</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>Group/promoName</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">totalShippingBalance_Group/promoName</property>
+                    <expression name="expression">measure["totalShippingBalance"]</expression>
+                    <property name="dataType">float</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>Group/promoName</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">totalOrders</property>
+                    <expression name="expression">measure["totalOrders"]</expression>
+                    <property name="dataType">integer</property>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">totalOrdersAmount</property>
+                    <expression name="expression">measure["totalOrdersAmount"]</expression>
+                    <property name="dataType">float</property>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">totalShippingCharge</property>
+                    <expression name="expression">measure["totalShippingCharge"]</expression>
+                    <property name="dataType">float</property>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">totalShippingAmount</property>
+                    <expression name="expression">measure["totalShippingAmount"]</expression>
+                    <property name="dataType">float</property>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">totalShippingBalance</property>
+                    <expression name="expression">measure["totalShippingBalance"]</expression>
+                    <property name="dataType">float</property>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">totalOrdersPercent</property>
+                    <expression name="expression" type="javascript">Finance.percent(data["totalOrders"], measure["totalOrders"])</expression>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="name">totalOrdersAmountPercent</property>
+                    <expression name="expression" type="javascript">Finance.percent(data["totalOrdersAmount"], measure["totalOrdersAmount"])</expression>
+                    <property name="dataType">float</property>
+                </structure>
+            </list-property>
+        </extended-item>
+    </body>
+</report>

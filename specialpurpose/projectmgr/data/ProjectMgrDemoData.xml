@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+
+    <!-- Resources -->
+    <!-- user 'admin' has full access and can create projects, add resources etc.  -->
+
+    <!-- Demo Employee is an employee with no access to any projects-->
+    <Party partyId="DemoEmployee" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="DemoEmployee" firstName="Demo" lastName="Employee"/>
+    <UserLogin userLoginId="DemoEmployee" partyId="DemoEmployee"/>
+    <PartyRole partyId="DemoEmployee" roleTypeId="EMPLOYEE"/>
+    <PartyRole partyId="DemoEmployee" roleTypeId="PROVIDER_ANALYST"/>
+    <PartyStatus partyId="DemoEmployee" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyContactMech partyId="DemoEmployee" contactMechId="9020" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE"/>
+    <PartyContactMech partyId="DemoEmployee" contactMechId="9001" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE"/>
+    <PartyContactMech partyId="DemoEmployee" contactMechId="9023" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE"/>
+    <PartyRole partyId="DemoEmployee" roleTypeId="PROJECT_TEAM"/>
+    <UserLoginSecurityGroup groupId="PROJECTADMIN" userLoginId="DemoEmployee" fromDate="2000-01-01 00:00:00.0"/>
+
+    <!-- Demo Employee1 manager is a projectmanager of both projects and can can maintain data within the project-->
+    <Party partyId="DemoEmployee1" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="DemoEmployee1" firstName="Peter" lastName="Manager"/>
+    <UserLogin userLoginId="DemoEmployee1" partyId="DemoEmployee1"/>
+    <PartyRole partyId="DemoEmployee1" roleTypeId="EMPLOYEE"/>
+    <PartyRole partyId="DemoEmployee1" roleTypeId="PROVIDER_MANAGER"/>
+    <PartyStatus partyId="DemoEmployee1" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyContactMech partyId="DemoEmployee1" contactMechId="9020" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE"/>
+    <PartyContactMech partyId="DemoEmployee1" contactMechId="9001" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE"/>
+    <PartyContactMech partyId="DemoEmployee1" contactMechId="9023" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE"/>
+    <PartyRole partyId="DemoEmployee1" roleTypeId="PROJECT_TEAM"/>
+    <UserLoginSecurityGroup groupId="PROJECTADMIN" userLoginId="DemoEmployee1" fromDate="2000-01-01 00:00:00.0"/>
+
+    <!-- Demo Employee2 analist of project 1 can register time, accept and assign tasks withn his project 1 only-->
+    <Party partyId="DemoEmployee2" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="DemoEmployee2" firstName="Jo" lastName="Analist1"/>
+    <UserLogin userLoginId="DemoEmployee2"  partyId="DemoEmployee2"/>
+    <PartyRole partyId="DemoEmployee2" roleTypeId="PROVIDER_ANALYST"/>
+    <PartyRole partyId="DemoEmployee2" roleTypeId="EMPLOYEE"/>
+    <PartyStatus partyId="DemoEmployee2" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyContactMech partyId="DemoEmployee2" contactMechId="9020" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE"/>
+    <PartyContactMech partyId="DemoEmployee2" contactMechId="9001" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE"/>
+    <PartyContactMech partyId="DemoEmployee2" contactMechId="9023" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE"/>
+    <PartyRole partyId="DemoEmployee2" roleTypeId="PROJECT_TEAM"/>
+    <UserLoginSecurityGroup groupId="PROJECTUSER" userLoginId="DemoEmployee2" fromDate="2000-01-01 00:00:00.0"/>
+
+    <!-- Demo Employee3 analist of project 2 can register time, accept and assign tasks withn his project 2 only-->
+    <Party partyId="DemoEmployee3" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="DemoEmployee3" firstName="Tom" lastName="Analist2"/>
+    <UserLogin userLoginId="DemoEmployee3"  partyId="DemoEmployee3"/>
+    <PartyRole partyId="DemoEmployee3" roleTypeId="PROVIDER_ANALYST"/>
+    <PartyRole partyId="DemoEmployee3" roleTypeId="EMPLOYEE"/>
+    <PartyStatus partyId="DemoEmployee3" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyContactMech partyId="DemoEmployee3" contactMechId="9020" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE"/>
+    <PartyContactMech partyId="DemoEmployee3" contactMechId="9001" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE"/>
+    <PartyContactMech partyId="DemoEmployee3" contactMechId="9023" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE"/>
+    <PartyRole partyId="DemoEmployee3" roleTypeId="PROJECT_TEAM"/>
+    <UserLoginSecurityGroup groupId="PROJECTUSER" userLoginId="DemoEmployee3" fromDate="2000-01-01 00:00:00.0"/>
+
+    <!-- Demo Customer1 client for demo project 1 has access to project 1 only-->
+    <Party partyId="DemoCustomer1" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="DemoCustomer1" firstName="ManagerP1" lastName="Customer 1"/>
+    <UserLogin userLoginId="DemoCustomer1"  partyId="DemoCustomer1"/>
+    <PartyRole partyId="DemoCustomer1" roleTypeId="CUSTOMER"/>
+    <PartyRole partyId="DemoCustomer1" roleTypeId="CLIENT_MANAGER"/>
+    <PartyStatus partyId="DemoCustomer1" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyContactMech partyId="DemoCustomer1" contactMechId="9020" fromDate="2000-01-01 10:01:48.933" roleTypeId="CUSTOMER"/>
+    <PartyContactMech partyId="DemoCustomer1" contactMechId="9001" fromDate="2000-01-01 10:01:48.933" roleTypeId="CUSTOMER"/>
+    <PartyContactMech partyId="DemoCustomer1" contactMechId="9023" fromDate="2000-01-01 10:01:48.933" roleTypeId="CUSTOMER"/>
+    <PartyRole partyId="DemoCustomer1" roleTypeId="PROJECT_TEAM"/>
+    <UserLoginSecurityGroup groupId="PROJECTUSER" userLoginId="DemoCustomer1" fromDate="2000-01-01 00:00:00.0"/>
+
+    <!-- Demo Customer2 client for demo project 2 has access to project 2 only-->
+    <Party partyId="DemoCustomer2" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="DemoCustomer2" firstName="ManagerP2" lastName="Customer 2"/>
+    <UserLogin userLoginId="DemoCustomer2"  partyId="DemoCustomer2"/>
+    <PartyRole partyId="DemoCustomer2" roleTypeId="CUSTOMER"/>
+    <PartyRole partyId="DemoCustomer2" roleTypeId="CLIENT_MANAGER"/>
+    <PartyStatus partyId="DemoCustomer2" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyContactMech partyId="DemoCustomer2" contactMechId="9020" fromDate="2000-01-01 10:01:48.933" roleTypeId="CUSTOMER"/>
+    <PartyContactMech partyId="DemoCustomer2" contactMechId="9001" fromDate="2000-01-01 10:01:48.933" roleTypeId="CUSTOMER"/>
+    <PartyContactMech partyId="DemoCustomer2" contactMechId="9023" fromDate="2000-01-01 10:01:48.933" roleTypeId="CUSTOMER"/>
+    <PartyRole partyId="DemoCustomer2" roleTypeId="PROJECT_TEAM"/>
+    <UserLoginSecurityGroup groupId="PROJECTUSER" userLoginId="DemoCustomer2" fromDate="2000-01-01 00:00:00.0"/>
+
+    <!-- Demo Customer3 billing for demo project 1 and project 2 -->
+    <Party partyId="DemoCustomer3" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
+    <Person partyId="DemoCustomer3" firstName="Billing" lastName="Customer 3"/>
+    <UserLogin userLoginId="DemoCustomer3"  partyId="DemoCustomer3"/>
+    <PartyRole partyId="DemoCustomer3" roleTypeId="CUSTOMER"/>
+    <PartyRole partyId="DemoCustomer3" roleTypeId="CLIENT_BILLING"/>
+    <PartyStatus partyId="DemoCustomer3" statusId="PARTY_ENABLED" statusDate="2001-01-01 12:00:00.0"/>
+    <PartyContactMech partyId="DemoCustomer3" contactMechId="9020" fromDate="2000-01-01 10:01:48.933" roleTypeId="CUSTOMER"/>
+    <PartyContactMech partyId="DemoCustomer3" contactMechId="9001" fromDate="2000-01-01 10:01:48.933" roleTypeId="CUSTOMER"/>
+    <PartyContactMech partyId="DemoCustomer3" contactMechId="9023" fromDate="2000-01-01 10:01:48.933" roleTypeId="CUSTOMER"/>
+    <PartyRole partyId="DemoCustomer3" roleTypeId="PROJECT_TEAM"/>
+    <UserLoginSecurityGroup groupId="PROJECTUSER" userLoginId="DemoCustomer3" fromDate="2000-01-01 00:00:00.0"/>
+
+    <!-- make sure admin show up as a resource, he acts as a full access admin -->
+    <PartyRole partyId="admin" roleTypeId="PROJECT_TEAM"/>
+    <PartyRole partyId="admin" roleTypeId="PROVIDER_MANAGER"/>
+
+    <!-- security demo data -->
+    <!-- allow these these usergroups read only -->
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PROJECTMGR_VIEW"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PROJECTMGR_ROLE_TIMESHEET_CREATE"/>
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="PROJECTMGR_VIEW"/>
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="PROJECTMGR_ROLE_TIMESHEET_CREATE"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="PROJECTMGR_VIEW"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="PROJECTMGR_ROLE_TIMESHEET_CREATE"/>
+
+    <!-- First Demo project from customer 1 and employee 1,2-->
+    <WorkEffort workEffortId="9000" workEffortTypeId="PROJECT" currentStatusId="_NA_" lastStatusUpdate="2007-12-14 15:07:52.901" scopeEnumId="WES_PRIVATE" workEffortName="Demo Project1 Cust1" revisionNumber="1"/>
+    <WorkEffortPartyAssignment workEffortId="9000" partyId="Company" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2009-04-05 20:27:52.818"/>
+    <WorkEffortPartyAssignment  workEffortId="9000" partyId="admin" statusId="PAS_ASSIGNED" roleTypeId="PROVIDER_MANAGER" fromDate="2007-12-14 16:45:21.831"/>
+    <WorkEffortPartyAssignment  workEffortId="9000" partyId="DemoCustomer1" statusId="PAS_ASSIGNED" roleTypeId="CLIENT_MANAGER" fromDate="2007-12-14 16:45:21.831"/>
+    <WorkEffortPartyAssignment  workEffortId="9000" partyId="DemoCustomer3" statusId="PAS_ASSIGNED" roleTypeId="CLIENT_BILLING" fromDate="2007-12-14 16:45:21.831"/>
+    <WorkEffortPartyAssignment  workEffortId="9000" partyId="DemoEmployee1" statusId="PAS_ASSIGNED" roleTypeId="PROVIDER_MANAGER" fromDate="2007-12-14 16:45:21.831"/>
+    <WorkEffortPartyAssignment  workEffortId="9000" partyId="DemoEmployee2" statusId="PAS_ASSIGNED" roleTypeId="PROVIDER_ANALYST" fromDate="2007-12-14 16:45:21.831"/>
+    <WorkEffort workEffortId="9001" sequenceNum="1" workEffortTypeId="PHASE" currentStatusId="_NA_" lastStatusUpdate="2007-12-14 16:45:14.226" workEffortParentId="9000" workEffortName="phase1" revisionNumber="1"/>
+    <WorkEffort workEffortId="9002" sequenceNum="1" workEffortTypeId="TASK" currentStatusId="PTS_CREATED" lastStatusUpdate="2007-12-14 16:45:21.831" workEffortParentId="9001" scopeEnumId="WES_PRIVATE" workEffortName="task1" estimatedStartDate="2007-12-03 00:00:00.0" estimatedCompletionDate="2007-12-05 00:00:00.0" revisionNumber="1"/>
+    <WorkEffortSkillStandard workEffortId="9002" skillTypeId="9000" estimatedDuration="16.0"/>
+    <WorkEffort workEffortId="9003"  sequenceNum="2" workEffortTypeId="TASK" currentStatusId="PTS_CREATED" lastStatusUpdate="2007-12-14 16:45:29.453" workEffortParentId="9001" scopeEnumId="WES_PRIVATE" workEffortName="task2" estimatedStartDate="2007-12-05 00:00:00.0" estimatedCompletionDate="2007-12-16 00:00:00.0" revisionNumber="1"/>
+    <WorkEffortPartyAssignment  workEffortId="9002" partyId="admin" statusId="PAS_ASSIGNED" roleTypeId="PROVIDER_MANAGER" fromDate="2007-12-14 16:45:21.831"/>
+    <WorkEffortSkillStandard workEffortId="9003" skillTypeId="9000" estimatedDuration="24.0"/>
+    <WorkEffort workEffortId="9004"  sequenceNum="2" workEffortTypeId="PHASE" currentStatusId="_NA_" lastStatusUpdate="2007-12-14 16:45:35.939" workEffortParentId="9000" workEffortName="phase2" revisionNumber="1"/>
+    <WorkEffort workEffortId="9005"  sequenceNum="1" workEffortTypeId="TASK" currentStatusId="PTS_CREATED" lastStatusUpdate="2007-12-14 16:45:50.84" workEffortParentId="9004" scopeEnumId="WES_PRIVATE" workEffortName="task3" estimatedStartDate="2007-12-16 00:00:00.0" estimatedCompletionDate="2007-12-17 00:00:00.0" revisionNumber="1"/>
+    <WorkEffortSkillStandard workEffortId="9005" skillTypeId="9000" estimatedDuration="32.0"/>
+    <WorkEffort workEffortId="9006"  sequenceNum="2" workEffortTypeId="TASK" currentStatusId="PTS_CREATED" lastStatusUpdate="2007-12-14 16:45:58.857" workEffortParentId="9004" scopeEnumId="WES_PRIVATE" workEffortName="task4" estimatedStartDate="2007-12-18 00:00:00.0" estimatedCompletionDate="2007-12-20 00:00:00.0" revisionNumber="1"/>
+    <WorkEffortSkillStandard workEffortId="9006" skillTypeId="9000" estimatedDuration="40.0"/>
+
+    <!-- task dependencies project 1-->
+    <WorkEffortAssoc workEffortIdFrom="9002" workEffortIdTo="9003" workEffortAssocTypeId="WORK_EFF_DEPENDENCY" sequenceNum="0" fromDate="2000-01-01 00:00:00.0"/>
+    <WorkEffortAssoc workEffortIdFrom="9003" workEffortIdTo="9005" workEffortAssocTypeId="WORK_EFF_DEPENDENCY" sequenceNum="0" fromDate="2000-01-01 00:00:00.0"/>
+    <WorkEffortAssoc workEffortIdFrom="9005" workEffortIdTo="9006" workEffortAssocTypeId="WORK_EFF_DEPENDENCY" sequenceNum="0" fromDate="2000-01-01 00:00:00.0"/>
+
+    <!-- Second Demo project for customer 2 and employee 1,3-->
+    <WorkEffort workEffortId="9100" workEffortTypeId="PROJECT" currentStatusId="_NA_" lastStatusUpdate="2007-12-14 15:07:52.911" scopeEnumId="WES_PRIVATE" workEffortName="Demo Project2 Cust 2" revisionNumber="1"/>
+    <WorkEffortPartyAssignment  workEffortId="9100" partyId="admin" statusId="PAS_ASSIGNED" roleTypeId="PROVIDER_MANAGER" fromDate="2007-12-14 16:45:21.831"/>
+    <WorkEffortPartyAssignment workEffortId="9100" partyId="Company" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2009-04-05 20:27:52.818"/>
+    <WorkEffortPartyAssignment  workEffortId="9100" partyId="DemoCustomer2" statusId="PAS_ASSIGNED" roleTypeId="CLIENT_MANAGER" fromDate="2007-12-14 16:45:21.831"/>
+    <WorkEffortPartyAssignment  workEffortId="9100" partyId="DemoCustomer3" statusId="PAS_ASSIGNED" roleTypeId="CLIENT_BILLING" fromDate="2007-12-14 16:45:21.831"/>
+    <WorkEffortPartyAssignment  workEffortId="9100" partyId="DemoEmployee1" statusId="PAS_ASSIGNED" roleTypeId="PROVIDER_MANAGER" fromDate="2007-12-14 16:45:21.831"/>
+    <WorkEffortPartyAssignment  workEffortId="9100" partyId="DemoEmployee3" statusId="PAS_ASSIGNED" roleTypeId="PROVIDER_ANALYST" fromDate="2007-12-14 16:45:21.831"/>
+    <WorkEffort workEffortId="9101" sequenceNum="1" workEffortTypeId="PHASE" currentStatusId="_NA_" lastStatusUpdate="2007-12-14 16:45:14.226" workEffortParentId="9100" workEffortName="phase1" revisionNumber="1"/>
+    <WorkEffort workEffortId="9102" sequenceNum="1" workEffortTypeId="TASK" currentStatusId="PTS_CREATED" lastStatusUpdate="2007-12-14 16:45:21.831" workEffortParentId="9101" scopeEnumId="WES_PRIVATE" workEffortName="task1" estimatedStartDate="2007-12-03 00:00:00.0" estimatedCompletionDate="2007-12-05 00:00:00.0" revisionNumber="1"/>
+    <WorkEffortSkillStandard workEffortId="9102" skillTypeId="9000" estimatedDuration="16.0"/>
+    <WorkEffort workEffortId="9103" sequenceNum="2" workEffortTypeId="TASK" currentStatusId="PTS_CREATED" lastStatusUpdate="2007-12-14 16:45:29.453" workEffortParentId="9101" scopeEnumId="WES_PRIVATE" workEffortName="task2" estimatedStartDate="2007-12-05 00:00:00.0" estimatedCompletionDate="2007-12-16 00:00:00.0" revisionNumber="1"/>
+    <WorkEffortSkillStandard workEffortId="9103" skillTypeId="9000" estimatedDuration="24.0"/>
+    <WorkEffort workEffortId="9104" sequenceNum="2" workEffortTypeId="PHASE" currentStatusId="_NA_" lastStatusUpdate="2007-12-14 16:45:35.939" workEffortParentId="9100" workEffortName="phase2" revisionNumber="1"/>
+    <WorkEffort workEffortId="9105" sequenceNum="1" workEffortTypeId="TASK" currentStatusId="PTS_CREATED" lastStatusUpdate="2007-12-14 16:45:50.84" workEffortParentId="9104" scopeEnumId="WES_PRIVATE" workEffortName="task3" estimatedStartDate="2007-12-16 00:00:00.0" estimatedCompletionDate="2007-12-17 00:00:00.0" revisionNumber="1"/>
+    <WorkEffortSkillStandard workEffortId="9105" skillTypeId="9000" estimatedDuration="32.0"/>
+    <WorkEffort workEffortId="9106"  sequenceNum="2" workEffortTypeId="TASK" currentStatusId="PTS_CREATED" lastStatusUpdate="2007-12-14 16:45:58.857" workEffortParentId="9104" scopeEnumId="WES_PRIVATE" workEffortName="task4" estimatedStartDate="2007-12-18 00:00:00.0" estimatedCompletionDate="2007-12-20 00:00:00.0" revisionNumber="1"/>
+    <WorkEffortSkillStandard workEffortId="9106" skillTypeId="9000" estimatedDuration="40.0"/>
+
+    <!-- task dependencies project 2 -->
+    <WorkEffortAssoc workEffortIdFrom="9102" workEffortIdTo="9103" workEffortAssocTypeId="WORK_EFF_DEPENDENCY" sequenceNum="0" fromDate="2000-01-01 00:00:00.0"/>
+    <WorkEffortAssoc workEffortIdFrom="9103" workEffortIdTo="9105" workEffortAssocTypeId="WORK_EFF_DEPENDENCY" sequenceNum="0" fromDate="2000-01-01 00:00:00.0"/>
+    <WorkEffortAssoc workEffortIdFrom="9105" workEffortIdTo="9106" workEffortAssocTypeId="WORK_EFF_DEPENDENCY" sequenceNum="0" fromDate="2000-01-01 00:00:00.0"/>
+
+    <PartyRole partyId="DemoCustCompany" roleTypeId="CLIENT_BILLING"/>
+
+    <!-- Another Demo project for DemoCustomeCompanyr and employee 1,3-->
+    <WorkEffort workEffortId="9200" workEffortTypeId="PROJECT" currentStatusId="_NA_" lastStatusUpdate="2007-12-14 15:07:52.911" scopeEnumId="WES_PRIVATE" workEffortName="Demo Project3 DemoCustomerCompany" revisionNumber="1"/>
+    <WorkEffortPartyAssignment workEffortId="9200" partyId="DemoEmployee3" roleTypeId="PROVIDER_ANALYST" fromDate="2007-12-14 16:45:21.831" statusId="PAS_ASSIGNED"/>
+    <WorkEffortPartyAssignment workEffortId="9200" partyId="Company" roleTypeId="INTERNAL_ORGANIZATIO" fromDate="2009-04-05 20:27:52.818"/>
+    <WorkEffortPartyAssignment workEffortId="9200" partyId="DemoCustCompany" roleTypeId="CLIENT_BILLING" fromDate="2009-04-05 20:27:52.893"/>
+    <WorkEffortPartyAssignment  workEffortId="9200" partyId="DemoEmployee1" statusId="PAS_ASSIGNED" roleTypeId="PROVIDER_MANAGER" fromDate="2007-12-14 16:45:21.831"/>
+    <WorkEffort workEffortId="9201" workEffortTypeId="PHASE" currentStatusId="_NA_" lastStatusUpdate="2007-12-14 16:45:14.226" workEffortParentId="9200" workEffortName="phase1" revisionNumber="1"/>
+    <WorkEffort workEffortId="9202" workEffortTypeId="TASK" currentStatusId="PTS_CREATED" lastStatusUpdate="2007-12-14 16:45:21.831" workEffortParentId="9201" scopeEnumId="WES_PRIVATE" workEffortName="task1" estimatedStartDate="2007-12-03 00:00:00.0" estimatedCompletionDate="2007-12-05 00:00:00.0" revisionNumber="1"/>
+    <WorkEffortSkillStandard workEffortId="9202" skillTypeId="9000" estimatedDuration="16.0"/>
+
+</entity-engine-xml>

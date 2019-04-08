@@ -105,7 +105,7 @@ public class RmiServiceContainer implements Container {
         if (clientProp != null && UtilValidate.isNotEmpty(clientProp.value)) {
             try {
                 Class<?> c = loader.loadClass(clientProp.value);
-                csf = (RMIClientSocketFactory) c.getDeclaredConstructor().newInstance();
+                csf = (RMIClientSocketFactory) c.newInstance();
             } catch (Exception e) {
                 throw new ContainerException(e);
             }
@@ -113,7 +113,7 @@ public class RmiServiceContainer implements Container {
         if (serverProp != null && UtilValidate.isNotEmpty(serverProp.value)) {
             try {
                 Class<?> c = loader.loadClass(serverProp.value);
-                ssf = (RMIServerSocketFactory) c.getDeclaredConstructor().newInstance();
+                ssf = (RMIServerSocketFactory) c.newInstance();
             } catch (Exception e) {
                 throw new ContainerException(e);
             }
@@ -141,7 +141,7 @@ public class RmiServiceContainer implements Container {
             throw new ContainerException("Unable to start the RMI dispatcher", e);
         }
 
-        if (!"true".equalsIgnoreCase(useCtx)) {
+        if (!useCtx.equalsIgnoreCase("true")) {
             // bind RMIDispatcher to RMI Naming (Must be JRMP protocol)
             try {
                 Naming.rebind("//" + host + ":" + port + "/" + name, remote);

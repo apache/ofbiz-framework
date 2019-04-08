@@ -103,6 +103,7 @@ under the License.
         <field position="1" name="internalName" title="${uiLabelMap.ProductInternalName}" required-field="true"><text size="30" maxlength="255"/></field>
         <field position="2" name="brandName" title="${uiLabelMap.ProductBrandName}" ><text size="30" maxlength="60"/></field>
         <field name="productName" title="${uiLabelMap.ProductProductName}"><text size="30" maxlength="255"/></field>
+        <field name="manufacturerPartyId" title="${uiLabelMap.ProductOemPartyId}" ><text size="20" maxlength="20"/></field>
         <field name="comments" title="${uiLabelMap.CommonComments}"><text size="60" maxlength="250"/></field>
 
         <field position="1" name="introductionDate" title="${uiLabelMap.CommonIntroductionDate}" red-when="after-now"><date-time/></field>
@@ -291,6 +292,7 @@ under the License.
                 <sort-field name="internalName"/>
                 <sort-field name="brandName"/>
                 <sort-field name="productName"/>
+                <sort-field name="manufacturerPartyId"/>
                 <sort-field name="comments"/>
             </field-group>
             <field-group title="${uiLabelMap.ProductVirtualFieldGroup}" collapsible="true" initially-collapsed="true">
@@ -315,7 +317,7 @@ under the License.
                 <sort-field name="inventoryMessage"/>
                 <sort-field name="lotIdFilledIn"/>
             </field-group>
-            <field-group title="${uiLabelMap.CommonProductRating}" collapsible="true" initially-collapsed="true">
+            <field-group title="${uiLabelMap.CommonRate}" collapsible="true" initially-collapsed="true">
                 <sort-field name="ratingTypeEnum"/>
                 <sort-field name="productRating"/>
             </field-group>
@@ -560,7 +562,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="safeAddProductToCategory"/>
         <field name="productId" title="${uiLabelMap.ProductProductId}" map-name="product"><hidden/></field>
-        <field name="productCategoryId" title="${uiLabelMap.ProductProductCategoryId}" required-field="true"><lookup target-form-name="LookupProductCategory"></lookup></field>
+        <field name="productCategoryId" title="${uiLabelMap.ProductProductCategoryId}"><lookup target-form-name="LookupProductCategory"></lookup></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}" required-field="true"><date-time default-value="${nowTimestamp}"/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}" ></field>
         <field name="sequenceNum" title="${uiLabelMap.ProductSequenceNum}" ></field>
@@ -1164,9 +1166,9 @@ under the License.
     <form name="EditProductAssoc" type="single" use-row-submit="true"  title="" default-map-name="productAssoc" target="createProductAssoc"
          default-table-style="basic-table" paginate-target="EditProductAssoc">
         <alt-target use-when="productAssoc!=null" target="updateProductAssoc"/>
-        <field name="productId" use-when="productAssoc==null" title="${uiLabelMap.ProductProductId}" required-field="true"><lookup target-form-name="LookupProduct"/></field>
+        <field name="productId" use-when="productAssoc==null" title="${uiLabelMap.ProductProductId}"><lookup target-form-name="LookupProduct"/></field>
         <field name="productId" use-when="productAssoc!=null" title="${uiLabelMap.ProductProductId}" tooltip="${uiLabelMap.ProductRecreateAssociation}" ><display/></field>
-        <field name="productIdTo" use-when="productAssoc==null" title="${uiLabelMap.ProductProductIdTo}" required-field="true">
+        <field name="productIdTo" use-when="productAssoc==null" title="${uiLabelMap.ProductProductIdTo}">
             <lookup target-form-name="LookupProduct"/>
         </field>
         <field name="productIdTo" use-when="productAssoc!=null" title="${uiLabelMap.ProductProductIdTo}" tooltip="${uiLabelMap.ProductRecreateAssociation}"><display/></field>
@@ -1836,7 +1838,7 @@ under the License.
         <field name="partyIdTo" title="${uiLabelMap.AccountingPartyIdTo}" required-field="true">
             <lookup target-form-name="LookupPartyName"/>
         </field>
-        <field name="fromDate"><date-time default-value="${nowTimestamp}"/></field>
+        <field name="fromDate"><date-time/></field>
         <field name="thruDate"><date-time/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text></text></field>
         <field name="price" title="Price" ><text></text></field>
@@ -2146,7 +2148,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createProductAttribute"/>
         <field name="productId"><hidden/></field>
-        <field name="attrName" required-field="true"></field>
+        <field name="attrName"></field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
     </form>
     <form name="UpdateProductAttribute" type="list" target="updateProductAttribute" title="" list-name="productAttributes"
@@ -2369,10 +2371,10 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="ListProductTag" type="multi" target="updateProductTag" title="" list-name="productKeywordList"
+    <form name="ListProductTag" type="multi" target="updateProductTag" title="" list-name=""
         odd-row-style="alternate-row" default-table-style="basic-table" paginate-target="EditProductTag" separate-columns="true">
         <actions>
-            <entity-condition entity-name="ProductKeyword" list="productKeywordList">
+            <entity-condition entity-name="ProductKeyword">
                 <condition-list combine="and">
                     <condition-expr field-name="keywordTypeId" operator="equals" value="KWT_TAG"/>
                     <condition-expr field-name="statusId" operator="equals" value="KW_PENDING"/>
@@ -2397,6 +2399,6 @@ under the License.
             </drop-down>
         </field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><check/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" use-when="productKeywordList.size != 0"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
  </forms>

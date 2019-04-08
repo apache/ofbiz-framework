@@ -65,7 +65,7 @@ under the License.
                 <input type="hidden" name="fromGroupIndex_o_${rowCount}" value="${shipGroupIndex}"/>
                 <tr>
                   <td>
-                    <div>[${shoppingCartItem.getProductId()}] ${shoppingCartItem.getName()!}: ${shoppingCartItem.getDescription(dispatcher)!}</div>
+                    <div>[${shoppingCartItem.getProductId()}] ${shoppingCartItem.getName()!}: ${shoppingCartItem.getDescription()!}</div>
                   </td>
                   <td>
                     <div>${shipGroupItemQuantity}</div>

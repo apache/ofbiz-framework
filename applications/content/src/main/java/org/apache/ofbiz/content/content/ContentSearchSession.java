@@ -32,10 +32,10 @@ import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.content.content.ContentSearch.ContentSearchConstraint;
+import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.content.content.ContentSearch.ResultSortOrder;
 import org.apache.ofbiz.content.content.ContentSearch.SortKeywordRelevancy;
-import org.apache.ofbiz.entity.Delegator;
+import org.apache.ofbiz.content.content.ContentSearch.ContentSearchConstraint;
 
 public class ContentSearchSession {
 
@@ -222,7 +222,7 @@ public class ContentSearchSession {
         String sortAscending = (String) parameters.get("sortAscending");
         boolean ascending = !"N".equals(sortAscending);
         if (sortOrder != null) {
-            if ("SortKeywordRelevancy".equals(sortOrder)) {
+            if (sortOrder.equals("SortKeywordRelevancy")) {
                 searchSetSortOrder(new ContentSearch.SortKeywordRelevancy(), session);
             } else if (sortOrder.startsWith("SortContentField:")) {
                 String fieldName = sortOrder.substring("SortContentField:".length());
@@ -243,7 +243,7 @@ public class ContentSearchSession {
             } catch (Exception e) {
                 Debug.logError(e, "Error formatting VIEW_INDEX, setting to 0", module);
                 // we could just do nothing here, but we know something was specified so we don't want to use the previous value from the session
-                contentSearchOptions.setViewIndex(0);
+                contentSearchOptions.setViewIndex(Integer.valueOf(0));
             }
         }
 
@@ -253,7 +253,7 @@ public class ContentSearchSession {
                 contentSearchOptions.setViewSize(Integer.valueOf(viewSizeStr));
             } catch (Exception e) {
                 Debug.logError(e, "Error formatting VIEW_SIZE, setting to 20", module);
-                contentSearchOptions.setViewSize(20);
+                contentSearchOptions.setViewSize(Integer.valueOf(20));
             }
         }
     }

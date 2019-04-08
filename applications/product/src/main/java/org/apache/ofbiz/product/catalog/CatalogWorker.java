@@ -32,6 +32,7 @@ import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
+import org.apache.ofbiz.webapp.website.WebSiteWorker;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
@@ -39,7 +40,6 @@ import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityUtil;
 import org.apache.ofbiz.product.category.CategoryWorker;
 import org.apache.ofbiz.product.store.ProductStoreWorker;
-import org.apache.ofbiz.webapp.website.WebSiteWorker;
 
 /**
  * CatalogWorker - Worker class for catalog related functionality

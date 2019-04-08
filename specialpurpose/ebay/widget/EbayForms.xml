@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
+    <form name="ManageOrdersFromEbay" type="single" target="ImportOrdersSearchFromEbay"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="productStoreId">
+            <drop-down>
+                <entity-options entity-name="ProductStore" key-field-name="productStoreId" description="${storeName}">
+                    <entity-order-by field-name="storeName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}"><date-time default-value="${groovy: org.apache.ofbiz.base.util.UtilDateTime.getDayStart(nowTimestamp)}"/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDateTime}"><date-time default-value="${groovy: org.apache.ofbiz.base.util.UtilDateTime.getDayEnd(nowTimestamp)}"/></field>
+        <field name="submitButton" title="${uiLabelMap.EbayImportSearchSingleTransactionFromEbay}"><submit button-type="button"/></field>
+    </form>
+    <form name="ListOrdersFromEbay" type="multi" use-row-submit="true" list-name="orderList" target="ImportOrderFromEbay"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <row-actions>
+            <set field="canImportOrder" value="${groovy: org.apache.ofbiz.base.util.UtilValidate.isEmpty(orderId) &amp;&amp; org.apache.ofbiz.base.util.UtilValidate.isEmpty(errorMessage)}" type="Boolean"/>
+            <set field="allowProductIdChange" value="${groovy: org.apache.ofbiz.base.util.UtilValidate.isEmpty(orderId) &amp;&amp; org.apache.ofbiz.base.util.UtilValidate.isNotEmpty(errorMessage)}" type="Boolean"/>
+        </row-actions>
+        <field name="productStoreId"><hidden/></field>
+        <field name="externalId" title="${uiLabelMap.EbayImportEbayItem}"><display/></field>
+        <field name="transactionId"><display/></field>
+        <field name="orderId">
+            <hyperlink description="${orderId}" target="orderview">
+                <parameter param-name="orderId"/>
+            </hyperlink>
+        </field>
+        <field name="createdDate"><display/></field>
+        <!--
+        <field name="productId" use-when="!${allowProductIdChange}"><display/></field>
+        <field name="productId" use-when="${allowProductIdChange}"><lookup target-form-name="LookupProduct"/></field>
+        -->
+        <field name="productId"><display/></field>
+        <field name="productName" entry-name="productId"><display-entity entity-name="Product" key-field-name="productId" description="${internalName}"/></field>
+        <field name="title"><display/></field>
+        <field name="quantityPurchased"><display/></field>
+        <field name="transactionPrice"><display/></field>
+        <field name="salesTaxAmount"><display/></field>
+        <field name="salesTaxPercent"><hidden/></field>
+        <field name="shippingServiceCost"><display/></field>
+        <field name="shippingTotalAdditionalCost"><display/></field>
+        <field name="amountPaid"><display/></field>
+        <field name="paidTime"><display/></field>
+        <field name="shippedTime"><display/></field>
+        <field name="paymentMethodUsed"><display/></field>
+        <field name="shippingService"><display/></field>
+        <field name="listingStatus"><display/></field>
+        <field name="eBayPaymentStatus"><display/></field>
+        <field name="checkoutStatus"><display/></field>
+        <field name="completeStatus"><display/></field>
+        <field name="buyerName"><display/></field>
+        <field name="shippingAddressStreet"><hidden/></field>
+        <field name="emailBuyer"><display/></field>
+        <field name="shippingAddressStreet2"><hidden/></field>
+        <field name="shippingAddressPhone"><hidden/></field>
+        <field name="shippingAddressStreet"><hidden/></field>
+        <field name="shippingAddressStreet1"><hidden/></field>
+        <field name="shippingAddressStreet2"><hidden/></field>
+        <field name="shippingAddressPostalCode"><hidden/></field>
+        <field name="shippingAddressCountry"><hidden/></field>
+        <field name="shippingAddressStateOrProvince"><hidden/></field>
+        <field name="shippingAddressCityName"><hidden/></field>
+        <field name="errorMessage"><display/></field>
+        <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}" use-when="${canImportOrder}"><check/></field>
+        <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}" use-when="!${canImportOrder}"><display/></field>
+        <field name="submitButton" title="${uiLabelMap.EbayImportSingleTransactionFromEbay}" widget-style="smallSubmit"><submit/></field>
+    </form>
+    
+    <form name="FindEbayOrders" type="single" target="GetEbayOrders"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="productStoreId">
+            <drop-down>
+                <entity-options entity-name="ProductStore" key-field-name="productStoreId" description="${storeName}">
+                    <entity-order-by field-name="storeName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}"><date-time default-value="${groovy: org.apache.ofbiz.base.util.UtilDateTime.getDayStart(nowTimestamp)}"/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDateTime}"><date-time default-value="${groovy: org.apache.ofbiz.base.util.UtilDateTime.getDayEnd(nowTimestamp)}"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
+    </form>
+    
+    <form name="ListEbayOrders" type="multi" use-row-submit="true" list-name="orderList" target="importEbayOrders"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <row-actions>
+            <set field="canImportOrder" value="${groovy: org.apache.ofbiz.base.util.UtilValidate.isEmpty(orderId)}" type="Boolean"/>
+            <set field="isEbayOrder" value="${groovy: org.apache.ofbiz.base.util.UtilValidate.isNotEmpty(isEbayOrder)}" type="Boolean"/>
+            <set field="isEbayTransaction" value="${groovy: org.apache.ofbiz.base.util.UtilValidate.isNotEmpty(isEbayTransaction)}" type="Boolean"/>
+        </row-actions>
+        <field name="productStoreId"><hidden/></field>
+       <field name="externalId" title="${uiLabelMap.EbayEbayOrderIdOrTransactionId}" use-when="${isEbayOrder}" tooltip="eBay Order"><display/></field>
+       <field name="externalId" title="${uiLabelMap.EbayEbayOrderIdOrTransactionId}" use-when="${isEbayTransaction}" tooltip="eBay Transaction"><display/></field>
+        <field name="orderId">
+            <hyperlink description="${orderId}" target="/ordermgr/control/orderview" also-hidden="false" target-type="inter-app">
+                <parameter param-name="orderId"/>
+            </hyperlink>
+        </field>
+       <field name="buyerName" map-name="shippingAddressCtx"><display/></field>
+       <field name="emailBuyer"><display/></field>
+       <field name="amountPaid"><display/></field>
+        <field name="createdDate"><display/></field>
+       <field name="paidTime"><hidden/></field>
+       <field name="shippedTime"><hidden/></field>
+       <field name="ebayUserIdBuyer"><hidden/></field>
+        <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}" use-when="${canImportOrder}"><check/></field>
+        <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}" use-when="!${canImportOrder}"><display/></field>
+        <field name="submitButton" title="${uiLabelMap.EbayImportOrdersFromEbay}" widget-style="smallSubmit"><submit/></field>
+    </form>
+    
+    <!-- Ebay configuration settings forms  -->
+    <form name="ListEbayConfigurations" type="list"  list-name="listIt" paginate-target="FindEbayConfigurations"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" value="EbayConfig"/>
+                <field-map field-name="orderBy" value="productStoreId DESC"/>
+            </service>
+        </actions>
+        <field name="productStoreId" title="${uiLabelMap.ProductProductStore}"><display-entity entity-name="ProductStore" description="${storeName} [${productStoreId}]"/></field>
+        <field name="devId"><display/></field>
+        <field name="appId"><display/></field>
+        <field name="certId"><display/></field>
+        <field name="compatibilityLevel"><display/></field> 
+        <field name="webSiteId" title="${uiLabelMap.ProductWebSite}"><display-entity entity-name="WebSite" description="${siteName} [${webSiteId}]"/></field>
+        <field name="editEbayConfiguration" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
+            <hyperlink description="${uiLabelMap.CommonEdit}" target="EditEbayConfiguration" also-hidden="false">
+                <parameter param-name="productStoreId"/>
+            </hyperlink>
+        </field>
+        <field name="deleteEbayConfiguration" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteEbayConfiguration" also-hidden="false">
+                <parameter param-name="productStoreId"/>
+            </hyperlink>
+        </field>
+    </form>
+    
+    <form name="AddEbayConfiguration" type="single" target="createEbayConfiguration" title="">
+        <alt-target use-when="ebayConfig != null" target="updateEbayConfiguration"/>
+        <field name="productStoreId" use-when="ebayConfig != null"><display/></field>
+        <field name="productStoreId" title="${uiLabelMap.ProductProductStore}" use-when="ebayConfig == null">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="ProductStore" description="${storeName} [${productStoreId}]">
+                    <entity-order-by field-name="storeName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="devId"><text default-value="${ebayConfig.devId}" size="40"/></field>
+        <field name="appId"><text default-value="${ebayConfig.appId}" size="40"/></field>
+        <field name="certId"><text default-value="${ebayConfig.certId}" size="40"/></field>
+        <field name="token"><textarea cols="60" rows="5"/></field>
+        <field name="compatibilityLevel"><text default-value="${ebayConfig.compatibilityLevel}" size="5"/></field>
+        <field name="siteId"><text default-value="${ebayConfig.siteId}" size="5"/></field>
+        <field name="xmlGatewayUri"><text size="40"/></field>
+        <field name="apiServerUrl"><text size="40"/></field>
+        <field name="customXml"><textarea cols="60" rows="5"/></field> 
+        <field name="websiteId" field-name="webSiteId" parameter-name="webSiteId" title="${uiLabelMap.ProductWebSite}">
+            <drop-down no-current-selected-key="${ebayConfig.webSiteId}" allow-empty="true">
+                <entity-options description="${siteName} [${webSiteId}]" entity-name="WebSite" key-field-name="webSiteId">
+                    <entity-order-by field-name="siteName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" use-when="ebayConfig == null"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" use-when="ebayConfig != null"><submit button-type="button"/></field>
+    </form>
+    
+    <form name="ListEbayShippingMethods" type="list"  list-name="eBayShippingMethods"  target="updateEbayShippingMethod"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="EbayShippingMethod">
+                <order-by field-name="shipmentMethodName"/>
+                <order-by field-name="productStoreId"/>
+            </entity-condition>
+        </actions>
+        <auto-fields-service service-name="updateEbayShippingMethod"/>
+        <field name="productStoreId"><display/></field>
+        <field name="shipmentMethodName"><display/></field>
+        <field name="methodTypeEnumId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
+                    <entity-constraint name="enumTypeId" operator="equals" value="EBAY_SHIP_TYPE"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="carrierPartyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="shipmentMethodTypeId">
+            <drop-down current="selected" allow-empty="false">
+                <entity-options entity-name="ShipmentMethodType" key-field-name="shipmentMethodTypeId"/>
+            </drop-down>
+        </field>
+        <field name="deleteEbayShippingMethod" title="" widget-style="buttontext">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteEbayShippingMethod" also-hidden="false">
+                <parameter param-name="shipmentMethodName"/>
+                <parameter param-name="productStoreId"/>
+            </hyperlink>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+    </form>
+    
+    <form name="AddEbayShippingMethod" type="single" target="createEbayShippingMethod" title="">
+        <auto-fields-service service-name="createEbayShippingMethod"/>
+        <field name="methodTypeEnumId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
+                    <entity-constraint name="enumTypeId" operator="equals" value="EBAY_SHIP_TYPE"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="productStoreId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="ProductStore" description="${storeName} [${productStoreId}]">
+                    <entity-order-by field-name="storeName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="carrierPartyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="shipmentMethodTypeId">
+            <drop-down current="selected" allow-empty="false">
+                <entity-options entity-name="ShipmentMethodType"/>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
+    </form>
+    
+    <form name="FindEbayConfig" type="single" target="FindEbayConfigurations">
+        <field name="productStoreId" title="${uiLabelMap.ProductProductStore}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="ProductStore" description="${storeName} [${productStoreId}]">
+                    <entity-order-by field-name="storeName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="websiteId" field-name="webSiteId" parameter-name="webSiteId" title="${uiLabelMap.ProductWebSite}">
+            <drop-down no-current-selected-key="${parameters.webSiteId}" allow-empty="true">
+                <entity-options entity-name="WebSite" key-field-name="webSiteId" description="${siteName} [${webSiteId}]">
+                    <entity-order-by field-name="siteName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+</forms>

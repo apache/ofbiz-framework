@@ -45,7 +45,7 @@ under the License.
     <#assign curProductFeatureType = productFeatureAndAppl.getRelatedOne("ProductFeatureType", true)>
     <#assign curProductFeatureApplType = productFeatureAndAppl.getRelatedOne("ProductFeatureApplType", true)>
     <#assign curProductFeatureCategory = (productFeatureAndAppl.getRelatedOne("ProductFeatureCategory", true)!)>
-        <tr id="productFeatureId_tableRow_${productFeatureAndAppl_index}" valign="middle"<#if "1" == rowClass> class="alternate-row"</#if>>
+        <tr id="productFeatureId_tableRow_${productFeatureAndAppl_index}" valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
           <td>
           <input type="hidden" name="productId_o_${productFeatureAndAppl_index}" value="${(productFeatureAndAppl.productId)!}" />
           <input type="hidden" name="productFeatureId_o_${productFeatureAndAppl_index}" value="${(productFeatureAndAppl.productFeatureId)!}" />
@@ -86,7 +86,7 @@ under the License.
           </td>
         </tr>
     <#-- toggle the row color -->
-    <#if "2" == rowClass>
+    <#if rowClass == "2">
       <#assign rowClass = "1">
     <#else>
       <#assign rowClass = "2">

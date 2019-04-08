@@ -30,7 +30,9 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
+                                <or>
+                                    <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
+                                </or>
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.ImageManagementApplication}">
@@ -161,7 +163,10 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-has-permission permission="IMAGE_MANAGEMENT" action="_UPLOAD"/>
+                                <or>
+                                    <if-has-permission permission="IMAGE_MANAGEMENT_UPLOAD"/>
+                                    <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
+                                </or>
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.CommonUpload}">
@@ -208,7 +213,10 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-has-permission permission="IMAGE_MANAGEMENT" action="_APPROVE"/>
+                                <or>
+                                    <if-has-permission permission="IMAGE_MANAGEMENT_APPROVE"/>
+                                    <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
+                                </or>
                             </condition>
                             <widgets>
                                 <platform-specific>
@@ -256,7 +264,10 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-has-permission permission="IMAGE_MANAGEMENT" action="_APPROVE"/>
+                                <or>
+                                    <if-has-permission permission="IMAGE_MANAGEMENT_APPROVE"/>
+                                    <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
+                                </or>
                             </condition>
                             <widgets>
                                 <platform-specific>
@@ -300,7 +311,10 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-has-permission permission="IMAGE_MANAGEMENT" action="_APPROVE"/>
+                                <or>
+                                    <if-has-permission permission="IMAGE_MANAGEMENT_APPROVE"/>
+                                    <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
+                                </or>
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.CommonRejected}">
@@ -343,7 +357,10 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-has-permission permission="IMAGE_MANAGEMENT" action="_APPROVE"/>
+                                <or>
+                                    <if-has-permission permission="IMAGE_MANAGEMENT_APPROVE"/>
+                                    <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
+                                </or>
                             </condition>
                             <widgets>
                                 <platform-specific>
@@ -743,7 +760,10 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-has-permission permission="IMAGE_MANAGEMENT" action="_APPROVE"/>
+                                <or>
+                                    <if-has-permission permission="IMAGE_MANAGEMENT_APPROVE"/>
+                                    <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
+                                </or>
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.ImageManagementRecentlyApproved}">

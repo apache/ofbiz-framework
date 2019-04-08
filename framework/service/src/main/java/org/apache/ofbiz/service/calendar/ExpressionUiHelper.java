@@ -39,7 +39,7 @@ import com.ibm.icu.util.Calendar;
 public class ExpressionUiHelper {
 
     /** An array of valid DayInMonth occurrence values. */
-    private static final int Occurrence[] = {1, 2, 3, 4, 5, -1, -2, -3, -4 -5};
+    public static final int Occurrence[] = {1, 2, 3, 4, 5, -1, -2, -3, -4 -5};
 
     /** Returns a List of valid DayInMonth occurrence int values.
      * @return returns a List of valid DayInMonth occurrence int values
@@ -57,7 +57,7 @@ public class ExpressionUiHelper {
         Calendar tempCal = Calendar.getInstance(locale);
         tempCal.set(Calendar.DAY_OF_WEEK, tempCal.getFirstDayOfWeek());
         SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE", locale);
-        List<Map<String, Object>> result = new ArrayList<>(7);
+        List<Map<String, Object>> result = new ArrayList<Map<String, Object>>(7);
         for (int i = 0; i < 7; i++) {
             result.add(UtilMisc.toMap("description", (Object)dateFormat.format(tempCal.getTime()), "value", tempCal.get(Calendar.DAY_OF_WEEK)));
             tempCal.roll(Calendar.DAY_OF_WEEK, 1);
@@ -94,7 +94,7 @@ public class ExpressionUiHelper {
         Calendar tempCal = Calendar.getInstance(locale);
         tempCal.set(Calendar.MONTH, Calendar.JANUARY);
         SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM", locale);
-        List<Map<String, Object>> result = new ArrayList<>(13);
+        List<Map<String, Object>> result = new ArrayList<Map<String, Object>>(13);
         for (int i = Calendar.JANUARY; i <= tempCal.getActualMaximum(Calendar.MONTH); i++) {
             result.add(UtilMisc.toMap("description", (Object)dateFormat.format(tempCal.getTime()), "value", i));
             tempCal.roll(Calendar.MONTH, 1);
@@ -108,7 +108,7 @@ public class ExpressionUiHelper {
      * <code>description</code> entry and a <code>value</code> entry.
      */
     public static List<Map<String, Object>> getFrequencyValueList(Map<String, Object> uiLabelMap) {
-        List<Map<String, Object>> result = new ArrayList<>(6);
+        List<Map<String, Object>> result = new ArrayList<Map<String, Object>>(6);
         result.add(UtilMisc.toMap("description", uiLabelMap.get("CommonSecond"), "value", Calendar.SECOND));
         result.add(UtilMisc.toMap("description", uiLabelMap.get("CommonMinute"), "value", Calendar.MINUTE));
         result.add(UtilMisc.toMap("description", uiLabelMap.get("CommonHour"), "value", Calendar.HOUR_OF_DAY));
@@ -125,7 +125,7 @@ public class ExpressionUiHelper {
      */
     public static List<Map<String, Object>> getExpressionTypeList(Map<String, Object> uiLabelMap) {
         int listSize = TemporalExpressionWorker.getExpressionTypeList().length;
-        List<Map<String, Object>> result = new ArrayList<>(listSize);
+        List<Map<String, Object>> result = new ArrayList<Map<String, Object>>(listSize);
         for (int i = 0; i < listSize; i++) {
             String exprType = TemporalExpressionWorker.getExpressionTypeList()[i];
             result.add(UtilMisc.toMap("description", uiLabelMap.get("TemporalExpression_" + exprType), "value", exprType));
@@ -145,13 +145,13 @@ public class ExpressionUiHelper {
                                                  .where("fromTempExprId", tempExprId)
                                                  .cache(true)
                                                  .queryList();
-        Set<String> excludedIds = new HashSet<>();
+        Set<String> excludedIds = new HashSet<String>();
         for (GenericValue value : findList) {
             excludedIds.add(value.getString("toTempExprId"));
         }
         excludedIds.add(tempExprId);
         findList = EntityQuery.use(delegator).from("TemporalExpression").cache(true).queryList();
-        Set<String> candidateIds = new HashSet<>();
+        Set<String> candidateIds = new HashSet<String>();
         for (GenericValue value : findList) {
             candidateIds.add(value.getString("tempExprId"));
         }

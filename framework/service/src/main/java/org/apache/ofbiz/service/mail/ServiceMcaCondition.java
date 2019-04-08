@@ -73,8 +73,6 @@ public class ServiceMcaCondition implements java.io.Serializable {
             case CONDITION_SERVICE:
                 this.serviceName = condElement.getAttribute("service-name");
                 break;
-            default:
-                Debug.logWarning("There was an error in the switch-case in ServiceMcaCondition", module);
         }
     }
 
@@ -91,16 +89,19 @@ public class ServiceMcaCondition implements java.io.Serializable {
             if (result == null) {
                 Debug.logError("Service MCA Condition Service [" + serviceName + "] returned null!", module);
                 return false;
+            } else {
+                if (ServiceUtil.isError(result)) {
+                    Debug.logError(ServiceUtil.getErrorMessage(result), module);
+                    return false;
+                } else {
+                    Boolean reply = (Boolean) result.get("conditionReply");
+                    if (reply == null) {
+                        reply = Boolean.FALSE;
+                    }
+                    return reply.booleanValue();
+                }
             }
-            if (ServiceUtil.isError(result)) {
-                Debug.logError(ServiceUtil.getErrorMessage(result), module);
-                return false;
-            }
-            Boolean reply = (Boolean) result.get("conditionReply");
-            if (reply == null) {
-                reply = Boolean.FALSE;
-            }
-            return reply;
+            // invoke the condition service
         } else if (headerName != null) {
             // compare the header field
             MimeMessage message = messageWrapper.getMessage();
@@ -148,7 +149,9 @@ public class ServiceMcaCondition implements java.io.Serializable {
             String[] fieldValues = null;
             try {
                 fieldValues = this.getFieldValue(message, fieldName);
-            } catch (MessagingException | IOException e) {
+            } catch (MessagingException e) {
+                Debug.logError(e, module);
+            } catch (IOException e) {
                 Debug.logError(e, module);
             }
 
@@ -246,7 +249,7 @@ public class ServiceMcaCondition implements java.io.Serializable {
         if (c instanceof String) {
             return UtilMisc.toList((String) c);
         } else if (c instanceof Multipart) {
-            List<String> textContent = new LinkedList<>();
+            List<String> textContent = new LinkedList<String>();
             int count = ((Multipart) c).getCount();
             for (int i = 0; i < count; i++) {
                 BodyPart bp = ((Multipart) c).getBodyPart(i);
@@ -254,7 +257,7 @@ public class ServiceMcaCondition implements java.io.Serializable {
             }
             return textContent;
         } else {
-            return new LinkedList<>();
+            return new LinkedList<String>();
         }
     }
 }

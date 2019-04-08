@@ -121,7 +121,7 @@ under the License.
                 <script location="component://order/groovyScripts/entry/ShowPromoText.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonOrderCatalogDecorator" location="component://order/widget/ordermgr/OrderEntryCommonScreens.xml">
+                <decorator-screen name="CommonOrderEntryDecorator" location="component://order/widget/ordermgr/OrderEntryCommonScreens.xml">
                     <decorator-section name="body">
                         <platform-specific><html><html-template location="component://order/template/entry/cart/ShowAllPromotions.ftl"/></html></platform-specific>
                     </decorator-section>
@@ -137,7 +137,7 @@ under the License.
                 <script location="component://order/groovyScripts/entry/cart/ShowPromotionDetails.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonOrderCatalogDecorator" location="component://order/widget/ordermgr/OrderEntryCommonScreens.xml">
+                <decorator-screen name="CommonOrderEntryDecorator" location="component://order/widget/ordermgr/OrderEntryCommonScreens.xml">
                     <decorator-section name="body">
                         <include-screen name="promotion"/>
                     </decorator-section>
@@ -165,7 +165,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleLookupBulkAddProduct"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
                 <script location="component://order/groovyScripts/entry/cart/LookupBulkAddProducts.groovy"/>
             </actions>
@@ -216,7 +216,7 @@ under the License.
                 <set field="titleProperty" value="OrderAssociatedProducts"/>
                 <script location="component://order/groovyScripts/lookup/LookupAssociatedProducts.groovy"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <property-to-field resource="widget" property="widget.form.defaultViewSize" field="viewSizeDefaultValue"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
             </actions>
             <widgets>

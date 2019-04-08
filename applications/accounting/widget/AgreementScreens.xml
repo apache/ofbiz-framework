@@ -107,7 +107,7 @@ under the License.
                                         <include-form name="FindAgreements" location="component://accounting/widget/AgreementForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-grid name="ListAgreements" location="component://accounting/widget/AgreementForms.xml"/>
+                                        <include-form name="ListAgreements" location="component://accounting/widget/AgreementForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
@@ -165,7 +165,7 @@ under the License.
                             </link>
                         </container>
                         <screenlet title="${uiLabelMap.PageTitleListAgreementItems}">
-                            <include-grid name="ListAgreementItems" location="component://accounting/widget/AgreementForms.xml"/>
+                            <include-form name="ListAgreementItems" location="component://accounting/widget/AgreementForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -217,7 +217,7 @@ under the License.
                         <screenlet id="AgreementTermPanel" title="${uiLabelMap.PageTitleEditAgreementTerm}" collapsible="true">
                             <include-form name="AddAgreementTerm" location="component://accounting/widget/AgreementForms.xml"/>
                         </screenlet>
-                        <include-grid name="ListAgreementTerms" location="component://accounting/widget/AgreementForms.xml"/>
+                        <include-form name="ListAgreementTerms" location="component://accounting/widget/AgreementForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -243,7 +243,7 @@ under the License.
                             <include-form name="AddAgreementContent" location="component://accounting/widget/AgreementForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PageTitleListContent}">
-                            <include-grid name="ListAgreementContent" location="component://accounting/widget/AgreementForms.xml"/>
+                            <include-form name="ListAgreementContent" location="component://accounting/widget/AgreementForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -276,7 +276,7 @@ under the License.
                             </link>
                         </container>
                         <screenlet title="${uiLabelMap.PageTitleListAgreementPromoAppls}">
-                            <include-grid name="ListAgreementPromoAppls" location="component://accounting/widget/AgreementForms.xml"/>
+                            <include-form name="ListAgreementPromoAppls" location="component://accounting/widget/AgreementForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -338,7 +338,7 @@ under the License.
                             </link>
                         </container>
                         <screenlet title="${uiLabelMap.PageTitleListAgreementItemTerms}">
-                            <include-grid name="ListAgreementItemTerms" location="component://accounting/widget/AgreementForms.xml"/>
+                            <include-form name="ListAgreementItemTerms" location="component://accounting/widget/AgreementForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -405,7 +405,7 @@ under the License.
                             </link>
                         </container>
                         <screenlet title="${uiLabelMap.PageTitleListAgreementItemProducts}">
-                            <include-grid name="ListAgreementItemProducts" location="component://accounting/widget/AgreementForms.xml"/>
+                            <include-form name="ListAgreementItemProducts" location="component://accounting/widget/AgreementForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -441,7 +441,7 @@ under the License.
                             </link>
                         </container>
                         <screenlet title="${uiLabelMap.PageTitleListAgreementItemFacilities}">
-                            <include-grid name="ListAgreementItemFacilities" location="component://accounting/widget/AgreementForms.xml"/>
+                            <include-form name="ListAgreementItemFacilities" location="component://accounting/widget/AgreementForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -474,7 +474,7 @@ under the License.
                             <include-form name="ViewAgreementItemInfoForReport" location="component://accounting/widget/AgreementForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.AccountingAgreementItemProductsForReport}">
-                            <include-grid name="ListAgreementItemProductsForReport" location="component://accounting/widget/AgreementForms.xml"/>
+                            <include-form name="ListAgreementItemProductsForReport" location="component://accounting/widget/AgreementForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -604,7 +604,7 @@ under the License.
                             </link>
                         </container>
                         <screenlet title="${uiLabelMap.PageTitleListAgreementItemProducts}">
-                            <include-grid name="ListAgreementItemSupplierProducts" location="component://accounting/widget/AgreementForms.xml"/>
+                            <include-form name="ListAgreementItemSupplierProducts" location="component://accounting/widget/AgreementForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -638,7 +638,7 @@ under the License.
                             <include-form name="ViewAgreementItemInfoForReport" location="component://accounting/widget/AgreementForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.AccountingAgreementItemSupplierProductsForReport}">
-                            <include-grid name="ListAgreementItemSupplierProductsForReport" location="component://accounting/widget/AgreementForms.xml"/>
+                            <include-form name="ListAgreementItemSupplierProductsForReport" location="component://accounting/widget/AgreementForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -719,7 +719,7 @@ under the License.
                             </link>
                         </container>
                         <screenlet title="${uiLabelMap.PageTitleListAgreementItemParties}">
-                            <include-grid name="ListAgreementItemParties" location="component://accounting/widget/AgreementForms.xml"/>
+                            <include-form name="ListAgreementItemParties" location="component://accounting/widget/AgreementForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -781,7 +781,7 @@ under the License.
                             </link>
                         </container>
                         <screenlet title="${uiLabelMap.PageTitleListAgreementGeographicalApplic}">
-                            <include-grid name="ListAgreementGeographicalApplic" location="component://accounting/widget/AgreementForms.xml"/>
+                            <include-form name="ListAgreementGeographicalApplic" location="component://accounting/widget/AgreementForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -834,7 +834,7 @@ under the License.
                         <screenlet id="AgreementWorkEffortApplicsPanel" title="${uiLabelMap.AccountingAddAgreementWorkEffortApplic}" collapsible="true">
                             <include-form name="AddAgreementWorkEffortApplic" location="component://accounting/widget/AgreementForms.xml"/>
                         </screenlet>
-                        <include-grid name="ListAgreementWorkEffortApplics" location="component://accounting/widget/AgreementForms.xml"/>
+                        <include-form name="ListAgreementWorkEffortApplics" location="component://accounting/widget/AgreementForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -859,7 +859,7 @@ under the License.
                                 </widgets>
                             </section>
                         </screenlet>
-                        <include-grid name="ListAgreementRoles" location="component://accounting/widget/AgreementForms.xml"/>
+                        <include-form name="ListAgreementRoles" location="component://accounting/widget/AgreementForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

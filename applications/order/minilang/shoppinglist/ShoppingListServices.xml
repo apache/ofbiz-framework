@@ -21,7 +21,23 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="createShoppingList" short-description="Create a ShoppingList" login-required="false">
-        <make-value entity-name="ShoppingList" value-field="newEntity"/>
+        <if>
+            <condition>
+                  <and>
+                    <not><if-empty field="userLogin"/></not>
+                    <not><if-compare field="userLogin.userLoginId" operator="equals" value="anonymous"/></not>
+                    <not><if-empty field="parameters.partyId"/></not>
+                    <not><if-compare-field to-field="userLogin.partyId" field="parameters.partyId" operator="equals"/></not>
+                    <not><if-has-permission permission="PARTYMGR" action="_CREATE"/></not>
+                </and>
+            </condition>
+            <then>
+                <add-error><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateShoppingListForAnotherParty"/></add-error>
+            </then>
+        </if>
+        <check-errors/>
+
+        <make-value value-field="newEntity" entity-name="ShoppingList"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <if-empty field="newEntity.partyId">
@@ -58,6 +74,11 @@ under the License.
     <simple-method method-name="updateShoppingList" short-description="Update a ShoppingList">
         <entity-one entity-name="ShoppingList" value-field="shoppingList"/>
 
+        <set field="parentMethodName" value="updateShoppingList"/>
+        <set field="permissionAction" value="UPDATE"/>
+        <call-simple-method method-name="checkShoppingListSecurity"/>
+        <check-errors/>
+
         <set-nonpk-fields map="parameters" value-field="shoppingList"/>
 
         <!-- don't let auto-reorders be active unless there is some recurrence info -->
@@ -84,6 +105,11 @@ under the License.
     <simple-method method-name="removeShoppingList" short-description="Remove a ShoppingList">
         <entity-one entity-name="ShoppingList" value-field="shoppingList"/>
 
+        <set field="parentMethodName" value="removeShoppingList"/>
+        <set field="permissionAction" value="DELETE"/>
+        <call-simple-method method-name="checkShoppingListSecurity"/>
+        <check-errors/>
+
         <remove-value value-field="shoppingList"/>
     </simple-method>
 
@@ -96,13 +122,26 @@ under the License.
             <set field="parentMethodName" value="createShoppingListItem"/>
             <set field="permissionAction" value="CREATE"/>
             <entity-one entity-name="ShoppingList" value-field="shoppingList"/>
+            <if>
+                <condition>
+                    <and>
+                        <not><if-empty field="shoppingList.partyId"/></not>
+                        <not><if-compare-field field="userLogin.partyId" to-field="shoppingList.partyId" operator="equals"/></not>
+                        <not><if-has-permission permission="PARTYMGR" action="_${permissionAction}"/></not>
+                    </and>
+                </condition>
+                <then>
+                    <add-error><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunForAnotherParty"/></add-error>
+                </then>
+            </if>
+            <check-errors/>
 
             <entity-one entity-name="Product" value-field="product"/>
             <if-empty field="product">
                 <add-error> <fail-property resource="ProductUiLabels" property="ProductErrorProductNotFound"/> </add-error>
                 <check-errors/>
             </if-empty>
-            <make-value entity-name="ShoppingListItem" value-field="newEntity"/>
+            <make-value value-field="newEntity" entity-name="ShoppingListItem"/>
             <set from-field="parameters.shoppingListId" field="newEntity.shoppingListId"/>
             <make-next-seq-id value-field="newEntity" seq-field-name="shoppingListItemSeqId" numeric-padding="5"/>
 
@@ -130,6 +169,11 @@ under the License.
     </simple-method>
 
     <simple-method method-name="updateShoppingListItem" short-description="Update a ShoppingListItem">
+        <set field="parentMethodName" value="updateShoppingListItem"/>
+        <set field="permissionAction" value="UPDATE"/>
+        <call-simple-method method-name="checkShoppingListItemSecurity"/>
+        <check-errors/>
+
         <entity-one entity-name="ShoppingList" value-field="shoppingList"/>
         <entity-one entity-name="ShoppingListItem" value-field="shoppingListItem"/>
         <set-nonpk-fields map="parameters" value-field="shoppingListItem"/>
@@ -142,6 +186,11 @@ under the License.
     </simple-method>
 
     <simple-method method-name="removeShoppingListItem" short-description="Remove a ShoppingListItem">
+        <set field="parentMethodName" value="removeShoppingListItem"/>
+        <set field="permissionAction" value="DELETE"/>
+        <call-simple-method method-name="checkShoppingListItemSecurity"/>
+        <check-errors/>
+
         <entity-one entity-name="ShoppingList" value-field="shoppingList"/>
         <entity-one entity-name="ShoppingListItem" value-field="shoppingListItem"/>
         <remove-value value-field="shoppingListItem"/>
@@ -170,13 +219,9 @@ under the License.
     </simple-method>
 
     <simple-method method-name="calculateShoppingListDeepTotalPrice" short-description="Calculate Deep Total Price for a ShoppingList">
-        <set-service-fields service-name="checkShoppingListItemSecurity" map="parameters" to-map="serviceInMap"/>
-        <call-service service-name="checkShoppingListItemSecurity" in-map-name="serviceInMap">
-            <result-to-field result-name="hasPermission" field="hasPermission"/>
-        </call-service>
-        <if-compare field="hasPermission" operator="equals" value="false" type="Boolean">
-            <add-error><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunForAnotherParty"/></add-error>
-        </if-compare>
+        <set field="parentMethodName" value="calculateShoppingListDeepTotalPrice"/>
+        <set field="permissionAction" value="VIEW"/>
+        <call-simple-method method-name="checkShoppingListItemSecurity"/>
         <check-errors/>
 
         <set from-field="parameters.prodCatalogId" field="calcPriceInBaseMap.prodCatalogId"/>
@@ -237,33 +282,23 @@ under the License.
     </simple-method>
 
     <simple-method method-name="checkShoppingListSecurity" short-description="Checks security on a ShoppingList">
-        <set field="hasPermission" value="false" type="Boolean"/>
         <if>
             <condition>
                 <and>
-                    <not><if-empty field="userLogin"/></not>
-                    <not><if-compare field="userLogin.userLoginId" operator="equals" value="anonymous"/></not>
-                    <not><if-empty field="parameters.partyId"/></not>
-                    <not><if-compare-field to-field="userLogin.partyId" field="parameters.partyId" operator="equals"/></not>
+                    <not><if-compare-field to-field="shoppingList.partyId" field="userLogin.partyId" operator="equals"/></not>
                     <not><if-has-permission permission="PARTYMGR" action="_${permissionAction}"/></not>
                 </and>
             </condition>
             <then>
                 <add-error><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunForAnotherParty"/></add-error>
             </then>
-            <else>
-                <set field="hasPermission" value="true" type="Boolean"/>
-            </else>
         </if>
-        <field-to-result field="hasPermission"/>
     </simple-method>
     <simple-method method-name="checkShoppingListItemSecurity" short-description="Checks security on a ShoppingListItem">
-        <set field="hasPermission" value="false" type="Boolean"/>
         <entity-one entity-name="ShoppingList" value-field="shoppingList"/>
         <if>
             <condition>
                 <and>
-                    <not><if-empty field="shoppingList.partyId"/></not>
                     <not><if-compare-field field="userLogin.partyId" to-field="shoppingList.partyId" operator="equals"/></not>
                     <not><if-has-permission permission="PARTYMGR" action="_${permissionAction}"/></not>
                 </and>
@@ -271,11 +306,7 @@ under the License.
             <then>
                 <add-error><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunForAnotherParty"/></add-error>
             </then>
-            <else>
-                <set field="hasPermission" value="true" type="Boolean"/>
-            </else>
         </if>
-        <field-to-result field="hasPermission"/>
     </simple-method>
     <simple-method method-name="addSuggestionsToShoppingList" short-description="Add suggestions to a shopping list">
         <!-- first check the ProductStore.enableAutoSuggestionList indicator -->

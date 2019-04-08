@@ -22,7 +22,7 @@ under the License.
 
 <#-- virtual product javascript -->
 ${virtualJavaScript!}
-<script type="application/javascript">
+<script language="JavaScript" type="text/javascript">
 <!--
     var detailImageUrl = null;
     function setAddProductId(name) {
@@ -96,15 +96,15 @@ ${virtualJavaScript!}
 
     function popupDetail() {
         var defaultDetailImage = "${firstDetailImage?default(mainDetailImageUrl?default("_NONE_"))}";
-        if (defaultDetailImage == null || "null" == defaultDetailImage || "" == defaultDetailImage) {
+        if (defaultDetailImage == null || defaultDetailImage == "null" || defaultDetailImage == "") {
             defaultDetailImage = "_NONE_";
         }
 
-        if (detailImageUrl == null || "null" == detailImageUrl) {
+        if (detailImageUrl == null || detailImageUrl == "null") {
             detailImageUrl = defaultDetailImage;
         }
 
-        if ("_NONE_" == detailImageUrl) {
+        if (detailImageUrl == "_NONE_") {
             hack = document.createElement('span');
             hack.innerHTML="${uiLabelMap.CommonNoDetailImageAvailableToDisplay}";
             showErrorAlert("${uiLabelMap.CommonErrorMessage2}","${uiLabelMap.CommonNoDetailImageAvailableToDisplay}");
@@ -212,7 +212,7 @@ ${virtualJavaScript!}
     }
 
     function additemSubmit(){
-        <#if "ASSET_USAGE" == product.productTypeId! || "ASSET_USAGE_OUT_IN" == product.productTypeId!>
+        <#if product.productTypeId! == "ASSET_USAGE" || product.productTypeId! == "ASSET_USAGE_OUT_IN">
         newdatevalue = validate(document.addform.reservStart.value);
         if (newdatevalue == false) {
             document.addform.reservStart.focus();
@@ -226,8 +226,8 @@ ${virtualJavaScript!}
     }
 
     function addShoplistSubmit(){
-        <#if "ASSET_USAGE" == product.productTypeId! || "ASSET_USAGE_OUT_IN" == product.productTypeId!>
-        if ("" == document.addToShoppingList.reservStartStr.value) {
+        <#if product.productTypeId! == "ASSET_USAGE" || product.productTypeId! == "ASSET_USAGE_OUT_IN">
+        if (document.addToShoppingList.reservStartStr.value == "") {
             document.addToShoppingList.submit();
         } else {
             newdatevalue = validate(document.addToShoppingList.reservStartStr.value);
@@ -245,7 +245,7 @@ ${virtualJavaScript!}
         </#if>
     }
 
-    <#if "VV_FEATURETREE" == product.virtualVariantMethodEnum! && featureLists?has_content>
+    <#if product.virtualVariantMethodEnum! == "VV_FEATURETREE" && featureLists?has_content>
         function checkRadioButton() {
             var block1 = document.getElementById("addCart1");
             var block2 = document.getElementById("addCart2");
@@ -358,7 +358,7 @@ ${virtualJavaScript!}
             <#assign priceStyle = "regularPrice">
           </#if>
             ${uiLabelMap.OrderYourPrice}: <#if "Y" = product.isVirtual!> ${uiLabelMap.CommonFrom} </#if><span class="${priceStyle}"><@ofbizCurrency amount=price.price isoCode=price.currencyUsed/></span>
-             <#if "ASSET_USAGE" == product.productTypeId! || "ASSET_USAGE_OUT_IN" == product.productTypeId!>
+             <#if product.productTypeId! == "ASSET_USAGE" || product.productTypeId! == "ASSET_USAGE_OUT_IN">
             <#if product.reserv2ndPPPerc?? && product.reserv2ndPPPerc != 0><br /><span class="${priceStyle}">${uiLabelMap.ProductReserv2ndPPPerc}<#if !product.reservNthPPPerc?? || product.reservNthPPPerc == 0>${uiLabelMap.CommonUntil} ${product.reservMaxPersons!1}</#if> <@ofbizCurrency amount=product.reserv2ndPPPerc*price.price/100 isoCode=price.currencyUsed/></span></#if>
             <#if product.reservNthPPPerc?? &&product.reservNthPPPerc != 0><br /><span class="${priceStyle}">${uiLabelMap.ProductReservNthPPPerc} <#if !product.reserv2ndPPPerc?? || product.reserv2ndPPPerc == 0>${uiLabelMap.ProductReservSecond} <#else> ${uiLabelMap.ProductReservThird} </#if> ${uiLabelMap.CommonUntil} ${product.reservMaxPersons!1}, ${uiLabelMap.ProductEach}: <@ofbizCurrency amount=product.reservNthPPPerc*price.price/100 isoCode=price.currencyUsed/></span></#if>
             <#if (!product.reserv2ndPPPerc?? || product.reserv2ndPPPerc == 0) && (!product.reservNthPPPerc?? || product.reservNthPPPerc == 0)><br />${uiLabelMap.ProductMaximum} ${product.reservMaxPersons!1} ${uiLabelMap.ProductPersons}.</#if>
@@ -371,7 +371,7 @@ ${virtualJavaScript!}
         <div>${uiLabelMap.OrderSave}: <span class="basePrice"><@ofbizCurrency amount=priceSaved isoCode=price.currencyUsed/> (${percentSaved?int}%)</span></div>
       </#if>
       <#-- show price details ("showPriceDetails" field can be set in the screen definition) -->
-      <#if (showPriceDetails?? && "Y" == showPriceDetails?default("N"))>
+      <#if (showPriceDetails?? && showPriceDetails?default("N") == "Y")>
           <#if price.orderItemPriceInfos??>
               <#list price.orderItemPriceInfos as orderItemPriceInfo>
                   <div>${orderItemPriceInfo.description!}</div>
@@ -441,8 +441,8 @@ ${virtualJavaScript!}
         </#if>
         <#assign inStock = true>
         <#-- Variant Selection -->
-        <#if "Y" == product.isVirtual!?upper_case>
-          <#if "VV_FEATURETREE" == product.virtualVariantMethodEnum! && featureLists?has_content>
+        <#if product.isVirtual!?upper_case == "Y">
+          <#if product.virtualVariantMethodEnum! == "VV_FEATURETREE" && featureLists?has_content>
             <#list featureLists as featureList>
                 <#list featureList as feature>
                     <#if feature_index == 0>
@@ -470,7 +470,7 @@ ${virtualJavaScript!}
               &nbsp;
             </div>
           </#if>
-          <#if !product.virtualVariantMethodEnum?? || "VV_VARIANTTREE" == product.virtualVariantMethodEnum>
+          <#if !product.virtualVariantMethodEnum?? || product.virtualVariantMethodEnum == "VV_VARIANTTREE">
            <#if variantTree?? && (variantTree.size() > 0)>
             <#list featureSet as currentType>
               <div>
@@ -520,7 +520,7 @@ ${virtualJavaScript!}
         <#-- check to see if the product requires inventory check and has inventory -->
         <#elseif product.virtualVariantMethodEnum! != "VV_FEATURETREE">
           <#if inStock>
-            <#if "Y" == product.requireAmount?default("N")>
+            <#if product.requireAmount?default("N") == "Y">
               <#assign hiddenStyle = "visible">
             <#else>
               <#assign hiddenStyle = "hidden">
@@ -529,7 +529,7 @@ ${virtualJavaScript!}
               <span style="white-space: nowrap;"><b>${uiLabelMap.CommonAmount}:</b></span>&nbsp;
               <input type="text" size="5" name="add_amount" value=""/>
             </div>
-            <#if "ASSET_USAGE" == product.productTypeId! || "ASSET_USAGE_OUT_IN" == product.productTypeId!>
+            <#if product.productTypeId! == "ASSET_USAGE" || product.productTypeId! == "ASSET_USAGE_OUT_IN">
                 <table width="100%"><tr>
                     <@htmlTemplate.renderDateTimeField name="reservStart" event="" action="" value="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="25" maxlength="30" id="startDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                     <@htmlTemplate.renderDateTimeField name="reservEnd" event="" action="" value="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="25" maxlength="30" id="endDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
@@ -543,7 +543,7 @@ ${virtualJavaScript!}
                   </tr>
                 </table>
             <#else>
-                <input type="text" size="5" name="quantity" value="1"<#if "Y" == product.isVirtual!?upper_case> disabled="disabled"</#if>/>
+                <input type="text" size="5" name="quantity" value="1"<#if product.isVirtual!?upper_case == "Y"> disabled="disabled"</#if>/>
             </#if>
             <#-- This calls addItem() so that variants of virtual products cant be added before distinguishing features are selected, it should not be changed to additemSubmit() -->
             <a href="javascript:addItem()" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.OrderAddToCart}</span></a>&nbsp;
@@ -571,7 +571,7 @@ ${virtualJavaScript!}
             <option value="">${uiLabelMap.OrderNewShoppingList}</option>
           </select>
           &nbsp;&nbsp;
-          <#if "ASSET_USAGE" == product.productTypeId! || "ASSET_USAGE_OUT_IN" == product.productTypeId!>
+          <#if product.productTypeId! == "ASSET_USAGE" || product.productTypeId! == "ASSET_USAGE_OUT_IN">
               <table><tr><td>&nbsp;</td><td align="right">${uiLabelMap.CommonStartDate} (yyyy-mm-dd)</td><td><input type="text" size="10" name="reservStartStr" /></td><td>Number of&nbsp;days</td><td><input type="text" size="4" name="reservLength" /></td><td>&nbsp;</td><td align="right">Number of&nbsp;persons</td><td><input type="text" size="4" name="reservPersons" value="1" /></td><td align="right">Qty&nbsp;</td><td><input type="text" size="5" name="quantity" value="1" /></td></tr></table>
           <#else>
               <input type="text" size="5" name="quantity" value="1"/>
@@ -586,7 +586,7 @@ ${virtualJavaScript!}
       </div>
       <#-- Prefill first select box (virtual products only) -->
       <#if variantTree?? && 0 < variantTree.size()>
-        <script type="application/javascript">eval("list" + "${featureOrderFirst}" + "()");</script>
+        <script language="JavaScript" type="text/javascript">eval("list" + "${featureOrderFirst}" + "()");</script>
       </#if>
 
       <#-- Swatches (virtual products only) -->
@@ -646,12 +646,12 @@ ${virtualJavaScript!}
 
   <#-- Upgrades/Up-Sell/Cross-Sell -->
   <#macro associated assocProducts beforeName showName afterName formNamePrefix targetRequestName>
-  <#local targetRequest = "product">
+  <#assign targetRequest = "product">
   <#if targetRequestName?has_content>
-    <#local targetRequest = targetRequestName>
+    <#assign targetRequest = targetRequestName>
   </#if>
   <#if assocProducts?has_content>
-    <h2>${beforeName!}<#if "Y" == showName>${productContentWrapper.get("PRODUCT_NAME", "html")!}</#if>${afterName!}</h2>
+    <h2>${beforeName!}<#if showName == "Y">${productContentWrapper.get("PRODUCT_NAME", "html")!}</#if>${afterName!}</h2>
 
     <div class="productsummary-container">
     <#list assocProducts as productAssoc>

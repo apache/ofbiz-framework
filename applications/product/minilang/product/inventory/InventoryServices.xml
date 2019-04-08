@@ -36,7 +36,9 @@ under the License.
                 <not>
                     <or>
                         <if-has-permission permission="CATALOG" action="_${checkAction}"/>
+                        <if-has-permission permission="CATALOG_ADMIN"/>
                         <if-has-permission permission="FACILITY" action="_${checkAction}"/>
+                        <if-has-permission permission="FACILITY_ADMIN"/>
                         <and>
                             <not><if-empty field="alternatePermissionRoot"/></not>
                             <if-has-permission permission="${alternatePermissionRoot}" action="_${checkAction}"/>
@@ -156,14 +158,14 @@ under the License.
                       <field-map field-name="lotId" from-field="parameters.lotId" />
                   </entity-and>
                   <if-empty field="lotList">
-                      <make-value entity-name="Lot" value-field="lot"/>
+                      <make-value value-field="lot" entity-name="Lot"/>
                       <set field="lot.lotId" from-field="parameters.lotId"/>
                       <create-value value-field="lot"/>
                   </if-empty>
               </if-not-empty>
           </if-compare>
           
-        <make-value entity-name="InventoryItem" value-field="inventoryItem"/>
+        <make-value value-field="inventoryItem" entity-name="InventoryItem"/>
         <!-- TODO: make sure availableToPromiseTotal and quantityOnHandTotal are not changed -->
         <set-nonpk-fields map="parameters" value-field="inventoryItem"/>
 
@@ -306,7 +308,7 @@ under the License.
                   <field-map field-name="lotId" from-field="parameters.lotId" />
             </entity-and>
             <if-empty field="lotList">
-                <make-value entity-name="Lot" value-field="lot"/>
+                <make-value value-field="lot" entity-name="Lot"/>
                 <set field="lot.lotId" from-field="parameters.lotId"/>
                 <create-value value-field="lot"/>
             </if-empty>
@@ -337,7 +339,7 @@ under the License.
             <store-value value-field="oldInventoryItemStatus"/>
         </if-not-empty>
 
-        <make-value entity-name="InventoryItemStatus" value-field="inventoryItemStatus"/>
+        <make-value value-field="inventoryItemStatus" entity-name="InventoryItemStatus"/>
         <set-nonpk-fields map="parameters" value-field="inventoryItemStatus"/>
         <set-pk-fields map="parameters" value-field="inventoryItemStatus"/>
         <set field="inventoryItemStatus.statusDatetime" from-field="nowTimestamp"/>
@@ -353,7 +355,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createInventoryItemDetail" short-description="Create an InventoryItemDetail">
-        <make-value entity-name="InventoryItemDetail" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="InventoryItemDetail"/>
 
         <set from-field="parameters.inventoryItemId" field="newEntity.inventoryItemId"/>
         <!-- NOTE DEJ20070927: not using make-next-seq-id because a single InventoryItem may see traffic from lots of threads at the same time, and make-next-seq-id doesn't do well with that <make-next-seq-id seq-field-name="inventoryItemDetailSeqId" value-field="newEntity" increment-by="1" numeric-padding="4"/> -->
@@ -546,7 +548,7 @@ under the License.
     <simple-method method-name="createInventoryItemVariance" short-description="Create an InventoryItemVariance">
 
         <!-- add changes to availableToPromise and quantityOnHand -->
-        <make-value entity-name="InventoryItem" value-field="inventoryItemLookup"/>
+        <make-value value-field="inventoryItemLookup" entity-name="InventoryItem"/>
         <set-pk-fields map="parameters" value-field="inventoryItemLookup"/>
         <find-by-primary-key map="inventoryItemLookup" value-field="inventoryItem"/>
 
@@ -565,7 +567,7 @@ under the License.
         <set from-field="parameters.comments" field="createDetailMap.description"/>
         <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
 
-        <make-value entity-name="InventoryItemVariance" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="InventoryItemVariance"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
@@ -628,8 +630,6 @@ under the License.
 
         <set field="parameters.availableToPromiseTotal" value="0" type="BigDecimal"/>
         <set field="parameters.quantityOnHandTotal" value="0" type="BigDecimal"/>
-        <set field="parameters.accountingQuantityTotal" value="0" type="BigDecimal"/>
-
         <iterate list="inventoryItems" entry="inventoryItem">
             <!-- NOTE: this code no longer distinguishes between serialized and non-serialized because both now have availableToPromiseTotal and quantityOnHandTotal populated (for serialized are based on status, non-serialized are based on InventoryItemDetail) -->
             <if>
@@ -653,14 +653,12 @@ under the License.
                 <then>
                     <set field="parameters.quantityOnHandTotal" value="${parameters.quantityOnHandTotal + inventoryItem.quantityOnHandTotal}" type="BigDecimal"/>
                     <set field="parameters.availableToPromiseTotal" value="${parameters.availableToPromiseTotal + inventoryItem.availableToPromiseTotal}" type="BigDecimal"/>
-                    <set field="parameters.accountingQuantityTotal" value="${parameters.accountingQuantityTotal + inventoryItem.accountingQuantityTotal}" type="BigDecimal"/>
                 </then>
             </if>
         </iterate>
 
         <field-to-result field="parameters.availableToPromiseTotal" result-name="availableToPromiseTotal"/>
         <field-to-result field="parameters.quantityOnHandTotal" result-name="quantityOnHandTotal"/>
-        <field-to-result field="parameters.accountingQuantityTotal" result-name="accountingQuantityTotal"/>
     </simple-method>
 
     <simple-method method-name="countProductInventoryOnHand" short-description="Count Inventory On Hand for a Product constrained by a facilityId at a given date." use-transaction="false">
@@ -902,7 +900,7 @@ under the License.
     <!-- Inventory Transfer Services -->
     <simple-method method-name="createInventoryTransfer" short-description="Create an Inventory Transfer">
 
-        <make-value entity-name="InventoryTransfer" value-field="newEntity"/>
+        <make-value value-field="newEntity" entity-name="InventoryTransfer"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <sequenced-id sequence-name="InventoryTransfer" field="newEntity.inventoryTransferId"/>
         <field-to-result field="newEntity.inventoryTransferId" result-name="inventoryTransferId"/>
@@ -915,6 +913,7 @@ under the License.
         <find-by-primary-key entity-name="InventoryTransfer" map="lookupPKMap" value-field="inventoryTransfer"/>
 
         <if-not-empty field="parameters.statusId">
+            <if-compare-field field="parameters.statusId" to-field="inventoryTransfer.statusId" operator="not-equals">
                 <!-- make sure a StatusValidChange record exists, if not return error -->
                 <entity-one entity-name="StatusValidChange" value-field="checkStatusValidChange" auto-field-map="false">
                     <field-map field-name="statusId" from-field="inventoryTransfer.statusId"/>
@@ -924,6 +923,7 @@ under the License.
                     <set value="ERROR: Changing the status from ${inventoryTransfer.statusId} to ${parameters.statusId} is not allowed." field="error_list[]"/>
                 </if-empty>
                 <check-errors/>
+            </if-compare-field>
         </if-not-empty>
 
         <set-nonpk-fields map="parameters" value-field="inventoryTransfer"/>
@@ -992,7 +992,6 @@ under the License.
 	                <iterate list="inventoryItemAndLocations" entry="inventoryItemAndLocation">
 	                    <clear-field field="inputMap"/>
 	                    <set field="inputMap.inventoryItemId" from-field="inventoryItemAndLocation.inventoryItemId"/>
-	                    <set field="inputMap.locationSeqId" from-field="inventoryItemAndLocation.locationSeqId"/>
 	                    <if-empty field="parameters.statusId">
 	                       <set field="inputMap.statusId" value="IXF_REQUESTED"/>
 	                    <else>
@@ -1001,7 +1000,6 @@ under the License.
 	                    </if-empty>
 	                    <set field="inputMap.facilityId" from-field="parameters.facilityId"/>
 	                    <set field="inputMap.facilityIdTo" from-field="parameters.facilityIdTo"/>
-	                    <set field="inputMap.locationSeqIdTo" from-field="parameters.locationSeqIdTo"/>
 	                    <set field="inputMap.sendDate" from-field="parameters.sendDate"/>
 	                    <!-- TODO: inventory transfers for serialized items are not yet implemented -->
 	                    <if-compare field="inventoryItemAndLocation.inventoryItemTypeId" operator="equals" value="NON_SERIAL_INV_ITEM">

@@ -23,7 +23,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.service.DispatchContext;
 import org.apache.ofbiz.service.ModelService;
@@ -34,8 +33,6 @@ import com.ibm.icu.math.BigDecimal;
  * TaxwareServices
  */
 public class TaxwareServices {
-    
-    public static final String module = TaxwareServices.class.getName();
 
     public static Map calcTax(DispatchContext dctx, Map context) {
         Map result = new HashMap();
@@ -76,7 +73,7 @@ public class TaxwareServices {
             result.put("itemAdjustments", utl.getItemAdjustments());
 
         } catch (TaxwareException e) {
-            Debug.logError(e, module);
+            e.printStackTrace();
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
             result.put(ModelService.ERROR_MESSAGE, "ERROR: Taxware problem (" + e.getMessage() + ").");
         }

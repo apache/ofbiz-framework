@@ -16,8 +16,42 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-    <#if entityName?has_content>
-        ${dynamicAutoEntityListForm?string}
-    <#else>
-        ${uiLabelMap['genericWebEvent.entity_name_not_specified']}
-    </#if>
+        <#if (arraySize > 0)>
+            <#assign commonUrl="FindGeneric?${curFindString}&amp;searchOptions_collapsed=${(parameters.searchOptions_collapsed)?default(\"false\")}&amp;"/>
+            <@htmlTemplate.nextPrev commonUrl=commonUrl listSize=arraySize viewSize=viewSize viewIndex=viewIndex highIndex=highIndex commonDisplaying=commonDisplaying/>
+        </#if>
+          <table class="basic-table hover-bar" cellspacing="0">
+            <tr class="header-row-2">
+                <td>&nbsp;</td>
+                <#list fieldList as field>
+                    <td>${field.name}</td>
+                </#list>
+            </tr>
+            <#if resultPartialList?has_content>
+                <#assign alt_row = false>
+                <#list records as record>
+                    <tr<#if alt_row> class="alternate-row"</#if>>
+                        <td class="button-col">
+                            <a href='<@ofbizUrl>ViewGeneric?${record.findString}</@ofbizUrl>'>${uiLabelMap.CommonView}</a>
+                        <#if hasDeletePermission == 'Y'>
+                            <a onclick="return confirm ('${uiLabelMap.WebtoolsConfirmDelete}')" href='<@ofbizUrl>UpdateGeneric?${record.findString}&amp;UPDATE_MODE=DELETE</@ofbizUrl>'>${uiLabelMap.CommonDelete}</a>
+                        </#if>
+                        </td>
+                        <#list fieldList as field>
+                            <td>${Static["org.apache.ofbiz.base.util.UtilFormatOut"].makeString(record.fields.get(field.name))}</td>
+                            <#-- <td>${record.fields.get(field.name)!?string}</td> -->
+                        </#list>
+                    </tr>
+                    <#assign alt_row = !alt_row>
+                </#list>
+            <#else>
+                <tr>
+                    <td colspan="${columnCount}">
+                        <h2>${uiLabelMap.WebtoolsNoEntityRecordsFound} ${entityName}.</h2>
+                    </td>
+                </tr>
+            </#if>
+        </table>
+        <#if (arraySize > 0)>
+            <@htmlTemplate.nextPrev commonUrl=commonUrl listSize=arraySize viewSize=viewSize viewIndex=viewIndex  highIndex=highIndex />
+        </#if>

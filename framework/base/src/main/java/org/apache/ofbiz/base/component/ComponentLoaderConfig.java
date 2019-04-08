@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -36,29 +37,70 @@ import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
 /**
- * ComponentLoaderConfig - Component Loader configuration utility class
- * to handle component-load.xml files
+ * ComponentLoaderConfig - Component Loader configuration
  *
  */
-public final class ComponentLoaderConfig {
+public class ComponentLoaderConfig {
 
     public static final String module = ComponentLoaderConfig.class.getName();
     public static final String COMPONENT_LOAD_XML_FILENAME = "component-load.xml";
+    public static final int SINGLE_COMPONENT = 0;
+    public static final int COMPONENT_DIRECTORY = 1;
+    private static final AtomicReference<List<ComponentDef>> componentDefsRef = new AtomicReference<List<ComponentDef>>(null);
 
-    public enum ComponentType { SINGLE_COMPONENT, COMPONENT_DIRECTORY }
-
-    public static List<ComponentDef> getRootComponents() throws ComponentException {
-        URL xmlUrl = UtilURL.fromResource(COMPONENT_LOAD_XML_FILENAME);
-        return getComponentsFromConfig(xmlUrl);
+    public static List<ComponentDef> getRootComponents(String configFile) throws ComponentException {
+        List<ComponentDef> existingInstance = componentDefsRef.get();
+        if (existingInstance == null) {
+            if (configFile == null) {
+                configFile = COMPONENT_LOAD_XML_FILENAME;
+            }
+            URL xmlUrl = UtilURL.fromResource(configFile);
+            List<ComponentDef> newInstance = getComponentsFromConfig(xmlUrl);
+            if (componentDefsRef.compareAndSet(existingInstance, newInstance)) {
+                existingInstance = newInstance;
+            } else {
+                existingInstance = componentDefsRef.get();
+            }
+        }
+        return existingInstance;
     }
 
     public static List<ComponentDef> getComponentsFromConfig(URL configUrl) throws ComponentException {
-        Document document = parseDocumentFromUrl(configUrl);
-        List<? extends Element> toLoad = UtilXml.childElementList(document.getDocumentElement());
-        List<ComponentDef> componentsFromConfig = new ArrayList<>();
-
-        for (Element element : toLoad) {
-            componentsFromConfig.add(retrieveComponentDefFromElement(element, configUrl));
+        if (configUrl == null) {
+            throw new IllegalArgumentException("configUrl cannot be null");
+        }
+        Document document = null;
+        try {
+            document = UtilXml.readXmlDocument(configUrl, true);
+        } catch (SAXException e) {
+            throw new ComponentException("Error reading the component config file: " + configUrl, e);
+        } catch (ParserConfigurationException e) {
+            throw new ComponentException("Error reading the component config file: " + configUrl, e);
+        } catch (IOException e) {
+            throw new ComponentException("Error reading the component config file: " + configUrl, e);
+        }
+        Element root = document.getDocumentElement();
+        List<? extends Element> toLoad = UtilXml.childElementList(root);
+        List<ComponentDef> componentsFromConfig = null;
+        if (!toLoad.isEmpty()) {
+            componentsFromConfig = new ArrayList<ComponentDef>(toLoad.size());
+            Map<String, ? extends Object> systemProps = UtilGenerics.<String, Object> checkMap(System.getProperties());
+            for (Element element : toLoad) {
+                String nodeName = element.getNodeName();
+                String name = null;
+                String location = null;
+                int type = SINGLE_COMPONENT;
+                if ("load-component".equals(nodeName)) {
+                    name = element.getAttribute("component-name");
+                    location = FlexibleStringExpander.expandString(element.getAttribute("component-location"), systemProps);
+                } else if ("load-components".equals(nodeName)) {
+                    location = FlexibleStringExpander.expandString(element.getAttribute("parent-directory"), systemProps);
+                    type = COMPONENT_DIRECTORY;
+                } else {
+                    throw new ComponentException("Invalid element '" + nodeName + "' found in component config file " + configUrl);
+                }
+                componentsFromConfig.add(new ComponentDef(name, location, type));
+            }
         }
         return Collections.unmodifiableList(componentsFromConfig);
     }
@@ -66,44 +108,12 @@ public final class ComponentLoaderConfig {
     public static class ComponentDef {
         public String name;
         public final String location;
-        public final ComponentType type;
+        public final int type;
 
-        private ComponentDef(String name, String location, ComponentType type) {
+        private ComponentDef(String name, String location, int type) {
             this.name = name;
             this.location = location;
             this.type = type;
         }
-    }
-
-    private static Document parseDocumentFromUrl(URL configUrl) throws ComponentException {
-        if (configUrl == null) {
-            throw new ComponentException("configUrl cannot be null");
-        }
-        try {
-            return UtilXml.readXmlDocument(configUrl, true);
-        } catch (SAXException | ParserConfigurationException | IOException e) {
-            throw new ComponentException("Error reading the component config file: " + configUrl, e);
-        }
-    }
-
-    private static ComponentDef retrieveComponentDefFromElement(Element element, URL configUrl) throws ComponentException {
-        Map<String, ? extends Object> systemProps = UtilGenerics.<String, Object> checkMap(System.getProperties());
-        String nodeName = element.getNodeName();
-
-        String name = null;
-        String location = null;
-        ComponentType type = null;
-
-        if ("load-component".equals(nodeName)) {
-            name = element.getAttribute("component-name");
-            location = FlexibleStringExpander.expandString(element.getAttribute("component-location"), systemProps);
-            type = ComponentType.SINGLE_COMPONENT;
-        } else if ("load-components".equals(nodeName)) {
-            location = FlexibleStringExpander.expandString(element.getAttribute("parent-directory"), systemProps);
-            type = ComponentType.COMPONENT_DIRECTORY;
-        } else {
-            throw new ComponentException("Invalid element '" + nodeName + "' found in component-load file " + configUrl);
-        }
-        return new ComponentDef(name, location, type);
     }
 }

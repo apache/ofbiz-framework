@@ -257,11 +257,7 @@ under the License.
             location="component://content/minilang/survey/SurveyServices.xml" invoke="createSurveyResponse">
         <description>Create a Survey Response w/ Response Answers</description>
         <auto-attributes mode="IN" entity-name="SurveyResponse" include="nonpk" optional="true"/>
-        <attribute name="answers" type="Map" mode="IN" optional="false" string-map-prefix="answers_">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingAnswers"/>
-            </type-validate>
-        </attribute>
+        <attribute name="answers" type="Map" mode="IN" optional="false" string-map-prefix="answers_"/>
         <attribute name="surveyResponseId" type="String" mode="INOUT" optional="true"/>
         <attribute name="productStoreSurveyId" type="String" mode="INOUT" optional="true"/>
         <attribute name="dataResourceId" type="String" mode="IN" optional="true"/>
@@ -270,11 +266,7 @@ under the License.
 
     <service name="surveyResponseProcessInterface" engine="interface">
         <description>Interface for Survey Response Processing services defined on the Survey</description>
-        <attribute name="surveyResponseId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingSurveyResponseId"/>
-            </type-validate>
-        </attribute>
+        <attribute name="surveyResponseId" type="String" mode="IN" optional="false"/>
     </service>
 
     <service name="buildSurveyFromPdf" engine="java"
@@ -313,11 +305,7 @@ under the License.
         <attribute name="pdfFileNameIn" type="String" mode="IN" optional="true"/>
         <attribute name="contentId" type="String" mode="IN" optional="true"/>
         <attribute name="inputByteBuffer" type="java.nio.ByteBuffer" mode="IN" optional="true"/>
-        <attribute name="surveyResponseId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingSurveyResponseId"/>
-            </type-validate>
-        </attribute>
+        <attribute name="surveyResponseId" type="String" mode="IN" optional="false"/>
         <attribute name="outByteBuffer" type="java.nio.ByteBuffer" mode="OUT" optional="true"/>
     </service>
 
@@ -327,32 +315,20 @@ under the License.
         <attribute name="pdfFileNameIn" type="String" mode="IN" optional="true"/>
         <attribute name="contentId" type="String" mode="IN" optional="true"/>
         <attribute name="inputByteBuffer" type="java.nio.ByteBuffer" mode="IN" optional="true"/>
-        <attribute name="acroFieldMap" type="Map" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingAcroFieldMap"/>
-            </type-validate>
-        </attribute>
+        <attribute name="acroFieldMap" type="Map" mode="IN" optional="false"/>
         <attribute name="outByteBuffer" type="java.nio.ByteBuffer" mode="OUT" optional="true"/>
     </service>
 
     <service name="buildPdfFromSurveyResponse" engine="java"
             location="org.apache.ofbiz.content.survey.PdfSurveyServices" invoke="buildPdfFromSurveyResponse" auth="false">
         <description>Build Pdf From Survey Response</description>
-        <attribute name="surveyResponseId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingSurveyResponseId"/>
-            </type-validate>
-        </attribute>
+        <attribute name="surveyResponseId" type="String" mode="IN" optional="false"/>
         <attribute name="outByteBuffer" type="java.nio.ByteBuffer" mode="OUT" optional="false"/>
     </service>
     <service name="buildSurveyQuestionsAndAnswers" engine="java"
             location="org.apache.ofbiz.content.survey.PdfSurveyServices" invoke="buildSurveyQuestionsAndAnswers" auth="false">
         <description>Build list of questions and answers From Survey Response</description>
-        <attribute name="surveyResponseId" type="String" mode="IN" optional="false">
-            <type-validate>
-                <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingSurveyResponseId"/>
-            </type-validate>
-        </attribute>
+        <attribute name="surveyResponseId" type="String" mode="IN" optional="false"/>
         <attribute name="questionsAndAnswers" type="List" mode="OUT" optional="false"/>
     </service>
 </services>

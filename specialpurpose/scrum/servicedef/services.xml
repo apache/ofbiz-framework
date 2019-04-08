@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+    <description>scrum Services</description>
+    <vendor></vendor>
+    <version>1.0</version>
+    
+    <service name="updateSprintBacklogseq" engine="simple" default-entity-name="CustRequest" auth="true"
+        location="component://scrum/minilang/ScrumServices.xml" invoke="updateSprintBacklogseq" transaction-timeout="0">
+        <auto-attributes mode="IN" include="pk"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="mode" type="String" mode="IN"/><!-- possible values: TOP, BOTTOM, UP, DOWN -->
+        <attribute name="custRequestItemSeqId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="productId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="custRequestId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="statusId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="searchOption_custRequestId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="searchOption_description" type="String" mode="IN" optional="true"/>
+        <attribute name="searchOption_custRequestId_op" type="String" mode="IN" optional="true"/>
+        <attribute name="searchOption_description_op" type="String" mode="IN" optional="true"/>
+        <attribute name="searchOption_custRequestId_ic" type="String" mode="IN" optional="true"/>
+        <attribute name="searchOption_description_ic" type="String" mode="IN" optional="true"/>
+        <attribute name="searchOption_parentCustRequestId" type="String" mode="IN" optional="true"/>
+        <attribute name="searchOption_statusId" type="String" mode="IN" optional="true"/>
+        <attribute name="custRequestId_op" type="String" mode="OUT" optional="true"/>
+        <attribute name="custRequestId_ic" type="String" mode="OUT" optional="true"/>
+        <attribute name="description" type="String" mode="OUT" optional="true"/>
+        <attribute name="description_op" type="String" mode="OUT" optional="true"/>
+        <attribute name="description_ic" type="String" mode="OUT" optional="true"/>
+        <attribute name="parentCustRequestId" type="String" mode="OUT" optional="true"/>
+    </service>
+    
+    <service name="getProjectInfoFromTask" engine="simple"
+        location="component://scrum/minilang/ScrumServices.xml" invoke="getProjectInfoFromTask">
+        <description>Get the projectId and Name when a sprint backlog or task is provided.</description>
+        <attribute name="taskId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="sprintId" type="String" mode="IN" optional="true"/>
+        <attribute name="projectId" type="String" mode="OUT" optional="true"/>
+        <attribute name="projectName" type="String" mode="OUT" optional="true"/>
+        <attribute name="sprintId" type="String" mode="OUT" optional="true"/>
+        <attribute name="sprintName" type="String" mode="OUT" optional="true"/>
+        <attribute name="backlogId" type="String" mode="OUT" optional="true"/>
+        <attribute name="backlogName" type="String" mode="OUT" optional="true"/>
+        <attribute name="taskName" type="String" mode="OUT" optional="true"/>
+        <attribute name="taskWbsId" type="String" mode="OUT" optional="true"/>
+    </service>
+    
+    <service name="updateTimesheetEntryByWorkeffort" engine="simple"
+        location="component://scrum/minilang/ScrumServices.xml" invoke="updateTimesheetEntryByWorkeffort">
+        <description>Update workeffort by workeffortId and timesheetId </description>
+        <permission-service service-name="projectMgrPermission" main-action="UPDATE"/>
+        <attribute name="timesheetId" type="String" mode="INOUT" optional="false"/>
+        <attribute name="workEffortId" type="String" mode="INOUT" optional="true"/><!-- when empty will be ignored -->
+        <attribute name="fromDate" type="Timestamp" mode="INOUT" optional="true"/>
+        <attribute name="rateTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="roleTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="hoursDay0" type="Double" mode="IN" optional="true"/>
+        <attribute name="hoursDay1" type="Double" mode="IN" optional="true"/>
+        <attribute name="hoursDay2" type="Double" mode="IN" optional="true"/>
+        <attribute name="hoursDay3" type="Double" mode="IN" optional="true"/>
+        <attribute name="hoursDay4" type="Double" mode="IN" optional="true"/>
+        <attribute name="hoursDay5" type="Double" mode="IN" optional="true"/>
+        <attribute name="hoursDay6" type="Double" mode="IN" optional="true"/>
+        <attribute name="planHoursDay0" type="Double" mode="IN" optional="true"/>
+        <attribute name="planHoursDay1" type="Double" mode="IN" optional="true"/>
+        <attribute name="planHoursDay2" type="Double" mode="IN" optional="true"/>
+        <attribute name="planHoursDay3" type="Double" mode="IN" optional="true"/>
+        <attribute name="planHoursDay4" type="Double" mode="IN" optional="true"/>
+        <attribute name="planHoursDay5" type="Double" mode="IN" optional="true"/>
+        <attribute name="planHoursDay6" type="Double" mode="IN" optional="true"/>
+        <attribute name="planHours" type="Double" mode="IN" optional="true"/>
+        <attribute name="actualHours" type="Double" mode="IN" optional="true"/>
+        <attribute name="checkComplete" type="String" mode="IN" optional="true"/>
+        <attribute name="webSiteId" type="String" mode="IN" optional="true"/><!-- for notification services -->
+    </service>
+    
+    <service name="getScrumActualHour" engine="simple" auth="true"
+        location="component://scrum/minilang/ScrumServices.xml" invoke="getScrumActualHour">
+        
+        <attribute name="projectId" type="String" mode="IN" optional="true"/>
+        <attribute name="sprintId" type="String" mode="IN" optional="true"/>
+        <attribute name="custRequestId" type="String" mode="IN" optional="true"/>
+        <attribute name="taskId" type="String" mode="IN" optional="true"/>
+        <attribute name="actualHours" type="Double" mode="OUT" optional="false"/>
+        <attribute name="actualHoursNotBillYet" type="Double" mode="OUT" optional="true"/>
+        <attribute name="partyId" mode="IN" type="String" optional="true"/>
+    </service>
+    
+    <service name="getScrumActualHourByTimesheet" engine="simple" auth="true"
+        location="component://scrum/minilang/ScrumServices.xml" invoke="getScrumActualHourByTimesheet">
+        
+        <attribute name="timesheetId" type="String" mode="IN" optional="false"/>
+        <attribute name="actualHours" type="Double" mode="OUT" optional="false"/>
+    </service>
+    
+    <service name="updateScrumTaskAssigment" default-entity-name="WorkEffortPartyAssignment" engine="simple"
+        location="component://scrum/minilang/ScrumServices.xml" invoke="updateScrumTaskAssigment" auth="true">
+        <description>Update a WorkEffortPartyAssignment Entity, including set enddate and create new</description>
+        <required-permissions join-type="OR">
+            <check-permission permission="SCRUM" action="_ADMIN"/>
+            <check-permission permission="SCRUM" action="TASK_UPDATE"/>
+        </required-permissions>
+        <attribute name="workEffortId" type="String" mode="INOUT"/>
+        <attribute name="newPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="partyId" type="String" mode="IN"/>
+        <attribute name="newRoleTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="statusId" type="String" mode="IN"/>
+        <attribute name="fromDate" type="Timestamp" mode="INOUT" optional="true"/>
+        <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="delegateReasonEnumId" type="String" mode="IN" optional="true"/>
+        <attribute name="comments" type="String" mode="IN" optional="true"/>
+        <attribute name="webSiteId" type="String" mode="IN" optional="true"/><!-- for notification services -->
+    </service>
+    <service name="addProductTimeToNewInvoice" engine="simple" auth="true"
+        location="component://scrum/minilang/ScrumServices.xml" invoke="addProductTimeToNewInvoice">
+        <description>Add Product Time to a new Invoice</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="SCRUM_BILLING" action="_CREATE"/>
+        </required-permissions>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyIdFrom" type="String" mode="IN" optional="true"/>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="invoiceId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="invoiceDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="reCreate" type="String" mode="IN" optional="true"/>
+        <attribute name="includeMeeting" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="scrumAddWorkEffortTimeToInvoice" default-entity-name="Timesheet" engine="simple" auth="true"
+        location="component://scrum/minilang/ScrumServices.xml" invoke="scrumAddWorkEffortTimeToInvoice">
+        <description>Add WorkEffort Time to existing Invoice</description>
+        <permission-service service-name="workEffortGenericPermission" main-action="CREATE"/>
+        <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
+        <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
+        <attribute name="invoiceDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="combineInvoiceItem" mode="IN" type="String" optional="true"/>
+        <attribute name="billingMap" type="Map" mode="OUT" optional="true"/>
+    </service>
+    <service name="scrumAddWorkEffortTimeToNewInvoice" default-entity-name="Timesheet" engine="simple" auth="true"
+        location="component://scrum/minilang/ScrumServices.xml" invoke="scrumAddWorkEffortTimeToInvoice">
+        <description>Add WorkEffort Time to a new Invoice</description>
+        <permission-service service-name="workEffortGenericPermission" main-action="CREATE"/>
+        <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyIdFrom" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="invoiceId" type="String" mode="OUT" optional="false"/>
+        <attribute name="combineInvoiceItem" mode="IN" type="String" optional="true"/>
+        <attribute name="thruDate" mode="IN" type="Timestamp" optional="true"/>
+        <attribute name="billingMap" type="Map" mode="OUT" optional="true"/>
+    </service>
+    <service name="removeInvoiceInTimeEntry" engine="simple" auth="true"
+        location="component://scrum/minilang/ScrumServices.xml" invoke="removeInvoiceInTimeEntry">
+        <description>Remove invoiceId in TimeEntry</description>
+        <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
+    </service>
+    
+    <service name="getScrumPlanHour" engine="simple" invoke="getScrumPlanHour"
+        location="component://scrum/minilang/ScrumServices.xml" auth="true">
+        <description>Get Scrum Plan Hours from Backlog or Task : TimeEntry--> Task--> Backlog</description>
+        <attribute name="taskId" type="String" mode="IN" optional="true"/>
+        <attribute name="custRequestId" type="String" mode="IN" optional="true"/>
+        <attribute name="sprintId" type="String" mode="IN" optional="true"/>
+        <attribute name="projectId" type="String" mode="IN" optional="true"/>
+        <attribute name="planHours" type="Double" mode="OUT" optional="false"/>
+        <attribute name="initPlanHours" mode="OUT" type="Double" optional="true"/>
+        <attribute name="partyId" mode="IN" type="String" optional="true"/>
+    </service>
+    
+    <service name="getProductBacklogSize" engine="simple"
+        location="component://scrum/minilang/ScrumServices.xml" invoke="getProductBacklogSize">
+        <description>Get project information and related backlog and task info.</description>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="statusId" type="String" mode="IN" optional="true"/>
+        <attribute name="parentCustRequestId" type="String" mode="IN" optional="true"/>
+        <attribute name="productBacklogSize" type="Long" mode="OUT" optional="true"/>
+    </service>
+    
+    <service name="getScrumProject" engine="simple"
+        location="component://scrum/minilang/ScrumServices.xml" invoke="getScrumProject">
+        <description>Get project information and related backlog and task info.</description>
+        <attribute name="projectId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="partyId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="projectInfo" type="java.util.Map" mode="OUT" optional="true"/>
+    </service>
+    
+    <service name="getScrumTaskInfo" engine="simple" invoke="getScrumTaskInfo"
+        location="component://scrum/minilang/ScrumServices.xml" auth="true">
+        <description>Get task info and others related to task</description>
+        <attribute name="taskId" type="String" mode="IN" optional="true"/>
+        <attribute name="partyId" mode="IN" type="String" optional="true"/>
+        <attribute name="planHours" type="Double" mode="OUT" optional="true"/>
+    </service>
+    
+    <!-- For emplLeave : Get party leave hours for date -->
+    <service name="getPartyLeaveHoursForDate" engine="simple" invoke="getPartyLeaveHoursForDate" default-entity-name="EmplLeave"
+        location="component://scrum/minilang/ScrumServices.xml" auth="true">
+        <description>Get party leave hours for date</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <attribute name="hours" type="Double" mode="OUT" optional="true"/>
+    </service>
+    <service name="checkSprintStatus" engine="simple" auth="true"
+        location="component://scrum/minilang/ScrumServices.xml" invoke="checkSprintStatus">
+    </service>
+    <service name="checkScrumPlanHour" engine="simple" auth="true" 
+        location="component://scrum/minilang/ScrumServices.xml" invoke="checkScrumPlanHour">
+        <attribute name="workEffortId" type="String" mode="IN" optional="true"/>
+        <attribute name="custRequestId" type="String" mode="IN" optional="true"/>
+        <attribute name="planHours" type="Double" mode="IN" optional="true"/>
+        <attribute name="allow" type="Boolean" mode="OUT" optional="false"/>
+    </service>
+    <service name="reOrderProductBacklogItemSequenceNumber" engine="simple" auth="true" 
+        location="component://scrum/minilang/ScrumServices.xml" invoke="reOrderProductBacklogItemSequenceNumber">
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="autoCompleteBacklog" engine="simple" auth="true"
+        location="component://scrum/minilang/ScrumServices.xml" invoke="autoCompleteBacklog">
+        <attribute name="workEffortId" mode="IN" type="String" optional="false"/>
+        <attribute name="webSiteId" type="String" mode="IN" optional="true"/><!-- for notification services -->
+    </service>
+    <service name="autoScrumNotification" engine="simple" auth="true"
+        location="component://scrum/minilang/ScrumServices.xml" invoke="autoScrumNotification">
+        <attribute name="sprintId" mode="IN" type="String" optional="true"/>
+        <attribute name="sprintStatusId" mode="IN" type="String" optional="true"/>
+        <attribute name="custRequestId" mode="IN" type="String" optional="true"/>
+        <attribute name="custRequestStatusId" mode="IN" type="String" optional="true"/>
+        <attribute name="webSiteId" mode="IN" type="String" optional="true"/><!-- for notification services -->
+    </service>
+    <service name="updateTimesheetToInProcess" default-entity-name="Timesheet" engine="simple" auth="true"
+        location="component://scrum/minilang/ScrumServices.xml" invoke="updateTimesheetToInProcess">
+        <description>Updates the Timesheet status back to in process to be able to correct errors</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    
+    <service name="updateScrumRevision" engine="soap" export="true"
+        location="http://www.example.com/webtools/control/SOAPService" invoke="updateScrumRevisionChange">
+        <implements service="updateScrumRevisionChange"/>
+    </service>
+    <service name="updateScrumRevisionChange" engine="simple" export="true" validate="false" require-new-transaction="true"
+            location="component://scrum/minilang/ScrumServices.xml" invoke="updateScrumRevisionChange">
+        <description>Update Scrum Revision Change</description>
+        <attribute name="taskId" type="String" mode="IN" optional="false"/>
+        <attribute name="hours" type="String" mode="IN" optional="true"/>
+        <attribute name="user" type="String" mode="IN" optional="true"/>
+        <attribute name="revisionNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="revisionLink" type="String" mode="IN" optional="true"/>
+        <attribute name="revisionDescription" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="viewScrumRevision" engine="java" auth="true"
+        location="org.apache.ofbiz.scrum.ScrumServices" invoke="viewScrumRevision">
+        <description>view Scrum Revision</description>
+        <attribute name="revision" type="String" mode="INOUT" optional="false"/>
+        <attribute name="repository" type="String" mode="INOUT" optional="false"/>
+        <attribute name="logMessage" type="String" mode="OUT" optional="true"/>
+        <attribute name="diffMessage" type="String" mode="OUT" optional="true"/>
+    </service>
+    <service name="retrieveMissingScrumRevision" engine="java" auth="true"
+        location="org.apache.ofbiz.scrum.ScrumServices" invoke="retrieveMissingScrumRevision">
+        <description>Retrieve Missing Scrum Revision</description>
+        <attribute name="latestRevision" type="String" mode="IN" optional="false"/>
+        <attribute name="repositoryRoot" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="removeDuplicateScrumRevision" engine="java" auth="true"
+        location="org.apache.ofbiz.scrum.ScrumServices" invoke="removeDuplicateScrumRevision">
+        <description>Remove Duplicate Scrum Revision</description>
+        <attribute name="repositoryRoot" type="String" mode="IN" optional="false"/>
+    </service>
+    
+    <service name="linkToProduct" engine="java" auth="true"
+        location="org.apache.ofbiz.scrum.ScrumServices" invoke="linkToProduct">
+        <description>check when a comunication event is created if the subject contains the PD# string, if so 
+                try to find the customer request and link it to the communication event..
+        </description>
+        <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>
+    </service>
+</services>

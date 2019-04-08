@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
+        
+    <simple-method method-name="testDailyMinute" short-description="Daily Meeting Minute Test" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="admin"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/> 
+        <set field="parameters.userLogin" from-field="userLogin"/>
+        <set field="parameters.workEffortId" value="TEST_WE_006"/>
+        <set field="noteData.noteId" value="NOTE-1"/>
+        <set field="noteData.noteName" value="NOTE-1-Name"/>
+        <set field="noteData.noteInfo" value="NoteInfo"/>
+        <set field="noteData.noteParty" from-field="userLogin"/>
+        <set field="noteData.partyId" value="admin"/>
+        <set field="noteData.noteDateTime" value="2010-10-13" type="Timestamp"/>
+        <call-simple-method method-name="createDailyNote" xml-resource="component://scrum/minilang/ScrumEvents.xml"/>
+    </simple-method>
+</simple-methods>

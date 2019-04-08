@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
+
+    <simple-method method-name="testCreateQuoteWorkEffort" short-description="Test case for successfully creating a QuoteWorkEffort record." login-required="false">
+        <entity-one entity-name="UserLogin" value-field="serviceCtx.userLogin">
+            <field-map field-name="userLoginId" value="DemoRepStore"/>
+        </entity-one>
+        <set field="serviceCtx.quoteId" value="9000"/>
+        <set field="serviceCtx.workEffortId" value="9007"/>
+
+        <!-- Execute the service -->
+        <call-service service-name="createQuoteWorkEffort" in-map-name="serviceCtx">
+            <results-to-map map-name="serviceResult"/>
+        </call-service>
+
+        <!-- Confirm the service output parameters -->
+        <assert>
+            <if-compare-field field="serviceResult.quoteId" operator="equals" to-field="serviceCtx.quoteId"/>
+            <if-compare-field field="serviceResult.workEffortId" operator="equals" to-field="serviceCtx.workEffortId"/>
+        </assert>
+
+        <!-- Confirm the database changes -->
+        <entity-one entity-name="QuoteWorkEffort" value-field="quoteWorkEffort">
+            <field-map field-name="quoteId" from-field="serviceCtx.quoteId"/>
+            <field-map field-name="workEffortId" from-field="serviceCtx.workEffortId"/>
+        </entity-one>
+        <assert><not><if-empty field="quoteWorkEffort"/></not></assert>
+        <check-errors/>
+    </simple-method>
+    
+    <simple-method method-name="testCreateQuoteWorkEffortFail" 
+        short-description="Test case for unsuccessfully creating a QuoteWorkEffort record by attempting to use a quoteId and workEffortId that has already been used in an existing QuoteWorkEffortRecord." login-required="false">
+
+        <!-- Use to confirm nothing has changed at the end of the test -->
+        <set field="startTime" value="${date:nowTimestamp()}" type="Timestamp"/>
+
+        <entity-one entity-name="UserLogin" value-field="serviceCtx.userLogin">
+            <field-map field-name="userLoginId" value="DemoRepStore"/>
+        </entity-one>
+
+        <set field="serviceCtx.quoteId" value="9000"/>
+        <set field="serviceCtx.workEffortId" value="9007"/>
+
+        <!-- Execute the service, note break-on-error is false so that the test itself doesn't
+             fail and we also need a separate transaction so our lookup below doesn't fail due to the rollback -->
+        <call-service service-name="createQuoteWorkEffort" in-map-name="serviceCtx" 
+            break-on-error="false" require-new-transaction="true">
+            <results-to-map map-name="serviceResult"/>
+        </call-service>
+        <!-- Clear these because break-on-error="false" doesn't seem to work as it should at the moment -->
+        <clear-field field="responseMessage"/>
+        <clear-field field="errorMessageList"/>
+
+        <!-- Confirm the service output parameters, in this case the presence of an error response -->
+        <assert><if-compare field="serviceResult.responseMessage" operator="equals" value="error"/></assert>
+
+        <!-- Confirm the database changes, in this case nothing should have changed -->
+        <entity-condition entity-name="QuoteWorkEffort" list="quoteWorkEfforts">
+            <condition-list>
+                <condition-expr field-name="lastUpdatedStamp" operator="greater-equals" from-field="startTime"/>
+                <condition-expr field-name="quoteId" from-field="serviceCtx.quoteId"/>
+                <condition-expr field-name="workEffortId" from-field="serviceCtx.workEffortId"/>
+            </condition-list>
+        </entity-condition>
+        <!--  Should be empty -->
+        <assert><if-empty field="quoteWorkEffort"/></assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testCreateWorkEffortAndQuoteWorkEffort" login-required="false"
+        short-description="Test case for calling createQuoteWorkEffort without a workEffortId which triggers an ECA to create the WorkEffort first">
+        <entity-one entity-name="UserLogin" value-field="serviceCtx.userLogin">
+            <field-map field-name="userLoginId" value="flexadmin"/>
+        </entity-one>
+        <!-- Use the bare minimum inputs necessary to create the work effort as we aren't testing that service, only that it plays well as an ECA -->
+        <set field="serviceCtx.currentStatusId" value="ROU_ACTIVE"/>
+        <set field="serviceCtx.workEffortName" value="Test WorkEffort"/>
+        <set field="serviceCtx.workEffortTypeId" value="ROUTING"/>
+        <set field="serviceCtx.quoteId" value="9000"/>
+
+        <call-service service-name="createQuoteWorkEffort" in-map-name="serviceCtx">
+            <results-to-map map-name="serviceResult"/>
+        </call-service>
+
+        <assert>
+            <and>
+                <if-compare-field field="serviceResult.quoteId" operator="equals" to-field="serviceCtx.quoteId"/>
+                <not><if-empty field="serviceResult.workEffortId"/></not>
+            </and>
+        </assert>
+        <!-- Confirm that a matching WorkEffort was created -->
+        <entity-and entity-name="WorkEffort" list="workEfforts">
+            <field-map field-name="workEffortId" from-field="serviceResult.workEffortId"/>
+            <field-map field-name="currentStatusId" from-field="serviceCtx.currentStatusId"/>
+            <field-map field-name="workEffortName" from-field="serviceCtx.workEffortName"/>
+            <field-map field-name="workEffortTypeId" from-field="serviceCtx.workEffortTypeId"/>
+        </entity-and>
+        <assert>
+            <not><if-empty field="workEfforts"/></not>
+        </assert>
+        <entity-one entity-name="QuoteWorkEffort" value-field="quoteWorkEffort">
+            <field-map field-name="quoteId" from-field="serviceCtx.quoteId"/>
+            <field-map field-name="workEffortId" from-field="serviceResult.workEffortId"/>
+        </entity-one>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testCreateQuoteTerm" short-description="create a term" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="serviceCtx.termTypeId" value="FIN_PAYMENT_DISC"/>
+        <set field="serviceCtx.quoteId" value="9000"/>
+        <set field="serviceCtx.quoteItemSeqId" value="00001"/>
+        <set field="serviceCtx.termValue" value="40" type="Long"/>
+        <set field="serviceCtx.termDays" value="4" type="Long"/>
+        <set field="serviceCtx.uomId" value="CNY"/>
+        <set field="serviceCtx.description" value="create quoteterm"/>
+        <call-service service-name="createQuoteTerm" in-map-name="serviceCtx">
+            <results-to-map map-name="serviceResult"/>
+        </call-service>
+<!--         Confirm that a matching Quoteterm was created -->
+        <entity-and entity-name="QuoteTerm" list="quoteTermList">
+            <field-map field-name="termTypeId" from-field="serviceCtx.termTypeId"/>
+            <field-map field-name="quoteId" from-field="serviceCtx.quoteId"/>
+            <field-map field-name="quoteItemSeqId" from-field="serviceCtx.quoteItemSeqId"/>
+        </entity-and>
+        <first-from-list list="quoteTermList" entry="quoteTerm"/>
+        <assert>
+           <not><if-empty field="quoteTerm"/></not>
+           <if-compare-field operator="equals" to-field="quoteTerm.termTypeId" field="serviceCtx.termTypeId"/>
+           <if-compare-field operator="equals" to-field="quoteTerm.quoteId" field="serviceCtx.quoteId"/>
+           <if-compare-field operator="equals" to-field="quoteTerm.quoteItemSeqId" field="serviceCtx.quoteItemSeqId"/>
+           <if-compare-field operator="equals" to-field="quoteTerm.termValue" field="serviceCtx.termValue"/>
+           <if-compare-field operator="equals" to-field="quoteTerm.termDays" field="serviceCtx.termDays"/>
+           <if-compare-field operator="equals" to-field="quoteTerm.uomId" field="serviceCtx.uomId"/>
+           <if-compare-field operator="equals" to-field="quoteTerm.description" field="serviceCtx.description"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testUpdateQuoteTerm" short-description="update a term" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="serviceCtx.termTypeId" value="FIN_PAYMENT_DISC"/>
+        <set field="serviceCtx.quoteId" value="9000"/>
+        <set field="serviceCtx.quoteItemSeqId" value="00001"/>
+        <set field="serviceCtx.termValue" value="30" type="Long"/>
+        <set field="serviceCtx.termDays" value="3" type="Long"/>
+        <set field="serviceCtx.uomId" value="CNY"/>
+        <set field="serviceCtx.description" value="update quoteterm"/>
+        <call-service service-name="updateQuoteTerm" in-map-name="serviceCtx">
+            <results-to-map map-name="serviceResult"/>
+        </call-service>
+<!--         Confirm that a matching Quoteterm was updated -->
+        <entity-one entity-name="QuoteTerm" value-field="quoteTerm">
+            <field-map field-name="termTypeId" from-field="serviceCtx.termTypeId"/>
+            <field-map field-name="quoteId" from-field="serviceCtx.quoteId"/>
+            <field-map field-name="quoteItemSeqId" from-field="serviceCtx.quoteItemSeqId"/>
+        </entity-one>
+        <assert>
+            <not><if-empty field="quoteTerm"/></not>
+            <if-compare-field operator="equals" to-field="quoteTerm.termTypeId" field="serviceCtx.termTypeId"/>
+            <if-compare-field operator="equals" to-field="quoteTerm.quoteId" field="serviceCtx.quoteId"/>
+            <if-compare-field operator="equals" to-field="quoteTerm.quoteItemSeqId" field="serviceCtx.quoteItemSeqId"/>
+            <if-compare-field operator="equals" to-field="quoteTerm.termValue" field="serviceCtx.termValue"/>
+            <if-compare-field operator="equals" to-field="quoteTerm.termDays" field="serviceCtx.termDays"/>
+            <if-compare-field operator="equals" to-field="quoteTerm.uomId" field="serviceCtx.uomId"/>
+            <if-compare-field operator="equals" to-field="quoteTerm.description" field="serviceCtx.description"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testDeleteQuoteTerm" short-description="delete a term" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="serviceCtx.termTypeId" value="FIN_PAYMENT_DISC"/>
+        <set field="serviceCtx.quoteId" value="9000"/>
+        <set field="serviceCtx.quoteItemSeqId" value="00001"/>
+        <call-service service-name="deleteQuoteTerm" in-map-name="serviceCtx">
+            <results-to-map map-name="serviceResult"/>
+        </call-service>
+        <entity-one entity-name="QuoteTerm" value-field="quoteTerm">
+            <field-map field-name="termTypeId" from-field="serviceCtx.termTypeId"/>
+            <field-map field-name="quoteId" from-field="serviceCtx.quoteId"/>
+            <field-map field-name="quoteItemSeqId" from-field="serviceCtx.quoteItemSeqId"/>
+        </entity-one>
+        <assert>
+            <if-empty field="quoteTerm"/>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testCreateQuote" short-description="Create Quote" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="serviceCtx.partyId" value="Company"/>
+        <call-service service-name="createQuote" in-map-name="serviceCtx">
+            <results-to-map map-name="serviceResult"/>
+        </call-service>
+        <assert>
+            <not><if-empty field="serviceResult"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testCreateQuoteAttribute" short-description="Create Quote Attribute" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="serviceCtx.quoteId" value="CQ0001"/>
+        <set field="serviceCtx.attrName" value="Test"/>
+        <call-service service-name="createQuoteAttribute" in-map-name="serviceCtx">
+            <results-to-map map-name="serviceResult"/>
+        </call-service>
+        <assert>
+            <not><if-empty field="serviceResult"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testCreateQuoteCoefficient" short-description="Create Quote Coefficient" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="serviceCtx.quoteId" value="CQ0001"/>
+        <set field="serviceCtx.coeffName" value="Test"/>
+        <call-service service-name="createQuoteCoefficient" in-map-name="serviceCtx">
+            <results-to-map map-name="serviceResult"/>
+        </call-service>
+        <assert>
+            <not><if-empty field="serviceResult"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testGetNextQuoteId" short-description="Get Next Quote Id" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="serviceCtx.partyId" value="DemoCustomer-1"/>
+        <call-service service-name="getNextQuoteId" in-map-name="serviceCtx">
+            <results-to-map map-name="quoteId"/>
+        </call-service>
+        <assert>
+            <not><if-empty field="quoteId"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+    <simple-method method-name="testCopyQuoteItem" short-description="Copy Quote Item" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="serviceCtx.quoteId" value="CQ0001"/>
+        <set field="serviceCtx.quoteItemSeqId" value="00001"/>
+        <call-service service-name="copyQuoteItem" in-map-name="serviceCtx">
+            <results-to-map map-name="serviceResult"/>
+        </call-service>
+        <assert>
+            <not><if-empty field="serviceResult"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+</simple-methods>
