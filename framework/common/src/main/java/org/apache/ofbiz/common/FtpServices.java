@@ -120,11 +120,6 @@ public class FtpServices {
             } catch (Exception e) {
                 Debug.logWarning(e, "[putFile] Problem with FTP disconnect: ", module);
             }
-            try {
-                localFile.close();
-            } catch (Exception e) {
-                Debug.logWarning(e, "[putFile] Problem closing local file: ", module);
-            }
         }
         if (errorList.size() > 0) {
             Debug.logError("[putFile] The following error(s) (" + errorList.size() + ") occurred: " + errorList, module);
@@ -187,11 +182,6 @@ public class FtpServices {
                 }
             } catch (Exception e) {
                 Debug.logWarning(e, "[getFile] Problem with FTP disconnect: ", module);
-            }
-            try {
-                localFile.close();
-            } catch (Exception e) {
-                Debug.logWarning(e, "[getFile] Problem closing local file: ", module);
             }
         }
         if (errorList.size() > 0) {

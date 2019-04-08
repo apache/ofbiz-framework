@@ -283,40 +283,22 @@ public final class MiniLangUtil {
      */
     public static void writeMiniLangDocument(URL xmlURL, Document document) {
         URL styleSheetURL = null;
-        InputStream styleSheetInStream = null;
         Transformer transformer = null;
         try {
             styleSheetURL = FlexibleLocation.resolveLocation("component://minilang/config/MiniLang.xslt");
-            styleSheetInStream = styleSheetURL.openStream();
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            try (InputStream styleSheetInStream = styleSheetURL.openStream()) {
             transformer = transformerFactory.newTransformer(new StreamSource(styleSheetInStream));
+            }
         } catch (Exception e) {
             Debug.logWarning(e, "Error reading minilang/config/MiniLang.xslt: ", module);
             return;
-        } finally {
-            if (styleSheetInStream != null) {
-                try {
-                    styleSheetInStream.close();
-                } catch (IOException e) {
-                    Debug.logWarning(e, "Error closing minilang/config/MiniLang.xslt: ", module);
-                }
-            }
         }
-        FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(xmlURL.getFile());
+        try (FileOutputStream fos = new FileOutputStream(xmlURL.getFile())) {
             UtilXml.transformDomDocument(transformer, document, fos);
             Debug.logInfo("Saved Mini-language file " + xmlURL, module);
         } catch (Exception e) {
             Debug.logWarning(e, "Error writing mini-language file " + xmlURL + ": ", module);
-        } finally {
-            if (fos != null) {
-                try {
-                    fos.close();
-                } catch (IOException e) {
-                    Debug.logWarning(e, "Error closing " + xmlURL + ": ", module);
-                }
-            }
         }
     }
 
