@@ -33,7 +33,7 @@ under the License.
             <field-map field-name="userLoginId" value="DemoCustomer"/>
         </entity-one>
         <set field="serviceCtx.userLogin" from-field="userLogin"/>
-        <call-service service-name="createShoppingList" in-map-name="serviceCtx">
+        <call-service service-name="createShoppingList" in-map-name="serviceCtx" require-new-transaction="true">
             <result-to-field result-name="shoppingListId"/>
         </call-service>
         <entity-one entity-name="ShoppingList" value-field="shoppingList"/>

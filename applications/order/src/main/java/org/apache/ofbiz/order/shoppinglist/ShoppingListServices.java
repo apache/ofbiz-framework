@@ -291,7 +291,7 @@ public class ShoppingListServices {
                 Map<String, Object> newListResult = null;
                 try {
 
-                    newListResult = dispatcher.runSync("createShoppingList", serviceCtx);
+                    newListResult = dispatcher.runSync("createShoppingList", serviceCtx, 90, true););
                 } catch (GenericServiceException e) {
                     Debug.logError(e, "Problems creating new ShoppingList", module);
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderUnableToCreateNewShoppingList",locale));
