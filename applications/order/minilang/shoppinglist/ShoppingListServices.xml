@@ -307,7 +307,7 @@ under the License.
             <set field="createShoppingListInMap.listName" value="Auto Suggestions"/>
             <set field="createShoppingListInMap.shoppingListTypeId" value="SLT_WISH_LIST"/>
             <set field="createShoppingListInMap.productStoreId" from-field="parameters.productStoreId"/>
-            <call-service service-name="createShoppingList" in-map-name="createShoppingListInMap">
+            <call-service service-name="createShoppingList" in-map-name="createShoppingListInMap" require-new-transaction="true">
                 <result-to-field result-name="shoppingListId"/>
             </call-service>
         <else>

@@ -104,7 +104,10 @@ public class ShoppingListEvents {
             // create a new shopping list
             Map<String, Object> newListResult = null;
             try {
-                newListResult = dispatcher.runSync("createShoppingList", UtilMisc.<String, Object>toMap("userLogin", userLogin, "productStoreId", cart.getProductStoreId(), "partyId", cart.getOrderPartyId(), "shoppingListTypeId", shoppingListTypeId, "currencyUom", cart.getCurrency()));
+                newListResult = dispatcher.runSync("createShoppingList", UtilMisc.<String, Object>toMap("userLogin", userLogin, 
+                        "productStoreId", cart.getProductStoreId(), "partyId", cart.getOrderPartyId(), 
+                        "shoppingListTypeId", shoppingListTypeId, "currencyUom", cart.getCurrency()),
+                        90, true);
             } catch (GenericServiceException e) {
                 Debug.logError(e, "Problems creating new ShoppingList", module);
                 errMsg = UtilProperties.getMessage(resource_error,"shoppinglistevents.cannot_create_new_shopping_list", cart.getLocale());
@@ -373,7 +376,7 @@ public class ShoppingListEvents {
         }
         if (list == null && dispatcher != null) {
             Map<String, Object> listFields = UtilMisc.<String, Object>toMap("userLogin", userLogin, "productStoreId", productStoreId, "shoppingListTypeId", "SLT_SPEC_PURP", "listName", PERSISTANT_LIST_NAME);
-            Map<String, Object> newListResult = dispatcher.runSync("createShoppingList", listFields);
+            Map<String, Object> newListResult = dispatcher.runSync("createShoppingList", listFields, 90, true););
 
             if (newListResult != null) {
                 autoSaveListId = (String) newListResult.get("shoppingListId");
@@ -649,7 +652,7 @@ public class ShoppingListEvents {
             if (UtilValidate.isEmpty(autoSaveListId)) {
                 try {
                     Map<String, Object> listFields = UtilMisc.<String, Object>toMap("userLogin", userLogin, "productStoreId", productStoreId, "shoppingListTypeId", "SLT_SPEC_PURP", "listName", PERSISTANT_LIST_NAME);
-                    Map<String, Object> newListResult = dispatcher.runSync("createShoppingList", listFields);
+                    Map<String, Object> newListResult = dispatcher.runSync("createShoppingList", listFields, 90, true););
                     if (newListResult != null) {
                         autoSaveListId = (String) newListResult.get("shoppingListId");
                     }
