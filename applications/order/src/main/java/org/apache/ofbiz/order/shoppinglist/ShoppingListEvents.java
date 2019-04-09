@@ -376,7 +376,7 @@ public class ShoppingListEvents {
         }
         if (list == null && dispatcher != null) {
             Map<String, Object> listFields = UtilMisc.<String, Object>toMap("userLogin", userLogin, "productStoreId", productStoreId, "shoppingListTypeId", "SLT_SPEC_PURP", "listName", PERSISTANT_LIST_NAME);
-            Map<String, Object> newListResult = dispatcher.runSync("createShoppingList", listFields, 90, true););
+            Map<String, Object> newListResult = dispatcher.runSync("createShoppingList", listFields, 90, true);
 
             if (newListResult != null) {
                 autoSaveListId = (String) newListResult.get("shoppingListId");
@@ -652,7 +652,7 @@ public class ShoppingListEvents {
             if (UtilValidate.isEmpty(autoSaveListId)) {
                 try {
                     Map<String, Object> listFields = UtilMisc.<String, Object>toMap("userLogin", userLogin, "productStoreId", productStoreId, "shoppingListTypeId", "SLT_SPEC_PURP", "listName", PERSISTANT_LIST_NAME);
-                    Map<String, Object> newListResult = dispatcher.runSync("createShoppingList", listFields, 90, true););
+                    Map<String, Object> newListResult = dispatcher.runSync("createShoppingList", listFields, 90, true);
                     if (newListResult != null) {
                         autoSaveListId = (String) newListResult.get("shoppingListId");
                     }
