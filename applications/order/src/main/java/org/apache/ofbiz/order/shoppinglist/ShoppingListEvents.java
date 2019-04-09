@@ -375,7 +375,7 @@ public class ShoppingListEvents {
         }
         if (list == null && dispatcher != null) {
             Map<String, Object> listFields = UtilMisc.<String, Object>toMap("userLogin", userLogin, "productStoreId", productStoreId, "shoppingListTypeId", "SLT_SPEC_PURP", "listName", PERSISTANT_LIST_NAME);
-            Map<String, Object> newListResult = dispatcher.runSync("createShoppingList", listFields, 90, true););
+            Map<String, Object> newListResult = dispatcher.runSync("createShoppingList", listFields, 90, true);
             if (ServiceUtil.isError(newListResult)) {
                 String errorMessage = ServiceUtil.getErrorMessage(newListResult);
                 Debug.logError(errorMessage, module);
@@ -655,7 +655,7 @@ public class ShoppingListEvents {
             if (UtilValidate.isEmpty(autoSaveListId)) {
                 try {
                     Map<String, Object> listFields = UtilMisc.<String, Object>toMap("userLogin", userLogin, "productStoreId", productStoreId, "shoppingListTypeId", "SLT_SPEC_PURP", "listName", PERSISTANT_LIST_NAME);
-                    Map<String, Object> newListResult = dispatcher.runSync("createShoppingList", listFields, 90, true););
+                    Map<String, Object> newListResult = dispatcher.runSync("createShoppingList", listFields, 90, true);
                     if (ServiceUtil.isError(newListResult)) {
                         String errorMessage = ServiceUtil.getErrorMessage(newListResult);
                         Debug.logError(errorMessage, module);
