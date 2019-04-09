@@ -3603,25 +3603,6 @@
         <value xml:lang="zh">从请求创建询价</value>
         <value xml:lang="zh-TW">由請求建立報價</value>
     </property>
-    <property key="OrderCreateQuoteFromShoppingList">
-        <value xml:lang="ar">خلق عرض سعر جديد</value>
-        <value xml:lang="de">Neues Angebot erstellen</value>
-        <value xml:lang="de-CH">Neue Offerte erstellen</value>
-        <value xml:lang="en">Create New Quote</value>
-        <value xml:lang="es">Crear presupuesto desde lista de compras</value>
-        <value xml:lang="fr">Créer un nouveau devis</value>
-        <value xml:lang="it">Creare Nuovo Preventivo</value>
-        <value xml:lang="ja">新規見積を作成</value>
-        <value xml:lang="nl">Nieuwe offerte</value>
-        <value xml:lang="pt-BR">Criar nova cotação</value>
-        <value xml:lang="ro">Creare Noua Oferta</value>
-        <value xml:lang="ru">Создать новое предложение</value>
-        <value xml:lang="th">สร้างคำร้อง</value>
-        <value xml:lang="vi">Thêm mới Báo giá</value>
-        <value xml:lang="zh">新建询价</value>
-        <value xml:lang="zh-CN">新建报价</value>
-        <value xml:lang="zh-TW">建立報價</value>
-    </property>
     <property key="OrderCreateQuoteWorkEffort">
         <value xml:lang="ar">خلق عرض سعر جديد لجهد عمل</value>
         <value xml:lang="de">Neues Angebot für Arbeitsaufwand erstellen</value>
