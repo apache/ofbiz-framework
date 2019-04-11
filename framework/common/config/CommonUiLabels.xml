@@ -5641,12 +5641,14 @@
     <property key="CommonImport">
         <value xml:lang="en">Import</value>
         <value xml:lang="es-CL">Importar</value>
+        <value xml:lang="fr">Importer</value>
         <value xml:lang="zh">导入</value>
         <value xml:lang="zh-TW">匯入</value>
     </property>
     <property key="CommonImportExport">
         <value xml:lang="en">Import/Export</value>
         <value xml:lang="es-CL">Importar/Exportar</value>
+        <value xml:lang="fr">Importer/Exporter</value>
         <value xml:lang="zh">导入/导出</value>
         <value xml:lang="zh-TW">匯入/匯出</value>
     </property>
