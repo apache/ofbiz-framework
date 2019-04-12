@@ -30,7 +30,7 @@ plugins {
     id 'eclipse'
     id 'maven-publish'
     id 'at.bxm.svntools' version '2.2.1'
-    id 'org.asciidoctor.convert' version '1.5.8.1'  // Rather than using 1.5.9.2 see OFBIZ-10693
+    id 'org.asciidoctor.convert' version '2.0.0'
     id 'org.owasp.dependencycheck' version '3.0.2' apply false
 }
 
