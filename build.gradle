@@ -29,7 +29,7 @@ buildscript {
     }
     dependencies {
         classpath 'at.bxm.gradleplugins:gradle-svntools-plugin:latest.release'
-        classpath 'org.asciidoctor:asciidoctor-gradle-plugin:2.0.0'
+        classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.8.1' // Rather than using 1.5.9.2 see OFBIZ-10693
         classpath 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.16'
     }
 }
