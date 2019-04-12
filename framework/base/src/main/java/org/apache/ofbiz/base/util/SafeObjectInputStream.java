@@ -60,9 +60,9 @@ public class SafeObjectInputStream extends java.io.ObjectInputStream {
     @Override
     protected Class<?> resolveClass(ObjectStreamClass classDesc) throws IOException, ClassNotFoundException {
         if (!WHITELIST_PATTERN.matcher(classDesc.getName()).find()) {
-            Debug.logWarning("************************Incompatible class: " + classDesc.getName() + 
+            Debug.logWarning("***Incompatible class***: " + classDesc.getName() + 
                     ". Please see OFBIZ-10837.  Report to dev ML if you use OFBiz without changes. "
-                    + "Else add you class into UtilObject::getObjectException", "SafeObjectInputStream");
+                    + "Else add your class into UtilObject::getObjectException", "SafeObjectInputStream");
             throw new ClassCastException("Incompatible class: " + classDesc.getName());
         }
         
@@ -78,7 +78,8 @@ public class SafeObjectInputStream extends java.io.ObjectInputStream {
         for (int i = 0; i < interfaces.length; i++) {
             cinterfaces[i] = classloader.loadClass(interfaces[i]);
         }
-
+        //Proxy.getInvocationHandler(proxy)
+        
         try {
             return Proxy.getProxyClass(classloader, cinterfaces);
         } catch (IllegalArgumentException e) {
