@@ -133,6 +133,8 @@ under the License.
                 <script location="component://common/groovyScripts/InitTheme.groovy"/>
                 <set field="commonDecoratorLocation" from-field="layoutSettings.VT_COMMON_DECO_LOC" default-value="component://common-theme/widget/CommonScreens.xml" global="true"/>
                 <set field="initialLocaleComplete" type="String" value="${groovy:parameters?.userLogin?.lastLocale}" default-value="${groovy:locale.toString()}" global="true"/>
+                <!-- FIXME this is only temporary a more elaborate solution would be preferred, see OFBIZ-9241 -->
+                <set field="isEcommercePresent" value="${groovy:null != org.apache.ofbiz.base.util.UtilURL.fromOfbizHomePath('plugins/ecommerce/ofbiz-component.xml')}" type="Boolean" global="true"/>
             </actions>
             <widgets />
         </section>
