@@ -58,7 +58,9 @@ version 8 installed on your system (not just the JRE, but the full JDK) which
 you can download from the below link. Make sure of setting the $JAVA_HOME
 environment variable.
 
-http://www.oracle.com/technetwork/java/javase/downloads/index.html[JDK download]
+https://adoptopenjdk.net/[JDK download]
+
+https://medium.com/@javachampions/java-is-still-free-2-0-0-6b9aa8d6d244[To know more about the JDK]
 
 [[quick-start]]
 // tag::quickstart[]
