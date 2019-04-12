@@ -30,6 +30,7 @@ import java.util.Locale;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
+import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
 
@@ -295,6 +296,26 @@ public class MiscConverters implements ConverterLoader {
 
         public Charset convert(String obj) throws ConversionException {
             return Charset.forName(obj);
+        }
+    }
+
+    public static class StringBufferToString extends AbstractConverter<StringBuffer, String> {
+        public StringBufferToString() {
+            super(StringBuffer.class, String.class);
+        }
+
+        public String convert(StringBuffer obj) throws ConversionException {
+            return obj.toString();
+        }
+    }
+
+    public static class StringWrapperToString extends AbstractConverter<StringUtil.StringWrapper, String> {
+        public StringWrapperToString() {
+            super(StringUtil.StringWrapper.class, String.class);
+        }
+
+        public String convert(StringUtil.StringWrapper obj) {
+            return obj.toString();
         }
     }
 
