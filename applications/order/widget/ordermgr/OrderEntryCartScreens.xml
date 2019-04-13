@@ -121,7 +121,7 @@ under the License.
                 <script location="component://order/groovyScripts/entry/ShowPromoText.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonOrderEntryDecorator" location="component://order/widget/ordermgr/OrderEntryCommonScreens.xml">
+                <decorator-screen name="CommonOrderCatalogDecorator" location="component://order/widget/ordermgr/OrderEntryCommonScreens.xml">
                     <decorator-section name="body">
                         <platform-specific><html><html-template location="component://order/template/entry/cart/ShowAllPromotions.ftl"/></html></platform-specific>
                     </decorator-section>
@@ -137,7 +137,7 @@ under the License.
                 <script location="component://order/groovyScripts/entry/cart/ShowPromotionDetails.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonOrderEntryDecorator" location="component://order/widget/ordermgr/OrderEntryCommonScreens.xml">
+                <decorator-screen name="CommonOrderCatalogDecorator" location="component://order/widget/ordermgr/OrderEntryCommonScreens.xml">
                     <decorator-section name="body">
                         <include-screen name="promotion"/>
                     </decorator-section>
