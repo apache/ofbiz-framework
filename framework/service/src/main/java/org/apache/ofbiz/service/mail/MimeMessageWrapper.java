@@ -105,10 +105,9 @@ public class MimeMessageWrapper implements java.io.Serializable {
         if (message == null) {
             // deserialize the message
             if (serializedBytes != null) {
-                ByteArrayInputStream bais = new ByteArrayInputStream(serializedBytes);
-                try {
+                try (ByteArrayInputStream bais = new ByteArrayInputStream(serializedBytes)){
                     message = new MimeMessage(this.getSession(), bais);
-                } catch (MessagingException e) {
+                } catch (MessagingException | IOException e) {
                     Debug.logError(e, module);
                     throw new GeneralRuntimeException(e.getMessage(), e);
                 }
@@ -393,8 +392,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
     public ByteBuffer getPartByteBuffer(String index) {
         BodyPart part = getPart(index);
         if (part != null) {
-            try {
-                InputStream stream = part.getInputStream();
+            try (InputStream stream = part.getInputStream()) {
                 return getByteBufferFromStream(stream);
             } catch (Exception e) {
                 Debug.logError(e, module);
@@ -510,18 +508,16 @@ public class MimeMessageWrapper implements java.io.Serializable {
     }
 
     protected ByteBuffer getByteBufferFromStream(InputStream stream) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
         byte[] buffer = new byte[4096];
-        try {
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
             for (int n; (n = stream.read(buffer)) != -1;) {
                 baos.write(buffer, 0, n);
             }
+            return ByteBuffer.wrap(baos.toByteArray());
         } catch (IOException e) {
             Debug.logError(e, module);
             return null;
         }
-
-        return ByteBuffer.wrap(baos.toByteArray());
     }
 
     static {

@@ -624,9 +624,10 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
 
     public static String renderDataResourceAsText(LocalDispatcher dispatcher, Delegator delegator, String dataResourceId, Map<String, Object> templateContext,
              Locale locale, String targetMimeTypeId, boolean cache) throws GeneralException, IOException {
-        Writer writer = new StringWriter();
+        try (Writer writer = new StringWriter()) {
         renderDataResourceAsText(dispatcher, delegator, dataResourceId, writer, templateContext, locale, targetMimeTypeId, cache, null);
         return writer.toString();
+        }
     }
 
     public static String renderDataResourceAsText(LocalDispatcher dispatcher, String dataResourceId, Appendable out,
@@ -884,14 +885,13 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
             URL url = FlexibleLocation.resolveLocation(dataResource.getString("objectInfo"));
 
             if (url.getHost() != null) { // is absolute
-                InputStream in = url.openStream();
                 int c;
-                StringWriter sw = new StringWriter();
+                try (InputStream in = url.openStream(); StringWriter sw = new StringWriter()) {
                 while ((c = in.read()) != -1) {
                     sw.write(c);
                 }
-                sw.close();
                 text = sw.toString();
+                }
             } else {
                 String prefix = DataResourceWorker.buildRequestPrefix(delegator, locale, webSiteId, https);
                 String sep = "";

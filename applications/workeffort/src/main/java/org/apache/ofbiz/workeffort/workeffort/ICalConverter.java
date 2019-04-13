@@ -578,9 +578,8 @@ public class ICalConverter {
             calendar = new Calendar();
         } else {
             if (Debug.verboseOn()) Debug.logVerbose("iCalendar Data found, using saved Calendar", module);
-            StringReader reader = new StringReader(iCalData);
+            try (StringReader reader = new StringReader(iCalData)) {
             CalendarBuilder builder = new CalendarBuilder();
-            try {
                 calendar = builder.build(reader);
                 newCalendar = false;
             } catch (Exception e) {

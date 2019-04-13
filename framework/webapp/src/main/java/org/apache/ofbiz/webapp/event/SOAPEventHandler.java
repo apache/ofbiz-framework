@@ -103,8 +103,7 @@ public class SOAPEventHandler implements EventHandler {
                 }
 
                 if (wsdl != null) {
-                    try {
-                        OutputStream os = response.getOutputStream();
+                    try (OutputStream os = response.getOutputStream()) {
                         response.setContentType("text/xml");
                         UtilXml.writeXmlDocument(os, wsdl);
                         response.flushBuffer();
@@ -119,8 +118,7 @@ public class SOAPEventHandler implements EventHandler {
             }
 
             if (serviceName == null) {
-                try {
-                    Writer writer = response.getWriter();
+                try (Writer writer = response.getWriter()) {
                     StringBuilder sb = new StringBuilder();
                     sb.append("<html><head><title>OFBiz SOAP/1.1 Services</title></head>");
                     sb.append("<body>No such service.").append("<p>Services:<ul>");

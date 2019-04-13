@@ -536,8 +536,7 @@ public class EmailServices {
                 
                 isMultiPart = true;
                 // start processing fo pdf attachment
-                try {
-                    Writer writer = new StringWriter();
+                try (Writer writer = new StringWriter(); ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
                     // substitute the freemarker variables...
                     ScreenStringRenderer foScreenStringRenderer = null;
                     if(MimeConstants.MIME_PLAIN_TEXT.equals(attachmentType)){
@@ -550,7 +549,6 @@ public class EmailServices {
                     screensAtt.render(xslfoAttachScreenLocation);
 
                     // create the output stream for the generation
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
                     if (MimeConstants.MIME_PLAIN_TEXT.equals(attachmentType)) {
                         baos.write(writer.toString().getBytes("UTF-8"));
@@ -560,10 +558,6 @@ public class EmailServices {
                         Fop fop = ApacheFopWorker.createFopInstance(baos, attachmentType);
                         ApacheFopWorker.transform(src, null, fop);
                     }
-
-                    // and generate the attachment
-                    baos.flush();
-                    baos.close();
 
                     // store in the list of maps for sendmail....
                     bodyParts.add(UtilMisc.<String, Object>toMap("content", baos.toByteArray(), "type", attachmentType, "filename", attachmentName));
