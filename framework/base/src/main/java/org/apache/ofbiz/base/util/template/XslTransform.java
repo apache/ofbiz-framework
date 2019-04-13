@@ -82,10 +82,11 @@ public final class XslTransform {
             // compile the xsl template
             Transformer transformer = tfactory.newTransformer(new StreamSource(template));
             // and apply the xsl template to the source document and save in a result string
-            StringWriter sw = new StringWriter();
+            try (StringWriter sw = new StringWriter()) {
             StreamResult sr = new StreamResult(sw);
             transformer.transform(source, sr);
             result = sw.toString();
+            } catch (IOException e) {}
         } else {
             Debug.logError("tfactory does not support SAX features!", module);
         }
@@ -156,8 +157,9 @@ public final class XslTransform {
         } else if (UtilValidate.isNotEmpty(inputUrl)) {
             URL url = FlexibleLocation.resolveLocation(inputUrl);
             URLConnection conn = URLConnector.openConnection(url);
-            InputStream in = conn.getInputStream();
+            try (InputStream in = conn.getInputStream()) {
             source = new StreamSource(in);
+            }
         }
         return source;
     }
