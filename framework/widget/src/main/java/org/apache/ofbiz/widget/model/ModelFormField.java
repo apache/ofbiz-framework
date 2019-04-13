@@ -224,6 +224,13 @@ public class ModelFormField {
         return this.name;
     }
 
+
+    /**
+     * Gets the current id name of the {@link ModelFormField} and if in
+     * a multi type {@link ModelForm}, suffixes it with the index row.
+     * @param context
+     * @return
+     */
     public String getCurrentContainerId(Map<String, Object> context) {
         ModelForm modelForm = this.getModelForm();
         String idName = FlexibleStringExpander.expandString(this.getIdName(), context);
@@ -433,6 +440,14 @@ public class ModelFormField {
         return headerLinkStyle;
     }
 
+    /**
+     * Gets the id name of the {@link ModelFormField} that is :
+     * <ul>
+     *     <li>The id-name" specified on the field definition
+     *     <li>Else the concatenation of the formName and fieldName
+     * </ul>
+     * @return
+     */
     public String getIdName() {
         if (UtilValidate.isNotEmpty(idName)) {
             return idName;

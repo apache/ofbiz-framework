@@ -472,15 +472,18 @@ under the License.
   </#if>
 </#macro>
 
-<#macro renderDateFindField className alert name dateType formName value defaultDateTimeString imgSrc localizedIconTitle defaultOptionFrom defaultOptionThru opEquals opSameDay opGreaterThanFromDayStart opGreaterThan opGreaterThan opLessThan opUpToDay opUpThruDay opIsEmpty localizedInputTitle="" value2="" size="" maxlength="" titleStyle="" tabindex="">
+<#macro renderDateFindField className alert id name dateType formName value defaultDateTimeString imgSrc localizedIconTitle defaultOptionFrom defaultOptionThru opEquals opSameDay opGreaterThanFromDayStart opGreaterThan opGreaterThan opLessThan opUpToDay opUpThruDay opIsEmpty conditionGroup="" localizedInputTitle="" value2="" size="" maxlength="" titleStyle="" tabindex="">
+  <#if conditionGroup?has_content>
+    <input type="hidden" name="${name}_grp" value="${conditionGroup}"/>
+  </#if>
   <span class="view-calendar">
-    <input id="${name?html}_fld0_value" type="text" <@renderClass className alert /><#if name?has_content> name="${name?html}_fld0_value"</#if><#if localizedInputTitle?has_content> title="${localizedInputTitle}"</#if><#if value?has_content> value="${value}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if>/><#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
+    <input id="${id}_fld0_value" type="text" <@renderClass className alert /><#if name?has_content> name="${name?html}_fld0_value"</#if><#if localizedInputTitle?has_content> title="${localizedInputTitle}"</#if><#if value?has_content> value="${value}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if>/><#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
     <#if dateType != "time">
       <script type="text/javascript">
         <#if "date" == dateType>
-          jQuery("#${name?html}_fld0_value").datepicker({
+          jQuery("#${id}_fld0_value").datepicker({
         <#else>
-          jQuery("#${name?html}_fld0_value").datetimepicker({
+          jQuery("#${id}_fld0_value").datetimepicker({
             showSecond: true,
             <#-- showMillisec: true, -->
             timeFormat: 'HH:mm:ss',
@@ -511,13 +514,13 @@ under the License.
       </span><#rt/>
     </#if>
     <#rt/>
-    <input id="${name?html}_fld1_value" type="text" <@renderClass className alert /><#if name?has_content> name="${name}_fld1_value"</#if><#if localizedInputTitle??> title="${localizedInputTitle?html}"</#if><#if value2?has_content> value="${value2}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if>/><#rt/>
+    <input id="${id}_fld1_value" type="text" <@renderClass className alert /><#if name?has_content> name="${name}_fld1_value"</#if><#if localizedInputTitle??> title="${localizedInputTitle?html}"</#if><#if value2?has_content> value="${value2}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if>/><#rt/>
     <#if dateType != "time">
       <script type="text/javascript">
         <#if "date" == dateType>
-          jQuery("#${name?html}_fld1_value").datepicker({
+          jQuery("#${id}_fld1_value").datepicker({
         <#else>
-          jQuery("#${name?html}_fld1_value").datetimepicker({
+          jQuery("#${id}_fld1_value").datetimepicker({
             showSecond: true,
             <#-- showMillisec: true, -->
             timeFormat: 'HH:mm:ss',

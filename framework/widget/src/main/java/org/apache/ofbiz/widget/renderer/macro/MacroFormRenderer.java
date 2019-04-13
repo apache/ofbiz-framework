@@ -2039,6 +2039,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
             titleStyle = modelFormField.getTitleStyle();
         }
+        String id = modelFormField.getCurrentContainerId(context);
         String tabindex = modelFormField.getTabindex();
         StringWriter sr = new StringWriter();
         sr.append("<@renderDateFindField ");
@@ -2046,6 +2047,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append(className);
         sr.append("\" alert=\"");
         sr.append(alert);
+        sr.append("\" id=\"");
+        sr.append(id);
         sr.append("\" name=\"");
         sr.append(name);
         sr.append("\" localizedInputTitle=\"");
