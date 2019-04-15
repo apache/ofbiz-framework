@@ -145,15 +145,18 @@ under the License.
     </service>
     <service name="updateMarketingCampaignRole" default-entity-name="MarketingCampaignRole" engine="entity-auto" invoke="update" auth="true">
         <description>Update Role to Campaign</description>
+        <permission-service service-name="marketingPermissionService" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="expireMarketingCampaignRole" default-entity-name="MarketingCampaignRole" engine="entity-auto" invoke="expire" auth="true">
         <description>Expire Role from Campaign</description>
+        <permission-service service-name="marketingPermissionService" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="deleteMarketingCampaignRole" default-entity-name="MarketingCampaignRole" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove Role from Campaign</description>
+        <permission-service service-name="marketingPermissionService" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
