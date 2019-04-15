@@ -139,8 +139,8 @@ dependencies {
     implementation 'com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.4.2'
     implementation 'com.googlecode.ez-vcard:ez-vcard:0.9.10'
     implementation 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:20180219.1'
-    implementation 'com.googlecode.libphonenumber:libphonenumber:8.9.16'
-    implementation 'com.ibm.icu:icu4j:63.1'
+    implementation 'com.googlecode.libphonenumber:libphonenumber:8.10.9'
+    implementation 'com.ibm.icu:icu4j:64.1'
     implementation 'com.lowagie:itext:2.1.7' // Don't update due to license change in newer versions, see OFBIZ-10455
     implementation 'com.sun.mail:javax.mail:1.6.2'
     implementation 'com.sun.syndication:com.springsource.com.sun.syndication:0.9.0'
@@ -148,7 +148,7 @@ dependencies {
     implementation 'commons-cli:commons-cli:1.4'
     implementation 'commons-net:commons-net:3.6'
     implementation 'commons-validator:commons-validator:1.6'
-    implementation 'commons-fileupload:commons-fileupload:1.3.3'
+    implementation 'commons-fileupload:commons-fileupload:1.4'
     implementation 'de.odysseus.juel:juel-impl:2.2.7'
     implementation 'javax.el:javax.el-api:3.0.1-b06'
     implementation 'javax.servlet:javax.servlet-api:4.0.1'
@@ -156,23 +156,23 @@ dependencies {
     implementation 'junit:junit-dep:4.11'
     implementation 'net.fortuna.ical4j:ical4j:1.0-rc3-atlassian-11'
     implementation 'org.apache.ant:ant-junit:1.10.5'
-    implementation 'org.apache.axis2:axis2-kernel:1.7.8'
-    implementation 'org.apache.commons:commons-collections4:4.2'
+    implementation 'org.apache.axis2:axis2-kernel:1.7.9'
+    implementation 'org.apache.commons:commons-collections4:4.3'
     implementation 'org.apache.commons:commons-csv:1.6'
-    implementation 'org.apache.commons:commons-dbcp2:2.5.0' // When changing for 2.6.1+ we can remove ManagedDataSource::close, see DBCP-539
+    implementation 'org.apache.commons:commons-dbcp2:2.6.0' // When changing for 2.6.1+ we can remove ManagedDataSource::close, see DBCP-539
     implementation 'org.apache.geronimo.components:geronimo-transaction:3.1.4'
     implementation 'org.apache.geronimo.specs:geronimo-jms_1.1_spec:1.1.1'
-    implementation 'org.apache.httpcomponents:httpclient-cache:4.5.6'
-    implementation 'org.apache.logging.log4j:log4j-api:2.11.1' // the API of log4j 2
-    implementation 'org.apache.poi:poi:3.17'
+    implementation 'org.apache.httpcomponents:httpclient-cache:4.5.8'
+    implementation 'org.apache.logging.log4j:log4j-api:2.11.2' // the API of log4j 2
+    implementation 'org.apache.poi:poi:4.1.0'
     implementation 'org.apache.shiro:shiro-core:1.4.0'
     implementation 'org.apache.sshd:sshd-core:1.7.0'
     implementation 'org.apache.tika:tika-core:1.20'
     implementation 'org.apache.tika:tika-parsers:1.20'
-    implementation 'org.apache.tomcat:tomcat-catalina-ha:9.0.19'
-    implementation 'org.apache.tomcat:tomcat-catalina:9.0.19'
-    implementation 'org.apache.tomcat:tomcat-jasper:9.0.19'
-    implementation 'org.apache.tomcat:tomcat-tribes:9.0.19'
+    implementation 'org.apache.tomcat:tomcat-catalina-ha:9.0.17'
+    implementation 'org.apache.tomcat:tomcat-catalina:9.0.17'
+    implementation 'org.apache.tomcat:tomcat-jasper:9.0.17'
+    implementation 'org.apache.tomcat:tomcat-tribes:9.0.17'
     implementation 'org.apache.xmlgraphics:fop:2.3'
     implementation 'org.apache.xmlrpc:xmlrpc-client:3.1.3'
     implementation 'org.apache.xmlrpc:xmlrpc-server:3.1.3'
@@ -180,25 +180,25 @@ dependencies {
     implementation 'org.freemarker:freemarker:2.3.28' // Remember to change the version number in FreeMarkerWorker class when upgrading
     implementation 'org.hamcrest:hamcrest-all:1.3'
     implementation 'org.owasp.esapi:esapi:2.1.0.1'
-    implementation 'org.springframework:spring-test:5.1.2.RELEASE'
+    implementation 'org.springframework:spring-test:5.1.6.RELEASE'
     implementation 'org.zapodot:jackson-databind-java-optional:2.6.1'
     implementation 'oro:oro:2.0.8'
     implementation 'wsdl4j:wsdl4j:1.6.3'
     implementation 'org.jsoup:jsoup:1.11.3'
     implementation 'io.jsonwebtoken:jjwt:0.9.1'
-    testImplementation 'org.mockito:mockito-core:2.23.0'
+    testImplementation 'org.mockito:mockito-core:2.27.0'
     runtimeOnly 'javax.xml.soap:javax.xml.soap-api:1.4.0'
     runtimeOnly 'de.odysseus.juel:juel-spi:2.2.7'
     runtimeOnly 'net.sf.barcode4j:barcode4j-fop-ext:2.1'
     runtimeOnly 'net.sf.barcode4j:barcode4j:2.1'
-    runtimeOnly 'org.apache.axis2:axis2-transport-http:1.7.8'
-    runtimeOnly 'org.apache.axis2:axis2-transport-local:1.7.8'
+    runtimeOnly 'org.apache.axis2:axis2-transport-http:1.7.9'
+    runtimeOnly 'org.apache.axis2:axis2-transport-local:1.7.9'
     runtimeOnly 'org.apache.derby:derby:10.14.2.0'
     runtimeOnly 'org.apache.geronimo.specs:geronimo-jaxrpc_1.1_spec:1.1'
-    runtimeOnly 'org.apache.logging.log4j:log4j-1.2-api:2.11.1' // for external jars using the old log4j1.2: routes logging to log4j 2
-    runtimeOnly 'org.apache.logging.log4j:log4j-core:2.11.1' // the implementation of the log4j 2 API
-    runtimeOnly 'org.apache.logging.log4j:log4j-jul:2.11.1' // for external jars using the java.util.logging: routes logging to log4j 2
-    runtimeOnly 'org.apache.logging.log4j:log4j-slf4j-impl:2.11.1' // for external jars using slf4j: routes logging to log4j 2
+    runtimeOnly 'org.apache.logging.log4j:log4j-1.2-api:2.11.2' // for external jars using the old log4j1.2: routes logging to log4j 2
+    runtimeOnly 'org.apache.logging.log4j:log4j-core:2.11.2' // the implementation of the log4j 2 API
+    runtimeOnly 'org.apache.logging.log4j:log4j-jul:2.11.2' // for external jars using the java.util.logging: routes logging to log4j 2
+    runtimeOnly 'org.apache.logging.log4j:log4j-slf4j-impl:2.11.2' // for external jars using slf4j: routes logging to log4j 2
     runtimeOnly 'org.codeartisans.thirdparties.swing:batik-all:1.8pre-r1084380'
 
     // Dependencies defined by the plugins
