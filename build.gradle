@@ -31,7 +31,7 @@ plugins {
     id 'maven-publish'
     id 'at.bxm.svntools' version '2.2.1'
     id 'org.asciidoctor.convert' version '2.0.0'
-    id 'org.owasp.dependencycheck' version '3.0.2' apply false
+    id 'org.owasp.dependencycheck' version '5.0.0-M2' apply false
     id 'se.patrikerdes.use-latest-versions' version '0.2.9' apply false
     id 'com.github.ben-manes.versions' version '0.21.0' apply false
 }
@@ -233,8 +233,7 @@ dependencies {
     junitReport 'junit:junit:4.12'
     junitReport 'org.apache.ant:ant-junit:1.10.5'
     asciidoctor 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.16'
-    // bug workaround - see OFBIZ-9873
-    asciidoctor 'org.jruby:jruby-complete:9.2.4.0'
+    asciidoctor 'org.jruby:jruby-complete:9.2.7.0' // bug workaround - see OFBIZ-9873
 
     // Libraries downloaded manually
     implementation fileTree(dir: file("${rootDir}/lib"), include: '**/*.jar')
