@@ -4078,6 +4078,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                             orderItemAssociation.set("orderId", commitment.getString("orderId"));
                             orderItemAssociation.set("orderItemSeqId", commitment.getString("orderItemSeqId"));
                             orderItemAssociation.set("shipGroupSeqId", "_NA_");
+                            orderItemAssociation.set("toOrderId", this.getOrderId());
                             orderItemAssociation.set("toOrderItemSeqId", item.getOrderItemSeqId());
                             orderItemAssociation.set("toShipGroupSeqId", "_NA_");
                             orderItemAssociation.set("orderItemAssocTypeId", "PURCHASE_ORDER");
@@ -4092,6 +4093,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                     orderItemAssociation.set("orderId", item.getAssociatedOrderId());
                     orderItemAssociation.set("orderItemSeqId", item.getAssociatedOrderItemSeqId());
                     orderItemAssociation.set("shipGroupSeqId", csi.getAssociatedShipGroupSeqId() != null ? csi.getAssociatedShipGroupSeqId() : "_NA_");
+                    orderItemAssociation.set("toOrderId", this.getOrderId());
                     orderItemAssociation.set("toOrderItemSeqId", item.getOrderItemSeqId());
                     orderItemAssociation.set("toShipGroupSeqId", csi.getShipGroupSeqId() != null ? csi.getShipGroupSeqId() : "_NA_");
                     orderItemAssociation.set("orderItemAssocTypeId", item.getOrderItemAssocTypeId());
