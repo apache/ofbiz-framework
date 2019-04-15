@@ -137,10 +137,10 @@ under the License.
     </service>
 
     <!-- MarketingCampaignRole Services -->
-    <service name="createMarketingCampaignRole" default-entity-name="MarketingCampaignRole" engine="simple"
-            location="component://marketing/minilang/marketing/campaign/CampaignServices.xml" invoke="createMarketingCampaignRole" auth="true">
+    <service name="createMarketingCampaignRole" default-entity-name="MarketingCampaignRole" engine="entity-auto" invoke="create" auth="true">
         <description>Add Role to Campaign</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <permission-service service-name="marketingPermissionService" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateMarketingCampaignRole" default-entity-name="MarketingCampaignRole" engine="entity-auto" invoke="update" auth="true">
