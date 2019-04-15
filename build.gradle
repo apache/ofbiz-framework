@@ -32,6 +32,8 @@ plugins {
     id 'at.bxm.svntools' version '2.2.1'
     id 'org.asciidoctor.convert' version '2.0.0'
     id 'org.owasp.dependencycheck' version '3.0.2' apply false
+    id 'se.patrikerdes.use-latest-versions' version '0.2.9' apply false
+    id 'com.github.ben-manes.versions' version '0.21.0' apply false
 }
 
 /* OWASP plugin
@@ -44,6 +46,26 @@ plugins {
  */
 if (project.hasProperty('enableOwasp')) {
      apply plugin: 'org.owasp.dependencycheck'
+}
+
+/* DependencyUpdates plugin
+ *
+ * If project property "enableDependencyUpdates" is flagged then
+ * gradle will download required dependencies and
+ * activate Gradle's DependencyUpdates plugin and its related tasks.
+ *
+ * Syntax: gradlew -PenableDependencyUpdates dependencyUpdates -Drevision=release
+ *
+ * You may want to use the use-latest-versions plugin to help you in your work
+ * Syntax: 
+ *  Check only: gradlew -PenableDependencyUpdates useLatestVersions && gradlew -PenableDependencyUpdates useLatestVersionsCheck
+ *  Automated update: gradlew -PenableDependencyUpdates useLatestVersions
+ *  Beware that this is only a help. 
+ *  If you use it without check you will need to check things by yourself (can be as tedious as not using this plugin)
+ */
+if (project.hasProperty('enableDependencyUpdates')) {
+     apply plugin: 'com.github.ben-manes.versions'
+     apply plugin: 'se.patrikerdes.use-latest-versions'
 }
 
 apply from: 'common.gradle'
