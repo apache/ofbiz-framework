@@ -679,10 +679,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         this.associatedOrderItemSeqId = item.getAssociatedOrderItemSeqId();
         this.orderItemAssocTypeId = item.getOrderItemAssocTypeId();
         this.setStatusId(item.getStatusId());
-        if (UtilValidate.isEmpty(item.getOrderItemAttributes())) {
-            this.orderItemAttributes =  new HashMap<>();
-            this.orderItemAttributes.putAll(item.getOrderItemAttributes());
-        }
+        this.orderItemAttributes = item.getOrderItemAttributes() == null ? new HashMap<>() : new HashMap<>(item.getOrderItemAttributes());
         this.attributes = item.getAttributes() == null ? new HashMap<>() : new HashMap<>(item.getAttributes());
         this.setOrderItemSeqId(item.getOrderItemSeqId());
         this.locale = item.locale;
