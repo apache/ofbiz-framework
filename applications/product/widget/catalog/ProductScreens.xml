@@ -96,9 +96,6 @@ under the License.
                 <decorator-screen name="CommonProductDecorator" location="${parameters.productDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
-                            <condition>
-                                <if-service-permission service-name="acctgAgreementPermissionCheck" main-action="VIEW"/>
-                            </condition>
                             <widgets>
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                                     <decorator-section name="search-options">
@@ -109,9 +106,6 @@ under the License.
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
-                            <fail-widgets>
-                                <label style="h3">${uiLabelMap.AccountingViewPermissionError}</label>
-                            </fail-widgets>
                         </section>
                     </decorator-section>
                 </decorator-screen>
