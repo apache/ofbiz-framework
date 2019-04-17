@@ -119,7 +119,8 @@
         <field name="payToPartyId"><hidden value="${partyId}"/></field>
         <field name="partyId"><hidden value="${partyId}"/></field>
         <field name="inventoryFacilityId"><hidden value="${parameters.facilityId}"/></field>
-        <field name="visualThemeId"><hidden value="EC_DEFAULT"/></field>
+        <!-- visualThemeId must be replaced by ecomThemeId because of Entity.field names conflict. See OFBIZ-10567 -->
+        <field name="ecomThemeId" entry-name="visualThemeId"><hidden value="EC_DEFAULT"/></field>
         <field name="manualAuthIsCapture"><hidden value="N"/></field>
         <field name="prorateShipping"><hidden value="Y"/></field>
         <field name="prorateTaxes"><hidden value="Y"/></field>
