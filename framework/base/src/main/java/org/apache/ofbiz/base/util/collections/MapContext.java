@@ -28,6 +28,7 @@ import java.util.Collections;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.Locale;
 import java.util.Map;
@@ -213,8 +214,8 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
     @Override
     public Set<Map.Entry<K, V>> entrySet() {
         return entryStream()
-                // Don't use Collectors#toSet() which does not use encounter order.
-                .collect(collectingAndThen(toCollection(HashSet::new), Collections::unmodifiableSet));
+                // Use LinkedHashSet for users relying on the insertion order of the inner maps.
+                .collect(collectingAndThen(toCollection(LinkedHashSet::new), Collections::unmodifiableSet));
     }
 
     @Override
