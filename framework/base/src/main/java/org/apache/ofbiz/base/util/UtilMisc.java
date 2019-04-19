@@ -39,6 +39,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.function.Supplier;
 
 import org.apache.ofbiz.base.util.collections.MapComparator;
 import org.apache.ofbiz.entity.Delegator;
@@ -108,22 +109,38 @@ public final class UtilMisc {
     }
 
     /**
-     * Create a map from passed nameX, valueX parameters
-     * @return The resulting Map
+     * Creates a pseudo-literal map corresponding to key-values.
+     *
+     * @param kvs  the key-value pairs
+     * @return the corresponding map.
+     * @throws IllegalArgumentException when the key-value list is not even.
+     */
+    public static <K, V> Map<K, V> toMap(Object... kvs) {
+        return toMap(HashMap::new, kvs);
+    }
+
+    /**
+     * Creates a pseudo-literal map corresponding to key-values.
+     *
+     * @param constructor  the constructor used to instantiate the map
+     * @param kvs  the key-value pairs
+     * @return the corresponding map.
+     * @throws IllegalArgumentException when the key-value list is not even.
      */
     @SuppressWarnings("unchecked")
-    public static <K, V> Map<K, V> toMap(Object... data) {
-        if (data.length == 1 && data[0] instanceof Map) {
-            return UtilGenerics.<K, V>checkMap(data[0]);
+    public static <K, V> Map<K, V> toMap(Supplier<Map<K, V>> constructor, Object... kvs) {
+        if (kvs.length == 1 && kvs[0] instanceof Map) {
+            return UtilGenerics.<K, V>checkMap(kvs[0]);
         }
-        if (data.length % 2 == 1) {
-            IllegalArgumentException e = new IllegalArgumentException("You must pass an even sized array to the toMap method (size = " + data.length + ")");
+        if (kvs.length % 2 == 1) {
+            IllegalArgumentException e = new IllegalArgumentException(
+                    "You must pass an even sized array to the toMap method (size = " + kvs.length + ")");
             Debug.logInfo(e, module);
             throw e;
         }
-        Map<K, V> map = new HashMap<>();
-        for (int i = 0; i < data.length;) {
-            map.put((K) data[i++], (V) data[i++]);
+        Map<K, V> map = constructor.get();
+        for (int i = 0; i < kvs.length;) {
+            map.put((K) kvs[i++], (V) kvs[i++]);
         }
         return map;
     }
