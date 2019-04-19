@@ -73,7 +73,7 @@ under the License.
     <!-- If the Picklist status is Cancelled then cancel all the PicklistItems -->
     <eca entity="Picklist" operation="create-store" event="return">
         <condition field-name="statusId" operator="equals" value="PICKLIST_CANCELLED"/>
-        <action service="cancelPicklistAndItems" mode="async"/>
+        <action service="cancelPicklistAndItems" mode="sync"/>
     </eca>
 
     <!-- Product GroupOrder ECAs -->
