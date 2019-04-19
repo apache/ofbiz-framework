@@ -530,6 +530,7 @@ public class ShoppingCartServices {
                 cartItem.setName(item.getString("itemDescription"));
                 cartItem.setExternalId(item.getString("externalId"));
                 cartItem.setListPrice(item.getBigDecimal("unitListPrice"));
+                cartItem.setSupplierProductId(item.getString("supplierProductId"));
 
                 // load order item attributes
                 List<GenericValue> orderItemAttributesList = null;
