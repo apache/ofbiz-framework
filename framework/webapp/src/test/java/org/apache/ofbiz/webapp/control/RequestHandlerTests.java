@@ -29,7 +29,6 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.security.cert.CertificateEncodingException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -218,7 +217,7 @@ public class RequestHandlerTests {
 
         @Test
         // Check that certificates with 2.2 spec are handled correctly.
-        public void checkCertificates22() throws CertificateEncodingException {
+        public void checkCertificates22() {
             when(req.getAttribute("javax.servlet.request.X509Certificate")).thenReturn(new X509Certificate[] {});
             assertTrue(RequestHandler.checkCertificates(req, x -> true));
             assertFalse(RequestHandler.checkCertificates(req, x -> false));
