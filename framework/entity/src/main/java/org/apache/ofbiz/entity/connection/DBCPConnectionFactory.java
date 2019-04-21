@@ -111,7 +111,7 @@ public class DBCPConnectionFactory implements ConnectionFactory {
         factory.setValidationQuery(jdbcElement.getPoolJdbcTestStmt());
         factory.setDefaultReadOnly(false);
         factory.setRollbackOnReturn(false);
-        factory.setEnableAutoCommitOnReturn(false);
+        factory.setAutoCommitOnReturn(false);
         String transIso = jdbcElement.getIsolationLevel();
         if (!transIso.isEmpty()) {
             if ("Serializable".equals(transIso)) {
