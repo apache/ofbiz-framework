@@ -83,7 +83,7 @@ public final class RequestParametersToList extends MethodOperation {
             if (parameterValues != null) {
                 List<String> valueList = listFma.get(methodContext.getEnvMap());
                 if (valueList == null) {
-                    valueList = new LinkedList<String>();
+                    valueList = new LinkedList<>();
                     listFma.put(methodContext.getEnvMap(), valueList);
                 }
                 for (int i = 0; i < parameterValues.length; i++) {

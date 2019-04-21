@@ -61,7 +61,7 @@ public class ContentJsonEvents {
             );
         List<GenericValue> assocs = delegator.findList("ContentAssoc", condition, null, null, null, false);
 
-        List<Map<String, Object>> nodes = new LinkedList<Map<String, Object>>();
+        List<Map<String, Object>> nodes = new LinkedList<>();
         for (GenericValue assoc : assocs) {
             nodes.add(getTreeNode(assoc));
         }

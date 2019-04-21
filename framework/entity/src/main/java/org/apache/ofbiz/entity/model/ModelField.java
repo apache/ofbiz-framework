@@ -142,7 +142,7 @@ public final class ModelField extends ModelChild {
         List<String>validators = Collections.emptyList();
         List<? extends Element> elementList = UtilXml.childElementList(fieldElement, "validate");
         if (!elementList.isEmpty()) {
-            validators = new ArrayList<String>(elementList.size());
+            validators = new ArrayList<>(elementList.size());
             for (Element validateElement : elementList) {
                 validators.add(validateElement.getAttribute("name").intern());
             }

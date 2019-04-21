@@ -81,8 +81,8 @@ public final class EntityConfig {
         if (resourceLoaderElementList.isEmpty()) {
             throw new GenericEntityConfException("<entity-config> element child elements <resource-loader> are missing");
         } else {
-            List<ResourceLoader> resourceLoaderList = new ArrayList<ResourceLoader>(resourceLoaderElementList.size());
-            Map<String, ResourceLoader> resourceLoaderMap = new HashMap<String, ResourceLoader>();
+            List<ResourceLoader> resourceLoaderList = new ArrayList<>(resourceLoaderElementList.size());
+            Map<String, ResourceLoader> resourceLoaderMap = new HashMap<>();
             for (Element resourceLoaderElement : resourceLoaderElementList) {
                 ResourceLoader resourceLoader = new ResourceLoader(resourceLoaderElement);
                 resourceLoaderList.add(resourceLoader);
@@ -113,8 +113,8 @@ public final class EntityConfig {
         if (delegatorElementList.isEmpty()) {
             throw new GenericEntityConfException("<entity-config> element child elements <delegator> are missing");
         } else {
-            List<DelegatorElement> delegatorList = new ArrayList<DelegatorElement>(delegatorElementList.size());
-            Map<String, DelegatorElement> delegatorMap = new HashMap<String, DelegatorElement>();
+            List<DelegatorElement> delegatorList = new ArrayList<>(delegatorElementList.size());
+            Map<String, DelegatorElement> delegatorMap = new HashMap<>();
             for (Element delegatorElement : delegatorElementList) {
                 DelegatorElement delegator = new DelegatorElement(delegatorElement);
                 delegatorList.add(delegator);
@@ -127,8 +127,8 @@ public final class EntityConfig {
         if (entityModelReaderElementList.isEmpty()) {
             throw new GenericEntityConfException("<entity-config> element child elements <entity-model-reader> are missing");
         } else {
-            List<EntityModelReader> entityModelReaderList = new ArrayList<EntityModelReader>(entityModelReaderElementList.size());
-            Map<String, EntityModelReader> entityModelReaderMap = new HashMap<String, EntityModelReader>();
+            List<EntityModelReader> entityModelReaderList = new ArrayList<>(entityModelReaderElementList.size());
+            Map<String, EntityModelReader> entityModelReaderMap = new HashMap<>();
             for (Element entityModelReaderElement : entityModelReaderElementList) {
                 EntityModelReader entityModelReader = new EntityModelReader(entityModelReaderElement);
                 entityModelReaderList.add(entityModelReader);
@@ -141,8 +141,8 @@ public final class EntityConfig {
         if (entityGroupReaderElementList.isEmpty()) {
             throw new GenericEntityConfException("<entity-config> element child elements <entity-group-reader> are missing");
         } else {
-            List<EntityGroupReader> entityGroupReaderList = new ArrayList<EntityGroupReader>(entityGroupReaderElementList.size());
-            Map<String, EntityGroupReader> entityGroupReaderMap = new HashMap<String, EntityGroupReader>();
+            List<EntityGroupReader> entityGroupReaderList = new ArrayList<>(entityGroupReaderElementList.size());
+            Map<String, EntityGroupReader> entityGroupReaderMap = new HashMap<>();
             for (Element entityGroupReaderElement : entityGroupReaderElementList) {
                 EntityGroupReader entityGroupReader = new EntityGroupReader(entityGroupReaderElement);
                 entityGroupReaderList.add(entityGroupReader);
@@ -156,8 +156,8 @@ public final class EntityConfig {
             this.entityEcaReaderList = Collections.emptyList();
             this.entityEcaReaderMap = Collections.emptyMap();
         } else {
-            List<EntityEcaReader> entityEcaReaderList = new ArrayList<EntityEcaReader>(entityEcaReaderElementList.size());
-            Map<String, EntityEcaReader> entityEcaReaderMap = new HashMap<String, EntityEcaReader>();
+            List<EntityEcaReader> entityEcaReaderList = new ArrayList<>(entityEcaReaderElementList.size());
+            Map<String, EntityEcaReader> entityEcaReaderMap = new HashMap<>();
             for (Element entityEcaReaderElement : entityEcaReaderElementList) {
                 EntityEcaReader entityEcaReader = new EntityEcaReader(entityEcaReaderElement);
                 entityEcaReaderList.add(new EntityEcaReader(entityEcaReaderElement));
@@ -171,8 +171,8 @@ public final class EntityConfig {
             this.entityDataReaderList = Collections.emptyList();
             this.entityDataReaderMap = Collections.emptyMap();
         } else {
-            List<EntityDataReader> entityDataReaderList = new ArrayList<EntityDataReader>(entityDataReaderElementList.size());
-            Map<String, EntityDataReader> entityDataReaderMap = new HashMap<String, EntityDataReader>();
+            List<EntityDataReader> entityDataReaderList = new ArrayList<>(entityDataReaderElementList.size());
+            Map<String, EntityDataReader> entityDataReaderMap = new HashMap<>();
             for (Element entityDataReaderElement : entityDataReaderElementList) {
                 EntityDataReader entityDataReader = new EntityDataReader(entityDataReaderElement);
                 entityDataReaderList.add(entityDataReader);
@@ -185,8 +185,8 @@ public final class EntityConfig {
         if (fieldTypeElementList.isEmpty()) {
             throw new GenericEntityConfException("<entity-config> element child elements <field-type> are missing");
         } else {
-            List<FieldType> fieldTypeList = new ArrayList<FieldType>(fieldTypeElementList.size());
-            Map<String, FieldType> fieldTypeMap = new HashMap<String, FieldType>();
+            List<FieldType> fieldTypeList = new ArrayList<>(fieldTypeElementList.size());
+            Map<String, FieldType> fieldTypeMap = new HashMap<>();
             for (Element fieldTypeElement : fieldTypeElementList) {
                 FieldType fieldType = new FieldType(fieldTypeElement);
                 fieldTypeList.add(fieldType);
@@ -199,8 +199,8 @@ public final class EntityConfig {
         if (datasourceElementList.isEmpty()) {
             throw new GenericEntityConfException("<entity-config> element child elements <datasource> are missing");
         } else {
-            List<Datasource> datasourceList = new ArrayList<Datasource>(datasourceElementList.size());
-            Map<String, Datasource> datasourceMap = new HashMap<String, Datasource>();
+            List<Datasource> datasourceList = new ArrayList<>(datasourceElementList.size());
+            Map<String, Datasource> datasourceMap = new HashMap<>();
             for (Element datasourceElement : datasourceElementList) {
                 Datasource datasource = new Datasource(datasourceElement);
                 datasourceList.add(datasource);

@@ -83,10 +83,10 @@ public class VCard {
         ByteBuffer byteBuffer = (ByteBuffer) context.get("infile");
         byte[] inputByteArray = byteBuffer.array();
         InputStream in = new ByteArrayInputStream(inputByteArray);
-        Map<String, Object> serviceCtx = new HashMap<String, Object>();
+        Map<String, Object> serviceCtx = new HashMap<>();
         boolean isGroup = false;
-        List<Map<String, String>> partiesCreated = new ArrayList<Map<String,String>>();
-        List<Map<String, String>> partiesExist = new ArrayList<Map<String,String>>();
+        List<Map<String, String>> partiesCreated = new ArrayList<>();
+        List<Map<String, String>> partiesExist = new ArrayList<>();
 
         try (VCardReader vCardReader = new VCardReader(in)) {
             ezvcard.VCard vcard = null;

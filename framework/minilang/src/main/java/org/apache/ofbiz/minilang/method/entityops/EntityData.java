@@ -81,7 +81,7 @@ public final class EntityData extends EntityOperation {
     public boolean exec(MethodContext methodContext) throws MiniLangException {
         List<Object> messages = errorListFma.get(methodContext.getEnvMap());
         if (messages == null) {
-            messages = new LinkedList<Object>();
+            messages = new LinkedList<>();
             errorListFma.put(methodContext.getEnvMap(), messages);
         }
         String location = this.locationFse.expandString(methodContext.getEnvMap());

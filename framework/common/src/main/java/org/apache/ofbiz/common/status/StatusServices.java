@@ -52,7 +52,7 @@ public class StatusServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonStatusMandatory", locale));
         }
 
-        List<GenericValue> statusItems = new LinkedList<GenericValue>();
+        List<GenericValue> statusItems = new LinkedList<>();
         for (String statusTypeId: statusTypes) {
             try {
                 List<GenericValue> myStatusItems = EntityQuery.use(delegator)
@@ -66,7 +66,7 @@ public class StatusServices {
                 Debug.logError(e, module);
             }
         }
-        Map<String, Object> ret =  new LinkedHashMap<String, Object>();
+        Map<String, Object> ret =  new LinkedHashMap<>();
         ret.put("statusItems",statusItems);
         return ret;
     }

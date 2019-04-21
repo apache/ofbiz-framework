@@ -163,7 +163,7 @@ public final class ThreadPool {
         if (runFromPoolElementList.isEmpty()) {
             this.runFromPools = Collections.emptyList();
         } else {
-            List<RunFromPool> runFromPools = new ArrayList<RunFromPool>(runFromPoolElementList.size());
+            List<RunFromPool> runFromPools = new ArrayList<>(runFromPoolElementList.size());
             for (Element runFromPoolElement : runFromPoolElementList) {
                 runFromPools.add(new RunFromPool(runFromPoolElement));
             }

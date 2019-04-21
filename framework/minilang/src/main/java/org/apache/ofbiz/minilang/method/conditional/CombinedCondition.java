@@ -45,7 +45,7 @@ public abstract class CombinedCondition extends MiniLangElement implements Condi
         if (MiniLangValidate.validationOn() && childElements.isEmpty()) {
             MiniLangValidate.handleError("No conditional elements.", simpleMethod, element);
         }
-        List<Conditional> conditionalList = new ArrayList<Conditional>(childElements.size());
+        List<Conditional> conditionalList = new ArrayList<>(childElements.size());
         for (Element conditionalElement : UtilXml.childElementList(element)) {
             conditionalList.add(ConditionalFactory.makeConditional(conditionalElement, simpleMethod));
         }

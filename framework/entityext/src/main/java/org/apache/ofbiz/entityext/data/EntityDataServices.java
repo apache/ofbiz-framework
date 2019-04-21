@@ -167,7 +167,7 @@ public class EntityDataServices {
     }
 
     private static List<File> getFileList(File root) {
-        List<File> fileList = new LinkedList<File>();
+        List<File> fileList = new LinkedList<>();
 
         // check for a file list file
         File listFile = new File(root, "FILELIST.txt");
@@ -337,7 +337,7 @@ public class EntityDataServices {
         String groupName = (String) context.get("groupName");
         Boolean fixSizes = (Boolean) context.get("fixColSizes");
         if (fixSizes == null) fixSizes = Boolean.FALSE;
-        List<String> messages = new LinkedList<String>();
+        List<String> messages = new LinkedList<>();
 
         GenericHelperInfo helperInfo = delegator.getGroupHelperInfo(groupName);
         DatabaseUtil dbUtil = new DatabaseUtil(helperInfo);
@@ -376,7 +376,7 @@ public class EntityDataServices {
         // step 5 - repair field sizes
         if (fixSizes) {
             Debug.logImportant("Updating column field size changes", module);
-            List<String> fieldsWrongSize = new LinkedList<String>();
+            List<String> fieldsWrongSize = new LinkedList<>();
             dbUtil.checkDb(modelEntities, fieldsWrongSize, messages, true, true, true, true);
             if (fieldsWrongSize.size() > 0) {
                 dbUtil.repairColumnSizeChanges(modelEntities, fieldsWrongSize, messages);

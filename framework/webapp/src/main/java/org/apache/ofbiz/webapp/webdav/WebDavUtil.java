@@ -96,7 +96,7 @@ public final class WebDavUtil {
         if ("true".equalsIgnoreCase(UtilProperties.getPropertyValue("security", "password.lowercase"))) {
             password = password.toLowerCase();
         }
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
         result.put("login.username", username);
         result.put("login.password", password);
         return result;

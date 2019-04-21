@@ -166,7 +166,7 @@ public class RecordIterator {
 
             // if this record has children, put it on the parentStack and get/check the children now
             if (this.curRecord.getModelRecord().childRecords.size() > 0) {
-                Stack<Record> parentStack = new Stack<Record>();
+                Stack<Record> parentStack = new Stack<>();
                 parentStack.push(curRecord);
 
                 while (this.nextRecord != null && this.nextRecord.getModelRecord().parentRecord != null) {

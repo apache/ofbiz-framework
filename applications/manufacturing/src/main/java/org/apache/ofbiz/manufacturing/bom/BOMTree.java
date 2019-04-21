@@ -105,7 +105,7 @@ public class BOMTree {
                 .where("productId", productId, 
                         "productFeatureApplTypeId", "STANDARD_FEATURE")
                 .queryList();
-        List<GenericValue> productFeatures = new LinkedList<GenericValue>();
+        List<GenericValue> productFeatures = new LinkedList<>();
         GenericValue oneProductFeatureAppl = null;
         for (int i = 0; i < productFeaturesAppl.size(); i++) {
             oneProductFeatureAppl = productFeaturesAppl.get(i);
@@ -183,7 +183,7 @@ public class BOMTree {
      *
      */
     public boolean isConfigured() {
-        List<BOMNode> notConfiguredParts = new LinkedList<BOMNode>();
+        List<BOMNode> notConfiguredParts = new LinkedList<>();
         root.isConfigured(notConfiguredParts);
         return (notConfiguredParts.size() == 0);
     }
@@ -300,8 +300,8 @@ public class BOMTree {
      * @return List containing all the tree's productId.
      */
     public List<String> getAllProductsId() {
-        List<BOMNode> nodeArr = new LinkedList<BOMNode>();
-        List<String> productsId = new LinkedList<String>();
+        List<BOMNode> nodeArr = new LinkedList<>();
+        List<String> productsId = new LinkedList<>();
         print(nodeArr);
         for (int i = 0; i < nodeArr.size(); i++) {
             productsId.add((nodeArr.get(i)).getProduct().getString("productId"));

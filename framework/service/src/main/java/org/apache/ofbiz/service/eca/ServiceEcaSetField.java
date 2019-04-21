@@ -71,7 +71,7 @@ public class ServiceEcaSetField {
             if (UtilValidate.isNotEmpty(this.mapName) && context.containsKey(this.mapName)) {
                 valueMap = UtilGenerics.checkMap(context.get(mapName));
             } else {
-                valueMap = new HashMap<String, Object>();
+                valueMap = new HashMap<>();
             }
             // process the context changes
             Object newValue = null;

@@ -31,7 +31,7 @@ public final class JsLanguageFilesMapping {
 
     public static class datejs {
 
-        private static Map<String, String> localeFiles = new HashMap<String, String>();
+        private static Map<String, String> localeFiles = new HashMap<>();
         private static String defaultDateJs = "/common/js/jquery/plugins/datejs/date-en-US.js";
 
         static {
@@ -206,7 +206,7 @@ public final class JsLanguageFilesMapping {
     }
 
     public static class jquery {
-        private static Map<String, String> localeFiles = new HashMap<String, String>();
+        private static Map<String, String> localeFiles = new HashMap<>();
         private static String defaultDateJs = "/common/js/jquery/ui/i18n/jquery.ui.datepicker-en.js";
 
         static {
@@ -381,7 +381,7 @@ public final class JsLanguageFilesMapping {
     }
 
     public static class validation {
-        private static Map<String, String> localeFiles = new HashMap<String, String>();
+        private static Map<String, String> localeFiles = new HashMap<>();
         private static String defaultValidation = "/common/js/jquery/plugins/validate/localization/messages_en.js";
 
         static {
@@ -555,7 +555,7 @@ public final class JsLanguageFilesMapping {
     }
 
     public static class dateTime {
-        private static Map<String, String> localeFiles = new HashMap<String, String>();
+        private static Map<String, String> localeFiles = new HashMap<>();
         private static String defaultDateTime = "/common/js/jquery/ui/i18n/jquery.ui.datepicker-en.js";
 
         static {
@@ -729,7 +729,7 @@ public final class JsLanguageFilesMapping {
     }
 
     public static class select2 {
-        private static Map<String, String> localeFiles = new HashMap<String, String>();
+        private static Map<String, String> localeFiles = new HashMap<>();
         private static String defaultSelect2 = "/common/js/jquery/plugins/select2/js/i18n/en.js";
 
         static {

@@ -52,7 +52,7 @@ public final class NotificationGroup {
         if (notifyElementList.size() < 2) {
             throw new ServiceConfigException("<notify> element(s) missing");
         } else {
-            List<Notify> notifyList = new ArrayList<Notify>(notifyElementList.size());
+            List<Notify> notifyList = new ArrayList<>(notifyElementList.size());
             for (Element notifyElement : notifyElementList) {
                 notifyList.add(new Notify(notifyElement));
             }

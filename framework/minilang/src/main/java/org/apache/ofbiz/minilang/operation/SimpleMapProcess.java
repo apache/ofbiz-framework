@@ -36,7 +36,7 @@ public class SimpleMapProcess {
     public static final String module = SimpleMapProcess.class.getName();
 
     String field = "";
-    List<SimpleMapOperation> simpleMapOperations = new ArrayList<SimpleMapOperation>();
+    List<SimpleMapOperation> simpleMapOperations = new ArrayList<>();
 
     public SimpleMapProcess(Element simpleMapProcessElement) {
         this.field = simpleMapProcessElement.getAttribute("field");

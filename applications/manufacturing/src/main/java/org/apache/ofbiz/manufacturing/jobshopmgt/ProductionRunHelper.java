@@ -52,7 +52,7 @@ public final class ProductionRunHelper {
      * @return Map with the result of the service, the output parameters are
      */
     public static Map<String, Object> getProductionRun(Delegator delegator, String productionRunId) {
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
         
         try {
             if (productionRunId != null) {

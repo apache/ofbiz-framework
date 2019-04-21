@@ -147,7 +147,7 @@ public class WeightPackageServices {
         weightPackageSession.setEstimatedShipCost(estimatedShippingCost);
         weightPackageSession.setActualShipCost(newEstimatedShippingCost);
 
-        Map<String, Object> response = new HashMap<String, Object>();
+        Map<String, Object> response = new HashMap<>();
         try {
             String getActualShippingQuoteFromUps = EntityUtilProperties.getPropertyValue("shipment", "shipment.ups.shipping", "N", delegator);
             String result = weightPackageSession.complete(orderId, locale, getActualShippingQuoteFromUps);
@@ -172,7 +172,7 @@ public class WeightPackageServices {
         String shipmentId = (String) context.get("shipmentId");
         String orderId = (String) context.get("orderId");
 
-        Map<String, Object> response = new HashMap<String, Object>();
+        Map<String, Object> response = new HashMap<>();
         try {
             String getActualShippingQuoteFromUps = EntityUtilProperties.getPropertyValue("shipment", "shipment.ups.shipping", "N", delegator);
             if (weightPackageSession.completeShipment(orderId, getActualShippingQuoteFromUps)) {

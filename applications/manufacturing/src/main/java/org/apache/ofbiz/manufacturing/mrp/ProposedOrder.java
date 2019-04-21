@@ -126,7 +126,7 @@ public class ProposedOrder {
                     if (routing == null) {
                         // try to find a routing linked to the virtual product
                         BOMTree tree = null;
-                        List<BOMNode> components = new LinkedList<BOMNode>();
+                        List<BOMNode> components = new LinkedList<>();
                         try {
                             tree = new BOMTree(product.getString("productId"), "MANUF_COMPONENT", requiredByDate, BOMTree.EXPLOSION_SINGLE_LEVEL, delegator, dispatcher, userLogin);
                             tree.setRootQuantity(quantity);
@@ -151,7 +151,7 @@ public class ProposedOrder {
                 }
             }
             if (routing != null) {
-                result = new HashMap<String, Object>();
+                result = new HashMap<>();
                 //Looks for all the routingTask (ordered by inversed (begin from the end) sequence number)
                 if (listRoutingTaskAssoc == null) {
                     try {
@@ -237,7 +237,7 @@ public class ProposedOrder {
         Map<String, Object> parameters = UtilMisc.<String, Object>toMap("userLogin", userLogin);
         if (isBuilt) {
             try {
-                List<BOMNode> bom = new LinkedList<BOMNode>();
+                List<BOMNode> bom = new LinkedList<>();
                 BOMTree tree = new BOMTree(productId, "MANUF_COMPONENT", null, BOMTree.EXPLOSION_MANUFACTURING, delegator, dispatcher, userLogin);
                 tree.setRootQuantity(quantity);
                 tree.print(bom);

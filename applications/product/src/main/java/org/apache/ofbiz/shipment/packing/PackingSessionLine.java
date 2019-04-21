@@ -181,7 +181,7 @@ public class PackingSessionLine implements java.io.Serializable {
             quantity = this.getQuantity();
         }
 
-        Map<String, Object> issueMap = new HashMap<String, Object>();
+        Map<String, Object> issueMap = new HashMap<>();
         issueMap.put("shipmentId", shipmentId);
         issueMap.put("orderId", this.getOrderId());
         issueMap.put("orderItemSeqId", this.getOrderItemSeqId());
@@ -206,7 +206,7 @@ public class PackingSessionLine implements java.io.Serializable {
             // find the pick list item
             Debug.logInfo("Looking up picklist item for bin ID #" + picklistBinId, module);
             Delegator delegator = dispatcher.getDelegator();
-            Map<String, Object> itemLookup = new HashMap<String, Object>();
+            Map<String, Object> itemLookup = new HashMap<>();
             itemLookup.put("picklistBinId", picklistBinId);
             itemLookup.put("orderId", this.getOrderId());
             itemLookup.put("orderItemSeqId", this.getOrderItemSeqId());
@@ -243,7 +243,7 @@ public class PackingSessionLine implements java.io.Serializable {
         // assign item to package
         String shipmentPackageSeqId = UtilFormatOut.formatPaddedNumber(this.getPackageSeq(), 5);
 
-        Map<String, Object> packageMap = new HashMap<String, Object>();
+        Map<String, Object> packageMap = new HashMap<>();
         packageMap.put("shipmentId", shipmentId);
         packageMap.put("shipmentItemSeqId", this.getShipmentItemSeqId());
         packageMap.put("quantity", this.getQuantity());

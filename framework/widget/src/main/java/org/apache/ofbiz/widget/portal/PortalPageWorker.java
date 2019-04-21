@@ -70,7 +70,7 @@ public class PortalPageWorker {
                                 EntityOperator.OR)),
                         EntityOperator.AND);
                 portalPages = EntityQuery.use(delegator).from("PortalPage").where(cond).queryList();
-                List<GenericValue> userPortalPages = new ArrayList<GenericValue>();
+                List<GenericValue> userPortalPages = new ArrayList<>();
                 if (UtilValidate.isNotEmpty(context.get("userLogin"))) { // check if a user is logged in
                     String userLoginId = ((GenericValue)context.get("userLogin")).getString("userLoginId");
                     // replace with private pages

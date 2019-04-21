@@ -553,7 +553,7 @@ public class ModelViewEntity extends ModelEntity {
 
             List<String> aliases = containedModelFields.get(alias.getField());
             if (aliases == null) {
-                aliases = new LinkedList<String>();
+                aliases = new LinkedList<>();
                 containedModelFields.put(alias.getField(), aliases);
             }
             aliases.add(alias.getName());

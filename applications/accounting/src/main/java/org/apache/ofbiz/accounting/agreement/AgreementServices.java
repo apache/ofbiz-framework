@@ -72,7 +72,7 @@ public class AgreementServices {
         Delegator delegator = ctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
         String errMsg = null;
-        List<Map<String, Object>> commissions = new LinkedList<Map<String,Object>>();
+        List<Map<String, Object>> commissions = new LinkedList<>();
 
         try {
             BigDecimal amount = ((BigDecimal)context.get("amount"));

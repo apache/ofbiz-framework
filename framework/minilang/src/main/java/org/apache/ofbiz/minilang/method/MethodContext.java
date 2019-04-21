@@ -47,14 +47,14 @@ public final class MethodContext {
 
     private Delegator delegator;
     private LocalDispatcher dispatcher;
-    private Map<String, Object> env = new HashMap<String, Object>();
+    private Map<String, Object> env = new HashMap<>();
     private ClassLoader loader;
     private Locale locale;
     private int methodType;
     private Map<String, Object> parameters;
     private HttpServletRequest request = null;
     private HttpServletResponse response = null;
-    private Map<String, Object> results = new HashMap<String, Object>();
+    private Map<String, Object> results = new HashMap<>();
     private Security security;
     private TimeZone timeZone;
     private int traceCount = 0;

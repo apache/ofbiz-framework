@@ -137,7 +137,7 @@ public class EntityDataLoadContainer implements Container {
         }
 
         Delegator delegator = getDelegator(delegatorNameProp, null);
-        List<EntityExpr> expr = new ArrayList<EntityExpr>();
+        List<EntityExpr> expr = new ArrayList<>();
         expr.add(EntityCondition.makeCondition("disabled", EntityOperator.EQUALS, "N"));
         expr.add(EntityCondition.makeCondition("disabled", EntityOperator.EQUALS, null));
 
@@ -165,7 +165,7 @@ public class EntityDataLoadContainer implements Container {
         GenericHelperInfo helperInfo = getHelperInfo(delegator, entityGroup);
         DatabaseUtil dbUtil = new DatabaseUtil(helperInfo);
         Map<String, ModelEntity> modelEntities = getModelEntities(delegator, entityGroup);
-        TreeSet<String> modelEntityNames = new TreeSet<String>(modelEntities.keySet());
+        TreeSet<String> modelEntityNames = new TreeSet<>(modelEntities.keySet());
         Collection<ComponentConfig> allComponents = ComponentConfig.getAllComponents();
 
         // data loading logic starts here
@@ -303,7 +303,7 @@ public class EntityDataLoadContainer implements Container {
     private void dropDbConstraints(DatabaseUtil dbUtil, Map<String, ModelEntity> modelEntities,
             TreeSet<String> modelEntityNames) {
 
-        List<String> messages = new ArrayList<String>();
+        List<String> messages = new ArrayList<>();
 
         Debug.logImportant("Dropping foreign key indices...", module);
         for (String entityName : modelEntityNames) {
@@ -335,7 +335,7 @@ public class EntityDataLoadContainer implements Container {
     private void createDbConstraints(DatabaseUtil dbUtil, Map<String, ModelEntity> modelEntities,
             TreeSet<String> modelEntityNames) {
 
-        List<String> messages = new ArrayList<String>();
+        List<String> messages = new ArrayList<>();
 
         Debug.logImportant("Creating foreign keys...", module);
         for (String entityName : modelEntityNames) {
@@ -367,7 +367,7 @@ public class EntityDataLoadContainer implements Container {
     private void dropPrimaryKeys(DatabaseUtil dbUtil, Map<String, ModelEntity> modelEntities,
             TreeSet<String> modelEntityNames) {
 
-        List<String> messages = new ArrayList<String>();
+        List<String> messages = new ArrayList<>();
 
         Debug.logImportant("Dropping primary keys...", module);
         for (String entityName : modelEntityNames) {
@@ -383,7 +383,7 @@ public class EntityDataLoadContainer implements Container {
     private void createPrimaryKeys(DatabaseUtil dbUtil, Map<String, ModelEntity> modelEntities,
             TreeSet<String> modelEntityNames) {
 
-        List<String> messages = new ArrayList<String>();
+        List<String> messages = new ArrayList<>();
 
         Debug.logImportant("Creating primary keys...", module);
         for (String entityName : modelEntityNames) {
@@ -397,8 +397,8 @@ public class EntityDataLoadContainer implements Container {
     }
 
     private void repairDbColumns(DatabaseUtil dbUtil, Map<String, ModelEntity> modelEntities) {
-        List<String> fieldsToRepair = new ArrayList<String>();
-        List<String> messages = new ArrayList<String>();
+        List<String> fieldsToRepair = new ArrayList<>();
+        List<String> messages = new ArrayList<>();
         dbUtil.checkDb(modelEntities, fieldsToRepair, messages, false, false, false, false);
         if (UtilValidate.isNotEmpty(fieldsToRepair)) {
             dbUtil.repairColumnSizeChanges(modelEntities, fieldsToRepair, messages);
@@ -426,8 +426,8 @@ public class EntityDataLoadContainer implements Container {
         boolean continueOnFail = isPropertySet(loadDataProps, CONTINUE_ON_FAIL);
 
         List<URL> urlList = prepareDataUrls(delegator, baseDelegator, allComponents, helperInfo, loadDataProps);
-        List<String> infoMessages = new ArrayList<String>();
-        List<Object> errorMessages = new ArrayList<Object>();
+        List<String> infoMessages = new ArrayList<>();
+        List<Object> errorMessages = new ArrayList<>();
         int totalRowsChanged = 0;
 
         logDataLoadingPlan(urlList, delegator.getDelegatorName());
@@ -462,7 +462,7 @@ public class EntityDataLoadContainer implements Container {
             Collection<ComponentConfig> allComponents, GenericHelperInfo helperInfo,
             Map<String, String> loadDataProps) throws ContainerException {
 
-        List<URL> urlList = new ArrayList<URL>();
+        List<URL> urlList = new ArrayList<>();
 
         // prepare command line properties passed by user
         List<String> files = getLoadFiles(loadDataProps.get(DATA_FILE));
@@ -500,7 +500,7 @@ public class EntityDataLoadContainer implements Container {
     }
 
     private List<String> getLoadFiles(String fileProp) {
-        List<String> fileList = new ArrayList<String>();
+        List<String> fileList = new ArrayList<>();
         Optional.ofNullable(fileProp)
                 .ifPresent(props -> fileList.addAll(StringUtil.split(props, ",")));
         return fileList;
@@ -519,8 +519,8 @@ public class EntityDataLoadContainer implements Container {
     private List<String> prepareTenantLoadComponents(Delegator delegator, Delegator baseDelegator,
             Collection<ComponentConfig> allComponents, String component) {
 
-        List<String> loadComponents = new ArrayList<String>();
-        List<EntityCondition> queryConditions = new ArrayList<EntityCondition>();
+        List<String> loadComponents = new ArrayList<>();
+        List<EntityCondition> queryConditions = new ArrayList<>();
 
         if (UtilValidate.isNotEmpty(delegator.getDelegatorTenantId()) && EntityUtil.isMultiTenantEnabled()) {
 
@@ -547,7 +547,7 @@ public class EntityDataLoadContainer implements Container {
     }
 
     private List<URL> retireveDataUrlsFromFileList(List<String> files) throws ContainerException {
-        List<URL> fileUrls = new ArrayList<URL>();
+        List<URL> fileUrls = new ArrayList<>();
         for(String file: files) {
             URL url = UtilURL.fromResource(file);
             if (url == null) {

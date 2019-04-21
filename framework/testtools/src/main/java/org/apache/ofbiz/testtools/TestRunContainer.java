@@ -170,7 +170,7 @@ public class TestRunContainer implements Container {
 
     class JunitXmlListener extends XMLJUnitResultFormatter {
 
-        Map<String, Long> startTimes = new HashMap<String, Long>();
+        Map<String, Long> startTimes = new HashMap<>();
 
         public JunitXmlListener(OutputStream out) {
             this.setOutput(out);

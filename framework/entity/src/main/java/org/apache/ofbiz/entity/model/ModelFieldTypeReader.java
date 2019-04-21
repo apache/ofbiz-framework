@@ -50,7 +50,7 @@ public class ModelFieldTypeReader implements Serializable {
 
     protected static Map<String, ModelFieldType> createFieldTypeCache(Element docElement, String location) {
         docElement.normalize();
-        Map<String, ModelFieldType> fieldTypeMap = new HashMap<String, ModelFieldType>();
+        Map<String, ModelFieldType> fieldTypeMap = new HashMap<>();
         List<? extends Element> fieldTypeList = UtilXml.childElementList(docElement, "field-type-def");
         for (Element curFieldType: fieldTypeList) {
             String fieldTypeName = curFieldType.getAttribute("type");

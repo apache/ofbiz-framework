@@ -55,7 +55,7 @@ public class PropFindHelper extends ResponseHelper {
     }
 
     public List<Element> getFindPropsList(String nameSpaceUri) {
-        List<Element> result = new LinkedList<Element>();
+        List<Element> result = new LinkedList<>();
         NodeList nodeList = this.requestDocument.getElementsByTagNameNS(nameSpaceUri == null ? "*" : nameSpaceUri, "prop");
         for (int i = 0; i < nodeList.getLength(); i++) {
             Node node = nodeList.item(i).getFirstChild();

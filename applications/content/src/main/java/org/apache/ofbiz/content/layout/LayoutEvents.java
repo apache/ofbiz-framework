@@ -67,7 +67,7 @@ public class LayoutEvents {
             HttpSession session = request.getSession();
             Map<String, Object> uploadResults = LayoutWorker.uploadImageAndParameters(request, "imageData");
             Map<String, Object> formInput = UtilGenerics.checkMap(uploadResults.get("formInput"));
-            Map<String, Object> context = new HashMap<String, Object>();
+            Map<String, Object> context = new HashMap<>();
             ByteBuffer byteWrap = (ByteBuffer) uploadResults.get("imageData");
             if (byteWrap == null) {
                 String errMsg = UtilProperties.getMessage(LayoutEvents.err_resource, "layoutEvents.image_data_null", locale);
@@ -83,7 +83,7 @@ public class LayoutEvents {
                 }
             }
             String mimeTypeId = "image/" + imageFileNameExt;
-            List<Object> errorMessages = new LinkedList<Object>();
+            List<Object> errorMessages = new LinkedList<>();
             if (locale == null) {
                 locale = Locale.getDefault();
             }
@@ -121,7 +121,7 @@ public class LayoutEvents {
             String dataResourceId = (String) result.get("dataResourceId");
             String activeContentId = (String) result.get("contentId");
             if (UtilValidate.isNotEmpty(activeContentId)) {
-                Map<String, Object> context2 = new HashMap<String, Object>();
+                Map<String, Object> context2 = new HashMap<>();
                 context2.put("activeContentId", activeContentId);
                 context2.put("contentAssocTypeId", result.get("contentAssocTypeId"));
                 context2.put("fromDate", result.get("fromDate"));
@@ -132,7 +132,7 @@ public class LayoutEvents {
 
                 context2.put("contentIdTo", formInput.get("contentIdTo"));
                 context2.put("mapKey", formInput.get("mapKey"));
-                Map<String, Object> serviceResult = new HashMap<String, Object>();
+                Map<String, Object> serviceResult = new HashMap<>();
                 serviceResult = dispatcher.runSync("deactivateAssocs", context2);
                 if (ServiceUtil.isError(serviceResult)) {
                     String errorMessage = ServiceUtil.getErrorMessage(serviceResult);
@@ -230,7 +230,7 @@ public class LayoutEvents {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         HttpSession session = request.getSession();
         Locale locale = UtilHttp.getLocale(request);
-        Map<String, Object> context = new HashMap<String, Object>();
+        Map<String, Object> context = new HashMap<>();
         Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
         if (Debug.verboseOn()) Debug.logVerbose("in replaceSubContent, paramMap:" + paramMap, module);
         String dataResourceId = (String) paramMap.get("dataResourceId");
@@ -266,7 +266,7 @@ public class LayoutEvents {
                     return "error";
                 }
                 request.setAttribute("contentId", contentIdTo);
-                Map<String, Object> context2 = new HashMap<String, Object>();
+                Map<String, Object> context2 = new HashMap<>();
                 context2.put("activeContentId", contentId);
                 context2.put("contentAssocTypeId", "SUB_CONTENT");
                 context2.put("fromDate", result.get("fromDate"));
@@ -276,7 +276,7 @@ public class LayoutEvents {
 
                 context2.put("contentIdTo", contentIdTo);
                 context2.put("mapKey", mapKey);
-                Map<String, Object> serviceResult = new HashMap<String, Object>();
+                Map<String, Object> serviceResult = new HashMap<>();
                 serviceResult = dispatcher.runSync("deactivateAssocs", context2);
                 if (ServiceUtil.isError(serviceResult)) {
                     String errorMessage = ServiceUtil.getErrorMessage(serviceResult);
@@ -362,7 +362,7 @@ public class LayoutEvents {
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             return "error";
         }
-        Map<String, Object> serviceIn = new HashMap<String, Object>();
+        Map<String, Object> serviceIn = new HashMap<>();
         Map<String, Object> results = null;
         serviceIn.put("fromDate", UtilDateTime.nowTimestamp());
         serviceIn.put("contentId", contentId);
@@ -388,14 +388,14 @@ public class LayoutEvents {
             return "error";
         }
 
-        serviceIn = new HashMap<String, Object>();
+        serviceIn = new HashMap<>();
         serviceIn.put("userLogin", session.getAttribute("userLogin"));
 
         // Can't count on records being unique
-        Map<String, GenericValue> beenThere = new HashMap<String, GenericValue>();
+        Map<String, GenericValue> beenThere = new HashMap<>();
         for (int i=0; i<entityList.size(); i++) {
             GenericValue view = entityList.get(i);
-            List<Object> errorMessages = new LinkedList<Object>();
+            List<Object> errorMessages = new LinkedList<>();
             if (locale == null) {
                 locale = Locale.getDefault();
             }
@@ -455,7 +455,7 @@ public class LayoutEvents {
                 Debug.logVerbose("in createSubContent, contentIdTo:" + contentIdTo, module);
                 Debug.logVerbose("in createSubContent, mapKey:" + mapKey, module);
             }
-            Map<String, Object> context = new HashMap<String, Object>();
+            Map<String, Object> context = new HashMap<>();
             List<Object> errorMessages = new LinkedList<>();
             Locale loc = (Locale) request.getSession().getServletContext().getAttribute("locale");
             if (loc == null) {
@@ -503,14 +503,14 @@ public class LayoutEvents {
             request.setAttribute("contentId", contentId);
             request.setAttribute("drDataResourceId", dataResourceId);
             request.setAttribute("currentEntityName", "SubContentDataResourceId");
-            Map<String, Object> context2 = new HashMap<String, Object>();
+            Map<String, Object> context2 = new HashMap<>();
             context2.put("activeContentId", contentId);
             context2.put("contentAssocTypeId", "SUB_CONTENT");
             context2.put("fromDate", result.get("fromDate"));
             context2.put("contentIdTo", contentIdTo);
             context2.put("mapKey", mapKey);
             context2.put("userLogin", userLogin);
-            Map<String, Object> serviceResult = new HashMap<String, Object>();
+            Map<String, Object> serviceResult = new HashMap<>();
             serviceResult = dispatcher.runSync("deactivateAssocs", context2);
             if (ServiceUtil.isError(serviceResult)) {
                 String errorMessage = ServiceUtil.getErrorMessage(serviceResult);
@@ -530,7 +530,7 @@ public class LayoutEvents {
             LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
             HttpSession session = request.getSession();
             Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
-            Map<String, Object> context = new HashMap<String, Object>();
+            Map<String, Object> context = new HashMap<>();
             List<Object> errorMessages = new LinkedList<>();
             Locale loc = (Locale) request.getSession().getServletContext().getAttribute("locale");
             if (loc == null) {

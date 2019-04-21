@@ -36,7 +36,7 @@ import org.w3c.dom.Element;
 public final class ServiceConfig {
 
     public static ServiceConfig create(Element serviceConfigElement) throws ServiceConfigException {
-        Map<String, ServiceEngine> serviceEngineMap = new HashMap<String, ServiceEngine>();
+        Map<String, ServiceEngine> serviceEngineMap = new HashMap<>();
         List<? extends Element> engineElementList = UtilXml.childElementList(serviceConfigElement, "service-engine");
         for (Element engineElement : engineElementList) {
             ServiceEngine engineModel = new ServiceEngine(engineElement);

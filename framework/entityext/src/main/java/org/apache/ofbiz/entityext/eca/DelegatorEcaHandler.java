@@ -48,7 +48,7 @@ public class DelegatorEcaHandler implements EntityEcaHandler<EntityEcaRule> {
     protected Delegator delegator = null;
     protected String delegatorName = null;
     protected String entityEcaReaderName = null;
-    protected AtomicReference<Future<DispatchContext>> dctx = new AtomicReference<Future<DispatchContext>>();
+    protected AtomicReference<Future<DispatchContext>> dctx = new AtomicReference<>();
 
     public DelegatorEcaHandler() { }
 
@@ -60,7 +60,7 @@ public class DelegatorEcaHandler implements EntityEcaHandler<EntityEcaRule> {
         Callable<DispatchContext> creator = () -> {
             return EntityServiceFactory.getDispatchContext(DelegatorEcaHandler.this.delegator);
         };
-        FutureTask<DispatchContext> futureTask = new FutureTask<DispatchContext>(creator);
+        FutureTask<DispatchContext> futureTask = new FutureTask<>(creator);
         if (this.dctx.compareAndSet(null, futureTask)) {
             ExecutionPool.GLOBAL_BATCH.submit(futureTask);
         }
@@ -102,7 +102,7 @@ public class DelegatorEcaHandler implements EntityEcaHandler<EntityEcaRule> {
         }
 
         if (!rules.isEmpty() && Debug.verboseOn()) Debug.logVerbose("Running ECA (" + event + ").", module);
-        Set<String> actionsRun = new TreeSet<String>();
+        Set<String> actionsRun = new TreeSet<>();
         for (EntityEcaRule eca: rules) {
             eca.eval(currentOperation, this.getDispatchContext(), value, isError, actionsRun);
         }

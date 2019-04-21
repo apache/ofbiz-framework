@@ -58,7 +58,7 @@ public final class MapToMap extends MethodOperation {
             if (!toMapFma.isEmpty()) {
                 Map<String, Object> toMap = toMapFma.get(methodContext.getEnvMap());
                 if (toMap == null) {
-                    toMap = new HashMap<String, Object>();
+                    toMap = new HashMap<>();
                     toMapFma.put(methodContext.getEnvMap(), toMap);
                 }
                toMap.putAll(fromMap);

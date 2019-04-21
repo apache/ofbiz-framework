@@ -89,7 +89,7 @@ public class MrpServices {
         }
 
         // Proposed requirements are deleted
-        List<GenericValue> listResultRoles = new LinkedList<GenericValue>();
+        List<GenericValue> listResultRoles = new LinkedList<>();
         try {
             listResult = EntityQuery.use(delegator).from("Requirement")
                     .where("requirementTypeId", "PRODUCT_REQUIREMENT","facilityId", facilityId,
@@ -98,7 +98,7 @@ public class MrpServices {
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpEventFindError", locale));
         }
-        List<GenericValue> requirementStatus = new ArrayList<GenericValue>();
+        List<GenericValue> requirementStatus = new ArrayList<>();
         if (listResult != null) {
             try {
                 for (GenericValue tmpRequirement : listResult) {
@@ -482,7 +482,7 @@ public class MrpServices {
                 }
             }
         }
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         Debug.logInfo("return from initMrpEvent", module);
         return result;
@@ -842,8 +842,8 @@ public class MrpServices {
             // if there are 3 levels with no inventoryEvenPanned we stop
         } while (bomLevelWithNoEvent < 3);
 
-        result = new HashMap<String, Object>();
-        List<Object> msgResult = new LinkedList<Object>();
+        result = new HashMap<>();
+        List<Object> msgResult = new LinkedList<>();
         result.put("msgResult", msgResult);
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         Debug.logInfo("return from executeMrp", module);

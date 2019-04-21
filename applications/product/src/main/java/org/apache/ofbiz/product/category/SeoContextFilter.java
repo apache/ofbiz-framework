@@ -64,7 +64,7 @@ public class SeoContextFilter implements Filter {
     private String allowedPaths = "";
     private String redirectPath = "";
     private String errorCode = "";
-    private List<String> allowedPathList = new ArrayList<String>();
+    private List<String> allowedPathList = new ArrayList<>();
 
     public void init(FilterConfig config) throws ServletException {
         this.config = config;

@@ -44,7 +44,7 @@ public final class MiniLangValidate {
      * @throws ValidationException If an invalid attribute name is found and <code>validation.level=strict</code>
      */
     public static void attributeNames(SimpleMethod method, Element element, String... validAttributeNames) throws ValidationException {
-        Set<String> validNames = new HashSet<String>();
+        Set<String> validNames = new HashSet<>();
         for (String name : validAttributeNames) {
             validNames.add(name);
         }
@@ -78,7 +78,7 @@ public final class MiniLangValidate {
      * @throws ValidationException If an invalid child element is found and <code>validation.level=strict</code>
      */
     public static void childElements(SimpleMethod method, Element element, String... validChildElementNames) throws ValidationException {
-        Set<String> validNames = new HashSet<String>();
+        Set<String> validNames = new HashSet<>();
         for (String name : validChildElementNames) {
             validNames.add(name);
         }
@@ -245,7 +245,7 @@ public final class MiniLangValidate {
      * @throws ValidationException If none of the required child elements are found and <code>validation.level=strict</code>
      */
     public static void requireAnyChildElement(SimpleMethod method, Element element, String... elementNames) throws ValidationException {
-        Set<String> childElementNames = new HashSet<String>();
+        Set<String> childElementNames = new HashSet<>();
         Node node = element.getFirstChild();
         while (node != null) {
             if (node.getNodeType() == Node.ELEMENT_NODE) {
@@ -293,7 +293,7 @@ public final class MiniLangValidate {
      * @throws ValidationException If any of the required child elements are not found and <code>validation.level=strict</code>
      */
     public static void requiredChildElements(SimpleMethod method, Element element, String... elementNames) throws ValidationException {
-        Set<String> childElementNames = new HashSet<String>();
+        Set<String> childElementNames = new HashSet<>();
         Node node = element.getFirstChild();
         while (node != null) {
             if (node.getNodeType() == Node.ELEMENT_NODE) {

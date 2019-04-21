@@ -82,7 +82,7 @@ public final class EntityTypeUtil {
 
     public static List<GenericValue> getDescendantTypes(GenericValue typeValue) {
         // assumes Child relation is "Child<entityName>"
-        List<GenericValue> descendantTypes = new ArrayList<GenericValue>();
+        List<GenericValue> descendantTypes = new ArrayList<>();
 
         // first get all childrenTypes ...
         List<GenericValue> childrenTypes = null;

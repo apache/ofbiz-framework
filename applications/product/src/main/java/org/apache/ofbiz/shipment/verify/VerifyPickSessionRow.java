@@ -126,7 +126,7 @@ public class VerifyPickSessionRow implements Serializable {
             quantity = this.getReadyToVerifyQty();
         }
 
-        Map<String, Object> issueOrderItemMap = new HashMap<String, Object>();
+        Map<String, Object> issueOrderItemMap = new HashMap<>();
         issueOrderItemMap.put("shipmentId", shipmentId);
         issueOrderItemMap.put("orderId", this.getOrderId());
         issueOrderItemMap.put("orderItemSeqId", this.getOrderItemSeqId());
@@ -150,7 +150,7 @@ public class VerifyPickSessionRow implements Serializable {
         if (picklistBinId != null) {
             // find the pick list item
             Delegator delegator = dispatcher.getDelegator();
-            Map<String, Object> picklistItemMap = new HashMap<String, Object>();
+            Map<String, Object> picklistItemMap = new HashMap<>();
             picklistItemMap.put("picklistBinId", picklistBinId);
             picklistItemMap.put("orderId", this.getOrderId());
             picklistItemMap.put("orderItemSeqId", this.getOrderItemSeqId());

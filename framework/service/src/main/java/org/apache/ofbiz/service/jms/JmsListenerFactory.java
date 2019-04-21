@@ -46,10 +46,10 @@ public class JmsListenerFactory implements Runnable {
     public static final String TOPIC_LISTENER_CLASS = "org.apache.ofbiz.service.jms.JmsTopicListener";
     public static final String QUEUE_LISTENER_CLASS = "org.apache.ofbiz.service.jms.JmsQueueListener";
 
-    protected static Map<String, GenericMessageListener> listeners = new ConcurrentHashMap<String, GenericMessageListener>();
-    protected static Map<String, Server> servers = new ConcurrentHashMap<String, Server>();
+    protected static Map<String, GenericMessageListener> listeners = new ConcurrentHashMap<>();
+    protected static Map<String, Server> servers = new ConcurrentHashMap<>();
 
-    private static final AtomicReference<JmsListenerFactory> jlFactoryRef = new AtomicReference<JmsListenerFactory>(null);
+    private static final AtomicReference<JmsListenerFactory> jlFactoryRef = new AtomicReference<>(null);
 
     protected Delegator delegator;
     protected boolean firstPass = true;

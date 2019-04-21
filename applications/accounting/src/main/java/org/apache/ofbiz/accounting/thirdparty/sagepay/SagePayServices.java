@@ -49,7 +49,7 @@ public class SagePayServices
 
     private static Map<String, String> buildSagePayProperties(Map<String, Object> context, Delegator delegator) {
 
-        Map<String, String> sagePayConfig = new HashMap<String, String>();
+        Map<String, String> sagePayConfig = new HashMap<>();
 
         String paymentGatewayConfigId = (String) context.get("paymentGatewayConfigId");
 
@@ -79,7 +79,7 @@ public class SagePayServices
         Debug.logInfo("SagePay paymentAuthentication context : " + context, module);
 
         Delegator delegator = ctx.getDelegator();
-        Map<String, Object> resultMap = new HashMap<String, Object>();
+        Map<String, Object> resultMap = new HashMap<>();
 
         Map<String, String> props = buildSagePayProperties(context, delegator);
 
@@ -124,7 +124,7 @@ public class SagePayServices
         HttpHost host = SagePayUtil.getHost(props);
 
         //start - authentication parameters
-        Map<String, String> parameters = new HashMap<String, String>();
+        Map<String, String> parameters = new HashMap<>();
 
         String vpsProtocol = props.get("protocolVersion");
         String vendor = props.get("vendor");
@@ -299,7 +299,7 @@ public class SagePayServices
         Debug.logInfo("SagePay paymentAuthorisation context : " + context, module);
 
         Delegator delegator = ctx.getDelegator();
-        Map<String, Object> resultMap = new HashMap<String, Object>();
+        Map<String, Object> resultMap = new HashMap<>();
 
         Map<String, String> props = buildSagePayProperties(context, delegator);
 
@@ -313,7 +313,7 @@ public class SagePayServices
         HttpHost host = SagePayUtil.getHost(props);
 
         //start - authorization parameters
-        Map<String, String> parameters = new HashMap<String, String>();
+        Map<String, String> parameters = new HashMap<>();
 
         String vpsProtocol = props.get("protocolVersion");
         String vendor = props.get("vendor");
@@ -391,7 +391,7 @@ public class SagePayServices
         Debug.logInfo("SagePay paymentRelease context : " + context, module);
 
         Delegator delegator = ctx.getDelegator();
-        Map<String, Object> resultMap = new HashMap<String, Object>();
+        Map<String, Object> resultMap = new HashMap<>();
 
         Map<String, String> props = buildSagePayProperties(context, delegator);
 
@@ -404,7 +404,7 @@ public class SagePayServices
         HttpHost host = SagePayUtil.getHost(props);
 
         //start - release parameters
-        Map<String, String> parameters = new HashMap<String, String>();
+        Map<String, String> parameters = new HashMap<>();
 
         String vpsProtocol = props.get("protocolVersion");
         String vendor = props.get("vendor");
@@ -480,7 +480,7 @@ public class SagePayServices
         Debug.logInfo("SagePay paymentVoid context : " + context, module);
 
         Delegator delegator = ctx.getDelegator();
-        Map<String, Object> resultMap = new HashMap<String, Object>();
+        Map<String, Object> resultMap = new HashMap<>();
 
         Map<String, String> props = buildSagePayProperties(context, delegator);
 
@@ -493,7 +493,7 @@ public class SagePayServices
         HttpHost host = SagePayUtil.getHost(props);
 
         //start - void parameters
-        Map<String, String> parameters = new HashMap<String, String>();
+        Map<String, String> parameters = new HashMap<>();
 
         String vpsProtocol = props.get("protocolVersion");
         String vendor = props.get("vendor");
@@ -567,7 +567,7 @@ public class SagePayServices
         Debug.logInfo("SagePay paymentRefund context : " + context, module);
 
         Delegator delegator = ctx.getDelegator();
-        Map<String, Object> resultMap = new HashMap<String, Object>();
+        Map<String, Object> resultMap = new HashMap<>();
 
         Map<String, String> props = buildSagePayProperties(context, delegator);
 
@@ -585,7 +585,7 @@ public class SagePayServices
         HttpHost host = SagePayUtil.getHost(props);
 
         //start - refund parameters
-        Map<String, String> parameters = new HashMap<String, String>();
+        Map<String, String> parameters = new HashMap<>();
 
         String vpsProtocol = props.get("protocolVersion");
         String vendor = props.get("vendor");

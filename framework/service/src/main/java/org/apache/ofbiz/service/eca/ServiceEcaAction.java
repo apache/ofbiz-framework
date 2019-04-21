@@ -136,7 +136,7 @@ public class ServiceEcaAction implements java.io.Serializable {
         if (UtilValidate.isNotEmpty(resultMapName)) {
             Map<String, Object> resultMap = UtilGenerics.checkMap(context.get(resultMapName));
             if (resultMap == null) {
-                resultMap = new HashMap<String, Object>();
+                resultMap = new HashMap<>();
             }
             resultMap.putAll(dctx.getModelService(this.serviceName).makeValid(actionResult, ModelService.OUT_PARAM, false, null));
             context.put(resultMapName, resultMap);
@@ -194,7 +194,7 @@ public class ServiceEcaAction implements java.io.Serializable {
                 } else {
                     List<Object> origErrorMessageList = UtilGenerics.checkList(result.get(ModelService.ERROR_MESSAGE_LIST));
                     if (origErrorMessageList == null) {
-                        origErrorMessageList = new LinkedList<Object>();
+                        origErrorMessageList = new LinkedList<>();
                         result.put(ModelService.ERROR_MESSAGE_LIST, origErrorMessageList);
                     }
                     origErrorMessageList.add(0, errorMessage);

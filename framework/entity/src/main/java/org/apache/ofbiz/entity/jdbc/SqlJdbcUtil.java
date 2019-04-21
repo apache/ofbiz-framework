@@ -72,7 +72,7 @@ public final class SqlJdbcUtil {
     public static final String module = SqlJdbcUtil.class.getName();
 
     private static final int CHAR_BUFFER_SIZE = 4096;
-    private static Map<String, Integer> fieldTypeMap = new HashMap<String, Integer>();
+    private static Map<String, Integer> fieldTypeMap = new HashMap<>();
     static {
         fieldTypeMap.put("java.lang.String", 1);
         fieldTypeMap.put("String", 1);
@@ -141,7 +141,7 @@ public final class SqlJdbcUtil {
                 // view-link and already be in the big join; SO keep a set of all aliases
                 // in the join so far and if the left entity alias isn't there yet, and this
                 // isn't the first one, throw an exception
-                Set<String> joinedAliasSet = new TreeSet<String>();
+                Set<String> joinedAliasSet = new TreeSet<>();
 
                 // TODO: at view-link read time make sure they are ordered properly so that each
                 // left hand alias after the first view-link has already been linked before
@@ -463,9 +463,9 @@ public final class SqlJdbcUtil {
             sql.append(makeFromClause(modelEntity, modelFieldTypeReader, datasourceInfo));
             String viewWhereClause = makeViewWhereClause(modelEntity, datasourceInfo.getJoinStyle());
             ModelViewEntity modelViewEntity = (ModelViewEntity)modelEntity;
-            List<EntityCondition> whereConditions = new LinkedList<EntityCondition>();
-            List<EntityCondition> havingConditions = new LinkedList<EntityCondition>();
-            List<String> orderByList = new LinkedList<String>();
+            List<EntityCondition> whereConditions = new LinkedList<>();
+            List<EntityCondition> havingConditions = new LinkedList<>();
+            List<String> orderByList = new LinkedList<>();
 
             modelViewEntity.populateViewEntityConditionInformation(modelFieldTypeReader, whereConditions, havingConditions, orderByList, null);
             String viewConditionClause;

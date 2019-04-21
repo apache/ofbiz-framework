@@ -25,7 +25,7 @@ import java.util.Map;
 public class CPRespPositions extends AuthorizeResponse.RespPositions {
 
     // Card-Present v1.0 response positions
-    private static Map<String, Integer> positions = new LinkedHashMap<String, Integer>();
+    private static Map<String, Integer> positions = new LinkedHashMap<>();
     static {
         positions.put(AuthorizeResponse.RESPONSE_CODE, 2);
         positions.put(AuthorizeResponse.REASON_CODE, 3);

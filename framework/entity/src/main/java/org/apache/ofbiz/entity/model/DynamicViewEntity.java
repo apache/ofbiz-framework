@@ -58,22 +58,22 @@ public class DynamicViewEntity {
     protected String title = "";
 
     /** Contains member-entity alias name definitions: key is alias, value is ModelMemberEntity */
-    protected Map<String, ModelMemberEntity> memberModelMemberEntities = new HashMap<String, ModelMemberEntity>();
+    protected Map<String, ModelMemberEntity> memberModelMemberEntities = new HashMap<>();
 
     /** List of alias-alls which act as a shortcut for easily pulling over member entity fields */
-    protected List<ModelAliasAll> aliasAlls = new ArrayList<ModelAliasAll>();
+    protected List<ModelAliasAll> aliasAlls = new ArrayList<>();
 
     /** List of aliases with information in addition to what is in the standard field list */
-    protected List<ModelAlias> aliases = new ArrayList<ModelAlias>();
+    protected List<ModelAlias> aliases = new ArrayList<>();
 
     /** List of fields to group by */
     protected List<String> groupBy;
 
     /** List of view links to define how entities are connected (or "joined") */
-    protected List<ModelViewLink> viewLinks = new ArrayList<ModelViewLink>();
+    protected List<ModelViewLink> viewLinks = new ArrayList<>();
 
     /** relations defining relationships between this entity and other entities */
-    protected List<ModelRelation> relations = new ArrayList<ModelRelation>();
+    protected List<ModelRelation> relations = new ArrayList<>();
 
     public DynamicViewEntity() {
     }

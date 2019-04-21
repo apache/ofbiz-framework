@@ -58,7 +58,7 @@ public class QuoteServices {
         String note = (String) context.get("note");
 
         // prepare the order information
-        Map<String, Object> sendMap = new HashMap<String, Object>();
+        Map<String, Object> sendMap = new HashMap<>();
 
         // get the quote and store
         GenericValue quote = null;
@@ -165,11 +165,11 @@ public class QuoteServices {
         List<GenericValue> quoteWorkEfforts = UtilGenerics.checkList(context.get("quoteWorkEfforts"));
         List<GenericValue> quoteAdjustments = UtilGenerics.checkList(context.get("quoteAdjustments"));
         Locale locale = (Locale) context.get("locale");
-        Map<String, Object> serviceResult = new HashMap<String, Object>();
+        Map<String, Object> serviceResult = new HashMap<>();
         
         //TODO create Quote Terms still to be implemented
         //TODO create Quote Term Attributes still to be implemented
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
 
         try {
             Map<String, Object> quoteIn = UtilMisc.toMap("quoteTypeId", quoteTypeId, "partyId", partyId, "issueDate", issueDate, "statusId", statusId, "currencyUomId", currencyUomId);

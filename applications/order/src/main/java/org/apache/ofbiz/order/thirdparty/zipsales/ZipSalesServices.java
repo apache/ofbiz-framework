@@ -225,8 +225,8 @@ public class ZipSalesServices {
         String city = shippingAddress.getString("city");
 
         // setup the return lists.
-        List<GenericValue> orderAdjustments = new LinkedList<GenericValue>();
-        List<List<GenericValue>> itemAdjustments = new LinkedList<List<GenericValue>>();
+        List<GenericValue> orderAdjustments = new LinkedList<>();
+        List<List<GenericValue>> itemAdjustments = new LinkedList<>();
 
         // check for a valid state/province geo
         String validStates = EntityUtilProperties.getPropertyValue("zipsales", "zipsales.valid.states", delegator);
@@ -263,7 +263,7 @@ public class ZipSalesServices {
     }
 
     private static List<GenericValue>getItemTaxList(Delegator delegator, GenericValue item, String zipCode, String city, BigDecimal itemAmount, BigDecimal shippingAmount, boolean isUseTax) throws GeneralException {
-        List<GenericValue> adjustments = new LinkedList<GenericValue>();
+        List<GenericValue> adjustments = new LinkedList<>();
 
         // check the item for tax status
         if (item != null && item.get("taxable") != null && "N".equals(item.getString("taxable"))) {

@@ -58,7 +58,7 @@ public final class FieldToList extends MethodOperation {
         if (fieldVal != null) {
             List<Object> toList = listFma.get(methodContext.getEnvMap());
             if (toList == null) {
-                toList = new LinkedList<Object>();
+                toList = new LinkedList<>();
                 listFma.put(methodContext.getEnvMap(), toList);
             }
             toList.add(fieldVal);

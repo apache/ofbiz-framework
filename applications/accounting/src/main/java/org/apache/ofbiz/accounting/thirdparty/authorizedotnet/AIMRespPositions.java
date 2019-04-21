@@ -25,7 +25,7 @@ import java.util.Map;
 public class AIMRespPositions extends AuthorizeResponse.RespPositions {
 
     // AIM v3.1 response positions
-    private static Map<String, Integer> positions = new LinkedHashMap<String, Integer>();
+    private static Map<String, Integer> positions = new LinkedHashMap<>();
     static {
         positions.put(AuthorizeResponse.RESPONSE_CODE, 1);
         positions.put(AuthorizeResponse.REASON_CODE, 3);

@@ -46,7 +46,7 @@ public class FlexibleMapAccessorTests extends GenericTestCaseBase {
     }
 
     private static <T> void fmaTest(String label, String getText, String putText, String fseText, Locale locale, T var, String value) {
-        Map<String, Object> testMap = new HashMap<String, Object>();
+        Map<String, Object> testMap = new HashMap<>();
         FlexibleMapAccessor<T> fmaGet = FlexibleMapAccessor.getInstance(getText);
         assertEquals(label + ":get-original-name", getText, fmaGet.getOriginalName());
         assertEquals(label + ":get-isEmpty", false, fmaGet.isEmpty());
@@ -105,7 +105,7 @@ public class FlexibleMapAccessorTests extends GenericTestCaseBase {
             assertNotNull(label + ":put-null-map", caught);
             assertTrue(label + ":put-null-map-isEmpty", testMap.isEmpty());
         }
-        Set<FlexibleMapAccessor<?>> set = new HashSet<FlexibleMapAccessor<?>>();
+        Set<FlexibleMapAccessor<?>> set = new HashSet<>();
         assertFalse(label + ":not-in-set", set.contains(fmaGet));
         set.add(fmaGet);
         assertTrue(label + ":in-set", set.contains(fmaGet));
@@ -114,7 +114,7 @@ public class FlexibleMapAccessorTests extends GenericTestCaseBase {
     private static void fmaEmptyTest(String label, String text) {
         FlexibleMapAccessor<Class<?>> fma = FlexibleMapAccessor.getInstance(text);
         assertTrue(label + ":isEmpty", fma.isEmpty());
-        Map<String, Object> testMap = new HashMap<String, Object>();
+        Map<String, Object> testMap = new HashMap<>();
         assertNull(label + ":get", fma.get(null));
         assertNull(label + ":get", fma.get(testMap));
         assertTrue(label + ":map-isEmpty-initial", testMap.isEmpty());
@@ -173,7 +173,7 @@ public class FlexibleMapAccessorTests extends GenericTestCaseBase {
         boolean isVerbose = Debug.isOn(Debug.VERBOSE);
         try {
             Debug.set(Debug.VERBOSE, true);
-            Map<String, Object> testMap = new CantRemoveMap<String, Object>();
+            Map<String, Object> testMap = new CantRemoveMap<>();
             testMap.put("throwException", new ThrowException());
             assertNull("no var", FlexibleMapAccessor.getInstance("var").get(testMap));
             Object result = FlexibleMapAccessor.getInstance("throwException.value").get(testMap);

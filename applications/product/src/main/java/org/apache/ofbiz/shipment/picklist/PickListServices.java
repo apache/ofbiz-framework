@@ -49,8 +49,8 @@ public class PickListServices {
         if (orderHeaderList == null) {
             // convert the ID list to headers
             if (orderIdList != null) {
-                List<EntityCondition> conditionList1 = new LinkedList<EntityCondition>();
-                List<EntityCondition> conditionList2 = new LinkedList<EntityCondition>();
+                List<EntityCondition> conditionList1 = new LinkedList<>();
+                List<EntityCondition> conditionList2 = new LinkedList<>();
 
                 // we are only concerned about approved sales orders
                 conditionList2.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "ORDER_APPROVED"));

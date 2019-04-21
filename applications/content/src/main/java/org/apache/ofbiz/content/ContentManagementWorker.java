@@ -61,8 +61,8 @@ import org.apache.ofbiz.security.Security;
 public final class ContentManagementWorker {
 
     public static final String module = ContentManagementWorker.class.getName();
-    private static Map<String, GenericValue> cachedWebSitePublishPoints = new HashMap<String, GenericValue>();
-    private static Map<String, Map<String, Object>> cachedStaticValues = new HashMap<String, Map<String,Object>>();
+    private static Map<String, GenericValue> cachedWebSitePublishPoints = new HashMap<>();
+    private static Map<String, Map<String, Object>> cachedStaticValues = new HashMap<>();
 
     private ContentManagementWorker() {}
 
@@ -83,7 +83,7 @@ public final class ContentManagementWorker {
 
         Map<String, LifoSet<Object>> lookupCaches = UtilGenerics.checkMap(session.getAttribute("lookupCaches"));
         if (lookupCaches == null) {
-            lookupCaches = new HashMap<String, LifoSet<Object>>();
+            lookupCaches = new HashMap<>();
             session.setAttribute("lookupCaches", lookupCaches);
         }
         String entityName = pk.getEntityName();
@@ -102,7 +102,7 @@ public final class ContentManagementWorker {
         String cacheEntityName = entityName;
         LifoSet<Object> lkupCache = lookupCaches.get(cacheEntityName);
         if (lkupCache == null) {
-            lkupCache = new LifoSet<Object>();
+            lkupCache = new LifoSet<>();
             lookupCaches.put(cacheEntityName, lkupCache);
         }
         lkupCache.add(pk.getPrimaryKey());
@@ -113,7 +113,7 @@ public final class ContentManagementWorker {
         String cacheEntityName = entityName;
         LifoSet<Object> lkupCache = lookupCaches.get(cacheEntityName);
         if (lkupCache == null) {
-            lkupCache = new LifoSet<Object>();
+            lkupCache = new LifoSet<>();
             lookupCaches.put(cacheEntityName, lkupCache);
         }
 
@@ -156,7 +156,7 @@ public final class ContentManagementWorker {
         HttpSession session = request.getSession();
         Map<String, GenericEntity> currentEntityMap = UtilGenerics.checkMap(session.getAttribute("currentEntityMap"));
         if (currentEntityMap == null) {
-            currentEntityMap = new HashMap<String, GenericEntity>();
+            currentEntityMap = new HashMap<>();
             session.setAttribute("currentEntityMap", currentEntityMap);
         }
         currentEntityMap.put(entityName, ent);
@@ -185,7 +185,7 @@ public final class ContentManagementWorker {
         HttpSession session = request.getSession();
         Map<String, GenericPK> currentEntityMap = UtilGenerics.checkMap(session.getAttribute("currentEntityMap"));
         if (currentEntityMap == null) {
-            currentEntityMap = new HashMap<String, GenericPK>();
+            currentEntityMap = new HashMap<>();
             session.setAttribute("currentEntityMap", currentEntityMap);
         }
         Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
@@ -278,7 +278,7 @@ public final class ContentManagementWorker {
     }
 
     public static List<String []> getPermittedPublishPoints(Delegator delegator, List<GenericValue> allPublishPoints, GenericValue userLogin, Security security, String permittedAction, String permittedOperations, String passedRoles) throws GeneralException {
-        List<String []> permittedPublishPointList = new LinkedList<String[]>();
+        List<String []> permittedPublishPointList = new LinkedList<>();
 
         // Check that user has permission to admin sites
         for (GenericValue webSitePP : allPublishPoints) {
@@ -293,7 +293,7 @@ public final class ContentManagementWorker {
             }
             List<String> passedPurposes = UtilMisc.toList("ARTICLE");
             List<String> roles = StringUtil.split(passedRoles, "|");
-            List<String> targetOperationList = new LinkedList<String>();
+            List<String> targetOperationList = new LinkedList<>();
             if (UtilValidate.isEmpty(permittedOperations)) {
                  targetOperationList.add("CONTENT" + entityAction);
             } else {
@@ -325,7 +325,7 @@ public final class ContentManagementWorker {
         } catch (GenericEntityException e) {
             throw new GeneralException(e.getMessage());
         }
-        List<GenericValue> allPublishPoints = new LinkedList<GenericValue>();
+        List<GenericValue> allPublishPoints = new LinkedList<>();
         GenericValue webSitePublishPoint = null;
         for (GenericValue contentAssoc : relatedPubPts) {
            String pub = (String)contentAssoc.get("contentId");
@@ -337,7 +337,7 @@ public final class ContentManagementWorker {
 
     public static Map<String, GenericValue> getPublishPointMap(Delegator delegator, String pubPtId) throws GeneralException {
         List<GenericValue> publishPointList = getAllPublishPoints(delegator, pubPtId);
-        Map<String, GenericValue> publishPointMap = new HashMap<String, GenericValue>();
+        Map<String, GenericValue> publishPointMap = new HashMap<>();
         for (GenericValue webSitePublishPoint : publishPointList) {
            String pub = (String)webSitePublishPoint.get("contentId");
            publishPointMap.put(pub, webSitePublishPoint);
@@ -356,7 +356,7 @@ public final class ContentManagementWorker {
     }
 
     public static Map<String, GenericValue> getPublishPointMap(Delegator delegator, List<GenericValue> publishPointList) {
-        Map<String, GenericValue> publishPointMap = new HashMap<String, GenericValue>();
+        Map<String, GenericValue> publishPointMap = new HashMap<>();
         for (GenericValue webSitePublishPoint : publishPointList) {
            String pub = (String)webSitePublishPoint.get("contentId");
            publishPointMap.put(pub, webSitePublishPoint);
@@ -372,12 +372,12 @@ public final class ContentManagementWorker {
             throw new GeneralException(e.getMessage());
         }
 
-        List<Map<String, Object>> staticValueList = new LinkedList<Map<String,Object>>();
+        List<Map<String, Object>> staticValueList = new LinkedList<>();
         for (GenericValue content : assocValueList) {
             String contentId = (String)content.get("contentId");
             String contentName = (String)content.get("contentName");
             String description = (String)content.get("description");
-            Map<String, Object> map = new HashMap<String, Object>();
+            Map<String, Object> map = new HashMap<>();
             map.put("contentId", contentId);
             map.put("contentName", contentName);
             map.put("description", description);
@@ -460,7 +460,7 @@ public final class ContentManagementWorker {
         if (!ignoreCache) {
             Map<String, Object> subStaticValueMap = cachedStaticValues.get(parentPlaceholderId);
             if (subStaticValueMap == null) {
-                subStaticValueMap = new HashMap<String, Object>();
+                subStaticValueMap = new HashMap<>();
                 cachedStaticValues.put(parentPlaceholderId, subStaticValueMap);
             }
         }
@@ -473,12 +473,12 @@ public final class ContentManagementWorker {
         // and another map (publishPointMapAll) that points to one of the top-level points.
         List<GenericValue> allPublishPointList = getAllPublishPoints(delegator, rootPubId);
         List<String []> publishPointList = getPermittedPublishPoints(delegator, allPublishPointList, userLogin, security , permittedAction, permittedOperations, passedRoles);
-        Map<String, Object> publishPointMap = new HashMap<String, Object>();
-        Map<String, Object> publishPointMapAll = new HashMap<String, Object>();
+        Map<String, Object> publishPointMap = new HashMap<>();
+        Map<String, Object> publishPointMapAll = new HashMap<>();
         for (String [] arr : publishPointList) {
             String contentId = arr[0];
             String description = arr[1];
-            List<Object []> subPointList = new LinkedList<Object[]>();
+            List<Object []> subPointList = new LinkedList<>();
             Object [] subArr = {contentId, subPointList, description, null};
             publishPointMap.put(contentId, subArr);
             publishPointMapAll.put(contentId, contentId);
@@ -521,7 +521,7 @@ public final class ContentManagementWorker {
             }
         }
 
-        List<Object []> publishedLinkList = new LinkedList<Object[]>();
+        List<Object []> publishedLinkList = new LinkedList<>();
         for (Entry<String, Object> entry : publishPointMap.entrySet()) {
             String contentId = entry.getKey();
             Object [] subPointArr = (Object [])publishPointMap.get(contentId);
@@ -552,7 +552,7 @@ public final class ContentManagementWorker {
     }
 
     public static List<String []> getPermittedDepartmentPoints(Delegator delegator, List<GenericValue> allDepartmentPoints, GenericValue userLogin, Security security, String permittedAction, String permittedOperations, String passedRoles) throws GeneralException {
-        List<String []> permittedDepartmentPointList = new LinkedList<String[]>();
+        List<String []> permittedDepartmentPointList = new LinkedList<>();
 
         // Check that user has permission to admin sites
         for (GenericValue content : allDepartmentPoints) {
@@ -565,7 +565,7 @@ public final class ContentManagementWorker {
                 entityAction = "_ADMIN";
             List<String> passedPurposes = UtilMisc.<String>toList("ARTICLE");
             List<String> roles = StringUtil.split(passedRoles, "|");
-            List<String> targetOperationList = new LinkedList<String>();
+            List<String> targetOperationList = new LinkedList<>();
             if (UtilValidate.isEmpty(permittedOperations)) {
                  targetOperationList.add("CONTENT" + entityAction);
             } else {
@@ -598,7 +598,7 @@ public final class ContentManagementWorker {
         } catch (GenericEntityException e) {
             throw new GeneralException(e.getMessage());
         }
-        List<GenericValue> allDepartmentPoints = new LinkedList<GenericValue>();
+        List<GenericValue> allDepartmentPoints = new LinkedList<>();
         GenericValue departmentContent = null;
         for (GenericValue contentAssoc : relatedPubPts) {
            String pub = (String)contentAssoc.get("contentId");
@@ -623,7 +623,7 @@ public final class ContentManagementWorker {
         if (thisContent == null)
             throw new RuntimeException("No entity found for id=" + contentId);
 
-       List<EntityCondition> conditionMain = new ArrayList<EntityCondition>();
+       List<EntityCondition> conditionMain = new ArrayList<>();
        conditionMain.add(EntityCondition.makeCondition("contentIdTo", contentId));
        if (typeList.size() > 0) {
            conditionMain.add(EntityCondition.makeCondition("contentAssocTypeId", EntityOperator.IN, typeList));

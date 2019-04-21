@@ -41,7 +41,7 @@ public final class EntityGroupUtil {
     private EntityGroupUtil () {}
 
     public static Set<String> getEntityNamesByGroup(String entityGroupId, Delegator delegator, boolean requireStampFields) throws GenericEntityException {
-        Set<String> entityNames = new HashSet<String>();
+        Set<String> entityNames = new HashSet<>();
 
         List<GenericValue> entitySyncGroupIncludes = EntityQuery.use(delegator).from("EntityGroupEntry").where("entityGroupId", entityGroupId).queryList();
         List<ModelEntity> modelEntities = getModelEntitiesFromRecords(entitySyncGroupIncludes, delegator, requireStampFields);
@@ -53,7 +53,7 @@ public final class EntityGroupUtil {
     }
 
     public static List<ModelEntity> getModelEntitiesFromRecords(List<GenericValue> entityGroupEntryValues, Delegator delegator, boolean requireStampFields) throws GenericEntityException {
-        List<ModelEntity> entityModelToUseList = new LinkedList<ModelEntity>();
+        List<ModelEntity> entityModelToUseList = new LinkedList<>();
 
         for (String entityName: delegator.getModelReader().getEntityNames()) {
             ModelEntity modelEntity = delegator.getModelEntity(entityName);

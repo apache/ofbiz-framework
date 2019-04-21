@@ -186,7 +186,7 @@ public class UspsServicesTests extends OFBizTestCase {
     public void testUspsDomesticRate() throws Exception {
 
         // prepare the context
-        Map<String, Object> context = new HashMap<String, Object>();
+        Map<String, Object> context = new HashMap<>();
 
         context.put("service", "Priority");
         context.put("originZip", "20770");

@@ -57,7 +57,7 @@ public final class ListToList extends MethodOperation {
         if (fromList != null) {
             List<Object> toList = toListFma.get(methodContext.getEnvMap());
             if (toList == null) {
-                toList = new LinkedList<Object>();
+                toList = new LinkedList<>();
                 toListFma.put(methodContext.getEnvMap(), toList);
             }
             toList.addAll(fromList);

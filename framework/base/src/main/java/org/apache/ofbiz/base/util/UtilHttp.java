@@ -177,7 +177,7 @@ public final class UtilHttp {
     }
 
     public static Map<String, Object> getMultiPartParameterMap(HttpServletRequest request) {
-        Map<String, Object> multiPartMap = new HashMap<String, Object>();
+        Map<String, Object> multiPartMap = new HashMap<>();
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         HttpSession session = request.getSession();
         boolean isMultiPart = ServletFileUpload.isMultipartContent(request);
@@ -238,7 +238,7 @@ public final class UtilHttp {
                             if (mapValue instanceof List<?>) {
                                 checkList(mapValue, Object.class).add(item.getString());
                             } else if (mapValue instanceof String) {
-                                List<String> newList = new LinkedList<String>();
+                                List<String> newList = new LinkedList<>();
                                 newList.add((String) mapValue);
                                 newList.add(item.getString());
                                 multiPartMap.put(fieldName, newList);

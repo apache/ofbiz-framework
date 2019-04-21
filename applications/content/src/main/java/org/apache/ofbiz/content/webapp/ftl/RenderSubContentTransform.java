@@ -77,7 +77,7 @@ public class RenderSubContentTransform implements TemplateTransformModel {
         final Environment env = Environment.getCurrentEnvironment();
         Map<String, Object> ctx = FreeMarkerWorker.getWrappedObject("context", env);
         if (ctx == null) {
-            ctx = new HashMap<String, Object>();
+            ctx = new HashMap<>();
         }
         final String mapKey = FreeMarkerWorker.getArg(args, "mapKey", ctx);
         final String subContentId = FreeMarkerWorker.getArg(args, "subContentId", ctx);

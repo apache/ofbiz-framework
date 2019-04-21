@@ -71,7 +71,7 @@ public class EntityXmlAssertTest extends OFBizTestCase {
 
         try {
             URL entityXmlURL = FlexibleLocation.resolveLocation(entityXmlUrlString);
-            List<Object> errorMessages = new LinkedList<Object>();
+            List<Object> errorMessages = new LinkedList<>();
 
             if ("assert".equals(this.action)) {
                 EntityDataAssert.assertData(entityXmlURL, delegator, errorMessages);

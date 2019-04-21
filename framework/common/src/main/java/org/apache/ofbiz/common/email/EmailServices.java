@@ -519,7 +519,7 @@ public class EmailServices {
 
         // check if attachment screen location passed in
         if (UtilValidate.isNotEmpty(xslfoAttachScreenLocationList)) {
-            List<Map<String, ? extends Object>> bodyParts = new LinkedList<Map<String, ? extends Object>>();
+            List<Map<String, ? extends Object>> bodyParts = new LinkedList<>();
             if (bodyText != null) {
                 bodyText = FlexibleStringExpander.expandString(bodyText, screenContext,  locale);
                 bodyParts.add(UtilMisc.<String, Object>toMap("content", bodyText, "type", UtilValidate.isNotEmpty(contentType) ? contentType : "text/html"));

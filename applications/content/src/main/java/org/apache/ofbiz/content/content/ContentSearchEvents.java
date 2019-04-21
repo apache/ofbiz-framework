@@ -98,7 +98,7 @@ public class ContentSearchEvents {
         String searchSortOrderString = ContentSearchSession.searchGetSortOrderString(false, request);
 
         // ========== populate the result Map
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
 
         result.put("contentIds", contentIds);
         result.put("viewIndex", viewIndex);

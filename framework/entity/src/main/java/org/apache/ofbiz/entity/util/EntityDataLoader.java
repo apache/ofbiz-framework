@@ -92,7 +92,7 @@ public class EntityDataLoader {
 
     public static <E> List<URL> getUrlList(String helperName, String componentName, List<E> readerNames) {
         String paths = getPathsString(helperName);
-        List<URL> urlList = new LinkedList<URL>();
+        List<URL> urlList = new LinkedList<>();
 
         // first get files from resources
         if (readerNames != null) {
@@ -167,7 +167,7 @@ public class EntityDataLoader {
                 File loadDir = new File(path);
                 if (loadDir.exists() && loadDir.isDirectory()) {
                     File[] files = loadDir.listFiles();
-                    List<File> tempFileList = new LinkedList<File>();
+                    List<File> tempFileList = new LinkedList<>();
                     if (files != null) {
                         for (File file : files) {
                             if (file.getName().toLowerCase(Locale.getDefault()).endsWith(".xml")) {
@@ -199,9 +199,9 @@ public class EntityDataLoader {
     }
 
     public static List<URL> getUrlByComponentList(String helperName, List<String> components, List<String> readerNames) {
-        List<URL> urlList = new LinkedList<URL>();
+        List<URL> urlList = new LinkedList<>();
         for (String readerName:  readerNames) {
-            List<String> loadReaderNames = new LinkedList<String>();
+            List<String> loadReaderNames = new LinkedList<>();
             loadReaderNames.add(readerName);
             for (String component : components) {
                 urlList.addAll(getUrlList(helperName, component, loadReaderNames));
@@ -212,7 +212,7 @@ public class EntityDataLoader {
 
     public static List<URL> getUrlByComponentList(String helperName, List<String> components) {
         Datasource datasourceInfo = EntityConfig.getDatasource(helperName);
-        List<String> readerNames = new LinkedList<String>();
+        List<String> readerNames = new LinkedList<>();
         for (ReadData readerInfo :  datasourceInfo.getReadDataList()) {
             String readerName = readerInfo.getReaderName();
             // ignore the "tenant" reader if the multitenant property is "N"
@@ -291,7 +291,7 @@ public class EntityDataLoader {
 
             if (baseName != null) {
                 try {
-                    List<GenericValue> toBeStored = new LinkedList<GenericValue>();
+                    List<GenericValue> toBeStored = new LinkedList<>();
                     toBeStored.add(
                         delegator.makeValue(
                             "SecurityPermission",

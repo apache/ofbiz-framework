@@ -74,10 +74,10 @@ public class MiscTests extends GenericTestCaseBase {
         BigDecimal bigDecimal = new BigDecimal("1.234");
         URL url = new URL("http://ofbiz.apache.org");
         List<String> baseList = UtilMisc.toList("a", "1", "b", "2", "c", "3");
-        List<String> arrayList = new ArrayList<String>();
+        List<String> arrayList = new ArrayList<>();
         arrayList.addAll(baseList);
         Map<String, String> baseMap = UtilMisc.toMap("a", "1", "b", "2", "c", "3");
-        Map<String, String> hashMap = new HashMap<String, String>();
+        Map<String, String> hashMap = new HashMap<>();
         hashMap.putAll(baseMap);
         Object[] testObjects = new Object[] {
             string,

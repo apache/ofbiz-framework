@@ -48,10 +48,10 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
     protected String screenName;
     protected String screenLocation;
 
-    protected Set<EntityArtifactInfo> entitiesUsedInThisScreen = new TreeSet<EntityArtifactInfo>();
-    protected Set<ServiceArtifactInfo> servicesUsedInThisScreen = new TreeSet<ServiceArtifactInfo>();
-    protected Set<FormWidgetArtifactInfo> formsIncludedInThisScreen = new TreeSet<FormWidgetArtifactInfo>();
-    protected Set<ControllerRequestArtifactInfo> requestsLinkedToInScreen = new TreeSet<ControllerRequestArtifactInfo>();
+    protected Set<EntityArtifactInfo> entitiesUsedInThisScreen = new TreeSet<>();
+    protected Set<ServiceArtifactInfo> servicesUsedInThisScreen = new TreeSet<>();
+    protected Set<FormWidgetArtifactInfo> formsIncludedInThisScreen = new TreeSet<>();
+    protected Set<ControllerRequestArtifactInfo> requestsLinkedToInScreen = new TreeSet<>();
 
     public ScreenWidgetArtifactInfo(String screenName, String screenLocation, ArtifactInfoFactory aif) throws GeneralException {
         super(aif);
@@ -215,7 +215,7 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
 
     public Set<ScreenWidgetArtifactInfo> getScreensIncludedInScreen() {
         // TODO: implement this
-        return new HashSet<ScreenWidgetArtifactInfo>();
+        return new HashSet<>();
     }
 
     public Set<ScreenWidgetArtifactInfo> getScreensIncludingThisScreen() {

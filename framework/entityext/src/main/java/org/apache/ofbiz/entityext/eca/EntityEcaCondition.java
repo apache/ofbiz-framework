@@ -109,7 +109,7 @@ public final class EntityEcaCondition implements java.io.Serializable {
         if (Debug.verboseOn()) Debug.logVerbose("Comparing : " + lhsValue + " " + operator + " " + rhsValue, module);
 
         // evaluate the condition & invoke the action(s)
-        List<Object> messages = new LinkedList<Object>();
+        List<Object> messages = new LinkedList<>();
         Boolean cond = ObjectType.doRealCompare(lhsValue, rhsValue, operator, compareType, format, messages, null, dctx.getClassLoader(), constant);
 
         // if any messages were returned send them out
@@ -182,7 +182,7 @@ public final class EntityEcaCondition implements java.io.Serializable {
     }
     
     protected List<String> getFieldNames() {
-        List<String> fieldNameList = new ArrayList<String>();
+        List<String> fieldNameList = new ArrayList<>();
         if( UtilValidate.isNotEmpty(lhsValueName) ) {
             fieldNameList.add(lhsValueName);
         }

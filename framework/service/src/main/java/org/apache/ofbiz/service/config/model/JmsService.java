@@ -52,7 +52,7 @@ public final class JmsService {
         if (serverElementList.isEmpty()) {
             this.servers = Collections.emptyList();
         } else {
-            List<Server> servers = new ArrayList<Server>(serverElementList.size());
+            List<Server> servers = new ArrayList<>(serverElementList.size());
             for (Element serverElement : serverElementList) {
                 servers.add(new Server(serverElement));
             }

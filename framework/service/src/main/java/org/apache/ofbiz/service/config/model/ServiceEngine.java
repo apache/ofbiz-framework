@@ -71,8 +71,8 @@ public final class ServiceEngine {
             this.engines = Collections.emptyList();
             this.engineMap = Collections.emptyMap();
         } else {
-            List<Engine> engines = new ArrayList<Engine>(engineElementList.size());
-            Map<String, Engine> engineMap = new HashMap<String, Engine>();
+            List<Engine> engines = new ArrayList<>(engineElementList.size());
+            Map<String, Engine> engineMap = new HashMap<>();
             for (Element childEngineElement : engineElementList) {
                 Engine engine = new Engine(childEngineElement);
                 engines.add(engine);
@@ -85,7 +85,7 @@ public final class ServiceEngine {
         if (serviceLocationElementList.isEmpty()) {
             this.serviceLocations = Collections.emptyList();
         } else {
-            List<ServiceLocation> serviceLocations = new ArrayList<ServiceLocation>(serviceLocationElementList.size());
+            List<ServiceLocation> serviceLocations = new ArrayList<>(serviceLocationElementList.size());
             for (Element serviceLocationElement : serviceLocationElementList) {
                 String location = serviceLocationElement.getAttribute("location").intern();
                 if (location.contains("localhost") && Start.getInstance().getConfig().portOffset != 0) {
@@ -102,7 +102,7 @@ public final class ServiceEngine {
         if (notificationGroupElementList.isEmpty()) {
             this.notificationGroups = Collections.emptyList();
         } else {
-            List<NotificationGroup> notificationGroups = new ArrayList<NotificationGroup>(notificationGroupElementList.size());
+            List<NotificationGroup> notificationGroups = new ArrayList<>(notificationGroupElementList.size());
             for (Element notificationGroupElement : notificationGroupElementList) {
                 notificationGroups.add(new NotificationGroup(notificationGroupElement));
             }
@@ -112,7 +112,7 @@ public final class ServiceEngine {
         if (startupServiceElementList.isEmpty()) {
             this.startupServices = Collections.emptyList();
         } else {
-            List<StartupService> startupServices = new ArrayList<StartupService>(startupServiceElementList.size());
+            List<StartupService> startupServices = new ArrayList<>(startupServiceElementList.size());
             for (Element startupServiceElement : startupServiceElementList) {
                 startupServices.add(new StartupService(startupServiceElement));
             }
@@ -122,7 +122,7 @@ public final class ServiceEngine {
         if (resourceLoaderElementList.isEmpty()) {
             this.resourceLoaders = Collections.emptyList();
         } else {
-            List<ResourceLoader> resourceLoaders = new ArrayList<ResourceLoader>(resourceLoaderElementList.size());
+            List<ResourceLoader> resourceLoaders = new ArrayList<>(resourceLoaderElementList.size());
             for (Element resourceLoaderElement : resourceLoaderElementList) {
                 resourceLoaders.add(new ResourceLoader(resourceLoaderElement));
             }
@@ -132,7 +132,7 @@ public final class ServiceEngine {
         if (globalServicesElementList.isEmpty()) {
             this.globalServices = Collections.emptyList();
         } else {
-            List<GlobalServices> globalServices = new ArrayList<GlobalServices>(globalServicesElementList.size());
+            List<GlobalServices> globalServices = new ArrayList<>(globalServicesElementList.size());
             for (Element globalServicesElement : globalServicesElementList) {
                 globalServices.add(new GlobalServices(globalServicesElement));
             }
@@ -142,7 +142,7 @@ public final class ServiceEngine {
         if (serviceGroupsElementList.isEmpty()) {
             this.serviceGroups = Collections.emptyList();
         } else {
-            List<ServiceGroups> serviceGroups = new ArrayList<ServiceGroups>(serviceGroupsElementList.size());
+            List<ServiceGroups> serviceGroups = new ArrayList<>(serviceGroupsElementList.size());
             for (Element serviceGroupsElement : serviceGroupsElementList) {
                 serviceGroups.add(new ServiceGroups(serviceGroupsElement));
             }
@@ -152,7 +152,7 @@ public final class ServiceEngine {
         if (serviceEcasElementList.isEmpty()) {
             this.serviceEcas = Collections.emptyList();
         } else {
-            List<ServiceEcas> serviceEcas = new ArrayList<ServiceEcas>(serviceEcasElementList.size());
+            List<ServiceEcas> serviceEcas = new ArrayList<>(serviceEcasElementList.size());
             for (Element serviceEcasElement : serviceEcasElementList) {
                 serviceEcas.add(new ServiceEcas(serviceEcasElement));
             }
@@ -162,7 +162,7 @@ public final class ServiceEngine {
         if (jmsServiceElementList.isEmpty()) {
             this.jmsServices = Collections.emptyList();
         } else {
-            List<JmsService> jmsServices = new ArrayList<JmsService>(jmsServiceElementList.size());
+            List<JmsService> jmsServices = new ArrayList<>(jmsServiceElementList.size());
             for (Element jmsServiceElement : jmsServiceElementList) {
                 jmsServices.add(new JmsService(jmsServiceElement));
             }

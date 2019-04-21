@@ -51,7 +51,7 @@ public final class EntityEcaRule implements java.io.Serializable {
     private final List<EntityEcaCondition> conditions;
     private final List<Object> actionsAndSets;
     private boolean enabled = true;
-    private final List<String> conditionFieldNames  = new ArrayList<String>();
+    private final List<String> conditionFieldNames  = new ArrayList<>();
 
     public EntityEcaRule(Element eca) {
         this.entityName = eca.getAttribute("entity");
@@ -59,8 +59,8 @@ public final class EntityEcaRule implements java.io.Serializable {
         this.eventName = eca.getAttribute("event");
         this.runOnError = "true".equals(eca.getAttribute("run-on-error"));
         this.enabled = !"false".equals(eca.getAttribute("enabled"));
-        ArrayList<EntityEcaCondition> conditions = new ArrayList<EntityEcaCondition>();
-        ArrayList<Object> actionsAndSets = new ArrayList<Object>();
+        ArrayList<EntityEcaCondition> conditions = new ArrayList<>();
+        ArrayList<Object> actionsAndSets = new ArrayList<>();
         for (Element element: UtilXml.childElementList(eca)) {
             if ("condition".equals(element.getNodeName())) {
                 EntityEcaCondition ecaCond = new EntityEcaCondition(element, true, false);
@@ -130,7 +130,7 @@ public final class EntityEcaRule implements java.io.Serializable {
             return;
         }
         // Are fields tested in a condition missing? If so, we need to load them
-        List<String> fieldsToLoad = new ArrayList<String>();
+        List<String> fieldsToLoad = new ArrayList<>();
         for( String conditionFieldName : conditionFieldNames) {
             if( value.get(conditionFieldName) == null) {
                 fieldsToLoad.add(conditionFieldName);
@@ -147,7 +147,7 @@ public final class EntityEcaRule implements java.io.Serializable {
             }
         }
 
-        Map<String, Object> context = new HashMap<String, Object>();
+        Map<String, Object> context = new HashMap<>();
         context.putAll(value);
 
         boolean allCondTrue = true;

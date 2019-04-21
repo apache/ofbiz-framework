@@ -54,9 +54,9 @@ public class LabelManagerFactory {
     protected static Set<String> componentNamesFound = null;
     protected static Map<String, LabelFile> filesFound = null;
 
-    protected Map<String, LabelInfo> labels = new TreeMap<String, LabelInfo>();
-    protected Set<String> localesFound = new TreeSet<String>();
-    protected List<LabelInfo> duplicatedLocalesLabelsList = new LinkedList<LabelInfo>();
+    protected Map<String, LabelInfo> labels = new TreeMap<>();
+    protected Set<String> localesFound = new TreeSet<>();
+    protected List<LabelInfo> duplicatedLocalesLabelsList = new LinkedList<>();
 
     public static synchronized LabelManagerFactory getInstance() throws IOException {
         if (componentNamesFound == null) {
@@ -72,7 +72,7 @@ public class LabelManagerFactory {
     }
 
     protected static void loadComponentNames() {
-        componentNamesFound = new TreeSet<String>();
+        componentNamesFound = new TreeSet<>();
         Collection<ComponentConfig> componentConfigs = ComponentConfig.getAllComponents();
         for (ComponentConfig componentConfig : componentConfigs) {
             componentNamesFound.add(componentConfig.getComponentName());
@@ -80,7 +80,7 @@ public class LabelManagerFactory {
     }
 
     protected static void loadLabelFiles() throws IOException {
-        filesFound = new TreeMap<String, LabelFile>();
+        filesFound = new TreeMap<>();
         List<ClasspathInfo> cpInfos = ComponentConfig.getAllClasspathInfos();
         for (ClasspathInfo cpi : cpInfos) {
             if ("dir".equals(cpi.type)) {
@@ -192,7 +192,7 @@ public class LabelManagerFactory {
     }
 
     public Set<String> getLocalesFound() {
-        return new TreeSet<String>(localesFound);
+        return new TreeSet<>(localesFound);
     }
 
     public static Collection<LabelFile> getFilesFound() {

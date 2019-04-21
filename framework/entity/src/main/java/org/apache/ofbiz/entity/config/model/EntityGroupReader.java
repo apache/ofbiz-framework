@@ -53,7 +53,7 @@ public final class EntityGroupReader {
         if (resourceElementList.isEmpty()) {
             this.resourceList = Collections.emptyList();
         } else {
-            List<Resource> resourceList = new ArrayList<Resource>(resourceElementList.size());
+            List<Resource> resourceList = new ArrayList<>(resourceElementList.size());
             for (Element resourceElement : resourceElementList) {
                 resourceList.add(new Resource(resourceElement));
             }

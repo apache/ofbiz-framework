@@ -198,7 +198,7 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
                 String password = config.getBasicPassword();
 
                 // check the account
-                Map<String, Object> context = new HashMap<String, Object>();
+                Map<String, Object> context = new HashMap<>();
                 context.put("login.username", username);
                 context.put("login.password", password);
 
@@ -380,7 +380,7 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
             }
 
             // context placeholder
-            Map<String, Object> context = new HashMap<String, Object>();
+            Map<String, Object> context = new HashMap<>();
 
             if (model != null) {
                 int parameterCount = xmlRpcReq.getParameterCount();

@@ -53,13 +53,13 @@ public final class GeoWorker {
 
     public static List<GenericValue> expandGeoGroup(GenericValue geo) {
         if (geo == null) {
-            return new LinkedList<GenericValue>();
+            return new LinkedList<>();
         }
         if (!"GROUP".equals(geo.getString("geoTypeId"))) {
             return UtilMisc.toList(geo);
         }
 
-        List<GenericValue> geoList = new LinkedList<GenericValue>();
+        List<GenericValue> geoList = new LinkedList<>();
         List<GenericValue> thisGeoAssoc = null;
         try {
             thisGeoAssoc = geo.getRelated("AssocGeoAssoc", UtilMisc.toMap("geoAssocTypeId", "GROUP_MEMBER"), null, false);
@@ -84,7 +84,7 @@ public final class GeoWorker {
         if (UtilValidate.isEmpty(geoIdByTypeMapOrig)) {
             return geoIdByTypeMapOrig;
         }
-        Map<String, String> geoIdByTypeMapTemp =  new LinkedHashMap<String, String>();
+        Map<String, String> geoIdByTypeMapTemp =  new LinkedHashMap<>();
         for (Map.Entry<String, String> geoIdByTypeEntry: geoIdByTypeMapOrig.entrySet()) {
             List<GenericValue> geoAssocList = EntityQuery.use(delegator)
                                                          .from("GeoAssoc")
@@ -97,7 +97,7 @@ public final class GeoWorker {
             }
         }
         geoIdByTypeMapTemp = expandGeoRegionDeep(geoIdByTypeMapTemp, delegator);
-        Map<String, String> geoIdByTypeMapNew =  new LinkedHashMap<String, String>();
+        Map<String, String> geoIdByTypeMapNew =  new LinkedHashMap<>();
         // add the temp Map first, then the original over top of it, ie give the original priority over the sub/expanded values
         geoIdByTypeMapNew.putAll(geoIdByTypeMapTemp);
         geoIdByTypeMapNew.putAll(geoIdByTypeMapOrig);

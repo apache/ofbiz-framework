@@ -107,7 +107,7 @@ public final class CheckId extends MethodOperation {
             if (message != null) {
                 List<String> messages = errorListFma.get(methodContext.getEnvMap());
                 if (messages == null) {
-                    messages = new LinkedList<String>();
+                    messages = new LinkedList<>();
                 }
                 errorListFma.put(methodContext.getEnvMap(), messages);
                 messages.add(message.concat(": ").concat(errorMsg));

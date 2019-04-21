@@ -39,7 +39,7 @@ public class PermissionRecorder {
 
     protected boolean isOn = false;
     protected GenericValue userLogin;
-    protected List<Map<String, Object>> permCheckResults = new LinkedList<Map<String,Object>>();
+    protected List<Map<String, Object>> permCheckResults = new LinkedList<>();
     protected boolean entityPermCheckResult = false;
     protected String currentContentId = "";
     protected Map<String, Object> currentContentMap;
@@ -124,7 +124,7 @@ public class PermissionRecorder {
 
     public void setCurrentContentId(String id) {
         if (!currentContentId.equals(id)) {
-            currentContentMap = new HashMap<String, Object>();
+            currentContentMap = new HashMap<>();
             permCheckResults.add(currentContentMap);
             currentContentMap.put("contentId", id);
             currentContentMap.put("checkResults", new LinkedList<>());
@@ -155,7 +155,7 @@ public class PermissionRecorder {
     }
 
     public void startMatchGroup(List<String> targetOperations, List<String> purposes, List<String> roles, List<String> targStatusList, String targPrivilegeEnumId, String contentId) {
-        currentContentMap = new HashMap<String, Object>();
+        currentContentMap = new HashMap<>();
         permCheckResults.add(currentContentMap);
         String s = null;
         if (targetOperations != null) {
@@ -174,7 +174,7 @@ public class PermissionRecorder {
             s = targStatusList.toString();
             currentContentMap.put("statusId", s);
         }
-        List<Map<String, Object>> checkResultList = new LinkedList<Map<String,Object>>();
+        List<Map<String, Object>> checkResultList = new LinkedList<>();
         currentContentMap.put("privilegeEnumId", privilegeEnumId);
         currentContentMap.put("contentId", contentId);
         currentContentMap.put("checkResultList", checkResultList);

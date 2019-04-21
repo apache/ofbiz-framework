@@ -65,7 +65,7 @@ public class ExampleRemoteClient {
     }
 
     public Map<String, Object> runTestService() throws RemoteException, GenericServiceException {
-        Map<String, Object> context = new HashMap<String, Object>();
+        Map<String, Object> context = new HashMap<>();
         context.put("message", "Remote Service Test");
         return rd.runSync("testScv", context);
     }

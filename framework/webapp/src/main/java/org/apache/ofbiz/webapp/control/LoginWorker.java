@@ -205,7 +205,7 @@ public class LoginWorker {
             List<Object> errorMessageList = UtilGenerics.checkList(request.getAttribute("_ERROR_MESSAGE_LIST"));
             if (!hasBasePermission(userLogin, request) || isFlaggedLoggedOut(userLogin, userLogin.getDelegator())) {
                 if (errorMessageList == null) {
-                    errorMessageList = new LinkedList<Object>();
+                    errorMessageList = new LinkedList<>();
                     request.setAttribute("_ERROR_MESSAGE_LIST", errorMessageList);
                 }
                 errorMessageList.add("User does not have permission or is flagged as logged out");
@@ -427,7 +427,7 @@ public class LoginWorker {
             password = (String) request.getAttribute("PASSWORD");
         }
 
-        List<String> unpwErrMsgList = new LinkedList<String>();
+        List<String> unpwErrMsgList = new LinkedList<>();
         if (UtilValidate.isEmpty(username)) {
             unpwErrMsgList.add(UtilProperties.getMessage(resourceWebapp, "loginevents.username_was_empty_reenter", UtilHttp.getLocale(request)));
         }
@@ -1257,7 +1257,7 @@ public class LoginWorker {
     }
 
     protected static boolean checkValidIssuer(Delegator delegator, Map<String, String> x500Map, BigInteger serialNumber) throws GeneralException {
-        List<EntityCondition> conds = new LinkedList<EntityCondition>();
+        List<EntityCondition> conds = new LinkedList<>();
         conds.add(EntityCondition.makeCondition(EntityOperator.OR, EntityCondition.makeConditionMap("commonName", x500Map.get("CN")),
                 EntityCondition.makeConditionMap("commonName", null),
                 EntityCondition.makeConditionMap("commonName", "")));
@@ -1372,7 +1372,7 @@ public class LoginWorker {
      */
     public static Collection<ComponentConfig.WebappInfo> getAppBarWebInfos(Security security, GenericValue userLogin, String serverName, String menuName) {
         Collection<ComponentConfig.WebappInfo> allInfos = webapps.getAppBarWebInfos(serverName, menuName);
-        Collection<ComponentConfig.WebappInfo> allowedInfos = new ArrayList<ComponentConfig.WebappInfo>(allInfos.size());
+        Collection<ComponentConfig.WebappInfo> allowedInfos = new ArrayList<>(allInfos.size());
         for (ComponentConfig.WebappInfo info : allInfos) {
             if (hasApplicationPermission(info, security, userLogin)) {
                 allowedInfos.add(info);

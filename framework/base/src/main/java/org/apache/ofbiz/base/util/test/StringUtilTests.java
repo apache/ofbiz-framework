@@ -200,7 +200,7 @@ public class StringUtilTests extends GenericTestCaseBase {
     }
 
     public void testConvertChar() {
-        Map<Character, Integer> conversions = new HashMap<Character, Integer>();
+        Map<Character, Integer> conversions = new HashMap<>();
         conversions.put('0', 0); conversions.put('1', 1); conversions.put('2', 2); conversions.put('3', 3);
         conversions.put('4', 4); conversions.put('5', 5); conversions.put('6', 6); conversions.put('7', 7);
         conversions.put('8', 8); conversions.put('9', 9);

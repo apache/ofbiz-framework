@@ -96,23 +96,23 @@ public class RequirementServices {
                     .queryList();
 
             // maps to cache the associated suppliers and products data, so we don't do redundant DB and service requests
-            Map<String, GenericValue> suppliers = new HashMap<String, GenericValue>();
-            Map<String, GenericValue> gids = new HashMap<String, GenericValue>();
-            Map<String, Map<String, Object>> inventories = new HashMap<String, Map<String,Object>>();
-            Map<String, BigDecimal> productsSold = new HashMap<String, BigDecimal>();
+            Map<String, GenericValue> suppliers = new HashMap<>();
+            Map<String, GenericValue> gids = new HashMap<>();
+            Map<String, Map<String, Object>> inventories = new HashMap<>();
+            Map<String, BigDecimal> productsSold = new HashMap<>();
 
             // to count quantity, running total, and distinct products in list
             BigDecimal quantity = BigDecimal.ZERO;
             BigDecimal amountTotal = BigDecimal.ZERO;
-            Set<String> products = new HashSet<String>();
+            Set<String> products = new HashSet<>();
 
             // time period to count products ordered from, six months ago and the 1st of that month
             Timestamp timePeriodStart = UtilDateTime.getMonthStart(UtilDateTime.nowTimestamp(), 0, -6);
 
             // join in fields with extra data about the suppliers and products
-            List<Map<String, Object>> requirements = new LinkedList<Map<String,Object>>();
+            List<Map<String, Object>> requirements = new LinkedList<>();
             for (GenericValue requirement : requirementAndRoles) {
-                Map<String, Object> union = new HashMap<String, Object>();
+                Map<String, Object> union = new HashMap<>();
                 String productId = requirement.getString("productId");
                 partyId = requirement.getString("partyId");
                 String facilityId = requirement.getString("facilityId");

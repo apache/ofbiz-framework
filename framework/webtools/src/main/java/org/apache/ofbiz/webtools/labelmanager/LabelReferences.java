@@ -62,12 +62,12 @@ public class LabelReferences {
     private static final String getResourceRegex = "ServiceUtil\\.getResource\\(\\)";
     private static final String getResource = "ServiceUtil.getResource  ";
 
-    protected Map<String, Map<String, Integer>> references = new TreeMap<String, Map<String, Integer>>();
+    protected Map<String, Map<String, Integer>> references = new TreeMap<>();
     protected Delegator delegator;
     protected DispatchContext dispatchContext;
     protected Map<String, LabelInfo> labels;
-    protected Set<String> labelSet = new HashSet<String>();
-    protected Set<String> rootFolders = new HashSet<String>();
+    protected Set<String> labelSet = new HashSet<>();
+    protected Set<String> rootFolders = new HashSet<>();
 
     public LabelReferences(Delegator delegator, LabelManagerFactory factory) {
         this.delegator = delegator;
@@ -116,7 +116,7 @@ public class LabelReferences {
         // get labels from simple method files
         getLabelsFromSimpleMethodFiles();
         // get labels from widgets files
-        List<File> fileList = new LinkedList<File>();
+        List<File> fileList = new LinkedList<>();
         for (String rootFolder : this.rootFolders) {
             fileList.addAll(FileUtil.findXmlFiles(rootFolder + "webapp", null, null, null));
             fileList.addAll(FileUtil.findXmlFiles(rootFolder + "widget", null, null, null));
@@ -143,7 +143,7 @@ public class LabelReferences {
     private void setLabelReference(String labelKey, String filePath) {
         Map<String, Integer> reference = references.get(labelKey);
         if (UtilValidate.isEmpty(reference)) {
-            reference = new TreeMap<String, Integer>();
+            reference = new TreeMap<>();
             reference.put(filePath, 1);
             references.put(labelKey, reference);
         } else {
@@ -299,7 +299,7 @@ public class LabelReferences {
     }
 
     private void getLabelsFromFormWidgets(String inFile, File file) throws MalformedURLException, SAXException, ParserConfigurationException, IOException, GenericServiceException {
-        Set<String> fieldNames = new HashSet<String>();
+        Set<String> fieldNames = new HashSet<>();
         findUiLabelMapInFile(inFile, file.getPath());
         Document formDocument = UtilXml.readXmlDocument(file.toURI().toURL());
         Element rootElem = formDocument.getDocumentElement();

@@ -32,9 +32,9 @@ import org.w3c.dom.Element;
  */
 public class MapProcessor {
 
-    List<MakeInString> makeInStrings = new ArrayList<MakeInString>();
+    List<MakeInString> makeInStrings = new ArrayList<>();
     String name;
-    List<SimpleMapProcess> simpleMapProcesses = new ArrayList<SimpleMapProcess>();
+    List<SimpleMapProcess> simpleMapProcesses = new ArrayList<>();
 
     public MapProcessor(Element simpleMapProcessorElement) {
         name = simpleMapProcessorElement.getAttribute("name");

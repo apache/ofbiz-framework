@@ -114,7 +114,7 @@ public class CompDocEvents {
                 request.setAttribute(obj.toString(), val);
             }
             // Update ContentRevision and ContentRevisonItem
-            Map<String, Object> contentRevisionMap = new HashMap<String, Object>();
+            Map<String, Object> contentRevisionMap = new HashMap<>();
             contentRevisionMap.put("itemContentId", contentId);
             contentRevisionMap.put("contentId", contentId);
             contentRevisionMap.put("userLogin", userLogin);
@@ -158,7 +158,7 @@ public class CompDocEvents {
         String rootDir = servletContext.getRealPath("/");
         String https = (String) servletContext.getAttribute("https");
 
-        Map<String, Object> mapIn = new HashMap<String, Object>();
+        Map<String, Object> mapIn = new HashMap<>();
         mapIn.put("contentId", contentId);
         mapIn.put("locale", locale);
         mapIn.put("rootDir", rootDir);
@@ -207,7 +207,7 @@ public class CompDocEvents {
         String rootDir = servletContext.getRealPath("/");
         String https = (String) servletContext.getAttribute("https");
 
-        Map<String, Object> mapIn = new HashMap<String, Object>();
+        Map<String, Object> mapIn = new HashMap<>();
         mapIn.put("contentId", contentId);
         mapIn.put("locale", locale);
         mapIn.put("rootDir", rootDir);

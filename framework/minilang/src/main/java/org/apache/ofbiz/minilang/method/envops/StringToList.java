@@ -80,7 +80,7 @@ public final class StringToList extends MethodOperation {
         }
         List<Object> toList = listFma.get(methodContext.getEnvMap());
         if (toList == null) {
-            toList = new LinkedList<Object>();
+            toList = new LinkedList<>();
             listFma.put(methodContext.getEnvMap(), toList);
         }
         toList.add(value);

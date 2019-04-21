@@ -181,7 +181,7 @@ public final class Datasource {
         if (sqlLoadPathElementList.isEmpty()) {
             this.sqlLoadPathList = Collections.emptyList();
         } else {
-            List<SqlLoadPath> sqlLoadPathList = new ArrayList<SqlLoadPath>(sqlLoadPathElementList.size());
+            List<SqlLoadPath> sqlLoadPathList = new ArrayList<>(sqlLoadPathElementList.size());
             for (Element sqlLoadPathElement : sqlLoadPathElementList) {
                 sqlLoadPathList.add(new SqlLoadPath(sqlLoadPathElement));
             }
@@ -191,7 +191,7 @@ public final class Datasource {
         if (readDataElementList.isEmpty()) {
             this.readDataList = Collections.emptyList();
         } else {
-            List<ReadData> readDataList = new ArrayList<ReadData>(readDataElementList.size());
+            List<ReadData> readDataList = new ArrayList<>(readDataElementList.size());
             for (Element readDataElement : readDataElementList) {
                 readDataList.add(new ReadData(readDataElement));
             }

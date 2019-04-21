@@ -66,15 +66,15 @@ public class ObjectTypeTests extends GenericTestCaseBase {
         super(name);
         ntstmp = new Timestamp(781L);
         ntstmp.setNanos(123000000);
-        list = new ArrayList<Object>();
+        list = new ArrayList<>();
         list.add("one");
         list.add("two");
         list.add("three");
-        map = new LinkedHashMap<String, Object>();
+        map = new LinkedHashMap<>();
         map.put("one", "1");
         map.put("two", "2");
         map.put("three", "3");
-        set = new LinkedHashSet<Object>(list);
+        set = new LinkedHashSet<>(list);
         Calendar cal = UtilDateTime.getCalendarInstance(localeData.goodTimeZone, localeData.goodLocale);
         cal.set(1969, Calendar.DECEMBER, 31, 0, 0, 0);
         cal.set(Calendar.MILLISECOND, 0);

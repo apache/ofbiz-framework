@@ -82,7 +82,7 @@ public final class CallSimpleMethod extends MethodOperation {
             if (!"function".equals(this.scope)) {
                 MiniLangValidate.handleError("Inline scope cannot include <result-to-field> elements.", simpleMethod, element);
             }
-            List<ResultToField> resultToFieldList = new ArrayList<ResultToField>(resultToFieldElements.size());
+            List<ResultToField> resultToFieldList = new ArrayList<>(resultToFieldElements.size());
             for (Element resultToFieldElement : resultToFieldElements) {
                 resultToFieldList.add(new ResultToField(resultToFieldElement, simpleMethod));
             }
@@ -103,7 +103,7 @@ public final class CallSimpleMethod extends MethodOperation {
         }
         MethodContext localContext = methodContext;
         if ("function".equals(this.scope)) {
-            Map<String, Object> localEnv = new HashMap<String, Object>();
+            Map<String, Object> localEnv = new HashMap<>();
             localEnv.putAll(methodContext.getEnvMap());
             localEnv.remove(this.simpleMethod.getEventResponseCodeName());
             localEnv.remove(this.simpleMethod.getServiceResponseMessageName());

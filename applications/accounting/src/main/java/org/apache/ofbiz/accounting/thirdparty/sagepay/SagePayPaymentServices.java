@@ -51,7 +51,7 @@ public class SagePayPaymentServices {
         Debug.logInfo("SagePay - Entered buildCustomerBillingInfo", module);
         Debug.logInfo("SagePay buildCustomerBillingInfo context : " + context, module);
 
-        Map<String, String> billingInfo = new HashMap<String, String>();
+        Map<String, String> billingInfo = new HashMap<>();
 
         String orderId = null;
         BigDecimal processAmount = null;

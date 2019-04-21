@@ -51,7 +51,7 @@ public final class SagePayUtil {
     public static Map<String, Object> buildCardAuthorisationPaymentResponse
     (Boolean authResult, String authCode, String authFlag, BigDecimal processAmount, String authRefNum, String authAltRefNum, String authMessage) {
 
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
         if(authResult != null) { result.put("authResult", authResult); }
         if(authCode != null) { result.put("authCode", authCode); }
         if(authFlag != null) { result.put("authFlag", authFlag); }
@@ -65,7 +65,7 @@ public final class SagePayUtil {
     public static Map<String, Object> buildCardCapturePaymentResponse
     (Boolean captureResult, String captureCode, String captureFlag, BigDecimal captureAmount, String captureRefNum, String captureAltRefNum, String captureMessage) {
 
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
         if(captureResult != null) { result.put("captureResult", captureResult); }
         if(captureCode != null) { result.put("captureCode", captureCode); }
         if(captureFlag != null) { result.put("captureFlag", captureFlag); }
@@ -79,7 +79,7 @@ public final class SagePayUtil {
     public static Map<String, Object> buildCardReleasePaymentResponse
     (Boolean releaseResult, String releaseCode, BigDecimal releaseAmount, String releaseRefNum, String releaseAltRefNum, String releaseMessage) {
 
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
         if(releaseResult != null) { result.put("releaseResult", releaseResult); }
         if(releaseCode != null) { result.put("releaseCode", releaseCode); }
         if(releaseAmount != null) { result.put("releaseAmount", releaseAmount); }
@@ -92,7 +92,7 @@ public final class SagePayUtil {
     public static Map<String, Object> buildCardVoidPaymentResponse
     (Boolean refundResult, BigDecimal refundAmount, String refundRefNum, String refundAltRefNum, String refundMessage) {
 
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
         if(refundResult != null) { result.put("refundResult", refundResult); }
         if(refundAmount != null) { result.put("refundAmount", refundAmount); }
         if(refundRefNum != null) { result.put("refundRefNum", refundRefNum); }
@@ -104,7 +104,7 @@ public final class SagePayUtil {
     public static Map<String, Object> buildCardRefundPaymentResponse
     (Boolean refundResult, String refundCode, BigDecimal refundAmount, String refundRefNum, String refundAltRefNum, String refundMessage) {
 
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
         if(refundResult != null) { result.put("refundResult", refundResult); }
         if(refundCode != null) { result.put("refundCode", refundCode); }
         if(refundAmount != null) { result.put("refundAmount", refundAmount); }
@@ -143,7 +143,7 @@ public final class SagePayUtil {
 
     public static Map<String, String> getResponseData(HttpResponse response) throws IOException {
 
-        Map<String, String> responseData = new HashMap<String, String>();
+        Map<String, String> responseData = new HashMap<>();
         HttpEntity httpEntity = response.getEntity();
         if (httpEntity != null) {
             InputStream inputStream = httpEntity.getContent();
@@ -171,7 +171,7 @@ public final class SagePayUtil {
         HttpPost httpPost = new HttpPost(uri);
         httpPost.addHeader("User-Agent", "HTTP Client");
         httpPost.addHeader("Content-type", "application/x-www-form-urlencoded");
-        List<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+        List<NameValuePair> postParameters = new ArrayList<>();
         for (Entry<String,String> entry : parameters.entrySet()) {
             postParameters.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
         }

@@ -54,7 +54,7 @@ public abstract class JdbcValueHandler<T> {
         for the specified Java type. The JdbcValueHandler instances are
         initialized with the SQL type recommended by Sun/Oracle.
          */
-        Map<String, JdbcValueHandler<?>> result = new HashMap<String, JdbcValueHandler<?>>();
+        Map<String, JdbcValueHandler<?>> result = new HashMap<>();
         // JDBC 1
         result.put("Array", new ArrayJdbcValueHandler(Types.ARRAY));
         result.put("java.sql.Array", new ArrayJdbcValueHandler(Types.ARRAY));
@@ -102,7 +102,7 @@ public abstract class JdbcValueHandler<T> {
         method must be called with the correct type, or an
         exception will be thrown.
          */
-        Map<String, Integer> result = new HashMap<String, Integer>();
+        Map<String, Integer> result = new HashMap<>();
         // SQL 2003 Data Types
         result.put("ARRAY", Types.ARRAY);
         result.put("BIGINT", Types.BIGINT);

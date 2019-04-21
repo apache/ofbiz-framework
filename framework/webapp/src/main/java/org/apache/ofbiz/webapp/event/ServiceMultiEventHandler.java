@@ -154,8 +154,8 @@ public class ServiceMultiEventHandler implements EventHandler {
         String messageSuffixStr = UtilProperties.getMessage("DefaultMessagesUiLabels", "service.message.suffix", locale);
 
         // prepare the error message and success message lists
-        List<Object> errorMessages = new LinkedList<Object>();
-        List<String> successMessages = new LinkedList<String>();
+        List<Object> errorMessages = new LinkedList<>();
+        List<String> successMessages = new LinkedList<>();
 
         // Check the global-transaction attribute of the event from the controller to see if the
         //  event should be wrapped in a transaction
@@ -206,7 +206,7 @@ public class ServiceMultiEventHandler implements EventHandler {
                 }
 
                 // build the context
-                Map<String, Object> serviceContext = new HashMap<String, Object>();
+                Map<String, Object> serviceContext = new HashMap<>();
                 for (ModelParam modelParam: modelService.getInModelParamList()) {
                     String paramName = modelParam.name;
 

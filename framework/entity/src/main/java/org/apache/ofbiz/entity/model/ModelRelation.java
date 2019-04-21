@@ -91,7 +91,7 @@ public final class ModelRelation extends ModelChild {
         List<ModelKeyMap >keyMaps = Collections.emptyList();
         List<? extends Element> elementList = UtilXml.childElementList(relationElement, "key-map");
         if (!elementList.isEmpty()) {
-            keyMaps = new ArrayList<ModelKeyMap>(elementList.size());
+            keyMaps = new ArrayList<>(elementList.size());
             for (Element keyMapElement : elementList) {
                 keyMaps.add(new ModelKeyMap(keyMapElement));
             }
@@ -138,7 +138,7 @@ public final class ModelRelation extends ModelChild {
         this.isAutoRelation = isAutoRelation;
         StringBuilder sb = new StringBuilder();
         sb.append(modelEntity == null ? "Unknown" : modelEntity.getEntityName()).append("->").append(title).append(relEntityName).append("[");
-        Set<ModelKeyMap> keyMapSet = new TreeSet<ModelKeyMap>(keyMaps);
+        Set<ModelKeyMap> keyMapSet = new TreeSet<>(keyMaps);
         Iterator<ModelKeyMap> setIter = keyMapSet.iterator();
         while (setIter.hasNext()) {
             ModelKeyMap keyMap = setIter.next();

@@ -61,7 +61,7 @@ public final class MiniLangUtil {
     private static final Set<String> SCRIPT_PREFIXES;
 
     static {
-        Set<String> scriptPrefixes = new HashSet<String>();
+        Set<String> scriptPrefixes = new HashSet<>();
         for (String scriptName : ScriptUtil.SCRIPT_NAMES) {
             scriptPrefixes.add(scriptName.concat(":"));
         }

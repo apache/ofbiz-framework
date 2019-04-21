@@ -102,7 +102,7 @@ public class NodeELResolver extends ELResolver {
                 } else if (nodeList.getLength() == 1) {
                     result = nodeList.item(0);
                 } else {
-                    List<Node> newList = new ArrayList<Node>(nodeList.getLength());
+                    List<Node> newList = new ArrayList<>(nodeList.getLength());
                     for (int i = 0; i < nodeList.getLength(); i++) {
                         newList.add(nodeList.item(i));
                     }

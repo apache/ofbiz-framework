@@ -84,7 +84,7 @@ public final class CategoryWorker {
 
     public static void getCategoriesWithNoParent(ServletRequest request, String attributeName) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
-        Collection<GenericValue> results = new LinkedList<GenericValue>();
+        Collection<GenericValue> results = new LinkedList<>();
 
         try {
             Collection<GenericValue> allCategories = EntityQuery.use(delegator).from("ProductCategory").queryList();
@@ -138,7 +138,7 @@ public final class CategoryWorker {
     }
 
     public static List<GenericValue> getRelatedCategoriesRet(Delegator delegator, String attributeName, String parentId, boolean limitView, boolean excludeEmpty, boolean recursive) {
-        List<GenericValue> categories = new LinkedList<GenericValue>();
+        List<GenericValue> categories = new LinkedList<>();
 
         if (Debug.verboseOn()) Debug.logVerbose("[CategoryWorker.getRelatedCategories] ParentID: " + parentId, module);
 
@@ -243,7 +243,7 @@ public final class CategoryWorker {
     }
 
     public static List<String> adjustTrail(List<String> origTrail, String currentCategoryId, String previousCategoryId) {
-        List<String> trail = new LinkedList<String>();
+        List<String> trail = new LinkedList<>();
         if (origTrail != null) {
             trail.addAll(origTrail);
         }
@@ -354,7 +354,7 @@ public final class CategoryWorker {
     }
 
     public static List<GenericValue> filterProductsInCategory(Delegator delegator, List<GenericValue> valueObjects, String productCategoryId, String productIdFieldName) throws GenericEntityException {
-        List<GenericValue> newList = new LinkedList<GenericValue>();
+        List<GenericValue> newList = new LinkedList<>();
 
         if (productCategoryId == null) return newList;
         if (valueObjects == null) return null;
@@ -405,13 +405,13 @@ public final class CategoryWorker {
         String productCategoryId = (String) context.get("productCategoryId");
         Map<String, Object> results = ServiceUtil.returnSuccess();
         Delegator delegator = dctx.getDelegator();
-        List<String> trailElements = new LinkedList<String>();
+        List<String> trailElements = new LinkedList<>();
         trailElements.add(productCategoryId);
         String parentProductCategoryId = productCategoryId;
         while (UtilValidate.isNotEmpty(parentProductCategoryId)) {
             // find product category rollup
             try {
-                List<EntityCondition> rolllupConds = new LinkedList<EntityCondition>();
+                List<EntityCondition> rolllupConds = new LinkedList<>();
                 rolllupConds.add(EntityCondition.makeCondition("productCategoryId", parentProductCategoryId));
                 rolllupConds.add(EntityUtil.getFilterByDateExpr());
                 List<GenericValue> productCategoryRollups = EntityQuery.use(delegator).from("ProductCategoryRollup").where(rolllupConds).orderBy("sequenceNum").cache(true).queryList();

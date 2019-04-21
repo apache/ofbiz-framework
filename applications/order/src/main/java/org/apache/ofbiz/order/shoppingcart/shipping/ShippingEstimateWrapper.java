@@ -107,7 +107,7 @@ public class ShippingEstimateWrapper {
     }
 
     protected void loadEstimates(BigDecimal totalAllowance) {
-        this.shippingEstimates = new HashMap<GenericValue, BigDecimal>();
+        this.shippingEstimates = new HashMap<>();
         if (shippingMethods != null) {
             for (GenericValue shipMethod : shippingMethods) {
                 String shippingMethodTypeId = shipMethod.getString("shipmentMethodTypeId");

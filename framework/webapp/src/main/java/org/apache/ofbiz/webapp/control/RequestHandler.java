@@ -851,7 +851,7 @@ public class RequestHandler {
         if (Debug.infoOn()) Debug.logInfo("Sending redirect to: [" + url + "]. " + showSessionId(req), module);
         // set the attributes in the session so we can access it.
         Enumeration<String> attributeNameEnum = UtilGenerics.cast(req.getAttributeNames());
-        Map<String, Object> reqAttrMap = new HashMap<String, Object>();
+        Map<String, Object> reqAttrMap = new HashMap<>();
         Integer statusCode;
         try {
             statusCode = Integer.valueOf(statusCodeString);

@@ -104,7 +104,7 @@ public class GenericHelperDAO implements GenericHelper {
      */
     public List<GenericValue> findAllByPrimaryKeys(List<GenericPK> primaryKeys) throws GenericEntityException {
         if (primaryKeys == null) return null;
-        List<GenericValue> results = new LinkedList<GenericValue>();
+        List<GenericValue> results = new LinkedList<>();
 
         for (GenericPK primaryKey: primaryKeys) {
             GenericValue result = this.findByPrimaryKey(primaryKey);

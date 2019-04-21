@@ -44,8 +44,8 @@ public final class ServiceEcaRule implements java.io.Serializable {
     public final String eventName;
     public final boolean runOnFailure;
     public final boolean runOnError;
-    public final List<ServiceEcaCondition> conditions = new ArrayList<ServiceEcaCondition>();
-    public final List<Object> actionsAndSets = new ArrayList<Object>();
+    public final List<ServiceEcaCondition> conditions = new ArrayList<>();
+    public final List<Object> actionsAndSets = new ArrayList<>();
     public boolean enabled = true;
     public final String definitionLocation;
 
@@ -104,7 +104,7 @@ public final class ServiceEcaRule implements java.io.Serializable {
     }
 
     public List<ServiceEcaAction> getEcaActionList() {
-        List<ServiceEcaAction> actionList = new LinkedList<ServiceEcaAction>();
+        List<ServiceEcaAction> actionList = new LinkedList<>();
         for (Object actionOrSet: this.actionsAndSets) {
             if (actionOrSet instanceof ServiceEcaAction) {
                 actionList.add((ServiceEcaAction) actionOrSet);
@@ -114,7 +114,7 @@ public final class ServiceEcaRule implements java.io.Serializable {
     }
 
     public List<ServiceEcaCondition> getEcaConditionList() {
-        List<ServiceEcaCondition> condList = new LinkedList<ServiceEcaCondition>();
+        List<ServiceEcaCondition> condList = new LinkedList<>();
         condList.addAll(this.conditions);
         return condList;
     }

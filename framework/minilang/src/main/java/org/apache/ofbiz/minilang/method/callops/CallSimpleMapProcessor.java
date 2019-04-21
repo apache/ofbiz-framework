@@ -74,16 +74,16 @@ public final class CallSimpleMapProcessor extends MethodOperation {
     public boolean exec(MethodContext methodContext) throws MiniLangException {
         List<Object> messages = errorListFma.get(methodContext.getEnvMap());
         if (messages == null) {
-            messages = new LinkedList<Object>();
+            messages = new LinkedList<>();
             errorListFma.put(methodContext.getEnvMap(), messages);
         }
         Map<String, Object> inMap = inMapFma.get(methodContext.getEnvMap());
         if (inMap == null) {
-            inMap = new HashMap<String, Object>();
+            inMap = new HashMap<>();
         }
         Map<String, Object> outMap = outMapFma.get(methodContext.getEnvMap());
         if (outMap == null) {
-            outMap = new HashMap<String, Object>();
+            outMap = new HashMap<>();
             outMapFma.put(methodContext.getEnvMap(), outMap);
         }
         // run external map processor first

@@ -95,7 +95,7 @@ public class SeoCatalogUrlServlet extends HttpServlet {
         } else if (pathElements.size() > 2) {
             List<String> trail = CategoryWorker.getTrail(request);
             if (trail == null) {
-                trail = new LinkedList<String>();
+                trail = new LinkedList<>();
             }
 
             if (trail.contains(pathElements.get(0))) {

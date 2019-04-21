@@ -37,7 +37,7 @@ public class EventFactory {
 
     public static final String module = EventFactory.class.getName();
 
-    private final Map<String, EventHandler> handlers = new HashMap<String, EventHandler>();
+    private final Map<String, EventHandler> handlers = new HashMap<>();
 
     public EventFactory(ServletContext context, URL controllerConfigURL) {
         // load all the event handlers

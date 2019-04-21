@@ -113,7 +113,7 @@ public final class CallService extends MethodOperation {
         defaultMessage = new FlexibleMessage(UtilXml.firstChildElement(element, "default-message"), null);// "service.default.message"
         List<? extends Element> resultsToMapElements = UtilXml.childElementList(element, "results-to-map");
         if (UtilValidate.isNotEmpty(resultsToMapElements)) {
-            List<String> resultsToMapList = new ArrayList<String>(resultsToMapElements.size());
+            List<String> resultsToMapList = new ArrayList<>(resultsToMapElements.size());
             for (Element resultsToMapElement : resultsToMapElements) {
                 resultsToMapList.add(resultsToMapElement.getAttribute("map-name"));
             }
@@ -123,7 +123,7 @@ public final class CallService extends MethodOperation {
         }
         List<? extends Element> resultToFieldElements = UtilXml.childElementList(element, "result-to-field");
         if (UtilValidate.isNotEmpty(resultToFieldElements)) {
-            List<ResultToField> resultToFieldList = new ArrayList<ResultToField>(resultToFieldElements.size());
+            List<ResultToField> resultToFieldList = new ArrayList<>(resultToFieldElements.size());
             for (Element resultToFieldElement : resultToFieldElements) {
                 resultToFieldList.add(new ResultToField(resultToFieldElement));
             }
@@ -133,7 +133,7 @@ public final class CallService extends MethodOperation {
         }
         List<? extends Element> resultToRequestElements = UtilXml.childElementList(element, "result-to-request");
         if (UtilValidate.isNotEmpty(resultToRequestElements)) {
-            List<ResultToRequest> resultToRequestList = new ArrayList<ResultToRequest>(resultToRequestElements.size());
+            List<ResultToRequest> resultToRequestList = new ArrayList<>(resultToRequestElements.size());
             for (Element resultToRequestElement : resultToRequestElements) {
                 resultToRequestList.add(new ResultToRequest(resultToRequestElement));
             }
@@ -143,7 +143,7 @@ public final class CallService extends MethodOperation {
         }
         List<? extends Element> resultToSessionElements = UtilXml.childElementList(element, "result-to-session");
         if (UtilValidate.isNotEmpty(resultToSessionElements)) {
-            List<ResultToSession> resultToSessionList = new ArrayList<ResultToSession>(resultToSessionElements.size());
+            List<ResultToSession> resultToSessionList = new ArrayList<>(resultToSessionElements.size());
             for (Element resultToSessionElement : resultToSessionElements) {
                 resultToSessionList.add(new ResultToSession(resultToSessionElement));
             }
@@ -153,7 +153,7 @@ public final class CallService extends MethodOperation {
         }
         List<? extends Element> resultToResultElements = UtilXml.childElementList(element, "result-to-result");
         if (UtilValidate.isNotEmpty(resultToResultElements)) {
-            List<ResultToResult> resultToResultList = new ArrayList<ResultToResult>(resultToResultElements.size());
+            List<ResultToResult> resultToResultList = new ArrayList<>(resultToResultElements.size());
             for (Element resultToResultElement : resultToResultElements) {
                 resultToResultList.add(new ResultToResult(resultToResultElement));
             }
@@ -179,7 +179,7 @@ public final class CallService extends MethodOperation {
         }
         Map<String, Object> inMap = inMapFma.get(methodContext.getEnvMap());
         if (inMap == null) {
-            inMap = new HashMap<String, Object>();
+            inMap = new HashMap<>();
         }
         // before invoking the service, clear messages
         if (methodContext.getMethodType() == MethodContext.EVENT) {
@@ -419,7 +419,7 @@ public final class CallService extends MethodOperation {
         private final FlexibleServletAccessor<Object> requestFsa;
 
         private ResultToRequest(Element element) {
-            requestFsa = new FlexibleServletAccessor<Object>(element.getAttribute("request-name"), element.getAttribute("result-name"));
+            requestFsa = new FlexibleServletAccessor<>(element.getAttribute("request-name"), element.getAttribute("result-name"));
             resultFma =FlexibleMapAccessor.getInstance(element.getAttribute("result-name"));
         }
 
@@ -452,7 +452,7 @@ public final class CallService extends MethodOperation {
         private final FlexibleServletAccessor<Object> requestFsa;
 
         private ResultToSession(Element element) {
-            requestFsa = new FlexibleServletAccessor<Object>(element.getAttribute("session-name"), element.getAttribute("result-name"));
+            requestFsa = new FlexibleServletAccessor<>(element.getAttribute("session-name"), element.getAttribute("result-name"));
             resultFma =FlexibleMapAccessor.getInstance(element.getAttribute("result-name"));
         }
 

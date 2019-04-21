@@ -99,7 +99,7 @@ public class BlogRssServices {
     }
 
     public static List<SyndEntry> generateEntryList(LocalDispatcher dispatcher, Delegator delegator, String contentId, String entryLink, Locale locale, GenericValue userLogin) {
-        List<SyndEntry> entries = new LinkedList<SyndEntry>();
+        List<SyndEntry> entries = new LinkedList<>();
 
         List<GenericValue> contentRecs = null;
         try {
@@ -116,7 +116,7 @@ public class BlogRssServices {
             for (GenericValue v : contentRecs) {
                 String sub = null;
                 try {
-                    Map<String, Object> dummy = new HashMap<String, Object>();
+                    Map<String, Object> dummy = new HashMap<>();
                     sub = ContentWorker.renderSubContentAsText(dispatcher, v.getString("contentId"), mapKey, dummy, locale, mimeTypeId, true);
                 } catch (GeneralException e) {
                     Debug.logError(e, module);

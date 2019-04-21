@@ -146,7 +146,7 @@ public class DBCPConnectionFactory implements ConnectionFactory {
         poolConfig.setTestOnReturn(jdbcElement.getTestOnReturn());
         poolConfig.setTestWhileIdle(jdbcElement.getTestWhileIdle());
 
-        GenericObjectPool<PoolableConnection> pool = new GenericObjectPool<PoolableConnection>(factory, poolConfig);
+        GenericObjectPool<PoolableConnection> pool = new GenericObjectPool<>(factory, poolConfig);
         factory.setPool(pool);
 
         mds = new DebugManagedDataSource<>(pool, xacf.getTransactionRegistry());
@@ -165,7 +165,7 @@ public class DBCPConnectionFactory implements ConnectionFactory {
     }
 
     public static Map<String, Object> getDataSourceInfo(String helperName) {
-        Map<String, Object> dataSourceInfo = new HashMap<String, Object>();
+        Map<String, Object> dataSourceInfo = new HashMap<>();
         DebugManagedDataSource<? extends Connection> mds = dsCache.get(helperName);
         if (mds != null) {
             dataSourceInfo = mds.getInfo();

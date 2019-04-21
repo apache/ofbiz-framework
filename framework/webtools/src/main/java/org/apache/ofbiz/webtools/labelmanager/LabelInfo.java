@@ -31,7 +31,7 @@ public class LabelInfo {
     protected String labelKey = "";
     protected String labelKeyComment = "";
     protected String fileName = "";
-    protected Map<String, LabelValue> labelValues = new LinkedHashMap<String, LabelValue>();
+    protected Map<String, LabelValue> labelValues = new LinkedHashMap<>();
 
     public LabelInfo(String labelKey, String labelKeyComment, String fileName, String localeStr, String labelValue, String labelComment) {
         this.labelKey = labelKey;

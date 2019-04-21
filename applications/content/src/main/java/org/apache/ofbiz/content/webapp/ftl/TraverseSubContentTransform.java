@@ -111,9 +111,9 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
         }
 
         final GenericValue subContentDataResourceView = view;
-        final Map<String, Object> traverseContext = new HashMap<String, Object>();
+        final Map<String, Object> traverseContext = new HashMap<>();
         traverseContext.put("delegator", delegator);
-        Map<String, Object> whenMap = new HashMap<String, Object>();
+        Map<String, Object> whenMap = new HashMap<>();
         whenMap.put("followWhen", templateCtx.get("followWhen"));
         whenMap.put("pickWhen", templateCtx.get("pickWhen"));
         whenMap.put("returnBeforePickWhen", templateCtx.get("returnBeforePickWhen"));
@@ -155,7 +155,7 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
 
             @Override
             public int onStart() throws TemplateModelException, IOException {
-                List<Map<String, Object>> nodeTrail = new LinkedList<Map<String,Object>>();
+                List<Map<String, Object>> nodeTrail = new LinkedList<>();
                 traverseContext.put("nodeTrail", nodeTrail);
                 Map<String, Object> rootNode = ContentWorker.makeNode(subContentDataResourceView);
                 ContentWorker.traceNodeTrail("1", nodeTrail);
@@ -225,7 +225,7 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
 
             private boolean checkWhen (GenericValue thisContent, String contentAssocTypeId) {
                 boolean isPick = false;
-                Map<String, Object> assocContext = new HashMap<String, Object>();
+                Map<String, Object> assocContext = new HashMap<>();
                 if (UtilValidate.isEmpty(contentAssocTypeId)) {
                     contentAssocTypeId = "";
                 }
@@ -240,7 +240,7 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
                 assocContext.put("content", thisContent);
                 List<Object> purposes = ContentWorker.getPurposes(thisContent);
                 assocContext.put("purposes", purposes);
-                List<String> contentTypeAncestry = new LinkedList<String>();
+                List<String> contentTypeAncestry = new LinkedList<>();
                 String contentTypeId = (String)thisContent.get("contentTypeId");
                 try {
                     ContentWorker.getContentTypeAncestry(delegator, contentTypeId, contentTypeAncestry);

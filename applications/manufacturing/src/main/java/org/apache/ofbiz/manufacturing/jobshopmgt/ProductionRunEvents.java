@@ -61,7 +61,7 @@ public class ProductionRunEvents {
         }
 
         Collection<Map<String, Object>> componentRows = UtilHttp.parseMultiFormData(parameters);
-        Map<GenericPK, Object> componentsLocationMap = new HashMap<GenericPK, Object>();
+        Map<GenericPK, Object> componentsLocationMap = new HashMap<>();
         for (Map<String, Object>componentRow : componentRows) {
             Timestamp fromDate = null;
             try {

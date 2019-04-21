@@ -70,7 +70,7 @@ In order to make this service active add the following to the service definition
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String file = (String) context.get("file");
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
         String errMsg = "", sucMsg= "";
         GenericValue Entity = null;
         if (UtilValidate.isNotEmpty(file)) {
@@ -104,7 +104,7 @@ In order to make this service active add the following to the service definition
                 Entity.set("createdTxStamp", UtilDateTime.nowTimestamp());
                 delegator.create(Entity);
 
-                Map<String, Object> contentAssoc = new HashMap<String, Object>();
+                Map<String, Object> contentAssoc = new HashMap<>();
                 contentAssoc.put("contentId", "HOME_DOCUMENT");
                 contentAssoc.put("contentAssocTypeId", "TREE_CHILD");
                 contentAssoc.put("contentIdTo", "ROOT");
@@ -187,7 +187,7 @@ In order to make this service active add the following to the service definition
                                         .queryList();
 
                                 if (contentAssocs.size() == 0) {
-                                    contentAssoc = new HashMap<String, Object>();
+                                    contentAssoc = new HashMap<>();
                                     contentAssoc.put("contentId", contentId);
                                     contentAssoc.put("contentAssocTypeId", "TREE_CHILD");
                                     contentAssoc.put("contentIdTo", rootContent);
@@ -233,7 +233,7 @@ In order to make this service active add the following to the service definition
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
         String subContents = null, check = ",", oldChar = "\"", newChar = "", contentNameInprogress = "", contentName = "", contentId = null;
         GenericValue Entity = null;
         String errMsg = "", sucMsg= "";
@@ -265,7 +265,7 @@ In order to make this service active add the following to the service definition
                     }
                     if (contentNameMatch == false) {
                         //create DataResource
-                        Map<String,Object> data = new HashMap<String, Object>();
+                        Map<String,Object> data = new HashMap<>();
                         data.put("userLogin", userLogin);
                         result = dispatcher.runSync("createDataResource", data);
                         if (ServiceUtil.isError(result)) {
@@ -289,7 +289,7 @@ In order to make this service active add the following to the service definition
                         delegator.create(Entity);
 
                         //Relation Content
-                        Map<String,Object> contentAssoc = new HashMap<String, Object>();
+                        Map<String,Object> contentAssoc = new HashMap<>();
                         contentAssoc.put("contentId", contentId);
                         contentAssoc.put("contentAssocTypeId", "SUB_CONTENT");
                         contentAssoc.put("contentIdTo", rootContent);
@@ -330,7 +330,7 @@ In order to make this service active add the following to the service definition
                     }
                     if (contentNameMatch == false) {
                         //create DataResource
-                        Map<String,Object> data = new HashMap<String, Object>();
+                        Map<String,Object> data = new HashMap<>();
                         data.put("userLogin", userLogin);
                         result = dispatcher.runSync("createDataResource", data);
                         if (ServiceUtil.isError(result)) {
@@ -354,7 +354,7 @@ In order to make this service active add the following to the service definition
                         delegator.create(Entity);
 
                         //create ContentAssoc
-                        Map<String,Object> contentAssoc = new HashMap<String, Object>();
+                        Map<String,Object> contentAssoc = new HashMap<>();
                         contentAssoc.put("contentId", contentId);
                         contentAssoc.put("contentAssocTypeId", "SUB_CONTENT");
                         contentAssoc.put("contentIdTo", rootContent);

@@ -38,7 +38,7 @@ public class JunitSuiteWrapper {
 
     public static final String module = JunitSuiteWrapper.class.getName();
 
-    protected List<ModelTestSuite> modelTestSuiteList = new LinkedList<ModelTestSuite>();
+    protected List<ModelTestSuite> modelTestSuiteList = new LinkedList<>();
 
     public JunitSuiteWrapper(String componentName, String suiteName, String testCase) {
         for (ComponentConfig.TestSuiteInfo testSuiteInfo: ComponentConfig.getAllTestSuiteInfos(componentName)) {
@@ -79,7 +79,7 @@ public class JunitSuiteWrapper {
     }
 
     public List<Test> getAllTestList() {
-        List<Test> allTestList = new LinkedList<Test>();
+        List<Test> allTestList = new LinkedList<>();
 
         for (ModelTestSuite modelTestSuite: this.modelTestSuiteList) {
             for (Test tst: modelTestSuite.getTestList()) {

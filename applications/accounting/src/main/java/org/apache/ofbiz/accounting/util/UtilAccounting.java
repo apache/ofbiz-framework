@@ -98,7 +98,7 @@ public final class UtilAccounting {
     }
 
     public static List<String> getDescendantGlAccountClassIds(GenericValue glAccountClass) throws GenericEntityException {
-        List<String> glAccountClassIds = new LinkedList<String>();
+        List<String> glAccountClassIds = new LinkedList<>();
         getGlAccountClassChildren(glAccountClass, glAccountClassIds);
         return glAccountClassIds;
     }

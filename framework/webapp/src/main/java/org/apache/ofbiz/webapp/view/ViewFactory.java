@@ -38,7 +38,7 @@ public class ViewFactory {
 
     public static final String module = ViewFactory.class.getName();
 
-    private final Map<String, ViewHandler> handlers = new HashMap<String, ViewHandler>();
+    private final Map<String, ViewHandler> handlers = new HashMap<>();
 
     public ViewFactory(ServletContext context, URL controllerConfigURL) {
         // load all the view handlers

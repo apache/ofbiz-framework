@@ -84,7 +84,7 @@ public class AssertTests extends TestCase {
         } catch (IllegalArgumentException e) {}
 
         //-----------------------------------------------------------------------
-        List<String> strList = new ArrayList<String>();
+        List<String> strList = new ArrayList<>();
         try {
             Assert.notEmpty("foo", strList);
             fail("notEmpty(Collection) - IllegalArgumentException not thrown");
@@ -97,7 +97,7 @@ public class AssertTests extends TestCase {
         }
 
         //-----------------------------------------------------------------------
-        Map<String,String> strMap = new HashMap<String, String>();
+        Map<String,String> strMap = new HashMap<>();
         try {
             Assert.notEmpty("foo", strMap);
             fail("notEmpty(Map) - IllegalArgumentException not thrown");

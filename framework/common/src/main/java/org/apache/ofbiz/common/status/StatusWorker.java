@@ -57,7 +57,7 @@ public final class StatusWorker {
 
     public static void getStatusItems(PageContext pageContext, String attributeName, String statusTypeIdOne, String statusTypeIdTwo) {
         Delegator delegator = (Delegator) pageContext.getRequest().getAttribute("delegator");
-        List<GenericValue> statusItems = new LinkedList<GenericValue>();
+        List<GenericValue> statusItems = new LinkedList<>();
 
         try {
              List<GenericValue> calItems = EntityQuery.use(delegator)

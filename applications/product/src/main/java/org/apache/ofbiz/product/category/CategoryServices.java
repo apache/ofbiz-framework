@@ -96,7 +96,7 @@ public class CategoryServices {
         }
 
         List<String> orderByFields = UtilGenerics.checkList(context.get("orderByFields"));
-        if (orderByFields == null) orderByFields = new LinkedList<String>();
+        if (orderByFields == null) orderByFields = new LinkedList<>();
         String entityName = getCategoryFindEntityName(delegator, orderByFields, introductionDateLimit, releaseDateLimit);
 
         GenericValue productCategory;
@@ -111,7 +111,7 @@ public class CategoryServices {
         if (activeOnly) {
             productCategoryMembers = EntityUtil.filterByDate(productCategoryMembers, true);
         }
-        List<EntityCondition> filterConditions = new LinkedList<EntityCondition>();
+        List<EntityCondition> filterConditions = new LinkedList<>();
         if (introductionDateLimit != null) {
             EntityCondition condition = EntityCondition.makeCondition(EntityCondition.makeCondition("introductionDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("introductionDate", EntityOperator.LESS_THAN_EQUAL_TO, introductionDateLimit));
             filterConditions.add(condition);
@@ -217,7 +217,7 @@ public class CategoryServices {
         Timestamp releaseDateLimit = (Timestamp) context.get("releaseDateLimit");
 
         List<String> orderByFields = UtilGenerics.checkList(context.get("orderByFields"));
-        if (orderByFields == null) orderByFields = new LinkedList<String>();
+        if (orderByFields == null) orderByFields = new LinkedList<>();
         String entityName = getCategoryFindEntityName(delegator, orderByFields, introductionDateLimit, releaseDateLimit);
 
         String prodCatalogId = (String) context.get("prodCatalogId");
@@ -291,7 +291,7 @@ public class CategoryServices {
                     if (activeOnly) {
                         productCategoryMembers = EntityUtil.filterByDate(productCategoryMembers, true);
                     }
-                    List<EntityCondition> filterConditions = new LinkedList<EntityCondition>();
+                    List<EntityCondition> filterConditions = new LinkedList<>();
                     if (introductionDateLimit != null) {
                         EntityCondition condition = EntityCondition.makeCondition(EntityCondition.makeCondition("introductionDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("introductionDate", EntityOperator.LESS_THAN_EQUAL_TO, introductionDateLimit));
                         filterConditions.add(condition);
@@ -339,7 +339,7 @@ public class CategoryServices {
                         highIndex = listSize;
                     }
                 } else {
-                    List<EntityCondition> mainCondList = new LinkedList<EntityCondition>();
+                    List<EntityCondition> mainCondList = new LinkedList<>();
                     mainCondList.add(EntityCondition.makeCondition("productCategoryId", EntityOperator.EQUALS, productCategory.getString("productCategoryId")));
                     if (activeOnly) {
                         mainCondList.add(EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp));
@@ -366,7 +366,7 @@ public class CategoryServices {
                         if (limitView) {
                             if (viewProductCategoryId != null) {
                                 // do manual checking to filter view allow
-                                productCategoryMembers = new LinkedList<GenericValue>();
+                                productCategoryMembers = new LinkedList<>();
                                 GenericValue nextValue;
                                 int chunkSize = 0;
                                 listSize = 0;
@@ -409,7 +409,7 @@ public class CategoryServices {
 
                     // null safety
                     if (productCategoryMembers == null) {
-                        productCategoryMembers = new LinkedList<GenericValue>();
+                        productCategoryMembers = new LinkedList<>();
                     }
 
                     if (highIndex > listSize) {
@@ -421,7 +421,7 @@ public class CategoryServices {
             }
         }
 
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
         result.put("viewIndex", viewIndex);
         result.put("viewSize", viewSize);
         result.put("lowIndex", lowIndex);

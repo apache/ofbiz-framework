@@ -88,7 +88,7 @@ public class CatalogUrlFilter implements Filter {
             try {
                 // look for productId
                 if (alternativeUrl.endsWith("-p")) {
-                    List<EntityCondition> productContentConds = new LinkedList<EntityCondition>();
+                    List<EntityCondition> productContentConds = new LinkedList<>();
                     productContentConds.add(EntityCondition.makeCondition("productContentTypeId", "ALTERNATIVE_URL"));
                     productContentConds.add(EntityUtil.getFilterByDateExpr());
                     List<GenericValue> productContentInfos = EntityQuery.use(delegator).from("ProductContentAndInfo").where(productContentConds).orderBy("-fromDate").cache(true).queryList();
@@ -143,7 +143,7 @@ public class CatalogUrlFilter implements Filter {
                 
                 // look for productCategoryId
                 if (alternativeUrl.endsWith("-c")) {
-                    List<EntityCondition> productCategoryContentConds = new LinkedList<EntityCondition>();
+                    List<EntityCondition> productCategoryContentConds = new LinkedList<>();
                     productCategoryContentConds.add(EntityCondition.makeCondition("prodCatContentTypeId", "ALTERNATIVE_URL"));
                     productCategoryContentConds.add(EntityUtil.getFilterByDateExpr());
                     List<GenericValue> productCategoryContentInfos = EntityQuery.use(delegator).from("ProductCategoryContentAndInfo").where(productCategoryContentConds).orderBy("-fromDate").cache(true).queryList();
@@ -208,7 +208,7 @@ public class CatalogUrlFilter implements Filter {
             
             if (UtilValidate.isNotEmpty(productId)) {
                 try {
-                    List<EntityCondition> conds = new LinkedList<EntityCondition>();
+                    List<EntityCondition> conds = new LinkedList<>();
                     conds.add(EntityCondition.makeCondition("productId", productId));
                     conds.add(EntityUtil.getFilterByDateExpr());
                     List<GenericValue> productCategoryMembers = EntityQuery.use(delegator).select("productCategoryId").from("ProductCategoryMember").where(conds).orderBy("-fromDate").cache(true).queryList();
@@ -233,7 +233,7 @@ public class CatalogUrlFilter implements Filter {
             // look for productCategoryId from productId
             if (UtilValidate.isNotEmpty(productId)) {
                 try {
-                    List<EntityCondition> rolllupConds = new LinkedList<EntityCondition>();
+                    List<EntityCondition> rolllupConds = new LinkedList<>();
                     rolllupConds.add(EntityCondition.makeCondition("productId", productId));
                     rolllupConds.add(EntityUtil.getFilterByDateExpr());
                     List<GenericValue> productCategoryMembers = EntityQuery.use(delegator).from("ProductCategoryMember").where(rolllupConds).orderBy("-fromDate").cache(true).queryList();
@@ -251,13 +251,13 @@ public class CatalogUrlFilter implements Filter {
 
             // generate trail elements from productCategoryId
             if (UtilValidate.isNotEmpty(productCategoryId)) {
-                List<String> trailElements = new LinkedList<String>();
+                List<String> trailElements = new LinkedList<>();
                 trailElements.add(productCategoryId);
                 String parentProductCategoryId = productCategoryId;
                 while (UtilValidate.isNotEmpty(parentProductCategoryId)) {
                     // find product category rollup
                     try {
-                        List<EntityCondition> rolllupConds = new LinkedList<EntityCondition>();
+                        List<EntityCondition> rolllupConds = new LinkedList<>();
                         rolllupConds.add(EntityCondition.makeCondition("productCategoryId", parentProductCategoryId));
                         rolllupConds.add(EntityUtil.getFilterByDateExpr());
                         List<GenericValue> productCategoryRollups = EntityQuery.use(delegator).from("ProductCategoryRollup").where(rolllupConds).orderBy("-fromDate").cache(true).queryList();
@@ -282,7 +282,7 @@ public class CatalogUrlFilter implements Filter {
                 
                 List<String> trail = CategoryWorker.getTrail(httpRequest);
                 if (trail == null) {
-                    trail = new LinkedList<String>();
+                    trail = new LinkedList<>();
                 }
 
                 // adjust trail
@@ -410,7 +410,7 @@ public class CatalogUrlFilter implements Filter {
             url = urlBuilder.toString();
         } else {
             if (UtilValidate.isEmpty(trail)) {
-                trail = new LinkedList<String>();
+                trail = new LinkedList<>();
             }
             url = CatalogUrlServlet.makeCatalogUrl(contextPath, trail, productId, productCategoryId, previousCategoryId);
         }
@@ -453,7 +453,7 @@ public class CatalogUrlFilter implements Filter {
             url = urlBuilder.toString();
         } else {
             if (UtilValidate.isEmpty(trail)) {
-                trail = new LinkedList<String>();
+                trail = new LinkedList<>();
             }
             url = CatalogUrlServlet.makeCatalogUrl(contextPath, trail, productId, productCategoryId, previousCategoryId);
         }

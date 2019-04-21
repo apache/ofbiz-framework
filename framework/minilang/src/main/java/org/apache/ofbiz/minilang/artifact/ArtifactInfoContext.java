@@ -28,9 +28,9 @@ import org.apache.ofbiz.minilang.SimpleMethod;
  */
 public final class ArtifactInfoContext {
 
-    private final Set<String> entityNameSet = new HashSet<String>();
-    private final Set<String> serviceNameSet = new HashSet<String>();
-    private final Set<String> simpleMethodNameSet = new HashSet<String>();
+    private final Set<String> entityNameSet = new HashSet<>();
+    private final Set<String> serviceNameSet = new HashSet<>();
+    private final Set<String> simpleMethodNameSet = new HashSet<>();
 
     /**
      * Adds an entity name to this context.

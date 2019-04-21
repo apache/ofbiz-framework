@@ -117,7 +117,7 @@ public class WeightPackageSessionLine implements java.io.Serializable {
     protected void applyLineToPackage(String shipmentId, GenericValue userLogin, LocalDispatcher dispatcher, int shipPackSeqId) throws GeneralException {
         String shipmentPackageSeqId = UtilFormatOut.formatPaddedNumber(shipPackSeqId, 5);
 
-        Map<String, Object> packageMap = new HashMap<String, Object>();
+        Map<String, Object> packageMap = new HashMap<>();
         packageMap.put("shipmentId", shipmentId);
         packageMap.put("shipmentItemSeqId", this.getShipmentItemSeqId());
         // quanity given, by defult one because it is a required field

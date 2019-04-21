@@ -41,7 +41,7 @@ public class SimpleMapProcessor {
     private static final UtilCache<URL, Map<String, MapProcessor>> simpleMapProcessorsURLCache = UtilCache.createUtilCache("minilang.SimpleMapProcessorsURL", 0, 0);
 
     protected static Map<String, MapProcessor> getAllProcessors(URL xmlURL) throws MiniLangException {
-        Map<String, MapProcessor> mapProcessors = new HashMap<String, MapProcessor>();
+        Map<String, MapProcessor> mapProcessors = new HashMap<>();
         // read in the file
         Document document = null;
         try {

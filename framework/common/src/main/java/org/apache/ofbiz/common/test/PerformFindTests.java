@@ -43,7 +43,7 @@ public class PerformFindTests extends OFBizTestCase {
     }
 
     private List<GenericValue> getCompleteList(Map<String, Object> context) {
-        List<GenericValue> foundElements = new LinkedList<GenericValue>();
+        List<GenericValue> foundElements = new LinkedList<>();
             try (EntityListIterator listIt = (EntityListIterator) context.get("listIt")) {
                 if (listIt != null) {
                     foundElements = listIt.getCompleteList();
@@ -115,7 +115,7 @@ public class PerformFindTests extends OFBizTestCase {
         GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").cache().queryOne();
         prepareData();
 
-        Map<String, Object> inputFields = new HashMap<String, Object>();
+        Map<String, Object> inputFields = new HashMap<>();
         //first test without condition
         Map<String, Object> performFindMap = UtilMisc.toMap("userLogin", userLogin, "entityName", "Testing", "inputFields", inputFields);
         Map<String, Object> result = dispatcher.runSync("performFind", performFindMap);

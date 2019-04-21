@@ -68,7 +68,7 @@ public class TelecomServices {
 
 
         try {
-            Map<String, Object> createCommEventCtx = new HashMap<String, Object>();
+            Map<String, Object> createCommEventCtx = new HashMap<>();
             createCommEventCtx = ctx.makeValidContext("createCommunicationEvent", ModelService.IN_PARAM, context);
             createCommEventCtx.put("content", message);
             createCommEventCtx.put("communicationEventTypeId", "PHONE_COMMUNICATION");
@@ -82,7 +82,7 @@ public class TelecomServices {
             }
             String communicationEventId = (String) createCommEventResult.get("communicationEventId");
 
-            Map<String, Object> conditions = new HashMap<String, Object>();
+            Map<String, Object> conditions = new HashMap<>();
             conditions.put("productStoreId", productStoreId);
             conditions.put("telecomMsgTypeEnumId", telecomMsgTypeEnumId);
             conditions.put("telecomMethodTypeId", telecomMethodTypeId);
@@ -90,7 +90,7 @@ public class TelecomServices {
             if (productStoreTelecomSetting != null) {
                 GenericValue customMethod = productStoreTelecomSetting.getRelatedOne("CustomMethod", false);
                 if (UtilValidate.isNotEmpty(customMethod.getString("customMethodName"))) {
-                    Map<String, Object> serviceCtx = new HashMap<String, Object>();
+                    Map<String, Object> serviceCtx = new HashMap<>();
                     serviceCtx.put("numbers", numbers);
                     serviceCtx.put("message", message);
                     if (telecomGatewayConfigId != null) {

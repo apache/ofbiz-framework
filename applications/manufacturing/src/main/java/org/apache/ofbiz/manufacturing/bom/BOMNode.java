@@ -73,8 +73,8 @@ public class BOMNode {
         this.delegator = product.getDelegator();
         this.dispatcher = dispatcher;
         this.userLogin = userLogin;
-        children = new LinkedList<GenericValue>();
-        childrenNodes = new LinkedList<BOMNode>();
+        children = new LinkedList<>();
+        childrenNodes = new LinkedList<>();
         parentNode = null;
         productForRules = null;
         bomTypeId = null;
@@ -110,9 +110,9 @@ public class BOMNode {
                     .orderBy("sequenceNum")
                     .filterByDate(inDate).queryList();
         }
-        children = new LinkedList<GenericValue>();
+        children = new LinkedList<>();
         children.addAll(rows);
-        childrenNodes = new LinkedList<BOMNode>();
+        childrenNodes = new LinkedList<>();
         BOMNode oneChildNode = null;
         for (GenericValue oneChild : children) {
             // Configurator
@@ -271,7 +271,7 @@ public class BOMNode {
                         // -----------------------------------------------------------
                         // We try to apply directly the selected features
                         if (newNode.equals(oneChildNode)) {
-                            Map<String, String> selectedFeatures = new HashMap<String, String>();
+                            Map<String, String> selectedFeatures = new HashMap<>();
                             if (productFeatures != null) {
                                 GenericValue feature = null;
                                 for (int j = 0; j < productFeatures.size(); j++) {
@@ -281,7 +281,7 @@ public class BOMNode {
                             }
 
                             if (selectedFeatures.size() > 0) {
-                                Map<String, Object> context = new HashMap<String, Object>();
+                                Map<String, Object> context = new HashMap<>();
                                 context.put("productId", node.get("productIdTo"));
                                 context.put("selectedFeatures", selectedFeatures);
                                 Map<String, Object> storeResult = null;
@@ -341,9 +341,9 @@ public class BOMNode {
                     .orderBy("sequenceNum")
                     .filterByDate(inDate).queryList();
         }
-        children = new LinkedList<GenericValue>();
+        children = new LinkedList<>();
         children.addAll(rows);
-        childrenNodes = new LinkedList<BOMNode>();
+        childrenNodes = new LinkedList<>();
 
         BOMNode oneChildNode = null;
         for (GenericValue oneChild : children) {
@@ -510,7 +510,7 @@ public class BOMNode {
         Timestamp endDate = null;
         if (isManufactured(ignoreSupplierProducts)) {
             BOMNode oneChildNode = null;
-            List<String> childProductionRuns = new LinkedList<String>();
+            List<String> childProductionRuns = new LinkedList<>();
             Timestamp maxEndDate = null;
             for (int i = 0; i < childrenNodes.size(); i++) {
                 oneChildNode = childrenNodes.get(i);
@@ -532,7 +532,7 @@ public class BOMNode {
             }
 
             Timestamp startDate = UtilDateTime.toTimestamp(UtilDateTime.toDateTimeString(date));
-            Map<String, Object> serviceContext = new HashMap<String, Object>();
+            Map<String, Object> serviceContext = new HashMap<>();
             if (!useSubstitute) {
                 serviceContext.put("productId", getProduct().getString("productId"));
                 serviceContext.put("facilityId", getProduct().getString("facilityId"));

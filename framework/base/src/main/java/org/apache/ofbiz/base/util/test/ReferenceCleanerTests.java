@@ -34,7 +34,7 @@ public class ReferenceCleanerTests extends GenericTestCaseBase {
 
     public void testReferenceCleaner() throws Exception {
         assertStaticHelperClass(ReferenceCleaner.class);
-        final SynchronousQueue<String> queue = new SynchronousQueue<String>();
+        final SynchronousQueue<String> queue = new SynchronousQueue<>();
         Object obj = new Object();
         ReferenceCleaner.Soft<Object> soft = new ReferenceCleaner.Soft<Object>(obj) {
             public void remove() throws Exception {
@@ -53,7 +53,7 @@ public class ReferenceCleanerTests extends GenericTestCaseBase {
                 queue.put("phantom");
             }
         };
-        HashSet<String> foundEvents = new HashSet<String>();
+        HashSet<String> foundEvents = new HashSet<>();
         useAllMemory();
         assertSame("still-soft", obj, soft.get());
         assertSame("still-weak", obj, weak.get());

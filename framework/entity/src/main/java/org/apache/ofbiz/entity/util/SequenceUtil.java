@@ -43,7 +43,7 @@ public class SequenceUtil {
 
     public static final String module = SequenceUtil.class.getName();
 
-    private final ConcurrentMap<String, SequenceBank> sequences = new ConcurrentHashMap<String, SequenceBank>();
+    private final ConcurrentMap<String, SequenceBank> sequences = new ConcurrentHashMap<>();
     private final GenericHelperInfo helperInfo;
     private final String tableName;
     private final String nameColName;

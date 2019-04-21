@@ -50,7 +50,7 @@ public class GenericMapTest extends GenericTestCaseBase {
             "removeInternal-false",
             "size",
         };
-        protected final Map<String, Integer> counts = new HashMap<String, Integer>();
+        protected final Map<String, Integer> counts = new HashMap<>();
         protected final Map<K, V> proxyMap;
 
         protected TestGenericMap() {
@@ -62,9 +62,9 @@ public class GenericMapTest extends GenericTestCaseBase {
                 counts.put(countName, 0);
             }
             if (srcMap != null) {
-                proxyMap = new HashMap<K, V>(srcMap);
+                proxyMap = new HashMap<>(srcMap);
             } else {
-                proxyMap = new HashMap<K, V>();
+                proxyMap = new HashMap<>();
             }
         }
 
@@ -73,7 +73,7 @@ public class GenericMapTest extends GenericTestCaseBase {
         }
 
         public List<Integer> getCounts() {
-            List<Integer> result = new ArrayList<Integer>();
+            List<Integer> result = new ArrayList<>();
             for (String countName: countNames) {
                 result.add(counts.get(countName));
             }
@@ -108,7 +108,7 @@ public class GenericMapTest extends GenericTestCaseBase {
             return new IteratorWrapper<Map.Entry<K, V>, Map.Entry<K, V>>(proxyMap.entrySet().iterator()) {
                 @Override
                 protected Map.Entry<K, V> convert(Map.Entry<K, V> src) {
-                    return new GenericMapEntry<K, V>(TestGenericMap.this, src.getKey(), noteAccess);
+                    return new GenericMapEntry<>(TestGenericMap.this, src.getKey(), noteAccess);
                 }
                 @Override
                 protected void noteRemoval(Map.Entry<K, V> dest, Map.Entry<K, V> src) {
@@ -150,7 +150,7 @@ public class GenericMapTest extends GenericTestCaseBase {
     }
 
     public void testFoo() throws Exception {
-        TestGenericMap<String, Integer> map = new TestGenericMap<String, Integer>();
+        TestGenericMap<String, Integer> map = new TestGenericMap<>();
         map.put("a", 0); Debug.logInfo("put a\t\tcounts=" + map.getCounts() + ", modCount=" + map.getModCount(), module);
         assertEquals("get a", Integer.valueOf(0), map.get("a"));
         map.put("b", 1); Debug.logInfo("put b\t\tcounts=" + map.getCounts() + ", modCount=" + map.getModCount(), module);
@@ -167,7 +167,7 @@ public class GenericMapTest extends GenericTestCaseBase {
         Debug.logInfo("map=" + map, module);
         Debug.logInfo("counts=" + map.getCounts() + ", modCount=" + map.getModCount(), module);
         // this seems to call size()
-        new HashMap<String, Integer>(map);
+        new HashMap<>(map);
         Debug.logInfo("counts=" + map.getCounts() + ", modCount=" + map.getModCount(), module);
     }
 

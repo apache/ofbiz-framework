@@ -53,7 +53,7 @@ public final class ScriptHelperImpl implements ScriptHelper {
 
     private static GenericValue runFindByPrimaryKey(ModelEntity modelEntity, ContextHelper ctxHelper, boolean useCache, boolean autoFieldMap,
             Map<String, ? extends Object> fieldMap, List<String> selectFieldList) throws ScriptException {
-        Map<String, Object> entityContext = new HashMap<String, Object>();
+        Map<String, Object> entityContext = new HashMap<>();
         Delegator delegator = ctxHelper.getDelegator();
         Map<String, Object> context = ctxHelper.getBindings();
         if (autoFieldMap) {
@@ -75,7 +75,7 @@ public final class ScriptHelperImpl implements ScriptHelper {
         entityContext.remove("timeZone");
         Set<String> fieldsToSelect = null;
         if (selectFieldList != null) {
-            fieldsToSelect = new HashSet<String>(selectFieldList);
+            fieldsToSelect = new HashSet<>(selectFieldList);
         }
         if (fieldsToSelect != null && useCache) {
             String errMsg = "Error running script " + ctxHelper.getScriptName() + ": Problem invoking the findOne method: Cannot specify selectFieldList argument when useCache is set to true ";
@@ -116,7 +116,7 @@ public final class ScriptHelperImpl implements ScriptHelper {
 
     public Map<String, ? extends Object> createServiceMap(String serviceName, Map<String, ? extends Object> inputMap) throws ScriptException {
         Assert.notNull("serviceName", serviceName, "inputMap", inputMap);
-        Map<String, Object> toMap = new HashMap<String, Object>();
+        Map<String, Object> toMap = new HashMap<>();
         ModelService modelService = null;
         try {
             modelService = ctxHelper.getDispatcher().getDispatchContext().getModelService(serviceName);
@@ -226,7 +226,7 @@ public final class ScriptHelperImpl implements ScriptHelper {
                 }
             }
         }
-        Map<String, Object> inMap = new HashMap<String, Object>(inputMap);
+        Map<String, Object> inMap = new HashMap<>(inputMap);
         if (includeUserLogin && !inMap.containsKey("userLogin")) {
             GenericValue userLogin = ctxHelper.getUserLogin();
             if (userLogin != null) {

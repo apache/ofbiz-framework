@@ -79,6 +79,6 @@ public class GetLocaleListTests {
         params.put("localeString", "fr");
         List<Map<String, String>> res = runScript();
         assertThat(localeStrings(res), hasItems("en_ZA", "fr", "fr_BE", "fr_CA", "fr_FR", "fr_LU", "fr_CH"));
-        assertEquals(new HashSet<String>(localeStrings(res)).size(), localeStrings(res).size());
+        assertEquals(new HashSet<>(localeStrings(res)).size(), localeStrings(res).size());
     }
 }

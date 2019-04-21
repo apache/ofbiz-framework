@@ -49,11 +49,11 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
     protected String formName;
     protected String formLocation;
 
-    protected Set<EntityArtifactInfo> entitiesUsedInThisForm = new TreeSet<EntityArtifactInfo>();
-    protected Set<ServiceArtifactInfo> servicesUsedInThisForm = new TreeSet<ServiceArtifactInfo>();
+    protected Set<EntityArtifactInfo> entitiesUsedInThisForm = new TreeSet<>();
+    protected Set<ServiceArtifactInfo> servicesUsedInThisForm = new TreeSet<>();
     protected FormWidgetArtifactInfo formThisFormExtends = null;
-    protected Set<ControllerRequestArtifactInfo> requestsLinkedToInForm = new TreeSet<ControllerRequestArtifactInfo>();
-    protected Set<ControllerRequestArtifactInfo> requestsTargetedByInForm = new TreeSet<ControllerRequestArtifactInfo>();
+    protected Set<ControllerRequestArtifactInfo> requestsLinkedToInForm = new TreeSet<>();
+    protected Set<ControllerRequestArtifactInfo> requestsTargetedByInForm = new TreeSet<>();
 
     public FormWidgetArtifactInfo(String formName, String formLocation, ArtifactInfoFactory aif) throws GeneralException {
         super(aif);

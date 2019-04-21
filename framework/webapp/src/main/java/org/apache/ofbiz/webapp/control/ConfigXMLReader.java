@@ -66,7 +66,7 @@ public class ConfigXMLReader {
     public static final RequestResponse emptyNoneRequestResponse = RequestResponse.createEmptyNoneRequestResponse();
 
     public static Set<String> findControllerFilesWithRequest(String requestUri, String controllerPartialPath) throws GeneralException {
-        Set<String> allControllerRequestSet = new HashSet<String>();
+        Set<String> allControllerRequestSet = new HashSet<>();
         if (UtilValidate.isEmpty(requestUri)) {
             return allControllerRequestSet;
         }
@@ -76,7 +76,7 @@ public class ConfigXMLReader {
             try {
                 // find controller.xml file with webappMountPoint + "/WEB-INF" in the path
                 List<File> controllerFiles = FileUtil.findXmlFiles(null, controllerPartialPath, "site-conf", "site-conf.xsd");
-                controllerConfigs = new LinkedList<ControllerConfig>();
+                controllerConfigs = new LinkedList<>();
                 for (File controllerFile : controllerFiles) {
                     URL controllerUrl = null;
                     try {
@@ -131,7 +131,7 @@ public class ConfigXMLReader {
             // if (controllerLocAndRequestSet.size() > 0) Debug.logInfo("============== In findRequestNamesLinkedtoInWidget, controllerLocAndRequestSet: " + controllerLocAndRequestSet, module);
             return controllerLocAndRequestSet;
         } else {
-            return new HashSet<String>();
+            return new HashSet<>();
         }
     }
 
@@ -186,16 +186,16 @@ public class ConfigXMLReader {
         private String securityClass;
         private String defaultRequest;
         private String statusCode;
-        private List<URL> includes = new ArrayList<URL>();
-        private Map<String, Event> firstVisitEventList = new LinkedHashMap<String, Event>();
-        private Map<String, Event> preprocessorEventList = new LinkedHashMap<String, Event>();
-        private Map<String, Event> postprocessorEventList = new LinkedHashMap<String, Event>();
-        private Map<String, Event> afterLoginEventList = new LinkedHashMap<String, Event>();
-        private Map<String, Event> beforeLogoutEventList = new LinkedHashMap<String, Event>();
-        private Map<String, String> eventHandlerMap = new HashMap<String, String>();
-        private Map<String, String> viewHandlerMap = new HashMap<String, String>();
+        private List<URL> includes = new ArrayList<>();
+        private Map<String, Event> firstVisitEventList = new LinkedHashMap<>();
+        private Map<String, Event> preprocessorEventList = new LinkedHashMap<>();
+        private Map<String, Event> postprocessorEventList = new LinkedHashMap<>();
+        private Map<String, Event> afterLoginEventList = new LinkedHashMap<>();
+        private Map<String, Event> beforeLogoutEventList = new LinkedHashMap<>();
+        private Map<String, String> eventHandlerMap = new HashMap<>();
+        private Map<String, String> viewHandlerMap = new HashMap<>();
         private MultivaluedMapContext<String, RequestMap> requestMapMap = new MultivaluedMapContext<>();
-        private Map<String, ViewMap> viewMapMap = new HashMap<String, ViewMap>();
+        private Map<String, ViewMap> viewMapMap = new HashMap<>();
 
         public ControllerConfig(URL url) throws WebAppConfigurationException {
             this.url = url;
@@ -468,7 +468,7 @@ public class ConfigXMLReader {
         public boolean securityCert = false;
         public boolean securityExternalView = true;
         public boolean securityDirectRequest = true;
-        public Map<String, RequestResponse> requestResponseMap = new HashMap<String, RequestResponse>();
+        public Map<String, RequestResponse> requestResponseMap = new HashMap<>();
         public Metrics metrics = null;
 
         public RequestMap(Element requestMapElement) {
@@ -534,8 +534,8 @@ public class ConfigXMLReader {
         public boolean saveLastView = false;
         public boolean saveCurrentView = false;
         public boolean saveHomeView = false;
-        public Map<String, String> redirectParameterMap = new HashMap<String, String>();
-        public Map<String, String> redirectParameterValueMap = new HashMap<String, String>();
+        public Map<String, String> redirectParameterMap = new HashMap<>();
+        public Map<String, String> redirectParameterValueMap = new HashMap<>();
 
         public RequestResponse() {
         }

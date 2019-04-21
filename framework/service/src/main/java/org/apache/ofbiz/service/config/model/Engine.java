@@ -56,8 +56,8 @@ public final class Engine {
             this.parameters = Collections.emptyList();
             this.parameterMap = Collections.emptyMap();
         } else {
-            List<Parameter> parameters = new ArrayList<Parameter>(parameterElementList.size());
-            Map<String, Parameter> parameterMap = new HashMap<String, Parameter>();
+            List<Parameter> parameters = new ArrayList<>(parameterElementList.size());
+            Map<String, Parameter> parameterMap = new HashMap<>();
             for (Element parameterElement : parameterElementList) {
                 Parameter parameter = new Parameter(parameterElement);
                 parameters.add(parameter);

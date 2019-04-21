@@ -172,7 +172,7 @@ public final class SetOperation extends MethodOperation {
             if ("NewMap".equals(this.type)) {
                 newValue = new HashMap<String, Object>();
             } else if ("NewList".equals(this.type)) {
-                newValue = new LinkedList<Object>();
+                newValue = new LinkedList<>();
             } else {
                 try {
                     String format = null;

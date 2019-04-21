@@ -66,7 +66,7 @@ public class OrderManagerEvents {
 
         if (session.getAttribute("OFFLINE_PAYMENTS") != null) {
             String orderId = (String) request.getAttribute("orderId");
-            List<GenericValue> toBeStored = new LinkedList<GenericValue>();
+            List<GenericValue> toBeStored = new LinkedList<>();
             List<GenericValue> paymentPrefs = null;
             GenericValue placingCustomer = null;
             try {
@@ -217,7 +217,7 @@ public class OrderManagerEvents {
             }
         }
 
-        List<GenericValue> toBeStored = new LinkedList<GenericValue>();
+        List<GenericValue> toBeStored = new LinkedList<>();
         for (GenericValue paymentMethodType : paymentMethodTypes) {
             String paymentMethodTypeId = paymentMethodType.getString("paymentMethodTypeId");
             String amountStr = request.getParameter(paymentMethodTypeId + "_amount");

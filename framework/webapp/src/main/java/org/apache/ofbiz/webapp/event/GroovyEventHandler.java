@@ -53,7 +53,7 @@ public class GroovyEventHandler implements EventHandler {
     private static final Set<String> protectedKeys = createProtectedKeys();
 
     private static Set<String> createProtectedKeys() {
-        Set<String> newSet = new HashSet<String>();
+        Set<String> newSet = new HashSet<>();
         newSet.add("request");
         newSet.add("response");
         newSet.add("session");
@@ -77,7 +77,7 @@ public class GroovyEventHandler implements EventHandler {
         try {
             beganTransaction = TransactionUtil.begin();
 
-            Map<String, Object> context = new HashMap<String, Object>();
+            Map<String, Object> context = new HashMap<>();
             context.put("request", request);
             context.put("response", response);
             HttpSession session = request.getSession();

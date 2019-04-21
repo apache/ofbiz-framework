@@ -89,7 +89,7 @@ public class OrderTestServices {
             salesChannel = "WEB_SALES_CHANNEL";
         }
 
-        List<String> productsList = new LinkedList<String>();
+        List<String> productsList = new LinkedList<>();
         try {
             if (UtilValidate.isNotEmpty(productId)) {
                 productsList.add(productId);

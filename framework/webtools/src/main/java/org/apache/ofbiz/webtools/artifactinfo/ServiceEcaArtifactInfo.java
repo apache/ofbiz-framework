@@ -43,7 +43,7 @@ public class ServiceEcaArtifactInfo extends ArtifactInfoBase {
     protected String displayPrefix = null;
     protected int displaySuffixNum = 0;
 
-    protected Set<ServiceArtifactInfo> servicesCalledByThisServiceEca = new TreeSet<ServiceArtifactInfo>();
+    protected Set<ServiceArtifactInfo> servicesCalledByThisServiceEca = new TreeSet<>();
 
     public ServiceEcaArtifactInfo(ServiceEcaRule serviceEcaRule, ArtifactInfoFactory aif) throws GeneralException {
         super(aif);
@@ -113,15 +113,15 @@ public class ServiceEcaArtifactInfo extends ArtifactInfoBase {
     }
 
     public Map<String, Object> createEoModelMap(Set<ServiceArtifactInfo> triggeringServiceSet, Set<ServiceArtifactInfo> triggeredServiceSet, boolean useMoreDetailedNames) {
-        if (triggeringServiceSet == null) triggeringServiceSet = new HashSet<ServiceArtifactInfo>();
-        if (triggeredServiceSet == null) triggeredServiceSet = new HashSet<ServiceArtifactInfo>();
-        Map<String, Object> topLevelMap = new HashMap<String, Object>();
+        if (triggeringServiceSet == null) triggeringServiceSet = new HashSet<>();
+        if (triggeredServiceSet == null) triggeredServiceSet = new HashSet<>();
+        Map<String, Object> topLevelMap = new HashMap<>();
 
         topLevelMap.put("name", this.getDisplayPrefixedName());
         topLevelMap.put("className", "EOGenericRecord");
 
         // for classProperties add attribute names AND relationship names to get a nice, complete chart
-        List<String> classPropertiesList = new LinkedList<String>();
+        List<String> classPropertiesList = new LinkedList<>();
         topLevelMap.put("classProperties", classPropertiesList);
         // conditions
         for (ServiceEcaCondition ecaCondition: this.serviceEcaRule.getEcaConditionList()) {
@@ -155,10 +155,10 @@ public class ServiceEcaArtifactInfo extends ArtifactInfoBase {
         */
 
         // relationships
-        List<Map<String, Object>> relationshipsMapList = new LinkedList<Map<String,Object>>();
+        List<Map<String, Object>> relationshipsMapList = new LinkedList<>();
 
         for (ServiceArtifactInfo sai: triggeringServiceSet) {
-            Map<String, Object> relationshipMap = new HashMap<String, Object>();
+            Map<String, Object> relationshipMap = new HashMap<>();
             relationshipsMapList.add(relationshipMap);
 
             relationshipMap.put("name", sai.getDisplayPrefixedName());
@@ -167,7 +167,7 @@ public class ServiceEcaArtifactInfo extends ArtifactInfoBase {
             relationshipMap.put("isMandatory", "Y");
         }
         for (ServiceArtifactInfo sai: triggeredServiceSet) {
-            Map<String, Object> relationshipMap = new HashMap<String, Object>();
+            Map<String, Object> relationshipMap = new HashMap<>();
             relationshipsMapList.add(relationshipMap);
 
             relationshipMap.put("name", sai.getDisplayPrefixedName());

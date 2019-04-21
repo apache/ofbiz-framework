@@ -88,7 +88,7 @@ public final class SimpleMethod extends MiniLangElement {
     private static final UtilCache<String, SimpleMethod> simpleMethodsResourceCache = UtilCache.createUtilCache("minilang.SimpleMethodsResource", 0, 0);
 
     static {
-        Map<String, MethodOperation.Factory<MethodOperation>> mapFactories = new HashMap<String, MethodOperation.Factory<MethodOperation>>();
+        Map<String, MethodOperation.Factory<MethodOperation>> mapFactories = new HashMap<>();
         Iterator<MethodOperation.Factory<MethodOperation>> it = UtilGenerics.cast(ServiceLoader.load(MethodOperation.Factory.class, SimpleMethod.class.getClassLoader()).iterator());
         while (it.hasNext()) {
             MethodOperation.Factory<MethodOperation> factory = it.next();
@@ -123,7 +123,7 @@ public final class SimpleMethod extends MiniLangElement {
         if (UtilValidate.isEmpty(fromLocation)) {
             fromLocation = "<location not known>";
         }
-        Map<String, SimpleMethod> simpleMethods = new HashMap<String, SimpleMethod>();
+        Map<String, SimpleMethod> simpleMethods = new HashMap<>();
         Document document = null;
         try {
             document = UtilXml.readXmlDocument(content, true, true);
@@ -135,7 +135,7 @@ public final class SimpleMethod extends MiniLangElement {
     }
 
     private static Map<String, SimpleMethod> getAllSimpleMethods(URL xmlURL) throws MiniLangException {
-        Map<String, SimpleMethod> simpleMethods = new LinkedHashMap<String, SimpleMethod>();
+        Map<String, SimpleMethod> simpleMethods = new LinkedHashMap<>();
         Document document = null;
         try {
             document = UtilXml.readXmlDocument(xmlURL, true, true);
@@ -220,13 +220,13 @@ public final class SimpleMethod extends MiniLangElement {
      */
     public static List<SimpleMethod> getSimpleMethodsList(String xmlResource, ClassLoader loader) throws MiniLangException {
         Map<String, SimpleMethod> simpleMethodMap = getSimpleMethods(xmlResource, loader);
-        return new ArrayList<SimpleMethod>(simpleMethodMap.values());
+        return new ArrayList<>(simpleMethodMap.values());
     }
 
     public static List<MethodOperation> readOperations(Element simpleMethodElement, SimpleMethod simpleMethod) throws MiniLangException {
         Assert.notNull("simpleMethodElement", simpleMethodElement, "simpleMethod", simpleMethod);
         List<? extends Element> operationElements = UtilXml.childElementList(simpleMethodElement);
-        ArrayList<MethodOperation> methodOperations = new ArrayList<MethodOperation>(operationElements.size());
+        ArrayList<MethodOperation> methodOperations = new ArrayList<>(operationElements.size());
         if (UtilValidate.isNotEmpty(operationElements)) {
             for (Element curOperElem : operationElements) {
                 String nodeName = UtilXml.getNodeNameIgnorePrefix(curOperElem);
@@ -391,7 +391,7 @@ public final class SimpleMethod extends MiniLangElement {
     private void addMessage(MethodContext methodContext, String messageListName, String message) {
         List<String> messages = methodContext.getEnv(messageListName);
         if (messages == null) {
-            messages = new LinkedList<String>();
+            messages = new LinkedList<>();
             methodContext.putEnv(messageListName, messages);
         }
         messages.add(message);

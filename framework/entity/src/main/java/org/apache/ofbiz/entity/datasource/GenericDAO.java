@@ -71,7 +71,7 @@ public class GenericDAO {
 
     public static final String module = GenericDAO.class.getName();
 
-    private static final ConcurrentHashMap<String, GenericDAO> genericDAOs = new ConcurrentHashMap<String, GenericDAO>();
+    private static final ConcurrentHashMap<String, GenericDAO> genericDAOs = new ConcurrentHashMap<>();
     private final GenericHelperInfo helperInfo;
     private final ModelFieldTypeReader modelFieldTypeReader;
     private final Datasource datasource;
@@ -183,7 +183,7 @@ public class GenericDAO {
         ModelEntity modelEntity = entity.getModelEntity();
 
         // we don't want to update ALL fields, just the nonpk fields that are in the passed GenericEntity
-        List<ModelField> partialFields = new LinkedList<ModelField>();
+        List<ModelField> partialFields = new LinkedList<>();
         Collection<String> keys = entity.getAllKeys();
 
         Iterator<ModelField> nopkIter = modelEntity.getNopksIterator();
@@ -293,7 +293,7 @@ public class GenericDAO {
 
         StringBuilder sql = new StringBuilder("UPDATE ").append(modelEntity.getTableName(datasource));
         sql.append(" SET ");
-        List<EntityConditionParam> params = new LinkedList<EntityConditionParam>();
+        List<EntityConditionParam> params = new LinkedList<>();
         for (Map.Entry<String, ? extends Object> entry: fieldsToSet.entrySet()) {
             String name = entry.getKey();
             ModelField field = modelEntity.getField(name);
@@ -350,7 +350,7 @@ public class GenericDAO {
                 throw new GenericEntityException("Failed to get model entity for " + meName, e);
             }
 
-            Map<String, Object> findByMap = new HashMap<String, Object>();
+            Map<String, Object> findByMap = new HashMap<>();
 
             // Now iterate the ModelViewLinks to construct the "WHERE" part for update/insert
             Iterator<ModelViewEntity.ModelViewLink> linkIter = modelViewEntity.getViewLinksIterator();
@@ -420,7 +420,7 @@ public class GenericDAO {
             }
 
             // Construct fieldsToSave list for this member entity
-            List<ModelField> meFieldsToSave = new LinkedList<ModelField>();
+            List<ModelField> meFieldsToSave = new LinkedList<>();
             for (ModelField modelField: fieldsToSave) {
                 if (memberModelEntity.isField(modelField.getName())) {
                     ModelField meModelField = memberModelEntity.getField(modelField.getName());
@@ -513,9 +513,9 @@ public class GenericDAO {
         }
 
         // we don't want to select ALL fields, just the nonpk fields that are in the passed GenericEntity
-        List<ModelField> partialFields = new LinkedList<ModelField>();
+        List<ModelField> partialFields = new LinkedList<>();
 
-        Set<String> tempKeys = new TreeSet<String>(keys);
+        Set<String> tempKeys = new TreeSet<>(keys);
 
         Iterator<ModelField> entityFieldIter = modelEntity.getFieldsIterator();
         while (entityFieldIter.hasNext()) {
@@ -595,12 +595,12 @@ public class GenericDAO {
         }
 
         // make two ArrayLists of fields, one for fields to select and the other for where clause fields (to find by)
-        List<ModelField> selectFields = new LinkedList<ModelField>();
+        List<ModelField> selectFields = new LinkedList<>();
         if (UtilValidate.isNotEmpty(fieldsToSelect)) {
-            Set<String> tempKeys = new HashSet<String>();
+            Set<String> tempKeys = new HashSet<>();
             tempKeys.addAll(fieldsToSelect);
-            Set<String> fieldSetsToInclude = new HashSet<String>();
-            Set<String> addedFields = new HashSet<String>();
+            Set<String> fieldSetsToInclude = new HashSet<>();
+            Set<String> addedFields = new HashSet<>();
             for (String fieldToSelect : fieldsToSelect) {
                 if (tempKeys.contains(fieldToSelect)) {
                     ModelField curField = modelEntity.getField(fieldToSelect);
@@ -622,8 +622,8 @@ public class GenericDAO {
             }
             if (UtilValidate.isNotEmpty(fieldSetsToInclude)) {
                 Iterator<ModelField> fieldIter = modelEntity.getFieldsIterator();
-                Set<String> extraFields = new HashSet<String>();
-                Set<String> reasonSets = new HashSet<String>();
+                Set<String> extraFields = new HashSet<>();
+                Set<String> reasonSets = new HashSet<>();
                 while (fieldIter.hasNext()) {
                     ModelField curField = fieldIter.next();
                     String fieldSet = curField.getFieldSet();
@@ -668,9 +668,9 @@ public class GenericDAO {
         List<EntityCondition> viewHavingConditions = null;
         List<String> viewOrderByList = null;
         if (modelViewEntity != null) {
-            viewWhereConditions = new LinkedList<EntityCondition>();
-            viewHavingConditions = new LinkedList<EntityCondition>();
-            viewOrderByList = new LinkedList<String>();
+            viewWhereConditions = new LinkedList<>();
+            viewHavingConditions = new LinkedList<>();
+            viewOrderByList = new LinkedList<>();
             modelViewEntity.populateViewEntityConditionInformation(modelFieldTypeReader, viewWhereConditions, viewHavingConditions, viewOrderByList, null);
         }
 
@@ -678,7 +678,7 @@ public class GenericDAO {
         sqlBuffer.append(SqlJdbcUtil.makeFromClause(modelEntity, modelFieldTypeReader, datasource));
 
         // WHERE clause
-        List<EntityConditionParam> whereEntityConditionParams = new LinkedList<EntityConditionParam>();
+        List<EntityConditionParam> whereEntityConditionParams = new LinkedList<>();
         makeConditionWhereString(sqlBuffer, " WHERE ", modelEntity, whereEntityCondition, viewWhereConditions, whereEntityConditionParams);
 
         // GROUP BY clause for view-entity
@@ -687,11 +687,11 @@ public class GenericDAO {
         }
 
         // HAVING clause
-        List<EntityConditionParam> havingEntityConditionParams = new LinkedList<EntityConditionParam>();
+        List<EntityConditionParam> havingEntityConditionParams = new LinkedList<>();
         makeConditionHavingString(sqlBuffer, " HAVING ", modelEntity, havingEntityCondition, viewHavingConditions, havingEntityConditionParams);
 
         // ORDER BY clause
-        List<String> orderByExpanded = new LinkedList<String>();
+        List<String> orderByExpanded = new LinkedList<>();
         // add the manually specified ones, then the ones in the view entity's entity-condition
         if (orderBy != null) {
             orderByExpanded.addAll(orderBy);
@@ -755,7 +755,7 @@ public class GenericDAO {
             modelViewEntity = (ModelViewEntity) modelEntity;
         }
 
-        List<EntityCondition> conditions = new LinkedList<EntityCondition>();
+        List<EntityCondition> conditions = new LinkedList<>();
         if (UtilValidate.isNotEmpty(whereEntityCondition)) {
             conditions.add(whereEntityCondition);
         }
@@ -857,7 +857,7 @@ public class GenericDAO {
 
         // get the column name string to select
         StringBuilder selsb = new StringBuilder();
-        List<String> fldlist = new LinkedList<String>();
+        List<String> fldlist = new LinkedList<>();
 
         for (Iterator<ModelField> iterator = modelEntityTwo.getFieldsIterator(); iterator.hasNext();) {
             ModelField mf = iterator.next();
@@ -885,7 +885,7 @@ public class GenericDAO {
 
         // construct the source entity qualifier
         // get the fields from relation description
-        Map<ModelField, Object> bindMap = new HashMap<ModelField, Object>();
+        Map<ModelField, Object> bindMap = new HashMap<>();
         for (ModelKeyMap mkm : modelRelationOne.getKeyMaps()) {
             // get the equivalent column names in the relation
             String sfldname = mkm.getFieldName();
@@ -914,7 +914,7 @@ public class GenericDAO {
         sqlsb.append(SqlJdbcUtil.makeOrderByClause(modelEntityTwo, orderBy, true, datasource));
 
         // now execute the query
-        List<GenericValue> retlist = new LinkedList<GenericValue>();
+        List<GenericValue> retlist = new LinkedList<>();
         Delegator gd = value.getDelegator();
 
         try (SQLProcessor sqlP = new SQLProcessor(value.getDelegator(), helperInfo)) {
@@ -1016,9 +1016,9 @@ public class GenericDAO {
         List<EntityCondition> viewHavingConditions = null;
         List<String> viewOrderByList = null;
         if (modelViewEntity != null) {
-            viewWhereConditions = new LinkedList<EntityCondition>();
-            viewHavingConditions = new LinkedList<EntityCondition>();
-            viewOrderByList = new LinkedList<String>();
+            viewWhereConditions = new LinkedList<>();
+            viewHavingConditions = new LinkedList<>();
+            viewOrderByList = new LinkedList<>();
             modelViewEntity.populateViewEntityConditionInformation(modelFieldTypeReader, viewWhereConditions, viewHavingConditions, viewOrderByList, null);
         }
 
@@ -1026,7 +1026,7 @@ public class GenericDAO {
         sqlBuffer.append(SqlJdbcUtil.makeFromClause(modelEntity, modelFieldTypeReader, datasource));
 
         // WHERE clause
-        List<EntityConditionParam> whereEntityConditionParams = new LinkedList<EntityConditionParam>();
+        List<EntityConditionParam> whereEntityConditionParams = new LinkedList<>();
         makeConditionWhereString(sqlBuffer, " WHERE ", modelEntity, whereEntityCondition, viewWhereConditions, whereEntityConditionParams);
 
         // GROUP BY clause for view-entity
@@ -1035,7 +1035,7 @@ public class GenericDAO {
         }
 
         // HAVING clause
-        List<EntityConditionParam> havingEntityConditionParams = new LinkedList<EntityConditionParam>();
+        List<EntityConditionParam> havingEntityConditionParams = new LinkedList<>();
         makeConditionHavingString(sqlBuffer, " HAVING ", modelEntity, havingEntityCondition, viewHavingConditions, havingEntityConditionParams);
 
         if (isGroupBy) {

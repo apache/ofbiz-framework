@@ -36,7 +36,7 @@ public class MakeInString {
     public static final String module = MakeInString.class.getName();
 
     String fieldName;
-    List<MakeInStringOperation> operations = new ArrayList<MakeInStringOperation>();
+    List<MakeInStringOperation> operations = new ArrayList<>();
 
     public MakeInString(Element makeInStringElement) {
         fieldName = makeInStringElement.getAttribute("field");

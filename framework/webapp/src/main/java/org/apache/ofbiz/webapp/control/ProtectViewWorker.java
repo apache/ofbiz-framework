@@ -43,8 +43,8 @@ public final class ProtectViewWorker {
 
     private final static String module = ProtectViewWorker.class.getName();
     private static final String resourceWebapp = "WebappUiLabels";
-    private static final Map<String, Long> hitsByViewAccessed = new ConcurrentHashMap<String, Long>();
-    private static final Map<String, Long> durationByViewAccessed = new ConcurrentHashMap<String, Long>();
+    private static final Map<String, Long> hitsByViewAccessed = new ConcurrentHashMap<>();
+    private static final Map<String, Long> durationByViewAccessed = new ConcurrentHashMap<>();
     private static final Long one = 1L;
 
     private ProtectViewWorker () {}

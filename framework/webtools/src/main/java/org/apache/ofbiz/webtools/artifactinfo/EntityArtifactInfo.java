@@ -38,8 +38,8 @@ import org.apache.ofbiz.entityext.eca.EntityEcaRule;
 public class EntityArtifactInfo extends ArtifactInfoBase {
     protected ModelEntity modelEntity;
 
-    protected Set<EntityArtifactInfo> entitiesRelatedOne = new TreeSet<EntityArtifactInfo>();
-    protected Set<EntityArtifactInfo> entitiesRelatedMany = new TreeSet<EntityArtifactInfo>();
+    protected Set<EntityArtifactInfo> entitiesRelatedOne = new TreeSet<>();
+    protected Set<EntityArtifactInfo> entitiesRelatedMany = new TreeSet<>();
 
     public EntityArtifactInfo(String entityName, ArtifactInfoFactory aif) throws GenericEntityException {
         super(aif);
@@ -111,13 +111,13 @@ public class EntityArtifactInfo extends ArtifactInfoBase {
 
     /** Get the Services called by Entity ECA */
     public Set<ServiceArtifactInfo> getServicesCalledByEntityEca() {
-        Set<ServiceArtifactInfo> serviceSet = new HashSet<ServiceArtifactInfo>();
+        Set<ServiceArtifactInfo> serviceSet = new HashSet<>();
         // TODO: implement this
         return serviceSet;
     }
 
     public Set<EntityEcaRule> getEntityEcaRules() {
-        Set<EntityEcaRule> eecaSet = new HashSet<EntityEcaRule>();
+        Set<EntityEcaRule> eecaSet = new HashSet<>();
         // TODO: implement this
         return eecaSet;
     }

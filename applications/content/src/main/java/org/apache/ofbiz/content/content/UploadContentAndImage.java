@@ -93,7 +93,7 @@ public class UploadContentAndImage {
                 return "error";
             }
 
-            Map<String, Object> passedParams = new HashMap<String, Object>();
+            Map<String, Object> passedParams = new HashMap<>();
             FileItem fi = null;
             FileItem imageFi = null;
             byte[] imageBytes = {};
@@ -121,7 +121,7 @@ public class UploadContentAndImage {
             passedParams.put("targetOperationList", targetOperationList);
             
             // Create or update FTL template
-            Map<String, Object> ftlContext = new HashMap<String, Object>();
+            Map<String, Object> ftlContext = new HashMap<>();
             ftlContext.put("userLogin", userLogin);
             ftlContext.put("contentId", passedParams.get("ftlContentId"));
             ftlContext.put("ownerContentId", passedParams.get("ownerContentId"));
@@ -152,7 +152,7 @@ public class UploadContentAndImage {
             }
             String ftlContentId = (String)ftlResults.get("contentId");
             if (UtilValidate.isNotEmpty(contentIdTo)) {
-                Map<String, Object> map = new HashMap<String, Object>();
+                Map<String, Object> map = new HashMap<>();
                 map.put("fromDate", UtilDateTime.nowTimestamp());
                 map.put("contentId", ftlContentId);
                 map.put("contentIdTo", contentIdTo);
@@ -195,7 +195,7 @@ public class UploadContentAndImage {
             if (Debug.infoOn()) Debug.logInfo("[UploadContentAndImage]ftlContentId:" + ftlContentId, module);
             // Create or update summary text subContent
             if (passedParams.containsKey("summaryData")) {
-                Map<String, Object> sumContext = new HashMap<String, Object>();
+                Map<String, Object> sumContext = new HashMap<>();
                 sumContext.put("userLogin", userLogin);
                 sumContext.put("contentId", passedParams.get("sumContentId"));
                 sumContext.put("ownerContentId", ftlContentId);
@@ -225,7 +225,7 @@ public class UploadContentAndImage {
 
             // Create or update electronic text subContent
             if (passedParams.containsKey("textData")) {
-                Map<String, Object> txtContext = new HashMap<String, Object>();
+                Map<String, Object> txtContext = new HashMap<>();
                 txtContext.put("userLogin", userLogin);
                 txtContext.put("contentId", passedParams.get("txtContentId"));
                 txtContext.put("ownerContentId", ftlContentId);
@@ -254,7 +254,7 @@ public class UploadContentAndImage {
             }
 
             // Create or update image subContent
-            Map<String, Object> imgContext = new HashMap<String, Object>();
+            Map<String, Object> imgContext = new HashMap<>();
             if (imageBytes.length > 0) {
                 imgContext.put("userLogin", userLogin);
                 imgContext.put("contentId", passedParams.get("imgContentId"));
@@ -352,7 +352,7 @@ public class UploadContentAndImage {
                 return "error";
             }
 
-            Map<String, Object> passedParams = new HashMap<String, Object>();
+            Map<String, Object> passedParams = new HashMap<>();
             FileItem fi = null;
             FileItem imageFi = null;
             byte[] imageBytes;
@@ -422,7 +422,7 @@ public class UploadContentAndImage {
         Delegator delegator = (Delegator)request.getAttribute("delegator");
         HttpSession session = request.getSession();
         GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
-        Map<String, Object> ftlContext = new HashMap<String, Object>();
+        Map<String, Object> ftlContext = new HashMap<>();
 
         String contentPurposeString = (String)passedParams.get("contentPurposeString" + suffix);
         if (UtilValidate.isEmpty(contentPurposeString)) {
@@ -451,7 +451,7 @@ public class UploadContentAndImage {
                     request.setAttribute("_ERROR_MESSAGE_", msg);
                     List<String> errorMsgList = UtilGenerics.checkList(request.getAttribute("_EVENT_MESSAGE_LIST_"));
                     if (errorMsgList == null) {
-                        errorMsgList = new LinkedList<String>();
+                        errorMsgList = new LinkedList<>();
                         request.setAttribute("errorMessageList", errorMsgList);
                     }
                     errorMsgList.add(msg);
@@ -463,8 +463,8 @@ public class UploadContentAndImage {
 
         ModelEntity modelEntity = delegator.getModelEntity("ContentAssocDataResourceViewFrom");
         List<String> fieldNames = modelEntity.getAllFieldNames();
-        Map<String, Object> ftlContext2 = new HashMap<String, Object>();
-        Map<String, Object> ftlContext3 = new HashMap<String, Object>();
+        Map<String, Object> ftlContext2 = new HashMap<>();
+        Map<String, Object> ftlContext3 = new HashMap<>();
         for (String keyName : fieldNames) {
             Object obj = passedParams.get(keyName + suffix);
             ftlContext2.put(keyName, obj);
@@ -472,17 +472,17 @@ public class UploadContentAndImage {
         if (Debug.infoOn()) {
             Debug.logInfo("[UploadContentStuff]ftlContext2:" + ftlContext2, module);
         }
-        List<Object> errorMessages = new LinkedList<Object>();
+        List<Object> errorMessages = new LinkedList<>();
         Locale loc = Locale.getDefault();
         try {
             SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml", "contentIn", ftlContext2, ftlContext3, errorMessages, loc);
             SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml", "contentOut", ftlContext3, ftlContext, errorMessages, loc);
 
-            ftlContext3 = new HashMap<String, Object>();
+            ftlContext3 = new HashMap<>();
             SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml", "dataResourceIn", ftlContext2, ftlContext3, errorMessages, loc);
             SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml", "dataResourceOut", ftlContext3, ftlContext, errorMessages, loc);
 
-            ftlContext3 = new HashMap<String, Object>();
+            ftlContext3 = new HashMap<>();
             SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml", "contentAssocIn", ftlContext2, ftlContext3, errorMessages, loc);
             SimpleMapProcessor.runSimpleMapProcessor("component://content/minilang/ContentManagementMapProcessors.xml", "contentAssocOut", ftlContext3, ftlContext, errorMessages, loc);
         } catch (MiniLangException e) {
@@ -509,7 +509,7 @@ public class UploadContentAndImage {
                 Debug.logInfo("[UploadContentStuff]msg:" + msg, module);
             }
             if (errorMsgList == null) {
-                errorMsgList = new LinkedList<String>();
+                errorMsgList = new LinkedList<>();
                 request.setAttribute("errorMessageList", errorMsgList);
             }
             errorMsgList.add(msg);
@@ -520,7 +520,7 @@ public class UploadContentAndImage {
             request.setAttribute("_ERROR_MESSAGE_", msg);
             List<String> errorMsgList = UtilGenerics.checkList(request.getAttribute("_EVENT_MESSAGE_LIST_"));
             if (errorMsgList == null) {
-                errorMsgList = new LinkedList<String>();
+                errorMsgList = new LinkedList<>();
                 request.setAttribute("errorMessageList", errorMsgList);
             }
             errorMsgList.add(msg);
@@ -540,7 +540,7 @@ public class UploadContentAndImage {
 
         String caContentIdTo = (String)passedParams.get("caContentIdTo");
         if (UtilValidate.isNotEmpty(caContentIdTo)) {
-            Map<String, Object> resequenceContext = new HashMap<String, Object>();
+            Map<String, Object> resequenceContext = new HashMap<>();
             resequenceContext.put("contentIdTo", caContentIdTo);
             resequenceContext.put("userLogin", userLogin);
             try {
@@ -562,7 +562,7 @@ public class UploadContentAndImage {
                     Debug.logInfo("[UploadContentStuff]msg:" + msg, module);
                 }
                 if (errorMsgList == null) {
-                    errorMsgList = new LinkedList<String>();
+                    errorMsgList = new LinkedList<>();
                     request.setAttribute("errorMessageList", errorMsgList);
                 }
                 errorMsgList.add(msg);

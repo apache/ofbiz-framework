@@ -98,8 +98,8 @@ public final class DelegatorElement {
         if (groupMapElementList.isEmpty()) {
             throw new GenericEntityConfException("<delegator> element child elements <group-map> are missing" + lineNumberText);
         } else {
-            List<GroupMap> groupMapList = new ArrayList<GroupMap>(groupMapElementList.size());
-            Map<String, String> groupMapMap = new HashMap<String, String>();
+            List<GroupMap> groupMapList = new ArrayList<>(groupMapElementList.size());
+            Map<String, String> groupMapMap = new HashMap<>();
             for (Element groupMapElement : groupMapElementList) {
                 GroupMap groupMap = new GroupMap(groupMapElement);
                 groupMapList.add(groupMap);

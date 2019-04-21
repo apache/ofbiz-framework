@@ -60,7 +60,7 @@ public final class CheckPermission extends MethodOperation {
         primaryPermissionInfo = new PermissionInfo(element);
         List<? extends Element> altPermElements = UtilXml.childElementList(element, "alt-permission");
         if (!altPermElements.isEmpty()) {
-            List<PermissionInfo> permissionInfoList = new ArrayList<PermissionInfo>(altPermElements.size());
+            List<PermissionInfo> permissionInfoList = new ArrayList<>(altPermElements.size());
             for (Element altPermElement : altPermElements) {
                 permissionInfoList.add(new PermissionInfo(altPermElement));
             }
@@ -90,7 +90,7 @@ public final class CheckPermission extends MethodOperation {
         if (!hasPermission && messageElement != null) {
             List<String> messages = errorListFma.get(methodContext.getEnvMap());
             if (messages == null) {
-                messages = new LinkedList<String>();
+                messages = new LinkedList<>();
                 errorListFma.put(methodContext.getEnvMap(), messages);
             }
             messages.add(messageElement.getMessage(methodContext));

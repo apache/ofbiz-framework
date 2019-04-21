@@ -46,11 +46,11 @@ public final class ReportHelper {
  * conversionRate - # orders/# visits
  */
     public static List<Map<String, Object>> calcConversionRates(List<GenericValue> visits, List<GenericValue> orders, String keyFieldName) {
-        List<Map<String, Object>> conversionRates = new LinkedList<Map<String, Object>>();
+        List<Map<String, Object>> conversionRates = new LinkedList<>();
 
         // loop through all the visits
         for (GenericValue visit: visits) {
-            Map<String, Object> reportValue = new HashMap<String, Object>();
+            Map<String, Object> reportValue = new HashMap<>();
             reportValue.put(keyFieldName, visit.getString(keyFieldName));
             reportValue.put("visits", visit.getLong("visitId")); // actually # of visits
 

@@ -101,13 +101,13 @@ public final class SeoConfigUtil {
      */
     public static void init() {
         String result = "success";
-        seoPatterns = new HashMap<String, Pattern>();
-        seoReplacements = new HashMap<String, String>();
-        forwardReplacements = new HashMap<String, String>();
-        forwardResponseCodes = new HashMap<String, Integer>();
-        userExceptionPatterns = new LinkedList<Pattern>();
-        specialProductIds = new HashMap<String, String>();
-        charFilters = new HashMap<String, String>();
+        seoPatterns = new HashMap<>();
+        seoReplacements = new HashMap<>();
+        forwardReplacements = new HashMap<>();
+        forwardResponseCodes = new HashMap<>();
+        userExceptionPatterns = new LinkedList<>();
+        specialProductIds = new HashMap<>();
+        charFilters = new HashMap<>();
         try {
             URL seoConfigFilename = UtilURL.fromResource(SEO_CONFIG_FILENAME);
             Document configDoc = UtilXml.readXmlDocument(seoConfigFilename, false);
@@ -135,7 +135,7 @@ public final class SeoConfigUtil {
                     
                     if (categoryUrlEnabled) {
                         String allowedContextValue = UtilXml.childElementValue(categoryUrlElement, ELEMENT_ALLOWED_CONTEXT_PATHS, null);
-                        allowedContextPaths = new HashSet<String>();
+                        allowedContextPaths = new HashSet<>();
                         if (UtilValidate.isNotEmpty(allowedContextValue)) {
                             List<String> allowedContextPathList = StringUtil.split(allowedContextValue, ALLOWED_CONTEXT_PATHS_SEPERATOR);
                             for (String path : allowedContextPathList) {

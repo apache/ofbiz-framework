@@ -456,7 +456,7 @@ public class TrackingCodeEvents {
     public static List<GenericValue> makeTrackingCodeOrders(HttpServletRequest request) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         java.sql.Timestamp nowStamp = UtilDateTime.nowTimestamp();
-        List<GenericValue> trackingCodeOrders = new LinkedList<GenericValue>();
+        List<GenericValue> trackingCodeOrders = new LinkedList<>();
 
         Cookie[] cookies = request.getCookies();
         Timestamp affiliateReferredTimeStamp = null;

@@ -26,12 +26,12 @@ import java.util.Set;
  */
 public final class ArtifactInfoContext {
 
-    private final Set<String> entityNameSet = new HashSet<String>();
-    private final Set<String> serviceNameSet = new HashSet<String>();
-    private final Set<String> screenLocationSet = new HashSet<String>();
-    private final Set<String> formLocationSet = new HashSet<String>();
-    private final Set<String> requestLocationSet = new HashSet<String>();
-    private final Set<String> targetLocationSet = new HashSet<String>();
+    private final Set<String> entityNameSet = new HashSet<>();
+    private final Set<String> serviceNameSet = new HashSet<>();
+    private final Set<String> screenLocationSet = new HashSet<>();
+    private final Set<String> formLocationSet = new HashSet<>();
+    private final Set<String> requestLocationSet = new HashSet<>();
+    private final Set<String> targetLocationSet = new HashSet<>();
 
     /**
      * Adds an entity name to this context.

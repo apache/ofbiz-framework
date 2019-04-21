@@ -55,7 +55,7 @@ import org.apache.ofbiz.webapp.website.WebSiteWorker;
 public final class ProductStoreWorker {
 
     public static final String module = ProductStoreWorker.class.getName();
-    private static Map<String, String> defaultProductStoreEmailScreenLocation = new HashMap<String, String>();
+    private static Map<String, String> defaultProductStoreEmailScreenLocation = new HashMap<>();
 
     static {
         defaultProductStoreEmailScreenLocation.put("PRDS_ODR_CONFIRM", "component://ecommerce/widget/EmailOrderScreens.xml#OrderConfirmNotice");
@@ -257,7 +257,7 @@ public final class ProductStoreWorker {
 
     public static List<GenericValue> getAvailableStoreShippingMethods(Delegator delegator, String productStoreId, GenericValue shippingAddress, List<BigDecimal> itemSizes, Map<String, BigDecimal> featureIdMap, BigDecimal weight, BigDecimal orderTotal) {
         if (featureIdMap == null) {
-            featureIdMap = new HashMap<String, BigDecimal>();
+            featureIdMap = new HashMap<>();
         }
         List<GenericValue> shippingMethods = null;
         try {
@@ -483,7 +483,7 @@ public final class ProductStoreWorker {
     }
 
     public static List<GenericValue> getSurveys(Delegator delegator, String productStoreId, String groupName, String productId, String surveyApplTypeId, String parentProductId) {
-        List<GenericValue> surveys = new LinkedList<GenericValue>();
+        List<GenericValue> surveys = new LinkedList<>();
         List<GenericValue> storeSurveys = null;
         try {
             storeSurveys = EntityQuery.use(delegator).from("ProductStoreSurveyAppl").where("productStoreId", productStoreId, "surveyApplTypeId", surveyApplTypeId).orderBy("sequenceNum").cache(true).queryList();

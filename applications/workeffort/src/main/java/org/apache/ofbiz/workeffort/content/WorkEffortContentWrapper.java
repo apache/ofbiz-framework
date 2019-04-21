@@ -302,7 +302,7 @@ public class WorkEffortContentWrapper implements ContentWrapper {
         }
         if (workEffortContent != null) {
             // when rendering the product content, always include the Product and ProductContent records that this comes from
-            Map<String, Object> inContext = new HashMap<String, Object>();
+            Map<String, Object> inContext = new HashMap<>();
             inContext.put("workEffort", workEffort);
             inContext.put("workEffortContent", workEffortContent);
             ContentWorker.renderContentAsText(dispatcher, workEffortContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, null, null, false);
@@ -334,11 +334,11 @@ public class WorkEffortContentWrapper implements ContentWrapper {
                 .filterByDate()
                 .queryList();
 
-        List<String> contentList = new LinkedList<String>();
+        List<String> contentList = new LinkedList<>();
         if (partyContentList != null) {
             for (GenericValue workEffortContent: partyContentList) {
                 StringWriter outWriter = new StringWriter();
-                Map<String, Object> inContext = new HashMap<String, Object>();
+                Map<String, Object> inContext = new HashMap<>();
                 inContext.put("workEffort", workEffort);
                 inContext.put("workEffortContent", workEffortContent);
                 ContentWorker.renderContentAsText(dispatcher, workEffortContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, null, null, false);

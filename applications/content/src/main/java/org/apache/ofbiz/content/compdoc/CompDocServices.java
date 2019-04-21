@@ -73,7 +73,7 @@ public class CompDocServices {
      */
 
     public static Map<String, Object> persistRootCompDoc(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Locale locale = (Locale)context.get("locale");
@@ -107,7 +107,7 @@ public class CompDocServices {
             contentId = (String) persistContentResult.get("contentId");
             result.putAll(persistContentResult);
 
-            Map<String, Object> contentRevisionMap = new HashMap<String, Object>();
+            Map<String, Object> contentRevisionMap = new HashMap<>();
             contentRevisionMap.put("itemContentId", contentId);
             contentRevisionMap.put("contentId", contentId);
             contentRevisionMap.put("userLogin", userLogin);
@@ -139,7 +139,7 @@ public class CompDocServices {
         String contentRevisionSeqId = (String) context.get("contentRevisionSeqId");
 
         try {
-            List<EntityCondition> exprList = new LinkedList<EntityCondition>();
+            List<EntityCondition> exprList = new LinkedList<>();
             exprList.add(EntityCondition.makeCondition("contentIdTo", EntityOperator.EQUALS, contentId));
             exprList.add(EntityCondition.makeCondition("contentAssocTypeId", EntityOperator.EQUALS, "COMPDOC_PART"));
             exprList.add(EntityCondition.makeCondition("rootRevisionContentId", EntityOperator.EQUALS, contentId));

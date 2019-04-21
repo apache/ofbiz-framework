@@ -164,7 +164,7 @@ public class ShippingEvents {
             String productStoreId, String supplierPartyId, List<Map<String, Object>> itemInfo, BigDecimal shippableWeight, BigDecimal shippableQuantity,
             BigDecimal shippableTotal, String partyId, String productStoreShipMethId, BigDecimal totalAllowance) {
         String standardMessage = "A problem occurred calculating shipping. Fees will be calculated offline.";
-        List<String> errorMessageList = new LinkedList<String>();
+        List<String> errorMessageList = new LinkedList<>();
 
         if ("NO_SHIPPING".equals(shipmentMethodTypeId)) {
             return ServiceUtil.returnSuccess();
@@ -217,7 +217,7 @@ public class ShippingEvents {
         BigDecimal shippingTotal = BigDecimal.ZERO;
 
         // prepare the service invocation fields
-        Map<String, Object> serviceFields = new HashMap<String, Object>();
+        Map<String, Object> serviceFields = new HashMap<>();
         serviceFields.put("initialEstimateAmt", shippingTotal);
         serviceFields.put("shippableTotal", shippableTotal);
         serviceFields.put("shippableQuantity", shippableQuantity);

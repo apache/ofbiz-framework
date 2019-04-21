@@ -128,7 +128,7 @@ public class CoreEvents {
         String runAsSystemUser = (String) params.remove("SERVICE_RUN_AS_SYSTEM");
 
         // the frequency map
-        Map<String, Integer> freqMap = new HashMap<String, Integer>();
+        Map<String, Integer> freqMap = new HashMap<>();
 
         freqMap.put("SECONDLY", 1);
         freqMap.put("MINUTELY", 2);
@@ -172,7 +172,7 @@ public class CoreEvents {
         }
 
         // make the context valid; using the makeValid method from ModelService
-        Map<String, Object> serviceContext = new HashMap<String, Object>();
+        Map<String, Object> serviceContext = new HashMap<>();
         Iterator<String> ci = modelService.getInParamNames().iterator();
         while (ci.hasNext()) {
             String name = ci.next();
@@ -361,7 +361,7 @@ public class CoreEvents {
             session.removeAttribute("_SAVED_SYNC_RESULT_");
 
         Map<String, String[]> serviceFieldsToSave = checkMap(request.getParameterMap(), String.class, String[].class);
-        Map<String, Object> savedFields = new HashMap<String, Object>();
+        Map<String, Object> savedFields = new HashMap<>();
 
         for (Map.Entry<String, String[]> entry : serviceFieldsToSave.entrySet()) {
             String key = entry.getKey();
@@ -398,14 +398,14 @@ public class CoreEvents {
                 servicePathMap = checkMap(servicePathObject);
             } else if (servicePathObject instanceof GenericEntity) {
                 GenericEntity servicePathEntity = (GenericEntity)servicePathObject;
-                servicePathMap = new HashMap<String, Object>();
+                servicePathMap = new HashMap<>();
                 for (Map.Entry<String, Object> entry: servicePathEntity.entrySet()) {
                     servicePathMap.put(entry.getKey(), entry.getValue());
                 }
             } else if (servicePathObject instanceof Collection<?>) {
                 Collection<?> servicePathColl = checkCollection(servicePathObject);
                 int count=0;
-                servicePathMap = new HashMap<String, Object>();
+                servicePathMap = new HashMap<>();
                 for (Object value: servicePathColl) {
                     servicePathMap.put("_"+count+"_", value);
                     count++;

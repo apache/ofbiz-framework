@@ -59,9 +59,9 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
     protected ModelService modelService;
     protected String displayPrefix = null;
 
-    Set<EntityArtifactInfo> entitiesUsedByThisService = new TreeSet<EntityArtifactInfo>();
-    Set<ServiceArtifactInfo> servicesCalledByThisService = new TreeSet<ServiceArtifactInfo>();
-    Set<ServiceEcaArtifactInfo> serviceEcasTriggeredByThisService = new TreeSet<ServiceEcaArtifactInfo>();
+    Set<EntityArtifactInfo> entitiesUsedByThisService = new TreeSet<>();
+    Set<ServiceArtifactInfo> servicesCalledByThisService = new TreeSet<>();
+    Set<ServiceEcaArtifactInfo> serviceEcasTriggeredByThisService = new TreeSet<>();
 
     public ServiceArtifactInfo(String serviceName, ArtifactInfoFactory aif) throws GeneralException {
         super(aif);
@@ -182,7 +182,7 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
                 populateServicesFromNameSet(allServiceNameSet);
             }
         } else if ("group".equals(this.modelService.engineName)) {
-            Set<String> allServiceNameSet = new HashSet<String>();
+            Set<String> allServiceNameSet = new HashSet<>();
             GroupModel groupModel = modelService.internalGroup;
             if (groupModel == null) {
                 groupModel = ServiceGroupReader.getGroupModel(this.modelService.location);
@@ -283,7 +283,7 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
 
     public Set<ServiceArtifactInfo> getServicesCalledByServiceEcas() {
         // TODO: implement this sometime, not really necessary
-        return new HashSet<ServiceArtifactInfo>();
+        return new HashSet<>();
     }
 
     public Set<ServiceEcaArtifactInfo> getServiceEcaRulesTriggeredByService() {
@@ -292,7 +292,7 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
 
     public Set<ServiceArtifactInfo> getServicesCallingServiceByEcas() {
         // TODO: implement this sometime, not really necessary
-        return new HashSet<ServiceArtifactInfo>();
+        return new HashSet<>();
     }
 
     public Set<ServiceEcaArtifactInfo> getServiceEcaRulesCallingService() {
@@ -320,9 +320,9 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
 
         Debug.logInfo("Writing Service Call Graph EO Model for service [" + this.modelService.name + "] to [" + eomodeldFullPath + "]", module);
 
-        Set<String> allDiagramEntitiesWithPrefixes = new HashSet<String>();
-        List<ServiceArtifactInfo> allServiceList = new LinkedList<ServiceArtifactInfo>();
-        List<ServiceEcaArtifactInfo> allServiceEcaList = new LinkedList<ServiceEcaArtifactInfo>();
+        Set<String> allDiagramEntitiesWithPrefixes = new HashSet<>();
+        List<ServiceArtifactInfo> allServiceList = new LinkedList<>();
+        List<ServiceEcaArtifactInfo> allServiceEcaList = new LinkedList<>();
 
         // make sure that any prefix that might have been set on this is cleared
         this.setDisplayPrefix("");
@@ -349,7 +349,7 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
             allServiceList.add(calledService);
         }
 
-        Map<String, Integer> displaySuffixNumByEcaName = new HashMap<String, Integer>();
+        Map<String, Integer> displaySuffixNumByEcaName = new HashMap<>();
 
         // all SECAs and triggering services that call this service as an action
         Set<ServiceEcaArtifactInfo> callingServiceEcaSet = this.getServiceEcaRulesCallingService();
@@ -390,12 +390,12 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
         }
 
         // write index.eomodeld file
-        Map<String, Object> indexEoModelMap = new HashMap<String, Object>();
+        Map<String, Object> indexEoModelMap = new HashMap<>();
         indexEoModelMap.put("EOModelVersion", "\"2.1\"");
-        List<Map<String, Object>> entitiesMapList = new LinkedList<Map<String,Object>>();
+        List<Map<String, Object>> entitiesMapList = new LinkedList<>();
         indexEoModelMap.put("entities", entitiesMapList);
         for (String entityName: allDiagramEntitiesWithPrefixes) {
-            Map<String, Object> entitiesMap = new HashMap<String, Object>();
+            Map<String, Object> entitiesMap = new HashMap<>();
             entitiesMapList.add(entitiesMap);
             entitiesMap.put("className", "EOGenericRecord");
             entitiesMap.put("name", entityName);
@@ -450,17 +450,17 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
     }
 
     public Map<String, Object> createEoModelMap(Set<ServiceArtifactInfo> callingServiceSet, Set<ServiceArtifactInfo> calledServiceSet, Set<ServiceEcaArtifactInfo> callingServiceEcaSet, Set<ServiceEcaArtifactInfo> calledServiceEcaSet, boolean useMoreDetailedNames) {
-        if (callingServiceSet == null) callingServiceSet = new HashSet<ServiceArtifactInfo>();
-        if (calledServiceSet == null) calledServiceSet = new HashSet<ServiceArtifactInfo>();
-        if (callingServiceEcaSet == null) callingServiceEcaSet = new HashSet<ServiceEcaArtifactInfo>();
-        if (calledServiceEcaSet == null) calledServiceEcaSet = new HashSet<ServiceEcaArtifactInfo>();
-        Map<String, Object> topLevelMap = new HashMap<String, Object>();
+        if (callingServiceSet == null) callingServiceSet = new HashSet<>();
+        if (calledServiceSet == null) calledServiceSet = new HashSet<>();
+        if (callingServiceEcaSet == null) callingServiceEcaSet = new HashSet<>();
+        if (calledServiceEcaSet == null) calledServiceEcaSet = new HashSet<>();
+        Map<String, Object> topLevelMap = new HashMap<>();
 
         topLevelMap.put("name", this.getDisplayPrefixedName());
         topLevelMap.put("className", "EOGenericRecord");
 
         // for classProperties add attribute names AND relationship names to get a nice, complete chart
-        List<String> classPropertiesList = new LinkedList<String>();
+        List<String> classPropertiesList = new LinkedList<>();
         topLevelMap.put("classProperties", classPropertiesList);
         for (ModelParam param: this.modelService.getModelParamList()) {
             // skip the internal parameters, very redundant in the diagrams
@@ -486,10 +486,10 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
         }
 
         // attributes
-        List<Map<String, Object>> attributesList = new LinkedList<Map<String,Object>>();
+        List<Map<String, Object>> attributesList = new LinkedList<>();
         topLevelMap.put("attributes", attributesList);
         for (ModelParam param: this.modelService.getModelParamList()) {
-            Map<String, Object> attributeMap = new HashMap<String, Object>();
+            Map<String, Object> attributeMap = new HashMap<>();
             attributesList.add(attributeMap);
 
             if (useMoreDetailedNames) {
@@ -502,10 +502,10 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
         }
 
         // relationships
-        List<Map<String, Object>> relationshipsMapList = new LinkedList<Map<String,Object>>();
+        List<Map<String, Object>> relationshipsMapList = new LinkedList<>();
 
         for (ServiceArtifactInfo sai: callingServiceSet) {
-            Map<String, Object> relationshipMap = new HashMap<String, Object>();
+            Map<String, Object> relationshipMap = new HashMap<>();
             relationshipsMapList.add(relationshipMap);
 
             relationshipMap.put("name", sai.getDisplayPrefixedName());
@@ -520,7 +520,7 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
             //joinsMap.put("destinationAttribute", keyMap.getRelFieldName());
         }
         for (ServiceArtifactInfo sai: calledServiceSet) {
-            Map<String, Object> relationshipMap = new HashMap<String, Object>();
+            Map<String, Object> relationshipMap = new HashMap<>();
             relationshipsMapList.add(relationshipMap);
 
             relationshipMap.put("name", sai.getDisplayPrefixedName());
@@ -536,7 +536,7 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
         }
 
         for (ServiceEcaArtifactInfo seai: callingServiceEcaSet) {
-            Map<String, Object> relationshipMap = new HashMap<String, Object>();
+            Map<String, Object> relationshipMap = new HashMap<>();
             relationshipsMapList.add(relationshipMap);
 
             relationshipMap.put("name", seai.getDisplayPrefixedName());
@@ -545,7 +545,7 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
             relationshipMap.put("isMandatory", "Y");
         }
         for (ServiceEcaArtifactInfo seai: calledServiceEcaSet) {
-            Map<String, Object> relationshipMap = new HashMap<String, Object>();
+            Map<String, Object> relationshipMap = new HashMap<>();
             relationshipsMapList.add(relationshipMap);
 
             relationshipMap.put("name", seai.getDisplayPrefixedName());

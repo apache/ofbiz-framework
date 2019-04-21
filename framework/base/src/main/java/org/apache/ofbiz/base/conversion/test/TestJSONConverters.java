@@ -44,7 +44,7 @@ public class TestJSONConverters  extends TestCase {
     public void testJSONToMap() throws Exception {
         Converter<JSON, Map<String,String>> converter = UtilGenerics.cast(Converters.getConverter(JSON.class, Map.class));
         Map<String,String> map, convertedMap;
-        map = new HashMap<String,String>();
+        map = new HashMap<>();
         map.put("field1", "value1");
         JSON json = JSON.from(map);
         convertedMap = UtilGenerics.toMap(converter.convert(json));
@@ -54,7 +54,7 @@ public class TestJSONConverters  extends TestCase {
     public void testJSONToList() throws Exception {
         Converter<JSON, List<Object>> converter = UtilGenerics.cast(Converters.getConverter(JSON.class, List.class));
         List<Object> list, convertedList;
-        list = new ArrayList<Object>();
+        list = new ArrayList<>();
         list.add("field1");
         list.add("field2");
         JSON json = JSON.from(list);
@@ -65,7 +65,7 @@ public class TestJSONConverters  extends TestCase {
     public void testMapToJSON() throws Exception {
         Converter<Map<String,Object>, JSON> converter = UtilGenerics.cast(Converters.getConverter(Map.class, JSON.class));
         JSON json;
-        Map<String,Object> map = new LinkedHashMap<String,Object>();
+        Map<String,Object> map = new LinkedHashMap<>();
         map.put("field1", "value1");
         map.put("field2", new BigDecimal("3.7"));
         json = converter.convert(map);
@@ -75,7 +75,7 @@ public class TestJSONConverters  extends TestCase {
     public void testListToJSON() throws Exception {
         Converter<List<String>, JSON> converter = UtilGenerics.cast(Converters.getConverter(List.class, JSON.class));
         JSON json;
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         list.add("field1");
         list.add("field2");
         json = converter.convert(list);

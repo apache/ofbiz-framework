@@ -43,7 +43,7 @@ public class RunTestEvents {
         String caseName = request.getParameter("caseName");
         String result = null;
 
-        List<StartupCommand> ofbizCommands = new ArrayList<StartupCommand>();
+        List<StartupCommand> ofbizCommands = new ArrayList<>();
         if (caseName == null) {
             ofbizCommands.add(new StartupCommand.Builder("test").properties(
                     UtilMisc.toMap("component", component, "suitename", suiteName)).build());

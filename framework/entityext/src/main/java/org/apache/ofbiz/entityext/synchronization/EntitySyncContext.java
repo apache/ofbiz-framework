@@ -106,8 +106,8 @@ public class EntitySyncContext {
     //results for a given time block, we will do a query to find the next create/update/remove
     //time for that entity, and also keep track of a global next with the lowest future next value;
     //using these we can skip a lot of queries and speed this up significantly
-    public Map<String, Timestamp> nextEntityCreateTxTime = new HashMap<String, Timestamp>();
-    public Map<String, Timestamp> nextEntityUpdateTxTime = new HashMap<String, Timestamp>();
+    public Map<String, Timestamp> nextEntityCreateTxTime = new HashMap<>();
+    public Map<String, Timestamp> nextEntityUpdateTxTime = new HashMap<>();
     public Timestamp nextCreateTxTime = null;
     public Timestamp nextUpdateTxTime = null;
     public Timestamp nextRemoveTxTime = null;
@@ -320,7 +320,7 @@ public class EntitySyncContext {
 
     public ArrayList<GenericValue> assembleValuesToCreate() throws SyncDataErrorException {
         // first grab all values inserted in the date range, then get the updates (leaving out all values inserted in the data range)
-        ArrayList<GenericValue> valuesToCreate = new ArrayList<GenericValue>(); // make it an ArrayList to easily merge in sorted lists
+        ArrayList<GenericValue> valuesToCreate = new ArrayList<>(); // make it an ArrayList to easily merge in sorted lists
 
         if (this.nextCreateTxTime != null && (this.nextCreateTxTime.equals(currentRunEndTime) || this.nextCreateTxTime.after(currentRunEndTime))) {
             // this means that for all entities in this pack we found on the last pass that there would be nothing for this one, so just return nothing...
@@ -474,7 +474,7 @@ public class EntitySyncContext {
 
     public ArrayList<GenericValue> assembleValuesToStore() throws SyncDataErrorException {
         // simulate two ordered lists and merge them on-the-fly for faster combined sorting
-        ArrayList<GenericValue> valuesToStore = new ArrayList<GenericValue>(); // make it an ArrayList to easily merge in sorted lists
+        ArrayList<GenericValue> valuesToStore = new ArrayList<>(); // make it an ArrayList to easily merge in sorted lists
 
         if (this.nextUpdateTxTime != null && (this.nextUpdateTxTime.equals(currentRunEndTime) || this.nextUpdateTxTime.after(currentRunEndTime))) {
             // this means that for all entities in this pack we found on the last pass that there would be nothing for this one, so just return nothing...
@@ -626,7 +626,7 @@ public class EntitySyncContext {
 
     public LinkedList<GenericEntity> assembleKeysToRemove() throws SyncDataErrorException {
         // get all removed items from the given time range, add to list for those
-        LinkedList<GenericEntity> keysToRemove = new LinkedList<GenericEntity>();
+        LinkedList<GenericEntity> keysToRemove = new LinkedList<>();
 
         if (this.nextRemoveTxTime != null && (this.nextRemoveTxTime.equals(currentRunEndTime) || this.nextRemoveTxTime.after(currentRunEndTime))) {
             // this means that for all entities in this pack we found on the last pass that there would be nothing for this one, so just return nothing...
@@ -871,7 +871,7 @@ public class EntitySyncContext {
     }
 
     public Set<String> makeEntityNameToUseSet() {
-        Set<String> entityNameToUseSet = new HashSet<String>();
+        Set<String> entityNameToUseSet = new HashSet<>();
         for (ModelEntity modelEntity: this.entityModelToUseList) {
             entityNameToUseSet.add(modelEntity.getEntityName());
         }
@@ -1182,7 +1182,7 @@ public class EntitySyncContext {
         @Override
         public void saveSyncErrorInfo(EntitySyncContext esc) {
             if (esc != null) {
-                List<Object> errorList = new LinkedList<Object>();
+                List<Object> errorList = new LinkedList<>();
                 esc.saveSyncErrorInfo("ESR_OTHER_ERROR", errorList);
                 this.addErrorMessages(errorList);
             }
@@ -1200,7 +1200,7 @@ public class EntitySyncContext {
         @Override
         public void saveSyncErrorInfo(EntitySyncContext esc) {
             if (esc != null) {
-                List<Object> errorList = new LinkedList<Object>();
+                List<Object> errorList = new LinkedList<>();
                 esc.saveSyncErrorInfo("ESR_DATA_ERROR", errorList);
                 this.addErrorMessages(errorList);
             }
@@ -1218,7 +1218,7 @@ public class EntitySyncContext {
         @Override
         public void saveSyncErrorInfo(EntitySyncContext esc) {
             if (esc != null) {
-                List<Object> errorList = new LinkedList<Object>();
+                List<Object> errorList = new LinkedList<>();
                 esc.saveSyncErrorInfo("ESR_SERVICE_ERROR", errorList);
                 this.addErrorMessages(errorList);
             }

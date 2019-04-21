@@ -80,7 +80,7 @@ public class Converters implements ConverterLoader {
         }
 
         public JSON convert(GenericValue obj) throws ConversionException {
-            Map<String, Object> fieldMap = new HashMap<String, Object>(obj);
+            Map<String, Object> fieldMap = new HashMap<>(obj);
             fieldMap.put("_DELEGATOR_NAME_", obj.getDelegator().getDelegatorName());
             fieldMap.put("_ENTITY_NAME_", obj.getEntityName());
             try {
@@ -97,7 +97,7 @@ public class Converters implements ConverterLoader {
         }
 
         public List<GenericValue> convert(GenericValue obj) throws ConversionException {
-            List<GenericValue> tempList = new LinkedList<GenericValue>();
+            List<GenericValue> tempList = new LinkedList<>();
             tempList.add(obj);
             return tempList;
         }
@@ -109,7 +109,7 @@ public class Converters implements ConverterLoader {
         }
 
         public Set<GenericValue> convert(GenericValue obj) throws ConversionException {
-            Set<GenericValue> tempSet = new HashSet<GenericValue>();
+            Set<GenericValue> tempSet = new HashSet<>();
             tempSet.add(obj);
             return tempSet;
         }

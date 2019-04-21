@@ -111,7 +111,7 @@ public class JmsServiceEngine extends AbstractEngine {
         List<? extends Element> serverList = UtilXml.childElementList(serviceElement, "server");
 
         if ("none".equals(sendMode)) {
-            return new ArrayList<Element>();
+            return new ArrayList<>();
         } else if ("all".equals(sendMode)) {
             return serverList;
         } else {
@@ -311,7 +311,7 @@ public class JmsServiceEngine extends AbstractEngine {
         JmsService serviceElement = getServiceElement(modelService);
         List<Server> serverList = serviceElement.getServers();
 
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
         for (Server server: serverList) {
             String serverType = server.getType();
             if ("topic".equals(serverType))

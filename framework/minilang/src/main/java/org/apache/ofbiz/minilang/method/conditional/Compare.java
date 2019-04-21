@@ -48,7 +48,7 @@ public abstract class Compare {
     }
 
     private static Map<String, Compare> createInstanceMap() {
-        Map<String, Compare> writableMap = new HashMap<String, Compare>(10);
+        Map<String, Compare> writableMap = new HashMap<>(10);
         writableMap.put("contains", new CompareContains());
         writableMap.put("equals", new CompareEquals());
         writableMap.put("greater", new CompareGreater());

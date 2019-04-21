@@ -56,7 +56,7 @@ public final class MasterIf extends MethodOperation {
         if (elseIfElements.isEmpty()) {
             this.elseIfs = null;
         } else {
-            List<ElseIf> elseIfs = new ArrayList<ElseIf>(elseIfElements.size());
+            List<ElseIf> elseIfs = new ArrayList<>(elseIfElements.size());
             for (Element elseIfElement : elseIfElements) {
                 elseIfs.add(new ElseIf(elseIfElement, simpleMethod));
             }

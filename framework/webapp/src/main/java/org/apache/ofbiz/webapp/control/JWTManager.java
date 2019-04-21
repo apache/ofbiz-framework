@@ -209,7 +209,7 @@ public class JWTManager {
      * @return Map of the claims contained in the token
      */
     public static Map<String, Object> validateToken(String jwtToken, String key) {
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
         if (UtilValidate.isEmpty(jwtToken) || UtilValidate.isEmpty(key)) {
             String msg = "JWT token or key can not be empty.";
             Debug.logError(msg, module);

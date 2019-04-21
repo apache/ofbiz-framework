@@ -52,7 +52,7 @@ public class DebugManagedDataSource<C extends Connection> extends ManagedDataSou
     }
 
     public Map<String, Object> getInfo() {
-        Map<String, Object> dataSourceInfo = new HashMap<String, Object>();
+        Map<String, Object> dataSourceInfo = new HashMap<>();
         dataSourceInfo.put("poolNumActive", super.getPool().getNumActive());
         dataSourceInfo.put("poolNumIdle", super.getPool().getNumIdle());
         dataSourceInfo.put("poolNumTotal", (super.getPool().getNumIdle() + super.getPool().getNumActive()));

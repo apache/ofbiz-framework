@@ -290,7 +290,7 @@ public class EntitySyncServices {
             gotMoreData = false;
 
             // call pullAndReportEntitySyncData, initially with no results, then with results from last loop
-            Map<String, Object> remoteCallContext = new HashMap<String, Object>();
+            Map<String, Object> remoteCallContext = new HashMap<>();
             remoteCallContext.put("entitySyncId", entitySyncId);
             remoteCallContext.put("delegatorName", context.get("remoteDelegatorName"));
             remoteCallContext.put("userLogin", context.get("userLogin"));

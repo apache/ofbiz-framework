@@ -51,7 +51,7 @@ public final class ServiceEcaUtil {
     public static final String module = ServiceEcaUtil.class.getName();
 
     // using a cache is dangerous here because if someone clears it the ECAs won't run: public static UtilCache ecaCache = new UtilCache("service.ServiceECAs", 0, 0, false);
-    private static Map<String, Map<String, List<ServiceEcaRule>>> ecaCache = new ConcurrentHashMap<String, Map<String, List<ServiceEcaRule>>>();
+    private static Map<String, Map<String, List<ServiceEcaRule>>> ecaCache = new ConcurrentHashMap<>();
 
     private ServiceEcaUtil() {}
 
@@ -66,7 +66,7 @@ public final class ServiceEcaUtil {
             return;
         }
 
-        List<Future<List<ServiceEcaRule>>> futures = new LinkedList<Future<List<ServiceEcaRule>>>();
+        List<Future<List<ServiceEcaRule>>> futures = new LinkedList<>();
         List<ServiceEcas> serviceEcasList = null;
         try {
             serviceEcasList = ServiceConfigUtil.getServiceEngine().getServiceEcas();
@@ -100,7 +100,7 @@ public final class ServiceEcaUtil {
     }
 
     private static List<ServiceEcaRule> getEcaDefinitions(ResourceHandler handler) {
-        List<ServiceEcaRule> handlerRules = new LinkedList<ServiceEcaRule>();
+        List<ServiceEcaRule> handlerRules = new LinkedList<>();
         Element rootElement = null;
         try {
             rootElement = handler.getDocument().getDocumentElement();
@@ -132,14 +132,14 @@ public final class ServiceEcaUtil {
             List<ServiceEcaRule> rules = null;
 
             if (eventMap == null) {
-                eventMap = new HashMap<String, List<ServiceEcaRule>>();
-                rules = new LinkedList<ServiceEcaRule>();
+                eventMap = new HashMap<>();
+                rules = new LinkedList<>();
                 ecaCache.put(serviceName, eventMap);
                 eventMap.put(eventName, rules);
             } else {
                 rules = eventMap.get(eventName);
                 if (rules == null) {
-                    rules = new LinkedList<ServiceEcaRule>();
+                    rules = new LinkedList<>();
                     eventMap.put(eventName, rules);
                 }
             }
@@ -163,7 +163,7 @@ public final class ServiceEcaUtil {
             if (event != null) {
                 return eventMap.get(event);
             } else {
-                List<ServiceEcaRule> rules = new LinkedList<ServiceEcaRule>();
+                List<ServiceEcaRule> rules = new LinkedList<>();
                 for (Collection<ServiceEcaRule> col: eventMap.values()) {
                     rules.addAll(col);
                 }
@@ -186,7 +186,7 @@ public final class ServiceEcaUtil {
         }
 
         if (Debug.verboseOn()) Debug.logVerbose("Running ECA (" + event + ").", module);
-        Set<String> actionsRun = new TreeSet<String>();
+        Set<String> actionsRun = new TreeSet<>();
         for (ServiceEcaRule eca: rules) {
             eca.eval(serviceName, dctx, context, result, isError, isFailure, actionsRun);
         }

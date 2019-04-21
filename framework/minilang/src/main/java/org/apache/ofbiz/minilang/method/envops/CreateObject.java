@@ -72,12 +72,12 @@ public final class CreateObject extends MethodOperation {
         fieldFma = FlexibleMapAccessor.getInstance(element.getAttribute("field"));
         List<? extends Element> parameterElements = UtilXml.childElementList(element);
         if (parameterElements.size() > 0) {
-            ArrayList<MethodObject<?>> parameterList = new ArrayList<MethodObject<?>>(parameterElements.size());
+            ArrayList<MethodObject<?>> parameterList = new ArrayList<>(parameterElements.size());
             for (Element parameterElement : parameterElements) {
                 if ("string".equals(parameterElement.getNodeName())) {
                     parameterList.add(new StringObject(parameterElement, simpleMethod));
                 } else if ("field".equals(parameterElement.getNodeName())) {
-                    parameterList.add(new FieldObject<Object>(parameterElement, simpleMethod));
+                    parameterList.add(new FieldObject<>(parameterElement, simpleMethod));
                 }
             }
             parameterList.trimToSize();

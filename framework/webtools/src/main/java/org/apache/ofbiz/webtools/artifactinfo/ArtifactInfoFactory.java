@@ -77,40 +77,40 @@ public class ArtifactInfoFactory {
     protected final ModelReader entityModelReader;
     protected final DispatchContext dispatchContext;
 
-    public Map<String, EntityArtifactInfo> allEntityInfos = new ConcurrentHashMap<String, EntityArtifactInfo>();
-    public Map<String, ServiceArtifactInfo> allServiceInfos = new ConcurrentHashMap<String, ServiceArtifactInfo>();
-    public Map<ServiceEcaRule, ServiceEcaArtifactInfo> allServiceEcaInfos = new ConcurrentHashMap<ServiceEcaRule, ServiceEcaArtifactInfo>();
-    public Map<String, FormWidgetArtifactInfo> allFormInfos = new ConcurrentHashMap<String, FormWidgetArtifactInfo>();
-    public Map<String, ScreenWidgetArtifactInfo> allScreenInfos = new ConcurrentHashMap<String, ScreenWidgetArtifactInfo>();
-    public Map<String, ControllerRequestArtifactInfo> allControllerRequestInfos = new ConcurrentHashMap<String, ControllerRequestArtifactInfo>();
-    public Map<String, ControllerViewArtifactInfo> allControllerViewInfos = new ConcurrentHashMap<String, ControllerViewArtifactInfo>();
+    public Map<String, EntityArtifactInfo> allEntityInfos = new ConcurrentHashMap<>();
+    public Map<String, ServiceArtifactInfo> allServiceInfos = new ConcurrentHashMap<>();
+    public Map<ServiceEcaRule, ServiceEcaArtifactInfo> allServiceEcaInfos = new ConcurrentHashMap<>();
+    public Map<String, FormWidgetArtifactInfo> allFormInfos = new ConcurrentHashMap<>();
+    public Map<String, ScreenWidgetArtifactInfo> allScreenInfos = new ConcurrentHashMap<>();
+    public Map<String, ControllerRequestArtifactInfo> allControllerRequestInfos = new ConcurrentHashMap<>();
+    public Map<String, ControllerViewArtifactInfo> allControllerViewInfos = new ConcurrentHashMap<>();
 
     // reverse-associative caches for walking backward in the diagram
-    public Map<String, Set<ServiceEcaArtifactInfo>> allServiceEcaInfosReferringToServiceName = new ConcurrentHashMap<String, Set<ServiceEcaArtifactInfo>>();
-    public Map<String, Set<ServiceArtifactInfo>> allServiceInfosReferringToServiceName = new ConcurrentHashMap<String, Set<ServiceArtifactInfo>>();
-    public Map<String, Set<FormWidgetArtifactInfo>> allFormInfosReferringToServiceName = new ConcurrentHashMap<String, Set<FormWidgetArtifactInfo>>();
-    public Map<String, Set<FormWidgetArtifactInfo>> allFormInfosBasedOnServiceName = new ConcurrentHashMap<String, Set<FormWidgetArtifactInfo>>();
-    public Map<String, Set<ScreenWidgetArtifactInfo>> allScreenInfosReferringToServiceName = new ConcurrentHashMap<String, Set<ScreenWidgetArtifactInfo>>();
-    public Map<String, Set<ControllerRequestArtifactInfo>> allRequestInfosReferringToServiceName = new ConcurrentHashMap<String, Set<ControllerRequestArtifactInfo>>();
+    public Map<String, Set<ServiceEcaArtifactInfo>> allServiceEcaInfosReferringToServiceName = new ConcurrentHashMap<>();
+    public Map<String, Set<ServiceArtifactInfo>> allServiceInfosReferringToServiceName = new ConcurrentHashMap<>();
+    public Map<String, Set<FormWidgetArtifactInfo>> allFormInfosReferringToServiceName = new ConcurrentHashMap<>();
+    public Map<String, Set<FormWidgetArtifactInfo>> allFormInfosBasedOnServiceName = new ConcurrentHashMap<>();
+    public Map<String, Set<ScreenWidgetArtifactInfo>> allScreenInfosReferringToServiceName = new ConcurrentHashMap<>();
+    public Map<String, Set<ControllerRequestArtifactInfo>> allRequestInfosReferringToServiceName = new ConcurrentHashMap<>();
 
-    public Map<String, Set<ServiceArtifactInfo>> allServiceInfosReferringToEntityName = new ConcurrentHashMap<String, Set<ServiceArtifactInfo>>();
-    public Map<String, Set<FormWidgetArtifactInfo>> allFormInfosReferringToEntityName = new ConcurrentHashMap<String, Set<FormWidgetArtifactInfo>>();
-    public Map<String, Set<ScreenWidgetArtifactInfo>> allScreenInfosReferringToEntityName = new ConcurrentHashMap<String, Set<ScreenWidgetArtifactInfo>>();
+    public Map<String, Set<ServiceArtifactInfo>> allServiceInfosReferringToEntityName = new ConcurrentHashMap<>();
+    public Map<String, Set<FormWidgetArtifactInfo>> allFormInfosReferringToEntityName = new ConcurrentHashMap<>();
+    public Map<String, Set<ScreenWidgetArtifactInfo>> allScreenInfosReferringToEntityName = new ConcurrentHashMap<>();
 
-    public Map<ServiceEcaRule, Set<ServiceArtifactInfo>> allServiceInfosReferringToServiceEcaRule = new ConcurrentHashMap<ServiceEcaRule, Set<ServiceArtifactInfo>>();
+    public Map<ServiceEcaRule, Set<ServiceArtifactInfo>> allServiceInfosReferringToServiceEcaRule = new ConcurrentHashMap<>();
 
-    public Map<String, Set<FormWidgetArtifactInfo>> allFormInfosExtendingForm = new ConcurrentHashMap<String, Set<FormWidgetArtifactInfo>>();
-    public Map<String, Set<ScreenWidgetArtifactInfo>> allScreenInfosReferringToForm = new ConcurrentHashMap<String, Set<ScreenWidgetArtifactInfo>>();
+    public Map<String, Set<FormWidgetArtifactInfo>> allFormInfosExtendingForm = new ConcurrentHashMap<>();
+    public Map<String, Set<ScreenWidgetArtifactInfo>> allScreenInfosReferringToForm = new ConcurrentHashMap<>();
 
-    public Map<String, Set<ScreenWidgetArtifactInfo>> allScreenInfosReferringToScreen = new ConcurrentHashMap<String, Set<ScreenWidgetArtifactInfo>>();
-    public Map<String, Set<ControllerViewArtifactInfo>> allViewInfosReferringToScreen = new ConcurrentHashMap<String, Set<ControllerViewArtifactInfo>>();
+    public Map<String, Set<ScreenWidgetArtifactInfo>> allScreenInfosReferringToScreen = new ConcurrentHashMap<>();
+    public Map<String, Set<ControllerViewArtifactInfo>> allViewInfosReferringToScreen = new ConcurrentHashMap<>();
 
-    public Map<String, Set<ControllerRequestArtifactInfo>> allRequestInfosReferringToView = new ConcurrentHashMap<String, Set<ControllerRequestArtifactInfo>>();
+    public Map<String, Set<ControllerRequestArtifactInfo>> allRequestInfosReferringToView = new ConcurrentHashMap<>();
 
-    public Map<String, Set<FormWidgetArtifactInfo>> allFormInfosTargetingRequest = new ConcurrentHashMap<String, Set<FormWidgetArtifactInfo>>();
-    public Map<String, Set<FormWidgetArtifactInfo>> allFormInfosReferringToRequest = new ConcurrentHashMap<String, Set<FormWidgetArtifactInfo>>();
-    public Map<String, Set<ScreenWidgetArtifactInfo>> allScreenInfosReferringToRequest = new ConcurrentHashMap<String, Set<ScreenWidgetArtifactInfo>>();
-    public Map<String, Set<ControllerRequestArtifactInfo>> allRequestInfosReferringToRequest = new ConcurrentHashMap<String, Set<ControllerRequestArtifactInfo>>();
+    public Map<String, Set<FormWidgetArtifactInfo>> allFormInfosTargetingRequest = new ConcurrentHashMap<>();
+    public Map<String, Set<FormWidgetArtifactInfo>> allFormInfosReferringToRequest = new ConcurrentHashMap<>();
+    public Map<String, Set<ScreenWidgetArtifactInfo>> allScreenInfosReferringToRequest = new ConcurrentHashMap<>();
+    public Map<String, Set<ControllerRequestArtifactInfo>> allRequestInfosReferringToRequest = new ConcurrentHashMap<>();
 
     public static ArtifactInfoFactory getArtifactInfoFactory(String delegatorName) throws GeneralException {
         if (UtilValidate.isEmpty(delegatorName)) {
@@ -143,7 +143,7 @@ public class ArtifactInfoFactory {
 
     public void prepareAll() throws GeneralException {
         Debug.logInfo("Loading artifact info objects...", module);
-        List<Future<Void>> futures = new ArrayList<Future<Void>>();
+        List<Future<Void>> futures = new ArrayList<>();
         Set<String> entityNames = this.getEntityModelReader().getEntityNames();
         for (String entityName: entityNames) {
             this.getEntityArtifactInfo(entityName);
@@ -157,7 +157,7 @@ public class ArtifactInfoFactory {
 
         Collection<ComponentConfig> componentConfigs = ComponentConfig.getAllComponents();
         ExecutionPool.getAllFutures(futures);
-        futures = new ArrayList<Future<Void>>();
+        futures = new ArrayList<>();
         for (ComponentConfig componentConfig: componentConfigs) {
             futures.add(ExecutionPool.GLOBAL_FORK_JOIN.submit(prepareTaskForComponentAnalysis(componentConfig)));
         }
@@ -328,7 +328,7 @@ public class ArtifactInfoFactory {
     }
 
     public Set<ArtifactInfoBase> getAllArtifactInfosByNamePartial(String artifactNamePartial, String type) {
-        Set<ArtifactInfoBase> aiBaseSet = new HashSet<ArtifactInfoBase>();
+        Set<ArtifactInfoBase> aiBaseSet = new HashSet<>();
 
         if (UtilValidate.isEmpty(artifactNamePartial)) {
             return aiBaseSet;
@@ -396,9 +396,9 @@ public class ArtifactInfoFactory {
         return () -> {
             String componentName = componentConfig.getGlobalName();
             String rootComponentPath = componentConfig.getRootLocation();
-            List<File> screenFiles = new ArrayList<File>();
-            List<File> formFiles = new ArrayList<File>();
-            List<File> controllerFiles = new ArrayList<File>();
+            List<File> screenFiles = new ArrayList<>();
+            List<File> formFiles = new ArrayList<>();
+            List<File> controllerFiles = new ArrayList<>();
             try {
                 screenFiles = FileUtil.findXmlFiles(rootComponentPath, null, "screens", "widget-screen.xsd");
             } catch (IOException ioe) {

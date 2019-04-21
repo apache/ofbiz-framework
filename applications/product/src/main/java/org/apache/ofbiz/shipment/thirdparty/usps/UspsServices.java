@@ -76,7 +76,7 @@ public class UspsServices {
     public final static String module = UspsServices.class.getName();
     public final static String resourceError = "ProductUiLabels";
 
-    private static List<String> domesticCountries = new LinkedList<String>();
+    private static List<String> domesticCountries = new LinkedList<>();
     // Countries treated as domestic for rate enquiries
     static {
         domesticCountries.add("USA");
@@ -483,7 +483,7 @@ public class UspsServices {
 
         List<? extends Element> detailElementList = UtilXml.childElementList(trackInfoElement, "TrackDetail");
         if (UtilValidate.isNotEmpty(detailElementList)) {
-            List<String> trackingDetailList = new LinkedList<String>();
+            List<String> trackingDetailList = new LinkedList<>();
             for (Element detailElement: detailElementList) {
                 trackingDetailList.add(UtilXml.elementValue(detailElement));
             }

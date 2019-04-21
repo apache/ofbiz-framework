@@ -115,13 +115,13 @@ public final class ContextHelper {
         if (isService()) {
             errorMessages = UtilGenerics.checkList(getResults().get(ModelService.ERROR_MESSAGE_LIST));
             if (errorMessages == null) {
-                errorMessages = new LinkedList<String>();
+                errorMessages = new LinkedList<>();
                 getResults().put(ModelService.ERROR_MESSAGE_LIST, errorMessages);
             }
         } else {
             errorMessages = UtilGenerics.checkList(getResults().get("_error_message_list_"));
             if (errorMessages == null) {
-                errorMessages = new LinkedList<String>();
+                errorMessages = new LinkedList<>();
                 getResults().put("_error_message_list_", errorMessages);
             }
         }
@@ -147,7 +147,7 @@ public final class ContextHelper {
     public Map<String, Object> getParameters() {
         Map<String, Object> parameters = UtilGenerics.checkMap(this.context.getAttribute(ScriptUtil.PARAMETERS_KEY));
         if (parameters == null) {
-            parameters =  new LinkedHashMap<String, Object>();
+            parameters =  new LinkedHashMap<>();
             this.context.setAttribute(ScriptUtil.PARAMETERS_KEY, parameters, ScriptContext.ENGINE_SCOPE);
         }
         return parameters;
@@ -168,7 +168,7 @@ public final class ContextHelper {
     public Map<String, Object> getResults() {
         Map<String, Object> results = UtilGenerics.checkMap(this.context.getAttribute(ScriptUtil.RESULT_KEY));
         if (results == null) {
-            results =  new LinkedHashMap<String, Object>();
+            results =  new LinkedHashMap<>();
             this.context.setAttribute(ScriptUtil.RESULT_KEY, results, ScriptContext.ENGINE_SCOPE);
         }
         return results;

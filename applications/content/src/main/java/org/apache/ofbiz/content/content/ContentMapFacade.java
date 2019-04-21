@@ -51,7 +51,7 @@ public class ContentMapFacade implements Map<Object, Object> {
 
     public static final String module = ContentMapFacade.class.getName();
 
-    private static final Set<String> mapKeySet = new HashSet<String>();
+    private static final Set<String> mapKeySet = new HashSet<>();
     static {
         mapKeySet.add("fields");
         mapKeySet.add("link");
@@ -277,10 +277,10 @@ public class ContentMapFacade implements Map<Object, Object> {
             return dataResource;
         } else if ("subcontent_all".equalsIgnoreCase(name)) {
             // subcontent list of ordered subcontent
-            List<ContentMapFacade> subContent = new LinkedList<ContentMapFacade>();
+            List<ContentMapFacade> subContent = new LinkedList<>();
             List<GenericValue> subs = null;
             try {
-                Map<String, Object> expressions = new HashMap<String, Object>();
+                Map<String, Object> expressions = new HashMap<>();
                 expressions.put("contentIdStart", contentId);
                 if(!this.mapKeyFilter.equals("")) {
                     expressions.put("caMapKey", this.mapKeyFilter);
@@ -327,7 +327,7 @@ public class ContentMapFacade implements Map<Object, Object> {
             return "=========> " + errorMsg + " <=========";
         }
         // TODO: change to use the MapStack instead of a cloned Map
-        Map<String, Object> renderCtx = new HashMap<String, Object>();
+        Map<String, Object> renderCtx = new HashMap<>();
         renderCtx.putAll(context);
         if (this.decoratedContent != null) {
             renderCtx.put("decoratedContent", decoratedContent);
@@ -452,7 +452,7 @@ public class ContentMapFacade implements Map<Object, Object> {
             // key is the mapKey
             GenericValue sub = null;
             try {
-                Map<String, Object> expressions = new HashMap<String, Object>();
+                Map<String, Object> expressions = new HashMap<>();
                 expressions.put("contentIdStart", contentId);
                 expressions.put("caMapKey", name);
                 if(!this.statusFilter.equals("")) {

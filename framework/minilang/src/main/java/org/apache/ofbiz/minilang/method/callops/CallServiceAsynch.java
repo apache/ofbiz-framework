@@ -70,7 +70,7 @@ public final class CallServiceAsynch extends MethodOperation {
         String serviceName = serviceNameFse.expandString(methodContext.getEnvMap());
         Map<String, Object> inMap = inMapFma.get(methodContext.getEnvMap());
         if (inMap == null) {
-            inMap = new HashMap<String, Object>();
+            inMap = new HashMap<>();
         }
         if (includeUserLogin) {
             GenericValue userLogin = methodContext.getUserLogin();

@@ -60,7 +60,7 @@ public final class Assert extends MethodOperation {
         if (MiniLangValidate.validationOn() && childElements.isEmpty()) {
             MiniLangValidate.handleError("No conditional elements.", simpleMethod, element);
         }
-        List<Conditional> conditionalList = new ArrayList<Conditional>(childElements.size());
+        List<Conditional> conditionalList = new ArrayList<>(childElements.size());
         for (Element conditionalElement : UtilXml.childElementList(element)) {
             conditionalList.add(ConditionalFactory.makeConditional(conditionalElement, simpleMethod));
         }
@@ -85,7 +85,7 @@ public final class Assert extends MethodOperation {
                 messageBuffer.append("failed: ");
                 condition.prettyPrint(messageBuffer, methodContext);
                 if (messages == null) {
-                    messages = new LinkedList<Object>();
+                    messages = new LinkedList<>();
                     errorListFma.put(methodContext.getEnvMap(), messages);
                 }
                 messages.add(messageBuffer.toString());

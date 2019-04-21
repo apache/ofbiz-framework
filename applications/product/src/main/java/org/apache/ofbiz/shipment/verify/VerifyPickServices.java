@@ -88,7 +88,7 @@ public class VerifyPickServices {
         String orderId = (String) context.get("orderId");
         try {
             shipmentId = pickSession.complete(orderId, locale);
-            Map<String, Object> shipment = new HashMap<String, Object>();
+            Map<String, Object> shipment = new HashMap<>();
             shipment.put("shipmentId", shipmentId);
             pickSession.clearAllRows();
             return shipment;
