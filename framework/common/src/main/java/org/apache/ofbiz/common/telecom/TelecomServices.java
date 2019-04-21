@@ -51,7 +51,7 @@ public class TelecomServices {
         String telecomMsgTypeEnumId = (String) context.get("telecomMsgTypeEnumId");
         String telecomMethodTypeId = (String) context.get("telecomMethodTypeId");
         String telecomGatewayConfigId = (String) context.get("telecomGatewayConfigId");
-        List<String> numbers = checkList(context.get("numbers"), String.class);;
+        List<String> numbers = checkList(context.get("numbers"), String.class);
         String message = (String) context.get("message");
         
         String telecomEnabled = EntityUtilProperties.getPropertyValue("general", "telecom.notifications.enabled", delegator);

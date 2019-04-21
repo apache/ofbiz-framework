@@ -2076,7 +2076,7 @@ public class InvoiceServices {
             String invoiceId = (String) serviceResults.get("invoiceId");
 
             // keep track of the invoice total vs the promised return total (how much the customer promised to return)
-            BigDecimal invoiceTotal = BigDecimal.ZERO;;
+            BigDecimal invoiceTotal = BigDecimal.ZERO;
             BigDecimal promisedTotal = BigDecimal.ZERO;
 
             // loop through shipment receipts to create invoice items and return item billings for each item and adjustment

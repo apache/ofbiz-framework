@@ -29,7 +29,7 @@ import java.util.Date;
  */
 public interface Job extends Runnable {
 
-    public static enum State {CREATED, QUEUED, RUNNING, FINISHED, FAILED};
+    public static enum State {CREATED, QUEUED, RUNNING, FINISHED, FAILED}
 
     /**
      * Returns the current state of this job.

@@ -61,7 +61,7 @@ public final class ICalWorker {
 
     public static final String module = ICalWorker.class.getName();
 
-    private ICalWorker() {};
+    private ICalWorker() {}
 
     public static final class ResponseProperties {
         public final int statusCode;

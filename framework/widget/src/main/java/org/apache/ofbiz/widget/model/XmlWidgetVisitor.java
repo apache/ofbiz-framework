@@ -339,7 +339,6 @@ public class XmlWidgetVisitor extends XmlAbstractWidgetVisitor implements ModelW
         }
         for (ModelMenuItem menuItem : modelMenuItem.getMenuItemList()) {
             menuItem.accept(this);
-            ;
         }
         writer.append("</menu-item>");
     }

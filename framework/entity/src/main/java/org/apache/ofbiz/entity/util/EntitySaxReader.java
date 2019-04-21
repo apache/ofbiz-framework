@@ -97,7 +97,7 @@ public class EntitySaxReader extends DefaultHandler {
     private boolean createDummyFks = false;
     private boolean checkDataOnly = false;
     private boolean continueOnFail = false;
-    private enum Action {CREATE, CREATE_UPDATE, CREATE_REPLACE, DELETE};
+    private enum Action {CREATE, CREATE_UPDATE, CREATE_REPLACE, DELETE}
     private List<String> actionTags = UtilMisc.toList("create", "create-update", "create-replace", "delete");
     private Action currentAction = Action.CREATE_UPDATE;
     private List<Object> messageList = null;

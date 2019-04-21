@@ -49,7 +49,7 @@ public final class Config {
     Config(List<StartupCommand> ofbizCommands) throws StartupException {
 
         // fetch OFBiz Properties object
-        Properties props = getPropertiesFile(ofbizCommands);;
+        Properties props = getPropertiesFile(ofbizCommands);
 
         // set this class fields
         ofbizHome = getOfbizHome(getProperty(props, "ofbiz.home", "."));

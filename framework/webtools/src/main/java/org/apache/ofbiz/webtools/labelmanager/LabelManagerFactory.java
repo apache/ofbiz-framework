@@ -228,7 +228,7 @@ public class LabelManagerFactory {
                         label = new LabelInfo(key, keyComment, fileName, localeName, localeValue, localeComment);
                         labels.put(key + keySeparator + fileName, label);
                     } catch (Exception e) {
-                        Debug.logError(e, module);;
+                        Debug.logError(e, module);
                     }
                 } else {
                     label.setLabelKeyComment(keyComment);

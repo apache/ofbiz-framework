@@ -325,7 +325,7 @@ public final class EntityCrypto {
         protected String encryptValue(EncryptMethod encryptMethod, byte[] key, byte[] objBytes) throws GeneralException {
             return StringUtil.toHexString(DesCrypt.encrypt(DesCrypt.getDesKey(key), objBytes));
         }
-    };
+    }
 
     protected static final StorageHandler OldFunnyHashStorageHandler = new LegacyStorageHandler() {
         @Override
@@ -432,5 +432,5 @@ public final class EntityCrypto {
             String result = Base64.encodeBase64String(DesCrypt.encrypt(DesCrypt.getDesKey(key), allBytes));
             return result;
         }
-    };
+    }
 }

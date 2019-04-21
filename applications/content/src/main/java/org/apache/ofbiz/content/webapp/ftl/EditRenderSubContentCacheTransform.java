@@ -162,7 +162,7 @@ public class EditRenderSubContentCacheTransform implements TemplateTransformMode
                     templateRoot.put("context", templateCtx);
                     if (Debug.verboseOn()) {
                         for (Entry<String, Object> ky : templateCtx.entrySet()) {
-                            Object val = ky.getValue();;
+                            Object val = ky.getValue();
                             Debug.logVerbose("context key: " + ky + " val: " + val, module);
                         }
                     }

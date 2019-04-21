@@ -264,7 +264,7 @@ public class VCard {
                 if (countryGeo != null) {
                     String country = postalAddress.getRelatedOne("CountryGeo", false).getString("geoName");
                     address.setCountry(country);
-                    address.getTypes().add(AddressType.WORK);;
+                    address.getTypes().add(AddressType.WORK);
                     //TODO : this can be better set by checking contactMechPurposeTypeId
                 }
                 vcard.addAddress(address);

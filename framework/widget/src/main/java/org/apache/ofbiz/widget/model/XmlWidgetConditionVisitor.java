@@ -138,7 +138,6 @@ public class XmlWidgetConditionVisitor extends XmlAbstractWidgetVisitor implemen
         visitAttribute("disabled-style", modelMenuCondition.getFailStyleExdr());
         writer.append("/>");
         modelMenuCondition.getCondition().accept(this);
-        ;
         writer.append("</condition>");
     }
 
