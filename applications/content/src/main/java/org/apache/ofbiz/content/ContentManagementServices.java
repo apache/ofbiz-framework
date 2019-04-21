@@ -163,10 +163,8 @@ public class ContentManagementServices {
             List<String> tmpPurposes = StringUtil.split(contentPurposeString, "|");
             contentPurposeList.addAll(tmpPurposes);
         }
-        if (contentPurposeList != null) {
-            context.put("contentPurposeList", contentPurposeList);
-            context.put("contentPurposeString", null);
-        }
+        context.put("contentPurposeList", contentPurposeList);
+        context.put("contentPurposeString", null);
         
         if (Debug.infoOn()) {
             Debug.logInfo("in persist... contentPurposeList(0):" + contentPurposeList, module);

@@ -195,7 +195,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             custMethod = EntityQuery.use(delegator).from("CustomMethod").where("customMethodId", content.get("customMethodId")).cache().queryOne();
         }
         if (custMethod != null) serviceName = custMethod.getString("customMethodName");
-        if (dispatcher != null && UtilValidate.isNotEmpty(serviceName)) {
+        if (UtilValidate.isNotEmpty(serviceName)) {
             DispatchContext dctx = dispatcher.getDispatchContext();
             ModelService service = dctx.getModelService(serviceName);
             if (service != null) {

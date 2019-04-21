@@ -341,7 +341,7 @@ public final class FreeMarkerWorker {
 
     @SuppressWarnings("unchecked")
     public static <T> T unwrap(Object o) {
-        Object returnObj = null;
+        Object returnObj;
 
         if (o == TemplateModel.NOTHING) {
             returnObj = null;
@@ -349,6 +349,8 @@ public final class FreeMarkerWorker {
             returnObj = o.toString();
         } else if (o instanceof BeanModel) {
             returnObj = ((BeanModel) o).getWrappedObject();
+        } else {
+            returnObj = null;
         }
 
         return (T) returnObj;

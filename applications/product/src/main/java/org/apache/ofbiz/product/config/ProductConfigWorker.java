@@ -79,10 +79,9 @@ public final class ProductConfigWorker {
             } else {
                 configWrapper = new ProductConfigWrapper(configWrapper);
             }
-        } catch (ProductConfigWrapperException we) {
-            configWrapper = null;
         } catch (Exception e) {
             Debug.logWarning(e.getMessage(), module);
+            configWrapper = null;
         }
         return configWrapper;
     }

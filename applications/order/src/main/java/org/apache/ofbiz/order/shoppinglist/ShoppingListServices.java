@@ -171,7 +171,7 @@ public class ShoppingListServices {
 
                     // store the order
                     Map<String, Object> createResp = helper.createOrder(userLogin);
-                    if (createResp == null || (createResp != null && ServiceUtil.isError(createResp))) {
+                    if (createResp == null || ServiceUtil.isError(createResp)) {
                         Debug.logError("Cannot create order for shopping list - " + shoppingList, module);
                     } else {
 
