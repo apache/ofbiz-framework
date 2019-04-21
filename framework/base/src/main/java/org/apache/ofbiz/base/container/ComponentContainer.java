@@ -83,7 +83,7 @@ public class ComponentContainer implements Container {
     /**
      * @see org.apache.ofbiz.base.container.Container#start()
      */
-    public boolean start() throws ContainerException {
+    public boolean start() {
         return loaded.get();
     }
 
@@ -92,9 +92,8 @@ public class ComponentContainer implements Container {
      * and set the classloader as the context classloader
      *
      * @param componentsClassPath a list of classpaths for all components
-     * @throws ContainerException
      */
-    private void loadClassPathForAllComponents(List<Classpath> componentsClassPath) throws ContainerException {
+    private void loadClassPathForAllComponents(List<Classpath> componentsClassPath) {
         List<URL> allComponentUrls = new ArrayList<>();
         for(Classpath classPath : componentsClassPath) {
             try {
@@ -365,7 +364,7 @@ public class ComponentContainer implements Container {
     /**
      * @see org.apache.ofbiz.base.container.Container#stop()
      */
-    public void stop() throws ContainerException {
+    public void stop() {
     }
 
     public String getName() {

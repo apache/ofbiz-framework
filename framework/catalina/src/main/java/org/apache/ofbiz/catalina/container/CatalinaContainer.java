@@ -147,7 +147,7 @@ public class CatalinaContainer implements Container {
         return true;
     }
 
-    public void stop() throws ContainerException {
+    public void stop() {
         try {
             tomcat.stop();
         } catch (LifecycleException e) {

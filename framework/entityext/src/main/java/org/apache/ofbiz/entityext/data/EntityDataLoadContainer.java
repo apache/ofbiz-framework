@@ -118,12 +118,12 @@ public class EntityDataLoadContainer implements Container {
     }
 
     @Override
-    public boolean start() throws ContainerException {
+    public boolean start() {
         return true;
     }
 
     @Override
-    public void stop() throws ContainerException {
+    public void stop() {
     }
 
     @Override

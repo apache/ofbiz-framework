@@ -174,7 +174,8 @@ public class RmiServiceContainer implements Container {
         return true;
     }
 
-    public void stop() throws ContainerException {
+    @Override
+    public void stop() {
         remote.deregister();
     }
 

@@ -75,7 +75,7 @@ public class JavaMailContainer implements Container {
     private String name;
 
     @Override
-    public void init(List<StartupCommand> ofbizCommands, String name, String configFile) throws ContainerException {
+    public void init(List<StartupCommand> ofbizCommands, String name, String configFile) {
         this.name = name;
         this.configFile = configFile;
         this.stores = new LinkedHashMap<>();
@@ -126,7 +126,7 @@ public class JavaMailContainer implements Container {
     }
 
     @Override
-    public void stop() throws ContainerException {
+    public void stop() {
         // stop the poller
         this.pollTimer.shutdown();
         Debug.logWarning("stop JavaMail poller", module);

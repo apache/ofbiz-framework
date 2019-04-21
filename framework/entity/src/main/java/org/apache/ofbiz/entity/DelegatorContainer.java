@@ -45,7 +45,7 @@ public class DelegatorContainer implements Container {
     }
 
     @Override
-    public boolean start() throws ContainerException {
+    public boolean start() {
         if (UtilValidate.isEmpty(preloadedDelegatorNames)) {
             return true;
         }
@@ -58,7 +58,7 @@ public class DelegatorContainer implements Container {
     }
 
     @Override
-    public void stop() throws ContainerException {
+    public void stop() {
     }
 
     @Override

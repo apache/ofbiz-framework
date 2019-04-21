@@ -102,7 +102,7 @@ public class TestRunContainer implements Container {
         return true;
     }
 
-    public void stop() throws ContainerException {
+    public void stop() {
     }
 
     public String getName() {

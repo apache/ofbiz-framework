@@ -61,12 +61,12 @@ public class ServiceContainer implements Container {
     }
 
     @Override
-    public boolean start() throws ContainerException {
+    public boolean start() {
         return true;
     }
 
     @Override
-    public void stop() throws ContainerException {
+    public void stop() {
         JobManager.shutDown();
         Set<String> dispatcherNames = getAllDispatcherNames();
         for (String dispatcherName: dispatcherNames) {
