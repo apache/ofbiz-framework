@@ -18,8 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.widget.renderer;
 
-import static org.hamcrest.CoreMatchers.hasItems;
-import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -58,8 +57,7 @@ public class FormRendererTest {
         fields.add(a);
         ModelFormField b = ModelFormField.from(new ModelFormFieldBuilder().setName("B"));
         fields.add(b);
-        assertThat(renderer.getUsedFields(context), hasItems(a, b));
-        assertThat(renderer.getUsedFields(context).size(), is(2));
+        assertThat(renderer.getUsedFields(context), containsInAnyOrder(a, b));
     }
 
     @Test
@@ -70,8 +68,7 @@ public class FormRendererTest {
         fields.add(b);
         ModelFormField a2 = ModelFormField.from(new ModelFormFieldBuilder().setName("A"));
         fields.add(a2);
-        assertThat(renderer.getUsedFields(context), hasItems(a1, a2, b));
-        assertThat(renderer.getUsedFields(context).size(), is(3));
+        assertThat(renderer.getUsedFields(context), containsInAnyOrder(a1, a2, b));
     }
 
     @Test
@@ -82,8 +79,7 @@ public class FormRendererTest {
         ModelFormField a2 = ModelFormField.from(new ModelFormFieldBuilder().setName("A").setUseWhen("false"));
         fields.add(a2);
         useWhenFields.add(a2.getName());
-        assertThat(renderer.getUsedFields(context), hasItems(a1, a2));
-        assertThat(renderer.getUsedFields(context).size(), is(2));
+        assertThat(renderer.getUsedFields(context), containsInAnyOrder(a1, a2));
     }
 
     @Test
@@ -97,8 +93,7 @@ public class FormRendererTest {
         ModelFormField a3 = ModelFormField.from(new ModelFormFieldBuilder().setName("A").setUseWhen("true"));
         fields.add(a3);
         useWhenFields.add(a3.getName());
-        assertThat(renderer.getUsedFields(context), hasItems(a1, a2));
-        assertThat(renderer.getUsedFields(context).size(), is(2));
+        assertThat(renderer.getUsedFields(context), containsInAnyOrder(a1, a2));
     }
 
 }
