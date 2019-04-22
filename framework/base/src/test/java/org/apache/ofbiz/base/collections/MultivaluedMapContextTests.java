@@ -18,11 +18,8 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.collections;
 
-import static org.hamcrest.CoreMatchers.both;
-import static org.hamcrest.CoreMatchers.hasItem;
-import static org.hamcrest.CoreMatchers.hasItems;
+import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
@@ -46,26 +43,26 @@ public class MultivaluedMapContextTests {
     @Test
     public void putSingleBasic() {
         m.putSingle("foo", 0);
-        assertThat(m.get("foo"), hasItem(0));
+        assertThat(m.get("foo"), contains(0));
         m.putSingle("foo", 1);
-        assertThat(m.get("foo"), both(hasItem(1)).and(not(hasItem(0))));
+        assertThat(m.get("foo"), contains(1));
     }
 
     @Test
     public void addBasic() {
         m.add("foo", 0);
-        assertThat(m.get("foo"), hasItem(0));
+        assertThat(m.get("foo"), contains(0));
         m.add("foo", 1);
-        assertThat(m.get("foo"), hasItems(0, 1));
+        assertThat(m.get("foo"), contains(0, 1));
     }
 
     @Test
     public void addWithPreviousContext() {
         m.add("foo", 0);
         m.push();
-        assertThat(m.get("foo"), hasItem(0));
+        assertThat(m.get("foo"), contains(0));
         m.add("foo", 1);
-        assertThat(m.get("foo"), hasItems(0, 1));
+        assertThat(m.get("foo"), contains(0, 1));
     }
 
     @Test
