@@ -61,10 +61,10 @@ public class MultivaluedMapContextAdapterTests {
     }
 
     @Test
-    public void entrySetBasic() {
+    public void equalityBasic() {
         HashMap<String, Integer> expected = new HashMap<>();
         expected.put("foo", 0);
         expected.put("bar", 3);
-        assertEquals(expected.entrySet(), adapter.entrySet());
+        assertEquals(expected, adapter);
     }
 }
