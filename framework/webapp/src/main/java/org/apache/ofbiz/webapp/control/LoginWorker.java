@@ -716,8 +716,9 @@ public class LoginWorker {
         }
 
         //update the userLogin history, only one impersonation of this user can be active at the same time
+        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         EntityCondition conditions = EntityCondition.makeCondition(
-                EntityCondition.makeCondition("userLoginId", ((GenericValue) session.getAttribute("userLogin")).get("userLoginId")),
+                EntityCondition.makeCondition("userLoginId", userLogin.get("userLoginId")),
                 EntityCondition.makeCondition("originUserLoginId", originUserLogin.get("userLoginId")),
                 EntityUtil.getFilterByDateExpr());
         try {
@@ -732,6 +733,9 @@ public class LoginWorker {
         } catch (GenericEntityException e) {
             return "error";
         }
+
+        // Log out currentLogin to clean session
+        doBasicLogout(userLogin, request, response);
 
         // Log back the impersonating user
         return doMainLogin(request, response, originUserLogin, null);
