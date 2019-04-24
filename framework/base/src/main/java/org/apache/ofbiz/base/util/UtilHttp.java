@@ -257,6 +257,10 @@ public final class UtilHttp {
                                 multiPartMap.put(fieldName, item.getString());
                             }
                         }
+                        /* OFBIZ-10833 - Set the consumed parameters in request attributes for enctype="multipart/form-data" type form
+                         * so that it will be available for the next response. Please refer Jira for more details.
+                         */
+                        request.setAttribute(fieldName, multiPartMap.get(fieldName));
                     } else {
                         String fileName = item.getName();
                         if (fileName.indexOf('\\') > -1 || fileName.indexOf('/') > -1) {
