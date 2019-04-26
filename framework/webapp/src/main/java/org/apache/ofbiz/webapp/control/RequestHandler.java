@@ -269,7 +269,7 @@ public class RequestHandler {
         String overrideViewUri = getOverrideViewUri(path);
 
         Collection<RequestMap> rmaps = resolveURI(ccfg, request);
-        if (rmaps == null) {
+        if (rmaps.isEmpty()) {
             if (throwRequestHandlerExceptionOnMissingLocalRequest) {
               throw new RequestHandlerException(requestMissingErrorMessage);
             } else {
