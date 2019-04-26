@@ -180,5 +180,5 @@ if (facility) {
 if (!defaultWeightUomId) {
     defaultWeightUomId = EntityUtilProperties.getPropertyValue("shipment", "shipment.default.weight.uom", "WT_kg", delegator)
 }
-context.defaultWeightUom = from("Uom").where("uomId", defaultWeightUomId).cache().queryOne();;
+context.defaultWeightUom = from("Uom").where("uomId", defaultWeightUomId).cache().queryOne()
 context.defaultWeightUomId = defaultWeightUomId
