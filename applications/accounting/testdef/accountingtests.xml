@@ -57,6 +57,9 @@
     <test-case case-name="auto-accounting-invoice-tests">
         <simple-method-test location="component://accounting/minilang/test/AutoAcctgInvoiceTests.xml"/>
     </test-case>
+    <test-case case-name="auto-accounting-invoice-tests">
+        <simple-method-test location="component://accounting/groovyScripts/test/AutoAcctgInvoiceTests.groovy"/>
+    </test-case>
     <test-case case-name="auto-accounting-payment-tests">
         <groovy-test-suite location="component://accounting/groovyScripts/test/AutoAcctgPaymentTests.groovy"/>
     </test-case>

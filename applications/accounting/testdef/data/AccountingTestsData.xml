@@ -97,4 +97,7 @@ under the License.
     <Invoice invoiceId="1006" invoiceTypeId="PURCHASE_INVOICE" statusId="INVOICE_IN_PROCESS" partyIdFrom="DEMO_COMPANY" partyId="DEMO_COMPANY1" invoiceDate="2016-11-03 00:00:00"/>
     <InvoiceItem invoiceId="1006" invoiceItemSeqId="00001" invoiceItemTypeId="PINV_FXASTPRD_ITEM"/>
     <Invoice invoiceId="1007" invoiceTypeId="PURCHASE_INVOICE" statusId="INVOICE_IN_PROCESS" partyIdFrom="DEMO_COMPANY" partyId="DEMO_COMPANY1" invoiceDate="2016-11-03 00:00:00"/>
+    <!-- For Testing service createInvoiceContent-->
+    <Invoice invoiceId="1008" invoiceTypeId="PURCHASE_INVOICE" statusId="INVOICE_IN_PROCESS" partyIdFrom="DEMO_COMPANY" partyId="DEMO_COMPANY1" invoiceDate="2016-11-03 00:00:00"/>
+    <Content contentId="1000" contentTypeId="DOCUMENT"/>
 </entity-engine-xml>
