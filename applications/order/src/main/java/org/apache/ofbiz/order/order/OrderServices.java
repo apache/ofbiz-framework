@@ -6956,7 +6956,6 @@ public class OrderServices {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin  = (GenericValue)context.get("userLogin");
-        Locale locale = (Locale) context.get("locale");
         String orderId = (String) context.get("orderId");
         try {
             OrderReadHelper orderReadHelper = new OrderReadHelper(delegator, orderId);
@@ -7011,7 +7010,6 @@ public class OrderServices {
         GenericValue userLogin  = (GenericValue)context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
         String productId = (String) context.get("productId");
-        String planName = (String) context.get("planName");
         Integer itemListSize = (Integer) context.get("itemListSize");
         Map<String, String> itemOrderIdMap = UtilGenerics.checkMap(context.get("itemOrderIdMap"));
         Map<String, String> itemOrderItemSeqIdMap = UtilGenerics.checkMap(context.get("itemOrderItemSeqIdMap"));
@@ -7080,7 +7078,6 @@ public class OrderServices {
 
     public static Map<String, Object> isInventoryAllocationRequired(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
-        LocalDispatcher dispatcher = dctx.getDispatcher();
         Boolean allocateInventory = false;
         Map<String, Object> serviceContext = UtilGenerics.checkMap(context.get("serviceContext"));
         String orderId = (String) serviceContext.get("orderId");
