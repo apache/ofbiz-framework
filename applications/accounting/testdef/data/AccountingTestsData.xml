@@ -100,4 +100,6 @@ under the License.
     <!-- For Testing service createInvoiceContent-->
     <Invoice invoiceId="1008" invoiceTypeId="PURCHASE_INVOICE" statusId="INVOICE_IN_PROCESS" partyIdFrom="DEMO_COMPANY" partyId="DEMO_COMPANY1" invoiceDate="2016-11-03 00:00:00"/>
     <Content contentId="1000" contentTypeId="DOCUMENT"/>
+    <!-- For Testing service setPaymentStatus -->
+    <Payment paymentId="1000" paymentTypeId="CUSTOMER_PAYMENT" paymentMethodTypeId="COMPANY_CHECK"  partyIdFrom="DEMO_COMPANY" partyIdTo="DEMO_COMPANY1" amount="100.00" statusId="PAYMENT_NOT_AUTH" />
 </entity-engine-xml>
