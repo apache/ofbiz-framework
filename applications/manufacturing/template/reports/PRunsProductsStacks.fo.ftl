@@ -163,9 +163,9 @@ under the License.
                                   <barcode:barcode
                                         xmlns:barcode="http://barcode4j.krysalis.org/ns"
                                         message="${productionRun.productionRun.workEffortId}">
-                                    <barcode:code39>
+                                    <barcode:code128>
                                       <barcode:height>8mm</barcode:height>
-                                    </barcode:code39>
+                                    </barcode:code128>
                                   </barcode:barcode>
                                 </fo:instream-foreign-object>
                             </fo:block>
@@ -245,9 +245,9 @@ under the License.
                                 <barcode:barcode
                                       xmlns:barcode="http://barcode4j.krysalis.org/ns"
                                       message="${stackInfo.qty}">
-                                  <barcode:code39>
+                                  <barcode:code128>
                                     <barcode:height>8mm</barcode:height>
-                                  </barcode:code39>
+                                  </barcode:code128>
                                 </barcode:barcode>
                               </fo:instream-foreign-object>
                             </fo:block>

@@ -126,9 +126,9 @@ Doc.B
                                   <barcode:barcode
                                         xmlns:barcode="http://barcode4j.krysalis.org/ns"
                                         message="${package.orderShipment.shipmentId}${package.packageId}">
-                                    <barcode:code39>
+                                    <barcode:code128>
                                       <barcode:height>8mm</barcode:height>
-                                    </barcode:code39>
+                                    </barcode:code128>
                                   </barcode:barcode>
                                 </fo:instream-foreign-object>
                             </fo:block>
