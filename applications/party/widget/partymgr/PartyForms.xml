@@ -202,13 +202,12 @@ under the License.
                 <option key="F" description="${uiLabelMap.CommonFemale}"/>
             </drop-down>
         </field>
-        <field name="maritalStatus">
+        <field name="maritalStatusEnumId">
             <drop-down allow-empty="true">
-                <option key="S" description="${uiLabelMap.PartyMaritalStatusSingle}"/>
-                <option key="M" description="${uiLabelMap.PartyMaritalStatusMarried}"/>
-                <option key="P" description="${uiLabelMap.PartyMaritalStatusSeparated}"/>
-                <option key="D" description="${uiLabelMap.PartyMaritalStatusDivorced}"/>
-                <option key="W" description="${uiLabelMap.PartyMaritalStatusWidowed}"/>
+                <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description} [${enumCode}]">
+                    <entity-constraint name="enumTypeId" value="MARITAL_STATUS"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
             </drop-down>
         </field>
         <field name="employmentStatusEnumId">

@@ -39,7 +39,7 @@ under the License.
     <process field="height"><convert type="Double"><fail-property resource="PartyUiLabels" property="PartyHeightNotValidNumber"/></convert></process>
     <process field="weight"><convert type="Double"><fail-property resource="PartyUiLabels" property="PartyWeightNotValidNumber"/></convert></process>
     <process field="mothersMaidenName"><copy/></process>
-    <process field="maritalStatus"><copy/></process>
+    <process field="maritalStatusEnumId"><copy/></process>
     <process field="socialSecurityNumber"><copy/></process>
     <process field="passportNumber"><copy/></process>
     <process field="passportExpireDate"><convert type="Date"><fail-property resource="PartyUiLabels" property="PartyPassportExpireDateNotValidDate"/></convert></process>

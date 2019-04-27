@@ -2794,7 +2794,8 @@ under the License.
       <field name="height" type="floating-point"></field>
       <field name="weight" type="floating-point"></field>
       <field name="mothersMaidenName" type="long-varchar" encrypt="true"></field>
-      <field name="maritalStatus" type="indicator"></field>
+      <field name="oldMaritalStatus" type="indicator" col-name="MARITAL_STATUS"><description>Deprecated since branch release: use martialStatusEnumId</description></field>
+      <field name="maritalStatusEnumId" type="id"/>
       <field name="socialSecurityNumber" type="long-varchar" encrypt="true"></field>
       <field name="passportNumber" type="long-varchar" encrypt="true"></field>
       <field name="passportExpireDate" type="date"></field>
@@ -2816,6 +2817,9 @@ under the License.
       </relation>
       <relation type="one" fk-name="PERSON_RESS_ENUM" title="ResidenceStatus" rel-entity-name="Enumeration">
         <key-map field-name="residenceStatusEnumId" rel-field-name="enumId"/>
+      </relation>
+      <relation type="one" fk-name="PERSON_MARITAL" title="MaritalStatus" rel-entity-name="Enumeration">
+        <key-map field-name="maritalStatusEnumId" rel-field-name="enumId"/>
       </relation>
       <index name="FIRST_NAME_IDX">
         <index-field name="firstName"/>

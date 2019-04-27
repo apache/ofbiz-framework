@@ -135,6 +135,10 @@ under the License.
     <Enumeration description="Student" enumCode="STUDENT" enumId="EMPS_STUDENT" sequenceId="06" enumTypeId="EMPLOY_STTS"/>
     <Enumeration description="Unemployed" enumCode="UNEMP" enumId="EMPS_UNEMP" sequenceId="07" enumTypeId="EMPLOY_STTS"/>
 
+    <EnumerationType enumTypeId="MARITAL_STATUS" description="Marital Status"/>
+    <Enumeration description="Single" enumId="SINGLE" sequenceId="01" enumTypeId="MARITAL_STATUS" enumName="Single"/>
+    <Enumeration description="Married" enumId="MARRIED" sequenceId="02" enumTypeId="MARITAL_STATUS" enumName="Married"/>
+
     <EnumerationType description="Residence Status" enumTypeId="PTY_RESID_STTS" hasTable="N"/>
     <Enumeration description="Own Home" enumCode="OWN" enumId="PRESS_OWN" sequenceId="01" enumTypeId="PTY_RESID_STTS"/>
     <Enumeration description="Private Tenant" enumCode="PVT_TENANT" enumId="PRESS_PVT_TENANT" sequenceId="02" enumTypeId="PTY_RESID_STTS"/>
