@@ -1902,7 +1902,7 @@ under the License.
                     <clear-field field="debitEntry"/>
                     <make-value entity-name="AcctgTransEntry" value-field="debitEntry"/>
                     <set field="debitEntry.debitCreditFlag" value="D"/>
-                    <set field="debitEntry.organizationPartyId" from-field="invoice.partyIdTo"/>
+                    <set field="debitEntry.organizationPartyId" from-field="invoice.partyId"/>
                     <call-class-method method-name="getInvoiceTaxTotalForTaxAuthPartyAndGeo" class-name="org.apache.ofbiz.accounting.invoice.InvoiceWorker"
                             ret-field="taxAmount">
                         <field field="invoice" type="GenericValue"/>
@@ -1929,7 +1929,7 @@ under the License.
             <clear-field field="debitEntry"/>
             <make-value entity-name="AcctgTransEntry" value-field="debitEntry"/>
             <set field="debitEntry.debitCreditFlag" value="D"/>
-            <set field="debitEntry.organizationPartyId" from-field="invoice.partyIdFrom"/>
+            <set field="debitEntry.organizationPartyId" from-field="invoice.partyId"/>
             <call-class-method method-name="getInvoiceUnattributedTaxTotal" class-name="org.apache.ofbiz.accounting.invoice.InvoiceWorker"
                     ret-field="taxAmount">
                 <field field="invoice" type="GenericValue"/>
