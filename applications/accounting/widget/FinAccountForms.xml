@@ -211,7 +211,7 @@ under the License.
             <drop-down>
                 <entity-options entity-name="GlAccountOrganizationAndClass" key-field-name="glAccountId" description="${accountCode} - ${accountName} [${glAccountId}]">
                     <entity-constraint name="organizationPartyId" operator="equals" env-name="defaultOrganizationPartyId"/>
-                    <entity-order-by field-name="glAccountId"/>
+                    <entity-order-by field-name="accountCode"/>
                 </entity-options>
             </drop-down>
         </field>
