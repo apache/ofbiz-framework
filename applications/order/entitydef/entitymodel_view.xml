@@ -51,6 +51,7 @@ under the License.
       <member-entity entity-alias="OH" entity-name="OrderHeader"/>
       <member-entity entity-alias="OI" entity-name="OrderItem"/>
       <alias entity-alias="OH" name="orderId"/>
+      <alias entity-alias="OH" name="salesChannelEnumId"/>
       <alias entity-alias="OH" name="orderDate"/>
       <alias entity-alias="OH" name="orderStatusId" field="statusId"/>
       <alias entity-alias="OH" name="grandTotal"/>

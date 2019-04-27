@@ -172,6 +172,21 @@ under the License.
                     </div>
                   </td>
                 </tr>
+                <#if "SALES_ORDER" == shoppingCart.getOrderType()>
+                  <#assign productStore = Static["org.apache.ofbiz.product.store.ProductStoreWorker"].getProductStore(shoppingCart.getProductStoreId(), delegator) />
+                  <#if productStore?has_content && (productStore.allocateInventory)?has_content && (productStore.allocateInventory).equals('Y')>
+                  <tr>
+                    <td align="right"><div>${uiLabelMap.OrderAutoReserve}</div></td>
+                    <td>
+                      <div>
+                        <label>
+                          <input type="checkbox" name="order_item_attr_autoReserve" value="true" <#if autoReserve??>checked="checked"</#if> />
+                        </label>
+                      </div>
+                    </td>
+                  </tr>
+                  </#if>
+                </#if>
                 <tr>
                   <td></td>
                   <td><input type="submit" class="smallSubmit" value="${uiLabelMap.OrderAddToOrder}"/></td>

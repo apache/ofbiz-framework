@@ -2075,6 +2075,27 @@
         <value xml:lang="zh">订单代理人</value>
         <value xml:lang="zh-TW">訂單代理人</value>
     </property>
+    <property key="OrderAllocated">
+        <value xml:lang="en">Allocated</value>
+    </property>
+    <property key="OrderAllocatedUnits">
+        <value xml:lang="en">Allocated Units</value>
+    </property>
+    <property key="OrderAllocatedValue">
+        <value xml:lang="en">Allocated Value</value>
+    </property>
+    <property key="OrderAllocation">
+        <value xml:lang="en">Allocation</value>
+    </property>
+    <property key="OrderAllocationPlan">
+        <value xml:lang="en">Allocation Plan</value>
+    </property>
+    <property key="OrderAllocationPlanNotFound">
+        <value xml:lang="en">Allocation Plan Not Found.</value>
+    </property>
+    <property key="OrderAllocationPlanViewPermissionError">
+        <value xml:lang="en">You do not have the permission to view the allocation plan.</value>
+    </property>
     <property key="OrderAllowSolicitation">
         <value xml:lang="ar">السماح بالإستدعاءات</value>
         <value xml:lang="de">(Werbung gestatten?)</value>
@@ -2246,6 +2267,9 @@
         <value xml:lang="en">Approve Item</value>
         <value xml:lang="nl">Bevestig item</value>
     </property>
+    <property key="OrderApprovePlan">
+        <value xml:lang="en">Approve Plan</value>
+    </property>
     <property key="OrderApproveOrder">
         <value xml:lang="ar">الموافقة على أمر البيع\الشراء</value>
         <value xml:lang="de">Auftrag bestätigen</value>
@@ -2392,6 +2416,9 @@
         <value xml:lang="zh">自动创建调整</value>
         <value xml:lang="zh-CN">自动建立调整</value>
         <value xml:lang="zh-TW">自動新建調整</value>
+    </property>
+    <property key="OrderAutoReserve">
+        <value xml:lang="en">Auto Reserve</value>
     </property>
     <property key="OrderAverageRating">
         <value xml:lang="ar">متوسط التقييم</value>
@@ -2643,6 +2670,9 @@
         <value xml:lang="zh-CN">取消所有项目</value>
         <value xml:lang="zh-TW">取消全部細項</value>
     </property>
+    <property key="OrderCancelEdit">
+        <value xml:lang="en">Cancel Edit</value>
+    </property>
     <property key="OrderCancelledItemToOrder">
         <value xml:lang="ar">البند الملغى لأمر البيع\الشراء</value>
         <value xml:lang="de">Anullierter Artikel der Bestellung:</value>
@@ -2653,6 +2683,9 @@
         <value xml:lang="vi">Đã hủy bỏ hạng mục vào Đặt hàng:</value>
         <value xml:lang="zh">已取消明细到订单</value>
         <value xml:lang="zh-TW">已取消細項到訂單:</value>
+    </property>
+    <property key="OrderCancelPlan">
+        <value xml:lang="en">Cancel Plan</value>
     </property>
     <property key="OrderCancelOrder">
         <value xml:lang="ar">إلغاء أمر البيع\الشراء</value>
@@ -3290,6 +3323,9 @@
         <value xml:lang="zh">复制询价</value>
         <value xml:lang="zh-CN">复制询价</value>
         <value xml:lang="zh-TW">複製報價</value>
+    </property>
+    <property key="OrderCreatePlan">
+      <value xml:lang="en">Create Plan</value>
     </property>
     <property key="OrderCreateTestSalesOrderSingleError">
         <value xml:lang="ar">لا يوجد سلع موجودة في الفئة ${productCategoryId}; لن يتم خلق أمر بيع/شراء</value>
@@ -4500,6 +4536,9 @@
         <value xml:lang="vi">Giá trị được miễn thuế</value>
         <value xml:lang="zh">免除金额</value>
         <value xml:lang="zh-TW">免除金額</value>
+    </property>
+    <property key="OrderExtValue">
+        <value xml:lang="en">Ext. Value</value>
     </property>
     <property key="OrderExternalId">
         <value xml:lang="ar">دليل خارجي</value>
@@ -6156,6 +6195,9 @@
         <value xml:lang="zh">税前净价</value>
         <value xml:lang="zh-TW">稅前淨價</value>
     </property>
+    <property key="OrderNewAllocationPlan">
+        <value xml:lang="en">New Allocation Plan</value>
+    </property>
     <property key="OrderNewDropShipmentForShipGroup">
         <value xml:lang="de">Neue Direktlieferung für Versandgruppe</value>
         <value xml:lang="en">New Drop Shipment For Ship Group</value>
@@ -7313,6 +7355,9 @@
         <value xml:lang="zh">订单</value>
         <value xml:lang="zh-CN">订单</value>
         <value xml:lang="zh-TW">訂單</value>
+    </property>
+    <property key="OrderOrderingChannel">
+        <value xml:lang="en">Ordering Channel</value>
     </property>
     <property key="OrderOrderBillFromParty">
         <value xml:lang="ar">فوترة من طرف</value>
@@ -9334,6 +9379,12 @@
         <value xml:lang="zh-CN">订购的</value>
         <value xml:lang="zh-TW">已訂購的</value>
     </property>
+    <property key="OrderOrderedUnits">
+        <value xml:lang="en">Ordered Units</value>
+    </property>
+    <property key="OrderOrderedValue">
+        <value xml:lang="en">Ordered Value</value>
+    </property>
     <property key="OrderOrders">
         <value xml:lang="ar">أوامر البيع/الشراء</value>
         <value xml:lang="de">Aufträge</value>
@@ -9945,6 +9996,15 @@
         <value xml:lang="vi">Chiếc</value>
         <value xml:lang="zh">个</value>
         <value xml:lang="zh-TW">個</value>
+    </property>
+    <property key="OrderPlanHeader">
+        <value xml:lang="en">Plan Header</value>
+    </property>
+    <property key="OrderPlanItems">
+        <value xml:lang="en">Plan Items</value>
+    </property>
+    <property key="OrderPlanName">
+        <value xml:lang="en">Plan Name</value>
     </property>
     <property key="OrderPlannedInReceive">
         <value xml:lang="ar">الكمية المستلمة</value>
@@ -15478,6 +15538,9 @@
         <value xml:lang="zh">由供货商批准的产品需求</value>
         <value xml:lang="zh-TW">由供應商核准的產品需求</value>
     </property>
+    <property key="PageTitleCreateAllocationPlan">
+        <value xml:lang="en">Create Allocation Plan</value>
+    </property>
     <property key="PageTitleCreateQuoteForCustRequest">
         <value xml:lang="ar">خلق عرض سعر جديد وبند عرض السعر لطلب العميل</value>
         <value xml:lang="de">Neues Angebot und Angebotspositionen für Kundenanfrage erstellen</value>
@@ -15508,6 +15571,9 @@
         <value xml:lang="vi">Cập nhật phần đầu của Đặt hàng</value>
         <value xml:lang="zh">编辑订单头</value>
         <value xml:lang="zh-TW">編輯訂單頭</value>
+    </property>
+    <property key="PageTitleEditAllocationPlan">
+        <value xml:lang="en">Edit Allocation Plan</value>
     </property>
     <property key="PageTitleEditQuoteItemForCustRequest">
         <value xml:lang="ar">تعديل بند عرض السعر لطلب العميل</value>
@@ -15618,6 +15684,9 @@
         <value xml:lang="vi">Cập nhật vai trò yêu cầu Nguồn lực</value>
         <value xml:lang="zh">编辑需求角色</value>
         <value xml:lang="zh-TW">修改需求角色</value>
+    </property>
+    <property key="PageTitleFindAllocationPlan">
+        <value xml:lang="en">Find Allocation Plan</value>
     </property>
     <property key="PageTitleFindApprovedProductRequirements">
         <value xml:lang="ar">إيجاد متطلبات سلعة موافق عليها</value>

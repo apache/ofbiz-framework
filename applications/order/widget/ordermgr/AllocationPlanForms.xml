@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
+    <form name="FindAllocationPlan" type="single" target="FindAllocationPlan" title=""
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
+        <field name="planId"><text-find/></field>
+        <field name="planName"><text-find/></field>
+        <field name="planTypeId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="AllocationPlanType"/>
+            </drop-down>
+        </field>
+        <field name="statusId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="StatusItem">
+                    <entity-constraint name="statusTypeId" operator="equals" value="ALLOC_PLAN_STATUS"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="productId">
+            <lookup target-form-name="LookupProduct"/>
+        </field>
+        <field name="orderId">
+            <lookup target-form-name="LookupOrderHeader"/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+
+    <grid name="ListAllocationPlan" list-name="allocationPlans" target="" title="" paginate-target="FindAllocationPlan"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2">
+        <field name="planId" widget-style="buttontext" sort-field="true">
+            <hyperlink target-type="inter-app" description="${planId}" target="/ordermgr/control/ViewAllocationPlan">
+                <parameter param-name="planId"/>
+            </hyperlink>
+        </field>
+        <field name="statusId"><display-entity entity-name="StatusItem"/></field>
+        <field name="planTypeId">
+            <display-entity entity-name="AllocationPlanType"/>
+        </field>
+        <field name="productId" sort-field="true">
+            <display-entity entity-name="Product" key-field-name="productId" description="${productId} - ${internalName}"/>
+        </field>
+        <field name="orderId" sort-field="true" >
+            <display/>
+        </field>
+        <field name="orderItemSeqId">
+            <display/>
+        </field>
+        <field name="planMethodEnumId">
+            <display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}"/>
+        </field>
+        <field name="allocatedQuantity" sort-field="true">
+            <display/>
+        </field>
+        <field name="deleteLink" widget-style="buttontext" title=" ">
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="deleteAllocationPlanItem">
+                <parameter param-name="planId"/>
+                <parameter param-name="planItemSeqId"/>
+                <parameter param-name="productId"/>
+            </hyperlink>
+        </field>
+    </grid>
+</forms>

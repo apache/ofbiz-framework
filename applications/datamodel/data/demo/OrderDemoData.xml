@@ -123,6 +123,12 @@ under the License.
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="ORDERENTRY_ALL" permissionId="OFBTOOLS_VIEW"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="ORDERENTRY_ALL" permissionId="ORDERMGR_CRQ_CREATE"/>
 
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="ALLOCPLAN_CREATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="ALLOCPLAN_UPDATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="ALLOCPLAN_APPROVE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="ALLOCPLAN_CANCEL"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="FULLADMIN" permissionId="ALLOCPLAN_VIEW"/>
+
     <!-- Order Demo User Data -->
     <UserLogin userLoginId="DemoBuyer" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
     <UserLogin userLoginId="DemoRepAll" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>

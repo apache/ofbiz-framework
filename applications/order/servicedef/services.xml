@@ -1237,4 +1237,121 @@ under the License.
         <description>Delete a ProductOrderItem</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+
+    <!-- Allocation Plan services -->
+    <service name="createAllocationPlanHeader" engine="entity-auto" default-entity-name="AllocationPlanHeader" invoke="create" auth="true">
+        <description>Create Allocation Plan Header</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="planId" mode="INOUT"/>
+        <override name="planTypeId" optional="false"/>
+    </service>
+    <service name="updateAllocationPlanHeader" engine="entity-auto" default-entity-name="AllocationPlanHeader" invoke="update" auth="true">
+        <description>Update Allocation Plan Header</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteAllocationPlanHeader" engine="entity-auto" default-entity-name="AllocationPlanHeader" invoke="delete" auth="true">
+        <description>Delete Allocation Plan Header</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
+    <service name="createAllocationPlanItem" engine="entity-auto" default-entity-name="AllocationPlanItem" invoke="create" auth="true">
+        <description>Create Allocation Plan Item</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="planItemSeqId" mode="OUT"/>
+        <override name="planMethodEnumId" optional="false"/>
+        <override name="productId" optional="false"/>
+        <override name="orderId" optional="false"/>
+        <override name="orderItemSeqId" optional="false"/>
+    </service>
+    <service name="updateAllocationPlanItem" engine="entity-auto" default-entity-name="AllocationPlanItem" invoke="update" auth="true">
+        <description>Update Allocation Plan Item</description>
+        <auto-attributes include="pk" mode="INOUT"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteAllocationPlanItem" engine="entity-auto" default-entity-name="AllocationPlanItem" invoke="delete" auth="true">
+        <description>Delete Allocation Plan Item</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
+    <service name="associateOrderWithAllocationPlans" engine="java" auth="true"
+            location="org.apache.ofbiz.order.order.OrderServices" invoke="associateOrderWithAllocationPlans">
+        <description>Associate order with the allocation plans of inline products</description>
+        <attribute name="orderId" type="String" mode="IN"/>
+        <attribute name="productPlanMap" mode="OUT" type="Map" optional="true"/>
+    </service>
+    <service name="approveAllocationPlanItems" engine="java" auth="true"
+            location="org.apache.ofbiz.order.order.OrderServices" invoke="approveAllocationPlanItems">
+        <description>Mark all the items of an allocation plan as approve</description>
+        <attribute name="planId" type="String" mode="IN"/>
+    </service>
+    <service name="cancelAllocationPlanItems" engine="java" auth="true"
+            location="org.apache.ofbiz.order.order.OrderServices" invoke="cancelAllocationPlanItems">
+        <description>Mark all the items of an allocation plan as cancel</description>
+        <attribute name="planId" type="String" mode="IN"/>
+    </service>
+    <service name="changeAllocationPlanStatus" engine="java" auth="true"
+            location="org.apache.ofbiz.order.order.OrderServices" invoke="changeAllocationPlanStatus">
+        <description>Change Allocation Plan Status</description>
+        <attribute name="planId" type="String" mode="INOUT"/>
+        <attribute name="statusId" type="String" mode="IN"/>
+        <attribute name="oldStatusId" type="String" mode="OUT"/>
+    </service>
+    <service name="changeAllocationPlanItemStatus" engine="java" auth="true"
+            location="org.apache.ofbiz.order.order.OrderServices" invoke="changeAllocationPlanItemStatus">
+        <description>Change Allocation Plan Item Status</description>
+        <attribute name="planId" type="String" mode="IN"/>
+        <attribute name="planItemSeqId" type="String" mode="IN"/>
+        <attribute name="statusId" type="String" mode="IN"/>
+        <attribute name="oldStatusId" type="String" mode="OUT"/>
+    </service>
+    <service name="completeAllocationPlanItemByOrderItem" engine="java" auth="true"
+            location="org.apache.ofbiz.order.order.OrderServices" invoke="completeAllocationPlanItemByOrderItem">
+        <description>Complete Allocation Plan Item By Providing Order Id and Item Seq Id</description>
+        <attribute name="orderId" type="String" mode="IN"/>
+        <attribute name="orderItemSeqId" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="cancelAllocationPlanItemByOrderItem" engine="java" auth="true"
+            location="org.apache.ofbiz.order.order.OrderServices" invoke="cancelAllocationPlanItemByOrderItem">
+        <description>Cancel Allocation Plan Item By Providing Order Id and Item Seq Id</description>
+        <attribute name="orderId" type="String" mode="IN"/>
+        <attribute name="orderItemSeqId" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="updateAllocatedQuantityOnOrderItemChange" engine="java" auth="true"
+            location="org.apache.ofbiz.order.order.OrderServices" invoke="updateAllocatedQuantityOnOrderItemChange">
+        <description>Update Allocated Quantity On Order Item Change</description>
+        <attribute name="orderId" type="String" mode="IN"/>
+        <attribute name="orderItemSeqId" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="createAllocationPlanAndItems" engine="java" auth="true"
+             location="org.apache.ofbiz.order.order.OrderServices" invoke="createAllocationPlanAndItems">
+        <description>Create Allocation Plan And Items</description>
+        <attribute name="productId" type="String" mode="IN"/>
+        <attribute name="planName" type="String" mode="IN" optional="true"/>
+        <attribute name="itemListSize" type="Integer" mode="IN"/>
+        <attribute name="itemOrderIdMap" type="Map" mode="IN" string-map-prefix="ioim_"/>
+        <attribute name="itemOrderItemSeqIdMap" type="Map" mode="IN" string-map-prefix="ioisim_"/>
+        <attribute name="itemAllocatedQuantityMap" type="Map" mode="IN" string-map-prefix="iaqm_"/>
+        <attribute name="planId" type="String" mode="OUT"/>
+    </service>
+
+    <service name="isInventoryAllocationRequired" engine="java" auth="true"
+             location="org.apache.ofbiz.order.order.OrderServices" invoke="isInventoryAllocationRequired">
+        <description>Check whether the inventory allocation is enabled or not at product store.</description>
+        <attribute name="serviceContext" type="Map" mode="IN"/>
+        <attribute name="serviceName" type="String" mode="IN"/>
+        <attribute name="conditionReply" type="Boolean" mode="OUT"/>
+    </service>
+
+    <service name="updateAllocationPlanItems" engine="java" auth="true"
+             location="org.apache.ofbiz.order.order.OrderServices" invoke="updateAllocationPlanItems">
+        <description>Update Allocation Plan Items</description>
+        <attribute name="planId" type="String" mode="IN"/>
+        <attribute name="orderIdMap" type="Map" mode="IN" string-map-prefix="oim_"/>
+        <attribute name="orderItemSeqIdMap" type="Map" mode="IN" string-map-prefix="oisim_"/>
+        <attribute name="productIdMap" type="Map" mode="IN" string-map-prefix="pim_"/>
+        <attribute name="prioritySeqIdMap" type="Map" mode="IN" string-map-prefix="psim_"/>
+        <attribute name="allocatedQuantityMap" type="Map" mode="IN" string-map-prefix="aqm_"/>
+        <attribute name="rowSubmitMap" type="Map" mode="IN" string-map-prefix="rsm_"/>
+    </service>
 </services>

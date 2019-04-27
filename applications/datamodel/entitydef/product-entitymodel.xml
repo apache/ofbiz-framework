@@ -3900,6 +3900,7 @@ under the License.
       <field name="showOutOfStockProducts" type="indicator"><description>Default Y. If N then out of stock products will not be displayed on site</description></field>
       <field name="orderDecimalQuantity" type="indicator"><description>use to indicate if decimal quantity can be ordered for this producStore. Default value is Y</description></field>
       <field name="allowComment" type="indicator"><description>Allow comments for order line items per store</description></field>
+      <field name="allocateInventory" type="indicator"><description>Default N. If Y then allocation plans for the product will be created.</description></field>
       <prim-key field="productStoreId"/>
       <relation type="one" fk-name="PROD_STR_PRSTRGP" title="Primary" rel-entity-name="ProductStoreGroup">
         <key-map field-name="primaryStoreGroupId" rel-field-name="productStoreGroupId"/>

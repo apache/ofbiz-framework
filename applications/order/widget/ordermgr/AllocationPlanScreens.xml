@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Widget-Screen" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Screen http://ofbiz.apache.org/dtds/widget-screen.xsd">
+    <screen name="CommonAllocationPlanDecorator">
+        <section>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <!-- do check for ALLOCPLAN, _VIEW permission -->
+                            <condition>
+                                <if-has-permission permission="ALLOCPLAN" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.OrderAllocationPlanViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="CreateAllocationPlan">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleCreateAllocationPlan"/>
+                <set field="headerItem" value="allocationPlan"/>
+                <set field="tabButtonItem" value="CreateAllocationPlan"/>
+                <!-- <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>-->
+                <script location="component://order/groovyScripts/allocationplan/CreateAllocationPlan.groovy"/> 
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonAllocationPlanDecorator" location="${parameters.commonAllocationPlanDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://common-theme/template/includes/SetMultipleSelectJs.ftl"/></html>
+                        </platform-specific>
+                        <platform-specific>
+                            <html><html-template location="component://order/template/order/CreateAllocationPlan.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="FindAllocationPlan">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleFindAllocationPlan"/>
+                <set field="headerItem" value="allocationPlan"/>
+                <set field="tabButtonItem" value="FindAllocatoinPlan"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSizeDefaultValue" value="${groovy: modelTheme.getDefaultViewSize()}" type="Integer"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="${viewSizeDefaultValue}"/>
+                <script location="component://order/groovyScripts/allocationplan/ListAllocationPlan.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonAllocationPlanDecorator" location="${parameters.commonAllocationPlanDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="ALLOCPLAN" action="_CREATE"/>
+                            </condition>
+                            <widgets>
+                                <container style="button-bar">
+                                    <link target="CreateAllocationPlan" text="${uiLabelMap.OrderNewAllocationPlan}" style="buttontext"/>
+                                </container>
+                            </widgets>
+                        </section>
+                        <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                            <decorator-section name="search-options">
+                                <include-form name="FindAllocationPlan" location="component://order/widget/ordermgr/AllocationPlanForms.xml"/>
+                            </decorator-section>
+                            <decorator-section name="search-results">
+                                <include-grid name="ListAllocationPlan" location="component://order/widget/ordermgr/AllocationPlanForms.xml"/>
+                            </decorator-section>
+                        </decorator-screen>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ViewAllocationPlan">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleViewAllocationPlan"/>
+                <set field="headerItem" value="allocationPlan"/>
+                <set field="tabButtonItem" value="ViewAllocationPlan"/>
+                <set field="planId" from-field="parameters.planId"/>
+                <script location="component://order/groovyScripts/allocationplan/ViewAllocationPlan.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonAllocationPlanDecorator" location="${parameters.commonAllocationPlanDecorator}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="ALLOCPLAN" action="_CREATE"/>
+                            </condition>
+                            <widgets>
+                                <container style="button-bar">
+                                    <link target="CreateAllocationPlan" text="${uiLabelMap.OrderNewAllocationPlan}" style="buttontext"/>
+                                </container>
+                            </widgets>
+                        </section>
+                        <platform-specific>
+                            <html><html-template location="component://order/template/order/ViewAllocationPlan.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditAllocationPlan">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleViewAllocationPlan"/>
+                <set field="headerItem" value="allocationPlan"/>
+                <set field="tabButtonItem" value="EditAllocationPlan"/>
+                <set field="planId" from-field="parameters.planId"/>
+                <set field="editMode" value="true" type="Boolean"/>
+                <!-- asmselect parameters, must be prefixed by asm_ for SetMultipleSelectJs.ftl -->
+                <set field="asm_multipleSelectForm" value="updateAllocationPlanItems"/>
+                <set field="asm_formSize" value="1000"/>
+                <set field="asm_asmListItemPercentOfForm" value="95"/>
+                <set field="asm_sortable" value="false"/>
+                <script location="component://order/groovyScripts/allocationplan/ViewAllocationPlan.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonAllocationPlanDecorator" location="${parameters.commonAllocationPlanDecorator}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <container style="button-bar">
+                                    <link target="CreateAllocationPlan" text="${uiLabelMap.OrderNewAllocationPlan}" style="buttontext"/>
+                                </container>
+                            </widgets>
+                        </section>
+                        <platform-specific>
+                            <html><html-template location="component://common-theme/template/includes/SetMultipleSelectJs.ftl"/></html>
+                        </platform-specific>
+                        <platform-specific>
+                            <html><html-template location="component://order/template/order/ViewAllocationPlan.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens>

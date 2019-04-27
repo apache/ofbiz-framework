@@ -747,7 +747,21 @@ under the License.
         <set field="reassignInventoryReservationsCtx.productId" from-field="inventoryItem.productId"/>
         <set field="reassignInventoryReservationsCtx.facilityId" from-field="inventoryItem.facilityId"/>
         <set field="reassignInventoryReservationsCtx.fromDate" from-field="nowTimestamp"/>
-        <call-service service-name="reassignInventoryReservations" in-map-name="reassignInventoryReservationsCtx"/>
+        <entity-condition entity-name="AllocationPlanAndItem" list="allocationPlanAndItemList">
+            <condition-list combine="and">
+                <condition-expr field-name="productId" operator="equals" from-field="inventoryItem.productId"/>
+                <condition-expr field-name="planItemStatusId" operator="equals" value="ALLOC_PLAN_ITEM_APRV"/>
+                <condition-expr field-name="planMethodEnumId" operator="equals" value="MANUAL"/>
+            </condition-list>
+            <order-by field-name="prioritySeqId"/>
+        </entity-condition>
+        <if-empty field="allocationPlanAndItemList">
+            <call-service service-name="reassignInventoryReservations" in-map-name="reassignInventoryReservationsCtx"/>
+        <else>
+            <set field="reassignInventoryReservationsCtx.allocationPlanAndItemList" from-field="allocationPlanAndItemList"/>
+            <call-service service-name="reassignInventoryReservationsByAllocationPlan" in-map-name="reassignInventoryReservationsCtx"/>
+        </else>
+        </if-empty>
     </simple-method>
 
     <simple-method method-name="reassignInventoryReservations" short-description="Balances available-to-promise on inventory items">
@@ -849,6 +863,98 @@ under the License.
             <call-service service-name="reserveProductInventoryByFacility" in-map-name="resMap"/>
         </iterate>
 
+        <!-- now go through touchedOrderIdMap keys and make a Set/Map of orderIds that are no longer on back-order -->
+        <iterate-map key="touchedOrderId" value="throwAwayValue" map="touchedOrderIdMap">
+            <set field="checkOrderIsOnBackOrderMap.orderId" from-field="touchedOrderId"/>
+            <call-service service-name="checkOrderIsOnBackOrder" in-map-name="checkOrderIsOnBackOrderMap">
+                <result-to-field result-name="isBackOrder"/>
+            </call-service>
+
+            <if-compare field="isBackOrder" operator="equals" value="false" type="Boolean">
+                <set field="noLongerOnBackOrderIdMap[touchedOrderId]" value="Y"/>
+            </if-compare>
+        </iterate-map>
+        <if-not-empty field="noLongerOnBackOrderIdMap">
+            <call-object-method obj-field="noLongerOnBackOrderIdMap" method-name="keySet" ret-field="noLongerOnBackOrderIdSet"/>
+            <field-to-result field="noLongerOnBackOrderIdSet"/>
+        </if-not-empty>
+    </simple-method>
+
+    <simple-method method-name="reassignInventoryReservationsByAllocationPlan" short-description="Balances available-to-promise on inventory items">
+        <now-timestamp field="nowTimestamp"/>
+        <iterate list="parameters.allocationPlanAndItemList" entry="allocationPlanAndItem">
+            <entity-one entity-name="OrderHeader" value-field="orderHeader">
+                <field-map field-name="orderId" from-field="allocationPlanAndItem.orderId"/>
+            </entity-one>
+            <get-related-one value-field="orderHeader" relation-name="ProductStore" to-value-field="productStore"/>
+            <if-compare field="productStore.allocateInventory" operator="not-equals" value="Y">
+                <continue></continue>
+            </if-compare>
+            <entity-one entity-name="OrderItem" value-field="orderItem">
+                <field-map field-name="orderId" from-field="allocationPlanAndItem.orderId"/>
+                <field-map field-name="orderItemSeqId" from-field="allocationPlanAndItem.orderItemSeqId"/>
+            </entity-one>
+            <if-not-empty field="orderItem.reserveAfterDate">
+                <if-compare-field field="orderItem.reserveAfterDate" operator="greater" to-field="nowTimestamp" type="Timestamp">
+                    <continue></continue>
+                </if-compare-field>
+            </if-not-empty>
+
+            <!-- maintain a Set (in a Map) of orderIds that we have inventory allocated-->
+            <if-not-empty field="allocationPlanAndItem.allocatedQuantity">
+                <if-compare field="allocationPlanAndItem.allocatedQuantity" operator="greater" value="0" type="BigDecimal">
+                    <set field="touchedOrderIdMap[allocationPlanAndItem.orderId]" value="Y"/>
+                    <log level="verbose" message="Adding ${allocationPlanAndItem.orderId} to touchedOrderIdMap"/>
+                </if-compare>
+            </if-not-empty>
+
+            <entity-and entity-name="OrderItemShipGroup" list="orderItemShipGroups">
+                <field-map field-name="orderId" from-field="allocationPlanAndItem.orderId"/>
+            </entity-and>
+            <first-from-list list="orderItemShipGroups" entry="orderItemShipGroup"/>
+
+            <!-- Check for existing reservations of the order item -->
+            <entity-condition entity-name="OrderItemShipGrpInvRes" list="orderItemShipGrpInvResList">
+                <condition-list combine="and">
+                    <condition-expr field-name="orderId" operator="equals" from-field="allocationPlanAndItem.orderId"/>
+                    <condition-expr field-name="orderItemSeqId" operator="equals" from-field="allocationPlanAndItem.orderItemSeqId"/>
+                    <condition-expr field-name="shipGroupSeqId" operator="equals" from-field="orderItemShipGroup.shipGroupSeqId"/>
+                </condition-list>
+            </entity-condition>
+
+            <!-- Calculated already reserved quantity for the order item -->
+            <set field="totalReservedQuantity" value="0.0"/>
+            <iterate list="orderItemShipGrpInvResList" entry="orderItemShipGrpInvRes">
+                <calculate field="reservedQuantity" decimal-scale="6">
+                    <calcop operator="add" field="orderItemShipGrpInvRes.quantity"/>
+                    <calcop operator="subtract" field="orderItemShipGrpInvRes.quantityNotAvailable"/>
+                </calculate>
+                <calculate field="totalReservedQuantity" decimal-scale="6">
+                    <calcop operator="add" field="reservedQuantity"/>
+                    <calcop operator="add" field="totalReservedQuantity"/>
+                </calculate>
+            </iterate>
+            <calculate field="toBeRservedQuantity">
+                <calcop operator="subtract">
+                    <calcop operator="get" field="allocationPlanAndItem.allocatedQuantity"/>
+                    <calcop operator="get" field="totalReservedQuantity"/>
+                </calcop>
+            </calculate>
+
+            <!-- require inventory is N because it had to be N to begin with to have a negative ATP -->
+            <clear-field field="resMap"/>
+            <set field="resMap.productId" from-field="parameters.productId"/>
+            <set field="resMap.orderId" from-field="allocationPlanAndItem.orderId"/>
+            <set field="resMap.orderItemSeqId" from-field="allocationPlanAndItem.orderItemSeqId"/>
+            <set field="resMap.quantity" from-field="toBeRservedQuantity"/>
+            <set field="resMap.reservedDatetime" value="${nowTimestamp}"/>
+            <set field="resMap.requireInventory" value="Y"/>
+            <set field="resMap.shipGroupSeqId" from-field="orderItemShipGroup.shipGroupSeqId"/>
+            <set field="resMap.facilityId" from-field="parameters.facilityId"/>
+            <set field="resMap.priority" from-field="allocationPlanAndItem.prioritySeqId" type="String"/>
+            <log level="info" message="Reserving product [${resMap.productId}] for order item [${resMap.orderId}:${resMap.orderItemSeqId}] quantity [${toBeRservedQuantity}]; facility [${parameters.facilityId}]"/>
+            <call-service service-name="reserveProductInventoryByFacility" in-map-name="resMap"/>
+        </iterate>
         <!-- now go through touchedOrderIdMap keys and make a Set/Map of orderIds that are no longer on back-order -->
         <iterate-map key="touchedOrderId" value="throwAwayValue" map="touchedOrderIdMap">
             <set field="checkOrderIsOnBackOrderMap.orderId" from-field="touchedOrderId"/>

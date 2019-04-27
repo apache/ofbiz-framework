@@ -46,7 +46,18 @@ under the License.
     <SecurityPermission description="Create sales forecasts in the Order Manager." permissionId="ORDERMGR_4C_CREATE"/>
     <SecurityPermission description="Update sales forecasts in the Order Manager." permissionId="ORDERMGR_4C_UPDATE"/>
 
+    <SecurityPermission description="Create Allocation Plan" permissionId="ALLOCPLAN_CREATE"/>
+    <SecurityPermission description="Update Allocation Plan" permissionId="ALLOCPLAN_UPDATE"/>
+    <SecurityPermission description="Approve Allocation Plan" permissionId="ALLOCPLAN_APPROVE"/>
+    <SecurityPermission description="Cancel Allocation Plan" permissionId="ALLOCPLAN_CANCEL"/>
+    <SecurityPermission description="View Allocation Plan" permissionId="ALLOCPLAN_VIEW"/>
+
     <!-- add admin to SUPER permission group -->
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="ORDERMGR_ADMIN"/>
     <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="ORDERMGR_CRQ_ADMIN"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="ALLOCPLAN_CREATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="ALLOCPLAN_UPDATE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="ALLOCPLAN_APPROVE"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="ALLOCPLAN_CANCEL"/>
+    <SecurityGroupPermission fromDate="2001-05-13 12:00:00.0" groupId="SUPER" permissionId="ALLOCPLAN_VIEW"/>
 </entity-engine-xml>

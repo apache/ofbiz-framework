@@ -471,4 +471,28 @@ under the License.
     <eca service="updateShipGroupShipInfo" event="commit">
         <action service="resetGrandTotal" mode="sync"/>
     </eca>
+    <eca service="storeOrder" event="return">
+        <condition field-name="orderTypeId" operator="equals" value="SALES_ORDER"/>
+        <condition-service service-name="isInventoryAllocationRequired"/>
+        <action service="associateOrderWithAllocationPlans" mode="sync"/>
+    </eca>
+    <eca service="changeOrderItemStatus" event="commit">
+        <condition field-name="statusId" operator="equals" value="ITEM_COMPLETED"/>
+        <action service="completeAllocationPlanItemByOrderItem" mode="sync"/>
+    </eca>
+    <eca service="changeOrderItemStatus" event="commit">
+        <condition field-name="statusId" operator="equals" value="ITEM_CANCELLED"/>
+        <action service="cancelAllocationPlanItemByOrderItem" mode="sync"/>
+    </eca>
+    <eca service="updateOrderItems" event="commit">
+        <action service="updateAllocatedQuantityOnOrderItemChange" mode="sync"/>
+    </eca>
+    <eca service="changeAllocationPlanStatus" event="commit">
+        <condition field-name="statusId" operator="equals" value="ALLOC_PLAN_APPROVED"/>
+        <action service="approveAllocationPlanItems" mode="sync"/>
+    </eca>
+    <eca service="changeAllocationPlanStatus" event="commit">
+        <condition field-name="statusId" operator="equals" value="ALLOC_PLAN_CANCELLED"/>
+        <action service="cancelAllocationPlanItems" mode="sync"/>
+    </eca>
 </service-eca>

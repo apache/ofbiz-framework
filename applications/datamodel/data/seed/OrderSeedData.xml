@@ -377,4 +377,29 @@ under the License.
     <WorkReqFulfType description="Tests" workReqFulfTypeId="WRF_TESTS"/>
     <WorkReqFulfType description="Delivers" workReqFulfTypeId="WRF_DELIVERS"/>
 
+    <!--Sales Allocation Planning -->
+    <AllocationPlanType description="Sales Order Allocation Plan" hasTable="N" planTypeId="SALES_ORD_ALLOCATION"/>
+    <StatusType description="Allocation Plan Status" hasTable="N" statusTypeId="ALLOC_PLAN_STATUS"/>
+    <StatusType description="Allocation Plan Item Status" hasTable="N" parentTypeId="ALLOC_PLAN_STATUS" statusTypeId="ALLOC_PLAN_ITEM_STTS"/>
+    <EnumerationType description="Allocation Plan Method" enumTypeId="ALLOC_PLAN_METHOD" hasTable="N"/>
+    <StatusItem description="Created" sequenceId="01" statusCode="CREATED" statusId="ALLOC_PLAN_CREATED" statusTypeId="ALLOC_PLAN_STATUS"/>
+    <StatusItem description="Approved" sequenceId="02" statusCode="APPROVED" statusId="ALLOC_PLAN_APPROVED" statusTypeId="ALLOC_PLAN_STATUS"/>
+    <StatusItem description="Completed" sequenceId="03" statusCode="COMPLETED" statusId="ALLOC_PLAN_COMPLETED" statusTypeId="ALLOC_PLAN_STATUS"/>
+    <StatusItem description="Cancelled" sequenceId="04" statusCode="CANCELLED" statusId="ALLOC_PLAN_CANCELLED" statusTypeId="ALLOC_PLAN_STATUS"/>
+    <StatusItem description="Created" sequenceId="01" statusCode="CREATED" statusId="ALLOC_PLAN_ITEM_CRTD" statusTypeId="ALLOC_PLAN_ITEM_STTS"/>
+    <StatusItem description="Approved" sequenceId="02" statusCode="APPROVED" statusId="ALLOC_PLAN_ITEM_APRV" statusTypeId="ALLOC_PLAN_ITEM_STTS"/>
+    <StatusItem description="Completed" sequenceId="03" statusCode="COMPLETED" statusId="ALLOC_PLAN_ITEM_CMPL" statusTypeId="ALLOC_PLAN_ITEM_STTS"/>
+    <StatusItem description="Cancelled" sequenceId="04" statusCode="CANCELLED" statusId="ALLOC_PLAN_ITEM_CNCL" statusTypeId="ALLOC_PLAN_ITEM_STTS"/>
+    <Enumeration description="Auto" enumCode="AUTO" enumId="AUTO" enumTypeId="ALLOC_PLAN_METHOD" sequenceId="01"/>
+    <Enumeration description="Manual" enumCode="MANUAL" enumId="MANUAL" enumTypeId="ALLOC_PLAN_METHOD" sequenceId="02"/>
+    <StatusValidChange statusId='ALLOC_PLAN_CREATED' statusIdTo='ALLOC_PLAN_APPROVED' transitionName='Approve'/>
+    <StatusValidChange statusId='ALLOC_PLAN_CREATED' statusIdTo='ALLOC_PLAN_CANCELLED' transitionName='Cancel'/>
+    <StatusValidChange statusId='ALLOC_PLAN_APPROVED' statusIdTo='ALLOC_PLAN_CREATED' transitionName='Create'/>
+    <StatusValidChange statusId='ALLOC_PLAN_APPROVED' statusIdTo='ALLOC_PLAN_COMPLETED' transitionName='Complete'/>
+    <StatusValidChange statusId='ALLOC_PLAN_APPROVED' statusIdTo='ALLOC_PLAN_CANCELLED' transitionName='Cancel'/>
+    <StatusValidChange statusId='ALLOC_PLAN_ITEM_CRTD' statusIdTo='ALLOC_PLAN_ITEM_APRV' transitionName='Approve'/>
+    <StatusValidChange statusId='ALLOC_PLAN_ITEM_CRTD' statusIdTo='ALLOC_PLAN_ITEM_CNCL' transitionName='Cancel'/>
+    <StatusValidChange statusId='ALLOC_PLAN_ITEM_APRV' statusIdTo='ALLOC_PLAN_ITEM_CRTD' transitionName='Create'/>
+    <StatusValidChange statusId='ALLOC_PLAN_ITEM_APRV' statusIdTo='ALLOC_PLAN_ITEM_CMPL' transitionName='Complete'/>
+    <StatusValidChange statusId='ALLOC_PLAN_ITEM_APRV' statusIdTo='ALLOC_PLAN_ITEM_CNCL' transitionName='Cancel'/>
 </entity-engine-xml>
