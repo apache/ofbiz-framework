@@ -27,6 +27,7 @@ public class DelegatorFactoryImpl extends DelegatorFactory {
     public static final String module = DelegatorFactoryImpl.class.getName();
 
     // TODO: this method should propagate the GenericEntityException
+    @Override
     public Delegator getInstance(String delegatorName) {
         if (Debug.infoOn()) {
             Debug.logInfo("Creating new delegator [" + delegatorName + "] (" + Thread.currentThread().getName() + ")", module);

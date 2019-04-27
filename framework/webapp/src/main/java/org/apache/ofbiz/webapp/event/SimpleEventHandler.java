@@ -31,7 +31,6 @@ import org.apache.ofbiz.entity.transaction.GenericTransactionException;
 import org.apache.ofbiz.entity.transaction.TransactionUtil;
 import org.apache.ofbiz.minilang.MiniLangException;
 import org.apache.ofbiz.minilang.SimpleMethod;
-import org.apache.ofbiz.webapp.control.ConfigXMLReader;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader.Event;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
 
@@ -44,15 +43,11 @@ public class SimpleEventHandler implements EventHandler {
     /** Contains the property file name for translation of error messages. */
     public static final String err_resource = "WebappUiLabels";
 
-    /**
-     * @see org.apache.ofbiz.webapp.event.EventHandler#init(javax.servlet.ServletContext)
-     */
+    @Override
     public void init(ServletContext context) throws EventHandlerException {
     }
 
-    /**
-     * @see org.apache.ofbiz.webapp.event.EventHandler#invoke(ConfigXMLReader.Event, ConfigXMLReader.RequestMap, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-     */
+    @Override
     public String invoke(Event event, RequestMap requestMap, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
         boolean beganTransaction = false;
 

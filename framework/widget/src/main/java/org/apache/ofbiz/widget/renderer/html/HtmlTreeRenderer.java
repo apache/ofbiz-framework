@@ -55,6 +55,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
 
     public HtmlTreeRenderer() {}
 
+    @Override
     public void renderNodeBegin(Appendable writer, Map<String, Object> context, ModelTree.ModelNode node, int depth) throws IOException {
         String currentNodeTrailPiped = null;
         List<String> currentNodeTrail = UtilGenerics.toList(context.get("currentNodeTrail"));
@@ -131,6 +132,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
         }
     }
 
+    @Override
     public void renderNodeEnd(Appendable writer, Map<String, Object> context, ModelTree.ModelNode node) throws IOException {
         Boolean processChildren = (Boolean) context.get("processChildren");
         if (processChildren) {
@@ -147,6 +149,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
         }
     }
 
+    @Override
     public void renderLastElement(Appendable writer, Map<String, Object> context, ModelTree.ModelNode node) throws IOException {
         Boolean processChildren = (Boolean) context.get("processChildren");
         if (processChildren) {
@@ -155,6 +158,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
         }
     }
 
+    @Override
     public void renderLabel(Appendable writer, Map<String, Object> context, ModelTree.ModelNode.Label label) throws IOException {
         // open tag
         writer.append("<span");
@@ -182,6 +186,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
     }
 
 
+    @Override
     public void renderLink(Appendable writer, Map<String, Object> context, ModelTree.ModelNode.Link link) throws IOException {
         // open tag
         writer.append("<a");
@@ -265,6 +270,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
         writer.append("</a>");
     }
 
+    @Override
     public void renderImage(Appendable writer, Map<String, Object> context, ModelTree.ModelNode.Image image) throws IOException {
         // open tag
         writer.append("<img ");
@@ -332,6 +338,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
 
     }
 
+    @Override
     public ScreenStringRenderer getScreenStringRenderer(Map<String, Object> context) {
         VisualTheme visualTheme = (VisualTheme) context.get("visualTheme");
         ModelTheme modelTheme = visualTheme.getModelTheme();

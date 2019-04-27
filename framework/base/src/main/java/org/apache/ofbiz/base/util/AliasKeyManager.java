@@ -43,6 +43,7 @@ public class AliasKeyManager implements X509KeyManager {
     }
 
     // this is where the customization comes in
+    @Override
     public String chooseClientAlias(String[] keyTypes, Principal[] issuers, Socket socket) {
         for (String keyType: keyTypes) {
             String[] aliases = keyManager.getClientAliases(keyType, null); // ignoring the issuers
@@ -61,6 +62,7 @@ public class AliasKeyManager implements X509KeyManager {
     }
 
     // these just pass through the keyManager
+    @Override
     public String chooseServerAlias(String keyType, Principal[] issuers, Socket socket) {
         return keyManager.chooseServerAlias(keyType, issuers, socket);
     }
@@ -70,6 +72,7 @@ public class AliasKeyManager implements X509KeyManager {
         return keyManager.chooseServerAlias(keyType, issuers, socket);
     }
 
+    @Override
     public X509Certificate[] getCertificateChain(String alias) {
         X509Certificate[] certArray = keyManager.getCertificateChain(alias);
         if (Debug.verboseOn()) {
@@ -78,10 +81,12 @@ public class AliasKeyManager implements X509KeyManager {
         return certArray;
     }
 
+    @Override
     public String[] getClientAliases(String keyType, Principal[] issuers) {
         return keyManager.getClientAliases(keyType, issuers);
     }
 
+    @Override
     public PrivateKey getPrivateKey(String alias) {
         PrivateKey pk = keyManager.getPrivateKey(alias);
         if (Debug.verboseOn()) {
@@ -90,6 +95,7 @@ public class AliasKeyManager implements X509KeyManager {
         return pk;
     }
 
+    @Override
     public String[] getServerAliases(String keyType, Principal[] issuers) {
         return keyManager.getServerAliases(keyType, issuers);
     }

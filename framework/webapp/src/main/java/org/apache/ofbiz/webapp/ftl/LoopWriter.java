@@ -29,14 +29,17 @@ public class LoopWriter extends Writer implements TransformControl {
     public LoopWriter(Writer out) {
     }
 
+    @Override
     public int onStart() throws TemplateModelException, IOException {
         return TransformControl.EVALUATE_BODY;
     }
 
+    @Override
     public int afterBody() throws TemplateModelException, IOException {
         return TransformControl.END_EVALUATION;
     }
 
+    @Override
     public void onError(Throwable t) throws Throwable {
         throw t;
     }

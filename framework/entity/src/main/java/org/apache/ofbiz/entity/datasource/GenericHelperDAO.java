@@ -51,6 +51,7 @@ public class GenericHelperDAO implements GenericHelper {
         genericDAO = GenericDAO.getGenericDAO(helperInfo);
     }
 
+    @Override
     public String getHelperName() {
         return this.helperInfo.getHelperFullName();
     }
@@ -58,6 +59,7 @@ public class GenericHelperDAO implements GenericHelper {
     /** Creates a Entity in the form of a GenericValue and write it to the database
      *@return GenericValue instance containing the new instance
      */
+    @Override
     public GenericValue create(GenericValue value) throws GenericEntityException {
         if (value == null) {
             return null;
@@ -71,6 +73,7 @@ public class GenericHelperDAO implements GenericHelper {
      *@param primaryKey The primary key to find by.
      *@return The GenericValue corresponding to the primaryKey
      */
+    @Override
     public GenericValue findByPrimaryKey(GenericPK primaryKey) throws GenericEntityException {
         if (primaryKey == null) {
             return null;
@@ -86,6 +89,7 @@ public class GenericHelperDAO implements GenericHelper {
      *@param keys The keys, or names, of the values to retrieve; only these values will be retrieved
      *@return The GenericValue corresponding to the primaryKey
      */
+    @Override
     public GenericValue findByPrimaryKeyPartial(GenericPK primaryKey, Set<String> keys) throws GenericEntityException {
         if (primaryKey == null) {
             return null;
@@ -102,6 +106,7 @@ public class GenericHelperDAO implements GenericHelper {
      *@param primaryKeys A List of primary keys to find by.
      *@return List of GenericValue objects corresponding to the passed primaryKey objects
      */
+    @Override
     public List<GenericValue> findAllByPrimaryKeys(List<GenericPK> primaryKeys) throws GenericEntityException {
         if (primaryKeys == null) return null;
         List<GenericValue> results = new LinkedList<>();
@@ -118,6 +123,7 @@ public class GenericHelperDAO implements GenericHelper {
      *@param  primaryKey  The primary key of the entity to remove.
      *@return int representing number of rows effected by this operation
      */
+    @Override
     public int removeByPrimaryKey(GenericPK primaryKey) throws GenericEntityException {
         if (primaryKey == null) return 0;
         if (Debug.verboseOn()) Debug.logVerbose("Removing GenericPK: " + primaryKey.toString(), module);
@@ -135,17 +141,20 @@ public class GenericHelperDAO implements GenericHelper {
      *      DONE WITH IT (preferably in a finally block), 
      *      AND DON'T LEAVE IT OPEN TOO LONG BECAUSE IT WILL MAINTAIN A DATABASE CONNECTION.
      */
+    @Override
     public EntityListIterator findListIteratorByCondition(Delegator delegator, ModelEntity modelEntity, EntityCondition whereEntityCondition,
         EntityCondition havingEntityCondition, Collection<String> fieldsToSelect, List<String> orderBy, EntityFindOptions findOptions)
         throws GenericEntityException {
         return genericDAO.selectListIteratorByCondition(delegator, modelEntity, whereEntityCondition, havingEntityCondition, fieldsToSelect, orderBy, findOptions);
     }
 
+    @Override
     public List<GenericValue> findByMultiRelation(GenericValue value, ModelRelation modelRelationOne, ModelEntity modelEntityOne,
         ModelRelation modelRelationTwo, ModelEntity modelEntityTwo, List<String> orderBy) throws GenericEntityException {
         return genericDAO.selectByMultiRelation(value, modelRelationOne, modelEntityOne, modelRelationTwo, modelEntityTwo, orderBy);
     }
 
+    @Override
     public long findCountByCondition(Delegator delegator, ModelEntity modelEntity, EntityCondition whereEntityCondition, EntityCondition havingEntityCondition, EntityFindOptions findOptions) throws GenericEntityException {
         return genericDAO.selectCountByCondition(delegator, modelEntity, whereEntityCondition, havingEntityCondition, findOptions);
     }
@@ -155,6 +164,7 @@ public class GenericHelperDAO implements GenericHelper {
      *@param condition The condition that restricts the list of removed values
      *@return int representing number of rows effected by this operation
      */
+    @Override
     public int removeByCondition(Delegator delegator, ModelEntity modelEntity, EntityCondition condition) throws GenericEntityException {
         if (modelEntity == null || condition == null) {
             return 0;
@@ -166,6 +176,7 @@ public class GenericHelperDAO implements GenericHelper {
      *@param value GenericValue instance containing the entity
      *@return int representing number of rows effected by this operation
      */
+    @Override
     public int store(GenericValue value) throws GenericEntityException {
         if (value == null) {
             return 0;
@@ -180,6 +191,7 @@ public class GenericHelperDAO implements GenericHelper {
      *@return int representing number of rows effected by this operation
      *@throws GenericEntityException
      */
+    @Override
     public int storeByCondition(Delegator delegator, ModelEntity modelEntity, Map<String, ? extends Object> fieldsToSet, EntityCondition condition) throws GenericEntityException {
         if (modelEntity == null || condition == null) {
             return 0;
@@ -192,6 +204,7 @@ public class GenericHelperDAO implements GenericHelper {
      *@param messages List to put any result messages in
      *@param addMissing Flag indicating whether or not to add missing entities and fields on the server
      */
+    @Override
     public void checkDataSource(Map<String, ModelEntity> modelEntities, List<String> messages, boolean addMissing) throws GenericEntityException {
         genericDAO.checkDb(modelEntities, messages, addMissing);
     }

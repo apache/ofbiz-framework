@@ -59,6 +59,7 @@ public class JmsQueueListener extends AbstractJmsListener {
         this.password = password;
     }
 
+    @Override
     public void close() throws GenericServiceException {
         try {
             session.close();
@@ -68,6 +69,7 @@ public class JmsQueueListener extends AbstractJmsListener {
         }
     }
 
+    @Override
     public synchronized void load() throws GenericServiceException {
         try {
             InitialContext jndi = JNDIContextFactory.getInitialContext(jndiServer);

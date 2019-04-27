@@ -59,6 +59,7 @@ public class ICalHandlerFactory implements RequestHandlerFactory {
         handlerMap.put("UNLOCK", ICalHandlerFactory::doNothing);
     }
 
+    @Override
     public RequestHandler getHandler(String method) {
         RequestHandler handler = handlerMap.get(method);
         if (handler == null) {

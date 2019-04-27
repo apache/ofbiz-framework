@@ -79,9 +79,7 @@ public abstract class GenericXaResource extends Thread implements XAResource {
         }
     }
 
-    /**
-     * @see javax.transaction.xa.XAResource#start(javax.transaction.xa.Xid xid, int flag)
-     */
+    @Override
     public void start(Xid xid, int flag) throws XAException {
         if (this.active) {
             if (this.xid != null && this.xid.equals(xid)) {
@@ -100,9 +98,7 @@ public abstract class GenericXaResource extends Thread implements XAResource {
         this.start();
     }
 
-    /**
-     * @see javax.transaction.xa.XAResource#end(javax.transaction.xa.Xid xid, int flag)
-     */
+    @Override
     public void end(Xid xid, int flag) throws XAException {
         if (!this.active) {
             throw new XAException(XAException.XAER_PROTO);
@@ -114,9 +110,7 @@ public abstract class GenericXaResource extends Thread implements XAResource {
         this.active = false;
     }
 
-    /**
-     * @see javax.transaction.xa.XAResource#forget(javax.transaction.xa.Xid xid)
-     */
+    @Override
     public void forget(Xid xid) throws XAException {
         if (this.xid == null || !this.xid.equals(xid)) {
             throw new XAException(XAException.XAER_NOTA);
@@ -128,9 +122,7 @@ public abstract class GenericXaResource extends Thread implements XAResource {
         }
     }
 
-    /**
-     * @see javax.transaction.xa.XAResource#prepare(javax.transaction.xa.Xid xid)
-     */
+    @Override
     public int prepare(Xid xid) throws XAException {
         if (this.xid == null || !this.xid.equals(xid)) {
             throw new XAException(XAException.XAER_NOTA);
@@ -138,9 +130,7 @@ public abstract class GenericXaResource extends Thread implements XAResource {
         return XA_OK;
     }
 
-    /**
-     * @see javax.transaction.xa.XAResource#recover(int flag)
-     */
+    @Override
     public Xid[] recover(int flag) throws XAException {
         if (this.xid == null) {
             return new Xid[0];
@@ -148,24 +138,17 @@ public abstract class GenericXaResource extends Thread implements XAResource {
         return new Xid[] {this.xid};
     }
 
-    /**
-     * @see javax.transaction.xa.XAResource#isSameRM(javax.transaction.xa.XAResource xaResource)
-     */
+    @Override
     public boolean isSameRM(XAResource xaResource) throws XAException {
         return xaResource == this;
     }
 
-    /**
-     * @see javax.transaction.xa.XAResource#getTransactionTimeout()
-     */
+    @Override
     public int getTransactionTimeout() throws XAException {
         return this.timeout == null ? 0 : this.timeout;
     }
 
-    /**
-     * @see javax.transaction.xa.XAResource#setTransactionTimeout(int seconds)
-     * Note: the valus is saved but in the current implementation this is not used.
-     */
+    @Override
     public boolean setTransactionTimeout(int seconds) throws XAException {
         this.timeout = (seconds == 0 ? null : seconds);
         return true;
@@ -183,14 +166,10 @@ public abstract class GenericXaResource extends Thread implements XAResource {
         return this.xid;
     }
 
-    /**
-     * @see javax.transaction.xa.XAResource#commit(javax.transaction.xa.Xid xid, boolean onePhase)
-     */
+    @Override
     public abstract void commit(Xid xid, boolean onePhase) throws XAException;
 
-    /**
-     * @see javax.transaction.xa.XAResource#rollback(javax.transaction.xa.Xid xid)
-     */
+    @Override
     public abstract void rollback(Xid xid) throws XAException;
 
     /**

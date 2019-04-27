@@ -79,6 +79,7 @@ public class CategoryContentWrapper implements ContentWrapper {
         this.mimeTypeId = EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8", (Delegator) request.getAttribute("delegator"));
     }
 
+    @Override
     public StringUtil.StringWrapper get(String prodCatContentTypeId, String encoderType) {
         return StringUtil.makeStringWrapper(getProductCategoryContentAsText(productCategory, prodCatContentTypeId, locale, mimeTypeId, productCategory.getDelegator(), dispatcher, encoderType));
     }

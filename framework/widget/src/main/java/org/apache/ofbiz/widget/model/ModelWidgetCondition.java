@@ -160,6 +160,7 @@ public abstract class ModelWidgetCondition implements Serializable {
             }
         };
 
+        @Override
         public Condition newInstance(ModelWidget modelWidget, Element conditionElement) {
             if (conditionElement == null) {
                 return TRUE;

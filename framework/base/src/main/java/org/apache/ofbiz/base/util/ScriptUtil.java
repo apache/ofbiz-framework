@@ -409,6 +409,7 @@ public final class ScriptUtil {
             this.bindings = bindings;
             this.protectedKeys = protectedKeys;
         }
+        @Override
         public void clear() {
             for (String key : bindings.keySet()) {
                 if (!protectedKeys.contains(key)) {
@@ -416,12 +417,15 @@ public final class ScriptUtil {
                 }
             }
         }
+        @Override
         public boolean containsKey(Object key) {
             return bindings.containsKey(key);
         }
+        @Override
         public boolean containsValue(Object value) {
             return bindings.containsValue(value);
         }
+        @Override
         public Set<java.util.Map.Entry<String, Object>> entrySet() {
             return bindings.entrySet();
         }
@@ -429,6 +433,7 @@ public final class ScriptUtil {
         public boolean equals(Object o) {
             return bindings.equals(o);
         }
+        @Override
         public Object get(Object key) {
             return bindings.get(key);
         }
@@ -436,12 +441,15 @@ public final class ScriptUtil {
         public int hashCode() {
             return bindings.hashCode();
         }
+        @Override
         public boolean isEmpty() {
             return bindings.isEmpty();
         }
+        @Override
         public Set<String> keySet() {
             return bindings.keySet();
         }
+        @Override
         public Object put(String key, Object value) {
             Assert.notNull("key", key);
             if (protectedKeys.contains(key)) {
@@ -451,6 +459,7 @@ public final class ScriptUtil {
             }
             return bindings.put(key, value);
         }
+        @Override
         public void putAll(Map<? extends String, ? extends Object> map) {
             for (Map.Entry<? extends String, ? extends Object> entry : map.entrySet()) {
                 Assert.notNull("key", entry.getKey());
@@ -459,6 +468,7 @@ public final class ScriptUtil {
                 }
             }
         }
+        @Override
         public Object remove(Object key) {
             if (protectedKeys.contains(key)) {
                 UnsupportedOperationException e = new UnsupportedOperationException("Variable " + key + " is read-only");
@@ -467,9 +477,11 @@ public final class ScriptUtil {
             }
             return bindings.remove(key);
         }
+        @Override
         public int size() {
             return bindings.size();
         }
+        @Override
         public Collection<Object> values() {
             return bindings.values();
         }

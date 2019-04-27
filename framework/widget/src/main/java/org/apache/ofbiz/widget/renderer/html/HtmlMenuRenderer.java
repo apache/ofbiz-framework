@@ -114,6 +114,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         }
     }
 
+    @Override
     public void renderFormatSimpleWrapperRows(Appendable writer, Map<String, Object> context, Object menuObj) throws IOException {
         List<ModelMenuItem> menuItemList = ((ModelMenu) menuObj).getMenuItemList();
         for (ModelMenuItem currentMenuItem: menuItemList) {
@@ -121,6 +122,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         }
     }
 
+    @Override
     public void renderMenuItem(Appendable writer, Map<String, Object> context, ModelMenuItem menuItem) throws IOException {
         boolean hideThisItem = isHideIfSelected(menuItem, context);
 
@@ -203,6 +205,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         return disabled;
     }
 
+    @Override
     public void renderMenuOpen(Appendable writer, Map<String, Object> context, ModelMenu modelMenu) throws IOException {
 
         this.widgetCommentsEnabled = ModelWidget.widgetBoundaryCommentsEnabled(context);
@@ -240,9 +243,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         }
     }
 
-    /* (non-Javadoc)
-     * @see org.apache.ofbiz.widget.menu.MenuStringRenderer#renderMenuClose(java.io.Writer, java.util.Map, org.apache.ofbiz.widget.menu.ModelMenu)
-     */
+    @Override
     public void renderMenuClose(Appendable writer, Map<String, Object> context, ModelMenu modelMenu) throws IOException {
         // TODO: div can't be directly inside an UL
         String fillStyle = modelMenu.getFillStyle();
@@ -272,9 +273,11 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         }
     }
 
+    @Override
     public void renderFormatSimpleWrapperOpen(Appendable writer, Map<String, Object> context, ModelMenu modelMenu) throws IOException {
     }
 
+    @Override
     public void renderFormatSimpleWrapperClose(Appendable writer, Map<String, Object> context, ModelMenu modelMenu) throws IOException {
     }
 
@@ -338,6 +341,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         return title;
     }
 
+    @Override
     public void renderLink(Appendable writer, Map<String, Object> context, ModelMenuItem.MenuLink link) throws IOException {
         String target = link.getTarget(context);
         ModelMenuItem menuItem = link.getLinkMenuItem();
@@ -443,6 +447,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
 
     }
 
+    @Override
     public void renderImage(Appendable writer, Map<String, Object> context, Image image) throws IOException {
         // open tag
         writer.append("<img ");

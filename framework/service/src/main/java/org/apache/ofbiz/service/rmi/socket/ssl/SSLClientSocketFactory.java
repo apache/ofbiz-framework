@@ -39,6 +39,7 @@ public class SSLClientSocketFactory implements RMIClientSocketFactory, Serializa
 
     public static final String module = SSLClientSocketFactory.class.getName();
 
+    @Override
     public Socket createSocket(String host, int port) throws IOException {
         try {
             SSLSocketFactory factory = SSLUtil.getSSLSocketFactory();

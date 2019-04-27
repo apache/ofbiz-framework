@@ -96,6 +96,7 @@ public class OrderByList implements Comparator<GenericEntity> {
         }
     }
 
+    @Override
     public int compare(GenericEntity entity1, GenericEntity entity2) {
         int result = 0;
         for (OrderByItem orderByItem: orderByList) {

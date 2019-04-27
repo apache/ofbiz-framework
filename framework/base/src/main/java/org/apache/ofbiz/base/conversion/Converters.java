@@ -201,6 +201,7 @@ OUTER:
         protected PassThruConverterCreator() {
         }
 
+        @Override
         public <S, T> Converter<S, T> createConverter(Class<S> sourceClass, Class<T> targetClass) {
             if (targetClass.isAssignableFrom(sourceClass)) {
                 return new PassThruConverter<>(sourceClass, targetClass);
@@ -223,24 +224,29 @@ OUTER:
             this.targetClass = targetClass;
         }
 
+        @Override
         public boolean canConvert(Class<?> sourceClass, Class<?> targetClass) {
             return this.sourceClass == sourceClass && this.targetClass == targetClass;
         }
 
+        @Override
         @SuppressWarnings("unchecked")
         public T convert(S obj) throws ConversionException {
             return (T) obj;
         }
 
+        @Override
         @SuppressWarnings("unchecked")
         public T convert(Class<? extends T> targetClass, S obj) throws ConversionException {
             return (T) obj;
         }
 
+        @Override
         public Class<?> getSourceClass() {
             return sourceClass;
         }
 
+        @Override
         public Class<?> getTargetClass() {
             return targetClass;
         }

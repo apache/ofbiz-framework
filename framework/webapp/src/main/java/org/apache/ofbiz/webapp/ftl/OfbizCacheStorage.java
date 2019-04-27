@@ -33,18 +33,22 @@ public class OfbizCacheStorage implements CacheStorage {
         this.localCache = UtilCache.createUtilCache("webapp.FreeMarkerCache." + id, 0, 0, false);
     }
 
+    @Override
     public Object get(Object key) {
         return localCache.get(key);
     }
 
+    @Override
     public void put(Object key, Object value) {
         localCache.put(key, value);
     }
 
+    @Override
     public void remove(Object key) {
         localCache.remove(key);
     }
 
+    @Override
     public void clear() {
         localCache.clear();
     }

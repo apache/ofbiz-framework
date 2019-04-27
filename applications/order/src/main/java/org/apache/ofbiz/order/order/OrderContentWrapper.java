@@ -76,6 +76,7 @@ public class OrderContentWrapper implements ContentWrapper {
         this.mimeTypeId = EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8", (Delegator) request.getAttribute("delegator"));
     }
 
+    @Override
     public StringUtil.StringWrapper get(String orderContentTypeId, String encoderType) {
         return StringUtil.makeStringWrapper(getOrderContentAsText(order, orderContentTypeId, locale, mimeTypeId, order.getDelegator(), dispatcher, encoderType));
     }

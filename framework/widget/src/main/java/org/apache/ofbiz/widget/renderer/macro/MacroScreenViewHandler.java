@@ -53,6 +53,7 @@ public class MacroScreenViewHandler extends AbstractViewHandler {
 
     protected ServletContext servletContext = null;
 
+    @Override
     public void init(ServletContext context) throws ViewHandlerException {
         this.servletContext = context;
     }
@@ -82,6 +83,7 @@ public class MacroScreenViewHandler extends AbstractViewHandler {
         return screenStringRenderer;
     }
 
+    @Override
     public void render(String name, String page, String info, String contentType, String encoding, HttpServletRequest request, HttpServletResponse response) throws ViewHandlerException {
         try {
             Writer writer = response.getWriter();

@@ -253,6 +253,7 @@ public final class ApacheFopWorker {
             this.defaultResolver = defaultResolver;
         }
 
+        @Override
         public Source resolve(String href, String base) throws TransformerException {
             URL locationUrl = null;
             try {

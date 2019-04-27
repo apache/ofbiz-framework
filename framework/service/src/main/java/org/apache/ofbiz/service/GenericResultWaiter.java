@@ -42,9 +42,7 @@ public class GenericResultWaiter implements GenericRequester {
     private Map<String, Object> result = null;
     private Throwable t = null;
 
-    /**
-     * @see org.apache.ofbiz.service.GenericRequester#receiveResult(java.util.Map)
-     */
+    @Override
     public synchronized void receiveResult(Map<String, Object> result) {
         this.result = result;
         completed = true;
@@ -53,9 +51,7 @@ public class GenericResultWaiter implements GenericRequester {
         if (Debug.verboseOn()) Debug.logVerbose("Received Result (" + completed + ") -- " + result, module);
     }
 
-    /**
-     * @see org.apache.ofbiz.service.GenericRequester#receiveThrowable(java.lang.Throwable)
-     */
+    @Override
     public synchronized void receiveThrowable(Throwable t) {
         this.t = t;
         completed = true;

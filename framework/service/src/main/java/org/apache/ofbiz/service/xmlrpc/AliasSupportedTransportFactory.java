@@ -54,6 +54,7 @@ public class AliasSupportedTransportFactory extends XmlRpcTransportFactoryImpl {
         transport = new AliasSupportedTransport(client, ks, password, alias);
     }
 
+    @Override
     public XmlRpcTransport getTransport() {
         return transport;
     }

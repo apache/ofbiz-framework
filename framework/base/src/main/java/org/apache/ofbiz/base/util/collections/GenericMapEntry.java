@@ -33,14 +33,17 @@ public class GenericMapEntry<K, V> implements Map.Entry<K, V> {
         this.noteAccess = noteAccess;
     }
 
+    @Override
     public K getKey() {
         return key;
     }
 
+    @Override
     public V getValue() {
         return map.get(key, noteAccess);
     }
 
+    @Override
     public V setValue(V value) {
         return map.put(key, value);
     }

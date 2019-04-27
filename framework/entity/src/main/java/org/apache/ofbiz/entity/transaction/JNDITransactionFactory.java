@@ -56,6 +56,7 @@ public class JNDITransactionFactory implements TransactionFactory {
 
     protected static final ConcurrentHashMap<String, DataSource> dsCache = new ConcurrentHashMap<>();
 
+    @Override
     public TransactionManager getTransactionManager() {
         if (transactionManager == null) {
             synchronized (JNDITransactionFactory.class) {
@@ -90,6 +91,7 @@ public class JNDITransactionFactory implements TransactionFactory {
         return transactionManager;
     }
 
+    @Override
     public UserTransaction getUserTransaction() {
         if (userTransaction == null) {
             synchronized (JNDITransactionFactory.class) {
@@ -125,10 +127,12 @@ public class JNDITransactionFactory implements TransactionFactory {
         return userTransaction;
     }
 
+    @Override
     public String getTxMgrName() {
         return "jndi";
     }
 
+    @Override
     public Connection getConnection(GenericHelperInfo helperInfo) throws SQLException, GenericEntityException {
         Datasource datasourceInfo = EntityConfig.getDatasource(helperInfo.getHelperBaseName());
 
@@ -207,5 +211,6 @@ public class JNDITransactionFactory implements TransactionFactory {
         return null;
     }
 
+    @Override
     public void shutdown() {}
 }

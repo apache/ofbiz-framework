@@ -72,6 +72,7 @@ public class TestRunContainer implements Container {
         this.jsWrapper = prepareJunitSuiteWrapper(testProps);
     }
 
+    @Override
     public boolean start() throws ContainerException {
         boolean failedRun = false;
         for (ModelTestSuite modelSuite: jsWrapper.getModelTestSuites()) {
@@ -102,9 +103,11 @@ public class TestRunContainer implements Container {
         return true;
     }
 
+    @Override
     public void stop() {
     }
 
+    @Override
     public String getName() {
         return name;
     }
@@ -192,18 +195,22 @@ public class TestRunContainer implements Container {
 
     class JunitListener implements TestListener {
 
+        @Override
         public void addError(Test test, Throwable throwable) {
             Debug.logWarning(throwable, "[JUNIT (error)] - " + getTestName(test) + " : " + throwable.toString(), module);
         }
 
+        @Override
         public void addFailure(Test test, AssertionFailedError assertionFailedError) {
             Debug.logWarning("[JUNIT (failure)] - " + getTestName(test) + " : " + assertionFailedError.getMessage(), module);
         }
 
+        @Override
         public void endTest(Test test) {
             Debug.logInfo("[JUNIT] : " + getTestName(test) + " finished.", module);
         }
 
+        @Override
         public void startTest(Test test) {
            Debug.logInfo("[JUNIT] : " + getTestName(test) + " starting...", module);
         }

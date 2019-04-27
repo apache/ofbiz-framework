@@ -72,6 +72,7 @@ public class SimpleFtpClient implements FtpClientInterface {
         return fileNames;
     }
 
+    @Override
     public void setBinaryTransfer(boolean isBinary) throws IOException {
         if (isBinary) {
             client.setFileType(FTP.BINARY_FILE_TYPE);
@@ -80,6 +81,7 @@ public class SimpleFtpClient implements FtpClientInterface {
         }
     }
 
+    @Override
     public void setPassiveMode(boolean isPassive) {
         if (isPassive) {
             client.enterLocalPassiveMode();

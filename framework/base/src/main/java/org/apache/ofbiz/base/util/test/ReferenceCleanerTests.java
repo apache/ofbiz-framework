@@ -37,18 +37,21 @@ public class ReferenceCleanerTests extends GenericTestCaseBase {
         final SynchronousQueue<String> queue = new SynchronousQueue<>();
         Object obj = new Object();
         ReferenceCleaner.Soft<Object> soft = new ReferenceCleaner.Soft<Object>(obj) {
+            @Override
             public void remove() throws Exception {
                 queue.put("soft");
                 Thread.currentThread().interrupt();
             }
         };
         ReferenceCleaner.Weak<Object> weak = new ReferenceCleaner.Weak<Object>(obj) {
+            @Override
             public void remove() throws Exception {
                 queue.put("weak");
                 throw new RuntimeException();
             }
         };
         new ReferenceCleaner.Phantom<Object>(obj) {
+            @Override
             public void remove() throws Exception {
                 queue.put("phantom");
             }

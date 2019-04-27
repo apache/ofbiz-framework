@@ -58,6 +58,7 @@ public class MultiTrustManager implements X509TrustManager {
         return keystores.size();
     }
 
+    @Override
     public void checkClientTrusted(X509Certificate[] certs, String alg) throws CertificateException {
         if (isTrusted(certs)) {
             return;
@@ -67,6 +68,7 @@ public class MultiTrustManager implements X509TrustManager {
         }
     }
 
+    @Override
     public void checkServerTrusted(X509Certificate[] certs, String alg) throws CertificateException {
         if (isTrusted(certs)) {
             return;
@@ -76,6 +78,7 @@ public class MultiTrustManager implements X509TrustManager {
         }
     }
 
+    @Override
     public X509Certificate[] getAcceptedIssuers() {
         List<X509Certificate> issuers = new LinkedList<>();
         for (KeyStore store: keystores) {

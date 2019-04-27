@@ -37,6 +37,7 @@ public class ComponentLocationResolver implements LocationResolver {
 
     public static final String module = ComponentLocationResolver.class.getName();
 
+    @Override
     public URL resolveLocation(String location) throws MalformedURLException {
         String baseLocation = getBaseLocation(location).toString();
         if (File.separatorChar != '/') {

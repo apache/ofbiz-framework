@@ -35,6 +35,7 @@ public class FileUploadProgressListener implements ProgressListener, Serializabl
     protected int items = -1;
     protected boolean hasStarted = false;
 
+    @Override
     public void update(long bytesRead, long contentLength, int items) {
         this.contentLength = contentLength;
         this.bytesRead = bytesRead;

@@ -49,6 +49,7 @@ public class EntityCacheServices implements DistributedCacheClear {
 
     public EntityCacheServices() {}
 
+    @Override
     public void setDelegator(Delegator delegator, String userLoginId) {
         this.delegator = delegator;
         this.dispatcher = EntityServiceFactory.getLocalDispatcher(delegator);
@@ -65,6 +66,7 @@ public class EntityCacheServices implements DistributedCacheClear {
         return userLogin;
     }
 
+    @Override
     public void distributedClearCacheLine(GenericValue value) {
         // Debug.logInfo("running distributedClearCacheLine for value: " + value, module);
         if (this.dispatcher == null) {
@@ -85,6 +87,7 @@ public class EntityCacheServices implements DistributedCacheClear {
         }
     }
 
+    @Override
     public void distributedClearCacheLineFlexible(GenericEntity dummyPK) {
         // Debug.logInfo("running distributedClearCacheLineFlexible for dummyPK: " + dummyPK, module);
         if (this.dispatcher == null) {
@@ -105,6 +108,7 @@ public class EntityCacheServices implements DistributedCacheClear {
         }
     }
 
+    @Override
     public void distributedClearCacheLineByCondition(String entityName, EntityCondition condition) {
         // Debug.logInfo("running distributedClearCacheLineByCondition for (name, condition): " + entityName + ", " + condition + ")", module);
         if (this.dispatcher == null) {
@@ -125,6 +129,7 @@ public class EntityCacheServices implements DistributedCacheClear {
         }
     }
 
+    @Override
     public void distributedClearCacheLine(GenericPK primaryKey) {
         // Debug.logInfo("running distributedClearCacheLine for primaryKey: " + primaryKey, module);
         if (this.dispatcher == null) {
@@ -145,6 +150,7 @@ public class EntityCacheServices implements DistributedCacheClear {
         }
     }
 
+    @Override
     public void clearAllCaches() {
         if (this.dispatcher == null) {
             Debug.logWarning("No dispatcher is available, somehow the setDelegator (which also creates a dispatcher) was not called, not running distributed clear all caches", module);

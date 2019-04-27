@@ -533,6 +533,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
             super(MimeMessageWrapper.class, String.class);
         }
 
+        @Override
         public String convert(MimeMessageWrapper obj) throws ConversionException {
             return obj.toString();
         }

@@ -40,6 +40,7 @@ public class CursorConnection extends AbstractCursorHandler {
         this.con = con;
     }
 
+    @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         if ("prepareStatement".equals(method.getName())) {
             Debug.logInfo("prepareStatement", module);

@@ -52,6 +52,7 @@ public class DelegatorEcaHandler implements EntityEcaHandler<EntityEcaRule> {
 
     public DelegatorEcaHandler() { }
 
+    @Override
     public void setDelegator(Delegator delegator) {
         this.delegator = delegator;
         this.delegatorName = delegator.getDelegatorName();
@@ -80,12 +81,14 @@ public class DelegatorEcaHandler implements EntityEcaHandler<EntityEcaRule> {
         }
     }
 
+    @Override
     public Map<String, List<EntityEcaRule>> getEntityEventMap(String entityName) {
         Map<String, Map<String, List<EntityEcaRule>>> ecaCache = EntityEcaUtil.getEntityEcaCache(this.entityEcaReaderName);
         if (ecaCache == null) return null;
         return ecaCache.get(entityName);
     }
 
+    @Override
     public void evalRules(String currentOperation, Map<String, List<EntityEcaRule>> eventMap, String event, GenericEntity value, boolean isError) throws GenericEntityException {
         // if the eventMap is passed we save a HashMap lookup, but if not that's okay we'll just look it up now
         if (eventMap == null) eventMap = this.getEntityEventMap(value.getEntityName());

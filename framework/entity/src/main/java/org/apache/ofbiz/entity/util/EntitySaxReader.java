@@ -269,6 +269,7 @@ public class EntitySaxReader extends DefaultHandler {
 
     // ======== ContentHandler interface implementation ========
 
+    @Override
     public void characters(char[] values, int offset, int count) throws SAXException {
         if (isParseForTemplate) {
             // if null, don't worry about it
@@ -294,6 +295,7 @@ public class EntitySaxReader extends DefaultHandler {
         }
     }
 
+    @Override
     public void endElement(String namespaceURI, String localName, String fullNameString) throws SAXException {
         if (Debug.verboseOn()) Debug.logVerbose("endElement: localName=" + localName + ", fullName=" + fullNameString + ", numberRead=" + numberRead, module);
         if ("entity-engine-xml".equals(fullNameString)) {
@@ -444,10 +446,12 @@ public class EntitySaxReader extends DefaultHandler {
         }
     }
 
+    @Override
     public void setDocumentLocator(org.xml.sax.Locator locator) {
         this.locator = locator;
     }
 
+    @Override
     public void startElement(String namepsaceURI, String localName, String fullNameString, Attributes attributes) throws SAXException {
         if (Debug.verboseOn()) Debug.logVerbose("startElement: localName=" + localName + ", fullName=" + fullNameString + ", attributes=" + attributes, module);
         if ("entity-engine-xml".equals(fullNameString)) {
@@ -584,15 +588,18 @@ public class EntitySaxReader extends DefaultHandler {
 
     // ======== ErrorHandler interface implementation ========
 
+    @Override
     public void error(org.xml.sax.SAXParseException exception) throws SAXException {
         Debug.logWarning(exception, "Error reading XML on line " + exception.getLineNumber() + ", column " + exception.getColumnNumber(), module);
     }
 
+    @Override
     public void fatalError(org.xml.sax.SAXParseException exception) throws SAXException {
         Debug.logError(exception, "Fatal Error reading XML on line " + exception.getLineNumber() + ", column " + exception.getColumnNumber(), module);
         throw new SAXException("Fatal Error reading XML on line " + exception.getLineNumber() + ", column " + exception.getColumnNumber(), exception);
     }
 
+    @Override
     public void warning(org.xml.sax.SAXParseException exception) throws SAXException {
         Debug.logWarning(exception, "Warning reading XML on line " + exception.getLineNumber() + ", column " + exception.getColumnNumber(), module);
     }

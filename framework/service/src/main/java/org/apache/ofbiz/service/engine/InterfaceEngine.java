@@ -32,40 +32,35 @@ public class InterfaceEngine implements GenericEngine {
 
     public InterfaceEngine(ServiceDispatcher dispatcher) { }
 
-    /**
-     * @see org.apache.ofbiz.service.engine.GenericEngine#runSync(java.lang.String, org.apache.ofbiz.service.ModelService, java.util.Map)
-     */
+    @Override
     public Map<String, Object> runSync(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
         throw new GenericServiceException("Interface services cannot be invoked; try invoking an implementing service.");
     }
 
-    /**
-     * @see org.apache.ofbiz.service.engine.GenericEngine#runSyncIgnore(java.lang.String, org.apache.ofbiz.service.ModelService, java.util.Map)
-     */
+    @Override
     public void runSyncIgnore(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
        throw new GenericServiceException("Interface services cannot be invoked; try invoking an implementing service.");
     }
 
-    /**
-     * @see org.apache.ofbiz.service.engine.GenericEngine#runAsync(java.lang.String, org.apache.ofbiz.service.ModelService, java.util.Map, org.apache.ofbiz.service.GenericRequester, boolean)
-     */
+    @Override
     public void runAsync(String localName, ModelService modelService, Map<String, Object> context, GenericRequester requester, boolean persist) throws GenericServiceException {
        throw new GenericServiceException("Interface services cannot be invoked; try invoking an implementing service.");
     }
 
-    /**
-     * @see org.apache.ofbiz.service.engine.GenericEngine#runAsync(java.lang.String, org.apache.ofbiz.service.ModelService, java.util.Map, boolean)
-     */
+    @Override
     public void runAsync(String localName, ModelService modelService, Map<String, Object> context, boolean persist) throws GenericServiceException {
         throw new GenericServiceException("Interface services cannot be invoked; try invoking an implementing service.");
     }
 
+    @Override
     public void sendCallbacks(ModelService modelService, Map<String, Object> context, int mode) throws GenericServiceException {
     }
 
+    @Override
     public void sendCallbacks(ModelService modelService, Map<String, Object> context, Map<String, Object> result, int mode) throws GenericServiceException {
     }
 
+    @Override
     public void sendCallbacks(ModelService modelService, Map<String, Object> context, Throwable t, int mode) throws GenericServiceException {
     }
 }

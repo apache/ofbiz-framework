@@ -289,6 +289,7 @@ public class StringUtilTests extends GenericTestCaseBase {
             this.s = s;
         }
 
+        @Override
         public StringBuilder appendTo(StringBuilder sb) {
             return sb.append(s);
         }

@@ -101,6 +101,7 @@ public final class EmptyCondition extends MethodOperation implements Conditional
         }
     }
 
+    @Override
     public void prettyPrint(StringBuilder messageBuffer, MethodContext methodContext) {
         messageBuffer.append("empty[");
         messageBuffer.append(fieldFma);
@@ -125,6 +126,7 @@ public final class EmptyCondition extends MethodOperation implements Conditional
             return new EmptyCondition(element, simpleMethod);
         }
 
+        @Override
         public EmptyCondition createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new EmptyCondition(element, simpleMethod);
         }

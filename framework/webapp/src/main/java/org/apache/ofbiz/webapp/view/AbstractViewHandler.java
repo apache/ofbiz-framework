@@ -24,10 +24,12 @@ package org.apache.ofbiz.webapp.view;
 public abstract class AbstractViewHandler implements ViewHandler {
     protected String name = null;
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public void setName(String name) {
         this.name = name;
     }

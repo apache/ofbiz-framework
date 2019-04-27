@@ -241,6 +241,7 @@ public class FlexibleStringExpanderTests extends TestCase {
             super(SpecialNumber.class, String.class);
         }
 
+        @Override
         public String convert(SpecialNumber obj) throws ConversionException {
             throw new NullPointerException();
         }

@@ -57,6 +57,7 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
     private String rootDir = null;
     private String https = null;
 
+    @Override
     public void init(ServletContext context) throws ViewHandlerException {
         rootDir = context.getRealPath("/");
         https = (String) context.getAttribute("https");
@@ -64,6 +65,7 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
     /**
      * @see org.apache.ofbiz.webapp.view.ViewHandler#render(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
+    @Override
     public void render(String name, String page, String info, String contentType, String encoding, HttpServletRequest request, HttpServletResponse response) throws ViewHandlerException {
 
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");

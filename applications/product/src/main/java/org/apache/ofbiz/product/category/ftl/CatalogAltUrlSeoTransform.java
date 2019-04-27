@@ -88,14 +88,17 @@ public class CatalogAltUrlSeoTransform implements TemplateTransformModel {
 
         return new Writer(out) {
 
+            @Override
             public void write(char[] cbuf, int off, int len) throws IOException {
                 buf.append(cbuf, off, len);
             }
 
+            @Override
             public void flush() throws IOException {
                 out.flush();
             }
 
+            @Override
             public void close() throws IOException {
                 try {
                     Environment env = Environment.getCurrentEnvironment();

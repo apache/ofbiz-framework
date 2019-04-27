@@ -66,6 +66,7 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
      */
     public static class LENGTH extends EntityFunctionSingle<Integer> {
         public static final Fetcher<Integer> FETCHER = new Fetcher<Integer>() {
+            @Override
             public Integer getValue(Object value) { return value.toString().length(); }
         };
 
@@ -80,6 +81,7 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
      */
     public static class TRIM extends EntityFunctionSingle<String> {
         public static final Fetcher<String> FETCHER = new Fetcher<String>() {
+            @Override
             public String getValue(Object value) { return value.toString().trim(); }
         };
 
@@ -94,6 +96,7 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
      */
     public static class UPPER extends EntityFunctionSingle<String> {
         public static final Fetcher<String> FETCHER = new Fetcher<String>() {
+            @Override
             public String getValue(Object value) { return value.toString().toUpperCase(Locale.getDefault()); }
         };
 
@@ -108,6 +111,7 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
      */
     public static class LOWER extends EntityFunctionSingle<String> {
         public static final Fetcher<String> FETCHER = new Fetcher<String>() {
+            @Override
             public String getValue(Object value) { return value.toString().toLowerCase(Locale.getDefault()); }
         };
 

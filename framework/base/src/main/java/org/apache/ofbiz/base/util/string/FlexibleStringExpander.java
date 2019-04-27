@@ -503,6 +503,7 @@ public abstract class FlexibleStringExpander implements Serializable, IsEmpty {
      * @return <code>true</code> if the original expression is empty
      * or <code>null</code>
      */
+    @Override
     public abstract boolean isEmpty();
 
     /** Returns a copy of the original expression.

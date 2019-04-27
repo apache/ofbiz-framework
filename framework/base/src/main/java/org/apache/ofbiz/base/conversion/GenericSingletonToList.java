@@ -26,6 +26,7 @@ public class GenericSingletonToList<T> extends AbstractConverter<T, List<T>> {
         super(sourceClass, List.class);
     }
 
+    @Override
     public List<T> convert(T obj) throws ConversionException {
         List<T> tempList = new LinkedList<>();
         tempList.add(obj);

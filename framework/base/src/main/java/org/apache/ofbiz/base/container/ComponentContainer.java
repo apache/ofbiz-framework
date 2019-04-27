@@ -80,9 +80,7 @@ public class ComponentContainer implements Container {
         Debug.logInfo("All components loaded", module);
     }
 
-    /**
-     * @see org.apache.ofbiz.base.container.Container#start()
-     */
+    @Override
     public boolean start() {
         return loaded.get();
     }
@@ -361,12 +359,12 @@ public class ComponentContainer implements Container {
         }
         return classPath;
     }
-    /**
-     * @see org.apache.ofbiz.base.container.Container#stop()
-     */
+
+    @Override
     public void stop() {
     }
 
+    @Override
     public String getName() {
         return name;
     }

@@ -1302,6 +1302,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         return returnString.toString();
     }
 
+    @Override
     public int compareTo(ModelEntity otherModelEntity) {
 
         /* This DOESN'T WORK, so forget it... using two passes

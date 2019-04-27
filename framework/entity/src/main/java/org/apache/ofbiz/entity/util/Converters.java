@@ -47,6 +47,7 @@ public class Converters implements ConverterLoader {
             super(JSON.class, GenericValue.class);
         }
 
+        @Override
         public GenericValue convert(JSON obj) throws ConversionException {
             Map<String, Object> fieldMap;
             try {
@@ -79,6 +80,7 @@ public class Converters implements ConverterLoader {
             super(GenericValue.class, JSON.class);
         }
 
+        @Override
         public JSON convert(GenericValue obj) throws ConversionException {
             Map<String, Object> fieldMap = new HashMap<>(obj);
             fieldMap.put("_DELEGATOR_NAME_", obj.getDelegator().getDelegatorName());
@@ -96,6 +98,7 @@ public class Converters implements ConverterLoader {
             super(GenericValue.class, List.class);
         }
 
+        @Override
         public List<GenericValue> convert(GenericValue obj) throws ConversionException {
             List<GenericValue> tempList = new LinkedList<>();
             tempList.add(obj);
@@ -108,6 +111,7 @@ public class Converters implements ConverterLoader {
             super(GenericValue.class, Set.class);
         }
 
+        @Override
         public Set<GenericValue> convert(GenericValue obj) throws ConversionException {
             Set<GenericValue> tempSet = new HashSet<>();
             tempSet.add(obj);
@@ -120,6 +124,7 @@ public class Converters implements ConverterLoader {
             super(GenericValue.class, String.class);
         }
 
+        @Override
         public String convert(GenericValue obj) throws ConversionException {
             return obj.toString();
         }
@@ -130,6 +135,7 @@ public class Converters implements ConverterLoader {
             super(GenericEntity.NullField.class, Object.class);
         }
 
+        @Override
         public Object convert(GenericEntity.NullField obj) throws ConversionException {
             return null;
         }
@@ -140,11 +146,13 @@ public class Converters implements ConverterLoader {
             super(Object.class, GenericEntity.NullField.class);
         }
 
+        @Override
         public GenericEntity.NullField convert(Object obj) throws ConversionException {
             return GenericEntity.NULL_FIELD;
         }
     }
 
+    @Override
     public void loadConverters() {
         org.apache.ofbiz.base.conversion.Converters.loadContainedConverters(Converters.class);
     }

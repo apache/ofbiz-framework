@@ -34,11 +34,13 @@ public class ControlActivationEventListener implements HttpSessionActivationList
 
     public ControlActivationEventListener() {}
 
+    @Override
     public void sessionWillPassivate(HttpSessionEvent event) {
         ControlEventListener.countPassivateSession();
         Debug.logInfo("Passivating session: " + showSessionId(event.getSession()), module);
     }
 
+    @Override
     public void sessionDidActivate(HttpSessionEvent event) {
         ControlEventListener.countActivateSession();
         Debug.logInfo("Activating session: " + showSessionId(event.getSession()), module);

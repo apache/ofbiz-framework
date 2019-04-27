@@ -49,6 +49,7 @@ public class NamingServiceContainer implements Container {
 
     private String name;
 
+    @Override
     public void init(List<StartupCommand> ofbizCommands, String name, String configFile) throws ContainerException {
         this.name =name;
         this.configFileLocation = configFile;
@@ -80,6 +81,7 @@ public class NamingServiceContainer implements Container {
 
     }
 
+    @Override
     public boolean start() throws ContainerException {
         try {
             registry = LocateRegistry.createRegistry(namingPort, rmiSocketFactory, rmiSocketFactory);
@@ -91,6 +93,7 @@ public class NamingServiceContainer implements Container {
         return isRunning;
     }
 
+    @Override
     public void stop() throws ContainerException {
         if (isRunning) {
             try {
@@ -101,6 +104,7 @@ public class NamingServiceContainer implements Container {
         }
     }
 
+    @Override
     public String getName() {
         return name;
     }

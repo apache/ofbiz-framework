@@ -61,6 +61,7 @@ public class ModelSingleForm extends ModelForm {
         visitor.visit(this);
     }
 
+    @Override
     protected ModelForm getParentModel(Element formElement, ModelReader entityModelReader, DispatchContext dispatchContext) {
         ModelForm parent = null;
         String parentResource = formElement.getAttribute("extends-resource");

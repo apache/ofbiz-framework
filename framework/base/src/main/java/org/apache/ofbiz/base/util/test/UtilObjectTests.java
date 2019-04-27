@@ -293,6 +293,7 @@ public class UtilObjectTests extends GenericTestCaseBase {
     }
 
     public static class FirstTestFactory implements TestFactoryIntf {
+        @Override
         public Object getInstance(Set<String> set) {
             if (!set.contains("first")) return null;
             if (set.contains("one")) return "ONE";
@@ -303,6 +304,7 @@ public class UtilObjectTests extends GenericTestCaseBase {
     }
 
     public static class SecondTestFactory implements TestFactoryIntf {
+        @Override
         public Object getInstance(Set<String> set) {
             if (!set.contains("second")) return null;
             if (set.contains("ONE")) return "1";

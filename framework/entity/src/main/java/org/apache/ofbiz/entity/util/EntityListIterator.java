@@ -157,6 +157,7 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
      * @throws GenericEntityException
      *             if the {@link EntityListIterator} cannot be closed.
      */
+    @Override
     public void close() throws GenericEntityException {
         if (closed) {
             String modelEntityName = modelEntity != null ? modelEntity.getEntityName() : "";
@@ -280,6 +281,7 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
      * this.next()) != null) { ... }
      *
      */
+    @Override
     public boolean hasNext() {
         if (!haveShowHasNextWarning) {
             // DEJ20050207 To further discourage use of this, and to find existing use, always log a big warning showing where it is used:
@@ -306,6 +308,7 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
      * PLEASE NOTE: Because of the nature of the JDBC ResultSet interface this method can be very inefficient.
      * It is much better to just use previous() until it returns null.
      */
+    @Override
     public boolean hasPrevious() {
         try {
             // do a quick game to see if the resultSet is empty:
@@ -326,6 +329,7 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
      *
      * @return the next element or null, if there is no next element.
      */
+    @Override
     public GenericValue next() {
         try {
             return resultSet.next() ? currentGenericValue() : null;
@@ -341,6 +345,7 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
     /**
      * Returns the index of the next result, but does not guarantee that there will be a next result.
      */
+    @Override
     public int nextIndex() {
         try {
             return currentIndex() + 1;
@@ -354,6 +359,7 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
      * Moves the cursor to the previous position and returns the GenericValue object for that position;
      * if there is no previous, returns null.
      */
+    @Override
     public GenericValue previous() {
         try {
             return resultSet.previous() ? currentGenericValue() : null;
@@ -369,6 +375,7 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
     /**
      * Returns the index of the previous result, but does not guarantee that there will be a previous result.
      */
+    @Override
     public int previousIndex() {
         try {
             return currentIndex() - 1;
@@ -507,6 +514,7 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
     /**
      * Unsupported {@link ListIterator#add(Object)} method.
      */
+    @Override
     public void add(GenericValue obj) {
         throw new GeneralRuntimeException("CursorListIterator currently only supports read-only access");
     }
@@ -514,6 +522,7 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
     /**
      * Unsupported {@link ListIterator#remove()} method.
      */
+    @Override
     public void remove() {
         throw new GeneralRuntimeException("CursorListIterator currently only supports read-only access");
     }
@@ -521,6 +530,7 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
     /**
      * Unsupported {@link ListIterator#set(Object)} method.
      */
+    @Override
     public void set(GenericValue obj) {
         throw new GeneralRuntimeException("CursorListIterator currently only supports read-only access");
     }

@@ -59,14 +59,17 @@ public class ComponentResourceHandler implements ResourceHandler {
         }
     }
 
+    @Override
     public String getLoaderName() {
         return this.loaderName;
     }
 
+    @Override
     public String getLocation() {
         return this.location;
     }
 
+    @Override
     public Document getDocument() throws GenericConfigException {
         try {
             return UtilXml.readXmlDocument(this.getStream(), this.getFullLocation(), true);
@@ -75,18 +78,22 @@ public class ComponentResourceHandler implements ResourceHandler {
         }
     }
 
+    @Override
     public InputStream getStream() throws GenericConfigException {
         return ComponentConfig.getStream(componentName, loaderName, location);
     }
 
+    @Override
     public URL getURL() throws GenericConfigException {
         return ComponentConfig.getURL(componentName, loaderName, location);
     }
 
+    @Override
     public boolean isFileResource() throws GenericConfigException {
         return ComponentConfig.isFileResourceLoader(componentName, loaderName);
     }
 
+    @Override
     public String getFullLocation() throws GenericConfigException {
         return ComponentConfig.getFullLocation(componentName, loaderName, location);
     }

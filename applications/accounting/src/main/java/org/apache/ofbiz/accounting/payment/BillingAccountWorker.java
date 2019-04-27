@@ -209,6 +209,7 @@ public class BillingAccountWorker {
     
     @SuppressWarnings("serial")
     protected static class BillingAccountComparator implements Comparator<Map<String, Object>>, Serializable{
+        @Override
         public int compare(Map<String, Object> billingAccount1, Map<String, Object> billingAccount2) {
             return ((BigDecimal)billingAccount1.get("accountBalance")).compareTo((BigDecimal)billingAccount2.get("accountBalance"));
         }

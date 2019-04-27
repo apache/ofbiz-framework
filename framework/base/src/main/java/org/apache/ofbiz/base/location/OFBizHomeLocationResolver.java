@@ -33,6 +33,7 @@ public class OFBizHomeLocationResolver implements LocationResolver {
 
     public static final String envName = "ofbiz.home";
 
+    @Override
     public URL resolveLocation(String location) throws MalformedURLException {
         String propValue = System.getProperty(envName);
         if (propValue == null) {

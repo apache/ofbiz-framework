@@ -33,6 +33,7 @@ public class JSONConverters implements ConverterLoader {
             super(JSON.class, List.class);
         }
 
+        @Override
         public List<Object> convert(JSON obj) throws ConversionException {
             try {
                 return UtilGenerics.<List<Object>>cast(obj.toObject(List.class));
@@ -47,6 +48,7 @@ public class JSONConverters implements ConverterLoader {
             super(JSON.class, Map.class);
         }
 
+        @Override
         public Map<String, Object> convert(JSON obj) throws ConversionException {
             try {
                 return UtilGenerics.<Map<String, Object>>cast(obj.toObject(Map.class));
@@ -61,6 +63,7 @@ public class JSONConverters implements ConverterLoader {
             super(List.class, JSON.class);
         }
 
+        @Override
         public JSON convert(List<Object> obj) throws ConversionException {
             try {
                 return JSON.from(obj);
@@ -75,6 +78,7 @@ public class JSONConverters implements ConverterLoader {
             super(Map.class, JSON.class);
         }
 
+        @Override
         public JSON convert(Map<String, Object> obj) throws ConversionException {
             try {
                 return JSON.from(obj);
@@ -84,6 +88,7 @@ public class JSONConverters implements ConverterLoader {
         }
     }
 
+    @Override
     public void loadConverters() {
         Converters.loadContainedConverters(JSONConverters.class);
     }

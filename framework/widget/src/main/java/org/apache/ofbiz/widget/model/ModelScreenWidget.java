@@ -1642,6 +1642,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
             }
         }
 
+        @Override
         public String getName() {
             return link.getName();
         }
@@ -1775,6 +1776,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
         public static final String TAG_NAME = "image";
         private final Image image;
 
+        @Override
         public String getName() {
             return image.getName();
         }

@@ -198,6 +198,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         executeMacro(writer, sr.toString());
     }
 
+    @Override
     public void renderDisplayField(Appendable writer, Map<String, Object> context, DisplayField displayField) throws IOException {
         ModelFormField modelFormField = displayField.getModelFormField();
         String idName = modelFormField.getCurrentContainerId(context);
@@ -317,6 +318,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         this.appendTooltip(writer, context, modelFormField);
     }
 
+    @Override
     public void renderHyperlinkField(Appendable writer, Map<String, Object> context, HyperlinkField hyperlinkField) throws IOException {
         this.request.setAttribute("image", hyperlinkField.getImageLocation(context));
         ModelFormField modelFormField = hyperlinkField.getModelFormField();
@@ -337,10 +339,12 @@ public final class MacroFormRenderer implements FormStringRenderer {
         this.request.removeAttribute("descriptionSize");
     }
 
+    @Override
     public void renderMenuField(Appendable writer, Map<String, Object> context, MenuField menuField) throws IOException {
         menuField.renderFieldString(writer, context, null);
     }
 
+    @Override
     public void renderTextField(Appendable writer, Map<String, Object> context, TextField textField) throws IOException {
         ModelFormField modelFormField = textField.getModelFormField();
         String name = modelFormField.getParameterName(context);
@@ -440,6 +444,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         this.appendTooltip(writer, context, modelFormField);
     }
 
+    @Override
     public void renderTextareaField(Appendable writer, Map<String, Object> context, TextareaField textareaField) throws IOException {
         ModelFormField modelFormField = textareaField.getModelFormField();
         String name = modelFormField.getParameterName(context);
@@ -524,6 +529,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         this.appendTooltip(writer, context, modelFormField);
     }
 
+    @Override
     public void renderDateTimeField(Appendable writer, Map<String, Object> context, DateTimeField dateTimeField) throws IOException {
         ModelFormField modelFormField = dateTimeField.getModelFormField();
         String paramName = modelFormField.getParameterName(context);
@@ -770,6 +776,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         this.appendTooltip(writer, context, modelFormField);
     }
 
+    @Override
     public void renderDropDownField(Appendable writer, Map<String, Object> context, DropDownField dropDownField) throws IOException {
         ModelFormField modelFormField = dropDownField.getModelFormField();
         ModelForm modelForm = modelFormField.getModelForm();
@@ -1014,6 +1021,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         this.appendTooltip(writer, context, modelFormField);
     }
 
+    @Override
     public void renderCheckField(Appendable writer, Map<String, Object> context, CheckField checkField) throws IOException {
         ModelFormField modelFormField = checkField.getModelFormField();
         String currentValue = modelFormField.getEntry(context);
@@ -1081,6 +1089,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         this.appendTooltip(writer, context, modelFormField);
     }
 
+    @Override
     public void renderRadioField(Appendable writer, Map<String, Object> context, RadioField radioField) throws IOException {
         ModelFormField modelFormField = radioField.getModelFormField();
         List<ModelFormField.OptionValue> allOptionValues = radioField.getAllOptionValues(context, WidgetWorker.getDelegator(context));
@@ -1142,6 +1151,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         this.appendTooltip(writer, context, modelFormField);
     }
 
+    @Override
     public void renderSubmitField(Appendable writer, Map<String, Object> context, SubmitField submitField) throws IOException {
         ModelFormField modelFormField = submitField.getModelFormField();
         ModelForm modelForm = modelFormField.getModelForm();
@@ -1219,6 +1229,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         this.appendTooltip(writer, context, modelFormField);
     }
 
+    @Override
     public void renderResetField(Appendable writer, Map<String, Object> context, ResetField resetField) throws IOException {
         ModelFormField modelFormField = resetField.getModelFormField();
         String name = modelFormField.getParameterName(context);
@@ -1246,12 +1257,14 @@ public final class MacroFormRenderer implements FormStringRenderer {
         this.appendTooltip(writer, context, modelFormField);
     }
 
+    @Override
     public void renderHiddenField(Appendable writer, Map<String, Object> context, HiddenField hiddenField) throws IOException {
         ModelFormField modelFormField = hiddenField.getModelFormField();
         String value = hiddenField.getValue(context);
         this.renderHiddenField(writer, context, modelFormField, value);
     }
 
+    @Override
     public void renderHiddenField(Appendable writer, Map<String, Object> context, ModelFormField modelFormField, String value) throws IOException {
         String name = modelFormField.getParameterName(context);
         String action = modelFormField.getAction(context);
@@ -1280,10 +1293,12 @@ public final class MacroFormRenderer implements FormStringRenderer {
         executeMacro(writer, sr.toString());
     }
 
+    @Override
     public void renderIgnoredField(Appendable writer, Map<String, Object> context, IgnoredField ignoredField) {
         // do nothing, it's an ignored field; could add a comment or something if we wanted to
     }
 
+    @Override
     public void renderFieldTitle(Appendable writer, Map<String, Object> context, ModelFormField modelFormField) throws IOException {
         String titleText = modelFormField.getTitle(context);
         String style = modelFormField.getTitleStyle();
@@ -1370,10 +1385,12 @@ public final class MacroFormRenderer implements FormStringRenderer {
         }
     }
 
+    @Override
     public void renderSingleFormFieldTitle(Appendable writer, Map<String, Object> context, ModelFormField modelFormField) throws IOException {
         renderFieldTitle(writer, context, modelFormField);
     }
 
+    @Override
     public void renderFormOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         this.widgetCommentsEnabled = ModelWidget.widgetBoundaryCommentsEnabled(context);
         if (modelForm instanceof ModelSingleForm) {
@@ -1443,6 +1460,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         executeMacro(writer, sr.toString());
     }
 
+    @Override
     public void renderFormClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         StringWriter sr = new StringWriter();
         sr.append("<@renderFormClose />");
@@ -1454,6 +1472,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         }
     }
 
+    @Override
     public void renderMultiFormClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         //FIXME copy from HtmlFormRenderer.java (except for the closing form tag itself, that is now converted)
         Iterator<ModelFormField> submitFields = modelForm.getMultiSubmitFields().iterator();
@@ -1489,6 +1508,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         }
     }
 
+    @Override
     public void renderFormatListWrapperOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         Map<String, Object> inputFields = UtilGenerics.checkMap(context.get("requestParameters"));
         Map<String, Object> queryStringMap = UtilGenerics.toMap(context.get("queryStringMap"));
@@ -1546,6 +1566,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         executeMacro(writer, sr.toString());
 
     }
+    @Override
     public void renderEmptyFormDataMessage(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         StringWriter sr = new StringWriter();
         sr.append("<@renderEmptyFormDataMessage");
@@ -1555,6 +1576,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         executeMacro(writer, sr.toString());
     }
 
+    @Override
     public void renderFormatListWrapperClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         StringWriter sr = new StringWriter();
         sr.append("<@renderFormatListWrapperClose");
@@ -1572,6 +1594,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         }
     }
 
+    @Override
     public void renderFormatHeaderOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         StringWriter sr = new StringWriter();
         sr.append("<@renderFormatHeaderOpen ");
@@ -1579,6 +1602,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         executeMacro(writer, sr.toString());
     }
 
+    @Override
     public void renderFormatHeaderClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         StringWriter sr = new StringWriter();
         sr.append("<@renderFormatHeaderClose");
@@ -1586,6 +1610,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         executeMacro(writer, sr.toString());
     }
 
+    @Override
     public void renderFormatHeaderRowOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         String headerStyle = FlexibleStringExpander.expandString(modelForm.getHeaderRowStyle(), context);
         StringWriter sr = new StringWriter();
@@ -1596,12 +1621,14 @@ public final class MacroFormRenderer implements FormStringRenderer {
         executeMacro(writer, sr.toString());
     }
 
+    @Override
     public void renderFormatHeaderRowClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         StringWriter sr = new StringWriter();
         sr.append("<@renderFormatHeaderRowClose />");
         executeMacro(writer, sr.toString());
     }
 
+    @Override
     public void renderFormatHeaderRowCellOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm, ModelFormField modelFormField, int positionSpan) throws IOException {
         String areaStyle = modelFormField.getTitleAreaStyle();
         StringWriter sr = new StringWriter();
@@ -1614,12 +1641,14 @@ public final class MacroFormRenderer implements FormStringRenderer {
         executeMacro(writer, sr.toString());
     }
 
+    @Override
     public void renderFormatHeaderRowCellClose(Appendable writer, Map<String, Object> context, ModelForm modelForm, ModelFormField modelFormField) throws IOException {
         StringWriter sr = new StringWriter();
         sr.append("<@renderFormatHeaderRowCellClose />");
         executeMacro(writer, sr.toString());
     }
 
+    @Override
     public void renderFormatHeaderRowFormCellOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         String areaStyle = modelForm.getFormTitleAreaStyle();
         StringWriter sr = new StringWriter();
@@ -1630,12 +1659,14 @@ public final class MacroFormRenderer implements FormStringRenderer {
         executeMacro(writer, sr.toString());
     }
 
+    @Override
     public void renderFormatHeaderRowFormCellClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         StringWriter sr = new StringWriter();
         sr.append("<@renderFormatHeaderRowFormCellClose />");
         executeMacro(writer, sr.toString());
     }
 
+    @Override
     public void renderFormatHeaderRowFormCellTitleSeparator(Appendable writer, Map<String, Object> context, ModelForm modelForm, ModelFormField modelFormField, boolean isLast) throws IOException {
         String titleStyle = modelFormField.getTitleStyle();
         StringWriter sr = new StringWriter();
@@ -1648,6 +1679,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         executeMacro(writer, sr.toString());
     }
 
+    @Override
     public void renderFormatItemRowOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         Integer itemIndex = (Integer) context.get("itemIndex");
         String altRowStyles = "";
@@ -1677,6 +1709,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         executeMacro(writer, sr.toString());
     }
 
+    @Override
     public void renderFormatItemRowClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         StringWriter sr = new StringWriter();
         sr.append("<@renderFormatItemRowClose ");
@@ -1686,6 +1719,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         executeMacro(writer, sr.toString());
     }
 
+    @Override
     public void renderFormatItemRowCellOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm, ModelFormField modelFormField, int positionSpan) throws IOException {
         String areaStyle = modelFormField.getWidgetAreaStyle();
         StringWriter sr = new StringWriter();
@@ -1700,6 +1734,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         executeMacro(writer, sr.toString());
     }
 
+    @Override
     public void renderFormatItemRowCellClose(Appendable writer, Map<String, Object> context, ModelForm modelForm, ModelFormField modelFormField) throws IOException {
         StringWriter sr = new StringWriter();
         sr.append("<@renderFormatItemRowCellClose");
@@ -1709,6 +1744,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         executeMacro(writer, sr.toString());
     }
 
+    @Override
     public void renderFormatItemRowFormCellOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         String areaStyle = modelForm.getFormTitleAreaStyle();
         StringWriter sr = new StringWriter();
@@ -1719,12 +1755,14 @@ public final class MacroFormRenderer implements FormStringRenderer {
         executeMacro(writer, sr.toString());
     }
 
+    @Override
     public void renderFormatItemRowFormCellClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         StringWriter sr = new StringWriter();
         sr.append("<@renderFormatItemRowFormCellClose />");
         executeMacro(writer, sr.toString());
     }
 
+    @Override
     public void renderFormatSingleWrapperOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         String style = FlexibleStringExpander.expandString(modelForm.getDefaultTableStyle(), context);
         StringWriter sr = new StringWriter();
@@ -1737,6 +1775,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         executeMacro(writer, sr.toString());
     }
 
+    @Override
     public void renderFormatSingleWrapperClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         StringWriter sr = new StringWriter();
         sr.append("<@renderFormatSingleWrapperClose");
@@ -1746,18 +1785,21 @@ public final class MacroFormRenderer implements FormStringRenderer {
         executeMacro(writer, sr.toString());
     }
 
+    @Override
     public void renderFormatFieldRowOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         StringWriter sr = new StringWriter();
         sr.append("<@renderFormatFieldRowOpen />");
         executeMacro(writer, sr.toString());
     }
 
+    @Override
     public void renderFormatFieldRowClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         StringWriter sr = new StringWriter();
         sr.append("<@renderFormatFieldRowClose />");
         executeMacro(writer, sr.toString());
     }
 
+    @Override
     public void renderFormatFieldRowTitleCellOpen(Appendable writer, Map<String, Object> context, ModelFormField modelFormField) throws IOException {
         String style = modelFormField.getTitleAreaStyle();
         StringWriter sr = new StringWriter();
@@ -1768,15 +1810,18 @@ public final class MacroFormRenderer implements FormStringRenderer {
         executeMacro(writer, sr.toString());
     }
 
+    @Override
     public void renderFormatFieldRowTitleCellClose(Appendable writer, Map<String, Object> context, ModelFormField modelFormField) throws IOException {
         StringWriter sr = new StringWriter();
         sr.append("<@renderFormatFieldRowTitleCellClose />");
         executeMacro(writer, sr.toString());
     }
 
+    @Override
     public void renderFormatFieldRowSpacerCell(Appendable writer, Map<String, Object> context, ModelFormField modelFormField) throws IOException {
     }
 
+    @Override
     public void renderFormatFieldRowWidgetCellOpen(Appendable writer, Map<String, Object> context, ModelFormField modelFormField, int positions, int positionSpan, Integer nextPositionInRow) throws IOException {
         String areaStyle = modelFormField.getWidgetAreaStyle();
         StringWriter sr = new StringWriter();
@@ -1789,18 +1834,21 @@ public final class MacroFormRenderer implements FormStringRenderer {
         executeMacro(writer, sr.toString());
     }
 
+    @Override
     public void renderFormatFieldRowWidgetCellClose(Appendable writer, Map<String, Object> context, ModelFormField modelFormField, int positions, int positionSpan, Integer nextPositionInRow) throws IOException {
         StringWriter sr = new StringWriter();
         sr.append("<@renderFormatFieldRowWidgetCellClose />");
         executeMacro(writer, sr.toString());
     }
 
+    @Override
     public void renderFormatEmptySpace(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         StringWriter sr = new StringWriter();
         sr.append("<@renderFormatEmptySpace />");
         executeMacro(writer, sr.toString());
     }
 
+    @Override
     public void renderTextFindField(Appendable writer, Map<String, Object> context, TextFindField textFindField) throws IOException {
         ModelFormField modelFormField = textFindField.getModelFormField();
         String defaultOption = textFindField.getDefaultOption(context);
@@ -1893,6 +1941,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         this.appendTooltip(writer, context, modelFormField);
     }
 
+    @Override
     public void renderRangeFindField(Appendable writer, Map<String, Object> context, RangeFindField rangeFindField) throws IOException {
         ModelFormField modelFormField = rangeFindField.getModelFormField();
         Locale locale = (Locale) context.get("locale");
@@ -1979,6 +2028,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         this.appendTooltip(writer, context, modelFormField);
     }
 
+    @Override
     public void renderDateFindField(Appendable writer, Map<String, Object> context, DateFindField dateFindField) throws IOException {
         ModelFormField modelFormField = dateFindField.getModelFormField();
         Locale locale = (Locale) context.get("locale");
@@ -2127,6 +2177,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         this.appendTooltip(writer, context, modelFormField);
     }
 
+    @Override
     public void renderLookupField(Appendable writer, Map<String, Object> context, LookupField lookupField) throws IOException {
         ModelFormField modelFormField = lookupField.getModelFormField();
         String lookupFieldFormName = lookupField.getFormName(context);
@@ -2549,6 +2600,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         executeMacro(writer, sr.toString());
     }
 
+    @Override
     public void renderFileField(Appendable writer, Map<String, Object> context, FileField textField) throws IOException {
         ModelFormField modelFormField = textField.getModelFormField();
         String className = "";
@@ -2598,6 +2650,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         this.appendTooltip(writer, context, modelFormField);
     }
 
+    @Override
     public void renderPasswordField(Appendable writer, Map<String, Object> context, PasswordField passwordField) throws IOException {
         ModelFormField modelFormField = passwordField.getModelFormField();
         String className = "";
@@ -2668,6 +2721,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         this.appendTooltip(writer, context, modelFormField);
     }
 
+    @Override
     public void renderImageField(Appendable writer, Map<String, Object> context, ImageField imageField) throws IOException {
         ModelFormField modelFormField = imageField.getModelFormField();
         String value = modelFormField.getEntry(context, imageField.getValue(context));
@@ -2712,6 +2766,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         this.appendTooltip(writer, context, modelFormField);
     }
 
+    @Override
     public void renderFieldGroupOpen(Appendable writer, Map<String, Object> context, ModelForm.FieldGroup fieldGroup) throws IOException {
         String style = fieldGroup.getStyle();
         String id = fieldGroup.getId();
@@ -2755,6 +2810,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         executeMacro(writer, sr.toString());
     }
 
+    @Override
     public void renderFieldGroupClose(Appendable writer, Map<String, Object> context, ModelForm.FieldGroup fieldGroup) throws IOException {
         String style = fieldGroup.getStyle();
         String id = fieldGroup.getId();
@@ -2778,6 +2834,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         executeMacro(writer, sr.toString());
     }
 
+    @Override
     public void renderBanner(Appendable writer, Map<String, Object> context, ModelForm.Banner banner) throws IOException {
         String style = banner.getStyle(context);
         String leftStyle = banner.getLeftTextStyle(context);
@@ -3336,6 +3393,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         executeMacro(writer, sr.toString());
     }
 
+    @Override
     public void renderContainerFindField(Appendable writer, Map<String, Object> context, ContainerField containerField) throws IOException {
         String id = containerField.getModelFormField().getIdName();
         String className = UtilFormatOut.checkNull(containerField.getModelFormField().getWidgetStyle());

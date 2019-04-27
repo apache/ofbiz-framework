@@ -253,6 +253,7 @@ public final class JobPoller implements ServiceConfigListener {
 
         // Do not check for interrupts in this method. The design requires the
         // thread to complete the job manager poll uninterrupted.
+        @Override
         public void run() {
             Debug.logInfo("JobPoller thread started.", module);
             try {

@@ -63,6 +63,7 @@ public class SSLServerSocketFactory implements RMIServerSocketFactory, Serializa
         this.alias = alias;
     }
 
+    @Override
     public ServerSocket createServerSocket(int port) throws IOException {
         char[] passphrase = null;
         if (ksPass != null) {

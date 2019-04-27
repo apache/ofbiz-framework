@@ -32,11 +32,13 @@ public class LoginEventListener implements HttpSessionListener {
 
     public LoginEventListener() {}
 
+    @Override
     public void sessionCreated(HttpSessionEvent event) {
         //for this one do nothing when the session is created...
         //HttpSession session = event.getSession();
     }
 
+    @Override
     public void sessionDestroyed(HttpSessionEvent event) {
         HttpSession session = event.getSession();
         ExternalLoginKeysManager.cleanupExternalLoginKey(session);

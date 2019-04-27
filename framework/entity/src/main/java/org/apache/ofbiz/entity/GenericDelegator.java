@@ -2223,17 +2223,12 @@ public class GenericDelegator implements Delegator {
         return nextSeqLong.toString();
     }
 
-    /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#getNextSeqIdLong(java.lang.String)
-     */
     @Override
     public Long getNextSeqIdLong(String seqName) {
         return this.getNextSeqIdLong(seqName, 1);
     }
 
-    /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#getNextSeqIdLong(java.lang.String, long)
-     */
+    @Override
     public Long getNextSeqIdLong(String seqName, long staggerMax) {
         try {
             SequenceUtil sequencer = this.AtomicRefSequencer.get();

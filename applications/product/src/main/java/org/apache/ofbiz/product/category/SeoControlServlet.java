@@ -50,9 +50,7 @@ public class SeoControlServlet extends ControlServlet {
         super();
     }
 
-    /**
-     * @see javax.servlet.Servlet#init(javax.servlet.ServletConfig)
-     */
+    @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
 
@@ -72,6 +70,7 @@ public class SeoControlServlet extends ControlServlet {
         SeoConfigUtil.init();
     }
     
+    @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String uri = URLEncoder.encode(request.getRequestURI(), "UTF-8");
         if (request.getAttribute(REQUEST_IN_ALLOW_LIST) != null || request.getAttribute("_jsp_" + uri) != null) {

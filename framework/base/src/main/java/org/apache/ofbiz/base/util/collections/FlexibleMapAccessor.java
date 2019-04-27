@@ -113,6 +113,7 @@ public final class FlexibleMapAccessor<T> implements Serializable, IsEmpty {
         return this.isAscending;
     }
 
+    @Override
     public boolean isEmpty() {
          return this.isEmpty;
     }

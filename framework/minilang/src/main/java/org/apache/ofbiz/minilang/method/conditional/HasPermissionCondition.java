@@ -118,6 +118,7 @@ public final class HasPermissionCondition extends MethodOperation implements Con
         }
     }
 
+    @Override
     public void prettyPrint(StringBuilder messageBuffer, MethodContext methodContext) {
         messageBuffer.append("has-permission[");
         messageBuffer.append(this.permissionFse);

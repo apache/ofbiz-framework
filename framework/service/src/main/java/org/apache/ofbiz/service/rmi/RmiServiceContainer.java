@@ -57,6 +57,7 @@ public class RmiServiceContainer implements Container {
         this.configFile = configFile;
     }
 
+    @Override
     public boolean start() throws ContainerException {
         // get the container config
         ContainerConfig.Configuration cfg = ContainerConfig.getConfiguration(containerName, configFile);
@@ -179,6 +180,7 @@ public class RmiServiceContainer implements Container {
         remote.deregister();
     }
 
+    @Override
     public String getName() {
         return containerName;
     }

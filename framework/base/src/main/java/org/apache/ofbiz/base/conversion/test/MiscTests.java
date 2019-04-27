@@ -45,6 +45,7 @@ public class MiscTests extends GenericTestCaseBase {
     }
 
     public static class ConverterLoaderImpl implements ConverterLoader {
+        @Override
         public void loadConverters() {
             throw new RuntimeException();
         }

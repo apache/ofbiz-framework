@@ -116,6 +116,7 @@ public class MacroTreeRenderer implements TreeStringRenderer {
         executeMacro(sr.toString());
     }
 
+    @Override
     public void renderNodeBegin(Appendable writer, Map<String, Object> context, ModelTree.ModelNode node, int depth) throws IOException {
         String currentNodeTrailPiped = null;
         List<String> currentNodeTrail = UtilGenerics.toList(context.get("currentNodeTrail"));
@@ -201,6 +202,7 @@ public class MacroTreeRenderer implements TreeStringRenderer {
         }
     }
 
+    @Override
     public void renderNodeEnd(Appendable writer, Map<String, Object> context, ModelTree.ModelNode node) throws IOException {
         Boolean processChildren = (Boolean) context.get("processChildren");
         StringWriter sr = new StringWriter();
@@ -218,6 +220,7 @@ public class MacroTreeRenderer implements TreeStringRenderer {
         }
     }
 
+    @Override
     public void renderLastElement(Appendable writer, Map<String, Object> context, ModelTree.ModelNode node) throws IOException {
         Boolean processChildren = (Boolean) context.get("processChildren");
         if (processChildren) {
@@ -230,6 +233,7 @@ public class MacroTreeRenderer implements TreeStringRenderer {
         }
     }
 
+    @Override
     public void renderLabel(Appendable writer, Map<String, Object> context, ModelTree.ModelNode.Label label) throws IOException {
         String id = label.getId(context);
         String style = label.getStyle(context);
@@ -247,6 +251,7 @@ public class MacroTreeRenderer implements TreeStringRenderer {
         executeMacro(sr.toString());
     }
 
+    @Override
     public void renderLink(Appendable writer, Map<String, Object> context, ModelTree.ModelNode.Link link) throws IOException {
         String target = link.getTarget(context);
         StringBuilder linkUrl = new StringBuilder();
@@ -295,6 +300,7 @@ public class MacroTreeRenderer implements TreeStringRenderer {
         executeMacro(sr.toString().replace("|", "%7C")); // Fix for OFBIZ-9191
     }
 
+    @Override
     public void renderImage(Appendable writer, Map<String, Object> context, ModelTree.ModelNode.Image image) throws IOException {
         if (image == null) {
             return;
@@ -356,6 +362,7 @@ public class MacroTreeRenderer implements TreeStringRenderer {
         executeMacro(sr.toString());
     }
 
+    @Override
     public ScreenStringRenderer getScreenStringRenderer(Map<String, Object> context) {
         ScreenRenderer screenRenderer = (ScreenRenderer)context.get("screens");
         if (screenRenderer != null) {

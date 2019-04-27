@@ -66,16 +66,12 @@ public class ServiceMultiEventHandler implements EventHandler {
 
     protected ServletContext servletContext;
 
-    /**
-     * @see org.apache.ofbiz.webapp.event.EventHandler#init(javax.servlet.ServletContext)
-     */
+    @Override
     public void init(ServletContext servletContext) throws EventHandlerException {
         this.servletContext = servletContext;
     }
 
-    /**
-     * @see org.apache.ofbiz.webapp.event.EventHandler#invoke(ConfigXMLReader.Event, ConfigXMLReader.RequestMap, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-     */
+    @Override
     public String invoke(Event event, RequestMap requestMap, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
         // TODO: consider changing this to use the new UtilHttp.parseMultiFormData method
 

@@ -34,14 +34,17 @@ public class ReadOnlyMapEntry<K, V> implements Map.Entry<K, V> {
         this.value = value;
     }
 
+    @Override
     public K getKey() {
         return key;
     }
 
+    @Override
     public V getValue() {
         return value;
     }
 
+    @Override
     public V setValue(V value) {
         throw new UnsupportedOperationException();
     }

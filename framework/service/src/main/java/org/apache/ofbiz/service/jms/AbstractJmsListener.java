@@ -109,6 +109,7 @@ public abstract class AbstractJmsListener implements GenericMessageListener, Exc
      * Receives the MapMessage and processes the service.
      * @see javax.jms.MessageListener#onMessage(Message)
      */
+    @Override
     public void onMessage(Message message) {
         MapMessage mapMessage = null;
 
@@ -127,6 +128,7 @@ public abstract class AbstractJmsListener implements GenericMessageListener, Exc
      * On exception try to re-establish connection to the JMS server.
      * @see javax.jms.ExceptionListener#onException(JMSException)
      */
+    @Override
     public void onException(JMSException je) {
         this.setConnected(false);
         Debug.logError(je, "JMS connection exception", module);
@@ -142,19 +144,13 @@ public abstract class AbstractJmsListener implements GenericMessageListener, Exc
         }
     }
 
-    /**
-     *
-     * @see org.apache.ofbiz.service.jms.GenericMessageListener#refresh()
-     */
+    @Override
     public void refresh() throws GenericServiceException {
         this.close();
         this.load();
     }
 
-    /**
-     *
-     * @see org.apache.ofbiz.service.jms.GenericMessageListener#isConnected()
-     */
+    @Override
     public boolean isConnected() {
         return this.isConnected;
     }

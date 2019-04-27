@@ -34,6 +34,7 @@ public class NetConverters implements ConverterLoader {
             super(String.class, InetAddress.class);
         }
 
+        @Override
         public InetAddress convert(String obj) throws ConversionException {
             try {
                 return InetAddress.getByName(obj);
@@ -48,6 +49,7 @@ public class NetConverters implements ConverterLoader {
             super(InetAddress.class, String.class);
         }
 
+        @Override
         public String convert(InetAddress obj) throws ConversionException {
             String hostName = obj.getHostName();
             if (hostName != null) {
@@ -62,6 +64,7 @@ public class NetConverters implements ConverterLoader {
             super(String.class, URI.class);
         }
 
+        @Override
         public URI convert(String obj) throws ConversionException {
             try {
                 return new URI(obj);
@@ -76,6 +79,7 @@ public class NetConverters implements ConverterLoader {
             super(URI.class, String.class);
         }
 
+        @Override
         public String convert(URI obj) throws ConversionException {
             return obj.toString();
         }
@@ -86,6 +90,7 @@ public class NetConverters implements ConverterLoader {
             super(String.class, URL.class);
         }
 
+        @Override
         public URL convert(String obj) throws ConversionException {
             try {
                 return new URL(obj);
@@ -100,6 +105,7 @@ public class NetConverters implements ConverterLoader {
             super(URL.class, String.class);
         }
 
+        @Override
         public String convert(URL obj) throws ConversionException {
             return obj.toString();
         }
@@ -110,6 +116,7 @@ public class NetConverters implements ConverterLoader {
             super(URI.class, URL.class);
         }
 
+        @Override
         public URL convert(URI obj) throws ConversionException {
             try {
                 return obj.toURL();
@@ -124,6 +131,7 @@ public class NetConverters implements ConverterLoader {
             super(URL.class, URI.class);
         }
 
+        @Override
         public URI convert(URL obj) throws ConversionException {
             try {
                 return obj.toURI();
@@ -133,6 +141,7 @@ public class NetConverters implements ConverterLoader {
         }
     }
 
+    @Override
     public void loadConverters() {
         Converters.loadContainedConverters(NetConverters.class);
     }

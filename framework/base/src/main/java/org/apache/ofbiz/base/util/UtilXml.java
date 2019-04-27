@@ -1048,6 +1048,7 @@ public final class UtilXml {
          * @param systemId - System ID of DTD
          * @return InputSource of DTD
          */
+        @Override
         public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
             hasDTD = false;
             String dtd = UtilProperties.getSplitPropertyValue(UtilURL.fromResource("localdtds.properties"), publicId);
@@ -1130,6 +1131,7 @@ public final class UtilXml {
             this.localResolver = localResolver;
         }
 
+        @Override
         public void error(SAXParseException exception) {
             String exceptionMessage = exception.getMessage();
             Pattern valueFlexExpr = Pattern.compile("value '\\$\\{.*\\}'");
@@ -1145,6 +1147,7 @@ public final class UtilXml {
             }
         }
 
+        @Override
         public void fatalError(SAXParseException exception) {
             if (localResolver.hasDTD()) {
                 Debug.logError("XmlFileLoader: File "
@@ -1157,6 +1160,7 @@ public final class UtilXml {
             }
         }
 
+        @Override
         public void warning(SAXParseException exception) {
             if (localResolver.hasDTD()) {
                 Debug.logError("XmlFileLoader: File "

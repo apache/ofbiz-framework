@@ -41,6 +41,7 @@ public class TestFailAuthenticator implements Authenticator {
      *
      * @param dispatcher The LocalDispatcher to use for this Authenticator
      */
+    @Override
     public void initialize(LocalDispatcher dispatcher) {
         this.dispatcher = dispatcher;
         this.delegator = dispatcher.getDelegator();
@@ -57,6 +58,7 @@ public class TestFailAuthenticator implements Authenticator {
      * @throws org.apache.ofbiz.common.authentication.api.AuthenticatorException
      *          when a fatal error occurs during authentication
      */
+    @Override
     public boolean authenticate(String username, String password, boolean isServiceAuth) throws AuthenticatorException {
         Debug.logInfo(this.getClass().getName() + " Authenticator authenticate() -- returning false", module);
         return false;
@@ -69,6 +71,7 @@ public class TestFailAuthenticator implements Authenticator {
      * @throws org.apache.ofbiz.common.authentication.api.AuthenticatorException
      *          when logout fails
      */
+    @Override
     public void logout(String username) throws AuthenticatorException {
         Debug.logInfo(this.getClass().getName() + " Authenticator logout()", module);
     }
@@ -80,6 +83,7 @@ public class TestFailAuthenticator implements Authenticator {
      * @throws org.apache.ofbiz.common.authentication.api.AuthenticatorException
      *          user synchronization fails
      */
+    @Override
     public void syncUser(String username) throws AuthenticatorException {
         Debug.logInfo(this.getClass().getName() + " Authenticator syncUser()", module);
         // no user info to sync
@@ -94,6 +98,7 @@ public class TestFailAuthenticator implements Authenticator {
      * @throws org.apache.ofbiz.common.authentication.api.AuthenticatorException
      *          when update password fails
      */
+    @Override
     public void updatePassword(String username, String password, String newPassword) throws AuthenticatorException {
         Debug.logInfo(this.getClass().getName() + " Authenticator updatePassword()", module);
     }
@@ -103,6 +108,7 @@ public class TestFailAuthenticator implements Authenticator {
      *
      * @return the weight of this Authenticator
      */
+    @Override
     public float getWeight() {
         return 1;
     }
@@ -112,6 +118,7 @@ public class TestFailAuthenticator implements Authenticator {
      *
      * @return true if the user record is copied to the OFB database
      */
+    @Override
     public boolean isUserSynchronized() {
         Debug.logInfo(this.getClass().getName() + " Authenticator isUserSynchronized()", module);
         return true;
@@ -122,6 +129,7 @@ public class TestFailAuthenticator implements Authenticator {
      *
      * @return true if this is expected to be the only Authenticator
      */
+    @Override
     public boolean isSingleAuthenticator() {
         Debug.logInfo(this.getClass().getName() + " Authenticator isSingleAuthenticator()", module);
         return false;
@@ -132,6 +140,7 @@ public class TestFailAuthenticator implements Authenticator {
      *
      * @return true if the Authenticator is enabled
      */
+    @Override
     public boolean isEnabled() {
         return false;
     }

@@ -86,6 +86,7 @@ public class WorkEffortContentWrapper implements ContentWrapper {
      * @param contentTypeId Type of content to return
      * @return String containing the content data
      */
+    @Override
     public StringUtil.StringWrapper get(String contentTypeId, String encoderType) {
         return StringUtil.makeStringWrapper(get(contentTypeId, true, encoderType));
     }

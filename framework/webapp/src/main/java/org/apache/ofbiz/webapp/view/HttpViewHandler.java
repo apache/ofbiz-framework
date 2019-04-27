@@ -36,9 +36,11 @@ public class HttpViewHandler extends AbstractViewHandler {
 
     public static final String module = HttpViewHandler.class.getName();
 
+    @Override
     public void init(ServletContext context) throws ViewHandlerException {
     }
 
+    @Override
     public void render(String name, String page, String info, String contentType, String encoding, HttpServletRequest request, HttpServletResponse response) throws ViewHandlerException {
         // some containers call filters on EVERY request, even forwarded ones,
         // so let it know that it came from the control servlet

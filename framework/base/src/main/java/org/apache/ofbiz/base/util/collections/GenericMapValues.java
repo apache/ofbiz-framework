@@ -31,6 +31,7 @@ public abstract class GenericMapValues<K, V, M extends Map<K, V>> extends Generi
         super(source);
     }
 
+    @Override
     public boolean contains(Object item) {
         Iterator<V> it = iterator(false);
         while (it.hasNext()) {
@@ -77,6 +78,7 @@ public abstract class GenericMapValues<K, V, M extends Map<K, V>> extends Generi
         return h;
     }
 
+    @Override
     public boolean remove(Object item) {
         Iterator<V> it = iterator(false);
         while (it.hasNext()) {

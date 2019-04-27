@@ -44,6 +44,7 @@ public class DateTimeConverters implements ConverterLoader {
             return getSourceClass().isAssignableFrom(sourceClass) && targetClass == getTargetClass();
         }
 
+        @Override
         public Date convert(Calendar obj) throws ConversionException {
             return obj.getTime();
         }
@@ -54,6 +55,7 @@ public class DateTimeConverters implements ConverterLoader {
             super(Calendar.class, Long.class);
         }
 
+        @Override
         public Long convert(Calendar obj) throws ConversionException {
             return obj.getTimeInMillis();
         }
@@ -64,6 +66,7 @@ public class DateTimeConverters implements ConverterLoader {
             super(Calendar.class, String.class);
         }
 
+        @Override
         public String convert(Calendar obj) throws ConversionException {
             Locale locale = obj.getLocale(com.ibm.icu.util.ULocale.VALID_LOCALE).toLocale();
             TimeZone timeZone = UtilDateTime.toTimeZone(obj.getTimeZone().getID());
@@ -82,6 +85,7 @@ public class DateTimeConverters implements ConverterLoader {
             return getSourceClass().isAssignableFrom(sourceClass) && targetClass == getTargetClass();
         }
 
+        @Override
         public Timestamp convert(Calendar obj) throws ConversionException {
             return new Timestamp(obj.getTimeInMillis());
         }
@@ -92,6 +96,7 @@ public class DateTimeConverters implements ConverterLoader {
             super(Date.class, Calendar.class);
         }
 
+        @Override
         public Calendar convert(Date obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
             return UtilDateTime.toCalendar(obj, timeZone, locale);
         }
@@ -102,6 +107,7 @@ public class DateTimeConverters implements ConverterLoader {
             super(java.util.Date.class, Long.class);
         }
 
+        @Override
         public Long convert(java.util.Date obj) throws ConversionException {
              return obj.getTime();
         }
@@ -117,6 +123,7 @@ public class DateTimeConverters implements ConverterLoader {
             return sourceClass == this.getSourceClass() && targetClass == this.getTargetClass();
         }
 
+        @Override
         public java.sql.Date convert(java.util.Date obj) throws ConversionException {
             Calendar cal = Calendar.getInstance();
             cal.setTime(obj);
@@ -136,6 +143,7 @@ public class DateTimeConverters implements ConverterLoader {
             return sourceClass == this.getSourceClass() && targetClass == this.getTargetClass();
         }
 
+        @Override
         public java.sql.Time convert(java.util.Date obj) throws ConversionException {
             return new java.sql.Time(obj.getTime());
         }
@@ -151,6 +159,7 @@ public class DateTimeConverters implements ConverterLoader {
             return obj.toString();
         }
 
+        @Override
         public String convert(java.util.Date obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
             DateFormat df = null;
             if (UtilValidate.isEmpty(formatString)) {
@@ -172,6 +181,7 @@ public class DateTimeConverters implements ConverterLoader {
             return getSourceClass().isAssignableFrom(sourceClass) && targetClass == getTargetClass();
         }
 
+        @Override
         public java.sql.Timestamp convert(java.util.Date obj) throws ConversionException {
             return new java.sql.Timestamp(obj.getTime());
         }
@@ -182,6 +192,7 @@ public class DateTimeConverters implements ConverterLoader {
             super(TimeDuration.class, java.math.BigDecimal.class);
         }
 
+        @Override
         public java.math.BigDecimal convert(TimeDuration obj) throws ConversionException {
              return new java.math.BigDecimal(TimeDuration.toLong(obj));
         }
@@ -192,6 +203,7 @@ public class DateTimeConverters implements ConverterLoader {
             super(TimeDuration.class, Double.class);
         }
 
+        @Override
         public Double convert(TimeDuration obj) throws ConversionException {
              return (double) TimeDuration.toLong(obj);
         }
@@ -202,6 +214,7 @@ public class DateTimeConverters implements ConverterLoader {
             super(TimeDuration.class, Float.class);
         }
 
+        @Override
         public Float convert(TimeDuration obj) throws ConversionException {
              return (float) TimeDuration.toLong(obj);
         }
@@ -218,6 +231,7 @@ public class DateTimeConverters implements ConverterLoader {
             super(TimeDuration.class, Long.class);
         }
 
+        @Override
         public Long convert(TimeDuration obj) throws ConversionException {
              return TimeDuration.toLong(obj);
         }
@@ -234,6 +248,7 @@ public class DateTimeConverters implements ConverterLoader {
             super(TimeDuration.class, String.class);
         }
 
+        @Override
         public String convert(TimeDuration obj) throws ConversionException {
              return obj.toString();
         }
@@ -244,10 +259,12 @@ public class DateTimeConverters implements ConverterLoader {
             super(sourceClass, targetClass);
         }
 
+        @Override
         public T convert(S obj) throws ConversionException {
             return convert(obj, Locale.getDefault(), TimeZone.getDefault(), null);
         }
 
+        @Override
         public T convert(S obj, Locale locale, TimeZone timeZone) throws ConversionException {
             return convert(obj, locale, timeZone, null);
         }
@@ -258,14 +275,17 @@ public class DateTimeConverters implements ConverterLoader {
             super(Long.class, Calendar.class);
         }
 
+        @Override
         public Calendar convert(Long obj) throws ConversionException {
             return convert(obj, Locale.getDefault(), TimeZone.getDefault());
         }
 
+        @Override
         public Calendar convert(Long obj, Locale locale, TimeZone timeZone) throws ConversionException {
             return UtilDateTime.toCalendar(new java.util.Date(obj), timeZone, locale);
         }
 
+        @Override
         public Calendar convert(Long obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
             return convert(obj, Locale.getDefault(), TimeZone.getDefault());
         }
@@ -281,6 +301,7 @@ public class DateTimeConverters implements ConverterLoader {
             return getSourceClass().isAssignableFrom(sourceClass) && targetClass == getTargetClass();
         }
 
+        @Override
         public java.util.Date convert(Number obj) throws ConversionException {
              return new java.util.Date(obj.longValue());
         }
@@ -291,6 +312,7 @@ public class DateTimeConverters implements ConverterLoader {
             super(Number.class, TimeDuration.class);
         }
 
+        @Override
         public TimeDuration convert(Number obj) throws ConversionException {
              return TimeDuration.fromNumber(obj);
         }
@@ -306,6 +328,7 @@ public class DateTimeConverters implements ConverterLoader {
             return getSourceClass().isAssignableFrom(sourceClass) && targetClass == getTargetClass();
         }
 
+        @Override
         public java.sql.Date convert(Number obj) throws ConversionException {
             Calendar cal = Calendar.getInstance();
             cal.setTimeInMillis(obj.longValue());
@@ -325,6 +348,7 @@ public class DateTimeConverters implements ConverterLoader {
             return getSourceClass().isAssignableFrom(sourceClass) && targetClass == getTargetClass();
         }
 
+        @Override
         public java.sql.Time convert(Number obj) throws ConversionException {
              return new java.sql.Time(obj.longValue());
         }
@@ -340,6 +364,7 @@ public class DateTimeConverters implements ConverterLoader {
             return getSourceClass().isAssignableFrom(sourceClass) && targetClass == getTargetClass();
         }
 
+        @Override
         public java.sql.Timestamp convert(Number obj) throws ConversionException {
              return new java.sql.Timestamp(obj.longValue());
         }
@@ -355,6 +380,7 @@ public class DateTimeConverters implements ConverterLoader {
             return sourceClass == this.getSourceClass() && targetClass == this.getTargetClass();
         }
 
+        @Override
         public java.util.Date convert(java.sql.Date obj) throws ConversionException {
             return new java.util.Date(obj.getTime());
         }
@@ -382,6 +408,7 @@ public class DateTimeConverters implements ConverterLoader {
             return obj.toString();
         }
 
+        @Override
         public String convert(java.sql.Date obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
             DateFormat df = null;
             if (UtilValidate.isEmpty(formatString)) {
@@ -403,6 +430,7 @@ public class DateTimeConverters implements ConverterLoader {
             return sourceClass == this.getSourceClass() && targetClass == this.getTargetClass();
         }
 
+        @Override
         public java.sql.Time convert(java.sql.Date obj) throws ConversionException {
             throw new ConversionException("Conversion from Date to Time not supported");
        }
@@ -418,6 +446,7 @@ public class DateTimeConverters implements ConverterLoader {
             return sourceClass == this.getSourceClass() && targetClass == this.getTargetClass();
         }
 
+        @Override
         public java.sql.Timestamp convert(java.sql.Date obj) throws ConversionException {
             return new java.sql.Timestamp(obj.getTime());
        }
@@ -445,6 +474,7 @@ public class DateTimeConverters implements ConverterLoader {
             return sourceClass == this.getSourceClass() && targetClass == this.getTargetClass();
         }
 
+        @Override
         public java.sql.Date convert(java.sql.Time obj) throws ConversionException {
             throw new ConversionException("Conversion from Time to Date not supported");
         }
@@ -455,6 +485,7 @@ public class DateTimeConverters implements ConverterLoader {
             super(java.sql.Time.class, String.class);
         }
 
+        @Override
         public String convert(java.sql.Time obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
             DateFormat df = null;
             if (UtilValidate.isEmpty(formatString)) {
@@ -471,14 +502,17 @@ public class DateTimeConverters implements ConverterLoader {
             super(String.class, Calendar.class);
         }
 
+        @Override
         public Calendar convert(String obj) throws ConversionException {
             return convert(obj, Locale.getDefault(), TimeZone.getDefault(), null);
         }
 
+        @Override
         public Calendar convert(String obj, Locale locale, TimeZone timeZone) throws ConversionException {
             return convert(obj, Locale.getDefault(), TimeZone.getDefault(), null);
         }
 
+        @Override
         public Calendar convert(String obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
             String trimStr = obj.trim();
             if (trimStr.length() == 0) {
@@ -504,6 +538,7 @@ public class DateTimeConverters implements ConverterLoader {
             super(String.class, java.util.Date.class);
         }
 
+        @Override
         public java.util.Date convert(String obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
             String trimStr = obj.trim();
             if (trimStr.length() == 0) {
@@ -528,10 +563,12 @@ public class DateTimeConverters implements ConverterLoader {
             super(String.class, TimeDuration.class);
         }
 
+        @Override
         public TimeDuration convert(String obj) throws ConversionException {
             return TimeDuration.parseDuration(obj);
         }
 
+        @Override
         public TimeDuration convert(String obj, Locale locale, TimeZone timeZone) throws ConversionException {
             if (!obj.contains(":")) {
                 // Encoded duration
@@ -547,6 +584,7 @@ public class DateTimeConverters implements ConverterLoader {
             return convert(obj);
         }
 
+        @Override
         public TimeDuration convert(String obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
             return convert(obj, locale, timeZone);
         }
@@ -562,6 +600,7 @@ public class DateTimeConverters implements ConverterLoader {
             return getSourceClass().isAssignableFrom(sourceClass) && targetClass == getTargetClass();
         }
 
+        @Override
         public java.sql.Date convert(String obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
             String trimStr = obj.trim();
             if (trimStr.length() == 0) {
@@ -595,6 +634,7 @@ public class DateTimeConverters implements ConverterLoader {
             return getSourceClass().isAssignableFrom(sourceClass) && targetClass == getTargetClass();
         }
 
+        @Override
         public java.sql.Time convert(String obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
             String trimStr = obj.trim();
             if (trimStr.length() == 0) {
@@ -624,6 +664,7 @@ public class DateTimeConverters implements ConverterLoader {
             return getSourceClass().isAssignableFrom(sourceClass) && targetClass == getTargetClass();
         }
 
+        @Override
         public java.sql.Timestamp convert(String obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
             String str = obj.trim();
             if (str.length() == 0) {
@@ -678,6 +719,7 @@ public class DateTimeConverters implements ConverterLoader {
             super(String.class, TimeZone.class);
         }
 
+        @Override
         public TimeZone convert(String obj) throws ConversionException {
             TimeZone tz = UtilDateTime.toTimeZone(obj);
             if (tz != null) {
@@ -697,6 +739,7 @@ public class DateTimeConverters implements ConverterLoader {
             return sourceClass == this.getSourceClass() && targetClass == this.getTargetClass();
         }
 
+        @Override
         public java.util.Date convert(java.sql.Timestamp obj) throws ConversionException {
             return new java.sql.Timestamp(obj.getTime());
         }
@@ -724,6 +767,7 @@ public class DateTimeConverters implements ConverterLoader {
             return sourceClass == this.getSourceClass() && targetClass == this.getTargetClass();
         }
 
+        @Override
         public java.sql.Date convert(java.sql.Timestamp obj) throws ConversionException {
             return new java.sql.Date(obj.getTime());
         }
@@ -739,6 +783,7 @@ public class DateTimeConverters implements ConverterLoader {
             return sourceClass == this.getSourceClass() && targetClass == this.getTargetClass();
         }
 
+        @Override
         public java.sql.Time convert(java.sql.Timestamp obj) throws ConversionException {
             return new java.sql.Time(obj.getTime());
         }
@@ -754,6 +799,7 @@ public class DateTimeConverters implements ConverterLoader {
             return obj.toString();
         }
 
+        @Override
         public String convert(java.sql.Timestamp obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
             DateFormat df = null;
             if (UtilValidate.isEmpty(formatString)) {
@@ -770,11 +816,13 @@ public class DateTimeConverters implements ConverterLoader {
             super(TimeZone.class, String.class);
         }
 
+        @Override
         public String convert(TimeZone obj) throws ConversionException {
             return obj.getID();
         }
     }
 
+    @Override
     public void loadConverters() {
         Converters.loadContainedConverters(DateTimeConverters.class);
     }

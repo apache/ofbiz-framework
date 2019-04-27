@@ -295,6 +295,7 @@ public abstract class EntityOperator<L, R> implements Serializable {
     public abstract EntityCondition freeze(L lhs, R rhs);
 
     public static final Comparable<?> WILDCARD = new Comparable<Object>() {
+        @Override
         public int compareTo(Object obj) {
             if (obj != WILDCARD) {
                 throw new ClassCastException();

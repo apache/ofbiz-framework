@@ -127,6 +127,7 @@ public final class ValidateMethodCondition extends MethodOperation implements Co
         }
     }
 
+    @Override
     public void prettyPrint(StringBuilder messageBuffer, MethodContext methodContext) {
         messageBuffer.append("validate-method[");
         messageBuffer.append(className);

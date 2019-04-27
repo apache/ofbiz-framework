@@ -838,6 +838,7 @@ public class ModelViewEntity extends ModelEntity {
             }
         }
 
+        @Override
         public Iterator<String> iterator() {
             if (this.fieldsToExclude == null) {
                 return Collections.<String>emptySet().iterator();
@@ -1004,6 +1005,7 @@ public class ModelViewEntity extends ModelEntity {
             this.complexAliasMembers.addAll(complexAliasMembers);
         }
 
+        @Override
         public void makeAliasColName(StringBuilder colNameBuffer, StringBuilder fieldTypeBuffer, ModelViewEntity modelViewEntity, ModelReader modelReader) {
             if (complexAliasMembers.size() == 0) {
                 return;
@@ -1060,6 +1062,7 @@ public class ModelViewEntity extends ModelEntity {
         /**
          * Make the alias as follows: function(coalesce(entityAlias.field, defaultValue))
          */
+        @Override
         public void makeAliasColName(StringBuilder colNameBuffer, StringBuilder fieldTypeBuffer, ModelViewEntity modelViewEntity, ModelReader modelReader) {
             if(UtilValidate.isEmpty(entityAlias) 
                     && UtilValidate.isEmpty(field) 
@@ -1173,6 +1176,7 @@ public class ModelViewEntity extends ModelEntity {
             return this.keyMaps.iterator();
         }
 
+        @Override
         public Iterator<ModelKeyMap> iterator() {
             return this.keyMaps.iterator();
         }
@@ -1374,6 +1378,7 @@ public class ModelViewEntity extends ModelEntity {
             this.relEntityAlias = relEntityAlias;
         }
 
+        @Override
         public EntityCondition createCondition(ModelFieldTypeReader modelFieldTypeReader, List<String> entityAliasStack) {
             Object value = this.value;
             // If IN or BETWEEN operator, see if value is a literal list and split it
@@ -1489,6 +1494,7 @@ public class ModelViewEntity extends ModelEntity {
             }
         }
 
+        @Override
         public EntityCondition createCondition(ModelFieldTypeReader modelFieldTypeReader, List<String> entityAliasStack) {
             if (this.conditionList.size() == 0) {
                 return null;

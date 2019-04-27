@@ -59,6 +59,7 @@ public class DBCPConnectionFactory implements ConnectionFactory {
     protected static final ConcurrentHashMap<String, DebugManagedDataSource<? extends Connection>> dsCache =
             new ConcurrentHashMap<>();
 
+    @Override
     public Connection getConnection(GenericHelperInfo helperInfo, JdbcElement abstractJdbc) throws SQLException, GenericEntityException {
         String cacheKey = helperInfo.getHelperFullName();
         DebugManagedDataSource<? extends Connection> mds = dsCache.get(cacheKey);
@@ -159,6 +160,7 @@ public class DBCPConnectionFactory implements ConnectionFactory {
         return TransactionUtil.getCursorConnection(helperInfo, mds.getConnection());
     }
 
+    @Override
     public void closeAll() {
         // no methods on the pool to shutdown; so just clearing for GC
         dsCache.clear();

@@ -44,7 +44,6 @@ import org.apache.ofbiz.service.ModelParam;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceAuthException;
 import org.apache.ofbiz.service.ServiceValidationException;
-import org.apache.ofbiz.webapp.control.ConfigXMLReader;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader.Event;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
 import org.apache.ofbiz.webapp.control.ControlActivationEventListener;
@@ -60,15 +59,11 @@ public class ServiceEventHandler implements EventHandler {
     public static final String SYNC = "sync";
     public static final String ASYNC = "async";
 
-    /**
-     * @see org.apache.ofbiz.webapp.event.EventHandler#init(javax.servlet.ServletContext)
-     */
+    @Override
     public void init(ServletContext context) throws EventHandlerException {
     }
 
-    /**
-     * @see org.apache.ofbiz.webapp.event.EventHandler#invoke(ConfigXMLReader.Event, ConfigXMLReader.RequestMap, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-     */
+    @Override
     public String invoke(Event event, RequestMap requestMap, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
         // make sure we have a valid reference to the Service Engine
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");

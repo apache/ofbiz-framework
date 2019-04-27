@@ -55,7 +55,6 @@ import org.apache.ofbiz.service.LocalDispatcher;
 import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.service.engine.SoapSerializer;
-import org.apache.ofbiz.webapp.control.ConfigXMLReader;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader.Event;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
 import org.apache.ofbiz.webapp.control.RequestHandler;
@@ -68,15 +67,11 @@ public class SOAPEventHandler implements EventHandler {
 
     public static final String module = SOAPEventHandler.class.getName();
 
-    /**
-     * @see org.apache.ofbiz.webapp.event.EventHandler#init(javax.servlet.ServletContext)
-     */
+    @Override
     public void init(ServletContext context) throws EventHandlerException {
     }
 
-    /**
-     * @see org.apache.ofbiz.webapp.event.EventHandler#invoke(ConfigXMLReader.Event, ConfigXMLReader.RequestMap, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-     */
+    @Override
     public String invoke(Event event, RequestMap requestMap, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         Delegator delegator = (Delegator) request.getAttribute("delegator");

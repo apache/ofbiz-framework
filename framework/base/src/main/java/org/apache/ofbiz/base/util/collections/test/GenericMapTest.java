@@ -86,6 +86,7 @@ public class GenericMapTest extends GenericTestCaseBase {
             proxyMap.clear();
         }
 
+        @Override
         public boolean containsKey(Object key) {
             incrementCallCount("containsKey");
             return proxyMap.containsKey(key);
@@ -97,6 +98,7 @@ public class GenericMapTest extends GenericTestCaseBase {
             return proxyMap.get(key);
         }
 
+        @Override
         public boolean isEmpty() {
             incrementCallCount("isEmpty");
             return proxyMap.isEmpty();
@@ -116,6 +118,7 @@ public class GenericMapTest extends GenericTestCaseBase {
             };
         }
 
+        @Override
         public V put(K key, V value) {
             incrementCallCount("putInternal");
             if (!proxyMap.containsKey(key)) incrementModCount();
@@ -139,6 +142,7 @@ public class GenericMapTest extends GenericTestCaseBase {
             return proxyMap.remove(key);
         }
 
+        @Override
         public int size() {
             incrementCallCount("size");
             return proxyMap.size();

@@ -957,6 +957,7 @@ public class EntityPermissionChecker {
             this.entityName = getterElement.getAttribute("entity-name");
         }
 
+        @Override
         public boolean getNext() {
             boolean hasNext = false;
             if (iter != null && iter.hasNext()) {
@@ -966,17 +967,21 @@ public class EntityPermissionChecker {
             return hasNext;
         }
 
+        @Override
         public String getRoleValue() {
             return this.currentValue.getString(this.roleFieldName);
         }
 
+        @Override
         public String getOperationValue() {
             return this.currentValue.getString(this.operationFieldName);
         }
+        @Override
         public String getStatusValue() {
             return this.currentValue.getString(this.statusFieldName);
 
         }
+        @Override
         public int getPrivilegeValue() throws GenericEntityException {
             int privilegeEnumSeq = -1;
             String privilegeEnumId = null;
@@ -1000,10 +1005,12 @@ public class EntityPermissionChecker {
 
         }
 
+        @Override
         public String getAuxiliaryValue() {
             return this.currentValue.getString(this.auxiliaryFieldName);
         }
 
+        @Override
         public void setOperationList(String operationIdString) {
 
             this.operationList = null;
@@ -1012,18 +1019,22 @@ public class EntityPermissionChecker {
             }
         }
 
+        @Override
         public void setOperationList(List<String> operationList) {
             this.operationList = operationList;
         }
 
+        @Override
         public List<String> getOperationList() {
             return this.operationList;
         }
 
+        @Override
         public void clearList() {
             this.entityList = new LinkedList<>();
         }
 
+        @Override
         public void init(Delegator delegator) throws GenericEntityException {
             this.entityList = EntityQuery.use(delegator)
                                          .from(this.entityName)
@@ -1032,6 +1043,7 @@ public class EntityPermissionChecker {
                                          .queryList();
         }
 
+        @Override
         public void restart() {
             this.iter = null;
             if (this.entityList != null) {
@@ -1039,6 +1051,7 @@ public class EntityPermissionChecker {
             }
         }
 
+        @Override
         public String dumpAsText() {
              List<String> fieldNames = UtilMisc.toList("roleFieldName",  "auxiliaryFieldName",  "statusFieldName");
              Map<String, Integer> widths = UtilMisc.toMap("roleFieldName", 24, "auxiliaryFieldName", 24, "statusFieldName", 24);
@@ -1147,10 +1160,12 @@ public class EntityPermissionChecker {
             this.entityIdName = getterElement.getAttribute("entity-id-name");
         }
 
+        @Override
         public List<String> getList() {
             return entityList;
         }
 
+        @Override
         public void clearList() {
             this.entityList = new LinkedList<>();
         }
@@ -1159,6 +1174,7 @@ public class EntityPermissionChecker {
             this.entityList = lst;
         }
 
+        @Override
         public void init(Delegator delegator, String entityId) throws GenericEntityException {
 
             if (this.entityList == null) {
@@ -1173,6 +1189,7 @@ public class EntityPermissionChecker {
             }
         }
 
+        @Override
         public String dumpAsText() {
              StringBuilder buf = new StringBuilder();
              buf.append("AUXILIARY: ");
@@ -1236,18 +1253,22 @@ public class EntityPermissionChecker {
             this.roleEntityIdName = getterElement.getAttribute("entity-id-name");
         }
 
+        @Override
         public List<String> getList() {
             return this.roleIdList;
         }
 
+        @Override
         public void clearList() {
             this.roleIdList = new LinkedList<>();
         }
 
+        @Override
         public void setList(List<String> lst) {
             this.roleIdList = lst;
         }
 
+        @Override
         public void init(Delegator delegator, String entityId, String partyId, GenericValue entity) throws GenericEntityException {
 
             List<String> lst = getUserRolesFromList(delegator, UtilMisc.toList(entityId), partyId, this.roleEntityIdName,
@@ -1258,6 +1279,7 @@ public class EntityPermissionChecker {
             }
         }
 
+        @Override
         public void initWithAncestors(Delegator delegator, GenericValue entity, String partyId) throws GenericEntityException {
 
            List<String> ownedContentIdList = new LinkedList<>();
@@ -1268,6 +1290,7 @@ public class EntityPermissionChecker {
            }
         }
 
+        @Override
         public boolean isOwner(GenericValue entity, String targetPartyId) {
             boolean isOwner = false;
             if (entity == null || targetPartyId == null) {
@@ -1298,6 +1321,7 @@ public class EntityPermissionChecker {
             return isOwner;
         }
 
+        @Override
         public String dumpAsText() {
              StringBuilder buf = new StringBuilder();
              buf.append("ROLES: ");

@@ -131,14 +131,17 @@ public class UtilCacheTests extends GenericTestCaseBase implements Serializable 
             changeSet.add(change);
         }
 
+        @Override
         public synchronized void noteKeyRemoval(UtilCache<K, V> cache, K key, V oldValue) {
             add(key, new Removal<>(oldValue));
         }
 
+        @Override
         public synchronized void noteKeyAddition(UtilCache<K, V> cache, K key, V newValue) {
             add(key, new Addition<>(newValue));
         }
 
+        @Override
         public synchronized void noteKeyUpdate(UtilCache<K, V> cache, K key, V newValue, V oldValue) {
             add(key, new Update<>(newValue, oldValue));
         }

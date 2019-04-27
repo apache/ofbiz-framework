@@ -170,6 +170,7 @@ public abstract class AbstractModelCondition implements Serializable, ModelCondi
             }
         };
 
+        @Override
         public ModelCondition newInstance(ModelWidget modelWidget, Element conditionElement) {
             return newInstance(this, modelWidget, conditionElement);
         }

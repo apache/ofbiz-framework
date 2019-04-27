@@ -188,6 +188,7 @@ public final class EntityFinderUtil {
             this.ignoreExdr = FlexibleStringExpander.getInstance(conditionExprElement.getAttribute("ignore"));
         }
 
+        @Override
         public EntityCondition createCondition(Map<String, ? extends Object> context, ModelEntity modelEntity, ModelFieldTypeReader modelFieldTypeReader) {
             if ("true".equals(this.ignoreExdr.expandString(context))) {
                 return null;
@@ -289,6 +290,7 @@ public final class EntityFinderUtil {
             }
         }
 
+        @Override
         public EntityCondition createCondition(Map<String, ? extends Object> context, ModelEntity modelEntity, ModelFieldTypeReader modelFieldTypeReader) {
             if (this.conditionList == null) {
                 return null;
@@ -320,6 +322,7 @@ public final class EntityFinderUtil {
             this.fieldNameAcsr = FlexibleMapAccessor.getInstance(fieldNameAttribute);
         }
 
+        @Override
         public EntityCondition createCondition(Map<String, ? extends Object> context, ModelEntity modelEntity, ModelFieldTypeReader modelFieldTypeReader) {
             return (EntityCondition) fieldNameAcsr.get(context);
         }
@@ -362,6 +365,7 @@ public final class EntityFinderUtil {
             }
         }
 
+        @Override
         public void handleOutput(EntityListIterator eli, Map<String, Object> context, FlexibleMapAccessor<Object> listAcsr) {
             int start = getStart(context) + 1; // ELI index is one-based.
             int size = getSize(context);
@@ -375,6 +379,7 @@ public final class EntityFinderUtil {
             }
         }
 
+        @Override
         public void handleOutput(List<GenericValue> results, Map<String, Object> context, FlexibleMapAccessor<Object> listAcsr) {
             List<GenericValue> result = null;
             int start = getStart(context);
@@ -424,6 +429,7 @@ public final class EntityFinderUtil {
             }
         }
 
+        @Override
         public void handleOutput(EntityListIterator eli, Map<String, Object> context, FlexibleMapAccessor<Object> listAcsr) {
             int index = this.getIndex(context);
             int size = this.getSize(context);
@@ -437,6 +443,7 @@ public final class EntityFinderUtil {
             }
         }
 
+        @Override
         public void handleOutput(List<GenericValue> results, Map<String, Object> context, FlexibleMapAccessor<Object> listAcsr) {
             List<GenericValue> result = null;
             int index = this.getIndex(context);
@@ -461,10 +468,12 @@ public final class EntityFinderUtil {
             // no parameters, nothing to do
         }
 
+        @Override
         public void handleOutput(EntityListIterator eli, Map<String, Object> context, FlexibleMapAccessor<Object> listAcsr) {
             listAcsr.put(context, eli);
         }
 
+        @Override
         public void handleOutput(List<GenericValue> results, Map<String, Object> context, FlexibleMapAccessor<Object> listAcsr) {
             throw new IllegalArgumentException("Cannot handle output with use-iterator when the query is cached, or the result in general is not an EntityListIterator");
         }
@@ -475,6 +484,7 @@ public final class EntityFinderUtil {
             // no parameters, nothing to do
         }
 
+        @Override
         public void handleOutput(EntityListIterator eli, Map<String, Object> context, FlexibleMapAccessor<Object> listAcsr) {
             try {
                 listAcsr.put(context, eli.getCompleteList());
@@ -486,6 +496,7 @@ public final class EntityFinderUtil {
             }
         }
 
+        @Override
         public void handleOutput(List<GenericValue> results, Map<String, Object> context, FlexibleMapAccessor<Object> listAcsr) {
             listAcsr.put(context, results);
         }

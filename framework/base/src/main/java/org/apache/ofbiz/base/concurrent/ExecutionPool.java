@@ -55,6 +55,7 @@ public final class ExecutionPool {
             this.namePrefix = namePrefix;
         }
 
+        @Override
         public Thread newThread(Runnable r) {
             Thread t = new Thread(group, r);
             t.setDaemon(true);
@@ -106,6 +107,7 @@ public final class ExecutionPool {
     private static final DelayQueue<Pulse> delayQueue = new DelayQueue<>();
 
     public static class ExecutionPoolPulseWorker implements Runnable {
+        @Override
         public void run() {
             try {
                 while (true) {
@@ -138,10 +140,12 @@ public final class ExecutionPool {
             return expireTimeNanos;
         }
 
+        @Override
         public final long getDelay(TimeUnit unit) {
             return unit.convert(expireTimeNanos - System.nanoTime(), TimeUnit.NANOSECONDS);
         }
 
+        @Override
         public final int compareTo(Delayed other) {
             if (this.equals(other)) {
                 return 0;
@@ -153,6 +157,7 @@ public final class ExecutionPool {
             return 1;
         }
 
+        @Override
         public final boolean equals(Object other) {
             if(other instanceof Pulse) {
                 return timeDiff((Pulse) other) == 0;
@@ -160,6 +165,7 @@ public final class ExecutionPool {
             return false;
         }
 
+        @Override
         public int hashCode() {
             return super.hashCode();
         }

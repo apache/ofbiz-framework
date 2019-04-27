@@ -114,6 +114,7 @@ public final class ScriptHelperImpl implements ScriptHelper {
         this.ctxHelper = new ContextHelper(context);
     }
 
+    @Override
     public Map<String, ? extends Object> createServiceMap(String serviceName, Map<String, ? extends Object> inputMap) throws ScriptException {
         Assert.notNull("serviceName", serviceName, "inputMap", inputMap);
         Map<String, Object> toMap = new HashMap<>();
@@ -154,6 +155,7 @@ public final class ScriptHelperImpl implements ScriptHelper {
         }
     }
 
+    @Override
     public List<Map<String, Object>> findList(String entityName, Map<String, ? extends Object> fields) throws ScriptException {
         try {
             return UtilGenerics.checkList(ctxHelper.getDelegator().findByAnd(entityName, fields, null, false));
@@ -164,10 +166,12 @@ public final class ScriptHelperImpl implements ScriptHelper {
         }
     }
 
+    @Override
     public Map<String, Object> findOne(String entityName) throws ScriptException {
         return findOne(entityName, null, EMPTY_ARGS);
     }
 
+    @Override
     public Map<String, Object> findOne(String entityName, Map<String, ? extends Object> fields, Map<String, ? extends Object> args) throws ScriptException {
         Assert.notNull("entityName", entityName);
         if (args == null) {
@@ -183,33 +187,40 @@ public final class ScriptHelperImpl implements ScriptHelper {
         return runFindByPrimaryKey(modelEntity, ctxHelper, useCache, autoFieldMap, fields, selectFieldList);
     }
 
+    @Override
     public void logError(String message) {
         String expandedMessage = ctxHelper.expandString(message);
         Debug.logError("[".concat(ctxHelper.getScriptName()).concat("] ").concat(expandedMessage), module);
     }
 
+    @Override
     public void logInfo(String message) {
         String expandedMessage = ctxHelper.expandString(message);
         Debug.logInfo("[".concat(ctxHelper.getScriptName()).concat("] ").concat(expandedMessage), module);
     }
 
+    @Override
     public void logWarning(String message) {
         String expandedMessage = ctxHelper.expandString(message);
         Debug.logWarning("[".concat(ctxHelper.getScriptName()).concat("] ").concat(expandedMessage), module);
     }
 
+    @Override
     public Map<String, Object> makeValue(String entityName) throws ScriptException {
         return ctxHelper.getDelegator().makeValidValue(entityName);
     }
 
+    @Override
     public Map<String, Object> makeValue(String entityName, Map<String, Object> fields) throws ScriptException {
         return ctxHelper.getDelegator().makeValidValue(entityName, fields);
     }
 
+    @Override
     public Map<String, ? extends Object> runService(String serviceName, Map<String, ? extends Object> inputMap) throws ScriptException {
         return runService(serviceName, inputMap, EMPTY_ARGS);
     }
 
+    @Override
     public Map<String, ? extends Object> runService(String serviceName, Map<String, ? extends Object> inputMap, Map<String, ? extends Object> args) throws ScriptException {
         Assert.notNull("serviceName", serviceName, "args", args);
         boolean includeUserLogin = !"false".equals(args.get("includeUserLoginStr"));

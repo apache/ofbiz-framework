@@ -44,29 +44,36 @@ public class EntityConditionBuilder extends BuilderSupport {
             this.condition = condition;
         }
 
+        @Override
         public boolean isEmpty() {
             return condition.isEmpty();
         }
 
+        @Override
         public String makeWhereString(ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, Datasource datasourceInfo) {
             return condition.makeWhereString(modelEntity, entityConditionParams, datasourceInfo);
         }
 
+        @Override
         public void checkCondition(ModelEntity modelEntity) throws GenericModelException {
             condition.checkCondition(modelEntity);
         }
 
+        @Override
         public boolean mapMatches(Delegator delegator, Map<String, ? extends Object> map) {
             return condition.mapMatches(delegator, map);
         }
 
+        @Override
         public EntityCondition freeze() {
             return condition.freeze();
         }
 
+        @Override
         public int hashCode() {
             return condition.hashCode();
         }
+        @Override
         public boolean equals(Object obj) {
             return condition.equals(obj);
         }

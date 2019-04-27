@@ -64,6 +64,7 @@ public class AuthenticationComparator implements Comparator<Authenticator> {
      * @throws ClassCastException if the arguments' types prevent them from
      *                            being compared by this Comparator.
      */
+    @Override
     public int compare(Authenticator a1, Authenticator a2) {
         int comp = Float.compare(a1.getWeight(), a2.getWeight());
         if (comp != 0) {

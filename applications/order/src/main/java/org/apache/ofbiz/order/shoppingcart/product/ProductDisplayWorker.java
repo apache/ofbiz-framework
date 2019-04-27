@@ -322,6 +322,7 @@ public final class ProductDisplayWorker {
             this.descending = descending;
         }
 
+        @Override
         public int compare(java.lang.Object prod1, java.lang.Object prod2) {
             int result = compareAsc((GenericEntity) prod1, (GenericEntity) prod2);
 

@@ -124,10 +124,12 @@ public final class MasterIf extends MethodOperation {
      * A &lt;if&gt; element factory. 
      */
     public static final class MasterIfFactory implements Factory<MasterIf> {
+        @Override
         public MasterIf createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new MasterIf(element, simpleMethod);
         }
 
+        @Override
         public String getName() {
             return "if";
         }

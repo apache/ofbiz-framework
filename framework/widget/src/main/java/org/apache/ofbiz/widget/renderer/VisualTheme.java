@@ -79,6 +79,7 @@ public final class VisualTheme implements Serializable {
         return modelTheme;
     }
 
+    @Override
     public String toString() {
         StringBuilder toString = new StringBuilder("visual-theme-id:").append(visualThemeId)
                 .append(", display-name: ").append(this.displayName)

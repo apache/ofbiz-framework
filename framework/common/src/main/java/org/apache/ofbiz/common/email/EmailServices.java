@@ -716,18 +716,22 @@ public class EmailServices {
             contentArray.close();
         }
 
+        @Override
         public String getContentType() {
             return contentType == null ? "application/octet-stream" : contentType;
         }
 
+        @Override
         public InputStream getInputStream() throws IOException {
             return new ByteArrayInputStream(contentArray.toByteArray());
         }
 
+        @Override
         public String getName() {
             return "stringDatasource";
         }
 
+        @Override
         public OutputStream getOutputStream() throws IOException {
             throw new IOException("Cannot write to this read-only resource");
         }
@@ -743,18 +747,22 @@ public class EmailServices {
             this.contentArray = content.clone();
         }
 
+        @Override
         public String getContentType() {
             return contentType == null ? "application/octet-stream" : contentType;
         }
 
+        @Override
         public InputStream getInputStream() {
             return new ByteArrayInputStream(contentArray);
         }
 
+        @Override
         public String getName() {
             return "ByteArrayDataSource";
         }
 
+        @Override
         public OutputStream getOutputStream() throws IOException {
             throw new IOException("Cannot write to this read-only resource");
         }

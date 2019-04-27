@@ -66,6 +66,7 @@ public class SeoContextFilter implements Filter {
     private String errorCode = "";
     private List<String> allowedPathList = new ArrayList<>();
 
+    @Override
     public void init(FilterConfig config) throws ServletException {
         this.config = config;
         allowedPaths = config.getInitParameter("allowedPaths");
@@ -89,9 +90,7 @@ public class SeoContextFilter implements Filter {
         }
     }
 
-    /**
-     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
-     */
+    @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;

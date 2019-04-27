@@ -796,6 +796,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
      * @return If the corresponding resource is found and contains a key as described above, then that
      *    property value is returned; otherwise returns the field value
      */
+    @Override
     public Object get(String name, Locale locale) {
         return get(name, null, locale);
     }
@@ -1431,6 +1432,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
      *@param that Object to compare this to
      *@return int representing the result of the comparison (-1,0, or 1)
      */
+    @Override
     public int compareTo(GenericEntity that) {
         // if null, it will push to the beginning
         if (that == null) {
@@ -1482,52 +1484,62 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
         return newEntity;
     }
 
-    // ---- Methods added to implement the Map interface: ----
-
+    @Override
     public Object remove(Object key) {
         return this.fields.remove(key);
     }
 
+    @Override
     public boolean containsKey(Object key) {
         return this.fields.containsKey(key);
     }
 
+    @Override
     public java.util.Set<Map.Entry<String, Object>> entrySet() {
         return Collections.unmodifiableMap(this.fields).entrySet();
     }
 
+    @Override
     public Object put(String key, Object value) {
         return this.set(key, value, true);
     }
 
+    @Override
     public void putAll(java.util.Map<? extends String, ? extends Object> map) {
         this.setFields(map);
     }
 
+    @Override
     public void clear() {
         this.fields.clear();
     }
 
+    @Override
     public Object get(Object key) {
         return this.get((String) key);
     }
 
+    @Override
     public java.util.Set<String> keySet() {
         return Collections.unmodifiableSet(this.fields.keySet());
     }
 
+    @Override
     public boolean isEmpty() {
         return this.fields.isEmpty();
     }
 
+    @Override
     public java.util.Collection<Object> values() {
         return Collections.unmodifiableMap(this.fields).values();
     }
 
+    @Override
     public boolean containsValue(Object value) {
         return this.fields.containsValue(value);
     }
 
+    @Override
     public int size() {
         return this.fields.size();
     }
@@ -1679,6 +1691,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
             return this == o;
         }
 
+        @Override
         public int compareTo(NullField other) {
             return equals(other) ? 0 : -1;
         }

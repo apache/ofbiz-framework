@@ -112,6 +112,7 @@ public class URLConnector {
 
     // special thread to open the connection
     private class URLConnectorThread implements Runnable {
+        @Override
         public void run() {
             URLConnection con = null;
             try {

@@ -59,6 +59,7 @@ public class JmsTopicListener extends AbstractJmsListener {
         this.password = password;
     }
 
+    @Override
     public void close() throws GenericServiceException {
         try {
             if (session != null)
@@ -70,6 +71,7 @@ public class JmsTopicListener extends AbstractJmsListener {
         }
     }
 
+    @Override
     public synchronized void load() throws GenericServiceException {
         try {
             InitialContext jndi = JNDIContextFactory.getInitialContext(jndiServer);

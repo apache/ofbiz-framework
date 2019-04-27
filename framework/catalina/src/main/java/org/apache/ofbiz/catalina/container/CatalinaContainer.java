@@ -132,6 +132,7 @@ public class CatalinaContainer implements Container {
         loadWebapps(tomcat, configuration, clusterProps);
     }
 
+    @Override
     public boolean start() throws ContainerException {
         try {
             tomcat.start();
@@ -147,6 +148,7 @@ public class CatalinaContainer implements Container {
         return true;
     }
 
+    @Override
     public void stop() {
         try {
             tomcat.stop();
@@ -157,6 +159,7 @@ public class CatalinaContainer implements Container {
         }
     }
 
+    @Override
     public String getName() {
         return name;
     }

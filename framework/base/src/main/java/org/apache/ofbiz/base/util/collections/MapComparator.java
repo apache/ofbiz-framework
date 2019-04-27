@@ -54,13 +54,12 @@ public class MapComparator implements Comparator<Map<Object, Object>> {
         return obj.equals(this);
     }
 
+    @Override
     public int hashCode() {
         return super.hashCode();
     }
 
-    /**
-     * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
-     */
+    @Override
     public int compare(Map<Object, Object> map1, Map<Object, Object> map2) {
 
         if (keys == null || keys.size() < 1) {

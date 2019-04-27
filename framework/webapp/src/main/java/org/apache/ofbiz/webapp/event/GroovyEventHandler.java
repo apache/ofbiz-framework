@@ -69,9 +69,11 @@ public class GroovyEventHandler implements EventHandler {
         return Collections.unmodifiableSet(newSet);
     }
 
+    @Override
     public void init(ServletContext context) throws EventHandlerException {
     }
 
+    @Override
     public String invoke(Event event, RequestMap requestMap, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
         boolean beganTransaction = false;
         try {

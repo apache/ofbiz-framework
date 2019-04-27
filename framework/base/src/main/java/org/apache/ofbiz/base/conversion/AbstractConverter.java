@@ -31,22 +31,27 @@ public abstract class AbstractConverter<S, T> implements Converter<S, T>, Conver
         this.targetClass = targetClass;
     }
 
+    @Override
     public void loadConverters() {
         Converters.registerConverter(this);
     }
 
+    @Override
     public T convert(Class<? extends T> targetClass, S obj) throws ConversionException {
         return convert(obj);
     }
 
+    @Override
     public boolean canConvert(Class<?> sourceClass, Class<?> targetClass) {
         return getSourceClass().isAssignableFrom(sourceClass) && getTargetClass().isAssignableFrom(targetClass);
     }
 
+    @Override
     public Class<? super S> getSourceClass() {
         return sourceClass;
     }
 
+    @Override
     public Class<? super T> getTargetClass() {
         return targetClass;
     }

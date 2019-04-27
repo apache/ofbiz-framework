@@ -40,9 +40,7 @@ public class ControlServlet extends org.apache.ofbiz.webapp.control.ControlServl
         super();
     }
 
-    /**
-     * @see javax.servlet.Servlet#init(javax.servlet.ServletConfig)
-     */
+    @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
 

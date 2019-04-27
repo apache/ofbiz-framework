@@ -58,9 +58,7 @@ public class ContextFilter implements Filter {
     private String defaultCharacterEncoding;
     private boolean isMultitenant;
 
-    /**
-     * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)
-     */
+    @Override
     public void init(FilterConfig config) throws ServletException {
         this.config = config;
 
@@ -87,9 +85,7 @@ public class ContextFilter implements Filter {
         new java.security.SecureRandom().nextLong();
     }
 
-    /**
-     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
-     */
+    @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
@@ -191,9 +187,7 @@ public class ContextFilter implements Filter {
         chain.doFilter(request, httpResponse);
     }
 
-    /**
-     * @see javax.servlet.Filter#destroy()
-     */
+    @Override
     public void destroy() {
         WebAppUtil.getDispatcher(config.getServletContext()).deregister();
         config = null;

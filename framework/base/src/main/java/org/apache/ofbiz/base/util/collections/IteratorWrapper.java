@@ -31,6 +31,7 @@ public abstract class IteratorWrapper<DEST, SRC> implements Iterator<DEST> {
         this.it = it;
     }
 
+    @Override
     public boolean hasNext() {
         if (nextCalled) {
             return true;
@@ -50,6 +51,7 @@ public abstract class IteratorWrapper<DEST, SRC> implements Iterator<DEST> {
         return false;
     }
 
+    @Override
     public DEST next() {
         if (!nextCalled) {
             if (!hasNext()) {
@@ -60,6 +62,7 @@ public abstract class IteratorWrapper<DEST, SRC> implements Iterator<DEST> {
         return lastDest;
     }
 
+    @Override
     public void remove() {
         if (lastSrc != null) {
             noteRemoval(lastDest, lastSrc);

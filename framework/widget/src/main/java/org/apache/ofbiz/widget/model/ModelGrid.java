@@ -60,6 +60,7 @@ public class ModelGrid extends ModelForm {
         visitor.visit(this);
     }
 
+    @Override
     protected ModelForm getParentModel(Element gridElement, ModelReader entityModelReader, DispatchContext dispatchContext) {
         ModelForm parentModel = null;
         String parentResource = gridElement.getAttribute("extends-resource");

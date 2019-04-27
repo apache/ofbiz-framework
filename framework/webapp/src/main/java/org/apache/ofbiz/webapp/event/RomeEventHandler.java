@@ -25,7 +25,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.ofbiz.webapp.control.ConfigXMLReader;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader.Event;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
 import org.apache.ofbiz.webapp.control.RequestHandler;
@@ -46,6 +45,7 @@ public class RomeEventHandler implements EventHandler {
     protected EventHandler service;
     protected WireFeedOutput out;
 
+    @Override
     public void init(ServletContext context) throws EventHandlerException {
         // get the service event handler
         this.service = new ServiceEventHandler();
@@ -53,9 +53,7 @@ public class RomeEventHandler implements EventHandler {
         this.out = new WireFeedOutput();
     }
 
-    /**
-     * @see org.apache.ofbiz.webapp.event.EventHandler#invoke(ConfigXMLReader.Event, ConfigXMLReader.RequestMap, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-     */
+    @Override
     public String invoke(Event event, RequestMap requestMap, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
         RequestHandler handler = (RequestHandler) request.getSession().getServletContext().getAttribute("_REQUEST_HANDLER_");
         if (handler == null) {

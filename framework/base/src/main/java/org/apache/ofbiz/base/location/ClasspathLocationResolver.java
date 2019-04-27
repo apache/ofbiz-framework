@@ -29,6 +29,7 @@ import org.apache.ofbiz.base.util.UtilURL;
  */
 
 public class ClasspathLocationResolver implements LocationResolver {
+    @Override
     public URL resolveLocation(String location) throws MalformedURLException {
         return resolveLocation(location, null);
     }

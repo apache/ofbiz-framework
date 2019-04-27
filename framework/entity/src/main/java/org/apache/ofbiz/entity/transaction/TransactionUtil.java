@@ -926,10 +926,12 @@ public final class TransactionUtil implements Status {
     }
 
     public static class StampClearSync implements Synchronization {
+        @Override
         public void afterCompletion(int status) {
             TransactionUtil.clearTransactionStamps();
         }
 
+        @Override
         public void beforeCompletion() {
         }
     }
@@ -941,6 +943,7 @@ public final class TransactionUtil implements Status {
             this.callable = callable;
         }
 
+        @Override
         public V call() throws GenericEntityException {
             Transaction suspended = TransactionUtil.suspend();
             try {
@@ -975,6 +978,7 @@ public final class TransactionUtil implements Status {
             this.printException = printException;
         }
 
+        @Override
         public V call() throws GenericEntityException {
             boolean tx = TransactionUtil.begin(timeout);
             Throwable transactionAbortCause = null;

@@ -150,6 +150,7 @@ public final class CompareCondition extends MethodOperation implements Condition
         }
     }
 
+    @Override
     public void prettyPrint(StringBuilder messageBuffer, MethodContext methodContext) {
         String value = valueFse.expandString(methodContext.getEnvMap());
         String format = formatFse.expandString(methodContext.getEnvMap());
@@ -196,6 +197,7 @@ public final class CompareCondition extends MethodOperation implements Condition
             return new CompareCondition(element, simpleMethod);
         }
 
+        @Override
         public CompareCondition createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new CompareCondition(element, simpleMethod);
         }

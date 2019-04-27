@@ -75,6 +75,7 @@ public class UtilCodec {
     public static class HtmlEncoder implements SimpleEncoder {
         private static final char[] IMMUNE_HTML = {',', '.', '-', '_', ' '};
         private HTMLEntityCodec htmlCodec = new HTMLEntityCodec();
+        @Override
         public String encode(String original) {
             if (original == null) {
                 return null;
@@ -84,10 +85,12 @@ public class UtilCodec {
         /**
          * @deprecated Use {@link #sanitize(String,String)} instead
          */
+        @Override
         @Deprecated
         public String sanitize(String original) {
             return sanitize(original, null);
         }
+        @Override
         public String sanitize(String original, String contentTypeId) {
             if (original == null) {
                 return null;
@@ -137,6 +140,7 @@ public class UtilCodec {
     public static class XmlEncoder implements SimpleEncoder {
         private static final char[] IMMUNE_XML = {',', '.', '-', '_', ' '};
         private XMLEntityCodec xmlCodec = new XMLEntityCodec();
+        @Override
         public String encode(String original) {
             if (original == null) {
                 return null;
@@ -146,16 +150,19 @@ public class UtilCodec {
         /**
          * @deprecated Use {@link #sanitize(String,String)} instead
          */
+        @Override
         @Deprecated
         public String sanitize(String original) {
             return sanitize(original, null);
         }
+        @Override
         public String sanitize(String original, String contentTypeId) {
             return encode(original);
         }
     }
 
     public static class UrlCodec implements SimpleEncoder, SimpleDecoder {
+        @Override
         public String encode(String original) {
             try {
                 return URLEncoder.encode(original, "UTF-8");
@@ -167,14 +174,17 @@ public class UtilCodec {
         /**
          * @deprecated Use {@link #sanitize(String,String)} instead
          */
+        @Override
         @Deprecated
         public String sanitize(String original) {
             return sanitize(original, null);
         }
+        @Override
         public String sanitize(String original, String contentTypeId) {
             return encode(original);
         }
 
+        @Override
         public String decode(String original) {
             try {
                 canonicalize(original);
@@ -187,6 +197,7 @@ public class UtilCodec {
     }
 
     public static class StringEncoder implements SimpleEncoder {
+        @Override
         public String encode(String original) {
             if (original != null) {
                 original = original.replace("\"", "\\\"");
@@ -196,10 +207,12 @@ public class UtilCodec {
         /**
          * @deprecated Use {@link #sanitize(String,String)} instead
          */
+        @Override
         @Deprecated
         public String sanitize(String original) {
             return sanitize(original, null);
         }
+        @Override
         public String sanitize(String original, String contentTypeId) {
             return encode(original);
         }
@@ -349,10 +362,15 @@ public class UtilCodec {
             this.encoder = null;
         }
 
+        @Override
         public int size() { return this.internalMap.size(); }
+        @Override
         public boolean isEmpty() { return this.internalMap.isEmpty(); }
+        @Override
         public boolean containsKey(Object key) { return this.internalMap.containsKey(key); }
+        @Override
         public boolean containsValue(Object value) { return this.internalMap.containsValue(value); }
+        @Override
         public Object get(Object key) {
             Object theObject = this.internalMap.get(key);
             if (theObject instanceof String) {
@@ -365,12 +383,19 @@ public class UtilCodec {
             }
             return theObject;
         }
+        @Override
         public Object put(K key, Object value) { return this.internalMap.put(key, value); }
+        @Override
         public Object remove(Object key) { return this.internalMap.remove(key); }
+        @Override
         public void putAll(Map<? extends K, ? extends Object> arg0) { this.internalMap.putAll(arg0); }
+        @Override
         public void clear() { this.internalMap.clear(); }
+        @Override
         public Set<K> keySet() { return this.internalMap.keySet(); }
+        @Override
         public Collection<Object> values() { return this.internalMap.values(); }
+        @Override
         public Set<Map.Entry<K, Object>> entrySet() { return this.internalMap.entrySet(); }
         @Override
         public String toString() { return this.internalMap.toString(); }

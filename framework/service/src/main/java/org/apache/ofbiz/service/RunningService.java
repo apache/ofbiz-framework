@@ -78,6 +78,7 @@ public class RunningService {
         return false;
     }
 
+    @Override
     public int hashCode() {
         return System.identityHashCode(this);
     }

@@ -44,6 +44,7 @@ public abstract class TemporalExpression implements Serializable, Comparable<Tem
      */
     public abstract void accept(TemporalExpressionVisitor visitor);
 
+    @Override
     public int compareTo(TemporalExpression obj) {
         if (this.equals(obj)) {
             return 0;

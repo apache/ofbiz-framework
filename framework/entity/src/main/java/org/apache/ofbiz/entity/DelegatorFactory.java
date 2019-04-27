@@ -71,6 +71,7 @@ public abstract class DelegatorFactory implements Factory<Delegator, String> {
             this.delegatorName = delegatorName;
         }
 
+        @Override
         public Delegator call() throws ClassNotFoundException {
             try {
                 Delegator delegator = UtilObject.getObjectFromFactory(DelegatorFactory.class, delegatorName);

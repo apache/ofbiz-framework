@@ -1155,9 +1155,11 @@ public final class UtilProperties implements Serializable {
         public Enumeration<String> getKeys() {
             return new Enumeration<String>() {
                 Iterator<String> i = UtilGenerics.cast(properties.keySet().iterator());
+                @Override
                 public boolean hasMoreElements() {
                     return (i.hasNext());
                 }
+                @Override
                 public String nextElement() {
                     return i.next();
                 }

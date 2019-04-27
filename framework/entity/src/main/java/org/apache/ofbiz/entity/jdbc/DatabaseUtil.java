@@ -429,6 +429,7 @@ public class DatabaseUtil {
             for (ModelEntity curEntity: entitiesAdded) {
                 if (curEntity.getRelationsOneSize() > 0) {
                     fkIndicesFutures.add(executor.submit(new AbstractCountingCallable(curEntity, modelEntities) {
+                        @Override
                         public AbstractCountingCallable call() throws Exception {
                             count = createForeignKeyIndices(entity, datasourceInfo.getConstraintNameClipLength(), messages);
                             return this;
@@ -458,6 +459,7 @@ public class DatabaseUtil {
             for (ModelEntity curEntity: entitiesAdded) {
                 if (curEntity.getIndexesSize() > 0) {
                     disFutures.add(executor.submit(new AbstractCountingCallable(curEntity,  modelEntities) {
+                    @Override
                     public AbstractCountingCallable call() throws Exception {
                         count = createDeclaredIndices(entity, messages);
                         return this;
@@ -1017,6 +1019,7 @@ public class DatabaseUtil {
 
     private AbstractCountingCallable createPrimaryKeyFetcher(final DatabaseMetaData dbData, final String lookupSchemaName, final boolean needsUpperCase, final Map<String, Map<String, ColumnCheckInfo>> colInfo, final Collection<String> messages, final String curTable) {
         return new AbstractCountingCallable(null, null) {
+            @Override
             public AbstractCountingCallable call() throws Exception {
                 if (Debug.verboseOn()) Debug.logVerbose("Fetching primary keys for " + curTable, module);
                 ResultSet rsPks = dbData.getPrimaryKeys(null, lookupSchemaName, curTable);
@@ -1504,6 +1507,7 @@ public class DatabaseUtil {
             this.tableName = tableName;
         }
 
+        @Override
         public CreateTableCallable call() throws Exception {
             String errMsg = createTable(entity, modelEntities, false);
             if (UtilValidate.isNotEmpty(errMsg)) {

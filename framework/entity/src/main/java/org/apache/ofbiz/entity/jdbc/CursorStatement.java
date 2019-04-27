@@ -46,6 +46,7 @@ public class CursorStatement extends AbstractCursorHandler {
         Debug.logInfo("beganTransaction=" + beganTransaction + ", autoCommit=" + autoCommit, module);
     }
 
+    @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         if ("close".equals(method.getName())) {
             stmt.getConnection().setAutoCommit(autoCommit);

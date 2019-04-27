@@ -67,6 +67,7 @@ public final class SSLUtil {
 
     private static class TrustAnyManager implements X509TrustManager {
 
+        @Override
         public void checkClientTrusted(X509Certificate[] certs, String string) throws CertificateException {
             Debug.logImportant("Trusting (un-trusted) client certificate chain:", module);
             for (X509Certificate cert: certs) {
@@ -75,6 +76,7 @@ public final class SSLUtil {
             }
         }
 
+        @Override
         public void checkServerTrusted(X509Certificate[] certs, String string) throws CertificateException {
             Debug.logImportant("Trusting (un-trusted) server certificate chain:", module);
             for (X509Certificate cert: certs) {
@@ -82,6 +84,7 @@ public final class SSLUtil {
             }
         }
 
+        @Override
         public X509Certificate[] getAcceptedIssuers() {
             return new X509Certificate[0];
         }
@@ -246,6 +249,7 @@ public final class SSLUtil {
         switch (level) {
             case HOSTCERT_MIN_CHECK:
                 return new HostnameVerifier() {
+                    @Override
                     public boolean verify(String hostname, SSLSession session) {
                         javax.security.cert.X509Certificate[] peerCerts;
                         try {
@@ -278,6 +282,7 @@ public final class SSLUtil {
                 };
             case HOSTCERT_NO_CHECK:
                 return new HostnameVerifier() {
+                    @Override
                     public boolean verify(String hostname, SSLSession session) {
                         return true;
                     }

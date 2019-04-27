@@ -144,18 +144,22 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         return environment;
     }
 
+    @Override
     public String getRendererName() {
         return rendererName;
     }
 
+    @Override
     public void renderScreenBegin(Appendable writer, Map<String, Object> context) throws IOException {
         executeMacro(writer, "renderScreenBegin", null);
     }
 
+    @Override
     public void renderScreenEnd(Appendable writer, Map<String, Object> context) throws IOException {
         executeMacro(writer, "renderScreenEnd", null);
     }
 
+    @Override
     public void renderSectionBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.Section section) throws IOException {
         if (section.isMainSection()) {
             this.widgetCommentsEnabled = ModelWidget.widgetBoundaryCommentsEnabled(context);
@@ -169,6 +173,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
             executeMacro(writer, "renderSectionBegin", parameters);
         }
     }
+    @Override
     public void renderSectionEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.Section section) throws IOException {
         if (this.widgetCommentsEnabled) {
             Map<String, Object> parameters = new HashMap<>();
@@ -181,6 +186,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         }
     }
 
+    @Override
     public void renderContainerBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.Container container) throws IOException {
         String containerId = container.getId(context);
         String containerType = container.getType(context);
@@ -205,11 +211,13 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         executeMacro(writer, "renderContainerBegin", parameters);
     }
 
+    @Override
     public void renderContainerEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.Container container) throws IOException {
         String containerType = container.getType(context);
         executeMacro(writer, "renderContainerEnd", UtilMisc.toMap("type", containerType));
     }
 
+    @Override
     public void renderLabel(Appendable writer, Map<String, Object> context, ModelScreenWidget.Label label) throws IOException {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("text", label.getText(context));
@@ -218,6 +226,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         executeMacro(writer, "renderLabel", parameters);
     }
 
+    @Override
     public void renderHorizontalSeparator(Appendable writer, Map<String, Object> context, ModelScreenWidget.HorizontalSeparator separator) throws IOException {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("id", separator.getId(context));
@@ -225,6 +234,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         executeMacro(writer, "renderHorizontalSeparator", parameters);
     }
 
+    @Override
     public void renderLink(Appendable writer, Map<String, Object> context, ModelScreenWidget.ScreenLink link) throws IOException {
         HttpServletResponse response = (HttpServletResponse) context.get("response");
         HttpServletRequest request = (HttpServletRequest) context.get("request");
@@ -323,6 +333,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         executeMacro(writer, sr.toString());
     }
 
+    @Override
     public void renderImage(Appendable writer, Map<String, Object> context, ModelScreenWidget.ScreenImage image) throws IOException {
         if (image == null) {
             return ;
@@ -366,6 +377,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         executeMacro(writer, "renderImage", parameters);
     }
 
+    @Override
     public void renderContentBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.Content content) throws IOException {
          String editRequest = content.getEditRequest(context);
          String enableEditName = content.getEnableEditName(context);
@@ -382,6 +394,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
          executeMacro(writer, "renderContentBegin", parameters);
     }
 
+    @Override
     public void renderContentBody(Appendable writer, Map<String, Object> context, ModelScreenWidget.Content content) throws IOException {
         Locale locale = UtilMisc.ensureLocale(context.get("locale"));
         String mimeTypeId = "text/html";
@@ -442,6 +455,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         }
     }
 
+    @Override
     public void renderContentEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.Content content) throws IOException {
         String expandedContentId = content.getContentId(context);
         String editMode = "Edit";
@@ -478,6 +492,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         }
     }
 
+    @Override
     public void renderContentFrame(Appendable writer, Map<String, Object> context, ModelScreenWidget.Content content) throws IOException {
         String dataResourceId = content.getDataResourceId(context);
         String urlString = "/ViewSimpleContent?dataResourceId=" + dataResourceId;
@@ -498,6 +513,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         executeMacro(writer, "renderContentFrame", parameters);
     }
 
+    @Override
     public void renderSubContentBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.SubContent content) throws IOException {
          String enableEditName = content.getEnableEditName(context);
          String enableEditValue = (String)context.get(enableEditName);
@@ -509,6 +525,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
          executeMacro(writer, "renderSubContentBegin", parameters);
     }
 
+    @Override
     public void renderSubContentBody(Appendable writer, Map<String, Object> context, ModelScreenWidget.SubContent content) throws IOException {
          Locale locale = UtilMisc.ensureLocale(context.get("locale"));
          String mimeTypeId = "text/html";
@@ -550,6 +567,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
          }
     }
 
+    @Override
     public void renderSubContentEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.SubContent content) throws IOException {
          String editMode = "Edit";
          String editRequest = content.getEditRequest(context);
@@ -590,6 +608,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     }
 
 
+    @Override
     public void renderScreenletBegin(Appendable writer, Map<String, Object> context, boolean collapsed, ModelScreenWidget.Screenlet screenlet) throws IOException {
         HttpServletRequest request = (HttpServletRequest) context.get("request");
         HttpServletResponse response = (HttpServletResponse) context.get("response");
@@ -668,6 +687,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         executeMacro(writer, "renderScreenletBegin", parameters);
     }
 
+    @Override
     public void renderScreenletSubWidget(Appendable writer, Map<String, Object> context, ModelScreenWidget subWidget, ModelScreenWidget.Screenlet screenlet) throws GeneralException, IOException  {
         if (subWidget.equals(screenlet.getNavigationForm())) {
             HttpServletRequest request = (HttpServletRequest) context.get("request");
@@ -693,6 +713,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
             subWidget.renderWidgetString(writer, context, this);
         }
     }
+    @Override
     public void renderScreenletEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.Screenlet screenlet) throws IOException {
         executeMacro(writer, "renderScreenletEnd", null);
     }
@@ -833,6 +854,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         executeMacro(writer, "renderScreenletPaginateMenu", parameters);
     }
 
+    @Override
     public void renderPortalPageBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage) throws GeneralException, IOException {
         String portalPageId = portalPage.getActualPortalPageId(context);
         String originalPortalPageId = portalPage.getOriginalPortalPageId(context);
@@ -864,12 +886,14 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         executeMacro(writer, sr.toString());
     }
 
+    @Override
     public void renderPortalPageEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage) throws GeneralException, IOException {
         StringWriter sr = new StringWriter();
         sr.append("<@renderPortalPageEnd/>");
         executeMacro(writer, sr.toString());
     }
 
+    @Override
     public void renderPortalPageColumnBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage, GenericValue portalPageColumn) throws GeneralException, IOException {
         String portalPageId = portalPage.getActualPortalPageId(context);
         String originalPortalPageId = portalPage.getOriginalPortalPageId(context);
@@ -934,12 +958,14 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         executeMacro(writer, sr.toString());
     }
 
+    @Override
     public void renderPortalPageColumnEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage, GenericValue portalPageColumn) throws GeneralException, IOException {
         StringWriter sr = new StringWriter();
         sr.append("<@renderPortalPageColumnEnd/>");
         executeMacro(writer, sr.toString());
     }
 
+    @Override
     public void renderPortalPagePortletBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage, GenericValue portalPortlet) throws GeneralException, IOException {
         String portalPageId = portalPage.getActualPortalPageId(context);
         String originalPortalPageId = portalPage.getOriginalPortalPageId(context);
@@ -1005,6 +1031,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         executeMacro(writer, sr.toString());
     }
 
+    @Override
     public void renderPortalPagePortletEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage, GenericValue portalPortlet) throws GeneralException, IOException {
         String confMode = portalPage.getConfMode(context);
 
@@ -1016,6 +1043,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         executeMacro(writer, sr.toString());
     }
 
+    @Override
     public void renderPortalPagePortletBody(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage, GenericValue portalPortlet) throws GeneralException, IOException {
         String portalPortletId = portalPortlet.getString("portalPortletId");
         String screenName = portalPortlet.getString("screenName");

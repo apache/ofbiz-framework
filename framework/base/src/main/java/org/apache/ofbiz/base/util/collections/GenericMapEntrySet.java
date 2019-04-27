@@ -25,6 +25,7 @@ public abstract class GenericMapEntrySet<K, V, M extends GenericMap<K, V>> exten
         super(source);
     }
 
+    @Override
     public boolean contains(Object item) {
         if (item == null) {
             return false;
@@ -38,6 +39,7 @@ public abstract class GenericMapEntrySet<K, V, M extends GenericMap<K, V>> exten
 
     protected abstract boolean contains(Object key, Object value);
 
+    @Override
     public boolean remove(Object item) {
         if (item == null) {
             return false;

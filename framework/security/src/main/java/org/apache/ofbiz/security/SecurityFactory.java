@@ -101,6 +101,7 @@ public final class SecurityFactory {
             }
         }
 
+        @Override
         @Deprecated
         public Iterator<GenericValue> findUserLoginSecurityGroupByUserLoginId(String userLoginId) {
             try {
@@ -112,6 +113,7 @@ public final class SecurityFactory {
             }
         }
 
+        @Override
         @Deprecated
         public Delegator getDelegator() {
             return this.delegator;
@@ -260,6 +262,7 @@ public final class SecurityFactory {
             return hasRolePermission(application, action, primaryKey, role, userLogin);
         }
 
+        @Override
         @Deprecated
         public boolean securityGroupPermissionExists(String groupId, String permission) {
             try {
@@ -270,6 +273,7 @@ public final class SecurityFactory {
             }
         }
 
+        @Override
         @Deprecated
         public void setDelegator(Delegator delegator) {
             if (this.delegator != null) {

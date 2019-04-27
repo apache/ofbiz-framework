@@ -33,6 +33,7 @@ public abstract class ArtifactInfoBase implements Comparable<ArtifactInfoBase> {
         this.aif = aif;
     }
 
+    @Override
     public int compareTo(ArtifactInfoBase that) {
         if (that == null) {
             return -1;

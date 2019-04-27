@@ -30,10 +30,12 @@ public abstract class AbstractLocalizedConverter<S, T> extends AbstractConverter
         super(sourceClass, targetClass);
     }
 
+    @Override
     public T convert(Class<? extends T> targetClass, S obj, Locale locale, TimeZone timeZone) throws ConversionException {
         return convert(obj, locale, timeZone);
     }
 
+    @Override
     public T convert(Class<? extends T> targetClass, S obj, Locale locale, TimeZone timeZone, String formatString) throws ConversionException {
         return convert(obj, locale, timeZone, formatString);
     }

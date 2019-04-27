@@ -153,6 +153,7 @@ public class OrderByItem implements Comparator<GenericEntity> {
         value.validateSql(modelEntity);
     }
 
+    @Override
     public int compare(GenericEntity obj1, GenericEntity obj2) {
         Comparable<Object> value1 = UtilGenerics.cast(value.getValue(obj1));
         Object value2 = value.getValue(obj2);

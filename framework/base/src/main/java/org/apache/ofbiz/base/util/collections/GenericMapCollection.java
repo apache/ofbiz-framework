@@ -31,18 +31,22 @@ public abstract class GenericMapCollection<K, V, M extends Map<K, V>, I> impleme
         this.source = source;
     }
 
+    @Override
     public boolean add(I item) {
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public boolean addAll(Collection<? extends I> collection) {
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public void clear() {
         source.clear();
     }
 
+    @Override
     public boolean containsAll(Collection<?> collection) {
         for (Object item: collection) {
             if (!contains(item)) {
@@ -52,16 +56,19 @@ public abstract class GenericMapCollection<K, V, M extends Map<K, V>, I> impleme
         return true;
     }
 
+    @Override
     public boolean isEmpty() {
         return source.isEmpty();
     }
 
+    @Override
     public final Iterator<I> iterator() {
         return iterator(true);
     }
 
     protected abstract Iterator<I> iterator(boolean noteAccess);
 
+    @Override
     public boolean removeAll(Collection<?> collection) {
         int count = 0;
         for (Object item: collection) {
@@ -72,6 +79,7 @@ public abstract class GenericMapCollection<K, V, M extends Map<K, V>, I> impleme
         return count > 0;
     }
 
+    @Override
     public boolean retainAll(Collection<?> collection) {
         int count = 0;
         Iterator<I> it = iterator(false);
@@ -85,10 +93,12 @@ public abstract class GenericMapCollection<K, V, M extends Map<K, V>, I> impleme
         return count > 0;
     }
 
+    @Override
     public int size() {
         return source.size();
     }
 
+    @Override
     public Object[] toArray() {
         List<I> list = new LinkedList<>();
         Iterator<I> it = iterator(false);
@@ -98,6 +108,7 @@ public abstract class GenericMapCollection<K, V, M extends Map<K, V>, I> impleme
         return list.toArray();
     }
 
+    @Override
     public <T> T[] toArray(T[] array) {
         List<Object> list = new LinkedList<>();
         Iterator<I> it = iterator(false);

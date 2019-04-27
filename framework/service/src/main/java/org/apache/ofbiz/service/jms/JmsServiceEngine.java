@@ -324,32 +324,24 @@ public class JmsServiceEngine extends AbstractEngine {
         return result;
     }
 
-    /**
-     * @see org.apache.ofbiz.service.engine.GenericEngine#runSync(java.lang.String, org.apache.ofbiz.service.ModelService, java.util.Map)
-     */
+    @Override
     public Map<String, Object> runSync(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
         return run(modelService, context);
     }
 
-    /**
-     * @see org.apache.ofbiz.service.engine.GenericEngine#runSyncIgnore(java.lang.String, org.apache.ofbiz.service.ModelService, java.util.Map)
-     */
+    @Override
     public void runSyncIgnore(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
         run(modelService, context);
     }
 
-    /**
-     * @see org.apache.ofbiz.service.engine.GenericEngine#runAsync(java.lang.String, org.apache.ofbiz.service.ModelService, java.util.Map, org.apache.ofbiz.service.GenericRequester, boolean)
-     */
+    @Override
     public void runAsync(String localName, ModelService modelService, Map<String, Object> context, GenericRequester requester, boolean persist) throws GenericServiceException {
         Map<String, Object> result = run(modelService, context);
 
         requester.receiveResult(result);
     }
 
-    /**
-     * @see org.apache.ofbiz.service.engine.GenericEngine#runAsync(java.lang.String, org.apache.ofbiz.service.ModelService, java.util.Map, boolean)
-     */
+    @Override
     public void runAsync(String localName, ModelService modelService, Map<String, Object> context, boolean persist) throws GenericServiceException {
         run(modelService, context);
     }

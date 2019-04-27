@@ -53,14 +53,17 @@ public final class MainResourceHandler implements ResourceHandler {
         this.location = location;
     }
 
+    @Override
     public String getLoaderName() {
         return this.loaderName;
     }
 
+    @Override
     public String getLocation() {
         return this.location;
     }
 
+    @Override
     public Document getDocument() throws GenericConfigException {
         try {
             return UtilXml.readXmlDocument(this.getStream(), this.xmlFilename, true);
@@ -69,20 +72,24 @@ public final class MainResourceHandler implements ResourceHandler {
         }
     }
 
+    @Override
     public InputStream getStream() throws GenericConfigException {
         return ResourceLoader.loadResource(this.xmlFilename, this.location, this.loaderName);
     }
 
+    @Override
     public URL getURL() throws GenericConfigException {
         return ResourceLoader.getURL(this.xmlFilename, this.location, this.loaderName);
     }
 
+    @Override
     public boolean isFileResource() throws GenericConfigException {
         ResourceLoader loader = ResourceLoader.getLoader(this.xmlFilename, this.loaderName);
 
         return loader instanceof FileLoader;
     }
 
+    @Override
     public String getFullLocation() throws GenericConfigException {
         ResourceLoader loader = ResourceLoader.getLoader(this.xmlFilename, this.loaderName);
 

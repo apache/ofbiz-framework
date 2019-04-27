@@ -54,24 +54,22 @@ public class GeronimoTransactionFactory implements TransactionFactory {
         }
     }
 
-    /*
-     * @see org.apache.ofbiz.entity.transaction.TransactionFactory#getTransactionManager()
-     */
+    @Override
     public TransactionManager getTransactionManager() {
         return geronimoTransactionManager;
     }
 
-    /*
-     * @see org.apache.ofbiz.entity.transaction.TransactionFactory#getUserTransaction()
-     */
+    @Override
     public UserTransaction getUserTransaction() {
         return geronimoTransactionManager;
     }
 
+    @Override
     public String getTxMgrName() {
         return "geronimo";
     }
 
+    @Override
     public Connection getConnection(GenericHelperInfo helperInfo) throws SQLException, GenericEntityException {
         Datasource datasourceInfo = EntityConfig.getDatasource(helperInfo.getHelperBaseName());
 
@@ -82,6 +80,7 @@ public class GeronimoTransactionFactory implements TransactionFactory {
         return null;
     }
 
+    @Override
     public void shutdown() {
         ConnectionFactoryLoader.getInstance().closeAll();
     }
