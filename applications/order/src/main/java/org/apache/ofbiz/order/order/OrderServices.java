@@ -6487,8 +6487,8 @@ public class OrderServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin  = (GenericValue)context.get("userLogin");
         String orderId = (String) context.get("orderId");
-        Map<String, String> productPlanMap = new HashMap<String, String>();
-        Map<String, Object> serviceResult = new HashMap<String, Object>();
+        Map<String, String> productPlanMap = new HashMap<>();
+        Map<String, Object> serviceResult = new HashMap<>();
         try {
             String userLoginId = null;
             if (userLogin != null) {
@@ -6497,7 +6497,7 @@ public class OrderServices {
             //Get the list of associated products
             OrderReadHelper orderReadHelper = new OrderReadHelper(delegator, orderId);
             List<GenericValue> orderItems =  orderReadHelper.getOrderItems();
-            Map<String, Object> serviceCtx = new HashMap<String, Object>();
+            Map<String, Object> serviceCtx = new HashMap<>();
             for (GenericValue orderItem : orderItems) {
                 String orderItemSeqId = orderItem.getString("orderItemSeqId");
                 String productId = orderItem.getString("productId");
@@ -6608,8 +6608,8 @@ public class OrderServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin  = (GenericValue)context.get("userLogin");
         String planId = (String) context.get("planId");
-        Map<String, Object> serviceCtx = new HashMap<String, Object>();
-        Map<String, Object> serviceResult = new HashMap<String, Object>();
+        Map<String, Object> serviceCtx = new HashMap<>();
+        Map<String, Object> serviceResult = new HashMap<>();
         try {
             String userLoginId = null;
             if (userLogin != null) {
@@ -6674,8 +6674,8 @@ public class OrderServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin  = (GenericValue)context.get("userLogin");
         String planId = (String) context.get("planId");
-        Map<String, Object> serviceCtx = new HashMap<String, Object>();
-        Map<String, Object> serviceResult = new HashMap<String, Object>();
+        Map<String, Object> serviceCtx = new HashMap<>();
+        Map<String, Object> serviceResult = new HashMap<>();
         try {
             String userLoginId = null;
             if (userLogin != null) {
@@ -6716,7 +6716,7 @@ public class OrderServices {
         String planId = (String) context.get("planId");
         String statusId = (String) context.get("statusId");
         String oldStatusId = null;
-        Map<String, Object> serviceResult = new HashMap<String, Object>();
+        Map<String, Object> serviceResult = new HashMap<>();
         try {
             List<GenericValue> allocationPlanHeaders = EntityQuery.use(delegator).from("AllocationPlanHeader").where("planId", planId).queryList();
             if (allocationPlanHeaders == null || UtilValidate.isEmpty(allocationPlanHeaders)) {
@@ -6739,7 +6739,7 @@ public class OrderServices {
                 if (userLogin != null) {
                     userLoginId = userLogin.getString("userLoginId");
                 }
-                Map<String, Object> serviceCtx = new HashMap<String, Object>();
+                Map<String, Object> serviceCtx = new HashMap<>();
                 serviceCtx.put("planId", planId);
                 serviceCtx.put("productId", allocationPlanHeader.getString("productId"));
                 serviceCtx.put("statusId", statusId);
@@ -6770,7 +6770,7 @@ public class OrderServices {
         String planItemSeqId = (String) context.get("planItemSeqId");
         String statusId = (String) context.get("statusId");
         String oldStatusId = null;
-        Map<String, Object> serviceResult = new HashMap<String, Object>();
+        Map<String, Object> serviceResult = new HashMap<>();
         try {
             GenericValue allocationPlanItem = EntityQuery.use(delegator).from("AllocationPlanItem").where("planId", planId, "planItemSeqId", planItemSeqId).queryOne();
             if (allocationPlanItem == null) {
@@ -6792,7 +6792,7 @@ public class OrderServices {
             if (userLogin != null) {
                 userLoginId = userLogin.getString("userLoginId");
             }
-            Map<String, Object> serviceCtx = new HashMap<String, Object>();
+            Map<String, Object> serviceCtx = new HashMap<>();
             serviceCtx.put("planId", planId);
             serviceCtx.put("planItemSeqId", planItemSeqId);
             serviceCtx.put("productId", allocationPlanItem.getString("productId"));
@@ -6834,9 +6834,9 @@ public class OrderServices {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,
                         "OrderErrorAllocationPlanIsNotAvailable", locale) + ": [" + orderId + ":"+ orderItemSeqId + "]");
             }
-            List<String> planIds = new ArrayList<String>();
-            Map<String, Object> serviceCtx = new HashMap<String, Object>();
-            Map<String, Object> serviceResult = new HashMap<String, Object>();
+            List<String> planIds = new ArrayList<>();
+            Map<String, Object> serviceCtx = new HashMap<>();
+            Map<String, Object> serviceResult = new HashMap<>();
             for (GenericValue allocationPlanItem : allocationPlanItems) {
                 String planId = allocationPlanItem.getString("planId");
                 serviceCtx.put("planId", planId);
@@ -6904,9 +6904,9 @@ public class OrderServices {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,
                         "OrderErrorAllocationPlanIsNotAvailable", locale) + ": [" + orderId + ":"+ orderItemSeqId + "]");
             }
-            List<String> planIds = new ArrayList<String>();
-            Map<String, Object> serviceCtx = new HashMap<String, Object>();
-            Map<String, Object> serviceResult = new HashMap<String, Object>();
+            List<String> planIds = new ArrayList<>();
+            Map<String, Object> serviceCtx = new HashMap<>();
+            Map<String, Object> serviceResult = new HashMap<>();
             for (GenericValue allocationPlanItem : allocationPlanItems) {
                 String planId = allocationPlanItem.getString("planId");
                 serviceCtx.put("planId", planId);
@@ -6978,7 +6978,7 @@ public class OrderServices {
                             BigDecimal allocatedQuantity = allocationPlanItem.getBigDecimal("allocatedQuantity");
                             if (allocatedQuantity != null && allocatedQuantity.compareTo(revisedQuantity) > 0) {
                                 //Allocated Quantity is more than the revisedQuantity quantity, reduce it and release the excess reservations
-                                Map<String, Object> serviceCtx = new HashMap<String, Object>();
+                                Map<String, Object> serviceCtx = new HashMap<>();
                                 serviceCtx.put("planId", allocationPlanItem.getString("planId"));
                                 serviceCtx.put("planItemSeqId", allocationPlanItem.getString("planItemSeqId"));
                                 serviceCtx.put("productId", allocationPlanItem.getString("productId"));
@@ -7014,15 +7014,15 @@ public class OrderServices {
         Map<String, String> itemOrderIdMap = UtilGenerics.checkMap(context.get("itemOrderIdMap"));
         Map<String, String> itemOrderItemSeqIdMap = UtilGenerics.checkMap(context.get("itemOrderItemSeqIdMap"));
         Map<String, String> itemAllocatedQuantityMap = UtilGenerics.checkMap(context.get("itemAllocatedQuantityMap"));
-        Map<String, Object> serviceResult = new HashMap<String, Object>();
-        Map<String, Object> serviceCtx = new HashMap<String, Object>();
+        Map<String, Object> serviceResult = new HashMap<>();
+        Map<String, Object> serviceCtx = new HashMap<>();
         String planId = null;
 
         try {
             if (itemListSize > 0) {
                 String userLoginId = userLogin.getString("userLoginId");
                 //Create Allocation Plan Header
-                serviceCtx = new HashMap<String, Object>();
+                serviceCtx = new HashMap<>();
                 planId = delegator.getNextSeqId("AllocationPlanHeader");
                 serviceCtx.put("planId", planId);
                 serviceCtx.put("productId", productId);
@@ -7087,7 +7087,7 @@ public class OrderServices {
         if (productStore != null && "Y".equals(productStore.getString("allocateInventory"))) {
             allocateInventory = true;
         }
-        Map<String, Object> serviceResult = new HashMap<String, Object>();
+        Map<String, Object> serviceResult = new HashMap<>();
         serviceResult.put("conditionReply", allocateInventory);
         return serviceResult;
     }
@@ -7103,12 +7103,12 @@ public class OrderServices {
         Map<String, String> allocatedQuantityMap = UtilGenerics.checkMap(context.get("allocatedQuantityMap"));
         Map<String, String> prioritySeqIdMap = UtilGenerics.checkMap(context.get("prioritySeqIdMap"));
         Map<String, String> rowSubmitMap = UtilGenerics.checkMap(context.get("rowSubmitMap"));
-        Map<String, Object> serviceCtx = new HashMap<String, Object>();
-        Map<String, Object> serviceResult = new HashMap<String, Object>();
+        Map<String, Object> serviceCtx = new HashMap<>();
+        Map<String, Object> serviceResult = new HashMap<>();
         Boolean changeHeaderStatus = false;
         String productId = null;
         String facilityId = null;
-        List<String> reReservePlanItemSeqIdList = new ArrayList<String>();
+        List<String> reReservePlanItemSeqIdList = new ArrayList<>();
 
         try {
             for (String planItemSeqId : productIdMap.keySet()) {
