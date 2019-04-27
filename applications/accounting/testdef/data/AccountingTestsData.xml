@@ -102,4 +102,7 @@ under the License.
     <Content contentId="1000" contentTypeId="DOCUMENT"/>
     <!-- For Testing service setPaymentStatus -->
     <Payment paymentId="1000" paymentTypeId="CUSTOMER_PAYMENT" paymentMethodTypeId="COMPANY_CHECK"  partyIdFrom="DEMO_COMPANY" partyIdTo="DEMO_COMPANY1" amount="100.00" statusId="PAYMENT_NOT_AUTH" />
+    <!-- For Testing service quickSendPayment -->
+    <PaymentMethod paymentMethodId="1001" paymentMethodTypeId="COMPANY_CHECK"/>
+    <Payment paymentId="1001" paymentTypeId="CUSTOMER_PAYMENT" paymentMethodId="1001" paymentMethodTypeId="COMPANY_CHECK" partyIdFrom="DEMO_COMPANY" partyIdTo="DEMO_COMPANY1" amount="100.00" statusId="PMNT_CONFIRMED"/>
 </entity-engine-xml>
