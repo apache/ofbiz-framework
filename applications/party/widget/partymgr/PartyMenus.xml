@@ -327,7 +327,7 @@
     </menu>
 
     <menu name="AddShipper" menu-container-style="basic-nav">
-        <menu-item name="new" title="${uiLabelMap.CommonCreateNew}">
+        <menu-item name="new" title="${uiLabelMap.CommonCreate}">
             <condition>
                 <if-has-permission permission="PARTYMGR" action="_CREATE"/>
             </condition>
@@ -733,7 +733,7 @@
     </menu>
 
     <menu name="AddRelContactAccounts" menu-container-style="basic-nav">
-        <menu-item name="add" title="${uiLabelMap.CommonCreateNew}">
+        <menu-item name="add" title="${uiLabelMap.CommonCreate}">
             <link target="AddPartyRelatedAccount">
                 <parameter param-name="partyId"/>
                 <parameter param-name="portalPageId"/>
@@ -743,7 +743,7 @@
     </menu>
 
     <menu name="AddRelAccountContacts" menu-container-style="basic-nav">
-        <menu-item name="add" title="${uiLabelMap.CommonCreateNew}">
+        <menu-item name="add" title="${uiLabelMap.CommonCreate}">
             <link target="AddAccountRelatedContact">
                 <parameter param-name="partyId"/>
                 <parameter param-name="portalPageId"/>

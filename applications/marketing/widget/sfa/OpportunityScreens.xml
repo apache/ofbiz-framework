@@ -35,7 +35,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="no-clear">
                             <screenlet title="${uiLabelMap.SfaFindOpportunities}">
-                                <container><link target="EditSalesOpportunity" text="${uiLabelMap.CommonCreateNew}" style="buttontext"/></container>
+                                <container><link target="EditSalesOpportunity" text="${uiLabelMap.CommonCreate}" style="buttontext"/></container>
                                 <include-form name="FindSalesOpportunity" location="component://marketing/widget/sfa/forms/OpportunityForms.xml"/>
                             </screenlet>
                             <screenlet title="${uiLabelMap.SfaFindResults}">

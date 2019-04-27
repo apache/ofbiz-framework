@@ -94,7 +94,7 @@ under the License.
             <submit button-type="button"/>
         </field>
         <field name="createLink" title=" " widget-style="buttontext" position="1">
-            <hyperlink description="${uiLabelMap.CommonCreateNew}" target="EditLayoutTemplate?mode=add&amp;contentIdTo=TEMPLATE_MASTER" also-hidden="false"/>
+            <hyperlink description="${uiLabelMap.CommonCreate}" target="EditLayoutTemplate?mode=add&amp;contentIdTo=TEMPLATE_MASTER" also-hidden="false"/>
         </field>
         -->
     </form>

@@ -52,7 +52,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <container style="button-bar">
-                                    <link target="EditBillingAccount" text="${uiLabelMap.CommonCreateNew}" style="buttontext create"/>
+                                    <link target="EditBillingAccount" text="${uiLabelMap.CommonCreate}" style="buttontext create"/>
                                 </container>
                                 <decorator-section-include name="body"/>
                             </widgets>

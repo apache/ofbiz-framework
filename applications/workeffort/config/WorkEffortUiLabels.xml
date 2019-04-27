@@ -3461,21 +3461,6 @@
         <value xml:lang="zh">新需求</value>
         <value xml:lang="zh-TW">新需求</value>
     </property>
-    <property key="WorkEffortNewTask">
-        <value xml:lang="de">Neue Aufgabe</value>
-        <value xml:lang="en">New Task</value>
-        <value xml:lang="es">Nueva tarea</value>
-        <value xml:lang="fr">Nouvelle tâche</value>
-        <value xml:lang="it">Nuovo compito</value>
-        <value xml:lang="ja">新規タスク</value>
-        <value xml:lang="nl">New Task</value>
-        <value xml:lang="ro">Noua Sarcina</value>
-        <value xml:lang="ru">Новое задание</value>
-        <value xml:lang="th">ภารกิจใหม่</value>
-        <value xml:lang="vi">Thêm Tác vụ - Đầu việc</value>
-        <value xml:lang="zh">新任务</value>
-        <value xml:lang="zh-TW">新任務</value>
-    </property>
     <property key="WorkEffortNextDay">
         <value xml:lang="de">Nächster Tag</value>
         <value xml:lang="en">Next Day</value>

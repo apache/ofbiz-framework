@@ -1156,18 +1156,6 @@
         <value xml:lang="zh">新建根合成文档模板</value>
         <value xml:lang="zh-TW">新建根複合檔模板</value>
     </property>
-    <property key="ContentCreateNewWebSite">
-        <value xml:lang="da">Opret ny Webside</value>
-        <value xml:lang="en">Create New WebSite</value>
-        <value xml:lang="fr">Créer un nouveau Site Web</value>
-        <value xml:lang="it">Nuovo sito web</value>
-        <value xml:lang="ja">新規Webサイトを作成</value>
-        <value xml:lang="nl">Aanmaken nieuwe website</value>
-        <value xml:lang="pt">Criar novo site</value>
-        <value xml:lang="vi">Tạo mới trang thông tin</value>
-        <value xml:lang="zh">创建新网站</value>
-        <value xml:lang="zh-TW">新建網站</value>
-    </property>
     <property key="ContentDataBaseText">
         <value xml:lang="da">Database tekst</value>
         <value xml:lang="en">DataBase Text</value>

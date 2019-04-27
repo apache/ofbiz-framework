@@ -40,7 +40,7 @@ under the License.
                                     </condition>
                                     <widgets>
                                         <container style="button-bar">
-                                            <link target="EditFixedAsset" text="${uiLabelMap.AccountingNewFixedAsset}" style="buttontext create"/>
+                                            <link target="EditFixedAsset" text="${uiLabelMap.CommonCreate}" style="buttontext create"/>
                                         </container>
                                     </widgets>
                                 </section>
@@ -110,7 +110,7 @@ under the License.
                                         <label style="h1" text="${uiLabelMap[titleProperty]}"/>
                                     </fail-widgets>
                                 </section>
-                                    <container style="button-bar"><link target="EditFixedAsset" text="${uiLabelMap.AccountingNewFixedAsset}" style="buttontext create"/></container>
+                                    <container style="button-bar"><link target="EditFixedAsset" text="${uiLabelMap.CommonCreate}" style="buttontext create"/></container>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
@@ -353,7 +353,7 @@ under the License.
                 <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.fixedAssetDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="button-bar">
-                            <link target="EditFixedAssetMaint" text="${uiLabelMap.AccountingNewFixedAssetMaint}" style="buttontext create">
+                            <link target="EditFixedAssetMaint" text="${uiLabelMap.CommonCreate}" style="buttontext create">
                                 <parameter param-name="fixedAssetId"/>
                             </link>
                         </container>
@@ -392,7 +392,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <container style="button-bar">
-                                    <link target="EditFixedAssetMaint" text="${uiLabelMap.AccountingNewFixedAssetMaint}" style="buttontext">
+                                    <link target="EditFixedAssetMaint" text="${uiLabelMap.CommonCreate}" style="buttontext">
                                         <parameter param-name="fixedAssetId"/>
                                     </link>
                                 </container>

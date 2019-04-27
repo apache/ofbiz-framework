@@ -16575,22 +16575,6 @@
         <value xml:lang="zh">新建配置选项</value>
         <value xml:lang="zh-TW">新建配置選項</value>
     </property>
-    <property key="ProductCreateNewFacility">
-        <value xml:lang="de">Neue Einrichtung erstellen</value>
-        <value xml:lang="en">Create New Facility</value>
-        <value xml:lang="es">Crear nuevo Almacén</value>
-        <value xml:lang="es-CL">Crear nueva Bodega</value>
-        <value xml:lang="fr">Création d'un nouveau lieu de stockage</value>
-        <value xml:lang="it">Nuovo stabilimento</value>
-        <value xml:lang="ja">新規拠点を作成</value>
-        <value xml:lang="nl">Nieuwe faciliteit</value>
-        <value xml:lang="ro">Creare Nou Compartiment</value>
-        <value xml:lang="ru">Создать новый объект</value>
-        <value xml:lang="th">สร้างคลังสินค้าใหม่</value>
-        <value xml:lang="vi">Tạo mới Chi nhánh / Cơ sở</value>
-        <value xml:lang="zh">新建场所</value>
-        <value xml:lang="zh-TW">新建場所</value>
-    </property>
     <property key="ProductCreateNewFeature">
         <value xml:lang="de">Neues Merkmal erstellen</value>
         <value xml:lang="en">Create New Feature</value>

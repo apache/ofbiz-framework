@@ -199,7 +199,7 @@ under the License.
                                     </condition>
                                     <widgets>
                                         <include-menu name="dataresource" location="component://content/widget/content/DataResourceMenus.xml"/>
-                                        <container style="button-bar"><link target="EditDataResource" text="${uiLabelMap.CommonCreateNew}" style="buttontext create"/></container>
+                                        <container style="button-bar"><link target="EditDataResource" text="${uiLabelMap.CommonCreate}" style="buttontext create"/></container>
                                         <label style="h1" text="${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${currentValue.dataResourceName} [${currentValue.dataResourceId}]  ${${extraFunctionName}}"/>
                                     </widgets>
                                 </section>
@@ -333,7 +333,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <!--<container style="button-bar">
-                                    <link  text="${uiLabelMap.ContentCreateNewWebSite}" target="EditWebSite" style="buttontext create"/>
+                                    <link  text="${uiLabelMap.CommonCreate}" target="EditWebSite" style="buttontext create"/>
                                 </container>-->
                                 <container>
                                     <include-menu name="websiteMenu" location="component://content/widget/content/ContentMenus.xml"/>
@@ -378,7 +378,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <!--<container style="button-bar">
-                                    <link  text="${uiLabelMap.ContentCreateNewWebSite}" target="EditWebSite" style="buttontext create"/>
+                                    <link  text="${uiLabelMap.CommonCreate}" target="EditWebSite" style="buttontext create"/>
                                 </container>-->
                                 <container>
                                     <include-menu name="websitePathAliasMenu" location="component://content/widget/content/ContentMenus.xml"/>
@@ -413,7 +413,7 @@ under the License.
                             </widgets>
                         </section>
                         <container>
-                            <link target="EditLayoutSubContent" text="${uiLabelMap.CommonCreateNew}" style="buttontext">
+                            <link target="EditLayoutSubContent" text="${uiLabelMap.CommonCreate}" style="buttontext">
                                 <parameter param-name="mode" value="add"/>
                                 <parameter param-name="contentIdTo" value="TEMPLATE_MASTER"/>
                             </link>

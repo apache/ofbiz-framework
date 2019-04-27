@@ -915,7 +915,7 @@ under the License.
                 <decorator-screen name="CommonPartyDecorator"  location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="button-bar">
-                            <link target="EditPartyContent" text="${uiLabelMap.CommonCreateNew}" style="smallSubmit">
+                            <link target="EditPartyContent" text="${uiLabelMap.CommonCreate}" style="smallSubmit">
                                 <parameter param-name="partyId"/>
                             </link>
                         </container>
@@ -942,7 +942,7 @@ under the License.
                 <decorator-screen name="CommonPartyDecorator"  location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="button-bar">
-                            <link target="EditPartyContent" text="${uiLabelMap.CommonCreateNew}" style="smallSubmit">
+                            <link target="EditPartyContent" text="${uiLabelMap.CommonCreate}" style="smallSubmit">
                                 <parameter param-name="partyId"/>
                             </link>
                         </container>
@@ -1230,7 +1230,7 @@ under the License.
                             </widgets>
                             <fail-widgets>
                                 <container style="button-bar">
-                                    <link target="addGeoLocation" text="${uiLabelMap.CommonCreateNew}" style="buttontext create">
+                                    <link target="addGeoLocation" text="${uiLabelMap.CommonCreate}" style="buttontext create">
                                         <parameter param-name="partyId" from-field="parameters.partyId"/>
                                     </link>
                                 </container>

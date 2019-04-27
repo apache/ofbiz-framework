@@ -2516,28 +2516,6 @@
         <value xml:lang="zh-CN">创建</value>
         <value xml:lang="zh-TW">新建</value>
     </property>
-    <property key="CommonCreateNew">
-        <value xml:lang="ar">استحداث جديد</value>
-        <value xml:lang="cs">Založit nový</value>
-        <value xml:lang="de">Neu Anlegen</value>
-        <value xml:lang="en">Create New</value>
-        <value xml:lang="es">Crear nuevo</value>
-        <value xml:lang="es-CL">Crear Nuevo</value>
-        <value xml:lang="fr">Nouveau</value>
-        <value xml:lang="hi-IN">नया बनाएँ</value>
-        <value xml:lang="it">Creare nuovo</value>
-        <value xml:lang="ja">新規作成</value>
-        <value xml:lang="nl">Nieuwe aanvraag</value>
-        <value xml:lang="pt">Criar Novo</value>
-        <value xml:lang="pt-BR">Criar um Novo</value>
-        <value xml:lang="ro">Creare Nou</value>
-        <value xml:lang="ru">Создать новый</value>
-        <value xml:lang="th">สร้างใหม่</value>
-        <value xml:lang="vi">Tạo mới</value>
-        <value xml:lang="zh">新建</value>
-        <value xml:lang="zh-CN">创建新的</value>
-        <value xml:lang="zh-TW">新建</value>
-    </property>
     <property key="CommonCreated">
         <value xml:lang="ar">استحدث</value>
         <value xml:lang="cs">Vytvořeno</value>

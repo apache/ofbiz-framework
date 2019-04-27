@@ -271,7 +271,7 @@ under the License.
                             <label text="${uiLabelMap.PageTitleFindSecurityGroup}"/>
                         </container>
                         <container style="button-bar">
-                            <link target="CreateNewSecurityGroup" style="buttontext create" text="${uiLabelMap.CommonCreateNew}"/>
+                            <link target="CreateNewSecurityGroup" style="buttontext create" text="${uiLabelMap.CommonCreate}"/>
                         </container>
                         <screenlet>
                             <include-form name="ListSecurityGroups" location="component://common/widget/SecurityForms.xml"/>
@@ -298,7 +298,7 @@ under the License.
                             <label text="${uiLabelMap.FindUserLogin}"/>
                         </container>
                         <container style="button-bar">
-                            <link target="createnewlogin" style="buttontext create" text="${uiLabelMap.CommonCreateNew}"/>
+                            <link target="createnewlogin" style="buttontext create" text="${uiLabelMap.CommonCreate}"/>
                         </container>
                         <screenlet>
                             <include-form name="ListUserLogins" location="component://common/widget/SecurityForms.xml"/>

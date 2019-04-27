@@ -43,11 +43,11 @@ under the License.
     </menu>
 
     <menu name="FacilityActionBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">
-        <menu-item name="createNewFacility" title="${uiLabelMap.ProductCreateNewFacility}">
+        <menu-item name="createNewFacility" title="${uiLabelMap.CommonCreate}">
             <condition>
                 <if-service-permission service-name="facilityGenericPermission" main-action="CREATE"/>
             </condition>
-            <link target="EditFacility" text="${uiLabelMap.ProductCreateNewFacility}" style="buttontext create"/>
+            <link target="EditFacility" text="${uiLabelMap.CommonCreate}" style="buttontext create"/>
         </menu-item>
         <menu-item name="calendar" title="${uiLabelMap.CommonViewCalendar}">
             <condition>

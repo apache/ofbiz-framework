@@ -125,13 +125,13 @@ under the License.
         default-permission-entity-action="_ADMIN" default-associated-content-id="${userLogin.userLoginId}" selected-menuitem-context-field-name="currentMenuItemName"
         title="" type="simple">
 
-        <menu-item name="NewContent" title="${uiLabelMap.CommonCreateNew}">
+        <menu-item name="NewContent" title="${uiLabelMap.CommonCreate}">
             <condition>
                 <not><if-empty field="currentValue.contentId"/></not>
             </condition>
             <link target="EditContent"/>
         </menu-item>
-        <menu-item name="NewContentAssoc" title="${uiLabelMap.CommonCreateNew} ${uiLabelMap.ContentAssociation}">
+        <menu-item name="NewContentAssoc" title="${uiLabelMap.CommonCreate} ${uiLabelMap.ContentAssociation}">
             <condition>
                 <if-compare field="tabButtonItem" operator="equals" value="association"/>
             </condition>
@@ -276,7 +276,7 @@ under the License.
         </menu-item>
     </menu>
     <menu name="contentMenu" menu-container-style="button-bar button-style-2" default-selected-style="selected">
-        <menu-item name="EditContent" title="${uiLabelMap.CommonCreateNew}" widget-style="buttontext create">
+        <menu-item name="EditContent" title="${uiLabelMap.CommonCreate}" widget-style="buttontext create">
             <link target="EditContent"/>
         </menu-item>
         <menu-item name="ContentSearchOptions" title="${uiLabelMap.CommonAdvancedSearch}" widget-style="buttontext">
@@ -287,7 +287,7 @@ under the License.
         </menu-item>
     </menu>
     <menu name="websiteMenu" menu-container-style="button-bar button-style-2" default-selected-style="selected">
-        <menu-item name="EditWebSite" title="${uiLabelMap.ContentCreateNewWebSite}" widget-style="buttontext create">
+        <menu-item name="EditWebSite" title="${uiLabelMap.CommonCreate}" widget-style="buttontext create">
             <link target="EditWebSite"/>
         </menu-item>
     </menu>

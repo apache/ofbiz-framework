@@ -205,6 +205,7 @@ under the License.
                                 <not><if-empty field="organizationPartyId"/></not>
                             </condition>
                             <widgets>
+                                <label style="h1">${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${currentOrganization.groupName} [${organizationPartyId}]</label>
                                 <include-menu name="PartyTopTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
                             </widgets>
                         </section>
@@ -237,7 +238,6 @@ under the License.
                     <decorator-section name="body">
                         <include-menu name="OrganizationAccountingTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
                         <include-menu name="OrganizationAccountingReportsTabBar" location="component://accounting/widget/AccountingMenus.xml"/>
-                        <label style="h1">${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${currentOrganization.groupName} [${organizationPartyId}]</label>
                         <decorator-section-include name="body"/>
                     </decorator-section>
                 </decorator-screen>

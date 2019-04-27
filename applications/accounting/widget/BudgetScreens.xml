@@ -39,7 +39,7 @@ under the License.
                                     </condition>
                                     <widgets>
                                         <container style="button-bar">
-                                            <link target="EditBudget" text="${uiLabelMap.AccountingNewBudget}" style="buttontext create"/>
+                                            <link target="EditBudget" text="${uiLabelMap.CommonCreate}" style="buttontext create"/>
                                         </container>
                                     </widgets>
                                 </section>
@@ -142,7 +142,7 @@ under the License.
                                 </screenlet>
                             </widgets>
                             <fail-widgets>
-                                <screenlet title="${uiLabelMap.AccountingNewBudget}">
+                                <screenlet title="${uiLabelMap.CommonCreate}">
                                     <include-form name="EditBudget" location="component://accounting/widget/BudgetForms.xml"/>
                                 </screenlet>
                             </fail-widgets>

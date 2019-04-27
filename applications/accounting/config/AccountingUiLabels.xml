@@ -3651,20 +3651,6 @@
         <value xml:lang="zh">为财务账户新建存款单：${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="zh-TW">為財務帳戶新建存款單:${finAccount.finAccountName} [${finAccountId}]</value>
     </property>
-    <property key="AccountingCreateNewFinAccount">
-        <value xml:lang="ar">خلق حساب مالي جديد</value>
-        <value xml:lang="de">Neues Finanzkonto erstellen</value>
-        <value xml:lang="en">Create New Financial Account</value>
-        <value xml:lang="es">Crear nueva cuenta financiera</value>
-        <value xml:lang="es-CL">Crear Cuenta Financiera</value>
-        <value xml:lang="fr">Créer un nouveau compte financier</value>
-        <value xml:lang="hi-IN">नया  वित्तीय खाता बनाएँ</value>
-        <value xml:lang="ja">新規金融アカウントを作成</value>
-        <value xml:lang="pt">Crie uma nova conta financeira</value>
-        <value xml:lang="vi">Tạo mới tài khoản tài chính</value>
-        <value xml:lang="zh">新建财务账目</value>
-        <value xml:lang="zh-TW">新建財務帳目</value>
-    </property>
     <property key="AccountingCreateNewFinAccountReconciliations">
         <value xml:lang="ar">خلق تسويات جديدة للحساب المالي</value>
         <value xml:lang="de">Neue Finanzkonto-Abstimmung erstellen</value>
@@ -3696,22 +3682,6 @@
         <value xml:lang="vi">Tạo mới Hóa đơn</value>
         <value xml:lang="zh">新建发票</value>
         <value xml:lang="zh-TW">新建發票</value>
-    </property>
-    <property key="AccountingCreateNewPaymentGroup">
-        <value xml:lang="ar">خلق مجموعة دفعات جديدة</value>
-        <value xml:lang="cs">Nová platební skupina</value>
-        <value xml:lang="de">Neue Zahlungsgruppe erstellen</value>
-        <value xml:lang="en">Create New Payment Group</value>
-        <value xml:lang="es">Crear nuevo grupo de pago</value>
-        <value xml:lang="es-CL">Crear nuevo Grupo de Pago</value>
-        <value xml:lang="fr">Créer un groupe de paiement</value>
-        <value xml:lang="hi-IN">नया  भुगतान समूह बनाएँ</value>
-        <value xml:lang="ja">新規支払グループを作成</value>
-        <value xml:lang="nl">Nieuwe betalingsgroep</value>
-        <value xml:lang="pt">Criar um novo grupo de pagamento</value>
-        <value xml:lang="vi">Tạo mới nhóm thanh toán</value>
-        <value xml:lang="zh">新建支付组</value>
-        <value xml:lang="zh-TW">建立新的支付群組</value>
     </property>
     <property key="AccountingCreateNewPurchaseInvoice">
         <value xml:lang="ar">فاتورة شراء جديدة</value>
@@ -9935,25 +9905,6 @@
         <value xml:lang="zh">新建账户</value>
         <value xml:lang="zh-TW">新建帳戶</value>
     </property>
-    <property key="AccountingNewAgreement">
-        <value xml:lang="ar">خلق اتفاقية</value>
-        <value xml:lang="de">Vereinbarung erstellen</value>
-        <value xml:lang="en">Create Agreement</value>
-        <value xml:lang="es">Crear acuerdo</value>
-        <value xml:lang="es-CL">Crear Contrato</value>
-        <value xml:lang="fr">Nouvel accord</value>
-        <value xml:lang="hi-IN">अनुबंध बनाएँ</value>
-        <value xml:lang="it">Nuovo contratto</value>
-        <value xml:lang="ja">新規契約</value>
-        <value xml:lang="nl">Overeenkomst aanmaken</value>
-        <value xml:lang="pt">Criar Acordo</value>
-        <value xml:lang="ro">Creaza Contract</value>
-        <value xml:lang="ru">Создать договор</value>
-        <value xml:lang="th">สร้างสัญญา</value>
-        <value xml:lang="vi">Thêm Bản hợp đồng</value>
-        <value xml:lang="zh">新建合同</value>
-        <value xml:lang="zh-TW">新建合約</value>
-    </property>
     <property key="AccountingNewAgreementItem">
         <value xml:lang="ar">خلق بند اتفاقية</value>
         <value xml:lang="de">Vereinbarungsposition erstellen</value>
@@ -10044,12 +9995,6 @@
         <value xml:lang="zh">新建合同条件</value>
         <value xml:lang="zh-TW">新建合約條件</value>
     </property>
-    <property key="AccountingNewBudget">
-        <value xml:lang="de">Neues Budget erstellen</value>
-        <value xml:lang="en">Create New Budget</value>
-        <value xml:lang="es">Crear nuevo Presupuesto</value>
-        <value xml:lang="zh">新建预算</value>
-    </property>
     <property key="AccountingNewCompany">
         <value xml:lang="de">Neues Buchhaltungs Unternehmen erstellen</value>
         <value xml:lang="en">Create new accounting company</value>
@@ -10074,24 +10019,6 @@
         <value xml:lang="vi">Thêm tài khoản thanh toán</value>
         <value xml:lang="zh">新建账单账户</value>
         <value xml:lang="zh-TW">新建帳單帳戶</value>
-    </property>
-    <property key="AccountingNewFixedAsset">
-        <value xml:lang="ar">أصل ثابت جديد</value>
-        <value xml:lang="de">Neue Anlage</value>
-        <value xml:lang="en">New Fixed Asset</value>
-        <value xml:lang="es">Nuevo Activo fijo</value>
-        <value xml:lang="fr">Nouvelle immobilisation</value>
-        <value xml:lang="hi-IN">नई अचल संपत्ति</value>
-        <value xml:lang="it">Nuovo Cespite</value>
-        <value xml:lang="ja">新規固定資産</value>
-        <value xml:lang="nl">Nieuwe vaste activa</value>
-        <value xml:lang="pt">Novo Ativo Fixo</value>
-        <value xml:lang="ro">Nou Mijloc Fix</value>
-        <value xml:lang="ru">Новое основное средство</value>
-        <value xml:lang="th">ทรัพย์สินไม่หมุนเวียนใหม่</value>
-        <value xml:lang="vi">Thêm Tài sản cố định</value>
-        <value xml:lang="zh">新建固定资产</value>
-        <value xml:lang="zh-TW">新建固定資產</value>
     </property>
     <property key="AccountingNewFixedAssetIdents">
         <value xml:lang="ar">خلق هوية للأصل الثابت</value>
@@ -10235,25 +10162,6 @@
         <value xml:lang="vi">Thêm thanh toán Xuất</value>
         <value xml:lang="zh">新建新付款</value>
         <value xml:lang="zh-TW">新建新付款</value>
-    </property>
-    <property key="AccountingNewTaxAuthority">
-        <value xml:lang="ar">سلطة ضريبية جديدة</value>
-        <value xml:lang="de">Neue Steuerbehörde</value>
-        <value xml:lang="en">New Tax Authority</value>
-        <value xml:lang="es">Nueva Autoridad Fiscal</value>
-        <value xml:lang="es-CL">Nueva Autoridad Tributaria</value>
-        <value xml:lang="fr">Créer une administration fiscale</value>
-        <value xml:lang="hi-IN">नया टैक्स प्राधिकरण</value>
-        <value xml:lang="it">Nuova Autorità Tasse</value>
-        <value xml:lang="ja">新規税務機関</value>
-        <value xml:lang="nl">Nieuwe belastinginstantie</value>
-        <value xml:lang="pt">Nova Autoridade Tributária</value>
-        <value xml:lang="ro">Noua Autoritate Taxa</value>
-        <value xml:lang="ru">Новый налоговый орган</value>
-        <value xml:lang="th">เสียภาษีสำนักงานใหม่</value>
-        <value xml:lang="vi">Thêm Cơ quan thuế</value>
-        <value xml:lang="zh">新建税务机关</value>
-        <value xml:lang="zh-TW">新建稅務機關</value>
     </property>
     <property key="AccountingNewTaxAuthorityPartyInfo">
         <value xml:lang="ar">معلومات جديدة لطرف السلطة الضريبية</value>

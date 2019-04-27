@@ -53,7 +53,7 @@ under the License.
                                     </condition>
                                     <widgets>
                                         <include-menu name="TaxAuthorityTabBar" location="component://accounting/widget/TaxAuthorityMenus.xml"/>
-                                        <container><link target="EditTaxAuthority" text="${uiLabelMap.AccountingNewTaxAuthority}" style="buttontext"/></container>
+                                        <container><link target="EditTaxAuthority" text="${uiLabelMap.CommonCreate}" style="buttontext"/></container>
                                         <label style="h1" text="${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${uiLabelMap.AccountingTaxAuthorityParty} &quot;${taxAuthPartyName.firstName} ${taxAuthPartyName.lastName} ${taxAuthPartyName.groupName}&quot; [${uiLabelMap.CommonId}:${taxAuthPartyId}], ${uiLabelMap.CommonGeo} &quot;${taxAuthGeo.geoName}&quot; [${uiLabelMap.CommonId}:${taxAuthGeoId}] ${${extraFunctionName}}"/>
                                     </widgets>
                                 </section>
@@ -79,7 +79,7 @@ under the License.
                 <decorator-screen name="CommonTaxAuthorityDecorator" location="${parameters.taxAuthDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="button-bar">
-                            <link target="EditTaxAuthority" text="${uiLabelMap.AccountingNewTaxAuthority}" style="buttontext create"/>
+                            <link target="EditTaxAuthority" text="${uiLabelMap.CommonCreate}" style="buttontext create"/>
                         </container>
                         <screenlet title="${uiLabelMap.PageTitleFindTaxAuthority}">
                             <include-form name="FindTaxAuthority" location="component://accounting/widget/TaxAuthorityForms.xml"/>

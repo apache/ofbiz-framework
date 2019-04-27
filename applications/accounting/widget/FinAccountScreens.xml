@@ -59,7 +59,7 @@ under the License.
                             </widgets>
                         </section>
                         <container style="button-bar">
-                            <link target="EditFinAccount" text="${uiLabelMap.AccountingCreateNewFinAccount}" style="buttontext create"/>
+                            <link target="EditFinAccount" text="${uiLabelMap.CommonCreate}" style="buttontext create"/>
                         </container>
                         <decorator-section-include name="body"/>
                     </decorator-section>
@@ -137,7 +137,7 @@ under the License.
                                 </screenlet>
                             </widgets>
                             <fail-widgets>
-                                <label style="h1" text="${uiLabelMap.AccountingCreateNewFinAccount}"></label>
+                                <label style="h1" text="${uiLabelMap.CommonCreate}"></label>
                                 <screenlet id="CreateFinAccountPanel" collapsible="true">
                                     <include-form name="EditFinAccount" location="component://accounting/widget/FinAccountForms.xml"/>
                                 </screenlet>
@@ -437,7 +437,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
                     <decorator-section name="body">
-                        <link target="EditFinAccountTrans" text="${uiLabelMap.CommonCreateNew}" style="buttontext">
+                        <link target="EditFinAccountTrans" text="${uiLabelMap.CommonCreate}" style="buttontext">
                             <parameter param-name="finAccountId" from-field="finAccountId"/>
                         </link>
                         <section>
@@ -477,7 +477,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
                     <decorator-section name="body">
-                        <link target="EditFinAccountTrans" text="${uiLabelMap.CommonCreateNew}" style="buttontext">
+                        <link target="EditFinAccountTrans" text="${uiLabelMap.CommonCreate}" style="buttontext">
                             <parameter param-name="finAccountId" from-field="finAccountId"/>
                         </link>
                             <label style="h1" text="${uiLabelMap.AccountingReconcileFinAccountTransFor}"/>
