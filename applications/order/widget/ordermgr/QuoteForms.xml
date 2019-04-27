@@ -365,7 +365,7 @@ under the License.
         <field name="quoteUnitPrice" title="${uiLabelMap.OrderOrderQuoteUnitPrice}"><display/></field>
         <field name="manualQuoteUnitPrice" title="${uiLabelMap.OrderOrderQuoteManualUnitPrice}"><text/></field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelected}"><check/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" use-when="quoteItemAndCostInfos!=[]" widget-style="smallSubmit"><submit/></field>
     </form>
     <form name="ListQuoteAdjustments" target="" title="" type="list" list-name="quoteAdjustments"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="ListQuoteAdjustments">
