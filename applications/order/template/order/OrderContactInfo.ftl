@@ -101,11 +101,24 @@ under the License.
               </#if>
             </div>
           </td>
+          <#if orderHeader.orderTypeId == "PURCHASE_ORDER" && displayParty?has_content>
+            <#assign supplierContactMech = EntityQuery.use(delegator).from("PartyContactMechPurpose").where("partyId", displayParty.partyId, "contactMechPurposeTypeId", "BILLING_LOCATION").queryFirst()!>
+            <#if supplierContactMech?has_content>
+              <#assign supplierAddress = EntityQuery.use(delegator).from("PostalAddress").where("contactMechId", supplierContactMech.contactMechId).queryOne()!>
+              <td class="label"><span class="label">&nbsp;${uiLabelMap.OrderAddress}</span></td>
+              <td>
+                <div>
+                  ${setContextField("postalAddress", supplierAddress)}
+                  ${screens.render("component://party/widget/partymgr/PartyScreens.xml#postalAddressHtmlFormatter")}
+                </div>
+              </td>
+            </#if>
+          </#if>
         </tr>
         <#list orderContactMechValueMaps as orderContactMechValueMap>
           <#assign contactMech = orderContactMechValueMap.contactMech>
           <#assign contactMechPurpose = orderContactMechValueMap.contactMechPurposeType>
-          <tr><td colspan="3"><hr /></td></tr>
+          <tr><td colspan="4"><hr /></td></tr>
           <tr>
             <td class="label">
               <span class="label">&nbsp;${contactMechPurpose.get("description",locale)}</span>
