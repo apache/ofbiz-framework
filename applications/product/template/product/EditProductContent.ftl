@@ -45,7 +45,7 @@ under the License.
                 <td width="20%" align="right" valign="top"><b>${uiLabelMap.ProductProductName}</b></td>
                 <td>&nbsp;</td>
                 <td width="80%" colspan="4" valign="top">
-                    <input type="text" name="productName" value="${(product.productName?html)!}" size="30" maxlength="60"/>
+                    <input type="text" name="productName" value="${StringUtil.wrapString(product.productName)!}" size="30" maxlength="60"/>
                 </td>
             </tr>
             <tr>
