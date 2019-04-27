@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.apache.ofbiz.content.survey;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,11 +26,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.service.*;
-import org.apache.ofbiz.webapp.control.ConfigXMLReader;
-import org.apache.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
-import org.apache.ofbiz.webapp.control.RequestHandler;
-import org.apache.ofbiz.webapp.control.WebAppConfigurationException;
-import org.apache.ofbiz.webapp.event.EventHandlerException;
 
 /**
  * SurveyEvents Class
