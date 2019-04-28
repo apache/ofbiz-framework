@@ -140,7 +140,7 @@ public class ProductConfigWrapper implements Serializable {
                     itemIds.add(oneQuestion.getConfigItem().getString("configItemId"));
                 }
                 questions.add(oneQuestion);
-                List<GenericValue> configOptions = EntityQuery.use(delegator).from("ProductConfigOption").where("configItemId", oneQuestion.getConfigItemAssoc().getString("configItemId")).orderBy("sequenceNum").queryList();
+                List<GenericValue> configOptions = EntityQuery.use(delegator).from("ProductConfigOption").where("configItemId", oneQuestion.getConfigItemAssoc().getString("configItemId")).orderBy("sequenceNum").filterByDate().queryList();
                 for (GenericValue configOption: configOptions) {
                     ConfigOption option = new ConfigOption(delegator, dispatcher, configOption, oneQuestion, catalogId, webSiteId, currencyUomId, autoUserLogin);
                     oneQuestion.addOption(option);

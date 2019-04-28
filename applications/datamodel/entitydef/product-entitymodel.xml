@@ -657,6 +657,8 @@ under the License.
             title="Product Configuration Options">
         <field name="configItemId" type="id"></field>
         <field name="configOptionId" type="id"></field>
+        <field name="fromDate" type="date-time"></field>
+        <field name="thruDate" type="date-time"></field>
         <field name="configOptionName" type="name"></field>
         <field name="description" type="description"></field>
         <field name="sequenceNum" type="numeric"></field>
