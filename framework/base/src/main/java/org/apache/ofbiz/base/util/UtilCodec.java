@@ -19,6 +19,8 @@
 package org.apache.ofbiz.base.util;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -29,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.ofbiz.base.html.SanitizerCustomPolicy;
 import org.owasp.esapi.codecs.Codec;
 import org.owasp.esapi.codecs.HTMLEntityCodec;
 import org.owasp.esapi.codecs.PercentCodec;
@@ -90,21 +93,63 @@ public class UtilCodec {
         public String sanitize(String original) {
             return sanitize(original, null);
         }
+
+        /**
+         * This method will start a configurable sanitizing process. The sanitizer can
+         * be turns off through "sanitizer.enable=false", the default value is true. It
+         * is possible to configure a custom policy using the properties
+         * "sanitizer.permissive.policy" and "sanitizer.custom.policy.class". The custom
+         * policy has to implement
+         * {@link org.apache.ofbiz.base.html.SanitizerCustomPolicy}.
+         *
+         * @param original
+         * @param contentTypeId
+         * @return sanitized HTML-Code if enabled, original HTML-Code when disabled
+         * @see org.apache.ofbiz.base.html.CustomPermissivePolicy
+         */
         @Override
         public String sanitize(String original, String contentTypeId) {
             if (original == null) {
                 return null;
             }
-            PolicyFactory sanitizer = Sanitizers.FORMATTING.and(Sanitizers.BLOCKS).and(Sanitizers.IMAGES).and(Sanitizers.LINKS).and(Sanitizers.STYLES);
+            if (UtilProperties.getPropertyAsBoolean("owasp", "sanitizer.enable", true)) {
+                PolicyFactory sanitizer = Sanitizers.FORMATTING.and(Sanitizers.BLOCKS).and(Sanitizers.IMAGES).and(
+                        Sanitizers.LINKS).and(Sanitizers.STYLES);
+                // TODO to be improved to use a (or several) contentTypeId/s when necessary.
+                // Below is an example with BIRT_FLEXIBLE_REPORT_POLICY
+                if ("FLEXIBLE_REPORT".equals(contentTypeId)) {
+                    sanitizer = sanitizer.and(BIRT_FLEXIBLE_REPORT_POLICY);
+                }
 
-            // TODO to be improved to use a (or several) contentTypeId/s when necessary. Below is an example with BIRT_FLEXIBLE_REPORT_POLICY
-            if (UtilProperties.getPropertyAsBoolean("owasp", "sanitizer.permissive.policy", false)) {
+                // Check if custom policy should be used and if so don't use PERMISSIVE_POLICY
+                if ("CUSTOM".equals(UtilProperties.getPropertyValue("owasp", "sanitizer.permissive.policy"))) {
+                    PolicyFactory policy = null;
+                    try {
+                        Class<?> customPolicyClass = Class.forName(UtilProperties.getPropertyValue("owasp",
+                                "sanitizer.custom.policy.class"));
+                        Object obj = customPolicyClass.newInstance();
+                        if (SanitizerCustomPolicy.class.isAssignableFrom(customPolicyClass)) {
+                            Method meth = customPolicyClass.getMethod("getSanitizerPolicy");
+                            policy = (PolicyFactory) meth.invoke(obj);
+                        }
+                    } catch (ClassNotFoundException | IllegalAccessException | IllegalArgumentException
+                            | InvocationTargetException | NoSuchMethodException | SecurityException
+                            | InstantiationException e) {
+                        // Just logging the error and falling back to default policy
+                        Debug.logError(e, "Could not find custom sanitizer policy. Using default instead", module);
+                    }
+
+                    if (policy != null) {
+                        sanitizer = sanitizer.and(policy);
+                        return sanitizer.sanitize(original);
+                    }
+                }
+
+                // Fallback should be the default option PERMISSIVE_POLICY
                 sanitizer = sanitizer.and(PERMISSIVE_POLICY);
+                return sanitizer.sanitize(original);
             }
-            if ("FLEXIBLE_REPORT".equals(contentTypeId)) {
-                sanitizer = sanitizer.and(BIRT_FLEXIBLE_REPORT_POLICY);
-            }
-            return sanitizer.sanitize(original);
+            return original;
         }
 
         // Given as an example based on rendering cmssite as it was before using the sanitizer.
