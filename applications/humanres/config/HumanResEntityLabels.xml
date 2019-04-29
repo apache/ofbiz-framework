@@ -20,6 +20,7 @@
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
     <property key="EmplLeaveReasonType.description.CASUAL">
+        <value xml:lang="de">Erholung</value>
         <value xml:lang="en">Casual</value>
         <value xml:lang="fr">Convenance</value>
         <value xml:lang="ja">私事</value>
@@ -28,6 +29,7 @@
         <value xml:lang="zh-TW">臨時</value>
     </property>
     <property key="EmplLeaveReasonType.description.MEDICAL">
+    	<value xml:lang="de">medizinisch</value>
         <value xml:lang="en">Medical</value>
         <value xml:lang="fr">Maladie</value>
         <value xml:lang="ja">疾病</value>
@@ -36,6 +38,7 @@
         <value xml:lang="zh-TW">疾病</value>
     </property>
     <property key="EmplLeaveType.description.INLAND_EARNED">
+    	<value xml:lang="de">im Inland verdient</value>
         <value xml:lang="en">Inland earned</value>
         <value xml:lang="fr">Congé payé</value>
         <value xml:lang="ja">国内取得</value>
@@ -44,6 +47,7 @@
         <value xml:lang="zh-TW">國內收入</value>
     </property>
     <property key="EmplLeaveType.description.LOSS_OF_PAY">
+    	<value xml:lang="de">Lohnverlust</value>
         <value xml:lang="en">Loss of pay</value>
         <value xml:lang="fr">Sans solde</value>
         <value xml:lang="ja">無給</value>
@@ -52,6 +56,7 @@
         <value xml:lang="zh-TW">無薪</value>
     </property>
     <property key="EmplLeaveType.description.RESTRICTED_HOLIDAY">
+    	<value xml:lang="de">Urlaubssperre</value>
         <value xml:lang="en">Restricted holiday</value>
         <value xml:lang="fr">Jour férié</value>
         <value xml:lang="ja">制限日</value>
@@ -60,6 +65,7 @@
         <value xml:lang="zh-TW">受限的假期</value>
     </property>
     <property key="EmplLeaveType.description.SPECIAL_DAY_OFF">
+    	<value xml:lang="de">besonderer Urlaubstag</value>
         <value xml:lang="en">Special day off</value>
         <value xml:lang="fr">Congé</value>
         <value xml:lang="ja">特別休暇</value>

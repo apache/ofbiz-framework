@@ -21,6 +21,7 @@
 
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
     <property key="HumanResRequiredFieldMissingTrainingClassTypeId">
+    	<value xml:lang="de">benötigter Eintrag fehlt: Weiterbildungsklasse Typ ID.</value>
         <value xml:lang="en">Required Field Missing : Training Class Type Id.</value>
     </property>
 </resource>
