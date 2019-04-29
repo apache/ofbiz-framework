@@ -271,7 +271,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-portal-page id="FinAccountPortalPage"/>                        
+                        <include-screen name="ListBankAccount"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
