@@ -222,7 +222,10 @@ public class CatalinaContainer implements Container {
         Host host;
 
         if (UtilValidate.isEmpty(virtualHosts)) {
-            host = tomcat.getHost();
+            host = (Host) tomcat.getEngine().findChild(tomcat.getEngine().getDefaultHost());
+            if(host == null) {
+                host = tomcat.getHost();
+            }
         } else {
             host = prepareVirtualHost(tomcat, virtualHosts);
         }
@@ -491,6 +494,7 @@ public class CatalinaContainer implements Container {
 
         return () -> {
             StandardContext context = prepareContext(host, configuration, appInfo, clusterProp);
+            Debug.logInfo("host[" + host + "].addChild(" + context + ")", module);
             host.addChild(context);
             return context;
         };
@@ -507,7 +511,6 @@ public class CatalinaContainer implements Container {
 
         context.setParent(host);
         context.setDocBase(location);
-        context.setName(appInfo.name);
         context.setDisplayName(appInfo.name);
         context.setPath(getWebappMountPoint(appInfo));
         context.addLifecycleListener(new ContextConfig());
