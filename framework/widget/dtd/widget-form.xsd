@@ -1048,7 +1048,7 @@ under the License.
             </xs:sequence>
             <xs:attribute name="allow-empty" type="xs:boolean" default="false"/>
             <xs:attribute name="allow-multiple" type="xs:boolean" default="false"/>
-            <xs:attribute name="current" default="first-in-list">
+            <xs:attribute name="current" default="selected">
                 <xs:simpleType>
                     <xs:restriction base="xs:token">
                         <xs:enumeration value="first-in-list" />
