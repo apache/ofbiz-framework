@@ -970,6 +970,1568 @@ public Response expireFinAccountAuth_(@Multipart(value = "expireFinAccountAuth",
 	}
 }
 
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/createFixedAsset")
+public Response createFixedAsset_(@Multipart(value = "createFixedAsset", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("fixedAssetId") != null)
+		attributeMap.put("fixedAssetId", params.get("fixedAssetId"));
+	if(params.get("fixedAssetTypeId") != null)
+		attributeMap.put("fixedAssetTypeId", params.get("fixedAssetTypeId"));
+	if(params.get("parentFixedAssetId") != null)
+		attributeMap.put("parentFixedAssetId", params.get("parentFixedAssetId"));
+	if(params.get("instanceOfProductId") != null)
+		attributeMap.put("instanceOfProductId", params.get("instanceOfProductId"));
+	if(params.get("classEnumId") != null)
+		attributeMap.put("classEnumId", params.get("classEnumId"));
+	if(params.get("partyId") != null)
+		attributeMap.put("partyId", params.get("partyId"));
+	if(params.get("roleTypeId") != null)
+		attributeMap.put("roleTypeId", params.get("roleTypeId"));
+	if(params.get("fixedAssetName") != null)
+		attributeMap.put("fixedAssetName", params.get("fixedAssetName"));
+	if(params.get("acquireOrderId") != null)
+		attributeMap.put("acquireOrderId", params.get("acquireOrderId"));
+	if(params.get("acquireOrderItemSeqId") != null)
+		attributeMap.put("acquireOrderItemSeqId", params.get("acquireOrderItemSeqId"));
+	if(params.get("dateAcquired") != null)
+		attributeMap.put("dateAcquired", params.get("dateAcquired"));
+	if(params.get("dateLastServiced") != null)
+		attributeMap.put("dateLastServiced", params.get("dateLastServiced"));
+	if(params.get("dateNextService") != null)
+		attributeMap.put("dateNextService", params.get("dateNextService"));
+	if(params.get("expectedEndOfLife") != null)
+		attributeMap.put("expectedEndOfLife", params.get("expectedEndOfLife"));
+	if(params.get("actualEndOfLife") != null)
+		attributeMap.put("actualEndOfLife", params.get("actualEndOfLife"));
+	if(params.get("productionCapacity") != null)
+		attributeMap.put("productionCapacity", params.get("productionCapacity"));
+	if(params.get("uomId") != null)
+		attributeMap.put("uomId", params.get("uomId"));
+	if(params.get("calendarId") != null)
+		attributeMap.put("calendarId", params.get("calendarId"));
+	if(params.get("serialNumber") != null)
+		attributeMap.put("serialNumber", params.get("serialNumber"));
+	if(params.get("locatedAtFacilityId") != null)
+		attributeMap.put("locatedAtFacilityId", params.get("locatedAtFacilityId"));
+	if(params.get("locatedAtLocationSeqId") != null)
+		attributeMap.put("locatedAtLocationSeqId", params.get("locatedAtLocationSeqId"));
+	if(params.get("salvageValue") != null)
+		attributeMap.put("salvageValue", params.get("salvageValue"));
+	if(params.get("depreciation") != null)
+		attributeMap.put("depreciation", params.get("depreciation"));
+	if(params.get("purchaseCost") != null)
+		attributeMap.put("purchaseCost", params.get("purchaseCost"));
+	if(params.get("purchaseCostUomId") != null)
+		attributeMap.put("purchaseCostUomId", params.get("purchaseCostUomId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	if(params.get("fixedAssetTypeId") != null)
+		attributeMap.put("fixedAssetTypeId", params.get("fixedAssetTypeId"));
+	try {
+		Map result = dispatcher.runSync("createFixedAsset", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/createCostComponentCalc")
+public Response createCostComponentCalc_(@Multipart(value = "createCostComponentCalc", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("description") != null)
+		attributeMap.put("description", params.get("description"));
+	if(params.get("costGlAccountTypeId") != null)
+		attributeMap.put("costGlAccountTypeId", params.get("costGlAccountTypeId"));
+	if(params.get("offsettingGlAccountTypeId") != null)
+		attributeMap.put("offsettingGlAccountTypeId", params.get("offsettingGlAccountTypeId"));
+	if(params.get("fixedCost") != null)
+		attributeMap.put("fixedCost", params.get("fixedCost"));
+	if(params.get("variableCost") != null)
+		attributeMap.put("variableCost", params.get("variableCost"));
+	if(params.get("perMilliSecond") != null)
+		attributeMap.put("perMilliSecond", params.get("perMilliSecond"));
+	if(params.get("currencyUomId") != null)
+		attributeMap.put("currencyUomId", params.get("currencyUomId"));
+	if(params.get("costCustomMethodId") != null)
+		attributeMap.put("costCustomMethodId", params.get("costCustomMethodId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("createCostComponentCalc", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/updateCostComponentCalc")
+public Response updateCostComponentCalc_(@Multipart(value = "updateCostComponentCalc", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("costComponentCalcId") != null)
+		attributeMap.put("costComponentCalcId", params.get("costComponentCalcId"));
+	if(params.get("description") != null)
+		attributeMap.put("description", params.get("description"));
+	if(params.get("costGlAccountTypeId") != null)
+		attributeMap.put("costGlAccountTypeId", params.get("costGlAccountTypeId"));
+	if(params.get("offsettingGlAccountTypeId") != null)
+		attributeMap.put("offsettingGlAccountTypeId", params.get("offsettingGlAccountTypeId"));
+	if(params.get("fixedCost") != null)
+		attributeMap.put("fixedCost", params.get("fixedCost"));
+	if(params.get("variableCost") != null)
+		attributeMap.put("variableCost", params.get("variableCost"));
+	if(params.get("perMilliSecond") != null)
+		attributeMap.put("perMilliSecond", params.get("perMilliSecond"));
+	if(params.get("currencyUomId") != null)
+		attributeMap.put("currencyUomId", params.get("currencyUomId"));
+	if(params.get("costCustomMethodId") != null)
+		attributeMap.put("costCustomMethodId", params.get("costCustomMethodId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("updateCostComponentCalc", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/removeCostComponentCalc")
+public Response removeCostComponentCalc_(@Multipart(value = "removeCostComponentCalc", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("costComponentCalcId") != null)
+		attributeMap.put("costComponentCalcId", params.get("costComponentCalcId"));
+	if(params.get("description") != null)
+		attributeMap.put("description", params.get("description"));
+	if(params.get("costGlAccountTypeId") != null)
+		attributeMap.put("costGlAccountTypeId", params.get("costGlAccountTypeId"));
+	if(params.get("offsettingGlAccountTypeId") != null)
+		attributeMap.put("offsettingGlAccountTypeId", params.get("offsettingGlAccountTypeId"));
+	if(params.get("fixedCost") != null)
+		attributeMap.put("fixedCost", params.get("fixedCost"));
+	if(params.get("variableCost") != null)
+		attributeMap.put("variableCost", params.get("variableCost"));
+	if(params.get("perMilliSecond") != null)
+		attributeMap.put("perMilliSecond", params.get("perMilliSecond"));
+	if(params.get("currencyUomId") != null)
+		attributeMap.put("currencyUomId", params.get("currencyUomId"));
+	if(params.get("costCustomMethodId") != null)
+		attributeMap.put("costCustomMethodId", params.get("costCustomMethodId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("removeCostComponentCalc", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/updateFixedAsset")
+public Response updateFixedAsset_(@Multipart(value = "updateFixedAsset", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("fixedAssetId") != null)
+		attributeMap.put("fixedAssetId", params.get("fixedAssetId"));
+	if(params.get("fixedAssetTypeId") != null)
+		attributeMap.put("fixedAssetTypeId", params.get("fixedAssetTypeId"));
+	if(params.get("parentFixedAssetId") != null)
+		attributeMap.put("parentFixedAssetId", params.get("parentFixedAssetId"));
+	if(params.get("instanceOfProductId") != null)
+		attributeMap.put("instanceOfProductId", params.get("instanceOfProductId"));
+	if(params.get("classEnumId") != null)
+		attributeMap.put("classEnumId", params.get("classEnumId"));
+	if(params.get("partyId") != null)
+		attributeMap.put("partyId", params.get("partyId"));
+	if(params.get("roleTypeId") != null)
+		attributeMap.put("roleTypeId", params.get("roleTypeId"));
+	if(params.get("fixedAssetName") != null)
+		attributeMap.put("fixedAssetName", params.get("fixedAssetName"));
+	if(params.get("acquireOrderId") != null)
+		attributeMap.put("acquireOrderId", params.get("acquireOrderId"));
+	if(params.get("acquireOrderItemSeqId") != null)
+		attributeMap.put("acquireOrderItemSeqId", params.get("acquireOrderItemSeqId"));
+	if(params.get("dateAcquired") != null)
+		attributeMap.put("dateAcquired", params.get("dateAcquired"));
+	if(params.get("dateLastServiced") != null)
+		attributeMap.put("dateLastServiced", params.get("dateLastServiced"));
+	if(params.get("dateNextService") != null)
+		attributeMap.put("dateNextService", params.get("dateNextService"));
+	if(params.get("expectedEndOfLife") != null)
+		attributeMap.put("expectedEndOfLife", params.get("expectedEndOfLife"));
+	if(params.get("actualEndOfLife") != null)
+		attributeMap.put("actualEndOfLife", params.get("actualEndOfLife"));
+	if(params.get("productionCapacity") != null)
+		attributeMap.put("productionCapacity", params.get("productionCapacity"));
+	if(params.get("uomId") != null)
+		attributeMap.put("uomId", params.get("uomId"));
+	if(params.get("calendarId") != null)
+		attributeMap.put("calendarId", params.get("calendarId"));
+	if(params.get("serialNumber") != null)
+		attributeMap.put("serialNumber", params.get("serialNumber"));
+	if(params.get("locatedAtFacilityId") != null)
+		attributeMap.put("locatedAtFacilityId", params.get("locatedAtFacilityId"));
+	if(params.get("locatedAtLocationSeqId") != null)
+		attributeMap.put("locatedAtLocationSeqId", params.get("locatedAtLocationSeqId"));
+	if(params.get("salvageValue") != null)
+		attributeMap.put("salvageValue", params.get("salvageValue"));
+	if(params.get("depreciation") != null)
+		attributeMap.put("depreciation", params.get("depreciation"));
+	if(params.get("purchaseCost") != null)
+		attributeMap.put("purchaseCost", params.get("purchaseCost"));
+	if(params.get("purchaseCostUomId") != null)
+		attributeMap.put("purchaseCostUomId", params.get("purchaseCostUomId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	if(params.get("fixedAssetTypeId") != null)
+		attributeMap.put("fixedAssetTypeId", params.get("fixedAssetTypeId"));
+	try {
+		Map result = dispatcher.runSync("updateFixedAsset", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/addFixedAssetProduct")
+public Response addFixedAssetProduct_(@Multipart(value = "addFixedAssetProduct", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("fixedAssetId") != null)
+		attributeMap.put("fixedAssetId", params.get("fixedAssetId"));
+	if(params.get("productId") != null)
+		attributeMap.put("productId", params.get("productId"));
+	if(params.get("fixedAssetProductTypeId") != null)
+		attributeMap.put("fixedAssetProductTypeId", params.get("fixedAssetProductTypeId"));
+	if(params.get("fromDate") != null)
+		attributeMap.put("fromDate", params.get("fromDate"));
+	if(params.get("thruDate") != null)
+		attributeMap.put("thruDate", params.get("thruDate"));
+	if(params.get("comments") != null)
+		attributeMap.put("comments", params.get("comments"));
+	if(params.get("sequenceNum") != null)
+		attributeMap.put("sequenceNum", params.get("sequenceNum"));
+	if(params.get("quantity") != null)
+		attributeMap.put("quantity", params.get("quantity"));
+	if(params.get("quantityUomId") != null)
+		attributeMap.put("quantityUomId", params.get("quantityUomId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	if(params.get("fromDate") != null)
+		attributeMap.put("fromDate", params.get("fromDate"));
+	try {
+		Map result = dispatcher.runSync("addFixedAssetProduct", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/updateFixedAssetProduct")
+public Response updateFixedAssetProduct_(@Multipart(value = "updateFixedAssetProduct", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("fixedAssetId") != null)
+		attributeMap.put("fixedAssetId", params.get("fixedAssetId"));
+	if(params.get("productId") != null)
+		attributeMap.put("productId", params.get("productId"));
+	if(params.get("fixedAssetProductTypeId") != null)
+		attributeMap.put("fixedAssetProductTypeId", params.get("fixedAssetProductTypeId"));
+	if(params.get("fromDate") != null)
+		attributeMap.put("fromDate", params.get("fromDate"));
+	if(params.get("thruDate") != null)
+		attributeMap.put("thruDate", params.get("thruDate"));
+	if(params.get("comments") != null)
+		attributeMap.put("comments", params.get("comments"));
+	if(params.get("sequenceNum") != null)
+		attributeMap.put("sequenceNum", params.get("sequenceNum"));
+	if(params.get("quantity") != null)
+		attributeMap.put("quantity", params.get("quantity"));
+	if(params.get("quantityUomId") != null)
+		attributeMap.put("quantityUomId", params.get("quantityUomId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("updateFixedAssetProduct", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/removeFixedAssetProduct")
+public Response removeFixedAssetProduct_(@Multipart(value = "removeFixedAssetProduct", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("fixedAssetId") != null)
+		attributeMap.put("fixedAssetId", params.get("fixedAssetId"));
+	if(params.get("productId") != null)
+		attributeMap.put("productId", params.get("productId"));
+	if(params.get("fixedAssetProductTypeId") != null)
+		attributeMap.put("fixedAssetProductTypeId", params.get("fixedAssetProductTypeId"));
+	if(params.get("fromDate") != null)
+		attributeMap.put("fromDate", params.get("fromDate"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("removeFixedAssetProduct", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/createFixedAssetStdCost")
+public Response createFixedAssetStdCost_(@Multipart(value = "createFixedAssetStdCost", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("fixedAssetId") != null)
+		attributeMap.put("fixedAssetId", params.get("fixedAssetId"));
+	if(params.get("fixedAssetStdCostTypeId") != null)
+		attributeMap.put("fixedAssetStdCostTypeId", params.get("fixedAssetStdCostTypeId"));
+	if(params.get("fromDate") != null)
+		attributeMap.put("fromDate", params.get("fromDate"));
+	if(params.get("thruDate") != null)
+		attributeMap.put("thruDate", params.get("thruDate"));
+	if(params.get("amountUomId") != null)
+		attributeMap.put("amountUomId", params.get("amountUomId"));
+	if(params.get("amount") != null)
+		attributeMap.put("amount", params.get("amount"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("createFixedAssetStdCost", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/updateFixedAssetStdCost")
+public Response updateFixedAssetStdCost_(@Multipart(value = "updateFixedAssetStdCost", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("fixedAssetId") != null)
+		attributeMap.put("fixedAssetId", params.get("fixedAssetId"));
+	if(params.get("fixedAssetStdCostTypeId") != null)
+		attributeMap.put("fixedAssetStdCostTypeId", params.get("fixedAssetStdCostTypeId"));
+	if(params.get("fromDate") != null)
+		attributeMap.put("fromDate", params.get("fromDate"));
+	if(params.get("thruDate") != null)
+		attributeMap.put("thruDate", params.get("thruDate"));
+	if(params.get("amountUomId") != null)
+		attributeMap.put("amountUomId", params.get("amountUomId"));
+	if(params.get("amount") != null)
+		attributeMap.put("amount", params.get("amount"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("updateFixedAssetStdCost", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/cancelFixedAssetStdCost")
+public Response cancelFixedAssetStdCost_(@Multipart(value = "cancelFixedAssetStdCost", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("fixedAssetId") != null)
+		attributeMap.put("fixedAssetId", params.get("fixedAssetId"));
+	if(params.get("fixedAssetStdCostTypeId") != null)
+		attributeMap.put("fixedAssetStdCostTypeId", params.get("fixedAssetStdCostTypeId"));
+	if(params.get("fromDate") != null)
+		attributeMap.put("fromDate", params.get("fromDate"));
+	if(params.get("thruDate") != null)
+		attributeMap.put("thruDate", params.get("thruDate"));
+	if(params.get("amountUomId") != null)
+		attributeMap.put("amountUomId", params.get("amountUomId"));
+	if(params.get("amount") != null)
+		attributeMap.put("amount", params.get("amount"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("cancelFixedAssetStdCost", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/createFixedAssetIdent")
+public Response createFixedAssetIdent_(@Multipart(value = "createFixedAssetIdent", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("fixedAssetId") != null)
+		attributeMap.put("fixedAssetId", params.get("fixedAssetId"));
+	if(params.get("fixedAssetIdentTypeId") != null)
+		attributeMap.put("fixedAssetIdentTypeId", params.get("fixedAssetIdentTypeId"));
+	if(params.get("idValue") != null)
+		attributeMap.put("idValue", params.get("idValue"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("createFixedAssetIdent", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/updateFixedAssetIdent")
+public Response updateFixedAssetIdent_(@Multipart(value = "updateFixedAssetIdent", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("fixedAssetId") != null)
+		attributeMap.put("fixedAssetId", params.get("fixedAssetId"));
+	if(params.get("fixedAssetIdentTypeId") != null)
+		attributeMap.put("fixedAssetIdentTypeId", params.get("fixedAssetIdentTypeId"));
+	if(params.get("idValue") != null)
+		attributeMap.put("idValue", params.get("idValue"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("updateFixedAssetIdent", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/removeFixedAssetIdent")
+public Response removeFixedAssetIdent_(@Multipart(value = "removeFixedAssetIdent", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("fixedAssetId") != null)
+		attributeMap.put("fixedAssetId", params.get("fixedAssetId"));
+	if(params.get("fixedAssetIdentTypeId") != null)
+		attributeMap.put("fixedAssetIdentTypeId", params.get("fixedAssetIdentTypeId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("removeFixedAssetIdent", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/createFixedAssetRegistration")
+public Response createFixedAssetRegistration_(@Multipart(value = "createFixedAssetRegistration", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("fixedAssetId") != null)
+		attributeMap.put("fixedAssetId", params.get("fixedAssetId"));
+	if(params.get("fromDate") != null)
+		attributeMap.put("fromDate", params.get("fromDate"));
+	if(params.get("thruDate") != null)
+		attributeMap.put("thruDate", params.get("thruDate"));
+	if(params.get("registrationDate") != null)
+		attributeMap.put("registrationDate", params.get("registrationDate"));
+	if(params.get("govAgencyPartyId") != null)
+		attributeMap.put("govAgencyPartyId", params.get("govAgencyPartyId"));
+	if(params.get("registrationNumber") != null)
+		attributeMap.put("registrationNumber", params.get("registrationNumber"));
+	if(params.get("licenseNumber") != null)
+		attributeMap.put("licenseNumber", params.get("licenseNumber"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	if(params.get("fromDate") != null)
+		attributeMap.put("fromDate", params.get("fromDate"));
+	try {
+		Map result = dispatcher.runSync("createFixedAssetRegistration", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/updateFixedAssetRegistration")
+public Response updateFixedAssetRegistration_(@Multipart(value = "updateFixedAssetRegistration", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("fixedAssetId") != null)
+		attributeMap.put("fixedAssetId", params.get("fixedAssetId"));
+	if(params.get("fromDate") != null)
+		attributeMap.put("fromDate", params.get("fromDate"));
+	if(params.get("thruDate") != null)
+		attributeMap.put("thruDate", params.get("thruDate"));
+	if(params.get("registrationDate") != null)
+		attributeMap.put("registrationDate", params.get("registrationDate"));
+	if(params.get("govAgencyPartyId") != null)
+		attributeMap.put("govAgencyPartyId", params.get("govAgencyPartyId"));
+	if(params.get("registrationNumber") != null)
+		attributeMap.put("registrationNumber", params.get("registrationNumber"));
+	if(params.get("licenseNumber") != null)
+		attributeMap.put("licenseNumber", params.get("licenseNumber"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("updateFixedAssetRegistration", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/deleteFixedAssetRegistration")
+public Response deleteFixedAssetRegistration_(@Multipart(value = "deleteFixedAssetRegistration", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("fixedAssetId") != null)
+		attributeMap.put("fixedAssetId", params.get("fixedAssetId"));
+	if(params.get("fromDate") != null)
+		attributeMap.put("fromDate", params.get("fromDate"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("deleteFixedAssetRegistration", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/createFixedAssetMaint")
+public Response createFixedAssetMaint_(@Multipart(value = "createFixedAssetMaint", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("fixedAssetId") != null)
+		attributeMap.put("fixedAssetId", params.get("fixedAssetId"));
+	if(params.get("statusId") != null)
+		attributeMap.put("statusId", params.get("statusId"));
+	if(params.get("productMaintTypeId") != null)
+		attributeMap.put("productMaintTypeId", params.get("productMaintTypeId"));
+	if(params.get("productMaintSeqId") != null)
+		attributeMap.put("productMaintSeqId", params.get("productMaintSeqId"));
+	if(params.get("scheduleWorkEffortId") != null)
+		attributeMap.put("scheduleWorkEffortId", params.get("scheduleWorkEffortId"));
+	if(params.get("intervalQuantity") != null)
+		attributeMap.put("intervalQuantity", params.get("intervalQuantity"));
+	if(params.get("intervalUomId") != null)
+		attributeMap.put("intervalUomId", params.get("intervalUomId"));
+	if(params.get("intervalMeterTypeId") != null)
+		attributeMap.put("intervalMeterTypeId", params.get("intervalMeterTypeId"));
+	if(params.get("purchaseOrderId") != null)
+		attributeMap.put("purchaseOrderId", params.get("purchaseOrderId"));
+	if(params.get("estimatedStartDate") != null)
+		attributeMap.put("estimatedStartDate", params.get("estimatedStartDate"));
+	if(params.get("estimatedCompletionDate") != null)
+		attributeMap.put("estimatedCompletionDate", params.get("estimatedCompletionDate"));
+	if(params.get("maintTemplateWorkEffortId") != null)
+		attributeMap.put("maintTemplateWorkEffortId", params.get("maintTemplateWorkEffortId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("createFixedAssetMaint", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/updateFixedAssetMaint")
+public Response updateFixedAssetMaint_(@Multipart(value = "updateFixedAssetMaint", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("fixedAssetId") != null)
+		attributeMap.put("fixedAssetId", params.get("fixedAssetId"));
+	if(params.get("maintHistSeqId") != null)
+		attributeMap.put("maintHistSeqId", params.get("maintHistSeqId"));
+	if(params.get("statusId") != null)
+		attributeMap.put("statusId", params.get("statusId"));
+	if(params.get("productMaintTypeId") != null)
+		attributeMap.put("productMaintTypeId", params.get("productMaintTypeId"));
+	if(params.get("productMaintSeqId") != null)
+		attributeMap.put("productMaintSeqId", params.get("productMaintSeqId"));
+	if(params.get("scheduleWorkEffortId") != null)
+		attributeMap.put("scheduleWorkEffortId", params.get("scheduleWorkEffortId"));
+	if(params.get("intervalQuantity") != null)
+		attributeMap.put("intervalQuantity", params.get("intervalQuantity"));
+	if(params.get("intervalUomId") != null)
+		attributeMap.put("intervalUomId", params.get("intervalUomId"));
+	if(params.get("intervalMeterTypeId") != null)
+		attributeMap.put("intervalMeterTypeId", params.get("intervalMeterTypeId"));
+	if(params.get("purchaseOrderId") != null)
+		attributeMap.put("purchaseOrderId", params.get("purchaseOrderId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("updateFixedAssetMaint", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/deleteFixedAssetMaint")
+public Response deleteFixedAssetMaint_(@Multipart(value = "deleteFixedAssetMaint", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("fixedAssetId") != null)
+		attributeMap.put("fixedAssetId", params.get("fixedAssetId"));
+	if(params.get("maintHistSeqId") != null)
+		attributeMap.put("maintHistSeqId", params.get("maintHistSeqId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("deleteFixedAssetMaint", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/createFixedAssetMeter")
+public Response createFixedAssetMeter_(@Multipart(value = "createFixedAssetMeter", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("fixedAssetId") != null)
+		attributeMap.put("fixedAssetId", params.get("fixedAssetId"));
+	if(params.get("productMeterTypeId") != null)
+		attributeMap.put("productMeterTypeId", params.get("productMeterTypeId"));
+	if(params.get("readingDate") != null)
+		attributeMap.put("readingDate", params.get("readingDate"));
+	if(params.get("meterValue") != null)
+		attributeMap.put("meterValue", params.get("meterValue"));
+	if(params.get("readingReasonEnumId") != null)
+		attributeMap.put("readingReasonEnumId", params.get("readingReasonEnumId"));
+	if(params.get("maintHistSeqId") != null)
+		attributeMap.put("maintHistSeqId", params.get("maintHistSeqId"));
+	if(params.get("workEffortId") != null)
+		attributeMap.put("workEffortId", params.get("workEffortId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("createFixedAssetMeter", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/updateFixedAssetMeter")
+public Response updateFixedAssetMeter_(@Multipart(value = "updateFixedAssetMeter", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("fixedAssetId") != null)
+		attributeMap.put("fixedAssetId", params.get("fixedAssetId"));
+	if(params.get("productMeterTypeId") != null)
+		attributeMap.put("productMeterTypeId", params.get("productMeterTypeId"));
+	if(params.get("readingDate") != null)
+		attributeMap.put("readingDate", params.get("readingDate"));
+	if(params.get("meterValue") != null)
+		attributeMap.put("meterValue", params.get("meterValue"));
+	if(params.get("readingReasonEnumId") != null)
+		attributeMap.put("readingReasonEnumId", params.get("readingReasonEnumId"));
+	if(params.get("maintHistSeqId") != null)
+		attributeMap.put("maintHistSeqId", params.get("maintHistSeqId"));
+	if(params.get("workEffortId") != null)
+		attributeMap.put("workEffortId", params.get("workEffortId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("updateFixedAssetMeter", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/deleteFixedAssetMeter")
+public Response deleteFixedAssetMeter_(@Multipart(value = "deleteFixedAssetMeter", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("fixedAssetId") != null)
+		attributeMap.put("fixedAssetId", params.get("fixedAssetId"));
+	if(params.get("productMeterTypeId") != null)
+		attributeMap.put("productMeterTypeId", params.get("productMeterTypeId"));
+	if(params.get("readingDate") != null)
+		attributeMap.put("readingDate", params.get("readingDate"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("deleteFixedAssetMeter", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/createFixedAssetMaintOrder")
+public Response createFixedAssetMaintOrder_(@Multipart(value = "createFixedAssetMaintOrder", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("fixedAssetId") != null)
+		attributeMap.put("fixedAssetId", params.get("fixedAssetId"));
+	if(params.get("maintHistSeqId") != null)
+		attributeMap.put("maintHistSeqId", params.get("maintHistSeqId"));
+	if(params.get("orderId") != null)
+		attributeMap.put("orderId", params.get("orderId"));
+	if(params.get("orderItemSeqId") != null)
+		attributeMap.put("orderItemSeqId", params.get("orderItemSeqId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("createFixedAssetMaintOrder", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/deleteFixedAssetMaintOrder")
+public Response deleteFixedAssetMaintOrder_(@Multipart(value = "deleteFixedAssetMaintOrder", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("fixedAssetId") != null)
+		attributeMap.put("fixedAssetId", params.get("fixedAssetId"));
+	if(params.get("maintHistSeqId") != null)
+		attributeMap.put("maintHistSeqId", params.get("maintHistSeqId"));
+	if(params.get("orderId") != null)
+		attributeMap.put("orderId", params.get("orderId"));
+	if(params.get("orderItemSeqId") != null)
+		attributeMap.put("orderItemSeqId", params.get("orderItemSeqId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("deleteFixedAssetMaintOrder", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/createPartyFixedAssetAssignment")
+public Response createPartyFixedAssetAssignment_(@Multipart(value = "createPartyFixedAssetAssignment", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("partyId") != null)
+		attributeMap.put("partyId", params.get("partyId"));
+	if(params.get("roleTypeId") != null)
+		attributeMap.put("roleTypeId", params.get("roleTypeId"));
+	if(params.get("fixedAssetId") != null)
+		attributeMap.put("fixedAssetId", params.get("fixedAssetId"));
+	if(params.get("fromDate") != null)
+		attributeMap.put("fromDate", params.get("fromDate"));
+	if(params.get("thruDate") != null)
+		attributeMap.put("thruDate", params.get("thruDate"));
+	if(params.get("allocatedDate") != null)
+		attributeMap.put("allocatedDate", params.get("allocatedDate"));
+	if(params.get("statusId") != null)
+		attributeMap.put("statusId", params.get("statusId"));
+	if(params.get("comments") != null)
+		attributeMap.put("comments", params.get("comments"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	if(params.get("fromDate") != null)
+		attributeMap.put("fromDate", params.get("fromDate"));
+	try {
+		Map result = dispatcher.runSync("createPartyFixedAssetAssignment", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/updatePartyFixedAssetAssignment")
+public Response updatePartyFixedAssetAssignment_(@Multipart(value = "updatePartyFixedAssetAssignment", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("partyId") != null)
+		attributeMap.put("partyId", params.get("partyId"));
+	if(params.get("roleTypeId") != null)
+		attributeMap.put("roleTypeId", params.get("roleTypeId"));
+	if(params.get("fixedAssetId") != null)
+		attributeMap.put("fixedAssetId", params.get("fixedAssetId"));
+	if(params.get("fromDate") != null)
+		attributeMap.put("fromDate", params.get("fromDate"));
+	if(params.get("thruDate") != null)
+		attributeMap.put("thruDate", params.get("thruDate"));
+	if(params.get("allocatedDate") != null)
+		attributeMap.put("allocatedDate", params.get("allocatedDate"));
+	if(params.get("statusId") != null)
+		attributeMap.put("statusId", params.get("statusId"));
+	if(params.get("comments") != null)
+		attributeMap.put("comments", params.get("comments"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("updatePartyFixedAssetAssignment", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/deletePartyFixedAssetAssignment")
+public Response deletePartyFixedAssetAssignment_(@Multipart(value = "deletePartyFixedAssetAssignment", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("partyId") != null)
+		attributeMap.put("partyId", params.get("partyId"));
+	if(params.get("roleTypeId") != null)
+		attributeMap.put("roleTypeId", params.get("roleTypeId"));
+	if(params.get("fixedAssetId") != null)
+		attributeMap.put("fixedAssetId", params.get("fixedAssetId"));
+	if(params.get("fromDate") != null)
+		attributeMap.put("fromDate", params.get("fromDate"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("deletePartyFixedAssetAssignment", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/createFixedAssetDepMethod")
+public Response createFixedAssetDepMethod_(@Multipart(value = "createFixedAssetDepMethod", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("depreciationCustomMethodId") != null)
+		attributeMap.put("depreciationCustomMethodId", params.get("depreciationCustomMethodId"));
+	if(params.get("fixedAssetId") != null)
+		attributeMap.put("fixedAssetId", params.get("fixedAssetId"));
+	if(params.get("fromDate") != null)
+		attributeMap.put("fromDate", params.get("fromDate"));
+	if(params.get("thruDate") != null)
+		attributeMap.put("thruDate", params.get("thruDate"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("createFixedAssetDepMethod", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/updateFixedAssetDepMethod")
+public Response updateFixedAssetDepMethod_(@Multipart(value = "updateFixedAssetDepMethod", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("depreciationCustomMethodId") != null)
+		attributeMap.put("depreciationCustomMethodId", params.get("depreciationCustomMethodId"));
+	if(params.get("fixedAssetId") != null)
+		attributeMap.put("fixedAssetId", params.get("fixedAssetId"));
+	if(params.get("fromDate") != null)
+		attributeMap.put("fromDate", params.get("fromDate"));
+	if(params.get("thruDate") != null)
+		attributeMap.put("thruDate", params.get("thruDate"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("updateFixedAssetDepMethod", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/deleteFixedAssetDepMethod")
+public Response deleteFixedAssetDepMethod_(@Multipart(value = "deleteFixedAssetDepMethod", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("depreciationCustomMethodId") != null)
+		attributeMap.put("depreciationCustomMethodId", params.get("depreciationCustomMethodId"));
+	if(params.get("fixedAssetId") != null)
+		attributeMap.put("fixedAssetId", params.get("fixedAssetId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("deleteFixedAssetDepMethod", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/createFixedAssetTypeGlAccount")
+public Response createFixedAssetTypeGlAccount_(@Multipart(value = "createFixedAssetTypeGlAccount", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("assetGlAccountId") != null)
+		attributeMap.put("assetGlAccountId", params.get("assetGlAccountId"));
+	if(params.get("accDepGlAccountId") != null)
+		attributeMap.put("accDepGlAccountId", params.get("accDepGlAccountId"));
+	if(params.get("depGlAccountId") != null)
+		attributeMap.put("depGlAccountId", params.get("depGlAccountId"));
+	if(params.get("profitGlAccountId") != null)
+		attributeMap.put("profitGlAccountId", params.get("profitGlAccountId"));
+	if(params.get("lossGlAccountId") != null)
+		attributeMap.put("lossGlAccountId", params.get("lossGlAccountId"));
+	if(params.get("fixedAssetTypeId") != null)
+		attributeMap.put("fixedAssetTypeId", params.get("fixedAssetTypeId"));
+	if(params.get("fixedAssetId") != null)
+		attributeMap.put("fixedAssetId", params.get("fixedAssetId"));
+	if(params.get("organizationPartyId") != null)
+		attributeMap.put("organizationPartyId", params.get("organizationPartyId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("createFixedAssetTypeGlAccount", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/deleteFixedAssetTypeGlAccount")
+public Response deleteFixedAssetTypeGlAccount_(@Multipart(value = "deleteFixedAssetTypeGlAccount", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("fixedAssetTypeId") != null)
+		attributeMap.put("fixedAssetTypeId", params.get("fixedAssetTypeId"));
+	if(params.get("fixedAssetId") != null)
+		attributeMap.put("fixedAssetId", params.get("fixedAssetId"));
+	if(params.get("organizationPartyId") != null)
+		attributeMap.put("organizationPartyId", params.get("organizationPartyId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("deleteFixedAssetTypeGlAccount", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
 @POST
 @Produces(MediaType.APPLICATION_JSON)
 @Path("/setFinAccountTransStatus")
@@ -1496,6 +3058,47 @@ public Response createPaymentAndApplication_(@Multipart(value = "createPaymentAn
 		return null;
 	}
 }
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/updatePaymentMethodType")
+public Response updatePaymentMethodType_(@Multipart(value = "updatePaymentMethodType", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("paymentMethodTypeId") != null)
+		attributeMap.put("paymentMethodTypeId", params.get("paymentMethodTypeId"));
+	if(params.get("description") != null)
+		attributeMap.put("description", params.get("description"));
+	if(params.get("defaultGlAccountId") != null)
+		attributeMap.put("defaultGlAccountId", params.get("defaultGlAccountId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("updatePaymentMethodType", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+
 
 @POST
 @Produces(MediaType.APPLICATION_JSON)
@@ -4253,6 +5856,160 @@ public Response deleteTaxAuthorityCategory_(@Multipart(value = "deleteTaxAuthori
 
 @POST
 @Produces(MediaType.APPLICATION_JSON)
+@Path("/addPaymentMethodTypeGlAssignment")
+public Response addPaymentMethodTypeGlAssignment_(@Multipart(value = "addPaymentMethodTypeGlAssignment", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("paymentMethodTypeId") != null)
+		attributeMap.put("paymentMethodTypeId", params.get("paymentMethodTypeId"));
+	if(params.get("organizationPartyId") != null)
+		attributeMap.put("organizationPartyId", params.get("organizationPartyId"));
+	if(params.get("glAccountId") != null)
+		attributeMap.put("glAccountId", params.get("glAccountId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("addPaymentMethodTypeGlAssignment", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/removePaymentMethodTypeGlAssignment")
+public Response removePaymentMethodTypeGlAssignment_(@Multipart(value = "removePaymentMethodTypeGlAssignment", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("paymentMethodTypeId") != null)
+		attributeMap.put("paymentMethodTypeId", params.get("paymentMethodTypeId"));
+	if(params.get("organizationPartyId") != null)
+		attributeMap.put("organizationPartyId", params.get("organizationPartyId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("removePaymentMethodTypeGlAssignment", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/addPaymentTypeGlAssignment")
+public Response addPaymentTypeGlAssignment_(@Multipart(value = "addPaymentTypeGlAssignment", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("paymentTypeId") != null)
+		attributeMap.put("paymentTypeId", params.get("paymentTypeId"));
+	if(params.get("organizationPartyId") != null)
+		attributeMap.put("organizationPartyId", params.get("organizationPartyId"));
+	if(params.get("glAccountTypeId") != null)
+		attributeMap.put("glAccountTypeId", params.get("glAccountTypeId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("addPaymentTypeGlAssignment", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+
+
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/removePaymentTypeGlAssignment")
+public Response removePaymentTypeGlAssignment_(@Multipart(value = "removePaymentTypeGlAssignment", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("paymentTypeId") != null)
+		attributeMap.put("paymentTypeId", params.get("paymentTypeId"));
+	if(params.get("organizationPartyId") != null)
+		attributeMap.put("organizationPartyId", params.get("organizationPartyId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("removePaymentTypeGlAssignment", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+@POST
+@Produces(MediaType.APPLICATION_JSON)
 @Path("/createInvoiceItem")
 public Response createInvoiceItem_(@Multipart(value = "createInvoiceItem", required = true, type = MediaType.APPLICATION_JSON) Map params) {
 	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
@@ -4325,6 +6082,7 @@ public Response createInvoiceItem_(@Multipart(value = "createInvoiceItem", requi
 		return null;
 	}
 }
+
 
 @POST
 @Produces(MediaType.APPLICATION_JSON)
@@ -4405,6 +6163,121 @@ public Response updateTaxAuthority_(@Multipart(value = "updateTaxAuthority", req
 		attributeMap.put("timeZone", params.get("timeZone"));
 	try {
 		Map result = dispatcher.runSync("updateTaxAuthority", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/createPartyAcctgPreference")
+public Response createPartyAcctgPreference_(@Multipart(value = "createPartyAcctgPreference", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("partyId") != null)
+		attributeMap.put("partyId", params.get("partyId"));
+	if(params.get("fiscalYearStartMonth") != null)
+		attributeMap.put("fiscalYearStartMonth", params.get("fiscalYearStartMonth"));
+	if(params.get("fiscalYearStartDay") != null)
+		attributeMap.put("fiscalYearStartDay", params.get("fiscalYearStartDay"));
+	if(params.get("taxFormId") != null)
+		attributeMap.put("taxFormId", params.get("taxFormId"));
+	if(params.get("cogsMethodId") != null)
+		attributeMap.put("cogsMethodId", params.get("cogsMethodId"));
+	if(params.get("baseCurrencyUomId") != null)
+		attributeMap.put("baseCurrencyUomId", params.get("baseCurrencyUomId"));
+	if(params.get("invoiceSeqCustMethId") != null)
+		attributeMap.put("invoiceSeqCustMethId", params.get("invoiceSeqCustMethId"));
+	if(params.get("invoiceIdPrefix") != null)
+		attributeMap.put("invoiceIdPrefix", params.get("invoiceIdPrefix"));
+	if(params.get("lastInvoiceNumber") != null)
+		attributeMap.put("lastInvoiceNumber", params.get("lastInvoiceNumber"));
+	if(params.get("lastInvoiceRestartDate") != null)
+		attributeMap.put("lastInvoiceRestartDate", params.get("lastInvoiceRestartDate"));
+	if(params.get("useInvoiceIdForReturns") != null)
+		attributeMap.put("useInvoiceIdForReturns", params.get("useInvoiceIdForReturns"));
+	if(params.get("quoteSeqCustMethId") != null)
+		attributeMap.put("quoteSeqCustMethId", params.get("quoteSeqCustMethId"));
+	if(params.get("quoteIdPrefix") != null)
+		attributeMap.put("quoteIdPrefix", params.get("quoteIdPrefix"));
+	if(params.get("lastQuoteNumber") != null)
+		attributeMap.put("lastQuoteNumber", params.get("lastQuoteNumber"));
+	if(params.get("orderSeqCustMethId") != null)
+		attributeMap.put("orderSeqCustMethId", params.get("orderSeqCustMethId"));
+	if(params.get("orderIdPrefix") != null)
+		attributeMap.put("orderIdPrefix", params.get("orderIdPrefix"));
+	if(params.get("lastOrderNumber") != null)
+		attributeMap.put("lastOrderNumber", params.get("lastOrderNumber"));
+	if(params.get("refundPaymentMethodId") != null)
+		attributeMap.put("refundPaymentMethodId", params.get("refundPaymentMethodId"));
+	if(params.get("errorGlJournalId") != null)
+		attributeMap.put("errorGlJournalId", params.get("errorGlJournalId"));
+	if(params.get("oldInvoiceSequenceEnumId") != null)
+		attributeMap.put("oldInvoiceSequenceEnumId", params.get("oldInvoiceSequenceEnumId"));
+	if(params.get("oldOrderSequenceEnumId") != null)
+		attributeMap.put("oldOrderSequenceEnumId", params.get("oldOrderSequenceEnumId"));
+	if(params.get("oldQuoteSequenceEnumId") != null)
+		attributeMap.put("oldQuoteSequenceEnumId", params.get("oldQuoteSequenceEnumId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("createPartyAcctgPreference", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/updatePartyAcctgPreference")
+public Response updatePartyAcctgPreference_(@Multipart(value = "updatePartyAcctgPreference", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("partyId") != null)
+		attributeMap.put("partyId", params.get("partyId"));
+	if(params.get("refundPaymentMethodId") != null)
+		attributeMap.put("refundPaymentMethodId", params.get("refundPaymentMethodId"));
+	if(params.get("errorGlJournalId") != null)
+		attributeMap.put("errorGlJournalId", params.get("errorGlJournalId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("updatePartyAcctgPreference", attributeMap);
 		return Response.ok().entity(result).build();
 	} catch(GenericServiceException e) {
 		e.printStackTrace();
@@ -5405,6 +7278,211 @@ public Response removeInvoiceItem_(@Multipart(value = "removeInvoiceItem", requi
 	}
 }
 
+
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/updateRateAmount")
+public Response updateRateAmount_(@Multipart(value = "updateRateAmount", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("rateTypeId") != null)
+		attributeMap.put("rateTypeId", params.get("rateTypeId"));
+	if(params.get("rateCurrencyUomId") != null)
+		attributeMap.put("rateCurrencyUomId", params.get("rateCurrencyUomId"));
+	if(params.get("periodTypeId") != null)
+		attributeMap.put("periodTypeId", params.get("periodTypeId"));
+	if(params.get("workEffortId") != null)
+		attributeMap.put("workEffortId", params.get("workEffortId"));
+	if(params.get("partyId") != null)
+		attributeMap.put("partyId", params.get("partyId"));
+	if(params.get("emplPositionTypeId") != null)
+		attributeMap.put("emplPositionTypeId", params.get("emplPositionTypeId"));
+	if(params.get("fromDate") != null)
+		attributeMap.put("fromDate", params.get("fromDate"));
+	if(params.get("thruDate") != null)
+		attributeMap.put("thruDate", params.get("thruDate"));
+	if(params.get("rateAmount") != null)
+		attributeMap.put("rateAmount", params.get("rateAmount"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	if(params.get("rateTypeId") != null)
+		attributeMap.put("rateTypeId", params.get("rateTypeId"));
+	if(params.get("rateAmount") != null)
+		attributeMap.put("rateAmount", params.get("rateAmount"));
+	try {
+		Map result = dispatcher.runSync("updateRateAmount", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/updateFXConversion")
+public Response updateFXConversion_(@Multipart(value = "updateFXConversion", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("uomId") != null)
+		attributeMap.put("uomId", params.get("uomId"));
+	if(params.get("uomIdTo") != null)
+		attributeMap.put("uomIdTo", params.get("uomIdTo"));
+	if(params.get("conversionFactor") != null)
+		attributeMap.put("conversionFactor", params.get("conversionFactor"));
+	if(params.get("purposeEnumId") != null)
+		attributeMap.put("purposeEnumId", params.get("purposeEnumId"));
+	if(params.get("asOfTimestamp") != null)
+		attributeMap.put("asOfTimestamp", params.get("asOfTimestamp"));
+	if(params.get("fromDate") != null)
+		attributeMap.put("fromDate", params.get("fromDate"));
+	if(params.get("thruDate") != null)
+		attributeMap.put("thruDate", params.get("thruDate"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("updateFXConversion", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/convertUom")
+public Response convertUom_(@Multipart(value = "convertUom", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("uomId") != null)
+		attributeMap.put("uomId", params.get("uomId"));
+	if(params.get("uomIdTo") != null)
+		attributeMap.put("uomIdTo", params.get("uomIdTo"));
+	if(params.get("asOfDate") != null)
+		attributeMap.put("asOfDate", params.get("asOfDate"));
+	if(params.get("originalValue") != null)
+		attributeMap.put("originalValue", params.get("originalValue"));
+	if(params.get("conversionParameters") != null)
+		attributeMap.put("conversionParameters", params.get("conversionParameters"));
+	if(params.get("purposeEnumId") != null)
+		attributeMap.put("purposeEnumId", params.get("purposeEnumId"));
+	if(params.get("defaultDecimalScale") != null)
+		attributeMap.put("defaultDecimalScale", params.get("defaultDecimalScale"));
+	if(params.get("defaultRoundingMode") != null)
+		attributeMap.put("defaultRoundingMode", params.get("defaultRoundingMode"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("convertUom", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/deleteRateAmount")
+public Response deleteRateAmount_(@Multipart(value = "deleteRateAmount", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("rateTypeId") != null)
+		attributeMap.put("rateTypeId", params.get("rateTypeId"));
+	if(params.get("rateCurrencyUomId") != null)
+		attributeMap.put("rateCurrencyUomId", params.get("rateCurrencyUomId"));
+	if(params.get("periodTypeId") != null)
+		attributeMap.put("periodTypeId", params.get("periodTypeId"));
+	if(params.get("workEffortId") != null)
+		attributeMap.put("workEffortId", params.get("workEffortId"));
+	if(params.get("partyId") != null)
+		attributeMap.put("partyId", params.get("partyId"));
+	if(params.get("emplPositionTypeId") != null)
+		attributeMap.put("emplPositionTypeId", params.get("emplPositionTypeId"));
+	if(params.get("fromDate") != null)
+		attributeMap.put("fromDate", params.get("fromDate"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	if(params.get("rateTypeId") != null)
+		attributeMap.put("rateTypeId", params.get("rateTypeId"));
+	if(params.get("fromDate") != null)
+		attributeMap.put("fromDate", params.get("fromDate"));
+	try {
+		Map result = dispatcher.runSync("deleteRateAmount", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+
 @POST
 @Produces(MediaType.APPLICATION_JSON)
 @Path("/updateInvoiceItemType")
@@ -5917,6 +7995,130 @@ public Response updateBillingAccount_(@Multipart(value = "updateBillingAccount",
 	}
 }
 
+
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/createProductGlAccount")
+public Response createProductGlAccount_(@Multipart(value = "createProductGlAccount", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("productId") != null)
+		attributeMap.put("productId", params.get("productId"));
+	if(params.get("organizationPartyId") != null)
+		attributeMap.put("organizationPartyId", params.get("organizationPartyId"));
+	if(params.get("glAccountTypeId") != null)
+		attributeMap.put("glAccountTypeId", params.get("glAccountTypeId"));
+	if(params.get("glAccountId") != null)
+		attributeMap.put("glAccountId", params.get("glAccountId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("createProductGlAccount", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/updateProductGlAccount")
+public Response updateProductGlAccount_(@Multipart(value = "updateProductGlAccount", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("productId") != null)
+		attributeMap.put("productId", params.get("productId"));
+	if(params.get("organizationPartyId") != null)
+		attributeMap.put("organizationPartyId", params.get("organizationPartyId"));
+	if(params.get("glAccountTypeId") != null)
+		attributeMap.put("glAccountTypeId", params.get("glAccountTypeId"));
+	if(params.get("glAccountId") != null)
+		attributeMap.put("glAccountId", params.get("glAccountId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("updateProductGlAccount", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/deleteProductGlAccount")
+public Response deleteProductGlAccount_(@Multipart(value = "deleteProductGlAccount", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("productId") != null)
+		attributeMap.put("productId", params.get("productId"));
+	if(params.get("organizationPartyId") != null)
+		attributeMap.put("organizationPartyId", params.get("organizationPartyId"));
+	if(params.get("glAccountTypeId") != null)
+		attributeMap.put("glAccountTypeId", params.get("glAccountTypeId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("deleteProductGlAccount", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+
 @POST
 @Produces(MediaType.APPLICATION_JSON)
 @Path("/createBillingAccountRole")
@@ -6194,6 +8396,2065 @@ public Response updateBillingAccountTerm_(@Multipart(value = "updateBillingAccou
 		return null;
 	}
 }
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/createGlAccount")
+public Response createGlAccount_(@Multipart(value = "createGlAccount", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("glAccountTypeId") != null)
+		attributeMap.put("glAccountTypeId", params.get("glAccountTypeId"));
+	if(params.get("glAccountClassId") != null)
+		attributeMap.put("glAccountClassId", params.get("glAccountClassId"));
+	if(params.get("glResourceTypeId") != null)
+		attributeMap.put("glResourceTypeId", params.get("glResourceTypeId"));
+	if(params.get("glXbrlClassId") != null)
+		attributeMap.put("glXbrlClassId", params.get("glXbrlClassId"));
+	if(params.get("parentGlAccountId") != null)
+		attributeMap.put("parentGlAccountId", params.get("parentGlAccountId"));
+	if(params.get("accountCode") != null)
+		attributeMap.put("accountCode", params.get("accountCode"));
+	if(params.get("accountName") != null)
+		attributeMap.put("accountName", params.get("accountName"));
+	if(params.get("description") != null)
+		attributeMap.put("description", params.get("description"));
+	if(params.get("productId") != null)
+		attributeMap.put("productId", params.get("productId"));
+	if(params.get("externalId") != null)
+		attributeMap.put("externalId", params.get("externalId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	if(params.get("glAccountTypeId") != null)
+		attributeMap.put("glAccountTypeId", params.get("glAccountTypeId"));
+	if(params.get("glAccountClassId") != null)
+		attributeMap.put("glAccountClassId", params.get("glAccountClassId"));
+	if(params.get("glResourceTypeId") != null)
+		attributeMap.put("glResourceTypeId", params.get("glResourceTypeId"));
+	if(params.get("accountName") != null)
+		attributeMap.put("accountName", params.get("accountName"));
+	try {
+		Map result = dispatcher.runSync("createGlAccount", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/updateGlAccount")
+public Response updateGlAccount_(@Multipart(value = "updateGlAccount", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("glAccountId") != null)
+		attributeMap.put("glAccountId", params.get("glAccountId"));
+	if(params.get("glAccountTypeId") != null)
+		attributeMap.put("glAccountTypeId", params.get("glAccountTypeId"));
+	if(params.get("glAccountClassId") != null)
+		attributeMap.put("glAccountClassId", params.get("glAccountClassId"));
+	if(params.get("glResourceTypeId") != null)
+		attributeMap.put("glResourceTypeId", params.get("glResourceTypeId"));
+	if(params.get("glXbrlClassId") != null)
+		attributeMap.put("glXbrlClassId", params.get("glXbrlClassId"));
+	if(params.get("parentGlAccountId") != null)
+		attributeMap.put("parentGlAccountId", params.get("parentGlAccountId"));
+	if(params.get("accountCode") != null)
+		attributeMap.put("accountCode", params.get("accountCode"));
+	if(params.get("accountName") != null)
+		attributeMap.put("accountName", params.get("accountName"));
+	if(params.get("description") != null)
+		attributeMap.put("description", params.get("description"));
+	if(params.get("productId") != null)
+		attributeMap.put("productId", params.get("productId"));
+	if(params.get("externalId") != null)
+		attributeMap.put("externalId", params.get("externalId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("updateGlAccount", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/createGlAccountOrganization")
+public Response createGlAccountOrganization_(@Multipart(value = "createGlAccountOrganization", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("glAccountId") != null)
+		attributeMap.put("glAccountId", params.get("glAccountId"));
+	if(params.get("organizationPartyId") != null)
+		attributeMap.put("organizationPartyId", params.get("organizationPartyId"));
+	if(params.get("roleTypeId") != null)
+		attributeMap.put("roleTypeId", params.get("roleTypeId"));
+	if(params.get("fromDate") != null)
+		attributeMap.put("fromDate", params.get("fromDate"));
+	if(params.get("thruDate") != null)
+		attributeMap.put("thruDate", params.get("thruDate"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("createGlAccountOrganization", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/createCustomTimePeriod")
+public Response createCustomTimePeriod_(@Multipart(value = "createCustomTimePeriod", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("parentPeriodId") != null)
+		attributeMap.put("parentPeriodId", params.get("parentPeriodId"));
+	if(params.get("periodTypeId") != null)
+		attributeMap.put("periodTypeId", params.get("periodTypeId"));
+	if(params.get("periodNum") != null)
+		attributeMap.put("periodNum", params.get("periodNum"));
+	if(params.get("periodName") != null)
+		attributeMap.put("periodName", params.get("periodName"));
+	if(params.get("fromDate") != null)
+		attributeMap.put("fromDate", params.get("fromDate"));
+	if(params.get("thruDate") != null)
+		attributeMap.put("thruDate", params.get("thruDate"));
+	if(params.get("isClosed") != null)
+		attributeMap.put("isClosed", params.get("isClosed"));
+	if(params.get("organizationPartyId") != null)
+		attributeMap.put("organizationPartyId", params.get("organizationPartyId"));
+	if(params.get("organizationPartyId") != null)
+		attributeMap.put("organizationPartyId", params.get("organizationPartyId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	if(params.get("fromDate") != null)
+		attributeMap.put("fromDate", params.get("fromDate"));
+	if(params.get("thruDate") != null)
+		attributeMap.put("thruDate", params.get("thruDate"));
+	if(params.get("periodTypeId") != null)
+		attributeMap.put("periodTypeId", params.get("periodTypeId"));
+	try {
+		Map result = dispatcher.runSync("createCustomTimePeriod", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/updateCustomTimePeriod")
+public Response updateCustomTimePeriod_(@Multipart(value = "updateCustomTimePeriod", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("customTimePeriodId") != null)
+		attributeMap.put("customTimePeriodId", params.get("customTimePeriodId"));
+	if(params.get("parentPeriodId") != null)
+		attributeMap.put("parentPeriodId", params.get("parentPeriodId"));
+	if(params.get("periodTypeId") != null)
+		attributeMap.put("periodTypeId", params.get("periodTypeId"));
+	if(params.get("periodNum") != null)
+		attributeMap.put("periodNum", params.get("periodNum"));
+	if(params.get("periodName") != null)
+		attributeMap.put("periodName", params.get("periodName"));
+	if(params.get("fromDate") != null)
+		attributeMap.put("fromDate", params.get("fromDate"));
+	if(params.get("thruDate") != null)
+		attributeMap.put("thruDate", params.get("thruDate"));
+	if(params.get("isClosed") != null)
+		attributeMap.put("isClosed", params.get("isClosed"));
+	if(params.get("organizationPartyId") != null)
+		attributeMap.put("organizationPartyId", params.get("organizationPartyId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("updateCustomTimePeriod", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/deleteCustomTimePeriod")
+public Response deleteCustomTimePeriod_(@Multipart(value = "deleteCustomTimePeriod", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("customTimePeriodId") != null)
+		attributeMap.put("customTimePeriodId", params.get("customTimePeriodId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("deleteCustomTimePeriod", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/quickCreateAcctgTransAndEntries")
+public Response quickCreateAcctgTransAndEntries_(@Multipart(value = "quickCreateAcctgTransAndEntries", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("acctgTransTypeId") != null)
+		attributeMap.put("acctgTransTypeId", params.get("acctgTransTypeId"));
+	if(params.get("description") != null)
+		attributeMap.put("description", params.get("description"));
+	if(params.get("transactionDate") != null)
+		attributeMap.put("transactionDate", params.get("transactionDate"));
+	if(params.get("isPosted") != null)
+		attributeMap.put("isPosted", params.get("isPosted"));
+	if(params.get("postedDate") != null)
+		attributeMap.put("postedDate", params.get("postedDate"));
+	if(params.get("scheduledPostingDate") != null)
+		attributeMap.put("scheduledPostingDate", params.get("scheduledPostingDate"));
+	if(params.get("glJournalId") != null)
+		attributeMap.put("glJournalId", params.get("glJournalId"));
+	if(params.get("glFiscalTypeId") != null)
+		attributeMap.put("glFiscalTypeId", params.get("glFiscalTypeId"));
+	if(params.get("voucherRef") != null)
+		attributeMap.put("voucherRef", params.get("voucherRef"));
+	if(params.get("voucherDate") != null)
+		attributeMap.put("voucherDate", params.get("voucherDate"));
+	if(params.get("groupStatusId") != null)
+		attributeMap.put("groupStatusId", params.get("groupStatusId"));
+	if(params.get("fixedAssetId") != null)
+		attributeMap.put("fixedAssetId", params.get("fixedAssetId"));
+	if(params.get("inventoryItemId") != null)
+		attributeMap.put("inventoryItemId", params.get("inventoryItemId"));
+	if(params.get("physicalInventoryId") != null)
+		attributeMap.put("physicalInventoryId", params.get("physicalInventoryId"));
+	if(params.get("partyId") != null)
+		attributeMap.put("partyId", params.get("partyId"));
+	if(params.get("roleTypeId") != null)
+		attributeMap.put("roleTypeId", params.get("roleTypeId"));
+	if(params.get("invoiceId") != null)
+		attributeMap.put("invoiceId", params.get("invoiceId"));
+	if(params.get("paymentId") != null)
+		attributeMap.put("paymentId", params.get("paymentId"));
+	if(params.get("finAccountTransId") != null)
+		attributeMap.put("finAccountTransId", params.get("finAccountTransId"));
+	if(params.get("shipmentId") != null)
+		attributeMap.put("shipmentId", params.get("shipmentId"));
+	if(params.get("receiptId") != null)
+		attributeMap.put("receiptId", params.get("receiptId"));
+	if(params.get("workEffortId") != null)
+		attributeMap.put("workEffortId", params.get("workEffortId"));
+	if(params.get("theirAcctgTransId") != null)
+		attributeMap.put("theirAcctgTransId", params.get("theirAcctgTransId"));
+	if(params.get("createdDate") != null)
+		attributeMap.put("createdDate", params.get("createdDate"));
+	if(params.get("createdByUserLogin") != null)
+		attributeMap.put("createdByUserLogin", params.get("createdByUserLogin"));
+	if(params.get("lastModifiedDate") != null)
+		attributeMap.put("lastModifiedDate", params.get("lastModifiedDate"));
+	if(params.get("lastModifiedByUserLogin") != null)
+		attributeMap.put("lastModifiedByUserLogin", params.get("lastModifiedByUserLogin"));
+	if(params.get("acctgTransEntryTypeId") != null)
+		attributeMap.put("acctgTransEntryTypeId", params.get("acctgTransEntryTypeId"));
+	if(params.get("description") != null)
+		attributeMap.put("description", params.get("description"));
+	if(params.get("voucherRef") != null)
+		attributeMap.put("voucherRef", params.get("voucherRef"));
+	if(params.get("partyId") != null)
+		attributeMap.put("partyId", params.get("partyId"));
+	if(params.get("roleTypeId") != null)
+		attributeMap.put("roleTypeId", params.get("roleTypeId"));
+	if(params.get("theirPartyId") != null)
+		attributeMap.put("theirPartyId", params.get("theirPartyId"));
+	if(params.get("productId") != null)
+		attributeMap.put("productId", params.get("productId"));
+	if(params.get("theirProductId") != null)
+		attributeMap.put("theirProductId", params.get("theirProductId"));
+	if(params.get("inventoryItemId") != null)
+		attributeMap.put("inventoryItemId", params.get("inventoryItemId"));
+	if(params.get("glAccountTypeId") != null)
+		attributeMap.put("glAccountTypeId", params.get("glAccountTypeId"));
+	if(params.get("organizationPartyId") != null)
+		attributeMap.put("organizationPartyId", params.get("organizationPartyId"));
+	if(params.get("amount") != null)
+		attributeMap.put("amount", params.get("amount"));
+	if(params.get("currencyUomId") != null)
+		attributeMap.put("currencyUomId", params.get("currencyUomId"));
+	if(params.get("origAmount") != null)
+		attributeMap.put("origAmount", params.get("origAmount"));
+	if(params.get("origCurrencyUomId") != null)
+		attributeMap.put("origCurrencyUomId", params.get("origCurrencyUomId"));
+	if(params.get("dueDate") != null)
+		attributeMap.put("dueDate", params.get("dueDate"));
+	if(params.get("groupId") != null)
+		attributeMap.put("groupId", params.get("groupId"));
+	if(params.get("taxId") != null)
+		attributeMap.put("taxId", params.get("taxId"));
+	if(params.get("reconcileStatusId") != null)
+		attributeMap.put("reconcileStatusId", params.get("reconcileStatusId"));
+	if(params.get("settlementTermId") != null)
+		attributeMap.put("settlementTermId", params.get("settlementTermId"));
+	if(params.get("isSummary") != null)
+		attributeMap.put("isSummary", params.get("isSummary"));
+	if(params.get("debitGlAccountId") != null)
+		attributeMap.put("debitGlAccountId", params.get("debitGlAccountId"));
+	if(params.get("creditGlAccountId") != null)
+		attributeMap.put("creditGlAccountId", params.get("creditGlAccountId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	if(params.get("amount") != null)
+		attributeMap.put("amount", params.get("amount"));
+	try {
+		Map result = dispatcher.runSync("quickCreateAcctgTransAndEntries", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/createGlJournal")
+public Response createGlJournal_(@Multipart(value = "createGlJournal", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("glJournalName") != null)
+		attributeMap.put("glJournalName", params.get("glJournalName"));
+	if(params.get("organizationPartyId") != null)
+		attributeMap.put("organizationPartyId", params.get("organizationPartyId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	if(params.get("organizationPartyId") != null)
+		attributeMap.put("organizationPartyId", params.get("organizationPartyId"));
+	try {
+		Map result = dispatcher.runSync("createGlJournal", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/updateGlJournal")
+public Response updateGlJournal_(@Multipart(value = "updateGlJournal", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("glJournalId") != null)
+		attributeMap.put("glJournalId", params.get("glJournalId"));
+	if(params.get("glJournalName") != null)
+		attributeMap.put("glJournalName", params.get("glJournalName"));
+	if(params.get("organizationPartyId") != null)
+		attributeMap.put("organizationPartyId", params.get("organizationPartyId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("updateGlJournal", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/deleteGlJournal")
+public Response deleteGlJournal_(@Multipart(value = "deleteGlJournal", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("glJournalId") != null)
+		attributeMap.put("glJournalId", params.get("glJournalId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("deleteGlJournal", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/completeAcctgTransEntries")
+public Response completeAcctgTransEntries_(@Multipart(value = "completeAcctgTransEntries", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("acctgTransId") != null)
+		attributeMap.put("acctgTransId", params.get("acctgTransId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("completeAcctgTransEntries", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/createAcctgTrans")
+public Response createAcctgTrans_(@Multipart(value = "createAcctgTrans", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	if(params.get("acctgTransTypeId") != null)
+		attributeMap.put("acctgTransTypeId", params.get("acctgTransTypeId"));
+	if(params.get("description") != null)
+		attributeMap.put("description", params.get("description"));
+	if(params.get("transactionDate") != null)
+		attributeMap.put("transactionDate", params.get("transactionDate"));
+	if(params.get("scheduledPostingDate") != null)
+		attributeMap.put("scheduledPostingDate", params.get("scheduledPostingDate"));
+	if(params.get("glJournalId") != null)
+		attributeMap.put("glJournalId", params.get("glJournalId"));
+	if(params.get("glFiscalTypeId") != null)
+		attributeMap.put("glFiscalTypeId", params.get("glFiscalTypeId"));
+	if(params.get("voucherRef") != null)
+		attributeMap.put("voucherRef", params.get("voucherRef"));
+	if(params.get("voucherDate") != null)
+		attributeMap.put("voucherDate", params.get("voucherDate"));
+	if(params.get("groupStatusId") != null)
+		attributeMap.put("groupStatusId", params.get("groupStatusId"));
+	if(params.get("fixedAssetId") != null)
+		attributeMap.put("fixedAssetId", params.get("fixedAssetId"));
+	if(params.get("inventoryItemId") != null)
+		attributeMap.put("inventoryItemId", params.get("inventoryItemId"));
+	if(params.get("physicalInventoryId") != null)
+		attributeMap.put("physicalInventoryId", params.get("physicalInventoryId"));
+	if(params.get("partyId") != null)
+		attributeMap.put("partyId", params.get("partyId"));
+	if(params.get("roleTypeId") != null)
+		attributeMap.put("roleTypeId", params.get("roleTypeId"));
+	if(params.get("invoiceId") != null)
+		attributeMap.put("invoiceId", params.get("invoiceId"));
+	if(params.get("paymentId") != null)
+		attributeMap.put("paymentId", params.get("paymentId"));
+	if(params.get("finAccountTransId") != null)
+		attributeMap.put("finAccountTransId", params.get("finAccountTransId"));
+	if(params.get("shipmentId") != null)
+		attributeMap.put("shipmentId", params.get("shipmentId"));
+	if(params.get("receiptId") != null)
+		attributeMap.put("receiptId", params.get("receiptId"));
+	if(params.get("workEffortId") != null)
+		attributeMap.put("workEffortId", params.get("workEffortId"));
+	if(params.get("theirAcctgTransId") != null)
+		attributeMap.put("theirAcctgTransId", params.get("theirAcctgTransId"));
+	if(params.get("createdDate") != null)
+		attributeMap.put("createdDate", params.get("createdDate"));
+	if(params.get("lastModifiedDate") != null)
+		attributeMap.put("lastModifiedDate", params.get("lastModifiedDate"));
+	try {
+		Map result = dispatcher.runSync("createAcctgTrans", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/updateAcctgTrans")
+public Response updateAcctgTrans_(@Multipart(value = "updateAcctgTrans", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("acctgTransId") != null)
+		attributeMap.put("acctgTransId", params.get("acctgTransId"));
+	if(params.get("acctgTransTypeId") != null)
+		attributeMap.put("acctgTransTypeId", params.get("acctgTransTypeId"));
+	if(params.get("description") != null)
+		attributeMap.put("description", params.get("description"));
+	if(params.get("transactionDate") != null)
+		attributeMap.put("transactionDate", params.get("transactionDate"));
+	if(params.get("isPosted") != null)
+		attributeMap.put("isPosted", params.get("isPosted"));
+	if(params.get("postedDate") != null)
+		attributeMap.put("postedDate", params.get("postedDate"));
+	if(params.get("scheduledPostingDate") != null)
+		attributeMap.put("scheduledPostingDate", params.get("scheduledPostingDate"));
+	if(params.get("glJournalId") != null)
+		attributeMap.put("glJournalId", params.get("glJournalId"));
+	if(params.get("glFiscalTypeId") != null)
+		attributeMap.put("glFiscalTypeId", params.get("glFiscalTypeId"));
+	if(params.get("voucherRef") != null)
+		attributeMap.put("voucherRef", params.get("voucherRef"));
+	if(params.get("voucherDate") != null)
+		attributeMap.put("voucherDate", params.get("voucherDate"));
+	if(params.get("groupStatusId") != null)
+		attributeMap.put("groupStatusId", params.get("groupStatusId"));
+	if(params.get("fixedAssetId") != null)
+		attributeMap.put("fixedAssetId", params.get("fixedAssetId"));
+	if(params.get("inventoryItemId") != null)
+		attributeMap.put("inventoryItemId", params.get("inventoryItemId"));
+	if(params.get("physicalInventoryId") != null)
+		attributeMap.put("physicalInventoryId", params.get("physicalInventoryId"));
+	if(params.get("partyId") != null)
+		attributeMap.put("partyId", params.get("partyId"));
+	if(params.get("roleTypeId") != null)
+		attributeMap.put("roleTypeId", params.get("roleTypeId"));
+	if(params.get("invoiceId") != null)
+		attributeMap.put("invoiceId", params.get("invoiceId"));
+	if(params.get("paymentId") != null)
+		attributeMap.put("paymentId", params.get("paymentId"));
+	if(params.get("finAccountTransId") != null)
+		attributeMap.put("finAccountTransId", params.get("finAccountTransId"));
+	if(params.get("shipmentId") != null)
+		attributeMap.put("shipmentId", params.get("shipmentId"));
+	if(params.get("receiptId") != null)
+		attributeMap.put("receiptId", params.get("receiptId"));
+	if(params.get("workEffortId") != null)
+		attributeMap.put("workEffortId", params.get("workEffortId"));
+	if(params.get("theirAcctgTransId") != null)
+		attributeMap.put("theirAcctgTransId", params.get("theirAcctgTransId"));
+	if(params.get("createdDate") != null)
+		attributeMap.put("createdDate", params.get("createdDate"));
+	if(params.get("createdByUserLogin") != null)
+		attributeMap.put("createdByUserLogin", params.get("createdByUserLogin"));
+	if(params.get("lastModifiedDate") != null)
+		attributeMap.put("lastModifiedDate", params.get("lastModifiedDate"));
+	if(params.get("lastModifiedByUserLogin") != null)
+		attributeMap.put("lastModifiedByUserLogin", params.get("lastModifiedByUserLogin"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("updateAcctgTrans", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/createAcctgTransEntry")
+public Response createAcctgTransEntry_(@Multipart(value = "createAcctgTransEntry", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("acctgTransId") != null)
+		attributeMap.put("acctgTransId", params.get("acctgTransId"));
+	if(params.get("purposeEnumId") != null)
+		attributeMap.put("purposeEnumId", params.get("purposeEnumId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	if(params.get("acctgTransEntryTypeId") != null)
+		attributeMap.put("acctgTransEntryTypeId", params.get("acctgTransEntryTypeId"));
+	if(params.get("description") != null)
+		attributeMap.put("description", params.get("description"));
+	if(params.get("voucherRef") != null)
+		attributeMap.put("voucherRef", params.get("voucherRef"));
+	if(params.get("partyId") != null)
+		attributeMap.put("partyId", params.get("partyId"));
+	if(params.get("roleTypeId") != null)
+		attributeMap.put("roleTypeId", params.get("roleTypeId"));
+	if(params.get("theirPartyId") != null)
+		attributeMap.put("theirPartyId", params.get("theirPartyId"));
+	if(params.get("productId") != null)
+		attributeMap.put("productId", params.get("productId"));
+	if(params.get("theirProductId") != null)
+		attributeMap.put("theirProductId", params.get("theirProductId"));
+	if(params.get("inventoryItemId") != null)
+		attributeMap.put("inventoryItemId", params.get("inventoryItemId"));
+	if(params.get("glAccountTypeId") != null)
+		attributeMap.put("glAccountTypeId", params.get("glAccountTypeId"));
+	if(params.get("glAccountId") != null)
+		attributeMap.put("glAccountId", params.get("glAccountId"));
+	if(params.get("organizationPartyId") != null)
+		attributeMap.put("organizationPartyId", params.get("organizationPartyId"));
+	if(params.get("amount") != null)
+		attributeMap.put("amount", params.get("amount"));
+	if(params.get("currencyUomId") != null)
+		attributeMap.put("currencyUomId", params.get("currencyUomId"));
+	if(params.get("origAmount") != null)
+		attributeMap.put("origAmount", params.get("origAmount"));
+	if(params.get("origCurrencyUomId") != null)
+		attributeMap.put("origCurrencyUomId", params.get("origCurrencyUomId"));
+	if(params.get("debitCreditFlag") != null)
+		attributeMap.put("debitCreditFlag", params.get("debitCreditFlag"));
+	if(params.get("dueDate") != null)
+		attributeMap.put("dueDate", params.get("dueDate"));
+	if(params.get("groupId") != null)
+		attributeMap.put("groupId", params.get("groupId"));
+	if(params.get("taxId") != null)
+		attributeMap.put("taxId", params.get("taxId"));
+	if(params.get("settlementTermId") != null)
+		attributeMap.put("settlementTermId", params.get("settlementTermId"));
+	if(params.get("isSummary") != null)
+		attributeMap.put("isSummary", params.get("isSummary"));
+	try {
+		Map result = dispatcher.runSync("createAcctgTransEntry", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/updateAcctgTransEntry")
+public Response updateAcctgTransEntry_(@Multipart(value = "updateAcctgTransEntry", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("acctgTransId") != null)
+		attributeMap.put("acctgTransId", params.get("acctgTransId"));
+	if(params.get("acctgTransEntrySeqId") != null)
+		attributeMap.put("acctgTransEntrySeqId", params.get("acctgTransEntrySeqId"));
+	if(params.get("acctgTransEntryTypeId") != null)
+		attributeMap.put("acctgTransEntryTypeId", params.get("acctgTransEntryTypeId"));
+	if(params.get("description") != null)
+		attributeMap.put("description", params.get("description"));
+	if(params.get("voucherRef") != null)
+		attributeMap.put("voucherRef", params.get("voucherRef"));
+	if(params.get("partyId") != null)
+		attributeMap.put("partyId", params.get("partyId"));
+	if(params.get("roleTypeId") != null)
+		attributeMap.put("roleTypeId", params.get("roleTypeId"));
+	if(params.get("theirPartyId") != null)
+		attributeMap.put("theirPartyId", params.get("theirPartyId"));
+	if(params.get("productId") != null)
+		attributeMap.put("productId", params.get("productId"));
+	if(params.get("theirProductId") != null)
+		attributeMap.put("theirProductId", params.get("theirProductId"));
+	if(params.get("inventoryItemId") != null)
+		attributeMap.put("inventoryItemId", params.get("inventoryItemId"));
+	if(params.get("glAccountTypeId") != null)
+		attributeMap.put("glAccountTypeId", params.get("glAccountTypeId"));
+	if(params.get("glAccountId") != null)
+		attributeMap.put("glAccountId", params.get("glAccountId"));
+	if(params.get("organizationPartyId") != null)
+		attributeMap.put("organizationPartyId", params.get("organizationPartyId"));
+	if(params.get("amount") != null)
+		attributeMap.put("amount", params.get("amount"));
+	if(params.get("currencyUomId") != null)
+		attributeMap.put("currencyUomId", params.get("currencyUomId"));
+	if(params.get("origAmount") != null)
+		attributeMap.put("origAmount", params.get("origAmount"));
+	if(params.get("origCurrencyUomId") != null)
+		attributeMap.put("origCurrencyUomId", params.get("origCurrencyUomId"));
+	if(params.get("debitCreditFlag") != null)
+		attributeMap.put("debitCreditFlag", params.get("debitCreditFlag"));
+	if(params.get("dueDate") != null)
+		attributeMap.put("dueDate", params.get("dueDate"));
+	if(params.get("groupId") != null)
+		attributeMap.put("groupId", params.get("groupId"));
+	if(params.get("taxId") != null)
+		attributeMap.put("taxId", params.get("taxId"));
+	if(params.get("reconcileStatusId") != null)
+		attributeMap.put("reconcileStatusId", params.get("reconcileStatusId"));
+	if(params.get("settlementTermId") != null)
+		attributeMap.put("settlementTermId", params.get("settlementTermId"));
+	if(params.get("isSummary") != null)
+		attributeMap.put("isSummary", params.get("isSummary"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("updateAcctgTransEntry", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/deleteAcctgTransEntry")
+public Response deleteAcctgTransEntry_(@Multipart(value = "deleteAcctgTransEntry", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("acctgTransId") != null)
+		attributeMap.put("acctgTransId", params.get("acctgTransId"));
+	if(params.get("acctgTransEntrySeqId") != null)
+		attributeMap.put("acctgTransEntrySeqId", params.get("acctgTransEntrySeqId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("deleteAcctgTransEntry", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/postAcctgTrans")
+public Response postAcctgTrans_(@Multipart(value = "postAcctgTrans", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("acctgTransId") != null)
+		attributeMap.put("acctgTransId", params.get("acctgTransId"));
+	if(params.get("verifyOnly") != null)
+		attributeMap.put("verifyOnly", params.get("verifyOnly"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("postAcctgTrans", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/setAcctgCompany")
+public Response setAcctgCompany_(@Multipart(value = "setAcctgCompany", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("organizationPartyId") != null)
+		attributeMap.put("organizationPartyId", params.get("organizationPartyId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("setAcctgCompany", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/closeFinancialTimePeriod")
+public Response closeFinancialTimePeriod_(@Multipart(value = "closeFinancialTimePeriod", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("customTimePeriodId") != null)
+		attributeMap.put("customTimePeriodId", params.get("customTimePeriodId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("closeFinancialTimePeriod", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/createFinAccountTypeGlAccount")
+public Response createFinAccountTypeGlAccount_(@Multipart(value = "createFinAccountTypeGlAccount", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("finAccountTypeId") != null)
+		attributeMap.put("finAccountTypeId", params.get("finAccountTypeId"));
+	if(params.get("organizationPartyId") != null)
+		attributeMap.put("organizationPartyId", params.get("organizationPartyId"));
+	if(params.get("glAccountId") != null)
+		attributeMap.put("glAccountId", params.get("glAccountId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("createFinAccountTypeGlAccount", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/addInvoiceItemTypeGlAssignment")
+public Response addInvoiceItemTypeGlAssignment_(@Multipart(value = "addInvoiceItemTypeGlAssignment", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("invoiceItemTypeId") != null)
+		attributeMap.put("invoiceItemTypeId", params.get("invoiceItemTypeId"));
+	if(params.get("organizationPartyId") != null)
+		attributeMap.put("organizationPartyId", params.get("organizationPartyId"));
+	if(params.get("glAccountId") != null)
+		attributeMap.put("glAccountId", params.get("glAccountId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("addInvoiceItemTypeGlAssignment", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/removeInvoiceItemTypeGlAssignment")
+public Response removeInvoiceItemTypeGlAssignment_(@Multipart(value = "removeInvoiceItemTypeGlAssignment", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("invoiceItemTypeId") != null)
+		attributeMap.put("invoiceItemTypeId", params.get("invoiceItemTypeId"));
+	if(params.get("organizationPartyId") != null)
+		attributeMap.put("organizationPartyId", params.get("organizationPartyId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("removeInvoiceItemTypeGlAssignment", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/updateFinAccountTypeGlAccount")
+public Response updateFinAccountTypeGlAccount_(@Multipart(value = "updateFinAccountTypeGlAccount", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("finAccountTypeId") != null)
+		attributeMap.put("finAccountTypeId", params.get("finAccountTypeId"));
+	if(params.get("organizationPartyId") != null)
+		attributeMap.put("organizationPartyId", params.get("organizationPartyId"));
+	if(params.get("glAccountId") != null)
+		attributeMap.put("glAccountId", params.get("glAccountId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("updateFinAccountTypeGlAccount", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/deleteFinAccountTypeGlAccount")
+public Response deleteFinAccountTypeGlAccount_(@Multipart(value = "deleteFinAccountTypeGlAccount", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("finAccountTypeId") != null)
+		attributeMap.put("finAccountTypeId", params.get("finAccountTypeId"));
+	if(params.get("organizationPartyId") != null)
+		attributeMap.put("organizationPartyId", params.get("organizationPartyId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("deleteFinAccountTypeGlAccount", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+
+
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/createVarianceReasonGlAccount")
+public Response createVarianceReasonGlAccount_(@Multipart(value = "createVarianceReasonGlAccount", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("varianceReasonId") != null)
+		attributeMap.put("varianceReasonId", params.get("varianceReasonId"));
+	if(params.get("organizationPartyId") != null)
+		attributeMap.put("organizationPartyId", params.get("organizationPartyId"));
+	if(params.get("glAccountId") != null)
+		attributeMap.put("glAccountId", params.get("glAccountId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("createVarianceReasonGlAccount", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/createCreditCardTypeGlAccount")
+public Response createCreditCardTypeGlAccount_(@Multipart(value = "createCreditCardTypeGlAccount", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("cardType") != null)
+		attributeMap.put("cardType", params.get("cardType"));
+	if(params.get("organizationPartyId") != null)
+		attributeMap.put("organizationPartyId", params.get("organizationPartyId"));
+	if(params.get("glAccountId") != null)
+		attributeMap.put("glAccountId", params.get("glAccountId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("createCreditCardTypeGlAccount", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/updateCreditCardTypeGlAccount")
+public Response updateCreditCardTypeGlAccount_(@Multipart(value = "updateCreditCardTypeGlAccount", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("cardType") != null)
+		attributeMap.put("cardType", params.get("cardType"));
+	if(params.get("organizationPartyId") != null)
+		attributeMap.put("organizationPartyId", params.get("organizationPartyId"));
+	if(params.get("glAccountId") != null)
+		attributeMap.put("glAccountId", params.get("glAccountId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("updateCreditCardTypeGlAccount", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/deleteCreditCardTypeGlAccount")
+public Response deleteCreditCardTypeGlAccount_(@Multipart(value = "deleteCreditCardTypeGlAccount", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("cardType") != null)
+		attributeMap.put("cardType", params.get("cardType"));
+	if(params.get("organizationPartyId") != null)
+		attributeMap.put("organizationPartyId", params.get("organizationPartyId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("deleteCreditCardTypeGlAccount", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/updateVarianceReasonGlAccount")
+public Response updateVarianceReasonGlAccount_(@Multipart(value = "updateVarianceReasonGlAccount", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("varianceReasonId") != null)
+		attributeMap.put("varianceReasonId", params.get("varianceReasonId"));
+	if(params.get("organizationPartyId") != null)
+		attributeMap.put("organizationPartyId", params.get("organizationPartyId"));
+	if(params.get("glAccountId") != null)
+		attributeMap.put("glAccountId", params.get("glAccountId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("updateVarianceReasonGlAccount", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/deleteVarianceReasonGlAccount")
+public Response deleteVarianceReasonGlAccount_(@Multipart(value = "deleteVarianceReasonGlAccount", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("varianceReasonId") != null)
+		attributeMap.put("varianceReasonId", params.get("varianceReasonId"));
+	if(params.get("organizationPartyId") != null)
+		attributeMap.put("organizationPartyId", params.get("organizationPartyId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("deleteVarianceReasonGlAccount", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/copyAcctgTransAndEntries")
+public Response copyAcctgTransAndEntries_(@Multipart(value = "copyAcctgTransAndEntries", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("fromAcctgTransId") != null)
+		attributeMap.put("fromAcctgTransId", params.get("fromAcctgTransId"));
+	if(params.get("revert") != null)
+		attributeMap.put("revert", params.get("revert"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("copyAcctgTransAndEntries", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/createPartyGlAccount")
+public Response createPartyGlAccount_(@Multipart(value = "createPartyGlAccount", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("organizationPartyId") != null)
+		attributeMap.put("organizationPartyId", params.get("organizationPartyId"));
+	if(params.get("partyId") != null)
+		attributeMap.put("partyId", params.get("partyId"));
+	if(params.get("roleTypeId") != null)
+		attributeMap.put("roleTypeId", params.get("roleTypeId"));
+	if(params.get("glAccountTypeId") != null)
+		attributeMap.put("glAccountTypeId", params.get("glAccountTypeId"));
+	if(params.get("glAccountId") != null)
+		attributeMap.put("glAccountId", params.get("glAccountId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("createPartyGlAccount", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/updatePartyGlAccount")
+public Response updatePartyGlAccount_(@Multipart(value = "updatePartyGlAccount", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("organizationPartyId") != null)
+		attributeMap.put("organizationPartyId", params.get("organizationPartyId"));
+	if(params.get("partyId") != null)
+		attributeMap.put("partyId", params.get("partyId"));
+	if(params.get("roleTypeId") != null)
+		attributeMap.put("roleTypeId", params.get("roleTypeId"));
+	if(params.get("glAccountTypeId") != null)
+		attributeMap.put("glAccountTypeId", params.get("glAccountTypeId"));
+	if(params.get("glAccountId") != null)
+		attributeMap.put("glAccountId", params.get("glAccountId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("updatePartyGlAccount", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/deletePartyGlAccount")
+public Response deletePartyGlAccount_(@Multipart(value = "deletePartyGlAccount", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("organizationPartyId") != null)
+		attributeMap.put("organizationPartyId", params.get("organizationPartyId"));
+	if(params.get("partyId") != null)
+		attributeMap.put("partyId", params.get("partyId"));
+	if(params.get("roleTypeId") != null)
+		attributeMap.put("roleTypeId", params.get("roleTypeId"));
+	if(params.get("glAccountTypeId") != null)
+		attributeMap.put("glAccountTypeId", params.get("glAccountTypeId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("deletePartyGlAccount", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/createGlAccountCategory")
+public Response createGlAccountCategory_(@Multipart(value = "createGlAccountCategory", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("glAccountCategoryTypeId") != null)
+		attributeMap.put("glAccountCategoryTypeId", params.get("glAccountCategoryTypeId"));
+	if(params.get("description") != null)
+		attributeMap.put("description", params.get("description"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("createGlAccountCategory", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/updateGlAccountCategory")
+public Response updateGlAccountCategory_(@Multipart(value = "updateGlAccountCategory", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("glAccountCategoryId") != null)
+		attributeMap.put("glAccountCategoryId", params.get("glAccountCategoryId"));
+	if(params.get("glAccountCategoryTypeId") != null)
+		attributeMap.put("glAccountCategoryTypeId", params.get("glAccountCategoryTypeId"));
+	if(params.get("description") != null)
+		attributeMap.put("description", params.get("description"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("updateGlAccountCategory", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/createGlAccountCategoryMember")
+public Response createGlAccountCategoryMember_(@Multipart(value = "createGlAccountCategoryMember", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("glAccountId") != null)
+		attributeMap.put("glAccountId", params.get("glAccountId"));
+	if(params.get("glAccountCategoryId") != null)
+		attributeMap.put("glAccountCategoryId", params.get("glAccountCategoryId"));
+	if(params.get("fromDate") != null)
+		attributeMap.put("fromDate", params.get("fromDate"));
+	if(params.get("thruDate") != null)
+		attributeMap.put("thruDate", params.get("thruDate"));
+	if(params.get("amountPercentage") != null)
+		attributeMap.put("amountPercentage", params.get("amountPercentage"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	if(params.get("fromDate") != null)
+		attributeMap.put("fromDate", params.get("fromDate"));
+	try {
+		Map result = dispatcher.runSync("createGlAccountCategoryMember", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/deleteGlAccountCategoryMember")
+public Response deleteGlAccountCategoryMember_(@Multipart(value = "deleteGlAccountCategoryMember", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("glAccountId") != null)
+		attributeMap.put("glAccountId", params.get("glAccountId"));
+	if(params.get("glAccountCategoryId") != null)
+		attributeMap.put("glAccountCategoryId", params.get("glAccountCategoryId"));
+	if(params.get("fromDate") != null)
+		attributeMap.put("fromDate", params.get("fromDate"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("deleteGlAccountCategoryMember", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/createGlAccountTypeDefault")
+public Response createGlAccountTypeDefault_(@Multipart(value = "createGlAccountTypeDefault", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("glAccountTypeId") != null)
+		attributeMap.put("glAccountTypeId", params.get("glAccountTypeId"));
+	if(params.get("organizationPartyId") != null)
+		attributeMap.put("organizationPartyId", params.get("organizationPartyId"));
+	if(params.get("glAccountId") != null)
+		attributeMap.put("glAccountId", params.get("glAccountId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("createGlAccountTypeDefault", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/removeGlAccountTypeDefault")
+public Response removeGlAccountTypeDefault_(@Multipart(value = "removeGlAccountTypeDefault", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("glAccountTypeId") != null)
+		attributeMap.put("glAccountTypeId", params.get("glAccountTypeId"));
+	if(params.get("organizationPartyId") != null)
+		attributeMap.put("organizationPartyId", params.get("organizationPartyId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("removeGlAccountTypeDefault", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/createProductCategoryGlAccount")
+public Response createProductCategoryGlAccount_(@Multipart(value = "createProductCategoryGlAccount", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("productCategoryId") != null)
+		attributeMap.put("productCategoryId", params.get("productCategoryId"));
+	if(params.get("organizationPartyId") != null)
+		attributeMap.put("organizationPartyId", params.get("organizationPartyId"));
+	if(params.get("glAccountTypeId") != null)
+		attributeMap.put("glAccountTypeId", params.get("glAccountTypeId"));
+	if(params.get("glAccountId") != null)
+		attributeMap.put("glAccountId", params.get("glAccountId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("createProductCategoryGlAccount", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/updateProductCategoryGlAccount")
+public Response updateProductCategoryGlAccount_(@Multipart(value = "updateProductCategoryGlAccount", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("productCategoryId") != null)
+		attributeMap.put("productCategoryId", params.get("productCategoryId"));
+	if(params.get("organizationPartyId") != null)
+		attributeMap.put("organizationPartyId", params.get("organizationPartyId"));
+	if(params.get("glAccountTypeId") != null)
+		attributeMap.put("glAccountTypeId", params.get("glAccountTypeId"));
+	if(params.get("glAccountId") != null)
+		attributeMap.put("glAccountId", params.get("glAccountId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("updateProductCategoryGlAccount", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/deleteProductCategoryGlAccount")
+public Response deleteProductCategoryGlAccount_(@Multipart(value = "deleteProductCategoryGlAccount", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("productCategoryId") != null)
+		attributeMap.put("productCategoryId", params.get("productCategoryId"));
+	if(params.get("organizationPartyId") != null)
+		attributeMap.put("organizationPartyId", params.get("organizationPartyId"));
+	if(params.get("glAccountTypeId") != null)
+		attributeMap.put("glAccountTypeId", params.get("glAccountTypeId"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("deleteProductCategoryGlAccount", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+
+@POST
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/updateGlAccountCategoryMember")
+public Response updateGlAccountCategoryMember_(@Multipart(value = "updateGlAccountCategoryMember", required = true, type = MediaType.APPLICATION_JSON) Map params) {
+	GenericDelegator delegator = (GenericDelegator) DelegatorFactory.getDelegator("default");
+	LocalDispatcher dispatcher = new GenericDispatcherFactory().createLocalDispatcher("default", delegator);
+	Map<String, Object> attributeMap = new HashMap<String, Object>();
+	if(params.get("glAccountId") != null)
+		attributeMap.put("glAccountId", params.get("glAccountId"));
+	if(params.get("glAccountCategoryId") != null)
+		attributeMap.put("glAccountCategoryId", params.get("glAccountCategoryId"));
+	if(params.get("fromDate") != null)
+		attributeMap.put("fromDate", params.get("fromDate"));
+	if(params.get("thruDate") != null)
+		attributeMap.put("thruDate", params.get("thruDate"));
+	if(params.get("amountPercentage") != null)
+		attributeMap.put("amountPercentage", params.get("amountPercentage"));
+	if(params.get("userLogin") != null)
+		attributeMap.put("userLogin", params.get("userLogin"));
+	else {
+		try {
+			attributeMap.put("userLogin", (GenericValue) EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "admin").queryFirst());
+		} catch (GenericEntityException e) {
+			e.printStackTrace();
+		}
+	}
+	if(params.get("login.username") != null)
+		attributeMap.put("login.username", params.get("login.username"));
+	if(params.get("login.password") != null)
+		attributeMap.put("login.password", params.get("login.password"));
+	if(params.get("locale") != null)
+		attributeMap.put("locale", params.get("locale"));
+	if(params.get("timeZone") != null)
+		attributeMap.put("timeZone", params.get("timeZone"));
+	try {
+		Map result = dispatcher.runSync("updateGlAccountCategoryMember", attributeMap);
+		return Response.ok().entity(result).build();
+	} catch(GenericServiceException e) {
+		e.printStackTrace();
+		return null;
+	}
+}
+
+
 
 @POST
 @Produces(MediaType.APPLICATION_JSON)
