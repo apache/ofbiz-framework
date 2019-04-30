@@ -71,7 +71,7 @@ under the License.
         <field name="contentName" title="${uiLabelMap.ContentArticleName}"><text size="40"/></field>
         <field name="description"><textarea cols="60" rows="2"/></field>
         <field name="summaryData" title="${uiLabelMap.ContentSummary}" widget-style="inputBox"><textarea cols="60" rows="4"/></field>
-        <field name="articleData" title="${uiLabelMap.ContentBlogArticle}" widget-style="inputBox"><textarea cols="100" rows="20" visual-editor-enable="true"/></field>
+        <field name="articleData" title="${uiLabelMap.ContentBlogArticle}" widget-style="inputBox"><textarea cols="100" rows="20" visual-editor-enable="false"/></field>
         <field name="uploadedFile" title="${uiLabelMap.ContentImage}"><file size="25"/></field>
         <field name="templateDataResourceId" title="${uiLabelMap.ContentTemplate}">
             <drop-down>
