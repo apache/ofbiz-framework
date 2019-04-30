@@ -5,7 +5,7 @@
  */
 
 .jstree-classic li, 
-.jstree-classic ins { background-image:url("d.png"); background-repeat:no-repeat; background-color:transparent; }
+.jstree-classic ins { background-image:url("images/d.png"); background-repeat:no-repeat; background-color:transparent; }
 .jstree-classic li { background-position:-90px 0; background-repeat:repeat-y;  }
 .jstree-classic li.jstree-last { background:transparent; }
 .jstree-classic .jstree-open > ins { background-position:-72px 0; }
