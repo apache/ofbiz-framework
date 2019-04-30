@@ -6,7 +6,7 @@
 
 .jstree-apple > ul { background:url("bg.jpg") left top repeat; }
 .jstree-apple li, 
-.jstree-apple ins { background-image:url("d.png"); background-repeat:no-repeat; background-color:transparent; }
+.jstree-apple ins { background-image:url("images/d.png"); background-repeat:no-repeat; background-color:transparent; }
 .jstree-apple li { background-position:-90px 0; background-repeat:repeat-y;  }
 .jstree-apple li.jstree-last { background:transparent; }
 .jstree-apple .jstree-open > ins { background-position:-72px 0; }
