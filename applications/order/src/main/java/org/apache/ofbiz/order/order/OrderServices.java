@@ -6831,8 +6831,7 @@ public class OrderServices {
 
             List<GenericValue> allocationPlanItems = EntityQuery.use(delegator).from("AllocationPlanItem").where(exprs).queryList();
             if (allocationPlanItems == null || UtilValidate.isEmpty(allocationPlanItems)) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,
-                        "OrderErrorAllocationPlanIsNotAvailable", locale) + ": [" + orderId + ":"+ orderItemSeqId + "]");
+                return ServiceUtil.returnSuccess();
             }
             List<String> planIds = new ArrayList<>();
             Map<String, Object> serviceCtx = new HashMap<>();
@@ -6901,8 +6900,7 @@ public class OrderServices {
 
             List<GenericValue> allocationPlanItems = EntityQuery.use(delegator).from("AllocationPlanItem").where(exprs).queryList();
             if (allocationPlanItems == null || UtilValidate.isEmpty(allocationPlanItems)) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,
-                        "OrderErrorAllocationPlanIsNotAvailable", locale) + ": [" + orderId + ":"+ orderItemSeqId + "]");
+                return ServiceUtil.returnSuccess();
             }
             List<String> planIds = new ArrayList<>();
             Map<String, Object> serviceCtx = new HashMap<>();
@@ -6971,7 +6969,6 @@ public class OrderServices {
                 if (orderItemChange != null) {
                     BigDecimal quantityChanged = orderItemChange.getBigDecimal("quantity");
                     if (quantityChanged.compareTo(BigDecimal.ZERO) < 0) {
-                        Debug.log("=========quantity decreased==========="+quantityChanged);
                         GenericValue allocationPlanItem = EntityQuery.use(delegator).from("AllocationPlanItem").where("orderId", orderId, "orderItemSeqId", orderItemSeqId, "statusId", "ALLOC_PLAN_ITEM_CRTD", "productId", orderItem.getString("productId")).queryFirst();
                         if (allocationPlanItem != null) {
                             BigDecimal revisedQuantity = orderItem.getBigDecimal("quantity");
@@ -6991,8 +6988,6 @@ public class OrderServices {
                                 }
                             }
                         }
-                    } else if (quantityChanged.compareTo(BigDecimal.ZERO) > 0) {
-                        Debug.log("=========quantity increased==========="+quantityChanged);
                     }
                 }
             }
