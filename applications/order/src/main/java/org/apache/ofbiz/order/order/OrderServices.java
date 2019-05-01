@@ -6817,7 +6817,6 @@ public class OrderServices {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin  = (GenericValue)context.get("userLogin");
-        Locale locale = (Locale) context.get("locale");
         String orderId = (String) context.get("orderId");
         String orderItemSeqId = (String) context.get("orderItemSeqId");
         try {
@@ -6886,7 +6885,6 @@ public class OrderServices {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin  = (GenericValue)context.get("userLogin");
-        Locale locale = (Locale) context.get("locale");
         String orderId = (String) context.get("orderId");
         String orderItemSeqId = (String) context.get("orderItemSeqId");
         try {
