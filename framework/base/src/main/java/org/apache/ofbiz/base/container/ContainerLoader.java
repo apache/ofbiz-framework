@@ -20,6 +20,7 @@ package org.apache.ofbiz.base.container;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,8 +31,6 @@ import org.apache.ofbiz.base.start.StartupCommand;
 import org.apache.ofbiz.base.start.StartupException;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilValidate;
-
-import edu.emory.mathcs.backport.java.util.Collections;
 
 /**
  * An object that loads containers (background processes).
