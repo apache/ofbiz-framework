@@ -24,7 +24,7 @@ under the License.
       <ul>
         <li class="h3">&nbsp;${uiLabelMap.OrderNotes}</li>
         <#if security.hasEntityPermission("ORDERMGR", "_NOTE", session)>
-          <li><a href="<@ofbizUrl>createnewnote?${paramString}</@ofbizUrl>">${uiLabelMap.OrderNotesCreateNew}</a></li>
+          <li><a href="<@ofbizUrl>createnewnote?${paramString}</@ofbizUrl>">${uiLabelMap.CommonCreate}</a></li>
         </#if>
       </ul>
       <br class="clear"/>

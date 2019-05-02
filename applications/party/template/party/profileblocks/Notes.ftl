@@ -22,7 +22,7 @@ under the License.
       <ul>
         <li class="h3">${uiLabelMap.CommonNotes}</li>
         <#if security.hasEntityPermission("PARTYMGR", "_NOTE", session)>
-          <li><a href="<@ofbizUrl>AddPartyNote?partyId=${partyId}&amp;DONE_PAGE=${DONE_PAGE!}</@ofbizUrl>">${uiLabelMap.CommonCreateNew}</a></li>
+          <li><a href="<@ofbizUrl>AddPartyNote?partyId=${partyId}&amp;DONE_PAGE=${DONE_PAGE!}</@ofbizUrl>">${uiLabelMap.CommonCreate}</a></li>
         </#if>
       </ul>
       <br class="clear" />

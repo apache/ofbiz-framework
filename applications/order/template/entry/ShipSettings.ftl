@@ -166,7 +166,7 @@ under the License.
       <table width='100%' border='0' cellspacing='0' cellpadding='0' class="boxoutside">
         <tr>
           <td>
-            <a href="<@ofbizUrl>setShipping?createNewShipGroup=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonCreateNew} ${uiLabelMap.OrderShipGroup}</a>
+            <a href="<@ofbizUrl>setShipping?createNewShipGroup=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonCreate} ${uiLabelMap.OrderShipGroup}</a>
             <a href="<@ofbizUrl>EditShipAddress</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCreateShippingAddress}</a>
             <#list 1..cart.getShipGroupSize() as currIndex>
               <#assign shipGroupIndex = currIndex - 1>

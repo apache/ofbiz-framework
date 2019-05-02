@@ -22,7 +22,7 @@ under the License.
       <ul>
         <li class="h3">${uiLabelMap.PartyContactInformation}</li>
         <#if security.hasEntityPermission("PARTYMGR", "_CREATE", session) || userLogin.partyId == partyId>
-          <li><a href="<@ofbizUrl>editcontactmech?partyId=${partyId}</@ofbizUrl>">${uiLabelMap.CommonCreateNew}</a></li>
+          <li><a href="<@ofbizUrl>editcontactmech?partyId=${partyId}</@ofbizUrl>">${uiLabelMap.CommonCreate}</a></li>
         </#if>
       </ul>
       <br class="clear" />

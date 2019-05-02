@@ -25,7 +25,7 @@ under the License.
       <li>
         <form id="createEmptyShoppingList" action="<@ofbizUrl>createEmptyShoppingList</@ofbizUrl>" method="post">
           <input type="hidden" name="partyId" value="${partyId!}" />
-          <input type="submit" value="${uiLabelMap.CommonCreateNew}"/>
+          <input type="submit" value="${uiLabelMap.CommonCreate}"/>
         </form>
       </li>
     </ul>

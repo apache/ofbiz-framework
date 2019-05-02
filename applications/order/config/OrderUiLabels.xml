@@ -7049,24 +7049,6 @@
         <value xml:lang="zh-CN">注释</value>
         <value xml:lang="zh-TW">便箋</value>
     </property>
-    <property key="OrderNotesCreateNew">
-        <value xml:lang="ar">خلق جديد</value>
-        <value xml:lang="de">Neu erstellen</value>
-        <value xml:lang="en">Create New</value>
-        <value xml:lang="es">Crear nueva nota</value>
-        <value xml:lang="fr">Créer une nouvelle note</value>
-        <value xml:lang="it">Creare Nuovo</value>
-        <value xml:lang="ja">新規作成</value>
-        <value xml:lang="nl">Nieuwe aanmaken</value>
-        <value xml:lang="pt-BR">Criar nova nota</value>
-        <value xml:lang="ro">Creare Noi</value>
-        <value xml:lang="ru">Создть новый</value>
-        <value xml:lang="th">สร้างใหม่</value>
-        <value xml:lang="vi">Tạo mới</value>
-        <value xml:lang="zh">新建</value>
-        <value xml:lang="zh-CN">新建</value>
-        <value xml:lang="zh-TW">新建</value>
-    </property>
     <property key="OrderNotesForRequestItem">
         <value xml:lang="ar">ملاحظات لبند الطلب</value>
         <value xml:lang="de">Anmerkung für Anfrage Element</value>
