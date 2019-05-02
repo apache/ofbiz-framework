@@ -478,7 +478,9 @@
     <service name="createArticleContent" engine="simple" transaction-timeout="300" auth="true"
             location="component://content/minilang/content/ContentServices.xml" invoke="createArticleContent">
         <description>Creates content records for a blog entry</description>
-        <permission-service service-name="genericContentPermission" main-action="CREATE"/>
+        <required-permissions join-type="AND">
+            <check-permission permission="CONTENTMGR" action="_CREATE"/>
+        </required-permissions>
         <implements service="createContentFromUploadedFile" optional="true"/>
         <implements service="createTextContent" optional="true"/>
         <attribute name="contentIdFrom" type="String" mode="IN" optional="false">
@@ -1081,7 +1083,9 @@
     <service name="createBlogEntry" engine="simple" auth="true"
         location="component://content/minilang/blog/BlogServices.xml" invoke="createBlogEntry">
         <description>Creates content records for a blog entry</description>
-        <permission-service service-name="genericContentPermission" main-action="CREATE"/>
+        <required-permissions join-type="AND">
+            <check-permission permission="CONTENTMGR" action="_CREATE"/>
+        </required-permissions>
         <implements service="uploadFileInterface" optional="true"/>
         <attribute name="blogContentId" type="String" mode="INOUT" optional="false">
             <type-validate>
@@ -1099,7 +1103,9 @@
     <service name="updateBlogEntry" engine="simple" auth="true"
         location="component://content/minilang/blog/BlogServices.xml" invoke="updateBlogEntry">
         <description>Updates content records for a blog entry</description>
-        <permission-service service-name="genericContentPermission" main-action="CREATE"/>
+        <required-permissions join-type="AND">
+            <check-permission permission="CONTENTMGR" action="_UPDATE"/>
+        </required-permissions>
         <implements service="uploadFileInterface" optional="true"/>
         <attribute name="blogContentId" type="String" mode="INOUT" optional="false">
             <type-validate>
