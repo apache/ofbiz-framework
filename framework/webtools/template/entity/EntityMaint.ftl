@@ -87,7 +87,7 @@ under the License.
                 </#if>
               <#else>
                 <#if entity.entityPermissionCreate == 'Y'>
-                  <a href='<@ofbizUrl>ViewGeneric?entityName=${entity.entityName}</@ofbizUrl>' title='${uiLabelMap.CommonCreateNew}'>${uiLabelMap.WebtoolsCreate}</a>
+                  <a href='<@ofbizUrl>ViewGeneric?entityName=${entity.entityName}</@ofbizUrl>' title='${uiLabelMap.CommonCreate}'>${uiLabelMap.WebtoolsCreate}</a>
                 </#if>
                 <#if entity.entityPermissionView == 'Y'>
                   <a href='<@ofbizUrl>ViewRelations?entityName=${entity.entityName}</@ofbizUrl>' title='${uiLabelMap.WebtoolsViewRelations}'>${uiLabelMap.WebtoolsReln}</a>
