@@ -29,7 +29,7 @@ import java.util.regex.Pattern;
  * ObjectInputStream
  *
  */
-public class SafeObjectInputStream extends java.io.ObjectInputStream implements AutoCloseable {
+public class SafeObjectInputStream extends java.io.ObjectInputStream {
 
     private ClassLoader classloader;
     private Pattern WHITELIST_PATTERN = null;
