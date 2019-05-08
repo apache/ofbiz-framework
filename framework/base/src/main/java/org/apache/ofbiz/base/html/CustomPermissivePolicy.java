@@ -155,13 +155,15 @@ public class CustomPermissivePolicy implements SanitizerCustomPolicy {
                     "picture", "source", "section", "nav", "footer")
             .toFactory();
 
-    private static Predicate<String> matchesEither(
-            final Pattern a, final Pattern b) {
-        return new Predicate<String>() {
-            public boolean apply(String s) {
-                return a.matcher(s).matches() || b.matcher(s).matches();
-            }
-        };
+    /**
+     * Constructs a predicate checking if a string matches any of the two provided patterns.
+     *
+     * @param a  the first pattern
+     * @param b  the second pattern
+     * @return a predicate checking if a string matches either {@code a} or {@code b}
+     */
+    private static Predicate<String> matchesEither(Pattern a, Pattern b) {
+        return str -> a.matcher(str).matches() || b.matcher(str).matches();
     }
 
     @Override
