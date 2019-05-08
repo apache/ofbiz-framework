@@ -173,14 +173,6 @@ public final class UtilMisc {
         return result;
     }
 
-    public static <T> Set<T> makeSetWritable(Collection<? extends T> col) {
-        Set<T> result = new LinkedHashSet<>();
-        if (col != null) {
-            result.addAll(col);
-        }
-        return result;
-    }
-
     /**
      * This change a Map to be Serializable by removing all entries with values that are not Serializable.
      *

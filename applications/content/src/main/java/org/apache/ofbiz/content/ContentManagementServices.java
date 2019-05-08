@@ -23,6 +23,7 @@ import java.nio.ByteBuffer;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -307,7 +308,7 @@ public class ContentManagementServices {
             // Add ContentPurposes if this is a create operation
             if (contentId != null && !contentExists) {
                 try {
-                    Set<String> contentPurposeSet = UtilMisc.makeSetWritable(contentPurposeList);
+                    Set<String> contentPurposeSet = new LinkedHashSet<>(contentPurposeList);
                     for (String contentPurposeTypeId : contentPurposeSet) {
                         GenericValue contentPurpose = delegator.makeValue("ContentPurpose", UtilMisc.toMap("contentId", contentId, "contentPurposeTypeId", contentPurposeTypeId));
                         contentPurpose.create();

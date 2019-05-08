@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -817,7 +818,7 @@ public class WorkEffortSearch {
         protected Set<String> productIdSet;
 
         public ProductSetConstraint(Collection<String> productIdSet) {
-            this.productIdSet = UtilMisc.makeSetWritable(productIdSet);
+            this.productIdSet = new LinkedHashSet<>(productIdSet);
         }
 
         @Override

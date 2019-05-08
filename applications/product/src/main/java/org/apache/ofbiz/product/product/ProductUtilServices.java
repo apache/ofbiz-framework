@@ -21,6 +21,7 @@ package org.apache.ofbiz.product.product;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -606,7 +607,7 @@ public final class ProductUtilServices {
         if (UtilValidate.isNotEmpty(includeProp)) {
             List<String> typeList = StringUtil.split(includeProp, ",");
             if (typeList.size() > 0) {
-                productFeatureTypeIdsToInclude = UtilMisc.makeSetWritable(typeList);
+                productFeatureTypeIdsToInclude = new LinkedHashSet<>(typeList);
             }
         }
 

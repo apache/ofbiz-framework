@@ -674,7 +674,7 @@ public class FindServices {
         Locale locale = (Locale) context.get("locale");
         Set<String> fieldSet = null;
         if (fieldList != null) {
-            fieldSet = UtilMisc.makeSetWritable(fieldList);
+            fieldSet = new LinkedHashSet<>(fieldList);
         }
         Integer maxRows = (Integer) context.get("maxRows");
         maxRows = maxRows != null ? maxRows : -1;
