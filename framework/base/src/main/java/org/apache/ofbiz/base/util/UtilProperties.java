@@ -1194,7 +1194,7 @@ public final class UtilProperties implements Serializable {
             }
         }
         @Override
-        public void loadFromXML(InputStream in) throws IOException, InvalidPropertiesFormatException {
+        public synchronized void loadFromXML(InputStream in) throws IOException, InvalidPropertiesFormatException {
             try {
                 xmlToProperties(in, null, this);
             } finally {
