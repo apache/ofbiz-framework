@@ -194,7 +194,7 @@ under the License.
     <request-map uri="updateInvoiceItem">
         <security https="true" auth="true"/>
         <event type="service-multi" invoke="updateInvoiceItem"/>
-        <response name="success" type="request-redirect-noparam" value="listInvoiceItems"/>
+        <response name="success" type="request-redirect" value="listInvoiceItems"/>
         <response name="error" type="view" value="listInvoiceItems"/>
     </request-map>
     <request-map uri="removeInvoiceItem">
@@ -1104,7 +1104,7 @@ under the License.
     <request-map uri="updateBudgetItem">
         <security https="true" auth="true"/>
         <event type="service-multi" invoke="updateBudgetItem"/>
-        <response name="success" type="request-redirect-noparam" value="EditBudgetItems"/>
+        <response name="success" type="request-redirect" value="EditBudgetItems"/>
         <response name="error" type="view" value="EditBudgetItems"/>
     </request-map>
     <request-map uri="removeBudgetItem">
