@@ -41,11 +41,11 @@ public class MapContextTest {
      *
      * @see ControllerConfig
      */
-    static class PNode<K, V> {
+    static class PNode {
         /** The properties of the node. */
-        public Map<K, V> props;
+        public Map<String, String> props;
         /** The included identifier of nodes. */
-        private List<PNode<K, V>> includes;
+        private List<PNode> includes;
 
         /**
          * Constructs a node without properties.
@@ -53,7 +53,7 @@ public class MapContextTest {
          * @param includes  the included nodes
          */
         @SafeVarargs
-        public PNode(PNode<K, V>... includes) {
+        public PNode(PNode... includes) {
             this(Collections.emptyMap(), includes);
         }
 
@@ -64,7 +64,7 @@ public class MapContextTest {
          * @param includes  the included nodes
          */
         @SafeVarargs
-        public PNode(Map<K, V> props, PNode<K, V>... includes) {
+        public PNode(Map<String, String> props, PNode... includes) {
             this.props = props;
             this.includes = Arrays.asList(includes);
         }
@@ -74,8 +74,8 @@ public class MapContextTest {
          *
          * @return a map context containing the properties of the tree.
          */
-        public MapContext<K, V> allProps() {
-            MapContext<K, V> res = new MapContext<>();
+        public MapContext<String, String> allProps() {
+            MapContext<String, String> res = new MapContext<>();
             includes.forEach(inc -> res.push(inc.allProps()));
             res.push(props);
             return res;
@@ -90,10 +90,10 @@ public class MapContextTest {
                 UtilMisc.toMap(LinkedHashMap::new, "aa", "1", "ab", "1");
         Map<String, String> propsB =
                 UtilMisc.toMap(LinkedHashMap::new, "ba", "3", "bb", "8", "bc", "1", "bd", "14");
-        PNode<String, String> pn = new PNode<>(propsA,
-                new PNode<>(propsB, new PNode<>(), new PNode<>()),
-                new PNode<>(new PNode<>()),
-                new PNode<>());
+        PNode pn = new PNode(propsA,
+                new PNode(propsB, new PNode(), new PNode()),
+                new PNode(new PNode()),
+                new PNode());
 
         MapContext<String, String> mc = pn.allProps();
         assertThat("insertion order of LinkedHashMap is preserved by the 'values' method",
