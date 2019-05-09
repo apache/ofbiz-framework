@@ -24,6 +24,7 @@ import java.lang.reflect.Method;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
@@ -31,6 +32,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ofbiz.base.html.SanitizerCustomPolicy;
 import org.owasp.esapi.codecs.Codec;
 import org.owasp.esapi.codecs.HTMLEntityCodec;
@@ -47,6 +49,24 @@ public class UtilCodec {
     private static final StringEncoder stringEncoder = new StringEncoder();
     private static final UrlCodec urlCodec = new UrlCodec();
     private static final List<Codec> codecs;
+    // From https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet#Event_Handlers 
+    private static final List<String> jsEventList = Arrays.asList(new String[] { "onAbort", "onActivate",
+            "onAfterPrint", "onAfterUpdate", "onBeforeActivate", "onBeforeCopy", "onBeforeCut", "onBeforeDeactivate",
+            "onBeforeEditFocus", "onBeforePaste", "onBeforePrint", "onBeforeUnload", "onBeforeUpdate", "onBegin",
+            "onBlur", "onBounce", "onCellChange", "onChange", "onClick", "onContextMenu", "onControlSelect", "onCopy",
+            "onCut", "onDataAvailable", "onDataSetChanged", "onDataSetComplete", "onDblClick", "onDeactivate", "onDrag",
+            "onDragEnd", "onDragLeave", "onDragEnter", "onDragOver", "onDragDrop", "onDragStart", "onDrop", "onEnd",
+            "onError", "onErrorUpdate", "onFilterChange", "onFinish", "onFocus", "onFocusIn", "onFocusOut",
+            "onHashChange", "onHelp", "onInput", "onKeyDown", "onKeyPress", "onKeyUp", "onLayoutComplete", "onLoad",
+            "onLoseCapture", "onMediaComplete", "onMediaError", "onMessage", "onMouseDown", "onMouseEnter",
+            "onMouseLeave", "onMouseMove", "onMouseOut", "onMouseOver", "onMouseUp", "onMouseWheel", "onMove",
+            "onMoveEnd", "onMoveStart", "onOffline", "onOnline", "onOutOfSync", "onPaste", "onPause", "onPopState",
+            "onProgress", "onPropertyChange", "onReadyStateChange", "onRedo", "onRepeat", "onReset", "onResize",
+            "onResizeEnd", "onResizeStart", "onResume", "onReverse", "onRowsEnter", "onRowExit", "onRowDelete",
+            "onRowInserted", "onScroll", "onSeek", "onSelect", "onSelectionChange", "onSelectStart", "onStart",
+            "onStop", "onStorage", "onSyncRestored", "onSubmit", "onTimeError", "onTrackChange", "onUndo", "onUnload",
+            "onURLFlip", "seekSegmentTime" });
+
     static {
         List<Codec> tmpCodecs = new ArrayList<>();
         tmpCodecs.add(new HTMLEntityCodec());
@@ -374,9 +394,22 @@ public class UtilCodec {
         if (value.indexOf("<") >= 0 || value.indexOf(">") >= 0) {
             errorMessageList.add("In field [" + valueName + "] less-than (<) and greater-than (>) symbols are not allowed.");
         }
+        
+        // check for js events
+        final String onEvent = "on" + StringUtils.substringBetween(value, " on", "=");
+        final boolean seekSegmentTime = value.contains("seekSegmentTime");
+        if (null != onEvent || seekSegmentTime) {
+            if (jsEventList.stream().anyMatch(str -> StringUtils.containsIgnoreCase(str, onEvent)) || seekSegmentTime) {
+                errorMessageList.add("In field [" + valueName + "] js events are not allowed.");
+            }
+        }
 
         // TODO: anything else to check for that can be used to get HTML or JavaScript going without these characters?
-
+        // Another would be https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet#US-ASCII_encoding
+        // But all our Tomcat connectors use UTF-8
+        // We don't care about Flash now rather deprecated
+        // AFAIK all others need less-than (<) and greater-than (>) symbols
+        
         return value;
     }
 
