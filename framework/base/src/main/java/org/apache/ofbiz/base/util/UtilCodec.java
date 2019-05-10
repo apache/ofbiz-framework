@@ -396,12 +396,10 @@ public class UtilCodec {
         }
         
         // check for js events
-        final String onEvent = "on" + StringUtils.substringBetween(value, " on", "=");
-        final boolean seekSegmentTime = value.contains("seekSegmentTime");
-        if (null != onEvent || seekSegmentTime) {
-            if (jsEventList.stream().anyMatch(str -> StringUtils.containsIgnoreCase(str, onEvent)) || seekSegmentTime) {
-                errorMessageList.add("In field [" + valueName + "] js events are not allowed.");
-            }
+        String onEvent = "on" + StringUtils.substringBetween(value, " on", "=");
+        boolean seekSegmentTime = value.contains("seekSegmentTime");
+        if (jsEventList.stream().anyMatch(str -> StringUtils.containsIgnoreCase(str, onEvent)) || seekSegmentTime) {
+            errorMessageList.add("In field [" + valueName + "] js events are not allowed.");
         }
 
         // TODO: anything else to check for that can be used to get HTML or JavaScript going without these characters?
