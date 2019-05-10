@@ -14790,7 +14790,7 @@
     </property>
     <property key="StatusValidChange.transitionName.CTNT_INITIAL_DRAFT.CTNT_PUBLISHED">
         <value xml:lang="de">Erster Entwurf publiziert</value>
-        <value xml:lang="en">Initial draft Publised</value>
+        <value xml:lang="en">Initial draft published</value>
         <value xml:lang="es">Esbozo inicial publicado</value>
         <value xml:lang="fr">Brouillon initial publié</value>
         <value xml:lang="it">Bozza iniziale pubblicata</value>
@@ -14838,7 +14838,7 @@
     </property>
     <property key="StatusValidChange.transitionName.CTNT_IN_PROGRESS.CTNT_PUBLISHED">
         <value xml:lang="de">Publiziert, nicht überarbeitet</value>
-        <value xml:lang="en">Publised, not revised</value>
+        <value xml:lang="en">published, not revised</value>
         <value xml:lang="es">Publicado, sin revisar</value>
         <value xml:lang="fr">Publié, non corrigé</value>
         <value xml:lang="it">Pubblicato, non corretta</value>
@@ -14886,7 +14886,7 @@
     </property>
     <property key="StatusValidChange.transitionName.CTNT_REVISED_DRAFT.CTNT_PUBLISHED">
         <value xml:lang="de">Überarbeiteter Entwurf publiziert</value>
-        <value xml:lang="en">Revised draft Publised</value>
+        <value xml:lang="en">Revised draft published</value>
         <value xml:lang="es">Esbozo revisado publicado</value>
         <value xml:lang="fr">Brouillon corrigé et publié</value>
         <value xml:lang="it">Bozza corretta pubblicata</value>
