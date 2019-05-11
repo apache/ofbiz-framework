@@ -55,7 +55,8 @@ import org.xml.sax.SAXException;
 /** Implements Unified Expression Language functions.
  * <p>Built-in functions are divided into a number of
  * namespace prefixes:</p>
- * <table border="1" summary="">
+ * <table border="1">
+ * <caption>Miscellaneous date/time functions</caption>
  * <tr><td colspan="2"><b><code>date:</code> contains miscellaneous date/time functions</b></td></tr>
  * <tr><td><code>date:second(Timestamp, TimeZone, Locale)</code></td><td>Returns the second value of <code>Timestamp</code> (0 - 59).</td></tr>
  * <tr><td><code>date:minute(Timestamp, TimeZone, Locale)</code></td><td>Returns the minute value of <code>Timestamp</code> (0 - 59).</td></tr>
