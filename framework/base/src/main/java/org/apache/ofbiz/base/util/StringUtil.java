@@ -536,7 +536,7 @@ public class StringUtil {
     /** Converts operator substitutions (@and, @or, etc) back to their original form.
      * <p>OFBiz script syntax provides special forms of common operators to make
      * it easier to embed logical expressions in XML</p>
-     * <table border="1" cellpadding="2">
+     * <table>
      *   <caption>OFBiz XML operators</caption>
      *   <tr><th>OFBiz operator</th><th>Substitution</th></tr>
      *   <tr><td><strong>@and</strong></td><td>&amp;&amp;</td></tr>

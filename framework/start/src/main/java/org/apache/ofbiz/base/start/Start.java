@@ -36,7 +36,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * <p>
  * This class uses a singleton pattern to guarantee that only one server instance
  * is running in the VM. Client code retrieves the instance by using the
- * <tt>getInstance()</tt> static method.
+ * {@code getInstance()} static method.
  * </p>
  */
 public final class Start {

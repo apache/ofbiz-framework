@@ -25,9 +25,9 @@ import java.util.Map;
  * A command line argument passed to OFBiz
  *
  * <p>
- * A <tt>StartupCommand</tt> represents a processed command line argument passed
+ * A {@code StartupCommand} represents a processed command line argument passed
  * to OFBiz such that it is no longer a raw string but an instance of this class.
- * For example: <code>java -jar build/libs/ofbiz.jar --status</code> where status is a command.
+ * For example: {@code java -jar build/libs/ofbiz.jar --status} where status is a command.
  * </p>
  */
 public final class StartupCommand {
