@@ -53,6 +53,7 @@ under the License.
     <OrderRole orderId="TEST_DEMO10090" partyId="TestDemoCustomer" roleTypeId="PLACING_CUSTOMER"/>
     <OrderRole orderId="TEST_DEMO10090" partyId="TestDemoCustomer" roleTypeId="SHIP_TO_CUSTOMER"/>
     <OrderContactMech orderId="TEST_DEMO10090" contactMechPurposeTypeId="ORDER_EMAIL" contactMechId="TestContactMech"/>
+    <WorkEffort workEffortId="9000" workEffortTypeId="PROJECT" currentStatusId="_NA_" lastStatusUpdate="2007-12-14 15:07:52.901" scopeEnumId="WES_PRIVATE" workEffortName="Demo Project1 Cust1" revisionNumber="1"/>
     <Requirement requirementId="1000" requirementTypeId="CUSTOMER_REQUIREMENT"/>
     <ReturnHeader returnId="1009" statusId="RETURN_RECEIVED" returnHeaderTypeId="CUSTOMER_RETURN"/>
 
