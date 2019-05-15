@@ -1204,7 +1204,7 @@ public class OrderServices {
                         continue;
                     }
                     GenericValue orderItem = itemValuesBySeqId.get(orderItemShipGroupAssoc.get("orderItemSeqId"));
-                    if ("SALES_ORDER".equals(orderTypeId) && orderItem != null) {
+                    if ("SALES_ORDER".equals(orderTypeId) && orderItem != null && productStore != null && "Y".equals(productStore.getString("allocateInventory"))) {
                         //If the 'autoReserve' flag is not set for the order item, don't reserve the inventory
                         String autoReserve = OrderReadHelper.getOrderItemAttribute(orderItem, "autoReserve");
                         if (autoReserve == null || !"true".equals(autoReserve)) {
