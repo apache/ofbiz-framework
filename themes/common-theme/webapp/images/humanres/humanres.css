@@ -20,20 +20,20 @@
 /* THE CUSTOM CSS FOR AJUST THE HR TREE */
 .jstree-0 li[rel="Y"] > a > .jstree-icon {
     background-position: 0px 0px !important;
-    background-image:url("\images\Drawer_Closed.png");
+    background-image:url("/images/humanres/Drawer_Closed.png");
 }
 
 .jstree-0 li[rel="N"] > a > .jstree-icon {
     background-position: 0px 0px !important;
-    background-image:url(""\Users.png");
+    background-image:url("/images/humanres/Users.png");
 }
 
 .jstree-0 li[rel="P"] > a > .jstree-icon {
     background-position: 0px 0px !important;
-    background-image:url("\images\User.png");
+    background-image:url("/images/humanres/User.png");
 }
 
 .jstree-0 li[rel="C"] > a > .jstree-icon {
     background-position: 0px 0px !important;
-    background-image:url("\images\Home.png");
+    background-image:url("/images/humanres/Home.png");
 }
