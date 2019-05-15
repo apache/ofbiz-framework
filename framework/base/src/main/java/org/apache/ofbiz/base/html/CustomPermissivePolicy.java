@@ -96,8 +96,7 @@ public class CustomPermissivePolicy implements SanitizerCustomPolicy {
             .allowAttributes("nohref").onElements("a")
             .allowAttributes("target").matching(NAME).onElements("a")
             .allowAttributes("name").matching(NAME).onElements("a")
-            .allowAttributes(
-                    "onfocus", "onblur", "onclick", "onmousedown", "onmouseup")
+            .allowAttributes("onfocus", "onblur", "onclick", "onmousedown", "onmouseup")
             .matching(HISTORY_BACK).onElements("a")
             .requireRelNofollowOnLinks()
             .allowAttributes("src").matching(ONSITE_OR_OFFSITE_URL)
@@ -130,17 +129,13 @@ public class CustomPermissivePolicy implements SanitizerCustomPolicy {
             .allowAttributes("height", "width").matching(NUMBER_OR_PERCENT)
             .onElements("table", "td", "th", "tr", "img")
             .allowAttributes("align").matching(ALIGN)
-            .onElements("thead", "tbody", "tfoot", "img",
-                    "td", "th", "tr", "colgroup", "col")
+            .onElements("thead", "tbody", "tfoot", "img", "td", "th", "tr", "colgroup", "col")
             .allowAttributes("valign").matching(VALIGN)
-            .onElements("thead", "tbody", "tfoot",
-                    "td", "th", "tr", "colgroup", "col")
+            .onElements("thead", "tbody", "tfoot", "td", "th", "tr", "colgroup", "col")
             .allowAttributes("charoff").matching(NUMBER_OR_PERCENT)
-            .onElements("td", "th", "tr", "colgroup", "col",
-                    "thead", "tbody", "tfoot")
+            .onElements("td", "th", "tr", "colgroup", "col","thead", "tbody", "tfoot")
             .allowAttributes("char").matching(ONE_CHAR)
-            .onElements("td", "th", "tr", "colgroup", "col",
-                    "thead", "tbody", "tfoot")
+            .onElements("td", "th", "tr", "colgroup", "col", "thead", "tbody", "tfoot")
             .allowAttributes("colspan", "rowspan").matching(NUMBER)
             .onElements("td", "th")
             .allowAttributes("span", "width").matching(NUMBER_OR_PERCENT)
