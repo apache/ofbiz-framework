@@ -483,11 +483,11 @@ public final class ProductWorker {
      * @return a List of ProductFeature GenericValues
      */
     public static List<GenericValue> getVariantSelectionFeatures(GenericValue variantProduct) {
-        if (!"Y".equals(variantProduct.getString("isVariant"))) {
+        if (variantProduct == null || !"Y".equals(variantProduct.getString("isVariant"))) {
             return null;
         }
         GenericValue virtualProduct = ProductWorker.getParentProduct(variantProduct.getString("productId"), variantProduct.getDelegator());
-        if (virtualProduct == null || !"Y".equals(virtualProduct.getString("productId"))) {
+        if (virtualProduct == null || !"Y".equals(virtualProduct.getString("isVirtual"))) {
             return null;
         }
         // The selectable features from the virtual product
