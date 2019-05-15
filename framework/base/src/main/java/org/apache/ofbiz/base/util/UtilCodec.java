@@ -174,8 +174,10 @@ public class UtilCodec {
 
         // Given as an example based on rendering cmssite as it was before using the sanitizer.
         // To use the PERMISSIVE_POLICY set sanitizer.permissive.policy to true.
-        // Note that I was unable to render </html> and </body>. I guess because <html> and <body> are not sanitized in 1st place (else the sanitizer makes some damages I found)
-        // You might even want to adapt the PERMISSIVE_POLICY to your needs... Be sure to check https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet before...
+        // Note that I was unable to render </html> and </body>. I guess because <html> and <body> 
+        // are not sanitized in 1st place (else the sanitizer makes some damages I found)
+        // You might even want to adapt the PERMISSIVE_POLICY to your needs... 
+        // Be sure to check https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet before...
         // And https://github.com/OWASP/java-html-sanitizer/blob/master/docs/getting_started.md for examples.
         // If you want another example: https://android.googlesource.com/platform/packages/apps/UnifiedEmail/+/ec0fa48/src/com/android/mail/utils/HtmlSanitizer.java
         public static final PolicyFactory PERMISSIVE_POLICY = new HtmlPolicyBuilder()
@@ -188,7 +190,8 @@ public class UtilCodec {
 
         // This is the PolicyFactory used for the Birt Report Builder usage feature. ("FLEXIBLE_REPORT" contentTypeId)
         // It allows to use the OOTB Birt Report Builder example.
-        // You might need to enhance it for your needs (when using a new REPORT_MASTER) but normally you should not. See PERMISSIVE_POLICY above for documentation and examples
+        // You might need to enhance it for your needs (when using a new REPORT_MASTER) but normally you should not. 
+        // See PERMISSIVE_POLICY above for documentation and examples
         public static final PolicyFactory BIRT_FLEXIBLE_REPORT_POLICY = new HtmlPolicyBuilder()
                 .allowWithoutAttributes("html", "body")
                 .allowElements("form", "div", "span", "table", "tr", "td", "input", "textarea", "label", "select", "option")
@@ -198,7 +201,8 @@ public class UtilCodec {
                 .allowAttributes("cols", "rows").onElements("textarea")
                 .allowAttributes("class").onElements("td")
                 .allowAttributes("method").onElements("form")
-                .allowAttributes("accept", "action", "accept-charset", "autocomplete", "enctype", "method", "name", "novalidate", "target").onElements("form")
+                .allowAttributes("accept", "action", "accept-charset", "autocomplete", "enctype", "method", 
+                        "name", "novalidate", "target").onElements("form")
                 .toFactory();
     }
 
@@ -372,6 +376,8 @@ public class UtilCodec {
      * Does not allow various characters (after canonicalization), including
      * "&lt;", "&gt;", "&amp;" (if not followed by a space), and "%" (if not
      * followed by a space).
+     * 
+     * Also does not allow js events as in OFBIZ-10054
      *
      * @param value
      * @param errorMessageList
@@ -386,8 +392,10 @@ public class UtilCodec {
             value = canonicalize(value, true);
         } catch (IntrusionException e) {
             // NOTE: using different log and user targeted error messages to allow the end-user message to be less technical
-            Debug.logError("Canonicalization (format consistency, character escaping that is mixed or double, etc) error for attribute named [" + valueName + "], String [" + value + "]: " + e.toString(), module);
-            errorMessageList.add("In field [" + valueName + "] found character escaping (mixed or double) that is not allowed or other format consistency error: " + e.toString());
+            Debug.logError("Canonicalization (format consistency, character escaping that is mixed or double, etc) error for attribute named [" 
+            + valueName + "], String [" + value + "]: " + e.toString(), module);
+            errorMessageList.add("In field [" + valueName 
+                    + "] found character escaping (mixed or double) that is not allowed or other format consistency error: " + e.toString());
         }
 
         // check for "<", ">"
@@ -397,8 +405,8 @@ public class UtilCodec {
         
         // check for js events
         String onEvent = "on" + StringUtils.substringBetween(value, " on", "=");
-        boolean seekSegmentTime = value.contains("seekSegmentTime");
-        if (jsEventList.stream().anyMatch(str -> StringUtils.containsIgnoreCase(str, onEvent)) || seekSegmentTime) {
+        if (jsEventList.stream().anyMatch(str -> StringUtils.containsIgnoreCase(str, onEvent)) 
+                || value.contains("seekSegmentTime")) {
             errorMessageList.add("In field [" + valueName + "] js events are not allowed.");
         }
 
@@ -412,7 +420,8 @@ public class UtilCodec {
     }
 
     /**
-     * A simple Map wrapper class that will do HTML encoding. To be used for passing a Map to something that will expand Strings with it as a context, etc.
+     * A simple Map wrapper class that will do HTML encoding. 
+     * To be used for passing a Map to something that will expand Strings with it as a context, etc.
      */
     public static class HtmlEncodingMapWrapper<K> implements Map<K, Object> {
         public static <K> HtmlEncodingMapWrapper<K> getHtmlEncodingMapWrapper(Map<K, Object> mapToWrap, SimpleEncoder encoder) {
