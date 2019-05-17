@@ -1031,7 +1031,7 @@ public class GenericDAO {
 
         // GROUP BY clause for view-entity
         if (isGroupBy) {
-            modelViewEntity.colNameString(modelViewEntity.getGroupBysCopy(), sqlBuffer, " GROUP BY ", ", ", "", false);
+            modelViewEntity.colNameString(modelViewEntity.getGroupBysCopy(selectFields), sqlBuffer, " GROUP BY ", ", ", "", false);
         }
 
         // HAVING clause
