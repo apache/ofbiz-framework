@@ -526,6 +526,7 @@ under the License.
       <field name="roleTypeIdTo" type="id"></field>
       <field name="partyIdFrom" type="id"></field>
       <field name="partyIdTo" type="id"></field>
+      <field name="emplFromDate" type="date-time"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
       <field name="salaryStepSeqId" type="id"></field>
@@ -537,13 +538,14 @@ under the License.
       <prim-key field="roleTypeIdTo"/>
       <prim-key field="partyIdFrom"/>
       <prim-key field="partyIdTo"/>
+      <prim-key field="emplFromDate"/>
       <prim-key field="fromDate"/>
       <relation type="one" fk-name="PAY_HIST_EMPLMNT" rel-entity-name="Employment">
         <key-map field-name="roleTypeIdFrom"/>
         <key-map field-name="roleTypeIdTo"/>
         <key-map field-name="partyIdFrom"/>
         <key-map field-name="partyIdTo"/>
-        <key-map field-name="fromDate"/>
+        <key-map field-name="emplFromDate" rel-field-name="fromDate"/>
       </relation>
       <relation type="one" fk-name="PAY_HIST_PGRD" rel-entity-name="PayGrade">
         <key-map field-name="payGradeId"/>

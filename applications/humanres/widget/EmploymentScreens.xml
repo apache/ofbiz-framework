@@ -113,6 +113,28 @@
             </widgets>
         </section>
     </screen>
+    <screen name="EditPayHistory">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HumanResListPayHistories"/>
+                <set field="headerItem" value="Employment"/>
+                <set field="tabButtonItem" value="EditPayHistory"/>
+                <entity-one value-field="payHistory" entity-name="PayHistory"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonEmploymentDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.HumanResListPayHistories}">
+                            <include-form name="ListPayHistories" location="component://humanres/widget/forms/EmploymentForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.HumanResListPayHistories}">
+                            <include-form name="EditPayHistory" location="component://humanres/widget/forms/EmploymentForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <screen name="EditPartyBenefits">
         <section>
             <actions>

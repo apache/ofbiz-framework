@@ -112,7 +112,7 @@
     <form name="EditEmployment" type="single" target="updateEmployment" default-map-name="employment"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="employment==null" target="createEmployment"/>
-        <auto-fields-service service-name="createEmployment" default-field-type="hidden"/>
+<!--         <auto-fields-service service-name="createEmployment" default-field-type="hidden"/> -->
         <field name="roleTypeIdFrom"><hidden value="INTERNAL_ORGANIZATIO"/></field>
         <field name="roleTypeIdTo"><hidden value="EMPLOYEE"/></field>
         <field name="partyIdFrom" use-when="employment==null" title="${uiLabelMap.HumanResEmploymentPartyIdFrom}" required-field="true">
@@ -128,6 +128,19 @@
         <field name="fromDate" use-when="employment==null" title="${uiLabelMap.CommonFromDate}" required-field="true"><date-time default-value="${nowTimestamp}"/></field>
         <field name="fromDate" use-when="employment!=null" title="${uiLabelMap.CommonFromDate}"><display default-value="${nowTimestamp}"/></field>
         <field name="thruDate" use-when="employment!=null" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
+        <!-- For PayHistory -->
+        <field name="amount"           use-when="employment==null" required-field="true"><text/></field>
+        <field name="comments"         use-when="employment==null"><text/></field>
+        <field name="payGradeId"       use-when="employment==null" title="${uiLabelMap.HumanResPayGradeID}"><lookup target-form-name="LookupPayGrade" size="20"/></field>
+        <field name="salaryStepSeqId"  use-when="employment==null" title="${uiLabelMap.HumanResSalaryStepSeqId}"><lookup target-form-name="LookupSalaryStep" size="20"/></field>
+        <field name="periodTypeId"     use-when="employment==null" title="${uiLabelMap.FormFieldTitle_periodTypeId}">
+            <drop-down allow-empty="false">
+                <entity-options key-field-name="periodTypeId" entity-name="PeriodType">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <!-- End of For PayHistory -->
         <field name="terminationReasonId" use-when="employment!=null" title="${uiLabelMap.HumanResTerminationReasonId}">
             <drop-down allow-empty="true" no-current-selected-key="------">
                 <entity-options key-field-name="terminationReasonId" entity-name="TerminationReason">
@@ -148,43 +161,67 @@
     <form name="ListPayHistories" type="list" target="updatePayHistory" title="" paginate-target="findPayHistories"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-condition entity-name="PayHistory" filter-by-date="true">
+            <set field="emplFromDate" from-field="parameters.emplFromDate" default-value="${parameters.fromDate}"/>
+            <entity-condition entity-name="PayHistory">
                 <condition-list combine="and">
                     <condition-expr field-name="roleTypeIdFrom" operator="equals" from-field="parameters.roleTypeIdFrom"/>
                     <condition-expr field-name="roleTypeIdTo" operator="equals" from-field="parameters.roleTypeIdTo"/>
                     <condition-expr field-name="partyIdFrom" operator="equals" from-field="parameters.partyIdFrom"/>
                     <condition-expr field-name="partyIdTo" operator="equals" from-field="parameters.partyIdTo"/>
-                    <condition-expr field-name="fromDate" operator="equals" from-field="parameters.fromDate"/>
+                    <condition-expr field-name="emplFromDate" operator="equals" from-field="emplFromDate"/>
                 </condition-list>
+                <order-by field-name="fromDate"/>
             </entity-condition>
         </actions>
-        <auto-fields-service service-name="updatePayHistory"/>
-        <field name="roleTypeIdFrom"><hidden/></field>
-        <field name="roleTypeIdTo"><hidden/></field>
-        <field name="partyIdFrom"><hidden/></field>
-        <field name="partyIdTo"><hidden/></field>
-        <field name="fromDate"><display/></field>
-        <field name="amount"><hidden/></field>
-        <field name="comments"><hidden/></field>
-        <field name="salaryStepSeqId" title="${uiLabelMap.HumanResSalaryStepSeqId}"><lookup target-form-name="LookupSalaryStep" size="20"/></field>
-        <field name="payGradeId" title="${uiLabelMap.HumanResPayGradeID}"><lookup target-form-name="LookupPayGrade" size="20"/></field>
-        <field name="periodTypeId" title="${uiLabelMap.FormFieldTitle_periodTypeId}">
+        <field name="editLink" title=" " widget-style="buttontext" use-when="${groovy:thruDate == null}">
+            <hyperlink description="${uiLabelMap.CommonEdit}" target="EditPayHistory">
+                <parameter param-name="roleTypeIdFrom"/>
+                <parameter param-name="roleTypeIdTo"/>
+                <parameter param-name="partyIdFrom"/>
+                <parameter param-name="partyIdTo"/>
+                <parameter param-name="emplFromDate"/>
+                <parameter param-name="fromDate"/>
+            </hyperlink>
+        </field>
+        <field name="fromDate" ><display/></field>
+        <field name="thruDate"><display/></field>
+        <field name="amount"><display/></field>
+        <field name="periodTypeId" title="${uiLabelMap.FormFieldTitle_periodTypeId}"><display-entity entity-name="PeriodType"/></field>
+        <field name="payGradeId" title="${uiLabelMap.HumanResPayGradeID}"><display/></field>
+        <field name="salaryStepSeqId" title="${uiLabelMap.HumanResSalaryStepSeqId}"><display/></field>
+        <field name="salaryStepSeqId" title="${uiLabelMap.HumanResSalaryStepSeqId}"><display/></field>
+        <field name="comments"><display/></field>
+        <field name="deleteLink" title=" " widget-style="buttontext" use-when="${groovy:thruDate == null}">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="expirePayHistory">
+                <parameter param-name="roleTypeIdFrom"/>
+                <parameter param-name="roleTypeIdTo"/>
+                <parameter param-name="partyIdFrom"/>
+                <parameter param-name="partyIdTo"/>
+                <parameter param-name="emplFromDate"/>
+                <parameter param-name="fromDate"/>
+            </hyperlink>
+        </field>
+    </form>
+    <form name="EditPayHistory" type="single" target="updatePayHistory" default-entity-name="PayHistory" default-map-name="payHistory">
+        <field name="roleTypeIdFrom" ><hidden/></field>
+        <field name="roleTypeIdTo"   ><hidden/></field>
+        <field name="partyIdFrom"    ><hidden/></field>
+        <field name="partyIdTo"      ><hidden/></field>
+        <field name="emplFromDate"   ><hidden/></field>
+        <field name="fromDate"><hidden/></field>
+        <field name="changeDate"><date-time/></field>
+        <field name="amount"><text/></field>
+        <field name="periodTypeId" title="${uiLabelMap.FormFieldTitle_periodTypeId}" position="2">
             <drop-down allow-empty="false">
                 <entity-options key-field-name="periodTypeId" entity-name="PeriodType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
+        <field name="comments"><text size="75"/></field>
+        <field name="payGradeId" title="${uiLabelMap.HumanResPayGradeID}"><lookup target-form-name="LookupPayGrade" size="20" /></field>
+        <field name="salaryStepSeqId" title="${uiLabelMap.HumanResSalaryStepSeqId}" position="2"><lookup target-form-name="LookupSalaryStep" target-parameter="payGradeId" size="20"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
-        <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.CommonDelete}" target="expirePayHistory">
-                <parameter param-name="roleTypeIdFrom"/>
-                <parameter param-name="roleTypeIdTo"/>
-                <parameter param-name="partyIdFrom"/>
-                <parameter param-name="partyIdTo"/>
-                <parameter param-name="fromDate"/>
-            </hyperlink>
-        </field>
     </form>
     <form name="ListPartyBenefits" type="multi" target="updatePartyBenefit?benefitTypeId=${benefitTypeId}&amp;roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;fromDate=${fromDate}" title="" paginate-target="findPartyBenefits"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
