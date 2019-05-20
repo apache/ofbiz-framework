@@ -22,7 +22,10 @@
         xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <!-- Employment Group -->
-    <simple-method method-name="createEmployment" short-description="Create Employment"><!--entity-auto-->
+    <simple-method method-name="createEmployment" short-description="Create Employment">
+        <set-service-fields service-name="ensurePartyRoleTo" to-map="partyRoleMap" map="parameters"/>
+        <call-service service-name="ensurePartyRoleTo" in-map-name="partyRoleMap"/>
+
         <make-value entity-name="Employment" value-field="newEntity"/>
         <set-pk-fields value-field="newEntity" map="parameters"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
@@ -32,8 +35,43 @@
         </if-empty>
         <create-value value-field="newEntity"/>
 
-        <set-service-fields service-name="createPayHistory" map="newEntity" to-map="createPayHistoryMap"/><!--create by seca-->
+        <set-service-fields service-name="createPayHistory" map="parameters" to-map="createPayHistoryMap"/>
+        <set field="createPayHistoryMap.emplFromDate" from="parameters.fromDate"/>
         <call-service service-name="createPayHistory" in-map-name="createPayHistoryMap"/>
+    </simple-method>
+
+    <simple-method method-name="updatePayHistory" short-description="Update PayHistory, expire current record and create a new">
+        <entity-one entity-name="PayHistory" value-field="lookedOldValue"/>
+        <!-- check if amount or payGrade or salaryStepSeqId change, if Yes so expire current record -->
+        <if>
+          <condition>
+            <and>
+              <if-compare-field to-field="lookedOldValue.amount" operator="equals" field="parameters.amount"/>
+              <if-compare-field to-field="lookedOldValue.payGradeId" operator="equals" field="parameters.payGradeId"/>
+              <if-compare-field to-field="lookedOldValue.salaryStepSeqId" operator="equals" field="parameters.salaryStepSeqId"/>
+            </and>
+          </condition>
+          <then>
+            <!-- just update comment -->
+            <set field="lookedOldValue.comments" from-field="parameters.comments"/>
+            <store-value value-field="lookedOldValue"/>
+          </then>
+          <else>
+            <!-- expire old record and create a new one -->
+            <set-service-fields service-name="expirePayHistory" map="parameters" to-map="expirePayHistoryMap"/>
+            <call-service service-name="expirePayHistory" in-map-name="expirePayHistoryMap"/>
+            <set-service-fields service-name="createPayHistory" map="parameters" to-map="createPayHistoryMap"/>
+            <if-empty field="parameters.changeDate">
+                <now-timestamp field="nowTimeStamp"/>
+                <set field="createPayHistoryMap.fromDate" from-field="nowTimeStamp"/>
+            <else>
+                <set field="createPayHistoryMap.fromDate" from-field="parameters.changeDate"/>
+                </else>
+            </if-empty>
+            <call-service service-name="createPayHistory" in-map-name="createPayHistoryMap"/>
+          </else>
+        </if>
+        <field-to-result field="parameters.emplFromDate" result-name="fromDate"/>
     </simple-method>
 
     <simple-method method-name="createEmplPositionReportingStruct" short-description="Create a Employee Position Reporting Structure">
