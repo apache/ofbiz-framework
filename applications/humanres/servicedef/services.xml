@@ -154,11 +154,18 @@ under the License.
     </service>
 
     <!-- Employment Group -->
-    <service name="createEmployment" engine="entity-auto" default-entity-name="Employment" invoke="create" auth="true">
-        <description>Create Employment</description>
+    <service name="createEmployment" engine="simple" default-entity-name="Employment"
+             location="component://humanres/minilang/HumanResServices.xml" invoke="createEmployment" auth="true">
+        <description>Create Employment and first record in PayHistory</description>
         <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <!-- For PayHistory -->
+        <attribute name="amount" mode="IN" type="BigDecimal" optional="true"/>
+        <attribute name="payGradeId" mode="IN" type="String" optional="true"/>
+        <attribute name="salaryStepSeqId" mode="IN" type="String" optional="true"/>
+        <attribute name="periodTypeId" mode="IN" type="String" optional="true"/>
+        <attribute name="comments" mode="IN" type="String" optional="true"/>
         <override type="Timestamp" mode="IN" name="fromDate" optional="true"/>
     </service>
 
@@ -246,11 +253,14 @@ under the License.
         <override type="Timestamp" mode="IN" name="fromDate" optional="true"/>
     </service>
 
-    <service name="updatePayHistory" engine="entity-auto" default-entity-name="PayHistory" invoke="update" auth="true">
+    <service name="updatePayHistory" engine="simple" default-entity-name="PayHistory"
+             location="component://humanres/minilang/HumanResServices.xml" invoke="updatePayHistory" auth="true">
         <description>Update Pay History</description>
         <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <attribute name="changeDate" mode="IN" type="Timestamp" optional="true"/>
+        <attribute name="fromDate" mode="OUT" type="Timestamp"/>
     </service>
 
     <service name="deletePayHistory" engine="entity-auto" default-entity-name="PayHistory" invoke="delete" auth="true">
