@@ -198,53 +198,53 @@ html>body p {
 
 /* add an external-link icon to absolute links */
 a[href^="http:"] {
-    background: url(images/remote.gif) right center no-repeat;
+    background: url(/images/remote.gif) right center no-repeat;
     padding-right: 12px;
 }
 
 a[href^="http:"]:hover {
-    background: url(images/remote_a.gif) right center no-repeat;
+    background: url(/images/remote_a.gif) right center no-repeat;
 }
 
 /* add a note icon to footnote links */
 a[href^="#ftn"] {
-    background: url(images/qbullet-note.gif) right center no-repeat;
+    background: url(/images/qbullet-note.gif) right center no-repeat;
     padding-right: 12px;
 }
 
 a[href^="#ftn"]:hover {
-    background: url(images/qbullet-note_a.gif) right center no-repeat;
+    background: url(/images/qbullet-note_a.gif) right center no-repeat;
 }
 
 /* ...and a back icon to the backlinks in the footnotes themselves */
 a[name^="ftn"] {
-    background: url(images/scrollup.gif) right center no-repeat;
+    background: url(/images/scrollup.gif) right center no-repeat;
     padding-right: 12px;
 }
 
 a[name^="ftn"]:hover {
-    background: url(images/scrollup_a.gif) right center no-repeat;
+    background: url(/images/scrollup_a.gif) right center no-repeat;
 }
 
 /* add a download icon to .gz links */
 a[href$=".gz"], a[href$=".tar"], a[href$=".zip"] {
-    background: url(images/disk.gif) right center no-repeat;
+    background: url(/images/disk.gif) right center no-repeat;
     padding-right: 12px;
 }
 
 /* add an acrobat reader icon to pdf links */
 a[href$=".pdf"] {
-    background: url(images/acrobat.gif) right center no-repeat;
+    background: url(/images/acrobat.gif) right center no-repeat;
     padding-right: 12px;
 }
 
 a[href$=".pdf"]:hover {
-    background: url(images/acrobat_a.gif) right center no-repeat;
+    background: url(/images/acrobat_a.gif) right center no-repeat;
 }
 
 /* add a word icon to rtf links */
 a[href$=".rtf"] {
-    background: url(images/word.gif) right center no-repeat;
+    background: url(/images/word.gif) right center no-repeat;
     padding-right: 12px;
 }
 
