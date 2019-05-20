@@ -110,5 +110,12 @@ under the License.
     <PartyRole partyId="admin" roleTypeId="CONTACT"/>
     <PartyRole partyId="Company" roleTypeId="ACCOUNT"/>
     <PartyRelationship partyIdFrom="Company" roleTypeIdFrom="ACCOUNT" partyIdTo="admin" roleTypeIdTo="CONTACT" fromDate="2000-01-01 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
-
+    
+    <!-- Auditor demo data -->
+    <SecurityGroup groupName="Auditor" description="Auditors group, having only VIEW permissions." groupId="AUDITOR"/>
+    <Party partyId="DemoAuditor" statusId="PARTY_ENABLED" partyTypeId="PARTY_GROUP"/>
+    <PartyGroup partyId="DemoAuditor" groupName="Demo Auditor"/>
+    <UserLogin userLoginId="auditor" partyId="DemoAuditor" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a"/>
+    <UserLoginSecurityGroup groupId="VIEWADMIN" userLoginId="auditor" fromDate="2001-01-01 12:00:00.0"/>
+    
 </entity-engine-xml>
