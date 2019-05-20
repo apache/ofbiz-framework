@@ -253,7 +253,7 @@ th, th a {
 /* ------------------------ */
 
 #masthead {
-    background: #47637c url(images/masthead.gif) top left repeat-x;
+    background: #47637c url(/images/masthead.gif) top left repeat-x;
     color: #ccc;
     font-size: 1em;
     font-weight: normal;
@@ -305,7 +305,7 @@ th, th a {
 
 #main-navigation {
     clear: both;
-    background: #436783 url(images/main-nav.gif) top left repeat-x;
+    background: #436783 url(/images/main-nav.gif) top left repeat-x;
     color: #fff;
     font-size: 1em;
     height: 5.2em;
@@ -362,7 +362,7 @@ th, th a {
 
 /*
 #app-navigation {
-background: url(images/gray-texture.jpg) top left;
+background: url(/images/gray-texture.jpg) top left;
 border-top: 0.1em solid #3E5A71;
 border-bottom: 0.1em solid #fff;
 height: 1%; /!* IE fix *!/
@@ -1215,7 +1215,7 @@ textarea:active {
 
 .is_webkit select {
     /* Tweaks for Safari + Chrome. */
-    background-image: url(images/select_arrow.gif);
+    background-image: url(/images/select_arrow.gif);
     background-repeat: no-repeat;
     background-position: right center;
     padding-right: 20px;
@@ -1249,7 +1249,7 @@ optgroup {
 
 .ie6_button,
 * html button {
-    background: #ddd url(images/button.png) repeat-x;
+    background: #ddd url(/images/button.png) repeat-x;
     border: 0.1em solid;
     border-color: #ddd #bbb #999;
     cursor: pointer;
@@ -1777,7 +1777,7 @@ html > /**/ body .jstree-default a {
 
 /*begin addon modification generic-portelet*/
 .screenlet-title-bar-pager {
-    background: url(images/bhead.gif) top left repeat-x;
+    background: url(/images/bhead.gif) top left repeat-x;
     color: #ffffff;
     height: 1%; /* IE fix */
     min-height: 1.5em;
