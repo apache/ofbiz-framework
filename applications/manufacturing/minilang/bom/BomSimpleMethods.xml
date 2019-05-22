@@ -117,24 +117,17 @@ under the License.
             <fail-property resource="ManufacturingUiLabels" property="ManufacturingMachineGroupPermissionError"/>
         </check-permission>
         <check-errors/>
-        <make-value entity-name="ProductManufacturingRule" value-field="lookupPKMap"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key entity-name="ProductManufacturingRule" map="lookupPKMap" value-field="newEntity"/>
-        <if-not-empty field="newEntity.ruleId">
-            <add-error>
-                <fail-property resource="ManufacturingUiLabels" property="ManufacturingMachineGroupIdAlreadyExist"/>
-            </add-error>
-            <check-errors/>
-        <else>
-            <make-value entity-name="ProductManufacturingRule" value-field="newEntity"/>
-            <if-empty field="parameters.ruleId">
-                <sequenced-id sequence-name="ProductManufacturingRule" field="parameters.ruleId"/>
-            </if-empty>
-            <set-pk-fields map="parameters" value-field="newEntity"/>
-            <set-nonpk-fields map="parameters" value-field="newEntity"/>
-            <create-value value-field="newEntity"/>
-        </else>
-        </if-not-empty>
+
+        <make-value entity-name="ProductManufacturingRule" value-field="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        
+        <if-empty field="newEntity.ruleId">
+            <sequenced-id sequence-name="FinAccount" field="ruleId"/>
+            <to-string field="ruleId"/>
+            <set from-field="ruleId" field="newEntity.ruleId"/>
+        </if-empty>
+        <create-value value-field="newEntity"/>
     </simple-method>
 
     <simple-method method-name="deleteProductManufacturingRule" short-description="Remove a Product Manufacturing Rule">
