@@ -1810,19 +1810,19 @@ under the License.
     <request-map uri="updateDocumentTree">
         <security auth="true" https="true"/>
         <event type="service" invoke="updateContent" />
-        <response name="success" type="request-redirect-noparam" value="navigateContent"/>
+        <response name="success" type="view" value="navigateContent"/>
         <response name="error" type="view" value="navigateContent"/>
     </request-map>
     <request-map uri="removeDocumentFromTree">
         <security auth="true" https="true"/>
         <event type="service" invoke="removeContentAssoc" path=""/>
-        <response name="success" type="request-redirect-noparam" value="navigateContent"/>
+        <response name="success" type="view" value="navigateContent"/>
         <response name="error" type="view" value="navigateContent"/>
     </request-map>
     <request-map uri="addDocumentToTree">
         <security auth="true" https="true"/>
         <event type="simple" invoke="createDocument" path="component://content/minilang/content/ContentEvents.xml" />
-        <response name="success" type="request-redirect-noparam" value="navigateContent"/>
+        <response name="success" type="view" value="navigateContent"/>
         <response name="error" type="request" value="navigateContent"/>
     </request-map>
     <request-map uri="showContent">
