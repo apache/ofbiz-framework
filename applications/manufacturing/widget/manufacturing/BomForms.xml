@@ -125,7 +125,10 @@ under the License.
                 <option key="AND" description="${uiLabelMap.CommonAnd}"/>
             </drop-down>
         </field>
-        <field name="submitButton" title="${uiLabelMap.CommonUpdate}">
+        <field use-when="ruleId==null" name="submitButton" title="${uiLabelMap.CommonCreate}">
+            <submit button-type="button"/>
+        </field>
+        <field use-when="ruleId!=null" name="submitButton" title="${uiLabelMap.CommonUpdate}">
             <submit button-type="button"/>
         </field>
     </form>
