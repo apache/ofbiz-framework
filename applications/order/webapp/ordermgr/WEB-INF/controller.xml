@@ -95,61 +95,61 @@ under the License.
     <request-map uri="massApproveOrders">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="massChangeOrderApproved"/>
-        <response name="success" type="request-redirect-noparam" value="findorders"/>
+        <response name="success" type="request-redirect" value="findorders"/>
         <response name="error" type="view" value="findorders"/>
     </request-map>
     <request-map uri="massProcessOrders">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="massProcessOrders"/>
-        <response name="success" type="request-redirect-noparam" value="findorders"/>
+        <response name="success" type="request-redirect" value="findorders"/>
         <response name="error" type="view" value="findorders"/>
     </request-map>
     <request-map uri="massHoldOrders">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="massHoldOrders"/>
-        <response name="success" type="request-redirect-noparam" value="findorders"/>
+        <response name="success" type="request-redirect" value="findorders"/>
         <response name="error" type="view" value="findorders"/>
     </request-map>
     <request-map uri="massCancelOrders">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="massCancelOrders"/>
-        <response name="success" type="request-redirect-noparam" value="findorders"/>
+        <response name="success" type="request-redirect" value="findorders"/>
         <response name="error" type="view" value="findorders"/>
     </request-map>
     <request-map uri="massCancelRemainingPurchaseOrderItems">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="massCancelRemainingPurchaseOrderItems"/>
-        <response name="success" type="request-redirect-noparam" value="findorders"/>
+        <response name="success" type="request-redirect" value="findorders"/>
         <response name="error" type="view" value="findorders"/>
     </request-map>
     <request-map uri="massRejectOrders">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="massRejectOrders"/>
-        <response name="success" type="request-redirect-noparam" value="findorders"/>
+        <response name="success" type="request-redirect" value="findorders"/>
         <response name="error" type="view" value="findorders"/>
     </request-map>
     <request-map uri="massQuickShipOrders">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="massQuickShipOrders"/>
-        <response name="success" type="request-redirect-noparam" value="findorders"/>
+        <response name="success" type="request-redirect" value="findorders"/>
         <response name="error" type="view" value="findorders"/>
     </request-map>
     <request-map uri="massPickOrders">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="massPickOrders"/>
-        <response name="success" type="request-redirect-noparam" value="findorders"/>
+        <response name="success" type="request-redirect" value="findorders"/>
         <response name="error" type="view" value="findorders"/>
     </request-map>
     <request-map uri="massPrintOrders">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="massPrintOrders"/>
-        <response name="success" type="request-redirect-noparam" value="findorders"/>
+        <response name="success" type="request-redirect" value="findorders"/>
         <response name="error" type="view" value="findorders"/>
     </request-map>
     <request-map uri="massCreateFileForOrders">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="massCreateFileForOrders"/>
-        <response name="success" type="request-redirect-noparam" value="findorders"/>
+        <response name="success" type="request-redirect" value="findorders"/>
         <response name="error" type="view" value="findorders"/>
     </request-map>
 
