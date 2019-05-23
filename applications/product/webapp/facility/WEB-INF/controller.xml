@@ -1147,7 +1147,7 @@ under the License.
     <request-map uri="dhlShipmentConfirm">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="dhlShipmentConfirm"/>
-        <response name="success" type="request-redirect-noparam" value="EditShipmentRouteSegments"/>
+        <response name="success" type="request-redirect" value="EditShipmentRouteSegments"/>
         <response name="error" type="view" value="EditShipmentRouteSegments"/>
     </request-map>
 
@@ -1168,7 +1168,7 @@ under the License.
     <request-map uri="fedexShipmentConfirm">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="fedexShipRequest"/>
-        <response name="success" type="request-redirect-noparam" value="EditShipmentRouteSegments"/>
+        <response name="success" type="request-redirect" value="EditShipmentRouteSegments"/>
         <response name="error" type="view" value="EditShipmentRouteSegments"/>
     </request-map>
 

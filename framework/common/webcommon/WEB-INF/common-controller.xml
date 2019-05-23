@@ -77,7 +77,7 @@ under the License.
     <request-map uri="logout">
         <security https="true" auth="true"/>
         <event type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="logout"/>
-        <response name="success" type="request-redirect-noparam" value="main"/>
+        <response name="success" type="request-redirect" value="main"/>
         <response name="error" type="view" value="main"/>
     </request-map>
     <request-map uri="forgotPassword">

@@ -526,7 +526,7 @@ under the License.
                         <xs:annotation>
                             <xs:documentation>
                                 Internally chains to another request.
-                                Automatically redirect all current request parameters to the new request 
+                                Automatically redirects all current request parameters to the new request 
                             </xs:documentation>
                         </xs:annotation>
                     </xs:enumeration>
@@ -534,7 +534,8 @@ under the License.
                         <xs:annotation>
                             <xs:documentation>
                                 Send a redirect down to the browser telling it to go to the new request.
-                                Redirect only mentioned request parameters in controller.xml, using redirect-param attribute
+                                Automatically redirects all current request parameters to the new request 
+                                or only redirected parameters specified using redirect-param attribute.
                             </xs:documentation>
                         </xs:annotation>
                     </xs:enumeration>
