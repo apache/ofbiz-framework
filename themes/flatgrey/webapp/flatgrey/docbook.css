@@ -332,7 +332,7 @@ div.toc {
 }
 
 ul {
-    list-style: url("images/tux-bullet.png") disc;
+    list-style: url("/images/tux-bullet.png") disc;
 }
 
 div.example, div.toc {
