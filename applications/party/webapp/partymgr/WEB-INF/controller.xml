@@ -483,7 +483,7 @@ under the License.
     <request-map uri="createCustRequest">
         <security https="true" auth="true"/>
         <event type="service" invoke="createCustRequest"/>
-        <response name="success" type="request-redirect-noparam" value="viewprofile"/>
+        <response name="success" type="request-redirect" value="viewprofile"/>
         <response name="error" type="request-redirect" value="viewprofile"/>
     </request-map>
     <request-map uri="newrequest">
