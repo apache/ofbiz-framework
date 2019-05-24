@@ -56,8 +56,8 @@ under the License.
         <override name="invoiceTypeId" mode="IN" optional="false"/>
         <override name="partyIdFrom" mode = "IN" optional="false"/>
         <override name="partyId" mode = "IN" optional="false"/>
-        <override name="description" allow-html="any"/>
-        <override name="invoiceMessage" allow-html="any"/>
+        <override name="description" allow-html="safe"/>
+        <override name="invoiceMessage" allow-html="safe"/>
     </service>
     <service name="copyInvoice" engine="simple" default-entity-name="Invoice"
         location="component://accounting/minilang/invoice/InvoiceServices.xml" invoke="copyInvoice">
@@ -80,8 +80,8 @@ under the License.
         <permission-service service-name="acctgInvoicePermissionCheck" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
-        <override name="description" allow-html="any"/>
-        <override name="invoiceMessage" allow-html="any"/>
+        <override name="description" allow-html="safe"/>
+        <override name="invoiceMessage" allow-html="safe"/>
     </service>
     <service name="setInvoiceStatus" engine="simple"
         location="component://accounting/minilang/invoice/InvoiceServices.xml" invoke="setInvoiceStatus">
@@ -117,7 +117,7 @@ under the License.
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <override name="invoiceItemSeqId" mode="INOUT" optional="true"/><!-- will optionally be assigned by the system -->
-        <override name="description" allow-html="any"/>
+        <override name="description" allow-html="safe"/>
     </service>
     <service name="updateInvoiceItem" engine="simple" default-entity-name="InvoiceItem"
         location="component://accounting/minilang/invoice/InvoiceServices.xml" invoke="updateInvoiceItem">
@@ -125,7 +125,7 @@ under the License.
         <permission-service service-name="acctgInvoicePermissionCheck" main-action="UPDATE"/>
         <auto-attributes mode="INOUT" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
-        <override name="description" allow-html="any"/>
+        <override name="description" allow-html="safe"/>
     </service>
     <service name="removeInvoiceItem" engine="simple" default-entity-name="InvoiceItem"
         location="component://accounting/minilang/invoice/InvoiceServices.xml" invoke="removeInvoiceItem">
@@ -429,7 +429,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes entity-name="Content" include="nonpk" mode="IN" optional="true"/>
-        <attribute name="text" type="String" mode="IN" optional="false" allow-html="any"/>
+        <attribute name="text" type="String" mode="IN" optional="false" allow-html="safe"/>
         <override name="contentId" optional="true"/>
         <override name="fromDate" optional="true"/>
     </service>
@@ -439,7 +439,7 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes mode="IN" entity-name="Content" optional="true"/>
         <attribute name="textDataResourceId" type="String" mode="IN" optional="true"/>
-        <attribute name="text" type="String" mode="IN" optional="true" allow-html="any"/>
+        <attribute name="text" type="String" mode="IN" optional="true" allow-html="safe"/>
     </service>
     <service name="isInvoiceInForeignCurrency" engine="simple"
         location="component://accounting/minilang/invoice/InvoiceServices.xml" invoke="isInvoiceInForeignCurrency" auth="true">

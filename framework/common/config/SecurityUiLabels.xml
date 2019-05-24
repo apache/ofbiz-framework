@@ -695,6 +695,22 @@
         <value xml:lang="zh">受保护的视图</value>
         <value xml:lang="zh-TW">受保護的檢視</value>
     </property>
+    <property key="PolicyNoneMixedOrDouble">
+        <value xml:lang="en">In field [${valueName}] found character escaping (mixed or double) that is not allowed or other format consistency error: </value>
+        <value xml:lang="fr">Le champ "${valueName}" contient un caractère d'échappement (mixte ou double) qui n'est pas autorisé ou une autre erreur de cohérence de format : </value>
+    </property>
+    <property key="PolicyNoneLess-thanGreater-than">
+        <value xml:lang="en">In field [${valueName}] less-than (&lt;) and greater-than (&gt;) symbols are not allowed.</value>
+        <value xml:lang="fr">Dans le champ "${valueName}" les symboles inférieurs (&lt;) et supérieurs (&gt;) ne sont pas autorisés.</value>
+    </property>
+    <property key="PolicyNoneJsEvents">
+        <value xml:lang="en">In field [${valueName}] Javascript events are not allowed.</value>
+        <value xml:lang="fr">Dans le champ "${valueName}" les événements Javascript ne sont pas autorisés.</value>
+    </property>
+    <property key="PolicySafe">
+        <value xml:lang="en">In field [${valueName}] by our input policy, your input has not been accepted for security reason. Please check and modify accordingly, thanks.</value>
+        <value xml:lang="fr">Dans le champ "${valueName}", conformément à notre politique de saisie, votre saisie n'a pas été acceptée pour des raisons de sécurité. Veuillez vérifier et modifier en conséquence, merci.</value>
+    </property>
     <property key="ResetPassword">
         <value xml:lang="en">Click Here To Reset Password</value>
         <value xml:lang="fr">Cliquez ici pour créer un nouveau mot de passe</value>

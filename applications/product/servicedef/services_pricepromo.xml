@@ -132,7 +132,7 @@ under the License.
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="promoName" optional="false"/>
-        <override name="promoText" allow-html="any"/>
+        <override name="promoText" allow-html="safe"/>
         <override name="userEntered" default-value="Y"/>
     </service>
     <service name="updateProductPromo" default-entity-name="ProductPromo" engine="entity-auto" invoke="update" auth="true">
@@ -140,7 +140,7 @@ under the License.
         <permission-service service-name="productPriceGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <override name="promoText" allow-html="any"/>
+        <override name="promoText" allow-html="safe"/>
         <override name="userEntered" default-value="Y"/>
     </service>
     <service name="deleteProductPromo" default-entity-name="ProductPromo" engine="entity-auto" invoke="delete" auth="true">
