@@ -114,7 +114,7 @@ under the License.
         <attribute name="externalId" type="String" mode="IN" optional="true"/>
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
         <override name="groupName" optional="false"/>
-        <override name="comments" allow-html="any"/>
+        <override name="comments" allow-html="safe"/>
     </service>
     <service name="updatePartyGroup" engine="java" default-entity-name="PartyGroup"
             location="org.apache.ofbiz.party.party.PartyServices" invoke="updatePartyGroup" auth="true">
@@ -127,7 +127,7 @@ under the License.
         <attribute name="preferredCurrencyUomId" type="String" mode="IN" optional="true"/>
         <attribute name="externalId" type="String" mode="IN" optional="true"/>
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
-        <override name="comments" allow-html="any"/>
+        <override name="comments" allow-html="safe"/>
     </service>
 
     <service name="savePartyNameChange" engine="simple"
@@ -368,7 +368,7 @@ under the License.
         <description>create a company/contact relationship and add the related roles</description>
         <attribute name="accountPartyId" type="String" mode="IN"/>
         <attribute name="contactPartyId" type="String" mode="IN"/>
-        <attribute name="comments" type="String" mode="IN" optional="true" allow-html="any"/>
+        <attribute name="comments" type="String" mode="IN" optional="true" allow-html="safe"/>
     </service>
 
     <!-- ContactMech services -->
@@ -780,7 +780,7 @@ under the License.
         <override name="headerString" allow-html="any"/>
         <override name="content" allow-html="any"/>
         <override name="messageId" allow-html="any"/>
-        <override name="subject" allow-html="any"/>
+        <override name="subject" allow-html="safe"/>
     </service>
     <service name="createCommunicationEvent" engine="simple"
             location="component://party/minilang/communication/CommunicationEventServices.xml" invoke="createCommunicationEventWithPermission" auth="true">
@@ -804,7 +804,7 @@ under the License.
         <attribute name="oldStatusId" type="String" mode="OUT" optional="true"/>
         <override name="messageId" allow-html="any"/>
         <override name="content" allow-html="any"/>
-        <override name="subject" allow-html="any"/>
+        <override name="subject" allow-html="safe"/>
     </service>
     <service name="deleteCommunicationEvent" engine="simple"
         location="component://party/minilang/communication/CommunicationEventServices.xml" invoke="deleteCommunicationEvent" auth="true">

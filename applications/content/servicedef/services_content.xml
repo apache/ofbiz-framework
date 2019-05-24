@@ -39,8 +39,8 @@
         <!-- end of deprecated fields -->
         <override name="contentTypeId" default-value="DOCUMENT"/>
         <override name="statusId" default-value="CTNT_IN_PROGRESS"/>
-        <override name="contentName" allow-html="any"/>
-        <override name="description" allow-html="any"/>
+        <override name="contentName" allow-html="safe"/>
+        <override name="description" allow-html="safe"/>
     </service>
 
     <service name="createTextAndUploadedContent" engine="simple" auth="true"
@@ -131,9 +131,9 @@
         <attribute mode="IN" name="skipPermissionCheck" optional="true" type="String"/>
         <attribute mode="IN" name="displayFailCond" optional="true" type="Boolean"/>
         <attribute mode="INOUT" name="roleTypeList" optional="true" type="List"/>
-        <!-- end of depricated fields -->
-        <override name="contentName" allow-html="any"/>
-        <override name="description" allow-html="any"/>
+        <!-- end of deprecated fields -->
+        <override name="contentName" allow-html="safe"/>
+        <override name="description" allow-html="safe"/>
     </service>
 
     <service name="updateTextContent" engine="group" auth="true">

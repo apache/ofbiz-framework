@@ -189,7 +189,7 @@
     <service name="createSimpleTextContent" engine="simple" location="component://content/minilang/content/ContentServices.xml" invoke="createSimpleTextContent">
         <permission-service service-name="contentManagerPermission" main-action="CREATE"/>
         <auto-attributes mode="IN" entity-name="Content" optional="true"/>
-        <attribute name="text" type="String" mode="IN" optional="false" allow-html="any">
+        <attribute name="text" type="String" mode="IN" optional="false" allow-html="safe">
             <type-validate>
                 <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingText"/>
             </type-validate>
@@ -199,7 +199,7 @@
     <service name="updateSimpleTextContent" engine="simple" location="component://content/minilang/content/ContentServices.xml" invoke="updateSimpleTextContent">
         <permission-service service-name="contentManagerPermission" main-action="UPDATE"/>
         <attribute name="textDataResourceId" type="String" mode="IN" optional="true"/>
-        <attribute name="text" type="String" mode="IN" optional="true" allow-html="any"/>
+        <attribute name="text" type="String" mode="IN" optional="true" allow-html="safe"/>
     </service>
 
     <!-- Util -->
@@ -367,7 +367,7 @@
         <attribute mode="IN" name="forceElectronicText" optional="true" type="String"/>
         <attribute mode="IN" name="displayFailCond" optional="true" type="Boolean"/>
         <attribute mode="INOUT" name="roleTypeList" optional="true" type="List"/>
-        <override name="textData" allow-html="any"/>
+        <override name="textData" allow-html="safe"/>
     </service>
 
     <service name="persistDataResourceAndData" engine="java"
@@ -1097,8 +1097,8 @@
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
         <attribute name="description" type="String" mode="IN" optional="true"/>
         <attribute name="templateDataResourceId" type="String" mode="IN" optional="true"/>
-        <attribute name="articleData" type="String" mode="IN" optional="true" allow-html="none"/>
-        <attribute name="summaryData" type="String" mode="IN" optional="true" allow-html="none"/>
+        <attribute name="articleData" type="String" mode="IN" optional="true" allow-html="safe"/>
+        <attribute name="summaryData" type="String" mode="IN" optional="true" allow-html="safe"/>
     </service>
     <service name="updateBlogEntry" engine="simple" auth="true"
         location="component://content/minilang/blog/BlogServices.xml" invoke="updateBlogEntry">
@@ -1121,8 +1121,8 @@
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
         <attribute name="description" type="String" mode="IN" optional="true"/>
         <attribute name="templateDataResourceId" type="String" mode="IN" optional="true"/>
-        <attribute name="articleData" type="String" mode="IN" optional="true" allow-html="none"/>
-        <attribute name="summaryData" type="String" mode="IN" optional="true" allow-html="none"/>
+        <attribute name="articleData" type="String" mode="IN" optional="true" allow-html="safe"/>
+        <attribute name="summaryData" type="String" mode="IN" optional="true" allow-html="safe"/>
     </service>
     <service name="getBlogEntry" engine="simple" auth="true"
         location="component://content/minilang/blog/BlogServices.xml" invoke="getBlogEntry">

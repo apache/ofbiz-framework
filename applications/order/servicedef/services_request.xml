@@ -42,9 +42,9 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes include="all" mode="IN" entity-name="CustRequestItem" optional="true"/>
         <attribute name="webSiteId" type="String" mode="IN" optional="true"/><!-- for notification services -->
-        <override name="custRequestName" allow-html="any"/>
-        <override name="description" allow-html="any"/>
-        <override name="story" allow-html="any"/>
+        <override name="custRequestName" allow-html="safe"/>
+        <override name="description" allow-html="safe"/>
+        <override name="story" allow-html="safe"/>
     </service>
     <service name="updateCustRequest" engine="simple" default-entity-name="CustRequest"
             location="component://order/minilang/request/CustRequestServices.xml" invoke="updateCustRequest" auth="true">
@@ -52,10 +52,10 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="oldStatusId" type="String" mode="OUT"/>
-        <attribute name="story" mode="IN" type="String" optional="true" allow-html="any"/>
+        <attribute name="story" mode="IN" type="String" optional="true" allow-html="safe"/>
         <attribute name="webSiteId" type="String" mode="IN" optional="true"/><!-- for notification services -->
-        <override name="custRequestName" allow-html="any"/>
-        <override name="description" allow-html="any"/>
+        <override name="custRequestName" allow-html="safe"/>
+        <override name="description" allow-html="safe"/>
     </service>
 
     <service name="deleteCustRequest" engine="simple" default-entity-name="CustRequest"
@@ -86,16 +86,16 @@ under the License.
         <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="custRequestItemSeqId" optional="true"/>
-        <override name="story" allow-html="any"/>
-        <override name="description" allow-html="any"/>
+        <override name="story" allow-html="safe"/>
+        <override name="description" allow-html="safe"/>
     </service>
     <service name="updateCustRequestItem" engine="simple" default-entity-name="CustRequestItem"
             location="component://order/minilang/request/CustRequestServices.xml" invoke="updateCustRequestItem" auth="true">
         <description>Update a CustRequestItem record</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <override name="story" allow-html="any"/>
-        <override name="description" allow-html="any"/>
+        <override name="story" allow-html="safe"/>
+        <override name="description" allow-html="safe"/>
     </service>
     <service name="copyCustRequestItem" default-entity-name="CustRequestItem" engine="simple"
                 location="component://order/minilang/request/CustRequestServices.xml" invoke="copyCustRequestItem" auth="true">
@@ -134,7 +134,7 @@ under the License.
             location="component://order/minilang/request/CustRequestServices.xml" invoke="createCustRequestNote" auth="true">
         <description>Create a note for a CustRequest</description>
         <attribute name="custRequestId" type="String" mode="IN" optional="false"/>
-        <attribute name="noteInfo" type="String" mode="IN" optional="false" allow-html="any"/>
+        <attribute name="noteInfo" type="String" mode="IN" optional="false" allow-html="safe"/>
         <attribute name="noteId" type="String" mode="OUT" optional="false"/>
         <attribute name="fromPartyId" type="String" mode="OUT" optional="true"/><!-- party to be notified -->
         <attribute name="custRequestName" type="String" mode="OUT" optional="true"/><!-- for notification services -->
@@ -143,7 +143,7 @@ under the License.
             location="component://order/minilang/request/CustRequestServices.xml" invoke="updateCustRequestNote" auth="true">
         <description>Update CustRequest Note</description>
         <attribute name="custRequestId" type="String" mode="IN" optional="false"/>
-        <attribute name="noteId" type="String" mode="IN" optional="false" allow-html="any"/>
+        <attribute name="noteId" type="String" mode="IN" optional="false" allow-html="safe"/>
         <attribute name="noteInfo" type="String" mode="IN" optional="true"/>
     </service>
     <service name="createCustRequestItemNote" engine="simple"
@@ -151,7 +151,7 @@ under the License.
         <description>Create a note for a CustRequestItem</description>
         <attribute name="custRequestId" type="String" mode="IN" optional="false"/>
         <attribute name="custRequestItemSeqId" type="String" mode="IN" optional="false"/>
-        <attribute name="note" type="String" mode="IN" optional="false" allow-html="any"/>
+        <attribute name="note" type="String" mode="IN" optional="false" allow-html="safe"/>
         <attribute name="noteId" type="String" mode="OUT" optional="false"/>
         <attribute name="partyId" type="String" mode="INOUT" optional="true"/><!-- party who created the note -->
         <attribute name="fromPartyId" type="String" mode="OUT" optional="true"/><!-- party to be notified -->
@@ -183,7 +183,7 @@ under the License.
         <description>Set the Customer Request  Status</description>
         <attribute name="custRequestId" type="String" mode="INOUT" optional="false"/>
         <attribute name="statusId" type="String" mode="IN" optional="false"/>
-        <attribute name="reason" type="String" mode="IN" optional="true" allow-html="any"/>
+        <attribute name="reason" type="String" mode="IN" optional="true" allow-html="safe"/>
         <attribute name="oldStatusId" type="String" mode="OUT" optional="true"/>
         <attribute name="fromPartyId" type="String" mode="OUT" optional="true"/><!-- for notification services -->
         <attribute name="custRequestName" type="String" mode="OUT" optional="true"/><!-- for notification services -->
@@ -197,8 +197,8 @@ under the License.
         <attribute name="custRequestId" mode="IN" type="String" optional="true"/>
         <attribute name="custRequestId" mode="OUT" type="String" optional="false"/>
         <attribute name="custRequestTypeId" mode="IN" type="String" optional="true"/>
-        <attribute name="custRequestName" mode="IN" type="String" optional="true" allow-html="any"/>
-        <attribute name="story" mode="IN" type="String" optional="true" allow-html="any"/>
+        <attribute name="custRequestName" mode="IN" type="String" optional="true" allow-html="safe"/>
+        <attribute name="story" mode="IN" type="String" optional="true" allow-html="safe"/>
         <override name="content" allow-html="any"/>
     </service>
 

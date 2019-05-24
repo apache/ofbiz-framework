@@ -63,7 +63,7 @@ under the License.
         <description>Create a new note record</description>
         <attribute name="partyId" type="String" mode="INOUT" optional="true"/>
         <attribute name="noteName" type="String" mode="IN" optional="true"/>
-        <attribute name="note" type="String" mode="IN" allow-html="any"/>
+        <attribute name="note" type="String" mode="IN" allow-html="safe"/>
         <attribute name="noteId" type="String" mode="OUT"/>
     </service>
 
@@ -71,7 +71,7 @@ under the License.
         <description>Update a note record</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <override name="noteInfo" allow-html="any"/>
+        <override name="noteInfo" allow-html="safe"/>
     </service>
 
     <service name="adjustDebugLevels" engine="java"
@@ -100,7 +100,7 @@ under the License.
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="enumTypeId" optional="false"/>
-        <override name="description" optional="false" allow-html="any"/>
+        <override name="description" optional="false" allow-html="safe"/>
     </service>
     <service name="updateEnumeration" default-entity-name="Enumeration" engine="entity-auto" invoke="update" auth="true">
         <description>Update a Enumeration</description>
@@ -108,7 +108,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="enumTypeId" optional="false"/>
-        <override name="description" optional="false" allow-html="any"/>
+        <override name="description" optional="false" allow-html="safe"/>
     </service>
     <service name="deleteEnumeration" default-entity-name="Enumeration" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a Enumeration</description>
