@@ -10,7 +10,7 @@ import com.google.common.base.Predicate;
 /**
  * Based on the <a href=
  * "http://www.owasp.org/index.php/Category:OWASP_AntiSamy_Project#Stage_2_-_Choosing_a_base_policy_file">AntiSamy
- * EBay example</a>. <blockquote> eBay (http://www.ebay.com/) is the most
+ * EBay example</a>. eBay (http://www.ebay.com/) is the most
  * popular online auction site in the universe, as far as I can tell. It is a
  * public site so anyone is allowed to post listings with rich HTML content.
  * It's not surprising that given the attractiveness of eBay as a target that it
