@@ -17,7 +17,7 @@ import com.google.common.base.Predicate;
  * has been subject to a few complex XSS attacks. Listings are allowed to
  * contain much more rich content than, say, Slashdot- so it's attack surface is
  * considerably larger. The following tags appear to be accepted by eBay (they
- * don't publish rules): {@code <a>},... </blockquote>
+ * don't publish rules): {@code <a>},...
  */
 public class CustomPermissivePolicy implements SanitizerCustomPolicy {
 
@@ -111,11 +111,15 @@ public class CustomPermissivePolicy implements SanitizerCustomPolicy {
             .matching(NUMBER).onElements("table")
             .allowAttributes("bgcolor").matching(COLOR_NAME_OR_COLOR_CODE)
             .onElements("table")
+            .allowAttributes("background").matching(ONSITE_URL)
+            .onElements("table")
+            .allowAttributes("background").matching(ONSITE_URL)
+            .onElements("td", "th", "tr")
             .allowAttributes("align").matching(ALIGN)
             .onElements("table")
             .allowAttributes("noresize").matching(Pattern.compile("(?i)noresize"))
             .onElements("table")
-            .allowAttributes("bgcolor").matching(COLOR_NAME_OR_COLOR_CODE)
+            .allowAttributes("bgcolor").matching(COLOR_NAME_OR_COLOR_CODE)            
             .onElements("td", "th")
             .allowAttributes("abbr").matching(PARAGRAPH)
             .onElements("td", "th")
