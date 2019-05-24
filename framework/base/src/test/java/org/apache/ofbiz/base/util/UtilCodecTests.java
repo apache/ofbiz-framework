@@ -24,6 +24,7 @@ import static org.junit.Assert.assertNull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import org.junit.Test;
 
@@ -40,7 +41,7 @@ public class UtilCodecTests {
     public void checkStringForHtmlStrictNoneDetectsXSS() {
         String xssVector = "&lt;script&gtalert(\"XSS vector\");&lt;/script&gt;";
         List<String> errorList = new ArrayList<>();
-        String canonicalizedXssVector = UtilCodec.checkStringForHtmlStrictNone("fieldName", xssVector, errorList);
+        String canonicalizedXssVector = UtilCodec.checkStringForHtmlStrictNone("fieldName", xssVector, errorList, new Locale("test"));
         assertEquals("<script>alert(\"XSS vector\");</script>", canonicalizedXssVector);
         assertEquals(1, errorList.size());
         assertEquals("In field [fieldName] less-than (<) and greater-than (>) symbols are not allowed.", errorList.get(0));
@@ -70,6 +71,7 @@ public class UtilCodecTests {
         // jacopoc: temporarily commented because this test is failing after the upgrade of owasp-esapi (still investigating)
         //checkStringForHtmlStrictNone_test("double-ampersand", "f\";oo", "f%26quot%3boo");
         checkStringForHtmlStrictNone_test("double-encoding", "%2%353Cscript", "%2%353Cscript", "In field [double-encoding] found character escaping (mixed or double) that is not allowed or other format consistency error: org.apache.ofbiz.base.util.UtilCodec$IntrusionException: Input validation failure");
+        checkStringForHtmlStrictNone_test("js_event", "non_existent.foo\" onerror=\"alert('Hi!');", "non_existent.foo\" onerror=\"alert('Hi!');", "In field [js_event] Javascript events are not allowed.");
     }
 
     private static void encoderTest(String label, UtilCodec.SimpleEncoder encoder, String wanted, String toEncode) {
@@ -78,8 +80,21 @@ public class UtilCodecTests {
     }
     private static void checkStringForHtmlStrictNone_test(String label, String fixed, String input, String... wantedMessages) {
         List<String> gottenMessages = new ArrayList<>();
-        assertEquals(label, fixed, UtilCodec.checkStringForHtmlStrictNone(label, input, gottenMessages));
+        assertEquals(label, fixed, UtilCodec.checkStringForHtmlStrictNone(label, input, gottenMessages, new Locale("test")));
         assertEquals(label, Arrays.asList(wantedMessages), gottenMessages);
     }
+    
+    @Test
+    public void testCheckStringForHtmlSafe() {
+        String xssVector = "<script>alert('XSS vector');</script>";
+        List<String> errorList = new ArrayList<>();
+        String canonicalizedXssVector = UtilCodec.checkStringForHtmlSafe("fieldName", xssVector, errorList, new Locale("test"));
+        assertEquals("<script>alert('XSS vector');</script>", canonicalizedXssVector);
+        assertEquals(1, errorList.size());
+        assertEquals("In field [fieldName] by our input policy, your input has not been accepted for security reason. "
+                + "Please check and modify accordingly, thanks.", errorList.get(0));
+    }
+
+    
 
 }

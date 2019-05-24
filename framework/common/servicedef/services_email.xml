@@ -42,7 +42,7 @@ under the License.
         <attribute name="sendFailureNotification" mode="IN" type="Boolean" optional="true"/>
         <attribute name="sendPartial" mode="IN" type="Boolean" optional="true"/>
         <attribute name="startTLSEnabled" mode="IN" type="Boolean" optional="true"/>
-        <attribute name="subject" type="String" mode="INOUT" optional="true" allow-html="any"/>
+        <attribute name="subject" type="String" mode="INOUT" optional="true" allow-html="safe"/>
         <attribute name="contentType" type="String" mode="INOUT" optional="true"/>
         <attribute name="partyId" type="String" mode="INOUT" optional="true"/>
         <attribute name="messageId" type="String" mode="INOUT" optional="true"/>
@@ -52,12 +52,12 @@ under the License.
         <attribute name="custRequestId" type="String" mode="INOUT" optional="true"/>
         <attribute name="messageWrapper" type="org.apache.ofbiz.service.mail.MimeMessageWrapper" mode="OUT" optional="true"/><!-- mail can be disabled in general.properties so no output -->
         <!--  used for parsing and ECAs -->
-        <attribute name="communicationEventId" type="String" mode="INOUT" optional="true"/>        
+        <attribute name="communicationEventId" type="String" mode="INOUT" optional="true"/>
     </service>
     <service name="sendMailOnePartInterface"  engine="interface" location="" invoke="">
         <description>Interface service for sendMail* services.</description>
         <implements service="sendMailInterface"/>
-        <attribute name="body" type="String" mode="INOUT" optional="false" allow-html="any"/>        
+        <attribute name="body" type="String" mode="INOUT" optional="false" allow-html="any"/>
         <override name="contentType" mode="INOUT"/>
         <override name="subject" mode="INOUT" optional="false"/>
         <override name="emailType" type="String" mode="INOUT" optional="true"/>
@@ -122,7 +122,7 @@ under the License.
         location="org.apache.ofbiz.common.email.EmailServices" invoke="sendMailFromScreen">
         <description>Send E-Mail From Screen Widget Service</description>
         <implements service="sendMailFromScreenInterface"/>
-        <attribute name="hideInLog" type="Boolean" mode="IN" optional="true"/>                        
+        <attribute name="hideInLog" type="Boolean" mode="IN" optional="true"/>
     </service>
     <service name="sendMailHiddenInLogFromScreen" max-retry="3" engine="java" hideResultInLog="true"
         location="org.apache.ofbiz.common.email.EmailServices" invoke="sendMailHiddenInLogFromScreen">
@@ -147,7 +147,7 @@ under the License.
         <description>Send Template Based Notification Service</description>
         <implements service="sendMailInterface"/>
         <attribute name="body" type="String" mode="INOUT" optional="true" allow-html="any"/>
-        <attribute name="baseUrl" type="String" mode="IN" optional="true" allow-html="any"/>
+        <attribute name="baseUrl" type="String" mode="IN" optional="true" allow-html="safe"/>
         <attribute name="templateName" type="String" mode="IN" optional="false"/>
         <attribute name="templateData" type="Map" mode="IN" optional="true"/>
         <attribute name="webSiteId" type="String" mode="IN" optional="true"/>

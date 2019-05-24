@@ -440,7 +440,7 @@ under the License.
             location="org.apache.ofbiz.order.order.OrderServices" invoke="createOrderNote" auth="true">
         <description>Create a note item and associate with a order header</description>
         <attribute name="orderId" type="String" mode="IN"/>
-        <attribute name="note" type="String" mode="IN" allow-html="any"/>
+        <attribute name="note" type="String" mode="IN" allow-html="safe"/>
         <attribute name="internalNote" type="String" mode="IN"/>
         <attribute name="noteName" type="String" mode="IN" optional="true"/>
     </service>

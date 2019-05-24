@@ -29,6 +29,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -118,8 +119,8 @@ public class UtilCodec {
          * This method will start a configurable sanitizing process. The sanitizer can
          * be turns off through "sanitizer.enable=false", the default value is true. It
          * is possible to configure a custom policy using the properties
-         * "sanitizer.permissive.policy" and "sanitizer.custom.policy.class". The custom
-         * policy has to implement
+         * "sanitizer.permissive.policy" and "sanitizer.custom.permissive.policy.class". 
+         * The custom policy has to implement
          * {@link org.apache.ofbiz.base.html.SanitizerCustomPolicy}.
          *
          * @param original
@@ -146,7 +147,7 @@ public class UtilCodec {
                     PolicyFactory policy = null;
                     try {
                         Class<?> customPolicyClass = Class.forName(UtilProperties.getPropertyValue("owasp",
-                                "sanitizer.custom.policy.class"));
+                                "sanitizer.custom.permissive.policy.class"));
                         Object obj = customPolicyClass.newInstance();
                         if (SanitizerCustomPolicy.class.isAssignableFrom(customPolicyClass)) {
                             Method meth = customPolicyClass.getMethod("getSanitizerPolicy");
@@ -156,7 +157,7 @@ public class UtilCodec {
                             | InvocationTargetException | NoSuchMethodException | SecurityException
                             | InstantiationException e) {
                         // Just logging the error and falling back to default policy
-                        Debug.logError(e, "Could not find custom sanitizer policy. Using default instead", module);
+                        Debug.logError(e, "Could not find custom permissive sanitizer policy. Using default instead", module);
                     }
 
                     if (policy != null) {
@@ -372,45 +373,69 @@ public class UtilCodec {
 
     /**
      * Uses a black-list approach for necessary characters for HTML.
-     * <p>
      * Does not allow various characters (after canonicalization), including
-     * "&lt;", "&gt;", "&amp;" (if not followed by a space), and "%" (if not
-     * followed by a space).
+     * "&lt;", "&gt;", "&amp;" and "%" (if not followed by a space).
      * 
      * Also does not allow js events as in OFBIZ-10054
      *
-     * @param value
-     * @param errorMessageList
+     * @param valueName field name checked
+     * @param value value checked
+     * @param errorMessageList an empty list passed by and modified in case of issues
+     * @param locale
      */
-    public static String checkStringForHtmlStrictNone(String valueName, String value, List<String> errorMessageList) {
+    public static String checkStringForHtmlStrictNone(String valueName, String value, List<String> errorMessageList, 
+            Locale locale) {
         if (UtilValidate.isEmpty(value)) {
             return value;
         }
+        
 
         // canonicalize, strict (error on double-encoding)
         try {
             value = canonicalize(value, true);
         } catch (IntrusionException e) {
             // NOTE: using different log and user targeted error messages to allow the end-user message to be less technical
-            Debug.logError("Canonicalization (format consistency, character escaping that is mixed or double, etc) error for attribute named [" 
-            + valueName + "], String [" + value + "]: " + e.toString(), module);
-            errorMessageList.add("In field [" + valueName 
-                    + "] found character escaping (mixed or double) that is not allowed or other format consistency error: " + e.toString());
+            Debug.logError("Canonicalization (format consistency, character escaping that is mixed or double, etc) "
+                    + "error for attribute named [" + valueName + "], String [" + value + "]: " + e.toString(), module);
+            String issueMsg = null;
+            if (locale.equals(new Locale("test"))) { // labels are not available in testClasses Gradle task
+                issueMsg = "In field [" + valueName + "] found character escaping (mixed or double) "
+                        + "that is not allowed or other format consistency error: ";
+            } else {
+                issueMsg = UtilProperties.getMessage("SecurityUiLabels","PolicyNoneMixedOrDouble", 
+                        UtilMisc.toMap("valueName", valueName), locale);
+            }
+            errorMessageList.add(issueMsg + e.toString());
         }
 
         // check for "<", ">"
         if (value.indexOf("<") >= 0 || value.indexOf(">") >= 0) {
-            errorMessageList.add("In field [" + valueName + "] less-than (<) and greater-than (>) symbols are not allowed.");
+            String issueMsg = null;
+            if (locale.equals(new Locale("test"))) {
+                issueMsg = "In field [" + valueName + "] less-than (<) and greater-than (>) symbols are not allowed.";
+            } else {
+                issueMsg = UtilProperties.getMessage("SecurityUiLabels","PolicyNoneLess-thanGreater-than", 
+                        UtilMisc.toMap("valueName", valueName), locale);
+            }
+            errorMessageList.add(issueMsg);
         }
         
         // check for js events
         String onEvent = "on" + StringUtils.substringBetween(value, " on", "=");
         if (jsEventList.stream().anyMatch(str -> StringUtils.containsIgnoreCase(str, onEvent)) 
                 || value.contains("seekSegmentTime")) {
-            errorMessageList.add("In field [" + valueName + "] js events are not allowed.");
+            String issueMsg = null;
+            if (locale.equals(new Locale("test"))) {
+                issueMsg = "In field [" + valueName + "] Javascript events are not allowed.";
+            } else {
+                issueMsg = UtilProperties.getMessage("SecurityUiLabels","PolicyNoneJsEvents", 
+                        UtilMisc.toMap("valueName", valueName), locale);
+            }
+            errorMessageList.add(issueMsg);
         }
 
         // TODO: anything else to check for that can be used to get HTML or JavaScript going without these characters?
+        //
         // Another would be https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet#US-ASCII_encoding
         // But all our Tomcat connectors use UTF-8
         // We don't care about Flash now rather deprecated
@@ -419,6 +444,57 @@ public class UtilCodec {
         return value;
     }
 
+    /**
+     * This method check if the input is safe HTML.
+     * It is possible to configure a safe policy using the properties
+     * "sanitizer.safe.policy" and "sanitizer.custom.safe.policy.class". 
+     * The safe policy has to implement
+     * {@link org.apache.ofbiz.base.html.SanitizerCustomPolicy}.
+     *
+     * @param valueName field name checked
+     * @param value value checked
+     * @param errorMessageList an empty list passed by and modified in case of issues
+     * @param locale
+     */
+    public static String checkStringForHtmlSafe(String valueName, String value, List<String> errorMessageList, 
+            Locale locale) {
+        PolicyFactory policy = null;
+        try {
+            Class<?> customPolicyClass = null;
+            if (locale.equals(new Locale("test"))) {
+                customPolicyClass = Class.forName("org.apache.ofbiz.base.html.CustomSafePolicy");
+            } else {
+            customPolicyClass = Class.forName(UtilProperties.getPropertyValue("owasp",
+                    "sanitizer.custom.safe.policy.class"));
+            }
+            Object obj = customPolicyClass.newInstance();
+            if (SanitizerCustomPolicy.class.isAssignableFrom(customPolicyClass)) {
+                Method meth = customPolicyClass.getMethod("getSanitizerPolicy");
+                policy = (PolicyFactory) meth.invoke(obj);
+            }
+        } catch (ClassNotFoundException | IllegalAccessException | IllegalArgumentException
+                | InvocationTargetException | NoSuchMethodException | SecurityException
+                | InstantiationException e) {
+            Debug.logError(e, "Could not find custom safe sanitizer policy. Using default instead."
+                    + "Beware: the result is not rightly checked!", module);
+        }
+
+        String filtered = policy.sanitize(value);
+        if (!value.equals(filtered)) {
+            String issueMsg = null;
+            if (locale.equals(new Locale("test"))) {
+                issueMsg = "In field [" + valueName + "] by our input policy, your input has not been accepted "
+                        + "for security reason. Please check and modify accordingly, thanks.";
+            } else {
+                issueMsg = UtilProperties.getMessage("SecurityUiLabels","PolicySafe", 
+                        UtilMisc.toMap("valueName", valueName), locale);
+            }
+            errorMessageList.add(issueMsg);
+        }
+        
+        return value;
+    }
+    
     /**
      * A simple Map wrapper class that will do HTML encoding. 
      * To be used for passing a Map to something that will expand Strings with it as a context, etc.

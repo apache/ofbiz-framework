@@ -309,7 +309,7 @@ under the License.
             location="component://order/groovyScripts/quote/QuoteServices.groovy" invoke="createQuoteNote" auth="true">
         <description>Create a note item and associate with a quote</description>
         <attribute name="quoteId" type="String" mode="IN"/>
-        <attribute name="noteInfo" type="String" mode="IN" allow-html="any"/>
+        <attribute name="noteInfo" type="String" mode="IN" allow-html="safe"/>
         <attribute name="noteName" type="String" mode="IN" optional="true"/>
     </service>
 

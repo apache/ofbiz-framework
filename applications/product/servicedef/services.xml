@@ -34,8 +34,8 @@ under the License.
             <exclude field-name="lastModifiedDate"/>
             <exclude field-name="lastModifiedByUserLogin"/>
         </auto-attributes>
-        <override name="description" allow-html="any"/>
-        <override name="longDescription" allow-html="any"/>
+        <override name="description" allow-html="safe"/>
+        <override name="longDescription" allow-html="safe"/>
     </service>
     <service name="createProduct" default-entity-name="Product" engine="simple"
                 location="component://product/minilang/product/product/ProductServices.xml" invoke="createProduct" auth="true">
@@ -70,8 +70,8 @@ under the License.
         <attribute name="oldProductId" type="String" mode="IN" optional="false"/>
         <attribute name="newInternalName" type="String" mode="IN" optional="true"/>
         <attribute name="newProductName" type="String" mode="IN" optional="true"/>
-        <attribute name="newDescription" type="String" mode="IN" optional="true" allow-html="any"/>
-        <attribute name="newLongDescription" type="String" mode="IN" optional="true" allow-html="any"/>
+        <attribute name="newDescription" type="String" mode="IN" optional="true" allow-html="safe"/>
+        <attribute name="newLongDescription" type="String" mode="IN" optional="true" allow-html="safe"/>
         <attribute name="duplicatePrices" type="String" mode="IN" optional="true"/>
         <attribute name="duplicateIDs" type="String" mode="IN" optional="true"/>
         <attribute name="duplicateContent" type="String" mode="IN" optional="true"/>
@@ -387,7 +387,7 @@ under the License.
         <auto-attributes mode="IN" entity-name="Content" optional="true"/>
         <attribute name="subject" type="String" mode="IN" optional="false"/>
         <attribute name="plainBody" type="String" mode="IN" optional="false"/>
-        <attribute name="htmlBody" type="String" mode="IN" optional="true" allow-html="any"/>
+        <attribute name="htmlBody" type="String" mode="IN" optional="true" allow-html="safe"/>
         <override name="contentId" optional="true" mode="INOUT"/>
     </service>
     <service name="updateEmailContentForProduct" default-entity-name="ProductContent" engine="simple"
@@ -400,7 +400,7 @@ under the License.
         <attribute name="plainBodyDataResourceId" type="String" mode="IN" optional="true"/>
         <attribute name="plainBody" type="String" mode="IN" optional="true"/>
         <attribute name="htmlBodyDataResourceId" type="String" mode="IN" optional="true"/>
-        <attribute name="htmlBody" type="String" mode="IN" optional="true" allow-html="any"/>
+        <attribute name="htmlBody" type="String" mode="IN" optional="true" allow-html="safe"/>
     </service>
     <service name="createDownloadContentForProduct" default-entity-name="ProductContent" engine="simple"
         location="component://product/minilang/product/product/ProductContentServices.xml" invoke="createDownloadContentForProduct" auth="true">
@@ -426,7 +426,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes entity-name="Content" include="nonpk" mode="IN" optional="true"/>
-        <attribute name="text" type="String" mode="IN" optional="false" allow-html="any"/>
+        <attribute name="text" type="String" mode="IN" optional="false" allow-html="safe"/>
         <override name="contentId" optional="true"/>
         <override name="fromDate" optional="true"/>
     </service>
@@ -436,13 +436,13 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes mode="IN" entity-name="Content" optional="true"/>
         <attribute name="textDataResourceId" type="String" mode="IN" optional="true"/>
-        <attribute name="text" type="String" mode="IN" optional="true" allow-html="any"/>
+        <attribute name="text" type="String" mode="IN" optional="true" allow-html="safe"/>
     </service>
 
     <service name="createSimpleTextContentForAlternateLocale" engine="simple" location="component://product/minilang/product/product/ProductContentServices.xml" invoke="createSimpleTextContentForAlternateLocale">
         <auto-attributes mode="IN" entity-name="Content" optional="true"/>
         <attribute name="mainContentId" type="String" mode="IN" optional="false"/>
-        <attribute name="text" type="String" mode="IN" optional="false" allow-html="any"/>
+        <attribute name="text" type="String" mode="IN" optional="false" allow-html="safe"/>
         <override name="localeString" optional="false"/>
         <override name="contentId" mode="INOUT"/>
     </service>
@@ -940,7 +940,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes entity-name="Content" include="nonpk" mode="IN" optional="true"/>
-        <attribute name="text" type="String" mode="IN" optional="false" allow-html="any"/>
+        <attribute name="text" type="String" mode="IN" optional="false" allow-html="safe"/>
         <override name="contentId" optional="true"/>
         <override name="fromDate" optional="true"/>
     </service>
@@ -950,7 +950,7 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes entity-name="Content" include="nonpk" mode="IN" optional="true"/>
         <attribute name="textDataResourceId" type="String" mode="IN" optional="true"/>
-        <attribute name="text" type="String" mode="IN" optional="true" allow-html="any"/>
+        <attribute name="text" type="String" mode="IN" optional="true" allow-html="safe"/>
     </service>
 
     <service name="updateContentSEOForCategory" engine="simple"
@@ -1173,7 +1173,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes mode="IN" entity-name="Content" optional="true"/>
-        <attribute name="text" type="String" mode="IN" optional="false" allow-html="any"/>
+        <attribute name="text" type="String" mode="IN" optional="false" allow-html="safe"/>
         <override name="contentId" optional="true"/>
     </service>
     <service name="updateSimpleTextContentForProductConfigItem" default-entity-name="ProdConfItemContent" engine="simple"
@@ -1182,7 +1182,7 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes mode="IN" entity-name="Content" optional="true"/>
         <attribute name="textDataResourceId" type="String" mode="IN" optional="true"/>
-        <attribute name="text" type="String" mode="IN" optional="true" allow-html="any"/>
+        <attribute name="text" type="String" mode="IN" optional="true" allow-html="safe"/>
     </service>
     <service name="getProductFeaturesByType" engine="java"
             location="org.apache.ofbiz.product.feature.ProductFeatureServices" invoke="getProductFeaturesByType">

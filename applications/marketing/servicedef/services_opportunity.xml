@@ -72,9 +72,9 @@ under the License.
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <attribute name="accountPartyId" mode="IN" type="String" optional="true"/>
         <attribute name="leadPartyId" mode="IN" type="String" optional="true"/>
-        <override name="opportunityName" allow-html="any"/>
-        <override name="description" allow-html="any"/>
-        <override name="nextStep" allow-html="any"/>
+        <override name="opportunityName" allow-html="safe"/>
+        <override name="description" allow-html="safe"/>
+        <override name="nextStep" allow-html="safe"/>
     </service>
     <service name="updateSalesOpportunity" default-entity-name="SalesOpportunity" engine="entity-auto" invoke="update">
         <description>Update an sales opportunity</description>
@@ -82,9 +82,9 @@ under the License.
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <attribute name="accountPartyId" mode="IN" type="String" optional="true"/>
         <attribute name="leadPartyId" mode="IN" type="String" optional="true"/>
-        <override name="opportunityName" allow-html="any"/>
-        <override name="description" allow-html="any"/>
-        <override name="nextStep" allow-html="any"/>
+        <override name="opportunityName" allow-html="safe"/>
+        <override name="description" allow-html="safe"/>
+        <override name="nextStep" allow-html="safe"/>
     </service>
     <service name="createSalesOpportunityRole" default-entity-name="SalesOpportunityRole" engine="entity-auto" invoke="create">
         <description>Create sales opportunity role</description>

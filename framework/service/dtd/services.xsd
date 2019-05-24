@@ -291,16 +291,13 @@ under the License.
         <xs:attribute name="allow-html" use="optional" default="none">
             <xs:annotation>
                 <xs:documentation>
-                    Applies only to String fields.
-                    Only checked for incoming parameters/attributes (could change in the future, but this is meant for validating input from users, other systems, etc).
-                    Defaults to "none" meaning no HTML is allowed (will result in an error message).
-                    If some HTML is desired then use "any".
-                    There was previously "safe" but it's deprecated
+                    See the documentation on the allow-html attribute of the "attribute" element.
                 </xs:documentation>
             </xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="any"/>
+                    <xs:enumeration value="safe"/>
                     <xs:enumeration value="none"/>
                 </xs:restriction>
             </xs:simpleType>
@@ -358,12 +355,14 @@ under the License.
                 Applies only to String fields.
                 Only checked for incoming parameters/attributes (could change in the future, but this is meant for validating input from users, other systems, etc).
                 Defaults to "none" meaning no HTML is allowed (will result in an error message).
-                If some HTML is desired then use "any".
-                There was previously "safe" but it's deprecated
+                If some HTML is desired then use "safe" which will follow the rules in the default custom safe policy file (CustomSafePolicy.java, see also owasp.properties). 
+                This should be safe for both internal and public users. You may want to provide your own custom safe policy file to adapt to you needs.
+                In rare cases when users are trusted or it is not a sensitive field the "any" option may be used to not check the HTML content at all.
             </xs:documentation></xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="any"/>
+                    <xs:enumeration value="safe"/>
                     <xs:enumeration value="none"/>
                 </xs:restriction>
             </xs:simpleType>
@@ -411,16 +410,14 @@ under the License.
         <xs:attribute name="allow-html" use="optional">
             <xs:annotation>
                 <xs:documentation>
-                    Applies only to String fields.
-                    Only checked for incoming parameters/attributes (could change in the future, but this is meant for validating input from users, other systems, etc).
-                    There is no default, "none" means no HTML is allowed (will result in an error message).
-                    If some HTML is desired then use "any".
-                    There was previously "safe" but it's deprecated
+                    See the documentation on the allow-html attribute of the "attribute" element. 
+                    Note that it is slightly different here as there is no default.
                 </xs:documentation>
             </xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="any"/>
+                    <xs:enumeration value="safe"/>
                     <xs:enumeration value="none"/>
                 </xs:restriction>
             </xs:simpleType>

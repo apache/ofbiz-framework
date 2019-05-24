@@ -35,8 +35,8 @@ under the License.
             <exclude field-name="lastModifiedDate"/>
             <exclude field-name="lastModifiedByUserLogin"/>
         </auto-attributes>
-        <override name="workEffortName" allow-html="any"/>
-        <override name="description" allow-html="any"/>
+        <override name="workEffortName" allow-html="safe"/>
+        <override name="description" allow-html="safe"/>
     </service>
     <service name="createWorkEffort" default-entity-name="WorkEffort" engine="simple"
         location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="createWorkEffort">
@@ -50,9 +50,9 @@ under the License.
         <attribute name="communicationEventId" type="String" mode="IN" optional="true"/>
         <attribute name="webSiteId" type="String" mode="IN" optional="true"/><!-- for notification services -->
         <override name="workEffortTypeId" optional="false"/>
-        <override name="workEffortName" optional="false" allow-html="any"/>
+        <override name="workEffortName" optional="false" allow-html="safe"/>
         <override name="currentStatusId" optional="false"/>
-        <override name="description" allow-html="any"/>
+        <override name="description" allow-html="safe"/>
     </service>
     <service name="createWorkEffortAndPartyAssign" default-entity-name="WorkEffort" engine="simple"
         location="component://workeffort/minilang/workeffort/WorkEffortSimpleServices.xml" invoke="createWorkEffortAndPartyAssign">
@@ -783,7 +783,7 @@ under the License.
                 <fail-property resource="WorkEffortUiLabels" property="WorkEffortRequiredFieldMissingWorkEffortId"/>
             </type-validate>
         </override>
-        <override name="description" allow-html="any"/>
+        <override name="description" allow-html="safe"/>
     </service>
     <service name="deleteWorkEffortRequest" engine="entity-auto" default-entity-name="CustRequestWorkEffort" invoke="delete" auth="true">
         <description>Deletes a CustRequestWorkEffort</description>
