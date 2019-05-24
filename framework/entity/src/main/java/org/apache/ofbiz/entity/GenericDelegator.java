@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -80,6 +81,8 @@ import org.apache.ofbiz.entity.util.EntityListIterator;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityStoreOptions;
 import org.apache.ofbiz.entity.util.SequenceUtil;
+import org.apache.ofbiz.entityext.eca.EntityEcaRule;
+import org.apache.ofbiz.entityext.eca.EntityEcaUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -1073,14 +1076,28 @@ public class GenericDelegator implements Delegator {
             ModelEntity modelEntity = getModelReader().getModelEntity(entityName);
             GenericHelper helper = getEntityHelper(entityName);
 
-            List<GenericValue> removedEntities = null;
-            if (testMode) {
-                removedEntities = this.findList(entityName, condition, null, null, null, false);
-            }
+            // We check if there are eca rules for this entity
+            String entityEcaReaderName = EntityEcaUtil.getEntityEcaReaderName(this.delegatorBaseName);
+            boolean hasEntityEcaRules = UtilValidate.isNotEmpty(
+                    EntityEcaUtil.getEntityEcaCache(entityEcaReaderName).get(entityName));
 
-            int rowsAffected = helper.removeByCondition(this, modelEntity, condition);
-            if (rowsAffected > 0) {
-                this.clearCacheLine(entityName);
+            // When we delete in mass, if we are in test mode or the entity have an eeca linked we will remove one by one
+            // for test mode to help the rollback
+            // for eeca to analyse each value to check if a condition match
+            List<GenericValue> removedEntities = (testMode || hasEntityEcaRules)
+                ? findList(entityName, condition, null, null, null, false)
+                : Collections.emptyList();
+
+            int rowsAffected = 0;
+            if (! removedEntities.isEmpty()) {
+                for (GenericValue entity : removedEntities) {
+                    rowsAffected += removeValue(entity);
+                }
+            } else {
+                rowsAffected = helper.removeByCondition(this, modelEntity, condition);
+                if (rowsAffected > 0) {
+                    this.clearCacheLine(entityName);
+                }
             }
 
             if (testMode) {
