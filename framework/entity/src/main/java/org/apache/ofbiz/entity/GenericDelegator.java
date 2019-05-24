@@ -81,7 +81,6 @@ import org.apache.ofbiz.entity.util.EntityListIterator;
 import org.apache.ofbiz.entity.util.EntityQuery;
 import org.apache.ofbiz.entity.util.EntityStoreOptions;
 import org.apache.ofbiz.entity.util.SequenceUtil;
-import org.apache.ofbiz.entityext.eca.EntityEcaRule;
 import org.apache.ofbiz.entityext.eca.EntityEcaUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
