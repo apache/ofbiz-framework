@@ -34,6 +34,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.ofbiz.base.html.SanitizerCustomPolicy;
 import org.owasp.esapi.codecs.Codec;
 import org.owasp.esapi.codecs.HTMLEntityCodec;
@@ -480,7 +481,7 @@ public class UtilCodec {
         }
 
         String filtered = policy.sanitize(value);
-        if (!value.equals(filtered)) {
+        if (!value.equals(StringEscapeUtils.unescapeHtml4(filtered))) {
             String issueMsg = null;
             if (locale.equals(new Locale("test"))) {
                 issueMsg = "In field [" + valueName + "] by our input policy, your input has not been accepted "

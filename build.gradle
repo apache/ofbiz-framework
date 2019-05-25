@@ -168,9 +168,9 @@ dependencies {
     implementation 'com.sun.syndication:com.springsource.com.sun.syndication:0.9.0'
     implementation 'com.thoughtworks.xstream:xstream:1.4.11.1'
     implementation 'commons-cli:commons-cli:1.4'
+    implementation 'commons-fileupload:commons-fileupload:1.4'
     implementation 'commons-net:commons-net:3.6'
     implementation 'commons-validator:commons-validator:1.6'
-    implementation 'commons-fileupload:commons-fileupload:1.4'
     implementation 'de.odysseus.juel:juel-impl:2.2.7'
     implementation 'javax.el:javax.el-api:3.0.1-b06'
     implementation 'javax.servlet:javax.servlet-api:4.0.1'
@@ -182,6 +182,7 @@ dependencies {
     implementation 'org.apache.commons:commons-collections4:4.3'
     implementation 'org.apache.commons:commons-csv:1.6'
     implementation 'org.apache.commons:commons-dbcp2:2.6.0' // When changing for 2.6.1+ we can remove ManagedDataSource::close, see DBCP-539
+    implementation 'org.apache.commons:commons-text:1.6'
     implementation 'org.apache.geronimo.components:geronimo-transaction:3.1.4'
     implementation 'org.apache.geronimo.specs:geronimo-jms_1.1_spec:1.1.1'
     implementation 'org.apache.httpcomponents:httpclient-cache:4.5.8'
