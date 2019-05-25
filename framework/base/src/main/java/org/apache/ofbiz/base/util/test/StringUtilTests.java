@@ -20,9 +20,7 @@ package org.apache.ofbiz.base.util.test;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ofbiz.base.lang.Appender;
 import org.apache.ofbiz.base.lang.SourceMonitored;
@@ -183,32 +181,6 @@ public class StringUtilTests extends GenericTestCaseBase {
             caught = e;
         } finally {
             assertNotNull("bad-char", caught);
-        }
-    }
-
-    public void testConvertChar() {
-        Map<Character, Integer> conversions = new HashMap<>();
-        conversions.put('0', 0); conversions.put('1', 1); conversions.put('2', 2); conversions.put('3', 3);
-        conversions.put('4', 4); conversions.put('5', 5); conversions.put('6', 6); conversions.put('7', 7);
-        conversions.put('8', 8); conversions.put('9', 9);
-        conversions.put('a', 10); conversions.put('b', 11); conversions.put('c', 12);
-        conversions.put('d', 13); conversions.put('e', 14); conversions.put('f', 15);
-        conversions.put('A', 10); conversions.put('B', 11); conversions.put('C', 12);
-        conversions.put('D', 13); conversions.put('E', 14); conversions.put('F', 15);
-        for (int i = 0; i < 256; i++) {
-            Integer wanted = conversions.get((char) i);
-            if (wanted == null) {
-                Exception caught = null;
-                try {
-                    StringUtil.convertChar((char) i);
-                } catch (Exception e) {
-                    caught = e;
-                } finally {
-                    assertNotNull(Integer.toString(i), caught);
-                }
-            } else {
-                assertEquals(Integer.toString(i), wanted.intValue(), StringUtil.convertChar((char) i));
-            }
         }
     }
 
