@@ -1019,6 +1019,8 @@ under the License.
             default-resource-name="PartyEntityLabels"
             title="Contact Mechanism Purpose Type">
       <field name="contactMechPurposeTypeId" type="id"></field>
+      <field name="parentTypeId" type="id"></field>
+      <field name="hasTable" type="indicator"></field>
       <field name="description" type="description"></field>
       <prim-key field="contactMechPurposeTypeId"/>
     </entity>

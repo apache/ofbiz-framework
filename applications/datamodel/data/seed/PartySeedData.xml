@@ -19,41 +19,41 @@ under the License.
 -->
 
 <entity-engine-xml>
-    <ContactMechPurposeType contactMechPurposeTypeId="SHIPPING_LOCATION" description="Shipping Destination Address"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="SHIP_ORIG_LOCATION" description="Shipping Origin Address"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="BILLING_LOCATION" description="Billing (AP) Address"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="PAYMENT_LOCATION" description="Payment (AR) Address"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="GENERAL_LOCATION" description="General Correspondence Address"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="PUR_RET_LOCATION" description="Purchase Return Address"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="PRIMARY_LOCATION" description="Primary Address"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="PREVIOUS_LOCATION" description="Previous Address"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="PHONE_SHIPPING" description="Shipping Destination Phone Number"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="PHONE_SHIP_ORIG" description="Shipping Origin Phone Number"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="PHONE_BILLING" description="Billing (AP) Phone Number"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="PHONE_DID" description="Direct Inward Dialing Phone Number"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="PHONE_PAYMENT" description="Payment (AR) Phone Number"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="PHONE_HOME" description="Main Home Phone Number"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="PHONE_WORK" description="Main Work Phone Number"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="PHONE_WORK_SEC" description="Secondary Work Phone Number"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="FAX_NUMBER" description="Main Fax Number"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="FAX_NUMBER_SEC" description="Secondary Fax Number"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="FAX_SHIPPING" description="Shipping Destination Fax Number"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="FAX_BILLING" description="Billing Destination Fax Number"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="PHONE_MOBILE" description="Main Mobile Phone Number"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="PHONE_ASSISTANT" description="Assistant's Phone Number"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="PRIMARY_PHONE" description="Primary Phone Number"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="PHONE_QUICK" description="Quick Calls Phone Number"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="MARKETING_EMAIL" description="Primary Marketing Email Address"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="PRIMARY_EMAIL" description="Primary Email Address"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="BILLING_EMAIL" description="Billing (AP) Email"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="PAYMENT_EMAIL" description="Payment (AR) Email"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="OTHER_EMAIL" description="Other Email Address"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="SUPPORT_EMAIL" description="Support Email"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="ORDER_EMAIL" description="Order Notification Email Address"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="PRIMARY_WEB_URL" description="Primary Website URL"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="TWITTER_URL" description="Twitter Website URL"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="FACEBOOK_URL" description="Facebook Website URL"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="LINKEDIN_URL" description="LinkedIn Website URL"/>
+    <ContactMechPurposeType contactMechPurposeTypeId="SHIPPING_LOCATION" description="Shipping Destination Address" hasTable="N"/>
+    <ContactMechPurposeType contactMechPurposeTypeId="SHIP_ORIG_LOCATION" description="Shipping Origin Address" hasTable="N"/>
+    <ContactMechPurposeType contactMechPurposeTypeId="BILLING_LOCATION" description="Billing (AP) Address" hasTable="N"/>
+    <ContactMechPurposeType contactMechPurposeTypeId="PAYMENT_LOCATION" description="Payment (AR) Address" hasTable="N"/>
+    <ContactMechPurposeType contactMechPurposeTypeId="GENERAL_LOCATION" description="General Correspondence Address" hasTable="N"/>
+    <ContactMechPurposeType contactMechPurposeTypeId="PUR_RET_LOCATION" description="Purchase Return Address" hasTable="N"/>
+    <ContactMechPurposeType contactMechPurposeTypeId="PRIMARY_LOCATION" description="Primary Address" hasTable="N"/>
+    <ContactMechPurposeType contactMechPurposeTypeId="PREVIOUS_LOCATION" description="Previous Address" hasTable="N"/>
+    <ContactMechPurposeType contactMechPurposeTypeId="PHONE_SHIPPING" description="Shipping Destination Phone Number" hasTable="N"/>
+    <ContactMechPurposeType contactMechPurposeTypeId="PHONE_SHIP_ORIG" description="Shipping Origin Phone Number" hasTable="N"/>
+    <ContactMechPurposeType contactMechPurposeTypeId="PHONE_BILLING" description="Billing (AP) Phone Number" hasTable="N"/>
+    <ContactMechPurposeType contactMechPurposeTypeId="PHONE_DID" description="Direct Inward Dialing Phone Number" hasTable="N"/>
+    <ContactMechPurposeType contactMechPurposeTypeId="PHONE_PAYMENT" description="Payment (AR) Phone Number" hasTable="N"/>
+    <ContactMechPurposeType contactMechPurposeTypeId="PHONE_HOME" description="Main Home Phone Number" hasTable="N"/>
+    <ContactMechPurposeType contactMechPurposeTypeId="PHONE_WORK" description="Main Work Phone Number" hasTable="N"/>
+    <ContactMechPurposeType contactMechPurposeTypeId="PHONE_WORK_SEC" description="Secondary Work Phone Number" hasTable="N"/>
+    <ContactMechPurposeType contactMechPurposeTypeId="FAX_NUMBER" description="Main Fax Number" hasTable="N"/>
+    <ContactMechPurposeType contactMechPurposeTypeId="FAX_NUMBER_SEC" description="Secondary Fax Number" hasTable="N"/>
+    <ContactMechPurposeType contactMechPurposeTypeId="FAX_SHIPPING" description="Shipping Destination Fax Number" hasTable="N"/>
+    <ContactMechPurposeType contactMechPurposeTypeId="FAX_BILLING" description="Billing Destination Fax Number" hasTable="N"/>
+    <ContactMechPurposeType contactMechPurposeTypeId="PHONE_MOBILE" description="Main Mobile Phone Number" hasTable="N"/>
+    <ContactMechPurposeType contactMechPurposeTypeId="PHONE_ASSISTANT" description="Assistant's Phone Number" hasTable="N"/>
+    <ContactMechPurposeType contactMechPurposeTypeId="PRIMARY_PHONE" description="Primary Phone Number" hasTable="N"/>
+    <ContactMechPurposeType contactMechPurposeTypeId="PHONE_QUICK" description="Quick Calls Phone Number" hasTable="N"/>
+    <ContactMechPurposeType contactMechPurposeTypeId="MARKETING_EMAIL" description="Primary Marketing Email Address" hasTable="N"/>
+    <ContactMechPurposeType contactMechPurposeTypeId="PRIMARY_EMAIL" description="Primary Email Address" hasTable="N"/>
+    <ContactMechPurposeType contactMechPurposeTypeId="BILLING_EMAIL" description="Billing (AP) Email" hasTable="N"/>
+    <ContactMechPurposeType contactMechPurposeTypeId="PAYMENT_EMAIL" description="Payment (AR) Email" hasTable="N"/>
+    <ContactMechPurposeType contactMechPurposeTypeId="OTHER_EMAIL" description="Other Email Address" hasTable="N"/>
+    <ContactMechPurposeType contactMechPurposeTypeId="SUPPORT_EMAIL" description="Support Email" hasTable="N"/>
+    <ContactMechPurposeType contactMechPurposeTypeId="ORDER_EMAIL" description="Order Notification Email Address" hasTable="N"/>
+    <ContactMechPurposeType contactMechPurposeTypeId="PRIMARY_WEB_URL" description="Primary Website URL" hasTable="N"/>
+    <ContactMechPurposeType contactMechPurposeTypeId="TWITTER_URL" description="Twitter Website URL" hasTable="N"/>
+    <ContactMechPurposeType contactMechPurposeTypeId="FACEBOOK_URL" description="Facebook Website URL" hasTable="N"/>
+    <ContactMechPurposeType contactMechPurposeTypeId="LINKEDIN_URL" description="LinkedIn Website URL" hasTable="N"/>
 
     <ContactMechType contactMechTypeId="ELECTRONIC_ADDRESS" description="Electronic Address" hasTable="N"/>
     <ContactMechType contactMechTypeId="POSTAL_ADDRESS" description="Postal Address" hasTable="Y"/>

@@ -197,7 +197,7 @@ under the License.
     <!-- iCalendar Data -->
     <RoleType description="Calendar Member" hasTable="N" parentTypeId="CALENDAR_ROLE" roleTypeId="ICAL_MEMBER"/>
     <ContactMechType contactMechTypeId="LDAP_ADDRESS" parentTypeId="ELECTRONIC_ADDRESS" hasTable="N" description="LDAP URL"/>
-    <ContactMechPurposeType contactMechPurposeTypeId="ICAL_URL" description="iCalendar URL"/>
+    <ContactMechPurposeType contactMechPurposeTypeId="ICAL_URL" description="iCalendar URL" hasTable="N"/>
     <ContactMechTypePurpose contactMechPurposeTypeId="ICAL_URL" contactMechTypeId="EMAIL_ADDRESS"/>
     <ContactMechTypePurpose contactMechPurposeTypeId="ICAL_URL" contactMechTypeId="LDAP_ADDRESS"/>
     <ContactMechTypePurpose contactMechPurposeTypeId="ICAL_URL" contactMechTypeId="WEB_ADDRESS"/>
