@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,22 +15,22 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
+ */
 package org.apache.ofbiz.base.test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilFormatOut;
 import org.apache.ofbiz.base.util.UtilValidate;
+import org.junit.Test;
 
-import junit.framework.TestCase;
+public class BaseUnitTests {
 
-public class BaseUnitTests extends TestCase {
-
-    public BaseUnitTests(String name) {
-        super(name);
-    }
-
+    @Test
     public void testDebug() {
         boolean debugVerbose = Debug.get(Debug.VERBOSE);
         boolean debugInfo = Debug.get(Debug.INFO);
@@ -47,36 +47,48 @@ public class BaseUnitTests extends TestCase {
         }
     }
 
+    @Test
     public void testFormatPrintableCreditCard_1() {
         assertEquals("test 4111111111111111 to ************111",
                 "************1111",
                 UtilFormatOut.formatPrintableCreditCard("4111111111111111"));
     }
 
+    @Test
     public void testFormatPrintableCreditCard_2() {
         assertEquals("test 4111 to 4111",
                 "4111",
                 UtilFormatOut.formatPrintableCreditCard("4111"));
     }
 
+    @Test
     public void testFormatPrintableCreditCard_3() {
         assertEquals("test null to null",
                 null,
                 UtilFormatOut.formatPrintableCreditCard(null));
     }
+
+    @Test
     public void testIsDouble_1() {
         assertFalse(UtilValidate.isDouble("10.0", true, true, 2, 2));
     }
+
+    @Test
     public void testIsFloat_1() {
         assertFalse(UtilValidate.isFloat("10.0", true, true, 2, 2));
     }
+
+    @Test
     public void testIsDouble_2() {
         assertTrue(UtilValidate.isDouble("10.000", true, true, 3, 3));
     }
+
+    @Test
     public void testIsFloat_2() {
         assertTrue(UtilValidate.isFloat("10.000", true, true, 3, 3));
     }
 
+    @Test
     public void testStringUtil() {
         byte[] testArray = {-1};
         byte[] result = StringUtil.fromHexString(StringUtil.toHexString(testArray));
