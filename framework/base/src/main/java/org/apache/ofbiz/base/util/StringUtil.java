@@ -140,21 +140,6 @@ public class StringUtil {
     }
 
     /**
-     * Encloses each of a List of Strings in quotes.
-     * @param list List of String(s) to quote.
-     */
-    public static List<String> quoteStrList(List<String> list) {
-        List<String> tmpList = list;
-
-        list = new LinkedList<>();
-        for (String str: tmpList) {
-            str = "'" + str + "'";
-            list.add(str);
-        }
-        return list;
-    }
-
-    /**
      * Creates a Map from an encoded name/value pair string
      * @param str The string to decode and format
      * @param delim the delimiter character(s) to join on (null will split on whitespace)

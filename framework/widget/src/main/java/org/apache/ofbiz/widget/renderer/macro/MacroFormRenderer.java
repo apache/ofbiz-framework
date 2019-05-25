@@ -34,6 +34,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.UUID;
 import java.util.WeakHashMap;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -1549,8 +1550,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
                 fieldNameList.add(childField.getName());
             }
         }
-        columnStyleList = StringUtil.quoteStrList(columnStyleList);
-        String columnStyleListString = StringUtil.join(columnStyleList, ", ");
+        String columnStyleListString =
+                columnStyleList.stream().map(str -> "'" + str + "'").collect(Collectors.joining(", "));
         StringWriter sr = new StringWriter();
         sr.append("<@renderFormatListWrapperOpen ");
         sr.append(" formName=\"");

@@ -79,11 +79,6 @@ public class StringUtilTests extends GenericTestCaseBase {
         assertEquals("no-sep", list("1", "2", "3", "4", "5", "6"), StringUtil.split("1 2\t3\n4\r5\f6", null));
     }
 
-    public void testQuoteStrList() {
-        assertEquals("single", list("'1'"), StringUtil.quoteStrList(list("1")));
-        assertEquals("double", list("'1'", "'2'"), StringUtil.quoteStrList(list("1", "2")));
-    }
-
     public void testStrToMap() {
         assertNull("null-string", StringUtil.strToMap(null, false));
         assertEquals("missing =", Collections.emptyMap(), StringUtil.strToMap("1", false));
