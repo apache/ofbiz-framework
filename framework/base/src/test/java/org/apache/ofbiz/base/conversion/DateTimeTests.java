@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,28 +15,27 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
-package org.apache.ofbiz.base.conversion.test;
+ */
+package org.apache.ofbiz.base.conversion;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.apache.ofbiz.base.conversion.Converter;
 import org.apache.ofbiz.base.conversion.DateTimeConverters;
-import org.apache.ofbiz.base.lang.SourceMonitored;
-import org.apache.ofbiz.base.test.GenericTestCaseBase;
+import org.junit.Test;
 
 import com.ibm.icu.util.Calendar;
 
-@SourceMonitored
-public class DateTimeTests extends GenericTestCaseBase {
+public class DateTimeTests {
 
-    public DateTimeTests(String name) {
-        super(name);
-    }
-
-    public static <S, T> void assertConversion(String label, Converter<S, T> converter, S source, T target) throws Exception {
+    private static <S, T> void assertConversion(String label, Converter<S, T> converter, S source, T target) throws Exception {
         assertTrue(label + " can convert", converter.canConvert(source.getClass(), target.getClass()));
         assertEquals(label + " converted", target, converter.convert(source));
     }
 
+    @Test
     public void testDateTimeConverters() throws Exception {
         Calendar cal = Calendar.getInstance();
         long currentTime = cal.getTimeInMillis();
