@@ -60,4 +60,14 @@ class OrderTests extends GroovyScriptTestCase {
         Map serviceResult = dispatcher.runSync('checkPaymentAmountForRefund', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
     }
+    //TODO: This can be moved to a different file
+    void testCheckCreateProductRequirementForFacility() {
+        Map serviceCtx = [
+                facilityId: 'WebStoreWarehouse',
+                orderItemSeqId: '00001',
+                userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+        ]
+        Map serviceResult = dispatcher.runSync('checkCreateProductRequirementForFacility', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+    }
 }
