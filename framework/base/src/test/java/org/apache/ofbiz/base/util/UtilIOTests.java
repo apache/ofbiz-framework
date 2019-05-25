@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,36 +15,24 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
-package org.apache.ofbiz.base.util.test;
+ */
+package org.apache.ofbiz.base.util;
+
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-import org.apache.ofbiz.base.lang.SourceMonitored;
-import org.apache.ofbiz.base.test.GenericTestCaseBase;
-import org.apache.ofbiz.base.util.UtilIO;
+import org.junit.Test;
 
-@SourceMonitored
-public class UtilIOTests extends GenericTestCaseBase {
+public class UtilIOTests {
     private static final byte[] trademarkBytes = new byte[] {
         (byte) 0xE2, (byte) 0x84, (byte) 0xA2
     };
-    public UtilIOTests(String name) {
-        super(name);
-    }
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-    }
-
-    @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
-    }
-
+    @Test
     public void testReadString() throws Exception {
         readStringTest_0("unix line ending", "\n", new byte[] { 0x0A });
         readStringTest_0("mac line ending", "\r", new byte[] { 0x0D });
@@ -89,6 +77,7 @@ public class UtilIOTests extends GenericTestCaseBase {
         assertEquals("readString stream UTF8:" + label, wanted, UtilIO.readString(new ByteArrayInputStream(toRead), UtilIO.getUtf8()));
     }
 
+    @Test
     public void testWriteString() throws Exception {
         writeStringTest_0("unix line ending", "\n", new byte[] { 0x0A });
         writeStringTest_0("mac line ending", "\r", new byte[] { 0x0D });
@@ -110,12 +99,12 @@ public class UtilIOTests extends GenericTestCaseBase {
     private static void writeStringTest_1(String label, byte[] wanted, String toWrite) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         UtilIO.writeString(baos, toWrite);
-        assertEquals("writeString default:" + label, wanted, baos.toByteArray());
+        assertArrayEquals("writeString default:" + label, wanted, baos.toByteArray());
         baos = new ByteArrayOutputStream();
         UtilIO.writeString(baos, "UTF-8", toWrite);
-        assertEquals("writeString UTF-8:" + label, wanted, baos.toByteArray());
+        assertArrayEquals("writeString UTF-8:" + label, wanted, baos.toByteArray());
         baos = new ByteArrayOutputStream();
         UtilIO.writeString(baos, UtilIO.getUtf8(), toWrite);
-        assertEquals("writeString UTF8:" + label, wanted, baos.toByteArray());
+        assertArrayEquals("writeString UTF8:" + label, wanted, baos.toByteArray());
     }
 }
