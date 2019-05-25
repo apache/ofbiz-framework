@@ -26,7 +26,6 @@
         <!--junit-test-suite class-name="org.apache.ofbiz.base.util.test.ReferenceCleanerTests"/-->
         <junit-test-suite class-name="org.apache.ofbiz.base.util.test.UtilMiscTests"/>
         <junit-test-suite class-name="org.apache.ofbiz.base.util.test.UtilObjectTests"/>
-        <junit-test-suite class-name="org.apache.ofbiz.base.util.test.StringUtilTests"/>
         <junit-test-suite class-name="org.apache.ofbiz.base.util.test.UtilHttpTests"/>
         <junit-test-suite class-name="org.apache.ofbiz.base.util.string.test.FlexibleStringExpanderTests"/>
         <junit-test-suite class-name="org.apache.ofbiz.base.util.collections.test.FlexibleMapAccessorTests"/>
