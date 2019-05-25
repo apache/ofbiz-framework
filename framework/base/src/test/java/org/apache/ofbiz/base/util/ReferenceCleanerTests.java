@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,25 +15,31 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
-package org.apache.ofbiz.base.util.test;
+ */
+package org.apache.ofbiz.base.util;
+
+import static org.apache.ofbiz.base.test.GenericTestCaseBase.useAllMemory;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.ofbiz.base.lang.SourceMonitored;
-import org.apache.ofbiz.base.test.GenericTestCaseBase;
 import org.apache.ofbiz.base.util.ReferenceCleaner;
+import org.junit.Ignore;
+import org.junit.Test;
 
-@SourceMonitored
-public class ReferenceCleanerTests extends GenericTestCaseBase {
-    public ReferenceCleanerTests(String name) {
-        super(name);
-    }
+public class ReferenceCleanerTests {
 
+    // XXX: This test has been disabled since 2014 in revision
+    // 1648403, so it is not evident if it is still relevant.  Maybe
+    // we should simply remove it.
+    @Ignore("Failing test")
+    @Test
     public void testReferenceCleaner() throws Exception {
-        assertStaticHelperClass(ReferenceCleaner.class);
         final SynchronousQueue<String> queue = new SynchronousQueue<>();
         Object obj = new Object();
         ReferenceCleaner.Soft<Object> soft = new ReferenceCleaner.Soft<Object>(obj) {

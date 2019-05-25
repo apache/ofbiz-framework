@@ -23,7 +23,6 @@
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
     <test-group case-name="basetests">
         <junit-test-suite class-name="org.apache.ofbiz.base.util.test.AssertTests"/>
-        <!--junit-test-suite class-name="org.apache.ofbiz.base.util.test.ReferenceCleanerTests"/-->
         <junit-test-suite class-name="org.apache.ofbiz.base.util.test.UtilMiscTests"/>
         <junit-test-suite class-name="org.apache.ofbiz.base.util.test.UtilObjectTests"/>
         <junit-test-suite class-name="org.apache.ofbiz.base.util.test.UtilHttpTests"/>
