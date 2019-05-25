@@ -41,7 +41,6 @@
         <junit-test-suite class-name="org.apache.ofbiz.base.conversion.test.TestJSONConverters"/>
         <!--junit-test-suite class-name="org.apache.ofbiz.base.util.test.UtilIOTests"/-->
         <junit-test-suite class-name="org.apache.ofbiz.base.test.BaseUnitTests"/>
-        <junit-test-suite class-name="org.apache.ofbiz.base.util.test.UtilPropertiesTests"/>
         <groovy-test-suite name="simple" location="component://base/groovyScripts/test/SimpleTests.groovy"/>
     </test-group>
 </test-suite>

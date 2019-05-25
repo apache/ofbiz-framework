@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,8 +15,12 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
-package org.apache.ofbiz.base.util.test;
+ */
+package org.apache.ofbiz.base.util;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -25,24 +29,21 @@ import java.nio.charset.Charset;
 import java.util.Locale;
 import java.util.Properties;
 
-import org.apache.ofbiz.base.test.GenericTestCaseBase;
 import org.apache.ofbiz.base.util.UtilProperties;
+import org.junit.Test;
 
-public class UtilPropertiesTests extends GenericTestCaseBase {
+public class UtilPropertiesTests {
 
     private static final String country = "AU";
     private static final String language = "en";
     private final Locale locale = new Locale(language, country);
-
-    public UtilPropertiesTests(String name) {
-        super(name);
-    }
 
     /**
      * Old style xml:lang attribute value was of form en_AU. Test this
      * format still works.
      * @throws Exception
      */
+    @Test
     public void testReadXmlLangOldStyle() throws Exception {
         Properties result = xmlToProperties("_");
         assertNotNull(result);
@@ -56,13 +57,13 @@ public class UtilPropertiesTests extends GenericTestCaseBase {
      * Test it works.
       * @throws Exception
      */
+    @Test
     public void testReadXmlLangNewStyle() throws Exception {
         Properties result = xmlToProperties("-");
         assertNotNull(result);
         assertTrue(!result.isEmpty());
         assertEquals(1, result.size());
         assertEquals("Key Value", result.getProperty("PropertyKey"));
-
     }
 
     private Properties xmlToProperties(String separator) throws IOException {
@@ -75,8 +76,9 @@ public class UtilPropertiesTests extends GenericTestCaseBase {
                 "\">Key Value</value>\n" +
                 "    </property>\n" +
                 "</resource>";
-        try (InputStream in = new ByteArrayInputStream(new String(xmlData.getBytes(), Charset.forName("UTF-8")).getBytes())) {
-        return UtilProperties.xmlToProperties(in, locale, null);
+        try (InputStream in = new ByteArrayInputStream(
+                new String(xmlData.getBytes(), Charset.forName("UTF-8")).getBytes())) {
+            return UtilProperties.xmlToProperties(in, locale, null);
         }
     }
 }
