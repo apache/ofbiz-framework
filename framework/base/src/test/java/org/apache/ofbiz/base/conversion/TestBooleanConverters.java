@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,8 +15,11 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
-package org.apache.ofbiz.base.conversion.test;
+ */
+package org.apache.ofbiz.base.conversion;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Collection;
 import java.util.List;
@@ -27,25 +30,24 @@ import org.apache.ofbiz.base.conversion.Converter;
 import org.apache.ofbiz.base.conversion.ConverterLoader;
 import org.apache.ofbiz.base.conversion.Converters;
 import org.apache.ofbiz.base.util.UtilGenerics;
+import org.junit.Test;
 
-import junit.framework.TestCase;
+public class TestBooleanConverters {
 
-public class TestBooleanConverters extends TestCase {
-
-    public TestBooleanConverters(String name) {
-        super(name);
-    }
-
-    public static <T> void assertFromBoolean(String label, Converter<Boolean, T> converter, T trueResult, T falseResult) throws Exception {
+    public static <T> void assertFromBoolean(String label, Converter<Boolean, T> converter, T trueResult, T falseResult)
+            throws Exception {
         assertTrue(label + " can convert", converter.canConvert(Boolean.class, trueResult.getClass()));
-        assertEquals(label + " registered", converter.getClass(), Converters.getConverter(Boolean.class, trueResult.getClass()).getClass());
+        assertEquals(label + " registered", converter.getClass(),
+                Converters.getConverter(Boolean.class, trueResult.getClass()).getClass());
         assertEquals(label + " converted", trueResult, converter.convert(true));
         assertEquals(label + " converted", falseResult, converter.convert(false));
     }
 
-    public static <S> void assertToBoolean(String label, Converter<S, Boolean> converter, S trueSource, S falseSource) throws Exception {
+    public static <S> void assertToBoolean(String label, Converter<S, Boolean> converter, S trueSource, S falseSource)
+            throws Exception {
         assertTrue(label + " can convert", converter.canConvert(trueSource.getClass(), Boolean.class));
-        assertEquals(label + " registered", converter.getClass(), Converters.getConverter(trueSource.getClass(), Boolean.class).getClass());
+        assertEquals(label + " registered", converter.getClass(),
+                Converters.getConverter(trueSource.getClass(), Boolean.class).getClass());
         assertEquals(label + " converted", Boolean.TRUE, converter.convert(trueSource));
         assertEquals(label + " converted", Boolean.FALSE, converter.convert(falseSource));
     }
@@ -61,6 +63,7 @@ public class TestBooleanConverters extends TestCase {
         assertEquals(label + " converted to Set", source, setResult.toArray()[0]);
     }
 
+    @Test
     public void testBooleanConverters() throws Exception {
         ConverterLoader loader = new BooleanConverters();
         loader.loadConverters();
