@@ -758,7 +758,8 @@ public abstract class ModelForm extends ModelWidget {
         Iterator<ModelField> modelFieldIter = modelEntity.getFieldsIterator();
         while (modelFieldIter.hasNext()) {
             ModelField modelField = modelFieldIter.next();
-            if (modelField.getIsAutoCreatedInternal()) {
+            // auto-add only if field was generated automatically by the entity engine or including internally
+            if (modelField.getIsAutoCreatedInternal() && !autoFieldsEntity.includeInternal) {
                 // don't ever auto-add these, should only be added if explicitly referenced
                 continue;
             }
@@ -1446,11 +1447,13 @@ public abstract class ModelForm extends ModelWidget {
         public final String mapName;
         public final String defaultFieldType;
         public final int defaultPosition;
+        public final boolean includeInternal;
 
         public AutoFieldsEntity(Element element) {
             this.entityName = element.getAttribute("entity-name");
             this.mapName = element.getAttribute("map-name");
             this.defaultFieldType = element.getAttribute("default-field-type");
+            this.includeInternal = !"false".equals(element.getAttribute("include-internal"));
             String positionStr = element.getAttribute("default-position");
             int position = 1;
             try {
