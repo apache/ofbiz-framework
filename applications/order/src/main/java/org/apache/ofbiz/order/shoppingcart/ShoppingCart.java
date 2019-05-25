@@ -4235,12 +4235,12 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
         // Retrieve the facilityId from the cart's productStoreId because ShoppingCart.setFacilityId() doesn't seem to be used anywhere
         String facilityId = null;
-        String requirementMethodEnumId = null;
+        String storeRequirementMethodEnumId = null;
         if (UtilValidate.isNotEmpty(this.getProductStoreId())) {
             try {
                 GenericValue productStore = this.getDelegator().findOne("ProductStore", UtilMisc.toMap("productStoreId", this.getProductStoreId()), true);
                 facilityId = productStore.getString("inventoryFacilityId");
-                requirementMethodEnumId = productStore.getString("requirementMethodEnumId");
+                storeRequirementMethodEnumId = productStore.getString("requirementMethodEnumId");
             } catch (GenericEntityException gee) {
                 Debug.logError(UtilProperties.getMessage(resource_error,"OrderProblemGettingProductStoreRecords", locale) + gee.getMessage(), module);
                 return;
@@ -4288,7 +4288,9 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                     Debug.logError("Error :" +e.getMessage(), module);
                     e.printStackTrace();
                 }
-                
+
+                String requirementMethodEnumId = storeRequirementMethodEnumId;
+
                 if (productFacility != null && UtilValidate.isNotEmpty(productFacility.getString("requirementMethodEnumId"))){
                     requirementMethodEnumId = productFacility.getString("requirementMethodEnumId");
                 }
