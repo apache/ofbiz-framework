@@ -384,7 +384,7 @@ def productOrderHist() {
     String partyId = cart.getPartyId()
     GenericValue userLogin = cart.getUserLogin()
     Map result = success()
-    int compareBase = 1
+    int compareBase = -1
     result.operatorEnumId = "PPC_GTE"
 
     if (partyId && userLogin && condValue) {
