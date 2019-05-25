@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,8 +15,10 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
-package org.apache.ofbiz.base.conversion.test;
+ */
+package org.apache.ofbiz.base.conversion;
+
+import static org.junit.Assert.assertEquals;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -25,24 +27,20 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ofbiz.base.conversion.Converter;
-import org.apache.ofbiz.base.conversion.ConverterLoader;
-import org.apache.ofbiz.base.conversion.Converters;
-import org.apache.ofbiz.base.conversion.JSONConverters;
 import org.apache.ofbiz.base.lang.JSON;
 import org.apache.ofbiz.base.util.UtilGenerics;
+import org.junit.Test;
 
-import junit.framework.TestCase;
-
-public class TestJSONConverters  extends TestCase {
-    public TestJSONConverters(String name) {
-        super(name);
+public class TestJSONConverters {
+    public TestJSONConverters() {
         ConverterLoader loader = new JSONConverters();
         loader.loadConverters();
     }
 
+    @Test
     public void testJSONToMap() throws Exception {
-        Converter<JSON, Map<String,String>> converter = UtilGenerics.cast(Converters.getConverter(JSON.class, Map.class));
+        Converter<JSON, Map<String,String>> converter =
+                UtilGenerics.cast(Converters.getConverter(JSON.class, Map.class));
         Map<String,String> map, convertedMap;
         map = new HashMap<>();
         map.put("field1", "value1");
@@ -51,6 +49,7 @@ public class TestJSONConverters  extends TestCase {
         assertEquals("JSON to Map", map, convertedMap);
     }
 
+    @Test
     public void testJSONToList() throws Exception {
         Converter<JSON, List<Object>> converter = UtilGenerics.cast(Converters.getConverter(JSON.class, List.class));
         List<Object> list, convertedList;
@@ -62,8 +61,10 @@ public class TestJSONConverters  extends TestCase {
         assertEquals("JSON to List", list, convertedList);
     }
 
+    @Test
     public void testMapToJSON() throws Exception {
-        Converter<Map<String,Object>, JSON> converter = UtilGenerics.cast(Converters.getConverter(Map.class, JSON.class));
+        Converter<Map<String,Object>, JSON> converter =
+                UtilGenerics.cast(Converters.getConverter(Map.class, JSON.class));
         JSON json;
         Map<String,Object> map = new LinkedHashMap<>();
         map.put("field1", "value1");
@@ -72,6 +73,7 @@ public class TestJSONConverters  extends TestCase {
         assertEquals("Map to JSON", "{\"field1\":\"value1\",\"field2\":3.7}", json.toString());
     }
 
+    @Test
     public void testListToJSON() throws Exception {
         Converter<List<String>, JSON> converter = UtilGenerics.cast(Converters.getConverter(List.class, JSON.class));
         JSON json;

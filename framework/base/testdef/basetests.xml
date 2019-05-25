@@ -25,7 +25,6 @@
         <junit-test-suite class-name="org.apache.ofbiz.base.util.test.UtilObjectTests"/>
         <junit-test-suite class-name="org.apache.ofbiz.base.util.string.test.FlexibleStringExpanderTests"/>
         <junit-test-suite class-name="org.apache.ofbiz.base.util.collections.test.FlexibleMapAccessorTests"/>
-        <junit-test-suite class-name="org.apache.ofbiz.base.conversion.test.TestJSONConverters"/>
         <groovy-test-suite name="simple" location="component://base/groovyScripts/test/SimpleTests.groovy"/>
     </test-group>
 </test-suite>
