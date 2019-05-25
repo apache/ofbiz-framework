@@ -160,7 +160,7 @@ public class StringUtil {
      *        and want to replace "=" to avoid clashes with parameters values in a not encoded URL, default to "="
      * @return a Map of name/value pairs
      */
-    public static Map<String, String> strToMap(String str, String delim, boolean trim, String pairsSeparator) {
+    private static Map<String, String> strToMap(String str, String delim, boolean trim, String pairsSeparator) {
         if (str == null) {
             return null;
         }
@@ -204,16 +204,6 @@ public class StringUtil {
      */
     public static Map<String, String> strToMap(String str, boolean trim) {
         return strToMap(str, "|", trim);
-    }
-
-    /**
-     * Creates a Map from an encoded name/value pair string
-     * @param str The string to decode and format
-     * @param delim the delimiter character(s) to join on (null will split on whitespace)
-     * @return a Map of name/value pairs
-     */
-    public static Map<String, String> strToMap(String str, String delim) {
-        return strToMap(str, delim, false);
     }
 
     /**
