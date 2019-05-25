@@ -14,7 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.ofbiz.base.util.test;
+package org.apache.ofbiz.base.util;
+
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,19 +24,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ofbiz.base.util.Assert;
-
-import junit.framework.TestCase;
+import org.junit.Test;
 
 /**
  * Assert tests {@link org.apache.ofbiz.base.util.Assert}.
- *
  */
-public class AssertTests extends TestCase {
+public class AssertTests {
 
-    public AssertTests(String name) {
-        super(name);
-    }
-
+    @Test
     public void testAssert(){
         Object testObject = new Object();
 
