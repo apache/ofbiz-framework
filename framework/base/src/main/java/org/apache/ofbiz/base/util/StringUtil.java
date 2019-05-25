@@ -140,38 +140,6 @@ public class StringUtil {
     }
 
     /**
-     * Splits a String on a delimiter into a List of Strings.
-     * @param str the String to split
-     * @param delim the delimiter character(s) to join on (null will split on whitespace)
-     * @param limit see String.split() method
-     * @return a list of Strings
-     */
-    public static List<String> split(String str, String delim, int limit) {
-        List<String> splitList = null;
-        String[] st = null;
-
-        if (str == null) {
-            return splitList;
-        }
-
-        if (delim != null) {
-            st = Pattern.compile(delim).split(str, limit);
-        } else {
-            st = str.split("\\s");
-        }
-
-
-        if (st != null && st.length > 0) {
-            splitList = new LinkedList<>();
-            for (String element : st) {
-                splitList.add(element);
-            }
-        }
-
-        return splitList;
-    }
-
-    /**
      * Encloses each of a List of Strings in quotes.
      * @param list List of String(s) to quote.
      */
