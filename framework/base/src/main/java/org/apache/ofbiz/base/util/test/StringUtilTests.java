@@ -88,14 +88,6 @@ public class StringUtilTests extends GenericTestCaseBase {
         assertEquals("double-trim", map("2", "two", "1", "one"), StringUtil.strToMap(" 1 = one | 2 = two ", true));
     }
 
-    public void testMapToStr() {
-        assertNull("null-map", StringUtil.mapToStr(null));
-        assertEquals("empty", "", StringUtil.mapToStr(Collections.emptyMap()));
-        assertEquals("single", "1=one", StringUtil.mapToStr(map("1", "one")));
-        assertEquals("double", "1=one|2=two", StringUtil.mapToStr(map("1", "one", "2", "two")));
-        assertEquals("double-with-non-string", "1=one|2=two", StringUtil.mapToStr(map("a", this, "1", "one", "2", "two", this, "a")));
-    }
-
     public void testToMap() {
         for (String s: new String[] {"", "{", "}", "}{"}) {
             IllegalArgumentException caught = null;

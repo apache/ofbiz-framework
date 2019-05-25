@@ -20,7 +20,6 @@ package org.apache.ofbiz.base.util;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -215,51 +214,6 @@ public class StringUtil {
         return strToMap(str, "|", false);
     }
 
-
-    /**
-     * Creates an encoded String from a Map of name/value pairs (MUST BE STRINGS!)
-     * @param map The Map of name/value pairs
-     * @return String The encoded String
-     */
-    public static String mapToStr(Map<? extends Object, ? extends Object> map) {
-        if (map == null) {
-            return null;
-        }
-        StringBuilder buf = new StringBuilder();
-        boolean first = true;
-
-        for (Map.Entry<? extends Object, ? extends Object> entry: map.entrySet()) {
-            Object key = entry.getKey();
-            Object value = entry.getValue();
-
-            if (!(key instanceof String) || !(value instanceof String)) {
-                continue;
-            }
-            String encodedName = null;
-            try {
-                encodedName = URLEncoder.encode((String) key, "UTF-8");
-            } catch (UnsupportedEncodingException e) {
-                Debug.logError(e, module);
-            }
-            String encodedValue = null;
-            try {
-                encodedValue = URLEncoder.encode((String) value, "UTF-8");
-            } catch (UnsupportedEncodingException e) {
-                Debug.logError(e, module);
-            }
-
-            if (first) {
-                first = false;
-            } else {
-                buf.append("|");
-            }
-
-            buf.append(encodedName);
-            buf.append("=");
-            buf.append(encodedValue);
-        }
-        return buf.toString();
-    }
 
     /**
      * Reads a String version of a Map (should contain only strings) and creates a new Map.
