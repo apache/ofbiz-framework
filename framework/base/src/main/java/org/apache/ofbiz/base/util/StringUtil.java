@@ -364,11 +364,6 @@ public class StringUtil {
         return removeRegex(str,"[\\D]");
     }
 
-    /** Removes all numbers from str */
-    public static String removeNumeric(String str) {
-        return removeRegex(str,"[\\d]");
-    }
-
     /**
      * @param str
      * @param regex

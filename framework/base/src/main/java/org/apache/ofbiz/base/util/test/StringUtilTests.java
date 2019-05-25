@@ -196,10 +196,6 @@ public class StringUtilTests extends GenericTestCaseBase {
         assertEquals("just numbers", "12345", StringUtil.removeNonNumeric("a1'2;3]4!5("));
     }
 
-    public void testRemoveNumeric() {
-        assertEquals("only numbers", "a';]!(", StringUtil.removeNumeric("a1'2;3]4!5("));
-    }
-
     public void testRemoveRegex() {
     }
 
