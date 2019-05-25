@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,8 +15,12 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
-package org.apache.ofbiz.base.conversion.test;
+ */
+package org.apache.ofbiz.base.conversion;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
 import java.net.URL;
@@ -28,21 +32,11 @@ import java.util.Map;
 import org.apache.ofbiz.base.conversion.Converter;
 import org.apache.ofbiz.base.conversion.ConverterLoader;
 import org.apache.ofbiz.base.conversion.Converters;
-import org.apache.ofbiz.base.lang.SourceMonitored;
-import org.apache.ofbiz.base.test.GenericTestCaseBase;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
+import org.junit.Test;
 
-@SourceMonitored
-public class MiscTests extends GenericTestCaseBase {
-
-    public MiscTests(String name) {
-        super(name);
-    }
-
-    public void testStaticHelperClass() throws Exception {
-        assertStaticHelperClass(Converters.class);
-    }
+public class MiscTests {
 
     public static class ConverterLoaderImpl implements ConverterLoader {
         @Override
@@ -51,6 +45,7 @@ public class MiscTests extends GenericTestCaseBase {
         }
     }
 
+    @Test
     public void testLoadContainedConvertersIgnoresException() {
         Converters.loadContainedConverters(MiscTests.class);
     }
@@ -70,6 +65,7 @@ public class MiscTests extends GenericTestCaseBase {
         assertEquals("pass thru target class", targetClass, converter.getTargetClass());
     }
 
+    @Test
     public void testPassthru() throws Exception {
         String string = "ofbiz";
         BigDecimal bigDecimal = new BigDecimal("1.234");
