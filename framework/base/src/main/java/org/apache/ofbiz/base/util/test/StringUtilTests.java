@@ -225,12 +225,6 @@ public class StringUtilTests extends GenericTestCaseBase {
     public void testCollapseSpaces() {
     }
 
-    public void testCollapseCharacter() {
-        assertEquals("not-found", "abcdefg", StringUtil.collapseCharacter("abcdefg", '.'));
-        assertEquals("no-change", "abcdefg", StringUtil.collapseCharacter("abcdefg", 'a'));
-        assertEquals("duplicate", "abcdefa", StringUtil.collapseCharacter("aabcdefaa", 'a'));
-    }
-
     public void testWrapString() {
     }
 

@@ -425,28 +425,6 @@ public class StringUtil {
         return result;
     }
 
-    /**
-     * Remove/collapse multiple characters
-     *
-     * @param str string to collapse characters in
-     * @param c character to collapse
-     * @return the converted string
-     */
-    public static String collapseCharacter(String str, char c) {
-        StringBuilder sb = new StringBuilder();
-        char last = str.charAt(0);
-
-        for (int i = 0; i < str.length(); i++) {
-            char current = str.charAt(i);
-            if (i == 0 || current != c || last != c) {
-                sb.append(current);
-                last = current;
-            }
-        }
-
-        return sb.toString();
-    }
-
     public static StringWrapper wrapString(String theString) {
         return makeStringWrapper(theString);
     }
