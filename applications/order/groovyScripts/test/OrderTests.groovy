@@ -63,11 +63,23 @@ class OrderTests extends GroovyScriptTestCase {
     //TODO: This can be moved to a different file
     void testCheckCreateProductRequirementForFacility() {
         Map serviceCtx = [
-                facilityId: 'WebStoreWarehouse',
-                orderItemSeqId: '00001',
-                userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+            facilityId: 'WebStoreWarehouse',
+            orderItemSeqId: '00001',
+            userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
         ]
         Map serviceResult = dispatcher.runSync('checkCreateProductRequirementForFacility', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+    }
+    void testCreateReturnItemShipment() {
+        Map serviceCtx = [
+            shipmentId: '1014',
+            shipmentItemSeqId: '00001',
+            returnId: '1009',
+            returnItemSeqId: '00001',
+            quantity: new BigDecimal('2.0000'),
+            userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+        ]
+        Map serviceResult = dispatcher.runSync('createReturnItemShipment', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
     }
 }
