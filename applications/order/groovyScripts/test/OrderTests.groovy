@@ -20,4 +20,14 @@ class OrderTests extends GroovyScriptTestCase {
         assert ServiceUtil.isSuccess(serviceResult)
         assert serviceResult.returnAdjustmentId != null
     }
+
+    void testQuickReturnOrder() {
+        Map serviceCtx = [:]
+        serviceCtx.orderId = 'TEST_DEMO10090'
+        serviceCtx.returnHeaderTypeId = 'CUSTOMER_RETURN'
+        serviceCtx.userLogin = EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+        Map serviceResult = dispatcher.runSync('quickReturnOrder', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+        assert serviceResult.returnId != null
+    }
 }
