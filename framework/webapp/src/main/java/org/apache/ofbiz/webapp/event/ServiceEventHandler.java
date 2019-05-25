@@ -128,6 +128,8 @@ public class ServiceEventHandler implements EventHandler {
         }
 
         Map<String, Object> rawParametersMap = UtilHttp.getCombinedMap(request);
+        Map<String, Object> multiPartMap = UtilGenerics.checkMap(request.getAttribute("multiPartMap"));
+
         Set<String> urlOnlyParameterNames = UtilHttp.getUrlOnlyParameterMap(request).keySet();
 
         // we have a service and the model; build the context
@@ -146,15 +148,15 @@ public class ServiceEventHandler implements EventHandler {
 
             Object value = null;
             if (UtilValidate.isNotEmpty(modelParam.stringMapPrefix)) {
-                Map<String, Object> paramMap = UtilHttp.makeParamMapWithPrefix(request, rawParametersMap, modelParam.stringMapPrefix, null);
+                Map<String, Object> paramMap = UtilHttp.makeParamMapWithPrefix(request, multiPartMap, modelParam.stringMapPrefix, null);
                 value = paramMap;
                 if (Debug.verboseOn()) Debug.logVerbose("Set [" + modelParam.name + "]: " + paramMap, module);
             } else if (UtilValidate.isNotEmpty(modelParam.stringListSuffix)) {
-                List<Object> paramList = UtilHttp.makeParamListWithSuffix(request, rawParametersMap, modelParam.stringListSuffix, null);
+                List<Object> paramList = UtilHttp.makeParamListWithSuffix(request, multiPartMap, modelParam.stringListSuffix, null);
                 value = paramList;
             } else {
                 // first check the multi-part map
-                value = rawParametersMap.get(name);
+                value = multiPartMap.get(name);
 
                 // next check attributes; do this before parameters so that attribute which can be changed by code can override parameters which can't
                 if (UtilValidate.isEmpty(value)) {
