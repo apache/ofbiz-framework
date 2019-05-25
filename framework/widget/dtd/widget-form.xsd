@@ -496,6 +496,11 @@ under the License.
                 </xs:simpleType>
             </xs:attribute>
             <xs:attribute type="xs:positiveInteger" name="default-position" default="1" />
+            <xs:attribute name="include-internal" type="xs:boolean" default="false">
+                <xs:annotation>
+                    <xs:documentation>This field will let the user enable internal fields of entity</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
     <xs:element name="sort-order">
