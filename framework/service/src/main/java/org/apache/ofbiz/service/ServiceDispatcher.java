@@ -64,13 +64,13 @@ import com.googlecode.concurrentlinkedhashmap.ConcurrentLinkedHashMap;
  * The global service dispatcher. This is the "engine" part of the
  * Service Engine.
  */
-public class ServiceDispatcher {
+public final class ServiceDispatcher {
 
     public static final String module = ServiceDispatcher.class.getName();
     public static final int lruLogSize = 200;
     public static final int LOCK_RETRIES = 3;
 
-    protected static final Map<RunningService, ServiceDispatcher> runLog = new ConcurrentLinkedHashMap.Builder<RunningService, ServiceDispatcher>().maximumWeightedCapacity(lruLogSize).build();
+    private static final Map<RunningService, ServiceDispatcher> runLog = new ConcurrentLinkedHashMap.Builder<RunningService, ServiceDispatcher>().maximumWeightedCapacity(lruLogSize).build();
     private static ConcurrentHashMap<String, ServiceDispatcher> dispatchers = new ConcurrentHashMap<>();
     // FIXME: These fields are not thread-safe. They are modified by EntityDataLoadContainer.
     // We need a better design - like have this class query EntityDataLoadContainer if data is being loaded.
@@ -78,15 +78,15 @@ public class ServiceDispatcher {
     private static boolean enableJMS = UtilProperties.getPropertyAsBoolean("service", "enableJMS", true);
     private static boolean enableSvcs = true;
 
-    protected Delegator delegator = null;
-    protected GenericEngineFactory factory = null;
-    protected Security security = null;
-    protected Map<String, DispatchContext> localContext = new HashMap<>();
-    protected Map<String, List<GenericServiceCallback>> callbacks = new HashMap<>();
-    protected JobManager jm = null;
-    protected JmsListenerFactory jlf = null;
+    private Delegator delegator = null;
+    private GenericEngineFactory factory = null;
+    private Security security = null;
+    private Map<String, DispatchContext> localContext = new HashMap<>();
+    private Map<String, List<GenericServiceCallback>> callbacks = new HashMap<>();
+    private JobManager jm = null;
+    private JmsListenerFactory jlf = null;
 
-    protected ServiceDispatcher(Delegator delegator, boolean enableJM, boolean enableJMS) {
+    private ServiceDispatcher(Delegator delegator, boolean enableJM, boolean enableJMS) {
         factory = new GenericEngineFactory(this);
         ServiceGroupReader.readConfig();
         ServiceEcaUtil.readConfig();
@@ -132,7 +132,7 @@ public class ServiceDispatcher {
         }
     }
 
-    protected ServiceDispatcher(Delegator delegator) {
+    private ServiceDispatcher(Delegator delegator) {
         this(delegator, enableJM, enableJMS);
     }
 
@@ -880,7 +880,7 @@ public class ServiceDispatcher {
         return localContext.containsKey(name);
     }
 
-    protected void shutdown() throws GenericServiceException {
+    private void shutdown() throws GenericServiceException {
         Debug.logImportant("Shutting down the service engine...", module);
         if (jlf != null) {
             // shutdown JMS listeners
