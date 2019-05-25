@@ -161,13 +161,15 @@ public final class UtilHttp {
 
         paramMap.putAll(getPathInfoOnlyParameterMap(request, nameSet, onlyIncludeOrSkip));
 
+        Map<String, Object> multiPartMap = new HashMap<>();
         if (paramMap.size() == 0) {
             // nothing found in the parameters; maybe we read the stream instead
-            Map<String, Object> multiPartMap = getMultiPartParameterMap(request);
+            multiPartMap = getMultiPartParameterMap(request);
             if (UtilValidate.isNotEmpty(multiPartMap)) {
                 paramMap.putAll(multiPartMap);
             }
         }
+        request.setAttribute("multiPartMap", multiPartMap);
 
         if (Debug.verboseOn()) {
             Debug.logVerbose("Made Request Parameter Map with [" + paramMap.size() + "] Entries", module);
@@ -281,7 +283,6 @@ public final class UtilHttp {
                 }
             }
         }
-
 
         return multiPartMap;
     }
