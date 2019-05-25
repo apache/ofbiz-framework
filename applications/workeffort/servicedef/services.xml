@@ -1738,4 +1738,10 @@ under the License.
             </type-validate>
         </override>
     </service>
+
+    <service name="deleteWorkEffortSurveyAppl" default-entity-name="WorkEffortSurveyAppl" engine="entity-auto" invoke="expire" auth="true">
+        <description>Expire the WorkEffort Survey</description>
+        <permission-service service-name="workEffortGenericPermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 </services>
