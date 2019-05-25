@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,21 +15,20 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
-package org.apache.ofbiz.base.util.test;
+ */
+package org.apache.ofbiz.base.util;
+
+import static org.junit.Assert.fail;
 
 import java.util.List;
 import java.util.Locale;
 
-import org.apache.ofbiz.base.test.GenericTestCaseBase;
 import org.apache.ofbiz.base.util.UtilMisc;
+import org.junit.Test;
 
-public class UtilMiscTests extends GenericTestCaseBase {
+public class UtilMiscTests {
 
-    public UtilMiscTests(String name) {
-        super(name);
-    }
-
+    @Test
     public void testLocales() throws Exception {
         List<Locale> availableLocales = UtilMisc.availableLocales();
         for (Locale availableLocale : availableLocales) {
