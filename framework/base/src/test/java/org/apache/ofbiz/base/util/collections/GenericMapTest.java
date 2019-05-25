@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,8 +15,11 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
-package org.apache.ofbiz.base.util.collections.test;
+ */
+package org.apache.ofbiz.base.util.collections;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,13 +27,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ofbiz.base.test.GenericTestCaseBase;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.collections.GenericMap;
 import org.apache.ofbiz.base.util.collections.GenericMapEntry;
 import org.apache.ofbiz.base.util.collections.IteratorWrapper;
+import org.junit.Test;
 
-public class GenericMapTest extends GenericTestCaseBase {
+public class GenericMapTest {
 
     public static final String module = GenericMapTest.class.getName();
 
@@ -149,10 +152,7 @@ public class GenericMapTest extends GenericTestCaseBase {
         }
     }
 
-    public GenericMapTest(String name) {
-        super(name);
-    }
-
+    @Test
     public void testFoo() throws Exception {
         TestGenericMap<String, Integer> map = new TestGenericMap<>();
         map.put("a", 0); Debug.logInfo("put a\t\tcounts=" + map.getCounts() + ", modCount=" + map.getModCount(), module);
@@ -174,5 +174,4 @@ public class GenericMapTest extends GenericTestCaseBase {
         new HashMap<>(map);
         Debug.logInfo("counts=" + map.getCounts() + ", modCount=" + map.getModCount(), module);
     }
-
 }
