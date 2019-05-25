@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,30 +15,18 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
-package org.apache.ofbiz.base.util.test;
+ */
+package org.apache.ofbiz.base.util;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 import java.io.StringWriter;
 
-import org.apache.ofbiz.base.lang.SourceMonitored;
-import org.apache.ofbiz.base.test.GenericTestCaseBase;
 import org.apache.ofbiz.base.util.IndentingWriter;
+import org.junit.Test;
 
-@SourceMonitored
-public class IndentingWriterTests extends GenericTestCaseBase {
-    public IndentingWriterTests(String name) {
-        super(name);
-    }
-
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-    }
-
-    @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
-    }
+public class IndentingWriterTests {
 
     private static void doTest(String label, boolean doSpace, boolean doNewline, String wanted) throws Exception {
         StringWriter sw = new StringWriter();
@@ -61,6 +49,7 @@ public class IndentingWriterTests extends GenericTestCaseBase {
         assertEquals(label, wanted, sw.toString());
     }
 
+    @Test
     public void testIndentingWriter() throws Exception {
         StringWriter sw = new StringWriter();
         IndentingWriter iw = IndentingWriter.makeIndentingWriter(sw);
