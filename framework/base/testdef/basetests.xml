@@ -28,7 +28,6 @@
         <junit-test-suite class-name="org.apache.ofbiz.base.util.test.UtilHttpTests"/>
         <junit-test-suite class-name="org.apache.ofbiz.base.util.string.test.FlexibleStringExpanderTests"/>
         <junit-test-suite class-name="org.apache.ofbiz.base.util.collections.test.FlexibleMapAccessorTests"/>
-        <junit-test-suite class-name="org.apache.ofbiz.base.util.test.TimeDurationTests"/>
         <junit-test-suite class-name="org.apache.ofbiz.base.util.cache.test.UtilCacheTests"/>
         <junit-test-suite class-name="org.apache.ofbiz.base.conversion.test.TestBooleanConverters"/>
         <junit-test-suite class-name="org.apache.ofbiz.base.conversion.test.TestJSONConverters"/>
