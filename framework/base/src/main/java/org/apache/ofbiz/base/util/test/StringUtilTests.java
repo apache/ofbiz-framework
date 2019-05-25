@@ -307,17 +307,4 @@ public class StringUtilTests extends GenericTestCaseBase {
         assertEquals("11101", "[1][2]", StringUtil.appendTo(new StringBuilder(), list(new TestAppender("1"), new TestAppender("2")), "[", "]", "<", null, ">").toString());
         assertEquals("11110", "[1]<,[2]", StringUtil.appendTo(new StringBuilder(), list(new TestAppender("1"), new TestAppender("2")), "[", "]", "<", ",", null).toString());
     }
-
-    public void testAppend() {
-        assertEquals("111", "[1],[2]", StringUtil.append(new StringBuilder(), list("1", "2"), "[", "]", ",").toString());
-        assertEquals("011", "1],2]", StringUtil.append(new StringBuilder(), list("1", "2"), null, "]", ",").toString());
-        assertEquals("101", "[1,[2", StringUtil.append(new StringBuilder(), list("1", "2"), "[", null, ",").toString());
-        assertEquals("110", "[1][2]", StringUtil.append(new StringBuilder(), list("1", "2"), "[", "]", null).toString());
-        assertEquals("11111", "[1]<,>[2]", StringUtil.append(new StringBuilder(), list("1", "2"), "[", "]", "<", ",", ">").toString());
-        assertEquals("01111", "1]<,>2]", StringUtil.append(new StringBuilder(), list("1", "2"), null, "]", "<", ",", ">").toString());
-        assertEquals("10111", "[1<,>[2", StringUtil.append(new StringBuilder(), list("1", "2"), "[", null, "<", ",", ">").toString());
-        assertEquals("11011", "[1],>[2]", StringUtil.append(new StringBuilder(), list("1", "2"), "[", "]", null, ",", ">").toString());
-        assertEquals("11101", "[1][2]", StringUtil.append(new StringBuilder(), list("1", "2"), "[", "]", "<", null, ">").toString());
-        assertEquals("11110", "[1]<,[2]", StringUtil.append(new StringBuilder(), list("1", "2"), "[", "]", "<", ",", null).toString());
-    }
 }
