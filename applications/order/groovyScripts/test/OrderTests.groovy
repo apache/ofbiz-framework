@@ -50,4 +50,12 @@ class OrderTests extends GroovyScriptTestCase {
         assert ServiceUtil.isSuccess(serviceResult)
         assert serviceResult.statusId != null
     }
+
+    void testCheckPaymentAmountForRefund() {
+        Map serviceCtx = [:]
+        serviceCtx.returnId = '1009'
+        serviceCtx.userLogin = EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+        Map serviceResult = dispatcher.runSync('checkPaymentAmountForRefund', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+    }
 }
