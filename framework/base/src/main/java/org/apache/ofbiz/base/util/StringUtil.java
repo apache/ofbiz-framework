@@ -426,16 +426,6 @@ public class StringUtil {
     }
 
     /**
-     * Remove/collapse multiple spaces
-     *
-     * @param str string to collapse spaces in
-     * @return the converted string
-     */
-    public static String collapseSpaces(String str) {
-        return collapseCharacter(str, ' ');
-    }
-
-    /**
      * Remove/collapse multiple characters
      *
      * @param str string to collapse characters in
