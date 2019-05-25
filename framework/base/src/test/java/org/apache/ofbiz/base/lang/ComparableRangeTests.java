@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,24 +15,23 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
-package org.apache.ofbiz.base.lang.test;
+ */
+package org.apache.ofbiz.base.lang;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.lessThan;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.apache.ofbiz.base.lang.ComparableRange;
-import org.apache.ofbiz.base.lang.SourceMonitored;
-import org.apache.ofbiz.base.test.GenericTestCaseBase;
 import org.apache.ofbiz.base.util.UtilGenerics;
+import org.junit.Test;
 
-@SourceMonitored
-public class ComparableRangeTests extends GenericTestCaseBase {
-
-    public ComparableRangeTests(String name) {
-        super(name);
-    }
+public class ComparableRangeTests {
 
     private static <L extends Comparable<L>, R extends Comparable<R>> void comparableRangeConstructorTest(L left, R right) {
         new ComparableRange<>(left, left);
@@ -106,6 +105,7 @@ public class ComparableRangeTests extends GenericTestCaseBase {
         assertTrue(label + ":a-b after d", first.before(d));
     }
 
+    @Test
     public void testComparableRange() {
         comparableRangeTest("integer", 20L, 1, 2, 3, 4);
     }

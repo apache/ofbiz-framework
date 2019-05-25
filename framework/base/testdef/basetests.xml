@@ -22,7 +22,6 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
     <test-group case-name="basetests">
-        <junit-test-suite class-name="org.apache.ofbiz.base.lang.test.ComparableRangeTests"/>
         <junit-test-suite class-name="org.apache.ofbiz.base.util.test.AssertTests"/>
         <junit-test-suite class-name="org.apache.ofbiz.base.util.test.IndentingWriterTests"/>
         <junit-test-suite class-name="org.apache.ofbiz.base.util.test.ObjectTypeTests"/>
