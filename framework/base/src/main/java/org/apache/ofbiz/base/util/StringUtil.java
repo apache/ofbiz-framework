@@ -426,16 +426,6 @@ public class StringUtil {
     }
 
     /**
-     * Remove/collapse multiple newline characters
-     *
-     * @param str string to collapse newlines in
-     * @return the converted string
-     */
-    public static String collapseNewlines(String str) {
-        return collapseCharacter(str, '\n');
-    }
-
-    /**
      * Remove/collapse multiple spaces
      *
      * @param str string to collapse spaces in
