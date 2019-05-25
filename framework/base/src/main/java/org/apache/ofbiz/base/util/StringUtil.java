@@ -23,7 +23,6 @@ import java.net.URLDecoder;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
@@ -36,7 +35,6 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
-import org.apache.ofbiz.base.lang.Appender;
 
 /**
  * Misc String Utility Functions
@@ -436,33 +434,6 @@ public class StringUtil {
             return StringWrapper.EMPTY_STRING_WRAPPER;
         }
         return new StringWrapper(theString);
-    }
-
-    public static StringBuilder appendTo(StringBuilder sb, Iterable<? extends Appender<StringBuilder>> iterable, String prefix, String suffix, String sep) {
-        return appendTo(sb, iterable, prefix, suffix, null, sep, null);
-    }
-
-    public static StringBuilder appendTo(StringBuilder sb, Iterable<? extends Appender<StringBuilder>> iterable, String prefix, String suffix, String sepPrefix, String sep, String sepSuffix) {
-        Iterator<? extends Appender<StringBuilder>> it = iterable.iterator();
-        while (it.hasNext()) {
-            if (prefix != null) {
-                sb.append(prefix);
-            }
-            it.next().appendTo(sb);
-            if (suffix != null) {
-                sb.append(suffix);
-            }
-            if (it.hasNext() && sep != null) {
-                if (sepPrefix != null) {
-                    sb.append(sepPrefix);
-                }
-                sb.append(sep);
-                if (sepSuffix != null) {
-                    sb.append(sepSuffix);
-                }
-            }
-        }
-        return sb;
     }
 
     /**
