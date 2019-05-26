@@ -43,7 +43,7 @@ components.each { component ->
          componentMap.location = webApp.getLocation()
          componentList.add(componentMap)
      }
-     if (UtilValidate.isEmpty(webApps)) {
+     if (!webApps) {
          componentMap = [:]
          componentMap.compName = component.getComponentName()
          componentMap.rootLocation =  component.getRootLocation()

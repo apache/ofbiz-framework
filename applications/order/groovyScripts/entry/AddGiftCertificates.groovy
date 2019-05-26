@@ -29,13 +29,13 @@ if (productStoreId == null) {
 
 giftCardCategories = from("ProductCategory").where("productCategoryTypeId", "GIFT_CARD_CATEGORY").queryList()
 giftCardProductList = []
-if (UtilValidate.isNotEmpty(giftCardCategories)) {
+if (giftCardCategories) {
     giftCardCategories.each { giftCardCategory -> 
         giftCardCategoryMembers = from("ProductCategoryMember").where("productCategoryId", giftCardCategory.productCategoryId).queryList()
-        if (UtilValidate.isNotEmpty(giftCardCategoryMembers)) {
+        if (giftCardCategoryMembers) {
             giftCardCategoryMembers.each { giftCardCategoryMember -> 
                 giftCardProducts = from("ProductAndPriceView").where("productId", giftCardCategoryMember.productId).queryList()
-                if (UtilValidate.isNotEmpty(giftCardProducts)) {
+                if (giftCardProducts) {
                     giftCardProducts.each { giftCardProduct ->
                         giftCardProductList.add(giftCardProduct)
                     }

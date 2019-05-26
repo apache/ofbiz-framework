@@ -57,7 +57,7 @@ if ("Y".equals(parameters.noConditionFind)) {
             if (creditCard.cardType == cardType) {
                 paymentListWithCreditCard.add(payment)
             }
-        } else if (UtilValidate.isEmpty(cardType)) {
+        } else if (!cardType) {
             paymentListWithoutCreditCard.add(payment)
         }
     }

@@ -33,7 +33,7 @@ if (facilityId && locationSeqId) {
 
     List geoCenter = UtilMisc.toList(UtilMisc.toMap("lat", latestGeoPoint.latitude, "lon", latestGeoPoint.longitude, "zoom", "13"))
 
-    if (UtilValidate.isNotEmpty(latestGeoPoint) && latestGeoPoint.containsKey("latitude") && latestGeoPoint.containsKey("longitude")) {
+    if (latestGeoPoint && latestGeoPoint.containsKey("latitude") && latestGeoPoint.containsKey("longitude")) {
         List geoPoints = UtilMisc.toList(UtilMisc.toMap("lat", latestGeoPoint.latitude, "lon", latestGeoPoint.longitude, "facilityId", facilityId,
                 "link", UtilMisc.toMap("url", "EditFacilityLocation?facilityId="+ facilityId + "&locationSeqId=" + locationSeqId,
                 "label", uiLabelMap.ProductFacilityLocation  + " " + uiLabelMap.CommonOf + " " + facilityId + "/" + locationSeqId)))

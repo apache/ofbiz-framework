@@ -31,7 +31,7 @@ String groovyProgram = null
 recordValues = []
 errMsgList = []
 
-if (UtilValidate.isEmpty(parameters.groovyProgram)) {
+if (!parameters.groovyProgram) {
     
     groovyProgram = '''
 // Use the List variable recordValues to fill it with GenericValue maps.
@@ -71,7 +71,7 @@ binding.setVariable("recordValues", recordValues)
 ClassLoader loader = Thread.currentThread().getContextClassLoader()
 def shell = new GroovyShell(loader, binding, configuration)
 
-if (UtilValidate.isNotEmpty(groovyProgram)) {
+if (groovyProgram) {
     try {
         shell.parse(groovyProgram)
         shell.evaluate(groovyProgram)

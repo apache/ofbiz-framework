@@ -25,7 +25,7 @@ uiLabelMap = UtilProperties.getResourceBundleMap("ProductUiLabels", locale)
 product = from("Product").where("productId", parameters.productId).queryOne()
 
 fromDate = UtilDateTime.nowTimestamp()
-if (UtilValidate.isNotEmpty(parameters.fromDate)) {
+if (parameters.fromDate) {
     fromDate = ObjectType.simpleTypeOrObjectConvert(parameters.fromDate, "Timestamp", null, timeZone, locale, false)
 }
 

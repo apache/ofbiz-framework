@@ -21,7 +21,7 @@ import java.util.StringTokenizer
 import org.apache.ofbiz.base.util.UtilValidate
 
 String carrierShipmentString = request.getParameter("carrierShipmentString")
-if (UtilValidate.isNotEmpty(carrierShipmentString)) {
+if (carrierShipmentString) {
     StringTokenizer st = new StringTokenizer(carrierShipmentString, "|")
     if (st.countTokens() != 3) {
         return "error"

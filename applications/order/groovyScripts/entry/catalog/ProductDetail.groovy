@@ -428,7 +428,7 @@ if (product) {
                                                 break
                                             }
                                         }
-                                    } else if (UtilValidate.isNotEmpty(entry.getValue())) { 
+                                    } else if (entry.getValue()) {
                                         if (variant.get("productId").equals(entry.getValue().get(0))) {
                                             variantPriceMap.put("variantName", entry.getKey())
                                             break
@@ -472,7 +472,7 @@ if (product) {
                                                         break
                                                     }
                                                 }
-                                            } else if (UtilValidate.isNotEmpty(entry.getValue())) { 
+                                            } else if (entry.getValue()) {
                                                 if (virtual.get("productId").equals(entry.getValue().get(0))) {
                                                     virtualPriceMap.put("variantName", entry.getKey())
                                                     break

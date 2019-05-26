@@ -34,7 +34,7 @@ inventoryItemProducts = EntityUtil.getFieldListFromEntityList(inventoryItems, "p
 inventoryAverageCosts = []
 inventoryItemProducts.each { productId ->
     productFacility = from("ProductFacility").where("productId", productId, "facilityId", facilityId).queryOne()
-    if (UtilValidate.isNotEmpty(productFacility)) {
+    if (productFacility) {
         result = runService('calculateProductAverageCost', UtilMisc.toMap("productId": productId, "facilityId": facilityId, "userLogin": userLogin))
         totalQuantityOnHand = result.get("totalQuantityOnHand")
 

@@ -68,7 +68,7 @@ while (pkIterator.hasNext()) {
     ModelField field = pkIterator.next()
     ModelFieldType type = delegator.getEntityFieldType(entity, field.getType())
     String fval = parameters.get(field.getName())
-    if (UtilValidate.isNotEmpty(fval)) {
+    if (fval) {
         curFindString = curFindString + "&" + field.getName() + "=" + fval
         findByPK.setString(field.getName(), fval)
     }

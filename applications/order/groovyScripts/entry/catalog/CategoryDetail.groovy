@@ -91,7 +91,7 @@ context.put("contentPathPrefix", contentPathPrefix)
 
 // little routine to see if any members have a quantity > 0 assigned
 members = context.get("productCategoryMembers")
-if (UtilValidate.isNotEmpty(members)) {
+if (members) {
     for (i = 0; i < members.size(); i++) {
         productCategoryMember = (GenericValue) members.get(i)
         if (productCategoryMember.get("quantity") != null && productCategoryMember.getDouble("quantity").doubleValue() > 0.0) {

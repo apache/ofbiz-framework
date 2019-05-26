@@ -50,7 +50,7 @@ if ("RELATED_URL".equals(prodCatContentTypeId)) {
     context.contentFormName = "EditCategoryContentRelatedUrl"
     context.contentFormTitle = "${uiLabelMap.ProductUpdateRelatedURLContentCategory}"
 }else if ("VIDEO".equals(prodCatContentTypeId) || "CATEGORY_IMAGE".equals(prodCatContentTypeId)) {
-    if (UtilValidate.isNotEmpty(content)) {
+    if (content) {
         context.fileDataResourceId = content.dataResourceId
     }
     if("CATEGORY_IMAGE".equals(prodCatContentTypeId)){

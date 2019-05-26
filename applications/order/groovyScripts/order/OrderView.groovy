@@ -217,7 +217,7 @@ if (orderHeader) {
         BigDecimal quantityNotAvailable = 0
         List<GenericValue> oisgirs = orderItem.getRelated("OrderItemShipGrpInvRes", null, null, false)
         for (GenericValue oisgir : oisgirs) {
-            if (UtilValidate.isNotEmpty(oisgir.get("quantityNotAvailable"))) {
+            if (oisgir.get("quantityNotAvailable")) {
                 quantityNotAvailable = quantityNotAvailable.add(oisgir.getBigDecimal("quantityNotAvailable"))
             }
         }

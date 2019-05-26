@@ -29,18 +29,18 @@
  if(productStore){
      context.productStoreId = productStore.productStoreId
  }
- if(UtilValidate.isEmpty(productStore)){
+ if(!productStore){
      errMsgList.add("Product Store not set!")
      showScreen = "message"
  } else {
      facility =from("Facility").where("facilityId", productStore.inventoryFacilityId).queryOne();
      webSite = from("WebSite").where("productStoreId", productStore.productStoreId).queryFirst();
      
-     if(UtilValidate.isEmpty(facility)){
+     if(!facility){
          errMsgList.add("Facility not set!")
          showScreen = "message"
      }
-     if(UtilValidate.isEmpty(webSite)){
+     if(!webSite){
          errMsgList.add("WebSite not set!")
          showScreen = "message"
      }
@@ -64,7 +64,7 @@
      productCategoryId = parameters.productCategoryId
      showErrorMsg = "N"
      
-     if(UtilValidate.isEmpty(prodCatalogId)){
+     if(!prodCatalogId){
          errMsgList.add("Product Catalog not set!")
          showErrorMsg = "Y"
      }
@@ -83,7 +83,7 @@
          productId = parameters.productId
          product = null
          
-         if(UtilValidate.isEmpty(productCategoryId)){
+         if(!productCategoryId){
              errMsgList.add("Product Category not set!")
              showErrorMsg = "Y"
          }

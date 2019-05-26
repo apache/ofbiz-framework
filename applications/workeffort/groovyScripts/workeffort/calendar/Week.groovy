@@ -25,7 +25,7 @@ import org.apache.ofbiz.service.ModelService
 
 String startParam = parameters.startTime
 Timestamp start = null
-if (UtilValidate.isNotEmpty(startParam)) {
+if (startParam) {
     start = new Timestamp(Long.parseLong(startParam))
 }
 if (start == null) {

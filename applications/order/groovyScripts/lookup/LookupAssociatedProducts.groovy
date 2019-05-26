@@ -27,10 +27,10 @@ productId = request.getParameter("productId")
 if (productId != null) {
     product = from("Product").where("productId", productId).queryOne()
     prodAssocs = product.getRelated("MainProductAssoc", null, null, false)
-    if (UtilValidate.isNotEmpty(prodAssocs)) {
+    if (prodAssocs) {
         products = EntityUtil.filterByAnd(prodAssocs, [EntityCondition.makeCondition("productAssocTypeId", EntityOperator.NOT_EQUAL, "PRODUCT_VARIANT")])
 
-        if (UtilValidate.isNotEmpty(products)) {
+        if (products) {
             productList = []
             products.each { product ->
                 if (product != null) {
