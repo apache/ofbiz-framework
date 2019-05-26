@@ -777,7 +777,7 @@ button.ui-button::-moz-focus-inner {
 }
 
 .ui-progressbar .ui-progressbar-value {
-    margin: -1px;
+    margin: -10px;
     height: 100%;
 }
 
