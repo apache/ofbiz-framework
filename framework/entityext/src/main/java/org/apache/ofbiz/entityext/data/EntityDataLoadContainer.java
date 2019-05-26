@@ -459,7 +459,7 @@ public class EntityDataLoadContainer implements Container {
         List<URL> urlList = new ArrayList<>();
 
         // prepare command line properties passed by user
-        List<String> files = getLoadFiles(loadDataProps.get(DATA_FILE));
+        List<String> files = Arrays.asList(loadDataProps.getOrDefault(DATA_FILE, "").split(","));
         String directory = loadDataProps.get(DATA_DIR);
         String component = loadDataProps.get(DATA_COMPONENT);
         String readers = loadDataProps.get(DATA_READERS);
@@ -491,13 +491,6 @@ public class EntityDataLoadContainer implements Container {
         urlList.addAll(retrieveDataUrlsFromDirectory(directory));
 
         return urlList;
-    }
-
-    private List<String> getLoadFiles(String fileProp) {
-        List<String> fileList = new ArrayList<>();
-        Optional.ofNullable(fileProp)
-                .ifPresent(props -> fileList.addAll(StringUtil.split(props, ",")));
-        return fileList;
     }
 
     private static boolean isDataReadersEnabled(List<String> files, String directory, String readers) {
