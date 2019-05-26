@@ -500,14 +500,10 @@ public class EntityDataLoadContainer implements Container {
         return fileList;
     }
 
-    private boolean isDataReadersEnabled(List<String> files, String directory, String readers) {
+    private static boolean isDataReadersEnabled(List<String> files, String directory, String readers) {
         /* if files or directories are passed by the user and no readers are
          * passed then set readers to "none" */
-        if (readers == null && (!files.isEmpty() || directory != null)) {
-            return false;
-        } else {
-            return true;
-        }
+        return readers != null || (files.isEmpty() && directory == null);
     }
 
     private List<String> prepareTenantLoadComponents(Delegator delegator, Delegator baseDelegator,
