@@ -131,7 +131,7 @@ public class EntityDataLoadContainer implements Container {
         return name;
     }
 
-    private static List<GenericValue> getTenantList(Property delegatorNameProp) throws ContainerException {
+    private List<GenericValue> getTenantList(Property delegatorNameProp) throws ContainerException {
         if (!EntityUtil.isMultiTenantEnabled()) {
             throw new ContainerException("Multitenant is disabled, must be enabled in general.properties -> multitenant=Y");
         }
@@ -148,7 +148,7 @@ public class EntityDataLoadContainer implements Container {
         }
     }
 
-    private static void loadDataForDelegator(Map<String, String> loadDataProps, Configuration configuration,
+    private void loadDataForDelegator(Map<String, String> loadDataProps, Configuration configuration,
             Property delegatorNameProp, String overrideDelegator) throws ContainerException{
 
         // prepare command line properties passed by user
@@ -191,24 +191,29 @@ public class EntityDataLoadContainer implements Container {
         }
     }
 
-    /**
-     * Checks if a key is associated with either the string {@code "true"} or {@code null}.
+    /*
+     * If the user passed a flag, then make sure to set it to true if it has no
+     * value or its value is the string "true".
      *
-     * @param props  the map associating keys to values
-     * @param key  the key to look for in {@code props}
-     * @return {@code true} if {@code key} is associated with {@code "true"} or {@code null} in {@code props}.
+     * key=true   -> true
+     * key        -> true
+     * key=false  -> false
+     * (no-key)   -> false
      */
-    private static boolean isPropertySet(Map<String, String> props, String key) {
+    private boolean isPropertySet(Map<String, String> props, String key) {
         String value = props.get(key);
-        return props.containsKey(key) && (value == null || "true".equalsIgnoreCase(value));
+        if (props.containsKey(key) && (value == null || "true".equalsIgnoreCase(value))) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /*
      * Gets the default entity-group-name defined in the container definition
      * unless overridden by the user
      */
-    private static String getEntityGroupNameFromConfig(Configuration cfg, String overrideGroup)
-            throws ContainerException {
+    private String getEntityGroupNameFromConfig(Configuration cfg, String overrideGroup) throws ContainerException {
         if (overrideGroup != null) {
             return overrideGroup;
         } else {
@@ -226,8 +231,7 @@ public class EntityDataLoadContainer implements Container {
      * overridden by the user. This method will create all the tables, keys and
      * indices if missing and hence might take a long time.
      */
-    private static Delegator getDelegator(Property delegatorNameProp, String overrideDelegator)
-            throws ContainerException {
+    private Delegator getDelegator(Property delegatorNameProp, String overrideDelegator) throws ContainerException {
         if (overrideDelegator != null) {
             return DelegatorFactory.getDelegator(overrideDelegator);
         } else {
@@ -235,7 +239,7 @@ public class EntityDataLoadContainer implements Container {
         }
     }
 
-    private static Delegator getDelegatorFromProp(Property delegatorNameProp) throws ContainerException {
+    private Delegator getDelegatorFromProp(Property delegatorNameProp) throws ContainerException {
         if (delegatorNameProp != null && UtilValidate.isNotEmpty(delegatorNameProp.value)) {
             Delegator delegator = DelegatorFactory.getDelegator(delegatorNameProp.value);
             if (delegator != null) {
@@ -248,7 +252,7 @@ public class EntityDataLoadContainer implements Container {
         }
     }
 
-    private static Delegator getBaseDelegator(Delegator delegator) {
+    private Delegator getBaseDelegator(Delegator delegator) {
         if (delegator.getDelegatorTenantId() != null) {
             return DelegatorFactory.getDelegator(delegator.getDelegatorBaseName());
         } else {
@@ -256,7 +260,7 @@ public class EntityDataLoadContainer implements Container {
         }
     }
 
-    private static GenericHelperInfo getHelperInfo(Delegator delegator, String entityGroup) throws ContainerException {
+    private GenericHelperInfo getHelperInfo(Delegator delegator, String entityGroup) throws ContainerException {
         GenericHelperInfo helperInfo = delegator.getGroupHelperInfo(entityGroup);
         if (helperInfo == null) {
             throw new ContainerException("Unable to locate the datasource helper for the group: " + entityGroup);
@@ -264,8 +268,8 @@ public class EntityDataLoadContainer implements Container {
         return helperInfo;
     }
 
-    private static Map<String, ModelEntity> getModelEntities(Delegator delegator, String entityGroup)
-            throws ContainerException {
+    private Map<String, ModelEntity> getModelEntities(Delegator delegator,
+            String entityGroup) throws ContainerException {
         try {
             return delegator.getModelEntityMapByGroup(entityGroup);
         } catch (GenericEntityException e) {
@@ -273,7 +277,7 @@ public class EntityDataLoadContainer implements Container {
         }
     }
 
-    private static void createOrUpdateComponentEntities(Delegator baseDelegator,
+    private void createOrUpdateComponentEntities(Delegator baseDelegator,
             Collection<ComponentConfig> allComponents) {
 
         for (ComponentConfig config : allComponents) {
@@ -296,7 +300,7 @@ public class EntityDataLoadContainer implements Container {
         }
     }
 
-    private static void dropDbConstraints(DatabaseUtil dbUtil, Map<String, ModelEntity> modelEntities,
+    private void dropDbConstraints(DatabaseUtil dbUtil, Map<String, ModelEntity> modelEntities,
             TreeSet<String> modelEntityNames) {
 
         List<String> messages = new ArrayList<>();
@@ -328,7 +332,7 @@ public class EntityDataLoadContainer implements Container {
         logMessageList(messages);
     }
 
-    private static void createDbConstraints(DatabaseUtil dbUtil, Map<String, ModelEntity> modelEntities,
+    private void createDbConstraints(DatabaseUtil dbUtil, Map<String, ModelEntity> modelEntities,
             TreeSet<String> modelEntityNames) {
 
         List<String> messages = new ArrayList<>();
@@ -360,7 +364,7 @@ public class EntityDataLoadContainer implements Container {
         logMessageList(messages);
     }
 
-    private static void dropPrimaryKeys(DatabaseUtil dbUtil, Map<String, ModelEntity> modelEntities,
+    private void dropPrimaryKeys(DatabaseUtil dbUtil, Map<String, ModelEntity> modelEntities,
             TreeSet<String> modelEntityNames) {
 
         List<String> messages = new ArrayList<>();
@@ -376,7 +380,7 @@ public class EntityDataLoadContainer implements Container {
         logMessageList(messages);
     }
 
-    private static void createPrimaryKeys(DatabaseUtil dbUtil, Map<String, ModelEntity> modelEntities,
+    private void createPrimaryKeys(DatabaseUtil dbUtil, Map<String, ModelEntity> modelEntities,
             TreeSet<String> modelEntityNames) {
 
         List<String> messages = new ArrayList<>();
@@ -392,7 +396,7 @@ public class EntityDataLoadContainer implements Container {
         logMessageList(messages);
     }
 
-    private static void repairDbColumns(DatabaseUtil dbUtil, Map<String, ModelEntity> modelEntities) {
+    private void repairDbColumns(DatabaseUtil dbUtil, Map<String, ModelEntity> modelEntities) {
         List<String> fieldsToRepair = new ArrayList<>();
         List<String> messages = new ArrayList<>();
         dbUtil.checkDb(modelEntities, fieldsToRepair, messages, false, false, false, false);
@@ -403,14 +407,15 @@ public class EntityDataLoadContainer implements Container {
         logMessageList(messages);
     }
 
-    private static void logMessageList(List<String> messages) {
+    private void logMessageList(List<String> messages) {
         if (Debug.infoOn()) {
             messages.forEach(message -> Debug.logInfo(message, module));
         }
     }
 
-    private static void loadData(Delegator delegator, Delegator baseDelegator,
-            Collection<ComponentConfig> allComponents, GenericHelperInfo helperInfo,
+    private void loadData(Delegator delegator, Delegator baseDelegator,
+            Collection<ComponentConfig> allComponents,
+            GenericHelperInfo helperInfo,
             Map<String, String> loadDataProps) throws ContainerException {
 
         // prepare command line properties passed by user
@@ -445,7 +450,7 @@ public class EntityDataLoadContainer implements Container {
         logDataLoadingResults(infoMessages, errorMessages, totalRowsChanged);
     }
 
-    private static int getTransactionTimeout(String timeout) {
+    private int getTransactionTimeout(String timeout) {
         try {
             return Integer.parseInt(timeout);
         } catch (Exception e) {
@@ -453,14 +458,14 @@ public class EntityDataLoadContainer implements Container {
         }
     }
 
-    private static List<URL> prepareDataUrls(Delegator delegator, Delegator baseDelegator,
+    private List<URL> prepareDataUrls(Delegator delegator, Delegator baseDelegator,
             Collection<ComponentConfig> allComponents, GenericHelperInfo helperInfo,
             Map<String, String> loadDataProps) throws ContainerException {
 
         List<URL> urlList = new ArrayList<>();
 
         // prepare command line properties passed by user
-        List<String> files = Arrays.asList(loadDataProps.getOrDefault(DATA_FILE, "").split(","));
+        List<String> files = getLoadFiles(loadDataProps.get(DATA_FILE));
         String directory = loadDataProps.get(DATA_DIR);
         String component = loadDataProps.get(DATA_COMPONENT);
         String readers = loadDataProps.get(DATA_READERS);
@@ -494,13 +499,24 @@ public class EntityDataLoadContainer implements Container {
         return urlList;
     }
 
-    private static boolean isDataReadersEnabled(List<String> files, String directory, String readers) {
-        /* if files or directories are passed by the user and no readers are
-         * passed then set readers to "none" */
-        return readers != null || (files.isEmpty() && directory == null);
+    private List<String> getLoadFiles(String fileProp) {
+        List<String> fileList = new ArrayList<>();
+        Optional.ofNullable(fileProp)
+                .ifPresent(props -> fileList.addAll(StringUtil.split(props, ",")));
+        return fileList;
     }
 
-    private static List<String> prepareTenantLoadComponents(Delegator delegator, Delegator baseDelegator,
+    private boolean isDataReadersEnabled(List<String> files, String directory, String readers) {
+        /* if files or directories are passed by the user and no readers are
+         * passed then set readers to "none" */
+        if (readers == null && (!files.isEmpty() || directory != null)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private List<String> prepareTenantLoadComponents(Delegator delegator, Delegator baseDelegator,
             Collection<ComponentConfig> allComponents, String component) {
 
         List<String> loadComponents = new ArrayList<>();
@@ -530,7 +546,7 @@ public class EntityDataLoadContainer implements Container {
         return loadComponents;
     }
 
-    private static List<URL> retireveDataUrlsFromFileList(List<String> files) throws ContainerException {
+    private List<URL> retireveDataUrlsFromFileList(List<String> files) throws ContainerException {
         List<URL> fileUrls = new ArrayList<>();
         for(String file: files) {
             URL url = UtilURL.fromResource(file);
@@ -543,7 +559,7 @@ public class EntityDataLoadContainer implements Container {
         return fileUrls;
     }
 
-    private static List<URL> retrieveDataUrlsFromDirectory(String directory) {
+    private List<URL> retrieveDataUrlsFromDirectory(String directory) {
         return Optional.ofNullable(directory)
                 .map(dir -> Arrays.asList(new File(dir).listFiles()).stream()
                         .filter(file -> file.getName().toLowerCase(Locale.getDefault()).endsWith(".xml"))
@@ -552,7 +568,7 @@ public class EntityDataLoadContainer implements Container {
                 .orElse(new ArrayList<URL>());
     }
 
-    private static void logDataLoadingPlan(List<URL> urlList, String delegatorName) {
+    private void logDataLoadingPlan(List<URL> urlList, String delegatorName) {
         if (UtilValidate.isNotEmpty(urlList)) {
             Debug.logImportant("=-=-=-=-=-=-= Doing a data load using delegator '"
                     + delegatorName + "' with the following files:", module);
@@ -563,7 +579,7 @@ public class EntityDataLoadContainer implements Container {
         }
     }
 
-    private static String createDataLoadMessage(URL dataUrl, int rowsChanged, int totalRowsChanged) {
+    private String createDataLoadMessage(URL dataUrl, int rowsChanged, int totalRowsChanged) {
         NumberFormat formatter = NumberFormat.getIntegerInstance();
         formatter.setMinimumIntegerDigits(5);
         formatter.setGroupingUsed(false);
@@ -572,7 +588,7 @@ public class EntityDataLoadContainer implements Container {
                 + " from " + dataUrl.toExternalForm();
     }
 
-    private static void logDataLoadingResults(List<String> infoMessages,
+    private void logDataLoadingResults(List<String> infoMessages,
             List<Object> errorMessages, int totalRowsChanged) {
 
         if (UtilValidate.isNotEmpty(infoMessages)) {
