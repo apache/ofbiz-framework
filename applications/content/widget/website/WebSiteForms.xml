@@ -93,7 +93,7 @@ under the License.
             </service>
         </actions>
         <field name="pathAlias" sort-field="true" widget-style="buttontext">
-            <hyperlink description="${pathAlias}" target="EditWebSitePathAlias?webSiteId=${webSiteId}&amp;pathAlias=${pathAlias}"></hyperlink>
+            <hyperlink description="${pathAlias}" target="EditWebSitePathAlias?webSiteId=${webSiteId}&amp;pathAlias=${pathAlias}&amp;fromDate=${fromDate}"></hyperlink>
         </field>        
         <field name="aliasTo" sort-field="true"><display/></field>
         <field name="contentId" sort-field="true">
@@ -127,7 +127,8 @@ under the License.
         <field name="contentId"><lookup target-form-name="LookupContent"/></field>
         <field name="pathAlias" use-when="webSitePathAlias!=null"><display/></field>
         <field name="pathAlias" use-when="webSitePathAlias==null" required-field="true"><text/></field>
-        <field name="fromDate" required-field="true"><date-time default-value="${nowTimestamp}"/></field>
+        <field name="fromDate" use-when="webSitePathAlias!=null"><display/></field>
+        <field name="fromDate" use-when="webSitePathAlias==null" required-field="true"><date-time default-value="${nowTimestamp}"/></field>
         <field name="submitButton" use-when="webSitePathAlias!=null" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="submitButton" use-when="webSitePathAlias==null" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
