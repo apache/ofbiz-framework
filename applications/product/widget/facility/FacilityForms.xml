@@ -1004,7 +1004,7 @@ under the License.
         </field>
         <field name="facilityIdTo" use-when="${groovy: inventoryTransfer!=null}" widget-style="buttontext">
             <hyperlink description="${inventoryTransfer.facilityIdTo}" target="EditFacility" also-hidden="false">
-                <parameter param-name="facilityIdTo" value="${inventoryTransfer.facilityIdTo}"/>
+                <parameter param-name="facilityId" value="${inventoryTransfer.facilityIdTo}"/>
             </hyperlink>
         </field>
         <field name="containerIdTo" title="${uiLabelMap.FormFieldTitle_containerId}" use-when="${groovy: inventoryTransfer==null}"><text default-value="${inventoryTransfer.containerIdTo}"/></field>
