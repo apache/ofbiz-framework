@@ -329,14 +329,14 @@ eclipse.classpath.file.whenMerged { classpath ->
 
         classpath.entries.removeAll { entry ->
             // remove any "src" entries in .classpath of the form /componentName
-            entry.kind == 'src' &&
+            entry.kind == 'src' && !(entry.path ==~ 'framework/base/config' || entry.path ==~ 'framework/base/dtd') && (
             entry.path ==~ '.*/+(' + componentName.tokenize(fileSep).last() + ')$' ||
             entry.path ==~ /(\/+framework)$/ ||
             entry.path ==~ /(\/+applications)$/ ||
             entry.path ==~ /(\/+plugins)$/ ||
             entry.path ==~ /(\/+themes)$/ ||
             entry.path ==~ eclipseEntry + '/config' ||
-            entry.path ==~ eclipseEntry + '/dtd'
+            entry.path ==~ eclipseEntry + '/dtd')
         }
     }
 }
