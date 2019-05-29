@@ -569,11 +569,14 @@ public final class SqlJdbcUtil {
         }
 
         ModelEntity model = entity.getModelEntity();
-        String encryptionKeyName = entity.getEntityName();
-        if (curField.getEncryptMethod().isEncrypted() && model instanceof ModelViewEntity) {
+        while (curField.getEncryptMethod().isEncrypted() && model instanceof ModelViewEntity) {
             ModelViewEntity modelView = (ModelViewEntity) model;
-            encryptionKeyName = modelView.getAliasedEntity(modelView.getAlias(curField.getName()).getEntityAlias(), entity.getDelegator().getModelReader()).getEntityName();
+            String entityName = modelView.getAliasedEntity(
+                    modelView.getAlias(curField.getName()).getEntityAlias(), entity.getDelegator().getModelReader()
+            ).getEntityName();
+            model = entity.getDelegator().getModelEntity(entityName);
         }
+        String encryptionKeyName = model.getEntityName();
 
         // ----- Try out the new handler code -----
 
