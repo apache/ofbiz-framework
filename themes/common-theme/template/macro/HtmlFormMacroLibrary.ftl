@@ -681,7 +681,7 @@ Parameter: delegatorName, String, optional - name of the delegator in context.
 <#macro makeHiddenFormLinkForm actionUrl name parameters targetWindow="">
   <form method="post" action="${actionUrl}" <#if targetWindow?has_content>target="${targetWindow}"</#if> onsubmit="javascript:submitFormDisableSubmits(this)" name="${name}">
     <#list parameters as parameter>
-      <input name="${parameter.name}" value="${parameter.value}" type="hidden"/>
+      <input name="${parameter.name}" value="${parameter.value?html}" type="hidden"/>
     </#list>
   </form>
 </#macro>
