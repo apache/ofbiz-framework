@@ -50,7 +50,7 @@ under the License.
   <#if linkType?has_content && "hidden-form" == linkType>
 <form method="post" action="${actionUrl}"<#if targetWindow?has_content> target="${targetWindow}"</#if> onsubmit="javascript:submitFormDisableSubmits(this)" name="${uniqueItemName}"><#rt/>
     <#list parameterList as parameter>
-<input name="${parameter.name}" value="${parameter.value}" type="hidden"/><#rt/>
+<input name="${parameter.name}" value="${parameter.value?html}" type="hidden"/><#rt/>
     </#list>
 </form><#rt/>
   </#if>
@@ -63,7 +63,7 @@ under the License.
     function ${uniqueItemName}_data() {
         var data =  {
                    <#list parameterList as parameter>
-                    "${parameter.name}": "${parameter.value}",
+                    "${parameter.name}": "${parameter.value?html}",
                     </#list>
                     "presentation": "layer"
                 };
