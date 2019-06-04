@@ -777,10 +777,6 @@ under the License.
         <attribute name="returnId" type="String" mode="IN" optional="true"/>
         <attribute name="custRequestId" type="String" mode="IN" optional="true"/>
         <attribute name="action" type="String" mode="IN" optional="true"/><!-- to indicate any special action like: REPLY, REPLYALL, FORWARD or empty for no special action-->
-        <override name="headerString" allow-html="any"/>
-        <override name="content" allow-html="any"/>
-        <override name="messageId" allow-html="any"/>
-        <override name="subject" allow-html="safe"/>
     </service>
     <service name="createCommunicationEvent" engine="simple"
             location="component://party/minilang/communication/CommunicationEventServices.xml" invoke="createCommunicationEventWithPermission" auth="true">
