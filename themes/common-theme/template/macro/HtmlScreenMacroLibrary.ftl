@@ -95,7 +95,7 @@ under the License.
         <#if "hidden-form" == linkType>
             <form method="post" action="${actionUrl}" <#if targetWindow?has_content>target="${targetWindow}"</#if> onsubmit="javascript:submitFormDisableSubmits(this)" name="${uniqueItemName}"><#rt/>
                 <#list parameterList as parameter>
-                <input name="${parameter.name}" value="${parameter.value}" type="hidden"/><#rt/>
+                <input name="${parameter.name}" value="${parameter.value?html}" type="hidden"/><#rt/>
                 </#list>
             </form><#rt/>
         </#if>
@@ -111,7 +111,7 @@ under the License.
         <#local params = "{&quot;presentation&quot;:&quot;layer&quot; ">
         <#if parameterList?has_content>
           <#list parameterList as parameter>
-            <#local params += ",&quot;${parameter.name}&quot;: &quot;${parameter.value}&quot;">
+            <#local params += ",&quot;${parameter.name}&quot;: &quot;${parameter.value?html}&quot;">
           </#list>
         </#if>
         <#local params += "}">
