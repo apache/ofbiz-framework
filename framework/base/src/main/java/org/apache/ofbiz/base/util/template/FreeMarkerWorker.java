@@ -522,6 +522,7 @@ public final class FreeMarkerWorker {
         TemplateExceptionHandler OFBIZ_DEFAULT_HANDLER = (te, env, out) -> {
             try {
                 out.write(UtilProperties.getPropertyValue("widget", "widget.freemarker.template.exception.message","∎"));
+                Debug.logError(te, module);
             } catch (IOException e) {
                 Debug.logError(e, module);
             }
