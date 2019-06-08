@@ -191,22 +191,16 @@ public class EntityDataLoadContainer implements Container {
         }
     }
 
-    /*
-     * If the user passed a flag, then make sure to set it to true if it has no
-     * value or its value is the string "true".
+    /**
+     * Checks if a key is associated with either the string {@code "true"} or {@code null}.
      *
-     * key=true   -> true
-     * key        -> true
-     * key=false  -> false
-     * (no-key)   -> false
+     * @param props  the map associating keys to values
+     * @param key  the key to look for in {@code props}
+     * @return {@code true} if {@code key} is associated with {@code "true"} or {@code null} in {@code props}.
      */
-    private boolean isPropertySet(Map<String, String> props, String key) {
+    private static boolean isPropertySet(Map<String, String> props, String key) {
         String value = props.get(key);
-        if (props.containsKey(key) && (value == null || "true".equalsIgnoreCase(value))) {
-            return true;
-        } else {
-            return false;
-        }
+        return props.containsKey(key) && (value == null || "true".equalsIgnoreCase(value));
     }
 
     /*
