@@ -220,6 +220,7 @@ under the License.
         <event type="service" invoke="createContact"/>
         <response name="success" type="request-redirect" value="viewprofile">
             <redirect-parameter name="partyId"/>
+            <redirect-parameter name="roleTypeId"/>
         </response>
     </request-map>
 
