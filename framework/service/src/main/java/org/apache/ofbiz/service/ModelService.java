@@ -933,13 +933,13 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
 
                 // internal map of strings
                 if (UtilValidate.isNotEmpty(param.stringMapPrefix) && !source.containsKey(key)) {
-                    Map<String, Object> paramMap = this.makePrefixMap(source, param);
+                    Map<String, Object> paramMap = makePrefixMap(source, param);
                     if (UtilValidate.isNotEmpty(paramMap)) {
                         target.put(key, paramMap);
                     }
                 // internal list of strings
                 } else if (UtilValidate.isNotEmpty(param.stringListSuffix) && !source.containsKey(key)) {
-                    List<Object> paramList = this.makeSuffixList(source, param);
+                    List<Object> paramList = makeSuffixList(source, param);
                     if (UtilValidate.isNotEmpty(paramList)) {
                         target.put(key, paramList);
                     }
@@ -968,7 +968,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         return target;
     }
 
-    private Map<String, Object> makePrefixMap(Map<String, ? extends Object> source, ModelParam param) {
+    private static Map<String, Object> makePrefixMap(Map<String, ? extends Object> source, ModelParam param) {
         Map<String, Object> paramMap = new HashMap<>();
         for (Map.Entry<String, ? extends Object> entry: source.entrySet()) {
             String key = entry.getKey();
@@ -980,7 +980,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         return paramMap;
     }
 
-    private List<Object> makeSuffixList(Map<String, ? extends Object> source, ModelParam param) {
+    private static List<Object> makeSuffixList(Map<String, ? extends Object> source, ModelParam param) {
         List<Object> paramList = new LinkedList<>();
         for (Map.Entry<String, ? extends Object> entry: source.entrySet()) {
             String key = entry.getKey();

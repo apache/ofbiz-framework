@@ -294,7 +294,7 @@ public final class ServiceDispatcher {
                 context.putAll(params);
             }
             // check the locale
-            Locale locale = this.checkLocale(context);
+            Locale locale = checkLocale(context);
 
             // set up the running service log
             rs = this.logService(localName, modelService, GenericEngine.SYNC_MODE);
@@ -671,7 +671,7 @@ public final class ServiceDispatcher {
         this.logService(localName, service, GenericEngine.ASYNC_MODE);
 
         // check the locale
-        Locale locale = this.checkLocale(context);
+        Locale locale = checkLocale(context);
 
         // setup the engine and context
         DispatchContext ctx = localContext.get(localName);
@@ -995,7 +995,7 @@ public final class ServiceDispatcher {
     }
 
     // checks the locale object in the context
-    private Locale checkLocale(Map<String, Object> context) {
+    private static Locale checkLocale(Map<String, Object> context) {
         Object locale = context.get("locale");
         Locale newLocale = null;
 

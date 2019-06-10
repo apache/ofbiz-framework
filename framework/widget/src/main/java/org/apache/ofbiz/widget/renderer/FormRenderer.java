@@ -491,8 +491,8 @@ public class FormRenderer {
         return maxNumOfColumns;
     }
 
-    private void renderHiddenIgnoredFields(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer,
-            List<ModelFormField> fieldList) throws IOException {
+    private static void renderHiddenIgnoredFields(Appendable writer, Map<String, Object> context,
+            FormStringRenderer formStringRenderer, List<ModelFormField> fieldList) throws IOException {
         for (ModelFormField modelFormField : fieldList) {
             FieldInfo fieldInfo = modelFormField.getFieldInfo();
 
@@ -591,7 +591,7 @@ public class FormRenderer {
                 }
 
                 // do all of the hidden fields...
-                this.renderHiddenIgnoredFields(writer, localContext, formStringRenderer, hiddenIgnoredFieldList);
+                renderHiddenIgnoredFields(writer, localContext, formStringRenderer, hiddenIgnoredFieldList);
 
                 Iterator<ModelFormField> innerFormFieldIter = innerFormFields.iterator();
                 while (innerFormFieldIter.hasNext()) {
@@ -636,7 +636,7 @@ public class FormRenderer {
             }
         } else {
             // do all of the hidden fields...
-            this.renderHiddenIgnoredFields(writer, localContext, formStringRenderer, hiddenIgnoredFieldList);
+            renderHiddenIgnoredFields(writer, localContext, formStringRenderer, hiddenIgnoredFieldList);
 
             Iterator<ModelFormField> mainFieldIter = mainFieldList.iterator();
             while (mainFieldIter.hasNext()) {
@@ -983,7 +983,7 @@ public class FormRenderer {
         // render all hidden & ignored fields
         List<ModelFormField> hiddenIgnoredFieldList =
         getHiddenIgnoredFields(context, alreadyRendered, tempFieldList, -1);
-        this.renderHiddenIgnoredFields(writer, context, formStringRenderer, hiddenIgnoredFieldList);
+        renderHiddenIgnoredFields(writer, context, formStringRenderer, hiddenIgnoredFieldList);
 
         // render formatting wrapper open
         // This should be covered by fieldGroup.renderStartString

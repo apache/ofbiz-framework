@@ -796,7 +796,7 @@ public class CheckOutHelper {
                 csi.clearAllTaxInfo();
                 continue;
             }
-            List<List<? extends Object>> taxReturn = this.getTaxAdjustments(dispatcher, "calcTax", serviceContext);
+            List<List<? extends Object>> taxReturn = getTaxAdjustments(dispatcher, "calcTax", serviceContext);
 
             if (Debug.verboseOn()) {
                 Debug.logVerbose("ReturnList: " + taxReturn, module);
@@ -908,7 +908,8 @@ public class CheckOutHelper {
     }
 
     // Calc the tax adjustments.
-    private List<List<? extends Object>> getTaxAdjustments(LocalDispatcher dispatcher, String taxService, Map<String, Object> serviceContext) throws GeneralException {
+    private static List<List<? extends Object>> getTaxAdjustments(LocalDispatcher dispatcher, String taxService,
+            Map<String, Object> serviceContext) throws GeneralException {
         Map<String, Object> serviceResult = null;
 
         try {

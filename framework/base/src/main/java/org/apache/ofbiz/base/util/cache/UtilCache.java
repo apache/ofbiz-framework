@@ -196,7 +196,7 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
         }
     }
 
-    private Object fromKey(Object key) {
+    private static Object fromKey(Object key) {
         return key == null ? ObjectType.NULL : key;
     }
 

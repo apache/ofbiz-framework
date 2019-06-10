@@ -847,7 +847,7 @@ public class RequestHandler {
         return nextPage;
     }
 
-    private void callRedirect(String url, HttpServletResponse resp, HttpServletRequest req, String statusCodeString) throws RequestHandlerException {
+    private static void callRedirect(String url, HttpServletResponse resp, HttpServletRequest req, String statusCodeString) throws RequestHandlerException {
         if (Debug.infoOn()) Debug.logInfo("Sending redirect to: [" + url + "]. " + showSessionId(req), module);
         // set the attributes in the session so we can access it.
         Enumeration<String> attributeNameEnum = UtilGenerics.cast(req.getAttributeNames());
@@ -1070,7 +1070,7 @@ public class RequestHandler {
         }
     }
 
-    private void addNameValuePairToQueryString(StringBuilder queryString, String name, String value) {
+    private static void addNameValuePairToQueryString(StringBuilder queryString, String name, String value) {
         if (UtilValidate.isNotEmpty(value)) {
             if (queryString.length() > 1) {
                 queryString.append("&");
@@ -1296,7 +1296,7 @@ public class RequestHandler {
         }
     }
     
-    private String showSessionId(HttpServletRequest request) {
+    private static String showSessionId(HttpServletRequest request) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         boolean showSessionIdInLog = EntityUtilProperties.propertyValueEqualsIgnoreCase("requestHandler", "show-sessionId-in-log", "Y", delegator);
         if (showSessionIdInLog) {

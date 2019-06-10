@@ -145,7 +145,7 @@ public class MacroMenuRenderer implements MenuStringRenderer {
         return environment;
     }
 
-    private boolean isDisableIfEmpty(ModelMenuItem menuItem, Map<String, Object> context) {
+    private static boolean isDisableIfEmpty(ModelMenuItem menuItem, Map<String, Object> context) {
         boolean disabled = false;
         String disableIfEmpty = menuItem.getDisableIfEmpty();
         if (UtilValidate.isNotEmpty(disableIfEmpty)) {
@@ -161,7 +161,7 @@ public class MacroMenuRenderer implements MenuStringRenderer {
         return disabled;
     }
 
-    private boolean isHideIfSelected(ModelMenuItem menuItem, Map<String, Object> context) {
+    private static boolean isHideIfSelected(ModelMenuItem menuItem, Map<String, Object> context) {
         ModelMenu menu = menuItem.getModelMenu();
         String currentMenuItemName = menu.getSelectedMenuItemContextFieldName(context);
         String currentItemName = menuItem.getName();
@@ -313,7 +313,7 @@ public class MacroMenuRenderer implements MenuStringRenderer {
             }
             style += selectedStyle ;
         }
-        if (this.isDisableIfEmpty(menuItem, context)) {
+        if (isDisableIfEmpty(menuItem, context)) {
             style = menuItem.getDisabledTitleStyle();
         }
         if (style == null) {

@@ -213,7 +213,7 @@ public class PackingSession implements java.io.Serializable {
         this.runEvents(PackingEvent.EVENT_CODE_ADD);
     }
 
-    private BigDecimal numAvailableItems(GenericValue res) {
+    private static BigDecimal numAvailableItems(GenericValue res) {
         // In simple situations, the reserved quantity will match the quantity from the order item.
         // If there is a back order, quantity from order may exceed quantity currently reserved and on hand.
         // resQty should never exceed the quantity from the order item, because that quantity was the quantity reserved in the first place.

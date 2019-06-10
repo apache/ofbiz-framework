@@ -388,7 +388,7 @@ public final class SimpleMethod extends MiniLangElement {
         addMessage(methodContext, messageListName, message);
     }
 
-    private void addMessage(MethodContext methodContext, String messageListName, String message) {
+    private static void addMessage(MethodContext methodContext, String messageListName, String message) {
         List<String> messages = methodContext.getEnv(messageListName);
         if (messages == null) {
             messages = new LinkedList<>();

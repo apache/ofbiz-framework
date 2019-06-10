@@ -676,7 +676,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         return getFieldNamesFromFieldVector(getNopksCopy());
     }
 
-    private List<String> getFieldNamesFromFieldVector(List<ModelField> modelFields) {
+    private static List<String> getFieldNamesFromFieldVector(List<ModelField> modelFields) {
         List<String> nameList = new ArrayList<>(modelFields.size());
         for (ModelField field: modelFields) {
             nameList.add(field.getName());

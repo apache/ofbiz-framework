@@ -270,7 +270,7 @@ public class RecurrenceInfo {
         return checkDateList(rDateList, nextTime, fromTime);
     }
 
-    private long checkDateList(List<Date> dateList, long time, long fromTime) {
+    private static long checkDateList(List<Date> dateList, long time, long fromTime) {
         long nextTime = time;
 
         if (UtilValidate.isNotEmpty(dateList)) {

@@ -173,7 +173,7 @@ public class EntityFieldValue extends EntityConditionValue {
         }
     }
 
-    private String getColName(Map<String, String> tableAliases, ModelEntity modelEntity, String fieldName,
+    private static String getColName(Map<String, String> tableAliases, ModelEntity modelEntity, String fieldName,
             boolean includeTableNamePrefix, Datasource datasourceInfo) {
         if (modelEntity == null) {
             return fieldName;
@@ -182,7 +182,7 @@ public class EntityFieldValue extends EntityConditionValue {
                 includeTableNamePrefix, datasourceInfo);
     }
 
-    private String getColName(Map<String, String> tableAliases, ModelEntity modelEntity, ModelField modelField,
+    private static String getColName(Map<String, String> tableAliases, ModelEntity modelEntity, ModelField modelField,
             String fieldName, boolean includeTableNamePrefix, Datasource datasourceInfo) {
         if (modelEntity == null || modelField == null) {
             return fieldName;
@@ -209,7 +209,7 @@ public class EntityFieldValue extends EntityConditionValue {
         return colName;
     }
 
-    private String getColName(ModelField modelField, String fieldName) {
+    private static String getColName(ModelField modelField, String fieldName) {
         return (modelField == null) ? fieldName : modelField.getColValue();
     }
 

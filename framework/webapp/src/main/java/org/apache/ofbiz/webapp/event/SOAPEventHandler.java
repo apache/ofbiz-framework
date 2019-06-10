@@ -84,7 +84,7 @@ public class SOAPEventHandler implements EventHandler {
         if (wsdlReq != null) {
             String serviceName = RequestHandler.getOverrideViewUri(request.getPathInfo());
             DispatchContext dctx = dispatcher.getDispatchContext();
-            String locationUri = this.getLocationURI(request);
+            String locationUri = getLocationURI(request);
 
             if (serviceName != null) {
                 Document wsdl = null;
@@ -211,7 +211,7 @@ public class SOAPEventHandler implements EventHandler {
         return null;
     }
 
-    private void validateSOAPBody(SOAPBody reqBody) throws EventHandlerException {
+    private static void validateSOAPBody(SOAPBody reqBody) throws EventHandlerException {
         // ensure the SOAPBody contains only one service call request
         Integer numServiceCallRequests = 0;
         Iterator<Object> serviceIter = UtilGenerics.cast(reqBody.getChildElements());
@@ -224,7 +224,8 @@ public class SOAPEventHandler implements EventHandler {
         }
     }
 
-    private void createAndSendSOAPResponse(Map<String, Object> serviceResults, String serviceName, HttpServletResponse response) throws EventHandlerException {
+    private static void createAndSendSOAPResponse(Map<String, Object> serviceResults, String serviceName,
+            HttpServletResponse response) throws EventHandlerException {
         try {
         // setup the response
             if (Debug.verboseOn()) Debug.logVerbose("[EventHandler] : Setting up response message", module);
@@ -266,15 +267,18 @@ public class SOAPEventHandler implements EventHandler {
         }
     }
 
-    private void sendError(HttpServletResponse res, String errorMessage, String serviceName) throws EventHandlerException {
+    private static void sendError(HttpServletResponse res, String errorMessage, String serviceName)
+            throws EventHandlerException {
         // setup the response
         sendError(res, ServiceUtil.returnError(errorMessage), serviceName);
     }
 
-    private void sendError(HttpServletResponse res, List<String> errorMessages, String serviceName) throws EventHandlerException {
+    private static void sendError(HttpServletResponse res, List<String> errorMessages, String serviceName)
+            throws EventHandlerException {
         sendError(res, ServiceUtil.returnError(errorMessages.toString()), serviceName);
     }
-    private void sendError(HttpServletResponse res, Object object, String serviceName) throws EventHandlerException {
+    private static void sendError(HttpServletResponse res, Object object, String serviceName)
+            throws EventHandlerException {
         try {
             // setup the response
             res.setContentType("text/xml");
@@ -314,7 +318,7 @@ public class SOAPEventHandler implements EventHandler {
         }
     }
 
-    private String getLocationURI(HttpServletRequest request) {
+    private static String getLocationURI(HttpServletRequest request) {
         StringBuilder uri = new StringBuilder();
         uri.append(request.getScheme());
         uri.append("://");

@@ -925,7 +925,7 @@ public class EntityTestSuite extends EntityTestCase {
     /*
      * This creates an string id from a number
      */
-    private String getTestId(String strTestBase, int iNum) {
+    private static String getTestId(String strTestBase, int iNum) {
         StringBuilder strBufTemp = new StringBuilder(strTestBase);
         if (iNum < 10000) {
            strBufTemp.append("0");

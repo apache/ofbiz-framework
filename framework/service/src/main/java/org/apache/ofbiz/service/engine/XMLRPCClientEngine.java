@@ -75,7 +75,8 @@ public class XMLRPCClientEngine extends GenericAsyncEngine {
     /*
      *  Invoke the remote XMLRPC SERVICE : This engine convert all value in IN mode to one struct.
      */
-    private Map<String, Object> serviceInvoker(ModelService modelService, Map<String, Object> context) throws GenericServiceException {
+    private static Map<String, Object> serviceInvoker(ModelService modelService, Map<String, Object> context)
+            throws GenericServiceException {
         if (modelService.location == null || modelService.invoke == null) {
             throw new GenericServiceException("Cannot locate service to invoke");
         }

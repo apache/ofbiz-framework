@@ -81,7 +81,8 @@ public class ContainerLoader {
         startLoadedContainers();
     }
 
-    private Collection<ContainerConfig.Configuration> retrieveOfbizContainers(String configFile) throws StartupException {
+    private static Collection<ContainerConfig.Configuration> retrieveOfbizContainers(String configFile)
+            throws StartupException {
         try {
             return ContainerConfig.getConfigurations(configFile);
         } catch (ContainerException e) {
@@ -89,7 +90,7 @@ public class ContainerLoader {
         }
     }
 
-    private List<ContainerConfig.Configuration> filterContainersHavingMatchingLoaders(List<String> loaders,
+    private static List<ContainerConfig.Configuration> filterContainersHavingMatchingLoaders(List<String> loaders,
             Collection<ContainerConfig.Configuration> containerConfigs) {
         return containerConfigs.stream()
                 .filter(containerCfg ->
@@ -99,7 +100,7 @@ public class ContainerLoader {
                 .collect(Collectors.toList());
     }
 
-    private List<Container> loadContainersFromConfigurations(List<ContainerConfig.Configuration> containerConfigs,
+    private static List<Container> loadContainersFromConfigurations(List<ContainerConfig.Configuration> containerConfigs,
             Config config, List<StartupCommand> ofbizCommands) throws StartupException {
 
         List<Container> loadContainers = new ArrayList<>();
@@ -112,8 +113,7 @@ public class ContainerLoader {
         return loadContainers;
     }
 
-    private Container loadContainer(String configFile,
-            ContainerConfig.Configuration containerCfg,
+    private static Container loadContainer(String configFile, ContainerConfig.Configuration containerCfg,
             List<StartupCommand> ofbizCommands) throws StartupException {
         // load the container class
         ClassLoader loader = Thread.currentThread().getContextClassLoader();

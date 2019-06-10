@@ -77,7 +77,7 @@ public class FoFormRenderer extends HtmlWidgetRenderer implements FormStringRend
         this.response = response;
     }
 
-    private void makeBlockString(Appendable writer, String widgetStyle, String text) throws IOException {
+    private static void makeBlockString(Appendable writer, String widgetStyle, String text) throws IOException {
         writer.append("<fo:block");
         if (UtilValidate.isNotEmpty(widgetStyle)) {
             writer.append(" ");
@@ -91,14 +91,14 @@ public class FoFormRenderer extends HtmlWidgetRenderer implements FormStringRend
     @Override
     public void renderDisplayField(Appendable writer, Map<String, Object> context, DisplayField displayField) throws IOException {
         ModelFormField modelFormField = displayField.getModelFormField();
-        this.makeBlockString(writer, modelFormField.getWidgetStyle(), displayField.getDescription(context));
+        makeBlockString(writer, modelFormField.getWidgetStyle(), displayField.getDescription(context));
         appendWhitespace(writer);
     }
 
     @Override
     public void renderHyperlinkField(Appendable writer, Map<String, Object> context, HyperlinkField hyperlinkField) throws IOException {
         ModelFormField modelFormField = hyperlinkField.getModelFormField();
-        this.makeBlockString(writer, modelFormField.getWidgetStyle(), hyperlinkField.getDescription(context));
+        makeBlockString(writer, modelFormField.getWidgetStyle(), hyperlinkField.getDescription(context));
         appendWhitespace(writer);
     }
 
@@ -110,21 +110,21 @@ public class FoFormRenderer extends HtmlWidgetRenderer implements FormStringRend
     @Override
     public void renderTextField(Appendable writer, Map<String, Object> context, TextField textField) throws IOException {
         ModelFormField modelFormField = textField.getModelFormField();
-        this.makeBlockString(writer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, textField.getDefaultValue(context)));
+        makeBlockString(writer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, textField.getDefaultValue(context)));
         appendWhitespace(writer);
     }
 
     @Override
     public void renderTextareaField(Appendable writer, Map<String, Object> context, TextareaField textareaField) throws IOException {
         ModelFormField modelFormField = textareaField.getModelFormField();
-        this.makeBlockString(writer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, textareaField.getDefaultValue(context)));
+        makeBlockString(writer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, textareaField.getDefaultValue(context)));
         appendWhitespace(writer);
     }
 
     @Override
     public void renderDateTimeField(Appendable writer, Map<String, Object> context, DateTimeField dateTimeField) throws IOException {
         ModelFormField modelFormField = dateTimeField.getModelFormField();
-        this.makeBlockString(writer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, dateTimeField.getDefaultValue(context)));
+        makeBlockString(writer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, dateTimeField.getDefaultValue(context)));
         appendWhitespace(writer);
     }
 
@@ -137,9 +137,9 @@ public class FoFormRenderer extends HtmlWidgetRenderer implements FormStringRend
         if (UtilValidate.isNotEmpty(currentValue) && "first-in-list".equals(dropDownField.getCurrent())) {
             String explicitDescription = dropDownField.getCurrentDescription(context);
             if (UtilValidate.isNotEmpty(explicitDescription)) {
-                this.makeBlockString(writer, modelFormField.getWidgetStyle(), explicitDescription);
+                makeBlockString(writer, modelFormField.getWidgetStyle(), explicitDescription);
             } else {
-                this.makeBlockString(writer, modelFormField.getWidgetStyle(), FieldInfoWithOptions.getDescriptionForOptionKey(currentValue, allOptionValues));
+                makeBlockString(writer, modelFormField.getWidgetStyle(), FieldInfoWithOptions.getDescriptionForOptionKey(currentValue, allOptionValues));
             }
         } else {
             boolean optionSelected = false;
@@ -147,13 +147,13 @@ public class FoFormRenderer extends HtmlWidgetRenderer implements FormStringRend
                 String noCurrentSelectedKey = dropDownField.getNoCurrentSelectedKey(context);
                 if ((UtilValidate.isNotEmpty(currentValue) && currentValue.equals(optionValue.getKey()) && "selected".equals(dropDownField.getCurrent())) ||
                         (UtilValidate.isEmpty(currentValue) && noCurrentSelectedKey != null && noCurrentSelectedKey.equals(optionValue.getKey()))) {
-                    this.makeBlockString(writer, modelFormField.getWidgetStyle(), optionValue.getDescription());
+                    makeBlockString(writer, modelFormField.getWidgetStyle(), optionValue.getDescription());
                     optionSelected = true;
                     break;
                 }
             }
             if (!optionSelected) {
-                this.makeBlockString(writer, null, "");
+                makeBlockString(writer, null, "");
             }
         }
         appendWhitespace(writer);
@@ -161,22 +161,22 @@ public class FoFormRenderer extends HtmlWidgetRenderer implements FormStringRend
 
     @Override
     public void renderCheckField(Appendable writer, Map<String, Object> context, CheckField checkField) throws IOException {
-        this.makeBlockString(writer, null, "");
+        makeBlockString(writer, null, "");
     }
 
     @Override
     public void renderRadioField(Appendable writer, Map<String, Object> context, RadioField radioField) throws IOException {
-        this.makeBlockString(writer, null, "");
+        makeBlockString(writer, null, "");
     }
 
     @Override
     public void renderSubmitField(Appendable writer, Map<String, Object> context, SubmitField submitField) throws IOException {
-        this.makeBlockString(writer, null, "");
+        makeBlockString(writer, null, "");
     }
 
     @Override
     public void renderResetField(Appendable writer, Map<String, Object> context, ResetField resetField) throws IOException {
-        this.makeBlockString(writer, null, "");
+        makeBlockString(writer, null, "");
     }
 
     @Override
@@ -427,28 +427,28 @@ public class FoFormRenderer extends HtmlWidgetRenderer implements FormStringRend
     @Override
     public void renderTextFindField(Appendable writer, Map<String, Object> context, TextFindField textFindField) throws IOException {
         ModelFormField modelFormField = textFindField.getModelFormField();
-        this.makeBlockString(writer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, textFindField.getDefaultValue(context)));
+        makeBlockString(writer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, textFindField.getDefaultValue(context)));
         appendWhitespace(writer);
     }
 
     @Override
     public void renderRangeFindField(Appendable writer, Map<String, Object> context, RangeFindField rangeFindField) throws IOException {
         ModelFormField modelFormField = rangeFindField.getModelFormField();
-        this.makeBlockString(writer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, rangeFindField.getDefaultValue(context)));
+        makeBlockString(writer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, rangeFindField.getDefaultValue(context)));
         appendWhitespace(writer);
     }
 
     @Override
     public void renderDateFindField(Appendable writer, Map<String, Object> context, DateFindField dateFindField) throws IOException {
         ModelFormField modelFormField = dateFindField.getModelFormField();
-        this.makeBlockString(writer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, dateFindField.getDefaultValue(context)));
+        makeBlockString(writer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, dateFindField.getDefaultValue(context)));
         appendWhitespace(writer);
     }
 
     @Override
     public void renderLookupField(Appendable writer, Map<String, Object> context, LookupField lookupField) throws IOException {
         ModelFormField modelFormField = lookupField.getModelFormField();
-        this.makeBlockString(writer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, lookupField.getDefaultValue(context)));
+        makeBlockString(writer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, lookupField.getDefaultValue(context)));
         appendWhitespace(writer);
     }
 
@@ -458,19 +458,19 @@ public class FoFormRenderer extends HtmlWidgetRenderer implements FormStringRend
     @Override
     public void renderFileField(Appendable writer, Map<String, Object> context, FileField textField) throws IOException {
         ModelFormField modelFormField = textField.getModelFormField();
-        this.makeBlockString(writer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, textField.getDefaultValue(context)));
+        makeBlockString(writer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, textField.getDefaultValue(context)));
         appendWhitespace(writer);
     }
 
     @Override
     public void renderPasswordField(Appendable writer, Map<String, Object> context, PasswordField passwordField) throws IOException {
-        this.makeBlockString(writer, null, "");
+        makeBlockString(writer, null, "");
     }
 
     @Override
     public void renderImageField(Appendable writer, Map<String, Object> context, ImageField imageField) throws IOException {
         // TODO
-        this.makeBlockString(writer, null, "");
+        makeBlockString(writer, null, "");
     }
 
     @Override
@@ -486,7 +486,7 @@ public class FoFormRenderer extends HtmlWidgetRenderer implements FormStringRend
     @Override
     public void renderBanner(Appendable writer, Map<String, Object> context, ModelForm.Banner banner) throws IOException {
         // TODO
-        this.makeBlockString(writer, null, "");
+        makeBlockString(writer, null, "");
     }
 
     public void renderHyperlinkTitle(Appendable writer, Map<String, Object> context, ModelFormField modelFormField, String titleText) throws IOException {

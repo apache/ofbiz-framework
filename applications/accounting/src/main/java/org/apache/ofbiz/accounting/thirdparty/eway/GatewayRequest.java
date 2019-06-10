@@ -407,7 +407,7 @@ public class GatewayRequest {
      *            The value of the node being created.
      * @return An XML node as a String in <nodName>nodeValue</nodeName> format
      */
-    private String createNode(String nodeName, String nodeValue) {
+    private static String createNode(String nodeName, String nodeValue) {
         return "<" + nodeName + ">" + nodeValue + "</" + nodeName + ">";
     }
 }

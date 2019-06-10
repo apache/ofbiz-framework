@@ -204,7 +204,7 @@ public class RitaApi {
         throw new IllegalStateException("Cannot send output object");
     }
 
-    private boolean checkIn(String name) {
+    private static boolean checkIn(String name) {
         for (String element : validOut) {
             if (name.equals(element)) {
                 return false;
@@ -213,7 +213,7 @@ public class RitaApi {
         return true;
     }
 
-    private boolean checkOut(String name) {
+    private static boolean checkOut(String name) {
         for (String element : validIn) {
             if (name.equals(element)) {
                 return false;

@@ -42,7 +42,7 @@ public class MiniLangTests extends OFBizTestCase {
         traceEnabled = "true".equals(UtilProperties.getPropertyValue("minilang", "unit.tests.trace.enabled"));
     }
 
-    private Map<String, Object> createContext() {
+    private static Map<String, Object> createContext() {
         return UtilMisc.toMap("locale", Locale.US, "timeZone", TimeZone.getTimeZone("GMT"));
     }
 
@@ -55,7 +55,7 @@ public class MiniLangTests extends OFBizTestCase {
         return context;
     }
 
-    private SimpleMethod createSimpleMethod(String xmlString) throws Exception {
+    private static SimpleMethod createSimpleMethod(String xmlString) throws Exception {
         return new SimpleMethod(UtilXml.readXmlDocument(xmlString).getDocumentElement(), module);
     }
 

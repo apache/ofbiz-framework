@@ -92,7 +92,7 @@ public class GenericDAO {
         this.datasource = EntityConfig.getDatasource(helperInfo.getHelperBaseName());
     }
 
-    private void addFieldIfMissing(List<ModelField> fieldsToSave, String fieldName, ModelEntity modelEntity) {
+    private static void addFieldIfMissing(List<ModelField> fieldsToSave, String fieldName, ModelEntity modelEntity) {
         for (ModelField fieldToSave: fieldsToSave) {
             if (fieldName.equals(fieldToSave.getName())) {
                 return;

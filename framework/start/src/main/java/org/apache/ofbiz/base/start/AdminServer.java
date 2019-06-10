@@ -122,7 +122,7 @@ final class AdminServer extends Thread {
                 && !request.substring(request.indexOf(':') + 1).isEmpty();
     }
 
-    private String prepareResponseToClient(OfbizSocketCommand control, AtomicReference<ServerState> serverState) {
+    private static String prepareResponseToClient(OfbizSocketCommand control, AtomicReference<ServerState> serverState) {
         String response = null;
         switch(control) {
             case SHUTDOWN:

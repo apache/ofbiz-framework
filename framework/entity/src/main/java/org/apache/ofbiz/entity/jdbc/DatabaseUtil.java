@@ -111,7 +111,8 @@ public class DatabaseUtil {
         return connection;
     }
 
-    private Connection getConnection(String driverName, String connectionUrl, Properties props, String userName, String password) throws SQLException {
+    private static Connection getConnection(String driverName, String connectionUrl, Properties props, String userName,
+            String password) throws SQLException {
         // first register the JDBC driver with the DriverManager
         if (driverName != null) {
             if (DriverManager.getDriver(driverName) == null) {
@@ -1906,7 +1907,7 @@ public class DatabaseUtil {
         }
     }
 
-    private String makeTempFieldName(ModelField field) {
+    private static String makeTempFieldName(ModelField field) {
         String tempName = "tmp_" + field.getName();
         if (tempName.length() > 30) {
             tempName = tempName.substring(0, 30);

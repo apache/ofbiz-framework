@@ -91,7 +91,7 @@ public class ComponentContainer implements Container {
      *
      * @param componentsClassPath a list of classpaths for all components
      */
-    private void loadClassPathForAllComponents(List<Classpath> componentsClassPath) {
+    private static void loadClassPathForAllComponents(List<Classpath> componentsClassPath) {
         List<URL> allComponentUrls = new ArrayList<>();
         for(Classpath classPath : componentsClassPath) {
             try {
@@ -256,7 +256,7 @@ public class ComponentContainer implements Container {
      * @param location directory location of the component
      * @return The component configuration
      */
-    private ComponentConfig retrieveComponentConfig(String name, String location) {
+    private static ComponentConfig retrieveComponentConfig(String name, String location) {
         ComponentConfig config = null;
         try {
             config = ComponentConfig.getComponentConfig(name, location);
@@ -331,7 +331,7 @@ public class ComponentContainer implements Container {
      * @return the constructed classpath
      * @throws IOException
      */
-    private Classpath buildClasspathFromComponentConfig(ComponentConfig config) throws IOException {
+    private static Classpath buildClasspathFromComponentConfig(ComponentConfig config) throws IOException {
         Classpath classPath = new Classpath();
         String configRoot = config.getRootLocation().replace('\\', '/');
         configRoot = configRoot.endsWith("/") ? configRoot : configRoot + "/";

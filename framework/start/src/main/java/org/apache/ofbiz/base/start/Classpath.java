@@ -124,7 +124,7 @@ public final class Classpath {
         }
     }
 
-    private void appendPath(StringBuilder cp, String path) {
+    private static void appendPath(StringBuilder cp, String path) {
         if (path.indexOf(' ') >= 0) {
             cp.append('\"');
             cp.append(path);

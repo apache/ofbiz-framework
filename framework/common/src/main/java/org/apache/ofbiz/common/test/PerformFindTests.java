@@ -42,7 +42,7 @@ public class PerformFindTests extends OFBizTestCase {
         super(name);
     }
 
-    private List<GenericValue> getCompleteList(Map<String, Object> context) {
+    private static List<GenericValue> getCompleteList(Map<String, Object> context) {
         List<GenericValue> foundElements = new LinkedList<>();
             try (EntityListIterator listIt = (EntityListIterator) context.get("listIt")) {
                 if (listIt != null) {

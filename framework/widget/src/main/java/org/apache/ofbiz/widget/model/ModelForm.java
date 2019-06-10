@@ -838,7 +838,7 @@ public abstract class ModelForm extends ModelWidget {
         }
     }
 
-    private void addUpdateField(ModelFormFieldBuilder builder, Set<String> useWhenFields,
+    private static void addUpdateField(ModelFormFieldBuilder builder, Set<String> useWhenFields,
             List<ModelFormFieldBuilder> fieldBuilderList, Map<String, ModelFormFieldBuilder> fieldBuilderMap) {
         if (!builder.getUseWhen().isEmpty() || useWhenFields.contains(builder.getName())) {
             useWhenFields.add(builder.getName());

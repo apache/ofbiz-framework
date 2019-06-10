@@ -267,7 +267,7 @@ public class FlexibleStringExpanderTests extends TestCase {
         everythingTest();
     }
 
-    private void everythingTest() {
+    private static void everythingTest() {
         Map<String, Object> testMap = new HashMap<>();
         testMap.put("date", new java.util.Date(1234567890));
         testMap.put("usd", "USD");

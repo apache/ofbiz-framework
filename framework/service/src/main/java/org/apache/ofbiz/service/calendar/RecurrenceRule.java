@@ -140,7 +140,7 @@ public class RecurrenceRule {
     }
 
     // Checks for a valid frequency property.
-    private boolean checkFreq(String freq) {
+    private static boolean checkFreq(String freq) {
         if (freq == null) {
             return false;
         }
@@ -708,7 +708,7 @@ public class RecurrenceRule {
     }
 
     // Tests a string for the contents of a number at the beginning
-    private boolean hasNumber(String str) {
+    private static boolean hasNumber(String str) {
         String list[] = {"+", "-", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"};
         List<String> numberList = Arrays.asList(list);
         String firstChar = str.substring(0, 1);
@@ -720,7 +720,7 @@ public class RecurrenceRule {
     }
 
     // Gets the numeric value of the number at the beginning of the string
-    private int getDailyNumber(String str) {
+    private static int getDailyNumber(String str) {
         int number = 0;
         StringBuilder numberBuf = new StringBuilder();
 
@@ -745,7 +745,7 @@ public class RecurrenceRule {
     }
 
     // Gets the string part of the combined number+string
-    private String getDailyString(String str) {
+    private static String getDailyString(String str) {
         StringBuilder sBuf = new StringBuilder();
 
         for (int i = 0; i < str.length(); i++) {
@@ -759,7 +759,7 @@ public class RecurrenceRule {
     }
 
     // Returns the Calendar day of the rule day string
-    private int getCalendarDay(String day) {
+    private static int getCalendarDay(String day) {
         if (day != null) {
             day = day.trim();
             if ("MO".equalsIgnoreCase(day)) {

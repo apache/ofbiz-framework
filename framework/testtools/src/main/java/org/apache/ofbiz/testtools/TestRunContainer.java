@@ -112,7 +112,7 @@ public class TestRunContainer implements Container {
         return name;
     }
 
-    private void setLoggerLevel(String logLevel) {
+    private static void setLoggerLevel(String logLevel) {
         if (logLevel != null) {
             int selectedLogLevel = Debug.getLevelFromString(logLevel);
 
@@ -123,7 +123,7 @@ public class TestRunContainer implements Container {
         }
     }
 
-    private JunitSuiteWrapper prepareJunitSuiteWrapper(Map<String,String> testProps) throws ContainerException {
+    private static JunitSuiteWrapper prepareJunitSuiteWrapper(Map<String,String> testProps) throws ContainerException {
         String component = testProps.get("component");
         String suiteName = testProps.get("suitename");
         String testCase = testProps.get("case");
@@ -144,7 +144,7 @@ public class TestRunContainer implements Container {
         }
     }
 
-    private void logTestSuiteResults(TestSuite suite, TestResult results) {
+    private static void logTestSuiteResults(TestSuite suite, TestResult results) {
         Debug.logInfo("[JUNIT] Results for test suite: " + suite.getName(), module);
         Debug.logInfo("[JUNIT] Pass: " + results.wasSuccessful() + " | # Tests: " + results.runCount() + " | # Failed: " +
                 results.failureCount() + " # Errors: " + results.errorCount(), module);
@@ -159,7 +159,7 @@ public class TestRunContainer implements Container {
         }
     }
 
-    private void logErrorsOrFailures(Enumeration<TestFailure> errorsOrFailures) {
+    private static void logErrorsOrFailures(Enumeration<TestFailure> errorsOrFailures) {
         if (!errorsOrFailures.hasMoreElements()) {
             Debug.logInfo("None", module);
         } else {

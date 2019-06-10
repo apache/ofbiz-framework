@@ -265,7 +265,7 @@ public class ModelTheme implements Serializable {
      * @param initWidgetPropertiesMap
      * @param widgetProperties
      */
-    private void addWidgetProperties(Map<String, Object> initWidgetPropertiesMap, Element widgetProperties) {
+    private static void addWidgetProperties(Map<String, Object> initWidgetPropertiesMap, Element widgetProperties) {
         for (Element childElement : UtilXml.childElementList(widgetProperties)) {
             switch (childElement.getNodeName()) {
                 case "default-view-size":
