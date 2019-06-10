@@ -21,6 +21,7 @@ package org.apache.ofbiz.base.container;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -49,7 +50,7 @@ public class ContainerLoader {
 
     public static final String module = ContainerLoader.class.getName();
 
-    private final List<Container> loadedContainers = new LinkedList<>();
+    private final Deque<Container> loadedContainers = new LinkedList<>();
 
     /**
      * Starts the containers.
@@ -166,11 +167,7 @@ public class ContainerLoader {
      */
     public synchronized void unload() {
         Debug.logInfo("Shutting down containers", module);
-
-        List<Container> reversedContainerList = new ArrayList<>(loadedContainers);
-        Collections.reverse(reversedContainerList);
-
-        for(Container loadedContainer : reversedContainerList) {
+        loadedContainers.descendingIterator().forEachRemaining(loadedContainer -> {
             Debug.logInfo("Stopping container " + loadedContainer.getName(), module);
             try {
                 loadedContainer.stop();
@@ -178,6 +175,6 @@ public class ContainerLoader {
                 Debug.logError(e, module);
             }
             Debug.logInfo("Stopped container " + loadedContainer.getName(), module);
-        }
+        });
     }
 }
