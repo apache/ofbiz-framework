@@ -94,11 +94,20 @@ public class ContainerLoader {
     private static List<ContainerConfig.Configuration> filterContainersHavingMatchingLoaders(List<String> loaders,
             Collection<ContainerConfig.Configuration> containerConfigs) {
         return containerConfigs.stream()
-                .filter(containerCfg ->
-                    UtilValidate.isEmpty(containerCfg.loaders) &&
-                    UtilValidate.isEmpty(loaders) ||
-                    containerCfg.loaders.stream().anyMatch(loader -> loaders.contains(loader)))
+                .filter(cfg -> intersects(cfg.loaders, loaders))
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Checks if two collections have an intersection or are both empty.
+     *
+     * @param a the first collection which can be {@code null}
+     * @param b the second collection which can be {@code null}
+     * @return {@code true} if {@code a} and {@code b} have an intersection or are both empty.
+     */
+    private static boolean intersects(Collection<?> a, Collection<?> b) {
+        return UtilValidate.isEmpty(a) && UtilValidate.isEmpty(b)
+                || !Collections.disjoint(a, b);
     }
 
     private static List<Container> loadContainersFromConfigurations(List<ContainerConfig.Configuration> containerConfigs,
