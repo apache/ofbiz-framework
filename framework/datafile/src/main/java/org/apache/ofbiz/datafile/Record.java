@@ -172,7 +172,7 @@ public class Record implements Serializable {
     /**
      * little endian reader for 2 byte short.
      */
-    public final short readLEShort(byte[] byteArray) {
+    private static short readLEShort(byte[] byteArray) {
         return (short) ((byteArray[1] & 0xff) << 8 | (byteArray[0] & 0xff));
 
     }
@@ -180,14 +180,14 @@ public class Record implements Serializable {
     /**
      * little endian reader for 4 byte int.
      */
-    public final int readLEInt(byte[] byteArray) {
+    private static int readLEInt(byte[] byteArray) {
         return (byteArray[3]) << 24 | (byteArray[2] & 0xff) << 16 | (byteArray[1] & 0xff) << 8 | (byteArray[0] & 0xff);
     }
 
     /**
      * little endian reader for 8 byte long.
      */
-    public final long readLELong(byte[] byteArray) {
+    private static long readLELong(byte[] byteArray) {
         return (long) (byteArray[7]) << 56 | /* long cast needed or shift done modulo 32 */
                (long) (byteArray[6] & 0xff) << 48 | (long) (byteArray[5] & 0xff) << 40 | (long) (byteArray[4] & 0xff) << 32 | (long) (byteArray[3] & 0xff) << 24
                | (long) (byteArray[2] & 0xff) << 16 | (long) (byteArray[1] & 0xff) << 8 | (byteArray[0] & 0xff);

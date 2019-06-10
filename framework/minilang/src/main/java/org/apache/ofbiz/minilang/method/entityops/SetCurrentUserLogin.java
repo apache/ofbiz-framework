@@ -55,7 +55,7 @@ public final class SetCurrentUserLogin extends MethodOperation {
         if (userLogin == null) {
             throw new MiniLangRuntimeException("Entity value not found with name: " + valueFma, this);
         }
-        methodContext.setUserLogin(userLogin, this.simpleMethod.getUserLoginEnvName());
+        methodContext.setUserLogin(userLogin, SimpleMethod.getUserLoginEnvName());
         return true;
     }
 

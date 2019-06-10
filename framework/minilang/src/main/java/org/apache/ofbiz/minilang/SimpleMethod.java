@@ -622,11 +622,11 @@ public final class SimpleMethod extends MiniLangElement {
         return this.defaultSuccessCode;
     }
 
-    public String getDelegatorEnvName() {
+    private static String getDelegatorEnvName() {
         return "delegator";
     }
 
-    public String getDispatcherEnvName() {
+    private static String getDispatcherEnvName() {
         return "dispatcher";
     }
 
@@ -683,11 +683,11 @@ public final class SimpleMethod extends MiniLangElement {
         return this.methodOperations;
     }
 
-    public String getParameterMapName() {
+    private static String getParameterMapName() {
         return "parameters";
     }
 
-    public String getSecurityEnvName() {
+    private static String getSecurityEnvName() {
         return "security";
     }
 
@@ -724,7 +724,7 @@ public final class SimpleMethod extends MiniLangElement {
         return this;
     }
 
-    public String getUserLoginEnvName() {
+    public static String getUserLoginEnvName() {
         return "userLogin";
     }
 
