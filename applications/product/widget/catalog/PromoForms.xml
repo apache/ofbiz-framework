@@ -59,7 +59,8 @@ under the License.
         </field>
         <field name="overrideOrgPartyId"><lookup target-form-name="LookupPartyName"/></field>
 
-        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field use-when="productPromo!=null" name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field use-when="productPromo==null" name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
 
         <field use-when="productPromo!=null" name="lastUpdatedByText" title="${uiLabelMap.ProductLastModifiedBy}:">
             <display description="[${productPromo.lastModifiedByUserLogin}] ${uiLabelMap.CommonOn} ${productPromo.lastModifiedDate}" also-hidden="false"/>
