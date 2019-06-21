@@ -76,7 +76,7 @@ the command line at the OFBiz top level directory (folder).
 
 *Unix-like OS*: ensure that your system have `curl` or `wget` and run `./gradlew`
 
-*MS Windows*: ensure that your system have `wget` and run `gradlew`
+*MS Windows*: run `gradlew`
 
 if some inconveniences appear please remove `OFBiz-root/gradle/wrapper` directory and run again.
 
