@@ -2,6 +2,7 @@ bin/
 build/
 applications/*/build
 framework/*/build
+gradle/wrapper
 plugins/
 runtime/git-rebase/*
 runtime/SvnInfo.ftl

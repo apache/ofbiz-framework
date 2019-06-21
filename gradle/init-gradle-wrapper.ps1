@@ -1,4 +1,3 @@
-###############################################################################
 # Licensed to the Apache Software Foundation (ASF) under one
 # or more contributor license agreements.  See the NOTICE file
 # distributed with this work for additional information
@@ -15,10 +14,13 @@
 # KIND, either express or implied.  See the License for the
 # specific language governing permissions and limitations
 # under the License.
-###############################################################################
 
-distributionBase=GRADLE_USER_HOME
-distributionPath=wrapper/dists
-distributionUrl=https\://services.gradle.org/distributions/gradle-5.0-bin.zip
-zipStoreBase=GRADLE_USER_HOME
-zipStorePath=wrapper/dists
+if (! (Test-Path -Path ((Get-Item -Path ".\").FullName + "\gradle\"))) {
+    Write-Host "Location seems to be incorrect, please run the 'sh gradle/init-gradle-wrapper.ps1' script from Apache OFBiz root.";
+    exit
+}
+
+# This uses  PowerShell Invoke-WebRequest command (aliased as wget here)
+# https is not used because we don't want users to be asked for a credential (not sure about that, maybe https is OK)
+wget -outf gradle\wrapper\gradle-wrapper.jar https://svn.apache.org/repos/asf/ofbiz/tools/Buildbot/Gradle/Wrapper/trunk/gradle-wrapper.jar
+wget -outf gradle\wrapper\gradle-wrapper.properties https://svn.apache.org/repos/asf/ofbiz/tools/Buildbot/Gradle/Wrapper/trunk/gradle-wrapper.properties
