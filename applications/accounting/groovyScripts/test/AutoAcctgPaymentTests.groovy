@@ -64,4 +64,16 @@ class AutoAcctgPaymentTests extends GroovyScriptTestCase {
         assert payment
         assert payment.statusId == 'PMNT_SENT'
     }
+
+    void testGetPayments() {
+        Map serviceCtx = [
+                finAccountTransId: '1001',
+                userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+        ]
+
+        Map serviceResult = dispatcher.runSync('getPayments', serviceCtx)
+
+        assert ServiceUtil.isSuccess(serviceResult)
+        assert serviceResult.payments != null
+    }
 }
