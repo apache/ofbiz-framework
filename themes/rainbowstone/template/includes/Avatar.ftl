@@ -19,14 +19,14 @@ under the License.
 
 <div id="user-avatar" onclick="showHideUserPref()">
 <#if avatarDetail??>
-    <img src="/content/control/stream?contentId=${avatarDetail.contentId}" alt="user">
+    <img src="<@ofbizUrl>stream?contentId=${avatarDetail.contentId}</@ofbizUrl>" alt="user">
 <#else>
     <img src="/rainbowstone/images/avatar.svg" alt="user">
 </#if>
     <div id="user-details" style="display:none;">
         <div id="user-row1">
         <#if avatarDetail??>
-            <img src="/content/control/stream?contentId=${avatarDetail.contentId}" alt="user">
+            <img src="<@ofbizUrl>stream?contentId=${avatarDetail.contentId}</@ofbizUrl>" alt="user">
         <#else>
             <img src="/rainbowstone/images/avatar.svg" alt="user">
         </#if>

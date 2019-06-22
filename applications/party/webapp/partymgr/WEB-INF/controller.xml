@@ -990,8 +990,8 @@ under the License.
     <request-map uri="uploadPartyContent">
         <security auth="true" https="true"/>
         <event type="service" invoke="uploadPartyContentFile"/>
-        <response name="success" type="view" value="partyContentList"/>
-        <response name="error" type="view" value="EventMessages"/>
+        <response name="success" type="view" value="viewprofile"/>
+        <response name="error" type="view" value="viewprofile"/>
     </request-map>
 
     <request-map uri="partyContentList">

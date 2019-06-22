@@ -44,7 +44,7 @@
                     <order-by field-name="-fromDate"/>
                 </entity-and>
                 <set field="partyContentId" from-field="partyContentList[0].contentId"/>
-                <set field="partyContent" value="${groovy: partyContentId!=null?'/content/control/stream?contentId=' + partyContentId + externalKeyParam : ''}"/>
+                <set field="partyContent" value="${groovy: partyContentId!=null?'/partymgr/control/stream?contentId=' + partyContentId + externalKeyParam : ''}"/>
                 <set field="partyGroupLogoLinkUrl" from-field="partyContent" default-value="${lookupGroup.logoImageUrl}" global="true"/>
                 <set field="personalImage" from-field="partyContent"/>
             </actions>
