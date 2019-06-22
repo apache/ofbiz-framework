@@ -98,6 +98,7 @@ under the License.
                 <entity-options entity-name="WorkEffortPurposeType" key-field-name="workEffortPurposeTypeId" description="${description}"></entity-options>
             </drop-down>
         </field>
+        <field name="workEffortName" title="${uiLabelMap.WorkEffortEventName}" required-field="true"><text/></field>
         <sort-order>
             <sort-field name="workEffortId"/>
             <sort-field name="partyId"/>
