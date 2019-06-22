@@ -101,12 +101,22 @@ class OrderTests extends GroovyScriptTestCase {
         Map serviceResult = dispatcher.runSync('createReturnItemShipment', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
     }
-
     void testCreateReturnStatus() {
-        Map serviceCtx = [:]
-        serviceCtx.returnId = '1009'
-        serviceCtx.userLogin = EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+        Map serviceCtx = [
+            returnId: '1009',
+            userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+        ]
         Map serviceResult = dispatcher.runSync('createReturnStatus', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
+    }
+    void testCreateReturnHeader() {
+        Map serviceCtx = [
+            toPartyId: 'Company',
+            returnHeaderTypeId: 'CUSTOMER_RETURN',
+            userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+        ]
+        Map serviceResult = dispatcher.runSync('createReturnHeader', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+        assert serviceResult.returnId != null
     }
 }
