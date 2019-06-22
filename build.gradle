@@ -709,7 +709,7 @@ task createPlugin(group: ofbizPlugin, description: 'create a new plugin componen
         def pluginDir = "${pluginsDir}/${pluginId}"
 
         ['config', 'data/helpdata', 'dtd', 'documents', 'entitydef', 'lib', 'patches/test', 'patches/qa',
-                'patches/production', 'script', 'servicedef', 'src/main/java', 'src/test/java', 'testdef',
+                'patches/production', 'groovyScripts', 'minilang', 'servicedef', 'src/main/java', 'src/test/java', 'testdef',
                 'widget', "webapp/${webappName}/error", "webapp/${webappName}/WEB-INF",
                 "webapp/${webappName}/WEB-INF/actions"].each {
             mkdir pluginDir+'/'+it
