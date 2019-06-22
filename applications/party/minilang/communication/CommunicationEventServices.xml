@@ -662,7 +662,7 @@ under the License.
             </else>
             </if-not-empty>
             <set field="emailParams.subject" from-field="productStoreEmailSetting.subject"/>
-            <set field="emailParams.sendFrom" from-field="parameters.emailAddress"/>
+            <set field="emailParams.sendFrom" from-field="productStoreEmailSetting.fromAddress"/>
             <set field="emailParams.contentType" from-field="productStoreEmailSetting.contentType"/>
             <set field="emailParams.bodyScreenUri" from-field="productStoreEmailSetting.bodyScreenLocation"/>
             <call-service service-name="sendMailFromScreen" in-map-name="emailParams"/>
