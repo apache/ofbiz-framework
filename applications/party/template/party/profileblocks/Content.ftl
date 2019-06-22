@@ -54,16 +54,5 @@ under the License.
         </select>
         <input type="submit" value="${uiLabelMap.CommonUpload}" />
       </form>
-      <div id='progress_bar'><div></div></div>
     </div>
   </div>
-  <script type="text/javascript">
-    jQuery("#uploadPartyContent").validate({
-        submitHandler: function(form) {
-            <#-- call upload scripts - functions defined in PartyProfileContent.js -->
-            uploadPartyContent();
-            getUploadProgressStatus();
-            form.submit();
-        }
-    });
-  </script>
