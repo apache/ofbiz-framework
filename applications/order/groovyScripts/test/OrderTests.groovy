@@ -121,10 +121,19 @@ class OrderTests extends GroovyScriptTestCase {
     }
     void testGetReturnAmountByOrder() {
         Map serviceCtx = [
-                returnId: '1009',
-                userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+            returnId: '1009',
+            userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
         ]
         Map serviceResult = dispatcher.runSync('getReturnAmountByOrder', serviceCtx)
+        assert ServiceUtil.isSuccess(serviceResult)
+    }
+    void testCheckCreateStockRequirementQoh() {
+        Map serviceCtx = [
+            orderId: 'TEST_DEMO10090',
+            orderItemSeqId: '00001',
+            userLogin: EntityQuery.use(delegator).from('UserLogin').where('userLoginId', 'system').cache().queryOne()
+        ]
+        Map serviceResult = dispatcher.runSync('checkCreateStockRequirementQoh', serviceCtx)
         assert ServiceUtil.isSuccess(serviceResult)
     }
 }
