@@ -690,7 +690,7 @@ public final class ProductPromoWorker {
 
                 Map<String, Object> messageContext = UtilMisc.<String, Object>toMap("condValue", condValue, "equalityOperator", equalityOperator, "quantityOperator", quantityOperator);
 
-                if ("PPIP_PARTY_CLASS".equalsIgnoreCase(productPromoCond.getString("inputParamEnumId"))) {
+                if ("PPIP_PARTY_CLASS".equalsIgnoreCase(productPromoCond.getString("inputParamEnumId")) || "PPC_PARTY_CLASS".equalsIgnoreCase(productPromoCond.getString("customMethodId"))) {
                     GenericValue partyClassificationGroup = EntityQuery.use(delegator).from("PartyClassificationGroup").where("partyClassificationGroupId", condValue).cache(true).queryOne();
                     if (partyClassificationGroup != null && UtilValidate.isNotEmpty(partyClassificationGroup.getString("description"))) {
                         condValue = partyClassificationGroup.getString("description");
@@ -703,7 +703,20 @@ public final class ProductPromoWorker {
                         partyClassificationsExcluded.add(condValue);
                     }
                 } else {
-                    String msgProp = UtilProperties.getMessage("ProductPromoUiLabels", "ProductPromoCondition." + productPromoCond.getString("inputParamEnumId"), messageContext, locale);
+                    String enumId = null;
+                    if (UtilValidate.isNotEmpty(productPromoCond.getString("customMethodId"))) {
+                        GenericValue enumeration = EntityQuery.use(delegator).from("Enumeration").where("enumCode", productPromoCond.getString("customMethodId")).cache().queryFirst();
+                        if (enumeration != null) {
+                            enumId = enumeration.getString("enumId");
+                        }
+                    } else {
+                        enumId = productPromoCond.getString("inputParamEnumId");
+                    }
+
+                    if (UtilValidate.isNotEmpty(productPromoCond.getString("otherValue"))) {
+                        messageContext.put("otherValue", productPromoCond.getString("otherValue"));
+                    }
+                    String msgProp = UtilProperties.getMessage("ProductPromoUiLabels", "ProductPromoCondition." + enumId, messageContext, locale);
                     promoDescBuf.append(msgProp);
                     promoDescBuf.append(" ");
 
@@ -733,7 +746,17 @@ public final class ProductPromoWorker {
                     messageContext.put("productName", ProductContentWrapper.getProductContentAsText(product, "PRODUCT_NAME", locale, dispatcher, "html"));
                 }
 
-                String msgProp = UtilProperties.getMessage("ProductPromoUiLabels", "ProductPromoAction." + productPromoAction.getString("productPromoActionEnumId"), messageContext, locale);
+                String enumId = null;
+                if (UtilValidate.isNotEmpty(productPromoAction.getString("customMethodId"))) {
+                    GenericValue enumeration = EntityQuery.use(delegator).from("Enumeration").where("enumCode", productPromoAction.getString("customMethodId")).cache().queryFirst();
+                    if (enumeration != null) {
+                        enumId = enumeration.getString("enumId");
+                    }
+                } else {
+                    enumId = productPromoAction.getString("productPromoActionEnumId");
+                }
+
+                String msgProp = UtilProperties.getMessage("ProductPromoUiLabels", "ProductPromoAction." + enumId, messageContext, locale);
                 promoDescBuf.append(msgProp);
                 promoDescBuf.append(" ");
 

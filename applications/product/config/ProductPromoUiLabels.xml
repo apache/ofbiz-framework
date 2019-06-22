@@ -76,6 +76,9 @@
         <value xml:lang="zh">大于等于</value>
         <value xml:lang="zh-TW">大于等于</value>
     </property>
+    <property key="ProductPromoCondition.PPIP_ORST_HIST">
+        <value xml:lang="en">spend ${quantityOperator} ${condValue} in any ${otherValue}</value>
+    </property>
     <property key="ProductPromoCondition.PPIP_ORDER_TOTAL">
         <value xml:lang="en">spend ${quantityOperator} ${condValue}</value>
         <value xml:lang="zh">花费 ${quantityOperator} ${condValue}</value>
@@ -91,6 +94,9 @@
         <value xml:lang="en">buy ${quantityOperator} ${condValue} of qualifying products</value>
         <value xml:lang="zh">购买 ${quantityOperator} ${condValue} 的合格产品</value>
         <value xml:lang="zh-TW">購買 ${quantityOperator} ${condValue} 的合格產品</value>
+    </property>
+    <property key="ProductPromoCondition.PPIP_GEO_ID">
+        <value xml:lang="en">With shipping destination ${condValue}</value>
     </property>
     <property key="ProductPromoCondition.PPIP_PRODUCT_AMOUNT">
         <value xml:lang="en">for each ${condValue} or more of qualifying products</value>
@@ -156,5 +162,8 @@
         <value xml:lang="en">get ${amount} off your order</value>
         <value xml:lang="zh">得到 ${amount} 从你的订单扣除</value>
         <value xml:lang="zh-TW">得到 ${amount} 從你的訂單扣除</value>
+    </property>
+    <property key="ProductPromoAction.PROMO_SHIP_CHARGE">
+        <value xml:lang="en">Get ${amount}% discount on shipping</value>
     </property>
 </resource>
