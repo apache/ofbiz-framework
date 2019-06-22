@@ -607,4 +607,23 @@ under the License.
             </widgets>
         </section>
     </screen>
+
+    <screen name="AddOrderAttachments">
+        <section>
+            <actions>
+                <set field="titleProperty" value="AddOrderAttachments"/>
+                <set field="headerItem" value="findorders"/>
+                <script location="component://order/groovyScripts/order/AddOrderAttachments.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonOrderViewDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://order/template/order/AddOrderAttachments.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

@@ -21,6 +21,7 @@ under the License.
 <entity-engine-xml>
     <!-- Content Types -->
     <OrderContentType description="Image" hasTable="N" orderContentTypeId="IMAGE_URL"/>
+    <OrderContentType description="Document" hasTable="N" orderContentTypeId="DOCUMENT"/>
 
     <EmailTemplateSetting
         emailTemplateSettingId="CUST_REQ_ACCEPTED"

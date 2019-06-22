@@ -1072,6 +1072,10 @@
         <value xml:lang="zh-CN">在</value>
         <value xml:lang="zh-TW">在</value>
     </property>
+    <property key="CommonAttachments">
+        <value xml:lang="en">Attachments</value>
+        <value xml:lang="fr">Pièces jointes</value>
+    </property>
     <property key="CommonAttentionName">
         <value xml:lang="ar">اسم الاهتمام</value>
         <value xml:lang="cs">K rukám</value>

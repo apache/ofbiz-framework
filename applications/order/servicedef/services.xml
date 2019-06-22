@@ -1354,4 +1354,12 @@ under the License.
         <attribute name="allocatedQuantityMap" type="Map" mode="IN" string-map-prefix="aqm_"/>
         <attribute name="rowSubmitMap" type="Map" mode="IN" string-map-prefix="rsm_"/>
     </service>
+
+    <service name="uploadOrderContentFile" engine="group" transaction-timeout="300">
+        <description>Upload and attach a file to an order</description>
+        <group>
+            <invoke name="createContentFromUploadedFile" result-to-context="true"/>
+            <invoke name="createOrderContent"/>
+        </group>
+    </service>
 </services>

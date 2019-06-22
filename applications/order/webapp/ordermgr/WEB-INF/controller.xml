@@ -1965,6 +1965,22 @@ under the License.
         <response name="error" type="view" value="viewprofile"/>
     </request-map>
 
+    <request-map uri="AddOrderAttachments">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="AddOrderAttachments"/>
+        <response name="success" type="view" value="AddOrderAttachments"/>
+    </request-map>
+    <request-map uri="addOrderAttachments">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="uploadOrderContentFile"/>
+        <response name="success" type="request-redirect" value="orderview">
+            <redirect-parameter name="orderId"/>
+        </response>
+        <response name="error" type="request-redirect" value="orderview">
+            <redirect-parameter name="orderId"/>
+        </response>
+    </request-map>
+
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -2141,5 +2157,6 @@ under the License.
     <view-map name="ListQuoteTerms" type="screen" page="component://order/widget/ordermgr/QuoteScreens.xml#ListQuoteTerms"/>
 
     <view-map name="splitship" type="screen" page="component://order/widget/ordermgr/OrderEntryOrderScreens.xml#splitship"/>
+    <view-map name="AddOrderAttachments" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#AddOrderAttachments"/>
     <!-- end of view mappings -->
 </site-conf>

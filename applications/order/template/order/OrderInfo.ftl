@@ -227,9 +227,21 @@ under the License.
             <#if orderContentWrapper.get("IMAGE_URL", "url")?has_content>
             <tr><td colspan="3"><hr /></td></tr>
             <tr>
-              <td class="label">&nbsp;${uiLabelMap.OrderImage}</td>
+              <td class="label">&nbsp;${uiLabelMap.CommonAttachments}</td>
               <td>
-                  <a href="<@ofbizUrl>viewimage?orderId=${orderId}&amp;orderContentTypeId=IMAGE_URL</@ofbizUrl>" target="_orderImage" class="buttontext">${uiLabelMap.OrderViewImage}</a>
+                <#assign orderContents = EntityQuery.use(delegator).from("OrderContent").where("orderId", orderId!).queryList()!>
+                <#if orderContents?has_content>
+                  <#list orderContents as orderContent>
+                    <div>
+                      <a href="<@ofbizUrl>stream?contentId=${orderContent.contentId!}</@ofbizUrl>" target="_blank" class="buttontext">${orderContent.contentId}</a>
+                    </div>
+                  </#list>
+                <#else>
+                  <div>
+                    ${uiLabelMap.CommonNo} ${uiLabelMap.CommonAttachments}
+                  </div>
+                </#if>
+                <a href="<@ofbizUrl>AddOrderAttachments?orderId=${orderId!}</@ofbizUrl>" class="buttontext">Add Attachment</a>
               </td>
             </tr>
             </#if>
