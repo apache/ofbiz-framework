@@ -710,8 +710,7 @@ task createPlugin(group: ofbizPlugin, description: 'create a new plugin componen
 
         ['config', 'data/helpdata', 'dtd', 'documents', 'entitydef', 'lib', 'patches/test', 'patches/qa',
                 'patches/production', 'groovyScripts', 'minilang', 'servicedef', 'src/main/java', 'src/test/java', 'testdef',
-                'widget', "webapp/${webappName}/error", "webapp/${webappName}/WEB-INF",
-                "webapp/${webappName}/WEB-INF/actions"].each {
+                'widget', "webapp/${webappName}/error", "webapp/${webappName}/WEB-INF"].each {
             mkdir pluginDir+'/'+it
         }
 
