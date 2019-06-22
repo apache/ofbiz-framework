@@ -188,7 +188,8 @@ under the License.
         <field use-when="shipment!=null" name="lastModifiedDate" title="${uiLabelMap.ProductLastModifiedDate}"><display also-hidden="false" description="${shipment.lastModifiedDate}"/></field>
         <field use-when="shipment!=null" name="lastModifiedByUserLogin" title="${uiLabelMap.ProductLastModifiedByUserLogin}"><display also-hidden="false" description="${shipment.lastModifiedByUserLogin}"/></field>
 
-        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+        <field use-when="shipment==null" name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
+        <field use-when="shipment!=null" name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
 
     <!-- ******************* -->
