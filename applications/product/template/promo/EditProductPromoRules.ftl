@@ -80,11 +80,15 @@ under the License.
                   <input type="hidden" name="productPromoId" value="${(productPromoCond.productPromoId)!}"/>
                   <input type="hidden" name="productPromoRuleId" value="${(productPromoCond.productPromoRuleId)!}"/>
                   <input type="hidden" name="productPromoCondSeqId" value="${(productPromoCond.productPromoCondSeqId)!}"/>
-                  <select name="inputParamEnumId" size="1">
+                  <select name="customMethodId" size="1">
                   <#if (productPromoCond.customMethodId)??>
                     <#assign customMethod = productPromoCond.getRelatedOne("CustomMethod", true)>
                              <option value="${productPromoCond.customMethodId}"><#if customMethod??>${(customMethod.get("description",locale))!}<#else>[${(productPromoCond.customMethodId)!}]</#if></option>
                              <option value="${(productPromoCond.customMethodId)!}">&nbsp;</option>
+                      <#elseif (productPromoCond.inputParamEnumId)??>
+                        <#assign inputParamEnumeration = productPromoCond.getRelatedOne("InputParamEnumeration", true)! />
+                        <#assign customMethod = EntityQuery.use(delegator).from("CustomMethod").where("customMethodId", inputParamEnumeration.enumCode!).cache().queryOne()!>
+                        <option value="${(customMethod.customMethodId)!}">${(inputParamEnumeration.get("description",locale))!}</option>
       <#else>
                     <option value="">&nbsp;</option>
       </#if>
@@ -290,6 +294,10 @@ under the License.
         <#assign productPromoActionCurEnum = productPromoAction.getRelatedOne("ActionEnumeration", true)>
                       <option value="${(productPromoAction.customMethodId)!}"><#if productPromoActionCurEnum??>${(productPromoActionCurEnum.get("description",locale))!}<#else>[${(productPromoAction.customMethodId)!}]</#if></option>
                       <option value="${(productPromoAction.customMethodId)!}">&nbsp;</option>
+        <#elseif (productPromoAction.productPromoActionEnumId)??>
+          <#assign actionEnumeration = productPromoAction.getRelatedOne("ActionEnumeration", true)! />
+          <#assign customMethod = EntityQuery.use(delegator).from("CustomMethod").where("customMethodId", actionEnumeration.enumCode!).cache().queryOne()!>
+            <option value="${(customMethod.customMethodId)!}">${(actionEnumeration.get("description",locale))!}</option>
       <#else>
                       <option value="">&nbsp;</option>
       </#if>
