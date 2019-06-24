@@ -77,10 +77,14 @@ set CMD_LINE_ARGS=%*
 
 :execute
 @rem Setup the command line
+
 set CLASSPATH=%APP_HOME%\gradle\wrapper\gradle-wrapper.jar
 
-@rem Overwrite the Gradle Wrapper files in all cases (it's only 55kb). This way we are sure to always use the last version
-Powershell.exe -executionpolicy remotesigned -File  %APP_HOME%\gradle\init-gradle-wrapper.ps1
+@rem check if Gradle is installed
+if exist "%CLASSPATH%" goto GradleOK
+
+md %APP_HOME%\gradle\wrapper\
+Powershell.exe -executionpolicy remotesigned -File  %APP_HOME%\init-gradle-wrapper.ps1
 
 :GradleOK
 @rem Execute Gradle
