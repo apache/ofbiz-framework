@@ -112,18 +112,15 @@ public final class ComponentConfig {
         return entityInfos;
     }
 
+    /**
+     * Provides the list of all the keystore information available in components.
+     *
+     * @return a list of keystore information
+     */
     public static List<KeystoreInfo> getAllKeystoreInfos() {
-        return getAllKeystoreInfos(null);
-    }
-
-    public static List<KeystoreInfo> getAllKeystoreInfos(String componentName) {
-        List<KeystoreInfo> keystoreInfos = new ArrayList<>();
-        for (ComponentConfig cc : getAllComponents()) {
-            if (componentName == null || componentName.equals(cc.getComponentName())) {
-                keystoreInfos.addAll(cc.getKeystoreInfos());
-            }
-        }
-        return keystoreInfos;
+        return getAllComponents().stream()
+                .flatMap(cc -> cc.getKeystoreInfos().stream())
+                .collect(Collectors.toList());
     }
 
     public static List<ServiceResourceInfo> getAllServiceResourceInfos(String type) {
