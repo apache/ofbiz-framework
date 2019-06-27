@@ -58,6 +58,17 @@
         <response name="success" type="view" value="EntityExportAll"/>
         <response name="error" type="view" value="EntityExportAll"/>
     </request-map>
+    <request-map uri="EntityExportAllJson">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EntityExportAllJson"/>
+        <response name="error" type="view" value="EntityExportAllJson"/>
+    </request-map>
+    <request-map uri="entityExportAllJson">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="entityExportAllJson"/>
+        <response name="success" type="view" value="EntityExportAllJson"/>
+        <response name="error" type="view" value="EntityExportAllJson"/>
+    </request-map>
     
     <!-- ================ Product Store Requests ============= -->
     <request-map uri="FindProductStore">
@@ -206,6 +217,7 @@
     <view-map name="EditProductStore" type="screen" page="component://commonext/widget/ofbizsetup/SetupScreens.xml#EditProductStore"/>
 
     <view-map name="EntityExportAll" type="screen" page="component://commonext/widget/ofbizsetup/CommonScreens.xml#EntityExportAll"/>
+    <view-map name="EntityExportAllJson" type="screen" page="component://commonext/widget/ofbizsetup/CommonScreens.xml#EntityExportAllJson"/>
 
     <view-map name="FindWebSite" type="screen" page="component://commonext/widget/ofbizsetup/SetupScreens.xml#FindWebSite"/>
     <view-map name="EditWebSite" type="screen" page="component://commonext/widget/ofbizsetup/SetupScreens.xml#EditWebSite"/>

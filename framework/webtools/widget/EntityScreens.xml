@@ -71,6 +71,27 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="EntityExportAllJson">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEntityExportAllJson"/>
+                <set field="tabButtonItem" value="entityExportAllJson"/>
+                <set field="parameters.TRANSACTION_TIMEOUT" value="7200"/>
+                <set field="results" from-field="parameters.results"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonImportExportDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet>
+                            <platform-specific>
+                                <html><html-template location="component://webtools/template/entity/EntityExportAllJson.ftl"/></html>
+                            </platform-specific>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <screen name="ProgramExport">
         <section>
             <actions>
@@ -116,6 +137,28 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="EntityImportDirJson">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEntityImportDirJson"/>
+                <set field="tabButtonItem" value="entityImportDirJson"/>
+                <set field="parameters.TRANSACTION_TIMEOUT" value="7200"/>
+
+                <set field="messages" from-field="parameters.messages"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonImportExportDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet>
+                            <platform-specific>
+                                <html><html-template location="component://webtools/template/entity/EntityImportDirJson.ftl"/></html>
+                            </platform-specific>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <screen name="EntityImport">
         <section>
             <actions>
@@ -131,6 +174,28 @@ under the License.
                         <screenlet>
                             <platform-specific>
                                 <html><html-template location="component://webtools/template/entity/EntityImport.ftl"/></html>
+                            </platform-specific>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EntityImportJson">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEntityImportJson"/>
+                <set field="tabButtonItem" value="entityImportJson"/>
+                <set field="parameters.TRANSACTION_TIMEOUT" value="7200"/>
+
+                <set field="messages" from-field="parameters.messages"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonImportExportDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet>
+                            <platform-specific>
+                                <html><html-template location="component://webtools/template/entity/EntityImportJson.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                     </decorator-section>
@@ -471,6 +536,28 @@ under the License.
                     <decorator-section name="body">
                         <screenlet>
                             <platform-specific><html><html-template location="component://webtools/template/entity/XmlDsDump.ftl"/></html></platform-specific>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="jsondsdump">
+        <section>
+            <actions>
+                <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="PageTitleEntityExportJson"/>
+                <set field="tabButtonItem" value="jsonDsDump"/>
+                <set field="entityFrom" from-field="parameters.entityFrom" type="Timestamp"/>
+                <set field="entityThru" from-field="parameters.entityThru" type="Timestamp"/>
+                <script location="component://webtools/groovyScripts/entity/JsonDsDump.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonImportExportDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet>
+                            <platform-specific><html><html-template location="component://webtools/template/entity/JsonDsDump.ftl"/></html></platform-specific>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>

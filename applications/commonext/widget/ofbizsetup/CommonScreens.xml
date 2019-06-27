@@ -153,4 +153,26 @@
             </widgets>
         </section>
     </screen>
+    <screen name="EntityExportAllJson">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEntityExportAllJson"/>
+                <set field="tabButtonItem" value="entityExportAllJson"/>
+                <set field="parameters.TRANSACTION_TIMEOUT" value="7200"/>
+                <set field="results" from-field="parameters.results"/>
+                <set field="headerItem" value="export"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.PageTitleEntityExportAllJson}">
+                            <platform-specific>
+                                <html><html-template location="component://webtools/template/entity/EntityExportAllJson.ftl"/></html>
+                            </platform-specific>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

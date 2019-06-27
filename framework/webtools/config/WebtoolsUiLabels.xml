@@ -98,6 +98,15 @@
         <value xml:lang="zh">没有指定的文件名/网址或完整的XML文档，什么也不做。</value>
         <value xml:lang="zh-TW">沒有指定的檔案名/網址或完整的XML檔,什麼也不做.</value>
     </property>
+    <property key="EntityImportNoJsonFileSpecified">
+        <value xml:lang="en">No filename/URL or complete JSON document specified, doing nothing.</value>
+        <value xml:lang="fr">Pas de fichier, URL ou flux JSON fournit, aucune action réalisée.</value>
+        <value xml:lang="it">Nessun nome file/URL o documento JSON completo specificato, nientre verrà fatto.</value>
+        <value xml:lang="ja">ファイル名/URLまたは完全なJSON文書が指定されていません。処理を行いません。</value>
+        <value xml:lang="vi">Không Tập tin/URL hoặc tài liệu JSON hoàn chỉnh nào được xác định nên hệ thống sẽ không làm gì cả.</value>
+        <value xml:lang="zh">没有指定的文件名/网址或完整的JSON文档，什么也不做。</value>
+        <value xml:lang="zh-TW">沒有指定的檔案名/網址或完整的JSON檔,什麼也不做.</value>
+    </property>
     <property key="EntityImportNumberOfEntityToBeProcessed">
         <value xml:lang="en">Got ${numberRead} entities from ${fileName}</value>
         <value xml:lang="fr">Chargement de ${numberRead} entités depuis ${fileName}</value>
@@ -115,6 +124,15 @@
         <value xml:lang="vi">LỖI khi phân tích tập tin XML Thực thể: ${errorString}</value>
         <value xml:lang="zh">解析实体XML文件时出错：${errorString}</value>
         <value xml:lang="zh-TW">解析資料實體XML檔時出錯:${errorString}</value>
+    </property>
+    <property key="EntityImportJsonParsingError">
+        <value xml:lang="en">ERROR parsing Entity Json file: ${errorString}</value>
+        <value xml:lang="fr">ERREUR dans l'analyse de l'JSON : ${errorString}</value>
+        <value xml:lang="it">ERRORE di parsing file entità JSON: ${errorString}</value>
+        <value xml:lang="ja">エンティティJSONファイルパース時にエラー: ${errorString}</value>
+        <value xml:lang="vi">LỖI khi phân tích tập tin JSON Thực thể: ${errorString}</value>
+        <value xml:lang="zh">解析实体JSON文件时出错：${errorString}</value>
+        <value xml:lang="zh-TW">解析資料實體JSON檔時出錯:${errorString}</value>
     </property>
     <property key="EntityImportPassedFile">
         <value xml:lang="en">Pass ${passes} complete</value>
@@ -513,6 +531,32 @@
         <value xml:lang="zh">XML数据导出全部</value>
         <value xml:lang="zh-TW">XML資料匯出全部</value>
     </property>
+    <property key="PageTitleEntityExportJson">
+        <value xml:lang="de">JSON-Daten exportieren</value>
+        <value xml:lang="en">JSON Data Export</value>
+        <value xml:lang="fr">Export de données JSON</value>
+        <value xml:lang="it">Esporta dati in JSON</value>
+        <value xml:lang="ja">JSONデータエクスポート</value>
+        <value xml:lang="pt">ExportaÃ§Ã£o de dados JSON</value>
+        <value xml:lang="ro">Exporta Date in JSON</value>
+        <value xml:lang="th">ส่งออกข้อมูล json</value>
+        <value xml:lang="vi">Kết xuất dữ liệu JSON</value>
+        <value xml:lang="zh">JSON数据导出</value>
+        <value xml:lang="zh-TW">JSON資料匯出</value>
+    </property>
+    <property key="PageTitleEntityExportAllJson">
+        <value xml:lang="de">Alle JSON-Daten exportieren</value>
+        <value xml:lang="en">JSON Data Export All</value>
+        <value xml:lang="fr">Exporter toutes les données JSON</value>
+        <value xml:lang="it">Esporta tutti i dati in JSON</value>
+        <value xml:lang="ja">JSONデータをすべてエクスポート</value>
+        <value xml:lang="pt">ExportaÃ§Ã£o de todos os dados JSON</value>
+        <value xml:lang="ro">Exporta Toate Datele in JSON</value>
+        <value xml:lang="th">ส่งออกข้อมูล JSON ทั้งหมด</value>
+        <value xml:lang="vi">Kết xuất tất cả dữ liệu JSON</value>
+        <value xml:lang="zh">JSON数据导出全部</value>
+        <value xml:lang="zh-TW">JSON資料匯出全部</value>
+    </property>
     <property key="PageTitleEntityImport">
         <value xml:lang="de">XML-Daten importieren</value>
         <value xml:lang="en">XML Data Import</value>
@@ -538,6 +582,32 @@
         <value xml:lang="vi">Thư mục nhập khẩu XML</value>
         <value xml:lang="zh">XML数据导入目录 </value>
         <value xml:lang="zh-TW">XML資料匯入目錄 </value>
+    </property>
+    <property key="PageTitleEntityImportJson">
+        <value xml:lang="de">JSON-Daten importieren</value>
+        <value xml:lang="en">JSON Data Import</value>
+        <value xml:lang="fr">Import de données JSON</value>
+        <value xml:lang="it">Importa dati da JSON</value>
+        <value xml:lang="ja">JSONデータインポート</value>
+        <value xml:lang="pt">Importar dados JSON</value>
+        <value xml:lang="ro">Importa Datele din JSON</value>
+        <value xml:lang="th">นำเข้าข้อมูล json</value>
+        <value xml:lang="vi">Nhập khẩu dữ liệu JSON</value>
+        <value xml:lang="zh">JSON数据导入</value>
+        <value xml:lang="zh-TW">JSON資料匯入</value>
+    </property>
+    <property key="PageTitleEntityImportDirJson">
+        <value xml:lang="de">JSON Datenimport aus Verzeichnis</value>
+        <value xml:lang="en">JSON Data Import Dir</value>
+        <value xml:lang="fr">Import de données JSON depuis un répertoire</value>
+        <value xml:lang="it">Importa dati JSON in directory</value>
+        <value xml:lang="ja">JSONデータインポートディレクトリ</value>
+        <value xml:lang="pt">Importar dados JSON em diretÃ³rio</value>
+        <value xml:lang="ro">Importa Datele din JSON in Directory</value>
+        <value xml:lang="th">นำเข้าข้อมูล json ใน Directory</value>
+        <value xml:lang="vi">Thư mục nhập khẩu JSON</value>
+        <value xml:lang="zh">JSON数据导入目录 </value>
+        <value xml:lang="zh-TW">JSON資料匯入目錄 </value>
     </property>
     <property key="PageTitleEntityImportReaders">
         <value xml:lang="de">Leser für XML Datenimport</value>
@@ -1219,6 +1289,19 @@
         <value xml:lang="vi">Hoàn thành tài liệu XML (Đánh dấu gốc: entity-engine-xml)</value>
         <value xml:lang="zh">完成XML文档 (根标签: entity-engine-xml)</value>
         <value xml:lang="zh-TW">完成XML檔 (根標簽: entity-engine-xml)</value>
+    </property>
+    <property key="WebtoolsCompleteJsonData">
+        <value xml:lang="de">Vollständiges JSON dokument</value>
+        <value xml:lang="en">Complete JSON data</value>
+        <value xml:lang="fr">Compléter le data JSON</value>
+        <value xml:lang="it">Documento JSON</value>
+        <value xml:lang="ja">JSONドキュメントを完了する</value>
+        <value xml:lang="pt">Documento JSON completo</value>
+        <value xml:lang="ro">Completeaza documentul JSON</value>
+        <value xml:lang="th">เอกสาร JSON เสร็จเรียบร้อยแล้ว</value>
+        <value xml:lang="vi">Hoàn thành tài liệu JSON</value>
+        <value xml:lang="zh">完成JSON文档</value>
+        <value xml:lang="zh-TW">完成JSON檔</value>
     </property>
     <property key="WebtoolsComponentsLoaded">
         <value xml:lang="de">Komponenten geladen</value>
@@ -1997,6 +2080,18 @@
         <value xml:lang="zh">实体XML工具</value>
         <value xml:lang="zh-TW">資料實體XML工具</value>
     </property>
+    <property key="WebtoolsEntityJSONTools">
+        <value xml:lang="de">Entität JSON Tools</value>
+        <value xml:lang="en">Entity JSON Tools</value>
+        <value xml:lang="fr">Outils JSON d'entité</value>
+        <value xml:lang="it">Strumenti JSON per entità</value>
+        <value xml:lang="ja">エンティティJSONツール</value>
+        <value xml:lang="ro">Instrumente pentru Entitatea JSON</value>
+        <value xml:lang="th">เครื่องมือ Entity JSON </value>
+        <value xml:lang="vi">Công cụ JSON Thực thể</value>
+        <value xml:lang="zh">实体JSON工具</value>
+        <value xml:lang="zh-TW">資料實體XML工具</value>
+    </property>
     <property key="WebtoolsEnvName">
         <value xml:lang="de">Umgebungsname</value>
         <value xml:lang="en">Env Name</value>
@@ -2185,6 +2280,19 @@
         <value xml:lang="vi">Kết xuất XML từ nguồn dữ liệu</value>
         <value xml:lang="zh">从数据源导出XML</value>
         <value xml:lang="zh-TW">從資料源匯出XML</value>
+    </property>
+    <property key="WebtoolsExportJSONFromDataSource">
+        <value xml:lang="de">JSON Export aus der Datenquelle</value>
+        <value xml:lang="en">JSON Export from DataSource(s)</value>
+        <value xml:lang="fr">Export JSON depuis les sources de données</value>
+        <value xml:lang="it">Esportazione JSON da Datasource</value>
+        <value xml:lang="ja">データソースからJSONをエクスポート</value>
+        <value xml:lang="pt">Exportar de JSON DataSource(s)</value>
+        <value xml:lang="ro">Exporta Sursa Date in JSON</value>
+        <value xml:lang="th">JSON ที่มาจากแหล่งข้อมูล</value>
+        <value xml:lang="vi">Kết xuất JSON từ nguồn dữ liệu</value>
+        <value xml:lang="zh">从数据源导出JSON</value>
+        <value xml:lang="zh-TW">從資料源匯出JSON</value>
     </property>
     <property key="WebtoolsExportable">
         <value xml:lang="de">Exportierbar</value>
@@ -2639,6 +2747,19 @@
         <value xml:lang="vi">Nhập khẩu XML từ nguồn dữ liệu</value>
         <value xml:lang="zh">把XML导入到数据源</value>
         <value xml:lang="zh-TW">把XML匯入到資料源</value>
+    </property>
+    <property key="WebtoolsJsonImportToDataSource">
+        <value xml:lang="de">JSON-Import in DataSource(n)</value>
+        <value xml:lang="en">JSON Import to DataSource(s)</value>
+        <value xml:lang="fr">Import JSON vers la source de données</value>
+        <value xml:lang="it">Importazione JSON in Datasource</value>
+        <value xml:lang="ja">データソースにJSONをインポート</value>
+        <value xml:lang="pt">Importar JSON para DataSource(s)</value>
+        <value xml:lang="ro">Importa Sursa de Date din JSON</value>
+        <value xml:lang="th">นำเข้า JSON ไปยังแหล่งข้อมูล</value>
+        <value xml:lang="vi">Nhập khẩu JSON từ nguồn dữ liệu</value>
+        <value xml:lang="zh">把JSON导入到数据源</value>
+        <value xml:lang="zh-TW">把JSON匯入到資料源</value>
     </property>
     <property key="WebtoolsImportantLogLevel">
         <value xml:lang="de">Wichtig</value>
@@ -5942,7 +6063,7 @@
     <property key="WebtoolsXMLExportInfo">
         <value xml:lang="de">Hier Seite können Daten aus der Datenbank exportiert werden. Die exportierten Dokumente werden in einem XML-root-tag "&lt;entity-engine-xml&gt;" enthalten sein. Es wird für jede Entität in dem für diese webapp konfigurierten Delegator eine eigene Datei erstellt.</value>
         <value xml:lang="en">This page can be used to export data from the database. The exported documents will have a root tag of "&lt;entity-engine-xml&gt;". There will be one file for each Entity in the configured delegator for this webapp.</value>
-        <value xml:lang="fr">Cette page peut être utilisée pour exporter des données depuis la base. Les documents exportés auront une balise de racine de "&lt;entity-engine-xml&gt;". Il y aura un dossier pour chaque entité dans le delegator configuré pour cette webapp.</value>
+        <value xml:lang="fr">Cette page peut être utilisée pour exporter des données depuis la base. Les documents exportés auront une balise de racine de "&lt;entity-engine-xml&gt;". Il y aura un fichier créé pour chaque entité dans le delegator configuré pour cette webapp.</value>
         <value xml:lang="it">Questa pagina può essere usata per esportare i dati dal database. I documenti esportati avranno un root tag "&lt;entity-engine-xml&gt;". C'è un file per ogni Entità nel delegator configurato per questa applicazione web.</value>
         <value xml:lang="ja">このページでデータベースからデータをエクスポートすることができます。エクスポートするドキュメントには"&lt;entity-engine-xml&gt;"ルートタグがあります。Webアプリケーションに設定されたデリゲータの中のそれぞれのエンティティに対して１つのファイルが作成されます。</value>
         <value xml:lang="pt">Esta pÃ¡gina pode ser utilizado para exportar dados do banco de dados. Os documentos de exportaÃ§Ã£o terÃ£o uma tag raiz de " &lt;entity-engine-xml&gt;". HaverÃ¡ um arquivo para cada entidade do delegator configurado para essa webapp.</value>
@@ -5951,6 +6072,43 @@
         <value xml:lang="vi">Giao diện bạn đang sử dụng cung cấp chức năng Kết xuất dữ liệu từ Cơ sở dữ liệu. Các tài liệu kết xuất sẽ có thẻ gốc "&lt;entity-engine-xml&gt;"( có 01 Tập tin với mỗi Thực thể của Ứng dụng này)</value>
         <value xml:lang="zh">本页面用于从数据库导出数据 导出的文档会有一个"&lt;entity-engine-xml&gt;"的根标签在为这个应用配置的代表中，会对每个实体有一个文件。</value>
         <value xml:lang="zh-TW">本頁面用於從資料庫匯出資料 匯出的檔會有一個"&lt;entity-engine-xml&gt;"的根標簽在為這個應用配置的代表中,會對每個資料實體有一個檔.&lt;/entity-engine-xml&gt;</value>
+    </property>
+    <property key="WebtoolsWroteNRecordsToJSONFile">
+        <value xml:lang="de">Es wurden ${numberWritten} Datensätze in die Datei ${parameters.filename} geschrieben.</value>
+        <value xml:lang="en">Wrote ${numberWritten} records to JSON file ${parameters.filename}.</value>
+        <value xml:lang="fr">Ecrire ${numberWritten} les enregistrements dans le fichier JSON ${parameters.filename}.</value>
+        <value xml:lang="it">Scritti ${numberWritten} records su file JSON ${parameters.filename}.</value>
+        <value xml:lang="ja">${numberWritten} レコードを、JSONファイル ${parameters.filename} に書き出しました。</value>
+        <value xml:lang="pt">Escreveu  ${numberWritten} registros para o arquivo JSON ${parameters.filename}.</value>
+        <value xml:lang="th">เขียน ${numberWritten} บันทึกมูล XML ไฟล์ ${parameters.filename}.</value>
+        <value xml:lang="vi">Đã ghi ${numberWritten} bản ghi tới tập tin JSON ${parameters.filename}.</value>
+        <value xml:lang="zh">把${numberWritten}个记录写到JSON文件${parameters.filename}。</value>
+        <value xml:lang="zh-TW">把${numberWritten}個記錄寫到JSON檔${parameters.filename}.</value>
+    </property>
+    <property key="WebtoolsWroteJSONForAllDataIn">
+        <value xml:lang="de">Es wurde JSON für alle Daten in ${numberofEntities} Entitäten geschrieben.</value>
+        <value xml:lang="en">Wrote JSON for all data in ${numberOfEntities} entities.</value>
+        <value xml:lang="fr">Ecrire JSON pour toute les donnée inclues ${numberOfEntities} Entités.</value>
+        <value xml:lang="it">Scritti JSON per tutti i dati in ${numberOfEntities} entità.</value>
+        <value xml:lang="ja">${numberOfEntities} エンティティのすべてのデータをXMLファイルに書き出しました。</value>
+        <value xml:lang="pt">Escreveu JSON para todos os dados em ${numberOfEntities} entidades.</value>
+        <value xml:lang="th">เขียน JSON สำหรับข้อมูลทั้งหมดใน ${numberOfEntities} entities.</value>
+        <value xml:lang="vi">Đã ghi JSON cho tất cả dữ liệu trong ${numberOfEntities} Thực thể.</value>
+        <value xml:lang="zh">为${numberOfEntities}个实体中的全部数据写到JSON。</value>
+        <value xml:lang="zh-TW">為${numberOfEntities}個資料實體中的全部資料寫到JSON.</value>
+    </property>
+    <property key="WebtoolsJSONExportInfo">
+        <value xml:lang="de">Hier Seite können Daten aus der Datenbank exportiert werden. Es wird für jede Entität in dem für diese webapp konfigurierten Delegator eine eigene Datei erstellt.</value>
+        <value xml:lang="en">This page can be used to export data from the database. There will be one file for each Entity in the configured delegator for this webapp.</value>
+        <value xml:lang="fr">Cette page peut être utilisée pour exporter des données depuis la base. Il y aura un fichier créé pour chaque entité dans le delegator configuré pour cette webapp.</value>
+        <value xml:lang="it">Questa pagina può essere usata per esportare i dati dal database. C'è un file per ogni Entità nel delegator configurato per questa applicazione web.</value>
+        <value xml:lang="ja">このページでデータベースからデータをエクスポートすることができます。Webアプリケーションに設定されたデリゲータの中のそれぞれのエンティティに対して１つのファイルが作成されます。</value>
+        <value xml:lang="pt">Esta pÃ¡gina pode ser utilizado para exportar dados do banco de dados. HaverÃ¡ um arquivo para cada entidade do delegator configurado para essa webapp.</value>
+        <value xml:lang="ro">Aceasta pagina poate fi folosita pentru exportarea datelor din  database. Exista un file pentru orice Entitate din delegatorul configurat pentru aceasta aplicatie web.</value>
+        <value xml:lang="th">หน้านี้ใช้การส่งออกข้อมูลจากฐานข้อมูลการส่ มี 1 ไฟล์สำหรับตัวอย่าง Entity ในการสร้างตัวแทนสำหรับโปรแกรมประยุกต์นี้</value>
+        <value xml:lang="vi">Giao diện bạn đang sử dụng cung cấp chức năng Kết xuất dữ liệu từ Cơ sở dữ liệu.( có 01 Tập tin với mỗi Thực thể của Ứng dụng này)</value>
+        <value xml:lang="zh">本页面用于从数据库导出数据 的根标签在为这个应用配置的代表中，会对每个实体有一个文件。</value>
+        <value xml:lang="zh-TW">本頁面用於從資料庫匯出資料 的根標簽在為這個應用配置的代表中,會對每個資料實體有一個檔.</value>
     </property>
     <property key="WebtoolsXMLImportInfo">
         <value xml:lang="de">Hier können zuvor exportierte Entitäten XML Dateien wieder in die Datenbank importiert werden. Diese Dokumente haben eine XML-root-tag "&lt;entity-engine-xml&gt;".</value>
@@ -5964,6 +6122,19 @@
         <value xml:lang="vi">Giao diện bạn đang sử dụng cung cấp chức năng Nhập khẩu dữ liệu từ các Tài liệu Thực thể XML. Các tài liệu này có thẻ gốc "&lt;entity-engine-xml&gt;"</value>
         <value xml:lang="zh">本页面用于导入导出的实体引擎XML文档。这些文档都有一个根标签 "&lt;entity-engine-xml&gt;".</value>
         <value xml:lang="zh-TW">本頁面用於匯入匯出的資料實體引擎XML檔.這些檔都有一個根標簽 "&lt;entity-engine-xml&gt;".&lt;/entity-engine-xml&gt;</value>
+    </property>
+    <property key="WebtoolsJSONImportInfo">
+        <value xml:lang="de">Hier können zuvor exportierte Entitäten JSON Dateien wieder in die Datenbank importiert werden.</value>
+        <value xml:lang="en">This page can be used to import exported Entity Engine JSON data.</value>
+        <value xml:lang="fr">Cette page peut être utilisée pour importer des documents JSON exportés par le moteur d'entité.".</value>
+        <value xml:lang="it">Questa pagina può essere usata per importare documenti JSON contenenti export di Entita'.</value>
+        <value xml:lang="ja">このページでエクスポートされたエンティティエンジンJSONドキュメントをインポートすることができます。</value>
+        <value xml:lang="pt">Esta pÃ¡gina pode ser utilizado para importaÃ§Ã£o e exportaÃ§Ã£o de documentos JSON do Engine de Entidades.</value>
+        <value xml:lang="ro">Aceasta pagina nu poate fi folosita pentru importarea exportarea documentelor JSON de Entity Engine.</value>
+        <value xml:lang="th">หน้านี้ใช้การนำเข้าข้อมูลที่มีการส่งออกเอนติตี้เอนจินเอกสาร JSON โดยใช้คำสั่ง</value>
+        <value xml:lang="vi">Giao diện bạn đang sử dụng cung cấp chức năng Nhập khẩu dữ liệu từ các Tài liệu Thực thể JSON.</value>
+        <value xml:lang="zh">本页面用于导入导出的实体引擎JSON文档。</value>
+        <value xml:lang="zh-TW">本頁面用於匯入匯出的資料實體引擎JSON檔</value>
     </property>
     <property key="WebtoolsYouMayCreateAnEntity">
         <value xml:lang="de">You may create an Entity ${entityName} by entering the values you want, and clicking Create.</value>

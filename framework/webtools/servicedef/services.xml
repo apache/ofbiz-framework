@@ -56,9 +56,54 @@ under the License.
         <attribute name="placeholderValues" type="java.util.Map" mode="IN" optional="true"/>
         <attribute name="messages" type="List" mode="OUT" optional="false"/>
     </service>
+    <service name="parseEntityJsonFile" engine="java"
+             location="org.apache.ofbiz.webtools.WebToolsServices" invoke="parseEntityJsonFile" auth="true" use-transaction="false">
+        <description>Parses an entity xml file or an entity xml text</description>
+        <permission-service service-name="entityMaintPermCheck" main-action="VIEW"/>
+        <attribute name="url" type="java.net.URL" mode="IN" optional="true"/>
+        <attribute name="xmltext" type="String" mode="IN" optional="true" allow-html="any"/>
+        <attribute name="onlyInserts" type="String" mode="IN" optional="true"/>
+        <attribute name="maintainTimeStamps" type="String" mode="IN" optional="true"/>
+        <attribute name="txTimeout" type="Integer" mode="IN" optional="true"/>
+        <attribute name="createDummyFks" type="String" mode="IN" optional="true"/>
+        <attribute name="checkDataOnly" type="String" mode="IN" optional="true"/>
+        <attribute name="placeholderValues" type="java.util.Map" mode="IN" optional="true"/>
+        <attribute name="rowProcessed" type="Long" mode="OUT" optional="false"/>
+    </service>
+    <service name="entityImportJson" engine="java"
+             location="org.apache.ofbiz.webtools.WebToolsServices" invoke="entityImportJson" auth="true" use-transaction="false">
+        <description>Imports an entity xml file or text string</description>
+        <permission-service service-name="entityMaintPermCheck" main-action="VIEW"/>
+        <attribute name="filename" type="String" mode="IN" optional="true" allow-html="any"/>
+        <attribute name="fmfilename" type="String" mode="IN" optional="true" allow-html="any"/>
+        <attribute name="fulltext" type="String" mode="IN" optional="true" allow-html="any"/>
+        <attribute name="isUrl" type="String" mode="IN" optional="true"/>
+        <attribute name="onlyInserts" type="String" mode="IN" optional="true"/>
+        <attribute name="maintainTimeStamps" type="String" mode="IN" optional="true"/>
+        <attribute name="createDummyFks" type="String" mode="IN" optional="true"/>
+        <attribute name="checkDataOnly" type="String" mode="IN" optional="true"/>
+        <attribute name="txTimeout" type="Integer" mode="IN" optional="true"/>
+        <attribute name="placeholderValues" type="java.util.Map" mode="IN" optional="true"/>
+        <attribute name="messages" type="List" mode="OUT" optional="false"/>
+    </service>
     <service name="entityImportDir" engine="java"
             location="org.apache.ofbiz.webtools.WebToolsServices" invoke="entityImportDir" auth="true" use-transaction="false">
         <description>Imports all entity xml files contained in a directory</description>
+        <permission-service service-name="entityMaintPermCheck" main-action="VIEW"/>
+        <attribute name="path" type="String" mode="IN" optional="true"/>
+        <attribute name="onlyInserts" type="String" mode="IN" optional="true"/>
+        <attribute name="maintainTimeStamps" type="String" mode="IN" optional="true"/>
+        <attribute name="createDummyFks" type="String" mode="IN" optional="true"/>
+        <attribute name="checkDataOnly" type="String" mode="IN" optional="true"/>
+        <attribute name="deleteFiles" type="String" mode="IN" optional="true"/>
+        <attribute name="txTimeout" type="Integer" mode="IN" optional="true"/>
+        <attribute name="filePause" type="Long" mode="IN" optional="true"/>
+        <attribute name="placeholderValues" type="java.util.Map" mode="IN" optional="true"/>
+        <attribute name="messages" type="List" mode="OUT" optional="false"/>
+    </service>
+    <service name="entityImportDirJson" engine="java"
+             location="org.apache.ofbiz.webtools.WebToolsServices" invoke="entityImportDirJson" auth="true" use-transaction="false">
+        <description>Imports all entity json files contained in a directory</description>
         <permission-service service-name="entityMaintPermCheck" main-action="VIEW"/>
         <attribute name="path" type="String" mode="IN" optional="true"/>
         <attribute name="onlyInserts" type="String" mode="IN" optional="true"/>
@@ -88,6 +133,15 @@ under the License.
     <service name="entityExportAll" engine="java"
             location="org.apache.ofbiz.webtools.WebToolsServices" invoke="entityExportAll" auth="true" use-transaction="false">
         <description>Exports all entities into xml files</description>
+        <permission-service service-name="entityMaintPermCheck" main-action="VIEW"/>
+        <attribute name="outpath" type="String" mode="IN" optional="true"/>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="txTimeout" type="Integer" mode="IN" optional="true"/>
+        <attribute name="results" type="List" mode="OUT" optional="false"/>
+    </service>
+    <service name="entityExportAllJson" engine="java"
+             location="org.apache.ofbiz.webtools.WebToolsServices" invoke="entityExportAllJson" auth="true" use-transaction="false">
+        <description>Exports all entities into json files</description>
         <permission-service service-name="entityMaintPermCheck" main-action="VIEW"/>
         <attribute name="outpath" type="String" mode="IN" optional="true"/>
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>

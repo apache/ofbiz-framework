@@ -98,6 +98,18 @@ under the License.
         <menu-item name="entityImportReaders" title="${uiLabelMap.PageTitleEntityImportReaders}">
             <link target="EntityImportReaders"/>
         </menu-item>
+        <menu-item name="jsonDsDump" title="${uiLabelMap.PageTitleEntityExportJson}">
+            <link target="jsondsdump"/>
+        </menu-item>
+        <menu-item name="entityExportAllJson" title="${uiLabelMap.PageTitleEntityExportAllJson}">
+            <link target="EntityExportAllJson"/>
+        </menu-item>
+        <menu-item name="entityImportJson" title="${uiLabelMap.PageTitleEntityImportJson}">
+            <link target="EntityImportJson"/>
+        </menu-item>
+        <menu-item name="entityImportDirJson" title="${uiLabelMap.PageTitleEntityImportDirJson}">
+            <link target="EntityImportDirJson"/>
+        </menu-item>
     </menu>
     
     <menu name="ServiceTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"

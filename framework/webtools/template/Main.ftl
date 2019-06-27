@@ -80,6 +80,12 @@ under the License.
           <li><a href="<@ofbizUrl>EntityImport</@ofbizUrl>">${uiLabelMap.PageTitleEntityImport}</a></li>
           <li><a href="<@ofbizUrl>EntityImportDir</@ofbizUrl>">${uiLabelMap.PageTitleEntityImportDir}</a></li>
           <li><a href="<@ofbizUrl>EntityImportReaders</@ofbizUrl>">${uiLabelMap.PageTitleEntityImportReaders}</a></li>
+
+          <li><h3>${uiLabelMap.WebtoolsEntityJSONTools}</h3></li>
+          <li><a href="<@ofbizUrl>jsondsdump</@ofbizUrl>">${uiLabelMap.PageTitleEntityExportJson}</a></li>
+          <li><a href="<@ofbizUrl>EntityExportAllJson</@ofbizUrl>">${uiLabelMap.PageTitleEntityExportAllJson}</a></li>
+          <li><a href="<@ofbizUrl>EntityImportJson</@ofbizUrl>">${uiLabelMap.PageTitleEntityImportJson}</a></li>
+          <li><a href="<@ofbizUrl>EntityImportDirJson</@ofbizUrl>">${uiLabelMap.PageTitleEntityImportDirJson}</a></li>
         </#if>
         <#if security.hasPermission("SERVICE_MAINT", session)>
           <li><h3>${uiLabelMap.WebtoolsServiceEngineTools}</h3></li>

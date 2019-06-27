@@ -426,6 +426,27 @@ under the License.
         <response name="success" type="view" value="EntityImport"/>
         <response name="error" type="view" value="EntityImport"/>
     </request-map>
+    <request-map uri="EntityImportJson"><security https="true" auth="true"/><response name="success" type="view" value="EntityImportJson"/></request-map>
+    <request-map uri="entityImportJson">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="entityImportJson"/>
+        <response name="success" type="view" value="EntityImportJson"/>
+        <response name="error" type="view" value="EntityImportJson"/>
+    </request-map>
+    <request-map uri="EntityExportAllJson"><security https="true" auth="true"/><response name="success" type="view" value="EntityExportAllJson"/><response name="error" type="view" value="EntityExportAllJson"/></request-map>
+    <request-map uri="entityExportAllJson">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="entityExportAllJson"/>
+        <response name="success" type="view" value="EntityExportAllJson"/>
+        <response name="error" type="view" value="EntityExportAllJson"/>
+    </request-map>
+    <request-map uri="EntityImportDirJson"><security https="true" auth="true"/><response name="success" type="view" value="EntityImportDirJson"/></request-map>
+    <request-map uri="entityImportDirJson">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="entityImportDirJson"/>
+        <response name="success" type="view" value="EntityImportDir"/>
+        <response name="error" type="view" value="EntityImportDir"/>
+    </request-map>
     <request-map uri="EntityImportReaders"><security https="true" auth="true"/><response name="success" type="view" value="EntityImportReaders"/></request-map>
     <request-map uri="entityImportReaders">
         <security https="true" auth="true"/>
@@ -440,6 +461,15 @@ under the License.
     <request-map uri="xmldsrawdump">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="xmldsrawdump"/>
+    </request-map>
+    <request-map uri="jsondsdump">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="jsondsdump"/>
+    </request-map>
+    <request-map uri="jsondsrawdump">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.apache.ofbiz.webtools.EntityJsonEvents" invoke="downloadJsonData" />
+        <response name="success" type="view" value="jsondsdump"/>
     </request-map>
 
     <!-- EntitySync requests -->
@@ -600,7 +630,9 @@ under the License.
 
     <view-map name="checkdb" type="screen" page="component://webtools/widget/EntityScreens.xml#CheckDb"/>
     <view-map name="xmldsdump" type="screen" page="component://webtools/widget/EntityScreens.xml#xmldsdump"/>
+    <view-map name="jsondsdump" type="screen" page="component://webtools/widget/EntityScreens.xml#jsondsdump"/>
     <view-map name="xmldsrawdump" page="template/entity/xmldsrawdump.jsp"/>
+    <view-map name="jsondsrawdump" page="template/entity/jsondsrawdump.jsp"/>
 
     <view-map name="FindUtilCache" type="screen" page="component://webtools/widget/CacheScreens.xml#FindUtilCache"/>
     <view-map name="FindUtilCacheElements" type="screen" page="component://webtools/widget/CacheScreens.xml#FindUtilCacheElements"/>
@@ -639,9 +671,12 @@ under the License.
     <view-map name="EntitySQLProcessor" type="screen" page="component://webtools/widget/EntityScreens.xml#EntitySQLProcessor"/>
     <view-map name="ConnectionPoolStatus" type="screen" page="component://webtools/widget/EntityScreens.xml#ConnectionPoolStatus"/>
     <view-map name="EntityExportAll" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityExportAll"/>
+    <view-map name="EntityExportAllJson" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityExportAllJson"/>
     <view-map name="ProgramExport" type="screen" page="component://webtools/widget/EntityScreens.xml#ProgramExport"/>
     <view-map name="EntityImportDir" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityImportDir"/>
+    <view-map name="EntityImportDirJson" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityImportDirJson"/>
     <view-map name="EntityImport" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityImport"/>
+    <view-map name="EntityImportJson" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityImportJson"/>
     <view-map name="EntityImportReaders" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityImportReaders"/>
 
     <!-- cert views -->

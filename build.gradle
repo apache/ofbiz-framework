@@ -209,6 +209,7 @@ dependencies {
     implementation 'wsdl4j:wsdl4j:1.6.3'
     implementation 'org.jsoup:jsoup:1.11.3'
     implementation 'io.jsonwebtoken:jjwt:0.9.1'
+    implementation 'org.json:json:20140107'
     testImplementation 'org.mockito:mockito-core:2.27.0'
     runtimeOnly 'javax.xml.soap:javax.xml.soap-api:1.4.0'
     runtimeOnly 'de.odysseus.juel:juel-spi:2.2.7'
