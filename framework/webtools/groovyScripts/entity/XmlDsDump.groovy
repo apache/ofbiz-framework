@@ -328,4 +328,6 @@ if (passedEntityNames) {
             }
         }
     }
+} else {
+    context.numberOfEntities = 0
 }
