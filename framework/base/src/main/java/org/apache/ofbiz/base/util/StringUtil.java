@@ -212,33 +212,6 @@ public class StringUtil {
         return strToMap(str, "|", false);
     }
 
-
-    /**
-     * Reads a String version of a Map (should contain only strings) and creates a new Map.
-     * Partial Map elements are skipped: <code>{foo=fooValue, bar=}</code> will contain only
-     * the foo element.
-     *
-     * @param s String value of a Map ({n1=v1, n2=v2})
-     * @return new Map
-     */
-    public static Map<String, String> toMap(String s) {
-        Map<String, String> newMap = new HashMap<>();
-        if (s.startsWith("{") && s.endsWith("}")) {
-            s = s.substring(1, s.length() - 1);
-            String[] entries = s.split("\\,\\s");
-            for (String entry: entries) {
-                String[] nv = entry.split("\\=");
-                if (nv.length == 2) {
-                    newMap.put(nv[0], nv[1]);
-                }
-            }
-        } else {
-            throw new IllegalArgumentException("String is not from Map.toString()");
-        }
-
-        return newMap;
-    }
-
     /**
      * Reads a String version of a List (should contain only strings) and creates a new List
      *

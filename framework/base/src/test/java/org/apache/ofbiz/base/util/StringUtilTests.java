@@ -84,23 +84,6 @@ public class StringUtilTests {
     }
 
     @Test
-    public void testToMap() {
-        for (String s: new String[] {"", "{", "}", "}{"}) {
-            IllegalArgumentException caught = null;
-            try {
-                StringUtil.toMap(s);
-            } catch (IllegalArgumentException e) {
-                caught = e;
-            } finally {
-                assertNotNull("bad(" + s + ")", caught);
-            }
-        }
-        assertEquals("single", UtilMisc.toMap("1", "one"), StringUtil.toMap("{1=one}"));
-        assertEquals("double", UtilMisc.toMap("2", "two", "1", "one"), StringUtil.toMap("{1=one, 2=two}"));
-        assertEquals("double-space", UtilMisc.toMap("2", "two ", " 1", "one"), StringUtil.toMap("{ 1=one, 2=two }"));
-    }
-
-    @Test
     public void testToList() {
         for (String s: new String[] {"", "[", "]", "]["}) {
             IllegalArgumentException caught = null;

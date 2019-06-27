@@ -25,6 +25,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.apache.ofbiz.base.util.StringUtil;
 import org.apache.ofbiz.base.util.UtilGenerics;
@@ -167,10 +168,14 @@ public class CollectionConverters implements ConverterLoader {
 
         @Override
         public Map<String, String> convert(String obj) throws ConversionException {
-            if (obj.startsWith("{") && obj.endsWith("}")) {
-                return StringUtil.toMap(obj);
+            if (!obj.startsWith("{") || !obj.endsWith("}")) {
+                throw new ConversionException("Could not convert " + obj + " to Map: ");
             }
-            throw new ConversionException("Could not convert " + obj + " to Map: ");
+            String kvs = obj.substring(1, obj.length() - 1);
+            return Arrays.stream(kvs.split("\\,\\s"))
+                    .map(entry -> entry.split("\\="))
+                    .filter(kv -> kv.length == 2)
+                    .collect(Collectors.toMap(kv -> kv[0], kv -> kv[1]));
         }
     }
 
