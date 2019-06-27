@@ -30,6 +30,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiFunction;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.apache.ofbiz.base.container.ContainerConfig;
@@ -61,6 +62,17 @@ public final class ComponentConfig {
     public static Boolean componentExists(String componentName) {
         Assert.notEmpty("componentName", componentName);
         return componentConfigCache.fromGlobalName(componentName) != null;
+    }
+
+    /**
+     * Constructs a component predicate checking if it corresponds to a specific name.
+     *
+     * @param cname  the name of the component to match which can be {@code null}
+     *               which means "any" component
+     * @return a component predicate for matching a specific component name.
+     */
+    private static Predicate<ComponentConfig> matchingComponentName(String cname) {
+        return cc -> cname == null || cname.equals(cc.getComponentName());
     }
 
     /**
@@ -102,7 +114,7 @@ public final class ComponentConfig {
      */
     public static List<EntityResourceInfo> getAllEntityResourceInfos(String type, String name) {
         return getAllComponents().stream()
-                .filter(cc -> name == null || name.equals(cc.getComponentName()))
+                .filter(matchingComponentName(name))
                 .flatMap(cc -> cc.getEntityResourceInfos().stream())
                 .filter(eri -> UtilValidate.isEmpty(type) || type.equals(eri.type))
                 .collect(Collectors.toList());
@@ -140,7 +152,7 @@ public final class ComponentConfig {
      */
     public static List<TestSuiteInfo> getAllTestSuiteInfos(String name) {
         return getAllComponents().stream()
-                .filter(cc -> name == null || name.equals(cc.getComponentName()))
+                .filter(matchingComponentName(name))
                 .flatMap(cc -> cc.getTestSuiteInfos().stream())
                 .collect(Collectors.toList());
     }
