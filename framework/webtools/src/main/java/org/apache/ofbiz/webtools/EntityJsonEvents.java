@@ -20,17 +20,14 @@ package org.apache.ofbiz.webtools;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.TreeSet;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
@@ -48,9 +45,7 @@ public class EntityJsonEvents {
 
     public static String downloadJsonData(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-        ServletContext application = session.getServletContext();
         Delegator delegator = (Delegator) request.getAttribute("delegator");
-        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         Security security = (Security) request.getAttribute("security");
         boolean isFirst = true;
         if (security.hasPermission("ENTITY_MAINT", session)) {
@@ -62,12 +57,6 @@ public class EntityJsonEvents {
                 if (passedEntityNames != null) {
 
                     ModelReader reader = delegator.getModelReader();
-                    Collection ec = reader.getEntityNames();
-                    TreeSet entityNames = new TreeSet(ec);
-
-                    long numberWritten = 0;
-                    byte[] outputByte = new byte[4096];
-
                     response.setContentType("text/plain;charset=UTF-8");
                     response.setHeader("Content-Disposition", "attachment; filename=DownloadEntityData.json");
 
@@ -103,9 +92,8 @@ public class EntityJsonEvents {
                                 textBuilder.append("\n\t");
                                 textBuilder.append("[");
                                 int numberOfValues = 0;
-                                while ((value = (GenericValue) values.next()) != null) {
+                                while ((value = values.next()) != null) {
                                     EntityJsonHelper.writeJsonText(textBuilder, value);
-                                    numberWritten++;
                                     numberOfValues++;
                                     if (numberOfValues < values.getResultsSizeAfterPartialList()) {
                                         textBuilder.append(",");
@@ -156,11 +144,6 @@ public class EntityJsonEvents {
                     request.setAttribute("_ERROR_MESSAGE_", errMsg);
                     return "error";
                 }
-            } catch (GeneralException e) {
-                String errMsg = "Error downloading json data: " + e.toString();
-                Debug.logError(e, errMsg, module);
-                request.setAttribute("_ERROR_MESSAGE_", errMsg);
-                return "error";
             } catch (IOException e) {
                 String errMsg = "Error downloading json data : " + e.toString();
                 Debug.logError(e, errMsg, module);

@@ -13,7 +13,6 @@ import java.util.Map;
 import org.apache.ofbiz.base.lang.JSON;
 import org.apache.ofbiz.base.util.Base64;
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -41,9 +40,7 @@ public class EntityJsonReader {
     private long numberSkipped = 0;
 
     private int valuesPerWrite = 100;
-    private int valuesPerMessage = 1000;
     private int transactionTimeout = 7200;
-    private boolean useTryInsertMethod = false;
     private boolean maintainTxStamps = false;
     private boolean createDummyFks = false;
     private boolean checkDataOnly = false;
@@ -54,9 +51,6 @@ public class EntityJsonReader {
     private List<GenericValue> valuesToCreate = new ArrayList<>(valuesPerWrite);
     private List<GenericValue> valuesToDelete = new ArrayList<>(valuesPerWrite);
     private List<GenericValue> valuesToUpdate = new ArrayList<>(valuesPerWrite);
-
-    /**TODO need to evaluate how placeholders are going to be used in json data*/
-    private Map<String, Object> placeholderValues = null; //contains map of values for corresponding placeholders (eg. ${key}) in the entity xml data file.
 
     protected EntityJsonReader() {
     }
@@ -75,7 +69,6 @@ public class EntityJsonReader {
     }
 
     public void setUseTryInsertMethod(boolean value) {
-        this.useTryInsertMethod = value;
     }
 
     public void setTransactionTimeout(int transactionTimeout) throws GenericTransactionException {
@@ -103,7 +96,7 @@ public class EntityJsonReader {
     }
 
     public void setPlaceholderValues(Map<String, Object> placeholderValues) {
-        this.placeholderValues = placeholderValues;
+        /**TODO need to evaluate how placeholders are going to be used in json data*/
     }
 
     public List<Object> getMessageList() {
@@ -120,7 +113,7 @@ public class EntityJsonReader {
                 this.ecaHandler = this.delegator.getEntityEcaHandler();
             }
 
-            this.delegator.setEntityEcaHandler((EntityEcaHandler) null);
+            this.delegator.setEntityEcaHandler(null);
         } else if (this.ecaHandler != null) {
             this.delegator.setEntityEcaHandler(this.ecaHandler);
         }
@@ -156,13 +149,11 @@ public class EntityJsonReader {
 
     private long convertJsonAndWriteValues(String jsonString) throws IOException {
         this.numberRead = 0L;
-        String _prefix = "";
         JSONArray jsonArray = new JSONArray(jsonString);
         int length = jsonArray.length();
 
         for (int jsonIndex = 0; jsonIndex < length; ++jsonIndex) {
             JSONObject jsonObject = jsonArray.getJSONObject(jsonIndex);
-            Map<String, Map<String, Object>> flatJson = new HashMap<String, Map<String, Object>>();
             Iterator iterator = jsonObject.keySet().iterator();
 
             while (iterator.hasNext()) {
@@ -233,52 +224,6 @@ public class EntityJsonReader {
             }
         }
         return mapObj;
-    }
-
-    private long create(JSONObject jsonObject) throws IOException {
-        Iterator iterator = jsonObject.keySet().iterator();
-        while (iterator.hasNext()) {
-            String key = iterator.next().toString();
-            Object value = jsonObject.get(key);
-            if (UtilValidate.isNotEmpty(value)) {
-                List<Map<String, Object>> genericMapList = iterateJsonEntityData(value);
-                for (Map<String, Object> keyValPair : genericMapList) {
-                    try {
-                        ModelEntity modelEntity = this.delegator.getModelEntity(key);
-                        GenericValue currentValue = delegator.makeValue(key, keyValPair);
-                        if (this.maintainTxStamps) {
-                            currentValue.setIsFromEntitySync(true);
-                        }
-                        GenericHelper helper = delegator.getEntityHelper(currentValue.getEntityName());
-                        if (UtilValidate.isNotEmpty(currentValue)) {
-                            boolean exist = true;
-                            if (currentValue.containsPrimaryKey()) {
-                                try {
-                                    helper.findByPrimaryKey(currentValue.getPrimaryKey());
-                                } catch (GenericEntityNotFoundException e) {
-                                    exist = false;
-                                }
-                            }
-                            if (!exist) {
-                                if (this.useTryInsertMethod && !this.checkDataOnly) {
-                                    currentValue.create();
-                                } else {
-                                    this.valuesToCreate.add(currentValue);
-                                }
-                                this.numberCreated++;
-                            }//if pk exist ignore it.
-                        }
-                    } catch (Exception e) {
-                        if (continueOnFail) {
-                            Debug.logError(e, module);
-                        } else {
-                            throw new IOException(e);
-                        }
-                    }
-                }
-            }
-        }
-        return this.numberCreated;
     }
 
     private long createUpdate(JSONObject jsonObject) throws IOException {
@@ -364,158 +309,6 @@ public class EntityJsonReader {
             }
         }
         return this.numberUpdated;
-    }
-
-    private long createReplace(JSONObject jsonObject) throws IOException {
-        Iterator iterator = jsonObject.keySet().iterator();
-        while (iterator.hasNext()) {
-            String key = iterator.next().toString();
-            Object value = jsonObject.get(key);
-            if (UtilValidate.isNotEmpty(value)) {
-                List<Map<String, Object>> genericMapList = iterateJsonEntityData(value);
-                for (Map<String, Object> keyValPair : genericMapList) {
-                    try {
-                        GenericValue currentValue = this.delegator.makeValue(key);
-                        if (this.maintainTxStamps) {
-                            currentValue.setIsFromEntitySync(true);
-                        }
-                        ModelEntity modelEntity = currentValue.getModelEntity();
-                        List<String> pkFields = modelEntity.getPkFieldNames();
-                        if (currentValue != null) {
-                            for (String pkField : pkFields) {
-                                ModelField modelField = modelEntity.getField(pkField);
-                                Object pkFieldValue = keyValPair.get(pkField);
-                                String type = modelField.getType();
-                                if (type != null && "blob".equals(type)) {
-                                    byte[] binData = Base64.base64Decode((pkFieldValue.toString()).getBytes());
-                                    currentValue.setBytes(pkField, binData);
-                                } else {
-                                    currentValue.setString(pkField, pkFieldValue.toString());
-                                }
-                            }
-
-                            GenericHelper helper = delegator.getEntityHelper(currentValue.getEntityName());
-
-                            boolean exist = true;
-                            if (currentValue.containsPrimaryKey()) {
-                                try {
-                                    helper.findByPrimaryKey(currentValue.getPrimaryKey());
-                                } catch (GenericEntityNotFoundException e) {
-                                    exist = false;
-                                }
-                            } else {
-                                if (modelEntity.getPksSize() == 1) {
-                                    ModelField modelField = currentValue.getModelEntity().getOnlyPk();
-                                    String newSeq = delegator.getNextSeqId(currentValue.getEntityName());
-                                    currentValue.setString(modelField.getName(), newSeq);
-                                } else {
-                                    throw new IOException("Cannot store value with incomplete primary key with more than 1 primary key field: " + currentValue);
-                                }
-                            }
-
-                            ModelEntity currentEntity = currentValue.getModelEntity();
-                            List<String> absentFields = currentEntity.getNoPkFieldNames();
-                            absentFields.removeAll(currentEntity.getAutomaticFieldNames());
-
-                            for (Map.Entry<String, Object> entry : keyValPair.entrySet()) {
-                                String currentFieldName = entry.getKey();
-                                Object currentFieldValue = entry.getValue();
-                                if (UtilValidate.isNotEmpty(currentFieldName) && !pkFields.contains(currentFieldName)) {
-                                    if (modelEntity.isField(currentFieldName)) {
-                                        if (UtilValidate.isNotEmpty(currentFieldValue)) {
-                                            ModelField modelField = modelEntity.getField(currentFieldName);
-                                            String type = modelField.getType();
-                                            if (type != null && "blob".equals(type)) {
-                                                byte[] binData = Base64.base64Decode(((String) currentFieldValue).getBytes());
-                                                currentValue.setBytes(currentFieldName, binData);
-                                            } else {
-                                                currentValue.setString(currentFieldName, currentFieldValue.toString());
-                                            }
-                                            absentFields.remove(currentFieldName);
-                                        }
-                                    } else {
-                                        Debug.logWarning("Ignoring invalid field name [" + currentFieldName + "] found for the entity: "
-                                                + currentValue.getEntityName() + " with value=" + currentFieldValue.toString(), module);
-                                    }
-                                }
-                            }
-                            if (absentFields != null) {
-                                for (String fieldName : absentFields) {
-                                    currentValue.set(fieldName, null);
-                                }
-                            }
-                            if (exist) {
-                                this.valuesToUpdate.add(currentValue);
-                            } else {
-                                // Not sure about this!
-                                //if (this.useTryInsertMethod && !this.checkDataOnly) {
-                                //    currentValue.create();
-                                //} else {
-                                this.valuesToCreate.add(currentValue);
-                                //}
-                            }
-                            if (this.maintainTxStamps) {
-                                currentValue.setIsFromEntitySync(true);
-                            }
-                            this.numberReplaced++;
-                        }
-                    } catch (Exception e) {
-                        if (continueOnFail) {
-                            Debug.logError(e, module);
-                        } else {
-                            throw new IOException(e);
-                        }
-                    }
-                }
-            }
-        }
-        return this.numberReplaced;
-    }
-
-    private long delete(JSONObject jsonObject) throws IOException {
-        Iterator iterator = jsonObject.keySet().iterator();
-        while (iterator.hasNext()) {
-            String key = iterator.next().toString();
-            Object value = jsonObject.get(key);
-            if (UtilValidate.isNotEmpty(value)) {
-                List<Map<String, Object>> genericMapList = iterateJsonEntityData(value);
-                for (Map<String, Object> keyValPair : genericMapList) {
-                    try {
-                        ModelEntity modelEntity = this.delegator.getModelEntity(key);
-                        GenericValue currentValue = delegator.makeValue(key, keyValPair);
-                        if (this.maintainTxStamps) {
-                            currentValue.setIsFromEntitySync(true);
-                        }
-                        GenericHelper helper = delegator.getEntityHelper(key);
-                        if (currentValue != null) {
-                            boolean exist = true;
-                            if (currentValue.containsPrimaryKey()) {
-                                try {
-                                    helper.findByPrimaryKey(currentValue.getPrimaryKey());
-                                } catch (GenericEntityNotFoundException e) {
-                                    exist = false;
-                                }
-                            }
-                            if (exist) {
-                                if (this.useTryInsertMethod && !this.checkDataOnly) {
-                                    currentValue.remove();
-                                } else {
-                                    this.valuesToDelete.add(currentValue);
-                                }
-                                this.numberDeleted++;
-                            }//if pk exist ignore it.
-                        }
-                    } catch (Exception e) {
-                        if (continueOnFail) {
-                            Debug.logError(e, module);
-                        } else {
-                            throw new IOException(e);
-                        }
-                    }
-                }
-            }
-        }
-        return this.numberDeleted;
     }
 
     private long action(Object jsonData, String actionName) throws IOException {

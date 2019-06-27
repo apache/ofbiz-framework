@@ -22,12 +22,10 @@ import org.apache.ofbiz.base.util.Base64;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilIO;
 import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.entity.GenericEntity;
 import org.apache.ofbiz.entity.GenericValue;
 import org.apache.ofbiz.entity.model.ModelField;
 
 import java.io.PrintWriter;
-import java.text.StringCharacterIterator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
