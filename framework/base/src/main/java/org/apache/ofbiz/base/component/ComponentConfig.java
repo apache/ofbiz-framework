@@ -136,18 +136,17 @@ public final class ComponentConfig {
                 .collect(Collectors.toList());
     }
 
-    public static List<TestSuiteInfo> getAllTestSuiteInfos() {
-        return getAllTestSuiteInfos(null);
-    }
-
-    public static List<TestSuiteInfo> getAllTestSuiteInfos(String componentName) {
-        List<TestSuiteInfo> testSuiteInfos = new ArrayList<>();
-        for (ComponentConfig cc : getAllComponents()) {
-            if (componentName == null || componentName.equals(cc.getComponentName())) {
-                testSuiteInfos.addAll(cc.getTestSuiteInfos());
-            }
-        }
-        return testSuiteInfos;
+    /**
+     * Provides the list of all the test-suite information matching a component name.
+     *
+     * @param name  the name of the component to match where {@code null} means "any"
+     * @return a list of test-suite information
+     */
+    public static List<TestSuiteInfo> getAllTestSuiteInfos(String name) {
+        return getAllComponents().stream()
+                .filter(cc -> name == null || name.equals(cc.getComponentName()))
+                .flatMap(cc -> cc.getTestSuiteInfos().stream())
+                .collect(Collectors.toList());
     }
 
     public static List<WebappInfo> getAllWebappResourceInfos() {
