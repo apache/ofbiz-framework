@@ -63,18 +63,15 @@ public final class ComponentConfig {
         return componentConfigCache.fromGlobalName(componentName) != null;
     }
 
+    /**
+     * Provides the list of all the classpath information available in components.
+     *
+     * @return a list of classpath information
+     */
     public static List<ClasspathInfo> getAllClasspathInfos() {
-        return getAllClasspathInfos(null);
-    }
-
-    public static List<ClasspathInfo> getAllClasspathInfos(String componentName) {
-        List<ClasspathInfo> classpaths = new ArrayList<>();
-        for (ComponentConfig cc : getAllComponents()) {
-            if (componentName == null || componentName.equals(cc.getComponentName())) {
-                classpaths.addAll(cc.getClasspathInfos());
-            }
-        }
-        return classpaths;
+        return getAllComponents().stream()
+                .flatMap(cc -> cc.getClasspathInfos().stream())
+                .collect(Collectors.toList());
     }
 
     public static Collection<ComponentConfig> getAllComponents() {
