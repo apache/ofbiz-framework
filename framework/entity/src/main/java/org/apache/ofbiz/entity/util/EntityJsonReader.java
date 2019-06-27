@@ -101,7 +101,7 @@ public class EntityJsonReader {
 
     public List<Object> getMessageList() {
         if (this.checkDataOnly && this.messageList == null) {
-            this.messageList = new LinkedList();
+            this.messageList = new LinkedList<>();
         }
 
         return this.messageList;
@@ -154,7 +154,7 @@ public class EntityJsonReader {
 
         for (int jsonIndex = 0; jsonIndex < length; ++jsonIndex) {
             JSONObject jsonObject = jsonArray.getJSONObject(jsonIndex);
-            Iterator iterator = jsonObject.keySet().iterator();
+            Iterator<?> iterator = jsonObject.keySet().iterator();
 
             while (iterator.hasNext()) {
                 String key = iterator.next().toString();
@@ -189,7 +189,7 @@ public class EntityJsonReader {
     }
 
     private static List<Map<String, Object>> iterateJsonEntityData(Object jsonData) {
-        List<Map<String, Object>> genericMapList = new LinkedList<Map<String, Object>>();
+        List<Map<String, Object>> genericMapList = new LinkedList<>();
         if (jsonData instanceof JSONArray) {
             JSONArray jsonArray = (JSONArray) jsonData;
             int length = jsonArray.length();
@@ -211,8 +211,8 @@ public class EntityJsonReader {
     }
 
     private static Map<String, Object> iterateJSONObject(JSONObject jsonObj) {
-        Map<String, Object> mapObj = new HashMap<String, Object>();
-        Iterator iterator = jsonObj.keySet().iterator();
+        Map<String, Object> mapObj = new HashMap<>();
+        Iterator<?> iterator = jsonObj.keySet().iterator();
         while (iterator.hasNext()) {
             String keyStr = (String) iterator.next();
             Object keyvalue = jsonObj.get(keyStr);
@@ -227,7 +227,7 @@ public class EntityJsonReader {
     }
 
     private long createUpdate(JSONObject jsonObject) throws IOException {
-        Iterator iterator = jsonObject.keySet().iterator();
+        Iterator<?> iterator = jsonObject.keySet().iterator();
         while (iterator.hasNext()) {
             String key = iterator.next().toString();
             Object value = jsonObject.get(key);

@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.GenericEntityException;
 import org.apache.ofbiz.entity.GenericValue;
@@ -49,7 +50,7 @@ public class EntityJsonEvents {
         Security security = (Security) request.getAttribute("security");
         boolean isFirst = true;
         if (security.hasPermission("ENTITY_MAINT", session)) {
-            TreeSet passedEntityNames = (TreeSet) session.getAttribute("jsonrawdump_entitylist");
+            TreeSet<String> passedEntityNames = UtilGenerics.cast(session.getAttribute("jsonrawdump_entitylist"));
             session.removeAttribute("jsonrawdump_entitylist");
             EntityExpr entityDateCond = (EntityExpr) session.getAttribute("entityDateCond");
             session.removeAttribute("entityDateCond");
@@ -68,9 +69,9 @@ public class EntityJsonEvents {
                         try {
                             beganTransaction = TransactionUtil.begin();
 
-                            Iterator i = passedEntityNames.iterator();
+                            Iterator<String> i = passedEntityNames.iterator();
                             while (i.hasNext()) {
-                                String curEntityName = (String) i.next();
+                                String curEntityName = i.next();
 
                                 ModelEntity me = reader.getModelEntity(curEntityName);
                                 EntityListIterator values = null;
