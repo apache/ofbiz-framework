@@ -197,7 +197,7 @@ public class EntityJsonReader {
         return this.numberRead;
     }
 
-    private List<Map<String, Object>> iterateJsonEntityData(Object jsonData) {
+    private static List<Map<String, Object>> iterateJsonEntityData(Object jsonData) {
         List<Map<String, Object>> genericMapList = new LinkedList<Map<String, Object>>();
         if (jsonData instanceof JSONArray) {
             JSONArray jsonArray = (JSONArray) jsonData;
@@ -219,7 +219,7 @@ public class EntityJsonReader {
         return genericMapList;
     }
 
-    private Map<String, Object> iterateJSONObject(JSONObject jsonObj) {
+    private static Map<String, Object> iterateJSONObject(JSONObject jsonObj) {
         Map<String, Object> mapObj = new HashMap<String, Object>();
         Iterator iterator = jsonObj.keySet().iterator();
         while (iterator.hasNext()) {
@@ -241,7 +241,7 @@ public class EntityJsonReader {
             String key = iterator.next().toString();
             Object value = jsonObject.get(key);
             if (UtilValidate.isNotEmpty(value)) {
-                List<Map<String, Object>> genericMapList = this.iterateJsonEntityData(value);
+                List<Map<String, Object>> genericMapList = iterateJsonEntityData(value);
                 for (Map<String, Object> keyValPair : genericMapList) {
                     try {
                         ModelEntity modelEntity = this.delegator.getModelEntity(key);
@@ -287,7 +287,7 @@ public class EntityJsonReader {
             String key = iterator.next().toString();
             Object value = jsonObject.get(key);
             if (UtilValidate.isNotEmpty(value)) {
-                List<Map<String, Object>> genericMapList = this.iterateJsonEntityData(value);
+                List<Map<String, Object>> genericMapList = iterateJsonEntityData(value);
                 for (Map<String, Object> keyValPair : genericMapList) {
                     try {
                         GenericValue currentValue = delegator.makeValue(key);
@@ -372,7 +372,7 @@ public class EntityJsonReader {
             String key = iterator.next().toString();
             Object value = jsonObject.get(key);
             if (UtilValidate.isNotEmpty(value)) {
-                List<Map<String, Object>> genericMapList = this.iterateJsonEntityData(value);
+                List<Map<String, Object>> genericMapList = iterateJsonEntityData(value);
                 for (Map<String, Object> keyValPair : genericMapList) {
                     try {
                         GenericValue currentValue = this.delegator.makeValue(key);
@@ -478,7 +478,7 @@ public class EntityJsonReader {
             String key = iterator.next().toString();
             Object value = jsonObject.get(key);
             if (UtilValidate.isNotEmpty(value)) {
-                List<Map<String, Object>> genericMapList = this.iterateJsonEntityData(value);
+                List<Map<String, Object>> genericMapList = iterateJsonEntityData(value);
                 for (Map<String, Object> keyValPair : genericMapList) {
                     try {
                         ModelEntity modelEntity = this.delegator.getModelEntity(key);
