@@ -123,27 +123,17 @@ public final class ComponentConfig {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Provides the list of all the service resource information matching a type.
+     *
+     * @param type  the service resource type to match
+     * @return a list of service resource information
+     */
     public static List<ServiceResourceInfo> getAllServiceResourceInfos(String type) {
-        return getAllServiceResourceInfos(type, null);
-    }
-
-    public static List<ServiceResourceInfo> getAllServiceResourceInfos(String type, String componentName) {
-        List<ServiceResourceInfo> serviceInfos = new ArrayList<>();
-        for (ComponentConfig cc : getAllComponents()) {
-            if (componentName == null || componentName.equals(cc.getComponentName())) {
-                List<ServiceResourceInfo> ccServiceInfoList = cc.getServiceResourceInfos();
-                if (UtilValidate.isEmpty(type)) {
-                    serviceInfos.addAll(ccServiceInfoList);
-                } else {
-                    for (ServiceResourceInfo serviceResourceInfo : ccServiceInfoList) {
-                        if (type.equals(serviceResourceInfo.type)) {
-                            serviceInfos.add(serviceResourceInfo);
-                        }
-                    }
-                }
-            }
-        }
-        return serviceInfos;
+        return getAllComponents().stream()
+                .flatMap(cc -> cc.getServiceResourceInfos().stream())
+                .filter(sri -> UtilValidate.isEmpty(type) || type.equals(sri.type))
+                .collect(Collectors.toList());
     }
 
     public static List<TestSuiteInfo> getAllTestSuiteInfos() {
