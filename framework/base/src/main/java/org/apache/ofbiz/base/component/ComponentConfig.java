@@ -195,17 +195,20 @@ public final class ComponentConfig {
         return cc.getFullLocation(resourceLoaderName, location);
     }
 
+    /**
+     * Provides the first key-store matching a name from a specific component.
+     *
+     * @param componentName  the name of the component to match which can be {@code null}
+     * @param keystoreName  the name of the key-store to match which can be {@code null}
+     * @return the first key-store matching both {@code componentName} and {@code keystoreName}.
+     */
     public static KeystoreInfo getKeystoreInfo(String componentName, String keystoreName) {
-        for (ComponentConfig cc : getAllComponents()) {
-            if (componentName != null && componentName.equals(cc.getComponentName())) {
-                for (KeystoreInfo ks : cc.getKeystoreInfos()) {
-                    if (keystoreName != null && keystoreName.equals(ks.getName())) {
-                        return ks;
-                    }
-                }
-            }
-        }
-        return null;
+        return getAllComponents().stream()
+                .filter(cc -> componentName != null && componentName.equals(cc.getComponentName()))
+                .flatMap(cc -> cc.getKeystoreInfos().stream())
+                .filter(ks -> keystoreName != null && keystoreName.equals(ks.getName()))
+                .findFirst()
+                .orElse(null);
     }
 
     public static String getRootLocation(String componentName) throws ComponentException {
