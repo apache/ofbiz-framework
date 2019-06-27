@@ -149,18 +149,15 @@ public final class ComponentConfig {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Provides the list of all the web-app information in components
+     *
+     * @return a list of web-app information
+     */
     public static List<WebappInfo> getAllWebappResourceInfos() {
-        return getAllWebappResourceInfos(null);
-    }
-
-    public static List<WebappInfo> getAllWebappResourceInfos(String componentName) {
-        List<WebappInfo> webappInfos = new ArrayList<>();
-        for (ComponentConfig cc : getAllComponents()) {
-            if (componentName == null || componentName.equals(cc.getComponentName())) {
-                webappInfos.addAll(cc.getWebappInfos());
-            }
-        }
-        return webappInfos;
+        return getAllComponents().stream()
+                .flatMap(cc -> cc.getWebappInfos().stream())
+                .collect(Collectors.toList());
     }
 
     public static ComponentConfig getComponentConfig(String globalName) throws ComponentException {
