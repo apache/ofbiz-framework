@@ -93,23 +93,19 @@ public final class ComponentConfig {
         return getAllEntityResourceInfos(type, null);
     }
 
-    public static List<EntityResourceInfo> getAllEntityResourceInfos(String type, String componentName) {
-        List<EntityResourceInfo> entityInfos = new ArrayList<>();
-        for (ComponentConfig cc : getAllComponents()) {
-            if (componentName == null || componentName.equals(cc.getComponentName())) {
-                List<EntityResourceInfo> ccEntityInfoList = cc.getEntityResourceInfos();
-                if (UtilValidate.isEmpty(type)) {
-                    entityInfos.addAll(ccEntityInfoList);
-                } else {
-                    for (EntityResourceInfo entityResourceInfo : ccEntityInfoList) {
-                        if (type.equals(entityResourceInfo.type)) {
-                            entityInfos.add(entityResourceInfo);
-                        }
-                    }
-                }
-            }
-        }
-        return entityInfos;
+    /**
+     * Provides the list of all the entity resource information matching a type.
+     *
+     * @param type  the service resource type to match
+     * @param name  the name of the component to match
+     * @return a list of entity resource information
+     */
+    public static List<EntityResourceInfo> getAllEntityResourceInfos(String type, String name) {
+        return getAllComponents().stream()
+                .filter(cc -> name == null || name.equals(cc.getComponentName()))
+                .flatMap(cc -> cc.getEntityResourceInfos().stream())
+                .filter(eri -> UtilValidate.isEmpty(type) || type.equals(eri.type))
+                .collect(Collectors.toList());
     }
 
     /**
