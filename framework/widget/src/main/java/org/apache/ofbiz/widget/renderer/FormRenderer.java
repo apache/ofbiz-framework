@@ -734,6 +734,7 @@ public class FormRenderer {
             int itemIndex = -1;
             Object item = null;
             context.put("wholeFormContext", context);
+            // Initialize previousItem with a sentry value since the first Item has no previous Item.
             Map<String, Object> previousItem = new HashMap<>();
             while ((item = safeNext(iter)) != null) {
                 itemIndex++;
@@ -763,8 +764,7 @@ public class FormRenderer {
 
                 localContext.push();
                 localContext.put("previousItem", previousItem);
-                previousItem = new HashMap<>();
-                previousItem.putAll(itemMap);
+                previousItem = new HashMap<>(itemMap);
 
                 AbstractModelAction.runSubActions(modelForm.getRowActions(), localContext);
 
