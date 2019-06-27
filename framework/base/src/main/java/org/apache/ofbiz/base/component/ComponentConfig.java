@@ -32,6 +32,7 @@ import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.ofbiz.base.container.ContainerConfig;
 import org.apache.ofbiz.base.container.ContainerConfig.Configuration;
@@ -81,7 +82,7 @@ public final class ComponentConfig {
      * @return a list of classpath information
      */
     public static List<ClasspathInfo> getAllClasspathInfos() {
-        return getAllComponents().stream()
+        return components()
                 .flatMap(cc -> cc.getClasspathInfos().stream())
                 .collect(Collectors.toList());
     }
@@ -90,13 +91,17 @@ public final class ComponentConfig {
         return componentConfigCache.values();
     }
 
+    public static Stream<ComponentConfig> components() {
+        return componentConfigCache.values().stream();
+    }
+
     /**
      * Provides the list of all the container configuration elements available in components.
      *
      * @return a list of container configuration elements
      */
     public static List<ContainerConfig.Configuration> getAllConfigurations() {
-        return getAllComponents().stream()
+        return components()
                 .flatMap(cc -> cc.getConfigurations().stream())
                 .collect(Collectors.toList());
     }
@@ -113,7 +118,7 @@ public final class ComponentConfig {
      * @return a list of entity resource information
      */
     public static List<EntityResourceInfo> getAllEntityResourceInfos(String type, String name) {
-        return getAllComponents().stream()
+        return components()
                 .filter(matchingComponentName(name))
                 .flatMap(cc -> cc.getEntityResourceInfos().stream())
                 .filter(eri -> UtilValidate.isEmpty(type) || type.equals(eri.type))
@@ -126,7 +131,7 @@ public final class ComponentConfig {
      * @return a list of keystore information
      */
     public static List<KeystoreInfo> getAllKeystoreInfos() {
-        return getAllComponents().stream()
+        return components()
                 .flatMap(cc -> cc.getKeystoreInfos().stream())
                 .collect(Collectors.toList());
     }
@@ -138,7 +143,7 @@ public final class ComponentConfig {
      * @return a list of service resource information
      */
     public static List<ServiceResourceInfo> getAllServiceResourceInfos(String type) {
-        return getAllComponents().stream()
+        return components()
                 .flatMap(cc -> cc.getServiceResourceInfos().stream())
                 .filter(sri -> UtilValidate.isEmpty(type) || type.equals(sri.type))
                 .collect(Collectors.toList());
@@ -151,7 +156,7 @@ public final class ComponentConfig {
      * @return a list of test-suite information
      */
     public static List<TestSuiteInfo> getAllTestSuiteInfos(String name) {
-        return getAllComponents().stream()
+        return components()
                 .filter(matchingComponentName(name))
                 .flatMap(cc -> cc.getTestSuiteInfos().stream())
                 .collect(Collectors.toList());
@@ -163,7 +168,7 @@ public final class ComponentConfig {
      * @return a list of web-app information
      */
     public static List<WebappInfo> getAllWebappResourceInfos() {
-        return getAllComponents().stream()
+        return components()
                 .flatMap(cc -> cc.getWebappInfos().stream())
                 .collect(Collectors.toList());
     }
@@ -211,7 +216,7 @@ public final class ComponentConfig {
      * @return the first key-store matching both {@code componentName} and {@code keystoreName}.
      */
     public static KeystoreInfo getKeystoreInfo(String componentName, String keystoreName) {
-        return getAllComponents().stream()
+        return components()
                 .filter(cc -> componentName != null && componentName.equals(cc.getComponentName()))
                 .flatMap(cc -> cc.getKeystoreInfos().stream())
                 .filter(ks -> keystoreName != null && keystoreName.equals(ks.getName()))
