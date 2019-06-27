@@ -238,11 +238,6 @@ public final class ComponentConfig {
         return info;
     }
     
-    public static boolean isFileResourceLoader(String componentName, String resourceLoaderName) throws ComponentException {
-        ComponentConfig cc = getComponentConfig(componentName);
-        return cc.isFileResourceLoader(resourceLoaderName);
-    }
-
     // ========== ComponentConfig instance ==========
 
     private final String globalName;

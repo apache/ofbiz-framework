@@ -90,7 +90,7 @@ public class ComponentResourceHandler implements ResourceHandler {
 
     @Override
     public boolean isFileResource() throws GenericConfigException {
-        return ComponentConfig.isFileResourceLoader(componentName, loaderName);
+        return ComponentConfig.getComponentConfig(componentName).isFileResourceLoader(loaderName);
     }
 
     @Override
