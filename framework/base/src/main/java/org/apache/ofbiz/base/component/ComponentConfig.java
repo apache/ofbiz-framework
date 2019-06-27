@@ -78,18 +78,15 @@ public final class ComponentConfig {
         return componentConfigCache.values();
     }
 
+    /**
+     * Provides the list of all the container configuration elements available in components.
+     *
+     * @return a list of container configuration elements
+     */
     public static List<ContainerConfig.Configuration> getAllConfigurations() {
-        return getAllConfigurations(null);
-    }
-
-    public static List<ContainerConfig.Configuration> getAllConfigurations(String componentName) {
-        List<ContainerConfig.Configuration> configurations = new ArrayList<>();
-        for (ComponentConfig cc : getAllComponents()) {
-            if (componentName == null || componentName.equals(cc.getComponentName())) {
-                configurations.addAll(cc.getConfigurations());
-            }
-        }
-        return configurations;
+        return getAllComponents().stream()
+                .flatMap(cc -> cc.getConfigurations().stream())
+                .collect(Collectors.toList());
     }
 
     public static List<EntityResourceInfo> getAllEntityResourceInfos(String type) {
