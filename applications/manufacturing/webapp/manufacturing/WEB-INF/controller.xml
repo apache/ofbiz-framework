@@ -465,7 +465,7 @@ under the License.
     <request-map uri="runMrpGo">
         <security https="true" auth="true"/>
         <event type="service" invoke="executeMrp" path="async"/>
-        <response name="success" type="view" value="MrpExecution"/>
+        <response name="success" type="view" value="RunMrpGo"/>
         <response name="error" type="view" value="MrpExecution"/>
     </request-map>
 
@@ -871,6 +871,7 @@ under the License.
     <!-- MRP view mappings -->
     <view-map name="FindMrpPlannedEvents" type="screen" page="component://manufacturing/widget/manufacturing/MrpScreens.xml#FindMrpPlannedEvents"/>
     <view-map name="MrpExecution" type="screen" page="component://manufacturing/widget/manufacturing/MrpScreens.xml#MrpExecution"/>
+    <view-map name="RunMrpGo" page="component://manufacturing/widget/manufacturing/MrpScreens.xml#RunMrpGo" type="screen"/>
     <view-map name="ManufacturingReports" type="screen" page="component://manufacturing/widget/manufacturing/ReportScreens.xml#ManufacturingReports"/>
 
     <!-- JobShop Management view mappings -->
