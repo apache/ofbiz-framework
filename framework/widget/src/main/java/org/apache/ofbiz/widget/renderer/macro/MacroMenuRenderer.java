@@ -84,7 +84,7 @@ public class MacroMenuRenderer implements MenuStringRenderer {
                 boolean fullPath = false;
                 boolean secure = false;
                 boolean encode = false;
-                RequestHandler rh = (RequestHandler) request.getServletContext().getAttribute("_REQUEST_HANDLER_");
+                RequestHandler rh = RequestHandler.from(request);
                 src = rh.makeLink(request, response, src, fullPath, secure, encode);
             } else if ("content".equalsIgnoreCase(urlMode)) {
                 StringBuilder newURL = new StringBuilder();

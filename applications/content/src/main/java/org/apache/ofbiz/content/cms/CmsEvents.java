@@ -286,8 +286,7 @@ public class CmsEvents {
                 templateMap.put("statusCode", statusCode);
 
                 // make the link prefix
-                RequestHandler rh = (RequestHandler) request.getServletContext().getAttribute("_REQUEST_HANDLER_");
-                templateMap.put("_REQUEST_HANDLER_", rh);
+                templateMap.put("_REQUEST_HANDLER_", RequestHandler.from(request));
 
                 //Cache Headers
                 UtilHttp.setResponseBrowserProxyNoCache(response);

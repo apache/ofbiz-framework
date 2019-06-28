@@ -487,9 +487,7 @@ public class CoreEvents {
     }
 
     public static String streamFile(HttpServletRequest request, HttpServletResponse response) {
-        //RequestHandler rh = (RequestHandler) request.getAttribute("_REQUEST_HANDLER_");
         String filePath = RequestHandler.getOverrideViewUri(request.getPathInfo());
-        //String fileName = filePath.substring(filePath.lastIndexOf("/")+1);
 
         // load the file
         File file = new File(filePath);

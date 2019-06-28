@@ -123,7 +123,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         this.request = request;
         this.response = response;
         this.visualTheme = ThemeFactory.resolveVisualTheme(request);
-        this.rh = (RequestHandler) request.getServletContext().getAttribute("_REQUEST_HANDLER_");
+        this.rh = RequestHandler.from(request);
         this.javaScriptEnabled = UtilHttp.isJavaScriptEnabled(request);
         internalEncoder = UtilCodec.getEncoder("string");
     }

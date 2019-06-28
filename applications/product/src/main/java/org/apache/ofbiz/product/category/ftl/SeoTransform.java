@@ -23,7 +23,6 @@ import java.io.Writer;
 import java.util.Iterator;
 import java.util.Map;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -90,7 +89,6 @@ public class SeoTransform implements TemplateTransformModel {
                     Object prefix = env.getVariable("urlPrefix");
                     if (req != null) {
                         HttpServletRequest request = (HttpServletRequest) req.getWrappedObject();
-                        ServletContext ctx = request.getServletContext();
                         HttpServletResponse response = null;
                         if (res != null) {
                             response = (HttpServletResponse) res.getWrappedObject();
@@ -103,7 +101,7 @@ public class SeoTransform implements TemplateTransformModel {
                             userLogin = null;
                         }
 
-                        RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
+                        RequestHandler rh = RequestHandler.from(request);
                         out.write(seoUrl(rh.makeLink(request, response, buf.toString(), fullPath, secure, encode), userLogin == null));
                     } else if (prefix != null) {
                         if (prefix instanceof TemplateScalarModel) {

@@ -29,7 +29,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.ParserConfigurationException;
@@ -198,8 +197,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
                 containerId = getNextElementId();
             }
             HttpServletResponse response = (HttpServletResponse) context.get("response");
-            ServletContext ctx = request.getServletContext();
-            RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
+            RequestHandler rh = RequestHandler.from(request);
             autoUpdateLink = rh.makeLink(request, response, autoUpdateTarget);
         }
         Map<String, Object> parameters = new HashMap<>();
@@ -349,8 +347,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         String urlString = "";
         if (urlMode != null && "intra-app".equalsIgnoreCase(urlMode)) {
             if (request != null && response != null) {
-                ServletContext ctx = request.getServletContext();
-                RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
+                RequestHandler rh = RequestHandler.from(request);
                 urlString = rh.makeLink(request, response, src, fullPath, secure, encode);
             } else {
                 urlString = src;
@@ -477,8 +474,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
                     editRequest += "&amp;";
                 }
                 editRequest += "contentId=" + expandedContentId;
-                ServletContext ctx = request.getServletContext();
-                RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
+                RequestHandler rh = RequestHandler.from(request);
                 urlString = rh.makeLink(request, response, editRequest, false, false, false);
             }
 
@@ -500,8 +496,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         HttpServletRequest request = (HttpServletRequest) context.get("request");
         HttpServletResponse response = (HttpServletResponse) context.get("response");
         if (request != null && response != null) {
-            ServletContext ctx = request.getServletContext();
-            RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
+            RequestHandler rh = RequestHandler.from(request);
             fullUrlString = rh.makeLink(request, response, urlString, true, false, false);
         }
 
@@ -592,8 +587,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
                  if (UtilValidate.isNotEmpty(expandedMapKey)) {
                      editRequest += "&amp;mapKey=" + expandedMapKey;
                  }
-                 ServletContext ctx = request.getServletContext();
-                 RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
+                 RequestHandler rh = RequestHandler.from(request);
                  urlString = rh.makeLink(request, response, editRequest, false, false, false);
              }
          }
@@ -769,8 +763,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
             viewSizeParam = "VIEW_SIZE" + "_" + paginatorNumber;
         }
 
-        ServletContext ctx = request.getServletContext();
-        RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
+        RequestHandler rh = RequestHandler.from(request);
 
         Map<String, Object> inputFields = UtilGenerics.toMap(context.get("requestParameters"));
         // strip out any multi form fields if the form is of type multi

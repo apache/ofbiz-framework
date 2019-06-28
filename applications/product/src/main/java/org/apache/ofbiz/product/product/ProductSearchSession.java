@@ -32,7 +32,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -432,8 +431,7 @@ public class ProductSearchSession {
                         if (keywords.contains(ovrdKeyword)) {
                             String targetTypeEnumId = productStoreKeywordOvrd.getString("targetTypeEnumId");
                             String target = productStoreKeywordOvrd.getString("target");
-                            ServletContext ctx = request.getServletContext();
-                            RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
+                            RequestHandler rh = RequestHandler.from(request);
                             if ("KOTT_PRODCAT".equals(targetTypeEnumId)) {
                                 String requestName = "/category/~category_id=" + target;
                                 target = rh.makeLink(request, response, requestName, false, false, false);

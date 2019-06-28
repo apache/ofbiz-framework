@@ -21,7 +21,6 @@ package org.apache.ofbiz.order.task;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -89,8 +88,7 @@ public class TaskEvents {
 
     /** Accept role assignment event */
     public static String acceptRoleAssignment(HttpServletRequest request, HttpServletResponse response) {
-        ServletContext ctx = request.getServletContext();
-        RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
+        RequestHandler rh = RequestHandler.from(request);
         Locale locale = UtilHttp.getLocale(request);
 
         if (addToOrderRole(request)) {
@@ -109,8 +107,7 @@ public class TaskEvents {
 
     /** Delegate and accept assignment event */
     public static String delegateAndAcceptAssignment(HttpServletRequest request, HttpServletResponse response) {
-        ServletContext ctx = request.getServletContext();
-        RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
+        RequestHandler rh = RequestHandler.from(request);
         Locale locale = UtilHttp.getLocale(request);
 
         if (addToOrderRole(request)) {

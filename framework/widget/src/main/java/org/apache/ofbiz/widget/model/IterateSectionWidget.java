@@ -286,7 +286,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
         HttpServletRequest request = (HttpServletRequest) context.get("request");
         HttpServletResponse response = (HttpServletResponse) context.get("response");
 
-        RequestHandler rh = (RequestHandler) request.getServletContext().getAttribute("_REQUEST_HANDLER_");
+        RequestHandler rh = RequestHandler.from(request);
 
         writer.append("<table border=\"0\" width=\"100%\" cellpadding=\"2\">\n");
         writer.append("  <tr>\n");

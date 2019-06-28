@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -315,8 +314,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
             HttpServletRequest request = (HttpServletRequest) context.get("request");
             if (urlMode != null && "intra-app".equalsIgnoreCase(urlMode)) {
                 if (request != null && response != null) {
-                    ServletContext ctx = request.getServletContext();
-                    RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
+                    RequestHandler rh = RequestHandler.from(request);
                     String urlString = rh.makeLink(request, response, src, fullPath, secure, encode);
                     writer.append(urlString);
                 } else {

@@ -1199,9 +1199,9 @@ public class RequestHandler {
         return makeUrl(request, response, url, false, false, false);
     }
 
-    public static String makeUrl(HttpServletRequest request, HttpServletResponse response, String url, boolean fullPath, boolean secure, boolean encode) {
-        ServletContext ctx = request.getServletContext();
-        RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
+    public static String makeUrl(HttpServletRequest request, HttpServletResponse response, String url, boolean fullPath,
+            boolean secure, boolean encode) {
+        RequestHandler rh = from(request);
         return rh.makeLink(request, response, url, fullPath, secure, encode);
     }
 
@@ -1330,5 +1330,16 @@ public class RequestHandler {
                     Debug.logWarning("Received no client certificates from browser", module);
                     return false;
                 });
+    }
+
+    /**
+     * Retrieves the request handler which is stored inside an HTTP request.
+     *
+     * @param request the HTTP request containing the request handler
+     * @return a request handler or {@code null} when absent
+     * @throws NullPointerException when {@code request} or the servlet context is {@code null}.
+     */
+    public static RequestHandler from(HttpServletRequest request) {
+        return UtilGenerics.cast(request.getServletContext().getAttribute("_REQUEST_HANDLER_"));
     }
 }
