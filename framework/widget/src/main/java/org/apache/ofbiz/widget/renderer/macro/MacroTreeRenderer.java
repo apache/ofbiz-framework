@@ -324,7 +324,7 @@ public class MacroTreeRenderer implements TreeStringRenderer {
 
         if (urlMode != null && "intra-app".equalsIgnoreCase(urlMode)) {
             if (request != null && response != null) {
-                ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
+                ServletContext ctx = request.getServletContext();
                 RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
                 urlString = rh.makeLink(request, response, src, fullPath, secure, encode);
             } else {

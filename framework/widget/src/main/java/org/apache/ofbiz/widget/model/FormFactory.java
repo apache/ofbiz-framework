@@ -24,7 +24,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -83,10 +82,9 @@ public class FormFactory {
         String cacheKey = webappName + "::" + resourceName + "::" + formName;
         ModelForm modelForm = formWebappCache.get(cacheKey);
         if (modelForm == null) {
-            ServletContext servletContext = (ServletContext) request.getAttribute("servletContext");
             Delegator delegator = (Delegator) request.getAttribute("delegator");
             LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-            URL formFileUrl = servletContext.getResource(resourceName);
+            URL formFileUrl = request.getServletContext().getResource(resourceName);
             Document formFileDoc = UtilXml.readXmlDocument(formFileUrl, true, true);
             Element formElement = UtilXml.firstChildElement(formFileDoc.getDocumentElement(), "form", "name", formName);
             modelForm = createModelForm(formElement, delegator.getModelReader(), dispatcher.getDispatchContext(), resourceName, formName);

@@ -142,7 +142,7 @@ public class OfbizUrlTransform implements TemplateTransformModel {
                         return;
                     }
                     if (request != null) {
-                        ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
+                        ServletContext ctx = request.getServletContext();
                         HttpServletResponse response = FreeMarkerWorker.unwrap(env.getVariable("response"));
                         String requestUrl = buf.toString();
                         RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");

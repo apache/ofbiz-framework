@@ -24,7 +24,6 @@ import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -104,8 +103,7 @@ public class HtmlMenuWrapper {
 
     public String renderMenuString() throws IOException {
         HttpServletRequest req = ((HtmlMenuRenderer)renderer).request;
-        ServletContext ctx = (ServletContext) req.getAttribute("servletContext");
-        if (ctx == null) {
+        if (req.getServletContext() == null) {
             if (Debug.infoOn()) {
                 Debug.logInfo("in renderMenuString, ctx is null(0)" , "");
             }
@@ -115,8 +113,7 @@ public class HtmlMenuWrapper {
         modelMenu.renderMenuString(writer, context, renderer);
 
         HttpServletRequest req2 = ((HtmlMenuRenderer)renderer).request;
-        ServletContext ctx2 = (ServletContext) req2.getAttribute("servletContext");
-        if (ctx2 == null) {
+        if (req2.getServletContext() == null) {
             if (Debug.infoOn()) {
                 Debug.logInfo("in renderMenuString, ctx is null(2)" , "");
             }

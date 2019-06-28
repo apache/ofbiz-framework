@@ -37,10 +37,8 @@ public final class WebSiteWorker {
     private WebSiteWorker() {}
 
     public static String getWebSiteId(ServletRequest request) {
-        ServletContext application = ((ServletContext) request.getAttribute("servletContext"));
-
-        if (application == null) return null;
-        return application.getInitParameter("webSiteId");
+        ServletContext ctx = request.getServletContext();
+        return (ctx == null) ? null : ctx.getInitParameter("webSiteId");
     }
 
     public static GenericValue getWebSite(ServletRequest request) {

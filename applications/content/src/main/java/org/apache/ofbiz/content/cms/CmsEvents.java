@@ -286,8 +286,7 @@ public class CmsEvents {
                 templateMap.put("statusCode", statusCode);
 
                 // make the link prefix
-                ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
-                RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
+                RequestHandler rh = (RequestHandler) request.getServletContext().getAttribute("_REQUEST_HANDLER_");
                 templateMap.put("_REQUEST_HANDLER_", rh);
 
                 //Cache Headers

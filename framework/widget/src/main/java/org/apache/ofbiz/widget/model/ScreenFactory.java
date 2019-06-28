@@ -144,7 +144,7 @@ public class ScreenFactory {
             synchronized (ScreenFactory.class) {
                 modelScreenMap = screenWebappCache.get(cacheKey);
                 if (modelScreenMap == null) {
-                    ServletContext servletContext = (ServletContext) request.getAttribute("servletContext");
+                    ServletContext servletContext = request.getServletContext();
 
                     URL screenFileUrl = servletContext.getResource(resourceName);
                     Document screenFileDoc = UtilXml.readXmlDocument(screenFileUrl, true, true);

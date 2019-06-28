@@ -89,7 +89,7 @@ public class TaskEvents {
 
     /** Accept role assignment event */
     public static String acceptRoleAssignment(HttpServletRequest request, HttpServletResponse response) {
-        ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
+        ServletContext ctx = request.getServletContext();
         RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
         Locale locale = UtilHttp.getLocale(request);
 
@@ -109,7 +109,7 @@ public class TaskEvents {
 
     /** Delegate and accept assignment event */
     public static String delegateAndAcceptAssignment(HttpServletRequest request, HttpServletResponse response) {
-        ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
+        ServletContext ctx = request.getServletContext();
         RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
         Locale locale = UtilHttp.getLocale(request);
 

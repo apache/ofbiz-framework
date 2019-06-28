@@ -47,7 +47,6 @@ import java.util.StringTokenizer;
 import java.util.TimeZone;
 
 import javax.net.ssl.SSLContext;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -506,15 +505,14 @@ public final class UtilHttp {
         Map<String, Object> servletCtxMap = new HashMap<>();
 
         // look at all servlet context attributes
-        ServletContext servletContext = (ServletContext) request.getAttribute("servletContext");
-        Enumeration<String> applicationAttrNames = UtilGenerics.cast(servletContext.getAttributeNames());
+        Enumeration<String> applicationAttrNames = request.getServletContext().getAttributeNames();
         while (applicationAttrNames.hasMoreElements()) {
             String attrName = applicationAttrNames.nextElement();
             if (namesToSkip != null && namesToSkip.contains(attrName)) {
                 continue;
             }
 
-            Object attrValue = servletContext.getAttribute(attrName);
+            Object attrValue = request.getServletContext().getAttribute(attrName);
             servletCtxMap.put(attrName, attrValue);
         }
 

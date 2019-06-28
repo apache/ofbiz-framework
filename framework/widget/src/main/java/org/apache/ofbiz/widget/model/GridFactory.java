@@ -84,7 +84,7 @@ public class GridFactory {
         String cacheKey = webappName + "::" + resourceName + "::" + gridName;
         ModelGrid modelGrid = gridWebappCache.get(cacheKey);
         if (modelGrid == null) {
-            ServletContext servletContext = (ServletContext) request.getAttribute("servletContext");
+            ServletContext servletContext = request.getServletContext();
             Delegator delegator = (Delegator) request.getAttribute("delegator");
             LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
             URL gridFileUrl = servletContext.getResource(resourceName);

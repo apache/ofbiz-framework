@@ -36,7 +36,6 @@ import java.util.UUID;
 import java.util.WeakHashMap;
 import java.util.stream.Collectors;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -124,8 +123,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         this.request = request;
         this.response = response;
         this.visualTheme = ThemeFactory.resolveVisualTheme(request);
-        ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
-        this.rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
+        this.rh = (RequestHandler) request.getServletContext().getAttribute("_REQUEST_HANDLER_");
         this.javaScriptEnabled = UtilHttp.isJavaScriptEnabled(request);
         internalEncoder = UtilCodec.getEncoder("string");
     }

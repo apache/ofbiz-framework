@@ -63,7 +63,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
     }
 
     public void appendOfbizUrl(Appendable writer, String location) throws IOException {
-        ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
+        ServletContext ctx = request.getServletContext();
         if (ctx == null) {
             HttpSession session = request.getSession();
             if (session != null) {
@@ -80,7 +80,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
     }
 
     public void appendContentUrl(Appendable writer, String location) throws IOException {
-        ServletContext ctx = (ServletContext) this.request.getAttribute("servletContext");
+        ServletContext ctx = request.getServletContext();
         if (ctx == null) {
             HttpSession session = request.getSession();
             if (session != null) {
@@ -492,8 +492,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
             HttpServletRequest request = (HttpServletRequest) context.get("request");
             if (urlMode != null && "ofbiz".equalsIgnoreCase(urlMode)) {
                 if (request != null && response != null) {
-                    ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
-                    RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
+                    RequestHandler rh = (RequestHandler) request.getServletContext().getAttribute("_REQUEST_HANDLER_");
                     String urlString = rh.makeLink(request, response, src, fullPath, secure, encode);
                     writer.append(urlString);
                 } else {

@@ -27,7 +27,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -85,8 +84,7 @@ public class MacroMenuRenderer implements MenuStringRenderer {
                 boolean fullPath = false;
                 boolean secure = false;
                 boolean encode = false;
-                ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
-                RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
+                RequestHandler rh = (RequestHandler) request.getServletContext().getAttribute("_REQUEST_HANDLER_");
                 src = rh.makeLink(request, response, src, fullPath, secure, encode);
             } else if ("content".equalsIgnoreCase(urlMode)) {
                 StringBuilder newURL = new StringBuilder();

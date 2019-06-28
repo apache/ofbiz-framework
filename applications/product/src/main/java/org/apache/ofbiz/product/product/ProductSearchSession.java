@@ -432,7 +432,7 @@ public class ProductSearchSession {
                         if (keywords.contains(ovrdKeyword)) {
                             String targetTypeEnumId = productStoreKeywordOvrd.getString("targetTypeEnumId");
                             String target = productStoreKeywordOvrd.getString("target");
-                            ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
+                            ServletContext ctx = request.getServletContext();
                             RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
                             if ("KOTT_PRODCAT".equals(targetTypeEnumId)) {
                                 String requestName = "/category/~category_id=" + target;

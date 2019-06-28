@@ -1168,7 +1168,7 @@ public class RequestHandler {
             try {
                 GenericValue webSiteValue = EntityQuery.use(delegator).from("WebSite").where("webSiteId", webSiteId).cache().queryOne();
                 if (webSiteValue != null) {
-                    ServletContext application = ((ServletContext) request.getAttribute("servletContext"));
+                    ServletContext application = (request.getServletContext());
                     String domainName = request.getLocalName();
                     if (application.getAttribute("MULTI_SITE_ENABLED") != null && UtilValidate.isNotEmpty(webSiteValue.getString("hostedPathAlias")) && !domainName.equals(webSiteValue.getString("httpHost"))) {
                         newURL.append('/');
@@ -1200,7 +1200,7 @@ public class RequestHandler {
     }
 
     public static String makeUrl(HttpServletRequest request, HttpServletResponse response, String url, boolean fullPath, boolean secure, boolean encode) {
-        ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
+        ServletContext ctx = request.getServletContext();
         RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
         return rh.makeLink(request, response, url, fullPath, secure, encode);
     }

@@ -28,7 +28,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -287,8 +286,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
         HttpServletRequest request = (HttpServletRequest) context.get("request");
         HttpServletResponse response = (HttpServletResponse) context.get("response");
 
-        ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
-        RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
+        RequestHandler rh = (RequestHandler) request.getServletContext().getAttribute("_REQUEST_HANDLER_");
 
         writer.append("<table border=\"0\" width=\"100%\" cellpadding=\"2\">\n");
         writer.append("  <tr>\n");

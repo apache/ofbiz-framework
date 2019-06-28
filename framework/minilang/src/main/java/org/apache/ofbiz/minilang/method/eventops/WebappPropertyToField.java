@@ -63,7 +63,7 @@ public final class WebappPropertyToField extends MethodOperation {
     public boolean exec(MethodContext methodContext) throws MiniLangException {
         if (methodContext.getMethodType() == MethodContext.EVENT) {
             String resource = resourceFse.expandString(methodContext.getEnvMap());
-            ServletContext servletContext = (ServletContext) methodContext.getRequest().getAttribute("servletContext");
+            ServletContext servletContext = methodContext.getRequest().getServletContext();
             URL propsUrl = null;
             try {
                 propsUrl = servletContext.getResource(resource);

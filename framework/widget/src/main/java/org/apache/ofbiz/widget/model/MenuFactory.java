@@ -61,7 +61,7 @@ public class MenuFactory {
 
         Map<String, ModelMenu> modelMenuMap = menuWebappCache.get(cacheKey);
         if (modelMenuMap == null) {
-            ServletContext servletContext = (ServletContext) request.getAttribute("servletContext");
+            ServletContext servletContext = request.getServletContext();
 
             URL menuFileUrl = servletContext.getResource(resourceName);
             Document menuFileDoc = UtilXml.readXmlDocument(menuFileUrl, true, true);

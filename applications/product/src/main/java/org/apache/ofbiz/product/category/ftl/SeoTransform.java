@@ -90,7 +90,7 @@ public class SeoTransform implements TemplateTransformModel {
                     Object prefix = env.getVariable("urlPrefix");
                     if (req != null) {
                         HttpServletRequest request = (HttpServletRequest) req.getWrappedObject();
-                        ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
+                        ServletContext ctx = request.getServletContext();
                         HttpServletResponse response = null;
                         if (res != null) {
                             response = (HttpServletResponse) res.getWrappedObject();
