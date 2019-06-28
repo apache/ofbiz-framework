@@ -4846,7 +4846,7 @@ under the License.
       <field name="shippingPrice" type="currency-precise"></field>
       <field name="currencyUomId" type="id"></field>
       <field name="supplierProductName" type="name"></field>
-      <field name="supplierProductId" type="id"></field>
+      <field name="supplierProductId" type="id-long"></field>
       <field name="canDropShip" type="indicator"></field>
       <!-- field name="supplierCommissionPerc" type="fixed-point"><description>Unused field, better use commission run using agreements in accounting</description></field-->
       <field name="comments" type="comment"></field>
