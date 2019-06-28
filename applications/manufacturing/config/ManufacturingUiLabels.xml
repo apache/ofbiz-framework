@@ -3112,6 +3112,10 @@
         <value xml:lang="zh">生产资源计划名称</value>
         <value xml:lang="zh-TW">生產資源計劃名稱</value>
     </property>
+    <property key="ManufacturingMrpRunScheduledSuccessfully">
+        <value xml:lang="en">Mrp run scheduled successfully</value>
+        <value xml:lang="fr">Exécution de Mrp programmée avec succès</value>
+    </property>
     <property key="ManufacturingNewCalendar">
         <value xml:lang="de">Neuer Kalender</value>
         <value xml:lang="en">New calendar</value>
