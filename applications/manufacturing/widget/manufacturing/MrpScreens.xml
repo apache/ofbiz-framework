@@ -54,6 +54,25 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="RunMrpGo">
+        <section>
+            <actions>
+                <set field="titleProperty" value="ManufacturingRunMrp"/>
+                <set field="tabButtonItem" value="RunMrp"/>
+                <set field="headerItem" value="mrp"/>
+                <set field="eventMessage" value="${groovy: org.apache.ofbiz.base.util.UtilProperties.getMessage('ManufacturingUiLabels', 'ManufacturingMrpRunScheduledSuccessfully', locale)}"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonMrpDecorator">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.ManufacturingRunMrp}">
+                            <include-form name="RunMrp" location="component://manufacturing/widget/manufacturing/MrpForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <screen name="FindMrpPlannedEvents">
         <section>
             <actions>
