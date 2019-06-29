@@ -19,7 +19,7 @@
 OFBIZ_HOME="$(pwd)"
 GRADLE_OFBIZ_PATH="$OFBIZ_HOME/gradle"
 GRADLE_WRAPPER_OFBIZ_PATH="$GRADLE_OFBIZ_PATH/wrapper"
-RELEASE="5.0.0"
+RELEASE="5.5.0"
 #GRADLE_WRAPPER_URI="https://github.com/gradle/gradle/blob/v${RELEASE}/gradle/wrapper"
 GRADLE_WRAPPER_URI="https://svn.apache.org/repos/asf/ofbiz/tools/Buildbot/Gradle/Wrapper/trunk/"
 GRADLE_WRAPPER_JAR="gradle-wrapper.jar"
