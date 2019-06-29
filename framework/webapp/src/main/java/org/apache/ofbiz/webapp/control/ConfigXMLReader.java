@@ -187,11 +187,11 @@ public class ConfigXMLReader {
         private String defaultRequest;
         private String statusCode;
         private List<URL> includes = new ArrayList<>();
-        private Map<String, Event> firstVisitEventList = new LinkedHashMap<>();
-        private Map<String, Event> preprocessorEventList = new LinkedHashMap<>();
-        private Map<String, Event> postprocessorEventList = new LinkedHashMap<>();
-        private Map<String, Event> afterLoginEventList = new LinkedHashMap<>();
-        private Map<String, Event> beforeLogoutEventList = new LinkedHashMap<>();
+        private final Map<String, Event> firstVisitEventList = new LinkedHashMap<>();
+        private final Map<String, Event> preprocessorEventList = new LinkedHashMap<>();
+        private final Map<String, Event> postprocessorEventList = new LinkedHashMap<>();
+        private final Map<String, Event> afterLoginEventList = new LinkedHashMap<>();
+        private final Map<String, Event> beforeLogoutEventList = new LinkedHashMap<>();
         private Map<String, String> eventHandlerMap = new HashMap<>();
         private Map<String, String> viewHandlerMap = new HashMap<>();
         private MultivaluedMapContext<String, RequestMap> requestMapMap = new MultivaluedMapContext<>();
@@ -309,6 +309,35 @@ public class ConfigXMLReader {
             return pushIncludes(ccfg -> ccfg.viewMapMap);
         }
 
+        /**
+         * Computes the name of an XML element.
+         *
+         * @param el  the element containing "type" and/or "name" attributes
+         * @return the derived name.
+         * @throws NullPointerException when {@code el} is {@code null}
+         */
+        private static String elementToName(Element el) {
+            String eventName = el.getAttribute("name");
+            return eventName.isEmpty()
+                    ? el.getAttribute("type") + "::" + el.getAttribute("path") + "::" + el.getAttribute("invoke")
+                    : eventName;
+        }
+
+        /**
+         * Collects some events defined in an XML tree.
+         *
+         * @param root  the root of the XML tree
+         * @param childName  the name of the element inside {@code root} containing the events
+         * @return a map associating element derived names to an event objects.
+         */
+        private static void collectEvents(Element root, String childName, Map<String, Event> coll) {
+            Element child = UtilXml.firstChildElement(root, childName);
+            if (child != null) {
+                UtilXml.childElementList(child, "event").stream()
+                       .forEachOrdered(ev -> coll.put(elementToName(ev), new Event(ev)));
+            }
+        }
+
         private void loadGeneralConfig(Element rootElement) {
             this.errorpage = UtilXml.childElementValue(rootElement, "errorpage");
             this.statusCode = UtilXml.childElementValue(rootElement, "status-code");
@@ -322,61 +351,11 @@ public class ConfigXMLReader {
             if (defaultRequestElement != null) {
                 this.defaultRequest = defaultRequestElement.getAttribute("request-uri");
             }
-            // first visit event
-            Element firstvisitElement = UtilXml.firstChildElement(rootElement, "firstvisit");
-            if (firstvisitElement != null) {
-                for (Element eventElement : UtilXml.childElementList(firstvisitElement, "event")) {
-                    String eventName = eventElement.getAttribute("name");
-                    if (eventName.isEmpty()) {
-                        eventName = eventElement.getAttribute("type") + "::" + eventElement.getAttribute("path") + "::" + eventElement.getAttribute("invoke");
-                    }
-                    this.firstVisitEventList.put(eventName, new Event(eventElement));
-                }
-            }
-            // preprocessor events
-            Element preprocessorElement = UtilXml.firstChildElement(rootElement, "preprocessor");
-            if (preprocessorElement != null) {
-                for (Element eventElement : UtilXml.childElementList(preprocessorElement, "event")) {
-                    String eventName = eventElement.getAttribute("name");
-                    if (eventName.isEmpty()) {
-                        eventName = eventElement.getAttribute("type") + "::" + eventElement.getAttribute("path") + "::" + eventElement.getAttribute("invoke");
-                    }
-                    this.preprocessorEventList.put(eventName, new Event(eventElement));
-                }
-            }
-            // postprocessor events
-            Element postprocessorElement = UtilXml.firstChildElement(rootElement, "postprocessor");
-            if (postprocessorElement != null) {
-                for (Element eventElement : UtilXml.childElementList(postprocessorElement, "event")) {
-                    String eventName = eventElement.getAttribute("name");
-                    if (eventName.isEmpty()) {
-                        eventName = eventElement.getAttribute("type") + "::" + eventElement.getAttribute("path") + "::" + eventElement.getAttribute("invoke");
-                    }
-                    this.postprocessorEventList.put(eventName, new Event(eventElement));
-                }
-            }
-            // after-login events
-            Element afterLoginElement = UtilXml.firstChildElement(rootElement, "after-login");
-            if (afterLoginElement != null) {
-                for (Element eventElement : UtilXml.childElementList(afterLoginElement, "event")) {
-                    String eventName = eventElement.getAttribute("name");
-                    if (eventName.isEmpty()) {
-                        eventName = eventElement.getAttribute("type") + "::" + eventElement.getAttribute("path") + "::" + eventElement.getAttribute("invoke");
-                    }
-                    this.afterLoginEventList.put(eventName, new Event(eventElement));
-                }
-            }
-            // before-logout events
-            Element beforeLogoutElement = UtilXml.firstChildElement(rootElement, "before-logout");
-            if (beforeLogoutElement != null) {
-                for (Element eventElement : UtilXml.childElementList(beforeLogoutElement, "event")) {
-                    String eventName = eventElement.getAttribute("name");
-                    if (eventName.isEmpty()) {
-                        eventName = eventElement.getAttribute("type") + "::" + eventElement.getAttribute("path") + "::" + eventElement.getAttribute("invoke");
-                    }
-                    this.beforeLogoutEventList.put(eventName, new Event(eventElement));
-                }
-            }
+            collectEvents(rootElement, "firstvisit", firstVisitEventList);
+            collectEvents(rootElement, "preprocessor", preprocessorEventList);
+            collectEvents(rootElement, "postprocessor", postprocessorEventList);
+            collectEvents(rootElement, "after-login", afterLoginEventList);
+            collectEvents(rootElement, "before-logout", beforeLogoutEventList);
         }
 
         private void loadHandlerMap(Element rootElement) {
