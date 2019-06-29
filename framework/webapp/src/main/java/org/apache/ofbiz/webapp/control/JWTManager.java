@@ -18,8 +18,20 @@
  */
 package org.apache.ofbiz.webapp.control;
 
-import io.jsonwebtoken.*;
-import org.apache.ofbiz.base.util.*;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.core.HttpHeaders;
+
+import org.apache.ofbiz.base.util.Debug;
+import org.apache.ofbiz.base.util.UtilDateTime;
+import org.apache.ofbiz.base.util.UtilHttp;
+import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.entity.Delegator;
 import org.apache.ofbiz.entity.DelegatorFactory;
 import org.apache.ofbiz.entity.GenericEntityException;
@@ -32,13 +44,12 @@ import org.apache.ofbiz.service.ModelService;
 import org.apache.ofbiz.service.ServiceUtil;
 import org.apache.ofbiz.webapp.WebAppUtil;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.core.HttpHeaders;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtBuilder;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.SignatureException;
 
 /**
  * This class manages the single sign-on authentication through JWT tokens between OFBiz applications.
@@ -130,7 +141,7 @@ public class JWTManager {
      * @param request the http request in which the authentication token is searched and stored
      * @return the authentication token
      */
-    public static String getAuthenticationToken(HttpServletRequest request, HttpServletResponse response){
+    public static String getAuthenticationToken(HttpServletRequest request, HttpServletResponse response) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         Delegator delegator = (Delegator) request.getAttribute("delegator");
 
@@ -186,7 +197,7 @@ public class JWTManager {
      * @param request the request to get the token from
      * @return the bare JWT token
      */
-    public static String getHeaderAuthBearerToken(HttpServletRequest request){
+    public static String getHeaderAuthBearerToken(HttpServletRequest request) {
 
         String headerAuthValue = request.getHeader(HttpHeaders.AUTHORIZATION);
         String bearerPrefix = "Bearer ";
