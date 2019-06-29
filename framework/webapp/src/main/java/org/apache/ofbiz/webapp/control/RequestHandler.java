@@ -1248,52 +1248,60 @@ public class RequestHandler {
         runEvents(req, resp, prod, "before-logout");
     }
 
-    public boolean trackStats(HttpServletRequest request) {
-        if (trackServerHit) {
-            String uriString = RequestHandler.getRequestUri(request.getPathInfo());
-            if (uriString == null) {
-                uriString="";
-            }
-            ConfigXMLReader.RequestMap requestMap = null;
-            try {
-                requestMap = getControllerConfig().getRequestMapMap().get(uriString);
+    /**
+     * Checks if a request must be tracked according a global toggle and a request map predicate.
+     *
+     * @param request  the request that can potentially be tracked
+     * @param globalToggle  the global configuration toggle
+     * @param pred  the predicate checking if each individual request map must be tracked or not.
+     * @return {@code true} when the request must be tracked.
+     * @throws NullPointerException when either {@code request} or {@code pred} is {@code null}.
+     */
+    private boolean track(HttpServletRequest request, boolean globalToggle, Predicate<RequestMap> pred) {
+        if (!globalToggle) {
+            return false;
+        }
+        // XXX: We are basically re-implementing `resolveURI` poorly, It would be better
+        // to take a `request-map` as input but it is not currently not possible because this method
+        // is used outside `doRequest`.
+        String uriString = RequestHandler.getRequestUri(request.getPathInfo());
+        if (uriString == null) {
+            uriString= "";
+        }
+        try {
+            Map<String, RequestMap> rmaps = getControllerConfig().getRequestMapMap();
+            RequestMap requestMap = rmaps.get(uriString);
+            if (requestMap == null) {
+                requestMap = rmaps.get(getControllerConfig().getDefaultRequest());
                 if (requestMap == null) {
-                    requestMap = getControllerConfig().getRequestMapMap().get(getControllerConfig().getDefaultRequest());
-                    if (requestMap == null) {
-                        return false;
-                    }
+                    return false;
                 }
-            } catch (WebAppConfigurationException e) {
-                Debug.logError(e, "Exception thrown while parsing controller.xml file: ", module);
             }
-            return requestMap.trackServerHit;
-        } else {
+            return pred.test(requestMap);
+        } catch (WebAppConfigurationException e) {
+            Debug.logError(e, "Exception thrown while parsing controller.xml file: ", module);
             return false;
         }
     }
 
+    /**
+     * Checks if server hits must be tracked for a given request.
+     *
+     * @param request  the HTTP request that can potentially be tracked
+     * @return {@code true} when the request must be tracked.
+     */
+    public boolean trackStats(HttpServletRequest request) {
+        return track(request, trackServerHit, rmap -> rmap.trackServerHit);
+    }
+
+    /**
+     * Checks if visits must be tracked for a given request.
+     *
+     * @param request  the HTTP request that can potentially be tracked
+     * @return {@code true} when the request must be tracked.
+     */
     public boolean trackVisit(HttpServletRequest request) {
-        if (trackVisit) {
-            String uriString = RequestHandler.getRequestUri(request.getPathInfo());
-            if (uriString == null) {
-                uriString="";
-            }
-            ConfigXMLReader.RequestMap requestMap = null;
-            try {
-                requestMap = getControllerConfig().getRequestMapMap().get(uriString);
-                if (requestMap == null) {
-                    requestMap = getControllerConfig().getRequestMapMap().get(getControllerConfig().getDefaultRequest());
-                    if (requestMap == null) {
-                        return false;
-                    }
-                }
-            } catch (WebAppConfigurationException e) {
-                Debug.logError(e, "Exception thrown while parsing controller.xml file: ", module);
-            }
-            return requestMap.trackVisit;
-        } else {
-            return false;
-        }
+        return track(request, trackVisit, rmap -> rmap.trackVisit);
     }
     
     private static String showSessionId(HttpServletRequest request) {
