@@ -21,7 +21,6 @@ package org.apache.ofbiz.webapp.event;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.ServletContext;
 
@@ -42,13 +41,11 @@ public class EventFactory {
     public EventFactory(ServletContext context, URL controllerConfigURL) {
         // load all the event handlers
         try {
-            Set<Map.Entry<String,String>> handlerEntries = ConfigXMLReader.getControllerConfig(controllerConfigURL).getEventHandlerMap().entrySet();
-            if (handlerEntries != null) {
-                for (Map.Entry<String,String> handlerEntry: handlerEntries) {
-                    EventHandler handler = (EventHandler) ObjectType.getInstance(handlerEntry.getValue());
-                    handler.init(context);
-                    this.handlers.put(handlerEntry.getKey(), handler);
-                }
+            Map<String,String> handlers = ConfigXMLReader.getControllerConfig(controllerConfigURL).getEventHandlerMap();
+            for (Map.Entry<String,String> handlerEntry: handlers.entrySet()) {
+                EventHandler handler = (EventHandler) ObjectType.getInstance(handlerEntry.getValue());
+                handler.init(context);
+                this.handlers.put(handlerEntry.getKey(), handler);
             }
         } catch (Exception e) {
             Debug.logError(e, module);
