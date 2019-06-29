@@ -387,10 +387,9 @@ public final class UtilXml {
             Debug.logWarning("[UtilXml.readXmlDocument] URL was null, doing nothing", module);
             return null;
         }
-        InputStream is = url.openStream();
-        Document document = readXmlDocument(is, validate, url.toString());
-        is.close();
-        return document;
+        try (InputStream is = url.openStream()) {
+            return readXmlDocument(is, validate, url.toString());
+        }
     }
 
     public static Document readXmlDocument(URL url, boolean validate, boolean withPosition)
