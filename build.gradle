@@ -281,7 +281,7 @@ sourceSets {
         resources {
             srcDirs = getDirectoryInActiveComponentsIfExists('src/main/java')
             srcDirs += getDirectoryInActiveComponentsIfExists('config')
-            srcDirs += "${rootDir}/framework/base/dtd"
+            srcDirs += getDirectoryInActiveComponentsIfExists('dtd')
             exclude excludedJavaSources
             exclude excludedConfigFiles
             // Below are necessary for unit tests run by Gradle and integration tests
