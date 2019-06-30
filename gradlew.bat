@@ -30,7 +30,7 @@ set APP_BASE_NAME=%~n0
 set APP_HOME=%DIRNAME%
 
 @rem Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
-set DEFAULT_JVM_OPTS="-Xmx64m" "-Xms64m"
+set DEFAULT_JVM_OPTS="-Xmx64m"
 
 @rem Find java.exe
 if defined JAVA_HOME goto findJavaFromJavaHome
@@ -78,16 +78,12 @@ set CMD_LINE_ARGS=%*
 
 :execute
 @rem Setup the command line
-
 set CLASSPATH=%APP_HOME%\gradle\wrapper\gradle-wrapper.jar
 
-@rem check if Gradle is installed
-if exist "%CLASSPATH%" goto GradleOK
+@rem Overwrites the local Gradle Wrapper files from tools repo in all cases (it's only 55kb). 
+@rem This way we are sure to always use the latest version. At least when an Internet connexion is available.
+Powershell.exe -executionpolicy remotesigned -File %APP_HOME%\gradle\init-gradle-wrapper.ps1
 
-md %APP_HOME%\gradle\wrapper\
-Powershell.exe -executionpolicy remotesigned -File  %APP_HOME%\init-gradle-wrapper.ps1
-
-:GradleOK
 @rem Execute Gradle
 "%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %GRADLE_OPTS% "-Dorg.gradle.appname=%APP_BASE_NAME%" -classpath "%CLASSPATH%" org.gradle.wrapper.GradleWrapperMain %CMD_LINE_ARGS%
 

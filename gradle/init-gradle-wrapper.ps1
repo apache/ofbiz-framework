@@ -22,5 +22,5 @@ if (! (Test-Path -Path ((Get-Item -Path ".\").FullName + "\gradle\"))) {
 
 # This uses  PowerShell Invoke-WebRequest command (aliased as wget here)
 # https is not used because we don't want users to be asked for a credential (not sure about that, maybe https is OK)
-wget -outf gradle\wrapper\gradle-wrapper.jar https://svn.apache.org/repos/asf/ofbiz/tools/Buildbot/Gradle/Wrapper/trunk/gradle-wrapper.jar
-wget -outf gradle\wrapper\gradle-wrapper.properties https://svn.apache.org/repos/asf/ofbiz/tools/Buildbot/Gradle/Wrapper/trunk/gradle-wrapper.properties
+wget -outf gradle\wrapper\gradle-wrapper.jar http://svn.apache.org/repos/asf/ofbiz/tools/Buildbot/Gradle/Wrapper/trunk/gradle-wrapper.jar
+wget -outf gradle\wrapper\gradle-wrapper.properties http://svn.apache.org/repos/asf/ofbiz/tools/Buildbot/Gradle/Wrapper/trunk/gradle-wrapper.properties
