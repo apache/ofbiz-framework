@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletContext;
 
@@ -192,8 +193,8 @@ public class ConfigXMLReader {
         private final Map<String, Event> postprocessorEventList = new LinkedHashMap<>();
         private final Map<String, Event> afterLoginEventList = new LinkedHashMap<>();
         private final Map<String, Event> beforeLogoutEventList = new LinkedHashMap<>();
-        private Map<String, String> eventHandlerMap = new HashMap<>();
-        private Map<String, String> viewHandlerMap = new HashMap<>();
+        private final Map<String, String> eventHandlerMap = new HashMap<>();
+        private final Map<String, String> viewHandlerMap = new HashMap<>();
         private MultivaluedMapContext<String, RequestMap> requestMapMap = new MultivaluedMapContext<>();
         private Map<String, ViewMap> viewMapMap = new HashMap<>();
 
@@ -359,17 +360,11 @@ public class ConfigXMLReader {
         }
 
         private void loadHandlerMap(Element rootElement) {
-            for (Element handlerElement : UtilXml.childElementList(rootElement, "handler")) {
-                String name = handlerElement.getAttribute("name");
-                String type = handlerElement.getAttribute("type");
-                String className = handlerElement.getAttribute("class");
-
-                if ("view".equals(type)) {
-                    this.viewHandlerMap.put(name, className);
-                } else {
-                    this.eventHandlerMap.put(name, className);
-                }
-            }
+            Map<Boolean, Map<String, String>> handlers = UtilXml.childElementList(rootElement, "handler").stream()
+                    .collect(Collectors.partitioningBy(el -> "view".equals(el.getAttribute("type")),
+                            Collectors.toMap(el -> el.getAttribute("name"), el -> el.getAttribute("class"))));
+            viewHandlerMap.putAll(handlers.get(true));
+            eventHandlerMap.putAll(handlers.get(false));
         }
 
         protected void loadIncludes(Element rootElement) {
