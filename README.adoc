@@ -81,6 +81,7 @@ the command line at the OFBiz top level directory (folder).
 if some inconveniences appear please remove `OFBiz-root/gradle/wrapper` directory and run again.
 
 *Manual setting*
+
 * Get to https://github.com/gradle/gradle/blob/v5.0.0/gradle/wrapper, gradle-wrapper.jar and gradle-wrapper.properties
 * Copy both files in your OFBiz-root\gradle\wrapper directory, that's it.
 
