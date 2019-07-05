@@ -35,6 +35,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.TimeZone;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 import org.apache.ofbiz.base.conversion.ConversionException;
 import org.apache.ofbiz.base.conversion.DateTimeConverters;
@@ -101,6 +103,18 @@ public class ModelFormField {
      */
 
     public static final String module = ModelFormField.class.getName();
+
+    /**
+     * Constructs a form field model from a builder specification.
+     *
+     * @param spec  the specification of form field definition
+     * @return the form field model corresponding to the specification.
+     */
+    public static ModelFormField from(Consumer<ModelFormFieldBuilder> spec) {
+        ModelFormFieldBuilder builder = new ModelFormFieldBuilder();
+        spec.accept(builder);
+        return new ModelFormField(builder);
+    }
 
     public static ModelFormField from(ModelFormFieldBuilder builder) {
         return new ModelFormField(builder);
@@ -927,6 +941,27 @@ public class ModelFormField {
             Debug.logError(e, errMsg, module);
             throw new IllegalArgumentException(errMsg);
         }
+    }
+
+    /**
+     * Provides a stateful predicate checking if a field must be used.
+     *
+     * @param context the context determining if the field must be used
+     * @return a stateful predicate checking if a field must be used.
+     */
+    public static Predicate<ModelFormField> usedFields(Map<String, Object> context) {
+        HashMap<String, Boolean> seenUseWhen = new HashMap<>();
+        return field -> {
+            if (!field.isUseWhenEmpty()) {
+                String name = field.getName();
+                boolean shouldUse = field.shouldUse(context);
+                if (seenUseWhen.containsKey(name)) {
+                    return shouldUse != seenUseWhen.get(name);
+                }
+                seenUseWhen.put(name, shouldUse);
+            }
+            return true;
+        };
     }
 
     /**

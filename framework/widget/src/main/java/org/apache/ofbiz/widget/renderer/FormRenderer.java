@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.apache.ofbiz.widget.renderer;
 
+import static org.apache.ofbiz.widget.model.ModelFormField.usedFields;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -668,25 +670,6 @@ public class FormRenderer {
         formStringRenderer.renderFormatItemRowClose(writer, localContext, modelForm);
     }
 
-    // Filter the field lists by removing the ones with both the same names and "use-when" values.
-    // Keep all fields without a "use-when" attribute.
-    List<ModelFormField> getUsedFields(Map<String, Object> context) {
-        HashMap<String, Boolean> seenUseWhen = new HashMap<>();
-        return modelForm.getFieldList().stream()
-                .filter(field -> {
-                    if (!field.isUseWhenEmpty()) {
-                        String name = field.getName();
-                        boolean shouldUse = field.shouldUse(context);
-                        if (seenUseWhen.containsKey(name)) {
-                            return shouldUse != seenUseWhen.get(name);
-                        }
-                        seenUseWhen.put(name, shouldUse);
-                    }
-                    return true;
-                })
-                .collect(Collectors.toList());
-    }
-
     private void renderItemRows(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer,
             boolean formPerItem, int numOfColumns) throws IOException {
         String lookupName = modelForm.getListName();
@@ -777,7 +760,9 @@ public class FormRenderer {
                      Debug.logVerbose("In form got another row, context is: " + localContext, module);
                 }
 
-                List<ModelFormField> tempFieldList = getUsedFields(localContext);
+                List<ModelFormField> tempFieldList = modelForm.getFieldList().stream()
+                        .filter(usedFields(localContext))
+                        .collect(Collectors.toList());
 
                 // Each single item is rendered in one or more rows if its fields have
                 // different "position" attributes. All the fields with the same position
@@ -972,7 +957,9 @@ public class FormRenderer {
 
     private void renderSingleFormString(Appendable writer, Map<String, Object> context,
             int positions) throws IOException {
-        List<ModelFormField> tempFieldList = getUsedFields(context);
+        List<ModelFormField> tempFieldList = modelForm.getFieldList().stream()
+                .filter(usedFields(context))
+                .collect(Collectors.toList());
         Set<String> alreadyRendered = new TreeSet<>();
         FieldGroup lastFieldGroup = null;
         // render form open
