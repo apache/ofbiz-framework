@@ -98,7 +98,8 @@ final class AdminServer extends Thread {
             // if the client request is shutdown, execute shutdown sequence
             if(clientCommand.equals(OfbizSocketCommand.SHUTDOWN)) {
                 writer.flush();
-                StartupControlPanel.stop(loader, serverState, this);
+                StartupControlPanel.shutdownServer(loader, serverState, this);
+                System.exit(0);
             }
         }
     }

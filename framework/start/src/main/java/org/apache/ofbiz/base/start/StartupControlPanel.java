@@ -65,39 +65,29 @@ final class StartupControlPanel {
         ContainerLoader loader = new ContainerLoader();
         Thread adminServer = createAdminServer(config, serverState, loader);
 
-        createLogDirectoryIfMissing(config);
-        createRuntimeShutdownHook(config, loader, serverState);
-        loadContainers(config, loader, ofbizCommands, serverState);
-        printStartupMessage(config);
-        executeShutdownAfterLoadIfConfigured(config, loader, serverState, adminServer);
-    }
+        createLogDirectoryIfMissing(config.logDir);
 
-    /**
-     * Print OFBiz startup message only if the OFBiz server is not scheduled for shutdown.
-     * @param config contains parameters for system startup
-     */
-    private static void printStartupMessage(Config config) {
-        if (!config.shutdownAfterLoad) {
-            String lineSeparator = System.lineSeparator();
-            System.out.println(lineSeparator + "   ____  __________  _" +
-                               lineSeparator + "  / __ \\/ ____/ __ )(_)___" +
-                               lineSeparator + " / / / / /_  / __  / /_  /" +
-                               lineSeparator + "/ /_/ / __/ / /_/ / / / /_" +
-                               lineSeparator + "\\____/_/   /_____/_/ /___/  is started and ready." +
-                               lineSeparator);
+        if (config.useShutdownHook) {
+            createRuntimeShutdownHook(loader, serverState);
+        } else {
+            System.out.println("Shutdown hook disabled");
         }
-    }
 
-    /**
-     * Shutdown the OFBiz server. This method is invoked in one of the
-     * following ways:
-     *
-     * - Manually if requested by the client AdminClient
-     * - Automatically if Config.shutdownAfterLoad is set to true
-     */
-    static void stop(ContainerLoader loader, AtomicReference<ServerState> serverState, Thread adminServer) {
-        shutdownServer(loader, serverState, adminServer);
-        System.exit(0);
+        loadContainers(config, loader, ofbizCommands, serverState);
+
+        if (config.shutdownAfterLoad) {
+            shutdownServer(loader, serverState, adminServer);
+            System.exit(0);
+        } else {
+            // Print startup message.
+            String ls = System.lineSeparator();
+            System.out.println(ls + "   ____  __________  _" +
+                               ls + "  / __ \\/ ____/ __ )(_)___" +
+                               ls + " / / / / /_  / __  / /_  /" +
+                               ls + "/ /_/ / __/ / /_/ / / / /_" +
+                               ls + "\\____/_/   /_____/_/ /___/  is started and ready." +
+                               ls);
+        }
     }
 
     /**
@@ -120,7 +110,7 @@ final class StartupControlPanel {
         System.exit(1);
     }
 
-    private static void shutdownServer(ContainerLoader loader, AtomicReference<ServerState> serverState, Thread adminServer) {
+    static void shutdownServer(ContainerLoader loader, AtomicReference<ServerState> serverState, Thread adminServer) {
         ServerState currentState;
         do {
             currentState = serverState.get();
@@ -164,8 +154,8 @@ final class StartupControlPanel {
         return adminServer;
     }
 
-    private static void createLogDirectoryIfMissing(Config config) {
-        File logDir = new File(config.logDir);
+    private static void createLogDirectoryIfMissing(String logDirName) {
+        File logDir = new File(logDirName);
         if (!logDir.exists()) {
             if (logDir.mkdir()) {
                 System.out.println("Created OFBiz log dir [" + logDir.getAbsolutePath() + "]");
@@ -173,21 +163,13 @@ final class StartupControlPanel {
         }
     }
 
-    private static void createRuntimeShutdownHook(
-            Config config,
-            ContainerLoader loader,
-            AtomicReference<ServerState> serverState) {
-
-        if (config.useShutdownHook) {
-            Runtime.getRuntime().addShutdownHook(new Thread() {
-                @Override
-                public void run() {
-                    shutdownServer(loader, serverState, this);
-                }
-            });
-        } else {
-            System.out.println("Shutdown hook disabled");
-        }
+    private static void createRuntimeShutdownHook(ContainerLoader loader, AtomicReference<ServerState> serverState) {
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            @Override
+            public void run() {
+                shutdownServer(loader, serverState, this);
+            }
+        });
     }
 
     private static void loadContainers(Config config,
@@ -201,16 +183,5 @@ final class StartupControlPanel {
             loader.load(config, ofbizCommands);
         }
         serverState.compareAndSet(ServerState.STARTING, ServerState.RUNNING);
-    }
-
-    private static void executeShutdownAfterLoadIfConfigured(
-            Config config,
-            ContainerLoader loader,
-            AtomicReference<ServerState> serverState,
-            Thread adminServer) {
-
-        if (config.shutdownAfterLoad) {
-            stop(loader, serverState, adminServer);
-        }
     }
 }
