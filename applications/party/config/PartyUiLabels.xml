@@ -14064,14 +14064,13 @@
         <value xml:lang="ar">يمكن أن يحتوي اسم المستخدم على حروف أبجدية وأرقام و _-</value>
         <value xml:lang="cs">Uživatelské jméno může obsahovat pouze abecedy, číslice a _-</value>
         <value xml:lang="de">Der Benutzername darf nur Buchstaben, Zahlen und _- enthalten.</value>
-        <value xml:lang="en">Username can only have alphabets, numeric and _-</value>
-        <value xml:lang="en-GB">Username can only have alphabets, numeric and _-</value>
+        <value xml:lang="en">Username can only have letters, digits  and the _- characters</value>
         <value xml:lang="es">El nombre de usuario solo puede tener alfabetos, numéricos y _-</value>
-        <value xml:lang="fr">Le nom d'utilisateur ne peut contenir que des alphabets, des chiffres et des caractères _-</value>
+        <value xml:lang="fr">Le nom d'utilisateur ne peut contenir que des lettres, des chiffres et les caractères _-</value>
         <value xml:lang="hi-IN">‍ उपयोगकर्ता नाम में केवल अक्षर, संख्यात्मक और _- हो सकते हैं</value>
         <value xml:lang="it">Il nome utente può contenere solo alfabeti, numeri e _-</value>
         <value xml:lang="ja">ユーザー名には、アルファベット、数字、および_-しか使用できません。</value>
-        <value xml:lang="nl">Gebruikersnaam kan alleen alfabetten, numeriek en _- bevatten</value>
+        <value xml:lang="nl">Gebruikersnaam kan alleen letters, cijfers en tekens _ of - bevatten</value>
         <value xml:lang="pt-BR">O nome de usuário só pode ter alfabetos, numéricos e _</value>
         <value xml:lang="pt-PT">O nome de usuário só pode ter alfabetos, numéricos e _</value>
         <value xml:lang="ro">Numele de utilizator poate avea numai alfabete, numere numerice și _</value>
