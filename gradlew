@@ -1,11 +1,4 @@
 #!/usr/bin/env sh
-#####################################################################
-# Apache OFBiz part
-# if the gradle-wrapper.jar isn't present, call init to download it
-#####################################################################
-if [ ! -r ./gradle/wrapper/gradle-wrapper.jar ]; then
-    sh ./gradle/init-gradle-wrapper.sh
-fi
 
 #
 # Copyright 2015 the original author or authors.

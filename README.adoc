@@ -72,19 +72,6 @@ the command line at the OFBiz top level directory (folder).
 [[prepare-ofbiz]]
 === Prepare OFBiz:
 
-==== Setting up the Gradle Wrapper
-
-*Unix-like OS*: ensure that your system have `curl` or `wget` and run `./gradlew`
-
-*MS Windows*: run `gradlew`
-
-if some inconveniences appear please remove `OFBiz-root/gradle/wrapper` directory and run again.
-
-*Manual setting*
-
-* Get to https://github.com/gradle/gradle/blob/v5.0.0/gradle/wrapper, gradle-wrapper.jar and gradle-wrapper.properties
-* Copy both files in your OFBiz-root\gradle\wrapper directory, that's it.
-
 ==== Clean system and load the complete OFBiz data
 _________________________________________________________________________________________________________________________________________________________________________________________________________________
 _Note_: Depending on your Internet connection speed it might take a long time

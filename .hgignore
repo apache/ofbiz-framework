@@ -1,6 +1,5 @@
 syntax: regexp
 ^(framework|applications|plugins)/[^/]+/build/.*$
-^gradle/wrapper/.*$
 ^ofbiz\.jar$
 ^runtime/data/derby/.*$
 ^runtime/logs/.*(log|html)(|.\d+)$
