@@ -60,7 +60,7 @@ public class RmiServiceContainer implements Container {
     @Override
     public boolean start() throws ContainerException {
         // get the container config
-        ContainerConfig.Configuration cfg = ContainerConfig.getConfiguration(containerName, configFile);
+        ContainerConfig.Configuration cfg = ContainerConfig.getConfiguration(containerName);
         ContainerConfig.Configuration.Property initialCtxProp = cfg.getProperty("use-initial-context");
         ContainerConfig.Configuration.Property lookupHostProp = cfg.getProperty("bound-host");
         ContainerConfig.Configuration.Property lookupPortProp = cfg.getProperty("bound-port");

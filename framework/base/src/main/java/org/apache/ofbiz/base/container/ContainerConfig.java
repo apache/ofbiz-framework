@@ -30,7 +30,6 @@ import java.util.Map;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.ofbiz.base.util.StringUtil;
-import org.apache.ofbiz.base.util.UtilURL;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
 import org.w3c.dom.Document;
@@ -49,27 +48,34 @@ public class ContainerConfig {
 
     private static Map<String, Configuration> configurations = new LinkedHashMap<>();
 
-    public static Configuration getConfiguration(String containerName, String configFile) throws ContainerException {
+    /**
+     * Retrieves the container configuration element corresponding to a container name.
+     *
+     * @param containerName  the name of the container to retrieve
+     * @param configFile  the file name corresponding to the global container configuration file
+     * @return the corresponding configuration element.
+     * @throws ContainerException when no configuration element are found.
+     * @deprecated Use {@link #getConfiguration(String)} instead.
+    */
+    @Deprecated
+    public static Configuration getConfiguration(String containerName, String configFile)
+            throws ContainerException {
+        return getConfiguration(containerName);
+    }
+
+    /**
+     * Retrieves the container configuration element corresponding to a container name.
+     *
+     * @param containerName  the name of the container to retrieve
+     * @return the corresponding configuration element.
+     * @throws ContainerException when no configuration element are found.
+     */
+    public static Configuration getConfiguration(String containerName) throws ContainerException {
         Configuration configuration = configurations.get(containerName);
-        if (configuration == null) {
-            getConfigurations(configFile);
-            configuration = configurations.get(containerName);
-        }
         if (configuration == null) {
             throw new ContainerException("No container found with the name : " + containerName);
         }
         return configuration;
-    }
-
-    public static Collection<Configuration> getConfigurations(String configFile) throws ContainerException {
-        if (UtilValidate.isEmpty(configFile)) {
-            throw new ContainerException("configFile argument cannot be null or empty");
-        }
-        URL xmlUrl = UtilURL.fromResource(configFile);
-        if (xmlUrl == null) {
-            throw new ContainerException("Could not find container config file " + configFile);
-        }
-        return getConfigurations(xmlUrl);
     }
 
     public static Collection<Configuration> getConfigurations(URL xmlUrl) throws ContainerException {

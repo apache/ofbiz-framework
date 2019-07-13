@@ -101,7 +101,7 @@ public class EntityDataLoadContainer implements Container {
         ServiceDispatcher.enableJMS(false);
         ServiceDispatcher.enableSvcs(false);
 
-        Configuration configuration = ContainerConfig.getConfiguration(name, configFile);
+        Configuration configuration = ContainerConfig.getConfiguration(name);
         Property delegatorNameProp = configuration.getProperty("delegator-name");
         String overrideDelegator = loadDataProps.get(DELEGATOR_NAME);
 

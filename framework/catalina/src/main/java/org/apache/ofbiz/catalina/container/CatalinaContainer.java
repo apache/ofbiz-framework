@@ -103,7 +103,7 @@ public class CatalinaContainer implements Container {
     public void init(List<StartupCommand> ofbizCommands, String name, String configFile) throws ContainerException {
 
         this.name = name;
-        ContainerConfig.Configuration configuration = ContainerConfig.getConfiguration(name, configFile);
+        ContainerConfig.Configuration configuration = ContainerConfig.getConfiguration(name);
         Property engineConfig = retrieveTomcatEngineConfig(configuration);
 
         // tomcat setup

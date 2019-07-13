@@ -39,7 +39,7 @@ public class DelegatorContainer implements Container {
     public void init(List<StartupCommand> ofbizCommands, String name, String configFile) throws ContainerException {
         this.name = name;
 
-        ContainerConfig.Configuration cc = ContainerConfig.getConfiguration(name, configFile);
+        ContainerConfig.Configuration cc = ContainerConfig.getConfiguration(name);
 
         preloadedDelegatorNames = StringUtil.split(ContainerConfig.getPropertyValue(cc, "preloaded-delegators", "default"), ", ");
     }
