@@ -66,29 +66,23 @@ public class ContainerLoader {
         // loaders defined in startup (e.g. main, test, load-data, etc ...)
         List<String> loaders = config.loaders;
 
-        // load containers defined in ofbiz-containers.xml
-        Debug.logInfo("[Startup] Loading containers...", module);
-        List<ContainerConfig.Configuration> ofbizContainerConfigs = filterContainersHavingMatchingLoaders(
-                loaders, retrieveOfbizContainers(config.containerConfig));
-        loadedContainers.addAll(loadContainersFromConfigurations(ofbizContainerConfigs, config, ofbizCommands));
+        // Load mandatory container providing access to containers from components.
+        try {
+            ComponentContainer cc = new ComponentContainer();
+            cc.init(ofbizCommands, "component-container", null);
+            loadedContainers.add(cc);
+        } catch (ContainerException e) {
+            throw new StartupException("Cannot init() component-container", e);
+        }
 
-        // load containers defined in components
-        Debug.logInfo("[Startup] Loading component containers...", module);
+        // Load containers defined in components.
+        Debug.logInfo("[Startup] Loading containers...", module);
         List<ContainerConfig.Configuration> componentContainerConfigs = filterContainersHavingMatchingLoaders(
                 loaders, ComponentConfig.getAllConfigurations());
         loadedContainers.addAll(loadContainersFromConfigurations(componentContainerConfigs, config, ofbizCommands));
 
         // Start all containers loaded from above steps
         startLoadedContainers();
-    }
-
-    private static Collection<ContainerConfig.Configuration> retrieveOfbizContainers(String configFile)
-            throws StartupException {
-        try {
-            return ContainerConfig.getConfigurations(configFile);
-        } catch (ContainerException e) {
-            throw new StartupException(e);
-        }
     }
 
     private static List<ContainerConfig.Configuration> filterContainersHavingMatchingLoaders(List<String> loaders,
@@ -116,15 +110,16 @@ public class ContainerLoader {
         List<Container> loadContainers = new ArrayList<>();
         for (ContainerConfig.Configuration containerCfg : containerConfigs) {
             Debug.logInfo("Loading container: " + containerCfg.name, module);
-            Container tmpContainer = loadContainer(config.containerConfig, containerCfg, ofbizCommands);
+            Container tmpContainer = loadContainer(containerCfg, ofbizCommands);
             loadContainers.add(tmpContainer);
             Debug.logInfo("Loaded container: " + containerCfg.name, module);
         }
         return loadContainers;
     }
 
-    private static Container loadContainer(String configFile, ContainerConfig.Configuration containerCfg,
-            List<StartupCommand> ofbizCommands) throws StartupException {
+
+    private static Container loadContainer(ContainerConfig.Configuration containerCfg, List<StartupCommand> ofbizCommands)
+            throws StartupException {
         // load the container class
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         Class<?> containerClass;
@@ -150,7 +145,7 @@ public class ContainerLoader {
 
         // initialize the container object
         try {
-            containerObj.init(ofbizCommands, containerCfg.name, configFile);
+            containerObj.init(ofbizCommands, containerCfg.name, null);
         } catch (ContainerException e) {
             throw new StartupException("Cannot init() " + containerCfg.name, e);
         }

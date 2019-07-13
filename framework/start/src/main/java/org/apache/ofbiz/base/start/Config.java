@@ -40,7 +40,6 @@ public final class Config {
     public final String adminKey;
     public final int portOffset;
     public final int adminPort;
-    public final String containerConfig;
     public final List<String> loaders;
     public final String logDir;
     public final boolean shutdownAfterLoad;
@@ -57,8 +56,6 @@ public final class Config {
         adminKey = getProperty(props, "ofbiz.admin.key", "NA");
         portOffset = getPortOffsetValue(ofbizCommands, "0");
         adminPort = getAdminPort(props, 0, portOffset);
-        containerConfig = getAbsolutePath(props, "ofbiz.container.config",
-                "framework/base/config/ofbiz-containers.xml", ofbizHome);
         loaders = Arrays.asList(getProperty(props, "ofbiz.start.loaders", "").split(","));
         logDir = getAbsolutePath(props, "ofbiz.log.dir", "runtime/logs", ofbizHome);
         shutdownAfterLoad = getProperty(props, "ofbiz.auto.shutdown", "false").equalsIgnoreCase("true");

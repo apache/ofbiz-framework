@@ -45,12 +45,14 @@ public interface Container {
      *
      * @param ofbizCommands Command-line arguments.
      * @param name Unique name of the container's instance.
-     * @param configFile Location of the configuration file used to load this container.
+     * @param configFile  always {@code null} but used to be the location of the global
+     *                    container configuration file which does not exist anymore
      * @throws ContainerException If an error was encountered. Throwing this exception
      * will halt container loading, so it should be thrown only when other containers
      * might depend on this one.
      */
-    public void init(List<StartupCommand> ofbizCommands, String name, String configFile) throws ContainerException;
+    void init(List<StartupCommand> ofbizCommands, String name, String configFile)
+            throws ContainerException;
 
     /**
      * Start the container process. This method must not block - implementations
