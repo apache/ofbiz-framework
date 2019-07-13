@@ -72,7 +72,7 @@ public class ContainerLoader {
 
         // Load containers defined in components.
         Debug.logInfo("[Startup] Loading containers...", module);
-        loadedContainers.addAll(loadContainersFromConfigurations(config, ofbizCommands));
+        loadedContainers.addAll(loadContainersFromConfigurations(config.loaders, ofbizCommands));
 
         // Start all containers loaded from above steps
         startLoadedContainers();
@@ -93,16 +93,16 @@ public class ContainerLoader {
     /**
      * Loads the available containers which are matching the configured loaders.
      *
-     * @param config  the configuration defining the loaders to match
+     * @param loaders  the collection of loaders to match
      * @param ofbizCommands  the parsed commands line arguments used by the containers
      * @return a list of loaded containers.
      * @throws StartupException when a container fails to load.
      */
-    private static List<Container> loadContainersFromConfigurations(Config config, List<StartupCommand> ofbizCommands)
-            throws StartupException {
+    private static List<Container> loadContainersFromConfigurations(Collection<String> loaders,
+            List<StartupCommand> ofbizCommands) throws StartupException {
         List<Container> loadContainers = new ArrayList<>();
         for (ContainerConfig.Configuration containerCfg : ComponentConfig.getAllConfigurations()) {
-            if (intersects(containerCfg.loaders, config.loaders)) {
+            if (intersects(containerCfg.loaders, loaders)) {
                 Debug.logInfo("Loading container: " + containerCfg.name, module);
                 Container tmpContainer = loadContainer(containerCfg, ofbizCommands);
                 loadContainers.add(tmpContainer);
