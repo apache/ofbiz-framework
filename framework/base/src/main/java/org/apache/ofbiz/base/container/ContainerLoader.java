@@ -24,7 +24,6 @@ import java.util.Collections;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.apache.ofbiz.base.component.ComponentConfig;
 import org.apache.ofbiz.base.start.Config;
@@ -62,10 +61,6 @@ public class ContainerLoader {
      * operate without it.
      */
     public synchronized void load(Config config, List<StartupCommand> ofbizCommands) throws StartupException {
-
-        // loaders defined in startup (e.g. main, test, load-data, etc ...)
-        List<String> loaders = config.loaders;
-
         // Load mandatory container providing access to containers from components.
         try {
             ComponentContainer cc = new ComponentContainer();
@@ -77,19 +72,11 @@ public class ContainerLoader {
 
         // Load containers defined in components.
         Debug.logInfo("[Startup] Loading containers...", module);
-        List<ContainerConfig.Configuration> componentContainerConfigs = filterContainersHavingMatchingLoaders(
-                loaders, ComponentConfig.getAllConfigurations());
+        List<ContainerConfig.Configuration> componentContainerConfigs = ComponentConfig.getAllConfigurations();
         loadedContainers.addAll(loadContainersFromConfigurations(componentContainerConfigs, config, ofbizCommands));
 
         // Start all containers loaded from above steps
         startLoadedContainers();
-    }
-
-    private static List<ContainerConfig.Configuration> filterContainersHavingMatchingLoaders(List<String> loaders,
-            Collection<ContainerConfig.Configuration> containerConfigs) {
-        return containerConfigs.stream()
-                .filter(cfg -> intersects(cfg.loaders, loaders))
-                .collect(Collectors.toList());
     }
 
     /**
@@ -104,15 +91,26 @@ public class ContainerLoader {
                 || !Collections.disjoint(a, b);
     }
 
+    /**
+     * Loads the available containers which are matching the configured loaders.
+     *
+     * @param containerConfigs  the list of available container configurations
+     * @param config  the configuration defining the loaders to match
+     * @param ofbizCommands  the parsed commands line arguments used by the containers
+     * @return a list of loaded containers.
+     * @throws StartupException when a container fails to load.
+     */
     private static List<Container> loadContainersFromConfigurations(List<ContainerConfig.Configuration> containerConfigs,
             Config config, List<StartupCommand> ofbizCommands) throws StartupException {
 
         List<Container> loadContainers = new ArrayList<>();
         for (ContainerConfig.Configuration containerCfg : containerConfigs) {
-            Debug.logInfo("Loading container: " + containerCfg.name, module);
-            Container tmpContainer = loadContainer(containerCfg, ofbizCommands);
-            loadContainers.add(tmpContainer);
-            Debug.logInfo("Loaded container: " + containerCfg.name, module);
+            if (intersects(containerCfg.loaders, config.loaders)) {
+                Debug.logInfo("Loading container: " + containerCfg.name, module);
+                Container tmpContainer = loadContainer(containerCfg, ofbizCommands);
+                loadContainers.add(tmpContainer);
+                Debug.logInfo("Loaded container: " + containerCfg.name, module);
+            }
         }
         return loadContainers;
     }
