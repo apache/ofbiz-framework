@@ -24,6 +24,8 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
+import org.apache.ofbiz.base.container.ContainerLoader;
+
 /**
  * OFBiz startup class.
  *
@@ -44,6 +46,7 @@ import java.util.stream.Collectors;
 public final class Start {
 
     private Config config = null;
+    private ContainerLoader loader = new ContainerLoader();
     private final AtomicReference<ServerState> serverState = new AtomicReference<>(ServerState.STARTING);
 
     // Singleton, do not change
@@ -84,7 +87,7 @@ public final class Start {
             break;
         case START:
             try {
-                StartupControlPanel.start(instance.config, instance.serverState, ofbizCommands);
+                StartupControlPanel.start(instance.config, instance.serverState, ofbizCommands, instance.loader);
             } catch (StartupException e) {
                 StartupControlPanel.fullyTerminateSystem(e);
             }
@@ -111,6 +114,11 @@ public final class Start {
      */
     public ServerState getCurrentState() {
         return serverState.get();
+    }
+
+    public void stop() {
+        StartupControlPanel.shutdownServer(loader, serverState);
+        System.exit(0);
     }
 
     /**

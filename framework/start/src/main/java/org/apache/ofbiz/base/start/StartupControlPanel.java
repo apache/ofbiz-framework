@@ -58,13 +58,8 @@ final class StartupControlPanel {
     /**
      * Execute the startup sequence for OFBiz
      */
-    static void start(Config config,
-            AtomicReference<ServerState> serverState,
-            List<StartupCommand> ofbizCommands) throws StartupException {
-
-        ContainerLoader loader = new ContainerLoader();
-        Thread adminServer = createAdminServer(config, serverState, loader);
-
+    static void start(Config config, AtomicReference<ServerState> serverState, List<StartupCommand> ofbizCommands,
+            ContainerLoader loader) throws StartupException {
         createLogDirectoryIfMissing(config.logDir);
 
         if (config.useShutdownHook) {
@@ -76,7 +71,7 @@ final class StartupControlPanel {
         loadContainers(config, loader, ofbizCommands, serverState);
 
         if (config.shutdownAfterLoad) {
-            shutdownServer(loader, serverState, adminServer);
+            shutdownServer(loader, serverState);
             System.exit(0);
         } else {
             // Print startup message.
@@ -110,7 +105,7 @@ final class StartupControlPanel {
         System.exit(1);
     }
 
-    static void shutdownServer(ContainerLoader loader, AtomicReference<ServerState> serverState, Thread adminServer) {
+    static void shutdownServer(ContainerLoader loader, AtomicReference<ServerState> serverState) {
         ServerState currentState;
         do {
             currentState = serverState.get();
@@ -123,9 +118,6 @@ final class StartupControlPanel {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (adminServer != null && adminServer.isAlive()) {
-            adminServer.interrupt();
-        }
     }
 
     private static void loadGlobalOfbizSystemProperties(String globalOfbizPropertiesFileName) throws StartupException {
@@ -137,21 +129,6 @@ final class StartupControlPanel {
                 throw new StartupException("Couldn't load global system props", e);
             }
         }
-    }
-
-    private static Thread createAdminServer(
-            Config config,
-            AtomicReference<ServerState> serverState,
-            ContainerLoader loader) throws StartupException {
-
-        Thread adminServer = null;
-        if (config.adminPort > 0) {
-            adminServer = new AdminServer(loader, serverState, config);
-            adminServer.start();
-        } else {
-            System.out.println("Admin socket not configured; set to port 0");
-        }
-        return adminServer;
     }
 
     private static void createLogDirectoryIfMissing(String logDirName) {
@@ -167,7 +144,7 @@ final class StartupControlPanel {
         Runtime.getRuntime().addShutdownHook(new Thread() {
             @Override
             public void run() {
-                shutdownServer(loader, serverState, this);
+                shutdownServer(loader, serverState);
             }
         });
     }

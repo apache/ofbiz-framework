@@ -27,7 +27,7 @@ import java.net.ConnectException;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 
-import org.apache.ofbiz.base.start.AdminServer.OfbizSocketCommand;
+import org.apache.ofbiz.base.container.AdminServerContainer.OfbizSocketCommand;
 
 /**
  * The AdminClient communicates with a running OFBiz server instance
