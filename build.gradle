@@ -175,7 +175,6 @@ dependencies {
     implementation 'javax.el:javax.el-api:3.0.1-b06'
     implementation 'javax.servlet:javax.servlet-api:4.0.1'
     implementation 'javax.servlet.jsp:javax.servlet.jsp-api:2.3.3'
-    implementation 'junit:junit-dep:4.11'
     implementation 'net.fortuna.ical4j:ical4j:1.0-rc3-atlassian-11'
     implementation 'org.apache.ant:ant-junit:1.10.5'
     implementation 'org.apache.axis2:axis2-kernel:1.7.9'
