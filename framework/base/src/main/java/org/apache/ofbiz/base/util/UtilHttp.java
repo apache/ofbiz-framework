@@ -669,19 +669,6 @@ public final class UtilHttp {
         session.setAttribute("_CLIENT_REMOTE_USER_", request.getRemoteUser());
     }
 
-    /**
-     * Put request parameters in request object as attributes.
-     * @param request
-     */
-    public static void parametersToAttributes(HttpServletRequest request) {
-        java.util.Enumeration<String> e = UtilGenerics.cast(request.getParameterNames());
-        while (e.hasMoreElements()) {
-            String name = e.nextElement();
-            request.setAttribute(name, request.getParameter(name));
-        }
-    }
-
-
     private static StringBuilder prepareServerRootUrl(HttpServletRequest request) {
         StringBuilder requestUrl = new StringBuilder();
         requestUrl.append(request.getScheme());

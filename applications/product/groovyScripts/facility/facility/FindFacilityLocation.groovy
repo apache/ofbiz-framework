@@ -35,7 +35,7 @@ context.itemId = itemId
 facility = from("Facility").where("facilityId", facilityId).queryOne()
 context.facility = facility
 
-UtilHttp.parametersToAttributes(request)
+request.getParameterMap().forEach(request.&setAttribute)
 if (lookup) {
     reqParamMap = UtilHttp.getParameterMap(request)
     paramMap = new HashMap(reqParamMap)
