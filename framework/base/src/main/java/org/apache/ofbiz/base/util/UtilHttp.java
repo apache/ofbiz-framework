@@ -125,58 +125,60 @@ public final class UtilHttp {
     }
 
     /**
-     * Create a map from a HttpServletRequest (parameters) object
-     * @return The resulting Map
+     * Creates a canonicalized parameter map from a HTTP request.
+     * <p>
+     * If parameters are empty, the multi-part parameter map will be used.
+     *
+     * @param request  the HTTP request containing the parameters
+     * @return a canonicalized parameter map.
      */
     public static Map<String, Object> getParameterMap(HttpServletRequest request) {
-        return getParameterMap(request, null, null);
+        return getParameterMap(request, null, true);
     }
 
     /**
-     * Create a map from a HttpServletRequest (parameters) object
-     * @param onlyIncludeOrSkip If true only include, if false skip, the named parameters in the nameSet. If this is null and nameSet is not null, default to skip.
-     * @return The resulting Map
+     * Creates a canonicalized parameter map from a HTTP request.
+     * <p>
+     * If parameters are empty, the multi-part parameter map will be used.
+     *
+     * @param req  the HTTP request containing the parameters
+     * @param nameSet  the set of parameters keys to include or skip
+     * @param includeOrSkip  a toggle where {@code true} means including and {@code false} means skipping
+     * @return a canonicalized parameter map.
      */
-    public static Map<String, Object> getParameterMap(HttpServletRequest request, Set<? extends String> nameSet, Boolean onlyIncludeOrSkip) {
-        boolean onlyIncludeOrSkipPrim = onlyIncludeOrSkip == null ? true : onlyIncludeOrSkip;
-        Map<String, Object> paramMap = new HashMap<>();
+    public static Map<String, Object> getParameterMap(HttpServletRequest req, Set<? extends String> nameSet,
+            boolean includeOrSkip) {
+        // Add all the actual HTTP request parameters
+        Map<String, String[]> origParams = req.getParameterMap();
+        Map<String, Object> params = origParams.entrySet().stream()
+                .filter(pair -> nameSet == null || !(includeOrSkip ^ nameSet.contains(pair.getKey())))
+                .collect(toMap(Map.Entry::getKey, pair -> transformParamValue(pair.getValue())));
 
-        // add all the actual HTTP request parameters
-        Map<String, String[]> origParams = request.getParameterMap();
-        origParams.forEach((name, paramArr) -> {
-            if (nameSet != null && (onlyIncludeOrSkipPrim ^ nameSet.contains(name))) {
-                return;
-            }
+        // Pseudo-parameters passed in the URI path overrides the ones from the regular URI parameters
+        params.putAll(getPathInfoOnlyParameterMap(req.getPathInfo(), nameSet, includeOrSkip));
 
-            Object value = null;
-            if (paramArr != null) {
-                if (paramArr.length > 1) {
-                    value = Arrays.asList(paramArr);
-                } else {
-                    value = paramArr[0];
-                    // does the same thing basically, nothing better about it as far as I can see: value = request.getParameter(name);
-                }
-            }
-            paramMap.put(name, value);
-        });
-
-        paramMap.putAll(getPathInfoOnlyParameterMap(request.getPathInfo(), nameSet, onlyIncludeOrSkipPrim));
-
-        Map<String, Object> multiPartMap = new HashMap<>();
-        if (paramMap.size() == 0) {
-            // nothing found in the parameters; maybe we read the stream instead
-            multiPartMap = getMultiPartParameterMap(request);
-            if (UtilValidate.isNotEmpty(multiPartMap)) {
-                paramMap.putAll(multiPartMap);
-            }
-        }
-        request.setAttribute("multiPartMap", multiPartMap);
+        // If nothing is found in the parameters, try to find something in the multi-part map.
+        Map<String, Object> multiPartMap = params.isEmpty() ? getMultiPartParameterMap(req) : Collections.emptyMap();
+        params.putAll(multiPartMap);
+        req.setAttribute("multiPartMap", multiPartMap);
 
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Made Request Parameter Map with [" + paramMap.size() + "] Entries", module);
+            Debug.logVerbose("Made Request Parameter Map with [" + params.size() + "] Entries", module);
         }
+        return canonicalizeParameterMap(params);
+    }
 
-        return canonicalizeParameterMap(paramMap);
+    /**
+     * Transforms a string array into either a list of string or string.
+     * <p>
+     * This is meant to facilitate the work of request handlers.
+     *
+     * @param value  the array of string to prepare
+     * @return the adapted value.
+     * @throws NullPointerException when {@code value} is {@code null}.
+     */
+    private static Object transformParamValue(String[] value) {
+        return value.length == 1 ? value[0] : Arrays.asList(value);
     }
 
     public static Map<String, Object> getMultiPartParameterMap(HttpServletRequest request) {
