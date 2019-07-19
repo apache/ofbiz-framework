@@ -158,7 +158,7 @@ public final class UtilHttp {
             paramMap.put(name, value);
         }
 
-        paramMap.putAll(getPathInfoOnlyParameterMap(request, nameSet, onlyIncludeOrSkip));
+        paramMap.putAll(getPathInfoOnlyParameterMap(request.getPathInfo(), nameSet, onlyIncludeOrSkip));
 
         Map<String, Object> multiPartMap = new HashMap<>();
         if (paramMap.size() == 0) {
@@ -304,10 +304,6 @@ public final class UtilHttp {
             }
         }
         return canonicalizeParameterMap(paramMap);
-    }
-
-    public static Map<String, Object> getPathInfoOnlyParameterMap(HttpServletRequest request, Set<? extends String> nameSet, Boolean onlyIncludeOrSkip) {
-        return getPathInfoOnlyParameterMap(request.getPathInfo(), nameSet, onlyIncludeOrSkip);
     }
 
     public static Map<String, Object> getPathInfoOnlyParameterMap(String pathInfoStr, Set<? extends String> nameSet, Boolean onlyIncludeOrSkip) {
