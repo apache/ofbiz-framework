@@ -142,15 +142,13 @@ public final class UtilHttp {
         Map<String, Object> paramMap = new HashMap<>();
 
         // add all the actual HTTP request parameters
-        Enumeration<String> e = UtilGenerics.cast(request.getParameterNames());
-        while (e.hasMoreElements()) {
-            String name = e.nextElement();
+        Map<String, String[]> origParams = request.getParameterMap();
+        origParams.forEach((name, paramArr) -> {
             if (nameSet != null && (onlyIncludeOrSkipPrim ^ nameSet.contains(name))) {
-                continue;
+                return;
             }
 
             Object value = null;
-            String[] paramArr = request.getParameterValues(name);
             if (paramArr != null) {
                 if (paramArr.length > 1) {
                     value = Arrays.asList(paramArr);
@@ -160,7 +158,7 @@ public final class UtilHttp {
                 }
             }
             paramMap.put(name, value);
-        }
+        });
 
         paramMap.putAll(getPathInfoOnlyParameterMap(request.getPathInfo(), nameSet, onlyIncludeOrSkipPrim));
 

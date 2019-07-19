@@ -22,14 +22,27 @@ import static org.apache.ofbiz.base.util.UtilHttp.getPathInfoOnlyParameterMap;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.Matchers.hasEntry;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.HttpMethod;
+
 import org.hamcrest.Matchers;
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 public class UtilHttpTest {
+    private HttpServletRequest req;
+
+    @Before
+    public void setup() {
+        req = Mockito.mock(HttpServletRequest.class);
+    }
 
     @Test
     public void basicGetPathInfoOnlyParameterMap() {
@@ -60,5 +73,51 @@ public class UtilHttpTest {
 
         assertThat(getPathInfoOnlyParameterMap("/~foo=1/~bar=2", UtilMisc.toSet("foo"), true),
                 allOf(hasEntry("foo", "1"), not(hasEntry("bar", "2"))));
+    }
+
+    @Test
+    public void basicGetParameterMap() {
+        when(req.getParameterMap()).thenReturn(UtilMisc.toMap(
+                "foo", new String[] {"1"},
+                "bar", new String[] {"2", "3"}));
+        when(req.getPathInfo()).thenReturn("/foo");
+        assertThat(UtilHttp.getParameterMap(req), Matchers.<Map<String, Object>>allOf(
+                hasEntry("foo", "1"),
+                hasEntry("bar", Arrays.asList("2", "3"))));
+    }
+
+    @Test
+    public void pathInfoOverrideGetParameterMap() {
+        when(req.getParameterMap()).thenReturn(UtilMisc.toMap(
+                "foo", new String[] {"1"},
+                "bar", new String[] {"2"}));
+        when(req.getPathInfo()).thenReturn("/foo/~bar=3");
+        assertThat(UtilHttp.getParameterMap(req), Matchers.<Map<String, Object>>allOf(
+                hasEntry("foo", "1"),
+                hasEntry("bar", "3")));
+    }
+
+    @Test
+    public void emptyParameterMap() {
+        when(req.getParameterMap()).thenReturn(Collections.emptyMap());
+        when(req.getPathInfo()).thenReturn("/foo/bar");
+        when(req.getMethod()).thenReturn(HttpMethod.POST);
+        UtilHttp.getParameterMap(req);
+        // Check that multi-part arguments are looked up
+        Mockito.verify(req).getContentType();
+    }
+
+    @Test
+    public void filteredGetParameterMap() {
+        when(req.getParameterMap()).thenReturn(UtilMisc.toMap(
+                "foo", new String[] {"1"},
+                "bar", new String[] {"2", "3"}));
+        when(req.getPathInfo()).thenReturn("/foo");
+        assertThat(UtilHttp.getParameterMap(req, UtilMisc.toSet("bar"), false), Matchers.<Map<String, Object>>allOf(
+                hasEntry("foo", "1"),
+                not(hasEntry("bar", Arrays.asList("2", "3")))));
+        assertThat(UtilHttp.getParameterMap(req, UtilMisc.toSet("bar"), true), Matchers.<Map<String, Object>>allOf(
+                not(hasEntry("foo", "1")),
+                hasEntry("bar", Arrays.asList("2", "3"))));
     }
 }
