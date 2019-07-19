@@ -22,7 +22,6 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -311,13 +310,11 @@ public class ShoppingCartEvents {
             if ("VV_FEATURETREE".equals(ProductWorker.getProductVirtualVariantMethod(delegator, productId))) {
                 // get the selected features.
                 List<String> selectedFeatures = new LinkedList<>();
-                Enumeration<String> paramNames = UtilGenerics.cast(request.getParameterNames());
-                while (paramNames.hasMoreElements()) {
-                    String paramName = paramNames.nextElement();
-                    if (paramName.startsWith("FT")) {
-                        selectedFeatures.add(request.getParameterValues(paramName)[0]);
+                request.getParameterMap().forEach((name, values) -> {
+                    if (name.startsWith("FT")) {
+                        selectedFeatures.add(values[0]);
                     }
-                }
+                });
 
                 // check if features are selected
                 if (UtilValidate.isEmpty(selectedFeatures)) {

@@ -361,11 +361,9 @@ public class ControlServlet extends HttpServlet {
         if (Debug.verboseOn()) Debug.logVerbose("--- End Request Headers: ---", module);
 
         if (Debug.verboseOn()) Debug.logVerbose("--- Start Request Parameters: ---", module);
-        Enumeration<String> paramNames = UtilGenerics.cast(request.getParameterNames());
-        while (paramNames.hasMoreElements()) {
-            String paramName = paramNames.nextElement();
-            Debug.logVerbose(paramName + ":" + request.getParameter(paramName), module);
-        }
+        request.getParameterMap().forEach((name, values) -> {
+            Debug.logVerbose(name + ":" + values, module);
+        });
         if (Debug.verboseOn()) Debug.logVerbose("--- End Request Parameters: ---", module);
 
         if (Debug.verboseOn()) Debug.logVerbose("--- Start Request Attributes: ---", module);

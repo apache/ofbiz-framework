@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.apache.ofbiz.product.config;
 
-import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -27,7 +26,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilHttp;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
@@ -151,13 +149,12 @@ public final class ProductConfigWorker {
                                         if ("VV_FEATURETREE".equals(ProductWorker.getProductVirtualVariantMethod((Delegator)request.getAttribute("delegator"), selectedProductId))) {
                                             // get the selected features
                                             List<String> selectedFeatures = new LinkedList<>();
-                                            Enumeration<String> paramNames = UtilGenerics.cast(request.getParameterNames());
-                                            while (paramNames.hasMoreElements()) {
-                                                String paramName = paramNames.nextElement();
-                                                if (paramName.startsWith("FT" + k + "_" + cnt + "_" + variantIndex)) {
-                                                    selectedFeatures.add(request.getParameterValues(paramName)[0]);
+                                            String prefix = "FT" + k + "_" + cnt + "_" + variantIndex;
+                                            request.getParameterMap().forEach((name, values) -> {
+                                                if (name.startsWith(prefix)) {
+                                                    selectedFeatures.add(values[0]);
                                                 }
-                                            }
+                                            });
 
                                             // check if features are selected
                                             if (UtilValidate.isEmpty(selectedFeatures)) {
