@@ -21,7 +21,6 @@ package org.apache.ofbiz.base.util;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectOutputStream;
 import java.lang.reflect.Array;
 import java.util.Iterator;
@@ -40,21 +39,6 @@ public final class UtilObject {
     }
 
     public static final String module = UtilObject.class.getName();
-
-    public static byte[] getBytes(InputStream is) {
-        byte[] buffer = new byte[4 * 1024];
-        byte[] data = null;
-        try (ByteArrayOutputStream bos = new ByteArrayOutputStream()){
-            int numBytesRead;
-            while ((numBytesRead = is.read(buffer)) != -1) {
-                bos.write(buffer, 0, numBytesRead);
-            }
-            data = bos.toByteArray();
-        } catch (IOException e) {
-            Debug.logError(e, module);
-        }
-        return data;
-    }
 
     /** Serialize an object to a byte array */
     public static byte[] getBytes(Object obj) {

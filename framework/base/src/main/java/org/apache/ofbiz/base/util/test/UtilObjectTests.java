@@ -156,31 +156,6 @@ public class UtilObjectTests extends GenericTestCaseBase {
         in.close();
     }
 
-    public void testGetBytes_Stream() {
-        boolean errorOn = Debug.isOn(Debug.ERROR);
-        try {
-            Debug.set(Debug.ERROR, false);
-            byte[] source = new byte[] { 0, 1, 2, 3, 4, 5, 6 };
-            byte[] result = UtilObject.getBytes(new ByteArrayInputStream(source));
-            assertNotNull("initial result", result);
-            assertEquals("initial equals", source, result);
-            assertNull("error after read", UtilObject.getBytes(new ErrorInjector(new ByteArrayInputStream(source), 3)));
-            byte[] closeResult = UtilObject.getBytes(new ErrorInjector(new ByteArrayInputStream(source), true));
-            assertNotNull("error on close", closeResult);
-            assertEquals("error on close equals", source, result);
-            Exception caught = null;
-            try {
-                UtilObject.getBytes(null);
-            } catch (NullPointerException e) {
-                caught = e;
-            } finally {
-                assertNotNull("null stream exception", caught);
-            }
-        } finally {
-            Debug.set(Debug.ERROR, errorOn);
-        }
-    }
-
     @SuppressWarnings("serial")
     public static class SerializationInjector implements Serializable {
         private boolean onRead;
