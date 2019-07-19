@@ -134,7 +134,7 @@ public final class UtilHttp {
      * @return a canonicalized parameter map.
      */
     public static Map<String, Object> getParameterMap(HttpServletRequest request) {
-        return getParameterMap(request, null, true);
+        return getParameterMap(request, x -> true);
     }
 
     /**
@@ -143,21 +143,18 @@ public final class UtilHttp {
      * If parameters are empty, the multi-part parameter map will be used.
      *
      * @param req  the HTTP request containing the parameters
-     * @param nameSet  the set of parameters keys to include or skip
-     * @param includeOrSkip  a toggle where {@code true} means including and {@code false} means skipping
+     * @param pred  the predicate filtering the parameter names
      * @return a canonicalized parameter map.
      */
-    public static Map<String, Object> getParameterMap(HttpServletRequest req, Set<? extends String> nameSet,
-            boolean includeOrSkip) {
+    public static Map<String, Object> getParameterMap(HttpServletRequest req, Predicate<String> pred) {
         // Add all the actual HTTP request parameters
         Map<String, String[]> origParams = req.getParameterMap();
         Map<String, Object> params = origParams.entrySet().stream()
-                .filter(pair -> nameSet == null || !(includeOrSkip ^ nameSet.contains(pair.getKey())))
+                .filter(pair -> pred.test(pair.getKey()))
                 .collect(toMap(Map.Entry::getKey, pair -> transformParamValue(pair.getValue())));
 
         // Pseudo-parameters passed in the URI path overrides the ones from the regular URI parameters
-        params.putAll(getPathInfoOnlyParameterMap(req.getPathInfo(),
-                name -> nameSet == null || !(includeOrSkip ^ nameSet.contains(name))));
+        params.putAll(getPathInfoOnlyParameterMap(req.getPathInfo(), pred));
 
         // If nothing is found in the parameters, try to find something in the multi-part map.
         Map<String, Object> multiPartMap = params.isEmpty() ? getMultiPartParameterMap(req) : Collections.emptyMap();

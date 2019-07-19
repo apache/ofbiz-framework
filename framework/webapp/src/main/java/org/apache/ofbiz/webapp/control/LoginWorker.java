@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.ServiceLoader;
+import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -354,7 +355,8 @@ public class LoginWorker {
                 if (UtilValidate.isNotEmpty(urlParams)) {
                     session.setAttribute("_PREVIOUS_PARAM_MAP_URL_", urlParams);
                 }
-                Map<String, Object> formParams = UtilHttp.getParameterMap(request, urlParams.keySet(), false);
+                Predicate<String> isUrlParam = urlParams.keySet()::contains;
+                Map<String, Object> formParams = UtilHttp.getParameterMap(request, isUrlParam.negate());
                 if (UtilValidate.isNotEmpty(formParams)) {
                     session.setAttribute("_PREVIOUS_PARAM_MAP_FORM_", formParams);
                 }
