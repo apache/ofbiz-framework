@@ -53,6 +53,7 @@ import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.TimeZone;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 import javax.net.ssl.SSLContext;
 import javax.servlet.http.HttpServletRequest;
@@ -155,7 +156,8 @@ public final class UtilHttp {
                 .collect(toMap(Map.Entry::getKey, pair -> transformParamValue(pair.getValue())));
 
         // Pseudo-parameters passed in the URI path overrides the ones from the regular URI parameters
-        params.putAll(getPathInfoOnlyParameterMap(req.getPathInfo(), nameSet, includeOrSkip));
+        params.putAll(getPathInfoOnlyParameterMap(req.getPathInfo(),
+                name -> nameSet == null || !(includeOrSkip ^ nameSet.contains(name))));
 
         // If nothing is found in the parameters, try to find something in the multi-part map.
         Map<String, Object> multiPartMap = params.isEmpty() ? getMultiPartParameterMap(req) : Collections.emptyMap();
@@ -317,12 +319,10 @@ public final class UtilHttp {
      * This is an obsolete syntax for passing parameters to request handlers.
      *
      * @param path  the URI path part which can be {@code null}
-     * @param nameSet  the set of parameters keys to include or skip
-     * @param includeOrSkip  toggle where {@code true} means including and {@code false} means skipping
+     * @param pred  the predicate filtering parameter names
      * @return a canonicalized parameter map.
      */
-    static Map<String, Object> getPathInfoOnlyParameterMap(String path, Set<? extends String> nameSet,
-            boolean includeOrSkip) {
+    static Map<String, Object> getPathInfoOnlyParameterMap(String path, Predicate<String> pred) {
         String path$ = Optional.ofNullable(path).orElse("");
         Map<String, List<String>> allParams = Arrays.stream(path$.split("/"))
                 .filter(segment -> segment.startsWith("~") && segment.contains("="))
@@ -332,7 +332,7 @@ public final class UtilHttp {
         // Filter and canonicalize the parameter map.
         Function<List<String>, Object> canonicalize = val -> (val.size() == 1) ? val.get(0) : val;
         return allParams.entrySet().stream()
-                .filter(e -> nameSet == null || !(includeOrSkip ^ nameSet.contains(e.getKey())))
+                .filter(pair -> pred.test(pair.getKey()))
                 .collect(collectingAndThen(toMap(Map.Entry::getKey, canonicalize.compose(Map.Entry::getValue)),
                         UtilHttp::canonicalizeParameterMap));
     }
@@ -340,7 +340,7 @@ public final class UtilHttp {
     public static Map<String, Object> getUrlOnlyParameterMap(HttpServletRequest request) {
         // NOTE: these have already been through canonicalizeParameterMap, so not doing it again here
         Map<String, Object> paramMap = getQueryStringOnlyParameterMap(request.getQueryString());
-        paramMap.putAll(getPathInfoOnlyParameterMap(request.getPathInfo(), null, true));
+        paramMap.putAll(getPathInfoOnlyParameterMap(request.getPathInfo(), x -> true));
         return paramMap;
     }
 
