@@ -76,10 +76,6 @@ import org.apache.ofbiz.entity.util.EntityUtilProperties;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader;
 import org.apache.ofbiz.webapp.event.FileUploadProgressListener;
 import org.apache.ofbiz.widget.renderer.VisualTheme;
-import org.apache.oro.text.regex.MalformedPatternException;
-import org.apache.oro.text.regex.Pattern;
-import org.apache.oro.text.regex.PatternMatcher;
-import org.apache.oro.text.regex.Perl5Matcher;
 
 import com.ibm.icu.util.Calendar;
 
@@ -1484,45 +1480,6 @@ public final class UtilHttp {
     public static String getSessionId(HttpServletRequest request) {
         HttpSession session = request.getSession();
         return (session == null ? "unknown" : session.getId());
-    }
-    /**
-     * checks, if the current request comes from a searchbot
-     *
-     * @param request
-     * @return whether the request is from a web searchbot
-     */
-    public static boolean checkURLforSpiders(HttpServletRequest request) {
-        boolean result = false;
-
-        String spiderRequest = (String) request.getAttribute("_REQUEST_FROM_SPIDER_");
-        if (UtilValidate.isNotEmpty(spiderRequest)) {
-            return "Y".equals(spiderRequest);
-        }
-        String initialUserAgent = request.getHeader("User-Agent") != null ? request.getHeader("User-Agent") : "";
-        List<String> spiderList = StringUtil.split(UtilProperties.getPropertyValue("url", "link.remove_lsessionid.user_agent_list"), ",");
-
-        if (UtilValidate.isNotEmpty(spiderList)) {
-            for (String spiderNameElement : spiderList) {
-                Pattern pattern = null;
-                try {
-                    pattern = PatternFactory.createOrGetPerl5CompiledPattern(spiderNameElement, false);
-                } catch (MalformedPatternException e) {
-                    Debug.logError(e, module);
-                }
-                PatternMatcher matcher = new Perl5Matcher();
-                if (matcher.contains(initialUserAgent, pattern)) {
-                    request.setAttribute("_REQUEST_FROM_SPIDER_", "Y");
-                    result = true;
-                    break;
-                }
-            }
-        }
-
-        if (!result) {
-            request.setAttribute("_REQUEST_FROM_SPIDER_", "N");
-        }
-
-        return result;
     }
 
     /** Returns true if the user has JavaScript enabled.
