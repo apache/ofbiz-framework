@@ -132,10 +132,6 @@ public final class UtilHttp {
         return getParameterMap(request, null, null);
     }
 
-    public static Map<String, Object> getParameterMap(HttpServletRequest request, Set<? extends String> nameSet) {
-        return getParameterMap(request, nameSet, null);
-    }
-
     /**
      * Create a map from a HttpServletRequest (parameters) object
      * @param onlyIncludeOrSkip If true only include, if false skip, the named parameters in the nameSet. If this is null and nameSet is not null, default to skip.
