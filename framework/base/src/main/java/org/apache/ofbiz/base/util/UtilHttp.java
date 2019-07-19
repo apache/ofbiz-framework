@@ -1401,21 +1401,19 @@ public final class UtilHttp {
 
         // collect the composite fields into a map
         Map<String, String> data = new HashMap<>();
-        for (Enumeration<String> names = UtilGenerics.cast(request.getParameterNames()); names.hasMoreElements();) {
-            String name = names.nextElement();
+        request.getParameterMap().forEach((name, values) -> {
             if (!name.startsWith(prefix + COMPOSITE_DELIMITER)) {
-                continue;
+                return;
             }
-
             // extract the suffix of the composite name
             String suffix = name.substring(name.indexOf(COMPOSITE_DELIMITER) + COMPOSITE_DELIMITER_LENGTH);
 
             // and the value of this parameter
-            String value = request.getParameter(name);
+            String value = values[0];
 
             // key = suffix, value = parameter data
             data.put(suffix, value);
-        }
+        });
         if (Debug.verboseOn()) { Debug.logVerbose("Creating composite type with parameter data: " + data.toString(), module); }
 
         // handle recomposition of data into the compositeType

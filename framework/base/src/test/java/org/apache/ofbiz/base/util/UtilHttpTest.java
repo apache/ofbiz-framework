@@ -21,11 +21,16 @@ package org.apache.ofbiz.base.util;
 import static org.apache.ofbiz.base.util.UtilHttp.getPathInfoOnlyParameterMap;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.Matchers.hasEntry;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Locale;
 import java.util.Map;
 import java.util.function.Predicate;
 
@@ -121,5 +126,55 @@ public class UtilHttpTest {
         assertThat(UtilHttp.getParameterMap(req, equalsBar), Matchers.<Map<String, Object>>allOf(
                 not(hasEntry("foo", "1")),
                 hasEntry("bar", Arrays.asList("2", "3"))));
+    }
+
+    @Test
+    public void basicMakeParamValueFromComposite() {
+        when(req.getParameter("meetingDate_c_compositeType")).thenReturn("Timestamp");
+        when(req.getParameterMap()).thenReturn(UtilMisc.toMap(
+                "meetingDate_c_date", new String[] {"2019-07-14"},
+                "meetingDate_c_hour", new String[] {"13"},
+                "meetingDate_c_minutes", new String[] {"8"}));
+        assertThat(UtilHttp.makeParamValueFromComposite(req, "meetingDate", Locale.ROOT),
+                equalTo(Timestamp.valueOf(LocalDateTime.of(2019, Month.JULY, 14, 13, 8))));
+    }
+
+    @Test
+    public void emptyTypeMakeParamValueFromComposite() {
+        when(req.getParameter("meetingDate_c_compositeType")).thenReturn(null);
+        when(req.getParameterMap()).thenReturn(UtilMisc.toMap(
+                "meetingDate_c_date", new String[] {"2019-07-14"},
+                "meetingDate_c_hour", new String[] {"13"},
+                "meetingDate_c_minutes", new String[] {"8"}));
+        assertNull(UtilHttp.makeParamValueFromComposite(req, "meetingDate", Locale.ROOT));
+    }
+
+    @Test
+    public void ampmMakeParamValueFromComposite() {
+        when(req.getParameter("meetingDate_c_compositeType")).thenReturn("Timestamp");
+
+        when(req.getParameterMap()).thenReturn(UtilMisc.toMap(
+                "meetingDate_c_date", new String[] {"2019-07-14"},
+                "meetingDate_c_hour", new String[] {"12"},
+                "meetingDate_c_minutes", new String[] {"8"},
+                "meetingDate_c_ampm", new String[] {"AM"}));
+        assertThat(UtilHttp.makeParamValueFromComposite(req, "meetingDate", Locale.ROOT),
+                equalTo(Timestamp.valueOf(LocalDateTime.of(2019, Month.JULY, 14, 0, 8))));
+
+        when(req.getParameterMap()).thenReturn(UtilMisc.toMap(
+                "meetingDate_c_date", new String[] {"2019-07-14"},
+                "meetingDate_c_hour", new String[] {"8"},
+                "meetingDate_c_minutes", new String[] {"8"},
+                "meetingDate_c_ampm", new String[] {"PM"}));
+        assertThat(UtilHttp.makeParamValueFromComposite(req, "meetingDate", Locale.ROOT),
+                equalTo(Timestamp.valueOf(LocalDateTime.of(2019, Month.JULY, 14, 20, 8))));
+
+        when(req.getParameterMap()).thenReturn(UtilMisc.toMap(
+                "meetingDate_c_date", new String[] {"2019-07-14"},
+                "meetingDate_c_hour", new String[] {"18"},
+                "meetingDate_c_minutes", new String[] {"8"},
+                "meetingDate_c_ampm", new String[] {"PM"}));
+        assertThat(UtilHttp.makeParamValueFromComposite(req, "meetingDate", Locale.ROOT),
+                equalTo(Timestamp.valueOf(LocalDateTime.of(2019, Month.JULY, 14, 18, 8))));
     }
 }
