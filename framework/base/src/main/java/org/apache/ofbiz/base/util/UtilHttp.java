@@ -600,21 +600,19 @@ public final class UtilHttp {
 
     public static List<Object> makeParamListWithSuffix(HttpServletRequest request, Map<String, ? extends Object> additionalFields, String suffix, String prefix) {
         List<Object> paramList = new ArrayList<>();
-        Enumeration<String> parameterNames = UtilGenerics.cast(request.getParameterNames());
-        while (parameterNames.hasMoreElements()) {
-            String parameterName = parameterNames.nextElement();
+        request.getParameterMap().forEach((parameterName, values) -> {
             if (parameterName.endsWith(suffix)) {
                 if (UtilValidate.isNotEmpty(prefix)) {
                     if (parameterName.startsWith(prefix)) {
-                        String value = request.getParameter(parameterName);
+                        String value = values[0];
                         paramList.add(value);
                     }
                 } else {
-                    String value = request.getParameter(parameterName);
+                    String value = values[0];
                     paramList.add(value);
                 }
             }
-        }
+        });
         if (additionalFields != null) {
             for (Map.Entry<String, ? extends Object> entry: additionalFields.entrySet()) {
                 String fieldName = entry.getKey();

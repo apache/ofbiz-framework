@@ -176,4 +176,30 @@ public class UtilHttpTest {
         assertThat(UtilHttp.makeParamValueFromComposite(req, "meetingDate"),
                 equalTo(Timestamp.valueOf(LocalDateTime.of(2019, Month.JULY, 14, 18, 8))));
     }
+
+    @Test
+    public void basicMakeParamListWithSuffix() {
+        when(req.getParameterMap()).thenReturn(UtilMisc.toMap(
+                "foo_suf", new String[] {"0"},
+                "bar_suf", new String[] {"1"},
+                "baz", new String[] {"2"}));
+        assertThat(UtilHttp.makeParamListWithSuffix(req, "_suf", null), containsInAnyOrder("0", "1"));
+        assertThat(UtilHttp.makeParamListWithSuffix(req, "_suf", "b"), contains("1"));
+    }
+
+    @Test
+    public void additionalParamsMakeParamListWithSuffix() {
+        when(req.getParameterMap()).thenReturn(UtilMisc.toMap(
+                "foo_suf", new String[] {"0"},
+                "bar_suf", new String[] {"1"},
+                "baz", new String[] {"2"}));
+        Map<String, Object> extra = UtilMisc.toMap("baz_suf", "3");
+        assertThat(UtilHttp.makeParamListWithSuffix(req, extra, "_suf", null), containsInAnyOrder("0", "1", "3"));
+        assertThat(UtilHttp.makeParamListWithSuffix(req, extra, "_suf", "b"), containsInAnyOrder("1", "3"));
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void missingRequestMakeParamListWithSuffix() {
+        UtilHttp.makeParamListWithSuffix(null, "suffix", "prefix");
+    }
 }
