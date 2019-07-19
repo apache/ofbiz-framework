@@ -1169,10 +1169,10 @@ public class CommunicationEventServices {
                 emailAddressesBCC.add(((InternetAddress) element).getAddress());
             }
         }
-        String fromString = StringUtil.join(UtilMisc.toList(emailAddressesFrom), ",");
-        String toString = StringUtil.join(UtilMisc.toList(emailAddressesTo), ",");
-        String ccString = StringUtil.join(UtilMisc.toList(emailAddressesCC), ",");
-        String bccString = StringUtil.join(UtilMisc.toList(emailAddressesBCC), ",");
+        String fromString = StringUtil.join(emailAddressesFrom, ",");
+        String toString = StringUtil.join(emailAddressesTo, ",");
+        String ccString = StringUtil.join(emailAddressesCC, ",");
+        String bccString = StringUtil.join(emailAddressesBCC, ",");
 
         if (UtilValidate.isNotEmpty(fromString)) {
             commEventMap.put("fromString", fromString);

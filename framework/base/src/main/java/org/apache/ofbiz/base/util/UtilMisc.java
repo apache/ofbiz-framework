@@ -368,18 +368,6 @@ public final class UtilMisc {
         return list;
     }
 
-    public static <T> List<T> toList(Collection<T> collection) {
-        if (collection == null) {
-            return null;
-        }
-        if (collection instanceof List<?>) {
-            return (List<T>) collection;
-        }
-        List<T> list = new LinkedList<>();
-        list.addAll(collection);
-        return list;
-    }
-
     public static <T> List<T> toListArray(T[] data) {
         if (data == null) {
             return null;

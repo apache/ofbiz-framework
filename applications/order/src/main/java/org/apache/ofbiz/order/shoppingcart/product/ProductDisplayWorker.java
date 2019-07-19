@@ -303,12 +303,10 @@ public final class ProductDisplayWorker {
             return null;
         }
         if (values.size() == 0) {
-            return UtilMisc.toList(values);
+            return values;
         }
 
-        List<GenericValue> result = new LinkedList<>();
-        result.addAll(values);
-
+        List<GenericValue> result = new LinkedList<>(values);
         Collections.sort(result, new ProductByMapComparator(orderByMap, descending));
         return result;
     }
