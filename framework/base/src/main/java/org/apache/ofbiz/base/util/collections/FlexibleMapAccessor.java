@@ -21,6 +21,7 @@ package org.apache.ofbiz.base.util.collections;
 import java.io.Serializable;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.el.PropertyNotFoundException;
 
@@ -28,7 +29,6 @@ import org.apache.ofbiz.base.lang.IsEmpty;
 import org.apache.ofbiz.base.lang.SourceMonitored;
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.UtilGenerics;
-import org.apache.ofbiz.base.util.UtilObject;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.cache.UtilCache;
 import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
@@ -224,7 +224,7 @@ public final class FlexibleMapAccessor<T> implements Serializable, IsEmpty {
         }
         if (obj instanceof FlexibleMapAccessor) {
             FlexibleMapAccessor<?> that = (FlexibleMapAccessor<?>) obj;
-            return UtilObject.equalsHelper(this.original, that.original);
+            return Objects.equals(this.original, that.original);
         }
         return false;
     }

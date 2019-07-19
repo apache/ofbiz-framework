@@ -30,7 +30,6 @@ import java.util.concurrent.atomic.AtomicReferenceFieldUpdater;
 
 import org.apache.ofbiz.base.lang.Appender;
 import org.apache.ofbiz.base.util.UtilGenerics;
-import org.apache.ofbiz.base.util.UtilObject;
 
 @SuppressWarnings("serial")
 public abstract class GenericMap<K, V> implements Appender<StringBuilder>, Map<K, V>, Serializable {
@@ -165,7 +164,7 @@ public abstract class GenericMap<K, V> implements Appender<StringBuilder>, Map<K
             entrySetUpdater.compareAndSet(this, null, new GenericMapEntrySet<K, V, GenericMap<K, V>>(this) {
                 @Override
                 protected boolean contains(Object key, Object value) {
-                    return UtilObject.equalsHelper(get(key, false), value);
+                    return Objects.equals(get(key, false), value);
                 }
 
                 @Override

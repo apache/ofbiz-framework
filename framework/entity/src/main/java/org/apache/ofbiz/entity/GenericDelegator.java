@@ -28,6 +28,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -47,7 +48,6 @@ import org.apache.ofbiz.base.util.UtilDateTime;
 import org.apache.ofbiz.base.util.UtilFormatOut;
 import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilObject;
 import org.apache.ofbiz.base.util.UtilProperties;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
@@ -1312,7 +1312,7 @@ public class GenericDelegator implements Delegator {
                         if (value.containsKey(fieldName)) {
                             Object fieldValue = value.get(fieldName);
                             Object oldValue = existing.get(fieldName);
-                            if (!UtilObject.equalsHelper(oldValue, fieldValue)) {
+                            if (!Objects.equals(oldValue, fieldValue)) {
                                 toStore.put(fieldName, fieldValue);
                                 atLeastOneField = true;
                             }

@@ -112,18 +112,6 @@ public final class UtilObject {
         }
     }
 
-    public static boolean equalsHelper(Object o1, Object o2) {
-        if (o1 == o2) {
-            // handles same-reference, or null
-            return true;
-        } else if (o1 == null || o2 == null) {
-            // either o1 or o2 is null, but not both
-            return false;
-        } else {
-            return o1.equals(o2);
-        }
-    }
-
     public static <T> int compareToHelper(Comparable<T> o1, T o2) {
         if (o1 == o2) {
             // handles same-reference, or null

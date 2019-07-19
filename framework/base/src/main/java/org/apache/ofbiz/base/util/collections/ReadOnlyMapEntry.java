@@ -19,6 +19,7 @@
 package org.apache.ofbiz.base.util.collections;
 
 import java.util.Map;
+import java.util.Objects;
 
 import org.apache.ofbiz.base.util.UtilObject;
 
@@ -58,7 +59,7 @@ public class ReadOnlyMapEntry<K, V> implements Map.Entry<K, V> {
             return true;
         }
         Map.Entry<?, ?> other = (Map.Entry<?, ?>) o;
-        return UtilObject.equalsHelper(getKey(), other.getKey()) && UtilObject.equalsHelper(getValue(), other.getValue());
+        return Objects.equals(getKey(), other.getKey()) && Objects.equals(getValue(), other.getValue());
     }
 
     @Override

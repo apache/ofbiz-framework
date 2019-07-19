@@ -22,9 +22,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
-
-import org.apache.ofbiz.base.util.UtilObject;
 
 public abstract class GenericMapValues<K, V, M extends Map<K, V>> extends GenericMapCollection<K, V, M, V> {
     public GenericMapValues(M source) {
@@ -35,7 +34,7 @@ public abstract class GenericMapValues<K, V, M extends Map<K, V>> extends Generi
     public boolean contains(Object item) {
         Iterator<V> it = iterator(false);
         while (it.hasNext()) {
-            if (UtilObject.equalsHelper(item, it.next())) {
+            if (Objects.equals(item, it.next())) {
                 return true;
             }
         }
@@ -82,7 +81,7 @@ public abstract class GenericMapValues<K, V, M extends Map<K, V>> extends Generi
     public boolean remove(Object item) {
         Iterator<V> it = iterator(false);
         while (it.hasNext()) {
-            if (UtilObject.equalsHelper(item, it.next())) {
+            if (Objects.equals(item, it.next())) {
                 it.remove();
                 return true;
             }

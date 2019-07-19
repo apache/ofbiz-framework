@@ -20,11 +20,11 @@ package org.apache.ofbiz.webtools.artifactinfo;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.Set;
 
 import org.apache.ofbiz.base.util.GeneralException;
 import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilObject;
 import org.apache.ofbiz.base.util.UtilURL;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.webapp.control.ConfigXMLReader;
@@ -112,8 +112,8 @@ public class ControllerViewArtifactInfo extends ArtifactInfoBase {
     public boolean equals(Object obj) {
         if (obj instanceof ControllerViewArtifactInfo) {
             ControllerViewArtifactInfo that = (ControllerViewArtifactInfo) obj;
-            return UtilObject.equalsHelper(this.controllerXmlUrl, that.controllerXmlUrl) &&
-                UtilObject.equalsHelper(this.viewUri, that.viewUri);
+            return Objects.equals(this.controllerXmlUrl, that.controllerXmlUrl) &&
+                Objects.equals(this.viewUri, that.viewUri);
         } else {
             return false;
         }

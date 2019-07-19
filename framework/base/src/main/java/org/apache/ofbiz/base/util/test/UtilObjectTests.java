@@ -260,16 +260,6 @@ public class UtilObjectTests extends GenericTestCaseBase {
         }
     }
 
-    public void testEqualsHelper() {
-        assertTrue("a == a", UtilObject.equalsHelper(this, this));
-        assertFalse("null == a", UtilObject.equalsHelper(null, this));
-        assertFalse("a == null", UtilObject.equalsHelper(this, null));
-        assertTrue("null == null", UtilObject.equalsHelper(null, null));
-        assertTrue("map == map", UtilObject.equalsHelper(new HashMap<String, Object>(), new HashMap<String, Object>()));
-        assertFalse("map == this", UtilObject.equalsHelper(new HashMap<String, Object>(), this));
-        assertFalse("this == map", UtilObject.equalsHelper(this, new HashMap<String, Object>()));
-    }
-
     public void testCompareToHelper() {
         Long one = 1L;
         Long two = 2L;

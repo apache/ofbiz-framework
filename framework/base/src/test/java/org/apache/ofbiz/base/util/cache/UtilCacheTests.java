@@ -34,6 +34,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 import org.apache.ofbiz.base.util.UtilMisc;
@@ -64,7 +65,7 @@ public class UtilCacheTests implements Serializable {
         public boolean equals(Object o) {
             if (o instanceof Removal<?>) {
                 Removal<?> other = (Removal<?>) o;
-                return UtilObject.equalsHelper(oldValue, other.oldValue);
+                return Objects.equals(oldValue, other.oldValue);
             }
             return false;
         }
@@ -86,7 +87,7 @@ public class UtilCacheTests implements Serializable {
         public boolean equals(Object o) {
             if (o instanceof Addition<?>) {
                 Addition<?> other = (Addition<?>) o;
-                return UtilObject.equalsHelper(newValue, other.newValue);
+                return Objects.equals(newValue, other.newValue);
             }
             return false;
         }
@@ -110,10 +111,10 @@ public class UtilCacheTests implements Serializable {
         public boolean equals(Object o) {
             if (o instanceof Update<?>) {
                 Update<?> other = (Update<?>) o;
-                if (!UtilObject.equalsHelper(newValue, other.newValue)) {
+                if (!Objects.equals(newValue, other.newValue)) {
                    return false;
                 }
-                return UtilObject.equalsHelper(oldValue, other.oldValue);
+                return Objects.equals(oldValue, other.oldValue);
             }
             return false;
         }
