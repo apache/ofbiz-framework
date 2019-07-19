@@ -96,20 +96,6 @@ public final class UtilObject {
         }
     }
 
-    public static <T> int compareToHelper(Comparable<T> o1, T o2) {
-        if (o1 == o2) {
-            // handles same-reference, or null
-            return 0;
-        } else if (o1 == null) {
-            return -1;
-        } else if (o2 == null) {
-            // either o1 or o2 is null, but not both
-            return 1;
-        } else {
-            return o1.compareTo(o2);
-        }
-    }
-
     public static int doHashCode(Object o1) {
         if (o1 == null) {
             return 0;

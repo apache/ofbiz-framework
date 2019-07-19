@@ -235,16 +235,6 @@ public class UtilObjectTests extends GenericTestCaseBase {
         }
     }
 
-    public void testCompareToHelper() {
-        Long one = 1L;
-        Long two = 2L;
-        assertComparison("one <-> two", -1, UtilObject.compareToHelper(one, two));
-        assertComparison("one <-> one", 0, UtilObject.compareToHelper(one, one));
-        assertComparison("two <-> one", 1, UtilObject.compareToHelper(two, one));
-        assertComparison("one <-> null", 1, UtilObject.compareToHelper(one, null));
-        assertComparison("null <-> one", -1, UtilObject.compareToHelper(null, one));
-    }
-
     public void testDoHashCode() throws Exception {
         UtilObject.doHashCode(this);
         UtilObject.doHashCode(null);
