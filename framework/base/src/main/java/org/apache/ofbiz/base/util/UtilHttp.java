@@ -37,7 +37,6 @@ import java.net.URLConnection;
 import java.nio.ByteBuffer;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -49,6 +48,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.StringTokenizer;
@@ -56,6 +56,7 @@ import java.util.TimeZone;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.net.ssl.SSLContext;
 import javax.servlet.http.HttpServletRequest;
@@ -594,40 +595,46 @@ public final class UtilHttp {
         return paramMap;
     }
 
+    /**
+     * Constructs a list of parameter values whose keys are matching a given prefix and suffix.
+     *
+     * @param request  the HTTP request containing the parameters
+     * @param suffix  the suffix that must be matched which can be {@code null}
+     * @param prefix  the prefix that must be matched which can be {@code null}
+     * @return the list of parameter values whose keys are matching {@code prefix} and {@code suffix}.
+     * @throws NullPointerException when {@code request} is {@code null}.
+     */
     public static List<Object> makeParamListWithSuffix(HttpServletRequest request, String suffix, String prefix) {
-        return makeParamListWithSuffix(request, null, suffix, prefix);
+        return makeParamListWithSuffix(request, Collections.emptyMap(), suffix, prefix);
     }
 
-    public static List<Object> makeParamListWithSuffix(HttpServletRequest request, Map<String, ? extends Object> additionalFields, String suffix, String prefix) {
-        List<Object> paramList = new ArrayList<>();
-        request.getParameterMap().forEach((parameterName, values) -> {
-            if (parameterName.endsWith(suffix)) {
-                if (UtilValidate.isNotEmpty(prefix)) {
-                    if (parameterName.startsWith(prefix)) {
-                        String value = values[0];
-                        paramList.add(value);
-                    }
-                } else {
-                    String value = values[0];
-                    paramList.add(value);
-                }
-            }
-        });
-        if (additionalFields != null) {
-            for (Map.Entry<String, ? extends Object> entry: additionalFields.entrySet()) {
-                String fieldName = entry.getKey();
-                if (fieldName.endsWith(suffix)) {
-                    if (UtilValidate.isNotEmpty(prefix)) {
-                        if (fieldName.startsWith(prefix)) {
-                            paramList.add(entry.getValue());
-                        }
-                    } else {
-                        paramList.add(entry.getValue());
-                    }
-                }
-            }
-        }
-        return paramList;
+    /**
+     * Constructs a list of parameter values whose keys are matching a given prefix and suffix.
+     *
+     * @param request  the HTTP request containing the parameters
+     * @param additionalFields  the additional parameters
+     * @param suffix  the suffix that must be matched which can be {@code null}
+     * @param prefix  the prefix that must be matched which can be {@code null}
+     * @return the list of parameter values whose keys are matching {@code prefix} and {@code suffix}.
+     * @throws NullPointerException when {@code request} or {@code additionalFields} are {@code null}.
+     */
+    public static List<Object> makeParamListWithSuffix(HttpServletRequest request, Map<String, ?> additionalFields,
+            String suffix, String prefix) {
+        Objects.requireNonNull(request);
+        Objects.requireNonNull(additionalFields);
+        Predicate<Map.Entry<String, ?>> pred = UtilValidate.isEmpty(prefix)
+                ? e -> e.getKey().endsWith(suffix)
+                : e -> e.getKey().endsWith(suffix) && e.getKey().startsWith(prefix);
+
+        Stream<Object> params = request.getParameterMap().entrySet().stream()
+                .filter(pred)
+                .map(e -> e.getValue()[0]);
+
+        Stream<Object> additionalParams = additionalFields.entrySet().stream()
+                .filter(pred)
+                .map(Map.Entry::getValue);
+
+        return Stream.concat(params, additionalParams).collect(Collectors.toList());
     }
 
     /**
