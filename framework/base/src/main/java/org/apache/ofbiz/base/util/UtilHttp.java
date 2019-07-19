@@ -36,6 +36,7 @@ import java.net.FileNameMap;
 import java.net.URLConnection;
 import java.nio.ByteBuffer;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -54,6 +55,7 @@ import java.util.StringTokenizer;
 import java.util.TimeZone;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import javax.net.ssl.SSLContext;
 import javax.servlet.http.HttpServletRequest;
@@ -77,8 +79,6 @@ import org.apache.ofbiz.webapp.control.ConfigXMLReader;
 import org.apache.ofbiz.webapp.event.FileUploadProgressListener;
 import org.apache.ofbiz.widget.renderer.VisualTheme;
 
-import com.ibm.icu.util.Calendar;
-
 /**
  * HttpUtil - Misc HTTP Utility Functions
  */
@@ -91,7 +91,6 @@ public final class UtilHttp {
     private static final String COMPOSITE_DELIMITER = "_c_";
     private static final int MULTI_ROW_DELIMITER_LENGTH = MULTI_ROW_DELIMITER.length();
     private static final int ROW_SUBMIT_PREFIX_LENGTH = ROW_SUBMIT_PREFIX.length();
-    private static final int COMPOSITE_DELIMITER_LENGTH = COMPOSITE_DELIMITER.length();
 
     private static final String SESSION_KEY_TIMEZONE = "timeZone";
     private static final String SESSION_KEY_THEME = "visualTheme";
@@ -1371,10 +1370,9 @@ public final class UtilHttp {
     }
 
     /**
-     * Given the prefix of a composite parameter, recomposes a single Object from
-     * the composite according to compositeType. For example, consider the following
-     * form widget field,
-     *
+     * Assembles a composite object from a set of parameters identified by a common prefix.
+     * <p>
+     * For example, consider the following form widget field:
      * <pre>
      * {@code
      * <field name="meetingDate">
@@ -1382,75 +1380,55 @@ public final class UtilHttp {
      * </field>
      * }
      * </pre>
+     * The HTML result is three input boxes to input the date, hour and minutes separately.
+     * The parameter names are named {@code meetingDate_c_date}, {@code meetingDate_c_hour},
+     * {@code meetingDate_c_minutes}.  Additionally, there will be a field named {@code meetingDate_c_compositeType}
+     * with a value of "Timestamp". where "_c_" is the {@link #COMPOSITE_DELIMITER}.  These parameters will then be
+     * re-composed into a Timestamp object from the composite fields.
      *
-     * The result in HTML is three input boxes to input the date, hour and minutes separately.
-     * The parameter names are named meetingDate_c_date, meetingDate_c_hour, meetingDate_c_minutes.
-     * Additionally, there will be a field named meetingDate_c_compositeType with a value of "Timestamp".
-     * where _c_ is the COMPOSITE_DELIMITER. These parameters will then be recomposed into a Timestamp
-     * object from the composite fields.
-     *
-     * @param request
-     * @param prefix
-     * @return Composite object from data or null if not supported or a parsing error occurred.
+     * @param request  the HTTP request containing the parameters
+     * @param prefix  the string identifying the set of parameters that must be composed
+     * @return a composite object from data or {@code null} if not supported or a parsing error occurred.
      */
-    public static Object makeParamValueFromComposite(HttpServletRequest request, String prefix, Locale locale) {
+    public static Object makeParamValueFromComposite(HttpServletRequest request, String prefix) {
         String compositeType = request.getParameter(makeCompositeParam(prefix, "compositeType"));
         if (UtilValidate.isEmpty(compositeType)) {
             return null;
         }
+        // Collect the components.
+        String prefixDelim = prefix + COMPOSITE_DELIMITER;
+        Map<String, String> data = request.getParameterMap().entrySet().stream()
+                .filter(e -> e.getKey().startsWith(prefixDelim))
+                .collect(Collectors.toMap(
+                        e -> e.getKey().substring(prefixDelim.length()),
+                        e -> e.getValue()[0]));
 
-        // collect the composite fields into a map
-        Map<String, String> data = new HashMap<>();
-        request.getParameterMap().forEach((name, values) -> {
-            if (!name.startsWith(prefix + COMPOSITE_DELIMITER)) {
-                return;
-            }
-            // extract the suffix of the composite name
-            String suffix = name.substring(name.indexOf(COMPOSITE_DELIMITER) + COMPOSITE_DELIMITER_LENGTH);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Creating composite type with parameter data: " + data.toString(), module);
+        }
 
-            // and the value of this parameter
-            String value = values[0];
-
-            // key = suffix, value = parameter data
-            data.put(suffix, value);
-        });
-        if (Debug.verboseOn()) { Debug.logVerbose("Creating composite type with parameter data: " + data.toString(), module); }
-
-        // handle recomposition of data into the compositeType
+        // Assemble the composite data from the components
         if ("Timestamp".equals(compositeType)) {
             String date = data.get("date");
             String hour = data.get("hour");
             String minutes = data.get("minutes");
             String ampm = data.get("ampm");
-            if (date == null || date.length() < 10) {
+            if (date == null || date.length() < 10 || UtilValidate.isEmpty(hour) || UtilValidate.isEmpty(minutes)) {
                 return null;
             }
-            if (UtilValidate.isEmpty(hour)) {
-                return null;
-            }
-            if (UtilValidate.isEmpty(minutes)) {
-                return null;
-            }
-            boolean isTwelveHour = UtilValidate.isNotEmpty(ampm);
-
-            // create the timestamp from the data
             try {
                 int h = Integer.parseInt(hour);
-                Timestamp timestamp = Timestamp.valueOf(date.substring(0, 10) + " 00:00:00.000");
-                Calendar cal = Calendar.getInstance(locale);
-                cal.setTime(timestamp);
-                if (isTwelveHour) {
-                    boolean isAM = ("AM".equals(ampm) ? true : false);
+                Timestamp ts = Timestamp.valueOf(date.substring(0, 10) + " 00:00:00.000");
+                if (UtilValidate.isNotEmpty(ampm)) {
+                    boolean isAM = "AM".equals(ampm);
                     if (isAM && h == 12) {
                         h = 0;
-                    }
-                    if (!isAM && h < 12) {
+                    } else if (!isAM && h < 12) {
                         h += 12;
                     }
                 }
-                cal.set(Calendar.HOUR_OF_DAY, h);
-                cal.set(Calendar.MINUTE, Integer.parseInt(minutes));
-                return new Timestamp(cal.getTimeInMillis());
+                LocalDateTime ldt = ts.toLocalDateTime().withHour(h).withMinute(Integer.parseInt(minutes));
+                return Timestamp.valueOf(ldt);
             } catch (IllegalArgumentException e) {
                 Debug.logWarning("User input for composite timestamp was invalid: " + e.getMessage(), module);
                 return null;
