@@ -18,6 +18,11 @@
  *******************************************************************************/
 package org.apache.ofbiz.base.util;
 
+import static java.util.stream.Collectors.collectingAndThen;
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.mapping;
+import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toMap;
 import static org.apache.ofbiz.base.util.UtilGenerics.checkList;
 
 import java.io.BufferedInputStream;
@@ -34,6 +39,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Currency;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -42,9 +48,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.TimeZone;
+import java.util.function.Function;
 
 import javax.net.ssl.SSLContext;
 import javax.servlet.http.HttpServletRequest;
@@ -158,7 +166,7 @@ public final class UtilHttp {
             paramMap.put(name, value);
         }
 
-        paramMap.putAll(getPathInfoOnlyParameterMap(request.getPathInfo(), nameSet, onlyIncludeOrSkip));
+        paramMap.putAll(getPathInfoOnlyParameterMap(request.getPathInfo(), nameSet, onlyIncludeOrSkipPrim));
 
         Map<String, Object> multiPartMap = new HashMap<>();
         if (paramMap.size() == 0) {
@@ -306,58 +314,37 @@ public final class UtilHttp {
         return canonicalizeParameterMap(paramMap);
     }
 
-    public static Map<String, Object> getPathInfoOnlyParameterMap(String pathInfoStr, Set<? extends String> nameSet, Boolean onlyIncludeOrSkip) {
-        boolean onlyIncludeOrSkipPrim = onlyIncludeOrSkip == null ? true : onlyIncludeOrSkip;
-        Map<String, Object> paramMap = new HashMap<>();
+    /**
+     * Extracts the parameters that are passed in the URI path.
+     * <p>
+     * path parameters are denoted by "/~KEY0=VALUE0/~KEY1=VALUE1/".
+     * This is an obsolete syntax for passing parameters to request handlers.
+     *
+     * @param path  the URI path part which can be {@code null}
+     * @param nameSet  the set of parameters keys to include or skip
+     * @param includeOrSkip  toggle where {@code true} means including and {@code false} means skipping
+     * @return a canonicalized parameter map.
+     */
+    static Map<String, Object> getPathInfoOnlyParameterMap(String path, Set<? extends String> nameSet,
+            boolean includeOrSkip) {
+        String path$ = Optional.ofNullable(path).orElse("");
+        Map<String, List<String>> allParams = Arrays.stream(path$.split("/"))
+                .filter(segment -> segment.startsWith("~") && segment.contains("="))
+                .map(kv -> kv.substring(1).split("="))
+                .collect(groupingBy(kv -> kv[0], mapping(kv -> kv[1], toList())));
 
-        // now add in all path info parameters /~name1=value1/~name2=value2/
-        // note that if a parameter with a given name already exists it will be put into a list with all values
-
-        if (UtilValidate.isNotEmpty(pathInfoStr)) {
-            // make sure string ends with a trailing '/' so we get all values
-            if (!pathInfoStr.endsWith("/")) {
-                pathInfoStr += "/";
-            }
-
-            int current = pathInfoStr.indexOf('/');
-            int last = current;
-            while ((current = pathInfoStr.indexOf('/', last + 1)) != -1) {
-                String element = pathInfoStr.substring(last + 1, current);
-                last = current;
-                if (element.charAt(0) == '~' && element.indexOf('=') > -1) {
-                    String name = element.substring(1, element.indexOf('='));
-                    if (nameSet != null && (onlyIncludeOrSkipPrim ^ nameSet.contains(name))) {
-                        continue;
-                    }
-
-                    String value = element.substring(element.indexOf('=') + 1);
-                    Object curValue = paramMap.get(name);
-                    if (curValue != null) {
-                        List<String> paramList = null;
-                        if (curValue instanceof List<?>) {
-                            paramList = UtilGenerics.checkList(curValue);
-                            paramList.add(value);
-                        } else {
-                            String paramString = (String) curValue;
-                            paramList = new LinkedList<>();
-                            paramList.add(paramString);
-                            paramList.add(value);
-                        }
-                        paramMap.put(name, paramList);
-                    } else {
-                        paramMap.put(name, value);
-                    }
-                }
-            }
-        }
-
-        return canonicalizeParameterMap(paramMap);
+        // Filter and canonicalize the parameter map.
+        Function<List<String>, Object> canonicalize = val -> (val.size() == 1) ? val.get(0) : val;
+        return allParams.entrySet().stream()
+                .filter(e -> nameSet == null || !(includeOrSkip ^ nameSet.contains(e.getKey())))
+                .collect(collectingAndThen(toMap(Map.Entry::getKey, canonicalize.compose(Map.Entry::getValue)),
+                        UtilHttp::canonicalizeParameterMap));
     }
 
     public static Map<String, Object> getUrlOnlyParameterMap(HttpServletRequest request) {
         // NOTE: these have already been through canonicalizeParameterMap, so not doing it again here
         Map<String, Object> paramMap = getQueryStringOnlyParameterMap(request.getQueryString());
-        paramMap.putAll(getPathInfoOnlyParameterMap(request.getPathInfo(), null, null));
+        paramMap.putAll(getPathInfoOnlyParameterMap(request.getPathInfo(), null, true));
         return paramMap;
     }
 
