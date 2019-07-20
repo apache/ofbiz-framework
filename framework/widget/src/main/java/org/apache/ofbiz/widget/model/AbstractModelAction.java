@@ -772,7 +772,8 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
         public Object getInMemoryPersistedFromField(Object storeAgent, Map<String, Object> context) {
             Object newValue = null;
             String originalName = this.fromField.getOriginalName();
-            List<String> currentWidgetTrail = UtilGenerics.toList(context.get("_WIDGETTRAIL_"));
+            Object obj = context.get("_WIDGETTRAIL_");
+            List<String> currentWidgetTrail = (obj instanceof List) ? UtilGenerics.cast(obj) : null;
             List<String> trailList = new ArrayList<>();
             if (currentWidgetTrail != null) {
                 trailList.addAll(currentWidgetTrail);
@@ -869,7 +870,8 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
             }
             if (this.toScope != null && "user".equals(this.toScope)) {
                 String originalName = this.field.getOriginalName();
-                List<String> currentWidgetTrail = UtilGenerics.toList(context.get("_WIDGETTRAIL_"));
+                Object obj = context.get("_WIDGETTRAIL_");
+                List<String> currentWidgetTrail = (obj instanceof List) ? UtilGenerics.cast(obj) : null;
                 String newKey = "";
                 if (currentWidgetTrail != null) {
                     newKey = StringUtil.join(currentWidgetTrail, "|");
@@ -885,7 +887,8 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                 }
             } else if (this.toScope != null && "application".equals(this.toScope)) {
                 String originalName = this.field.getOriginalName();
-                List<String> currentWidgetTrail = UtilGenerics.toList(context.get("_WIDGETTRAIL_"));
+                Object obj = context.get("_WIDGETTRAIL_");
+                List<String> currentWidgetTrail = (obj instanceof List) ? UtilGenerics.cast(obj) : null;
                 String newKey = "";
                 if (currentWidgetTrail != null) {
                     newKey = StringUtil.join(currentWidgetTrail, "|");

@@ -273,13 +273,15 @@ public class ScreenRenderer {
         String externalKeyParam = externalLoginKey == null ? "" : "&amp;externalLoginKey=" + externalLoginKey;
         context.put("externalLoginKey", externalLoginKey);
         context.put("externalKeyParam", externalKeyParam);
+        Object obj = request.getAttribute("eventMessageList");
 
         // setup message lists
-        List<String> eventMessageList = UtilGenerics.toList(request.getAttribute("eventMessageList"));
+        List<String> eventMessageList = (obj instanceof List) ? UtilGenerics.cast(obj) : null;
         if (eventMessageList == null) {
             eventMessageList = new LinkedList<>();
         }
-        List<String> errorMessageList = UtilGenerics.toList(request.getAttribute("errorMessageList"));
+        Object obj1 = request.getAttribute("errorMessageList");
+        List<String> errorMessageList = (obj1 instanceof List) ? UtilGenerics.cast(obj1) : null;
         if (errorMessageList == null) {
             errorMessageList = new LinkedList<>();
         }
@@ -288,7 +290,8 @@ public class ScreenRenderer {
             eventMessageList.add(UtilFormatOut.replaceString((String) request.getAttribute("_EVENT_MESSAGE_"), "\n", "<br/>"));
             request.removeAttribute("_EVENT_MESSAGE_");
         }
-        List<String> msgList = UtilGenerics.toList(request.getAttribute("_EVENT_MESSAGE_LIST_"));
+        Object obj2 = request.getAttribute("_EVENT_MESSAGE_LIST_");
+        List<String> msgList = (obj2 instanceof List) ? UtilGenerics.cast(obj2) : null;
         if (msgList != null) {
             eventMessageList.addAll(msgList);
             request.removeAttribute("_EVENT_MESSAGE_LIST_");
@@ -301,7 +304,8 @@ public class ScreenRenderer {
             errorMessageList.add(UtilFormatOut.replaceString((String) session.getAttribute("_ERROR_MESSAGE_"), "\n", "<br/>"));
             session.removeAttribute("_ERROR_MESSAGE_");
         }
-        msgList = UtilGenerics.toList(request.getAttribute("_ERROR_MESSAGE_LIST_"));
+        Object obj3 = request.getAttribute("_ERROR_MESSAGE_LIST_");
+        msgList = (obj3 instanceof List) ? UtilGenerics.cast(obj3) : null;
         if (msgList != null) {
             errorMessageList.addAll(msgList);
             request.removeAttribute("_ERROR_MESSAGE_LIST_");

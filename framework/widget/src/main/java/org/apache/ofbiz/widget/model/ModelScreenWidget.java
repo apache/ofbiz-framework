@@ -771,9 +771,10 @@ public abstract class ModelScreenWidget extends ModelWidget {
                 }
 
                 UtilGenerics.<MapStack<String>>cast(context).push();
+                Object obj = context.get("_WIDGETTRAIL_");
 
                 // build the widgetpath
-                List<String> widgetTrail = UtilGenerics.toList(context.get("_WIDGETTRAIL_"));
+                List<String> widgetTrail = (obj instanceof List) ? UtilGenerics.cast(obj) : null;
                 if (widgetTrail == null) {
                     widgetTrail = new LinkedList<>();
                 }

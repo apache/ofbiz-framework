@@ -57,7 +57,8 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
     @Override
     public void renderNodeBegin(Appendable writer, Map<String, Object> context, ModelTree.ModelNode node, int depth) throws IOException {
         String currentNodeTrailPiped = null;
-        List<String> currentNodeTrail = UtilGenerics.toList(context.get("currentNodeTrail"));
+        Object obj = context.get("currentNodeTrail");
+        List<String> currentNodeTrail = (obj instanceof List) ? UtilGenerics.cast(obj) : null;
         if (node.isRootNode()) {
             appendWhitespace(writer);
             this.widgetCommentsEnabled = ModelWidget.widgetBoundaryCommentsEnabled(context);
@@ -80,7 +81,8 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
         // check to see if this node needs to be expanded.
         if (hasChildren && node.isExpandCollapse()) {
             String targetEntityId = null;
-            List<String> targetNodeTrail = UtilGenerics.toList(context.get("targetNodeTrail"));
+            Object obj1 = context.get("targetNodeTrail");
+            List<String> targetNodeTrail = (obj1 instanceof List) ? UtilGenerics.cast(obj1) : null;
             if (depth < targetNodeTrail.size()) {
                 targetEntityId = targetNodeTrail.get(depth);
             }

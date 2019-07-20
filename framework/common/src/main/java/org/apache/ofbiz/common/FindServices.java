@@ -366,7 +366,8 @@ public class FindServices {
                 fieldOp = entityOperators.get(operation);
             }
         } else {
-            if (UtilValidate.isNotEmpty(UtilGenerics.toList(fieldValue))) {
+            List<Object> fieldList = (fieldValue instanceof List) ? UtilGenerics.cast(fieldValue) : null;
+            if (UtilValidate.isNotEmpty(fieldList)) {
                 fieldOp = EntityOperator.IN;
             } else {
                 fieldOp = EntityOperator.EQUALS;

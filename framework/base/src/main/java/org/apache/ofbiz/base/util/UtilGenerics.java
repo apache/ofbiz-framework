@@ -85,11 +85,4 @@ public final class UtilGenerics {
     public static <T> Set<T> checkSet(Object object) {
         return cast(object);
     }
-
-    /** Returns the Object argument as a parameterized List if the Object argument
-     * is an instance of List. Otherwise returns null.
-     */
-    public static <T> List<T> toList(Object obj) {
-        return (obj instanceof List) ? cast(obj) : null;
-    }
 }

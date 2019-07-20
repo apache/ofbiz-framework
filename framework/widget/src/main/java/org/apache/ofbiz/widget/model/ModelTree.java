@@ -549,7 +549,8 @@ public class ModelTree extends ModelWidget {
                 }
             }
             if (passed) {
-                List<String> currentNodeTrail = UtilGenerics.toList(context.get("currentNodeTrail"));
+                Object obj = context.get("currentNodeTrail");
+                List<String> currentNodeTrail = (obj instanceof List) ? UtilGenerics.cast(obj) : null;
                 context.put("processChildren", Boolean.TRUE);
                 // this action will usually obtain the "current" entity
                 ModelTreeAction.runSubActions(this.actions, context);

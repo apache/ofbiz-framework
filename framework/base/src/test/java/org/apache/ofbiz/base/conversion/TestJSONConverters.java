@@ -58,7 +58,8 @@ public class TestJSONConverters {
         list.add("field1");
         list.add("field2");
         JSON json = JSON.from(list);
-        convertedList = UtilGenerics.toList(converter.convert(json));
+        Object obj = converter.convert(json);
+        convertedList = (obj instanceof List) ? UtilGenerics.cast(obj) : null;
         assertEquals("JSON to List", list, convertedList);
     }
 
