@@ -35,10 +35,14 @@ public final class UtilGenerics {
         return (V) object;
     }
 
-    public static <C extends Collection<?>> void checkCollectionContainment(Object object, Class<C> clz, Class<?> type) {
+    public static <T> Collection<T> checkCollection(Object object) {
+        return cast(object);
+    }
+
+    public static <E, C extends Collection<E>> C checkCollection(Object object, Class<E> type) {
         if (object != null) {
-            if (!(clz.isInstance(object))) {
-                throw new ClassCastException("Not a " + clz.getName());
+            if (!(Collection.class.isInstance(object))) {
+                throw new ClassCastException("Not a " + Collection.class.getName());
             }
             int i = 0;
             for (Object value: (Collection<?>) object) {
@@ -48,14 +52,6 @@ public final class UtilGenerics {
                 i++;
             }
         }
-    }
-
-    public static <T> Collection<T> checkCollection(Object object) {
-        return cast(object);
-    }
-
-    public static <E, C extends Collection<E>> C checkCollection(Object object, Class<E> type) {
-        checkCollectionContainment(object, Collection.class, type);
         return cast(object);
     }
 
