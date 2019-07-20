@@ -179,7 +179,7 @@ public class ProductServices {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Map<String, Object> result = new HashMap<>();
-        List<String> featureOrder = UtilMisc.makeListWritable(UtilGenerics.<String>checkCollection(context.get("featureOrder")));
+        List<String> featureOrder = UtilMisc.makeListWritable(UtilGenerics.cast(context.get("featureOrder")));
 
         if (UtilValidate.isEmpty(featureOrder)) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource,

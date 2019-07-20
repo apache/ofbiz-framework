@@ -380,7 +380,7 @@ public class ModelFormField {
                     DateFormat df = UtilDateTime.toDateTimeFormat("EEE MMM dd hh:mm:ss z yyyy", timeZone, null);
                     return df.format((java.util.Date) retVal);
                 } else if (retVal instanceof Collection) {
-                    Collection<Object> col = UtilGenerics.checkCollection(retVal);
+                    Collection<Object> col = UtilGenerics.cast(retVal);
                     Iterator<Object> iter = col.iterator();
                     List<Object> newCol = new ArrayList<>(col.size());
                     while (iter.hasNext()) {

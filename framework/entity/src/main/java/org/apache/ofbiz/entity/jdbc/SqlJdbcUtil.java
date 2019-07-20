@@ -997,7 +997,8 @@ public final class SqlJdbcUtil {
     public static void addValue(StringBuilder buffer, ModelField field, Object value, List<EntityConditionParam> params) {
         if (value instanceof Collection<?>) {
             buffer.append("(");
-            Iterator<Object> it = UtilGenerics.checkCollection(value).iterator();
+            Collection<Object> coll = UtilGenerics.cast(value);
+            Iterator<Object> it = coll.iterator();
             while (it.hasNext()) {
                 Object thisValue = it.next();
                 addValueSingle(buffer, field, thisValue, params);

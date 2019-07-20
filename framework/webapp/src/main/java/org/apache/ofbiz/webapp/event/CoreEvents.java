@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.apache.ofbiz.webapp.event;
 
-import static org.apache.ofbiz.base.util.UtilGenerics.checkCollection;
 import static org.apache.ofbiz.base.util.UtilGenerics.checkMap;
 
 import java.io.File;
@@ -404,7 +403,7 @@ public class CoreEvents {
                     servicePathMap.put(entry.getKey(), entry.getValue());
                 }
             } else if (servicePathObject instanceof Collection<?>) {
-                Collection<?> servicePathColl = checkCollection(servicePathObject);
+                Collection<?> servicePathColl = UtilGenerics.cast(servicePathObject);
                 int count=0;
                 servicePathMap = new HashMap<>();
                 for (Object value: servicePathColl) {

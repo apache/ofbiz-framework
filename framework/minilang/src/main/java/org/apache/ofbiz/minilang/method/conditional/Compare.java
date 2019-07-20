@@ -96,7 +96,7 @@ public abstract class Compare {
                 return false;
             }
             if (lValue instanceof Collection) {
-                Collection<Object> collection = UtilGenerics.checkCollection(lValue);
+                Collection<Object> collection = UtilGenerics.cast(lValue);
                 return collection.contains(rValue);
             }
             if (lValue instanceof String && rValue instanceof String) {

@@ -520,7 +520,7 @@ public class WorkEffortServices {
             calendarType = "CAL_PERSONAL";
         }
         String partyId = (String) context.get("partyId");
-        Collection<String> partyIds = UtilGenerics.checkCollection(context.get("partyIds"));
+        Collection<String> partyIds = UtilGenerics.cast(context.get("partyIds"));
         String facilityId = (String) context.get("facilityId");
         String fixedAssetId = (String) context.get("fixedAssetId");
         String workEffortTypeId = (String) context.get("workEffortTypeId");

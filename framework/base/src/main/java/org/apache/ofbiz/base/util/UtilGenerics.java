@@ -32,10 +32,6 @@ public final class UtilGenerics {
         return (V) object;
     }
 
-    public static <T> Collection<T> checkCollection(Object object) {
-        return cast(object);
-    }
-
     public static <E, C extends Collection<E>> C checkCollection(Object object, Class<E> type) {
         if (object != null) {
             if (!(Collection.class.isInstance(object))) {

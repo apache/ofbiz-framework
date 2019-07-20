@@ -342,7 +342,7 @@ public final class UtilHttp {
                 paramEntry.setValue(canonicalizeParameter((String) paramEntry.getValue()));
             } else if (paramEntry.getValue() instanceof Collection<?>) {
                 List<String> newList = new LinkedList<>();
-                for (String listEntry: UtilGenerics.<String>checkCollection(paramEntry.getValue())) {
+                for (String listEntry: UtilGenerics.<Collection<String>>cast(paramEntry.getValue())) {
                     newList.add(canonicalizeParameter(listEntry));
                 }
                 paramEntry.setValue(newList);

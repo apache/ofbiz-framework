@@ -100,7 +100,7 @@ public final class Iterate extends MethodOperation {
                 throw new MiniLangRuntimeException("Error with entityListIterator: " + e.getMessage(), this);
             }
         } else if (objList instanceof Collection<?>) {
-            Collection<Object> theCollection = UtilGenerics.checkCollection(objList);
+            Collection<Object> theCollection = UtilGenerics.cast(objList);
             if (theCollection.size() == 0) {
                 if (Debug.verboseOn()) {
                      Debug.logVerbose("Collection has zero entries, doing nothing: " + this, module);
