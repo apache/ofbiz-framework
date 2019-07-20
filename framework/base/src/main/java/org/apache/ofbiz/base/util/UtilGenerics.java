@@ -89,22 +89,14 @@ public final class UtilGenerics {
     /** Returns the Object argument as a parameterized List if the Object argument
      * is an instance of List. Otherwise returns null.
      */
-    @SuppressWarnings("unchecked")
-    public static <T> List<T> toList(Object object) {
-        if (object != null && !(object instanceof List)) {
-            return null;
-        }
-        return (List<T>) object;
+    public static <T> List<T> toList(Object obj) {
+        return (obj instanceof List) ? cast(obj) : null;
     }
 
     /** Returns the Object argument as a parameterized Map if the Object argument
      * is an instance of Map. Otherwise returns null.
      */
-    @SuppressWarnings("unchecked")
-    public static <K, V> Map<K, V> toMap(Object object) {
-        if (object != null && !(object instanceof Map)) {
-            return null;
-        }
-        return (Map<K, V>) object;
+    public static <K, V> Map<K, V> toMap(Object obj) {
+        return (obj instanceof Map) ? cast(obj) : null;
     }
 }
