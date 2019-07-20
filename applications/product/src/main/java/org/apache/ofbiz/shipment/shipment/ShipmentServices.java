@@ -385,7 +385,7 @@ public class ShipmentServices {
                 // add the feature quantities
                 BigDecimal quantity = (BigDecimal) itemMap.get("quantity");
                 if (itemMap.containsKey("featureSet")) {
-                    Set<String> featureSet = UtilGenerics.checkSet(itemMap.get("featureSet"));
+                    Set<String> featureSet = UtilGenerics.cast(itemMap.get("featureSet"));
                     if (UtilValidate.isNotEmpty(featureSet)) {
                         for (String featureId: featureSet) {
                             BigDecimal featureQuantity = shippableFeatureMap.get(featureId);

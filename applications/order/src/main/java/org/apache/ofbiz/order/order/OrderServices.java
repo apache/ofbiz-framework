@@ -920,7 +920,7 @@ public class OrderServices {
         }
 
         // store the orderProductPromoCodes
-        Set<String> orderProductPromoCodes = UtilGenerics.checkSet(context.get("orderProductPromoCodes"));
+        Set<String> orderProductPromoCodes = UtilGenerics.cast(context.get("orderProductPromoCodes"));
         if (UtilValidate.isNotEmpty(orderProductPromoCodes)) {
             for (String productPromoCodeId : orderProductPromoCodes) {
                 GenericValue orderProductPromoCode = delegator.makeValue("OrderProductPromoCode");

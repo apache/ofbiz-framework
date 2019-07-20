@@ -360,7 +360,7 @@ public final class FreeMarkerWorker {
         Map<String, Object> templateRoot = new HashMap<>();
         Set<String> varNames = null;
         try {
-            varNames = UtilGenerics.checkSet(env.getKnownVariableNames());
+            varNames = UtilGenerics.cast(env.getKnownVariableNames());
         } catch (TemplateModelException e1) {
             Debug.logError(e1, "Error getting FreeMarker variable names, will not put pass current context on to sub-content", module);
         }

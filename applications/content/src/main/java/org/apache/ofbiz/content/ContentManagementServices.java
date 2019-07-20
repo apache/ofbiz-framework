@@ -989,7 +989,7 @@ public class ContentManagementServices {
         Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
         Map<String, Object> results = new HashMap<>();
         Locale locale = (Locale) context.get("locale");
-        Set<String> visitedSet = UtilGenerics.checkSet(context.get("visitedSet"));
+        Set<String> visitedSet = UtilGenerics.cast(context.get("visitedSet"));
         if (visitedSet == null) {
             visitedSet = new HashSet<>();
             context.put("visitedSet", visitedSet);
@@ -1029,7 +1029,7 @@ public class ContentManagementServices {
         Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
         Map<String, Object> results = new HashMap<>();
         Locale locale = (Locale) context.get("locale");
-        Set<String> visitedSet = UtilGenerics.checkSet(context.get("visitedSet"));
+        Set<String> visitedSet = UtilGenerics.cast(context.get("visitedSet"));
         if (visitedSet == null) {
             visitedSet = new HashSet<>();
             context.put("visitedSet", visitedSet);
@@ -1103,7 +1103,7 @@ public class ContentManagementServices {
 
     public static void updatePageNodeChildren(GenericValue content, Map<String, Object> context) throws GenericEntityException {
         String contentId = content.getString("contentId");
-        Set<String> visitedSet = UtilGenerics.checkSet(context.get("visitedSet"));
+        Set<String> visitedSet = UtilGenerics.cast(context.get("visitedSet"));
         if (visitedSet == null) {
             visitedSet = new HashSet<>();
             context.put("visitedSet", visitedSet);
@@ -1126,7 +1126,7 @@ public class ContentManagementServices {
 
     public static void updateOutlineNodeChildren(GenericValue content, boolean forceOutline, Map<String, Object> context) throws GenericEntityException {
         String contentId = content.getString("contentId");
-        Set<String> visitedSet = UtilGenerics.checkSet(context.get("visitedSet"));
+        Set<String> visitedSet = UtilGenerics.cast(context.get("visitedSet"));
         if (visitedSet == null) {
             visitedSet = new HashSet<>();
             context.put("visitedSet", visitedSet);
@@ -1520,7 +1520,7 @@ public class ContentManagementServices {
         String contentId = content.getString("contentId");
         List<String> contentAssocTypeIdList = UtilGenerics.checkList(context.get("contentAssocTypeIdList"));
         Locale locale = (Locale) context.get("locale");
-        Set<String> visitedSet = UtilGenerics.checkSet(context.get("visitedSet"));
+        Set<String> visitedSet = UtilGenerics.cast(context.get("visitedSet"));
         if (visitedSet == null) {
             visitedSet = new HashSet<>();
             context.put("visitedSet", visitedSet);

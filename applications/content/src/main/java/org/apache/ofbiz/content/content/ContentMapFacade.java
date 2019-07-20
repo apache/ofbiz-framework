@@ -180,7 +180,7 @@ public class ContentMapFacade implements Map<Object, Object> {
 
     @Override
     public Set<Object> keySet() {
-        return UtilGenerics.checkSet(mapKeySet);
+        return UtilGenerics.cast(mapKeySet);
     }
 
     @Override

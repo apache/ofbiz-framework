@@ -168,7 +168,7 @@ public class PdfSurveyServices {
                     PdfObject typeValue = null;
                     PdfObject tuValue = null;
 
-                    Set<PdfName> dictKeys = UtilGenerics.checkSet(dict.getKeys());
+                    Set<PdfName> dictKeys = UtilGenerics.cast(dict.getKeys());
                     for (PdfName dictKeyName : dictKeys) {
                         PdfObject dictObject = dict.get(dictKeyName);
 

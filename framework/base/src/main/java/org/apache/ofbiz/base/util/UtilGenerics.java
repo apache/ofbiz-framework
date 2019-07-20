@@ -21,7 +21,6 @@ package org.apache.ofbiz.base.util;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public final class UtilGenerics {
 
@@ -80,9 +79,5 @@ public final class UtilGenerics {
             }
         }
         return checkMap(object);
-    }
-
-    public static <T> Set<T> checkSet(Object object) {
-        return cast(object);
     }
 }
