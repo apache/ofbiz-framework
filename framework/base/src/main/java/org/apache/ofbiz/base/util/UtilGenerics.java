@@ -59,12 +59,8 @@ public final class UtilGenerics {
         return cast(object);
     }
 
-    @SuppressWarnings("unchecked")
     public static <K, V> Map<K, V> checkMap(Object object) {
-        if (object != null && !(object instanceof Map)) {
-            throw new ClassCastException("Not a map");
-        }
-        return (Map<K, V>) object;
+        return cast(object);
     }
 
     public static <K, V> Map<K, V> checkMap(Object object, Class<K> keyType, Class<V> valueType) {
