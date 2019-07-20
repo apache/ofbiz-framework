@@ -36,10 +36,6 @@ public final class UtilGenerics {
         return (V) object;
     }
 
-    private static <C extends Collection<?>> C checkCollectionCast(Object object, Class<C> clz) {
-        return clz.cast(object);
-    }
-
     public static <C extends Collection<?>> void checkCollectionContainment(Object object, Class<C> clz, Class<?> type) {
         if (object != null) {
             if (!(clz.isInstance(object))) {
@@ -55,9 +51,8 @@ public final class UtilGenerics {
         }
     }
 
-    @SuppressWarnings("unchecked")
     public static <T> Collection<T> checkCollection(Object object) {
-        return checkCollectionCast(object, Collection.class);
+        return cast(object);
     }
 
     public static <T> Collection<T> checkCollection(Object object, Class<T> type) {
@@ -65,9 +60,8 @@ public final class UtilGenerics {
         return checkCollection(object);
     }
 
-    @SuppressWarnings("unchecked")
     public static <T> List<T> checkList(Object object) {
-        return checkCollectionCast(object, List.class);
+        return cast(object);
     }
 
     public static <T> List<T> checkList(Object object, Class<T> type) {
@@ -103,9 +97,8 @@ public final class UtilGenerics {
         return checkMap(object);
     }
 
-    @SuppressWarnings("unchecked")
     public static <T> Stack<T> checkStack(Object object) {
-        return checkCollectionCast(object, Stack.class);
+        return cast(object);
     }
 
     public static <T> Stack<T> checkStack(Object object, Class<T> type) {
@@ -113,9 +106,8 @@ public final class UtilGenerics {
         return checkStack(object);
     }
 
-    @SuppressWarnings("unchecked")
     public static <T> Set<T> checkSet(Object object) {
-        return checkCollectionCast(object, Set.class);
+        return cast(object);
     }
 
     public static <T> Set<T> checkSet(Object object, Class<T> type) {
