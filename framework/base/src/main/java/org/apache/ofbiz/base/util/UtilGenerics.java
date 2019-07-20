@@ -19,7 +19,6 @@
 package org.apache.ofbiz.base.util;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 
 public final class UtilGenerics {
@@ -50,10 +49,6 @@ public final class UtilGenerics {
                 i++;
             }
         }
-        return cast(object);
-    }
-
-    public static <T> List<T> checkList(Object object) {
         return cast(object);
     }
 

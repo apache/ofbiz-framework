@@ -18,8 +18,6 @@
  *******************************************************************************/
 package org.apache.ofbiz.entityext.permission;
 
-import static org.apache.ofbiz.base.util.UtilGenerics.checkList;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -35,6 +33,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.ofbiz.base.util.Debug;
 import org.apache.ofbiz.base.util.StringUtil;
+import org.apache.ofbiz.base.util.UtilGenerics;
 import org.apache.ofbiz.base.util.UtilMisc;
 import org.apache.ofbiz.base.util.UtilValidate;
 import org.apache.ofbiz.base.util.UtilXml;
@@ -135,7 +134,7 @@ public class EntityPermissionChecker {
             if (!passed && displayFailCond) {
                  String errMsg =  "Permission is denied. \nThese are the conditions of which one must be met:\n"
                      + permissionConditionGetter.dumpAsText();
-                 List<Object> errorMessageList = checkList(context.get("errorMessageList"));
+                 List<Object> errorMessageList = UtilGenerics.cast(context.get("errorMessageList"));
                  errorMessageList.add(errMsg);
             }
         } catch (GenericEntityException e) {

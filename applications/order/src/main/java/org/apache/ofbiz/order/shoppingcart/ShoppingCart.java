@@ -489,7 +489,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 Debug.logError(ServiceUtil.getErrorMessage(result), module);
                 return null;
             }
-            List<GenericValue> productSuppliers = UtilGenerics.checkList(result.get("supplierProducts"));
+            List<GenericValue> productSuppliers = UtilGenerics.cast(result.get("supplierProducts"));
             if ((productSuppliers != null) && (productSuppliers.size() > 0)) {
                 supplierProduct = productSuppliers.get(0);
             }
@@ -3944,7 +3944,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     public List<GenericValue> makeAllOrderItemSurveyResponses() {
         List<GenericValue> allInfos = new LinkedList<>();
         for (ShoppingCartItem item : this) {
-            List<String> responses = UtilGenerics.checkList(item.getAttribute("surveyResponses"));
+            List<String> responses = UtilGenerics.cast(item.getAttribute("surveyResponses"));
             if (responses != null) {
                 try {
                     List<GenericValue> surveyResponses = EntityQuery.use(getDelegator()).from("SurveyResponse").where(EntityCondition.makeCondition("surveyResponseId", EntityOperator.IN, responses)).queryList();
@@ -4346,7 +4346,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                         Debug.logError(errorMessage, module);
                         return;
                     }
-                    List<GenericValue> supplierProducts = UtilGenerics.checkList(getSuppliersForProductResult.get("supplierProducts"));
+                    List<GenericValue> supplierProducts = UtilGenerics.cast(getSuppliersForProductResult.get("supplierProducts"));
 
                     // Order suppliers by supplierPrefOrderId so that preferred suppliers are used first
                     supplierProducts = EntityUtil.orderBy(supplierProducts, UtilMisc.toList("supplierPrefOrderId"));

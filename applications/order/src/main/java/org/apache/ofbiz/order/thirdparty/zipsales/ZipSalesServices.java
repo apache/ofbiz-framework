@@ -213,9 +213,9 @@ public class ZipSalesServices {
     // tax calc service
     public static Map<String, Object> flatTaxCalc(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
-        List<GenericValue> itemProductList = UtilGenerics.checkList(context.get("itemProductList"));
-        List<BigDecimal> itemAmountList = UtilGenerics.checkList(context.get("itemAmountList"));
-        List<BigDecimal> itemShippingList = UtilGenerics.checkList(context.get("itemShippingList"));
+        List<GenericValue> itemProductList = UtilGenerics.cast(context.get("itemProductList"));
+        List<BigDecimal> itemAmountList = UtilGenerics.cast(context.get("itemAmountList"));
+        List<BigDecimal> itemShippingList = UtilGenerics.cast(context.get("itemShippingList"));
         BigDecimal orderShippingAmount = (BigDecimal) context.get("orderShippingAmount");
         GenericValue shippingAddress = (GenericValue) context.get("shippingAddress");
 

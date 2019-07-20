@@ -507,7 +507,7 @@ public final class ContentManagementWorker {
                 subArr[3] =  contentAssoc.get("fromDate");
             } else {
                 if (subArr != null) {
-                    List<Object []> subPointList = UtilGenerics.checkList(subArr[1]);
+                    List<Object []> subPointList = UtilGenerics.cast(subArr[1]);
                     Iterator<Object []> it5 = subPointList.iterator();
                     Object [] subArr2 = null;
                     while (it5.hasNext()) {
@@ -537,7 +537,7 @@ public final class ContentManagementWorker {
             // TODO check if we want contentTypes to be filled/used, else this should be removed
             List<String> contentTypes = null;
             Map<String, Object> results =  ContentServicesComplex.getAssocAndContentAndDataResourceCacheMethod(delegator, contentId, null, "To", null, null, assocTypes, contentTypes, Boolean.TRUE, null, null);
-            List<GenericValue> valueList = UtilGenerics.checkList(results.get("entityList"));
+            List<GenericValue> valueList = UtilGenerics.cast(results.get("entityList"));
             if (valueList.size() > 0) {
                 GenericValue value = valueList.get(0);
                 authorContent = delegator.makeValue("Content");

@@ -533,7 +533,7 @@ public class BOMServices {
                         List<Map<String, Object>> orderShipmentReadMapList = new LinkedList<>();
                         partyOrderShipments.put(partyId, orderShipmentReadMapList);
                     }
-                    List<Map<String, Object>> orderShipmentReadMapList = UtilGenerics.checkList(partyOrderShipments.get(partyId));
+                    List<Map<String, Object>> orderShipmentReadMapList = UtilGenerics.cast(partyOrderShipments.get(partyId));
                     orderShipmentReadMapList.add(orderShipmentReadMap);
                 }
             }
@@ -541,7 +541,7 @@ public class BOMServices {
         // For each party: try to expand the shipment item products
         // (search for components that needs to be packaged).
         for (Map.Entry<String, Object> partyOrderShipment : partyOrderShipments.entrySet()) {
-            List<Map<String, Object>> orderShipmentReadMapList = UtilGenerics.checkList(partyOrderShipment.getValue());
+            List<Map<String, Object>> orderShipmentReadMapList = UtilGenerics.cast(partyOrderShipment.getValue());
             for (int i = 0; i < orderShipmentReadMapList.size(); i++) {
                 Map<String, Object> orderShipmentReadMap = UtilGenerics.cast(orderShipmentReadMapList.get(i));
                 GenericValue orderShipment = (GenericValue)orderShipmentReadMap.get("orderShipment");
@@ -560,7 +560,7 @@ public class BOMServices {
                 } catch (GenericServiceException e) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingPackageConfiguratorError", locale));
                 }
-                List<BOMNode> productsInPackages = UtilGenerics.checkList(serviceResult.get("productsInPackages"));
+                List<BOMNode> productsInPackages = UtilGenerics.cast(serviceResult.get("productsInPackages"));
                 if (productsInPackages.size() == 1) {
                     BOMNode root = productsInPackages.get(0);
                     String rootProductId = (root.getSubstitutedNode() != null? root.getSubstitutedNode().getProduct().getString("productId"): root.getProduct().getString("productId"));
@@ -581,12 +581,12 @@ public class BOMServices {
         Map<String, GenericValue> boxTypes = new HashMap<>();
         for (Map.Entry<String, Object> partyOrderShipment : partyOrderShipments.entrySet()) {
             Map<String, List<Map<String, Object>>> boxTypeContent = new HashMap<>();
-            List<Map<String, Object>> orderShipmentReadMapList = UtilGenerics.checkList(partyOrderShipment.getValue());
+            List<Map<String, Object>> orderShipmentReadMapList = UtilGenerics.cast(partyOrderShipment.getValue());
             for (int i = 0; i < orderShipmentReadMapList.size(); i++) {
                 Map<String, Object> orderShipmentReadMap = UtilGenerics.cast(orderShipmentReadMapList.get(i));
                 GenericValue orderShipment = (GenericValue)orderShipmentReadMap.get("orderShipment");
                 OrderReadHelper orderReadHelper = (OrderReadHelper)orderShipmentReadMap.get("orderReadHelper");
-                List<BOMNode> productsInPackages = UtilGenerics.checkList(orderShipmentReadMap.get("productsInPackages"));
+                List<BOMNode> productsInPackages = UtilGenerics.cast(orderShipmentReadMap.get("productsInPackages"));
                 if (productsInPackages != null) {
                     // there are subcomponents:
                     // this is a multi package shipment item
@@ -609,7 +609,7 @@ public class BOMServices {
                                 List<Map<String, Object>> box = new LinkedList<>();
                                 boxTypeContent.put(boxTypeId, box);
                             }
-                            List<Map<String, Object>> boxTypeContentList = UtilGenerics.checkList(boxTypeContent.get(boxTypeId));
+                            List<Map<String, Object>> boxTypeContentList = UtilGenerics.cast(boxTypeContent.get(boxTypeId));
                             boxTypeContentList.add(boxTypeContentMap);
                         }
                     }
@@ -639,7 +639,7 @@ public class BOMServices {
                             List<Map<String, Object>> box = new LinkedList<>();
                             boxTypeContent.put(boxTypeId, box);
                         }
-                        List<Map<String, Object>> boxTypeContentList = UtilGenerics.checkList(boxTypeContent.get(boxTypeId));
+                        List<Map<String, Object>> boxTypeContentList = UtilGenerics.cast(boxTypeContent.get(boxTypeId));
                         boxTypeContentList.add(boxTypeContentMap);
                     }
                 }
@@ -647,7 +647,7 @@ public class BOMServices {
             // The packages and package contents are created.
             for (Map.Entry<String, List<Map<String, Object>>> boxTypeContentEntry : boxTypeContent.entrySet()) {
                 String boxTypeId = boxTypeContentEntry.getKey();
-                List<Map<String, Object>> contentList = UtilGenerics.checkList(boxTypeContentEntry.getValue());
+                List<Map<String, Object>> contentList = UtilGenerics.cast(boxTypeContentEntry.getValue());
                 GenericValue boxType = boxTypes.get(boxTypeId);
                 BigDecimal boxWidth = boxType.getBigDecimal("boxLength");
                 BigDecimal totalWidth = BigDecimal.ZERO;
@@ -659,7 +659,7 @@ public class BOMServices {
                     Map<String, Object> contentMap = UtilGenerics.cast(contentList.get(i));
                     Map<String, Object> content = UtilGenerics.cast(contentMap.get("content"));
                     OrderReadHelper orderReadHelper = (OrderReadHelper)content.get("orderReadHelper");
-                    List<BOMNode> productsInPackages = UtilGenerics.checkList(content.get("productsInPackages"));
+                    List<BOMNode> productsInPackages = UtilGenerics.cast(content.get("productsInPackages"));
                     GenericValue orderShipment = (GenericValue)content.get("orderShipment");
 
                     GenericValue product = null;

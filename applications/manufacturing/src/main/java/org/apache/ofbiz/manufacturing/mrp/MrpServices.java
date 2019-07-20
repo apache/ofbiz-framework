@@ -747,7 +747,7 @@ public class MrpServices {
                         } catch (Exception e) {
                             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpErrorExplodingProduct", UtilMisc.toMap("productId", product.getString("productId")), locale));
                         }
-                        components = UtilGenerics.checkList(serviceResponse.get("components"));
+                        components = UtilGenerics.cast(serviceResponse.get("components"));
                         if (UtilValidate.isNotEmpty(components)) {
                             BOMNode node = (components.get(0)).getParentNode();
                             isBuilt = node.isManufactured();
@@ -784,7 +784,7 @@ public class MrpServices {
                         } catch (Exception e) {
                             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpErrorExplodingProduct", UtilMisc.toMap("productId", product.getString("productId")), locale));
                         }
-                        components = UtilGenerics.checkList(serviceResponse.get("components"));
+                        components = UtilGenerics.cast(serviceResponse.get("components"));
                         String routingId = (String)serviceResponse.get("workEffortId");
                         if (routingId != null) {
                             try {

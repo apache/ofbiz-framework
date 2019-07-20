@@ -125,7 +125,7 @@ public class SupplierProductServices {
     public static Map<String, Object> convertFeaturesForSupplier(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> results;
         String partyId = (String) context.get("partyId");
-        Collection<GenericValue> features = UtilGenerics.checkList(context.get("productFeatures"));
+        Collection<GenericValue> features = UtilGenerics.cast(context.get("productFeatures"));
 
         try {
             if (partyId != null && UtilValidate.isNotEmpty(features)) {

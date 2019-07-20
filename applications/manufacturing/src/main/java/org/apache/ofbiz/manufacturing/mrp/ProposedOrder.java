@@ -122,7 +122,7 @@ public class ProposedOrder {
                             Debug.logError(errorMessage, module);
                     }
                     routing = (GenericValue)routingOutMap.get("routing");
-                    listRoutingTaskAssoc = UtilGenerics.checkList(routingOutMap.get("tasks"));
+                    listRoutingTaskAssoc = UtilGenerics.cast(routingOutMap.get("tasks"));
                     if (routing == null) {
                         // try to find a routing linked to the virtual product
                         BOMTree tree = null;
@@ -162,7 +162,7 @@ public class ProposedOrder {
                             String errorMessage = ServiceUtil.getErrorMessage(routingTasksOutMap);
                             Debug.logError(errorMessage, module);
                         }
-                        listRoutingTaskAssoc = UtilGenerics.checkList(routingTasksOutMap.get("routingTaskAssocs"));
+                        listRoutingTaskAssoc = UtilGenerics.cast(routingTasksOutMap.get("routingTaskAssocs"));
                     } catch (GenericServiceException gse) {
                         Debug.logWarning(gse.getMessage(), module);
                     }

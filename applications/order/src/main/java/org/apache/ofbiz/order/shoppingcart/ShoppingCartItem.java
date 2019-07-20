@@ -1162,13 +1162,13 @@ public class ShoppingCartItem implements java.io.Serializable {
                     }
 
                     this.setDisplayPrice(this.basePrice);
-                    this.orderItemPriceInfos = UtilGenerics.checkList(priceResult.get("orderItemPriceInfos"));
+                    this.orderItemPriceInfos = UtilGenerics.cast(priceResult.get("orderItemPriceInfos"));
                 } else {
                     if (productId != null) {
                         String productStoreId = cart.getProductStoreId();
                         List<GenericValue> productSurvey = ProductStoreWorker.getProductSurveys(delegator, productStoreId, productId, "CART_ADD", parentProductId);
                         if (UtilValidate.isNotEmpty(productSurvey) && UtilValidate.isNotEmpty(attributes)) {
-                            List<String> surveyResponses = UtilGenerics.checkList(attributes.get("surveyResponses"));
+                            List<String> surveyResponses = UtilGenerics.cast(attributes.get("surveyResponses"));
                             if (UtilValidate.isNotEmpty(surveyResponses)) {
                                 for (String surveyResponseId : surveyResponses) {
                                     // TODO: implement multiple survey per product
@@ -1193,7 +1193,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                     priceContext.put("checkIncludeVat", "Y");
 
                     // check if a survey is associated with the item and add to the price calculation
-                    List<String> surveyResponses = UtilGenerics.checkList(getAttribute("surveyResponses"));
+                    List<String> surveyResponses = UtilGenerics.cast(getAttribute("surveyResponses"));
                     if (UtilValidate.isNotEmpty(surveyResponses)) {
                         priceContext.put("surveyResponseId", surveyResponses.get(0));
                     }
@@ -1243,7 +1243,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                         this.setSpecialPromoPrice((BigDecimal) priceResult.get("specialPromoPrice"));
                     }
 
-                    this.orderItemPriceInfos = UtilGenerics.checkList(priceResult.get("orderItemPriceInfos"));
+                    this.orderItemPriceInfos = UtilGenerics.cast(priceResult.get("orderItemPriceInfos"));
 
                     // If product is configurable, the price is taken from the configWrapper.
                     if (configWrapper != null) {
@@ -1904,7 +1904,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                   String errorMessage = ServiceUtil.getErrorMessage(result);
                   Debug.logError(errorMessage, module);
               }
-              featuresForSupplier = UtilGenerics.checkList(result.get("convertedProductFeatures"));
+              featuresForSupplier = UtilGenerics.cast(result.get("convertedProductFeatures"));
            } catch (GenericServiceException e) {
                Debug.logError(e, "Unable to get features for supplier from product : " + this.productId, module);
            }

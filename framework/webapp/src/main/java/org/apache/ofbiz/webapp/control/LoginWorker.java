@@ -203,7 +203,7 @@ public class LoginWorker {
         // user is logged in; check to see if they have globally logged out if not
         // check if they have permission for this login attempt; if not log them out
         if (userLogin != null) {
-            List<Object> errorMessageList = UtilGenerics.checkList(request.getAttribute("_ERROR_MESSAGE_LIST"));
+            List<Object> errorMessageList = UtilGenerics.cast(request.getAttribute("_ERROR_MESSAGE_LIST"));
             if (!hasBasePermission(userLogin, request) || isFlaggedLoggedOut(userLogin, userLogin.getDelegator())) {
                 if (errorMessageList == null) {
                     errorMessageList = new LinkedList<>();
@@ -253,7 +253,7 @@ public class LoginWorker {
             }
         }
         if (userLoginHistory != null) {
-            List<Object> errorMessageList = UtilGenerics.checkList(request.getAttribute("_ERROR_MESSAGE_LIST"));
+            List<Object> errorMessageList = UtilGenerics.cast(request.getAttribute("_ERROR_MESSAGE_LIST"));
             if (errorMessageList == null) {
                 errorMessageList = new LinkedList<>();
                 request.setAttribute("_ERROR_MESSAGE_LIST_", errorMessageList);

@@ -113,13 +113,13 @@ public final class ContextHelper {
     public List<String> getErrorMessages() {
         List<String> errorMessages = null;
         if (isService()) {
-            errorMessages = UtilGenerics.checkList(getResults().get(ModelService.ERROR_MESSAGE_LIST));
+            errorMessages = UtilGenerics.cast(getResults().get(ModelService.ERROR_MESSAGE_LIST));
             if (errorMessages == null) {
                 errorMessages = new LinkedList<>();
                 getResults().put(ModelService.ERROR_MESSAGE_LIST, errorMessages);
             }
         } else {
-            errorMessages = UtilGenerics.checkList(getResults().get("_error_message_list_"));
+            errorMessages = UtilGenerics.cast(getResults().get("_error_message_list_"));
             if (errorMessages == null) {
                 errorMessages = new LinkedList<>();
                 getResults().put("_error_message_list_", errorMessages);

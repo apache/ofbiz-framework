@@ -193,7 +193,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
         if (id != null && !"ROOT".equals(id) && !id.equals("")) {
             lst.add(map);
         }
-        List<Map<String, Object>> kids = UtilGenerics.checkList(nd.get("kids"));
+        List<Map<String, Object>> kids = UtilGenerics.cast(nd.get("kids"));
         for (Map<String, Object> kidNode : kids) {
             buildList(kidNode, lst, depth + 1);
         }
@@ -210,7 +210,7 @@ public class DataResourceWorker  implements org.apache.ofbiz.widget.content.Data
         Locale locale = UtilHttp.getLocale(request);
 
         try {
-            lst = UtilGenerics.checkList(fu.parseRequest(request));
+            lst = UtilGenerics.cast(fu.parseRequest(request));
         } catch (FileUploadException e) {
             request.setAttribute("_ERROR_MESSAGE_", e.toString());
             return "error";

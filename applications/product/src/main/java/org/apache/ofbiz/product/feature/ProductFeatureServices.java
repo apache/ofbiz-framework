@@ -131,7 +131,7 @@ public class ProductFeatureServices {
         Delegator delegator = dctx.getDelegator();
 
         String productId = (String) context.get("productId");
-        List<String> curProductFeatureAndAppls = UtilGenerics.checkList(context.get("productFeatureAppls"));
+        List<String> curProductFeatureAndAppls = UtilGenerics.cast(context.get("productFeatureAppls"));
         List<String> existingVariantProductIds = new LinkedList<>();
 
         try {
@@ -241,8 +241,8 @@ public class ProductFeatureServices {
                                 Map<String, Object> newCombination = new HashMap<>();
                                 // .clone() is important, or you'll keep adding to the same List for all the variants
                                 // have to cast twice: once from get() and once from clone()
-                                List<GenericValue> newFeatures = UtilMisc.makeListWritable(UtilGenerics.<GenericValue>checkList(combination.get("curProductFeatureAndAppls")));
-                                List<String> newFeatureIds = UtilMisc.makeListWritable(UtilGenerics.<String>checkList(combination.get("curProductFeatureIds")));
+                                List<GenericValue> newFeatures = UtilMisc.makeListWritable(UtilGenerics.cast(combination.get("curProductFeatureAndAppls")));
+                                List<String> newFeatureIds = UtilMisc.makeListWritable(UtilGenerics.cast(combination.get("curProductFeatureIds")));
                                 if (currentFeature.getString("idCode") != null) {
                                     newCombination.put("defaultVariantProductId", combination.get("defaultVariantProductId") + currentFeature.getString("idCode"));
                                 } else {
@@ -296,7 +296,7 @@ public class ProductFeatureServices {
         Map<String, Object> results = new HashMap<>();
         LocalDispatcher dispatcher = dctx.getDispatcher();
 
-        List<GenericValue> productFeatures = UtilGenerics.checkList(context.get("productFeatures"));
+        List<GenericValue> productFeatures = UtilGenerics.cast(context.get("productFeatures"));
         String productCategoryId = (String) context.get("productCategoryId");
         Locale locale = (Locale) context.get("locale");
 
@@ -309,7 +309,7 @@ public class ProductFeatureServices {
             return ServiceUtil.returnError(ex.getMessage());
         }
 
-        List<GenericValue> memberProducts = UtilGenerics.checkList(result.get("categoryMembers"));
+        List<GenericValue> memberProducts = UtilGenerics.cast(result.get("categoryMembers"));
         if ((memberProducts != null) && (memberProducts.size() > 0)) {
             // construct a Map of productFeatureTypeId -> productFeatureId from the productFeatures List
             Map<String, String> featuresByType = new HashMap<>();
@@ -328,7 +328,7 @@ public class ProductFeatureServices {
                     return ServiceUtil.returnError(ex.getMessage());
                 }
 
-                List<GenericValue> variantProducts = UtilGenerics.checkList(result.get("products"));
+                List<GenericValue> variantProducts = UtilGenerics.cast(result.get("products"));
                 if ((variantProducts != null) && (variantProducts.size() > 0)) {
                     products.addAll(variantProducts);
                 } else {

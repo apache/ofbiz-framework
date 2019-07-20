@@ -233,7 +233,7 @@ public class ProductionRunServices {
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(routingOutMap));
             }
             routing = (GenericValue)routingOutMap.get("routing");
-            routingTaskAssocs = UtilGenerics.checkList(routingOutMap.get("tasks"));
+            routingTaskAssocs = UtilGenerics.cast(routingOutMap.get("tasks"));
         } catch (GenericServiceException gse) {
             Debug.logWarning(gse.getMessage(), module);
         }
@@ -260,7 +260,7 @@ public class ProductionRunServices {
             if (ServiceUtil.isError(serviceResult)) {
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
             }
-            components = UtilGenerics.checkList(serviceResult.get("components")); // a list of objects representing the product's components
+            components = UtilGenerics.cast(serviceResult.get("components")); // a list of objects representing the product's components
         } catch (GenericServiceException e) {
             Debug.logError(e, "Problem calling the getManufacturingComponents service", module);
             return ServiceUtil.returnError(e.getMessage());
@@ -3409,7 +3409,7 @@ public class ProductionRunServices {
             if (ServiceUtil.isError(serviceResult)) {
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
             }
-            List<Map<String, Object>> components = UtilGenerics.checkList(serviceResult.get("componentsMap"));
+            List<Map<String, Object>> components = UtilGenerics.cast(serviceResult.get("componentsMap"));
             if (UtilValidate.isEmpty(components)) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunCannotDecomposingInventoryItemNoComponentsFound", UtilMisc.toMap("productId", inventoryItem.getString("productId")), locale));
             }
@@ -3439,7 +3439,7 @@ public class ProductionRunServices {
                 if (ServiceUtil.isError(serviceResult)) {
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
                 }
-                List<String> newInventoryItemIds = UtilGenerics.checkList(serviceResult.get("inventoryItemIds"));
+                List<String> newInventoryItemIds = UtilGenerics.cast(serviceResult.get("inventoryItemIds"));
                 inventoryItemIds.addAll(newInventoryItemIds);
             }
             // the components are put in warehouse

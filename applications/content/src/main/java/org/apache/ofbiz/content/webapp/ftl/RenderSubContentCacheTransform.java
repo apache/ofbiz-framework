@@ -68,7 +68,7 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
         FreeMarkerWorker.saveContextValues(templateRoot, upSaveKeyNames, savedValuesUp);
         FreeMarkerWorker.overrideWithArgs(templateRoot, args);
         final GenericValue userLogin = FreeMarkerWorker.getWrappedObject("userLogin", env);
-        List<Map<String, ? extends Object>> trail = UtilGenerics.checkList(templateRoot.get("globalNodeTrail"));
+        List<Map<String, ? extends Object>> trail = UtilGenerics.cast(templateRoot.get("globalNodeTrail"));
         String contentAssocPredicateId = (String)templateRoot.get("contentAssocPredicateId");
         String strNullThruDatesOnly = (String)templateRoot.get("nullThruDatesOnly");
         Boolean nullThruDatesOnly = (strNullThruDatesOnly != null && "true".equalsIgnoreCase(strNullThruDatesOnly)) ? Boolean.TRUE :Boolean.FALSE;
@@ -134,7 +134,7 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
             }
 
             public void renderSubContent() throws IOException {
-                List<Map<String, ? extends Object>> passedGlobalNodeTrail = UtilGenerics.checkList(templateRoot.get("globalNodeTrail"));
+                List<Map<String, ? extends Object>> passedGlobalNodeTrail = UtilGenerics.cast(templateRoot.get("globalNodeTrail"));
                 String editRequestName = (String)templateRoot.get("editRequestName");
                 GenericValue thisView = null;
                 if (view != null) {

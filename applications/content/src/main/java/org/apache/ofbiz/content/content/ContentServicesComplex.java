@@ -65,8 +65,8 @@ public class ContentServicesComplex {
     */
     public static Map<String, Object> getAssocAndContentAndDataResource(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
-        List<String> assocTypes = UtilGenerics.checkList(context.get("assocTypes"));
-        List<String> contentTypes = UtilGenerics.checkList(context.get("contentTypes"));
+        List<String> assocTypes = UtilGenerics.cast(context.get("assocTypes"));
+        List<String> contentTypes = UtilGenerics.cast(context.get("contentTypes"));
         Timestamp fromDate = (Timestamp)context.get("fromDate");
         Timestamp thruDate = (Timestamp)context.get("thruDate");
         String fromDateStr = (String)context.get("fromDateStr");
@@ -157,7 +157,7 @@ public class ContentServicesComplex {
     */
     public static Map<String, Object> getAssocAndContentAndDataResourceCache(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
-        List<String> assocTypes = UtilGenerics.checkList(context.get("assocTypes"));
+        List<String> assocTypes = UtilGenerics.cast(context.get("assocTypes"));
         String assocTypesString = (String)context.get("assocTypesString");
         if (UtilValidate.isNotEmpty(assocTypesString)) {
             List<String> lst = StringUtil.split(assocTypesString, "|");
@@ -166,7 +166,7 @@ public class ContentServicesComplex {
             }
             assocTypes.addAll(lst);
         }
-        List<String> contentTypes = UtilGenerics.checkList(context.get("contentTypes"));
+        List<String> contentTypes = UtilGenerics.cast(context.get("contentTypes"));
         String contentTypesString = (String)context.get("contentTypesString");
         if (UtilValidate.isNotEmpty(contentTypesString)) {
             List<String> lst = StringUtil.split(contentTypesString, "|");

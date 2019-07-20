@@ -66,7 +66,7 @@ public class BillingAccountWorker {
         if (ServiceUtil.isError(agentResult)) {
             throw new GeneralException("Error while finding party BillingAccounts when getting Customers that this party is an agent of: " + ServiceUtil.getErrorMessage(agentResult));
         }
-        List<String> relatedPartyIdList = UtilGenerics.checkList(agentResult.get("relatedPartyIdList"));
+        List<String> relatedPartyIdList = UtilGenerics.cast(agentResult.get("relatedPartyIdList"));
 
         List<GenericValue> billingAccountRoleList = EntityQuery.use(delegator).from("BillingAccountRole")
                 .where(EntityCondition.makeCondition("partyId", EntityOperator.IN, relatedPartyIdList),

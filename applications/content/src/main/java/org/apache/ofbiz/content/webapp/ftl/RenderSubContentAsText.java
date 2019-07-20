@@ -94,7 +94,7 @@ public class RenderSubContentAsText implements TemplateTransformModel {
 
             @Override
             public void close() throws IOException {
-                List<Map<String, ? extends Object>> globalNodeTrail = UtilGenerics.checkList(templateRoot.get("globalNodeTrail"));
+                List<Map<String, ? extends Object>> globalNodeTrail = UtilGenerics.cast(templateRoot.get("globalNodeTrail"));
                 if (Debug.infoOn()) {
                     Debug.logInfo("Render close, globalNodeTrail(2a):" + ContentWorker.nodeTrailToCsv(globalNodeTrail), "");
                 }

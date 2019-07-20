@@ -111,7 +111,7 @@ public class CheckPermissionTransform implements TemplateTransformModel {
 
             @Override
             public int onStart() throws TemplateModelException, IOException {
-                List<Map<String, ? extends Object>> trail = UtilGenerics.checkList(templateCtx.get("globalNodeTrail"));
+                List<Map<String, ? extends Object>> trail = UtilGenerics.cast(templateCtx.get("globalNodeTrail"));
                 GenericValue currentContent = null;
                 String contentAssocPredicateId = (String)templateCtx.get("contentAssocPredicateId");
                 String strNullThruDatesOnly = (String)templateCtx.get("nullThruDatesOnly");

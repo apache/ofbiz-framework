@@ -161,7 +161,7 @@ public class InvoiceServices {
         }
 
         String orderId = (String) context.get("orderId");
-        List<GenericValue> billItems = UtilGenerics.checkList(context.get("billItems"));
+        List<GenericValue> billItems = UtilGenerics.cast(context.get("billItems"));
         String invoiceId = (String) context.get("invoiceId");
 
         if (UtilValidate.isEmpty(billItems)) {
@@ -916,11 +916,11 @@ public class InvoiceServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
-        List<String> salesInvoiceIds = UtilGenerics.checkList(context.get("invoiceIds"));
+        List<String> salesInvoiceIds = UtilGenerics.cast(context.get("invoiceIds"));
         List<Map<String, String>> invoicesCreated = new LinkedList<>();
         Map<String, List<Map<String, Object>>> commissionParties = new HashMap<>();
         for (String salesInvoiceId : salesInvoiceIds) {
-            List<String> salesRepPartyIds = UtilGenerics.checkList(context.get("partyIds"));
+            List<String> salesRepPartyIds = UtilGenerics.cast(context.get("partyIds"));
             BigDecimal amountTotal =  InvoiceWorker.getInvoiceTotal(delegator, salesInvoiceId);
             if (amountTotal.signum() == 0) {
                 Debug.logWarning("Invoice [" + salesInvoiceId + "] has an amount total of [" + amountTotal + "], so no commission invoice will be created", module);
@@ -952,7 +952,7 @@ public class InvoiceServices {
                 } else {
                     List<String> salesInvoiceRolePartyIds = EntityUtil.getFieldListFromEntityList(roleQuery.where(invoiceRoleConds).queryList(), "partyId", true);
                     if (UtilValidate.isNotEmpty(salesInvoiceRolePartyIds)) {
-                        salesRepPartyIds = UtilGenerics.checkList(CollectionUtils.intersection(salesRepPartyIds, salesInvoiceRolePartyIds));
+                        salesRepPartyIds = UtilGenerics.cast(CollectionUtils.intersection(salesRepPartyIds, salesInvoiceRolePartyIds));
                     }
                 }
                 invoice = EntityQuery.use(delegator).from("Invoice").where("invoiceId", salesInvoiceId).queryOne();
@@ -998,7 +998,7 @@ public class InvoiceServices {
                     }
                     // build a Map of partyIds (both to and from) in a commission and the amounts
                     // Note that getCommissionForProduct returns a List of Maps with a lot values.  See services.xml definition for reference.
-                    List<Map<String, Object>> itemCommissions = UtilGenerics.checkList(resultMap.get("commissions"));
+                    List<Map<String, Object>> itemCommissions = UtilGenerics.cast(resultMap.get("commissions"));
                     if (UtilValidate.isNotEmpty(itemCommissions)) {
                         for (Map<String, Object> commissionMap : itemCommissions) {
                             commissionMap.put("invoice", invoice);
@@ -1150,7 +1150,7 @@ public class InvoiceServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
         // Get invoices to make ready
-        List<String> invoicesCreated = UtilGenerics.checkList(context.get("invoicesCreated"));
+        List<String> invoicesCreated = UtilGenerics.cast(context.get("invoicesCreated"));
         String nextStatusId = "INVOICE_READY";
         try {
             for (String invoiceId : invoicesCreated) {
@@ -1211,7 +1211,7 @@ public class InvoiceServices {
                         "AccountingTroubleCallingCreateInvoicesFromShipmentService",
                         UtilMisc.toMap("shipmentId", shipmentId), locale));
                 }
-                invoicesCreated = UtilGenerics.checkList(result.get("invoicesCreated"));
+                invoicesCreated = UtilGenerics.cast(result.get("invoicesCreated"));
             } catch (GenericServiceException e) {
                 Debug.logError(e, "Trouble calling createInvoicesFromShipment service; invoice not created for shipment [" + shipmentId + "]", module);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource,
@@ -1344,7 +1344,7 @@ public class InvoiceServices {
     public static Map<String, Object> createInvoicesFromShipments(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        List<String> shipmentIds = UtilGenerics.checkList(context.get("shipmentIds"));
+        List<String> shipmentIds = UtilGenerics.cast(context.get("shipmentIds"));
         Locale locale = (Locale) context.get("locale");
         Boolean createSalesInvoicesForDropShipments = (Boolean) context.get("createSalesInvoicesForDropShipments");
         if (UtilValidate.isEmpty(createSalesInvoicesForDropShipments)) {
@@ -1717,7 +1717,7 @@ public class InvoiceServices {
                             return ServiceUtil.returnError(UtilProperties.getMessage(resource,
                                     "AccountingTroubleCallingCalcTaxService", locale));
                         }
-                        List<GenericValue> orderAdjustments = UtilGenerics.checkList(calcTaxResult.get("orderAdjustments"));
+                        List<GenericValue> orderAdjustments = UtilGenerics.cast(calcTaxResult.get("orderAdjustments"));
 
                         // If we have any OrderAdjustments due to tax on shipping, store them and add them to the total
                         if (orderAdjustments != null) {
@@ -2006,7 +2006,7 @@ public class InvoiceServices {
         Locale locale = (Locale) context.get("locale");
 
         String returnId= (String) context.get("returnId");
-        List<GenericValue> billItems = UtilGenerics.checkList(context.get("billItems"));
+        List<GenericValue> billItems = UtilGenerics.cast(context.get("billItems"));
         String errorMsg = UtilProperties.getMessage(resource, "AccountingErrorCreatingInvoiceForReturn",UtilMisc.toMap("returnId",returnId),locale);
         // List invoicesCreated = new ArrayList();
         try {

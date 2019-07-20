@@ -504,7 +504,7 @@ public class FindServices {
         Map<String, ?> inputFields = checkMap(context.get("inputFields"), String.class, Object.class); // Input
         String noConditionFind = (String) context.get("noConditionFind");
         String distinct = (String) context.get("distinct");
-        List<String> fieldList =  UtilGenerics.<String>checkList(context.get("fieldList"));
+        List<String> fieldList =  UtilGenerics.cast(context.get("fieldList"));
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
         Delegator delegator = dctx.getDelegator();
@@ -671,7 +671,7 @@ public class FindServices {
         List<String> orderByList = checkCollection(context.get("orderByList"), String.class);
         boolean noConditionFind = "Y".equals(context.get("noConditionFind"));
         boolean distinct = "Y".equals(context.get("distinct"));
-        List<String> fieldList =  UtilGenerics.checkList(context.get("fieldList"));
+        List<String> fieldList =  UtilGenerics.cast(context.get("fieldList"));
         Locale locale = (Locale) context.get("locale");
         Set<String> fieldSet = null;
         if (fieldList != null) {

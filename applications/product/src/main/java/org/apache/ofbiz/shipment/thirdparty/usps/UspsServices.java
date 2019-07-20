@@ -175,7 +175,7 @@ public class UspsServices {
             maxWeight = new BigDecimal("70");
         }
 
-        List<Map<String, Object>> shippableItemInfo = UtilGenerics.checkList(context.get("shippableItemInfo"));
+        List<Map<String, Object>> shippableItemInfo = UtilGenerics.cast(context.get("shippableItemInfo"));
         List<Map<String, BigDecimal>> packages = ShipmentWorker.getPackageSplit(dctx, shippableItemInfo, maxWeight);
         boolean isOnePackage = packages.size() == 1; // use shippableWeight if there's only one package
         // TODO: Up to 25 packages can be included per request - handle more than 25
@@ -342,7 +342,7 @@ public class UspsServices {
             maxWeight = new BigDecimal("70");
         }
 
-        List<Map<String, Object>> shippableItemInfo = UtilGenerics.checkList(context.get("shippableItemInfo"));
+        List<Map<String, Object>> shippableItemInfo = UtilGenerics.cast(context.get("shippableItemInfo"));
         List<Map<String, BigDecimal>> packages = ShipmentWorker.getPackageSplit(dctx, shippableItemInfo, maxWeight);
         boolean isOnePackage = packages.size() == 1; // use shippableWeight if there's only one package
 

@@ -68,7 +68,7 @@ public class ServiceTest extends OFBizTestCase {
             }
 
             // do something with the errorMessageList
-            List<Object> errorMessageList = UtilGenerics.checkList(serviceResult.get(ModelService.ERROR_MESSAGE_LIST));
+            List<Object> errorMessageList = UtilGenerics.cast(serviceResult.get(ModelService.ERROR_MESSAGE_LIST));
             if (UtilValidate.isNotEmpty(errorMessageList)) {
                 for (Object message: errorMessageList) {
                     result.addFailure(this, new AssertionFailedError(message.toString()));

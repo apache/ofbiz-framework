@@ -132,7 +132,7 @@ public final class ServiceUtil {
                 errorList.add(nestedResult.get(ModelService.ERROR_MESSAGE));
             }
             if (nestedResult.get(ModelService.ERROR_MESSAGE_LIST) != null) {
-                errorList.addAll(UtilGenerics.checkList(nestedResult.get(ModelService.ERROR_MESSAGE_LIST)));
+                errorList.addAll(UtilGenerics.cast(nestedResult.get(ModelService.ERROR_MESSAGE_LIST)));
             }
             if (nestedResult.get(ModelService.ERROR_MESSAGE_MAP) != null) {
                 errorMap.putAll(UtilGenerics.cast(nestedResult.get(ModelService.ERROR_MESSAGE_MAP)));
@@ -248,7 +248,7 @@ public final class ServiceUtil {
         }
 
         if (result.get(ModelService.ERROR_MESSAGE_LIST) != null) {
-            List<? extends Object> errors = UtilGenerics.checkList(result.get(ModelService.ERROR_MESSAGE_LIST));
+            List<? extends Object> errors = UtilGenerics.cast(result.get(ModelService.ERROR_MESSAGE_LIST));
             for (Object message: errors) {
                 // NOTE: this MUST use toString and not cast to String because it may be a MessageString object
                 String curMessage = message.toString();
@@ -268,7 +268,7 @@ public final class ServiceUtil {
             return null;
         }
         String errorMsg = (String) result.get(ModelService.ERROR_MESSAGE);
-        List<? extends Object> errorMsgList = UtilGenerics.checkList(result.get(ModelService.ERROR_MESSAGE_LIST));
+        List<? extends Object> errorMsgList = UtilGenerics.cast(result.get(ModelService.ERROR_MESSAGE_LIST));
         Map<String, ? extends Object> errorMsgMap = UtilGenerics.cast(result.get(ModelService.ERROR_MESSAGE_MAP));
         StringBuilder outMsg = new StringBuilder();
 
@@ -314,7 +314,7 @@ public final class ServiceUtil {
             return "";
         }
         String successMsg = (String) result.get(ModelService.SUCCESS_MESSAGE);
-        List<? extends Object> successMsgList = UtilGenerics.checkList(result.get(ModelService.SUCCESS_MESSAGE_LIST));
+        List<? extends Object> successMsgList = UtilGenerics.cast(result.get(ModelService.SUCCESS_MESSAGE_LIST));
         StringBuilder outMsg = new StringBuilder();
 
         outMsg.append(makeMessageList(successMsgList, msgPrefix, msgSuffix));
@@ -383,7 +383,7 @@ public final class ServiceUtil {
 
         //See if there is a message list
         if (callResult.containsKey(ModelService.ERROR_MESSAGE_LIST)) {
-            newList = UtilGenerics.checkList(callResult.get(ModelService.ERROR_MESSAGE_LIST));
+            newList = UtilGenerics.cast(callResult.get(ModelService.ERROR_MESSAGE_LIST));
             targetList.addAll(newList);
         }
 

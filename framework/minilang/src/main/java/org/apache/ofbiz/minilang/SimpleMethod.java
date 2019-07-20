@@ -479,7 +479,7 @@ public final class SimpleMethod extends MiniLangElement {
                 forceError = true;
                 summaryErrorStringBuffer.append(errorMsg);
             }
-            List<Object> tempErrorMsgList = UtilGenerics.checkList(methodContext.getEnv(eventErrorMessageListName));
+            List<Object> tempErrorMsgList = UtilGenerics.cast(methodContext.getEnv(eventErrorMessageListName));
             if (UtilValidate.isNotEmpty(tempErrorMsgList)) {
                 methodContext.getRequest().setAttribute("_ERROR_MESSAGE_LIST_", tempErrorMsgList);
                 forceError = true;
@@ -490,7 +490,7 @@ public final class SimpleMethod extends MiniLangElement {
             if (UtilValidate.isNotEmpty(eventMsg)) {
                 methodContext.getRequest().setAttribute("_EVENT_MESSAGE_", eventMsg);
             }
-            List<String> eventMsgList = UtilGenerics.checkList(methodContext.getEnv(eventEventMessageListName));
+            List<String> eventMsgList = UtilGenerics.cast(methodContext.getEnv(eventEventMessageListName));
             if (UtilValidate.isNotEmpty(eventMsgList)) {
                 methodContext.getRequest().setAttribute("_EVENT_MESSAGE_LIST_", eventMsgList);
             }
@@ -517,7 +517,7 @@ public final class SimpleMethod extends MiniLangElement {
                 forceError = true;
                 summaryErrorStringBuffer.append(errorMsg);
             }
-            List<Object> errorMsgList = UtilGenerics.checkList(methodContext.getEnv(serviceErrorMessageListName));
+            List<Object> errorMsgList = UtilGenerics.cast(methodContext.getEnv(serviceErrorMessageListName));
             if (UtilValidate.isNotEmpty(errorMsgList)) {
                 methodContext.putResult(ModelService.ERROR_MESSAGE_LIST, errorMsgList);
                 forceError = true;
@@ -535,7 +535,7 @@ public final class SimpleMethod extends MiniLangElement {
             if (UtilValidate.isNotEmpty(successMsg)) {
                 methodContext.putResult(ModelService.SUCCESS_MESSAGE, successMsg);
             }
-            List<Object> successMsgList = UtilGenerics.checkList(methodContext.getEnv(serviceSuccessMessageListName));
+            List<Object> successMsgList = UtilGenerics.cast(methodContext.getEnv(serviceSuccessMessageListName));
             if (UtilValidate.isNotEmpty(successMsgList)) {
                 methodContext.putResult(ModelService.SUCCESS_MESSAGE_LIST, successMsgList);
             }

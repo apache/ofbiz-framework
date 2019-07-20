@@ -91,14 +91,14 @@ public class ProductServices {
         List<GenericValue> products = new LinkedList<>();
         // All the variants for this products are retrieved
         Map<String, Object> resVariants = prodFindAllVariants(dctx, context);
-        List<GenericValue> variants = UtilGenerics.checkList(resVariants.get("assocProducts"));
+        List<GenericValue> variants = UtilGenerics.cast(resVariants.get("assocProducts"));
         for (GenericValue oneVariant: variants) {
             // For every variant, all the standard features are retrieved
             Map<String, String> feaContext = new HashMap<>();
             feaContext.put("productId", oneVariant.getString("productIdTo"));
             feaContext.put("type", "STANDARD_FEATURE");
             Map<String, Object> resFeatures = prodGetFeatures(dctx, feaContext);
-            List<GenericValue> features = UtilGenerics.checkList(resFeatures.get("productFeatures"));
+            List<GenericValue> features = UtilGenerics.cast(resFeatures.get("productFeatures"));
             boolean variantFound = true;
             // The variant is discarded if at least one of its standard features
             // has the same type of one of the selected features but a different feature id.
@@ -186,7 +186,7 @@ public class ProductServices {
                     "ProductFeatureTreeCannotFindFeaturesList", locale));
         }
 
-        List<GenericValue> variants = UtilGenerics.checkList(prodFindAllVariants(dctx, context).get("assocProducts"));
+        List<GenericValue> variants = UtilGenerics.cast(prodFindAllVariants(dctx, context).get("assocProducts"));
         List<String> virtualVariant = new LinkedList<>();
 
         if (UtilValidate.isEmpty(variants)) {
@@ -614,7 +614,7 @@ public class ProductServices {
         // loop through the keysets and get the sub-groups
         for (Entry<String, Object> entry : group.entrySet()) {
             String key = entry.getKey();
-            List<String> itemList = UtilGenerics.checkList(group.get(key));
+            List<String> itemList = UtilGenerics.cast(group.get(key));
 
             if (UtilValidate.isNotEmpty(itemList)) {
                 Map<String, Object> subGroup = makeGroup(delegator, featureList, itemList, order, index + 1);

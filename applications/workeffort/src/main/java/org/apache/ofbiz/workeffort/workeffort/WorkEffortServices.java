@@ -576,7 +576,7 @@ public class WorkEffortServices {
                 EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_CANCELLED"));
 
 
-        List<EntityCondition> entityExprList = UtilGenerics.checkList(context.get("entityExprList"));
+        List<EntityCondition> entityExprList = UtilGenerics.cast(context.get("entityExprList"));
         if (entityExprList == null) {
             entityExprList = getDefaultWorkEffortExprList(calendarType, partyIdsToUse, workEffortTypeId, cancelledCheckAndList);
         }
@@ -829,7 +829,7 @@ public class WorkEffortServices {
                     quantitySummary.put("estimatedQuantityTotal", remainingQuantity + remainingQuantityTot);
                 }
 
-                List<GenericValue> incomingProductionRunList = UtilGenerics.checkList(quantitySummary.get("incomingProductionRunList"));
+                List<GenericValue> incomingProductionRunList = UtilGenerics.cast(quantitySummary.get("incomingProductionRunList"));
                 if (incomingProductionRunList == null) {
                     incomingProductionRunList = new LinkedList<>();
                     quantitySummary.put("incomingProductionRunList", incomingProductionRunList);
@@ -877,7 +877,7 @@ public class WorkEffortServices {
                     quantitySummary.put("estimatedQuantityTotal", neededQuantity + remainingQuantityTot);
                 }
 
-                List<GenericValue> outgoingProductionRunList = UtilGenerics.checkList(quantitySummary.get("outgoingProductionRunList"));
+                List<GenericValue> outgoingProductionRunList = UtilGenerics.cast(quantitySummary.get("outgoingProductionRunList"));
                 if (outgoingProductionRunList == null) {
                     outgoingProductionRunList = new LinkedList<>();
                     quantitySummary.put("outgoingProductionRunList", outgoingProductionRunList);
@@ -1095,7 +1095,7 @@ public class WorkEffortServices {
                     workEffort = eli.next();
                 }
             } else {
-                List<GenericValue> workEfforts = UtilGenerics.checkList(context.get("workEfforts"));
+                List<GenericValue> workEfforts = UtilGenerics.cast(context.get("workEfforts"));
                 if (workEfforts != null) {
                     resultList = WorkEffortWorker.removeDuplicateWorkEfforts(workEfforts);
                 }

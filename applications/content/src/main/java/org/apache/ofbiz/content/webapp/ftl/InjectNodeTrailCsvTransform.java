@@ -103,7 +103,7 @@ public class InjectNodeTrailCsvTransform implements TemplateTransformModel {
             public int onStart() throws TemplateModelException, IOException {
                 String csvTrail = null;
 
-                List<Map<String, ? extends Object>> trail = UtilGenerics.checkList(templateCtx.get("globalNodeTrail"));
+                List<Map<String, ? extends Object>> trail = UtilGenerics.cast(templateCtx.get("globalNodeTrail"));
 
                 if (Debug.infoOn()) {
                     Debug.logInfo("in InjectNodeTrailCsv(0), trail:"+trail,module);

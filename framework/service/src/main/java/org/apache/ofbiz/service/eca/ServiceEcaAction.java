@@ -184,7 +184,7 @@ public class ServiceEcaAction implements java.io.Serializable {
         if ((!success || resultToResult) && UtilValidate.isNotEmpty(actionResult)) {
             String errorMessage = (String) actionResult.get(ModelService.ERROR_MESSAGE);
             String failMessage = (String) actionResult.get("failMessage");
-            List<? extends Object> errorMessageList = UtilGenerics.checkList(actionResult.get(ModelService.ERROR_MESSAGE_LIST));
+            List<? extends Object> errorMessageList = UtilGenerics.cast(actionResult.get(ModelService.ERROR_MESSAGE_LIST));
             Map<String, ? extends Object> errorMessageMap = UtilGenerics.cast(actionResult.get(ModelService.ERROR_MESSAGE_MAP));
 
             // do something with the errorMessage
@@ -192,7 +192,7 @@ public class ServiceEcaAction implements java.io.Serializable {
                 if (UtilValidate.isEmpty(result.get(ModelService.ERROR_MESSAGE))) {
                     result.put(ModelService.ERROR_MESSAGE, errorMessage);
                 } else {
-                    List<Object> origErrorMessageList = UtilGenerics.checkList(result.get(ModelService.ERROR_MESSAGE_LIST));
+                    List<Object> origErrorMessageList = UtilGenerics.cast(result.get(ModelService.ERROR_MESSAGE_LIST));
                     if (origErrorMessageList == null) {
                         origErrorMessageList = new LinkedList<>();
                         result.put(ModelService.ERROR_MESSAGE_LIST, origErrorMessageList);
@@ -202,7 +202,7 @@ public class ServiceEcaAction implements java.io.Serializable {
             }
             // do something with the errorMessageList
             if (UtilValidate.isNotEmpty(errorMessageList)) {
-                List<Object> origErrorMessageList = UtilGenerics.checkList(result.get(ModelService.ERROR_MESSAGE_LIST));
+                List<Object> origErrorMessageList = UtilGenerics.cast(result.get(ModelService.ERROR_MESSAGE_LIST));
                 if (origErrorMessageList == null) {
                     result.put(ModelService.ERROR_MESSAGE_LIST, errorMessageList);
                 } else {

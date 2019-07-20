@@ -218,7 +218,7 @@ public class ContentManagementEvents {
         for (Object [] arr : origPublishedLinkList) {
             String contentId = (String)arr[0]; // main (2nd level) site id
             String origSubContentId = null;
-            List<Object []> origSubList = UtilGenerics.checkList(arr[1]);
+            List<Object []> origSubList = UtilGenerics.cast(arr[1]);
             Timestamp origFromDate = null;
             for (Object [] pubArr : origSubList) {
                 Timestamp fromDate = (Timestamp)pubArr[2];

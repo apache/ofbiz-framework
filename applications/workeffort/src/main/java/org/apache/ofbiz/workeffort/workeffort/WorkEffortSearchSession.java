@@ -290,7 +290,7 @@ public class WorkEffortSearchSession {
         WorkEffortSearchOptions.setResultSortOrder(resultSortOrder, session);
     }
     public static List<WorkEffortSearchOptions> getSearchOptionsHistoryList(HttpSession session) {
-        List<WorkEffortSearchOptions> optionsHistoryList = UtilGenerics.checkList(session.getAttribute("_WORK_EFFORT_SEARCH_OPTIONS_HISTORY_"));
+        List<WorkEffortSearchOptions> optionsHistoryList = UtilGenerics.cast(session.getAttribute("_WORK_EFFORT_SEARCH_OPTIONS_HISTORY_"));
         if (optionsHistoryList == null) {
             optionsHistoryList = new LinkedList<>();
             session.setAttribute("_WORK_EFFORT_SEARCH_OPTIONS_HISTORY_", optionsHistoryList);

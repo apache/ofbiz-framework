@@ -138,7 +138,7 @@ public class EntityConditionBuilder extends BuilderSupport {
         } else if (child instanceof ConditionHolder) {
             tempList.add(((ConditionHolder)child).condition);
         } else {
-            tempList.addAll(UtilGenerics.<EntityCondition>checkList(child));
+            tempList.addAll(UtilGenerics.cast(child));
         }
         holder.condition = EntityCondition.makeCondition(tempList, parentConList.getOperator());
     }

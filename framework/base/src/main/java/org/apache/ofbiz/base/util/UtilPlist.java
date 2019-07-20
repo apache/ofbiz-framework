@@ -18,8 +18,6 @@
  */
 package org.apache.ofbiz.base.util;
 
-import static org.apache.ofbiz.base.util.UtilGenerics.checkList;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -55,7 +53,7 @@ public final class UtilPlist {
             Map<String, Object> map = UtilGenerics.cast(value);
             writePlistPropertyMap(map, indentLevel, writer, false);
         } else if (value instanceof List<?>) {
-            List<Object> list = checkList(value);
+            List<Object> list = UtilGenerics.cast(value);
             writePlistPropertyValueList(list, indentLevel, writer);
         } else {
             writer.print(value);
@@ -116,7 +114,7 @@ public final class UtilPlist {
             Map<String, Object> map = UtilGenerics.cast(value);
             writePlistPropertyMapXml(map, indentLevel, writer);
         } else if (value instanceof List<?>) {
-            List<Object> list = checkList(value);
+            List<Object> list = UtilGenerics.cast(value);
             writePlistPropertyValueListXml(list, indentLevel, writer);
         } else {
             for (int i = 0; i < indentLevel; i++) {

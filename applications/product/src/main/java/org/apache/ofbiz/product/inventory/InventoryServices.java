@@ -677,7 +677,7 @@ public class InventoryServices {
      * */
     public static Map<String, Object> getProductInventoryAvailableFromAssocProducts(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        List<GenericValue> productAssocList = UtilGenerics.checkList(context.get("assocProducts"));
+        List<GenericValue> productAssocList = UtilGenerics.cast(context.get("assocProducts"));
         String facilityId = (String)context.get("facilityId");
         String statusId = (String)context.get("statusId");
 
@@ -749,7 +749,7 @@ public class InventoryServices {
     public static Map<String, Object> getProductInventorySummaryForItems(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        List<GenericValue> orderItems = UtilGenerics.checkList(context.get("orderItems"));
+        List<GenericValue> orderItems = UtilGenerics.cast(context.get("orderItems"));
         String facilityId = (String) context.get("facilityId");
         Locale locale = (Locale) context.get("locale");
         Map<String, BigDecimal> atpMap = new HashMap<>();

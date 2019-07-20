@@ -233,7 +233,7 @@ public final class UtilMisc {
      * Assuming outerMap not null; if null will throw a NullPointerException
      */
     public static <K, V> List<V> getListFromMap(Map<K, Object> outerMap, K key) {
-        List<V> innerList = UtilGenerics.<V>checkList(outerMap.get(key));
+        List<V> innerList = UtilGenerics.cast(outerMap.get(key));
         if (innerList == null) {
             innerList = new LinkedList<>();
             outerMap.put(key, innerList);
@@ -380,7 +380,7 @@ public final class UtilMisc {
     }
 
     public static <K, V> void addToListInMap(V element, Map<K, Object> theMap, K listKey) {
-        List<V> theList = UtilGenerics.checkList(theMap.get(listKey));
+        List<V> theList = UtilGenerics.cast(theMap.get(listKey));
         if (theList == null) {
             theList = new LinkedList<>();
             theMap.put(listKey, theList);

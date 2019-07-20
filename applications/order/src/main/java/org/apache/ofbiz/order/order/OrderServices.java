@@ -241,16 +241,16 @@ public class OrderServices {
         }
 
         // check to make sure we have something to order
-        List<GenericValue> orderItems = UtilGenerics.checkList(context.get("orderItems"));
+        List<GenericValue> orderItems = UtilGenerics.cast(context.get("orderItems"));
         if (orderItems.size() < 1) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error, "items.none", locale));
         }
 
         // all this marketing pkg auto stuff is deprecated in favor of MARKETING_PKG_AUTO productTypeId and a BOM of MANUF_COMPONENT assocs
         // these need to be retrieved now because they might be needed for exploding MARKETING_PKG_AUTO
-        List<GenericValue> orderAdjustments = UtilGenerics.checkList(context.get("orderAdjustments"));
-        List<GenericValue> orderItemShipGroupInfo = UtilGenerics.checkList(context.get("orderItemShipGroupInfo"));
-        List<GenericValue> orderItemPriceInfo = UtilGenerics.checkList(context.get("orderItemPriceInfos"));
+        List<GenericValue> orderAdjustments = UtilGenerics.cast(context.get("orderAdjustments"));
+        List<GenericValue> orderItemShipGroupInfo = UtilGenerics.cast(context.get("orderItemShipGroupInfo"));
+        List<GenericValue> orderItemPriceInfo = UtilGenerics.cast(context.get("orderItemPriceInfos"));
 
         // check inventory and other things for each item
         List<String> errorMessages = new LinkedList<>();
@@ -356,7 +356,7 @@ public class OrderServices {
                     Map<String, Object> invReqResult = dispatcher.runSync("isStoreInventoryAvailableOrNotRequired", UtilMisc.toMap("productStoreId", productStoreId, "productId", product.get("productId"), "product", product, "quantity", currentQuantity));
                     if (ServiceUtil.isError(invReqResult)) {
                         errorMessages.add(ServiceUtil.getErrorMessage(invReqResult));
-                        List<String> errMsgList = UtilGenerics.checkList(invReqResult.get(ModelService.ERROR_MESSAGE_LIST));
+                        List<String> errMsgList = UtilGenerics.cast(invReqResult.get(ModelService.ERROR_MESSAGE_LIST));
                         errorMessages.addAll(errMsgList);
                     } else if (!"Y".equals(invReqResult.get("availableOrNotRequired"))) {
                         String invErrMsg = UtilProperties.getMessage(resource_error, "product.out_of_stock",
@@ -374,7 +374,7 @@ public class OrderServices {
         }
 
         // add the fixedAsset id to the workefforts map by obtaining the fixed Asset number from the FixedAssetProduct table
-        List<GenericValue> workEfforts = UtilGenerics.checkList(context.get("workEfforts")); // is an optional parameter from this service but mandatory for rental items
+        List<GenericValue> workEfforts = UtilGenerics.cast(context.get("workEfforts")); // is an optional parameter from this service but mandatory for rental items
         for (GenericValue orderItem : orderItems) {
             if ("RENTAL_ORDER_ITEM".equals(orderItem.getString("orderItemTypeId"))) {
                 // check to see if workefforts are available for this order type.
@@ -580,7 +580,7 @@ public class OrderServices {
         toBeStored.add(orderStatus);
 
         // before processing orderItems process orderItemGroups so that they'll be in place for the foreign keys and what not
-        List<GenericValue> orderItemGroups = UtilGenerics.checkList(context.get("orderItemGroups"));
+        List<GenericValue> orderItemGroups = UtilGenerics.cast(context.get("orderItemGroups"));
         if (UtilValidate.isNotEmpty(orderItemGroups)) {
             for (GenericValue orderItemGroup : orderItemGroups) {
                 orderItemGroup.set("orderId", orderId);
@@ -605,7 +605,7 @@ public class OrderServices {
         }
 
         // set the order attributes
-        List<GenericValue> orderAttributes = UtilGenerics.checkList(context.get("orderAttributes"));
+        List<GenericValue> orderAttributes = UtilGenerics.cast(context.get("orderAttributes"));
         if (UtilValidate.isNotEmpty(orderAttributes)) {
             for (GenericValue oatt : orderAttributes) {
                 oatt.set("orderId", orderId);
@@ -614,7 +614,7 @@ public class OrderServices {
         }
 
         // set the order item attributes
-        List<GenericValue> orderItemAttributes = UtilGenerics.checkList(context.get("orderItemAttributes"));
+        List<GenericValue> orderItemAttributes = UtilGenerics.cast(context.get("orderItemAttributes"));
         if (UtilValidate.isNotEmpty(orderItemAttributes)) {
             for (GenericValue oiatt : orderItemAttributes) {
                 oiatt.set("orderId", orderId);
@@ -623,7 +623,7 @@ public class OrderServices {
         }
 
         // create the order internal notes
-        List<String> orderInternalNotes = UtilGenerics.checkList(context.get("orderInternalNotes"));
+        List<String> orderInternalNotes = UtilGenerics.cast(context.get("orderInternalNotes"));
         if (UtilValidate.isNotEmpty(orderInternalNotes)) {
             for (String orderInternalNote : orderInternalNotes) {
                 try {
@@ -645,7 +645,7 @@ public class OrderServices {
         }
 
         // create the order public notes
-        List<String> orderNotes = UtilGenerics.checkList(context.get("orderNotes"));
+        List<String> orderNotes = UtilGenerics.cast(context.get("orderNotes"));
         if (UtilValidate.isNotEmpty(orderNotes)) {
             for (String orderNote : orderNotes) {
                 try {
@@ -815,7 +815,7 @@ public class OrderServices {
         }
 
         // set the order contact mechs
-        List<GenericValue> orderContactMechs = UtilGenerics.checkList(context.get("orderContactMechs"));
+        List<GenericValue> orderContactMechs = UtilGenerics.cast(context.get("orderContactMechs"));
         if (UtilValidate.isNotEmpty(orderContactMechs)) {
             for (GenericValue ocm : orderContactMechs) {
                 ocm.set("orderId", orderId);
@@ -824,7 +824,7 @@ public class OrderServices {
         }
 
         // set the order item contact mechs
-        List<GenericValue> orderItemContactMechs = UtilGenerics.checkList(context.get("orderItemContactMechs"));
+        List<GenericValue> orderItemContactMechs = UtilGenerics.cast(context.get("orderItemContactMechs"));
         if (UtilValidate.isNotEmpty(orderItemContactMechs)) {
             for (GenericValue oicm : orderItemContactMechs) {
                 oicm.set("orderId", orderId);
@@ -874,7 +874,7 @@ public class OrderServices {
         }
 
         // set the item survey responses
-        List<GenericValue> surveyResponses = UtilGenerics.checkList(context.get("orderItemSurveyResponses"));
+        List<GenericValue> surveyResponses = UtilGenerics.cast(context.get("orderItemSurveyResponses"));
         if (UtilValidate.isNotEmpty(surveyResponses)) {
             for (GenericValue surveyResponse : surveyResponses) {
                 surveyResponse.set("orderId", orderId);
@@ -898,7 +898,7 @@ public class OrderServices {
         }
 
         // set the item associations
-        List<GenericValue> orderItemAssociations = UtilGenerics.checkList(context.get("orderItemAssociations"));
+        List<GenericValue> orderItemAssociations = UtilGenerics.cast(context.get("orderItemAssociations"));
         if (UtilValidate.isNotEmpty(orderItemAssociations)) {
             for (GenericValue orderItemAssociation : orderItemAssociations) {
                 if (orderItemAssociation.get("toOrderId") == null) {
@@ -911,7 +911,7 @@ public class OrderServices {
         }
 
         // store the orderProductPromoUseInfos
-        List<GenericValue> orderProductPromoUses = UtilGenerics.checkList(context.get("orderProductPromoUses"));
+        List<GenericValue> orderProductPromoUses = UtilGenerics.cast(context.get("orderProductPromoUses"));
         if (UtilValidate.isNotEmpty(orderProductPromoUses)) {
             for (GenericValue productPromoUse  : orderProductPromoUses) {
                 productPromoUse.set("orderId", orderId);
@@ -989,7 +989,7 @@ public class OrderServices {
         }
 
         // set the order payment info
-        List<GenericValue> orderPaymentInfos = UtilGenerics.checkList(context.get("orderPaymentInfo"));
+        List<GenericValue> orderPaymentInfos = UtilGenerics.cast(context.get("orderPaymentInfo"));
         if (UtilValidate.isNotEmpty(orderPaymentInfos)) {
             for (GenericValue valueObj : orderPaymentInfos) {
                 valueObj.set("orderId", orderId);
@@ -1008,7 +1008,7 @@ public class OrderServices {
         }
 
         // store the trackingCodeOrder entities
-        List<GenericValue> trackingCodeOrders = UtilGenerics.checkList(context.get("trackingCodeOrders"));
+        List<GenericValue> trackingCodeOrders = UtilGenerics.cast(context.get("trackingCodeOrders"));
         if (UtilValidate.isNotEmpty(trackingCodeOrders)) {
             for (GenericValue trackingCodeOrder : trackingCodeOrders) {
                 trackingCodeOrder.set("orderId", orderId);
@@ -1018,7 +1018,7 @@ public class OrderServices {
 
        // store the OrderTerm entities
 
-       List<GenericValue> orderTerms = UtilGenerics.checkList(context.get("orderTerms"));
+       List<GenericValue> orderTerms = UtilGenerics.cast(context.get("orderTerms"));
        if (UtilValidate.isNotEmpty(orderTerms)) {
            for (GenericValue orderTerm : orderTerms) {
                orderTerm.set("orderId", orderId);
@@ -1243,7 +1243,7 @@ public class OrderServices {
                                         resErrorMessages.add(ServiceUtil.getErrorMessage(componentsRes));
                                         continue;
                                     }
-                                    List<GenericValue> assocProducts = UtilGenerics.checkList(componentsRes.get("assocProducts"));
+                                    List<GenericValue> assocProducts = UtilGenerics.cast(componentsRes.get("assocProducts"));
                                     for (GenericValue productAssoc : assocProducts) {
                                         BigDecimal quantityOrd = productAssoc.getBigDecimal("quantity");
                                         BigDecimal quantityKit = orderItemShipGroupAssoc.getBigDecimal("quantity");
@@ -1336,7 +1336,7 @@ public class OrderServices {
                                             resErrorMessages.add((String)componentsRes.get(ModelService.ERROR_MESSAGE));
                                             continue;
                                         }
-                                        List<GenericValue> assocProducts = UtilGenerics.checkList(componentsRes.get("assocProducts"));
+                                        List<GenericValue> assocProducts = UtilGenerics.cast(componentsRes.get("assocProducts"));
                                         for (GenericValue productAssoc : assocProducts) {
                                             BigDecimal quantityOrd = productAssoc.getBigDecimal("quantity");
                                             BigDecimal quantityKit = orderItemShipGroupAssoc.getBigDecimal("quantity");
@@ -1708,8 +1708,8 @@ public class OrderServices {
                     }
 
                     // the adjustments (returned in order) from the tax service
-                    List<GenericValue> orderAdj = UtilGenerics.checkList(serviceResult.get("orderAdjustments"));
-                    List<List<GenericValue>> itemAdj = UtilGenerics.checkList(serviceResult.get("itemAdjustments"));
+                    List<GenericValue> orderAdj = UtilGenerics.cast(serviceResult.get("orderAdjustments"));
+                    List<List<GenericValue>> itemAdj = UtilGenerics.cast(serviceResult.get("itemAdjustments"));
 
                     // Accumulate the new tax total from the recalculated header adjustments
                     if (UtilValidate.isNotEmpty(orderAdj)) {
@@ -1837,7 +1837,7 @@ public class OrderServices {
                     Debug.logInfo("Old Shipping Total [" + orderId + " / " + shipGroupSeqId + "] : " + currentShipping, module);
                 }
 
-                List<String> errorMessageList = UtilGenerics.checkList(shippingEstMap.get(ModelService.ERROR_MESSAGE_LIST));
+                List<String> errorMessageList = UtilGenerics.cast(shippingEstMap.get(ModelService.ERROR_MESSAGE_LIST));
                 if (errorMessageList != null) {
                     Debug.logWarning("Problem finding shipping estimates for [" + orderId + "/ " + shipGroupSeqId + "] = " + errorMessageList, module);
                     continue;
@@ -3315,7 +3315,7 @@ public class OrderServices {
         Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         //appears to not be used: String orderId = (String) context.get("orderId");
-        List<GenericValue> orderItems = UtilGenerics.checkList(context.get("orderItems"));
+        List<GenericValue> orderItems = UtilGenerics.cast(context.get("orderItems"));
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
         if (UtilValidate.isNotEmpty(orderItems)) {
@@ -4722,7 +4722,7 @@ public class OrderServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        List<String> orderIds = UtilGenerics.checkList(context.get("orderIdList"));
+        List<String> orderIds = UtilGenerics.cast(context.get("orderIdList"));
         Locale locale = (Locale) context.get("locale");
         for (String orderId : orderIds) {
             if (UtilValidate.isEmpty(orderId)) {
@@ -4764,7 +4764,7 @@ public class OrderServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        List<String> orderIds = UtilGenerics.checkList(context.get("orderIdList"));
+        List<String> orderIds = UtilGenerics.cast(context.get("orderIdList"));
         Locale locale = (Locale) context.get("locale");
         for (String orderId : orderIds) {
             if (UtilValidate.isEmpty(orderId)) {
@@ -4804,7 +4804,7 @@ public class OrderServices {
     public static Map<String, Object> massQuickShipOrders(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        List<String> orderIds = UtilGenerics.checkList(context.get("orderIdList"));
+        List<String> orderIds = UtilGenerics.cast(context.get("orderIdList"));
         Locale locale = (Locale) context.get("locale");
         for (Object orderId : orderIds) {
             if (UtilValidate.isEmpty(orderId)) {
@@ -4838,7 +4838,7 @@ public class OrderServices {
         Map<String, List<String>> facilityOrdersMap = new HashMap<>();
 
         // make the list per facility
-        List<String> orderIds = UtilGenerics.checkList(context.get("orderIdList"));
+        List<String> orderIds = UtilGenerics.cast(context.get("orderIdList"));
         for (String orderId : orderIds) {
             if (UtilValidate.isEmpty(orderId)) {
                 continue;
@@ -4895,7 +4895,7 @@ public class OrderServices {
         String printerName = (String) context.get("printerName");
 
         // make the list per facility
-        List<String> orderIds = UtilGenerics.checkList(context.get("orderIdList"));
+        List<String> orderIds = UtilGenerics.cast(context.get("orderIdList"));
         for (String orderId : orderIds) {
             if (UtilValidate.isEmpty(orderId)) {
                 continue;
@@ -4923,7 +4923,7 @@ public class OrderServices {
         String screenLocation = (String) context.get("screenLocation");
 
         // make the list per facility
-        List<String> orderIds = UtilGenerics.checkList(context.get("orderIdList"));
+        List<String> orderIds = UtilGenerics.cast(context.get("orderIdList"));
         for (String orderId : orderIds) {
             if (UtilValidate.isEmpty(orderId)) {
                 continue;
@@ -4946,7 +4946,7 @@ public class OrderServices {
     public static Map<String, Object> massCancelRemainingPurchaseOrderItems(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        List<String> orderIds = UtilGenerics.checkList(context.get("orderIdList"));
+        List<String> orderIds = UtilGenerics.cast(context.get("orderIdList"));
         Locale locale = (Locale) context.get("locale");
 
         for (Object orderId : orderIds) {

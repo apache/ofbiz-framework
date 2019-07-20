@@ -294,7 +294,7 @@ public class FlexibleServletAccessor<T> implements Serializable {
         public void put(ServletRequest request, T value) {
             if (fma == null) {
                 if (isListReference) {
-                    List<T> lst = UtilGenerics.checkList(request.getAttribute(attributeName));
+                    List<T> lst = UtilGenerics.cast(request.getAttribute(attributeName));
                     putInList(lst, value);
                 } else {
                     request.setAttribute(attributeName, value);
@@ -302,7 +302,7 @@ public class FlexibleServletAccessor<T> implements Serializable {
             } else {
                 Object theObj = request.getAttribute(attributeName);
                 if (isListReference) {
-                    List<T> lst = UtilGenerics.checkList(theObj);
+                    List<T> lst = UtilGenerics.cast(theObj);
                     fma.put(UtilGenerics.checkMap(lst.get(listIndex), String.class, Object.class), value);
                 } else {
                     fma.put(UtilGenerics.checkMap(theObj, String.class, Object.class), value);
@@ -313,7 +313,7 @@ public class FlexibleServletAccessor<T> implements Serializable {
         public void put(HttpSession session, T value) {
             if (fma == null) {
                 if (isListReference) {
-                    List<T> lst = UtilGenerics.checkList(session.getAttribute(attributeName));
+                    List<T> lst = UtilGenerics.cast(session.getAttribute(attributeName));
                     putInList(lst, value);
                 } else {
                     session.setAttribute(attributeName, value);
@@ -321,7 +321,7 @@ public class FlexibleServletAccessor<T> implements Serializable {
             } else {
                 Object theObj = session.getAttribute(attributeName);
                 if (isListReference) {
-                    List<T> lst = UtilGenerics.checkList(theObj);
+                    List<T> lst = UtilGenerics.cast(theObj);
                     fma.put(UtilGenerics.checkMap(lst.get(listIndex), String.class, Object.class), value);
                 } else {
                     fma.put(UtilGenerics.checkMap(theObj, String.class, Object.class), value);
@@ -333,13 +333,13 @@ public class FlexibleServletAccessor<T> implements Serializable {
             if (fma != null) {
                 Object theObj = request.getAttribute(attributeName);
                 if (isListReference) {
-                    List<Object> lst = UtilGenerics.checkList(theObj);
+                    List<Object> lst = UtilGenerics.cast(theObj);
                     return fma.remove(UtilGenerics.checkMap(lst.get(listIndex), String.class, Object.class));
                 }
                 return fma.remove(UtilGenerics.checkMap(theObj, String.class, Object.class));
             }
             if (isListReference) {
-                List<Object> lst = UtilGenerics.checkList(request.getAttribute(attributeName));
+                List<Object> lst = UtilGenerics.cast(request.getAttribute(attributeName));
                 return UtilGenerics.<T>cast(lst.remove(listIndex));
             }
             Object theValue = request.getAttribute(attributeName);
@@ -351,13 +351,13 @@ public class FlexibleServletAccessor<T> implements Serializable {
             if (fma != null) {
                 Object theObj = session.getAttribute(attributeName);
                 if (isListReference) {
-                    List<Object> lst = UtilGenerics.checkList(theObj);
+                    List<Object> lst = UtilGenerics.cast(theObj);
                     return fma.remove(UtilGenerics.checkMap(lst.get(listIndex), String.class, Object.class));
                 }
                 return fma.remove(UtilGenerics.checkMap(theObj, String.class, Object.class));
             }
             if (isListReference) {
-                List<Object> lst = UtilGenerics.checkList(session.getAttribute(attributeName));
+                List<Object> lst = UtilGenerics.cast(session.getAttribute(attributeName));
                 return UtilGenerics.<T>cast(lst.remove(listIndex));
             }
             Object theValue = session.getAttribute(attributeName);

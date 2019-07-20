@@ -296,7 +296,7 @@ public final class CategoryWorker {
 
     public static List<String> getTrail(ServletRequest request) {
         HttpSession session = ((HttpServletRequest) request).getSession();
-        List<String> crumb = UtilGenerics.checkList(session.getAttribute("_BREAD_CRUMB_TRAIL_"));
+        List<String> crumb = UtilGenerics.cast(session.getAttribute("_BREAD_CRUMB_TRAIL_"));
         return crumb;
     }
 

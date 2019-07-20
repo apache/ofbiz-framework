@@ -190,7 +190,7 @@ public class PermissionRecorder {
         map.put("privilegeEnumIdCond", privilegeCond);
         map.put("roleTypeIdCond", roleCond);
         map.put("contentId", currentContentId);
-        List<Map<String, Object>> checkResultList = UtilGenerics.checkList(currentContentMap.get("checkResultList"));
+        List<Map<String, Object>> checkResultList = UtilGenerics.cast(currentContentMap.get("checkResultList"));
         checkResultList.add(map);
     }
 
@@ -229,7 +229,7 @@ public class PermissionRecorder {
 
     public String renderCurrentContentMapHtml(Map<String, Object> cMap) {
         StringBuilder sb = new StringBuilder();
-        List<Map<String, Object>> resultList = UtilGenerics.checkList(cMap.get("checkResultList"));
+        List<Map<String, Object>> resultList = UtilGenerics.cast(cMap.get("checkResultList"));
         for (Map<String, Object> rMap : resultList) {
             sb.append(renderResultRowHtml(rMap, cMap));
         }

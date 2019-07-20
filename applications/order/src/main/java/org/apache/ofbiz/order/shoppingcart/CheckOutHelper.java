@@ -638,7 +638,7 @@ public class CheckOutHelper {
         // ----------
         // If needed, the production runs are created and linked to the order lines.
         //
-        List<GenericValue> orderItems = UtilGenerics.checkList(context.get("orderItems"));
+        List<GenericValue> orderItems = UtilGenerics.cast(context.get("orderItems"));
         int counter = 0;
         for (GenericValue orderItem : orderItems) {
             String productId = orderItem.getString("productId");
@@ -801,8 +801,8 @@ public class CheckOutHelper {
             if (Debug.verboseOn()) {
                 Debug.logVerbose("ReturnList: " + taxReturn, module);
             }
-            List<GenericValue> orderAdj = UtilGenerics.checkList(taxReturn.get(0));
-            List<List<GenericValue>> itemAdj = UtilGenerics.checkList(taxReturn.get(1));
+            List<GenericValue> orderAdj = UtilGenerics.cast(taxReturn.get(0));
+            List<List<GenericValue>> itemAdj = UtilGenerics.cast(taxReturn.get(1));
 
             // set the item adjustments
             if (itemAdj != null) {
@@ -924,8 +924,8 @@ public class CheckOutHelper {
             throw new GeneralException("Problem occurred in tax service (" + e.getMessage() + ")", e);
         }
         // the adjustments (returned in order) from taxware.
-        List<GenericValue> orderAdj = UtilGenerics.checkList(serviceResult.get("orderAdjustments"));
-        List<List<GenericValue>> itemAdj = UtilGenerics.checkList(serviceResult.get("itemAdjustments"));
+        List<GenericValue> orderAdj = UtilGenerics.cast(serviceResult.get("orderAdjustments"));
+        List<List<GenericValue>> itemAdj = UtilGenerics.cast(serviceResult.get("itemAdjustments"));
 
         return UtilMisc.toList(orderAdj, itemAdj);
     }
@@ -1058,7 +1058,7 @@ public class CheckOutHelper {
             }
             if (paymentResult != null && paymentResult.containsKey("processResult")) {
                 // grab the customer messages -- only passed back in the case of an error or failure
-                List<String> messages = UtilGenerics.checkList(paymentResult.get("authResultMsgs"));
+                List<String> messages = UtilGenerics.cast(paymentResult.get("authResultMsgs"));
 
                 String authResp = (String) paymentResult.get("processResult");
 

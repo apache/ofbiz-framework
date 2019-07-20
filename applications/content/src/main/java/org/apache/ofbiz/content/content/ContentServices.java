@@ -77,9 +77,9 @@ public class ContentServices {
             toFrom = toFrom.toUpperCase(Locale.getDefault());
         }
 
-        List<String> assocTypes = UtilGenerics.checkList(context.get("contentAssocTypeList"));
-        List<String> targetOperations = UtilGenerics.checkList(context.get("targetOperationList"));
-        List<String> contentTypes = UtilGenerics.checkList(context.get("contentTypeList"));
+        List<String> assocTypes = UtilGenerics.cast(context.get("contentAssocTypeList"));
+        List<String> targetOperations = UtilGenerics.cast(context.get("targetOperationList"));
+        List<String> contentTypes = UtilGenerics.cast(context.get("contentTypeList"));
         List<GenericValue> contentList = null;
         
         try {
@@ -154,7 +154,7 @@ public class ContentServices {
     }
 
     private static void walkParentTree(Map<String, Object> nodeMap, List<Object> parentList) {
-        List<Map<String, Object>> kids = UtilGenerics.checkList(nodeMap.get("kids"));
+        List<Map<String, Object>> kids = UtilGenerics.cast(nodeMap.get("kids"));
         if (UtilValidate.isEmpty(kids)) {
             parentList.add(nodeMap.get("contentId"));
         } else {
@@ -591,7 +591,7 @@ public class ContentServices {
         Map<String, Object> result = new HashMap<>();
         String outputString = null;
         String delimiter = UtilFormatOut.checkEmpty((String)context.get("delimiter"), "|");
-        List<String> inputList = UtilGenerics.checkList(context.get("inputList"));
+        List<String> inputList = UtilGenerics.cast(context.get("inputList"));
         if (inputList != null) {
             outputString = StringUtil.join(inputList, delimiter);
         }

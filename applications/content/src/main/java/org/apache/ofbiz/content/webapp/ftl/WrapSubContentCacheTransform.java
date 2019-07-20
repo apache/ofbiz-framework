@@ -98,7 +98,7 @@ public class WrapSubContentCacheTransform implements TemplateTransformModel {
         FreeMarkerWorker.overrideWithArgs(templateCtx, args);
         final String wrapTemplateId = (String)templateCtx.get("wrapTemplateId");
         final GenericValue userLogin = FreeMarkerWorker.getWrappedObject("userLogin", env);
-        List<Map<String, ? extends Object>> trail = UtilGenerics.checkList(templateCtx.get("globalNodeTrail"));
+        List<Map<String, ? extends Object>> trail = UtilGenerics.cast(templateCtx.get("globalNodeTrail"));
         String contentAssocPredicateId = (String)templateCtx.get("contentAssocPredicateId");
         String strNullThruDatesOnly = (String)templateCtx.get("nullThruDatesOnly");
         Boolean nullThruDatesOnly = (strNullThruDatesOnly != null && "true".equalsIgnoreCase(strNullThruDatesOnly)) ? Boolean.TRUE :Boolean.FALSE;

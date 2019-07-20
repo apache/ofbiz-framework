@@ -3070,7 +3070,7 @@ public class ModelFormField {
 
         @Override
         public void addOptionValues(List<OptionValue> optionValues, Map<String, Object> context, Delegator delegator) {
-            List<? extends Object> dataList = UtilGenerics.checkList(this.listAcsr.get(context));
+            List<? extends Object> dataList = UtilGenerics.cast(this.listAcsr.get(context));
             if (dataList != null && dataList.size() != 0) {
                 for (Object data : dataList) {
                     Map<String, Object> localContext = new HashMap<>();

@@ -265,7 +265,7 @@ public class ContentSearchSession {
         ContentSearchOptions.setResultSortOrder(resultSortOrder, session);
     }
     public static List<ContentSearchOptions> getSearchOptionsHistoryList(HttpSession session) {
-        List<ContentSearchOptions> optionsHistoryList = UtilGenerics.checkList(session.getAttribute("_CONTENT_SEARCH_OPTIONS_HISTORY_"));
+        List<ContentSearchOptions> optionsHistoryList = UtilGenerics.cast(session.getAttribute("_CONTENT_SEARCH_OPTIONS_HISTORY_"));
         if (optionsHistoryList == null) {
             optionsHistoryList = new LinkedList<>();
             session.setAttribute("_CONTENT_SEARCH_OPTIONS_HISTORY_", optionsHistoryList);

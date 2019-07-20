@@ -602,7 +602,7 @@ public class ModelTree extends ModelWidget {
                                 newContext.putAll(val);
                             }
                             String targetEntityId = null;
-                            List<String> targetNodeTrail = UtilGenerics.checkList(context.get("targetNodeTrail"));
+                            List<String> targetNodeTrail = UtilGenerics.cast(context.get("targetNodeTrail"));
                             if (newDepth < targetNodeTrail.size()) {
                                 targetEntityId = targetNodeTrail.get(newDepth);
                             }
@@ -627,7 +627,7 @@ public class ModelTree extends ModelWidget {
 
         public boolean showPeers(int currentDepth, Map<String, Object> context) {
             int trailSize = 0;
-            List<?> trail = UtilGenerics.checkList(context.get("targetNodeTrail"));
+            List<?> trail = UtilGenerics.cast(context.get("targetNodeTrail"));
             int openDepth = modelTree.getOpenDepth();
             int postTrailOpenDepth = modelTree.getPostTrailOpenDepth();
             if (trail != null) {

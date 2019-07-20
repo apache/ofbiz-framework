@@ -407,7 +407,7 @@ public class PaymentGatewayServices {
                 hadError += 1;
             }
             if (results.get("messages") != null) {
-                List<String> message = UtilGenerics.checkList(results.get("messages"));
+                List<String> message = UtilGenerics.cast(results.get("messages"));
                 messages.addAll(message);
             }
             if (results.get("processAmount") != null) {

@@ -112,7 +112,7 @@ public class EmailServices {
 
         String partyId = (String) context.get("partyId");
         String body = (String) context.get("body");
-        List<Map<String, Object>> bodyParts = UtilGenerics.checkList(context.get("bodyParts"));
+        List<Map<String, Object>> bodyParts = UtilGenerics.cast(context.get("bodyParts"));
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
         results.put("communicationEventId", communicationEventId);
@@ -436,8 +436,8 @@ public class EmailServices {
         String bodyScreenUri = (String) serviceContext.remove("bodyScreenUri");
         String xslfoAttachScreenLocationParam = (String) serviceContext.remove("xslfoAttachScreenLocation");
         String attachmentNameParam = (String) serviceContext.remove("attachmentName");
-        List<String> xslfoAttachScreenLocationListParam = UtilGenerics.checkList(serviceContext.remove("xslfoAttachScreenLocationList"));
-        List<String> attachmentNameListParam = UtilGenerics.checkList(serviceContext.remove("attachmentNameList"));
+        List<String> xslfoAttachScreenLocationListParam = UtilGenerics.cast(serviceContext.remove("xslfoAttachScreenLocationList"));
+        List<String> attachmentNameListParam = UtilGenerics.cast(serviceContext.remove("attachmentNameList"));
         VisualTheme visualTheme = (VisualTheme) rServiceContext.get("visualTheme");
         if (visualTheme == null) {
             visualTheme = ThemeFactory.resolveVisualTheme(null);
@@ -460,7 +460,7 @@ public class EmailServices {
         
         List<String> attachmentTypeList = new LinkedList<>();
         String attachmentTypeParam = (String) serviceContext.remove("attachmentType");
-        List<String> attachmentTypeListParam = UtilGenerics.checkList(serviceContext.remove("attachmentTypeList"));
+        List<String> attachmentTypeListParam = UtilGenerics.cast(serviceContext.remove("attachmentTypeList"));
         if (UtilValidate.isNotEmpty(attachmentTypeParam)) {
             attachmentTypeList.add(attachmentTypeParam);
         }

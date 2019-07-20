@@ -169,11 +169,11 @@ public class TaxAuthorityServices {
         String facilityId = (String) context.get("facilityId");
         String payToPartyId = (String) context.get("payToPartyId");
         String billToPartyId = (String) context.get("billToPartyId");
-        List<GenericValue> itemProductList = UtilGenerics.checkList(context.get("itemProductList"));
-        List<BigDecimal> itemAmountList = UtilGenerics.checkList(context.get("itemAmountList"));
-        List<BigDecimal> itemPriceList = UtilGenerics.checkList(context.get("itemPriceList"));
-        List<BigDecimal> itemQuantityList = UtilGenerics.checkList(context.get("itemQuantityList"));
-        List<BigDecimal> itemShippingList = UtilGenerics.checkList(context.get("itemShippingList"));
+        List<GenericValue> itemProductList = UtilGenerics.cast(context.get("itemProductList"));
+        List<BigDecimal> itemAmountList = UtilGenerics.cast(context.get("itemAmountList"));
+        List<BigDecimal> itemPriceList = UtilGenerics.cast(context.get("itemPriceList"));
+        List<BigDecimal> itemQuantityList = UtilGenerics.cast(context.get("itemQuantityList"));
+        List<BigDecimal> itemShippingList = UtilGenerics.cast(context.get("itemShippingList"));
         BigDecimal orderShippingAmount = (BigDecimal) context.get("orderShippingAmount");
         BigDecimal orderPromotionsAmount = (BigDecimal) context.get("orderPromotionsAmount");
         GenericValue shippingAddress = (GenericValue) context.get("shippingAddress");

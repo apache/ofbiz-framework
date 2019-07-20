@@ -152,7 +152,7 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
         } catch (MiniLangException | GenericEntityException e) {
             throw new RuntimeException(e.getMessage(), e);
         }
-        List<GenericValue> longList = UtilGenerics.checkList(results.get("entityList"));
+        List<GenericValue> longList = UtilGenerics.cast(results.get("entityList"));
         templateRoot.put("entityList", longList);
 
         return new LoopWriter(out) {
@@ -183,7 +183,7 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
             @Override
             public int afterBody() throws TemplateModelException, IOException {
                 FreeMarkerWorker.reloadValues(templateRoot, savedValues, env);
-                List<Map<String, ? extends Object>> list = UtilGenerics.checkList(templateRoot.get("globalNodeTrail"));
+                List<Map<String, ? extends Object>> list = UtilGenerics.cast(templateRoot.get("globalNodeTrail"));
                 List<Map<String, ? extends Object>> subList = list.subList(0, list.size() - 1);
                 templateRoot.put("globalNodeTrail", subList);
                 env.setVariable("globalNodeTrail", FreeMarkerWorker.autoWrap(subList, env));
@@ -227,7 +227,7 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
                 Boolean isFollowObj = (Boolean) trailNode.get("isFollow");
                 if ((isReturnBeforeObj == null || !isReturnBeforeObj) && ((isPickObj != null &&
                         isPickObj) || (isFollowObj != null && isFollowObj))) {
-                    List<Map<String, ? extends Object>> globalNodeTrail = UtilGenerics.checkList(ctx.get("globalNodeTrail"));
+                    List<Map<String, ? extends Object>> globalNodeTrail = UtilGenerics.cast(ctx.get("globalNodeTrail"));
                     if (globalNodeTrail == null) {
                         globalNodeTrail = new LinkedList<>();
                     }
@@ -257,7 +257,7 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
 
             public GenericValue getRandomEntity() {
                 GenericValue pickEntity = null;
-                List<GenericValue> lst = UtilGenerics.checkList(templateRoot.get("entityList"));
+                List<GenericValue> lst = UtilGenerics.cast(templateRoot.get("entityList"));
                 if (Debug.verboseOn()) {
                     Debug.logVerbose("in limited, lst:" + lst, "");
                 }

@@ -158,12 +158,12 @@ public class QuoteServices {
         Timestamp validThruDate = (Timestamp) context.get("validThruDate");
         String quoteName = (String) context.get("quoteName");
         String description = (String) context.get("description");
-        List<GenericValue> quoteItems = UtilGenerics.checkList(context.get("quoteItems"));
-        List<GenericValue> quoteAttributes = UtilGenerics.checkList(context.get("quoteAttributes"));
-        List<GenericValue> quoteCoefficients = UtilGenerics.checkList(context.get("quoteCoefficients"));
-        List<GenericValue> quoteRoles = UtilGenerics.checkList(context.get("quoteRoles"));
-        List<GenericValue> quoteWorkEfforts = UtilGenerics.checkList(context.get("quoteWorkEfforts"));
-        List<GenericValue> quoteAdjustments = UtilGenerics.checkList(context.get("quoteAdjustments"));
+        List<GenericValue> quoteItems = UtilGenerics.cast(context.get("quoteItems"));
+        List<GenericValue> quoteAttributes = UtilGenerics.cast(context.get("quoteAttributes"));
+        List<GenericValue> quoteCoefficients = UtilGenerics.cast(context.get("quoteCoefficients"));
+        List<GenericValue> quoteRoles = UtilGenerics.cast(context.get("quoteRoles"));
+        List<GenericValue> quoteWorkEfforts = UtilGenerics.cast(context.get("quoteWorkEfforts"));
+        List<GenericValue> quoteAdjustments = UtilGenerics.cast(context.get("quoteAdjustments"));
         Locale locale = (Locale) context.get("locale");
         Map<String, Object> serviceResult = new HashMap<>();
         

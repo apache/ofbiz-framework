@@ -140,7 +140,7 @@ public class ContentPermissionServices {
         // I realized, belatedly, that I wanted to be able to pass parameters in as
         // strings so this service could be used in an action event directly,
         // so I had to write this code to handle both list and strings
-        List<String> passedPurposes = UtilGenerics.checkList(context.get("contentPurposeList"));
+        List<String> passedPurposes = UtilGenerics.cast(context.get("contentPurposeList"));
         String contentPurposeString = (String) context.get("contentPurposeString");
         if (UtilValidate.isNotEmpty(contentPurposeString)) {
             List<String> purposesFromString = StringUtil.split(contentPurposeString, "|");
@@ -154,7 +154,7 @@ public class ContentPermissionServices {
         // Sometimes permissions need to be checked before an entity is created, so
         // there needs to be a method for setting a purpose list
         auxGetter.setList(passedPurposes);
-        List<String> targetOperations = UtilGenerics.checkList(context.get("targetOperationList"));
+        List<String> targetOperations = UtilGenerics.cast(context.get("targetOperationList"));
         String targetOperationString = (String) context.get("targetOperationString");
         if (UtilValidate.isNotEmpty(targetOperationString)) {
             List<String> operationsFromString = StringUtil.split(targetOperationString, "|");
@@ -167,7 +167,7 @@ public class ContentPermissionServices {
         permCondGetter.setOperationList(targetOperations);
 
         EntityPermissionChecker.StdRelatedRoleGetter roleGetter = new EntityPermissionChecker.StdRelatedRoleGetter("Content",  "roleTypeId", "contentId", "partyId", "ownerContentId", "ContentRole");
-        List<String> passedRoles = UtilGenerics.checkList(context.get("roleTypeList"));
+        List<String> passedRoles = UtilGenerics.cast(context.get("roleTypeList"));
         if (passedRoles == null) passedRoles = new LinkedList<>();
         String roleTypeString = (String) context.get("roleTypeString");
         if (UtilValidate.isNotEmpty(roleTypeString)) {

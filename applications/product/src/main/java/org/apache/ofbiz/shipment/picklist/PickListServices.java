@@ -42,8 +42,8 @@ public class PickListServices {
     public static Map<String, Object> convertOrderIdListToHeaders(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
 
-        List<GenericValue> orderHeaderList = UtilGenerics.checkList(context.get("orderHeaderList"));
-        List<String> orderIdList = UtilGenerics.checkList(context.get("orderIdList"));
+        List<GenericValue> orderHeaderList = UtilGenerics.cast(context.get("orderHeaderList"));
+        List<String> orderIdList = UtilGenerics.cast(context.get("orderIdList"));
 
         // we don't want to process if there is already a header list
         if (orderHeaderList == null) {

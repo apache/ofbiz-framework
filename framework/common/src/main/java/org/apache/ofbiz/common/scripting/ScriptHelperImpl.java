@@ -126,7 +126,7 @@ public final class ScriptHelperImpl implements ScriptHelper {
             Debug.logWarning(e, errMsg, module);
             throw new ScriptException(errMsg);
         }
-        toMap.putAll(modelService.makeValid(inputMap, ModelService.IN_PARAM, true, UtilGenerics.checkList(ctxHelper.getErrorMessages()), ctxHelper.getTimeZone(), ctxHelper.getLocale()));
+        toMap.putAll(modelService.makeValid(inputMap, ModelService.IN_PARAM, true, UtilGenerics.cast(ctxHelper.getErrorMessages()), ctxHelper.getTimeZone(), ctxHelper.getLocale()));
         return toMap;
     }
 
@@ -158,7 +158,7 @@ public final class ScriptHelperImpl implements ScriptHelper {
     @Override
     public List<Map<String, Object>> findList(String entityName, Map<String, ? extends Object> fields) throws ScriptException {
         try {
-            return UtilGenerics.checkList(ctxHelper.getDelegator().findByAnd(entityName, fields, null, false));
+            return UtilGenerics.cast(ctxHelper.getDelegator().findByAnd(entityName, fields, null, false));
         } catch (GenericEntityException e) {
             String errMsg = "Error running script " + ctxHelper.getScriptName() + ": Problem invoking the findList method: " + e.getMessage();
             Debug.logWarning(e, errMsg, module);
@@ -179,7 +179,7 @@ public final class ScriptHelperImpl implements ScriptHelper {
         }
         boolean useCache = "true".equals(args.get("useCache"));
         boolean autoFieldMap = !"false".equals(args.get("autoFieldMap"));
-        List<String> selectFieldList = UtilGenerics.checkList(args.get("selectFieldList"));
+        List<String> selectFieldList = UtilGenerics.cast(args.get("selectFieldList"));
         ModelEntity modelEntity = ctxHelper.getDelegator().getModelEntity(entityName);
         if (modelEntity == null) {
             throw new ScriptException("Error running script " + ctxHelper.getScriptName() + " - no entity definition found for entity name [" + entityName + "]");

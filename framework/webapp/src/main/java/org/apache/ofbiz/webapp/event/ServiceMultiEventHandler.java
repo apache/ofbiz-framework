@@ -348,7 +348,7 @@ public class ServiceMultiEventHandler implements EventHandler {
                         }
                     }
                     if (UtilValidate.isNotEmpty(result.get(ModelService.SUCCESS_MESSAGE_LIST))) {
-                        List<String> newSuccessMessages = UtilGenerics.<String>checkList(result.get(ModelService.SUCCESS_MESSAGE_LIST));
+                        List<String> newSuccessMessages = UtilGenerics.cast(result.get(ModelService.SUCCESS_MESSAGE_LIST));
                         for (int j = 0; j < newSuccessMessages.size(); j++) {
                             String newSuccessMessage = newSuccessMessages.get(j);
                             if (!successMessages.contains(newSuccessMessage)) {

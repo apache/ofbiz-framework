@@ -77,7 +77,7 @@ public class ContentManagementServices {
         String mapKey = (String) context.get("mapKey");
         GenericValue userLogin = (GenericValue)context.get("userLogin");
         Timestamp fromDate = (Timestamp)context.get("fromDate");
-        List<String> assocTypes = UtilGenerics.checkList(context.get("assocTypes"));
+        List<String> assocTypes = UtilGenerics.cast(context.get("assocTypes"));
         String assocTypesString = (String)context.get("assocTypesString");
         if (UtilValidate.isNotEmpty(assocTypesString)) {
             List<String> lst = StringUtil.split(assocTypesString, "|");
@@ -155,7 +155,7 @@ public class ContentManagementServices {
         if (Debug.infoOn()) Debug.logInfo("in persist... mapKey(0):" + mapKey, module);
 
         // ContentPurposes can get passed in as a delimited string or a list. Combine.
-        List<String> contentPurposeList = UtilGenerics.checkList(context.get("contentPurposeList"));
+        List<String> contentPurposeList = UtilGenerics.cast(context.get("contentPurposeList"));
         if (contentPurposeList == null) {
             contentPurposeList = new LinkedList<>();
         }
@@ -829,7 +829,7 @@ public class ContentManagementServices {
             seqInc = 100;
         }
         int seqIncrement = seqInc;
-        List<String> typeList = UtilGenerics.checkList(context.get("typeList"));
+        List<String> typeList = UtilGenerics.cast(context.get("typeList"));
         if (typeList == null) {
             typeList = new LinkedList<>();
         }
@@ -961,7 +961,7 @@ public class ContentManagementServices {
     public static Map<String, Object> updateLeafCount(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException{
         Map<String, Object> result = new HashMap<>();
         Delegator delegator = dctx.getDelegator();
-        List<String> typeList = UtilGenerics.checkList(context.get("typeList"));
+        List<String> typeList = UtilGenerics.cast(context.get("typeList"));
         if (typeList == null) {
             typeList = UtilMisc.toList("PUBLISH_LINK", "SUB_CONTENT");
         }
@@ -1518,7 +1518,7 @@ public class ContentManagementServices {
     public static Map<String, Object> followNodeChildrenMethod(GenericValue content,  LocalDispatcher dispatcher, String serviceName, Map<String, Object> context) throws GenericEntityException, GenericServiceException {
         Map<String, Object> result = null;
         String contentId = content.getString("contentId");
-        List<String> contentAssocTypeIdList = UtilGenerics.checkList(context.get("contentAssocTypeIdList"));
+        List<String> contentAssocTypeIdList = UtilGenerics.cast(context.get("contentAssocTypeIdList"));
         Locale locale = (Locale) context.get("locale");
         Set<String> visitedSet = UtilGenerics.cast(context.get("visitedSet"));
         if (visitedSet == null) {
@@ -1587,7 +1587,7 @@ public class ContentManagementServices {
               if (ServiceUtil.isError(traversResult)) {
                   return ServiceUtil.returnError(ServiceUtil.getErrorMessage(traversResult));
               }
-              parentList = UtilGenerics.checkList(traversResult.get("parentList"));
+              parentList = UtilGenerics.cast(traversResult.get("parentList"));
           } else {
               parentList.add(masterRevisionContentId);
           }

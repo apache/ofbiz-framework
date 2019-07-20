@@ -293,7 +293,7 @@ public class BOMNode {
                                         Debug.logError(errorMessage, module);
                                         throw new GenericEntityException(errorMessage);
                                     }
-                                    List<GenericValue> variantProducts = UtilGenerics.checkList(storeResult.get("products"));
+                                    List<GenericValue> variantProducts = UtilGenerics.cast(storeResult.get("products"));
                                     if (variantProducts.size() == 1) {
                                         variantProduct = variantProducts.get(0);
                                     }

@@ -223,7 +223,7 @@ public class ShoppingCartEvents {
             try {
                 productId = (String) object;
             } catch (ClassCastException e) {
-                List<String> productList = UtilGenerics.checkList(object);
+                List<String> productList = UtilGenerics.cast(object);
                 productId = productList.get(0);
             }
         }
@@ -998,7 +998,7 @@ public class ShoppingCartEvents {
                 Debug.logWarning("Invalid value for cart index =" + cartIndexStr, module);
             }
         }
-        List<ShoppingCart> cartList = UtilGenerics.checkList(session.getAttribute("shoppingCartList"));
+        List<ShoppingCart> cartList = UtilGenerics.cast(session.getAttribute("shoppingCartList"));
         if (UtilValidate.isEmpty(cartList)) {
             cartList = new LinkedList<>();
             session.setAttribute("shoppingCartList", cartList);
@@ -1034,7 +1034,7 @@ public class ShoppingCartEvents {
                 Debug.logWarning("Invalid value for cart index =" + cartIndexStr, module);
             }
         }
-        List<ShoppingCart> cartList = UtilGenerics.checkList(session.getAttribute("shoppingCartList"));
+        List<ShoppingCart> cartList = UtilGenerics.cast(session.getAttribute("shoppingCartList"));
         if (UtilValidate.isNotEmpty(cartList) && cartIndex >= 0 && cartIndex < cartList.size()) {
             cartList.remove(cartIndex);
         }
@@ -1153,7 +1153,7 @@ public class ShoppingCartEvents {
         }
 
         if (request.getAttribute("_EVENT_MESSAGE_LIST_") != null) {
-            List<String> msg = UtilGenerics.checkList(request.getAttribute("_EVENT_MESSAGE_LIST_"));
+            List<String> msg = UtilGenerics.cast(request.getAttribute("_EVENT_MESSAGE_LIST_"));
             eventList.addAll(msg);
         }
 
@@ -1185,7 +1185,7 @@ public class ShoppingCartEvents {
         }
 
         if (request.getAttribute("_EVENT_MESSAGE_LIST_") != null) {
-            List<String> msg = UtilGenerics.checkList(request.getAttribute("_EVENT_MESSAGE_LIST_"));
+            List<String> msg = UtilGenerics.cast(request.getAttribute("_EVENT_MESSAGE_LIST_"));
             eventList.addAll(msg);
         }
 
@@ -1220,7 +1220,7 @@ public class ShoppingCartEvents {
         //Check for errors
         StringBuilder errMsg = new StringBuilder();
         if (result.containsKey(ModelService.ERROR_MESSAGE_LIST)) {
-            List<String> errorMsgs = UtilGenerics.checkList(result.get(ModelService.ERROR_MESSAGE_LIST));
+            List<String> errorMsgs = UtilGenerics.cast(result.get(ModelService.ERROR_MESSAGE_LIST));
             Iterator<String> iterator = errorMsgs.iterator();
             errMsg.append("<ul>");
             while (iterator.hasNext()) {

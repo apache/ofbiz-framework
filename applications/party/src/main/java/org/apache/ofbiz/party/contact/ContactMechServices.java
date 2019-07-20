@@ -921,7 +921,7 @@ public class ContactMechServices {
             for (Map<String, Object> thisMap: valueMaps) {
                 GenericValue contactMech = (GenericValue) thisMap.get("contactMech");
                 GenericValue partyContactMech = (GenericValue) thisMap.get("partyContactMech");
-                List<GenericValue> partyContactMechPurposes = UtilGenerics.checkList(thisMap.get("partyContactMechPurposes"));
+                List<GenericValue> partyContactMechPurposes = UtilGenerics.cast(thisMap.get("partyContactMechPurposes"));
 
                 // get the contactMechId
                 String contactMechId = contactMech.getString("contactMechId");

@@ -71,7 +71,7 @@ public class UspsServicesTests extends OFBizTestCase {
         assertEquals("trackingSummary is correct",
                 "Your item was delivered at 8:10 am on June 1 in Wilmington DE 19801.", trackingSummary);
 
-        List<String> trackingDetailList = UtilGenerics.checkList(result.get("trackingDetailList"));
+        List<String> trackingDetailList = UtilGenerics.cast(result.get("trackingDetailList"));
         assertEquals("trackingDetailList has 3 elements", 3, trackingDetailList.size());
 
         Debug.logInfo("[testUspsTrackConfirm] trackingDetailList[0]: " + trackingDetailList.get(0), module);

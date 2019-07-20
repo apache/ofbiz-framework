@@ -79,7 +79,7 @@ public class UploadContentAndImage {
             ServletFileUpload dfu = new ServletFileUpload(new DiskFileItemFactory(10240, FileUtil.getFile("runtime/tmp")));
             List<FileItem> lst = null;
             try {
-                lst = UtilGenerics.checkList(dfu.parseRequest(request));
+                lst = UtilGenerics.cast(dfu.parseRequest(request));
             } catch (FileUploadException e4) {
                 request.setAttribute("_ERROR_MESSAGE_", e4.getMessage());
                 Debug.logError("[UploadContentAndImage.uploadContentAndImage] " + e4.getMessage(), module);
@@ -339,7 +339,7 @@ public class UploadContentAndImage {
             ServletFileUpload dfu = new ServletFileUpload(new DiskFileItemFactory(10240, FileUtil.getFile("runtime/tmp")));
             List<FileItem> lst = null;
             try {
-                lst = UtilGenerics.checkList(dfu.parseRequest(request));
+                lst = UtilGenerics.cast(dfu.parseRequest(request));
             } catch (FileUploadException e4) {
                 request.setAttribute("_ERROR_MESSAGE_", e4.getMessage());
                 Debug.logError("[UploadContentAndImage.uploadContentAndImage] " + e4.getMessage(), module);
@@ -449,7 +449,7 @@ public class UploadContentAndImage {
                     String msg = "Caught an exception : " + e.toString();
                     Debug.logError(e, msg);
                     request.setAttribute("_ERROR_MESSAGE_", msg);
-                    List<String> errorMsgList = UtilGenerics.checkList(request.getAttribute("_EVENT_MESSAGE_LIST_"));
+                    List<String> errorMsgList = UtilGenerics.cast(request.getAttribute("_EVENT_MESSAGE_LIST_"));
                     if (errorMsgList == null) {
                         errorMsgList = new LinkedList<>();
                         request.setAttribute("errorMessageList", errorMsgList);
@@ -501,7 +501,7 @@ public class UploadContentAndImage {
         } catch (ServiceAuthException e) {
             String msg = e.getMessage();
             request.setAttribute("_ERROR_MESSAGE_", msg);
-            List<String> errorMsgList = UtilGenerics.checkList(request.getAttribute("_EVENT_MESSAGE_LIST_"));
+            List<String> errorMsgList = UtilGenerics.cast(request.getAttribute("_EVENT_MESSAGE_LIST_"));
             if (Debug.infoOn()) {
                 Debug.logInfo("[UploadContentStuff]errorMsgList:" + errorMsgList, module);
             }
@@ -518,7 +518,7 @@ public class UploadContentAndImage {
         if (ServiceUtil.isError(ftlResults)) {
             String msg = ServiceUtil.getErrorMessage(ftlResults);
             request.setAttribute("_ERROR_MESSAGE_", msg);
-            List<String> errorMsgList = UtilGenerics.checkList(request.getAttribute("_EVENT_MESSAGE_LIST_"));
+            List<String> errorMsgList = UtilGenerics.cast(request.getAttribute("_EVENT_MESSAGE_LIST_"));
             if (errorMsgList == null) {
                 errorMsgList = new LinkedList<>();
                 request.setAttribute("errorMessageList", errorMsgList);
@@ -554,7 +554,7 @@ public class UploadContentAndImage {
             } catch (ServiceAuthException e) {
                 String msg = e.getMessage();
                 request.setAttribute("_ERROR_MESSAGE_", msg);
-                List<String> errorMsgList = UtilGenerics.checkList(request.getAttribute("_EVENT_MESSAGE_LIST_"));
+                List<String> errorMsgList = UtilGenerics.cast(request.getAttribute("_EVENT_MESSAGE_LIST_"));
                 if (Debug.infoOn()) {
                     Debug.logInfo("[UploadContentStuff]errorMsgList:" + errorMsgList, module);
                 }

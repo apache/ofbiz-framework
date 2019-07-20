@@ -100,7 +100,7 @@ public class OrderTestServices {
                     return ServiceUtil.returnError(ServiceUtil.getErrorMessage(result));
                 }
                 if (result.get("categoryMembers") != null) {
-                    List<GenericValue> productCategoryMembers = UtilGenerics.checkList(result.get("categoryMembers"));
+                    List<GenericValue> productCategoryMembers = UtilGenerics.cast(result.get("categoryMembers"));
                     if (productCategoryMembers != null) {
                         for (GenericValue prodCatMemb : productCategoryMembers) {
                             if (prodCatMemb != null) {

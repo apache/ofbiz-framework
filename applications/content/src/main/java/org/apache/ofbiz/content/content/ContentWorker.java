@@ -515,7 +515,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                 thisNode.put("contentId", contentId);
                 thisNode.put("contentTypeId", contentTypeId);
                 thisNode.put("contentAssocTypeId", contentAssocTypeId);
-                List<Map<String, Object>> kids = UtilGenerics.checkList(masterNode.get("kids"));
+                List<Map<String, Object>> kids = UtilGenerics.cast(masterNode.get("kids"));
                 if (kids == null) {
                     kids = new LinkedList<>();
                     masterNode.put("kids", kids);
@@ -563,7 +563,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
 
     public static boolean traverseSubContent(Map<String, Object> ctx) {
         boolean inProgress = false;
-        List<Map <String, Object>> nodeTrail = UtilGenerics.checkList(ctx.get("nodeTrail"));
+        List<Map <String, Object>> nodeTrail = UtilGenerics.cast(ctx.get("nodeTrail"));
         ContentWorker.traceNodeTrail("11",nodeTrail);
         int sz = nodeTrail.size();
         if (sz == 0) {
@@ -576,7 +576,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
             return false;
         }
 
-        List<Map <String, Object>> kids = UtilGenerics.checkList(currentNode.get("kids"));
+        List<Map <String, Object>> kids = UtilGenerics.cast(currentNode.get("kids"));
         if (UtilValidate.isNotEmpty(kids)) {
             int idx = 0;
             while (idx < kids.size()) {
@@ -611,7 +611,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                 currentNode = nodeTrail.remove(--sz);
                 ContentWorker.traceNodeTrail("15",nodeTrail);
                 Map<String, Object> parentNode = nodeTrail.get(sz - 1);
-                kids = UtilGenerics.checkList(parentNode.get("kids"));
+                kids = UtilGenerics.cast(parentNode.get("kids"));
                 if (kids == null) {
                     continue;
                 }
@@ -722,7 +722,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         } catch (MiniLangException e2) {
             throw new RuntimeException(e2.getMessage());
         }
-        List<GenericValue> relatedViews = UtilGenerics.checkList(results.get("entityList"));
+        List<GenericValue> relatedViews = UtilGenerics.cast(results.get("entityList"));
         for (GenericValue assocValue : relatedViews) {
             Map<String, Object> thisNode = ContentWorker.makeNode(assocValue);
             checkConditions(delegator, thisNode, null, whenMap);
@@ -1080,7 +1080,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                 }
                 Map<String, Object> results = null;
                 results = ContentServicesComplex.getAssocAndContentAndDataResourceMethod(delegator, contentId, mapKey, "To", fromDate, null, null, null, assocTypes, null);
-                List<GenericValue> entityList = UtilGenerics.checkList(results.get("entityList"));
+                List<GenericValue> entityList = UtilGenerics.cast(results.get("entityList"));
                 if (UtilValidate.isEmpty(entityList)) {
                     //throw new IOException("No subcontent found.");
                 } else {
@@ -1124,7 +1124,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         } catch (MiniLangException e) {
             throw new RuntimeException(e.getMessage());
         }
-        List<GenericValue> entityList = UtilGenerics.checkList(results.get("entityList"));
+        List<GenericValue> entityList = UtilGenerics.cast(results.get("entityList"));
         if (UtilValidate.isEmpty(entityList)) {
             //throw new IOException("No subcontent found.");
         } else {
@@ -1149,7 +1149,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
         GenericValue currentContent = null;
         String viewContentId = null;
         if (UtilValidate.isNotEmpty(trail)) {
-            passedGlobalNodeTrail = UtilGenerics.checkList(UtilMisc.makeListWritable(trail));
+            passedGlobalNodeTrail = UtilGenerics.cast(UtilMisc.makeListWritable(trail));
         } else {
             passedGlobalNodeTrail = new LinkedList<>();
         }
@@ -1290,7 +1290,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
     }
 
     public static List<String> prepTargetOperationList(Map<String, ? extends Object> context, String md) {
-        List<String> targetOperationList = UtilGenerics.checkList(context.get("targetOperationList"));
+        List<String> targetOperationList = UtilGenerics.cast(context.get("targetOperationList"));
         String targetOperationString = (String)context.get("targetOperationString");
         if (Debug.infoOn()) {
             Debug.logInfo("in prepTargetOperationList, targetOperationString(0):" + targetOperationString, "");
@@ -1322,7 +1322,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
      * @return the list of content purpose
      */
     public static List<String> prepContentPurposeList(Map<String, Object> context) {
-        List<String> contentPurposeList = UtilGenerics.checkList(context.get("contentPurposeList"));
+        List<String> contentPurposeList = UtilGenerics.cast(context.get("contentPurposeList"));
         String contentPurposeString = (String)context.get("contentPurposeString");
         if (Debug.infoOn()) {
             Debug.logInfo("in prepContentPurposeList, contentPurposeString(0):" + contentPurposeString, "");
@@ -1591,7 +1591,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                     indent.setLength(indent.length() - 1);
                 } else if (obj instanceof List<?>) {
                     indent.append(' ');
-                    logList(s, "LIST[" + ((List<?>)obj).size() + "]", UtilGenerics.checkList(obj), indent);
+                    logList(s, "LIST[" + ((List<?>)obj).size() + "]", UtilGenerics.cast(obj), indent);
                     indent.setLength(indent.length() - 1);
                 } else if (obj instanceof Map<?, ?>) {
                     indent.append(' ');
@@ -1635,7 +1635,7 @@ public class ContentWorker implements org.apache.ofbiz.widget.content.ContentWor
                 indent.setLength(indent.length() - 1);
             } else if (obj instanceof List<?>) {
                 indent.append(' ');
-                logList(s, "LIST[" + ((List<?>)obj).size() + "]", UtilGenerics.checkList(obj), indent);
+                logList(s, "LIST[" + ((List<?>)obj).size() + "]", UtilGenerics.cast(obj), indent);
                 indent.setLength(indent.length() - 1);
             } else if (obj instanceof Map<?, ?>) {
                 indent.append(' ');

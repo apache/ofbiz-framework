@@ -337,7 +337,7 @@ public class ProductSearchSession {
         }
     }
     public static List<ProductSearchOptions> getSearchOptionsHistoryList(HttpSession session) {
-        List<ProductSearchOptions> optionsHistoryList = UtilGenerics.checkList(session.getAttribute("_PRODUCT_SEARCH_OPTIONS_HISTORY_"));
+        List<ProductSearchOptions> optionsHistoryList = UtilGenerics.cast(session.getAttribute("_PRODUCT_SEARCH_OPTIONS_HISTORY_"));
         if (optionsHistoryList == null) {
             optionsHistoryList = new LinkedList<>();
             session.setAttribute("_PRODUCT_SEARCH_OPTIONS_HISTORY_", optionsHistoryList);

@@ -219,7 +219,7 @@ public final class UtilHttp {
 
             List<FileItem> uploadedItems = null;
             try {
-                uploadedItems = UtilGenerics.<FileItem>checkList(upload.parseRequest(request));
+                uploadedItems = UtilGenerics.cast(upload.parseRequest(request));
             } catch (FileUploadException e) {
                 Debug.logError("File upload error" + e, module);
             }

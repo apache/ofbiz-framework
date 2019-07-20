@@ -212,7 +212,7 @@ public class ShipmentServices {
         String shippingPostalCode = (String) context.get("shippingPostalCode");
         String shippingCountryCode = (String) context.get("shippingCountryCode");
 
-        List<Map<String, Object>> shippableItemInfo = UtilGenerics.checkList(context.get("shippableItemInfo"));
+        List<Map<String, Object>> shippableItemInfo = UtilGenerics.cast(context.get("shippableItemInfo"));
         BigDecimal shippableTotal = (BigDecimal) context.get("shippableTotal");
         BigDecimal shippableQuantity = (BigDecimal) context.get("shippableQuantity");
         BigDecimal shippableWeight = (BigDecimal) context.get("shippableWeight");

@@ -613,7 +613,7 @@ public class CheckOutEvents {
         ServiceUtil.getMessages(request, callResult, null);
 
         // check for customer message(s)
-        List<String> messages = UtilGenerics.checkList(callResult.get("authResultMsgs"));
+        List<String> messages = UtilGenerics.cast(callResult.get("authResultMsgs"));
         if (UtilValidate.isNotEmpty(messages)) {
             request.setAttribute("_EVENT_MESSAGE_LIST_", messages);
         }
@@ -1172,8 +1172,8 @@ public class CheckOutEvents {
         String originalOrderId = request.getParameter("orderId");
 
         // create the replacement order adjustment
-        List <GenericValue>orderAdjustments = UtilGenerics.checkList(context.get("orderAdjustments"));
-        List <GenericValue>orderItems = UtilGenerics.checkList(context.get("orderItems"));
+        List <GenericValue>orderAdjustments = UtilGenerics.cast(context.get("orderAdjustments"));
+        List <GenericValue>orderItems = UtilGenerics.cast(context.get("orderItems"));
         OrderReadHelper orderReadHelper = new OrderReadHelper(orderAdjustments, orderItems);
         BigDecimal grandTotal = orderReadHelper.getOrderGrandTotal();
         if (grandTotal.compareTo(new BigDecimal(0)) != 0) {

@@ -61,7 +61,7 @@ public final class LayoutWorker {
         ServletFileUpload fu = new ServletFileUpload(new DiskFileItemFactory(10240, new File(new File("runtime"), "tmp")));
         List<FileItem> lst = null;
         try {
-           lst = UtilGenerics.checkList(fu.parseRequest(request));
+           lst = UtilGenerics.cast(fu.parseRequest(request));
         } catch (FileUploadException e4) {
             return ServiceUtil.returnError(e4.getMessage());
         }

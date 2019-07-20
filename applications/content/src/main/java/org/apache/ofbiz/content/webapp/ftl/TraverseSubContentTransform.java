@@ -180,7 +180,7 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
 
             @Override
             public int afterBody() throws TemplateModelException, IOException {
-                List<Map<String, Object>> nodeTrail = UtilGenerics.checkList(traverseContext.get("nodeTrail"));
+                List<Map<String, Object>> nodeTrail = UtilGenerics.cast(traverseContext.get("nodeTrail"));
                 ContentWorker.traceNodeTrail("6",nodeTrail);
                 boolean inProgress = ContentWorker.traverseSubContent(traverseContext);
                 ContentWorker.traceNodeTrail("7",nodeTrail);
@@ -249,7 +249,7 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
                 }
                 assocContext.put("typeAncestry", contentTypeAncestry);
                 Map<String, Object> whenMap = UtilGenerics.cast(traverseContext.get("whenMap"));
-                List<Map<String, ? extends Object>> nodeTrail = UtilGenerics.checkList(traverseContext.get("nodeTrail"));
+                List<Map<String, ? extends Object>> nodeTrail = UtilGenerics.cast(traverseContext.get("nodeTrail"));
                 int indentSz = indent + nodeTrail.size();
                 assocContext.put("indentObj", indentSz);
                 isPick = ContentWorker.checkWhen(assocContext, (String)whenMap.get("pickWhen"), true);
@@ -257,7 +257,7 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
             }
 
             public void populateContext(Map<String, Object> traverseContext, Map<String, Object> templateContext) {
-                List<Map<String, Object>> nodeTrail = UtilGenerics.checkList(traverseContext.get("nodeTrail"));
+                List<Map<String, Object>> nodeTrail = UtilGenerics.cast(traverseContext.get("nodeTrail"));
                 int sz = nodeTrail.size();
                 Map<String, Object> node = nodeTrail.get(sz - 1);
                 String contentId = (String)node.get("contentId");

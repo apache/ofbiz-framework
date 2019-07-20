@@ -1915,8 +1915,8 @@ public class UpsServices {
         String shipmentMethodTypeId = (String) context.get("shipmentMethodTypeId");
         String shippingPostalCode = (String) context.get("shippingPostalCode");
         String shippingCountryCode = (String) context.get("shippingCountryCode");
-        List<BigDecimal> packageWeights = UtilGenerics.checkList(context.get("packageWeights"));
-        List<Map<String, Object>> shippableItemInfo = UtilGenerics.checkList(context.get("shippableItemInfo"));
+        List<BigDecimal> packageWeights = UtilGenerics.cast(context.get("packageWeights"));
+        List<Map<String, Object>> shippableItemInfo = UtilGenerics.cast(context.get("shippableItemInfo"));
         String isResidentialAddress = (String)context.get("isResidentialAddress");
 
         // Important: DO NOT returnError here or you could trigger a transaction rollback and break other services.

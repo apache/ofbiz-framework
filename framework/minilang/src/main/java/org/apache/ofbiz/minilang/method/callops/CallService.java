@@ -294,7 +294,7 @@ public final class CallService extends MethodOperation {
         if (result.containsKey(ModelService.ERROR_MESSAGE)) {
             errorMessage = ServiceUtil.makeErrorMessage(result, messagePrefixStr, messageSuffixStr, errorPrefixStr, errorSuffixStr);
         } else if (result.containsKey(ModelService.ERROR_MESSAGE_LIST)) {
-            errorMessageList = UtilGenerics.checkList(result.get(ModelService.ERROR_MESSAGE_LIST));
+            errorMessageList = UtilGenerics.cast(result.get(ModelService.ERROR_MESSAGE_LIST));
         }
         if ((UtilValidate.isNotEmpty(errorMessage) || UtilValidate.isNotEmpty(errorMessageList)) && breakOnError) {
             if (methodContext.getMethodType() == MethodContext.EVENT) {

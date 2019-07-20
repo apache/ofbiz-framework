@@ -378,7 +378,7 @@ public class LayoutEvents {
                 Debug.logError(errorMessage, module);
                 return "error";
             }
-            entityList = UtilGenerics.checkList(results.get("entityList"));
+            entityList = UtilGenerics.cast(results.get("entityList"));
             if (UtilValidate.isEmpty(entityList)) {
                 String errMsg = UtilProperties.getMessage(LayoutEvents.err_resource, "layoutEvents.no_subcontent", locale);
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);

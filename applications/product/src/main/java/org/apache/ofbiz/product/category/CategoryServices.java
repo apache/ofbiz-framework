@@ -95,7 +95,7 @@ public class CategoryServices {
             return ServiceUtil.returnFailure(UtilProperties.getMessage(resourceError, "categoryservices.problems_getting_next_products", locale));
         }
 
-        List<String> orderByFields = UtilGenerics.checkList(context.get("orderByFields"));
+        List<String> orderByFields = UtilGenerics.cast(context.get("orderByFields"));
         if (orderByFields == null) orderByFields = new LinkedList<>();
         String entityName = getCategoryFindEntityName(delegator, orderByFields, introductionDateLimit, releaseDateLimit);
 
@@ -216,7 +216,7 @@ public class CategoryServices {
         Timestamp introductionDateLimit = (Timestamp) context.get("introductionDateLimit");
         Timestamp releaseDateLimit = (Timestamp) context.get("releaseDateLimit");
 
-        List<String> orderByFields = UtilGenerics.checkList(context.get("orderByFields"));
+        List<String> orderByFields = UtilGenerics.cast(context.get("orderByFields"));
         if (orderByFields == null) orderByFields = new LinkedList<>();
         String entityName = getCategoryFindEntityName(delegator, orderByFields, introductionDateLimit, releaseDateLimit);
 

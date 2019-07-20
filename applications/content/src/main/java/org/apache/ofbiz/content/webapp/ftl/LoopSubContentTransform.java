@@ -82,7 +82,7 @@ public class LoopSubContentTransform implements TemplateTransformModel {
     }
 
     public static boolean prepCtx(Delegator delegator, Map<String, Object> ctx) {
-        List<GenericValue> lst = UtilGenerics.checkList(ctx.get("entityList"));
+        List<GenericValue> lst = UtilGenerics.cast(ctx.get("entityList"));
         Integer idx = (Integer) ctx.get("entityIndex");
         if (idx == null) {
             idx = 0;
@@ -186,7 +186,7 @@ public class LoopSubContentTransform implements TemplateTransformModel {
         //DEJ20080730 Should always use contentId, not subContentId since we're searching for that and it is confusing
         String thisMapKey = (String)templateCtx.get("mapKey");
         Map<String, Object> results = ContentServicesComplex.getAssocAndContentAndDataResourceMethod(delegator, thisContentId, thisMapKey, null, fromDate, null, null, null, assocTypes, null);
-        List<GenericValue> entityList = UtilGenerics.checkList(results.get("entityList"));
+        List<GenericValue> entityList = UtilGenerics.cast(results.get("entityList"));
         templateCtx.put("entityList", entityList);
 
         return new LoopWriter(out) {
