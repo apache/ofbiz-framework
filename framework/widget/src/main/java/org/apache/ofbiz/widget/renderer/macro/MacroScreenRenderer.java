@@ -764,8 +764,9 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         }
 
         RequestHandler rh = RequestHandler.from(request);
+        Object obj = context.get("requestParameters");
 
-        Map<String, Object> inputFields = UtilGenerics.toMap(context.get("requestParameters"));
+        Map<String, Object> inputFields = (obj instanceof Map) ? UtilGenerics.cast(obj) : null;
         // strip out any multi form fields if the form is of type multi
         if ("multi".equals(modelForm.getType())) {
             inputFields = UtilHttp.removeMultiFormParameters(inputFields);

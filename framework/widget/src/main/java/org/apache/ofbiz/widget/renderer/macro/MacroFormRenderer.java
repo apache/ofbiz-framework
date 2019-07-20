@@ -1510,7 +1510,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
     @Override
     public void renderFormatListWrapperOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         Map<String, Object> inputFields = UtilGenerics.checkMap(context.get("requestParameters"));
-        Map<String, Object> queryStringMap = UtilGenerics.toMap(context.get("queryStringMap"));
+        Object obj = context.get("queryStringMap");
+        Map<String, Object> queryStringMap = (obj instanceof Map) ? UtilGenerics.cast(obj) : null;
         if (UtilValidate.isNotEmpty(queryStringMap)) {
             inputFields.putAll(queryStringMap);
         }

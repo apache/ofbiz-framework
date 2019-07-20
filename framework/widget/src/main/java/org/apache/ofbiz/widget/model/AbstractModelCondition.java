@@ -583,7 +583,8 @@ public abstract class AbstractModelCondition implements Serializable, ModelCondi
                     Debug.logWarning("No permission service-name specified!", module);
                     return false;
                 }
-                Map<String, Object> serviceContext = UtilGenerics.toMap(context.get(contextMap));
+                Object obj = context.get(contextMap);
+                Map<String, Object> serviceContext = (obj instanceof Map) ? UtilGenerics.cast(obj) : null;
                 if (serviceContext != null) {
                     // copy the required internal fields
                     serviceContext.put("userLogin", context.get("userLogin"));

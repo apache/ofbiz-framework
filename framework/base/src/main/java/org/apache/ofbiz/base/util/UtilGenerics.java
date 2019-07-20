@@ -92,11 +92,4 @@ public final class UtilGenerics {
     public static <T> List<T> toList(Object obj) {
         return (obj instanceof List) ? cast(obj) : null;
     }
-
-    /** Returns the Object argument as a parameterized Map if the Object argument
-     * is an instance of Map. Otherwise returns null.
-     */
-    public static <K, V> Map<K, V> toMap(Object obj) {
-        return (obj instanceof Map) ? cast(obj) : null;
-    }
 }

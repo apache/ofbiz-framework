@@ -685,7 +685,8 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                     DispatchContext dc = WidgetWorker.getDispatcher(context).getDispatchContext();
                     // try a map called "parameters", try it first so values from here are overriden by values in the main context
                     Map<String, Object> combinedMap = new HashMap<>();
-                    Map<String, Object> parametersObj = UtilGenerics.toMap(context.get("parameters"));
+                    Object obj = context.get("parameters");
+                    Map<String, Object> parametersObj = (obj instanceof Map) ? UtilGenerics.cast(obj) : null;
                     if (parametersObj != null) {
                         combinedMap.putAll(parametersObj);
                     }
@@ -693,7 +694,8 @@ public abstract class AbstractModelAction implements Serializable, ModelAction {
                     serviceContext = dc.makeValidContext(serviceNameExpanded, ModelService.IN_PARAM, combinedMap);
                 } else if (UtilValidate.isNotEmpty(autoFieldMapString) && !"false".equals(autoFieldMapString)) {
                     FlexibleMapAccessor<Object> fieldFma = FlexibleMapAccessor.getInstance(autoFieldMapString);
-                    Map<String, Object> autoFieldMap = UtilGenerics.toMap(fieldFma.get(context));
+                    Object obj = fieldFma.get(context);
+                    Map<String, Object> autoFieldMap = (obj instanceof Map) ? UtilGenerics.cast(obj) : null;
                     if (autoFieldMap != null) {
                         serviceContext = WidgetWorker.getDispatcher(context).getDispatchContext()
                                 .makeValidContext(serviceNameExpanded, ModelService.IN_PARAM, autoFieldMap);

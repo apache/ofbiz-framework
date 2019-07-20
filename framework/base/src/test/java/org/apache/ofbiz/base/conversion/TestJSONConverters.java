@@ -45,7 +45,8 @@ public class TestJSONConverters {
         map = new HashMap<>();
         map.put("field1", "value1");
         JSON json = JSON.from(map);
-        convertedMap = UtilGenerics.toMap(converter.convert(json));
+        Object obj = converter.convert(json);
+        convertedMap = (obj instanceof Map) ? UtilGenerics.cast(obj) : null;
         assertEquals("JSON to Map", map, convertedMap);
     }
 

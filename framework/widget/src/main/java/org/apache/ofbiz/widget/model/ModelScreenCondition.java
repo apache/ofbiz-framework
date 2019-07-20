@@ -65,7 +65,8 @@ public final class ModelScreenCondition {
 
         @Override
         public boolean eval(Map<String, Object> context) {
-            Map<String, Object> sectionsMap = UtilGenerics.toMap(context.get("sections"));
+            Object obj = context.get("sections");
+            Map<String, Object> sectionsMap = (obj instanceof Map) ? UtilGenerics.cast(obj) : null;
             return !sectionsMap.containsKey(this.sectionExdr.expandString(context));
         }
 

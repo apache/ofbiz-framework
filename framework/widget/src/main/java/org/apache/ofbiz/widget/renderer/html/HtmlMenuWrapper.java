@@ -151,7 +151,8 @@ public class HtmlMenuWrapper {
     }
 
     public void putInContext(String menuItemName, String valueName,  Object value) {
-        Map<String, Object> valueMap = UtilGenerics.toMap(context.get(menuItemName));
+        Object obj = context.get(menuItemName);
+        Map<String, Object> valueMap = (obj instanceof Map) ? UtilGenerics.cast(obj) : null;
         if (valueMap == null) {
             valueMap = new HashMap<>();
             context.put(menuItemName, valueMap);
@@ -164,7 +165,8 @@ public class HtmlMenuWrapper {
     }
 
     public Object getFromContext(String menuItemName, String valueName) {
-        Map<String, Object> valueMap = UtilGenerics.toMap(context.get(menuItemName));
+        Object obj = context.get(menuItemName);
+        Map<String, Object> valueMap = (obj instanceof Map) ? UtilGenerics.cast(obj) : null;
         if (valueMap == null) {
             valueMap = new HashMap<>();
             context.put(menuItemName, valueMap);
