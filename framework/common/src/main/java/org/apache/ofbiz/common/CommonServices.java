@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.common;
 
-import static org.apache.ofbiz.base.util.UtilGenerics.checkList;
+import static org.apache.ofbiz.base.util.UtilGenerics.checkCollection;
 import static org.apache.ofbiz.base.util.UtilGenerics.checkMap;
 
 import java.io.BufferedReader;
@@ -432,7 +432,7 @@ public class CommonServices {
     }
 
     public static Map<String, Object> simpleMapListTest(DispatchContext dctx, Map<String, ?> context) {
-        List<String> listOfStrings = checkList(context.get("listOfStrings"), String.class);
+        List<String> listOfStrings = checkCollection(context.get("listOfStrings"), String.class);
         Map<String, String> mapOfStrings = checkMap(context.get("mapOfStrings"), String.class, String.class);
 
         for (String str: listOfStrings) {

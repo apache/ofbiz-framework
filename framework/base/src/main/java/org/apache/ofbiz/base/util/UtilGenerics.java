@@ -23,7 +23,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.Stack;
 
 public final class UtilGenerics {
 
@@ -55,18 +54,13 @@ public final class UtilGenerics {
         return cast(object);
     }
 
-    public static <T> Collection<T> checkCollection(Object object, Class<T> type) {
+    public static <E, C extends Collection<E>> C checkCollection(Object object, Class<E> type) {
         checkCollectionContainment(object, Collection.class, type);
-        return checkCollection(object);
+        return cast(object);
     }
 
     public static <T> List<T> checkList(Object object) {
         return cast(object);
-    }
-
-    public static <T> List<T> checkList(Object object, Class<T> type) {
-        checkCollectionContainment(object, List.class, type);
-        return checkList(object);
     }
 
     @SuppressWarnings("unchecked")
@@ -97,18 +91,8 @@ public final class UtilGenerics {
         return checkMap(object);
     }
 
-    public static <T> Stack<T> checkStack(Object object, Class<T> type) {
-        checkCollectionContainment(object, Stack.class, type);
-        return cast(object);
-    }
-
     public static <T> Set<T> checkSet(Object object) {
         return cast(object);
-    }
-
-    public static <T> Set<T> checkSet(Object object, Class<T> type) {
-        checkCollectionContainment(object, Set.class, type);
-        return checkSet(object);
     }
 
     /** Returns the Object argument as a parameterized List if the Object argument

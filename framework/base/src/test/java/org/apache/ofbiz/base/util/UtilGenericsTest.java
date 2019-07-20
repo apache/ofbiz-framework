@@ -21,6 +21,7 @@ package org.apache.ofbiz.base.util;
 import static org.junit.Assert.assertNull;
 
 import java.util.Arrays;
+import java.util.Collection;
 
 import org.junit.Test;
 
@@ -28,21 +29,21 @@ public class UtilGenericsTest {
 
     @Test
     public void basicCheckCollection() {
-        UtilGenerics.<String>checkCollection(Arrays.asList("foo", "bar", "baz"), String.class);
+        UtilGenerics.<String, Collection<String>>checkCollection(Arrays.asList("foo", "bar", "baz"), String.class);
     }
 
     @Test(expected = ClassCastException.class)
     public void incompatibleCollectionCheckCollection() {
-        UtilGenerics.<String>checkCollection("not a collection", String.class);
+        UtilGenerics.<String, Collection<String>>checkCollection("not a collection", String.class);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void heterogenousCheckCollection() {
-        UtilGenerics.<String>checkCollection(Arrays.asList("foo", 0), String.class);
+        UtilGenerics.<String, Collection<String>>checkCollection(Arrays.asList("foo", 0), String.class);
     }
 
     @Test
     public void nullCheckCollection() {
-        assertNull(UtilGenerics.<String>checkCollection(null, String.class));
+        assertNull(UtilGenerics.<String, Collection<String>>checkCollection(null, String.class));
     }
 }

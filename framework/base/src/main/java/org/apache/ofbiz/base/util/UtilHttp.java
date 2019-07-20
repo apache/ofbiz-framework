@@ -23,7 +23,6 @@ import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.mapping;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
-import static org.apache.ofbiz.base.util.UtilGenerics.checkList;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -236,7 +235,7 @@ public final class UtilHttp {
                         if (multiPartMap.containsKey(fieldName)) {
                             Object mapValue = multiPartMap.get(fieldName);
                             if (mapValue instanceof List<?>) {
-                                checkList(mapValue, Object.class).add(item.getString());
+                                UtilGenerics.checkCollection(mapValue, Object.class).add(item.getString());
                             } else if (mapValue instanceof String) {
                                 List<String> newList = new LinkedList<>();
                                 newList.add((String) mapValue);

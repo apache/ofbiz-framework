@@ -440,7 +440,7 @@ public class ICalConverter {
     protected static List<GenericValue> getRelatedWorkEfforts(GenericValue workEffort, Map<String, Object> context) {
         Map<String, ? extends Object> serviceMap = UtilMisc.toMap("workEffortId", workEffort.getString("workEffortId"));
         Map<String, Object> resultMap = invokeService("getICalWorkEfforts", serviceMap, context);
-        List<GenericValue> workEfforts = UtilGenerics.checkList(resultMap.get("workEfforts"), GenericValue.class);
+        List<GenericValue> workEfforts = UtilGenerics.checkCollection(resultMap.get("workEfforts"), GenericValue.class);
         if (workEfforts != null) {
             return WorkEffortWorker.removeDuplicateWorkEfforts(workEfforts);
         }
@@ -735,7 +735,7 @@ public class ICalConverter {
                 validWorkEfforts.add(workEffort.getString("workEffortId"));
             }
         }
-        List<Component> components = UtilGenerics.checkList(calendar.getComponents(), Component.class);
+        List<Component> components = UtilGenerics.checkCollection(calendar.getComponents(), Component.class);
         ResponseProperties responseProps = null;
         for (Component component : components) {
             if (Component.VEVENT.equals(component.getName()) || Component.VTODO.equals(component.getName())) {
@@ -784,9 +784,9 @@ public class ICalConverter {
         ResponseProperties responseProps = null;
         Map<String, Object> serviceMap = new HashMap<>();
         List<Property> partyList = new LinkedList<>();
-        partyList.addAll(UtilGenerics.checkList(component.getProperties("ATTENDEE"), Property.class));
-        partyList.addAll(UtilGenerics.checkList(component.getProperties("CONTACT"), Property.class));
-        partyList.addAll(UtilGenerics.checkList(component.getProperties("ORGANIZER"), Property.class));
+        partyList.addAll(UtilGenerics.checkCollection(component.getProperties("ATTENDEE"), Property.class));
+        partyList.addAll(UtilGenerics.checkCollection(component.getProperties("CONTACT"), Property.class));
+        partyList.addAll(UtilGenerics.checkCollection(component.getProperties("ORGANIZER"), Property.class));
         for (Property property : partyList) {
             String partyId = fromXParameter(property.getParameters(), partyIdXParamName);
             if (partyId == null) {

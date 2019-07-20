@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.common;
 
-import static org.apache.ofbiz.base.util.UtilGenerics.checkList;
+import static org.apache.ofbiz.base.util.UtilGenerics.checkCollection;
 import static org.apache.ofbiz.base.util.UtilGenerics.checkMap;
 
 import java.sql.Timestamp;
@@ -551,7 +551,7 @@ public class FindServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonFindErrorPreparingConditions", UtilMisc.toMap("errorString", gse.getMessage()), locale));
         }
         EntityConditionList<EntityCondition> exprList = UtilGenerics.cast(prepareResult.get("entityConditionList"));
-        List<String> orderByList = checkList(prepareResult.get("orderByList"), String.class);
+        List<String> orderByList = checkCollection(prepareResult.get("orderByList"), String.class);
 
         Map<String, Object> executeResult = null;
         try {
@@ -667,7 +667,7 @@ public class FindServices {
     public static Map<String, Object> executeFind(DispatchContext dctx, Map<String, ?> context) {
         String entityName = (String) context.get("entityName");
         EntityConditionList<EntityCondition> entityConditionList = UtilGenerics.cast(context.get("entityConditionList"));
-        List<String> orderByList = checkList(context.get("orderByList"), String.class);
+        List<String> orderByList = checkCollection(context.get("orderByList"), String.class);
         boolean noConditionFind = "Y".equals(context.get("noConditionFind"));
         boolean distinct = "Y".equals(context.get("distinct"));
         List<String> fieldList =  UtilGenerics.checkList(context.get("fieldList"));

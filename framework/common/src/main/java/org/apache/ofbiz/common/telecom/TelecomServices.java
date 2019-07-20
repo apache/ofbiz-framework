@@ -18,8 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.common.telecom;
 
-import static org.apache.ofbiz.base.util.UtilGenerics.checkList;
-
+import static org.apache.ofbiz.base.util.UtilGenerics.checkCollection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,7 +50,7 @@ public class TelecomServices {
         String telecomMsgTypeEnumId = (String) context.get("telecomMsgTypeEnumId");
         String telecomMethodTypeId = (String) context.get("telecomMethodTypeId");
         String telecomGatewayConfigId = (String) context.get("telecomGatewayConfigId");
-        List<String> numbers = checkList(context.get("numbers"), String.class);
+        List<String> numbers = checkCollection(context.get("numbers"), String.class);
         String message = (String) context.get("message");
         
         String telecomEnabled = EntityUtilProperties.getPropertyValue("general", "telecom.notifications.enabled", delegator);

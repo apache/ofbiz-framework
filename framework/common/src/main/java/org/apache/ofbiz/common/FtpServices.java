@@ -18,8 +18,7 @@
  *******************************************************************************/
 package org.apache.ofbiz.common;
 
-import static org.apache.ofbiz.base.util.UtilGenerics.checkList;
-
+import static org.apache.ofbiz.base.util.UtilGenerics.checkCollection;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -96,7 +95,7 @@ public class FtpServices {
                         errorList.add(UtilProperties.getMessage(resource, "CommonFtpFileNotSentSuccesfully", UtilMisc.toMap("replyString", ftp.getReplyString()), locale));
                     } else {
                         Debug.logInfo("[putFile] store was successful", module);
-                        List<String> siteCommands = checkList(context.get("siteCommands"), String.class);
+                        List<String> siteCommands = checkCollection(context.get("siteCommands"), String.class);
                         if (siteCommands != null) {
                             for (String command : siteCommands) {
                                 Debug.logInfo("[putFile] sending SITE command: " + command, module);
