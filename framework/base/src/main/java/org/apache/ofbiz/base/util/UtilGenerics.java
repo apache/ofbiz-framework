@@ -97,13 +97,9 @@ public final class UtilGenerics {
         return checkMap(object);
     }
 
-    public static <T> Stack<T> checkStack(Object object) {
-        return cast(object);
-    }
-
     public static <T> Stack<T> checkStack(Object object, Class<T> type) {
         checkCollectionContainment(object, Stack.class, type);
-        return checkStack(object);
+        return cast(object);
     }
 
     public static <T> Set<T> checkSet(Object object) {
